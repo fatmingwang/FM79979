@@ -1,0 +1,40 @@
+<MPDIList Name="teach_Revolving_mpdi" Count="4" ImageName="woodbox.pi">
+    <MultiPathDynamicImage Name="Revolving_01" PathCount="1" PlayCount="-1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_01" StartTime="0.000000" Count="2" LOD="1">
+            <CurvePoint P0="300.00,300.00,0.00," P1="300.00,300.00,0.00," />
+            <CurveTime P0="0.000000" P1="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,360.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Revolving_02" PathCount="1" PlayCount="-1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_02" StartTime="0.000000" Count="2" LOD="1">
+            <CurvePoint P0="291.97,629.70,0.00," P1="600.00,629.70,0.00," />
+            <CurveTime P0="0.000000" P1="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,720.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Revolving_03" PathCount="1" PlayCount="-1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_03" StartTime="0.000000" Count="4" LOD="1">
+            <CurvePoint P0="296.56,910.10,0.00," P1="697.71,910.10,0.00," P2="1098.85,910.10,0.00," P3="1500.00,910.10,0.00," />
+            <CurveTime P0="0.000000" P1="1.000000" P2="2.000000" P3="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,360.00,255,255,255,255,woodbox0000,0" P2="256,256,720.00,255,255,255,255,woodbox0000,0" P3="256,256,1080.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Revolving_04" PathCount="3" PlayCount="-1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_01" StartTime="0.000000" Count="2" LOD="1">
+            <CurvePoint P0="300.00,300.00,0.00," P1="300.00,300.00,0.00," />
+            <CurveTime P0="0.000000" P1="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,360.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_02" StartTime="0.000000" Count="2" LOD="1">
+            <CurvePoint P0="291.97,629.70,0.00," P1="600.00,629.70,0.00," />
+            <CurveTime P0="0.000000" P1="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,720.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Revolving_03" StartTime="0.000000" Count="4" LOD="1">
+            <CurvePoint P0="296.56,910.10,0.00," P1="697.71,910.10,0.00," P2="1098.85,910.10,0.00," P3="1500.00,910.10,0.00," />
+            <CurveTime P0="0.000000" P1="1.000000" P2="2.000000" P3="3.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="256,256,360.00,255,255,255,255,woodbox0000,0" P2="256,256,720.00,255,255,255,255,woodbox0000,0" P3="256,256,1080.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

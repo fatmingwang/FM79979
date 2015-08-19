@@ -1,0 +1,7 @@
+<!-- Author:Fatming_Air,Time:2/17/2012 4:06:19 PM -->
+<BehaviorPaticleManager ParticleFile="Snow.prt">
+    <cParticleEmitterGroup Name="Snow" Count="2" TotalPlayTime="1.000000" Loop="1">
+        <cParticleEmiterWithShowPosition Name="Snow2" PathType="0" EmitterName="Snow2" EmitterDirection="1.00,6.00,0.00" EmitterPosition="230.00,0.00,0.00" StartTime="0.000000" EndTime="1.000000" AnimationLoop="1" />
+        <cParticleEmiterWithShowPosition Name="Snow1" PathType="0" EmitterName="Snow" EmitterDirection="5.00,13.00,0.00" EmitterPosition="200.00,0.00,0.00" StartTime="0.000000" EndTime="1.000000" AnimationLoop="1" />
+    </cParticleEmitterGroup>
+</BehaviorPaticleManager>

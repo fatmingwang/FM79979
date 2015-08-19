@@ -1,0 +1,179 @@
+<MPDIList Name="Page3_mpdi" Count="4" MPDIVersion="1.2" PICount="2" ImageName="Page3.pi,Page3_1.pi">
+    <MultiPathDynamicImage Name="Normal" PathCount="4" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="closeset-door" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1360.00,210.00,0.00" Time="0.000000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+            <PointDataList Index="1" Position="1360.00,210.00,0.00" Time="0.100000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="779.00,7.00,0.00" Time="0.000000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+            <PointDataList Index="1" Position="779.00,7.00,0.00" Time="0.100000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,125.00,0.00" Time="0.000000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,125.00,0.00" Time="0.100000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="4.00,598.00,0.00" Time="0.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="1" Position="4.00,598.00,0.00" Time="0.500000" Size="138.00,391.00" Scale="1.00,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="2" Position="4.00,598.00,0.00" Time="1.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="LightOpen" PathCount="14" PlayCount="1" TotalPlayTime="1.500000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="closeset-door" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1360.00,210.00,0.00" Time="0.000000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+            <PointDataList Index="1" Position="1360.00,210.00,0.00" Time="0.100000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="779.00,7.00,0.00" Time="0.000000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+            <PointDataList Index="1" Position="779.00,7.00,0.00" Time="0.100000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,125.00,0.00" Time="0.000000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,125.00,0.00" Time="0.100000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="4.00,598.00,0.00" Time="0.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="1" Position="4.00,598.00,0.00" Time="0.500000" Size="138.00,391.00" Scale="1.00,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="2" Position="4.00,598.00,0.00" Time="1.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="light" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="10.00,101.00,0.00" Time="0.000000" Size="646.00,934.20" Scale="1.00,0.90" Color="0.78,0.78,0.78,0.59" PIName="Page3" ImageName="light" />
+            <PointDataList Index="1" Position="10.00,101.00,0.00" Time="0.750000" Size="646.00,934.20" Scale="1.00,0.90" PIName="Page3" ImageName="light" />
+            <PointDataList Index="2" Position="10.00,101.00,0.00" Time="1.500000" Size="646.00,934.20" Scale="1.00,0.90" Color="0.78,0.78,0.78,0.59" PIName="Page3" ImageName="light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light-flash" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="416.00,0.00,0.00" Time="0.000000" Size="1147.00,441.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,0.78" PIName="Page3" ImageName="roof-light-flash" />
+            <PointDataList Index="1" Position="420.00,0.00,0.00" Time="0.750000" Size="1147.00,441.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light-flash" />
+            <PointDataList Index="2" Position="420.00,0.00,0.00" Time="1.500000" Size="1147.00,441.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,0.78" PIName="Page3" ImageName="roof-light-flash" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="sock" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1647.00,593.00,0.00" Time="0.000000" Size="100.00,224.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock" />
+            <PointDataList Index="1" Position="1806.00,759.00,0.00" Time="1.500000" Size="100.00,224.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="sock2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1640.00,604.00,0.00" Time="0.000000" Size="153.00,96.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock2" />
+            <PointDataList Index="1" Position="1414.00,169.00,0.00" Time="1.500000" Size="153.00,96.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1616.00,575.00,0.00" Time="0.000000" Size="384.00,313.00" Scale="1.00,1.00" PIName="Page3" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1160.00,434.00,0.00" Time="1.500000" Size="384.00,313.00" Scale="1.00,1.00" PIName="Page3" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hat" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1587.00,551.00,0.00" Time="0.000000" Size="171.00,166.00" Scale="1.00,1.00" PIName="Page3" ImageName="hat" />
+            <PointDataList Index="1" Position="1369.00,402.00,0.00" Time="1.500000" Size="171.00,166.00" Scale="1.00,1.00" PIName="Page3" ImageName="hat" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1595.00,540.00,0.00" Time="0.000000" Size="257.00,191.00" Scale="1.00,1.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1665.00,473.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cloth" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1895.00,258.00,0.00" Time="0.000000" Size="246.00,395.00" Scale="1.00,1.00" PIName="Page3" ImageName="cloth" />
+            <PointDataList Index="1" Position="1443.00,272.00,0.00" Time="1.500000" Size="246.00,395.00" Scale="1.00,1.00" PIName="Page3" ImageName="cloth" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1655.00,572.00,0.00" Time="0.000000" Size="257.00,191.00" Scale="1.00,1.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1436.00,861.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,202.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger3" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1605.00,611.00,0.00" Time="0.000000" Size="257.00,191.00" Scale="1.00,1.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1775.00,282.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,76.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="1" PathCount="5" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Page3Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page3_1" ImageName="Page3Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page3_1" ImageName="Page3Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="closeset-door" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1360.00,210.00,0.00" Time="0.000000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+            <PointDataList Index="1" Position="1360.00,210.00,0.00" Time="0.100000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="779.00,7.00,0.00" Time="0.000000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+            <PointDataList Index="1" Position="779.00,7.00,0.00" Time="0.100000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,125.00,0.00" Time="0.000000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,125.00,0.00" Time="0.100000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="4.00,598.00,0.00" Time="0.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="1" Position="4.00,598.00,0.00" Time="0.500000" Size="138.00,391.00" Scale="1.00,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="2" Position="4.00,598.00,0.00" Time="1.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="17" PlayCount="-1" TotalPlayTime="1.500000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="Page3Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-3.00,-4.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page3_1" ImageName="Page3Background" />
+            <PointDataList Index="1" Position="-3.00,-4.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page3_1" ImageName="Page3Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="closeset-door" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1360.00,210.00,0.00" Time="0.000000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+            <PointDataList Index="1" Position="1360.00,210.00,0.00" Time="0.100000" Size="199.00,521.00" Scale="1.00,1.00" PIName="Page3" ImageName="closeset-door" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="779.00,7.00,0.00" Time="0.000000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+            <PointDataList Index="1" Position="779.00,7.00,0.00" Time="0.100000" Size="405.00,158.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,125.00,0.00" Time="0.000000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,125.00,0.00" Time="0.100000" Size="670.00,567.00" Scale="1.00,1.00" PIName="Page3" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="4.00,598.00,0.00" Time="0.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="1" Position="4.00,598.00,0.00" Time="0.500000" Size="138.00,391.00" Scale="1.00,1.00" PIName="Page3" ImageName="lamp" />
+            <PointDataList Index="2" Position="4.00,598.00,0.00" Time="1.000000" Size="138.00,391.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page3" ImageName="lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="light" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="10.00,101.00,0.00" Time="0.000000" Size="646.00,934.20" Scale="1.00,0.90" Color="0.78,0.78,0.78,0.59" PIName="Page3" ImageName="light" />
+            <PointDataList Index="1" Position="10.00,101.00,0.00" Time="0.750000" Size="646.00,934.20" Scale="1.00,0.90" PIName="Page3" ImageName="light" />
+            <PointDataList Index="2" Position="10.00,101.00,0.00" Time="1.500000" Size="646.00,934.20" Scale="1.00,0.90" Color="0.78,0.78,0.78,0.59" PIName="Page3" ImageName="light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="roof-light-flash" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="416.00,0.00,0.00" Time="0.000000" Size="1147.00,441.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,0.78" PIName="Page3" ImageName="roof-light-flash" />
+            <PointDataList Index="1" Position="420.00,0.00,0.00" Time="0.750000" Size="1147.00,441.00" Scale="1.00,1.00" PIName="Page3" ImageName="roof-light-flash" />
+            <PointDataList Index="2" Position="420.00,0.00,0.00" Time="1.500000" Size="1147.00,441.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,0.78" PIName="Page3" ImageName="roof-light-flash" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="sock" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1647.00,593.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="sock" />
+            <PointDataList Index="1" Position="1806.00,759.00,0.00" Time="1.500000" Size="100.00,224.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="sock2" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1640.00,604.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="sock2" />
+            <PointDataList Index="1" Position="1414.00,169.00,0.00" Time="1.500000" Size="153.00,96.00" Scale="1.00,1.00" PIName="Page3" ImageName="sock2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1616.00,575.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1160.00,434.00,0.00" Time="1.500000" Size="384.00,313.00" Scale="1.00,1.00" PIName="Page3" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hat" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1587.00,551.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="hat" />
+            <PointDataList Index="1" Position="1369.00,402.00,0.00" Time="1.500000" Size="171.00,166.00" Scale="1.00,1.00" PIName="Page3" ImageName="hat" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1595.00,540.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1665.00,473.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cloth" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1895.00,258.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="cloth" />
+            <PointDataList Index="1" Position="1443.00,272.00,0.00" Time="1.500000" Size="246.00,395.00" Scale="1.00,1.00" PIName="Page3" ImageName="cloth" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1655.00,572.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1436.00,861.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,202.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger3" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1605.00,611.00,0.00" Time="0.000000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Page3" ImageName="hanger" />
+            <PointDataList Index="1" Position="1775.00,282.00,0.00" Time="1.500000" Size="257.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,76.00" PIName="Page3" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="monster-shadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterDown" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1227.00,1339.00,0.00" Time="0.000000" Size="744.00,0.00" Scale="1.00,0.00" PIName="Page3" ImageName="monster-shadow" />
+            <PointDataList Index="1" Position="1227.00,1339.00,0.00" Time="1.000000" Size="744.00,1103.00" Scale="1.00,1.00" PIName="Page3" ImageName="monster-shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="monster-shadow2" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="852.00,243.00,0.00" Time="0.000000" Size="744.00,1103.00" Scale="1.00,1.00" PIName="Page3" ImageName="monster-shadow" />
+            <PointDataList Index="1" Position="852.00,243.00,0.00" Time="0.250000" Size="744.00,1080.94" Scale="1.00,0.98" PIName="Page3" ImageName="monster-shadow" />
+            <PointDataList Index="2" Position="852.00,243.00,0.00" Time="0.500000" Size="744.00,1103.00" Scale="1.00,1.00" PIName="Page3" ImageName="monster-shadow" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

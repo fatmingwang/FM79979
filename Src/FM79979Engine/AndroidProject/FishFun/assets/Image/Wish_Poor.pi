@@ -1,0 +1,11 @@
+<!-- Author:scrr,Time:2014/11/26 ¤U¤È 04:10:16 -->
+<PuzzleImage OriginalNameSort="Go_To_Poor,To_Poor_No,To_Poor_Yes,Normal_Wish,Strong_Wish,Wish_For_Pole,Get_To_Poor,Plus_Pole" ImageName="Wish_Poor.png" Count="8" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Get_To_Poor" UV="0.002929688,0.009765625,0.4970703,0.4550781" OffsetPos="3,5" Size="506,228" OriginalSize="512,237" ShowPosInPI="3,5" />
+    <PuzzleUnit Name="Go_To_Poor" UV="0.001953125,0.4863281,0.09179688,0.9824219" OffsetPos="0,0" Size="92,254" OriginalSize="92,254" ShowPosInPI="2,249" />
+    <PuzzleUnit Name="Normal_Wish" UV="0.6757813,0.4980469,0.8759766,0.9628906" OffsetPos="14,16" Size="205,238" OriginalSize="235,267" ShowPosInPI="692,255" />
+    <PuzzleUnit Name="Plus_Pole" UV="0.09667969,0.4921875,0.4677734,0.8867188" OffsetPos="10,10" Size="380,202" OriginalSize="400,222" ShowPosInPI="99,252" />
+    <PuzzleUnit Name="Strong_Wish" UV="0.4716797,0.4941406,0.6689453,0.9609375" OffsetPos="15,11" Size="202,239" OriginalSize="235,267" ShowPosInPI="483,253" />
+    <PuzzleUnit Name="To_Poor_No" UV="0.8857422,0.484375,0.9482422,0.6347656" OffsetPos="8,2" Size="64,77" OriginalSize="78,82" ShowPosInPI="907,248" />
+    <PuzzleUnit Name="To_Poor_Yes" UV="0.8847656,0.6542969,0.9599609,0.8046875" OffsetPos="3,3" Size="77,77" OriginalSize="83,82" ShowPosInPI="906,335" />
+    <PuzzleUnit Name="Wish_For_Pole" UV="0.5029297,0.01171875,0.9970703,0.4570313" OffsetPos="3,5" Size="506,228" OriginalSize="512,237" ShowPosInPI="515,6" />
+</PuzzleImage>

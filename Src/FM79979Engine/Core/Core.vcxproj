@@ -1,0 +1,601 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugFixedPipeline|Win32">
+      <Configuration>DebugFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MT|Win32">
+      <Configuration>MT</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RamdiskDebugFixedPipeline|Win32">
+      <Configuration>RamdiskDebugFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RamdiskDebug|Win32">
+      <Configuration>RamdiskDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RamDiskFixedPipelineRelease|Win32">
+      <Configuration>RamDiskFixedPipelineRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RamdiskRelease|Win32">
+      <Configuration>RamdiskRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseFixedPipeline|Win32">
+      <Configuration>ReleaseFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D5962A80-CFCF-437A-B224-01C03CF9FD1A}</ProjectGuid>
+    <RootNamespace>Core</RootNamespace>
+    <Keyword>ManagedCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MT|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamDiskFixedPipelineRelease|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebugFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskRelease|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='MT|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RamDiskFixedPipelineRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebugFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\lib\Debug\</OutDir>
+    <IntDir>..\..\..\Intermedia\Debug\Core\</IntDir>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\lib\Release\</OutDir>
+    <IntDir>..\..\..\Intermedia\Release\Core\</IntDir>
+    <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <OutDir>..\..\lib\DebugFixedPipeline\</OutDir>
+    <IntDir>..\..\..\Intermedia\DebugFixedPipeline\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'">
+    <OutDir>..\..\lib\ReleaseFixedpipeline\</OutDir>
+    <IntDir>..\..\..\Intermedia\ReleaseFixedpipeline\Core\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebug|Win32'">
+    <OutDir>E:\</OutDir>
+    <IntDir>E:\Intermedia\Debug\Core\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskRelease|Win32'">
+    <OutDir>E:\</OutDir>
+    <IntDir>E:\Intermedia\Release\Core\</IntDir>
+    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebugFixedPipeline|Win32'">
+    <OutDir>E:\</OutDir>
+    <IntDir>E:\Intermedia\DebugFixedPipeline\Core\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamDiskFixedPipelineRelease|Win32'">
+    <OutDir>e:\</OutDir>
+    <IntDir>E:\Intermedia\ReleaseFixedPipeline\Core\</IntDir>
+    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MT|Win32'">
+    <OutDir>$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include\bt;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;OPENGLES_2_X;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include\bt;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskRelease|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebugFixedPipeline|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RamDiskFixedPipelineRelease|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MT|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="Camera\OrthogonalCamera.cpp" />
+    <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp" />
+    <ClCompile Include="Glyph\GlyphReader.cpp" />
+    <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
+    <ClCompile Include="Image\MPDINode.cpp" />
+    <ClCompile Include="Image\RenderNode.cpp" />
+    <ClCompile Include="Image\SimplePrimitive.cpp" />
+    <ClCompile Include="Network\Network.cpp" />
+    <ClCompile Include="Sound\SoundManager.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Image\AnimationParser.cpp" />
+    <ClCompile Include="Image\MPDIDataParse.cpp" />
+    <ClCompile Include="Image\BinaryToTexture.cpp" />
+    <ClCompile Include="Image\ImageParser.cpp" />
+    <ClCompile Include="Image\GlyphFontRender.cpp" />
+    <ClCompile Include="Glyph\GlyphWriter.cpp" />
+    <ClCompile Include="Image\BaseImage.cpp" />
+    <ClCompile Include="Image\NumeralImage.cpp" />
+    <ClCompile Include="Image\RenderObject.cpp" />
+    <ClCompile Include="Image\UVAnimationImage.cpp" />
+    <ClCompile Include="Image\FMAnimationRule.cpp" />
+    <ClCompile Include="GLSL\CommnoShader.cpp" />
+    <ClCompile Include="GLSL\GLSLUiniform.cpp" />
+    <ClCompile Include="GLSL\Shader.cpp" />
+    <ClCompile Include="GLSL\Water.cpp" />
+    <ClCompile Include="Image\pngLoader.cpp" />
+    <ClCompile Include="Image\jpeg\jpgd.cpp" />
+    <ClCompile Include="Image\jpeg\jpge.cpp" />
+    <ClCompile Include="Image\jpeg\tga2jpg.cpp" />
+    <ClCompile Include="Image\jpeg\timer.cpp" />
+    <ClCompile Include="Image\PuzzleImage.cpp" />
+    <ClCompile Include="Image\FrameBuffer.cpp" />
+    <ClCompile Include="Image\VertexBufferObject.cpp" />
+    <ClCompile Include="Image\MPDI.cpp" />
+    <ClCompile Include="Image\MPDIForEditor.cpp" />
+    <ClCompile Include="Image\SubMPDI.cpp" />
+    <ClCompile Include="Image\SubMPDIRenderPointData.cpp" />
+    <ClCompile Include="Image\VideoSubMPDI.cpp" />
+    <ClCompile Include="XML\StringToStructure.cpp" />
+    <ClCompile Include="XML\AtgXmlWriter.cpp" />
+    <ClCompile Include="XML\tinystr.cpp" />
+    <ClCompile Include="XML\tinyxml.cpp" />
+    <ClCompile Include="XML\tinyxmlerror.cpp" />
+    <ClCompile Include="XML\tinyxmlparser.cpp" />
+    <ClCompile Include="Camera\CameraAnimation.cpp" />
+    <ClCompile Include="Camera\DrawSelectRectangleByMouse.cpp" />
+    <ClCompile Include="Camera\MouseCamera.cpp" />
+    <ClCompile Include="Camera\SimpleCamera.cpp" />
+    <ClCompile Include="Camera\SplitScreenCamera.cpp" />
+    <ClCompile Include="Sound\BasicSound.cpp" />
+    <ClCompile Include="Sound\OpenAlOgg.cpp" />
+    <ClCompile Include="Sound\OpenAlWavFile.cpp" />
+    <ClCompile Include="AVIPlayer\avi_utils.cpp" />
+    <ClCompile Include="AVIPlayer\AVIPlayer.cpp" />
+    <ClCompile Include="AVIPlayer\AndroidVideoPlayer.cpp" />
+    <ClCompile Include="Math\Frame.cpp" />
+    <ClCompile Include="Math\Line.cpp" />
+    <ClCompile Include="Math\LinerTemplateDataProcess.cpp" />
+    <ClCompile Include="Math\MathUtility.cpp" />
+    <ClCompile Include="Math\Plane.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Math\Matrix33.cpp" />
+    <ClCompile Include="Math\Matrix44.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Math\Curve.cpp" />
+    <ClCompile Include="Math\CurveManager.cpp" />
+    <ClCompile Include="Math\Bound.cpp" />
+    <ClCompile Include="Math\Collision.cpp" />
+    <ClCompile Include="Math\ValueSortingObject.cpp" />
+    <ClCompile Include="GameplayUT\CurveChanger.cpp" />
+    <ClCompile Include="GameplayUT\PathChaser.cpp" />
+    <ClCompile Include="GameplayUT\PathFinder.cpp" />
+    <ClCompile Include="GameplayUT\PhaseControl.cpp" />
+    <ClCompile Include="GameplayUT\PhasePopupMessager.cpp" />
+    <ClCompile Include="GameplayUT\GameApp.cpp" />
+    <ClCompile Include="GameplayUT\AtgInput.cpp" />
+    <ClCompile Include="GameplayUT\RenderObjectVector.cpp" />
+    <ClCompile Include="GameplayUT\MultiSelectOptionByMPDI.cpp" />
+    <ClCompile Include="GameplayUT\Mouse_Touch.cpp" />
+    <ClCompile Include="GameplayUT\Mouse_TouchWithCancelButton.cpp" />
+    <ClCompile Include="GameplayUT\MultiTouchPoints.cpp" />
+    <ClCompile Include="GameplayUT\Sliderbar.cpp" />
+    <ClCompile Include="GameplayUT\3DScroller.cpp" />
+    <ClCompile Include="GameplayUT\Scroller.cpp" />
+    <ClCompile Include="GameplayUT\ImageWithSlider.cpp" />
+    <ClCompile Include="GameplayUT\MultiPage.cpp" />
+    <ClCompile Include="GameplayUT\Tabpage.cpp" />
+    <ClCompile Include="GameplayUT\AssembleImageButton.cpp" />
+    <ClCompile Include="GameplayUT\FontFrame.cpp" />
+    <ClCompile Include="GameplayUT\ImageButton.cpp" />
+    <ClCompile Include="GameplayUT\ListValueChanger.cpp" />
+    <ClCompile Include="GameplayUT\RestrictValue.cpp" />
+    <ClCompile Include="GameplayUT\DataCurve\DataCurve.cpp" />
+    <ClCompile Include="GameplayUT\StringCompress.cpp" />
+    <ClCompile Include="GameplayUT\FMAnimationRuleEffectManager.cpp" />
+    <ClCompile Include="GameplayUT\FMAnimationRuleEffectQueuePlayer.cpp" />
+    <ClCompile Include="GameplayUT\BinaryFile.cpp" />
+    <ClCompile Include="GameplayUT\ResourceStamp.cpp" />
+    <ClCompile Include="GameplayUT\ObjectXMLParser.cpp" />
+    <ClCompile Include="Physic\BulletShape.cpp" />
+    <ClCompile Include="Physic\2DImageCollisionData.cpp" />
+    <ClCompile Include="SmartPointer.cpp" />
+    <ClCompile Include="NamedTypedObject.cpp" />
+    <ClCompile Include="StringID.cpp" />
+    <ClCompile Include="Glh.cpp" />
+    <ClCompile Include="GluForOpengles.cpp" />
+    <ClCompile Include="Particle\ParticleManager.cpp" />
+    <ClCompile Include="Particle\ParticleEmitter.cpp" />
+    <ClCompile Include="Particle\ParticleEmitterBehavior.cpp" />
+    <ClCompile Include="Particle\ParticleEmitterGroup.cpp" />
+    <ClCompile Include="Particle\AllPolicyNameList.cpp" />
+    <ClCompile Include="Particle\PrtColor.cpp" />
+    <ClCompile Include="Particle\PrtLife.cpp" />
+    <ClCompile Include="Particle\PrtSize.cpp" />
+    <ClCompile Include="Particle\PrtVelocity.cpp" />
+    <ClCompile Include="Particle\PrtStartPosition.cpp" />
+    <ClCompile Include="Particle\PrtRotate.cpp" />
+    <ClCompile Include="Particle\PrtTexture.cpp" />
+    <ClCompile Include="Particle\ParticleBase.cpp" />
+    <ClCompile Include="Network\happyhttp.cpp" />
+    <ClCompile Include="Network\SDLnet.c" />
+    <ClCompile Include="Network\SDLnetselect.c" />
+    <ClCompile Include="Network\SDLnetTCP.c" />
+    <ClCompile Include="Network\SDLnetUDP.c" />
+    <ClCompile Include="Synchronization\FUCriticalSection.cpp" />
+    <ClCompile Include="Synchronization\FUSemaphore.cpp" />
+    <ClCompile Include="Synchronization\FUSynchronized.cpp" />
+    <ClCompile Include="Synchronization\FUThread.cpp" />
+    <ClCompile Include="Synchronization\FUThreadPool.cpp" />
+    <ClCompile Include="Terrain\ShockBoobsPainter.cpp" />
+    <ClCompile Include="Terrain\ShockBoobsShader.cpp" />
+    <ClCompile Include="Terrain\TerrianVertex.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllCoreInclude.h" />
+    <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h" />
+    <ClInclude Include="Image\FMTimelineAnimationObject.h" />
+    <ClInclude Include="Image\MPDINode.h" />
+    <ClInclude Include="Image\RenderNode.h" />
+    <ClInclude Include="PlatFormDefine.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="AllImageInclude.h" />
+    <ClInclude Include="Image\AnimationParser.h" />
+    <ClInclude Include="Image\MPDIDataParse.h" />
+    <ClInclude Include="Image\BinaryToTexture.h" />
+    <ClInclude Include="Image\ImageParser.h" />
+    <ClInclude Include="Image\GlyphFontRender.h" />
+    <ClInclude Include="Glyph\GlyphReader.h" />
+    <ClInclude Include="Glyph\GlyphWriter.h" />
+    <ClInclude Include="Image\BaseImage.h" />
+    <ClInclude Include="Image\NumeralImage.h" />
+    <ClInclude Include="Image\RenderObject.h" />
+    <ClInclude Include="Image\SimplePrimitive.h" />
+    <ClInclude Include="Image\UVAnimationImage.h" />
+    <ClInclude Include="Image\FMAnimationRule.h" />
+    <ClInclude Include="GLSL\GLSLUiniform.h" />
+    <ClInclude Include="GLSL\Shader.h" />
+    <ClInclude Include="GLSL\Water.h" />
+    <ClInclude Include="Image\Texture.h" />
+    <ClInclude Include="Image\pngLoader.h" />
+    <ClInclude Include="Image\jpeg\jpgd.h" />
+    <ClInclude Include="Image\jpeg\jpge.h" />
+    <ClInclude Include="Image\jpeg\timer.h" />
+    <ClInclude Include="Image\BaseUVImageData.h" />
+    <ClInclude Include="Image\PuzzleImage.h" />
+    <ClInclude Include="Image\FrameBuffer.h" />
+    <ClInclude Include="Image\VertexBufferObject.h" />
+    <ClInclude Include="Image\MPDI.h" />
+    <ClInclude Include="Image\MPDIForEditor.h" />
+    <ClInclude Include="Image\SubMPDI.h" />
+    <ClInclude Include="Image\SubMPDIRenderPointData.h" />
+    <ClInclude Include="Image\VideoSubMPDI.h" />
+    <ClInclude Include="XML\StringToStructure.h" />
+    <ClInclude Include="XML\tinyxml2.h" />
+    <ClInclude Include="XML\XMLLoader.h" />
+    <ClInclude Include="XML\AtgXmlWriter.h" />
+    <ClInclude Include="XML\tinystr.h" />
+    <ClInclude Include="XML\tinyxml.h" />
+    <ClInclude Include="AllCameraInclude.h" />
+    <ClInclude Include="Camera\CameraAnimation.h" />
+    <ClInclude Include="Camera\DrawSelectRectangleByMouse.h" />
+    <ClInclude Include="Camera\MouseCamera.h" />
+    <ClInclude Include="Camera\OrthogonalCamera.h" />
+    <ClInclude Include="Camera\SimpleCamera.h" />
+    <ClInclude Include="Camera\SplitScreenCamera.h" />
+    <ClInclude Include="Sound\BasicSound.h" />
+    <ClInclude Include="Sound\OpenAlOgg.h" />
+    <ClInclude Include="Sound\OpenAlWavFile.h" />
+    <ClInclude Include="Sound\SoundManager.h" />
+    <ClInclude Include="AVIPlayer\avi_utils.h" />
+    <ClInclude Include="AVIPlayer\AVIPlayer.h" />
+    <ClInclude Include="AVIPlayer\AndroidVideoPlayer.h" />
+    <ClInclude Include="AllMathInclude.h" />
+    <ClInclude Include="Math\Frame.h" />
+    <ClInclude Include="Math\Line.h" />
+    <ClInclude Include="Math\LinerTemplateDataProcess.h" />
+    <ClInclude Include="Math\MathTemplateUtility.h" />
+    <ClInclude Include="Math\MathUtility.h" />
+    <ClInclude Include="Math\Plane.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Math\Matrix33.h" />
+    <ClInclude Include="Math\Matrix44.h" />
+    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Math\Curve.h" />
+    <ClInclude Include="Math\CurveManager.h" />
+    <ClInclude Include="Math\Bound.h" />
+    <ClInclude Include="Math\Collision.h" />
+    <ClInclude Include="Math\ValueSortingObject.h" />
+    <ClInclude Include="GameplayUT\AllGamePlayUTInclude.h" />
+    <ClInclude Include="GameplayUT\GameUTDefine.h" />
+    <ClInclude Include="GameplayUT\CurveChanger.h" />
+    <ClInclude Include="GameplayUT\PathChaser.h" />
+    <ClInclude Include="GameplayUT\PathFinder.h" />
+    <ClInclude Include="GameplayUT\PhaseControl.h" />
+    <ClInclude Include="GameplayUT\PhasePopupMessager.h" />
+    <ClInclude Include="GameplayUT\GameApp.h" />
+    <ClInclude Include="GameplayUT\AtgInput.h" />
+    <ClInclude Include="GameplayUT\RenderObjectVector.h" />
+    <ClInclude Include="GameplayUT\MultiSelectOptionByMPDI.h" />
+    <ClInclude Include="GameplayUT\Mouse_Touch.h" />
+    <ClInclude Include="GameplayUT\Mouse_TouchWithCancelButton.h" />
+    <ClInclude Include="GameplayUT\MultiTouchPoints.h" />
+    <ClInclude Include="GameplayUT\Sliderbar.h" />
+    <ClInclude Include="GameplayUT\3DScroller.h" />
+    <ClInclude Include="GameplayUT\Scroller.h" />
+    <ClInclude Include="GameplayUT\ImageWithSlider.h" />
+    <ClInclude Include="GameplayUT\MultiPage.h" />
+    <ClInclude Include="GameplayUT\Tabpage.h" />
+    <ClInclude Include="GameplayUT\AssembleImageButton.h" />
+    <ClInclude Include="GameplayUT\FontFrame.h" />
+    <ClInclude Include="GameplayUT\ImageButton.h" />
+    <ClInclude Include="GameplayUT\ListValueChanger.h" />
+    <ClInclude Include="GameplayUT\RestrictValue.h" />
+    <ClInclude Include="GameplayUT\DataCurve\DataCurve.h" />
+    <ClInclude Include="GameplayUT\StringCompress.h" />
+    <ClInclude Include="GameplayUT\FMAnimationRuleEffectManager.h" />
+    <ClInclude Include="GameplayUT\FMAnimationRuleEffectQueuePlayer.h" />
+    <ClInclude Include="GameplayUT\BinaryFile.h" />
+    <ClInclude Include="GameplayUT\ResourceStamp.h" />
+    <ClInclude Include="GameplayUT\ObjectXMLParser.h" />
+    <ClInclude Include="AllPhysicInclude.h" />
+    <ClInclude Include="Physic\BulletShape.h" />
+    <ClInclude Include="Physic\2DImageCollisionData.h" />
+    <ClInclude Include="TimeUT.h" />
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="NamedTypedObject.h" />
+    <ClInclude Include="StringID.h" />
+    <ClInclude Include="MapCellDataContainer.h" />
+    <ClInclude Include="TempContainer.h" />
+    <ClInclude Include="TemplateClass.h" />
+    <ClInclude Include="TwoDimensionDataContainer.h" />
+    <ClInclude Include="CommonDefine.h" />
+    <ClInclude Include="VS_TO_GNN.h" />
+    <ClInclude Include="Glh.h" />
+    <ClInclude Include="MyString.h" />
+    <ClInclude Include="Particle\AllParticleInclude.h" />
+    <ClInclude Include="Particle\ParticleManager.h" />
+    <ClInclude Include="Particle\ParticleEmitter.h" />
+    <ClInclude Include="Particle\ParticleEmitterBehavior.h" />
+    <ClInclude Include="Particle\ParticleEmitterGroup.h" />
+    <ClInclude Include="Particle\AllPolicyNameList.h" />
+    <ClInclude Include="Particle\PrtColor.h" />
+    <ClInclude Include="Particle\PrtLife.h" />
+    <ClInclude Include="Particle\PrtSize.h" />
+    <ClInclude Include="Particle\PrtVelocity.h" />
+    <ClInclude Include="Particle\PrtStartPosition.h" />
+    <ClInclude Include="Particle\PrtRotate.h" />
+    <ClInclude Include="Particle\PrtTexture.h" />
+    <ClInclude Include="Particle\ParticleBase.h" />
+    <ClInclude Include="Particle\ParticleType.h" />
+    <ClInclude Include="Network\begin_code.h" />
+    <ClInclude Include="Network\happyhttp.h" />
+    <ClInclude Include="Network\Network.h" />
+    <ClInclude Include="Network\SDL_endian.h" />
+    <ClInclude Include="Network\SDL_net.h" />
+    <ClInclude Include="Network\SDLnetsys.h" />
+    <ClInclude Include="Synchronization\AllFUThreadInclude.h" />
+    <ClInclude Include="Synchronization\FUCriticalSection.h" />
+    <ClInclude Include="Synchronization\FUFunctor.h" />
+    <ClInclude Include="Synchronization\FUSemaphore.h" />
+    <ClInclude Include="Synchronization\FUSynchronized.h" />
+    <ClInclude Include="Synchronization\FUThread.h" />
+    <ClInclude Include="Synchronization\FUThreadPool.h" />
+    <ClInclude Include="Synchronization\FUThreadRef.h" />
+    <ClInclude Include="Android\AndroidJNI.h" />
+    <ClInclude Include="Terrain\ShockBoobsPainter.h" />
+    <ClInclude Include="Terrain\ShockBoobsShader.h" />
+    <ClInclude Include="Terrain\TerrianVertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="GetMe Usage.txt" />
+    <Text Include="Log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Image\Texture.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="XML\tinyxml2.cpp" />
+    <ClCompile Include="XML\XmlLoader.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="TimeUT.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

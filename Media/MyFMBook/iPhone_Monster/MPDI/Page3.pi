@@ -1,0 +1,16 @@
+<!-- Author:Fatming,Time:2013/5/14 ¤U¤È 10:52:24 -->
+<PuzzleImage OriginalNameSort="roof-light,sock2,hanger,hat,lamp,sock,cloth,monster-shadow,closeset-door,little-monster,content-text,light,roof-light-flash" ImageName="Page3.png" Count="13" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="closeset-door" UV="0.3637695,0.1933594,0.4609375,0.4477539" OffsetPos="39,52" Size="199,521" OriginalSize="295,672" ShowPosInPI="745,396" />
+    <PuzzleUnit Name="cloth" UV="0.6005859,0,0.7207031,0.1928711" OffsetPos="32,44" Size="246,395" OriginalSize="343,471" ShowPosInPI="1230,0" />
+    <PuzzleUnit Name="content-text" UV="0.6494141,0.1933594,0.9765625,0.4702148" OffsetPos="51,93" Size="670,567" OriginalSize="774,761" ShowPosInPI="1330,396" />
+    <PuzzleUnit Name="hanger" UV="0.2734375,0,0.3989258,0.09326172" OffsetPos="26,31" Size="257,191" OriginalSize="298,258" ShowPosInPI="560,0" />
+    <PuzzleUnit Name="hat" UV="0.3994141,0,0.4829102,0.08105469" OffsetPos="20,13" Size="171,166" OriginalSize="229,198" ShowPosInPI="818,0" />
+    <PuzzleUnit Name="lamp" UV="0.4833984,0,0.5507813,0.190918" OffsetPos="46,85" Size="138,391" OriginalSize="330,543" ShowPosInPI="990,0" />
+    <PuzzleUnit Name="light" UV="0.6381836,0.4799805,0.9536133,0.9868164" OffsetPos="0,78" Size="646,1038" OriginalSize="762,1197" ShowPosInPI="1307,983" />
+    <PuzzleUnit Name="little-monster" UV="0.4614258,0.1933594,0.6489258,0.3461914" OffsetPos="41,28" Size="384,313" OriginalSize="460,396" ShowPosInPI="945,396" />
+    <PuzzleUnit Name="monster-shadow" UV="0,0.1933594,0.3632813,0.7319336" OffsetPos="0,0" Size="744,1103" OriginalSize="744,1103" ShowPosInPI="0,396" />
+    <PuzzleUnit Name="roof-light" UV="0,0,0.1977539,0.07714844" OffsetPos="71,0" Size="405,158" OriginalSize="541,216" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="roof-light-flash" UV="0.01904297,0.7451172,0.5791016,0.9604492" OffsetPos="33,0" Size="1147,441" OriginalSize="1180,441" ShowPosInPI="39,1526" />
+    <PuzzleUnit Name="sock" UV="0.5512695,0,0.6000977,0.109375" OffsetPos="32,20" Size="100,224" OriginalSize="154,273" ShowPosInPI="1129,0" />
+    <PuzzleUnit Name="sock2" UV="0.1982422,0,0.2729492,0.046875" OffsetPos="28,19" Size="153,96" OriginalSize="196,138" ShowPosInPI="406,0" />
+</PuzzleImage>

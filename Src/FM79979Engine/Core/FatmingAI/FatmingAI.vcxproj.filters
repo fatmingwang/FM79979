@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="FAI">
+      <UniqueIdentifier>{876f6acb-59ce-454e-b3fd-7350bbfcf5d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIMachine">
+      <UniqueIdentifier>{62ef5ffd-6a72-4d98-9e5e-aa03836d79f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIBehavior">
+      <UniqueIdentifier>{0ba8ba49-5f60-4e0d-af71-6139d69662ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIBehavior\Animation">
+      <UniqueIdentifier>{08d4d56c-6ea0-4b76-92dc-3e0ec50a96e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIBehavior\Position">
+      <UniqueIdentifier>{1cacac8a-2ea4-43c7-ad83-90af3371d282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIBehavior\MultiTask">
+      <UniqueIdentifier>{93655a7a-1f5b-4087-b511-bde0cc685810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\AIBehavior\Status">
+      <UniqueIdentifier>{d1d8d9e2-0fc1-44cd-9822-5f6e0e7b966e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\Character">
+      <UniqueIdentifier>{475d3506-53a0-4ecf-970b-7ea6743f4296}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\Character\CharacterBehavior">
+      <UniqueIdentifier>{d527a947-d677-410e-9e88-fa50503402dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\Character\GameAttackTYpe">
+      <UniqueIdentifier>{98001d7b-9dc2-46de-b5e6-2ba19146fc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FAI\Collision">
+      <UniqueIdentifier>{6aae87a7-a676-4b6b-9730-07413672e2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{5880f0b1-9491-4ceb-a34a-465ae68782d4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIMachine.cpp">
+      <Filter>FAI\AIMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIBaseBehavior.cpp">
+      <Filter>FAI\AIBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIAnimationBehavior.cpp">
+      <Filter>FAI\AIBehavior\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIFiledPathBehavior.cpp">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FAILeaveFiledBehavior.cpp">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIPathBehavior.cpp">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FAITranslationBehavior.cpp">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIWallReflectMovingBehavior.cpp">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIMultiTaskBehavior.cpp">
+      <Filter>FAI\AIBehavior\MultiTask</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIStatusChangeByProbability.cpp">
+      <Filter>FAI\AIBehavior\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIAnimationCharacter.cpp">
+      <Filter>FAI\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="FAICharacterInterface.cpp">
+      <Filter>FAI\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIStatus.cpp">
+      <Filter>FAI\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="FAICharacterBehaviorBase.cpp">
+      <Filter>FAI\Character\CharacterBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="FAICollision.cpp">
+      <Filter>FAI\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="FAIParser.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllFatmingAIInclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIMachine.h">
+      <Filter>FAI\AIMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIBaseBehavior.h">
+      <Filter>FAI\AIBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIAnimationBehavior.h">
+      <Filter>FAI\AIBehavior\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIFiledPathBehavior.h">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="FAILeaveFiledBehavior.h">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIPathBehavior.h">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="FAITranslationBehavior.h">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIWallReflectMovingBehavior.h">
+      <Filter>FAI\AIBehavior\Position</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIMultiTaskBehavior.h">
+      <Filter>FAI\AIBehavior\MultiTask</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIStatusChangeByProbability.h">
+      <Filter>FAI\AIBehavior\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIAnimationCharacter.h">
+      <Filter>FAI\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="FAICharacterInterface.h">
+      <Filter>FAI\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIStatus.h">
+      <Filter>FAI\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="FAICharacterBehaviorBase.h">
+      <Filter>FAI\Character\CharacterBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIAttackData.h">
+      <Filter>FAI\Character\GameAttackTYpe</Filter>
+    </ClInclude>
+    <ClInclude Include="FAICollision.h">
+      <Filter>FAI\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="FAIParser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

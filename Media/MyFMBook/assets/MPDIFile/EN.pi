@@ -1,0 +1,22 @@
+<!-- Author:YangHong,Time:2012/8/1 ¤W¤È 10:24:22 -->
+<PuzzleImage OriginalNameSort="EventTalk_01,G2_word,Player_01,Player_02,Player_03,Player_04,Player_05,Player_06,Player_07,Player_08,Shelly_Talk01,Shelly_Talk02,Shelly_Talk03,Shelly_Talk04,Shelly_Talk05,Shelly_Talk06,Shelly_Talk07,Shelly_Talk08,Shelly_Talk00" ImageName="EN.png" Count="19" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="EventTalk_01" UV="0,0,0.8720703,0.1298828" OffsetPos="63,473" Size="893,133" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="G2_word" UV="0,0.1308594,0.4570313,0.1777344" OffsetPos="293,300" Size="468,48" OriginalSize="1024,768" ShowPosInPI="0,134" />
+    <PuzzleUnit Name="Player_01" UV="0.4580078,0.1308594,0.6386719,0.1591797" OffsetPos="65,669" Size="185,29" OriginalSize="1024,768" ShowPosInPI="469,134" />
+    <PuzzleUnit Name="Player_02" UV="0,0.1787109,0.8623047,0.2617188" OffsetPos="62,588" Size="883,85" OriginalSize="1024,768" ShowPosInPI="0,183" />
+    <PuzzleUnit Name="Player_03" UV="0,0.2626953,0.2724609,0.2988281" OffsetPos="62,588" Size="279,37" OriginalSize="1024,768" ShowPosInPI="0,269" />
+    <PuzzleUnit Name="Player_04" UV="0.2734375,0.2626953,0.8955078,0.2988281" OffsetPos="62,588" Size="637,37" OriginalSize="1024,768" ShowPosInPI="280,269" />
+    <PuzzleUnit Name="Player_05" UV="0,0.2998047,0.8359375,0.3828125" OffsetPos="61,588" Size="856,85" OriginalSize="1024,768" ShowPosInPI="0,307" />
+    <PuzzleUnit Name="Player_06" UV="0,0.3837891,0.8886719,0.4667969" OffsetPos="61,588" Size="910,85" OriginalSize="1024,768" ShowPosInPI="0,393" />
+    <PuzzleUnit Name="Player_07" UV="0,0.4677734,0.8154297,0.5429688" OffsetPos="62,588" Size="835,77" OriginalSize="1024,768" ShowPosInPI="0,479" />
+    <PuzzleUnit Name="Player_08" UV="0,0.5439453,0.2529297,0.5800781" OffsetPos="62,588" Size="259,37" OriginalSize="1024,768" ShowPosInPI="0,557" />
+    <PuzzleUnit Name="Shelly_Talk00" UV="0.3125,0.7685547,0.9121094,0.8046875" OffsetPos="65,669" Size="614,37" OriginalSize="1024,768" ShowPosInPI="320,787" />
+    <PuzzleUnit Name="Shelly_Talk01" UV="0,0.5810547,0.7753906,0.65625" OffsetPos="64,614" Size="794,77" OriginalSize="1024,768" ShowPosInPI="0,595" />
+    <PuzzleUnit Name="Shelly_Talk02" UV="0,0.6572266,0.4414063,0.6933594" OffsetPos="65,614" Size="452,37" OriginalSize="1024,768" ShowPosInPI="0,673" />
+    <PuzzleUnit Name="Shelly_Talk03" UV="0.4423828,0.6572266,0.8837891,0.6933594" OffsetPos="65,614" Size="452,37" OriginalSize="1024,768" ShowPosInPI="453,673" />
+    <PuzzleUnit Name="Shelly_Talk04" UV="0,0.6943359,0.3808594,0.7304688" OffsetPos="63,614" Size="390,37" OriginalSize="1024,768" ShowPosInPI="0,711" />
+    <PuzzleUnit Name="Shelly_Talk05" UV="0.3818359,0.6943359,0.7509766,0.7304688" OffsetPos="65,614" Size="378,37" OriginalSize="1024,768" ShowPosInPI="391,711" />
+    <PuzzleUnit Name="Shelly_Talk06" UV="0,0.7314453,0.4345703,0.7675781" OffsetPos="63,614" Size="445,37" OriginalSize="1024,768" ShowPosInPI="0,749" />
+    <PuzzleUnit Name="Shelly_Talk07" UV="0.4355469,0.7314453,0.7255859,0.7597656" OffsetPos="62,614" Size="297,29" OriginalSize="1024,768" ShowPosInPI="446,749" />
+    <PuzzleUnit Name="Shelly_Talk08" UV="0,0.7685547,0.3115234,0.796875" OffsetPos="65,614" Size="319,29" OriginalSize="1024,768" ShowPosInPI="0,787" />
+</PuzzleImage>

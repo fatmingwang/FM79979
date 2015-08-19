@@ -1,0 +1,148 @@
+<MPDIList Name="P1_mpdi" Count="5" MPDIVersion="1.1" PICount="1" ImageName="P1.pi">
+    <MultiPathDynamicImage Name="P1_Demo" PathCount="14" PlayCount="-1" TotalPlayTime="17.000000">
+        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="768.00,1024.00" PIName="P1" ImageName="P1_BG" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="1.000000" Size="768.00,1024.00" PIName="P1" ImageName="P1_BG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Street_BG" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="624.00,261.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="624.00,261.00" PIName="P1" ImageName="P1_DBG02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="12.000000" Size="624.00,261.00" PIName="P1" ImageName="P1_DBG02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Street" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="624.00,280.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="624.00,280.00" PIName="P1" ImageName="P1_DBG" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="12.000000" Size="624.00,280.00" PIName="P1" ImageName="P1_DBG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="00_peopleBG" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="616.00,677.00" Color="1.00,1.00,1.00,0.01" PIName="P1" ImageName="P1_DBG04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="14.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="01_People" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="616.00,677.00" Color="1.00,1.00,1.00,0.01" PIName="P1" ImageName="P1_DBG03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="13.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="TOP_BAR" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-84.00,0.00,0.00" Time="0.000000" Size="767.00,1023.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="767.00,1023.00" PIName="P1" ImageName="P1_DBG05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="15.000000" Size="767.00,1023.00" PIName="P1" ImageName="P1_DBG05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n1" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-84.00,0.00,0.00" Time="0.000000" Size="286.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="286.00,101.00" PIName="P1" ImageName="P1_DBG07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="12.000000" Size="286.00,101.00" PIName="P1" ImageName="P1_DBG07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n2" BehaviorUpdate="1" StartTime="5.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="76.00,0.00,0.00" Time="0.000000" Size="235.00,119.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.000000" Size="235.00,119.00" PIName="P1" ImageName="P1_DBG08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="12.000000" Size="235.00,119.00" PIName="P1" ImageName="P1_DBG08" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="01_People_ani" BehaviorUpdate="1" StartTime="5.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,108.00,0.00" Time="0.000000" Size="236.80,266.40" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="01_People_ani2" BehaviorUpdate="1" StartTime="7.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="1" Position="0.00,8.00,0.00" Time="1.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n3" BehaviorUpdate="1" StartTime="5.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,0.00,0.00" Time="0.000000" Size="99.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG09" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="99.00,102.00" PIName="P1" ImageName="P1_DBG09" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="99.00,102.00" PIName="P1" ImageName="P1_DBG09" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n3_1" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,0.00,0.00" Time="0.000000" Size="45.00,23.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG09_1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="45.00,23.00" PIName="P1" ImageName="P1_DBG09_1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="45.00,23.00" PIName="P1" ImageName="P1_DBG09_1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n4" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="175.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG010" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="175.00,126.00" PIName="P1" ImageName="P1_DBG010" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="175.00,126.00" PIName="P1" ImageName="P1_DBG010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n4_1" BehaviorUpdate="1" StartTime="7.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="85.00,23.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG010_1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="85.00,23.00" PIName="P1" ImageName="P1_DBG010_1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="85.00,23.00" PIName="P1" ImageName="P1_DBG010_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="color" PathCount="6" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="768.00,1024.00" PIName="P1" ImageName="P1_BG" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="1.000000" Size="768.00,1024.00" PIName="P1" ImageName="P1_BG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Street_BG" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="624.00,261.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="624.00,261.00" PIName="P1" ImageName="P1_DBG02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="624.00,261.00" PIName="P1" ImageName="P1_DBG02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Street" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="624.00,280.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="624.00,280.00" PIName="P1" ImageName="P1_DBG" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="624.00,280.00" PIName="P1" ImageName="P1_DBG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="00_peopleBG" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="616.00,677.00" Color="1.00,1.00,1.00,0.01" PIName="P1" ImageName="P1_DBG04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="01_People" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="616.00,677.00" Color="1.00,1.00,1.00,0.01" PIName="P1" ImageName="P1_DBG03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="616.00,677.00" PIName="P1" ImageName="P1_DBG03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="TOP_BAR" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-84.00,0.00,0.00" Time="0.000000" Size="767.00,1023.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="767.00,1023.00" PIName="P1" ImageName="P1_DBG05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="767.00,1023.00" PIName="P1" ImageName="P1_DBG05" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="color_ani" PathCount="2" PlayCount="-1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="01_People_ani" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,108.00,0.00" Time="0.000000" Size="236.80,266.40" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="01_People_ani2" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="1" Position="0.00,8.00,0.00" Time="1.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="296.00,333.00" PIName="P1" ImageName="P1_DBG06" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="people_talk" PathCount="2" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="talk_n1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-84.00,0.00,0.00" Time="0.000000" Size="286.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="286.00,101.00" PIName="P1" ImageName="P1_DBG07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="286.00,101.00" PIName="P1" ImageName="P1_DBG07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n2" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="76.00,0.00,0.00" Time="0.000000" Size="235.00,119.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.000000" Size="235.00,119.00" PIName="P1" ImageName="P1_DBG08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="235.00,119.00" PIName="P1" ImageName="P1_DBG08" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="people_talk2" PathCount="4" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="talk_n3" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,0.00,0.00" Time="0.000000" Size="99.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG09" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="99.00,102.00" PIName="P1" ImageName="P1_DBG09" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="99.00,102.00" PIName="P1" ImageName="P1_DBG09" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n3_1" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,0.00,0.00" Time="0.000000" Size="45.00,23.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG09_1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="45.00,23.00" PIName="P1" ImageName="P1_DBG09_1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="45.00,23.00" PIName="P1" ImageName="P1_DBG09_1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n4" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="175.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG010" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="175.00,126.00" PIName="P1" ImageName="P1_DBG010" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="175.00,126.00" PIName="P1" ImageName="P1_DBG010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="talk_n4_1" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="85.00,23.00" Color="1.00,1.00,1.00,0.00" PIName="P1" ImageName="P1_DBG010_1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="85.00,23.00" PIName="P1" ImageName="P1_DBG010_1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="85.00,23.00" PIName="P1" ImageName="P1_DBG010_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

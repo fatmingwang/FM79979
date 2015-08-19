@@ -1,0 +1,1231 @@
+<MPDIList Name="Main_Map_mpdi" Count="8" MPDIVersion="1.3" PICount="4" ImageName="Main_Map.pi,Main_Map_Ui.pi,To_Stage_Banner.pi,Stage_Banner_Name.pi">
+    <MultiPathDynamicImage Name="Main_Map_Fish" PathCount="22" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.100000">
+        <CueToStartCurvesWithTime Name="Nami_F_001" BehaviorUpdate="1" StartTime="0.100000" AnchorType="CenterCenter" Count="23" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="792.00,746.00,0.00" Time="0.000000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="1" Position="792.00,746.00,0.00" Time="0.100000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="2" Position="792.00,746.00,0.00" Time="0.200000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="3" Position="792.00,746.00,0.00" Time="0.300000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="4" Position="792.00,746.00,0.00" Time="0.400000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="5" Position="792.00,746.00,0.00" Time="0.500000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="6" Position="792.00,746.00,0.00" Time="0.600000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="7" Position="792.00,746.00,0.00" Time="0.700000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="8" Position="792.00,746.00,0.00" Time="0.800000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="9" Position="792.00,746.00,0.00" Time="0.900000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="10" Position="792.00,746.00,0.00" Time="1.000000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="11" Position="792.00,746.00,0.00" Time="1.100000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="12" Position="792.00,746.00,0.00" Time="1.200000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="13" Position="792.00,746.00,0.00" Time="1.300000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="14" Position="792.00,746.00,0.00" Time="1.400000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="15" Position="792.00,746.00,0.00" Time="1.500000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="16" Position="792.00,746.00,0.00" Time="1.600000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="17" Position="792.00,746.00,0.00" Time="1.700000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="18" Position="792.00,746.00,0.00" Time="1.800000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="19" Position="792.00,746.00,0.00" Time="1.900000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="20" Position="792.00,746.00,0.00" Time="2.000000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="21" Position="792.00,746.00,0.00" Time="2.300000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="22" Position="792.00,746.00,0.00" Time="5.000000" Size="315.00,273.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Body_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="805.00,677.00,0.00" Time="0.000000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_001" />
+            <PointDataList Index="1" Position="805.00,677.00,0.00" Time="3.000000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Body_000" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="805.00,677.00,0.00" Time="0.000000" Size="512.00,512.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mega_Fish_Body_000" />
+            <PointDataList Index="1" Position="805.00,677.00,0.00" Time="3.000000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_000" />
+            <PointDataList Index="2" Position="805.00,677.00,0.00" Time="5.100000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Tail_000" StartTime="0.000000" AnchorType="CenterCenter" Count="22" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1124.00,779.00,0.00" Time="0.000000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="1" Position="1124.00,779.00,0.00" Time="0.100000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="2" Position="1124.00,779.00,0.00" Time="0.200000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="3" Position="1124.00,779.00,0.00" Time="0.300000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="4" Position="1124.00,779.00,0.00" Time="0.400000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="5" Position="1124.00,779.00,0.00" Time="0.500000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="6" Position="1124.00,779.00,0.00" Time="0.600000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="7" Position="1124.00,779.00,0.00" Time="0.700000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="8" Position="1124.00,779.00,0.00" Time="0.800000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="9" Position="1124.00,779.00,0.00" Time="0.900000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="10" Position="1124.00,779.00,0.00" Time="1.000000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="11" Position="1124.00,779.00,0.00" Time="1.100000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="12" Position="1124.00,779.00,0.00" Time="1.200000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="13" Position="1124.00,779.00,0.00" Time="1.300000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="14" Position="1124.00,779.00,0.00" Time="1.400000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="15" Position="1124.00,779.00,0.00" Time="1.500000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="16" Position="1124.00,779.00,0.00" Time="1.600000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="17" Position="1124.00,779.00,0.00" Time="1.700000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+            <PointDataList Index="18" Position="1124.00,779.00,0.00" Time="1.800000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_000" />
+            <PointDataList Index="19" Position="1124.00,779.00,0.00" Time="1.900000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="20" Position="1124.00,779.00,0.00" Time="3.000000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="21" Position="1124.00,779.00,0.00" Time="5.100000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Side_001" StartTime="0.000000" AnchorType="CenterCenter" Count="22" LOD="1">
+            <PointDataList Index="0" Position="1066.00,943.00,0.00" Time="0.000000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="1" Position="1066.00,943.00,0.00" Time="0.100000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="2" Position="1066.00,943.00,0.00" Time="0.200000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="3" Position="1066.00,943.00,0.00" Time="0.300000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="4" Position="1066.00,943.00,0.00" Time="0.400000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="5" Position="1066.00,943.00,0.00" Time="0.500000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="6" Position="1066.00,943.00,0.00" Time="0.600000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="7" Position="1066.00,943.00,0.00" Time="0.700000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="8" Position="1066.00,943.00,0.00" Time="0.800000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="9" Position="1066.00,943.00,0.00" Time="0.900000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="10" Position="1066.00,943.00,0.00" Time="1.000000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="11" Position="1066.00,943.00,0.00" Time="1.100000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="12" Position="1066.00,943.00,0.00" Time="1.200000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="13" Position="1066.00,943.00,0.00" Time="1.300000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="14" Position="1066.00,943.00,0.00" Time="1.400000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="15" Position="1066.00,943.00,0.00" Time="1.500000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="16" Position="1066.00,943.00,0.00" Time="1.600000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="17" Position="1066.00,943.00,0.00" Time="1.700000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="18" Position="1066.00,943.00,0.00" Time="1.800000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="19" Position="1066.00,943.00,0.00" Time="1.900000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_001" />
+            <PointDataList Index="20" Position="1066.00,943.00,0.00" Time="3.000000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="21" Position="1066.00,943.00,0.00" Time="5.100000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_F_000" BehaviorUpdate="1" StartTime="0.100000" AnchorType="CenterCenter" Count="23" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="931.00,841.00,0.00" Time="0.000000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="1" Position="931.00,841.00,0.00" Time="0.100000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="2" Position="931.00,841.00,0.00" Time="0.200000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="3" Position="931.00,841.00,0.00" Time="0.300000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="4" Position="931.00,841.00,0.00" Time="0.400000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="5" Position="931.00,841.00,0.00" Time="0.500000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="6" Position="931.00,841.00,0.00" Time="0.600000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="7" Position="931.00,841.00,0.00" Time="0.700000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="8" Position="931.00,841.00,0.00" Time="0.800000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="9" Position="931.00,841.00,0.00" Time="0.900000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="10" Position="931.00,841.00,0.00" Time="1.000000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="11" Position="931.00,841.00,0.00" Time="1.100000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="12" Position="931.00,841.00,0.00" Time="1.200000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="13" Position="931.00,841.00,0.00" Time="1.300000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="14" Position="931.00,841.00,0.00" Time="1.400000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="15" Position="931.00,841.00,0.00" Time="1.500000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="16" Position="931.00,841.00,0.00" Time="1.600000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="17" Position="931.00,841.00,0.00" Time="1.700000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="18" Position="931.00,841.00,0.00" Time="1.800000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="19" Position="931.00,841.00,0.00" Time="1.900000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="20" Position="931.00,841.00,0.00" Time="2.000000" Size="315.00,273.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="21" Position="931.00,841.00,0.00" Time="2.300000" Size="315.00,273.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="22" Position="931.00,841.00,0.00" Time="5.000000" Size="315.00,273.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_F_002" BehaviorUpdate="1" StartTime="0.100000" AnchorType="CenterCenter" Count="23" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1071.00,792.00,0.00" Time="0.000000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="1" Position="1071.00,792.00,0.00" Time="0.100000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="2" Position="1071.00,792.00,0.00" Time="0.200000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="3" Position="1071.00,792.00,0.00" Time="0.300000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="4" Position="1071.00,792.00,0.00" Time="0.400000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="5" Position="1071.00,792.00,0.00" Time="0.500000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="6" Position="1071.00,792.00,0.00" Time="0.600000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="7" Position="1071.00,792.00,0.00" Time="0.700000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="8" Position="1071.00,792.00,0.00" Time="0.800000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="9" Position="1071.00,792.00,0.00" Time="0.900000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="10" Position="1071.00,792.00,0.00" Time="1.000000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="11" Position="1071.00,792.00,0.00" Time="1.100000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="12" Position="1071.00,792.00,0.00" Time="1.200000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="13" Position="1071.00,792.00,0.00" Time="1.300000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="14" Position="1071.00,792.00,0.00" Time="1.400000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="15" Position="1071.00,792.00,0.00" Time="1.500000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="16" Position="1071.00,792.00,0.00" Time="1.600000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="17" Position="1071.00,792.00,0.00" Time="1.700000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="18" Position="1071.00,792.00,0.00" Time="1.800000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_002" />
+            <PointDataList Index="19" Position="1071.00,792.00,0.00" Time="1.900000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_003" />
+            <PointDataList Index="20" Position="1071.00,792.00,0.00" Time="2.000000" Size="91.35,79.17" Scale="0.29,0.29" PIName="Main_Map" ImageName="Nami_F_000" />
+            <PointDataList Index="21" Position="1071.00,792.00,0.00" Time="2.300000" Size="91.35,79.17" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_001" />
+            <PointDataList Index="22" Position="1071.00,792.00,0.00" Time="5.000000" Size="91.35,79.17" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_F_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_000" StartTime="2.000000" AnchorType="CenterCenter" Count="13" LOD="1">
+            <PointDataList Index="0" Position="933.00,1105.00,0.00" Time="0.000000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_000" />
+            <PointDataList Index="1" Position="933.00,1105.00,0.00" Time="0.183333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_001" />
+            <PointDataList Index="2" Position="933.00,1105.00,0.00" Time="0.366667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_002" />
+            <PointDataList Index="3" Position="933.00,1105.00,0.00" Time="0.550000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_003" />
+            <PointDataList Index="4" Position="933.00,1105.00,0.00" Time="0.733333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_004" />
+            <PointDataList Index="5" Position="933.00,1105.00,0.00" Time="0.916667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_005" />
+            <PointDataList Index="6" Position="933.00,1105.00,0.00" Time="1.100000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_006" />
+            <PointDataList Index="7" Position="933.00,1105.00,0.00" Time="1.283333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_007" />
+            <PointDataList Index="8" Position="933.00,1105.00,0.00" Time="1.466667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_008" />
+            <PointDataList Index="9" Position="933.00,1105.00,0.00" Time="1.650000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_009" />
+            <PointDataList Index="10" Position="933.00,1105.00,0.00" Time="1.833333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_010" />
+            <PointDataList Index="11" Position="933.00,1105.00,0.00" Time="2.016667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_011" />
+            <PointDataList Index="12" Position="933.00,1105.00,0.00" Time="2.200000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_012" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_001" StartTime="2.200000" AnchorType="CenterCenter" Count="13" LOD="1">
+            <PointDataList Index="0" Position="1172.00,1120.00,0.00" Time="0.000000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_000" />
+            <PointDataList Index="1" Position="1172.00,1120.00,0.00" Time="0.183333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_001" />
+            <PointDataList Index="2" Position="1172.00,1120.00,0.00" Time="0.366667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_002" />
+            <PointDataList Index="3" Position="1172.00,1120.00,0.00" Time="0.550000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_003" />
+            <PointDataList Index="4" Position="1172.00,1120.00,0.00" Time="0.733333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_004" />
+            <PointDataList Index="5" Position="1172.00,1120.00,0.00" Time="0.916667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_005" />
+            <PointDataList Index="6" Position="1172.00,1120.00,0.00" Time="1.100000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_006" />
+            <PointDataList Index="7" Position="1172.00,1120.00,0.00" Time="1.283333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_007" />
+            <PointDataList Index="8" Position="1172.00,1120.00,0.00" Time="1.466667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_008" />
+            <PointDataList Index="9" Position="1172.00,1120.00,0.00" Time="1.650000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_009" />
+            <PointDataList Index="10" Position="1172.00,1120.00,0.00" Time="1.833333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_010" />
+            <PointDataList Index="11" Position="1172.00,1120.00,0.00" Time="2.016667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_011" />
+            <PointDataList Index="12" Position="1172.00,1120.00,0.00" Time="2.200000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_012" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_002" StartTime="2.400000" AnchorType="CenterCenter" Count="13" LOD="1">
+            <PointDataList Index="0" Position="1236.00,971.00,0.00" Time="0.000000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_000" />
+            <PointDataList Index="1" Position="1236.00,971.00,0.00" Time="0.183333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_001" />
+            <PointDataList Index="2" Position="1236.00,971.00,0.00" Time="0.366667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_002" />
+            <PointDataList Index="3" Position="1236.00,971.00,0.00" Time="0.550000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_003" />
+            <PointDataList Index="4" Position="1236.00,971.00,0.00" Time="0.733333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_004" />
+            <PointDataList Index="5" Position="1236.00,971.00,0.00" Time="0.916667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_005" />
+            <PointDataList Index="6" Position="1236.00,971.00,0.00" Time="1.100000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_006" />
+            <PointDataList Index="7" Position="1236.00,971.00,0.00" Time="1.283333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_007" />
+            <PointDataList Index="8" Position="1236.00,971.00,0.00" Time="1.466667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_008" />
+            <PointDataList Index="9" Position="1236.00,971.00,0.00" Time="1.650000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_009" />
+            <PointDataList Index="10" Position="1236.00,971.00,0.00" Time="1.833333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_010" />
+            <PointDataList Index="11" Position="1236.00,971.00,0.00" Time="2.016667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_011" />
+            <PointDataList Index="12" Position="1236.00,971.00,0.00" Time="2.200000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_012" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_003" StartTime="2.600000" AnchorType="CenterCenter" Count="13" LOD="1">
+            <PointDataList Index="0" Position="759.00,929.00,0.00" Time="0.000000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_000" />
+            <PointDataList Index="1" Position="759.00,929.00,0.00" Time="0.183333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_001" />
+            <PointDataList Index="2" Position="759.00,929.00,0.00" Time="0.366667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_002" />
+            <PointDataList Index="3" Position="759.00,929.00,0.00" Time="0.550000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_003" />
+            <PointDataList Index="4" Position="759.00,929.00,0.00" Time="0.733333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_004" />
+            <PointDataList Index="5" Position="759.00,929.00,0.00" Time="0.916667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_005" />
+            <PointDataList Index="6" Position="759.00,929.00,0.00" Time="1.100000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_006" />
+            <PointDataList Index="7" Position="759.00,929.00,0.00" Time="1.283333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_007" />
+            <PointDataList Index="8" Position="759.00,929.00,0.00" Time="1.466667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_008" />
+            <PointDataList Index="9" Position="759.00,929.00,0.00" Time="1.650000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_009" />
+            <PointDataList Index="10" Position="759.00,929.00,0.00" Time="1.833333" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_010" />
+            <PointDataList Index="11" Position="759.00,929.00,0.00" Time="2.016667" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_011" />
+            <PointDataList Index="12" Position="759.00,929.00,0.00" Time="2.200000" Size="161.28,161.28" Scale="2.52,2.52" PIName="Main_Map" ImageName="Mizu_012" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_Fall_000" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="939.00,913.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mizu_Fall_000" />
+            <PointDataList Index="1" Position="939.00,913.00,0.00" Time="0.250000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Mizu_Fall_001" />
+            <PointDataList Index="2" Position="939.00,913.00,0.00" Time="0.500000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_002" />
+            <PointDataList Index="3" Position="939.00,913.00,0.00" Time="0.750000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+            <PointDataList Index="4" Position="939.00,1042.00,0.00" Time="1.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_Fall_001" BehaviorUpdate="1" StartTime="1.200000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="1173.00,939.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mizu_Fall_000" />
+            <PointDataList Index="1" Position="1173.00,939.00,0.00" Time="0.250000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Mizu_Fall_001" />
+            <PointDataList Index="2" Position="1173.00,939.00,0.00" Time="0.500000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_002" />
+            <PointDataList Index="3" Position="1173.00,939.00,0.00" Time="0.750000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+            <PointDataList Index="4" Position="1173.00,1068.00,0.00" Time="1.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_Fall_002" BehaviorUpdate="1" StartTime="1.400000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="1242.00,864.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mizu_Fall_000" />
+            <PointDataList Index="1" Position="1242.00,864.00,0.00" Time="0.250000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Mizu_Fall_001" />
+            <PointDataList Index="2" Position="1242.00,864.00,0.00" Time="0.500000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_002" />
+            <PointDataList Index="3" Position="1242.00,864.00,0.00" Time="0.750000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+            <PointDataList Index="4" Position="1242.00,993.00,0.00" Time="1.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mizu_Fall_003" BehaviorUpdate="1" StartTime="1.600000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="763.00,801.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mizu_Fall_000" />
+            <PointDataList Index="1" Position="763.00,801.00,0.00" Time="0.250000" Size="128.00,128.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Mizu_Fall_001" />
+            <PointDataList Index="2" Position="763.00,801.00,0.00" Time="0.500000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_002" />
+            <PointDataList Index="3" Position="763.00,801.00,0.00" Time="0.750000" Size="128.00,128.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+            <PointDataList Index="4" Position="763.00,930.00,0.00" Time="1.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mizu_Fall_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_Angry_000" StartTime="0.000000" AnchorType="CenterCenter" Count="15" LOD="1">
+            <PointDataList Index="0" Position="920.00,965.00,0.00" Time="0.000000" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="1" Position="920.00,965.00,0.00" Time="0.107143" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="2" Position="920.00,965.00,0.00" Time="0.214286" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="3" Position="920.00,965.00,0.00" Time="0.321429" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="4" Position="920.00,965.00,0.00" Time="0.428571" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="5" Position="920.00,965.00,0.00" Time="0.535714" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="6" Position="920.00,965.00,0.00" Time="0.642857" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="7" Position="920.00,965.00,0.00" Time="0.750000" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="8" Position="920.00,965.00,0.00" Time="0.857143" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="9" Position="920.00,965.00,0.00" Time="0.964286" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="10" Position="920.00,965.00,0.00" Time="1.071429" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="11" Position="920.00,965.00,0.00" Time="1.178571" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="12" Position="920.00,965.00,0.00" Time="1.285714" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="13" Position="920.00,965.00,0.00" Time="1.392857" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="14" Position="920.00,965.00,0.00" Time="1.500000" Size="50.00,50.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_000" BehaviorUpdate="1" StartTime="0.200000" AnchorType="CenterCenter" Count="8" LOD="1">
+            <PointDataList Index="0" Position="897.00,886.00,0.00" Time="0.000000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_000" />
+            <PointDataList Index="1" Position="897.00,886.00,0.00" Time="0.250000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_001" />
+            <PointDataList Index="2" Position="897.00,886.00,0.00" Time="0.500000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_002" />
+            <PointDataList Index="3" Position="897.00,886.00,0.00" Time="0.750000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_003" />
+            <PointDataList Index="4" Position="897.00,886.00,0.00" Time="1.000000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_004" />
+            <PointDataList Index="5" Position="897.00,886.00,0.00" Time="1.250000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_005" />
+            <PointDataList Index="6" Position="897.00,886.00,0.00" Time="1.500000" Size="256.00,254.00" Scale="2.00,2.00" PIName="Main_Map" ImageName="Smoke_006" />
+            <PointDataList Index="7" Position="897.00,886.00,0.00" Time="2.000000" Size="256.00,254.00" Scale="2.00,2.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_001" BehaviorUpdate="1" StartTime="0.200000" AnchorType="CenterCenter" Count="8" LOD="1">
+            <PointDataList Index="0" Position="860.00,853.00,0.00" Time="0.000000" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_000" />
+            <PointDataList Index="1" Position="860.00,853.00,0.00" Time="0.333333" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_001" />
+            <PointDataList Index="2" Position="860.00,853.00,0.00" Time="0.666667" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_002" />
+            <PointDataList Index="3" Position="860.00,853.00,0.00" Time="1.000000" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_003" />
+            <PointDataList Index="4" Position="860.00,853.00,0.00" Time="1.333333" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_004" />
+            <PointDataList Index="5" Position="860.00,853.00,0.00" Time="1.666667" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_005" />
+            <PointDataList Index="6" Position="860.00,853.00,0.00" Time="2.000000" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+            <PointDataList Index="7" Position="860.00,853.00,0.00" Time="2.500000" Size="256.00,254.00" Scale="2.00,2.00" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_002" BehaviorUpdate="1" StartTime="0.600000" AnchorType="CenterCenter" Count="8" LOD="1">
+            <PointDataList Index="0" Position="898.00,876.00,0.00" Time="0.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_000" />
+            <PointDataList Index="1" Position="898.00,876.00,0.00" Time="0.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_001" />
+            <PointDataList Index="2" Position="898.00,876.00,0.00" Time="0.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_002" />
+            <PointDataList Index="3" Position="898.00,876.00,0.00" Time="1.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_003" />
+            <PointDataList Index="4" Position="898.00,876.00,0.00" Time="1.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_004" />
+            <PointDataList Index="5" Position="898.00,876.00,0.00" Time="1.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_005" />
+            <PointDataList Index="6" Position="898.00,876.00,0.00" Time="2.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+            <PointDataList Index="7" Position="898.00,876.00,0.00" Time="3.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_003" BehaviorUpdate="1" StartTime="0.400000" AnchorType="CenterCenter" Count="8" LOD="1">
+            <PointDataList Index="0" Position="898.00,876.00,0.00" Time="0.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_000" />
+            <PointDataList Index="1" Position="898.00,876.00,0.00" Time="0.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_001" />
+            <PointDataList Index="2" Position="898.00,876.00,0.00" Time="0.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_002" />
+            <PointDataList Index="3" Position="898.00,876.00,0.00" Time="1.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_003" />
+            <PointDataList Index="4" Position="898.00,876.00,0.00" Time="1.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_004" />
+            <PointDataList Index="5" Position="898.00,876.00,0.00" Time="1.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_005" />
+            <PointDataList Index="6" Position="898.00,876.00,0.00" Time="2.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+            <PointDataList Index="7" Position="898.00,876.00,0.00" Time="2.500000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_004" BehaviorUpdate="1" StartTime="0.800000" AnchorType="CenterCenter" Count="8" LOD="1">
+            <PointDataList Index="0" Position="1036.00,803.00,0.00" Time="0.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_000" />
+            <PointDataList Index="1" Position="1036.00,803.00,0.00" Time="0.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_001" />
+            <PointDataList Index="2" Position="1036.00,803.00,0.00" Time="0.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_002" />
+            <PointDataList Index="3" Position="1036.00,803.00,0.00" Time="1.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_003" />
+            <PointDataList Index="4" Position="1036.00,803.00,0.00" Time="1.333333" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_004" />
+            <PointDataList Index="5" Position="1036.00,803.00,0.00" Time="1.666667" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_005" />
+            <PointDataList Index="6" Position="1036.00,803.00,0.00" Time="2.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+            <PointDataList Index="7" Position="1036.00,803.00,0.00" Time="3.000000" Size="345.60,342.90" Scale="2.70,2.70" Angles="0.00,180.00,0.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Smoke_006" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Smoke_Angry_001" StartTime="0.000000" AnchorType="CenterCenter" Count="15" LOD="1">
+            <PointDataList Index="0" Position="857.00,938.00,0.00" Time="0.000000" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="1" Position="857.00,938.00,0.00" Time="0.107143" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="2" Position="857.00,938.00,0.00" Time="0.214286" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="3" Position="857.00,938.00,0.00" Time="0.321429" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="4" Position="857.00,938.00,0.00" Time="0.428571" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="5" Position="857.00,938.00,0.00" Time="0.535714" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="6" Position="857.00,938.00,0.00" Time="0.642857" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="7" Position="857.00,938.00,0.00" Time="0.750000" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="8" Position="857.00,938.00,0.00" Time="0.857143" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="9" Position="857.00,938.00,0.00" Time="0.964286" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="10" Position="857.00,938.00,0.00" Time="1.071429" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="11" Position="857.00,938.00,0.00" Time="1.178571" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+            <PointDataList Index="12" Position="857.00,938.00,0.00" Time="1.285714" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_000" />
+            <PointDataList Index="13" Position="857.00,938.00,0.00" Time="1.392857" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_001" />
+            <PointDataList Index="14" Position="857.00,938.00,0.00" Time="1.500000" Size="50.00,50.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Smoke_Angry_002" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Main_Map_Button" PathCount="22" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Stage_Point_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="157.00,636.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="157.00,636.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="591.00,854.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="591.00,854.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="388.00,182.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="388.00,182.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,195.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="174.00,195.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="809.00,903.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="809.00,903.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="964.00,702.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="964.00,702.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_006" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1090.00,668.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1090.00,668.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_007" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1202.00,673.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1202.00,673.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_008" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1305.00,275.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1305.00,275.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_009" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1093.00,175.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1093.00,175.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="814.00,173.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="814.00,173.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_011" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1077.00,305.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1077.00,305.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_012" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="820.00,381.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="820.00,381.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_013" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="442.00,347.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="442.00,347.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_014" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="542.00,459.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="542.00,459.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_015" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="611.00,574.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="611.00,574.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_016" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="406.00,596.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="406.00,596.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_017" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="147.00,853.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="147.00,853.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_018" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="307.00,367.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="307.00,367.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_019" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="100.00,443.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="100.00,443.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_020" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="264.00,488.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="264.00,488.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_021" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="829.00,759.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="829.00,759.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Main_Map_Ui" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map_Bottom" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-4.00,1112.00,0.00" Time="0.000000" Size="730.00,172.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Bottom" />
+            <PointDataList Index="1" Position="-4.00,1112.00,0.00" Time="5.000000" Size="730.00,172.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Bottom" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Main_Map" PathCount="86" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="3dmap001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1440.00,1280.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="3dmap001" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1440.00,1280.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="3dmap001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_004" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1153.00,926.00,0.00" Time="0.000000" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="1153.00,926.00,0.00" Time="0.185714" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="1153.00,926.00,0.00" Time="0.371429" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="1153.00,926.00,0.00" Time="0.557143" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="1153.00,926.00,0.00" Time="0.742857" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="1153.00,926.00,0.00" Time="0.928571" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="1153.00,926.00,0.00" Time="1.114286" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="1153.00,926.00,0.00" Time="1.300000" Size="179.96,227.92" Scale="4.09,5.18" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Umi_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="21" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="573.00,540.00,0.00" Time="0.000000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.10,1.10,0.00,0.80" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="1" Position="573.00,540.00,0.00" Time="0.150000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="2" Position="573.00,540.00,0.00" Time="0.300000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.10,1.10,0.00,0.80" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="3" Position="573.00,540.00,0.00" Time="0.450000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="4" Position="573.00,540.00,0.00" Time="0.600000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.10,1.10,0.00,0.80" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="5" Position="573.00,540.00,0.00" Time="0.750000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="6" Position="573.00,540.00,0.00" Time="0.900000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.10,1.10,0.00,0.80" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="7" Position="573.00,540.00,0.00" Time="1.050000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.50" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="8" Position="573.00,540.00,0.00" Time="1.200000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.20" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="9" Position="573.00,540.00,0.00" Time="1.350000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.50" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="10" Position="573.00,540.00,0.00" Time="1.500000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.20" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="11" Position="573.00,540.00,0.00" Time="1.650000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.50" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="12" Position="573.00,540.00,0.00" Time="1.800000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.20" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="13" Position="573.00,540.00,0.00" Time="1.950000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.50" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="14" Position="573.00,540.00,0.00" Time="2.100000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="15" Position="573.00,540.00,0.00" Time="2.250000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.30" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="16" Position="573.00,540.00,0.00" Time="2.400000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="17" Position="573.00,540.00,0.00" Time="2.550000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.30" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="18" Position="573.00,540.00,0.00" Time="2.700000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="19" Position="573.00,540.00,0.00" Time="2.850000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.30" PIName="Main_Map" ImageName="Umi_000" />
+            <PointDataList Index="20" Position="573.00,540.00,0.00" Time="3.000000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.40,2.00,0.00,0.00" PIName="Main_Map" ImageName="Umi_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Umi_001" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="21" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="573.00,540.00,0.00" Time="0.000000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.70" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="1" Position="573.00,540.00,0.00" Time="0.150000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="2" Position="573.00,540.00,0.00" Time="0.300000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.70" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="3" Position="573.00,540.00,0.00" Time="0.450000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="4" Position="573.00,540.00,0.00" Time="0.600000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.70" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="5" Position="573.00,540.00,0.00" Time="0.750000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="6" Position="573.00,540.00,0.00" Time="0.900000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.70" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="7" Position="573.00,540.00,0.00" Time="1.050000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="8" Position="573.00,540.00,0.00" Time="1.200000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.70" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="9" Position="573.00,540.00,0.00" Time="1.350000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="10" Position="573.00,540.00,0.00" Time="1.500000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="11" Position="573.00,540.00,0.00" Time="1.650000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="12" Position="573.00,540.00,0.00" Time="1.800000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="13" Position="573.00,540.00,0.00" Time="1.950000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="14" Position="573.00,540.00,0.00" Time="2.100000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="15" Position="573.00,540.00,0.00" Time="2.250000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="16" Position="573.00,540.00,0.00" Time="2.400000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="17" Position="573.00,540.00,0.00" Time="2.550000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="18" Position="573.00,540.00,0.00" Time="2.700000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.10" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="19" Position="573.00,540.00,0.00" Time="2.850000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Umi_001" />
+            <PointDataList Index="20" Position="573.00,540.00,0.00" Time="3.000000" Size="1440.00,1278.93" Scale="4.80,4.79" Color="1.00,1.00,1.00,0.10" PIName="Main_Map" ImageName="Umi_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Body_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="805.00,677.00,0.00" Time="0.000000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_000" />
+            <PointDataList Index="1" Position="805.00,677.00,0.00" Time="5.000000" Size="512.00,512.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Body_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Side_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1066.00,943.00,0.00" Time="0.000000" Size="130.00,130.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+            <PointDataList Index="1" Position="1066.00,943.00,0.00" Time="5.000000" Size="130.00,130.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mega_Fish_Side_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mega_Fish_Tail_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1125.00,777.00,0.00" Time="0.000000" Size="180.00,180.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+            <PointDataList Index="1" Position="1125.00,777.00,0.00" Time="5.000000" Size="180.00,180.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Mega_Fish_Tail_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="844.00,497.00,0.00" Time="0.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="844.00,497.00,0.00" Time="0.100000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="844.00,497.00,0.00" Time="0.200000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="844.00,497.00,0.00" Time="0.300000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="844.00,497.00,0.00" Time="0.400000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="844.00,497.00,0.00" Time="0.500000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="566.00,647.00,0.00" Time="0.000000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="566.00,647.00,0.00" Time="0.100000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="566.00,647.00,0.00" Time="0.200000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="566.00,647.00,0.00" Time="0.300000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="566.00,647.00,0.00" Time="0.400000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="566.00,647.00,0.00" Time="0.500000" Size="64.00,64.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_Fall_A_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="872.00,475.00,0.00" Time="0.000000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_000" />
+            <PointDataList Index="1" Position="872.00,475.00,0.00" Time="0.120000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_001" />
+            <PointDataList Index="2" Position="872.00,475.00,0.00" Time="0.240000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_002" />
+            <PointDataList Index="3" Position="872.00,475.00,0.00" Time="0.360000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+            <PointDataList Index="4" Position="872.00,475.00,0.00" Time="0.480000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_004" />
+            <PointDataList Index="5" Position="872.00,475.00,0.00" Time="0.600000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_Fall_A_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="596.00,599.00,0.00" Time="0.000000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_000" />
+            <PointDataList Index="1" Position="596.00,599.00,0.00" Time="0.120000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_001" />
+            <PointDataList Index="2" Position="596.00,599.00,0.00" Time="0.240000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_002" />
+            <PointDataList Index="3" Position="596.00,599.00,0.00" Time="0.360000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+            <PointDataList Index="4" Position="596.00,599.00,0.00" Time="0.480000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_004" />
+            <PointDataList Index="5" Position="596.00,599.00,0.00" Time="0.600000" Size="31.00,33.00" Scale="1.00,1.00" Angles="30.00,0.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_Fall_A_002" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="124.00,627.00,0.00" Time="0.000000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_000" />
+            <PointDataList Index="1" Position="124.00,627.00,0.00" Time="0.120000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_001" />
+            <PointDataList Index="2" Position="124.00,627.00,0.00" Time="0.240000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_002" />
+            <PointDataList Index="3" Position="124.00,627.00,0.00" Time="0.360000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+            <PointDataList Index="4" Position="124.00,627.00,0.00" Time="0.480000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_004" />
+            <PointDataList Index="5" Position="124.00,627.00,0.00" Time="0.600000" Size="52.08,55.44" Scale="1.68,1.68" Angles="30.00,20.00,0.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_Fall_A_003" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="96.00,703.00,0.00" Time="0.000000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="96.00,703.00,0.00" Time="0.100000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="96.00,703.00,0.00" Time="0.200000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="96.00,703.00,0.00" Time="0.300000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="96.00,703.00,0.00" Time="0.400000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="96.00,703.00,0.00" Time="0.500000" Size="83.20,83.20" Scale="1.30,1.30" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="224.00,365.00,0.00" Time="0.000000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="224.00,365.00,0.00" Time="0.114286" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="224.00,365.00,0.00" Time="0.228571" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="224.00,365.00,0.00" Time="0.342857" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="224.00,365.00,0.00" Time="0.457143" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="224.00,365.00,0.00" Time="0.571429" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="224.00,365.00,0.00" Time="0.685714" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="224.00,365.00,0.00" Time="0.800000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="467.00,285.00,0.00" Time="0.000000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="467.00,285.00,0.00" Time="0.114286" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="467.00,285.00,0.00" Time="0.228571" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="467.00,285.00,0.00" Time="0.342857" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="467.00,285.00,0.00" Time="0.457143" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="467.00,285.00,0.00" Time="0.571429" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="467.00,285.00,0.00" Time="0.685714" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="467.00,285.00,0.00" Time="0.800000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_002" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="509.00,438.00,0.00" Time="0.000000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="509.00,438.00,0.00" Time="0.114286" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="509.00,438.00,0.00" Time="0.228571" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="509.00,438.00,0.00" Time="0.342857" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="509.00,438.00,0.00" Time="0.457143" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="509.00,438.00,0.00" Time="0.571429" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="509.00,438.00,0.00" Time="0.685714" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="509.00,438.00,0.00" Time="0.800000" Size="52.80,52.80" Scale="1.20,1.20" Angles="60.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_002" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="455.00,249.00,0.00" Time="0.000000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="455.00,249.00,0.00" Time="0.100000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="455.00,249.00,0.00" Time="0.200000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="455.00,249.00,0.00" Time="0.300000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="455.00,249.00,0.00" Time="0.400000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="455.00,249.00,0.00" Time="0.500000" Size="51.20,51.20" Scale="0.80,0.80" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_003" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="514.00,251.00,0.00" Time="0.000000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="514.00,251.00,0.00" Time="0.100000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="514.00,251.00,0.00" Time="0.200000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="514.00,251.00,0.00" Time="0.300000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="514.00,251.00,0.00" Time="0.400000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="514.00,251.00,0.00" Time="0.500000" Size="51.20,51.20" Scale="0.80,0.80" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_004" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="247.00,308.00,0.00" Time="0.000000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="247.00,308.00,0.00" Time="0.100000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="247.00,308.00,0.00" Time="0.200000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="247.00,308.00,0.00" Time="0.300000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="247.00,308.00,0.00" Time="0.400000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="247.00,308.00,0.00" Time="0.500000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,-30.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_005" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="165.00,315.00,0.00" Time="0.000000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="165.00,315.00,0.00" Time="0.100000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="165.00,315.00,0.00" Time="0.200000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="165.00,315.00,0.00" Time="0.300000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="165.00,315.00,0.00" Time="0.400000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="165.00,315.00,0.00" Time="0.500000" Size="30.72,30.72" Scale="0.48,0.48" Angles="0.00,180.00,0.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_003" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="95.00,790.00,0.00" Time="0.000000" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="95.00,790.00,0.00" Time="0.142857" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="95.00,790.00,0.00" Time="0.285714" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="95.00,790.00,0.00" Time="0.428571" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="95.00,790.00,0.00" Time="0.571429" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="95.00,790.00,0.00" Time="0.714286" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="95.00,790.00,0.00" Time="0.857143" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="95.00,790.00,0.00" Time="1.000000" Size="52.80,52.80" Scale="1.20,1.20" Angles="20.00,0.00,0.00" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_Fall_A_004" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="612.00,773.00,0.00" Time="0.000000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_000" />
+            <PointDataList Index="1" Position="612.00,773.00,0.00" Time="0.120000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_001" />
+            <PointDataList Index="2" Position="612.00,773.00,0.00" Time="0.240000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_002" />
+            <PointDataList Index="3" Position="612.00,773.00,0.00" Time="0.360000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+            <PointDataList Index="4" Position="612.00,773.00,0.00" Time="0.480000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_004" />
+            <PointDataList Index="5" Position="612.00,773.00,0.00" Time="0.600000" Size="50.22,53.46" Scale="1.62,1.62" Angles="0.00,180.00,10.00" PIName="Main_Map" ImageName="River_Fall_A_003" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_A_006" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="655.00,813.00,0.00" Time="0.000000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_000" />
+            <PointDataList Index="1" Position="655.00,813.00,0.00" Time="0.100000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+            <PointDataList Index="2" Position="655.00,813.00,0.00" Time="0.200000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="3" Position="655.00,813.00,0.00" Time="0.300000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_003" />
+            <PointDataList Index="4" Position="655.00,813.00,0.00" Time="0.400000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_002" />
+            <PointDataList Index="5" Position="655.00,813.00,0.00" Time="0.500000" Size="83.20,83.20" Scale="1.30,1.30" Angles="0.00,180.00,40.00" PIName="Main_Map" ImageName="Water_Fall_A_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_005" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="893.00,787.00,0.00" Time="0.000000" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="893.00,787.00,0.00" Time="0.185714" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="893.00,787.00,0.00" Time="0.371429" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="893.00,787.00,0.00" Time="0.557143" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="893.00,787.00,0.00" Time="0.742857" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="893.00,787.00,0.00" Time="0.928571" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="893.00,787.00,0.00" Time="1.114286" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="893.00,787.00,0.00" Time="1.300000" Size="46.20,46.20" Scale="1.05,1.05" Angles="0.00,0.00,220.00" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_B_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="114.00,656.00,0.00" Time="0.000000" Size="46.00,79.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_B_000" />
+            <PointDataList Index="1" Position="114.00,656.00,0.00" Time="0.120000" Size="46.00,79.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_B_001" />
+            <PointDataList Index="2" Position="114.00,656.00,0.00" Time="0.240000" Size="46.00,79.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Water_Fall_B_002" />
+            <PointDataList Index="3" Position="114.00,656.00,0.00" Time="0.360000" Size="46.00,79.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_B_000" />
+            <PointDataList Index="4" Position="114.00,656.00,0.00" Time="0.480000" Size="46.00,79.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Water_Fall_B_001" />
+            <PointDataList Index="5" Position="114.00,656.00,0.00" Time="0.600000" Size="46.00,79.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Water_Fall_B_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Fall_B_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="579.00,621.00,0.00" Time="0.000000" Size="23.00,39.50" Scale="0.50,0.50" PIName="Main_Map" ImageName="Water_Fall_B_000" />
+            <PointDataList Index="1" Position="579.00,621.00,0.00" Time="0.120000" Size="23.00,39.50" Scale="0.50,0.50" PIName="Main_Map" ImageName="Water_Fall_B_001" />
+            <PointDataList Index="2" Position="579.00,621.00,0.00" Time="0.240000" Size="23.00,39.50" Scale="0.50,0.50" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Water_Fall_B_002" />
+            <PointDataList Index="3" Position="579.00,621.00,0.00" Time="0.360000" Size="23.00,39.50" Scale="0.50,0.50" PIName="Main_Map" ImageName="Water_Fall_B_000" />
+            <PointDataList Index="4" Position="579.00,621.00,0.00" Time="0.480000" Size="23.00,39.50" Scale="0.50,0.50" PIName="Main_Map" ImageName="Water_Fall_B_001" />
+            <PointDataList Index="5" Position="579.00,621.00,0.00" Time="0.600000" Size="23.00,39.50" Scale="0.50,0.50" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Water_Fall_B_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="591.00,528.00,0.00" Time="0.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_000" />
+            <PointDataList Index="1" Position="591.00,528.00,0.00" Time="1.000000" Size="1441.28,1279.08" Scale="5.63,5.61" PIName="Main_Map" ImageName="Nami_000" />
+            <PointDataList Index="2" Position="591.00,528.00,0.00" Time="2.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_001" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="591.00,526.00,0.00" Time="0.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_001" />
+            <PointDataList Index="1" Position="591.00,526.00,0.00" Time="1.000000" Size="1441.28,1279.08" Scale="5.63,5.61" PIName="Main_Map" ImageName="Nami_001" />
+            <PointDataList Index="2" Position="591.00,526.00,0.00" Time="2.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_002" BehaviorUpdate="1" StartTime="0.800000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="591.00,528.00,0.00" Time="0.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Nami_002" />
+            <PointDataList Index="1" Position="591.00,528.00,0.00" Time="1.000000" Size="1441.28,1279.08" Scale="5.63,5.61" PIName="Main_Map" ImageName="Nami_002" />
+            <PointDataList Index="2" Position="591.00,528.00,0.00" Time="2.000000" Size="1441.28,1279.08" Scale="5.63,5.61" Color="1.00,1.00,1.00,0.50" PIName="Main_Map" ImageName="Nami_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_006" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="279.00,1025.00,0.00" Time="0.000000" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="279.00,1025.00,0.00" Time="0.185714" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="279.00,1025.00,0.00" Time="0.371429" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="279.00,1025.00,0.00" Time="0.557143" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="279.00,1025.00,0.00" Time="0.742857" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="279.00,1025.00,0.00" Time="0.928571" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="279.00,1025.00,0.00" Time="1.114286" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="279.00,1025.00,0.00" Time="1.300000" Size="59.84,59.84" Scale="1.36,1.36" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="River_E_007" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="8" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="185.00,1061.00,0.00" Time="0.000000" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_000" />
+            <PointDataList Index="1" Position="185.00,1061.00,0.00" Time="0.185714" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+            <PointDataList Index="2" Position="185.00,1061.00,0.00" Time="0.371429" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="3" Position="185.00,1061.00,0.00" Time="0.557143" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="4" Position="185.00,1061.00,0.00" Time="0.742857" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_004" />
+            <PointDataList Index="5" Position="185.00,1061.00,0.00" Time="0.928571" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_003" />
+            <PointDataList Index="6" Position="185.00,1061.00,0.00" Time="1.114286" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_002" />
+            <PointDataList Index="7" Position="185.00,1061.00,0.00" Time="1.300000" Size="78.76,78.76" Scale="1.79,1.79" Color="1.00,1.00,1.00,0.30" PIName="Main_Map" ImageName="River_E_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shine" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="1625.00,100.00,0.00" Time="0.000000" Size="100.00,280.00" Scale="1.00,1.00" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="1" Position="1512.20,-2.40,0.00" Time="0.600000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="2" Position="1399.40,-104.80,0.00" Time="1.200000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="3" Position="1286.60,-207.20,0.00" Time="1.800000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="4" Position="1173.80,-309.60,0.00" Time="2.400000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="5" Position="1061.00,-412.00,0.00" Time="3.000000" Size="78.00,1313.20" Scale="0.78,4.69" Angles="0.00,180.00,-30.00" Color="2.00,0.90,0.80,0.80" PIName="Main_Map" ImageName="Shine" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shine_001" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="1633.00,111.00,0.00" Time="0.000000" Size="100.00,280.00" Scale="1.00,1.00" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="1" Position="1520.20,8.60,0.00" Time="0.600000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="2" Position="1407.40,-93.80,0.00" Time="1.200000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="3" Position="1294.60,-196.20,0.00" Time="1.800000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="4" Position="1181.80,-298.60,0.00" Time="2.400000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="5" Position="1069.00,-401.00,0.00" Time="3.000000" Size="78.00,1313.20" Scale="0.78,4.69" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.80" PIName="Main_Map" ImageName="Shine" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shine_002" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="1640.00,99.00,0.00" Time="0.000000" Size="100.00,280.00" Scale="1.00,1.00" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="1" Position="1527.20,-3.40,0.00" Time="0.600000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="2" Position="1414.40,-105.80,0.00" Time="1.200000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="3" Position="1301.60,-208.20,0.00" Time="1.800000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="4" Position="1188.80,-310.60,0.00" Time="2.400000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="5" Position="1076.00,-413.00,0.00" Time="3.000000" Size="78.00,1313.20" Scale="0.78,4.69" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shine_003" BehaviorUpdate="1" StartTime="1.500000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="1669.00,91.00,0.00" Time="0.000000" Size="100.00,280.00" Scale="1.00,1.00" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="1" Position="1556.20,-11.40,0.00" Time="0.600000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="2" Position="1443.40,-113.80,0.00" Time="1.200000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="3" Position="1330.60,-216.20,0.00" Time="1.800000" Size="234.00,3936.80" Scale="2.34,14.06" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="4" Position="1217.80,-318.60,0.00" Time="2.400000" Size="156.00,2626.40" Scale="1.56,9.38" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+            <PointDataList Index="5" Position="1105.00,-421.00,0.00" Time="3.000000" Size="78.00,1313.20" Scale="0.78,4.69" Angles="0.00,180.00,-30.00" Color="1.00,1.00,1.00,0.90" PIName="Main_Map" ImageName="Shine" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_001" StartTime="0.200000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1281.00,363.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="1281.00,363.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="1281.00,363.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="1281.00,363.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="1281.00,363.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="1281.00,363.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="1281.00,363.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="1281.00,363.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="1281.00,363.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="1281.00,363.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_002" StartTime="0.400000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1290.00,377.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="1290.00,377.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="1290.00,377.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="1290.00,377.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="1290.00,377.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="1290.00,377.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="1290.00,377.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="1290.00,377.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="1290.00,377.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="1290.00,377.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_003" StartTime="0.600000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1257.00,370.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="1257.00,370.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="1257.00,370.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="1257.00,370.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="1257.00,370.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="1257.00,370.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="1257.00,370.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="1257.00,370.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="1257.00,370.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="1257.00,370.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_A_001" StartTime="0.300000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="995.00,333.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="995.00,333.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="995.00,333.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="995.00,333.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="995.00,333.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="995.00,333.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="995.00,333.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="995.00,333.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="995.00,333.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="995.00,333.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_A_002" StartTime="0.700000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="970.00,334.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="970.00,334.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="970.00,334.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="970.00,334.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="970.00,334.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="970.00,334.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="970.00,334.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="970.00,334.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="970.00,334.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="970.00,334.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_B_001" StartTime="0.200000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="790.00,229.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="790.00,229.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="790.00,229.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="790.00,229.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="790.00,229.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="790.00,229.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="790.00,229.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="790.00,229.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="790.00,229.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="790.00,229.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_B_002" StartTime="0.400000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="820.00,226.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="820.00,226.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="820.00,226.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="820.00,226.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="820.00,226.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="820.00,226.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="820.00,226.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="820.00,226.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="820.00,226.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="820.00,226.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_B_003" StartTime="0.600000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="848.00,226.00,0.00" Time="0.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="848.00,226.00,0.00" Time="0.062500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="848.00,226.00,0.00" Time="0.125000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="848.00,226.00,0.00" Time="0.187500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="848.00,226.00,0.00" Time="0.250000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="848.00,226.00,0.00" Time="0.312500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="848.00,226.00,0.00" Time="0.375000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="848.00,226.00,0.00" Time="0.437500" Size="12.80,12.80" Scale="0.20,0.20" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="848.00,226.00,0.00" Time="0.500000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="848.00,226.00,0.00" Time="2.000000" Size="12.80,12.80" Scale="0.20,0.20" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_C_001" StartTime="0.200000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="383.00,324.00,0.00" Time="0.000000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="383.00,324.00,0.00" Time="0.062500" Size="10.24,10.24" Scale="0.16,0.16" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="383.00,324.00,0.00" Time="0.125000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="383.00,324.00,0.00" Time="0.187500" Size="10.24,10.24" Scale="0.16,0.16" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="383.00,324.00,0.00" Time="0.250000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="383.00,324.00,0.00" Time="0.312500" Size="10.24,10.24" Scale="0.16,0.16" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="383.00,324.00,0.00" Time="0.375000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="383.00,324.00,0.00" Time="0.437500" Size="10.24,10.24" Scale="0.16,0.16" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="383.00,324.00,0.00" Time="0.500000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="383.00,324.00,0.00" Time="2.000000" Size="10.24,10.24" Scale="0.16,0.16" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_C_002" StartTime="0.400000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="306.00,398.00,0.00" Time="0.000000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="306.00,398.00,0.00" Time="0.062500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="306.00,398.00,0.00" Time="0.125000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="306.00,398.00,0.00" Time="0.187500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="306.00,398.00,0.00" Time="0.250000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="306.00,398.00,0.00" Time="0.312500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="306.00,398.00,0.00" Time="0.375000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="306.00,398.00,0.00" Time="0.437500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="306.00,398.00,0.00" Time="0.500000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="306.00,398.00,0.00" Time="2.000000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_C_003" StartTime="0.250000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="475.00,665.00,0.00" Time="0.000000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="475.00,665.00,0.00" Time="0.062500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="475.00,665.00,0.00" Time="0.125000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="475.00,665.00,0.00" Time="0.187500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="475.00,665.00,0.00" Time="0.250000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="475.00,665.00,0.00" Time="0.312500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="475.00,665.00,0.00" Time="0.375000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="475.00,665.00,0.00" Time="0.437500" Size="14.72,14.72" Scale="0.23,0.23" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="475.00,665.00,0.00" Time="0.500000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="475.00,665.00,0.00" Time="2.000000" Size="14.72,14.72" Scale="0.23,0.23" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Blinblin_D_001" StartTime="0.300000" AnchorType="CenterCenter" Count="10" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="365.00,334.00,0.00" Time="0.000000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="1" Position="365.00,334.00,0.00" Time="0.062500" Size="21.12,21.12" Scale="0.33,0.33" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="2" Position="365.00,334.00,0.00" Time="0.125000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="3" Position="365.00,334.00,0.00" Time="0.187500" Size="21.12,21.12" Scale="0.33,0.33" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="4" Position="365.00,334.00,0.00" Time="0.250000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="5" Position="365.00,334.00,0.00" Time="0.312500" Size="21.12,21.12" Scale="0.33,0.33" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="6" Position="365.00,334.00,0.00" Time="0.375000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="7" Position="365.00,334.00,0.00" Time="0.437500" Size="21.12,21.12" Scale="0.33,0.33" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="8" Position="365.00,334.00,0.00" Time="0.500000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+            <PointDataList Index="9" Position="365.00,334.00,0.00" Time="2.000000" Size="21.12,21.12" Scale="0.33,0.33" Color="1.00,1.00,1.00,0.00" PIName="Main_Map" ImageName="Blinblin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_000" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="863.00,666.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="863.00,666.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="863.00,666.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="863.00,666.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="863.00,666.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="863.00,666.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="891.00,692.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="891.00,692.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="891.00,692.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="891.00,692.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="891.00,692.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="891.00,692.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_002" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="921.00,724.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="921.00,724.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="921.00,724.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="921.00,724.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="921.00,724.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="921.00,724.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_003" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="949.00,755.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="949.00,755.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="949.00,755.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="949.00,755.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="949.00,755.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="949.00,755.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_004" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1000.00,768.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1000.00,768.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1000.00,768.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1000.00,768.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1000.00,768.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1000.00,768.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_005" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1045.00,753.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1045.00,753.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1045.00,753.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1045.00,753.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1045.00,753.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1045.00,753.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_006" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1084.00,738.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1084.00,738.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1084.00,738.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1084.00,738.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1084.00,738.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1084.00,738.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_007" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1055.00,702.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1055.00,702.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1055.00,702.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1055.00,702.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1055.00,702.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1055.00,702.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_008" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1027.00,670.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1027.00,670.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1027.00,670.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1027.00,670.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1027.00,670.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1027.00,670.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_009" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1131.00,749.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1131.00,749.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1131.00,749.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1131.00,749.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1131.00,749.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1131.00,749.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_010" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1182.00,733.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1182.00,733.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1182.00,733.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1182.00,733.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1182.00,733.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1182.00,733.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_011" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1183.00,664.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1183.00,664.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1183.00,664.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1183.00,664.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1183.00,664.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1183.00,664.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_012" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1244.00,746.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1244.00,746.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1244.00,746.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1244.00,746.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1244.00,746.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1244.00,746.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_013" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1281.00,685.00,0.00" Time="0.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1281.00,685.00,0.00" Time="0.400000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1281.00,685.00,0.00" Time="0.800000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1281.00,685.00,0.00" Time="1.200000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1281.00,685.00,0.00" Time="1.600000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1281.00,685.00,0.00" Time="2.000000" Size="42.56,42.56" Scale="1.33,1.33" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_014" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1182.00,697.00,0.00" Time="0.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1182.00,697.00,0.00" Time="0.400000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1182.00,697.00,0.00" Time="0.800000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1182.00,697.00,0.00" Time="1.200000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1182.00,697.00,0.00" Time="1.600000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1182.00,697.00,0.00" Time="2.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_015" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1263.00,714.00,0.00" Time="0.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1263.00,714.00,0.00" Time="0.400000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1263.00,714.00,0.00" Time="0.800000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1263.00,714.00,0.00" Time="1.200000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1263.00,714.00,0.00" Time="1.600000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1263.00,714.00,0.00" Time="2.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sea_Ball_016" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1211.00,740.00,0.00" Time="0.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="1" Position="1211.00,740.00,0.00" Time="0.400000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="2" Position="1211.00,740.00,0.00" Time="0.800000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+            <PointDataList Index="3" Position="1211.00,740.00,0.00" Time="1.200000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_001" />
+            <PointDataList Index="4" Position="1211.00,740.00,0.00" Time="1.600000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_000" />
+            <PointDataList Index="5" Position="1211.00,740.00,0.00" Time="2.000000" Size="31.68,31.68" Scale="0.99,0.99" Color="0.70,1.60,2.00,1.00" PIName="Main_Map" ImageName="Sea_Ball_002" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="157.00,636.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="157.00,636.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="591.00,854.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="591.00,854.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="388.00,182.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="388.00,182.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,195.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="174.00,195.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="809.00,903.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="809.00,903.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="964.00,702.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="964.00,702.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_006" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1090.00,668.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1090.00,668.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_007" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1202.00,673.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1202.00,673.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_008" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1305.00,275.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1305.00,275.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_009" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1093.00,175.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1093.00,175.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="814.00,173.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="814.00,173.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_011" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1077.00,305.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="1077.00,305.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_012" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="820.00,381.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="820.00,381.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_013" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="442.00,347.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="442.00,347.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_014" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="542.00,459.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="542.00,459.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_015" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="611.00,574.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="611.00,574.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_016" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="406.00,596.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="406.00,596.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_017" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="147.00,853.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="147.00,853.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_018" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="307.00,367.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="307.00,367.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_019" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="100.00,443.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="100.00,443.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_020" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="264.00,488.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="264.00,488.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Point_021" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="829.00,759.00,0.00" Time="0.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+            <PointDataList Index="1" Position="829.00,759.00,0.00" Time="5.000000" Size="75.00,74.00" Scale="1.00,1.00" PIName="Main_Map" ImageName="Stage_Point" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Main_Map_Ui_Button" PathCount="7" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="625.00,7.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="625.00,7.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Shop" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="93.00,1137.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Shop" />
+            <PointDataList Index="1" Position="93.00,1137.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Shop" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Gallery" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="298.00,1137.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Gallery" />
+            <PointDataList Index="1" Position="298.00,1137.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Gallery" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fishing_Shop" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="501.00,1136.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Fishing_Shop" />
+            <PointDataList Index="1" Position="501.00,1136.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Fishing_Shop" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Status" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="93.00,1200.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Status" />
+            <PointDataList Index="1" Position="93.00,1200.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Status" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="298.00,1200.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Fish_Poor" />
+            <PointDataList Index="1" Position="298.00,1200.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Fish_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="System" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="501.00,1200.00,0.00" Time="0.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="System" />
+            <PointDataList Index="1" Position="501.00,1200.00,0.00" Time="5.000000" Size="128.00,63.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="System" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Main_Map_Ui_amount" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Money_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="294.00,21.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="294.00,21.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="294.00,89.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="294.00,89.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="561.00,89.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="561.00,89.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Map_To_Stage" PathCount="11" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_To_Stage" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="169.00,394.00,0.00" Time="0.000000" Size="572.80,584.00" Scale="1.60,1.60" PIName="To_Stage_Banner" ImageName="Map_To_Stage" />
+            <PointDataList Index="1" Position="169.00,394.00,0.00" Time="5.000000" Size="572.80,584.00" Scale="1.60,1.60" PIName="To_Stage_Banner" ImageName="Map_To_Stage" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Water_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="239.00,470.00,0.00" Time="0.000000" Size="162.40,33.60" Scale="0.80,0.80" PIName="To_Stage_Banner" ImageName="Stage_Water_001" />
+            <PointDataList Index="1" Position="239.00,470.00,0.00" Time="5.000000" Size="162.40,33.60" Scale="0.80,0.80" PIName="To_Stage_Banner" ImageName="Stage_Water_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Deep_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="335.00,429.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="335.00,429.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Deep_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,429.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="315.00,429.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Kind_Of_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="336.00,532.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="336.00,532.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Kind_Of_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="317.00,532.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="317.00,532.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Stage_Button" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="302.00,606.00,0.00" Time="0.000000" Size="108.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,90.00" PIName="To_Stage_Banner" ImageName="To_Stage_Button" />
+            <PointDataList Index="1" Position="302.00,606.00,0.00" Time="5.000000" Size="108.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,90.00" PIName="To_Stage_Banner" ImageName="To_Stage_Button" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Close_Button" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="535.00,335.00,0.00" Time="0.000000" Size="36.60,51.24" Scale="0.61,0.61" PIName="To_Stage_Banner" ImageName="Close_Button" />
+            <PointDataList Index="1" Position="535.00,335.00,0.00" Time="5.000000" Size="36.60,51.24" Scale="0.61,0.61" PIName="To_Stage_Banner" ImageName="Close_Button" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="477.00,584.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="477.00,584.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="459.00,584.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="459.00,584.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="286.00,381.00,0.00" Time="0.000000" Size="249.60,40.80" Scale="1.20,1.20" PIName="Stage_Banner_Name" ImageName="Stage_001" />
+            <PointDataList Index="1" Position="286.00,381.00,0.00" Time="5.000000" Size="249.60,40.80" Scale="1.20,1.20" PIName="Stage_Banner_Name" ImageName="Stage_001" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Release_Stage" PathCount="15" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_To_Stage" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="169.00,394.00,0.00" Time="0.000000" Size="572.80,584.00" Scale="1.60,1.60" PIName="To_Stage_Banner" ImageName="Map_To_Stage" />
+            <PointDataList Index="1" Position="169.00,394.00,0.00" Time="5.000000" Size="572.80,584.00" Scale="1.60,1.60" PIName="To_Stage_Banner" ImageName="Map_To_Stage" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Water_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="239.00,470.00,0.00" Time="0.000000" Size="162.40,33.60" Scale="0.80,0.80" PIName="To_Stage_Banner" ImageName="Stage_Water_001" />
+            <PointDataList Index="1" Position="239.00,470.00,0.00" Time="5.000000" Size="162.40,33.60" Scale="0.80,0.80" PIName="To_Stage_Banner" ImageName="Stage_Water_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Deep_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="335.00,429.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="335.00,429.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Water_Deep_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,429.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="315.00,429.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Kind_Of_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="336.00,532.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="336.00,532.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Kind_Of_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="317.00,532.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="317.00,532.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Close_Button" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="535.00,335.00,0.00" Time="0.000000" Size="36.00,50.40" Scale="0.60,0.60" PIName="To_Stage_Banner" ImageName="Close_Button" />
+            <PointDataList Index="1" Position="535.00,335.00,0.00" Time="5.000000" Size="36.00,50.40" Scale="0.60,0.60" PIName="To_Stage_Banner" ImageName="Close_Button" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="477.00,584.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="477.00,584.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="459.00,584.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="459.00,584.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Release_Fee" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="160.00,768.00,0.00" Time="0.000000" Size="181.50,40.50" Scale="1.50,1.50" PIName="To_Stage_Banner" ImageName="Release_Fee" />
+            <PointDataList Index="1" Position="160.00,768.00,0.00" Time="5.000000" Size="181.50,40.50" Scale="1.50,1.50" PIName="To_Stage_Banner" ImageName="Release_Fee" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Release_Fee_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="330.00,772.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="330.00,772.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Release_Fee_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="351.00,772.00,0.00" Time="0.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+            <PointDataList Index="1" Position="351.00,772.00,0.00" Time="5.000000" Size="16.00,35.00" Scale="1.00,1.00" PIName="To_Stage_Banner" ImageName="To_Stage_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Release" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="302.00,606.00,0.00" Time="0.000000" Size="108.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,90.00" PIName="To_Stage_Banner" ImageName="Stage_Release" />
+            <PointDataList Index="1" Position="302.00,606.00,0.00" Time="5.000000" Size="108.00,191.00" Scale="1.00,1.00" Angles="0.00,0.00,90.00" PIName="To_Stage_Banner" ImageName="Stage_Release" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Coin_Icon" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="536.00,769.00,0.00" Time="0.000000" Size="57.00,57.00" Scale="1.50,1.50" PIName="To_Stage_Banner" ImageName="Coin_Icon" />
+            <PointDataList Index="1" Position="536.00,769.00,0.00" Time="5.000000" Size="57.00,57.00" Scale="1.50,1.50" PIName="To_Stage_Banner" ImageName="Coin_Icon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="286.00,381.00,0.00" Time="0.000000" Size="249.60,40.80" Scale="1.20,1.20" PIName="Stage_Banner_Name" ImageName="Stage_001" />
+            <PointDataList Index="1" Position="286.00,381.00,0.00" Time="5.000000" Size="249.60,40.80" Scale="1.20,1.20" PIName="Stage_Banner_Name" ImageName="Stage_001" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

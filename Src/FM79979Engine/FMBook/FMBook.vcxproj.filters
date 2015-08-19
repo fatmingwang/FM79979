@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="FMBook">
+      <UniqueIdentifier>{b2d7c702-fbff-4e1e-9f9c-4a997c957eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FMBook\Event">
+      <UniqueIdentifier>{66348c62-aef7-4835-880c-6c5b80de3801}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="BookMode.cpp">
+      <Filter>FMBook</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorDataSetup.cpp">
+      <Filter>FMBook</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorMode.cpp">
+      <Filter>FMBook</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>FMBook</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraBehavoir.cpp">
+      <Filter>FMBook\Event</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllFatmingBookInclude.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="BookMode.h">
+      <Filter>FMBook</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorMode.h">
+      <Filter>FMBook</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>FMBook</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraBehavoir.h">
+      <Filter>FMBook\Event</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

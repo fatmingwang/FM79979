@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B1259A40-B047-4003-8F2E-E46B99845C56}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FMBookEditorUI</RootNamespace>
+    <AssemblyName>FMBookEditorUI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\..\..\Media\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\..\Media\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'RamDiskDebug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>e:\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'RamDiskRelease|AnyCPU' ">
+    <OutputPath>e:\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Windows\Microsoft.NET\Framework\v2.0.50727\System.Windows.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EventObjectInstanceContentUI.xaml.cs">
+      <DependentUpon>EventObjectInstanceContentUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventObjectInstanceList.xaml.cs">
+      <DependentUpon>EventObjectInstanceList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventObjectStatusList.xaml.cs">
+      <DependentUpon>EventObjectStatusList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventPacjagesData.xaml.cs">
+      <DependentUpon>EventPacjagesData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventButtonSelectedActiver.xaml.cs">
+      <DependentUpon>EventButtonSelectedActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventExternalFunctionCallActiver.xaml.cs">
+      <DependentUpon>EventExternalFunctionCallActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventListValueSelectionActiver.xaml.cs">
+      <DependentUpon>EventListValueSelectionActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventValueChangeActiver.xaml.cs">
+      <DependentUpon>EventValueChangeActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventAddEventObjectInstaceActiver.xaml.cs">
+      <DependentUpon>EventAddEventObjectInstaceActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventObjecInstanceStatusChangeActiver.xaml.cs">
+      <DependentUpon>EventObjecInstanceStatusChangeActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Activer\EventVariableCheckYesAndNoActiver.xaml.cs">
+      <DependentUpon>EventVariableCheckYesAndNoActiver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventInstance.xaml.cs">
+      <DependentUpon>EventInstance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventButton.xaml.cs">
+      <DependentUpon>EventButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventButtonTrigger.xaml.cs">
+      <DependentUpon>EventButtonTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventKeyUpDectectTrigger.xaml.cs">
+      <DependentUpon>EventKeyUpDectectTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventMultiButtonTrigger.xaml.cs">
+      <DependentUpon>EventMultiButtonTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventSelectionCheckerTrigger.xaml.cs">
+      <DependentUpon>EventSelectionCheckerTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventValueCheckerTrigger.xaml.cs">
+      <DependentUpon>EventValueCheckerTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventMouseTrigger.xaml.cs">
+      <DependentUpon>EventMouseTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Event\Trigger\EventObjectStatusCheckerTrigger.xaml.cs">
+      <DependentUpon>EventObjectStatusCheckerTrigger.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMBookUI.xaml.cs">
+      <DependentUpon>FMBookUI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventObjectStatus.xaml.cs">
+      <DependentUpon>EventObjectStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventInstanceList.xaml.cs">
+      <DependentUpon>EventInstanceList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventPackages.xaml.cs">
+      <DependentUpon>EventPackages.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="EventVariableManager.xaml.cs">
+      <DependentUpon>EventVariableManager.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="EventObjectInstanceContentUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventObjectInstanceList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventObjectStatusList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventPacjagesData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventButtonSelectedActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventExternalFunctionCallActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventListValueSelectionActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventValueChangeActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventAddEventObjectInstaceActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventObjecInstanceStatusChangeActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Activer\EventVariableCheckYesAndNoActiver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventInstance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventButtonTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventKeyUpDectectTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventMultiButtonTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventSelectionCheckerTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventValueCheckerTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventMouseTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Event\Trigger\EventObjectStatusCheckerTrigger.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FMBookUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FMBookUIResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventObjectStatus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventInstanceList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventPackages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventVariableManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CoreWPF\CoreWPF.csproj">
+      <Project>{465DD0FB-BE46-4E00-A957-816464E15056}</Project>
+      <Name>CoreWPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

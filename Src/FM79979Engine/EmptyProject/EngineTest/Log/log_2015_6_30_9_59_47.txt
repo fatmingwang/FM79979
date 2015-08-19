@@ -1,0 +1,19 @@
+[09:59:51] init shader
+[09:59:51] init shader ok
+[09:59:51] parse font data
+[10:00:03] read font info failed
+[10:00:03] ./Font.FontInfo
+[10:00:05] parse font data ok
+[10:00:05] file MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi open failed! uft8 or file is not exist!?
+[10:00:05] MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi
+[10:00:05] MPDIList parse failed
+[10:00:06] file ParticleData/Stage1.prtg open failed! uft8 or file is not exist!?
+[10:00:06] ParticleData/Stage1.prtg
+[10:00:06] parse failed
+[10:00:07] file ParticleData/Smoke.prt open failed! uft8 or file is not exist!?
+[10:00:07] ParticleData/Smoke.prt
+[10:00:07] parse failed
+[10:00:10] Destroy start
+[10:00:10] all Destroy done
+[10:00:10] Destroy start
+[10:00:10] all Destroy done

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="books">
+      <UniqueIdentifier>{01259258-77a8-46e4-9500-9309144084d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\coupled">
+      <UniqueIdentifier>{e40d7a7e-320d-48a7-a05c-52fde6de5357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\floor">
+      <UniqueIdentifier>{a3d5fa2c-f9fd-466d-acb2-6e883aad6199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\uncoupled">
+      <UniqueIdentifier>{7db545b5-276b-4079-a140-9890947a1ea0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modes">
+      <UniqueIdentifier>{f10026ea-55ed-40f7-8114-b4d70adad222}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ogg">
+      <UniqueIdentifier>{9137aa9e-992b-49a8-8617-4904203262d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vorbis">
+      <UniqueIdentifier>{59e71503-ce7f-4f30-ad11-3c591ce8d1c2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="books\coupled\res_books_stereo.h">
+      <Filter>books\coupled</Filter>
+    </ClInclude>
+    <ClInclude Include="books\floor\floor_books.h">
+      <Filter>books\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="books\uncoupled\res_books_uncoupled.h">
+      <Filter>books\uncoupled</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\floor_all.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\psych_11.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\psych_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\psych_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\psych_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\residue_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\residue_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\residue_44u.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\residue_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_11.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_22.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_32.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_44u.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="modes\setup_X.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="ogg\ogg.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="ogg\os_types.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="vorbis\codec.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="vorbis\vorbisenc.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="vorbis\vorbisfile.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="vorbis\vorbisfile_windows.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="backends.h" />
+    <ClInclude Include="bitrate.h" />
+    <ClInclude Include="codebook.h" />
+    <ClInclude Include="codec_internal.h" />
+    <ClInclude Include="envelope.h" />
+    <ClInclude Include="highlevel.h" />
+    <ClInclude Include="lookup.h" />
+    <ClInclude Include="lookup_data.h" />
+    <ClInclude Include="lpc.h" />
+    <ClInclude Include="lsp.h" />
+    <ClInclude Include="masking.h" />
+    <ClInclude Include="mdct.h" />
+    <ClInclude Include="misc.h" />
+    <ClInclude Include="os.h" />
+    <ClInclude Include="psy.h" />
+    <ClInclude Include="registry.h" />
+    <ClInclude Include="scales.h" />
+    <ClInclude Include="smallft.h" />
+    <ClInclude Include="window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="analysis.c" />
+    <ClCompile Include="barkmel.c" />
+    <ClCompile Include="bitrate.c" />
+    <ClCompile Include="bitwise.c" />
+    <ClCompile Include="block.c" />
+    <ClCompile Include="codebook.c" />
+    <ClCompile Include="envelope.c" />
+    <ClCompile Include="floor0.c" />
+    <ClCompile Include="floor1.c" />
+    <ClCompile Include="framing.c" />
+    <ClCompile Include="info.c" />
+    <ClCompile Include="lookup.c" />
+    <ClCompile Include="lpc.c" />
+    <ClCompile Include="lsp.c" />
+    <ClCompile Include="mapping0.c" />
+    <ClCompile Include="mdct.c" />
+    <ClCompile Include="psy.c" />
+    <ClCompile Include="registry.c" />
+    <ClCompile Include="res0.c" />
+    <ClCompile Include="sharedbook.c" />
+    <ClCompile Include="smallft.c" />
+    <ClCompile Include="synthesis.c" />
+    <ClCompile Include="vorbisenc.c" />
+    <ClCompile Include="vorbisfile.c" />
+    <ClCompile Include="window.c" />
+  </ItemGroup>
+</Project>

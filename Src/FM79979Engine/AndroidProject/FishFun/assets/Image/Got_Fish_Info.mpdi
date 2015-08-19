@@ -1,0 +1,162 @@
+<MPDIList Name="Got_Fish_Info_mpdi" Count="4" MPDIVersion="1.3" PICount="2" ImageName="Main_Map_Ui.pi,Got_Fish_Info.pi">
+    <MultiPathDynamicImage Name="Got_Fish_Info" PathCount="19" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Info_Bottom" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="292.00,1168.00,0.00" Time="0.000000" Size="724.68,199.85" Scale="5.49,5.71" PIName="Got_Fish_Info" ImageName="Info_Bottom" />
+            <PointDataList Index="1" Position="292.00,1168.00,0.00" Time="5.000000" Size="724.68,199.85" Scale="5.49,5.71" PIName="Got_Fish_Info" ImageName="Info_Bottom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="207.00,193.00,0.00" Time="0.000000" Size="264.00,77.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info" />
+            <PointDataList Index="1" Position="207.00,193.00,0.00" Time="5.000000" Size="264.00,77.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Put_In_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="553.00,179.00,0.00" Time="0.000000" Size="97.00,128.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="Got_Fish_Info" ImageName="Put_In_Poor" />
+            <PointDataList Index="1" Position="553.00,179.00,0.00" Time="5.000000" Size="97.00,128.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="Got_Fish_Info" ImageName="Put_In_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="235.00,329.00,0.00" Time="0.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+            <PointDataList Index="1" Position="235.00,329.00,0.00" Time="5.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="214.00,513.00,0.00" Time="0.000000" Size="264.00,117.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Detial" />
+            <PointDataList Index="1" Position="214.00,513.00,0.00" Time="5.000000" Size="264.00,117.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fishs_Name_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,517.00,0.00" Time="0.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+            <PointDataList Index="1" Position="217.00,517.00,0.00" Time="5.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fishs_Name_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="248.00,517.00,0.00" Time="0.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+            <PointDataList Index="1" Position="248.00,517.00,0.00" Time="5.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Money" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="25.00,1101.00,0.00" Time="0.000000" Size="146.00,162.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Money" />
+            <PointDataList Index="1" Position="25.00,1101.00,0.00" Time="5.000000" Size="146.00,162.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Money" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,1111.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="174.00,1111.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="194.00,1111.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="194.00,1111.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,1200.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="174.00,1200.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="194.00,1200.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="194.00,1200.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sell_All" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="435.00,1125.00,0.00" Time="0.000000" Size="267.00,114.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Sell_All" />
+            <PointDataList Index="1" Position="435.00,1125.00,0.00" Time="5.000000" Size="267.00,114.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Sell_All" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="239.00,652.00,0.00" Time="0.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+            <PointDataList Index="1" Position="239.00,652.00,0.00" Time="5.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="629.00,4.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="629.00,4.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="452.00,522.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="452.00,522.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="402.00,557.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="402.00,557.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="382.00,595.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="382.00,595.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Info_Bg" PathCount="8" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Info_Bottom" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="292.00,1168.00,0.00" Time="0.000000" Size="724.68,199.85" Scale="5.49,5.71" PIName="Got_Fish_Info" ImageName="Info_Bottom" />
+            <PointDataList Index="1" Position="292.00,1168.00,0.00" Time="5.000000" Size="724.68,199.85" Scale="5.49,5.71" PIName="Got_Fish_Info" ImageName="Info_Bottom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="207.00,193.00,0.00" Time="0.000000" Size="264.00,77.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info" />
+            <PointDataList Index="1" Position="207.00,193.00,0.00" Time="5.000000" Size="264.00,77.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Money" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="25.00,1101.00,0.00" Time="0.000000" Size="146.00,162.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Money" />
+            <PointDataList Index="1" Position="25.00,1101.00,0.00" Time="5.000000" Size="146.00,162.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Money" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,1111.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="174.00,1111.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="194.00,1111.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="194.00,1111.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="174.00,1200.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="174.00,1200.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Money_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="194.00,1200.00,0.00" Time="0.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+            <PointDataList Index="1" Position="194.00,1200.00,0.00" Time="5.000000" Size="17.00,43.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Money_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Info_Button" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Put_In_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="553.00,179.00,0.00" Time="0.000000" Size="97.00,128.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="Got_Fish_Info" ImageName="Put_In_Poor" />
+            <PointDataList Index="1" Position="553.00,179.00,0.00" Time="5.000000" Size="97.00,128.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="Got_Fish_Info" ImageName="Put_In_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Sell_All" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="435.00,1125.00,0.00" Time="0.000000" Size="267.00,114.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Sell_All" />
+            <PointDataList Index="1" Position="435.00,1125.00,0.00" Time="5.000000" Size="267.00,114.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Sell_All" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="629.00,4.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="629.00,4.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Info" PathCount="8" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Fish_Info_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="37.00,15.00,0.00" Time="0.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+            <PointDataList Index="1" Position="37.00,15.00,0.00" Time="5.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="16.00,197.00,0.00" Time="0.000000" Size="264.00,117.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Detial" />
+            <PointDataList Index="1" Position="16.00,197.00,0.00" Time="5.000000" Size="264.00,117.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fishs_Name_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="19.00,203.00,0.00" Time="0.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+            <PointDataList Index="1" Position="19.00,203.00,0.00" Time="5.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Got_Fishs_Name_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="50.00,203.00,0.00" Time="0.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+            <PointDataList Index="1" Position="50.00,203.00,0.00" Time="5.000000" Size="38.00,39.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Got_Fishs_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Info_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="41.00,338.00,0.00" Time="0.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+            <PointDataList Index="1" Position="41.00,338.00,0.00" Time="5.000000" Size="222.00,161.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Fish_Info_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="254.00,208.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="254.00,208.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="204.00,243.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="204.00,243.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Amount_Of_Fish_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="184.00,281.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="184.00,281.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Got_Fish_Info" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

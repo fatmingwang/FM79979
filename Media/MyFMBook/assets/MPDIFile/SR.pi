@@ -1,0 +1,5 @@
+<!-- Author:YangHong,Time:2012/8/1 ¤W¤È 10:24:46 -->
+<PuzzleImage OriginalNameSort="Office_PantryRoom,Role" ImageName="SR.png" Count="2" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Office_PantryRoom" UV="0,0,0.9309091,0.4954839" OffsetPos="0,0" Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Role" UV="0,0.496129,0.9309091,0.9916129" OffsetPos="0,0" Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,769" />
+</PuzzleImage>

@@ -1,0 +1,22 @@
+#ifndef _EVENT_EXTERNAL_FUNCTION_CALL_ACTIVER_ACTIVER_H_
+#define _EVENT_EXTERNAL_FUNCTION_CALL_ACTIVER_ACTIVER_H_
+
+namespace FATMING_CORE
+{
+	class	cEventVariable;
+	class	cEventExternalFunctionCallActiver:public cEventBase
+	{
+		std::wstring					m_strExternamFunctionName;
+		virtual	void					InternalInit();
+		virtual	void					InternalUpdate(float e_fElpasedTime);
+	public:
+		DEFINE_TYPE_INFO();
+		cEventExternalFunctionCallActiver(TiXmlElement*e_pTiXmlElement);
+		cEventExternalFunctionCallActiver(cEventExternalFunctionCallActiver*e_pEventExternalFunctionCallActiver);
+		EVENT_CLONE_DEFINE(cEventExternalFunctionCallActiver);
+		virtual ~cEventExternalFunctionCallActiver();
+		virtual	TiXmlElement*		ToTiXmlElement();
+	};
+}
+
+#endif

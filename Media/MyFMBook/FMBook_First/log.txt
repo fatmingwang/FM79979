@@ -1,0 +1,4 @@
+[23:02:05] init shader
+[23:02:06] init shader ok
+[23:02:06] parse font data
+[23:02:06] parse font data ok

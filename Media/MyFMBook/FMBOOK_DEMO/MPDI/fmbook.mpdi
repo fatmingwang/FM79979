@@ -1,0 +1,345 @@
+<Version MPDIVersion="1.0" />
+<MPDIList Name="fmbook_mpdi" Count="10" PICount="1" ImageName="FM.pi">
+    <MultiPathDynamicImage Name="cover01" PathCount="11" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="750.00,384.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="10.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane" BehaviorUpdate="1" StartTime="0.000000" Count="8" LOD="1">
+            <PointDataList Index="0" Position="98.00,800.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,712.00,0.00" Time="0.142857" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="2" Position="98.00,583.00,0.00" Time="0.285714" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="3" Position="98.00,452.00,0.00" Time="0.428571" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="4" Position="98.00,320.00,0.00" Time="0.571429" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="5" Position="98.00,189.00,0.00" Time="0.714286" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="6" Position="98.00,57.00,0.00" Time="0.857143" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="7" Position="98.00,-62.00,0.00" Time="1.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane2" BehaviorUpdate="1" StartTime="1.000000" Count="5" LOD="1">
+            <PointDataList Index="0" Position="98.00,800.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,712.00,0.00" Time="0.125000" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="2" Position="98.00,583.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="3" Position="98.00,452.00,0.00" Time="0.375000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="4" Position="98.00,320.00,0.00" Time="0.500000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane3" BehaviorUpdate="1" StartTime="1.500000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.125000" Size="126.00,151.20" Color="1.000,1.000,1.000,0.392" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="2" Position="98.00,320.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane4" BehaviorUpdate="1" StartTime="1.750000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane_icon" BehaviorUpdate="1" StartTime="2.000000" Count="4" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="111.00,128.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="StoryPlane_01" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.333333" Size="116.55,134.40" PIName="FM" ImageName="StoryPlane_01" />
+            <PointDataList Index="2" Position="98.00,320.00,0.00" Time="0.666667" Size="116.55,134.40" PIName="FM" ImageName="StoryPlane_01" />
+            <PointDataList Index="3" Position="98.00,320.00,0.00" Time="1.000000" Size="111.00,128.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="StoryPlane_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Saybar" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1200.00,384.00,0.00" Time="0.000000" Size="560.00,695.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="1" Position="691.00,384.00,0.00" Time="1.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="2" Position="691.00,384.00,0.00" Time="8.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover02" PathCount="5" PlayCount="-1" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,300.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover1" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover1" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover03" PathCount="6" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="500.00,450.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover3" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover3" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="10.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Saybar" BehaviorUpdate="1" StartTime="1.500000" Count="5" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="691.00,200.00,0.00" Time="0.000000" Size="560.00,695.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="1" Position="691.00,384.00,0.00" Time="1.300000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="2" Position="691.00,420.00,0.00" Time="1.600000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="3" Position="691.00,384.00,0.00" Time="1.800000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="4" Position="691.00,384.00,0.00" Time="8.500000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover04" PathCount="6" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,300.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover4" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover4" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="10.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Saybar" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1200.00,384.00,0.00" Time="0.000000" Size="560.00,695.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="1" Position="691.00,384.00,0.00" Time="3.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="2" Position="691.00,384.00,0.00" Time="8.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover05" PathCount="5" PlayCount="-1" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="650.00,384.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover2" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="0.500000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover2" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover06" PathCount="10" PlayCount="-1" TotalPlayTime="30.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="510.00,450.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover5" />
+            <PointDataList Index="1" Position="510.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.588" PIName="FM" ImageName="cover5" />
+            <PointDataList Index="2" Position="510.00,384.00,0.00" Time="30.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover5" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Saybar" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1200.00,384.00,0.00" Time="0.000000" Size="560.00,695.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="1" Position="691.00,384.00,0.00" Time="1.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="2" Position="691.00,384.00,0.00" Time="28.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChooseBar" StartTime="3.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,410.00,0.00" Time="0.000000" Size="61.00,417.00" PIName="FM" ImageName="ChooseBar" />
+            <PointDataList Index="1" Position="994.00,410.00,0.00" Time="1.000000" Size="61.00,417.00" PIName="FM" ImageName="ChooseBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChooseBar_word" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,410.00,0.00" Time="0.000000" Size="61.00,417.00" PIName="FM" ImageName="ChooseBar_word" />
+            <PointDataList Index="1" Position="994.00,410.00,0.00" Time="0.500000" Size="61.00,417.00" PIName="FM" ImageName="ChooseBar_word" />
+            <PointDataList Index="2" Position="994.00,410.00,0.00" Time="1.000000" Size="61.00,417.00" PIName="FM" ImageName="ChooseBar_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChooseBar_move_up" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="1" StartTime="4.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="993.25,582.00,0.00" Time="0.000000" Size="61.00,82.00" PIName="FM" ImageName="ChooseBar_Move" />
+            <PointDataList Index="1" Position="993.25,253.46,0.00" Time="2.000000" Size="61.00,82.00" Color="1.000,1.000,1.000,0.588" PIName="FM" ImageName="ChooseBar_Move" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChooseBar_move_down" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="1" StartTime="4.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="993.25,253.00,0.00" Time="0.000000" Size="61.00,82.00" Angles="0.00,0.00,180.00" Color="1.000,1.000,1.000,0.588" PIName="FM" ImageName="ChooseBar_Move" />
+            <PointDataList Index="1" Position="993.25,582.46,0.00" Time="2.000000" Size="61.00,82.00" Angles="0.00,0.00,180.00" PIName="FM" ImageName="ChooseBar_Move" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Anser_yes" PathCount="11" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="750.00,384.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="10.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane" BehaviorUpdate="1" StartTime="0.000000" Count="8" LOD="1">
+            <PointDataList Index="0" Position="98.00,800.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,712.00,0.00" Time="0.142857" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="2" Position="98.00,583.00,0.00" Time="0.285714" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="3" Position="98.00,452.00,0.00" Time="0.428571" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="4" Position="98.00,320.00,0.00" Time="0.571429" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="5" Position="98.00,189.00,0.00" Time="0.714286" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="6" Position="98.00,57.00,0.00" Time="0.857143" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="7" Position="98.00,-62.00,0.00" Time="1.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane2" BehaviorUpdate="1" StartTime="1.000000" Count="5" LOD="1">
+            <PointDataList Index="0" Position="98.00,800.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,712.00,0.00" Time="0.125000" Size="102.00,91.00" PIName="FM" ImageName="StoryPlane_B" />
+            <PointDataList Index="2" Position="98.00,583.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="3" Position="98.00,452.00,0.00" Time="0.375000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="4" Position="98.00,320.00,0.00" Time="0.500000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane3" BehaviorUpdate="1" StartTime="1.500000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.125000" Size="126.00,151.20" Color="1.000,1.000,1.000,0.392" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="2" Position="98.00,320.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane4" BehaviorUpdate="1" StartTime="1.750000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.250000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane_icon" BehaviorUpdate="1" StartTime="2.000000" Count="4" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="98.00,320.00,0.00" Time="0.000000" Size="94.00,93.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="FMBOOK" />
+            <PointDataList Index="1" Position="98.00,320.00,0.00" Time="0.333333" Size="94.00,93.00" PIName="FM" ImageName="FMBOOK" />
+            <PointDataList Index="2" Position="98.00,320.00,0.00" Time="0.666667" Size="94.00,93.00" PIName="FM" ImageName="FMBOOK" />
+            <PointDataList Index="3" Position="98.00,320.00,0.00" Time="1.000000" Size="94.00,93.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="FMBOOK" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Saybar" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1200.00,384.00,0.00" Time="0.000000" Size="560.00,695.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="1" Position="691.00,384.00,0.00" Time="1.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+            <PointDataList Index="2" Position="691.00,384.00,0.00" Time="8.000000" Size="560.00,695.00" PIName="FM" ImageName="saybar" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Anser_no" PathCount="5" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="500.00,450.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="79979" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="79979" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="10.000000" Size="1024.00,768.00" PIName="FM" ImageName="79979" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover-O" PathCount="6" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="750.00,384.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover0" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StoryPlane" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="195.00,384.00,0.00" Time="0.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+            <PointDataList Index="1" Position="195.00,384.00,0.00" Time="1.000000" Size="105.00,126.00" PIName="FM" ImageName="StoryPlane_A" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="cover00" PathCount="5" PlayCount="1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="black_bg" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,384.00,0.00" Time="0.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="1.000000" Size="1200.00,800.00" PIName="FM" ImageName="Black" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,450.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.000" PIName="FM" ImageName="cover00" />
+            <PointDataList Index="1" Position="512.00,384.00,0.00" Time="2.000000" Size="1024.00,768.00" Color="1.000,1.000,1.000,0.196" PIName="FM" ImageName="cover00" />
+            <PointDataList Index="2" Position="512.00,384.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="FM" ImageName="cover00" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Down_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,750.00,0.00" Time="0.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+            <PointDataList Index="1" Position="512.00,750.00,0.00" Time="1.000000" Size="1026.00,37.00" PIName="FM" ImageName="DownBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UP_bar" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="512.00,16.00,0.00" Time="0.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+            <PointDataList Index="1" Position="512.00,16.00,0.00" Time="1.000000" Size="1026.00,36.00" PIName="FM" ImageName="UpBar" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="StstemBotton" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="187.00,751.00,0.00" Time="0.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+            <PointDataList Index="1" Position="187.00,751.00,0.00" Time="1.000000" Size="202.00,29.00" PIName="FM" ImageName="SystemBotton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

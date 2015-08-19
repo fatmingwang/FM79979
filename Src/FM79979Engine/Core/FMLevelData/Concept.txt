@@ -1,0 +1,33 @@
+
+
+LevelData:
+		Name:
+		Size:X,Y(X*Y equal the count o GridData)
+		
+		
+LevelLayerData:
+		ID1:X
+		ID2:Y
+		Count:Smallest Cell Size/Size
+		Size:With,Height
+		smallest cell size:width Height
+		ObjectList:Object vector,a object vector is not allow to have same name,if same is exist,it will add a series ID.
+		
+LevelLayerGridData
+		Pos:world position
+		ID1:X
+		ID2:Y
+		DataString:the data to parse,it could be import by template xml nodes.
+		Type:correspond to above,it could made by game desinger,or let game programmer to determine how to set data.
+		ShowResourceName:
+		ShowResourceType:
+		ShowResourceMethod:		
+		
+
+
+
+ObjectQuick Searcher:just like cNamedTypedObjectVector
+
+the base data searcher would be call:
+CellContainer,it would inherit cNamedTypedObjectVector,
+and could just quickly to fetch the CellContainerChild by GetObject(int e_iIDX,int e_iIDY).

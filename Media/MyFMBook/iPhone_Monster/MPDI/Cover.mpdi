@@ -1,0 +1,170 @@
+<MPDIList Name="Cover_mpdi" Count="4" MPDIVersion="1.2" PICount="3" ImageName="Cover.pi,Coveer_1.pi,Coveer_2.pi">
+    <MultiPathDynamicImage Name="MonsterNormal" PathCount="7" PlayCount="-1" TotalPlayTime="1.500000">
+        <CueToStartCurvesWithTime Name="Monster" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="771" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1057.00,-140.00,0.00" Time="0.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster" />
+            <PointDataList Index="1" Position="1057.00,-140.00,0.00" Time="0.500000" Size="853.45,1049.39" Scale="1.01,1.01" PIName="Cover" ImageName="monster" />
+            <PointDataList Index="2" Position="1057.00,-140.00,0.00" Time="1.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Apple" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="1" Position="3.00,-2.00,0.00" Time="0.500000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="1.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MonterShadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="34.00,232.00,0.00" Time="0.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="1" Position="34.00,232.00,0.00" Time="0.500000" Size="490.78,900.00" Scale="1.06,1.06" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="2" Position="34.00,232.00,0.00" Time="1.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pncil" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1760.00,622.00,0.00" Time="0.000000" Size="113.00,72.00" Scale="1.00,1.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="1" Position="1760.00,622.00,0.00" Time="0.300000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,72.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="2" Position="1760.00,622.00,0.00" Time="0.600000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,144.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="3" Position="1760.00,622.00,0.00" Time="0.900000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,216.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="4" Position="1760.00,622.00,0.00" Time="1.200000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="5" Position="1760.00,622.00,0.00" Time="1.500000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,360.00" PIName="Cover" ImageName="Pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="132.00,53.00,0.00" Time="0.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="1" Position="132.00,53.00,0.00" Time="0.500000" Size="453.00,513.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="2" Position="132.00,53.00,0.00" Time="1.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MontrLabel" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1146.00,0.00,0.00" Time="0.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="1" Position="1146.00,0.00,0.00" Time="0.500000" Size="604.00,258.39" Scale="1.00,0.99" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="2" Position="1146.00,0.00,0.00" Time="1.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Toy" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="342.00,2.00,0.00" Time="0.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="1" Position="342.00,2.00,0.00" Time="0.500000" Size="614.00,461.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="2" Position="342.00,2.00,0.00" Time="1.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="MonsterCloseEye" PathCount="7" PlayCount="-1" TotalPlayTime="1.500000">
+        <CueToStartCurvesWithTime Name="Monster" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="771" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1057.00,-140.00,0.00" Time="0.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+            <PointDataList Index="1" Position="1057.00,-140.00,0.00" Time="0.500000" Size="836.55,1039.00" Scale="0.99,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+            <PointDataList Index="2" Position="1057.00,-140.00,0.00" Time="1.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Apple" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="1" Position="3.00,-2.00,0.00" Time="0.500000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="1.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MonterShadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="34.00,232.00,0.00" Time="0.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="1" Position="34.00,232.00,0.00" Time="0.500000" Size="490.78,900.00" Scale="1.06,1.06" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="2" Position="34.00,232.00,0.00" Time="1.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pncil" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1760.00,622.00,0.00" Time="0.000000" Size="113.00,72.00" Scale="1.00,1.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="1" Position="1760.00,622.00,0.00" Time="0.300000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,72.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="2" Position="1760.00,622.00,0.00" Time="0.600000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,144.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="3" Position="1760.00,622.00,0.00" Time="0.900000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,216.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="4" Position="1760.00,622.00,0.00" Time="1.200000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="5" Position="1760.00,622.00,0.00" Time="1.500000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,360.00" PIName="Cover" ImageName="Pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="132.00,53.00,0.00" Time="0.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="1" Position="132.00,53.00,0.00" Time="0.500000" Size="453.00,513.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="2" Position="132.00,53.00,0.00" Time="1.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MontrLabel" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1146.00,0.00,0.00" Time="0.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="1" Position="1146.00,0.00,0.00" Time="0.500000" Size="604.00,258.39" Scale="1.00,0.99" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="2" Position="1146.00,0.00,0.00" Time="1.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Toy" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="342.00,2.00,0.00" Time="0.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="1" Position="342.00,2.00,0.00" Time="0.500000" Size="614.00,461.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="2" Position="342.00,2.00,0.00" Time="1.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="8" PlayCount="-1" TotalPlayTime="1.500000">
+        <CueToStartCurvesWithTime Name="CoverBackground" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1359.00" Scale="1.00,1.00" PIName="Coveer_2" ImageName="CoverBackground" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1359.00" Scale="1.00,1.00" PIName="Coveer_2" ImageName="CoverBackground" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Monster" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="771" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1057.00,-140.00,0.00" Time="0.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+            <PointDataList Index="1" Position="1057.00,-140.00,0.00" Time="0.500000" Size="836.55,1039.00" Scale="0.99,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+            <PointDataList Index="2" Position="1057.00,-140.00,0.00" Time="1.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster_eyes-closed" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Apple" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="1" Position="3.00,-2.00,0.00" Time="0.500000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="1.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MonterShadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="34.00,232.00,0.00" Time="0.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="1" Position="34.00,232.00,0.00" Time="0.500000" Size="490.78,900.00" Scale="1.06,1.06" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="2" Position="34.00,232.00,0.00" Time="1.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pncil" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1760.00,622.00,0.00" Time="0.000000" Size="113.00,72.00" Scale="1.00,1.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="1" Position="1760.00,622.00,0.00" Time="0.300000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,72.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="2" Position="1760.00,622.00,0.00" Time="0.600000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,144.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="3" Position="1760.00,622.00,0.00" Time="0.900000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,216.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="4" Position="1760.00,622.00,0.00" Time="1.200000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="5" Position="1760.00,622.00,0.00" Time="1.500000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,360.00" PIName="Cover" ImageName="Pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="132.00,53.00,0.00" Time="0.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="1" Position="132.00,53.00,0.00" Time="0.500000" Size="453.00,513.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="2" Position="132.00,53.00,0.00" Time="1.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MontrLabel" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1146.00,0.00,0.00" Time="0.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="1" Position="1146.00,0.00,0.00" Time="0.500000" Size="604.00,258.39" Scale="1.00,0.99" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="2" Position="1146.00,0.00,0.00" Time="1.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Toy" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="342.00,2.00,0.00" Time="0.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="1" Position="342.00,2.00,0.00" Time="0.500000" Size="614.00,461.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="2" Position="342.00,2.00,0.00" Time="1.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="1" PathCount="8" PlayCount="-1" TotalPlayTime="1.500000">
+        <CueToStartCurvesWithTime Name="CoverBackground" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1359.00" Scale="1.00,1.00" PIName="Coveer_2" ImageName="CoverBackground" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1359.00" Scale="1.00,1.00" PIName="Coveer_2" ImageName="CoverBackground" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Monster" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="771" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1057.00,-140.00,0.00" Time="0.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster" />
+            <PointDataList Index="1" Position="1057.00,-140.00,0.00" Time="0.500000" Size="853.45,1049.39" Scale="1.01,1.01" PIName="Cover" ImageName="monster" />
+            <PointDataList Index="2" Position="1057.00,-140.00,0.00" Time="1.000000" Size="845.00,1039.00" Scale="1.00,1.00" PIName="Cover" ImageName="monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Apple" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="1" Position="3.00,-2.00,0.00" Time="0.500000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="1.000000" Size="515.00,1024.00" Scale="1.00,1.00" PIName="Coveer_1" ImageName="Apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MonterShadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="34.00,232.00,0.00" Time="0.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="1" Position="34.00,232.00,0.00" Time="0.500000" Size="490.78,900.00" Scale="1.06,1.06" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Monster-Shadow" />
+            <PointDataList Index="2" Position="34.00,232.00,0.00" Time="1.000000" Size="486.15,891.45" Scale="1.05,1.05" PIName="Cover" ImageName="Monster-Shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pncil" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1760.00,622.00,0.00" Time="0.000000" Size="113.00,72.00" Scale="1.00,1.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="1" Position="1760.00,622.00,0.00" Time="0.300000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,72.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="2" Position="1760.00,622.00,0.00" Time="0.600000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,144.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="3" Position="1760.00,622.00,0.00" Time="0.900000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,216.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="4" Position="1760.00,622.00,0.00" Time="1.200000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="Cover" ImageName="Pencil" />
+            <PointDataList Index="5" Position="1760.00,622.00,0.00" Time="1.500000" Size="113.00,72.00" Scale="1.00,1.00" Angles="0.00,0.00,360.00" PIName="Cover" ImageName="Pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="132.00,53.00,0.00" Time="0.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="1" Position="132.00,53.00,0.00" Time="0.500000" Size="453.00,513.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+            <PointDataList Index="2" Position="132.00,53.00,0.00" Time="1.000000" Size="453.00,513.00" Scale="1.00,1.00" PIName="Cover" ImageName="Table-Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MontrLabel" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1146.00,0.00,0.00" Time="0.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="1" Position="1146.00,0.00,0.00" Time="0.500000" Size="604.00,258.39" Scale="1.00,0.99" PIName="Cover" ImageName="Title-in-horizontal" />
+            <PointDataList Index="2" Position="1146.00,0.00,0.00" Time="1.000000" Size="604.00,261.00" Scale="1.00,1.00" PIName="Cover" ImageName="Title-in-horizontal" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Toy" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="342.00,2.00,0.00" Time="0.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="1" Position="342.00,2.00,0.00" Time="0.500000" Size="614.00,461.00" Scale="1.00,1.00" Color="0.81,0.79,1.00,1.00" PIName="Cover" ImageName="Toy" />
+            <PointDataList Index="2" Position="342.00,2.00,0.00" Time="1.000000" Size="614.00,461.00" Scale="1.00,1.00" PIName="Cover" ImageName="Toy" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

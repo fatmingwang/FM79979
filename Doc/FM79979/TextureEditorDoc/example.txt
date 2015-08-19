@@ -1,0 +1,56 @@
+cPositionParser*g_pPositionParser = 0;
+cImageResourceManager*g_pImageResourceManager = 0;
+cImagePlayManager*g_pImagePlayManager = 0;
+
+declare 3 global variable as above
+
+first one for position get
+second for static image( PuzzleImage as pi )
+third is dynamic image( MDPIList as MDPI,ImagePlayer as SA )
+
+
+first thing we have to do is
+
+parse the file we would like to load
+
+
+	bool	l_b = g_pPositionParser->Parser("Media/Data/PositionInfo.fat",true);
+	assert(l_b&&"Media/Data/PositionIndo.fat");
+	l_b = g_pImagePlayManager->Parser("Media/Image/open/open_ani.mpdi",true);
+	assert(l_b);
+	l_b = g_pImagePlayManager->Parser("Media/Image/ui/score_effect.sa",true);
+
+as u see .mpid is MDPIList
+	.sa is ImagePlayer
+
+(Factory.cpp)
+so get bject just like below
+	cMPDIList*l_pMPDI = (cMPDIList*)g_pImagePlayManager->GetObject(L"factory_ani_mpdi");
+	assert(l_pMPDI);
+	cImagePlayer*l_pIP = (cImagePlayer*)g_pImagePlayManager->GetObject(L"factory_ani_sa");
+	assert(l_pIP);
+
+then 
+	cMultiPathDynamicImage*l_pMonsterWorking = (cMultiPathDynamicImage*)l_pMPDI->GetObject(l_strMonsterWorking);
+	cMultiPathDynamicImage*l_pItemStart = (cMultiPathDynamicImage*)l_pMPDI->GetObject(L"deliver");
+	cMultiPathDynamicImage*l_pItemActiveFingerHint = (cMultiPathDynamicImage*)l_pMPDI->GetObject(L"hand");
+
+
+	cImageShowInfoState*l_pFactoryIdle = (cImageShowInfoState*)l_pIP->GetObject(l_strFactoryIdle);
+	cImageShowInfoState*l_pFactoryWorking = (cImageShowInfoState*)l_pIP->GetObject(l_strFactoryWorking);
+	cImageShowInfoState*l_pMonsterIdle = (cImageShowInfoState*)l_pIP->GetObject(l_strMonsterIdle);
+
+
+
+
+important here
+
+	u have to call start
+	then update and render,or it doesn't work without called start function
+
+
+
+if u want render objects and do not have same animation time,u have to do like this
+
+	cMultiPathDynamicImage*l_pNewObject = new cMultiPathDynamicImage(l_pMPDI->GetObject(L"hand"));
+and remember to delete it(l_pNewObject),because the object is not get from resourceManager!!

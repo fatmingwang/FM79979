@@ -1,0 +1,11 @@
+<Root StartPos="100,100" HeightGap="90">
+	<Book Name="Book 1" FileName="MyFMBook/FMBook_First/Sample/EventPachages.xml" Resolution="1280,720" />
+	< Book Name="Book 2" FileName="Fish/ControlPanel/EventPachages.xml" Resolution="1280,720"/>
+	<Book Name="Book 3" FileName="MyFMBook/Comic/EventPachages.xml" Resolution="720,1020"/>
+	<Book Name="Book 4" FileName="MyFMBook/FMBOOK_DEMO/EventPachages.xml" Resolution="1024,720"/>
+	<Book Name="Book 5" FileName="MyFMBook/InteractiveTest/EventPachages.xml" Resolution="680,720"/>
+	<Book Name="Book iPad Monster" FileName="MyFMBook/Monster/EventPachages.xml" Resolution="2048,1536"/>
+
+	<Book Name="Book iPhone Monster" FileName="MyFMBook/iPhone_Monster/EventPachages.xml" Resolution="2048,1536"/>
+	<Book Name="Book Animation Demo" FileName="MyFMBook/AnimationDemo/EventPachages.xml" Resolution="1280,1024"/>
+</Root>

@@ -1,0 +1,12 @@
+<!-- Author:fatming,Time:2013/5/14 ¤W¤È 10:55:54 -->
+<PuzzleImage OriginalNameSort="content-text,light,little-monster,Monster-shadow,page1,Crayon,Flashlight,glasses,toy-and-book" ImageName="Page1.png" Count="9" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="content-text" UV="0,0,0.2949219,0.3569336" OffsetPos="70,68" Size="604,731" OriginalSize="777,870" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Crayon" UV="0,0.78125,0.4345703,0.9428711" OffsetPos="53,150" Size="890,331" OriginalSize="961,513" ShowPosInPI="0,1600" />
+    <PuzzleUnit Name="Flashlight" UV="0.4350586,0.78125,0.519043,0.8496094" OffsetPos="50,28" Size="172,140" OriginalSize="262,201" ShowPosInPI="891,1600" />
+    <PuzzleUnit Name="glasses" UV="0.5195313,0.78125,0.6347656,0.84375" OffsetPos="30,43" Size="236,128" OriginalSize="307,261" ShowPosInPI="1064,1600" />
+    <PuzzleUnit Name="light" UV="0.2954102,0,0.5551758,0.2304688" OffsetPos="121,78" Size="532,472" OriginalSize="712,579" ShowPosInPI="605,0" />
+    <PuzzleUnit Name="little-monster" UV="0.5556641,0,0.6523438,0.06152344" OffsetPos="57,60" Size="198,126" OriginalSize="307,261" ShowPosInPI="1138,0" />
+    <PuzzleUnit Name="Monster-shadow" UV="0,0.3574219,0.5161133,0.7807617" OffsetPos="62,35" Size="1057,867" OriginalSize="1176,999" ShowPosInPI="0,732" />
+    <PuzzleUnit Name="page1" UV="0.5166016,0.3574219,0.8291016,0.5927734" OffsetPos="0,0" Size="640,482" OriginalSize="640,482" ShowPosInPI="1058,732" />
+    <PuzzleUnit Name="toy-and-book" UV="0.6352539,0.78125,0.9165039,0.9516602" OffsetPos="0,154" Size="576,349" OriginalSize="642,573" ShowPosInPI="1301,1600" />
+</PuzzleImage>

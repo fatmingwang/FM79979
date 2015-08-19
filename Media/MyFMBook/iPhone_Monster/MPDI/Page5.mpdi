@@ -1,0 +1,181 @@
+<MPDIList Name="Page5_mpdi" Count="2" MPDIVersion="1.2" PICount="3" ImageName="Page5_1.pi,Page5.pi,Page5_2.pi">
+    <MultiPathDynamicImage Name="1" PathCount="13" PlayCount="-1" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page5_1" ImageName="background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page5_1" ImageName="background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,112.00,0.00" Time="0.000000" Size="1079.00,721.00" Scale="1.00,1.00" PIName="Page5" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,112.00,0.00" Time="0.100000" Size="1079.00,721.00" Scale="1.00,1.00" PIName="Page5" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="flying-bird-01" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="7.00,669.00,0.00" Time="0.000000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="1" Position="7.00,669.00,0.00" Time="0.150000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="2" Position="7.00,669.00,0.00" Time="0.300000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1250.00,270.00,0.00" Time="0.000000" Size="308.00,474.00" Scale="1.00,1.00" PIName="Page5" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1250.00,270.00,0.00" Time="0.100000" Size="308.00,474.00" Scale="1.00,1.00" PIName="Page5" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper01" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1768.00,833.00,0.00" Time="0.000000" Size="117.00,129.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper01" />
+            <PointDataList Index="1" Position="1768.00,833.00,0.00" Time="0.100000" Size="117.00,129.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper02" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="924.00,952.00,0.00" Time="0.000000" Size="167.00,181.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper02" />
+            <PointDataList Index="1" Position="924.00,952.00,0.00" Time="0.100000" Size="167.00,181.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper03" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1029.00,655.00,0.00" Time="0.000000" Size="176.00,139.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper03" />
+            <PointDataList Index="1" Position="1029.00,655.00,0.00" Time="0.100000" Size="176.00,139.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="tree" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1541.00,-18.00,0.00" Time="0.000000" Size="434.00,708.00" Scale="1.00,1.00" PIName="Page5" ImageName="tree" />
+            <PointDataList Index="1" Position="1541.00,-18.00,0.00" Time="0.100000" Size="434.00,708.00" Scale="1.00,1.00" PIName="Page5" ImageName="tree" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="parterre" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1680.00,620.00,0.00" Time="0.000000" Size="351.00,187.00" Scale="1.00,1.00" PIName="Page5" ImageName="parterre" />
+            <PointDataList Index="1" Position="1680.00,620.00,0.00" Time="0.100000" Size="351.00,187.00" Scale="1.00,1.00" PIName="Page5" ImageName="parterre" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="plant-in-the-left" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1614.00,302.00,0.00" Time="0.000000" Size="360.00,448.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-left" />
+            <PointDataList Index="1" Position="1614.00,302.00,0.00" Time="0.100000" Size="360.00,448.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-left" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="plant-in-the-right" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1852.00,355.00,0.00" Time="0.000000" Size="323.00,402.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-right" />
+            <PointDataList Index="1" Position="1852.00,355.00,0.00" Time="0.100000" Size="323.00,402.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-right" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="running-bird01" StartTime="0.000000" AnchorType="CenterCenter" Count="21" LOD="1">
+            <PointDataList Index="0" Position="708.00,891.00,0.00" Time="0.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="1" Position="641.90,889.30,0.00" Time="0.250000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="2" Position="575.80,887.60,0.00" Time="0.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="3" Position="509.70,885.90,0.00" Time="0.750000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="4" Position="443.60,884.20,0.00" Time="1.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="5" Position="377.50,882.50,0.00" Time="1.250000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="6" Position="311.40,880.80,0.00" Time="1.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="7" Position="245.30,879.10,0.00" Time="1.750000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="8" Position="179.20,877.40,0.00" Time="2.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="9" Position="113.10,875.70,0.00" Time="2.250000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="10" Position="47.00,874.00,0.00" Time="2.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="11" Position="112.10,874.70,0.00" Time="2.750000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="12" Position="177.20,875.40,0.00" Time="3.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="13" Position="242.30,876.10,0.00" Time="3.250000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="14" Position="307.40,876.80,0.00" Time="3.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="15" Position="372.50,877.50,0.00" Time="3.750000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="16" Position="437.60,878.20,0.00" Time="4.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="17" Position="502.70,878.90,0.00" Time="4.250000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="18" Position="567.80,879.60,0.00" Time="4.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="19" Position="632.90,880.30,0.00" Time="4.750000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="20" Position="698.00,881.00,0.00" Time="5.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-tape" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="651.00,307.00,0.00" Time="0.000000" Size="1502.00,696.00" Scale="1.00,1.00" PIName="Page5_2" ImageName="yellow-tape" />
+            <PointDataList Index="1" Position="651.00,307.00,0.00" Time="0.100000" Size="1502.00,696.00" Scale="1.00,1.00" PIName="Page5_2" ImageName="yellow-tape" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="18" PlayCount="-1" TotalPlayTime="1.500000">
+        <CueToStartCurvesWithTime Name="background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page5_1" ImageName="background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page5_1" ImageName="background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-leaf-for-animate" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1303.00,564.00,0.00" Time="0.000000" Size="54.00,48.00" Scale="1.00,1.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+            <PointDataList Index="1" Position="971.00,1074.00,0.00" Time="0.500000" Size="54.00,48.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-leaf-for-animate1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1377.00,603.00,0.00" Time="0.000000" Size="54.00,48.00" Scale="1.00,1.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+            <PointDataList Index="1" Position="1045.00,1113.00,0.00" Time="0.450000" Size="54.00,48.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-leaf-for-animate3" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1493.00,612.00,0.00" Time="0.000000" Size="54.00,48.00" Scale="1.00,1.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+            <PointDataList Index="1" Position="1708.00,1038.00,0.00" Time="0.550000" Size="54.00,48.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-leaf-for-animate4" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1595.00,601.00,0.00" Time="0.000000" Size="54.00,48.00" Scale="1.00,1.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+            <PointDataList Index="1" Position="1810.00,1027.00,0.00" Time="0.475000" Size="54.00,48.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Page5" ImageName="yellow-leaf-for-animate" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="39.00,112.00,0.00" Time="0.000000" Size="1079.00,721.00" Scale="1.00,1.00" PIName="Page5" ImageName="content-text" />
+            <PointDataList Index="1" Position="39.00,112.00,0.00" Time="0.100000" Size="1079.00,721.00" Scale="1.00,1.00" PIName="Page5" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="flying-bird-01" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="838.00,-135.00,0.00" Time="0.000000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="1" Position="1072.00,186.00,0.00" Time="0.150000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="2" Position="1146.00,414.00,0.00" Time="0.300000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="3" Position="988.00,740.00,0.00" Time="0.450000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="4" Position="700.00,918.00,0.00" Time="0.600000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="5" Position="264.00,811.00,0.00" Time="0.750000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="6" Position="81.00,616.00,0.00" Time="0.900000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="7" Position="40.00,359.00,0.00" Time="1.050000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="8" Position="52.00,64.00,0.00" Time="1.200000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+            <PointDataList Index="9" Position="269.00,-132.00,0.00" Time="1.350000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-02" />
+            <PointDataList Index="10" Position="838.00,-135.00,0.00" Time="1.500000" Size="350.00,350.00" Scale="1.00,1.00" PIName="Page5" ImageName="flying-bird-01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1250.00,270.00,0.00" Time="0.000000" Size="308.00,474.00" Scale="1.00,1.00" PIName="Page5" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1250.00,270.00,0.00" Time="0.500000" Size="318.00,485.00" Scale="1.03,1.02" PIName="Page5" ImageName="little-monster" />
+            <PointDataList Index="2" Position="1250.00,270.00,0.00" Time="1.000000" Size="308.00,474.00" Scale="1.00,1.00" PIName="Page5" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper01" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1768.00,833.00,0.00" Time="0.000000" Size="117.00,129.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper01" />
+            <PointDataList Index="1" Position="1768.00,833.00,0.00" Time="0.100000" Size="117.00,129.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper02" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="924.00,952.00,0.00" Time="0.000000" Size="167.00,181.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper02" />
+            <PointDataList Index="1" Position="924.00,952.00,0.00" Time="0.100000" Size="167.00,181.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="paper03" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1029.00,655.00,0.00" Time="0.000000" Size="176.00,139.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper03" />
+            <PointDataList Index="1" Position="1029.00,655.00,0.00" Time="0.100000" Size="176.00,139.00" Scale="1.00,1.00" PIName="Page5" ImageName="paper03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="tree" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1541.00,-18.00,0.00" Time="0.000000" Size="434.00,708.00" Scale="1.00,1.00" PIName="Page5" ImageName="tree" />
+            <PointDataList Index="1" Position="1541.00,-18.00,0.00" Time="0.100000" Size="434.00,708.00" Scale="1.00,1.00" PIName="Page5" ImageName="tree" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="parterre" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1680.00,620.00,0.00" Time="0.000000" Size="351.00,187.00" Scale="1.00,1.00" PIName="Page5" ImageName="parterre" />
+            <PointDataList Index="1" Position="1680.00,620.00,0.00" Time="0.100000" Size="351.00,187.00" Scale="1.00,1.00" PIName="Page5" ImageName="parterre" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="plant-in-the-left" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1614.00,302.00,0.00" Time="0.000000" Size="360.00,448.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-left" />
+            <PointDataList Index="1" Position="1614.00,302.00,0.00" Time="0.100000" Size="360.00,448.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-left" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="plant-in-the-right" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1852.00,355.00,0.00" Time="0.000000" Size="323.00,402.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-right" />
+            <PointDataList Index="1" Position="1852.00,355.00,0.00" Time="0.100000" Size="323.00,402.00" Scale="1.00,1.00" PIName="Page5" ImageName="plant-in-the-right" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="running-bird01" StartTime="0.000000" AnchorType="CenterCenter" Count="21" LOD="1">
+            <PointDataList Index="0" Position="708.00,891.00,0.00" Time="0.000000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="1" Position="641.90,889.30,0.00" Time="0.075000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="2" Position="575.80,887.60,0.00" Time="0.150000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="3" Position="509.70,885.90,0.00" Time="0.225000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="4" Position="443.60,884.20,0.00" Time="0.300000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="5" Position="377.50,882.50,0.00" Time="0.375000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="6" Position="311.40,880.80,0.00" Time="0.450000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="7" Position="245.30,879.10,0.00" Time="0.525000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="8" Position="179.20,877.40,0.00" Time="0.600000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+            <PointDataList Index="9" Position="113.10,875.70,0.00" Time="0.675000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" />
+            <PointDataList Index="10" Position="47.00,874.00,0.00" Time="0.750000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="11" Position="112.10,874.70,0.00" Time="0.825000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="12" Position="177.20,875.40,0.00" Time="0.900000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="13" Position="242.30,876.10,0.00" Time="0.975000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="14" Position="307.40,876.80,0.00" Time="1.050000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="15" Position="372.50,877.50,0.00" Time="1.125000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="16" Position="437.60,878.20,0.00" Time="1.200000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="17" Position="502.70,878.90,0.00" Time="1.275000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="18" Position="567.80,879.60,0.00" Time="1.350000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" Mirror="1" />
+            <PointDataList Index="19" Position="632.90,880.30,0.00" Time="1.425000" Size="233.00,206.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird02" Mirror="1" />
+            <PointDataList Index="20" Position="698.00,881.00,0.00" Time="1.500000" Size="233.00,203.00" Scale="1.00,1.00" PIName="Page5" ImageName="running-bird01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="yellow-tape" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="651.00,307.00,0.00" Time="0.000000" Size="1502.00,696.00" Scale="1.00,1.00" PIName="Page5_2" ImageName="yellow-tape" />
+            <PointDataList Index="1" Position="651.00,307.00,0.00" Time="0.500000" Size="1521.00,719.00" Scale="1.01,1.03" PIName="Page5_2" ImageName="yellow-tape" />
+            <PointDataList Index="2" Position="651.00,307.00,0.00" Time="1.000000" Size="1502.00,696.00" Scale="1.00,1.00" PIName="Page5_2" ImageName="yellow-tape" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="monster-shadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="566.00,877.00,0.00" Time="0.000000" Size="1448.00,541.00" Scale="1.00,1.00" PIName="Page5" ImageName="monster-shadow" />
+            <PointDataList Index="1" Position="566.00,877.00,0.00" Time="0.500000" Size="1457.00,551.00" Scale="1.01,1.02" PIName="Page5" ImageName="monster-shadow" />
+            <PointDataList Index="2" Position="566.00,877.00,0.00" Time="1.000000" Size="1448.00,541.00" Scale="1.00,1.00" PIName="Page5" ImageName="monster-shadow" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="FMBookEditorUI.Event.Trigger.EventMouseTrigger"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>    
+    <Expander Header="MouseTrigger" >
+        <Grid Width="200">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock Background="AntiqueWhite">SelectTargetGesture</TextBlock>
+            <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">ClickDown</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Horver</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">ClickUp</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">DoubleClick</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Slide Left</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Slide Up</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Slide Right</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Slide Down</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">PinchIn</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">PinchOut</ListBoxItem>
+                <ListBoxItem Style="{StaticResource ListBoxItemStyle}">Drag(Move)</ListBoxItem>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <WrapPanel Grid.Row="2" >
+                <TextBlock>MoveDistance</TextBlock>
+                <TextBox Name="m_MoveDis" x:FieldModifier="public" MinWidth="100" />
+            </WrapPanel>
+        </Grid>
+    </Expander>
+</UserControl>

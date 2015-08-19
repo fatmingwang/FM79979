@@ -1,0 +1,36 @@
+<!-- Author:Administrator,Time:2012/5/5 ¤U¤È 05:07:28 -->
+<PuzzleImage OriginalNameSort="a_talk01_bg,a_talk01_word,a_talk02_bg,a_talk02_word,a_talk03_bg,a_talk03_word,a1,a2,a3,a4,b_down_01,b_down_02,b_down_03,b_talk01_bg,b_talk01_word,b_talk02_bg,b_talk02_word,b_talk03_bg,b_talk03_word,b_up_01,b_up_02,b_up_03,b_up_04,c_talk01_bg,c_talk01_word,c_talk02_bg,c_talk02_word,c1,c2,c3,c4,Black,Whrite" ImageName="P3.png" Count="33" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="a_talk01_bg" UV="0,0,0.1547852,0.04980469," OffsetPos="97,60," Size="317,102" OriginalSize="768,1024" ShowPosInPI="0,0"  />
+    <PuzzleUnit Name="a_talk01_word" UV="0.1547852,0,0.293457,0.02880859," OffsetPos="115,83," Size="284,59" OriginalSize="768,1024" ShowPosInPI="317,0"  />
+    <PuzzleUnit Name="a_talk02_bg" UV="0.293457,0,0.3496094,0.02783203," OffsetPos="433,201," Size="115,57" OriginalSize="768,1024" ShowPosInPI="601,0" />
+    <PuzzleUnit Name="a_talk02_word" UV="0.3496094,0,0.3803711,0.01074219," OffsetPos="479,218," Size="63,22" OriginalSize="768,1024" ShowPosInPI="716,0" />
+    <PuzzleUnit Name="a_talk03_bg" UV="0.3803711,0,0.4638672,0.05273438," OffsetPos="509,232," Size="171,108" OriginalSize="768,1024" ShowPosInPI="779,0" />
+    <PuzzleUnit Name="a_talk03_word" UV="0.4638672,0,0.5161133,0.02441406," OffsetPos="559,261," Size="107,50" OriginalSize="768,1024" ShowPosInPI="950,0" />
+    <PuzzleUnit Name="a1" UV="0.5161133,0,0.8188477,0.1386719," OffsetPos="74,68," Size="620,284" OriginalSize="768,1024" ShowPosInPI="1057,0"  />
+    <PuzzleUnit Name="a2" UV="0,0.1391602,0.3027344,0.277832," OffsetPos="74,68," Size="620,284" OriginalSize="768,1024" ShowPosInPI="0,285"  />
+    <PuzzleUnit Name="a3" UV="0.3027344,0.1391602,0.6166992,0.2875977," OffsetPos="66,57," Size="643,304" OriginalSize="768,1024" ShowPosInPI="620,285" />
+    <PuzzleUnit Name="a4" UV="0.6166992,0.1391602,0.859375,0.2114258," OffsetPos="121,205," Size="497,148" OriginalSize="768,1024" ShowPosInPI="1263,285" />
+    <PuzzleUnit Name="b_down_01" UV="0,0.2880859,0.3027344,0.3564453," OffsetPos="74,533," Size="620,140" OriginalSize="768,1024" ShowPosInPI="0,590"  />
+    <PuzzleUnit Name="b_down_02" UV="0.3027344,0.2880859,0.6166992,0.3686523," OffsetPos="66,518," Size="643,165" OriginalSize="768,1024" ShowPosInPI="620,590"  />
+    <PuzzleUnit Name="b_down_03" UV="0.6166992,0.2880859,0.902832,0.3564453," OffsetPos="74,533," Size="586,140" OriginalSize="768,1024" ShowPosInPI="1263,590" />
+    <PuzzleUnit Name="b_talk01_bg" UV="0,0.3691406,0.09960938,0.425293," OffsetPos="85,341," Size="204,115" OriginalSize="768,1024" ShowPosInPI="0,756" />
+    <PuzzleUnit Name="b_talk01_word" UV="0.09960938,0.3691406,0.1650391,0.3808594," OffsetPos="113,388," Size="134,24" OriginalSize="768,1024" ShowPosInPI="204,756"  />
+    <PuzzleUnit Name="b_talk02_bg" UV="0.1650391,0.3691406,0.2817383,0.4291992," OffsetPos="462,395," Size="239,123" OriginalSize="768,1024" ShowPosInPI="338,756" />
+    <PuzzleUnit Name="b_talk02_word" UV="0.2817383,0.3691406,0.3657227,0.3974609," OffsetPos="518,427," Size="172,58" OriginalSize="768,1024" ShowPosInPI="577,756" />
+    <PuzzleUnit Name="b_talk03_bg" UV="0.3657227,0.3691406,0.472168,0.449707," OffsetPos="454,489," Size="218,165" OriginalSize="768,1024" ShowPosInPI="749,756" />
+    <PuzzleUnit Name="b_talk03_word" UV="0.472168,0.3691406,0.5478516,0.4057617," OffsetPos="486,551," Size="155,75" OriginalSize="768,1024" ShowPosInPI="967,756"/>
+    <PuzzleUnit Name="b_up_01" UV="0.5478516,0.3691406,0.8505859,0.4414063," OffsetPos="74,369," Size="620,148" OriginalSize="768,1024" ShowPosInPI="1122,756" />
+    <PuzzleUnit Name="b_up_02" UV="0,0.4501953,0.1508789,0.5224609," OffsetPos="280,369," Size="309,148" OriginalSize="768,1024" ShowPosInPI="0,922" />
+    <PuzzleUnit Name="b_up_03" UV="0.1508789,0.4501953,0.4648438,0.5366211," OffsetPos="66,349," Size="643,177" OriginalSize="768,1024" ShowPosInPI="309,922" />
+    <PuzzleUnit Name="b_up_04" UV="0.4648438,0.4511719,0.6157227,0.5239258," OffsetPos="280,368," Size="309,149" OriginalSize="768,1024" ShowPosInPI="952,924"  />
+    <PuzzleUnit Name="Black" UV="0.3027344,0.7060547,0.3359375,0.7495117," OffsetPos="-2,-2," Size="68,89" OriginalSize="64,85" ShowPosInPI="620,1446"  />
+    <PuzzleUnit Name="c_talk01_bg" UV="0.6157227,0.4501953,0.7021484,0.5117188," OffsetPos="69,707," Size="177,126" OriginalSize="768,1024" ShowPosInPI="1261,922"  />
+    <PuzzleUnit Name="c_talk01_word" UV="0.7021484,0.4501953,0.7631836,0.4863281," OffsetPos="96,731," Size="125,74" OriginalSize="768,1024" ShowPosInPI="1438,922" />
+    <PuzzleUnit Name="c_talk02_bg" UV="0.7631836,0.4501953,0.847168,0.4995117," OffsetPos="529,867," Size="172,101" OriginalSize="768,1024" ShowPosInPI="1563,922" />
+    <PuzzleUnit Name="c_talk02_word" UV="0.847168,0.4501953,0.8999023,0.4746094," OffsetPos="577,892," Size="108,50" OriginalSize="768,1024" ShowPosInPI="1735,922"  />
+    <PuzzleUnit Name="c1" UV="0,0.5371094,0.3017578,0.7006836," OffsetPos="76,691," Size="618,335" OriginalSize="768,1024" ShowPosInPI="0,1100"  />
+    <PuzzleUnit Name="c2" UV="0.3017578,0.5371094,0.6044922,0.7016602," OffsetPos="74,689," Size="620,337" OriginalSize="768,1024" ShowPosInPI="618,1100"/>
+    <PuzzleUnit Name="c3" UV="0.6044922,0.5371094,0.918457,0.7055664," OffsetPos="66,681," Size="643,345" OriginalSize="768,1024" ShowPosInPI="1238,1100"/>
+    <PuzzleUnit Name="c4" UV="0,0.7060547,0.3027344,0.8706055," OffsetPos="74,689," Size="620,337" OriginalSize="768,1024" ShowPosInPI="0,1446"  />
+    <PuzzleUnit Name="Whrite" UV="0.3359375,0.7060547,0.3691406,0.7495117," OffsetPos="-2,-2," Size="68,89" OriginalSize="64,85" ShowPosInPI="688,1446" />
+</PuzzleImage>

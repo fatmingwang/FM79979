@@ -1,0 +1,1449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="jni">
+      <UniqueIdentifier>88998f62-3943-4719-83d8-d565784fd581</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>7b33bc48-dccd-491b-adb0-fd384903b4f0</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>f66ea51e-f15c-4df3-abbf-114dac9afa86</UniqueIdentifier>
+    </Filter>
+    <Filter Include="native_app_glue">
+      <UniqueIdentifier>{195ec1a3-9c8b-4621-b7fe-53346bf9a082}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\AndroidJNI">
+      <UniqueIdentifier>{7ea5343d-b6f3-4c83-a5a8-ad87f6f2996e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Camera">
+      <UniqueIdentifier>{ad07b1e2-c632-42b9-9658-97ed4dddaccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common">
+      <UniqueIdentifier>{03807d25-a1f8-4161-b534-e7d8901dea08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT">
+      <UniqueIdentifier>{bb128510-1d1e-4ee4-b141-341f2a50c9a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Header Files">
+      <UniqueIdentifier>{13c03a13-9cdc-49d5-aac9-7b699bf5784b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math">
+      <UniqueIdentifier>{64e00674-4ab6-48c5-878c-13e67ee83f16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\NetWork">
+      <UniqueIdentifier>{c5a8bc03-558d-4b69-9b9a-aa9867556ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle">
+      <UniqueIdentifier>{439a7cfb-3fbf-4b62-9bb9-c75608177fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Physic">
+      <UniqueIdentifier>{81b0d00f-66a8-4605-9adb-be47620b50e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject">
+      <UniqueIdentifier>{8274ac0a-b008-4ae6-b147-445f9067c42e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Sound">
+      <UniqueIdentifier>{eba3792b-fd74-4f99-ae16-c21c36359c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Source Files">
+      <UniqueIdentifier>{facd106b-b7d7-49a5-b9ed-477157303977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Synchornization">
+      <UniqueIdentifier>{3a74f87f-02b0-4941-9699-0ad8d5c9c0a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\XML">
+      <UniqueIdentifier>{9fce290f-e930-4b99-9657-91d07d1f9d09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\FMEvent">
+      <UniqueIdentifier>{cced9602-46f9-4c35-9487-77ab9582b294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common\Crossplatform">
+      <UniqueIdentifier>{e2ec89ab-3339-40ba-bf72-ef243f550563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common\Crossplatform\OpenGL">
+      <UniqueIdentifier>{90c9a630-f64b-4284-b1d6-10c54683b04e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common\NamedTypedObject">
+      <UniqueIdentifier>{67884432-5e9d-4527-b37b-6f7926c3552e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common\SmartPointer">
+      <UniqueIdentifier>{6e45dccd-9462-414e-b76b-fe1bed3384a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Common\Template">
+      <UniqueIdentifier>{8bc61780-86c2-472f-bfbe-2f2444279c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\Binary">
+      <UniqueIdentifier>{13d503a7-e8c9-4c86-98c2-f5204aedd9fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\DataCurve">
+      <UniqueIdentifier>{8c879b12-0e63-4106-8a65-574cd6de11d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\GameApp">
+      <UniqueIdentifier>{bcac7a37-8191-4e3a-b614-d7d3f8c81b39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\GamePad">
+      <UniqueIdentifier>{3ee95fae-94e1-4d58-aead-f4cd4bff704e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\ObjectXMLParser">
+      <UniqueIdentifier>{c5304db8-dedb-4fd7-baaf-af54d269eb98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\Path">
+      <UniqueIdentifier>{411885b1-7a0b-4b67-a26d-be09f661d790}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\Phase">
+      <UniqueIdentifier>{f0bcf006-37bd-450e-90e6-82f64e7e0c3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\StringCompress">
+      <UniqueIdentifier>{f0548775-4c7e-4ff6-9b32-24663fa0e4f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI">
+      <UniqueIdentifier>{4964caa1-f713-445b-90c0-5418c0919faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\ValueChange">
+      <UniqueIdentifier>{7f4f8e0d-0dc4-447b-8d19-38bd1d24f213}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\FMAnimationRuleEffect">
+      <UniqueIdentifier>{351fd93d-c394-4b0e-b64f-732e814f63bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\ResourceStamp">
+      <UniqueIdentifier>{d91baae2-93a2-4c37-b9ce-f642e381206e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\Button">
+      <UniqueIdentifier>{b5a2aef5-2884-47aa-87f7-ee7b9d923a26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\MouseBehavior">
+      <UniqueIdentifier>{3cc9b976-89ee-4b48-87a9-3924559f9845}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\MiltiselectOptionByMPDI">
+      <UniqueIdentifier>{0df79739-bb7d-4202-b3c8-d84dfcb204f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\Scroller">
+      <UniqueIdentifier>{26303af2-e50d-4135-845f-30212e17e638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\SlideBar">
+      <UniqueIdentifier>{d8fad2a0-1009-4e52-a8a6-d29a1a9b22d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\Tabpage">
+      <UniqueIdentifier>{fd9a1180-d24f-4429-a5d1-5c6261a130b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math\Collision">
+      <UniqueIdentifier>{7eb31051-c72f-4111-b982-95d5d565145f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math\Curve">
+      <UniqueIdentifier>{84f2d839-928b-47a0-8dca-654a49409951}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math\Matrix">
+      <UniqueIdentifier>{595f112c-0bef-4945-b0f4-5f5291db66a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math\Sorting">
+      <UniqueIdentifier>{cf8367c6-a234-4a20-9285-1026ef90af3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Math\Vector">
+      <UniqueIdentifier>{225d014c-e2eb-468d-9d4e-c5987876eff0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Emitter">
+      <UniqueIdentifier>{a93bc215-25a7-48ac-a09c-ad6c68211657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\ParticleBase">
+      <UniqueIdentifier>{bf8ae03a-dfeb-4d94-84ba-1c81099b5053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy">
+      <UniqueIdentifier>{fec76767-a5a2-4201-bdf3-9bbfe49cae77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Color">
+      <UniqueIdentifier>{7c45e1d9-8050-4ca4-ac88-3a23157f5fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Life">
+      <UniqueIdentifier>{30c12d61-2bf4-4118-96e5-4e2a24c43a80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Rotation">
+      <UniqueIdentifier>{a242dd2c-664c-4cf1-87c8-42b5ac774b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Size">
+      <UniqueIdentifier>{f6ca4ec1-e286-47e5-9d99-3f0f96ce09a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\StartPosition">
+      <UniqueIdentifier>{183d41c3-6844-4c98-b828-8568ac46a5f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Texture">
+      <UniqueIdentifier>{4d57dfe6-1aab-45ea-b16e-93d45d9e6b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Particle\Policy\Velocity">
+      <UniqueIdentifier>{17d9f542-d010-4e66-8bf8-d8e31eed8610}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Physic\2DImageCollideData">
+      <UniqueIdentifier>{eabd32ac-5c99-4cd2-9d5c-5f481cccde7c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\BufferObject">
+      <UniqueIdentifier>{83693173-8845-4b5b-844f-ee08af4a50ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Common">
+      <UniqueIdentifier>{ef4070ae-a7cc-4849-969d-ee8d619ec911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\FManimationRule">
+      <UniqueIdentifier>{f8228833-f6b5-4c2d-a73a-ce48018de926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Font">
+      <UniqueIdentifier>{486d4ce0-edee-4001-911e-9f3123f04806}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\GLSL">
+      <UniqueIdentifier>{8b1e018b-8307-44ae-8f46-3e71caa24585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\MPDI">
+      <UniqueIdentifier>{5f544c55-b5a0-4f0e-9945-bc982985d6d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Parser">
+      <UniqueIdentifier>{750210a6-0a50-45a7-889d-baf292364a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\PuzzleImage">
+      <UniqueIdentifier>{03f6381b-75aa-4d9c-b3b1-54c0256877fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Texture">
+      <UniqueIdentifier>{a0ea6619-768f-4aaf-8644-9537a1d85abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Sound\AndroidOpenAL">
+      <UniqueIdentifier>{22e6de0e-6798-4750-9097-f5c39bd48e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Font\Glyph">
+      <UniqueIdentifier>{1f6cffb0-0ef3-4a74-bdc3-cfbdf1c7ee8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\GLSL\Effect">
+      <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Parser\Animation">
+      <UniqueIdentifier>{bd9d3eac-ddad-4243-99a6-d5a46090677d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Parser\BinaryToTexture">
+      <UniqueIdentifier>{73093708-e959-4542-b18f-caa5b9858172}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Parser\Image">
+      <UniqueIdentifier>{085075c7-5071-47c3-9d8b-50260645b8e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Texture\png">
+      <UniqueIdentifier>{78d356a3-7ff0-478e-99e1-a9c30f4bbf5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\XML\TinyXml">
+      <UniqueIdentifier>{6c7a2c01-9466-462a-9cb1-4fdc863fbaa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\XML\Writer">
+      <UniqueIdentifier>{b731c7a6-dba6-4877-9e51-c0fcff244127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\VideoPlayer">
+      <UniqueIdentifier>{70802ef0-bd95-4bfb-bb80-3a7fde7bcf8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\Texture\jpeg">
+      <UniqueIdentifier>{0f6d0bf8-44e2-4f0b-8bf0-5a381f5a0a2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Terrain">
+      <UniqueIdentifier>{2a255ae3-2bc0-4bc5-a135-ea03196cf1b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\VideoPlayer\MyJpeg">
+      <UniqueIdentifier>{6c433801-f9ba-4894-8e6b-b7aa5750f525}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\AndroidJNI\Nvidia">
+      <UniqueIdentifier>{c96d8cf6-567a-4fda-9897-3a35c0b1b0a8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </None>
+    <None Include="..\..\Core\Network\README.txt" />
+    <None Include="..\..\Core\FMEvent\Event.vcxproj.filters" />
+    <None Include="..\..\Core\Log.txt">
+      <Filter>jni\Header Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\CameraAnimation.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventActiverParser.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventBase.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonSelectedActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonTrigger.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventImage.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventInstance.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventManager.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventManagerParser.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventMouseTrigger.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventMPDI.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObject.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectInstance.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectParser.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventPackageRunner.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventParticle.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventSound.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventText.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventToTiXmlElement.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerBase.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerParser.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventValueChangerActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventValueCheckerTrigger.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventVariable.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableDataRender.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventXMLNodeText.cpp">
+      <Filter>jni\FMEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\MouseCamera.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.mm">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\SimpleCamera.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\SplitScreenCamera.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\DrawSelectRectangleByMouse.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Glh.cpp">
+      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GluForOpengles.cpp">
+      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\ParticleManager.cpp">
+      <Filter>jni\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_apk_file.c">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_egl_util.cpp">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_file.c">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_hhdds.cpp">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_images.cpp">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_log.cpp">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\nv_native_app_glue.c">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\NamedTypedObject.cpp">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\SmartPointer.cpp">
+      <Filter>jni\Common\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\TimeUT.mm">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Utility.mm">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\BinaryFile.cpp">
+      <Filter>jni\GamePlayUT\Binary</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\DataCurve\DataCurve.cpp">
+      <Filter>jni\GamePlayUT\DataCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.cpp">
+      <Filter>jni\GamePlayUT\FMAnimationRuleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.cpp">
+      <Filter>jni\GamePlayUT\FMAnimationRuleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameApp.cpp">
+      <Filter>jni\GamePlayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\AtgInput.cpp">
+      <Filter>jni\GamePlayUT\GamePad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ObjectXMLParser.cpp">
+      <Filter>jni\GamePlayUT\ObjectXMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\CurveChanger.cpp">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PathChaser.cpp">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PathFinder.cpp">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PhaseControl.cpp">
+      <Filter>jni\GamePlayUT\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ResourceStamp.cpp">
+      <Filter>jni\GamePlayUT\ResourceStamp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\StringCompress.cpp">
+      <Filter>jni\GamePlayUT\StringCompress</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\AssembleImageButton.cpp">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\FontFrame.cpp">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ImageButton.cpp">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Mouse_Touch.cpp">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.cpp">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\MultiTouchPoints.cpp">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.cpp">
+      <Filter>jni\GamePlayUT\UI\MiltiselectOptionByMPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\3DScroller.cpp">
+      <Filter>jni\GamePlayUT\UI\Scroller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Scroller.cpp">
+      <Filter>jni\GamePlayUT\UI\Scroller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Sliderbar.cpp">
+      <Filter>jni\GamePlayUT\UI\SlideBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ImageWithSlider.cpp">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\MultiPage.cpp">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Tabpage.cpp">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ListValueChanger.cpp">
+      <Filter>jni\GamePlayUT\ValueChange</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\RestrictValue.cpp">
+      <Filter>jni\GamePlayUT\ValueChange</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Collision.cpp">
+      <Filter>jni\Math\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Bound.cpp">
+      <Filter>jni\Math\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Curve.cpp">
+      <Filter>jni\Math\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\CurveManager.cpp">
+      <Filter>jni\Math\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Matrix33.cpp">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Matrix44.cpp">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Quaternion.cpp">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\ValueSortingObject.cpp">
+      <Filter>jni\Math\Sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Vector3.cpp">
+      <Filter>jni\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Vector4.cpp">
+      <Filter>jni\Math\Vector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Frame.cpp">
+      <Filter>jni\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Line.cpp">
+      <Filter>jni\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\MathUtility.cpp">
+      <Filter>jni\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Plane.cpp">
+      <Filter>jni\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\LinerTemplateDataProcess.cpp">
+      <Filter>jni\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\Network.mm">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnet.c">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.c">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.c">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.c">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitter.cpp">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitterBehavior.cpp">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitterGroup.cpp">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\ParticleBase.cpp">
+      <Filter>jni\Particle\ParticleBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtColor.cpp">
+      <Filter>jni\Particle\Policy\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtLife.cpp">
+      <Filter>jni\Particle\Policy\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtVelocity.cpp">
+      <Filter>jni\Particle\Policy\Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtTexture.cpp">
+      <Filter>jni\Particle\Policy\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtStartPosition.cpp">
+      <Filter>jni\Particle\Policy\StartPosition</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtSize.cpp">
+      <Filter>jni\Particle\Policy\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\PrtRotate.cpp">
+      <Filter>jni\Particle\Policy\Rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Particle\AllPolicyNameList.cpp">
+      <Filter>jni\Particle\Policy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Physic\2DImageCollisionData.cpp">
+      <Filter>jni\Physic\2DImageCollideData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Physic\BulletShape.cpp">
+      <Filter>jni\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\FrameBuffer.cpp">
+      <Filter>jni\RenderObject\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\VertexBufferObject.cpp">
+      <Filter>jni\RenderObject\BufferObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\BaseImage.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\NumeralImage.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\SimplePrimitive.mm">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\FMAnimationRule.cpp">
+      <Filter>jni\RenderObject\FManimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Glyph\GlyphReader.mm">
+      <Filter>jni\RenderObject\Font\Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Glyph\GlyphWriter.cpp">
+      <Filter>jni\RenderObject\Font\Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\GlyphFontRender.cpp">
+      <Filter>jni\RenderObject\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\Water.cpp">
+      <Filter>jni\RenderObject\GLSL\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp">
+      <Filter>jni\RenderObject\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\Shader.cpp">
+      <Filter>jni\RenderObject\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\GLSLUiniform.cpp">
+      <Filter>jni\RenderObject\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\MPDI.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\MPDIForEditor.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\SubMPDI.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\SubMPDIRenderPointData.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\VideoSubMPDI.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\AnimationParser.cpp">
+      <Filter>jni\RenderObject\Parser\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\MPDIDataParse.cpp">
+      <Filter>jni\RenderObject\Parser\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\BinaryToTexture.cpp">
+      <Filter>jni\RenderObject\Parser\BinaryToTexture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\ImageParser.cpp">
+      <Filter>jni\RenderObject\Parser\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\PuzzleImage.cpp">
+      <Filter>jni\RenderObject\PuzzleImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\pngLoader.cpp">
+      <Filter>jni\RenderObject\Texture\png</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundManager.mm">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\stdafx.cpp">
+      <Filter>jni\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\FUCriticalSection.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\FUSemaphore.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\FUSynchronized.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\FUThread.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\FUThreadPool.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinystr.cpp">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxml.cpp">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxmlerror.cpp">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxmlparser.cpp">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\AtgXmlWriter.cpp">
+      <Filter>jni\XML\Writer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\StringToStructure.cpp">
+      <Filter>jni\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\XmlLoader.mm">
+      <Filter>jni\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\StringID.cpp">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PhasePopupMessager.cpp">
+      <Filter>jni\GamePlayUT\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\BasicSound.cpp">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\Texture.mm">
+      <Filter>jni\RenderObject\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\jpeg\jpgd.cpp">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\jpeg\jpge.cpp">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\jpeg\stb_image.c">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\jpeg\tga2jpg.cpp">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\jpeg\timer.cpp">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Terrain\ShockBoobsPainter.cpp">
+      <Filter>jni\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Terrain\ShockBoobsShader.cpp">
+      <Filter>jni\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Terrain\TerrianVertex.cpp">
+      <Filter>jni\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.cpp">
+      <Filter>jni\VideoPlayer\MyJpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Android\JNIUtil.cpp">
+      <Filter>jni\AndroidJNI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\happyhttp.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\UVAnimationImage.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\RenderObjectVector.cpp">
+      <Filter>jni\GamePlayUT\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\RenderObject.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\TemplateNode.h" />
+    <ClInclude Include="..\..\Core\AllCameraInclude.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\CameraAnimation.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventActiverParser.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventBase.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonSelectedActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonTrigger.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventHeaderDefine.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventImage.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventInstance.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventManager.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventMouseTrigger.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventMPDI.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObject.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectInstance.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectParser.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventPackageRunner.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventParticle.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventSound.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventText.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerBase.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerParser.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventValueChangerActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventValueCheckerTrigger.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventVariable.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableDataRender.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventXMLNodeText.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\MouseCamera.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\OrthogonalCamera.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\SimpleCamera.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\SplitScreenCamera.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Camera\DrawSelectRectangleByMouse.h">
+      <Filter>jni\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Glh.h">
+      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleManager.h">
+      <Filter>jni\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_apk_file.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_egl_util.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_file.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_global.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_hhdds.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_hhdds_internal.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_images.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_log.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_native_app_glue.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\nv_types.h">
+      <Filter>jni\AndroidJNI\Nvidia</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\CommonDefine.h">
+      <Filter>jni\Common\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\PlafFormDefine.h">
+      <Filter>jni\Common\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\VS_TO_GNN.h">
+      <Filter>jni\Common\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\NamedTypedObject.h">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\SmartPointer.h">
+      <Filter>jni\Common\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\MapCellDataContainer.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\TemplateClass.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\TempContainer.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\TwoDimensionDataContainer.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\TimeUT.h">
+      <Filter>jni\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Utility.h">
+      <Filter>jni\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h">
+      <Filter>jni\GamePlayUT\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h">
+      <Filter>jni\GamePlayUT\DataCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h">
+      <Filter>jni\GamePlayUT\FMAnimationRuleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.h">
+      <Filter>jni\GamePlayUT\FMAnimationRuleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\GameApp.h">
+      <Filter>jni\GamePlayUT\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\AtgInput.h">
+      <Filter>jni\GamePlayUT\GamePad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ObjectXMLParser.h">
+      <Filter>jni\GamePlayUT\ObjectXMLParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PathChaser.h">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PathFinder.h">
+      <Filter>jni\GamePlayUT\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PhaseControl.h">
+      <Filter>jni\GamePlayUT\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ResourceStamp.h">
+      <Filter>jni\GamePlayUT\ResourceStamp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\StringCompress.h">
+      <Filter>jni\GamePlayUT\StringCompress</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\AssembleImageButton.h">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\FontFrame.h">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ImageButton.h">
+      <Filter>jni\GamePlayUT\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Mouse_Touch.h">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.h">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\MultiTouchPoints.h">
+      <Filter>jni\GamePlayUT\UI\MouseBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.h">
+      <Filter>jni\GamePlayUT\UI\MiltiselectOptionByMPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\3DScroller.h">
+      <Filter>jni\GamePlayUT\UI\Scroller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Scroller.h">
+      <Filter>jni\GamePlayUT\UI\Scroller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Sliderbar.h">
+      <Filter>jni\GamePlayUT\UI\SlideBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ImageWithSlider.h">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\MultiPage.h">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Tabpage.h">
+      <Filter>jni\GamePlayUT\UI\Tabpage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ListValueChanger.h">
+      <Filter>jni\GamePlayUT\ValueChange</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\RestrictValue.h">
+      <Filter>jni\GamePlayUT\ValueChange</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\AllGamePlayUTInclude.h">
+      <Filter>jni\GamePlayUT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\GameUTDefine.h">
+      <Filter>jni\GamePlayUT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\AllCoreInclude.h">
+      <Filter>jni\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\stdafx.h">
+      <Filter>jni\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Collision.h">
+      <Filter>jni\Math\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Bound.h">
+      <Filter>jni\Math\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\CurveManager.h">
+      <Filter>jni\Math\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Curve.h">
+      <Filter>jni\Math\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Matrix33.h">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Matrix44.h">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Quaternion.h">
+      <Filter>jni\Math\Matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\ValueSortingObject.h">
+      <Filter>jni\Math\Sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector2.h">
+      <Filter>jni\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector3.h">
+      <Filter>jni\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector4.h">
+      <Filter>jni\Math\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\AllMathInclude.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Frame.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Line.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathUtility.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Plane.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\LinerTemplateDataProcess.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\begin_code.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\Network.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDL_endian.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDL_net.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDLnetsys.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitter.h">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitterBehavior.h">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitterGroup.h">
+      <Filter>jni\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleBase.h">
+      <Filter>jni\Particle\ParticleBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\ParticleType.h">
+      <Filter>jni\Particle\ParticleBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtColor.h">
+      <Filter>jni\Particle\Policy\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtLife.h">
+      <Filter>jni\Particle\Policy\Life</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtVelocity.h">
+      <Filter>jni\Particle\Policy\Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtTexture.h">
+      <Filter>jni\Particle\Policy\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtStartPosition.h">
+      <Filter>jni\Particle\Policy\StartPosition</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtSize.h">
+      <Filter>jni\Particle\Policy\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\PrtRotate.h">
+      <Filter>jni\Particle\Policy\Rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\AllPolicyNameList.h">
+      <Filter>jni\Particle\Policy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Particle\AllParticleInclude.h">
+      <Filter>jni\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Physic\2DImageCollisionData.h">
+      <Filter>jni\Physic\2DImageCollideData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\AllPhysicInclude.h">
+      <Filter>jni\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Physic\BulletShape.h">
+      <Filter>jni\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\AllImageInclude.h">
+      <Filter>jni\RenderObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\FrameBuffer.h">
+      <Filter>jni\RenderObject\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\VertexBufferObject.h">
+      <Filter>jni\RenderObject\BufferObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\BaseImage.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\NumeralImage.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\SimplePrimitive.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\FMAnimationRule.h">
+      <Filter>jni\RenderObject\FManimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Glyph\GlyphReader.h">
+      <Filter>jni\RenderObject\Font\Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Glyph\GlyphWriter.h">
+      <Filter>jni\RenderObject\Font\Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\GlyphFontRender.h">
+      <Filter>jni\RenderObject\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\Water.h">
+      <Filter>jni\RenderObject\GLSL\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\Shader.h">
+      <Filter>jni\RenderObject\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h">
+      <Filter>jni\RenderObject\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\MPDI.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\MPDIForEditor.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\SubMPDI.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\SubMPDIRenderPointData.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\VideoSubMPDI.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\AnimationParser.h">
+      <Filter>jni\RenderObject\Parser\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\MPDIDataParse.h">
+      <Filter>jni\RenderObject\Parser\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\BinaryToTexture.h">
+      <Filter>jni\RenderObject\Parser\BinaryToTexture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\ImageParser.h">
+      <Filter>jni\RenderObject\Parser\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\BaseUVImageData.h">
+      <Filter>jni\RenderObject\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\PuzzleImage.h">
+      <Filter>jni\RenderObject\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\pngLoader.h">
+      <Filter>jni\RenderObject\Texture\png</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\OpenAlWavFile.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundManager.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\AllFUThreadInclude.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUCriticalSection.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUFunctor.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUSemaphore.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUSynchronized.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUThread.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUThreadPool.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\FUThreadRef.h">
+      <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\tinystr.h">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\tinyxml.h">
+      <Filter>jni\XML\TinyXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\AtgXmlWriter.h">
+      <Filter>jni\XML\Writer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\StringToStructure.h">
+      <Filter>jni\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\XMLLoader.h">
+      <Filter>jni\XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\AllEventInclude.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h">
+      <Filter>jni\FMEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\StringID.h">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PhasePopupMessager.h">
+      <Filter>jni\GamePlayUT\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\BasicSound.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\Texture.h">
+      <Filter>jni\RenderObject\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\jpeg\jpgd.h">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\jpeg\jpge.h">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\jpeg\timer.h">
+      <Filter>jni\RenderObject\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Terrain\ShockBoobsPainter.h">
+      <Filter>jni\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Terrain\ShockBoobsShader.h">
+      <Filter>jni\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Terrain\TerrianVertex.h">
+      <Filter>jni\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.h">
+      <Filter>jni\VideoPlayer\MyJpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Float.h">
+      <Filter>jni\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\JNIUtil.h">
+      <Filter>jni\AndroidJNI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Android\AndroidJNI.h">
+      <Filter>jni\AndroidJNI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\happyhttp.h">
+      <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\UVAnimationImage.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\RenderObjectVector.h">
+      <Filter>jni\GamePlayUT\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\RenderObject.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="build.xml" />
+    <AndroidBuild Include="local.properties" />
+    <AndroidBuild Include="proguard.cfg" />
+    <AndroidBuild Include="project.properties" />
+  </ItemGroup>
+</Project>

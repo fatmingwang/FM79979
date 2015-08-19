@@ -1,0 +1,30 @@
+<MPDIList Name="Monster1_mpdi" Count="4" MPDIVersion="1.2" PICount="1" ImageName="Element.pi">
+    <MultiPathDynamicImage Name="Attack" PathCount="1" PlayCount="1" TotalPlayTime="0.700000">
+        <CueToStartCurvesWithTime Name="Attack" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="3.00,7.00,0.00" Time="0.000000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="1" Position="-15.00,7.00,0.00" Time="0.200000" Size="99.00,96.00" Scale="1.65,1.60" Color="1.00,0.59,0.59,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="2" Position="3.00,7.00,0.00" Time="0.700000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Idle" PathCount="1" PlayCount="-1" TotalPlayTime="0.900000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="Attack" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="3.00,7.00,0.00" Time="0.000000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="1" Position="3.00,7.00,0.00" Time="0.450000" Size="63.00,63.00" Scale="1.05,1.05" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="2" Position="3.00,7.00,0.00" Time="0.900000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Hurt" PathCount="1" PlayCount="-1" TotalPlayTime="0.900000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="Attack" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="3.00,7.00,0.00" Time="0.000000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="1" Position="9.00,7.00,0.00" Time="0.200000" Size="63.00,63.00" Scale="1.05,1.05" Color="1.00,0.20,0.20,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="2" Position="3.00,7.00,0.00" Time="0.900000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Died" PathCount="1" PlayCount="1" TotalPlayTime="0.900000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="Attack" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="3.00,7.00,0.00" Time="0.000000" Size="60.00,60.00" Scale="1.00,1.00" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="1" Position="3.00,7.00,0.00" Time="0.450000" Size="20.00,20.00" Scale="0.33,0.33" PIName="Element" ImageName="Demon_1" />
+            <PointDataList Index="2" Position="3.00,7.00,0.00" Time="0.900000" Size="0.00,0.00" Scale="0.00,0.00" PIName="Element" ImageName="Demon_1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

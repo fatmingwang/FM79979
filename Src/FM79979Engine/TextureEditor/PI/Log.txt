@@ -1,0 +1,5 @@
+July/10/2013
+
+pi binary file invert to generate a template file then delete it okay.
+
+CoreDotNetTools.cpp OpenImageFile

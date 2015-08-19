@@ -1,0 +1,55 @@
+<SelectFishRodFishThreadPhase>
+	<UIBG>
+			<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="BG"/>
+	</UIBG>
+	<YesNo>
+		<cButtonDialog YesButton="Play_Button" NoButton="Back">
+			<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select_Button"/>
+		</cButtonDialog>
+	</YesNo>
+	<cGameObjectSelector Name="FishRod">
+		<cButtonDialog YesButton="Stage_Select_Button_L001" NoButton="Stage_Select_Button_L002">
+			<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select_Button"/>
+		</cButtonDialog>
+		<cGameItemInfoButton>
+			<cButtonDialog BG="Road_sub_pole">
+				<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select"/>
+			</cButtonDialog>
+			<cRenderObjectVector>
+				<cFontWithFrame  Text="Probability" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detial_No_000"/>
+				</cFontWithFrame>
+				<cFontWithFrame  Text="Cost" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_001"/>
+				</cFontWithFrame>
+				<cFontWithFrame  Text="BrakeTime" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_002"/>
+				</cFontWithFrame>
+			</cRenderObjectVector>
+		</cGameItemInfoButton>
+	</cGameObjectSelector>
+	<cGameObjectSelector Name="FishThread">
+		<cButtonDialog YesButton="Stage_Select_Button_001" NoButton="Stage_Select_Button_002">
+			<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select_Button"/>
+		</cButtonDialog>
+		<cGameItemInfoButton>
+			<cButtonDialog BG="L08-E0500">
+				<cMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select"/>
+			</cButtonDialog>
+			<cRenderObjectVector>
+				<cFontWithFrame  Text="ThreadLength" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_004"/>
+				</cFontWithFrame>
+				<cFontWithFrame  Text="ThreadEnergy" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_005"/>
+				</cFontWithFrame>
+				<cFontWithFrame  Text="ThreadCost" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_006"/>
+				</cFontWithFrame>
+				<cFontWithFrame  Text="ThreadName" >
+					<cSubMPDI cMPDIList="Image/In_Stage.mpdi" cMPDI="Stage_Select" cSubMPDI="Detal_No_003"/>
+				</cFontWithFrame>
+			</cRenderObjectVector>
+		</cGameItemInfoButton>
+	</cGameObjectSelector>
+</SelectFishRodFishThreadPhase>

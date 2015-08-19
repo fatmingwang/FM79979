@@ -1,0 +1,17 @@
+<!-- Author:Administrator,Time:2011/7/14 ¤U¤È 11:48:09 -->
+<PuzzleImage OriginalNameSort="zombie_Generator1,zombie_Generator2,zombie_Generator3,zombie_Generator4,zombie_Generator5,zombie_Generator8,zombie_Generator9,zombie_Generator6,zombie_Generator7,zombie_Generator10,zombie_Generator11,zombie_Generator12,zombie_Generator13,zombie_Generator14" ImageName="Generator.png" Count="14" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="zombie_Generator1" UV="0,0,0.2490234,0.2480469," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="zombie_Generator10" UV="0.2509766,0.5039063,0.5,0.7519531," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="257,258" />
+    <PuzzleUnit Name="zombie_Generator11" UV="0.5019531,0.5039063,0.7509766,0.7519531," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="514,258" />
+    <PuzzleUnit Name="zombie_Generator12" UV="0.7529297,0.5039063,1.001953,0.7519531," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="771,258" />
+    <PuzzleUnit Name="zombie_Generator13" UV="0,0.7558594,0.2490234,1.003906," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="0,387" />
+    <PuzzleUnit Name="zombie_Generator14" UV="0.2509766,0.7558594,0.5,1.003906," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="257,387" />
+    <PuzzleUnit Name="zombie_Generator2" UV="0.2509766,0,0.5,0.2480469," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="257,0" />
+    <PuzzleUnit Name="zombie_Generator3" UV="0.5019531,0,0.7509766,0.2480469," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="514,0" />
+    <PuzzleUnit Name="zombie_Generator4" UV="0.7529297,0,1.001953,0.2480469," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="771,0" />
+    <PuzzleUnit Name="zombie_Generator5" UV="0,0.2519531,0.2490234,0.5," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="0,129" />
+    <PuzzleUnit Name="zombie_Generator6" UV="0.7529297,0.2519531,1.001953,0.5," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="771,129" />
+    <PuzzleUnit Name="zombie_Generator7" UV="0,0.5039063,0.2490234,0.7519531," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="0,258" />
+    <PuzzleUnit Name="zombie_Generator8" UV="0.2509766,0.2519531,0.5,0.5," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="257,129" />
+    <PuzzleUnit Name="zombie_Generator9" UV="0.5019531,0.2519531,0.7509766,0.5," OffsetPos="0,0," Size="256,128" OriginalSize="256,128" ShowPosInPI="514,129" />
+</PuzzleImage>

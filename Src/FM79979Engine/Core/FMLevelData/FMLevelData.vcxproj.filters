@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Level">
+      <UniqueIdentifier>{a1db0665-f884-4742-9a9f-4ee161bbabed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Layer">
+      <UniqueIdentifier>{de5722c2-157f-41df-b777-7f43b121121b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Level\Layer\Grid">
+      <UniqueIdentifier>{2fb904d1-209e-49b7-b1ac-c47a4db8e2b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventDataNode">
+      <UniqueIdentifier>{7be369d9-4771-4be6-9e9f-ec347d624344}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllLevelDataInclude.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelData.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLayerData.h">
+      <Filter>Level\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLayerGridData.h">
+      <Filter>Level\Layer\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="EventDataNode.h">
+      <Filter>EventDataNode</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Concept.txt">
+      <Filter>Header</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LevelData.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLayerData.cpp">
+      <Filter>Level\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLayerGridData.cpp">
+      <Filter>Level\Layer\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="EventDataNode.cpp">
+      <Filter>EventDataNode</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

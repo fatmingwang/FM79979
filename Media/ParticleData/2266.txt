@@ -1,0 +1,11 @@
+<Particle TPVersion="1.0">
+    <TextureList Name0="0000_b.png" Name1="0814a.png" Name2="1540003.png" Name3="23010102.png" Name4="23010900.png" Name5="41010201.png" Name6="41110010.png" Name7="a20061024.png" Name8="a20061027.png" Name9="ash003.png" Name10="b20061025.png" Name11="b20061027.png" Name12="Default.png" />
+    <Emiter Name="Fire" Data="0.100,0,5,100,772,772,0.00,-20.00,0.00,1,10.00" Texture="Default">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="0.50,5.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="1.00000,1.00000,1.00000,1.00000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="310.00,310.00" />
+        <InitPolicy Type="cPrtStartPositionInitBySquareRange" Data="50.00,200.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+        <ActPolicy Type="cPrtRotateActRotate" Data="0.0000,46.0000,50.0000,1,0.1000,2" />
+    </Emiter>
+</Particle>

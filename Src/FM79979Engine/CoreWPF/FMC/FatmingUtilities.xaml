@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="CoreWPF.FMC.FatmingUtilities"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cust="clr-namespace:CoreWPF.FMC">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CommonStyleResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--<Border Style="{StaticResource BorderStyle}" Width="auto" Height="auto" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >-->
+    <Grid >
+        <TabControl Name="m_TabControl" Background="#Ababab" x:FieldModifier="public" SelectionChanged="TabControl_SelectionChanged" >
+            <TabItem Header="PI" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="auto" Height="auto">
+                <cust:PI x:Name="m_PI" x:FieldModifier="public" />
+            </TabItem>
+            <TabItem Header="MPDI" >
+                <cust:MPDI x:Name="m_MPDI" x:FieldModifier="public"/>
+            </TabItem>
+            <TabItem Header="Image">
+                <cust:Image x:Name="m_Image"  x:FieldModifier="public"/>
+            </TabItem>
+            <TabItem Header="Sound">
+                <cust:Sound x:Name="m_Sound"  x:FieldModifier="public"/>
+            </TabItem>
+            <TabItem Header="Particle">
+                <cust:Particle x:Name="m_Particle"  x:FieldModifier="public"/>
+            </TabItem>
+            <TabItem Header="XMLText">
+                <cust:XMLText x:Name="m_XMLText"  x:FieldModifier="public"/>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

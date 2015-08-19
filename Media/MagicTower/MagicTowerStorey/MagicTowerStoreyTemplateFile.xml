@@ -1,0 +1,7 @@
+<Template>
+    <PITemplate PI="Element" Image="Env_Floor" Name="Env_Floor" />
+    <PITemplate PI="Element" Image="Down" Name="Down" TemplateDataNode="Down" />
+    <PITemplate PI="Element" Image="Up" Name="Up" TemplateDataNode="Up" />
+    <PITemplate PI="Element" Image="Env_Tree" Name="Env_Tree" TemplateDataNode="Block" />
+    <PITemplate PI="Element" Image="Demon_1" Name="Demon_1" TemplateDataNode="MonsterNormal" />
+</Template>

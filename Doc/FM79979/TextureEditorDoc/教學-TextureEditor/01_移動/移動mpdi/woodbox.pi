@@ -1,0 +1,11 @@
+<!-- Author:YangHong,Time:2011/2/9 ¤W¤È 11:45:39 -->
+<PuzzleImage OriginalNameSort="woodbox0000,woodbox0001,woodbox0002,woodbox0003,woodbox0004,woodbox0005,woodbox0006,woodbox0007" ImageName="woodbox.png" Count="8" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="woodbox0000" UV="0,0,0.25,0.5," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="woodbox0001" UV="0.25,0,0.5,0.5," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="256,0" />
+    <PuzzleUnit Name="woodbox0002" UV="0.5009766,0,0.7509766,0.5," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="513,0" />
+    <PuzzleUnit Name="woodbox0003" UV="0.7519531,0,1.001953,0.5," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="770,0" />
+    <PuzzleUnit Name="woodbox0004" UV="0,0.5,0.25,1," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="0,256" />
+    <PuzzleUnit Name="woodbox0005" UV="0.2509766,0.5,0.5009766,1," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="257,256" />
+    <PuzzleUnit Name="woodbox0006" UV="0.5019531,0.5,0.7519531,1," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="514,256" />
+    <PuzzleUnit Name="woodbox0007" UV="0.7529297,0.5,1.00293,1," OffsetPos="0,0," Size="256,256" OriginalSize="256,256" ShowPosInPI="771,256" />
+</PuzzleImage>

@@ -1,0 +1,35 @@
+http://ankitthakkar90.blogspot.tw/2013/01/apk-expansion-files-in-android-with.html
+
+
+1.Name
+
+For example, suppose your APK version is 314159 and your package name is com.example.app. If you upload a main expansion file, the file is renamed to:
+
+main.314159.com.example.app.obb
+
+main.4.fm.game.BluffingGirl.obb
+
+
+
+
+2.Location
+
+<shared-storage>/Android/obb/<package-name>/
+
+<shared-storage> is the path to the shared storage space, available from getExternalStorageDirectory().
+
+Ex: sdcard/Android/obb/packagename/main.1.packagename.obb.zip
+
+
+		string	l_strExternal = getExternalStorageDirectory();
+		l_strExternal += "fm.game.BluffingGirl/main.4.fm.game.BluffingGirl.obb.zip";
+
+Set/3/2014
+
+the 4 is the name of apk version
+what ever the name you named after you upload to google play,
+the file will become 
+
+main.1-n(version).packgae name.obb
+
+main.4.fm.game.BluffingGirl.obb;

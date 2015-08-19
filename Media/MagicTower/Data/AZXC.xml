@@ -1,0 +1,1195 @@
+<LevelEditorData>
+    <ImageList>
+        <PI FileName="aa.pi" />
+        <MPDI FileName="aa.mpdi" />
+    </ImageList>
+    <Template>
+        <Data Pos="0.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+    </Template>
+    <StageData Name="3" Count="140" StartPos="0.00,0.00,-0.00," Size="840.00,600.00" GridSize="60,60">
+        <Data Pos="0.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="780.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="720.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+    </StageData>
+    <StageData Name="4" Count="11" StartPos="0.00,0.00,-0.00," Size="720.00,600.00" GridSize="60,60">
+        <Data Pos="180.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+    </StageData>
+    <StageData Name="1" Count="120" StartPos="0.00,0.00,-0.00," Size="720.00,600.00" GridSize="60,60">
+        <Data Pos="0.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+    </StageData>
+    <StageData Name="2" Count="120" StartPos="0.00,0.00,-0.00," Size="720.00,600.00" GridSize="60,60">
+        <Data Pos="180.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,540.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="660.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,0.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="0.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="60.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="120.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="180.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,180.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,240.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,300.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="600.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="480.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="420.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,480.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,420.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="360.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="300.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="240.00,360.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,120.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+        <Data Pos="540.00,60.00,0.00,">
+            <AABB Name="test" />
+        </Data>
+    </StageData>
+</LevelEditorData>

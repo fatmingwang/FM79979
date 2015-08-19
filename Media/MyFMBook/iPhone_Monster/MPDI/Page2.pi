@@ -1,0 +1,9 @@
+<!-- Author:fatming,Time:2013/5/14 ¤W¤È 11:41:59 -->
+<PuzzleImage OriginalNameSort="content-text,eyes,face,hanger,hanger2,Lamp" ImageName="Page2.png" Count="6" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="content-text" UV="0,0,0.4101563,0.3388672" OffsetPos="0,0" Size="840,694" OriginalSize="840,694" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="eyes" UV="0.4106445,0,0.5708008,0.1918945" OffsetPos="0,0" Size="328,393" OriginalSize="328,393" ShowPosInPI="841,0" />
+    <PuzzleUnit Name="face" UV="0.5712891,0,0.8300781,0.2324219" OffsetPos="0,0" Size="530,476" OriginalSize="530,476" ShowPosInPI="1170,0" />
+    <PuzzleUnit Name="hanger" UV="0,0.3393555,0.1855469,0.5083008" OffsetPos="0,0" Size="380,346" OriginalSize="380,346" ShowPosInPI="0,695" />
+    <PuzzleUnit Name="hanger2" UV="0.1860352,0.3393555,0.3774414,0.503418" OffsetPos="0,0" Size="392,336" OriginalSize="392,336" ShowPosInPI="381,695" />
+    <PuzzleUnit Name="Lamp" UV="0.3779297,0.3393555,0.6787109,0.6137695" OffsetPos="0,0" Size="616,562" OriginalSize="616,562" ShowPosInPI="774,695" />
+</PuzzleImage>

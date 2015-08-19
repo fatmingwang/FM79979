@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="CoreWPF.OpenGL.ColorBlending"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <StackPanel MinWidth="100">
+        <CheckBox Content="EnableColorBlending" x:FieldModifier="public" Name="m_EnableCheckbox" Click="EnableCheckbox_Click"/>
+        <Label Content="Source/來源" />
+        <ComboBox x:FieldModifier="public" Name="m_SrcCombox">
+            <ComboBoxItem Content="GL_ZERO"/>
+            <ComboBoxItem Content="GL_ONE"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_SRC_COLOR"/>
+            <ComboBoxItem Content="GL_DST_COLOR"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_DST_COLOR"/>
+            <ComboBoxItem Content="GL_SRC_ALPHA"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_SRC_ALPHA"/>
+            <ComboBoxItem Content="GL_DST_ALPHA"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_DST_ALPHA"/>
+        </ComboBox>
+        <Label Content="Destincation/目標" />
+        <ComboBox x:FieldModifier="public" Name="m_DestCombox">
+            <ComboBoxItem Content="GL_ZERO"/>
+            <ComboBoxItem Content="GL_ONE"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_SRC_COLOR"/>
+            <ComboBoxItem Content="GL_DST_COLOR"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_DST_COLOR"/>
+            <ComboBoxItem Content="GL_SRC_ALPHA"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_SRC_ALPHA"/>
+            <ComboBoxItem Content="GL_DST_ALPHA"/>
+            <ComboBoxItem Content="GL_ONE_MINUS_DST_ALPHA"/>
+        </ComboBox>
+    </StackPanel>
+</UserControl>

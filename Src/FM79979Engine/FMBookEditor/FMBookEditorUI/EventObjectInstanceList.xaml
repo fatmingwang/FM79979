@@ -1,0 +1,59 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:my="clr-namespace:CoreWPF.Common;assembly=CoreWPF" xmlns:local="clr-namespace:FMBookEditorUI" x:Class="FMBookEditorUI.EventObjectInstanceList" 
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Label Content="Name" />
+            <TextBox Grid.Row="0" Margin="157,0,0,0" x:Name="m_EventObjectInstanceName_textBox" Width="143" x:FieldModifier="public" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Label Content="EventInstance" />
+            <TextBox Grid.Row="0" Margin="157,0,0,0" x:Name="m_EventInstance_textBox" Width="143" x:FieldModifier="public" />
+        </Grid>
+        <Grid Grid.Row="2">
+            <Label Content="EventStatus" />
+            <TextBox Grid.Row="0" Margin="157,0,0,0" x:Name="m_EventStatus_textBox" Width="143" x:FieldModifier="public" />
+        </Grid>
+        <Grid Grid.Row="3">
+            <Label Content="StatusEventVariable" />
+            <TextBox Grid.Row="0" Margin="157,0,0,0" x:Name="m_StatusEventVariable" Width="143" x:FieldModifier="public" />
+        </Grid>
+        <Grid Grid.Row="4">
+            <CheckBox x:Name="m_AllStatusWorkingAtSameTime_CheckBox" x:FieldModifier="public" Content="AllStatusWorkingAtSameTime"/>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="m_Add_button" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="Add" Content="Add"/>
+            <Button x:Name="m_Del_button" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="Del" Content="Delete"/>
+            <!--<Button x:Name="m_Revert_button" Grid.Column="2" Style="{StaticResource ButtonStyle}" Click="Revert" Content="Revert"/>-->
+        </Grid>
+        <!--<my:EditableListbox Grid.Row="6" Name="m_EventObjectInstance_listBox" x:FieldModifier="public" />-->
+        <!--<ListBox   Grid.Row="6"  x:Name="m_EventObjectInstance_listBox" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" SelectionMode="Extended" MouseDoubleClick="EventObjectInstance_listBox_MouseDoubleClick">-->
+        <ListBox   Grid.Row="6"  x:Name="m_EventObjectInstance_listBox" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" SelectionMode="Extended" SelectionChanged="m_EventObjectInstance_listBox_SelectionChanged" >
+        </ListBox>
+    </Grid>
+</UserControl>

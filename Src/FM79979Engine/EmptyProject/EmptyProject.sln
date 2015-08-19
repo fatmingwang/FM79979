@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Test", "Win32Test\Win32Test.vcxproj", "{77E00846-770C-45AA-99A1-EF295FB97B74}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\ogg.vcxproj", "{D07C6FC2-02D7-41AE-8498-35186CD57B5A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingCollada", "..\Core\FatmingCollada\FatmingCollada.vcxproj", "{27C4A269-2E08-4644-B3C9-F5090703FA1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		DebugFixedPipeline|Win32 = DebugFixedPipeline|Win32
+		Release|Win32 = Release|Win32
+		ReleaseFixedPipeline|Win32 = ReleaseFixedPipeline|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Win32.Build.0 = Debug|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.DebugFixedPipeline|Win32.ActiveCfg = DebugFixedPipeline|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.DebugFixedPipeline|Win32.Build.0 = DebugFixedPipeline|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.ActiveCfg = Release|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.Build.0 = Release|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.ReleaseFixedPipeline|Win32.ActiveCfg = ReleaseFixedPipeline|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.ReleaseFixedPipeline|Win32.Build.0 = ReleaseFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Win32.ActiveCfg = Debug|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Win32.Build.0 = Debug|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.DebugFixedPipeline|Win32.ActiveCfg = DebugFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.DebugFixedPipeline|Win32.Build.0 = DebugFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Win32.ActiveCfg = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Win32.Build.0 = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.ReleaseFixedPipeline|Win32.ActiveCfg = ReleaseFixedpipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.ReleaseFixedPipeline|Win32.Build.0 = ReleaseFixedpipeline|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug|Win32.Build.0 = Debug|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.DebugFixedPipeline|Win32.ActiveCfg = Debug|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.DebugFixedPipeline|Win32.Build.0 = Debug|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Release|Win32.ActiveCfg = Release|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Release|Win32.Build.0 = Release|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.ReleaseFixedPipeline|Win32.ActiveCfg = Release|Win32
+		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.ReleaseFixedPipeline|Win32.Build.0 = Release|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|Win32.Build.0 = Debug|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.DebugFixedPipeline|Win32.ActiveCfg = DebugFixedPipeline|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.DebugFixedPipeline|Win32.Build.0 = DebugFixedPipeline|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|Win32.ActiveCfg = Release|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Release|Win32.Build.0 = Release|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.ReleaseFixedPipeline|Win32.ActiveCfg = ReleaseFixedPipeline|Win32
+		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.ReleaseFixedPipeline|Win32.Build.0 = ReleaseFixedPipeline|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

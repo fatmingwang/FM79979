@@ -1,0 +1,14 @@
+#pragma once
+//#include "../../../include/glew.h"
+//#include <stdlib.h>
+//#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <xstring>
+//#include "windows.h"
+//#include "assert.h"
+#include "../../Core/AllCoreInclude.h"
+#include "../../DotNetCommon/CoreDotNetTools.h"

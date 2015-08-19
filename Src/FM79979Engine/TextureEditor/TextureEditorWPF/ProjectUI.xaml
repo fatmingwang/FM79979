@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="TextureEditorWPF.MPDI.ProjectUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:myCommon="clr-namespace:CoreWPF.FMC;assembly=CoreWPF">
+    <Grid >
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="3"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>-->
+        <myCommon:FMCFolderExplorerTree Grid.Column="0" x:FieldModifier="public" Name="m_FMCFolderExplorerTree"/>
+        <!--<GridSplitter Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="BlueViolet"  ShowsPreview="True" Width="5"/>
+        <WindowsFormsHost KeyDown="WindowsFormsHost_KeyDown" KeyUp="WindowsFormsHost_KeyUp" Grid.Column="2" Name="m_ContainerBorder" x:FieldModifier="public">
+            <wf:Panel Name="MyOpenGL" />
+        </WindowsFormsHost>-->
+    </Grid>
+</UserControl>

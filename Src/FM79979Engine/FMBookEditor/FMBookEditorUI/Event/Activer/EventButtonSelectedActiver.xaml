@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="FMBookEditorUI.Event.Activer.EventButtonSelectedActiver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <Expander Header="ButtonSelectedActiver">
+        <Grid>
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Content="EventVariableName" Grid.Column="0" Grid.Row="0" ToolTip="please input result(divide by ,) as many as button amount or fill result by button"  />
+            <TextBox   Grid.Row="0" Grid.Column="1" Name="m_EventVariableName" x:FieldModifier="public" MinWidth="100"/>
+            <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Content="Result" Grid.Column="0" />
+                <TextBox  Grid.Row="0" Grid.Column="1" Name="m_Result" x:FieldModifier="public" MinWidth="100" />
+                <Button Grid.Column="0" Grid.Row="1" Content="Add"  Click="ButtonAdd_Click"/>
+                <Button Grid.Column="1" Grid.Row="1" Content="Del"  Click="ButtonDel_Click"/>
+                <ListBox Name="m_ResultListBox" Grid.ColumnSpan="2" Grid.Row="2" MinHeight="30" x:FieldModifier="public" SelectionMode="Extended" />
+            </Grid>
+        </Grid>
+    </Expander>
+</UserControl>

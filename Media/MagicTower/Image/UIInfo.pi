@@ -1,0 +1,4 @@
+<!-- Author:Fatming,Time:2013/9/13 ¤U¤È 05:48:51 -->
+<PuzzleImage OriginalNameSort="LeftUI" ImageName="UIInfo.png" Count="1" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="LeftUI" UV="0,0,0.6523438,0.625" OffsetPos="0,0" Size="167,640" OriginalSize="167,640" ShowPosInPI="0,0" />
+</PuzzleImage>

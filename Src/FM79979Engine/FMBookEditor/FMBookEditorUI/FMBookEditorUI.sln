@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FMBookEditorUI", "FMBookEditorUI.csproj", "{B1259A40-B047-4003-8F2E-E46B99845C56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreWPF", "..\..\CoreWPF\CoreWPF.csproj", "{465DD0FB-BE46-4E00-A957-816464E15056}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextureEditorWPF", "..\..\TextureEditor\TextureEditorWPF\TextureEditorWPF.csproj", "{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		RamDiskDebug|Any CPU = RamDiskDebug|Any CPU
+		RamDiskRelease|Any CPU = RamDiskRelease|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.RamDiskDebug|Any CPU.ActiveCfg = RamDiskDebug|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.RamDiskDebug|Any CPU.Build.0 = RamDiskDebug|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.RamDiskRelease|Any CPU.ActiveCfg = RamDiskRelease|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.RamDiskRelease|Any CPU.Build.0 = RamDiskRelease|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1259A40-B047-4003-8F2E-E46B99845C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.ActiveCfg = RamDiskDebug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.Build.0 = RamDiskDebug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.ActiveCfg = RamDiskRelease|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.Build.0 = RamDiskRelease|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.RamDiskDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.RamDiskDebug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.RamDiskRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.RamDiskRelease|Any CPU.Build.0 = Release|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC556B5-121A-4F71-86F9-0C6A2E35FBDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

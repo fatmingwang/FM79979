@@ -1,0 +1,11 @@
+<!-- Author:Fatming,Time:2013/5/14 ¤U¤È 11:07:10 -->
+<PuzzleImage OriginalNameSort="content-text,cover,flying-bird-01,flying-bird-02,mouse01,mouse02,standing-bird-01,standing-bird-02" ImageName="Page6.png" Count="8" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="content-text" UV="0,0,0.5449219,0.418457" OffsetPos="0,0" Size="1116,857" OriginalSize="1116,857" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="cover" UV="0.5454102,0,0.9335938,0.3203125" OffsetPos="0,0" Size="795,656" OriginalSize="795,656" ShowPosInPI="1117,0" />
+    <PuzzleUnit Name="flying-bird-01" UV="0,0.4189453,0.1469727,0.5742188" OffsetPos="0,0" Size="301,318" OriginalSize="301,318" ShowPosInPI="0,858" />
+    <PuzzleUnit Name="flying-bird-02" UV="0.1474609,0.4189453,0.2944336,0.5742188" OffsetPos="0,0" Size="301,318" OriginalSize="301,318" ShowPosInPI="302,858" />
+    <PuzzleUnit Name="mouse01" UV="0.2949219,0.4189453,0.4506836,0.6357422" OffsetPos="0,0" Size="319,444" OriginalSize="319,444" ShowPosInPI="604,858" />
+    <PuzzleUnit Name="mouse02" UV="0.4511719,0.4189453,0.6069336,0.6357422" OffsetPos="0,0" Size="319,444" OriginalSize="319,444" ShowPosInPI="924,858" />
+    <PuzzleUnit Name="standing-bird-01" UV="0.6074219,0.4189453,0.7353516,0.5639648" OffsetPos="0,0" Size="262,297" OriginalSize="262,297" ShowPosInPI="1244,858" />
+    <PuzzleUnit Name="standing-bird-02" UV="0.7358398,0.4189453,0.8637695,0.5639648" OffsetPos="0,0" Size="262,297" OriginalSize="262,297" ShowPosInPI="1507,858" />
+</PuzzleImage>

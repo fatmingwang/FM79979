@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CoreWPF.FMC.Particle"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CommonStyleResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="0" Name="m_AddParticle_Button" Click="AddParticle_Button_Click">Add Particle</Button>
+            <Button Style="{StaticResource ButtonStyle}" Grid.Column="1" Name="m_DelParticle_Button" Click="DelParticle_Button_Click">Del Particle</Button>
+        </Grid>
+
+        <TextBlock Grid.Row="1" Style="{StaticResource TextBlockStyle}">Particle Group List</TextBlock>
+        <TextBlock Grid.Row="3" Style="{StaticResource TextBlockStyle}" >Particle</TextBlock>
+        <TextBlock Grid.Row="5" Style="{StaticResource TextBlockStyle}">Particle Group</TextBlock>
+        <ListBox Grid.Row="2"  Style="{StaticResource UtilityListBoxStyle}" Name="m_ParticleGroupList_listBox"   x:FieldModifier="public" SelectionMode="Extended"  SelectionChanged="ParticleGroupList_listBox_SelectionChanged" />
+        <ListBox  Grid.Row="4" Style="{StaticResource UtilityListBoxStyle}" Name="m_Particle_listBox"  x:FieldModifier="public" SelectionMode="Extended" SelectionChanged="Particle_listBox_SelectionChanged" PreviewMouseLeftButtonDown="m_Particle_listBox_PreviewMouseDown" />
+        <ListBox Grid.Row="6"  Style="{StaticResource UtilityListBoxStyle}" Name="m_ParticleGroup_listBox"  x:FieldModifier="public" SelectionMode="Extended"  SelectionChanged="ParticleGroup_listBox_SelectionChanged" />
+    </Grid>
+</UserControl>

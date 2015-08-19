@@ -1,0 +1,16 @@
+<Particle TPVersion="1.0">
+    <TextureList Name0="Default.png" />
+    <Emiter Name="Glyph" Data="0.001,0,5,10000,772,772,7,0.00,0.00,0.00,1,20.00" Texture="Default">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="1.50,1.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="0.00000,0.00000,0.00000,0.00000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="10.00,10.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+        <ActPolicy Type="cPrtColorActBlendingBy2Color" Data="1.00000,1.00000,1.00000,1.00000,0.00000,0.00000,0.00000,0.00000" />
+    </Emiter>
+    <Emiter Name="Fire" Data="0.001,0,10,100,772,769,7,0.00,-50.00,0.00,1,120.00" Texture="Default">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="0.50,1.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="1.00000,0.00000,1.00000,1.00000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="30.00,50.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+    </Emiter>
+</Particle>

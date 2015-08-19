@@ -1,0 +1,6 @@
+File->Open->FMBook/tt.xml
+
+SwitchMode->FMBookReader
+
+
+SlideMoude to flip pages

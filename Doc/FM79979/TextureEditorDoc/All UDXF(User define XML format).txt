@@ -1,0 +1,115 @@
+2009/09/04
+
+
+UDXF define(or FDXF)
+
+we define image as 2 formats.
+
+1.Static Image
+	Include 
+		1.1 Common Image(BaseImage,UIImage)
+		1.2 Numerial Image
+		1.3 PuzzleImage Image
+		1.4 Sprite Image(depreciate,old style it could be instead by pullze image)
+2.Dynamic Image
+	Include
+		2.1 ImagePlayer
+			-cImageShowInfoState
+				-sImageShowInfo
+		2.2 MPDIList
+			-cMultiPathDynamicImage
+				-cCueToStart2DCurvesWithTime
+					-sTexBehaviorDataWithImageIndexData
+
+
+here is format for static image
+
+   below sample include 3 kind format
+		Common(BaseImage),UI(UIImage),Numerial(Numerial),Sprite(Sprite)
+		you could gather images as you expect to create a file.
+	<Image>
+		<Common Name="BackGround/BKImage.png" UV="0,0,1,1" />
+		<UI Name="388.png" Position="0,0" UV="0,0,1,1" />
+		<Numerial Name="CardNI.png" />
+		<Sprite Count="4" Row="4" Name="2266.png" TexU="1" TexV="1" />
+	</Image>
+	
+   this is puzzleImage(extension name as *.pi)
+	<PuzzleImage Name="79979" Count="6" >
+	    <PuzzleUnit Name="ST2StonePart" UV="0,0,0.32875,0.1275," OffsetPos="9,9," />
+	    <PuzzleUnit Name="ST3StonePart" UV="0.33,0,0.81875,0.11625," OffsetPos="4,4," />
+	    <PuzzleUnit Name="ST4StonePart" UV="0,0.12875,0.3575,0.2525," OffsetPos="11,11," />
+	    <PuzzleUnit Name="ST5StonePart" UV="0.35875,0.12875,0.885,0.25375," OffsetPos="52,52," />
+	    <PuzzleUnit Name="ST6StonePart" UV="0,0.255,0.33375,0.39125," OffsetPos="30,30," />
+	    <PuzzleUnit Name="ST7StonePart" UV="0.335,0.255,0.665,0.38375," OffsetPos="5,5," />
+	</PuzzleImage>
+
+
+here is format for Dynamic image
+
+	SimpleAnimation(extension name as SA)
+	TAG:
+		ImagePlayer
+			Attributes
+				Name(you could fetch type ImagePlayer as its name)
+				AnimationCount as much cImageShowInfoState
+				ImageName is PuzzleImage(here is quite important!!!if puzzleImage could be share as SA and MPDI)
+	   	Animation
+			Attributes
+				Name(you could fetch type cImageShowInfoState as its name)
+				PlayCount(how many times to play if value is -1 it's infinety loop)
+				AnimationCount as much sImageShowInfo
+				MaxImageWidth,MaxImageHeight  to detec maxiuma size for collide(or fetch size in sImageShowInfo)
+	   	AnimationData
+			Attributes
+				Angle
+				ShowSec
+				ImageName
+				OffsetPos
+				Size
+				Mirror
+	sample:
+		<ImagePlayer Name="factory_ani_sa" AnimationCount="1" ImageName="factory.pi">
+		    <Animation Name="BL_factory_ready" PlayCount="-1" AnimationCount="3" MaxImageWidth="102" MaxImageHeight="107">
+		        <AnimationData Angle="0.000000" ShowSec="0.166667" ImageName="BL_factory_ready1" OffsetPos="0,0" Size="102,107" Mirror="0" />
+		        <AnimationData Angle="0.000000" ShowSec="0.166667" ImageName="BL_factory_ready2" OffsetPos="0,0" Size="102,107" Mirror="0" />
+		        <AnimationData Angle="0.000000" ShowSec="0.166667" ImageName="BL_factory_ready3" OffsetPos="0,0" Size="102,107" Mirror="0" />
+		    </Animation>
+		</ImagePlayer>
+
+
+
+	MPDIList(extension name as mpdi)
+	TAG:
+		MPDIList
+			Attributes
+				Name:(you could fetch type MPDIList as its name)
+				Count(how many MultiPathDynamicImage)
+				ImageName(related puzzleImage)
+		MultiPathDynamicImage
+			Attributes
+				Name:(you could fetch type MultiPathDynamicImage as its name)
+				PathCount	how many CueToStart2DCurvesWithTime inside
+				TotalPlayTime how long is it play
+		CueToStart2DCurvesWithTime
+			Attributes
+				Name:(you could fetch type CueToStart2DCurvesWithTime as its name)
+				StartTime	it's possible have a lot path and wanna to show out at expect time(not all path start at 0).
+				Count how many sTexBehaviorDataWithImageIndexData inside
+				LOD the path reference LOD data
+		CurvePoint
+		CurveTime
+		PointDataList
+			those three store the time and position and sTexBehaviorDataWithImageIndexData data
+
+
+sample:
+<MPDIList Name="factory_ani_mpdi" Count="7" ImageName="factory.pi">
+    <MultiPathDynamicImage Name="base" PathCount="1" PlayCount="1" TotalPlayTime="0.000000">
+        <CueToStart2DCurvesWithTime Name="base" StartTime="0.000000" Count="2" LOD="1">
+            <CurvePoint P0="137.00,574.00" P1="137.00,574.00" />
+            <CurveTime P0="0.000000" P1="0.000000" />
+            <PointDataList P0="225,86,0.00,255,255,255,255,factory_base,0" P1="225,86,0.00,255,255,255,255,factory_base,0" />
+        </CueToStart2DCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

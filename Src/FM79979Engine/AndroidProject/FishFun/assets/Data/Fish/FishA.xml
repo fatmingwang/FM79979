@@ -1,0 +1,5 @@
+<cFishBehavior EnableFishLeaving="1" Stamina="50" Place="aa,bb" Width="10,100" Money="10,100" Gold="5,5">
+		<DaeModel FileName="Image/Fish/test.DAE"/>
+		<Collision Type="Collada" FileName="Image/Fish/test.DAE" Name="Collision" />
+		<cFAICharacterInterface Speed="50" RunSpeed="200"/>
+</cFishBehavior>

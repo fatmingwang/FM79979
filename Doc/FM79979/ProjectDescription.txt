@@ -1,0 +1,125 @@
+Project			Filter Folder			File Usage
+
+Core
+
+				-AVIPlayer 
+										AVIPlayer
+											for win32 by opengl
+										FFMpeg Player
+											for Linux and win32 by SDL
+
+				-Camera
+										MouseCamera 
+											for editor
+										OrthgonalCamera
+											for 2D use basicly
+										SimpleCamera
+											for 3D
+
+				-Common
+										common function and some base class.
+
+				-Gameplay
+										PathChaser
+											Display a path and a instruction,detect user's finger follow it or not.
+										Phase
+											Basic phase controller
+				-GLSL
+										for shader
+				-Image
+										MPDI,SA,PI,Font,VBO
+				-Math
+										Vector,Matrix,Curve,Frame,Plane....
+				-Sound
+										base on openAL
+				-XML
+										xml data parse.
+
+MapCellEditor
+				-Data
+					-CellData
+										data cell manager for level editor
+					-ObjectData
+										data cell base for level editor
+
+				-ParserSample
+										a sample to parse level editor's output file,it contain name and position
+
+
+TextureEditor
+				-Curve
+										Curve Render and edit method
+				-non Filter Files
+										AnimationWithPath.h  	= MPDI
+										AutoScaleChildrenForm 	= non-use,abandoned.
+										EditPath		= Path editor
+										ImageCompose		= PI
+										SimpleAnimation		= SA
+										VerticalCollpaseForm	= UI component
+
+				-DNCT						dot net utility function
+ParticleEditor
+				
+										EmitterEditor.h = edit particle file
+										MeshiVewer.h	= Collada file loader
+ParticlePolictForm		
+				-Color
+				-Life
+				-Rotate
+				-Size
+				-StartPosition
+				-Velocity
+										Form for data ditor
+Particle			
+				-ParticleBase
+										Particle interface and data define
+				-Policy
+										Color,Velocity Size.....implement class
+				-Emitter
+										a vector to contain the policy which is edited in the Editor
+				-ParticleManager
+										Parse to store data and export file
+FatmingCollada
+				-Collada
+					-Animation
+					-Camera
+					-Controllers
+					-Effects
+					-Geometries
+					-Images
+					-Lights
+					-Materials
+					-VisualScene
+										All Collada define xml node
+										http://www.khronos.org/collada/
+				-Mesh
+										3d model get from ColladaParser
+TextureScale
+										to scale target floder's images to specifics size
+
+FullFileNameList		
+										to get fullpath file name by specifics extension name
+Localization
+										to generate a font image by a unicode text file
+
+XMLDataEditor
+										to edit xml file or generate relate xml parse code(for tiny xml only)
+OpenglForm
+										for dot net use to attach a opengl canvans on a dotnet conponent(it's restricted to attach a conponent in a tabPage)
+LevelEditor
+										to edit data's position and extend xml node data.
+============================================================================================
+Game project
+
+
+
+
+CubeAttack
+										
+MonsterSpace
+										stage data is not ready yet
+BubbleBallBattle
+										stage data is not ready yet
+
+
+										three projects don't do anything about sound...

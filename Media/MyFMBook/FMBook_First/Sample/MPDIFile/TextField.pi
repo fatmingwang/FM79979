@@ -1,0 +1,7 @@
+<!-- Author:YangHong,Time:2012/8/1 ¤W¤È 10:25:01 -->
+<PuzzleImage OriginalNameSort="TextField_S1,TextField_S2,TextField_S3,TextField_S4" ImageName="TextField.png" Count="4" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="TextField_S1" UV="0,0,0.5976563,0.2148438" OffsetPos="221,217" Size="612,220" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="TextField_S2" UV="0,0.2158203,0.9345703,0.5078125" OffsetPos="40,447" Size="957,299" OriginalSize="1024,768" ShowPosInPI="0,221" />
+    <PuzzleUnit Name="TextField_S3" UV="0,0.5087891,0.9345703,0.609375" OffsetPos="40,643" Size="957,103" OriginalSize="1024,768" ShowPosInPI="0,521" />
+    <PuzzleUnit Name="TextField_S4" UV="0,0.6103516,0.9345703,0.7988281" OffsetPos="40,553" Size="957,193" OriginalSize="1024,768" ShowPosInPI="0,625" />
+</PuzzleImage>

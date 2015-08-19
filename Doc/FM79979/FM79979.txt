@@ -1,0 +1,22 @@
+FM79979Engine
+
+
+
+Core
+	support opengl es1.1 and opengl es2.0
+	Glyph font reader,rnder
+	Support bullet physic engine
+	Sound:openal
+	extend able XML parser hirachy
+	MPDI and SA and PI
+
+
+2DAnimationEditor	MPDI SA PI Curve ,2D image collision data for bullet physic engine.
+
+ParticleEditor	group emitter conbime animation data generate incrediable effect
+
+FatmingCollada	Collada parser(skinning animation shader support)
+
+Glyph data generator
+
+XMLDataEditor	generate customize xml data

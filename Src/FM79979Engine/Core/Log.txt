@@ -1,0 +1,114 @@
+Nor/11/2012
+MPDI render by global time bug fix.
+(if current time is bigger than (start time+end time),then current -start time and get modules time shold add start time again)
+
+Jan/03/2013
+add StringID
+and NamedTypedObject.h's debug info add a new way to detect.
+
+Jan
+SwitchToThre/10/2013
+
+ad get error message FUCK
+
+Feb/1/2013
+Parcile SizeInit bug fix
+
+
+March/8/2013
+add String Compress and Decompress
+and XML Parse and ParseWithMyParse also support
+
+March 23 2013
+Android porting
+
+March 31 2013
+Android png image parse add.
+
+April 11 2013
+
+cNumeralImage add clone function
+
+March 10 2014
+
+MPDI inherint make a big change 
+
+NamedAndTyped->Frame->RenderableObject->FMAnimationRule->		cFatmingGroupBehaviorList<TYPE>->MPDI
+		NameedAndTyped->cNamedTypedObjectVector<TYPE>->
+March 13 2014
+I donno why
+if marco define
+_DEBUG and DEBUG
+VS will keep showing memory error...
+so I change all _DEBUG to DEBUG
+to keep Android version stable
+
+
+April 17 2014
+
+some class add GetMe function for parse with xml
+
+
+April 28 2014
+if app got crash at very first begging
+
+please check all vector are declartion as pointer
+
+
+April 30 2014
+OPENGLES_2_X	//for shader
+OPENGLES_1_X	//fixed pipeline and no GL_UNSIGNED_INT.
+
+May 5 2014
+std::wstring	CharToWchar(const char *e_strChar)	
+if here occured crush,in the dot net that's because fucking MS
+using critical section to lock
+please call this after whole windos form is showed
+or using DNCT::OpenfileGet Name.
+
+
+May 7 2014
+
+BaseImage render iwth offset and add OriginalSize
+MPDI SetStopLastFrame change to SetStayLastFrame(FMAnimation)
+
+
+May 22 2014
+FUCK
+opengl ES 1 and 2 
+index buffer only support unsigned short mode.
+
+
+May 26 2014
+OutputDebugString
+and _CrtDumpMemoryLeaks not working
+According to Microsoft, apparently for debugging x64 mixed mode applications the debugger 
+type of 'auto' (set in the Debugging->Debugger Type property page) defaults to managed 
+rather than mixed. This will need to be explicitly set to 'Mixed' for both managed and 
+native debug output to be seen when debugging a 64 bit build.
+
+in the out put window,right click and make sure program output is checked
+
+
+June 1 2015
+the source from 
+"https://social.msdn.microsoft.com/Forums/vstudio/en-US/4f48c152-68cd-45ec-a11e-baa7de7f79c3/attempted-to-read-or-write-protected-memory"
+in the dot net project if Attempted to read or write protected memory occur
+
+"Unhandled Exception: System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt¡±
+This issue shouldn't happen in managed code. You can try setting Visual Studio Debugger to bypass this exception:
+Tools menu ->Options -> Debugging -> General -> Uncheck this option "Suppress JIT optimization on module load"
+ 
+Also you can check this case about some instruction, which discussed the similar issue to yours.
+http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/6adca20b-649f-41a4-8fa1-09534882d76c
+
+I have debugged similar problems in the past and it can be very frustrating. The problem is typically caused by some component (typically unmanaged, but can also be a bad P/Invoke signature) that corrupts the program's memory. You often see differences between debug and release builds because debug builds contain extra metadata to assist in debugging. In debug mode, the corruption will kill some debug metadata, which will only cause you to see spurious debugging information, but not cause the program to crash. In release, the debug data is not present and the error overwrites critical data such as return addresses, which will cause the program to crash. You will also see small changes (like changing compiler optimizations, or re-ordering instructions) cause code to start working. What you've done is mask the problem. The memory corruption is still occuring, it's just not occuring to a critical piece of memory such as a return address. You will likely see it re-appear later as you continue modifying the code.
+
+This is honestly a brutal class of problems to diagnose because they're only present when you don't have debug information. Some suggestions:
+1.   Try turning on all optimizations, run the program under the debugger, and see if the error occurs. (Typically all optimizations are turned off in debug mode so that debugging is easier.) This will at least give you a way to reproduce the error when you have more debug information. This honestly won't help you a whole lot because by the time you crash, the method call that corrupted the memory is long gone.
+
+2.   Look at all unmanaged code that you're calling: COM objects, C/C++ DLLs, Win32 calls, etc. Check the P/Invoke signatures and COM interop thunks for all unmanaged code to verify that they're correct. Don't trust P/Invoke signatures that you find on the 'net. They're not always correct. Verify for yourself that your data types and parameter orderings are correct.
+
+3.   Try removing the unmanaged code (stub out the calls) and see if the problem goes away. If it does, investigate the component to verify that it is free of memory leaks. (Note that you might only be masking the problem as you re-arrange code.)
+
+4.   Try running your code under a unmanaged memory checker like Compuware BoundsChecker, which will look for memory leaks and access violations. This will likely give you some hints as to which unmanaged component is misbehaving

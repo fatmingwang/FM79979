@@ -1,0 +1,7 @@
+<!-- Author:scrr,Time:2014/11/19 ¤U¤È 02:58:32 -->
+<PuzzleImage OriginalNameSort="Vestige_Clip,Vestige_Bg,Vestige_Light,Vestige_Bg_Limit" ImageName="Scene_Bg_Vestige.png" Count="4" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Vestige_Bg" UV="0,0,0.28125,1" OffsetPos="0,0" Size="288,512" OriginalSize="288,512" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Vestige_Bg_Limit" UV="0.4824219,0,0.7636719,1" OffsetPos="0,0" Size="288,512" OriginalSize="288,512" ShowPosInPI="494,0" />
+    <PuzzleUnit Name="Vestige_Clip" UV="0.2841797,0.00390625,0.4599609,0.1503906" OffsetPos="0,0" Size="180,75" OriginalSize="180,75" ShowPosInPI="291,2" />
+    <PuzzleUnit Name="Vestige_Light" UV="0.2851563,0.1542969,0.4804688,0.5449219" OffsetPos="0,0" Size="200,200" OriginalSize="200,200" ShowPosInPI="292,79" />
+</PuzzleImage>

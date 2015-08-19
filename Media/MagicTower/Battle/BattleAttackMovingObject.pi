@@ -1,0 +1,5 @@
+<!-- Author:Fatming,Time:2013/9/7 ¤U¤È 03:54:41 -->
+<PuzzleImage OriginalNameSort="FrameImage,MovingObject" ImageName="BattleAttackMovingObject.png" Count="2" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="FrameImage" UV="0,0,0.7490234,0.5039063" OffsetPos="11,5" Size="767,129" OriginalSize="800,140" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="MovingObject" UV="0.75,0,0.7978516,0.2070313" OffsetPos="5,5" Size="49,53" OriginalSize="60,60" ShowPosInPI="768,0" />
+</PuzzleImage>

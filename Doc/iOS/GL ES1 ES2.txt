@@ -1,0 +1,1 @@
+if you have setup opengl ES1 ensure u have setup openGL ES1 surface as well!!

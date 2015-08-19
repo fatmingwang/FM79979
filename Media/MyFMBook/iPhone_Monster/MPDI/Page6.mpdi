@@ -1,0 +1,69 @@
+<MPDIList Name="Page6_mpdi" Count="2" MPDIVersion="1.2" PICount="2" ImageName="Page6_1.pi,Page6.pi">
+    <MultiPathDynamicImage Name="1" PathCount="4" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page6_1" ImageName="background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page6_1" ImageName="background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="937.00,-10.00,0.00" Time="0.000000" Size="1116.00,857.00" Scale="1.00,1.00" PIName="Page6" ImageName="content-text" />
+            <PointDataList Index="1" Position="937.00,-10.00,0.00" Time="0.100000" Size="1116.00,857.00" Scale="1.00,1.00" PIName="Page6" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="280.00,381.00,0.00" Time="0.000000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+            <PointDataList Index="1" Position="280.00,381.00,0.00" Time="0.100000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="standing-bird-02" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1316.00,1301.00,0.00" Time="0.000000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-01" />
+            <PointDataList Index="1" Position="1316.00,1301.00,0.00" Time="0.500000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-02" />
+            <PointDataList Index="2" Position="1316.00,1301.00,0.00" Time="1.000000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-01" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="8" PlayCount="-1" TotalPlayTime="3.800000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page6_1" ImageName="background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page6_1" ImageName="background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="mouse01" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="440.00,507.00,0.00" Time="0.000000" Size="319.00,444.00" Scale="1.00,1.00" PIName="Page6" ImageName="mouse01" />
+            <PointDataList Index="1" Position="440.00,507.00,0.00" Time="0.100000" Size="319.00,444.00" Scale="1.00,1.00" PIName="Page6" ImageName="mouse02" />
+            <PointDataList Index="2" Position="440.00,507.00,0.00" Time="0.200000" Size="319.00,444.00" Scale="1.00,1.00" PIName="Page6" ImageName="mouse01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="937.00,-10.00,0.00" Time="0.000000" Size="1116.00,857.00" Scale="1.00,1.00" PIName="Page6" ImageName="content-text" />
+            <PointDataList Index="1" Position="937.00,-10.00,0.00" Time="0.100000" Size="1116.00,857.00" Scale="1.00,1.00" PIName="Page6" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="cover" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="280.00,381.00,0.00" Time="0.000000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+            <PointDataList Index="1" Position="-496.00,95.00,0.00" Time="1.000000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="standing-bird-02" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1316.00,1301.00,0.00" Time="0.000000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-01" />
+            <PointDataList Index="1" Position="1316.00,1301.00,0.00" Time="0.500000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-02" />
+            <PointDataList Index="2" Position="1316.00,1301.00,0.00" Time="1.000000" Size="262.00,297.00" Scale="1.00,1.00" PIName="Page6" ImageName="standing-bird-01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="coverStop" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-496.00,95.00,0.00" Time="0.000000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+            <PointDataList Index="1" Position="-496.00,95.00,0.00" Time="1.000000" Size="795.00,656.00" Scale="1.00,1.00" PIName="Page6" ImageName="cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="flying-bird-01" StartTime="0.000000" AnchorType="CenterCenter" Count="13" LOD="2">
+            <PointDataList Index="0" Position="-545.00,-37.00,0.00" Time="0.000000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="1" Position="-375.00,148.00,0.00" Time="0.266667" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="2" Position="-270.00,225.00,0.00" Time="0.533333" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="3" Position="-152.00,298.00,0.00" Time="0.800000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="4" Position="-47.00,323.00,0.00" Time="1.066667" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="5" Position="29.00,323.00,0.00" Time="1.333333" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="6" Position="122.00,306.00,0.00" Time="1.600000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="7" Position="171.00,274.00,0.00" Time="1.866667" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="8" Position="203.00,233.00,0.00" Time="2.133333" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="9" Position="252.00,165.00,0.00" Time="2.400000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="10" Position="300.00,80.00,0.00" Time="2.666667" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="11" Position="373.00,76.00,0.00" Time="2.933333" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="12" Position="389.00,84.00,0.00" Time="3.200000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="flying-bird-01Stop" StartTime="3.200000" AnchorType="CenterCenter" Count="3" LOD="2" Loop="1">
+            <PointDataList Index="0" Position="369.00,68.00,0.00" Time="0.000000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+            <PointDataList Index="1" Position="369.00,68.00,0.00" Time="0.300000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-02" />
+            <PointDataList Index="2" Position="369.00,68.00,0.00" Time="0.600000" Size="301.00,318.00" Scale="1.00,1.00" PIName="Page6" ImageName="flying-bird-01" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

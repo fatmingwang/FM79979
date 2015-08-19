@@ -1,0 +1,137 @@
+﻿<UserControl x:Class="FMBookEditorUI.FMBookUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cust="clr-namespace:FMBookEditorUI"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:my="clr-namespace:CoreWPF.FMC;assembly=CoreWPF"
+             xmlns:myCommon="clr-namespace:CoreWPF.Common;assembly=CoreWPF"
+             xmlns:myVideoPlayer="clr-namespace:CoreWPF.VideoPlayer;assembly=CoreWPF">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Name="Main_Grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <Menu Height="22"  Name="MainMenu">
+                <MenuItem Header="File">
+                    <MenuItem Header="Open" Name="Open_Menu" Click="FileOpen" />
+                    <MenuItem Header="Save" Name="Save_Menu" Click="FileSave" />
+                </MenuItem>
+                <MenuItem Header="View" >
+                    <MenuItem Header="Collpase" Name="Collpase_Menu" Click="Collapse" />
+                    <MenuItem Header="Expand" Name="Expand_Menu" Click="Expand" />
+                </MenuItem>
+                <MenuItem Header="SwitchMode" >
+                    <MenuItem Header="Editor" Name="Editor_Menu" Click="Expand" />
+                    <MenuItem Header="Game" Name="Game_Menu" Click="Collapse" />
+                </MenuItem>                    
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="1" Name="m_SecondGrid" x:FieldModifier="public">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="460" />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <!--<ColumnDefinition />-->
+                <!--<ColumnDefinition Width="auto"/>-->
+                <!--<ColumnDefinition Width="950" />-->
+            </Grid.ColumnDefinitions>
+            <Expander Name="m_FatmingUtilities_Expander" Grid.Column="0" IsExpanded="True" ExpandDirection="Right" >
+                <Expander.Header>
+                    <TextBlock Text="EventObjectStatus">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <TabControl>
+                    <!--<TabItem Header="VideoPlayer" >
+                        <myVideoPlayer:VideoPlayer />
+                    </TabItem>
+                    <TabItem Header="FoldeProject">
+
+                    </TabItem>-->
+                    <TabItem Header="EventObjectStatus">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <my:FatmingUtilities Name="m_FatmingUtilities" x:FieldModifier="public" Grid.Column="0" />
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <cust:EventObjectStatus x:Name="m_EventObjectStatus" Grid.Row="0" x:FieldModifier="public" VerticalContentAlignment="Top" HorizontalAlignment="Stretch" />
+                                <cust:EventObjectStatusList Grid.Row="1" x:Name="m_EventObjectStatusList" x:FieldModifier="public" />
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="EventInstanceList">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>                                
+                            <cust:EventInstance x:Name="m_EventInstance" Grid.Column="0"  x:FieldModifier="public" />
+                            <cust:EventInstanceList x:Name="m_EventInstanceList" Grid.Column="1" x:FieldModifier="public" />
+                            </Grid>
+                    </TabItem>
+                    <TabItem Header="EventVariableManager">
+                        <cust:EventVariableManager x:Name="m_EventVariableManager" x:FieldModifier="public" />
+                    </TabItem>
+                    <!--<TabItem Header="EventObjectStatusList" Margin="-4,1,0,-3">
+                        <cust:EventObjectStatusList x:Name="m_EventObjectStatusList" x:FieldModifier="public" />
+                    </TabItem>-->
+                </TabControl>
+            </Expander>
+            <GridSplitter Grid.Column="1"  HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC"/>
+            <Border Background="Black" Grid.Column="2" Name="m_RenderWindow" x:FieldModifier="public" >
+                <WindowsFormsHost KeyDown="WindowsFormsHost_KeyDown" KeyUp="WindowsFormsHost_KeyUp">
+                    <wf:Panel Name="MyOpenGL" />
+                </WindowsFormsHost>
+            </Border>
+            <GridSplitter  HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="3" ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC" />
+            <!--<GridSplitter  HorizontalAlignment="Right"
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="5" ResizeBehavior="PreviousAndNext"
+                  Width="5" Background="#FFBCBCBC" />-->            
+            <!--<Expander Name="m_PageData_Expander" Grid.Column="6" IsExpanded="True" ExpandDirection="Left" >-->
+            <Expander Name="m_PageData_Expander" Grid.Column="4" IsExpanded="True" ExpandDirection="Left" >
+                <Expander.Header>
+                    <TextBlock Text="PageData">
+                        <TextBlock.LayoutTransform>
+                            <RotateTransform Angle="-90"/>
+                        </TextBlock.LayoutTransform>
+                    </TextBlock>
+                </Expander.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <!--<ColumnDefinition/>-->
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <!--<cust:EventPacjagesData Grid.Column="1" />-->
+                    <cust:EventPackages   x:Name="m_EventPackages" x:FieldModifier="public"  Grid.Column="2"/>
+                    <cust:EventObjectInstanceList Grid.Column="0" x:Name="m_EventObjectInstanceList" x:FieldModifier="public" />
+                </Grid>
+            </Expander>
+        </Grid>
+    </Grid>    
+</UserControl>

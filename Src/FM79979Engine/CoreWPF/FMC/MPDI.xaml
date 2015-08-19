@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="CoreWPF.FMC.MPDI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CommonStyleResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+            <RowDefinition Height="20"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Name="m_AddMPDIList_button" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="AddMPDI_Click">Add MPDI</Button>
+            <Button Name="m_DelMPDIList_button" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="DelMPDI_Click">Delete MPDI</Button>
+        </Grid>
+        <TextBlock Grid.Row="1"  Style="{StaticResource TextBlockStyle}">MPDIList</TextBlock>
+        <TextBlock Grid.Row="3"  Style="{StaticResource TextBlockStyle}" >MPDI</TextBlock>
+        <ListBox   Grid.Row="2"  Name="m_MPDIList_listBox" Style="{StaticResource UtilityListBoxStyle}" SelectionChanged="MPDIList_ListboxChangeSelection" x:FieldModifier="public" SelectionMode="Single" />
+        <ListBox   Grid.Row="4"  Name="m_MPDI_listBox" Style="{StaticResource UtilityListBoxStyle}" SelectionChanged="MPDI_ListboxChangeSelection" x:FieldModifier="public" SelectionMode="Extended" AllowDrop="False" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,7 @@
+go to pList
+
+Add URL types
+
+item 0 add URL Schemes
+
+Item0 as String input fb App ID

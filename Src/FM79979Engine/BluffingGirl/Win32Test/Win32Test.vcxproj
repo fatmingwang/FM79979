@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugFixedPipeline|Win32">
+      <Configuration>DebugFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseFixedpipeline|Win32">
+      <Configuration>ReleaseFixedpipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>BluffingGirl</ProjectName>
+    <ProjectGuid>{77E00846-770C-45AA-99A1-EF295FB97B74}</ProjectGuid>
+    <RootNamespace>test</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Media\BluffingGirl\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Debug\BluffingGirl\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Media\BluffingGirl\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Release\BluffingGirl\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <OutDir>..\..\..\Media\</OutDir>
+    <IntDir>..\..\..\Media\Intermedia\DebugFixedPipeline\Win32Test\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'">
+    <OutDir>..\..\..\Media\</OutDir>
+    <IntDir>..\..\..\Media\Intermedia\ReleaseFixedPipeline\win32Test\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;..\..\..\include\curl;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;DEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;OPENGLES_2_X;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences />
+      <EnableCOMDATFolding />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol />
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\test.cpp" />
+    <ClCompile Include="Win32Test.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGirlApp.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGirlPhaseManager.cpp" />
+    <ClCompile Include="..\EngineTest\ShowLogoPhase.cpp" />
+    <ClCompile Include="..\EngineTest\TitlePhase.cpp" />
+    <ClCompile Include="..\EngineTest\MainMenuPhase.cpp" />
+    <ClCompile Include="..\EngineTest\ChoiceGirlPhase.cpp" />
+    <ClCompile Include="..\EngineTest\ChoiceGirlStagePhase.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingDiceGame.cpp" />
+    <ClCompile Include="..\EngineTest\GirlIntroducingPhase.cpp" />
+    <ClCompile Include="..\EngineTest\SpecialDiceRule.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingDiceAI.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGameProbability.cpp" />
+    <ClCompile Include="..\EngineTest\DiceTable.cpp" />
+    <ClCompile Include="..\EngineTest\WinPrizePhase.cpp" />
+    <ClCompile Include="..\EngineTest\StageClearFile.cpp" />
+    <ClCompile Include="..\EngineTest\DownloadContentPhase.cpp" />
+    <ClCompile Include="..\EngineTest\FBPhase.cpp" />
+    <ClCompile Include="..\EngineTest\SetupPhase.cpp" />
+    <ClCompile Include="..\EngineTest\StorePhase.cpp" />
+    <ClCompile Include="..\EngineTest\HeartRecoverPhase.cpp" />
+    <ClCompile Include="..\EngineTest\HeartRecoverSelectGirlPhase.cpp" />
+    <ClCompile Include="..\EngineTest\NetWorkConnectPhase.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingDiceMultiPlayerGame.cpp" />
+    <ClCompile Include="..\EngineTest\GameNetwork.cpp" />
+    <ClCompile Include="..\EngineTest\GameRulePhase.cpp" />
+    <ClCompile Include="..\EngineTest\UnpackExpansionPack.cpp" />
+    <ClCompile Include="..\EngineTest\IABSetup.cpp" />
+    <ClCompile Include="..\EngineTest\IABWindowsDeviceFunction.cpp" />
+    <ClCompile Include="..\EngineTest\PlayerData.cpp" />
+    <ClCompile Include="..\EngineTest\MainFunctionButton.cpp" />
+    <ClCompile Include="..\EngineTest\Unzip.cpp" />
+    <ClCompile Include="..\EngineTest\DownloadFile.cpp" />
+    <ClCompile Include="..\EngineTest\FBFunction.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\EngineTest\AllPhaseDefine.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="..\EngineTest\stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="test.h" />
+    <ClInclude Include="..\EngineTest\BluffingGirlApp.h" />
+    <ClInclude Include="..\EngineTest\BluffingGirlPhaseManager.h" />
+    <ClInclude Include="..\EngineTest\ShowLogoPhase.h" />
+    <ClInclude Include="..\EngineTest\TitlePhase.h" />
+    <ClInclude Include="..\EngineTest\MainMenuPhase.h" />
+    <ClInclude Include="..\EngineTest\ChoiceGirlPhase.h" />
+    <ClInclude Include="..\EngineTest\ChoiceGirlStagePhase.h" />
+    <ClInclude Include="..\EngineTest\BluffingDiceGame.h" />
+    <ClInclude Include="..\EngineTest\GirlIntroducingPhase.h" />
+    <ClInclude Include="..\EngineTest\SpecialDiceRule.h" />
+    <ClInclude Include="..\EngineTest\BluffingDiceAI.h" />
+    <ClInclude Include="..\EngineTest\BluffingGameProbability.h" />
+    <ClInclude Include="..\EngineTest\DiceTable.h" />
+    <ClInclude Include="..\EngineTest\WinPrizePhase.h" />
+    <ClInclude Include="..\EngineTest\StageClearFile.h" />
+    <ClInclude Include="..\EngineTest\DownloadContentPhase.h" />
+    <ClInclude Include="..\EngineTest\FBPhase.h" />
+    <ClInclude Include="..\EngineTest\SetupPhase.h" />
+    <ClInclude Include="..\EngineTest\StorePhase.h" />
+    <ClInclude Include="..\EngineTest\HeartRecoverPhase.h" />
+    <ClInclude Include="..\EngineTest\HeartRecoverSelectGirlPhase.h" />
+    <ClInclude Include="..\EngineTest\NetWorkConnectPhase.h" />
+    <ClInclude Include="..\EngineTest\BluffingDiceMultiPlayerGame.h" />
+    <ClInclude Include="..\EngineTest\GameNetwork.h" />
+    <ClInclude Include="..\EngineTest\GameRulePhase.h" />
+    <ClInclude Include="..\EngineTest\UnpackExpansionPack.h" />
+    <ClInclude Include="..\EngineTest\IABSetup.h" />
+    <ClInclude Include="..\EngineTest\MyJni.h" />
+    <ClInclude Include="..\EngineTest\PlayerData.h" />
+    <ClInclude Include="..\EngineTest\MainFunctionButton.h" />
+    <ClInclude Include="..\EngineTest\Unzip.h" />
+    <ClInclude Include="..\EngineTest\DownloadFile.h" />
+    <ClInclude Include="..\EngineTest\FBFunction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico" />
+    <Image Include="test.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="test.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

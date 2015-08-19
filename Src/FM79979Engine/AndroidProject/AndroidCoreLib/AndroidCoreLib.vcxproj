@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>9</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Profile|Tegra-Android">
+      <Configuration>Profile</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\Core\FMEvent\Event.vcxproj.filters" />
+    <ClCompile Include="..\..\Core\Android\JNIUtil.cpp" />
+    <ClCompile Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.cpp" />
+    <ClCompile Include="..\..\Core\Camera\CameraAnimation.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\AssembleImageButton.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ObjectXMLParser.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\PhasePopupMessager.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\RenderObjectVector.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ResourceStamp.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\GLSLUiniform.cpp" />
+    <ClCompile Include="..\..\Core\Image\jpeg\jpgd.cpp" />
+    <ClCompile Include="..\..\Core\Image\jpeg\jpge.cpp" />
+    <ClCompile Include="..\..\Core\Image\jpeg\stb_image.c" />
+    <ClCompile Include="..\..\Core\Image\jpeg\tga2jpg.cpp" />
+    <ClCompile Include="..\..\Core\Image\jpeg\timer.cpp" />
+    <ClCompile Include="..\..\Core\Image\NumeralImage.cpp" />
+    <ClCompile Include="..\..\Core\Image\RenderObject.cpp" />
+    <ClCompile Include="..\..\Core\Image\UVAnimationImage.cpp" />
+    <ClCompile Include="..\..\Core\Math\LinerTemplateDataProcess.cpp" />
+    <ClCompile Include="..\..\Core\Network\happyhttp.cpp" />
+    <ClCompile Include="..\..\Core\Sound\BasicSound.cpp" />
+    <ClCompile Include="..\..\Core\Terrain\ShockBoobsPainter.cpp" />
+    <ClCompile Include="..\..\Core\Terrain\ShockBoobsShader.cpp" />
+    <ClCompile Include="..\..\Core\Terrain\TerrianVertex.cpp" />
+    <ClCompile Include="..\..\Core\TimeUT.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\Texture.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <None Include="res\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Android\nv_apk_file.c" />
+    <ClCompile Include="..\..\Core\Android\nv_egl_util.cpp" />
+    <ClCompile Include="..\..\Core\Android\nv_file.c" />
+    <ClCompile Include="..\..\Core\Android\nv_hhdds.cpp" />
+    <ClCompile Include="..\..\Core\Android\nv_images.cpp" />
+    <ClCompile Include="..\..\Core\Android\nv_log.cpp" />
+    <ClCompile Include="..\..\Core\Android\nv_native_app_glue.c" />
+    <ClCompile Include="..\..\Core\Camera\DrawSelectRectangleByMouse.cpp" />
+    <ClCompile Include="..\..\Core\Camera\MouseCamera.cpp" />
+    <ClCompile Include="..\..\Core\Camera\SimpleCamera.cpp" />
+    <ClCompile Include="..\..\Core\Camera\SplitScreenCamera.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventActiverParser.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventBase.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonSelectedActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventImage.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventInstance.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventManager.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventManagerParser.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventMouseTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventMPDI.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObject.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectInstance.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectParser.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventPackageRunner.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventParticle.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventSound.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventText.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventToTiXmlElement.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerBase.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerParser.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventValueChangerActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventValueCheckerTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariable.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableDataRender.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventXMLNodeText.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\3DScroller.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\AtgInput.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\BinaryFile.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\CurveChanger.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\DataCurve\DataCurve.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\FontFrame.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\GameApp.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ImageButton.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ImageWithSlider.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ListValueChanger.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Mouse_Touch.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\MultiPage.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\MultiTouchPoints.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\PathChaser.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\PathFinder.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\PhaseControl.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\RestrictValue.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Scroller.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Sliderbar.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\StringCompress.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Tabpage.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\Shader.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\Water.cpp" />
+    <ClCompile Include="..\..\Core\Glyph\GlyphWriter.cpp" />
+    <ClCompile Include="..\..\Core\Image\AnimationParser.cpp" />
+    <ClCompile Include="..\..\Core\Image\BaseImage.cpp" />
+    <ClCompile Include="..\..\Core\Image\BinaryToTexture.cpp" />
+    <ClCompile Include="..\..\Core\Image\FMAnimationRule.cpp" />
+    <ClCompile Include="..\..\Core\Image\FrameBuffer.cpp" />
+    <ClCompile Include="..\..\Core\Image\GlyphFontRender.cpp" />
+    <ClCompile Include="..\..\Core\Image\ImageParser.cpp" />
+    <ClCompile Include="..\..\Core\Image\MPDI.cpp" />
+    <ClCompile Include="..\..\Core\Image\MPDIDataParse.cpp" />
+    <ClCompile Include="..\..\Core\Image\MPDIForEditor.cpp" />
+    <ClCompile Include="..\..\Core\Image\pngLoader.cpp" />
+    <ClCompile Include="..\..\Core\Image\PuzzleImage.cpp" />
+    <ClCompile Include="..\..\Core\Image\SubMPDI.cpp" />
+    <ClCompile Include="..\..\Core\Image\SubMPDIRenderPointData.cpp" />
+    <ClCompile Include="..\..\Core\Image\VertexBufferObject.cpp" />
+    <ClCompile Include="..\..\Core\Image\VideoSubMPDI.cpp" />
+    <ClCompile Include="..\..\Core\Math\Bound.cpp" />
+    <ClCompile Include="..\..\Core\Math\Collision.cpp" />
+    <ClCompile Include="..\..\Core\Math\Curve.cpp" />
+    <ClCompile Include="..\..\Core\Math\CurveManager.cpp" />
+    <ClCompile Include="..\..\Core\Math\Frame.cpp" />
+    <ClCompile Include="..\..\Core\Math\Line.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathUtility.cpp" />
+    <ClCompile Include="..\..\Core\Math\Matrix33.cpp" />
+    <ClCompile Include="..\..\Core\Math\Matrix44.cpp" />
+    <ClCompile Include="..\..\Core\Math\Plane.cpp" />
+    <ClCompile Include="..\..\Core\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\Core\Math\ValueSortingObject.cpp" />
+    <ClCompile Include="..\..\Core\Math\Vector3.cpp" />
+    <ClCompile Include="..\..\Core\Math\Vector4.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnet.c" />
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.c" />
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.c" />
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.c" />
+    <ClCompile Include="..\..\Core\Particle\AllPolicyNameList.cpp" />
+    <ClCompile Include="..\..\Core\Particle\ParticleBase.cpp" />
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitter.cpp" />
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitterBehavior.cpp" />
+    <ClCompile Include="..\..\Core\Particle\ParticleEmitterGroup.cpp" />
+    <ClCompile Include="..\..\Core\Particle\ParticleManager.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtColor.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtLife.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtRotate.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtSize.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtStartPosition.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtTexture.cpp" />
+    <ClCompile Include="..\..\Core\Particle\PrtVelocity.cpp" />
+    <ClCompile Include="..\..\Core\Physic\2DImageCollisionData.cpp" />
+    <ClCompile Include="..\..\Core\Physic\BulletShape.cpp" />
+    <ClCompile Include="..\..\Core\SmartPointer.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c" />
+    <ClCompile Include="..\..\Core\Synchronization\FUCriticalSection.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\FUSemaphore.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\FUSynchronized.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\FUThread.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\FUThreadPool.cpp" />
+    <ClCompile Include="..\..\Core\Utility.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\XmlLoader.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\Network.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Glyph\GlyphReader.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\SimplePrimitive.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+    <None Include="..\..\Core\Log.txt" />
+    <None Include="..\..\Core\Network\README.txt" />
+    <ClCompile Include="..\..\Core\Sound\SoundManager.mm">
+      <FileType>Document</FileType>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Glh.cpp" />
+    <ClCompile Include="..\..\Core\GluForOpengles.cpp" />
+    <ClCompile Include="..\..\Core\NamedTypedObject.cpp" />
+    <ClCompile Include="..\..\Core\stdafx.cpp" />
+    <ClCompile Include="..\..\Core\StringID.cpp" />
+    <ClCompile Include="..\..\Core\XML\AtgXmlWriter.cpp" />
+    <ClCompile Include="..\..\Core\XML\StringToStructure.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinystr.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxml.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxmlparser.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\AllCameraInclude.h" />
+    <ClInclude Include="..\..\Core\AllCoreInclude.h" />
+    <ClInclude Include="..\..\Core\AllImageInclude.h" />
+    <ClInclude Include="..\..\Core\AllMathInclude.h" />
+    <ClInclude Include="..\..\Core\AllPhysicInclude.h" />
+    <ClInclude Include="..\..\Core\Android\AndroidJNI.h" />
+    <ClInclude Include="..\..\Core\Android\JNIUtil.h" />
+    <ClInclude Include="..\..\Core\Android\nv_apk_file.h" />
+    <ClInclude Include="..\..\Core\Android\nv_egl_util.h" />
+    <ClInclude Include="..\..\Core\Android\nv_file.h" />
+    <ClInclude Include="..\..\Core\Android\nv_global.h" />
+    <ClInclude Include="..\..\Core\Android\nv_hhdds.h" />
+    <ClInclude Include="..\..\Core\Android\nv_hhdds_internal.h" />
+    <ClInclude Include="..\..\Core\Android\nv_images.h" />
+    <ClInclude Include="..\..\Core\Android\nv_log.h" />
+    <ClInclude Include="..\..\Core\Android\nv_native_app_glue.h" />
+    <ClInclude Include="..\..\Core\Android\nv_types.h" />
+    <ClInclude Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.h" />
+    <ClInclude Include="..\..\Core\Camera\CameraAnimation.h" />
+    <ClInclude Include="..\..\Core\Camera\DrawSelectRectangleByMouse.h" />
+    <ClInclude Include="..\..\Core\Camera\MouseCamera.h" />
+    <ClInclude Include="..\..\Core\Camera\OrthogonalCamera.h" />
+    <ClInclude Include="..\..\Core\Camera\SimpleCamera.h" />
+    <ClInclude Include="..\..\Core\Camera\SplitScreenCamera.h" />
+    <ClInclude Include="..\..\Core\CommonDefine.h" />
+    <ClInclude Include="..\..\Core\FMEvent\AllEventInclude.h" />
+    <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventActiverParser.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventBase.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonSelectedActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventHeaderDefine.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventImage.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventInstance.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventManager.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventMouseTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventMPDI.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObject.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectInstance.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectParser.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventPackageRunner.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventParticle.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventSound.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventText.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerBase.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerParser.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventValueChangerActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventValueCheckerTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariable.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableDataRender.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventXMLNodeText.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\3DScroller.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\AllGamePlayUTInclude.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\AssembleImageButton.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\AtgInput.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\FontFrame.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\GameApp.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\GameUTDefine.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ImageButton.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ImageWithSlider.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ListValueChanger.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Mouse_Touch.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\MultiPage.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\MultiTouchPoints.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ObjectXMLParser.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\PathChaser.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\PathFinder.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\PhaseControl.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\PhasePopupMessager.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\RenderObjectVector.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ResourceStamp.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\RestrictValue.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Scroller.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Sliderbar.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\StringCompress.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Tabpage.h" />
+    <ClInclude Include="..\..\Core\Glh.h" />
+    <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h" />
+    <ClInclude Include="..\..\Core\GLSL\Shader.h" />
+    <ClInclude Include="..\..\Core\GLSL\Water.h" />
+    <ClInclude Include="..\..\Core\Glyph\GlyphReader.h" />
+    <ClInclude Include="..\..\Core\Glyph\GlyphWriter.h" />
+    <ClInclude Include="..\..\Core\Image\AnimationParser.h" />
+    <ClInclude Include="..\..\Core\Image\BaseImage.h" />
+    <ClInclude Include="..\..\Core\Image\BaseUVImageData.h" />
+    <ClInclude Include="..\..\Core\Image\BinaryToTexture.h" />
+    <ClInclude Include="..\..\Core\Image\FMAnimationRule.h" />
+    <ClInclude Include="..\..\Core\Image\FrameBuffer.h" />
+    <ClInclude Include="..\..\Core\Image\GlyphFontRender.h" />
+    <ClInclude Include="..\..\Core\Image\ImageParser.h" />
+    <ClInclude Include="..\..\Core\Image\jpeg\jpgd.h" />
+    <ClInclude Include="..\..\Core\Image\jpeg\jpge.h" />
+    <ClInclude Include="..\..\Core\Image\jpeg\timer.h" />
+    <ClInclude Include="..\..\Core\Image\MPDI.h" />
+    <ClInclude Include="..\..\Core\Image\MPDIDataParse.h" />
+    <ClInclude Include="..\..\Core\Image\MPDIForEditor.h" />
+    <ClInclude Include="..\..\Core\Image\NumeralImage.h" />
+    <ClInclude Include="..\..\Core\Image\pngLoader.h" />
+    <ClInclude Include="..\..\Core\Image\PuzzleImage.h" />
+    <ClInclude Include="..\..\Core\Image\RenderObject.h" />
+    <ClInclude Include="..\..\Core\Image\SimplePrimitive.h" />
+    <ClInclude Include="..\..\Core\Image\SubMPDI.h" />
+    <ClInclude Include="..\..\Core\Image\SubMPDIRenderPointData.h" />
+    <ClInclude Include="..\..\Core\Image\Texture.h" />
+    <ClInclude Include="..\..\Core\Image\UVAnimationImage.h" />
+    <ClInclude Include="..\..\Core\Image\VertexBufferObject.h" />
+    <ClInclude Include="..\..\Core\Image\VideoSubMPDI.h" />
+    <ClInclude Include="..\..\Core\MapCellDataContainer.h" />
+    <ClInclude Include="..\..\Core\Math\Bound.h" />
+    <ClInclude Include="..\..\Core\Math\Collision.h" />
+    <ClInclude Include="..\..\Core\Math\Curve.h" />
+    <ClInclude Include="..\..\Core\Math\CurveManager.h" />
+    <ClInclude Include="..\..\Core\Math\Float.h" />
+    <ClInclude Include="..\..\Core\Math\Frame.h" />
+    <ClInclude Include="..\..\Core\Math\Line.h" />
+    <ClInclude Include="..\..\Core\Math\LinerTemplateDataProcess.h" />
+    <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h" />
+    <ClInclude Include="..\..\Core\Math\MathUtility.h" />
+    <ClInclude Include="..\..\Core\Math\Matrix33.h" />
+    <ClInclude Include="..\..\Core\Math\Matrix44.h" />
+    <ClInclude Include="..\..\Core\Math\Plane.h" />
+    <ClInclude Include="..\..\Core\Math\Quaternion.h" />
+    <ClInclude Include="..\..\Core\Math\ValueSortingObject.h" />
+    <ClInclude Include="..\..\Core\Math\Vector2.h" />
+    <ClInclude Include="..\..\Core\Math\Vector3.h" />
+    <ClInclude Include="..\..\Core\Math\Vector4.h" />
+    <ClInclude Include="..\..\Core\NamedTypedObject.h" />
+    <ClInclude Include="..\..\Core\Network\begin_code.h" />
+    <ClInclude Include="..\..\Core\Network\happyhttp.h" />
+    <ClInclude Include="..\..\Core\Network\Network.h" />
+    <ClInclude Include="..\..\Core\Network\SDLnetsys.h" />
+    <ClInclude Include="..\..\Core\Network\SDL_endian.h" />
+    <ClInclude Include="..\..\Core\Network\SDL_net.h" />
+    <ClInclude Include="..\..\Core\Particle\AllParticleInclude.h" />
+    <ClInclude Include="..\..\Core\Particle\AllPolicyNameList.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleBase.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitter.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitterBehavior.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleEmitterGroup.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleManager.h" />
+    <ClInclude Include="..\..\Core\Particle\ParticleType.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtColor.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtLife.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtRotate.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtSize.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtStartPosition.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtTexture.h" />
+    <ClInclude Include="..\..\Core\Particle\PrtVelocity.h" />
+    <ClInclude Include="..\..\Core\Physic\2DImageCollisionData.h" />
+    <ClInclude Include="..\..\Core\Physic\BulletShape.h" />
+    <ClInclude Include="..\..\Core\PlafFormDefine.h" />
+    <ClInclude Include="..\..\Core\SmartPointer.h" />
+    <ClInclude Include="..\..\Core\Sound\BasicSound.h" />
+    <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h" />
+    <ClInclude Include="..\..\Core\Sound\OpenAlWavFile.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundManager.h" />
+    <ClInclude Include="..\..\Core\stdafx.h" />
+    <ClInclude Include="..\..\Core\StringID.h" />
+    <ClInclude Include="..\..\Core\Synchronization\AllFUThreadInclude.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUCriticalSection.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUFunctor.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUSemaphore.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUSynchronized.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUThread.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUThreadPool.h" />
+    <ClInclude Include="..\..\Core\Synchronization\FUThreadRef.h" />
+    <ClInclude Include="..\..\Core\TempContainer.h" />
+    <ClInclude Include="..\..\Core\TemplateClass.h" />
+    <ClInclude Include="..\..\Core\TemplateNode.h" />
+    <ClInclude Include="..\..\Core\Terrain\ShockBoobsPainter.h" />
+    <ClInclude Include="..\..\Core\Terrain\ShockBoobsShader.h" />
+    <ClInclude Include="..\..\Core\Terrain\TerrianVertex.h" />
+    <ClInclude Include="..\..\Core\TimeUT.h" />
+    <ClInclude Include="..\..\Core\TwoDimensionDataContainer.h" />
+    <ClInclude Include="..\..\Core\Utility.h" />
+    <ClInclude Include="..\..\Core\VS_TO_GNN.h" />
+    <ClInclude Include="..\..\Core\XML\AtgXmlWriter.h" />
+    <ClInclude Include="..\..\Core\XML\StringToStructure.h" />
+    <ClInclude Include="..\..\Core\XML\tinystr.h" />
+    <ClInclude Include="..\..\Core\XML\tinyxml.h" />
+    <ClInclude Include="..\..\Core\XML\XMLLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="build.xml" />
+    <AndroidBuild Include="local.properties" />
+    <AndroidBuild Include="proguard.cfg" />
+    <AndroidBuild Include="project.properties" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}</ProjectGuid>
+    <RootNamespace>AndroidCoreLib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings"></ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\NVNDK\android-ndk-r8d\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AndroidSystemLibs>c;m;log;gcc;android;EGL;GLESv1_CM</AndroidSystemLibs>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AndroidSystemLibs>c;m;log;gcc;android;EGL;GLESv1_CM</AndroidSystemLibs>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\NVNDK\android-ndk-r8d\platforms\android-14\arch-arm\usr\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <AndroidSystemLibs>c;m;log;gcc;android;EGL;GLESv1_CM</AndroidSystemLibs>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>

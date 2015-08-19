@@ -1,0 +1,25 @@
+<!-- Author:Administrator,Time:2011/12/30 ¤W¤È 04:02:51 -->
+<PuzzleImage OriginalNameSort="cover00,cover0,cover1,cover2,cover3,cover4,DownBar,UpBar,SystemBotton_BG,SystemBotton,cover5,saybar,ChooseBar_Move,FMBOOK,StoryPlane_A,StoryPlane_01,StoryPlane_B,ChooseBar,ChooseBar_word,whrite,Black,79979" ImageName="FM.png" Count="22" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="79979" UV="0,0.7328125,0.3196875,0.9725," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,2345" />
+    <PuzzleUnit Name="Black" UV="0.6940625,0.4925,0.70375,0.5021875," OffsetPos="0,0," Size="32,32" OriginalSize="32,32" ShowPosInPI="2221,1576" />
+    <PuzzleUnit Name="ChooseBar" UV="0.645,0.4925,0.66375,0.6225," OffsetPos="0,0," Size="61,417" OriginalSize="61,417" ShowPosInPI="2064,1576" />
+    <PuzzleUnit Name="ChooseBar_Move" UV="0.495625,0.4925,0.514375,0.5178125," OffsetPos="0,0," Size="61,82" OriginalSize="61,82" ShowPosInPI="1586,1576" />
+    <PuzzleUnit Name="ChooseBar_word" UV="0.664375,0.4925,0.683125,0.6225," OffsetPos="0,0," Size="61,417" OriginalSize="61,417" ShowPosInPI="2126,1576" />
+    <PuzzleUnit Name="cover0" UV="0.3203125,0,0.64,0.2396875," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="1025,0" />
+    <PuzzleUnit Name="cover00" UV="0,0,0.3196875,0.2396875," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="cover1" UV="0.640625,0,0.9603125,0.2396875," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="2050,0" />
+    <PuzzleUnit Name="cover2" UV="0,0.2403125,0.3196875,0.48," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,769" />
+    <PuzzleUnit Name="cover3" UV="0.3203125,0.2403125,0.64,0.48," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="1025,769" />
+    <PuzzleUnit Name="cover4" UV="0.640625,0.2403125,0.9603125,0.48," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="2050,769" />
+    <PuzzleUnit Name="cover5" UV="0,0.4925,0.3196875,0.7321875," OffsetPos="0,0," Size="1024,768" OriginalSize="1024,768" ShowPosInPI="0,1576" />
+    <PuzzleUnit Name="DownBar" UV="0,0.480625,0.3203125,0.491875," OffsetPos="0,0," Size="1026,37" OriginalSize="1026,37" ShowPosInPI="0,1538" />
+    <PuzzleUnit Name="FMBOOK" UV="0.515,0.4925,0.5440625,0.52125," OffsetPos="0,0," Size="94,93" OriginalSize="94,93" ShowPosInPI="1648,1576" />
+    <PuzzleUnit Name="saybar" UV="0.3203125,0.4925,0.495,0.709375," OffsetPos="0,0," Size="560,695" OriginalSize="560,695" ShowPosInPI="1025,1576" />
+    <PuzzleUnit Name="StoryPlane_01" UV="0.5778125,0.4925,0.6121875,0.5321875," OffsetPos="0,0," Size="111,128" OriginalSize="111,128" ShowPosInPI="1849,1576" />
+    <PuzzleUnit Name="StoryPlane_A" UV="0.5446875,0.4925,0.5771875,0.5315625," OffsetPos="0,0," Size="105,126" OriginalSize="105,126" ShowPosInPI="1743,1576" />
+    <PuzzleUnit Name="StoryPlane_B" UV="0.6128125,0.4925,0.644375,0.520625," OffsetPos="0,0," Size="102,91" OriginalSize="102,91" ShowPosInPI="1961,1576" />
+    <PuzzleUnit Name="SystemBotton" UV="0.7053125,0.480625,0.768125,0.489375," OffsetPos="0,0," Size="202,29" OriginalSize="202,29" ShowPosInPI="2257,1538" />
+    <PuzzleUnit Name="SystemBotton_BG" UV="0.641875,0.480625,0.7046875,0.489375," OffsetPos="0,0," Size="202,29" OriginalSize="202,29" ShowPosInPI="2054,1538" />
+    <PuzzleUnit Name="UpBar" UV="0.3209375,0.480625,0.64125,0.4915625," OffsetPos="0,0," Size="1026,36" OriginalSize="1026,36" ShowPosInPI="1027,1538" />
+    <PuzzleUnit Name="whrite" UV="0.68375,0.4925,0.6934375,0.5021875," OffsetPos="0,0," Size="32,32" OriginalSize="32,32" ShowPosInPI="2188,1576" />
+</PuzzleImage>

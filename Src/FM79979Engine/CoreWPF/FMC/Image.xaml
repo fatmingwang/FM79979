@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="CoreWPF.FMC.Image"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"    >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CommonStyleResource.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Click="AddImage_Click" Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyle}" Name="m_ImageAdd_button">Add Image</Button>
+            <Button Click="DelImage_Click" Grid.Row="0" Grid.Column="1" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Center" Name="m_ImageDel_button">Delete Image</Button>
+        </Grid>
+        <TextBlock  Grid.Row="1" Style="{StaticResource TextBlockStyle}">Images</TextBlock>
+        <ListBox  Grid.Row="2" Name="m_Image_listBox" Style="{StaticResource UtilityListBoxStyle}" SelectionChanged="Image_ListboxChangeSelection" x:FieldModifier="public" MinHeight="100"/>
+    </Grid>
+</UserControl>

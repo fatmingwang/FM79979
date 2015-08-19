@@ -1,0 +1,119 @@
+http://docs.oracle.com/javase/1.5.0/docs/guide/jni/spec/types.html
+
+
+Chapter   3
+
+This chapter discusses how the JNI maps Java types to native C types.
+
+Primitive Types
+
+Table 3-1 describes Java primitive types and their machine-dependent native equivalents.
+
+Table 3-1 Primitive Types and Native Equivalents
+Java Type
+Native Type
+Description
+boolean
+jboolean
+unsigned 8 bits
+byte
+jbyte
+signed 8 bits
+char
+jchar
+unsigned 16 bits
+short
+jshort
+signed 16 bits
+int
+jint
+signed 32 bits
+long
+jlong
+signed 64 bits
+float
+jfloat
+32 bits
+double
+jdouble
+64 bits
+void
+void
+N/A
+The following definition is provided for convenience.
+
+#define JNI_FALSE  0 
+#define JNI_TRUE   1 
+The jsize integer type is used to describe cardinal indices and sizes:
+
+typedef jint jsize; 
+Reference Types
+
+The JNI includes a number of reference types that correspond to different kinds of Java objects. JNI reference types are organized in the hierarchy shown in Figure 3-1.
+
+ The top of the heirarchy is jobject. Subclasses of jobject are jclass, jstring, jarray and jthrowable. Subclasses of jarray are jobjectArray, jbooleanArray, jbyteArray, jcharArray, jshortArray, jintArray, jlongArray, jfloatArray, jdoubleArray.
+Figure 3-1 Reference Type Hierarchy 
+
+In C, all other JNI reference types are defined to be the same as jobject. For example:
+
+typedef jobject jclass; 
+In C++, JNI introduces a set of dummy classes to enforce the subtyping relationship. For example:
+
+class _jobject {}; 
+class _jclass : public _jobject {}; 
+... 
+typedef _jobject *jobject; 
+typedef _jclass *jclass; 
+Field and Method IDs
+
+Method and field IDs are regular C pointer types:
+
+struct _jfieldID;              /* opaque structure */ 
+typedef struct _jfieldID *jfieldID;   /* field IDs */ 
+ 
+struct _jmethodID;              /* opaque structure */ 
+typedef struct _jmethodID *jmethodID; /* method IDs */ 
+The Value Type
+
+The jvalue union type is used as the element type in argument arrays. It is declared as follows:
+
+typedef union jvalue { 
+    jboolean z; 
+    jbyte    b; 
+    jchar    c; 
+    jshort   s; 
+    jint     i; 
+    jlong    j; 
+    jfloat   f; 
+    jdouble  d; 
+    jobject  l; 
+} jvalue; 
+Type Signatures
+
+The JNI uses the Java VM¡¦s representation of type signatures. Table 3-2 shows these type signatures.
+
+Table 3-2 Java VM Type Signatures
+Type Signature
+Java Type
+Z
+boolean
+B
+byte
+C
+char
+S
+short
+I
+int
+J
+long
+F
+float
+D
+double
+L fully-qualified-class ;
+fully-qualified-class
+[ type
+type[]
+( arg-types ) ret-type
+method type

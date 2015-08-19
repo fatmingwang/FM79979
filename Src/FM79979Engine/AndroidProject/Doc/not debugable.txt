@@ -1,0 +1,5 @@
+ensure debugable is true
+if it's true still can not deubg
+
+unplug ur device and reset it debug again 
+or restart PC and take a rest.

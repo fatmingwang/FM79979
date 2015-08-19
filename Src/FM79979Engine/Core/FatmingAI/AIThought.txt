@@ -1,0 +1,35 @@
+
+base behavior could decide what is next behavior or let behavior decide
+
+
+base behavior probability,next behavior name,could judge what is next behavior
+
+what sitichiation behavior is done
+
+
+parameter
+destination
+all behavior should update by specific data those data would be input data to 
+update
+
+
+update Interface should be  Update(float e_fElpaseTime,cCharacterData*e_pCharacterData,void* e_pDestination Data)
+
+
+Idle  	
+walk  	
+Attack	
+
+
+probability to next
+
+the character has AI behavior should store or generate all necessary data for behavior
+
+
+it should look like this
+
+class cCharacter
+{
+	AIBehaviorBrain;
+	AIBehaviorBrain's Data;
+};

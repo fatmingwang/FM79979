@@ -1,0 +1,6 @@
+<!-- Author:Fatming_Air,Time:2011/9/23 ¤U¤È 02:46:51 -->
+<PuzzleImage OriginalNameSort="2,3,4" ImageName="tt.png" Count="3" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="2" UV="0,0,0.2724609,0.5019531," OffsetPos="0,0," Size="280,258" OriginalSize="280,258" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="3" UV="0.2744141,0,0.4111328,0.25," OffsetPos="0,0," Size="141,129" OriginalSize="141,129" ShowPosInPI="281,0" />
+    <PuzzleUnit Name="4" UV="0.4130859,0,0.6875,0.2519531," OffsetPos="0,0," Size="282,130" OriginalSize="282,130" ShowPosInPI="423,0" />
+</PuzzleImage>

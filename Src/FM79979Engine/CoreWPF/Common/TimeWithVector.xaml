@@ -1,0 +1,38 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CoreWPF.Common" x:Class="CoreWPF.Common.TimeWithVector" 
+             mc:Ignorable="d" >
+    <Grid x:FieldModifier="public" x:Name="m_MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" x:Name="m_StackPanel" x:FieldModifier="public">
+            <Label x:FieldModifier="public" x:Name="m_DataName" FontSize="10" Content="Data" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" >
+            <Label FontSize="10" Content="Time" />
+            <local:NumericUpDown x:FieldModifier="public" x:Name="m_Time" f_ValueChanged="m_Time_f_ValueChanged" Increment="0.1" Value="0"/>
+            <Button  Content="Add/增加" Click="AddClick" />
+            <Button  Content="Delete/刪除" Click="DeleteClick"/>
+            <Button  Content="Revert/重新編輯" Click="RevertClick"/>
+            <Button  Content="Invert/反向" Click="InvertClick"/>
+            <Button  Content="All/全選" Click="AllClick"/>
+            <Button  Content="EventPoints" Click="EventPointsClick"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2">
+            <ListBox  x:FieldModifier="public" x:Name="m_DataListBox" MinHeight="135"  MinWidth="180" SelectionMode="Extended" SelectionChanged="m_DataListBox_SelectionChanged"/>
+            <StackPanel Orientation="Horizontal">
+                <Button  Content="Insert/插入" Click="InsertClick" />
+                <Label  FontSize="10" Content="Count/數量" />
+                <local:NumericUpDown MinWidth="60" Height="20" />
+                <CheckBox x:FieldModifier="public" x:Name="m_LinerCheckbox" Content="Liner" Checked="m_LinerCheckbox_Checked"/>
+                <CheckBox x:FieldModifier="public" x:Name="m_AverageAssignCheckbox" Content="AverageAssign" Checked="m_AverageAssignCheckbox_Checked"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,10 @@
+<MainRole>
+	<Battle Pos="230,200,0"/>
+	<cFAIAnimationCharacter>
+		<Status Name="Idle" MPDIList="MagicTower/Image/MainCharacter.mpdi" MPDI="Idle" Loop="1" />
+		<Status Name="Attack" MPDIList="MagicTower/Image/MainCharacter.mpdi" MPDI="Attack" Loop="0" />
+		<Status Name="AttackFailed" MPDIList="MagicTower/Image/MainCharacter.mpdi" MPDI="AttackFailed" Loop="0" />
+		<Status Name="Hurt" MPDIList="MagicTower/Image/MainCharacter.mpdi" MPDI="Hurt" Loop="0" />
+		<Status Name="Died" MPDIList="MagicTower/Image/MainCharacter.mpdi" MPDI="Died" Loop="0"/>
+	</cFAIAnimationCharacter>
+</MainRole>

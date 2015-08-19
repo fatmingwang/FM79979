@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="FMBookEditorUI.EventInstance"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="428" d:DesignWidth="252">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>    
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TabControl Name="m_TabControl" Grid.Row="0" >
+            <TabItem  Header="Trigger" Style="{StaticResource TabItemStyle}" >
+                <ListBox Name="m_TriggerListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="TriggerListBox_MouseDoubleClick">
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="Button Trigger" >EventButtonTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="Key Up Trigger" >EventKeyUpDectectTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="not support yet" >EventMouseTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="MultiButton Button Trigger" >EventMultiButtonTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="EventObjectStatus Done and status name check" >EventObjectStatusCheckerTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="Compare Event Variable Data" >EventSelectionCheckerTrigger</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" ToolTip="Compare Event Variable Data" >EventValueCheckerTrigger</ListBoxItem>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Background="#Ababab" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
+            <TabItem Header="Activer">
+                <ListBox  Name="m_ActiverListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled" MouseDoubleClick="ActiverListBox_MouseDoubleClick">
+                    <!--<ListBoxItem Style="{StaticResource ListBoxItemStyle}">CameraActiver</ListBoxItem>-->
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventAddEventObjectInstaceActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventButtonSelectedActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventListValueSelectionActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventExternalFunctionCallActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventListValueSelectionActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventMultiButtonSelectedActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventObjecInstanceStatusChangeActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventValueChangeActiver</ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}">EventVariableCheckYesAndNoActiver</ListBoxItem>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </TabItem>
+        </TabControl>
+        <TabControl Grid.Row="1" Name="WrapPaneTabControl" x:FieldModifier="public">
+            <TabItem Header="Trigger">
+                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <WrapPanel Name="m_EventTriggerListWrapPanel" x:FieldModifier="public" />
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Activerr">
+                <ScrollViewer VerticalScrollBarVisibility="Visible">
+                    <WrapPanel Name="m_EventActiverListWrapPanel" x:FieldModifier="public" />
+                </ScrollViewer>
+            </TabItem>            
+        </TabControl>
+        <Grid Grid.Row="2" >
+            <Grid.RowDefinitions >
+                <RowDefinition  Height="20" />
+                <RowDefinition  />
+            </Grid.RowDefinitions>
+            <Button Content="Add" Grid.Row="0" Height="20" HorizontalAlignment="Left"   VerticalAlignment="Top"  Click="AddEvent_Button_Click" />
+            <Button Content="Del" Grid.Row="0" Height="20" HorizontalAlignment="Right"   VerticalAlignment="Top"  Click="DelEvent_Button_Click" />
+            <ListBox  Grid.Row="1" Name="m_EventList_Listbox" Style="{StaticResource UtilityListBoxStyle}" SelectionMode="Extended" x:FieldModifier="public"  />
+            <Button Content="EventInit" Grid.Row="0" Height="20" HorizontalAlignment="Center" VerticalAlignment="Top"  Click="EventInitButton_Click" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,6 @@
+[13:15:36] init shader
+[13:15:36] init shader ok
+[13:15:36] parse font data
+[13:15:37] read font info failed
+[13:15:37] ./Font.FontInfo
+[13:15:38] parse font data ok

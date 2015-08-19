@@ -1,0 +1,1 @@
+swprintf(l_str,MAX_PATH,L"dice_item_%03d",i+1);

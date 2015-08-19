@@ -1,0 +1,10 @@
+<Particle TPVersion="1.0">
+    <TextureList Name0="Default.png" />
+    <Emiter Name="Fire" Data="0.032,0,1,10000,772,772,7,0.00,-17.00,0.00,1,20.00" Texture="Default">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="0.50,1.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="1.00000,1.00000,1.00000,1.00000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="70.00,100.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+        <ActPolicy Type="cPrtColorActBlendingBy2Color" Data="1.00000,1.00000,1.00000,1.00000,0.00000,0.00000,0.00000,0.00000" />
+    </Emiter>
+</Particle>

@@ -1,0 +1,18 @@
+<Version MPDIVersion="1.0" />
+<MPDIList Name="inG_AppMn_mpdi" Count="1" PICount="1" ImageName="InAppMn.pi">
+    <MultiPathDynamicImage Name="inGApp" PathCount="4" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="inG_Bg" StartTime="0.000000" Count="1" LOD="1">
+            <PointDataList Index="0" Position="241.65,161.37,0.00" Time="1.000000" Size="480.00,320.00" PIName="InAppMn" ImageName="inG_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="inG_BgBtm" StartTime="0.000000" Count="1" LOD="1">
+            <PointDataList Index="0" Position="241.65,295.00,0.00" Time="1.000000" Size="475.00,48.00" PIName="InAppMn" ImageName="inG_BgBtm" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="inG_BkBtn" StartTime="0.000000" Count="1" LOD="1">
+            <PointDataList Index="0" Position="383.01,28.69,0.00" Time="1.000000" Size="70.00,53.00" PIName="InAppMn" ImageName="inG_BkBtn" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="inG_Tab1" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="241.00,95.00,0.00" Time="0.000000" Size="215.00,59.00" PIName="InAppMn" ImageName="inG_Tab1" />
+            <PointDataList Index="1" Position="242.89,155.17,0.00" Time="1.000000" Size="215.00,62.00" PIName="InAppMn" ImageName="inG_Tab4" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

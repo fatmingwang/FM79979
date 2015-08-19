@@ -1,0 +1,530 @@
+<MPDIList Name="Wish_Poor_mpdi" Count="12" MPDIVersion="1.3" PICount="5" ImageName="Main_Map_Ui.pi,Stage_Select.pi,Stage_Words.pi,All_Bg.pi,Wish_Poor.pi">
+    <MultiPathDynamicImage Name="Go_To_Poor" PathCount="16" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="In_Stage_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="179.00,326.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+            <PointDataList Index="1" Position="179.00,326.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pole_Banner_A" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="43.00,564.00,0.00" Time="0.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+            <PointDataList Index="1" Position="43.00,564.00,0.00" Time="5.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="38.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="600.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="600.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="439.00,593.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="439.00,593.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,693.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="68.00,693.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="422.00,737.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="422.00,737.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,594.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,594.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,771.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,771.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,805.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,805.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Go_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,923.00,0.00" Time="0.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+            <PointDataList Index="1" Position="315.00,923.00,0.00" Time="5.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="105.00,531.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+            <PointDataList Index="1" Position="105.00,531.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,660.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="217.00,660.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="410.00,660.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="410.00,660.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Tools_Button" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="38.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="600.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="600.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Go_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,923.00,0.00" Time="0.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+            <PointDataList Index="1" Position="315.00,923.00,0.00" Time="5.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Take_Pole" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Get_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="105.00,531.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+            <PointDataList Index="1" Position="105.00,531.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,660.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="217.00,660.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="410.00,660.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="410.00,660.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Tools_BG" PathCount="9" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="In_Stage_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="179.00,326.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+            <PointDataList Index="1" Position="179.00,326.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pole_Banner_A" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="43.00,564.00,0.00" Time="0.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+            <PointDataList Index="1" Position="43.00,564.00,0.00" Time="5.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="439.00,593.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="439.00,593.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,693.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="68.00,693.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="422.00,737.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="422.00,737.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,594.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,594.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,771.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,771.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,805.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,805.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Poor" PathCount="17" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="425.00,499.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="425.00,499.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="59.00,606.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="59.00,606.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="160.00,649.00,0.00" Time="0.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+            <PointDataList Index="1" Position="160.00,649.00,0.00" Time="5.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="381.00,733.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="381.00,733.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,498.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,498.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,801.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,801.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,732.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,732.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,802.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,802.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Normal_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,914.00,0.00" Time="0.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+            <PointDataList Index="1" Position="68.00,914.00,0.00" Time="5.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Strong_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="403.00,914.00,0.00" Time="0.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+            <PointDataList Index="1" Position="403.00,914.00,0.00" Time="5.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Wish_For_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,609.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+            <PointDataList Index="1" Position="106.00,609.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="204.00,751.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="204.00,751.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="427.00,747.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="427.00,747.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Poor_Make_Wish" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Normal_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,914.00,0.00" Time="0.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+            <PointDataList Index="1" Position="68.00,914.00,0.00" Time="5.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Strong_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="403.00,914.00,0.00" Time="0.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+            <PointDataList Index="1" Position="403.00,914.00,0.00" Time="5.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Poor_Want_Wish" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Wish_For_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,609.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+            <PointDataList Index="1" Position="106.00,609.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="204.00,751.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="204.00,751.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="427.00,747.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="427.00,747.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Poor_BG" PathCount="11" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="425.00,499.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="425.00,499.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="59.00,606.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="59.00,606.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="160.00,649.00,0.00" Time="0.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+            <PointDataList Index="1" Position="160.00,649.00,0.00" Time="5.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="381.00,733.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="381.00,733.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,498.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,498.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,801.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,801.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,732.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,732.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,802.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,802.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="1" PathCount="13" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="In_Stage_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="179.00,326.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+            <PointDataList Index="1" Position="179.00,326.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pole_Banner_A" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="43.00,564.00,0.00" Time="0.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+            <PointDataList Index="1" Position="43.00,564.00,0.00" Time="5.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="439.00,593.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="439.00,593.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,693.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="68.00,693.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="422.00,737.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="422.00,737.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,594.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,594.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,771.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,771.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,805.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,805.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="38.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="600.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="600.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Go_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,923.00,0.00" Time="0.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+            <PointDataList Index="1" Position="315.00,923.00,0.00" Time="5.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="16" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="In_Stage_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="179.00,326.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+            <PointDataList Index="1" Position="179.00,326.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.00,2.00" PIName="All_Bg" ImageName="In_Stage_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Pole_Banner_A" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="43.00,564.00,0.00" Time="0.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+            <PointDataList Index="1" Position="43.00,564.00,0.00" Time="5.000000" Size="633.00,293.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Pole_Banner_A" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="439.00,593.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="439.00,593.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,693.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="68.00,693.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="422.00,737.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="422.00,737.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,594.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,594.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,771.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,771.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="358.00,805.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="358.00,805.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="38.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Stage_Select_Button_L002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="600.00,572.00,0.00" Time="0.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+            <PointDataList Index="1" Position="600.00,572.00,0.00" Time="5.000000" Size="81.00,298.00" Scale="1.00,1.00" Angles="0.00,180.00,0.00" PIName="Stage_Select" ImageName="Stage_Select_Button_L" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Go_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="315.00,923.00,0.00" Time="0.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+            <PointDataList Index="1" Position="315.00,923.00,0.00" Time="5.000000" Size="110.40,304.80" Scale="1.20,1.20" Angles="0.00,0.00,90.00" PIName="Wish_Poor" ImageName="Go_To_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_To_Poor" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="105.00,531.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+            <PointDataList Index="1" Position="105.00,531.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Get_To_Poor" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,660.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="217.00,660.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="410.00,660.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="410.00,660.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="3" PathCount="14" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="425.00,499.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="425.00,499.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="59.00,606.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="59.00,606.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="160.00,649.00,0.00" Time="0.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+            <PointDataList Index="1" Position="160.00,649.00,0.00" Time="5.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="381.00,733.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="381.00,733.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,498.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,498.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,801.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,801.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,732.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,732.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,802.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,802.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Normal_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,914.00,0.00" Time="0.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+            <PointDataList Index="1" Position="68.00,914.00,0.00" Time="5.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Strong_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="403.00,914.00,0.00" Time="0.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+            <PointDataList Index="1" Position="403.00,914.00,0.00" Time="5.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="4" PathCount="17" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="425.00,499.00,0.00" Time="0.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+            <PointDataList Index="1" Position="425.00,499.00,0.00" Time="5.000000" Size="51.00,48.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Plus_010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub-sea_rod_Detial" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="59.00,606.00,0.00" Time="0.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+            <PointDataList Index="1" Position="59.00,606.00,0.00" Time="5.000000" Size="602.00,35.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub-sea_rod_Detial" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="160.00,649.00,0.00" Time="0.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+            <PointDataList Index="1" Position="160.00,649.00,0.00" Time="5.000000" Size="380.00,202.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Plus_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_No_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="381.00,733.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="381.00,733.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Road_sub_pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="129.00,498.00,0.00" Time="0.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+            <PointDataList Index="1" Position="129.00,498.00,0.00" Time="5.000000" Size="446.00,76.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Road_sub_pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="321.00,801.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="321.00,801.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,732.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,732.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,766.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,766.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detal_No_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="483.00,802.00,0.00" Time="0.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+            <PointDataList Index="1" Position="483.00,802.00,0.00" Time="5.000000" Size="19.00,31.00" Scale="1.00,1.00" PIName="Stage_Words" ImageName="Detial_No_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Normal_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,914.00,0.00" Time="0.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+            <PointDataList Index="1" Position="68.00,914.00,0.00" Time="5.000000" Size="205.00,238.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Normal_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Strong_Wish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="403.00,914.00,0.00" Time="0.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+            <PointDataList Index="1" Position="403.00,914.00,0.00" Time="5.000000" Size="202.00,239.00" Scale="1.00,1.00" PIName="Wish_Poor" ImageName="Strong_Wish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="627.00,3.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="627.00,3.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Wish_For_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,609.00,0.00" Time="0.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+            <PointDataList Index="1" Position="106.00,609.00,0.00" Time="5.000000" Size="607.20,273.60" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="Wish_For_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_Yes" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="204.00,751.00,0.00" Time="0.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+            <PointDataList Index="1" Position="204.00,751.00,0.00" Time="5.000000" Size="92.40,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_Yes" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="To_Poor_No" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="427.00,747.00,0.00" Time="0.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+            <PointDataList Index="1" Position="427.00,747.00,0.00" Time="5.000000" Size="76.80,92.40" Scale="1.20,1.20" PIName="Wish_Poor" ImageName="To_Poor_No" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

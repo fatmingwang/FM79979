@@ -1,0 +1,52 @@
+<MPDIList Name="MainMenu_mpdi" Count="5" MPDIVersion="1.2" PICount="1" ImageName="MainMenu.pi">
+    <MultiPathDynamicImage Name="BG" PathCount="5" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1136.00,640.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="MainMenu" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1136.00,640.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="MainMenu" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NewGame" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="441.00,374.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="NewGame" />
+            <PointDataList Index="1" Position="441.00,374.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="NewGame" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Continue" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="435.00,436.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Continue" />
+            <PointDataList Index="1" Position="435.00,436.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Continue" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Challenge" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="429.00,493.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Challenge" />
+            <PointDataList Index="1" Position="429.00,493.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Challenge" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Credits" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="449.00,547.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Credits" />
+            <PointDataList Index="1" Position="449.00,547.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Credits" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="NewGame" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="NewGame" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="441.00,374.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="NewGame" />
+            <PointDataList Index="1" Position="441.00,374.00,0.00" Time="0.500000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="NewGame" />
+            <PointDataList Index="2" Position="441.00,374.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" Color="2.00,1.50,1.50,1.00" PIName="MainMenu" ImageName="NewGame" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Continue" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="NewGame" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="435.00,436.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Continue" />
+            <PointDataList Index="1" Position="435.00,436.00,0.00" Time="0.500000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Continue" />
+            <PointDataList Index="2" Position="435.00,436.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" Color="2.00,1.50,1.50,1.00" PIName="MainMenu" ImageName="Continue" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Chanlange" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="NewGame" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="429.00,493.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Challenge" />
+            <PointDataList Index="1" Position="429.00,493.00,0.00" Time="0.500000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Challenge" />
+            <PointDataList Index="2" Position="429.00,493.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" Color="2.00,1.50,1.50,1.00" PIName="MainMenu" ImageName="Challenge" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Credits" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="NewGame" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="449.00,547.00,0.00" Time="0.000000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Credits" />
+            <PointDataList Index="1" Position="449.00,547.00,0.00" Time="0.500000" Size="200.00,50.00" Scale="1.00,1.00" PIName="MainMenu" ImageName="Credits" />
+            <PointDataList Index="2" Position="449.00,547.00,0.00" Time="1.000000" Size="200.00,50.00" Scale="1.00,1.00" Color="2.00,1.50,1.50,1.00" PIName="MainMenu" ImageName="Credits" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

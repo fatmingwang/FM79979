@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:my="clr-namespace:CommonStyleResource;assembly=CoreWPF">
+
+    <Style x:Key="UtilityListBoxStyle" TargetType="ListBox">
+        <Setter Property="Background" Value="#Ababab" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Visible" />
+        <Setter Property="SelectionMode" Value="Extended" />
+    </Style>
+    
+    
+</ResourceDictionary>

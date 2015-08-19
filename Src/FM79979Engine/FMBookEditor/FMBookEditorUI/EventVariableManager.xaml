@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="FMBookEditorUI.EventVariableManager"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}">
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="19"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" Margin="17,0,0,0" Width="77.967">Variable Name</TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,3,21,27" Width="75.803" Grid.RowSpan="2">Variable Value</TextBlock>
+            <TextBox Name="m_VariableName" Grid.Row="1" Margin="8,0,205,0" Width="87" x:FieldModifier="public" />
+            <TextBox Name="m_VariableValue" Grid.Row="1" HorizontalAlignment="Right" Width="91" Margin="0,3,6,37" Grid.RowSpan="2" x:FieldModifier="public" />
+            <Button Grid.Row="2" HorizontalAlignment="Left" Margin="9,15,0,3" Name="button1" Width="88" Click="Add">AddVariable</Button>
+            <Button Grid.Row="2" Margin="0,11,103,4" Name="button2" HorizontalAlignment="Right" Width="70" Click="Del">Delete</Button>
+            <Button Grid.Row="2" HorizontalAlignment="Right" Margin="0,12,19,3" Name="button3" Width="70" Click="Revert">Revert</Button>
+            <TextBlock  Grid.Row="3" Style="{StaticResource TextBlockStyle}">All Variable Name</TextBlock>
+            <ListBox Grid.Row="4" Name="m_EventVariable_listBox"  Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" MouseDoubleClick="EventVariable_listBox_MouseDoubleClick" SelectionMode="Extended" MinHeight="200" />
+            <ComboBox Grid.RowSpan="3" Height="32" HorizontalAlignment="Left" Margin="108,19,0,0" Name="m_TypeComboBox" VerticalAlignment="Top" Width="87" x:FieldModifier="public" >
+                <ComboBoxItem Content="byte" />
+                <ComboBoxItem Content="float" />
+                <ComboBoxItem Content="double" />
+                <ComboBoxItem Content="int" />
+                <ComboBoxItem Content="string" />
+                <ComboBoxItem Content="wstring" />
+                <ComboBoxItem Content="Vector2" />
+                <ComboBoxItem Content="Vector3" />
+                <ComboBoxItem Content="Vector4" />
+                <ComboBoxItem Content="Point" />
+            </ComboBox>
+            <TextBlock Grid.RowSpan="2" HorizontalAlignment="Right" Margin="0,1,109,29" Width="75.803">DataType</TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

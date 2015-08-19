@@ -1,0 +1,2 @@
+if clash happen in the STL(vector or map...)
+check common runtime support is NO

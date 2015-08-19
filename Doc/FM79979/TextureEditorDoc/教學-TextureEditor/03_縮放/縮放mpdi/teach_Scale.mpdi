@@ -1,0 +1,38 @@
+<MPDIList Name="teach_Scale_mpdi" Count="3" ImageName="woodbox.pi">
+    <MultiPathDynamicImage Name="Scale_01" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_01" StartTime="0.000000" Count="3" LOD="1">
+            <CurvePoint P0="300.00,300.00,0.00," P1="300.00,300.00,0.00," P2="300.00,300.00,0.00," />
+            <CurveTime P0="0.000000" P1="0.500000" P2="1.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="512,512,0.00,255,255,255,255,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Scale_02" PathCount="2" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_02" StartTime="0.000000" Count="3" LOD="1">
+            <CurvePoint P0="302.56,706.43,0.00," P1="302.56,706.43,0.00," P2="302.56,706.43,0.00," />
+            <CurveTime P0="0.000000" P1="0.300000" P2="0.400000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="512,512,0.00,255,255,255,150,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_03" StartTime="0.400000" Count="4" LOD="1">
+            <CurvePoint P0="302.56,706.43,0.00," P1="302.56,706.43,0.00," P2="302.56,706.43,0.00," P3="302.56,706.43,0.00," />
+            <CurveTime P0="0.000000" P1="0.100000" P2="0.200000" P3="0.600000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="307,307,0.00,255,255,255,150,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" P3="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Scale_03" PathCount="3" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_02" StartTime="0.000000" Count="3" LOD="1">
+            <CurvePoint P0="302.56,706.43,0.00," P1="302.56,706.43,0.00," P2="302.56,706.43,0.00," />
+            <CurveTime P0="0.000000" P1="0.300000" P2="0.400000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="512,512,0.00,255,255,255,150,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_03" StartTime="0.400000" Count="4" LOD="1">
+            <CurvePoint P0="302.56,706.43,0.00," P1="302.56,706.43,0.00," P2="302.56,706.43,0.00," P3="302.56,706.43,0.00," />
+            <CurveTime P0="0.000000" P1="0.100000" P2="0.200000" P3="0.600000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="307,307,0.00,255,255,255,150,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" P3="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime BehaviorUpdate="1" Name="Scale_01" StartTime="0.000000" Count="3" LOD="1">
+            <CurvePoint P0="300.00,300.00,0.00," P1="300.00,300.00,0.00," P2="300.00,300.00,0.00," />
+            <CurveTime P0="0.000000" P1="0.500000" P2="1.000000" />
+            <PointDataList P0="256,256,0.00,255,255,255,255,woodbox0000,0" P1="512,512,0.00,255,255,255,255,woodbox0000,0" P2="256,256,0.00,255,255,255,255,woodbox0000,0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

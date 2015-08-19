@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="HarborUI.HarborInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:FMC="clr-namespace:CoreWPF.Common;assembly=CoreWPF"
+             xmlns:HarborEditorUI="clr-namespace:HarborUI"
+             mc:Ignorable="d" >
+    <StackPanel>
+        <Button Content="BackgroundImage" Click="BGImageButton_Click"/>
+        <FMC:EditableListbox MinHeight="200" MinWidth="200" Name="m_HarborListbox" x:FieldModifier="public" />
+        <!--<ListBox MinHeight="200" MinWidth="200" Name="m_HarborListbox" x:FieldModifier="public" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <EventSetter Event="ListBoxItem.PreviewMouseLeftButtonDown" Handler="m_HarborListbox_MouseLeftButtonDown"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>-->
+        <StackPanel >
+            <StackPanel Orientation="Horizontal">
+                <Label Content="PointType" />
+                <ComboBox SelectedIndex="0" Name="m_MapPointTypeCombobox" x:FieldModifier="public" SelectionChanged="MapPointTypeCombobox_SelectionChanged">
+                    <ComboBoxItem Content="Harbor" />
+                    <ComboBoxItem Content="RoutePoint" />
+                </ComboBox>
+            </StackPanel>
+            <TabControl MinHeight="100" x:FieldModifier="public" Name="m_MapPointTYpeTabControl">
+                <TabItem Header="Harbor">
+                    <HarborEditorUI:MapPointHarbor x:FieldModifier="public" x:Name="m_MapPointHarbor"/>
+                </TabItem>
+                <TabItem Header="RoutePointr">
+                    <HarborEditorUI:MapPointRoutePoint x:FieldModifier="public" x:Name="m_MapPointRoutePoint"/>
+                </TabItem>                
+            </TabControl>
+            <!--<TabControl>
+                <TabItem Header="Horbar">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Position" />
+                        <Label Content="0,0,0" Name="m_PosLabel" x:FieldModifier="public"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Commodity" />
+                        <TextBox  Name="m_CommodityTextbox" x:FieldModifier="public" MinWidth="100" ToolTip="use , to separate commodity"/>
+                    </StackPanel>
+                </TabItem>
+            </TabControl>-->
+        </StackPanel>
+        <TextBox Text="HarborName" x:FieldModifier="public" Name="m_HarborNameTextBox" ToolTip="input harbor name and press add to add data"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Harbor Position" />
+            <TextBox IsEnabled="False" Name="m_HarborPos" x:FieldModifier="public" MinWidth="100"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="AddHarbor" Margin="10,0,30,0" Click="AddButton_Click" ToolTip="if same harbor name the position will be changed"/>
+            <Button Content="DeleteHarbor" Click="DelButton_Click" ToolTip="selete from listbox and press this button to revmoe data"/>
+        </StackPanel>
+        <CheckBox Content="Show All Harbor Info on screen" Name="m_ShowHarborInfo" x:FieldModifier="public"/>
+        <CheckBox Content="All Harbor DataMoves" Name="m_AllHarborMove" x:FieldModifier="public"/>
+    </StackPanel>
+</UserControl>

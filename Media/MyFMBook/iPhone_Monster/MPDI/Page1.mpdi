@@ -1,0 +1,142 @@
+<MPDIList Name="Page1_mpdi" Count="4" MPDIVersion="1.2" PICount="2" ImageName="Page1.pi,Page1_1.pi">
+    <MultiPathDynamicImage Name="Normal" PathCount="6" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1268.00,-13.00,0.00" Time="0.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+            <PointDataList Index="1" Position="1268.00,-13.00,0.00" Time="1.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Crayon" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="821.00,1034.00,0.00" Time="0.000000" Size="890.00,331.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="Crayon" />
+            <PointDataList Index="1" Position="821.00,1034.00,0.00" Time="1.000000" Size="890.00,331.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="Crayon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Flashlight" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1347.00,1142.00,0.00" Time="0.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="1" Position="1347.00,1142.00,0.00" Time="0.500000" Size="172.00,140.00" Scale="1.00,1.00" Color="0.78,0.78,1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="2" Position="1347.00,1142.00,0.00" Time="1.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1004.00,933.00,0.00" Time="0.000000" Size="198.00,126.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1004.00,933.00,0.00" Time="1.000000" Size="198.00,126.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="glasses" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,928.00,0.00" Time="0.000000" Size="236.00,128.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="1" Position="994.00,928.00,0.00" Time="1.000000" Size="236.00,128.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="glasses" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="toy-and-book" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-9.00,869.00,0.00" Time="0.000000" Size="576.00,349.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="toy-and-book" />
+            <PointDataList Index="1" Position="-9.00,869.00,0.00" Time="1.000000" Size="576.00,349.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="toy-and-book" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="LightOpn" PathCount="8" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1268.00,-13.00,0.00" Time="0.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+            <PointDataList Index="1" Position="1268.00,-13.00,0.00" Time="1.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Crayon" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="821.00,1034.00,0.00" Time="0.000000" Size="890.00,331.00" Scale="1.00,1.00" PIName="Page1" ImageName="Crayon" />
+            <PointDataList Index="1" Position="821.00,1034.00,0.00" Time="1.000000" Size="890.00,331.00" Scale="1.00,1.00" PIName="Page1" ImageName="Crayon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Flashlight" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1347.00,1142.00,0.00" Time="0.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="1" Position="1347.00,1142.00,0.00" Time="0.500000" Size="172.00,140.00" Scale="1.00,1.00" Color="0.78,0.78,1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="2" Position="1347.00,1142.00,0.00" Time="1.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1004.00,933.00,0.00" Time="0.000000" Size="198.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1004.00,933.00,0.00" Time="0.500000" Size="198.00,126.00" Scale="1.00,1.00" Angles="9.00,0.00,0.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="2" Position="1004.00,933.00,0.00" Time="1.000000" Size="198.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="glasses" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,928.00,0.00" Time="0.000000" Size="236.00,128.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="1" Position="994.00,928.00,0.00" Time="0.500000" Size="236.00,128.00" Scale="1.00,1.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="2" Position="994.00,928.00,0.00" Time="1.000000" Size="236.00,128.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="glasses" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="toy-and-book" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-9.00,869.00,0.00" Time="0.000000" Size="576.00,349.00" Scale="1.00,1.00" PIName="Page1" ImageName="toy-and-book" />
+            <PointDataList Index="1" Position="-9.00,869.00,0.00" Time="1.000000" Size="576.00,349.00" Scale="1.00,1.00" PIName="Page1" ImageName="toy-and-book" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="light" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="784.00,686.00,0.00" Time="0.000000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+            <PointDataList Index="1" Position="784.00,686.00,0.00" Time="0.500000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+            <PointDataList Index="2" Position="784.00,686.00,0.00" Time="1.000000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Monster-shadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,-2.00,0.00" Time="0.000000" Size="1057.00,867.00" Scale="1.00,1.00" Angles="0.00,0.00,2.00" PIName="Page1" ImageName="Monster-shadow" />
+            <PointDataList Index="1" Position="0.00,-2.00,0.00" Time="0.500000" Size="1057.00,875.67" Scale="1.00,1.01" Color="0.92,0.91,1.00,0.95" PIName="Page1" ImageName="Monster-shadow" />
+            <PointDataList Index="2" Position="0.00,-2.00,0.00" Time="1.000000" Size="1057.00,867.00" Scale="1.00,1.00" Angles="0.00,0.00,2.00" PIName="Page1" ImageName="Monster-shadow" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="1" PathCount="7" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Page1Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1_1" ImageName="Page1Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1_1" ImageName="Page1Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1268.00,-13.00,0.00" Time="0.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+            <PointDataList Index="1" Position="1268.00,-13.00,0.00" Time="1.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Crayon" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="821.00,1034.00,0.00" Time="0.000000" Size="890.00,331.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="Crayon" />
+            <PointDataList Index="1" Position="821.00,1034.00,0.00" Time="1.000000" Size="890.00,331.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="Crayon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Flashlight" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1347.00,1142.00,0.00" Time="0.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="1" Position="1347.00,1142.00,0.00" Time="0.500000" Size="172.00,140.00" Scale="1.00,1.00" Color="0.78,0.78,1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="2" Position="1347.00,1142.00,0.00" Time="1.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1004.00,933.00,0.00" Time="0.000000" Size="198.00,126.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1004.00,933.00,0.00" Time="1.000000" Size="198.00,126.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="glasses" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,928.00,0.00" Time="0.000000" Size="236.00,128.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="1" Position="994.00,928.00,0.00" Time="1.000000" Size="236.00,128.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="glasses" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="toy-and-book" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-9.00,869.00,0.00" Time="0.000000" Size="576.00,349.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="toy-and-book" />
+            <PointDataList Index="1" Position="-9.00,869.00,0.00" Time="1.000000" Size="576.00,349.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page1" ImageName="toy-and-book" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="9" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Page1Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page1_1" ImageName="Page1Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page1_1" ImageName="Page1Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1268.00,-13.00,0.00" Time="0.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+            <PointDataList Index="1" Position="1268.00,-13.00,0.00" Time="1.000000" Size="604.00,731.00" Scale="1.00,1.00" PIName="Page1" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Crayon" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="821.00,1034.00,0.00" Time="0.000000" Size="890.00,331.00" Scale="1.00,1.00" PIName="Page1" ImageName="Crayon" />
+            <PointDataList Index="1" Position="821.00,1034.00,0.00" Time="1.000000" Size="890.00,331.00" Scale="1.00,1.00" PIName="Page1" ImageName="Crayon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Flashlight" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1347.00,1142.00,0.00" Time="0.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="1" Position="1347.00,1142.00,0.00" Time="0.500000" Size="172.00,140.00" Scale="1.00,1.00" Color="0.78,0.78,1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+            <PointDataList Index="2" Position="1347.00,1142.00,0.00" Time="1.000000" Size="172.00,140.00" Scale="1.00,1.00" PIName="Page1" ImageName="Flashlight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1004.00,933.00,0.00" Time="0.000000" Size="198.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="1" Position="1004.00,933.00,0.00" Time="0.500000" Size="198.00,126.00" Scale="1.00,1.00" Angles="9.00,0.00,0.00" PIName="Page1" ImageName="little-monster" />
+            <PointDataList Index="2" Position="1004.00,933.00,0.00" Time="1.000000" Size="198.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="glasses" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="994.00,928.00,0.00" Time="0.000000" Size="236.00,128.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="1" Position="994.00,928.00,0.00" Time="0.500000" Size="236.00,128.00" Scale="1.00,1.00" PIName="Page1" ImageName="glasses" />
+            <PointDataList Index="2" Position="994.00,928.00,0.00" Time="1.000000" Size="236.00,128.00" Scale="1.00,1.00" Angles="0.00,0.00,6.00" PIName="Page1" ImageName="glasses" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="toy-and-book" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-9.00,869.00,0.00" Time="0.000000" Size="576.00,349.00" Scale="1.00,1.00" PIName="Page1" ImageName="toy-and-book" />
+            <PointDataList Index="1" Position="-9.00,869.00,0.00" Time="1.000000" Size="576.00,349.00" Scale="1.00,1.00" PIName="Page1" ImageName="toy-and-book" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="light" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="784.00,686.00,0.00" Time="0.000000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+            <PointDataList Index="1" Position="784.00,686.00,0.00" Time="0.500000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+            <PointDataList Index="2" Position="784.00,686.00,0.00" Time="1.000000" Size="532.00,472.00" Scale="1.00,1.00" PIName="Page1" ImageName="light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Monster-shadow" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,-2.00,0.00" Time="0.000000" Size="1057.00,867.00" Scale="1.00,1.00" Angles="0.00,0.00,2.00" PIName="Page1" ImageName="Monster-shadow" />
+            <PointDataList Index="1" Position="0.00,-2.00,0.00" Time="0.500000" Size="1057.00,875.67" Scale="1.00,1.01" Color="0.92,0.91,1.00,0.95" PIName="Page1" ImageName="Monster-shadow" />
+            <PointDataList Index="2" Position="0.00,-2.00,0.00" Time="1.000000" Size="1057.00,867.00" Scale="1.00,1.00" Angles="0.00,0.00,2.00" PIName="Page1" ImageName="Monster-shadow" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

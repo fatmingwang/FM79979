@@ -1,0 +1,12 @@
+<!-- Author:fatming,Time:2013/5/14 ¤W¤È 10:31:17 -->
+<PuzzleImage OriginalNameSort="Hangers,monster,monster_eyes-closed,Monster-Shadow,Pencil,Table-Lamp,Title-in-horizontal,Title-in-vertical,Toy" ImageName="Cover.png" Count="9" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Hangers" UV="0,0,0.09423828,0.05566406" OffsetPos="31,37" Size="193,114" OriginalSize="262,192" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="monster" UV="0.09472656,0,0.5073242,0.5073242" OffsetPos="130,109" Size="845,1039" OriginalSize="999,1359" ShowPosInPI="194,0" />
+    <PuzzleUnit Name="Monster-Shadow" UV="0,0.5078125,0.2260742,0.9223633" OffsetPos="0,0" Size="463,849" OriginalSize="463,849" ShowPosInPI="0,1040" />
+    <PuzzleUnit Name="monster_eyes-closed" UV="0.5078125,0,0.9204102,0.5073242" OffsetPos="130,109" Size="845,1039" OriginalSize="999,1359" ShowPosInPI="1040,0" />
+    <PuzzleUnit Name="Pencil" UV="0.2265625,0.5078125,0.2817383,0.5429688" OffsetPos="7,11" Size="113,72" OriginalSize="128,99" ShowPosInPI="464,1040" />
+    <PuzzleUnit Name="Table-Lamp" UV="0.2822266,0.5078125,0.503418,0.7583008" OffsetPos="94,0" Size="453,513" OriginalSize="693,588" ShowPosInPI="578,1040" />
+    <PuzzleUnit Name="Title-in-horizontal" UV="0.5039063,0.5078125,0.7988281,0.6352539" OffsetPos="39,21" Size="604,261" OriginalSize="694,330" ShowPosInPI="1032,1040" />
+    <PuzzleUnit Name="Title-in-vertical" UV="0.7993164,0.5078125,0.8598633,0.6772461" OffsetPos="15,17" Size="124,347" OriginalSize="154,387" ShowPosInPI="1637,1040" />
+    <PuzzleUnit Name="Toy" UV="0.5849609,0.7197266,0.8847656,0.9448242" OffsetPos="101,123" Size="614,461" OriginalSize="724,675" ShowPosInPI="1198,1474" />
+</PuzzleImage>

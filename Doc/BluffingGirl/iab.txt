@@ -1,0 +1,21 @@
+http://stackoverflow.com/questions/9391123/difference-between-managed-and-unmanaged-in-app-product-android
+
+UnManaged could be something like "Buy 50 points"
+
+The 50 points would then be added to your account and you would store this on your accounts server, therefore the Android Market no longer needs to know that you purchased this product i.e. it will not remember your purchase and you can purchase it multiple times.
+
+Managed could be "Buy this song"
+
+In this scenario you do not have a server to record that they bought the song and so every time they reinstall you can query the market to see they bought the song and it will not let you download it more than once.
+
+Managed is aimed at one time downloads then you 'own that object'.
+
+UnManaged is for multiple downloads of the same thing to 'top something up'.
+
+Least thats my understanding.
+
+Version 3 has the concept of 'consumables' and it works inline with the above. All products are managed but you can 'consume' a product.
+
+i.e. "Buy 50 points" will give the user fifty managed points, the user will not be allowed to purchase that item again until you consume that product.
+
+Therefore you can make unmanaged products by consuming instantly, or managed products by consuming when the user has "used" that product (i.e. never call consume for buying a song).

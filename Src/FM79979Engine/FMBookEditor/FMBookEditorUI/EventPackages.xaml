@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="FMBookEditorUI.EventPackages"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:my="clr-namespace:CoreWPF.Common;assembly=CoreWPF">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Style="{StaticResource GridStyle}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="40" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox Name="m_PackageName_textBox" Margin="89,0,0,0" x:FieldModifier="public" Width="211" />
+        <Label Name="label1" HorizontalAlignment="Left" Margin="-2,-5,0,0" Height="25">PackageName</Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Name="m_AddPackage_button" Grid.Column="0" Style="{StaticResource ButtonStyle}" Click="AddPackage_Click">Add Package</Button>
+            <Button Name="m_DelPackage_button" Grid.Column="1" Style="{StaticResource ButtonStyle}" Click="DelPackage_Click">Delete Package</Button>
+            <Button Name="m_RevertPackage_button" Grid.Column="2" Style="{StaticResource ButtonStyle}" Click="RevertPackage_Click">Revert Package</Button>
+        </Grid>
+        <ListBox   Grid.Row="2"  Name="m_Packages_listBox" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" SelectionMode="Extended" SelectionChanged="Packages_listBox_SelectionChanged" MouseDoubleClick="Packages_listBox_MouseDoubleClick" Margin="0,1,0,-1" />
+    </Grid>
+</UserControl>

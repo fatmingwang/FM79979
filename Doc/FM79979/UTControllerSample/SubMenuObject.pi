@@ -1,0 +1,7 @@
+<!-- Author:Fatming_Air,Time:11/10/2011 2:47:44 PM -->
+<PuzzleImage OriginalNameSort="inG_Tab1,inG_Tab2,inG_Tab3,inG_Tab4" ImageName="SubMenuObject.png" Count="4" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="inG_Tab1" UV="0,0,0.8359375,0.2265625," OffsetPos="0,0," Size="215,59" OriginalSize="215,59" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="inG_Tab2" UV="0,0.234375,0.8320313,0.46875," OffsetPos="0,0," Size="214,61" OriginalSize="214,61" ShowPosInPI="0,60" />
+    <PuzzleUnit Name="inG_Tab3" UV="0,0.4765625,0.8515625,0.7265625," OffsetPos="0,0," Size="219,65" OriginalSize="219,65" ShowPosInPI="0,122" />
+    <PuzzleUnit Name="inG_Tab4" UV="0,0.734375,0.8359375,0.9726563," OffsetPos="0,0," Size="215,62" OriginalSize="215,62" ShowPosInPI="0,188" />
+</PuzzleImage>

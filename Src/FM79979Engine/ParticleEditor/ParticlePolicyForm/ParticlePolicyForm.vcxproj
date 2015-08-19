@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugFixedPipeline|Win32">
+      <Configuration>DebugFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseFixedPipeline|Win32">
+      <Configuration>ReleaseFixedPipeline</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{85ABEB51-2B7C-44A9-A0EC-3A3ED0CFDC66}</ProjectGuid>
+    <RootNamespace>ParticlePolicyForm</RootNamespace>
+    <Keyword>ManagedCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <CLRSupport>true</CLRSupport>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\..\Intermedia\Debug\ParticlePolicyForm\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Debug\ParticlePolicyForm\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\..\Intermedia\Release\ParticlePolicyForm\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Release\ParticlePolicyForm\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <OutDir>..\..\..\..\Intermedia\Debug\ParticlePolicyForm\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Debug\ParticlePolicyForm\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'">
+    <OutDir>..\..\..\..\Intermedia\Release\ParticlePolicyForm\</OutDir>
+    <IntDir>..\..\..\..\Intermedia\Release\ParticlePolicyForm\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Reference Include="System">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Data">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+    <Reference Include="System.Xml">
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DotNetComponent\DotNetComponent.vcxproj">
+      <Project>{53fa2ca3-c363-431c-b580-67b685f757d8}</Project>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="AutoCollpaseUnit.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PrtColorActBlending.cpp" />
+    <ClCompile Include="PrtColorActBlendingBy2Color.cpp" />
+    <ClCompile Include="PrtColorActBlendingByLife.cpp" />
+    <ClCompile Include="PrtColorInitrSetColor.cpp" />
+    <ClCompile Include="PrtColorInitrSetRandomColor.cpp" />
+    <ClCompile Include="PrtLifeInitrSetLife.cpp" />
+    <ClCompile Include="PrtRotateInitRotate.cpp" />
+    <ClCompile Include="RotateActRotate.cpp" />
+    <ClCompile Include="PrtSizeActBlending.cpp" />
+    <ClCompile Include="PrtSizeInitSetSize.cpp" />
+    <ClCompile Include="PrtStartPositionInitByFrame.cpp" />
+    <ClCompile Include="PrtStartPositionInitBySquareRange.cpp" />
+    <ClCompile Include="PrtVelocityActAcceleration.cpp" />
+    <ClCompile Include="PrtVelocityActDircctionChange.cpp" />
+    <ClCompile Include="PrtVelocityInitRandomFly.cpp" />
+    <ClCompile Include="PrtVelocityInitSetVelocity.cpp" />
+    <ClCompile Include="DynamicTecxture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllParticlePolicyForm.h" />
+    <ClInclude Include="AutoCollpaseUnit.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="PrtColorActBlending.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtColorActBlendingBy2Color.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtColorActBlendingByLife.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtColorInitrSetColor.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtColorInitrSetRandomColor.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtLifeInitrSetLife.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtRotateActRotate.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtRotateInitRotate.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtSizeActBlending.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtSizeInitSetSize.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtStartPositionInitByFrame.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtStartPositionInitBySquareRange.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityActAcceleration.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityActDircctionChange.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityInitRandomFly.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityInitSetVelocity.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+    <ClInclude Include="PrtDynamicTecxture.h">
+      <FileType>CppControl</FileType>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AutoCollpaseUnit.resx">
+      <DependentUpon>AutoCollpaseUnit.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtColorActBlending.resx">
+      <DependentUpon>PrtColorActBlending.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtColorActBlendingBy2Color.resx">
+      <DependentUpon>PrtColorActBlendingBy2Color.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtColorActBlendingByLife.resx">
+      <DependentUpon>PrtColorActBlendingByLife.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtColorInitrSetColor.resx">
+      <DependentUpon>PrtColorInitrSetColor.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtColorInitrSetRandomColor.resx">
+      <DependentUpon>PrtColorInitrSetRandomColor.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtLifeInitrSetLife.resx">
+      <DependentUpon>PrtLifeInitrSetLife.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtRotateActRotate.resx">
+      <DependentUpon>PrtRotateActRotate.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtRotateInitRotate.resx">
+      <DependentUpon>PrtRotateInitRotate.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtSizeActBlending.resx">
+      <DependentUpon>PrtSizeActBlending.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtSizeInitSetSize.resx">
+      <DependentUpon>PrtSizeInitSetSize.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtStartPositionInitByFrame.resx">
+      <DependentUpon>PrtStartPositionInitByFrame.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtStartPositionInitBySquareRange.resx">
+      <DependentUpon>PrtStartPositionInitBySquareRange.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtVelocityActAcceleration.resx">
+      <DependentUpon>PrtVelocityActAcceleration.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtVelocityActDircctionChange.resx">
+      <DependentUpon>PrtVelocityActDircctionChange.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtVelocityInitRandomFly.resx">
+      <DependentUpon>PrtVelocityInitRandomFly.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtVelocityInitSetVelocity.resx">
+      <DependentUpon>PrtVelocityInitSetVelocity.h</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrtDynamicTecxture.resx">
+      <DependentUpon>PrtDynamicTecxture.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,4 @@
+Warning C4727 in Release build but not Debug 
+
+http://social.msdn.microsoft.com/Forums/en-US/vcgeneral/thread/98028282-9cbd-4c08-88ad-d92b0df5b174
+

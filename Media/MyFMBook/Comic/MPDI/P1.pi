@@ -1,0 +1,17 @@
+<!-- Author:Fatming,Time:2012/8/10 ¤U¤È 01:42:44 -->
+<PuzzleImage OriginalNameSort="P1_DBG05,P1_DBG03,P1_DBG04,P1_DBG07,P1_DBG08,P1_DBG09,P1_DBG010,P1_DBG011,P1_DBG09_1,P1_DBG010_1,P1_DBG02,P1_DBG,P1_DBG06,P1_BG" ImageName="P1.png" Count="14" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="P1_BG" UV="0.4492188,0.6269531,0.4794922,0.6674805" OffsetPos="0,0" Size="62,83" OriginalSize="64,85" ShowPosInPI="920,1284" />
+    <PuzzleUnit Name="P1_DBG" UV="0,0.6269531,0.3041992,0.7631836" OffsetPos="72,259" Size="623,279" OriginalSize="768,1024" ShowPosInPI="0,1284" />
+    <PuzzleUnit Name="P1_DBG010" UV="0.3012695,0.4995117,0.3857422,0.5600586" OffsetPos="504,800" Size="173,124" OriginalSize="768,1024" ShowPosInPI="617,1023" />
+    <PuzzleUnit Name="P1_DBG010_1" UV="0.4384766,0.4995117,0.4790039,0.5097656" OffsetPos="564,848" Size="83,21" OriginalSize="768,1024" ShowPosInPI="898,1023" />
+    <PuzzleUnit Name="P1_DBG011" UV="0.3862305,0.4995117,0.4165039,0.5400391" OffsetPos="0,0" Size="62,83" OriginalSize="64,85" ShowPosInPI="791,1023" />
+    <PuzzleUnit Name="P1_DBG02" UV="0.4794922,0.4995117,0.7836914,0.6264648" OffsetPos="74,274" Size="623,260" OriginalSize="768,1024" ShowPosInPI="982,1023" />
+    <PuzzleUnit Name="P1_DBG03" UV="0.3745117,0,0.6748047,0.3300781" OffsetPos="76,70" Size="615,676" OriginalSize="768,1024" ShowPosInPI="767,0" />
+    <PuzzleUnit Name="P1_DBG04" UV="0.675293,0,0.9755859,0.3300781" OffsetPos="76,70" Size="615,676" OriginalSize="768,1024" ShowPosInPI="1383,0" />
+    <PuzzleUnit Name="P1_DBG05" UV="0,0,0.3740234,0.4990234" OffsetPos="0,0" Size="766,1022" OriginalSize="768,1024" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="P1_DBG06" UV="0.3046875,0.6269531,0.4487305,0.7890625" OffsetPos="241,690" Size="295,332" OriginalSize="768,1024" ShowPosInPI="624,1284" />
+    <PuzzleUnit Name="P1_DBG07" UV="0,0.4995117,0.1386719,0.5478516" OffsetPos="99,96" Size="284,99" OriginalSize="768,1024" ShowPosInPI="0,1023" />
+    <PuzzleUnit Name="P1_DBG08" UV="0.1391602,0.4995117,0.2529297,0.5566406" OffsetPos="484,595" Size="233,117" OriginalSize="768,1024" ShowPosInPI="285,1023" />
+    <PuzzleUnit Name="P1_DBG09" UV="0.253418,0.4995117,0.3007813,0.5483398" OffsetPos="147,717" Size="97,100" OriginalSize="768,1024" ShowPosInPI="519,1023" />
+    <PuzzleUnit Name="P1_DBG09_1" UV="0.4169922,0.4995117,0.4379883,0.5097656" OffsetPos="175,753" Size="43,21" OriginalSize="768,1024" ShowPosInPI="854,1023" />
+</PuzzleImage>

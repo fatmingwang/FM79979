@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="FMBookEditorUI.Event.Activer.EventAddEventObjectInstaceActiver"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Expander Header="EventAddEventObjectInstaceActiver" >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="140"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">EventObjectInstanceName</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="m_EventObjectInstanceName" x:FieldModifier="public"/>
+            <TextBlock Grid.Row="1" Grid.Column="0">EventInstanceListName</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Name="m_EventInstanceListName" x:FieldModifier="public" />
+            <TextBlock Grid.Row="2" Grid.Column="0">EventObjectStatusName</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Name="m_EventObjectStatusName" x:FieldModifier="public" />
+        </Grid>
+    </Expander>
+</UserControl>

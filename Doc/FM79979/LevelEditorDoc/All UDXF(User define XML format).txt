@@ -1,0 +1,26 @@
+
+
+<LevelEditorData>
+    <ImageList Name0="Demon_1" Name1="Demon_2" Name2="Demon_Boss1" Name3="Down" Name4="Env_Cave" Name5="Env_Floor" Name6="Env_Tree" Name7="Gate" Name8="Character_Main_Idle" Name9="NPC_1" Name10="NPC_2" Name11="Props_Weapon" Name12="Up" Name13="Env_Road" />
+    <TemplateImage Data0="Demon_1,Demon_1" Data1="Down,Down" Data2="Gate,Gate" Data3="Up,Up" Data4="NPC_1,NPC_1" Data5="NPC_2,NPC_2" Data6="Env_Floor,Env_Floor" Data7="Env_Cave,Env_Cave" Data8="Env_Road,Env_Road" />
+    <StageData Name="3" Count="140" StartPos="0.00,0.00,-0.00," Size="840.00,600.00" GridSize="60,60">
+        <Data TemplateName="Env_Road" Pos="0.00,0.00,0.00," />
+        <Data TemplateName="Env_Road" Pos="540.00,120.00,0.00," />
+        <Data TemplateName="Up" Pos="540.00,60.00,0.00," UserDefine="TwoTo3" />
+    </StageData>
+</LevelEditorData>
+
+
+for root
+<LevelEditorData> 				
+
+for image list
+<ImageList Name0="Demon_1"/> 			
+
+for image and data node referance
+<TemplateImage Data0="Demon_1,Demon_1" />	
+
+stage data name and how many data inside and start position and resolution(size) and each cell size
+<StageData Name="3" Count="140" StartPos="0.00,0.00,-0.00," Size="840.00,600.00" GridSize="60,60">
+for point position info and data node
+<Data TemplateName="Env_Road" Pos="0.00,0.00,0.00," />	

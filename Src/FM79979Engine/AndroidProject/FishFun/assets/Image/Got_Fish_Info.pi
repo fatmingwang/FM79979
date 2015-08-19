@@ -1,0 +1,23 @@
+<!-- Author:scrr,Time:2014/11/21 ¤U¤È 12:20:41 -->
+<PuzzleImage OriginalNameSort="Biggest_Fish,Fish_Info,New_Fish,Fish_Info_Fish,Got_Money,Info_Bottom,Put_In_Poor,Sell_All,Detial_No_000,Detial_No_001,Detial_No_002,Detial_No_003,Detial_No_004,Detial_No_005,Detial_No_006,Detial_No_007,Detial_No_008,Detial_No_009,Got_Fishs_Name,Fish_Info_Detial" ImageName="Got_Fish_Info.png" Count="20" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Biggest_Fish" UV="0,0,0.2128906,0.2109375" OffsetPos="0,0" Size="109,108" OriginalSize="109,108" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Detial_No_000" UV="0.7148438,0.53125,0.7519531,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="366,272" />
+    <PuzzleUnit Name="Detial_No_001" UV="0.7539063,0.53125,0.7910156,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="386,272" />
+    <PuzzleUnit Name="Detial_No_002" UV="0.7929688,0.53125,0.8300781,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="406,272" />
+    <PuzzleUnit Name="Detial_No_003" UV="0.8320313,0.53125,0.8691406,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="426,272" />
+    <PuzzleUnit Name="Detial_No_004" UV="0.8710938,0.53125,0.9082031,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="446,272" />
+    <PuzzleUnit Name="Detial_No_005" UV="0.9101563,0.53125,0.9472656,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="466,272" />
+    <PuzzleUnit Name="Detial_No_006" UV="0.9492188,0.53125,0.9863281,0.5917969" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="486,272" />
+    <PuzzleUnit Name="Detial_No_007" UV="0,0.7832031,0.03710938,0.84375" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="0,401" />
+    <PuzzleUnit Name="Detial_No_008" UV="0.0390625,0.7832031,0.07617188,0.84375" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="20,401" />
+    <PuzzleUnit Name="Detial_No_009" UV="0.078125,0.7832031,0.1152344,0.84375" OffsetPos="0,0" Size="19,31" OriginalSize="19,31" ShowPosInPI="40,401" />
+    <PuzzleUnit Name="Fish_Info" UV="0.2148438,0,0.7304688,0.1503906" OffsetPos="0,0" Size="264,77" OriginalSize="264,77" ShowPosInPI="110,0" />
+    <PuzzleUnit Name="Fish_Info_Detial" UV="0.203125,0.7636719,0.71875,0.9921875" OffsetPos="0,0" Size="264,117" OriginalSize="264,117" ShowPosInPI="104,391" />
+    <PuzzleUnit Name="Fish_Info_Fish" UV="0,0.2128906,0.4335938,0.5273438" OffsetPos="0,0" Size="222,161" OriginalSize="222,161" ShowPosInPI="0,109" />
+    <PuzzleUnit Name="Got_Fishs_Name" UV="0.1171875,0.7832031,0.1914063,0.859375" OffsetPos="0,0" Size="38,39" OriginalSize="38,39" ShowPosInPI="60,401" />
+    <PuzzleUnit Name="Got_Money" UV="0.4355469,0.2128906,0.7207031,0.5292969" OffsetPos="0,0" Size="146,162" OriginalSize="146,162" ShowPosInPI="223,109" />
+    <PuzzleUnit Name="Info_Bottom" UV="0.7226563,0.2128906,0.9804688,0.28125" OffsetPos="0,0" Size="132,35" OriginalSize="132,35" ShowPosInPI="370,109" />
+    <PuzzleUnit Name="New_Fish" UV="0.7324219,0,0.9453125,0.2109375" OffsetPos="0,0" Size="109,108" OriginalSize="109,108" ShowPosInPI="375,0" />
+    <PuzzleUnit Name="Put_In_Poor" UV="0,0.53125,0.1894531,0.78125" OffsetPos="0,0" Size="97,128" OriginalSize="97,128" ShowPosInPI="0,272" />
+    <PuzzleUnit Name="Sell_All" UV="0.1914063,0.53125,0.7128906,0.7539063" OffsetPos="0,0" Size="267,114" OriginalSize="267,114" ShowPosInPI="98,272" />
+</PuzzleImage>

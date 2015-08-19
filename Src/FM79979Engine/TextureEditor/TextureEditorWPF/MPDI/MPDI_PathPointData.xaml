@@ -1,0 +1,158 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:my="clr-namespace:CoreWPF.Common;assembly=CoreWPF"
+    xmlns:FMC="clr-namespace:CoreWPF.FMC;assembly=CoreWPF"
+    xmlns:MyOpenGL="clr-namespace:CoreWPF.OpenGL;assembly=CoreWPF"
+    mc:Ignorable="d" 
+    x:Class="TextureEditorWPF.MPDI_PathPointData">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../ResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>        
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <TabControl  Grid.Row="0">
+            <TabItem Header="PointData">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="150"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition MinWidth="100"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition MinWidth="100"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition MinWidth="80"/>               
+                    </Grid.ColumnDefinitions>
+                    <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" Background="Gray"/>
+                    <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" Background="Gray"/>
+                    <GridSplitter Grid.Column="5" Width="5" HorizontalAlignment="Stretch" Background="Gray"/>
+                    <Grid Grid.Column="0">
+                        <TabControl TabStripPlacement="Left" Name="m_TabControl" x:FieldModifier="public" SelectionChanged="TabControl_SelectionChanged">
+                            <TabItem Header="Pos">
+                                <StackPanel>
+                                    <Label Content="Pos:XYZ"/>
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_Pos" />
+                                    <Label Content="LOD"/>
+                                    <my:NumericUpDown x:FieldModifier="public" Name="m_LodCount" ToolTip="level of detail"/>
+                                    <Label Content="RotationCenter" />
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_RotationOffset"  />
+                                    <ComboBox Name="m_PathVehaviorCombox" x:FieldModifier="public" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged">
+                                        <ComboBoxItem Content="PointAdd" />
+                                        <ComboBoxItem Content="PointModify" />
+                                        <ComboBoxItem Content="PathMove" />
+                                    </ComboBox>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Color">
+                                <StackPanel>
+                                    <Label Content="Color(RGBA)" />
+                                    <my:XYZWNumeric x:FieldModifier="public" Name="m_Color"/>
+                                    <my:ColorPicker Name="m_ColorPicker" />
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Size">
+                                <StackPanel>
+                                    <Label Content="Width/Height"/>
+                                    <my:XYNumeric x:FieldModifier="public" Name="m_Size"/>
+                                    <Label Content="Scale"/>
+                                    <my:NumericUpDown x:FieldModifier="public" Name="m_Scale"/>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Rotation">
+                                <StackPanel>
+                                    <Label Content="XYZ"/>
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_Rotation" />
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem Header="Image" >
+                                <FMC:PI x:FieldModifier="public" Name="m_PI" />
+                            </TabItem>
+                            <!--<TabItem Header="BindPose" >
+                                <StackPanel>
+                                    <Label Content="Scale"/>
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_Pos1" />
+                                    <Label Content="Rotation"/>
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_Pos2" />
+                                    <Label Content="Translation"/>
+                                    <my:XYZNumeric x:FieldModifier="public" Name="m_Pos3" />
+                                </StackPanel>
+                            </TabItem>-->
+                        </TabControl>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <ListBox MinHeight="165" MinWidth="120" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" Name="m_CurrentWorkingListbox"  SelectionMode="Extended" SelectionChanged="ListBoxSelectionChanged">
+                            <!--<ListBox.InputBindings>
+                                <KeyBinding Command="SelectAll" Modifiers="Ctrl" Key="A" />
+                            </ListBox.InputBindings>-->
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="ColorFadeIn" Click="ColorFadeIn"/>
+                                    <MenuItem Header="ColorFadeOut" Click="ColorFadeOut"/>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
+                    </Grid>
+                    <Grid Grid.Column ="4">
+                        <StackPanel>
+                            <Button Content="Add/增加" x:FieldModifier="public" Name="m_AddButton" Click="Button_Click"/>
+                            <Button Content="SelectAll/全選" x:FieldModifier="public" Name="m_SelectAllButton" Click="Button_Click"/>
+                            <Button Content="StartEnd/頭尾"  x:FieldModifier="public" Name="m_FirstAndEndButton" Click="Button_Click"/>
+                            <Button Content="DelPoint/刪除"  x:FieldModifier="public" Name="m_RemoveButton" Click="Button_Click"/>
+                            <Button Content="InsertPoint/插入"  x:FieldModifier="public" Name="m_InsertButton"  Click="Button_Click"/>
+                            <my:NumericUpDown x:FieldModifier="public" Name="m_InsertCount"/>                        
+                            <Button Content="OddSelect/選奇數" x:FieldModifier="public" Name="m_SelectHalfButton"  Click="Button_Click"/>
+                            <CheckBox Content="Loop" Margin="0,5,0,0" x:FieldModifier="public" Name="m_LoopCheckBox" Click="Button_Click"/>
+                            <CheckBox Content="LinerUpdate" Margin="0,5,0,0" x:FieldModifier="public" Name="m_LinerUpdateCheckBox" Click="Button_Click"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column ="6">
+                        <StackPanel>
+                            <Label Content="StartTime/開始時間" />
+                            <my:NumericUpDown Name="m_StartTime" x:FieldModifier="public" />
+                            <Label Content="SelectedTime/單點時間" />
+                            <my:NumericUpDown Name="m_SelectedTime" x:FieldModifier="public" />
+                            <Label Content="TotalTime/整體時間" />
+                            <my:NumericUpDown Name="m_CurrentDataTotalTime" x:FieldModifier="public" />
+                            <Label Content="AllDataTotalTime/總時間" />
+                            <my:NumericUpDown Name="m_AllDataTotalTime" x:FieldModifier="public" />                    
+                            <Button Content="Add/增加" x:FieldModifier="public" Name="m_1AddButton" Click="Button_Click"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="NodeData">
+                <StackPanel>
+                    <MyOpenGL:ColorBlending Name="m_ColorBlending" x:FieldModifier="public"/>
+                    <Label Content="ImageAnchor" />
+                    <ComboBox x:FieldModifier="public" Name="m_ImageAnchor" SelectionChanged="ImageAnchorSelectionChanged">
+                        <ComboBoxItem Content="LeftUp"/>
+                        <ComboBoxItem Content="CenterUp"/>
+                        <ComboBoxItem Content="RightUp"/>
+                        <ComboBoxItem Content="LeftCenter"/>
+                        <ComboBoxItem Content="CenterCenter"/>
+                        <ComboBoxItem Content="RightCenter"/>
+                        <ComboBoxItem Content="LeftDown"/>
+                        <ComboBoxItem Content="CenterDown"/>
+                        <ComboBoxItem Content="RightDown"/>
+                    </ComboBox>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Slider MinWidth="200" x:FieldModifier="public" x:Name="m_TimeSlider" />
+            <Label x:FieldModifier="public" x:Name="m_TimeLabel" Content="00:00:00" />
+            <CheckBox Content="SinglePlay" x:FieldModifier="public" x:Name="m_SinglePlayCheck" Checked="Button_Click"/>
+            <CheckBox Content="AllPlay" x:FieldModifier="public" x:Name="m_AllPlayCheck" Checked="Button_Click"/>
+            <CheckBox Content="Loop" x:FieldModifier="public" x:Name="m_LoopCheck" Checked="Button_Click"/>
+        </StackPanel>        
+    </Grid>
+</UserControl>

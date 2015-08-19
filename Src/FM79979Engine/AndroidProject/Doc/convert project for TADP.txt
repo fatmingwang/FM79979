@@ -1,0 +1,13 @@
+https://devtalk.nvidia.com/default/topic/758583/nsight-tegra-visual-studio-edition/fb-intergration/
+
+
+1.Extract the target folder into a folder.
+2.Open a command line window in the target project folder
+3.Exectue "android update project -p . -t android-9"
+4.Repeat the same in the target project folder
+5.In Visual Studio, create a new "Import an Android Project" project.
+6.Specify path to the <SDK>\samples\ProfilePictureSample in the Project Location textbox.
+7.Go through the rest of the wizard not changing anything.
+Build and run.
+
+or use eclipse to compile

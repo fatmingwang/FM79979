@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="HarborUI.MapPointHarbor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:CoreWPF="clr-namespace:CoreWPF.Common;assembly=CoreWPF"
+             mc:Ignorable="d" 
+             >
+    <StackPanel Orientation="Vertical">
+        <Label Content="Commodity" />
+        <TextBox  Name="m_CommodityTextbox" x:FieldModifier="public" MinWidth="100" ToolTip="use , to separate commodity"/>
+        <Button Content="Apply" Click="Button_Click"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="AreaID"/>
+            <CoreWPF:NumericUpDown x:FieldModifier="public" Name="m_AreaIDNumeric" Minimum="0" Maximum="79979" Increment="1"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="KindomID"/>
+            <CoreWPF:NumericUpDown x:FieldModifier="public" Name="m_KindomIDNumeric" Minimum="0" Maximum="79979" Increment="1"/>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

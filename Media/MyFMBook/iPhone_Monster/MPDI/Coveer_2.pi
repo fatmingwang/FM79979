@@ -1,0 +1,4 @@
+<!-- Author:Fatming,Time:2013/5/14 ¤U¤È 06:58:52 -->
+<PuzzleImage OriginalNameSort="CoverBackground" ImageName="Coveer_2.png" Count="1" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="CoverBackground" UV="0,0,1,0.6635742" OffsetPos="0,0" Size="2048,1359" OriginalSize="2048,1359" ShowPosInPI="0,0" />
+</PuzzleImage>

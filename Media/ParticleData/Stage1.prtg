@@ -1,0 +1,7 @@
+<!-- Author:Fatming,Time:2011/7/19 ¤U¤È 08:50:59 -->
+<BehaviorPaticleManager ParticleFile="Stage1.prt">
+    <cParticleEmitterGroup Name="Fire" Count="2" TotalPlayTime="0.000001">
+        <cParticleEmiterWithShowPosition Name="Fire1" PathType="0" EmitterName="Fire" EmitterDirection="0.00,-17.00,0.00" EmitterPosition="320.00,320.00,0.00" StartTime="0.000000" EndTime="1.000000" AnimationLoop="1" />
+        <cParticleEmiterWithShowPosition Name="Fire2" PathType="0" EmitterName="Fire" EmitterDirection="10.00,-17.00,0.00" EmitterPosition="640.00,320.00,0.00" StartTime="0.000000" EndTime="1.000000" AnimationLoop="1" />
+    </cParticleEmitterGroup>
+</BehaviorPaticleManager>

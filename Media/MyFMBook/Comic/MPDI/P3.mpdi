@@ -1,0 +1,766 @@
+<MPDIList Name="P3_Demo_mpdi" Count="8" MPDIVersion="1.1" PICount="1" ImageName="P3.pi">
+    <MultiPathDynamicImage Name="P3_Demo" PathCount="32" PlayCount="-1" TotalPlayTime="20.000000">
+        <CueToStartCurvesWithTime Name="bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="1.739130" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a2" BehaviorUpdate="1" StartTime="1.739130" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="18.260868" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a3" BehaviorUpdate="1" StartTime="3.478261" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,304.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.521738" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a4" BehaviorUpdate="1" StartTime="5.217391" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="497.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="14.782608" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="317.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_word" BehaviorUpdate="1" StartTime="0.869565" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="284.00,59.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.478261" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="19.130434" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_bg" BehaviorUpdate="1" StartTime="1.739130" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.739130" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.478261" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="5.217391" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="18.260868" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_word" BehaviorUpdate="1" StartTime="1.739130" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.739130" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.478261" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="5.217391" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="18.260868" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_bg" BehaviorUpdate="1" StartTime="2.608696" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="171.00,108.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.391304" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_word" BehaviorUpdate="1" StartTime="3.478261" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="107.00,50.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.739130" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.521738" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up01" BehaviorUpdate="1" StartTime="2.608696" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.391304" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up02" BehaviorUpdate="1" StartTime="3.695652" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="309.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.304348" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up03" BehaviorUpdate="1" StartTime="4.782609" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,177.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="15.217391" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up04" BehaviorUpdate="1" StartTime="5.869565" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="309.00,149.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="14.130434" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down01" BehaviorUpdate="1" StartTime="4.782609" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="15.217391" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down02" BehaviorUpdate="1" StartTime="5.869565" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="643.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="14.130434" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down03" BehaviorUpdate="1" StartTime="2.608696" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="586.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.260870" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.391304" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_bg" BehaviorUpdate="1" StartTime="2.608696" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="204.00,115.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.391304" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_word" BehaviorUpdate="1" StartTime="3.152174" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="134.00,24.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.173913" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.847826" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_bg" BehaviorUpdate="1" StartTime="3.695652" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.086957" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.173913" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.260870" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.347826" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="16.304348" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_word" BehaviorUpdate="1" StartTime="3.695652" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.086957" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.173913" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.260870" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.347826" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="16.304348" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_bg" BehaviorUpdate="1" StartTime="8.043478" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="218.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.086957" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="11.956521" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_word" BehaviorUpdate="1" StartTime="8.586956" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="155.00,75.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.543478" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="11.413043" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c1" BehaviorUpdate="1" StartTime="12.086956" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="618.00,335.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.782609" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="7.347826" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="7.800000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.913043" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c2" BehaviorUpdate="1" StartTime="9.826087" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.043478" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="9.608695" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="10.060869" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="10.173913" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c3" BehaviorUpdate="1" StartTime="15.478260" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,345.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.391304" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="3.956522" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.408696" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="4.521739" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c4" BehaviorUpdate="1" StartTime="8.695652" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.173912" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="10.739129" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="11.191302" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="11.304347" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_bg" BehaviorUpdate="1" StartTime="13.217391" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.130435" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.260870" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.391304" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.521739" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="6.782609" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_word" BehaviorUpdate="1" StartTime="13.782609" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.130435" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.260870" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.391304" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.521739" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="6.217391" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_bg" BehaviorUpdate="1" StartTime="16.608694" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="177.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.391304" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_word" BehaviorUpdate="1" StartTime="17.173912" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="125.00,74.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.130435" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.826087" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="P3_demo_e" PathCount="32" PlayCount="-1" TotalPlayTime="23.000000">
+        <CueToStartCurvesWithTime Name="bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="2.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="23.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a2" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="21.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a3" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,304.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="19.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a4" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="497.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="317.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="23.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_word" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="284.00,59.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="4.000000" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="22.000000" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_bg" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="2.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="6.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="21.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_word" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="2.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="6.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="21.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_bg" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="171.00,108.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_word" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="107.00,50.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="19.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up01" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up02" BehaviorUpdate="1" StartTime="4.250000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="309.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="18.750000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up03" BehaviorUpdate="1" StartTime="5.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,177.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.500000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up04" BehaviorUpdate="1" StartTime="6.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="309.00,149.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.250000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down01" BehaviorUpdate="1" StartTime="5.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="17.500000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down02" BehaviorUpdate="1" StartTime="6.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="643.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="16.250000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down03" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="586.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.750000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_bg" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="204.00,115.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="20.000000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_word" BehaviorUpdate="1" StartTime="3.625000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="134.00,24.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.500000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="19.375000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_bg" BehaviorUpdate="1" StartTime="4.250000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.250000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.750000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="18.750000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_word" BehaviorUpdate="1" StartTime="4.250000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.250000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.750000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="18.750000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_bg" BehaviorUpdate="1" StartTime="9.250000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="218.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="13.750000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_word" BehaviorUpdate="1" StartTime="9.875000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="155.00,75.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.625000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="13.125000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c1" BehaviorUpdate="1" StartTime="13.900000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="618.00,335.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.800000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="8.450000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="8.970000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="9.099999" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c2" BehaviorUpdate="1" StartTime="11.300000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.400000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="11.049999" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="11.569999" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="11.700000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c3" BehaviorUpdate="1" StartTime="17.799999" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,345.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.900000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="4.550000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.070000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="5.200000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c4" BehaviorUpdate="1" StartTime="10.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="11.700000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="12.349999" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="12.869999" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="13.000000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_bg" BehaviorUpdate="1" StartTime="15.200000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.300000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.600000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.900000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.200000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.800000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_word" BehaviorUpdate="1" StartTime="15.850000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.300000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.600000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.900000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.200000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.150000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_bg" BehaviorUpdate="1" StartTime="19.099998" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="177.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.900000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_word" BehaviorUpdate="1" StartTime="19.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="125.00,74.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.250000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="A" PathCount="11" PlayCount="-1" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="1.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a2" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a3" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,304.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a4" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="497.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="317.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_word" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="284.00,59.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.500000" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_bg" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_word" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_bg" BehaviorUpdate="1" StartTime="1.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="171.00,108.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.500000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_word" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="107.00,50.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="B" PathCount="13" PlayCount="-1" TotalPlayTime="8.000000">
+        <CueToStartCurvesWithTime Name="b_up01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up02" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="309.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up03" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,177.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up04" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="309.00,149.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down01" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down02" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="643.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down03" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="586.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.000000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="204.00,115.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_word" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="134.00,24.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.500000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_bg" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_word" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_bg" BehaviorUpdate="1" StartTime="5.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="218.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_word" BehaviorUpdate="1" StartTime="5.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="155.00,75.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.500000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="C" PathCount="8" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="c1" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="618.00,335.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="6.500000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="6.900000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.000000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c2" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="8.500000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="8.900000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="9.000000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c3" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,345.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="3.500000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="3.900000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="4.000000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c4" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="9.500000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="9.900000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="10.000000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_bg" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.000000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.000000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="6.000000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_word" BehaviorUpdate="1" StartTime="4.500000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="4.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="5.500000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_bg" BehaviorUpdate="1" StartTime="7.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="177.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_word" BehaviorUpdate="1" StartTime="7.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="125.00,74.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="B2" PathCount="13" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="b_up01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="620.00,148.00" PIName="P3" ImageName="b_up_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up02" BehaviorUpdate="1" StartTime="1.250000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="309.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.750000" Size="309.00,148.00" PIName="P3" ImageName="b_up_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up03" BehaviorUpdate="1" StartTime="2.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,177.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.500000" Size="643.00,177.00" PIName="P3" ImageName="b_up_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_up04" BehaviorUpdate="1" StartTime="3.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="309.00,149.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.250000" Size="309.00,149.00" PIName="P3" ImageName="b_up_04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down01" BehaviorUpdate="1" StartTime="2.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.500000" Size="620.00,140.00" PIName="P3" ImageName="b_down_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down02" BehaviorUpdate="1" StartTime="3.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="643.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.250000" Size="643.00,165.00" PIName="P3" ImageName="b_down_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_down03" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="586.00,140.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.750000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="586.00,140.00" PIName="P3" ImageName="b_down_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="204.00,115.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="204.00,115.00" PIName="P3" ImageName="b_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk01_word" BehaviorUpdate="1" StartTime="0.625000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="134.00,24.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.500000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.375000" Size="134.00,24.00" PIName="P3" ImageName="b_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_bg" BehaviorUpdate="1" StartTime="1.250000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.250000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.750000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.000000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="8.750000" Size="239.00,123.00" PIName="P3" ImageName="b_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk02_word" BehaviorUpdate="1" StartTime="1.250000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.250000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.500000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.750000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.000000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="8.750000" Size="172.00,58.00" PIName="P3" ImageName="b_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_bg" BehaviorUpdate="1" StartTime="6.250000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="218.00,165.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.250000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.750000" Size="218.00,165.00" PIName="P3" ImageName="b_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="b_talk03_word" BehaviorUpdate="1" StartTime="6.875000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="155.00,75.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.625000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.125000" Size="155.00,75.00" PIName="P3" ImageName="b_talk03_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="A2" PathCount="11" PlayCount="-1" TotalPlayTime="10.000000">
+        <CueToStartCurvesWithTime Name="bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="2.000000" Size="1000.00,1200.00" PIName="P3" ImageName="Whrite" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.999998" Size="620.00,284.00" PIName="P3" ImageName="a1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a2" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,284.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="620.00,284.00" PIName="P3" ImageName="a2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a3" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,304.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="643.00,304.00" PIName="P3" ImageName="a3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a4" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="497.00,148.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="497.00,148.00" PIName="P3" ImageName="a4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_bg" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="317.00,102.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.999998" Size="317.00,102.00" PIName="P3" ImageName="a_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk01_word" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="284.00,59.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="4.000000" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.999999" Size="284.00,59.00" PIName="P3" ImageName="a_talk01_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_bg" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="2.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="6.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="8.000000" Size="115.00,57.00" PIName="P3" ImageName="a_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk02_word" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="2.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="6.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="8.000000" Size="63.00,22.00" PIName="P3" ImageName="a_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_bg" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="171.00,108.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="171.00,108.00" PIName="P3" ImageName="a_talk03_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="a_talk03_word" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="107.00,50.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="107.00,50.00" PIName="P3" ImageName="a_talk03_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="C2" PathCount="8" PlayCount="-1" TotalPlayTime="13.000000">
+        <CueToStartCurvesWithTime Name="c1" BehaviorUpdate="1" StartTime="3.900000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="-4.00,0.00,0.00" Time="0.000000" Size="618.00,335.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.800000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="8.450000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="8.970000" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="9.099999" Size="618.00,335.00" PIName="P3" ImageName="c1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c2" BehaviorUpdate="1" StartTime="1.300000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="6.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.400000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="11.049999" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="11.569999" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="11.700000" Size="620.00,337.00" PIName="P3" ImageName="c2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c3" BehaviorUpdate="1" StartTime="7.800000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,-10.00,0.00" Time="0.000000" Size="643.00,345.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.900000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="4.550000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.070000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="5.200000" Size="643.00,345.00" PIName="P3" ImageName="c3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c4" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="620.00,337.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="11.700000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="12.349999" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="12.869999" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="13.000000" Size="620.00,337.00" PIName="P3" ImageName="c4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_bg" BehaviorUpdate="1" StartTime="5.200000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="172.00,101.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="1" Position="-4.00,0.00,0.00" Time="1.300000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.600000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="3" Position="6.00,0.00,0.00" Time="3.900000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.200000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.800000" Size="172.00,101.00" PIName="P3" ImageName="c_talk02_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk01_word" BehaviorUpdate="1" StartTime="5.850000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="1" Position="6.00,0.00,0.00" Time="1.300000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.600000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="3" Position="-4.00,0.00,0.00" Time="3.900000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="5.200000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="7.150000" Size="108.00,50.00" PIName="P3" ImageName="c_talk02_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_bg" BehaviorUpdate="1" StartTime="9.099999" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="177.00,126.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.900000" Size="177.00,126.00" PIName="P3" ImageName="c_talk01_bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="c_talk02_word" BehaviorUpdate="1" StartTime="9.750000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="26.00,0.00,0.00" Time="0.000000" Size="125.00,74.00" Color="1.00,1.00,1.00,0.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.300000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.250000" Size="125.00,74.00" PIName="P3" ImageName="c_talk01_word" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

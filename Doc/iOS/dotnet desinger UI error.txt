@@ -1,0 +1,3 @@
+The Windows Forms Designer cannot reflect on mixed-mode EXEs .
+ Make sure you compile with /clr:pure or move any class that require design time support
+ (e.g. the components and controls on the form) to a class library project.

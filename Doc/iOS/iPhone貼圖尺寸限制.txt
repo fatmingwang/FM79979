@@ -1,0 +1,15 @@
+iPad		2048
+	
+IPhone 4	2048
+iPhone 3GS	2048
+iPhone 3G	1024
+iPhone		1024
+	
+iPod touch 3nd Gen	2048
+iPod touch 2nd Gen	1024
+iPod touch 1st Gen	1024
+
+
+512x512 = 1MB
+
+iPhone只能使用20MB記憶體

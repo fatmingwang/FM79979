@@ -1,0 +1,163 @@
+take look at ObjectXMLParser.h
+====================================================
+***********SubMPDI***********
+<cSubMPDI cMPDIList="" cMPDI="" cSubMPDI=""/>
+====================================================
+***********MPDI***********
+<cMPDI cMPDIList="" cMPDI="" />
+====================================================
+***********cImageButton***********
+<cImageButton Name="TestButton" PI="Image/Dice/Dice.pi" Image="Call" Pos="" />
+	<FinishImage>
+		<cPuzzleImageUnit PI="" PIUnit="" Name="" Pos="" Color=""/>
+	</FinishImage>
+</cImageButton>	
+//FinishImage is because it's a child so set position to zero to ignore localposition Pos="0,0,0"
+<cImageButton Name="Stage5" cMPDIList="Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select"cSubMPDI="Stage_Select_005" >
+	<FinishImage LinkParent="0" >
+		<cSubMPDI cMPDIList="Image/Mm001_Stage_Select.mpdi" cMPDI="Stage001_Select" cSubMPDI="Stage_Select_005" Color="0.5,0.5,0.5,1"  Pos="0,0,0"/>
+	</FinishImage>
+</cImageButton>	
+
+<cImageButton Name="TestButton" cMPDIList="Image/Dice/Dice.mpdi" cMPDI="aabb" OriginalColor="1,1,1,1" PressedColor="1.5,1.5,1.5,1"/>
+
+<cImageButton Name="TestButton" cMPDIList="Image/Dice/Dice.mpdi" cMPDI="aabb" cSubMPDI="" />
+<cImageButton Name="TestButton" PI="Image/Dice/Dice.pi" Image="Call" Pos="">
+	<FinishImage LinkParent="0" >
+		<cMPDI cMPDIList="" cMPDI="" />
+	</FinishImage>
+	<PressedImage LinkParent="0" >
+		<cMPDI cMPDIList="" cMPDI="" />
+	</PressedImage>
+</cImageButton>
+====================================================
+***********cTextButton***********
+//<cTextButton RenderPos="" PressedColor="" Text="" >
+====================================================
+***********PuzzleImageUnit***********
+<cPuzzleImageUnit PI="" PIUnit="" Name="" Pos="" Color=""/>
+====================================================
+***********cScroller***********
+<cScroller ScrollRect="100,100,720,1080" ItemGap="20" Direction="Horizontal">
+	<ChancelButton>
+		<cImageButton Name="ChancelButton" cMPDIList="Image/Common.mpdi" cMPDI="Back" />
+	<ChancelButton>
+	<ScrollItem>
+		<cPuzzleImageUnit PI="Image/Girl/ChoiceGirl.pi" PIUnit="1">
+		<cPuzzleImageUnit PI="Image/Girl/ChoiceGirl.pi" PIUnit="2">
+		<cPuzzleImageUnit PI="Image/Girl/ChoiceGirl.pi" PIUnit="3">
+		<cPuzzleImageUnit PI="Image/Girl/ChoiceGirl.pi" PIUnit="4">
+		<cPuzzleImageUnit PI="Image/Girl/ChoiceGirl.pi" PIUnit="5">
+	</ScrollItem>
+	<Icon>
+		<cImageButton />
+	</Icon>
+</cScroller>
+====================================================
+***********cClickMouseBehaviorVector<cImageButton>***********
+cClickMouseBehaviorVector<cImageButton>*	GetClickMouseBehaviorList(TiXmlElement*e_pElement);
+<cClickMouseBehaviorVector Name="FailedMenu">
+	<cAssembleImageButton Name="GoToStore">
+		<cMPDI cMPDIList="Image/Dice/Dice.mpdi" cMPDI="GoToStore"/>
+	</cAssembleImageButton>
+	<cAssembleImageButton Name="BackToSelectStage">
+		<cMPDI cMPDIList="Image/Dice/Dice.mpdi" cMPDI="BackToSelectStage"/>
+	</cAssembleImageButton>
+	<cAssembleImageButton Name="Restart">
+		<cMPDI cMPDIList="Image/Dice/Dice.mpdi" cMPDI="Restart"/>
+	</cAssembleImageButton>
+</cClickMouseBehaviorVector>
+====================================================
+***********cTabPage***********
+<cTabPage ScrollRect="0,0,720,1280" >
+	<BG>
+		<cSubMPDI cMPDIList="Image/Shake_Heart.mpdi" cMPDI="Shake_Rules" cSubMPDI="BG" />
+	</BG>
+	<ChancelButton>
+		<cImageButton cMPDIList="Image/Shake_Heart.mpdi" cMPDI="Shake_Rules" cSubMPDI="Close" />
+	</ChancelButton>
+	<Items>
+		<cImageButton cMPDIList="Image/Shake_Heart.mpdi" cMPDI="Shake_Rules" cSubMPDI="Shake_Training" Name="Pratice"/>
+		<cImageButton cMPDIList="Image/Shake_Heart.mpdi" cMPDI="Shake_Rules" cSubMPDI="Shake_Challenge" Name="Shake"/>
+	</Items>
+</cTabPage>
+====================================================
+***********cNumeralImage***********
+<cNumeralImage PI="Image/commons.pi" Image0="number_0" Image9="number_9" Pos="547,121" >
+	<NumeralPos>
+		<cSubMPDI cMPDIList="Image/commons_mpdi.mpdi" cMPDI="CommonsNum" cSubMPDI="HeartNum" />
+	</NumeralPos>
+</cNumeralImage>
+====================================================
+***********cPhasePopUpMessager***********
+1.
+<cPhasePopUpMessager Name="ClairvoyantNotEnough" RenderLastPhase="1" UpdateLastPhase="1">
+	<cButtonDialog Description="Test">
+		<cMPDI cMPDIList="Image/Mm_Select.mpdi" cMPDI="Go_Shop_Glass"/>
+	</cButtonDialog>
+	<Messenger ButtonName="Yes" NewPhaseName="Store" InitNewPhase="1" DestroyOldPhase="0"/>
+	<Messenger ButtonName="No"  InitNewPhase="0" DestroyOldPhase="0"/>
+</cPhasePopUpMessager>
+2.if the SubMPDI name is not BG please indicate the BG name
+<cPhasePopUpMessager Name="GoToStore" Init="1" RenderLastPhase="1" UpdateLastPhase="1">
+	<BG>
+		<cPuzzleImageUnit PI="Image/Common.pi" Image="BG" Pos="150,300" />
+	</BG>
+	<Messenger Name="Chancel" >
+		<image butto or cAssembleImageButton>
+	<Messenger/>
+	<Messenger Name="ToStoStore" >
+		<image butto or cAssembleImageButton>
+	<Messenger/>
+</cPhasePopUpMessager>
+3.
+<cPhasePopUpMessager Name="IntoGame" RenderLastPhase="1" UpdateLastPhase="1">
+	<cButtonDialog YesButton="MaruMaru" NoButton="BatsuBatsu" StripButtonForBG="1">
+		<cMPDI cMPDIList="Image/Stage_Select.mpdi" cMPDI="Make_Sure_Toplay"/>
+	</cButtonDialog>
+	<Messenger ButtonName="MaruMaru" />
+	<Messenger ButtonName="BatsuBatsu" />
+</cPhasePopUpMessager>
+4.specific button name and make background is not button
+<cPhasePopUpMessager Name="IntoGame" RenderLastPhase="1" UpdateLastPhase="1">
+	<cButtonDialog YesButton="MaruMaru" NoButton="BatsuBatsu" StripButtonForBG="1">
+		<cMPDI cMPDIList="Image/Stage_Select.mpdi" cMPDI="Make_Sure_Toplay"/>
+	</cButtonDialog>
+	<Messenger ButtonName="MaruMaru" />
+	<Messenger ButtonName="BatsuBatsu" />
+</cPhasePopUpMessager>
+====================================================
+***********cButtonDialog***********
+1.BG is MPDI and button is self define
+<cButtonDialog Description="" StripButtonForBG="1">
+	<cMPDI MPDIList="" MPDI=""/>
+	<cImageButton .....>
+	<cImageButton .....>
+</cButtonDialog>
+2.yes and no button is specific
+<cButtonDialog Description="" YesButton="IAmYes" NoButton="IAmNo" BG="BGG" StripButtonForBG="1">
+	<cMPDI MPDIList="" MPDI=""/>
+	<cImageButton ....>
+</cButtonDialog>
+3.BG is MPDI and strip button
+<cButtonDialog Description="" YesButton="Open_Game" NoButton="Join_Game" StripButtonForBG="1">
+	<cMPDI MPDIList="Image/Tile.mpdi" MPDI="Open_Game"/>
+</cButtonDialog>
+//all element in mpdi is button
+<cButtonDialog  AllElementIsButton="true">
+	<cMPDI cMPDIList="" cMPDI=""/>
+</cButtonDialog>
+====================================================
+***********cTimeNumerialImage***********
+show countdown time numerial
+<cTimeNumerialImage PI="" Image0="number_0" Image9="number_9">
+	<HourPos>
+		<cSubMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Number_0" />
+	</HourPos>
+	<MinPos>
+		<cSubMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Number_0" />
+	</MinPos>
+	<SecPos>
+		<cSubMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Number_0" />
+	</SecPos>
+</cTimeNumerialImage>

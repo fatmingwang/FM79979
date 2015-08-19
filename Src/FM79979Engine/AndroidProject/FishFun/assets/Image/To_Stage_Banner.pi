@@ -1,0 +1,17 @@
+<!-- Author:scrr,Time:2014/11/25 ¤U¤È 03:25:05 -->
+<PuzzleImage OriginalNameSort="Close_Button,Map_To_Stage_Name,Stage_Water_001,Stage_Water_002,Stage_Water_003,Stage_Water_004,Stage_Water_005,Stage_Water_006,To_Stage_Amount,To_Stage_Button,Release_Fee,Stage_Release,Coin_Icon,Map_To_Stage" ImageName="To_Stage_Banner.png" Count="14" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Close_Button" UV="0.8671875,0.8261719,0.984375,0.9902344" OffsetPos="7,4" Size="60,84" OriginalSize="74,92" ShowPosInPI="444,423" />
+    <PuzzleUnit Name="Coin_Icon" UV="0.6660156,0.7382813,0.7402344,0.8125" OffsetPos="0,0" Size="38,38" OriginalSize="38,38" ShowPosInPI="341,378" />
+    <PuzzleUnit Name="Map_To_Stage" UV="0.005859375,0.005859375,0.7050781,0.71875" OffsetPos="12,9" Size="358,365" OriginalSize="381,381" ShowPosInPI="3,3" />
+    <PuzzleUnit Name="Map_To_Stage_Name" UV="0.5292969,0.8242188,0.625,0.9082031" OffsetPos="6,10" Size="49,43" OriginalSize="61,63" ShowPosInPI="271,422" />
+    <PuzzleUnit Name="Release_Fee" UV="0.7578125,0.765625,0.9941406,0.8183594" OffsetPos="7,5" Size="121,27" OriginalSize="133,36" ShowPosInPI="388,392" />
+    <PuzzleUnit Name="Stage_Release" UV="0.7832031,0.3847656,0.9941406,0.7578125" OffsetPos="0,0" Size="108,191" OriginalSize="108,191" ShowPosInPI="401,197" />
+    <PuzzleUnit Name="Stage_Water_001" UV="0.00390625,0.9140625,0.4003906,0.9960938" OffsetPos="10,11" Size="203,42" OriginalSize="225,63" ShowPosInPI="2,468" />
+    <PuzzleUnit Name="Stage_Water_002" UV="0.4042969,0.9160156,0.796875,0.9980469" OffsetPos="10,11" Size="201,42" OriginalSize="225,63" ShowPosInPI="207,469" />
+    <PuzzleUnit Name="Stage_Water_003" UV="0.005859375,0.734375,0.40625,0.8164063" OffsetPos="10,11" Size="205,42" OriginalSize="225,63" ShowPosInPI="3,376" />
+    <PuzzleUnit Name="Stage_Water_004" UV="0.4589844,0.7285156,0.6582031,0.8105469" OffsetPos="61,11" Size="102,42" OriginalSize="225,63" ShowPosInPI="235,373" />
+    <PuzzleUnit Name="Stage_Water_005" UV="0.6542969,0.8300781,0.8535156,0.9101563" OffsetPos="61,11" Size="102,41" OriginalSize="225,63" ShowPosInPI="335,425" />
+    <PuzzleUnit Name="Stage_Water_006" UV="0.00390625,0.8242188,0.5078125,0.9082031" OffsetPos="9,11" Size="258,43" OriginalSize="274,63" ShowPosInPI="2,422" />
+    <PuzzleUnit Name="To_Stage_Amount" UV="0.7167969,0.6308594,0.7480469,0.6992188" OffsetPos="0,0" Size="16,35" OriginalSize="16,35" ShowPosInPI="367,323" />
+    <PuzzleUnit Name="To_Stage_Button" UV="0.7851563,0.005859375,0.9960938,0.3789063" OffsetPos="0,0" Size="108,191" OriginalSize="108,191" ShowPosInPI="402,3" />
+</PuzzleImage>

@@ -1,0 +1,10 @@
+http://www.codeguru.com/cpp/cpp/cpp_managed/general/article.php/c16355__2/Using-WPF-with-Managed-C.htm
+
+add 3 reference
+
+PresentationCore.dll
+PresentationFrameworj.dll
+
+WinsowsBase.dll
+WdinsowFormsIntergration.fll
+System.Windows.Forms.dll

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{3e4ad729-bbf3-44f7-b6d9-abccf216a383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Fish">
+      <UniqueIdentifier>{847cd05d-df9e-49c8-aa9b-d29911ea1036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\IAB">
+      <UniqueIdentifier>{7b9b6559-c928-45c3-a500-8e199d24496a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameItem">
+      <UniqueIdentifier>{4fb307b7-2937-4948-afcf-55077ffc8b5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PlayerData">
+      <UniqueIdentifier>{1c039f3c-b9d9-4503-992a-f392002af444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{00ca9a7e-4e98-47a7-b864-2ee64a6408b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\StageSelectPhase">
+      <UniqueIdentifier>{994b455f-78a9-4990-ace7-12337fe6d226}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\StageSelectPhase\ScrollableMapAndButton">
+      <UniqueIdentifier>{18a082be-f94a-4c39-84fd-044263740719}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\FishingPhase">
+      <UniqueIdentifier>{7425565e-785c-448b-a6d8-8ab8830639ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\FishingPhase\FishShowProbability">
+      <UniqueIdentifier>{f777295b-a1da-4a28-811a-f561ab5dee6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\FishingPhase\Camera">
+      <UniqueIdentifier>{9d83ed75-ef57-4032-8220-1f69828afad6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\FishingPhase\StageData">
+      <UniqueIdentifier>{f8d1f666-9182-4a90-9c49-000191fcbe55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\FishRodFishThreadSelectPhase">
+      <UniqueIdentifier>{bfd677fe-3719-4a3b-b32d-d2d3acb6a83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Store">
+      <UniqueIdentifier>{69bca4ec-5159-431b-a693-06819a169fad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Setup">
+      <UniqueIdentifier>{8bef66e0-ffd7-4543-916c-69ef8515e462}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\ShowFishCollectionPhase">
+      <UniqueIdentifier>{20c8d0d8-0f61-4d5d-88c2-50d4bd682301}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\ShowFishingResult">
+      <UniqueIdentifier>{f4c741a6-99d0-40a7-b337-604d766a5e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FishRodData">
+      <UniqueIdentifier>{9a1ff6ed-afab-4bf8-8db8-4eb8d442e1b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObjectUtilities">
+      <UniqueIdentifier>{06c4a9e1-d414-426b-a3ce-358550da40a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="FishBehavior.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="IABWindowsDeviceFunction.cpp">
+      <Filter>Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjectSelector.cpp">
+      <Filter>Game\GameItem</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerData.cpp">
+      <Filter>Game\PlayerData</Filter>
+    </ClCompile>
+    <ClCompile Include="StageInfoDialog.cpp">
+      <Filter>Game\Phase\StageSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="StageSelectPhase.cpp">
+      <Filter>Game\Phase\StageSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollableMapAndButton.cpp">
+      <Filter>Game\Phase\StageSelectPhase\ScrollableMapAndButton</Filter>
+    </ClCompile>
+    <ClCompile Include="FishingPhase.cpp">
+      <Filter>Game\Phase\FishingPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="FishShowProbability.cpp">
+      <Filter>Game\Phase\FishingPhase\FishShowProbability</Filter>
+    </ClCompile>
+    <ClCompile Include="FishingRodCamera.cpp">
+      <Filter>Game\Phase\FishingPhase\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="StageData.cpp">
+      <Filter>Game\Phase\FishingPhase\StageData</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectFishRodFishThreadPhase.cpp">
+      <Filter>Game\Phase\FishRodFishThreadSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="IABSetup.cpp">
+      <Filter>Game\Phase\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="StorePhase.cpp">
+      <Filter>Game\Phase\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="SetupPhase.cpp">
+      <Filter>Game\Phase\Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="FishCollectionScroller.cpp">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="FishDetailWindow.cpp">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowFishCollectionPhase.cpp">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="FishingTag.cpp">
+      <Filter>Game\Phase\ShowFishingResult</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowFishingResultPhase.cpp">
+      <Filter>Game\Phase\ShowFishingResult</Filter>
+    </ClCompile>
+    <ClCompile Include="FishRodAndFishThreadData.cpp">
+      <Filter>Game\FishRodData</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectableObject.cpp">
+      <Filter>Game\GameObjectUtilities</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\TestPhase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FishBehavior.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjectSelector.h">
+      <Filter>Game\GameItem</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerData.h">
+      <Filter>Game\PlayerData</Filter>
+    </ClInclude>
+    <ClInclude Include="StageInfoDialog.h">
+      <Filter>Game\Phase\StageSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="StageSelectPhase.h">
+      <Filter>Game\Phase\StageSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollableMapAndButton.h">
+      <Filter>Game\Phase\StageSelectPhase\ScrollableMapAndButton</Filter>
+    </ClInclude>
+    <ClInclude Include="FishingPhase.h">
+      <Filter>Game\Phase\FishingPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="FishShowProbability.h">
+      <Filter>Game\Phase\FishingPhase\FishShowProbability</Filter>
+    </ClInclude>
+    <ClInclude Include="FishingRodCamera.h">
+      <Filter>Game\Phase\FishingPhase\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="StageData.h">
+      <Filter>Game\Phase\FishingPhase\StageData</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectFishRodFishThreadPhase.h">
+      <Filter>Game\Phase\FishRodFishThreadSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="IABSetup.h">
+      <Filter>Game\Phase\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="StorePhase.h">
+      <Filter>Game\Phase\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="SetupPhase.h">
+      <Filter>Game\Phase\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="FishCollectionScroller.h">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="FishDetailWindow.h">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowFishCollectionPhase.h">
+      <Filter>Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="FishingTag.h">
+      <Filter>Game\Phase\ShowFishingResult</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowFishingResultPhase.h">
+      <Filter>Game\Phase\ShowFishingResult</Filter>
+    </ClInclude>
+    <ClInclude Include="FishRodAndFishThreadData.h">
+      <Filter>Game\FishRodData</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectableObject.h">
+      <Filter>Game\GameObjectUtilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="test.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

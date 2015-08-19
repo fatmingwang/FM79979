@@ -1,0 +1,122 @@
+<MPDIList Name="Page2_mpdi" Count="4" MPDIVersion="1.2" PICount="2" ImageName="Page2.pi,Page2_1.pi">
+    <MultiPathDynamicImage Name="Normal" PathCount="6" PlayCount="-1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="108.00,328.00,0.00" Time="0.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+            <PointDataList Index="1" Position="108.00,328.00,0.00" Time="1.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,971.00,0.00" Time="0.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="1" Position="-4.00,971.00,0.00" Time="2.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="2" Position="-4.00,971.00,0.00" Time="4.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1096.00,249.00,0.00" Time="0.000000" Size="392.00,336.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger2" />
+            <PointDataList Index="1" Position="1096.00,249.00,0.00" Time="0.100000" Size="392.00,336.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="face" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="925.00,428.00,0.00" Time="0.000000" Size="530.00,476.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="face" />
+            <PointDataList Index="1" Position="925.00,428.00,0.00" Time="0.100000" Size="530.00,476.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="face" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1044.00,78.00,0.00" Time="0.000000" Size="380.00,346.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger" />
+            <PointDataList Index="1" Position="1044.00,78.00,0.00" Time="0.100000" Size="380.00,346.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="eyes" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1450.00,367.00,0.00" Time="0.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,0.20" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="1" Position="1450.00,367.00,0.00" Time="2.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,0.39" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="2" Position="1450.00,367.00,0.00" Time="4.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,0.20" PIName="Page2" ImageName="eyes" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="LightOpen" PathCount="6" PlayCount="-1" TotalPlayTime="1.999000">
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="108.00,328.00,0.00" Time="0.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+            <PointDataList Index="1" Position="108.00,328.00,0.00" Time="1.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" Blending="1" SrcBlendingData="772" DestBlendingData="775" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-4.00,971.00,0.00" Time="0.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="1" Position="-4.00,971.00,0.00" Time="0.500000" Size="616.00,562.00" Scale="1.00,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="2" Position="-4.00,971.00,0.00" Time="1.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1096.00,249.00,0.00" Time="0.000000" Size="392.00,336.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger2" />
+            <PointDataList Index="1" Position="1096.00,249.00,0.00" Time="0.100000" Size="392.00,336.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="face" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="925.00,428.00,0.00" Time="0.000000" Size="530.00,476.00" Scale="1.00,1.00" PIName="Page2" ImageName="face" />
+            <PointDataList Index="1" Position="925.00,428.00,0.00" Time="0.100000" Size="530.00,476.00" Scale="1.00,1.00" PIName="Page2" ImageName="face" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1044.00,78.00,0.00" Time="0.000000" Size="380.00,346.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger" />
+            <PointDataList Index="1" Position="1044.00,78.00,0.00" Time="0.100000" Size="380.00,346.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="eyes" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1450.00,350.00,0.00" Time="0.000000" Size="426.40,491.25" Scale="1.30,1.25" Angles="0.00,0.00,10.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="1" Position="1450.00,367.00,0.00" Time="0.999500" Size="328.00,393.00" Scale="1.00,1.00" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="2" Position="1450.00,350.00,0.00" Time="1.999000" Size="426.40,491.25" Scale="1.30,1.25" Angles="0.00,0.00,10.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="eyes" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="1" PathCount="7" PlayCount="-1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Page2Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page2_1" ImageName="Page2Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page2_1" ImageName="Page2Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="108.00,328.00,0.00" Time="0.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+            <PointDataList Index="1" Position="108.00,328.00,0.00" Time="1.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-4.00,971.00,0.00" Time="0.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="1" Position="-4.00,971.00,0.00" Time="2.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="2" Position="-4.00,971.00,0.00" Time="4.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1096.00,249.00,0.00" Time="0.000000" Size="392.00,336.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger2" />
+            <PointDataList Index="1" Position="1096.00,249.00,0.00" Time="0.100000" Size="392.00,336.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="face" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="925.00,428.00,0.00" Time="0.000000" Size="530.00,476.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="face" />
+            <PointDataList Index="1" Position="925.00,428.00,0.00" Time="0.100000" Size="530.00,476.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="face" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1044.00,78.00,0.00" Time="0.000000" Size="380.00,346.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger" />
+            <PointDataList Index="1" Position="1044.00,78.00,0.00" Time="0.100000" Size="380.00,346.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,1.00" PIName="Page2" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="eyes" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1450.00,367.00,0.00" Time="0.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,0.20" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="1" Position="1450.00,367.00,0.00" Time="2.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,0.39" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="2" Position="1450.00,367.00,0.00" Time="4.000000" Size="328.00,393.00" Scale="1.00,1.00" Color="0.39,0.39,0.39,0.20" PIName="Page2" ImageName="eyes" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="7" PlayCount="-1" TotalPlayTime="1.999000">
+        <CueToStartCurvesWithTime Name="Page2Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page2_1" ImageName="Page2Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.100000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page2_1" ImageName="Page2Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="108.00,328.00,0.00" Time="0.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+            <PointDataList Index="1" Position="108.00,328.00,0.00" Time="1.000000" Size="840.00,694.00" Scale="1.00,1.00" PIName="Page2" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Lamp" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-4.00,971.00,0.00" Time="0.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="1" Position="-4.00,971.00,0.00" Time="0.500000" Size="616.00,562.00" Scale="1.00,1.00" PIName="Page2" ImageName="Lamp" />
+            <PointDataList Index="2" Position="-4.00,971.00,0.00" Time="1.000000" Size="616.00,562.00" Scale="1.00,1.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="Lamp" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1096.00,249.00,0.00" Time="0.000000" Size="392.00,336.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger2" />
+            <PointDataList Index="1" Position="1096.00,249.00,0.00" Time="0.100000" Size="392.00,336.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="face" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="925.00,428.00,0.00" Time="0.000000" Size="530.00,476.00" Scale="1.00,1.00" PIName="Page2" ImageName="face" />
+            <PointDataList Index="1" Position="925.00,428.00,0.00" Time="0.100000" Size="530.00,476.00" Scale="1.00,1.00" PIName="Page2" ImageName="face" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="hanger" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1044.00,78.00,0.00" Time="0.000000" Size="380.00,346.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger" />
+            <PointDataList Index="1" Position="1044.00,78.00,0.00" Time="0.100000" Size="380.00,346.00" Scale="1.00,1.00" PIName="Page2" ImageName="hanger" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="eyes" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1450.00,350.00,0.00" Time="0.000000" Size="426.40,491.25" Scale="1.30,1.25" Angles="0.00,0.00,10.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="1" Position="1450.00,367.00,0.00" Time="0.999500" Size="328.00,393.00" Scale="1.00,1.00" PIName="Page2" ImageName="eyes" />
+            <PointDataList Index="2" Position="1450.00,350.00,0.00" Time="1.999000" Size="426.40,491.25" Scale="1.30,1.25" Angles="0.00,0.00,10.00" Color="0.78,0.78,0.78,1.00" PIName="Page2" ImageName="eyes" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

@@ -1,0 +1,9 @@
+FolderName-FileName
+
+ex:
+
+Image folder has a file  named a.png
+
+so it should named as 
+
+Image_a.png

@@ -1,0 +1,7 @@
+﻿<UserControl x:Class="CoreWPF.Common.EditableListbox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ListBox Name="m_ListBox" x:FieldModifier="public" SelectionChanged="ListBox_SelectionChanged">
+            
+    </ListBox>
+</UserControl>

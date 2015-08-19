@@ -1,0 +1,760 @@
+<MPDIList Name="DEMO_mpdi" Count="19" MPDIVersion="1.1" PICount="6" ImageName="CN.pi,EN.pi,Role_Name.pi,SR.pi,TextField.pi,Touch_ICON.pi">
+    <MultiPathDynamicImage Name="BG" PathCount="2" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" StartTime="0.000000" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page001" PathCount="5" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="612.00,220.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S1" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="612.00,220.00" PIName="TextField" ImageName="TextField_S1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="612.00,220.00" PIName="TextField" ImageName="TextField_S1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="468.00,48.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="G2_word" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="468.00,48.00" PIName="EN" ImageName="G2_word" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="468.00,48.00" PIName="EN" ImageName="G2_word" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-32.00,0.00,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-12.00,0.00,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page002" PathCount="5" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,36.00,0.00" Time="0.000000" Size="957.00,299.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S2" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,299.00" PIName="TextField" ImageName="TextField_S2" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,299.00" PIName="TextField" ImageName="TextField_S2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,66.00,0.00" Time="0.000000" Size="893.00,133.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="EventTalk_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="3.000000" Size="893.00,133.00" PIName="EN" ImageName="EventTalk_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="893.00,133.00" PIName="EN" ImageName="EventTalk_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page003" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" Color="1.00,1.00,1.00,0.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,103.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,103.00" PIName="TextField" ImageName="TextField_S3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,103.00" PIName="TextField" ImageName="TextField_S3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,0.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="614.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk00" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="614.00,37.00" PIName="EN" ImageName="Shelly_Talk00" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="614.00,37.00" PIName="EN" ImageName="Shelly_Talk00" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page004" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,103.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S3" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,103.00" PIName="TextField" ImageName="TextField_S3" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,103.00" PIName="TextField" ImageName="TextField_S3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,0.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="185.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="185.00,29.00" PIName="EN" ImageName="Player_01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="185.00,29.00" PIName="EN" ImageName="Player_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page005" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="794.00,77.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="794.00,77.00" PIName="EN" ImageName="Shelly_Talk01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="794.00,77.00" PIName="EN" ImageName="Shelly_Talk01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page006" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="883.00,85.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="883.00,85.00" PIName="EN" ImageName="Player_02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="883.00,85.00" PIName="EN" ImageName="Player_02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page007" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="452.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="452.00,37.00" PIName="EN" ImageName="Shelly_Talk03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="452.00,37.00" PIName="EN" ImageName="Shelly_Talk03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page008" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="279.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="279.00,37.00" PIName="EN" ImageName="Player_03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="279.00,37.00" PIName="EN" ImageName="Player_03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page009" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="390.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="390.00,37.00" PIName="EN" ImageName="Shelly_Talk04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="390.00,37.00" PIName="EN" ImageName="Shelly_Talk04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page010" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="637.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="637.00,37.00" PIName="EN" ImageName="Player_04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="637.00,37.00" PIName="EN" ImageName="Player_04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page011" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="378.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="378.00,37.00" PIName="EN" ImageName="Shelly_Talk05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="378.00,37.00" PIName="EN" ImageName="Shelly_Talk05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page012" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="856.00,85.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="856.00,85.00" PIName="EN" ImageName="Player_05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="856.00,85.00" PIName="EN" ImageName="Player_05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page013" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="445.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="445.00,37.00" PIName="EN" ImageName="Shelly_Talk06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="445.00,37.00" PIName="EN" ImageName="Shelly_Talk06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page014" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="910.00,85.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="910.00,85.00" PIName="EN" ImageName="Player_06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="910.00,85.00" PIName="EN" ImageName="Player_06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page015" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="297.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="297.00,29.00" PIName="EN" ImageName="Shelly_Talk07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="297.00,29.00" PIName="EN" ImageName="Shelly_Talk07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page016" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="835.00,77.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="835.00,77.00" PIName="EN" ImageName="Player_07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="835.00,77.00" PIName="EN" ImageName="Player_07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page017" PathCount="8" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="107.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="107.00,37.00" PIName="Role_Name" ImageName="Name_Shelly" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="319.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Shelly_Talk08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="319.00,29.00" PIName="EN" ImageName="Shelly_Talk08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="319.00,29.00" PIName="EN" ImageName="Shelly_Talk08" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="page018" PathCount="9" PlayCount="-1" TotalPlayTime="5.000000" StopAtLastFrame="1">
+        <CueToStartCurvesWithTime Name="BG_01" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Office_PantryRoom" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Role_Shelly" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="1024.00,768.00" PIName="SR" ImageName="Role" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,0.00,0.00" Time="0.000000" Size="957.00,193.00" Color="1.00,1.00,1.00,0.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="957.00,193.00" PIName="TextField" ImageName="TextField_S4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Text" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="38.00,0.00,0.00" Time="0.000000" Size="259.00,37.00" Color="1.00,1.00,1.00,0.00" PIName="EN" ImageName="Player_08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="259.00,37.00" PIName="EN" ImageName="Player_08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="259.00,37.00" PIName="EN" ImageName="Player_08" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_ChangeEnCn" BehaviorUpdate="1" StartTime="2.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="115.42,306.92,0.00" Time="0.000000" Size="46.00,43.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="3.000000" Size="46.00,43.00" PIName="Touch_ICON" ImageName="G2_LanguageChange" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="touch_Next" BehaviorUpdate="1" StartTime="3.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="135.42,306.92,0.00" Time="0.000000" Size="55.00,41.00" Color="1.00,1.00,1.00,0.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="1" Position="147.42,306.92,0.00" Time="1.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+            <PointDataList Index="2" Position="147.42,306.92,0.00" Time="2.000000" Size="55.00,41.00" PIName="Touch_ICON" ImageName="G2_Next" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NameCard_Bar" BehaviorUpdate="1" StartTime="0.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="18.00,-89.00,0.00" Time="0.000000" Size="192.00,79.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="5.000000" Size="192.00,79.00" PIName="Role_Name" ImageName="NameCard_Player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Name" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="100.00,29.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="100.00,29.00" PIName="Role_Name" ImageName="Name_player" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Player_Icon" BehaviorUpdate="1" StartTime="1.000000" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-62.00,-89.00,0.00" Time="0.000000" Size="181.00,144.00" Color="1.00,1.00,1.00,0.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="1" Position="0.00,-89.00,0.00" Time="1.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+            <PointDataList Index="2" Position="0.00,-89.00,0.00" Time="4.000000" Size="181.00,144.00" PIName="Role_Name" ImageName="PlayerIcon" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

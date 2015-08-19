@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="HarborUI.MainUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             xmlns:cust="clr-namespace:HarborUI"
+             xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>        
+        <Menu IsMainMenu="true">
+            <MenuItem Header="File">
+                <!--http://www.wpftutorial.net/Menus.html-->
+                <MenuItem Header="Open" Click="MenuItem_Click"  Name="m_FileOpen"/>
+                <MenuItem Header="Save" Click="MenuItem_Click"  Name="m_FileSave"/>                
+            </MenuItem>            
+            <MenuItem Header="Window">
+                <!--http://www.wpftutorial.net/Menus.html-->
+                <MenuItem Header="RenderWindow" Click="MenuItem_Click" IsCheckable="True"/>
+                <MenuItem Header="Utility" Click="MenuItem_Click" IsCheckable="True"/>
+                <MenuItem Header="MPDINodeData" Click="MenuItem_Click" IsCheckable="True"/>
+                <MenuItem Header="File" Click="MenuItem_Click" IsCheckable="True"/>
+            </MenuItem>
+            <!--<MenuItem Header="EditorMode">
+                <MenuItem Header="HarborMode" Click="MenuItem_Click" IsCheckable="True" IsChecked="True" x:FieldModifier="public" Name="m_HarborMode"/>
+                <MenuItem Header="TradeRoutesMode" Click="MenuItem_Click" IsCheckable="True" x:FieldModifier="public" Name="m_TradeRoutesMode"/>
+            </MenuItem>-->
+            <!--<MenuItem Header="Render">
+                <MenuItem Header="AllRenderShow" Click="MenuItem_Click" IsCheckable="True" IsChecked="True" x:FieldModifier="public" Name="m_HarborMode"/>
+            </MenuItem>-->            
+        </Menu>
+        <xcad:DockingManager AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1" Grid.Row="1" >
+            <xcad:LayoutRoot x:Name="_layoutRoot" >
+                <xcad:LayoutPanel Orientation="Horizontal" >
+                    <xcad:LayoutAnchorablePane x:Name="m_HarborUIInfo" DockMinWidth="180" >
+                        <xcad:LayoutAnchorable ContentId="HarboInfo" Title="" CanHide="False" CanClose="False"  CanAutoHide="false">
+                            <TabControl SelectionChanged="TabControl_SelectionChanged" x:FieldModifier="public" Name="m_Tabcontrol">
+                                <TabItem Header="Harbor">
+                                    <cust:HarborInfo x:Name="m_HarborInfo" x:FieldModifier="public"/>
+                                </TabItem>
+                                <TabItem Header="Route">
+                                    <cust:TradeRoutes x:Name="m_TradeRoutes" x:FieldModifier="public"/>
+                                </TabItem>
+                            </TabControl>
+                            <!--<StackPanel>
+                                <cust:HarborInfo x:Name="m_HarborInfo" x:FieldModifier="public"/>
+                                <cust:TradeRoutes x:Name="m_TradeRoutes" x:FieldModifier="public"/>
+                            </StackPanel>-->
+                        </xcad:LayoutAnchorable>                    
+                    </xcad:LayoutAnchorablePane>
+                    <xcad:LayoutAnchorablePane DockMinWidth="680">
+                        <xcad:LayoutAnchorable ContentId="OpenGL" Title="" CanHide="False" CanClose="False" CanAutoHide="False" >
+                            <Border Background="Black" Name="m_RenderGrid" x:FieldModifier="public" >
+                                <WindowsFormsHost KeyDown="WindowsFormsHost_KeyDown" KeyUp="WindowsFormsHost_KeyUp">
+                                    <wf:Panel Name="MyOpenGL" />
+                                </WindowsFormsHost>
+                            </Border>
+                        </xcad:LayoutAnchorable>
+                    </xcad:LayoutAnchorablePane>
+                </xcad:LayoutPanel>
+            </xcad:LayoutRoot>
+        </xcad:DockingManager>
+    </Grid>
+</UserControl>

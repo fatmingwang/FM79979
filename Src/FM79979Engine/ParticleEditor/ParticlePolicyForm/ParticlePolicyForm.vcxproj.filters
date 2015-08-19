@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Color">
+      <UniqueIdentifier>{335c2505-7f20-4e52-bb38-616e2eae012b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Life">
+      <UniqueIdentifier>{690b654e-4c43-4131-8573-b3954e7e99cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rotate">
+      <UniqueIdentifier>{86fc6872-f0c6-4024-a24f-9532c8d63c7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Size">
+      <UniqueIdentifier>{89475a66-55e0-4c41-9ca6-0e67e5b1190d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StartPosition">
+      <UniqueIdentifier>{c46cd77c-9d2b-492f-ade4-1d3ebb404115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Velocity">
+      <UniqueIdentifier>{aa2aaf4b-c299-48d3-8ffa-c524ab345c8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{c158fe59-b8d2-41cb-a22a-df23f55b9837}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoCollpaseUnit.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtColorActBlending.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtColorActBlendingBy2Color.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtColorActBlendingByLife.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtColorInitrSetColor.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtColorInitrSetRandomColor.cpp">
+      <Filter>Color</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtLifeInitrSetLife.cpp">
+      <Filter>Life</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtRotateInitRotate.cpp">
+      <Filter>Rotate</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateActRotate.cpp">
+      <Filter>Rotate</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtSizeActBlending.cpp">
+      <Filter>Size</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtSizeInitSetSize.cpp">
+      <Filter>Size</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtStartPositionInitByFrame.cpp">
+      <Filter>StartPosition</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtStartPositionInitBySquareRange.cpp">
+      <Filter>StartPosition</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtVelocityActAcceleration.cpp">
+      <Filter>Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtVelocityActDircctionChange.cpp">
+      <Filter>Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtVelocityInitRandomFly.cpp">
+      <Filter>Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="PrtVelocityInitSetVelocity.cpp">
+      <Filter>Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="DynamicTecxture.cpp">
+      <Filter>Texture</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AllParticlePolicyForm.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoCollpaseUnit.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtColorActBlending.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtColorActBlendingBy2Color.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtColorActBlendingByLife.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtColorInitrSetColor.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtColorInitrSetRandomColor.h">
+      <Filter>Color</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtLifeInitrSetLife.h">
+      <Filter>Life</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtRotateActRotate.h">
+      <Filter>Rotate</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtRotateInitRotate.h">
+      <Filter>Rotate</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtSizeActBlending.h">
+      <Filter>Size</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtSizeInitSetSize.h">
+      <Filter>Size</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtStartPositionInitByFrame.h">
+      <Filter>StartPosition</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtStartPositionInitBySquareRange.h">
+      <Filter>StartPosition</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityActAcceleration.h">
+      <Filter>Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityActDircctionChange.h">
+      <Filter>Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityInitRandomFly.h">
+      <Filter>Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtVelocityInitSetVelocity.h">
+      <Filter>Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="PrtDynamicTecxture.h">
+      <Filter>Texture</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

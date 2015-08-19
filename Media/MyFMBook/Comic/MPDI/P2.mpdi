@@ -1,0 +1,156 @@
+<MPDIList Name="P2_Demo_mpdi" Count="1" MPDIVersion="1.1" PICount="1" ImageName="P2.pi">
+    <MultiPathDynamicImage Name="P2_Demo" PathCount="30" PlayCount="-1" TotalPlayTime="10.000001">
+        <CueToStartCurvesWithTime Name="BG" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="352.00,469.50,0.00" Time="0.000000" Size="900.00,1200.00" PIName="P2" ImageName="Whrite" />
+            <PointDataList Index="1" Position="352.00,469.50,0.00" Time="1.000000" Size="900.00,1200.00" PIName="P2" ImageName="Whrite" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BG_line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-34.00,0.00,0.00" Time="0.000000" Size="768.00,1024.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="LineArea" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="768.00,1024.00" PIName="P2" ImageName="LineArea" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="10.000000" Size="768.00,1024.00" PIName="P2" ImageName="LineArea" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_D_BG" BehaviorUpdate="1" StartTime="4.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="650.00,160.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaD01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="650.00,160.00" PIName="P2" ImageName="AreaD01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.000000" Size="650.00,160.00" PIName="P2" ImageName="AreaD01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_D_BG2" BehaviorUpdate="1" StartTime="5.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="650.00,160.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaD02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="650.00,160.00" PIName="P2" ImageName="AreaD02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="650.00,160.00" PIName="P2" ImageName="AreaD02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_D_BG3" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="653.00,160.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaD03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="653.00,160.00" PIName="P2" ImageName="AreaD03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="653.00,160.00" PIName="P2" ImageName="AreaD03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_D_talk01" BehaviorUpdate="1" StartTime="7.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="189.00,46.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaD04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="189.00,46.00" PIName="P2" ImageName="AreaD04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="189.00,46.00" PIName="P2" ImageName="AreaD04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_D_talk02" BehaviorUpdate="1" StartTime="8.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="130.00,26.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaD05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="130.00,26.00" PIName="P2" ImageName="AreaD05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="130.00,26.00" PIName="P2" ImageName="AreaD05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_C_BG" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="768.00,1024.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaC01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="768.00,1024.00" PIName="P2" ImageName="AreaC01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="768.00,1024.00" PIName="P2" ImageName="AreaC01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_C_BG2" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="768.00,1024.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaC02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="768.00,1024.00" PIName="P2" ImageName="AreaC02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="768.00,1024.00" PIName="P2" ImageName="AreaC02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_C_F" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-64.00,0.00,0.00" Time="0.000000" Size="0.00,0.00" PIName="P2" ImageName="AreaC03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_C" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="5" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" />
+            <PointDataList Index="1" Position="0.00,-7.00,0.00" Time="0.750000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" Mirror="1" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="1.500000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" />
+            <PointDataList Index="3" Position="0.00,8.00,0.00" Time="2.250000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" Mirror="1" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="3.000000" Size="302.00,740.00" PIName="P2" ImageName="AreaC03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A_BG" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="237.00,350.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="237.00,350.00" PIName="P2" ImageName="AreaA01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="237.00,350.00" PIName="P2" ImageName="AreaA01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A_BG2" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="237.00,350.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="237.00,350.00" PIName="P2" ImageName="AreaA02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="237.00,350.00" PIName="P2" ImageName="AreaA02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A01" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="191.00,76.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA03" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.500000" Size="191.00,76.00" PIName="P2" ImageName="AreaA03" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="191.00,76.00" PIName="P2" ImageName="AreaA03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A01_talk01" BehaviorUpdate="1" StartTime="5.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="147.00,139.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="147.00,139.00" PIName="P2" ImageName="AreaA05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.500000" Size="147.00,139.00" PIName="P2" ImageName="AreaA05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A01_talk02" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="120.00,56.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="120.00,56.00" PIName="P2" ImageName="AreaA06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="120.00,56.00" PIName="P2" ImageName="AreaA06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A01_talk03" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="117.00,97.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="117.00,97.00" PIName="P2" ImageName="AreaA07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="117.00,97.00" PIName="P2" ImageName="AreaA07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A01_talk04" BehaviorUpdate="1" StartTime="3.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="86.00,21.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="86.00,21.00" PIName="P2" ImageName="AreaA08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="6.500000" Size="86.00,21.00" PIName="P2" ImageName="AreaA08" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A_talk_N" BehaviorUpdate="1" StartTime="7.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="178.00,60.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA09" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="178.00,60.00" PIName="P2" ImageName="AreaA09" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="3.000000" Size="178.00,60.00" PIName="P2" ImageName="AreaA09" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_A02" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="116.00,-12.00,0.00" Time="0.000000" Size="70.00,123.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA04" />
+            <PointDataList Index="1" Position="16.00,-2.00,0.00" Time="2.666667" Size="70.00,123.00" PIName="P2" ImageName="AreaA04" />
+            <PointDataList Index="2" Position="-134.00,8.00,0.00" Time="5.333334" Size="70.00,123.00" PIName="P2" ImageName="AreaA04" />
+            <PointDataList Index="3" Position="-184.00,18.00,0.00" Time="8.000001" Size="70.00,123.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaA04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B_BG" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="237.00,321.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB01" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="237.00,321.00" PIName="P2" ImageName="AreaB01" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="8.000000" Size="237.00,321.00" PIName="P2" ImageName="AreaB01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B_BG2" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="237.00,321.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB02" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="237.00,321.00" PIName="P2" ImageName="AreaB02" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="237.00,321.00" PIName="P2" ImageName="AreaB02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B01" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="119.00,96.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB04" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.500000" Size="119.00,96.00" PIName="P2" ImageName="AreaB04" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="119.00,96.00" PIName="P2" ImageName="AreaB04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B02" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="59.00,135.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB07" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.500000" Size="59.00,135.00" PIName="P2" ImageName="AreaB07" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="9.000000" Size="59.00,135.00" PIName="P2" ImageName="AreaB07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B01_talk01" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="136.00,111.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB05" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="136.00,111.00" PIName="P2" ImageName="AreaB05" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="136.00,111.00" PIName="P2" ImageName="AreaB05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B01_talk02" BehaviorUpdate="1" StartTime="3.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="68.00,46.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB06" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="68.00,46.00" PIName="P2" ImageName="AreaB06" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="7.000000" Size="68.00,46.00" PIName="P2" ImageName="AreaB06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B01_talk03" BehaviorUpdate="1" StartTime="5.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="98.00,109.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB08" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="98.00,109.00" PIName="P2" ImageName="AreaB08" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.500000" Size="98.00,109.00" PIName="P2" ImageName="AreaB08" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B01_talk04" BehaviorUpdate="1" StartTime="6.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="16.00,18.00,0.00" Time="0.000000" Size="67.00,21.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB09" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="67.00,21.00" PIName="P2" ImageName="AreaB09" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="4.000000" Size="67.00,21.00" PIName="P2" ImageName="AreaB09" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B_talk_N" BehaviorUpdate="1" StartTime="8.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-14.00,0.00,0.00" Time="0.000000" Size="150.00,60.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB010" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="150.00,60.00" PIName="P2" ImageName="AreaB010" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="2.000000" Size="150.00,60.00" PIName="P2" ImageName="AreaB010" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Area_B03" BehaviorUpdate="1" StartTime="2.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="116.00,-12.00,0.00" Time="0.000000" Size="57.00,130.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB03" />
+            <PointDataList Index="1" Position="16.00,-2.00,0.00" Time="2.666667" Size="57.00,130.00" PIName="P2" ImageName="AreaB03" />
+            <PointDataList Index="2" Position="-134.00,8.00,0.00" Time="5.333334" Size="57.00,130.00" PIName="P2" ImageName="AreaB03" />
+            <PointDataList Index="3" Position="-184.00,18.00,0.00" Time="8.000001" Size="57.00,130.00" Color="1.00,1.00,1.00,0.00" PIName="P2" ImageName="AreaB03" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

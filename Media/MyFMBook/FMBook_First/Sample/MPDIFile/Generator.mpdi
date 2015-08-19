@@ -1,0 +1,37 @@
+<Version MPDIVersion="1.0" />
+<MPDIList Name="Generator_mpdi" Count="3" PICount="1" ImageName="Generator.pi">
+    <MultiPathDynamicImage Name="Generating" PathCount="1" PlayCount="1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="GeneratingZombie" BehaviorUpdate="1" StartTime="0.000000" Count="15" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator1" Mirror="0" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="0.214286" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator2" Mirror="0" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="0.428571" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator3" Mirror="0" />
+            <PointDataList Index="3" Position="0.00,0.00,0.00" Time="0.642857" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator4" Mirror="0" />
+            <PointDataList Index="4" Position="0.00,0.00,0.00" Time="0.857143" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator5" Mirror="0" />
+            <PointDataList Index="5" Position="0.00,0.00,0.00" Time="1.071429" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator6" Mirror="0" />
+            <PointDataList Index="6" Position="0.00,0.00,0.00" Time="1.285714" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator7" Mirror="0" />
+            <PointDataList Index="7" Position="0.00,0.00,0.00" Time="1.500000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator8" Mirror="0" />
+            <PointDataList Index="8" Position="0.00,0.00,0.00" Time="1.714286" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator9" Mirror="0" />
+            <PointDataList Index="9" Position="0.00,0.00,0.00" Time="1.928571" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator10" Mirror="0" />
+            <PointDataList Index="10" Position="0.00,0.00,0.00" Time="2.142857" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator11" Mirror="0" />
+            <PointDataList Index="11" Position="0.00,0.00,0.00" Time="2.357143" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator12" Mirror="0" />
+            <PointDataList Index="12" Position="0.00,0.00,0.00" Time="2.571429" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator13" Mirror="0" />
+            <PointDataList Index="13" Position="0.00,0.00,0.00" Time="2.785714" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator14" Mirror="0" />
+            <PointDataList Index="14" Position="0.00,0.00,0.00" Time="3.000000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator10" Mirror="0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Hurt" PathCount="1" PlayCount="-1" TotalPlayTime="0.500000">
+        <CueToStartCurvesWithTime Name="1" BehaviorUpdate="1" StartTime="0.000000" Count="5" LOD="1">
+            <PointDataList Index="0" Position="0.01,-13.77,0.00" Time="0.000000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator2" Mirror="0" />
+            <PointDataList Index="1" Position="0.01,-13.77,0.00" Time="0.125000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator3" Mirror="0" />
+            <PointDataList Index="2" Position="0.01,-13.77,0.00" Time="0.250000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator4" Mirror="0" />
+            <PointDataList Index="3" Position="0.01,-13.77,0.00" Time="0.375000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator5" Mirror="0" />
+            <PointDataList Index="4" Position="0.01,-13.77,0.00" Time="0.500000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator2" Mirror="0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Idle" PathCount="1" PlayCount="-1" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="1" BehaviorUpdate="1" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="256.00,128.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator1" Mirror="0" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="260.00,132.00" Angle="0.000000" Color="1.000,1.000,1.000,1.000" PIName="Generator" ImageName="zombie_Generator1" Mirror="0" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

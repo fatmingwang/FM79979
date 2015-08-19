@@ -1,0 +1,44 @@
+<ExportEventDataNodeFile>
+    <TemplateDataNode Name="Down">
+        <Down />
+    </TemplateDataNode>
+    <TemplateDataNode Name="Up">
+        <Up />
+    </TemplateDataNode>
+    <TemplateDataNode Name="Block">
+        <Block />
+    </TemplateDataNode>
+    <TemplateDataNode Name="Monster">
+        <Monster>
+            <AI />
+            <Animation>
+                <MPDIList />
+                <Battle />
+                <Idle />
+                <SpecialAttack />
+                <Hurt />
+            </Animation>
+        </Monster>
+    </TemplateDataNode>
+    <TemplateDataNode Name="MonsterNormal">
+        <MonsterNormal>
+            <cFAICharacterStatus HP="3" Strehgth="1" Defence="1" Agile="1" Dexterous="1" Lucky="0">
+                <Name />
+            </cFAICharacterStatus>
+            <cFAIAnimationCharacter>
+                <Status Name="Idle" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Idle" Loop="1">
+                    <MPDI />
+                </Status>
+                <Status Name="Attack" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Attack" Loop="0">
+                    <MPDI />
+                </Status>
+                <Status Name="Hurt" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Hurt" Loop="0">
+                    <MPDI />
+                </Status>
+                <Status Name="Died" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Died" Loop="0">
+                    <MPDI />
+                </Status>
+            </cFAIAnimationCharacter>
+        </MonsterNormal>
+    </TemplateDataNode>
+</ExportEventDataNodeFile>

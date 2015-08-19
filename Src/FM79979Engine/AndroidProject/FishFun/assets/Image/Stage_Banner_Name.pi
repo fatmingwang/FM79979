@@ -1,0 +1,25 @@
+<!-- Author:scrr,Time:2014/11/25 ¤U¤È 03:17:09 -->
+<PuzzleImage OriginalNameSort="Stage_001,Stage_002,Stage_003,Stage_004,Stage_005,Stage_006,Stage_007,Stage_008,Stage_009,Stage_010,Stage_011,Stage_012,Stage_013,Stage_014,Stage_015,Stage_016,Stage_017,Stage_018,Stage_019,Stage_020,Stage_021,Stage_022" ImageName="Stage_Banner_Name.png" Count="22" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Stage_001" UV="0,0,0.40625,0.1328125" OffsetPos="0,0" Size="208,34" OriginalSize="208,34" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Stage_002" UV="0.4082031,0,0.5878906,0.1328125" OffsetPos="0,0" Size="92,34" OriginalSize="92,34" ShowPosInPI="209,0" />
+    <PuzzleUnit Name="Stage_003" UV="0.5898438,0,0.7695313,0.1328125" OffsetPos="0,0" Size="92,34" OriginalSize="92,34" ShowPosInPI="302,0" />
+    <PuzzleUnit Name="Stage_004" UV="0,0.1367188,0.2382813,0.2695313" OffsetPos="0,0" Size="122,34" OriginalSize="122,34" ShowPosInPI="0,35" />
+    <PuzzleUnit Name="Stage_005" UV="0.2402344,0.1367188,0.421875,0.2695313" OffsetPos="0,0" Size="93,34" OriginalSize="93,34" ShowPosInPI="123,35" />
+    <PuzzleUnit Name="Stage_006" UV="0.4238281,0.1367188,0.6621094,0.2695313" OffsetPos="0,0" Size="122,34" OriginalSize="122,34" ShowPosInPI="217,35" />
+    <PuzzleUnit Name="Stage_007" UV="0.6640625,0.1367188,0.9296875,0.2695313" OffsetPos="0,0" Size="136,34" OriginalSize="136,34" ShowPosInPI="340,35" />
+    <PuzzleUnit Name="Stage_008" UV="0,0.2734375,0.2402344,0.40625" OffsetPos="0,0" Size="123,34" OriginalSize="123,34" ShowPosInPI="0,70" />
+    <PuzzleUnit Name="Stage_009" UV="0.2421875,0.2734375,0.5039063,0.40625" OffsetPos="0,0" Size="134,34" OriginalSize="134,34" ShowPosInPI="124,70" />
+    <PuzzleUnit Name="Stage_010" UV="0.5058594,0.2734375,0.6855469,0.40625" OffsetPos="0,0" Size="92,34" OriginalSize="92,34" ShowPosInPI="259,70" />
+    <PuzzleUnit Name="Stage_011" UV="0.6875,0.2734375,0.9492188,0.40625" OffsetPos="0,0" Size="134,34" OriginalSize="134,34" ShowPosInPI="352,70" />
+    <PuzzleUnit Name="Stage_012" UV="0,0.4101563,0.1796875,0.5429688" OffsetPos="0,0" Size="92,34" OriginalSize="92,34" ShowPosInPI="0,105" />
+    <PuzzleUnit Name="Stage_013" UV="0.1816406,0.4101563,0.4160156,0.5429688" OffsetPos="0,0" Size="120,34" OriginalSize="120,34" ShowPosInPI="93,105" />
+    <PuzzleUnit Name="Stage_014" UV="0.4179688,0.4101563,0.6523438,0.5429688" OffsetPos="0,0" Size="120,34" OriginalSize="120,34" ShowPosInPI="214,105" />
+    <PuzzleUnit Name="Stage_015" UV="0.6542969,0.4101563,0.8378906,0.5429688" OffsetPos="0,0" Size="94,34" OriginalSize="94,34" ShowPosInPI="335,105" />
+    <PuzzleUnit Name="Stage_016" UV="0,0.546875,0.2890625,0.6796875" OffsetPos="0,0" Size="148,34" OriginalSize="148,34" ShowPosInPI="0,140" />
+    <PuzzleUnit Name="Stage_017" UV="0.2910156,0.546875,0.5234375,0.6796875" OffsetPos="0,0" Size="119,34" OriginalSize="119,34" ShowPosInPI="149,140" />
+    <PuzzleUnit Name="Stage_018" UV="0.5253906,0.546875,0.703125,0.6796875" OffsetPos="0,0" Size="91,34" OriginalSize="91,34" ShowPosInPI="269,140" />
+    <PuzzleUnit Name="Stage_019" UV="0.7050781,0.546875,0.8828125,0.6796875" OffsetPos="0,0" Size="91,34" OriginalSize="91,34" ShowPosInPI="361,140" />
+    <PuzzleUnit Name="Stage_020" UV="0,0.6835938,0.1777344,0.8164063" OffsetPos="0,0" Size="91,34" OriginalSize="91,34" ShowPosInPI="0,175" />
+    <PuzzleUnit Name="Stage_021" UV="0.1796875,0.6835938,0.4160156,0.8164063" OffsetPos="0,0" Size="121,34" OriginalSize="121,34" ShowPosInPI="92,175" />
+    <PuzzleUnit Name="Stage_022" UV="0.4179688,0.6835938,0.5371094,0.8164063" OffsetPos="0,0" Size="61,34" OriginalSize="61,34" ShowPosInPI="214,175" />
+</PuzzleImage>

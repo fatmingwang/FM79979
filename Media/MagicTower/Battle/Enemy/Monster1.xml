@@ -1,0 +1,8 @@
+<Monster>
+	<FAIAnimationStatus >
+		<Status Name="Idle" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="" Loop="Idle" />
+		<Status Name="Attack" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="" Loop="Attack" />
+		<Status Name="Hurt" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="" Loop="Hurt" />
+		<Status Name="Died" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="" Loop="Died" />
+	</FAIAnimationStatus>
+</Monster>

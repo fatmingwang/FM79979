@@ -1,0 +1,8 @@
+<!-- Author:Fatming,Time:2013/8/28 ¤U¤È 04:55:13 -->
+<PuzzleImage OriginalNameSort="Character_Main_Bk,Character_Main_F,Character_Main_Idle,Character_Main_L,Character_Main_R" ImageName="MainCharacter.png" Count="5" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Character_Main_Bk" UV="0,0,0.234375,0.234375" OffsetPos="0,0" Size="60,60" OriginalSize="60,60" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Character_Main_F" UV="0.2382813,0,0.4726563,0.234375" OffsetPos="0,0" Size="60,60" OriginalSize="60,60" ShowPosInPI="61,0" />
+    <PuzzleUnit Name="Character_Main_Idle" UV="0.4765625,0,0.7109375,0.234375" OffsetPos="0,0" Size="60,60" OriginalSize="60,60" ShowPosInPI="122,0" />
+    <PuzzleUnit Name="Character_Main_L" UV="0.7148438,0,0.9492188,0.234375" OffsetPos="0,0" Size="60,60" OriginalSize="60,60" ShowPosInPI="183,0" />
+    <PuzzleUnit Name="Character_Main_R" UV="0,0.2382813,0.234375,0.4726563" OffsetPos="0,0" Size="60,60" OriginalSize="60,60" ShowPosInPI="0,61" />
+</PuzzleImage>

@@ -1,0 +1,5 @@
+<!-- Author:YangHong,Time:2012/8/1 ¤W¤È 10:25:11 -->
+<PuzzleImage OriginalNameSort="G2_LanguageChange,G2_Next" ImageName="Touch_ICON.png" Count="2" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="G2_LanguageChange" UV="0,0,0.359375,0.3359375" OffsetPos="682,370" Size="46,43" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="G2_Next" UV="0.3671875,0,0.796875,0.3203125" OffsetPos="752,371" Size="55,41" OriginalSize="1024,768" ShowPosInPI="47,0" />
+</PuzzleImage>

@@ -1,0 +1,8 @@
+<!-- Author:YangHong,Time:2012/8/1 ¤W¤È 10:24:31 -->
+<PuzzleImage OriginalNameSort="Name_player,Name_Shelly,NameCard,NameCard_Player,PlayerIcon" ImageName="Role_Name.png" Count="5" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Name_player" UV="0,0,0.1953125,0.05664063" OffsetPos="178,600" Size="100,29" OriginalSize="1024,768" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Name_Shelly" UV="0.1972656,0,0.40625,0.07226563" OffsetPos="60,602" Size="107,37" OriginalSize="1024,768" ShowPosInPI="101,0" />
+    <PuzzleUnit Name="NameCard" UV="0.4082031,0,0.7832031,0.1542969" OffsetPos="17,578" Size="192,79" OriginalSize="1024,768" ShowPosInPI="209,0" />
+    <PuzzleUnit Name="NameCard_Player" UV="0,0.15625,0.375,0.3105469" OffsetPos="132,576" Size="192,79" OriginalSize="1024,768" ShowPosInPI="0,80" />
+    <PuzzleUnit Name="PlayerIcon" UV="0.3769531,0.15625,0.7304688,0.4375" OffsetPos="0,511" Size="181,144" OriginalSize="1024,768" ShowPosInPI="193,80" />
+</PuzzleImage>

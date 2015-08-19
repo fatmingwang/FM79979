@@ -1,0 +1,56 @@
+#ifndef _RENDER_OBJECT_BEHAVIOR_H
+#define _RENDER_OBJECT_BEHAVIOR_H
+
+#include "../Math/Frame.h"
+#include <functional>
+namespace FATMING_CORE
+{
+	class	cRenderObject:public virtual Frame
+	{
+		//just a rotiton reference
+		Vector3			m_vRotation;
+		//while set transform is called we might need some data update.ex:rotation
+		//if warning is appear override as below
+		//virtual	void	SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
+	protected:
+		bool			m_ChildrenIsRenderObject;//if false the children won't be update and render
+		virtual	void	SetTransformInternalData();
+		GET_SET_DEC(bool,m_bUpdateRotation,IsUpdateRotation,SetUpdateRotation);
+		//local position
+		Vector3*		m_pvPos;
+		virtual	void	ChildUpdate(float e_fElpaseTime);
+	public:
+		cRenderObject();
+		cRenderObject(cRenderObject*e_pRenderObjectBehavior);
+		virtual ~cRenderObject();
+		Vector3			GetPos();
+		void			SetPos(Vector3 e_vPos);
+		void			SetPos(Vector2 e_vPos);
+		//radian
+		float			GetAngle();
+		//degree
+		float			GetDegreeAngle();
+		//radian not degree.
+		Vector3			GetRotation(){ return m_vRotation; }
+		void			SetAngle(float e_fAngle);
+		void			SetAngle(Vector3 e_vAngle);
+		virtual	void	Init() = 0;
+		virtual	void	Update(float e_fElpaseTime) = 0;
+		virtual	void	Render() = 0;
+		virtual	void	DebugRender(){}
+		//
+		virtual	void	ForAllNodesUpdate(float e_fElpaseTime);
+		virtual	void	ForAllNodesRender();
+		virtual	void	ForAllNodesDebugRender();
+		//
+		virtual	void	Destroy() = 0;
+		virtual	void	SetColor(Vector4 e_vColor){}
+		//virtual	bool	IsDone(){ return false; }
+		//virtual	int		GetWidth() = 0;
+		//virtual	int		GetHeight() = 0;
+	};
+
+//end namespace
+}
+
+#endif

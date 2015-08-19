@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="FMBookEditorUI.Event.Trigger.EventButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:my="clr-namespace:CoreWPF.Common;assembly=CoreWPF">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../FMBookUIResourceDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ListBox SelectedIndex="0" Name="m_ButtonTypeListbox" x:FieldModifier="public">
+                <ListBoxItem Content="Image" />
+                <ListBoxItem Content="PIUnit" />
+                <ListBoxItem Content="Text" />
+            </ListBox>
+        </Grid>
+        <TabControl Grid.Row="1" Height="150" SelectedIndex="{Binding ElementName=m_ButtonTypeListbox,Path=SelectedIndex}" >
+            <TabItem Header="BaseImage"  >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="ImageName"/>
+                    <TextBox Grid.Row="1" Name="m_ImageName" x:FieldModifier="public" AllowDrop="True" TextChanged="m_ImageName_TextChanged" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="PIUnit">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="PIName"/>
+                    <TextBox Grid.Row="1" Name="m_PIName" x:FieldModifier="public" />
+                    <TextBlock Grid.Row="2" Text="PIUnitName"/>
+                    <TextBox Grid.Row="3" Name="m_PIUnitName" x:FieldModifier="public" AllowDrop="True" TextChanged="m_ImageName_TextChanged" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Text">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Content="BGColor" Click="Button_Click" x:FieldModifier="public" Name="m_ColorButton"/>
+                    <TextBox Grid.Column="1" Name="m_BGColor" x:FieldModifier="public" Text="1,1,1,1" TextChanged="m_ImageName_TextChanged" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Text" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Name="m_Text" x:FieldModifier="public" AllowDrop="True" TextChanged="m_ImageName_TextChanged" />
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Style="{StaticResource TextBlockStyle}">ImagePos</TextBlock>
+            <my:XYZNumeric  Grid.Column="1" Name="m_ImagePos" x:FieldModifier="public"/>
+        </Grid>
+        <CheckBox Grid.Row="3" Content="Repeat" Name="m_RepeatCheckbox" x:FieldModifier="public" Checked="m_RepeatCheckbox_Checked" />
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Result"/>
+            <TextBox  Grid.Column="1" Name="m_Result" x:FieldModifier="public" />
+        </Grid>
+    </Grid>
+</UserControl>

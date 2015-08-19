@@ -1,0 +1,5 @@
+<CommodityManager>
+	<cCommodity ID="0" ExtraType="0" StandType="0" Cost="100" Name="Item1"/>
+	<cCommodity ID="1" ExtraType="0" StandType="0" Cost="100" Name="Item2"/>
+	<cCommodity ID="2" ExtraType="0" StandType="0" Cost="100" Name="Item3"/>
+</CommodityManager>

@@ -1,0 +1,14 @@
+<!-- Author:scrr,Time:2014/11/19 ¤W¤È 11:27:07 -->
+<PuzzleImage OriginalNameSort="Nami_Play_001,Nami_Play_002,Nami_Play_003,Nami_Play_004,Nami_Play_005,Nami_Play_006,Nami_Play_011,Nami_Play_007,Nami_Play_008,Nami_Play_009,Nami_Play_010" ImageName="Scene_Nami.png" Count="11" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Nami_Play_001" UV="0,0,0.4785156,0.08789063" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Nami_Play_002" UV="0.4804688,0,0.9589844,0.08789063" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="246,0" />
+    <PuzzleUnit Name="Nami_Play_003" UV="0,0.08984375,0.4785156,0.1777344" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,46" />
+    <PuzzleUnit Name="Nami_Play_004" UV="0.4804688,0.08984375,0.9589844,0.1777344" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="246,46" />
+    <PuzzleUnit Name="Nami_Play_005" UV="0,0.1796875,0.4785156,0.2675781" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,92" />
+    <PuzzleUnit Name="Nami_Play_006" UV="0.4804688,0.1796875,0.9589844,0.2675781" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="246,92" />
+    <PuzzleUnit Name="Nami_Play_007" UV="0.4804688,0.2695313,0.9589844,0.3574219" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="246,138" />
+    <PuzzleUnit Name="Nami_Play_008" UV="0,0.359375,0.4785156,0.4472656" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,184" />
+    <PuzzleUnit Name="Nami_Play_009" UV="0.4804688,0.359375,0.9589844,0.4472656" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="246,184" />
+    <PuzzleUnit Name="Nami_Play_010" UV="0,0.4492188,0.4785156,0.5371094" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,230" />
+    <PuzzleUnit Name="Nami_Play_011" UV="0,0.2695313,0.4785156,0.3574219" OffsetPos="0,0" Size="245,45" OriginalSize="245,45" ShowPosInPI="0,138" />
+</PuzzleImage>

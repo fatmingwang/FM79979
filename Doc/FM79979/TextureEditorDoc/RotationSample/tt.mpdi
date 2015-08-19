@@ -1,0 +1,17 @@
+<Version MPDIVersion="1.0" />
+<MPDIList Name="tt_mpdi" Count="1" PICount="1" ImageName="tt.pi">
+    <MultiPathDynamicImage Name="Roation" PathCount="3" PlayCount="-1" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="1" BehaviorUpdate="1" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="446.09,345.00,0.00" Time="0.000000" Size="280.00,258.00" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="2" />
+            <PointDataList Index="1" Position="446.09,345.00,0.00" Time="3.000000" Size="280.00,258.00" Angle="360.000000" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="2" BehaviorUpdate="1" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1206.26,585.00,0.00" Time="0.000000" Size="141.00,129.00" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="3" />
+            <PointDataList Index="1" Position="1206.26,585.00,0.00" Time="3.000000" Size="141.00,129.00" Angle="360.000000" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="3" BehaviorUpdate="1" StartTime="0.000000" Count="2" LOD="1">
+            <PointDataList Index="0" Position="736.96,730.00,0.00" Time="0.000000" Size="282.00,130.00" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="4" />
+            <PointDataList Index="1" Position="736.96,730.00,0.00" Time="3.000000" Size="282.00,130.00" Angle="360.000000" Color="1.000,1.000,1.000,1.000" PIName="tt" ImageName="4" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

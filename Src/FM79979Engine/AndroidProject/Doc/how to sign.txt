@@ -1,0 +1,63 @@
+try GenerateAPK.bat
+
+
+
+http://www.tttabc.com/android/keytool-keystore-jarsigner-apk.htm
+http://www.coderzheaven.com/2011/04/01/android-signing-apk/
+
+1st 
+I am wrong with this.
+the licence is for IAB.
+//go to google console to get ur app licence code
+//that's ur sign file password
+
+open cmd and goto 
+
+C:\Program Files\Java\jdk1.7.0\bin
+or
+C:\NVPACK\jdk1.6.0_45\bin
+
+2nd
+
+keytool -genkey -alias abc.keystore -keyalg RSA -validity 20000 -keystore abc.keystore
+
+then type password
+
+now we got a abc.keystore sign file
+
+3rd
+
+names ur apk names as 123.apk and copy it into above folder
+
+jarsigner -verbose -keystore abc.keystore -signedjar 123x.apk 123.apk abc.keystore
+
+then type password again
+
+4th
+Zipalign the  signed apk(123x.apk)
+
+C:\NVPACK\android-sdk-windows\tools>zipalign -v 4 C:\NVPACK\jdk1.6.0_45\bin\123x.apk C:\NVPACK\jdk1.6.0_45\bin\456.apk
+
+now got ur 456.apk
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!check version and debug is false!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgJqo9yLr2wF1WZSn1oQtFEh8gvFGW3g8zddOslflXX2Yed+b/L3hEkabj+z/Stoom8GVUqaNNmafvNzkUKGfjarlejtRDzbanfhy923z28hzpcPlLhj1m/cPaVSl+pwN7xntRU6U7IjR5Ku5J082htUXWgUwepLM2oCURqeFH5FcDPm2cZRjPuBzlBqQSdWtwAevKH+yXNxnLufJxRw7Y03LIFg/eaW62vz5aSTLOVLsY4WuwmzXJVll8D1p8QE9SEsk1acog03V9KcHxr7wi1dDhRVckDeIUHsiRb+M6o9Nbo8sb9EqFvisZackD+w63KbEuXE/CN6129z/P3nKMwIDAQAB
+1.
+cd C:\NVPACK\jdk1.6.0_45\bin
+2.
+keytool -genkey -alias abc.keystore -keyalg RSA -validity 20000 -keystore abc.keystore
+type pass word
+if failed delete old abc.keystore file
+3.
+jarsigner -verbose -keystore abc.keystore -signedjar 123x.apk 123.apk abc.keystore
+type pass word
+4.
+cd C:\NVPACK\android-sdk-windows\tools
+or 
+cd C:\NVPACK\android-sdk-windows\build-tools\19.1.0
+zipalign -v 4 C:\NVPACK\jdk1.6.0_45\bin\123x.apk C:\NVPACK\jdk1.6.0_45\bin\456.apk
+if failed delete old 456.apk file

@@ -1,0 +1,496 @@
+#include "../stdafx.h"
+#include "Frame.h"
+#include "Bound.h"
+#include "../GamePlayUT/GameApp.h"
+
+
+//const wchar_t*         Frame::TypeID( L"Frame" );
+
+const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::Frame()
+//-----------------------------------------------------------------------------
+Frame::Frame()
+{
+    m_pParent = nullptr;
+    m_pNextSibling = nullptr;
+    m_pFirstChild = nullptr;
+    
+    m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
+	m_LocalTransform = cMatrix44::Identity;
+	m_bDestroyConnectionWhileDestroy =  true;
+	m_pLocalBound = 0;
+    m_pCachedWorldBound = 0;
+}
+
+Frame::Frame(Frame*e_pFrame)
+{
+    m_pParent = nullptr;
+    m_pNextSibling = nullptr;
+    m_pFirstChild = nullptr;
+    m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
+	m_LocalTransform = cMatrix44::Identity;
+	m_bDestroyConnectionWhileDestroy =  true;
+	if( !e_pFrame )
+		return;
+	SetName(e_pFrame->GetName());
+	this->SetLocalTransform(e_pFrame->GetLocalTransform());
+}
+//-----------------------------------------------------------------------------
+// Name: Frame::~Frame()
+//-----------------------------------------------------------------------------
+Frame::~Frame()
+{
+	if( m_bDestroyConnectionWhileDestroy )
+	{
+		SetParent( nullptr );
+		Frame*l_pChild = GetFirstChild();
+		while(l_pChild)
+		{
+			l_pChild->SetParent(nullptr);
+			l_pChild = l_pChild->GetNextSibling();
+		}
+		m_bDestroyConnectionWhileDestroy = false;
+	}
+	SAFE_DELETE(m_pLocalBound);
+    SAFE_DELETE(m_pCachedWorldBound);
+}
+
+void	Frame::SetLocalRotation(Vector3 e_vRotation)
+{
+	cMatrix44	l_RotationMatrix = cMatrix44::RotationMatrix(e_vRotation);
+	l_RotationMatrix.SetTranslation(this->GetLocalPosition());
+	this->SetLocalTransform(l_RotationMatrix);
+}
+
+
+Frame*	Frame::FinFrameByName(wchar_t*e_strName)
+{
+	if( !wcscmp(e_strName,GetName()) )
+		return this;
+	if( this->GetNextSibling() != nullptr)
+	{		
+		return GetNextSibling()->FinFrameByName(e_strName);
+	}
+
+	if (GetFirstChild() != nullptr)
+	{
+		return GetFirstChild()->FinFrameByName(e_strName);
+	}
+	return nullptr;
+}
+//-----------------------------------------------------------------------------
+// Name: Frame::AddChild()
+//-----------------------------------------------------------------------------
+void Frame::AddChild( Frame* pChild ,bool e_bUpdateRelatedPosition)
+{
+    assert( pChild );    
+    pChild->SetParent( this,e_bUpdateRelatedPosition );    
+	pChild->SetCachedWorldTransformDirty();
+}
+
+void Frame::AddChildToLast( Frame* pChild ,bool e_bUpdateRelatedPosition)
+{
+    assert( pChild );
+	Frame*l_pFirstChild = this->GetFirstChild();
+	pChild->SetParent(nullptr,false);
+	pChild->m_pParent = this;
+	if( l_pFirstChild )
+	{
+		while( l_pFirstChild )
+		{
+			if( l_pFirstChild->GetNextSibling() )
+				l_pFirstChild = l_pFirstChild->GetNextSibling();
+			else
+			{
+				l_pFirstChild->m_pNextSibling = pChild;
+				break;
+			}
+		}
+	}
+	else
+	{
+		this->m_pFirstChild = pChild;
+	}
+	pChild->SetCachedWorldTransformDirty();
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::SetParent()
+//-----------------------------------------------------------------------------
+void Frame::SetParent( Frame* pParent ,bool e_bUpdateRelatedPosition)
+{
+    Frame *pSrch, *pLast;
+
+    UpdateCachedWorldTransformIfNeeded();
+	if( m_pParent == pParent )
+		return;
+    if( m_pParent )
+    {
+        pLast = nullptr;
+        for( pSrch = m_pParent->m_pFirstChild; pSrch; pSrch = pSrch->m_pNextSibling )
+        {
+            if ( pSrch == this )
+                break;
+            pLast = pSrch;
+        }
+
+        // If we can't find this frame in the old parent's list, assert
+        assert( pSrch );
+
+        // Remove us from the list
+        if ( pLast ) 
+        {
+            pLast->m_pNextSibling = m_pNextSibling;
+        }
+        else // at the beginning of the list
+        {
+            m_pParent->m_pFirstChild = m_pNextSibling;
+        }
+
+        m_pNextSibling = nullptr;
+        m_pParent = nullptr;
+    }
+
+    // Add us to the new parent's list               
+    if ( pParent )
+    {
+        m_pParent = pParent;   
+        m_pNextSibling = pParent->m_pFirstChild;
+        pParent->m_pFirstChild = this;
+    }
+
+    // now we update our local transform to match the old world transform
+    // (i.e. move under our new parent's frame with no detectable change)
+    if( e_bUpdateRelatedPosition )
+	{
+		cMatrix44 worldMatrix = m_CachedWorldTransform;
+		SetWorldTransform( worldMatrix );
+	}
+	else
+		SetCachedWorldTransformDirty();
+}
+
+
+void	Frame::SetNextSibling(Frame*e_pNextSibling)
+{
+	m_pNextSibling = e_pNextSibling;
+	if( m_pNextSibling )
+		m_pNextSibling->m_pParent = this->m_pParent;
+}
+
+//-----------------------------------------------------------------------------
+// Name: Frame::IsAncestor()
+// Desc: Returns TRUE if the specified frame is an ancestor of this frame
+//       ancestor = parent, parent->parent, etc.
+//       Also returns TRUE if specified frame is nullptr.
+//-----------------------------------------------------------------------------
+bool Frame::IsAncestor( Frame* pOtherFrame )
+{
+    if( pOtherFrame == nullptr )
+        return true;
+    if( pOtherFrame == this )
+        return false;
+    Frame* pFrame = GetParent();
+    while( pFrame != nullptr )
+    {
+        if( pFrame == pOtherFrame )
+            return true;
+        pFrame = pFrame->GetParent();
+    }
+    return false;
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::IsChild()
+// Desc: Returns TRUE if the specified frame is a direct child of this frame
+//-----------------------------------------------------------------------------
+bool Frame::IsChild( Frame* pOtherFrame )
+{
+    if( pOtherFrame == nullptr )
+        return false;
+    Frame* pChild = GetFirstChild();
+    while( pChild != nullptr )
+    {
+        if( pChild == pOtherFrame )
+            return true;
+        pChild = pChild->GetNextSibling();
+    }
+    return false;
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::GetWorldPosition()
+//-----------------------------------------------------------------------------
+Vector3 Frame::GetWorldPosition()
+{
+    UpdateCachedWorldTransformIfNeeded();
+    return *(Vector3*)(&m_CachedWorldTransform.r[3]);
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::SetWorldPosition()
+//-----------------------------------------------------------------------------
+void Frame::SetWorldPosition( const VECTOR4 &NewPosition )
+{
+    UpdateCachedWorldTransformIfNeeded();
+    cMatrix44 ModifiedWorldTransform = m_CachedWorldTransform;
+
+    ModifiedWorldTransform.r[3] = NewPosition;
+    
+    SetWorldTransform( ModifiedWorldTransform );
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::GetWorldTransform()
+//-----------------------------------------------------------------------------
+cMatrix44 Frame::GetWorldTransform() 
+{
+    UpdateCachedWorldTransformIfNeeded();
+    return m_CachedWorldTransform;
+}
+
+void	Frame::SetLocalTransform( const cMatrix44& LocalTransform,bool e_bAllChildDirty )
+{
+	if( e_bAllChildDirty )
+		SetCachedWorldTransformDirty();
+	m_LocalTransform = LocalTransform;
+	SetTransformInternalData();
+}
+
+cMatrix44*      Frame::GetLocalTransformPointer()
+{
+	return &m_LocalTransform;
+}
+
+//cMatrix44*	Frame::GetWorldTransformPointer()
+//{
+//    UpdateCachedWorldTransformIfNeeded();
+//    return &m_CachedWorldTransform;
+//}
+
+//-----------------------------------------------------------------------------
+// Name: Frame::GetWorldRight()
+//-----------------------------------------------------------------------------
+Vector3 Frame::GetWorldRight() 
+{ 
+    UpdateCachedWorldTransformIfNeeded();
+    return *(Vector3*)(&m_CachedWorldTransform.r[0]);
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::GetWorldUp()
+//-----------------------------------------------------------------------------
+Vector3 Frame::GetWorldUp() 
+{ 
+    UpdateCachedWorldTransformIfNeeded();
+    return *(Vector3*)(&m_CachedWorldTransform.r[1]);
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::GetWorldDirection()
+//-----------------------------------------------------------------------------
+Vector3 Frame::GetWorldDirection()
+{ 
+    UpdateCachedWorldTransformIfNeeded(); 
+    return *(Vector3*)(&m_CachedWorldTransform.r[2]);
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::SetWorldTransform()
+//-----------------------------------------------------------------------------
+void Frame::SetWorldTransform( const cMatrix44& WorldTransform )
+{
+    cMatrix44 ParentInverse;
+    //Vector4 vDeterminant;
+
+    if ( m_pParent )
+    {    
+        m_pParent->UpdateCachedWorldTransformIfNeeded();
+		ParentInverse = m_pParent->m_CachedWorldTransform.Inverted();
+
+		//if the transform is not correct check this function,because I am lazy to check it's correction
+        //ParentInverse = cMatrix44Inverse( &vDeterminant, m_pParent->m_CachedWorldTransform );
+        // Parent's matrix should be invertible
+        //assert( vDeterminant.x != 0.0f );
+        
+        m_LocalTransform = ParentInverse*WorldTransform;
+    }
+    else
+    {
+        m_LocalTransform = WorldTransform;    
+    }
+
+    SetCachedWorldTransformDirty();
+	SetTransformInternalData();
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::UpdateCachedWorldTransformIfNeeded()
+//-----------------------------------------------------------------------------
+void Frame::UpdateCachedWorldTransformIfNeeded()
+{
+    if( m_CachedWorldTransform._11 == FRAME_DIRTY_WORLD_CACHE )
+    {
+        if( m_pParent )
+        {
+            m_pParent->UpdateCachedWorldTransformIfNeeded();        
+            m_CachedWorldTransform = m_pParent->m_CachedWorldTransform * m_LocalTransform;
+			if( m_pLocalBound )
+			{
+				*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
+			}
+        }
+        else
+        {   
+            m_CachedWorldTransform = m_LocalTransform;
+			if( m_pLocalBound )
+			{
+				if( m_pLocalBound->GetType() != 0 )
+					*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
+			}
+
+        }
+    }
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::SetCachedWorldTransformDirty()
+//-----------------------------------------------------------------------------
+void Frame::SetCachedWorldTransformDirty()
+{
+	if( m_CachedWorldTransform._11 != FRAME_DIRTY_WORLD_CACHE )
+	{
+		Frame *pChild;
+		m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
+    
+		for( pChild = m_pFirstChild; pChild; pChild = pChild->m_pNextSibling )
+		{
+			pChild->SetCachedWorldTransformDirty();
+		}
+	}
+}
+
+
+//-----------------------------------------------------------------------------
+// Name: Frame::DisconnectFromParent
+// Desc: Removes parent link from the object, and converts world transform
+//       to local transform.  This method is only to be used on clones of
+//       scene objects, since the parent is not notified of the disconnection.
+//-----------------------------------------------------------------------------
+void Frame::DisconnectFromParent()
+{
+    // Debug check to make sure the parent really isn't the parent of this clone
+#ifdef DEBUG
+    if( m_pParent != nullptr )
+    {
+        assert( !m_pParent->IsChild( this ) );
+    }
+#endif
+
+    UpdateCachedWorldTransformIfNeeded();
+    m_pParent = nullptr;
+    SetWorldTransform( m_CachedWorldTransform );
+}
+
+void	Frame::SetLocalBound( const cBound* e_pBound )
+{
+	if( e_pBound == nullptr )
+	{
+		SAFE_DELETE(m_pLocalBound);
+		SAFE_DELETE(m_pCachedWorldBound);
+		return;
+	}
+	if( !m_pLocalBound )
+	{
+		m_pLocalBound = new cBound();
+		m_pCachedWorldBound = new cBound();
+	}
+	*m_pLocalBound = *e_pBound;
+	SetCachedWorldTransformDirty(); 
+}
+
+void	Frame::SetDestroyConnectionWhileDestoruction(bool e_bDestroyConnectionWhileDestroy)
+{
+	m_bDestroyConnectionWhileDestroy = e_bDestroyConnectionWhileDestroy;
+}
+
+void    Frame::Forward(float e_fDistance)
+{
+    Vector3 l_vDirection = this->GetLocalDirection();
+    this->SetWorldPosition(this->GetWorldPosition()+l_vDirection*e_fDistance);
+}
+
+int		Frame::GetNextLevelChildrenCount()
+{
+	int	l_iCount = 0;
+	Frame*l_pFrame = m_pFirstChild;
+	while(l_pFrame)
+	{
+		++l_iCount;
+		l_pFrame = l_pFrame->m_pNextSibling;
+	}
+	return l_iCount;
+}
+
+//void	Frame::AllUpdate(float e_fElpaseTime)
+//{
+//	this->Update(e_fElpaseTime);
+//	if( this->m_pNextSibling )
+//	{
+//		m_pNextSibling->AllUpdate(e_fElpaseTime);
+//	}
+//	if(this->m_pFirstChild)
+//	{
+//		m_pFirstChild->AllUpdate(e_fElpaseTime);
+//	}
+//}
+//
+//void	Frame::AllRender()
+//{
+//	this->Render();
+//	if( this->m_pNextSibling )
+//	{
+//		m_pNextSibling->Render();
+//	}
+//	if(this->m_pFirstChild)
+//	{
+//		m_pFirstChild->Render();
+//	}
+//}
+
+void	Frame::DumpDebugInfo()
+{
+	Frame*l_pParentNode = GetParent();
+	int	l_iLevel = 0;
+	while( l_pParentNode )
+	{
+		cGameApp::OutputDebugInfoString(L"-----");
+		l_pParentNode = l_pParentNode->GetParent();
+		l_iLevel++;
+	}
+	WCHAR	l_str[MAX_PATH];
+	swprintf(l_str,MAX_PATH,L"Name:%ls\n",GetName());
+	cGameApp::OutputDebugInfoString(l_str);
+	if( GetFirstChild() )
+	{
+		GetFirstChild()->DumpDebugInfo();
+	}
+
+	if( GetNextSibling() )
+	{
+		GetNextSibling()->DumpDebugInfo();
+	}
+}

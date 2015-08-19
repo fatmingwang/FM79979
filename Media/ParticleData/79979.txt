@@ -1,0 +1,29 @@
+<Particle TPVersion="1.0">
+    <TextureList />
+    <Emiter Name="23" Data="0.500,1,5,100">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="7.00,7.00,0" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="7,7,7,7" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="7.00,7.00" />
+        <InitPolicy Type="cPrtColorInitrSetRandomColor" Data="7,7,7,7,0.70000" />
+        <InitPolicy Type="cPrtStartPositionInitBySquareRange" Data="7.00,7.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+        <ActPolicy Type="cPrtColorActBlending" Data="7,7,7,7,0" />
+        <ActPolicy Type="cPrtColorActBlending" Data="255,255,255,255,1" />
+        <ActPolicy Type="cPrtRotateActRotate" Data="7.0000,7.0000,7.0000,1,7.0000,1" />
+        <ActPolicy Type="cPrtSizeActBlending" Data="7.00,7.00,0" />
+        <ActPolicy Type="cPrtVelocityActAcceleration" Data="7.00000" />
+    </Emiter>
+    <Emiter Name="111" Data="0.500,1,5,100">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="7.00,7.00,0" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="7,7,7,7" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="7.00,7.00" />
+        <InitPolicy Type="cPrtColorInitrSetRandomColor" Data="7,7,7,7,0.70000" />
+        <InitPolicy Type="cPrtStartPositionInitBySquareRange" Data="7.00,7.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+        <ActPolicy Type="cPrtColorActBlending" Data="7,7,7,7,0" />
+        <ActPolicy Type="cPrtColorActBlending" Data="7,7,7,7,1" />
+        <ActPolicy Type="cPrtRotateActRotate" Data="7.0000,7.0000,7.0000,1,7.0000,2" />
+        <ActPolicy Type="cPrtSizeActBlending" Data="7.00,7.00,0" />
+        <ActPolicy Type="cPrtVelocityActAcceleration" Data="7.00000" />
+    </Emiter>
+</Particle>

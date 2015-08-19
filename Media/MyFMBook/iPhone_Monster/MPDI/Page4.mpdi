@@ -1,0 +1,144 @@
+<MPDIList Name="Page4_mpdi" Count="2" MPDIVersion="1.2" PICount="2" ImageName="Page4_1.pi,Page4.pi">
+    <MultiPathDynamicImage Name="1" PathCount="12" PlayCount="-1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Page4Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page4_1" ImageName="Page4Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="2048.00,1542.00" Scale="1.00,1.00" Color="0.59,0.59,0.59,1.00" PIName="Page4_1" ImageName="Page4Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="369.00,884.00,0.00" Time="0.000000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+            <PointDataList Index="1" Position="369.00,884.00,0.00" Time="0.100000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_big" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="346.00,881.00,0.00" Time="0.000000" Size="529.00,537.00" Scale="1.00,1.00" Angles="0.00,0.00,-52.00" PIName="Page4" ImageName="box_big" />
+            <PointDataList Index="1" Position="346.00,881.00,0.00" Time="0.100000" Size="529.00,537.00" Scale="1.00,1.00" Angles="0.00,0.00,-52.00" PIName="Page4" ImageName="box_big" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_small" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="8.00,1003.00,0.00" Time="0.000000" Size="376.00,393.00" Scale="1.00,1.00" Angles="0.00,0.00,79.00" PIName="Page4" ImageName="box_small" />
+            <PointDataList Index="1" Position="8.00,1003.00,0.00" Time="0.100000" Size="376.00,393.00" Scale="1.00,1.00" Angles="0.00,0.00,79.00" PIName="Page4" ImageName="box_small" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="857.00,114.00,0.00" Time="0.000000" Size="937.00,867.00" Scale="1.00,1.00" PIName="Page4" ImageName="content-text" />
+            <PointDataList Index="1" Position="857.00,114.00,0.00" Time="0.100000" Size="937.00,867.00" Scale="1.00,1.00" PIName="Page4" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="spider" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="1880.00,271.00,0.00" Time="0.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="1" Position="1789.00,245.00,0.00" Time="1.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="2" Position="1781.00,182.00,0.00" Time="2.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="3" Position="1837.00,171.00,0.00" Time="3.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="4" Position="1879.00,270.00,0.00" Time="4.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="476.00,1054.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="476.00,1054.00,0.00" Time="0.100000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="545.00,1048.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="545.00,1048.00,0.00" Time="0.100000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple3" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="619.00,1042.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="619.00,1042.00,0.00" Time="0.100000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple4" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="656.00,1039.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="656.00,1039.00,0.00" Time="0.100000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pencil" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="19.00,1330.00,0.00" Time="0.000000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+            <PointDataList Index="1" Position="19.00,1330.00,0.00" Time="0.100000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pencil2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="93.00,1332.00,0.00" Time="0.000000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+            <PointDataList Index="1" Position="93.00,1332.00,0.00" Time="0.100000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="2" PathCount="21" PlayCount="1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Page4Background" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page4_1" ImageName="Page4Background" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="1.000000" Size="2048.00,1542.00" Scale="1.00,1.00" PIName="Page4_1" ImageName="Page4Background" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monster" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="377.00,881.00,0.00" Time="0.000000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+            <PointDataList Index="1" Position="505.00,563.00,0.00" Time="1.000000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_big" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="346.00,881.00,0.00" Time="0.000000" Size="529.00,537.00" Scale="1.00,1.00" Angles="0.00,0.00,-52.00" PIName="Page4" ImageName="box_big" />
+            <PointDataList Index="1" Position="346.00,881.00,0.00" Time="1.000000" Size="529.00,537.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_big" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_small" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="8.00,1003.00,0.00" Time="0.000000" Size="376.00,393.00" Scale="1.00,1.00" Angles="0.00,0.00,79.00" PIName="Page4" ImageName="box_small" />
+            <PointDataList Index="1" Position="8.00,1003.00,0.00" Time="1.000000" Size="376.00,393.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_small" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="content-text" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="857.00,114.00,0.00" Time="0.000000" Size="937.00,867.00" Scale="1.00,1.00" PIName="Page4" ImageName="content-text" />
+            <PointDataList Index="1" Position="857.00,114.00,0.00" Time="0.100000" Size="937.00,867.00" Scale="1.00,1.00" PIName="Page4" ImageName="content-text" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="spider" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="1911.00,180.00,0.00" Time="0.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="1" Position="1868.00,421.00,0.00" Time="1.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="2" Position="1808.00,174.00,0.00" Time="2.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="3" Position="1871.00,29.00,0.00" Time="3.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+            <PointDataList Index="4" Position="1911.00,174.00,0.00" Time="4.000000" Size="103.00,120.00" Scale="1.00,1.00" PIName="Page4" ImageName="spider" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
+            <PointDataList Index="0" Position="488.00,1060.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="783.00,958.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
+            <PointDataList Index="0" Position="542.00,1051.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="894.00,1128.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple3" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
+            <PointDataList Index="0" Position="618.00,1034.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="968.00,1188.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="apple4" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
+            <PointDataList Index="0" Position="655.00,1034.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="1314.00,1276.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pencil" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="19.00,1330.00,0.00" Time="0.000000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+            <PointDataList Index="1" Position="19.00,1330.00,0.00" Time="0.100000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pencil2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="93.00,1332.00,0.00" Time="0.000000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+            <PointDataList Index="1" Position="93.00,1332.00,0.00" Time="0.100000" Size="172.00,156.00" Scale="1.00,1.00" PIName="Page4" ImageName="pencil" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_smallStop" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="8.00,1003.00,0.00" Time="0.000000" Size="376.00,393.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_small" />
+            <PointDataList Index="1" Position="8.00,1003.00,0.00" Time="1.000000" Size="376.00,393.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_small" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="box_bigStop" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="346.00,881.00,0.00" Time="0.000000" Size="529.00,537.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_big" />
+            <PointDataList Index="1" Position="346.00,881.00,0.00" Time="1.000000" Size="529.00,537.00" Scale="1.00,1.00" PIName="Page4" ImageName="box_big" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="little-monsterStop" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="505.00,563.00,0.00" Time="0.000000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+            <PointDataList Index="1" Position="505.00,563.00,0.00" Time="1.000000" Size="577.00,495.00" Scale="1.00,1.00" PIName="Page4" ImageName="little-monster" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="appleStop1" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="783.00,958.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="783.00,958.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="appleStop2" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="894.00,1128.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="894.00,1128.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="appleStop3" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="968.00,1188.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="968.00,1188.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="appleStop4" StartTime="1.000000" AnchorType="CenterCenter" Count="2" LOD="3" Loop="1">
+            <PointDataList Index="0" Position="1314.00,1276.00,0.00" Time="0.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+            <PointDataList Index="1" Position="1314.00,1276.00,0.00" Time="1.000000" Size="106.00,126.00" Scale="1.00,1.00" Angles="0.00,0.00,196.00" PIName="Page4" ImageName="apple" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Monster-shadowStop" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterDown" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="308.00,1086.00,0.00" Time="0.000000" Size="432.00,1201.32" Scale="1.00,0.94" PIName="Page4" ImageName="Monster-shadow" />
+            <PointDataList Index="1" Position="308.00,1086.00,0.00" Time="1.000000" Size="432.00,1201.32" Scale="1.00,0.94" PIName="Page4" ImageName="Monster-shadow" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MonsterShadowStop" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterDown" Count="2" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="308.00,1086.00,0.00" Time="0.000000" Size="432.00,1201.32" Scale="1.00,0.94" PIName="Page4" ImageName="Monster-shadow" />
+            <PointDataList Index="1" Position="308.00,1086.00,0.00" Time="0.300000" Size="432.00,1201.32" Scale="1.00,0.94" PIName="Page4" ImageName="Monster-shadow" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

@@ -1,0 +1,17 @@
+April 10 2013
+Because NativeActive won't call 
+
+__attribute__((visibility("default"))) jint JNI_OnLoad(JavaVM* vm, void* reserved)
+
+at Android.c
+
+so u have to change code 
+static JavaVM* javaVM = NULL;
+to 
+extern JavaVM* javaVM;
+
+and 
+name a JavaVM* javaVM = 0; at main.cpp then 
+setup correct javaVM at void android_main(struct android_app* state) 
+
+javaVM = state->activity->vm;

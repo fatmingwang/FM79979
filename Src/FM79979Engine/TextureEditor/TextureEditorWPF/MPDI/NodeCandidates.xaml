@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="TextureEditorWPF.MPDI.NodeCandidates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <StackPanel Orientation="Horizontal">
+        <Border Width="60" Height="30" Name="m_Border">
+            <!--<Label Content="Button" DragEnter="Label_DragEnter" DragOver="Label_DragOver" DragLeave="Label_DragLeave" x:FieldModifier="public" x:Name="m_Button"/>-->
+            <Label Content="Button" x:FieldModifier="public" x:Name="m_Button" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+        </Border>
+        <Border Width="60" Height="30" >
+            <Label Content="MPDINode" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+        </Border>
+        <Border Width="60" Height="30" >
+            <Label Content="Text" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+        </Border>        
+    </StackPanel>
+</UserControl>

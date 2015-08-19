@@ -1,0 +1,219 @@
+<EventPackages FontFile="EventFont" ChangePackageVariableName="CurrentPackageName" EventObjectStatusFileName="EventObjectStatus.xml" EventVariableFileName="VariableData.xml" EventInstanceFileName="EventInstance.xml">
+
+
+	<EventPackage Name="ChangePasswordFailed" >
+		<cEventObjectInstance Name="ChangePasswordFailed" cEventInstance="ChangePasswordFailed" />
+	</EventPackage>
+
+
+	<EventPackage Name="OldVendorPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="OldVendorPasswordInput" />
+		<cEventObjectInstance Name="VendorHintCode" cEventObjectStatus="VendorHintCode" />
+	</EventPackage>
+
+	<EventPackage Name="OldAuditPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="OldAuditPasswordInput" />
+	</EventPackage>
+
+
+
+	<EventPackage Name="NewVendorPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="NewVendorPasswordInput" />
+	</EventPackage>
+
+	<EventPackage Name="NewAuditPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="NewAuditPasswordInput" />
+	</EventPackage>
+
+	<EventPackage Name="ConfirmVendorPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="ConfirmVendorPasswordInout" />
+	</EventPackage>
+
+	<EventPackage Name="ConfirmAuditPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="ConfirmAuditPasswordInout" />
+	</EventPackage>
+
+
+	<EventPackage Name="AuditPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthC" cEventObjectStatus="PasswordLength" EventObjectStatusVariable="PasswordLength" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthV" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthB" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthN" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthM" />
+		<cEventObjectInstance Name="Password" cEventInstance="PasswordInput" cEventObjectStatus="PasswordStatus" />
+		<cEventObjectInstance Name="AuditHintCode" cEventObjectStatus="AuditHintCode" />
+		<cEventObjectInstance Name="PasswordCheck" cEventInstance="AuditPasswordCheck" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu" >
+		<cEventObjectInstance Name="AuditMenu_SelctionDown" cEventInstance="AuditMenu_SelctionDown" />
+		<cEventObjectInstance Name="AuditMenu_SelctionUp" cEventInstance="AuditMenu_SelctionUp" />
+		<cEventObjectInstance Name="AuditMenuIntoSubMenu" cEventInstance="AuditMenuIntoSubMenu" />
+		<cEventObjectInstance Name="AuditMenu" cEventInstance="AuditMenu" cEventObjectStatus="AuditMenu" EventObjectStatusVariable="AuditMenuSelectedIndex"  />
+		<cEventObjectInstance Name="LeaveEvent" cEventInstance="LeaveEvent" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu_CurrentRecord_1" >
+		<cEventObjectInstance Name="GameRecordText" cEventObjectStatus="AuditMenu_CurrentRecord_1" AllStatusWorking="1" />
+		<cEventObjectInstance Name="AuditMenu_WorkerShift" cEventInstance="AuditMenu_WorkerShift" />
+		<cEventObjectInstance Name="BackToAuditMenu" cEventInstance="BackToAuditMenu" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu_GameRecord_2"  >
+		<cEventObjectInstance Name="GeneratorTest2" cEventObjectStatus="GameRecordText"  AllStatusWorking="1" />
+		<cEventObjectInstance Name="BackToAuditMenu" cEventInstance="BackToAuditMenu" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu_PrizeRecord_3" >
+		<cEventObjectInstance Name="GeneratorTest2" cEventObjectStatus="GamePrizeText"  AllStatusWorking="1" />
+		<cEventObjectInstance Name="BackToAuditMenu" cEventInstance="BackToAuditMenu" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu_Revenue_4" >
+		<cEventObjectInstance Name="GeneratorTest2" cEventInstance="XMLFileRecord_NextPage" />
+		<cEventObjectInstance Name="GeneratorTest1"  cEventInstance="XMLFileRecord_PriorPage" />
+		<cEventObjectInstance Name="GeneratorTest"  cEventObjectStatus="AuditMenu_Revenue"/>
+		<cEventObjectInstance Name="BackToAuditMenu" cEventInstance="BackToAuditMenu" />
+	</EventPackage>
+	<EventPackage Name="AuditMenu_JPRecord_5" >
+		<cEventObjectInstance Name="GeneratorTest2" cEventInstance="XMLFileRecord_NextPage" />
+		<cEventObjectInstance Name="GeneratorTest"  cEventInstance="XMLFileRecord_PriorPage" />
+		<cEventObjectInstance Name="GeneratorTest"  cEventObjectStatus="AuditMenu_JPRecord" />
+		<cEventObjectInstance Name="BackToAuditMenu" cEventInstance="BackToAuditMenu" />
+	</EventPackage>
+
+
+
+	<EventPackage Name="VendorPassword79979" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthC" cEventObjectStatus="PasswordLength" EventObjectStatusVariable="PasswordLength" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthV" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthB" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthN" />
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="PasswordLengthM" />
+
+		<cEventObjectInstance Name="Password" cEventInstance="PasswordInput" cEventObjectStatus="PasswordStatus" />
+
+		<cEventObjectInstance Name="VendorHintCode" cEventObjectStatus="VendorHintCode" />
+		<cEventObjectInstance Name="PasswordCheck" cEventInstance="VendorPasswordCheck" />
+	</EventPackage>
+
+	<EventPackage Name="VendorPassword" >
+		<cEventObjectInstance Name="PasswordLength" cEventInstance="VendorPasswordInput" />
+		<cEventObjectInstance Name="VendorHintCode" cEventObjectStatus="VendorHintCode" />
+	</EventPackage>
+
+	<EventPackage Name="AduitPassword" >
+		<cEventObjectInstance Name="Password" cEventInstance="PasswordInput" cEventObjectStatus="PasswordStatus" />
+		<cEventObjectInstance Name="PasswordCheck" cEventInstance="AduitPasswordCheck" />
+	</EventPackage>
+
+	<EventPackage Name="VendorMenu" >
+		<cEventObjectInstance Name="VendorMenu_SelctionUp" cEventInstance="VendorMenu_SelctionUp" />
+		<cEventObjectInstance Name="VendorMenu_SelctionDown" cEventInstance="VendorMenu_SelctionDown" />
+		<cEventObjectInstance Name="VendorMenu" cEventInstance="VendorMenu" cEventObjectStatus="VendorMenu" EventObjectStatusVariable="VendorMenuSelectedIndex" />
+		<cEventObjectInstance Name="VendorMenuIntoSubMenu" cEventInstance="VendorMenuIntoSubMenu" />
+		<cEventObjectInstance Name="LeaveEvent" cEventInstance="LeaveEvent" />
+	</EventPackage>
+
+	<EventPackage Name="VendorMenu_RevenueRecord_1" >
+		<cEventObjectInstance Name="RevenueRecord" cEventObjectStatus="Vendor_RevenueRecord" AllStatusWorking="1" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_RevenueRecord_1" cEventInstance="VendorMenu_GameSetup_RevenueRecord_1"/>
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="VendorMenu_GameRecord_2" >
+		<cEventObjectInstance Name="VendorMenu" cEventObjectStatus="GameRecordText" cEventInstance="BackToVendorMenu" AllStatusWorking="1"/>
+	</EventPackage>
+	<EventPackage Name="VendorMenu_PrizeRecord_3" >
+		<cEventObjectInstance Name="VendorMenu" cEventObjectStatus="GamePrizeText" cEventInstance="BackToVendorMenu"  AllStatusWorking="1" />
+	</EventPackage>
+
+
+
+	<EventPackage Name="VendorMenu_GameSetup_4" >
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeOut" cEventInstance="VendorMenu_GameSetup_4_ExchangeOut" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeOutSelectRight" cEventInstance="VendorMenu_GameSetup_4_ExchangeOutSelectRight" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeOutSelectLeft" cEventInstance="VendorMenu_GameSetup_4_ExchangeOutSelectLeft" />
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeIn" cEventInstance="VendorMenu_GameSetup_4_ExchangeIn" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeInSelectRight" cEventInstance="VendorMenu_GameSetup_4_ExchangeInSelectRight" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeInSelectLeft" cEventInstance="VendorMenu_GameSetup_4_ExchangeInSelectLeft" />
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeTicket" cEventInstance="VendorMenu_GameSetup_4_ExchangeTicket" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeTicketSelectRight" cEventInstance="VendorMenu_GameSetup_4_ExchangeTicketSelectRight" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_ExchangeTicketSelectLeft" cEventInstance="VendorMenu_GameSetup_4_ExchangeTicketSelectLeft" />
+
+		<cEventObjectInstance Name="Sound" cEventObjectStatus="Sound" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_SoundVolumeLeft" cEventInstance="VendorMenu_GameSetup_4_SoundVolumeLeft" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_SoundVolumeRight" cEventInstance="VendorMenu_GameSetup_4_SoundVolumeRight" />
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_LineBetable" cEventInstance="VendorMenu_GameSetup_4_LineBetable" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_LineBetableSelectRight" cEventInstance="VendorMenu_GameSetup_4_LineBetableSelectRight" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_LineBetableSelectLeft" cEventInstance="VendorMenu_GameSetup_4_LineBetableSelectLeft" />
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_Language" cEventInstance="VendorMenu_GameSetup_4_Language" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_LanguageSelectRight" cEventInstance="VendorMenu_GameSetup_4_LanguageSelectRight" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_LanguageSelectLeft" cEventInstance="VendorMenu_GameSetup_4_LanguageSelectLeft" />
+
+
+
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_SelctionUp" cEventInstance="VendorMenu_GameSetup_4_SelctionUp" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_4_SelctionDown" cEventInstance="VendorMenu_GameSetup_4_SelctionDown" />
+		<cEventObjectInstance Name="VendorMenu" cEventObjectStatus="VendorMenu_GameSetup_4_MenuStatus" />
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+
+
+
+
+	<EventPackage Name="VendorMenu_Password_5" >
+		<cEventObjectInstance Name="Password" cEventInstance="VendorMenu_ChangePassword_5" />
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="ChangePasswordOK" >
+		<cEventObjectInstance Name="ToVendorMenu_Password_5" cEventInstance="ToVendorMenu_Password_5" />
+	</EventPackage>
+
+	<EventPackage Name="ChangePasswordFailed" >
+		<cEventObjectInstance Name="ToVendorMenu_Password_5" cEventInstance="ChangePasswordFailed" />
+	</EventPackage>
+
+	<EventPackage Name="VendorMenu_SetupRecord_6" >
+		<cEventObjectInstance Name="GeneratorTest2" cEventInstance="XMLFileRecord_NextPage" />
+		<cEventObjectInstance Name="GeneratorTest1"  cEventInstance="XMLFileRecord_PriorPage" />
+		<cEventObjectInstance Name="VendorMenu_SetupChange"  cEventObjectStatus="VendorMenu_SetupChanged"/>
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="VendorMenu_IOTest_7" >
+		<cEventObjectInstance Name="VendorMenu" cEventInstance="VendorMenu_IOTest_7" />
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="VendorMenu_MainFunctionSetup_8" >
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_CoinToScore" cEventInstance="VendorMenu_GameSetup_8_CoinToScore" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_CoinToScoreSelectLeft" cEventInstance="VendorMenu_GameSetup_8_CoinToScoreSelectLeft" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_CoinToScoreSelectRight" cEventInstance="VendorMenu_GameSetup_8_CoinToScoreSelectRight" />
+
+
+
+		<cEventObjectInstance Name="Probability" cEventObjectStatus="Probability" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_ProbabilityLeft" cEventInstance="VendorMenu_GameSetup_8_ProbabilityLeft" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_ProbabilityRight" cEventInstance="VendorMenu_GameSetup_8_ProbabilityRight" />
+
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_LuckyTime" cEventInstance="VendorMenu_GameSetup_8_LuckyTime" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_LuckyTimeSelectLeft" cEventInstance="VendorMenu_GameSetup_8_LuckyTimeSelectLeft" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_LuckyTimeSelectRight" cEventInstance="VendorMenu_GameSetup_8_LuckyTimeSelectRight" />
+
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_SelctionUp" cEventInstance="VendorMenu_GameSetup_8_SelctionUp" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_SelctionDown" cEventInstance="VendorMenu_GameSetup_8_SelctionDown" />
+		<cEventObjectInstance Name="VendorMenu_GameSetup_8_CoinToScore" cEventObjectStatus="VendorMenu_GameSetup_8_CoinToScore" EventObjectStatusVariable="AllSubMenuResetIndex" />
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="VendorMenu_Clear_Account_And_Event_Record_9" >
+		<cEventObjectInstance Name="VendorMenu" cEventInstance="BackToVendorMenu" />
+		<cEventObjectInstance Name="BackToVendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+	<EventPackage Name="VendorMenu_Restore_10" >
+		<cEventObjectInstance Name="VendorMenu_Restore_10" cEventInstance="VendorMenu_Restore_10" />
+		<cEventObjectInstance Name="VendorMenu" cEventInstance="BackToVendorMenu" />
+	</EventPackage>
+
+
+
+
+</EventPackages>

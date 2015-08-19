@@ -1,0 +1,21 @@
+<!-- Author:Fatming,Time:2013/5/14 ¤U¤È 11:04:48 -->
+<PuzzleImage OriginalNameSort="flying-bird-01,flying-bird-02,green-leaf-for-animate,little-monster,monster-left-hand,monster-right-hand,paper01,paper02,paper03,monster-shadow,parterre,plant-in-the-left,plant-in-the-right,running-bird01,running-bird02,content-text,tree,yellow-leaf-for-animate" ImageName="Page5.png" Count="18" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="content-text" UV="0.4243164,0.6044922,0.9511719,0.956543" OffsetPos="0,0" Size="1079,721" OriginalSize="1079,721" ShowPosInPI="869,1238" />
+    <PuzzleUnit Name="flying-bird-01" UV="0,0,0.1708984,0.1708984" OffsetPos="0,0" Size="350,350" OriginalSize="350,350" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="flying-bird-02" UV="0.1713867,0,0.3422852,0.1708984" OffsetPos="0,0" Size="350,350" OriginalSize="350,350" ShowPosInPI="351,0" />
+    <PuzzleUnit Name="green-leaf-for-animate" UV="0.3427734,0,0.3867188,0.02539063" OffsetPos="0,0" Size="90,52" OriginalSize="90,52" ShowPosInPI="702,0" />
+    <PuzzleUnit Name="little-monster" UV="0.387207,0,0.5375977,0.2314453" OffsetPos="56,44" Size="308,474" OriginalSize="446,572" ShowPosInPI="793,0" />
+    <PuzzleUnit Name="monster-left-hand" UV="0.5380859,0,0.6865234,0.1464844" OffsetPos="26,46" Size="304,300" OriginalSize="370,368" ShowPosInPI="1102,0" />
+    <PuzzleUnit Name="monster-right-hand" UV="0.6870117,0,0.8168945,0.1484375" OffsetPos="23,15" Size="266,304" OriginalSize="312,342" ShowPosInPI="1407,0" />
+    <PuzzleUnit Name="monster-shadow" UV="0.08642578,0.2319336,0.793457,0.4960938" OffsetPos="154,57" Size="1448,541" OriginalSize="1602,702" ShowPosInPI="177,475" />
+    <PuzzleUnit Name="paper01" UV="0.8173828,0,0.8745117,0.06298828" OffsetPos="28,11" Size="117,129" OriginalSize="166,166" ShowPosInPI="1674,0" />
+    <PuzzleUnit Name="paper02" UV="0.875,0,0.956543,0.08837891" OffsetPos="28,33" Size="167,181" OriginalSize="222,226" ShowPosInPI="1792,0" />
+    <PuzzleUnit Name="paper03" UV="0,0.2319336,0.0859375,0.2998047" OffsetPos="18,24" Size="176,139" OriginalSize="210,174" ShowPosInPI="0,475" />
+    <PuzzleUnit Name="parterre" UV="0.7939453,0.2319336,0.965332,0.3232422" OffsetPos="21,94" Size="351,187" OriginalSize="372,304" ShowPosInPI="1626,475" />
+    <PuzzleUnit Name="plant-in-the-left" UV="0,0.496582,0.1757813,0.715332" OffsetPos="41,16" Size="360,448" OriginalSize="424,488" ShowPosInPI="0,1017" />
+    <PuzzleUnit Name="plant-in-the-right" UV="0.8076172,0.3754883,0.965332,0.5717773" OffsetPos="5,6" Size="323,402" OriginalSize="336,432" ShowPosInPI="1654,769" />
+    <PuzzleUnit Name="running-bird01" UV="0.3344727,0.496582,0.4482422,0.5957031" OffsetPos="11,25" Size="233,203" OriginalSize="256,242" ShowPosInPI="685,1017" />
+    <PuzzleUnit Name="running-bird02" UV="0.4487305,0.496582,0.5625,0.597168" OffsetPos="11,25" Size="233,206" OriginalSize="256,242" ShowPosInPI="919,1017" />
+    <PuzzleUnit Name="tree" UV="0.1787109,0.6230469,0.390625,0.96875" OffsetPos="32,11" Size="434,708" OriginalSize="466,768" ShowPosInPI="366,1276" />
+    <PuzzleUnit Name="yellow-leaf-for-animate" UV="0.07080078,0.8417969,0.09716797,0.8652344" OffsetPos="7,12" Size="54,48" OriginalSize="76,72" ShowPosInPI="145,1724" />
+</PuzzleImage>

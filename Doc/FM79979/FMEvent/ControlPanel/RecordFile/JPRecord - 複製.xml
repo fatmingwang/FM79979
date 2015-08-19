@@ -1,0 +1,18 @@
+<Root  Description="大獎紀錄">
+	<Income		Describtion="投幣:1" Time="Data:2002/06/01" Amount="總額:100" />
+	<Pay		Describtion="退幣:2" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeIn	Describtion="開分:3" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeOut	Describtion="洗分:4" Time="Data:2002/06/01" Amount="總額:100" />
+	<Income		Describtion="投幣:5" Time="Data:2002/06/01" Amount="總額:100" />
+	<Pay		Describtion="退幣:6" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeIn	Describtion="開分:7" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeOut	Describtion="洗分:8" Time="Data:2002/06/01" Amount="總額:100" />
+	<Income		Describtion="投幣:9" Time="Data:2002/06/01" Amount="總額:100" />
+	<Pay		Describtion="退幣:10" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeIn	Describtion="開分:11" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeOut	Describtion="洗分:12" Time="Data:2002/06/01" Amount="總額:100" />
+	<Income		Describtion="投幣:13" Time="Data:2002/06/01" Amount="總額:100" />
+	<Pay		Describtion="退幣:14" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeIn	Describtion="開分:15" Time="Data:2002/06/01" Amount="總額:100" />
+	<ExchangeOut	Describtion="洗分:16" Time="Data:2002/06/01" Amount="總額:100" />
+</Root>

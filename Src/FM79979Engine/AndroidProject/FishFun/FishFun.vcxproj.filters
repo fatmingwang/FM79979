@@ -1,0 +1,566 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\engine.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\MyJni.c">
+      <Filter>jni\JNI</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\AndroidDeviceFunction.cpp">
+      <Filter>jni\Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishingRodCamera.cpp">
+      <Filter>jni\Game\Phase\FishingPhase\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishBehavior.cpp">
+      <Filter>jni\Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishRodAndFishThreadData.cpp">
+      <Filter>jni\Game\FishRodData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishShowProbability.cpp">
+      <Filter>jni\Game\Phase\FishingPhase\FishShowProbability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\GameApp.cpp">
+      <Filter>jni\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\Sample.cpp">
+      <Filter>jni\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\stdafx.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\StageData.cpp">
+      <Filter>jni\Game\Phase\FishingPhase\StageData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\PlayerData.cpp">
+      <Filter>jni\Game\PlayerData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\GameObjectSelector.cpp">
+      <Filter>jni\Game\GameItem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\SelectableObject.cpp">
+      <Filter>jni\Game\GameObjectUtilities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishingPhase.cpp">
+      <Filter>jni\Game\Phase\FishingPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\SelectFishRodFishThreadPhase.cpp">
+      <Filter>jni\Game\Phase\FishRodFishThreadSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\SetupPhase.cpp">
+      <Filter>jni\Game\Phase\Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishDetailWindow.cpp">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishCollectionScroller.cpp">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\ShowFishCollectionPhase.cpp">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\ShowFishingResultPhase.cpp">
+      <Filter>jni\Game\Phase\ShowFishingResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\FishingTag.cpp">
+      <Filter>jni\Game\Phase\ShowFishingResult</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\ScrollableMapAndButton.cpp">
+      <Filter>jni\Game\Phase\StageSelectPhase\ScrollableMapAndButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\StageInfoDialog.cpp">
+      <Filter>jni\Game\Phase\StageSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\IABSetup.cpp">
+      <Filter>jni\Game\Phase\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\StageSelectPhase.cpp">
+      <Filter>jni\Game\Phase\StageSelectPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\FishingFun\Win32Test\StorePhase.cpp">
+      <Filter>jni\Game\Phase\Store</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{71183848-fe1d-45b6-9ea0-8badfad4faa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{60ee654b-a1b8-43b1-ac81-32961a296680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{807d6fd1-06f6-4020-a3e4-7c352e31ce6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{59f6ca31-a43f-4d3e-980a-3308cf0c6fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game">
+      <UniqueIdentifier>{e2ae0886-3124-4215-99f8-d007d4d27e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\iab">
+      <UniqueIdentifier>{1cd20caf-d218-4aff-ad54-a6fadbb10307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\IAB">
+      <UniqueIdentifier>{fce844a8-7333-4beb-a2cf-e243c137023e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\JNI">
+      <UniqueIdentifier>{59cef181-c247-475d-b792-0b7bf43d67ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\layout">
+      <UniqueIdentifier>{7e496891-6842-49d5-9780-5e5333ba47f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gen">
+      <UniqueIdentifier>{183edd52-3ac7-4aef-a1af-d94ce43282a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{b6358d86-5e50-4c68-8a0d-cdb6432f6e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net">
+      <UniqueIdentifier>{da5e35df-0756-4dd4-a88f-1779dc7ebfc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala">
+      <UniqueIdentifier>{01d499ef-70f3-4eae-8f29-a440e225c28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j">
+      <UniqueIdentifier>{d4e82564-5f5c-4a47-8767-1f99b5844c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\core">
+      <UniqueIdentifier>{5f5a0740-a413-41e1-a752-ff8cc7a9fd88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto">
+      <UniqueIdentifier>{cc124bcf-33f5-4683-a98e-bec3e64bfb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\exception">
+      <UniqueIdentifier>{905d8b76-bbca-41d7-b031-324dc9945f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\io">
+      <UniqueIdentifier>{379d5ac4-8c95-4545-9ca8-ada2f9ed6c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\model">
+      <UniqueIdentifier>{60f2a3f6-ea0e-4102-961b-c11c508d577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\progress">
+      <UniqueIdentifier>{1b90c8e2-129e-4af6-b106-b204f7aeb20c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\unzip">
+      <UniqueIdentifier>{2e521fbf-4fa3-4a79-8441-773052aa847c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\util">
+      <UniqueIdentifier>{5db58743-df27-437a-bc72-294a71947200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\zip">
+      <UniqueIdentifier>{9b6fffe8-3ad2-49d0-bef7-d869ccfeb938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\engine">
+      <UniqueIdentifier>{9eb43dc7-20ec-46f3-97dc-62256e7f1735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\PBKDF2">
+      <UniqueIdentifier>{0d42ba56-f89f-47c6-8b42-91e7dbfe40a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\facebook">
+      <UniqueIdentifier>{ed74c330-7350-4119-8f84-71592b7ec662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com">
+      <UniqueIdentifier>{50fb5d25-aa55-4f9d-b893-bc719abe0391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\wh">
+      <UniqueIdentifier>{773dad6b-1a49-4118-ba0e-0dfbf7d0da09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\wh\FishingFun">
+      <UniqueIdentifier>{f70c665a-f680-44af-acc5-d13c687226a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Fish">
+      <UniqueIdentifier>{1b7d1d17-f9c3-4244-84c1-3dc69c500080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\FishRodData">
+      <UniqueIdentifier>{a6c0ea22-496b-4bbb-90fb-00333408ff65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase">
+      <UniqueIdentifier>{22566e79-6285-4440-bdc1-efbdc2489392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\drawable">
+      <UniqueIdentifier>{44d7ca67-fc93-4e56-9458-90fee331b2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>{e15c6fa2-36ac-467d-8082-60ff94e3f7e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\GameItem">
+      <UniqueIdentifier>{00b45a6d-89bc-41f4-b30a-6faf6b8b6881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\GameObjectUtilities">
+      <UniqueIdentifier>{35e870f8-6ae3-4988-88ec-e39e3ae1ee5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\FishingPhase">
+      <UniqueIdentifier>{dfd2b24c-5ba4-452d-b2e8-b65b104f93a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\FishRodFishThreadSelectPhase">
+      <UniqueIdentifier>{16942b5f-fb20-4ce9-b484-e61962174a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Setup">
+      <UniqueIdentifier>{20cbbd25-e9ea-4196-baa3-085c01b944b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\ShowFishCollectionPhase">
+      <UniqueIdentifier>{7a650019-8084-4449-8fb8-587e9f39553c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\ShowFishingResult">
+      <UniqueIdentifier>{8a538073-d63a-42ed-b391-f0a3f639500b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\StageSelectPhase">
+      <UniqueIdentifier>{61e47f62-a9a3-4a52-871f-a372e017fe0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Store">
+      <UniqueIdentifier>{c62f84a1-dd1d-4d08-9f22-46395a4ef065}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\FishingPhase\Camera">
+      <UniqueIdentifier>{280605e0-0e60-4616-845c-dde7aaead97d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\FishingPhase\FishShowProbability">
+      <UniqueIdentifier>{473750ab-8df5-4ab5-a96d-1b3c4b17b17e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\FishingPhase\StageData">
+      <UniqueIdentifier>{80ff5414-43df-444e-aa71-142738502c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\StageSelectPhase\ScrollableMapAndButton">
+      <UniqueIdentifier>{0e251696-413c-4987-bb57-4dc7ee6eddbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\PlayerData">
+      <UniqueIdentifier>{f89f6743-c2bc-471e-85eb-9d85c71de2fa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jni\engine.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishingRodCamera.h">
+      <Filter>jni\Game\Phase\FishingPhase\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishBehavior.h">
+      <Filter>jni\Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishRodAndFishThreadData.h">
+      <Filter>jni\Game\FishRodData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishShowProbability.h">
+      <Filter>jni\Game\Phase\FishingPhase\FishShowProbability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\GameApp.h">
+      <Filter>jni\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\stdafx.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\StageData.h">
+      <Filter>jni\Game\Phase\FishingPhase\StageData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\PlayerData.h">
+      <Filter>jni\Game\PlayerData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\GameObjectSelector.h">
+      <Filter>jni\Game\GameItem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\SelectableObject.h">
+      <Filter>jni\Game\GameObjectUtilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishingPhase.h">
+      <Filter>jni\Game\Phase\FishingPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\SelectFishRodFishThreadPhase.h">
+      <Filter>jni\Game\Phase\FishRodFishThreadSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\SetupPhase.h">
+      <Filter>jni\Game\Phase\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishDetailWindow.h">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishCollectionScroller.h">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\ShowFishCollectionPhase.h">
+      <Filter>jni\Game\Phase\ShowFishCollectionPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\ShowFishingResultPhase.h">
+      <Filter>jni\Game\Phase\ShowFishingResult</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\FishingTag.h">
+      <Filter>jni\Game\Phase\ShowFishingResult</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\ScrollableMapAndButton.h">
+      <Filter>jni\Game\Phase\StageSelectPhase\ScrollableMapAndButton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\StageInfoDialog.h">
+      <Filter>jni\Game\Phase\StageSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\IABSetup.h">
+      <Filter>jni\Game\Phase\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\StageSelectPhase.h">
+      <Filter>jni\Game\Phase\StageSelectPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\FishingFun\Win32Test\StorePhase.h">
+      <Filter>jni\Game\Phase\Store</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\util\iab\Base64.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Base64DecoderException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabHelper.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabResult.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Inventory.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Purchase.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\SkuDetails.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IABManager.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Security.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\Define.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerManager.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerListener.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\MyBitmap.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderReader.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderWriter.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\ZipFile.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESEncrpyter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\AESEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\ZipCryptoEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\BinTools.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\MacBasedPRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Engine.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2HexFormatter.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Parameters.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipException.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipExceptionConstants.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\CipherOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\DeflaterOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\InflaterInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\PartInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\SplitOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\AESExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ArchiveExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\CentralDirectory.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DataDescriptor.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DigitalSignature.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\FileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\LocalFileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipEngineParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirLocator.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64ExtendedInfo.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipModel.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java">
+      <Filter>src\net\lingala\zip4j\zip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\ArchiveMaintainer.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\CRCUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\InternalZipConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Raw.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\Unzip.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipEngine.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipUtil.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java">
+      <Filter>src\net\lingala\zip4j\progress</Filter>
+    </JCompile>
+    <JCompile Include="src\util\facebook\FBManager.java">
+      <Filter>src\util\facebook</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ExternalStorage.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NetworkUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ZipUtilActivity.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\RootUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NumericEditTextDialog.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AdMobUtility.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\com\wh\FishingFun\FishingFun.java">
+      <Filter>src\com\wh\FishingFun</Filter>
+    </JCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="build.xml">
+      <Filter>res</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="project.properties">
+      <Filter>res</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="proguard.cfg" />
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\drawable\icon.png">
+      <Filter>res\drawable</Filter>
+    </None>
+    <None Include="res\layout\fbmanagerlayout.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\test.xml">
+      <Filter>res\layout</Filter>
+    </None>
+  </ItemGroup>
+</Project>

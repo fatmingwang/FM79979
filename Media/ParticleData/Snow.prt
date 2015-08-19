@@ -1,0 +1,17 @@
+<Particle TPVersion="1.0">
+    <TextureList Name0="1540003.png" />
+    <Emiter Name="Snow2" Data="0.032,0,5,100,770,771,7,0.00,61.00,0.00,1,0.30" Texture="1540003">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="0.50,11.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="1.00000,1.00000,1.00000,0.30000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="130.00,130.00" />
+        <InitPolicy Type="cPrtStartPositionInitBySquareRange" Data="201.00,10.00,10.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+    </Emiter>
+    <Emiter Name="Snow" Data="0.032,0,10,1000,771,771,7,0.00,130.00,0.00,1,0.40" Texture="1540003">
+        <InitPolicy Type="cPrtLifeInitrSetLife" Data="0.50,5.00,1" />
+        <InitPolicy Type="cPrtColorInitrSetColor" Data="1.00000,1.00000,1.00000,0.50000" />
+        <InitPolicy Type="cPrtSizeInitSetSize" Data="20.00,20.00" />
+        <InitPolicy Type="cPrtStartPositionInitBySquareRange" Data="400.00,10.00,10.00" />
+        <ActPolicy Type="cPrtLifeActDyingByGameTime" />
+    </Emiter>
+</Particle>

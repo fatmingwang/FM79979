@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="CoreWPF.Common.TreeVewDragDrop"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:my="clr-namespace:CoreWPF.Common"
+             mc:Ignorable="d" >
+    <Grid MinWidth="100" MinHeight="100">
+        <TreeView Name="m_TreeView" AllowDrop="True" Background="PowderBlue" Foreground="DarkBlue" FontSize="15" KeyUp="tvParameters_KeyUp" x:FieldModifier="public" MouseLeave="TreeView_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItemChanged="TreeView_SelectedItemChanged">
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="LevelUp(ctrl+↑)" Click="MenuItem_LevelUpClick"/>
+                    <MenuItem Header="LevelDown(ctrl+↓)" Click="MenuItem_LevelDownClick_"/>
+                    <MenuItem Header="LevelLeftUp(ctrl+←)" Click="MenuItem_LevelLeftUpClick"/>
+                    <MenuItem Header="Copy" Click="MenuItem_CopyClick"/>
+                    <MenuItem Header="Cut" Click="MenuItem_CutClick"/>
+                    <MenuItem Header="Paste" Click="MenuItem_PasteClick" x:Name="m_PasteMenuItem" IsEnabled="False"/>
+                    <MenuItem Header="Delete" Click="MenuItem_DeleteClick"/>
+                </ContextMenu>
+            </TreeView.ContextMenu>
+            <TreeViewItem>
+                <TreeViewItem.Header>
+                    <my:EditableTextBlock Text="Root"/>
+                </TreeViewItem.Header>
+            </TreeViewItem>
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <!-- We have to select the item which is right-clicked on -->
+                    <!--<EventSetter Event="TreeViewItem.PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"/>-->
+                    <EventSetter Event="TreeViewItem.DragOver" Handler="treeView_DragOver"/>
+                    <EventSetter Event="TreeViewItem.Drop" Handler="treeView_Drop"/>
+                    <EventSetter Event="TreeViewItem.MouseMove" Handler="treeView_MouseMove"/>
+                </Style>
+            </TreeView.ItemContainerStyle>
+        </TreeView>
+    </Grid>
+</UserControl>
