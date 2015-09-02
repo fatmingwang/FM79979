@@ -92,4 +92,16 @@
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CheckBoxControl.resx" />
+    <EmbeddedResource Include="CollpaseForm.resx" />
+    <EmbeddedResource Include="InputNameWindow.resx" />
+    <EmbeddedResource Include="NumericalControl.resx" />
+    <EmbeddedResource Include="TreeViewCouldDragXmlFile.resx" />
+    <EmbeddedResource Include="VectorInterpolation.resx" />
+    <EmbeddedResource Include="XmlNodeEditComponent.resx" />
+    <EmbeddedResource Include="XYNumericalControl.resx" />
+    <EmbeddedResource Include="XYZNumeriaclControl.resx" />
+    <EmbeddedResource Include="XYZWNumericalControl.resx" />
+  </ItemGroup>
 </Project>

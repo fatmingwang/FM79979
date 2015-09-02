@@ -226,7 +226,7 @@ namespace FATMING_CORE
 		else
 		if( m_ePathMode == 	ePM_ALL_PATH_WITH_MOUSE_DRAG )
 		{
-			UINT	l_uiNumSelected = m_SelectedIndicesToMovingOrRotating.size();//if the selected count is not zero just move the path  are selected
+			size_t	l_uiNumSelected = m_SelectedIndicesToMovingOrRotating.size();//if the selected count is not zero just move the path  are selected
 			assert(m_SelectedIndicesToMovingOrRotating.size()<=(UINT)this->Count()&&"forgot to release old data!!");
 			if( l_uiNumSelected>0 )
 			{
@@ -293,7 +293,7 @@ namespace FATMING_CORE
 		{
 			float	l_fRotateAngle = GetAngleBy2Point(e_vPos.x,e_vPos.y,m_vRotationCenter.x,m_vRotationCenter.y);
 			Vector3	l_vRotationCenter(m_vRotationCenter.x,m_vRotationCenter.y,0.f);
-			UINT	l_uiSelectedIndex = m_SelectedIndicesToMovingOrRotating.size();
+			size_t	l_uiSelectedIndex = m_SelectedIndicesToMovingOrRotating.size();
 			int	l_iNum = (int)m_ObjectList.size();
 			int	l_iTotalStep = 0;//to fetch correspond index data
 			if( l_uiSelectedIndex>0 )
@@ -301,7 +301,7 @@ namespace FATMING_CORE
 				for( int i=0;i<l_iNum;++i )
 				{
 					bool	l_bContain = false;//check if the selectedIndices has been selected,then contain is true,then rotate the angle as wish or skip.
-					for( UINT k=0;k<m_SelectedIndicesToMovingOrRotating.size();++k )
+					for( size_t k=0;k<m_SelectedIndicesToMovingOrRotating.size();++k )
 					{
 						if( m_SelectedIndicesToMovingOrRotating[k] == i )
 						{

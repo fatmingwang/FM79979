@@ -2,7 +2,9 @@
 #include "NetWork.h"
 #include "../GameplayUT/GameApp.h"
 #include "SDLnetsys.h"
-
+#ifdef WIN32
+#include <urlmon.h>
+#endif
 #ifndef WIN32
 #include <netinet/in.h>
 #include <netdb.h>
@@ -119,7 +121,7 @@ namespace FATMING_CORE
 				if(l_pNetwork->m_pSocket->iServerFlag)
 				{
 					cFUSynchronizedHold hold(&l_pNetwork->m_ClientSocketVector);
-					int	l_iNumClients = l_pNetwork->m_ClientSocketVector.size();
+					int	l_iNumClients = (int)l_pNetwork->m_ClientSocketVector.size();
 					for(int i=0; l_iNumready && i<l_iNumClients; i++)
 					{
 						TCPsocket l_pClient = l_pNetwork->m_ClientSocketVector[i];
@@ -281,11 +283,11 @@ namespace FATMING_CORE
 		//cGameApp::OutputDebugInfoString("create socket\n");
 		if( m_pAllSocketToListenClientMessage )
 			SDLNet_FreeSocketSet(m_pAllSocketToListenClientMessage);
-		size_t	l_iNumClient = 0;
+		int	l_iNumClient = 0;
 		//is it server?
 		cFUSynchronizedHold hold(&m_ClientSocketVector);
 		if( m_pSocket->iServerFlag )
-			l_iNumClient = m_ClientSocketVector.size();
+			l_iNumClient = (int)m_ClientSocketVector.size();
 		//+1 fo server
 		m_pAllSocketToListenClientMessage = SDLNet_AllocSocketSet(l_iNumClient+1);
 		if(!m_pAllSocketToListenClientMessage)
@@ -296,7 +298,7 @@ namespace FATMING_CORE
 		}
 
 		SDLNet_TCP_AddSocket(m_pAllSocketToListenClientMessage,m_pSocket);
-		for(size_t i=0;i<l_iNumClient;i++)
+		for(int i=0;i<l_iNumClient;i++)
 			SDLNet_TCP_AddSocket(m_pAllSocketToListenClientMessage,m_ClientSocketVector[i]);
 		return true;
 	}
@@ -389,13 +391,13 @@ namespace FATMING_CORE
 		if( e_pTCPsocket )
 		{
 			cGameApp::OutputDebugInfoString("send data\n");
-			int	l_iSendSize = sizeof(size_t)+e_pPacket->iSize;
+			int	l_iSendSize = (int)(sizeof(size_t)+e_pPacket->iSize);
 			char*l_pData = new char[l_iSendSize];
 			memcpy(l_pData,&e_pPacket->iSize,sizeof(size_t));
 			memcpy(&l_pData[sizeof(size_t)],e_pPacket->pData,e_pPacket->iSize);
 			int*l_pDebugData = (int*)l_pData;
 			int*l_pDebugData2 = (int*)e_pPacket->pData;
-			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket,l_pData,e_pPacket->iSize+sizeof(size_t)) == 0?false:true;
+			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket,l_pData,(int)(e_pPacket->iSize+sizeof(size_t))) == 0?false:true;
 			delete l_pData;
 			return l_bSent;
 		}
@@ -414,7 +416,7 @@ namespace FATMING_CORE
 		if(!e_pPacket)
 			return false;
 		cFUSynchronizedHold hold(&m_ClientSocketVector);
-		int	l_iSize = m_ClientSocketVector.size();
+		int	l_iSize = (int)m_ClientSocketVector.size();
 		for( int i=0;i<l_iSize;++i )
 		{
 			/* putMsg is in tcputil.h, it sends a buffer over a socket */
@@ -449,7 +451,7 @@ namespace FATMING_CORE
 	bool	cNetwork::GetIP()
 	{
 		char l_strName[MAX_PATH];
-		if (gethostname(l_strName, sizeof(l_strName)) == SOCKET_ERROR) 
+		if (gethostname(l_strName, (int)sizeof(l_strName)) == SOCKET_ERROR) 
 		{
 			return false;
 		}

@@ -387,7 +387,7 @@ namespace FATMING_CORE
 			int	l_iDataSize = g_iDataTypeSize[l_DataVector[i].DataType];
 			eDataType		l_eDataType = l_DataVector[i].DataType;
 
-			byte*l_pTargetData = (byte*)l_pData;
+			char*l_pTargetData = (char*)l_pData;
 			if( i != 0 )
 				l_iCurrentSkipByte += g_iDataTypeSize[l_DataVector[i-1].DataType];
 			l_pTargetData += l_iCurrentSkipByte;

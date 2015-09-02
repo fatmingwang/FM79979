@@ -27,8 +27,8 @@ namespace FATMING_CORE
 	{
 		bool		bDataInlegal;
 		char*		pCurrentStoreData;
-		size_t		iRestSizeToReceive;
-		size_t		iSize;
+		int			iRestSizeToReceive;
+		int			iSize;
 		char*		pData;
 		_TCPsocket*	pReceivedSocket;
 		bool		bNextDataAlivable;

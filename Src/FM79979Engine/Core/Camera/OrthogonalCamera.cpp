@@ -432,8 +432,8 @@ namespace FATMING_CORE
 			float	l_fLerp = m_BackToCenterTimer.GetLERP();
 			Vector2	l_vCenter = UT::LERP<Vector2>(m_vOldTargetCenter,m_vNewTargetCenter,l_fLerp);
 			//Vector2	l_vMaxSize = this->m_vMaxViewRange.Size();
-			Vector2		l_MouseUpViewRect = m_vMouseUpViewRect;
-			Vector2	l_vSize = UT::LERP<Vector2>(l_MouseUpViewRect,m_vLastLegalSize,l_fLerp)/2;
+			Vector2		l_MouseUpViewRectSize = m_vMouseUpViewRect.Size();
+			Vector2	l_vSize = UT::LERP<Vector2>(l_MouseUpViewRectSize,m_vLastLegalSize,l_fLerp)/2;
 			this->m_vViewRect.x = l_vCenter.x-l_vSize.x;
 			this->m_vViewRect.y = l_vCenter.y-l_vSize.y;
 			this->m_vViewRect.z = l_vCenter.x+l_vSize.x;

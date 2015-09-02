@@ -154,7 +154,6 @@ namespace FATMING_CORE
 	std::wstring	ValueToStringW(char e_cValue);
 	std::wstring	ValueToStringW(const char*e_strValue);
 	std::wstring	ValueToStringW(int e_iValue);
-	std::wstring	ValueToStringW(size_t e_iValue);
 	std::wstring	ValueToStringW(float e_fValue);
 	std::wstring	ValueToStringW(double e_fValue);
 	std::wstring	ValueToStringW(Vector2 e_vValue);
@@ -165,6 +164,7 @@ namespace FATMING_CORE
 	std::wstring	ValueToStringW(cMatrix44 e_mat);
 	std::wstring	ValueToStringW(int64 e_uiValue );
 	std::wstring	ValueToStringW(uint64 e_uiValue );
+	std::wstring	ValueToStringW(size_t e_iValue);
 	//
 	std::string		ValueToString(std::wstring e_strValue);
 	std::string		ValueToString(std::string e_strValue);
@@ -172,7 +172,6 @@ namespace FATMING_CORE
 	std::string		ValueToString(const char*e_strValue);
 	std::string		ValueToString(const char e_cValue);
 	std::string		ValueToString(int	e_iValue);
-	std::string		ValueToString(size_t e_iValue);
 	std::string		ValueToString(float e_fValue);
 	std::string		ValueToString(double e_fValue);
 	std::string		ValueToString(Vector2 e_vValue);
@@ -181,8 +180,9 @@ namespace FATMING_CORE
 	std::string		ValueToString(POINT e_Value);
 	std::string		ValueToString(RECT e_Rect);
 	std::string		ValueToString(cMatrix44 e_mat);
-	std::string		ValueToString(uint64 e_uiValue );
 	std::string		ValueToString(int64 e_uiValue );
+	std::string		ValueToString(uint64 e_uiValue );
+	std::string		ValueToString(size_t e_iValue);
 
 	std::string		UVToString(float*e_pfUV);
 

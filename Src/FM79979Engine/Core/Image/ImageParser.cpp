@@ -340,7 +340,7 @@ namespace FATMING_CORE
 					{//ther only should work at editor!.
 						if( m_bSortPIFileAsOriginal )
 						{
-						    int l_iOriginalSize = l_pPuzzleDataList->size();
+						    size_t l_iOriginalSize = l_pPuzzleDataList->size();
 							wchar_t*l_ImageName = wcstok((wchar_t*)l_strValue,L",");
 							std::vector<sPuzzleData>	l_PuzzleDataList;
 							while(l_ImageName)

@@ -64,6 +64,8 @@ namespace MPDINodeForm
 
 	System::Void MPDINodeEditor::MPDINodeEditor_SizeChanged(System::Object^  sender, System::EventArgs^  e)
 	{
+		if( m_pMPDINodeForm == nullptr )
+			return;
 		CameraAdjustPara();
 		m_pOrthgonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	}

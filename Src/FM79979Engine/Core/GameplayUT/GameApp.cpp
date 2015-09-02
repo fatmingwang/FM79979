@@ -1095,7 +1095,7 @@ void PrintMemoryInfo(wchar_t*e_strName)
     if ( GetProcessMemoryInfo( hProcess, &pmc, sizeof(pmc)) )
     {
 		static bool	l_sbFirstTimeIntoHere = false;
-		static	int	l_sMemoryUsed = 0;
+		static	size_t	l_sMemoryUsed = 0;
         //swprintf(l_str,L"\tPageFaultCount: 0x%08X\n", pmc.PageFaultCount );
 
 		//swprintf(l_str,L"\tPageFaultCount: %d\n", pmc.PageFaultCount );
@@ -1116,7 +1116,7 @@ void PrintMemoryInfo(wchar_t*e_strName)
 		}
 		else
 		{
-			int	l_iMemoryChangeSize = pmc.WorkingSetSize-l_sMemoryUsed;
+			size_t	l_iMemoryChangeSize = pmc.WorkingSetSize-l_sMemoryUsed;
 			float	l_fMB = (float)l_iMemoryChangeSize/1024.f/1024.f;
 			float	l_fKB = (float)l_iMemoryChangeSize/1024.f;
 			swprintf(l_str,L"Memory Change:In MB:%.2f,In KB:%.2f,In Byte:%d\n",l_fMB,l_fKB,l_iMemoryChangeSize );

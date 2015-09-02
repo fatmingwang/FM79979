@@ -158,7 +158,7 @@ public:
 
 	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));}
 
-	inline T*	GetLastObject(){	return this->GetObject(m_ObjectList.size()-1);}
+	inline T*	GetLastObject(){	return this->GetObject((int)m_ObjectList.size()-1);}
 	inline bool	IsContain(T*e_pObject)
 	{
 		if( this->GetObjectIndexByPointer(e_pObject) != -1 || this->GetObjectIndexByName(e_pObject->GetName())!= -1 )

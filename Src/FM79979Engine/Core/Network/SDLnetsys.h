@@ -34,8 +34,10 @@
 #if defined(__WIN32__) || defined(WIN32)
 #define __USE_W32_SOCKETS
 #ifdef _WIN64
-#include <winsock2.h>
-#include <ws2tcpip.h>
+//#include <winsock2.h>
+//#include <ws2tcpip.h>
+#include <windows.h>
+typedef int socklen_t;
 #else
 #include <winsock.h>
 /* NOTE: windows socklen_t is signed

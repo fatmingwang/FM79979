@@ -477,7 +477,7 @@ namespace GLRender
 		cMatrix44	l_mat(e_pfMatrix);
 		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,2,e_pfMatrix);
 		if( e_bRenderPoints )
-			RenderPoints(&(*e_pPositionPoint)[0],e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
+			RenderPoints(&(*e_pPositionPoint)[0],(int)e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
 		if( e_bRenderIndexFont )
 		{
 			size_t	l_uiSize = e_pPositionPoint->size();
@@ -507,7 +507,7 @@ namespace GLRender
 			RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_pfMatrix);
 		}
 		if( e_bRenderPoints )
-			RenderPoints(&(*e_pPositionPoint)[0],e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
+			RenderPoints(&(*e_pPositionPoint)[0],(int)e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
 		cMatrix44	l_mat(e_pfMatrix);
 		if( e_bRenderIndexFont )
 		{
@@ -539,7 +539,7 @@ namespace GLRender
 			RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_pfMatrix);
 		}
 		if( e_bRenderPoints )
-			RenderPoints(&(*e_pPositionPoint)[0],e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
+			RenderPoints(&(*e_pPositionPoint)[0],(int)e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
 		if( e_bRenderIndexFont )
 		{
 			cMatrix44	l_mat(e_pfMatrix);

@@ -135,7 +135,7 @@ namespace FATMING_CORE
 		if( m_FinallyPointList.size() < 2 )
 		{
 			if( m_FinallyPointList.size() == 1 )
-				RenderPoints(&m_OriginalPointList[0],m_OriginalPointList.size(),10,e_vColor,e_mat);
+				RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
 			return;
 		}
 		//draw line
@@ -148,7 +148,7 @@ namespace FATMING_CORE
 			l_CurvePointVector[i*2+1] = m_FinallyPointList[i+1];
 		}
 		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_mat);
-		RenderPoints(&m_OriginalPointList[0],m_OriginalPointList.size(),10,e_vColor,e_mat);
+		RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
 	}
 
 	//------------------------------------------------------------	IncreaseLod()
@@ -504,12 +504,12 @@ namespace FATMING_CORE
 
 	Vector3	cCurve::GetInterplotValue(float e_fInterpolationValue)
 	{
-		int	l_iSize = this->m_FinallyPointList.size();
+		size_t	l_iSize = this->m_FinallyPointList.size();
 		if( l_iSize < 1 )
 		{
 			return Vector3::Zero;
 		}
-		size_t	l_iTargetIndex = (int)(e_fInterpolationValue*l_iSize);
+		size_t	l_iTargetIndex = (size_t)(e_fInterpolationValue*l_iSize);
 		if( e_fInterpolationValue >= 1.f )
 		{
 			l_iTargetIndex = m_FinallyPointList.size()-1;
@@ -773,7 +773,7 @@ namespace FATMING_CORE
 
 	void	cCurveWithTime::AverageTimeAssign(float e_fTime)
 	{
-		int	l_iNum = this->m_OriginalTimeList.size();
+		int	l_iNum = (int)this->m_OriginalTimeList.size();
 		if( l_iNum>1 )
 		{
 			m_OriginalTimeList[0] = 0.f;
@@ -1087,12 +1087,12 @@ namespace FATMING_CORE
 
 	int	cCurveWithTime::GetTimeRelativeIndex(float e_fTargetTime)
 	{
-		size_t	l_iCount = this->m_OriginalTimeList.size();
+		int	l_iCount = (int)this->m_OriginalTimeList.size();
 		//at least must have 2 points
 		if( l_iCount<2 )
 			return -1;
 		assert(m_OriginalTimeList[0] == 0.f&&"first point time must be 0");
-		size_t i=1;
+		int i=1;
 		for( ;i<l_iCount;++i )
 		{
 			if(e_fTargetTime<m_OriginalTimeList[i])

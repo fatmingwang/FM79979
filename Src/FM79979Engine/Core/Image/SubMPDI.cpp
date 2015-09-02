@@ -117,7 +117,7 @@ namespace FATMING_CORE
 		else
 		{
 			if( l_iCurrentOriginalPointIndex>=(int)m_PointDataList.size() )
-				l_iCurrentOriginalPointIndex = m_PointDataList.size()-1;
+				l_iCurrentOriginalPointIndex = (int)m_PointDataList.size()-1;
 			*m_pCurrentPointData = *this->m_PointDataList[l_iCurrentOriginalPointIndex];
 		}
 		//update to latest pi.
@@ -251,8 +251,8 @@ namespace FATMING_CORE
 	void cCueToStartCurveWithTime::SetOriginalToFinal()
 	{
 		std::vector<sTexBehaviorDataWithImageIndexData*> l_PointDataList;
-		UINT	l_uiSize = (UINT)this->m_FinallyPointList.size();
-		UINT	l_iStepSize = l_uiSize/this->m_OriginalPointList.size();
+		size_t	l_uiSize = this->m_FinallyPointList.size();
+		size_t	l_iStepSize = l_uiSize/this->m_OriginalPointList.size();
 		//	int	l_iLod = 1;	
 		for( UINT i=0;i<l_uiSize;++i )
 		{

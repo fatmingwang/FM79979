@@ -132,7 +132,7 @@ namespace FATMING_CORE
 		if( bTouched == false )
 			return;
 		bool	l_bMouseUp = false;
-		int	l_iSize = TouchPointWorkingIndex.size();
+		size_t	l_iSize = TouchPointWorkingIndex.size();
 		if( l_iSize < 2 )
 		{
 			if( TouchPointWorkingIndex.size() > 0 )

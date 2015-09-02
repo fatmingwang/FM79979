@@ -196,13 +196,13 @@ namespace FATMING_CORE
 		int	l_iCount = this->Count();
 		if( l_iCount > (int)this->m_MessageDataVector.size() )
 		{
-			int	l_iOffset = l_iCount-m_MessageDataVector.size();
-			for( int i=0;i<l_iOffset;++i )
+			size_t	l_iOffset = l_iCount-m_MessageDataVector.size();
+			for( size_t i=0;i<l_iOffset;++i )
 			{
 				m_MessageDataVector.push_back(l_MessageData);
 			}
 		}
-		int	l_iIndex = m_MessageDataVector.size()-1;
+		int	l_iIndex = (int)m_MessageDataVector.size()-1;
 		PARSE_ELEMENT_START(e_pTiXmlElement)
 			COMPARE_NAME("ButtonName")
 			{

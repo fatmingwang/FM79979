@@ -25,7 +25,7 @@ namespace FATMING_CORE
 					l_pRestrictValueBase = new cRestrictValue<int>(e_pElement);
 					break;				
 				case eDT_BYTE:
-					l_pRestrictValueBase = new cRestrictValue<byte>(e_pElement);
+					l_pRestrictValueBase = new cRestrictValue<char>(e_pElement);
 					break;
 				case eDT_DOUBLE:
 					l_pRestrictValueBase = new cRestrictValue<double>(e_pElement);

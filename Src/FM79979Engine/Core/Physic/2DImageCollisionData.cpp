@@ -59,7 +59,7 @@ namespace FATMING_CORE
 		if(this->bConvex&&ConvexHullPointData.size()>1)
 		{
 			cMatrix44	l_mat = cMatrix44::Identity;
-			if(ConvexShapeCollideSphere(e_pfMatrix,e_fRadius,l_mat,(float*)&(ConvexHullPointData[0]),ConvexHullPointData.size(),sizeof(Vector3)))
+			if(ConvexShapeCollideSphere(e_pfMatrix,e_fRadius,l_mat,(float*)&(ConvexHullPointData[0]),(int)ConvexHullPointData.size(),sizeof(Vector3)))
 				return true;
 		}
 		else
@@ -111,8 +111,8 @@ namespace FATMING_CORE
 	void	c2DImageCollisionDataForEditor::sImageCollisionData::Render(Vector4 e_vColor)
 	{
 		int	l_iIndex = 0;
-		UINT	l_uiSize = CollisionDataVector.size();
-		for( UINT i=0;i<l_uiSize;++i)
+		size_t	l_uiSize = CollisionDataVector.size();
+		for( size_t i=0;i<l_uiSize;++i)
 		{
 			if( this->iCollisionDataIndex != i )
 				CollisionDataVector[i]->Render(e_vColor);
@@ -127,11 +127,11 @@ namespace FATMING_CORE
 	int		c2DImageCollisionDataForEditor::sImageCollisionData::Collide(float e_fRadius,float *e_pfMatrix)
 	{
 		int	l_iIndex = 0;
-		UINT	l_uiSize = CollisionDataVector.size();
-		for( UINT i=0;i<l_uiSize;++i)
+		size_t	l_uiSize = CollisionDataVector.size();
+		for( size_t i=0;i<l_uiSize;++i)
 		{
 			if(CollisionDataVector[i]->Collide(e_fRadius,e_pfMatrix))
-				return i;
+				return (int)i;
 		}
 		return -1;
 	}
@@ -214,7 +214,7 @@ namespace FATMING_CORE
 			{
 				std::vector<Vector3>l_vVerticesData = m_pCurrentImageCollisionData->CollisionDataVector[i]->ConvexHullPointData;
 				assert(l_vVerticesData.size()>0);
-				l_pbtCollisionShape = new cbtConvexHullShape((float*)&(l_vVerticesData[0]),l_vVerticesData.size(),sizeof(Vector3));
+				l_pbtCollisionShape = new cbtConvexHullShape((float*)&(l_vVerticesData[0]),(int)l_vVerticesData.size(),sizeof(Vector3));
 			}
 			else
 			{
@@ -376,20 +376,20 @@ namespace FATMING_CORE
 	void	c2DImageCollisionDataForEditor::Export(char*e_strFileName,cPuzzleImage*e_pPuzzleImage)
 	{
 #ifdef WIN32
-		UINT l_iuiNumImageCollisionData = m_ImageCollisionDataVector.size();
+		size_t l_iuiNumImageCollisionData = m_ImageCollisionDataVector.size();
 		if( l_iuiNumImageCollisionData == 0 )
 			return;
 		ATG::XMLWriter	l_XMLWriter(e_strFileName);
 		l_XMLWriter.StartElement("ImageCollisionData");
 		l_XMLWriter.AddAttribute("Name",e_pPuzzleImage->GetName());
 		l_XMLWriter.AddAttribute("Count",e_pPuzzleImage->Count());
-		for( UINT i=0;i<l_iuiNumImageCollisionData;++i )
+		for( size_t i=0;i<l_iuiNumImageCollisionData;++i )
 		{
-			UINT l_uiNumCollisionData = m_ImageCollisionDataVector[i]->CollisionDataVector.size();
+			size_t l_uiNumCollisionData = m_ImageCollisionDataVector[i]->CollisionDataVector.size();
 			l_XMLWriter.StartElement("CollisionData");
-			l_XMLWriter.AddAttribute("Name",(*e_pPuzzleImage)[i]->GetName());
+			l_XMLWriter.AddAttribute("Name",(*e_pPuzzleImage)[(int)i]->GetName());
 			l_XMLWriter.AddAttribute("Count",(int)l_uiNumCollisionData);
-			for( UINT j=0;j<l_uiNumCollisionData;++j )
+			for( size_t j=0;j<l_uiNumCollisionData;++j )
 			{
 				sImageCollisionData::sCollisionData*l_pCollisionData = m_ImageCollisionDataVector[i]->CollisionDataVector[j];
 				l_XMLWriter.StartElement("Shape");

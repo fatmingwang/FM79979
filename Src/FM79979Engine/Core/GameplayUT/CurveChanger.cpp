@@ -109,7 +109,7 @@ namespace FATMING_CORE
 	void	cCurveChanger::AssignCurveChangeData(float e_fSpeed,int e_iTargetOriginalPointIndex,cCurveWithTime*e_pTargetCurve)
 	{
 		//avoid over size
-		e_iTargetOriginalPointIndex = UT::GetLoopIndex(e_iTargetOriginalPointIndex,e_pTargetCurve->GetOriginalPointList().size());
+		e_iTargetOriginalPointIndex = UT::GetLoopIndex(e_iTargetOriginalPointIndex,(int)e_pTargetCurve->GetOriginalPointList().size());
 		//here we add a fake curve
 		//first add start point as current curve's pervious position
 		//sedcond add current position

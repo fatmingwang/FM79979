@@ -31,7 +31,7 @@ namespace FATMING_CORE
 					l_pListValuChangerBase = new cListValueChanger<std::wstring>(e_pElement);
 					break;
 				case eDT_BYTE:
-					l_pListValuChangerBase = new cListValueChanger<byte>(e_pElement);
+					l_pListValuChangerBase = new cListValueChanger<char>(e_pElement);
 					break;
 				case eDT_DOUBLE:
 					l_pListValuChangerBase = new cListValueChanger<double>(e_pElement);

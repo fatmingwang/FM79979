@@ -137,7 +137,7 @@ bool CompressHuffman(unsigned char *pSrc, int nSrcLen, unsigned char *&pDes, int
 		nDesIndex += nodes[pSrc[nCount]].nCodeLength;
 	}
 	// update destination length
-	nDesLen = (pDesPtr-pDes)+(nDesIndex+7)/8;
+	nDesLen = (int)((pDesPtr-pDes)+(nDesIndex+7)/8);
 	try
 	{
 		pDes = (unsigned char*)realloc(pDes, nDesLen);
@@ -352,7 +352,7 @@ std::wstring	EncodeStringToValue(wchar_t*e_strString,wchar_t*e_strCharacterToSpl
 
 	std::string	l_strTemp = UT::WcharToChar(e_strString);
 	unsigned char*l_strToCompress = (unsigned char*)l_strTemp.c_str();
-	int	l_iCount = strlen((char*)l_strToCompress);
+	int	l_iCount = (int)strlen((char*)l_strToCompress);
 	unsigned char *pDes;
 	int nDesLen;
 	if( CompressHuffman(l_strToCompress,l_iCount, pDes, nDesLen) )

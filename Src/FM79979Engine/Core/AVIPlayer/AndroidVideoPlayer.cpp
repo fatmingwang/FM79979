@@ -430,7 +430,7 @@ bool	cVideoConvert::StartConvert(NvFile*e_pFile)
 	//rewrite file pos and frame length
 	//NvFSeek(e_pFile,sizeof(int),SEEK_SET);
 	long l_lCurrentPosition1 = NvFTell( e_pFile );
-	int	l_iLength = NvFWrite((void*)m_puiFrameFilePosVector,sizeof(UINT),m_iTotalFrame,e_pFile);
+	size_t	l_iLength = NvFWrite((void*)m_puiFrameFilePosVector,sizeof(UINT),m_iTotalFrame,e_pFile);
 	long l_lCurrentPosition2 = NvFTell( e_pFile );
 	l_iLength = NvFWrite((void*)m_puiFrameSizeVector,sizeof(UINT),m_iTotalFrame,e_pFile);
 	long l_lCurrentPosition3 = NvFTell( e_pFile );
@@ -657,8 +657,8 @@ bool	cFMVVideo::OpenFile(const char*e_strFileName)
 		NvFSeek(m_pFile,l_iFileLength-sizeof(int),SEEK_SET);
 		NvFRead(&l_iInfoStart,sizeof(UINT),1,m_pFile);
 		NvFSeek(m_pFile,l_iInfoStart,SEEK_SET);
-		int	l_iData = NvFRead((void*)m_puiFrameFilePosVector,sizeof(UINT),m_iTotalFrame,m_pFile);
-		int	l_iData2 = NvFRead(m_puiFrameSizeVector,sizeof(UINT),m_iTotalFrame,m_pFile);
+		size_t	l_iData = NvFRead((void*)m_puiFrameFilePosVector,sizeof(UINT),m_iTotalFrame,m_pFile);
+		size_t	l_iData2 = NvFRead(m_puiFrameSizeVector,sizeof(UINT),m_iTotalFrame,m_pFile);
 		if(!m_pNewPixelData)
 		{
 			//int	l_iPow2Width = UT::power_of_two(m_iVideoWidth);

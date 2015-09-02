@@ -54,7 +54,7 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #ifdef WIN32
 #define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
 #define	WCHAR_TO_CHAR( p,q )  WideCharToMultiByte( CP_ACP, 0, p, -1, q, 256, nullptr, nullptr );//q for return p for convert
-#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
+#define	WCHAR_TO_WCHAR( p,q ){ size_t l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
 #define FM_NEW new(_CLIENT_BLOCK,__FILE__, __LINE__)
 #else
 //here should using

@@ -213,9 +213,9 @@ namespace FATMING_CORE
     //this might lost data if parse string again!
 	cMatrix44	*GetMatrcies(const wchar_t*e_str,int e_iSize,bool e_bTranspose)
 	{
-		int	l_iLength = wcslen(e_str);
+		size_t	l_iLength = wcslen(e_str);
 		char*l_str = new char[l_iLength+1];
-		for(int i=0;i<l_iLength;++i)
+		for(size_t i=0;i<l_iLength;++i)
 			l_str[i] = (char)(e_str[i]);
 		l_str[l_iLength] = '\0';
 		cMatrix44	*l_pMartices = GetMatrcies(l_str,e_iSize,e_bTranspose);
@@ -521,12 +521,12 @@ namespace FATMING_CORE
 	{
 		return UT::CharToWchar(ValueToString(e_uiValue));
 	}
-
+#ifndef _WIN64
 	std::wstring	ValueToStringW(uint64 e_uiValue )
 	{
 		return UT::CharToWchar(ValueToString(e_uiValue));
 	}
-
+#endif
 	std::string	ValueToString(std::string e_strValue)
 	{
 		return ValueToString(e_strValue.c_str());
@@ -654,7 +654,7 @@ namespace FATMING_CORE
 		std::string l_str = l_temp;
 		return l_str;
 	}
-
+#ifndef _WIN64
 	std::string	ValueToString(uint64 e_uiValue )
 	{
 		//%x is 16.
@@ -665,7 +665,7 @@ namespace FATMING_CORE
 		std::string l_str = l_temp;
 		return l_str;
 	}
-
+#endif
 	std::string	UVToString(float*e_pfUV)
 	{
 		char	l_temp[TEMP_SIZE];
@@ -689,8 +689,8 @@ namespace FATMING_CORE
 	std::string	Vector3VectorToString(std::vector<Vector3> *e_pvPosVector)
 	{
 		std::string	l_str;
-		UINT	l_uiSize = e_pvPosVector->size();
-		for( UINT i=0;i<l_uiSize;++i )
+		size_t	l_uiSize = e_pvPosVector->size();
+		for( size_t i=0;i<l_uiSize;++i )
 		{
 			l_str += ValueToString((*e_pvPosVector)[i]);
 			if( i+1 != l_uiSize )
@@ -702,8 +702,8 @@ namespace FATMING_CORE
 	std::string	Vector2VectorToString(std::vector<Vector2> *e_pvPosVector,int e_iSize)
 	{
 		std::string	l_str;
-		UINT	l_uiSize = e_pvPosVector->size();
-		for( UINT i=0;i<l_uiSize;++i )
+		size_t	l_uiSize = e_pvPosVector->size();
+		for( size_t i=0;i<l_uiSize;++i )
 		{
 			l_str += ValueToString((*e_pvPosVector)[i]);
 			if( i+1 != l_uiSize )

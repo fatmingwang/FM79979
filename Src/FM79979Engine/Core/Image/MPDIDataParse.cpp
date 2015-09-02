@@ -56,7 +56,7 @@ namespace FATMING_CORE
 			l_pData->iImageIndex = 0;
 			if(e_pstrNotExistImageName)
 			{
-				int	l_iSize = strlen(l_strForImageName);
+				int	l_iSize = (int)strlen(l_strForImageName);
 				WCHAR_TO_WCHAR(UT::CharToWchar(l_strForImageName).c_str(),e_pstrNotExistImageName);
 				e_pstrNotExistImageName[l_iSize] = L'\0';
 			}
@@ -138,7 +138,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 		}
 		if( e_pCueToStartCurvesWithTime->GetHintPointVector()->size() )
 		{
-			l_iNumPoint = e_pCueToStartCurvesWithTime->GetHintPointVector()->size();
+			l_iNumPoint = (int)e_pCueToStartCurvesWithTime->GetHintPointVector()->size();
 			sHintPoint*l_pHintVector = &(*e_pCueToStartCurvesWithTime->GetHintPointVector())[0];
 			e_pXMLWriter->StartElement("HintPointList");
 				for( int l=0;l<l_iNumPoint;++l )
@@ -380,7 +380,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					    if( l_iPICount > 1 )
 					    {
 					        l_strPIName = wcstok(l_strOriginalName,L",");
-					        l_iTotalLength += wcslen(l_strPIName)+1;
+					        l_iTotalLength += (int)wcslen(l_strPIName)+1;
 					    }
 					    else
 					    {
@@ -417,7 +417,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 							{
 							    swprintf(l_strOriginalName,MAX_PATH,L"%ls\0",&l_strValue[l_iTotalLength]);
 							    l_strPIName = wcstok(l_strOriginalName,L",\0");
-							    l_iTotalLength += wcslen(l_strPIName)+1;
+							    l_iTotalLength += (int)wcslen(l_strPIName)+1;
 							}
 						}
 #endif
