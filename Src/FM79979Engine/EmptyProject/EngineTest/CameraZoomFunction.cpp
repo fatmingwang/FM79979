@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "CameraZoomFunction.h"
-//
-//cBaseImage*g_pBG = 0;
-//	g_pBG = new cBaseImage();
 
 cCameraZoomFunction::cCameraZoomFunction()
 {
@@ -12,7 +9,7 @@ cCameraZoomFunction::cCameraZoomFunction()
 	Vector2	l_vMax(l_fWidth,l_fHeight);
 	m_ZoomableCamera.SetViewData(l_vMax/10,
 		Vector4(0,0,l_vMax.x,l_vMax.y),
-		Vector4(0,0,l_vMax.x,l_vMax.y),	l_vMax/100);
+		Vector4(0,0,l_vMax.x,l_vMax.y));
 	m_bSimulate2Touch = false;
 }
 
@@ -23,15 +20,21 @@ cCameraZoomFunction::~cCameraZoomFunction()
 
 void	cCameraZoomFunction::Update(float e_fElpaseTime)
 {
+	bool	l_bDoPointsPosHit = m_MultiTouchPoints.bDoPointsPosHit;
 	m_MultiTouchPoints.Update(e_fElpaseTime);
+	if(l_bDoPointsPosHit)
+	{
+		Vector2	l_vCenterPos = m_MultiTouchPoints.vCenterPos;
+		m_vCenterPos = cOrthogonalCamera::ConvertMousePositionToWorldPosition(l_vCenterPos,cGameApp::m_svViewPortSize.Size(),m_ZoomableCamera.GetViewRect());
+	}
 	if( m_MultiTouchPoints.Gesture == eGestureEnum::eGE_ZOOM_OUT )
 	{
-		m_ZoomableCamera.Zoom(m_MultiTouchPoints.vCenterPos,1.005f);
+		m_ZoomableCamera.Zoom(m_vCenterPos,1.005f);
 	}
 	else
 	if( m_MultiTouchPoints.Gesture == eGestureEnum::eGE_ZOOM_IN )
 	{
-		m_ZoomableCamera.Zoom(m_MultiTouchPoints.vCenterPos,0.995f);
+		m_ZoomableCamera.Zoom(m_vCenterPos,0.995f);
 	}
 	else
 	{
@@ -43,6 +46,7 @@ void	cCameraZoomFunction::Update(float e_fElpaseTime)
 	{
 		m_ZoomableCamera.SetMouseUp(true);
 	}
+
 	m_ZoomableCamera.Update(e_fElpaseTime);
 }
 
@@ -53,10 +57,14 @@ void		cCameraZoomFunction::Render()
 	{
 		float	l_fMat[16];
 		m_pBGImage->Render();
-		glhOrthof2(l_fMat,0,(float)m_pBGImage->GetWidth(),(float)m_pBGImage->GetHeight(),0, -10000, 10000);
-		FATMING_CORE::SetupShaderViewProjectionMatrix( l_fMat,true );
 	}
+	glEnable2D(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
 	this->m_MultiTouchPoints.DebugRender(10);
+	cGameApp::RenderFont(0.f,300.f,UT::ComposeMsgByFormat(L"%.2f,%.2f",m_vGameMousePos.x,m_vGameMousePos.y));
+	cOrthogonalCamera l_OrthogonalCamera(Vector2(1024,1280));
+	l_OrthogonalCamera.SetViewRect(m_ZoomableCamera.GetViewRect());
+	l_OrthogonalCamera.Render();
+	l_OrthogonalCamera.DrawGrid();
 }
 
 POINT	g_vSecondTouchPoint  = {0,0};
@@ -68,9 +76,9 @@ void		cCameraZoomFunction::MouseDown(int e_iPosX,int e_iPosY)
 	cGameApp::m_svGameResolution.y = (float)m_pBGImage->GetHeight();
 	m_MultiTouchPoints.Touch(true,e_iPosX,e_iPosY,0);
 	if( m_bSimulate2Touch )
-		//m_MultiTouchPoints.Touch(true,(int)cGameApp::m_svViewPortSize.Width()/2,(int)cGameApp::m_svViewPortSize.Height()/4,1);
 			m_MultiTouchPoints.Touch(true,g_vSecondTouchPoint.x,g_vSecondTouchPoint.y,1);
 	cGameApp::m_svGameResolution = l_vGameResolution;
+	m_vGameMousePos = cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2(e_iPosX,e_iPosY),cGameApp::m_svViewPortSize.Size(),m_ZoomableCamera.GetViewRect());
 }
 
 void		cCameraZoomFunction::MouseMove(int e_iPosX,int e_iPosY)
@@ -82,10 +90,10 @@ void		cCameraZoomFunction::MouseMove(int e_iPosX,int e_iPosY)
 		cGameApp::m_svGameResolution.y = (float)m_pBGImage->GetHeight();
 		m_MultiTouchPoints.Touch(true,e_iPosX,e_iPosY,0);
 		if( m_bSimulate2Touch )
-			//m_MultiTouchPoints.Touch(true,(int)cGameApp::m_svViewPortSize.Width()/2,(int)cGameApp::m_svViewPortSize.Height()/4,1);
 			m_MultiTouchPoints.Touch(true,g_vSecondTouchPoint .x,g_vSecondTouchPoint .y,1);
 		cGameApp::m_svGameResolution = l_vGameResolution;
 	}
+	m_vGameMousePos = cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2(e_iPosX,e_iPosY),cGameApp::m_svViewPortSize.Size(),m_ZoomableCamera.GetViewRect());
 }
 
 void		cCameraZoomFunction::MouseUp(int e_iPosX,int e_iPosY)
@@ -95,20 +103,24 @@ void		cCameraZoomFunction::MouseUp(int e_iPosX,int e_iPosY)
 	cGameApp::m_svGameResolution.y = (float)m_pBGImage->GetHeight();
 	m_MultiTouchPoints.Touch(false,e_iPosX,e_iPosY,0);
 	if( m_bSimulate2Touch )
-		//m_MultiTouchPoints.Touch(false,(int)cGameApp::m_svViewPortSize.Width()/4,(int)cGameApp::m_svViewPortSize.Height()/4,1);
 		m_MultiTouchPoints.Touch(false,g_vSecondTouchPoint.x,g_vSecondTouchPoint.y,1);
 	cGameApp::m_svGameResolution = l_vGameResolution;
+	m_vGameMousePos = cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2(e_iPosX,e_iPosY),cGameApp::m_svViewPortSize.Size(),m_ZoomableCamera.GetViewRect());
 }
 
 void		cCameraZoomFunction::KeyUp(unsigned char e_ucKey)
 {
-	if( e_ucKey >= '1' && e_ucKey <= '9' )
+	if( e_ucKey >= '0' && e_ucKey <= '9' )
 	{
-		int	l_iWidthPart = (int)cGameApp::m_svViewPortSize.Width()/9;
-		int	l_iHeightPart = (int)cGameApp::m_svViewPortSize.Height()/9;
+		Vector2	l_vSize = cGameApp::m_svViewPortSize.Size();
+		int	l_iWidthPart = (int)l_vSize.x/9;
+		int	l_iHeightPart = (int)l_vSize.y/9;
 		int	l_iDivide = e_ucKey -'0';
-		g_vSecondTouchPoint.x = l_iDivide*l_iWidthPart;
-		g_vSecondTouchPoint.y = l_iDivide*l_iHeightPart;
+		Vector2	l_vOffsetPos;
+		l_vOffsetPos.x = l_iDivide*l_iWidthPart;
+		l_vOffsetPos.y = l_iDivide*l_iHeightPart;
+		g_vSecondTouchPoint.x = l_vOffsetPos.x;
+		g_vSecondTouchPoint.y = l_vOffsetPos.y;
 	}
 	if( e_ucKey == 17 )
 		m_bSimulate2Touch = !m_bSimulate2Touch;
@@ -120,7 +132,6 @@ void		cCameraZoomFunction::KeyUp(unsigned char e_ucKey)
 		Vector2	l_vMax(l_fWidth,l_fHeight);
 		m_ZoomableCamera.SetViewData(l_vMax/10,
 			Vector4(0,0,l_vMax.x,l_vMax.y),
-			Vector4(0,0,l_vMax.x,l_vMax.y),
-			l_vMax/100);
+			Vector4(0,0,l_vMax.x,l_vMax.y));
 	}
 }

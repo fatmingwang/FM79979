@@ -36,8 +36,9 @@ namespace FATMING_CORE
 		float	l_fScaleX = e_MousePosition.x/e_ViewportSize.x;
 		float	l_fScaleY = e_MousePosition.y/e_ViewportSize.y;
 		//transform mouse positio into game's resolution
-		e_MousePosition.x = l_fScaleX*(e_vCameraViewRect.z-e_vCameraViewRect.x)+e_vCameraViewRect.x;
-		e_MousePosition.y = l_fScaleY*(e_vCameraViewRect.w-e_vCameraViewRect.y)+e_vCameraViewRect.y;
+
+		e_MousePosition.x = l_fScaleX*e_vCameraViewRect.Width()+e_vCameraViewRect.x;
+		e_MousePosition.y = l_fScaleY*e_vCameraViewRect.Height()+e_vCameraViewRect.y;
 		return e_MousePosition;	
 	}
     //void    cOrthogonalCamera::MoveViewRect(Vector2 e_vDirection)
@@ -327,6 +328,15 @@ namespace FATMING_CORE
 						m_vLastLegalSize = this->m_vViewRect.Size();
 					}
 				}
+				Vector2	l_vNewCenter = m_vNewTargetCenter;
+				if( l_vNewCenter.x-m_vLastLegalSize.x/2 < this->m_vMaxViewRange.x || 
+					l_vNewCenter.y-m_vLastLegalSize.y/2 < this->m_vMaxViewRange.y ||
+					l_vNewCenter.x+m_vLastLegalSize.x/2 > this->m_vMaxViewRange.z ||
+					l_vNewCenter.y+m_vLastLegalSize.y/2 > this->m_vMaxViewRange.w)
+				{
+					m_vLastLegalSize = m_vMaxViewRange.Size();
+					m_vNewTargetCenter = m_vMaxViewRange.GetCenter();
+				}
 				m_BackToCenterTimer.Start();
 				m_bDoCenterBack = true;
 			}
@@ -334,6 +344,15 @@ namespace FATMING_CORE
 			{
 				Vector2	l_vSize = e_vViewRect.Size();
 				//e_vViewRect.Clamp(m_vMaxViewRange);
+				if(e_vViewRect.x < this->m_vMaxViewRange.x &&
+					e_vViewRect.z > this->m_vMaxViewRange.z)
+				{
+					e_vViewRect.x = m_vMaxViewRange.x;
+					e_vViewRect.z = m_vMaxViewRange.x+m_vMaxViewRange.Width();
+					e_vViewRect.y = m_vMaxViewRange.y;
+					e_vViewRect.w = m_vMaxViewRange.y+m_vMaxViewRange.Height();
+				}
+				else
 				if( e_vViewRect.x < this->m_vMaxViewRange.x )
 				{
 					e_vViewRect.x = m_vMaxViewRange.x;
@@ -346,6 +365,15 @@ namespace FATMING_CORE
 					e_vViewRect.z = m_vMaxViewRange.z;	
 				}
 
+				if(e_vViewRect.y < this->m_vMaxViewRange.y &&
+					e_vViewRect.w > this->m_vMaxViewRange.w)
+				{
+					e_vViewRect.x = m_vMaxViewRange.x;
+					e_vViewRect.z = m_vMaxViewRange.x+m_vMaxViewRange.Width();
+					e_vViewRect.y = m_vMaxViewRange.y;
+					e_vViewRect.w = m_vMaxViewRange.y+m_vMaxViewRange.Height();
+				}
+				else
 				if( e_vViewRect.y < this->m_vMaxViewRange.y )
 				{
 					e_vViewRect.y = m_vMaxViewRange.y;
@@ -443,9 +471,17 @@ namespace FATMING_CORE
 				m_bDoCenterBack = false;
 				m_bMouseUp = false;
 				m_vViewRect.x = m_vNewTargetCenter.x-m_vLastLegalSize.x/2;
-				m_vViewRect.y = m_vNewTargetCenter.y-m_vLastLegalSize.y/2;
 				m_vViewRect.z = m_vNewTargetCenter.x+m_vLastLegalSize.x/2;
+				m_vViewRect.y = m_vNewTargetCenter.y-m_vLastLegalSize.y/2;
 				m_vViewRect.w = m_vNewTargetCenter.y+m_vLastLegalSize.y/2;
+				//it should not happen,but I am lazy to avoid this
+				if( m_vViewRect.x < this->m_vMaxViewRange.x || 
+					m_vViewRect.y < this->m_vMaxViewRange.y ||
+					m_vViewRect.z > this->m_vMaxViewRange.z ||
+					m_vViewRect.w > this->m_vMaxViewRange.w)
+				{
+					m_vViewRect = m_vMaxViewRange;
+				}
 			}
 		}
 	}

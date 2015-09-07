@@ -168,7 +168,7 @@ void	SampleRender()
 	if(g_pOrthogonalCamera)
 	{
 		g_pOrthogonalCamera->Render();
-		g_pOrthogonalCamera->DrawGrid();
+		//g_pOrthogonalCamera->DrawGrid();
 	}
 	if( g_pMultiPathDynamicImage )
 		g_pMultiPathDynamicImage->Render();

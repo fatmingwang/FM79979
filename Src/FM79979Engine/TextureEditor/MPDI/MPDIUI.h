@@ -47,7 +47,9 @@ namespace MPDI
 			//LanguageSwitch(ColorBlending_groupBox->Controls,"/",this->Handle);
 			//LanguageSwitch(Rotation_groupBox->Controls,"/",this->Handle);
 			//if crash occur
-			{//https://social.msdn.microsoft.com/Forums/en-US/2c3894a2-413a-4cc6-a2bb-b54b0386c95f/visual-studio-2012-sp2-crashes-when-binding-wpf-to-windows-form-elementhost?forum=wpf
+			{// http://stackoverflow.com/questions/13315940/apps-exe-file-missing-net-targetframework-but-only-on-clean-builds
+				//if here occur crash clear temp file
+				//C:\Users\UserName\AppData\Local\Temp
 				ElementHost^l_pHost = gcnew ElementHost();
 				l_pHost->Dock = DockStyle::Fill;
 				m_pColorPicker = gcnew CoreWPF::Common::ColorPicker;

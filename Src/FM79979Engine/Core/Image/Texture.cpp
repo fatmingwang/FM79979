@@ -273,48 +273,6 @@ namespace FATMING_CORE
 		}
 		return l_iChannel;
 	}
-	//IL_NO_ERROR
-	//No detectable error has occured.
-	//IL_INVALID_ENUM, ILU_INVALID_ENUM, ILUT_INVALID_ENUM
-	//An unacceptable enumerated value was passed to a function.
-	//IL_OUT_OF_MEMORY, ILU_OUT_OF_MEMORY, ILUT_OUT_OF_MEMORY
-	//Could not allocate enough memory in an operation.
-	//IL_FORMAT_NOT_SUPPORTED
-	//The format a function tried to use was not able to be used by that function.
-	//IL_INTERNAL_ERROR, ILU_INTERNAL_ERROR
-	//A serious error has occurred. Please e-mail DooMWiz with the conditions leading up to this error being reported.
-	//IL_INVALID_VALUE, ILU_INVALID_VALUE, ILUT_INVALID_VALUE
-	//An invalid value was passed to a function or was in a file.
-	//IL_ILLEGAL_OPERATION, ILU_ILLEGAL_OPERATION, ILUT_ILLEGAL_OPERATION
-	//The operation attempted is not allowable in the current state. The function returns with no ill side effects.
-	//IL_ILLEGAL_FILE_VALUE
-	//An illegal value was found in a file trying to be loaded.
-	//IL_INVALID_FILE_HEADER
-	//A file's header was incorrect.
-	//IL_INVALID_PARAM, ILU_INVALID_PARAM, ILUT_INVALID_PARAM
-	//An invalid parameter was passed to a function, such as a nullptr pointer.
-	//IL_COULD_NOT_OPEN_FILE, ILUT_COULD_NOT_OPEN_FILE
-	//Could not open the file specified. The file may already be open by another app or may not exist.
-	//IL_INVALID_EXTENSION
-	//The extension of the specified filename was not correct for the type of image-loading function.
-	//IL_FILE_ALREADY_EXISTS
-	//The filename specified already belongs to another file. To overwrite files by default, call ilEnable with the IL_FILE_OVERWRITE parameter.
-	//IL_OUT_FORMAT_SAME
-	//Tried to convert an image from its format to the same format.
-	//IL_STACK_OVERFLOW, ILUT_STACK_OVERFLOW
-	//One of the internal stacks was already filled, and the user tried to add on to the full stack.
-	//IL_STACK_UNDERFLOW, ILUT_STACK_UNDERFLOW
-	//One of the internal stacks was empty, and the user tried to empty the already empty stack.
-	//IL_INVALID_CONVERSION
-	//An invalid conversion attempt was tried.
-	//IL_LIB_JPEG_ERROR
-	//An error occurred in the libjpeg library.
-	//IL_LIB_PNG_ERROR
-	//An error occurred in the libpng library.
-	//IL_UNKNOWN_ERROR
-	//No function sets this yet, but it is possible (not probable) it may be used in the future.
-	//ILUT_NOT_SUPPORTED
-	//A type is valid but not supported in the current build.
 	//here si the idea for store screen buffer to 4 block
 	//http://www.gamedev.net/community/forums/topic.asp?topic_id=489893
 	//here we divided screen to 4 parts
@@ -544,8 +502,8 @@ namespace FATMING_CORE
 #endif
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();/* Binding of texture name */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); /* We will use linear  interpolation for magnification filter */
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); /* We will use linear  interpolation for minifying filter */
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue); /* We will use linear  interpolation for minifying filter */
 		//quick way to find out power of two.
 		//if (width & (width - 1)) or (height & (height - 1)):
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
@@ -565,7 +523,7 @@ namespace FATMING_CORE
 	#endif
 	#endif
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,m_iPixelFormat==GL_RGBA?true:false);
-			MyTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, l_iWidthPO2,l_iHeightPO2, 0,m_iChannel==4?GL_RGBA:GL_RGB, GL_UNSIGNED_BYTE,l_pNewPixelData,e_strName); // Texture specification.
+			MyTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, l_iWidthPO2,l_iHeightPO2, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,e_strName); // Texture specification.
 			//assign new UV
 			m_fUV[2] = (float)m_iWidth/l_iWidthPO2;
 			m_fUV[3] =  (float)m_iHeight/l_iHeightPO2;
@@ -650,8 +608,8 @@ namespace FATMING_CORE
 			m_suiLastUsingImageIndex = -1;
 			this->ApplyImage();
 			// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);				
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); /* We will use linear  interpolation for magnification filter */
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);				
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
 		    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 			UpdatePixels((const GLvoid*)(char*)&image[0],e_bFetchPixelData);

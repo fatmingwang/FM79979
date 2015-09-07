@@ -112,3 +112,9 @@ This is honestly a brutal class of problems to diagnose because they're only pre
 3.   Try removing the unmanaged code (stub out the calls) and see if the problem goes away. If it does, investigate the component to verify that it is free of memory leaks. (Note that you might only be masking the problem as you re-arrange code.)
 
 4.   Try running your code under a unmanaged memory checker like Compuware BoundsChecker, which will look for memory leaks and access violations. This will likely give you some hints as to which unmanaged component is misbehaving
+
+Sep 3 2015
+ElementHost^l_pHost = gcnew ElementHost();
+if here occur crash clear temp file
+C:\Users\UserName\AppData\Local\Temp
+http://stackoverflow.com/questions/13315940/apps-exe-file-missing-net-targetframework-but-only-on-clean-builds

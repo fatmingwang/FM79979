@@ -79,15 +79,15 @@ namespace FATMING_CORE
 		UT::sTimeCounter	m_BackToCenterTimer;
 		Vector2				m_vLastLegalSize;
 		//if sacle m_bDoCenterBack might happen
-		void		MakeViewRectLegal(Vector4 e_vViewRect,bool e_bScale);
-		Vector2		m_vMinViewRange;
-		Vector4		m_vMaxViewRange;
-		//the fi	nal viewrect
-		Vector4		m_vViewRect;
-		cMatrix44	m_ProjectionMatrix;
+		void				MakeViewRectLegal(Vector4 e_vViewRect,bool e_bScale);
+		Vector2				m_vMinViewRange;
+		Vector4				m_vMaxViewRange;
+		//the final viewrect
+		Vector4				m_vViewRect;
+		cMatrix44			m_ProjectionMatrix;
 		//if mouse up is true do rect legal
-		bool		m_bMouseUp;
-		Vector4		m_vMouseUpViewRect;
+		bool				m_bMouseUp;
+		Vector4				m_vMouseUpViewRect;
 	public:
 		cZoomableCamera();
 		virtual	~cZoomableCamera();
