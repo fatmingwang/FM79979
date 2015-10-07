@@ -249,6 +249,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
+    <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp" />
     <ClCompile Include="Glyph\GlyphReader.cpp" />
     <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
@@ -384,6 +385,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
+    <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h" />
     <ClInclude Include="Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="Image\MPDINode.h" />

@@ -656,6 +656,9 @@
     <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp">
       <Filter>GameplayUT\UI\ClickEvent</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\CameraZoomFunction.cpp">
+      <Filter>GameplayUT\UI\MouseBehavior</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1128,6 +1131,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h">
       <Filter>GameplayUT\UI\ClickEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\CameraZoomFunction.h">
+      <Filter>GameplayUT\UI\MouseBehavior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
