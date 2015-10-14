@@ -10,52 +10,52 @@
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="EventManager">
-      <UniqueIdentifier>{53f7200c-65e9-44f1-a5cd-36cd59c01bf9}</UniqueIdentifier>
+      <UniqueIdentifier>{776f8d62-6fef-4b07-b93d-83ed9e1bf920}</UniqueIdentifier>
     </Filter>
     <Filter Include="EventManager\EventParser">
-      <UniqueIdentifier>{d9c7eff7-cc82-40bb-ba0a-efcb62f4f831}</UniqueIdentifier>
+      <UniqueIdentifier>{7b4d1916-1351-412c-ad85-922a132bd5e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="EventManager\EventPackageRunner">
-      <UniqueIdentifier>{273ede79-34d9-48dd-9508-5648cc3593b3}</UniqueIdentifier>
+      <UniqueIdentifier>{8af64a19-064c-4a0c-a48a-8783122ea946}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event">
-      <UniqueIdentifier>{68d9cedc-ce6a-416c-80ea-95823a80e4c5}</UniqueIdentifier>
+      <UniqueIdentifier>{80c01b6f-807b-4cff-9950-bfbf694532e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectInstance">
-      <UniqueIdentifier>{d4246c2d-5d7d-451d-9643-94376ec8a10b}</UniqueIdentifier>
+      <UniqueIdentifier>{8a02056a-f9d4-434e-a936-242e1a8aa00e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventInstance">
-      <UniqueIdentifier>{df769dec-04c7-41e3-92fa-16b2cb461aed}</UniqueIdentifier>
+      <UniqueIdentifier>{736214c1-6f7f-4560-ae34-07fa4170bb49}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus">
-      <UniqueIdentifier>{223b1562-892d-4e64-9dc1-309fe6610a95}</UniqueIdentifier>
+      <UniqueIdentifier>{2b4e860d-9a10-43d3-a2c5-08dd58207c5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus\Base">
-      <UniqueIdentifier>{d863e056-a17c-464c-9ff5-4bfdb7354897}</UniqueIdentifier>
+      <UniqueIdentifier>{dcab150c-4eae-47c2-8b60-0b78c7c0d4ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus\Image">
-      <UniqueIdentifier>{a8adc37a-a653-428b-8403-89ece1586fa2}</UniqueIdentifier>
+      <UniqueIdentifier>{406d56ab-d369-4f0b-bec5-72d24ec6d48a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus\Sound">
-      <UniqueIdentifier>{85af2ddc-43fc-47bb-88d6-75e36c3be171}</UniqueIdentifier>
+      <UniqueIdentifier>{9e8989f1-7605-40fc-9205-e1de41486d4d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus\Particle">
-      <UniqueIdentifier>{3a7690b5-80ea-4d33-878b-ef88d3c1305d}</UniqueIdentifier>
+      <UniqueIdentifier>{68e220f6-41e1-4898-8b85-5b90c7855e1b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\EventObjectStatus\Text">
-      <UniqueIdentifier>{68c51fd6-7806-43fe-9412-08ecd824b25b}</UniqueIdentifier>
+      <UniqueIdentifier>{225dfa7a-0977-48a9-a410-d06d11a053cf}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\Type">
-      <UniqueIdentifier>{60c43f00-316e-46a2-bc41-192bb82a662d}</UniqueIdentifier>
+      <UniqueIdentifier>{9da4da33-7ec3-4fce-92a2-404d98390352}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\Type\Trigger">
-      <UniqueIdentifier>{f31f7db8-e94c-421a-8e0d-ab36595842ef}</UniqueIdentifier>
+      <UniqueIdentifier>{ccac2ce0-a694-498f-adcf-304c649698e4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Event\Type\Activer">
-      <UniqueIdentifier>{dfeab032-e35f-41df-ba9a-b23d0bb1e842}</UniqueIdentifier>
+      <UniqueIdentifier>{ba0b4b41-0fa3-4cbf-9a71-f6206305630d}</UniqueIdentifier>
     </Filter>
     <Filter Include="EventVariable">
-      <UniqueIdentifier>{29e96c8c-8668-45e8-96ef-86d7063e083a}</UniqueIdentifier>
+      <UniqueIdentifier>{d21db572-81fb-4c4b-b6f5-1f22f721b1af}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

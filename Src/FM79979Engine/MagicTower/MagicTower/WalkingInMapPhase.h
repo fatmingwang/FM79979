@@ -12,7 +12,7 @@ class cWalkingInMapPhase:public cSimplePhase
 	POINT							m_GridSize;
 	cVirtualGamePad					*m_pVirtualGamePad;
 	cMainRoleData					*m_pMainRoleData;
-	cObjectListByName<cStoreyData>	*m_pAllStoreyData;
+	cNamedTypedObjectVector<cStoreyData>	*m_pAllStoreyData;
 	cStoreyData						*m_pCurrentStoreyData;
 	cMapSceneViewRule					*m_pMapSceneRule;
 	//the scene we want to see,it could be scaled
@@ -22,7 +22,7 @@ class cWalkingInMapPhase:public cSimplePhase
 	void	ChangeFloor();
 	GET_SET_DEC(bool,m_bWalkingModeIsFix,IsWalkingModeIsFix,SetWalkingModelToFix);
 public:
-	cWalkingInMapPhase(cMainRoleData*e_pMainRoleData,cObjectListByName<cStoreyData>*e_pAllStoreyData,
+	cWalkingInMapPhase(cMainRoleData*e_pMainRoleData,cNamedTypedObjectVector<cStoreyData>*e_pAllStoreyData,
 		int e_iViewableRow,int e_iViewableColumn,POINT e_GridSize,POINT e_iOffsetMapPosIndex,WCHAR*e_strCurrentStoreyName);
 	~cWalkingInMapPhase();
 	virtual	void	Update(float e_fElpaseTime);

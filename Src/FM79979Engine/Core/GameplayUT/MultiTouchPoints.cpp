@@ -156,7 +156,7 @@ namespace FATMING_CORE
 			{
 				bDoPointsPosHit = false;
 				vCenterPos = Vector2::Zero;
-				for( int i=0;i<l_iSize;++i )
+				for( size_t i=0;i<l_iSize;++i )
 				{
 					int	l_iIndex = TouchPointWorkingIndex[i];
 					vCenterPos.x += TouchPointData[l_iIndex].Pos.x;
@@ -169,7 +169,7 @@ namespace FATMING_CORE
 			}
 			else
 			{
-				for( int i=0;i<l_iSize;++i )
+				for( size_t i=0;i<l_iSize;++i )
 				{
 					int	l_iIndex = TouchPointWorkingIndex[i];
 					if(TouchPointData[l_iIndex].MouseBehavior == eOMB_UP)
@@ -199,7 +199,7 @@ namespace FATMING_CORE
 				Vector2	l_vStepDis = Vector2::Zero;
 				Vector2	l_vTotalDis = Vector2::Zero;
 				bool	l_bSameDirection = true;
-				for(int i = 0; i < l_iSize; i++)
+				for(size_t i = 0; i < l_iSize; i++)
 				{
 					int	l_iIndex = TouchPointWorkingIndex[i];
 					sTouchPointData*l_pTouchPointData = &TouchPointData[l_iIndex];

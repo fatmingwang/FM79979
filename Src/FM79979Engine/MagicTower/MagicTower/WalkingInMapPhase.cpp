@@ -4,7 +4,7 @@
 #include "BattlePhase.h"
 #include "UIInfo.h"
 #include "GameApp.h"
-cWalkingInMapPhase::cWalkingInMapPhase(cMainRoleData*e_pMainRoleData,cObjectListByName<cStoreyData>*e_pAllStoreyData
+cWalkingInMapPhase::cWalkingInMapPhase(cMainRoleData*e_pMainRoleData,cNamedTypedObjectVector<cStoreyData>*e_pAllStoreyData
 									   ,int e_iViewableRow,int e_iViewableColumn,POINT e_GridSize,POINT e_iOffsetMapPosIndex,WCHAR*e_strCurrentStoreyName)
 {
 	m_pMonsterGridBehavior = 0;

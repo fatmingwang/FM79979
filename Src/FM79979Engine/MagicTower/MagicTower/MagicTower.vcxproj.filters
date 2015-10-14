@@ -235,4 +235,9 @@
       <Filter>Resource</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resX">
+      <Filter>Resource</Filter>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

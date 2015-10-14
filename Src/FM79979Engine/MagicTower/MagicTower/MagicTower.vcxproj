@@ -189,6 +189,26 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
+      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FatmingAI\FatmingAI.vcxproj">
+      <Project>{377c8b76-b1e4-4004-83e6-65c42799380e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FMEvent\Event.vcxproj">
+      <Project>{cb79dca3-5f7a-423f-ba3e-01df441c06b1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FMLevelData\FMLevelData.vcxproj">
+      <Project>{446a6d50-5176-4d3c-938b-65e7b41d0873}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

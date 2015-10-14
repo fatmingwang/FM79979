@@ -30,7 +30,8 @@ cMainRoleData::cMainRoleData(TiXmlElement*e_pTiXmlElement):cCharacterBase(e_pTiX
 	assert(m_pImage[eVGPD_LEFT]);
 	assert(m_pImage[eVGPD_RIGHT]);
 	assert(m_pImage[eVGPD_DOWN]);
-	TiXmlElement*l_pElement = ISAXCallback::GetXmlElementByNameFromElement(L"Battle",e_pTiXmlElement);
+	//TiXmlElement*l_pElement = ISAXCallback::GetXmlElementByNameFromElement(L"Battle",e_pTiXmlElement);
+	TiXmlElement*l_pElement = GetXmlElementByNameFromElement(L"Battle",e_pTiXmlElement);
 	if( l_pElement )
 	{
 		const WCHAR*l_strPos = l_pElement->Attribute(L"Pos");

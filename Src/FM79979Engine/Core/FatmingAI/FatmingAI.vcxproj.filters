@@ -10,40 +10,40 @@
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="FAI">
-      <UniqueIdentifier>{876f6acb-59ce-454e-b3fd-7350bbfcf5d4}</UniqueIdentifier>
+      <UniqueIdentifier>{4b75dec0-b601-4010-a9a2-a6d73ac82b9b}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIMachine">
-      <UniqueIdentifier>{62ef5ffd-6a72-4d98-9e5e-aa03836d79f5}</UniqueIdentifier>
+      <UniqueIdentifier>{77cfc062-bad3-4f1b-b105-fe0c5608bc50}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIBehavior">
-      <UniqueIdentifier>{0ba8ba49-5f60-4e0d-af71-6139d69662ee}</UniqueIdentifier>
+      <UniqueIdentifier>{d7491904-df6a-470b-93ff-6b819f1ebb1a}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIBehavior\Animation">
-      <UniqueIdentifier>{08d4d56c-6ea0-4b76-92dc-3e0ec50a96e0}</UniqueIdentifier>
+      <UniqueIdentifier>{ff72d5cb-a50b-4052-89fc-06a49942adfa}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIBehavior\Position">
-      <UniqueIdentifier>{1cacac8a-2ea4-43c7-ad83-90af3371d282}</UniqueIdentifier>
+      <UniqueIdentifier>{0bf59d9d-b67c-4905-a04d-c972ae8ae3bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIBehavior\MultiTask">
-      <UniqueIdentifier>{93655a7a-1f5b-4087-b511-bde0cc685810}</UniqueIdentifier>
+      <UniqueIdentifier>{e3c4bff9-7670-4000-8a1e-2763513221ec}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\AIBehavior\Status">
-      <UniqueIdentifier>{d1d8d9e2-0fc1-44cd-9822-5f6e0e7b966e}</UniqueIdentifier>
+      <UniqueIdentifier>{5e20f5b3-7b9a-4dff-8587-8bb0e1a52b0e}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\Character">
-      <UniqueIdentifier>{475d3506-53a0-4ecf-970b-7ea6743f4296}</UniqueIdentifier>
+      <UniqueIdentifier>{b2fa49d6-471f-4cae-ba22-ec1ff7fe3a83}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\Character\CharacterBehavior">
-      <UniqueIdentifier>{d527a947-d677-410e-9e88-fa50503402dc}</UniqueIdentifier>
+      <UniqueIdentifier>{5115c3c8-2455-4087-922c-c49eaf484788}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\Character\GameAttackTYpe">
-      <UniqueIdentifier>{98001d7b-9dc2-46de-b5e6-2ba19146fc1f}</UniqueIdentifier>
+      <UniqueIdentifier>{b81cde3d-3aec-45a4-b430-0fd7a6f39459}</UniqueIdentifier>
     </Filter>
     <Filter Include="FAI\Collision">
-      <UniqueIdentifier>{6aae87a7-a676-4b6b-9730-07413672e2ae}</UniqueIdentifier>
+      <UniqueIdentifier>{3226b125-2e37-4e00-b410-5df18e9a037a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Parser">
-      <UniqueIdentifier>{5880f0b1-9491-4ceb-a34a-465ae68782d4}</UniqueIdentifier>
+      <UniqueIdentifier>{fce43cc1-3c6b-4bcf-af94-1e801d855a6d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

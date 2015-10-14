@@ -79,22 +79,22 @@ void	sMovingObject::Init(sData e_Data)
 		l_fHeight	= l_fRandValue*l_fHeight;
 		switch( MovingOrientation  )
 		{
-			case eGE_SLIDE_LEFT:
+			case eGestureEnum::eGE_SLIDE_LEFT:
 				vMovingOrientation.x = -Data.fSpeed;
 				l_vShowPos.x = vRestrict.z-l_fWidth;
 				l_vShowPos.y = vRestrict.y;
 				break;
-			case eGE_SLIDE_UP:
+			case eGestureEnum::eGE_SLIDE_UP:
 				vMovingOrientation.y = -Data.fSpeed;
 				l_vShowPos.x = vRestrict.x;
 				l_vShowPos.y = vRestrict.w-l_fHeight;
 				break;
-			case eGE_SLIDE_RIGHT:
+			case eGestureEnum::eGE_SLIDE_RIGHT:
 				vMovingOrientation.x = Data.fSpeed;
 				l_vShowPos.x = vRestrict.x+l_fWidth;
 				l_vShowPos.y = vRestrict.y;
 				break;
-			case eGE_SLIDE_DOWN:
+			case eGestureEnum::eGE_SLIDE_DOWN:
 				vMovingOrientation.y = Data.fSpeed;
 				l_vShowPos.x = vRestrict.x;
 				l_vShowPos.y = vRestrict.y+l_fHeight;
@@ -115,39 +115,39 @@ void	sMovingObject::Update(float e_fElpaseTime)
 		l_vCurrentPos += vMovingOrientation*e_fElpaseTime;
 		switch( MovingOrientation  )
 		{
-			case eGE_SLIDE_LEFT:
+			case eGestureEnum::eGE_SLIDE_LEFT:
 				if( l_vCurrentPos.x <= this->vRestrict.x )
 				{
 					float	l_fOffset = this->vRestrict.x-l_vCurrentPos.x;
 					l_vCurrentPos.x = this->vRestrict.x+l_fOffset;
-					MovingOrientation = eGE_SLIDE_RIGHT;
+					MovingOrientation = eGestureEnum::eGE_SLIDE_RIGHT;
 					vMovingOrientation.x *= -1;
 				}
 				break;
-			case eGE_SLIDE_UP:
+			case eGestureEnum::eGE_SLIDE_UP:
 				if( l_vCurrentPos.y <= this->vRestrict.y )
 				{
 					float	l_fOffset = this->vRestrict.y-l_vCurrentPos.y;
 					l_vCurrentPos.y = this->vRestrict.y+l_fOffset;
-					MovingOrientation = eGE_SLIDE_DOWN;
+					MovingOrientation = eGestureEnum::eGE_SLIDE_DOWN;
 					vMovingOrientation.y *= -1;
 				}
 				break;
-			case eGE_SLIDE_RIGHT:
+			case eGestureEnum::eGE_SLIDE_RIGHT:
 				if( l_vCurrentPos.x >= this->vRestrict.z )
 				{
 					float	l_fOffset = l_vCurrentPos.x-this->vRestrict.z;
 					l_vCurrentPos.x = this->vRestrict.z-l_fOffset;
-					MovingOrientation = eGE_SLIDE_LEFT;
+					MovingOrientation = eGestureEnum::eGE_SLIDE_LEFT;
 					vMovingOrientation.x *= -1;
 				}
 				break;
-			case eGE_SLIDE_DOWN:
+			case eGestureEnum::eGE_SLIDE_DOWN:
 				if( l_vCurrentPos.y >= this->vRestrict.w )
 				{
 					float	l_fOffset = l_vCurrentPos.y-this->vRestrict.w;
 					l_vCurrentPos.x = this->vRestrict.w-l_fOffset;
-					MovingOrientation = eGE_SLIDE_UP;
+					MovingOrientation = eGestureEnum::eGE_SLIDE_UP;
 					vMovingOrientation.y *= -1;
 				}
 				break;

@@ -29,16 +29,71 @@ cMagicTowerApp::~cMagicTowerApp()
 	SAFE_DELETE(m_sp2DCamera);
 	SAFE_DELETE(m_spMainRoleData);
 }
+
+class A
+{
+public:
+	A(){}
+	~A(){}
+};
+
+class B:virtual public A
+{
+public:
+	B(){}
+	~B(){}
+};
+
+class C:virtual public B
+{
+public:
+	C(){}
+	~C(){}
+};
+
+class D:virtual public C
+{
+public:
+	D(){}
+	~D(){}
+};
+
+
+class E:public D
+{
+public :
+	E(){}
+	~E(){}
+};
+
+//cSimplePhase,cClickMouseBehavior,Frame,NamedTypedObject
+
+class	cSceneControl2//:public cClickMouseBehaviorVector<cSimplePhase>,public cSimplePhase
+	:public cSimplePhase
+	//:public cClickMouseBehaviorVector<cSimplePhase>
+{
+public:
+	cSceneControl2(){}
+	cSceneControl2(cSceneControl2*e_pcSceneControl2){}
+	virtual ~cSceneControl2(){}
+	//CLONE_MYSELF(cSceneControl2);
+	void Update(float e_f){}
+	void Render(){}
+	void Init(){}
+};
+
 void	cMagicTowerApp::Init()
 {
 	cGameApp::Init();
 	cNodeISAX	l_cNodeISAX;
 	if(l_cNodeISAX.ParseDataIntoXMLNode(MAIN_ROLE_SETUP_DATA))
 	{
-		m_spMainRoleData = new cMainRoleData(l_cNodeISAX.GetRootElement());
+		//m_spMainRoleData = new cMainRoleData(l_cNodeISAX.GetRootElement());
 	}
-	m_spSceneControl = new cSceneControl();
+	E lllll;
+	cSceneControl2 lll;
 	m_sp2DCamera = new cOrthogonalCamera(Vector2(480,320));
+	m_spSceneControl = new cSceneControl();
 	POINT	l_ViewSize = {480,320};
 	m_sp2DCamera->SetResolution(Vector2(480,320));
 	//m_sp2DCamera->Update(l_ViewSize);

@@ -10,8 +10,8 @@ namespace FATMING_CORE
 	cEventMouseTrigger::cEventMouseTrigger(TiXmlElement*e_pTiXmlElement)
 	{
 		m_fMoveDistance = 0.f;
-		m_eGestureEnum = eGE_MAX;
-		m_eCurrentGestureEnum = eGE_MAX;
+		m_eGestureEnum = eGestureEnum::eGE_MAX;
+		m_eCurrentGestureEnum = eGestureEnum::eGE_MAX;
 		m_vCollisionRange = Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 		if( !e_pTiXmlElement )
 			return;
@@ -43,7 +43,7 @@ namespace FATMING_CORE
 	{
 		m_vCollisionRange = e_pEventTest->m_vCollisionRange;
 		m_eGestureEnum = e_pEventTest->m_eGestureEnum;
-		m_eCurrentGestureEnum = eGE_MAX;
+		m_eCurrentGestureEnum = eGestureEnum::eGE_MAX;
 		m_fMoveDistance = e_pEventTest->m_fMoveDistance;
 	}
 
@@ -54,24 +54,24 @@ namespace FATMING_CORE
 
 	void	cEventMouseTrigger::InternalInit()
 	{
-		m_eCurrentGestureEnum = eGE_MAX;
+		m_eCurrentGestureEnum = eGestureEnum::eGE_MAX;
 	}
 
     void	cEventMouseTrigger::InternalMouseMove(int e_iPosX,int e_iPosY)
 	{
 		if(this->m_eObjectMouseBehavior == eOMB_HORVER)
-			m_eCurrentGestureEnum = eGE_HORVER;
+			m_eCurrentGestureEnum = eGestureEnum::eGE_HORVER;
 	}
 
     void	cEventMouseTrigger::InternalMouseDown(int e_iPosX,int e_iPosY)
 	{
-		m_eCurrentGestureEnum = eGE_CLICK_DOWN;
+		m_eCurrentGestureEnum = eGestureEnum::eGE_CLICK_DOWN;
 	}
 
     void    cEventMouseTrigger::InternalMouseUp(int e_iPosX,int e_iPosY)
 	{
 		if(this->m_eObjectMouseBehavior == eOMB_UP)
-			m_eCurrentGestureEnum = eGE_CLICK_UP;
+			m_eCurrentGestureEnum = eGestureEnum::eGE_CLICK_UP;
 		if( m_fMoveDistance != 0.f )
 		{
 			Vector2	l_vDirection;
@@ -81,16 +81,16 @@ namespace FATMING_CORE
 				if( fabs(l_vDirection.x)>fabs(l_vDirection.y) )
 				{
 					if(l_vDirection.x>0.f)
-						m_eCurrentGestureEnum = eGE_SLIDE_RIGHT;
+						m_eCurrentGestureEnum = eGestureEnum::eGE_SLIDE_RIGHT;
 					else
-						m_eCurrentGestureEnum = eGE_SLIDE_LEFT;
+						m_eCurrentGestureEnum = eGestureEnum::eGE_SLIDE_LEFT;
 				}
 				else
 				{
 					if(l_vDirection.y>0.f)
-						m_eCurrentGestureEnum = eGE_SLIDE_UP;
+						m_eCurrentGestureEnum = eGestureEnum::eGE_SLIDE_UP;
 					else
-						m_eCurrentGestureEnum = eGE_SLIDE_DOWN;
+						m_eCurrentGestureEnum = eGestureEnum::eGE_SLIDE_DOWN;
 				}
 			}
 		}
@@ -99,7 +99,7 @@ namespace FATMING_CORE
 
     void    cEventMouseTrigger::InternalMouseDoubleClickUp(int e_iPosX,int e_iPosY)
 	{
-		m_eCurrentGestureEnum = eGE_DOUBLE_CLICK;
+		m_eCurrentGestureEnum = eGestureEnum::eGE_DOUBLE_CLICK;
 	}
 
 	void	cEventMouseTrigger::InternalUpdate(float e_fElpasedTime)

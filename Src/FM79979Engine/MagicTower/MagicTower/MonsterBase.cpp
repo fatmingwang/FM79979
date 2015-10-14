@@ -37,7 +37,7 @@ void	cMonsterBase::Update(float e_fElpaseTime)
 	UpdateAttackBehavior(e_fElpaseTime);
 	if( l_iCurrentStatusIndex != eMTMS_IDLE )
 	{
-		if( this->GetCurrentWorkingObject()->IsDone() )
+		if( this->GetCurrentWorkingObject()->IsAnimationDone() )
 		{
 			this->SetCurrentWorkingObject(eMTMS_IDLE);
 		}

@@ -68,7 +68,7 @@ void	cBattlePhase::Update(float e_fElpaseTime)
 		{
 			if(m_pMainRoleData->GetCurrentWorkingObjectIndex() != eMTMRS_IDLE)
 			{
-				if( m_pMainRoleData->GetCurrentWorkingObject()->IsDone() )
+				if( m_pMainRoleData->GetCurrentWorkingObject()->IsAnimationDone() )
 				{
 					switch(m_pMainRoleData->GetCurrentWorkingObjectIndex())
 					{

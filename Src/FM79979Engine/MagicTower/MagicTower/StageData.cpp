@@ -17,7 +17,7 @@ cGameData::~cGameData()
 void	cGameData::ProcessLevelData()
 {
 	const WCHAR*l_strFileName = this->m_pCurrentTiXmlElement->Attribute(L"FileName");
-	if(!m_LevelData.ParseWithMyParse( UT::WcharToChar(l_strFileName) ))
+	if(!m_LevelData.ParseWithMyParse( UT::WcharToChar(l_strFileName).c_str() ))
 	{
 		UT::ErrorMsg(l_strFileName,L"parse failed");
 	}
@@ -25,7 +25,7 @@ void	cGameData::ProcessLevelData()
 
 void	cGameData::ProcessViewableSizeData()
 {
-	PARSE_NAME_VALUE_START
+	PARSE_CURRENT_ELEMENT_START
 		COMPARE_NAME("Row")
 		{
 			m_ViewableSize.x = VALUE_TO_INT;

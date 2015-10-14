@@ -11,7 +11,7 @@ class	cSceneControl:public cPhaseManager
 	//virtual	void	InternalRender(){}
 	//virtual	void	InternalUpdate(float e_fElpaseTime){}
 	cGameData							m_GameData;
-	cObjectListByName<cStoreyData>		m_AllStoreyData;;
+	cNamedTypedObjectVector<cStoreyData>		m_AllStoreyData;;
 public:
 	cSceneControl();
 	~cSceneControl();

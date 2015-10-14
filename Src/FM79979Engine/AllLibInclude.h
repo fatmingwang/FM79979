@@ -33,7 +33,7 @@
 #pragma comment(lib, "../../../lib/alut.lib")
 #pragma comment(lib, "../../../lib/glew32.lib")
 //#ifdef _OGG_
-#pragma comment(lib, "../../../lib/ogg.lib")
+//#pragma comment(lib, "../../../lib/ogg.lib")
 //#pragma comment(lib, "../../../lib/vorbis.lib")
 //#endif
 #pragma comment(lib, "opengl32.lib")
@@ -46,7 +46,7 @@
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "Urlmon.lib")
 #ifdef _DEBUG
-	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
+	//#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
 	//#pragma comment(lib, "../../../lib/Debug/Core.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	//#pragma comment(lib, "../../lib/Debug/ogg.lib")

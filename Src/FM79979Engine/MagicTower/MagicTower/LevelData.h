@@ -48,7 +48,7 @@ public:
 };
 
 //=======================
-//cObjectListByName<cGridBehavior> for each layer
+//cNamedTypedObjectVector<cGridBehavior> for each layer
 //=======================
 class	cStoreyData:public cLevelLayerList
 {
