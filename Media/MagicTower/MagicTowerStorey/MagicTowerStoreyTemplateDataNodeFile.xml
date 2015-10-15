@@ -26,17 +26,17 @@
                 <Name />
             </cFAICharacterStatus>
             <cFAIAnimationCharacter>
-                <Status Name="Idle" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Idle" Loop="1">
-                    <MPDI />
+                <Status Name="Idle" >
+			<cMPDI cMPDIList="MagicTower/Image/Monster1.mpdi" cMPDI="Idle" Loop="1" />
                 </Status>
-                <Status Name="Attack" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Attack" Loop="0">
-                    <MPDI />
+                <Status Name="Attack" >
+			<cMPDI cMPDIList="MagicTower/Image/Monster1.mpdi" cMPDI="Attack" Loop="0" />
                 </Status>
-                <Status Name="Hurt" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Hurt" Loop="0">
-                    <MPDI />
+                <Status Name="Hurt" >
+			<cMPDI cMPDIList="MagicTower/Image/Monster1.mpdi" cMPDI="Hurt" Loop="0" />
                 </Status>
-                <Status Name="Died" MPDIList="MagicTower/Image/Monster1.mpdi" MPDI="Died" Loop="0">
-                    <MPDI />
+                <Status Name="Died">
+			<cMPDI cMPDIList="MagicTower/Image/Monster1.mpdi" cMPDI="Died" Loop="0" />
                 </Status>
             </cFAIAnimationCharacter>
         </MonsterNormal>

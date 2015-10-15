@@ -274,8 +274,11 @@ namespace MagicTower {
 			 }
 	private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 			 {
-				 cGameApp::m_svViewPortSize = Vector2((float)splitContainer1->Panel2->Width,(float)splitContainer1->Panel2->Height);
-				 glViewport(0,0,splitContainer1->Panel2->Width,splitContainer1->Panel2->Height);
+				 cGameApp::m_svViewPortSize.x = 0;
+				 cGameApp::m_svViewPortSize.y = 0;
+				 cGameApp::m_svViewPortSize.z = (float)splitContainer1->Panel2->Width;
+				 cGameApp::m_svViewPortSize.w = (float)splitContainer1->Panel2->Height;
+				 //glViewport(0,0,splitContainer1->Panel2->Width,splitContainer1->Panel2->Height);
 				 POINT	l_ViewSize = {splitContainer1->Panel2->Width,splitContainer1->Panel2->Height};
 				 //m_pOrthogonalCamera->Update(l_ViewSize);
 				 if( m_pGameApp )

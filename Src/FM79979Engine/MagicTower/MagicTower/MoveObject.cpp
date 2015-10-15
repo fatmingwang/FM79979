@@ -238,6 +238,7 @@ sTwoMovingObjectController::sLVData	sTwoMovingObjectController::GetLVData(TiXmlE
 		{
 			int	l_iLV = VALUE_TO_INT;
 		}
+		else
 		COMPARE_NAME("CollectEnergyCount")
 		{
 			l_LVData.iCollectEnergy = VALUE_TO_INT;
