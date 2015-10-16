@@ -387,24 +387,31 @@ namespace FATMING_CORE
 
 	std::vector<std::wstring>	GetWStringListByCommaDivide(const wchar_t*e_str)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t*l_TempData = new wchar_t[l_iLength];
+		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		std::vector<std::wstring>	l_List;
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
+		wchar_t*	l_str = wcstok(l_TempData,L", _");
 		while(l_str)
 		{
 			l_List.push_back(l_str);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok(0,L", _");
 		}
+		delete l_TempData;
 		return l_List;	
 	}
 
 	std::vector<std::string>	GetStringListByCommaDivide(const wchar_t*e_str)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t*l_TempData = new wchar_t[l_iLength];
+		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		std::vector<std::string>	l_List;
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
+		wchar_t*	l_str = wcstok(l_TempData,L", _");
 		while(l_str)
 		{
 			l_List.push_back(UT::WcharToChar(l_str));
-			l_str = wcstok(0,L", ");
+			l_str = wcstok(0,L", _");
 		}
 		return l_List;
 	}
