@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingAI", "FatmingAI\Fatm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingCollada", "FatmingCollada\FatmingCollada.vcxproj", "{C713EEAE-EC40-414B-9552-5531B0BC14FA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MUParser", "MUParser\MUParser.vcxproj", "{A3A9A544-CDA5-469D-A793-E3C5080B6F65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -30,6 +32,9 @@ Global
 		Release|Mixed Platforms = Release|Mixed Platforms
 		Release|Tegra-Android = Release|Tegra-Android
 		Release|Win32 = Release|Win32
+		Shipping|Mixed Platforms = Shipping|Mixed Platforms
+		Shipping|Tegra-Android = Shipping|Tegra-Android
+		Shipping|Win32 = Shipping|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
@@ -47,6 +52,11 @@ Global
 		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{1C02AF53-C465-47A4-A314-B3F1FBFC55E2}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
@@ -62,6 +72,11 @@ Global
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{55CA6493-BE7E-4A6A-8457-3F5D8369BDD4}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
@@ -77,6 +92,11 @@ Global
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{7F80DEE8-AA71-43FE-AA2B-B702D3B1FCE0}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
@@ -92,6 +112,11 @@ Global
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{722F0249-0DD9-4E89-9807-877F95A428FC}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{722F0249-0DD9-4E89-9807-877F95A428FC}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{722F0249-0DD9-4E89-9807-877F95A428FC}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{722F0249-0DD9-4E89-9807-877F95A428FC}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{722F0249-0DD9-4E89-9807-877F95A428FC}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{722F0249-0DD9-4E89-9807-877F95A428FC}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
@@ -107,6 +132,11 @@ Global
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{E8EB875D-3F6A-4912-9FA6-C43B3420D27A}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
@@ -122,6 +152,31 @@ Global
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
 		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Shipping|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Shipping|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Shipping|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Shipping|Tegra-Android.Build.0 = Release|Tegra-Android
+		{C713EEAE-EC40-414B-9552-5531B0BC14FA}.Shipping|Win32.ActiveCfg = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Debug|Mixed Platforms.ActiveCfg = Debug|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Debug|Mixed Platforms.Build.0 = Debug|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Debug|Tegra-Android.ActiveCfg = Debug|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Debug|Tegra-Android.Build.0 = Debug|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Debug|Win32.ActiveCfg = Debug|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Profile|Mixed Platforms.ActiveCfg = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Profile|Mixed Platforms.Build.0 = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Profile|Tegra-Android.ActiveCfg = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Profile|Tegra-Android.Build.0 = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Profile|Win32.ActiveCfg = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Release|Mixed Platforms.ActiveCfg = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Release|Mixed Platforms.Build.0 = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Release|Tegra-Android.ActiveCfg = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Release|Tegra-Android.Build.0 = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Release|Win32.ActiveCfg = Release|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Shipping|Mixed Platforms.ActiveCfg = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Shipping|Mixed Platforms.Build.0 = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Shipping|Tegra-Android.ActiveCfg = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Shipping|Tegra-Android.Build.0 = Shipping|Tegra-Android
+		{A3A9A544-CDA5-469D-A793-E3C5080B6F65}.Shipping|Win32.ActiveCfg = Shipping|Tegra-Android
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
