@@ -16,8 +16,8 @@ namespace FATMING_CORE
 		void			AddData(wchar_t*e_strText,cGlyphFontRender*e_pGlyphFontRender,TiXmlElement*e_pSubMPDIElement);
 		void			ChangeData(int e_iIndex,const wchar_t*e_strText);
 		//void			Init();
-		//void			Update(float e_fElpaseTime);
-		//void			Render();
+		void			Update(float e_fElpaseTime){cBehaviorObjectList<cRenderObject>::Update(e_fElpaseTime);}
+		void			Render(){cBehaviorObjectList<cRenderObject>::Render();}
 	};
 //
 }

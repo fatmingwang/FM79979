@@ -667,7 +667,7 @@ EXIT:
     {
 		std::wstring	l_wstring;
 		char	l_str[MAX_PATH];
-		sprintf(l_str,"%ls_mpdi\0",UT::GetFileNameWithoutFullPath(UT::WcharToChar(e_strFileName).c_str()));
+		sprintf(l_str,"%s_mpdi\0",UT::GetFileNameWithoutFullPath(UT::WcharToChar(e_strFileName)).c_str());
 		wchar_t	l_temp[MAX_PATH];
 		CHAR_TO_WCHAR(l_str,l_temp);
 		l_wstring = l_temp;

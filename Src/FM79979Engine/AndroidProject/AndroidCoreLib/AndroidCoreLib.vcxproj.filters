@@ -418,9 +418,6 @@
     <ClCompile Include="..\..\Core\Camera\MouseCamera.cpp">
       <Filter>jni\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.mm">
-      <Filter>jni\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Camera\SimpleCamera.cpp">
       <Filter>jni\Camera</Filter>
     </ClCompile>
@@ -474,12 +471,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\SmartPointer.cpp">
       <Filter>jni\Common\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\TimeUT.mm">
-      <Filter>jni\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Utility.mm">
-      <Filter>jni\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\BinaryFile.cpp">
       <Filter>jni\GamePlayUT\Binary</Filter>
@@ -610,9 +601,6 @@
     <ClCompile Include="..\..\Core\Math\LinerTemplateDataProcess.cpp">
       <Filter>jni\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Network\Network.mm">
-      <Filter>jni\NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Network\SDLnet.c">
       <Filter>jni\NetWork</Filter>
     </ClCompile>
@@ -682,14 +670,8 @@
     <ClCompile Include="..\..\Core\Image\NumeralImage.cpp">
       <Filter>jni\RenderObject\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Image\SimplePrimitive.mm">
-      <Filter>jni\RenderObject\Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Image\FMAnimationRule.cpp">
       <Filter>jni\RenderObject\FManimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Glyph\GlyphReader.mm">
-      <Filter>jni\RenderObject\Font\Glyph</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Glyph\GlyphWriter.cpp">
       <Filter>jni\RenderObject\Font\Glyph</Filter>
@@ -748,9 +730,6 @@
     <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp">
       <Filter>jni\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\SoundManager.mm">
-      <Filter>jni\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\stdafx.cpp">
       <Filter>jni\Source Files</Filter>
     </ClCompile>
@@ -787,9 +766,6 @@
     <ClCompile Include="..\..\Core\XML\StringToStructure.cpp">
       <Filter>jni\XML</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\XML\XmlLoader.mm">
-      <Filter>jni\XML</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c">
       <Filter>jni\Sound\AndroidOpenAL</Filter>
     </ClCompile>
@@ -804,9 +780,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Sound\BasicSound.cpp">
       <Filter>jni\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\Texture.mm">
-      <Filter>jni\RenderObject\Texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Image\jpeg\jpgd.cpp">
       <Filter>jni\RenderObject\Texture\jpeg</Filter>
@@ -852,6 +825,33 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Image\RenderObject.cpp">
       <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\TimeUT.cpp">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Utility.cpp">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\Texture.cpp">
+      <Filter>jni\RenderObject\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\XmlLoader.cpp">
+      <Filter>jni\XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp">
+      <Filter>jni\RenderObject\Font\Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp">
+      <Filter>jni\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\Network.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundManager.cpp">
+      <Filter>jni\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

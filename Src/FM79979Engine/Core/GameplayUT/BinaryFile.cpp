@@ -136,7 +136,7 @@ namespace FATMING_CORE
 		Flush();
 	}
 
-	void cBinaryFile::WriteToFile(char* val)
+	void cBinaryFile::WriteToFile(const char* val)
 	{
 		if( !m_pFile )
 			return;
@@ -155,7 +155,7 @@ namespace FATMING_CORE
 		NvFWrite( data, sizeof(data), 1, m_pFile );
 	}
 
-	void cBinaryFile::WriteToFile(wchar_t* val )
+	void cBinaryFile::WriteToFile(const wchar_t* val )
 	{
 		if( !m_pFile )
 			return;

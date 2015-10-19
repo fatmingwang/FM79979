@@ -342,14 +342,14 @@ namespace ProbabilityStatics
 							l_strCurveFileName += ".txt";
 							l_CurveBinaryFile.Writefile(l_strCurveFileName.c_str(),false,false);
 							SechmaMember_listBox->Items->Add(DNCT::WcharToGcstring(l_pDataAndCurve->GetName()));
-							l_pBinaryFile->WriteToFile(UT::WcharToChar(l_pDataAndCurve->GetName()));
+							l_pBinaryFile->WriteToFile(UT::WcharToChar(l_pDataAndCurve->GetName()).c_str());
 							l_pBinaryFile->WriteToFile(":");
 							for( int j=0;j<l_pDataAndCount->iOriginalCount;++j )
 							{
-								l_CurveBinaryFile.WriteToFile(ValueToString(l_pDataAndCount->pdbOriginalfData[j]));
+								l_CurveBinaryFile.WriteToFile(ValueToString(l_pDataAndCount->pdbOriginalfData[j]).c_str());
 								l_CurveBinaryFile.WriteToFile(",");
 
-								l_pBinaryFile->WriteToFile(ValueToString(l_pDataAndCount->pdbOriginalfData[j]));
+								l_pBinaryFile->WriteToFile(ValueToString(l_pDataAndCount->pdbOriginalfData[j]).c_str());
 								l_pBinaryFile->WriteToFile(",");
 							}
 							l_pBinaryFile->WriteToFile("\n");

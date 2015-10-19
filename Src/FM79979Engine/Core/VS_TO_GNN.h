@@ -2,7 +2,8 @@
 
 #ifndef VS_GO_GNN
 #define VS_GO_GNN
-#include "wchar_t.h"
+#include <stdio.h>
+//#include "wchar_t.h"
 //http://source.winehq.org/source/dlls/ntdll/wcstring.c
 /*********************************************************************
 *      _wtol    (NTDLL.@)

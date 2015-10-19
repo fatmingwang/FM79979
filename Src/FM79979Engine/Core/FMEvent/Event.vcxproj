@@ -85,12 +85,12 @@
     <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\..\Intermedia\Debug\$(ProjectName)\</OutDir>
-    <IntDir>..\..\..\..\Intermedia\Debug\$(ProjectName)\</IntDir>
+    <OutDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\..\Intermedia\Release\FMEvent\</OutDir>
-    <IntDir>..\..\..\..\Intermedia\Release\FMEvent\</IntDir>
+    <OutDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)</OutDir>
+    <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RamdiskDebug|Win32'">
     <OutDir>E:\</OutDir>

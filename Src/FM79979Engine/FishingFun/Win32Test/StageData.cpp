@@ -69,7 +69,7 @@ void	cHook::Update(float e_fElpaseTime,cOrthogonalCamera*e_pOrthogonalCamera)
 		if(m_pHookImage)
 		{
 			cBaseImage*l_pImage = (cBaseImage*)m_pHookImage;
-			l_fOffset = (float)*l_pImage->GetWidth();
+			l_fOffset = l_pImage->GetWidth();
 		}
 		m_vMovingPos.x += m_fMovingSpeed;
 		if( m_vMovingPos.x+l_fOffset > e_pOrthogonalCamera->GetViewRect().z )
@@ -95,7 +95,7 @@ void	cHook::Update(float e_fElpaseTime,cOrthogonalCamera*e_pOrthogonalCamera)
 			if(m_pHookImage)
 			{
 				cBaseImage*l_pImage = (cBaseImage*)m_pHookImage;
-				l_fOffset = (float)*l_pImage->GetWidth();
+				l_fOffset = (float)l_pImage->GetWidth();
 			}
 			m_vMovingPos.x += l_fMoveSpeed;
 			if( m_vMovingPos.x+l_fOffset > e_pOrthogonalCamera->GetViewRect().z )

@@ -637,7 +637,7 @@ namespace	FATMING_CORE
 //
 //=========================
 	template <class T>
-	int		cLinerDataProcessor<T>::GetClosetPointIndex(T e_vComparePoint,float e_fScanDis = 20.f)
+	int		cLinerDataProcessor<T>::GetClosetPointIndex(T e_vComparePoint,float e_fScanDis)
 	{
 		return GetClosestPointIndex(e_vComparePoint,&this->m_LinerDataVector,e_fScanDis);
 	}
@@ -645,7 +645,7 @@ namespace	FATMING_CORE
 //
 //=========================
 	template <class T>
-	T				cLinerDataProcessor<T>::GetCurveCenter(float*e_pfRightDownToLeftUpperLength = 0)
+	T				cLinerDataProcessor<T>::GetCurveCenter(float*e_pfRightDownToLeftUpperLength)
 	{
 		return UT::GetCurveCenter(&this->m_LinerDataVector,e_pfRightDownToLeftUpperLength);
 	}
@@ -766,7 +766,7 @@ namespace	FATMING_CORE
 //
 //=========================
 	template <class T>
-	void	cLinerDataProcessor<T>::DebugRender(bool e_bRenderPoint = false,bool e_bRenderIndex = false,Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity)
+	void	cLinerDataProcessor<T>::DebugRender(bool e_bRenderPoint,bool e_bRenderIndex,Vector4 e_vColor,cMatrix44 e_mat)
 	{
 		if( !m_pCurrentLinerDataVector )
 			return;

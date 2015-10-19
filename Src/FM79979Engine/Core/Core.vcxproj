@@ -138,13 +138,13 @@
     <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\lib\Debug\</OutDir>
-    <IntDir>..\..\..\Intermedia\Debug\Core\</IntDir>
+    <OutDir>..\..\lib\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\lib\Release\</OutDir>
-    <IntDir>..\..\..\Intermedia\Release\Core\</IntDir>
+    <OutDir>..\..\lib\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
     <EnableManagedIncrementalBuild>true</EnableManagedIncrementalBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
@@ -285,6 +285,9 @@
   <ItemGroup>
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="Glyph\GlyphReader.cpp" />
+    <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
+    <ClCompile Include="Image\MPDINode.cpp" />
+    <ClCompile Include="Image\RenderNode.cpp" />
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
@@ -418,6 +421,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
+    <ClInclude Include="Image\FMTimelineAnimationObject.h" />
+    <ClInclude Include="Image\MPDINode.h" />
+    <ClInclude Include="Image\RenderNode.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="AllImageInclude.h" />
     <ClInclude Include="Image\AnimationParser.h" />

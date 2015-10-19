@@ -62,4 +62,8 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TreeViewToXMLNode.resx" />
+    <EmbeddedResource Include="XMLForm.resX" />
+  </ItemGroup>
 </Project>

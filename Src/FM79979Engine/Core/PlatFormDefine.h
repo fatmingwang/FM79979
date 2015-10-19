@@ -25,12 +25,12 @@
 	#pragma GCC diagnostic ignored "-Wunused-variable"
 	#pragma GCC diagnostic ignored "-Wwrite-strings"
     //windows type
-	#define const				const
-    #define void void
-    typedef wchar_t wchar_t;    // wc,   16-bit UNICODE character
+	#define CONST				const
+    #define VOID void
+    typedef wchar_t WCHAR;    // wc,   16-bit UNICODE character
     typedef int                 INT;
     typedef unsigned int        UINT;
-	typedef unsigned long       unsigned long;
+	typedef unsigned long       DWORD;
     typedef unsigned char       BYTE;
     typedef unsigned short      WORD;
     typedef float               FLOAT;

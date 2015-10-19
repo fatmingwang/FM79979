@@ -113,6 +113,16 @@ namespace FATMING_CORE
 	#define	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(Element)Element = Element->FirstChildElement();while(Element){
 	#define FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(Element) Element = Element->NextSiblingElement();}
 
+
+	inline	float	ElementToFloat(TiXmlElement*e_pElement,const WCHAR*e_strAttributeName)
+	{
+		const wchar_t*l_strAttribute = e_pElement->Attribute(e_strAttributeName);
+		if( l_strAttribute )return GetFloat(l_strAttribute);
+		UT::ErrorMsg(e_strAttributeName,L"this attribute is not exists!");
+		return -1.f;
+	}
+
+
 #ifdef DEBUG
 #define	ELEMENT_VALUE_ASSERT_CHECK(Element,CompareValue){const wchar_t*l_strValue__79979 = Element->Value();if( wcscmp(CompareValue,l_strValue__79979) )assert(0&&"element value is not match");}
 #else

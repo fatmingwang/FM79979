@@ -105,7 +105,7 @@ void	cLibraryImages::Parseimage_init_from(TiXmlElement*e_pTiXmlElement)
 	//const WCHAR*l_strName = 0;
 	//const WCHAR*l_strValue = 0;
 	const WCHAR*l_strText = e_pTiXmlElement->GetText();
-	sprintf(m_pCurrentLibraryImages->strFileName,"%s%s\0",m_strDirectory,UT::GetFileNameWithoutFullPath(UT::WcharToChar(l_strText),false));
+	sprintf(m_pCurrentLibraryImages->strFileName,"%s%s\0",m_strDirectory,UT::GetFileNameWithoutFullPath(UT::WcharToChar(l_strText),false).c_str());
 
 	if( g_strParsingDataList )
 	{

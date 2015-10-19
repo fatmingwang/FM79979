@@ -20,7 +20,7 @@ cFishBehavior::cFishBehavior(const char*e_strFileName,cNamedTypedObjectVector<cC
 	m_pAnimationMesh = 0;
 	m_bStunningable = true;
 	m_eFishBehavior = eFB_NONE;
-	this->SetName(UT::GetFileNameWithoutFullPath(e_strFileName));
+	this->SetName(UT::GetFileNameWithoutFullPath(e_strFileName).c_str());
 	cNodeISAX	l_File;
 	if(l_File.ParseDataIntoXMLNode(e_strFileName))
 	{
@@ -87,7 +87,7 @@ void	cFishBehavior::ProcessDaeModelData(TiXmlElement*e_pElement)
 				Vector4	l_vViewRect = m_pAnimationMesh->Get2DCollisionRect();
 				Vector2	l_vEdge(l_vViewRect.Width(),l_vViewRect.Height());
 				sSphere	l_Sphere;
-				l_Sphere.Radius = l_vEdge.Length()/2;
+				l_Sphere.fRadius = l_vEdge.Length()/2;
 				l_Sphere.vCenter = Vector3(l_vViewRect.Width()/2+l_vViewRect.x,l_vViewRect.Height()/2+l_vViewRect.y,0);		
 				m_pAnimationMesh->SetSphere(l_Sphere);
 			}
@@ -110,7 +110,7 @@ void	cFishBehavior::ProcessCollisionData(TiXmlElement*e_pElement)
 			{
 				sSphere	l_Sphere = l_pMesh->GetSphere();
 				SAFE_DELETE(m_pCollideShape);
-				m_pCollideShape = new cbtSphereShape(l_Sphere.Radius,l_Sphere.vCenter);
+				m_pCollideShape = new cbtSphereShape(l_Sphere.fRadius,l_Sphere.vCenter);
 			}
 		}
 	}
@@ -401,7 +401,7 @@ void	cFishBehavior::GenerateHorizontalPath(float e_fWidth,float e_fHeight)
 {
 	if( !m_pAnimationMesh )
 		return;
-	float	l_fRadius = m_pAnimationMesh->GetSphere().Radius;
+	float	l_fRadius = m_pAnimationMesh->GetSphere().fRadius;
 	float	l_fTime = (l_fRadius+e_fWidth)/this->m_fSpeed;
 	m_Path.Destroy();
 	m_Path.AddPoint(Vector3(-e_fWidth,e_fHeight,0),0);

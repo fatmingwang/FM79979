@@ -65,13 +65,13 @@
     <_ProjectFileVersion>11.0.61030.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\..\..\lib\</OutDir>
-    <IntDir>..\..\..\..\..\Intermedia\Debug\ogg\</IntDir>
+    <OutDir>..\..\..\..\lib\$(Configuration)</OutDir>
+    <IntDir>..\..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\..\..\lib\</OutDir>
-    <IntDir>..\..\..\..\..\Intermedia\Release\ogg\</IntDir>
+    <OutDir>..\..\..\..\lib\$(Configuration)</OutDir>
+    <IntDir>..\..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
