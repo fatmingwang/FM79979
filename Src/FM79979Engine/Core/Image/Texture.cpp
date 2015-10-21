@@ -456,7 +456,7 @@ namespace FATMING_CORE
 #endif
     }
 
-	const wchar_t*     cTexture::TypeID( L"cTexture" );
+	TYPDE_DEFINE_MARCO(cTexture);
 	//===============
 	//
 	//===============

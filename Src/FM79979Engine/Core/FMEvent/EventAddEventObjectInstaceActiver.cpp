@@ -4,7 +4,7 @@
 #include "EventAddEventObjectInstaceActiver.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventAddEventObjectInstaceActiver::TypeID( L"cEventAddEventObjectInstaceActiver" );
+	TYPDE_DEFINE_MARCO(cEventAddEventObjectInstaceActiver);
 	cEventAddEventObjectInstaceActiver::cEventAddEventObjectInstaceActiver(TiXmlElement*e_pTiXmlElement)
 	{
 		ELEMENT_VALUE_ASSERT_CHECK(e_pTiXmlElement,cEventAddEventObjectInstaceActiver::TypeID)

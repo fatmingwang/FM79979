@@ -14,8 +14,10 @@ namespace FATMING_CORE
 		bool				m_bSimulate2Touch;
 		Vector2				m_vCenterPos;
 		Vector2				m_vGameMousePos;
+		//avoid zoom too fast
+		float				m_fSkipGestureTime;
 	public:
-		cCameraZoomFunction();
+		cCameraZoomFunction(const char*e_strTestBGImageName = nullptr);
 		~cCameraZoomFunction();
 		void		Update(float e_fElpaseTime);
 		void		Render();

@@ -31,12 +31,15 @@ namespace MagicTower {
 			splitContainer1->Panel2->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			splitContainer1->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pGameApp = new cMagicTowerApp((HWND)splitContainer1->Panel2->Handle.ToPointer(),Vector2(IPHONE_5_RESOLUTION_HEIGHT,IPHONE_5_RESOLUTION_WIDTH));
+			//m_pGameApp = new cMagicTowerApp((HWND)splitContainer1->Panel2->Handle.ToPointer(),Vector2(1080,1920));
 			m_pGameApp->Init();
 			m_pOrthogonalCamera = cMagicTowerApp::m_sp2DCamera;
 			if( m_pOrthogonalCamera )
 			{
-				m_fResolutionWidth = 960;
-				m_fResolutionHeight = 480.f;
+				//m_fResolutionWidth = 480;
+				//m_fResolutionHeight = 960.f;
+				//m_fResolutionWidth = 1080;
+				//m_fResolutionHeight = 1920.f;
 				m_pOrthogonalCamera->SetResolution(Vector2(m_fResolutionWidth,m_fResolutionHeight));
 				m_pOrthogonalCamera->Reset();
 			}
@@ -248,8 +251,8 @@ namespace MagicTower {
 	private: System::Void MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
 				 splitContainer1->Panel2->Focus();
-				 if( m_pOrthogonalCamera )
-					CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
+				 //if( m_pOrthogonalCamera )
+					//CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
 				 //m_pGameApp->MouseUp((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y);
 				 if( m_pGameApp )
 					m_pGameApp->MouseUp(e->X,e->Y);
@@ -257,8 +260,8 @@ namespace MagicTower {
 	private: System::Void MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
 				 splitContainer1->Panel2->Focus();
-				 if( m_pOrthogonalCamera )
-					CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
+				 //if( m_pOrthogonalCamera )
+					//CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
 				 //m_pGameApp->MouseDown((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y);
 				 if( m_pGameApp )
 					m_pGameApp->MouseDown(e->X,e->Y);
@@ -266,8 +269,8 @@ namespace MagicTower {
 	private: System::Void MyMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
 				 splitContainer1->Panel2->Focus();
-				 if( m_pOrthogonalCamera )
-					CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
+				 //if( m_pOrthogonalCamera )
+					//CameraUpdate(e,splitContainer1->Panel2,m_pOrthogonalCamera);
 				//m_pGameApp->MouseMove((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y);
 				if( m_pGameApp )
 					m_pGameApp->MouseMove(e->X,e->Y);

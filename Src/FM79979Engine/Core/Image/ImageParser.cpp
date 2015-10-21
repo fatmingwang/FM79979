@@ -6,9 +6,8 @@
 #include "PuzzleImage.h"
 namespace FATMING_CORE
 {
-	//const wchar_t*	cImageParser::TypeID(L"cImageParser");
+	TYPDE_DEFINE_MARCO(cImageParser);
 	const char*				cImageParser::ExtensionNameID( ".pi" );
-	const wchar_t*			cImageParser::TypeID( L"cImageParser" );
     bool					g_bImageLoaderForFetchPixelData	= false;
 	//sometimes we only need to PI data but no pixels data
 	bool    g_bSkipImageLoad = false;

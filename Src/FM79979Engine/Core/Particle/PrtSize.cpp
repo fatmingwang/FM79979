@@ -3,8 +3,9 @@
 #include "PrtSize.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtSizeActBlending::TypeID( L"cPrtSizeActBlending" );
-	const wchar_t*         cPrtSizeInitSetSize::TypeID( L"cPrtSizeInitSetSize" );
+	TYPDE_DEFINE_MARCO(cPrtSizeActBlending);
+	TYPDE_DEFINE_MARCO(cPrtSizeInitSetSize);
+
 
 	char*	cPrtSizeInitSetSize::UsageExplanation =
 	{

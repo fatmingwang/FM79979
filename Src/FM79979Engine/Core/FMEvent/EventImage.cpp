@@ -4,7 +4,7 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-    const wchar_t*         cEventImage::TypeID( L"cEventImage" );
+	TYPDE_DEFINE_MARCO(cEventImage);
     cEventImage::cEventImage(Vector3 e_vPos,Vector2 e_vSize,cBaseImage*e_pImage):cEventObject(eEOT_IMAGE,e_vPos,e_vSize)
     {
         m_pImage = e_pImage;

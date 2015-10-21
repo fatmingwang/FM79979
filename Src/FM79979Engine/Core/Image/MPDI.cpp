@@ -19,8 +19,10 @@ namespace FATMING_CORE
 {
 	char	g_strForMPDIString[MAX_PATH];
 	wchar_t	g_strForMPDIStringW[MAX_PATH];
-	const wchar_t*     cMultiPathDynamicImage::TypeID( L"cMPDI" );
-	const wchar_t*     cMPDIList::TypeID( L"cMPDIList" );
+
+	TYPDE_DEFINE_MARCO(cMPDIList);
+	TYPDE_DEFINE_MARCO(cMPDI);
+
 	bool	cMPDIList::m_b3DCameraView = false;
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMulti_PI_Image*e_pMulti_PI_Image):cMulti_PI_Image(e_pMulti_PI_Image)
 	{

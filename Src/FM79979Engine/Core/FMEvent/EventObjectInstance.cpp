@@ -4,8 +4,8 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-	const wchar_t*     cEventObjectInstance::TypeID( L"cEventObjectInstance" );
-	const wchar_t*     cEventObjectStatus::TypeID( L"cEventObjectStatus" );
+	TYPDE_DEFINE_MARCO(cEventObjectInstance);
+	TYPDE_DEFINE_MARCO(cEventObjectStatus);
 
 	cEventObjectStatus::cEventObjectStatus()
 	{

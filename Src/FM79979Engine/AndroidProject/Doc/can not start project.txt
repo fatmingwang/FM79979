@@ -1,0 +1,5 @@
+disable fast deploy
+
+https://devtalk.nvidia.com/default/topic/878488/deploy-for-debugging-failing-with-error-index-was-out-of-range-must-be-non-negative-and-less-than-/
+
+Disable fast deploy.

@@ -6,7 +6,7 @@
 #include "ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cSliderBar::TypeID( L"cSliderBar" );
+	TYPDE_DEFINE_MARCO(cSliderBar);
 
 	cSliderBar::cSliderBar(Vector3	e_vPos,cBaseImage*e_pBar,cBaseImage*e_pSlider,eOrientation e_eOrientation)
 	{

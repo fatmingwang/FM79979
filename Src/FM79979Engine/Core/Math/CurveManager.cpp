@@ -5,8 +5,9 @@
 #include "../GLSL/Shader.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cCurveManager::TypeID( L"cCurveManager" );
+	TYPDE_DEFINE_MARCO(cCurveManager);
 	const char*cCurveManager::ExtensionNameID( ".path" );
+	
 
 	//W axis won't be transited
 	Vector3	SwapPosAsAxisView(Vector3 e_vPos,MyMath::AXIS e_Axis)

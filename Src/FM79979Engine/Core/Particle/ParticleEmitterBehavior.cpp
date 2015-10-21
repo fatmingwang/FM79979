@@ -3,7 +3,7 @@
 #include "ParticleEmitterBehavior.h"
 namespace FATMING_CORE
 {	
-	const wchar_t*         cParticleEmiterWithShowPosition::TypeID( L"cParticleEmiterWithShowPosition" );
+	TYPDE_DEFINE_MARCO(cParticleEmiterWithShowPosition);
 	cParticleEmiterWithShowPosition::cParticleEmiterWithShowPosition(wchar_t*e_strName)
 	{
 		SetName(e_strName);

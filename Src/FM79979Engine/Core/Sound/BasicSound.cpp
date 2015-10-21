@@ -6,7 +6,7 @@
 #include "../GamePlayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cBasicSound::TypeID( L"cBasicSound" );
+	TYPDE_DEFINE_MARCO(cBasicSound);
 
 	ALuint	cBasicSound::m_suiTotalSoundIndex = 0;		//how many sound we have created
 	cBasicSound::cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming):cSmartObject(e_pNamedTypedObject)

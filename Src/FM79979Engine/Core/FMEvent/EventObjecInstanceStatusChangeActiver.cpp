@@ -6,7 +6,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventObjectInstanceStatusChangeActiver::TypeID( L"cEventObjectInstanceStatusChangeActiver" );
+	TYPDE_DEFINE_MARCO(cEventObjectInstanceStatusChangeActiver);
 	cEventObjectInstanceStatusChangeActiver::cEventObjectInstanceStatusChangeActiver(TiXmlElement*e_pTiXmlElement)
 	{
 		m_pstrStatusName = 0;

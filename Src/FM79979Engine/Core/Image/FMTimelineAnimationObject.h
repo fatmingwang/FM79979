@@ -30,7 +30,7 @@ namespace FATMING_CORE
 	    int				m_iPlayCount;
 		int				m_iCurrentPlayCount;
 	    //===================================
-		void*			m_pUserData;
+		char*			m_pUserData;
 		virtual	void	InternalUpdateByGlobalTime(float e_fGlobalTime) = 0;
     public:
 	    cFMTimelineAnimationObject();

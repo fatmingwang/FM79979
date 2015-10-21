@@ -4,7 +4,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*         cMPDIForEditor::TypeID( L"cMPDIForEditor" );
+	TYPDE_DEFINE_MARCO(cMPDIForEditor);
 	const char*cMPDIForEditor::ExtensionNameID( ".fat" );
 
 	cMPDIForEditor::cMPDIForEditor(cMultiPathDynamicImage*e_pMultiPathDynamicImage):cMultiPathDynamicImage(e_pMultiPathDynamicImage)

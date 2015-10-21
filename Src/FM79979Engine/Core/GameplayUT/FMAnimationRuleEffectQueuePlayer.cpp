@@ -15,7 +15,7 @@ namespace FATMING_CORE
 	//	<ObjectNameAndTime Time="" Type="Particle" PrtFile="aaxx.prt" Emitter="" />
 	//</cFMARQueuePlayer>
 
-	const wchar_t*         cFMARQueuePlayer::TypeID( L"cFMARQueuePlayer" );
+	TYPDE_DEFINE_MARCO(cFMARQueuePlayer);
 	cFMARQueuePlayer::cFMARQueuePlayer(TiXmlElement*e_pElement)
 	{
 		TiXmlElement*l_pElement = e_pElement;

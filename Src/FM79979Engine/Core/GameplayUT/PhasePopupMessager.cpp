@@ -26,7 +26,7 @@ namespace FATMING_CORE
 	//<Messenger ButtonName="" NewPhaseName="" InitNewPhase="" DestroyOldPhase=""/>ButtonName will search all
 	//<Messenger ButtonName="" NewPhaseName="" InitNewPhase="" DestroyOldPhase=""/>
 	//</cPhasePopUpMessager>
-	const wchar_t*     cPhasePopUpMessager::TypeID( L"cPhasePopUpMessager" );
+	TYPDE_DEFINE_MARCO(cPhasePopUpMessager);
 	cPhasePopUpMessager::cPhasePopUpMessager()
 	{
 		m_pText = 0;

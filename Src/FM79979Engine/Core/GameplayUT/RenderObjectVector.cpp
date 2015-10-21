@@ -7,7 +7,7 @@
 #include "GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cRenderObjectVector::TypeID( L"cRenderObjectVector");
+	TYPDE_DEFINE_MARCO(cRenderObjectVector);
 
 	cRenderObjectVector::cRenderObjectVector()
 	{

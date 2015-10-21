@@ -5,7 +5,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*     cCameraAnimation::TypeID( L"cCameraAnimation" );
+	TYPDE_DEFINE_MARCO(cCameraAnimation);
 	cCameraAnimation::cCameraAnimation()
 	{
 		m_eProjectionType = Projection::Orthographic;

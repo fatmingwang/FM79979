@@ -4,7 +4,7 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-    const wchar_t*         cEventMPDI::TypeID( L"cEventMPDI" );
+	TYPDE_DEFINE_MARCO(cEventMPDI);
     cEventMPDI::cEventMPDI(Vector3 e_vPos,cMultiPathDynamicImage*e_pMPDI,bool e_bClickToPlay,float e_fScale,bool e_bLoop):cEventObject(eEOT_MPDI,e_vPos)
     {
         m_pMPDI = new cMultiPathDynamicImage(e_pMPDI);

@@ -10,7 +10,7 @@
 namespace FATMING_CORE
 {
 	const char*				cAnimationParser::ExtensionNameID( ".mpdi" );
-	const wchar_t*			cAnimationParser::TypeID( L"cAnimationParser" );
+	TYPDE_DEFINE_MARCO(cAnimationParser);
 	cAnimationParser::cAnimationParser():ISAXCallback(true)
 	{
 		m_fMPDIVersion = 0.f;

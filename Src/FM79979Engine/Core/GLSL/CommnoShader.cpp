@@ -39,15 +39,15 @@ char*g_strShaderAttribution[TOTAL_FVF] = {"VSPosition",		//0
 											"VSTexcoord1"};			//8
 int		g_iFVF_DataSize[TOTAL_FVF] = {
 #ifndef IOS
-										g_iFVF_DataStride[0]*sizeof(float),
-										g_iFVF_DataStride[1]*sizeof(float),
-										g_iFVF_DataStride[2]*sizeof(float),
-										g_iFVF_DataStride[3]*sizeof(float),
-										g_iFVF_DataStride[4]*sizeof(float),
-										g_iFVF_DataStride[5]*sizeof(float),
-										g_iFVF_DataStride[6]*sizeof(unsigned char),
-										g_iFVF_DataStride[7]*sizeof(float),
-										g_iFVF_DataStride[8]*sizeof(float),
+										(int)(g_iFVF_DataStride[0]*sizeof(float)),
+										(int)(g_iFVF_DataStride[1]*sizeof(float)),
+										(int)(g_iFVF_DataStride[2]*sizeof(float)),
+										(int)(g_iFVF_DataStride[3]*sizeof(float)),
+										(int)(g_iFVF_DataStride[4]*sizeof(float)),
+										(int)(g_iFVF_DataStride[5]*sizeof(float)),
+										(int)(g_iFVF_DataStride[6]*sizeof(unsigned char)),
+										(int)(g_iFVF_DataStride[7]*sizeof(float)),
+										(int)(g_iFVF_DataStride[8]*sizeof(float)),
 #else
 	g_iFVF_DataStride[0]*4,
 	g_iFVF_DataStride[1]*4,
@@ -356,7 +356,7 @@ namespace FATMING_CORE
     attribute	vec4	VSInflunceBoneIndices;				\
 	uniform		mat4	matVP;								\
 	uniform		mat4	matW;								\
-	uniform		mat4	matBones[64];						\
+	uniform		mat4	matBones[32];						\
 	varying		vec2	PSTexcoord;							\
 	varying		vec3	PSNormal;							\
 	void main()												\

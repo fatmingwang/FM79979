@@ -4,8 +4,6 @@
 #include "../GamePlayUT/GameApp.h"
 
 
-//const wchar_t*         Frame::TypeID( L"Frame" );
-
 const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 
 

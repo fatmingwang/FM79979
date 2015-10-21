@@ -39,7 +39,8 @@ using namespace std;
 namespace FATMING_CORE
 {
 	cGLSLProgram*g_pCurrentUsingGLSLProgram = 0;
-	const wchar_t*         cUniformManager::TypeID( L"cUniformManager" );
+
+	TYPDE_DEFINE_MARCO(cUniformManager);
 	//=================================================================================================================================
 	///
 	/// Constructor

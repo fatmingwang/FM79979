@@ -4,7 +4,7 @@
 #include "EventVariableCheckYesAndNoActiver.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventVariableCheckYesAndNoActiver::TypeID( L"cEventVariableCheckYesAndNoActiver" );
+	TYPDE_DEFINE_MARCO(cEventVariableCheckYesAndNoActiver);
 
 	cEventVariableCheckYesAndNoActiver::cEventVariableCheckYesAndNoActiver(TiXmlElement*e_pTiXmlElement)
 	{

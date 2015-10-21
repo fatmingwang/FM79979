@@ -4,8 +4,8 @@
 #include "EventManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventMouseTrigger::TypeID( L"cEventMouseTrigger" );
-	const wchar_t*         cEventObjectMouseUpDectet::TypeID( L"cEventObjectMouseUpDectet" );
+	TYPDE_DEFINE_MARCO(cEventMouseTrigger);
+	TYPDE_DEFINE_MARCO(cEventObjectMouseUpDectet);
 
 	cEventMouseTrigger::cEventMouseTrigger(TiXmlElement*e_pTiXmlElement)
 	{

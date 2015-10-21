@@ -3,8 +3,8 @@
 #include "PrtRotate.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtRotateActRotate::TypeID( L"cPrtRotateActRotate" );
-	const wchar_t*         cPrtRotateInitRotate::TypeID( L"cPrtRotateInitRotate" );
+	TYPDE_DEFINE_MARCO(cPrtRotateActRotate);
+	TYPDE_DEFINE_MARCO(cPrtRotateInitRotate);
 
 	char*	cPrtRotateActRotate::UsageExplanation =
 	{

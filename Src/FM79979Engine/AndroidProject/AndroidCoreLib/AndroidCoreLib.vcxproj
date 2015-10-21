@@ -41,7 +41,12 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
@@ -89,8 +94,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
+    <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp" />
+    <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
+    <ClCompile Include="..\..\Core\Image\RenderNode.cpp" />
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
     <ClCompile Include="..\..\Core\Network\Network.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundManager.cpp" />
     <ClCompile Include="..\..\Core\XML\XmlLoader.cpp" />
@@ -360,6 +370,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\AssembleImageButton.h" />
     <ClInclude Include="..\..\Core\GameplayUT\AtgInput.h" />
     <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h" />
     <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h" />
@@ -398,6 +409,7 @@
     <ClInclude Include="..\..\Core\Image\BaseUVImageData.h" />
     <ClInclude Include="..\..\Core\Image\BinaryToTexture.h" />
     <ClInclude Include="..\..\Core\Image\FMAnimationRule.h" />
+    <ClInclude Include="..\..\Core\Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="..\..\Core\Image\FrameBuffer.h" />
     <ClInclude Include="..\..\Core\Image\GlyphFontRender.h" />
     <ClInclude Include="..\..\Core\Image\ImageParser.h" />
@@ -407,9 +419,11 @@
     <ClInclude Include="..\..\Core\Image\MPDI.h" />
     <ClInclude Include="..\..\Core\Image\MPDIDataParse.h" />
     <ClInclude Include="..\..\Core\Image\MPDIForEditor.h" />
+    <ClInclude Include="..\..\Core\Image\MPDINode.h" />
     <ClInclude Include="..\..\Core\Image\NumeralImage.h" />
     <ClInclude Include="..\..\Core\Image\pngLoader.h" />
     <ClInclude Include="..\..\Core\Image\PuzzleImage.h" />
+    <ClInclude Include="..\..\Core\Image\RenderNode.h" />
     <ClInclude Include="..\..\Core\Image\RenderObject.h" />
     <ClInclude Include="..\..\Core\Image\SimplePrimitive.h" />
     <ClInclude Include="..\..\Core\Image\SubMPDI.h" />
@@ -427,6 +441,7 @@
     <ClInclude Include="..\..\Core\Math\Frame.h" />
     <ClInclude Include="..\..\Core\Math\Line.h" />
     <ClInclude Include="..\..\Core\Math\LinerTemplateDataProcess.h" />
+    <ClInclude Include="..\..\Core\Math\MathFormulaXML.h" />
     <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h" />
     <ClInclude Include="..\..\Core\Math\MathUtility.h" />
     <ClInclude Include="..\..\Core\Math\Matrix33.h" />

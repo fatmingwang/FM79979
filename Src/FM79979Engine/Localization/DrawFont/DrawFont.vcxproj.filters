@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{8fcf2554-037a-47e1-be4c-f0b3e1807801}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{863642ec-62c4-4b53-9d79-22c930bd7f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataNode">
+      <UniqueIdentifier>{79444983-faa2-497a-b7e0-f7e19eb30fc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zip">
+      <UniqueIdentifier>{26e17a7a-35f6-4982-aa37-faa3681aa75e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Glyph">
+      <UniqueIdentifier>{cb749ff4-2b79-4471-83de-f15437482acf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EDitText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShowFontPic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextEditorLoad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeSearchForm.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\DotNetCommonTools.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\AtgNamedTypedObject.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\AtgXmlParser.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\AtgXmlWriter.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="XML\TreeLoad.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeNodeInfo.cpp">
+      <Filter>DataNode</Filter>
+    </ClCompile>
+    <ClCompile Include="Zip\EndianSwitch.cpp">
+      <Filter>Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="Zip\ZipFile.cpp">
+      <Filter>Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="GlyphReader.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="GlyphWriter.cpp">
+      <Filter>Glyph</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CommonDefine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EditText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Form1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeFile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeSearchForm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShowFontPic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextEditor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextEditorLoad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\DotNetCommonTools.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\AtgNamedTypedObject.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\AtgXmlParser.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\AtgXmlWriter.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\TreeLoad.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeNodeInfo.h">
+      <Filter>DataNode</Filter>
+    </ClInclude>
+    <ClInclude Include="Zip\EndianSwitch.h">
+      <Filter>Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="Zip\ZipFile.h">
+      <Filter>Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="GlyphReader.h">
+      <Filter>Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="GlyphWriter.h">
+      <Filter>Glyph</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+</Project>

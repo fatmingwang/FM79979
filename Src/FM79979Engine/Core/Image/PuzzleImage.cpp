@@ -6,8 +6,8 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cPuzzleImage::TypeID( L"cPuzzleImage" );
-	const wchar_t*     cPuzzleImageUnit::TypeID( L"cPuzzleImageUnit" );
+	TYPDE_DEFINE_MARCO(cPuzzleImage);
+	TYPDE_DEFINE_MARCO(cPuzzleImageUnit);
 
 	cImageIndexOfAnimation::cImageIndexOfAnimation(cImageIndexOfAnimation*e_pImageIndexOfAnimation)
 	{

@@ -4,7 +4,8 @@
 #include "AssembleImageButton.h"
 #include "../GameplayUT/GameApp.h"
 #include "ObjectXMLParser.h"
-const wchar_t*     cAssembleImageButton::TypeID( L"cAssembleImageButton" );
+
+TYPDE_DEFINE_MARCO(cAssembleImageButton);
 cAssembleImageButton::cAssembleImageButton()
 {
 

@@ -7,7 +7,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*     cScroller::TypeID( L"cScroller" );
+	TYPDE_DEFINE_MARCO(cScroller);
 	cScroller::cScroller():cTabPage()
 	{
 		m_eOrientation = eO_HORIZONTAL;

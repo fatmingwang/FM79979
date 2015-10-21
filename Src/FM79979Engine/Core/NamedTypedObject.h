@@ -24,8 +24,10 @@
 #ifndef _UNICODE
 #define _UNICODE
 #endif
+#define CAT(A, B)   A##B
+#define WSTRING(A)  CAT(L, #A)
 //fuck only works for windows
-//#define TYPDE_DEFINE_MARCO(TYPE) const wchar_t*         ##TYPE::TypeID( L#TYPE );
+#define TYPDE_DEFINE_MARCO(TYPE) const wchar_t*         TYPE::TypeID( WSTRING(TYPE) );
 
 
 #ifndef DEFINE_TYPE_INFO

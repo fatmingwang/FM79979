@@ -1,0 +1,244 @@
+<MPDIList Name="Fish_Detial_mpdi" Count="5" MPDIVersion="1.3" PICount="2" ImageName="Main_Map_Ui.pi,Fish_Detial.pi">
+    <MultiPathDynamicImage Name="Fish_Detiail_Button" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="629.00,4.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="629.00,4.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Button" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="560.00,191.00,0.00" Time="0.000000" Size="126.00,62.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Button" />
+            <PointDataList Index="1" Position="560.00,191.00,0.00" Time="5.000000" Size="126.00,62.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Button" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Banner_Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="53.00,752.00,0.00" Time="0.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+            <PointDataList Index="1" Position="53.00,752.00,0.00" Time="5.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Fish_Detiail_Banner" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Detial_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="148.00,540.00,0.00" Time="0.000000" Size="616.50,253.50" Scale="1.50,1.50" PIName="Fish_Detial" ImageName="Detial_Banner" />
+            <PointDataList Index="1" Position="148.00,540.00,0.00" Time="5.000000" Size="616.50,253.50" Scale="1.50,1.50" PIName="Fish_Detial" ImageName="Detial_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Banner_Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="53.00,752.00,0.00" Time="0.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+            <PointDataList Index="1" Position="53.00,752.00,0.00" Time="5.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Words_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="69.00,518.00,0.00" Time="0.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+            <PointDataList Index="1" Position="69.00,518.00,0.00" Time="5.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Words_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="69.00,562.00,0.00" Time="0.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+            <PointDataList Index="1" Position="69.00,562.00,0.00" Time="5.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Fish_Detiail_BG" PathCount="3" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_About_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="91.00,725.00,0.00" Time="0.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+            <PointDataList Index="1" Position="91.00,725.00,0.00" Time="5.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Weight" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="23.00,493.00,0.00" Time="0.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+            <PointDataList Index="1" Position="23.00,493.00,0.00" Time="5.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Fish_Detiail" PathCount="19" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="629.00,4.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+            <PointDataList Index="1" Position="629.00,4.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_About_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="91.00,725.00,0.00" Time="0.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+            <PointDataList Index="1" Position="91.00,725.00,0.00" Time="5.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,744.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,744.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,797.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,797.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,742.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,742.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,793.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,793.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Weight" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="23.00,493.00,0.00" Time="0.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+            <PointDataList Index="1" Position="23.00,493.00,0.00" Time="5.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,503.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,503.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,532.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,532.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,560.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,560.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Position" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="146.00,590.00,0.00" Time="0.000000" Size="25.00,28.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Position" />
+            <PointDataList Index="1" Position="146.00,590.00,0.00" Time="5.000000" Size="25.00,28.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Position" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Button" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="560.00,191.00,0.00" Time="0.000000" Size="126.00,62.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Button" />
+            <PointDataList Index="1" Position="560.00,191.00,0.00" Time="5.000000" Size="126.00,62.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Button" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Gallery_Name" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="313.00,196.00,0.00" Time="0.000000" Size="96.00,50.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Gallery_Name" />
+            <PointDataList Index="1" Position="313.00,196.00,0.00" Time="5.000000" Size="96.00,50.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Gallery_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Gallery_Fish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="219.00,253.00,0.00" Time="0.000000" Size="262.00,183.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Gallery_Fish" />
+            <PointDataList Index="1" Position="219.00,253.00,0.00" Time="5.000000" Size="262.00,183.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Gallery_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="148.00,540.00,0.00" Time="0.000000" Size="616.50,253.50" Scale="1.50,1.50" PIName="Fish_Detial" ImageName="Detial_Banner" />
+            <PointDataList Index="1" Position="148.00,540.00,0.00" Time="5.000000" Size="616.50,253.50" Scale="1.50,1.50" PIName="Fish_Detial" ImageName="Detial_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Banner_Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="53.00,752.00,0.00" Time="0.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+            <PointDataList Index="1" Position="53.00,752.00,0.00" Time="5.000000" Size="75.00,79.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Banner_Back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Words_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="69.00,518.00,0.00" Time="0.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+            <PointDataList Index="1" Position="69.00,518.00,0.00" Time="5.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Words_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="69.00,562.00,0.00" Time="0.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+            <PointDataList Index="1" Position="69.00,562.00,0.00" Time="5.000000" Size="30.00,32.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Words" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Fish_Detiail_Buttom" PathCount="29" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_About_Pole" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="91.00,725.00,0.00" Time="0.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+            <PointDataList Index="1" Position="91.00,725.00,0.00" Time="5.000000" Size="647.40,575.90" Scale="1.30,1.30" PIName="Fish_Detial" ImageName="Fish_About_Pole" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_000" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,744.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,744.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,797.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,797.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,850.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,850.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,899.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,899.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,950.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,950.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,1001.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,1001.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_006" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,1052.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,1052.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_007" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,1101.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,1101.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_008" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,1152.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,1152.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Percent_009" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="571.00,1198.00,0.00" Time="0.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+            <PointDataList Index="1" Position="571.00,1198.00,0.00" Time="5.000000" Size="20.00,36.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Percent_000" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,742.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,742.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,793.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,793.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,843.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,843.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_004" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,892.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,892.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_005" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,946.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,946.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_006" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,995.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,995.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_007" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,1046.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,1046.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_008" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,1094.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,1094.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_009" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,1144.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,1144.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Weight" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="23.00,493.00,0.00" Time="0.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+            <PointDataList Index="1" Position="23.00,493.00,0.00" Time="5.000000" Size="257.00,110.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Weight" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_001" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,503.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,503.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_002" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,532.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,532.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Detial_Amount_003" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="152.00,560.00,0.00" Time="0.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+            <PointDataList Index="1" Position="152.00,560.00,0.00" Time="5.000000" Size="13.00,24.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Detial_Amount" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Get_Position" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="146.00,590.00,0.00" Time="0.000000" Size="25.00,28.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Position" />
+            <PointDataList Index="1" Position="146.00,590.00,0.00" Time="5.000000" Size="25.00,28.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Get_Position" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fish_Gallery_Name" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="313.00,196.00,0.00" Time="0.000000" Size="96.00,50.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Gallery_Name" />
+            <PointDataList Index="1" Position="313.00,196.00,0.00" Time="5.000000" Size="96.00,50.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Fish_Gallery_Name" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Gallery_Fish" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="219.00,253.00,0.00" Time="0.000000" Size="262.00,183.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Gallery_Fish" />
+            <PointDataList Index="1" Position="219.00,253.00,0.00" Time="5.000000" Size="262.00,183.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Gallery_Fish" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Plus_Y_010" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="189.00,1196.00,0.00" Time="0.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+            <PointDataList Index="1" Position="189.00,1196.00,0.00" Time="5.000000" Size="62.00,43.00" Scale="1.00,1.00" PIName="Fish_Detial" ImageName="Plus_Y_001" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

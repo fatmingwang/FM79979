@@ -1,0 +1,13 @@
+<MPDIList Name="FishingStageUI_mpdi" Count="1" MPDIVersion="1.3" PICount="1" ImageName="StageUI.pi">
+    <MultiPathDynamicImage Name="FishingStageUI" PathCount="3" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.000000">
+        <CueToStartCurvesWithTime Name="Brake" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="633.00,282.00,0.00" Time="0.000000" Size="63.00,24.00" Scale="1.00,1.00" PIName="StageUI" ImageName="Brake" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Leave" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="639.00,195.00,0.00" Time="0.000000" Size="63.00,24.00" Scale="1.00,1.00" PIName="StageUI" ImageName="Leave" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="FishData" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="613.00,338.00,0.00" Time="0.000000" Size="80.00,31.00" Scale="1.00,1.00" PIName="StageUI" ImageName="FishData" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

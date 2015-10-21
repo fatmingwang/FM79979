@@ -6,8 +6,8 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cBaseImage::TypeID( L"cBaseImage" );
-	const wchar_t*     cUIImage::TypeID( L"cUIImage" );
+	TYPDE_DEFINE_MARCO(cBaseImage);
+	TYPDE_DEFINE_MARCO(cUIImage);
 	//====================
 	//
 	//====================

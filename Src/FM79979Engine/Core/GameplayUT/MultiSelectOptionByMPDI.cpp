@@ -5,8 +5,8 @@
 #include "GameApp.h"
 namespace FATMING_CORE
 {
-    const wchar_t*         cMultiSelectOptionByMPDI::TypeID( L"cMultiSelectOptionByMPDI" );
-    const wchar_t*         cSelectOptionByCueToStartCurveWithTime::TypeID( L"cSelectOptionByCueToStartCurveWithTime" );
+	TYPDE_DEFINE_MARCO(cMultiSelectOptionByMPDI);
+	TYPDE_DEFINE_MARCO(cSelectOptionByCueToStartCurveWithTime);
     
     cSelectOptionByCueToStartCurveWithTime::cSelectOptionByCueToStartCurveWithTime(cMPDIList*e_pMPDIList,int e_iIndex,wchar_t*e_strDescription)
     {

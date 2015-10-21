@@ -6,7 +6,7 @@
 namespace FATMING_CORE
 {
 	//<cEventButtonSelectedActiver Name="79979" cEventVariable="CurrentPackageName" Result="SecondPage,ThirdPage,FourthPage"/>
-	const wchar_t*         cEventButtonSelectedActiver::TypeID( L"cEventButtonSelectedActiver" );
+	TYPDE_DEFINE_MARCO(cEventButtonSelectedActiver);
 	cEventButtonSelectedActiver::cEventButtonSelectedActiver(TiXmlElement*e_pTiXmlElement)
 	{
 		m_pEventVariable = 0;

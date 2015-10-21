@@ -5,8 +5,8 @@
 #include "EventManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventKeyUpDectect::TypeID( L"cEventKeyUpDectect" );
-	const wchar_t*         cEventValueCheck::TypeID( L"cEventValueCheck" );
+	TYPDE_DEFINE_MARCO(cEventValueCheck);
+	TYPDE_DEFINE_MARCO(cEventKeyUpDectect);
 
 	cEventKeyUpDectect::cEventKeyUpDectect(TiXmlElement*e_pTiXmlElement)
 	{

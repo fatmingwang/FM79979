@@ -1,0 +1,4 @@
+<!-- Author:scrr,Time:2014/11/17 ¤U¤È 05:50:12 -->
+<PuzzleImage OriginalNameSort="In_Stage_Bg" ImageName="All_Bg.png" Count="1" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="In_Stage_Bg" UV="0,0,0.3515625,0.625" OffsetPos="0,0" Size="360,640" OriginalSize="360,640" ShowPosInPI="0,0" />
+</PuzzleImage>

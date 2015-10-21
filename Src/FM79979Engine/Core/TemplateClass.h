@@ -438,7 +438,6 @@ public:
 	virtual	void	Render(){ if( m_pCurrentWorkingObject )m_pCurrentWorkingObject->Render(); }
 };
 
-//template <class T>const wchar_t*cNamedTypedObjectVector<T>::TypeID( L"cNamedTypedObjectVector" );
 
 //sample
 // 

@@ -4,10 +4,10 @@
 namespace FATMING_CORE
 {
 
-	const wchar_t*         cPrtVelocityInitSetVelocity::TypeID( L"cPrtVelocityInitSetVelocity" );
-	const wchar_t*         cPrtVelocityActAcceleration::TypeID( L"cPrtVelocityActAcceleration" );
-	const wchar_t*         cPrtVelocityActBySatelliteAction::TypeID( L"cPrtVelocityActBySatelliteAction" );
-	const wchar_t*         cPrtVelocityActDircctionChange::TypeID( L"cPrtVelocityActDircctionChange" );
+	TYPDE_DEFINE_MARCO(cPrtVelocityInitSetVelocity);
+	TYPDE_DEFINE_MARCO(cPrtVelocityActAcceleration);
+	TYPDE_DEFINE_MARCO(cPrtVelocityActBySatelliteAction);
+	TYPDE_DEFINE_MARCO(cPrtVelocityActDircctionChange);
 
 	char*	cPrtVelocityInitSetVelocity::UsageExplanation =
 	{

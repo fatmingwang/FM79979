@@ -4,7 +4,7 @@
 
 namespace   FATMING_CORE
 {
-	const wchar_t*         cEVentXMLNodeText::TypeID( L"cEVentXMLNodeText" );
+	TYPDE_DEFINE_MARCO(cEVentXMLNodeText);
 
 	cEVentXMLNodeText::cEVentXMLNodeText(Vector3 e_vPos,Vector4 e_vColor):cEventObject(eEOT_XML_TEXT,e_vPos,Vector2(1,1),e_vColor)
 	{

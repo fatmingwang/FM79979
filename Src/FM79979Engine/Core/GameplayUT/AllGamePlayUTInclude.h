@@ -25,4 +25,6 @@
 #include "AssembleImageButton.h"
 #include "RenderObjectVector.h"
 #include "ObjectXMLParser.h"
+#include "CameraZoomFunction.h"
+
 #endif

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameApp.h"
 
-#include "CameraZoomFunction.h"
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
@@ -38,9 +37,11 @@ void	SampleMouseDown(int e_iPosX,int e_iPosY);
 void	SampleMouseMove(int e_iPosX,int e_iPosY);
 void	SampleMouseUp(int e_iPosX,int e_iPosY);
 void	SampleKeyup(char e_cKey);
-
+cBaseImage*g_pBGImage = nullptr;
 void	LoadSample()
 {
+	g_pBGImage = new cBaseImage("Lee-Younh-Aes-twins.png");
+	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
 	g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
 	if( g_pMPDINode )
@@ -165,6 +166,7 @@ void	SampleRender()
 	{
 		g_pCameraZoomFunction->Render();
 	}
+	g_pBGImage->Render();
 	if(g_pOrthogonalCamera)
 	{
 		g_pOrthogonalCamera->Render();

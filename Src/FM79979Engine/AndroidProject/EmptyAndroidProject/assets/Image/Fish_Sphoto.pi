@@ -1,0 +1,14 @@
+<!-- Author:scrr,Time:2014/11/21 ¤U¤È 01:06:29 -->
+<PuzzleImage OriginalNameSort="Fish83_Sphoto,Fish85_Sphoto,Fish88_Sphoto,Fish90_Sphoto,Fish92_Sphoto,Fish93_Sphoto,Fish94_Sphoto,Fish95_Sphoto,Fish96_Sphoto,Fish97_Sphoto,Fishxx_Sphoto" ImageName="Fish_Sphoto.png" Count="11" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Fish83_Sphoto" UV="0,0,0.04882813,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Fish85_Sphoto" UV="0.04931641,0,0.09814453,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="101,0" />
+    <PuzzleUnit Name="Fish88_Sphoto" UV="0.09863281,0,0.1474609,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="202,0" />
+    <PuzzleUnit Name="Fish90_Sphoto" UV="0.1479492,0,0.1967773,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="303,0" />
+    <PuzzleUnit Name="Fish92_Sphoto" UV="0.1972656,0,0.2460938,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="404,0" />
+    <PuzzleUnit Name="Fish93_Sphoto" UV="0.246582,0,0.2954102,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="505,0" />
+    <PuzzleUnit Name="Fish94_Sphoto" UV="0.2958984,0,0.3447266,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="606,0" />
+    <PuzzleUnit Name="Fish95_Sphoto" UV="0.3452148,0,0.394043,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="707,0" />
+    <PuzzleUnit Name="Fish96_Sphoto" UV="0.3945313,0,0.4433594,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="808,0" />
+    <PuzzleUnit Name="Fish97_Sphoto" UV="0.4438477,0,0.4926758,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="909,0" />
+    <PuzzleUnit Name="Fishxx_Sphoto" UV="0.4931641,0,0.5419922,0.09765625" OffsetPos="0,0" Size="100,100" OriginalSize="100,100" ShowPosInPI="1010,0" />
+</PuzzleImage>

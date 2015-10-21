@@ -112,8 +112,13 @@ namespace FATMING_CORE
 			}
 		}
 		else
-		{
-			TouchPointData[e_iIndex].MouseBehavior = eOMB_UP;
+		{//once mouseup is called set all to unuseless
+			for (int i = 0; i < MAX_TOUCH_POINTS; i++)
+			{
+				TouchPointData[i].MouseBehavior = eOMB_NONE;
+			}
+			this->bMouseAllUp = true;
+			//TouchPointData[e_iIndex].MouseBehavior = eOMB_UP;
 		}
 	}
 
@@ -126,8 +131,10 @@ namespace FATMING_CORE
 
 	void	sMultiTouchPoints::Update(float e_fElpaseTime)
 	{
+		bPreviousDoPointsPosHit = bDoPointsPosHit;
 		Gesture = eGestureEnum::eGE_MAX;
 		vSingleTouchMoveDis = Vector2::Zero;
+		bPrevoisMouseAllUp = bMouseAllUp;
 		bMouseAllUp = false;
 		if( bTouched == false )
 			return;

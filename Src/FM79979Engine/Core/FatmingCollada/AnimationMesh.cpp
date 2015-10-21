@@ -7,7 +7,8 @@
 #endif
 extern void	DumpBoneInfo(cBone*e_pBone);
 
-const wchar_t*     cAnimationMesh::TypeID( L"cAnimationMesh" );
+
+TYPDE_DEFINE_MARCO(cAnimationMesh);
 //========================================================
 //
 //========================================================

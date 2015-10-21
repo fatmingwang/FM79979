@@ -284,12 +284,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
+    <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="Glyph\GlyphReader.cpp" />
     <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="Image\MPDINode.cpp" />
     <ClCompile Include="Image\RenderNode.cpp" />
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
+    <ClCompile Include="Math\MathFormulaXML.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Image\AnimationParser.cpp" />
@@ -421,9 +423,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
+    <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="Image\MPDINode.h" />
     <ClInclude Include="Image\RenderNode.h" />
+    <ClInclude Include="Math\MathFormulaXML.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="AllImageInclude.h" />
     <ClInclude Include="Image\AnimationParser.h" />

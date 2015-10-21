@@ -4,7 +4,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*     cSoundParser::TypeID( L"cSoundParser" );
+	TYPDE_DEFINE_MARCO(cSoundParser);
 
 	ALuint*	cSoundParser::m_psuiSourceID = 0;//whole source ID
 	ALuint*	cSoundParser::m_psuiSourceUsingIDIndex = 0;	//as many as m_siNumSoundManager

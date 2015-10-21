@@ -5,7 +5,7 @@
 #include "../Image/SimplePrimitive.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cOrthogonalCamera::TypeID( L"cOrthogonalCamera" );
+	TYPDE_DEFINE_MARCO(cOrthogonalCamera);
 
 	cOrthogonalCamera::cOrthogonalCamera(Vector2 e_vResolution)
 	{

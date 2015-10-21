@@ -58,6 +58,7 @@ void	cMagicTowerApp::Update(float e_fElpaseTime)
 {
 	if( g_bGameLeave )
 		return;
+	cGameApp::Update(e_fElpaseTime);
 	if( m_spSceneControl )
 		m_spSceneControl->Update(e_fElpaseTime);
 	if(m_pUIInfo)
@@ -68,21 +69,19 @@ void	cMagicTowerApp::Render()
 {
 	if( g_bGameLeave )
 		return;
-	glViewport(0,0,(int)this->m_svViewPortSize.x,(int)this->m_svViewPortSize.y);
-	glEnable(GL_SCISSOR_TEST);
-	Vector4	l_vViewRect(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
-	l_vViewRect = ViewRectToOpenGLScissor(l_vViewRect);
-	glScissor((int)l_vViewRect.x,(int)l_vViewRect.y,(int)l_vViewRect.z,(int)l_vViewRect.w);
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_ALPHA_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-	glClearColor( 0.3f,0.3f,0.f,1.f );
-	glClearDepth(1.0f);								// Depth Buffer Setup
-	glEnable2D(IPHONE_5_RESOLUTION_HEIGHT,IPHONE_5_RESOLUTION_WIDTH);
+	cGameApp::Render();
+	//UseShaderProgram();
+	//glViewport(0,0,(int)this->m_svViewPortSize.x,(int)this->m_svViewPortSize.y);
+	//glEnable(GL_SCISSOR_TEST);
+	//Vector4	l_vViewRect(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	//l_vViewRect = ViewRectToOpenGLScissor(l_vViewRect);
+	//glScissor((int)l_vViewRect.x,(int)l_vViewRect.y,(int)l_vViewRect.z,(int)l_vViewRect.w);
+	//glEnableClientState(GL_VERTEX_ARRAY);
+	//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+	//glEnable(GL_TEXTURE_2D);
+	//glEnable(GL_ALPHA_TEST);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	if(m_pUIInfo)
 		m_pUIInfo->Render();
 	m_sp2DCamera->Render();

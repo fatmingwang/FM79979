@@ -3,8 +3,8 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-    const wchar_t*         cEventText::TypeID( L"cEventText" );
-	const wchar_t*         cEventXmlText::TypeID( L"cEventXmlText" );
+	TYPDE_DEFINE_MARCO(cEventXmlText);
+	TYPDE_DEFINE_MARCO(cEventText);
 	cEventText::cEventText(Vector3 e_vPos,const WCHAR*e_strText,float e_fFontSize,Vector4 e_vColor):cEventObject(eEOT_TEXT,e_vPos,Vector2(1,1),e_vColor)
     {
 		this->m_vSize.x = e_fFontSize;

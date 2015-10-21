@@ -24,8 +24,9 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <AndroidTargetAPI>android-14</AndroidTargetAPI>
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>
@@ -39,7 +40,16 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <FastDeploy>false</FastDeploy>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID;DEBUG</PreprocessorDefinitions>
@@ -48,7 +58,7 @@
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Tegra-Android\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>

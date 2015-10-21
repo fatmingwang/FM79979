@@ -1,0 +1,31 @@
+<ShowFishingResult>
+	<cGameItemInfoButton CollisionRange="0,0,300,350">
+		<cButtonDialog BG="Fish_Info_Detial">
+			<cMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info"/>
+		</cButtonDialog>
+		<cRenderObjectVector>
+			<cFontWithFrame  Text="FishName" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info" cSubMPDI="Got_Fishs_Name_001"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="HookedCount" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info" cSubMPDI="Amount_Of_Fish_001"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Length" >
+					<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info" cSubMPDI="Amount_Of_Fish_002"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="TotalCost" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info" cSubMPDI="Amount_Of_Fish_003"/>
+			</cFontWithFrame>
+		</cRenderObjectVector>
+	</cGameItemInfoButton>
+	<UIButton>
+		<cClickMouseBehaviorVector Name="FailedMenu">
+			<cImageButton Name="Back" cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info_Button" cSubMPDI="Back" />
+			<cImageButton Name="Sell" cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info_Button" cSubMPDI="Sell_All" />
+			<cImageButton Name="None" cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info_Button" cSubMPDI="Put_In_Poor" />
+		</cClickMouseBehaviorVector>	
+	</UIButton>
+	<UIBG>
+		<cMPDI	cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Info_Bg" />
+	</UIBG>
+</ShowFishingResult>

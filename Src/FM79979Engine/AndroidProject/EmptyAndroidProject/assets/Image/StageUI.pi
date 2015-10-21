@@ -1,0 +1,6 @@
+<!-- Author:Fatming,Time:2014/11/25 ¤W¤È 10:00:22 -->
+<PuzzleImage OriginalNameSort="Brake,Leave,FishData" ImageName="StageUI.png" Count="3" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Brake" UV="0,0,0.2460938,0.375" OffsetPos="0,0" Size="63,24" OriginalSize="63,24" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="FishData" UV="0.5,0,0.8125,0.484375" OffsetPos="0,0" Size="80,31" OriginalSize="80,31" ShowPosInPI="128,0" />
+    <PuzzleUnit Name="Leave" UV="0.25,0,0.4960938,0.375" OffsetPos="0,0" Size="63,24" OriginalSize="63,24" ShowPosInPI="64,0" />
+</PuzzleImage>

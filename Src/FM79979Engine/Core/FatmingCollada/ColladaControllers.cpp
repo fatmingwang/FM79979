@@ -1,6 +1,6 @@
 #include "StdAfx.h"
 #include "ColladaControllers.h"
-const wchar_t*	cLibraryControllers::TypeID( L"cLibraryControllers" );
+TYPDE_DEFINE_MARCO(cLibraryControllers);
 //
 //
 //

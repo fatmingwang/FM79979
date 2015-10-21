@@ -16,7 +16,7 @@ uint64	GetTimeStampID()
 }
 
 
-const wchar_t*         NamedTypedObject::TypeID( L"NamedTypedObject" );
+TYPDE_DEFINE_MARCO(NamedTypedObject);
 
 #ifdef DEBUG
 

@@ -4,8 +4,8 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cCamera::TypeID( L"cCamera" );
-	const wchar_t*         cFrameCamera::TypeID( L"cFrameCamera" );
+	TYPDE_DEFINE_MARCO(cFrameCamera);
+	TYPDE_DEFINE_MARCO(cCamera);
 
 	#define XMASSERT_LINE_STRING_SIZE 16
 

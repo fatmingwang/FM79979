@@ -6,9 +6,8 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cCurve::TypeID( L"cCurve" );
-	const wchar_t*         cCurveWithTime::TypeID( L"cCurveWithTime" );
-
+	TYPDE_DEFINE_MARCO(cCurve);
+	TYPDE_DEFINE_MARCO(cCurveWithTime);
 	cCurve::cCurve()
 	{
 		//m_bRotationObject = false;

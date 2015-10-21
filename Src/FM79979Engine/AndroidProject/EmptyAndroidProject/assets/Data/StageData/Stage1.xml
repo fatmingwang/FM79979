@@ -1,0 +1,65 @@
+<StageData >
+
+	<FishThread Name="L04-E0500,L05-E0583" />
+
+	<StageInfoDialog>
+		<cButtonDialog Description="" YesButton="To_Stage_Button" NoButton="Close_Button" BG="Map_To_Stage" StripButtonForBG="1">
+			<cMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage"/>
+		</cButtonDialog>		
+		<Place Name="place" >
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage" cSubMPDI="Stage_001"/>
+		</Place>
+		<WaterDepth  Depth="3000">
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage" cSubMPDI="Water_Deep_002"/>
+		</WaterDepth>
+		<WaterZone Name="79979 zone" >
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage" cSubMPDI="Stage_Water_001"/>
+		</WaterZone>
+		<FishKind  FishKind="6">
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage" cSubMPDI="Kind_Of_Fish_002"/>
+		</FishKind>
+		<FishHooked >
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Map_To_Stage" cSubMPDI="Got_Fish_002"/>
+		</FishHooked>
+		<ActivedCost  Cost="2000">
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Release_Stage" cSubMPDI="Release_Fee_001"/>
+		</ActivedCost>
+	</StageInfoDialog>
+
+	<CameraData SinkingTime="50" FloatTime="25" CameraViewPort="720,1280" StartPos="360,640"/>
+
+	<AreaData>
+		<AreaDefine Range="0,6000" AreaID="A" FishAppearDistance="100,300" />
+	</AreaData>
+	<FishingHook>
+		<AxisController MovingSpeed="5" MinValue="0.5" NextLevelStep="3" RiseSpeed="3" />
+		<cbtShapeCollision FileName="Image/FishingTool.collision" Name="FishHook" />
+		<Image>
+			<cPuzzleImageUnit PI="Image/FishingTool.pi" PIUnit="FishHook"/>
+		</Image>
+	</FishingHook>
+
+	<!--AppearFishTypeCount is how many fish type will show in this stage -->
+	<!--FishShowRange the distance to show a fish -->
+	<FishesShowProbability AppearFishTypeCount="3" FishShowRange="1,3" >
+		<Data FileName="Data/Fish/FishA.xml" Probability="20" AreaID="A" />
+		<Data FileName="Data/Fish/FishB.xml" Probability="20" AreaID="A" />
+		<Data FileName="Data/Fish/FishC.xml" Probability="30" AreaID="A" />
+	</FishesShowProbability>
+
+	<Image>
+		<BrakeButton>
+			<cImageButton Name="Brake" cMPDIList="Image/FishingStageUI.mpdi" cMPDI="FishingStageUI" cSubMPDI="Brake" />
+		</BrakeButton>
+		<QuickLeaveButton Speed="10">
+			<cImageButton Name="Leave" cMPDIList="Image/FishingStageUI.mpdi" cMPDI="FishingStageUI" cSubMPDI="Leave" />
+		</QuickLeaveButton>
+		<FishDataButton>
+			<cImageButton Name="FishData" cMPDIList="Image/FishingStageUI.mpdi" cMPDI="FishingStageUI" cSubMPDI="FishData" />
+		</FishDataButton>
+		<BG>
+			<cMPDI cMPDIList="Image/Game_Play.mpdi" cMPDI="Bg_Nolimit" />
+		</BG>
+	</Image>
+
+</StageData>

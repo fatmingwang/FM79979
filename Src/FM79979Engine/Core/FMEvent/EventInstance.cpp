@@ -2,7 +2,7 @@
 #include "EventInstance.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cEventInstance::TypeID( L"cEventInstance" );
+	TYPDE_DEFINE_MARCO(cEventInstance);
 
 	cEventInstance::cEventInstance()
 	{

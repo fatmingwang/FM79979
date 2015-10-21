@@ -234,6 +234,12 @@
     <Filter Include="Terrain">
       <UniqueIdentifier>{593bc827-63fa-40d0-ae6a-d43a14f85bdc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\MUParserXML">
+      <UniqueIdentifier>{9aca5337-acee-4d0d-8d61-21fd8123a03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\CameraZoom">
+      <UniqueIdentifier>{da8a3baa-88c9-4c19-bae8-feca8ca8c97e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -640,6 +646,12 @@
     </ClCompile>
     <ClCompile Include="Image\RenderNode.cpp">
       <Filter>RenderObject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\MathFormulaXML.cpp">
+      <Filter>Math\MUParserXML</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\CameraZoomFunction.cpp">
+      <Filter>GameplayUT\CameraZoom</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1107,6 +1119,12 @@
     </ClInclude>
     <ClInclude Include="Image\RenderNode.h">
       <Filter>RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\MathFormulaXML.h">
+      <Filter>Math\MUParserXML</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\CameraZoomFunction.h">
+      <Filter>GameplayUT\CameraZoom</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

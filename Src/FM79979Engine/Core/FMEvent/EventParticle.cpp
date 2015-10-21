@@ -4,8 +4,9 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-    const wchar_t*         cEventParticle::TypeID( L"cEventParticle" );
-    const wchar_t*         cEventParticleGroup::TypeID( L"cEventParticleGroup" );
+
+	TYPDE_DEFINE_MARCO(cEventParticleGroup);
+	TYPDE_DEFINE_MARCO(cEventParticle);
     cEventParticle::cEventParticle(Vector3 e_vPos,cPrtEmitter*e_pPrtEmitter):cEventObject(eEOT_PARTICLE,e_vPos)
     {
         m_pPrtEmitter = new cPrtEmitter(e_pPrtEmitter);

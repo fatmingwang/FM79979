@@ -4,7 +4,7 @@
 #include "PrtVelocity.h"
 namespace FATMING_CORE
 {
-	const wchar_t*	cPrtEmitter::TypeID( L"cPrtEmitter" );
+	TYPDE_DEFINE_MARCO(cPrtEmitter);
 	char	g_strTempStringForOutput[MAX_PATH];
 
 	cQuickUpdateParticleObjectListByName::cQuickUpdateParticleObjectListByName

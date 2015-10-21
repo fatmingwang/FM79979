@@ -3,8 +3,8 @@
 #include "PrtStartPosition.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtStartPositionInitByFrame::TypeID( L"cPrtStartPositionInitByFrame" );
-	const wchar_t*         cPrtStartPositionInitBySquareRange::TypeID( L"cPrtStartPositionInitBySquareRange" );
+	TYPDE_DEFINE_MARCO(cPrtStartPositionInitByFrame);
+	TYPDE_DEFINE_MARCO(cPrtStartPositionInitBySquareRange);
 
 	char*	cPrtStartPositionInitBySquareRange::UsageExplanation =
 	{

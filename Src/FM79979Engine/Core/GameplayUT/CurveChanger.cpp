@@ -5,7 +5,7 @@
 #include "../Image/SimplePrimitive.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cCurveChanger::TypeID( L"cCurveChanger" );
+	TYPDE_DEFINE_MARCO(cCurveChanger);
 
 	cCurveChanger::cCurveChanger(cNamedTypedObjectVector<cCurveWithTime> *e_pCurveWithTimeVector)
 	{

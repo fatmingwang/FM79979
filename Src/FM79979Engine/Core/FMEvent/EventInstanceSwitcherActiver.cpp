@@ -4,7 +4,7 @@
 #include "EventManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventInstanceSwitcherActiver::TypeID( L"cEventInstanceSwitcherActiver" );
+	TYPDE_DEFINE_MARCO(cEventInstanceSwitcherActiver);
 //<cEventInstanceSwitcher>
 //	<ConditionAndNextEventInstance TargetResult="0" ConditionVarialbe="ooxx" TargetEventInstanceName="aabb">
 //	<ConditionAndNextEventInstance TargetResult="1" ConditionVarialbe="ooxx2" TargetEventInstanceName="aabb2">

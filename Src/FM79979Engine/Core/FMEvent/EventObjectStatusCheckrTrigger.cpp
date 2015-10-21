@@ -4,7 +4,7 @@
 #include "EventManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventObjectStatusCheckerTrigger::TypeID( L"cEventObjectStatusCheckerTrigger" );
+	TYPDE_DEFINE_MARCO(cEventObjectStatusCheckerTrigger);
 
 	//cEventObjectStatusCheckerTrigger::cEventObjectStatusCheckerTrigger()
 	//{

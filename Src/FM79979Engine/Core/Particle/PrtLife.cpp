@@ -3,9 +3,9 @@
 #include "PrtLife.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtLifeInitrSetLife::TypeID( L"cPrtLifeInitrSetLife" );
-	const wchar_t*         cPrtLifeActDyingByGameTime::TypeID( L"cPrtLifeActDyingByGameTime" );
-	//const wchar_t* cPrtLifeActRebirth::TypeID( L"cPrtLifeActRebirth" );
+	TYPDE_DEFINE_MARCO(cPrtLifeInitrSetLife);
+	TYPDE_DEFINE_MARCO(cPrtLifeActDyingByGameTime);
+
 	char*	cPrtLifeInitrSetLife::UsageExplanation =
 	{
 		"LifeMin for the base file,\nLifeRange will add with baselife,\nif Random is active the randge will fetch a random betwnn 0 to m_fLifeRange\n			LifeMin 為最小生命值\nLifeRange為該生命可增加的範圍,當random被作用將會將lifeRange做一0到指定數值的加給"

@@ -92,7 +92,7 @@ namespace FATMING_CORE
 #endif
 	}
 
-	const wchar_t*     cOpanalOgg::TypeID( L"cOpanalOgg" );
+	TYPDE_DEFINE_MARCO(cOpanalOgg);
 	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
 		m_fTimeToUpdate.SetTargetTime(0.1f);

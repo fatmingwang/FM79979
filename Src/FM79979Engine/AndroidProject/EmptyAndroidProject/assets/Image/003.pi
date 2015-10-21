@@ -1,0 +1,46 @@
+<!-- Author:Atust1,Time:2014/11/18 12:35:09 -->
+<PuzzleImage OriginalNameSort="Bamboo,Boat rod,Hand pole,Road sub pole,Road sub-sea rod,Rockies pole,Rocky Tougan,Shrimp pole,Streams pole,Tougan,L04-E0500,L05-E0583,L06-E0452,L08-E0500,L10-E0630,L11-E0550,L12-E0715,L13-E0810,L15-E0755,L16-E0802,L17-E0710,L18-E0795,L20-E0880,L21-E0920,L23-E0850,L24-E1020,L27-E0950,L28-E0925,L29-E0980,L30-E1100,L32-E1000,L33-E1200,L34-E1150,L34-E1250,L36-E1000,L37-E1350,L38-E1500,L39-E1400,L40-E1300,L41-E1400,L42-E1350,L43-E1100,L46-E1200" ImageName="003.png" Count="43" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Bamboo" UV="0,0,0.4492188,0.06835938" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Boat rod" UV="0.4501953,0,0.8994141,0.06835938" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="461,0" />
+    <PuzzleUnit Name="Hand pole" UV="0,0.0703125,0.4492188,0.1386719" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="0,36" />
+    <PuzzleUnit Name="L04-E0500" UV="0.9003906,0.28125,0.9736328,0.4277344" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="922,144" />
+    <PuzzleUnit Name="L05-E0583" UV="0,0.4296875,0.07324219,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="0,220" />
+    <PuzzleUnit Name="L06-E0452" UV="0.07421875,0.4296875,0.1474609,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="76,220" />
+    <PuzzleUnit Name="L08-E0500" UV="0.1484375,0.4296875,0.2216797,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="152,220" />
+    <PuzzleUnit Name="L10-E0630" UV="0.2226563,0.4296875,0.2958984,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="228,220" />
+    <PuzzleUnit Name="L11-E0550" UV="0.296875,0.4296875,0.3701172,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="304,220" />
+    <PuzzleUnit Name="L12-E0715" UV="0.3710938,0.4296875,0.4443359,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="380,220" />
+    <PuzzleUnit Name="L13-E0810" UV="0.4453125,0.4296875,0.5185547,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="456,220" />
+    <PuzzleUnit Name="L15-E0755" UV="0.5195313,0.4296875,0.5927734,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="532,220" />
+    <PuzzleUnit Name="L16-E0802" UV="0.59375,0.4296875,0.6669922,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="608,220" />
+    <PuzzleUnit Name="L17-E0710" UV="0.6679688,0.4296875,0.7412109,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="684,220" />
+    <PuzzleUnit Name="L18-E0795" UV="0.7421875,0.4296875,0.8154297,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="760,220" />
+    <PuzzleUnit Name="L20-E0880" UV="0.8164063,0.4296875,0.8896484,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="836,220" />
+    <PuzzleUnit Name="L21-E0920" UV="0.890625,0.4296875,0.9638672,0.5761719" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="912,220" />
+    <PuzzleUnit Name="L23-E0850" UV="0,0.578125,0.07324219,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="0,296" />
+    <PuzzleUnit Name="L24-E1020" UV="0.07421875,0.578125,0.1474609,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="76,296" />
+    <PuzzleUnit Name="L27-E0950" UV="0.1484375,0.578125,0.2216797,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="152,296" />
+    <PuzzleUnit Name="L28-E0925" UV="0.2226563,0.578125,0.2958984,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="228,296" />
+    <PuzzleUnit Name="L29-E0980" UV="0.296875,0.578125,0.3701172,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="304,296" />
+    <PuzzleUnit Name="L30-E1100" UV="0.3710938,0.578125,0.4443359,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="380,296" />
+    <PuzzleUnit Name="L32-E1000" UV="0.4453125,0.578125,0.5185547,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="456,296" />
+    <PuzzleUnit Name="L33-E1200" UV="0.5195313,0.578125,0.5927734,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="532,296" />
+    <PuzzleUnit Name="L34-E1150" UV="0.59375,0.578125,0.6669922,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="608,296" />
+    <PuzzleUnit Name="L34-E1250" UV="0.6679688,0.578125,0.7412109,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="684,296" />
+    <PuzzleUnit Name="L36-E1000" UV="0.7421875,0.578125,0.8154297,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="760,296" />
+    <PuzzleUnit Name="L37-E1350" UV="0.8164063,0.578125,0.8896484,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="836,296" />
+    <PuzzleUnit Name="L38-E1500" UV="0.890625,0.578125,0.9638672,0.7246094" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="912,296" />
+    <PuzzleUnit Name="L39-E1400" UV="0,0.7265625,0.07324219,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="0,372" />
+    <PuzzleUnit Name="L40-E1300" UV="0.07421875,0.7265625,0.1474609,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="76,372" />
+    <PuzzleUnit Name="L41-E1400" UV="0.1484375,0.7265625,0.2216797,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="152,372" />
+    <PuzzleUnit Name="L42-E1350" UV="0.2226563,0.7265625,0.2958984,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="228,372" />
+    <PuzzleUnit Name="L43-E1100" UV="0.296875,0.7265625,0.3701172,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="304,372" />
+    <PuzzleUnit Name="L46-E1200" UV="0.3710938,0.7265625,0.4443359,0.8730469" OffsetPos="0,0" Size="75,75" OriginalSize="75,75" ShowPosInPI="380,372" />
+    <PuzzleUnit Name="Road sub-sea rod" UV="0,0.140625,0.4492188,0.2089844" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="0,72" />
+    <PuzzleUnit Name="Road sub pole" UV="0.4501953,0.0703125,0.8994141,0.1386719" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="461,36" />
+    <PuzzleUnit Name="Rockies pole" UV="0.4501953,0.140625,0.8994141,0.2089844" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="461,72" />
+    <PuzzleUnit Name="Rocky Tougan" UV="0,0.2109375,0.4492188,0.2792969" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="0,108" />
+    <PuzzleUnit Name="Shrimp pole" UV="0.4501953,0.2109375,0.8994141,0.2792969" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="461,108" />
+    <PuzzleUnit Name="Streams pole" UV="0,0.28125,0.4492188,0.3496094" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="0,144" />
+    <PuzzleUnit Name="Tougan" UV="0.4501953,0.28125,0.8994141,0.3496094" OffsetPos="0,0" Size="460,35" OriginalSize="460,35" ShowPosInPI="461,144" />
+</PuzzleImage>

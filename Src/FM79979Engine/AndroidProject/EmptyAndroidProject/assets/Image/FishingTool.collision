@@ -1,0 +1,6 @@
+<ImageCollisionData Name="FishingTool" Count="2">
+    <CollisionData Name="FishHook" Count="1">
+        <Shape Type="Circle" DataCount="1" Data="41.00,757.00,0.00" Radius="36.000000" />
+    </CollisionData>
+    <CollisionData Name="Fishrod" Count="0" />
+</ImageCollisionData>

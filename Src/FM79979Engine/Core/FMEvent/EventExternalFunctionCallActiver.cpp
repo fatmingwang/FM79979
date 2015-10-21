@@ -7,7 +7,7 @@
 namespace FATMING_CORE
 {
 	//<cEventExternalFunctionCallActiver	Function="" />
-	const wchar_t*         cEventExternalFunctionCallActiver::TypeID( L"cEventExternalFunctionCallActiver" );
+	TYPDE_DEFINE_MARCO(cEventExternalFunctionCallActiver);
 	cEventExternalFunctionCallActiver::cEventExternalFunctionCallActiver(TiXmlElement*e_pTiXmlElement)
 	{
 		ELEMENT_VALUE_ASSERT_CHECK(e_pTiXmlElement,cEventExternalFunctionCallActiver::TypeID)	

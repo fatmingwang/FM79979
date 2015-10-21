@@ -143,7 +143,7 @@ namespace FATMING_CORE
 		m_SrcBlendingMode							=	GL_SRC_ALPHA;
 		m_DestBlendingMode							=	GL_ONE_MINUS_SRC_ALPHA;
 		m_eMPDINodeType								=	eMPDI_NT_ANIMATION;
-		m_pUserData									=	0;
+		m_pUserData									=	nullptr;
 		m_pWorkingpImage							=	0;
 		m_fMaxLinerDataPlayTime						=	0.f;
 		m_vRotationAnglePosOffset					=	Vector3::Zero;
@@ -185,7 +185,7 @@ namespace FATMING_CORE
 		m_vWorkingSize								=	Vector2::Zero;
 		m_vWorkingRotation							=	Vector3::Zero;
 		m_matAnimationMatrix						=	cMatrix44::Identity;
-		m_pUserData									=	0;
+		m_pUserData									=	nullptr;
 		m_pWorkingpImage							=	0;
 		m_vRotationAnglePosOffset					=	e_pMPDINode->m_vRotationAnglePosOffset;
 		m_fMaxLinerDataPlayTime						=	e_pMPDINode->m_fMaxLinerDataPlayTime;

@@ -9,7 +9,7 @@
 #include "ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cTabPage::TypeID( L"cTabPage");
+	TYPDE_DEFINE_MARCO(cTabPage);
 	cTabPage::cTabPage():cMouse_TouchWithCancelButton()
 	{
 		m_pIcon = 0;

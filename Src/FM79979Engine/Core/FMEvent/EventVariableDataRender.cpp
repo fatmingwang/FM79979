@@ -6,7 +6,7 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*     cEventVariableDataRender::TypeID( L"cEventVariableDataRender" );
+	TYPDE_DEFINE_MARCO(cEventVariableDataRender);
 
 	cEventVariableDataRender::cEventVariableDataRender(TiXmlElement*e_pTiXmlElement):cEventObject(eEOT_VARIABLE_RENDER,Vector3::Zero)
 	{

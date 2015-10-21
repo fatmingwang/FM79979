@@ -5,8 +5,8 @@
 #include "EventManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventButton::TypeID( L"cEventButton" );
-	const wchar_t*         cEventMultiButton::TypeID( L"cEventMultiButton" );
+	TYPDE_DEFINE_MARCO(cEventButton);
+	TYPDE_DEFINE_MARCO(cEventMultiButton);
 	cEventButton::cEventButton(TiXmlElement*e_pTiXmlElement)
 	{
 		m_fFontScale = 1.f;

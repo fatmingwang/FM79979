@@ -1,0 +1,131 @@
+<ShowFishCollectionPhase>
+	<UIButton>
+		<cImageButton Name="TestButton" cMPDIList="Image/Fish_Detial.mpdi" cMPDI="Fish_Detiail_Button" cSubMPDI="Back" />
+	</UIButton>
+	<UIBG>
+			<cMPDI cMPDIList="Image/Fish_Sphoto.mpdi" cMPDI="Gallery_Bg"/>
+	</UIBG>
+	<FishScroller StartPos="47,202" Gap="129,129" Row="7" Column="5" CollisionRange="0,200,720,1280">
+		<UnknowFish>
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fishxx_Sphoto"/>
+		</UnknowFish>
+		<Fish Name="FishA" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish83_Sphoto"/>
+		</Fish>
+		<Fish Name="FishB" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish85_Sphoto"/>
+		</Fish>
+		<Fish Name="FishC" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish88_Sphoto"/>
+		</Fish>
+		<Fish Name="FishD" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish90_Sphoto"/>
+		</Fish>
+		<Fish Name="FishE" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish92_Sphoto"/>
+		</Fish>
+		<Fish Name="FishF" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish93_Sphoto"/>
+		</Fish>
+		<Fish Name="FishG" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish94_Sphoto"/>
+		</Fish>
+		<Fish Name="FishH" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish95_Sphoto"/>
+		</Fish>
+		<Fish Name="FishI" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish96_Sphoto"/>
+		</Fish>
+		<Fish Name="FishJ" >
+			<cPuzzleImageUnit PI="Image/Fish_Sphoto.pi" PIUnit="Fish97_Sphoto"/>
+		</Fish>
+	</FishScroller>
+	<FishWindow>
+		<cImageButton Name="Detail" cMPDIList="Image/Fish_Detial.mpdi" cMPDI="Fish_Detiail_Button" cSubMPDI="Detial_Button" />
+		<cImageButton Name="CloseDetail" cMPDIList="Image/Fish_Detial.mpdi" cMPDI="Fish_Detiail_Button" cSubMPDI="Detial_Banner_Back" />
+		<BG>
+			<cMPDI cMPDIList="Image/Fish_Detial.mpdi" cMPDI="Fish_Detiail_BG" />
+		</BG>
+		<cRenderObjectVector CollisionRange="0,0,300,350">
+			<cFontWithFrame  Text="FishName" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Fish_Gallery_Name"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="MaxLength" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Detial_Amount_001"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Length" >
+					<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Detial_Amount_002"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Stamina" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Detial_Amount_003"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Count" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Detial_Amount_004"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Place" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Position"/>
+			</cFontWithFrame>
+				<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_001"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_002"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_003"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_004"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_005"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_006"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_007"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_008"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_009"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="FishRodHookProbability" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Plus_Y_010"/>
+			</cFontWithFrame>
+
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_001"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_002"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_003"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_004"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_005"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_006"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_007"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_008"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_009"/>
+			</cFontWithFrame>
+			<cFontWithFrame  Text="Add percent" >
+				<cSubMPDI cMPDIList="Image/Got_Fish_Info.mpdi" cMPDI="Fish_Detiail_Buttom" cSubMPDI="Get_Percent_010"/>
+			</cFontWithFrame>
+		</cRenderObjectVector>
+	</FishWindow>
+</ShowFishCollectionPhase>

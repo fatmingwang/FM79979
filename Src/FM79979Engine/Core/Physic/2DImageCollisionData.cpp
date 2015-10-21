@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		return eCT_MAX;	
 	}
 
-	const wchar_t*         c2DImageCollisionData::TypeID( L"c2DImageCollisionData" );
+	TYPDE_DEFINE_MARCO(c2DImageCollisionData);
 
 	c2DImageCollisionDataForEditor::sImageCollisionData::sCollisionData::sCollisionData(sCollisionData*e_pCollisionData)
 	{

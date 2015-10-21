@@ -244,6 +244,12 @@
     <Filter Include="jni\AndroidJNI\Nvidia">
       <UniqueIdentifier>{c96d8cf6-567a-4fda-9897-3a35c0b1b0a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\Math\MUParser">
+      <UniqueIdentifier>{8c79cf8b-aae2-4293-bc0e-6bf9c0c8f6c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\CameraZoom">
+      <UniqueIdentifier>{e0bf38c8-b0d0-4608-b929-88618d5a52e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -853,6 +859,21 @@
     <ClCompile Include="..\..\Core\Sound\SoundManager.cpp">
       <Filter>jni\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp">
+      <Filter>jni\Math\MUParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\MPDINode.cpp">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp">
+      <Filter>jni\GamePlayUT\CameraZoom</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp">
+      <Filter>jni\RenderObject\FManimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\RenderNode.cpp">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1436,6 +1457,21 @@
       <Filter>jni\GamePlayUT\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\RenderObject.h">
+      <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathFormulaXML.h">
+      <Filter>jni\Math\MUParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\MPDINode.h">
+      <Filter>jni\RenderObject\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h">
+      <Filter>jni\GamePlayUT\CameraZoom</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\FMTimelineAnimationObject.h">
+      <Filter>jni\RenderObject\FManimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\RenderNode.h">
       <Filter>jni\RenderObject\Common</Filter>
     </ClInclude>
   </ItemGroup>

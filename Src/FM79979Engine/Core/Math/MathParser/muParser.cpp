@@ -203,7 +203,60 @@ namespace mu
     return fRes;
   }
 
+	//return how many string is legal for value,if return 0 this is not a value
+  	inline int Mywtof( const wchar_t* e_str,double*e_pdValue )
+	{
+		int	l_iLegalValueLength = 0;
+		bool l_bIsValue = true;
+        bool bMinus = false;
+        if (*e_str == '+')
+        {
+            e_str++;
+        }
+        else
+        if (*e_str == '-')
+        {
+            bMinus = true;
+            e_str++;
+        }
+        double  l_dbValue = 0.f;
+        int     l_dotStart = -1;
+        int l_iLength = wcslen(e_str);
+        for( int i=0;i<l_iLength;++i )
+        {
+            if( e_str[i] == L'.' )
+            {
+                l_dotStart = i;
+            }
+            else
+            if( e_str[i] >= L'0' && e_str[i] <= L'9' )
+            {
+                l_dbValue = (l_dbValue*10) +(e_str[i]-L'0');
+            }
+			else
+			if( e_str[i] == L'e'||e_str[i] == L'E' )
+			{
+				int	l_ie = e_str[i+2]-L'0';
+				for( int j=1;j<l_ie;++j )
+					l_dbValue /= 10;
+			}
+			else
+			{
+				break;
+			}
+			++l_iLegalValueLength;
+        }
 
+        if( l_dotStart != -1 )
+        {
+            float	l_fDotOffset = 1.f;
+            for( int j=1;j<l_iLength-l_dotStart;++j )
+                l_fDotOffset*=10;
+            l_dbValue/=l_fDotOffset;
+        }
+        *e_pdValue = bMinus?-l_dbValue:l_dbValue;
+		return l_iLegalValueLength;
+	}
   //---------------------------------------------------------------------------
   /** \brief Default value recognition callback. 
       \param [in] a_szExpr Pointer to the expression
@@ -213,19 +266,25 @@ namespace mu
   */
   int Parser::IsVal(const char_type* a_szExpr, int *a_iPos, value_type *a_fVal)
   {
-    value_type fVal(0);
-
-    stringstream_type stream(a_szExpr);
-    stream.seekg(0);        // todo:  check if this really is necessary
-    stream.imbue(Parser::s_locale);
-    stream >> fVal;
-    stringstream_type::pos_type iEnd = stream.tellg(); // Position after reading
-
-    if (iEnd==(stringstream_type::pos_type)-1)
-      return 0;
-
-    *a_iPos += (int)iEnd;
+	  value_type fVal(0);
+	 int l_iValueLength = Mywtof(a_szExpr,&fVal);
+	 if( l_iValueLength == 0 )
+		 return 0;
+    *a_iPos += l_iValueLength;
     *a_fVal = fVal;
+    //value_type fVal(0);
+
+    //stringstream_type stream(a_szExpr);
+    //stream.seekg(0);        // todo:  check if this really is necessary
+    //stream.imbue(Parser::s_locale);
+    //stream >> fVal;
+    //stringstream_type::pos_type iEnd = stream.tellg(); // Position after reading
+
+    //if (iEnd==(stringstream_type::pos_type)-1)
+    //  return 0;
+
+    //*a_iPos += (int)iEnd;
+    //*a_fVal = fVal;
     return 1;
   }
 

@@ -6,7 +6,7 @@
 #include "ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     c3DScroller::TypeID( L"c3DScroller" );
+	TYPDE_DEFINE_MARCO(c3DScroller);
     sKeepObjectPositionAtCenter::sKeepObjectPositionAtCenter(float e_fTimeToCenter,Vector4 e_vRect,bool e_bDirectionIsHorizontal)
     {
         bDirectionIsHorizontal = e_bDirectionIsHorizontal;

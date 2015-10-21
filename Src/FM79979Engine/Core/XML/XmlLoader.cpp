@@ -12,8 +12,6 @@
 #endif
 namespace FATMING_CORE
 {
-	//const wchar_t*     ISAXCallback::TypeID( L"ISAXCallback" );
-	//const wchar_t*     cNodeISAX::TypeID( L"cNodeISAX" );
 	bool	g_bDumpXmlContent = false;
 	const char*ISAXCallback::ExtensionNameID( "Fuck" );
 

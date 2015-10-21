@@ -42,6 +42,7 @@ namespace FATMING_CORE
 		bool				bDetectGesture;
 		//while first time multitouch is actived
 		bool				bDoPointsPosHit;
+		bool				bPreviousDoPointsPosHit;
 		Vector2				vCenterPos;
 		//for points zoom function
 		float				fAllFrameDisToCenterPos;//all frame point's average distance to center 
@@ -80,6 +81,7 @@ namespace FATMING_CORE
 		eGestureEnum	Gesture;
 		bool			bTouched;
 		bool			bMouseAllUp;
+		bool			bPrevoisMouseAllUp;
 		//I am assume all points only call mouse event one time
 //#ifdef ANDROID
 //		void			updateTouchPositions(AInputEvent* event);

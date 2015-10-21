@@ -5,7 +5,8 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cGlyphFontRender::TypeID( L"cGlyphFontRender" );
+
+	TYPDE_DEFINE_MARCO(cGlyphFontRender);
 
 	cGlyphFontRender::cGlyphFontRender(int e_iVertexBufferSize)
 	{

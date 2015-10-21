@@ -27,11 +27,10 @@
 namespace FATMING_CORE
 {
 	bool	g_sbCollisionRender = true;
-
-	const wchar_t*         cbtShapeCollision::TypeID( L"cbtShapeCollision" );
-	const wchar_t*         cbtConvexHullShape::TypeID( L"cbtConvexHullShape" );
-	const wchar_t*         cbtSphereShape::TypeID( L"cbtSphereShape" );
-	const wchar_t*         cbtConcaveShapeList::TypeID( L"cbtConcaveShapeList" );
+	TYPDE_DEFINE_MARCO(cbtShapeCollision);
+	TYPDE_DEFINE_MARCO(cbtConvexHullShape);
+	TYPDE_DEFINE_MARCO(cbtSphereShape);
+	TYPDE_DEFINE_MARCO(cbtConcaveShapeList);
 
 	btGjkEpaPenetrationDepthSolver* g_pEpa = 0;
 	btVoronoiSimplexSolver* g_pGjkSimplexSolver = 0;

@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>11</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Profile|Tegra-Android">
+      <Configuration>Profile</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9D05F3D9-EC6D-4242-B847-B9A76F17FB3B}</ProjectGuid>
+    <RootNamespace>EmptyAndroidProject</RootNamespace>
+    <ProjectName>EmptyAndroidProject</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <AndroidTargetAPI>android-14</AndroidTargetAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <AndroidTargetAPI>android-14</AndroidTargetAPI>
+    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <FastDeploy>false</FastDeploy>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID;DEBUG</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Tegra-Android\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\EmptyProject\EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\Tegra-Android\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <ClCompile>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\EmptyProject\EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+    </AntBuild>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </AndroidBuild>
+    <AndroidBuild Include="build.xml" />
+    <AndroidBuild Include="project.properties" />
+    <AndroidBuild Include="proguard.cfg" />
+    <AndroidBuild Include="res\values\strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\com\FM79979\EmptyAndroidProject\EmptyAndroidProject.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderReader.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderWriter.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\ZipFile.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESEncrpyter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\AESEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\ZipCryptoEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\IDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\IEncrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\BinTools.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\MacBasedPRF.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Engine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2HexFormatter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Parameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PRF.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardEncrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipException.java" />
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipExceptionConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\BaseInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\BaseOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\CipherOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\DeflaterOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\InflaterInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\PartInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\SplitOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\ZipInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\ZipOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\AESExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ArchiveExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\CentralDirectory.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\DataDescriptor.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\DigitalSignature.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\EndCentralDirRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\FileHeader.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\LocalFileHeader.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipEngineParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirLocator.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64ExtendedInfo.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ZipModel.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ZipParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\Unzip.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\ArchiveMaintainer.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\CRCUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\InternalZipConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Raw.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java" />
+    <JCompile Include="src\util\AccelerometerListener.java" />
+    <JCompile Include="src\util\AccelerometerManager.java" />
+    <JCompile Include="src\util\AdMobUtility.java" />
+    <JCompile Include="src\util\Define.java" />
+    <JCompile Include="src\util\ExternalStorage.java" />
+    <JCompile Include="src\util\facebook\FBManager.java" />
+    <JCompile Include="src\util\NetworkUtil.java" />
+    <JCompile Include="src\util\iab\Base64.java" />
+    <JCompile Include="src\util\iab\Base64DecoderException.java" />
+    <JCompile Include="src\util\iab\IabException.java" />
+    <JCompile Include="src\util\iab\IabHelper.java" />
+    <JCompile Include="src\util\iab\IABManager.java" />
+    <JCompile Include="src\util\iab\IabResult.java" />
+    <JCompile Include="src\util\iab\Inventory.java" />
+    <JCompile Include="src\util\iab\Purchase.java" />
+    <JCompile Include="src\util\iab\Security.java" />
+    <JCompile Include="src\util\iab\SkuDetails.java" />
+    <JCompile Include="src\util\MyBitmap.java" />
+    <JCompile Include="src\util\NumericEditTextDialog.java" />
+    <JCompile Include="src\util\RootUtil.java" />
+    <JCompile Include="src\util\ZipUtilActivity.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\EmptyProject\EngineTest\GameApp.cpp" />
+    <ClCompile Include="..\..\EmptyProject\EngineTest\Sample.cpp" />
+    <ClCompile Include="..\..\EmptyProject\EngineTest\stdafx.cpp" />
+    <ClCompile Include="..\..\EmptyProject\EngineTest\TestPhase.cpp" />
+    <ClCompile Include="..\..\FishingFun\Win32Test\stdafx.cpp" />
+    <ClCompile Include="jni\engine.cpp" />
+    <ClCompile Include="jni\main.cpp" />
+    <ClCompile Include="jni\MyJni.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\EmptyProject\EngineTest\GameApp.h" />
+    <ClInclude Include="..\..\FishingFun\Win32Test\stdafx.h" />
+    <ClInclude Include="jni\engine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\drawable\icon.png" />
+    <None Include="res\layout\fbmanagerlayout.xml" />
+    <None Include="res\layout\test.xml" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

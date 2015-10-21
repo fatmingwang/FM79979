@@ -3,7 +3,7 @@
 #include "ParticleEmitterGroup.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cParticleEmitterGroup::TypeID( L"cParticleEmitterGroup" );
+	TYPDE_DEFINE_MARCO(cParticleEmitterGroup);
 	cParticleEmitterGroup::cParticleEmitterGroup()
 	{	
 		m_matParticleDirectionTransform = m_matOrientationAndPositionTransform = cMatrix44::Identity;

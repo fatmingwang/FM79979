@@ -9,8 +9,8 @@
 #include "../GamePlayUT/ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cNumeralImage::TypeID( L"cNumeralImage" );
-	const wchar_t*     cTimeNumerialImage::TypeID( L"cTimeNumerialImage" );
+	TYPDE_DEFINE_MARCO(cNumeralImage);
+	TYPDE_DEFINE_MARCO(cTimeNumerialImage);
 	cNumeralImage::cNumeralImage(char*e_strImageName):cBaseImage(e_strImageName)
 	{
 		m_i64Value = 0;

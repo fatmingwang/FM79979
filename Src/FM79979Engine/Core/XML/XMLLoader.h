@@ -99,6 +99,7 @@ namespace FATMING_CORE
 
 	#define	VALUE_TO_INT							_wtoi(l_strValue)
 	#define	VALUE_TO_FLOAT							(float)_wtof(l_strValue)
+	#define	VALUE_TO_DOUBLE							_wtof(l_strValue)
 	#define	VALUE_TO_BOOLEAN						VALUE_TO_INT?true:false
 	#define	VALUE_TO_POINT  						GetPoint(l_strValue)
 	#define	VALUE_TO_VECTOR2						GetVector2(l_strValue)

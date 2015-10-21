@@ -1,0 +1,24 @@
+<!-- Author:scrr,Time:2014/11/19 ¤U¤È 03:07:02 -->
+<PuzzleImage OriginalNameSort="Back,Fish_Poor,Fishing_Shop,Gallery,Get_Coin,Money_000,Money_001,Money_002,Money_003,Money_004,Money_005,Money_006,Money_007,Money_008,Money_009,Map_Bottom,Map_Topi,Shop,Status,System,Pause" ImageName="Main_Map_Ui.png" Count="21" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Back" UV="0,0,0.078125,0.07910156" OffsetPos="0,0" Size="80,81" OriginalSize="80,81" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Fish_Poor" UV="0.07910156,0,0.2041016,0.06152344" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="81,0" />
+    <PuzzleUnit Name="Fishing_Shop" UV="0.2050781,0,0.3300781,0.06152344" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="210,0" />
+    <PuzzleUnit Name="Gallery" UV="0.3310547,0,0.4560547,0.06152344" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="339,0" />
+    <PuzzleUnit Name="Get_Coin" UV="0.4570313,0,0.5126953,0.05566406" OffsetPos="0,0" Size="57,57" OriginalSize="57,57" ShowPosInPI="468,0" />
+    <PuzzleUnit Name="Map_Bottom" UV="0,0.08007813,0.7128906,0.2480469" OffsetPos="0,0" Size="730,172" OriginalSize="730,172" ShowPosInPI="0,82" />
+    <PuzzleUnit Name="Map_Topi" UV="0,0.2490234,0.7109375,0.4121094" OffsetPos="0,0" Size="728,167" OriginalSize="728,167" ShowPosInPI="0,255" />
+    <PuzzleUnit Name="Money_000" UV="0.5136719,0,0.5302734,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="526,0" />
+    <PuzzleUnit Name="Money_001" UV="0.53125,0,0.5478516,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="544,0" />
+    <PuzzleUnit Name="Money_002" UV="0.5488281,0,0.5654297,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="562,0" />
+    <PuzzleUnit Name="Money_003" UV="0.5664063,0,0.5830078,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="580,0" />
+    <PuzzleUnit Name="Money_004" UV="0.5839844,0,0.6005859,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="598,0" />
+    <PuzzleUnit Name="Money_005" UV="0.6015625,0,0.6181641,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="616,0" />
+    <PuzzleUnit Name="Money_006" UV="0.6191406,0,0.6357422,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="634,0" />
+    <PuzzleUnit Name="Money_007" UV="0.6367188,0,0.6533203,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="652,0" />
+    <PuzzleUnit Name="Money_008" UV="0.6542969,0,0.6708984,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="670,0" />
+    <PuzzleUnit Name="Money_009" UV="0.671875,0,0.6884766,0.04199219" OffsetPos="0,0" Size="17,43" OriginalSize="17,43" ShowPosInPI="688,0" />
+    <PuzzleUnit Name="Pause" UV="0.3876953,0.4160156,0.4658203,0.4951172" OffsetPos="0,0" Size="80,81" OriginalSize="80,81" ShowPosInPI="397,426" />
+    <PuzzleUnit Name="Shop" UV="0.1279297,0.4150391,0.2529297,0.4765625" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="131,425" />
+    <PuzzleUnit Name="Status" UV="0.2587891,0.4160156,0.3837891,0.4775391" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="265,426" />
+    <PuzzleUnit Name="System" UV="0,0.4130859,0.125,0.4746094" OffsetPos="0,0" Size="128,63" OriginalSize="128,63" ShowPosInPI="0,423" />
+</PuzzleImage>

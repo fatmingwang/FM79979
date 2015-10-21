@@ -24,8 +24,8 @@ namespace FATMING_CORE
 	const char*cPaticleManager::ExtensionNameID( ".prt" );
 	const char*cBehaviorPaticleManager::ExtensionNameID( ".prtg" );
 
-	const wchar_t*         cPaticleManager::TypeID( L"cPaticleManager" );
-	const wchar_t*         cBehaviorPaticleManager::TypeID( L"cBehaviorPaticleManager" );
+	TYPDE_DEFINE_MARCO(cPaticleManager);
+	TYPDE_DEFINE_MARCO(cBehaviorPaticleManager);
 
 	cParticleBase*NameGetParticleType(wchar_t*e_strTypeID)
 	{

@@ -309,7 +309,6 @@ namespace	FATMING_CORE
 			OpenglInit(e_Hwnd);
 			//m_sHdc = GetDC(e_Hwnd);
 			m_sHandle = e_Hwnd;
-			DumpGraphicsInfo();
 		}
 #endif
 		memset(m_sucKeyData,0,sizeof(bool)*MAX_PATH);
@@ -378,6 +377,9 @@ namespace	FATMING_CORE
 #endif
 	void	cGameApp::Init()
 	{
+#ifdef DEBUG
+		DumpGraphicsInfo();
+#endif
 		m_sbSpeedControl = this->m_sbDebugFunctionWorking;
 		m_sbLeave = false;
 		SystemErrorCheck();
@@ -398,6 +400,8 @@ namespace	FATMING_CORE
 		CreateShader(g_bCommonVSNoTextureClientState,NO_TEXTURE_SHADER);
 
 		CreateShader(g_bMyMeshVSClientState,g_strMyMeshVS,g_strMyMeshFS,STATIC_MESH_SHADER);
+		//if crush go to char*g_strMySkinningMeshVS = "
+		//fin matBones[32] and change its size...
 		CreateShader(g_bMySkinningMeshVSClientState,g_strMySkinningMeshVS,g_strMySkinningMeshFS,SKINNING_MESH_SHADER);
 		if( m_spLogFile )
 			m_spLogFile->WriteToFileImmediatelyWithLine("init shader ok");
@@ -479,6 +483,10 @@ namespace	FATMING_CORE
 		UseShaderProgram(DEFAULT_SHADER);
 		cTexture::m_suiLastUsingImageIndex = -1;
 		//FATMING_CORE::UseShaderProgram();
+		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+		glClearColor( 0.3f,0.3f,0.f,1.f );
+		//glClearDepth(1.0f);								// Depth Buffer Setup
+		glEnable2D(m_svGameResolution.x,m_svGameResolution.y);
 		SystemErrorCheck();
 	}
 

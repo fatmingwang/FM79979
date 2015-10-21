@@ -5,8 +5,8 @@
 #include "ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cTextButton::TypeID( L"cTextButton" );
-	const wchar_t*         cFontWithFrame::TypeID( L"cFontWithFrame");
+	TYPDE_DEFINE_MARCO(cTextButton);
+	TYPDE_DEFINE_MARCO(cFontWithFrame);
 	cFontWithFrame::cFontWithFrame(cGlyphFontRender*e_pGlyphFontRender,const wchar_t*e_strText,cBaseImage*e_pConnectRadianImage,cBaseImage*e_pLineImage)
 	{
 		m_pstrCurrentText = 0;

@@ -3,7 +3,7 @@
 #include "EventInstance.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cEventBase::TypeID( L"cEventBase" );
+	TYPDE_DEFINE_MARCO(cEventBase);
 	cEventBase::cEventBase(){ m_bSatisfiedCondition = false; m_pEventInstance = 0; }
 	cEventBase::~cEventBase(){}
 	//cEventInstance*	m_pEventInstance;

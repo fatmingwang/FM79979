@@ -52,7 +52,7 @@ namespace FATMING_CORE
 	//	cEventTest();
 	//	cEventTest(cEventTest*e_pEventTest);
 	//}
-	//const wchar_t*         cEventTest::TypeID( L"cEventTest" );
+	//TYPDE_DEFINE_MARCO(cEventTest);
 
 	//cEventTest::cEventTest(TiXmlDocument*e_pTiXmlDocument)
 	//{

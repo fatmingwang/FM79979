@@ -12,7 +12,7 @@
 
 #ifdef VLD_DEBUG
 //https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
-#include "C:/Program Files (x86)/Visual Leak Detector/include/vld.h"
+//#include "C:/Program Files (x86)/Visual Leak Detector/include/vld.h"
 //#pragma comment(lib, "../../../lib/Win32/vld.lib")
 #endif
 

@@ -59,7 +59,7 @@ namespace FATMING_CORE
 	{
 		if( m_pUserData == nullptr || e_bForceReplace)
 		{
-			this->m_pUserData = e_pData;
+			this->m_pUserData = (char*)e_pData;
 		}
 	}
 

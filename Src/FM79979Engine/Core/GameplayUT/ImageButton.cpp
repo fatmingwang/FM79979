@@ -6,8 +6,8 @@
 #include "ObjectXMLParser.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cImageButton::TypeID( L"cImageButton" );
-	const wchar_t*     cButtonDialog::TypeID( L"cButtonDialog" );
+	TYPDE_DEFINE_MARCO(cImageButton);
+	TYPDE_DEFINE_MARCO(cButtonDialog);
 	Vector4	g_vImageButtonClickedColor(0.5f,0.5f,0.5f,1);
 	Vector4	g_vDisableColor(0.5f,0.5f,0.5f,0.3f);
 	cImageButton::cImageButton():cBaseImage((char*)0)

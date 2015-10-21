@@ -1,0 +1,71 @@
+<MPDIList Name="Game_Play_mpdi" Count="4" MPDIVersion="1.3" PICount="3" ImageName="Main_Map_Ui.pi,Scene_Nami.pi,Scene_Bg_Vestige.pi">
+    <MultiPathDynamicImage Name="Game_Play_Ui_Button" PathCount="1" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Pause" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="625.00,7.00,0.00" Time="0.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Pause" />
+            <PointDataList Index="1" Position="625.00,7.00,0.00" Time="5.000000" Size="80.00,81.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Pause" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Game_Play_Ui" PathCount="1" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Map_Topi" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-8.00,-10.00,0.00" Time="0.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+            <PointDataList Index="1" Position="-8.00,-10.00,0.00" Time="5.000000" Size="728.00,167.00" Scale="1.00,1.00" PIName="Main_Map_Ui" ImageName="Map_Topi" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Game_Play_Bg" PathCount="6" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Vestige_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,383.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg" />
+            <PointDataList Index="1" Position="217.00,383.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Vestige_Clip" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="272.00,447.00,0.00" Time="0.000000" Size="721.80,75.00" Scale="4.01,1.00" Color="1.00,1.00,1.00,0.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Clip" />
+            <PointDataList Index="1" Position="272.00,447.00,0.00" Time="1.000000" Size="721.80,75.00" Scale="4.01,1.00" Color="1.00,1.00,1.00,0.00" PIName="Scene_Bg_Vestige" ImageName="Vestige_Clip" />
+            <PointDataList Index="2" Position="272.00,447.00,0.00" Time="2.000000" Size="720.00,75.00" Scale="4.00,1.00" Color="1.00,1.00,1.00,0.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Clip" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_Play_001" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="238.00,479.00,0.00" Time="0.000000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_001" />
+            <PointDataList Index="1" Position="238.00,479.00,0.00" Time="0.200000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_002" />
+            <PointDataList Index="2" Position="238.00,479.00,0.00" Time="0.400000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_003" />
+            <PointDataList Index="3" Position="238.00,479.00,0.00" Time="0.600000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_004" />
+            <PointDataList Index="4" Position="238.00,479.00,0.00" Time="0.800000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_005" />
+            <PointDataList Index="5" Position="238.00,479.00,0.00" Time="1.000000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_006" />
+            <PointDataList Index="6" Position="238.00,479.00,0.00" Time="1.200000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_007" />
+            <PointDataList Index="7" Position="238.00,479.00,0.00" Time="1.400000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_008" />
+            <PointDataList Index="8" Position="238.00,479.00,0.00" Time="1.600000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_009" />
+            <PointDataList Index="9" Position="238.00,479.00,0.00" Time="1.800000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_010" />
+            <PointDataList Index="10" Position="238.00,479.00,0.00" Time="2.000000" Size="720.30,126.00" Scale="2.94,2.80" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_011" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Vestige_Light" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="166.00,370.00,0.00" Time="0.000000" Size="1200.00,1200.00" Scale="6.00,6.00" Color="1.00,1.00,1.00,0.80" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+            <PointDataList Index="1" Position="128.00,344.00,0.00" Time="2.500000" Size="1200.00,1200.00" Scale="6.00,6.00" Color="1.00,1.00,1.00,0.70" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+            <PointDataList Index="2" Position="166.00,370.00,0.00" Time="5.000000" Size="1200.00,1200.00" Scale="6.00,6.00" Color="1.00,1.00,1.00,0.80" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Vestige_Light_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="49.00,358.00,0.00" Time="0.000000" Size="1400.00,1400.00" Scale="7.00,7.00" Color="1.00,1.00,1.00,0.80" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+            <PointDataList Index="1" Position="62.00,393.00,0.00" Time="2.500000" Size="1400.00,1400.00" Scale="7.00,7.00" Color="1.00,1.00,1.00,0.70" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+            <PointDataList Index="2" Position="49.00,358.00,0.00" Time="5.000000" Size="1400.00,1400.00" Scale="7.00,7.00" Color="1.00,1.00,1.00,0.80" PIName="Scene_Bg_Vestige" ImageName="Vestige_Light" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Nami_Play_002" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="238.00,479.00,0.00" Time="0.000000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_006" />
+            <PointDataList Index="1" Position="238.00,479.00,0.00" Time="0.200000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_007" />
+            <PointDataList Index="2" Position="238.00,479.00,0.00" Time="0.400000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_008" />
+            <PointDataList Index="3" Position="238.00,479.00,0.00" Time="0.600000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_009" />
+            <PointDataList Index="4" Position="238.00,479.00,0.00" Time="0.800000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_010" />
+            <PointDataList Index="5" Position="238.00,479.00,0.00" Time="1.000000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_011" />
+            <PointDataList Index="6" Position="238.00,479.00,0.00" Time="1.200000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_001" />
+            <PointDataList Index="7" Position="238.00,479.00,0.00" Time="1.400000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_002" />
+            <PointDataList Index="8" Position="238.00,479.00,0.00" Time="1.600000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_003" />
+            <PointDataList Index="9" Position="238.00,479.00,0.00" Time="1.800000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_004" />
+            <PointDataList Index="10" Position="238.00,479.00,0.00" Time="2.000000" Size="720.30,126.00" Scale="2.94,2.80" Angles="0.00,180.00,0.00" Color="0.80,0.80,0.60,1.00" PIName="Scene_Nami" ImageName="Nami_Play_005" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Bg_Nolimit" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Vestige_Bg_Limit" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,383.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg_Limit" />
+            <PointDataList Index="1" Position="217.00,-895.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg_Limit" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Vestige_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="217.00,1662.00,0.00" Time="0.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg_Limit" />
+            <PointDataList Index="1" Position="217.00,384.00,0.00" Time="5.000000" Size="720.00,1280.00" Scale="2.50,2.50" PIName="Scene_Bg_Vestige" ImageName="Vestige_Bg_Limit" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

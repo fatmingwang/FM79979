@@ -4,7 +4,7 @@
 #include "EventManager.h"
 namespace   FATMING_CORE
 {
-    const wchar_t*         cEventSound::TypeID( L"cEventSound" );
+	TYPDE_DEFINE_MARCO(cEventSound);
 	cEventSound::cEventSound(TiXmlElement*e_pElement):cEventObject(eEOT_SOUND)
 	{
 		m_bPlayed = false;

@@ -3,11 +3,11 @@
 #include "PrtColor.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtColorInitrSetColor::TypeID( L"cPrtColorInitrSetColor" );
-	const wchar_t*         cPrtColorInitrSetRandomColor::TypeID( L"cPrtColorInitrSetRandomColor" );
-	const wchar_t*         cPrtColorActBlending::TypeID( L"cPrtColorActBlending" );
-	const wchar_t*         cPrtColorActBlendingByLife::TypeID( L"cPrtColorActBlendingByLife" );
-	const wchar_t*         cPrtColorActBlendingBy2Color::TypeID( L"cPrtColorActBlendingBy2Color" );
+	TYPDE_DEFINE_MARCO(cPrtColorInitrSetColor);
+	TYPDE_DEFINE_MARCO(cPrtColorInitrSetRandomColor);
+	TYPDE_DEFINE_MARCO(cPrtColorActBlending);
+	TYPDE_DEFINE_MARCO(cPrtColorActBlendingByLife);
+	TYPDE_DEFINE_MARCO(cPrtColorActBlendingBy2Color);
 
 	char*	cPrtColorInitrSetColor::UsageExplanation =
 	{

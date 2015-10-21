@@ -4,7 +4,7 @@
 #include "PrtTexture.h"
 namespace FATMING_CORE
 {
-	const wchar_t*         cPrtTextureActDynamicTexture::TypeID( L"cPrtTextureActDynamicTexture" );
+	TYPDE_DEFINE_MARCO(cPrtTextureActDynamicTexture);
 	//usage explanation
 	char*	cPrtTextureActDynamicTexture::UsageExplanation="select pi and it will apply image animation if pi contain animation,it could be edited in the SA";
 

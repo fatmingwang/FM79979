@@ -1,0 +1,30 @@
+<StageSelectPhase>
+	<ScrollableMapAndButton ViewRect="0,0,1440,1280">
+		<cButtonDialog  AllElementIsButton="true">
+			<cMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Button"/>
+		</cButtonDialog>
+		<BG>
+			<cMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map"/>
+		</BG>
+	</ScrollableMapAndButton>
+	<UIBG>
+			<cMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Ui"/>
+	</UIBG>
+	<UIButton>
+		<cButtonDialog  AllElementIsButton="true">
+			<cMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Ui_Button"/>
+		</cButtonDialog>
+	</UIButton>
+	<PlayerUI>
+		<cNumeralImage PI="Image/Main_Map_Ui.pi" Image0="Money_000" Image9="Money_000"/>
+		<Reel>
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Ui_amount" cSubMPDI="Money_002"/>
+		</Reel>
+		<Money>
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Ui_amount" cSubMPDI="Money_000"/>
+		</Money>
+		<Gold>
+			<cSubMPDI cMPDIList="Image/Main_Map.mpdi" cMPDI="Main_Map_Ui_amount" cSubMPDI="Money_001"/>
+		</Gold>
+	</PlayerUI>
+</StageSelectPhase>

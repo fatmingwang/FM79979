@@ -8,7 +8,7 @@
 #include "../Sound/SoundManager.h"
 namespace FATMING_CORE
 {
-	const wchar_t*     cCueToStartCurveWithTime::TypeID( L"cSubMPDI" );
+	TYPDE_DEFINE_MARCO(cSubMPDI);
 	cCueToStartCurveWithTime::cCueToStartCurveWithTime(cMulti_PI_Image*e_pMulti_PI_Image):cMulti_PI_Image(e_pMulti_PI_Image)
 	{
 		m_eAnchorType = eIAT_CENTER_CENTER;

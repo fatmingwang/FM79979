@@ -10,7 +10,7 @@
 #include "EventVariableDataRender.h"
 namespace   FATMING_CORE
 {
-	const wchar_t*         cEventObject::TypeID( L"cEventObject" );
+	TYPDE_DEFINE_MARCO(cEventObject);
 	//cObjectAndName<cEventObject>*	CloneEventObject(cObjectAndName<cEventObject>*e_pEventObject)
 	//{
 	//	cObjectAndName<cEventObject>*l_pReturnData = 0;

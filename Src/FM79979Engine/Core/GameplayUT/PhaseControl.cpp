@@ -10,7 +10,7 @@ namespace FATMING_CORE
 			return dynamic_cast<cPhaseManager*>(GetOwner());
 		return 0;
 	}
-	//const wchar_t*         cSimplePhase::TypeID( L"cSimplePhase" );
+	//TYPDE_DEFINE_MARCO(cSimplePhase);
  //   void    cSimplePhase::InternalMouseMove(int e_iPosX,int e_iPosY)
 	//{
 	//	int	l_iCount = this->m_AllMouseBehavior.Count();

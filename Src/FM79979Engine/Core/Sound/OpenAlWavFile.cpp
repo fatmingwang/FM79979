@@ -157,7 +157,7 @@ namespace FATMING_CORE
 
 
 
-	const wchar_t*     cOpanalWAV::TypeID( L"cOpanalWAV" );
+	TYPDE_DEFINE_MARCO(cOpanalWAV);
 
 	cOpanalWAV::cOpanalWAV(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{

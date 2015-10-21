@@ -3,8 +3,8 @@
 
 namespace FATMING_CORE
 {
-	const wchar_t*         cEventVariable::TypeID( L"cEventVariable" );
-	const wchar_t*         cEventVariableList::TypeID( L"cEventVariableList" );
+	TYPDE_DEFINE_MARCO(cEventVariableList);
+	TYPDE_DEFINE_MARCO(cEventVariable);
 	cEventVariable::cEventVariable()
 	{
 		m_pData = 0;

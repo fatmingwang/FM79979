@@ -1,0 +1,5 @@
+<!-- Author:Fatming,Time:2014/10/29 ¤U¤È 04:23:45 -->
+<PuzzleImage OriginalNameSort="Fishrod,FishHook" ImageName="FishingTool.png" Count="2" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="FishHook" UV="0.5351563,0,0.7460938,0.7792969" OffsetPos="0,0" Size="54,798" OriginalSize="54,798" ShowPosInPI="137,0" />
+    <PuzzleUnit Name="Fishrod" UV="0,0,0.53125,0.09375" OffsetPos="0,0" Size="136,96" OriginalSize="136,96" ShowPosInPI="0,0" />
+</PuzzleImage>

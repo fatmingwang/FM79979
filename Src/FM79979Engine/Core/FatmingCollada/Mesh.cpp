@@ -15,7 +15,8 @@ sTechniqueAndTexture::~sTechniqueAndTexture()
 {
 
 }
-const wchar_t*     cMesh::TypeID( L"cMesh" );
+
+TYPDE_DEFINE_MARCO(cMesh);
 
 cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 		UINT	e_uiVertexBufferCount,

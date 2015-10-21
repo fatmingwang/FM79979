@@ -44,12 +44,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>..\..\..\..\Media\</OutDir>
-    <IntDir>..\..\..\..\Intermedia\Debug\LevelEditor\</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\..\Media\</OutDir>
-    <IntDir>..\..\..\..\Intermedia\Release\LevelEditor\</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -124,6 +124,9 @@
     <ProjectReference Include="..\..\Core\FMLevelData\FMLevelData.vcxproj">
       <Project>{446a6d50-5176-4d3c-938b-65e7b41d0873}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
       <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>
