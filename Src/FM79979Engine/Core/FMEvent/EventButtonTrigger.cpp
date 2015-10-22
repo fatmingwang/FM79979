@@ -200,7 +200,8 @@ namespace FATMING_CORE
 		m_HoldTimeCounter = e_pEventButton->m_HoldTimeCounter;
 		m_pReferenceImage = e_pEventButton->m_pReferenceImage;
 		this->SetName(e_pEventButton->GetName());
-		this->m_pButton = dynamic_cast<cClickMouseBehavior*>(e_pEventButton->m_pButton->Clone());
+		NamedTypedObject*l_pObject = e_pEventButton->m_pButton->Clone();		
+		this->m_pButton = reinterpret_cast<cClickMouseBehavior*>(l_pObject);
 		//InternalCollide is override so we dont need this acctually
 		if(!m_pButton)
 		{
@@ -634,7 +635,10 @@ namespace FATMING_CORE
 		m_bStayAtLastSelect = e_pEventMultiButton->m_bStayAtLastSelect;
 		m_iClickCount = e_pEventMultiButton->m_iClickCount;
 		if( e_pEventMultiButton->m_pPrefixButton )
-			m_pPrefixButton = dynamic_cast<cClickMouseBehavior*>(e_pEventMultiButton->m_pPrefixButton->Clone());
+		{
+			NamedTypedObject*l_pObject = e_pEventMultiButton->m_pPrefixButton->Clone();
+			m_pPrefixButton = reinterpret_cast<cClickMouseBehavior*>(l_pObject);
+		}
 	}
 
 	cEventMultiButton::~cEventMultiButton()

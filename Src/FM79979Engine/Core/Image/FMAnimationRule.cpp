@@ -182,7 +182,7 @@ namespace FATMING_CORE
 		return true;
 	}
     float	cFMTimeLineAnimationRule::GetPastTime(){ return m_fPastTime; }
-    void	cFMTimeLineAnimationRule::SetAnimationLoop(bool e_bLoop){ m_iPlayCount = e_bLoop?-1:m_iPlayCount; }
+    void	cFMTimeLineAnimationRule::SetAnimationLoop(bool e_bLoop){ m_iPlayCount = e_bLoop?-1:1; }
     void	cFMTimeLineAnimationRule::SetAnimationDone(bool e_bAnimationDone)
 	{
 		if( e_bAnimationDone )

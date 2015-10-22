@@ -53,6 +53,7 @@ namespace FATMING_CORE
 		void			SetPlayCount(int e_iPlayCount);
 	    //the time has been past
 	    float			GetPastTime();
+		//if true m_iPlayCount -1,or 1
 	    virtual	void	SetAnimationLoop(bool e_bLoop);
 	    virtual	void	SetAnimationDone(bool e_bAnimationDone);
 	    virtual	void	Stop();

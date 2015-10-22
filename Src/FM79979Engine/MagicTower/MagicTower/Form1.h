@@ -36,8 +36,8 @@ namespace MagicTower {
 			m_pOrthogonalCamera = cMagicTowerApp::m_sp2DCamera;
 			if( m_pOrthogonalCamera )
 			{
-				//m_fResolutionWidth = 480;
-				//m_fResolutionHeight = 960.f;
+				m_fResolutionWidth = 480;
+				m_fResolutionHeight = 960.f;
 				//m_fResolutionWidth = 1080;
 				//m_fResolutionHeight = 1920.f;
 				m_pOrthogonalCamera->SetResolution(Vector2(m_fResolutionWidth,m_fResolutionHeight));
