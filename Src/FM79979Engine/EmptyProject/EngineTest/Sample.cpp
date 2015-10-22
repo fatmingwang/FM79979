@@ -114,6 +114,7 @@ void	DestorySampleObject()
 {
 	//do not delete g_pMultiPathDynamicImage,it come from g_pMPDIList
 	//g_pMultiPathDynamicImageClone is a clone object so delete it.
+	SAFE_DELETE(g_pBGImage);
 	SAFE_DELETE(g_pMultiPathDynamicImageClone);
 	SAFE_DELETE(g_pCameraZoomFunction);
 	//not necessary,it will auto release while m_pAnimationParser is delete
