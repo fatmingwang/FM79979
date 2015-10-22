@@ -240,6 +240,9 @@
     <Filter Include="GameplayUT\CameraZoom">
       <UniqueIdentifier>{da8a3baa-88c9-4c19-bae8-feca8ca8c97e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\EventSender">
+      <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -652,6 +655,9 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\CameraZoomFunction.cpp">
       <Filter>GameplayUT\CameraZoom</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp">
+      <Filter>GameplayUT\EventSender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1125,6 +1131,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\CameraZoomFunction.h">
       <Filter>GameplayUT\CameraZoom</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\EventSender\MessageSender.h">
+      <Filter>GameplayUT\EventSender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
