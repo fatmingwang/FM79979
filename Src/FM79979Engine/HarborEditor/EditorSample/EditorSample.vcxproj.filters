@@ -45,6 +45,21 @@
     <ClCompile Include="LinerDataModifer.cpp">
       <Filter>RegionInfo</Filter>
     </ClCompile>
+    <ClCompile Include="TradeRouteCalculate.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TradeRouteFinder.cpp">
+      <Filter>RegionInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="RegionMapChange.cpp">
+      <Filter>RegionInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="RegionMap.cpp">
+      <Filter>RegionInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="PortNameXML.cpp">
+      <Filter>RegionInfo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -69,6 +84,21 @@
       <Filter>RegionInfo</Filter>
     </ClInclude>
     <ClInclude Include="LinerDataModifer.h">
+      <Filter>RegionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeRouteTimeCalculate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeRouteFinder.h">
+      <Filter>RegionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="RegionMapChange.h">
+      <Filter>RegionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="RegionMap.h">
+      <Filter>RegionInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="PortNameXML.h">
       <Filter>RegionInfo</Filter>
     </ClInclude>
   </ItemGroup>

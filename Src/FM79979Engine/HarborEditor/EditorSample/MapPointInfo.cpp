@@ -55,11 +55,12 @@ sTradeRoutesPointData::sTradeRoutesPointData(TiXmlElement*e_pTiXmlElement)
 			COMPARE_NAME("MapName")
 			{
 				l_sJunctionPointData.strMapName = l_strValue;
+				l_sJunctionPointData.m_iMapID = VALUE_TO_INT;
 			}
 			else
 			COMPARE_NAME("PointName")
 			{
-				l_sJunctionPointData.strPointName = l_strValue;
+				l_sJunctionPointData.SetPointName(l_strValue);
 			}
 		PARSE_NAME_VALUE_END
 		this->JunctionPointNameVectorData.push_back(l_sJunctionPointData);
@@ -268,6 +269,7 @@ cMapPointInfo::cMapPointInfo(TiXmlElement*e_pTiXmlElement)
 	if( l_strName )
 	{
 		this->SetName(l_strName);
+		m_iID = GetInt(l_strName);
 	}
 	else
 	{

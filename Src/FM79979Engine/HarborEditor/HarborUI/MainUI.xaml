@@ -11,12 +11,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition />
-        </Grid.RowDefinitions>        
+        </Grid.RowDefinitions>
         <Menu IsMainMenu="true">
-            <MenuItem Header="File">
+            <MenuItem Header="File" Click="MenuItem_Click">
                 <!--http://www.wpftutorial.net/Menus.html-->
-                <MenuItem Header="Open" Click="MenuItem_Click"  Name="m_FileOpen"/>
-                <MenuItem Header="Save" Click="MenuItem_Click"  Name="m_FileSave"/>                
+                <MenuItem Header="Open"   Click="MenuItem_Click" Name="m_FileOpen"/>
+                <MenuItem Header="Save" Click="MenuItem_Click"  Name="m_FileSave"/>
+                <MenuItem Header="Excel" Click="MenuItem_Click"  Name="m_Excel"/>
             </MenuItem>            
             <MenuItem Header="Window">
                 <!--http://www.wpftutorial.net/Menus.html-->
@@ -44,6 +45,9 @@
                                 </TabItem>
                                 <TabItem Header="Route">
                                     <cust:TradeRoutes x:Name="m_TradeRoutes" x:FieldModifier="public"/>
+                                </TabItem>
+                                <TabItem Header="Fuck" >
+                                    <cust:UserControl1 Width="100" Height="200"/>
                                 </TabItem>
                             </TabControl>
                             <!--<StackPanel>

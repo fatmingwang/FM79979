@@ -1,20 +1,42 @@
-m_pWPFHarborInfo// EditorSample.cpp : main project file.
+// EditorSample.cpp : main project file.
 
 #include "stdafx.h"
 #include "Harbor.h"
-//#include "vld.h"
+#include "TradeRouteTimeCalculate.h"
+#include "vld.h"
 
+using namespace System::Data;
+char*g_strSelectDirectory = nullptr;
 namespace EditorSample 
 {
 	HarborEditor::HarborEditor()
 	{
+//	using namespace System::Windows::Forms::Integration;
+	//using namespace Microsoft::Office::Tools::Excel;
+		//==================================
+		//read xls or xlsm file
+		//==================================
+		//Microsoft::Office::Interop::Excel::Application^ exApp= gcnew Microsoft::Office::Interop::Excel::ApplicationClass();
+  //      String^ filename="e:\\test.xlsm";
+		//Microsoft::Office::Interop::Excel::Workbook^ wb = exApp->Workbooks->Open(filename, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing, Type::Missing);
+  //      Microsoft::Office::Interop::Excel::Worksheet^  exWs  = (Microsoft::Office::Interop::Excel::Worksheet^)exApp->ActiveSheet;
+  //      int row=1;
+  //      int col=1;
+  //      String^ tmp=((Microsoft::Office::Interop::Excel::Range^)exWs->Cells[(System::Object^)row, (System::Object^)col])->Value2->ToString();
+  //      MessageBox::Show(tmp);
+		//======================
+		//
+		//======================
+		//HarborUI::MyExcel::ReadExcelTest();
+		//HarborUI::MyExcel::ExcelTest();
+		//ExcelLibrary
 		InitializeComponent();
 		m_pOrthgonalCamera = nullptr;
 		m_pGameApp = nullptr;
 		m_pWPFTradeRoutes = nullptr;
 		m_pWPFHarborInfo = nullptr;
 		m_pBGImage = nullptr;
-		m_pCommodityManager = nullptr;
+		//m_pCommodityManager = nullptr;
 		m_pLinerDataModifer = new cLinerDataModifer();
 		m_pRegionMapPointInfoManager = new cRegionMapPointInfoManager();
 		m_pTradeRoutesManager = new cTradeRoutesManager();
@@ -29,11 +51,12 @@ namespace EditorSample
 			delete components;
 		}
 		SAFE_DELETE(m_pCurrentEditRoute);
-		SAFE_DELETE(m_pCommodityManager);
+		//SAFE_DELETE(m_pCommodityManager);
 		SAFE_DELETE(m_pLinerDataModifer);
 		SAFE_DELETE(m_pRegionMapPointInfoManager);
 		SAFE_DELETE(m_pTradeRoutesManager);
 		SAFE_DELETE(m_pBGImage);
+		m_pOrthgonalCamera->SetName(L"79979");
 		SAFE_DELETE(m_pOrthgonalCamera);
 		SAFE_DELETE(m_pGameApp);
 	}
@@ -70,6 +93,7 @@ namespace EditorSample
 		l_pElementHots->Dock = DockStyle::Fill;
 		l_pElementHots->Child = m_pWPFMainUI;
 		Controls->Add(l_pElementHots);
+
 		//for opengl
 		System::Windows::Forms::Integration::WindowsFormsHost^l_pWindowsFormsHost = (System::Windows::Forms::Integration::WindowsFormsHost^)m_pWPFMainUI->m_RenderGrid->Child;
 		m_pWindowsFormsHost = l_pWindowsFormsHost;
@@ -83,6 +107,9 @@ namespace EditorSample
 		//
 		m_pWPFMainUI->f_FileOpen										+=	gcnew System::EventHandler(this, &HarborEditor::FileOpen);
 		m_pWPFMainUI->f_FileSave										+=	gcnew System::EventHandler(this, &HarborEditor::FileSave);
+
+		m_pWPFMainUI->f_ExcelConvert									+=	gcnew System::EventHandler(this, &HarborEditor::FileExcelConvertSave);
+		
 		//
 		m_pWPFHarborInfo->f_BGImageButton								+= gcnew System::EventHandler(this, &HarborEditor::BGImage);
 		m_pWPFHarborInfo->f_AddButton									+= gcnew System::EventHandler(this, &HarborEditor::AddMpaPoint);
@@ -111,7 +138,6 @@ namespace EditorSample
 		m_pOrthgonalCamera = new cOrthogonalCamera();
 
 		//OpenFile("C:/Users/USER/Desktop/New folder (2)/");
-
 		this->timer1->Enabled = true;
 	}
 
@@ -303,17 +329,17 @@ namespace EditorSample
 			String^l_strCoomodityFileName = l_strDirectory+"/Commodity.xml";
 			String^l_strHarborInfoFileName = l_strDirectory+"/HarborInfo.xml";
 			String^l_strRouteFileName = l_strDirectory+"/Route.xml";
-			SAFE_DELETE(m_pCommodityManager);
+			//SAFE_DELETE(m_pCommodityManager);
 			SAFE_DELETE(m_pRegionMapPointInfoManager);
 			SAFE_DELETE(m_pTradeRoutesManager);
-			m_pCommodityManager = new cCommodityManager();
+			//m_pCommodityManager = new cCommodityManager();
 			m_pRegionMapPointInfoManager = new cRegionMapPointInfoManager();
 			m_pTradeRoutesManager = new cTradeRoutesManager();
 			m_pCurrentEditRoute->Clear();
-			if(!m_pCommodityManager->ParseWithMyParse(DNCT::GcStringToChar(l_strCoomodityFileName)))
+			/*if(!m_pCommodityManager->ParseWithMyParse(DNCT::GcStringToChar(l_strCoomodityFileName)))
 			{
 				WARNING_MSG(l_strCoomodityFileName + "parse failed");
-			}
+			}*/
 			if(!m_pRegionMapPointInfoManager->ParseWithMyParse(DNCT::GcStringToChar(l_strHarborInfoFileName)))
 			{
 				WARNING_MSG(l_strHarborInfoFileName + "parse failed");
@@ -469,16 +495,16 @@ namespace EditorSample
 
 	System::Void HarborEditor::AppllyMapPointHorbor(System::Object^  sender, System::EventArgs^  e)
 	{
-		if( m_pCommodityManager == nullptr )
-		{
-			if(!System::IO::File::Exists("Commodity.xml"))
-			{
-				WARNING_MSG("default commodity.xml is not found!");
-				return ;
-			}
-			m_pCommodityManager = new cCommodityManager();
-			m_pCommodityManager->ParseWithMyParse("Commodity.xml");
-		}
+		//if( m_pCommodityManager == nullptr )
+		//{
+		//	if(!System::IO::File::Exists("Commodity.xml"))
+		//	{
+		//		WARNING_MSG("default commodity.xml is not found!");
+		//		return ;
+		//	}
+		//	m_pCommodityManager = new cCommodityManager();
+		//	m_pCommodityManager->ParseWithMyParse("Commodity.xml");
+		//}
 		if( m_pWPFHarborInfo->m_MapPointTypeCombobox->SelectedIndex == 0  )
 		{
 			cMapPointInfo*l_pMapPointInfo = HarborEditor::GetCurrentSelectMapPointInfo();
@@ -494,29 +520,29 @@ namespace EditorSample
 				
 				l_pHarborData->m_HarborItemInfoVector.Destroy();
 				size_t	l_uiSize = l_strRuelt.size();
-				for( size_t i=0;i<l_uiSize;++i )
-				{
-					cCommodity*l_pCommodity = m_pCommodityManager->GetCommodity(GetInt(l_strRuelt[i].c_str()));
-					if( l_pCommodity )
-					{
-						if(!l_pHarborData->IsContainCommodity(l_pCommodity))
-						{
-							l_pHarborData->m_HarborItemInfoVector.AddObjectNeglectExist(l_pCommodity);
-						}
-						else
-						{
-							String^l_strErrorMsg = "same commodity exists";
-							l_strErrorMsg += l_pCommodity->GetID().ToString();
-							WARNING_MSG(l_strErrorMsg);
-						}
-					}
-					else
-					{
-						String^l_strErrorMsg = "commodity name not exist,ID:";
-						l_strErrorMsg += gcnew String(l_strRuelt[i].c_str());
-						WARNING_MSG(l_strErrorMsg);
-					}
-				}
+				//for( size_t i=0;i<l_uiSize;++i )
+				//{
+				//	cCommodity*l_pCommodity = m_pCommodityManager->GetCommodity(GetInt(l_strRuelt[i].c_str()));
+				//	if( l_pCommodity )
+				//	{
+				//		if(!l_pHarborData->IsContainCommodity(l_pCommodity))
+				//		{
+				//			l_pHarborData->m_HarborItemInfoVector.AddObjectNeglectExist(l_pCommodity);
+				//		}
+				//		else
+				//		{
+				//			String^l_strErrorMsg = "same commodity exists";
+				//			l_strErrorMsg += l_pCommodity->GetID().ToString();
+				//			WARNING_MSG(l_strErrorMsg);
+				//		}
+				//	}
+				//	else
+				//	{
+				//		String^l_strErrorMsg = "commodity name not exist,ID:";
+				//		l_strErrorMsg += gcnew String(l_strRuelt[i].c_str());
+				//		WARNING_MSG(l_strErrorMsg);
+				//	}
+				//}
 			}
 		}
 	}
@@ -560,12 +586,37 @@ namespace EditorSample
 			String^l_strHarborInfoFileName = l_strDirectory+"/HarborInfo.xml";
 			String^l_strRouteFileName = l_strDirectory+"/Route.xml";
 
-			if(m_pCommodityManager)
-				m_pCommodityManager->Export(DNCT::GcStringToChar(l_strCoomodityFileName));
+			//if(m_pCommodityManager)
+			//	m_pCommodityManager->Export(DNCT::GcStringToChar(l_strCoomodityFileName));
 			if(m_pRegionMapPointInfoManager)
 				m_pRegionMapPointInfoManager->Export(DNCT::GcStringToChar(l_strHarborInfoFileName));
 			if(m_pTradeRoutesManager)
 				m_pTradeRoutesManager->Export(DNCT::GcStringToChar(l_strRouteFileName));
+		}
+	}
+
+	System::Void HarborEditor::FileExcelConvertSave(System::Object^  sender, System::EventArgs^  e)
+	{
+		String^l_strFileName = DNCT::SaveFileAndGetName("xlsx files (*.xlsx)|*.xlsx|All files (*.*)|*.*");
+		if( l_strFileName && m_pTradeRoutesManager )
+		{
+			System::Data::DataTable^l_pTable = gcnew System::Data::DataTable("Test123");
+			l_pTable->Columns->Add("Name");
+			l_pTable->Columns->Add("Distance");
+			l_pTable->Columns->Add("NewDistance");
+			
+			cTradeRoutes*l_pTradeRoutes = nullptr;
+			for (int i = 0; i < m_pTradeRoutesManager->Count(); i++)
+			{
+				
+				l_pTradeRoutes = (*m_pTradeRoutesManager)[i];
+				String^l_strName = DNCT::WcharToGcstring(l_pTradeRoutes->GetStartPoint()->GetName())+"_"+DNCT::WcharToGcstring(l_pTradeRoutes->GetEndPoint()->GetName());
+				//String^l_strName = l_pTradeRoutes->GetStartPoint()->GetName();
+				l_pTable->Rows->Add(l_strName,l_pTradeRoutes->GetDistance().ToString(),"0");
+			}
+			System::Data::DataSet^l_pDataSet = gcnew System::Data::DataSet("Test456");
+			l_pDataSet->Tables->Add(l_pTable);
+			HarborUI::MyExcel::Save(l_strFileName,l_pDataSet);
 		}
 	}
 
@@ -639,6 +690,11 @@ namespace EditorSample
 				}
 				this->m_pTradeRoutesManager->RemoveObject(l_iSameNameIndex);
 			}
+			if(m_pTradeRoutesManager->IsAllowToAdded(l_pStartMapPoint,l_pEndMapPoint) == false)
+			{
+				WARING_YES_NO_TO_NO("start and end point is not allow to has same!?")
+				return ;
+			}
 			l_pTradeRoutes = new cTradeRoutes();
 			l_pTradeRoutes->SetName(DNCT::GcStringToWchar(l_strRouteName));
 			l_pTradeRoutes->SetStartPoint(l_pStartMapPoint);
@@ -711,7 +767,8 @@ int main(array<System::String ^> ^args)
 	Application::SetCompatibleTextRenderingDefault(false); 
 
 	// Create the main window and run it
-	Application::Run(gcnew HarborEditor());
+	//Application::Run(gcnew HarborEditor());
+	Application::Run(gcnew TradeRouteTimeCalculate());
 	NamedTypedObject::DumpUnReleaseInfo();
 	_CrtDumpMemoryLeaks();
 	return 0;

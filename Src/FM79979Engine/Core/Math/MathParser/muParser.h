@@ -53,6 +53,7 @@ namespace mu
   public:
 
     Parser();
+	~Parser();
 
     virtual void InitCharSets();
     virtual void InitFun();

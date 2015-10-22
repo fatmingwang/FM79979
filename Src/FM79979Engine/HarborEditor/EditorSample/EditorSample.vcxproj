@@ -61,8 +61,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DisableSpecificWarnings>4793</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>..\..\Core\Math\MathParser;C:\Program Files %28x86%29\Visual Leak Detector\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4793;4691;4945</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -81,6 +81,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\..\Core\Math\MathParser;C:\Program Files %28x86%29\Visual Leak Detector\include;C:\Users\USER\Desktop\My79979\FM79979\Src\FM79979Engine\Core\Math\MathParser;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -123,11 +124,16 @@
     <ClCompile Include="EditorSample.cpp" />
     <ClCompile Include="LinerDataModifer.cpp" />
     <ClCompile Include="MapPointInfo.cpp" />
+    <ClCompile Include="PortNameXML.cpp" />
+    <ClCompile Include="RegionMap.cpp" />
+    <ClCompile Include="RegionMapChange.cpp" />
     <ClCompile Include="RegionMapInfo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TradeRouteCalculate.cpp" />
+    <ClCompile Include="TradeRouteFinder.cpp" />
     <ClCompile Include="TradeRoutes.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,10 +143,17 @@
     </ClInclude>
     <ClInclude Include="LinerDataModifer.h" />
     <ClInclude Include="MapPointInfo.h" />
+    <ClInclude Include="PortNameXML.h" />
+    <ClInclude Include="RegionMap.h" />
+    <ClInclude Include="RegionMapChange.h" />
     <ClInclude Include="RegionMapInfo.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TradeRouteFinder.h" />
     <ClInclude Include="TradeRoutes.h" />
+    <ClInclude Include="TradeRouteTimeCalculate.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
@@ -161,9 +174,18 @@
     <ProjectReference Include="..\..\CoreWPF\CoreWPF.csproj">
       <Project>{465dd0fb-be46-4e00-a957-816464e15056}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
+      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Math\MathParser\MathParser.vcxproj">
+      <Project>{5c1f4bc1-20c6-40d1-b0b8-bec8f333dc99}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
       <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>

@@ -25,7 +25,7 @@
 */
 #include "muParser.h"
 #include "muParserTemplateMagic.h"
-
+#include "muParserError.h"
 //--- Standard includes ------------------------------------------------------------------------
 #include <cmath>
 #include <algorithm>
@@ -294,15 +294,33 @@ namespace mu
 
     Call ParserBase class constructor and trigger Function, Operator and Constant initialization.
   */
+  int			g_iNumParser = 0;
+ ParserErrorMsg *g_pInstance = nullptr;
+
   Parser::Parser()
     :ParserBase()
   {
+	if( g_iNumParser == 0 )
+	{
+		g_pInstance	= new ParserErrorMsg();
+	}
+	 ++g_iNumParser;
     AddValIdent(IsVal);
 
     InitCharSets();
     InitFun();
     InitConst();
     InitOprt();
+  }
+
+  Parser::~Parser()
+  {
+	--g_iNumParser;
+	if( g_iNumParser == 0 )
+	{
+		delete g_pInstance;
+		g_pInstance = nullptr;
+	}
   }
 
   //---------------------------------------------------------------------------

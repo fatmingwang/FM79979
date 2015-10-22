@@ -148,6 +148,23 @@ void	cTradeRoutesManager::DebugRender()
 	LIST_DO_FOR_ALL_CHILDREN(this,GetRoute()->DebugRender());
 }
 
+bool	cTradeRoutesManager::IsAllowToAdded(cMapPointInfo*e_pStart,cMapPointInfo*e_pEnd)
+{
+	int	l_iCount = this->Count();
+	for (int i = 0; i < l_iCount; i++)
+	{
+		cTradeRoutes*l_pTradeRoutes = this->GetObject(i);
+		//cTradeRoutes*l_pTradeRoutes = (*this)[i];
+		if( l_pTradeRoutes->GetStartPoint() == e_pStart &&
+			l_pTradeRoutes->GetEndPoint() == e_pEnd)
+			return false;
+		if( l_pTradeRoutes->GetStartPoint() == e_pEnd &&
+			l_pTradeRoutes->GetEndPoint() == e_pStart)
+			return false;
+	}
+	return true;
+}
+
 void	cTradeRoutesManager::Export(char*e_strFileName)
 {
 #ifdef WIN32

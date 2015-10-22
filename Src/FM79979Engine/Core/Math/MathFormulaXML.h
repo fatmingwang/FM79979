@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		mu::Parser*		m_pMUParser;
 	public:
 		cMathFormulaXML();
-		~cMathFormulaXML();
+		virtual ~cMathFormulaXML();
 		//mu::Parser*		GetParser(){return &m_MUParser;}
 		double			GetResult();
 		//get variable value.

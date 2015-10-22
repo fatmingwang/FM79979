@@ -35,6 +35,7 @@ public:
 	~cTradeRoutesManager();
 	void	DebugRender();
 	void	Export(char*e_strFileName);
+	bool	IsAllowToAdded(cMapPointInfo*e_pStart,cMapPointInfo*e_pEnd);
 };
 
 #endif

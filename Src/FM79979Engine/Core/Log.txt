@@ -118,3 +118,25 @@ ElementHost^l_pHost = gcnew ElementHost();
 if here occur crash clear temp file
 C:\Users\UserName\AppData\Local\Temp
 http://stackoverflow.com/questions/13315940/apps-exe-file-missing-net-targetframework-but-only-on-clean-builds
+
+
+I've been working on this for 3 days and I just found the answer.
+
+Apparently MSBuild auto-creates a file called
+
+.NETFramework,Version=v4.0.AssemblyAttributes.cpp
+in your
+
+C:\Users\YOURNAME\AppData\Local\Temp
+directory. It uses this file when creating your .exe file.
+
+On my machine this file contained the following:
+
+#using <mscorlib.dll>
+[assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L"", FrameworkDisplayName=L".NET Framework 4")];
+The empty string was causing my problems. I changed the file to say this:
+
+#using <mscorlib.dll>
+[assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L".NETFramework,Version=v4.0", FrameworkDisplayName=L".NET Framework 4")];
+Now everything works! I don't know how the file got into that state, but I never touched it. I don't think it's used in VS2008. I'm somewhat irked that such a file is being used in my build.
+

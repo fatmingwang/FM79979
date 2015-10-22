@@ -13,6 +13,13 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//using ExcelLibrary.CompoundDocumentFormat;
+//using ExcelLibrary.SpreadSheet;
+
+//
+//using Excel = Microsoft.Office.Interop.Excel;
+using System.Data;
+
 namespace HarborUI
 {
     /// <summary>
@@ -24,6 +31,7 @@ namespace HarborUI
         public EventHandler f_KeyUp;
         public EventHandler f_FileSave;
         public EventHandler f_FileOpen;
+        public EventHandler f_ExcelConvert;
         public MainUI()
         {
             InitializeComponent();
@@ -51,7 +59,13 @@ namespace HarborUI
             else
             if (sender == m_FileOpen)
             {
-                CoreWPF.Common.CommonFunction.EventDelegateExecute(sender,e,f_FileOpen);
+                CoreWPF.Common.CommonFunction.EventDelegateExecute(sender, e, f_FileOpen);
+            }
+            else
+            if (sender == m_Excel)
+            {
+                //ExcelTest();
+                CoreWPF.Common.CommonFunction.EventDelegateExecute(sender, e, f_ExcelConvert);
             }
         }
 
@@ -89,5 +103,6 @@ namespace HarborUI
                 }
             }
         }
+
     }
 }

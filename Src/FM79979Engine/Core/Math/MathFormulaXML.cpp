@@ -71,6 +71,7 @@ namespace FATMING_CORE
 	//</cMathFormulaXML>
 	bool	cMathFormulaXML::MyParse(TiXmlElement*e_pRoot)
 	{
+		this->Destroy();
 		ASSERT_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pRoot,L"cMathFormulaXML");
 		e_pRoot = e_pRoot->FirstChildElement();
 		while( e_pRoot )

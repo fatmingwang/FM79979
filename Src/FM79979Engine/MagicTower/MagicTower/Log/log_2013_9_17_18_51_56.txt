@@ -1,5 +1,0 @@
-[18:51:56] init shader
-[18:51:57] init shader ok
-[18:51:57] parse font data
-[18:52:00] parse font data failed
-[18:52:00] file MagicTower/Data.xml open failed! uft8 or file is not exist!?

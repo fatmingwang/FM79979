@@ -8,6 +8,7 @@
 #include "LinerDataModifer.h"
 #include "RegionMapInfo.h"
 #include "TradeRoutes.h"
+
 namespace EditorSample
 {
 
@@ -18,6 +19,8 @@ namespace EditorSample
 	using namespace System::Data;
 	using namespace System::Drawing;
 	using namespace System::Windows::Forms::Integration;
+	//using namespace Microsoft::Office::Tools::Excel;
+	//using namespace Microsoft::Office::Interop::Excel;
 
 	/// <summary>
 	/// Summary for HarborEditor
@@ -45,7 +48,7 @@ namespace EditorSample
 		cOrthogonalCamera*						m_pOrthgonalCamera;
 		cBaseImage*								m_pBGImage;
 		//
-		cCommodityManager*						m_pCommodityManager;
+		//cCommodityManager*						m_pCommodityManager;
 		cLinerDataModifer*						m_pLinerDataModifer;
 		cRegionMapPointInfoManager*				m_pRegionMapPointInfoManager;
 		cTradeRoutesManager*					m_pTradeRoutesManager;
@@ -109,6 +112,7 @@ namespace EditorSample
 		//
 		System::Void FileOpen(System::Object^  sender, System::EventArgs^  e);
 		System::Void FileSave(System::Object^  sender, System::EventArgs^  e);
+		System::Void FileExcelConvertSave(System::Object^  sender, System::EventArgs^  e);
 		//
 };
 //end EditorSample

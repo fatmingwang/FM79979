@@ -21,3 +21,5 @@
 //#include "../../Core/AllPhysicInclude.h"
 #include "../../DotNetCommon/AllDNCTInclude.h"
 using namespace DNCT;
+
+#define	PARSE_FILE_CHECK(Parser,FileName)if(!Parser->ParseWithMyParse(FileName)){ cGameApp::OutputDebugInfoString("File is not exists"); }

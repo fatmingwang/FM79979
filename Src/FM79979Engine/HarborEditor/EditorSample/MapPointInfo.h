@@ -29,6 +29,13 @@ struct sTradeRoutesPointData:public sMapPointData
 	{
 		std::wstring	strPointName;
 		std::wstring	strMapName;
+		int				m_iPointID;
+		int				m_iMapID;
+		void			SetPointName(const WCHAR*e_strPointName)
+		{
+			strPointName = e_strPointName;
+			m_iPointID = GetInt(e_strPointName);
+		}	
 	};
 	std::vector<sJunctionPointData>	JunctionPointNameVectorData;
 	sTradeRoutesPointData();
@@ -66,10 +73,12 @@ class cMapPointInfo:public NamedTypedObject
 	//GET_SET_DEC(Vector2,m_vPos
 	ePointType		m_ePointType;
 	sMapPointData*	m_pMapPointData;
+	int				m_iID;
 public:
 	cMapPointInfo();
 	cMapPointInfo(TiXmlElement*e_pTiXmlElement);
 	virtual~cMapPointInfo();
+	int				GetID(){ return m_iID; }
 	virtual	TiXmlElement*	ToTiXmlElement();
 	void			SetPointType(ePointType e_ePointType);
 	void			SetPointType(ePointType e_ePointType,sHarborData*e_pHarborData);
@@ -77,6 +86,15 @@ public:
 	sMapPointData*	GetMapPointData(){return m_pMapPointData;}
 	void			DebugRender();
 	bool			IsCollided(int e_iPosX,int e_iPosY);
+
+	sTradeRoutesPointData*GetTradeRoutesPointData()
+	{
+		if( this->m_ePointType == ePointType::ePT_POINT )
+		{
+			return (sTradeRoutesPointData*)this->m_pMapPointData;
+		}
+		return nullptr;
+	}
 };
 
 

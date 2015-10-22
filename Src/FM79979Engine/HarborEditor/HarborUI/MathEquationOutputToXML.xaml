@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="HarborUI.MathEquationOutputToXML"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" >
+    <StackPanel>
+        <Menu IsMainMenu="true">
+            <MenuItem Header="File">
+                <MenuItem Header="Open"  Click="m_FileOpen_Click"  Name="m_FileOpen"/>
+                <MenuItem Header="Save"  Click="m_FileOpen_Click" Name="m_FileSave"/>
+            </MenuItem>
+        </Menu>
+        <Label Content="Equation" />
+        <TextBox x:FieldModifier="public" x:Name="m_EquationTextbox" MinWidth="200"/>
+        <Label Content="Variable Name" />
+        <TextBox x:FieldModifier="public" x:Name="m_VariableTextbox" />
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Add" Click="m_FileOpen_Click" Margin="50,0,0,0" Name="m_AddButton"/>
+            <Button Content="Del" Click="m_FileOpen_Click" Margin="50,0,0,0" Name="m_DelButton"/>
+        </StackPanel>
+        <ListBox MinHeight="100" />
+        <!--<StackPanel Orientation="Horizontal">
+            <Button Content="Save" Margin="50,0,0,0"/>
+            <Button Content="Open" Margin="50,0,0,0"/>
+        </StackPanel>-->        
+    </StackPanel>
+</UserControl>

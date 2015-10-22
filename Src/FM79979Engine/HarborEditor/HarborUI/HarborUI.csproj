@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -56,6 +59,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MathEquationOutputToXML.xaml.cs">
+      <DependentUpon>MathEquationOutputToXML.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
     <Page Include="HarborInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -65,6 +74,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MapPointRoutePoint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MathEquationOutputToXML.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TradeRouteTimeCalculate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,6 +102,10 @@
     <Compile Include="MapPointRoutePoint.xaml.cs">
       <DependentUpon>MapPointRoutePoint.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MyExcel.cs" />
+    <Compile Include="TradeRouteTimeCalculate.xaml.cs">
+      <DependentUpon>TradeRouteTimeCalculate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TradeRoutes.xaml.cs">
       <DependentUpon>TradeRoutes.xaml</DependentUpon>
     </Compile>
@@ -92,6 +113,10 @@
       <DependentUpon>MainUI.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
