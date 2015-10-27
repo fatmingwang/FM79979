@@ -35,6 +35,9 @@
     <ClCompile Include="LevelEditorApp.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="StageData.cpp">
+      <Filter>Header</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventEditor.h">
@@ -54,6 +57,9 @@
     </ClInclude>
     <ClInclude Include="LevelEditorApp.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="StageData.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,8 @@ namespace LevelEditor
 			ilInit();
 			alutInit (0,0);
 			InitializeComponent();
+			WCHAR l_str[MAX_PATH];
+			::GetCurrentDirectory(MAX_PATH,l_str);
 			//
 			//TODO: 在此加入建構函式程式碼
 			//

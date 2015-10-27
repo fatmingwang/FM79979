@@ -65,7 +65,11 @@ namespace DNCT
 	String^	WcharToGcstring(const WCHAR*e_str)
 	{
 		if( !e_str||!wcslen(e_str) )
+		{
 			WARNING_MSG("input gcstring string is empty");
+			return "";
+
+		}
 		return	String(DNCTWcharToChar(e_str)).ToString();
 	}
 	String^	ForceAddExtenName(String^e_strDest,const char*e_strExtensionName)

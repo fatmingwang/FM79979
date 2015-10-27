@@ -72,17 +72,17 @@ namespace TextureEditorWPF
             m_InsertCount.Increment = 1;
 
             m_ColorPicker.f_SelectedColorChanged += SelectedColorChanged;
-            m_Color.Increment(0.01);
+            m_Color.Increment = 0.01;
             m_Color.SetValue(1, 1, 1, 1);
             m_Color.SetMaximum(2);
             m_Color.SetMinimum(0);
 
-            m_Pos.Increment(1);
+            m_Pos.Increment = 1;
             m_Pos.SetValue(0, 0, 0);
             m_Pos.SetMaximum(9999999);
             m_Pos.SetMinimum(-9999999);
 
-            m_Size.Increment(1);
+            m_Size.Increment = 1;
             m_Size.SetValue(0, 0);
             m_Size.SetMaximum(999999);
             m_Size.SetMinimum(-999999);
@@ -93,7 +93,7 @@ namespace TextureEditorWPF
             m_Scale.Minimum = -9999;
 
             m_Rotation.SetValue(0, 0, 0);
-            m_Rotation.Increment(1);
+            m_Rotation.Increment = 1;
             m_Rotation.SetMinimum(-9999999);
             m_Rotation.SetMaximum(9999999);
 

@@ -62,6 +62,36 @@ namespace CoreWPF.Common
             return false;
         }
 
+        public double? Maximum 
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Maximum; } 
+            set 
+            {
+                m_X_numericUpDown.m_Increase_Button.Maximum = value;
+                m_Y_numericUpDown.m_Increase_Button.Maximum = value;
+                m_Z_numericUpDown.m_Increase_Button.Maximum = value;
+            } 
+        }
+        public double? Increment {
+            get { return m_X_numericUpDown.m_Increase_Button.Increment; } 
+            set 
+            {
+                m_X_numericUpDown.m_Increase_Button.Increment = value;
+                m_Y_numericUpDown.m_Increase_Button.Increment = value;
+                m_Z_numericUpDown.m_Increase_Button.Increment = value;
+            } 
+        }
+        public double? Minimum 
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Minimum; } 
+            set 
+            {
+                m_X_numericUpDown.m_Increase_Button.Minimum = value;
+                m_Y_numericUpDown.m_Increase_Button.Minimum = value;
+                m_Z_numericUpDown.m_Increase_Button.Minimum = value; 
+            } 
+        }
+
         void _ValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             if (f_ValueChanged != null)
@@ -112,11 +142,11 @@ namespace CoreWPF.Common
             this.m_Y_numericUpDown.Minimum = e_fMinimim;
             this.m_Z_numericUpDown.Minimum = e_fMinimim;
         }
-        public void Increment(double e_Value)
-        {
-            this.m_X_numericUpDown.Increment = e_Value;
-            this.m_Y_numericUpDown.Increment = e_Value;
-            this.m_Z_numericUpDown.Increment = e_Value;
-        }
+        //public void Increment(double e_Value)
+        //{
+        //    this.m_X_numericUpDown.Increment = e_Value;
+        //    this.m_Y_numericUpDown.Increment = e_Value;
+        //    this.m_Z_numericUpDown.Increment = e_Value;
+        //}
     }
 }

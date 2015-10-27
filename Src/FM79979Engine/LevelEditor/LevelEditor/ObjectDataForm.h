@@ -2035,6 +2035,7 @@ private: System::Void LayerDown_button_Click(System::Object^  sender, System::Ev
 					 String^l_strName2 = Layer_listBox->Items[l_iSelectedIndex-1]->ToString();
 					 Layer_listBox->Items[l_iSelectedIndex] = l_strName2;
 					 Layer_listBox->Items[l_iSelectedIndex-1] = l_strName1;
+					 m_pLevelEditorApp->m_pCurrentStageEditData->SwapIndex(l_iSelectedIndex,l_iSelectedIndex-1);
 				 }
 			 }
 			 else
@@ -2047,6 +2048,7 @@ private: System::Void LayerDown_button_Click(System::Object^  sender, System::Ev
 					 String^l_strName2 = Layer_listBox->Items[l_iSelectedIndex+1]->ToString();
 					 Layer_listBox->Items[l_iSelectedIndex] = l_strName2;
 					 Layer_listBox->Items[l_iSelectedIndex+1] = l_strName1;				 
+					 m_pLevelEditorApp->m_pCurrentStageEditData->SwapIndex(l_iSelectedIndex,l_iSelectedIndex+1);
 				 }				
 			 }
 		 }

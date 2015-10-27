@@ -35,6 +35,39 @@ namespace CoreWPF.Common
             }
         }
 
+        public double? Maximum
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Maximum; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Maximum = value;
+                m_Y_numericUpDown.m_Increase_Button.Maximum = value;
+                m_Z_numericUpDown.m_Increase_Button.Maximum = value;
+                m_W_numericUpDown.m_Increase_Button.Maximum = value;
+            }
+        }
+        public double? Increment
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Increment; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Increment = value;
+                m_Y_numericUpDown.m_Increase_Button.Increment = value;
+                m_Z_numericUpDown.m_Increase_Button.Increment = value;
+                m_W_numericUpDown.m_Increase_Button.Increment = value;
+            }
+        }
+        public double? Minimum
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Minimum; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Minimum = value;
+                m_Y_numericUpDown.m_Increase_Button.Minimum = value;
+                m_Z_numericUpDown.m_Increase_Button.Minimum = value;
+                m_W_numericUpDown.m_Increase_Button.Minimum = value;
+            }
+        }
         unsafe public bool GetValue(float* e_pValue)
         {
             if (m_X_numericUpDown.m_Increase_Button.Value != null &&
@@ -122,12 +155,12 @@ namespace CoreWPF.Common
             this.m_Z_numericUpDown.Minimum = e_fMinimim;
             this.m_W_numericUpDown.Minimum = e_fMinimim;
         }
-        public void Increment(double e_Value)
-        {
-            this.m_X_numericUpDown.Increment = e_Value;
-            this.m_Y_numericUpDown.Increment = e_Value;
-            this.m_Z_numericUpDown.Increment = e_Value;
-            this.m_W_numericUpDown.Increment = e_Value;
-        }
+        //public void Increment(double e_Value)
+        //{
+        //    this.m_X_numericUpDown.Increment = e_Value;
+        //    this.m_Y_numericUpDown.Increment = e_Value;
+        //    this.m_Z_numericUpDown.Increment = e_Value;
+        //    this.m_W_numericUpDown.Increment = e_Value;
+        //}
     }
 }

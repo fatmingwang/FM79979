@@ -33,6 +33,35 @@ namespace CoreWPF.Common
             }
         }
 
+
+        public double? Maximum
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Maximum; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Maximum = value;
+                m_Y_numericUpDown.m_Increase_Button.Maximum = value;
+            }
+        }
+        public double? Increment
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Increment; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Increment = value;
+                m_Y_numericUpDown.m_Increase_Button.Increment = value;
+            }
+        }
+        public double? Minimum
+        {
+            get { return m_X_numericUpDown.m_Increase_Button.Minimum; }
+            set
+            {
+                m_X_numericUpDown.m_Increase_Button.Minimum = value;
+                m_Y_numericUpDown.m_Increase_Button.Minimum = value;
+            }
+        }
+
         unsafe public bool GetValue(float* e_pValue)
         {
             if (m_X_numericUpDown.m_Increase_Button.Value != null &&
@@ -101,11 +130,11 @@ namespace CoreWPF.Common
             this.m_Y_numericUpDown.Minimum = e_fMinimim;
         }
         //1,0.1,0.01,0.001
-        public void Increment(double e_Value)
-        {
-            this.m_X_numericUpDown.Increment = e_Value;
-            this.m_Y_numericUpDown.Increment = e_Value;
-        }
+        //public void Increment(double e_Value)
+        //{
+        //    this.m_X_numericUpDown.Increment = e_Value;
+        //    this.m_Y_numericUpDown.Increment = e_Value;
+        //}
         //private void m_numericUpDown_f_ValueChanged(object sender, EventArgs e)
         //{
         //    if (f_ValueChanged != null)f_ValueChanged(sender, e);

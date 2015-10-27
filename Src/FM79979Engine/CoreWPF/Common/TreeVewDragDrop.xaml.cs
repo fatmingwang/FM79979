@@ -50,6 +50,16 @@ namespace CoreWPF.Common
             }
 
         }
+        //http://stackoverflow.com/questions/188001/two-way-binding-of-xml-data-to-the-wpf-treeview
+        void ParseFileToTreeView(String e_strFileName)
+        {
+            //XmlDataProvider XmlData = new XmlDataProvider();
+            //XmlData.Source = new Uri(e_strFileName);
+            //XmlData.XPath = "node";
+
+            //XmlDataProvider dataProvider = this.FindResource("xmlDataProvider") as XmlDataProvider;
+            //dataProvider.Document.Save(dataProvider.Source.LocalPath);        
+        }
         private void treeView_MouseMove(object sender, MouseEventArgs e)
         {
             try

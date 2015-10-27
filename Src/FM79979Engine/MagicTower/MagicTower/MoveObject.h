@@ -4,6 +4,8 @@
 	//<MovingObject Range="0,0,100,100" Speed="" Gesture="" DelayToGo="" DistanceRandPos="0,1">
 	//	<MovingObjectImage MPDIList="" MPDI="" />
 	//</MovingObject>
+//change it to class and inhrient NamedTpyedObject
+
 	struct	sMovingObject
 	{
 		sMovingObject(TiXmlElement*e_pTiXmlElement);
