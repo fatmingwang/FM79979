@@ -1,0 +1,11 @@
+<!-- Author:scrr,Time:2014/6/5 ¤U¤È 02:47:15 -->
+<PuzzleImage OriginalNameSort="Land,Nami_001,Nami_002,Nami_003,Nami_004,Nami_005,Nami_006,Nami_007" ImageName="Heart_Nami.png" Count="8" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Land" UV="0,0,0.5,0.1523438" OffsetPos="0,178" Size="256,78" OriginalSize="256,256" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Nami_001" UV="0.5019531,0,1.001953,0.2148438" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="257,0" />
+    <PuzzleUnit Name="Nami_002" UV="0,0.6523438,0.5,0.8671875" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="0,334" />
+    <PuzzleUnit Name="Nami_003" UV="0,0.2167969,0.5,0.4316406" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="0,111" />
+    <PuzzleUnit Name="Nami_004" UV="0.5019531,0.2167969,1.001953,0.4316406" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="257,111" />
+    <PuzzleUnit Name="Nami_005" UV="0.5,0.6503906,1,0.8652344" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="256,333" />
+    <PuzzleUnit Name="Nami_006" UV="0,0.4335938,0.5,0.6484375" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="0,222" />
+    <PuzzleUnit Name="Nami_007" UV="0.5019531,0.4335938,1.001953,0.6484375" OffsetPos="0,78" Size="256,110" OriginalSize="256,256" ShowPosInPI="257,222" />
+</PuzzleImage>

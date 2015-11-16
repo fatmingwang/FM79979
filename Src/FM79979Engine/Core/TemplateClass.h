@@ -85,11 +85,11 @@ TYPE*	NewTemplateList(TYPE*e_pSource,bool e_bFromREsource)
 	}
 	return l_pData;
 }
-//template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListTree;
+//template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren;
 //key function RemoveResourceObject.
 template <class T> class cNamedTypedObjectVector:virtual public NamedTypedObject
 {
-	//friend class	cObjectListTree<cNamedTypedObjectVector<T*>,T*>;
+	//friend class	cObjectListWithItsChildren<cNamedTypedObjectVector<T*>,T*>;
 	//this one to remove the resource if object has something must to delete
 	//ex:AnimationParser or particle or else.....
 	virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject){}
@@ -115,6 +115,7 @@ public:
         for( int i=0;i<l_iCount;++i )
         {
             T*l_p = dynamic_cast<T*>(e_pObjectListByName->GetObject(i)->Clone());
+			assert(l_p);
             this->AddObjectNeglectExist(l_p);
         }
 		m_bFromResource = false;
@@ -451,17 +452,17 @@ public:
 //
 //LIST as parent
 //CHILDREN_DATA_TYPE as its child
-template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListTree:public cNamedTypedObjectVector< LIST >
+template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren:public cNamedTypedObjectVector< LIST >
 {
 protected:
 	LIST*	m_pCurrentList;
 public:
-	cObjectListTree()
+	cObjectListWithItsChildren()
 	{
 		m_pCurrentList = 0;
 	}	
-	cObjectListTree(cObjectListTree<LIST,CHILDREN_DATA_TYPE>*e_pObjectListTree):cNamedTypedObjectVector<LIST>(e_pObjectListTree){ m_pCurrentList = 0; }
-	virtual ~cObjectListTree(){}
+	cObjectListWithItsChildren(cObjectListWithItsChildren<LIST,CHILDREN_DATA_TYPE>*e_pObjectListTree):cNamedTypedObjectVector<LIST>(e_pObjectListTree){ m_pCurrentList = 0; }
+	virtual ~cObjectListWithItsChildren(){}
 	virtual	void	Destroy()
 	{
 		cNamedTypedObjectVector< LIST >::Destroy();
@@ -469,22 +470,37 @@ public:
 	}
 	bool	AddChildObject(wchar_t*e_strListName,CHILDREN_DATA_TYPE e_pObject)
 	{
-		return this->GetObject(e_strListName)->AddObject(e_pObject);
+		T*l_pTargetList = this->GetObject(e_strListName);
+		if( l_pTargetList )
+			return l_pTargetList->GetObject(e_strListName)->AddObject(e_pObject);
+		return false;
 	}
 
-	CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strListName,wchar_t*ChildName){ return this->GetObject(e_strListName)->GetObject(ChildName); }
-	CHILDREN_DATA_TYPE*	GetChildObject(int e_iListIndex,int e_iChildIndex){ return this->GetObject(e_iListIndex)->GetObject(e_iChildIndex); }
+	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strListName,wchar_t*ChildName)
+	{
+		T*l_pTargetList = this->GetObject(e_strListName);
+		if( l_pTargetList )
+			return l_pTargetList->GetObject(ChildName); 
+		return nullptr;
+	}
+	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iListIndex,int e_iChildIndex)
+	{
+		T*l_pTargetList = this->GetObject(e_iListIndex);
+		if( l_pTargetList )
+			return l_pTargetList->GetObject(ChildName); 
+		return nullptr;
+	}
 	//from current list
-	CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strChildName){ return m_pCurrentList->GetObject(e_strChildName); }
-	CHILDREN_DATA_TYPE*	GetChildObject(int e_iChildIndex){ return m_pCurrentList->GetObject(e_iChildIndex); }
+	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strChildName){ if(m_pCurrentList)return m_pCurrentList->GetObject(e_strChildName); return nullptr; }
+	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iChildIndex){ if(m_pCurrentList)return m_pCurrentList->GetObject(e_iChildIndex); return nullptr; }
 
-	void	SetCurrentList(wchar_t*e_strName){m_pCurrentList = this->GetObject(e_strName);}
-	void	SetCurrentList(LIST* e_pList){ m_pCurrentList = e_pList; }
-	void	SetCurrentList(int e_iIndex){ m_pCurrentList = this->m_ObjectList[e_iIndex]; }
+	inline void	SetCurrentList(wchar_t*e_strName){m_pCurrentList = this->GetObject(e_strName);}
+	inline void	SetCurrentList(LIST* e_pList){ m_pCurrentList = e_pList; }
+	inline void	SetCurrentList(int e_iIndex){ m_pCurrentList = this->m_ObjectList[e_iIndex]; }
 
-	LIST*	GetCurrentList(){ return m_pCurrentList; }
+	inline LIST*	GetCurrentList(){ return m_pCurrentList; }
 	//this one is a sample and it sux....it should considate recursive sitiation(list of list of list...listtree type)
-	CHILDREN_DATA_TYPE*	GetListChildByUniqueID(uint64 e_uiID)
+	inline CHILDREN_DATA_TYPE*	GetListChildByUniqueID(uint64 e_uiID)
 	{
 		int	l_iCount = this->Count();
 		for( int i=0;i<l_iCount;++i )
@@ -511,7 +527,7 @@ template <class T> class    cBehaviorObjectList:public cNamedTypedObjectVector<T
 public:
 	cBehaviorObjectList(){}
 	cBehaviorObjectList(cBehaviorObjectList*e_pBehaviorObjectList):cNamedTypedObjectVector<T>(e_pBehaviorObjectList){}
-	~cBehaviorObjectList(){}
+	virtual ~cBehaviorObjectList(){}
     virtual void    Init()
     {
         int l_iCount = this->Count();

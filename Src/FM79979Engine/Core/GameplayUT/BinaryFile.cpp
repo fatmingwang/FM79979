@@ -171,6 +171,11 @@ namespace FATMING_CORE
 		}
 	}
 
+	void 	cBinaryFile::WriteToFile(const char*e_pData,int e_iLength )
+	{
+		NvFWrite( e_pData, e_iLength, 1, m_pFile );
+	}
+
 	bool	cBinaryFile::Flush()
 	{
 		if(m_pFile)
@@ -376,7 +381,7 @@ namespace FATMING_CORE
 		return ret==0?true:false;
 	}
 
-	void*		cSkipHeaderBinaryFile::GetDataFile(UINT e_uiStart)
+	void*		cSkipHeaderBinaryFile::GetDataFile(UINT e_uiStart,int* e_piRealFileLength)
 	{
 		void*l_pData = cBinaryFile::GetDataFile(e_uiStart);
 		if( !l_pData )
@@ -401,6 +406,10 @@ namespace FATMING_CORE
 		int	l_iTotalSkipHeader = GetSkipHeaderAndHMagicNumberHeader();
 		if( l_iFileLength < l_iTotalSkipHeader )
 			return 0;
+		if( e_piRealFileLength )
+		{
+			*e_piRealFileLength = l_iFileLength-l_iTotalSkipHeader;
+		}
 		return this->m_pData+l_iTotalSkipHeader;
 		//return l_pOutputData;
 	}

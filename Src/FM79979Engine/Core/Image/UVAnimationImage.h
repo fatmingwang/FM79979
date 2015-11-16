@@ -31,7 +31,7 @@ namespace FATMING_CORE
 		void			SetupRenderDataByCurrentPos();
 	public:
 		cUVAnimationImage(cBaseImage*e_pRenderImage,Vector2 e_vSize,eUVDirection e_eOrientation,Vector2 e_vShowPos);
-		~cUVAnimationImage();
+		virtual ~cUVAnimationImage();
 
 		void	Update(float e_fElpaseTime,float e_fSpeed);
 		void	Render();

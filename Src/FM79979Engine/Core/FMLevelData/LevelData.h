@@ -70,7 +70,7 @@ namespace FATMING_CORE
 		cNamedTypedObjectVector<cEventDataNode>		m_TemplateDataNodeList;
 		DEFINE_TYPE_INFO();
 		cLevelData();
-		~cLevelData();
+		virtual ~cLevelData();
 		cLevelLayerGridData*GetListChildByUniqueID(uint64 e_uiID);
 		//virtual	bool	ParseDataIntoXMLNode(char*e_strFileName);
 		bool	Export(char*e_strFileName);

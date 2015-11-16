@@ -1,0 +1,2 @@
+JAVA¡XHOME
+PATH         F:\NVPACK\android-sdk-windows\tools

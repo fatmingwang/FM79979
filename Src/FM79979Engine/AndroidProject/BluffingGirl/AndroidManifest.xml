@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BEGIN_INCLUDE(manifest) -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+          package="com.wh.BluffingGirlEN"
+          android:versionCode="3"
+          android:versionName="3"
+          >
+  <uses-permission android:name="com.android.vending.BILLING" />  
+  <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <!-- This is the platform API where NativeActivity was introduced. -->
+  <uses-sdk android:targetSdkVersion="15"  android:minSdkVersion="9" />
+  <!-- This .apk has no Java code itself, so set hasCode to false. -->
+	<application android:icon="@drawable/icon" 
+               android:label="LIAR'S DICE - CHICK GIRL"
+               android:hasCode="true"
+               android:debuggable="true">
+    <!-- for google play service(save game data)-->
+        <!--meta-data android:name="com.google.android.gms.games.APP_ID" android:value="473524124904" /-->
+        <!--meta-data android:name="com.google.android.gms.version"  android:value="@integer/google_play_services_version"/-->
+    <!-- for google AdMobs-->
+        <meta-data android:name="com.google.android.gms.version" android:value="6111000" />
+        <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+                  android:theme="@android:style/Theme.Translucent"/>
+        <!-- Our activity is the built-in NativeActivity framework class.
+             This will take care of integrating with our NDK code. -->
+        <activity android:name="BluffingGirlEN"
+                  android:label="LIAR'S DICE - CHICK GIRL" 
+                  android:configChanges="orientation|keyboardHidden|screenSize"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <!-- Tell NativeActivity the name of or .so -->
+            <meta-data android:name="android.app.lib_name" android:value="BluffingGirl" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!--activity android:name="util.AdMobUtility" / -->
+        <activity android:name="util.facebook.FBManager"
+                      android:label="BluffingGirlEN"
+                      android:windowSoftInputMode="adjustResize" />
+          <activity android:name="com.facebook.LoginActivity"
+                  android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                  android:label="BluffingFBLogin" />
+          <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
+    </application>
+</manifest> 
+<!-- END_INCLUDE(manifest) -->

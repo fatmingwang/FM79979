@@ -64,8 +64,11 @@ namespace FATMING_CORE
 		void 				WriteToFile(SHORT val );
 		void 				WriteToFile(WORD val );
 		void 				WriteToFile(long val );
+		//for string
 		void 				WriteToFile(const char* val );
+		//for string
 		void 				WriteToFile(const wchar_t* val );
+		void 				WriteToFile(const char*e_pData,int e_iLength );
 		void 				WriteToFile(int64	  val );
 		//create file
 		//for cet to write for WIN32 to set flag
@@ -103,10 +106,11 @@ namespace FATMING_CORE
 		bool				CreateHeader();
 	public:
 		cSkipHeaderBinaryFile(int e_iMagicID);
-		~cSkipHeaderBinaryFile();
+		virtual ~cSkipHeaderBinaryFile();
 		bool				SetFilePos(int e_iPos);
 		//this one will skip the rand header
-		void*				GetDataFile(UINT e_uiStart);
+		//e_piFileLength for the real file length.
+		void*				GetDataFile(UINT e_uiStart,int* e_piRealFileLength = nullptr);
 		virtual	bool		Writefile(const char*e_strFileName,bool e_bBinary,bool e_bForceToWrite);
 		int					GetSkipHeaderAndHMagicNumberHeader();
 		void				AddGarbageEndFile();

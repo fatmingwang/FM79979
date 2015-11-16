@@ -1,0 +1,4 @@
+<!-- Author:scrr,Time:2014/9/11 ¤U¤È 05:06:11 -->
+<PuzzleImage OriginalNameSort="Give_Heart" ImageName="Give_Heart.png" Count="1" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Give_Heart" UV="0,0,0.6503906,0.9824219" OffsetPos="0,0" Size="666,503" OriginalSize="666,503" ShowPosInPI="0,0" />
+</PuzzleImage>

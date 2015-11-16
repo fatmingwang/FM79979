@@ -57,6 +57,7 @@ namespace FATMING_CORE
 		//if u are using another shader please setup VP matrix as well
 		void					Render(Vector2 e_vCameraPos);
 		void					CameraUpdateByMouse(bool e_bLeftButton,bool e_bRightButton,int e_iWheelDelta,int e_iMouseX,int e_iMouseY,Vector2 e_vViewport);
+		void					ViewportChangeApplyNewResolution(int e_iViewportWidth,int e_iViewportHeight);
 		//for special axis control,only 2 axis is controlled.
 		//only transform matrices
 		//if u like to use mouse wheel event in the dot net,

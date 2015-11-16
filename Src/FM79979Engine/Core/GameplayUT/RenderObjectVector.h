@@ -8,7 +8,7 @@ namespace FATMING_CORE
 	public:
 		cRenderObjectVector();
 		cRenderObjectVector(cRenderObjectVector*e_pFontFrameVector);
-		~cRenderObjectVector();
+		virtual ~cRenderObjectVector();
 		DEFINE_TYPE_INFO();
 		CLONE_MYSELF(cRenderObjectVector);
 		static cRenderObjectVector*GetMe(TiXmlElement*e_pElement);

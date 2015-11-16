@@ -3,32 +3,27 @@
 #include "LevelLayerGridData.h"
 namespace FATMING_CORE
 {
-
-	//for level editor cMapLayer
-	template <class T> class cNamedTypedObjectVectorWithData2:public cNamedTypedObjectVector<T>
-	{
-		GET_SET_DEC(void*,m_pData,GetData,SetData);
-	public:
-		cNamedTypedObjectVectorWithData2():cNamedTypedObjectVector<T>()
-		{
-			m_pData = 0;
-		}
-		virtual ~cNamedTypedObjectVectorWithData2()
-		{
-			//SAFE_DELETE(m_pData);
-		}
-
-		cNamedTypedObjectVectorWithData2(cNamedTypedObjectVectorWithData2*e_pObjectListByNameWithData):cNamedTypedObjectVector<T>(e_pObjectListByNameWithData)
-		{
-			m_pData = 0;
-		}
-
-		virtual	NamedTypedObject*	Clone(){ return new cNamedTypedObjectVectorWithData2<T>(this); }
-	};
-
 	//data is a std::wstring  to fetch xml data.
-	typedef cNamedTypedObjectVectorWithData<cLevelLayerGridData>					cLayer;
-	typedef cObjectListTree<cLayer,cLevelLayerGridData>						cLevelLayerListTree;
+	class cLayer:public cNamedTypedObjectVectorWithData<cLevelLayerGridData>
+	{
+		GET_SET_DEC(bool,m_bInGameRender,IsInGameRender,SetInGameRender);
+		GET_SET_DEC(bool,m_bInEditorRender,IsInEditorRender,SetInEditorRender);
+		//render for batch
+		bool			m_bIsLayerOptmizedForSameTexture;
+	public:
+		//for render option
+		static bool		m_sbIsEditorMode;
+		cLayer();
+		cLayer(cLayer*e_pLayer);
+		virtual ~cLayer();
+		CLONE_MYSELF(cLayer);
+		//optmize here,here should compare the texture same or not and draw at once
+		virtual void	Render();
+		virtual void	Update(float e_fElpaseTime);
+		//
+		bool			IsOptimzeWithSameTextureLayer();
+	};
+	typedef cObjectListWithItsChildren<cLayer,cLevelLayerGridData>						cLevelLayerListTree;
 	//==========================
 	//it's possible be a root
 	//this is the cell that store in the MapData
@@ -36,12 +31,36 @@ namespace FATMING_CORE
 	//!!!!!!!!!!!ensure u hvae set current list to set layer!!!!!!!!!!!
 	//it's orthongal projection!
 	//==========================
+	struct sVertexAndCount
+	{
+		int		iCount;
+		float*	pVertex;
+		sVertexAndCount(){iCount = -1;pVertex = nullptr;}
+		~sVertexAndCount(){SAFE_DELETE(pVertex);}
+		inline bool	SetCount(int e_iCount)
+		{
+			if( iCount != e_iCount)
+			{
+				if( e_iCount > 0 )
+				{
+					iCount = e_iCount;
+					SAFE_DELETE(pVertex);
+					pVertex = new float[e_iCount];
+					return true;
+				}
+			}
+			return false;
+		}
+	};
+
 	class	cLevelLayerList:public cLevelLayerListTree
 	{
 		//this one to store the real position in the 2D cooridinate
-		Vector3	m_v2DPos;
+		Vector3		m_v2DPos;
 		//this one and above are bind together,use this object please instead SetPos
-		Vector3	m_vPos;
+		Vector3		m_vPos;
+		//line temp vertices data,while count is change the data re apply
+		sVertexAndCount	m_LineTempVertex;
 	protected:
 		//for get hit data.
 		Vector3	GetTransformedPos(bool e_bStripZ = true,Vector3*e_pvRight = 0,Vector3*e_pvUp = 0,Vector3*e_pvRightUpPos = 0,Vector3*e_pvLeftDownPos = 0);
@@ -60,14 +79,16 @@ namespace FATMING_CORE
 		cLevelLayerList();
 		//this one should only be called in the editor!?
 		cLevelLayerList(cLevelLayerList*e_pMap_CellData);
-		~cLevelLayerList();
+		virtual ~cLevelLayerList();
 		CLONE_MYSELF(cLevelLayerList);
 		Vector3	GetPos(){ return m_vPos; }
 		void	SetPos(Vector3 e_vPos);
-		virtual	void	Render();
+		//
+		virtual	void	RenderGridLine();
 		//render all layer
 		void	RenderAllObject();
 		void	RenderLayer(int e_iLayIndex);
+		void	RenderAllLayer();
 		//render specific grid.
 		void	RenderGrid(int e_iIndex);
 		void	RenderGrid(POINT e_Index);

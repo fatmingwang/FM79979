@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MagicTower", "MagicTower\MagicTower.vcxproj", "{330CE98E-BDF5-4C5C-A2ED-3495E45783AF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99} = {5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject

@@ -2,6 +2,97 @@
 #include "LevelLayerData.h"
 namespace FATMING_CORE
 {
+	bool	cLayer::m_sbIsEditorMode = false;
+	cLayer::cLayer()
+	{
+		m_bInGameRender = true;
+		m_bInEditorRender = true;
+		m_bIsLayerOptmizedForSameTexture = false;
+	}
+
+	cLayer::cLayer(cLayer*e_pLayer):cNamedTypedObjectVectorWithData<cLevelLayerGridData>(e_pLayer)
+	{
+		m_bInGameRender = e_pLayer->m_bInGameRender;
+		m_bInEditorRender = e_pLayer->m_bInEditorRender;
+		m_bIsLayerOptmizedForSameTexture = e_pLayer->m_bIsLayerOptmizedForSameTexture;
+	}
+
+	cLayer::~cLayer()
+	{
+	
+	}
+
+
+	void	cLayer::Render()
+	{
+		bool	l_bRender = false;
+		if( m_sbIsEditorMode && m_bInEditorRender )
+		{
+			l_bRender = true;
+		}
+		else
+		{
+			l_bRender = m_bInGameRender;
+		}
+		if( l_bRender)
+		{
+			//lazy to do this right now.
+			//if( m_bIsLayerOptmizedForSameTexture == false )
+			{
+				int	l_iCount = this->Count();
+				for (int i = 0; i < l_iCount; i++)
+				{
+					this->GetObject(i)->Render();
+				}
+			}
+			//else
+			//{
+			//
+			//}
+		}
+
+	}
+
+	void	cLayer::Update(float e_fElpaseTime)
+	{
+		int	l_iCount = this->Count();
+		for (int i = 0; i < l_iCount; i++)
+		{
+			this->GetObject(i)->Update(e_fElpaseTime);
+		}
+	}
+
+	bool	cLayer::IsOptimzeWithSameTextureLayer()
+	{
+		bool	l_bOptmizeForSameTexture = true;
+		cTexture*l_pTexture = nullptr;
+		int	l_iCount = this->Count();
+		if( l_iCount < 2 )
+			return false;
+		for (int i = 0; i < l_iCount; i++)
+		{
+			cRenderObject*l_pRenderObject = GetObject(i)->GetImage();
+			if(cPuzzleImageUnit::TypeID == l_pRenderObject->Type() ||
+				cBaseImage::TypeID == l_pRenderObject->Type())
+			{
+				cBaseImage*l_pBaseImage = reinterpret_cast<cBaseImage*>(l_pRenderObject);
+				if( l_pTexture == nullptr )
+				{
+					l_pTexture = l_pBaseImage->GetTexture();
+				}
+				else
+				if( l_pTexture != l_pBaseImage->GetTexture() )
+					return false;
+			}
+			else
+			//for mpdi or else...but now I am lazy to do this.
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
 	cLevelLayerList::cLevelLayerList()
 	{
 		m_vAngle = Vector3::Zero;
@@ -17,7 +108,7 @@ namespace FATMING_CORE
 		m_v2DPos = Vector2::Zero;
 	}
 	//this one should only be called in the editor!?
-	cLevelLayerList::cLevelLayerList(cLevelLayerList*e_pLevelLayerData):cObjectListTree<cLayer,cLevelLayerGridData>(e_pLevelLayerData)
+	cLevelLayerList::cLevelLayerList(cLevelLayerList*e_pLevelLayerData):cObjectListWithItsChildren<cLayer,cLevelLayerGridData>(e_pLevelLayerData)
 	{
 		m_v2DPos = e_pLevelLayerData->m_v2DPos;
 		m_vAngle = e_pLevelLayerData->m_vAngle;
@@ -50,7 +141,7 @@ namespace FATMING_CORE
 
 	}
 
-	void	cLevelLayerList::Render()
+	void	cLevelLayerList::RenderGridLine()
 	{
 		int	l_iRow = m_GridSize.x*2;
 		int	l_iColumn = m_GridSize.y*2;
@@ -61,7 +152,9 @@ namespace FATMING_CORE
 		if( l_iRow<=1||l_iColumn<=1 )
 			return;
 		int	l_iTotalCount = l_iRow+l_iColumn;
-		Vector2*l_vAllVertices = new Vector2[l_iTotalCount];
+		//Vector2 is 2 float
+		m_LineTempVertex.SetCount(l_iTotalCount*2);
+		Vector2*l_vAllVertices = (Vector2*)m_LineTempVertex.pVertex;
 		for( int i=0;i<l_iRow/2;++i )
 		{
 			l_vAllVertices[i*2] = Vector2(l_fStartPosX+i*m_vSize.x,l_fStartPosY);
@@ -74,7 +167,6 @@ namespace FATMING_CORE
 		}
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(m_vPos.x+l_fEndRight/2,m_vPos.y+l_fEndDown/2,0.f))*Quaternion::EulerRotationQuaternion(D3DXToRadian(m_vAngle.x),D3DXToRadian(m_vAngle.y),D3DXToRadian(m_vAngle.z)).ToMatrix();
 		GLRender::RenderLine((float*)&l_vAllVertices[0],l_iTotalCount,Vector4(0.f,0.5f,0.f,1.f),2,(float*)&l_mat);
-		delete l_vAllVertices;
 		Vector4	l_vColor(1,0.6f,1,1);
 		RenderRectangle(l_fEndRight,l_fEndDown,l_mat,Vector4::One);
 	}
@@ -130,15 +222,21 @@ namespace FATMING_CORE
 		}
 	}
 
-	void	cLevelLayerList::RenderLayer(int e_iLayIndex)
+	void	cLevelLayerList::RenderAllLayer()
 	{
-		if( this->Count()<e_iLayIndex )
-			return;
-		cLayer*l_pLayer = (*this)[e_iLayIndex];
-		int	l_iCount = l_pLayer->Count();
+		int	l_iCount = Count();
 		for(int j=0;j<l_iCount;++j)
 		{
-			l_pLayer->GetObject(j)->Render();
+			GetObject(j)->Render();
+		}	
+	}
+
+	void	cLevelLayerList::RenderLayer(int e_iLayIndex)
+	{
+		cLayer*l_pLayer = GetObject(e_iLayIndex);
+		if( l_pLayer )
+		{
+			l_pLayer->Render();
 		}
 	}
 

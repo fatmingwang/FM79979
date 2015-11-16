@@ -659,6 +659,12 @@
     <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp">
       <Filter>GameplayUT\EventSender</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\GameAppUtil.cpp">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\CustomBinaryData.cpp">
+      <Filter>GameplayUT\Binary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1134,6 +1140,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h">
       <Filter>GameplayUT\EventSender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\CustomBinaryData.h">
+      <Filter>GameplayUT\Binary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

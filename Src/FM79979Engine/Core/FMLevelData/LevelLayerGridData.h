@@ -19,7 +19,7 @@ namespace FATMING_CORE
 	public:
 		cLevelLayerGridData();
 		cLevelLayerGridData(cLevelLayerGridData*e_pLevelLayerGridData);
-		~cLevelLayerGridData();
+		virtual ~cLevelLayerGridData();
 		CLONE_MYSELF(cLevelLayerGridData);
 		cRenderObject*	GetImage(){ return m_pImage; }
 		void					SetImage(cRenderObject*e_pRenderObjectBehavior);

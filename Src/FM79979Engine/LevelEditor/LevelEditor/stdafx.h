@@ -9,3 +9,5 @@
 //#include "../../DotNetComponent/XmlNodeEditComponent.h"
 #include "../../../include/IL/il.h"
 #include "../../Core/FMLevelData/AllLevelDataInclude.h"
+
+#define	USER_DEFINE_DATA		"UserDefineData"

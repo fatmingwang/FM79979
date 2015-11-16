@@ -43,7 +43,7 @@ public:
 	std::vector<int>		m_SelectedLayerObjects;
 
 	cLevelEditorApp(HWND e_Hwnd);
-	~cLevelEditorApp();
+	virtual ~cLevelEditorApp();
 	void					Init();
 	void					DestoryOldData();
 	void					Update(float e_fElpaseTime);

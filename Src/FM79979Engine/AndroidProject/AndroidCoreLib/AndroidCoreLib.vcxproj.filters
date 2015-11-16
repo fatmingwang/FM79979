@@ -874,6 +874,9 @@
     <ClCompile Include="..\..\Core\Image\RenderNode.cpp">
       <Filter>jni\RenderObject\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp">
+      <Filter>jni\GamePlayUT\GameApp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />

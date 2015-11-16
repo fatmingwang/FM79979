@@ -57,7 +57,7 @@ void	cLevelEditorApp::Render()
 	//NO_TEXTURE_SHADER = L"ObjectDataFormNoTextureShader";
 	cTexture::m_suiLastUsingImageIndex = -1;
 	UseShaderProgram(NO_TEXTURE_SHADER);
-	glViewport(0,0,(int)this->m_svViewPortSize.x,(int)this->m_svViewPortSize.y);
+	glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glClearColor( 0,0,0,1 );
 	glClearDepth(1.0f);											// Depth Buffer Setup

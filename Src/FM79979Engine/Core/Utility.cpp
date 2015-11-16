@@ -1161,6 +1161,8 @@ namespace UT
 
 	long				GetFileSize(NvFile*e_pFile)
 	{
+		if( e_pFile == nullptr )
+			return 0;
 		long l_lFilesize = 0;
 #ifdef ANDROID
 		l_lFilesize = NvFSize(e_pFile);		

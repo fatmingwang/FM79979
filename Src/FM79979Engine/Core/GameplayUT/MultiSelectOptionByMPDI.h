@@ -185,7 +185,7 @@ namespace FATMING_CORE
         virtual bool    IsSatisfiedCondition(){ return m_bClickMouseBehaviorSatisfied&&GetCurrentWorkingObject()?true:false;  }
     };
     
-    typedef cObjectListTree<cMultiSelectOptionByMPDI,cSelectOptionByCueToStartCurveWithTime>    cMSOMPDITree;
+    typedef cObjectListWithItsChildren<cMultiSelectOptionByMPDI,cSelectOptionByCueToStartCurveWithTime>    cMSOMPDITree;
 //end namespace FATMING_CORE
 }
 

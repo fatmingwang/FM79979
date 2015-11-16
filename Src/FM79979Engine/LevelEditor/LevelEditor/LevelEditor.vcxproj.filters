@@ -12,6 +12,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{187268ac-aa27-489b-bded-07b7ef75dd61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header\ObjectDataFormImple">
+      <UniqueIdentifier>{4c53bfb1-08c6-49b6-8741-0fd72afc39a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -38,6 +41,9 @@
     <ClCompile Include="StageData.cpp">
       <Filter>Header</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectDataFormImple.cpp">
+      <Filter>Header\ObjectDataFormImple</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EventEditor.h">
@@ -60,6 +66,9 @@
     </ClInclude>
     <ClInclude Include="StageData.h">
       <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDataFormImple.h">
+      <Filter>Header\ObjectDataFormImple</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

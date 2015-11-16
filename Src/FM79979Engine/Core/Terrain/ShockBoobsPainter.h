@@ -48,7 +48,7 @@ namespace FATMING_CORE
 		void									TerrainTransform(cFrameCamera*e_pFrameCamera);
 	public:
 		cShockBoobsPainter(char*e_strImageFileName,ePatinerMode e_ePatinerMode = ePM_PAINT);
-		~cShockBoobsPainter();
+		virtual ~cShockBoobsPainter();
 		//
 		ePaintType								m_eColorType;
 		ePatinerMode							m_ePatinerMode;

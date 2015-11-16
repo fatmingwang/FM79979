@@ -1,0 +1,15 @@
+libavcodec-55
+libavfilter-3
+libavformat-55
+libavutil-52
+libswresample-0
+libswscale-2
+
+avutil
+swresample
+swscale
+avcodec
+avfilter
+avformat
+
+

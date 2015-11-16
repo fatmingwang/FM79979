@@ -95,6 +95,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
     <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />

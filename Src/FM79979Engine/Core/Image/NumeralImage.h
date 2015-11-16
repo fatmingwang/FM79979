@@ -72,7 +72,7 @@ namespace FATMING_CORE
 	public:
 		DEFINE_TYPE_INFO();
 		cTimeNumerialImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9,cCueToStartCurveWithTime*e_pHourSubMPDI,cCueToStartCurveWithTime*e_pMinSubMPDI,cCueToStartCurveWithTime*e_pSecondSubMPDI,cRenderObject*e_pDisableObject = 0);
-		~cTimeNumerialImage();
+		virtual ~cTimeNumerialImage();
 		virtual	void	Init();
 		virtual	void	Update(float e_fElpaseTime);
 		virtual	void	Render();

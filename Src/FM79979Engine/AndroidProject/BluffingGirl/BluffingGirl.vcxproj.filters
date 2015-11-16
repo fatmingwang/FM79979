@@ -1,0 +1,668 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\stdafx.cpp">
+      <Filter>jni\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\engine.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGirlApp.cpp">
+      <Filter>jni\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\IABSetup.cpp">
+      <Filter>jni\Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\MyJni.c">
+      <Filter>jni\JNI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\IABWindowsDeviceFunction.cpp">
+      <Filter>jni\Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\PlayerData.cpp">
+      <Filter>jni\Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceAI.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceGame.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGameProbability.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ChoiceGirlPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ChoiceGirlStagePhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\SpecialDiceRule.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DiceTable.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\FBPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\StorePhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGirlPhaseManager.cpp">
+      <Filter>jni\Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\AndroidDeviceFunction.cpp">
+      <Filter>jni\Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\SetupPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\MainMenuPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\WinPrizePhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\WinPrizePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\HeartRecoverPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\StageClearFile.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StagrClearFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\HeartRecoverSelectGirlPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GirlIntroducingPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GameRulePhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\GameRulePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ShowLogoPhase.cpp">
+      <Filter>jni\Game\Phase\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\Unzip.cpp">
+      <Filter>jni\Game\Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DownloadContentPhase.cpp">
+      <Filter>jni\Game\Phase\DownloadCotentPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DownloadFile.cpp">
+      <Filter>jni\Game\DownloadFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\MainFunctionButton.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\NetWorkConnectPhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GameNetwork.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceMultiPlayerGame.cpp">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect\MultiPlayBluffingDiceGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\TitlePhase.cpp">
+      <Filter>jni\Game\Phase\Logo\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\UnpackExpansionPack.cpp">
+      <Filter>jni\Game\Phase\Logo\UnpackExpansionPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\FBFunction.cpp">
+      <Filter>jni\Game\FBPrize</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{71183848-fe1d-45b6-9ea0-8badfad4faa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{60ee654b-a1b8-43b1-ac81-32961a296680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{807d6fd1-06f6-4020-a3e4-7c352e31ce6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{59f6ca31-a43f-4d3e-980a-3308cf0c6fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game">
+      <UniqueIdentifier>{e2ae0886-3124-4215-99f8-d007d4d27e67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\iab">
+      <UniqueIdentifier>{1cd20caf-d218-4aff-ad54-a6fadbb10307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\IAB">
+      <UniqueIdentifier>{fce844a8-7333-4beb-a2cf-e243c137023e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\JNI">
+      <UniqueIdentifier>{59cef181-c247-475d-b792-0b7bf43d67ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase">
+      <UniqueIdentifier>{04b86684-94dd-4ef9-b276-8d23088681e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Player">
+      <UniqueIdentifier>{af02a149-eec8-406e-91f2-cc0a4a96939d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\layout">
+      <UniqueIdentifier>{7e496891-6842-49d5-9780-5e5333ba47f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gen">
+      <UniqueIdentifier>{183edd52-3ac7-4aef-a1af-d94ce43282a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{b6358d86-5e50-4c68-8a0d-cdb6432f6e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net">
+      <UniqueIdentifier>{da5e35df-0756-4dd4-a88f-1779dc7ebfc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala">
+      <UniqueIdentifier>{01d499ef-70f3-4eae-8f29-a440e225c28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j">
+      <UniqueIdentifier>{d4e82564-5f5c-4a47-8767-1f99b5844c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\core">
+      <UniqueIdentifier>{5f5a0740-a413-41e1-a752-ff8cc7a9fd88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto">
+      <UniqueIdentifier>{cc124bcf-33f5-4683-a98e-bec3e64bfb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\exception">
+      <UniqueIdentifier>{905d8b76-bbca-41d7-b031-324dc9945f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\io">
+      <UniqueIdentifier>{379d5ac4-8c95-4545-9ca8-ada2f9ed6c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\model">
+      <UniqueIdentifier>{60f2a3f6-ea0e-4102-961b-c11c508d577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\progress">
+      <UniqueIdentifier>{1b90c8e2-129e-4af6-b106-b204f7aeb20c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\unzip">
+      <UniqueIdentifier>{2e521fbf-4fa3-4a79-8441-773052aa847c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\util">
+      <UniqueIdentifier>{5db58743-df27-437a-bc72-294a71947200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\zip">
+      <UniqueIdentifier>{9b6fffe8-3ad2-49d0-bef7-d869ccfeb938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\engine">
+      <UniqueIdentifier>{9eb43dc7-20ec-46f3-97dc-62256e7f1735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\PBKDF2">
+      <UniqueIdentifier>{0d42ba56-f89f-47c6-8b42-91e7dbfe40a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\facebook">
+      <UniqueIdentifier>{ed74c330-7350-4119-8f84-71592b7ec662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo">
+      <UniqueIdentifier>{a0898ad1-c8b1-4459-817f-718e52f0b8c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Unzip">
+      <UniqueIdentifier>{c2d820a3-e62a-4d65-8b3c-daec3792b85a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\DownloadCotentPhase">
+      <UniqueIdentifier>{c3a7461f-e8be-4eca-a99d-3f9ead90555a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\DownloadFile">
+      <UniqueIdentifier>{57a328d6-4cc3-4a56-a88d-d56fa5508d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title">
+      <UniqueIdentifier>{d1e900ef-69d5-4d8d-b9d6-6305268e8093}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\GameRulePhase">
+      <UniqueIdentifier>{9db22428-bdcd-46ad-87e7-5772f6dd4cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu">
+      <UniqueIdentifier>{54293f75-a1bb-453f-b843-e38eeeeefd84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase">
+      <UniqueIdentifier>{c3a424ec-e4fa-458b-8b23-e7e8327e920a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase">
+      <UniqueIdentifier>{d1573f90-4be8-470f-953a-339e2cdd017f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase">
+      <UniqueIdentifier>{5e37fff3-7147-4102-b974-ed9f5b295235}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI">
+      <UniqueIdentifier>{2ba7f24b-be04-4550-8a6e-6a10d7f15657}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable">
+      <UniqueIdentifier>{8a84c1e9-92a7-4db3-9785-c0934159c9c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability">
+      <UniqueIdentifier>{75cc7025-6f01-429b-b7c8-63b4ca4104a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\WinPrizePhase">
+      <UniqueIdentifier>{75fb6c6b-9d7a-446c-9fed-4f4527eface5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StagrClearFile">
+      <UniqueIdentifier>{08c909aa-2221-48fc-8210-ba453af6388a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB">
+      <UniqueIdentifier>{c9f6af69-3f5a-4726-bac4-4c2e19d8d522}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup">
+      <UniqueIdentifier>{71ef423b-f164-4f54-ba88-12a4b1a4fd70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store">
+      <UniqueIdentifier>{166c81eb-98b9-4dc2-bfbf-dd43e1745f4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase">
+      <UniqueIdentifier>{05706a5e-3a0a-46c2-a834-36c8caab5095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\NetworkConnect">
+      <UniqueIdentifier>{f4f06235-7e9c-40b9-a0b0-ee1e12cce963}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\NetworkConnect\MultiPlayBluffingDiceGame">
+      <UniqueIdentifier>{d51a4148-6762-4e9b-8f18-bf3601082581}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\NetworkConnect\Network">
+      <UniqueIdentifier>{d873390f-1664-4909-b349-9924bfe02e5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com">
+      <UniqueIdentifier>{50fb5d25-aa55-4f9d-b893-bc719abe0391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\wh">
+      <UniqueIdentifier>{773dad6b-1a49-4118-ba0e-0dfbf7d0da09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\UnpackExpansionPack">
+      <UniqueIdentifier>{cf16a70c-a805-4799-aa06-6fc68972a406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\DownloadFilePhase">
+      <UniqueIdentifier>{9ee294cc-47ca-4ac0-b3f3-06fa932e33e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\Game\FBPrize">
+      <UniqueIdentifier>{7630e140-ada3-4395-a524-af8178d07c9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\wh\BluffingGirl">
+      <UniqueIdentifier>{74146993-79ef-4573-a2be-1cd7a834f263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\wh\BluffingGirlEN">
+      <UniqueIdentifier>{8eef7134-9fcf-40d5-968a-3adca346d5f7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\AllLibInclude.h">
+      <Filter>jni\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\AllPhaseDefine.h">
+      <Filter>jni\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\stdafx.h">
+      <Filter>jni\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="jni\engine.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGirlApp.h">
+      <Filter>jni\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\IABSetup.h">
+      <Filter>jni\Game\IAB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\PlayerData.h">
+      <Filter>jni\Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceAI.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceGame.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGameProbability.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ChoiceGirlPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ChoiceGirlStagePhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\SpecialDiceRule.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DiceTable.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\FBPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\StorePhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGirlPhaseManager.h">
+      <Filter>jni\Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\SetupPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MainMenuPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\WinPrizePhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\WinPrizePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\HeartRecoverPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\StageClearFile.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StagrClearFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MyJni.h">
+      <Filter>jni\JNI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\HeartRecoverSelectGirlPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GirlIntroducingPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GameRulePhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\GameRulePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ShowLogoPhase.h">
+      <Filter>jni\Game\Phase\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\Unzip.h">
+      <Filter>jni\Game\Unzip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DownloadContentPhase.h">
+      <Filter>jni\Game\Phase\DownloadCotentPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DownloadFile.h">
+      <Filter>jni\Game\DownloadFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MainFunctionButton.h">
+      <Filter>jni\Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\NetWorkConnectPhase.h">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GameNetwork.h">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceMultiPlayerGame.h">
+      <Filter>jni\Game\Phase\Logo\Title\NetworkConnect\MultiPlayBluffingDiceGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\TitlePhase.h">
+      <Filter>jni\Game\Phase\Logo\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\UnpackExpansionPack.h">
+      <Filter>jni\Game\Phase\Logo\UnpackExpansionPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\FBFunction.h">
+      <Filter>jni\Game\FBPrize</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\drawable\icon.png">
+      <Filter>res</Filter>
+    </None>
+    <None Include=".settings\org.eclipse.jdt.core.prefs">
+      <Filter>res</Filter>
+    </None>
+    <None Include="..\..\WorldTripSlot\EngineTest\resource.h">
+      <Filter>res</Filter>
+    </None>
+    <None Include="res\values\strings.xml">
+      <Filter>res</Filter>
+    </None>
+    <None Include="res\layout\fbmanagerlayout.xml">
+      <Filter>res\layout</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\util\iab\Base64.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Base64DecoderException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabHelper.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabResult.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Inventory.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Purchase.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\SkuDetails.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IABManager.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Security.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\Define.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerManager.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerListener.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\MyBitmap.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderReader.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderWriter.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\ZipFile.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESEncrpyter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\AESEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\ZipCryptoEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\BinTools.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\MacBasedPRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Engine.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2HexFormatter.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Parameters.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipException.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipExceptionConstants.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\CipherOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\DeflaterOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\InflaterInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\PartInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\SplitOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\AESExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ArchiveExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\CentralDirectory.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DataDescriptor.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DigitalSignature.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\FileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\LocalFileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipEngineParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirLocator.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64ExtendedInfo.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipModel.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java">
+      <Filter>src\net\lingala\zip4j\zip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\ArchiveMaintainer.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\CRCUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\InternalZipConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Raw.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\Unzip.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipEngine.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipUtil.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java">
+      <Filter>src\net\lingala\zip4j\progress</Filter>
+    </JCompile>
+    <JCompile Include="src\util\facebook\FBManager.java">
+      <Filter>src\util\facebook</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ExternalStorage.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NetworkUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ZipUtilActivity.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\RootUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NumericEditTextDialog.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AdMobUtility.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\com\wh\BluffingGirl\BluffingGirl.java">
+      <Filter>src\com\wh\BluffingGirl</Filter>
+    </JCompile>
+    <JCompile Include="src\com\wh\BluffingGirlEN\BluffingGirlEN.java">
+      <Filter>src\com\wh\BluffingGirlEN</Filter>
+    </JCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="build.xml">
+      <Filter>res</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="project.properties">
+      <Filter>res</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+</Project>

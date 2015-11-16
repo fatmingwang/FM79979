@@ -1,0 +1,5 @@
+<!-- Author:scrr,Time:2014/8/19 ¤U¤È 02:20:51 -->
+<PuzzleImage OriginalNameSort="Heading_Dicecup,Heading" ImageName="Heading.png" Count="2" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Heading" UV="0.1689453,0.00390625,0.7246094,0.6171875" OffsetPos="25,16" Size="569,314" OriginalSize="610,353" ShowPosInPI="173,2" />
+    <PuzzleUnit Name="Heading_Dicecup" UV="0.001953125,0.00390625,0.1679688,0.4121094" OffsetPos="15,10" Size="170,209" OriginalSize="195,227" ShowPosInPI="2,2" />
+</PuzzleImage>

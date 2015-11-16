@@ -8,7 +8,7 @@ namespace FATMING_CORE
 		TiXmlElement*	m_pDataNode;
 	public:
 		cEventDataNode();
-		~cEventDataNode();
+		virtual ~cEventDataNode();
 		TiXmlElement*		GetDataNode();
 		void				SetDataNode(TiXmlElement*e_pTiXmlElement);
 	};

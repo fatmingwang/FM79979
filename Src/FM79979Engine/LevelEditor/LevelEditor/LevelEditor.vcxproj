@@ -147,6 +147,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EventEditor.cpp" />
     <ClCompile Include="LevelEditor.cpp" />
+    <ClCompile Include="ObjectDataFormImple.cpp" />
     <ClCompile Include="StageData.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -166,6 +167,7 @@
     <ClInclude Include="ObjectDataForm.h">
       <FileType>CppControl</FileType>
     </ClInclude>
+    <ClInclude Include="ObjectDataFormImple.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StageData.h">
       <FileType>CppControl</FileType>

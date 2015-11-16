@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>7</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Profile|Tegra-Android">
+      <Configuration>Profile</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\WorldTripSlot\EngineTest\resource.h" />
+    <None Include=".settings\org.eclipse.jdt.core.prefs" />
+    <None Include="res\drawable\icon.png" />
+    <None Include="res\layout\fbmanagerlayout.xml" />
+    <None Include="res\values\strings.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceAI.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceGame.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingDiceMultiPlayerGame.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGameProbability.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGirlApp.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\BluffingGirlPhaseManager.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ChoiceGirlPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ChoiceGirlStagePhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DiceTable.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DownloadContentPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\DownloadFile.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\FBFunction.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\FBPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GameNetwork.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GameRulePhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\GirlIntroducingPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\HeartRecoverPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\HeartRecoverSelectGirlPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\IABSetup.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\IABWindowsDeviceFunction.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\MainFunctionButton.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\MainMenuPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\NetWorkConnectPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\PlayerData.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\SetupPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\ShowLogoPhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\SpecialDiceRule.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\StageClearFile.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\stdafx.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\StorePhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\TitlePhase.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\UnpackExpansionPack.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\Unzip.cpp" />
+    <ClCompile Include="..\..\BluffingGirl\EngineTest\WinPrizePhase.cpp" />
+    <ClCompile Include="jni\engine.cpp" />
+    <ClCompile Include="jni\main.cpp" />
+    <ClCompile Include="jni\MyJni.c" />
+    <ClCompile Include="jni\AndroidDeviceFunction.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\AllLibInclude.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\AllPhaseDefine.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceAI.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceGame.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingDiceMultiPlayerGame.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGameProbability.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGirlApp.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\BluffingGirlPhaseManager.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ChoiceGirlPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ChoiceGirlStagePhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DiceTable.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DownloadContentPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\DownloadFile.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\FBFunction.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\FBPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GameNetwork.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GameRulePhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\GirlIntroducingPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\HeartRecoverPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\HeartRecoverSelectGirlPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\IABSetup.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MainFunctionButton.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MainMenuPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\MyJni.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\NetWorkConnectPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\PlayerData.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\SetupPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\ShowLogoPhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\SpecialDiceRule.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\StageClearFile.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\stdafx.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\StorePhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\TitlePhase.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\UnpackExpansionPack.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\Unzip.h" />
+    <ClInclude Include="..\..\BluffingGirl\EngineTest\WinPrizePhase.h" />
+    <ClInclude Include="jni\engine.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\com\wh\BluffingGirlEN\BluffingGirlEN.java" />
+    <JCompile Include="src\com\wh\BluffingGirl\BluffingGirl.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderReader.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderWriter.java" />
+    <JCompile Include="src\net\lingala\zip4j\core\ZipFile.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESEncrpyter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\AESEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\ZipCryptoEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\IDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\IEncrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\BinTools.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\MacBasedPRF.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Engine.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2HexFormatter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Parameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PRF.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardDecrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardEncrypter.java" />
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipException.java" />
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipExceptionConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\BaseInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\BaseOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\CipherOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\DeflaterOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\InflaterInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\PartInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\SplitOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\ZipInputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\io\ZipOutputStream.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\AESExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ArchiveExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\CentralDirectory.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\DataDescriptor.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\DigitalSignature.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\EndCentralDirRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ExtraDataRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\FileHeader.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\LocalFileHeader.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipEngineParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirLocator.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirRecord.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64ExtendedInfo.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ZipModel.java" />
+    <JCompile Include="src\net\lingala\zip4j\model\ZipParameters.java" />
+    <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\Unzip.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipEngine.java" />
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\ArchiveMaintainer.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\CRCUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\InternalZipConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Raw.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jConstants.java" />
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jUtil.java" />
+    <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java" />
+    <JCompile Include="src\util\AccelerometerListener.java" />
+    <JCompile Include="src\util\AccelerometerManager.java" />
+    <JCompile Include="src\util\AdMobUtility.java" />
+    <JCompile Include="src\util\Define.java" />
+    <JCompile Include="src\util\ExternalStorage.java" />
+    <JCompile Include="src\util\facebook\FBManager.java" />
+    <JCompile Include="src\util\NetworkUtil.java" />
+    <JCompile Include="src\util\iab\Base64.java" />
+    <JCompile Include="src\util\iab\Base64DecoderException.java" />
+    <JCompile Include="src\util\iab\IabException.java" />
+    <JCompile Include="src\util\iab\IabHelper.java" />
+    <JCompile Include="src\util\iab\IABManager.java" />
+    <JCompile Include="src\util\iab\IabResult.java" />
+    <JCompile Include="src\util\iab\Inventory.java" />
+    <JCompile Include="src\util\iab\Purchase.java" />
+    <JCompile Include="src\util\iab\Security.java" />
+    <JCompile Include="src\util\iab\SkuDetails.java" />
+    <JCompile Include="src\util\MyBitmap.java" />
+    <JCompile Include="src\util\NumericEditTextDialog.java" />
+    <JCompile Include="src\util\RootUtil.java" />
+    <JCompile Include="src\util\ZipUtilActivity.java" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml">
+      <SubType>Designer</SubType>
+    </AndroidBuild>
+    <AndroidBuild Include="build.xml" />
+    <AndroidBuild Include="project.properties" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{2D821114-8C7A-438D-A2A9-1E401A543D2D}</ProjectGuid>
+    <RootNamespace>NativeGamepad</RootNamespace>
+    <ProjectName>BluffingGirl</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <NdkToolchainVersion>Default</NdkToolchainVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <NdkToolchainVersion>Default</NdkToolchainVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <NdkToolchainVersion>Default</NdkToolchainVersion>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <ConfigurationType>Application</ConfigurationType>
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidMinAPI>android-9</AndroidMinAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <ConfigurationType>Application</ConfigurationType>
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidMinAPI>android-14</AndroidMinAPI>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <ConfigurationType>Application</ConfigurationType>
+    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+      <SecurePropertiesLocation>
+      </SecurePropertiesLocation>
+      <NativeLibDirectories>
+      </NativeLibDirectories>
+      <NativeLibDependencies>
+      </NativeLibDependencies>
+      <JarDirectories>
+      </JarDirectories>
+      <JarDependencies>
+      </JarDependencies>
+    </AntBuild>
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\opencv;..\..\..\include\opencv\opencv;..\..\cppnetlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;DEBUG;ANDROID</PreprocessorDefinitions>
+      <CLanguageStandard>
+      </CLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\Tegra-Android\Debug;C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\lib\gnustl\armeabi;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <ReportUndefinedSymbols>true</ReportUndefinedSymbols>
+      <UseLinker>bfd</UseLinker>
+    </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+      <AdditionalOptions>-verbose %(AdditionalOptions)</AdditionalOptions>
+      <AntBuildType>Release</AntBuildType>
+      <SigningType>None</SigningType>
+      <SecurePropertiesLocation>C:\Users\wh-n1\Desktop\BluffingGirl\secure_properties.xml</SecurePropertiesLocation>
+      <NativeLibDirectories>
+      </NativeLibDirectories>
+      <NativeLibDependencies>
+      </NativeLibDependencies>
+    </AntBuild>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\Androidffmpeg_2.1.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>..\Tegra-Android\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <ReportUndefinedSymbols>false</ReportUndefinedSymbols>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
+    <AntBuild>
+      <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+      <AdditionalOptions>-verbose %(AdditionalOptions)</AdditionalOptions>
+    </AntBuild>
+    <ClCompile>
+      <AdditionalIncludeDirectories>../../../libs/jni</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>../../../libs/jni/nv_obj/$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>android;nv_and_util;nv_bitfont;nv_egl_util;nv_file;nv_glesutil;nv_hhdds;nv_log;nv_math;nv_shader;nv_thread;stdc++;c;m;log;dl;GLESv2;EGL;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

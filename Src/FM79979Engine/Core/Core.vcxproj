@@ -285,7 +285,9 @@
   <ItemGroup>
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
+    <ClCompile Include="GameplayUT\CustomBinaryData.cpp" />
     <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp" />
+    <ClCompile Include="GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="Glyph\GlyphReader.cpp" />
     <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="Image\MPDINode.cpp" />
@@ -425,6 +427,7 @@
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
     <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
+    <ClInclude Include="GameplayUT\CustomBinaryData.h" />
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h" />
     <ClInclude Include="Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="Image\MPDINode.h" />

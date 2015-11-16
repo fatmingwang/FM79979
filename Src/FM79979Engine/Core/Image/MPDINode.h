@@ -99,7 +99,7 @@ namespace FATMING_CORE
 		cMPDINodeImageData();
 		cMPDINodeImageData(cMPDINodeImageData*e_pImageData);
 		virtual		cTimeAndDataLinerUpdateInterface*	Clone();
-		~cMPDINodeImageData();
+		virtual ~cMPDINodeImageData();
 		virtual	TiXmlElement*	ToTiXmlElement();
 		virtual	void			Init();
 		cBaseImage*				GetCurrentData();

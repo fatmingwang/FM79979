@@ -23,7 +23,7 @@ namespace FATMING_CORE
 		bool				m_bShockDone;
 	public:
 		cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth = 30.f,bool e_bTexture = true,wchar_t*e_strName = L"cShockBoobsShader");
-		~cShockBoobsShader();
+		virtual ~cShockBoobsShader();
 		virtual	void	Use(bool e_bUseLastWVPMatrix = true);
 		void			Update(float e_fElpaseTime);
 		void			SetParmater(float e_fShockSpeed,float e_fShockSpeedMinus,float e_fShockStrgethValue,float e_fMaximumShockStregth);

@@ -56,7 +56,7 @@
 		UINT				GetFrameSize(UINT e_iFrame);
 	public:
 		cVideoConvert();
-		~cVideoConvert();
+		virtual ~cVideoConvert();
 		bool	StartConvert(NvFile*e_pFile);
 		float	GetProgress();
 		int		m_iTargetWidth;
@@ -84,7 +84,7 @@
 		bool						m_bLoop;
 	public:
 		cFMVVideo();
-		~cFMVVideo();
+		virtual ~cFMVVideo();
 		virtual	bool				OpenFile(const char*e_strFileName);
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Render();

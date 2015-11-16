@@ -152,6 +152,16 @@ namespace FATMING_CORE
 		this->SetLocalTransform(cMatrix44::Identity);
 	}
 
+	void	cOrthogonalCamera::ViewportChangeApplyNewResolution(int e_iViewportWidth,int e_iViewportHeight)
+	{
+		POINT l_ViewportSize = { e_iViewportWidth,e_iViewportHeight };
+		Vector2	l_vOriginalResolution = GetResolution();
+		Vector2	l_vOriginalLeftUpPos = GetCameraPos()-(l_vOriginalResolution/2.f);
+		SetResolution(Vector2((float)l_ViewportSize.x,(float)l_ViewportSize.y));
+		SetCameraPos(l_vOriginalLeftUpPos+GetResolution()/2.f);
+		CameraUpdateByMouse(false,false,0,0,0,Vector2((float)e_iViewportWidth,(float)e_iViewportHeight));
+	}
+
 	void	cOrthogonalCamera::CameraUpdateByMouse(bool e_bLeftButton,bool e_bRightButton,int e_iWheelDelta,int e_iMouseX,int e_iMouseY,Vector2 e_vViewport)
 	{
 		 sMouseState	l_sMouseState;

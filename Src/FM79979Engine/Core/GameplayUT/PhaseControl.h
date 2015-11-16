@@ -74,7 +74,7 @@ namespace FATMING_CORE
 		bool					PopUpMessagerRender();
 	public:
 		cPhaseManager();
-		~cPhaseManager();
+		virtual ~cPhaseManager();
 		cPhaseManager(cPhaseManager*e_pPhaseManager);
 		CLONE_MYSELF(cPhaseManager);
 		const	wchar_t*			GetCurrentPhaseName();

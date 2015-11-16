@@ -77,6 +77,7 @@ namespace	FATMING_CORE
 		virtual	void				KeyDown(char e_char);
 		virtual	void				KeyUp(char e_char);
 		void						SetAcceptRation(int e_iWidthRation = 9,int e_iHeightRation = 16,int e_iGap = 80);
+		void						SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight);
 		void						RenderPause();
 		//static objects
 #if defined(ANDROID)
@@ -164,8 +165,6 @@ namespace	FATMING_CORE
 		static	cPuzzleImage*			GetPuzzleImageByFileName(const wchar_t*e_strFileName);
 		static	cPuzzleImage*			GetPuzzleImageByFileName(std::wstring e_strFileName);
 
-		static	cNumeralImage*			GetNumeralImageByXmlElement(TiXmlElement*e_pTiXmlElement);
-
 		static	cMPDIList*				GetMPDIList(const wchar_t*e_strName);
 		static	cMPDIList*				GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMsg = false);
 		static	cMPDIList*				GetMPDIList(const char*e_strFileName,const wchar_t*e_strName);
@@ -201,6 +200,7 @@ namespace	FATMING_CORE
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
 		//FinishInput(String e_strValue);,Chancel();take a look at cpp
+		//take a see at cpp
 		static  void					OpenKeyBoard(int e_iKeyBoardType,const wchar_t*e_strTitle=L"GameApp",const wchar_t*e_strMessage=L"please input data");
 		static	std::wstring			GetDIDOrInstallationRandomID();
 	};

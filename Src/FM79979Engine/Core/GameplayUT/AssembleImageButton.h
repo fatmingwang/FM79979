@@ -12,7 +12,7 @@
 	public:
 		DEFINE_TYPE_INFO();
 		cAssembleImageButton();
-		~cAssembleImageButton();
+		virtual ~cAssembleImageButton();
 		cAssembleImageButton(cAssembleImageButton*e_pAssembleImageButton);
 		CLONE_MYSELF(cAssembleImageButton);
 		static	cAssembleImageButton*	GetMe(TiXmlElement*e_pElement);
