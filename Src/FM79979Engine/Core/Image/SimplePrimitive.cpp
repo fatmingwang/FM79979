@@ -261,7 +261,6 @@ namespace GLRender
 
 	void	DrawQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLfloat  e_fWidth,GLfloat  e_fHeight,Vector4 e_vColor,float *e_pfTexCoordinate,Vector3 e_vRotationAngle,const wchar_t*e_strShaderName)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(e_strShaderName);
 		e_fWidth/=2;
 		e_fHeight/=2;
@@ -272,13 +271,11 @@ namespace GLRender
 		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,e_fDepth);
 		ASSIGN_2D_COLOR(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		UseShaderProgram(l_p2DShader);
 	}
 
 
 	void	DrawMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,float e_iWidth,float e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(DEFAULT_SHADER);
 		e_iWidth/=2;
 		e_iHeight/=2;
@@ -290,13 +287,11 @@ namespace GLRender
 		ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
 		ASSIGN_2D_COLOR(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	
 	void    DrawQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(DEFAULT_SHADER);
 	   // draw with client side arrays (in real apps you should use cached VBOs which is much better for performance)
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
@@ -304,11 +299,9 @@ namespace GLRender
 		myGlVertexPointer(e_iPosStride,e_pfVertices);
 		myGlUVPointer(2,e_pfTextureUV);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4*e_iNumQuad);
-		UseShaderProgram(l_p2DShader);
 	}
 	void	Render3DArrow(Vector3 P,Vector3 D,Vector4 e_vColor,float e_fWidth)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		float angle = atan2(D.y, D.x);
 		float	l_fLength = D.Length();
@@ -334,11 +327,9 @@ namespace GLRender
 		myGlVertexPointer(3,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 10);
-		UseShaderProgram(l_p2DShader);
 	}
 	void RenderArrow(Vector3 P,Vector3 D, float radius,Vector4 e_vColor)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(radius);
 		float angle = atan2(D.y, D.x);
@@ -357,12 +348,10 @@ namespace GLRender
 		myGlVertexPointer(2,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 6);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	RenderPoint(Vector2	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 #if !defined(OPENGLES_2_X) || defined(WIN32)
 		glPointSize(e_fSize);
@@ -372,12 +361,10 @@ namespace GLRender
 		myGlVertexPointer(2,e_vPos);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 1);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	RenderPoint(Vector3	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 #ifndef OPENGLES_2_X
 		glPointSize(e_fSize);
@@ -387,13 +374,11 @@ namespace GLRender
 		myGlVertexPointer(3,e_vPos);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 1);
-		UseShaderProgram(l_p2DShader);
 	}
 	void	RenderPoints(Vector3*e_pvPos,int e_iNumPoints,float e_fSize,Vector4 e_vColor,float*e_pfMatrix)
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 #if !defined(OPENGLES_2_X) || defined(WIN32)
 		glPointSize(e_fSize);
@@ -403,14 +388,12 @@ namespace GLRender
 		myGlVertexPointer(3,e_pvPos);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	RenderPoints(Vector2*e_pvPos,int e_iNumPoints,float e_fSize,Vector4 e_vColor,float*e_pfMatrix)
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 #ifndef OPENGLES_2_X
 		glPointSize(e_fSize);
@@ -420,7 +403,6 @@ namespace GLRender
 		myGlVertexPointer(2,e_pvPos);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
-		UseShaderProgram(l_p2DShader);
 	}
 
 
@@ -428,7 +410,6 @@ namespace GLRender
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 #if !defined(OPENGLES_2_X) || defined(WIN32)
 		glPointSize(e_fSize);
@@ -444,14 +425,12 @@ namespace GLRender
 		myGlVertexPointer(3,&l_TempVector[0]);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
-		UseShaderProgram(l_p2DShader);	
 	}
 	//e_iNum as many as line points
 	void	RenderLine(float*e_pPosition,int e_iNumPoints,Vector4 e_vColor,int e_iStride,float*e_pfMatrix,float e_fLineSize)
 	{
 		if( e_iNumPoints<2 )
 			return;
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(e_fLineSize);
 		FATMING_CORE::SetupShaderColor(e_vColor);
@@ -459,7 +438,6 @@ namespace GLRender
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		assert((e_iStride == 2 || e_iStride == 3)&&"draw line stride must be 2 or 3");
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, e_iNumPoints);
-		UseShaderProgram(l_p2DShader);
 	}
 	void	RenderLine(std::vector<Vector2>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont)
 	{
@@ -555,7 +533,6 @@ namespace GLRender
 
 	void	RenderSphere(cMatrix44 e_mat,float e_fRadius,Vector4 e_vColor,bool e_bDrawPoint,float e_fDensityAngle)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		if( e_fDensityAngle<1.f )
 			e_fDensityAngle = 1.f;
@@ -588,12 +565,10 @@ namespace GLRender
 			myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);
 		}
-		UseShaderProgram(l_p2DShader);	
 	}
 
 	void	RenderSphere(Vector2 e_vPos,float e_fRadius,Vector4 e_vColor,bool e_bDrawPoint,float e_fDensityAngle)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		if( e_fDensityAngle<1.f )
 			e_fDensityAngle = 1.f;
@@ -626,7 +601,6 @@ namespace GLRender
 			myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);
 		}
-		UseShaderProgram(l_p2DShader);
 	}
 
 
@@ -647,7 +621,6 @@ namespace GLRender
 
 	void	RenderRectangle(float e_fWidth,float e_fHeight,cMatrix44 e_Mat,Vector4 e_vColor,float e_fLineWidth)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(e_fLineWidth);
 		float	l_fWidth = e_fWidth;
@@ -669,7 +642,6 @@ namespace GLRender
 		myGlVertexPointer(2,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
-		UseShaderProgram(l_p2DShader);
 
 		//cBaseShader*l_p2DShader = GetCurrentShader();
 		//UseShaderProgram(NO_TEXTURE_SHADER);
@@ -695,7 +667,6 @@ namespace GLRender
 
 	void	RenderFilledRectangle(Vector2 e_Pos,float e_fWidth,float e_fHeight,Vector4 e_vColor,float e_fAngle)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		e_fWidth/=2;
 		e_fHeight/=2;
@@ -706,12 +677,10 @@ namespace GLRender
 		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,0.f);
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	RenderRectangle(POINT e_Pos,int e_iWidth,int e_iHeight,Vector4 e_vColor,float e_fAngle,float e_fLineWidth)
 	{
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(e_fLineWidth);
 		float	l_fWidth = e_iWidth/2.f;
@@ -732,7 +701,6 @@ namespace GLRender
 		myGlVertexPointer(2,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	DrawPlane(cMatrix44 e_mat,float	e_fWidth,float	e_fHeight,float e_fGridWidthDistance,float e_fGridHeightDistance,float e_fLineWidth,Vector4 e_vColor)
@@ -743,7 +711,6 @@ namespace GLRender
 		int	l_iTotalCount = (l_iRow+l_iColumn)*2;
 		//if( l_iTotalCount>200 )//-.- to big lah.
 		//	return;
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(e_fLineWidth);
 		Vector2	l_vLeftUp(-e_fWidth/2,-e_fHeight/2.f);
@@ -766,7 +733,6 @@ namespace GLRender
 		myGlVertexPointer(2,l_pvVerticesForDrawPlane);
 		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iTotalCount);
-		UseShaderProgram(l_p2DShader);
 		
 	}
 
@@ -880,7 +846,6 @@ namespace GLRender
 	{
 				//2,3				5
 				//0					1,4
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		FATMING_CORE::SetupShaderColor(e_vColor);
@@ -936,7 +901,6 @@ namespace GLRender
 		};
 		myGlVertexPointer(3,l_vVetrices);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 36);
-		UseShaderProgram(l_p2DShader);
 	}
 //end namespace GLRender
 };

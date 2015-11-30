@@ -272,7 +272,6 @@ namespace FATMING_CORE
 	    }
 		if( l_iIndex >0 )
 		{
-			cBaseShader*l_p2DShader = GetCurrentShader();
 			UseShaderProgram(DEFAULT_SHADER);
 			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
 			SetupShaderWorldMatrix(cMatrix44::Identity);
@@ -280,7 +279,6 @@ namespace FATMING_CORE
 			myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
 			myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
 			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
-			UseShaderProgram(l_p2DShader);
 		}
 EXIT:
 		if(this->m_pViewPort)

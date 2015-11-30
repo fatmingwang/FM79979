@@ -15,7 +15,6 @@ cMagicTowerApp::cMagicTowerApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,
 cMagicTowerApp::cMagicTowerApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_Hwnd,e_vGameResolution,e_vViewportSize)
 #endif
 {
-	cLayer::m_sbIsEditorMode = false;
 	g_pMagicTowerApp = this;
 	m_spSceneControl = 0;
 	m_sp2DCamera = 0;

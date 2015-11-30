@@ -5,7 +5,9 @@
 #include "BinaryToTexture.h"
 #include "../GameplayUT/GameApp.h"
 #include "../GameplayUT/BinaryFile.h"
-#include "pngLoader.h"
+#include "png/pngLoader.h"
+#include "dds/nv_images.h"
+#include "jpeg/jpgd.h"
 #if defined(WIN32)
 #include "../../../Include/IL/il.h"
 //if u like to link under windows copy and paste to the main.cpp
@@ -564,6 +566,24 @@ namespace FATMING_CORE
 	//===============
 	//
 	//===============
+	bool	cTexture::LoadDDS(const char*e_strFileName)
+	{
+		m_iChannel = 3;
+		m_iPixelFormat = GL_RGB;
+		unsigned char l_bAlpha = false;
+		this->m_uiImageIndex = NvCreateTextureFromDDSEx(e_strFileName,false,false,&this->m_iWidth,&this->m_iHeight,&l_bAlpha,NULL);
+		if( l_bAlpha > 0 )
+		{
+			this->m_iChannel = 4;
+			m_iPixelFormat = GL_RGBA;
+		}
+		if( m_uiImageIndex != 0 )
+			return true;
+		return false;
+	}
+	//===============
+	//
+	//===============
 	bool	cTexture::LoadImage(const char*e_strImageFileName,bool e_bFetchPixelData)
 	{
 		assert(e_strImageFileName);
@@ -580,40 +600,66 @@ namespace FATMING_CORE
 		m_pstrFullFileName = new std::string;
 		*m_pstrFullFileName = e_strImageFileName;
 		std::vector<unsigned char> image;
+		unsigned char*l_pucPixelData = nullptr;
 		unsigned l_uWidth, l_uHeight;
 		std::string l_strExtensionName = UT::GetFileExtensionName(e_strImageFileName);
-		if( l_strExtensionName.compare("png") != 0 )
-			return false;
-		unsigned error = lodepng::decode(image, l_uWidth, l_uHeight, e_strImageFileName);
-
-		m_iWidth = l_uWidth;
-		m_iHeight = l_uHeight;
-		// If there's an error, display it.
-		if(error != 0)
+		if( l_strExtensionName.compare("dds") == 0 || l_strExtensionName.compare("DDS") == 0  )
 		{
-			//UT::ErrorMsg(e_strImageFileName,lodepng_error_text(error));
-			return false;
+			if(LoadDDS(e_strImageFileName))
+				return true;
 		}
-		else
+
+		if( l_strExtensionName.compare("png") == 0  )
 		{
+			unsigned error = lodepng::decode(image, l_uWidth, l_uHeight, e_strImageFileName);
 			m_iPixelFormat = GL_RGBA;
 			//now I am laze to do bitmpa and dds file so force maake it as 4 channel
 			m_iChannel = 4;
-			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
-			//		GLenum	l_GLenum = glGetError();
-			//		assert(l_GLenum);
-#ifdef 	OPENGLES_2_X
-			glActiveTexture( GL_TEXTURE0  );
-#endif
-			m_suiLastUsingImageIndex = -1;
-			this->ApplyImage();
-			// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);				
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
-		    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		    //glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			UpdatePixels((const GLvoid*)(char*)&image[0],e_bFetchPixelData);
+			// If there's an error, display it.
+			if(error != 0)
+			{
+				//UT::ErrorMsg(e_strImageFileName,lodepng_error_text(error));
+				return false;
+			}
+			l_pucPixelData = &image[0];
 		}
+		else
+		if(l_strExtensionName.compare("jpg") == 0 )
+		{
+			int	l_iChannel = 0;
+			unsigned char*l_pImageData = nullptr;
+			//3 for rgb no alpha here
+			l_pImageData = jpgd::decompress_jpeg_image_from_file(e_strImageFileName,(int*)&l_uWidth,(int*)&l_uHeight,&l_iChannel,3);
+			if( l_pImageData == nullptr )
+				return false;
+			l_pucPixelData = l_pImageData;
+			//int	l_iImageSize = 3*l_uWidth*l_uHeight;
+			//image.resize(l_iImageSize);
+			//memcpy(&image[0],l_pImageData,l_iImageSize);
+			m_iPixelFormat = GL_RGB;
+			//now I am laze to do bitmpa and dds file so force maake it as 4 channel
+			m_iChannel = 3;
+		}
+		else
+		{
+			return false;
+		}
+		m_iWidth = l_uWidth;
+		m_iHeight = l_uHeight;
+		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
+		//		GLenum	l_GLenum = glGetError();
+		//		assert(l_GLenum);
+#ifdef 	OPENGLES_2_X
+		glActiveTexture( GL_TEXTURE0  );
+#endif
+		m_suiLastUsingImageIndex = -1;
+		this->ApplyImage();
+		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);				
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		UpdatePixels((const GLvoid*)l_pucPixelData,e_bFetchPixelData);
 //#endif
 		//if loading failed show alert
 		if(!m_uiImageIndex)

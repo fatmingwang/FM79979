@@ -68,7 +68,7 @@ namespace FATMING_CORE
 		float					GetRotateY(){ return m_fAngelY; }
 		void					SetCamera(cFrameCamera*	e_pCamera){ m_pCamera = e_pCamera; }
 		//old fashion
-		void					Update(float e_fElpaseTime);
+		void					Update(float e_fElpaseTime,bool e_bDoGameAppMouseStatusUpdate = false);
 		void					SetMouseMoveSpeed(float e_fSpeed){ m_fMoveSpeed = e_fSpeed; }
 		float					GetMouseMoveSpeed(){ return m_fMoveSpeed; }
 		void					SetMouseRotationSpeed(float e_fSpeed){ m_fRotationSpeed = e_fSpeed; }

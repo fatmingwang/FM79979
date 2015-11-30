@@ -23,9 +23,10 @@ namespace FATMING_CORE
 	float	g_fWorldMatrix[16];
 	Vector4	g_vGlobalScaleColor(1,1,1,1);
 	cBaseShader*g_pCurrentShader = 0;
-
+	extern cGLSLProgram*g_pCurrentUsingGLSLProgram;
 	cBaseShader::cBaseShader(wchar_t*e_strName,bool e_bTexture)
 	{
+		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
@@ -39,6 +40,7 @@ namespace FATMING_CORE
 
 	cBaseShader::cBaseShader(const char*e_strVS,const char*e_strPS,wchar_t*e_strName,bool e_bTexture)
 	{
+		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
@@ -47,13 +49,22 @@ namespace FATMING_CORE
 		bool	l_b = CreateProgram(e_strVS,e_strPS,e_bTexture);
 		assert(l_b);
 	}
-
+	cBaseShader::cBaseShader()
+	{
+		m_bDataUpdated = false;
+		m_uiProgram = -1;
+		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
+	}
 	cBaseShader::cBaseShader(wchar_t*e_strName,bool *e_pbClientState)
 	{
+		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
-		for( int i=0;i<TOTAL_FVF;++i )
-			m_uiAttribArray[i] = e_pbClientState[i]?1:-1;
+		if( e_pbClientState != nullptr )
+		{
+			for( int i=0;i<TOTAL_FVF;++i )
+				m_uiAttribArray[i] = e_pbClientState[i]?1:-1;
+		}
 	}
 
 	cBaseShader::~cBaseShader()
@@ -165,7 +176,7 @@ namespace FATMING_CORE
 		MyGlErrorTest();
 #ifndef OPENGLES_2_X
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		if(m_uiAttribArray[FVF_TEX0]	!= -1)
+		if(m_uiAttribArray[FVF_TEX0] != -1)
 		{
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glEnable(GL_TEXTURE_2D);
@@ -298,6 +309,17 @@ namespace FATMING_CORE
 		}
 	}
 
+	void	ShaderUpdate(float e_fElpaseTime)
+	{
+		if( g_pAll2DShaderList )
+		{
+			for(int i=0;i<g_pAll2DShaderList->Count();++i)
+			{
+				g_pAll2DShaderList->GetObject(i)->Update(e_fElpaseTime);
+			}
+		}		
+	}
+
 	void	DeleteAllShader()
 	{
 		if( g_pAll2DShaderList )
@@ -338,6 +360,7 @@ namespace FATMING_CORE
 	//only call once before draw any 2D image
 	void	UseShaderProgram(const wchar_t*e_strName,bool e_bUseLastWVPMatrix)
 	{
+		g_pCurrentUsingGLSLProgram = nullptr;
 		if( g_pAll2DShaderList )
 		{
 			cBaseShader*l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);

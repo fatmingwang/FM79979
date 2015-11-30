@@ -187,7 +187,6 @@ namespace FATMING_CORE
 			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;			
 			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight;
 		}
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(DEFAULT_SHADER);
 		m_pFontImage->ApplyImage();
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX+l_fHalfWidth,e_fY+l_fHalfHeight,0.f));
@@ -196,7 +195,6 @@ namespace FATMING_CORE
 		myGlUVPointer(2,m_pvTextureUVBuffer);
 		myGlColorPointer(4,m_pvColorBuffer);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6*l_iAliveIndex);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	cGlyphFontRender::SetFontColor(Vector4 e_vColor)

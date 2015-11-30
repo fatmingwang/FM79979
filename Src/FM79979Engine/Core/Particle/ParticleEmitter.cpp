@@ -403,7 +403,6 @@ namespace FATMING_CORE
 	{
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
-			cBaseShader*l_p2DShader = GetCurrentShader();
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -484,7 +483,6 @@ namespace FATMING_CORE
 #endif
 			if(!l_bSameBleinding)
 				glBlendFunc(l_Src,l_Dest);
-			UseShaderProgram(l_p2DShader);
 		}
 	}
 

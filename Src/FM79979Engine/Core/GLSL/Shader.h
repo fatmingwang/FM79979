@@ -69,6 +69,8 @@ namespace FATMING_CORE
 	class	cBaseShader:public NamedTypedObject
 	{
 	protected:
+		//to check camera or light updated or something else...not necessary
+		bool	m_bDataUpdated;
 		GLuint	m_uiVS;
 		GLuint	m_uiFS;
 		GLuint	m_uiProgram;
@@ -90,9 +92,12 @@ namespace FATMING_CORE
 		cBaseShader(const char*e_strVS,const char*e_strPS,wchar_t*e_strName,bool e_bTexture = true);
 		//for opengl es1
 		cBaseShader(wchar_t*e_strName,bool *e_pbClientState);
+		cBaseShader();
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual ~cBaseShader();
-		virtual	void			Use(bool e_bUseLastWVPMatrix = true);
+		virtual	void				Use(bool e_bUseLastWVPMatrix = true);
+		//do something if shader need to do in each frame update.
+		virtual	void				Update(float e_fElpaseTime){ m_bDataUpdated = false; }
 		void						Disable();
 		GLuint						GetUniFormLocationByName(const char*e_strName);
 	};
@@ -103,6 +108,9 @@ namespace FATMING_CORE
 	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName = DEFAULT_SHADER);
 	cBaseShader*	GetShader(wchar_t*e_strName);
 	cBaseShader*	GetCurrentShader();
+	//
+	//
+	void	ShaderUpdate(float e_fElpaseTime);
 	//
 	void	DeleteAllShader();
 	bool	DeleteShader(wchar_t*e_strName = DEFAULT_SHADER);

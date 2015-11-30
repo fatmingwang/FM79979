@@ -23,6 +23,7 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 		UINT*	e_puiIndexBuffer,
 		UINT	e_uiIndexBufferCount)
 {
+	m_bShadowEffect = false;
 	memset(m_v2DCollisionRect,0,sizeof(Vector4));
 	m_Sphere.vCenter = Vector3::Zero;
 	memset(m_bVerticesBuffer,0,sizeof(bool)*TOTAL_FVF);
@@ -127,6 +128,7 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 
 cMesh::cMesh(cMesh*e_pMesh)
 {
+	m_bShadowEffect = e_pMesh->m_bShadowEffect;
 	if( e_pMesh )
 	{
 		SetName(e_pMesh->GetName());
@@ -173,7 +175,6 @@ cMesh::~cMesh()
 
 void	cMesh::Render(WCHAR*e_strShaderName)
 {//ensure u have create depth framebuffer...
-	cBaseShader*l_p2DShader = GetCurrentShader();
 	UseShaderProgram(e_strShaderName);
 	for(UINT i=0;i<this->m_ObjectList.size();++i)
 	{
@@ -193,15 +194,7 @@ void	cMesh::Render(WCHAR*e_strShaderName)
 	else
 	{
 		//DrawCube(Vector3(1,1,1),cMatrix44::Identity,Vector4(1,1,0,1));
-#ifndef OPENGLES_2_X
-		myGlVertexPointer(3, m_ppfVerticesBuffer[FVF_POS]);
-		if( m_bVerticesBuffer[FVF_TEX0] )
-			myGlUVPointer(2, m_ppfVerticesBuffer[FVF_TEX0]);
-		if( m_bVerticesBuffer[FVF_NORMAL] )
-			myGlNormalPointer(3,m_ppfVerticesBuffer[FVF_NORMAL]);
-		if( m_bVerticesBuffer[FVF_DIFFUSE] )
-			myGlColorPointer(4,m_ppfVerticesBuffer[FVF_DIFFUSE]);
-#else
+#ifdef OPENGLES_2_X
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
 			if( this->m_bVerticesBuffer[i] && g_uiAttribArray[i] != -1 )
@@ -209,9 +202,16 @@ void	cMesh::Render(WCHAR*e_strShaderName)
 				glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],0, 0, m_ppfVerticesBuffer[i]);
 			}
 		}
+#else
+		myGlVertexPointer(3, m_ppfVerticesBuffer[FVF_POS]);
+		if( m_bVerticesBuffer[FVF_TEX0] )
+			myGlUVPointer(2, m_ppfVerticesBuffer[FVF_TEX0]);
+		if( m_bVerticesBuffer[FVF_NORMAL] )
+			myGlNormalPointer(3,m_ppfVerticesBuffer[FVF_NORMAL]);
+		if( m_bVerticesBuffer[FVF_DIFFUSE] )
+			myGlColorPointer(4,m_ppfVerticesBuffer[FVF_DIFFUSE]);
 #endif
 		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
-		UseShaderProgram(l_p2DShader);
 	}
 }
 

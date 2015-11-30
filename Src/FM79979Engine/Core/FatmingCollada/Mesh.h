@@ -38,6 +38,8 @@ class	cMesh:public Frame,public cNamedTypedObjectVector<sTechniqueAndTexture>
 	Vector4	m_v2DCollisionRect;
 	//the collada output ID
 	GET_SET_DEC(std::wstring,m_strGeoID,GetGeoID,SetGeoID);
+	//
+	GET_SET_DEC(bool,m_bShadowEffect,IsShadowEffect,SetShadowEffect);
 	//friend class cMesh;
 protected:
 	cVBOBuffer*m_pVBOBuffer;

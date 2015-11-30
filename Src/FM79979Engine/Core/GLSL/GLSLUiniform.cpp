@@ -9,37 +9,11 @@
 #include <string>
 #include <assert.h>
 #include "../GameplayUT/GameApp.h"
-	//cUniformManager*g_p2DUniformManager = 0;
-	////using a default shader for 2D only
-	//bool	Init2DShader(char*e_strFileName)
-	//{
-	//	assert(g_p2DUniformManager==0);
-	//	SAFE_DELETE(g_p2DUniformManager);
-	//	g_p2DUniformManager = new cUniformManager();
-	//	bool	l_b = false;
-	//#ifdef __IPHONE
-	//	char	l_strValue[MAX_PATH];
-	//	GetAppleBundelResourcePathByObjectPath(e_strFileName,l_strValue);
-	//	l_b = g_p2DUniformManager->Parse(l_strValue);
-	//#else
-	//#ifdef __ANDROID__
-	//	l_b = g_p2DUniformManager->Parse(e_strFileName);
-	//#else//wind32,linux
-	//	l_b = g_p2DUniformManager->Parse(e_strFileName);
-	//#endif
-	//#endif
-	//	return l_b;
-	//}
-	////delete the data above
-	//void	Destroy2DShader()
-	//{
-	//	SAFE_DELETE(g_p2DUniformManager);
-	//}
 using namespace std;
 namespace FATMING_CORE
 {
 	cGLSLProgram*g_pCurrentUsingGLSLProgram = 0;
-
+	extern cBaseShader*g_pCurrentShader;
 	TYPDE_DEFINE_MARCO(cUniformManager);
 	//=================================================================================================================================
 	///
@@ -52,16 +26,7 @@ namespace FATMING_CORE
 	cUniformData::cUniformData() :
 	   m_iLocation(-1),
 	   m_strName(nullptr),
-	   m_eDatatype(0),
-	   m_uiTextureHandle(0),
-	   m_uiTextureUnit(0),
-	   m_bDepthTex(false),
-	   m_iWidth(0),
-	   m_iHeight(0),
-	   m_uiFBOHandle(0),
-	   m_uiColorRbHandle(0),
-	   m_uiVertShaderHandle(0),
-	   m_uiFragShaderHandle(0)
+	   m_eDatatype(0)
 	{
 	}
 
@@ -124,19 +89,19 @@ namespace FATMING_CORE
 			else
 			COMPARE_NAME("VS")
 			{
-				m_pCurrentUniformData->m_uiVertShaderHandle = glCreateShader( GL_VERTEX_SHADER );
-				LoadShaderObject( UT::WcharToChar(l_strValue).c_str(), m_pCurrentUniformData->m_uiVertShaderHandle );
+				m_pCurrentGLSLProgram->m_uiVertShaderHandle = glCreateShader( GL_VERTEX_SHADER );
+				LoadShaderObject( UT::WcharToChar(l_strValue).c_str(), m_pCurrentGLSLProgram->m_uiVertShaderHandle );
 			}
 			else
 			COMPARE_NAME("FS")
 			{
-				m_pCurrentUniformData->m_uiFragShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
-				LoadShaderObject( UT::WcharToChar(l_strValue).c_str(), m_pCurrentUniformData->m_uiFragShaderHandle );
+				m_pCurrentGLSLProgram->m_uiFragShaderHandle = glCreateShader( GL_FRAGMENT_SHADER );
+				LoadShaderObject( UT::WcharToChar(l_strValue).c_str(), m_pCurrentGLSLProgram->m_uiFragShaderHandle );
 			}
 		PARSE_NAME_VALUE_END
 		// Attach them to the program.
-		glAttachShader( m_uiRecentProgramHandle, m_pCurrentUniformData->m_uiVertShaderHandle );
-		glAttachShader( m_uiRecentProgramHandle, m_pCurrentUniformData->m_uiFragShaderHandle );
+		glAttachShader( m_uiRecentProgramHandle, m_pCurrentGLSLProgram->m_uiVertShaderHandle );
+		glAttachShader( m_uiRecentProgramHandle, m_pCurrentGLSLProgram->m_uiFragShaderHandle );
 		// Link the whole program together.
 		glLinkProgram( m_uiRecentProgramHandle );
 		// Check for link success
@@ -145,41 +110,41 @@ namespace FATMING_CORE
 		CheckProgram(m_uiRecentProgramHandle,GL_LINK_STATUS,L"link");
 	}
 
-	void	cUniformManager::ProcessTextureData()
-	{
-	//	<Texture Name="tex0" SamplerDimesion="2" Unit="0" />
-		PARSE_CURRENT_ELEMENT_START
-			COMPARE_NAME("Name")
-			{
-				int	l_iLength = (int)wcslen(l_strValue);
-				m_pCurrentUniformData->m_strName = new char [l_iLength+1];
-				sprintf(m_pCurrentUniformData->m_strName,"%s\0",UT::WcharToChar(l_strValue).c_str());
-			}
-			else
-			COMPARE_NAME("SamplerDimesion")//1D,2D,3D
-			{
-		
-			}
-			else
-			COMPARE_NAME("Unit")
-			{
-				m_pCurrentUniformData->m_uiTextureUnit = (UINT)_wtoi(l_strValue);
-			}
-		PARSE_NAME_VALUE_END
-		m_pCurrentUniformData->m_eDatatype = SAMPLE_INT;
-		//u have to assign texture ID
-		m_pCurrentUniformData->m_uiTextureHandle = -1;
-		glUseProgram(m_uiRecentProgramHandle);
-		m_pCurrentUniformData->m_iLocation = glGetUniformLocation( m_uiRecentProgramHandle,"tex0" );
-		assert(m_pCurrentUniformData->m_iLocation!=-1);
-		//http://www.gamedev.net/community/forums/topic.asp?topic_id=516840
-		//Because half of your shader doesn't do anything, and is optimized
-		//away by the compiler. The uniforms don't exist anymore after compilation 
-		//(because they aren't used) and will therefore not be found by glGetUniformLocation.
-		//Unless you are accessing them by a pixel shader. But since you didn't post any, my 
-		//first assumption would be this.
-		glUniform1i( m_pCurrentUniformData->m_iLocation, m_pCurrentUniformData->m_uiTextureUnit );
-	}
+	//void	cUniformManager::ProcessTextureData()
+	//{
+	////	<Texture Name="tex0" SamplerDimesion="2" Unit="0" />
+	//	PARSE_CURRENT_ELEMENT_START
+	//		COMPARE_NAME("Name")
+	//		{
+	//			int	l_iLength = (int)wcslen(l_strValue);
+	//			m_pCurrentUniformData->m_strName = new char [l_iLength+1];
+	//			sprintf(m_pCurrentUniformData->m_strName,"%s\0",UT::WcharToChar(l_strValue).c_str());
+	//		}
+	//		else
+	//		COMPARE_NAME("SamplerDimesion")//1D,2D,3D
+	//		{
+	//	
+	//		}
+	//		else
+	//		COMPARE_NAME("Unit")
+	//		{
+	//			m_pCurrentUniformData->m_uiTextureUnit = (UINT)_wtoi(l_strValue);
+	//		}
+	//	PARSE_NAME_VALUE_END
+	//	m_pCurrentUniformData->m_eDatatype = SAMPLE_INT;
+	//	//u have to assign texture ID
+	//	m_pCurrentUniformData->m_uiTextureHandle = -1;
+	//	glUseProgram(m_uiRecentProgramHandle);
+	//	m_pCurrentUniformData->m_iLocation = glGetUniformLocation( m_uiRecentProgramHandle,"tex0" );
+	//	assert(m_pCurrentUniformData->m_iLocation!=-1);
+	//	//http://www.gamedev.net/community/forums/topic.asp?topic_id=516840
+	//	//Because half of your shader doesn't do anything, and is optimized
+	//	//away by the compiler. The uniforms don't exist anymore after compilation 
+	//	//(because they aren't used) and will therefore not be found by glGetUniformLocation.
+	//	//Unless you are accessing them by a pixel shader. But since you didn't post any, my 
+	//	//first assumption would be this.
+	//	glUniform1i( m_pCurrentUniformData->m_iLocation, m_pCurrentUniformData->m_uiTextureUnit );
+	//}
 
 	void	cUniformManager::ProcessAttributeData()
 	{
@@ -189,39 +154,8 @@ namespace FATMING_CORE
 			COMPARE_NAME("Name")
 			{
 				l_strAttributeName = l_strValue;
-			}
-			else
-			COMPARE_NAME("Type")
-			{
-				COMPARE_VALUE_WITH_DEFINE( VERTEX_ATTRIBUTE_POSITION )
-				{
-					l_iIndex = 0;
-				}
-				else
-				COMPARE_VALUE_WITH_DEFINE(VERTEX_ATTRIBUTE_NORMAL)
-				{
-					l_iIndex = 1;
-				}
-				else
-				COMPARE_VALUE_WITH_DEFINE(VERTEX_ATTRIBUTE_TEXTURE)
-				{
-					l_iIndex = 2;
-				}
-				else
-				COMPARE_VALUE_WITH_DEFINE(VERTEX_ATTRIBUTE_COLOR)
-				{
-					l_iIndex = 3;
-				}
-				else
-				COMPARE_VALUE_WITH_DEFINE(VERTEX_ATTRIBUTE_TANGENT)
-				{
-					l_iIndex = 4;
-				}
-				else
-				COMPARE_VALUE_WITH_DEFINE(VERTEX_ATTRIBUTE_BITANGENT)
-				{
-					l_iIndex = 5;
-				}
+				l_iIndex = glGetUniformLocation( m_uiRecentProgramHandle,UT::WcharToChar(l_strValue).c_str());
+				MyGlErrorTest();
 			}
 		PARSE_NAME_VALUE_END
 		assert(l_iIndex!=-1);
@@ -341,11 +275,11 @@ namespace FATMING_CORE
 			{
 				ProcessGLSLData();
 			}
-			else
-			COMPARE_NAME("Texture")
-			{
-				ProcessTextureData();
-			}
+			//else
+			//COMPARE_NAME("Texture")
+			//{
+			//	ProcessTextureData();
+			//}
 			else
 			COMPARE_NAME("Attribute")
 			{
@@ -392,7 +326,6 @@ namespace FATMING_CORE
 	bool LoadShaderObject( const char* e_strFileName, GLuint e_uiShaderHandle )
 	{
 		char* source = nullptr;
-
 		{
 		  // Use file io to load the code of the shader.
 		  std::ifstream fp( e_strFileName , ios_base::binary );
@@ -517,144 +450,6 @@ namespace FATMING_CORE
 
 	//=================================================================================================================================
 	///
-	/// Binds a texture in GL
-	///
-	/// \param name - The name we gave to the texture
-	/// \param width - The width of the texture
-	/// \param height - The height of the texture
-	///
-	/// \return true=pass ... false=fail
-	//=================================================================================================================================
-	bool cGLSLProgram::BindTexture( const char* name, int width, int height )
-	{
-	   bool updated = false;
-	   cUniformDataIterator index;
-
-	   for ( index = m_Uniforms.begin(); index != m_Uniforms.end() ; ++index)
-	   {
-		  cUniformData* current = *index;
-
-		  if ( strcmp( name, current->m_strName ) == 0 )
-		  {
-			 if ( current->m_eDatatype == SAMPLE_INT && current->m_uiTextureHandle )
-			 {
-				updated = true;
-			 }
-			 break;
-		  }
-	   }
-	   
-	   if ( updated )
-	   {
-		  GLint l_iUniformLocation;
-		  l_iUniformLocation = glGetUniformLocation( m_uiProgramHandle, (*index)->m_strName );
-		  glUniform1i( l_iUniformLocation, (*index)->m_uiTextureUnit );
-		  glActiveTexture( GL_TEXTURE0 + (*index)->m_uiTextureUnit );
-		  glBindTexture( GL_TEXTURE_2D, (*index)->m_uiTextureHandle );
-
-		  if ((*index)->m_iWidth != width || (*index)->m_iHeight != height )
-		  {
-			 if ( width != 0 && height != 0 ) // If these are 0 then we just want to keep the current size
-			 {
-				(*index)->m_iWidth = width;
-				(*index)->m_iHeight = height;
-				if ( (*index)->m_bDepthTex )
-				{
-				   glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-				}
-				else
-				{
-				   glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr );
-				}
-			 }
-		  }
-	   }
-	   else
-	   {
-		  assert( 0 ); // They probably passed in an a non-texture type or an invalid name
-	   }
-	   return updated;
-	}
-
-	//=================================================================================================================================
-	///
-	/// Binds an FBO in GL
-	///
-	/// \param name - The name of the fbo
-	/// \param width - The width of the fbo
-	/// \param height - The height of the fbo
-	///
-	/// \return true=pass ... false=fail
-	//=================================================================================================================================
-	bool cGLSLProgram::BindFbo( const char* e_strName, int e_iWidth, int e_iHeight )
-	{
-	   bool updated = false;
-	   cUniformDataIterator index;
-
-	   for ( index = m_Uniforms.begin(); index != m_Uniforms.end() ; ++index)
-	   {
-		  cUniformData* current = *index;
-
-		  if ( strcmp( e_strName, current->m_strName ) == 0 )
-		  {
-			 if ( current->m_eDatatype == SAMPLE_INT && current->m_uiTextureHandle && current->m_uiFBOHandle )
-			 {
-				updated = true;
-			 }
-			 break;
-		  }
-	   }
-	   
-	   if ( updated )
-	   {
-		  glBindFramebuffer( GL_FRAMEBUFFER, (*index)->m_uiFBOHandle );
-
-		  if ((*index)->m_iWidth != e_iWidth || (*index)->m_iHeight != e_iHeight )
-		  {
-			 GLint curTexture;
-			 glGetIntegerv( GL_TEXTURE_BINDING_2D, &curTexture );
-
-			 (*index)->m_iWidth = e_iWidth;
-			 (*index)->m_iHeight = e_iHeight;
-			 glBindTexture( GL_TEXTURE_2D, (*index)->m_uiTextureHandle );
-			 if ( (*index)->m_bDepthTex )
-			 {
-				glTexImage2D( GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, nullptr);
-			 }
-			 else
-			 {
-				glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, e_iWidth, e_iHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr );
-			 }
-
-			 glBindTexture( GL_TEXTURE_2D, curTexture );
-
-			 if ( (*index)->m_bDepthTex )
-			 {
-				if(!(*index)->m_uiColorRbHandle)
-				{
-				   glGenRenderbuffers( 1, &(*index)->m_uiColorRbHandle );
-				}
-				glBindRenderbuffer( GL_RENDERBUFFER, (*index)->m_uiColorRbHandle );
-				glRenderbufferStorage( GL_RENDERBUFFER, GL_RGB, e_iWidth, e_iHeight );
-				glFramebufferRenderbuffer( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, (*index)->m_uiColorRbHandle );
-				glFramebufferTexture2D( GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, (*index)->m_uiTextureHandle, 0 );
-			 }
-			 else
-			 {
-				glFramebufferTexture2D( GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, (*index)->m_uiTextureHandle, 0 );
-			 }
-		  }
-	   }
-	   else
-	   {
-		  assert( 0 ); // They probably passed in an a non-texture type or an invalid name
-	   }
-	   return updated;
-	}
-
-
-	//=================================================================================================================================
-	///
 	/// Deletes all the GL resources that we have loaded
 	///
 	/// \param name - The name we gave to the program
@@ -666,25 +461,13 @@ namespace FATMING_CORE
 		cUniformDataIterator index;
 		for ( index = m_Uniforms.begin(); index != m_Uniforms.end() ; ++index)
 		{
-		  if ( (*index)->m_uiTextureHandle )
+		  if ( m_uiVertShaderHandle )
 		  {
-			 glDeleteTextures(1,&((*index)->m_uiTextureHandle)); 
+			 glDeleteShader( m_uiVertShaderHandle );
 		  }
-		  if ( (*index)->m_uiVertShaderHandle )
+		  if ( m_uiFragShaderHandle )
 		  {
-			 glDeleteShader( (*index)->m_uiVertShaderHandle );
-		  }
-		  if ( (*index)->m_uiFragShaderHandle )
-		  {
-			 glDeleteShader( (*index)->m_uiFragShaderHandle );
-		  }
-		  if ( (*index)->m_uiFBOHandle )
-		  {
-			 glDeleteFramebuffers(1, &(*index)->m_uiFBOHandle );
-		  }
-		  if ( (*index)->m_uiColorRbHandle )
-		  {
-			 glDeleteRenderbuffers(1, &(*index)->m_uiColorRbHandle );
+			 glDeleteShader( m_uiFragShaderHandle );
 		  }
 		}
 
@@ -731,12 +514,6 @@ namespace FATMING_CORE
 		 case SAMPLE_FLOAT_MAT4:
 			glUniformMatrix4fv( (*index)->m_iLocation, 1, GL_FALSE, &(*index)->m_fData[0] );
 			break;
-		 case SAMPLE_INT:
-			if ( (*index)->m_iLocation != 0 ) // Prevents error on nullTexture which has not yet been given a location (done at bind time)
-			{
-			   glUniform1i( (*index)->m_iLocation, (*index)->m_uiTextureUnit );
-			}
-			break;
 		 case SAMPLE_PROGRAM:
 			break;
 		 default:
@@ -758,6 +535,7 @@ namespace FATMING_CORE
 
 	void	cGLSLProgram::UsingProgram()
 	{
+		g_pCurrentShader = nullptr;
 		if( g_pCurrentUsingGLSLProgram != this )
 		{
 			g_pCurrentUsingGLSLProgram = this;
@@ -783,7 +561,6 @@ namespace FATMING_CORE
 		{
 			int	l_iIndex = l_iterator->first;
 			glDisableVertexAttribArray(l_iIndex);
-			//const char*l_str = (const char*)glGetString(glGetError());
 		}
 	}
 	//========================

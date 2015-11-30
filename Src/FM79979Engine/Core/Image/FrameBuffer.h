@@ -26,10 +26,10 @@ namespace FATMING_CORE
 //=====================
 	class	cFrameBuffer:public Frame
 	{
-		GLint	m_OriginalViewPortSize[4];
-		GLuint	m_FramebufferID;	//id for frame buffer
-		GLuint	m_TextureID;		//where to render
-		GLuint	m_RenderufferID;	//for depth
+		GLint	m_iOriginalViewPortSize[4];
+		GLuint	m_uiFramebufferID;	//id for frame buffer
+		GLuint	m_uiTextureID;		//where to render
+		GLuint	m_uiRenderufferID;	//for depth
 		UINT	m_uiWidth;			//
 		UINT	m_uiHeight;			//
 		bool	m_bDepthNeed;		//2d may do not need this

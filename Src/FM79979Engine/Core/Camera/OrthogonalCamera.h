@@ -10,6 +10,10 @@ namespace FATMING_CORE
 	//and Draw Grid is quite tricky!
 	class cOrthogonalCamera:public Frame
 	{
+		//for graw grid
+		int						m_iTotalGridVertexSize;
+		Vector2*				m_pDrawGridVertex;
+		//
 		cMatrix44				m_ProjectionMatrix;
 		cMouseBehave			m_MouseBehave;
 		//currently it only works for CameraUpdateByMouse.
@@ -34,7 +38,7 @@ namespace FATMING_CORE
 		cOrthogonalCamera(Vector2 e_vResolution = Vector2(1920.f,1080.f));
 		cOrthogonalCamera(cOrthogonalCamera*e_pOrthogonalCamera);
 		CLONE_MYSELF(cOrthogonalCamera);
-		virtual ~cOrthogonalCamera(){ }
+		virtual ~cOrthogonalCamera();
 		//the mouse position should be converted by cGameApp::m_svViewport.
 		Vector2					ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize);
 		static Vector2			ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize,Vector4 e_vCameraViewRect);

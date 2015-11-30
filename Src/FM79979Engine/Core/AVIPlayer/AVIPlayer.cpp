@@ -428,14 +428,12 @@ void	cAVIPlayer::Render(float e_fPosX,float e_fPosY,POINT e_Size)
 	//glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
 	//glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				// Set The Texture Generation Mode For S To Sphere Mapping
 	//glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				// Set The Texture Generation Mode For T To Sphere Mapping
-	cBaseShader*l_p2DShader = GetCurrentShader();
 	UseShaderProgram(DEFAULT_SHADER);
 	//color space is different
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, m_pDIBData);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pDIBData);
 	float	l_UV[] = {0,1,1,0};
 	DrawQuadWithTextureAndColorAndCoordinate(e_fPosX,e_fPosY,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_UV,Vector3::Zero);
-	UseShaderProgram(l_p2DShader);
 
 }
 

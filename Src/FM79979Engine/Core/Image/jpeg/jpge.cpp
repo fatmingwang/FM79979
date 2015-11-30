@@ -15,7 +15,7 @@
 #ifndef IOS
 #include <malloc.h>
 #endif
-
+#include "../../stdafx.h"
 #ifdef WIN32
 #pragma warning(disable:4996) 
 #endif
@@ -923,7 +923,7 @@ public:
    bool open(const char *pFilename)
    {
       close();
-      m_pFile = fopen(pFilename, "wb");
+      m_pFile = NvFOpen(pFilename, "wb");
       m_bStatus = (m_pFile != nullptr);
       return m_bStatus;
    }

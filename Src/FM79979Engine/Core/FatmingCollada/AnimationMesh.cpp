@@ -573,8 +573,11 @@ Vector3	cAnimationMesh::GetSkinWorldPosBySkinningData(Vector3 e_vPos,float*e_pfW
 //========================================================
 void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 {
-	cBaseShader*l_p2DShader = GetCurrentShader();
 	UseShaderProgram(e_strShaderName);
+	if( m_bShadowEffect )
+	{
+	
+	}
 #ifdef DEBUG
 	bool	l_bTextureExist = false;
 	for(UINT i=0;i<this->m_ObjectList.size();++i)
@@ -643,7 +646,6 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 	{
 		this->m_pVBOBuffer->Render(false);
 	}
-	UseShaderProgram(l_p2DShader);
 }
 
 void	cAnimationMesh::DebugRender()

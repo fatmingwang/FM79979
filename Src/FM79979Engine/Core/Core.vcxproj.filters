@@ -39,9 +39,6 @@
     <Filter Include="RenderObject\GLSL">
       <UniqueIdentifier>{3b51ccc0-cfce-4bff-baec-ab46ca9a33bd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RenderObject\GLSL\Effect">
-      <UniqueIdentifier>{15c6fae1-cf6a-406e-bfe3-d3feab535eee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="RenderObject\Texture">
       <UniqueIdentifier>{7ca2fac7-9243-4b99-ab44-d08162ddefc4}</UniqueIdentifier>
     </Filter>
@@ -243,6 +240,9 @@
     <Filter Include="GameplayUT\EventSender">
       <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderObject\Texture\DDS">
+      <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -290,22 +290,10 @@
     <ClCompile Include="GLSL\Shader.cpp">
       <Filter>RenderObject\GLSL</Filter>
     </ClCompile>
-    <ClCompile Include="GLSL\Water.cpp">
-      <Filter>RenderObject\GLSL\Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\pngLoader.cpp">
-      <Filter>RenderObject\Texture\png</Filter>
-    </ClCompile>
     <ClCompile Include="Image\jpeg\jpgd.cpp">
       <Filter>RenderObject\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="Image\jpeg\jpge.cpp">
-      <Filter>RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\jpeg\tga2jpg.cpp">
-      <Filter>RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\jpeg\timer.cpp">
       <Filter>RenderObject\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="Image\PuzzleImage.cpp">
@@ -665,6 +653,18 @@
     <ClCompile Include="GameplayUT\CustomBinaryData.cpp">
       <Filter>GameplayUT\Binary</Filter>
     </ClCompile>
+    <ClCompile Include="Image\png\pngLoader.cpp">
+      <Filter>RenderObject\Texture\png</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\dds\nv_hhdds.cpp">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\dds\nv_images.cpp">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\dds\nv_log.cpp">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -721,22 +721,13 @@
     <ClInclude Include="GLSL\Shader.h">
       <Filter>RenderObject\GLSL</Filter>
     </ClInclude>
-    <ClInclude Include="GLSL\Water.h">
-      <Filter>RenderObject\GLSL\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="Image\Texture.h">
       <Filter>RenderObject\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\pngLoader.h">
-      <Filter>RenderObject\Texture\png</Filter>
     </ClInclude>
     <ClInclude Include="Image\jpeg\jpgd.h">
       <Filter>RenderObject\Texture\jpeg</Filter>
     </ClInclude>
     <ClInclude Include="Image\jpeg\jpge.h">
-      <Filter>RenderObject\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\jpeg\timer.h">
       <Filter>RenderObject\Texture\jpeg</Filter>
     </ClInclude>
     <ClInclude Include="Image\BaseUVImageData.h">
@@ -1143,6 +1134,27 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\CustomBinaryData.h">
       <Filter>GameplayUT\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\png\pngLoader.h">
+      <Filter>RenderObject\Texture\png</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_global.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_hhdds.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_hhdds_internal.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_images.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_types.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\dds\nv_log.h">
+      <Filter>RenderObject\Texture\DDS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

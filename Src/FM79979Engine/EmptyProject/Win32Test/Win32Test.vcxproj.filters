@@ -16,6 +16,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{be06e294-40fb-4091-a0a9-3506bd3ab915}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ShadowShader">
+      <UniqueIdentifier>{80fc2eaa-1fbc-4bf0-87de-4d5c7bbd3ea2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -32,6 +35,12 @@
     </ClCompile>
     <ClCompile Include="..\EngineTest\Sample.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\ShadowMap.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowShader.cpp">
+      <Filter>Game\ShadowShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\GameApp.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowShader.h">
+      <Filter>Game\ShadowShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

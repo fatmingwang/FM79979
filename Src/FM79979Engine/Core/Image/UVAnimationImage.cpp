@@ -137,7 +137,6 @@ namespace FATMING_CORE
 		//2 is overlap start.
 		Assign4VerticesDataTo2Triangles((float*)&m_vRenderVerticesPos[2],(float*)&l_vPos[6],(float*)&l_fInputUV2,(float*)&l_vUV[6],3);
 
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(DEFAULT_SHADER);
 		SetupShaderWorldMatrix(cMatrix44::Identity);
 
@@ -160,7 +159,6 @@ namespace FATMING_CORE
 		myGlUVPointer(2,&l_vUV[0]);
 		myGlColorPointer(4,&l_vColor[0]);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 12);
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	cUVAnimationImage::DebugRender()

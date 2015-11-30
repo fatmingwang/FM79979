@@ -348,6 +348,7 @@ namespace FATMING_CORE
 	}";
 
 #else
+//because some device bufferis not enough so 32 is a safe range
 	char*g_strMySkinningMeshVS = "							\
 	attribute	vec3	VSPosition;							\
 	attribute	vec3	VSNormal;							\
@@ -390,7 +391,7 @@ namespace FATMING_CORE
 	{															\
 		gl_FragColor = texture2D(texSample, PSTexcoord);		\
 	}";
-
+//because some device bufferis not enough so 32 is a safe range
 	char*g_strMySkinningMeshWithVertexColorVS = "			\
 	attribute	vec3	VSPosition;							\
 	attribute	vec3	VSNormal;							\
@@ -400,7 +401,7 @@ namespace FATMING_CORE
     attribute	vec4	VSInflunceBoneIndices;				\
 	uniform		mat4	matVP;								\
 	uniform		mat4	matW;								\
-	uniform		mat4	matBones[64];						\
+	uniform		mat4	matBones[32];						\
 	varying		vec2	PSTexcoord;							\
 	varying		vec3	PSNormal;							\
 	varying		vec4	PSColor;							\

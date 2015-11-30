@@ -8,8 +8,8 @@ namespace FATMING_CORE
 	void	SaveCurrentBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight);
 	void	SaveBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight,void*e_pPixel);
 
-	float* UVToTriangleStrip(float*e_pfUV);
-	float* UVToTwoTriangle(float*e_pfUV);
+	float*	UVToTriangleStrip(float*e_pfUV);
+	float*	UVToTwoTriangle(float*e_pfUV);
 	int		GetChannelByColorFormat(GLenum e_GLenum);
 	//=======================
 	//base image that contain UV and width and height data
@@ -18,6 +18,7 @@ namespace FATMING_CORE
 	//=======================
 		class	cTexture:public cSmartObject
 		{
+			bool	LoadDDS(const char*e_strFileName);
 		protected:
 			//texture original size.won't be effected by power of two
 			int	m_iWidth;

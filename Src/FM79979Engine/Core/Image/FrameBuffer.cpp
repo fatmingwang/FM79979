@@ -144,24 +144,24 @@ namespace FATMING_CORE
 		m_uiWidth = e_iWidth;
 		m_uiHeight = e_iHeight;
 		//in openglES 2.0 glGenFramebuffers
-		glGenFramebuffers(1, &m_FramebufferID); 
+		glGenFramebuffers(1, &m_uiFramebufferID); 
 		{//glBindFramebuffer
 			// Set up the FBO with one texture attachment 
 			//in openglES 2.0 glBindFramebuffer
-			glBindFramebuffer(GL_FRAMEBUFFER, m_FramebufferID);
+			glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
 			//initialize renderbuffer
 			if( m_bDepthNeed )
 			{
-				glGenRenderbuffers(1, &this->m_RenderufferID);		
-				glBindRenderbuffer(GL_RENDERBUFFER, m_RenderufferID);
+				glGenRenderbuffers(1, &this->m_uiRenderufferID);
+				glBindRenderbuffer(GL_RENDERBUFFER, m_uiRenderufferID);
 				glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight);//GL_DEPTH_COMPONENT24
 				//bind  render buffer with texture
 				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, 
-								 GL_RENDERBUFFER, m_RenderufferID);
+								 GL_RENDERBUFFER, m_uiRenderufferID);
 			}
 			// Now setup a texture to render to
-			glGenTextures(1, &m_TextureID);
-			glBindTexture(GL_TEXTURE_2D, m_TextureID); 
+			glGenTextures(1, &m_uiTextureID);
+			glBindTexture(GL_TEXTURE_2D, m_uiTextureID); 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -174,7 +174,7 @@ namespace FATMING_CORE
 			//	glGenerateMipmapEXT(GL_TEXTURE_2D);
 			//assign texture to framebuffer
 			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-							GL_TEXTURE_2D, m_TextureID, 0);
+							GL_TEXTURE_2D, m_uiTextureID, 0);
 		}
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		static bool	l_bCheck = false;
@@ -189,10 +189,10 @@ namespace FATMING_CORE
 	cFrameBuffer::~cFrameBuffer()
 	{
 		//Tear down the FBO and texture attachment 
-		glDeleteTextures(1, &m_TextureID); 
-		glDeleteFramebuffers(1, &m_FramebufferID); 
+		glDeleteTextures(1, &m_uiTextureID); 
+		glDeleteFramebuffers(1, &m_uiFramebufferID); 
 		if( m_bDepthNeed )
-			glDeleteRenderbuffers(1, &m_RenderufferID);
+			glDeleteRenderbuffers(1, &m_uiRenderufferID);
 
 
 	}
@@ -200,12 +200,12 @@ namespace FATMING_CORE
 	void	cFrameBuffer::StartDraw(bool e_bClearScreen)
 	{
 		//for depth
-		glGetIntegerv(GL_VIEWPORT,m_OriginalViewPortSize);
+		glGetIntegerv(GL_VIEWPORT,m_iOriginalViewPortSize);
 		cGameApp::m_svViewPortSize.x = 0.f;
 		cGameApp::m_svViewPortSize.y = 0.f;
 		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
 		cGameApp::m_svViewPortSize.w = (float)this->m_uiHeight;
-		glBindFramebuffer(GL_FRAMEBUFFER, m_FramebufferID);
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
 		if( e_bClearScreen )
 		{
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
@@ -231,16 +231,16 @@ namespace FATMING_CORE
 //		glPopAttrib();
 		//glViewport(m_OriginalViewPortSize[0],m_OriginalViewPortSize[1],m_OriginalViewPortSize[2],m_OriginalViewPortSize[3]);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		cGameApp::m_svViewPortSize.x = (float)m_OriginalViewPortSize[0];
-		cGameApp::m_svViewPortSize.y = (float)m_OriginalViewPortSize[1];
-		cGameApp::m_svViewPortSize.z = (float)m_OriginalViewPortSize[2];
-		cGameApp::m_svViewPortSize.w = (float)m_OriginalViewPortSize[3];
+		cGameApp::m_svViewPortSize.x = (float)m_iOriginalViewPortSize[0];
+		cGameApp::m_svViewPortSize.y = (float)m_iOriginalViewPortSize[1];
+		cGameApp::m_svViewPortSize.z = (float)m_iOriginalViewPortSize[2];
+		cGameApp::m_svViewPortSize.w = (float)m_iOriginalViewPortSize[3];
 		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
 	}
 
 	void	cFrameBuffer::DrawBuffer(POINT e_Pos,POINT e_Size)
 	{
-		glBindTexture( GL_TEXTURE_2D, m_TextureID);
+		glBindTexture( GL_TEXTURE_2D, m_uiTextureID);
 		//I have no idea why the frame buffer have to rotate Y with180,and change UV
 		//real freak........
 		//int e_iWidth = e_Size.x/2;

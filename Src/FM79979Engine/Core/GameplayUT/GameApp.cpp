@@ -316,6 +316,7 @@ namespace	FATMING_CORE
 	void	cGameApp::Update(float e_fElpaseTime)
 	{
 		m_dbGamePlayTime += e_fElpaseTime;
+		ShaderUpdate(e_fElpaseTime);
 		SystemErrorCheck();
 	}
 	extern cBaseShader*g_pCurrentShader;

@@ -9,6 +9,8 @@ namespace FATMING_CORE
 
 	cOrthogonalCamera::cOrthogonalCamera(Vector2 e_vResolution)
 	{
+		m_iTotalGridVertexSize = -1;
+		m_pDrawGridVertex = nullptr;
 		m_vCameraAngle = Vector3::Zero;
 		m_vResolution = e_vResolution;
 		m_fGridWidth = 100.f;
@@ -19,11 +21,18 @@ namespace FATMING_CORE
 
 	cOrthogonalCamera::cOrthogonalCamera(cOrthogonalCamera*e_pOrthogonalCamera):Frame(e_pOrthogonalCamera)
 	{
+		m_iTotalGridVertexSize = -1;
+		m_pDrawGridVertex = nullptr;
 		m_vCameraAngle = e_pOrthogonalCamera->m_vCameraAngle;
 		m_vResolution = e_pOrthogonalCamera->m_vResolution;
 		m_fGridWidth = e_pOrthogonalCamera->m_fGridWidth;
 		m_fGridHeight = e_pOrthogonalCamera->m_fGridHeight;
 		glhOrthof2(m_ProjectionMatrix,m_vViewRect.x,m_vViewRect.z,m_vViewRect.w,m_vViewRect.y, -10000, 10000);	
+	}
+
+	cOrthogonalCamera::~cOrthogonalCamera()
+	{
+		SAFE_DELETE(m_pDrawGridVertex);
 	}
 
 	Vector2	cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize)
@@ -97,11 +106,18 @@ namespace FATMING_CORE
 		float	l_fXOffset = (l_fPosX-(int)(l_fPosX))*m_fGridWidth;
 		float	l_fYOffset = (l_fPosY-(int)(l_fPosY))*m_fGridHeight;
 		int	l_iTotalCount = (l_iRow+2+l_iColumn+2)*2;
+
+
 		if( l_iRow<=0||l_iColumn<=0 )
 			return;
 		//glTranslatef(-l_fXOffset,-l_fYOffset,0.f);
 		glLineWidth(e_fLineWidth);
-		Vector2*l_vAllVertices = new Vector2[l_iTotalCount];
+		if( m_iTotalGridVertexSize != l_iTotalCount )
+		{
+			m_iTotalGridVertexSize = l_iTotalCount;
+			m_pDrawGridVertex = new Vector2[m_iTotalGridVertexSize];
+		}
+		Vector2*l_vAllVertices = m_pDrawGridVertex;
 		float	l_fStartUp = m_vViewRect.y-m_fGridHeight;
 		float	l_fEndDown = m_vViewRect.w+m_fGridHeight;
 		float	l_fStartLeft = m_vViewRect.x-m_fGridWidth;
@@ -123,15 +139,12 @@ namespace FATMING_CORE
 			l_vAllVertices[l_iTotalRow+j*2].y	+=	e_fYOffset;
 			l_vAllVertices[l_iTotalRow+j*2+1].y	+=	e_fYOffset;
 		}
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(-l_fXOffset,-l_fYOffset,0.f));
 		SetupShaderWorldMatrix(l_mat);
 		myGlVertexPointer(2,&l_vAllVertices[0]);
 		SetupShaderColor(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iTotalCount);
-		UseShaderProgram(l_p2DShader);
-		delete l_vAllVertices;
 	}
 
 	void	cOrthogonalCamera::DrawSelectFrame()

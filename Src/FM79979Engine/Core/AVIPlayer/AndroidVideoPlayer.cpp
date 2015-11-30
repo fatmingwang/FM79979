@@ -805,11 +805,9 @@ void    cFMVVideo::Render()
 			m_pVideoImage->SetHeight((int)cGameApp::m_svGameResolution.y);
 		}
 		cBaseShader*l_pVideoShader = GetShader(g_strVideoShaderName);
-		cBaseShader*l_pOldShader = GetCurrentShader();
 		if( l_pVideoShader )
 			l_pVideoShader->Use();
 		m_pVideoImage->Render();
-		l_pOldShader->Use();
 	}
 }
 

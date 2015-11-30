@@ -13,6 +13,7 @@
 #include <string.h>
 
 #include <assert.h>
+#include "../../stdafx.h"
 #define JPGD_ASSERT(x) assert(x)
 
 #ifdef _MSC_VER
@@ -2987,13 +2988,14 @@ bool jpeg_decoder_file_stream::open(const char *Pfilename)
 
   m_eof_flag = false;
   m_error_flag = false;
-
-#if defined(_MSC_VER)
   m_pFile = nullptr;
-  fopen_s(&m_pFile, Pfilename, "rb");
-#else
-  m_pFile = fopen(Pfilename, "rb");
-#endif
+  m_pFile = NvFOpen(Pfilename, "rb");
+//#if defined(_MSC_VER)
+  
+  //fopen_s(&m_pFile, Pfilename, "rb");
+//#else
+  //m_pFile = fopen(Pfilename, "rb");
+//#endif
   return m_pFile != nullptr;
 }
 

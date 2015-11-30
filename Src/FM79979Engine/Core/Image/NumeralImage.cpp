@@ -198,9 +198,8 @@ namespace FATMING_CORE
 				l_fPosX += l_fOffsetPosX;
 				l_fPosY += l_fOffsetPosY;
 			}
-			cBaseShader*l_p2DShader = GetCurrentShader();
-			this->ApplyImage();
 			UseShaderProgram(DEFAULT_SHADER);
+			this->ApplyImage();
 			cMatrix44 l_mat;
 			if( e_bCenter )
 			{
@@ -221,7 +220,6 @@ namespace FATMING_CORE
 			myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
 			myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
 			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iNum*6);
-			UseShaderProgram(l_p2DShader);
 		}
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
@@ -447,7 +445,6 @@ namespace FATMING_CORE
 			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vMinPos,l_iMin,2);
 		if( m_bEnableHour )
 			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vHourPos,l_iHour,1);
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		this->ApplyImage();
 		UseShaderProgram(DEFAULT_SHADER);
 		SetupShaderWorldMatrix(cMatrix44::Identity);
@@ -455,7 +452,6 @@ namespace FATMING_CORE
 		myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
 		myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iNum*6);
-		UseShaderProgram(l_p2DShader);
 		if( m_pDisableObject && m_i64Value == 0 )
 		{
 			m_pDisableObject->Render();

@@ -264,7 +264,6 @@ namespace FATMING_CORE
 	void		cTerrianVertex::Render(int e_iTextureID,const wchar_t*e_strShaderName)
 	{
 		assert(COMMON_2D_IMAGE_FVF_FLAG == m_i64FVFFormat&&"sorry now only support COMMON_MESH_FVF_FLAG");
-		cBaseShader*l_p2DShader = GetCurrentShader();
 		UseShaderProgram(e_strShaderName);
 		SetupShaderWorldMatrix(this->GetWorldTransform());
 		glBindTexture( GL_TEXTURE_2D, e_iTextureID);
@@ -294,8 +293,6 @@ namespace FATMING_CORE
 	#endif
 			MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
 		}
-		//set back
-		UseShaderProgram(l_p2DShader);
 	}
 
 	void	cTerrianVertex::DebugRender(int e_iTextureID,const wchar_t*e_strShaderName)
