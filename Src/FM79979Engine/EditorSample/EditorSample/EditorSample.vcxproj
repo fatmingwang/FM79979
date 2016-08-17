@@ -146,6 +146,9 @@
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
+      <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
