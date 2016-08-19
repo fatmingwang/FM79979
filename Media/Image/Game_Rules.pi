@@ -1,0 +1,10 @@
+<!-- Author:Atust1,Time:2014/10/16 12:39:01 -->
+<PuzzleImage OriginalNameSort="Got_It,Game_Rules_Outline,Game_Rules_E_001,Game_Rules_E_002,Game_Rules_E_003,Game_Rules_E_004,Game_Rules_E_005" ImageName="Game_Rules.png" Count="7" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Game_Rules_E_001" UV="0.003417969,0.004882813,0.2832031,0.1083984" OffsetPos="13,12" Size="573,212" OriginalSize="640,232" ShowPosInPI="7,10" />
+    <PuzzleUnit Name="Game_Rules_E_002" UV="0.6572266,0.6420898,0.9697266,0.8969727" OffsetPos="0,0" Size="640,522" OriginalSize="640,522" ShowPosInPI="1346,1315" />
+    <PuzzleUnit Name="Game_Rules_E_003" UV="0.6586914,0.5131836,0.9711914,0.6333008" OffsetPos="0,0" Size="640,246" OriginalSize="640,246" ShowPosInPI="1349,1051" />
+    <PuzzleUnit Name="Game_Rules_E_004" UV="0.6669922,0.2973633,0.9619141,0.5097656" OffsetPos="12,14" Size="604,435" OriginalSize="640,462" ShowPosInPI="1366,609" />
+    <PuzzleUnit Name="Game_Rules_E_005" UV="0.6645508,0.006347656,0.9663086,0.2910156" OffsetPos="12,10" Size="618,583" OriginalSize="640,594" ShowPosInPI="1361,13" />
+    <PuzzleUnit Name="Game_Rules_Outline" UV="0.3017578,0.004394531,0.6533203,0.6298828" OffsetPos="0,0" Size="720,1281" OriginalSize="720,1281" ShowPosInPI="618,9" />
+    <PuzzleUnit Name="Got_It" UV="0.4267578,0.6572266,0.5336914,0.7006836" OffsetPos="0,0" Size="219,89" OriginalSize="219,89" ShowPosInPI="874,1346" />
+</PuzzleImage>

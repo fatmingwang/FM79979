@@ -1,0 +1,7 @@
+<!-- Author:scrr,Time:2014/5/27 ¤U¤È 04:00:25 -->
+<PuzzleImage OriginalNameSort="Mm_Photo,Mm_Shadow,Detail_Board,Name_Board" ImageName="Mm_Photo.png" Count="4" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Detail_Board" UV="0.5117188,0.6472906,0.7373047,0.88867" OffsetPos="13,6" Size="231,245" OriginalSize="256,256" ShowPosInPI="524,657" />
+    <PuzzleUnit Name="Mm_Photo" UV="0.002929688,0.001970443,0.2490234,0.4315271" OffsetPos="132,34" Size="252,436" OriginalSize="512,512" ShowPosInPI="3,2" />
+    <PuzzleUnit Name="Mm_Shadow" UV="0.75,0.5635468,0.9960938,0.9931034" OffsetPos="132,34" Size="252,436" OriginalSize="512,512" ShowPosInPI="768,572" />
+    <PuzzleUnit Name="Name_Board" UV="0.5126953,0.9004926,0.7382813,0.9921182" OffsetPos="13,82" Size="231,93" OriginalSize="256,256" ShowPosInPI="525,914" />
+</PuzzleImage>

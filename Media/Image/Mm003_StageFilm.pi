@@ -1,0 +1,10 @@
+<!-- Author:scrr,Time:2014/6/27 ¤U¤È 03:16:12 -->
+<PuzzleImage OriginalNameSort="Stage_Select_Film,Stage_Select_Arrow,Mm003_Stage_Film001,Mm003_Stage_Film002,Mm003_Stage_Film003,Mm003_Stage_Film004,Mm003_Stage_Film005" ImageName="Mm003_StageFilm.png" Count="7" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Mm003_Stage_Film001" UV="0.1640625,0.01171875,0.4355469,0.4882813" OffsetPos="0,0" Size="139,244" OriginalSize="139,244" ShowPosInPI="84,6" />
+    <PuzzleUnit Name="Mm003_Stage_Film002" UV="0.4433594,0.01171875,0.7148438,0.4882813" OffsetPos="0,0" Size="139,244" OriginalSize="139,244" ShowPosInPI="227,6" />
+    <PuzzleUnit Name="Mm003_Stage_Film003" UV="0.7207031,0.009765625,0.9921875,0.4863281" OffsetPos="0,0" Size="139,244" OriginalSize="139,244" ShowPosInPI="369,5" />
+    <PuzzleUnit Name="Mm003_Stage_Film004" UV="0.4433594,0.5117188,0.7148438,0.9882813" OffsetPos="0,0" Size="139,244" OriginalSize="139,244" ShowPosInPI="227,262" />
+    <PuzzleUnit Name="Mm003_Stage_Film005" UV="0.7207031,0.5136719,0.9921875,0.9902344" OffsetPos="0,0" Size="139,244" OriginalSize="139,244" ShowPosInPI="369,263" />
+    <PuzzleUnit Name="Stage_Select_Arrow" UV="0.0390625,0.05273438,0.1289063,0.1523438" OffsetPos="41,39" Size="46,51" OriginalSize="128,128" ShowPosInPI="20,27" />
+    <PuzzleUnit Name="Stage_Select_Film" UV="0.1523438,0.5019531,0.4238281,0.9785156" OffsetPos="81,29" Size="139,244" OriginalSize="300,300" ShowPosInPI="78,257" />
+</PuzzleImage>
