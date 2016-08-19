@@ -140,11 +140,11 @@ namespace FATMING_CORE
 			{
 				if( m_bStayAtLastFrame )
 				{
-					if(m_fCurrentProgress != 1.f)
-					{
-						this->Init();
-						InternalUpdate(m_fPastTime-m_fStartTime);
-					}
+					//if(m_fCurrentProgress != 1.f)
+					//{
+					//	this->Init();
+					//	InternalUpdate(m_fPastTime-m_fStartTime);
+					//}
 				}
 				m_fCurrentProgress = 1.f;
 			}

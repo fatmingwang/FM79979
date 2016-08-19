@@ -279,7 +279,8 @@ cPlayerData::cPlayerData(char*e_strPlayerDataFileName,char*e_strPlayerSaveFileNa
 		//write num hearts,default is 5
 		//write num Clairvoyant,default is 0
 		m_pItemFile->CloseFile();
-		gettimeofday(&m_pHeart->m_LastTimeGetItem,0);
+		if(m_pHeart)
+			gettimeofday(&m_pHeart->m_LastTimeGetItem,0);
 		if( m_pClairvoynat )
 			m_pClairvoynat->m_iCount = 1;
 		if( m_pHeart )
@@ -359,7 +360,7 @@ void	cPlayerData::Init()
 bool	cPlayerData::ParsePlayerSaveFile()
 {
 	char*l_pData = (char*)m_pItemFile->GetDataFile(0);
-	if( l_pData )
+	if( l_pData && m_pHeart)
 	{
 		memcpy(&m_pHeart->m_LastTimeGetItem.tv_sec,l_pData,sizeof(long));			l_pData += sizeof(long);
 		memcpy(&m_pHeart->m_LastTimeGetItem.tv_usec,l_pData,sizeof(long));			l_pData += sizeof(long);

@@ -267,7 +267,9 @@ namespace FATMING_CORE
 		if( e_pDisableObject )
 		{
 			NamedTypedObject*l_pNamedTypedObject = e_pDisableObject->Clone();
-			m_pDisableObject = reinterpret_cast<cRenderObject*>(l_pNamedTypedObject);
+			//have no idea why this occur crush
+			//m_pDisableObject = reinterpret_cast<cRenderObject*>(l_pNamedTypedObject);
+			m_pDisableObject = dynamic_cast<cRenderObject*>(l_pNamedTypedObject);
 		}
 		m_bEnableHour = true;
 		m_bEnableMinute = true;

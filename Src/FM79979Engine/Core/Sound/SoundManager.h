@@ -46,6 +46,7 @@ namespace FATMING_CORE
 		bool	AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName);
 		bool	AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName);
 		bool	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName);
+		bool	AddSound(const char*e_strFileName);
 		void	Export(char*e_strFileName);
 		//for 0 to 1
 		void	SetVolume(float e_fVolume);

@@ -299,6 +299,7 @@
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
     <ClCompile Include="Math\MathFormulaXML.cpp" />
+    <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Image\AnimationParser.cpp" />
@@ -592,9 +593,6 @@
   <ItemGroup>
     <Text Include="GetMe Usage.txt" />
     <Text Include="Log.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Network\Network.mm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

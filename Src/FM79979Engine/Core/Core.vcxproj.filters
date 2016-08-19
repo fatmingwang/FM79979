@@ -665,6 +665,9 @@
     <ClCompile Include="Image\dds\nv_log.cpp">
       <Filter>RenderObject\Texture\DDS</Filter>
     </ClCompile>
+    <ClCompile Include="Network\Network.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1164,10 +1167,5 @@
     <Text Include="Log.txt">
       <Filter>Header Files</Filter>
     </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Network\Network.mm">
-      <Filter>NetWork</Filter>
-    </None>
   </ItemGroup>
 </Project>

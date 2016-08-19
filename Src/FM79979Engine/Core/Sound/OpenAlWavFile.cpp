@@ -12,19 +12,21 @@
 #endif
 namespace FATMING_CORE
 {
+	//http://stackoverflow.com/questions/13660777/c-reading-the-data-part-of-a-wav-file
+	//12byte
 	typedef struct                                  /* WAV File-header */
 	{
-	  ALubyte  Id[4]			PADOFF_VAR;
-	  ALsizei  Size				PADOFF_VAR;
-	  ALubyte  Type[4]			PADOFF_VAR;
+	  ALubyte  Id[4]			PADOFF_VAR;//RIFF
+	  ALsizei  Size				PADOFF_VAR;//chunk size
+	  ALubyte  Type[4]			PADOFF_VAR;//format WAVE,0x57415645
 	} WAVFileHdr_Struct;
-
+	//24byte
 	typedef struct                                  /* WAV Fmt-header */
 	{
-	  ALushort Format			PADOFF_VAR;
-	  ALushort Channels			PADOFF_VAR;
-	  ALuint   SamplesPerSec	PADOFF_VAR;
-	  ALuint   BytesPerSec		PADOFF_VAR;
+	  ALushort Format			PADOFF_VAR;//fmt ,0x666d7420
+	  ALushort Channels			PADOFF_VAR;//must big than 16
+	  ALuint   SampleRate		PADOFF_VAR;
+	  ALuint   BytesRate		PADOFF_VAR;
 	  ALushort BlockAlign		PADOFF_VAR;
 	  ALushort BitsPerSample	PADOFF_VAR;
 	} WAVFmtHdr_Struct;
@@ -59,8 +61,8 @@ namespace FATMING_CORE
 
 	typedef struct                                  /* WAV Chunk-header */
 	{
-	  ALubyte  Id[4]			PADOFF_VAR;
-	  ALuint   Size				PADOFF_VAR;
+	  ALubyte  Id[4]			PADOFF_VAR;//fmt
+	  ALuint   Size				PADOFF_VAR;//16 for PCM
 	} WAVChunkHdr_Struct;
 
 
@@ -79,7 +81,7 @@ namespace FATMING_CORE
 		WAVFileHdr_Struct FileHdr;
 		WAVSmplHdr_Struct SmplHdr;
 		WAVFmtHdr_Struct FmtHdr;
-		NvFile *Stream;
+		NvFile *l_pFile = nullptr;
 		
 		*format=AL_FORMAT_MONO16;
 		*data=nullptr;
@@ -88,24 +90,24 @@ namespace FATMING_CORE
 		*loop=AL_FALSE;
 		if (file)
 		{
-			Stream = MyFileOpen((const char*)file, "rb" );
-			if (Stream)
+			l_pFile = MyFileOpen((const char*)file, "rb" );
+			if (l_pFile)
 			{
-				NvFRead(&FileHdr,1,sizeof(WAVFileHdr_Struct),Stream);
+				NvFRead(&FileHdr,1,sizeof(WAVFileHdr_Struct),l_pFile);
 				FileHdr.Size=((FileHdr.Size+1)&~1)-4;
-				while ((FileHdr.Size!=0)&&(NvFRead(&ChunkHdr,1,sizeof(WAVChunkHdr_Struct),Stream)))
+				while ((FileHdr.Size!=0)&&(NvFRead(&ChunkHdr,1,sizeof(WAVChunkHdr_Struct),l_pFile)))
 				{
 					if (!memcmp(ChunkHdr.Id,"fmt ",4))
 					{
-						NvFRead(&FmtHdr,1,sizeof(WAVFmtHdr_Struct),Stream);
+						NvFRead(&FmtHdr,1,sizeof(WAVFmtHdr_Struct),l_pFile);
 						if ((FmtHdr.Format==0x0001)||(FmtHdr.Format==0xFFFE))
 						{
 							if (FmtHdr.Channels==1)
 								*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_MONO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16));
 							else if (FmtHdr.Channels==2)
 								*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
-							*freq=FmtHdr.SamplesPerSec;
-							NvFSeek(Stream,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
+							*freq=FmtHdr.SampleRate;
+							NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
 						} 
 						else if (FmtHdr.Format==0x0011)
 						{
@@ -113,42 +115,46 @@ namespace FATMING_CORE
 								*format=alGetEnumValue("AL_FORMAT_MONO_IMA4");
 							else if (FmtHdr.Channels==2)
 								*format=alGetEnumValue("AL_FORMAT_STEREO_IMA4");
-							*freq=FmtHdr.SamplesPerSec;
-							NvFSeek(Stream,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
+							*freq=FmtHdr.SampleRate;
+							NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
 						}
 						else if (FmtHdr.Format==0x0055)
 						{
 							*format=alGetEnumValue("AL_FORMAT_MP3");
-							*freq=FmtHdr.SamplesPerSec;
-							NvFSeek(Stream,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
+							*freq=FmtHdr.SampleRate;
+							NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
 						}
 						else
 						{
-							NvFRead(&FmtExHdr,1,sizeof(WAVFmtExHdr_Struct),Stream);
-							NvFSeek(Stream,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct)-sizeof(WAVFmtExHdr_Struct),SEEK_CUR);
+							NvFRead(&FmtExHdr,1,sizeof(WAVFmtExHdr_Struct),l_pFile);
+							NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct)-sizeof(WAVFmtExHdr_Struct),SEEK_CUR);
 						}
 					}
 					else if (!memcmp(ChunkHdr.Id,"data",4))
 					{
 						if( e_fTotalPlayTime )//total play time
-							*e_fTotalPlayTime = ChunkHdr.Size/(float)FmtHdr.BytesPerSec;
+							*e_fTotalPlayTime = ChunkHdr.Size/(float)FmtHdr.BytesRate;
 						*size=ChunkHdr.Size;
+						//whye here need more 31 byte? for empty sound!?
 						*data=malloc(ChunkHdr.Size+31);
-						if (*data) NvFRead(*data,FmtHdr.BlockAlign,ChunkHdr.Size/FmtHdr.BlockAlign,Stream);
+						if (*data) NvFRead(*data,FmtHdr.BlockAlign,ChunkHdr.Size/FmtHdr.BlockAlign,l_pFile);
 						memset(((char *)*data)+ChunkHdr.Size,0,31);
-						//e_fTotalPlayTime = ;
 					}
 					else if (!memcmp(ChunkHdr.Id,"smpl",4))
 					{
-						NvFRead(&SmplHdr,1,sizeof(WAVSmplHdr_Struct),Stream);
+						NvFRead(&SmplHdr,1,sizeof(WAVSmplHdr_Struct),l_pFile);
 						*loop = (SmplHdr.Loops ? AL_TRUE : AL_FALSE);
-						NvFSeek(Stream,ChunkHdr.Size-sizeof(WAVSmplHdr_Struct),SEEK_CUR);
+						NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVSmplHdr_Struct),SEEK_CUR);
 					}
-					else NvFSeek(Stream,ChunkHdr.Size,SEEK_CUR);
-					NvFSeek(Stream,ChunkHdr.Size&1,SEEK_CUR);
-					FileHdr.Size-=(((ChunkHdr.Size+1)&~1)+8);
+					else 
+					{
+						NvFSeek(l_pFile,ChunkHdr.Size,SEEK_CUR);
+					}
+					NvFSeek(l_pFile,ChunkHdr.Size&1,SEEK_CUR);
+					int	l_Size = (((ChunkHdr.Size+1)&~1)+8);
+					FileHdr.Size-= l_Size;
 				}
-				NvFClose(Stream);
+				NvFClose(l_pFile);
 			}
 			
 		}
@@ -161,16 +167,22 @@ namespace FATMING_CORE
 
 	cOpanalWAV::cOpanalWAV(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
+		this->m_pSoundData = nullptr;
 		if( e_strileName )
-			OpenFile(e_strileName);
+			OpenFile(e_strileName,false);
 	}
 
 	cOpanalWAV::~cOpanalWAV()
 	{
-
+		SAFE_DELETE(this->m_pSoundData);
 	}
 
 	bool	cOpanalWAV::OpenFile(const char*e_strileName)
+	{
+		return cOpanalWAV::OpenFile(e_strileName,false);
+	}
+
+	bool	cOpanalWAV::OpenFile(const char*e_strileName,bool e_bKeepData)
 	{
 		assert(m_bStreaming == false&&"cOpanalWAV::OpenFile(const char*e_strileName) only support static sound no streaming!...because fatming is lazy to do this.");
 		check();
@@ -190,9 +202,17 @@ namespace FATMING_CORE
 		check();
 		AssignBufferData(l_pData);
 		char*l_pData2 = (char*)l_pData;
-		SAFE_DELETE(l_pData2);
+		if(e_bKeepData)
+		{
+			this->m_pSoundData = l_pData2;
+		}
+		else
+		{
+			SAFE_DELETE(l_pData2);
+		}
 		l_pData = 0;
 		check();
 		return true;
 	}
+
 }

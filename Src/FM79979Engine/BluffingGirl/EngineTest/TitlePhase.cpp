@@ -3,6 +3,10 @@
 #include "AllPhaseDefine.h"
 #include "BluffingGirlApp.h"
 #include "GameNetwork.h"
+#ifdef WIN32
+//VS2012
+#include "shellapi.h"
+#endif
 cTitlePhase::cTitlePhase()
 {
 	m_pOpeningMPDI = 0;

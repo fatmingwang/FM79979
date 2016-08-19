@@ -213,6 +213,11 @@ namespace FATMING_CORE
 		alSpeedOfSound(343.3f*e_fSpeed);  
 	}
 
+	bool	cSoundParser::AddSound(const char*e_strFileName)
+	{
+		return this->AddSound(this,e_strFileName);
+	}
+
 	bool	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
 		std::string	l_extensionName = UT::GetFileExtensionName(e_strFileName);

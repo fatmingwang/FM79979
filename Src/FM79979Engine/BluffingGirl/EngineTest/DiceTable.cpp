@@ -380,8 +380,8 @@ void		cDiceTable::ProcessPosData(TiXmlElement*e_pElement)
 		}
 		if( l_bSetPos  )
 		{
-			int	l_iDiceImageWidth = *m_DiceImageButtonContainer.GetObject(0)->GetWidth();
-			Vector4	l_vDiceCollideRange(l_vDicePos.x,l_vDicePos.y,l_vDicePos.x,l_vDicePos.y+*m_DiceImageButtonContainer.GetObject(0)->GetHeight());
+			int	l_iDiceImageWidth = m_DiceImageButtonContainer.GetObject(0)->GetWidth();
+			Vector4	l_vDiceCollideRange(l_vDicePos.x,l_vDicePos.y,l_vDicePos.x,l_vDicePos.y+m_DiceImageButtonContainer.GetObject(0)->GetHeight());
 			for( int i=0;i<m_DiceImageButtonContainer.Count();++i )
 			{
 				m_DiceImageButtonContainer.GetObject(i)->SetPos(l_vDicePos);
@@ -431,8 +431,8 @@ void		cDiceTable::ProcessPosData(TiXmlElement*e_pElement)
 		}
 		if( l_bSetPos  )
 		{
-			int	l_iNumeralImageWidth = *m_NumeralImageButton.GetObject(0)->GetWidth();
-			Vector4	l_vNumeralCollideRange(l_vNumeralPos.x,l_vNumeralPos.y,l_vNumeralPos.x,l_vNumeralPos.y+*m_NumeralImageButton.GetObject(0)->GetHeight());
+			int	l_iNumeralImageWidth = m_NumeralImageButton.GetObject(0)->GetWidth();
+			Vector4	l_vNumeralCollideRange(l_vNumeralPos.x,l_vNumeralPos.y,l_vNumeralPos.x,l_vNumeralPos.y+m_NumeralImageButton.GetObject(0)->GetHeight());
 			for( int i=0;i<m_NumeralImageButton.Count();++i )
 			{
 				m_NumeralImageButton.GetObject(i)->SetPos(l_vNumeralPos);
