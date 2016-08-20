@@ -118,10 +118,6 @@ namespace FATMING_CORE
 			m_fCurrentProgress = 1.f;
 		    return;
 		}
-		if( m_fPastTime == 0.f )
-		{
-			int a=0;
-		}
 	    m_fPastTime += e_fElpaseTime;
 		float	l_fEndTime = this->GetEndTime();
 		if( m_fPastTime >= l_fEndTime )
@@ -140,10 +136,15 @@ namespace FATMING_CORE
 			{
 				if( m_bStayAtLastFrame )
 				{
+					float l_fRestTime = m_fPastTime - e_fElpaseTime;
+					l_fRestTime = l_fEndTime - m_fPastTime;
+					InternalUpdate(l_fRestTime);
+					//m_fPastTime += e_fElpaseTime;
 					//if(m_fCurrentProgress != 1.f)
 					//{
 					//	this->Init();
 					//	InternalUpdate(m_fPastTime-m_fStartTime);
+					//	InternalUpdate(l_fEndTime);
 					//}
 				}
 				m_fCurrentProgress = 1.f;

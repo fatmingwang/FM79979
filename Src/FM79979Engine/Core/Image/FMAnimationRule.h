@@ -196,7 +196,7 @@ namespace FATMING_CORE
 		{
 			for( UINT i=0;i<this->m_ObjectList.size();++i )
 			{
-				((cFMTimeLineAnimationRule*)this->m_ObjectList[i])->Init();
+				//((cFMTimeLineAnimationRule*)this->m_ObjectList[i])->Init();
 				if(((cFMTimeLineAnimationRule*)this->m_ObjectList[i])->IsStayAtLastFrame() || ((cFMTimeLineAnimationRule*)this->m_ObjectList[i])->IsAnimationLoop())
 				{
 					m_pStayAtLastFrameOrLoopChildrenVector->AddObjectNeglectExist(this->m_ObjectList[i]);

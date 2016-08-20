@@ -52,6 +52,10 @@ bool	cChoiceGirlPhase::DoCheckVideoFile()
 	std::string	l_strVideoName = ValueToString(l_strCheckFileName);
 	if( !UT::IsFileExists(l_strVideoName.c_str()) )
 	{
+#ifdef WIN32
+		assert("video is not exists!");
+		return true;
+#endif
 		m_pDownloadContentPhase = new cDownloadContentPhase(m_pDownloadPopupMessageXmlElement);
 		const WCHAR*l_strDownloadURL = l_pElement->Attribute(L"DownloadURL");
 		const WCHAR*l_strDescription = l_pElement->Attribute(L"Description");

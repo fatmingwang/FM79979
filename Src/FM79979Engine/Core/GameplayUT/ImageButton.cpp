@@ -92,7 +92,10 @@ namespace FATMING_CORE
 				l_vCollisionRange.w = l_vCollisionRange.y;
 				l_vCollisionRange.y = l_fPosY;
 			}
-			l_vPos = e_pSubMPDI->GetPointList()[0];
+			//why I wrote this?
+			//l_vPos = e_pSubMPDI->GetPointList()[0];
+			l_vPos.x = l_vCollisionRange.x;
+			l_vPos.y = l_vCollisionRange.y;
 			e_pImageButton->SetPos(l_vPos);
 		}
 		else
