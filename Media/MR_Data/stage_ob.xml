@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<root>
+  <node ID="101" amount="1" score="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_01" levelup_prefab="A_Pickup_Coin_Double_01" pickup_fx="" description="金币1" finishModeType="0"/>
+  
+  <node ID="102" amount="1" score="0" speed="0" duration="0" coin="0" dropid="1001" prefab="A_Slowzone_Vine" pickup_fx="" description="藤蔓" finishModeType="0"/>
+  <node ID="103" amount="1" score="0" speed="0" duration="0" coin="0" dropid="1001" prefab="A_Slowzone_Mud" pickup_fx="" description="泥塘" finishModeType="0"/>
+  
+  <node ID="104" amount="1" score="50" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1018" prefab="A_Npc_Boar_fly" pickup_fx="" description="野猪飞" finishModeType="4"/>
+  <node ID="105" amount="1" score="50" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1018" prefab="A_Npc_Boar" pickup_fx="" description="野猪" finishModeType="1"/>
+  
+  <node ID="106" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_02" pickup_fx="" description="金币2" finishModeType="0"/>
+  <node ID="107" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_03" pickup_fx="" description="金币3" finishModeType="0"/>
+  <node ID="108" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_04" pickup_fx="" description="金币4" finishModeType="0"/>
+  <node ID="109" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_05" pickup_fx="" description="金币5" finishModeType="0"/>
+  
+  <node ID="110" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Slowzone_Vine_big" pickup_fx="" description="大藤蔓" finishModeType="0"/>
+  
+  <node ID="111" amount="1" score="70" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="8" dropid="1019" prefab="A_Npc_Boar_Angry" pickup_fx="" description="火焰野猪" finishModeType="2"/>
+  
+  <node ID="112" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Chaser" pickup_fx="" description="掉落金币" finishModeType="0"/>
+  
+  <node ID="113" amount="1" score="100" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1019" prefab="A_Npc_Gino_Shoes" pickup_fx="" description="穿鞋的基佬" finishModeType="13"/>
+  <node ID="114" amount="1" score="100" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1019" prefab="A_Npc_Gino_Armor" pickup_fx="" description="穿盔甲的基佬" finishModeType="12"/>
+  
+  <node ID="115" amount="1" score="100" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1019" prefab="A_Npc_Ball_Spike" pickup_fx="" description="司考披的爪子" finishModeType="1"/>
+  
+  <node ID="116" amount="1" score="100" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="0" prefab="A_NPC_SandMonster" pickup_fx="" description="沙虫" finishModeType="0"/>
+  
+  <node ID="117" amount="1" score="80" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="10" dropid="1018" prefab="A_Npc_Rocker" pickup_fx="" description="石头猪" finishModeType="10"/>
+  
+  <node ID="118" amount="1" score="120" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="10" dropid="1018" prefab="A_Npc_Rocky" pickup_fx="" description="石头基佬" finishModeType="10"/>
+  
+  <node ID="119" amount="1" score="120" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="10" dropid="1019" prefab="A_Npc_Rugg" pickup_fx="" description="扛石头怪" finishModeType="10"/>
+  
+  <node ID="120" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="Trk02_SlowZone_QuickSand_Lrg" pickup_fx="" description="大流沙" finishModeType="0"/>
+  <node ID="121" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="Trk02_SlowZone_QuickSand_Sml" pickup_fx="" description="小流沙" finishModeType="0"/>
+  
+  <node ID="122" amount="1" score="0" speed="1.5" duration="5.0" coin="10" dropid="0" prefab="A_Pickup_Speed_01" pickup_fx="PFX_SpeedUp" description="Speed 1" finishModeType="0"/>
+  <node ID="123" amount="1" score="10" speed="0" duration="0" coin="10" dropid="0" prefab="A_Pickup_Candy_01" pickup_fx="PFX_Candy_01_Big" description="Candy 1" finishModeType="20"/>
+  <node ID="124" amount="2" score="20" speed="0" duration="0" coin="10" dropid="0" prefab="A_Pickup_Candy_02" pickup_fx="PFX_Candy_02_Big" description="Candy 2" finishModeType="20"/>
+  <node ID="125" amount="5" score="10" speed="0" duration="0" coin="10" dropid="0" prefab="A_Pickup_Candy_03" pickup_fx="PFX_Candy_03_Big" description="Candy 3" finishModeType="20"/>
+  <node ID="126" amount="1" score="0" speed="0" duration="0" coin="5" dropid="0" prefab="A_Pickup_Crystal_01" pickup_fx="PFX_Crystal" description="Crystal 1" finishModeType="0"/>
+  <node ID="127" amount="1" score="0" speed="0" duration="6.0" coin="0" dropid="0" prefab="A_Pickup_TimeLimit_01" pickup_fx="PFX_TimeLimit" description="Extend Time Limit 1" finishModeType="0"/>
+  
+  <node ID="128" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_AddStamina_01" pickup_fx="PFX_AddStamina" effectValue="0.2" description="Add stamina 1" finishModeType="0"/>
+  <node ID="129" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_FillStamina_01" pickup_fx="PFX_FillStamina" effectValue="0.4" description="Fill stamina bar" finishModeType="0"/>
+  <node ID="130" amount="1" score="0" speed="0" duration="5.0" coin="0" dropid="0" prefab="A_Pickup_DoubleStaminaCost_01" pickup_fx="PFX_DoubleStaminaCost" description="Double stamina cost of actions" finishModeType="0"/>
+  
+  <!--  A_Pickup_BladeStorm_01-->
+  <node ID="131" amount="1" score="0" speed="0" duration="3.0" coin="15" dropid="0" prefab="A_Pickup_RandomSkill_01" pickup_fx="" description="BladeStorm hits all nearby enemies over duration" finishModeType="0"/>
+  <node ID="132" amount="1" score="0" speed="0" duration="0" coin="15" dropid="0" prefab="A_Pickup_OneHitKill_01" pickup_fx="PFX_OneHitKill" description="One-hit-kills over time period" finishModeType="0"/>
+  <node ID="133" amount="1" score="0" speed="0" duration="0.25" coin="9" extraCoin="4" dropid="0" prefab="A_Pickup_Jackpot_01" pickup_fx="" randomOffset="2" description="Fill tracks with coins" finishModeType="0"/>
+  <node ID="134" amount="3" score="50" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="10" dropid="1018" prefab="A_Npc_Boar_fly_Small" pickup_fx="" description="蓝色的忧郁小猪" finishModeType="0"/>
+  <node ID="135" amount="1" score="50" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="10" dropid="1018" prefab="A_Npc_Boar_fly_Electric" pickup_fx="" description="闪电猪" finishModeType="0"/>
+  <node ID="136" amount="1" score="200" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="20" dropid="1019" prefab="A_Npc_Boar_fly_Gold" pickup_fx="" description="黄金猪" finishModeType="7"/>
+  <node ID="137" amount="-2" score="-50" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_CandyBad_01" pickup_fx="PFX_CandyBad" canCatched="0" description="烂苹果" finishModeType="20"/>
+  <node ID="138" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="Pickup_Bomb" pickup_fx="PFX_Explosion" canCatched="0" description="炸弹" finishModeType="0"/>
+  <node ID="139" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="GO_SpeedPad" pickup_fx="PFX_SpeedUp" description="加速带" finishModeType="0"/>
+  <node ID="140" amount="1" score="0" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="0" dropid="1018" prefab="A_Npc_Boar_fly_Electric" pickup_fx="" description="小型旋风小怪" finishModeType="0"/>
+  <node ID="141" amount="1" score="0" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="0" dropid="1019" prefab="A_Npc_Boar_Angry" pickup_fx="" description="大型旋风小怪" finishModeType="0"/>
+  <node ID="142" amount="0" score="10" speed="0" duration="3" coin="0" dropid="1001" prefab="Trk01_Hurdle" pickup_fx="" description="跨越障碍物" finishModeType="0"/>
+  
+  <node ID="143" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Npc_flyfish_attack" pickup_fx="" description="飞机" finishModeType="16"/>
+  <node ID="144" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="TrkHaz_Barrel" pickup_fx="" description="木桶" finishModeType="16"/>
+  <node ID="145" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_CoinFloat_01" pickup_fx="" description="漂浮金币" finishModeType="0"/>
+  <node ID="146" amount="1" score="200" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="20" dropid="1019" prefab="A_Npc_Boar_fly" pickup_fx="" description="黄金猪" finishModeType="7"/>
+  <node ID="147" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="" pickup_fx="" description="木桶" finishModeType="16"/>
+  <node ID="148" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="GO_VFX_FireWall" pickup_fx="" description="" finishModeType="16"/>
+  
+  <node ID="149" amount="0" score="10" speed="0" duration="3" coin="0" dropid="1001" prefab="Trk05_Hurdle_Afternoon" pickup_fx="" description="跨越障碍物" finishModeType="0"/>
+  <node ID="150" amount="0" score="10" speed="0" duration="3" coin="0" dropid="1001" prefab="Trk05_Hurdle_Day" pickup_fx="" description="跨越障碍物" finishModeType="0"/>
+  <node ID="151" amount="0" score="10" speed="0" duration="3" coin="0" dropid="1001" prefab="Trk05_Hurdle_Night" pickup_fx="" description="跨越障碍物" finishModeType="0"/> 
+  <node ID="152" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Boss01_FireBall_Small" pickup_fx="" description="小火球" finishModeType="0"/>
+  <node ID="153" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Boss01_FireBall_Big" pickup_fx="" description="大火球" finishModeType="0"/>
+  <node ID="154" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Boss03_LavaBall" pickup_fx="" description="火焰弹" finishModeType="0"/>
+  <node ID="155" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="GO_VFX_FireWall" pickup_fx="" description="火墙" finishModeType="0"/>
+  <node ID="156" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="GO_VFX_SandWall" pickup_fx="" description="沙墙" finishModeType="0"/>
+  <node ID="157" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Skill_Tsunami" pickup_fx="" description="波浪" finishModeType="0"/>
+  <node ID="158" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Boss03_LavaExplode" pickup_fx="" description="火柱" finishModeType="0"/>
+  <node ID="159" amount="0" score="0" subscore="0" speed="0" duration="0" coin="0" dropid="0" prefab="Boss03_TargetGround" pickup_fx="" description="火标" finishModeType="0"/>
+  <node ID="160" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="PFX_Random" pickup_fx="FX_RandomWindow" description="随机提示" finishModeType="0"/>
+  <node ID="161" amount="0" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_RandomSkill_01" pickup_fx="" description="" finishModeType="0"/>
+  <node ID="162" amount="0" score="30" speed="0" hurtvalue="5" duration="3" coin="0" dropid="1001" prefab="TrkBrk_Barrel" pickup_fx="" description="木桶障碍物" finishModeType="0"/>
+  <node ID="163" amount="0" score="30" speed="0" hurtvalue="5" duration="3" coin="0" dropid="1001" prefab="TrkBrk_FlowerPot" pickup_fx="" description="花瓶障碍物" finishModeType="0"/>
+  <node ID="164" amount="0" score="30" speed="0" hurtvalue="5" duration="3" coin="0" dropid="1001" prefab="TrkBrk_CactusPot" pickup_fx="" description="仙人掌障碍物" finishModeType="0"/>
+  <node ID="165" amount="0" score="30" speed="0" hurtvalue="5" duration="3" coin="0" dropid="1001" prefab="TrkBrk_MineCart" pickup_fx="" description="矿车障碍物" finishModeType="0"/>
+  <node ID="166" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Magnet" pickup_fx="" skillType="22" buffType="2" description="磁铁" finishModeType="0"/>
+  <node ID="167" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Shield" pickup_fx="" skillType="35" buffType="4" randomOffset="1" description="护盾" finishModeType="0"/>
+  <node ID="168" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Random_01" pickup_fx="" description="双倍分数" finishModeType="0"/>
+  <node ID="169" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Double_Coin" pickup_fx="" skillType="37" buffType="1" description="双倍金币" finishModeType="0"/>
+  <node ID="170" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_OneHitKill_01" pickup_fx="" skillType="38" buffType="3" randomOffset="4" description="拳套" finishModeType="0"/>
+  <node ID="171" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Random_01" pickup_fx="" skillType="39" description="幽灵" finishModeType="0"/>
+  <node ID="172" amount="0" score="0" speed="0" hurtvalue="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_Random_01" pickup_fx="" skillType="40" description="补给包" finishModeType="0"/>
+  <node ID="173" amount="1" score="0" speed="0" duration="0.25" coin="9" extraCoin="4" dropid="0" prefab="A_Pickup_Balloon" pickup_fx="" skillType="51" description="Fill tracks with coins" finishModeType="0"/>
+  <node ID="174" amount="1" score="0" speed="0" duration="0" coin="10" dropid="1018" prefab="A_Npc_Bird" pickup_fx="" description="飞鸟" finishModeType="0"/>
+  <node ID="175" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_01_SkyMode"  pickup_fx="PFX_CoinPickupBird" description="金币1" finishModeType="0"/>
+  <node ID="176" amount="1" score="500" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1018" prefab="A_Npc_Boar_fly_King" pickup_fx="" description="猪王" finishModeType="1"/>
+</root>

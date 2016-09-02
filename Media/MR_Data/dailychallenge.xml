@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<root>
+	<challenge id="0" name_CN="靶心" name="Bullseye" finishparamtype="19" num="20" coins="500" 	discription_CN="消灭 {0}个怪物" discription="Barge {0} enemies off the track! " /> 
+	<challenge id="1" name_CN="收集齐所有物品" name="Got to collect them all!" finishparamtype="20" num="30" coins="1000" discription_CN="收集 {0}个水果果实" discription="Collect {0} fruits. "/> 
+	<challenge id="2" name_CN="越过障碍物" name="Jump them hurdles" finishparamtype="61" num ="5" coins="400"		discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles "/> 
+</root>
