@@ -6,13 +6,13 @@ const float g_iMonsterSpeed = 8.f;
 const int g_iWidth = 280;
 
 
-void	StroeAllAttribute(sTrigger*e_pTrigger,TiXmlElement*e_pRoot)
+void	StroeAllAttribute(sXmlNode*e_pTrigger,TiXmlElement*e_pRoot)
 {
 	auto l_Attribute = e_pRoot->FirstAttribute();
 	while(l_Attribute)
 	{
-		e_pTrigger->strAttribute.push_back(l_Attribute->Name());
-		e_pTrigger->strValuee.push_back(l_Attribute->Value());
+		e_pTrigger->strAttributeVector.push_back(l_Attribute->Name());
+		e_pTrigger->strValueVector.push_back(l_Attribute->Value());
 		l_Attribute = l_Attribute->Next();
 	}
 }
@@ -80,13 +80,55 @@ bool	cStageParser::ParseTrigger(TiXmlElement*e_pRoot,sTriggers*e_pTriggers)
 	return true;
 }
 
-std::wstring	sTrigger::getNameValue()
+std::wstring	sXmlNode::getNameValue()
 {
-	if( strAttribute[0] == L"name" )
+	if( strAttributeVector[0] == L"name" )
 	{
-		return strValuee[0];
+		return strValueVector[0];
 	}
 	return L"";
+}
+
+std::wstring	sXmlNode::getValue(const wchar_t*e_str)
+{
+	for(size_t i=0;i<strAttributeVector.size();++i)
+	{
+		if( strAttributeVector[i] == e_str )
+		{
+			return strValueVector[i];
+		}
+	}
+	return L"";
+}
+
+int	sXmlNode::getInt(const wchar_t*e_str)
+{
+	std::wstring l_str = this->getValue(e_str);
+	if( l_str.length() > 0 )
+	{
+		int l_iValue = GetInt(l_str);
+		return l_iValue;
+	}
+	return -1;
+}
+
+void	sXmlNode::Merge(TiXmlElement*e_pRoot)
+{
+	auto l_Attribute = e_pRoot->FirstAttribute();
+	while(l_Attribute)
+	{
+		if(getValue(l_Attribute->Name()).length() == 0)
+		{
+			strAttributeVector.push_back(l_Attribute->Name());
+			strValueVector.push_back(l_Attribute->Value());
+		}
+		l_Attribute = l_Attribute->Next();
+	}
+}
+
+void	sXmlNode::StroeAllAttribute(TiXmlElement*e_pelement)
+{
+	::StroeAllAttribute(this,e_pelement);
 }
 
 bool	sTrigger::IsCoin()
@@ -116,17 +158,6 @@ int	sTrigger::GetTrackID()
 	return -1;
 }
 
-std::wstring	sTrigger::getValue(wchar_t*e_str)
-{
-	for(size_t i=0;i<strAttribute.size();++i)
-	{
-		if( strAttribute[i] == e_str )
-		{
-			return strValuee[i];
-		}
-	}
-	return L"";
-}
 
 float	sTrigger::GetInterval()
 {

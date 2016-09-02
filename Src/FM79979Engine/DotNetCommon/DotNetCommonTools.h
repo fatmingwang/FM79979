@@ -241,7 +241,9 @@ namespace DNCT
 	//	        char *locale;
 	//            locale = setlocale(LC_ALL, "");
 	//#endif
-	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = "big5");
+	//if you want to specify the file encoding format just give it name
+	//bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = "big5");
+	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = nullptr,String^e_strNewFileName = nullptr);
 	//configFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location
 	String^	GetUseerNameAndTime();
 

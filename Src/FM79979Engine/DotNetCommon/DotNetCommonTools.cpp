@@ -850,7 +850,7 @@ namespace DNCT
 			if(!System::IO::File::Exists(l_pStringForFileName))
 				return nullptr;
 			System::Xml::XmlDocument^ xmldoc = gcnew System::Xml::XmlDocument();
-			System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(l_pStringForFileName,System::Text::Encoding::ASCII);
+			System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(l_pStringForFileName);
 			System::String^l_pString = sr->ReadToEnd();
 			try 
 			{
@@ -1121,21 +1121,71 @@ namespace DNCT
 		}
 	}
 
-	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName)
+
+
+	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName,String^e_strNewFileName)
 	{
-		//System::Globalization::CultureInfo::CurrentCulture^l_pCulture = System::Globalization::CultureInfo::GetCultures(System::Globalization::CultureTypes::WindowsOnlyCultures)
-		System::Text::Encoding^l_pBig5Encoding = System::Text::Encoding::GetEncoding(String(e_strCodingName).ToString());
-		System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(e_strFileName,l_pBig5Encoding);
+		if( !System::IO::File::Exists(e_strFileName) )
+			return false;
+		System::Text::Encoding^l_pEncoding;
+		if( e_strCodingName == nullptr )
+		{
+			System::IO::FileStream^fs = System::IO::File::Open(e_strFileName,System::IO::FileMode::Open,System::IO::FileAccess::Read);
+			{
+				if (fs->Length > 3)//判斷檔案長度需大於3
+				{
+					array<Byte>^header = gcnew array<Byte>(1024);
+					fs->Read(header, 0, 4);
+					//以下幾種編碼的判斷來源,可以參考文章後的參考.
+					  if ((header[0] == 0xef && header[1] == 0xbb && header[2] == 0xbf))
+						  l_pEncoding = System::Text::Encoding::UTF8;
+					  else if ((header[0] == 0xfe && header[1] == 0xff))
+						  l_pEncoding = System::Text::Encoding::BigEndianUnicode;
+					  else if ((header[0] == 0xff && header[1] == 0xfe))
+					  {
+						  l_pEncoding = System::Text::Encoding::Unicode;//LittleEndianUnicode
+					  }
+					  else if ((header[0] == 0 && header[1] == 0 && header[2] == 0xfe && header[3] == 0xff) ||
+						 (header[0] == 0xff && header[1] == 0xfe && header[2] == 0 && header[3] == 0))
+					  {
+						  //this is target file don't need to do anything!.
+						  l_pEncoding = System::Text::Encoding::UTF32;
+					  }
+					  else
+						  l_pEncoding = System::Text::Encoding::Default;
+				}
+				else
+				{
+					l_pEncoding = System::Text::Encoding::Default;
+				}
+				fs->Close();
+				if(l_pEncoding == System::Text::Encoding::UTF32 || l_pEncoding == System::Text::Encoding::Unicode)
+				{
+					if( e_strNewFileName == nullptr )
+						return true;
+				}
+			}
+		}
+		else
+		{
+			//System::Globalization::CultureInfo::CurrentCulture^l_pCulture = System::Globalization::CultureInfo::GetCultures(System::Globalization::CultureTypes::WindowsOnlyCultures)
+			l_pEncoding = System::Text::Encoding::GetEncoding(String(e_strCodingName).ToString());
+		}
+		String^l_strFileName = e_strFileName;
+		if( e_strNewFileName != nullptr )
+			l_strFileName = e_strNewFileName;
+		System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(e_strFileName,l_pEncoding);
 		//System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(e_strFileName,System::Text::Encoding::ASCII);
 		System::String^l_pString = sr->ReadToEnd();
 		sr->Close();
-		System::IO::StreamWriter^l_pWriter = gcnew System::IO::StreamWriter(e_strFileName,false,System::Text::Encoding::UTF32);
+		System::IO::StreamWriter^l_pWriter = gcnew System::IO::StreamWriter(l_strFileName,false,System::Text::Encoding::UTF32);
 		try 
 		{
 			l_pWriter->Write(l_pString);
 		}
 		catch(System::Exception^l_pExp)
 		{
+			WARNING_MSG(l_pExp->ToString());
 			OutputDebugString(L"\n");
 			OutputDebugString(DNCT::GcStringToWchar(l_pExp->ToString()));
 			OutputDebugString(L"\n");

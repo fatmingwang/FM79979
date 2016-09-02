@@ -37,6 +37,7 @@ namespace EditorSample
 			m_pGameApp->Init();
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
 			m_HGLRCMV = m_pGameApp->m_sHGLRC;
+			m_pOrthogonalCamera = new cOrthogonalCamera();
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -57,6 +58,8 @@ namespace EditorSample
 			{
 				delete components;
 			}
+			SAFE_DELETE(m_pOrthogonalCamera);
+			SAFE_DELETE(m_pGameApp);
 		}
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::Timer^  timer1;
@@ -70,6 +73,7 @@ namespace EditorSample
 		HDC					m_HdcMV;
 		HGLRC				m_HGLRCMV;
 		Control^			m_pTargetControl;
+		cOrthogonalCamera*	m_pOrthogonalCamera;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -109,6 +113,12 @@ namespace EditorSample
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
+			Vector2	l_vViewPort(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+			if(m_pOrthogonalCamera)
+			{
+				m_pOrthogonalCamera->Render();
+				m_pOrthogonalCamera->DrawGrid();
+			}
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 			glClearColor(0,0,0,0);
 			glClearDepth(1.0f);
@@ -125,8 +135,14 @@ namespace EditorSample
 			//this->Focus();
 			if( !timer1->Enabled || !this->Visible )
 				return;
+			//make mouse wheel work
+			m_pTargetControl->Focus();
 			if( m_pGameApp )
 				m_pGameApp->MouseDown(e->X,e->Y);
+			POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
+			GCFORM::MouseButtons l_MouseButton = e->Button;
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
+				,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)this->m_pTargetControl->Width,(float)this->m_pTargetControl->Height));
 		}
 		System::Void MyMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 		{
@@ -134,6 +150,10 @@ namespace EditorSample
 				return;
 			if( m_pGameApp )
 				m_pGameApp->MouseMove(e->X,e->Y);
+			POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
+			GCFORM::MouseButtons l_MouseButton = e->Button;
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
+				,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)this->m_pTargetControl->Width,(float)this->m_pTargetControl->Height));
 		}
 
 		System::Void MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
@@ -142,6 +162,10 @@ namespace EditorSample
 				return;
 			if( m_pGameApp )
 				m_pGameApp->MouseUp(e->X,e->Y);
+			POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
+			GCFORM::MouseButtons l_MouseButton = e->Button;
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
+				,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)this->m_pTargetControl->Width,(float)this->m_pTargetControl->Height));
 		}
 
 		System::Void MySizeChanged(System::Object^  sender, System::EventArgs^  e) 

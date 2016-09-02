@@ -53,6 +53,7 @@ namespace	FATMING_CORE
 	cNamedTypedObjectVector<c2DImageCollisionData>*		cGameApp::m_sp2DImageCollisionDataVector = 0;
 	cNamedTypedObjectVector<NamedTypedObject>*			cGameApp::m_spColladaParserVector = 0;
 	Vector4												cGameApp::m_svViewPortSize(0.f,0.f,1920.f,1080.f);
+	Vector4												cGameApp::m_svBGColor(0.1f,0.1f,0.1f,1.f);	
 	Vector2												cGameApp::m_svGameResolution(1920.f,1080.f);
 	Vector2												cGameApp::m_svGameScale(1.f,1.f);
 	Vector3												cGameApp::m_svAccelerometer = Vector3::Zero;
@@ -337,7 +338,7 @@ namespace	FATMING_CORE
 		cTexture::m_suiLastUsingImageIndex = -1;
 		//FATMING_CORE::UseShaderProgram();
 		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-		glClearColor( 0.3f,0.3f,0.f,1.f );
+		glClearColor( m_svBGColor.x,m_svBGColor.y,m_svBGColor.z,m_svBGColor.w );
 		//glClearDepth(1.0f);								// Depth Buffer Setup
 		glEnable2D(m_svGameResolution.x,m_svGameResolution.y);
 		SystemErrorCheck();
@@ -602,9 +603,10 @@ namespace	FATMING_CORE
 
 	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str)
 	{
-#ifdef DEBUG		
+//#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
+			::OutputDebugString(L"\n");
 	#elif	defined(ANDROID)
 			std::string	l_str = "GameApp___ ";
 			l_str += UT::WcharToChar(e_str);
@@ -613,7 +615,7 @@ namespace	FATMING_CORE
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());
 	#endif
-#endif
+//#endif
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::string e_str)

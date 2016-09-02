@@ -136,6 +136,7 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GameData.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StageParser.h" />
     <ClInclude Include="stdafx.h" />
@@ -144,6 +145,7 @@
   <ItemGroup>
     <ClCompile Include="ChartWithName.cpp" />
     <ClCompile Include="DataCurve.cpp" />
+    <ClCompile Include="GameData.cpp" />
     <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Form1.cpp" />

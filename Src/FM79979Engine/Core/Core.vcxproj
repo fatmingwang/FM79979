@@ -552,7 +552,6 @@
     <ClInclude Include="TemplateClass.h" />
     <ClInclude Include="TwoDimensionDataContainer.h" />
     <ClInclude Include="CommonDefine.h" />
-    <ClInclude Include="PlafFormDefine.h" />
     <ClInclude Include="VS_TO_GNN.h" />
     <ClInclude Include="Glh.h" />
     <ClInclude Include="MyString.h" />

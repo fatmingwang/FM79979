@@ -35,6 +35,9 @@
     <ClInclude Include="ChartWithName.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="GameData.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -55,6 +58,9 @@
     <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="ChartWithName.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="GameData.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

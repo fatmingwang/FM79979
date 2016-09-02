@@ -97,6 +97,7 @@ namespace	FATMING_CORE
 #endif
 		static	UT::sTimeAndFPS										m_sTimeAndFPS;
 		static	Vector4												m_svViewPortSize;
+		static	Vector4												m_svBGColor;
 		//while game resolution is change we want to re scale all data check this one
 		static	Vector2												m_svGameScale;
 		//viewport resolution or game resolution,both them could be same,but depend on the game type.

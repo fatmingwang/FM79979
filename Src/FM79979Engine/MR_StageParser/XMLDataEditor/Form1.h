@@ -102,8 +102,10 @@ namespace XMLDataEditor
 	private: System::Windows::Forms::ListBox^  RenderParameterIndex_listBox;
 	private: System::Windows::Forms::CheckBox^  ShowParameterValue_checkBox;
 	private: System::Windows::Forms::TabControl^  tabControl1;
-	private: System::Windows::Forms::TabPage^  tabPage1;
-	private: System::Windows::Forms::TabPage^  tabPage2;
+	private: System::Windows::Forms::TabPage^  Gameplay_tabPage;
+	private: System::Windows::Forms::TabPage^  GameData_tabPage;
+
+
 	private: System::Windows::Forms::Button^  button1;
 	private: System::ComponentModel::IContainer^  components;
 			 /// <summary>
@@ -131,11 +133,11 @@ namespace XMLDataEditor
 			this->RenderParameterIndex_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ShowParameterValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
-			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
-			this->tabPage2 = (gcnew System::Windows::Forms::TabPage());
+			this->Gameplay_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->GameData_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->tabControl1->SuspendLayout();
-			this->tabPage1->SuspendLayout();
+			this->Gameplay_tabPage->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// FileName_textBox
@@ -245,41 +247,41 @@ namespace XMLDataEditor
 			// 
 			// tabControl1
 			// 
-			this->tabControl1->Controls->Add(this->tabPage1);
-			this->tabControl1->Controls->Add(this->tabPage2);
+			this->tabControl1->Controls->Add(this->Gameplay_tabPage);
+			this->tabControl1->Controls->Add(this->GameData_tabPage);
 			this->tabControl1->Location = System::Drawing::Point(8, 73);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(311, 938);
 			this->tabControl1->TabIndex = 0;
 			// 
-			// tabPage1
+			// Gameplay_tabPage
 			// 
-			this->tabPage1->Controls->Add(this->ShowParameterValue_checkBox);
-			this->tabPage1->Controls->Add(this->Node_listBox);
-			this->tabPage1->Controls->Add(this->RenderParameterIndex_listBox);
-			this->tabPage1->Controls->Add(this->Node_label);
-			this->tabPage1->Controls->Add(this->RenderMode_label);
-			this->tabPage1->Controls->Add(this->NodeGroupAndCount_listBox);
-			this->tabPage1->Controls->Add(this->RenderMode_listBox);
-			this->tabPage1->Controls->Add(this->NodeGroupAndCount_label);
-			this->tabPage1->Location = System::Drawing::Point(4, 22);
-			this->tabPage1->Name = L"tabPage1";
-			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(303, 912);
-			this->tabPage1->TabIndex = 0;
-			this->tabPage1->Text = L"tabPage1";
-			this->tabPage1->UseVisualStyleBackColor = true;
+			this->Gameplay_tabPage->Controls->Add(this->ShowParameterValue_checkBox);
+			this->Gameplay_tabPage->Controls->Add(this->Node_listBox);
+			this->Gameplay_tabPage->Controls->Add(this->RenderParameterIndex_listBox);
+			this->Gameplay_tabPage->Controls->Add(this->Node_label);
+			this->Gameplay_tabPage->Controls->Add(this->RenderMode_label);
+			this->Gameplay_tabPage->Controls->Add(this->NodeGroupAndCount_listBox);
+			this->Gameplay_tabPage->Controls->Add(this->RenderMode_listBox);
+			this->Gameplay_tabPage->Controls->Add(this->NodeGroupAndCount_label);
+			this->Gameplay_tabPage->Location = System::Drawing::Point(4, 22);
+			this->Gameplay_tabPage->Name = L"Gameplay_tabPage";
+			this->Gameplay_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->Gameplay_tabPage->Size = System::Drawing::Size(303, 912);
+			this->Gameplay_tabPage->TabIndex = 0;
+			this->Gameplay_tabPage->Text = L"Gameplay";
+			this->Gameplay_tabPage->UseVisualStyleBackColor = true;
 			// 
-			// tabPage2
+			// GameData_tabPage
 			// 
-			this->tabPage2->Location = System::Drawing::Point(4, 22);
-			this->tabPage2->Name = L"tabPage2";
-			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(303, 912);
-			this->tabPage2->TabIndex = 1;
-			this->tabPage2->Text = L"tabPage2";
-			this->tabPage2->UseVisualStyleBackColor = true;
+			this->GameData_tabPage->Location = System::Drawing::Point(4, 22);
+			this->GameData_tabPage->Name = L"GameData_tabPage";
+			this->GameData_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->GameData_tabPage->Size = System::Drawing::Size(303, 912);
+			this->GameData_tabPage->TabIndex = 1;
+			this->GameData_tabPage->Text = L"GameData";
+			this->GameData_tabPage->UseVisualStyleBackColor = true;
 			// 
 			// button1
 			// 
@@ -287,8 +289,9 @@ namespace XMLDataEditor
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(117, 29);
 			this->button1->TabIndex = 8;
-			this->button1->Text = L"Open Character File";
+			this->button1->Text = L"OpenData Directory";
 			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click_1);
 			// 
 			// Form1
 			// 
@@ -307,8 +310,8 @@ namespace XMLDataEditor
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			this->tabControl1->ResumeLayout(false);
-			this->tabPage1->ResumeLayout(false);
-			this->tabPage1->PerformLayout();
+			this->Gameplay_tabPage->ResumeLayout(false);
+			this->Gameplay_tabPage->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -595,6 +598,14 @@ private: System::Void RenderParameterIndex_listBox_SelectedIndexChanged(System::
 private: System::Void ShowParameterValue_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 this->m_pChartWithName->m_bShowValue = ShowParameterValue_checkBox->Checked;
+		 }
+private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e) 
+		 {
+			 String^l_strDirectory = DNCT::SelectDirectory();
+			 if(l_strDirectory)
+			 {
+				
+			 }
 		 }
 };
 }

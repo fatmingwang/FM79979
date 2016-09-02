@@ -1006,9 +1006,6 @@
     <ClInclude Include="CommonDefine.h">
       <Filter>Common\Crossplatform</Filter>
     </ClInclude>
-    <ClInclude Include="PlafFormDefine.h">
-      <Filter>Common\Crossplatform</Filter>
-    </ClInclude>
     <ClInclude Include="VS_TO_GNN.h">
       <Filter>Common\Crossplatform</Filter>
     </ClInclude>

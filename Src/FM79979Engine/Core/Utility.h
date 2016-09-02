@@ -98,6 +98,15 @@ namespace UT
 	template <class T>inline	bool	IsLegalIndexInVector(std::vector<T>*e_pVector,int e_iIndex){if( e_iIndex<0 )return false;if( e_iIndex>=(int)e_pVector->size() )return false;return true;	}
 	//
 	void					itoa64(int64 val,char*e_strBuffer, int base);
+	//
+	template<class KEY,class VALUE>
+	bool					IsMapContainKey(std::map<KEY,VALUE>*e_pMap,KEY e_Key)
+	{
+		auto l_iterator = e_pMap->find(e_Key);
+		if( l_iterator == e_pMap->end() )
+			return false;
+		return true;
+	}
 //end namespace Utility
 }
 using namespace UT;

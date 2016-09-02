@@ -772,7 +772,7 @@ namespace	FATMING_CORE
 			return;
 		if( m_LinerDataVector.size() < 1  )
 			return;
-		GLRender::RenderLine((std::vector<T>*)m_pCurrentLinerDataVector,Vector4::Blue,e_mat,false,false);
+		GLRender::RenderLine((std::vector<T>*)m_pCurrentLinerDataVector,e_vColor,e_mat,false,false);
 		if( e_bRenderIndex )
 		{
 			size_t	l_uiSize = this->m_LinerDataVector.size();

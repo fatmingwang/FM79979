@@ -13,6 +13,37 @@
 #define	FLIGHT_NAME2		L"fight"
 #define	BOSS_NAME			L"boss"
 
+#define	GET_FLOAT_DATA_FROM_ATTRIBUTE(VariableName,Attribute)\
+private:	float m_f##VariableName;\
+public: float	Get##VariableName()\
+{\
+	if( m_f##VariableName == -1.f )\
+	{\
+		std::wstring l_strValue = this->getValue(Attribute);\
+		if( l_strValue.length() > 0 )\
+		{\
+			m_f##VariableName = GetFloat(l_strValue);\
+		}\
+	}\
+	return m_f##VariableName;\
+}
+
+
+#define	GET_INT_DATA_FROM_ATTRIBUTE(VariableName,Attribute)\
+private:	int m_i##VariableName;\
+public: int	Get##VariableName()\
+{\
+	if( m_i##VariableName == -1 )\
+	{\
+		std::wstring l_strValue = this->getValue(Attribute);\
+		if( l_strValue.length() > 0 )\
+		{\
+			m_i##VariableName = GetInt(l_strValue);\
+		}\
+	}\
+	return m_i##VariableName;\
+}
+
 enum eTriggersGroupNameType
 {
 	eTGT_PICK_UP = 0,
@@ -28,12 +59,21 @@ extern Vector4					g_TriggersGroupNameAndColor[eTGT_MAX];
 
 eTriggersGroupNameType GetTriggersGroupNameType(std::wstring e_str);
 
-struct sTrigger
+struct sXmlNode
 {
-	std::vector<std::wstring> strAttribute;
-	std::vector<std::wstring> strValuee;
+	std::vector<std::wstring> strAttributeVector;
+	std::vector<std::wstring> strValueVector;
 	std::wstring	getNameValue();
-	std::wstring	getValue(wchar_t*e_str);
+	std::wstring	getValue(const wchar_t*e_str);
+	int				getInt(const wchar_t*e_str);
+	void			StroeAllAttribute(TiXmlElement*e_pRoot);
+	//if same attribute new one will be ingore
+	void			Merge(TiXmlElement*e_pRoot);
+};
+
+struct sTrigger:public sXmlNode
+{
+
 	int				GetTrackIndex();
 	int				GetLength();
 	float			GetInterval();

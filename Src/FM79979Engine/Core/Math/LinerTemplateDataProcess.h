@@ -84,6 +84,8 @@ namespace	FATMING_CORE
 		virtual	bool						InsertDataWithLiner(int e_iIndex,int e_iCount) = 0;
 		virtual	void*						GetDataPointerByIndex(int e_iIndex){ assert(0&&"please override this" );return 0; }
 		void								DoTimeLiner();
+		void								SetLoop(bool e_bLoop){ m_bLoop = e_bLoop; }
+		bool								IsLoop(bool e_bLoop){ return m_bLoop; }
 	};
 
 	template<class T>class	cLinerDataProcessor:public cTimeAndDataLinerUpdateInterface
