@@ -326,7 +326,6 @@ private:System::Void DumpStatic()
 			m_pChartWithName = new cChartWithName();
 			RenderParameterIndex_listBox->Items->Clear();
 //			this->Static_textBox->Text = "";
-			String^l_str;
 			cChartWithName::sNameAndData*	l_pTime = new cChartWithName::sNameAndData();
 			cChartWithName::sNameAndData*	l_pPickup = new cChartWithName::sNameAndData();
 			cChartWithName::sNameAndData*	l_pMonster = new cChartWithName::sNameAndData();
@@ -340,7 +339,7 @@ private:System::Void DumpStatic()
 			l_pCoin->m_Name = L"Coin";
 			l_pMonsterAndDamageObject->m_Name = L"MonsterAndDamageObject";
 			const int	l_Width = m_pChartWithName->m_ObjectIndexDistance;
-			const int	l_iHeightScale = m_pChartWithName->m_iHeightScale;
+			const float	l_fHeightScale = m_pChartWithName->m_fHeightScale;
 			//m_pChartWithName;
 			for(size_t i=0;i<m_pStageParser->m_GamePlayVector.size();++i)
 			{
@@ -358,13 +357,13 @@ private:System::Void DumpStatic()
 				//this->Static_textBox->Text += l_str;
 				//l_str = "Coin:"+l_pGameNode->m_iCoinCount+DNCT::GetChanglineString();
 				//this->Static_textBox->Text += l_str;
-				l_pTime->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->GetFinishTime()*l_iHeightScale,0),0);
-				l_pPickup->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->GetPickupCount()*l_iHeightScale,0),0);
-				l_pMonster->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->GetMonsterCount()*l_iHeightScale,0),0);
-				l_pHurdlwAndBreakable->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->GetHurdleAndBreakableCount()*l_iHeightScale,0),0);
-				l_pCoin->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->m_iCoinCount*l_iHeightScale,0),0);
+				l_pTime->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->GetFinishTime()*l_fHeightScale,0),0);
+				l_pPickup->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->GetPickupCount()*l_fHeightScale,0),0);
+				l_pMonster->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->GetMonsterCount()*l_fHeightScale,0),0);
+				l_pHurdlwAndBreakable->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->GetHurdleAndBreakableCount()*l_fHeightScale,0),0);
+				l_pCoin->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->m_iCoinCount*l_fHeightScale,0),0);
 
-				l_pMonsterAndDamageObject->m_pData->AddData(Vector3(i*l_Width,l_pGameNode->GetHurdleAndBreakableCount()*l_iHeightScale+l_pGameNode->GetMonsterCount()*l_iHeightScale,0),0);
+				l_pMonsterAndDamageObject->m_pLineData->AddData(Vector3((float)i*l_Width,l_pGameNode->GetHurdleAndBreakableCount()*l_fHeightScale+l_pGameNode->GetMonsterCount()*l_fHeightScale,0),0);
 
 
 				//l_str = "TimeScale:"+(l_pGameNode->GetFinishTime()/m_fFirstSgateTime)+DNCT::GetChanglineString();
@@ -535,7 +534,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 				{
 					sGameNode* l_pGameNode = &this->m_pStageParser->m_GamePlayVector[l_iSelectedIndex];
 					l_pGameNode->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-					if(l_pGameNode->MouseMove(m_pOrthogonalCamera->GetMouseWorldPos().x,m_pOrthogonalCamera->GetMouseWorldPos().y))
+					if(l_pGameNode->MouseMove((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y))
 					{
 	//					l_pGameNode->m_ShowHitPos.x = cGameApp::m_sMousePosition.x;
 		//				l_pGameNode->m_ShowHitPos.y = cGameApp::m_sMousePosition.y;

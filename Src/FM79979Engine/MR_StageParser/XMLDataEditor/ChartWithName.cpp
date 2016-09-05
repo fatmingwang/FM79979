@@ -5,7 +5,7 @@
 cChartWithName::cChartWithName()
 {
 	m_ObjectIndexDistance = 60;
-	m_iHeightScale = -3;
+	m_fHeightScale = -3;
 	m_bShowValue = false;
 }
 cChartWithName::~cChartWithName()
@@ -38,7 +38,7 @@ void	cChartWithName::Render()
 		l_uiSize = m_DataVector.size();
 		for(size_t i=0;i<l_uiSize;++i)
 		{
-			this->m_DataVector[i]->m_pData->DebugRender(false,false,l_vColor[i]);
+			this->m_DataVector[i]->m_pLineData->DebugRender(false,false,l_vColor[i]);
 			cGameApp::m_spGlyphFontRender->SetFontColor(l_vColor[i]);
 			cGameApp::RenderFont(l_iParemeterNAmePosX,i*l_iParemeterNAmeOffsetY,this->m_DataVector[i]->m_Name.c_str());
 			if( m_bShowValue )
@@ -52,7 +52,7 @@ void	cChartWithName::Render()
 		for(size_t i=0;i<l_uiSize;++i)
 		{
 			int	l_iIndex = m_RenderIndex[i];
-			this->m_DataVector[l_iIndex]->m_pData->DebugRender(false,false,l_vColor[l_iIndex]);
+			this->m_DataVector[l_iIndex]->m_pLineData->DebugRender(false,false,l_vColor[l_iIndex]);
 			cGameApp::m_spGlyphFontRender->SetFontColor(l_vColor[l_iIndex]);
 			cGameApp::RenderFont(l_iParemeterNAmePosX,i*l_iParemeterNAmeOffsetY,this->m_DataVector[l_iIndex]->m_Name.c_str());
 		}	
@@ -65,14 +65,14 @@ void	cChartWithName::Render()
 		int	l_iIndex = i;
 		if( m_RenderIndex.size() )
 			l_iIndex = m_RenderIndex[i];
-		auto l_pData = this->m_DataVector[l_iIndex]->m_pData->GetLinerDataVector();
+		auto l_pData = this->m_DataVector[l_iIndex]->m_pLineData->GetLinerDataVector();
 		for(size_t j=0;j<l_pData->size();++j)
 		{
 			Vector3 l_vPos = (*l_pData)[j];
 			if( i == 0 )
 				cGameApp::RenderFont(l_vPos.x-l_iIndexWidthOffset,(float)l_iIndexPosY,ValueToStringW(j));
 			if( m_bShowValue )
-				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(l_vPos.y/this->m_iHeightScale));
+				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(l_vPos.y/this->m_fHeightScale));
 		}
 	}
 	int	l_TotalHeight = 200;
@@ -80,7 +80,7 @@ void	cChartWithName::Render()
 	int	l_iStep = l_TotalHeight/l_DividValue;
 	for(int i=0;i<l_iStep;++i)
 	{
-		cGameApp::RenderFont(-30,i*l_DividValue*m_iHeightScale,ValueToStringW(l_DividValue*i));
+		cGameApp::RenderFont(-30.f,i*l_DividValue*m_fHeightScale,ValueToStringW(l_DividValue*i));
 	}
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 }

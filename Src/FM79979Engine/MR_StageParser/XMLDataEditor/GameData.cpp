@@ -4,27 +4,57 @@
 
 sGameData::sMonsterInfo::sMonsterInfo()
 {
-
+	m_pHPData = new cLinerDataProcessor<Vector3>();
+	m_pSTRData = new cLinerDataProcessor<Vector3>();
+	m_pStaminaData = new cLinerDataProcessor<Vector3>();
 }
 
 sGameData::sMonsterInfo::~sMonsterInfo()
 {
-
+	SAFE_DELETE(m_pHPData);
+	SAFE_DELETE(m_pSTRData);
+	SAFE_DELETE(m_pStaminaData);
 }
 
 
 sGameData::sMonsterShop::sMonsterShop()
 {
-	this->m_fExtraCoin = 0.f;
-	this->m_fExtraEXP = 0.f;
-	this->m_iHP = -1;
+	this->m_iPriceType = -1;
 	this->m_iMonsterID = -1;
+	this->m_fExtraCoin = -1.f;
+	std::function<float()> l_Fun1 = std::bind(&sGameData::sMonsterShop::GetExtraCoin,this);
+	std::function<float()> l_Fun2 = std::bind(&sGameData::sMonsterShop::GetExtraEXP,this);
+	std::function<int()> l_Fun3 = std::bind(&sGameData::sMonsterShop::GetHP,this);
+	std::function<int()> l_Fun4 = std::bind(&sGameData::sMonsterShop::GetPrice,this);
+	std::function<int()> l_Fun5 = std::bind(&sGameData::sMonsterShop::GetSTR,this);
+	m_NameAndValueMap.insert(std::make_pair(this->GetExtraCoinName(),cSimpleFunctionPointerHelp(l_Fun1)));
+	this->m_fExtraEXP = -1.f;
+	m_NameAndValueMap.insert(std::make_pair(this->GetExtraEXPName(),cSimpleFunctionPointerHelp(l_Fun2)));
+	this->m_iHP = -1;
+	cSimpleFunctionPointerHelp l_Fun3Fun(l_Fun3);
+	m_NameAndValueMap.insert(std::make_pair(this->GetHPName(),cSimpleFunctionPointerHelp(l_Fun3Fun)));
 	this->m_iPrice = -1;
+	m_NameAndValueMap.insert(std::make_pair(this->GetPriceName(),cSimpleFunctionPointerHelp(l_Fun4)));
 	this->m_iSTR = -1;
+	m_NameAndValueMap.insert(std::make_pair(this->GetSTRName(),cSimpleFunctionPointerHelp(l_Fun5)));
 }
 sGameData::sMonsterShop::~sMonsterShop()
 {
 
+}
+
+std::map<std::wstring,float>	sGameData::sMonsterShop::GetAttributeNameAndValue()
+{
+	std::map<std::wstring,float> l_ResultMap;
+	for(std::map<std::wstring,cSimpleFunctionPointerHelp>::iterator l_Iterator = m_NameAndValueMap.begin();
+		l_Iterator != m_NameAndValueMap.end();l_Iterator++)
+	{
+		if( l_Iterator->second.GetValue() != -1 )
+		{
+			l_ResultMap.insert(std::make_pair(l_Iterator->first,l_Iterator->second.GetValue()));
+		}
+	}
+	return l_ResultMap;
 }
 
 sGameData::sMonsterInfo::sLevelInfo::sLevelInfo()
@@ -60,28 +90,96 @@ sGameData::sEnemyStatus::sLevelInfo::~sLevelInfo()
 
 }
 
+std::wstring	sGameData::sMonsterInfo::GetMonsterName()
+{
+	if(this->m_LineDataVector.size())
+	{
+		auto l_pData = this->m_LineDataVector[0];
+		std::wstring l_strName = l_pData->getValue(L"name_CN");
+		l_strName += L",";
+		l_strName += ValueToStringW(l_pData->getValue(L"name"));
+		return l_strName;
+	}
+	return L"";
+}
+
+int		sGameData::sMonsterInfo::GetHitBearCount(int e_iDamage,int e_iLevel)
+{
+	if(e_iLevel >= (int)m_LineDataVector.size())
+	{
+		return 0;
+	}
+	auto l_pLevelInfo = (sLevelInfo*)m_LineDataVector[e_iLevel];
+	int	l_iHP = l_pLevelInfo->GetHP();
+	if( l_iHP > 0 )
+	{
+		float l_fBearCount = (float)l_iHP/e_iDamage;
+		return (int)l_fBearCount;
+	}
+	return 0;
+	//l_pLevelInfo->
+}
+
+int	sGameData::sEnemyStatus::GetMonsterID()
+{
+	if(this->m_LineDataVector.size())
+	{
+		return ((sLevelInfo*)(this->m_LineDataVector[0]))->GetID();
+	}
+	return -1;
+}
+
+std::wstring	sGameData::sEnemyStatus::GetMonsterName()
+{
+	if(this->m_LineDataVector.size())
+	{
+		auto l_pLevelInfo = (sLevelInfo*)m_LineDataVector[0];
+		std::wstring l_strName = l_pLevelInfo->getValue(L"description");
+		l_strName += L",";
+		l_strName += ValueToStringW(l_pLevelInfo->GetID());
+	}
+	return L"";	
+}
+
+int				sGameData::sEnemyStatus::GetHitBearCount(int e_iDamage,int e_iLevel)
+{
+	if(e_iLevel >= (int)m_LineDataVector.size())
+	{
+		return 0;
+	}
+	auto l_pLevelInfo = (sLevelInfo*)m_LineDataVector[e_iLevel];
+	int	l_iHP = l_pLevelInfo->GetHP();
+	if( l_iHP > 0 )
+	{
+		float l_fBearCount = (float)l_iHP/e_iDamage;
+		return (int)l_fBearCount;
+	}
+	return 0;
+}
+
+
 
 sGameData::sGameData()
 {
-	m_pHPLine = new cLinerDataProcessor<Vector3>();
-	m_pSTRLine = new cLinerDataProcessor<Vector3>();
-	m_pStaminaLine = new cLinerDataProcessor<Vector3>();
+	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::MonsterRender,this));
+	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::ShopRender,this));
+	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::EnemyRender,this));
+
+	m_UpdateFunctionPointerVector.push_back(std::bind(&sGameData::MonsterUpdate,this,std::placeholders::_1));
+	m_UpdateFunctionPointerVector.push_back(std::bind(&sGameData::ShopUpdate,this,std::placeholders::_1));
+	m_UpdateFunctionPointerVector.push_back(std::bind(&sGameData::EnemyUpdate,this,std::placeholders::_1));
 }
 
 sGameData::~sGameData()
 {
-	SAFE_DELETE(m_pHPLine);
-	SAFE_DELETE(m_pSTRLine);
-	SAFE_DELETE(m_pStaminaLine);
 }
-
 
 sGameData::sEnemyStatus*		sGameData::GetEnemyStatus(int e_iID)
 {
 	size_t l_uiSize = 0;this->m_EnemyStatusVector.size();
 	for(size_t i=0;i<l_uiSize;++i)
 	{
-		if(e_iID == m_EnemyStatusVector[i].GetID())
+		if(e_iID == m_EnemyStatusVector[i].GetMonsterID())
 		{
 			return &m_EnemyStatusVector[i];
 		}
@@ -102,89 +200,119 @@ sGameData::sMonsterInfo*	sGameData::GetMonsterInfo(int e_iID)
 	return nullptr;
 }
 
-std::wstring	sGameData::sMonsterInfo::GetMonsterName()
-{
-	if(this->m_LevelInfoVector.size())
-	{
-		std::wstring l_strName = this->m_LevelInfoVector[0].getValue(L"name_CN");
-		l_strName += L",";
-		l_strName += ValueToStringW(this->m_LevelInfoVector[0].getValue(L"name"));
-		return l_strName;
-	}
-	return L"";
-}
-
-int		sGameData::sMonsterInfo::GetHitBearCount(int e_iDamage,int e_iLevel)
-{
-	if(e_iLevel >= (int)m_LevelInfoVector.size())
-	{
-		return 0;
-	}
-	auto*l_pLevelInfo = &m_LevelInfoVector[e_iLevel];
-	int	l_iHP = l_pLevelInfo->GetHP();
-	if( l_iHP > 0 )
-	{
-		float l_fBearCount = (float)l_iHP/e_iDamage;
-		return (int)l_fBearCount;
-	}
-	return 0;
-	//l_pLevelInfo->
-}
-
-int	sGameData::sEnemyStatus::GetMonsterID()
-{
-	if(this->m_LevelInfoVector.size())
-	{
-		return this->m_LevelInfoVector[0].GetID();
-	}
-	return -1;
-}
-
-std::wstring	sGameData::sEnemyStatus::GetMonsterName()
-{
-	if(this->m_LevelInfoVector.size())
-	{
-		std::wstring l_strName = this->m_LevelInfoVector[0].getValue(L"description");
-		l_strName += L",";
-		l_strName += ValueToStringW(this->m_LevelInfoVector[0].GetID());
-	}
-	return L"";	
-}
-
-int				sGameData::sEnemyStatus::GetHitBearCount(int e_iDamage,int e_iLevel)
-{
-	if(e_iLevel >= (int)m_LevelInfoVector.size())
-	{
-		return 0;
-	}
-	auto*l_pLevelInfo = &m_LevelInfoVector[e_iLevel];
-	int	l_iHP = l_pLevelInfo->GetHP();
-	if( l_iHP > 0 )
-	{
-		float l_fBearCount = (float)l_iHP/e_iDamage;
-		return (int)l_fBearCount;
-	}
-	return 0;
-}
 
 void	sGameData::Init()
 {
-	m_pHPLine->Clear();
-	m_pSTRLine->Clear();
-	m_pStaminaLine->Clear();
+	m_fMonsterInfoStartPosX = 0.f;
+	m_fMonsterInfoStartPosY = 0.f;
+	m_fMonsterInfoGapX = 90.f;
+	m_fMonsterStatusGapX = 30;
+	m_fShopStartPosX = 0.f;
+	m_fShopStartPosY = 0.f;
+	m_fShopGapX = 30.f;
+	m_fEnemyStartPosX = 0.f;
+	m_fEnemyStartPosY = 0.f;
+	m_fEnemyGapX = 30.f;
+	//========================================================================
+	//
+	//
+	float	l_fStartPosX = m_fMonsterInfoStartPosX;
+	float	l_fStartPosY = m_fMonsterInfoStartPosY;
+	float	l_fGapX = m_fMonsterInfoGapX;
+
 	for(size_t i=0;m_MonsterInfoVector.size();++i)
 	{
-//		sMonsterInfo*l_pLevelInfo = &m_MonsterInfoVector[i];
-	//	m_pHPLine->AddData(Vector3(0.f,(float)l_pLevelInfo->GetHP(),0.f),(float)i);
-		//m_pStaminaLine->AddData(Vector3(0.f,(float)l_pLevelInfo->GetStamina(),0),(float)i);
-		//m_pSTRLine->AddData(Vector3(0.f,(float)l_pLevelInfo->GetSTR(),0),(float)i);
+		sMonsterInfo*l_pMonsterInfo = &m_MonsterInfoVector[i];
+		for(size_t j=0;j<l_pMonsterInfo->m_LineDataVector.size();++j)
+		{
+			auto l_pLevelInfo = (sMonsterInfo::sLevelInfo*)l_pMonsterInfo->m_LineDataVector[j];
+			l_pMonsterInfo->m_pHPData->AddData(Vector3(l_fStartPosX,(float)l_pLevelInfo->GetHP(),0),0);
+			l_pMonsterInfo->m_pSTRData->AddData(Vector3(l_fStartPosX+m_fMonsterStatusGapX,(float)l_pLevelInfo->GetSTR(),0),0);
+			l_pMonsterInfo->m_pStaminaData->AddData(Vector3(l_fStartPosX+(m_fMonsterStatusGapX*2),(float)l_pLevelInfo->GetStamina(),0),0);
+		}
+		l_fStartPosX += l_fGapX;
+	}
+	l_fStartPosX = m_fShopStartPosX;
+	l_fStartPosY = m_fShopStartPosY;
+	l_fGapX = m_fShopGapX;
+	for(std::map<int,std::vector<sMonsterShop>>::iterator l_Iterator=m_MonsterShopDataMap.begin();
+		l_Iterator != m_MonsterShopDataMap.end();l_Iterator++)
+	{
+		auto l_pVector = &l_Iterator->second;
+		for(size_t i=0;i<l_pVector->size();++i)
+		{
+			sMonsterShop*l_pMonsterShop = (sMonsterShop*)&l_pVector[i];
+			std::map<std::wstring,float> l_Result = l_pMonsterShop->GetAttributeNameAndValue();
+			for(auto l_Iterator : l_Result)
+			{
+				cChartWithName::sNameAndData*l_pNameAndData = new cChartWithName::sNameAndData();
+				l_pNameAndData->m_Name = l_Iterator.first;
+				l_fStartPosX += l_fGapX;
+				l_pNameAndData->m_pLineData->AddData(Vector3(l_fStartPosX,0,0),0);
+				l_pNameAndData->m_pLineData->AddData(Vector3(l_fStartPosX,l_Iterator.second,0),0);
+				l_pMonsterShop->m_LineDataVector.push_back(l_pNameAndData);
+			}
+		}
+	}
+	l_fStartPosX = m_fEnemyStartPosX;
+	l_fStartPosY = m_fEnemyStartPosY;
+	l_fGapX = m_fEnemyGapX;
+	for(size_t i=0;m_EnemyStatusVector.size();++i)
+	{
+	
 	}
 }
 
-//struct sMonsterInfo:public sXmlNode
-//{
-//	
-//}
+void	sGameData::MonsterRender()
+{
+
+}
+
+void	sGameData::MonsterUpdate(float e_fElpaseTime)
+{
+
+}
+void	sGameData::ShopRender()
+{
+
+}
+void	sGameData::ShopUpdate(float e_fElpaseTime)
+{
+
+}
+void	sGameData::EnemyRender()
+{
+
+}
+void	sGameData::EnemyUpdate(float e_fElpaseTime)
+{
+
+}
+
+
+void	sGameData::Update(int e_iTargetFlag,float e_fElpaseTime)
+{
+	int l_iCount = (int)m_UpdateFunctionPointerVector.size();
+	for(int i=0;i<l_iCount;++i)
+	{
+		if( i << 1  & e_iTargetFlag)
+		{
+			m_UpdateFunctionPointerVector[i](e_fElpaseTime);
+		}
+	}
+}
+
+void	sGameData::Render(int e_iTargetFlag)
+{
+	int l_iCount = (int)m_UpdateFunctionPointerVector.size();
+	for(int i=0;i<l_iCount;++i)
+	{
+		if( i << 1  & e_iTargetFlag)
+		{
+			m_RenderFunctionPointerVector[i]();
+		}
+	}
+}
 
 cGameData::cGameData()
 {
@@ -283,28 +411,28 @@ bool	cGameData::ParseMonsterFile(const char*e_strFileName,
 		int l_iStartIndex = -1;
 		while(l_Element)
 		{
-			sGameData::sMonsterInfo::sLevelInfo l_LevelInfo;
-			l_LevelInfo.StroeAllAttribute(l_Element);
-			int l_iLevel = l_LevelInfo.GetLevel()-1;
+			sGameData::sMonsterInfo::sLevelInfo*l_pLevelInfo = new sGameData::sMonsterInfo::sLevelInfo();
+			l_pLevelInfo->StroeAllAttribute(l_Element);
+			int l_iLevel = l_pLevelInfo->GetLevel()-1;
 			if( l_iStartIndex < l_iLevel)
 				l_iStartIndex = l_iLevel;
 			else
 			{
 				UT::ErrorMsg(L"Level should from 1 to 15", ValueToStringW(l_iLevel) );
 			}
-			if( !l_pMonsterInfo || l_pMonsterInfo->GetID() != l_LevelInfo.GetID())
+			if( !l_pMonsterInfo || l_pMonsterInfo->GetID() != l_pLevelInfo->GetID())
 			{
-				l_pMonsterInfo = this->m_pGameData->GetMonsterInfo(l_LevelInfo.GetID());
+				l_pMonsterInfo = this->m_pGameData->GetMonsterInfo(l_pLevelInfo->GetID());
 			}
 			if( i == 0 )
 			{
-				l_pMonsterInfo->m_LevelInfoVector.push_back(l_LevelInfo);
+				l_pMonsterInfo->m_LineDataVector.push_back(l_pLevelInfo);
 			}
 			else
 			{
-				if( l_iLevel < (int)l_pMonsterInfo->m_LevelInfoVector.size() )
+				if( l_iLevel < (int)l_pMonsterInfo->m_LineDataVector.size() )
 				{
-					auto l_pLevelInfo = &l_pMonsterInfo->m_LevelInfoVector[l_iLevel];
+					auto l_pLevelInfo = l_pMonsterInfo->m_LineDataVector[l_iLevel];
 					l_pLevelInfo->Merge(l_Element);
 				}
 				else
@@ -329,20 +457,20 @@ bool	cGameData::ParseNPCInfoFile(const char*e_strFileName)
 	sGameData::sEnemyStatus*l_pEnemyStatus = nullptr;
 	while(l_Element)
 	{
-		sGameData::sEnemyStatus::sLevelInfo l_LevelInfo;
-		l_LevelInfo.StroeAllAttribute(l_Element);
-		if( !l_pEnemyStatus || l_pEnemyStatus->GetMonsterID() != l_LevelInfo.GetID() )
+		sGameData::sEnemyStatus::sLevelInfo*l_pLevelInfo = new sGameData::sEnemyStatus::sLevelInfo();
+		l_pLevelInfo->StroeAllAttribute(l_Element);
+		if( !l_pEnemyStatus || l_pEnemyStatus->GetMonsterID() != l_pLevelInfo->GetID() )
 		{
-			l_pEnemyStatus  = this->m_pGameData->GetEnemyStatus(l_LevelInfo.GetID());
+			l_pEnemyStatus  = this->m_pGameData->GetEnemyStatus(l_pLevelInfo->GetID());
 			if( !l_pEnemyStatus  )
 			{
 				sGameData::sEnemyStatus l_EnemyStatus;				
 				this->m_pGameData->m_EnemyStatusVector.push_back(l_EnemyStatus);
-				l_pEnemyStatus  = this->m_pGameData->GetEnemyStatus(l_LevelInfo.GetID());
+				l_pEnemyStatus  = this->m_pGameData->GetEnemyStatus(l_pLevelInfo->GetID());
 			}
 		}
-		l_pEnemyStatus->m_LevelInfoVector.push_back(l_LevelInfo);
-		l_LevelInfo.StroeAllAttribute(l_Element);
+		l_pEnemyStatus->m_LineDataVector.push_back(l_pLevelInfo);
+		l_pLevelInfo->StroeAllAttribute(l_Element);
 		l_Element = l_Element->NextSiblingElement();
 	}
 	return true;

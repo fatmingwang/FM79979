@@ -1,15 +1,45 @@
 ﻿#pragma once
 #include <string>
 #include "StageParser.h"
+#include "ChartWithName.h"
 
+
+class cSimpleFunctionPointerHelp
+{
+	bool					m_bIntFunction;
+	std::function<int()>	m_IntFunction;
+	std::function<float()>	m_FloatFunction;
+public:
+	cSimpleFunctionPointerHelp(std::function<int()> e_Function)
+	{
+		m_IntFunction = e_Function;
+		m_bIntFunction = true; 
+	}
+	cSimpleFunctionPointerHelp(std::function<float()> e_Function)
+	{
+		m_FloatFunction = e_Function ;
+		m_bIntFunction = false; 
+	}
+	~cSimpleFunctionPointerHelp(){}
+
+	float					GetValue()
+	{
+		if( m_bIntFunction )
+			return (float)m_IntFunction();
+		return m_FloatFunction();
+	}
+};
 
 struct sGameData:public sXmlNode
 {
 	friend class cGameData;
 	//
-	struct sMonsterInfo:public sXmlNode
+	struct sMonsterInfo:public sXmlNode,public cChartWithName
 	{
-		struct sLevelInfo:public sXmlNode
+		cLinerDataProcessor<Vector3>*	m_pHPData;
+		cLinerDataProcessor<Vector3>*	m_pSTRData;
+		cLinerDataProcessor<Vector3>*	m_pStaminaData;
+		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
 			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
 			GET_INT_DATA_FROM_ATTRIBUTE(STR,L"Strength");
@@ -19,30 +49,32 @@ struct sGameData:public sXmlNode
 			sLevelInfo();
 			~sLevelInfo();
 		};
+		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 		sMonsterInfo();
 		~sMonsterInfo();
-		cLinerDataProcessor<Vector3>*	m_pLine;
-		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
-		std::vector<sLevelInfo>	m_LevelInfoVector;
+		//std::vector<sLevelInfo>	m_LevelInfoVector;
 		std::wstring	GetMonsterName();
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 	};
 
-	struct sMonsterShop:public sXmlNode
+	struct sMonsterShop:public sXmlNode,public cChartWithName
 	{
+		std::map<std::wstring,cSimpleFunctionPointerHelp>	m_NameAndValueMap;
 		GET_INT_DATA_FROM_ATTRIBUTE(MonsterID,L"monster");
 		GET_INT_DATA_FROM_ATTRIBUTE(STR,L"strengthpoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(HP,L"lifepoint");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraEXP,L"exppercent");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraCoin,L"coinpercent");
 		GET_INT_DATA_FROM_ATTRIBUTE(Price,L"price");
+		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");
+		std::map<std::wstring,float>				GetAttributeNameAndValue();
 		sMonsterShop();
 		~sMonsterShop();
 	};
 
-	struct sEnemyStatus
+	struct sEnemyStatus:public cChartWithName
 	{
-		struct sLevelInfo:public sXmlNode
+		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
 			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
 			GET_INT_DATA_FROM_ATTRIBUTE(STR,L"attack");
@@ -56,14 +88,21 @@ struct sGameData:public sXmlNode
 			sLevelInfo();
 			~sLevelInfo();
 		};
-		std::vector<sLevelInfo>		m_LevelInfoVector;
+		//std::vector<sLevelInfo>		m_LevelInfoVector;
 		//
 		std::wstring	GetMonsterName();
 		int				GetMonsterID();
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 		
 	};
-
+	std::vector<std::function<void()>>		m_RenderFunctionPointerVector;
+	std::vector<std::function<void(float)>>	m_UpdateFunctionPointerVector;
+	void									MonsterRender();
+	void									MonsterUpdate(float e_fElpaseTime);
+	void									ShopRender();
+	void									ShopUpdate(float e_fElpaseTime);
+	void									EnemyRender();
+	void									EnemyUpdate(float e_fElpaseTime);
 	//<node ID="104" level="9" HP="72" attack="21" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
 
 public:
@@ -71,14 +110,29 @@ public:
 	sGameData();
 	~sGameData();
 	//bind data to lines
-	void							Init();
+	void									Init();
+	float									m_fShopStartPosX;
+	float									m_fShopStartPosY;
+	float									m_fShopGapX;
+	float									m_fMonsterInfoStartPosX;
+	float									m_fMonsterInfoStartPosY;
+	float									m_fMonsterInfoGapX;
+	float									m_fMonsterStatusGapX;
+	float									m_fEnemyStartPosX;
+	float									m_fEnemyStartPosY;
+	float									m_fEnemyGapX;
+	//
 	std::vector<sMonsterInfo>				m_MonsterInfoVector;
+	//monster ID.
 	std::map<int,std::vector<sMonsterShop>>	m_MonsterShopDataMap;
 	std::vector<sEnemyStatus>				m_EnemyStatusVector;
 
 
 	sMonsterInfo*		GetMonsterInfo(int e_iID);
 	sEnemyStatus*		GetEnemyStatus(int e_iID);
+	//1<11 monster,1<<2enemy,1<<3 shop
+	void									Render(int e_iTargetFlag);
+	void									Update(int e_iTargetFlag,float e_fElpaseTime);
 };
 
 
