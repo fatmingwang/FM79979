@@ -19,36 +19,42 @@ bool LazyTempFileParse(cNodeISAX*e_pNodeISAX,const char*e_strFileName)
 sGameData::sMonsterInfo::sMonsterInfo()
 {
 	this->m_iID = -1;
-	m_pHPData = new cChartWithName::sNameAndData();
-	m_pHPData->m_Name = L"HP";
-	m_pSTRData = new cChartWithName::sNameAndData();
-	m_pSTRData->m_Name = L"STR";
-	m_pStaminaData = new cChartWithName::sNameAndData();
-	m_pStaminaData->m_Name = L"Stamina";
 	SetRenderData();
 }
 
-sGameData::sMonsterInfo::sMonsterInfo(const sMonsterInfo&e_MonsterInfo):sXmlNode(e_MonsterInfo)
-{
-	this->m_iID = e_MonsterInfo.m_iID;
-//	m_pHPData = new cLinerDataProcessor<Vector3>(e_MonsterInfo.m_pHPData);
-//	m_pSTRData = new cLinerDataProcessor<Vector3>(e_MonsterInfo.m_pSTRData);
-//	m_pStaminaData = new cLinerDataProcessor<Vector3>(e_MonsterInfo.m_pStaminaData);
+//sGameData::sMonsterInfo::sMonsterInfo(const sMonsterInfo&e_MonsterInfo):sXmlNode(e_MonsterInfo)
+//{
+//	this->m_iID = e_MonsterInfo.m_iID;
 //	SetRenderData();
-}
+//}
 
 sGameData::sMonsterInfo::~sMonsterInfo()
 {
-	SAFE_DELETE(m_pHPData);
-	SAFE_DELETE(m_pSTRData);
-	SAFE_DELETE(m_pStaminaData);
+	//m_AllRenderData.m_LineDataVector.clear();
+	//SAFE_DELETE(m_pHPData);
+	//SAFE_DELETE(m_pSTRData);
+	//SAFE_DELETE(m_pStaminaData);
 }
 
 void	sGameData::sMonsterInfo::SetRenderData()
 {
-	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
-	m_AllRenderData.m_LineDataVector.push_back(m_pSTRData);
-	m_AllRenderData.m_LineDataVector.push_back(m_pStaminaData);
+	m_AllRenderData.m_LineDataVector.clear();
+	wchar_t*l_strAttributeName[eMS_MAX] = {
+		L"HP",
+		L"STR",
+		L"Stamania",
+		L"Exp",
+		L"CoinCost",
+		L"TimeCost",
+		L"CrystalCost",
+		L"Skill CD"
+	};
+	for(int i=0;i<eMS_MAX;++i)
+	{
+		cChartWithName::sNameAndData*l_pData = new cChartWithName::sNameAndData();
+		l_pData->m_Name = l_strAttributeName[i];
+		m_AllRenderData.m_LineDataVector.push_back(l_pData);
+	}
 }
 
 
@@ -109,6 +115,11 @@ sGameData::sMonsterInfo::sLevelInfo::sLevelInfo()
 	this->m_iHP = -1;
 	this->m_iSTR = -1;
 	this->m_iStamina = -1;
+	this->m_iExp = -1;
+	this->m_iCoinCost = -1;
+	this->m_iTimeCost = -1;
+	this->m_iCrystalCost = -1;
+	this->m_iSkillCD = -1;
 	this->m_iID = -1;
 	this->m_iLevel = -1;
 }
@@ -191,42 +202,50 @@ int		sGameData::sMonsterInfo::GetHitBearCount(int e_iDamage,int e_iLevel)
 	//l_pLevelInfo->
 }
 
-sGameData::sEnemyStatus::sEnemyStatus(const sEnemyStatus& e_EnemyStatus)
-{
-	m_pHPData = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pHPData);
-	m_pSTRData = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSTRData);
-	m_pTimeAdd = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pTimeAdd);
-	m_pTimeMinus = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pTimeMinus);
-	m_pSpeed = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSpeed);
-	m_pCloseSpeed = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pCloseSpeed);
-	m_pSkillTimeReduce = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSkillTimeReduce);
-	for(size_t i=0;i<e_EnemyStatus.m_LineDataVector.size();++i)
-	{
-		//sLevelInfo*l_pNameAndData = new sLevelInfo(e_EnemyStatus.m_LineDataVector[i]);
-//		m_LineDataVector.push_back(l_pNameAndData);
-	}
-}
+//sGameData::sEnemyStatus::sEnemyStatus(const sEnemyStatus& e_EnemyStatus)
+//{
+//	m_pHPData = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pHPData);
+//	m_pSTRData = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSTRData);
+//	m_pTimeAdd = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pTimeAdd);
+//	m_pTimeMinus = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pTimeMinus);
+//	m_pSpeed = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSpeed);
+//	m_pCloseSpeed = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pCloseSpeed);
+//	m_pSkillTimeReduce = new cLinerDataProcessor<Vector3>(e_EnemyStatus.m_pSkillTimeReduce);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	m_AllRenderData.m_LineDataVector.push_back(m_pHPData);
+//	for(size_t i=0;i<e_EnemyStatus.m_LineDataVector.size();++i)
+//	{
+//		//sLevelInfo*l_pNameAndData = new sLevelInfo(e_EnemyStatus.m_LineDataVector[i]);
+////		m_LineDataVector.push_back(l_pNameAndData);
+//	}
+//}
 
 sGameData::sEnemyStatus::sEnemyStatus()
 {
-	m_pHPData = new cLinerDataProcessor<Vector3>();
-	m_pSTRData = new cLinerDataProcessor<Vector3>();
-	m_pTimeAdd = new cLinerDataProcessor<Vector3>();
-	m_pTimeMinus = new cLinerDataProcessor<Vector3>();
-	m_pSpeed = new cLinerDataProcessor<Vector3>();
-	m_pCloseSpeed = new cLinerDataProcessor<Vector3>();
-	m_pSkillTimeReduce = new cLinerDataProcessor<Vector3>();
+	wchar_t*l_strAttributeName[eES_MAX] = {
+		L"HP",
+		L"STR",
+		L"Time Add",
+		L"Time Minus",
+		L"Speed",
+		L"Close Speed",
+		L"SkillT ime Reduce",
+	};
+	for(int i=0;i<eES_MAX;++i)
+	{
+		cChartWithName::sNameAndData*l_pData = new cChartWithName::sNameAndData();
+		l_pData->m_Name = l_strAttributeName[i];
+		m_AllRenderData.m_LineDataVector.push_back(l_pData);
+	}
 }
 
 sGameData::sEnemyStatus::~sEnemyStatus()
 {
-	SAFE_DELETE(m_pHPData);
-	SAFE_DELETE(m_pSTRData);
-	SAFE_DELETE(m_pTimeAdd);
-	SAFE_DELETE(m_pTimeMinus);
-	SAFE_DELETE(m_pSpeed);
-	SAFE_DELETE(m_pCloseSpeed);
-	SAFE_DELETE(m_pSkillTimeReduce);
 }
 
 int	sGameData::sEnemyStatus::GetMonsterID()
@@ -286,14 +305,10 @@ sGameData::~sGameData()
 	for(auto l_pData :m_MonsterShopDataMap)
 	{
 		auto l_pVector = l_pData.second;
-		for(auto l_pObjectOfVector :*l_pVector)
-		{
-			SAFE_DELETE(l_pObjectOfVector);
-		}
+		DELETE_VECTOR((*l_pVector),sMonsterShop*);
 		SAFE_DELETE(l_pVector);
 	}
 	DELETE_VECTOR(m_EnemyStatusVector,sEnemyStatus*);
-
 	m_MonsterInfoVector.clear();
 	m_MonsterShopDataMap.clear();
 	m_EnemyStatusVector.clear();
@@ -349,38 +364,51 @@ void	Assign(float e_fPosX,float e_PosY,cChartWithName::sNameAndData*e_pNameAndDa
 		e_vMax.y = l_fPosY;
 }
 
-void	sGameData::Init()
+void	sGameData::EnemyDataInit()
 {
-	m_MonsterInfoMaxVector.clear();
+	m_fEnemyStartPosX = 0.f;
+	m_fEnemyStartPosY = 0.f;
+	m_fEnemyGapX = 100.f;
+	m_fEnemyStatusGapX = 30.f;
+	m_fEnemyScale = 3.f;
+	float l_fStartPosX = m_fEnemyStartPosX;
+	float l_fStartPosY = m_fEnemyStartPosY;
+	float l_fGapX = m_fEnemyGapX;
+	for(size_t i=0;i<m_EnemyStatusVector.size();++i)
+	{
+		auto l_pEnemyStatus = m_EnemyStatusVector[i];
+		size_t l_uiSize = l_pEnemyStatus->m_LineDataVector.size();
+		l_fStartPosX = m_fEnemyStartPosX;
+		for(auto l_pObject :l_pEnemyStatus->m_LineDataVector)
+		{
+			sEnemyStatus::sLevelInfo*l_pLevelInfo  = (sEnemyStatus::sLevelInfo*)l_pObject;
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetHP()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_HP],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_HP]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetSTR()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_STR],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_STR]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetTimeAdd()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_TIME_ADD],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_TIME_ADD]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetTimeMinus()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_TIME_MINUS],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_TIME_MINUS]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetSpeed()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_SPEED],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_SPEED]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetCloseSpeed()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_CLOSE_SPEED],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_CLOSE_SPEED]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetSkillTimeReduce()*m_fEnemyScale,l_pEnemyStatus->m_AllRenderData.m_LineDataVector[sEnemyStatus::eES_SKILL_TIME_REDUCE],m_EnemyRenderFlagControl.m_MaxVector[sEnemyStatus::eES_SKILL_TIME_REDUCE]);
+			l_fStartPosX += l_fGapX;
+		}
+	}
+}
+
+void	sGameData::MonsterDataInit()
+{
+	m_MonsterRenderFlagControl.Init(sGameData::sMonsterInfo::eMS_MAX);
+	m_EnemyRenderFlagControl.Init(sGameData::sEnemyStatus::eES_MAX);
 	m_fMonsterInfoStartPosX = 0.f;
 	m_fMonsterInfoStartPosY = 0.f;
 	m_fMonsterInfoGapX = 100.f;
 	m_fMonsterStatusGapX = 5;
-	m_fShopStartPosX = 0.f;
-	m_fShopStartPosY = 0.f;
-	m_fShopGapX = 30.f;
-	m_fEnemyStartPosX = 0.f;
-	m_fEnemyStartPosY = 0.f;
-	m_fEnemyGapX = 30.f;
-	m_fEnemyStatusGapX = 30.f;
 	m_fMonsterScale = 5.f;
-	m_fShopScale = 3.f;
-	m_fEnemyScale = 3.f;
-	//========================================================================
-	//
-	//
 	float	l_fStartPosX = m_fMonsterInfoStartPosX;
 	float	l_fStartPosY = m_fMonsterInfoStartPosY;
 	float	l_fGapX = m_fMonsterInfoGapX;
-
 	for(size_t i=0;i<m_MonsterInfoVector.size();++i)
 	{
 		sMonsterInfo*l_pMonsterInfo = m_MonsterInfoVector[i];
-		if( i == 0 )
-		{
-			for(size_t j=0;j<l_pMonsterInfo->m_AllRenderData.m_LineDataVector.size();++j)
-				m_MonsterInfoMaxVector.push_back(Vector2(0,0));
-		}
 		l_fStartPosX = m_fMonsterInfoStartPosX;
 		l_fStartPosY = m_fMonsterInfoStartPosY;
 		for(size_t j=0;j<l_pMonsterInfo->m_LineDataVector.size();++j)
@@ -389,17 +417,35 @@ void	sGameData::Init()
 			int l_fDis = 0;//(int)(m_fMonsterStatusGapX*j);
 			float l_fPosX = l_fStartPosX+l_fDis;
 			float l_fPosY = (float)-l_pLevelInfo->GetHP()*m_fMonsterScale;
-			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_pHPData,m_MonsterInfoMaxVector[0]);
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_HP],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_HP]);
 			l_fPosY = (float)-l_pLevelInfo->GetSTR()*m_fMonsterScale;
-			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_pSTRData,m_MonsterInfoMaxVector[1]);
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_STR],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_STR]);
 			l_fPosY = (float)-l_pLevelInfo->GetStamina()*m_fMonsterScale;
-			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_pStaminaData,m_MonsterInfoMaxVector[2]);
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_STAMINIA],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_STAMINIA]);
+			l_fPosY = (float)-l_pLevelInfo->GetExp()*m_fMonsterScale;
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_EXP],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_EXP]);
+			l_fPosY = (float)-l_pLevelInfo->GetCoinCost()*m_fMonsterScale;
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_COIN_COST],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_COIN_COST]);
+			l_fPosY = (float)-l_pLevelInfo->GetTimeCost()*m_fMonsterScale;
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_TIME_COST],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_TIME_COST]);
+			l_fPosY = (float)-l_pLevelInfo->GetCrystalCost()*m_fMonsterScale;
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eMS_CRYSTAL_COST],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eMS_CRYSTAL_COST]);
+			l_fPosY = (float)-l_pLevelInfo->GetSkillCD()*m_fMonsterScale;
+			Assign(l_fPosX,l_fPosY,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[sMonsterInfo::eES_SKILL_CD],m_MonsterRenderFlagControl.m_MaxVector[sMonsterInfo::eES_SKILL_CD]);
 			l_fStartPosX += l_fGapX;
 		}
 	}
-	l_fStartPosX = m_fShopStartPosX;
-	l_fStartPosY = m_fShopStartPosY;
-	l_fGapX = m_fShopGapX;
+}
+
+void	sGameData::ShopDataInit()
+{
+	m_fShopStartPosX = 0.f;
+	m_fShopStartPosY = 0.f;
+	m_fShopGapX = 30.f;
+	m_fShopScale = 3.f;
+	float l_fStartPosX = m_fShopStartPosX;
+	float l_fStartPosY = m_fShopStartPosY;
+	float l_fGapX = m_fShopGapX;
 	for(std::map<int,std::vector<sMonsterShop*>*>::iterator l_Iterator=m_MonsterShopDataMap.begin();
 		l_Iterator != m_MonsterShopDataMap.end();l_Iterator++)
 	{
@@ -412,40 +458,34 @@ void	sGameData::Init()
 			{
 				cChartWithName::sNameAndData*l_pNameAndData = new cChartWithName::sNameAndData();
 				l_pNameAndData->m_Name = l_Iterator.first;
-				l_fStartPosX += l_fGapX;
 				l_pNameAndData->m_pLineData->AddData(Vector3(l_fStartPosX,0,0),0);
 				l_pNameAndData->m_pLineData->AddData(Vector3(l_fStartPosX,l_Iterator.second*m_fShopScale,0),0);
 				l_pMonsterShop->m_LineDataVector.push_back(l_pNameAndData);
+				l_fStartPosX += l_fGapX;
 			}
-		}
-	}
-	l_fStartPosX = m_fEnemyStartPosX;
-	l_fStartPosY = m_fEnemyStartPosY;
-	l_fGapX = m_fEnemyGapX;
-	for(size_t i=0;i<m_EnemyStatusVector.size();++i)
-	{
-		auto l_pEnemyStatus = m_EnemyStatusVector[i];
-		size_t l_uiSize = l_pEnemyStatus->m_LineDataVector.size();
-		for(auto l_pObject :l_pEnemyStatus->m_LineDataVector)
-		{
-			sEnemyStatus::sLevelInfo*l_pLevelInfo  = (sEnemyStatus::sLevelInfo*)l_pObject;
-			int l_iGap = 0;
-			l_pEnemyStatus->m_pHPData->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetHP()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pSTRData->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetSTR()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pTimeAdd->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetTimeAdd()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pTimeMinus->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetTimeMinus()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pSpeed->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetSpeed()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pCloseSpeed->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetCloseSpeed()*m_fEnemyScale,0),0);
-			l_pEnemyStatus->m_pSkillTimeReduce->AddData(Vector3(l_iGap++*m_fEnemyStatusGapX+l_fStartPosX,(float)l_pLevelInfo->GetSkillTimeReduce()*m_fEnemyScale,0),0);
-			l_fStartPosX += l_fGapX+l_iGap;
 		}
 	}
 }
 
+void	sGameData::Init()
+{
+	//========================================================================
+	//
+	//
+	MonsterDataInit();
+	EnemyDataInit();
+	ShopDataInit();
+}
+
 void	sGameData::MonsterRender()
 {
-	m_iRenderMonsterFlasg = 1<<2;
-	std::vector<int> l_RenderIndex = m_MonsterRenderIndex;
+	bool	l_bShowValue = this->m_MonsterRenderFlagControl.m_bShowValue;
+	//m_iRenderMonsterFlasg = 1<<2;
+	float l_fScale = m_fMonsterScale;
+	int l_iRenderFlag = m_MonsterRenderFlagControl.m_iRenderFlag;
+	if( l_iRenderFlag == 0 )
+		l_iRenderFlag = 1;
+	std::vector<int> l_RenderIndex = m_MonsterRenderFlagControl.m_RenderIndexVector;
 	if( l_RenderIndex.size() == 0 )
 	{
 		for(size_t i=0;i<m_MonsterInfoVector.size();++i)
@@ -453,47 +493,57 @@ void	sGameData::MonsterRender()
 	}
 	for(size_t i=0;i<l_RenderIndex.size();++i)
 	{
-		sMonsterInfo*l_pMonsterInfo = m_MonsterInfoVector[l_RenderIndex[i]];
-		cGameApp::m_spGlyphFontRender->SetFontColor(g_vLineIndexAndColor[i]);
+		if( i >= m_MonsterInfoVector.size() )
+			continue;
+		int l_iIndex = l_RenderIndex[i];
+		sMonsterInfo*l_pMonsterInfo = m_MonsterInfoVector[l_iIndex];
+		cGameApp::m_spGlyphFontRender->SetFontColor(g_vLineIndexAndColor[l_iIndex]);
 		cGameApp::RenderFont(-450,-350+i*50,l_pMonsterInfo->GetMonsterName());
-		if( m_iRenderMonsterFlasg == 0 )
+		for(size_t j=0;j<l_pMonsterInfo->m_AllRenderData.m_LineDataVector.size();++j)
 		{
-			l_pMonsterInfo->m_pHPData->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[i]);
-			l_pMonsterInfo->m_pSTRData->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[i]);
-			l_pMonsterInfo->m_pStaminaData->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[i]);
-		}
-		else
-		{
-			for(size_t j=0;j<l_pMonsterInfo->m_AllRenderData.m_LineDataVector.size();++j)
+			if( l_iRenderFlag & 1<<j )
 			{
-				if( m_iRenderMonsterFlasg & 1<<j )
+				Vector2	l_vPos = m_MonsterRenderFlagControl.m_MaxVector[j];
+				float l_fSmalScale = 1;
+				if( fabs(l_vPos.y) > 1000 )
 				{
-					if( i == 1 )
+					l_fSmalScale = fabs(l_vPos.v)/1000;
+				}
+				if( fabs(l_vPos.y) <= 1000 && l_vPos.y != 0.f )
+				{
+					//l_fSmalScale = 1000/fabs(l_vPos.v);
+				}
+				if( i == 0 )
+				{
+					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
+					cGameApp::RenderFont(0,0-i*50,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
+					Vector2 l_XAxis[2] = {Vector2(0,0),Vector2(l_vPos.x,0)};
+					Vector2 l_YAxis[2] = {Vector2(0,0),Vector2(0,l_vPos.y/l_fSmalScale)};
+					GLRender::RenderLine((float*)&l_XAxis,2,Vector4::One,2);
+					GLRender::RenderLine((float*)&l_YAxis,2,Vector4::One,2);
+					const int l_iStride = 5;
+					int l_iStepValue = (int)(l_vPos.y/l_iStride);
+					for(int k=0;k<l_iStride+1;++k)
 					{
-						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
-						cGameApp::RenderFont(0,0-i*50,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
-						Vector2	l_vPos = m_MonsterInfoMaxVector[j];
-						Vector2 l_XAxis[2] = {Vector2(0,0),Vector2(l_vPos.x,0)};
-						Vector2 l_YAxis[2] = {Vector2(0,0),Vector2(0,l_vPos.y)};
-						GLRender::RenderLine((float*)&l_XAxis,2,Vector4::One,2);
-						GLRender::RenderLine((float*)&l_YAxis,2,Vector4::One,2);
-						const int l_iStride = 5;
-						int l_iStepValue = (int)(l_vPos.y/l_iStride);
-						for(int k=0;k<l_iStride+1;++k)
-						{
-							int l_iValue = l_iStepValue*k;
-							cGameApp::RenderFont(-100,k*l_iStepValue,ValueToStringW(-l_iValue/m_fMonsterScale));
-						}
-						size_t l_iXCount = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->Count();
-						auto l_pVector = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->GetLinerDataVector();
-						for(size_t k=0;k<l_iXCount;++k)
-						{
-							
-							cGameApp::RenderFont((*l_pVector)[k].x,30.f,ValueToStringW(k));
-						}
-						m_fMonsterScale;
+						int l_iValue = l_iStepValue*k;
+						cGameApp::RenderFont(-100.f,k*l_iStepValue/l_fSmalScale,ValueToStringW(-l_iValue));
 					}
-					l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[i]);
+					size_t l_iXCount = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->Count();
+					auto l_pVector = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->GetLinerDataVector();
+					for(size_t k=0;k<l_iXCount;++k)
+					{
+						cGameApp::RenderFont((*l_pVector)[k].x,30.f,ValueToStringW(k));
+					}
+				}
+				l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[l_iIndex],cMatrix44::ScaleMatrix(Vector3(1,1/l_fSmalScale,1)));
+				if( l_bShowValue )
+				{
+					size_t l_iXCount = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->Count();
+					auto l_pVector = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->GetLinerDataVector();
+					for(size_t k=0;k<l_iXCount;++k)
+					{
+						cGameApp::RenderFont((*l_pVector)[k].x,(*l_pVector)[k].y/l_fSmalScale,ValueToStringW((*l_pVector)[k].y/-l_fScale/l_fSmalScale));
+					}
 				}
 			}
 		}
@@ -524,17 +574,67 @@ void	sGameData::ShopUpdate(float e_fElpaseTime)
 }
 void	sGameData::EnemyRender()
 {
-	for(size_t i=0;i<m_EnemyStatusVector.size();++i)
+	float l_fScale = m_fEnemyScale;
+	bool	l_bShowValue = this->m_EnemyRenderFlagControl.m_bShowValue;
+	std::vector<int> l_RenderIndex = m_EnemyRenderFlagControl.m_RenderIndexVector;
+	if( l_RenderIndex.size() == 0 )
 	{
-		auto l_pEnemyStatus = m_EnemyStatusVector[i];
-		l_pEnemyStatus->m_pHPData->DebugRender();
-		l_pEnemyStatus->m_pSTRData->DebugRender();
-		l_pEnemyStatus->m_pTimeAdd->DebugRender();
-		l_pEnemyStatus->m_pTimeMinus->DebugRender();
-		l_pEnemyStatus->m_pSpeed->DebugRender();
-		l_pEnemyStatus->m_pCloseSpeed->DebugRender();
-		l_pEnemyStatus->m_pSkillTimeReduce->DebugRender();
+		for(size_t i=0;i<m_EnemyStatusVector.size();++i)
+			l_RenderIndex.push_back(i);
 	}
+	int l_iRenderFlag = m_EnemyRenderFlagControl.m_iRenderFlag;
+	if( l_iRenderFlag == 0 )
+		l_iRenderFlag = 1;
+	for(size_t i=0;i<l_RenderIndex.size();++i)
+	{
+		if( i >= this->m_EnemyStatusVector.size() )
+			continue;
+		int l_iIndex = l_RenderIndex[i];
+		auto*l_pMonsterInfo = m_EnemyStatusVector[l_iIndex];
+		cGameApp::m_spGlyphFontRender->SetFontColor(g_vLineIndexAndColor[l_iIndex]);
+		cGameApp::RenderFont(-450,-750+i*50,l_pMonsterInfo->GetMonsterName());
+		for(size_t j=0;j<l_pMonsterInfo->m_AllRenderData.m_LineDataVector.size();++j)
+		{
+			if( l_iRenderFlag & 1<<j )
+			{
+				if( i == 0 )
+				{
+					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
+					cGameApp::RenderFont(0,0-i*50,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
+					Vector2	l_vPos = this->m_EnemyRenderFlagControl.m_MaxVector[j];
+					Vector2 l_XAxis[2] = {Vector2(0,0),Vector2(l_vPos.x,0)};
+					Vector2 l_YAxis[2] = {Vector2(0,0),Vector2(0,l_vPos.y)};
+					GLRender::RenderLine((float*)&l_XAxis,2,Vector4::One,2);
+					GLRender::RenderLine((float*)&l_YAxis,2,Vector4::One,2);
+					const int l_iStride = 5;
+					int l_iStepValue = (int)(l_vPos.y/l_iStride);
+					for(int k=0;k<l_iStride+1;++k)
+					{
+						int l_iValue = l_iStepValue*k;
+						cGameApp::RenderFont(-100,k*l_iStepValue,ValueToStringW(-l_iValue/l_fScale));
+					}
+					size_t l_iXCount = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->Count();
+					auto l_pVector = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->GetLinerDataVector();
+					for(size_t k=0;k<l_iXCount;++k)
+					{
+							
+						cGameApp::RenderFont((*l_pVector)[k].x,30.f,ValueToStringW(k));
+					}
+				}
+				l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->DebugRender(false,false,g_vLineIndexAndColor[l_iIndex]);
+				if( l_bShowValue )
+				{
+					size_t l_iXCount = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->Count();
+					auto l_pVector = l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_pLineData->GetLinerDataVector();
+					for(size_t k=0;k<l_iXCount;++k)
+					{
+						cGameApp::RenderFont((*l_pVector)[k].x,(*l_pVector)[k].y,ValueToStringW((*l_pVector)[k].y/-l_fScale));
+					}
+				}
+			}
+		}
+	}
+	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 }
 void	sGameData::EnemyUpdate(float e_fElpaseTime)
 {
@@ -596,12 +696,12 @@ bool	cGameData::Parse(const char*e_strDirectory)
 	std::string l_strMonsterHealthFileName = m_strFirectory+m_strMonsterHealthFileName;
 	std::string l_strMonsterStregthFileName = m_strFirectory+m_strMonsterStregthFileName;
 	std::string l_strMonsterStaminaFileName = m_strFirectory+m_strMonsterStaminaFileName;
-	ParseShopFile(l_strShopFileName.c_str());
 	ParseMonsterFile(l_strMonsterFileName.c_str(),
 		l_strMonsterLevelFileName.c_str(),
 		l_strMonsterStaminaFileName.c_str(),
 		l_strMonsterStregthFileName.c_str(),
 		l_strMonsterHealthFileName.c_str());
+	ParseShopFile(l_strShopFileName.c_str());
 	ParseNPCInfoFile(l_strNPCInfoFileName.c_str());
 	m_pGameData->Init();
 	return true;
@@ -694,8 +794,9 @@ bool	cGameData::ParseMonsterFile(const char*e_strMonsterFileName,
 			{
 				if( l_iLevel < (int)l_pMonsterInfo->m_LineDataVector.size() )
 				{
-					auto l_pLevelInfo = l_pMonsterInfo->m_LineDataVector[l_iLevel];
-					l_pLevelInfo->Merge(l_Element);
+					SAFE_DELETE(l_pLevelInfo);
+					auto l_pLevelInfo2 = l_pMonsterInfo->m_LineDataVector[l_iLevel];
+					l_pLevelInfo2->Merge(l_Element);
 				}
 				else
 				{

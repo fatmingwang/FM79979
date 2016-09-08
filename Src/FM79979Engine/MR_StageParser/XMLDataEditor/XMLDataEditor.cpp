@@ -8,17 +8,17 @@ using namespace XMLDataEditor;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
-	// 建立任何控制項之前，先啟用 Windows XP 視覺化效果
+
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
 
-	// 建立主視窗並執行
+
 	String^l_str;
 	if( args->Length )
 		Application::Run(gcnew Form1(args[0]));
 	else
 		Application::Run(gcnew Form1(l_str));
-	//_CrtDumpMemoryLeaks();
+	_CrtDumpMemoryLeaks();
 	NamedTypedObject::DumpUnReleaseInfo();
 	return 0;
 }

@@ -10,15 +10,28 @@ class cSimpleFunctionPointerHelp
 	std::function<int()>	m_IntFunction;
 	std::function<float()>	m_FloatFunction;
 public:
+	cSimpleFunctionPointerHelp()
+	{
+	}
 	cSimpleFunctionPointerHelp(std::function<int()> e_Function)
+	{
+		if( e_Function )
+			SetFunction(e_Function);
+	}
+	cSimpleFunctionPointerHelp(std::function<float()> e_Function)
+	{
+		if( e_Function )
+			SetFunction(e_Function);
+	}
+	void SetFunction(std::function<int()> e_Function)
 	{
 		m_IntFunction = e_Function;
 		m_bIntFunction = true; 
 	}
-	cSimpleFunctionPointerHelp(std::function<float()> e_Function)
+	void SetFunction(std::function<float()> e_Function)
 	{
 		m_FloatFunction = e_Function ;
-		m_bIntFunction = false; 
+		m_bIntFunction = false;	
 	}
 	~cSimpleFunctionPointerHelp(){}
 
@@ -30,16 +43,32 @@ public:
 	}
 };
 
+
+//struct sGetFunctionVector:public std::vector<cSimpleFunctionPointerHelp*>
+//{
+//	sGetFunctionVector(){}
+//	~sGetFunctionVector(){ DELETE_VECTOR((*this),cSimpleFunctionPointerHelp*); }
+//};
+
 struct sGameData:public sXmlNode
 {
 	friend class cGameData;
 	//
 	struct sMonsterInfo:public sXmlNode,public cChartWithName
 	{
-		cChartWithName::sNameAndData*	m_pHPData;
-		cChartWithName::sNameAndData*	m_pSTRData;
-		cChartWithName::sNameAndData*	m_pStaminaData;
-		cChartWithName					m_AllRenderData;
+		enum eMonsterStatus
+		{
+			eMS_HP = 0,
+			eMS_STR,
+			eMS_STAMINIA,
+			eMS_EXP,
+			eMS_COIN_COST,
+			eMS_TIME_COST,
+			eMS_CRYSTAL_COST,
+			eES_SKILL_CD,
+			eMS_MAX,
+		};
+		cChartWithName								m_AllRenderData;
 		//std::vector<std::wstring>					m_AllRenderData;
 		void							SetRenderData();
 		struct sLevelInfo:public cChartWithName::sNameAndData
@@ -47,6 +76,13 @@ struct sGameData:public sXmlNode
 			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
 			GET_INT_DATA_FROM_ATTRIBUTE(STR,L"Strength");
 			GET_INT_DATA_FROM_ATTRIBUTE(Stamina,L"Stamina");
+			GET_INT_DATA_FROM_ATTRIBUTE(Exp,L"exp");
+			GET_INT_DATA_FROM_ATTRIBUTE(CoinCost,L"coinCost");
+			GET_INT_DATA_FROM_ATTRIBUTE(TimeCost,L"timeCost");
+			GET_INT_DATA_FROM_ATTRIBUTE(CrystalCost,L"crystalCost");
+			GET_INT_DATA_FROM_ATTRIBUTE(SkillCD,L"SkillCD");
+
+
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"level");
 			sLevelInfo();
@@ -54,7 +90,7 @@ struct sGameData:public sXmlNode
 		};
 		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 		sMonsterInfo();
-		sMonsterInfo(const sMonsterInfo&e_MonsterInfo);
+		//sMonsterInfo(const sMonsterInfo&e_MonsterInfo);
 		~sMonsterInfo();
 		//std::vector<sLevelInfo>	m_LevelInfoVector;
 		std::wstring	GetMonsterName();
@@ -80,16 +116,28 @@ struct sGameData:public sXmlNode
 
 	struct sEnemyStatus:public cChartWithName
 	{
-		cLinerDataProcessor<Vector3>*	m_pHPData;
-		cLinerDataProcessor<Vector3>*	m_pSTRData;
-		cLinerDataProcessor<Vector3>*	m_pTimeAdd;
-		cLinerDataProcessor<Vector3>*	m_pTimeMinus;
-		cLinerDataProcessor<Vector3>*	m_pSpeed;
-		cLinerDataProcessor<Vector3>*	m_pCloseSpeed;
-		cLinerDataProcessor<Vector3>*	m_pSkillTimeReduce;
+		enum eEnemyStatus
+		{
+			eES_HP = 0,
+			eES_STR,
+			eES_TIME_ADD,
+			eES_TIME_MINUS,
+			eES_SPEED,
+			eES_CLOSE_SPEED,
+			eES_SKILL_TIME_REDUCE,
+			eES_MAX,
+		};
+		//cChartWithName::sNameAndData*	m_pHPData;
+		//cChartWithName::sNameAndData*	m_pSTRData;
+		//cChartWithName::sNameAndData*	m_pTimeAdd;
+		//cChartWithName::sNameAndData*	m_pTimeMinus;
+		//cChartWithName::sNameAndData*	m_pSpeed;
+		//cChartWithName::sNameAndData*	m_pCloseSpeed;
+		//cChartWithName::sNameAndData*	m_pSkillTimeReduce;
+		cChartWithName					m_AllRenderData;
 		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
-			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
+			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"HP");
 			GET_INT_DATA_FROM_ATTRIBUTE(STR,L"attack");
 			GET_FLOAT_DATA_FROM_ATTRIBUTE(TimeAdd,L"rewardTime");
 			GET_FLOAT_DATA_FROM_ATTRIBUTE(TimeMinus,L"reduceTime");
@@ -103,7 +151,7 @@ struct sGameData:public sXmlNode
 			~sLevelInfo();
 		};
 		sEnemyStatus();
-		sEnemyStatus(const sEnemyStatus& e_EnemyStatus);
+		//sEnemyStatus(const sEnemyStatus& e_EnemyStatus);
 		~sEnemyStatus();
 		//std::vector<sLevelInfo>		m_LevelInfoVector;
 		//
@@ -112,6 +160,9 @@ struct sGameData:public sXmlNode
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 		
 	};
+	void									EnemyDataInit();
+	void									MonsterDataInit();
+	void									ShopDataInit();
 	//bind data to lines
 	void									Init();
 	float									m_fShopStartPosX;
@@ -141,19 +192,28 @@ struct sGameData:public sXmlNode
 	void									EnemyRender();
 	void									EnemyUpdate(float e_fElpaseTime);
 	//<node ID="104" level="9" HP="72" attack="21" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-
+	struct sRenderFlagControl
+	{
+		bool						m_bShowValue;
+		int							m_iRenderFlag;
+		std::vector<int>			m_RenderIndexVector;
+		std::vector<Vector2>		m_MaxVector;
+		sRenderFlagControl(){m_iRenderFlag = 0;m_bShowValue = false;}
+		void	Init(int e_iNumStatus){ m_iRenderFlag = 0;m_RenderIndexVector.clear();m_MaxVector.clear(); for(int i=0;i<e_iNumStatus;++i)m_MaxVector.push_back(Vector2(0,0));m_bShowValue = false; }
+	};
 public:
 			//std::vector<sXmlNode> ShopDataVector;
 	sGameData();
 	~sGameData();
 	//
-	int											m_iRenderMonsterFlasg;
-	std::vector<int>							m_MonsterRenderIndex;
+	sRenderFlagControl							m_MonsterRenderFlagControl;
 	std::vector<sMonsterInfo*>					m_MonsterInfoVector;
-	std::vector<Vector2>						m_MonsterInfoMaxVector;
 	//monster ID.
+	sRenderFlagControl							m_ShopRenderFlagControl;
 	std::map<int,std::vector<sMonsterShop*>*>	m_MonsterShopDataMap;
+	//
 	std::vector<sEnemyStatus*>					m_EnemyStatusVector;
+	sRenderFlagControl							m_EnemyRenderFlagControl;
 
 
 	sMonsterInfo*		GetMonsterInfo(int e_iID);

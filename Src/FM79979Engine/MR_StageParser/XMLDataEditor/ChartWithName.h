@@ -5,6 +5,8 @@
 #define CONCAT2(a, b) a ## b
 //#define CONCAT(a, b) CONCAT2(a, b)
 
+//#define GET_DATA_BY_INDEX(Object,Index)Object->GetData##Index();
+
 #define		GET_VARIABLE_NAME(VARIABLE)std::wstring CONCAT2(Get,VARIABLE)Name(){ return L#VARIABLE; }
 
 #define	GET_FLOAT_DATA_FROM_ATTRIBUTE(VariableName,Attribute)\
@@ -39,6 +41,24 @@ public: int	Get##VariableName()\
 	return m_i##VariableName;\
 }\
 GET_VARIABLE_NAME(VariableName)
+
+
+#define	GET_INT_DATA_FROM_ATTRIBUTE2(VariableName,Attribute,Index)\
+private:	int m_i##VariableName;\
+public: int	Get##VariableName()\
+{\
+	if( m_i##VariableName == -1 )\
+	{\
+		std::wstring l_strValue = this->getValue(Attribute);\
+		if( l_strValue.length() > 0 )\
+		{\
+			m_i##VariableName = GetInt(l_strValue);\
+		}\
+	}\
+	return m_i##VariableName;\
+}\
+GET_VARIABLE_NAME(VariableName)\
+//float GetData##Index(){ return (float)Get##VariableName(); }
 
 
 
@@ -83,6 +103,7 @@ public:
 		std::wstring					m_Name;
 		Vector2							m_vMaxValue;
 		sNameAndData(){m_vMaxValue.x = m_vMaxValue.y = 0.f;}
+		~sNameAndData(){}
 	};
 	std::vector<int>					m_RenderIndex;
 	std::vector<sNameAndData*>			m_LineDataVector;

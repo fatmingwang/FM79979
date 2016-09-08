@@ -46,11 +46,13 @@ namespace XMLDataEditor
 			m_iFirstStagePickUpCount = 0;
 			m_iFirstStageCoinCount = 0;
 			m_fFirstSgateTime = 0.f;
+			Main_tabControl->SelectedIndex = 1;
 		}
 
 	protected:
 		~Form1()
 		{
+			this->timer1->Enabled = false;
 			if (components)
 			{
 				delete components;
@@ -108,12 +110,17 @@ namespace XMLDataEditor
 	private: System::Windows::Forms::TabPage^  Shop;
 
 	private: System::Windows::Forms::ListBox^  EnemyData_listBox;
-	private: System::Windows::Forms::ListBox^  listBox1;
+
 	private: System::Windows::Forms::ListBox^  ShopData_listBox;
 	private: System::Windows::Forms::SplitContainer^  splitContainer1;
 	private: System::Windows::Forms::TabPage^  Monster_tabPage;
 	private: System::Windows::Forms::ListBox^  MonsterStatusShowCurve_listBox;
 	private: System::Windows::Forms::ListBox^  MonsterData_listBox;
+	private: System::Windows::Forms::ListBox^  EnemyStatus_listBox;
+	private: System::Windows::Forms::ListBox^  ShopStatus_listBox;
+	private: System::Windows::Forms::CheckBox^  MonsterShowValue_checkBox;
+	private: System::Windows::Forms::CheckBox^  EnemyShowValue_checkBox;
+	private: System::Windows::Forms::CheckBox^  ShopShowValue_checkBox;
 
 
 
@@ -147,12 +154,16 @@ namespace XMLDataEditor
 			this->GameData_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->GameData_tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->Monster_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->MonsterShowValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->MonsterStatusShowCurve_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->MonsterData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->Enemy_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->EnemyShowValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->EnemyStatus_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->EnemyData_listBox = (gcnew System::Windows::Forms::ListBox());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->Shop = (gcnew System::Windows::Forms::TabPage());
+			this->ShopShowValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->ShopStatus_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ShopData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
@@ -328,6 +339,7 @@ namespace XMLDataEditor
 			// 
 			// Monster_tabPage
 			// 
+			this->Monster_tabPage->Controls->Add(this->MonsterShowValue_checkBox);
 			this->Monster_tabPage->Controls->Add(this->MonsterStatusShowCurve_listBox);
 			this->Monster_tabPage->Controls->Add(this->MonsterData_listBox);
 			this->Monster_tabPage->Location = System::Drawing::Point(4, 22);
@@ -338,11 +350,22 @@ namespace XMLDataEditor
 			this->Monster_tabPage->Text = L"Monster";
 			this->Monster_tabPage->UseVisualStyleBackColor = true;
 			// 
+			// MonsterShowValue_checkBox
+			// 
+			this->MonsterShowValue_checkBox->AutoSize = true;
+			this->MonsterShowValue_checkBox->Location = System::Drawing::Point(22, 462);
+			this->MonsterShowValue_checkBox->Name = L"MonsterShowValue_checkBox";
+			this->MonsterShowValue_checkBox->Size = System::Drawing::Size(80, 17);
+			this->MonsterShowValue_checkBox->TabIndex = 2;
+			this->MonsterShowValue_checkBox->Text = L"ShowValue";
+			this->MonsterShowValue_checkBox->UseVisualStyleBackColor = true;
+			this->MonsterShowValue_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::MonsterShowValue_checkBox_CheckedChanged);
+			// 
 			// MonsterStatusShowCurve_listBox
 			// 
 			this->MonsterStatusShowCurve_listBox->FormattingEnabled = true;
-			this->MonsterStatusShowCurve_listBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {L"HP", L"STR", L"Stamina", 
-				L"Exp", L"CoinCost", L"TimeCost", L"CrystalCost"});
+			this->MonsterStatusShowCurve_listBox->Items->AddRange(gcnew cli::array< System::Object^  >(8) {L"HP", L"STR", L"Stamina", 
+				L"Exp", L"CoinCost", L"TimeCost", L"CrystalCost", L"Skill CD"});
 			this->MonsterStatusShowCurve_listBox->Location = System::Drawing::Point(6, 308);
 			this->MonsterStatusShowCurve_listBox->Name = L"MonsterStatusShowCurve_listBox";
 			this->MonsterStatusShowCurve_listBox->Size = System::Drawing::Size(267, 147);
@@ -354,13 +377,16 @@ namespace XMLDataEditor
 			this->MonsterData_listBox->FormattingEnabled = true;
 			this->MonsterData_listBox->Location = System::Drawing::Point(3, 3);
 			this->MonsterData_listBox->Name = L"MonsterData_listBox";
+			this->MonsterData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiSimple;
 			this->MonsterData_listBox->Size = System::Drawing::Size(283, 290);
 			this->MonsterData_listBox->TabIndex = 0;
+			this->MonsterData_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::MonsterData_listBox_SelectedIndexChanged);
 			// 
 			// Enemy_tabPage
 			// 
+			this->Enemy_tabPage->Controls->Add(this->EnemyShowValue_checkBox);
+			this->Enemy_tabPage->Controls->Add(this->EnemyStatus_listBox);
 			this->Enemy_tabPage->Controls->Add(this->EnemyData_listBox);
-			this->Enemy_tabPage->Controls->Add(this->listBox1);
 			this->Enemy_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Enemy_tabPage->Name = L"Enemy_tabPage";
 			this->Enemy_tabPage->Padding = System::Windows::Forms::Padding(3);
@@ -369,26 +395,42 @@ namespace XMLDataEditor
 			this->Enemy_tabPage->Text = L"Enemy";
 			this->Enemy_tabPage->UseVisualStyleBackColor = true;
 			// 
+			// EnemyShowValue_checkBox
+			// 
+			this->EnemyShowValue_checkBox->AutoSize = true;
+			this->EnemyShowValue_checkBox->Location = System::Drawing::Point(50, 638);
+			this->EnemyShowValue_checkBox->Name = L"EnemyShowValue_checkBox";
+			this->EnemyShowValue_checkBox->Size = System::Drawing::Size(80, 17);
+			this->EnemyShowValue_checkBox->TabIndex = 3;
+			this->EnemyShowValue_checkBox->Text = L"ShowValue";
+			this->EnemyShowValue_checkBox->UseVisualStyleBackColor = true;
+			this->EnemyShowValue_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::EnemyShowValue_checkBox_CheckedChanged);
+			// 
+			// EnemyStatus_listBox
+			// 
+			this->EnemyStatus_listBox->FormattingEnabled = true;
+			this->EnemyStatus_listBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {L"HP", L"STR", L"TIME_ADD", L"TIME_MINUS", 
+				L"SPEED", L"CLOSE_SPEED", L"SKILL_TIME_REDUCE"});
+			this->EnemyStatus_listBox->Location = System::Drawing::Point(3, 393);
+			this->EnemyStatus_listBox->Name = L"EnemyStatus_listBox";
+			this->EnemyStatus_listBox->Size = System::Drawing::Size(277, 225);
+			this->EnemyStatus_listBox->TabIndex = 2;
+			this->EnemyStatus_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::EnemyStatus_listBox_SelectedIndexChanged);
+			// 
 			// EnemyData_listBox
 			// 
-			this->EnemyData_listBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->EnemyData_listBox->FormattingEnabled = true;
-			this->EnemyData_listBox->Location = System::Drawing::Point(3, 3);
+			this->EnemyData_listBox->Location = System::Drawing::Point(3, 6);
 			this->EnemyData_listBox->Name = L"EnemyData_listBox";
-			this->EnemyData_listBox->Size = System::Drawing::Size(283, 842);
+			this->EnemyData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiSimple;
+			this->EnemyData_listBox->Size = System::Drawing::Size(283, 381);
 			this->EnemyData_listBox->TabIndex = 1;
-			// 
-			// listBox1
-			// 
-			this->listBox1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->Location = System::Drawing::Point(3, 3);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(283, 842);
-			this->listBox1->TabIndex = 0;
+			this->EnemyData_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::EnemyData_listBox_SelectedIndexChanged);
 			// 
 			// Shop
 			// 
+			this->Shop->Controls->Add(this->ShopShowValue_checkBox);
+			this->Shop->Controls->Add(this->ShopStatus_listBox);
 			this->Shop->Controls->Add(this->ShopData_listBox);
 			this->Shop->Location = System::Drawing::Point(4, 22);
 			this->Shop->Name = L"Shop";
@@ -397,13 +439,32 @@ namespace XMLDataEditor
 			this->Shop->Text = L"Shop";
 			this->Shop->UseVisualStyleBackColor = true;
 			// 
+			// ShopShowValue_checkBox
+			// 
+			this->ShopShowValue_checkBox->AutoSize = true;
+			this->ShopShowValue_checkBox->Location = System::Drawing::Point(42, 566);
+			this->ShopShowValue_checkBox->Name = L"ShopShowValue_checkBox";
+			this->ShopShowValue_checkBox->Size = System::Drawing::Size(80, 17);
+			this->ShopShowValue_checkBox->TabIndex = 2;
+			this->ShopShowValue_checkBox->Text = L"ShowValue";
+			this->ShopShowValue_checkBox->UseVisualStyleBackColor = true;
+			this->ShopShowValue_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::ShopShowValue_checkBox_CheckedChanged);
+			// 
+			// ShopStatus_listBox
+			// 
+			this->ShopStatus_listBox->FormattingEnabled = true;
+			this->ShopStatus_listBox->Location = System::Drawing::Point(3, 412);
+			this->ShopStatus_listBox->Name = L"ShopStatus_listBox";
+			this->ShopStatus_listBox->Size = System::Drawing::Size(289, 147);
+			this->ShopStatus_listBox->TabIndex = 1;
+			// 
 			// ShopData_listBox
 			// 
-			this->ShopData_listBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->ShopData_listBox->FormattingEnabled = true;
-			this->ShopData_listBox->Location = System::Drawing::Point(0, 0);
+			this->ShopData_listBox->Location = System::Drawing::Point(3, 3);
 			this->ShopData_listBox->Name = L"ShopData_listBox";
-			this->ShopData_listBox->Size = System::Drawing::Size(289, 848);
+			this->ShopData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiSimple;
+			this->ShopData_listBox->Size = System::Drawing::Size(289, 394);
 			this->ShopData_listBox->TabIndex = 0;
 			// 
 			// button1
@@ -454,8 +515,11 @@ namespace XMLDataEditor
 			this->GameData_tabPage->ResumeLayout(false);
 			this->GameData_tabControl->ResumeLayout(false);
 			this->Monster_tabPage->ResumeLayout(false);
+			this->Monster_tabPage->PerformLayout();
 			this->Enemy_tabPage->ResumeLayout(false);
+			this->Enemy_tabPage->PerformLayout();
 			this->Shop->ResumeLayout(false);
+			this->Shop->PerformLayout();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -663,6 +727,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
+			this->m_pGameApp->m_svBGColor = Vector4(0,0,0,1);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 			glClearDepth(1.0f);
 			glAlphaFunc(GL_GREATER,0.0001f);
@@ -771,8 +836,10 @@ private: System::Void ShowParameterValue_checkBox_CheckedChanged(System::Object^
 		 }
 private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e) 
 		 {
+			 m_bWaitParseFile = true;
 			 std::string l_strLastDirectory;
 			 const char*l_strDirectory = "mr_xml_directory.txt";
+			 //const char*l_strDirectory = "";
 			 cBinaryFile l_cBinaryFile;
 			 if(l_cBinaryFile.Openfile(l_strDirectory))
 			 {
@@ -824,13 +891,58 @@ private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs
 
 					}
 				}
-				
 			 }
 			 l_cBinaryFile.CloseFile();
+			 m_bWaitParseFile = false;
 		 }
+private:System::Void	MyRenderFlagChange(GCFORM::ListBox^e_pListBox,sGameData::sRenderFlagControl*e_pRenderFlagControl)
+		{
+			 int l_iIndxe = e_pListBox->SelectedIndex;
+			 if( l_iIndxe != -1 )
+			 {
+				 e_pRenderFlagControl->m_iRenderFlag = 1<<l_iIndxe;
+			 }
+			 else
+			 {
+				e_pRenderFlagControl->m_iRenderFlag = 0;
+			 }		
+		}
+private:System::Void	MyRenderIndexChange(GCFORM::ListBox^e_pListBox,sGameData::sRenderFlagControl*e_pRenderFlagControl)
+		{
+			 e_pRenderFlagControl->m_RenderIndexVector.clear();
+			 for(int i = 0 ;i<e_pListBox->SelectedIndices->Count;++i)
+			 {
+				 int l_iIndex = e_pListBox->SelectedIndices[i];
+				 e_pRenderFlagControl->m_RenderIndexVector.push_back(l_iIndex);
+			 }	
+		}
 private: System::Void MonsterStatusShowCurve_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
-
+			 MyRenderFlagChange(MonsterStatusShowCurve_listBox,&this->m_pGameData->m_pGameData->m_MonsterRenderFlagControl);
+		 }
+private: System::Void MonsterData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 MyRenderIndexChange(MonsterData_listBox,&this->m_pGameData->m_pGameData->m_MonsterRenderFlagControl);
+		 }
+private: System::Void EnemyStatus_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 MyRenderFlagChange(EnemyStatus_listBox,&this->m_pGameData->m_pGameData->m_EnemyRenderFlagControl);
+		 }
+private: System::Void EnemyData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 MyRenderIndexChange(EnemyData_listBox,&this->m_pGameData->m_pGameData->m_EnemyRenderFlagControl);
+		 }
+private: System::Void MonsterShowValue_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->m_pGameData->m_pGameData->m_MonsterRenderFlagControl.m_bShowValue = MonsterShowValue_checkBox->Checked;
+		 }
+private: System::Void EnemyShowValue_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->m_pGameData->m_pGameData->m_EnemyRenderFlagControl.m_bShowValue = EnemyShowValue_checkBox->Checked;
+		 }
+private: System::Void ShopShowValue_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->m_pGameData->m_pGameData->m_ShopRenderFlagControl.m_bShowValue = ShopShowValue_checkBox->Checked;
 		 }
 };
 }
