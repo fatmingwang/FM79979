@@ -12,6 +12,9 @@
     <Filter Include="Compress">
       <UniqueIdentifier>{ef54ae55-9f14-4262-8e51-379269ace805}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MR">
+      <UniqueIdentifier>{cd1bf618-bf73-4d07-822c-f48889a632b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -26,17 +29,17 @@
     <ClInclude Include="..\XML\StringCompress.h">
       <Filter>Compress</Filter>
     </ClInclude>
-    <ClInclude Include="StageParser.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="DataCurve.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="ChartWithName.h">
-      <Filter>Header</Filter>
+      <Filter>MR</Filter>
     </ClInclude>
     <ClInclude Include="GameData.h">
-      <Filter>Header</Filter>
+      <Filter>MR</Filter>
+    </ClInclude>
+    <ClInclude Include="StageParser.h">
+      <Filter>MR</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,13 +58,15 @@
     <ClCompile Include="..\XML\StringCompress.cpp">
       <Filter>Compress</Filter>
     </ClCompile>
-    <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="ChartWithName.cpp">
-      <Filter>Source</Filter>
+      <Filter>MR</Filter>
     </ClCompile>
     <ClCompile Include="GameData.cpp">
-      <Filter>Source</Filter>
+      <Filter>MR</Filter>
+    </ClCompile>
+    <ClCompile Include="StageParser.cpp">
+      <Filter>MR</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

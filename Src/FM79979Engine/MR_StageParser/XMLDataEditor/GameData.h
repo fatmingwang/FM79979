@@ -36,21 +36,25 @@ struct sGameData:public sXmlNode
 	//
 	struct sMonsterInfo:public sXmlNode,public cChartWithName
 	{
-		cLinerDataProcessor<Vector3>*	m_pHPData;
-		cLinerDataProcessor<Vector3>*	m_pSTRData;
-		cLinerDataProcessor<Vector3>*	m_pStaminaData;
+		cChartWithName::sNameAndData*	m_pHPData;
+		cChartWithName::sNameAndData*	m_pSTRData;
+		cChartWithName::sNameAndData*	m_pStaminaData;
+		cChartWithName					m_AllRenderData;
+		//std::vector<std::wstring>					m_AllRenderData;
+		void							SetRenderData();
 		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
 			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
 			GET_INT_DATA_FROM_ATTRIBUTE(STR,L"Strength");
 			GET_INT_DATA_FROM_ATTRIBUTE(Stamina,L"Stamina");
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
-			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"Level");
+			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"level");
 			sLevelInfo();
 			~sLevelInfo();
 		};
 		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 		sMonsterInfo();
+		sMonsterInfo(const sMonsterInfo&e_MonsterInfo);
 		~sMonsterInfo();
 		//std::vector<sLevelInfo>	m_LevelInfoVector;
 		std::wstring	GetMonsterName();
@@ -59,7 +63,7 @@ struct sGameData:public sXmlNode
 
 	struct sMonsterShop:public sXmlNode,public cChartWithName
 	{
-		std::map<std::wstring,cSimpleFunctionPointerHelp>	m_NameAndValueMap;
+		std::map<std::wstring,cSimpleFunctionPointerHelp*>	m_NameAndValueMap;
 		GET_INT_DATA_FROM_ATTRIBUTE(MonsterID,L"monster");
 		GET_INT_DATA_FROM_ATTRIBUTE(STR,L"strengthpoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(HP,L"lifepoint");
@@ -68,12 +72,21 @@ struct sGameData:public sXmlNode
 		GET_INT_DATA_FROM_ATTRIBUTE(Price,L"price");
 		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");
 		std::map<std::wstring,float>				GetAttributeNameAndValue();
+		void		Init();
+		sMonsterShop(const sMonsterShop&e_MonsterShop);
 		sMonsterShop();
 		~sMonsterShop();
 	};
 
 	struct sEnemyStatus:public cChartWithName
 	{
+		cLinerDataProcessor<Vector3>*	m_pHPData;
+		cLinerDataProcessor<Vector3>*	m_pSTRData;
+		cLinerDataProcessor<Vector3>*	m_pTimeAdd;
+		cLinerDataProcessor<Vector3>*	m_pTimeMinus;
+		cLinerDataProcessor<Vector3>*	m_pSpeed;
+		cLinerDataProcessor<Vector3>*	m_pCloseSpeed;
+		cLinerDataProcessor<Vector3>*	m_pSkillTimeReduce;
 		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
 			GET_INT_DATA_FROM_ATTRIBUTE(HP,L"Health");
@@ -86,8 +99,12 @@ struct sGameData:public sXmlNode
 			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"Level");
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 			sLevelInfo();
+			sLevelInfo(const sLevelInfo& e_LevelInfo);
 			~sLevelInfo();
 		};
+		sEnemyStatus();
+		sEnemyStatus(const sEnemyStatus& e_EnemyStatus);
+		~sEnemyStatus();
 		//std::vector<sLevelInfo>		m_LevelInfoVector;
 		//
 		std::wstring	GetMonsterName();
@@ -95,6 +112,26 @@ struct sGameData:public sXmlNode
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 		
 	};
+	//bind data to lines
+	void									Init();
+	float									m_fShopStartPosX;
+	float									m_fShopStartPosY;
+	float									m_fShopGapX;
+	float									m_fMonsterInfoStartPosX;
+	float									m_fMonsterInfoStartPosY;
+	float									m_fMonsterInfoGapX;
+	float									m_fMonsterStatusGapX;
+	float									m_fEnemyStartPosX;
+	float									m_fEnemyStartPosY;
+	float									m_fEnemyGapX;
+	float									m_fEnemyStatusGapX;
+	//
+	Vector2									m_vMonsterRect;
+	float									m_fMonsterScale;
+	float									m_fShopScale;
+	float									m_fEnemyScale;
+	//
+
 	std::vector<std::function<void()>>		m_RenderFunctionPointerVector;
 	std::vector<std::function<void(float)>>	m_UpdateFunctionPointerVector;
 	void									MonsterRender();
@@ -109,27 +146,19 @@ public:
 			//std::vector<sXmlNode> ShopDataVector;
 	sGameData();
 	~sGameData();
-	//bind data to lines
-	void									Init();
-	float									m_fShopStartPosX;
-	float									m_fShopStartPosY;
-	float									m_fShopGapX;
-	float									m_fMonsterInfoStartPosX;
-	float									m_fMonsterInfoStartPosY;
-	float									m_fMonsterInfoGapX;
-	float									m_fMonsterStatusGapX;
-	float									m_fEnemyStartPosX;
-	float									m_fEnemyStartPosY;
-	float									m_fEnemyGapX;
 	//
-	std::vector<sMonsterInfo>				m_MonsterInfoVector;
+	int											m_iRenderMonsterFlasg;
+	std::vector<int>							m_MonsterRenderIndex;
+	std::vector<sMonsterInfo*>					m_MonsterInfoVector;
+	std::vector<Vector2>						m_MonsterInfoMaxVector;
 	//monster ID.
-	std::map<int,std::vector<sMonsterShop>>	m_MonsterShopDataMap;
-	std::vector<sEnemyStatus>				m_EnemyStatusVector;
+	std::map<int,std::vector<sMonsterShop*>*>	m_MonsterShopDataMap;
+	std::vector<sEnemyStatus*>					m_EnemyStatusVector;
 
 
 	sMonsterInfo*		GetMonsterInfo(int e_iID);
 	sEnemyStatus*		GetEnemyStatus(int e_iID);
+	std::wstring		GetMonsterName(int e_iID);
 	//1<11 monster,1<<2enemy,1<<3 shop
 	void									Render(int e_iTargetFlag);
 	void									Update(int e_iTargetFlag,float e_fElpaseTime);
@@ -138,18 +167,19 @@ public:
 
 class cGameData
 {
-	sGameData*	m_pGameData;
 	//
 	std::string m_strFirectory;
 	//
 	std::string	m_strShopFileName;
 	bool		ParseShopFile(const char*e_strFileName);
 	//
+	std::string	m_strMonsterFileName;
 	std::string	m_strMonsterLevelFileName;
 	std::string	m_strMonsterHealthFileName;
 	std::string	m_strMonsterStregthFileName;
 	std::string	m_strMonsterStaminaFileName;
-	bool		ParseMonsterFile(const char*e_strFileName,
+	bool		ParseMonsterFile(const char*e_strMonsterFileName,
+		const char*e_strMonsterLevelFileName,
 		const char*e_strStaminaFileName,
 		const char*e_strStregthFileName,
 		const char*e_strHealthFileName);
@@ -158,9 +188,10 @@ class cGameData
 	bool		ParseNPCInfoFile(const char*e_strFileName);
 	//
 public:
+	sGameData*	m_pGameData;
 	cGameData();
 	~cGameData();
-	void	Parse(const char*e_strDirectory);
+	bool	Parse(const char*e_strDirectory);
 	void	Render();
 	void	Update(float e_fElpaseTime);
 };

@@ -6,7 +6,7 @@
 #include "../XML/StringCompress.h"
 
 #include "StageParser.h"
-#include "ChartWithName.h"
+#include "GameData.h"
 
 namespace XMLDataEditor 
 {
@@ -18,15 +18,6 @@ namespace XMLDataEditor
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Form1 的摘要
-	///
-	/// 警告: 如果您變更這個類別的名稱，就必須變更與這個類別所依據之所有 .resx 檔案關聯的
-	///          Managed 資源編譯器工具的 'Resource File Name' 屬性。
-	///          否則，這些設計工具
-	///          將無法與這個表單關聯的當地語系化資源
-	///          正確互動。
-	/// </summary>
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
 	public:
@@ -67,9 +58,11 @@ namespace XMLDataEditor
 			SAFE_DELETE(m_pOrthogonalCamera);
 			SAFE_DELETE(m_pGameApp);
 			SAFE_DELETE(m_pStageParser);
+			SAFE_DELETE(m_pGameData);
 			SAFE_DELETE(m_pChartWithName);
 		}
 //my
+		cGameData*			m_pGameData;
 		cStageParser*		m_pStageParser;
 		cChartWithName*		m_pChartWithName;
 		cGameApp*			m_pGameApp;
@@ -101,12 +94,29 @@ namespace XMLDataEditor
 	private: System::Windows::Forms::Label^  RenderMode_label;
 	private: System::Windows::Forms::ListBox^  RenderParameterIndex_listBox;
 	private: System::Windows::Forms::CheckBox^  ShowParameterValue_checkBox;
-	private: System::Windows::Forms::TabControl^  tabControl1;
+	private: System::Windows::Forms::TabControl^  Main_tabControl;
+
+
 	private: System::Windows::Forms::TabPage^  Gameplay_tabPage;
 	private: System::Windows::Forms::TabPage^  GameData_tabPage;
 
 
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::TabControl^  GameData_tabControl;
+
+	private: System::Windows::Forms::TabPage^  Enemy_tabPage;
+	private: System::Windows::Forms::TabPage^  Shop;
+
+	private: System::Windows::Forms::ListBox^  EnemyData_listBox;
+	private: System::Windows::Forms::ListBox^  listBox1;
+	private: System::Windows::Forms::ListBox^  ShopData_listBox;
+	private: System::Windows::Forms::SplitContainer^  splitContainer1;
+	private: System::Windows::Forms::TabPage^  Monster_tabPage;
+	private: System::Windows::Forms::ListBox^  MonsterStatusShowCurve_listBox;
+	private: System::Windows::Forms::ListBox^  MonsterData_listBox;
+
+
+
 	private: System::ComponentModel::IContainer^  components;
 			 /// <summary>
 		/// </summary>
@@ -132,17 +142,36 @@ namespace XMLDataEditor
 			this->RenderMode_label = (gcnew System::Windows::Forms::Label());
 			this->RenderParameterIndex_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ShowParameterValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
-			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->Main_tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->Gameplay_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->GameData_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->GameData_tabControl = (gcnew System::Windows::Forms::TabControl());
+			this->Monster_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->MonsterStatusShowCurve_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->MonsterData_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->Enemy_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->EnemyData_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->Shop = (gcnew System::Windows::Forms::TabPage());
+			this->ShopData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->tabControl1->SuspendLayout();
+			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
+			this->Main_tabControl->SuspendLayout();
 			this->Gameplay_tabPage->SuspendLayout();
+			this->GameData_tabPage->SuspendLayout();
+			this->GameData_tabControl->SuspendLayout();
+			this->Monster_tabPage->SuspendLayout();
+			this->Enemy_tabPage->SuspendLayout();
+			this->Shop->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
+			this->splitContainer1->Panel1->SuspendLayout();
+			this->splitContainer1->Panel2->SuspendLayout();
+			this->splitContainer1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// FileName_textBox
 			// 
-			this->FileName_textBox->Location = System::Drawing::Point(12, 12);
+			this->FileName_textBox->Location = System::Drawing::Point(3, 12);
 			this->FileName_textBox->Name = L"FileName_textBox";
 			this->FileName_textBox->Size = System::Drawing::Size(276, 20);
 			this->FileName_textBox->TabIndex = 0;
@@ -150,7 +179,7 @@ namespace XMLDataEditor
 			// 
 			// OpenFile_button
 			// 
-			this->OpenFile_button->Location = System::Drawing::Point(12, 38);
+			this->OpenFile_button->Location = System::Drawing::Point(3, 38);
 			this->OpenFile_button->Name = L"OpenFile_button";
 			this->OpenFile_button->Size = System::Drawing::Size(117, 29);
 			this->OpenFile_button->TabIndex = 1;
@@ -163,7 +192,7 @@ namespace XMLDataEditor
 			this->Node_listBox->FormattingEnabled = true;
 			this->Node_listBox->Location = System::Drawing::Point(6, 16);
 			this->Node_listBox->Name = L"Node_listBox";
-			this->Node_listBox->Size = System::Drawing::Size(211, 485);
+			this->Node_listBox->Size = System::Drawing::Size(270, 459);
 			this->Node_listBox->TabIndex = 2;
 			this->Node_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::Node_listBox_SelectedIndexChanged);
 			// 
@@ -179,7 +208,7 @@ namespace XMLDataEditor
 			// NodeGroupAndCount_listBox
 			// 
 			this->NodeGroupAndCount_listBox->FormattingEnabled = true;
-			this->NodeGroupAndCount_listBox->Location = System::Drawing::Point(6, 520);
+			this->NodeGroupAndCount_listBox->Location = System::Drawing::Point(6, 500);
 			this->NodeGroupAndCount_listBox->Name = L"NodeGroupAndCount_listBox";
 			this->NodeGroupAndCount_listBox->Size = System::Drawing::Size(169, 186);
 			this->NodeGroupAndCount_listBox->TabIndex = 4;
@@ -187,7 +216,7 @@ namespace XMLDataEditor
 			// NodeGroupAndCount_label
 			// 
 			this->NodeGroupAndCount_label->AutoSize = true;
-			this->NodeGroupAndCount_label->Location = System::Drawing::Point(3, 504);
+			this->NodeGroupAndCount_label->Location = System::Drawing::Point(3, 484);
 			this->NodeGroupAndCount_label->Name = L"NodeGroupAndCount_label";
 			this->NodeGroupAndCount_label->Size = System::Drawing::Size(96, 13);
 			this->NodeGroupAndCount_label->TabIndex = 5;
@@ -195,9 +224,10 @@ namespace XMLDataEditor
 			// 
 			// OpemnGL_panel
 			// 
-			this->OpemnGL_panel->Location = System::Drawing::Point(325, 2);
+			this->OpemnGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->OpemnGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OpemnGL_panel->Name = L"OpemnGL_panel";
-			this->OpemnGL_panel->Size = System::Drawing::Size(1547, 948);
+			this->OpemnGL_panel->Size = System::Drawing::Size(1547, 982);
 			this->OpemnGL_panel->TabIndex = 7;
 			// 
 			// timer1
@@ -210,7 +240,7 @@ namespace XMLDataEditor
 			// 
 			this->RenderMode_listBox->FormattingEnabled = true;
 			this->RenderMode_listBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"Map", L"ChartCompare"});
-			this->RenderMode_listBox->Location = System::Drawing::Point(181, 542);
+			this->RenderMode_listBox->Location = System::Drawing::Point(181, 512);
 			this->RenderMode_listBox->Name = L"RenderMode_listBox";
 			this->RenderMode_listBox->Size = System::Drawing::Size(118, 43);
 			this->RenderMode_listBox->TabIndex = 10;
@@ -218,7 +248,7 @@ namespace XMLDataEditor
 			// RenderMode_label
 			// 
 			this->RenderMode_label->AutoSize = true;
-			this->RenderMode_label->Location = System::Drawing::Point(178, 517);
+			this->RenderMode_label->Location = System::Drawing::Point(178, 487);
 			this->RenderMode_label->Name = L"RenderMode_label";
 			this->RenderMode_label->Size = System::Drawing::Size(69, 13);
 			this->RenderMode_label->TabIndex = 11;
@@ -227,17 +257,17 @@ namespace XMLDataEditor
 			// RenderParameterIndex_listBox
 			// 
 			this->RenderParameterIndex_listBox->FormattingEnabled = true;
-			this->RenderParameterIndex_listBox->Location = System::Drawing::Point(4, 735);
+			this->RenderParameterIndex_listBox->Location = System::Drawing::Point(3, 704);
 			this->RenderParameterIndex_listBox->Name = L"RenderParameterIndex_listBox";
 			this->RenderParameterIndex_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiSimple;
-			this->RenderParameterIndex_listBox->Size = System::Drawing::Size(169, 173);
+			this->RenderParameterIndex_listBox->Size = System::Drawing::Size(169, 160);
 			this->RenderParameterIndex_listBox->TabIndex = 12;
 			this->RenderParameterIndex_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::RenderParameterIndex_listBox_SelectedIndexChanged);
 			// 
 			// ShowParameterValue_checkBox
 			// 
 			this->ShowParameterValue_checkBox->AutoSize = true;
-			this->ShowParameterValue_checkBox->Location = System::Drawing::Point(4, 712);
+			this->ShowParameterValue_checkBox->Location = System::Drawing::Point(169, 687);
 			this->ShowParameterValue_checkBox->Name = L"ShowParameterValue_checkBox";
 			this->ShowParameterValue_checkBox->Size = System::Drawing::Size(128, 17);
 			this->ShowParameterValue_checkBox->TabIndex = 13;
@@ -245,15 +275,15 @@ namespace XMLDataEditor
 			this->ShowParameterValue_checkBox->UseVisualStyleBackColor = true;
 			this->ShowParameterValue_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::ShowParameterValue_checkBox_CheckedChanged);
 			// 
-			// tabControl1
+			// Main_tabControl
 			// 
-			this->tabControl1->Controls->Add(this->Gameplay_tabPage);
-			this->tabControl1->Controls->Add(this->GameData_tabPage);
-			this->tabControl1->Location = System::Drawing::Point(8, 73);
-			this->tabControl1->Name = L"tabControl1";
-			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(311, 938);
-			this->tabControl1->TabIndex = 0;
+			this->Main_tabControl->Controls->Add(this->Gameplay_tabPage);
+			this->Main_tabControl->Controls->Add(this->GameData_tabPage);
+			this->Main_tabControl->Location = System::Drawing::Point(12, 73);
+			this->Main_tabControl->Name = L"Main_tabControl";
+			this->Main_tabControl->SelectedIndex = 0;
+			this->Main_tabControl->Size = System::Drawing::Size(311, 906);
+			this->Main_tabControl->TabIndex = 0;
 			// 
 			// Gameplay_tabPage
 			// 
@@ -268,24 +298,117 @@ namespace XMLDataEditor
 			this->Gameplay_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Gameplay_tabPage->Name = L"Gameplay_tabPage";
 			this->Gameplay_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->Gameplay_tabPage->Size = System::Drawing::Size(303, 912);
+			this->Gameplay_tabPage->Size = System::Drawing::Size(303, 880);
 			this->Gameplay_tabPage->TabIndex = 0;
 			this->Gameplay_tabPage->Text = L"Gameplay";
 			this->Gameplay_tabPage->UseVisualStyleBackColor = true;
 			// 
 			// GameData_tabPage
 			// 
+			this->GameData_tabPage->Controls->Add(this->GameData_tabControl);
 			this->GameData_tabPage->Location = System::Drawing::Point(4, 22);
 			this->GameData_tabPage->Name = L"GameData_tabPage";
 			this->GameData_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->GameData_tabPage->Size = System::Drawing::Size(303, 912);
+			this->GameData_tabPage->Size = System::Drawing::Size(303, 880);
 			this->GameData_tabPage->TabIndex = 1;
 			this->GameData_tabPage->Text = L"GameData";
 			this->GameData_tabPage->UseVisualStyleBackColor = true;
 			// 
+			// GameData_tabControl
+			// 
+			this->GameData_tabControl->Controls->Add(this->Monster_tabPage);
+			this->GameData_tabControl->Controls->Add(this->Enemy_tabPage);
+			this->GameData_tabControl->Controls->Add(this->Shop);
+			this->GameData_tabControl->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->GameData_tabControl->Location = System::Drawing::Point(3, 3);
+			this->GameData_tabControl->Name = L"GameData_tabControl";
+			this->GameData_tabControl->SelectedIndex = 0;
+			this->GameData_tabControl->Size = System::Drawing::Size(297, 874);
+			this->GameData_tabControl->TabIndex = 0;
+			// 
+			// Monster_tabPage
+			// 
+			this->Monster_tabPage->Controls->Add(this->MonsterStatusShowCurve_listBox);
+			this->Monster_tabPage->Controls->Add(this->MonsterData_listBox);
+			this->Monster_tabPage->Location = System::Drawing::Point(4, 22);
+			this->Monster_tabPage->Name = L"Monster_tabPage";
+			this->Monster_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->Monster_tabPage->Size = System::Drawing::Size(289, 848);
+			this->Monster_tabPage->TabIndex = 0;
+			this->Monster_tabPage->Text = L"Monster";
+			this->Monster_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// MonsterStatusShowCurve_listBox
+			// 
+			this->MonsterStatusShowCurve_listBox->FormattingEnabled = true;
+			this->MonsterStatusShowCurve_listBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {L"HP", L"STR", L"Stamina", 
+				L"Exp", L"CoinCost", L"TimeCost", L"CrystalCost"});
+			this->MonsterStatusShowCurve_listBox->Location = System::Drawing::Point(6, 308);
+			this->MonsterStatusShowCurve_listBox->Name = L"MonsterStatusShowCurve_listBox";
+			this->MonsterStatusShowCurve_listBox->Size = System::Drawing::Size(267, 147);
+			this->MonsterStatusShowCurve_listBox->TabIndex = 1;
+			this->MonsterStatusShowCurve_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::MonsterStatusShowCurve_listBox_SelectedIndexChanged);
+			// 
+			// MonsterData_listBox
+			// 
+			this->MonsterData_listBox->FormattingEnabled = true;
+			this->MonsterData_listBox->Location = System::Drawing::Point(3, 3);
+			this->MonsterData_listBox->Name = L"MonsterData_listBox";
+			this->MonsterData_listBox->Size = System::Drawing::Size(283, 290);
+			this->MonsterData_listBox->TabIndex = 0;
+			// 
+			// Enemy_tabPage
+			// 
+			this->Enemy_tabPage->Controls->Add(this->EnemyData_listBox);
+			this->Enemy_tabPage->Controls->Add(this->listBox1);
+			this->Enemy_tabPage->Location = System::Drawing::Point(4, 22);
+			this->Enemy_tabPage->Name = L"Enemy_tabPage";
+			this->Enemy_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->Enemy_tabPage->Size = System::Drawing::Size(289, 848);
+			this->Enemy_tabPage->TabIndex = 1;
+			this->Enemy_tabPage->Text = L"Enemy";
+			this->Enemy_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// EnemyData_listBox
+			// 
+			this->EnemyData_listBox->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->EnemyData_listBox->FormattingEnabled = true;
+			this->EnemyData_listBox->Location = System::Drawing::Point(3, 3);
+			this->EnemyData_listBox->Name = L"EnemyData_listBox";
+			this->EnemyData_listBox->Size = System::Drawing::Size(283, 842);
+			this->EnemyData_listBox->TabIndex = 1;
+			// 
+			// listBox1
+			// 
+			this->listBox1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->listBox1->FormattingEnabled = true;
+			this->listBox1->Location = System::Drawing::Point(3, 3);
+			this->listBox1->Name = L"listBox1";
+			this->listBox1->Size = System::Drawing::Size(283, 842);
+			this->listBox1->TabIndex = 0;
+			// 
+			// Shop
+			// 
+			this->Shop->Controls->Add(this->ShopData_listBox);
+			this->Shop->Location = System::Drawing::Point(4, 22);
+			this->Shop->Name = L"Shop";
+			this->Shop->Size = System::Drawing::Size(289, 848);
+			this->Shop->TabIndex = 2;
+			this->Shop->Text = L"Shop";
+			this->Shop->UseVisualStyleBackColor = true;
+			// 
+			// ShopData_listBox
+			// 
+			this->ShopData_listBox->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->ShopData_listBox->FormattingEnabled = true;
+			this->ShopData_listBox->Location = System::Drawing::Point(0, 0);
+			this->ShopData_listBox->Name = L"ShopData_listBox";
+			this->ShopData_listBox->Size = System::Drawing::Size(289, 848);
+			this->ShopData_listBox->TabIndex = 0;
+			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(171, 38);
+			this->button1->Location = System::Drawing::Point(162, 38);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(117, 29);
 			this->button1->TabIndex = 8;
@@ -293,27 +416,52 @@ namespace XMLDataEditor
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click_1);
 			// 
+			// splitContainer1
+			// 
+			this->splitContainer1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->splitContainer1->Location = System::Drawing::Point(0, 0);
+			this->splitContainer1->Name = L"splitContainer1";
+			// 
+			// splitContainer1.Panel1
+			// 
+			this->splitContainer1->Panel1->Controls->Add(this->button1);
+			this->splitContainer1->Panel1->Controls->Add(this->FileName_textBox);
+			this->splitContainer1->Panel1->Controls->Add(this->OpenFile_button);
+			this->splitContainer1->Panel1->Controls->Add(this->Main_tabControl);
+			// 
+			// splitContainer1.Panel2
+			// 
+			this->splitContainer1->Panel2->Controls->Add(this->OpemnGL_panel);
+			this->splitContainer1->Size = System::Drawing::Size(1884, 982);
+			this->splitContainer1->SplitterDistance = 333;
+			this->splitContainer1->TabIndex = 8;
+			// 
 			// Form1
 			// 
 			this->AllowDrop = true;
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 982);
-			this->Controls->Add(this->button1);
-			this->Controls->Add(this->tabControl1);
-			this->Controls->Add(this->OpemnGL_panel);
-			this->Controls->Add(this->OpenFile_button);
-			this->Controls->Add(this->FileName_textBox);
+			this->Controls->Add(this->splitContainer1);
 			this->KeyPreview = true;
 			this->Name = L"Form1";
 			this->Text = L"Form1";
 			this->WindowState = System::Windows::Forms::FormWindowState::Maximized;
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
-			this->tabControl1->ResumeLayout(false);
+			this->Main_tabControl->ResumeLayout(false);
 			this->Gameplay_tabPage->ResumeLayout(false);
 			this->Gameplay_tabPage->PerformLayout();
+			this->GameData_tabPage->ResumeLayout(false);
+			this->GameData_tabControl->ResumeLayout(false);
+			this->Monster_tabPage->ResumeLayout(false);
+			this->Enemy_tabPage->ResumeLayout(false);
+			this->Shop->ResumeLayout(false);
+			this->splitContainer1->Panel1->ResumeLayout(false);
+			this->splitContainer1->Panel1->PerformLayout();
+			this->splitContainer1->Panel2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
+			this->splitContainer1->ResumeLayout(false);
 			this->ResumeLayout(false);
-			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -385,9 +533,9 @@ private:System::Void DumpStatic()
 			m_pChartWithName->AddData(l_pHurdlwAndBreakable);
 			m_pChartWithName->AddData(l_pCoin);
 			m_pChartWithName->AddData(l_pMonsterAndDamageObject);
-			for(size_t i=0;i<m_pChartWithName->m_DataVector.size();++i)
+			for(size_t i=0;i<m_pChartWithName->m_LineDataVector.size();++i)
 			{
-				RenderParameterIndex_listBox->Items->Add(DNCT::WcharToGcstring(m_pChartWithName->m_DataVector[i]->m_Name.c_str()));
+				RenderParameterIndex_listBox->Items->Add(DNCT::WcharToGcstring(m_pChartWithName->m_LineDataVector[i]->m_Name.c_str()));
 			}
 		}
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) 
@@ -528,25 +676,48 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 				m_pOrthogonalCamera->Render();
 				m_pOrthogonalCamera->DrawGrid(100,100,Vector4(0.05f,0,0,1));
 			}
-			if( RenderMode_listBox->SelectedIndex != 1 )
+			if( Main_tabControl->SelectedIndex == 0 )
 			{
-				if( l_iSelectedIndex != -1 )
+				if( RenderMode_listBox->SelectedIndex != 1 )
 				{
-					sGameNode* l_pGameNode = &this->m_pStageParser->m_GamePlayVector[l_iSelectedIndex];
-					l_pGameNode->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-					if(l_pGameNode->MouseMove((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y))
+					if( l_iSelectedIndex != -1 )
 					{
-	//					l_pGameNode->m_ShowHitPos.x = cGameApp::m_sMousePosition.x;
-		//				l_pGameNode->m_ShowHitPos.y = cGameApp::m_sMousePosition.y;
+						sGameNode* l_pGameNode = &this->m_pStageParser->m_GamePlayVector[l_iSelectedIndex];
+						l_pGameNode->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
+						if(l_pGameNode->MouseMove((int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y))
+						{
+		//					l_pGameNode->m_ShowHitPos.x = cGameApp::m_sMousePosition.x;
+			//				l_pGameNode->m_ShowHitPos.y = cGameApp::m_sMousePosition.y;
+						}
+						l_pGameNode->RenderScene();
 					}
-					l_pGameNode->RenderScene();
+				}
+				else
+				{
+					m_pChartWithName->Render();
 				}
 			}
 			else
 			{
-				m_pChartWithName->Render();
+				if( m_pGameData )
+				{
+					switch(GameData_tabControl->SelectedIndex)
+					{
+						case 0:
+							this->m_pGameData->m_pGameData->MonsterRender();
+							break;
+						case 1:
+							this->m_pGameData->m_pGameData->EnemyRender();
+							break;
+						case 2:
+							this->m_pGameData->m_pGameData->ShopRender();
+							break;
+						default:
+							break;
+					}
+				}
 			}
-			cGameApp::ShowInfo();
+			//cGameApp::ShowInfo();
 			SwapBuffers(m_HdcMV);
 		 }
 		System::Void MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
@@ -600,11 +771,66 @@ private: System::Void ShowParameterValue_checkBox_CheckedChanged(System::Object^
 		 }
 private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e) 
 		 {
-			 String^l_strDirectory = DNCT::SelectDirectory();
-			 if(l_strDirectory)
+			 std::string l_strLastDirectory;
+			 const char*l_strDirectory = "mr_xml_directory.txt";
+			 cBinaryFile l_cBinaryFile;
+			 if(l_cBinaryFile.Openfile(l_strDirectory))
 			 {
+				 l_strLastDirectory = (char*)l_cBinaryFile.GetDataFile(0);
+				 l_strLastDirectory.resize(l_cBinaryFile.GetDataFileSize());
+			 }
+			 String^l_strDirectory3;
+			 if(l_strLastDirectory.length() == 0 || !System::IO::Directory::Exists(gcnew String(l_strLastDirectory.c_str())) )
+				l_strDirectory3 = DNCT::SelectDirectory(l_strLastDirectory.c_str());
+			else
+				l_strDirectory3 = gcnew String(l_strLastDirectory.c_str());
+			 if(l_strDirectory3)
+			 {
+				std::string l_strDirectory4 = DNCT::GcStringToChar(l_strDirectory3);
+				SAFE_DELETE(m_pGameData);
+				m_pGameData = new cGameData();
+				this->MonsterData_listBox->Items->Clear();
+				this->EnemyData_listBox->Items->Clear();
+				this->ShopData_listBox->Items->Clear();
+				if(m_pGameData->Parse(l_strDirectory4.c_str()))
+				{
+					l_cBinaryFile.CloseFile();
+					if(l_cBinaryFile.Writefile(l_strDirectory,false,true))
+					{
+						l_cBinaryFile.WriteToFile(l_strDirectory4.c_str());
+						l_cBinaryFile.CloseFile();
+					}
+				}
+				for(size_t i=0;i<m_pGameData->m_pGameData->m_EnemyStatusVector.size();++i)
+				{
+					auto l_pEnemyStatus = m_pGameData->m_pGameData->m_EnemyStatusVector[i];
+					this->EnemyData_listBox->Items->Add(gcnew String(l_pEnemyStatus->GetMonsterName().c_str()));
+				}
+				for(size_t i=0;i<m_pGameData->m_pGameData->m_MonsterInfoVector.size();++i)
+				{
+					auto l_pMonsterInfo = m_pGameData->m_pGameData->m_MonsterInfoVector[i];
+					this->MonsterData_listBox->Items->Add(gcnew String(l_pMonsterInfo->GetMonsterName().c_str()));
+				}
+				for(auto l_Iterator : m_pGameData->m_pGameData->m_MonsterShopDataMap)
+				{
+					l_Iterator.first;
+					auto l_pVector = l_Iterator.second;
+					if( l_pVector->size() > 0 )
+					//for(size_t j=0;j<l_pVector->size();++j)
+					{
+						auto l_pData  = (*l_pVector)[0];
+						std::wstring l_strMonsterName = m_pGameData->m_pGameData->GetMonsterName(l_pData->GetMonsterID());
+						this->ShopData_listBox->Items->Add(DNCT::WcharToGcstring(l_strMonsterName.c_str()));
+
+					}
+				}
 				
 			 }
+			 l_cBinaryFile.CloseFile();
+		 }
+private: System::Void MonsterStatusShowCurve_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+
 		 }
 };
 }

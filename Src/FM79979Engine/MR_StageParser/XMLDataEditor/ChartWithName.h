@@ -45,8 +45,20 @@ GET_VARIABLE_NAME(VariableName)
 struct sXmlNode
 {
 	cLinerDataProcessor<Vector3>*	m_pLineData;
-	sXmlNode(){m_pLineData = new cLinerDataProcessor<Vector3>();}
-	~sXmlNode(){ SAFE_DELETE(m_pLineData); }
+	sXmlNode(const sXmlNode &e_pXmlNode)
+	{
+		m_pLineData = new cLinerDataProcessor<Vector3>(e_pXmlNode.m_pLineData);
+		strAttributeVector = e_pXmlNode.strAttributeVector;
+		strValueVector = e_pXmlNode.strValueVector;
+	}
+	sXmlNode()
+	{
+		m_pLineData = new cLinerDataProcessor<Vector3>();
+	}
+	~sXmlNode()
+	{
+		SAFE_DELETE(m_pLineData); 
+	}
 	std::vector<std::wstring> strAttributeVector;
 	std::vector<std::wstring> strValueVector;
 	std::wstring	getNameValue();
@@ -60,6 +72,7 @@ struct sXmlNode
 class cChartWithName
 {
 public:
+	Vector2 m_vMaxValue;
 	bool	m_bShowValue;
 	int		m_ObjectIndexDistance;
 	float	m_fHeightScale;
@@ -68,9 +81,13 @@ public:
 	struct sNameAndData:public sXmlNode
 	{
 		std::wstring					m_Name;
+		Vector2							m_vMaxValue;
+		sNameAndData(){m_vMaxValue.x = m_vMaxValue.y = 0.f;}
 	};
 	std::vector<int>					m_RenderIndex;
 	std::vector<sNameAndData*>			m_LineDataVector;
 	void								AddData(sNameAndData* e_pNameAndData);
 	void								Render();
+	Vector2								GetMaxValue(int e_iIndex);
+	Vector2								GetMaxValue();
 };

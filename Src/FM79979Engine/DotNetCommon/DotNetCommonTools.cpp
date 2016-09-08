@@ -70,7 +70,8 @@ namespace DNCT
 			return "";
 
 		}
-		return	String(DNCTWcharToChar(e_str)).ToString();
+		//return	String(DNCTWcharToChar(e_str)).ToString();
+		return	String(e_str).ToString();
 	}
 	String^	ForceAddExtenName(String^e_strDest,const char*e_strExtensionName)
 	{
@@ -328,9 +329,14 @@ namespace DNCT
 			System::IO::Directory::CreateDirectory(e_strDirectory);
 	}
 
-	System::String^	SelectDirectory()
+	System::String^	SelectDirectory(const char*e_strSelectDirectory )
 	{
 		System::Windows::Forms::FolderBrowserDialog^l_p = gcnew System::Windows::Forms::FolderBrowserDialog();
+		if( e_strSelectDirectory  )
+		{
+			l_p->SelectedPath = gcnew String(e_strSelectDirectory);
+			SendKeys::Send ("{TAB}{TAB}{RIGHT}");  // <<-- Workaround
+		}
 		if(l_p->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
 			return l_p->SelectedPath+"\\";
@@ -1192,6 +1198,22 @@ namespace DNCT
 		}
 		l_pWriter->Close();
 		return true;
+	}
+
+	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName)
+	{
+		String^l_strTempFileName = e_strFileName+".tmp";
+		bool l_bResult = false;
+		if(FileToUnicode(e_strFileName,e_strencodingName,l_strTempFileName))
+		{
+			if( e_ParseFunction )
+			{
+				std::string l_strFileName = DNCT::GcStringToChar(l_strTempFileName);
+				l_bResult = e_ParseFunction(l_strFileName.c_str());
+				System::IO::File::Delete(l_strTempFileName);
+			}
+		}
+		return l_bResult;
 	}
 
 	String^	GetUseerNameAndTime()

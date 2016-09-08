@@ -417,6 +417,17 @@ namespace	FATMING_CORE
 //=========================
 	template <class T>
 	T*							cLinerDataProcessor<T>::GetData(int e_iIndex){if((int)m_LinerDataVector.size()>e_iIndex && e_iIndex!= -1)return &m_LinerDataVector[e_iIndex];return 0;}
+	template <class T>
+	bool						cLinerDataProcessor<T>::GetLastData(T&e_Data)
+	{
+		size_t l_uiSize = m_LinerDataVector.size();
+		if(l_uiSize)
+		{
+			e_Data = m_LinerDataVector[l_uiSize-1];
+			return true;
+		}
+		return false;
+	}
 //=========================
 //
 //=========================

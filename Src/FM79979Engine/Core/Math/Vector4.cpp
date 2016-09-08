@@ -14,6 +14,14 @@ const Vector4 Vector4::HalfBright(1.5f,1.5f,1.5f,1.f);
 const Vector4 Vector4::HalfBrightWithHalfAlpha(0.5f,0.5f,0.5f,0.5f);
 
 
+Vector4::Vector4(int e_Color)
+{
+	this->x = (e_Color&0xff000000)/255.f;
+	this->y = (e_Color&0x00ff0000)/255.f;
+	this->z = (e_Color&0x0000ff00)/255.f;
+	this->w = (e_Color&0x000000ff)/255.f;
+}
+
 Vector4::Vector4(const char*e_str)
 {
 	*this = FATMING_CORE::GetVector4(e_str);

@@ -116,6 +116,7 @@ namespace	FATMING_CORE
 		void						SetLOD(int e_iLOD);
 		std::vector<T>*				GetLinerDataVector();
 		T*							GetData(int e_iIndex);
+		bool						GetLastData(T&e_Data);
 		virtual	void				Init();
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Clear();

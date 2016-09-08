@@ -128,7 +128,8 @@ public:
 		@return The equivalent HSV color value. All the components will be
 			in the [0,1] range. */
 	Vector3 ToHSVColor();
-
+	//RGBA
+	Vector4(int e_Color);
 	Vector4(const char*e_str);
 	Vector4(const wchar_t*e_str);
 public:

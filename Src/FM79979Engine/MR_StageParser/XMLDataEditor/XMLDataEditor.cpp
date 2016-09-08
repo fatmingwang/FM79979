@@ -18,5 +18,7 @@ int main(array<System::String ^> ^args)
 		Application::Run(gcnew Form1(args[0]));
 	else
 		Application::Run(gcnew Form1(l_str));
+	//_CrtDumpMemoryLeaks();
+	NamedTypedObject::DumpUnReleaseInfo();
 	return 0;
 }

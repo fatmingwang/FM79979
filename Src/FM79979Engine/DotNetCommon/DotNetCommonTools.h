@@ -12,6 +12,7 @@
 #include <xstring>
 #include "assert.h"
 #include <stdio.h>
+#include <functional>
 #include "DotNetDefine.h"
 //#include "PropertyGridTypedef/AllPropertyGridInclude.h"
 
@@ -99,7 +100,7 @@ namespace DNCT
 
 
 	void	CreateDirectory(String^e_strDirectory);
-	System::String^	SelectDirectory();
+	System::String^	SelectDirectory(const char*e_strSelectDirectory = nullptr);
 	//filter string
 	//"Model Files(*.dae;*.xml;*.fat)|*.dae;*.xml;*.fat|All files (*.*)|*.*"
 	//"txt files (*.txt)|*.txt|All files (*.*)|*.*"
@@ -242,8 +243,10 @@ namespace DNCT
 	//            locale = setlocale(LC_ALL, "");
 	//#endif
 	//if you want to specify the file encoding format just give it name
-	//bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = "big5");
+	//bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = "big5");//"utf-32","utf-8"
 	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = nullptr,String^e_strNewFileName = nullptr);
+
+	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName = nullptr);
 	//configFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location
 	String^	GetUseerNameAndTime();
 

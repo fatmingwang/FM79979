@@ -91,9 +91,15 @@ std::wstring	sXmlNode::getNameValue()
 
 std::wstring	sXmlNode::getValue(const wchar_t*e_str)
 {
+	//because some genus make somw word in first character be bigger case and some lower case
+	//so I have to do this...its really qoo
+	std::wstring l_str = e_str;
+	std::transform(l_str.begin(), l_str.end(), l_str.begin(), ::tolower);
 	for(size_t i=0;i<strAttributeVector.size();++i)
 	{
-		if( strAttributeVector[i] == e_str )
+		std::wstring l_str2 = strAttributeVector[i];
+		std::transform(l_str2.begin(), l_str2.end(), l_str2.begin(), ::tolower);	
+		if( l_str2 == l_str )
 		{
 			return strValueVector[i];
 		}
