@@ -1,131 +1,132 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<root> 
-  	<node ID="1001" Level="1" Strength="10"/>
+<root>
+  <!--start=10 step=4 grident=-0.07 steep=0.007 -->
+  <node ID="1001" Level="1" Strength="10"/>  
 	<node ID="1001" Level="2" Strength="14"/>
-	<node ID="1001" Level="3" Strength="18"/>
-	<node ID="1001" Level="4" Strength="22"/>
-	<node ID="1001" Level="5" Strength="26"/>
-	<node ID="1001" Level="6" Strength="31"/>
-	<node ID="1001" Level="7" Strength="36"/>
-	<node ID="1001" Level="8" Strength="41"/>
-	<node ID="1001" Level="9" Strength="46"/>
-	<node ID="1001" Level="10" Strength="51"/>
-	<node ID="1001" Level="11" Strength="57"/>
-	<node ID="1001" Level="12" Strength="63"/>
-	<node ID="1001" Level="13" Strength="69"/>
-	<node ID="1001" Level="14" Strength="75"/>
-	<node ID="1001" Level="15" Strength="81"/>
-	
+	<node ID="1001" Level="3" Strength="17"/>
+	<node ID="1001" Level="4" Strength="21"/>
+	<node ID="1001" Level="5" Strength="24"/>
+	<node ID="1001" Level="6" Strength="27"/>
+	<node ID="1001" Level="7" Strength="30"/>
+	<node ID="1001" Level="8" Strength="33"/>
+	<node ID="1001" Level="9" Strength="35"/>
+	<node ID="1001" Level="10" Strength="38"/>
+	<node ID="1001" Level="11" Strength="41"/>
+	<node ID="1001" Level="12" Strength="43"/>
+	<node ID="1001" Level="13" Strength="46"/>
+	<node ID="1001" Level="14" Strength="48"/>
+	<node ID="1001" Level="15" Strength="51"/>
+  <!--start=15 step=6 grident=-0.02 steep=-0.007 -->
 	<node ID="1002" Level="1" Strength="15"/>
-	<node ID="1002" Level="2" Strength="19"/>
-	<node ID="1002" Level="3" Strength="23"/>
-	<node ID="1002" Level="4" Strength="27"/>
-	<node ID="1002" Level="5" Strength="31"/>
-	<node ID="1002" Level="6" Strength="35"/>
-	<node ID="1002" Level="7" Strength="39"/>
-	<node ID="1002" Level="8" Strength="43"/>
-	<node ID="1002" Level="9" Strength="47"/>
-	<node ID="1002" Level="10" Strength="51"/>
-	<node ID="1002" Level="11" Strength="59"/>
+	<node ID="1002" Level="2" Strength="20"/>
+	<node ID="1002" Level="3" Strength="26"/>
+	<node ID="1002" Level="4" Strength="32"/>
+	<node ID="1002" Level="5" Strength="37"/>
+	<node ID="1002" Level="6" Strength="43"/>
+	<node ID="1002" Level="7" Strength="48"/>
+	<node ID="1002" Level="8" Strength="52"/>
+	<node ID="1002" Level="9" Strength="56"/>
+	<node ID="1002" Level="10" Strength="60"/>
+	<node ID="1002" Level="11" Strength="64"/>
 	<node ID="1002" Level="12" Strength="67"/>
-	<node ID="1002" Level="13" Strength="75"/>
-	<node ID="1002" Level="14" Strength="83"/>
-	<node ID="1002" Level="15" Strength="91"/>
-	
-	<node ID="1003" Level="1" Strength="12"/>
-	<node ID="1003" Level="2" Strength="16"/>
-	<node ID="1003" Level="3" Strength="20"/>
-	<node ID="1003" Level="4" Strength="24"/>
-	<node ID="1003" Level="5" Strength="28"/>
-	<node ID="1003" Level="6" Strength="32"/>
-	<node ID="1003" Level="7" Strength="36"/>
-	<node ID="1003" Level="8" Strength="40"/>
-	<node ID="1003" Level="9" Strength="44"/>
-	<node ID="1003" Level="10" Strength="48"/>
-	<node ID="1003" Level="11" Strength="55"/>
-	<node ID="1003" Level="12" Strength="62"/>
-	<node ID="1003" Level="13" Strength="69"/>
-	<node ID="1003" Level="14" Strength="76"/>
+	<node ID="1002" Level="13" Strength="69"/>
+	<node ID="1002" Level="14" Strength="71"/>
+	<node ID="1002" Level="15" Strength="72"/>
+  <!--start=13 step=5 grident=-0 steep=0 -->
+	<node ID="1003" Level="1" Strength="13"/>
+	<node ID="1003" Level="2" Strength="18"/>
+	<node ID="1003" Level="3" Strength="23"/>
+	<node ID="1003" Level="4" Strength="28"/>
+	<node ID="1003" Level="5" Strength="33"/>
+	<node ID="1003" Level="6" Strength="38"/>
+	<node ID="1003" Level="7" Strength="43"/>
+	<node ID="1003" Level="8" Strength="48"/>
+	<node ID="1003" Level="9" Strength="53"/>
+	<node ID="1003" Level="10" Strength="58"/>
+	<node ID="1003" Level="11" Strength="63"/>
+	<node ID="1003" Level="12" Strength="68"/>
+	<node ID="1003" Level="13" Strength="73"/>
+	<node ID="1003" Level="14" Strength="78"/>
 	<node ID="1003" Level="15" Strength="83"/>
-	
-	<node ID="1004" Level="1" Strength="13"/>
-	<node ID="1004" Level="2" Strength="18"/>
-	<node ID="1004" Level="3" Strength="23"/>
-	<node ID="1004" Level="4" Strength="28"/>
-	<node ID="1004" Level="5" Strength="33"/>
-	<node ID="1004" Level="6" Strength="38"/>
-	<node ID="1004" Level="7" Strength="43"/>
-	<node ID="1004" Level="8" Strength="48"/>
-	<node ID="1004" Level="9" Strength="53"/>
-	<node ID="1004" Level="10" Strength="58"/>
-	<node ID="1004" Level="11" Strength="64"/>
-	<node ID="1004" Level="12" Strength="70"/>
-	<node ID="1004" Level="13" Strength="76"/>
-	<node ID="1004" Level="14" Strength="82"/>
-	<node ID="1004" Level="15" Strength="88"/>
-	
-	<node ID="1005" Level="1" Strength="18"/>
-	<node ID="1005" Level="2" Strength="22"/>
-	<node ID="1005" Level="3" Strength="26"/>
-	<node ID="1005" Level="4" Strength="30"/>
-	<node ID="1005" Level="5" Strength="34"/>
-	<node ID="1005" Level="6" Strength="38"/>
-	<node ID="1005" Level="7" Strength="42"/>
-	<node ID="1005" Level="8" Strength="46"/>
-	<node ID="1005" Level="9" Strength="50"/>
-	<node ID="1005" Level="10" Strength="54"/>
-	<node ID="1005" Level="11" Strength="61"/>
-	<node ID="1005" Level="12" Strength="68"/>
-	<node ID="1005" Level="13" Strength="75"/>
-	<node ID="1005" Level="14" Strength="82"/>
-	<node ID="1005" Level="15" Strength="89"/>
-	
-	<node ID="1006" Level="1" Strength="15"/>
-	<node ID="1006" Level="2" Strength="21"/>
-	<node ID="1006" Level="3" Strength="27"/>
-	<node ID="1006" Level="4" Strength="33"/>
-	<node ID="1006" Level="5" Strength="39"/>
-	<node ID="1006" Level="6" Strength="45"/>
-	<node ID="1006" Level="7" Strength="51"/>
-	<node ID="1006" Level="8" Strength="57"/>
-	<node ID="1006" Level="9" Strength="63"/>
-	<node ID="1006" Level="10" Strength="69"/>
-	<node ID="1006" Level="11" Strength="76"/>
-	<node ID="1006" Level="12" Strength="83"/>
-	<node ID="1006" Level="13" Strength="90"/>
-	<node ID="1006" Level="14" Strength="97"/>
-	<node ID="1006" Level="15" Strength="104"/>
-	
-	<node ID="1007" Level="1" Strength="17"/>
-	<node ID="1007" Level="2" Strength="23"/>
-	<node ID="1007" Level="3" Strength="29"/>
-	<node ID="1007" Level="4" Strength="35"/>
-	<node ID="1007" Level="5" Strength="41"/>
-	<node ID="1007" Level="6" Strength="48"/>
-	<node ID="1007" Level="7" Strength="55"/>
-	<node ID="1007" Level="8" Strength="62"/>
-	<node ID="1007" Level="9" Strength="69"/>
-	<node ID="1007" Level="10" Strength="76"/>
-	<node ID="1007" Level="11" Strength="83"/>
-	<node ID="1007" Level="12" Strength="90"/>
-	<node ID="1007" Level="13" Strength="97"/>
-	<node ID="1007" Level="14" Strength="104"/>
-	<node ID="1007" Level="15" Strength="111"/>
-	
-	<node ID="1008" Level="1" Strength="11"/>
-	<node ID="1008" Level="2" Strength="16"/>
-	<node ID="1008" Level="3" Strength="21"/>
-	<node ID="1008" Level="4" Strength="26"/>
-	<node ID="1008" Level="5" Strength="31"/>
-	<node ID="1008" Level="6" Strength="36"/>
-	<node ID="1008" Level="7" Strength="41"/>
-	<node ID="1008" Level="8" Strength="46"/>
-	<node ID="1008" Level="9" Strength="51"/>
-	<node ID="1008" Level="10" Strength="56"/>
-	<node ID="1008" Level="11" Strength="64"/>
-	<node ID="1008" Level="12" Strength="72"/>
-	<node ID="1008" Level="13" Strength="80"/>
-	<node ID="1008" Level="14" Strength="88"/>
-	<node ID="1008" Level="15" Strength="96"/>
+  <!--start=18 step=6 grident=0 steep=-0.003 -->
+	<node ID="1004" Level="1" Strength="18"/>
+	<node ID="1004" Level="2" Strength="23"/>
+	<node ID="1004" Level="3" Strength="29"/>
+	<node ID="1004" Level="4" Strength="35"/>
+	<node ID="1004" Level="5" Strength="41"/>
+	<node ID="1004" Level="6" Strength="47"/>
+	<node ID="1004" Level="7" Strength="53"/>
+	<node ID="1004" Level="8" Strength="59"/>
+	<node ID="1004" Level="9" Strength="64"/>
+	<node ID="1004" Level="10" Strength="70"/>
+	<node ID="1004" Level="11" Strength="75"/>
+	<node ID="1004" Level="12" Strength="80"/>
+	<node ID="1004" Level="13" Strength="85"/>
+	<node ID="1004" Level="14" Strength="90"/>
+	<node ID="1004" Level="15" Strength="95"/>
+  <!--start=20 step=7 grident=0.01 steep=-0.003 -->
+	<node ID="1005" Level="1" Strength="20"/>
+	<node ID="1005" Level="2" Strength="26"/>
+	<node ID="1005" Level="3" Strength="34"/>
+	<node ID="1005" Level="4" Strength="41"/>
+	<node ID="1005" Level="5" Strength="48"/>
+	<node ID="1005" Level="6" Strength="55"/>
+	<node ID="1005" Level="7" Strength="62"/>
+	<node ID="1005" Level="8" Strength="69"/>
+	<node ID="1005" Level="9" Strength="76"/>
+	<node ID="1005" Level="10" Strength="83"/>
+	<node ID="1005" Level="11" Strength="90"/>
+	<node ID="1005" Level="12" Strength="97"/>
+	<node ID="1005" Level="13" Strength="103"/>
+	<node ID="1005" Level="14" Strength="110"/>
+	<node ID="1005" Level="15" Strength="116"/>
+  <!--start=30 step=9 grident=0.21 steep=-0.014 -->
+	<node ID="1006" Level="1" Strength="30"/>
+	<node ID="1006" Level="2" Strength="38"/>
+	<node ID="1006" Level="3" Strength="47"/>
+	<node ID="1006" Level="4" Strength="57"/>
+	<node ID="1006" Level="5" Strength="66"/>
+	<node ID="1006" Level="6" Strength="74"/>
+	<node ID="1006" Level="7" Strength="83"/>
+	<node ID="1006" Level="8" Strength="91"/>
+	<node ID="1006" Level="9" Strength="98"/>
+	<node ID="1006" Level="10" Strength="105"/>
+	<node ID="1006" Level="11" Strength="111"/>
+	<node ID="1006" Level="12" Strength="116"/>
+	<node ID="1006" Level="13" Strength="120"/>
+	<node ID="1006" Level="14" Strength="123"/>
+	<node ID="1006" Level="15" Strength="124"/>
+  <!--start=50 step=6 grident=0.01 steep=0.01 -->
+	<node ID="1007" Level="1" Strength="50"/>
+	<node ID="1007" Level="2" Strength="56"/>
+	<node ID="1007" Level="3" Strength="62"/>
+	<node ID="1007" Level="4" Strength="68"/>
+	<node ID="1007" Level="5" Strength="74"/>
+	<node ID="1007" Level="6" Strength="81"/>
+	<node ID="1007" Level="7" Strength="88"/>
+	<node ID="1007" Level="8" Strength="95"/>
+	<node ID="1007" Level="9" Strength="103"/>
+	<node ID="1007" Level="10" Strength="111"/>
+	<node ID="1007" Level="11" Strength="120"/>
+	<node ID="1007" Level="12" Strength="129"/>
+	<node ID="1007" Level="13" Strength="139"/>
+	<node ID="1007" Level="14" Strength="150"/>
+	<node ID="1007" Level="15" Strength="162"/>
+  <!--start=40 step=5 grident=0.005 steep=0.009 -->
+	<node ID="1008" Level="1" Strength="40"/>
+	<node ID="1008" Level="2" Strength="45"/>
+	<node ID="1008" Level="3" Strength="50"/>
+	<node ID="1008" Level="4" Strength="55"/>
+	<node ID="1008" Level="5" Strength="60"/>
+	<node ID="1008" Level="6" Strength="65"/>
+	<node ID="1008" Level="7" Strength="71"/>
+	<node ID="1008" Level="8" Strength="77"/>
+	<node ID="1008" Level="9" Strength="83"/>
+	<node ID="1008" Level="10" Strength="90"/>
+	<node ID="1008" Level="11" Strength="96"/>
+	<node ID="1008" Level="12" Strength="104"/>
+	<node ID="1008" Level="13" Strength="112"/>
+	<node ID="1008" Level="14" Strength="120"/>
+	<node ID="1008" Level="15" Strength="129"/>
 </root>
