@@ -5,7 +5,7 @@
 
 <root>
     <node ID="104" level="1" HP="8" attack="5" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" description="野猪飞" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="2" HP="16" attack="7" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
+    <node ID="104" level="2" HP="14" attack="7" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
     <node ID="104" level="3" HP="24" attack="9" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
     <node ID="104" level="4" HP="32" attack="11" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
     <node ID="104" level="5" HP="40" attack="13" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
@@ -124,9 +124,9 @@
     <node ID="135" level="8" HP="120" attack="43" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
     <node ID="135" level="9" HP="135" attack="47" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
     
-    <node ID="136" level="1" HP="18" attack="14" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-    <node ID="136" level="2" HP="37" attack="17" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-    <node ID="136" level="3" HP="56" attack="20" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
+    <node ID="136" level="1" HP="10" attack="8" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
+    <node ID="136" level="2" HP="37" attack="13" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
+    <node ID="136" level="3" HP="56" attack="19" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
     <node ID="136" level="4" HP="75" attack="23" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
     <node ID="136" level="5" HP="94" attack="26" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
     <node ID="136" level="6" HP="113" attack="29" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
@@ -187,12 +187,12 @@
     <node ID="174" level="1" HP="22" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
     <node ID="174" level="2" HP="28" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
     <node ID="174" level="3" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="4" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="5" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="6" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="7" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="8" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
-    <node ID="174" level="9" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="4" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="5" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="6" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="7" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="8" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
+    <node ID="174" level="9" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
     
     <node ID="176" level="1" HP="20" attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
     <node ID="176" level="2" HP="48" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>

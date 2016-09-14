@@ -123,9 +123,9 @@
       <trigger name="Hurdle (7)" objectType="142" length="50" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Hurdle (8)" objectType="142" length="50" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="NPCTrigger" length="140" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
+    <!--<triggers groupName="NPCTrigger" length="140" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
       <trigger name="Boar" objectType="174" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>
+    </triggers>-->
     <triggers groupName="NPCTrigger" length="180" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
       <trigger name="Boar" objectType="104" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
@@ -474,7 +474,7 @@
       <trigger name="Breakble (2)" objectType="163" length="30" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="4" gameplayName="CloudSea_03" trackMeshName="track_05_04" trackNumber="5" npcLevel="2" challengeLevel="3" GamePlayIndex="15">
+  <node gameplayId="4" gameplayName="CloudSea_03" trackMeshName="track_05_04" trackNumber="5" npcLevel="1" challengeLevel="3" GamePlayIndex="15">
     <triggers groupName="NPCTrigger_01" length="25" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Boar" objectType="104" length="-40" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-35" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -592,7 +592,7 @@
       <trigger name="Break (3)" objectType="163" length="0" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="18" gameplayName="CloudSea_04" trackMeshName="track_05_02" trackNumber="5" npcLevel="3" challengeLevel="4" GamePlayIndex="16">
+  <node gameplayId="18" gameplayName="CloudSea_04" trackMeshName="track_05_02" trackNumber="5" npcLevel="2" challengeLevel="4" GamePlayIndex="16">
     <triggers groupName="HurdleTrigge_01" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="15" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="15" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -692,7 +692,7 @@
       <trigger name="Break (1)" objectType="163" length="22" trackId="2" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="32" gameplayName="CloudSea_05" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="4" challengeLevel="5" GamePlayIndex="17">
+  <node gameplayId="32" gameplayName="CloudSea_05" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="3" challengeLevel="5" GamePlayIndex="17">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -718,9 +718,9 @@
       <trigger name="Break (1)" objectType="163" length="20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Break (2)" objectType="163" length="20" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="NPCTrigger" length="54" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="4">
+    <!--<triggers groupName="NPCTrigger" length="54" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="4">
       <trigger name="Boar" objectType="174" length="-30" trackId="3" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>
+    </triggers>-->
     <triggers groupName="NPCTrigger" length="85" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="5">
       <trigger name="Boar" objectType="104" length="-31" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="136" length="-31" trackId="0" hp="0" offset="30" TriggerIndex="1" />
@@ -1151,7 +1151,7 @@
     </triggers>
     <triggers groupName="NPCTrigger_11" length="345" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="18">
       <trigger name="Boar" objectType="104" length="-18" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-18" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-18" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="104" length="-18" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="PickupTrigger_04" length="370" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="19">
@@ -2308,7 +2308,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="40" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
       <trigger name="Boar" objectType="136" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="134" length="-30" trackId="0" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="HurdleTrigger" length="50" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="3">
@@ -2578,7 +2578,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="272" triggerType="0" isChaserTrigger="1" intervalTime="0.1" TriggerGroupIndex="16">
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="293" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="17">
@@ -2790,7 +2790,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="220" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="15">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="BreakbleTrigger_03" length="225" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="16">
@@ -2898,7 +2898,7 @@
     </triggers>
     <triggers groupName="NPCTrigger_06" length="110" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="BreakbleTrigger_01" length="121" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="17">
@@ -2974,7 +2974,7 @@
       <trigger name="Boar_05" objectType="135" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
     <triggers groupName="NPCTrigger4" length="75" triggerType="0" isChaserTrigger="1" intervalTime="0.4" TriggerGroupIndex="3">
-      <trigger name="Boar_01" objectType="174" length="-21" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Boar_01" objectType="174" length="-21" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
       <trigger name="Boar_02" objectType="105" length="-21" trackId="3" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar_03" objectType="136" length="-18" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
@@ -3139,7 +3139,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="100" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="125" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
@@ -3317,7 +3317,7 @@
       <trigger name="Boar" objectType="105" length="-25" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="100" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
-      <trigger name="Boar" objectType="174" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Boar" objectType="174" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="BreakbleTrigger_02" length="118" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="22">
       <trigger name="Breakble" objectType="162" length="49" trackId="1" offset="30" TriggerIndex="0" />
@@ -3658,7 +3658,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="137" triggerType="0" isChaserTrigger="1" intervalTime="0.05" TriggerGroupIndex="9">
       <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="157" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
@@ -4861,7 +4861,7 @@
       <trigger name="Gino_01" objectType="113" length="-26" trackId="2" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
     <triggers groupName="NPCTrigger6" length="135" triggerType="0" isChaserTrigger="1" intervalTime="0.4" TriggerGroupIndex="8">
-      <trigger name="Gino_01" objectType="174" length="-26" trackId="0" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Gino_01" objectType="174" length="-26" trackId="0" hp="0" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="BreakbleTrigger_02" length="138" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="9">
       <trigger name="Breakble" objectType="164" length="22" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -5059,7 +5059,7 @@
       <trigger name="Gino" objectType="113" length="-25" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger_08" length="185" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
-      <trigger name="Boar" objectType="174" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Boar" objectType="174" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="PickupTrigger_02" length="185" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="11">
       <trigger name="Stamina" objectType="128" length="13" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -5247,7 +5247,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="115" triggerType="0" isChaserTrigger="1" intervalTime="0.75" TriggerGroupIndex="10">
       <trigger name="Gino" objectType="114" length="-19" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="174" length="-19" trackId="0" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Boar" objectType="174" length="-19" trackId="0" hp="0" offset="30" TriggerIndex="1" />-->
       <trigger name="Gino" objectType="114" length="-19" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="195" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
@@ -5486,7 +5486,7 @@
       <trigger name="Gino" objectType="113" length="-29" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="185" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
-      <trigger name="Boar" objectType="174" length="-27" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Boar" objectType="174" length="-27" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="Picup_Trigger" length="200" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Blade_Storm" objectType="131" length="25" trackId="0" hp="0" offset="30" TriggerIndex="0" />
@@ -5932,7 +5932,7 @@
       <trigger name="Summon_Boar" objectType="111" length="-23" trackId="2" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger5" length="109" triggerType="0" isChaserTrigger="1" intervalTime="0.4" TriggerGroupIndex="7">
-      <trigger name="Boar" objectType="174" length="-26" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Boar" objectType="174" length="-26" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="BreakbleTrigger_02" length="109" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Breakble" objectType="164" length="25" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -6132,7 +6132,7 @@
       <trigger name="Summon_Boar" objectType="111" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="160" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="11">
-      <trigger name="Gino" objectType="174" length="-15" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Gino" objectType="174" length="-15" trackId="2" hp="0" offset="30" TriggerIndex="0" />-->
       <trigger name="Gino" objectType="114" length="-15" trackId="1" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Gino" objectType="114" length="-15" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
@@ -6404,7 +6404,7 @@
     <triggers groupName="NPCTrigger7" length="161" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
       <trigger name="Boar" objectType="136" length="-23" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Gino" objectType="113" length="-26" trackId="3" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Gino" objectType="174" length="-26" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <!--<trigger name="Gino" objectType="174" length="-26" trackId="1" hp="0" offset="30" TriggerIndex="2" />-->
     </triggers>
     <triggers groupName="NPCTrigger8" length="189" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Boar" objectType="136" length="-28" trackId="0" hp="0" offset="30" TriggerIndex="0" />
@@ -6597,7 +6597,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="135" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Gino" objectType="114" length="-22" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Gino" objectType="174" length="-22" trackId="3" hp="0" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Gino" objectType="174" length="-22" trackId="3" hp="0" offset="30" TriggerIndex="1" />-->
     </triggers>
     <triggers groupName="NPCTrigger" length="155" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="9">
       <trigger name="Sand_Monster" objectType="116" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />
@@ -7867,7 +7867,7 @@
       <trigger name="Gino" objectType="114" length="-20" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="125" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="8">
-      <trigger name="Rugg" objectType="174" length="-32" trackId="2" hp="0" actionMode="3" closeDistance="25" skillCount="2" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Rugg" objectType="174" length="-32" trackId="2" hp="0" actionMode="3" closeDistance="25" skillCount="2" offset="30" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="NPCTrigger" length="180" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
       <trigger name="Sand_Monster" objectType="116" length="-35" trackId="0" hp="0" offset="30" TriggerIndex="0" />
@@ -8113,7 +8113,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="230" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="15">
       <trigger name="Rugg" objectType="119" length="-35" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
-      <trigger name="Rugg" objectType="174" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Rugg" objectType="174" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />-->
     </triggers>
     <triggers groupName="NPCTrigger" length="275" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="16">
       <trigger name="Gino" objectType="113" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
@@ -8271,7 +8271,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="45" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="4">
       <trigger name="Rugg" objectType="119" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
-      <trigger name="Rugg" objectType="174" length="-35" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Rugg" objectType="174" length="-35" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />-->
     </triggers>
     <triggers groupName="NPCTrigger" length="75" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="5">
       <trigger name="Rugg" objectType="119" length="-35" trackId="2" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
@@ -8426,7 +8426,7 @@
       <trigger name="Rugg" objectType="119" length="-30" trackId="0" hp="0" actionMode="1" closeDistance="20" skillCount="1" offset="30" TriggerIndex="4" />
     </triggers>
     <triggers groupName="NPCTrigger" length="195" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="9">
-      <trigger name="Rugg" objectType="174" length="-53" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Rugg" objectType="174" length="-53" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />-->
       <trigger name="Rugg" objectType="119" length="-47" trackId="2" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
       <trigger name="Rugg" objectType="119" length="-35" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="2" />
     </triggers>
@@ -8589,7 +8589,7 @@
       <trigger name="Gino" objectType="113" length="-25" trackId="4" hp="0" actionMode="1" closeDistance="20" skillCount="1" TriggerIndex="4" />
     </triggers>
     <triggers groupName="NPCTrigger" length="145" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="6">
-      <trigger name="Rugg" objectType="174" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" TriggerIndex="0" />
+      <!--<trigger name="Rugg" objectType="174" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" TriggerIndex="0" />-->
       <trigger name="Rugg" objectType="119" length="-30" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="180" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="7">
@@ -8798,7 +8798,7 @@
     <triggers groupName="NPCTrigger" length="195" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
       <trigger name="Rugg" objectType="119" length="-35" trackId="2" hp="0" actionMode="4" closeDistance="20" skillCount="2" offset="30" TriggerIndex="0" />
       <trigger name="Gino" objectType="114" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Gino" objectType="174" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="2" />
+      <!--<trigger name="Gino" objectType="174" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="2" />-->
     </triggers>
     <triggers groupName="NPCTrigger" length="215" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Sand_Monster" objectType="116" length="-35" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -8980,7 +8980,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="75" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="5">
       <trigger name="Rugg" objectType="119" length="-35" trackId="3" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
-      <trigger name="Rugg" objectType="174" length="-30" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Rugg" objectType="174" length="-30" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />-->
       <trigger name="Rugg" objectType="119" length="-25" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="75" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="6">
@@ -9147,7 +9147,7 @@
     </triggers>
     <triggers groupName="NPCTrigger" length="98" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Rugg" objectType="119" length="-35" trackId="0" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
-      <trigger name="Rugg" objectType="174" length="-35" trackId="2" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
+      <!--<trigger name="Rugg" objectType="174" length="-35" trackId="2" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />-->
       <trigger name="Rugg" objectType="119" length="-35" trackId="4" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger" length="125" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="9">
@@ -9333,7 +9333,7 @@
       <trigger name="Breakble (1)" objectType="165" length="19" trackId="3" offset="30" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="120" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="6">
-      <trigger name="Rugg" objectType="174" length="-30" trackId="2" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
+      <!--<trigger name="Rugg" objectType="174" length="-30" trackId="2" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />-->
       <trigger name="Rugg" objectType="119" length="-30" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
       <trigger name="Rugg" objectType="119" length="-30" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="2" />
     </triggers>
