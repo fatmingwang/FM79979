@@ -243,6 +243,9 @@
     <Filter Include="RenderObject\Texture\DDS">
       <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Math\LinearData">
+      <UniqueIdentifier>{1ce25ea6-a609-4a00-9f95-bba52ecbad9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -375,9 +378,6 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Line.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\LinerTemplateDataProcess.cpp">
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\MathUtility.cpp">
@@ -668,6 +668,12 @@
     <ClCompile Include="Network\Network.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
+    <ClCompile Include="Math\LinerTemplateDataProcess.cpp">
+      <Filter>Math\LinearData</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\LinerDataMouseChanger.cpp">
+      <Filter>Math\LinearData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -824,9 +830,6 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Line.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\LinerTemplateDataProcess.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\MathTemplateUtility.h">
@@ -1155,6 +1158,12 @@
     </ClInclude>
     <ClInclude Include="Image\dds\nv_log.h">
       <Filter>RenderObject\Texture\DDS</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\LinerTemplateDataProcess.h">
+      <Filter>Math\LinearData</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\LinerDataMouseChanger.h">
+      <Filter>Math\LinearData</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

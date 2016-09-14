@@ -263,6 +263,30 @@ public:
 		@return This vector. */
 	inline Vector2& operator =(const float* f) { u = *f; v = *(f + 1); return *this; }
 
+	inline void	ToMin() { x = y = -FLT_MIN;}
+	inline void	ToMax() { x = y = FLT_MAX;}
+	/** Update each component of this FMVector to the minimum of two Vector3s.
+		Updates each of the three components to be the minimum of the current
+		value and that of the corresponding value of the given Vector3.
+		@param min The FMVector to take values from. */
+	inline void ComponentMinimum(const Vector2& min) { if (x > min.x) x = min.x; if (y > min.y) y = min.y;  }
+
+	/** Retrieves the smallest component of the vector.
+		@return The smallest component of the vector. */
+	inline float ComponentMinimum() const { return min(fabsf(x),fabsf(y)); }
+
+	/** Update each component of this FMVector to the maximum of two Vector3s.
+		Updates each of the three components to be the maximum of the current
+		value and that of the corresponding value of the given Vector3.
+		@param max The FMVector to take values from. */
+	inline void ComponentMaximum(const Vector2& max) { if (x < max.x) x = max.x; if (y < max.y) y = max.y;}
+
+	/** Retrieves the largest component of the vector.
+		@return The largest component of the vector. */
+	inline float ComponentMaximum() const { return max(fabsf(x), fabsf(y)); }
+
+	inline Vector2 Abs(){ return Vector2(fabs(x),fabs(y)); }
+
 public:
 	static const Vector2 Zero; /**< The zero vector. */
 	static const Vector2 Origin; /**< The zero vector. */
@@ -306,6 +330,8 @@ inline Vector2 operator *(float a, const Vector2& b) { return Vector2(a * b.u, a
 	@param b The scalar.
 	@return The vector representing the resulting the vector. */
 inline Vector2 operator /(const Vector2& a, float b) { return Vector2(a.x / b, a.y / b); }
+
+inline Vector2 operator /(const Vector2& a, const Vector2& b) { return Vector2(a.x / b.x, a.y / b.y); }
 
 /** Retrieves whether two 2D vectors are equivalent.
 	@param a A first vector.

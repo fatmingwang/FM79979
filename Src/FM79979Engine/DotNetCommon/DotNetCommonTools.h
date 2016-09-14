@@ -245,8 +245,8 @@ namespace DNCT
 	//if you want to specify the file encoding format just give it name
 	//bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = "big5");//"utf-32","utf-8"
 	bool	FileToUnicode(String^e_strFileName,char*e_strCodingName = nullptr,String^e_strNewFileName = nullptr);
-
-	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName = nullptr);
+	//DNCT::TempFileToUnicodeParseFunction(gcnew String(e_strFileName),l_Fun1,"utf-8",false);
+	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName = nullptr,bool e_bAutoDeleteFile = true);
 	//configFile = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location
 	String^	GetUseerNameAndTime();
 

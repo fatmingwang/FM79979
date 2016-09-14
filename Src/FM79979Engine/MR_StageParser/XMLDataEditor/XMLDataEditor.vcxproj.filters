@@ -9,9 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Compress">
-      <UniqueIdentifier>{ef54ae55-9f14-4262-8e51-379269ace805}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MR">
       <UniqueIdentifier>{cd1bf618-bf73-4d07-822c-f48889a632b9}</UniqueIdentifier>
     </Filter>
@@ -25,9 +22,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="..\XML\StringCompress.h">
-      <Filter>Compress</Filter>
     </ClInclude>
     <ClInclude Include="DataCurve.h">
       <Filter>Header</Filter>
@@ -55,10 +49,6 @@
     <ClCompile Include="XMLDataEditor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\XML\StringCompress.cpp">
-      <Filter>Compress</Filter>
-    </ClCompile>
-    <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="ChartWithName.cpp">
       <Filter>MR</Filter>
     </ClCompile>

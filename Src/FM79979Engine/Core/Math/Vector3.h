@@ -123,11 +123,15 @@ public:
 		@param rhs The vector copy off */
 	inline Vector3& operator =(const Vector3& rhs) { x=rhs.x; y=rhs.y; z=rhs.z; return *this; }
 
+
+	inline void	ToMin() { x = y = z = -FLT_MIN;}
+	inline void	ToMax() { x = y = z = FLT_MAX;}
+
 	/** Update each component of this FMVector to the minimum of two Vector3s.
 		Updates each of the three components to be the minimum of the current
 		value and that of the corresponding value of the given Vector3.
 		@param min The FMVector to take values from. */
-	inline void ComponentMinimum(const Vector3& min) { if (x < min.x) x = min.x; if (y < min.y) y = min.y; if (z < min.z) z = min.z; }
+	inline void ComponentMinimum(const Vector3& min) { if (x > min.x) x = min.x; if (y > min.y) y = min.y; if (z > min.z) z = min.z; }
 
 	/** Retrieves the smallest component of the vector.
 		@return The smallest component of the vector. */
@@ -137,7 +141,7 @@ public:
 		Updates each of the three components to be the maximum of the current
 		value and that of the corresponding value of the given Vector3.
 		@param max The FMVector to take values from. */
-	inline void ComponentMaximum(const Vector3& max) { if (x > max.x) x = max.x; if (y > max.y) y = max.y; if (z > max.z) z = max.z; }
+	inline void ComponentMaximum(const Vector3& max) { if (x < max.x) x = max.x; if (y < max.y) y = max.y; if (z < max.z) z = max.z; }
 
 	/** Retrieves the largest component of the vector.
 		@return The largest component of the vector. */
@@ -155,6 +159,8 @@ public:
 	/** Retrieves the average of the three vector components.
 		@return The component average. */
 	inline float ComponentAverage() const { return (fabsf(x) + fabsf(y) + fabsf(z)) / 3.0f; }
+
+	inline Vector3 Abs(){ return Vector3(fabs(x),fabs(y),fabs(z)); }
 
 public:
 	static const Vector3 XAxis; /**< The Vector3 representing the x axis */
@@ -216,6 +222,7 @@ inline Vector3 operator *(float a, const Vector3& b) { return Vector3(a * b.x, a
 	@param b The scalar.
 	@return The Vector3 representing the resulting vector. */
 inline Vector3 operator /(const Vector3& a, float b) { return Vector3(a.x / b, a.y / b, a.z / b); }
+inline Vector3 operator /(const Vector3& a, const Vector3& b) { return Vector3(a.x / b.x, a.y / b.y,a.z/b.z); }
 
 /** Cross product of two Vector3.
 	@param a The first vector.

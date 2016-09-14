@@ -149,18 +149,20 @@ public:
 		@return This Vector4. */
 	inline Vector4& operator =(const float* v) { x = *v; y = *(v + 1); z = *(v + 2); w = *(v+3); return *this; }
 
+	inline void	ToMin() { x = y = z = w = -FLT_MIN;}
+	inline void	ToMax() { x = y = z = w = FLT_MAX;}
 	/** Update each component of this FMVector to the minimum of two Vector4s.
 		Updates each of the four components to be the minimum of the current
 		value and that of the corresponding value of the given Vector4.
 		@param min The FMVector to take values from. */
-	inline void ComponentMinimum(const Vector4& min) { if (x < min.x) x = min.x; if (y < min.y) y = min.y; if (z < min.z) z = min.z; if (w < min.w) w = min.w; }
+	inline void ComponentMinimum(const Vector4& min) { if (x > min.x) x = min.x; if (y > min.y) y = min.y; if (z > min.z) z = min.z; if (w > min.w) w = min.w; }
 
 	/** Update each component of this FMVector to the maximum of two Vector4s.
 		Updates each of the four components to be the maximum of the current
 		value and that of the corresponding value of the given Vector4.
 		@param max The FMVector to take values from. */
-	inline void ComponentMaximum(const Vector4& max) { if (x > max.x) x = max.x; if (y > max.y) y = max.y; if (z > max.z) z = max.z; if (w > max.w) w = max.w;}
-
+	inline void ComponentMaximum(const Vector4& max) { if (x < max.x) x = max.x; if (y < max.y) y = max.y; if (z < max.z) z = max.z; if (w < max.w) w = max.w;}
+	inline Vector4 Abs(){ return Vector4(fabs(x),fabs(y),fabs(z),fabs(w)); }
 	inline	void    SetColor(unsigned char*e_pColor){	x = e_pColor[0]/255.f;	y = e_pColor[1]/255.f;	z = e_pColor[2]/255.f;	w = e_pColor[3]/255.f;}
 	inline	void    SetColor(unsigned char e_cR,char e_cG,char e_cB,char e_cA){	x = e_cR/255.f;	y = e_cG/255.f;	z = e_cB/255.f;	w = e_cA/255.f;}
 	//find center position,scale width and height then minus x,y,z,w by width or height's new length
@@ -367,6 +369,7 @@ inline Vector4& operator *=(Vector4& b, float a) { b.x *= a; b.y *= a; b.z *= a;
 inline Vector4& operator /=(Vector4& b, float a) { b.x /= a; b.y /= a; b.z /= a; b.w /= a; return b; }
 
 inline Vector4 operator /(Vector4 b, float a) { b.x /= a; b.y /= a; b.z /= a; b.w /= a; return b; }
+inline Vector4 operator /(const Vector4& a, const Vector4& b) { return Vector4(a.x / b.x, a.y / b.y,a.z/b.z,a.w/b.w); }
 
 /** Dot product of two Vector4.
 	@param a The first vector.

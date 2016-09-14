@@ -140,11 +140,9 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="StageParser.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="..\XML\StringCompress.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChartWithName.cpp" />
-    <ClCompile Include="DataCurve.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -154,7 +152,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="XMLDataEditor.cpp" />
-    <ClCompile Include="..\XML\StringCompress.cpp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataCurve.resx">

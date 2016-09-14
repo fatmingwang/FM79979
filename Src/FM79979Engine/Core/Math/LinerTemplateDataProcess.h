@@ -3,6 +3,7 @@
 #include <vector>
 #include "../XML/tinyxml.h"
 #include "../XML/StringToStructure.h"
+#include "../NamedTypedObject.h"
 
 namespace UT
 {
@@ -38,7 +39,7 @@ namespace	FATMING_CORE
 		e_pData->push_back(l_OldData[l_OldData.size()-1]);	
 	}
 
-	class	cTimeAndDataLinerUpdateInterface
+	class	cTimeAndDataLinerUpdateInterface:public NamedTypedObject
 	{
 		virtual	void						InternalInit() = 0;
 	protected:
@@ -92,8 +93,10 @@ namespace	FATMING_CORE
 	{
 		virtual	void				InternalInit(){}
 		//check void cCurve::IncreaseLod()
-		virtual	void				IncreaseLod();		
+		virtual	void				IncreaseLod();
 	protected:
+		//find biggest  value,for debug render.
+		T*							m_pvValueForSmallestBiggestAndDis;
 		//the data for current update data.
 		T							m_CurrentData;
 		//
@@ -103,46 +106,57 @@ namespace	FATMING_CORE
 		//indicate the original data.
 		std::vector<T>*				m_pCurrentLinerDataVector;
 	public:
+		DEFINE_TYPE_INFO();
 		cLinerDataProcessor();
 		cLinerDataProcessor(cLinerDataProcessor*e_pLinerDataProcessor);
 		virtual ~cLinerDataProcessor();
-		virtual		cTimeAndDataLinerUpdateInterface*	Clone();
 		cLinerDataProcessor(TiXmlElement*e_pElement);
-		virtual	TiXmlElement*		ToTiXmlElement();
-
-		virtual	void				DumpTo(cLinerDataProcessor<T>*e_pTarget);
-		virtual	void*				GetDataPointerByIndex(int e_iIndex);
-		int							GetLOD();
-		void						SetLOD(int e_iLOD);
-		std::vector<T>*				GetLinerDataVector();
-		T*							GetData(int e_iIndex);
-		bool						GetLastData(T&e_Data);
-		virtual	void				Init();
-		virtual	void				Update(float e_fElpaseTime);
-		virtual	void				Clear();
-		virtual	void				InvertOrder();
-		T							GetCurrentData();
-		virtual	void				AddData(T e_Data,float e_fTime);
-		virtual	void				SetData(std::vector<float>e_TimeVector,std::vector<T>e_LinerDataVector);
-		virtual	bool				ChangeData(int e_iIndex,T e_Data);
-		virtual	bool				ChangeDataWithTime(int e_iIndex,T e_Data,float e_fTime);
-		virtual	bool				InsertDataWithLiner(int e_iIndex,int e_iCount);
-		virtual	bool				InsertData(int e_iIndex,T e_Data,float e_fTime);
-		virtual	bool				RemoveDtaa(int e_iIndex);
+		virtual	cTimeAndDataLinerUpdateInterface*	Clone();
+		virtual	TiXmlElement*						ToTiXmlElement();
+		//
+		virtual	void								DumpTo(cLinerDataProcessor<T>*e_pTarget);
+		virtual	void*								GetDataPointerByIndex(int e_iIndex);
+		int											GetLOD();
+		void										SetLOD(int e_iLOD);
+		std::vector<T>*								GetLinerDataVector();
+		T*											GetData(int e_iIndex);
+		bool										GetLastData(T&e_Data);
+		virtual	void								Init();
+		//for debug won't be called in Init()
+		void										InitValueForSmallestBiggestAndDis();
+		virtual	void								Update(float e_fElpaseTime);
+		virtual	void								Clear();
+		virtual	void								InvertOrder();
+		T											GetCurrentData();
+		virtual	void								AddData(T e_Data,float e_fTime);
+		virtual	void								SetData(std::vector<float>e_TimeVector,std::vector<T>e_LinerDataVector);
+		virtual	bool								ChangeData(int e_iIndex,T e_Data);
+		virtual	bool								ChangeDataWithTime(int e_iIndex,T e_Data,float e_fTime);
+		virtual	bool								InsertDataWithLiner(int e_iIndex,int e_iCount);
+		virtual	bool								InsertData(int e_iIndex,T e_Data,float e_fTime);
+		virtual	bool								RemoveDtaa(int e_iIndex);
 		//if data is changed call this for necessary data change.
-		virtual	void				DoLOD();
-		bool						DoDataLiner(T e_StartData,T e_EndData);
-		bool						DoDataLiner(bool e_bUpToDownLiner);
-		int							GetClosetPointIndex(T e_vComparePoint,float e_fScanDis = 20.f);
-		T							GetCurveCenter(float*e_pfRightDownToLeftUpperLength = 0);
+		virtual	void								DoLOD();
+		bool										DoDataLiner(T e_StartData,T e_EndData);
+		bool										DoDataLiner(bool e_bUpToDownLiner);
+		int											GetClosetPointIndex(T e_vComparePoint,float e_fScanDis = 20.f);
+		T											GetCurveCenter(float*e_pfRightDownToLeftUpperLength = 0);
 		//scale all curve as vector(length as 1),then resize curve
-		void						Scale(float e_fScale);
-		void						TransformCurve(cMatrix44 e_mat);
-		void						Translate(T e_vPos);
-		void						RotateCurveWithCurveCenter(cMatrix44 e_mat);
+		void										Scale(float e_fScale);
+		void										TransformCurve(cMatrix44 e_mat);
+		void										Translate(T e_vPos);
+		void										RotateCurveWithCurveCenter(cMatrix44 e_mat);
 		//this one is slow.
-		float						GetTotalDistance();
-		void						DebugRender(bool e_bRenderPoint = false,bool e_bRenderIndex = false,Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity);
+		float										GetTotalDistance();
+		void										DebugRender(bool e_bRenderPoint = false,bool e_bRenderIndex = false,Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity);
+		void										DebugRenderWithMaximumValue(T e_vMaximumValue,bool e_bRenderPoint = false,bool e_bRenderIndex = false,Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity);
+		//for max and min dis
+		T*											GetMaxValueDis();
+		//Vector3(0,0,0),Vector3(1,2,0),0.1,0.025,0.1
+		//NewStee = e_fSteepGredient;
+		//0,0,0
+		//0,0,0+(1,2,0)*(1+(index*e_fGredient)+for(NewStee+=e_fSteepGredient))
+		static cLinerDataProcessor<T>*				GererateData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient = 0.1f,float e_fSteepGredient = 0.025f,float e_fTimeDiff = 0.1f);
 	};
 
 	//just a quick update interface
@@ -159,7 +173,7 @@ namespace	FATMING_CORE
 				this->m_ContainerVector.push_back(l_pData);
 			}
 		}
-		~cLinerDataContainer()
+		virtual	~cLinerDataContainer()
 		{
 			Destroy();
 		}

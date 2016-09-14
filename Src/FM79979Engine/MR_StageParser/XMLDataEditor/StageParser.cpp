@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "StageParser.h"
+#include "GameData.h"
 #include <algorithm>
 
 const float g_iMonsterSpeed = 8.f;
-const int g_iWidth = 280;
+const int g_iObjectLineWidth = 280;
 
+extern void	CameraOffset(Vector2 e_vMove,float e_fScale);
 
-void	StroeAllAttribute(sXmlNode*e_pTrigger,TiXmlElement*e_pRoot)
+void	StroeAllAttribute(sXmlNode*e_pTrigger,const TiXmlElement*e_pRoot)
 {
 	auto l_Attribute = e_pRoot->FirstAttribute();
 	while(l_Attribute)
@@ -80,6 +82,11 @@ bool	cStageParser::ParseTrigger(TiXmlElement*e_pRoot,sTriggers*e_pTriggers)
 	return true;
 }
 
+sXmlNode::sXmlNode(const TiXmlElement*e_pTiXmlElement)
+{
+	StroeAllAttribute(e_pTiXmlElement);
+}
+
 std::wstring	sXmlNode::getNameValue()
 {
 	if( strAttributeVector[0] == L"name" )
@@ -132,7 +139,7 @@ void	sXmlNode::Merge(TiXmlElement*e_pRoot)
 	}
 }
 
-void	sXmlNode::StroeAllAttribute(TiXmlElement*e_pelement)
+void	sXmlNode::StroeAllAttribute(const TiXmlElement*e_pelement)
 {
 	::StroeAllAttribute(this,e_pelement);
 }
@@ -152,6 +159,11 @@ bool	sTrigger::IsCoin()
 		l_iID == 175 )
 		return true;
 	return false;
+}
+
+int	sTrigger::GetObjectType()
+{
+	return this->getInt(L"objectType");
 }
 
 int	sTrigger::GetTrackID()
@@ -442,14 +454,19 @@ Vector2	GetTrackStartEndPosX(int e_Width,sTrigger*e_pTrigger)
 }
 
 
+extern sGameData*g_pGameData;
+int g_iStagePosXOffset = 0;
+int g_iStagePosYOffset = 500;
 void		sGameNode::RenderScene()
 {
-
+	CameraOffset(Vector2(g_iStagePosXOffset,g_iStagePosYOffset),1);
 	const int l_Value = 5;
 	const float l_fMonsterSpeed = g_iMonsterSpeed;
 	int	l_iHeight = (FindFinalLength()+50)*l_Value;
 
-	RenderRectangle(Vector2::Zero,(float)g_iWidth,(float)l_iHeight,Vector4::One,0);
+	RenderRectangle(Vector2::Zero,(float)g_iObjectLineWidth,(float)l_iHeight,Vector4::One,0);
+	//object type and count
+	std::map<int,int>	l_ObjectTypeAndName;
 	for(size_t i=0;i<m_TriggersVector.size();++i)
 	{
 		sTriggers*l_pTriggers = &m_TriggersVector[i];
@@ -459,9 +476,9 @@ void		sGameNode::RenderScene()
 		std::vector<Vector2>	l_Pos;
 		Vector4	l_vColor = GetColorByGroupName(l_pTriggers->GetGroupName());
 		l_Pos.push_back(Vector2(0,l_iTriggersLength*l_Value));
-		l_Pos.push_back(Vector2(g_iWidth,l_iTriggersLength*l_Value));
+		l_Pos.push_back(Vector2(g_iObjectLineWidth,l_iTriggersLength*l_Value));
 		//GLRender::RenderLine(&l_Pos,Vector4::One);
-		cGameApp::RenderFont(g_iWidth+30,l_iTriggersLength*l_Value,l_strGroupName);
+		//cGameApp::RenderFont(g_iObjectLineWidth+30,l_iTriggersLength*l_Value,l_strGroupName);
 		if( !l_pTriggers->IsChaserTrigger())
 		{
 			l_fInterval = 0.f;
@@ -469,7 +486,7 @@ void		sGameNode::RenderScene()
 		for( size_t j=0;j<l_pTriggers->m_TriggerVector.size();++j )
 		{
 			sTrigger*l_pTrigger  = &l_pTriggers->m_TriggerVector[j];
-			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iWidth,l_pTrigger);
+			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iObjectLineWidth,l_pTrigger);
 			float l_fLength = (float)(l_pTrigger->GetLength()+l_iTriggersLength);
 			if( l_fInterval != 0.f )
 			{
@@ -479,11 +496,49 @@ void		sGameNode::RenderScene()
 			l_Pos.push_back(Vector2(l_vShowWidth.x,l_fLength*l_Value));
 			l_Pos.push_back(Vector2(l_vShowWidth.y,l_fLength*l_Value));
 			GLRender::RenderLine(&l_Pos,l_vColor);
+			int l_Type = l_pTrigger->GetObjectType();
+			if( l_ObjectTypeAndName.find(l_Type) == l_ObjectTypeAndName.end())
+			{
+				l_ObjectTypeAndName.insert(std::make_pair(l_Type,1));
+			}
+			else
+			{
+				++l_ObjectTypeAndName[l_Type];
+			}
+			cGameApp::RenderFont(l_Pos[0].x,l_Pos[0].y-10,ValueToStringW(l_Type));
 		}
 	}
+	int l_iIndex = 0;
+	int l_iTotalEnemy = 0;
+	for(auto l_Iterator : l_ObjectTypeAndName)
+	{
+		if( g_pGameData )
+		{
+			if(g_pGameData->GetEnemyStatus(l_Iterator.first) )
+			{
+				std::wstring l_str = ValueToStringW(l_Iterator.first);
+				l_str += L":";
+				l_str += ValueToStringW(l_Iterator.second);
+				l_iTotalEnemy += l_Iterator.second;
+				cGameApp::RenderFont(-150,l_iIndex*30+500,l_str.c_str());
+				++l_iIndex;
+			}
+		}
+		else
+		{
+			//cGameApp::RenderFont(-150,l_iIndex*100+500,l_Iterator.second.c_str());
+			//++l_iIndex;
+		}
+	}
+	cGameApp::RenderFont(-300,400,L"TotalEnemy");
+	cGameApp::RenderFont(-250,430,ValueToStringW(l_iTotalEnemy));
 	RenderColorHint(-150,0);
 	Vector3	l_vPos = m_PlayerPos.GetCurrentData();
 	GLRender::RenderSphere(Vector2(l_vPos.x,l_vPos.y*l_Value),3.14f);
+	int l_iNPVLevel = this->GetNPCLevel();
+	std::wstring l_strNPVLevel = L"NPCLevel";
+	l_strNPVLevel += ValueToStringW(l_iNPVLevel);
+	cGameApp::RenderFont(-150,450,l_strNPVLevel.c_str());
 	if( m_HitTriggerName.length() > 0 )
 	{
 		cGameApp::RenderFont(m_ShowHitPos.x,m_ShowHitPos.y-20,m_HitTriggerName);
@@ -535,10 +590,13 @@ float	sGameNode::GetFinishTime()
 
 bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 {
+	e_iMousePosX += g_iStagePosXOffset;
+	e_iMousePosY += g_iStagePosYOffset;
+
 	const int l_Value = 5;
 	const float l_fMonsterSpeed = g_iMonsterSpeed;
 	int	l_iHeight = (FindFinalLength()+50)*l_Value;
-	if( e_iMousePosX <0 || e_iMousePosX>g_iWidth )
+	if( e_iMousePosX <0 || e_iMousePosX>g_iObjectLineWidth )
 		return false;
 	if( e_iMousePosY <0 || e_iMousePosY>l_iHeight )
 		return false;
@@ -553,7 +611,7 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 		for( size_t j=0;j<l_pTriggers->m_TriggerVector.size();++j )
 		{
 			sTrigger*l_pTrigger  = &l_pTriggers->m_TriggerVector[j];
-			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iWidth,l_pTrigger);
+			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iObjectLineWidth,l_pTrigger);
 			float l_fLength = (float)(l_pTrigger->GetLength()+l_iTriggersLength);
 			if( l_fInterval != 0.f )
 			{
@@ -582,3 +640,25 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 	m_HitTriggerName = L"";
 	return false;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

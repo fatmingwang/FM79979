@@ -298,6 +298,7 @@
     <ClCompile Include="Image\RenderNode.cpp" />
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
+    <ClCompile Include="Math\LinerDataMouseChanger.cpp" />
     <ClCompile Include="Math\MathFormulaXML.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
@@ -440,6 +441,7 @@
     <ClInclude Include="Image\MPDINode.h" />
     <ClInclude Include="Image\png\pngLoader.h" />
     <ClInclude Include="Image\RenderNode.h" />
+    <ClInclude Include="Math\LinerDataMouseChanger.h" />
     <ClInclude Include="Math\MathFormulaXML.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="AllImageInclude.h" />

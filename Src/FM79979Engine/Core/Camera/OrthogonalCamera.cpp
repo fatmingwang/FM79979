@@ -9,6 +9,7 @@ namespace FATMING_CORE
 
 	cOrthogonalCamera::cOrthogonalCamera(Vector2 e_vResolution)
 	{
+		m_fScale = 1.f;
 		m_iTotalGridVertexSize = -1;
 		m_pDrawGridVertex = nullptr;
 		m_vCameraAngle = Vector3::Zero;
@@ -21,6 +22,7 @@ namespace FATMING_CORE
 
 	cOrthogonalCamera::cOrthogonalCamera(cOrthogonalCamera*e_pOrthogonalCamera):Frame(e_pOrthogonalCamera)
 	{
+		m_fScale = 1.f;
 		m_iTotalGridVertexSize = -1;
 		m_pDrawGridVertex = nullptr;
 		m_vCameraAngle = e_pOrthogonalCamera->m_vCameraAngle;
@@ -33,6 +35,12 @@ namespace FATMING_CORE
 	cOrthogonalCamera::~cOrthogonalCamera()
 	{
 		SAFE_DELETE(m_pDrawGridVertex);
+	}
+
+	void	cOrthogonalCamera::SetViewRect(Vector4 e_vViewRect)
+	{
+		m_fScale = 1.f;
+		this->m_vViewRect = e_vViewRect;
 	}
 
 	Vector2	cOrthogonalCamera::ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize)

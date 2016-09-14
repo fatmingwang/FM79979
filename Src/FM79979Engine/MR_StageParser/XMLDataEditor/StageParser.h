@@ -40,6 +40,7 @@ struct sTrigger:public sXmlNode
 	int				GetLength();
 	float			GetInterval();
 	int				GetTrackID();
+	int				GetObjectType();
 	bool			IsCoin();
 };
 
@@ -68,8 +69,18 @@ struct sTriggers:public sTrigger
 	void								RenderChartByAttributeIndex(int e_iIndex);
 };
 
+struct sStageOBXML
+{
+	std::vector<sXmlNode*>				m_TriggerVector;
+	sStageOBXML(){}
+	~sStageOBXML(){ Clear(); }
+	void	Clear(){	DELETE_VECTOR(m_TriggerVector,const sXmlNode*);}
+};
+
 struct sGameNode:public sTrigger
 {
+	sStageOBXML							m_sStageOBXML;
+	GET_INT_DATA_FROM_ATTRIBUTE(NPCLevel,L"npcLevel");
 	std::wstring						m_HitTriggerName;
 	cLinerDataProcessor<Vector3>		m_PlayerPos;
 	int									m_iCoinCount;
@@ -79,7 +90,7 @@ struct sGameNode:public sTrigger
 	int									m_iHurdleOnTheWay;
 	int									m_iBreakableOnTheWay;
 	POINT								m_ShowHitPos;
-	sGameNode(){ m_iPickableObjectCount = 0;m_iMonsterOnTheWay = 0; m_iLastObjectLength = 0; m_iHurdleOnTheWay = 0;m_iBreakableOnTheWay = 0;m_iCoinCount = 0;}
+	sGameNode(){ m_iPickableObjectCount = 0;m_iMonsterOnTheWay = 0; m_iLastObjectLength = 0; m_iHurdleOnTheWay = 0;m_iBreakableOnTheWay = 0;m_iCoinCount = 0;m_iNPCLevel = -1;}
 	//
 	std::vector<sTriggers>				m_TriggersVector;
 	std::map<std::wstring,int>			m_GroupTypeMapl;

@@ -24,7 +24,8 @@ namespace FATMING_CORE
 		GET_SET_DEC(bool,m_bDrawSelectFrame,IsDrawSelectFrame,SetDrawSelectFrame);
 		//set left(x) up(y) right(z) down(w),last plane to setup orthogonal
 		//this is not view port!!!.
-		GET_SET_DEC(Vector4,m_vViewRect,GetViewRect,SetViewRect);
+		//GET_SET_DEC(Vector4,m_vViewRect,GetViewRect,SetViewRect);
+		Vector4		m_vViewRect;
 		cDrawSelectRectangleByMouse	m_DrawSelectRectangleByMouse;
 		//m_MouseWorldPosition get by ConvertMousePositionToWorldPosition
 		//so we could get latest worldposition without recalculate
@@ -39,6 +40,8 @@ namespace FATMING_CORE
 		cOrthogonalCamera(cOrthogonalCamera*e_pOrthogonalCamera);
 		CLONE_MYSELF(cOrthogonalCamera);
 		virtual ~cOrthogonalCamera();
+		Vector4					GetViewRect(){return m_vViewRect;}
+		void					SetViewRect(Vector4 e_vViewRect);
 		//the mouse position should be converted by cGameApp::m_svViewport.
 		Vector2					ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize);
 		static Vector2			ConvertMousePositionToWorldPosition(Vector2 e_MousePosition,Vector2 e_ViewportSize,Vector4 e_vCameraViewRect);

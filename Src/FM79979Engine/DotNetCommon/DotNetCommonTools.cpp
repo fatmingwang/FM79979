@@ -1200,7 +1200,7 @@ namespace DNCT
 		return true;
 	}
 
-	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName)
+	bool	TempFileToUnicodeParseFunction(String^e_strFileName,std::function<bool(const char*)>e_ParseFunction,char*e_strencodingName,bool e_bAutoDeleteFile)
 	{
 		String^l_strTempFileName = e_strFileName+".tmp";
 		bool l_bResult = false;
@@ -1210,7 +1210,8 @@ namespace DNCT
 			{
 				std::string l_strFileName = DNCT::GcStringToChar(l_strTempFileName);
 				l_bResult = e_ParseFunction(l_strFileName.c_str());
-				System::IO::File::Delete(l_strTempFileName);
+				if( e_bAutoDeleteFile )
+					System::IO::File::Delete(l_strTempFileName);
 			}
 		}
 		return l_bResult;

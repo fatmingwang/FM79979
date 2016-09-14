@@ -7,12 +7,12 @@ Vector4 g_vLineIndexAndColor[30] = {
 	Vector4(1.f/27,1.f/3,1.f/18,1.f),
 	Vector4(1.f/1,1.f/15,1.f/17,1.f),
 	Vector4(1.f/2,1.f/7,1.f/3,1.f),
-	Vector4(1.f/8,1.f/9,1.f/5,1.f),//4
+	Vector4(1.f/1.5f,1.f/1.5f,1.f/5.f,1.f),//4
 	Vector4(1.f/15,1.f/2,1.f/14,1.f),//
 	Vector4(1.f/2,1.f/4,1.f/3,1.f),
-	Vector4(1.f/9,1.f/6,1.f/22,1.f),
-	Vector4(1.f/6,1.f/28,1.f/21,1.f),
-	Vector4(1.f/3,1.f/10,1.f/20,1.f),//9
+	Vector4(1.f/9,1.f/6,1.f/2,1.f),
+	Vector4(1.f/6,1.f/8,1.f/2,1.f),
+	Vector4(1.f/3,1.f/10,1.f/10,1.f),//9
 	Vector4(1.f/1,1.f/12,1.f/19,1.f),
 	Vector4(1.f/2,1.f/14,1.f/18,1.f),
 	Vector4(1.f/4,1.f/16,1.f/17,1.f),

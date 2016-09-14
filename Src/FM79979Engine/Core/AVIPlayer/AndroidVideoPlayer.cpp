@@ -57,7 +57,6 @@ void main()																		\
 #include <jni.h>
 #include <android/bitmap.h>
 JNIEnv*		g_pMultiThreadEnv = 0;
-int			g_iTestCount = 0;
 jclass		g_bitmap_factory_class = 0;
 jmethodID	g_decode_byte_array_method = 0;
 jclass		g_BitmapConfigClass = 0;

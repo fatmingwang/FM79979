@@ -4,6 +4,9 @@
 #include "../GameplayUT/GameApp.h"
 namespace	FATMING_CORE
 {
+	 const wchar_t*         cLinerDataProcessor<Vector2>::TypeID( WSTRING(cLinerDataProcessor2) );
+	 const wchar_t*         cLinerDataProcessor<Vector3>::TypeID( WSTRING(cLinerDataProcessor3) );
+	 const wchar_t*         cLinerDataProcessor<Vector4>::TypeID( WSTRING(cLinerDataProcessor4) );
 	cTimeAndDataLinerUpdateInterface::cTimeAndDataLinerUpdateInterface()
 	{
 		m_iLOD = 1;
@@ -220,6 +223,7 @@ namespace	FATMING_CORE
 	template <class T>
 	cLinerDataProcessor<T>::cLinerDataProcessor()
 	{
+		m_pvValueForSmallestBiggestAndDis = nullptr;
 		m_CurrentData = m_CurrentData-m_CurrentData;
 		m_pCurrentLinerDataVector = &m_LinerDataVector;
 		m_pCurrentTimeVector = &m_TimeVector;
@@ -231,6 +235,15 @@ namespace	FATMING_CORE
 	template <class T>
 	cLinerDataProcessor<T>::cLinerDataProcessor(cLinerDataProcessor*e_pLinerDataProcessor):cTimeAndDataLinerUpdateInterface(e_pLinerDataProcessor)
 	{
+		m_pvValueForSmallestBiggestAndDis = nullptr;
+		if( e_pLinerDataProcessor->m_pvValueForSmallestBiggestAndDis )
+		{
+			m_pvValueForSmallestBiggestAndDis = new T[3];
+			for( int i=0;i<3;++i )
+			{
+				m_pvValueForSmallestBiggestAndDis[i] = e_pLinerDataProcessor->m_pvValueForSmallestBiggestAndDis[i];
+			}
+		}
 		m_pLODDataVector = 0;
 		m_LinerDataVector = e_pLinerDataProcessor->m_LinerDataVector;
 		m_pCurrentLinerDataVector = 0;
@@ -245,6 +258,7 @@ namespace	FATMING_CORE
 	cLinerDataProcessor<T>::~cLinerDataProcessor()
 	{
 		SAFE_DELETE(m_pLODDataVector);
+		SAFE_DELETE(m_pvValueForSmallestBiggestAndDis);
 	}
 //=========================
 //
@@ -262,6 +276,28 @@ namespace	FATMING_CORE
 	void cLinerDataProcessor<T>::IncreaseLod()
 	{
 		TemplateDataIncreaseLod<T>(m_pLODDataVector);
+	}
+//=========================
+//
+//=========================
+	template <class T>
+	void	cLinerDataProcessor<T>::InitValueForSmallestBiggestAndDis()
+	{
+		SAFE_DELETE(m_pvValueForSmallestBiggestAndDis);		
+		m_pvValueForSmallestBiggestAndDis = new T[3];
+		//#define FLT_MAX         3.402823466e+38F        /* max value */
+		//#define FLT_MIN         1.175494351e-38F        /* min positive value */
+		m_pvValueForSmallestBiggestAndDis[0].ToMax();
+		m_pvValueForSmallestBiggestAndDis[1].ToMin();
+		int l_iCount = this->Count();
+		for( int i=0;i<l_iCount;++i )
+		{
+			T l_vPos = this->m_LinerDataVector[i];
+			m_pvValueForSmallestBiggestAndDis[0].ComponentMinimum(l_vPos);
+			m_pvValueForSmallestBiggestAndDis[1].ComponentMaximum(l_vPos);
+		}
+		m_pvValueForSmallestBiggestAndDis[2] = m_pvValueForSmallestBiggestAndDis[1]-m_pvValueForSmallestBiggestAndDis[0];
+		m_pvValueForSmallestBiggestAndDis[2].Abs();
 	}
 //=========================
 //
@@ -381,7 +417,7 @@ namespace	FATMING_CORE
 		l_pLinerTemplateDataProcessElement->SetAttribute(L"LOD",this->m_iLOD);
 		TiXmlElement*	l_pTime = new TiXmlElement(L"Time");
 		TiXmlElement*	l_pAnimationData = new TiXmlElement(L"Data");
-		std::wstring	l_strTimeXmlElementData;
+		std::wstring	l_strTimeXmlElementData; 
 		std::wstring	l_strAnimationXmlElementData;
 		for( int i=0;i<l_iSize;++i )
 		{
@@ -805,6 +841,76 @@ namespace	FATMING_CORE
 		//		cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
 		//	}
 		//}
+	}
+//=========================
+//
+//=========================
+	template <class T>
+	void	cLinerDataProcessor<T>::DebugRenderWithMaximumValue(T e_vMaximumValue,bool e_bRenderPoint,bool e_bRenderIndex,Vector4 e_vColor,cMatrix44 e_mat)
+	{
+		if( !m_pCurrentLinerDataVector )
+			return;
+		if( m_LinerDataVector.size() < 1  )
+			return;
+		GetMaxValueDis();
+		std::vector<T>l_NewData = this->m_LinerDataVector;
+		T l_Scale = this->m_pvValueForSmallestBiggestAndDis[2]/e_vMaximumValue;
+		size_t l_uiSize = l_NewData.size();
+		for(size_t i=0;i<l_uiSize;++i)
+		{
+			l_NewData[i] = l_NewData[i]/l_Scale;
+		}
+
+
+		GLRender::RenderLine(&l_NewData,e_vColor,e_mat,false,false);
+		if( e_bRenderIndex )
+		{
+			size_t	l_uiSize = l_NewData.size();
+			for( size_t i=0;i<l_uiSize;++i )
+			{
+				Vector3	l_vPos(l_NewData[i]);
+				//cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
+				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(m_LinerDataVector[i].y).c_str());
+			}
+		}
+		if( e_bRenderPoint )
+			RenderPoints(&(l_NewData)[0],l_NewData.size(),15,e_vColor,e_mat);
+	}
+//=========================
+//
+//=========================
+	template <class T>
+	T*					cLinerDataProcessor<T>::GetMaxValueDis()
+	{
+		if(m_pvValueForSmallestBiggestAndDis == nullptr)
+		{
+			this->InitValueForSmallestBiggestAndDis();
+		}
+		return &m_pvValueForSmallestBiggestAndDis[2];
+	}
+//=========================
+//
+//=========================
+	template <class T>
+	cLinerDataProcessor<T>*	cLinerDataProcessor<T>::GererateData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient,float e_fSteepGredient,float e_fTimeDiff)
+	{
+		if( e_iNumPoints < 1 )
+			return nullptr;
+		float l_fSteepGredient = e_fSteepGredient;
+		T l_vStartPos = e_vStartPos;
+		cLinerDataProcessor<T>*l_pData = new cLinerDataProcessor<T>(); 
+		for( int i=0;i<e_iNumPoints;++i )
+		{
+			l_pData->AddData(l_vStartPos,i*e_fTimeDiff);
+			float l_fNewGredient = 1+(e_fGredient*(float)i)+l_fSteepGredient;
+			T l_vNextPoint = e_vStepPos* l_fNewGredient;
+			l_vStartPos += l_vNextPoint;
+			for( int j=0;j<i;++j )
+			{
+				l_fSteepGredient += e_fSteepGredient;
+			}
+		}
+		return l_pData;
 	}
 	//hey define the new member here or function can not write in cpp file
 	template class	cLinerDataProcessor<Vector2>;

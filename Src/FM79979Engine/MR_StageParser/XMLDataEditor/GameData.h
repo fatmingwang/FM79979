@@ -33,7 +33,7 @@ public:
 		m_FloatFunction = e_Function ;
 		m_bIntFunction = false;	
 	}
-	~cSimpleFunctionPointerHelp(){}
+	virtual ~cSimpleFunctionPointerHelp(){}
 
 	float					GetValue()
 	{
@@ -50,12 +50,14 @@ public:
 //	~sGetFunctionVector(){ DELETE_VECTOR((*this),cSimpleFunctionPointerHelp*); }
 //};
 
-struct sGameData:public sXmlNode
+struct sGameData
 {
 	friend class cGameData;
 	//
 	struct sMonsterInfo:public sXmlNode,public cChartWithName
 	{
+		std::wstring	GetUnlockInfo();
+		GET_INT_DATA_FROM_ATTRIBUTE(UnlockType,L"unlockType_CN");
 		enum eMonsterStatus
 		{
 			eMS_HP = 0,
@@ -69,7 +71,6 @@ struct sGameData:public sXmlNode
 			eMS_MAX,
 		};
 		cChartWithName								m_AllRenderData;
-		//std::vector<std::wstring>					m_AllRenderData;
 		void							SetRenderData();
 		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
@@ -86,32 +87,38 @@ struct sGameData:public sXmlNode
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"level");
 			sLevelInfo();
-			~sLevelInfo();
+			virtual ~sLevelInfo();
 		};
 		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 		sMonsterInfo();
 		//sMonsterInfo(const sMonsterInfo&e_MonsterInfo);
-		~sMonsterInfo();
+		virtual ~sMonsterInfo();
 		//std::vector<sLevelInfo>	m_LevelInfoVector;
 		std::wstring	GetMonsterName();
+		//int				GetBuyMoney();
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
+		std::wstring    GetInfo();
 	};
 
 	struct sMonsterShop:public sXmlNode,public cChartWithName
 	{
+		std::wstring m_strItemName;
 		std::map<std::wstring,cSimpleFunctionPointerHelp*>	m_NameAndValueMap;
 		GET_INT_DATA_FROM_ATTRIBUTE(MonsterID,L"monster");
 		GET_INT_DATA_FROM_ATTRIBUTE(STR,L"strengthpoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(HP,L"lifepoint");
-		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraEXP,L"exppercent");
-		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraCoin,L"coinpercent");
 		GET_INT_DATA_FROM_ATTRIBUTE(Price,L"price");
 		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");
+		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraEXP,L"exppercent");
+		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraCoin,L"coinpercent");
+		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraSTR,L"strengthpercent");
+		std::map<std::wstring,float>				m_AttributeNameAndValue;
 		std::map<std::wstring,float>				GetAttributeNameAndValue();
 		void		Init();
 		sMonsterShop(const sMonsterShop&e_MonsterShop);
 		sMonsterShop();
-		~sMonsterShop();
+		virtual ~sMonsterShop();
+		std::wstring	GetDescription();
 	};
 
 	struct sEnemyStatus:public cChartWithName
@@ -127,13 +134,6 @@ struct sGameData:public sXmlNode
 			eES_SKILL_TIME_REDUCE,
 			eES_MAX,
 		};
-		//cChartWithName::sNameAndData*	m_pHPData;
-		//cChartWithName::sNameAndData*	m_pSTRData;
-		//cChartWithName::sNameAndData*	m_pTimeAdd;
-		//cChartWithName::sNameAndData*	m_pTimeMinus;
-		//cChartWithName::sNameAndData*	m_pSpeed;
-		//cChartWithName::sNameAndData*	m_pCloseSpeed;
-		//cChartWithName::sNameAndData*	m_pSkillTimeReduce;
 		cChartWithName					m_AllRenderData;
 		struct sLevelInfo:public cChartWithName::sNameAndData
 		{
@@ -148,11 +148,11 @@ struct sGameData:public sXmlNode
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 			sLevelInfo();
 			sLevelInfo(const sLevelInfo& e_LevelInfo);
-			~sLevelInfo();
+			virtual ~sLevelInfo();
 		};
 		sEnemyStatus();
 		//sEnemyStatus(const sEnemyStatus& e_EnemyStatus);
-		~sEnemyStatus();
+		virtual ~sEnemyStatus();
 		//std::vector<sLevelInfo>		m_LevelInfoVector;
 		//
 		std::wstring	GetMonsterName();
@@ -160,9 +160,42 @@ struct sGameData:public sXmlNode
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 		
 	};
+	struct sCampaign:public cChartWithName
+	{
+		enum eCampaignInfo
+		{
+			eCI_EXP1 = 0,
+			eCI_EXP2,
+			eCI_EXP3,
+			eCI_COINS1,
+			eCI_COINS2,
+			eCI_COINS3,
+			eCI_MAX,
+		};
+		cChartWithName					m_AllRenderData;
+		struct sChapter:public cChartWithName,public cChartWithName::sNameAndData
+		{
+			struct sLevelInfo:public cChartWithName::sNameAndData
+			{
+				GET_INT_DATA_FROM_ATTRIBUTE(EXP1,L"exp1");
+				GET_INT_DATA_FROM_ATTRIBUTE(EXP2,L"exp2");
+				GET_INT_DATA_FROM_ATTRIBUTE(EXP3,L"exp3");
+				GET_INT_DATA_FROM_ATTRIBUTE(Coins1,L"coins1");
+				GET_INT_DATA_FROM_ATTRIBUTE(Coins2,L"coins2");
+				GET_INT_DATA_FROM_ATTRIBUTE(Coins3,L"coins3");
+				sLevelInfo(){ this->m_iEXP1 = this->m_iEXP2 = this->m_iEXP3 = -1; this->m_iCoins1 = this->m_iCoins2 = this->m_iCoins3 = -1; }
+				virtual ~sLevelInfo(){}
+			};
+		};
+		std::vector<sChapter*>		m_ChapterVector;
+		sCampaign();
+		virtual ~sCampaign();
+		void						SetRenderData();
+	};
 	void									EnemyDataInit();
 	void									MonsterDataInit();
 	void									ShopDataInit();
+	void									CampaginDataInit();
 	//bind data to lines
 	void									Init();
 	float									m_fShopStartPosX;
@@ -188,6 +221,7 @@ struct sGameData:public sXmlNode
 	void									MonsterRender();
 	void									MonsterUpdate(float e_fElpaseTime);
 	void									ShopRender();
+	void									CampaginRender();
 	void									ShopUpdate(float e_fElpaseTime);
 	void									EnemyRender();
 	void									EnemyUpdate(float e_fElpaseTime);
@@ -204,7 +238,7 @@ struct sGameData:public sXmlNode
 public:
 			//std::vector<sXmlNode> ShopDataVector;
 	sGameData();
-	~sGameData();
+	virtual ~sGameData();
 	//
 	sRenderFlagControl							m_MonsterRenderFlagControl;
 	std::vector<sMonsterInfo*>					m_MonsterInfoVector;
@@ -215,10 +249,13 @@ public:
 	std::vector<sEnemyStatus*>					m_EnemyStatusVector;
 	sRenderFlagControl							m_EnemyRenderFlagControl;
 
+	sCampaign*									m_pCampaign;
+	sRenderFlagControl							m_CampaignRenderFlagControl;
 
 	sMonsterInfo*		GetMonsterInfo(int e_iID);
 	sEnemyStatus*		GetEnemyStatus(int e_iID);
 	std::wstring		GetMonsterName(int e_iID);
+	bool				IsEnemy(int e_iID);
 	//1<11 monster,1<<2enemy,1<<3 shop
 	void									Render(int e_iTargetFlag);
 	void									Update(int e_iTargetFlag,float e_fElpaseTime);
@@ -238,6 +275,7 @@ class cGameData
 	std::string	m_strMonsterHealthFileName;
 	std::string	m_strMonsterStregthFileName;
 	std::string	m_strMonsterStaminaFileName;
+	std::string	m_strCampaginFileName;
 	bool		ParseMonsterFile(const char*e_strMonsterFileName,
 		const char*e_strMonsterLevelFileName,
 		const char*e_strStaminaFileName,
@@ -247,10 +285,11 @@ class cGameData
 	std::string	m_strNPCInfoFileName;
 	bool		ParseNPCInfoFile(const char*e_strFileName);
 	//
+	bool		ParseCampaginFile(const char*e_strFileName);
 public:
 	sGameData*	m_pGameData;
 	cGameData();
-	~cGameData();
+	virtual ~cGameData();
 	bool	Parse(const char*e_strDirectory);
 	void	Render();
 	void	Update(float e_fElpaseTime);
