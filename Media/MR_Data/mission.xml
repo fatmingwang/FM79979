@@ -17,18 +17,18 @@
 	</achievement>
 	<achievement id="3">
 		<mission id="0" finishparamtype="51" finishparamamount="1" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="150" crystals="10"/> 
-		<mission id="1" finishparamtype="51" finishparamamount="10" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="250" crystals="100"/> 
-		<mission id="2" finishparamtype="51" finishparamamount="50" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="500" crystals="1000"/> 
+		<mission id="1" finishparamtype="51" finishparamamount="10" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="250" crystals="80"/> 
+		<mission id="2" finishparamtype="51" finishparamamount="50" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="500" crystals="160"/> 
 	</achievement>
 	<achievement id="4">
 		<mission id="0" finishparamtype="52" finishparamamount="1" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="150" crystals="10"/> 
-		<mission id="1" finishparamtype="52" finishparamamount="10" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="250" crystals="100"/> 
-		<mission id="2" finishparamtype="52" finishparamamount="50" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="500" crystals="1000"/> 
+		<mission id="1" finishparamtype="52" finishparamamount="10" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="250" crystals="80"/> 
+		<mission id="2" finishparamtype="52" finishparamamount="50" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="500" crystals="160"/> 
 	</achievement>
 	<achievement id="5">
 		<mission id="0" finishparamtype="53" finishparamamount="1" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="150" crystals="10"/> 
-		<mission id="1" finishparamtype="53" finishparamamount="10" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="250" crystals="100"/> 
-		<mission id="2" finishparamtype="53" finishparamamount="50" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="500" crystals="1000"/> 
+		<mission id="1" finishparamtype="53" finishparamamount="10" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="250" crystals="80"/> 
+		<mission id="2" finishparamtype="53" finishparamamount="50" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="500" crystals="160"/> 
 	</achievement>
 	<achievement id="6"> 
 		<mission id="0" finishparamtype="9" finishparamamount="120" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="500" crystals="3"/> 
