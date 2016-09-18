@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <node ID="1" MinTime="60" MaxTime="7200" MinCrystal="10" MaxCrystal="46"/>
+  <node ID="2" MinTime="7200" MaxTime="18000" MinCrystal="47" MaxCrystal="150"/>
+  <node ID="3" MinTime="18000" MaxTime="54000" MinCrystal="150" MaxCrystal="440"/>
+  <node ID="4" MinTime="54000" MaxTime="86400" MinCrystal="440" MaxCrystal="640"/>
+<!--  
+  <node ID="1" time="60" crystal="0"/>
+  <node ID="2" time="300" crystal="1"/>
+  <node ID="3" time="600" crystal="2"/>
+  <node ID="4" time="900" crystal="3"/>
+  <node ID="5" time="1200" crystal="4"/>
+  <node ID="6" time="1500" crystal="5"/>
+  <node ID="7" time="1800" crystal="6"/>
+  <node ID="8" time="2100" crystal="8"/>
+  <node ID="9" time="2400" crystal="10"/>
+  <node ID="10" time="2700" crystal="12"/>
+  <node ID="11" time="3000" crystal="14"/>
+  <node ID="12" time="3300" crystal="16"/>
+  <node ID="13" time="3600" crystal="18"/>
+  <node ID="14" time="3900" crystal="21"/>
+  <node ID="15" time="4200" crystal="24"/>
+  <node ID="16" time="4500" crystal="27"/>
+  <node ID="17" time="4800" crystal="30"/>
+  <node ID="18" time="5100" crystal="33"/>
+  <node ID="19" time="5400" crystal="36"/>
+  <node ID="20" time="5700" crystal="40"/>
+  <node ID="21" time="6000" crystal="44"/>
+  <node ID="22" time="6300" crystal="48"/>
+  <node ID="23" time="6600" crystal="52"/>
+  <node ID="24" time="6900" crystal="56"/>
+  <node ID="25" time="7200" crystal="60"/>
+  <node ID="26" time="7500" crystal="65"/>
+  <node ID="27" time="7800" crystal="70"/>
+  <node ID="28" time="8100" crystal="75"/>
+  <node ID="29" time="8400" crystal="80"/>
+  <node ID="30" time="8700" crystal="85"/>
+  <node ID="31" time="9000" crystal="90"/>
+-->
+</root>
