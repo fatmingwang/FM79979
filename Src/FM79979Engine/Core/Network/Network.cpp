@@ -600,7 +600,7 @@ namespace FATMING_CORE
 		}
 	}
 
-	bool	cNetwork::DownloadFile(WCHAR*e_strURL,WCHAR*e_strLocalFileName)
+	bool	cNetwork::DownloadFile(const WCHAR*e_strURL,const WCHAR*e_strLocalFileName)
 	{
 #ifdef WIN32
 			HRESULT hRez = URLDownloadToFile( NULL, e_strURL,e_strLocalFileName, 0, NULL );

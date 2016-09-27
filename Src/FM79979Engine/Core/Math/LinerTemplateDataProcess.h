@@ -156,6 +156,7 @@ namespace	FATMING_CORE
 		//NewStee = e_fSteepGredient;
 		//0,0,0
 		//0,0,0+(1,2,0)*(1+(index*e_fGredient)+for(NewStee+=e_fSteepGredient))
+		static cLinerDataProcessor<T>*				GererateDataWithPreviousData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient = 0.1f,float e_fSteepGredient = 0.025f,float e_fTimeDiff = 0.1f);
 		static cLinerDataProcessor<T>*				GererateData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient = 0.1f,float e_fSteepGredient = 0.025f,float e_fTimeDiff = 0.1f);
 	};
 

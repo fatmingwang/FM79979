@@ -111,11 +111,16 @@ struct sGameNode:public sTrigger
 
 class cStageParser:public cNodeISAX
 {
+	std::map<std::wstring,int>		m_StageNameWithIndex;
 	bool			ParseNode(TiXmlElement*e_pRoot);
 	bool			ParseTriggers(TiXmlElement*e_pRoot,sGameNode*e_pGamePlay);
 	bool			ParseTrigger(TiXmlElement*e_pRoot,sTriggers*e_pTriggers);
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 public:
+	cStageParser();
+	~cStageParser();
 	std::vector<sGameNode>	m_GamePlayVector;
+	int				GetIndexByStageName(std::wstring e_strStageName);
+	std::wstring	GetStageNameByIndex(int e_iIndex);
 	//you should overwrite this if u call ParseWithMyParse
 };

@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "Form1.h"
+#include "FileSequenceDownload.h"
 
 using namespace XMLDataEditor;
 
@@ -13,6 +14,8 @@ int main(array<System::String ^> ^args)
 	Application::SetCompatibleTextRenderingDefault(false); 
 
 
+	//Application::Run(gcnew DataCurve());
+	
 	String^l_str;
 	if( args->Length )
 		Application::Run(gcnew Form1(args[0]));

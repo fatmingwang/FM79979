@@ -83,7 +83,6 @@ struct sGameData
 			GET_INT_DATA_FROM_ATTRIBUTE(CrystalCost,L"crystalCost");
 			GET_INT_DATA_FROM_ATTRIBUTE(SkillCD,L"SkillCD");
 
-
 			GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
 			GET_INT_DATA_FROM_ATTRIBUTE(Level,L"level");
 			sLevelInfo();
@@ -104,12 +103,16 @@ struct sGameData
 	{
 		std::wstring m_strItemName;
 		std::map<std::wstring,cSimpleFunctionPointerHelp*>	m_NameAndValueMap;
+
+		GET_INT_DATA_FROM_ATTRIBUTE(Type,L"type");
+
 		GET_INT_DATA_FROM_ATTRIBUTE(MonsterID,L"monster");
 		GET_INT_DATA_FROM_ATTRIBUTE(STR,L"strengthpoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(HP,L"lifepoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(Price,L"price");
 		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraEXP,L"exppercent");
+		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraHP,L"lifepercent");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraCoin,L"coinpercent");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraSTR,L"strengthpercent");
 		std::map<std::wstring,float>				m_AttributeNameAndValue;
@@ -149,6 +152,7 @@ struct sGameData
 			sLevelInfo();
 			sLevelInfo(const sLevelInfo& e_LevelInfo);
 			virtual ~sLevelInfo();
+			int	GetSpeedByLevel(int e_iLevel);
 		};
 		sEnemyStatus();
 		//sEnemyStatus(const sEnemyStatus& e_EnemyStatus);
@@ -158,20 +162,21 @@ struct sGameData
 		std::wstring	GetMonsterName();
 		int				GetMonsterID();
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
-		
+		int				GetSpeedByLevel(int e_iLevel);
 	};
 	struct sCampaign:public cChartWithName
 	{
 		enum eCampaignInfo
 		{
-			eCI_EXP1 = 0,
-			eCI_EXP2,
-			eCI_EXP3,
-			eCI_COINS1,
+			eCI_COINS1 = 0,
 			eCI_COINS2,
 			eCI_COINS3,
+			eCI_EXP1,
+			eCI_EXP2,
+			eCI_EXP3,
 			eCI_MAX,
 		};
+		std::vector<std::wstring>		m_strStageNameVector;
 		cChartWithName					m_AllRenderData;
 		struct sChapter:public cChartWithName,public cChartWithName::sNameAndData
 		{
@@ -191,6 +196,7 @@ struct sGameData
 		sCampaign();
 		virtual ~sCampaign();
 		void						SetRenderData();
+		int							GetIndexByName(std::wstring e_strStageName);
 	};
 	void									EnemyDataInit();
 	void									MonsterDataInit();
@@ -221,6 +227,7 @@ struct sGameData
 	void									MonsterRender();
 	void									MonsterUpdate(float e_fElpaseTime);
 	void									ShopRender();
+	bool									m_bStageIndexCorrect;
 	void									CampaginRender();
 	void									ShopUpdate(float e_fElpaseTime);
 	void									EnemyRender();
@@ -255,6 +262,7 @@ public:
 	sMonsterInfo*		GetMonsterInfo(int e_iID);
 	sEnemyStatus*		GetEnemyStatus(int e_iID);
 	std::wstring		GetMonsterName(int e_iID);
+	int					GetMonsterSpeedByLevel(int e_iID,int e_iLevel);
 	bool				IsEnemy(int e_iID);
 	//1<11 monster,1<<2enemy,1<<3 shop
 	void									Render(int e_iTargetFlag);

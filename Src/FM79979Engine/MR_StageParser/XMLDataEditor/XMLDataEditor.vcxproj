@@ -19,14 +19,14 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v110_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>true</CLRSupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v110_xp</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <CLRSupport>true</CLRSupport>
   </PropertyGroup>
@@ -130,13 +130,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChartWithName.h" />
-    <ClInclude Include="DataCurve.h">
+    <ClInclude Include="FileSequenceDownload.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="GameData.h" />
+    <ClInclude Include="LimitTimePurchase.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="StageParser.h" />
     <ClInclude Include="stdafx.h" />
@@ -144,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="ChartWithName.cpp" />
     <ClCompile Include="GameData.cpp" />
+    <ClCompile Include="LimitTimePurchase.cpp" />
     <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Form1.cpp" />
@@ -154,12 +158,15 @@
     <ClCompile Include="XMLDataEditor.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataCurve.resx">
-      <DependentUpon>DataCurve.h</DependentUpon>
+    <EmbeddedResource Include="FileSequenceDownload.resx">
+      <DependentUpon>FileSequenceDownload.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resX">
       <DependentUpon>Form1.h</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LimitTimePurchase.resx">
+      <DependentUpon>LimitTimePurchase.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

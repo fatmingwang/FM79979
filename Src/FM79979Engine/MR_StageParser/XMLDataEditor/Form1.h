@@ -164,6 +164,7 @@ private: System::Windows::Forms::Button^  DoTimeToMoney_button;
 private: System::Windows::Forms::ListBox^  StageClearBonus_listBox;
 private: System::Windows::Forms::CheckBox^  StageRender_checkBox;
 private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
+private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 
 
 
@@ -195,6 +196,7 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->ShowParameterValue_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->Main_tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->Gameplay_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->StageBonusRender_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->StageRender_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->StageClearBonus_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->GameData_tabPage = (gcnew System::Windows::Forms::TabPage());
@@ -232,6 +234,7 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->ShopStatus_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ShopData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->NewCurve_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->GridentWithPrevious_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->Round_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->Result_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->Number_label = (gcnew System::Windows::Forms::Label());
@@ -252,7 +255,6 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->CaemraReset_button = (gcnew System::Windows::Forms::Button());
-			this->StageBonusRender_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->Main_tabControl->SuspendLayout();
 			this->Gameplay_tabPage->SuspendLayout();
 			this->GameData_tabPage->SuspendLayout();
@@ -418,6 +420,18 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->Gameplay_tabPage->TabIndex = 0;
 			this->Gameplay_tabPage->Text = L"Gameplay";
 			this->Gameplay_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// StageBonusRender_checkBox
+			// 
+			this->StageBonusRender_checkBox->AutoSize = true;
+			this->StageBonusRender_checkBox->Checked = true;
+			this->StageBonusRender_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->StageBonusRender_checkBox->Location = System::Drawing::Point(181, 733);
+			this->StageBonusRender_checkBox->Name = L"StageBonusRender_checkBox";
+			this->StageBonusRender_checkBox->Size = System::Drawing::Size(91, 17);
+			this->StageBonusRender_checkBox->TabIndex = 16;
+			this->StageBonusRender_checkBox->Text = L"BonusRender";
+			this->StageBonusRender_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// StageRender_checkBox
 			// 
@@ -810,6 +824,7 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			// 
 			// NewCurve_tabPage
 			// 
+			this->NewCurve_tabPage->Controls->Add(this->GridentWithPrevious_checkBox);
 			this->NewCurve_tabPage->Controls->Add(this->Round_checkBox);
 			this->NewCurve_tabPage->Controls->Add(this->Result_textBox);
 			this->NewCurve_tabPage->Controls->Add(this->Number_label);
@@ -834,6 +849,19 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->NewCurve_tabPage->Text = L"NewCurve";
 			this->NewCurve_tabPage->UseVisualStyleBackColor = true;
 			// 
+			// GridentWithPrevious_checkBox
+			// 
+			this->GridentWithPrevious_checkBox->AutoSize = true;
+			this->GridentWithPrevious_checkBox->Checked = true;
+			this->GridentWithPrevious_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->GridentWithPrevious_checkBox->Location = System::Drawing::Point(180, 170);
+			this->GridentWithPrevious_checkBox->Name = L"GridentWithPrevious_checkBox";
+			this->GridentWithPrevious_checkBox->Size = System::Drawing::Size(123, 17);
+			this->GridentWithPrevious_checkBox->TabIndex = 22;
+			this->GridentWithPrevious_checkBox->Text = L"GridentWithPrevious";
+			this->GridentWithPrevious_checkBox->UseVisualStyleBackColor = true;
+			this->GridentWithPrevious_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::GridentWithPrevious_checkBox_CheckedChanged);
+			// 
 			// Round_checkBox
 			// 
 			this->Round_checkBox->AutoSize = true;
@@ -843,6 +871,7 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->Round_checkBox->TabIndex = 21;
 			this->Round_checkBox->Text = L"Round";
 			this->Round_checkBox->UseVisualStyleBackColor = true;
+			this->Round_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::GridentWithPrevious_checkBox_CheckedChanged);
 			// 
 			// Result_textBox
 			// 
@@ -870,6 +899,7 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->Round_numericUpDown->Size = System::Drawing::Size(120, 20);
 			this->Round_numericUpDown->TabIndex = 19;
 			this->Round_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
+			this->Round_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::Round_numericUpDown_ValueChanged);
 			// 
 			// Number_numericUpDown
 			// 
@@ -1045,18 +1075,6 @@ private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 			this->CaemraReset_button->Text = L"CaemraReset";
 			this->CaemraReset_button->UseVisualStyleBackColor = true;
 			this->CaemraReset_button->Click += gcnew System::EventHandler(this, &Form1::CaemraReset_button_Click);
-			// 
-			// StageBonusRender_checkBox
-			// 
-			this->StageBonusRender_checkBox->AutoSize = true;
-			this->StageBonusRender_checkBox->Checked = true;
-			this->StageBonusRender_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->StageBonusRender_checkBox->Location = System::Drawing::Point(181, 733);
-			this->StageBonusRender_checkBox->Name = L"StageBonusRender_checkBox";
-			this->StageBonusRender_checkBox->Size = System::Drawing::Size(91, 17);
-			this->StageBonusRender_checkBox->TabIndex = 16;
-			this->StageBonusRender_checkBox->Text = L"BonusRender";
-			this->StageBonusRender_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// Form1
 			// 
@@ -1350,14 +1368,14 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 						this->m_pGameData->m_pGameData->ShopRender();
 						break;
 					default:
+					if( MonsterRender_checkBox->Checked )
+						this->m_pGameData->m_pGameData->MonsterRender();
+					if( EnemyRender_checkBox->Checked )
+						this->m_pGameData->m_pGameData->EnemyRender();
+					if( StageBonusRender_checkBox->Checked )
+						this->m_pGameData->m_pGameData->CampaginRender();
 						break;
 				}
-				if( MonsterRender_checkBox->Checked )
-					this->m_pGameData->m_pGameData->MonsterRender();
-				if( EnemyRender_checkBox->Checked )
-					this->m_pGameData->m_pGameData->EnemyRender();
-				if( StageBonusRender_checkBox->Checked )
-					this->m_pGameData->m_pGameData->CampaginRender();
 			}
 			if( m_pLinerData )
 			{
@@ -1578,7 +1596,11 @@ private: System::Void StartPosX_numericUpDown_ValueChanged(System::Object^  send
 			SAFE_DELETE(m_pLinerData);
 			String^l_strPrefix = XMLPrefix_textBox->Text;
 			TimeToMoneyList__textBox->Text = "";
-			m_pLinerData = cLinerDataProcessor<Vector3>::GererateData(l_iNumPoints,Vector3(l_fStartPosX,l_fStartPosY,0),Vector3(l_fStepX,l_fStepY,0),l_fGrident,l_fSteep);
+			if( GridentWithPrevious_checkBox->Checked )
+				m_pLinerData = cLinerDataProcessor<Vector3>::GererateDataWithPreviousData(l_iNumPoints,Vector3(l_fStartPosX,l_fStartPosY,0),Vector3(l_fStepX,l_fStepY,0),l_fGrident,l_fSteep);
+			else
+				m_pLinerData = cLinerDataProcessor<Vector3>::GererateData(l_iNumPoints,Vector3(l_fStartPosX,l_fStartPosY,0),Vector3(l_fStepX,l_fStepY,0),l_fGrident,l_fSteep);
+
 			for(size_t i=0;i<m_pLinerData->Count();++i)
 			{
 				Vector3 l_vPos = *m_pLinerData->GetData(i);
@@ -1665,6 +1687,14 @@ private: System::Void DoTimeToMoney_button_Click(System::Object^  sender, System
 				}
 			 }
 			 
+		 }
+private: System::Void GridentWithPrevious_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 StartPosX_numericUpDown_ValueChanged(sender,e);
+		 }
+private: System::Void Round_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 StartPosX_numericUpDown_ValueChanged(sender,e);
 		 }
 };
 }

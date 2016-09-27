@@ -892,7 +892,7 @@ namespace	FATMING_CORE
 //
 //=========================
 	template <class T>
-	cLinerDataProcessor<T>*	cLinerDataProcessor<T>::GererateData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient,float e_fSteepGredient,float e_fTimeDiff)
+	cLinerDataProcessor<T>*	cLinerDataProcessor<T>::GererateDataWithPreviousData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient,float e_fSteepGredient,float e_fTimeDiff)
 	{
 		if( e_iNumPoints < 1 )
 			return nullptr;
@@ -905,10 +905,34 @@ namespace	FATMING_CORE
 			float l_fNewGredient = 1+(e_fGredient*(float)i)+l_fSteepGredient;
 			T l_vNextPoint = e_vStepPos* l_fNewGredient;
 			l_vStartPos += l_vNextPoint;
+			//here is wrong but I am lazy to fix this,check GererateData
 			for( int j=0;j<i;++j )
 			{
 				l_fSteepGredient += e_fSteepGredient;
 			}
+		}
+		return l_pData;
+	}
+	template <class T>
+	cLinerDataProcessor<T>*	cLinerDataProcessor<T>::GererateData(int e_iNumPoints,T e_vStartPos,T e_vStepPos,float e_fGredient,float e_fSteepGredient,float e_fTimeDiff)
+	{
+		if( e_iNumPoints < 1 )
+			return nullptr;
+		float l_fSteepGredient = 0.f;
+		T l_vStartPos = e_vStartPos;
+		cLinerDataProcessor<T>*l_pData = new cLinerDataProcessor<T>(); 
+		for( int i=1;i<e_iNumPoints+1;++i )
+		{
+			l_pData->AddData(l_vStartPos,i*e_fTimeDiff);
+			//this equal below commect code
+			l_fSteepGredient = (1+i)*i/2*e_fSteepGredient;
+			//for( int j=0;j<i;++j )
+			//{
+			//	l_fSteepGredient += e_fSteepGredient;
+			//}
+			float l_fNewGredient = ((e_fGredient)*(float)i)+l_fSteepGredient;
+			T l_vNextPoint = e_vStepPos* l_fNewGredient;
+			l_vStartPos = l_vNextPoint+e_vStartPos;
 		}
 		return l_pData;
 	}

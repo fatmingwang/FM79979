@@ -120,7 +120,7 @@ namespace FATMING_CORE
 		virtual	void						Update(float e_fElpaseTime);
 		//cNetwork::DownloadFile(L"http://www.khronos.org/files/collada_cts_rfq_2012.pdf",L"79979.pdf");
 		//http://stackoverflow.com/questions/5291432/waiting-for-urldownloadtofile-to-end
-		static		bool					DownloadFile(wchar_t*e_strURL,wchar_t*e_strLocalFileName);
+		static		bool					DownloadFile(const wchar_t*e_strURL,const wchar_t*e_strLocalFileName);
 	};
 //end namespace
 }

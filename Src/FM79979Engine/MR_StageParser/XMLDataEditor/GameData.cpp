@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameData.h"
-
+#include "StageParser.h"
+extern cStageParser*g_pStageParser ;
 cNodeISAX*g_pCurrentNodeISAX = nullptr;
 extern Vector4 g_vLineIndexAndColor[6];
 
@@ -85,12 +86,14 @@ sGameData::sMonsterShop::sMonsterShop(const sMonsterShop&e_MonsterShop):sXmlNode
 
 void		sGameData::sMonsterShop::Init()
 {
+	this->m_iType = -1;
 	this->m_iMonsterID = -1;
 	this->m_iSTR = -1;
 	this->m_iHP = -1;
 	this->m_fExtraEXP = -1.f;
 	this->m_fExtraCoin = -1.f;
 	this->m_fExtraSTR = -1.f;
+	this->m_fExtraHP = -1.f;
 	this->m_iPrice = -1;
 	this->m_iPriceType = -1;
 	std::function<float()> l_Fun1 = std::bind(&sGameData::sMonsterShop::GetExtraCoin,this);
@@ -99,6 +102,7 @@ void		sGameData::sMonsterShop::Init()
 	std::function<int()> l_Fun3 = std::bind(&sGameData::sMonsterShop::GetHP,this);
 	std::function<int()> l_Fun4 = std::bind(&sGameData::sMonsterShop::GetPrice,this);
 	std::function<int()> l_Fun5 = std::bind(&sGameData::sMonsterShop::GetSTR,this);
+	std::function<float()> l_Fun7 = std::bind(&sGameData::sMonsterShop::GetExtraHP,this);
 
 	m_NameAndValueMap.insert(std::make_pair(this->GetPriceName(),new cSimpleFunctionPointerHelp(l_Fun4)));
 	m_NameAndValueMap.insert(std::make_pair(this->GetHPName(),new cSimpleFunctionPointerHelp(l_Fun3)));
@@ -106,6 +110,7 @@ void		sGameData::sMonsterShop::Init()
 	m_NameAndValueMap.insert(std::make_pair(this->GetExtraSTRName(),new cSimpleFunctionPointerHelp(l_Fun6)));
 	m_NameAndValueMap.insert(std::make_pair(this->GetExtraCoinName(),new cSimpleFunctionPointerHelp(l_Fun1)));
 	m_NameAndValueMap.insert(std::make_pair(this->GetExtraEXPName(),new cSimpleFunctionPointerHelp(l_Fun2)));
+	m_NameAndValueMap.insert(std::make_pair(this->GetExtraHPName(),new cSimpleFunctionPointerHelp(l_Fun7)));
 }
 
 sGameData::sMonsterShop::~sMonsterShop()
@@ -190,6 +195,15 @@ sGameData::sEnemyStatus::sLevelInfo::~sLevelInfo()
 
 }
 
+int	sGameData::sEnemyStatus::GetSpeedByLevel(int e_iLevel)
+{
+	size_t l_uiSize = this->m_LineDataVector.size();
+	if( e_iLevel >= (int)l_uiSize  )
+		return -1;
+	sLevelInfo*l_pLevelInfo = (sLevelInfo*)m_LineDataVector[e_iLevel];
+	return l_pLevelInfo->GetSpeed();
+}
+
 std::wstring	sGameData::sMonsterInfo::GetMonsterName()
 {
 	std::wstring l_strName;
@@ -230,6 +244,7 @@ std::wstring    sGameData::sMonsterInfo::GetInfo()
 	l_strInfo += l_strMaxFatigue;
 	return l_strInfo;
 }
+
 
 std::wstring	sGameData::sMonsterInfo::GetUnlockInfo()
 {
@@ -343,6 +358,7 @@ int				sGameData::sEnemyStatus::GetHitBearCount(int e_iDamage,int e_iLevel)
 sGameData*g_pGameData = nullptr;
 sGameData::sGameData()
 {
+	m_bStageIndexCorrect = false;
 	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::MonsterRender,this));
 	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::ShopRender,this));
 	m_RenderFunctionPointerVector.push_back(std::bind(&sGameData::EnemyRender,this));
@@ -402,6 +418,15 @@ sGameData::sEnemyStatus*		sGameData::GetEnemyStatus(int e_iID)
 	return nullptr;
 }
 
+int	sGameData::GetMonsterSpeedByLevel(int e_iID,int e_iLevel)
+{
+	
+	sGameData::sEnemyStatus*l_pEnemyStatus = GetEnemyStatus(e_iID);
+	if( l_pEnemyStatus )
+		return l_pEnemyStatus->GetSpeedByLevel(e_iLevel);
+	return -1;
+}
+
 sGameData::sMonsterInfo*	sGameData::GetMonsterInfo(int e_iID)
 {
 	size_t l_uiSize = this->m_MonsterInfoVector.size();
@@ -442,6 +467,16 @@ void	sGameData::sCampaign::SetRenderData()
 		l_pData->m_Name = l_strAttributeName[i];
 		m_AllRenderData.m_LineDataVector.push_back(l_pData);
 	}
+}
+
+int		sGameData::sCampaign::GetIndexByName(std::wstring e_strStageName)
+{
+	for(size_t i=0;i<m_strStageNameVector.size();++i)
+	{
+		if(m_strStageNameVector[i] == e_strStageName)
+			return i;
+	}
+	return -1;
 }
 
 
@@ -566,25 +601,27 @@ void	sGameData::ShopDataInit()
 		}
 	}
 }
-
+float g_fCampaginDataGap = 30.f;
 void	sGameData::CampaginDataInit()
 {
 	if( !this->m_pCampaign )
 		return;
 	float l_fStartPosX = 0;
 	float l_fStartPosY = 0;
-	float l_fGapX = 30;
+	float l_fGapX = g_fCampaginDataGap;
+	this->m_pCampaign->m_strStageNameVector.clear();
 	for(sCampaign::sChapter*l_pChapter : this->m_pCampaign->m_ChapterVector)
 	{
 		for(size_t i=0;i<l_pChapter->m_LineDataVector.size();++i)
 		{
 			sCampaign::sChapter::sLevelInfo*l_pLevelInfo = (sCampaign::sChapter::sLevelInfo*)l_pChapter->m_LineDataVector[i];
-			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP1(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP1],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
-			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP2(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP2],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
-			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP3(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP3],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
+			this->m_pCampaign->m_strStageNameVector.push_back(l_pLevelInfo->getValue(L"gameplay"));
 			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetCoins1(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_COINS1],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
 			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetCoins2(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_COINS2],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
 			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetCoins3(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_COINS3],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP1(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP1],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP2(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP2],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
+			Assign(l_fStartPosX,l_fStartPosY-l_pLevelInfo->GetEXP3(),m_pCampaign->m_AllRenderData.m_LineDataVector[sCampaign::eCI_EXP3],m_CampaignRenderFlagControl.m_MaxVector[sCampaign::eCI_EXP1]);
 			l_fStartPosX += l_fGapX;
 		}
 	}
@@ -641,7 +678,7 @@ void	sGameData::MonsterRender()
 				if( i == 0 )
 				{
 					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
-					cGameApp::RenderFont(0,0-i*(60),l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
+					cGameApp::RenderFont(0,0-i*(60)+100,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
 					Vector2 l_XAxis[2] = {Vector2(0,0),Vector2(l_vPos.x,0)};
 					Vector2 l_YAxis[2] = {Vector2(0,0),Vector2(0,l_vPos.y/l_fYDataScale)};
 					GLRender::RenderLine((float*)&l_XAxis,2,Vector4::One,2);
@@ -708,7 +745,7 @@ void	sGameData::ShopRender()
 		for(size_t i=0;i<l_pVector->size();++i)
 		{
 			sMonsterShop*l_pMonsterShop = (sMonsterShop*)(*l_pVector)[i];
-			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
+			cGameApp::m_spGlyphFontRender->SetFontColor(g_vLineIndexAndColor[l_pMonsterShop->GetType()]);
 			l_str = l_pMonsterShop->GetDescription();;
 			cGameApp::RenderFont(l_fPosX,l_fPosY,l_str);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
@@ -720,13 +757,50 @@ void	sGameData::ShopRender()
 				{
 					int l_iPriceType = l_pMonsterShop->GetPriceType();
 					if( l_iPriceType == 1 )
+					{
+						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,0,1));
 						l_strResult  = L"Coins";
+					}
 					else
+					if( l_iPriceType == 2 )
+					{
+						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,0,1));
 						l_strResult  = L"Gems";
+					}
+					else
+					{
+						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(0,0,1,1));
+						l_strResult  = L"F Points";
+					}
+				}
+				else
+				if( l_strResult == L"HP" )
+				{
+					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1.5f,0.f,0.f,1));
+				}
+				else
+				if( l_strResult.find(L"Extra") != std::wstring::npos )
+				{
+					if( l_strResult.find(L"HP") != std::wstring::npos )
+					{
+						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1.5f,0.f,1.5f,1));
+					}
+					else
+					if( l_strResult.find(L"STR") != std::wstring::npos )
+					{
+						cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(0.f,1.5f,1.5f,1));
+					}
+					
+				}
+				else
+				if( l_strResult == L"STR" )
+				{
+					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(0.f,1.5f,0.f,1));
 				}
 				l_strResult += L" : ";
 				l_strResult += ValueToStringW(l_pIterator.second);
 				cGameApp::RenderFont(l_fPosX,l_fPosY,l_strResult);
+				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 			}
 			l_vSize = cGameApp::m_spGlyphFontRender->GetRenderSize(l_str.c_str());
 			l_fPosX += 200;
@@ -741,6 +815,43 @@ void	sGameData::ShopRender()
 void	sGameData::CampaginRender()
 {
 	CameraOffset(Vector2(-500,-650),0.5);
+	if( !m_bStageIndexCorrect )
+	{
+		cGameApp::RenderFont(0,0,L"please open gameplay.xml to correct index");
+		if(g_pStageParser && g_pStageParser->m_GamePlayVector.size()>0)
+		{
+			std::vector<cChartWithName::sNameAndData*>			l_TempLineDataVector;
+			for(size_t i=0;i<m_pCampaign->m_AllRenderData.m_LineDataVector.size();++i)
+			{
+				l_TempLineDataVector.push_back(m_pCampaign->m_AllRenderData.m_LineDataVector[i]);
+			}
+			std::map<int,int>	l_CorrectIndex;
+			for(size_t i=0;i<g_pStageParser->m_GamePlayVector.size();++i)
+			{
+				
+				int l_iIndex = m_pCampaign->GetIndexByName(g_pStageParser->GetStageNameByIndex(i));
+				if( l_iIndex == -1 )
+				{
+					cGameApp::RenderFont(10010,0,L"data error please open gameplay.xml to correct index");
+					return;
+				}
+				l_CorrectIndex[i] = l_iIndex;
+			}
+			for(size_t j=0;j<m_pCampaign->m_AllRenderData.m_LineDataVector.size();++j)
+			{
+				auto l_pCloneData = new cLinerDataProcessor<Vector3>(m_pCampaign->m_AllRenderData.m_LineDataVector[j]->m_pLineData);
+				for(size_t i=0;i<l_CorrectIndex.size();++i)
+				{
+					int l_iCorrectIndex = l_CorrectIndex[i];
+					Vector3 l_vPos = *l_pCloneData->GetData(l_iCorrectIndex);
+					l_vPos.x = i*g_fCampaginDataGap;
+					m_pCampaign->m_AllRenderData.m_LineDataVector[j]->m_pLineData->ChangeData(i,l_vPos);
+				}				
+				delete l_pCloneData;
+			}
+			m_bStageIndexCorrect = true;
+		}
+	}
 	bool	l_bShowValue = this->m_CampaignRenderFlagControl.m_bShowValue;
 	std::vector<int> l_RenderIndex = m_CampaignRenderFlagControl.m_RenderIndexVector;
 	if( l_RenderIndex.size() == 0 )
@@ -789,11 +900,16 @@ void	sGameData::CampaginRender()
 		if( l_bShowValue )
 		{
 			cGameApp::m_spGlyphFontRender->SetScale(0.7f);
+			auto l_pData = m_pCampaign->m_AllRenderData.m_LineDataVector[l_iIndex];
+			l_pData->m_Name;
 			size_t l_iXCount = m_pCampaign->m_AllRenderData.m_LineDataVector[l_iIndex]->m_pLineData->Count();
 			auto l_pVector = m_pCampaign->m_AllRenderData.m_LineDataVector[l_iIndex]->m_pLineData->GetLinerDataVector();
 			for(size_t k=0;k<l_iXCount;++k)
 			{
 				cGameApp::RenderFont((*l_pVector)[k].x,(*l_pVector)[k].y,ValueToStringW((int)-(*l_pVector)[k].y));
+				Vector2 l_YAxis[2] = {Vector2((*l_pVector)[k].x,(*l_pVector)[k].y),Vector2((*l_pVector)[k].x,15)};
+				GLRender::RenderLine((float*)&l_YAxis,2,Vector4::One,2);
+
 			}
 			cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		}
@@ -841,7 +957,7 @@ void	sGameData::EnemyRender()
 				if( i == 0 )
 				{
 					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
-					cGameApp::RenderFont(0,0-i*50,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
+					cGameApp::RenderFont(0,0-i*50+100,l_pMonsterInfo->m_AllRenderData.m_LineDataVector[j]->m_Name.c_str());
 					Vector2 l_XAxis[2] = {Vector2(0,0),Vector2(l_vPos.x,0)};
 					Vector2 l_YAxis[2] = {Vector2(0,0),Vector2(0,l_vPos.y/l_fYDataScale)};
 					GLRender::RenderLine((float*)&l_XAxis,2,Vector4::One,2);

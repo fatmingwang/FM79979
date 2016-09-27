@@ -190,7 +190,6 @@ float	sTrigger::GetInterval()
 
 int	sTrigger::GetLength()
 {
-	float l_ObjectSpeed = g_iMonsterSpeed;
 	std::wstring l_str = this->getValue(L"length");
 	if( l_str.length() )
 	{
@@ -457,6 +456,19 @@ Vector2	GetTrackStartEndPosX(int e_Width,sTrigger*e_pTrigger)
 extern sGameData*g_pGameData;
 int g_iStagePosXOffset = 0;
 int g_iStagePosYOffset = 500;
+
+int getCorrectLength(int e_iEnemySpeed,int e_iStartLength,int e_iEnemyLength)
+{
+	if( e_iEnemySpeed == -1 )
+		return e_iEnemyLength;
+	const  int l_iMonsterSpeed = 8;
+	int l_iOffsetSpeed = e_iEnemySpeed-l_iMonsterSpeed;
+	int l_iLengthOffset = e_iStartLength-e_iEnemyLength;
+	float l_fSeconds = (float)l_iLengthOffset/(float)l_iOffsetSpeed;
+	float l_fTwordLength = (l_iOffsetSpeed*l_fSeconds)+e_iStartLength;
+	return (int)l_fTwordLength;
+}
+
 void		sGameNode::RenderScene()
 {
 	CameraOffset(Vector2(g_iStagePosXOffset,g_iStagePosYOffset),1);
@@ -467,6 +479,7 @@ void		sGameNode::RenderScene()
 	RenderRectangle(Vector2::Zero,(float)g_iObjectLineWidth,(float)l_iHeight,Vector4::One,0);
 	//object type and count
 	std::map<int,int>	l_ObjectTypeAndName;
+	int l_iNPVLevel = this->GetNPCLevel();
 	for(size_t i=0;i<m_TriggersVector.size();++i)
 	{
 		sTriggers*l_pTriggers = &m_TriggersVector[i];
@@ -486,8 +499,14 @@ void		sGameNode::RenderScene()
 		for( size_t j=0;j<l_pTriggers->m_TriggerVector.size();++j )
 		{
 			sTrigger*l_pTrigger  = &l_pTriggers->m_TriggerVector[j];
+			int l_Type = l_pTrigger->GetObjectType();
 			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iObjectLineWidth,l_pTrigger);
 			float l_fLength = (float)(l_pTrigger->GetLength()+l_iTriggersLength);
+			if(g_pGameData && g_pGameData->GetEnemyStatus(l_Type) )
+			{
+				int l_iSpeed = g_pGameData->GetMonsterSpeedByLevel(l_pTrigger->GetObjectType(),l_iNPVLevel);
+				l_fLength = (float)getCorrectLength(l_iSpeed,l_iTriggersLength,(int)l_fLength);
+			}
 			if( l_fInterval != 0.f )
 			{
 				l_fLength += (l_fInterval*j)*l_fMonsterSpeed;
@@ -496,7 +515,6 @@ void		sGameNode::RenderScene()
 			l_Pos.push_back(Vector2(l_vShowWidth.x,l_fLength*l_Value));
 			l_Pos.push_back(Vector2(l_vShowWidth.y,l_fLength*l_Value));
 			GLRender::RenderLine(&l_Pos,l_vColor);
-			int l_Type = l_pTrigger->GetObjectType();
 			if( l_ObjectTypeAndName.find(l_Type) == l_ObjectTypeAndName.end())
 			{
 				l_ObjectTypeAndName.insert(std::make_pair(l_Type,1));
@@ -535,7 +553,6 @@ void		sGameNode::RenderScene()
 	RenderColorHint(-150,0);
 	Vector3	l_vPos = m_PlayerPos.GetCurrentData();
 	GLRender::RenderSphere(Vector2(l_vPos.x,l_vPos.y*l_Value),3.14f);
-	int l_iNPVLevel = this->GetNPCLevel();
 	std::wstring l_strNPVLevel = L"NPCLevel";
 	l_strNPVLevel += ValueToStringW(l_iNPVLevel);
 	cGameApp::RenderFont(-150,450,l_strNPVLevel.c_str());
@@ -640,25 +657,37 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 	m_HitTriggerName = L"";
 	return false;
 }
+cStageParser*g_pStageParser = nullptr;
+cStageParser::cStageParser()
+{
+	g_pStageParser = this;
+}
 
+cStageParser::~cStageParser()
+{
+	g_pStageParser = nullptr;
+}
 
+int	cStageParser::GetIndexByStageName(std::wstring e_strStageName)
+{
+	if( m_StageNameWithIndex.find(e_strStageName) == m_StageNameWithIndex.end() )
+	{
+		int l_iIndex = 0;
+		for(auto l_piterator = m_GamePlayVector.begin();l_piterator != this->m_GamePlayVector.end();l_piterator++)
+		{
+			if(wcscmp(e_strStageName.c_str(),l_piterator->getValue(L"gameplayName").c_str()) == 0)
+			{
+				m_StageNameWithIndex[e_strStageName] = l_iIndex;
+			}
+			++l_iIndex;
+		}
+	}
+	if( m_StageNameWithIndex.find(e_strStageName) == m_StageNameWithIndex.end() )
+		return -1;
+	return m_StageNameWithIndex[e_strStageName];
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+std::wstring	cStageParser::GetStageNameByIndex(int e_iIndex)
+{
+	return m_GamePlayVector[e_iIndex].getValue(L"gameplayName");
+}

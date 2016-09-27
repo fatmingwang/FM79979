@@ -17,6 +17,8 @@
 #include <time.h>
 #include "../../DotNetCommon/DotNetCommonTools.h"
 #include "../../Core/AllCoreInclude.h"
+#include "../../Core/Network/Network.h"
 #include "../../Core/GamePlayUT/StringCompress.h"
+
 
 long				GetFileSize(FILE*e_pFile);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XMLDataEditor", "XMLDataEditor\XMLDataEditor.vcxproj", "{DEE3EB52-20B6-4692-B906-D74A5444B708}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StageParser", "XMLDataEditor\XMLDataEditor.vcxproj", "{DEE3EB52-20B6-4692-B906-D74A5444B708}"
 	ProjectSection(ProjectDependencies) = postProject
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A} = {D5962A80-CFCF-437A-B224-01C03CF9FD1A}
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A} = {D07C6FC2-02D7-41AE-8498-35186CD57B5A}
@@ -14,6 +14,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\ogg.vcxproj", "{D07C6FC2-02D7-41AE-8498-35186CD57B5A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,16 @@ Global
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Mixed Platforms.Build.0 = Release|Win32
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.ActiveCfg = Release|Win32
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.Build.0 = Release|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Win32.Build.0 = Debug|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Any CPU.ActiveCfg = Release|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.ActiveCfg = Release|Win32
+		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

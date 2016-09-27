@@ -23,9 +23,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="DataCurve.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="ChartWithName.h">
       <Filter>MR</Filter>
     </ClInclude>
@@ -34,6 +31,12 @@
     </ClInclude>
     <ClInclude Include="StageParser.h">
       <Filter>MR</Filter>
+    </ClInclude>
+    <ClInclude Include="FileSequenceDownload.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="LimitTimePurchase.h">
+      <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -58,12 +61,15 @@
     <ClCompile Include="StageParser.cpp">
       <Filter>MR</Filter>
     </ClCompile>
+    <ClCompile Include="LimitTimePurchase.cpp">
+      <Filter>Header</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX">
       <Filter>Source</Filter>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataCurve.resx">
+    <EmbeddedResource Include="FileSequenceDownload.resx">
       <Filter>Source</Filter>
     </EmbeddedResource>
   </ItemGroup>
