@@ -24,7 +24,9 @@
 //    Copyright 2008, NVIDIA Corporation.
 //    ALL RIGHTS RESERVED
 //==============================================================================
-
+#ifdef WIN32
+#pragma warning( disable : 4996 )
+#endif
 #include "nv_global.h"
 
 #include "nv_log.h"

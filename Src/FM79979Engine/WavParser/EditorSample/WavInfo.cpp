@@ -15,10 +15,16 @@ cWaveInfo::cWaveInfo()
 
 cWaveInfo::~cWaveInfo()
 {
+	DELETE_VECTOR(m_AllChannelData,unsigned char*);
 	SAFE_DELETE(m_pSoundData);
 }
 
 
+
+void	cWaveInfo::AssignChannelData()
+{
+
+}
 
 
 //ALvoid GetWAVData(const ALbyte *file,ALenum *format,ALvoid **data,ALsizei *size,ALsizei *freq, ALboolean *loop,float *e_fTotalPlayTime)
@@ -132,40 +138,34 @@ bool	cWaveInfo::OpenFile(const char*e_strFileName)
 			NvFClose(l_pFile);
 		}
 	}
+	//how many sample
+	//one block align contain N channel
 	m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
-	m_LeftChannelSoundData.clear();
-	m_RigtChannelSoundData.clear();
 	int	l_SoundBlock = m_WAVFmtHdr_Struct.BitsPerSample/8;
 	if( m_WAVFmtHdr_Struct.BitsPerSample < 8 )
 	{
 		UT::ErrorMsg("wav file bit per sample can not smaller than 7",e_strFileName);
 		return false;
 	}
-	m_RigtChannelSoundData.resize(m_iSampleCount*l_SoundBlock);
-	m_LeftChannelSoundData.resize(m_iSampleCount*l_SoundBlock);
-	int	l_iStep = m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels;
+	
+	int l_iSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
+	assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_WAVChunkHdr_Struct.Size);
 	std::vector<char>*l_pChannelDataPointer = nullptr;
-	for(int i=0;i<m_iSampleCount;++i)
+	for(int i=0;i<this->m_WAVFmtHdr_Struct.Channels;++i)
 	{
 		int	l_iCurrentSampleIndex = i*m_WAVFmtHdr_Struct.BlockAlign;
-		for(int j=0;j<this->m_WAVFmtHdr_Struct.Channels;++j)
+		unsigned char*l_pCurrentChannelData = new unsigned char[m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels];
+		int l_iCurrentChannelStep = m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels;
+		//int
+		for(int k=0;k<m_iSampleCount;++k)
 		{
-			if( j==0 )
-			{
-				l_pChannelDataPointer = &m_LeftChannelSoundData;
-			}
-			else
-			{
-				l_pChannelDataPointer = &m_RigtChannelSoundData;
-			}
-			//int
-			for(int k=0;k<l_iStep;++k)
-			{
-				int	l_Index = l_iCurrentSampleIndex+(j*this->m_WAVFmtHdr_Struct.Channels)+k;
-				int	l_iChanndDatalIndex = l_iCurrentSampleIndex/this->m_WAVFmtHdr_Struct.Channels+k;
-				(*l_pChannelDataPointer)[l_iChanndDatalIndex] = m_pSoundData[l_Index];
-			}
+			int l_iSrcIndex = (l_iSampleLength*k)+l_iCurrentChannelStep*i;
+			int l_iTargetIndex = l_iCurrentChannelStep*k;
+			unsigned char*l_CurrentChannelData = m_pSoundData+l_iSrcIndex;
+			unsigned char*l_pCopyData = l_pCurrentChannelData+l_iTargetIndex;
+			memcpy(l_pCopyData,l_CurrentChannelData,l_iCurrentChannelStep);
 		}
+		m_AllChannelData.push_back(l_pCurrentChannelData);
 	}
 	return true;
 }
@@ -176,6 +176,20 @@ int	cWaveInfo::GetSampleIndexByTime(float e_fTime)
 	if( m_fTime == 0.f )
 		return  -1;
 	float	l_fPercentage = e_fTime/m_fTime;
-	int	l_iIndex = l_fPercentage*m_iSampleCount;
+	int	l_iIndex = (int)(l_fPercentage*m_iSampleCount);
 	return l_iIndex;
+}
+
+unsigned char*	cWaveInfo::GetSample(int e_iSampleIndex)
+{
+	return nullptr;
+}
+
+unsigned char*	cWaveInfo::GetChannelData(int e_iChannelIndex)
+{
+	if(e_iChannelIndex<(int)m_AllChannelData.size())
+	{
+		return m_AllChannelData[e_iChannelIndex];
+	}
+	return nullptr;
 }

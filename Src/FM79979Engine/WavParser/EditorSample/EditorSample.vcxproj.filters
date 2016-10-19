@@ -33,6 +33,9 @@
     <ClCompile Include="WavWaves.cpp">
       <Filter>wav</Filter>
     </ClCompile>
+    <ClCompile Include="ChartAssist.cpp">
+      <Filter>wav</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -48,6 +51,9 @@
       <Filter>wav</Filter>
     </ClInclude>
     <ClInclude Include="WavWaves.h">
+      <Filter>wav</Filter>
+    </ClInclude>
+    <ClInclude Include="ChartAssist.h">
       <Filter>wav</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,11 +4,22 @@
 class cWaveInfo;
 class cWavWaves
 {
-	unsigned char*	m_pData;
-	int				m_iLength;
-	int				m_iDataBlock;
+	struct sChannelCurve
+	{
+		int						iCount;
+		int						iMax;
+		int						iAverage;
+		sChannelCurve(){ iMax = iCount = iAverage = 0; }
+		std::vector<Vector3>	LinesPoint;
+		void					AssignData(unsigned char*e_pData,int e_iCount,int e_iDataStep);
+		void					SetAverageAndMax(int e_iMax,int e_iAverage);
+		void					Render(Vector2 e_vPos);
+	};
 
-	std::vector<Vector3>	m_LinesPoint;
+	std::vector<sChannelCurve*>		m_ChannelCurveVector;
+	cWaveInfo*						m_pWaveInfo;
+	//
+	void	RenderChannel(int e_iChannelIndex);
 public:
 	cWavWaves();
 	~cWavWaves();

@@ -110,6 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="ChartAssist.cpp" />
     <ClCompile Include="EditorSample.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -119,6 +120,7 @@
     <ClCompile Include="WavWaves.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChartAssist.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>

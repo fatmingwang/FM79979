@@ -68,11 +68,13 @@ struct My_WAVChunkHdr_Struct
 
 class cWaveInfo
 {
+	std::vector<unsigned char*>	m_AllChannelData;
+	void				AssignChannelData();
 public:
 	unsigned char *m_pSoundData;
 	//
-	std::vector<char>	m_LeftChannelSoundData;
-	std::vector<char>	m_RigtChannelSoundData;
+	//std::vector<char>	m_LeftChannelSoundData;
+	//std::vector<char>	m_RigtChannelSoundData;
 	ALenum				m_Format;
 	int					m_iSoundDataSize;
 	int					m_iFreq;
@@ -89,9 +91,11 @@ public:
 public:
 	cWaveInfo();
 	~cWaveInfo();
-	bool	OpenFile(const char*e_strFileName);
-	int		GetSampleIndexByTime(float e_fTime);
-
+	bool				OpenFile(const char*e_strFileName);
+	int					GetSampleIndexByTime(float e_fTime);
+	unsigned char*		GetSample(int e_iSampleIndex);
+	unsigned char*		GetChannelData(int e_iChannelIndex);
+	size_t				GetChannelCount(){ return m_AllChannelData.size(); }
 private:
 
 };

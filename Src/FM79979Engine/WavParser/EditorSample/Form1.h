@@ -219,7 +219,11 @@ namespace EditorSample
 			glShadeModel(GL_SMOOTH);
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_ALPHA_TEST);
-			cGameApp::ShowInfo();
+			if( m_pWavWaves )
+			{
+				m_pWavWaves->Render();
+			}
+//			cGameApp::ShowInfo();
 			SwapBuffers(m_HdcMV);
 		}
 
@@ -270,6 +274,7 @@ private: System::Void OpenWavFile_button_Click(System::Object^  sender, System::
 		 }
 private: System::Void Play_button_Click(System::Object^  sender, System::EventArgs^  e) 
 		 {
+			this->timer1->Enabled = false;
 			if(this->WavFileName_textBox->Text && m_pGameApp)
 			{
 				//if(this->m_pGameApp->m_spSoundParser->AddSound(DNCT::GcStringToChar(this->WavFileName_textBox->Text)))
@@ -281,6 +286,9 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 					this->WavInfo_listBox->Items->Clear();
 					if(this->m_pWaveInfo->OpenFile(UT::WcharToChar(l_FileName).c_str()))
 					{
+						SAFE_DELETE(m_pWavWaves);
+						m_pWavWaves = new cWavWaves();
+						m_pWavWaves->SetData(this->m_pWaveInfo);
 						this->WavInfo_listBox->Items->Clear();
 						String^l_str = "";
 						String^l_Temp = nullptr;
@@ -358,6 +366,7 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 					//WavInfo_listBox->Items->Add();
 				}
 			}
+			this->timer1->Enabled = true;
 		 }
 };
 }
