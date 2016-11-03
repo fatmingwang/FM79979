@@ -56,7 +56,7 @@ namespace UT
 	//divide
 	inline	int64		BitMoveRight(int64 e_iValue,int ShiftCount){ShiftCount+=1;while(--ShiftCount){e_iValue /= 2;}return e_iValue;}
 
-	inline	int			 power_of_two(int input){int value = 1;while ( value < input )	value <<= 1;return value;}
+	inline	int			power_of_two(int input){int value = 1;while ( value < input )	value <<= 1;return value;}
 	//inline Vector3	WorldToScreen(float objX,float objY,float objZ,float *e_pfProjectionMatrix = 0,float *e_pfModelViewMatrix = 0)
 	Vector3				WorldToScreen(float objX,float objY,float objZ,float *e_pfProjectionMatrix,float *e_pfModelViewMatrix);
 	//the view port here original start always be X=0,Y=0,however we have changed it,

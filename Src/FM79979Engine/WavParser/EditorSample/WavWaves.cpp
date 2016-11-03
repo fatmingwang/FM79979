@@ -11,15 +11,17 @@ void	cWavWaves::sChannelCurve::AssignData(unsigned char*e_pData,int e_iCount,int
 	LinesPoint.resize(e_iCount);
 	unsigned char*l_pData = e_pData;
 	this->iMax = 0;
-	for(int i=0;i<150;++i)
+	//for(int i=0;i<150;++i)
+	for(int i=0;i<e_iCount/1000;++i)
 	{
 		int *l_piData = (int*)l_pData;
 		int l_iInt = *l_piData;
-		l_iInt = sqrt(abs(l_iInt));
-		l_iInt = sqrt(l_iInt);
+		//l_iInt = sqrt(abs(l_iInt));
+		//l_iInt = sqrt(l_iInt);
+		//l_iInt /= 65535;
 		Vector3 l_vPos((float)l_iGapX*i,(float)*l_piData,0);
-		OutputDebugStringW(ValueToStringW(l_iInt).c_str());
-		OutputDebugStringW(L"\n");
+		//OutputDebugStringW(ValueToStringW(l_iInt).c_str());
+		//OutputDebugStringW(L"\n");
 		LinesPoint[i] = l_vPos;
 		l_pData += e_iDataStep/4;
 		if((int)*l_piData > this->iMax )

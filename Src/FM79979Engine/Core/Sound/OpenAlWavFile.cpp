@@ -215,4 +215,29 @@ namespace FATMING_CORE
 		return true;
 	}
 
+
+	bool	cOpanalWAV::GoTo(float e_fTime)
+	{
+		if( this->m_pSoundData )
+		{
+			float l_fPercent = e_fTime/m_fTimeLength;
+			if( l_fPercent >= 1.f )
+			{
+				l_fPercent = 1.f;
+			}
+			else
+			if( l_fPercent < 0.f )
+			{
+				l_fPercent = 0.f;
+			}
+			int l_iOriginalSize = m_iSize;
+			m_iSize = (int)(m_iSize*l_fPercent);
+			this->Play(false);
+			char*l_pData = this->m_pSoundData+m_iSize;
+			AssignBufferData(l_pData);
+			m_iSize = l_iOriginalSize;
+			return true;
+		}
+		return false;
+	}
 }

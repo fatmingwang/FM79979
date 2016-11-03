@@ -256,6 +256,19 @@ namespace FATMING_CORE
 		}
 	}
 
+	float	cBasicSound::GetCurrentPlayTime()
+	{
+		if( this->IsPlay() )
+		{
+			//http://stackoverflow.com/questions/5135519/iphone-openal-getting-sound-length-playback-time-of-a-sample
+			float l_fResult = 0.f;
+			alGetSourcef(this->m_uiSourceID, AL_SEC_OFFSET, &l_fResult);
+			return l_fResult;
+		}
+		return -1.f;
+	}
+
+
 	std::string   GetFileNameWithExtension(cBasicSound*e_pBasicSound)
 	{
 	    std::wstring    l_str = e_pBasicSound->GetName();

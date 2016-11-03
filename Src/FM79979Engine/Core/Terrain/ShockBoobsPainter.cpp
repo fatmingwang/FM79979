@@ -25,6 +25,9 @@ namespace FATMING_CORE
 	//}
 	cShockBoobsPainter::cShockBoobsPainter(char*e_strImageFileName,ePatinerMode e_ePatinerMode)
 	{
+		m_vTerrianScale = Vector3::One;
+		m_vPatingImageOffsetPos.x = -100;
+		m_vPatingImageOffsetPos.y = 0;
 		m_fImageMoveDistance = 5.f;
 		m_ePatinerMode = e_ePatinerMode;
 		m_pFloatPixelDataForModify = 0;
@@ -243,8 +246,8 @@ namespace FATMING_CORE
 				return;
 		}
 		int	l_iSize = e_iWidth*e_iHeight;
-		unsigned char*l_pPixelDataForModify = new unsigned char[l_iSize*4];
-		memset(l_pPixelDataForModify,0xff/2,sizeof(char)*l_iSize*4);
+		unsigned char*l_pPixelDataForModify = new unsigned char[l_iSize*e_iChannel];
+		memset(l_pPixelDataForModify,0xff/2,sizeof(char)*l_iSize*e_iChannel);
 		float*l_pHeightData = new float[l_iSize];
 		memset(l_pHeightData,0,sizeof(float)*l_iSize);
 		//do copy old pixel
@@ -317,27 +320,29 @@ namespace FATMING_CORE
 
 	void	cShockBoobsPainter::DrawSphere(POINT e_Pos)
 	{
-		if( m_ePatinerMode != ePM_PAINT )
+		if( m_ePatinerMode != ePM_PAINT || !m_pTerrianVertex )
 			return;
 		int	l_iWidth = m_pTerrianVertex->GetGridWidth();
 		int	l_iHeight = m_pTerrianVertex->GetGridHeight();
 		RECT	l_rc = {e_Pos.x-m_iRadius,e_Pos.y-m_iRadius,e_Pos.x+m_iRadius,e_Pos.y+m_iRadius};
-		RECT	l_rc2 = {0,0,l_iWidth,l_iHeight};
+
+		RECT	l_rc2 = {(long)m_vPatingImageOffsetPos.x-l_iWidth,(long)m_vPatingImageOffsetPos.y,
+							(long)m_vPatingImageOffsetPos.x,(long)m_vPatingImageOffsetPos.y+l_iHeight};
 		if(!UT::RectCollideRect(l_rc,l_rc2))
 			return;
 		if( !m_pPixelDataForImage || !m_pTerrianVertex )
 			return;
 		e_Pos.x -= m_iRadius;
 		e_Pos.y -= m_iRadius;
-		int	l_iDrawWidth = e_Pos.x+m_iRadius*2;
-		int	l_iDrawHeight = e_Pos.y+m_iRadius*2;
+		int	l_iDrawWidth = e_Pos.x+m_iRadius*2-l_rc2.left;
+		int	l_iDrawHeight = e_Pos.y+m_iRadius*2-l_rc2.top;
 		if( l_iDrawWidth > m_pTerrianVertex->GetGridWidth())
 			l_iDrawWidth = m_pTerrianVertex->GetGridWidth();
 		if( l_iDrawHeight > m_pTerrianVertex->GetGridHeight())
 			l_iDrawHeight = m_pTerrianVertex->GetGridHeight();
-		int	l_iStartX = e_Pos.x>=0?e_Pos.x:0;
-		int	l_iStartY = e_Pos.y>=0?e_Pos.y:0;
-		Vector2	l_vCenter((float)this->m_iRadius+e_Pos.x,(float)this->m_iRadius+e_Pos.y);
+		int	l_iStartX = e_Pos.x>=l_rc2.left?e_Pos.x-l_rc2.left:0;
+		int	l_iStartY = e_Pos.y>=l_rc2.top?e_Pos.y-l_rc2.top:0;
+		Vector2	l_vCenter((float)this->m_iRadius+e_Pos.x-l_rc2.left,(float)this->m_iRadius+e_Pos.y-l_rc2.top);
 		unsigned char*l_pPixelData = 0;
 		Vector3 l_vResult;
 		//my little tricky
@@ -401,9 +406,9 @@ namespace FATMING_CORE
 
 	void	cShockBoobsPainter::TerrainTransform(cFrameCamera*e_pFrameCamera)
 	{
-		Vector3	l_vScale = Vector3::One;
-		l_vScale.x = cGameApp::m_svGameResolution.x/m_pTerrianVertex->GetGridWidth();
-		l_vScale.y = cGameApp::m_svGameResolution.y/m_pTerrianVertex->GetGridHeight();
+		Vector3	l_vScale = m_vTerrianScale;
+		//l_vScale.x = cGameApp::m_svGameResolution.x/m_pTerrianVertex->GetGridWidth();
+		//l_vScale.y = cGameApp::m_svGameResolution.y/m_pTerrianVertex->GetGridHeight();
 		if( m_pPaintImage )
 		{
 			if( !e_pFrameCamera )
@@ -484,11 +489,11 @@ namespace FATMING_CORE
 	{
 		if( m_pOriginalPaintImage )
 		{
-			m_pOriginalPaintImage->Render();
+			m_pOriginalPaintImage->Render((int)(m_vPatingImageOffsetPos.x-m_pOriginalPaintImage->GetWidth()),(int)m_vPatingImageOffsetPos.y);
 		}
 		if( m_pPaintImage )
 		{
-			m_pPaintImage->SetColor(Vector4(1,1,1,0.7f));
+			m_pPaintImage->SetColor(Vector4(1,1,1,0.5f));
 			//m_pPaintImage->SetPos(Vector3(0,*m_pOriginalPaintImage->GetHeight(),0));
 			m_pPaintImage->Render();
 			m_pPaintImage->DebugRender();
@@ -590,11 +595,25 @@ namespace FATMING_CORE
 		return doc.SaveFile( e_strFileName );
 	}
 
-	bool	cShockBoobsPainter::ChangePaintingImage(char*e_strFileName)
+	bool	cShockBoobsPainter::ChangePaintingImage(char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution)
 	{
 		SAFE_DELETE(m_pOriginalPaintImage);
 		m_pOriginalPaintImage = new cBaseImage(e_strFileName);
 		SetSize(m_pOriginalPaintImage->GetWidth(),m_pOriginalPaintImage->GetHeight(),4);
+		if( e_bAutoResizeTerrianToGameResoution )
+		{
+			bool l_bIsWidthBigger = m_pOriginalPaintImage->GetWidth()>=m_pOriginalPaintImage->GetHeight();
+			float l_fScale = 1.f;
+			if( l_bIsWidthBigger )
+			{
+				l_fScale = cGameApp::m_svGameResolution.x/m_pOriginalPaintImage->GetWidth();
+			}
+			else
+			{
+				l_fScale = cGameApp::m_svGameResolution.y/m_pOriginalPaintImage->GetHeight();
+			}
+			m_vTerrianScale.x = m_vTerrianScale.y = l_fScale;
+		}
 		return true;
 	}
 }

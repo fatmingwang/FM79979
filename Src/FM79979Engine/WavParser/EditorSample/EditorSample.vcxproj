@@ -14,6 +14,7 @@
     <ProjectGuid>{10701D7A-22A2-43E9-923C-3D00F0A4CC3C}</ProjectGuid>
     <RootNamespace>EditorSample</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
+    <ProjectName>WavParser</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">

@@ -17,6 +17,7 @@ namespace FATMING_CORE
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		bool	OpenFile(const char*e_strileName,bool e_bKeepData = false);
 		virtual bool	OpenFile(const char*e_strileName);
+		virtual bool	GoTo(float e_fTime);
 	};
 }
 

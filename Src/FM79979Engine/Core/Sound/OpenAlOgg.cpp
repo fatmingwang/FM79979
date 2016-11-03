@@ -95,6 +95,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cOpanalOgg);
 	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
+		m_UpdteNewBufferCallbackFunction = nullptr;
 		m_fTimeToUpdate.SetTargetTime(0.1f);
 		m_fTimeToUpdate.SetLoop(true);
 		m_bPlayDone = true;
@@ -288,7 +289,10 @@ namespace FATMING_CORE
 		{
 			return false;
 		}
-	        
+	    if(m_UpdteNewBufferCallbackFunction)
+		{
+			m_UpdteNewBufferCallbackFunction(size,pcm);
+		}
 		alBufferData(buffer, this->m_iFormat, pcm, size, m_pVorbisInfo->rate);
 		check();
 	    
@@ -386,12 +390,17 @@ namespace FATMING_CORE
 		m_bPlayDone = !e_bPlay;
 	}
 
-	void	cOpanalOgg::GoTo(float e_fTime)
+	bool	cOpanalOgg::GoTo(float e_fTime)
 	{
 		float	l_fPercentage = e_fTime/this->m_fTimeLength;
 		if( l_fPercentage >1.f )
 			l_fPercentage = 1.f;
 		float	l_fTime = l_fPercentage*this->m_fTimeLength;
-		ov_time_seek(this->m_pOggFile,l_fTime);
+		return ov_time_seek(this->m_pOggFile,l_fTime) == 0?true:false;
+	}
+
+	void	cOpanalOgg::SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData)> e_CallbuckFunction)
+	{
+		m_UpdteNewBufferCallbackFunction = e_CallbuckFunction;
 	}
 }

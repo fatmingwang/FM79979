@@ -674,6 +674,9 @@
     <ClCompile Include="Math\LinerDataMouseChanger.cpp">
       <Filter>Math\LinearData</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\SoundCapture.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1164,6 +1167,9 @@
     </ClInclude>
     <ClInclude Include="Math\LinerDataMouseChanger.h">
       <Filter>Math\LinearData</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundCapture.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

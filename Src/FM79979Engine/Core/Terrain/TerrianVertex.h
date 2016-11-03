@@ -70,7 +70,6 @@ namespace FATMING_CORE
 		void		UpdateVertexHeight(float*e_pData,int e_iStartX,int e_iStartY,int e_iEffectedWidth,int e_iEffectedHeight);
 		//void	AdjustVertexFormat(int e_iFormat);,do it later
 		void		HeightChangeBySphere(POINT e_CenterPos,int e_iRadius,float e_fCenterHeight,float e_fEdgeHeight,float e_fReduceValue);
-		void		Scale(float e_fWidth,float e_fHeight);
 		bool		SetSize(int e_iWidth,int e_iHeight,bool e_bUseVBO,int e_iImageWidth,int e_iImageHeight);
 		//void		SetSize(int e_iWidth,int e_iHeight,int e_iFVF,int e_iImageWidth,,int e_iImageHeight);
 		int			GetGridWidth(){return m_iGridWidth;}

@@ -128,10 +128,6 @@ namespace FATMING_CORE
 
 	}
 
-	void		cTerrianVertex::Scale(float e_fWidth,float e_fHeight)
-	{
-
-	}
 
 	bool		cTerrianVertex::SetSize(int e_iWidth,int e_iHeight,bool e_bUseVBO,int e_iImageWidth,int e_iImageHeight)
 	{

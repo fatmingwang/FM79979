@@ -63,9 +63,11 @@ namespace FATMING_CORE
 		virtual	bool	IsPlay();
 		virtual	void	SetLoop(bool e_bLoop);
 		virtual	bool	IsLoop();
+		virtual bool	GoTo(float e_fTime){return false;}
 		//iphone support?e_bForce may not working because the sound source count is possible small than all SoundParser count,so source ID may change dynamic
 		virtual	void	SetVolume(float e_fVolume,bool e_bForce = false);
 		float			GetVolume(){return m_fVolume;}
+		float			GetCurrentPlayTime();
 		static	ALenum	PerSampleBitAndChannelToOpenALFormat(int e_iBit,int e_iChannel);
 		static void		check();
 	};

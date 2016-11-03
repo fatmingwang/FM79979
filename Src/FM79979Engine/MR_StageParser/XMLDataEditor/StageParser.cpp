@@ -647,6 +647,9 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 					m_HitTriggerName = l_strGroupName;
 					m_HitTriggerName += L",index:";
 					m_HitTriggerName += l_pTrigger->getValue(L"TriggerIndex");
+					m_HitTriggerName += L"\n";
+					m_HitTriggerName += L"length";
+					m_HitTriggerName += ValueToStringW(l_fLength);
 					m_ShowHitPos.x = e_iMousePosX;
 					m_ShowHitPos.y = e_iMousePosY;
 					return true;

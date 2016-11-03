@@ -36,6 +36,7 @@ namespace FATMING_CORE
 		FATMING_CORE::cTerrianVertex*			m_pTerrianVertex;
 		bool									m_bMouseDown;
 		int										m_iRadius;
+		Vector3									m_vTerrianScale;
 		UT::sTimeCounter						m_DrawGapTC;
 		//
 		Vector4									m_vColor;
@@ -46,6 +47,7 @@ namespace FATMING_CORE
 		//
 		void									UpdatePixelData(int e_iStartPosX,int e_iStartPosY,int e_iWidth,int e_iHeight);
 		void									TerrainTransform(cFrameCamera*e_pFrameCamera);
+		Vector2									m_vPatingImageOffsetPos;
 	public:
 		cShockBoobsPainter(char*e_strImageFileName,ePatinerMode e_ePatinerMode = ePM_PAINT);
 		virtual ~cShockBoobsPainter();
@@ -75,7 +77,7 @@ namespace FATMING_CORE
 		void		AddCurrentStrgeth(float e_fValue);
 		//
 		bool		IsShockDone(){ return m_pShockBoobsShader->IsShockDone(); }
-		bool		ChangePaintingImage(char*e_strFileName);
+		bool		ChangePaintingImage(char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution = true);
 		bool		SaveFile(char*e_strFileName);
 		bool		OpenFile(char*e_strFileName);
 		cShockBoobsShader*						GetShader(){return m_pShockBoobsShader;}

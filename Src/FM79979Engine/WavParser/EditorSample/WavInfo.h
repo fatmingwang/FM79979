@@ -2,6 +2,8 @@
 
 //http://soundfile.sapp.org/doc/WaveFormat/
 
+//https://my.oschina.net/liusicong/blog/323090
+
 //first
 /* WAV File-header */
 //12 bytes

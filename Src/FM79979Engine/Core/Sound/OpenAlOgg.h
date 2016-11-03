@@ -25,6 +25,7 @@ namespace FATMING_CORE
 		bool				Stream(ALuint buffer);
 		bool				m_bPlayDone;
 		string				ErrorString(int code);
+		std::function<void(int e_iCount,char*e_pData)>	m_UpdteNewBufferCallbackFunction;
 	public:
 		DEFINE_TYPE_INFO();
 		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming);
@@ -33,8 +34,9 @@ namespace FATMING_CORE
 		virtual bool	OpenFile(const char*e_strileName);
 		virtual	void	Update(float e_fElpaseTime);
 		virtual	void	Destroy();
-		void			GoTo(float e_fTime);
+		virtual bool	GoTo(float e_fTime);
 		virtual	void	Play(bool e_bPlay);
+		void			SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData)> e_CallbuckFunction);
 	};
 
 }
