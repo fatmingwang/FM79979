@@ -14,7 +14,7 @@ namespace MPDI
 
 
 		//e_pContainer->Add((System::Windows::Forms::Control^)AddWPFComponentByElementHost(m_pMPDICamera));
-		ElementHost^l_pHost = gcnew ElementHost();
+		ElementHost^l_pHost = GetMyElementHost(l_pHost);
 		l_pHost->Dock = DockStyle::Fill;
 		l_pHost->Child = m_pMPDICamera;
 		e_pContainer->Add(l_pHost);

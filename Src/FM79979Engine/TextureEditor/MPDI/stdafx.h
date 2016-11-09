@@ -19,5 +19,6 @@
 #include "../../Core/AllCoreInclude.h"
 #include "../../core/AVIPlayer/AVIPlayer.h"
 //#include "../../Core/AllPhysicInclude.h"
+using namespace System::Windows::Forms::Integration;
 #include "../../DotNetCommon/AllDNCTInclude.h"
 using namespace DNCT;

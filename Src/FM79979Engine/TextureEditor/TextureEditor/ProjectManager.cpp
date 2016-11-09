@@ -197,7 +197,7 @@ namespace TextureEditor
 		m_pAllForm = gcnew System::Collections::ArrayList();
 		//m_pEditorInterfaceList = gcnew System::Collections::ArrayList;
 		m_pProjectUI = gcnew TextureEditorWPF::MPDI::ProjectUI();
-		System::Windows::Forms::Integration::ElementHost^l_pElementHots = gcnew System::Windows::Forms::Integration::ElementHost;
+		System::Windows::Forms::Integration::ElementHost^l_pElementHots = GetMyElementHost(l_pElementHots);
 		l_pElementHots->Dock = DockStyle::Fill;
 		l_pElementHots->Child = m_pProjectUI;
 		m_pSplitPanel->Panel1->Controls->Add(l_pElementHots);

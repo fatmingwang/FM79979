@@ -80,7 +80,7 @@ namespace MPDI
 		//1
 		//m_pMPDICamera = gcnew cDotNEtMPDICamera(Camera_tabPage->Controls,this->m_pOrthogonalCamera);
 		//2
-		//System::Windows::Forms::Integration::ElementHost^l_pElementHots = gcnew System::Windows::Forms::Integration::ElementHost;
+		//System::Windows::Forms::Integration::ElementHost^l_pElementHots = DNCT::GetMyElementHost();
 		//l_pElementHots->Dock = DockStyle::Fill;
 		//if( 1 )
 		//{
@@ -96,7 +96,7 @@ namespace MPDI
 		//	l_pElementHots->Child = l_pData;
 		//}
 		//3
-		System::Windows::Forms::Integration::ElementHost^l_pElementHots = gcnew System::Windows::Forms::Integration::ElementHost;
+		System::Windows::Forms::Integration::ElementHost^l_pElementHots = GetMyElementHost(l_pElementHots);
 		l_pElementHots->Dock = DockStyle::Fill;
 		CoreWPF::Common::FMTreeView^l_pFMTreeView = gcnew CoreWPF::Common::FMTreeView();
 		l_pElementHots->Child = l_pFMTreeView;
@@ -107,7 +107,7 @@ namespace MPDI
 		OutputDebugString(L"Video has memory leak so I am lazy to do this\n");
 
 		{
-			ElementHost^l_pHost = gcnew ElementHost();
+			ElementHost^l_pHost = GetMyElementHost(l_pHost);
 			l_pHost->Dock = DockStyle::Fill;
 			m_pBGColorPicker = gcnew CoreWPF::Common::ColorPicker;
 			l_pHost->Child = m_pBGColorPicker;

@@ -548,14 +548,21 @@ void		sGameNode::RenderScene()
 			//++l_iIndex;
 		}
 	}
-	cGameApp::RenderFont(-300,400,L"TotalEnemy");
-	cGameApp::RenderFont(-250,430,ValueToStringW(l_iTotalEnemy));
+	if( l_iTotalEnemy > 0 )
+	{
+		cGameApp::RenderFont(-300,400,L"TotalEnemy");
+		cGameApp::RenderFont(-250,430,ValueToStringW(l_iTotalEnemy));
+	}
+	else
+	{
+		cGameApp::RenderFont(-300,400,L"please load game data!");
+	}
 	RenderColorHint(-150,0);
 	Vector3	l_vPos = m_PlayerPos.GetCurrentData();
 	GLRender::RenderSphere(Vector2(l_vPos.x,l_vPos.y*l_Value),3.14f);
 	std::wstring l_strNPVLevel = L"NPCLevel";
 	l_strNPVLevel += ValueToStringW(l_iNPVLevel);
-	cGameApp::RenderFont(-150,450,l_strNPVLevel.c_str());
+	cGameApp::RenderFont(-200,450,l_strNPVLevel.c_str());
 	if( m_HitTriggerName.length() > 0 )
 	{
 		cGameApp::RenderFont(m_ShowHitPos.x,m_ShowHitPos.y-20,m_HitTriggerName);

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "pack.h"
 namespace PI 
 {
 
@@ -101,17 +101,18 @@ namespace PI
 	///          the designers will not be able to interact properly with localized
 	///          resources associated with this form.
 	/// </summary>
-#ifdef USER_CONTROL_ENABLE
-	public ref class cPIEditor : public System::Windows::Forms::UserControl
-	{
-	public:
-		cPIEditor(GCFORM::TabControl^e_ptabControl,GCFORM::Form^e_pForm,String^e_strFileName)
-#else
+	//if ui designer cannt open,please comment the define
+//#ifdef USER_CONTROL_ENABLE
+//	public ref class cPIEditor : public System::Windows::Forms::UserControl
+//	{
+//	public:
+//		cPIEditor(GCFORM::TabControl^e_ptabControl,GCFORM::Form^e_pForm,String^e_strFileName)
+//#else
 	public ref class cPIEditor : public System::Windows::Forms::Form
 	{
 	public:
 		cPIEditor(String^e_strFileName)
-#endif
+//#endif
 		{
 			InitializeComponent();
 			//now it only support power of two on windows,because I am lazy to fix cUIImage.
@@ -1520,64 +1521,106 @@ private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripM
 			 }
 	private: System::Void AutoOrderPosition_button_Click(System::Object^  sender, System::EventArgs^  e)
 			 {
-				int	l_iCurrentX = 0;
-				int	l_iCurrentY = 0;
-				int	l_iMaxX = (int)ImageWidth_numericUpDown->Value;
-				//the max height in current row
-				int	l_iYLastBigPos = 0;
-				if( !m_pImageomposerIRM->Count() )
-					return;
-				//so to fix UV problem,1 pixle problem
-				int	l_iPixelXGap = (int)ImageDistanceX_numericUpDown->Value;
-				int	l_iPixelYGap = (int)ImageDistanceY_numericUpDown->Value;
-				cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(0));
-				POINT	l_Pos = {-l_pUIImage->GetOffsetPos()->x,-l_pUIImage->GetOffsetPos()->y};
-				l_pUIImage->SetPos(l_Pos);
-				//+1 for start offset(0,0)
-				l_iCurrentX = l_pUIImage->GetRightDownStripOffPos().x-l_pUIImage->GetOffsetPos()->x+1;
-				l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
-				//if(OnePixelDistance_checkBox->Checked)
+				if(0)
 				{
-					l_iYLastBigPos += l_iPixelYGap;
-					l_iCurrentX += l_iPixelXGap;
-				}
-				for( int i=1;i<m_pImageomposerIRM->Count();++i )
-				{
-					l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
-					if( l_pUIImage->m_pEditorAttachParent )
-						continue;
-					//this length has pixels,offset+width-rightdown pos,add 1 for avoid same image at same pixel
-					//+1 for offset start at 0,0
-					int	l_iXLengthForPixels = l_pUIImage->GetRightDownStripOffPos().x-l_pUIImage->GetOffsetPos()->x+1;
+				//old method
+					int	l_iCurrentX = 0;
+					int	l_iCurrentY = 0;
+					int	l_iMaxX = (int)ImageWidth_numericUpDown->Value;
+					//the max height in current row
+					int	l_iYLastBigPos = 0;
+					if( !m_pImageomposerIRM->Count() )
+						return;
+					//so to fix UV problem,1 pixle problem
+					int	l_iPixelXGap = (int)ImageDistanceX_numericUpDown->Value;
+					int	l_iPixelYGap = (int)ImageDistanceY_numericUpDown->Value;
+					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(0));
+					POINT	l_Pos = {-l_pUIImage->GetOffsetPos()->x,-l_pUIImage->GetOffsetPos()->y};
+					l_pUIImage->SetPos(l_Pos);
+					//+1 for start offset(0,0)
+					l_iCurrentX = l_pUIImage->GetRightDownStripOffPos().x-l_pUIImage->GetOffsetPos()->x+1;
+					l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
 					//if(OnePixelDistance_checkBox->Checked)
-						l_iXLengthForPixels += l_iPixelXGap;
-					l_iCurrentX += (l_iXLengthForPixels);
-					//the y pixel we do not need
-					//+1 for offset start at 0,0
-					int	l_iGarbagePixelY = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
-					l_iGarbagePixelY += l_iPixelXGap;
-					if( l_iCurrentX>l_iMaxX)
 					{
-						//for next start not object position
-						l_iCurrentX = l_iXLengthForPixels;//-l_pUIImage->GetOffsetPos()->x;
-						l_iCurrentY += l_iYLastBigPos;
+						l_iYLastBigPos += l_iPixelYGap;
+						l_iCurrentX += l_iPixelXGap;
+					}
+					for( int i=1;i<m_pImageomposerIRM->Count();++i )
+					{
+						l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+						if( l_pUIImage->m_pEditorAttachParent )
+							continue;
+						//this length has pixels,offset+width-rightdown pos,add 1 for avoid same image at same pixel
 						//+1 for offset start at 0,0
-						l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
+						int	l_iXLengthForPixels = l_pUIImage->GetRightDownStripOffPos().x-l_pUIImage->GetOffsetPos()->x+1;
 						//if(OnePixelDistance_checkBox->Checked)
-						    l_iYLastBigPos += l_iPixelYGap;
-						//set object position x to offset pos,because it's changing to next line
-						//
-						l_Pos.x = -l_pUIImage->GetOffsetPos()->x;
+							l_iXLengthForPixels += l_iPixelXGap;
+						l_iCurrentX += (l_iXLengthForPixels);
+						//the y pixel we do not need
+						//+1 for offset start at 0,0
+						int	l_iGarbagePixelY = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
+						l_iGarbagePixelY += l_iPixelXGap;
+						if( l_iCurrentX>l_iMaxX)
+						{
+							//for next start not object position
+							l_iCurrentX = l_iXLengthForPixels;//-l_pUIImage->GetOffsetPos()->x;
+							l_iCurrentY += l_iYLastBigPos;
+							//+1 for offset start at 0,0
+							l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y-l_pUIImage->GetOffsetPos()->y+1;
+							//if(OnePixelDistance_checkBox->Checked)
+								l_iYLastBigPos += l_iPixelYGap;
+							//set object position x to offset pos,because it's changing to next line
+							//
+							l_Pos.x = -l_pUIImage->GetOffsetPos()->x;
+							l_Pos.y = l_iCurrentY-l_pUIImage->GetOffsetPos()->y;
+							l_pUIImage->SetPos(l_Pos);
+							continue;
+						}
+						if( l_iYLastBigPos<l_iGarbagePixelY )
+							l_iYLastBigPos = l_iGarbagePixelY;
+						//although we know the position we wanted,we still have to minus the offset position to position
+						l_Pos.x = l_iCurrentX-(l_iXLengthForPixels)-l_pUIImage->GetOffsetPos()->x;
 						l_Pos.y = l_iCurrentY-l_pUIImage->GetOffsetPos()->y;
 						l_pUIImage->SetPos(l_Pos);
-						continue;
 					}
-					if( l_iYLastBigPos<l_iGarbagePixelY )
-						l_iYLastBigPos = l_iGarbagePixelY;
-					//although we know the position we wanted,we still have to minus the offset position to position
-					l_Pos.x = l_iCurrentX-(l_iXLengthForPixels)-l_pUIImage->GetOffsetPos()->x;
-					l_Pos.y = l_iCurrentY-l_pUIImage->GetOffsetPos()->y;
-					l_pUIImage->SetPos(l_Pos);
+				}
+				else
+				{
+				//square way
+					if( !m_pImageomposerIRM->Count() )
+						return;
+					rect_xywhf* l_pRects = new rect_xywhf[m_pImageomposerIRM->Count()];
+					if( m_pImageomposerIRM->Count() >= 1000 )
+					{
+						WARNING_MSG("too many images,please call fatming to make image over 10000");
+						return;
+					}
+					rect_xywhf *l_ptr_rects[1000];
+
+					for(int i = 0; i < m_pImageomposerIRM->Count(); ++i) {
+						auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+						l_pRects[i] = rect_xywhf(0, 0, l_pUIImage->GetWidth(),l_pUIImage->GetHeight(),i);
+						l_ptr_rects[i] = &l_pRects[i];
+					}
+
+					vector<bin> bins;
+					int l_MaxSize = max((int)ImageHeight_numericUpDown->Value,(int)ImageWidth_numericUpDown->Value);
+					if(pack(l_ptr_rects, m_pImageomposerIRM->Count(), l_MaxSize, bins)) {
+						if( bins.size() == 1 )
+						{
+							for( int i=0;i<(int)bins[0].rects.size();++i )
+							{
+								int l_iIndex = bins[0].rects[i]->iImageIndex;
+								auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iIndex));
+								l_pUIImage->SetPos(Vector2(bins[0].rects[i]->x,bins[0].rects[i]->y));
+								//l_pUIImage-
+							}
+						}
+						else
+						{
+							WARNING_MSG("please adjust texture size");
+						}
+					}
 				}
 				AttachObjectPosAdjust();
 			 }

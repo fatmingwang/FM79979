@@ -121,8 +121,8 @@ sGameData::sMonsterShop::~sMonsterShop()
 std::wstring	sGameData::sMonsterShop::GetDescription()
 {
 	std::wstring l_strDescription;
-	l_strDescription += this->getValue(L"name_CN");
-	l_strDescription += this->getValue(L"namN");
+	//l_strDescription += this->getValue(L"name_CN");
+	l_strDescription += this->getValue(L"name");
 	return l_strDescription;
 }
 
@@ -237,6 +237,7 @@ std::wstring    sGameData::sMonsterInfo::GetInfo()
 	std::wstring l_strMaxFatigue = getValue(L"fatiguelimit");
 	l_strInfo += L",StartEnergy:";
 	l_strInfo += l_strStartFatigue;
+	l_strInfo += L"\n";
 	l_strInfo += L",RiseLevel:";
 	l_strInfo += l_strFatiguelevel;
 	l_strInfo += L"\n";
@@ -661,9 +662,9 @@ void	sGameData::MonsterRender()
 		int l_iIndex = l_RenderIndex[i];
 		sMonsterInfo*l_pMonsterInfo = m_MonsterInfoVector[l_iIndex];
 		cGameApp::m_spGlyphFontRender->SetFontColor(g_vLineIndexAndColor[l_iIndex]);
-		cGameApp::RenderFont(-350,l_iStartPosY+i*100,l_pMonsterInfo->GetMonsterName());
+		cGameApp::RenderFont(-350,l_iStartPosY+i*150,l_pMonsterInfo->GetMonsterName());
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
-		cGameApp::RenderFont(-350,l_iStartPosY+30+i*100,l_pMonsterInfo->GetInfo());
+		cGameApp::RenderFont(-350,l_iStartPosY+30+i*150,l_pMonsterInfo->GetInfo());
 
 		for(size_t j=0;j<l_pMonsterInfo->m_AllRenderData.m_LineDataVector.size();++j)
 		{
@@ -727,7 +728,7 @@ void	sGameData::ShopRender()
 	float l_fPosX = m_fShopStartPosX;
 	float l_fPosY = m_fShopStartPosY;
 	float l_fGap = m_fShopGapX;
-	float l_fGapY = 150;
+	float l_fGapY = 180;
 	float l_fValueGapY = 30;
 	float l_fScale = m_fShopScale;
 	int l_iIndex = 0;
@@ -798,12 +799,12 @@ void	sGameData::ShopRender()
 					cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(0.f,1.5f,0.f,1));
 				}
 				l_strResult += L" : ";
-				l_strResult += ValueToStringW(l_pIterator.second);
+				l_strResult += ValueToStringW(l_pIterator.second>1.1f?(int)l_pIterator.second:l_pIterator.second);
 				cGameApp::RenderFont(l_fPosX,l_fPosY,l_strResult);
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 			}
 			l_vSize = cGameApp::m_spGlyphFontRender->GetRenderSize(l_str.c_str());
-			l_fPosX += 200;
+			l_fPosX += 300;
 			l_fPosY = l_iIndex*l_fGapY;
 			//l_pMonsterShop->Render();
 		}

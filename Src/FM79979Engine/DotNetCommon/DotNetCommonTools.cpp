@@ -1383,5 +1383,6 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		//l_pSource->RootVisual = l_pPage;
 		return true;
 	}
+
 //end DNCT
 }

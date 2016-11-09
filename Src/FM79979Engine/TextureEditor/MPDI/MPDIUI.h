@@ -50,7 +50,7 @@ namespace MPDI
 			{// http://stackoverflow.com/questions/13315940/apps-exe-file-missing-net-targetframework-but-only-on-clean-builds
 				//if here occur crash clear temp file
 				//C:\Users\UserName\AppData\Local\Temp
-				ElementHost^l_pHost = gcnew ElementHost();
+				ElementHost^l_pHost = GetMyElementHost(l_pHost);
 				l_pHost->Dock = DockStyle::Fill;
 				m_pColorPicker = gcnew CoreWPF::Common::ColorPicker;
 				m_pColorPicker->SetUsingAlphaChannel(false);

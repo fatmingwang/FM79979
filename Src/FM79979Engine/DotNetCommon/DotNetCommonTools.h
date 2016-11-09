@@ -18,7 +18,6 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
-//using namespace System::Runtime::InteropServices;
 
 #ifndef CHAR_TO_WCHAR
 #define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
@@ -32,6 +31,23 @@ using namespace System::Windows::Forms;
 #ifndef DOT_NET_TEMP_SIZE
 #define DOT_NET_TEMP_SIZE 4096*5
 #endif
+
+// http://stackoverflow.com/questions/13315940/apps-exe-file-missing-net-targetframework-but-only-on-clean-builds
+//if here occur crash clear temp file
+//C:\Users\UserName\AppData\Local\Temp
+#define GetMyElementHost(p)	nullptr;\
+	try\
+	{\
+		p = gcnew System::Windows::Forms::Integration::ElementHost();\
+	}\
+	catch(System::Exception^l_Exp)\
+	{\
+		String^l_strOriginal = "[assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L"""", FrameworkDisplayName=L"".NET Framework 4"")];";\
+		String^l_strNewOne = "[assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L"".NETFramework,Version=v4.0"", FrameworkDisplayName=L"".NET Framework 4"")];";\
+		System::Windows::Forms::MessageBox::Show("please open C:/Users/UserName/AppData/Local/Temp/.NETFramework,Version=v4.0.AssemblyAttributes.cpp\n\n\n"+l_Exp,"waring",GCFORM::MessageBoxButtons::OK);\
+		System::Windows::Forms::MessageBox::Show("replace"+l_strOriginal+"\n to \n"+l_strNewOne,"waring",GCFORM::MessageBoxButtons::OK);\
+	}
+
 
 extern bool g_bLanguageChinese;
 
