@@ -624,4 +624,35 @@ namespace FATMING_CORE
 		SAFE_DELETE(l_pXMLWriter);
 	#endif
 	}
+
+	bool	IsObjectOverlap(cImageParser*e_pObject)
+	{
+		cImageParser l_Temp;
+		l_Temp.CopyListPointer(e_pObject);
+		while( l_Temp.Count() )
+		{
+			int l_iCount = l_Temp.Count();
+			cUIImage*l_pObject = dynamic_cast<cUIImage*>(l_Temp.GetObject(0));
+			for(int i=1;i<l_iCount;++i)
+			{
+				POINT l_POINT = *l_pObject->GetOffsetPos();
+				RECT l_rect;
+				l_rect.left = (long)(l_POINT.x+l_pObject->GetPos().x);
+				l_rect.top = (long)(l_POINT.y+l_pObject->GetPos().y);
+				l_rect.right = (long)l_rect.left+l_pObject->GetWidth();
+				l_rect.bottom = (long)l_rect.top+l_pObject->GetHeight();
+				cUIImage*l_pCompareObject = dynamic_cast<cUIImage*>(l_Temp.GetObject(i));
+				l_POINT = *l_pCompareObject->GetOffsetPos();
+				RECT l_rect2;
+				l_rect2.left = l_POINT.x+(long)l_pCompareObject->GetPos().x;
+				l_rect2.top = l_POINT.y+(long)l_pCompareObject->GetPos().y;
+				l_rect2.right = l_rect2.left+l_pCompareObject->GetWidth();
+				l_rect2.bottom = l_rect2.top+l_pCompareObject->GetHeight();
+				if(UT::RectCollideRect(l_rect2,l_rect))
+					return true;
+			}
+			l_Temp.RemoveObjectWithoutDelete(0);
+		}
+		return false;
+	}
 }

@@ -3,7 +3,115 @@
 typedef DWORD D3DCOLOR;
 #define D3DCOLOR_ARGB(a,r,g,b) ((D3DCOLOR)((((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)))
 #define D3DCOLOR_RGBA(r,g,b,a) D3DCOLOR_ARGB(a,r,g,b)
+
+struct FontRange
+{
+	unsigned short Low;
+	unsigned short High;
+};
+
 namespace DrawFont {
+	//http://www.lai18.com/content/10301178.html
+	GLYPHSET *QueryUnicodeRanges(HDC hDC) 
+	{ 
+		//query for size 
+		DWORD size=GetFontUnicodeRanges(hDC,NULL); 
+
+		if (size==0) return NULL; 
+		GLYPHSET *pGlyphSet=(GLYPHSET *)new BYTE(size); 
+
+		//get real data 
+		pGlyphSet->cbThis=size; 
+		size = GetFontUnicodeRanges(hDC,pGlyphSet); 
+
+		return pGlyphSet; 
+	} 
+	//http://stackoverflow.com/questions/103725/is-there-a-way-to-programatically-determine-if-a-font-file-has-a-specific-unicode
+	std::vector<FontRange> GetUnicodeRangesForFont2(System::Drawing::Font^ e_pFont)
+	{
+		int l_GLYPHSETSize = sizeof(GLYPHSET);
+		//
+		Graphics^g = Graphics::FromHwnd(IntPtr::Zero);
+		HDC hdc = (HDC)g->GetHdc().ToPointer();
+		IntPtr^ hFont = e_pFont->ToHfont();
+		HGDIOBJ old = SelectObject(hdc, (HGDIOBJ)hFont->ToPointer());
+		GLYPHSET*l_pGlyphSet = QueryUnicodeRanges(hdc);
+		//http://www.lai18.com/content/10301178.html
+		std::vector<FontRange> l_Output;
+		int count = l_pGlyphSet->cRanges;
+		for (int i = 0; i < count; i++)
+		{
+			FontRange range;
+			int*l_pGlyph = (int*)l_pGlyphSet;
+			l_pGlyph += 16+i*4;
+			range.Low = *l_pGlyph;
+			l_pGlyph = (int*)l_pGlyphSet;
+			l_pGlyph += 18 + i * 4;
+			range.High = *l_pGlyph - 1;
+			l_Output.push_back(range);
+		}
+		//SelectObject(hdc,old);
+		g->ReleaseHdc(g->GetHdc());
+		delete l_pGlyphSet;
+		//g->Dispose();
+		return l_Output;
+	}
+	//http://www.lai18.com/content/10301178.html
+	std::vector<FontRange> GetUnicodeRangesForFont(System::Drawing::Font^ e_pFont)
+	{
+		int l_GLYPHSETSize = sizeof(GLYPHSET);
+		//
+		Graphics^g = Graphics::FromHwnd(IntPtr::Zero);
+		IntPtr^ hdc = g->GetHdc();
+		IntPtr^ hFont = e_pFont->ToHfont();
+		HGDIOBJ old = SelectObject((HDC)hdc->ToPointer(), (HGDIOBJ)hFont->ToPointer());
+		unsigned int size = ::GetFontUnicodeRanges((HDC)hdc->ToPointer(),nullptr);
+		IntPtr  glyphSet = System::Runtime::InteropServices::Marshal::AllocHGlobal(size);
+		DWORD l_resultCount = ::GetFontUnicodeRanges((HDC)hdc->ToPointer(), (GLYPHSET*)glyphSet.ToPointer());
+		std::vector<FontRange> l_Output;
+		LPGLYPHSET*l_pLPGLYPHSET = (LPGLYPHSET*)glyphSet.ToPointer();
+		int count = System::Runtime::InteropServices::Marshal::ReadInt32(glyphSet, 12);
+		for (int i = 0; i < count; i++)
+		{
+			FontRange range;
+			range.Low = (UInt16)System::Runtime::InteropServices::Marshal::ReadInt16(glyphSet, 16 + i * 4);
+			range.High = (UInt16)(range.Low + System::Runtime::InteropServices::Marshal::ReadInt16(glyphSet, 18 + i * 4) - 1);
+			l_Output.push_back(range);
+		}
+		SelectObject((HDC)hdc->ToPointer(),old);
+		System::Runtime::InteropServices::Marshal::FreeHGlobal(glyphSet);
+		g->ReleaseHdc(*hdc);
+		//g->Dispose();
+		return l_Output;
+	}
+
+
+	std::vector<wchar_t> GetNotLegalCharacterArrayFromFont(System::Drawing::Font^e_pFont,String^e_strText)
+	{
+		std::vector<FontRange> l_RangeVector = GetUnicodeRangesForFont(e_pFont);
+		bool isCharacterPresent = false;
+		std::vector<wchar_t> l_NotSupportVector;
+		int l_iLength = e_strText->Length;
+		for( int j=0;j<l_iLength;++j )
+		{
+			bool l_bContain = false;
+			wchar_t l_Character = e_strText[j];
+			for(size_t i=0;i<l_RangeVector.size();++i)
+			{
+				FontRange*l_pFontRange = &l_RangeVector[i];
+				if( l_Character >= l_pFontRange->Low && l_Character <= l_pFontRange->High )
+				{
+					l_bContain = true;
+					break;
+				}
+			}
+			if( !l_bContain )
+			{
+				l_NotSupportVector.push_back(l_Character);
+			}
+		}
+		return l_NotSupportVector;
+	}
 
 	System::Void ShowFontPic::SaveBitInfoAndPic()
 	{
@@ -210,7 +318,21 @@ namespace DrawFont {
 				+DNCT::GetChanglineString()
 				+"Y="+ TO_GCSTRING(itoa(l_iCurrentCharHeight+l_iPervoiusCharsHeight,l_temp,10));
 		 }
-		 return l_pBitMap;
+
+		std::vector<wchar_t> l_NotLegalCharacterVector = GetNotLegalCharacterArrayFromFont(e_pFont,e_pString);
+		size_t l_uiSize = l_NotLegalCharacterVector.size();
+		if( l_uiSize != 0 )
+		{
+			std::wstring l_strUnsupportCharacters;
+			for( size_t i=0;i<l_uiSize;++i )
+			{
+				l_strUnsupportCharacters += l_NotLegalCharacterVector[i];
+			}
+			String^l_strMessage = "not support characters \n";
+			l_strMessage += gcnew String(l_strUnsupportCharacters.c_str());
+			GCFORM::MessageBox::Show(l_strMessage,"waring",GCFORM::MessageBoxButtons::OK);
+		}
+		return l_pBitMap;
 	}
 
 	System::Void	ShowFontPic::SaveFontFile()

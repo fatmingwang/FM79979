@@ -1,6 +1,7 @@
 #include "../stdafx.h"
 #include "SoundCapture.h"
-
+//#include <thread>
+#include "../Synchronization/FUThreadPool.h"
 cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 
 //const int SRATE = 44100;
@@ -10,6 +11,8 @@ cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 //ALint sample;
 cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 {
+	m_pFUThreadPool = nullptr;
+	m_bPause = false;
 	m_pDevice = alcCaptureOpenDevice(NULL, frequency, format, buffersize);
 	if (alGetError() != AL_NO_ERROR) {
 		if( m_pDevice )
@@ -20,6 +23,7 @@ cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffers
 
 cSoundCapture::~cSoundCapture()
 {
+	SAFE_DELETE(m_pFUThreadPool);
 	if( m_pDevice )
 	{
 		alcCaptureStop(m_pDevice);
@@ -29,16 +33,18 @@ cSoundCapture::~cSoundCapture()
 
 cSoundCapture* cSoundCapture::CreateSoundCapture()
 {
-	return nullptr;	
+	return nullptr;
 }
 
 void	cSoundCapture::DeleteSoundCapture()
 {
 
 }
-
+//http://stackoverflow.com/questions/4087727/openal-how-to-create-simple-microphone-echo-programm
 bool	cSoundCapture::StartRecord(std::string e_strFileName)
 {
+	m_strSaveFileName = e_strFileName;
+
 	if(m_pDevice)
 	{
 		alcCaptureStart(this->m_pDevice);
@@ -61,4 +67,10 @@ void	cSoundCapture::PauseRecord()
 void	cSoundCapture::StopRecord()
 {
 	
+}
+
+
+void	RecordingThread(void*e_pData)
+{
+
 }

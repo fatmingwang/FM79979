@@ -218,6 +218,7 @@
   <ItemGroup>
     <ClInclude Include="AllColladaInclude.h" />
     <ClInclude Include="ColladaResourceManager.h" />
+    <ClInclude Include="CommonMesh.h" />
     <ClInclude Include="FUDaeEnum.h" />
     <ClInclude Include="FUDaeEnumSyntax.h" />
     <ClInclude Include="FUDaeSyntax.h" />

@@ -15,6 +15,7 @@ void ASSIGN_2D_COLOR(Vector4 Color)
 #else
 	glColorPointer( 4, GL_FLOAT, 0, g_f2DColorOne );
 #endif
+	MyGlErrorTest();
 }
 
 void	ASSIGN_2D_VerticesBySize(float Width,float Height,float Depth)
@@ -29,6 +30,7 @@ void	ASSIGN_2D_VerticesBySize(float Width,float Height,float Depth)
 #else
 	glVertexPointer( 3, GL_FLOAT, 0, g_v2DVertexBuffer );
 #endif
+	MyGlErrorTest();
 }
 
 void	ASSIGN_2D_UV(float*UV)
@@ -42,6 +44,7 @@ void	ASSIGN_2D_UV(float*UV)
 #else
 	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate );
 #endif
+	MyGlErrorTest();
 }
 
 void	ASSIGN_2D_MIRROR_UV(float* UV)
@@ -55,24 +58,29 @@ void	ASSIGN_2D_MIRROR_UV(float* UV)
 #else
 	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate );
 #endif
+	MyGlErrorTest();
 }
 
 #ifdef OPENGLES_2_X
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_POS],Stride, GL_FLOAT,0, 0, pData);
+	MyGlErrorTest();
 }
 void	myGlUVPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0],Stride, GL_FLOAT,0, 0, pData);
+	MyGlErrorTest();
 }
 void	myGlColorPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE],Stride, GL_FLOAT,0, 0, pData);
+	MyGlErrorTest();
 }
 void	myGlNormalPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL],Stride, GL_FLOAT,0, 0, pData);
+	MyGlErrorTest();
 }
 #else
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
@@ -290,9 +298,9 @@ namespace GLRender
 	}
 
 	
-	void    DrawQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad)
+	void    DrawQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
 	{
-		UseShaderProgram(DEFAULT_SHADER);
+		UseShaderProgram(e_strShaderName );
 	   // draw with client side arrays (in real apps you should use cached VBOs which is much better for performance)
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		ASSIGN_2D_COLOR(e_vColor);

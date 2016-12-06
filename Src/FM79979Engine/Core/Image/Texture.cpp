@@ -264,6 +264,7 @@ namespace FATMING_CORE
 		switch(e_GLenum)
 		{
 			case GL_RGBA:
+			case GL_BGRA:
 				l_iChannel = 4;
 				break;
 			case GL_RGB:
@@ -506,6 +507,8 @@ namespace FATMING_CORE
 		this->ApplyImage();/* Binding of texture name */
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue); /* We will use linear  interpolation for minifying filter */
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,  GL_REPEAT);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,  GL_REPEAT);
 		//quick way to find out power of two.
 		//if (width & (width - 1)) or (height & (height - 1)):
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
@@ -657,8 +660,8 @@ namespace FATMING_CORE
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);				
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,  GL_REPEAT);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,  GL_REPEAT);
 		UpdatePixels((const GLvoid*)l_pucPixelData,e_bFetchPixelData);
 //#endif
 		//if loading failed show alert
@@ -668,7 +671,21 @@ namespace FATMING_CORE
 			return false;
 		}
 		return true;
-	}	
+	}
+
+	bool	cTexture::ApplyImage(GLuint e_TextureID)
+	{
+	    if( m_suiLastUsingImageIndex != e_TextureID )
+	    {
+			if( e_TextureID == 0 )
+				return false;
+		    glBindTexture( GL_TEXTURE_2D, e_TextureID);
+		    m_suiLastUsingImageIndex = e_TextureID;
+			return true;
+		}
+		return true;	
+	}
+
 	bool	cTexture::ApplyImage()
 	{
 	    if( m_suiLastUsingImageIndex != m_uiImageIndex )

@@ -128,7 +128,7 @@ namespace	FATMING_CORE
 		static	bool												m_sbTouched;//if true mouse down
 		static	bool												m_sbGamePause;
 		static	eDeviceDirection									m_seDeviceDirection;
-		static	cFUThreadPool*										m_spThreadPool;
+		//static	cFUThreadPool*										m_spThreadPool;
 		//if windows messagebox will pop up or just a outputdebugstring
 		static	bool												m_sbShowErrorMsgBox;
 		static	std::wstring*										m_spstrErrorMsgString;

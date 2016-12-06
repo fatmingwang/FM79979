@@ -753,6 +753,41 @@ namespace UT
 		return bSuccess;
 	}
 #endif
+	std::string				GetTxtFileContent(const char* e_strFileName)
+	{
+		std::string	l_strContent;
+		NvFile*l_pFile = MyFileOpen(e_strFileName,"r");
+		if(!l_pFile)
+		{
+			l_strContent = e_strFileName;
+			l_strContent += " (file is not exists)";
+			return l_strContent;
+		}
+		long	l_uiFileSize = UT::GetFileSize(l_pFile);
+		char*l_Temp = new char[l_uiFileSize+1];//1 MB
+		int	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
+		l_Temp[l_uiFileSize] = 0;
+		l_strContent = l_Temp;
+		delete l_Temp;
+		NvFClose(l_pFile);
+		return l_strContent;
+	}
+
+	bool					SaveTxtToFile(const char* e_strFileName,const char*e_strContent,int e_iByteCount)
+	{
+		std::string	l_strContent;
+		//force to replace
+		NvFile*l_pFile = MyFileOpen(e_strFileName,"w");
+		if(!l_pFile)
+		{
+			return false;
+		}
+		long	l_uiFileSize = e_iByteCount;//strlen(e_strFileName);
+		NvFWrite(e_strContent,sizeof(char),l_uiFileSize,l_pFile);
+		NvFClose(l_pFile);
+		return true;
+	}
+
 	NvFile*	MyFileOpen( const char* FileName,const char*e_strMode )
 	{
 		NvFile* fp = nullptr;

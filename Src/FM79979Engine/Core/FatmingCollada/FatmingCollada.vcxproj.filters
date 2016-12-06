@@ -46,6 +46,9 @@
     <Filter Include="Mesh">
       <UniqueIdentifier>{2ce54386-3b6a-4a80-9e04-7dbec9b592fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mesh\CommonMesh">
+      <UniqueIdentifier>{d994ed18-b426-4362-b05c-7de914ddab6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllColladaInclude.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonMesh.h">
+      <Filter>Mesh\CommonMesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

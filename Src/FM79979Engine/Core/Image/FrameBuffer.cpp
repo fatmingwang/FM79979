@@ -127,7 +127,7 @@ namespace FATMING_CORE
 		return true;
 	}
 
-	cFrameBuffer::cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed)
+	cFrameBuffer::cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed,GLenum e_eImageType,GLenum e_eRGBDataType)
 	{
 	//Setting up a framebuffer for texturing
 	//generate mipmap
@@ -143,6 +143,8 @@ namespace FATMING_CORE
 		m_bDepthNeed = e_bDepthNeed;
 		m_uiWidth = e_iWidth;
 		m_uiHeight = e_iHeight;
+		m_eImageType = e_eImageType;
+		m_eRGBDataType = e_eRGBDataType;
 		//in openglES 2.0 glGenFramebuffers
 		glGenFramebuffers(1, &m_uiFramebufferID); 
 		{//glBindFramebuffer
@@ -166,8 +168,8 @@ namespace FATMING_CORE
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0,
-							GL_RGB, GL_UNSIGNED_BYTE, nullptr);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0,m_eImageType, m_eRGBDataType, nullptr);
+			MyGlErrorTest();
 			//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
 			//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 			//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -238,9 +240,9 @@ namespace FATMING_CORE
 		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
 	}
 
-	void	cFrameBuffer::DrawBuffer(POINT e_Pos,POINT e_Size)
+	void	cFrameBuffer::DrawBuffer(POINT e_Pos,POINT e_Size,const WCHAR*e_strShaderName)
 	{
-		glBindTexture( GL_TEXTURE_2D, m_uiTextureID);
+		cTexture::ApplyImage(m_uiTextureID);
 		//I have no idea why the frame buffer have to rotate Y with180,and change UV
 		//real freak........
 		//int e_iWidth = e_Size.x/2;
@@ -264,7 +266,7 @@ namespace FATMING_CORE
 		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
 		//UseShaderProgram(l_p2DShader);
 		float	l_fTextureCoordinate[] ={0,1,1,0};
-		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x,(float)e_Pos.y,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero);
+		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x,(float)e_Pos.y,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,e_strShaderName);
 	}
 
 

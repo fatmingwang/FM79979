@@ -392,13 +392,25 @@ namespace DNCT
 //==================================================
 //
 //==================================================
-	System::String^	OpenFileGetText()
+	System::String^	OpenFileGetText(String^e_strFileName,String^e_strCodeName)
 	{
-		String^l_pString = DNCT::OpenFileAndGetName();
-		System::IO::StreamReader^l_pReader = gcnew System::IO::StreamReader(l_pString,System::Text::Encoding::GetEncoding(TO_GCSTRING("UTF-16")));
-		String^l_str = l_pReader->ReadToEnd();
-		l_pReader->Close();
-		return l_str;
+		String^l_pFileNameString = e_strFileName;
+		if( l_pFileNameString == nullptr )
+		{
+			l_pFileNameString = DNCT::OpenFileAndGetName();
+		}
+		if( System::IO::File::Exists(l_pFileNameString) )
+		{
+			System::IO::StreamReader^l_pReader = nullptr;
+			if( e_strCodeName )
+				l_pReader = gcnew System::IO::StreamReader(l_pFileNameString,System::Text::Encoding::GetEncoding(e_strCodeName));
+			else
+				l_pReader = gcnew System::IO::StreamReader(l_pFileNameString);
+			String^l_str = l_pReader->ReadToEnd();
+			l_pReader->Close();
+			return l_str;
+		}
+		return nullptr;
 	}
 
 	System::String^	GetChanglineString()
@@ -476,7 +488,7 @@ namespace DNCT
 	{
 		System::IO::FileStream ^sb;
 		if(e_pFileName!="")
-			sb = gcnew System::IO::FileStream(e_pFileName, System::IO::FileMode::OpenOrCreate);
+			sb = gcnew System::IO::FileStream(e_pFileName, System::IO::FileMode::Create);
 		else
 		{
 			System::String^l_pStringFileName = DNCT::SaveFileAndGetName(0);

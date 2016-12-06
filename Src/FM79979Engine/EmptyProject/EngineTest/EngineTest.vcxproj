@@ -197,6 +197,7 @@
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="TestPhase.cpp" />
+    <ClCompile Include="Trigonometric.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -206,11 +207,17 @@
     <ClInclude Include="..\..\DotNetCommon\DotNetCommonTools.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="TestPhase.h" />
+    <ClInclude Include="Trigonometric.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX">
       <DependentUpon>Form1.h</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Trigonometric.resx">
+      <DependentUpon>Trigonometric.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +232,9 @@
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
+      <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

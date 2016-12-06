@@ -216,6 +216,7 @@ namespace PI
 				 l_OriginalImageWidth = UT::power_of_two(l_OriginalImageWidth);
 				 l_OriginalImageHeight = UT::power_of_two(l_OriginalImageHeight);
 			 }
+			 bool l_bTextureHasBeenReized = false;
 			 for( int i=0;i<l_iNumImage;++i )
 			 {
 				 sPuzzleData*l_pPuzzleData = e_pPuzzleImage->GetPuzzleData()[i];
@@ -229,6 +230,11 @@ namespace PI
 					//-1 for start at 0,0 if size is 256,256 it should be 0,0~255,255 so the size is match 256,256
 					l_pPuzzleData->Size.x,
 					l_pPuzzleData->Size.y);
+				if( l_fPosX+l_pPuzzleData->Size.x>= l_pOriginalImage->Width || 
+					l_fPosX+l_pPuzzleData->Size.y>= l_pOriginalImage->Height)
+				{
+					l_bTextureHasBeenReized = true;
+				}
 				 //so reassign image to right position,more accurate,and to capable for old pi data
 				if( (l_pPuzzleData->fUV[0] != 0.f||l_pPuzzleData->fUV[1] != 0.f) && (l_pPuzzleData->ShowPosInPI.x!=0||l_pPuzzleData->ShowPosInPI.y!=0) )
 				 {
@@ -296,6 +302,10 @@ namespace PI
 				 }
 			 }
 			 delete l_pOriginalImage;
+			 if( l_bTextureHasBeenReized )
+			 {
+				WARNING_MSG("texture has been resized!");
+			 }
 		 }
 		 catch(System::Exception^l_pExp)
 		 {

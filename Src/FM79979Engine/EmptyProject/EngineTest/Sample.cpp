@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameApp.h"
-
+#include "../../Core/GLSL/ToneMapping.h"
+#include "../../Core/GLSL/TunnelEffect.h"
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
@@ -28,6 +29,12 @@ cCurveWithTime*	g_pCurve = 0;
 cMPDINode*g_pMPDINode = 0;
 
 
+cToneMappingShader*g_pToneMappingShader = nullptr;
+
+cBaseImage*g_pBGImage = nullptr;
+
+cTunnelEffect*g_pTunnelEffect = nullptr;
+
 void	LoadSample();
 void	DestoryObject();
 void	SampleUpdate(float e_fElpaseTime);
@@ -37,11 +44,20 @@ void	SampleMouseDown(int e_iPosX,int e_iPosY);
 void	SampleMouseMove(int e_iPosX,int e_iPosY);
 void	SampleMouseUp(int e_iPosX,int e_iPosY);
 void	SampleKeyup(char e_cKey);
-cBaseImage*g_pBGImage = nullptr;
 void	LoadSample()
 {
-	//g_pBGImage = new cBaseImage("Lee-Younh-Aes-twins.png");
-	g_pBGImage = new cBaseImage("MyFMBook/iPhone_Monster/MPDI/Coveer_2.png");
+	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };
+	//g_pToneMappingShader = cToneMappingShader::CreateShader(
+	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
+	//	"shader/DownSample.vs","shader/DownSample.ps",
+	//	"shader/Blur.vs","shader/BlurH.ps",
+	//	"shader/Blur.vs","shader/BlurV.ps",
+	//	l_Size);
+	g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
+	g_pBGImage = new cBaseImage("DownloadFont.png");
+	g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
+	g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+	//g_pBGImage = new cBaseImage("MyFMBook/iPhone_Monster/MPDI/Coveer_2.png");
 	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
 	//g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
@@ -65,7 +81,7 @@ void	LoadSample()
 		g_pMPDINode->Init();
 	}
 
-	g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
+	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 	if( g_pMPDIList )
 	{
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(0);
@@ -108,7 +124,8 @@ void	LoadSample()
 			g_pCurve->Init();
 		}
 	}
-	g_pOrthogonalCamera = new cOrthogonalCamera(Vector2(720,1280));
+	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
+	//
 }
 
 void	DestorySampleObject()
@@ -125,6 +142,8 @@ void	DestorySampleObject()
 	SAFE_DELETE(g_pColladaParser);
 	SAFE_DELETE(g_pCurve);
 	SAFE_DELETE(g_pMPDINode);
+	SAFE_DELETE(g_pToneMappingShader);
+	SAFE_DELETE(g_pTunnelEffect);
 }
 
 void	SampleUpdate(float e_fElpaseTime)
@@ -164,11 +183,34 @@ void	SampleUpdate(float e_fElpaseTime)
 
 void	SampleRender()
 {
+	if( g_pTunnelEffect )
+	{
+		g_pTunnelEffect->Use();
+		//g_pTunnelEffect->Update(0.016f);
+	}
+	if( g_pToneMappingShader )
+		g_pToneMappingShader->StartDraw();
+
+	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	//glEnable2D(1280,720);
+	if( g_pBGImage && g_pTunnelEffect )
+	{
+		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2*0.1,0,0));
+		g_pBGImage->SetWidth((int)(cGameApp::m_svGameResolution.x/2*0.8));
+		g_pBGImage->SetHeight((int)(cGameApp::m_svGameResolution.y/2*0.8));
+	//	g_pBGImage->Render();
+		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
+		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2+cGameApp::m_svGameResolution.x/2*0.1,0,0));
+		g_pTunnelEffect->SetTime(-1);
+		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
+		//g_pBGImage->Render(cMatrix44::Identity);
+	}
+
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->Render();
 	}
-	g_pBGImage->Render();
+
 	if(g_pOrthogonalCamera)
 	{
 		g_pOrthogonalCamera->Render();
@@ -202,6 +244,8 @@ void	SampleRender()
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
 		}
 	}
+	if( g_pToneMappingShader )
+		g_pToneMappingShader->EndDraw();
 }
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY)
@@ -234,5 +278,10 @@ void	SampleKeyup(char e_cKey)
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->KeyUp(e_cKey);
+	}
+	if( e_cKey == 'R' )
+	{
+		SAFE_DELETE(g_pTunnelEffect);
+		g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
 	}
 }

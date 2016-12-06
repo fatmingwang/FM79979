@@ -272,6 +272,20 @@ namespace FATMING_CORE
 		//Vector3	l_vPos = this->GetWorldPosition();
 		//DrawQuadWithTextureAndColorAndCoordinate(l_vPos.x+this->m_OffsetPos.x,l_vPos.y+this->m_OffsetPos.y,l_vPos.z,this->m_iWidth,this->m_iHeight,m_vColor,this->m_fUV,Vector3::Zero);
   //  }
+	void	cBaseImage::RenderWithShader(const WCHAR*e_strShaderName)
+	{
+		if( !m_bVisible )
+			return;
+		if(m_pTexture->ApplyImage())
+		{
+			Vector3 l_vPos = this->GetWorldPosition();
+			GLRender::DrawQuadWithTextureAndColorAndCoordinate(l_vPos.x+(float)m_OffsetPos.x,l_vPos.y+(float)m_OffsetPos.y,0.f,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation(),e_strShaderName);
+		}
+		else
+		{
+			DebugRender();
+		}
+	}
 	//====================
 	//
 	//====================

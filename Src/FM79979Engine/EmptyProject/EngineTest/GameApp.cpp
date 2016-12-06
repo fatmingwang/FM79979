@@ -66,7 +66,7 @@ void	cEngineTestApp::Render()
 	float	l_fVP[16];
 	UseShaderProgram();
 	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
-#ifndef ANDROID
+#ifndef OPENGLES_2_X
 	glEnable(GL_TEXTURE_2D);
 #endif
 	glEnable(GL_ALPHA_TEST);
@@ -81,8 +81,8 @@ void	cEngineTestApp::Render()
 	{
 	    WCHAR   l_str[MAX_PATH];
 	    swprintf(l_str,MAX_PATH,L"MousePos:%d,%d",cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
-	    cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
-	    cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
+	    //cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
+	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
 	}
 	glDisable(GL_TEXTURE_2D);
 	this->m_pPhaseManager->DebugRender();

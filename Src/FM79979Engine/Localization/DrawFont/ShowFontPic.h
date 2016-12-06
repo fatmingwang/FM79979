@@ -533,6 +533,7 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			 }
 	private: void ReFreshPic()
 			 {
+				 //std::vector<wchar_t> GetNotLegalCharacterArrayFromFont(System::Drawing::Font^e_pFont,String^e_strText)
 				 System::String^l_pString = AllFont_listBox->SelectedItem->ToString();
 				 cFontInfo^l_p = safe_cast<cFontInfo^>(m_pFontInfoList[l_pString]);
 				 l_p->m_iSpaceDis = (int)FontDis_numericUpDown->Value;
@@ -560,6 +561,7 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 	private: System::Void saveToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 				 SaveBitInfoAndPic();
 			 }
+
 private: System::Void fontAddToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
 			 System::Drawing::Font^l_pFont = DNCT::GetFontFromFontDialog();
 			 if( !l_pFont )

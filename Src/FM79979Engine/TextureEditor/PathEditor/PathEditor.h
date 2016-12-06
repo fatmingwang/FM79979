@@ -28,8 +28,8 @@ namespace PathEditor
 			m_bInitOk = false;
 			InitializeComponent();
 			m_bCtrlPressed = false;
-			const WCHAR*l_str = cBaseImage::TypeID;
-			this->Dock = GCFORM::DockStyle::Fill;
+			//const WCHAR*l_str = cBaseImage::TypeID;
+			//this->Dock = GCFORM::DockStyle::Fill;
 			//
 			//TODO: 在此加入建構函式程式碼
 			//
@@ -56,6 +56,13 @@ namespace PathEditor
 			PathMode_comboBox->SelectedIndex = 0;
 
 			m_pSplitScreenCamera = new cSplitScreenCamera();
+			if( m_pSplitScreenCamera && m_pSplitScreenCamera->m_sAxisCamera )
+			{
+				int l_iCameraAxisIndex = m_pSplitScreenCamera->GetFocusPanelIndex();
+				auto l_pSplitScreenCamera = m_pSplitScreenCamera;
+				auto l_pAxisCamera2 = m_pSplitScreenCamera->m_sAxisCamera;
+				auto l_pAxisCamera = l_pAxisCamera2[0];
+			}
 			m_pOrthogonalCamera = new cOrthogonalCamera();
 			m_pBaseImageListEP = new cNamedTypedObjectVector<cBaseImage>;
 			m_pCurveManagerEP = new cCurveManager();
@@ -875,6 +882,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 
 			// return;
 			int l_iCameraAxisIndex = m_pSplitScreenCamera->GetFocusPanelIndex();
+			auto l_pAxisCamera = m_pSplitScreenCamera->m_sAxisCamera[l_iCameraAxisIndex];
 			cCameraBehaveByMouseBehave*l_pCameraBehaveByMouseBehave = m_pSplitScreenCamera->m_sAxisCamera[l_iCameraAxisIndex].pCameraBehaveByMouseBehave;
 			l_pCameraBehaveByMouseBehave->SetMouseMoveSpeed(1.f);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);

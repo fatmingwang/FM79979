@@ -152,4 +152,11 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EditText.resx" />
+    <EmbeddedResource Include="Form1.resX" />
+    <EmbeddedResource Include="NodeSearchForm.resx" />
+    <EmbeddedResource Include="ShowFontPic.resx" />
+    <EmbeddedResource Include="TextEditor.resx" />
+  </ItemGroup>
 </Project>

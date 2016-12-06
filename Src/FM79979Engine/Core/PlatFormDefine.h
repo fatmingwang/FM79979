@@ -113,6 +113,10 @@
 #define glDeleteFramebuffers                            glDeleteFramebuffersEXT
 #define glDeleteRenderbuffers                           glDeleteRenderbuffersEXT
 #define glClearDepthf                                   glClearDepth
+#define GL_RGBA32F										GL_RGBA32F_ARB
+#define GL_RGB32F										GL_RGB32F_ARB
+#define GL_RGBA16F										GL_RGBA16F_ARB
+#define GL_RGB16F										GL_RGB16F_ARB
 
 #endif
 //===============================================

@@ -87,7 +87,7 @@ namespace	FATMING_CORE
 #endif
 	std::string*										cGameApp::m_psstrGameAppName = 0;
 	cBinaryFile*										cGameApp::m_spLogFile = 0;
-	cFUThreadPool*										cGameApp::m_spThreadPool = 0;
+	//cFUThreadPool*										cGameApp::m_spThreadPool = 0;
 	//cClickMouseBehavior*								cGameApp::m_spClickMouseBehavior = 0;
 //#if defined(ANDROID) || defined(IOS) 
 	eDeviceDirection									cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
@@ -178,7 +178,7 @@ namespace	FATMING_CORE
         if( !m_spAnimationParser )
         {
 			//in android some how it will close force sunndenly by I donno who.
-			m_spThreadPool = new cFUThreadPool;
+			//m_spThreadPool = new cFUThreadPool;
 	        m_spAnimationParser = new cAnimationParser();
 			m_spImageParser = m_spAnimationParser->GetAllBaseImageList();
 	        m_spSoundParser = new cSoundParser();
@@ -217,7 +217,7 @@ namespace	FATMING_CORE
 #endif
 		SystemErrorCheck();
 		SAFE_DELETE(m_spLogFile);
-		SAFE_DELETE(m_spThreadPool);
+		//SAFE_DELETE(m_spThreadPool);
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
 		NamedTypedObject::DumpUnReleaseInfo();
 	}
@@ -448,6 +448,10 @@ namespace	FATMING_CORE
 		//if(!m_sbEnableKeyboardSingnal)
 		//	return;
 #ifdef WIN32
+		if( e_char == 'R' )
+		{
+			m_sfDebugValue = 1.f;
+		}
 	    if( e_char == 107 )//107'+'
 		{
 			m_sfDebugValue *= 2.f;

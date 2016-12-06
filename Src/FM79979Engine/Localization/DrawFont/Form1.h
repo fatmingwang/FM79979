@@ -207,65 +207,68 @@ namespace DrawFont {
 
 private: System::Void menuItem5_Click(System::Object ^  sender, System::EventArgs ^  e)
 		 {
-			GCFORM::OpenFileDialog^	l_pOpenFile = gcnew  GCFORM::OpenFileDialog();
-			DIALOG_OK(l_pOpenFile)
+			array<String^>^l_pStrFilesName = DNCT::OpenFileAndGetNames();
+			const int l_iCharactersCount = 65536;
+			std::wstring	l_StringorAll;
+			bool	l_bValidGlyphs[l_iCharactersCount];//all 
+			String^l_strDefaultString = "1234567890/*-+.qwertyui9o0p-[=]\asdfghjkl;zxcvbnm,./`1234567890-~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:""ZXCVBNM<>?	\n\r\t";
+			textBox1->Text = "";
+			for each(auto l_strFileName in l_pStrFilesName)
 			{
-				System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(l_pOpenFile->FileName);
-				textBox1->Text = sr->ReadToEnd();
+				System::IO::StreamReader ^sr = gcnew  System::IO::StreamReader(l_strFileName);
+				textBox1->Text += sr->ReadToEnd();
 				if( textBox1->Text->Equals(L" ") ||textBox1->Text->Equals(L"0")||
 					textBox1->Text->Equals(" ") ||textBox1->Text->Equals("0"))
 				{
-					System::IO::StreamReader ^sr2 = gcnew  System::IO::StreamReader(l_pOpenFile->FileName,System::Text::Encoding::GetEncoding("UTF-16"));
+					System::IO::StreamReader ^sr2 = gcnew  System::IO::StreamReader(l_strFileName,System::Text::Encoding::GetEncoding("UTF-16"));
 					textBox1->Text = sr2->ReadToEnd();
 					sr2->Close();
 				}
 				if( textBox1->Text->Equals(L" ") ||textBox1->Text->Equals(L"0")||
 					textBox1->Text->Equals(" ") ||textBox1->Text->Equals("0"))
 				{
-					System::IO::StreamReader ^sr2 = gcnew  System::IO::StreamReader(l_pOpenFile->FileName,System::Text::Encoding::GetEncoding("UTF-8"));
+					System::IO::StreamReader ^sr2 = gcnew  System::IO::StreamReader(l_strFileName,System::Text::Encoding::GetEncoding("UTF-8"));
 					textBox1->Text = sr2->ReadToEnd();
 					sr2->Close();
 				}
-				System::String^l_pString = textBox1->Text;
+				System::String^l_pString = textBox1->Text+l_strDefaultString;
 				int l_i = l_pString->Length;
-				std::wstring	l_StringorAll;
-				bool	l_bValidGlyphs[65536];//all 
 				UINT	l_uiNumGlyphs = 0;
-				ZeroMemory( l_bValidGlyphs, 65536 );
-				bool	l_bOver65536 = false;
+				ZeroMemory( l_bValidGlyphs, l_iCharactersCount );
+				bool	l_bCharacterOutOfRange = false;
 				for( int i=0; i<l_i; ++i )//filled
 				{
 					if( !l_bValidGlyphs[l_pString[i]] )
 					{
-						if( l_pString[i]>=65536 )
+						if( l_pString[i]>=l_iCharactersCount )
 						{
-							if( !l_bOver65536 )
+							if( !l_bCharacterOutOfRange )
 							{
 								WARNING_MSG("total character is bigger than 65536 call fatming to fix this problem");
-								l_bOver65536 = true;
+								l_bCharacterOutOfRange = true;
 							}
 						}
 						l_bValidGlyphs[l_pString[i]] = true;
 						++l_uiNumGlyphs;
 					}
 				}
-				for( int i=0;i<65536;++i )
-				{
-					if( l_bValidGlyphs[i] )
-					{
-						l_StringorAll.push_back((WCHAR)i);
-					}
-				}
-				textBox1->Text =  TO_GCSTRING(l_StringorAll.c_str());
 				sr->Close();
 			}
+			for( int i=0;i<l_iCharactersCount;++i )
+			{
+				if( l_bValidGlyphs[i] )
+				{
+					l_StringorAll.push_back((WCHAR)i);
+				}
+			}
+			textBox1->Text =  TO_GCSTRING(l_StringorAll.c_str());
 		 }
 
 private: System::Void menuItem6_Click(System::Object^  sender, System::EventArgs^  e) {
 			 System::String^l_pString = DNCT::SaveFileAndGetName(0);
 			 if(l_pString->Length)
 			 {
-				 System::IO::FileStream ^sb = gcnew System::IO::FileStream(l_pString, FileMode::Create);
+				System::IO::FileStream ^sb = gcnew System::IO::FileStream(l_pString, FileMode::Create);
 				System::IO::StreamWriter^	l_pStringWriter = gcnew System::IO::StreamWriter(sb,System::Text::Encoding::GetEncoding(TO_GCSTRING("UTF-16"))  );
 				l_pStringWriter->Write(textBox1->Text);
 				l_pStringWriter->Close();

@@ -4,7 +4,6 @@
 namespace FATMING_CORE
 {
 	extern cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList;
-	extern cBaseShader*g_pCurrentShader;
 	cShockBoobsShader::cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth,bool e_bTexture,wchar_t*e_strName)
 	:cBaseShader(e_strVS,e_strPS,e_strName,e_bTexture)
 	{
@@ -15,7 +14,6 @@ namespace FATMING_CORE
 		m_fCurrentShockStregth = 0.f;
 		m_uiShockValueLocation = GetUniFormLocationByName("ShockValue");
 		g_pAll2DShaderList->AddObjectNeglectExist(this);
-		g_pCurrentShader = this;
 		m_fShockSpeed = m_fCurrentShockSpeed = 1.f;
 		m_fShockSpeedMinus = 1.f;
 		m_fShockStrgethValue = 1.f;

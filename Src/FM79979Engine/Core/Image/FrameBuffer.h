@@ -4,6 +4,7 @@
 
 namespace FATMING_CORE
 {
+	extern wchar_t*DEFAULT_SHADER;
 //==========================
 //if there is no framebuffer exist...
 //==========================
@@ -33,14 +34,17 @@ namespace FATMING_CORE
 		UINT	m_uiWidth;			//
 		UINT	m_uiHeight;			//
 		bool	m_bDepthNeed;		//2d may do not need this
+		GLenum	m_eImageType;		//GL_RGB or GL_RGBA
+		GLenum	m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
 	public:
-		cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed = false);
+		cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed = false,GLenum e_eImageType = GL_RGB,GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
 		virtual ~cFrameBuffer();
 		void	StartDraw(bool e_bClearScreen = true);		//store original
 		void	EndDraw();			//restore original
 		UINT	GetWidth(){ return m_uiWidth; }
 		UINT	GetHeight(){ return m_uiHeight; }
-		void	DrawBuffer(POINT e_Pos,POINT e_Size);
+		void	DrawBuffer(POINT e_Pos,POINT e_Size,const WCHAR*e_strShaderName = DEFAULT_SHADER);
+		GLuint	GetTextureID(){return m_uiTextureID;}
 	};
 	//
 

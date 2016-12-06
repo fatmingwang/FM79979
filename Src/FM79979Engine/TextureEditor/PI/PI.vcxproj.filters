@@ -44,6 +44,9 @@
     <ClInclude Include="pack.h">
       <Filter>Pack</Filter>
     </ClInclude>
+    <ClInclude Include="BinPack.h">
+      <Filter>Pack</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">

@@ -48,6 +48,7 @@ namespace FATMING_CORE
 			//it e_bFetchPixelData true m_pPixels will fill of pixel data.
 			bool	LoadImage(const char*e_strImageFileName,bool e_bFetchPixelData = false);
 			bool	ApplyImage();
+			static bool	ApplyImage(GLuint e_TextureID);
 			GLuint	GetImageIndex(){ return m_uiImageIndex;}
 			//should't call this!!,instead u should call SetWidth and SetHeight.
 			void	SetImageSize(int e_iWidth,int e_iHeight){ m_iWidth = e_iWidth; m_iHeight = e_iHeight; }

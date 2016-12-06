@@ -68,6 +68,8 @@ namespace FATMING_CORE
 
 	class	cBaseShader:public NamedTypedObject
 	{
+		public:
+		std::string m_strShaderLog;
 	protected:
 		//to check camera or light updated or something else...not necessary
 		bool	m_bDataUpdated;
@@ -88,10 +90,10 @@ namespace FATMING_CORE
 		//for skinning
 		GLuint	m_uiBonesLocation;
 		//if e_bTexture is true it texture coordinate attribute and texture UV will be assign.
-		cBaseShader(wchar_t*e_strName,bool e_bTexture = true);
-		cBaseShader(const char*e_strVS,const char*e_strPS,wchar_t*e_strName,bool e_bTexture = true);
+		cBaseShader(const wchar_t*e_strName,bool e_bTexture = true);
+		cBaseShader(const char*e_strVS,const char*e_strPS,const wchar_t*e_strName,bool e_bTexture = true);
 		//for opengl es1
-		cBaseShader(wchar_t*e_strName,bool *e_pbClientState);
+		cBaseShader(const wchar_t*e_strName,bool *e_pbClientState);
 		cBaseShader();
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual ~cBaseShader();
@@ -100,6 +102,7 @@ namespace FATMING_CORE
 		virtual	void				Update(float e_fElpaseTime){ m_bDataUpdated = false; }
 		void						Disable();
 		GLuint						GetUniFormLocationByName(const char*e_strName);
+		virtual	void				DebugRender();
 	};
 
 	//e_pbClientState to setup opengl es client state
@@ -133,7 +136,7 @@ namespace FATMING_CORE
 	void	SetupShaderBonesData(cMatrix44*e_pBoneMatrices,int e_iCount);
 	bool	CheckProgram(int Object, int Type,wchar_t*e_strMessage);
 	//CheckShader(e_uiShaderHandle, GL_COMPILE_STATUS,L"Compile\n");
-	bool	CheckShader(int Object, int Type, wchar_t*e_strMessage);
+	bool	CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog = nullptr);
 	//
 	void	SetGlobalScaleColor(Vector4 e_vColor);
 #ifndef DEBUG

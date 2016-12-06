@@ -24,8 +24,10 @@ namespace FATMING_CORE
 	Vector4	g_vGlobalScaleColor(1,1,1,1);
 	cBaseShader*g_pCurrentShader = 0;
 	extern cGLSLProgram*g_pCurrentUsingGLSLProgram;
-	cBaseShader::cBaseShader(wchar_t*e_strName,bool e_bTexture)
+	bool	g_bShowErrorMessageBoxIfShaderIsWrong = true;
+	cBaseShader::cBaseShader(const wchar_t*e_strName,bool e_bTexture)
 	{
+		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
@@ -35,11 +37,12 @@ namespace FATMING_CORE
 		bool	l_b = CreateProgram(e_bTexture?g_strCommonVS:g_strCommonVSNoTexture,
 									e_bTexture?g_strCommonFS:g_strCommonFSNoTexture,
 									e_bTexture);
-		assert(l_b);
+		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
 	}
 
-	cBaseShader::cBaseShader(const char*e_strVS,const char*e_strPS,wchar_t*e_strName,bool e_bTexture)
+	cBaseShader::cBaseShader(const char*e_strVS,const char*e_strPS,const wchar_t*e_strName,bool e_bTexture)
 	{
+		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
@@ -47,16 +50,18 @@ namespace FATMING_CORE
 		m_uiTexLoacation = m_uiColorLoacation = m_uiMatrixVPLoacation = m_uiMatrixWLoacation = -1;
 		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
 		bool	l_b = CreateProgram(e_strVS,e_strPS,e_bTexture);
-		assert(l_b);
+		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
 	}
 	cBaseShader::cBaseShader()
 	{
+		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
 	}
-	cBaseShader::cBaseShader(wchar_t*e_strName,bool *e_pbClientState)
+	cBaseShader::cBaseShader(const wchar_t*e_strName,bool *e_pbClientState)
 	{
+		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
 		this->SetName(e_strName);
@@ -87,7 +92,12 @@ namespace FATMING_CORE
 		// Check for compilation success
 		GLint compilationResult = 0;
 		glGetShaderiv( m_uiVS, GL_COMPILE_STATUS, &compilationResult );
-		FATMING_CORE::CheckShader(m_uiVS, GL_COMPILE_STATUS,L"Compile\n");
+		std::wstring l_str = this->GetName();
+		l_str += L" VS Compile";
+		if( g_bShowErrorMessageBoxIfShaderIsWrong )
+			FATMING_CORE::CheckShader(m_uiVS, GL_COMPILE_STATUS,l_str.c_str());
+		else
+			FATMING_CORE::CheckShader(m_uiVS, GL_COMPILE_STATUS,l_str.c_str(),&this->m_strShaderLog);
 	   // current implementation always succeeds.
 	   // The error will happen at link time.
 	   if ( compilationResult == 0 )
@@ -111,7 +121,12 @@ namespace FATMING_CORE
 		// Check for compilation success
 		GLint compilationResult = 0;
 		glGetShaderiv( m_uiFS, GL_COMPILE_STATUS, &compilationResult );
-		FATMING_CORE::CheckShader(m_uiFS, GL_COMPILE_STATUS,L"Compile\n");
+		std::wstring l_str = this->GetName();
+		l_str += L" FS Compile";
+		if( g_bShowErrorMessageBoxIfShaderIsWrong )
+			FATMING_CORE::CheckShader(m_uiFS, GL_COMPILE_STATUS,l_str.c_str());
+		else
+			FATMING_CORE::CheckShader(m_uiFS, GL_COMPILE_STATUS,l_str.c_str(),&this->m_strShaderLog);
 	   // current implementation always succeeds.
 	   // The error will happen at link time.
 	   if ( compilationResult == 0 )
@@ -124,10 +139,18 @@ namespace FATMING_CORE
 
 	GLuint	cBaseShader::GetUniFormLocationByName(const char*e_strName)
 	{
+		MyGlErrorTest();
 		GLuint	l_ui = glGetUniformLocation( m_uiProgram,e_strName);
 		MyGlErrorTest();
 		return l_ui;
 	}
+
+	void	cBaseShader::DebugRender()
+	{
+		float	l_fTextureCoordinate[] ={0,1,1,0};
+		DrawQuadWithTextureAndColorAndCoordinate(0,0,0.f,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,L"");	
+	}
+
 
 	bool	cBaseShader::CreateProgram(const char*e_strVS,const char*e_strPS,bool e_bTexture)
 	{
@@ -151,7 +174,8 @@ namespace FATMING_CORE
 					if( e_bTexture )
 					{//there are 
 						m_uiTexLoacation = GetUniFormLocationByName("texSample" );
-						glUniform1i( m_uiTexLoacation, 0 );
+						if( m_uiTexLoacation != 0xffffffff )
+							glUniform1i( m_uiTexLoacation, 0 );
 					}
 					
 					m_uiColorLoacation = GetUniFormLocationByName("Color");
@@ -173,6 +197,7 @@ namespace FATMING_CORE
 
 	void	cBaseShader::Use(bool e_bUseLastWVPMatrix)
 	{
+		g_pCurrentShader = this;
 		MyGlErrorTest();
 #ifndef OPENGLES_2_X
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -220,6 +245,7 @@ namespace FATMING_CORE
 		MyGlErrorTest();
 		if( m_uiTexLoacation != -1 )
 		{
+			//order is uniform,active,bind.
 			glUniform1i( m_uiTexLoacation, 0 );
 			glActiveTexture( GL_TEXTURE0  );
 		}
@@ -366,8 +392,16 @@ namespace FATMING_CORE
 			cBaseShader*l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 			if( l_p2DShader&&g_pCurrentShader && g_pCurrentShader == l_p2DShader )
 				return;
-			l_p2DShader->Use(e_bUseLastWVPMatrix);
-			g_pCurrentShader = l_p2DShader;
+			if( l_p2DShader )
+				l_p2DShader->Use(e_bUseLastWVPMatrix);
+//#ifdef DEBUG
+//			else
+//			{
+//				std::wstring l_str = e_strName;
+//				l_str += L"  shader is not exists!";
+//				cGameApp::OutputDebugInfoString(l_str);
+//			}
+//#endif
 		}
 	}
 
@@ -379,7 +413,7 @@ namespace FATMING_CORE
 			cBaseShader*l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 			if( l_p2DShader )
 				l_p2DShader->Disable();
-			g_pCurrentShader = 0;
+			g_pCurrentShader = nullptr;
 		}
 	}
 	//void	SetupWorldViewProjectionMatrix(float*e_pfWVPMatrix)
@@ -412,8 +446,10 @@ namespace FATMING_CORE
 		}
 		else
 			memcpy(g_fViewProjectionMatrix,e_pfVPMatrix,sizeof(float)*16);
+#ifdef DEBUG
 		int ll= g_iMatrixVPLoacation;
 		MyGlErrorTest();
+#endif
 #ifdef OPENGLES_2_X
 		glUniformMatrix4fv( g_iMatrixVPLoacation, 1, GL_FALSE, g_fViewProjectionMatrix);
 #else
@@ -435,6 +471,8 @@ namespace FATMING_CORE
 		glLoadMatrixf(e_pfWMatrix);
 #endif
 #ifdef DEBUG
+		cMatrix44 l_mat = g_fWorldMatrix;
+		int ll = g_iMatrixWLoacation;
 		MyGlErrorTest();
 #endif
 	}
@@ -516,7 +554,7 @@ namespace FATMING_CORE
 	}
 	//
 	//CheckShader(e_uiShaderHandle, GL_COMPILE_STATUS,L"Compile\n");
-	bool CheckShader(int Object, int Type, wchar_t*e_strMessage)	
+	bool CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog)
 	{
 		int Success;
 		glGetShaderiv(Object, Type, &Success);
@@ -527,10 +565,18 @@ namespace FATMING_CORE
 			glGetShaderiv(Object, GL_INFO_LOG_LENGTH, &InfoLogSize);
 			char* Buffer = new char[InfoLogSize];
 			glGetShaderInfoLog(Object, InfoLogSize, nullptr, Buffer);
-			cGameApp::OutputDebugInfoString(e_strMessage);
-			cGameApp::OutputDebugInfoString(UT::CharToWchar(Buffer));
+			if( e_strOutputLog )
+			{
+				*e_strOutputLog = Buffer;
+			}
+			else
+			{
+				cGameApp::OutputDebugInfoString(e_strMessage);
+				cGameApp::OutputDebugInfoString(UT::CharToWchar(Buffer));
+				UT::ErrorMsg(Buffer,WcharToChar(e_strMessage).c_str());
+				assert(0);			
+			}
 			delete[] Buffer;
-			assert(0);
 	#endif        
 			return false;
 		}

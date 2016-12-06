@@ -624,6 +624,7 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 		return false;
 	if( e_iMousePosY <0 || e_iMousePosY>l_iHeight )
 		return false;
+	int l_iNPVLevel = this->GetNPCLevel();
 	for(size_t i=0;i<m_TriggersVector.size();++i)
 	{
 		sTriggers*l_pTriggers = &m_TriggersVector[i];
@@ -635,8 +636,14 @@ bool	sGameNode::MouseMove(int e_iMousePosX,int e_iMousePosY)
 		for( size_t j=0;j<l_pTriggers->m_TriggerVector.size();++j )
 		{
 			sTrigger*l_pTrigger  = &l_pTriggers->m_TriggerVector[j];
+			int l_Type = l_pTrigger->GetObjectType();
 			Vector2 l_vShowWidth = GetTrackStartEndPosX(g_iObjectLineWidth,l_pTrigger);
 			float l_fLength = (float)(l_pTrigger->GetLength()+l_iTriggersLength);
+			if(g_pGameData && g_pGameData->GetEnemyStatus(l_Type) )
+			{
+				int l_iSpeed = g_pGameData->GetMonsterSpeedByLevel(l_pTrigger->GetObjectType(),l_iNPVLevel);
+				l_fLength = (float)getCorrectLength(l_iSpeed,l_iTriggersLength,(int)l_fLength);
+			}
 			if( l_fInterval != 0.f )
 			{
 				l_fLength += (l_fInterval*j)*l_fMonsterSpeed;

@@ -232,6 +232,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinPack.h" />
     <ClInclude Include="pack.h" />
     <ClInclude Include="PIForm.h">
       <FileType>CppForm</FileType>

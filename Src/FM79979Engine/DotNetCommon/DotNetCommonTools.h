@@ -129,7 +129,7 @@ namespace DNCT
 	char*	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter = false);
 	char*	ConbineFileDescribtionWithExtensionToFilter(char*e_strDescribtion,const char*e_strExtension,bool e_bWithAllFileFilter = false);
 	System::String^	SaveFileAndGetName(char*e_pFileFilter = 0);
-	System::String^	OpenFileGetText();
+	System::String^	OpenFileGetText(String^e_strFileName = nullptr,String^e_strCodeName = "UTF-16");
 	System::String^	GetChanglineString();
 
 	array<String^>^		DragDropEventWhileFileDrop(System::Windows::Forms::DragEventArgs^  e);

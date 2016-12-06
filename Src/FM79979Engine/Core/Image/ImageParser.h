@@ -75,6 +75,8 @@ namespace FATMING_CORE
 		cPuzzleImage*	GetPuzzleImage(const char*e_strFileName,const wchar_t*e_strPIName);
 		void	Export(char*e_strFileName);
 	};
+	//only support PI editor(cUIImage)
+	bool	IsObjectOverlap(cImageParser*e_pObject);
 }//end namespace
 
 #endif

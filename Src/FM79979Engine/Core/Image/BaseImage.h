@@ -127,6 +127,7 @@ namespace FATMING_CORE
 		//virtual	void	RenderWithoutOffset(Vector3 e_vPos);		//render with offset position.
 		//virtual	void	RenderWithOffset();		                //render with offset position.
 		virtual	void	Render();								//render by texture behavior.
+		virtual	void	RenderWithShader(const WCHAR*e_strShaderName);
 		virtual	void	Render(cMatrix44 e_Mat);                //render by matrix
 		virtual	void	RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos);//change the width by 2 points distance
 		virtual	void	Init(){}
