@@ -58,6 +58,8 @@ struct sGameData
 	{
 		std::wstring	GetUnlockInfo();
 		GET_INT_DATA_FROM_ATTRIBUTE(UnlockType,L"unlockType_CN");
+		//0 for both draw,1 for coins draw,2for gems draw
+		GET_INT_DATA_FROM_ATTRIBUTE(PoolIndex,L"pool");
 		enum eMonsterStatus
 		{
 			eMS_HP = 0,
@@ -97,6 +99,7 @@ struct sGameData
 		//int				GetBuyMoney();
 		int				GetHitBearCount(int e_iDamage,int e_iLevel);
 		std::wstring    GetInfo();
+		int				GetUnlockValue();
 	};
 
 	struct sMonsterShop:public sXmlNode,public cChartWithName
@@ -106,11 +109,15 @@ struct sGameData
 
 		GET_INT_DATA_FROM_ATTRIBUTE(Type,L"type");
 
+		GET_INT_DATA_FROM_ATTRIBUTE(ID,L"ID");
+
 		GET_INT_DATA_FROM_ATTRIBUTE(MonsterID,L"monster");
 		GET_INT_DATA_FROM_ATTRIBUTE(STR,L"strengthpoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(HP,L"lifepoint");
 		GET_INT_DATA_FROM_ATTRIBUTE(Price,L"price");
-		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");
+		GET_INT_DATA_FROM_ATTRIBUTE(PriceType,L"pricetype");//1 for coins 2 for gems 3 for hearts
+		//0 for both draw,1 for coins draw,2for gems draw
+		GET_INT_DATA_FROM_ATTRIBUTE(PoolIndex,L"pool");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraEXP,L"exppercent");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraHP,L"lifepercent");
 		GET_FLOAT_DATA_FROM_ATTRIBUTE(ExtraCoin,L"coinpercent");

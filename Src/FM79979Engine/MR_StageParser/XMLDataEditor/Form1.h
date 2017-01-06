@@ -7,6 +7,7 @@
 
 #include "StageParser.h"
 #include "GameData.h"
+#include "GemPriceToProbability.h"
 extern cOrthogonalCamera*	g_pOrthogonalCamera;
 namespace XMLDataEditor 
 {
@@ -48,7 +49,14 @@ namespace XMLDataEditor
 			m_iFirstStagePickUpCount = 0;
 			m_iFirstStageCoinCount = 0;
 			m_fFirstSgateTime = 0.f;
-			Main_tabControl->SelectedIndex = 1;
+			Main_tabControl->SelectedIndex = 3;
+			m_pGemPriceToProbability = new cGemPriceToProbability[Probability_tabControl->TabPages->Count];
+			array<GCFORM::ListBox^>^l_pListBox = { BadItemProbability_listBox,GoodItemProbability_listBox };
+			array<GCFORM::TextBox^>^l_pTextBox = { BadItemProbability_textBox,GoodItemProbability_textBox };
+			array<GCFORM::NumericUpDown^>^l_pNumericUpDown = { BadItemScore_numericUpDown,GoodItemScore_numericUpDown};
+			m_pDrawListBoxArray = l_pListBox;
+			m_pDrawTextBoxArray = l_pTextBox;
+			m_pDrawNumericUpDownArray = l_pNumericUpDown;
 		}
 
 	protected:
@@ -66,6 +74,7 @@ namespace XMLDataEditor
 			SAFE_DELETE(m_pChartWithName);
 			SAFE_DELETE(m_pLinerData);
 			SAFE_DELETE(m_pGameApp);
+			SAFE_DELETE_ARRAY(m_pGemPriceToProbability);
 		}
 //my
 		cGameData*			m_pGameData;
@@ -77,6 +86,10 @@ namespace XMLDataEditor
 		Control^			m_pTargetControl;
 		cOrthogonalCamera*	m_pOrthogonalCamera;
 		cLinerDataProcessor<Vector3>*m_pLinerData;
+		cGemPriceToProbability *m_pGemPriceToProbability;
+		array<GCFORM::ListBox^>^m_pDrawListBoxArray;
+		array<GCFORM::TextBox^>^m_pDrawTextBoxArray;
+		array<GCFORM::NumericUpDown^>^m_pDrawNumericUpDownArray;
 		bool				m_bWaitParseFile;
 		int					m_iFirstStageMonsterCount;
 		int					m_iFirstStageHurdleAndBreakableCount;
@@ -165,6 +178,27 @@ private: System::Windows::Forms::ListBox^  StageClearBonus_listBox;
 private: System::Windows::Forms::CheckBox^  StageRender_checkBox;
 private: System::Windows::Forms::CheckBox^  StageBonusRender_checkBox;
 private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
+private: System::Windows::Forms::TabPage^  ItemProbability_tabPage;
+private: System::Windows::Forms::TextBox^  GoodItemProbability_textBox;
+
+private: System::Windows::Forms::ListBox^  GoodItemProbability_listBox;
+
+private: System::Windows::Forms::Button^  GemPriceToProbabilityGenerate_button;
+private: System::Windows::Forms::Label^  CoinToGem_label;
+private: System::Windows::Forms::Label^  HeartToGems_label;
+private: System::Windows::Forms::NumericUpDown^  CoinToGems_numericUpDown;
+private: System::Windows::Forms::NumericUpDown^  HeartToGems_numericUpDown;
+private: System::Windows::Forms::TabControl^  Probability_tabControl;
+
+private: System::Windows::Forms::TabPage^  GoodPool_tabPage;
+private: System::Windows::Forms::NumericUpDown^  GoodItemScore_numericUpDown;
+
+private: System::Windows::Forms::TabPage^  BadPool_tabPage;
+private: System::Windows::Forms::Label^  label1;
+private: System::Windows::Forms::Label^  BadItemScore_label;
+private: System::Windows::Forms::NumericUpDown^  BadItemScore_numericUpDown;
+private: System::Windows::Forms::ListBox^  BadItemProbability_listBox;
+private: System::Windows::Forms::TextBox^  BadItemProbability_textBox;
 
 
 
@@ -252,6 +286,23 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->StartPosX_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->Grident_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->Steep_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ItemProbability_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->Probability_tabControl = (gcnew System::Windows::Forms::TabControl());
+			this->BadPool_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->BadItemScore_label = (gcnew System::Windows::Forms::Label());
+			this->BadItemScore_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->BadItemProbability_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->BadItemProbability_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->GoodPool_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->GoodItemScore_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->GoodItemProbability_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->GoodItemProbability_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->CoinToGem_label = (gcnew System::Windows::Forms::Label());
+			this->HeartToGems_label = (gcnew System::Windows::Forms::Label());
+			this->CoinToGems_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->GemPriceToProbabilityGenerate_button = (gcnew System::Windows::Forms::Button());
+			this->HeartToGems_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->CaemraReset_button = (gcnew System::Windows::Forms::Button());
@@ -277,6 +328,14 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->StartPosX_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Grident_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Steep_numericUpDown))->BeginInit();
+			this->ItemProbability_tabPage->SuspendLayout();
+			this->Probability_tabControl->SuspendLayout();
+			this->BadPool_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->BadItemScore_numericUpDown))->BeginInit();
+			this->GoodPool_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoodItemScore_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CoinToGems_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->HeartToGems_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
@@ -341,7 +400,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->OpemnGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->OpemnGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OpemnGL_panel->Name = L"OpemnGL_panel";
-			this->OpemnGL_panel->Size = System::Drawing::Size(1547, 982);
+			this->OpemnGL_panel->Size = System::Drawing::Size(824, 982);
 			this->OpemnGL_panel->TabIndex = 7;
 			// 
 			// timer1
@@ -394,10 +453,11 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Main_tabControl->Controls->Add(this->Gameplay_tabPage);
 			this->Main_tabControl->Controls->Add(this->GameData_tabPage);
 			this->Main_tabControl->Controls->Add(this->NewCurve_tabPage);
+			this->Main_tabControl->Controls->Add(this->ItemProbability_tabPage);
 			this->Main_tabControl->Location = System::Drawing::Point(12, 73);
 			this->Main_tabControl->Name = L"Main_tabControl";
 			this->Main_tabControl->SelectedIndex = 0;
-			this->Main_tabControl->Size = System::Drawing::Size(311, 906);
+			this->Main_tabControl->Size = System::Drawing::Size(1007, 906);
 			this->Main_tabControl->TabIndex = 0;
 			// 
 			// Gameplay_tabPage
@@ -416,7 +476,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Gameplay_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Gameplay_tabPage->Name = L"Gameplay_tabPage";
 			this->Gameplay_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->Gameplay_tabPage->Size = System::Drawing::Size(303, 880);
+			this->Gameplay_tabPage->Size = System::Drawing::Size(999, 880);
 			this->Gameplay_tabPage->TabIndex = 0;
 			this->Gameplay_tabPage->Text = L"Gameplay";
 			this->Gameplay_tabPage->UseVisualStyleBackColor = true;
@@ -461,7 +521,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->GameData_tabPage->Location = System::Drawing::Point(4, 22);
 			this->GameData_tabPage->Name = L"GameData_tabPage";
 			this->GameData_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->GameData_tabPage->Size = System::Drawing::Size(303, 880);
+			this->GameData_tabPage->Size = System::Drawing::Size(999, 880);
 			this->GameData_tabPage->TabIndex = 1;
 			this->GameData_tabPage->Text = L"GameData";
 			this->GameData_tabPage->UseVisualStyleBackColor = true;
@@ -475,7 +535,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->GameData_tabControl->Location = System::Drawing::Point(3, 3);
 			this->GameData_tabControl->Name = L"GameData_tabControl";
 			this->GameData_tabControl->SelectedIndex = 0;
-			this->GameData_tabControl->Size = System::Drawing::Size(297, 874);
+			this->GameData_tabControl->Size = System::Drawing::Size(993, 874);
 			this->GameData_tabControl->TabIndex = 0;
 			// 
 			// Monster_tabPage
@@ -488,7 +548,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Monster_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Monster_tabPage->Name = L"Monster_tabPage";
 			this->Monster_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->Monster_tabPage->Size = System::Drawing::Size(289, 848);
+			this->Monster_tabPage->Size = System::Drawing::Size(985, 848);
 			this->Monster_tabPage->TabIndex = 0;
 			this->Monster_tabPage->Text = L"Monster";
 			this->Monster_tabPage->UseVisualStyleBackColor = true;
@@ -723,7 +783,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Enemy_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Enemy_tabPage->Name = L"Enemy_tabPage";
 			this->Enemy_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->Enemy_tabPage->Size = System::Drawing::Size(289, 848);
+			this->Enemy_tabPage->Size = System::Drawing::Size(985, 848);
 			this->Enemy_tabPage->TabIndex = 1;
 			this->Enemy_tabPage->Text = L"Enemy";
 			this->Enemy_tabPage->UseVisualStyleBackColor = true;
@@ -780,7 +840,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Shop->Controls->Add(this->ShopData_listBox);
 			this->Shop->Location = System::Drawing::Point(4, 22);
 			this->Shop->Name = L"Shop";
-			this->Shop->Size = System::Drawing::Size(289, 848);
+			this->Shop->Size = System::Drawing::Size(985, 848);
 			this->Shop->TabIndex = 2;
 			this->Shop->Text = L"Shop";
 			this->Shop->UseVisualStyleBackColor = true;
@@ -844,7 +904,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->NewCurve_tabPage->Controls->Add(this->Steep_numericUpDown);
 			this->NewCurve_tabPage->Location = System::Drawing::Point(4, 22);
 			this->NewCurve_tabPage->Name = L"NewCurve_tabPage";
-			this->NewCurve_tabPage->Size = System::Drawing::Size(303, 880);
+			this->NewCurve_tabPage->Size = System::Drawing::Size(999, 880);
 			this->NewCurve_tabPage->TabIndex = 2;
 			this->NewCurve_tabPage->Text = L"NewCurve";
 			this->NewCurve_tabPage->UseVisualStyleBackColor = true;
@@ -1035,6 +1095,178 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			this->Steep_numericUpDown->TabIndex = 0;
 			this->Steep_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::StartPosX_numericUpDown_ValueChanged);
 			// 
+			// ItemProbability_tabPage
+			// 
+			this->ItemProbability_tabPage->Controls->Add(this->Probability_tabControl);
+			this->ItemProbability_tabPage->Controls->Add(this->CoinToGem_label);
+			this->ItemProbability_tabPage->Controls->Add(this->HeartToGems_label);
+			this->ItemProbability_tabPage->Controls->Add(this->CoinToGems_numericUpDown);
+			this->ItemProbability_tabPage->Controls->Add(this->GemPriceToProbabilityGenerate_button);
+			this->ItemProbability_tabPage->Controls->Add(this->HeartToGems_numericUpDown);
+			this->ItemProbability_tabPage->Location = System::Drawing::Point(4, 22);
+			this->ItemProbability_tabPage->Name = L"ItemProbability_tabPage";
+			this->ItemProbability_tabPage->Size = System::Drawing::Size(999, 880);
+			this->ItemProbability_tabPage->TabIndex = 3;
+			this->ItemProbability_tabPage->Text = L"ItemProbability";
+			this->ItemProbability_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// Probability_tabControl
+			// 
+			this->Probability_tabControl->Controls->Add(this->BadPool_tabPage);
+			this->Probability_tabControl->Controls->Add(this->GoodPool_tabPage);
+			this->Probability_tabControl->Location = System::Drawing::Point(10, 7);
+			this->Probability_tabControl->Name = L"Probability_tabControl";
+			this->Probability_tabControl->SelectedIndex = 0;
+			this->Probability_tabControl->Size = System::Drawing::Size(956, 567);
+			this->Probability_tabControl->TabIndex = 0;
+			// 
+			// BadPool_tabPage
+			// 
+			this->BadPool_tabPage->Controls->Add(this->BadItemScore_label);
+			this->BadPool_tabPage->Controls->Add(this->BadItemScore_numericUpDown);
+			this->BadPool_tabPage->Controls->Add(this->BadItemProbability_listBox);
+			this->BadPool_tabPage->Controls->Add(this->BadItemProbability_textBox);
+			this->BadPool_tabPage->Location = System::Drawing::Point(4, 22);
+			this->BadPool_tabPage->Name = L"BadPool_tabPage";
+			this->BadPool_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->BadPool_tabPage->Size = System::Drawing::Size(948, 724);
+			this->BadPool_tabPage->TabIndex = 1;
+			this->BadPool_tabPage->Text = L"BadPool";
+			this->BadPool_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// BadItemScore_label
+			// 
+			this->BadItemScore_label->AutoSize = true;
+			this->BadItemScore_label->Location = System::Drawing::Point(857, 119);
+			this->BadItemScore_label->Name = L"BadItemScore_label";
+			this->BadItemScore_label->Size = System::Drawing::Size(65, 13);
+			this->BadItemScore_label->TabIndex = 7;
+			this->BadItemScore_label->Text = L"SelectScore";
+			// 
+			// BadItemScore_numericUpDown
+			// 
+			this->BadItemScore_numericUpDown->Location = System::Drawing::Point(852, 135);
+			this->BadItemScore_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000000000, 0, 0, 0});
+			this->BadItemScore_numericUpDown->Name = L"BadItemScore_numericUpDown";
+			this->BadItemScore_numericUpDown->Size = System::Drawing::Size(85, 20);
+			this->BadItemScore_numericUpDown->TabIndex = 6;
+			this->BadItemScore_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::BadItemScore_numericUpDown_ValueChanged);
+			// 
+			// BadItemProbability_listBox
+			// 
+			this->BadItemProbability_listBox->FormattingEnabled = true;
+			this->BadItemProbability_listBox->Location = System::Drawing::Point(0, 5);
+			this->BadItemProbability_listBox->Name = L"BadItemProbability_listBox";
+			this->BadItemProbability_listBox->ScrollAlwaysVisible = true;
+			this->BadItemProbability_listBox->Size = System::Drawing::Size(846, 446);
+			this->BadItemProbability_listBox->TabIndex = 4;
+			this->BadItemProbability_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::BadItemProbability_listBox_SelectedIndexChanged);
+			// 
+			// BadItemProbability_textBox
+			// 
+			this->BadItemProbability_textBox->Location = System::Drawing::Point(4, 457);
+			this->BadItemProbability_textBox->Multiline = true;
+			this->BadItemProbability_textBox->Name = L"BadItemProbability_textBox";
+			this->BadItemProbability_textBox->Size = System::Drawing::Size(842, 105);
+			this->BadItemProbability_textBox->TabIndex = 5;
+			// 
+			// GoodPool_tabPage
+			// 
+			this->GoodPool_tabPage->Controls->Add(this->label1);
+			this->GoodPool_tabPage->Controls->Add(this->GoodItemScore_numericUpDown);
+			this->GoodPool_tabPage->Controls->Add(this->GoodItemProbability_listBox);
+			this->GoodPool_tabPage->Controls->Add(this->GoodItemProbability_textBox);
+			this->GoodPool_tabPage->Location = System::Drawing::Point(4, 22);
+			this->GoodPool_tabPage->Name = L"GoodPool_tabPage";
+			this->GoodPool_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->GoodPool_tabPage->Size = System::Drawing::Size(948, 541);
+			this->GoodPool_tabPage->TabIndex = 0;
+			this->GoodPool_tabPage->Text = L"GoodPool";
+			this->GoodPool_tabPage->UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(858, 172);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(65, 13);
+			this->label1->TabIndex = 3;
+			this->label1->Text = L"SelectScore";
+			// 
+			// GoodItemScore_numericUpDown
+			// 
+			this->GoodItemScore_numericUpDown->Location = System::Drawing::Point(853, 188);
+			this->GoodItemScore_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1000000000, 0, 0, 0});
+			this->GoodItemScore_numericUpDown->Name = L"GoodItemScore_numericUpDown";
+			this->GoodItemScore_numericUpDown->Size = System::Drawing::Size(85, 20);
+			this->GoodItemScore_numericUpDown->TabIndex = 2;
+			this->GoodItemScore_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::BadItemScore_numericUpDown_ValueChanged);
+			// 
+			// GoodItemProbability_listBox
+			// 
+			this->GoodItemProbability_listBox->FormattingEnabled = true;
+			this->GoodItemProbability_listBox->Location = System::Drawing::Point(6, 0);
+			this->GoodItemProbability_listBox->Name = L"GoodItemProbability_listBox";
+			this->GoodItemProbability_listBox->Size = System::Drawing::Size(846, 446);
+			this->GoodItemProbability_listBox->TabIndex = 0;
+			this->GoodItemProbability_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::BadItemProbability_listBox_SelectedIndexChanged);
+			// 
+			// GoodItemProbability_textBox
+			// 
+			this->GoodItemProbability_textBox->Location = System::Drawing::Point(6, 452);
+			this->GoodItemProbability_textBox->Multiline = true;
+			this->GoodItemProbability_textBox->Name = L"GoodItemProbability_textBox";
+			this->GoodItemProbability_textBox->Size = System::Drawing::Size(846, 82);
+			this->GoodItemProbability_textBox->TabIndex = 1;
+			// 
+			// CoinToGem_label
+			// 
+			this->CoinToGem_label->AutoSize = true;
+			this->CoinToGem_label->Location = System::Drawing::Point(13, 667);
+			this->CoinToGem_label->Name = L"CoinToGem_label";
+			this->CoinToGem_label->Size = System::Drawing::Size(63, 13);
+			this->CoinToGem_label->TabIndex = 0;
+			this->CoinToGem_label->Text = L"CoinToGem";
+			// 
+			// HeartToGems_label
+			// 
+			this->HeartToGems_label->AutoSize = true;
+			this->HeartToGems_label->Location = System::Drawing::Point(10, 635);
+			this->HeartToGems_label->Name = L"HeartToGems_label";
+			this->HeartToGems_label->Size = System::Drawing::Size(68, 13);
+			this->HeartToGems_label->TabIndex = 0;
+			this->HeartToGems_label->Text = L"HeartToGem";
+			// 
+			// CoinToGems_numericUpDown
+			// 
+			this->CoinToGems_numericUpDown->Location = System::Drawing::Point(93, 665);
+			this->CoinToGems_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000000, 0, 0, 0});
+			this->CoinToGems_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->CoinToGems_numericUpDown->Name = L"CoinToGems_numericUpDown";
+			this->CoinToGems_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->CoinToGems_numericUpDown->TabIndex = 1;
+			this->CoinToGems_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {30, 0, 0, 0});
+			// 
+			// GemPriceToProbabilityGenerate_button
+			// 
+			this->GemPriceToProbabilityGenerate_button->Location = System::Drawing::Point(14, 580);
+			this->GemPriceToProbabilityGenerate_button->Name = L"GemPriceToProbabilityGenerate_button";
+			this->GemPriceToProbabilityGenerate_button->Size = System::Drawing::Size(209, 45);
+			this->GemPriceToProbabilityGenerate_button->TabIndex = 2;
+			this->GemPriceToProbabilityGenerate_button->Text = L"GemPriceToProbabilityGenerate";
+			this->GemPriceToProbabilityGenerate_button->UseVisualStyleBackColor = true;
+			this->GemPriceToProbabilityGenerate_button->Click += gcnew System::EventHandler(this, &Form1::GemPriceToProbabilityGenerate_button_Click);
+			// 
+			// HeartToGems_numericUpDown
+			// 
+			this->HeartToGems_numericUpDown->Location = System::Drawing::Point(93, 631);
+			this->HeartToGems_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {100000000, 0, 0, 0});
+			this->HeartToGems_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->HeartToGems_numericUpDown->Name = L"HeartToGems_numericUpDown";
+			this->HeartToGems_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->HeartToGems_numericUpDown->TabIndex = 0;
+			this->HeartToGems_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			// 
 			// button1
 			// 
 			this->button1->Location = System::Drawing::Point(126, 38);
@@ -1063,7 +1295,7 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->OpemnGL_panel);
 			this->splitContainer1->Size = System::Drawing::Size(1884, 982);
-			this->splitContainer1->SplitterDistance = 333;
+			this->splitContainer1->SplitterDistance = 1056;
 			this->splitContainer1->TabIndex = 8;
 			// 
 			// CaemraReset_button
@@ -1116,6 +1348,17 @@ private: System::Windows::Forms::CheckBox^  GridentWithPrevious_checkBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->StartPosX_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Grident_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Steep_numericUpDown))->EndInit();
+			this->ItemProbability_tabPage->ResumeLayout(false);
+			this->ItemProbability_tabPage->PerformLayout();
+			this->Probability_tabControl->ResumeLayout(false);
+			this->BadPool_tabPage->ResumeLayout(false);
+			this->BadPool_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->BadItemScore_numericUpDown))->EndInit();
+			this->GoodPool_tabPage->ResumeLayout(false);
+			this->GoodPool_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoodItemScore_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CoinToGems_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->HeartToGems_numericUpDown))->EndInit();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -1695,6 +1938,178 @@ private: System::Void GridentWithPrevious_checkBox_CheckedChanged(System::Object
 private: System::Void Round_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 StartPosX_numericUpDown_ValueChanged(sender,e);
+		 }
+private: System::Void GemPriceToProbabilityGenerate_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( !m_pGameData || !m_pGameData->m_pGameData )
+			 {
+				button1_Click_1(sender,e);
+			 }
+			 if( m_pGameData && m_pGameData->m_pGameData )
+			 {
+				std::wstring l_strErrorMessage;
+				GoodItemProbability_listBox->Items->Clear();
+				GoodItemProbability_textBox->Text = "";
+				BadItemProbability_listBox->Items->Clear();
+				BadItemProbability_textBox->Text = "";
+				int l_iCurrentItemTypeForDraw = 0;
+				for(int l_iCurrentPoolIndex = 0;l_iCurrentPoolIndex<Probability_tabControl->TabPages->Count;++l_iCurrentPoolIndex)
+				{
+					l_iCurrentItemTypeForDraw = l_iCurrentPoolIndex+1;
+					 cGemPriceToProbability*l_pGemPriceToProbability = &m_pGemPriceToProbability[l_iCurrentPoolIndex];
+					 l_pGemPriceToProbability->ClearData();
+					 for(auto l_Iterator = m_pGameData->m_pGameData->m_MonsterShopDataMap.begin();
+						 l_Iterator != m_pGameData->m_pGameData->m_MonsterShopDataMap.end();
+						 ++l_Iterator)
+					 {
+						 std::vector<sGameData::sMonsterShop*>*l_pVector = l_Iterator->second;
+						 for(size_t i=0;i<l_pVector->size();++i)
+						 {
+							//1 heart for 60 coins
+							//10 gems for 300 coins
+							//1 heart for 2 gems,now just make 1 heart for 1 gem
+							//1 gems for 30 coins
+							sGameData::sMonsterShop*l_pData = (*l_pVector)[i];
+							std::wstring l_strName = ValueToStringW(l_pData->GetID());
+							l_strName += L"_";
+							l_strName += l_pData->m_strItemName;
+							if( l_pData->GetPoolIndex() == 0 ||
+								l_pData->GetPoolIndex() == l_iCurrentItemTypeForDraw || 
+								l_pData->GetPoolIndex() == -1)
+							{
+								int l_iType = l_pData->GetPriceType();
+								int l_iPrice = l_pData->GetPrice();
+								switch(l_iType)
+								{//1 for coins 2 for gems 3 for hearts
+								case 1:
+									l_iPrice = ValueDivideAddOneIfModulusIsNotZero(l_iPrice,(int)CoinToGems_numericUpDown->Value);
+									break;
+								case 3:
+									l_iPrice = ValueDivideAddOneIfModulusIsNotZero(l_iPrice,(int)HeartToGems_numericUpDown->Value);
+									break;
+								default:
+									break;
+								}
+								if( l_iPrice == 0 )
+								{
+									l_iPrice = 1;
+									l_strErrorMessage += l_pData->m_strItemName;
+									l_strErrorMessage += L"\t price is 0 force make it to 1 gem\n";
+									//continue;
+								}
+								l_pGemPriceToProbability->AddGemsData(l_strName,l_iPrice);
+							}
+							else
+							{
+								l_strErrorMessage += l_strName;
+								l_strErrorMessage += L"\t pool index wrong or not in this pool\n";
+							}
+						 }
+					 }
+					 for(size_t i=0;i<m_pGameData->m_pGameData->m_MonsterInfoVector.size();++i)
+					 {
+						auto l_MonsterInfo = m_pGameData->m_pGameData->m_MonsterInfoVector[i];
+						if( l_MonsterInfo->GetPoolIndex() == 0 || 
+							l_MonsterInfo->GetPoolIndex() == l_iCurrentItemTypeForDraw||
+							l_MonsterInfo->GetPoolIndex() == -1)
+						{
+							int l_iPrice = l_MonsterInfo->GetUnlockValue();
+							if(l_MonsterInfo->GetUnlockType() == 0)//coins
+							{
+								l_iPrice = ValueDivideAddOneIfModulusIsNotZero(l_iPrice,(int)CoinToGems_numericUpDown->Value);;
+							}
+							else
+							if(l_MonsterInfo->GetUnlockType() == 1)//gems
+							{
+					
+							}
+							else//by stage clear dont add this!
+							if(l_MonsterInfo->GetUnlockType() == 2)
+							{
+								l_strErrorMessage += l_MonsterInfo->GetMonsterName();
+								l_strErrorMessage += L"\t this monster unlock by clear stage!\n";
+								//continue;
+							}
+							if( l_iPrice == 0 )
+							{
+								l_iPrice = 1;
+								l_strErrorMessage += l_MonsterInfo->GetMonsterName();
+								l_strErrorMessage += L"\t price is 0 force make it to 1 gem\n";
+								//continue;
+							}
+							l_pGemPriceToProbability->AddGemsData(l_MonsterInfo->GetMonsterName(),l_iPrice);
+						}
+						else
+						{
+							l_strErrorMessage += l_MonsterInfo->GetMonsterName();
+							l_strErrorMessage += L"\t pool index wrong or not in this pool\n";
+						}
+					 }
+					 DumpProbability(l_pGemPriceToProbability->DumpProbabilityResult(true),m_pDrawListBoxArray[l_iCurrentPoolIndex],m_pDrawTextBoxArray[l_iCurrentPoolIndex],&l_strErrorMessage);
+				}
+			 }
+		 }
+		 void	DumpProbability(std::vector<std::wstring>e_strResultVector,GCFORM::ListBox^e_pListBox,GCFORM::TextBox^e_pTextBox,std::wstring*e_pErrorMessage)
+		{
+			e_pListBox->Items->Clear();
+			e_pTextBox->Text = "";
+			String^l_strText = gcnew String("");
+			std::vector<std::wstring> l_str = e_strResultVector;
+			bool	l_bSkipFirst = true;
+			for(auto l_strInfo : l_str)
+			{
+				String^l_strGCStringInfo = DNCT::WcharToGcstring(l_strInfo.c_str());
+				l_strText += l_strGCStringInfo;
+				l_strText += DNCT::GetChanglineString();
+				if( l_bSkipFirst == true )
+				{
+				l_bSkipFirst = false;
+				continue;
+				}
+				e_pListBox->Items->Add(l_strGCStringInfo);
+			}
+			if(e_pErrorMessage && e_pErrorMessage->length() != 0)
+			{
+				l_strText += "\n Error!!!!!!!!!!\t";
+				l_strText += DNCT::WcharToGcstring(e_pErrorMessage->c_str());
+			}
+			e_pTextBox->Text = l_strText;
+		}
+private: System::Void BadItemProbability_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			int l_iPoolSelectedIndex = Probability_tabControl->SelectedIndex;
+			if( l_iPoolSelectedIndex != -1 )
+			{
+				int l_iListboxSelectedIndex = m_pDrawListBoxArray[l_iPoolSelectedIndex]->SelectedIndex;
+				if( l_iListboxSelectedIndex != -1 )
+				{
+					cGemPriceToProbability*l_pGemPriceToProbability = &m_pGemPriceToProbability[l_iPoolSelectedIndex];
+					int l_iScore = l_pGemPriceToProbability->GetScoreByAddGemsDataOrder(l_iListboxSelectedIndex);
+					m_pDrawNumericUpDownArray[l_iPoolSelectedIndex]->Value = l_iScore;
+				}
+			}
+		 }
+private: System::Void BadItemScore_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			int l_iPoolSelectedIndex = Probability_tabControl->SelectedIndex;
+			if( l_iPoolSelectedIndex != -1 )
+			{
+				int l_iListboxSelectedIndex = m_pDrawListBoxArray[l_iPoolSelectedIndex]->SelectedIndex;
+				if( l_iListboxSelectedIndex != -1 )
+				{
+					cGemPriceToProbability*l_pGemPriceToProbability = &m_pGemPriceToProbability[l_iPoolSelectedIndex];
+					if(l_pGemPriceToProbability->GetScoreByAddGemsDataOrder(l_iListboxSelectedIndex)!= (int)m_pDrawNumericUpDownArray[l_iPoolSelectedIndex]->Value)
+					{
+						l_pGemPriceToProbability->SetScoreByAddGemsDataOrder(l_iListboxSelectedIndex,(int)m_pDrawNumericUpDownArray[l_iPoolSelectedIndex]->Value);
+						std::wstring l_strInfo = l_pGemPriceToProbability->GetScoreInfoByAddGemsDataOrder(l_iListboxSelectedIndex);
+						DNCT::ReplaceListBoxStringByIndex(m_pDrawListBoxArray[l_iPoolSelectedIndex],l_iListboxSelectedIndex,DNCT::WcharToGcstring(l_strInfo.c_str()));
+						l_pGemPriceToProbability->CalculateTotalScore();
+						l_pGemPriceToProbability->CalculateProbability();
+						DumpProbability(l_pGemPriceToProbability->DumpInfo(true),m_pDrawListBoxArray[l_iPoolSelectedIndex],m_pDrawTextBoxArray[l_iPoolSelectedIndex],nullptr);
+
+					}
+				}
+			}
 		 }
 };
 }

@@ -38,6 +38,9 @@
     <ClInclude Include="LimitTimePurchase.h">
       <Filter>Header</Filter>
     </ClInclude>
+    <ClInclude Include="GemPriceToProbability.h">
+      <Filter>MR</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -64,12 +67,18 @@
     <ClCompile Include="LimitTimePurchase.cpp">
       <Filter>Header</Filter>
     </ClCompile>
+    <ClCompile Include="GemPriceToProbability.cpp">
+      <Filter>MR</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX">
       <Filter>Source</Filter>
     </EmbeddedResource>
     <EmbeddedResource Include="FileSequenceDownload.resx">
+      <Filter>Source</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LimitTimePurchase.resx">
       <Filter>Source</Filter>
     </EmbeddedResource>
   </ItemGroup>

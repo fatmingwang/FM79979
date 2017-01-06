@@ -21,7 +21,15 @@ namespace UT
 	/* projection d	u point (objx,objy,obz) sur l'ecran (winx,winy,winz) */
 	GLint 				gluProject(GLfloat objx, GLfloat  objy, GLfloat  objz,const GLfloat  model[16], const GLfloat  proj[16],const GLint viewport[4],GLfloat  * winx, GLfloat  * winy, GLfloat  * winz);
 //#endif
+	//Modulus should change to remainder.
 	inline	float		GetFloatModulus(float e_fValue,float e_fDivision){int	l_iModulus = (int)(e_fValue/e_fDivision);return e_fValue-(l_iModulus*e_fDivision);}
+	inline	int			ValueDivideAddOneIfModulusIsNotZero(int e_iValue,int e_iDividValue)
+	{
+		int l_iResult = e_iValue/e_iDividValue;
+		if(e_iValue%e_iDividValue)
+			l_iResult += 1;
+		return l_iResult;
+	}
 	//count for how	 many do we want?the max value for random range,
 	//below is a sample to generate a 01234 random table
 	//vector<int>	l_uiAllMagicIDVector1 = GenerateRandomTable(5,5);

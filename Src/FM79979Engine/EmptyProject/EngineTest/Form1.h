@@ -6,6 +6,7 @@
 #include "../../Core/GLSL/TunnelEffect.h"
 #include "Trigonometric.h"
 extern cTunnelEffect*g_pTunnelEffect;
+extern cBaseImage*g_pBGImage;
 namespace FATMING_CORE
 {
 	extern bool	g_bShowErrorMessageBoxIfShaderIsWrong;
@@ -247,10 +248,12 @@ namespace EngineTest
 			// 
 			// toolStrip1
 			// 
+			this->toolStrip1->AllowItemReorder = true;
+			this->toolStrip1->Dock = System::Windows::Forms::DockStyle::Left;
 			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->toolStripButton1});
 			this->toolStrip1->Location = System::Drawing::Point(0, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(1013, 25);
+			this->toolStrip1->Size = System::Drawing::Size(24, 692);
 			this->toolStrip1->TabIndex = 3;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
@@ -260,7 +263,7 @@ namespace EngineTest
 			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton1.Image")));
 			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton1->Name = L"toolStripButton1";
-			this->toolStripButton1->Size = System::Drawing::Size(23, 22);
+			this->toolStripButton1->Size = System::Drawing::Size(21, 20);
 			this->toolStripButton1->Text = L"toolStripButton1";
 			this->toolStripButton1->Click += gcnew System::EventHandler(this, &Form1::toolStripButton1_Click);
 			// 
@@ -400,8 +403,12 @@ private: void AssignShader(GCFORM::TextBox^e_pstrShaderFileName,GCFORM::TextBox^
 					e_pstrShaderContent->Text = l_strContent;
 			}
 		 }
-private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e){
-
+private: System::Void toolStripButton1_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			SAFE_DELETE(g_pBGImage);
+			g_pBGImage = new cBaseImage("DownloadFont.png");
+			g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
+			g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
 		 }
 };
 }

@@ -154,6 +154,7 @@ namespace DNCT
 	//if listbox contain the string than will return selectindex value or will return the -1
 	//===============================================
 	bool	ReplaceListContainString(GCFORM::ListBox^,System::String^);
+	bool	ReplaceListBoxStringByIndex(GCFORM::ListBox^,int e_iIndex,System::String^);
 	//===============================================
 	//
 	//===============================================

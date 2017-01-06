@@ -484,6 +484,18 @@ namespace DNCT
 		return true;
 	}
 
+	bool	ReplaceListBoxStringByIndex(GCFORM::ListBox^e_pListBox,int e_iIndex,System::String^e_pString)
+	{
+		int l_i = e_iIndex;
+		if(e_pListBox->Items->Count >l_i)
+		{
+			e_pListBox->Items->RemoveAt(l_i);
+			e_pListBox->Items->Insert(l_i,e_pString);
+			return true;	
+		}
+		return false;
+	}
+
 	System::Void	StreamWriteFileFromString(System::String^ e_pString,System::String^e_pFileName,System::Text::Encoding^ e_pEncoding)
 	{
 		System::IO::FileStream ^sb;

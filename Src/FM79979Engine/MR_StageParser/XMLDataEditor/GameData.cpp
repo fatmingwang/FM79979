@@ -39,6 +39,7 @@ sGameData::sMonsterInfo::sMonsterInfo()
 {
 	this->m_iUnlockType = -1;
 	this->m_iID = -1;
+	this->m_iPoolIndex = -1;
 	SetRenderData();
 }
 
@@ -86,6 +87,8 @@ sGameData::sMonsterShop::sMonsterShop(const sMonsterShop&e_MonsterShop):sXmlNode
 
 void		sGameData::sMonsterShop::Init()
 {
+	this->m_iPoolIndex = -1;
+	this->m_iID = -1;
 	this->m_iType = -1;
 	this->m_iMonsterID = -1;
 	this->m_iSTR = -1;
@@ -244,6 +247,11 @@ std::wstring    sGameData::sMonsterInfo::GetInfo()
 	l_strInfo += L",MaxEnergy:";
 	l_strInfo += l_strMaxFatigue;
 	return l_strInfo;
+}
+
+int	sGameData::sMonsterInfo::GetUnlockValue()
+{
+	return GetInt(getValue(L"unlockValue_CN"));
 }
 
 

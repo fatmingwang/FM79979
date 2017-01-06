@@ -140,6 +140,7 @@
     <ClInclude Include="LimitTimePurchase.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GemPriceToProbability.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StageParser.h" />
     <ClInclude Include="stdafx.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="ChartWithName.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="LimitTimePurchase.cpp" />
+    <ClCompile Include="GemPriceToProbability.cpp" />
     <ClCompile Include="StageParser.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="Form1.cpp" />

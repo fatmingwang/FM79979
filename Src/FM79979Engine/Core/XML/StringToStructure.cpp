@@ -576,7 +576,7 @@ namespace FATMING_CORE
 	std::string	ValueToString(float e_fValue)
 	{
 		char	l_temp[TEMP_SIZE];
-		sprintf(l_temp,"%.2f\0",e_fValue);
+		sprintf(l_temp,"%.5f\0",e_fValue);
 		std::string	l_str = l_temp;
 		return l_str;
 	}
