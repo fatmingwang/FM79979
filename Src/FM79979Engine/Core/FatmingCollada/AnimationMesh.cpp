@@ -335,14 +335,13 @@ void	cAnimationMesh::RefreshAnimationData()
 	if( l_bShowDebugInfo )
 	{
 		DumpBoneInfo(this->m_SkinningBoneVector[0]);
-		cGameApp::OutputDebugInfoString(L"\n");
+		cGameApp::OutputDebugInfoString(L"\n",false);
 		for( int i=0;i<m_SkinningBoneVector.Count();++i )
 		{
 			//cGameApp::OutputDebugInfoString(m_SkinningBoneVector[i]->GetName());
-			cGameApp::OutputDebugInfoString(m_SkinningBoneVector[i]->m_strSID.c_str());
-			cGameApp::OutputDebugInfoString(L",");
+			cGameApp::OutputDebugInfoString(m_SkinningBoneVector[i]->m_strSID.c_str(),false);
+			cGameApp::OutputDebugInfoString(L",",false);
 			cGameApp::OutputDebugInfoString(m_SkinningBoneVector[i]->GetName());
-			cGameApp::OutputDebugInfoString(L"\n");
 		}
 	}
 }
@@ -569,10 +568,11 @@ Vector3	cAnimationMesh::GetSkinWorldPosBySkinningData(Vector3 e_vPos,float*e_pfW
 	return l_vFinalPos;
 }
 //========================================================
-//
+//if animation is not correct please check the skinning animation shader is correct
 //========================================================
 void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 {
+	cBaseShader*l_p2DShader = GetCurrentShader();
 	UseShaderProgram(e_strShaderName);
 	if( m_bShadowEffect )
 	{
@@ -646,6 +646,7 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 	{
 		this->m_pVBOBuffer->Render(false);
 	}
+	UseShaderProgram(l_p2DShader);
 }
 
 void	cAnimationMesh::DebugRender()

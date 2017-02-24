@@ -258,13 +258,16 @@ namespace	FATMING_CORE
 		jmethodID l_GetExternalSDCardPath = cGameApp::m_spThreadEnv->GetMethodID(thisClass,"GetExternalSDCardPath", "()Ljava/lang/String;");
 		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
 		jstring l_Path = (jstring)cGameApp::m_spThreadEnv->CallObjectMethod(*cGameApp::m_spAppThreadThis,l_GetExternalSDCardPath);
-		const char *js = cGameApp::m_spThreadEnv->GetStringUTFChars(l_Path, nullptr);
-		if( js )
+		if( l_Path )
 		{
-			*e_pTarget = js;
-			*e_pTarget += "/";
-			cGameApp::m_spThreadEnv->ReleaseStringUTFChars(l_Path, js);
-			return true;
+			const char *js = cGameApp::m_spThreadEnv->GetStringUTFChars(l_Path, nullptr);
+			if( js )
+			{
+				*e_pTarget = js;
+				*e_pTarget += "/";
+				cGameApp::m_spThreadEnv->ReleaseStringUTFChars(l_Path, js);
+				return true;
+			}
 		}
 		return false;
 	}

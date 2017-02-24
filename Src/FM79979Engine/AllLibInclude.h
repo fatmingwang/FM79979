@@ -57,14 +57,14 @@
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
 	//#pragma comment(lib, "../../../lib/Debug/Core.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
-	//#pragma comment(lib, "../../lib/Debug/ogg.lib")
+	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
 #else
 	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
 	#pragma comment(lib, "../../../lib/Release/MathParser.lib")
 	//#pragma comment(lib, "../../../lib/Release/Core.lib")
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
-	//#pragma comment(lib, "../../lib/Release/ogg.lib")
+	#pragma comment(lib, "../../../lib/Release/ogg.lib")
 #endif
 //end win32
 #endif

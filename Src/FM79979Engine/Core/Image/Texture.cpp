@@ -264,7 +264,9 @@ namespace FATMING_CORE
 		switch(e_GLenum)
 		{
 			case GL_RGBA:
+#ifndef ANDROID
 			case GL_BGRA:
+#endif
 				l_iChannel = 4;
 				break;
 			case GL_RGB:

@@ -255,7 +255,7 @@ namespace	FATMING_CORE
 		CreateShader(g_bMyMeshVSClientState,g_strMyMeshVS,g_strMyMeshFS,STATIC_MESH_SHADER);
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...
-		//CreateShader(g_bMySkinningMeshVSClientState,g_strMySkinningMeshVS,g_strMySkinningMeshFS,SKINNING_MESH_SHADER);
+		CreateShader(g_bMySkinningMeshVSClientState,g_strMySkinningMeshVS,g_strMySkinningMeshFS,SKINNING_MESH_SHADER);
 		if( m_spLogFile )
 			m_spLogFile->WriteToFileImmediatelyWithLine("init shader ok");
 		m_sTimeAndFPS.Update();
@@ -605,12 +605,13 @@ namespace	FATMING_CORE
 		return 0;
 	}
 
-	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str)
+	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol)
 	{
 //#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
-			::OutputDebugString(L"\n");
+			if( e_bWithNextLineSymbol )
+				::OutputDebugString(L"\n");
 	#elif	defined(ANDROID)
 			std::string	l_str = "GameApp___ ";
 			l_str += UT::WcharToChar(e_str);
@@ -622,17 +623,17 @@ namespace	FATMING_CORE
 //#endif
 	}
 
-	void		cGameApp::OutputDebugInfoString(std::string e_str)
+	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol)
 	{
 		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str));
 	}
 
-	void		cGameApp::OutputDebugInfoString(const char*e_str)
+	void		cGameApp::OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol)
 	{
 		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str));
 	}
 
-	void		cGameApp::OutputDebugInfoString(std::wstring e_str)
+	void		cGameApp::OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol)
 	{
 		cGameApp::OutputDebugInfoString(e_str.c_str());
 	}

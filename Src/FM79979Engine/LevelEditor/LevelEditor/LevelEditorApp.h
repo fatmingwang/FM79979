@@ -47,6 +47,8 @@ public:
 	void					Init();
 	void					DestoryOldData();
 	void					Update(float e_fElpaseTime);
+	//only show the layer selected...I just lazy to fix bug so doing this...
+	int						m_iShowSelectedLayer;
 	void					Render();
 	void					MouseDown(int e_iPosX,int e_iPosY);
 	void					MouseMove(int e_iPosX,int e_iPosY,GCFORM::ListBox^e_pLayerObjectData_listBox);

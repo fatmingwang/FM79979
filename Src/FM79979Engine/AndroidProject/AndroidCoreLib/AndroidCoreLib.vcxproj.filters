@@ -685,9 +685,6 @@
     <ClCompile Include="..\..\Core\Image\GlyphFontRender.cpp">
       <Filter>jni\RenderObject\Font</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\Water.cpp">
-      <Filter>jni\RenderObject\GLSL\Effect</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp">
       <Filter>jni\RenderObject\GLSL</Filter>
     </ClCompile>
@@ -726,9 +723,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Image\PuzzleImage.cpp">
       <Filter>jni\RenderObject\PuzzleImage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\pngLoader.cpp">
-      <Filter>jni\RenderObject\Texture\png</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp">
       <Filter>jni\Sound</Filter>
@@ -876,6 +870,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp">
       <Filter>jni\GamePlayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp">
+      <Filter>jni\RenderObject\Texture\png</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1309,9 +1306,6 @@
     <ClInclude Include="..\..\Core\Image\GlyphFontRender.h">
       <Filter>jni\RenderObject\Font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\Water.h">
-      <Filter>jni\RenderObject\GLSL\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GLSL\Shader.h">
       <Filter>jni\RenderObject\GLSL</Filter>
     </ClInclude>
@@ -1350,9 +1344,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\PuzzleImage.h">
       <Filter>jni\RenderObject\PuzzleImage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\pngLoader.h">
-      <Filter>jni\RenderObject\Texture\png</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h">
       <Filter>jni\Sound</Filter>
@@ -1476,6 +1467,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\RenderNode.h">
       <Filter>jni\RenderObject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\png\pngLoader.h">
+      <Filter>jni\RenderObject\Texture\png</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

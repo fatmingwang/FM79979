@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
     <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
+    <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp" />
     <ClCompile Include="..\..\Core\Image\RenderNode.cpp" />
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
@@ -203,7 +204,6 @@
     <ClCompile Include="..\..\Core\GameplayUT\Tabpage.cpp" />
     <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Shader.cpp" />
-    <ClCompile Include="..\..\Core\GLSL\Water.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphWriter.cpp" />
     <ClCompile Include="..\..\Core\Image\AnimationParser.cpp" />
     <ClCompile Include="..\..\Core\Image\BaseImage.cpp" />
@@ -215,7 +215,6 @@
     <ClCompile Include="..\..\Core\Image\MPDI.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDIDataParse.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDIForEditor.cpp" />
-    <ClCompile Include="..\..\Core\Image\pngLoader.cpp" />
     <ClCompile Include="..\..\Core\Image\PuzzleImage.cpp" />
     <ClCompile Include="..\..\Core\Image\SubMPDI.cpp" />
     <ClCompile Include="..\..\Core\Image\SubMPDIRenderPointData.cpp" />
@@ -402,7 +401,6 @@
     <ClInclude Include="..\..\Core\Glh.h" />
     <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h" />
     <ClInclude Include="..\..\Core\GLSL\Shader.h" />
-    <ClInclude Include="..\..\Core\GLSL\Water.h" />
     <ClInclude Include="..\..\Core\Glyph\GlyphReader.h" />
     <ClInclude Include="..\..\Core\Glyph\GlyphWriter.h" />
     <ClInclude Include="..\..\Core\Image\AnimationParser.h" />
@@ -422,7 +420,7 @@
     <ClInclude Include="..\..\Core\Image\MPDIForEditor.h" />
     <ClInclude Include="..\..\Core\Image\MPDINode.h" />
     <ClInclude Include="..\..\Core\Image\NumeralImage.h" />
-    <ClInclude Include="..\..\Core\Image\pngLoader.h" />
+    <ClInclude Include="..\..\Core\Image\png\pngLoader.h" />
     <ClInclude Include="..\..\Core\Image\PuzzleImage.h" />
     <ClInclude Include="..\..\Core\Image\RenderNode.h" />
     <ClInclude Include="..\..\Core\Image\RenderObject.h" />

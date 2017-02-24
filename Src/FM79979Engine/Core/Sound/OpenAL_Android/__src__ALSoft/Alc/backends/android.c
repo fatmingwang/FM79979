@@ -29,7 +29,8 @@
 
 static const ALCchar android_device[] = "Android Legacy";
 
-extern JavaVM* javaVM;
+//extern JavaVM* javaVM;
+JavaVM* javaVM;
 
 static jclass cAudioTrack = NULL;
 

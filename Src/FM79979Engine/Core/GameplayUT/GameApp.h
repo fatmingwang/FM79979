@@ -185,10 +185,10 @@ namespace	FATMING_CORE
 		static	void					RenderFont(int e_iPosX,int e_iPosY,std::wstring e_strInfo);
 		static	void					RenderFont(float e_fPosX,float e_fPosY,const wchar_t*e_strInfo);
 		static	void					RenderFont(float e_fPosX,float e_fPosY,std::wstring e_strInfo);
-		static	void					OutputDebugInfoString(const wchar_t*e_str);
-		static	void					OutputDebugInfoString(std::wstring e_str);
-		static	void					OutputDebugInfoString(std::string e_str);
-		static	void					OutputDebugInfoString(const char*e_str);
+		static	void					OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol = true);
+		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true);
+		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true);
+		static	void					OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol = true);
 		static	void					WriteLog(wchar_t*e_strMessage);
 		static	void					WriteLog(std::wstring e_strMessage);
 		static	void					WriteLog(char*e_strMessage);

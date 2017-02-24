@@ -17,6 +17,7 @@ cLevelEditorApp::cLevelEditorApp(HWND e_Hwnd):cGameApp(e_Hwnd)
 	m_vGridAlignPos = m_vMousePos = m_vSelectedObjectOriginalPos = Vector3::Zero;
 	m_eMoudeMode = eMM_AddObject;
 	m_pHintImage = 0;
+	m_iShowSelectedLayer = -1;
 }
 
 cLevelEditorApp::~cLevelEditorApp()
@@ -101,10 +102,20 @@ void	cLevelEditorApp::Render()
 	//for(int l_iSelectedIndex=0;l_iSelectedIndex<Layer_listBox->Items->Count;++l_iSelectedIndex)
 	//for each (int l_iSelectedIndex in Layer_listBox->Items)
 	//for each (int l_iSelectedIndex in Layer_listBox->SelectedIndices)
-	for(int l_iSelectedIndex=0;l_iSelectedIndex<m_pCurrentStageEditData->Count();++l_iSelectedIndex)
+
+	if( m_iShowSelectedLayer != -1 )
 	{
-		m_pCurrentStageEditData->RenderLayer(l_iSelectedIndex);
+		m_pCurrentStageEditData->RenderLayer(m_iShowSelectedLayer);
 	}
+	else
+	{
+		for(int l_iSelectedIndex=0;l_iSelectedIndex<m_pCurrentStageEditData->Count();++l_iSelectedIndex)
+		{
+			m_pCurrentStageEditData->RenderLayer(l_iSelectedIndex);
+		}
+	}
+
+
 	if( m_eMoudeMode == eMM_AddObject)
 	{
 		if( m_pCurrentSelectedImage )

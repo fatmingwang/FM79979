@@ -2969,8 +2969,8 @@ void jpeg_decoder_file_stream::close()
 {
   if (m_pFile)
   {
-    fclose(m_pFile);
-    m_pFile = nullptr;
+	  NvFClose(m_pFile);
+	  m_pFile = nullptr;
   }
 
   m_eof_flag = false;
@@ -2988,8 +2988,8 @@ bool jpeg_decoder_file_stream::open(const char *Pfilename)
 
   m_eof_flag = false;
   m_error_flag = false;
-  m_pFile = nullptr;
-  m_pFile = NvFOpen(Pfilename, "rb");
+  m_pFile = nullptr;  
+  m_pFile = MyFileOpen(Pfilename, "rb");
 //#if defined(_MSC_VER)
   
   //fopen_s(&m_pFile, Pfilename, "rb");
@@ -3013,10 +3013,10 @@ int jpeg_decoder_file_stream::read(uint8 *pBuf, int max_bytes_to_read, bool *pEO
   if (m_error_flag)
     return -1;
 
-  int bytes_read = static_cast<int>(fread(pBuf, 1, max_bytes_to_read, m_pFile));
+  int bytes_read = static_cast<int>(NvFRead(pBuf, 1, max_bytes_to_read, m_pFile));
   if (bytes_read < max_bytes_to_read)
   {
-    if (ferror(m_pFile))
+	  if (NvFerror(m_pFile))
     {
       m_error_flag = true;
       return -1;

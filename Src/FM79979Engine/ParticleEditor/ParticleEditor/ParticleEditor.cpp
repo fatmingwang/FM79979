@@ -2,12 +2,15 @@
 
 #include "stdafx.h"
 #include "Form1.h"
-#pragma comment(lib, "../../../lib/Devil.lib")
-#pragma comment(lib, "../../../lib/OpenAL32.lib")
-#pragma comment(lib, "../../../lib/alut.lib")
-#pragma comment(lib, "../../../lib/ogg.lib")//I have build my self OGG lib here
-#pragma comment(lib, "../../../lib/glew32.lib") 
-#pragma comment(lib, "Psapi.lib")
+
+#include "../../AllLibInclude.h"
+
+//#pragma comment(lib, "../../../lib/Devil.lib")
+//#pragma comment(lib, "../../../lib/OpenAL32.lib")
+//#pragma comment(lib, "../../../lib/alut.lib")
+//#pragma comment(lib, "../../../lib/ogg.lib")//I have build my self OGG lib here
+//#pragma comment(lib, "../../../lib/glew32.lib") 
+//#pragma comment(lib, "Psapi.lib")
 
 using namespace ParticalEditor;
 

@@ -4,6 +4,19 @@
 
 //https://my.oschina.net/liusicong/blog/323090
 
+//http://mirlab.org/jang/books/audiosignalprocessing/audioIntro.asp?title=3-1%20Introduction%20to%20Audio%20Signals%20(%AD%B5%B0T%B0%F2%A5%BB%A4%B6%B2%D0)&language=chinese
+
+//file  size = total data count*byte rate
+//total data count = file size//byte rate
+//file size = sample rate*byte rate*total seconds
+
+//ex:byte rate is 16bit(2byte)
+//total data count is 15716
+//file size = 2*15716 = 31432 byte = 31.4k
+
+//file size = 60seconds*16KHz(sample rate)*2 byte(16bit) = 1920KByte
+//data count = 1920*1024/2 = 983040
+
 //first
 /* WAV File-header */
 //12 bytes

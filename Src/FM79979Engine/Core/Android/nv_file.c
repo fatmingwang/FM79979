@@ -314,20 +314,22 @@ NvFile* NvFOpen(char const* path,const char*e_strReadMode)
     }
     return (NvFile*) handle;
 }
-void NvFClose(NvFile* file)
+int NvFClose(NvFile* file)
 {
     NvFileHandle *handle = (NvFileHandle*) file;
+	int l_iResult = EOF;
     if (!handle)
-        return;
+        return l_iResult;
     if (handle->type != STD_FILE)
 	{
         NvAPKClose(handle->handle);
 	}
     else
 	{
-        fclose(handle->handle);
+        l_iResult = fclose(handle->handle);
 	}
     free(handle);
+	return l_iResult;
 }
 
 void NvFChdir(const char* dir)
@@ -465,6 +467,11 @@ size_t      NvFFlush(NvFile* stream)
         return fflush(handle->handle);
 	}
 	return -1;
+}
+
+int			NvFerror(NvFile*e_pFile)
+{
+	return ferror(NvGetFile(e_pFile));
 }
 
 FILE*		NvGetFile(NvFile* stream)

@@ -25,7 +25,9 @@ namespace LevelEditor
 			cLayer::m_sbIsEditorMode = true;
 			WCHAR l_str[MAX_PATH];
 			::GetCurrentDirectory(MAX_PATH,l_str);
-			gcnew cObjectDataFormImple(gcnew ObjectDataForm(tabControl1,"LevelEditor",this));
+			m_pObjectDataForm = gcnew ObjectDataForm(tabControl1,"LevelEditor",this);
+			m_pObjectDataFormImple = gcnew cObjectDataFormImple(m_pObjectDataForm);
+			
 			tabControl1->TabPages->Remove(tabPage1);
 			
 			//gcnew EventEditor(tabControl1);
@@ -41,6 +43,8 @@ namespace LevelEditor
 			{
 				delete components;
 			}
+			SAFE_DELETE(m_pObjectDataForm);
+			SAFE_DELETE(m_pObjectDataFormImple);
 		}
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  tabPage1;
@@ -54,6 +58,8 @@ namespace LevelEditor
 	private: System::Windows::Forms::ToolStripMenuItem^  toolStripMenuItem7;
 	private: System::Windows::Forms::ToolStripMenuItem^  toolStripMenuItem8;
 	private: System::Windows::Forms::ToolStripMenuItem^  assistanceToolStripMenuItem;
+			 cObjectDataFormImple^m_pObjectDataFormImple;
+			 ObjectDataForm^m_pObjectDataForm;
 	private:
 		/// <summary>
 		/// 設計工具所需的變數。

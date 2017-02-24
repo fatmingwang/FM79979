@@ -470,7 +470,7 @@ public:
 	}
 	bool	AddChildObject(wchar_t*e_strListName,CHILDREN_DATA_TYPE e_pObject)
 	{
-		T*l_pTargetList = this->GetObject(e_strListName);
+		LIST*l_pTargetList = this->GetObject(e_strListName);
 		if( l_pTargetList )
 			return l_pTargetList->GetObject(e_strListName)->AddObject(e_pObject);
 		return false;
@@ -478,16 +478,16 @@ public:
 
 	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strListName,wchar_t*ChildName)
 	{
-		T*l_pTargetList = this->GetObject(e_strListName);
+		LIST*l_pTargetList = this->GetObject(e_strListName);
 		if( l_pTargetList )
 			return l_pTargetList->GetObject(ChildName); 
 		return nullptr;
 	}
 	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iListIndex,int e_iChildIndex)
 	{
-		T*l_pTargetList = this->GetObject(e_iListIndex);
+		LIST*l_pTargetList = this->GetObject(e_iListIndex);
 		if( l_pTargetList )
-			return l_pTargetList->GetObject(ChildName); 
+			return l_pTargetList->GetObject(e_iChildIndex); 
 		return nullptr;
 	}
 	//from current list

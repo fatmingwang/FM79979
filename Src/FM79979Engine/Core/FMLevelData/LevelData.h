@@ -73,7 +73,7 @@ namespace FATMING_CORE
 		virtual ~cLevelData();
 		cLevelLayerGridData*GetListChildByUniqueID(uint64 e_uiID);
 		//virtual	bool	ParseDataIntoXMLNode(char*e_strFileName);
-		bool	Export(char*e_strFileName);
+		bool	Export(char*e_strFileName,bool e_bAlsoExportYInvert = false,bool e_bAlsoExportXInvert = false);
 		bool	ExportTemplateFile(const char*e_strFileName);
 		bool	ExportResourceFile(const char*e_strFileName);
 		bool	ExportEventDataNodeFile(const char*e_strFileName);

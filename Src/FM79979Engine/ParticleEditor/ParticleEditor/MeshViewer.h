@@ -655,7 +655,7 @@ namespace ParticalEditor {
 						{
 							for(int j=0;j<m_pColladaParser->m_pAllAnimationMesh->Count();++j)
 							{
-								//(*m_pColladaParser->m_pAllAnimationMesh)[i]->Update(l_fElpaseTime);
+								(*m_pColladaParser->m_pAllAnimationMesh)[i]->Update(l_fElpaseTime);
 								(*m_pColladaParser->m_pAllAnimationMesh)[i]->SetWorldPosition(Vector3(0.f,0.f,j*30.f));
 								(*m_pColladaParser->m_pAllAnimationMesh)[i]->Render();
 							}

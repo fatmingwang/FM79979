@@ -133,7 +133,12 @@ namespace LevelEditor
 	public: System::Windows::Forms::Button^  NoImage_button;
 	public: XMLDataEditor::XMLForm^			LevelLayerGridEventDataNode_xmlNodeEditComponent;
 	public: System::Windows::Forms::CheckBox^  InGameRender_checkBox;
-	//my
+
+
+
+
+
+		//my
 	GCFORM::Form^m_pForm;
 #pragma region Windows Form Designer generated code
 		/// </summary>
@@ -568,7 +573,7 @@ namespace LevelEditor
 			this->LayerList_groupBox->Controls->Add(this->LayerVisible_checkBox);
 			this->LayerList_groupBox->Location = System::Drawing::Point(6, 3);
 			this->LayerList_groupBox->Name = L"LayerList_groupBox";
-			this->LayerList_groupBox->Size = System::Drawing::Size(293, 246);
+			this->LayerList_groupBox->Size = System::Drawing::Size(293, 309);
 			this->LayerList_groupBox->TabIndex = 39;
 			this->LayerList_groupBox->TabStop = false;
 			this->LayerList_groupBox->Text = L"Layer List";
@@ -1331,5 +1336,10 @@ namespace LevelEditor
 
 		}
 #pragma endregion
+private: System::Void LayerVisible_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e) 
+		 {
+			 			this->LayerVisible_checkBox->CheckedChanged += gcnew System::EventHandler(this, &ObjectDataForm::LayerVisible_checkBox_CheckedChanged);
+//			 Layer_listBox;
+		 }
 };
 }

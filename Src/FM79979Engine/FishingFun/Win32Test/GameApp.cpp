@@ -7,7 +7,7 @@
 #include "SetupPhase.h"
 #include "ShowFishingResultPhase.h"
 #include "ShowFishCollectionPhase.h"
-#include "Math\MathFormulaXML.h"
+//#include "Math\MathFormulaXML.h"
 //#include "TestPhase.h"
 
 cFishRodAndFishThreadData*						cFishingFunApp::m_spFishRodAndFishThreadData = 0;
@@ -23,12 +23,12 @@ cFishingFunApp::cFishingFunApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_v
 cFishingFunApp::cFishingFunApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
-	cMathFormulaXML l_;
-	l_.SetExpr(L"(a/b)/(1+(((60-20)/20*0.1)))");
-	//l_.SetExpr(L"2");
-	l_.AddDefineVariable(L"a",1);
-	l_.AddDefineVariable(L"b",2);
-	double aa = l_.GetResult();
+//	cMathFormulaXML l_;
+	//l_.SetExpr(L"(a/b)/(1+(((60-20)/20*0.1)))");
+	////l_.SetExpr(L"2");
+	//l_.AddDefineVariable(L"a",1);
+	//l_.AddDefineVariable(L"b",2);
+	//double aa = l_.GetResult();
 	m_bLeave = false;
 	m_pPhaseManager = new cPhaseManager();	
 #ifdef DEBUG

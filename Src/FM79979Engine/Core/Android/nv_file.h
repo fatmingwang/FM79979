@@ -39,8 +39,8 @@
 	#define	NvGetFile(p)		p
 	#define	NvFWrite(p,q,r,s)	fwrite(p,q,r,s)
 	#define	NvFFlush(p)			fflush(p)
+	#define	NvFerror(p)			ferror(p)
 #else
-
 #if defined(__cplusplus)
 extern "C"
 {
@@ -81,7 +81,7 @@ NvFile*     NvFOpen(char const* path,const char*e_strReadMode);
   A wrapper similar to fclose.  Can be called from any JNI-connected thread.
   @param file A pointer to an open file opened via NvFOpen()
   */
-void        NvFClose(NvFile* file);
+int        NvFClose(NvFile* file);
 
 /**
   A wrapper similar to chdir.  Can be called from any thread.
@@ -151,6 +151,8 @@ int         NvFEOF(NvFile *stream);
 size_t      NvFWrite(const void* ptr, size_t size, size_t nmemb, NvFile* stream);
 size_t      NvFFlush(NvFile* stream);
 FILE*		NvGetFile(NvFile* stream);
+int			NvFerror(NvFile*e_pFile);
+
 #if defined(__cplusplus)
 }
 #endif

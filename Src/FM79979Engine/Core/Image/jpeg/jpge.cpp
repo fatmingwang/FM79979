@@ -909,7 +909,7 @@ class cfile_stream : public output_stream
    cfile_stream(const cfile_stream &);
    cfile_stream &operator= (const cfile_stream &);
 
-   FILE* m_pFile;
+   NvFile* m_pFile;
    bool m_bStatus;
 
 public:
@@ -932,7 +932,7 @@ public:
    {
       if (m_pFile)
       {
-         if (fclose(m_pFile) == EOF)
+		  if (NvFClose(m_pFile) == EOF)
          {
             m_bStatus = false;
          }
@@ -943,13 +943,13 @@ public:
 
    virtual bool put_buf(const void* pBuf, int len)
    {
-      m_bStatus = m_bStatus && (fwrite(pBuf, len, 1, m_pFile) == 1);
+	   m_bStatus = m_bStatus && (NvFWrite(pBuf, len, 1, m_pFile) == 1);
       return m_bStatus;
    }
 
    uint get_size() const
    {
-      return m_pFile ? ftell(m_pFile) : 0;
+	   return m_pFile ? NvFTell(m_pFile) : 0;
    }
 };
 

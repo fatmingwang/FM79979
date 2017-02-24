@@ -6,7 +6,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <setjmp.h>
-
+//#ifdef ANDROID
+#include "../../Android/nv_file.h"
+//#endif
 #ifdef _MSC_VER
   #define JPGD_NORETURN __declspec(noreturn) 
 #elif defined(__GNUC__)
@@ -73,8 +75,7 @@ namespace jpgd
   {
     jpeg_decoder_file_stream(const jpeg_decoder_file_stream &);
     jpeg_decoder_file_stream &operator =(const jpeg_decoder_file_stream &);
-
-    FILE *m_pFile;
+    NvFile *m_pFile;
     bool m_eof_flag, m_error_flag;
 
   public:

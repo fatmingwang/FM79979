@@ -23,7 +23,7 @@ void	sVisualSceneLibrary::DumpNodeInfo(sVisualSceneLibrary::sNode*e_pNode,int *e
 	int	l_iLevel = 0;
 	while( l_pParentNode )
 	{
-		cGameApp::OutputDebugInfoString(L"-----");
+		cGameApp::OutputDebugInfoString(L"-----",false);
 		l_pParentNode = l_pParentNode->pParent;
 		l_iLevel++;
 	}
@@ -95,7 +95,7 @@ void	DumpBoneInfo(cBone*e_pBone)
 	int	l_iLevel = 0;
 	while( l_pParentNode )
 	{
-		cGameApp::OutputDebugInfoString(L"-----");
+		cGameApp::OutputDebugInfoString(L"-----",false);
 		l_pParentNode = (cBone*)l_pParentNode->GetParent();
 		l_iLevel++;
 	}
@@ -442,8 +442,8 @@ void	cLibraryVisualScenes::Parsevisual_scene_node(TiXmlElement*e_pTiXmlElement,s
 			e_pParentNode->strName = l_strValue;
 		if( l_bShowDebugInfo )
 		{
-			cGameApp::OutputDebugInfoString(l_strValue);
-			cGameApp::OutputDebugInfoString(L"\n");
+			cGameApp::OutputDebugInfoString(l_strValue,false);
+			//cGameApp::OutputDebugInfoString(L"\n");
 		}
 		}
 		else
@@ -532,7 +532,7 @@ void	cLibraryVisualScenes::Parsevisual_scene_node(TiXmlElement*e_pTiXmlElement,s
 		if( l_bShowDebugInfo )
 		while( l_pNode2 )
 		{
-			cGameApp::OutputDebugInfoString(L"---");
+			cGameApp::OutputDebugInfoString(L"---",false);
 			l_pNode2 = l_pNode2->pParent;
 		}
 //======================================================

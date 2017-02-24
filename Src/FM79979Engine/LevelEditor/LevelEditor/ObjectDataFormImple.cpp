@@ -4,6 +4,7 @@ namespace LevelEditor
 {
 	cObjectDataFormImple::cObjectDataFormImple(ObjectDataForm^e_pObjectDataForm)
 	{
+		OutputDebugString(L"fix this problem m_iShowSelectedLayer");
 		splitContainer1 = e_pObjectDataForm->splitContainer1;
 		splitContainer2 = e_pObjectDataForm->splitContainer2;
 		menuStrip1 = e_pObjectDataForm->menuStrip1;
@@ -299,6 +300,8 @@ namespace LevelEditor
 		m_pLevelEditorApp->m_SelectedLayerObjects.clear();
 		for each (int l_iIndex in LayerObjectData_listBox->SelectedIndices)
 			m_pLevelEditorApp->m_SelectedLayerObjects.push_back(l_iIndex);
+
+		this->m_pLevelEditorApp->m_iShowSelectedLayer = Layer_listBox->SelectedIndex;
 		this->m_pLevelEditorApp->Run();
 
 	}
@@ -937,7 +940,11 @@ namespace LevelEditor
 			 String^l_strFileName = DNCT::SaveFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
 			 if( l_strFileName )
 			 {
+				 String^l_strForUnity = System::IO::Path::GetDirectoryName(l_strFileName);
+				l_strForUnity += "_Unity";
+				l_strForUnity += System::IO::Path::GetFileName(l_strFileName);
 				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strFileName));
+				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strForUnity),true,true);
 				//for quick apply
 				String^l_strTempDirectory = System::IO::Path::GetDirectoryName(l_strFileName)+"/XmlTemp";
 				System::IO::Directory::CreateDirectory(l_strTempDirectory);

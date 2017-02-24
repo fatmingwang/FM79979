@@ -11,7 +11,7 @@ namespace FATMING_CORE
 	{
 		m_pEventManager = 0;
 		m_pTemplateList = new cLayer();
-		SAFE_DELETE(m_pTemplateList);
+		//SAFE_DELETE(m_pTemplateList);
 		m_pLastLevelLayerGridData = 0;
 		//m_bIgnoreParseImageFile = false;
 	}
@@ -679,7 +679,7 @@ namespace FATMING_CORE
 		return l_Doc.SaveFile(e_strFileName);
 	}
 
-	bool	cLevelData::Export(char*e_strFileName)
+	bool	cLevelData::Export(char*e_strFileName,bool e_bDoYInvert,bool e_bAlsoExportXInvert)
 	{
 		if( !m_pTemplateList->Count() )
 			return false;
@@ -704,7 +704,8 @@ namespace FATMING_CORE
 			l_strFileName = l_MainFileName;	l_strFileName += UT::WcharToChar(l_strEventDataNodeFileName); l_strFileName += ".xml";
 			l_pRoot->SetAttribute(l_strEventDataNodeFileName,UT::CharToWchar(l_strFileName.c_str()));
 			l_strFileName = l_strDirectory;		l_strFileName += l_MainFileName;	l_strFileName += UT::WcharToChar(l_strEventDataNodeFileName); l_strFileName += ".xml";
-			ExportEventDataNodeFile(l_strFileName.c_str());
+			if( !e_bDoYInvert )
+				ExportEventDataNodeFile(l_strFileName.c_str());
 		}
 		//if(this->m_pTemplateList->Count())
 		{
@@ -712,17 +713,20 @@ namespace FATMING_CORE
 			const WCHAR*l_strResourceDataName = L"ResourceData";
 			const WCHAR*l_strTemplateDataNodeFile = L"TemplateDataNodeFile";
 			l_strFileName = l_strDirectory;		l_strFileName += l_MainFileName;	l_strFileName += UT::WcharToChar(l_strTemplateDataNodeFile); l_strFileName += ".xml";
-			ExportTemplateDataNodeFile(l_strFileName.c_str());
+			if( !e_bDoYInvert )
+				ExportTemplateDataNodeFile(l_strFileName.c_str());
 			l_strFileName = l_MainFileName;	l_strFileName += UT::WcharToChar(l_strTemplateDataNodeFile); l_strFileName += ".xml";
 			l_pRoot->SetAttribute(l_strTemplateDataNodeFile,UT::CharToWchar(l_strFileName.c_str()));
 			l_strFileName = l_MainFileName;	l_strFileName += UT::WcharToChar(l_strResourceDataName); l_strFileName += ".xml";
 			l_pRoot->SetAttribute(l_strResourceDataName,UT::CharToWchar(l_strFileName.c_str()));
 			l_strFileName = l_strDirectory;		l_strFileName += l_MainFileName;	l_strFileName += UT::WcharToChar(l_strResourceDataName); l_strFileName += ".xml";
-			ExportResourceFile(l_strFileName.c_str());
+			if( !e_bDoYInvert )
+				ExportResourceFile(l_strFileName.c_str());
 			l_strFileName = l_MainFileName;	l_strFileName += UT::WcharToChar(l_strTemplateFileName); l_strFileName += ".xml";
 			l_pRoot->SetAttribute(l_strTemplateFileName,UT::CharToWchar(l_strFileName.c_str()));
 			l_strFileName = l_strDirectory;		l_strFileName += l_MainFileName;	l_strFileName += UT::WcharToChar(l_strTemplateFileName); l_strFileName += ".xml";
-			ExportTemplateFile(l_strFileName.c_str());
+			if( !e_bDoYInvert )
+				ExportTemplateFile(l_strFileName.c_str());
 		}
 		if( m_pEventManager )
 		{
@@ -750,7 +754,18 @@ namespace FATMING_CORE
 					TiXmlElement*l_pDataElement = new TiXmlElement( L"LevelLayerGrid" );
 					cLevelLayerGridData*l_pLevelLayerGridData = l_pLayer->GetObject(k);
 					l_pDataElement->SetAttribute(L"TemplateName",l_pLevelLayerGridData->GetName());
-					l_pDataElement->SetAttribute(L"Pos",ValueToStringW(l_pLevelLayerGridData->GetPos()));
+					Vector3 l_vPos = l_pLevelLayerGridData->GetPos();
+					if( e_bDoYInvert )
+					{
+						l_vPos.y *= -1;
+						if( e_bAlsoExportXInvert )
+						{
+							l_vPos.x *= -1;
+						}
+						l_pDataElement->SetAttribute(L"Pos",ValueToStringW(l_vPos));
+					}
+					else
+						l_pDataElement->SetAttribute(L"Pos",ValueToStringW(l_pLevelLayerGridData->GetPos()));
 					if(l_pLevelLayerGridData->GetEventDataNode())
 					{
 						l_pDataElement->SetAttribute(L"EventDataNode",ValueToStringW(l_pLevelLayerGridData->GetEventDataNode()->GetUniqueID()));
@@ -763,5 +778,6 @@ namespace FATMING_CORE
 		l_Doc.SaveFile(l_strDirectory.c_str());
 		return true;
 	}
+
 //end if namespace
 }

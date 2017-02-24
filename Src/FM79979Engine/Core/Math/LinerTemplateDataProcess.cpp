@@ -4,9 +4,9 @@
 #include "../GameplayUT/GameApp.h"
 namespace	FATMING_CORE
 {
-	 const wchar_t*         cLinerDataProcessor<Vector2>::TypeID( WSTRING(cLinerDataProcessor2) );
-	 const wchar_t*         cLinerDataProcessor<Vector3>::TypeID( WSTRING(cLinerDataProcessor3) );
-	 const wchar_t*         cLinerDataProcessor<Vector4>::TypeID( WSTRING(cLinerDataProcessor4) );
+	 //const wchar_t*         cLinerDataProcessor<Vector2>::TypeID( WSTRING(cLinerDataProcessor2) );
+	 //const wchar_t*         cLinerDataProcessor<Vector3>::TypeID( WSTRING(cLinerDataProcessor3) );
+	 //const wchar_t*         cLinerDataProcessor<Vector4>::TypeID( WSTRING(cLinerDataProcessor4) );
 	cTimeAndDataLinerUpdateInterface::cTimeAndDataLinerUpdateInterface()
 	{
 		m_iLOD = 1;
