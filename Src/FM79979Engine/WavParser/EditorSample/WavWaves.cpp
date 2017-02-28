@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "WavInfo.h"
+#include "WavFile.h"
 #include "WavWaves.h"
 
 
@@ -60,7 +60,7 @@ cWavWaves::~cWavWaves()
 {
 }
 
-void	cWavWaves::SetData(cWaveInfo*e_pWaveInfo)
+void	cWavWaves::SetData(cWaveFile*e_pWaveInfo)
 {
 	this->m_pWaveInfo = e_pWaveInfo;
 	int	l_iMax = 0;
@@ -84,8 +84,8 @@ void	cWavWaves::Render()
 {
 	for(size_t i=0;i<m_ChannelCurveVector.size();++i)
 	{
-		if( i==0 )
-			m_ChannelCurveVector[i]->Render(Vector2(0,0));
+		//if( i==0 )
+			//m_ChannelCurveVector[i]->Render(Vector2(0,0));
 	}
 
 }

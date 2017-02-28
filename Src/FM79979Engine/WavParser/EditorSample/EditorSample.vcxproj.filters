@@ -27,13 +27,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WavInfo.cpp">
-      <Filter>wav</Filter>
-    </ClCompile>
     <ClCompile Include="WavWaves.cpp">
       <Filter>wav</Filter>
     </ClCompile>
     <ClCompile Include="ChartAssist.cpp">
+      <Filter>wav</Filter>
+    </ClCompile>
+    <ClCompile Include="WavFile.cpp">
       <Filter>wav</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,13 +47,13 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WavInfo.h">
-      <Filter>wav</Filter>
-    </ClInclude>
     <ClInclude Include="WavWaves.h">
       <Filter>wav</Filter>
     </ClInclude>
     <ClInclude Include="ChartAssist.h">
+      <Filter>wav</Filter>
+    </ClInclude>
+    <ClInclude Include="WavFile.h">
       <Filter>wav</Filter>
     </ClInclude>
   </ItemGroup>
@@ -66,9 +66,6 @@
     <ResourceCompile Include="app.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX">

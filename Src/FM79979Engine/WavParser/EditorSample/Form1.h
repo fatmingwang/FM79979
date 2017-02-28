@@ -1,5 +1,5 @@
 #pragma once
-#include "WavInfo.h"
+#include "WavFile.h"
 #include "WavWaves.h"
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -81,7 +81,7 @@ namespace EditorSample
 		cGameApp*					m_pGameApp;
 		HDC							m_HdcMV;
 		HGLRC						m_HGLRCMV;
-		cWaveInfo*					m_pWaveInfo;
+		cWaveFile*					m_pWaveInfo;
 		cWavWaves*					m_pWavWaves;
 		Control^					m_pTargetControl;
 		//
@@ -140,7 +140,7 @@ namespace EditorSample
 			// 
 			// OpenWavFile_button
 			// 
-			this->OpenWavFile_button->Location = System::Drawing::Point(286, 53);
+			this->OpenWavFile_button->Location = System::Drawing::Point(635, 685);
 			this->OpenWavFile_button->Name = L"OpenWavFile_button";
 			this->OpenWavFile_button->Size = System::Drawing::Size(94, 34);
 			this->OpenWavFile_button->TabIndex = 0;
@@ -150,7 +150,7 @@ namespace EditorSample
 			// 
 			// WavFileName_textBox
 			// 
-			this->WavFileName_textBox->Location = System::Drawing::Point(386, 61);
+			this->WavFileName_textBox->Location = System::Drawing::Point(524, 636);
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
@@ -158,7 +158,7 @@ namespace EditorSample
 			// 
 			// Play_button
 			// 
-			this->Play_button->Location = System::Drawing::Point(770, 57);
+			this->Play_button->Location = System::Drawing::Point(908, 632);
 			this->Play_button->Name = L"Play_button";
 			this->Play_button->Size = System::Drawing::Size(59, 26);
 			this->Play_button->TabIndex = 2;
@@ -171,21 +171,21 @@ namespace EditorSample
 			this->OPENGL_panel->Dock = System::Windows::Forms::DockStyle::Top;
 			this->OPENGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OPENGL_panel->Name = L"OPENGL_panel";
-			this->OPENGL_panel->Size = System::Drawing::Size(1884, 289);
+			this->OPENGL_panel->Size = System::Drawing::Size(1884, 522);
 			this->OPENGL_panel->TabIndex = 3;
 			// 
 			// WavInfo_listBox
 			// 
 			this->WavInfo_listBox->Dock = System::Windows::Forms::DockStyle::Left;
 			this->WavInfo_listBox->FormattingEnabled = true;
-			this->WavInfo_listBox->Location = System::Drawing::Point(0, 289);
+			this->WavInfo_listBox->Location = System::Drawing::Point(0, 522);
 			this->WavInfo_listBox->Name = L"WavInfo_listBox";
-			this->WavInfo_listBox->Size = System::Drawing::Size(175, 572);
+			this->WavInfo_listBox->Size = System::Drawing::Size(175, 339);
 			this->WavInfo_listBox->TabIndex = 4;
 			// 
 			// CurrentTime_trackBar
 			// 
-			this->CurrentTime_trackBar->Location = System::Drawing::Point(217, 352);
+			this->CurrentTime_trackBar->Location = System::Drawing::Point(246, 674);
 			this->CurrentTime_trackBar->Name = L"CurrentTime_trackBar";
 			this->CurrentTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->CurrentTime_trackBar->TabIndex = 5;
@@ -193,7 +193,7 @@ namespace EditorSample
 			// CurrentTime_label
 			// 
 			this->CurrentTime_label->AutoSize = true;
-			this->CurrentTime_label->Location = System::Drawing::Point(603, 471);
+			this->CurrentTime_label->Location = System::Drawing::Point(632, 793);
 			this->CurrentTime_label->Name = L"CurrentTime_label";
 			this->CurrentTime_label->Size = System::Drawing::Size(64, 13);
 			this->CurrentTime_label->TabIndex = 6;
@@ -201,7 +201,7 @@ namespace EditorSample
 			// 
 			// DataCompressRate_numericUpDown
 			// 
-			this->DataCompressRate_numericUpDown->Location = System::Drawing::Point(217, 417);
+			this->DataCompressRate_numericUpDown->Location = System::Drawing::Point(246, 739);
 			this->DataCompressRate_numericUpDown->Name = L"DataCompressRate_numericUpDown";
 			this->DataCompressRate_numericUpDown->Size = System::Drawing::Size(46, 20);
 			this->DataCompressRate_numericUpDown->TabIndex = 7;
@@ -209,7 +209,7 @@ namespace EditorSample
 			// DataCompressRate__label
 			// 
 			this->DataCompressRate__label->AutoSize = true;
-			this->DataCompressRate__label->Location = System::Drawing::Point(210, 451);
+			this->DataCompressRate__label->Location = System::Drawing::Point(239, 773);
 			this->DataCompressRate__label->Name = L"DataCompressRate__label";
 			this->DataCompressRate__label->Size = System::Drawing::Size(99, 13);
 			this->DataCompressRate__label->TabIndex = 8;
@@ -217,7 +217,7 @@ namespace EditorSample
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(403, 311);
+			this->button2->Location = System::Drawing::Point(432, 633);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 10;
@@ -226,7 +226,7 @@ namespace EditorSample
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(313, 311);
+			this->button3->Location = System::Drawing::Point(342, 633);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 11;
@@ -235,7 +235,7 @@ namespace EditorSample
 			// 
 			// button4
 			// 
-			this->button4->Location = System::Drawing::Point(217, 311);
+			this->button4->Location = System::Drawing::Point(246, 633);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(75, 23);
 			this->button4->TabIndex = 12;
@@ -245,7 +245,7 @@ namespace EditorSample
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(318, 451);
+			this->label1->Location = System::Drawing::Point(347, 773);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(105, 13);
 			this->label1->TabIndex = 14;
@@ -253,7 +253,7 @@ namespace EditorSample
 			// 
 			// ShowWaveSeconds_numericUpDown
 			// 
-			this->ShowWaveSeconds_numericUpDown->Location = System::Drawing::Point(319, 417);
+			this->ShowWaveSeconds_numericUpDown->Location = System::Drawing::Point(348, 739);
 			this->ShowWaveSeconds_numericUpDown->Name = L"ShowWaveSeconds_numericUpDown";
 			this->ShowWaveSeconds_numericUpDown->Size = System::Drawing::Size(46, 20);
 			this->ShowWaveSeconds_numericUpDown->TabIndex = 13;
@@ -263,6 +263,7 @@ namespace EditorSample
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->OpenWavFile_button);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->ShowWaveSeconds_numericUpDown);
 			this->Controls->Add(this->button4);
@@ -276,9 +277,8 @@ namespace EditorSample
 			this->Controls->Add(this->OPENGL_panel);
 			this->Controls->Add(this->Play_button);
 			this->Controls->Add(this->WavFileName_textBox);
-			this->Controls->Add(this->OpenWavFile_button);
 			this->Name = L"Form1";
-			this->Text = L"Form1";
+			this->Text = L" ";
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->EndInit();
@@ -376,7 +376,7 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 					std::wstring l_FileName = DNCT::GcStringToWchar(this->WavFileName_textBox->Text);
 					//this->m_pGameApp->SoundPlay(l_FileName.c_str(),true);
 					SAFE_DELETE(this->m_pWaveInfo);
-					this->m_pWaveInfo = new cWaveInfo();
+					this->m_pWaveInfo = new cWaveFile();
 					this->WavInfo_listBox->Items->Clear();
 					if(this->m_pWaveInfo->OpenFile(UT::WcharToChar(l_FileName).c_str()))
 					{

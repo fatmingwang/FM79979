@@ -12,7 +12,7 @@ class cChartAssist
 	//	~cChartAssist();
 	//	void	SetData(int e_iXAxisValue,int e_iYAxisValue,std::vector<Vector2>*e_pData);
 	//	void	Render();
-	complex ll;
+//	complex ll;
 };
 
 //#include < cv.h >
