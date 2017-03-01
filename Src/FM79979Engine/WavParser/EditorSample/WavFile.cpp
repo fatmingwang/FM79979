@@ -5,10 +5,128 @@
 #include <stdlib.h>
 
 #include <stdint.h>
+#include "oggHelper.h"
+
 const char*	g_strFMTFormat = "fmt ";
 const char*	g_strWAVHeader = "RIFF";
 const char*	g_strWAVFormat = "WAVE";
 const char*	g_strWAVData = "data";
+
+/* The following function is basically a hacked version of the code in
+ * examples/encoder_example.c */
+//e_fQuality -1 to 1
+void write_vorbis_data_or_die (const char *filename, int srate, float e_fQuality, const unsigned char * e_pSoundData, int e_iDataCount, int e_iChannel)
+{
+  FILE * file ;
+  ogg_stream_state os;
+  ogg_page         og;
+  ogg_packet       op;
+  vorbis_info      vi;
+  vorbis_comment   vc;
+  vorbis_dsp_state vd;
+  vorbis_block     vb;
+
+  int eos = 0, ret;
+
+  if ((file = fopen (filename, "wb")) == NULL) {
+    printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
+    exit (1) ;
+  }
+
+  /********** Encode setup ************/
+
+  vorbis_info_init (&vi);
+
+  //	//l_ret = vorbis_encode_init_vbr(&l_vi,2,44100,0.1);
+
+  ret = vorbis_encode_init_vbr (&vi,e_iChannel,srate,e_fQuality);
+  if (ret) {
+    printf ("vorbis_encode_init_vbr return %d\n", ret) ;
+    exit (1) ;
+  }
+
+  vorbis_comment_init (&vc);
+  vorbis_comment_add_tag (&vc,"ENCODER","test/util.c");
+  vorbis_analysis_init (&vd,&vi);
+  vorbis_block_init (&vd,&vb);
+
+  ogg_stream_init (&os,12345678);
+
+  {
+    ogg_packet header;
+    ogg_packet header_comm;
+    ogg_packet header_code;
+
+    vorbis_analysis_headerout (&vd,&vc,&header,&header_comm,&header_code);
+    ogg_stream_packetin (&os,&header);
+    ogg_stream_packetin (&os,&header_comm);
+    ogg_stream_packetin (&os,&header_code);
+
+    /* Ensures the audio data will start on a new page. */
+    while (!eos){
+        int result = ogg_stream_flush (&os,&og);
+        if (result == 0)
+            break;
+        fwrite (og.header,1,og.header_len,file);
+        fwrite (og.body,1,og.body_len,file);
+    }
+
+  }
+
+  {
+	  //byte to float
+	int l_iDataCount = e_iDataCount/4;
+    /* expose the buffer to submit data */
+    float **buffer = vorbis_analysis_buffer (&vd,l_iDataCount);
+    int i;
+
+/* uninterleave samples */
+	//for(l_iChannelIndex=0;i<e_iChannel;i++)
+	{
+      for(i=0;i<l_iDataCount;i++){
+        buffer[0][i]=((e_pSoundData[i*4+1]<<8)|
+                      (0x00ff&(int)e_pSoundData[i*4]))/32768.f;
+        buffer[1][i]=((e_pSoundData[i*4+3]<<8)|
+                      (0x00ff&(int)e_pSoundData[i*4+2]))/32768.f;
+      }
+	}
+
+	//for(i=0;i<e_iChannel;i++)
+      //memcpy (buffer [i], data, count * sizeof (float)) ;
+
+    /* tell the library how much we actually submitted */
+    vorbis_analysis_wrote (&vd,i);
+    vorbis_analysis_wrote (&vd,0);
+  }
+
+  while (vorbis_analysis_blockout (&vd,&vb) == 1) {
+    vorbis_analysis (&vb,NULL);
+    vorbis_bitrate_addblock (&vb);
+
+    while (vorbis_bitrate_flushpacket (&vd,&op)) {
+      ogg_stream_packetin (&os,&op);
+
+      while (!eos) {
+          int result = ogg_stream_pageout (&os,&og);
+          if (result == 0)
+              break;
+          fwrite (og.header,1,og.header_len,file);
+          fwrite (og.body,1,og.body_len,file);
+
+          if (ogg_page_eos (&og))
+              eos = 1;
+      }
+    }
+  }
+
+  ogg_stream_clear (&os);
+  vorbis_block_clear (&vb);
+  vorbis_dsp_clear (&vd);
+  vorbis_comment_clear (&vc);
+  vorbis_info_clear (&vi);
+
+ fclose (file) ;
+}
 
 My_WAVFileHdr_Struct GetWAVFileHdr_Struct(int e_iChunkSize)
 {
@@ -174,11 +292,11 @@ bool	cWaveFile::OpenFile(const char*e_strFileName)
 					this->m_fTime = m_WAVChunkHdr_Struct.Size/(float)m_WAVFmtHdr_Struct.BytesRate;
 					this->m_iSoundDataSize = m_WAVChunkHdr_Struct.Size;
 					//whye here need more 31 byte? for empty sound!?
-					int	l_iEndSounddForEmpty_DataLength = 31;
+					int	l_iEndSounddForEmpty_DataLength = 0;
 					m_pSoundData = (unsigned char*)malloc(m_WAVChunkHdr_Struct.Size+l_iEndSounddForEmpty_DataLength);
-					NvFRead(m_pSoundData,m_WAVFmtHdr_Struct.BlockAlign,m_WAVChunkHdr_Struct.Size/m_WAVFmtHdr_Struct.BlockAlign,l_pFile);
-					if( l_iEndSounddForEmpty_DataLength > 0 )
-						memset(m_pSoundData+m_WAVChunkHdr_Struct.Size,0,l_iEndSounddForEmpty_DataLength);
+					NvFRead(m_pSoundData,1,m_WAVChunkHdr_Struct.Size,l_pFile);
+					//if( l_iEndSounddForEmpty_DataLength > 0 )
+						//memset(m_pSoundData+m_WAVChunkHdr_Struct.Size,0,l_iEndSounddForEmpty_DataLength);
 					//it should be done here
 					//NvFSeek(l_pFile,ChunkHdr.Size&1,SEEK_CUR);
 					//int	l_Size = (((ChunkHdr.Size+1)&~1)+8);
@@ -206,16 +324,6 @@ bool	cWaveFile::OpenFile(const char*e_strFileName)
 			}
 			NvFClose(l_pFile);
 		}
-	}
-	{
-		//write test
-		cWaveFile l_cWaveFile;
-		l_cWaveFile.SetWAVFmtHdr(m_WAVFmtHdr_Struct.Format,m_WAVFmtHdr_Struct.Channels,m_WAVFmtHdr_Struct.SampleRate,m_WAVFmtHdr_Struct.BytesRate,
-			m_WAVFmtHdr_Struct.BlockAlign,m_WAVFmtHdr_Struct.BitsPerSample);
-		l_cWaveFile.StartWriteFile("79979.wav");
-		l_cWaveFile.WriteData(m_WAVChunkHdr_Struct.Size,m_pSoundData);
-		l_cWaveFile.EndWriteFile();
-	
 	}
 	//how many sample
 	//one block align contain N channel
@@ -246,6 +354,9 @@ bool	cWaveFile::OpenFile(const char*e_strFileName)
 		}
 		m_AllChannelData.push_back(l_pCurrentChannelData);
 	}
+	oggHelper l_oggHelper;
+	//l_oggHelper.Encode((char*)e_strFileName,"79979.ogg");
+	ToOggFile(e_strFileName,"279979.ogg");
 	return true;
 }
 
@@ -281,12 +392,12 @@ void	cWaveFile::SetWAVFmtHdr(
 	m_WAVFmtHdr_Struct = GetWAVFmtHdr_Struct(e_usFormat,e_usChannels,e_uiSampleRate,e_uiBytesRate,e_usBlockAlign,e_usBitsPerSample);
 }
 
-bool	cWaveFile::StartWriteFile(const char*es_trFileName)
+bool	cWaveFile::StartWriteWavFile(const char*e_strFileName)
 {
 	m_uiDataSize = 0;
 	SAFE_DELETE(m_pWriteFile);
 	m_pWriteFile = new cBinaryFile();
-	m_pWriteFile->Writefile(es_trFileName,true,false);
+	m_pWriteFile->Writefile(e_strFileName,true,false);
 	//just give it a empty then write again after wrote data
 	WriteHeadData();
 	//skip header
@@ -320,7 +431,7 @@ bool	cWaveFile::WriteHeadData()
 	return false;
 }
 
-bool	cWaveFile::WriteData(size_t e_uiSize,unsigned char*e_pusData)
+bool	cWaveFile::WriteWavData(size_t e_uiSize,unsigned char*e_pusData)
 {
 	if( m_pWriteFile )
 	{
@@ -331,7 +442,7 @@ bool	cWaveFile::WriteData(size_t e_uiSize,unsigned char*e_pusData)
 	return false;
 }
 
-bool	cWaveFile::EndWriteFile()
+bool	cWaveFile::EndWriteWavFile()
 {
 	if(m_pWriteFile)
 	{
@@ -340,4 +451,222 @@ bool	cWaveFile::EndWriteFile()
 		return true;
 	}
 	return false;
+}
+
+int g_iTestTime = 0;
+bool	cWaveFile::ToOggFile(const char*e_strFileName,const char*e_strOutputFileName)
+{
+	StartWriteOggData(e_strOutputFileName);
+	g_iTestTime = 0;
+//	if(this->OpenFile(e_strFileName))
+		if(0)
+		{
+			FILE* f_in = fopen(e_strFileName, "rb");
+			WaveFileHeader* wfh = new WaveFileHeader();
+			if(!wfh->IsWAVE(f_in, wfh))
+			{
+			}
+			//write_vorbis_data_or_die (e_strOutputFileName,m_WAVFmtHdr_Struct.SampleRate,1,this->m_pSoundData,this->m_iSoundDataSize,m_WAVFmtHdr_Struct.Channels);
+			//load from file
+			 signed char readbuffer[(READ * 4)];
+			 int l_iTimes = 0;
+			 while(true)
+			 {
+				 long i;
+				 long bytes = fread(readbuffer, 1, (READ*4), f_in);
+		//		 cumulative_read += bytes;
+		 
+				 //Percentage done
+		 
+				 if(bytes == 0)
+				 {
+					 vorbis_analysis_wrote(&vd, 0);
+					 break;
+				 }
+				 else
+				 {
+					 //data to encode
+					 //expose the buffer to submit data
+					 float** buffer = vorbis_analysis_buffer(&vd, READ);
+						 //deinterleave samples
+						 for(i = 0; i < bytes/4; i++)
+						 {
+							buffer[0][i] = ((readbuffer[i*4+1]<<8) | (0x00ff & (int)readbuffer[i*4])) / 32768.f;
+							buffer[1][i] = ((readbuffer[i*4+3]<<8) | (0x00ff & (int)readbuffer[i*4+2])) / 32768.f;
+							++l_iTimes;
+						 }
+					//tell the library how much we actually submitted
+					vorbis_analysis_wrote(&vd, i);
+				 }
+		 
+				 //vorbis does some data preanalysis, then divvies up blocks for more involved (potentially parallel) processing.  
+				 //Get a single block for encoding now
+				 while(vorbis_analysis_blockout(&vd, &vb) == 1)
+				 {
+					 //analysis, assume we want to use bitrate management
+					 vorbis_analysis(&vb, NULL);
+					 vorbis_bitrate_addblock(&vb);
+					 while(vorbis_bitrate_flushpacket(&vd, &op))
+					 {
+						 //weld the packet into the bitstream
+						 ogg_stream_packetin(&os, &op);
+				 
+						 //write out pages (if any)
+						 while(true)
+						 {
+							 int result = ogg_stream_pageout(&os, &og);
+							 if(result == 0)break;
+							 fwrite(og.header, 1, og.header_len, m_pWriteFile->GetFile());
+							 fwrite(og.body, 1, og.body_len, m_pWriteFile->GetFile());
+							 //this could be set above, but for illustrative purposes, I do it here (to show that vorbis does know where the stream ends)
+							 if(ogg_page_eos(&og))break;
+						 }
+					 }
+				 }
+			 }
+		}
+		//my
+		 if(1)
+		//if( this->m_iSoundDataSize > 0 )
+		{
+			const int l_iWriteSize = 1024*4;//m_iSoundDataSize;//1024*100;//306432
+			//from byte to float
+			int l_iNumData = this->m_iSoundDataSize/l_iWriteSize;
+			if(this->m_iSoundDataSize%l_iWriteSize)
+			{
+				l_iNumData += 1;
+			}
+			int l_iCurrentDataPos = 0;
+			for( int i=0;i<l_iNumData;++i )
+			{
+				int l_iDataLen = l_iWriteSize;
+				if((i+1)*l_iWriteSize>m_iSoundDataSize)
+				{
+					l_iDataLen = m_iSoundDataSize-(i*l_iWriteSize);
+				}
+				unsigned char*l_pucCurrentData = this->m_pSoundData+l_iCurrentDataPos;
+				WriteOggData(l_iDataLen,l_pucCurrentData);
+				l_iCurrentDataPos += l_iDataLen;
+			}
+		}
+		EndWriteOggData();
+		return true;
+	return false;
+}
+
+
+bool	cWaveFile::StartWriteOggData(const char*e_strFileName)
+{
+  SAFE_DELETE(m_pWriteFile);
+  m_pWriteFile = new cBinaryFile();
+  int ret;
+
+  if (!m_pWriteFile->Writefile(e_strFileName,true,false)) {
+    printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
+    return false;
+  }
+
+  /********** Encode setup ************/
+
+  vorbis_info_init (&vi);
+
+  //	//l_ret = vorbis_encode_init_vbr(&l_vi,2,44100,0.1);
+  int l_iChannel = 2;
+  float l_fQuality = 0.4f;
+  int l_iSamplerate = this->m_WAVFmtHdr_Struct.SampleRate;
+  ret = vorbis_encode_init_vbr (&vi,l_iChannel,l_iSamplerate,l_fQuality);
+  if (ret) {
+    printf ("vorbis_encode_init_vbr return %d\n", ret) ;
+    return false;
+  }
+
+  vorbis_comment_init (&vc);
+  vorbis_comment_add_tag (&vc,"ENCODER","test/util.c");
+  vorbis_analysis_init (&vd,&vi);
+  vorbis_block_init (&vd,&vb);
+
+  ogg_stream_init (&os,rand());
+
+  {
+    ogg_packet header;
+    ogg_packet header_comm;
+    ogg_packet header_code;
+
+    vorbis_analysis_headerout (&vd,&vc,&header,&header_comm,&header_code);
+    ogg_stream_packetin (&os,&header);
+    ogg_stream_packetin (&os,&header_comm);
+    ogg_stream_packetin (&os,&header_code);
+
+    /* Ensures the audio data will start on a new page. */
+    while (true){
+        int result = ogg_stream_flush (&os,&og);
+        if (result == 0)
+            break;
+        NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
+        NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+    }
+
+  }
+  return true;
+}
+
+bool	cWaveFile::WriteOggData(size_t e_uiSize,unsigned char*e_pusData)
+{
+  {
+	  //byte to float
+	int l_iDataCount = e_uiSize/4;
+    /* expose the buffer to submit data */
+    float **buffer = vorbis_analysis_buffer (&vd,l_iDataCount);
+    int i;
+
+/* uninterleave samples */
+	//for(l_iChannelIndex=0;i<l_iChannel;i++)
+	{
+	  //if not 2 channel it will wrong!
+	  //for 2 channel
+      for(i=0;i<l_iDataCount;i++){
+        buffer[0][i]=((e_pusData[i*4+1]<<8)|(0x00ff&(int)e_pusData[i*4]))/32768.f;
+        buffer[1][i]=((e_pusData[i*4+3]<<8)|(0x00ff&(int)e_pusData[i*4+2]))/32768.f;
+		++g_iTestTime;
+      }
+	}
+
+    /* tell the library how much we actually submitted */
+    vorbis_analysis_wrote (&vd,i);
+  }
+
+  while (vorbis_analysis_blockout (&vd,&vb) == 1) {
+    vorbis_analysis (&vb,NULL);
+    vorbis_bitrate_addblock (&vb);
+
+    while (vorbis_bitrate_flushpacket (&vd,&op)) {
+      ogg_stream_packetin (&os,&op);
+
+      while (true) {
+          int result = ogg_stream_pageout (&os,&og);
+          if (result == 0)
+              break;
+          fwrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
+          fwrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+
+          if (ogg_page_eos (&og))
+              break;
+      }
+    }
+  }
+  return true;
+}
+
+bool	cWaveFile::EndWriteOggData()
+{
+  vorbis_analysis_wrote (&vd,0);
+  ogg_stream_clear (&os);
+  vorbis_block_clear (&vb);
+  vorbis_dsp_clear (&vd);
+  vorbis_comment_clear (&vc);
+  vorbis_info_clear (&vi);
+
+  m_pWriteFile->CloseFile();
+  SAFE_DELETE(m_pWriteFile);
+  return true;
 }

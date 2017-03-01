@@ -61,6 +61,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -113,10 +114,13 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="ChartAssist.cpp" />
     <ClCompile Include="EditorSample.cpp" />
+    <ClCompile Include="oggHelper.cpp" />
+    <ClCompile Include="OggHelper_VorbisSettings.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WaveFileHeader.cpp" />
     <ClCompile Include="WavFile.cpp" />
     <ClCompile Include="WavWaves.cpp" />
   </ItemGroup>
@@ -125,8 +129,11 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="oggHelper.h" />
+    <ClInclude Include="OggHelper_VorbisSettings.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="WaveFileHeader.h" />
     <ClInclude Include="WavFile.h" />
     <ClInclude Include="WavWaves.h" />
   </ItemGroup>

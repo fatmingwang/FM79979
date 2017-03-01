@@ -5,7 +5,20 @@
 //https://my.oschina.net/liusicong/blog/323090
 
 //http://mirlab.org/jang/books/audiosignalprocessing/audioIntro.asp?title=3-1%20Introduction%20to%20Audio%20Signals%20(%AD%B5%B0T%B0%F2%A5%BB%A4%B6%B2%D0)&language=chinese
-
+#ifdef IOS
+#include "ogg/ogg/ogg.h"
+#include "ogg/vorbis/vorbisfile.h"
+#elif defined(ANDROID)
+#include "../../ogg/ogg/ogg.h"
+#include "../../ogg/vorbis/vorbisfile.h"
+#elif defined(WIN32)
+#include "../../../Include/ogg/ogg.h"
+#include "../../../Include/vorbis/vorbisfile.h"
+#include "../../../Include/vorbis/vorbisenc.h"
+#else//linux
+//#include "ogg.h"
+//#include "vorbisfile.h"
+#endif
 //file  size = total data count*byte rate
 //total data count = file size//byte rate
 //file size = sample rate*byte rate*total seconds
@@ -85,6 +98,14 @@ struct My_WAVChunkHdr_Struct
 
 class cWaveFile
 {
+	//for ogg
+	ogg_stream_state os;
+	ogg_page         og;
+	ogg_packet       op;
+	vorbis_info      vi;
+	vorbis_comment   vc;
+	vorbis_dsp_state vd;
+	vorbis_block     vb;
 private:
 	//for write
 	cBinaryFile*					m_pWriteFile;
@@ -125,7 +146,13 @@ public:
 										unsigned int   e_uiSampleRate,unsigned int   e_uiBytesRate,
 										unsigned short e_usBlockAlign,unsigned short e_usBitsPerSample);
 	//
-	bool							StartWriteFile(const char*es_trFileName);
-	bool							WriteData(size_t e_uiSize,unsigned char*e_pusData);
-	bool							EndWriteFile();
+	bool							StartWriteWavFile(const char*e_strFileName);
+	bool							WriteWavData(size_t e_uiSize,unsigned char*e_pusData);
+	bool							EndWriteWavFile();
+
+	bool							ToOggFile(const char*e_strFileName,const char*e_strOutputFileName);
+
+	bool							StartWriteOggData(const char*e_strFileName);
+	bool							WriteOggData(size_t e_uiSize,unsigned char*e_pusData);
+	bool							EndWriteOggData();
 };

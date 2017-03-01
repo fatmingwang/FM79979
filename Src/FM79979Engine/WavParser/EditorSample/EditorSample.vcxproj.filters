@@ -16,6 +16,9 @@
     <Filter Include="wav">
       <UniqueIdentifier>{3ef7d2de-0675-4840-80e1-d11766821a20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NewFilter1">
+      <UniqueIdentifier>{1b063462-4776-4219-b832-4ea1ad1a6e84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -36,6 +39,15 @@
     <ClCompile Include="WavFile.cpp">
       <Filter>wav</Filter>
     </ClCompile>
+    <ClCompile Include="oggHelper.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="OggHelper_VorbisSettings.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveFileHeader.cpp">
+      <Filter>NewFilter1</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -55,6 +67,15 @@
     </ClInclude>
     <ClInclude Include="WavFile.h">
       <Filter>wav</Filter>
+    </ClInclude>
+    <ClInclude Include="oggHelper.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="OggHelper_VorbisSettings.h">
+      <Filter>NewFilter1</Filter>
+    </ClInclude>
+    <ClInclude Include="WaveFileHeader.h">
+      <Filter>NewFilter1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

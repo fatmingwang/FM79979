@@ -154,7 +154,7 @@ namespace EditorSample
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\MyFMBook\\iPhone_Monster\\1.wav";
+			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\79979.wav";
 			// 
 			// Play_button
 			// 
