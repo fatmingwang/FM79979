@@ -51,7 +51,7 @@
 #include "AllImageInclude.h"
 #include "AllMathInclude.h"
 //#ifndef IOS
-#include "Sound/SoundManager.h"
+#include "Sound/AllSoundInclude.h"
 //#endif
 //#ifndef IOS
 //#include "AVIPlayer/AVIPlayer.h"

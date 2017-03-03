@@ -19,6 +19,8 @@
 //#include "ogg.h"
 //#include "vorbisfile.h"
 #endif
+
+#include "BasicSound.h"
 //file  size = total data count*byte rate
 //total data count = file size//byte rate
 //file size = sample rate*byte rate*total seconds
@@ -95,64 +97,71 @@ struct My_WAVChunkHdr_Struct
 	unsigned char  Id[4]			;//fmt         ,data
 	unsigned int   Size				;//16 for PCM  ,sound size
 };
-
-class cWaveFile
+namespace FATMING_CORE
 {
-	//for ogg
-	ogg_stream_state os;
-	ogg_page         og;
-	ogg_packet       op;
-	vorbis_info      vi;
-	vorbis_comment   vc;
-	vorbis_dsp_state vd;
-	vorbis_block     vb;
-private:
-	//for write
-	cBinaryFile*					m_pWriteFile;
-	size_t							m_uiDataSize;
-	//
-	std::vector<unsigned char*>		m_AllChannelData;
-	void							AssignChannelData();
-	//
-	bool							WriteHeadData();
-public:
-	unsigned char*					m_pSoundData;
-	//
-	//std::vector<char>	m_LeftChannelSoundData;
-	//std::vector<char>	m_RigtChannelSoundData;
-	ALenum							m_Format;
-	int								m_iSoundDataSize;
-	int								m_iFreq;
-	bool							m_bLoop;
-	float							m_fTime;//this->m_fTime = sound data length/(float)m_WAVFmtHdr_Struct.BytesRate;
-	int								m_iSampleCount;//m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
-	//
-	My_WAVFileHdr_Struct			m_WAVFileHdr_Struct;
-	My_WAVFmtHdr_Struct				m_WAVFmtHdr_Struct;
-	My_WAVFmtExHdr_Struct			m_WAVFmtExHdr_Struct;
-	My_WAVSmplHdr_Struct			m_WAVSmplHdr_Struct;
-	My_WAVChunkHdr_Struct			m_WAVChunkHdr_Struct;
-	My_WAVChunkHdr_Struct			m_FMT_And_Data_Header[2];
-public:
-	cWaveFile();
-	~cWaveFile();
-	//
-	bool							OpenFile(const char*e_strFileName);
-	int								GetSampleIndexByTime(float e_fTime);
-	unsigned char*					GetSample(int e_iSampleIndex);
-	unsigned char*					GetChannelData(int e_iChannelIndex);
-	size_t							GetChannelCount(){ return m_AllChannelData.size(); }
-	void							SetWAVFmtHdr(unsigned short e_usFormat,unsigned short e_usChannels,
-										unsigned int   e_uiSampleRate,unsigned int   e_uiBytesRate,
-										unsigned short e_usBlockAlign,unsigned short e_usBitsPerSample);
-	//
-	bool							StartWriteWavFile(const char*e_strFileName);
-	bool							WriteWavData(size_t e_uiSize,unsigned char*e_pusData);
-	bool							EndWriteWavFile();
+	class cBinaryFile;
+	class cSoundFile
+	{
+		//for ogg
+		ogg_stream_state os;
+		ogg_page         og;
+		ogg_packet       op;
+		vorbis_info      vi;
+		vorbis_comment   vc;
+		vorbis_dsp_state vd;
+		vorbis_block     vb;
+	private:
+		//for write
+		cBinaryFile*					m_pWriteFile;
+		size_t							m_uiDataSize;
+		int								m_iWriteChannel;
+		//
+		std::vector<unsigned char*>		m_AllChannelData;
+		void							AssignChannelData();
+		//
+		bool							WriteHeadData();
+	public:
+		unsigned char*					m_pSoundData;
+		//
+		//std::vector<char>	m_LeftChannelSoundData;
+		//std::vector<char>	m_RigtChannelSoundData;
+		ALenum							m_Format;
+		int								m_iSoundDataSize;
+		int								m_iFreq;
+		int								m_iChannel;
+		bool							m_bLoop;
+		float							m_fTime;//this->m_fTime = sound data length/(float)m_WAVFmtHdr_Struct.BytesRate;
+		int								m_iSampleCount;//m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
+		//
+		My_WAVFileHdr_Struct			m_WAVFileHdr_Struct;
+		My_WAVFmtHdr_Struct				m_WAVFmtHdr_Struct;
+		My_WAVFmtExHdr_Struct			m_WAVFmtExHdr_Struct;
+		My_WAVSmplHdr_Struct			m_WAVSmplHdr_Struct;
+		My_WAVChunkHdr_Struct			m_WAVChunkHdr_Struct;
+		My_WAVChunkHdr_Struct			m_FMT_And_Data_Header[2];
+	public:
+		cSoundFile();
+		~cSoundFile();
+		//
+		bool							OpenFile(const char*e_strFileName);
+		int								GetSampleIndexByTime(float e_fTime);
+		unsigned char*					GetSample(int e_iSampleIndex);
+		unsigned char*					GetChannelData(int e_iChannelIndex);
+		size_t							GetChannelCount(){ return m_AllChannelData.size(); }
+		void							SetWAVFmtHdr(unsigned short e_usFormat,unsigned short e_usChannels,
+											unsigned int   e_uiSampleRate,unsigned int   e_uiBytesRate,
+											unsigned short e_usBlockAlign,unsigned short e_usBitsPerSample);
+		//
+		bool							StartWriteWavFile(const char*e_strFileName);
+		bool							WriteWavData(size_t e_uiSize,unsigned char*e_pusData);
+		bool							EndWriteWavFile();
 
-	bool							ToOggFile(const char*e_strFileName,const char*e_strOutputFileName);
+		bool							ToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality = 0.4f,int e_iOutChannel = 2);
 
-	bool							StartWriteOggData(const char*e_strFileName);
-	bool							WriteOggData(size_t e_uiSize,unsigned char*e_pusData);
-	bool							EndWriteOggData();
-};
+		bool							StartWriteOggData(const char*e_strFileName,int e_iSampleRate,int e_iChannel = 2,float e_fQuality = 0.4f);
+		//fuck ogg format is not allow unsigned,it spend my whole night!
+		bool							WriteOggData(size_t e_uiSize,char*e_pusData,int e_iInChannel);
+		bool							EndWriteOggData();
+	};
+//end namespace FATMING_CORE
+}

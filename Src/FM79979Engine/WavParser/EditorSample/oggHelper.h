@@ -36,7 +36,7 @@ private:
 	char ErrMsg[1000];
 	void ErrorReport(char* ErrMsg);
 	
-	#define READ 4096
+	#define READ 1024
 
 	#define OH_STARTED	WM_USER+1
 	#define OH_COMPUTED	WM_USER+2

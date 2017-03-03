@@ -305,6 +305,7 @@
     <ClCompile Include="Math\MathFormulaXML.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Sound\SoundCapture.cpp" />
+    <ClCompile Include="Sound\SoundFile.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Image\AnimationParser.cpp" />
@@ -450,7 +451,9 @@
     <ClInclude Include="Image\RenderNode.h" />
     <ClInclude Include="Math\LinerDataMouseChanger.h" />
     <ClInclude Include="Math\MathFormulaXML.h" />
+    <ClInclude Include="Sound\AllSoundInclude.h" />
     <ClInclude Include="Sound\SoundCapture.h" />
+    <ClInclude Include="Sound\SoundFile.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="AllImageInclude.h" />
     <ClInclude Include="Image\AnimationParser.h" />

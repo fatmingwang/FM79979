@@ -171,7 +171,7 @@ namespace FATMING_CORE
 		}
 	}
 
-	void 	cBinaryFile::WriteToFile(const char*e_pData,int e_iLength )
+	void 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
 	{
 		NvFWrite( e_pData, e_iLength, 1, m_pFile );
 	}

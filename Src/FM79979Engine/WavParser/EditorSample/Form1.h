@@ -1,5 +1,4 @@
 #pragma once
-#include "WavFile.h"
 #include "WavWaves.h"
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -41,6 +40,7 @@ namespace EditorSample
 			m_WindowStartSize.Height += 20;
 			m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
+			m_pSoundCapture = new cSoundCapture(22050,AL_FORMAT_STEREO16);
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
 			m_HGLRCMV = m_pGameApp->m_sHGLRC;
 			//
@@ -68,6 +68,7 @@ namespace EditorSample
 			}
 			SAFE_DELETE(this->m_pWaveInfo);
 			SAFE_DELETE(m_pGameApp);
+			SAFE_DELETE(m_pSoundCapture);
 			SAFE_DELETE(this->m_pWavWaves);
 		}
 	private: System::ComponentModel::IContainer^  components;
@@ -79,9 +80,12 @@ namespace EditorSample
 
 		//my
 		cGameApp*					m_pGameApp;
+		//
+		cSoundCapture*				m_pSoundCapture;
+		//
 		HDC							m_HdcMV;
 		HGLRC						m_HGLRCMV;
-		cWaveFile*					m_pWaveInfo;
+		FATMING_CORE::cSoundFile*	m_pWaveInfo;
 		cWavWaves*					m_pWavWaves;
 		Control^					m_pTargetControl;
 		//
@@ -102,6 +106,9 @@ namespace EditorSample
 	private: System::Windows::Forms::Button^  button4;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::NumericUpDown^  ShowWaveSeconds_numericUpDown;
+	private: System::Windows::Forms::Button^  RecordSound_button;
+	private: System::Windows::Forms::Button^  RecordSoundPause_button;
+	private: System::Windows::Forms::TextBox^  RecordSoundFileName_textBox;
 	private: System::Windows::Forms::ListBox^  WavInfo_listBox;
 
 
@@ -128,6 +135,9 @@ namespace EditorSample
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ShowWaveSeconds_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->RecordSound_button = (gcnew System::Windows::Forms::Button());
+			this->RecordSoundPause_button = (gcnew System::Windows::Forms::Button());
+			this->RecordSoundFileName_textBox = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
@@ -140,9 +150,9 @@ namespace EditorSample
 			// 
 			// OpenWavFile_button
 			// 
-			this->OpenWavFile_button->Location = System::Drawing::Point(635, 685);
+			this->OpenWavFile_button->Location = System::Drawing::Point(873, 661);
 			this->OpenWavFile_button->Name = L"OpenWavFile_button";
-			this->OpenWavFile_button->Size = System::Drawing::Size(94, 34);
+			this->OpenWavFile_button->Size = System::Drawing::Size(85, 34);
 			this->OpenWavFile_button->TabIndex = 0;
 			this->OpenWavFile_button->Text = L"open wav file";
 			this->OpenWavFile_button->UseVisualStyleBackColor = true;
@@ -185,7 +195,7 @@ namespace EditorSample
 			// 
 			// CurrentTime_trackBar
 			// 
-			this->CurrentTime_trackBar->Location = System::Drawing::Point(246, 674);
+			this->CurrentTime_trackBar->Location = System::Drawing::Point(242, 688);
 			this->CurrentTime_trackBar->Name = L"CurrentTime_trackBar";
 			this->CurrentTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->CurrentTime_trackBar->TabIndex = 5;
@@ -193,7 +203,7 @@ namespace EditorSample
 			// CurrentTime_label
 			// 
 			this->CurrentTime_label->AutoSize = true;
-			this->CurrentTime_label->Location = System::Drawing::Point(632, 793);
+			this->CurrentTime_label->Location = System::Drawing::Point(243, 661);
 			this->CurrentTime_label->Name = L"CurrentTime_label";
 			this->CurrentTime_label->Size = System::Drawing::Size(64, 13);
 			this->CurrentTime_label->TabIndex = 6;
@@ -258,11 +268,42 @@ namespace EditorSample
 			this->ShowWaveSeconds_numericUpDown->Size = System::Drawing::Size(46, 20);
 			this->ShowWaveSeconds_numericUpDown->TabIndex = 13;
 			// 
+			// RecordSound_button
+			// 
+			this->RecordSound_button->Location = System::Drawing::Point(584, 757);
+			this->RecordSound_button->Name = L"RecordSound_button";
+			this->RecordSound_button->Size = System::Drawing::Size(94, 34);
+			this->RecordSound_button->TabIndex = 15;
+			this->RecordSound_button->Text = L"RecordSound";
+			this->RecordSound_button->UseVisualStyleBackColor = true;
+			this->RecordSound_button->Click += gcnew System::EventHandler(this, &Form1::RecordSound_button_Click);
+			// 
+			// RecordSoundPause_button
+			// 
+			this->RecordSoundPause_button->Location = System::Drawing::Point(584, 798);
+			this->RecordSoundPause_button->Name = L"RecordSoundPause_button";
+			this->RecordSoundPause_button->Size = System::Drawing::Size(122, 33);
+			this->RecordSoundPause_button->TabIndex = 16;
+			this->RecordSoundPause_button->Text = L"RecordSoundPause";
+			this->RecordSoundPause_button->UseVisualStyleBackColor = true;
+			this->RecordSoundPause_button->Click += gcnew System::EventHandler(this, &Form1::RecordSoundPause_button_Click);
+			// 
+			// RecordSoundFileName_textBox
+			// 
+			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(589, 731);
+			this->RecordSoundFileName_textBox->Name = L"RecordSoundFileName_textBox";
+			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(378, 20);
+			this->RecordSoundFileName_textBox->TabIndex = 17;
+			this->RecordSoundFileName_textBox->Text = L"RecordSoundFileName.ogg";
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->RecordSoundFileName_textBox);
+			this->Controls->Add(this->RecordSoundPause_button);
+			this->Controls->Add(this->RecordSound_button);
 			this->Controls->Add(this->OpenWavFile_button);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->ShowWaveSeconds_numericUpDown);
@@ -376,7 +417,7 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 					std::wstring l_FileName = DNCT::GcStringToWchar(this->WavFileName_textBox->Text);
 					//this->m_pGameApp->SoundPlay(l_FileName.c_str(),true);
 					SAFE_DELETE(this->m_pWaveInfo);
-					this->m_pWaveInfo = new cWaveFile();
+					this->m_pWaveInfo = new FATMING_CORE::cSoundFile();
 					this->WavInfo_listBox->Items->Clear();
 					if(this->m_pWaveInfo->OpenFile(UT::WcharToChar(l_FileName).c_str()))
 					{
@@ -461,6 +502,35 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 				}
 			}
 			this->timer1->Enabled = true;
+		 }
+private: System::Void RecordSound_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( m_pSoundCapture )
+			 {
+				 if(!m_pSoundCapture->IsRecording())
+				 {
+					 std::string l_strFileName = ::GcStringToChar(this->RecordSoundFileName_textBox->Text);
+					 m_pSoundCapture->StartRecord(l_strFileName.c_str(),eCaptureSoundFileFormat::eCSFF_WAV);
+					 //m_pSoundCapture->StartRecord(l_strFileName.c_str(),eCaptureSoundFileFormat::eCSFF_OGG);
+					 RecordSound_button->Text = "Recording...";
+				 }
+				 else
+				 {
+					 m_pSoundCapture->StopRecord();
+					 RecordSound_button->Text = "Stop!";
+				 }
+			 }
+		 }
+private: System::Void RecordSoundPause_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(m_pSoundCapture)
+			 {
+				 m_pSoundCapture->PauseRecord(!m_pSoundCapture->IsPause());
+				 if( m_pSoundCapture->IsPause() )
+					RecordSoundPause_button->Text = "Pause";
+				 else
+					RecordSoundPause_button->Text = "recording...";
+			 }
 		 }
 };
 }

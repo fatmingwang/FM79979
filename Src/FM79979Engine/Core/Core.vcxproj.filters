@@ -689,6 +689,9 @@
     <ClCompile Include="GLSL\TunnelEffect.cpp">
       <Filter>RenderObject\GLSL</Filter>
     </ClCompile>
+    <ClCompile Include="Sound\SoundFile.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1191,6 +1194,12 @@
     </ClInclude>
     <ClInclude Include="GLSL\TunnelEffect.h">
       <Filter>RenderObject\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\AllSoundInclude.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound\SoundFile.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

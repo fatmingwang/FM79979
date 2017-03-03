@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "WavFile.h"
 #include "WavWaves.h"
 
 
@@ -60,7 +59,7 @@ cWavWaves::~cWavWaves()
 {
 }
 
-void	cWavWaves::SetData(cWaveFile*e_pWaveInfo)
+void	cWavWaves::SetData(FATMING_CORE::cSoundFile*e_pWaveInfo)
 {
 	this->m_pWaveInfo = e_pWaveInfo;
 	int	l_iMax = 0;

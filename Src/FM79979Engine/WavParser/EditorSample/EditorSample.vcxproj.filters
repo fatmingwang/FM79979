@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="wav">
+    <Filter Include="Sound">
       <UniqueIdentifier>{3ef7d2de-0675-4840-80e1-d11766821a20}</UniqueIdentifier>
     </Filter>
-    <Filter Include="NewFilter1">
-      <UniqueIdentifier>{1b063462-4776-4219-b832-4ea1ad1a6e84}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{93549e9d-caf0-4258-ace6-3f1e660bc12b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,22 +31,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WavWaves.cpp">
-      <Filter>wav</Filter>
+      <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="ChartAssist.cpp">
-      <Filter>wav</Filter>
+      <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="WavFile.cpp">
-      <Filter>wav</Filter>
-    </ClCompile>
-    <ClCompile Include="oggHelper.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="OggHelper_VorbisSettings.cpp">
-      <Filter>NewFilter1</Filter>
-    </ClCompile>
-    <ClCompile Include="WaveFileHeader.cpp">
-      <Filter>NewFilter1</Filter>
+    <ClCompile Include="MusicGameApp.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,22 +51,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="WavWaves.h">
-      <Filter>wav</Filter>
+      <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="ChartAssist.h">
-      <Filter>wav</Filter>
+      <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="WavFile.h">
-      <Filter>wav</Filter>
-    </ClInclude>
-    <ClInclude Include="oggHelper.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="OggHelper_VorbisSettings.h">
-      <Filter>NewFilter1</Filter>
-    </ClInclude>
-    <ClInclude Include="WaveFileHeader.h">
-      <Filter>NewFilter1</Filter>
+    <ClInclude Include="MusicGameApp.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

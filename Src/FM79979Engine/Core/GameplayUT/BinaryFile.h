@@ -68,7 +68,7 @@ namespace FATMING_CORE
 		void 				WriteToFile(const char* val );
 		//for string
 		void 				WriteToFile(const wchar_t* val );
-		void 				WriteToFile(const char*e_pData,int e_iLength );
+		void 				WriteToFile(const char*e_pData,size_t e_iLength);
 		void 				WriteToFile(int64	  val );
 		//create file
 		//for cet to write for WIN32 to set flag

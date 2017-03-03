@@ -1,7 +1,6 @@
 #pragma once
 
 
-class cWaveFile;
 class cWavWaves
 {
 	struct sChannelCurve
@@ -17,13 +16,13 @@ class cWavWaves
 	};
 
 	std::vector<sChannelCurve*>		m_ChannelCurveVector;
-	cWaveFile*						m_pWaveInfo;
+	FATMING_CORE::cSoundFile*						m_pWaveInfo;
 	//
 	void	RenderChannel(int e_iChannelIndex);
 public:
 	cWavWaves();
 	~cWavWaves();
-	void	SetData(cWaveFile*e_pWaveInfo);
+	void	SetData(FATMING_CORE::cSoundFile*e_pWaveInfo);
 	void	Render();
 private:
 
