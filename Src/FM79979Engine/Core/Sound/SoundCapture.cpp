@@ -7,6 +7,7 @@
 //#include <thread>
 #include "../Synchronization/FUThreadPool.h"
 #include "../GameplayUT/GameApp.h"
+#include "unistd.h"
 namespace	FATMING_CORE
 {
 	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
@@ -35,7 +36,7 @@ namespace	FATMING_CORE
 		int l_iTest = 0;
 		while(!l_pSoundCapture->IsStop())
 		{
-			if(l_pSoundCapture->IsPause())
+			if(l_pSoundCapture->IsPause()||cGameApp::m_sbGamePause)
 			{
 				Sleep(1);
 				continue;
@@ -54,16 +55,13 @@ namespace	FATMING_CORE
 #endif
 					//because the open al give short data here need to conver to char size
 					alcCaptureSamples(l_pSoundCapture->GetDevice(),l_pBuffer,l_iSamplesIn);
+					//the channel is 2,data size is double.
 					l_iSamplesIn = l_iSamplesIn*sizeof(short)/sizeof(char)*l_pSoundCapture->GetWriteChannel();
-					//cFUSynchronizedHold	l_cFUSynchronizedHold(l_pSoundCapture->GetSynchronized());
+					l_pSoundCapture->AddFileSize(l_iSamplesIn);
 					if(l_pSoundCapture->GetCaptureSoundFileFormat() == eCSFF_OGG)
 						l_pSoundFile->WriteOggData(l_iSamplesIn,(char*)l_pBuffer,l_pSoundCapture->GetWriteChannel());
 					else
 						l_pSoundFile->WriteWavData(l_iSamplesIn,(unsigned char*)l_pBuffer);
-					//***** Process/filter captured data here *****//
-					//for (int ii=0;ii<CAP_SIZE;++ii) {
-					//  buffer[ii]*=0.1; // Make it quieter
-					//}
 				}
 			}
 		}
@@ -80,11 +78,6 @@ namespace	FATMING_CORE
 	{
 
 	}
-	//const int SRATE = 44100;
-	//const int SSIZE = 1024;
-	//
-	//ALbyte buffer[22050];
-	//ALint sample;
 	cSoundCapture*g_pSoundCapture = nullptr;
 	cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 	{
@@ -94,6 +87,7 @@ namespace	FATMING_CORE
 		m_bPause = false;
 		m_bStop = false;
 		m_pDevice = nullptr;
+		m_iFileSize = 0;
 
 		if( format == AL_FORMAT_MONO16 || format == AL_FORMAT_STEREO16 )
 			m_iWriteBitpersample = 16;
@@ -161,6 +155,7 @@ namespace	FATMING_CORE
 		{
 			m_eCaptureSoundFileFormat = e_eCaptureSoundFileFormat;
 			m_bIsRecording = true;
+			m_iFileSize = 0;
 			this->m_bStop = false;
 			this->m_bPause = false;
 			m_strSaveFileName = e_strFileName;
@@ -198,6 +193,12 @@ namespace	FATMING_CORE
 	{
 		this->m_bStop = true;;
 		m_bIsRecording = false;
+	}
+
+
+	void	cSoundCapture::AddFileSize(int e_iFileSize)
+	{
+		this->m_iFileSize += e_iFileSize;
 	}
 }
 //end defined #if defined(USE_SOUND_CAPTURE)

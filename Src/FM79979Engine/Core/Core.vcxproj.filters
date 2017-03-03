@@ -686,11 +686,11 @@
     <ClCompile Include="GLSL\ToneMapping.cpp">
       <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClCompile>
-    <ClCompile Include="GLSL\TunnelEffect.cpp">
-      <Filter>RenderObject\GLSL</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\SoundFile.cpp">
       <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="GLSL\TunnelEffect.cpp">
+      <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1192,14 +1192,14 @@
     <ClInclude Include="GLSL\ToneMapping.h">
       <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClInclude>
-    <ClInclude Include="GLSL\TunnelEffect.h">
-      <Filter>RenderObject\GLSL</Filter>
-    </ClInclude>
     <ClInclude Include="Sound\AllSoundInclude.h">
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\SoundFile.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="GLSL\TunnelEffect.h">
+      <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

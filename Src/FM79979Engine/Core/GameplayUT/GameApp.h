@@ -181,6 +181,7 @@ namespace	FATMING_CORE
 		static	bool					SoundPlay(const wchar_t*e_strSoundName,bool e_bPlay);
 		static	cBasicSound*			GetSoundByFileName(const wchar_t*e_strSoundFileName);
 		static	cBasicSound*			GetSound(const wchar_t*e_strSoundName);
+		static	void					RenderFont(long e_iPosX,long e_iPosY,const wchar_t*e_strInfo);
 		static	void					RenderFont(int e_iPosX,int e_iPosY,const wchar_t*e_strInfo);
 		static	void					RenderFont(int e_iPosX,int e_iPosY,std::wstring e_strInfo);
 		static	void					RenderFont(float e_fPosX,float e_fPosY,const wchar_t*e_strInfo);

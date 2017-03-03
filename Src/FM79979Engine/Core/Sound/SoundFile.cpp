@@ -2,7 +2,9 @@
 #include "SoundFile.h"
 
 #include "../GameplayUT/BinaryFile.h"
-
+#ifdef ANDROID
+#include "ogg/vorbis/vorbisenc.h"
+#endif
 const char*	g_strFMTFormat = "fmt ";
 const char*	g_strWAVHeader = "RIFF";
 const char*	g_strWAVFormat = "WAVE";
@@ -384,7 +386,8 @@ float g_fTest2 = 1.f;
 	  int ret;
 
 	  if (!m_pWriteFile->Writefile(e_strFileName,true,false)) {
-		printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
+		//printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
+		  UT::ErrorMsg("write file failed",e_strFileName);
 		return false;
 	  }
 
@@ -516,8 +519,8 @@ float g_fTest2 = 1.f;
 			  int result = ogg_stream_pageout (&os,&og);
 			  if (result == 0)
 				  break;
-			  fwrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
-			  fwrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+			  NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
+			  NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
 
 			  if (ogg_page_eos (&og))
 				  break;

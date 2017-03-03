@@ -544,6 +544,15 @@ namespace	FATMING_CORE
 			RenderFont((int)e_fPosX,(int)e_fPosY,e_strInfo);
 	}
 
+
+	void	cGameApp::RenderFont(long e_iPosX,long e_iPosY,const wchar_t*e_strInfo)
+	{
+		if( m_spGlyphFontRender )
+		{
+			m_spGlyphFontRender->RenderFont((int)e_iPosX,(int)e_iPosY,e_strInfo);
+		}	
+	}
+
 	void	cGameApp::RenderFont(int e_iPosX,int e_iPosY,const wchar_t*e_strInfo)
 	{
 		if( m_spGlyphFontRender )

@@ -96,6 +96,9 @@
     <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
+    <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
     <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
@@ -104,6 +107,8 @@
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
     <ClCompile Include="..\..\Core\Network\Network.cpp" />
+    <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp" />
+    <ClCompile Include="..\..\Core\Sound\SoundFile.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundManager.cpp" />
     <ClCompile Include="..\..\Core\XML\XmlLoader.cpp" />
     <None Include="..\..\Core\FMEvent\Event.vcxproj.filters" />
@@ -399,8 +404,11 @@
     <ClInclude Include="..\..\Core\GameplayUT\StringCompress.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Tabpage.h" />
     <ClInclude Include="..\..\Core\Glh.h" />
+    <ClInclude Include="..\..\Core\GLSL\Blur.h" />
     <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h" />
     <ClInclude Include="..\..\Core\GLSL\Shader.h" />
+    <ClInclude Include="..\..\Core\GLSL\ToneMapping.h" />
+    <ClInclude Include="..\..\Core\GLSL\TunnelEffect.h" />
     <ClInclude Include="..\..\Core\Glyph\GlyphReader.h" />
     <ClInclude Include="..\..\Core\Glyph\GlyphWriter.h" />
     <ClInclude Include="..\..\Core\Image\AnimationParser.h" />
@@ -477,9 +485,12 @@
     <ClInclude Include="..\..\Core\Physic\BulletShape.h" />
     <ClInclude Include="..\..\Core\PlafFormDefine.h" />
     <ClInclude Include="..\..\Core\SmartPointer.h" />
+    <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h" />
     <ClInclude Include="..\..\Core\Sound\BasicSound.h" />
     <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h" />
     <ClInclude Include="..\..\Core\Sound\OpenAlWavFile.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundCapture.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundFile.h" />
     <ClInclude Include="..\..\Core\Sound\SoundManager.h" />
     <ClInclude Include="..\..\Core\stdafx.h" />
     <ClInclude Include="..\..\Core\StringID.h" />

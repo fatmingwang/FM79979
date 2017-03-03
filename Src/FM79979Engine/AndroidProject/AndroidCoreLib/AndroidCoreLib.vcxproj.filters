@@ -208,9 +208,6 @@
     <Filter Include="jni\RenderObject\Font\Glyph">
       <UniqueIdentifier>{1f6cffb0-0ef3-4a74-bdc3-cfbdf1c7ee8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\RenderObject\GLSL\Effect">
-      <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\RenderObject\Parser\Animation">
       <UniqueIdentifier>{bd9d3eac-ddad-4243-99a6-d5a46090677d}</UniqueIdentifier>
     </Filter>
@@ -249,6 +246,9 @@
     </Filter>
     <Filter Include="jni\GamePlayUT\CameraZoom">
       <UniqueIdentifier>{e0bf38c8-b0d0-4608-b929-88618d5a52e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\GLSL\PostEffect">
+      <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -874,6 +874,21 @@
     <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp">
       <Filter>jni\RenderObject\Texture\png</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundFile.cpp">
+      <Filter>jni\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\Blur.cpp">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1470,6 +1485,24 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\png\pngLoader.h">
       <Filter>jni\RenderObject\Texture\png</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundCapture.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundFile.h">
+      <Filter>jni\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\Blur.h">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\ToneMapping.h">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GLSL\TunnelEffect.h">
+      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -153,7 +153,7 @@ namespace FATMING_CORE
 			POINT l_Size ={ (int)cGameApp::m_svGameResolution.x/2,(int)cGameApp::m_svGameResolution.y/2 };
 			POINT l_Pos = { 0,0};
 			this->m_pOriginalFrameBuffer->DrawBuffer(l_Pos,l_Size);
-			cGameApp::RenderFont(l_Pos.x,l_Pos.y,L"Full");
+			cGameApp::RenderFont((int)l_Pos.x,(int)l_Pos.y,L"Full");
 
 			l_Pos.y += (int)cGameApp::m_svGameResolution.y/2;
 			this->m_pDownSampleBrightShader->GetFrameBuffer()->DrawBuffer(l_Pos,l_Size);

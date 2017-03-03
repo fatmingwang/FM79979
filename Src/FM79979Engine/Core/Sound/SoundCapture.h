@@ -31,12 +31,14 @@ namespace	FATMING_CORE
 		int						m_iSampleRate;
 		ALCdevice*				m_pDevice;
 		static cSoundCapture*	m_spSoundCapture;
-		cFUSynchronized			m_FUSynchronized;
+		//cFUSynchronized			m_FUSynchronized;
 		bool					m_bIsRecording;
 		int						m_iWriteChannel;
 		int						m_iWriteBitpersample;
 		//
 		eCaptureSoundFileFormat	m_eCaptureSoundFileFormat;
+		//no header file size
+		int						m_iFileSize;
 	public:
 		cSoundCapture(ALCuint frequency = SOUND_CAPTURE_FREQUENCE, ALCenum format = SOUND_CAPTURE_FORMAT, ALCsizei buffersize = SOUND_CAPTURE_BUFFSIZE);
 		~cSoundCapture();
@@ -47,13 +49,15 @@ namespace	FATMING_CORE
 		bool							IsPause(){return m_bPause;}
 		void							Update(float e_fElpaseTime);
 		ALCdevice*						GetDevice(){return m_pDevice;}
-		const cFUSynchronized*			GetSynchronized(){return &m_FUSynchronized;}
+		//const cFUSynchronized*			GetSynchronized(){return &m_FUSynchronized;}
 		cSoundFile*						GetSoundFile(){return m_pSoundFile;}
 		int								GetSampleRate(){return m_iSampleRate;}
 		bool							IsRecording(){return m_bIsRecording;}
 		eCaptureSoundFileFormat			GetCaptureSoundFileFormat(){return m_eCaptureSoundFileFormat;}
 		void							SetStop(bool e_bStop){m_bStop = e_bStop;}
 		int								GetWriteChannel(){return m_iWriteChannel;}
+		void							AddFileSize(int e_iFileSize);
+		int								GetFileSize(){return m_iFileSize;}
 		//
 	};
 }
