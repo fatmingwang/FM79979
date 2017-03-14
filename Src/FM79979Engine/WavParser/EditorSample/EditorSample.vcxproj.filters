@@ -39,6 +39,9 @@
     <ClCompile Include="MusicGameApp.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="KissFFTConvert.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -58,6 +61,9 @@
     </ClInclude>
     <ClInclude Include="MusicGameApp.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="KissFFTConvert.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

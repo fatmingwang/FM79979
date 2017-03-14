@@ -64,12 +64,13 @@ namespace DNCT
 
 	String^	WcharToGcstring(const WCHAR*e_str)
 	{
-		if( !e_str||!wcslen(e_str) )
+		if( !e_str)
 		{
 			WARNING_MSG("input gcstring string is empty");
 			return "";
-
 		}
+		if(!wcslen(e_str))
+			return "";
 		//return	String(DNCTWcharToChar(e_str)).ToString();
 		return	String(e_str).ToString();
 	}
@@ -1407,6 +1408,15 @@ bool	ParseXMALFileToHandl(GCFORM::Control^e_pControl,String^e_strFileName)
 		//l_pSource->RootVisual = l_pPage;
 		return true;
 	}
-
+	//http://stackoverflow.com/questions/1879395/how-to-generate-a-stream-from-a-string
+	System::IO::Stream^ GenerateStreamFromString(String^e_str)
+	{
+		System::IO::MemoryStream^stream = gcnew System::IO::MemoryStream();
+		System::IO::StreamWriter^writer = gcnew System::IO::StreamWriter(stream);
+		writer->Write(e_str);
+		writer->Flush();
+		stream->Position = 0;
+		return stream;
+	}
 //end DNCT
 }

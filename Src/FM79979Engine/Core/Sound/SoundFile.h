@@ -52,7 +52,7 @@ struct       My_WAVFileHdr_Struct
 struct My_WAVFmtHdr_Struct
 {
 	unsigned short Format			;//fmt ,0x666d7420
-	unsigned short Channels			;//must big than 16
+	unsigned short Channels			;//1 or 2,
 	unsigned int   SampleRate		;//m_iSampleCount/m_fTime
 	unsigned int   BytesRate		;//== SampleRate * NumChannels * BitsPerSample/8
 	unsigned short BlockAlign		;//== NumChannels * BitsPerSample/8,The number of bytes for one sample includingall channels. I wonder what happens when this number isn't an integer?
@@ -127,9 +127,8 @@ namespace FATMING_CORE
 		//std::vector<char>	m_RigtChannelSoundData;
 		ALenum							m_Format;
 		int								m_iSoundDataSize;
-		int								m_iFreq;
+		int								m_iFreq;//OneSceondSampleCount
 		int								m_iChannel;
-		bool							m_bLoop;
 		float							m_fTime;//this->m_fTime = sound data length/(float)m_WAVFmtHdr_Struct.BytesRate;
 		int								m_iSampleCount;//m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
 		//
@@ -137,8 +136,9 @@ namespace FATMING_CORE
 		My_WAVFmtHdr_Struct				m_WAVFmtHdr_Struct;
 		My_WAVFmtExHdr_Struct			m_WAVFmtExHdr_Struct;
 		My_WAVSmplHdr_Struct			m_WAVSmplHdr_Struct;
-		My_WAVChunkHdr_Struct			m_WAVChunkHdr_Struct;
-		My_WAVChunkHdr_Struct			m_FMT_And_Data_Header[2];
+		//My_WAVChunkHdr_Struct			m_FMT_And_Data_Header[2];
+		bool							OpenWavFile(const char*e_strFileName);
+		bool							OpenOggFile(const char*e_strFileName);
 	public:
 		cSoundFile();
 		~cSoundFile();
@@ -155,13 +155,14 @@ namespace FATMING_CORE
 		bool							StartWriteWavFile(const char*e_strFileName);
 		bool							WriteWavData(size_t e_uiSize,unsigned char*e_pusData);
 		bool							EndWriteWavFile();
-
-		bool							ToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality = 0.4f,int e_iOutChannel = 2);
-
+		//
 		bool							StartWriteOggData(const char*e_strFileName,int e_iSampleRate,int e_iChannel = 2,float e_fQuality = 0.4f);
 		//fuck ogg format is not allow unsigned,it spend my whole night!
 		bool							WriteOggData(size_t e_uiSize,char*e_pusData,int e_iInChannel);
 		bool							EndWriteOggData();
+		//
+		bool							WavToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality = 0.4f,int e_iOutChannel = 2);
+		bool							OggToWavFile(const char*e_strFileName,const char*e_strOutputFileName,int e_iOutChannel = 2);
 	};
 //end namespace FATMING_CORE
 }

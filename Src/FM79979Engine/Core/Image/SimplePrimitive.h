@@ -59,6 +59,7 @@ namespace GLRender
 	//u have to disable client state or it may occor crash
 	void	RenderArrow(Vector3 P,Vector3 D, float radius,Vector4 e_vColor);
 	void	Render3DArrow(Vector3 P,Vector3 D,Vector4 e_vColor = Vector4::One,float e_fWidth = 8);
+	//if you want enable point size please write shader(gl_PointSize) and enable GL_VERTEX_PROGRAM_POINT_SIZE
 	void	RenderPoint(Vector2	e_vPos,float e_fSize = 15,Vector4 e_vColor = Vector4::One);
 	void	RenderPoint(Vector3	e_vPos,float e_fSize = 15,Vector4 e_vColor = Vector4::One);
 	void	RenderPoints(Vector3*e_vPos,int e_iNum,float e_fSize = 15,Vector4 e_vColor = Vector4::One,float*e_pfMatrix = cMatrix44::Identity);

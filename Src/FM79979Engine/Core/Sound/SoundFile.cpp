@@ -2,6 +2,7 @@
 #include "SoundFile.h"
 
 #include "../GameplayUT/BinaryFile.h"
+#include "OpenAlOgg.h"
 #ifdef ANDROID
 #include "ogg/vorbis/vorbisenc.h"
 #endif
@@ -49,7 +50,6 @@ namespace FATMING_CORE
 		m_Format = 0;
 		m_iSoundDataSize = 0;
 		m_iFreq = 0;
-		m_bLoop = false;
 		m_fTime = 0.f;
 		m_iSampleCount = 0;
 		m_uiDataSize = 0;
@@ -71,6 +71,16 @@ namespace FATMING_CORE
 	}
 
 
+	bool	cSoundFile::OpenWavFile(const char*e_strFileName)
+	{
+		return true;	
+	}
+
+	bool	cSoundFile::OpenOggFile(const char*e_strFileName)
+	{
+		return true;
+	}
+
 	//ALvoid GetWAVData(const ALbyte *file,ALenum *format,ALvoid **data,ALsizei *size,ALsizei *freq, ALboolean *loop,float *e_fTotalPlayTime)
 	bool	cSoundFile::OpenFile(const char*e_strFileName)
 	{
@@ -79,7 +89,8 @@ namespace FATMING_CORE
 		memset(&m_WAVFmtHdr_Struct,0,sizeof(My_WAVFmtHdr_Struct));
 		memset(&m_WAVFmtExHdr_Struct,0,sizeof(My_WAVFmtExHdr_Struct ));
 		memset(&m_WAVSmplHdr_Struct,0,sizeof(My_WAVSmplHdr_Struct ));
-		memset(&m_WAVChunkHdr_Struct,0,sizeof(My_WAVChunkHdr_Struct ));
+		My_WAVChunkHdr_Struct l_WAVChunkHdr_Struct;
+		memset(&l_WAVChunkHdr_Struct,0,sizeof(My_WAVChunkHdr_Struct ));
 		NvFile *l_pFile = nullptr;
 		SAFE_DELETE(m_pSoundData);
 
@@ -108,23 +119,25 @@ namespace FATMING_CORE
 				NvFRead(&m_WAVFileHdr_Struct,1,l_uiMy_WAVFileHdr_StructSize,l_pFile);
 				m_WAVFileHdr_Struct.Size=((m_WAVFileHdr_Struct.Size+1)&~1)-4;
 				size_t l_uiMy_WAVChunkHdr_StructSize = sizeof(My_WAVChunkHdr_Struct);
-				while ((m_WAVFileHdr_Struct.Size!=0)&&(NvFRead(&m_WAVChunkHdr_Struct,1,l_uiMy_WAVChunkHdr_StructSize,l_pFile)))
+				while ((m_WAVFileHdr_Struct.Size!=0)&&(NvFRead(&l_WAVChunkHdr_Struct,1,l_uiMy_WAVChunkHdr_StructSize,l_pFile)))
 				{
-					if (!memcmp(m_WAVChunkHdr_Struct.Id,g_strFMTFormat,4))
+					if (!memcmp(l_WAVChunkHdr_Struct.Id,g_strFMTFormat,4))
 					{
-						m_FMT_And_Data_Header[0] = m_WAVChunkHdr_Struct;
+						//m_FMT_And_Data_Header[0] = l_WAVChunkHdr_Struct;
 						size_t l_uiMy_WAVFmtHdr_StructSize = sizeof(My_WAVFmtHdr_Struct);
 						NvFRead(&m_WAVFmtHdr_Struct,1,l_uiMy_WAVFmtHdr_StructSize,l_pFile);
 						//1,PCM
 						if ((m_WAVFmtHdr_Struct.Format==0x0001)||(m_WAVFmtHdr_Struct.Format==0xFFFE))
 						{
-							if (m_WAVFmtHdr_Struct.Channels==1)
-								this->m_Format = (m_WAVFmtHdr_Struct.BitsPerSample==4?alGetEnumValue("AL_FORMAT_MONO_IMA4"):(m_WAVFmtHdr_Struct.BitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16));
-							else if (m_WAVFmtHdr_Struct.Channels==2)
-								this->m_Format = (m_WAVFmtHdr_Struct.BitsPerSample==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(m_WAVFmtHdr_Struct.BitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
+							this->m_Format = cBasicSound::PerSampleBitAndChannelToOpenALFormat(m_WAVFmtHdr_Struct.BitsPerSample,m_WAVFmtHdr_Struct.Channels);
+							//if (m_WAVFmtHdr_Struct.Channels==1)
+							//	this->m_Format = (m_WAVFmtHdr_Struct.BitsPerSample==4?alGetEnumValue("AL_FORMAT_MONO_IMA4"):(m_WAVFmtHdr_Struct.BitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16));
+							//else if (m_WAVFmtHdr_Struct.Channels==2)
+							//	this->m_Format = (m_WAVFmtHdr_Struct.BitsPerSample==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(m_WAVFmtHdr_Struct.BitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
 							this->m_iFreq = m_WAVFmtHdr_Struct.SampleRate;
+							this->m_iChannel = m_WAVFmtHdr_Struct.Channels;
 							//why need this?
-							size_t l_uiStep = m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
+							size_t l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
 							NvFSeek(l_pFile,l_uiStep,SEEK_CUR);
 						}					
 						else //17
@@ -135,16 +148,16 @@ namespace FATMING_CORE
 							else if (m_WAVFmtHdr_Struct.Channels==2)
 								this->m_Format = alGetEnumValue("AL_FORMAT_STEREO_IMA4");
 							this->m_iFreq = m_WAVFmtHdr_Struct.SampleRate;
-							size_t l_uiStep = m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
-							NvFSeek(l_pFile,m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct),SEEK_CUR);
+							size_t l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
+							NvFSeek(l_pFile,l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct),SEEK_CUR);
 						}
 						else 
 						if (m_WAVFmtHdr_Struct.Format==0x0055)
 						{
 							this->m_Format = alGetEnumValue("AL_FORMAT_MP3");
 							this->m_iFreq = m_WAVFmtHdr_Struct.SampleRate;
-							size_t l_uiStep = m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
-							NvFSeek(l_pFile,m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct),SEEK_CUR);
+							size_t l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
+							NvFSeek(l_pFile,l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct),SEEK_CUR);
 						}
 						else
 						{
@@ -161,20 +174,20 @@ namespace FATMING_CORE
 							}
 							UT::ErrorMsgByFormat("not support wav format %d!?",m_WAVFmtHdr_Struct.Format);
 							NvFRead(&m_WAVFmtExHdr_Struct,1,sizeof(My_WAVFmtExHdr_Struct),l_pFile);
-							NvFSeek(l_pFile,m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct)-sizeof(My_WAVFmtExHdr_Struct),SEEK_CUR);
+							NvFSeek(l_pFile,l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct)-sizeof(My_WAVFmtExHdr_Struct),SEEK_CUR);
 						}
 					}
-					else if (!memcmp(m_WAVChunkHdr_Struct.Id,g_strWAVData,4))
+					else if (!memcmp(l_WAVChunkHdr_Struct.Id,g_strWAVData,4))
 					{
-						m_FMT_And_Data_Header[1] = m_WAVChunkHdr_Struct;
-						this->m_fTime = m_WAVChunkHdr_Struct.Size/(float)m_WAVFmtHdr_Struct.BytesRate;
-						this->m_iSoundDataSize = m_WAVChunkHdr_Struct.Size;
+						//m_FMT_And_Data_Header[1] = l_WAVChunkHdr_Struct;
+						this->m_fTime = l_WAVChunkHdr_Struct.Size/(float)m_WAVFmtHdr_Struct.BytesRate;
+						this->m_iSoundDataSize = l_WAVChunkHdr_Struct.Size;
 						//whye here need more 31 byte? for empty sound!?
 						int	l_iEndSounddForEmpty_DataLength = 0;
-						m_pSoundData = (unsigned char*)malloc(m_WAVChunkHdr_Struct.Size+l_iEndSounddForEmpty_DataLength);
-						NvFRead(m_pSoundData,1,m_WAVChunkHdr_Struct.Size,l_pFile);
+						m_pSoundData = (unsigned char*)malloc(l_WAVChunkHdr_Struct.Size+l_iEndSounddForEmpty_DataLength);
+						NvFRead(m_pSoundData,1,l_WAVChunkHdr_Struct.Size,l_pFile);
 						//if( l_iEndSounddForEmpty_DataLength > 0 )
-							//memset(m_pSoundData+m_WAVChunkHdr_Struct.Size,0,l_iEndSounddForEmpty_DataLength);
+							//memset(m_pSoundData+l_WAVChunkHdr_Struct.Size,0,l_iEndSounddForEmpty_DataLength);
 						//it should be done here
 						//NvFSeek(l_pFile,ChunkHdr.Size&1,SEEK_CUR);
 						//int	l_Size = (((ChunkHdr.Size+1)&~1)+8);
@@ -183,21 +196,21 @@ namespace FATMING_CORE
 						//	return true;
 						//return false;
 					}
-					else if (!memcmp(m_WAVChunkHdr_Struct.Id,"smpl",4))
+					else if (!memcmp(l_WAVChunkHdr_Struct.Id,"smpl",4))
 					{
 						NvFRead(&m_WAVSmplHdr_Struct,1,sizeof(My_WAVSmplHdr_Struct),l_pFile);
 						l_bLoop = (m_WAVSmplHdr_Struct.Loops ? AL_TRUE : AL_FALSE);
-						size_t l_uiStep = m_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
-						NvFSeek(l_pFile,m_WAVChunkHdr_Struct.Size-sizeof(My_WAVSmplHdr_Struct),SEEK_CUR);
+						size_t l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
+						NvFSeek(l_pFile,l_WAVChunkHdr_Struct.Size-sizeof(My_WAVSmplHdr_Struct),SEEK_CUR);
 					}
 					else 
 					{
-						NvFSeek(l_pFile,m_WAVChunkHdr_Struct.Size,SEEK_CUR);
+						NvFSeek(l_pFile,l_WAVChunkHdr_Struct.Size,SEEK_CUR);
 					}
 					//why need this one
-					int	l_Size = m_WAVChunkHdr_Struct.Size&1;
+					int	l_Size = l_WAVChunkHdr_Struct.Size&1;
 					NvFSeek(l_pFile,l_Size,SEEK_CUR);
-					l_Size = (((m_WAVChunkHdr_Struct.Size+1)&~1)+8);
+					l_Size = (((l_WAVChunkHdr_Struct.Size+1)&~1)+8);
 					m_WAVFileHdr_Struct.Size-= l_Size;
 				}
 				NvFClose(l_pFile);
@@ -214,7 +227,7 @@ namespace FATMING_CORE
 		}
 	
 		int l_iSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
-		assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_WAVChunkHdr_Struct.Size);
+		assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_iSoundDataSize&&"this is not a common wav file");
 		std::vector<char>*l_pChannelDataPointer = nullptr;
 		for(int i=0;i<this->m_WAVFmtHdr_Struct.Channels;++i)
 		{
@@ -222,6 +235,7 @@ namespace FATMING_CORE
 			unsigned char*l_pCurrentChannelData = new unsigned char[m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels];
 			int l_iCurrentChannelStep = m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels;
 			//int
+			int l_iHowManyBytesCopy = 0;
 			for(int k=0;k<m_iSampleCount;++k)
 			{
 				int l_iSrcIndex = (l_iSampleLength*k)+l_iCurrentChannelStep*i;
@@ -229,12 +243,46 @@ namespace FATMING_CORE
 				unsigned char*l_CurrentChannelData = m_pSoundData+l_iSrcIndex;
 				unsigned char*l_pCopyData = l_pCurrentChannelData+l_iTargetIndex;
 				memcpy(l_pCopyData,l_CurrentChannelData,l_iCurrentChannelStep);
+				l_iHowManyBytesCopy += l_iCurrentChannelStep;
 			}
 			m_AllChannelData.push_back(l_pCurrentChannelData);
 		}
-		//oggHelper l_oggHelper;
-		//l_oggHelper.Encode((char*)e_strFileName,"79979.ogg");
-		ToOggFile(e_strFileName,"279979.ogg");
+		//output one channel test
+//		{
+//
+//
+//			this->m_iWriteChannel = 1;
+//			m_iSoundDataSize /= 2;
+//			StartWriteOggData("qqq.ogg",this->m_WAVFmtHdr_Struct.SampleRate,m_iWriteChannel,0.5);
+//			//StartWriteOggData(e_strOutputFileName,this->m_WAVFmtHdr_Struct.SampleRate,2,e_fQuality);
+//			int l_iWriteSize = 1024*4;//m_iSoundDataSize;//1024*100;//306432
+//			if( l_iWriteSize >= m_iSoundDataSize)
+//				l_iWriteSize = m_iSoundDataSize;
+//			//from byte to float
+//			int l_iNumData = this->m_iSoundDataSize/l_iWriteSize;
+//			if(this->m_iSoundDataSize%l_iWriteSize)
+//			{
+//				l_iNumData += 1;
+//			}
+//			unsigned char*l_pCurrentSoundData = m_AllChannelData[0];
+//			int l_iCurrentDataPos = 0;
+//			for( int i=0;i<l_iNumData;++i )
+//			{
+//				int l_iDataLen = l_iWriteSize;
+//				if((i+1)*l_iWriteSize>m_iSoundDataSize)
+//				{
+//					l_iDataLen = m_iSoundDataSize-(i*l_iWriteSize);
+//				}
+//#ifdef SRROUND_SOUND_TEST
+//				g_fTest = sin((float)i/l_iNumData*20.f);
+//				g_fTest2 = cos((float)i/l_iNumData*20.f);
+//#endif
+//				char*l_pucCurrentData = (char*)l_pCurrentSoundData+l_iCurrentDataPos;
+//				WriteOggData(l_iDataLen,l_pucCurrentData,1);
+//				l_iCurrentDataPos += l_iDataLen;
+//			}
+//			EndWriteOggData();
+//		}			
 		return true;
 	}
 
@@ -268,6 +316,31 @@ namespace FATMING_CORE
 		unsigned short e_usBlockAlign,unsigned short e_usBitsPerSample)
 	{
 		m_WAVFmtHdr_Struct = GetWAVFmtHdr_Struct(e_usFormat,e_usChannels,e_uiSampleRate,e_uiBytesRate,e_usBlockAlign,e_usBitsPerSample);
+	}
+
+	bool	cSoundFile::OggToWavFile(const char*e_strFileName,const char*e_strOutputFileName,int e_iOutChannel )
+	{
+		vector<char> buffer;
+		ALenum l_eFormat;
+		int l_iFreq;
+		float l_fTime;
+		FATMING_CORE::LoadOGG(e_strFileName,buffer,l_eFormat,l_iFreq,l_fTime);
+		size_t l_uiSize = static_cast<ALsizei>(buffer.size());
+		if( buffer.size() )
+		{
+			int l_iChannel = l_eFormat==AL_FORMAT_MONO16?1:2;
+			int l_iSampleRate = (int)(l_uiSize/l_iChannel/l_fTime);
+			const int l_iOggBitPerSample = 16;
+			const int l_iBitToByteCount = 8;
+			const int l_iBlockAlign = 8;
+			unsigned int   l_uBytesRate = l_iSampleRate*l_iChannel*l_iOggBitPerSample/l_iBitToByteCount;//== SampleRate * NumChannels * BitsPerSample/8
+			this->SetWAVFmtHdr(1,l_iChannel,l_iFreq,l_uBytesRate,l_iBlockAlign,l_iOggBitPerSample);
+			StartWriteWavFile(e_strOutputFileName);
+			WriteWavData(l_uiSize,(unsigned char*)&buffer[0]);
+			EndWriteWavFile();
+			return true;
+		}
+		return false;
 	}
 
 	bool	cSoundFile::StartWriteWavFile(const char*e_strFileName)
@@ -337,7 +410,7 @@ float g_fTest = 1.f;
 float g_fTest2 = 1.f;
 #endif
 
-	bool	cSoundFile::ToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality,int e_iOutChannel)
+	bool	cSoundFile::WavToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality,int e_iOutChannel)
 	{
 		if(m_iSoundDataSize == 0)
 			this->OpenFile(e_strFileName);
@@ -371,9 +444,9 @@ float g_fTest2 = 1.f;
 				WriteOggData(l_iDataLen,l_pucCurrentData,m_WAVFmtHdr_Struct.Channels);
 				l_iCurrentDataPos += l_iDataLen;
 			}
-		}
 			EndWriteOggData();
 			return true;
+		}
 		return false;
 	}
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EditorSample", "EditorSample\EditorSample.vcxproj", "{10701D7A-22A2-43E9-923C-3D00F0A4CC3C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WavParser", "EditorSample\EditorSample.vcxproj", "{10701D7A-22A2-43E9-923C-3D00F0A4CC3C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotNetCommon", "..\DotNetCommon\DotNetCommon.vcxproj", "{941833B3-FD87-4BB5-8225-6ECC1098A767}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kiss_fft130", "..\kiss_fft130\kiss_fft130.vcxproj", "{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,12 @@ Global
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.ActiveCfg = Release|Win32
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.Build.0 = Release|Win32
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|x64.ActiveCfg = Release|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|Win32.Build.0 = Debug|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|x64.ActiveCfg = Debug|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Release|Win32.ActiveCfg = Release|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Release|Win32.Build.0 = Release|Win32
+		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

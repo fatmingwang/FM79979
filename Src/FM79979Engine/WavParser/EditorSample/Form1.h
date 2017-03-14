@@ -1,6 +1,6 @@
 #pragma once
 #include "WavWaves.h"
-
+#include "KissFFTConvert.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -46,6 +46,8 @@ namespace EditorSample
 			//
 			this->m_pWaveInfo = nullptr;
 			this->m_pWavWaves = nullptr;
+			//
+			m_pKissFFTConvert = new cKissFFTConvert();
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -82,6 +84,7 @@ namespace EditorSample
 		cGameApp*					m_pGameApp;
 		//
 		cSoundCapture*				m_pSoundCapture;
+		cKissFFTConvert*			m_pKissFFTConvert;
 		//
 		HDC							m_HdcMV;
 		HGLRC						m_HGLRCMV;
@@ -94,21 +97,31 @@ namespace EditorSample
 		//
 	private: System::Windows::Forms::Button^  OpenWavFile_button;
 	private: System::Windows::Forms::TextBox^  WavFileName_textBox;
-	private: System::Windows::Forms::Button^  Play_button;
+	private: System::Windows::Forms::Button^  ParseWav_button;
+
+
 	private: System::Windows::Forms::Panel^  OPENGL_panel;
 	private: System::Windows::Forms::TrackBar^  CurrentTime_trackBar;
 	private: System::Windows::Forms::Label^  CurrentTime_label;
 	private: System::Windows::Forms::NumericUpDown^  DataCompressRate_numericUpDown;
 	private: System::Windows::Forms::Label^  DataCompressRate__label;
+	private: System::Windows::Forms::Button^  ForwardStep_button;
 
-	private: System::Windows::Forms::Button^  button2;
+
 	private: System::Windows::Forms::Button^  button3;
-	private: System::Windows::Forms::Button^  button4;
+	private: System::Windows::Forms::Button^  BackStep_button;
+
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::NumericUpDown^  ShowWaveSeconds_numericUpDown;
 	private: System::Windows::Forms::Button^  RecordSound_button;
 	private: System::Windows::Forms::Button^  RecordSoundPause_button;
 	private: System::Windows::Forms::TextBox^  RecordSoundFileName_textBox;
+	private: System::Windows::Forms::Button^  FFTTest_button;
+	private: System::Windows::Forms::Button^  ConvertToWav_button;
+	private: System::Windows::Forms::Button^  ToOgg_button;
+	private: System::Windows::Forms::Button^  PlayOgg_button;
+	private: System::Windows::Forms::Button^  PlayWav_button;
+
 	private: System::Windows::Forms::ListBox^  WavInfo_listBox;
 
 
@@ -123,21 +136,26 @@ namespace EditorSample
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->OpenWavFile_button = (gcnew System::Windows::Forms::Button());
 			this->WavFileName_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->Play_button = (gcnew System::Windows::Forms::Button());
+			this->ParseWav_button = (gcnew System::Windows::Forms::Button());
 			this->OPENGL_panel = (gcnew System::Windows::Forms::Panel());
 			this->WavInfo_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->CurrentTime_trackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->CurrentTime_label = (gcnew System::Windows::Forms::Label());
 			this->DataCompressRate_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DataCompressRate__label = (gcnew System::Windows::Forms::Label());
-			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->ForwardStep_button = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->BackStep_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ShowWaveSeconds_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->RecordSound_button = (gcnew System::Windows::Forms::Button());
 			this->RecordSoundPause_button = (gcnew System::Windows::Forms::Button());
 			this->RecordSoundFileName_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->FFTTest_button = (gcnew System::Windows::Forms::Button());
+			this->ConvertToWav_button = (gcnew System::Windows::Forms::Button());
+			this->ToOgg_button = (gcnew System::Windows::Forms::Button());
+			this->PlayOgg_button = (gcnew System::Windows::Forms::Button());
+			this->PlayWav_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
@@ -164,17 +182,17 @@ namespace EditorSample
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\79979.wav";
+			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\Sound\\owl.wav";
 			// 
-			// Play_button
+			// ParseWav_button
 			// 
-			this->Play_button->Location = System::Drawing::Point(908, 632);
-			this->Play_button->Name = L"Play_button";
-			this->Play_button->Size = System::Drawing::Size(59, 26);
-			this->Play_button->TabIndex = 2;
-			this->Play_button->Text = L"PLAY";
-			this->Play_button->UseVisualStyleBackColor = true;
-			this->Play_button->Click += gcnew System::EventHandler(this, &Form1::Play_button_Click);
+			this->ParseWav_button->Location = System::Drawing::Point(908, 632);
+			this->ParseWav_button->Name = L"ParseWav_button";
+			this->ParseWav_button->Size = System::Drawing::Size(59, 26);
+			this->ParseWav_button->TabIndex = 2;
+			this->ParseWav_button->Text = L"ParseFile";
+			this->ParseWav_button->UseVisualStyleBackColor = true;
+			this->ParseWav_button->Click += gcnew System::EventHandler(this, &Form1::ParseWav_button_Click);
 			// 
 			// OPENGL_panel
 			// 
@@ -199,6 +217,7 @@ namespace EditorSample
 			this->CurrentTime_trackBar->Name = L"CurrentTime_trackBar";
 			this->CurrentTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->CurrentTime_trackBar->TabIndex = 5;
+			this->CurrentTime_trackBar->Value = 10;
 			// 
 			// CurrentTime_label
 			// 
@@ -225,14 +244,15 @@ namespace EditorSample
 			this->DataCompressRate__label->TabIndex = 8;
 			this->DataCompressRate__label->Text = L"DataCompressRate";
 			// 
-			// button2
+			// ForwardStep_button
 			// 
-			this->button2->Location = System::Drawing::Point(432, 633);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 23);
-			this->button2->TabIndex = 10;
-			this->button2->Text = L">>";
-			this->button2->UseVisualStyleBackColor = true;
+			this->ForwardStep_button->Location = System::Drawing::Point(432, 633);
+			this->ForwardStep_button->Name = L"ForwardStep_button";
+			this->ForwardStep_button->Size = System::Drawing::Size(75, 23);
+			this->ForwardStep_button->TabIndex = 10;
+			this->ForwardStep_button->Text = L">>";
+			this->ForwardStep_button->UseVisualStyleBackColor = true;
+			this->ForwardStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
 			// 
 			// button3
 			// 
@@ -243,14 +263,15 @@ namespace EditorSample
 			this->button3->Text = L">";
 			this->button3->UseVisualStyleBackColor = true;
 			// 
-			// button4
+			// BackStep_button
 			// 
-			this->button4->Location = System::Drawing::Point(246, 633);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(75, 23);
-			this->button4->TabIndex = 12;
-			this->button4->Text = L"<<";
-			this->button4->UseVisualStyleBackColor = true;
+			this->BackStep_button->Location = System::Drawing::Point(246, 633);
+			this->BackStep_button->Name = L"BackStep_button";
+			this->BackStep_button->Size = System::Drawing::Size(75, 23);
+			this->BackStep_button->TabIndex = 12;
+			this->BackStep_button->Text = L"<<";
+			this->BackStep_button->UseVisualStyleBackColor = true;
+			this->BackStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
 			// 
 			// label1
 			// 
@@ -296,27 +317,82 @@ namespace EditorSample
 			this->RecordSoundFileName_textBox->TabIndex = 17;
 			this->RecordSoundFileName_textBox->Text = L"RecordSoundFileName.ogg";
 			// 
+			// FFTTest_button
+			// 
+			this->FFTTest_button->Location = System::Drawing::Point(387, 554);
+			this->FFTTest_button->Name = L"FFTTest_button";
+			this->FFTTest_button->Size = System::Drawing::Size(75, 23);
+			this->FFTTest_button->TabIndex = 18;
+			this->FFTTest_button->Text = L"FFT test";
+			this->FFTTest_button->UseVisualStyleBackColor = true;
+			this->FFTTest_button->Click += gcnew System::EventHandler(this, &Form1::FFTTest_button_Click);
+			// 
+			// ConvertToWav_button
+			// 
+			this->ConvertToWav_button->Location = System::Drawing::Point(908, 600);
+			this->ConvertToWav_button->Name = L"ConvertToWav_button";
+			this->ConvertToWav_button->Size = System::Drawing::Size(59, 26);
+			this->ConvertToWav_button->TabIndex = 19;
+			this->ConvertToWav_button->Text = L"ToWav";
+			this->ConvertToWav_button->UseVisualStyleBackColor = true;
+			this->ConvertToWav_button->Click += gcnew System::EventHandler(this, &Form1::ToOgg_button_Click);
+			// 
+			// ToOgg_button
+			// 
+			this->ToOgg_button->Location = System::Drawing::Point(908, 568);
+			this->ToOgg_button->Name = L"ToOgg_button";
+			this->ToOgg_button->Size = System::Drawing::Size(59, 26);
+			this->ToOgg_button->TabIndex = 20;
+			this->ToOgg_button->Text = L"ToOgg";
+			this->ToOgg_button->UseVisualStyleBackColor = true;
+			this->ToOgg_button->Click += gcnew System::EventHandler(this, &Form1::ToOgg_button_Click);
+			// 
+			// PlayOgg_button
+			// 
+			this->PlayOgg_button->Location = System::Drawing::Point(984, 661);
+			this->PlayOgg_button->Name = L"PlayOgg_button";
+			this->PlayOgg_button->Size = System::Drawing::Size(85, 34);
+			this->PlayOgg_button->TabIndex = 21;
+			this->PlayOgg_button->Text = L"play ogg ";
+			this->PlayOgg_button->UseVisualStyleBackColor = true;
+			this->PlayOgg_button->Click += gcnew System::EventHandler(this, &Form1::PlayOgg_button_Click);
+			// 
+			// PlayWav_button
+			// 
+			this->PlayWav_button->Location = System::Drawing::Point(984, 701);
+			this->PlayWav_button->Name = L"PlayWav_button";
+			this->PlayWav_button->Size = System::Drawing::Size(75, 32);
+			this->PlayWav_button->TabIndex = 22;
+			this->PlayWav_button->Text = L"PlayWav";
+			this->PlayWav_button->UseVisualStyleBackColor = true;
+			this->PlayWav_button->Click += gcnew System::EventHandler(this, &Form1::PlayWav_button_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->PlayWav_button);
+			this->Controls->Add(this->PlayOgg_button);
+			this->Controls->Add(this->ToOgg_button);
+			this->Controls->Add(this->ConvertToWav_button);
+			this->Controls->Add(this->FFTTest_button);
 			this->Controls->Add(this->RecordSoundFileName_textBox);
 			this->Controls->Add(this->RecordSoundPause_button);
 			this->Controls->Add(this->RecordSound_button);
 			this->Controls->Add(this->OpenWavFile_button);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->ShowWaveSeconds_numericUpDown);
-			this->Controls->Add(this->button4);
+			this->Controls->Add(this->BackStep_button);
 			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
+			this->Controls->Add(this->ForwardStep_button);
 			this->Controls->Add(this->DataCompressRate__label);
 			this->Controls->Add(this->DataCompressRate_numericUpDown);
 			this->Controls->Add(this->CurrentTime_label);
 			this->Controls->Add(this->CurrentTime_trackBar);
 			this->Controls->Add(this->WavInfo_listBox);
 			this->Controls->Add(this->OPENGL_panel);
-			this->Controls->Add(this->Play_button);
+			this->Controls->Add(this->ParseWav_button);
 			this->Controls->Add(this->WavFileName_textBox);
 			this->Name = L"Form1";
 			this->Text = L" ";
@@ -340,7 +416,7 @@ namespace EditorSample
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
-			glEnable2D(1920*10000,1080*10000);
+			glEnable2D(1920*2,1080);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 			glClearColor(0,0,0,0);
 			glClearDepth(1.0f);
@@ -348,11 +424,26 @@ namespace EditorSample
 			glShadeModel(GL_SMOOTH);
 			glEnable(GL_TEXTURE_2D);
 			glEnable(GL_ALPHA_TEST);
-			if( m_pWavWaves )
+			//if( m_pWavWaves )
 			{
-				m_pWavWaves->Render();
+				//m_pWavWaves->Render();
 			}
-//			cGameApp::ShowInfo();
+			float l_fElpaseTime = this->m_pGameApp->m_sTimeAndFPS.fElpaseTime;
+			if( cGameApp::m_spSoundParser )
+					cGameApp::m_spSoundParser->Update(l_fElpaseTime);
+			if( m_pKissFFTConvert )
+			{
+				m_pKissFFTConvert->Update(l_fElpaseTime);
+				m_pKissFFTConvert->Render();
+				FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
+				if( l_pSoundFile )
+				{
+					int l_iValue = CurrentTime_trackBar->Maximum * m_pKissFFTConvert->GetCurrentTimePercentage();
+					CurrentTime_trackBar->Value = l_iValue;
+					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(l_pSoundFile->m_fTime*10);
+				}
+			}
+			cGameApp::ShowInfo();
 			SwapBuffers(m_HdcMV);
 		}
 
@@ -401,7 +492,7 @@ private: System::Void OpenWavFile_button_Click(System::Object^  sender, System::
 				 this->WavFileName_textBox->Text = l_strFileName;
 			 }
 		 }
-private: System::Void Play_button_Click(System::Object^  sender, System::EventArgs^  e) 
+private: System::Void ParseWav_button_Click(System::Object^  sender, System::EventArgs^  e) 
 		 {
 			this->timer1->Enabled = false;
 			if(this->WavFileName_textBox->Text && m_pGameApp )
@@ -438,10 +529,10 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 						l_str += gcnew String((const char*)this->m_pWaveInfo->m_WAVFileHdr_Struct.Type);
 						this->WavInfo_listBox->Items->Add(l_str);
 						this->WavInfo_listBox->Items->Add(gcnew String("======FMTHdr=========="));
-						l_str = "chunk id "+ gcnew String((const char*)this->m_pWaveInfo->m_FMT_And_Data_Header[0].Id);
-						this->WavInfo_listBox->Items->Add(l_str);
-						l_str = "SizeSize "+this->m_pWaveInfo->m_FMT_And_Data_Header[0].Size;
-						this->WavInfo_listBox->Items->Add(l_str);
+//						l_str = "chunk id "+ gcnew String((const char*)this->m_pWaveInfo->m_FMT_And_Data_Header[0].Id);
+	//					this->WavInfo_listBox->Items->Add(l_str);
+		//				l_str = "SizeSize "+this->m_pWaveInfo->m_FMT_And_Data_Header[0].Size;
+			//			this->WavInfo_listBox->Items->Add(l_str);
 						this->WavInfo_listBox->Items->Add(gcnew String("========WAVFmtHdr==========="));
 						l_str = "bits perSample "+this->m_pWaveInfo->m_WAVFmtHdr_Struct.BitsPerSample;
 						this->WavInfo_listBox->Items->Add(l_str);
@@ -482,10 +573,10 @@ private: System::Void Play_button_Click(System::Object^  sender, System::EventAr
 						l_str = "SMPTEOffest "+this->m_pWaveInfo->m_WAVSmplHdr_Struct.SMPTEOffest;
 						this->WavInfo_listBox->Items->Add(l_str);
 						this->WavInfo_listBox->Items->Add(gcnew String("======DataHdr=========="));
-						l_str = "chunk id "+ gcnew String((const char*)this->m_pWaveInfo->m_FMT_And_Data_Header[1].Id);
-						this->WavInfo_listBox->Items->Add(l_str);
-						l_str = "SizeSize "+this->m_pWaveInfo->m_FMT_And_Data_Header[1].Size;
-						this->WavInfo_listBox->Items->Add(l_str);
+						//l_str = "chunk id "+ gcnew String((const char*)this->m_pWaveInfo->m_FMT_And_Data_Header[1].Id);
+						//this->WavInfo_listBox->Items->Add(l_str);
+						//l_str = "SizeSize "+this->m_pWaveInfo->m_FMT_And_Data_Header[1].Size;
+						//this->WavInfo_listBox->Items->Add(l_str);
 						this->WavInfo_listBox->Items->Add(gcnew String("====common==========="));
 						l_str = "Format "+this->m_pWaveInfo->m_Format;
 						this->WavInfo_listBox->Items->Add(l_str);
@@ -531,6 +622,59 @@ private: System::Void RecordSoundPause_button_Click(System::Object^  sender, Sys
 				 else
 					RecordSoundPause_button->Text = "recording...";
 			 }
+		 }
+private: System::Void FFTTest_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(System::IO::File::Exists(WavFileName_textBox->Text))
+			 {
+				 std::string l_strFileName = DNCT::GcStringToChar(WavFileName_textBox->Text);
+				 if(m_pKissFFTConvert->FetchSoundDataStart(l_strFileName.c_str()))
+				 {
+					 FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
+					 if( l_pSoundFile )
+						CurrentTime_trackBar->Maximum = l_pSoundFile->m_fTime*10;
+				 }
+			 }
+		 }
+private: System::Void BackStep_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( m_pKissFFTConvert )
+			 {
+				 if( sender == this->ForwardStep_button )
+					m_pKissFFTConvert->Update(0.016f);
+				 else
+					m_pKissFFTConvert->Update(-0.016f);
+			 }
+		 }
+private: System::Void ToOgg_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(System::IO::File::Exists(WavFileName_textBox->Text))
+			 {
+				std::string l_FileName = DNCT::GcStringToChar(this->WavFileName_textBox->Text);
+				FATMING_CORE::cSoundFile*l_pSoundFile = new FATMING_CORE::cSoundFile();
+				if( sender == ToOgg_button )
+				{
+					std::string l_strOutputFileName = UT::ChangeFileExtensionName(l_FileName.c_str(),"ogg");
+					l_pSoundFile->WavToOggFile(l_FileName.c_str(),l_strOutputFileName.c_str());
+				}
+				else
+				{
+					std::string l_strOutputFileName = UT::ChangeFileExtensionName(l_FileName.c_str(),"wav");
+					l_pSoundFile->OggToWavFile(l_FileName.c_str(),l_strOutputFileName.c_str());			 
+				}
+				SAFE_DELETE(l_pSoundFile);
+			 }
+		 }
+private: System::Void PlayOgg_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 std::string l_FileName = DNCT::GcStringToChar(this->WavFileName_textBox->Text);
+			 cOpanalOgg*l_pOpanalOgg = new cOpanalOgg(cGameApp::m_spSoundParser,l_FileName.c_str(),true);
+			 cGameApp::m_spSoundParser->AddObject(l_pOpanalOgg);
+			 l_pOpanalOgg->Play(true);
+		 }
+private: System::Void PlayWav_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+
 		 }
 };
 }

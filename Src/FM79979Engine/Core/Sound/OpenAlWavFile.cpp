@@ -102,10 +102,16 @@ namespace FATMING_CORE
 						NvFRead(&FmtHdr,1,sizeof(WAVFmtHdr_Struct),l_pFile);
 						if ((FmtHdr.Format==0x0001)||(FmtHdr.Format==0xFFFE))
 						{
-							if (FmtHdr.Channels==1)
-								*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_MONO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16));
-							else if (FmtHdr.Channels==2)
-								*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
+							//if (FmtHdr.Channels==1)
+							//{
+							//	*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_MONO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_MONO8:AL_FORMAT_MONO16));
+							//}
+							//else 
+							//if (FmtHdr.Channels==2)
+							//{
+							//	*format=(FmtHdr.BitsPerSample==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(FmtHdr.BitsPerSample==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
+							//}
+							*format = cBasicSound::PerSampleBitAndChannelToOpenALFormat(FmtHdr.BitsPerSample,FmtHdr.Channels);
 							*freq=FmtHdr.SampleRate;
 							NvFSeek(l_pFile,ChunkHdr.Size-sizeof(WAVFmtHdr_Struct),SEEK_CUR);
 						} 

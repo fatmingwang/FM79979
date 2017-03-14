@@ -38,6 +38,7 @@ namespace FATMING_CORE
 		virtual	void	Play(bool e_bPlay);
 		void			SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData)> e_CallbuckFunction);
 	};
+	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime);
 
 }
 #endif

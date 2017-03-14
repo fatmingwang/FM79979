@@ -114,6 +114,7 @@
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="ChartAssist.cpp" />
     <ClCompile Include="EditorSample.cpp" />
+    <ClCompile Include="KissFFTConvert.cpp" />
     <ClCompile Include="MusicGameApp.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -126,6 +127,7 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="KissFFTConvert.h" />
     <ClInclude Include="MusicGameApp.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -153,6 +155,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
       <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\kiss_fft130\kiss_fft130.vcxproj">
+      <Project>{78b7e03f-8b8d-4bbb-8076-21ea89d028f6}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

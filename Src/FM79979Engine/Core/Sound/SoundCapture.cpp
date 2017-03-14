@@ -7,7 +7,9 @@
 //#include <thread>
 #include "../Synchronization/FUThreadPool.h"
 #include "../GameplayUT/GameApp.h"
+#ifndef WIN32
 #include "unistd.h"
+#endif
 namespace	FATMING_CORE
 {
 	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;

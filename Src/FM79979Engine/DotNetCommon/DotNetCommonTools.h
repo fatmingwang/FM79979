@@ -330,6 +330,8 @@ namespace DNCT
 
 
 	void	ParseXMALFileToHandl(HWND e_pHwand,String^e_strFileName);
+
+	System::IO::Stream^ GenerateStreamFromString(String^e_str);
 }
 using namespace DNCT;
 //http://www.dotblogs.com.tw/larrynung/archive/2009/10/13/11033.aspx

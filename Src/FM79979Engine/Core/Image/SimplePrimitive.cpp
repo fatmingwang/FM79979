@@ -358,6 +358,12 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 6);
 	}
 
+	//enable point size in opengl ES2.0 shader
+	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//void VertexShader_main() 
+	//{
+	//	gl_PointSize = PointSize;
+	//} 
 	void	RenderPoint(Vector2	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
