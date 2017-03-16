@@ -54,6 +54,7 @@ namespace FATMING_CORE
 		m_iSampleCount = 0;
 		m_uiDataSize = 0;
 		m_iWriteChannel = 1;
+		m_iBitPerSample = 0;
 	}
 
 	cSoundFile::~cSoundFile()
@@ -73,18 +74,6 @@ namespace FATMING_CORE
 
 	bool	cSoundFile::OpenWavFile(const char*e_strFileName)
 	{
-		return true;	
-	}
-
-	bool	cSoundFile::OpenOggFile(const char*e_strFileName)
-	{
-		return true;
-	}
-
-	//ALvoid GetWAVData(const ALbyte *file,ALenum *format,ALvoid **data,ALsizei *size,ALsizei *freq, ALboolean *loop,float *e_fTotalPlayTime)
-	bool	cSoundFile::OpenFile(const char*e_strFileName)
-	{
-		m_iSampleCount = 0;
 		memset(&m_WAVFileHdr_Struct,0,sizeof(My_WAVFileHdr_Struct ));
 		memset(&m_WAVFmtHdr_Struct,0,sizeof(My_WAVFmtHdr_Struct));
 		memset(&m_WAVFmtExHdr_Struct,0,sizeof(My_WAVFmtExHdr_Struct ));
@@ -94,6 +83,8 @@ namespace FATMING_CORE
 		NvFile *l_pFile = nullptr;
 		SAFE_DELETE(m_pSoundData);
 
+		this->m_iSampleCount = 0;
+		this->m_iBitPerSample  = 0;
 		this->m_Format = AL_FORMAT_MONO16;
 		this->m_fTime = 0.f;
 		this->m_iSoundDataSize = 0;
@@ -126,6 +117,7 @@ namespace FATMING_CORE
 						//m_FMT_And_Data_Header[0] = l_WAVChunkHdr_Struct;
 						size_t l_uiMy_WAVFmtHdr_StructSize = sizeof(My_WAVFmtHdr_Struct);
 						NvFRead(&m_WAVFmtHdr_Struct,1,l_uiMy_WAVFmtHdr_StructSize,l_pFile);
+						m_iBitPerSample = m_WAVFmtHdr_Struct.BitsPerSample;
 						//1,PCM
 						if ((m_WAVFmtHdr_Struct.Format==0x0001)||(m_WAVFmtHdr_Struct.Format==0xFFFE))
 						{
@@ -225,25 +217,25 @@ namespace FATMING_CORE
 			UT::ErrorMsg("wav file bit per sample can not smaller than 7",e_strFileName);
 			return false;
 		}
-	
-		int l_iSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
+
+		int l_iOneSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
 		assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_iSoundDataSize&&"this is not a common wav file");
 		std::vector<char>*l_pChannelDataPointer = nullptr;
+		int l_iSampleStep = l_iOneSampleLength/m_WAVFmtHdr_Struct.Channels;
 		for(int i=0;i<this->m_WAVFmtHdr_Struct.Channels;++i)
 		{
 			int	l_iCurrentSampleIndex = i*m_WAVFmtHdr_Struct.BlockAlign;
 			unsigned char*l_pCurrentChannelData = new unsigned char[m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels];
-			int l_iCurrentChannelStep = m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels;
 			//int
 			int l_iHowManyBytesCopy = 0;
 			for(int k=0;k<m_iSampleCount;++k)
 			{
-				int l_iSrcIndex = (l_iSampleLength*k)+l_iCurrentChannelStep*i;
-				int l_iTargetIndex = l_iCurrentChannelStep*k;
+				int l_iSrcIndex = (l_iOneSampleLength*k)+l_iSampleStep*i;
+				int l_iTargetIndex = l_iSampleStep*k;
 				unsigned char*l_CurrentChannelData = m_pSoundData+l_iSrcIndex;
 				unsigned char*l_pCopyData = l_pCurrentChannelData+l_iTargetIndex;
-				memcpy(l_pCopyData,l_CurrentChannelData,l_iCurrentChannelStep);
-				l_iHowManyBytesCopy += l_iCurrentChannelStep;
+				memcpy(l_pCopyData,l_CurrentChannelData,l_iSampleStep);
+				l_iHowManyBytesCopy += l_iSampleStep;
 			}
 			m_AllChannelData.push_back(l_pCurrentChannelData);
 		}
@@ -283,7 +275,20 @@ namespace FATMING_CORE
 //			}
 //			EndWriteOggData();
 //		}			
+		return true;	
+	}
+
+	bool	cSoundFile::OpenOggFile(const char*e_strFileName)
+	{
 		return true;
+	}
+
+	//ALvoid GetWAVData(const ALbyte *file,ALenum *format,ALvoid **data,ALsizei *size,ALsizei *freq, ALboolean *loop,float *e_fTotalPlayTime)
+	bool	cSoundFile::OpenFile(const char*e_strFileName)
+	{
+
+		return OpenWavFile(e_strFileName);
+		return false;
 	}
 
 
@@ -300,6 +305,12 @@ namespace FATMING_CORE
 	{
 		return nullptr;
 	}
+
+	//int	cSoundFile::GetOneChannelBitPerSample()
+	//{
+	//	assert(m_iBitPerSample != 0&&"sorry now only support wav file");
+	//	return m_iBitPerSample/this->m_iChannel;
+	//}
 
 	unsigned char*	cSoundFile::GetChannelData(int e_iChannelIndex)
 	{

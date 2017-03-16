@@ -3,10 +3,10 @@
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
 class cKissFFTConvert:public NamedTypedObject
 {
-	cOpanalWAV*			m_pTestSound;
-	std::vector<int>	m_FFTDataArray;
-	int					m_iCurrentFFTDataLineCount;
-	std::vector<Vector2>m_FFTDataLinePointVector;
+	cOpanalWAV*							m_pTestSound;
+	std::vector<std::vector<int>* >		m_FFTDataVectorChannelVector;
+	int									m_iCurrentFFTDataLineCount;
+	std::vector<std::vector<Vector2>*>	m_FFTDataLinePointVectorVector;
 	//
 	FATMING_CORE::cSoundFile*m_pSoundFile;
 	float	m_fCurrentTime;
@@ -20,9 +20,10 @@ class cKissFFTConvert:public NamedTypedObject
 	int		m_iFPSDataCount;
 	//count is m_i60FPSDataCount
 	char*	m_pSampleDataArray;
-	int m_iTest;
 	float	m_fScale;
 	float	m_fXGap;
+	float	m_fYGap;
+	void	Destroy();
 public:
 	cKissFFTConvert();
 	~cKissFFTConvert();

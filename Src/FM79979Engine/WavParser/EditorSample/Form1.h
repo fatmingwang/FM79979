@@ -416,7 +416,7 @@ namespace EditorSample
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
-			glEnable2D(1920*2,1080);
+			glEnable2D(1920*2,1080*2);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 			glClearColor(0,0,0,0);
 			glClearDepth(1.0f);
@@ -625,6 +625,7 @@ private: System::Void RecordSoundPause_button_Click(System::Object^  sender, Sys
 		 }
 private: System::Void FFTTest_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
+			 this->timer1->Enabled = false;
 			 if(System::IO::File::Exists(WavFileName_textBox->Text))
 			 {
 				 std::string l_strFileName = DNCT::GcStringToChar(WavFileName_textBox->Text);
@@ -635,6 +636,8 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 						CurrentTime_trackBar->Maximum = l_pSoundFile->m_fTime*10;
 				 }
 			 }
+			 cGameApp::m_sTimeAndFPS.Update();
+			 this->timer1->Enabled = true;
 		 }
 private: System::Void BackStep_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {

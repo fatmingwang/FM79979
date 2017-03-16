@@ -296,6 +296,11 @@ namespace FATMING_CORE
 		{
 			l_iFormat = (e_iBit==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(e_iBit==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
 		}
+		else
+		{
+			UT::ErrorMsg("sorry too much channel is not support because I am lazy","Error!");
+			l_iFormat = (e_iBit==4?alGetEnumValue("AL_FORMAT_STEREO_IMA4"):(e_iBit==8?AL_FORMAT_STEREO8:AL_FORMAT_STEREO16));
+		}
 		return l_iFormat;
 	}
 }

@@ -127,10 +127,11 @@ namespace FATMING_CORE
 		//std::vector<char>	m_RigtChannelSoundData;
 		ALenum							m_Format;
 		int								m_iSoundDataSize;
-		int								m_iFreq;//OneSceondSampleCount
+		int								m_iFreq;//OneSceondSampleCount,sampleRate / sampleCount
 		int								m_iChannel;
 		float							m_fTime;//this->m_fTime = sound data length/(float)m_WAVFmtHdr_Struct.BytesRate;
 		int								m_iSampleCount;//m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
+		int								m_iBitPerSample;//if channel is 2,each value should divide 2
 		//
 		My_WAVFileHdr_Struct			m_WAVFileHdr_Struct;
 		My_WAVFmtHdr_Struct				m_WAVFmtHdr_Struct;
@@ -147,6 +148,7 @@ namespace FATMING_CORE
 		int								GetSampleIndexByTime(float e_fTime);
 		unsigned char*					GetSample(int e_iSampleIndex);
 		unsigned char*					GetChannelData(int e_iChannelIndex);
+		//int								GetOneChannelBitPerSample();
 		size_t							GetChannelCount(){ return m_AllChannelData.size(); }
 		void							SetWAVFmtHdr(unsigned short e_usFormat,unsigned short e_usChannels,
 											unsigned int   e_uiSampleRate,unsigned int   e_uiBytesRate,
