@@ -23,15 +23,13 @@
 
 namespace FATMING_CORE
 {
-
-	#define SOUND_BUFFER_SIZE     32768       // 32 KB buffers
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime)
 	{
 #ifdef _OGG_
 		int endian = 0;                         // 0 for Little-Endian, 1 for Big-Endian
 		int bitStream;
 		long bytes;
-		char array[SOUND_BUFFER_SIZE];                // Local fixed size array
+		char array[OGG_STREAMING_SOUND_BUFFER_SIZE];                // Local fixed size array
 		NvFile *f;
 
 		// Open for binary reading
@@ -71,7 +69,7 @@ namespace FATMING_CORE
 		do
 		{
 			// Read up to a buffer's worth of decoded sound data
-			bytes = ov_read(&oggFile, array, SOUND_BUFFER_SIZE, endian, 2, 1, &bitStream);
+			bytes = ov_read(&oggFile, array, OGG_STREAMING_SOUND_BUFFER_SIZE, endian, 2, 1, &bitStream);
 
 			if (bytes < 0)
 			{
@@ -95,6 +93,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cOpanalOgg);
 	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
+		m_uiHowManyDataRead = 0;
 		m_UpdteNewBufferCallbackFunction = nullptr;
 		m_fTimeToUpdate.SetTargetTime(0.1f);
 		m_fTimeToUpdate.SetLoop(true);
@@ -182,6 +181,7 @@ namespace FATMING_CORE
 
 	bool	cOpanalOgg::OpenFile(const char*e_strileName)
 	{
+		m_uiHowManyDataRead = 0;
 		this->Destroy();
 		if(m_bStreaming)
 		{
@@ -208,16 +208,25 @@ namespace FATMING_CORE
 			m_pFile = 0;
 			SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strileName)).c_str());
 			m_pVorbisInfo = ov_info(m_pOggFile, -1);
-			m_VorbisComment = ov_comment(m_pOggFile, -1);			
+			m_VorbisComment = ov_comment(m_pOggFile, -1);
 			if(m_pVorbisInfo->channels == 1)
 				this->m_iFormat = AL_FORMAT_MONO16;
 			else
+			if(m_pVorbisInfo->channels == 2)
 				m_iFormat = AL_FORMAT_STEREO16;
+			else
+			{
+				UT::ErrorMsg(L"sorry there is too much channel data",ValueToStringW(m_pVorbisInfo->channels).c_str());
+			}
+			cBasicSound::SetChannelByFormat(m_iFormat);
 			alGenBuffers(2, m_uiStreamBuffers);
 			check();
 			alGenSources(1, &m_uiSourceID);
 			check();
 			m_fTimeLength = (float)ov_time_total(m_pOggFile,-1);
+			m_iFreq = m_pVorbisInfo->rate;
+			//ogg sample bit is 16!.?
+			m_iPCMDataSize = cBasicSound::CalculatePCMDataSize(m_pVorbisInfo->channels,m_iFreq,m_fTimeLength,16);
 			Playback(false);
 			
 		}
@@ -227,7 +236,9 @@ namespace FATMING_CORE
 			alGenSources(1, &m_uiSourceID);		
 			vector<char> buffer;
 			LoadOGG(e_strileName,buffer,m_iFormat,m_iFreq,m_fTimeLength);
-			m_iSize = static_cast<ALsizei>(buffer.size());
+			m_iPCMDataSize = static_cast<ALsizei>(buffer.size());
+			cBasicSound::SetChannelByFormat(m_iFormat);
+			assert(abs(cBasicSound::CalculatePCMDataSize(this->m_iChannel,m_iFreq,m_fTimeLength,16)-m_iPCMDataSize)<2&&"PCM data size should be same or I get wrong");
 			if( buffer.size() )
 			{
 				AssignBufferData(&buffer[0]);
@@ -257,20 +268,22 @@ namespace FATMING_CORE
 		}
 	}
 
-	#define BUFFER_SIZE (4096 * 4*2)
 	bool cOpanalOgg::Stream(ALuint buffer)
 	{
-		char pcm[BUFFER_SIZE];
+		char pcm[OGG_STREAMING_SOUND_BUFFER_SIZE];
 		int  size = 0;
 		int  section;
 		int  result;
 
-		while(size < BUFFER_SIZE)
+		while(size < OGG_STREAMING_SOUND_BUFFER_SIZE)
 		{
-			result = ov_read(m_pOggFile,pcm+size, BUFFER_SIZE - size, 0, 2, 1, &section);
+			result = ov_read(m_pOggFile,pcm+size, OGG_STREAMING_SOUND_BUFFER_SIZE - size, 0, 2, 1, &section);
 	    
 			if(result > 0)
+			{
 				size += result;
+				m_uiHowManyDataRead += result;
+			}
 			else
 			if(result < 0)
 			{
@@ -289,9 +302,17 @@ namespace FATMING_CORE
 		{
 			return false;
 		}
+		//this->m_iFreq*this->m_ich;
+		//AL_FORMAT_MONO16;
+		//AL_FORMAT_MONO8;
+		//AL_FORMAT_STEREO8;
+		//AL_FORMAT_STEREO16;
+		//size;
+		//here is possible lock by thread safe synchroization?
 	    if(m_UpdteNewBufferCallbackFunction)
 		{
-			m_UpdteNewBufferCallbackFunction(size,pcm);
+			//ogg_int64_t l_i64Size = m_pOggFile->end-m_pOggFile->offsets;
+			m_UpdteNewBufferCallbackFunction(size,pcm,m_uiHowManyDataRead);
 		}
 		alBufferData(buffer, this->m_iFormat, pcm, size, m_pVorbisInfo->rate);
 		check();
@@ -399,7 +420,7 @@ namespace FATMING_CORE
 		return ov_time_seek(this->m_pOggFile,l_fTime) == 0?true:false;
 	}
 
-	void	cOpanalOgg::SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData)> e_CallbuckFunction)
+	void	cOpanalOgg::SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction)
 	{
 		m_UpdteNewBufferCallbackFunction = e_CallbuckFunction;
 	}

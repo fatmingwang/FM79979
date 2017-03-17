@@ -42,6 +42,9 @@
     <ClCompile Include="KissFFTConvert.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="KissFFTStreaming.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -63,6 +66,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="KissFFTConvert.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="KissFFTStreaming.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

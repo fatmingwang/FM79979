@@ -1,6 +1,7 @@
 #pragma once
 #include "WavWaves.h"
 #include "KissFFTConvert.h"
+#include "KissFFTStreaming.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -48,6 +49,7 @@ namespace EditorSample
 			this->m_pWavWaves = nullptr;
 			//
 			m_pKissFFTConvert = new cKissFFTConvert();
+			cKissFFTStreamingConvert;
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -69,9 +71,11 @@ namespace EditorSample
 				delete components;
 			}
 			SAFE_DELETE(this->m_pWaveInfo);
-			SAFE_DELETE(m_pGameApp);
 			SAFE_DELETE(m_pSoundCapture);
+			SAFE_DELETE(m_pKissFFTConvert);
 			SAFE_DELETE(this->m_pWavWaves);
+
+			SAFE_DELETE(m_pGameApp);
 		}
 	private: System::ComponentModel::IContainer^  components;
 	private: System::Windows::Forms::Timer^  timer1;
@@ -121,6 +125,8 @@ namespace EditorSample
 	private: System::Windows::Forms::Button^  ToOgg_button;
 	private: System::Windows::Forms::Button^  PlayOgg_button;
 	private: System::Windows::Forms::Button^  PlayWav_button;
+	private: System::Windows::Forms::NumericUpDown^  WaveUpdateIndex_numericUpDown;
+	private: System::Windows::Forms::Label^  WaveUpdateIndex_label;
 
 	private: System::Windows::Forms::ListBox^  WavInfo_listBox;
 
@@ -156,9 +162,12 @@ namespace EditorSample
 			this->ToOgg_button = (gcnew System::Windows::Forms::Button());
 			this->PlayOgg_button = (gcnew System::Windows::Forms::Button());
 			this->PlayWav_button = (gcnew System::Windows::Forms::Button());
+			this->WaveUpdateIndex_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->WaveUpdateIndex_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -367,11 +376,32 @@ namespace EditorSample
 			this->PlayWav_button->UseVisualStyleBackColor = true;
 			this->PlayWav_button->Click += gcnew System::EventHandler(this, &Form1::PlayWav_button_Click);
 			// 
+			// WaveUpdateIndex_numericUpDown
+			// 
+			this->WaveUpdateIndex_numericUpDown->Location = System::Drawing::Point(242, 554);
+			this->WaveUpdateIndex_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->WaveUpdateIndex_numericUpDown->Name = L"WaveUpdateIndex_numericUpDown";
+			this->WaveUpdateIndex_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->WaveUpdateIndex_numericUpDown->TabIndex = 23;
+			this->WaveUpdateIndex_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {6, 0, 0, 0});
+			this->WaveUpdateIndex_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::WaveUpdateIndex_numericUpDown_ValueChanged);
+			// 
+			// WaveUpdateIndex_label
+			// 
+			this->WaveUpdateIndex_label->AutoSize = true;
+			this->WaveUpdateIndex_label->Location = System::Drawing::Point(239, 538);
+			this->WaveUpdateIndex_label->Name = L"WaveUpdateIndex_label";
+			this->WaveUpdateIndex_label->Size = System::Drawing::Size(97, 13);
+			this->WaveUpdateIndex_label->TabIndex = 24;
+			this->WaveUpdateIndex_label->Text = L"WaveUpdateIndex";
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->WaveUpdateIndex_label);
+			this->Controls->Add(this->WaveUpdateIndex_numericUpDown);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);
 			this->Controls->Add(this->ToOgg_button);
@@ -400,6 +430,7 @@ namespace EditorSample
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -438,7 +469,7 @@ namespace EditorSample
 				FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
 				if( l_pSoundFile )
 				{
-					int l_iValue = CurrentTime_trackBar->Maximum * m_pKissFFTConvert->GetCurrentTimePercentage();
+					int l_iValue = (int)(CurrentTime_trackBar->Maximum * m_pKissFFTConvert->GetCurrentTimePercentage());
 					CurrentTime_trackBar->Value = l_iValue;
 					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(l_pSoundFile->m_fTime*10);
 				}
@@ -633,7 +664,9 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 				 {
 					 FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
 					 if( l_pSoundFile )
-						CurrentTime_trackBar->Maximum = l_pSoundFile->m_fTime*10;
+					 {
+						CurrentTime_trackBar->Maximum = (int)(l_pSoundFile->m_fTime*10);
+					 }
 				 }
 			 }
 			 cGameApp::m_sTimeAndFPS.Update();
@@ -678,6 +711,13 @@ private: System::Void PlayOgg_button_Click(System::Object^  sender, System::Even
 private: System::Void PlayWav_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
 
+		 }
+private: System::Void WaveUpdateIndex_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( m_pKissFFTConvert )
+			 {
+				 m_pKissFFTConvert->SetWaveUpdateIndex((int)WaveUpdateIndex_numericUpDown->Value);
+			 }
 		 }
 };
 }

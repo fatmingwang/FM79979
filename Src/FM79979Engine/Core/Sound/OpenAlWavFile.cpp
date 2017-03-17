@@ -195,7 +195,8 @@ namespace FATMING_CORE
 		ALvoid*l_pData = 0;
 		ALboolean l_loop;
 		SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strileName)).c_str());
-		GetWAVData((ALbyte*)(e_strileName ),&m_iFormat,(ALvoid**)(&l_pData),&m_iSize,&m_iFreq,&l_loop,&m_fTimeLength);
+		GetWAVData((ALbyte*)(e_strileName ),&m_iFormat,(ALvoid**)(&l_pData),&m_iPCMDataSize,&m_iFreq,&l_loop,&m_fTimeLength);
+		cBasicSound::SetChannelByFormat(m_iFormat);
 		if( l_pData == 0 )
 		{
 			UT::ErrorMsg(e_strileName,"open file failed");
@@ -236,12 +237,12 @@ namespace FATMING_CORE
 			{
 				l_fPercent = 0.f;
 			}
-			int l_iOriginalSize = m_iSize;
-			m_iSize = (int)(m_iSize*l_fPercent);
+			int l_iOriginalSize = m_iPCMDataSize;
+			m_iPCMDataSize = (int)(m_iPCMDataSize*l_fPercent);
 			this->Play(false);
-			char*l_pData = this->m_pSoundData+m_iSize;
+			char*l_pData = this->m_pSoundData+m_iPCMDataSize;
 			AssignBufferData(l_pData);
-			m_iSize = l_iOriginalSize;
+			m_iPCMDataSize = l_iOriginalSize;
 			return true;
 		}
 		return false;

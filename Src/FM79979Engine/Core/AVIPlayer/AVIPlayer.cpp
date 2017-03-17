@@ -241,7 +241,7 @@ void	cAVIPlayer::ParseAudioStream()
 				m_PerSampleBit = pWaveFormat->nBlockAlign*8;
 				int	l_iFormat = m_pBasicSound->PerSampleBitAndChannelToOpenALFormat(m_PerSampleBit,pWaveFormat->nChannels);
 				m_pBasicSound->SetFreq(pWaveFormat->nSamplesPerSec);
-				m_pBasicSound->SetSize(m_iCurrentAudioStep);
+				m_pBasicSound->SetPCMDataSize(m_iCurrentAudioStep);
 				m_pBasicSound->SetFormat(l_iFormat);
 				SetAudioPosByTime(0.f);
 			}
@@ -278,7 +278,7 @@ void	cAVIPlayer::SetAudioPosByTime(float e_fTime)
 		l_iSize = m_iAudioStreamLength - m_iCurrentAudioStep;
 		m_iCurrentAudioStep = m_iAudioStreamLength;
 	}
-	m_pBasicSound->SetSize(l_iSize);
+	m_pBasicSound->SetPCMDataSize(l_iSize);
 	byte*l_pBuffer = new byte[l_iSize*m_PerSampleBit];
 	if(!l_pBuffer)
 	{

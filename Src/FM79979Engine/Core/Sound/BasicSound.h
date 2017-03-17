@@ -33,8 +33,10 @@ namespace FATMING_CORE
 		ALuint	m_uiIndex;							//to check the index is not same as destination
 		//sound data
 		GET_SET_DEC(ALenum,m_iFormat,GetFormat,SetFormat);
-		GET_SET_DEC(ALsizei,m_iSize,GetSize,SetSize);
+		//for go to sound position and PCM data size
+		GET_SET_DEC(ALsizei,m_iPCMDataSize,GetPCMDataSize,SetPCMDataSize);
 		GET_SET_DEC(ALsizei,m_iFreq,GetFreq,SetFreq);
+		int			m_iChannel;
 		//
 		ALuint	m_uiBufferID;	//unique ID
 		ALuint	m_uiSourceID;	//it could be dynamic
@@ -48,6 +50,9 @@ namespace FATMING_CORE
 		GET_SET_DEC(int,m_iPiority,GetPiority,SetPiority);
 		GET_SET_DEC(bool,m_bStopWhileLeave,IsStopWhileLeave,SetStopWhileLeave);
 		bool	m_bStreaming;
+		//
+		void	SetChannelByFormat(ALenum e_eFormat);
+		int		CalculatePCMDataSize(int e_iChannel,int e_iFrequence,float e_fTime,int e_iSampleBit);
 	public:
 		DEFINE_TYPE_INFO();
 		cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming);
@@ -68,6 +73,8 @@ namespace FATMING_CORE
 		virtual	void	SetVolume(float e_fVolume,bool e_bForce = false);
 		float			GetVolume(){return m_fVolume;}
 		float			GetCurrentPlayTime();
+		float			GetTimeLength(){ return m_fTimeLength; }
+		int				GetChannel(){ return m_iChannel; }
 		static	ALenum	PerSampleBitAndChannelToOpenALFormat(int e_iBit,int e_iChannel);
 		static void		check();
 	};

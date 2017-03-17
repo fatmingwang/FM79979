@@ -115,6 +115,7 @@
     <ClCompile Include="ChartAssist.cpp" />
     <ClCompile Include="EditorSample.cpp" />
     <ClCompile Include="KissFFTConvert.cpp" />
+    <ClCompile Include="KissFFTStreaming.cpp" />
     <ClCompile Include="MusicGameApp.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -128,6 +129,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="KissFFTConvert.h" />
+    <ClInclude Include="KissFFTStreaming.h" />
     <ClInclude Include="MusicGameApp.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />

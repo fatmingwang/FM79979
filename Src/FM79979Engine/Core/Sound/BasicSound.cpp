@@ -11,6 +11,7 @@ namespace FATMING_CORE
 	ALuint	cBasicSound::m_suiTotalSoundIndex = 0;		//how many sound we have created
 	cBasicSound::cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming):cSmartObject(e_pNamedTypedObject)
 	{
+		m_iChannel = 0;
 		m_bStreaming = e_bStreaming;
 		m_uiIndex = m_suiTotalSoundIndex++;
 		m_bLoop = false;
@@ -20,7 +21,7 @@ namespace FATMING_CORE
 		m_uiIndexFor_cSoundParser_m_psuiSourceUsingIDIndex = -1;
 		m_fVolume = 1.f;
 		m_iFormat = -1;
-		m_iSize = -1;
+		m_iPCMDataSize = -1;
 		m_iFreq = -1;
 		m_iPiority = 0;
 		m_bStopWhileLeave = true;
@@ -28,6 +29,28 @@ namespace FATMING_CORE
 	cBasicSound::~cBasicSound()
 	{
 		Destroy();
+	}
+
+	void	cBasicSound::SetChannelByFormat(ALenum e_eFormat)
+	{
+		if( e_eFormat == AL_FORMAT_STEREO8 || e_eFormat == AL_FORMAT_STEREO16 )
+			m_iChannel = 2;
+		else
+		if( e_eFormat == AL_FORMAT_MONO8 || e_eFormat == AL_FORMAT_MONO16 )
+			m_iChannel = 1;
+		else
+		{
+			UT::ErrorMsg(L"not support this format",ValueToStringW(e_eFormat).c_str());
+		}
+	}
+	//https://www.gamedev.net/topic/189601-get-pcm-total-size-in-ogg/
+	//a 10-second clip of 44.1 kHz, 16-bit, stereo sound
+	//10 * 44100 * 2 * 2 = 1,764,000 bytes (!!!) 
+	//
+	int	cBasicSound::CalculatePCMDataSize(int e_iChannel,int e_iFrequence,float e_fTime,int e_iSampleBit)
+	{
+		int l_iPCMDataSize = (int)(e_iChannel*e_iFrequence*e_fTime*e_iSampleBit/8);
+		return l_iPCMDataSize;
 	}
 
 	bool	cBasicSound::IsUsing()
@@ -56,7 +79,7 @@ namespace FATMING_CORE
 	{
 		if( m_uiBufferID == 0 )
 			alGenBuffers(1, &m_uiBufferID);
-		alBufferData (m_uiBufferID, m_iFormat, e_pBuffer, m_iSize, m_iFreq);
+		alBufferData (m_uiBufferID, m_iFormat, e_pBuffer, m_iPCMDataSize, m_iFreq);
 		check();	
 	}
 

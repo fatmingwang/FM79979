@@ -53,8 +53,8 @@ struct My_WAVFmtHdr_Struct
 {
 	unsigned short Format			;//fmt ,0x666d7420
 	unsigned short Channels			;//1 or 2,
-	unsigned int   SampleRate		;//m_iSampleCount/m_fTime
-	unsigned int   BytesRate		;//== SampleRate * NumChannels * BitsPerSample/8
+	unsigned int   SampleRate		;//m_iSampleCount/m_fTime,frequence,44100(44k hz),22050....etc...
+	unsigned int   BytesRate		;//== SampleRate * NumChannels * BitsPerSample/8,http://www.theaudioarchive.com/TAA_Resources_File_Size.htm
 	unsigned short BlockAlign		;//== NumChannels * BitsPerSample/8,The number of bytes for one sample includingall channels. I wonder what happens when this number isn't an integer?
 	unsigned short BitsPerSample	;//8,16...etc
 };
