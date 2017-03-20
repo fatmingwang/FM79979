@@ -1,12 +1,20 @@
 #pragma once
+//default we expect 60fps
+#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
 
 class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;
 protected:
-	float	m_fCurrentTime;
-	int		m_iWaveUpdateIndex;
-	int		m_iTargetFPS;
+	UT::sTimeCounter	m_TimeToUpdateFFTData;
+	//
+	float	m_fCurrentTime;	
+	//this value will dive data into parts,if value is frequence/m_iPerFrameFFTDataCount,value gigher performance higer but low accurance
+	int		m_iDivideFFTDataToNFrame;
+	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
+	int		m_iNFrameFFTDataCount;
+	//for one channel
+	Vector2	m_vChartResolution;
 public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
@@ -15,7 +23,8 @@ public:
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime) = 0;
 	virtual void	Render() = 0;
-	void			SetWaveUpdateIndex(int e_iWaveUpdateIndex){ m_iWaveUpdateIndex = e_iWaveUpdateIndex; }
+	void			SetFFTDataUpdateTime(float e_fTime);
+	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
@@ -32,11 +41,8 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
 	void	PreProcessedAllData();
-	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
-	int		m_iFPSDataCount;
 	//for chart
 	float	m_fScale;
-	float	m_fXGap;
 	float	m_fYGap;
 	//
 	virtual void	Destroy();

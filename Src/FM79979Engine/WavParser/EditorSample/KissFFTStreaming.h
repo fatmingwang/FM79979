@@ -25,9 +25,11 @@ class cKissFFTStreamingConvert:public cKissFFTConvertBase
 	friend			void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 	friend			void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
 	//
-	char			m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
+	//char			m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
+	char			m_StreamingBufferData[OGG_STREAMING_SOUND_BUFFER_SIZE];
 	void			StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex);
-	void			ProcessFFTData();
+	//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
+	void			ProcessFFTData(int e_iOneFrameFFTDataCount,float e_fElpaseTime);
 	//
 	cOpanalOgg*		m_pOpanalOgg;
 	bool			m_bNewData;

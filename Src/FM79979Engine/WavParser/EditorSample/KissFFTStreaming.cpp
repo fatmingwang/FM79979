@@ -6,6 +6,10 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 {
 	cKissFFTStreamingConvert*l_pKissFFTStreamingConvert = (cKissFFTStreamingConvert*)_workParameter;
 	l_pKissFFTStreamingConvert->m_bThreadAlreadyStop = false;
+	float l_fLastTimeHaveNewData = 0.f;
+	UT::sTimeAndFPS	l_Timer;
+	l_Timer.Update();
+	int l_iFFTCount = (int)l_pKissFFTStreamingConvert->m_iNFrameFFTDataCount;
 	while( !l_pKissFFTStreamingConvert->m_bThreadStop && l_pKissFFTStreamingConvert->m_pOpanalOgg )
 	{
 		//do fft
@@ -16,9 +20,20 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 		l_pKissFFTStreamingConvert->m_pOpanalOgg->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
 		if( l_pKissFFTStreamingConvert->m_bNewData )
 		{
+			l_Timer.Update();
 			//do FFT convert
 			//
-			l_pKissFFTStreamingConvert->ProcessFFTData();
+			float l_fCurrentNewDataTime = l_pKissFFTStreamingConvert->m_pOpanalOgg->GetCurrentStreamingTime();
+			if(l_fCurrentNewDataTime<=l_pKissFFTStreamingConvert->m_fCurrentTime)
+			{//how come this happen!?
+				cGameApp::OutputDebugInfoString(L"this is should not happen,but if this happen make time to a bit futher than we expect to make data smooth");
+				l_pKissFFTStreamingConvert->m_pOpanalOgg->GoTo(l_pKissFFTStreamingConvert->m_fCurrentTime+0.016f);
+				l_iFFTCount /= 2;
+			}
+			else
+			{
+				l_pKissFFTStreamingConvert->ProcessFFTData(l_iFFTCount,l_Timer.fElpaseTime);
+			}
 			l_pKissFFTStreamingConvert->m_bNewData = false;
 		}
 	}
@@ -52,9 +67,18 @@ void	cKissFFTStreamingConvert::Destroy()
 	DELETE_VECTOR(m_SoundThreadTimeAndPCMDataVector,sTimeAndPCMData*);
 }
 
-void	cKissFFTStreamingConvert::ProcessFFTData()
+void	cKissFFTStreamingConvert::ProcessFFTData(int e_iOneFrameFFTDataCount,float e_fElpaseTime)
 {
-
+	//int l_iFFTCount = (int)(1.f/l_pKissFFTStreamingConvert->m_iDivideFFTDataToNFrame*l_pKissFFTStreamingConvert->m_pOpanalOgg->GetPCMDataSize());
+	int l_iCount = e_iOneFrameFFTDataCount;
+	float l_f30FPSTime = 1/30.f;
+	if(e_fElpaseTime>l_f30FPSTime)
+	{//performance is too bad...just make FFT smaller again
+		float l_fPercent = l_f30FPSTime/e_fElpaseTime;
+		l_iCount *=e_iOneFrameFFTDataCount;
+	}
+//	int l_iNeedNumFFTData = 60/m_iWaveUpdateIndex;
+	m_StreamingBufferData;
 }
 //1.find proper data by time
 //2.compare time and check performance
@@ -76,7 +100,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 			cGameApp::OutputDebugInfoString(L"this machine just too slow...");
 			return;
 		}
-		memcpy(m_StreamingBufferData[0],e_pData,e_iCount);
+		memcpy(m_StreamingBufferData,e_pData,e_iCount);
 		//m_StreamingBufferector.push_back(l_pData);
 	}
 	m_bNewData = true;
@@ -91,6 +115,7 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName)
 	}
 	Destroy();
 	m_pOpanalOgg = new cOpanalOgg(this,e_strFileName,true);
+	m_iNFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
 	m_pOpanalOgg->SetUpdateNewBufferCallbackFunction(std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(1);

@@ -716,7 +716,8 @@ private: System::Void WaveUpdateIndex_numericUpDown_ValueChanged(System::Object^
 		 {
 			 if( m_pKissFFTConvert )
 			 {
-				 m_pKissFFTConvert->SetWaveUpdateIndex((int)WaveUpdateIndex_numericUpDown->Value);
+				 float l_fTimeToUpDate = 1.f/(int)WaveUpdateIndex_numericUpDown->Value;
+				 m_pKissFFTConvert->SetFFTDataUpdateTime(l_fTimeToUpDate);
 			 }
 		 }
 };
