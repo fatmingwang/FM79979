@@ -23,6 +23,7 @@ namespace FATMING_CORE
         vorbis_info*		m_pVorbisInfo;
         vorbis_comment*		m_VorbisComment;
         ALuint				m_uiStreamBuffers[2];
+		float				m_fCurrentStreamingTime;//while new data is ready to stream set this time
 		void				Empty();
 		bool				Playback(bool e_bPlaye);//put data into buffer
 		bool				Stream(ALuint buffer);
@@ -40,6 +41,7 @@ namespace FATMING_CORE
 		virtual bool	GoTo(float e_fTime);
 		virtual	void	Play(bool e_bPlay);
 		void			SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction);
+		float			GetCurrentStreamingTime(){ return m_fCurrentStreamingTime; }
 	};
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime);
 	#define OGG_STREAMING_SOUND_BUFFER_SIZE     32768//32 KB buffers

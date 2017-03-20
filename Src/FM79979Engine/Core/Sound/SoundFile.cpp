@@ -210,6 +210,11 @@ namespace FATMING_CORE
 		}
 		//how many sample
 		//one block align contain N channel
+		if( m_iSoundDataSize == 0 )
+		{
+			UT::ErrorMsg("this is now wav file!",e_strFileName);
+			return;
+		}
 		m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
 		int	l_SoundBlock = m_WAVFmtHdr_Struct.BitsPerSample/8;
 		if( m_WAVFmtHdr_Struct.BitsPerSample < 8 )

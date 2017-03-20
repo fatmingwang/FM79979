@@ -104,6 +104,7 @@ namespace FATMING_CORE
 		m_VorbisComment = 0;
 		m_uiStreamBuffers[0] = 0;
 		m_uiStreamBuffers[1] = 0;
+		m_fCurrentStreamingTime = 0.f;
 		m_uiIndex = -1;
 		if(OpenFile(e_strileName))
 		{
@@ -309,6 +310,7 @@ namespace FATMING_CORE
 		//AL_FORMAT_STEREO16;
 		//size;
 		//here is possible lock by thread safe synchroization?
+		m_fCurrentStreamingTime = m_uiHowManyDataRead/this->m_iPCMDataSize*this->m_fTimeLength;
 	    if(m_UpdteNewBufferCallbackFunction)
 		{
 			//ogg_int64_t l_i64Size = m_pOggFile->end-m_pOggFile->offsets;
@@ -417,6 +419,7 @@ namespace FATMING_CORE
 		if( l_fPercentage >1.f )
 			l_fPercentage = 1.f;
 		float	l_fTime = l_fPercentage*this->m_fTimeLength;
+		m_uiHowManyDataRead = (int)(l_fPercentage*this->m_iPCMDataSize);
 		return ov_time_seek(this->m_pOggFile,l_fTime) == 0?true:false;
 	}
 
