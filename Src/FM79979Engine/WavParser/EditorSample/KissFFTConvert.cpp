@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
+
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/6.f);
@@ -8,6 +9,9 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_fCurrentTime = 0.f;
 	m_iNFrameFFTDataCount = 0;
 	m_vChartResolution = Vector2(800.f,600.f);
+	m_fScale = 3.f;
+	m_fNextChannelYGap = 800.f;
+	m_vChartShowPos = Vector2(200,cGameApp::m_svGameResolution.y-200);
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
@@ -41,8 +45,6 @@ cKissFFTConvert::cKissFFTConvert()
 	m_pTestSound = nullptr;
 	m_pSoundFile = nullptr;
 	m_iCurrentFFTDataLineCount = 0;
-	m_fScale = 3.f;
-	m_fYGap = 800.f;
 }
 cKissFFTConvert::~cKissFFTConvert()
 {
@@ -258,9 +260,9 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 		l_iEndIndex = (int)m_FFTDataVectorChannelVector[0]->size()-1;
 	}
 	float l_fXGap = this->m_vChartResolution.x/(l_iEndIndex-e_iStartDataIndex);
-	float l_fYGap = m_fYGap;
-	float l_fStartXPos = 200.f;
-	float l_fYStartPos = cGameApp::m_svGameResolution.y-200;
+	float l_fYGap = m_fNextChannelYGap;
+	float l_fStartXPos = m_vChartShowPos.x;
+	float l_fYStartPos = m_vChartShowPos.y;
 	int l_iIndex = 0;
 	assert(m_FFTDataLinePointVectorVector.size() == m_FFTDataVectorChannelVector.size());
 	for( size_t l_iChannelIndex = 0;l_iChannelIndex<m_FFTDataLinePointVectorVector.size();++l_iChannelIndex )
@@ -386,6 +388,15 @@ float	cKissFFTConvert::GetCurrentTimePercentage()
 		l_fPercentage = 1.f;
 	return l_fPercentage;
 	
+}
+
+float	cKissFFTConvert::GetTimeLength()
+{
+	if(this->m_pSoundFile)
+	{
+		return this->m_pSoundFile->m_fTime;
+	}
+	return 0.f;
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)

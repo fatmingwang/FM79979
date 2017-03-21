@@ -48,8 +48,8 @@ namespace EditorSample
 			this->m_pWaveInfo = nullptr;
 			this->m_pWavWaves = nullptr;
 			//
-			m_pKissFFTConvert = new cKissFFTConvert();
-			cKissFFTStreamingConvert;
+			//m_pKissFFTConvertBase = new cKissFFTConvert();
+			m_pKissFFTConvertBase = new cKissFFTStreamingConvert();
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -72,7 +72,7 @@ namespace EditorSample
 			}
 			SAFE_DELETE(this->m_pWaveInfo);
 			SAFE_DELETE(m_pSoundCapture);
-			SAFE_DELETE(m_pKissFFTConvert);
+			SAFE_DELETE(m_pKissFFTConvertBase);
 			SAFE_DELETE(this->m_pWavWaves);
 
 			SAFE_DELETE(m_pGameApp);
@@ -88,7 +88,7 @@ namespace EditorSample
 		cGameApp*					m_pGameApp;
 		//
 		cSoundCapture*				m_pSoundCapture;
-		cKissFFTConvert*			m_pKissFFTConvert;
+		cKissFFTConvertBase*		m_pKissFFTConvertBase;
 		//
 		HDC							m_HdcMV;
 		HGLRC						m_HGLRCMV;
@@ -191,7 +191,7 @@ namespace EditorSample
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\Sound\\owl.wav";
+			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\Sound\\owl.ogg";
 			// 
 			// ParseWav_button
 			// 
@@ -462,16 +462,18 @@ namespace EditorSample
 			float l_fElpaseTime = this->m_pGameApp->m_sTimeAndFPS.fElpaseTime;
 			if( cGameApp::m_spSoundParser )
 					cGameApp::m_spSoundParser->Update(l_fElpaseTime);
-			if( m_pKissFFTConvert )
+			if( m_pKissFFTConvertBase )
 			{
-				m_pKissFFTConvert->Update(l_fElpaseTime);
-				m_pKissFFTConvert->Render();
-				FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
-				if( l_pSoundFile )
+				m_pKissFFTConvertBase->Update(l_fElpaseTime);
+				m_pKissFFTConvertBase->Render();
+				float l_fCurrentPercentage = m_pKissFFTConvertBase->GetCurrentTimePercentage();
+				if( l_fCurrentPercentage > 0.f )
 				{
-					int l_iValue = (int)(CurrentTime_trackBar->Maximum * m_pKissFFTConvert->GetCurrentTimePercentage());
+					int l_iValue = (int)(CurrentTime_trackBar->Maximum * l_fCurrentPercentage);
+					if( l_iValue >= CurrentTime_trackBar->Maximum)
+						l_iValue = CurrentTime_trackBar->Maximum;
 					CurrentTime_trackBar->Value = l_iValue;
-					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(l_pSoundFile->m_fTime*10);
+					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(m_pKissFFTConvertBase->GetTimeLength()*10);
 				}
 			}
 			cGameApp::ShowInfo();
@@ -660,13 +662,9 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 			 if(System::IO::File::Exists(WavFileName_textBox->Text))
 			 {
 				 std::string l_strFileName = DNCT::GcStringToChar(WavFileName_textBox->Text);
-				 if(m_pKissFFTConvert->FetchSoundDataStart(l_strFileName.c_str()))
+				 if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str()))
 				 {
-					 FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
-					 if( l_pSoundFile )
-					 {
-						CurrentTime_trackBar->Maximum = (int)(l_pSoundFile->m_fTime*10);
-					 }
+					 CurrentTime_trackBar->Maximum = (int)(m_pKissFFTConvertBase->GetTimeLength()*10);
 				 }
 			 }
 			 cGameApp::m_sTimeAndFPS.Update();
@@ -674,12 +672,12 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 		 }
 private: System::Void BackStep_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 if( m_pKissFFTConvert )
+			 if( m_pKissFFTConvertBase )
 			 {
 				 if( sender == this->ForwardStep_button )
-					m_pKissFFTConvert->Update(0.016f);
+					m_pKissFFTConvertBase->Update(0.016f);
 				 else
-					m_pKissFFTConvert->Update(-0.016f);
+					m_pKissFFTConvertBase->Update(-0.016f);
 			 }
 		 }
 private: System::Void ToOgg_button_Click(System::Object^  sender, System::EventArgs^  e)
@@ -714,10 +712,10 @@ private: System::Void PlayWav_button_Click(System::Object^  sender, System::Even
 		 }
 private: System::Void WaveUpdateIndex_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 if( m_pKissFFTConvert )
+			 if( m_pKissFFTConvertBase )
 			 {
 				 float l_fTimeToUpDate = 1.f/(int)WaveUpdateIndex_numericUpDown->Value;
-				 m_pKissFFTConvert->SetFFTDataUpdateTime(l_fTimeToUpDate);
+				 m_pKissFFTConvertBase->SetFFTDataUpdateTime(l_fTimeToUpDate);
 			 }
 		 }
 };

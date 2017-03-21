@@ -91,10 +91,10 @@ namespace FATMING_CORE
 	}
 
 	TYPDE_DEFINE_MARCO(cOpanalOgg);
-	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming):cBasicSound(e_pNamedTypedObject,e_bStreaming)
+	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
 		m_uiHowManyDataRead = 0;
-		m_UpdteNewBufferCallbackFunction = nullptr;
+		m_UpdteNewBufferCallbackFunction = e_CallbuckFunction;
 		m_fTimeToUpdate.SetTargetTime(0.1f);
 		m_fTimeToUpdate.SetLoop(true);
 		m_bPlayDone = true;
@@ -310,7 +310,7 @@ namespace FATMING_CORE
 		//AL_FORMAT_STEREO16;
 		//size;
 		//here is possible lock by thread safe synchroization?
-		m_fCurrentStreamingTime = m_uiHowManyDataRead/this->m_iPCMDataSize*this->m_fTimeLength;
+		m_fCurrentStreamingTime = (float)m_uiHowManyDataRead/(float)this->m_iPCMDataSize*this->m_fTimeLength;
 	    if(m_UpdteNewBufferCallbackFunction)
 		{
 			//ogg_int64_t l_i64Size = m_pOggFile->end-m_pOggFile->offsets;

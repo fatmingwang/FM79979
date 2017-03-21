@@ -13,8 +13,11 @@ protected:
 	int		m_iDivideFFTDataToNFrame;
 	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
 	int		m_iNFrameFFTDataCount;
-	//for one channel
+	//for chart
 	Vector2	m_vChartResolution;
+	Vector2	m_vChartShowPos;
+	float	m_fScale;
+	float	m_fNextChannelYGap;
 public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
@@ -25,6 +28,8 @@ public:
 	virtual void	Render() = 0;
 	void			SetFFTDataUpdateTime(float e_fTime);
 	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
+	virtual float	GetCurrentTimePercentage() = 0;
+	virtual float	GetTimeLength() = 0;
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
@@ -41,9 +46,6 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
 	void	PreProcessedAllData();
-	//for chart
-	float	m_fScale;
-	float	m_fYGap;
 	//
 	virtual void	Destroy();
 public:
@@ -56,5 +58,6 @@ public:
 	virtual void	Render();
 	//
 	FATMING_CORE::cSoundFile*GetSoundFile(){return m_pSoundFile;}
-	float	GetCurrentTimePercentage();
+	virtual float	GetCurrentTimePercentage();
+	virtual float	GetTimeLength();
 };

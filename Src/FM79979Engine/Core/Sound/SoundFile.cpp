@@ -213,7 +213,7 @@ namespace FATMING_CORE
 		if( m_iSoundDataSize == 0 )
 		{
 			UT::ErrorMsg("this is now wav file!",e_strFileName);
-			return;
+			return false;
 		}
 		m_iSampleCount = this->m_iSoundDataSize/m_WAVFmtHdr_Struct.BlockAlign;
 		int	l_SoundBlock = m_WAVFmtHdr_Struct.BitsPerSample/8;
@@ -333,6 +333,18 @@ namespace FATMING_CORE
 	{
 		m_WAVFmtHdr_Struct = GetWAVFmtHdr_Struct(e_usFormat,e_usChannels,e_uiSampleRate,e_uiBytesRate,e_usBlockAlign,e_usBitsPerSample);
 	}
+	//here assumy block align is 16bit 
+	std::vector<char>	TwoChannelToOneChannel(vector<char>* e_pBuffer)
+	{
+		size_t l_uiSize = e_pBuffer->size();
+		std::vector<char>	l_OutputVector;
+		for( size_t i=2;i<l_uiSize;i+=4 )
+		{
+			l_OutputVector.push_back((*e_pBuffer)[i]);
+			l_OutputVector.push_back((*e_pBuffer)[i+1]);
+		}
+		return l_OutputVector;
+	}
 
 	bool	cSoundFile::OggToWavFile(const char*e_strFileName,const char*e_strOutputFileName,int e_iOutChannel )
 	{
@@ -350,9 +362,14 @@ namespace FATMING_CORE
 			const int l_iBitToByteCount = 8;
 			const int l_iBlockAlign = 8;
 			unsigned int   l_uBytesRate = l_iSampleRate*l_iChannel*l_iOggBitPerSample/l_iBitToByteCount;//== SampleRate * NumChannels * BitsPerSample/8
+
 			this->SetWAVFmtHdr(1,l_iChannel,l_iFreq,l_uBytesRate,l_iBlockAlign,l_iOggBitPerSample);
 			StartWriteWavFile(e_strOutputFileName);
 			WriteWavData(l_uiSize,(unsigned char*)&buffer[0]);
+			//test code for 2 channel try write only one channel
+			//this->SetWAVFmtHdr(1,1,l_iFreq,l_uBytesRate,l_iBlockAlign,l_iOggBitPerSample);
+			//vector<char> l_OneChannel = TwoChannelToOneChannel(&buffer);
+			//WriteWavData(l_uiSize/2,(unsigned char*)&l_OneChannel[0]);
 			EndWriteWavFile();
 			return true;
 		}

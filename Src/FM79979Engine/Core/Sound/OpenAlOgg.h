@@ -32,7 +32,7 @@ namespace FATMING_CORE
 		std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)>	m_UpdteNewBufferCallbackFunction;
 	public:
 		DEFINE_TYPE_INFO();
-		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming);
+		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction = nullptr;);
 		virtual ~cOpanalOgg();
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual bool	OpenFile(const char*e_strileName);
