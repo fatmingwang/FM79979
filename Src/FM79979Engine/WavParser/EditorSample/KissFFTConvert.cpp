@@ -8,10 +8,11 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iDivideFFTDataToNFrame = 60;
 	m_fCurrentTime = 0.f;
 	m_iNFrameFFTDataCount = 0;
-	m_vChartResolution = Vector2(800.f,600.f);
+	m_vChartResolution = Vector2(1280.f,600.f);
 	m_fScale = 3.f;
 	m_fNextChannelYGap = 800.f;
 	m_vChartShowPos = Vector2(200,cGameApp::m_svGameResolution.y-200);
+	m_bPause = false;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
@@ -297,14 +298,14 @@ bool	cKissFFTConvert::FetchSoundDataByTimeRange(float e_fStartTime,float e_fDuri
 	int	l_iTargetIndex = (int)(m_fCurrentTime/(1.f/this->m_iDivideFFTDataToNFrame));
 	//because char to short? or
 	//because 6.plot N/2 (log) magnitude values,so divide 2
-	int l_iStartIndex = l_iTargetIndex*(m_iNFrameFFTDataCount/2);
-	int l_iDuringRangeCount = this->m_iNFrameFFTDataCount/2;
+	int l_iStartIndex = l_iTargetIndex*(m_iNFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+	int l_iDuringRangeCount = this->m_iNFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
 	return FetchSoundData(l_iStartIndex,l_iDuringRangeCount);
 }
 
 void	cKissFFTConvert::Update(float e_fElpaseTime)
 {
-	if( m_pSoundFile )
+	if( m_pSoundFile && !m_bPause )
 	{
 		float l_fElpaseTime = e_fElpaseTime;//0.016f;//e_fElpaseTime
 		m_fCurrentTime += e_fElpaseTime;

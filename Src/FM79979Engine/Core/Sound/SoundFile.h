@@ -164,6 +164,8 @@ namespace FATMING_CORE
 		bool							EndWriteOggData();
 		//
 		bool							WavToOggFile(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality = 0.4f,int e_iOutChannel = 2);
+		//this one only take one channel not merge 2 into 1
+		bool							WavToOggFileOnlyChannel(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality = 0.4f,int e_iOutChannel = 2,int e_iTargetChannelIndex = 0);
 		bool							OggToWavFile(const char*e_strFileName,const char*e_strOutputFileName,int e_iOutChannel = 2);
 	};
 //end namespace FATMING_CORE

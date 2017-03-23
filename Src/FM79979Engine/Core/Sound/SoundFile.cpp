@@ -244,42 +244,6 @@ namespace FATMING_CORE
 			}
 			m_AllChannelData.push_back(l_pCurrentChannelData);
 		}
-		//output one channel test
-//		{
-//
-//
-//			this->m_iWriteChannel = 1;
-//			m_iSoundDataSize /= 2;
-//			StartWriteOggData("qqq.ogg",this->m_WAVFmtHdr_Struct.SampleRate,m_iWriteChannel,0.5);
-//			//StartWriteOggData(e_strOutputFileName,this->m_WAVFmtHdr_Struct.SampleRate,2,e_fQuality);
-//			int l_iWriteSize = 1024*4;//m_iSoundDataSize;//1024*100;//306432
-//			if( l_iWriteSize >= m_iSoundDataSize)
-//				l_iWriteSize = m_iSoundDataSize;
-//			//from byte to float
-//			int l_iNumData = this->m_iSoundDataSize/l_iWriteSize;
-//			if(this->m_iSoundDataSize%l_iWriteSize)
-//			{
-//				l_iNumData += 1;
-//			}
-//			unsigned char*l_pCurrentSoundData = m_AllChannelData[0];
-//			int l_iCurrentDataPos = 0;
-//			for( int i=0;i<l_iNumData;++i )
-//			{
-//				int l_iDataLen = l_iWriteSize;
-//				if((i+1)*l_iWriteSize>m_iSoundDataSize)
-//				{
-//					l_iDataLen = m_iSoundDataSize-(i*l_iWriteSize);
-//				}
-//#ifdef SRROUND_SOUND_TEST
-//				g_fTest = sin((float)i/l_iNumData*20.f);
-//				g_fTest2 = cos((float)i/l_iNumData*20.f);
-//#endif
-//				char*l_pucCurrentData = (char*)l_pCurrentSoundData+l_iCurrentDataPos;
-//				WriteOggData(l_iDataLen,l_pucCurrentData,1);
-//				l_iCurrentDataPos += l_iDataLen;
-//			}
-//			EndWriteOggData();
-//		}			
 		return true;	
 	}
 
@@ -483,6 +447,46 @@ float g_fTest2 = 1.f;
 		return false;
 	}
 
+	bool	cSoundFile::WavToOggFileOnlyChannel(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality,int e_iOutChannel ,int e_iTargetChannelIndex)
+	{
+		if( e_iTargetChannelIndex >1 )
+			e_iTargetChannelIndex = 1;
+		if(OpenWavFile(e_strFileName))
+		{
+			this->m_iWriteChannel = 1;
+			m_iSoundDataSize /= 2;
+			StartWriteOggData(e_strOutputFileName,this->m_WAVFmtHdr_Struct.SampleRate,m_iWriteChannel,0.5);
+			//StartWriteOggData(e_strOutputFileName,this->m_WAVFmtHdr_Struct.SampleRate,2,e_fQuality);
+			int l_iWriteSize = 1024*4;//m_iSoundDataSize;//1024*100;//306432
+			if( l_iWriteSize >= m_iSoundDataSize)
+				l_iWriteSize = m_iSoundDataSize;
+			//from byte to float
+			int l_iNumData = this->m_iSoundDataSize/l_iWriteSize;
+			if(this->m_iSoundDataSize%l_iWriteSize)
+			{
+				l_iNumData += 1;
+			}
+			unsigned char*l_pCurrentSoundData = m_AllChannelData[0];
+			int l_iCurrentDataPos = 0;
+			for( int i=0;i<l_iNumData;++i )
+			{
+				int l_iDataLen = l_iWriteSize;
+				if((i+1)*l_iWriteSize>m_iSoundDataSize)
+				{
+					l_iDataLen = m_iSoundDataSize-(i*l_iWriteSize);
+				}
+#ifdef SRROUND_SOUND_TEST
+				g_fTest = sin((float)i/l_iNumData*20.f);
+				g_fTest2 = cos((float)i/l_iNumData*20.f);
+#endif
+				char*l_pucCurrentData = (char*)l_pCurrentSoundData+l_iCurrentDataPos;
+				WriteOggData(l_iDataLen,l_pucCurrentData,1);
+				l_iCurrentDataPos += l_iDataLen;
+			}
+			EndWriteOggData();
+		}			
+		return false;
+	}
 
 	bool	cSoundFile::StartWriteOggData(const char*e_strFileName,int e_iSampleRate,int e_iChannel,float e_fQuality)
 	{

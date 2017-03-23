@@ -127,6 +127,9 @@ namespace EditorSample
 	private: System::Windows::Forms::Button^  PlayWav_button;
 	private: System::Windows::Forms::NumericUpDown^  WaveUpdateIndex_numericUpDown;
 	private: System::Windows::Forms::Label^  WaveUpdateIndex_label;
+private: System::Windows::Forms::CheckBox^  FFTTestPause_checkBox;
+private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
+
 
 	private: System::Windows::Forms::ListBox^  WavInfo_listBox;
 
@@ -164,6 +167,8 @@ namespace EditorSample
 			this->PlayWav_button = (gcnew System::Windows::Forms::Button());
 			this->WaveUpdateIndex_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->WaveUpdateIndex_label = (gcnew System::Windows::Forms::Label());
+			this->FFTTestPause_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->WavToOggOnlyOneChannel = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
@@ -191,7 +196,7 @@ namespace EditorSample
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\Sound\\owl.ogg";
+			this->WavFileName_textBox->Text = L"C:\\Users\\leeyo\\Desktop\\FM79979\\Media\\Sound\\1.ogg";
 			// 
 			// ParseWav_button
 			// 
@@ -395,11 +400,34 @@ namespace EditorSample
 			this->WaveUpdateIndex_label->TabIndex = 24;
 			this->WaveUpdateIndex_label->Text = L"WaveUpdateIndex";
 			// 
+			// FFTTestPause_checkBox
+			// 
+			this->FFTTestPause_checkBox->AutoSize = true;
+			this->FFTTestPause_checkBox->Location = System::Drawing::Point(478, 554);
+			this->FFTTestPause_checkBox->Name = L"FFTTestPause_checkBox";
+			this->FFTTestPause_checkBox->Size = System::Drawing::Size(96, 17);
+			this->FFTTestPause_checkBox->TabIndex = 25;
+			this->FFTTestPause_checkBox->Text = L"FFTTestPause";
+			this->FFTTestPause_checkBox->UseVisualStyleBackColor = true;
+			this->FFTTestPause_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::FFTTestPause_checkBox_CheckedChanged);
+			// 
+			// WavToOggOnlyOneChannel
+			// 
+			this->WavToOggOnlyOneChannel->Location = System::Drawing::Point(908, 545);
+			this->WavToOggOnlyOneChannel->Name = L"WavToOggOnlyOneChannel";
+			this->WavToOggOnlyOneChannel->Size = System::Drawing::Size(162, 26);
+			this->WavToOggOnlyOneChannel->TabIndex = 26;
+			this->WavToOggOnlyOneChannel->Text = L"WavToOggOnlyOneChannel";
+			this->WavToOggOnlyOneChannel->UseVisualStyleBackColor = true;
+			this->WavToOggOnlyOneChannel->Click += gcnew System::EventHandler(this, &Form1::WavToOggOnlyOneChannel_button_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->WavToOggOnlyOneChannel);
+			this->Controls->Add(this->FFTTestPause_checkBox);
 			this->Controls->Add(this->WaveUpdateIndex_label);
 			this->Controls->Add(this->WaveUpdateIndex_numericUpDown);
 			this->Controls->Add(this->PlayWav_button);
@@ -447,7 +475,8 @@ namespace EditorSample
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->Run();
-			glEnable2D(1920*2,1080*2);
+			//glEnable2D(1920*2,1080*2);
+			glEnable2D(1920,1080*2);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 			glClearColor(0,0,0,0);
 			glClearDepth(1.0f);
@@ -717,6 +746,23 @@ private: System::Void WaveUpdateIndex_numericUpDown_ValueChanged(System::Object^
 				 float l_fTimeToUpDate = 1.f/(int)WaveUpdateIndex_numericUpDown->Value;
 				 m_pKissFFTConvertBase->SetFFTDataUpdateTime(l_fTimeToUpDate);
 			 }
+		 }
+private: System::Void FFTTestPause_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(m_pKissFFTConvertBase)
+				 m_pKissFFTConvertBase->Pause(FFTTestPause_checkBox->Checked);
+
+		 }
+private: System::Void WavToOggOnlyOneChannel_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+				std::string l_FileName = DNCT::GcStringToChar(this->WavFileName_textBox->Text);
+				FATMING_CORE::cSoundFile*l_pSoundFile = new FATMING_CORE::cSoundFile();
+				//if( sender == ToOgg_button )
+				{
+					std::string l_strOutputFileName = UT::ChangeFileExtensionName(l_FileName.c_str(),"ogg");
+					l_pSoundFile->WavToOggFileOnlyChannel(l_FileName.c_str(),l_strOutputFileName.c_str(),1);
+					delete l_pSoundFile;
+				}
 		 }
 };
 }

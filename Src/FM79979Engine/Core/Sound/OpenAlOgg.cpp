@@ -91,8 +91,9 @@ namespace FATMING_CORE
 	}
 
 	TYPDE_DEFINE_MARCO(cOpanalOgg);
-	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction):cBasicSound(e_pNamedTypedObject,e_bStreaming)
+	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction,bool e_bPreCache):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
+		m_bPreCached = e_bPreCache;
 		m_uiHowManyDataRead = 0;
 		m_UpdteNewBufferCallbackFunction = e_CallbuckFunction;
 		m_fTimeToUpdate.SetTargetTime(0.1f);
@@ -228,7 +229,9 @@ namespace FATMING_CORE
 			m_iFreq = m_pVorbisInfo->rate;
 			//ogg sample bit is 16!.?
 			m_iPCMDataSize = cBasicSound::CalculatePCMDataSize(m_pVorbisInfo->channels,m_iFreq,m_fTimeLength,16);
-			Playback(false);
+			//
+			if( m_bPreCached )
+				Playback(false);
 			
 		}
 		else
@@ -275,7 +278,7 @@ namespace FATMING_CORE
 		int  size = 0;
 		int  section;
 		int  result;
-
+		size_t l_uiStartPos = m_uiHowManyDataRead;
 		while(size < OGG_STREAMING_SOUND_BUFFER_SIZE)
 		{
 			result = ov_read(m_pOggFile,pcm+size, OGG_STREAMING_SOUND_BUFFER_SIZE - size, 0, 2, 1, &section);
@@ -314,7 +317,7 @@ namespace FATMING_CORE
 	    if(m_UpdteNewBufferCallbackFunction)
 		{
 			//ogg_int64_t l_i64Size = m_pOggFile->end-m_pOggFile->offsets;
-			m_UpdteNewBufferCallbackFunction(size,pcm,m_uiHowManyDataRead);
+			m_UpdteNewBufferCallbackFunction(size,pcm,l_uiStartPos);
 		}
 		alBufferData(buffer, this->m_iFormat, pcm, size, m_pVorbisInfo->rate);
 		check();
@@ -409,6 +412,11 @@ namespace FATMING_CORE
 
 	void	cOpanalOgg::Play(bool e_bPlay)
 	{
+		if( !m_bPreCached )
+		{
+			m_bPreCached = true;
+			this->Playback(false);
+		}
 		cBasicSound::Play(e_bPlay);
 		m_bPlayDone = !e_bPlay;
 	}

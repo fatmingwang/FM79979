@@ -1,7 +1,7 @@
 #pragma once
 //default we expect 60fps
 #define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
-
+#define	WINDOWN_FUNCTION_FRUSTRUM	2
 class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;
@@ -18,6 +18,7 @@ protected:
 	Vector2	m_vChartShowPos;
 	float	m_fScale;
 	float	m_fNextChannelYGap;
+	bool	m_bPause;
 public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
@@ -30,6 +31,7 @@ public:
 	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
 	virtual float	GetCurrentTimePercentage() = 0;
 	virtual float	GetTimeLength() = 0;
+	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

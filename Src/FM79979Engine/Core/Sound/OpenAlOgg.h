@@ -25,14 +25,17 @@ namespace FATMING_CORE
         ALuint				m_uiStreamBuffers[2];
 		float				m_fCurrentStreamingTime;//while new data is ready to stream set this time
 		void				Empty();
-		bool				Playback(bool e_bPlaye);//put data into buffer
+		//bool				Playback(bool e_bPlaye);//put data into buffer
 		bool				Stream(ALuint buffer);
 		bool				m_bPlayDone;
+		bool				Playback(bool e_bPlaye);//put data into buffer
+		//if this is true,it will take a little time to cache while cOpanalOgg is trying to new.if you want to cache later set to false,anyway cache need time to process
+		bool				m_bPreCached;
 		string				ErrorString(int code);
 		std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)>	m_UpdteNewBufferCallbackFunction;
 	public:
 		DEFINE_TYPE_INFO();
-		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction = nullptr;);
+		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction = nullptr,bool e_bPreCache = true);
 		virtual ~cOpanalOgg();
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual bool	OpenFile(const char*e_strileName);

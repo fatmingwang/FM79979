@@ -6,57 +6,86 @@
 void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
 
-#define	PCM_SWAP_BUFFER_COUNT	5
-#define	FFT_DATA_SWAP_BUFFER_COUNT	3
+void	SoundUpdateThread(size_t _workParameter, size_t _pUri);
+void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
+
+
+#define	PCM_SWAP_BUFFER_COUNT	10
+#define	FFT_DATA_SWAP_BUFFER_COUNT	10
 class cKissFFTStreamingConvert:public cKissFFTConvertBase
 {
-	cFUSynchronized				m_FUSynchronized;
+	cFUSynchronized				m_FUSynchronizedForTimeAndFFTDataVector;
+	cFUSynchronized				m_FUSynchronizedForTimeAndPCMDataVector;
+	struct sTimeAndPCMData
+	{
+		int		iDebugForOccupyArrayIndex;
+		char*	pPCMData;
+		int		iNumPCMData;
+		float	fStartTime;
+		float	fEndTime;
+		sTimeAndPCMData(float e_fStartTime,float e_fEndTime,char*e_pPCMData,int	e_iNumPCMData,int e_iOccupyIndex)
+		{
+			iDebugForOccupyArrayIndex = e_iOccupyIndex;
+			pPCMData = e_pPCMData;
+			iNumPCMData = e_iNumPCMData;
+			fStartTime = e_fStartTime;
+			fEndTime = e_fEndTime;
+		}
+		~sTimeAndPCMData(){}
+	};
 	//
 	struct sTimeAndFFTData
 	{
 		//char*	pPCMData;
 		float	fStartTime;
 		float	fEndTime;
+		float	fTimeGap;
+		//only store the index where time is okay for to do fft
+		std::map<float,int>	TimeAndFFTDataIndex;
 		int*	piLeftChannelFFTData;
 		int*	piRightChannelFFTData;
 		int		iFFTDataOneSample;
 		int		iTotalFFTDataCount;
 		int		iNumChannel;
 		Vector2	vFFTDataToPoints[2000];
-		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel);
+		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
 		bool	GenerateFFTLines(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 	};
 	//this for sound thread,once data 
 	//std::vector<sTimeAndFFTData*>m_SoundThreadTimeAndPCMDataVector;
-	//std::vector<sTimeAndFFTData*>m_TimeAndPCMDataVector;
 	//
 	//give a big enough array instead new and delete
 	kiss_fft_cpx			m_Kiss_FFT_In[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
 	kiss_fft_cpx			m_Kiss_FFT_Out[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
+	kiss_fft_state*			m_pkiss_fft_state;
+	float*					m_pfWindowFunctionConstantValue;
 	//2 for channel
 	int						m_FFTData[FFT_DATA_SWAP_BUFFER_COUNT][2][OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
 	int						m_iNumFFTDataSwapBuffer;
 	int						m_iCurrentFFTDataSwapBufferIndex;
-	std::vector<sTimeAndFFTData*>	m_TimeAndPCMDataVector;
+	std::vector<sTimeAndFFTData*>	m_TimeAndFFTDataVector;
 	//
 	cFUThreadPool*			m_pFUThreadPool;
 	friend			void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 	friend			void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
+	friend			void	SoundUpdateThread(size_t _workParameter, size_t _pUri);
+	friend			void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
 	//
-	//char			m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
-	char			m_StreamingBufferData[OGG_STREAMING_SOUND_BUFFER_SIZE];
-	bool			m_bReceivedBuffer;
-	void			StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex);
-	//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
-	void			ProcessFFTData(int e_iOneFrameFFTDataCount,float e_fElpaseTime);
+	bool					m_bReceivedBuffer;
+	void					StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex);
+	int						m_iCurrentStreamingBufferDataIndex;
+	char					m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
+	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
 	//
-	cOpanalOgg*		m_pOpanalOgg;
-	bool			m_bNewData;
-	bool			m_bThreadStop;
-	bool			m_bThreadAlreadyStop;
+		//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
+	void					ProcessFFTData();
 	//
-	virtual void	Destroy();
+	cOpanalOgg*				m_pOpanalOgg;
+	bool					m_bThreadStop;
+	bool					m_bThreadAlreadyStop;
+	//
+	virtual void			Destroy();
 public:
 	cKissFFTStreamingConvert();
 	~cKissFFTStreamingConvert();
