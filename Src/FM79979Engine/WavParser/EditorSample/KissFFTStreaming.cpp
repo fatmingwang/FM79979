@@ -19,6 +19,41 @@ cKissFFTStreamingConvert::sTimeAndFFTData::~sTimeAndFFTData()
 	//SAFE_DELETE(pPCMData); 
 }
 
+bool	cKissFFTStreamingConvert::sTimeAndFFTData::ForceGenerateLastFFTLines(Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
+{
+	int l_iIndex = (this->iTotalFFTDataCount/this->iFFTDataOneSample)-1;
+	GenerateFFTLinesByFFTSampleTargetIndex(l_iIndex,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
+	return true;
+}
+
+bool	cKissFFTStreamingConvert::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIndex(int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
+{
+	float l_fXGap = e_vChartResolution.x/iFFTDataOneSample;
+	float l_fYGap = e_fNextChannelYGap;
+	float l_fStartXPos = e_vShowPos.x;
+	//float l_fNextChannelXPos = 100+e_vChartResolution.x/2;
+	float l_fNextChannelXPos = 0;
+	float l_fYStartPos = e_vShowPos.y;
+
+	int l_iFFTDataLength = iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
+	for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
+	{
+		int*l_pChannelData = l_iChannelIndex==0?piLeftChannelFFTData:piRightChannelFFTData;
+		int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*e_iFFTSampleTargetIndex];
+		for(int i=0;i<l_iFFTDataLength;++i)
+		{
+			int l_iIndex = i*2+l_iChannelIndex*(l_iFFTDataLength*2);//one line 2 points
+			vFFTDataToPoints[l_iIndex+1].x = vFFTDataToPoints[l_iIndex].x = l_fStartXPos+l_fXGap*i+l_fNextChannelXPos*l_iChannelIndex;
+			vFFTDataToPoints[l_iIndex].y = l_fYStartPos+l_fYGap*l_iChannelIndex;
+			int l_iValue = l_pStartFFTData[i];
+			vFFTDataToPoints[l_iIndex+1].y = vFFTDataToPoints[l_iIndex].y-(l_iValue*e_fScale);
+		}
+	}
+	return true;
+}
+
+
+
 bool	cKissFFTStreamingConvert::sTimeAndFFTData::GenerateFFTLines(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
 {
 	if( fEndTime-fTimeGap < e_fTargetTime )
@@ -48,33 +83,8 @@ bool	cKissFFTStreamingConvert::sTimeAndFFTData::GenerateFFTLines(float e_fTarget
 		//here should not happen,cKissFFTStreamingConvert::ProcessFFTData() need more accurate the performance goes!.
 		return false;
 	}
-	float l_fXGap = e_vChartResolution.x/iFFTDataOneSample;
-	float l_fYGap = e_fNextChannelYGap;
-	float l_fStartXPos = e_vShowPos.x;
-	//float l_fNextChannelXPos = 100+e_vChartResolution.x/2;
-	float l_fNextChannelXPos = 0;
-	float l_fYStartPos = e_vShowPos.y;
-
-	
-	for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
-	{
-		int*l_pChannelData = l_iChannelIndex==0?piLeftChannelFFTData:piRightChannelFFTData;
-		int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*l_IndexToJump];
-		for(int i=0;i<l_iFFTDataLength;++i)
-		{
-			int l_iIndex = i*2+l_iChannelIndex*(l_iFFTDataLength*2);//one line 2 points
-			vFFTDataToPoints[l_iIndex+1].x = vFFTDataToPoints[l_iIndex].x = l_fStartXPos+l_fXGap*i+l_fNextChannelXPos*l_iChannelIndex;
-			vFFTDataToPoints[l_iIndex].y = l_fYStartPos+l_fYGap*l_iChannelIndex;
-			int l_iValue = l_pStartFFTData[i];
-			vFFTDataToPoints[l_iIndex+1].y = vFFTDataToPoints[l_iIndex].y-(l_iValue*e_fScale);
-			if( l_iValue < -300 )
-			{
-				int a=0;
-			}
-		}
-	}
+	GenerateFFTLinesByFFTSampleTargetIndex(l_IndexToJump,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
 	return true;
-	
 }
 
 void	SoundUpdateThread(size_t _workParameter, size_t _pUri)
@@ -214,9 +224,11 @@ void	cKissFFTStreamingConvert::ProcessFFTData()
 		if( l_bDoFFT )
 		{
 			//for how many FFT data
-			for(size_t l_iSampleIndex = 0;l_iSampleIndex<l_iNumFFTDataNeed;++l_iSampleIndex)
+			for(int l_iSampleIndex = 0;l_iSampleIndex<l_iNumFFTDataNeed;++l_iSampleIndex)
 			{
 				int l_iStartIndex = l_iSampleIndex*l_iNextPCMDataStep;
+				if( ((l_iStartIndex+l_iFetchDataCount*l_iChannels)*sizeof(short))>=l_pTimeAndPCMData->iNumPCMData )
+					break;
 				int l_iWindowFunctionIndex = 0;
 				int l_iSoundDataOfChannel1 = 0;
 				for(int l_iCurrentIndex = 0;l_iCurrentIndex<l_iFetchDataCount;++l_iCurrentIndex)
@@ -403,11 +415,15 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 			this->Destroy();
 			return;
 		}
+		//dont need to do synchronzied,because only here will delete
 		while(m_TimeAndFFTDataVector.size())
 		{
 			if( !m_TimeAndFFTDataVector[0]->GenerateFFTLines(m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 			{
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndFFTDataVector);
+				//wait for next new one.
+				if( m_TimeAndFFTDataVector.size() == 1 )
+					break;
 				float l_fStartTime = m_TimeAndFFTDataVector[0]->fStartTime;
 				float l_fEndime = m_TimeAndFFTDataVector[0]->fEndTime;
 				delete m_TimeAndFFTDataVector[0];

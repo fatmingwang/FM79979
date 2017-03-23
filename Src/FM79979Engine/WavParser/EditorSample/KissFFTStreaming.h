@@ -51,6 +51,8 @@ class cKissFFTStreamingConvert:public cKissFFTConvertBase
 		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
 		bool	GenerateFFTLines(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	GenerateFFTLinesByFFTSampleTargetIndex(int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	ForceGenerateLastFFTLines(Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 	};
 	//this for sound thread,once data 
 	//std::vector<sTimeAndFFTData*>m_SoundThreadTimeAndPCMDataVector;
