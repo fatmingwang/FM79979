@@ -12,6 +12,7 @@
 #endif
 namespace	FATMING_CORE
 {
+	TYPDE_DEFINE_MARCO(cSounRecordToFileCallBackObject);
 	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 	extern float g_fTest;
 	extern float g_fTest2;
@@ -19,7 +20,7 @@ namespace	FATMING_CORE
 	void	RecordingThread(size_t _workParameter, size_t _pUri)
 	{
 		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
-		cSoundFile*l_pSoundFile = l_pSoundCapture->GetSoundFile();
+//		cSoundFile*l_pSoundFile = l_pSoundCapture->GetSoundFile();
 		if( !l_pSoundCapture->GetDevice() )
 		{
 			UT::ErrorMsg("no capture device exists","ERROR!");
@@ -32,12 +33,22 @@ namespace	FATMING_CORE
 			UT::ErrorMsg("capture start failed ","ERROR!");
 			return;
 		}
-		
+		UT::sTimeAndFPS	l_Timer;
+		l_Timer.Update();
+		auto l_CallbackObjectVector = l_pSoundCapture->GetList();
+		int l_iNumCount = l_pSoundCapture->Count();
+		for( int i=0;i<l_iNumCount;++i )
+		{
+			(*l_CallbackObjectVector)[i]->PreCaptureSoundStartCallBack(l_pSoundCapture);
+		}
+		//2 for 
 		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetSampleRate()*2]; // A buffer to hold captured audio
 		ALCint l_iSamplesIn = 0;  // How many samples are captured
 		int l_iTest = 0;
 		while(!l_pSoundCapture->IsStop())
 		{
+			l_Timer.Update();
+			l_pSoundCapture->Update(l_Timer.fElpaseTime);
 			if(l_pSoundCapture->IsPause()||cGameApp::m_sbGamePause)
 			{
 				Sleep(1);
@@ -47,7 +58,8 @@ namespace	FATMING_CORE
 			{
 				// Poll for captured audio
 				alcGetIntegerv(l_pSoundCapture->GetDevice(),ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
-				if (l_iSamplesIn>CAP_SIZE) {
+				if (l_iSamplesIn >= l_pSoundCapture->GetBuffersize()) {
+				//if (l_iSamplesIn>CAP_SIZE) {
 #define SRROUND_SOUND_TEST
 #ifdef SRROUND_SOUND_TEST
 					g_fTest = sin((float)l_iTest/360*20);
@@ -57,40 +69,46 @@ namespace	FATMING_CORE
 #endif
 					//because the open al give short data here need to conver to char size
 					alcCaptureSamples(l_pSoundCapture->GetDevice(),l_pBuffer,l_iSamplesIn);
-					//the channel is 2,data size is double.
-					l_iSamplesIn = l_iSamplesIn*sizeof(short)/sizeof(char)*l_pSoundCapture->GetWriteChannel();
 					l_pSoundCapture->AddFileSize(l_iSamplesIn);
-					if(l_pSoundCapture->GetCaptureSoundFileFormat() == eCSFF_OGG)
-						l_pSoundFile->WriteOggData(l_iSamplesIn,(char*)l_pBuffer,l_pSoundCapture->GetWriteChannel());
-					else
-						l_pSoundFile->WriteWavData(l_iSamplesIn,(unsigned char*)l_pBuffer);
+					for( int i=0;i<l_iNumCount;++i )
+					{
+						(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(l_iSamplesIn,(char*)l_pBuffer);
+					}
 				}
 			}
 		}
 		delete l_pBuffer;
 		// Stop capture
 		alcCaptureStop(l_pSoundCapture->GetDevice());
-		if(l_pSoundCapture->GetCaptureSoundFileFormat() == eCSFF_OGG)
-			l_pSoundFile->EndWriteOggData();
-		else
-			l_pSoundFile->EndWriteWavFile();
+
+		for( int i=0;i<l_iNumCount;++i )
+		{
+			(*l_CallbackObjectVector)[i]->CaptureSoundEndCallBack();
+		}
 		l_pSoundCapture->SetStop(false);
 	}
 	void	RecordingDoneThread(size_t _workParameter, size_t _pUri)
 	{
 
 	}
+
+	void	cSounRecordCallBackObject::PreCaptureSoundStartCallBack(cSoundCapture*e_pSoundCapture)
+	{
+		m_pSoundCapture = e_pSoundCapture;
+		CaptureSoundStartCallBack();
+	}
+
 	cSoundCapture*g_pSoundCapture = nullptr;
 	cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 	{
+		m_iBufferSize = buffersize;
+		m_fCurrntTime = 0.f;
 		m_bIsRecording = false;
-		m_pSoundFile = nullptr;
 		m_pFUThreadPool = nullptr;
 		m_bPause = false;
 		m_bStop = false;
 		m_pDevice = nullptr;
 		m_iFileSize = 0;
-
 		if( format == AL_FORMAT_MONO16 || format == AL_FORMAT_STEREO16 )
 			m_iWriteBitpersample = 16;
 		else
@@ -133,7 +151,6 @@ namespace	FATMING_CORE
 	cSoundCapture::~cSoundCapture()
 	{
 		SAFE_DELETE(m_pFUThreadPool);
-		SAFE_DELETE(m_pSoundFile);
 		if( m_pDevice )
 		{
 			alcCaptureStop(m_pDevice);
@@ -144,36 +161,22 @@ namespace	FATMING_CORE
 
 	void	cSoundCapture::Update(float e_fElpaseTime)
 	{
-
+			m_fCurrntTime += e_fElpaseTime;
 	}
 
 	//this is echo sample.
 	//http://stackoverflow.com/questions/4087727/openal-how-to-create-simple-microphone-echo-programm
-	bool	cSoundCapture::StartRecord(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
+	bool	cSoundCapture::StartRecord()
 	{
 		if(this->m_bStop||this->m_bPause)
 			return false;
 		if(m_pDevice)
 		{
-			m_eCaptureSoundFileFormat = e_eCaptureSoundFileFormat;
+			this->m_fCurrntTime = 0.f;
 			m_bIsRecording = true;
 			m_iFileSize = 0;
 			this->m_bStop = false;
 			this->m_bPause = false;
-			m_strSaveFileName = e_strFileName;
-			SAFE_DELETE(m_pSoundFile);
-			m_pSoundFile = new cSoundFile();
-			if(GetCaptureSoundFileFormat() == eCSFF_OGG)
-				m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),m_iSampleRate,m_iWriteChannel);
-			else
-			{
-				//   ByteRate         == SampleRate * NumChannels * BitsPerSample/8
-				int l_iByteRate = m_iSampleRate*m_iWriteChannel*m_iWriteBitpersample/8;
-				m_pSoundFile->SetWAVFmtHdr(1,this->m_iWriteChannel,m_iSampleRate,l_iByteRate,4,m_iWriteBitpersample);
-				m_pSoundFile->StartWriteWavFile(m_strSaveFileName.c_str());
-			}
-			//m_pSoundFile->Writefile(e_strFileName.c_str(),true,false);
-			//
 			SAFE_DELETE(m_pFUThreadPool);
 			this->m_pFUThreadPool = new cFUThreadPool();
 			this->m_pFUThreadPool->Spawn(1);
@@ -201,6 +204,82 @@ namespace	FATMING_CORE
 	void	cSoundCapture::AddFileSize(int e_iFileSize)
 	{
 		this->m_iFileSize += e_iFileSize;
+	}
+	bool	cSoundCapture::AddSoundRecord(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
+	{
+		cSounRecordToFileCallBackObject*l_pSounRecordToFileCallBackObject = new cSounRecordToFileCallBackObject(e_strFileName,e_eCaptureSoundFileFormat);
+		return this->AddObject(l_pSounRecordToFileCallBackObject);
+	}
+
+	cSounRecordToFileCallBackObject::cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
+	{
+		this->SetName(e_strFileName.c_str());
+		m_pSoundFile = nullptr;	
+		m_eCaptureSoundFileFormat = e_eCaptureSoundFileFormat;
+		this->m_strSaveFileName = e_strFileName;
+	}
+	cSounRecordToFileCallBackObject::~cSounRecordToFileCallBackObject()
+	{
+		Destory();
+	}
+
+	void	cSounRecordToFileCallBackObject::Destory()
+	{
+		SAFE_DELETE(m_pSoundFile);
+	}
+
+	void	cSounRecordToFileCallBackObject::CaptureSoundStartCallBack()
+	{
+		Destory();
+		if( m_strSaveFileName.length() == 0 )
+		{
+			return;
+		}
+		
+		m_pSoundFile = new cSoundFile();
+		int l_iSampleRate = this->m_pSoundCapture->GetSampleRate();
+		int l_iWrtteChannel = this->m_pSoundCapture->GetWriteChannel();
+		int l_iWriteBitpersample = this->m_pSoundCapture->GetWriteBitpersample();
+		if(m_eCaptureSoundFileFormat == eCSFF_OGG)
+		{
+			if( this->m_pSoundCapture->GetWriteBitpersample() == 8)
+			{
+				UT::ErrorMsg(L"sorry ogg format only support for 16 bit now",L"Because I am lazy to fix this!");
+			}
+			m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),l_iSampleRate,l_iWrtteChannel);
+		}
+		else
+		{
+			//   ByteRate         == SampleRate * NumChannels * BitsPerSample/8
+			int l_iByteRate = l_iSampleRate*l_iWrtteChannel*l_iWriteBitpersample/8;
+			m_pSoundFile->SetWAVFmtHdr(1,l_iWrtteChannel,l_iSampleRate,l_iByteRate,4,l_iWriteBitpersample);
+			m_pSoundFile->StartWriteWavFile(m_strSaveFileName.c_str());
+		}
+	}
+
+	void	cSounRecordToFileCallBackObject::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData)
+	{
+		if( m_pSoundFile )
+		{
+			//the channel is 2,data size is double.
+			int l_iChannel = this->m_pSoundCapture->GetWriteChannel();
+			int l_iSamplesIn = e_iSamplesIn*sizeof(short)/sizeof(char)*l_iChannel;
+			if(m_eCaptureSoundFileFormat == eCSFF_OGG)
+				this->m_pSoundFile->WriteOggData(l_iSamplesIn,(char*)e_pData,l_iChannel);
+			else
+				this->m_pSoundFile->WriteWavData(l_iSamplesIn,(unsigned char*)e_pData);
+		}
+	}
+
+	void	cSounRecordToFileCallBackObject::CaptureSoundEndCallBack()
+	{
+		if( m_pSoundFile )
+		{
+			if(m_eCaptureSoundFileFormat == eCSFF_OGG)
+				m_pSoundFile->EndWriteOggData();
+			else
+				m_pSoundFile->EndWriteWavFile();
+		}
 	}
 }
 //end defined #if defined(USE_SOUND_CAPTURE)

@@ -2,6 +2,7 @@
 #include "WavWaves.h"
 #include "KissFFTConvert.h"
 #include "KissFFTStreaming.h"
+#include "SoundFFTCapture.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -41,7 +42,11 @@ namespace EditorSample
 			m_WindowStartSize.Height += 20;
 			m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
-			m_pSoundCapture = new cSoundCapture(22050,AL_FORMAT_STEREO16);
+			m_pSoundFFTCapture = new cSoundFFTCapture();
+			int l_iFrequence = SOUND_CAPTURE_FREQUENCE*2;
+			m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(60,l_iFrequence));
+			m_pSoundCapture->AddObject(m_pSoundFFTCapture);
+			//m_pSoundCapture->AddSoundRecord();
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
 			m_HGLRCMV = m_pGameApp->m_sHGLRC;
 			//
@@ -72,6 +77,7 @@ namespace EditorSample
 			}
 			SAFE_DELETE(this->m_pWaveInfo);
 			SAFE_DELETE(m_pSoundCapture);
+			m_pSoundFFTCapture = nullptr;
 			SAFE_DELETE(m_pKissFFTConvertBase);
 			SAFE_DELETE(this->m_pWavWaves);
 
@@ -88,6 +94,7 @@ namespace EditorSample
 		cGameApp*					m_pGameApp;
 		//
 		cSoundCapture*				m_pSoundCapture;
+		cSoundFFTCapture*			m_pSoundFFTCapture;
 		cKissFFTConvertBase*		m_pKissFFTConvertBase;
 		//
 		HDC							m_HdcMV;
@@ -130,6 +137,11 @@ namespace EditorSample
 private: System::Windows::Forms::CheckBox^  FFTTestPause_checkBox;
 private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 
+private: System::Windows::Forms::Label^  GoToFFTTestTime_label;
+private: System::Windows::Forms::Panel^  panel1;
+private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
+
+
 
 	private: System::Windows::Forms::ListBox^  WavInfo_listBox;
 
@@ -169,10 +181,15 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			this->WaveUpdateIndex_label = (gcnew System::Windows::Forms::Label());
 			this->FFTTestPause_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->WavToOggOnlyOneChannel = (gcnew System::Windows::Forms::Button());
+			this->GoToFFTTestTime_label = (gcnew System::Windows::Forms::Label());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->GoToTime_trackBar = (gcnew System::Windows::Forms::TrackBar());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
+			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -182,7 +199,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// OpenWavFile_button
 			// 
-			this->OpenWavFile_button->Location = System::Drawing::Point(873, 661);
+			this->OpenWavFile_button->Location = System::Drawing::Point(915, 694);
 			this->OpenWavFile_button->Name = L"OpenWavFile_button";
 			this->OpenWavFile_button->Size = System::Drawing::Size(85, 34);
 			this->OpenWavFile_button->TabIndex = 0;
@@ -192,7 +209,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// WavFileName_textBox
 			// 
-			this->WavFileName_textBox->Location = System::Drawing::Point(524, 636);
+			this->WavFileName_textBox->Location = System::Drawing::Point(591, 734);
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->WavFileName_textBox->TabIndex = 1;
@@ -200,7 +217,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// ParseWav_button
 			// 
-			this->ParseWav_button->Location = System::Drawing::Point(908, 632);
+			this->ParseWav_button->Location = System::Drawing::Point(915, 665);
 			this->ParseWav_button->Name = L"ParseWav_button";
 			this->ParseWav_button->Size = System::Drawing::Size(59, 26);
 			this->ParseWav_button->TabIndex = 2;
@@ -227,7 +244,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// CurrentTime_trackBar
 			// 
-			this->CurrentTime_trackBar->Location = System::Drawing::Point(242, 688);
+			this->CurrentTime_trackBar->Location = System::Drawing::Point(527, 556);
 			this->CurrentTime_trackBar->Name = L"CurrentTime_trackBar";
 			this->CurrentTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->CurrentTime_trackBar->TabIndex = 5;
@@ -236,7 +253,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// CurrentTime_label
 			// 
 			this->CurrentTime_label->AutoSize = true;
-			this->CurrentTime_label->Location = System::Drawing::Point(243, 661);
+			this->CurrentTime_label->Location = System::Drawing::Point(528, 529);
 			this->CurrentTime_label->Name = L"CurrentTime_label";
 			this->CurrentTime_label->Size = System::Drawing::Size(64, 13);
 			this->CurrentTime_label->TabIndex = 6;
@@ -244,7 +261,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// DataCompressRate_numericUpDown
 			// 
-			this->DataCompressRate_numericUpDown->Location = System::Drawing::Point(246, 739);
+			this->DataCompressRate_numericUpDown->Location = System::Drawing::Point(196, 790);
 			this->DataCompressRate_numericUpDown->Name = L"DataCompressRate_numericUpDown";
 			this->DataCompressRate_numericUpDown->Size = System::Drawing::Size(46, 20);
 			this->DataCompressRate_numericUpDown->TabIndex = 7;
@@ -252,7 +269,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// DataCompressRate__label
 			// 
 			this->DataCompressRate__label->AutoSize = true;
-			this->DataCompressRate__label->Location = System::Drawing::Point(239, 773);
+			this->DataCompressRate__label->Location = System::Drawing::Point(189, 824);
 			this->DataCompressRate__label->Name = L"DataCompressRate__label";
 			this->DataCompressRate__label->Size = System::Drawing::Size(99, 13);
 			this->DataCompressRate__label->TabIndex = 8;
@@ -260,7 +277,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// ForwardStep_button
 			// 
-			this->ForwardStep_button->Location = System::Drawing::Point(432, 633);
+			this->ForwardStep_button->Location = System::Drawing::Point(382, 684);
 			this->ForwardStep_button->Name = L"ForwardStep_button";
 			this->ForwardStep_button->Size = System::Drawing::Size(75, 23);
 			this->ForwardStep_button->TabIndex = 10;
@@ -270,7 +287,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(342, 633);
+			this->button3->Location = System::Drawing::Point(292, 684);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 11;
@@ -279,7 +296,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// BackStep_button
 			// 
-			this->BackStep_button->Location = System::Drawing::Point(246, 633);
+			this->BackStep_button->Location = System::Drawing::Point(196, 684);
 			this->BackStep_button->Name = L"BackStep_button";
 			this->BackStep_button->Size = System::Drawing::Size(75, 23);
 			this->BackStep_button->TabIndex = 12;
@@ -290,7 +307,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(347, 773);
+			this->label1->Location = System::Drawing::Point(297, 824);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(105, 13);
 			this->label1->TabIndex = 14;
@@ -298,14 +315,14 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// ShowWaveSeconds_numericUpDown
 			// 
-			this->ShowWaveSeconds_numericUpDown->Location = System::Drawing::Point(348, 739);
+			this->ShowWaveSeconds_numericUpDown->Location = System::Drawing::Point(298, 790);
 			this->ShowWaveSeconds_numericUpDown->Name = L"ShowWaveSeconds_numericUpDown";
 			this->ShowWaveSeconds_numericUpDown->Size = System::Drawing::Size(46, 20);
 			this->ShowWaveSeconds_numericUpDown->TabIndex = 13;
 			// 
 			// RecordSound_button
 			// 
-			this->RecordSound_button->Location = System::Drawing::Point(584, 757);
+			this->RecordSound_button->Location = System::Drawing::Point(591, 790);
 			this->RecordSound_button->Name = L"RecordSound_button";
 			this->RecordSound_button->Size = System::Drawing::Size(94, 34);
 			this->RecordSound_button->TabIndex = 15;
@@ -315,7 +332,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// RecordSoundPause_button
 			// 
-			this->RecordSoundPause_button->Location = System::Drawing::Point(584, 798);
+			this->RecordSoundPause_button->Location = System::Drawing::Point(591, 831);
 			this->RecordSoundPause_button->Name = L"RecordSoundPause_button";
 			this->RecordSoundPause_button->Size = System::Drawing::Size(122, 33);
 			this->RecordSoundPause_button->TabIndex = 16;
@@ -325,7 +342,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// RecordSoundFileName_textBox
 			// 
-			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(589, 731);
+			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(596, 764);
 			this->RecordSoundFileName_textBox->Name = L"RecordSoundFileName_textBox";
 			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(378, 20);
 			this->RecordSoundFileName_textBox->TabIndex = 17;
@@ -333,7 +350,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// FFTTest_button
 			// 
-			this->FFTTest_button->Location = System::Drawing::Point(387, 554);
+			this->FFTTest_button->Location = System::Drawing::Point(106, 16);
 			this->FFTTest_button->Name = L"FFTTest_button";
 			this->FFTTest_button->Size = System::Drawing::Size(75, 23);
 			this->FFTTest_button->TabIndex = 18;
@@ -343,7 +360,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// ConvertToWav_button
 			// 
-			this->ConvertToWav_button->Location = System::Drawing::Point(908, 600);
+			this->ConvertToWav_button->Location = System::Drawing::Point(915, 633);
 			this->ConvertToWav_button->Name = L"ConvertToWav_button";
 			this->ConvertToWav_button->Size = System::Drawing::Size(59, 26);
 			this->ConvertToWav_button->TabIndex = 19;
@@ -353,7 +370,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// ToOgg_button
 			// 
-			this->ToOgg_button->Location = System::Drawing::Point(908, 568);
+			this->ToOgg_button->Location = System::Drawing::Point(915, 601);
 			this->ToOgg_button->Name = L"ToOgg_button";
 			this->ToOgg_button->Size = System::Drawing::Size(59, 26);
 			this->ToOgg_button->TabIndex = 20;
@@ -363,7 +380,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// PlayOgg_button
 			// 
-			this->PlayOgg_button->Location = System::Drawing::Point(984, 661);
+			this->PlayOgg_button->Location = System::Drawing::Point(1285, 644);
 			this->PlayOgg_button->Name = L"PlayOgg_button";
 			this->PlayOgg_button->Size = System::Drawing::Size(85, 34);
 			this->PlayOgg_button->TabIndex = 21;
@@ -373,7 +390,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// PlayWav_button
 			// 
-			this->PlayWav_button->Location = System::Drawing::Point(984, 701);
+			this->PlayWav_button->Location = System::Drawing::Point(1285, 684);
 			this->PlayWav_button->Name = L"PlayWav_button";
 			this->PlayWav_button->Size = System::Drawing::Size(75, 32);
 			this->PlayWav_button->TabIndex = 22;
@@ -383,7 +400,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// WaveUpdateIndex_numericUpDown
 			// 
-			this->WaveUpdateIndex_numericUpDown->Location = System::Drawing::Point(242, 554);
+			this->WaveUpdateIndex_numericUpDown->Location = System::Drawing::Point(6, 32);
 			this->WaveUpdateIndex_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
 			this->WaveUpdateIndex_numericUpDown->Name = L"WaveUpdateIndex_numericUpDown";
 			this->WaveUpdateIndex_numericUpDown->Size = System::Drawing::Size(94, 20);
@@ -394,7 +411,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// WaveUpdateIndex_label
 			// 
 			this->WaveUpdateIndex_label->AutoSize = true;
-			this->WaveUpdateIndex_label->Location = System::Drawing::Point(239, 538);
+			this->WaveUpdateIndex_label->Location = System::Drawing::Point(3, 16);
 			this->WaveUpdateIndex_label->Name = L"WaveUpdateIndex_label";
 			this->WaveUpdateIndex_label->Size = System::Drawing::Size(97, 13);
 			this->WaveUpdateIndex_label->TabIndex = 24;
@@ -403,7 +420,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// FFTTestPause_checkBox
 			// 
 			this->FFTTestPause_checkBox->AutoSize = true;
-			this->FFTTestPause_checkBox->Location = System::Drawing::Point(478, 554);
+			this->FFTTestPause_checkBox->Location = System::Drawing::Point(197, 16);
 			this->FFTTestPause_checkBox->Name = L"FFTTestPause_checkBox";
 			this->FFTTestPause_checkBox->Size = System::Drawing::Size(96, 17);
 			this->FFTTestPause_checkBox->TabIndex = 25;
@@ -413,7 +430,7 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			// 
 			// WavToOggOnlyOneChannel
 			// 
-			this->WavToOggOnlyOneChannel->Location = System::Drawing::Point(908, 545);
+			this->WavToOggOnlyOneChannel->Location = System::Drawing::Point(915, 578);
 			this->WavToOggOnlyOneChannel->Name = L"WavToOggOnlyOneChannel";
 			this->WavToOggOnlyOneChannel->Size = System::Drawing::Size(162, 26);
 			this->WavToOggOnlyOneChannel->TabIndex = 26;
@@ -421,20 +438,48 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			this->WavToOggOnlyOneChannel->UseVisualStyleBackColor = true;
 			this->WavToOggOnlyOneChannel->Click += gcnew System::EventHandler(this, &Form1::WavToOggOnlyOneChannel_button_Click);
 			// 
+			// GoToFFTTestTime_label
+			// 
+			this->GoToFFTTestTime_label->AutoSize = true;
+			this->GoToFFTTestTime_label->Location = System::Drawing::Point(3, 62);
+			this->GoToFFTTestTime_label->Name = L"GoToFFTTestTime_label";
+			this->GoToFFTTestTime_label->Size = System::Drawing::Size(97, 13);
+			this->GoToFFTTestTime_label->TabIndex = 28;
+			this->GoToFFTTestTime_label->Text = L"GoToFFTTestTime";
+			// 
+			// panel1
+			// 
+			this->panel1->Controls->Add(this->GoToTime_trackBar);
+			this->panel1->Controls->Add(this->GoToFFTTestTime_label);
+			this->panel1->Controls->Add(this->WaveUpdateIndex_label);
+			this->panel1->Controls->Add(this->FFTTest_button);
+			this->panel1->Controls->Add(this->WaveUpdateIndex_numericUpDown);
+			this->panel1->Controls->Add(this->FFTTestPause_checkBox);
+			this->panel1->Location = System::Drawing::Point(190, 529);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(305, 128);
+			this->panel1->TabIndex = 0;
+			// 
+			// GoToTime_trackBar
+			// 
+			this->GoToTime_trackBar->Location = System::Drawing::Point(6, 80);
+			this->GoToTime_trackBar->Name = L"GoToTime_trackBar";
+			this->GoToTime_trackBar->Size = System::Drawing::Size(274, 45);
+			this->GoToTime_trackBar->TabIndex = 27;
+			this->GoToTime_trackBar->Value = 10;
+			this->GoToTime_trackBar->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::GoToTime_trackBar_MouseUp);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->WavToOggOnlyOneChannel);
-			this->Controls->Add(this->FFTTestPause_checkBox);
-			this->Controls->Add(this->WaveUpdateIndex_label);
-			this->Controls->Add(this->WaveUpdateIndex_numericUpDown);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);
 			this->Controls->Add(this->ToOgg_button);
 			this->Controls->Add(this->ConvertToWav_button);
-			this->Controls->Add(this->FFTTest_button);
 			this->Controls->Add(this->RecordSoundFileName_textBox);
 			this->Controls->Add(this->RecordSoundPause_button);
 			this->Controls->Add(this->RecordSound_button);
@@ -459,6 +504,9 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->EndInit();
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -503,6 +551,11 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 						l_iValue = CurrentTime_trackBar->Maximum;
 					CurrentTime_trackBar->Value = l_iValue;
 					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(m_pKissFFTConvertBase->GetTimeLength()*10);
+				}
+				if( m_pSoundFFTCapture )
+				{
+					m_pSoundFFTCapture->Update(l_fElpaseTime);
+					m_pSoundFFTCapture->Render();
 				}
 			}
 			cGameApp::ShowInfo();
@@ -663,7 +716,8 @@ private: System::Void RecordSound_button_Click(System::Object^  sender, System::
 				 if(!m_pSoundCapture->IsRecording())
 				 {
 					 std::string l_strFileName = ::GcStringToChar(this->RecordSoundFileName_textBox->Text);
-					 m_pSoundCapture->StartRecord(l_strFileName.c_str(),eCaptureSoundFileFormat::eCSFF_WAV);
+					 //l_strFileName.c_str(),eCaptureSoundFileFormat::eCSFF_WAV
+					 m_pSoundCapture->StartRecord();
 					 //m_pSoundCapture->StartRecord(l_strFileName.c_str(),eCaptureSoundFileFormat::eCSFF_OGG);
 					 RecordSound_button->Text = "Recording...";
 				 }
@@ -694,6 +748,7 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 				 if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str()))
 				 {
 					 CurrentTime_trackBar->Maximum = (int)(m_pKissFFTConvertBase->GetTimeLength()*10);
+					 GoToTime_trackBar->Maximum = CurrentTime_trackBar->Maximum;
 				 }
 			 }
 			 cGameApp::m_sTimeAndFPS.Update();
@@ -763,6 +818,15 @@ private: System::Void WavToOggOnlyOneChannel_button_Click(System::Object^  sende
 					l_pSoundFile->WavToOggFileOnlyChannel(l_FileName.c_str(),l_strOutputFileName.c_str(),1);
 					delete l_pSoundFile;
 				}
+		 }
+private: System::Void GoToTime_trackBar_MouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+		 {
+			 if(m_pKissFFTConvertBase)
+			 {
+				int l_iTargetSecond = (int)GoToTime_trackBar->Value;
+				m_pKissFFTConvertBase->GoToTime(l_iTargetSecond/10.f);
+			 }
+			 
 		 }
 };
 }

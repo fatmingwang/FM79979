@@ -23,15 +23,16 @@ public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
 	//now only support wav
-	virtual bool	FetchSoundDataStart(const char*e_strFileName) = 0;
+	virtual bool	FetchSoundDataStart(const char*e_strFileName){return false;}
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime) = 0;
 	virtual void	Render() = 0;
 	void			SetFFTDataUpdateTime(float e_fTime);
 	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
-	virtual float	GetCurrentTimePercentage() = 0;
-	virtual float	GetTimeLength() = 0;
+	virtual float	GetCurrentTimePercentage(){ return 0.f; }
+	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
+	virtual void	GoToTime(float e_fElpaseTime) = 0;
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
@@ -62,4 +63,5 @@ public:
 	FATMING_CORE::cSoundFile*GetSoundFile(){return m_pSoundFile;}
 	virtual float	GetCurrentTimePercentage();
 	virtual float	GetTimeLength();
+	virtual void	GoToTime(float e_fElpaseTime);
 };

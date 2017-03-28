@@ -400,6 +400,14 @@ float	cKissFFTConvert::GetTimeLength()
 	return 0.f;
 }
 
+void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
+{
+	if(this->m_pSoundFile)
+	{
+		this->GoToTime(e_fElpaseTime);
+	}
+}
+
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
 //{
 //	

@@ -12,28 +12,30 @@ void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
 
 #define	PCM_SWAP_BUFFER_COUNT	10
 #define	FFT_DATA_SWAP_BUFFER_COUNT	10
-class cKissFFTStreamingConvert:public cKissFFTConvertBase
+
+#define	FFT_DATA_LINE_POINTS_COUNT	2000
+
+class cKissFFTStreamingConvert;
+struct sTimeAndPCMData
 {
-	cFUSynchronized				m_FUSynchronizedForTimeAndFFTDataVector;
-	cFUSynchronized				m_FUSynchronizedForTimeAndPCMDataVector;
-	struct sTimeAndPCMData
+	int		iDebugForOccupyArrayIndex;
+	char*	pPCMData;
+	int		iNumPCMData;
+	float	fStartTime;
+	float	fEndTime;
+	sTimeAndPCMData(float e_fStartTime,float e_fEndTime,char*e_pPCMData,int	e_iNumPCMData,int e_iOccupyIndex)
 	{
-		int		iDebugForOccupyArrayIndex;
-		char*	pPCMData;
-		int		iNumPCMData;
-		float	fStartTime;
-		float	fEndTime;
-		sTimeAndPCMData(float e_fStartTime,float e_fEndTime,char*e_pPCMData,int	e_iNumPCMData,int e_iOccupyIndex)
-		{
-			iDebugForOccupyArrayIndex = e_iOccupyIndex;
-			pPCMData = e_pPCMData;
-			iNumPCMData = e_iNumPCMData;
-			fStartTime = e_fStartTime;
-			fEndTime = e_fEndTime;
-		}
-		~sTimeAndPCMData(){}
-	};
-	//
+		iDebugForOccupyArrayIndex = e_iOccupyIndex;
+		pPCMData = e_pPCMData;
+		iNumPCMData = e_iNumPCMData;
+		fStartTime = e_fStartTime;
+		fEndTime = e_fEndTime;
+	}
+	~sTimeAndPCMData(){}
+};
+class cPCMToFFTDataConvertr
+{
+public:
 	struct sTimeAndFFTData
 	{
 		//char*	pPCMData;
@@ -41,22 +43,18 @@ class cKissFFTStreamingConvert:public cKissFFTConvertBase
 		float	fEndTime;
 		float	fTimeGap;
 		//only store the index where time is okay for to do fft
-		std::map<float,int>	TimeAndFFTDataIndex;
+		//std::map<float,int>	TimeAndFFTDataIndex;
 		int*	piLeftChannelFFTData;
 		int*	piRightChannelFFTData;
 		int		iFFTDataOneSample;
 		int		iTotalFFTDataCount;
 		int		iNumChannel;
-		Vector2	vFFTDataToPoints[2000];
 		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
-		bool	GenerateFFTLines(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
-		bool	GenerateFFTLinesByFFTSampleTargetIndex(int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
-		bool	ForceGenerateLastFFTLines(Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	GenerateFFTLinesByFFTSampleTargetIndex(Vector2*e_pLinePoints,int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	ForceGenerateLastFFTLines(Vector2*e_pLinePoints,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 	};
-	//this for sound thread,once data 
-	//std::vector<sTimeAndFFTData*>m_SoundThreadTimeAndPCMDataVector;
-	//
 	//give a big enough array instead new and delete
 	kiss_fft_cpx			m_Kiss_FFT_In[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
 	kiss_fft_cpx			m_Kiss_FFT_Out[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
@@ -67,35 +65,54 @@ class cKissFFTStreamingConvert:public cKissFFTConvertBase
 	int						m_iNumFFTDataSwapBuffer;
 	int						m_iCurrentFFTDataSwapBufferIndex;
 	std::vector<sTimeAndFFTData*>	m_TimeAndFFTDataVector;
+	float							m_fFFTSampleScale;
+public:
+	cFUSynchronized			m_FUSynchronizedForTimeAndFFTDataVector;
+	cPCMToFFTDataConvertr();
+	~cPCMToFFTDataConvertr();
+	void					SetNFrameFFTDataCount(int e_iNFrameFFTDataCount);
+	void					Destroy();
+	//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
+	void					ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNumChannel,int e_iNFrameFFTDataCount);
+};
+
+class cKissFFTStreamingConvert:public cKissFFTConvertBase
+{
+	cPCMToFFTDataConvertr			m_PCMToFFTDataConvertr;
+	//make sure 2 thread all in	pause status
+	bool							m_bThreadInPause[2];
+	bool							m_bThreadAlreadyStop[2];
+	bool							m_bThreadStop;
+	cFUSynchronized					m_FUSynchronizedForTimeAndPCMDataVector;
 	//
-	cFUThreadPool*			m_pFUThreadPool;
-	friend			void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
-	friend			void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
-	friend			void	SoundUpdateThread(size_t _workParameter, size_t _pUri);
-	friend			void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
+	//this for sound thread,once data 
+	//std::vector<sTimeAndFFTData*>m_SoundThreadTimeAndPCMDataVector;
 	//
-	bool					m_bReceivedBuffer;
-	void					StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex);
-	int						m_iCurrentStreamingBufferDataIndex;
-	char					m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
+	//
+	cFUThreadPool*					m_pFUThreadPool;
+	friend			void			KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
+	friend			void			KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
+	friend			void			SoundUpdateThread(size_t _workParameter, size_t _pUri);
+	friend			void			SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
+	//
+	void							StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex);
+	int								m_iCurrentStreamingBufferDataIndex;
+	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
 	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
+	Vector2							m_vFFTDataToPoints[FFT_DATA_LINE_POINTS_COUNT];
 	//
-		//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
-	void					ProcessFFTData();
+	cOpanalOgg*						m_pOpanalOgg;
 	//
-	cOpanalOgg*				m_pOpanalOgg;
-	bool					m_bThreadStop;
-	bool					m_bThreadAlreadyStop;
-	//
-	virtual void			Destroy();
+	virtual void					Destroy();
 public:
 	cKissFFTStreamingConvert();
 	~cKissFFTStreamingConvert();
 	//now only support wav
-	virtual bool	FetchSoundDataStart(const char*e_strFileName);
+	virtual bool					FetchSoundDataStart(const char*e_strFileName);
 	//need another thread to do this?
-	virtual void	Update(float e_fElpaseTime);
-	virtual void	Render();
-	virtual float	GetCurrentTimePercentage();
-	virtual float	GetTimeLength();
+	virtual void					Update(float e_fElpaseTime);
+	virtual void					Render();
+	virtual float					GetCurrentTimePercentage();
+	virtual float					GetTimeLength();
+	virtual	void					GoToTime(float e_fTime);
 };

@@ -199,8 +199,7 @@ namespace FATMING_CORE
 			m_pOggFile = new OggVorbis_File();
 			if((result = ov_open(m_pFile,m_pOggFile, nullptr, 0)) < 0)
 			{
-				NvFClose(m_pFile);
-				m_pFile = 0;
+				Destroy();
 				std::string	l_str = "Could not open Ogg stream";
 				l_str += e_strileName;
 				cGameApp::OutputDebugInfoString(l_str);
