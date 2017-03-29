@@ -140,6 +140,8 @@ private: System::Windows::Forms::Button^  WavToOggOnlyOneChannel;
 private: System::Windows::Forms::Label^  GoToFFTTestTime_label;
 private: System::Windows::Forms::Panel^  panel1;
 private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
+private: System::Windows::Forms::Label^  FFTDataCountScale_label;
+private: System::Windows::Forms::NumericUpDown^  FFTDataCountScale_numericUpDown;
 
 
 
@@ -183,12 +185,15 @@ private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
 			this->WavToOggOnlyOneChannel = (gcnew System::Windows::Forms::Button());
 			this->GoToFFTTestTime_label = (gcnew System::Windows::Forms::Label());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->FFTDataCountScale_label = (gcnew System::Windows::Forms::Label());
+			this->FFTDataCountScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->GoToTime_trackBar = (gcnew System::Windows::Forms::TrackBar());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DataCompressRate_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->ShowWaveSeconds_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			this->panel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -449,6 +454,8 @@ private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
 			// 
 			// panel1
 			// 
+			this->panel1->Controls->Add(this->FFTDataCountScale_label);
+			this->panel1->Controls->Add(this->FFTDataCountScale_numericUpDown);
 			this->panel1->Controls->Add(this->GoToTime_trackBar);
 			this->panel1->Controls->Add(this->GoToFFTTestTime_label);
 			this->panel1->Controls->Add(this->WaveUpdateIndex_label);
@@ -459,6 +466,28 @@ private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(305, 128);
 			this->panel1->TabIndex = 0;
+			// 
+			// FFTDataCountScale_label
+			// 
+			this->FFTDataCountScale_label->AutoSize = true;
+			this->FFTDataCountScale_label->Location = System::Drawing::Point(108, 42);
+			this->FFTDataCountScale_label->Name = L"FFTDataCountScale_label";
+			this->FFTDataCountScale_label->Size = System::Drawing::Size(104, 13);
+			this->FFTDataCountScale_label->TabIndex = 28;
+			this->FFTDataCountScale_label->Text = L"FFTDataCountScale";
+			// 
+			// FFTDataCountScale_numericUpDown
+			// 
+			this->FFTDataCountScale_numericUpDown->DecimalPlaces = 1;
+			this->FFTDataCountScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTDataCountScale_numericUpDown->Location = System::Drawing::Point(111, 58);
+			this->FFTDataCountScale_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FFTDataCountScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTDataCountScale_numericUpDown->Name = L"FFTDataCountScale_numericUpDown";
+			this->FFTDataCountScale_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->FFTDataCountScale_numericUpDown->TabIndex = 27;
+			this->FFTDataCountScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTDataCountScale_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTDataCountScale_numericUpDown_ValueChanged);
 			// 
 			// GoToTime_trackBar
 			// 
@@ -506,6 +535,7 @@ private: System::Windows::Forms::TrackBar^  GoToTime_trackBar;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->EndInit();
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -827,6 +857,19 @@ private: System::Void GoToTime_trackBar_MouseUp(System::Object^  sender, System:
 				m_pKissFFTConvertBase->GoToTime(l_iTargetSecond/10.f);
 			 }
 			 
+		 }
+private: System::Void FFTDataCountScale_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( this->m_pKissFFTConvertBase )
+			 {
+				this->timer1->Enabled = false;
+				cGameApp::m_sbGamePause = true;
+				Sleep(100);
+				float l_fScale = (float)FFTDataCountScale_numericUpDown->Value;;
+				this->m_pKissFFTConvertBase->SetFFTSampleScale(l_fScale);
+				this->timer1->Enabled = true;
+				cGameApp::m_sbGamePause = false;
+			 }
 		 }
 };
 }

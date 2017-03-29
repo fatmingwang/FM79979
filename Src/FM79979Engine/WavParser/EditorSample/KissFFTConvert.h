@@ -33,6 +33,7 @@ public:
 	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
 	virtual void	GoToTime(float e_fElpaseTime) = 0;
+	virtual void	SetFFTSampleScale(float e_fScale){}
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

@@ -56,16 +56,16 @@ public:
 		bool	ForceGenerateLastFFTLines(Vector2*e_pLinePoints,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 	};
 	//give a big enough array instead new and delete
-	kiss_fft_cpx			m_Kiss_FFT_In[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
-	kiss_fft_cpx			m_Kiss_FFT_Out[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
-	kiss_fft_state*			m_pkiss_fft_state;
-	float*					m_pfWindowFunctionConstantValue;
+	kiss_fft_cpx					m_Kiss_FFT_In[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
+	kiss_fft_cpx					m_Kiss_FFT_Out[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
+	kiss_fft_state*					m_pkiss_fft_state;
+	float*							m_pfWindowFunctionConstantValue;
 	//2 for channel
-	int						m_FFTData[FFT_DATA_SWAP_BUFFER_COUNT][2][OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
-	int						m_iNumFFTDataSwapBuffer;
-	int						m_iCurrentFFTDataSwapBufferIndex;
+	int								m_FFTData[FFT_DATA_SWAP_BUFFER_COUNT][2][OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];
+	int								m_iNumFFTDataSwapBuffer;
+	int								m_iCurrentFFTDataSwapBufferIndex;
 	std::vector<sTimeAndFFTData*>	m_TimeAndFFTDataVector;
-	float							m_fFFTSampleScale;
+	GET_SET_DEC(float,m_fFFTSampleScale,GetFFTSampleScale,SetFFTSampleScale);
 public:
 	cFUSynchronized			m_FUSynchronizedForTimeAndFFTDataVector;
 	cPCMToFFTDataConvertr();
@@ -115,4 +115,5 @@ public:
 	virtual float					GetCurrentTimePercentage();
 	virtual float					GetTimeLength();
 	virtual	void					GoToTime(float e_fTime);
+	void							SetFFTSampleScale(float e_fScale);
 };

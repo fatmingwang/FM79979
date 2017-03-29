@@ -49,6 +49,7 @@ cSoundFFTCapture::cSoundFFTCapture()
 
 cSoundFFTCapture::~cSoundFFTCapture()
 {
+	Destroy();
 	m_bThreadInPause = false;
 	m_iCurrentStreamingBufferDataIndex = 0;
 	m_pFUThreadPool = nullptr;
@@ -201,4 +202,13 @@ int		cSoundFFTCapture::GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence)
 	float l_fFPSTime = 1.f/e_iFPS;
 	int l_iBufferSize = (int)(e_iFrequence*l_fFPSTime);
 	return l_iBufferSize;
+}
+
+void	cSoundFFTCapture::SetFFTSampleScale(float e_fScale)
+{
+	if(e_fScale>1.f)
+		e_fScale = 1.f;
+	if(e_fScale<=0.f)
+		e_fScale = 0.1f;
+	this->m_PCMToFFTDataConvertr.SetFFTSampleScale(e_fScale);
 }

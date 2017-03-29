@@ -32,6 +32,7 @@ public:
 	void			Update(float e_fElpaseTime);
 	void			Render();
 	virtual void	GoToTime(float e_fElpaseTime){}
+	void			SetFFTSampleScale(float e_fScale);
 	//use this one for cSoundCapture(buffersize)
 	static int		GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence);
 };

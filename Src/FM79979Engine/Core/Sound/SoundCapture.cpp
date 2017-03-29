@@ -41,6 +41,7 @@ namespace	FATMING_CORE
 		{
 			(*l_CallbackObjectVector)[i]->PreCaptureSoundStartCallBack(l_pSoundCapture);
 		}
+		l_pSoundCapture->m_bThreadExitStop = false;
 		//2 for 
 		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetSampleRate()*2]; // A buffer to hold captured audio
 		ALCint l_iSamplesIn = 0;  // How many samples are captured
@@ -89,7 +90,8 @@ namespace	FATMING_CORE
 	}
 	void	RecordingDoneThread(size_t _workParameter, size_t _pUri)
 	{
-
+		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
+		l_pSoundCapture->m_bThreadExitStop = true;
 	}
 
 	void	cSounRecordCallBackObject::PreCaptureSoundStartCallBack(cSoundCapture*e_pSoundCapture)
@@ -101,6 +103,7 @@ namespace	FATMING_CORE
 	cSoundCapture*g_pSoundCapture = nullptr;
 	cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 	{
+		m_bThreadExitStop = true;
 		m_iBufferSize = buffersize;
 		m_fCurrntTime = 0.f;
 		m_bIsRecording = false;
@@ -150,6 +153,8 @@ namespace	FATMING_CORE
 
 	cSoundCapture::~cSoundCapture()
 	{
+		StopRecord();
+		this->Destroy();
 		SAFE_DELETE(m_pFUThreadPool);
 		if( m_pDevice )
 		{
@@ -198,6 +203,10 @@ namespace	FATMING_CORE
 	{
 		this->m_bStop = true;;
 		m_bIsRecording = false;
+		while( !m_bThreadExitStop )
+		{
+		
+		}
 	}
 
 

@@ -228,6 +228,7 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 	kiss_fft_cpx* l_pKiss_FFT_In = this->m_Kiss_FFT_In;
 	kiss_fft_cpx* l_pKiss_FFT_Out = this->m_Kiss_FFT_Out;
 	kiss_fft_state* l_pkiss_fft_state = this->m_pkiss_fft_state;
+	l_pkiss_fft_state->nfft = l_iFetchDataCount;
 	//auto l_pData = this->m_pkiss_fft_state;
 	//l_pData->nfft = l_iFetchDataCount;
 	bool l_bDoFFT = true;
@@ -351,6 +352,7 @@ void	cKissFFTStreamingConvert::Destroy()
 		//wait for thread end...
 		Sleep(1);
 	}
+
 	SAFE_DELETE(m_pFUThreadPool);
 	m_PCMToFFTDataConvertr.Destroy();
 	SAFE_RELEASE(m_pOpanalOgg,this);
@@ -540,4 +542,28 @@ void	cKissFFTStreamingConvert::GoToTime(float e_fTime)
 		this->m_fCurrentTime = e_fTime;
 		cGameApp::m_sbGamePause = false;
 	}
+}
+
+void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale)
+{
+	if(e_fScale>1.f)
+		e_fScale = 1.f;
+	if(e_fScale<=0.f)
+		e_fScale = 0.1f;
+	int l_iNum = (int)(this->m_iNFrameFFTDataCount*e_fScale);
+	SAFE_DELETE(this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue);
+	this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue = new float[l_iNum];
+
+	for( int l_iCount = 0;l_iCount <l_iNum;++l_iCount)
+	{
+		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
+		this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
+	}
+	if( this->m_PCMToFFTDataConvertr.m_pkiss_fft_state )
+	{
+		free(this->m_PCMToFFTDataConvertr.m_pkiss_fft_state);
+		this->m_PCMToFFTDataConvertr.m_pkiss_fft_state = nullptr;
+	}
+	this->m_PCMToFFTDataConvertr.m_pkiss_fft_state = kiss_fft_alloc(l_iNum, 0/*is_inverse_fft*/, NULL, NULL);
+	this->m_PCMToFFTDataConvertr.SetFFTSampleScale(e_fScale);
 }

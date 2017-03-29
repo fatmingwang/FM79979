@@ -57,6 +57,7 @@ namespace	FATMING_CORE
 		cFUThreadPool*			m_pFUThreadPool;
 		bool					m_bPause;
 		bool					m_bStop;
+		bool					m_bThreadExitStop;
 		//std::string				m_strSaveFileName;
 		//cSoundFile*				m_pSoundFile;
 		ALCdevice*				m_pDevice;
