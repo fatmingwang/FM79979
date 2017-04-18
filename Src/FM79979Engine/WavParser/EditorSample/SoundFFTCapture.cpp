@@ -176,7 +176,16 @@ void	cSoundFFTCapture::Update(float e_fElpaseTime)
 #endif
 		}
 		else
+		{
+			static int l_iTest = 0;
+			++l_iTest;
+			if( l_iTest % 10 == 0 )
+			{
+				const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				this->m_iMaxFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount);
+			}
 			break;
+		}
 	}
 }
 
@@ -188,6 +197,11 @@ void	cSoundFFTCapture::Render()
 		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;
 		//left channel
 		GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
+		std::wstring l_strInfo = L"Frequence:";
+		l_strInfo += ValueToStringW(this->m_iMaxFrequence);
+		cGameApp::m_spGlyphFontRender->SetScale(3.f);
+		cGameApp::RenderFont(1000,200,l_strInfo);
+		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		//right channel
 		if( l_pTimeAndFFTData->iNumChannel == 2 )
 		{

@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotNetCommon", "..\DotNetCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kiss_fft130", "..\kiss_fft130\kiss_fft130.vcxproj", "{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kiss_fft130", "kiss_fft130\kiss_fft130.vcxproj", "{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

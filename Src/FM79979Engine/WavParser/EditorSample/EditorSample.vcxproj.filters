@@ -30,12 +30,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="WavWaves.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="ChartAssist.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
     <ClCompile Include="MusicGameApp.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -48,22 +42,16 @@
     <ClCompile Include="SoundFFTCapture.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="AmplitudeValueAverage.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WavWaves.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="ChartAssist.h">
-      <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="MusicGameApp.h">
       <Filter>Game</Filter>
@@ -75,6 +63,9 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="SoundFFTCapture.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AmplitudeValueAverage.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

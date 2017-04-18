@@ -20,6 +20,6 @@
 #include "../../core/AVIPlayer/AVIPlayer.h"
 //#include "../../Core/AllPhysicInclude.h"
 #include "../../DotNetCommon/AllDNCTInclude.h"
-#include "../../kiss_fft130/kiss_fft.h"
+#include "../kiss_fft130/kiss_fft.h"
 //#include "../../kiss_fft.h/kiss_fft.h"
 using namespace DNCT;

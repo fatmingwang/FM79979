@@ -38,6 +38,8 @@ class cPCMToFFTDataConvertr
 public:
 	struct sTimeAndFFTData
 	{
+		int		iBiggestFFTDataValueOfIndex;
+		int		iFrequence;
 		//char*	pPCMData;
 		float	fStartTime;
 		float	fEndTime;
@@ -112,6 +114,7 @@ public:
 	//need another thread to do this?
 	virtual void					Update(float e_fElpaseTime);
 	virtual void					Render();
+	virtual void					RenderFrequenceNumber();
 	virtual float					GetCurrentTimePercentage();
 	virtual float					GetTimeLength();
 	virtual	void					GoToTime(float e_fTime);

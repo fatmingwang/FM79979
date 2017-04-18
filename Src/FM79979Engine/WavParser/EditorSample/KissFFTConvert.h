@@ -19,6 +19,8 @@ protected:
 	float	m_fScale;
 	float	m_fNextChannelYGap;
 	bool	m_bPause;
+	//
+	GET_SET_DEC(int,m_iMaxFrequence,GetMaxFrequence,SetMaxFrequence);
 public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
@@ -34,6 +36,8 @@ public:
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
 	virtual void	GoToTime(float e_fElpaseTime) = 0;
 	virtual void	SetFFTSampleScale(float e_fScale){}
+	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
+	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

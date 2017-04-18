@@ -11,7 +11,7 @@ namespace FATMING_CORE
 	ALuint	cBasicSound::m_suiTotalSoundIndex = 0;		//how many sound we have created
 	cBasicSound::cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming):cSmartObject(e_pNamedTypedObject)
 	{
-		m_iChannel = 0;
+		m_iChannelCount = 0;
 		m_bStreaming = e_bStreaming;
 		m_uiIndex = m_suiTotalSoundIndex++;
 		m_bLoop = false;
@@ -34,10 +34,10 @@ namespace FATMING_CORE
 	void	cBasicSound::SetChannelByFormat(ALenum e_eFormat)
 	{
 		if( e_eFormat == AL_FORMAT_STEREO8 || e_eFormat == AL_FORMAT_STEREO16 )
-			m_iChannel = 2;
+			m_iChannelCount = 2;
 		else
 		if( e_eFormat == AL_FORMAT_MONO8 || e_eFormat == AL_FORMAT_MONO16 )
-			m_iChannel = 1;
+			m_iChannelCount = 1;
 		else
 		{
 			UT::ErrorMsg(L"not support this format",ValueToStringW(e_eFormat).c_str());

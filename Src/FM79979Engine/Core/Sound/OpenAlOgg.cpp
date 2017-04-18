@@ -241,7 +241,8 @@ namespace FATMING_CORE
 			LoadOGG(e_strileName,buffer,m_iFormat,m_iFreq,m_fTimeLength);
 			m_iPCMDataSize = static_cast<ALsizei>(buffer.size());
 			cBasicSound::SetChannelByFormat(m_iFormat);
-			assert(abs(cBasicSound::CalculatePCMDataSize(this->m_iChannel,m_iFreq,m_fTimeLength,16)-m_iPCMDataSize)<2&&"PCM data size should be same or I get wrong");
+			//16bit is 2 byte,assume all ogg file is 16 bit...
+			assert(abs(cBasicSound::CalculatePCMDataSize(this->m_iChannelCount,m_iFreq,m_fTimeLength,16)-m_iPCMDataSize)<2&&"PCM data size should be same or I get wrong");
 			if( buffer.size() )
 			{
 				AssignBufferData(&buffer[0]);

@@ -111,8 +111,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AmplitudeValueAverage.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="ChartAssist.cpp" />
     <ClCompile Include="EditorSample.cpp" />
     <ClCompile Include="KissFFTConvert.cpp" />
     <ClCompile Include="KissFFTStreaming.cpp" />
@@ -122,20 +122,17 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="WavWaves.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChartAssist.h" />
+    <ClInclude Include="AmplitudeValueAverage.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="KissFFTConvert.h" />
     <ClInclude Include="KissFFTStreaming.h" />
     <ClInclude Include="MusicGameApp.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SoundFFTCapture.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="WavWaves.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
@@ -160,7 +157,7 @@
     <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">
       <Project>{941833b3-fd87-4bb5-8225-6ecc1098a767}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\kiss_fft130\kiss_fft130.vcxproj">
+    <ProjectReference Include="..\kiss_fft130\kiss_fft130.vcxproj">
       <Project>{78b7e03f-8b8d-4bbb-8076-21ea89d028f6}</Project>
     </ProjectReference>
   </ItemGroup>

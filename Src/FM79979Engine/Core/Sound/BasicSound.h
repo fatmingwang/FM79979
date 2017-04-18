@@ -36,7 +36,7 @@ namespace FATMING_CORE
 		//for go to sound position and PCM data size
 		GET_SET_DEC(ALsizei,m_iPCMDataSize,GetPCMDataSize,SetPCMDataSize);
 		GET_SET_DEC(ALsizei,m_iFreq,GetFreq,SetFreq);
-		int			m_iChannel;
+		int			m_iChannelCount;
 		//
 		ALuint	m_uiBufferID;	//unique ID
 		ALuint	m_uiSourceID;	//it could be dynamic
@@ -74,7 +74,7 @@ namespace FATMING_CORE
 		float			GetVolume(){return m_fVolume;}
 		float			GetCurrentPlayTime();
 		float			GetTimeLength(){ return m_fTimeLength; }
-		int				GetChannel(){ return m_iChannel; }
+		int				GetChannelCount(){ return m_iChannelCount; }
 		static	ALenum	PerSampleBitAndChannelToOpenALFormat(int e_iBit,int e_iChannel);
 		static void		check();
 	};

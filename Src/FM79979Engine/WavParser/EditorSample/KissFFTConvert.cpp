@@ -3,6 +3,7 @@
 
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
+	m_iMaxFrequence = 0;
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/6.f);
 	m_TimeToUpdateFFTData.SetLoop(true);
 	m_iDivideFFTDataToNFrame = 60;
@@ -22,6 +23,10 @@ cKissFFTConvertBase::~cKissFFTConvertBase()
 
 void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
 {
+	if( e_fTime >= 1.f/20 )
+		e_fTime = 1/20.f;
+	if( e_fTime <= 1.f/60 )
+		e_fTime = 1/60.f;
 	m_TimeToUpdateFFTData.SetTargetTime(e_fTime);
 }
 
@@ -406,6 +411,44 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 	{
 		this->GoToTime(e_fElpaseTime);
 	}
+}
+//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
+////N = 1024          // size of FFT and sample window
+//Fs = 44100        // sample rate = 44.1 kHz
+//data[N]           // input PCM data buffer
+//fft[N * 2]        // FFT complex buffer (interleaved real/imag)
+//magnitude[N / 2]  // power spectrum
+//
+//capture audio in data[] buffer
+//apply window function to data[]
+//
+//// copy real input data to complex FFT buffer
+//for i = 0 to N - 1
+//  fft[2*i] = data[i]
+//  fft[2*i+1] = 0
+//
+//perform in-place complex-to-complex FFT on fft[] buffer
+//
+//// calculate power spectrum (magnitude) values from fft[]
+//for i = 0 to N / 2 - 1
+//  re = fft[2*i]
+//  im = fft[2*i+1]
+//  magnitude[i] = sqrt(re*re+im*im)
+//
+//// find largest peak in power spectrum
+//max_magnitude = -INF
+//max_index = -1
+//for i = 0 to N / 2 - 1
+//  if magnitude[i] > max_magnitude
+//    max_magnitude = magnitude[i]
+//    max_index = i
+//
+//// convert index of largest peak to frequency
+//freq = max_index * Fs / N
+int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount)
+{
+	int l_iFrequence = e_iIndexOfFFTData*e_iFrequence/e_iCount;
+	return l_iFrequence;
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
