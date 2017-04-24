@@ -44,7 +44,9 @@ cSoundFFTCapture::cSoundFFTCapture()
 	m_pFUThreadPool = nullptr;
 	//m_iFFTSampleForOneFrame = 0;
 	m_fNextSampleTime = 1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
-	this->m_vChartShowPos.x += 800;
+	m_vChartResolution.x *= 2;
+	//this->m_vChartShowPos.x += 0;
+	m_vChartResolution.x = 5000;
 }
 
 cSoundFFTCapture::~cSoundFFTCapture()
@@ -142,6 +144,14 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 		++m_iCurrentStreamingBufferDataIndex;
 		if( m_iCurrentStreamingBufferDataIndex >= PCM_SWAP_BUFFER_COUNT)
 			m_iCurrentStreamingBufferDataIndex = 0;
+		float l_pfshortToFloatArray[3000];
+		short*l_pSrouce = (short*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
+		for(size_t i=0;i<e_iSamplesIn/sizeof(short);++i)
+		{
+			l_pfshortToFloatArray[i] = (float)l_pSrouce[i];
+		}
+		//double l_dbValue = GoertzelFilter(l_pfshortToFloatArray,this->m_pSoundCapture->GetSampleRate(),20,60,int SIGNAL_SAMPLE_RATE);
+
 }
 
 void	cSoundFFTCapture::CaptureSoundEndCallBack()
@@ -156,8 +166,16 @@ void	cSoundFFTCapture::Update(float e_fElpaseTime)
 	//dont need to do synchronzied,because only here will delete
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{
+		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
 		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
+			static int l_iTest = 0;
+			++l_iTest;
+			if( l_iTest % 10 == 0 )
+			{
+				const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				this->m_iMaxAmplitudeFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount);
+			}
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
@@ -177,13 +195,6 @@ void	cSoundFFTCapture::Update(float e_fElpaseTime)
 		}
 		else
 		{
-			static int l_iTest = 0;
-			++l_iTest;
-			if( l_iTest % 10 == 0 )
-			{
-				const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
-				this->m_iMaxFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount);
-			}
 			break;
 		}
 	}
@@ -198,7 +209,7 @@ void	cSoundFFTCapture::Render()
 		//left channel
 		GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
 		std::wstring l_strInfo = L"Frequence:";
-		l_strInfo += ValueToStringW(this->m_iMaxFrequence);
+		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
 		cGameApp::m_spGlyphFontRender->SetScale(3.f);
 		cGameApp::RenderFont(1000,200,l_strInfo);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);

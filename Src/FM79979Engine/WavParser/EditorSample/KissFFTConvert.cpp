@@ -3,10 +3,10 @@
 
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
-	m_iMaxFrequence = 0;
+	m_iMaxAmplitudeFrequence = 0;
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/6.f);
 	m_TimeToUpdateFFTData.SetLoop(true);
-	m_iDivideFFTDataToNFrame = 60;
+	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
 	m_iNFrameFFTDataCount = 0;
 	m_vChartResolution = Vector2(1280.f,600.f);
@@ -14,6 +14,8 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_fNextChannelYGap = 800.f;
 	m_vChartShowPos = Vector2(200,cGameApp::m_svGameResolution.y-200);
 	m_bPause = false;
+	m_iFrenquenceFilterEndValue = SOUND_CAPTURE_FREQUENCE/4;
+	m_bFilter = false;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()

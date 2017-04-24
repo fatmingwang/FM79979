@@ -12,8 +12,8 @@ void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
 
 #define	PCM_SWAP_BUFFER_COUNT	10
 #define	FFT_DATA_SWAP_BUFFER_COUNT	10
-
-#define	FFT_DATA_LINE_POINTS_COUNT	2000
+//sometimes I need to test so just make this big
+#define	FFT_DATA_LINE_POINTS_COUNT	44100/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT*2//2 for lin need 2 points
 
 class cKissFFTStreamingConvert;
 struct sTimeAndPCMData
@@ -39,8 +39,6 @@ public:
 	struct sTimeAndFFTData
 	{
 		int		iBiggestFFTDataValueOfIndex;
-		int		iFrequence;
-		//char*	pPCMData;
 		float	fStartTime;
 		float	fEndTime;
 		float	fTimeGap;
@@ -51,6 +49,8 @@ public:
 		int		iFFTDataOneSample;
 		int		iTotalFFTDataCount;
 		int		iNumChannel;
+		int		iCurrentTimeStampIndex;
+		int		iNumPointsDraw;
 		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
 		bool	GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
@@ -119,4 +119,5 @@ public:
 	virtual float					GetTimeLength();
 	virtual	void					GoToTime(float e_fTime);
 	void							SetFFTSampleScale(float e_fScale);
+	int								GetFrequenceAmplitiude(int e_iFrenquence);
 };

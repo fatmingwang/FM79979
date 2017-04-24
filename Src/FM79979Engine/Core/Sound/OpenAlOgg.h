@@ -47,6 +47,6 @@ namespace FATMING_CORE
 		float			GetCurrentStreamingTime(){ return m_fCurrentStreamingTime; }
 	};
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime);
-	#define OGG_STREAMING_SOUND_BUFFER_SIZE     32768//32 KB buffers
+	#define OGG_STREAMING_SOUND_BUFFER_SIZE     32768*4//32 KB buffers
 }
 #endif

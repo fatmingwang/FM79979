@@ -1,6 +1,6 @@
 #pragma once
 //default we expect 60fps
-#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
+#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	15
 #define	WINDOWN_FUNCTION_FRUSTRUM	2
 class cKissFFTConvertBase:public NamedTypedObject
 {
@@ -20,7 +20,12 @@ protected:
 	float	m_fNextChannelYGap;
 	bool	m_bPause;
 	//
-	GET_SET_DEC(int,m_iMaxFrequence,GetMaxFrequence,SetMaxFrequence);
+	GET_SET_DEC(int,m_iMaxAmplitudeFrequence,GetMaxAmplitudeFrequence,SetMaxAmplitudeFrequence);
+	//
+	GET_SET_DEC(bool,m_bFilter,IsFilter,SetFilter);
+	//https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition
+	//However, in one song the range of strong frequencies might vary between low C - C1 (32.70 Hz) and high C - C8 (4,186.01 Hz
+	GET_SET_DEC(int,m_iFrenquenceFilterEndValue,GetFrenquenceFilterEndValue,SetiFrenquenceFilterEndValue);
 public:
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
