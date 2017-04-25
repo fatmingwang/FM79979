@@ -25,7 +25,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iNFrameFFTDataCount);
+			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iNFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue());
 	}
 }
 
@@ -167,7 +167,8 @@ void	cSoundFFTCapture::Update(float e_fElpaseTime)
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{
 		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
-		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
+		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
+		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
 			static int l_iTest = 0;
 			++l_iTest;
@@ -205,13 +206,33 @@ void	cSoundFFTCapture::Render()
 	if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
 	{
 		cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
-		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;
+		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
 		//left channel
 		GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
+
+		if( m_fChartScale >= 2 )
+		{
+			//int l_iFreqGap = this->m_pOpanalOgg->GetFreq()/l_pTimeAndFFTData->iFFTDataOneSample;
+			const int l_ciFreqNeeded = 100;
+			//int l_iFreqGap = this->m_pOpanalOgg->GetFreq()/l_ciFreqNeeded;
+			float l_fXGap = m_vChartResolution.x/l_ciFreqNeeded/4*this->m_fChartScale;
+			Vector2 l_LinePos[l_ciFreqNeeded*2];
+			for(int i=0;i<l_ciFreqNeeded;i++)
+			{
+				l_LinePos[i*2].x = i*l_fXGap+m_vChartShowPos.x;
+				l_LinePos[i*2+1].x = i*l_fXGap+m_vChartShowPos.x;
+				l_LinePos[i*2].y = m_vChartShowPos.y;
+				l_LinePos[i*2+1].y = 20*m_fScale+m_vChartShowPos.y;
+				
+				cGameApp::RenderFont(l_LinePos[i*2].x,l_LinePos[i*2+1].y+30,ValueToStringW(i*this->m_pSoundCapture->GetSampleRate()/l_ciFreqNeeded).c_str());
+			}
+			GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
+		}
+
 		std::wstring l_strInfo = L"Frequence:";
 		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
-		cGameApp::m_spGlyphFontRender->SetScale(3.f);
-		cGameApp::RenderFont(1000,200,l_strInfo);
+		cGameApp::m_spGlyphFontRender->SetScale(2.f);
+		cGameApp::RenderFont(100,200,l_strInfo);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		//right channel
 		if( l_pTimeAndFFTData->iNumChannel == 2 )
@@ -219,7 +240,7 @@ void	cSoundFFTCapture::Render()
 			int l_iRightChannelIndex = l_iNumPointd;
 			GLRender::RenderLine((float*)m_vFFTDataToPoints[l_iRightChannelIndex],l_iNumPointd,Vector4::One,2);
 		}
-	}	
+	}
 }
 
 int		cSoundFFTCapture::GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence)

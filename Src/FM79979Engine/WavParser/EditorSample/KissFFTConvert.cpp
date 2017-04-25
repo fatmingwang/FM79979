@@ -14,8 +14,9 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_fNextChannelYGap = 800.f;
 	m_vChartShowPos = Vector2(200,cGameApp::m_svGameResolution.y-200);
 	m_bPause = false;
-	m_iFrenquenceFilterEndValue = SOUND_CAPTURE_FREQUENCE/4;
+	m_fFrenquenceFilterEndScaleValue = 1.f;
 	m_bFilter = false;
+	m_fChartScale = 1.f;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
@@ -243,7 +244,8 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName)
 		return false;
 	}
 	//for 60 fps
-	m_iNFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
+	//m_iNFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
+	m_iNFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
 	PreProcessedAllData();
 	m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
 	m_pTestSound->Play(true);

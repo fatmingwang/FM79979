@@ -45,6 +45,9 @@
     <ClCompile Include="AmplitudeValueAverage.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="SoundAmplitideCapture.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -66,6 +69,9 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="AmplitudeValueAverage.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundAmplitideCapture.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

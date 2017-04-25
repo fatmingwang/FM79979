@@ -117,6 +117,7 @@
     <ClCompile Include="KissFFTConvert.cpp" />
     <ClCompile Include="KissFFTStreaming.cpp" />
     <ClCompile Include="MusicGameApp.cpp" />
+    <ClCompile Include="SoundAmplitideCapture.cpp" />
     <ClCompile Include="SoundFFTCapture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -131,6 +132,7 @@
     <ClInclude Include="KissFFTConvert.h" />
     <ClInclude Include="KissFFTStreaming.h" />
     <ClInclude Include="MusicGameApp.h" />
+    <ClInclude Include="SoundAmplitideCapture.h" />
     <ClInclude Include="SoundFFTCapture.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
