@@ -26,7 +26,7 @@ protected:
 	//https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition
 	//However, in one song the range of strong frequencies might vary between low C - C1 (32.70 Hz) and high C - C8 (4,186.01 Hz
 	GET_SET_DEC(float,m_fFrenquenceFilterEndScaleValue,GetFrenquenceFilterEndScaleValue,SetiFrenquenceFilterEndScaleValue);
-
+	GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
 	GET_SET_DEC(float,m_fChartScale,GetChartScale,SetChartScale);
 public:
 	cKissFFTConvertBase();

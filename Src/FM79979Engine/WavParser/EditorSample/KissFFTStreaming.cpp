@@ -2,8 +2,8 @@
 #include "KissFFTStreaming.h"
 #include "../kiss_fft130/_kiss_fft_guts.h"
 #include <math.h>
-
-int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out)
+//suggest e_iFilterStrengthValue:6
+int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue)
 {
 	double l_dbTotalFFTValue = 0;
 	int l_iEndFilterIndex = (int)(e_iTransformLength*e_fFilterEndScaleValue);
@@ -18,7 +18,7 @@ int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArr
 		assert(l_iNumFFTData<=OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)&&"m_FFTData out of range");
 		++l_iNumFFTData;
 	}
-	l_dbTotalFFTValue /= (l_iEndFilterIndex/6+1);
+	l_dbTotalFFTValue /= (l_iEndFilterIndex/e_iFilterStrengthValue+1);
 	for(int i = 0; i < e_iTransformLength; i++ )
 	{
 		int l_iValue = e_pFFTDataSrc[l_iStartIndex];
@@ -86,7 +86,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumChannel,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),l_pKissFFTStreamingConvert->GetFrenquenceFilterEndScaleValue());
+			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumChannel,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),l_pKissFFTStreamingConvert->GetFrenquenceFilterEndScaleValue(),l_pKissFFTStreamingConvert->GetFilterStrengthValue());
 	}
 }
 
@@ -247,7 +247,7 @@ void	cPCMToFFTDataConvertr::SetNFrameFFTDataCount(int e_iNFrameFFTDataCount)
 }
 
 //need a other thread to do this?
-void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNumChannel,int e_iNFrameFFTDataCount,bool e_bDoFilter,float e_fFilterEndScaleValue)
+void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNumChannel,int e_iNFrameFFTDataCount,bool e_bDoFilter,float e_fFilterEndScaleValue,int e_iFilterStrength)
 {
 	if( !e_pTimeAndPCMData)
 		return;
@@ -381,7 +381,7 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 				}
 				else
 				{
-					l_iNumFFTData = DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumFFTData,m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex],l_pKiss_FFT_Out);
+					l_iNumFFTData = DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumFFTData,m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex],l_pKiss_FFT_Out,e_iFilterStrength);
 					//double l_dbTotalFFTValue = 0;
 					//int l_iEndFilterIndex = (int)(l_iDidgitalWindownFunctionCount*e_fFilterEndScaleValue);
 					//int l_iStartIndex = l_iNumFFTData;

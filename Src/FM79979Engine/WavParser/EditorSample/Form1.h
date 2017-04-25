@@ -164,6 +164,12 @@ private: System::Windows::Forms::NumericUpDown^  SoundCaptureDoFFTChartScale_num
 private: System::Windows::Forms::CheckBox^  SoundCaptureDoFFTFilter_checkBox;
 private: System::Windows::Forms::Label^  SoundCaptureDoFFTFilterRange_label;
 private: System::Windows::Forms::NumericUpDown^  SoundCaptureDoFFTFilterRange_numericUpDown;
+private: System::Windows::Forms::Label^  FilterStrength_label;
+private: System::Windows::Forms::NumericUpDown^  FilterStrength_numericUpDown;
+private: System::Windows::Forms::Label^  SoundCaptureFilterStrength_label;
+private: System::Windows::Forms::NumericUpDown^  SoundCaptureFilterStrength_numericUpDown;
+
+
 
 
 
@@ -212,12 +218,16 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTFilterFrenquenceScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundFileConvert_groupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->FFT_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->FilterStrength_label = (gcnew System::Windows::Forms::Label());
+			this->FilterStrength_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ChartScale_label = (gcnew System::Windows::Forms::Label());
 			this->FFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DoFFTFilter_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->FilterRange_label = (gcnew System::Windows::Forms::Label());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->SoundCapture_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->SoundCaptureFilterStrength_label = (gcnew System::Windows::Forms::Label());
+			this->SoundCaptureFilterStrength_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTChartScale_label = (gcnew System::Windows::Forms::Label());
 			this->SoundCaptureDoFFTFilter_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->SoundCaptureDoFFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
@@ -230,12 +240,14 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTFilterFrenquenceScale_numericUpDown))->BeginInit();
 			this->SoundFileConvert_groupBox->SuspendLayout();
 			this->FFT_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FilterStrength_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->SoundCapture_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureFilterStrength_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTChartScale_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTFilterRange_numericUpDown))->BeginInit();
 			this->SuspendLayout();
@@ -522,6 +534,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// FFT_groupBox
 			// 
+			this->FFT_groupBox->Controls->Add(this->FilterStrength_label);
+			this->FFT_groupBox->Controls->Add(this->FilterStrength_numericUpDown);
 			this->FFT_groupBox->Controls->Add(this->ChartScale_label);
 			this->FFT_groupBox->Controls->Add(this->FFTChartScale_numericUpDown);
 			this->FFT_groupBox->Controls->Add(this->WaveUpdateIndex_label);
@@ -549,6 +563,25 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFT_groupBox->TabIndex = 34;
 			this->FFT_groupBox->TabStop = false;
 			this->FFT_groupBox->Text = L"FFT";
+			// 
+			// FilterStrength_label
+			// 
+			this->FilterStrength_label->AutoSize = true;
+			this->FilterStrength_label->Location = System::Drawing::Point(301, 273);
+			this->FilterStrength_label->Name = L"FilterStrength_label";
+			this->FilterStrength_label->Size = System::Drawing::Size(69, 13);
+			this->FilterStrength_label->TabIndex = 37;
+			this->FilterStrength_label->Text = L"FilterStrength";
+			// 
+			// FilterStrength_numericUpDown
+			// 
+			this->FilterStrength_numericUpDown->Location = System::Drawing::Point(304, 292);
+			this->FilterStrength_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FilterStrength_numericUpDown->Name = L"FilterStrength_numericUpDown";
+			this->FilterStrength_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->FilterStrength_numericUpDown->TabIndex = 36;
+			this->FilterStrength_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FilterStrength_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FilterStrength_numericUpDown_ValueChanged);
 			// 
 			// ChartScale_label
 			// 
@@ -611,6 +644,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// SoundCapture_groupBox
 			// 
+			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureFilterStrength_label);
+			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureFilterStrength_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTChartScale_label);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTFilter_checkBox);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTChartScale_numericUpDown);
@@ -625,10 +660,30 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCapture_groupBox->TabStop = false;
 			this->SoundCapture_groupBox->Text = L"SoundCapture";
 			// 
+			// SoundCaptureFilterStrength_label
+			// 
+			this->SoundCaptureFilterStrength_label->AutoSize = true;
+			this->SoundCaptureFilterStrength_label->Location = System::Drawing::Point(147, 139);
+			this->SoundCaptureFilterStrength_label->Name = L"SoundCaptureFilterStrength_label";
+			this->SoundCaptureFilterStrength_label->Size = System::Drawing::Size(69, 13);
+			this->SoundCaptureFilterStrength_label->TabIndex = 43;
+			this->SoundCaptureFilterStrength_label->Text = L"FilterStrength";
+			// 
+			// SoundCaptureFilterStrength_numericUpDown
+			// 
+			this->SoundCaptureFilterStrength_numericUpDown->Location = System::Drawing::Point(150, 158);
+			this->SoundCaptureFilterStrength_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
+				0});
+			this->SoundCaptureFilterStrength_numericUpDown->Name = L"SoundCaptureFilterStrength_numericUpDown";
+			this->SoundCaptureFilterStrength_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->SoundCaptureFilterStrength_numericUpDown->TabIndex = 42;
+			this->SoundCaptureFilterStrength_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->SoundCaptureFilterStrength_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::SoundCaptureFilterStrength_numericUpDown_ValueChanged);
+			// 
 			// SoundCaptureDoFFTChartScale_label
 			// 
 			this->SoundCaptureDoFFTChartScale_label->AutoSize = true;
-			this->SoundCaptureDoFFTChartScale_label->Location = System::Drawing::Point(146, 116);
+			this->SoundCaptureDoFFTChartScale_label->Location = System::Drawing::Point(147, 100);
 			this->SoundCaptureDoFFTChartScale_label->Name = L"SoundCaptureDoFFTChartScale_label";
 			this->SoundCaptureDoFFTChartScale_label->Size = System::Drawing::Size(59, 13);
 			this->SoundCaptureDoFFTChartScale_label->TabIndex = 41;
@@ -647,7 +702,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// SoundCaptureDoFFTChartScale_numericUpDown
 			// 
-			this->SoundCaptureDoFFTChartScale_numericUpDown->Location = System::Drawing::Point(149, 132);
+			this->SoundCaptureDoFFTChartScale_numericUpDown->Location = System::Drawing::Point(150, 116);
 			this->SoundCaptureDoFFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
 				65536});
 			this->SoundCaptureDoFFTChartScale_numericUpDown->Name = L"SoundCaptureDoFFTChartScale_numericUpDown";
@@ -702,6 +757,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundFileConvert_groupBox->PerformLayout();
 			this->FFT_groupBox->ResumeLayout(false);
 			this->FFT_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FilterStrength_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->EndInit();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
@@ -709,6 +765,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->ResumeLayout(false);
 			this->SoundCapture_groupBox->ResumeLayout(false);
 			this->SoundCapture_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureFilterStrength_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTChartScale_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTFilterRange_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
@@ -967,6 +1024,18 @@ private: System::Void SoundCaptureDoFFTChartScale_numericUpDown_ValueChanged(Sys
 			 if(m_pSoundFFTCapture)
 			 {
 				 m_pSoundFFTCapture->SetChartScale((float)SoundCaptureDoFFTChartScale_numericUpDown->Value);
+			 }
+		 }
+private: System::Void FilterStrength_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( m_pKissFFTConvertBase )
+				 m_pKissFFTConvertBase->SetFilterStrengthValue((int)FilterStrength_numericUpDown->Value);
+		 }
+private: System::Void SoundCaptureFilterStrength_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(m_pSoundFFTCapture)
+			 {
+				 m_pSoundFFTCapture->SetFilterStrengthValue((int)SoundCaptureFilterStrength_numericUpDown->Value);
 			 }
 		 }
 };

@@ -25,7 +25,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iNFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue());
+			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iNFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
 	}
 }
 

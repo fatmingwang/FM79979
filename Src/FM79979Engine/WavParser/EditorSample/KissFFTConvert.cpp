@@ -17,6 +17,7 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_fFrenquenceFilterEndScaleValue = 1.f;
 	m_bFilter = false;
 	m_fChartScale = 1.f;
+	m_iFilterStrengthValue = 6;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
