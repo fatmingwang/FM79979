@@ -1,7 +1,10 @@
 #pragma once
 //default we expect 60fps
-#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	15
+#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	6
 #define	WINDOWN_FUNCTION_FRUSTRUM	2
+
+int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
+
 class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;
@@ -42,7 +45,7 @@ public:
 	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
 	virtual void	GoToTime(float e_fElpaseTime) = 0;
-	virtual void	SetFFTSampleScale(float e_fScale){}
+	virtual void	SetFFTSampleScale(float e_fScale,bool e_bForceSet = false){}
 	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
 };
@@ -60,7 +63,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	bool	FetchSoundDataByTimeRange(float e_fStartTime,float e_fDuring = 0.16f);
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
-	void	PreProcessedAllData();
+	void	PreProcessedAllData(bool e_bFilter);
 	//
 	virtual void	Destroy();
 public:

@@ -276,7 +276,7 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 	}
 	if( l_iNumFFTDataNeed == 0 )
 	{
-		if( abs(l_fDuring-l_fTimeToUpdateFFT) <= 0.001f )
+		if( abs(l_fDuring-l_fTimeToUpdateFFT) <= 0.01f )
 			l_iNumFFTDataNeed = 1;
 		else
 		{
@@ -382,30 +382,6 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 				else
 				{
 					l_iNumFFTData = DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumFFTData,m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex],l_pKiss_FFT_Out,e_iFilterStrength);
-					//double l_dbTotalFFTValue = 0;
-					//int l_iEndFilterIndex = (int)(l_iDidgitalWindownFunctionCount*e_fFilterEndScaleValue);
-					//int l_iStartIndex = l_iNumFFTData;
-					//for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-					//{
-					//	float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-					//	if( i<l_iEndFilterIndex )
-					//		l_dbTotalFFTValue += l_Msg;
-					//	m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_iNumFFTData] = (int)l_Msg;
-					//	assert(l_iNumFFTData<=OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)&&"m_FFTData out of range");
-					//	++l_iNumFFTData;
-					//}
-					//l_dbTotalFFTValue /= (l_iEndFilterIndex+1);
-					//for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-					//{
-					//	int l_iValue = m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_iStartIndex];
-					//	l_iValue -= (int)l_dbTotalFFTValue;
-					//	if( l_iValue < 0 )
-					//		l_iValue = 0;
-					//	else
-					//		l_iValue = (int)(log(l_iValue) *10);
-					//	m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_iStartIndex] = l_iValue;
-					//	++l_iStartIndex;
-					//}
 				}
 			}
 			l_iNumFFTData2 = l_iNumFFTData;
@@ -567,12 +543,9 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName)
 	}
 	float l_fTimeAndFreqAmountWithChannel = m_pOpanalOgg->GetFreq()*m_pOpanalOgg->GetTimeLength();
 	float l_PCMSizeDivideFrenquency = m_pOpanalOgg->GetPCMDataSize()/l_fTimeAndFreqAmountWithChannel/m_pOpanalOgg->GetChannelCount();
-	//int l_iSampleSize = (int)l_PCMSizeDivideFrenquency;
-
-	int l_iSampleSize = (int)(l_PCMSizeDivideFrenquency);
-	if( l_iSampleSize != 2 )
+	if( abs(2-l_PCMSizeDivideFrenquency)>0.01 )
 	{
-		UT::ErrorMsg(ValueToString(l_iSampleSize).c_str(),"ogg file sample Size is not 2 byte!?ignore this and have no idea will happen.");
+		UT::ErrorMsg(ValueToString(l_PCMSizeDivideFrenquency).c_str(),"ogg file sample Size is not 2 byte!?ignore this and have no idea will happen.");
 	}
 	//
 	//
@@ -744,7 +717,7 @@ void	cKissFFTStreamingConvert::GoToTime(float e_fTime)
 	}
 }
 
-void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale)
+void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale,bool e_bForceSet)
 {
 	if(e_fScale>1.f)
 		e_fScale = 1.f;
@@ -752,9 +725,12 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale)
 		e_fScale = 0.1f;
 
 	cGameApp::m_sbGamePause = true;
-	while( !m_bThreadInPause[0] || !m_bThreadInPause[1] )
-	{//wait for pause
-		Sleep(1);
+	if( e_bForceSet == false )
+	{
+		while( !m_bThreadInPause[0] || !m_bThreadInPause[1] )
+		{//wait for pause
+			Sleep(1);
+		}
 	}
 
 	int l_iNum = (int)(this->m_iNFrameFFTDataCount*e_fScale);
@@ -763,7 +739,11 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale)
 
 	for( int l_iCount = 0;l_iCount <l_iNum;++l_iCount)
 	{
-		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
+
+		//const float £k = 3.1415926f;
+		// apply hanning window to buffer
+		double multiplier  = 0.54f - 0.46f * cos( (float)l_iCount * 2.0f * D3DX_PI / (l_iCount-1) );
+		//double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
 		// apply hanning window to buffer
 		//double multiplier = 0.54-0.46 * cos(2*D3DX_PI*l_iCount/(l_iNum));
 		this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
@@ -781,6 +761,7 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale)
 
 int	cKissFFTStreamingConvert::GetFrequenceAmplitiude(int e_iFrenquence)
 {
+	assert(0&&"not finish yet");
 	if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
 	{
 		cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];

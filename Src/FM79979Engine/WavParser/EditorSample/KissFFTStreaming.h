@@ -118,6 +118,6 @@ public:
 	virtual float					GetCurrentTimePercentage();
 	virtual float					GetTimeLength();
 	virtual	void					GoToTime(float e_fTime);
-	void							SetFFTSampleScale(float e_fScale);
+	void							SetFFTSampleScale(float e_fScale,bool e_bForceSet = false);
 	int								GetFrequenceAmplitiude(int e_iFrenquence);
 };

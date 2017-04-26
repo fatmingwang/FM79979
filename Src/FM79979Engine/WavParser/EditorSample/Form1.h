@@ -53,8 +53,10 @@ namespace EditorSample
 			this->m_pWaveInfo = nullptr;
 			//this->m_pWavWaves = nullptr;
 			//
+			m_pKissFFTConvertBase = nullptr;
+			m_pKissFFTConvertBase = nullptr;
 			//m_pKissFFTConvertBase = new cKissFFTConvert();
-			m_pKissFFTConvertBase = new cKissFFTStreamingConvert();
+			//m_pKissFFTConvertBase = new cKissFFTStreamingConvert();
 			//for mouse event
 			m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -465,7 +467,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTDataCountScale_numericUpDown->Name = L"FFTDataCountScale_numericUpDown";
 			this->FFTDataCountScale_numericUpDown->Size = System::Drawing::Size(120, 20);
 			this->FFTDataCountScale_numericUpDown->TabIndex = 27;
-			this->FFTDataCountScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTDataCountScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {5, 0, 0, 65536});
 			this->FFTDataCountScale_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTDataCountScale_numericUpDown_ValueChanged);
 			// 
 			// GoToTime_trackBar
@@ -515,7 +517,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTFilterFrenquenceScale_numericUpDown->Name = L"FFTFilterFrenquenceScale_numericUpDown";
 			this->FFTFilterFrenquenceScale_numericUpDown->Size = System::Drawing::Size(94, 20);
 			this->FFTFilterFrenquenceScale_numericUpDown->TabIndex = 31;
-			this->FFTFilterFrenquenceScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FFTFilterFrenquenceScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 65536});
 			this->FFTFilterFrenquenceScale_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTFilterFrenquenceScale_numericUpDown_ValueChanged);
 			// 
 			// SoundFileConvert_groupBox
@@ -580,7 +582,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FilterStrength_numericUpDown->Name = L"FilterStrength_numericUpDown";
 			this->FilterStrength_numericUpDown->Size = System::Drawing::Size(120, 20);
 			this->FilterStrength_numericUpDown->TabIndex = 36;
-			this->FilterStrength_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FilterStrength_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {6, 0, 0, 0});
 			this->FilterStrength_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FilterStrength_numericUpDown_ValueChanged);
 			// 
 			// ChartScale_label
@@ -594,12 +596,13 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// FFTChartScale_numericUpDown
 			// 
+			this->FFTChartScale_numericUpDown->DecimalPlaces = 2;
 			this->FFTChartScale_numericUpDown->Location = System::Drawing::Point(304, 243);
 			this->FFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
 			this->FFTChartScale_numericUpDown->Name = L"FFTChartScale_numericUpDown";
 			this->FFTChartScale_numericUpDown->Size = System::Drawing::Size(120, 20);
 			this->FFTChartScale_numericUpDown->TabIndex = 34;
-			this->FFTChartScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTChartScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
 			this->FFTChartScale_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTChartScale_numericUpDown_ValueChanged);
 			// 
 			// DoFFTFilter_checkBox
@@ -893,11 +896,37 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 			 this->timer1->Enabled = false;
 			 if(System::IO::File::Exists(WavFileName_textBox->Text))
 			 {
-				 std::string l_strFileName = DNCT::GcStringToChar(WavFileName_textBox->Text);
-				 if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str()))
+				 SAFE_DELETE(m_pKissFFTConvertBase);
+				 String^l_strExtensionName = System::IO::Path::GetExtension(WavFileName_textBox->Text);
+				 if( l_strExtensionName->Equals(".wav") )
 				 {
-					 CurrentTime_trackBar->Maximum = (int)(m_pKissFFTConvertBase->GetTimeLength()*10);
-					 GoToTime_trackBar->Maximum = CurrentTime_trackBar->Maximum;
+					m_pKissFFTConvertBase = new cKissFFTConvert();
+				 }
+				 else
+				 if( l_strExtensionName->Equals(".ogg") )
+				 {
+					m_pKissFFTConvertBase = new cKissFFTStreamingConvert();
+				 }
+				 if( m_pKissFFTConvertBase )
+				 {
+					std::string l_strFileName = DNCT::GcStringToChar(WavFileName_textBox->Text);
+					float l_fScale = (float)FFTDataCountScale_numericUpDown->Value;
+					this->m_pKissFFTConvertBase->SetFFTSampleScale(l_fScale,true);
+					m_pKissFFTConvertBase->SetChartScale((float)FFTChartScale_numericUpDown->Value);
+					m_pKissFFTConvertBase->SetFilter(DoFFTFilter_checkBox->Checked);
+					m_pKissFFTConvertBase->SetiFrenquenceFilterEndScaleValue((float)FFTFilterFrenquenceScale_numericUpDown->Value);
+					m_pKissFFTConvertBase->SetFilterStrengthValue((int)FilterStrength_numericUpDown->Value);
+					 float l_fTimeToUpDate = 1.f/(int)WaveUpdateIndex_numericUpDown->Value;
+					 m_pKissFFTConvertBase->SetFFTDataUpdateTime(l_fTimeToUpDate);
+					if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str()))
+					{
+						CurrentTime_trackBar->Maximum = (int)(m_pKissFFTConvertBase->GetTimeLength()*10);
+						GoToTime_trackBar->Maximum = CurrentTime_trackBar->Maximum;
+					}
+				 }
+				 else
+				 {
+					 WARNING_MSG("only support wav and ogg,sorry!");
 				 }
 			 }
 			 cGameApp::m_sTimeAndFPS.Update();

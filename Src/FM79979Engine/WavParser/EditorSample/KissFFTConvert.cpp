@@ -135,7 +135,7 @@ cKissFFTConvert::~cKissFFTConvert()
 //4.calculate magnitude of first N/2 FFT output bins (sqrt(re*re + im*im))
 //5.optionally convert magnitude to dB (log) scale (20 * log10(magnitude))
 //6.plot N/2 (log) magnitude values
-void	cKissFFTConvert::PreProcessedAllData()
+void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 {
 	if( !m_pSoundFile )
 		return;
@@ -189,18 +189,32 @@ void	cKissFFTConvert::PreProcessedAllData()
 				//GetFft(l_iFetchDataCount,l_pKiss_FFT_In,l_pKiss_FFT_Out);
 				kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
 				// calculate magnitude of first n/2 FFT
-				for(int i = 0; i < l_iFetchDataCount/2; i++ )
+				int l_iDidgitalWindownFunctionCount = l_iFetchDataCount/WINDOWN_FUNCTION_FRUSTRUM;
+				if( !e_bFilter )
 				{
-					int val;
-					float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-					// N/2 Log magnitude values.
-					//for (i = 0; i < N/2 ; ++i){
-					//  x =   10 * log10(mag[i]) ;
-					//  printf("  log x= %g ", log(x));
-					//val = l_Msg;
-					val = (int)(log(l_Msg) *10); 
-					//l_FFTDataVector[i] = val;
-					l_pFFTDataVector->push_back(val);
+					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
+					{
+						int val;
+						float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+						// N/2 Log magnitude values.
+						//for (i = 0; i < N/2 ; ++i){
+						//  x =   10 * log10(mag[i]) ;
+						//  printf("  log x= %g ", log(x));
+						//val = l_Msg;
+						val = (int)(log(l_Msg) *10); 
+						//l_FFTDataVector[i] = val;
+						l_pFFTDataVector->push_back(val);
+					}
+				}
+				else
+				{
+					const int l_iLazeLength = 1024*32*2;
+					int l_iIAmLazyToOptmizeFuck[l_iLazeLength];
+					assert(l_iLazeLength>l_iDidgitalWindownFunctionCount&&"basicly it won't happen if it happen call fatming(l_iIAmLazyToOptmizeFuck)");
+					DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
+					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
+						l_pFFTDataVector->push_back(l_iIAmLazyToOptmizeFuck[i]);
+
 				}
 			}
 			else
@@ -247,7 +261,7 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName)
 	//for 60 fps
 	//m_iNFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
 	m_iNFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
-	PreProcessedAllData();
+	PreProcessedAllData(this->m_bFilter);
 	m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
 	m_pTestSound->Play(true);
 	return true;	
