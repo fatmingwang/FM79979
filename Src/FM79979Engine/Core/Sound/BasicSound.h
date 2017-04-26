@@ -72,6 +72,8 @@ namespace FATMING_CORE
 		//iphone support?e_bForce may not working because the sound source count is possible small than all SoundParser count,so source ID may change dynamic
 		virtual	void	SetVolume(float e_fVolume,bool e_bForce = false);
 		float			GetVolume(){return m_fVolume;}
+		//0.5-2
+		bool			SetPitch(float e_fPitch);
 		float			GetCurrentPlayTime();
 		float			GetTimeLength(){ return m_fTimeLength; }
 		int				GetChannelCount(){ return m_iChannelCount; }

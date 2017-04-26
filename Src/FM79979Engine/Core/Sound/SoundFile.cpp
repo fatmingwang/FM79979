@@ -438,6 +438,12 @@ float g_fTest2 = 1.f;
 				g_fTest2 = cos((float)i/l_iNumData*20.f);
 #endif
 				char*l_pucCurrentData = (char*)this->m_pSoundData+l_iCurrentDataPos;
+				//make noise here
+				//float l_fRandValue = frand(0.1+l_iNumData,2+l_iNumData);
+				//for( int j=0;j<l_iDataLen;++j )
+				//{
+				//	l_pucCurrentData[j] *= l_fRandValue;
+				//}
 				WriteOggData(l_iDataLen,l_pucCurrentData,m_WAVFmtHdr_Struct.Channels);
 				l_iCurrentDataPos += l_iDataLen;
 			}

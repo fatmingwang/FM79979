@@ -163,7 +163,7 @@ namespace FATMING_CORE
 				if(this->m_bStreaming)
 				{
 					float	l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fBGMVolume;
-					alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);					
+					alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);
 				}
 				alSourcePlay (m_uiSourceID);
 			}
@@ -277,6 +277,20 @@ namespace FATMING_CORE
 			alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);
 			check();
 		}
+	}
+
+	bool	cBasicSound::SetPitch(float e_fPitch)
+	{
+		if( m_uiSourceID != 0 )
+		{
+			//if( e_fPitch > 2 )
+			//	e_fPitch = 2;
+			//if( e_fPitch < 0.5f )
+			//	e_fPitch = 0.5f;
+			alSourcef(m_uiSourceID, AL_PITCH, e_fPitch);
+			return true;
+		}
+		return false;
 	}
 
 	float	cBasicSound::GetCurrentPlayTime()
