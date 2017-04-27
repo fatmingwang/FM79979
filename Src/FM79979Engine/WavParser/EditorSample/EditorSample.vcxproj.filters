@@ -42,10 +42,10 @@
     <ClCompile Include="SoundFFTCapture.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="AmplitudeValueAverage.cpp">
+    <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="SoundAmplitideCapture.cpp">
+    <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,10 +68,10 @@
     <ClInclude Include="SoundFFTCapture.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="AmplitudeValueAverage.h">
+    <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="SoundAmplitideCapture.h">
+    <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

@@ -48,6 +48,7 @@ public:
 	virtual void	SetFFTSampleScale(float e_fScale,bool e_bForceSet = false){}
 	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
+	static float	GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
@@ -55,6 +56,8 @@ class cKissFFTConvert:public cKissFFTConvertBase
 {
 	cOpanalWAV*							m_pTestSound;
 	std::vector<std::vector<int>* >		m_FFTDataVectorChannelVector;
+		//it won't bigger than this...I guess
+	std::vector<std::vector<float>* >	m_FFTResultPhaseVector;
 	int									m_iCurrentFFTDataLineCount;
 	std::vector<std::vector<Vector2>*>	m_FFTDataLinePointVectorVector;
 	//
@@ -70,7 +73,7 @@ public:
 	cKissFFTConvert();
 	~cKissFFTConvert();
 	//now only support wav
-	virtual bool	FetchSoundDataStart(const char*e_strFileName);
+	virtual bool	FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true);
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime);
 	virtual void	Render();
@@ -79,4 +82,6 @@ public:
 	virtual float	GetCurrentTimePercentage();
 	virtual float	GetTimeLength();
 	virtual void	GoToTime(float e_fElpaseTime);
+
+	std::vector<std::vector<int>* >*GetFFTDataVectorChannelVector(){return &m_FFTDataVectorChannelVector;}
 };

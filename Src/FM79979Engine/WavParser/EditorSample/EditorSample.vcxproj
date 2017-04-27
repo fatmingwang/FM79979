@@ -111,13 +111,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AmplitudeValueAverage.cpp" />
+    <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EditorSample.cpp" />
     <ClCompile Include="KissFFTConvert.cpp" />
     <ClCompile Include="KissFFTStreaming.cpp" />
     <ClCompile Include="MusicGameApp.cpp" />
-    <ClCompile Include="SoundAmplitideCapture.cpp" />
+    <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp" />
     <ClCompile Include="SoundFFTCapture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -125,14 +125,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AmplitudeValueAverage.h" />
+    <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="KissFFTConvert.h" />
     <ClInclude Include="KissFFTStreaming.h" />
     <ClInclude Include="MusicGameApp.h" />
-    <ClInclude Include="SoundAmplitideCapture.h" />
+    <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h" />
     <ClInclude Include="SoundFFTCapture.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

@@ -153,12 +153,14 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 	for(int l_iCurrentChannelIndex = 0;l_iCurrentChannelIndex<l_iChannels;++l_iCurrentChannelIndex)
 	{
 		std::vector<int>*l_pFFTDataVector = new std::vector<int>;
+		std::vector<float>*l_pFFTPhaseDataVector = new std::vector<float>;
 		l_pFFTDataVector->reserve(m_pSoundFile->m_iSampleCount);
 
 		size_t l_uiCurrentSoundDataIndex = 0;
 
 		short*l_pucSoundData = (short*)m_pSoundFile->GetChannelData(l_iCurrentChannelIndex);
 		int l_iNumWindow = 0;
+		int l_iNumFFT = 0;
 		while(l_uiCurrentSoundDataIndex < l_uiSameCount  )
 		{
 			if( l_bDoFFT )
@@ -184,6 +186,7 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 				{    
 					size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
 					m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
+					m_FFTResultPhaseVector.push_back(l_pFFTPhaseDataVector);
 					break;
 				}
 				//GetFft(l_iFetchDataCount,l_pKiss_FFT_In,l_pKiss_FFT_Out);
@@ -204,6 +207,9 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 						val = (int)(log(l_Msg) *10); 
 						//l_FFTDataVector[i] = val;
 						l_pFFTDataVector->push_back(val);
+						float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+						l_pFFTPhaseDataVector->push_back(l_fPhase);
+						++l_iNumFFT;
 					}
 				}
 				else
@@ -213,7 +219,12 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 					assert(l_iLazeLength>l_iDidgitalWindownFunctionCount&&"basicly it won't happen if it happen call fatming(l_iIAmLazyToOptmizeFuck)");
 					DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
 					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
+					{
 						l_pFFTDataVector->push_back(l_iIAmLazyToOptmizeFuck[i]);
+						float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+						l_pFFTPhaseDataVector->push_back(l_fPhase);
+						++l_iNumFFT;
+					}
 
 				}
 			}
@@ -243,12 +254,13 @@ void	cKissFFTConvert::Destroy()
 {
 	DELETE_VECTOR(m_FFTDataLinePointVectorVector,std::vector<Vector2>*);
 	DELETE_VECTOR(m_FFTDataVectorChannelVector,std::vector<int>*);
+	DELETE_VECTOR(m_FFTResultPhaseVector,std::vector<float>*);
 	SAFE_RELEASE(m_pTestSound,this);
 	//m_pTestSound->Release();
 	SAFE_DELETE(m_pSoundFile);
 }
 //
-bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName)
+bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound)
 {
 	m_fCurrentTime = 0.f;
 	Destroy();
@@ -262,8 +274,11 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName)
 	//m_iNFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
 	m_iNFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
 	PreProcessedAllData(this->m_bFilter);
-	m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
-	m_pTestSound->Play(true);
+	if( e_bPlaySound )
+	{
+		m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
+		m_pTestSound->Play(true);
+	}
 	return true;	
 }
 
@@ -284,7 +299,8 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 	{
 		l_iEndIndex = (int)m_FFTDataVectorChannelVector[0]->size()-1;
 	}
-	float l_fXGap = this->m_vChartResolution.x/(l_iEndIndex-e_iStartDataIndex);
+	float l_fXGap = this->m_vChartResolution.x/(l_iEndIndex-e_iStartDataIndex)*m_fChartScale;	
+	//float l_fXGap = this->m_pSoundFile->m_iFreq/this->m_vChartResolution.x*m_fChartScale;
 	float l_fYGap = m_fNextChannelYGap;
 	float l_fStartXPos = m_vChartShowPos.x;
 	float l_fYStartPos = m_vChartShowPos.y;
@@ -293,15 +309,21 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 	for( size_t l_iChannelIndex = 0;l_iChannelIndex<m_FFTDataLinePointVectorVector.size();++l_iChannelIndex )
 	{
 		auto l_pData = m_FFTDataLinePointVectorVector[l_iChannelIndex];
-		auto l_pFFTData = this->m_FFTDataVectorChannelVector[l_iChannelIndex];
+		auto l_pFFTDataVector = this->m_FFTDataVectorChannelVector[l_iChannelIndex];
+
+		auto l_pFFTPhaseDataVector = this->m_FFTResultPhaseVector[l_iChannelIndex];
+
 		float l_fYPos = l_fYGap*l_iChannelIndex;
 		int l_iIndex = 0;
 		for(int i=e_iStartDataIndex;i<l_iEndIndex;++i)
 		{
 			Vector2 l_vPos,l_vPos1;
+			//this->m_fFFTResultPhase[l_iChannelIndex][]
+			//l_vPos1.x = l_vPos.x = (l_fXGap*(*l_pFFTPhaseData)[l_iIndex])+l_fStartXPos;
 			l_vPos1.x = l_vPos.x = (l_fXGap*l_iIndex)+l_fStartXPos;
 			l_vPos1.y = l_fYStartPos+l_fYPos;
-			l_vPos.y = l_fYStartPos-((*l_pFFTData)[i]*m_fScale)+l_fYPos;
+			l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale)+l_fYPos;
+			//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
 			l_pData->push_back(l_vPos);
 			l_pData->push_back(l_vPos1);
 			++l_iIndex;
@@ -468,6 +490,12 @@ int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFre
 {
 	int l_iFrequence = e_iIndexOfFFTData*e_iFrequence/e_iCount;
 	return l_iFrequence;
+}
+
+float	cKissFFTConvertBase::GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS)
+{
+	float l_fOffsetRange = (float)e_iFrequency/2.f/((float)e_iFrequency/e_iFPS);
+	return l_fOffsetRange;
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
