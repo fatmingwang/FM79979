@@ -32,6 +32,7 @@ protected:
 	GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
 	GET_SET_DEC(float,m_fChartScale,GetChartScale,SetChartScale);
 public:
+	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
 	//now only support wav
@@ -49,6 +50,8 @@ public:
 	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
 	static float	GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS);
+	TiXmlElement*	ToTiXmlElement();
+	void			SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

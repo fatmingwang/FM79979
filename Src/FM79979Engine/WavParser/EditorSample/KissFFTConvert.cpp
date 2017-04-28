@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
 
+TYPDE_DEFINE_MARCO(cKissFFTConvertBase);
+
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
 	m_iMaxAmplitudeFrequence = 0;
@@ -496,6 +498,49 @@ float	cKissFFTConvertBase::GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS)
 {
 	float l_fOffsetRange = (float)e_iFrequency/2.f/((float)e_iFrequency/e_iFPS);
 	return l_fOffsetRange;
+}
+
+TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
+{
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(cKissFFTConvertBase::TypeID);
+	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
+	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
+	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iNFrameFFTDataCount);
+	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
+	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
+	//l_pTiXmlElement->SetAttribute(L"MaxAmplitudeFrequence",m_iMaxAmplitudeFrequence);
+	//l_pTiXmlElement->SetAttribute(L"ChartScale",m_fChartScale);
+	return l_pTiXmlElement;
+}
+
+void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
+{
+	PARSE_ELEMENT_START(e_pTiXmlElement)
+		COMPARE_NAME("TimeToUpdateFFTData")
+		{
+			m_TimeToUpdateFFTData.fTargetTime = VALUE_TO_FLOAT;
+		}
+		else
+		COMPARE_NAME("DivideFFTDataToNFrame")
+		{
+			m_iDivideFFTDataToNFrame = VALUE_TO_INT;
+		}
+		else
+		COMPARE_NAME("NFrameFFTDataCount")
+		{
+			m_iNFrameFFTDataCount = VALUE_TO_INT;
+		}
+		else
+		COMPARE_NAME("FrenquenceFilterEndScaleValue")
+		{
+			m_fFrenquenceFilterEndScaleValue = VALUE_TO_FLOAT;
+		}
+		else
+		COMPARE_NAME("FilterStrengthValue")
+		{
+			m_iFilterStrengthValue = VALUE_TO_INT;
+		}
+	PARSE_NAME_VALUE_END
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
