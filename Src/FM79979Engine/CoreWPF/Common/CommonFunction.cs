@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Media;
 using System.Windows.Markup;
 using System.Xml;
-static int gg = 0;
+
 namespace CoreWPF.Common
 {
     public static class CommonFunction

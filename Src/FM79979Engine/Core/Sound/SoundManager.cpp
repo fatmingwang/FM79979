@@ -15,7 +15,11 @@ namespace FATMING_CORE
 	void    cSoundParser::ActiveOpenAL()
 	{
 #ifdef WIN32
-		alutInit (0,0);
+		ALboolean l_bAlutInitResult = alutInit (0,0);
+		if( !l_bAlutInitResult )
+		{
+			UT::ErrorMsg(L"openal create failed!",L"please install oalinst,https://www.openal.org/downloads/");
+		}
 #endif
 
 #if defined(ANDROID) || defined(IOS)
