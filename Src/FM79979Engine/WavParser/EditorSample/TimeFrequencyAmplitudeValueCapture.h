@@ -16,13 +16,13 @@ struct sFrequencyAndAmplitude
 //if frequency amplitude is bigger than X,store it and keep record while the value is smaller than something
 struct sFrequenceAndAmplitudeAndTime:public sFrequencyAndAmplitude
 {
+	sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement);
 	sFrequenceAndAmplitudeAndTime(){}
 	~sFrequenceAndAmplitudeAndTime(){}
 	float	fStartTime;
 	float	fKeepTime;
 	//the last time frequency and amplitude is matched
-	float	fLastMuchTime;
-	sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement);
+	float	fLastMatchTime;
 	TiXmlElement*ToElement();
 };
 
@@ -37,7 +37,7 @@ class cTimeFrequencyAmplitudeValueCapture
 private:
 	//the data is during the working range
 	std::vector<sFrequenceAndAmplitudeAndTime>	m_CurrentWorkingFrequenceAndTimeVector;
-	//final write to file
+	//final write to file,this should sort by time.
 	std::vector<sFrequenceAndAmplitudeAndTime>	m_AllData;
 	//
 	cKissFFTConvert*							m_pKissFFTConvert;

@@ -26,9 +26,9 @@ sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pEle
 			fKeepTime = VALUE_TO_FLOAT;
 		}
 		else
-		COMPARE_NAME("LastMuchTime")
+		COMPARE_NAME("LastMatchTime")
 		{
-			fLastMuchTime = VALUE_TO_FLOAT;
+			fLastMatchTime = VALUE_TO_FLOAT;
 		}
 	PARSE_NAME_VALUE_END
 }
@@ -40,7 +40,7 @@ TiXmlElement*sFrequenceAndAmplitudeAndTime::ToElement()
 	l_pTiXmlElement->SetAttribute(L"Amplitude",iAmplitude);
 	l_pTiXmlElement->SetAttribute(L"StartTime",fStartTime);
 	l_pTiXmlElement->SetAttribute(L"KeepTime",fKeepTime);
-	l_pTiXmlElement->SetAttribute(L"LastMuchTime",fLastMuchTime);
+	l_pTiXmlElement->SetAttribute(L"LastMatchTime",fLastMatchTime);
 	return l_pTiXmlElement;
 }
 
@@ -143,7 +143,7 @@ sFrequenceAndAmplitudeAndTime FrequencyAndAmplitudeToFrequenceAndAmplitudeAndTim
 	l_sFrequenceAndAmplitudeAndTime.fFrequency = e_pFrequencyAndAmplitude->fFrequency;
 	l_sFrequenceAndAmplitudeAndTime.iAmplitude = e_pFrequencyAndAmplitude->iAmplitude;
 	l_sFrequenceAndAmplitudeAndTime.fKeepTime = 0.f;
-	l_sFrequenceAndAmplitudeAndTime.fLastMuchTime = l_sFrequenceAndAmplitudeAndTime.fStartTime = e_fCurrentTime;
+	l_sFrequenceAndAmplitudeAndTime.fLastMatchTime = l_sFrequenceAndAmplitudeAndTime.fStartTime = e_fCurrentTime;
 	return l_sFrequenceAndAmplitudeAndTime;
 }
 
@@ -178,7 +178,7 @@ void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDist
 				if( abs(l_pFrequenceAndAmplitudeAndTime->fFrequency-l_pFrequencyAndAmplitude->fFrequency) <= this->m_fFrequencyOffsetRange)
 				{
 					l_pFrequenceAndAmplitudeAndTime->fKeepTime += e_fElpaseTime;
-					l_pFrequenceAndAmplitudeAndTime->fLastMuchTime = this->m_fCurrentTime;
+					l_pFrequenceAndAmplitudeAndTime->fLastMatchTime = this->m_fCurrentTime;
 					l_bMatched = true;
 					//I am afraid something wrong so now just make break as comment
 					//break;
@@ -202,10 +202,10 @@ void	cTimeFrequencyAmplitudeValueCapture::FromCurrentWorkingToAllData()
 	{
 		sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
 		//new data
-		if( l_pFrequenceAndAmplitudeAndTime->fStartTime == l_pFrequenceAndAmplitudeAndTime->fLastMuchTime )
+		if( l_pFrequenceAndAmplitudeAndTime->fStartTime == l_pFrequenceAndAmplitudeAndTime->fLastMatchTime )
 			continue;
-		assert(this->m_fCurrentTime>=l_pFrequenceAndAmplitudeAndTime->fLastMuchTime&&"what happen!?FromCurrentWorkingToAllData");
-		float l_fElpaseTime = this->m_fCurrentTime-l_pFrequenceAndAmplitudeAndTime->fLastMuchTime;
+		assert(this->m_fCurrentTime>=l_pFrequenceAndAmplitudeAndTime->fLastMatchTime&&"what happen!?FromCurrentWorkingToAllData");
+		float l_fElpaseTime = this->m_fCurrentTime-l_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
 		if( l_fElpaseTime >= this->m_fTolerateTime )
 		{//move to all data
 			m_CurrentWorkingFrequenceAndTimeVector.erase(m_CurrentWorkingFrequenceAndTimeVector.begin()+i);
@@ -243,7 +243,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 
 TiXmlElement*	cTimeFrequencyAmplitudeValueCapture::SaveConditionToTiXmlElement()
 {
-	TiXmlElement*l_pTiXmlElement = new TiXmlElement();
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"TimeFrequencyAmplitudeValueCapture");
 	l_pTiXmlElement->SetAttribute(L"ParseFPS",m_iParseFPS);
 	l_pTiXmlElement->SetAttribute(L"FrequencyOffsetRange",m_fFrequencyOffsetRange);
 	l_pTiXmlElement->SetAttribute(L"TolerateTime",m_fTolerateTime);

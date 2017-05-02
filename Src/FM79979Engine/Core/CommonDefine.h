@@ -22,8 +22,12 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=nullptr; } }
 #endif
 
-#define DELETE_VECTOR(List,T){for( UINT i = 0;i<List.size();++i){	T l_p = List[i];SAFE_DELETE(l_p);}List.clear();}
+#define DELETE_VECTOR(List,T){for( size_t i = 0;i<List.size();++i){	T l_p = List[i];SAFE_DELETE(l_p);}List.clear();}
 #define DELETE_POINTER_VECTOR(List,T){for( UINT i = 0;i<List->size();++i){	T l_p = (*List)[i];SAFE_DELETE(l_p);}SAFE_DELETE(List);}
+//std::vector<std::vector<Dataooxx*>*>
+#define DELETE_VECTOR_VECTORPOINTER(List,T){for( size_t i = 0;i<List.size();++i){auto l_pDataVector = List[i];if( l_pDataVector ){DELETE_VECTOR((*l_pDataVector),T);SAFE_DELETE(l_pDataVector);}}List.clear();}
+
+
 //p for first q for second r for map object
 #define DEL_MAP(p,q,r){											\
 	std::map<p,q>::iterator i=r.begin();						\
