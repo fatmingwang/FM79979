@@ -44,18 +44,25 @@ public:
 		float	fTimeGap;
 		//only store the index where time is okay for to do fft
 		//std::map<float,int>	TimeAndFFTDataIndex;
+		//it's possible be wrong here,because the pointer could be reset very offen then the lines would bewrong...
+		//best way to avoid this happen is malloc new memory or give a pure data won't be changed,fuck.
 		int*	piLeftChannelFFTData;
 		int*	piRightChannelFFTData;
-		int		iFFTDataOneSample;
-		int		iTotalFFTDataCount;
+		int		iFFTDataOneSample;//one fft data length
+		int		iTotalFFTDataCount;//the total fft data is a time range(could have N fft sample)
 		int		iNumChannel;
 		int		iCurrentTimeStampIndex;
+		//because I am lazy...make this for fetch FFT data
+		int		iCurrentFetchFFTDataTimeStampIndex;
 		int		iNumPointsDraw;
+		int		GetIndexToJumpByTime(float e_fTime);
 		sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
 		bool	GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 		bool	GenerateFFTLinesByFFTSampleTargetIndex(Vector2*e_pLinePoints,int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
 		bool	ForceGenerateLastFFTLines(Vector2*e_pLinePoints,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		//return fft data length(how many bins)
+		int		GetCurrentFFTData(int*e_piOutputData,float e_fTargetTime);
 	};
 	//give a big enough array instead new and delete
 	kiss_fft_cpx					m_Kiss_FFT_In[OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)];

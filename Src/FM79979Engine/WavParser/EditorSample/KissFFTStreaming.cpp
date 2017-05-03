@@ -100,6 +100,7 @@ void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri)
 cPCMToFFTDataConvertr::sTimeAndFFTData::sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap)
 {
 	iCurrentTimeStampIndex = -1;
+	iCurrentFetchFFTDataTimeStampIndex = -1;
 	iBiggestFFTDataValueOfIndex = 0;
 	iNumChannel = e_iNumChannel;
 	//pPCMData = nullptr;
@@ -123,6 +124,56 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::ForceGenerateLastFFTLines(Vector2*e
 	int l_iIndex = (this->iTotalFFTDataCount/this->iFFTDataOneSample)-1;
 	GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,l_iIndex,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
 	return true;
+}
+
+bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
+{
+	int l_IndexToJump = GetIndexToJumpByTime(e_fTargetTime);
+	if( l_IndexToJump != -1 )
+	{
+		GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,l_IndexToJump,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
+		return true;
+	}
+	return false;
+}
+
+int	cPCMToFFTDataConvertr::sTimeAndFFTData::GetCurrentFFTData(int*e_piOutputData,float e_fTargetTime)
+{
+	int l_IndexToJump = GetIndexToJumpByTime(e_fTargetTime);
+	if( l_IndexToJump != -1 )
+	{
+		int l_iFFTDataLength = iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
+		if( this->iCurrentFetchFFTDataTimeStampIndex != l_IndexToJump )
+		{
+			this->iCurrentFetchFFTDataTimeStampIndex = l_IndexToJump;
+	//		this->iTotalFFTDataCount
+		//	e_piOutputData
+			//only one channel
+			if( this->iNumChannel == 1 )
+			{
+				int*l_pChannelData = piLeftChannelFFTData?piLeftChannelFFTData:piRightChannelFFTData;
+				int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*l_IndexToJump];
+				memcpy(e_piOutputData,l_pStartFFTData,sizeof(int)*l_iFFTDataLength);
+			}
+			else
+			{
+				for(int i=0;i<l_iFFTDataLength;++i)
+				{
+					e_piOutputData[i] = 0;
+					for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
+					{
+						int*l_pChannelData = l_iChannelIndex==0?piLeftChannelFFTData:piRightChannelFFTData;
+						int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*l_IndexToJump];
+						int l_iValue = l_pStartFFTData[i];
+						e_piOutputData[i] += l_iValue;
+					}
+					e_piOutputData[i] /= 2;
+				}
+			}
+		}
+		return l_iFFTDataLength;
+	}
+	return -1;
 }
 
 bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIndex(Vector2*e_pLinePoints,int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
@@ -171,16 +222,16 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 
 
 
-bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
+int		cPCMToFFTDataConvertr::sTimeAndFFTData::GetIndexToJumpByTime(float e_fTime)
 {
-	if( fEndTime-fTimeGap < e_fTargetTime )
-	{
-		//return false;
-	}
-	int l_IndexToJump = (int)((e_fTargetTime-this->fStartTime)/fTimeGap);
-	if(this->fStartTime>e_fTargetTime)
+	//if( fEndTime-fTimeGap < e_fTargetTime )
+	//{
+	//	return false;
+	//}
+	int l_IndexToJump = (int)((e_fTime-this->fStartTime)/fTimeGap);
+	if(this->fStartTime>e_fTime)
 	{//how come this happen...fucking sad...
-		if(abs(this->fStartTime-e_fTargetTime)>=1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT)
+		if(abs(this->fStartTime-e_fTime)>=1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT)
 		{
 #ifdef DEBUG
 			std::wstring l_strDebugInfo = L"1:S:";
@@ -188,13 +239,13 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoi
 			l_strDebugInfo += L",E:";
 			l_strDebugInfo += ValueToStringW(this->fEndTime);
 			l_strDebugInfo += L",TargetTime:";
-			l_strDebugInfo += ValueToStringW(e_fTargetTime);
+			l_strDebugInfo += ValueToStringW(e_fTime);
 			l_strDebugInfo += L":how come this happen,someone call go to time???...fucking sad,GenerateFFTLines";
 			cGameApp::OutputDebugInfoString(l_strDebugInfo);
 #endif
 			//anyway take a quick fetch avoid screen flash for go to time has been called
 			//GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,0,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
-			return false;
+			return -1;
 		}
 		l_IndexToJump = 0;
 	}
@@ -203,10 +254,9 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoi
 	{
 		//cGameApp::OutputDebugInfoString(L"GenerateFFTLines,here should not happen,fft data count is not enough,,cKissFFTStreamingConvert::ProcessFFTData() need more accurate the performance goes!.");
 		//here should not happen,cKissFFTStreamingConvert::ProcessFFTData() need more accurate the performance goes!.
-		return false;
+		return -1;
 	}
-	GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,l_IndexToJump,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
-	return true;
+	return l_IndexToJump;
 }
 
 cPCMToFFTDataConvertr::cPCMToFFTDataConvertr()
@@ -743,8 +793,9 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale,bool e_bForceSet
 
 		//const float £k = 3.1415926f;
 		// apply hanning window to buffer
-		double multiplier  = 0.54f - 0.46f * cos( (float)l_iCount * 2.0f * D3DX_PI / (l_iCount-1) );
-		//double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
+		//below one is possible divide by 0 so dont use this,fuck
+		//double multiplier  = 0.54f - 0.46f * cos( (float)l_iCount * 2.0f * D3DX_PI / (l_iCount-1) );
+		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
 		// apply hanning window to buffer
 		//double multiplier = 0.54-0.46 * cos(2*D3DX_PI*l_iCount/(l_iNum));
 		this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;

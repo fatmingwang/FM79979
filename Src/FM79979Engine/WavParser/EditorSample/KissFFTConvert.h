@@ -1,6 +1,6 @@
 #pragma once
 //default we expect 60fps
-#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	6
+#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
 #define	WINDOWN_FUNCTION_FRUSTRUM	2
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);

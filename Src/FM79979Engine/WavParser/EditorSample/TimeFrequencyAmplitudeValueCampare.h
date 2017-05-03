@@ -34,16 +34,26 @@ struct sFrequenceAndAmplitudeAndTimeFinder
 	bool	GetDataByTime(float e_fTime,float e_fTolerateTime,std::vector<sFrequenceAndAmplitudeAndTime*>*e_pOutVector,bool e_bIgnodeSameObject);
 };
 
+struct sFrequencyAndAmplitudeWithFFTBinIndex:public sFrequenceAndAmplitudeAndTime
+{
+	//a quick index to find out amplitude value,because frequency could be different so make a captable offset
+	int	iFFTBinIndex[2];
+};
 
 class cTimeFrequencyAmplitudeValueCompare:public cNodeISAX
 {
+	cSoundFFTCapture*					m_pSoundFFTCapture;
+	//
 	sFrequenceAndAmplitudeAndTimeFinder*m_pFrequenceAndAmplitudeAndTimeFinder;
 	//
 	float m_fCurrentTime;
 	//
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	//once time is over due erase data.
-	std::vector<sFrequencyAndAmplitude>	WaitForCompareData;
+	std::vector<sFrequencyAndAmplitudeWithFFTBinIndex>	WaitForCompareData;
+	//
+
+	void	SetupInputDataFFT(int e_iNumBins);
 public:
 	cTimeFrequencyAmplitudeValueCompare();
 	~cTimeFrequencyAmplitudeValueCompare();

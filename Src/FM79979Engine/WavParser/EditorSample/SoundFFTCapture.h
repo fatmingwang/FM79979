@@ -4,6 +4,9 @@
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
 
+#define	SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG		1<<1
+#define	SOUNS_FFT_CAPTURE_UPDATE_FETCH_FFT_DATA_FLAG	2<<1
+
 class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKissFFTConvertBase
 {
 	friend void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
@@ -22,6 +25,11 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
 	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
 	Vector2							m_vFFTDataToPoints[FFT_DATA_LINE_POINTS_COUNT];
+	int*							m_piFFTData;
+	void							UpdateWithDrawFFTData(float e_fElpaseTime);
+	void							UpdateWithFetchFFTData(float e_fElpaseTime);
+	//
+	GET_SET_DEC(int,m_iUpdateFlag,GetUpdateFlag,SetUpdateFlag);
 public:
 	cSoundFFTCapture();
 	~cSoundFFTCapture();

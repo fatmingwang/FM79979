@@ -108,3 +108,8 @@ void	cTimeFrequencyAmplitudeValueCompare::AddNewData(sFrequencyAndAmplitude e_Fr
 {
 
 }
+
+void	cTimeFrequencyAmplitudeValueCompare::SetupInputDataFFT(int e_iNumBins)
+{
+
+}

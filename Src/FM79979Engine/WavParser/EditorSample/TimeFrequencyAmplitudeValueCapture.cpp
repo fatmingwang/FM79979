@@ -72,6 +72,11 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 	m_AllData.clear();
 	m_CurrentWorkingFrequenceAndTimeVector.clear();
 	m_pKissFFTConvert = new cKissFFTConvert();
+	m_pKissFFTConvert->SetFilter(true);
+	m_pKissFFTConvert->SetiFrenquenceFilterEndScaleValue(0.5);
+	m_pKissFFTConvert->SetFilterStrengthValue(6);
+
+
 	if(m_pKissFFTConvert->FetchSoundDataStart(e_strFileName,false))
 	{
 		FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
@@ -102,11 +107,15 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 		float l_fTimeLength = l_pSoundFile->m_fTime;
 		float l_fFrameTimeElpase = 1.f/m_iParseFPS;
 		int l_iNumCount = (int)(l_fTimeLength/l_fFrameTimeElpase);
-		int l_iOneFrameDataCount = l_pSoundFile->m_iSampleCount/l_iNumCount;
+		//
+		int l_iOneFrameDataCount = l_pSoundFile->m_iSampleCount/l_iNumCount/WINDOWN_FUNCTION_FRUSTRUM;
 		m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(l_pSoundFile->m_iFreq,m_iParseFPS);
 		for( int i=0;i<l_iNumCount;++i )
 		{
 			this->m_fCurrentTime = l_fFrameTimeElpase*i;
+			int l_iIndex = i*l_iOneFrameDataCount;
+			if( l_iIndex >= l_uiFFTDAtaCount )
+				continue;
 			int*l_piStartData = &m_piSoundDataForParse[i*l_iOneFrameDataCount];
 			FrameByFrameAnaylize(m_fFrequencyOffsetRange,l_piStartData,l_iOneFrameDataCount,l_fFrameTimeElpase);
 
@@ -158,6 +167,7 @@ void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDist
 	{
 		for( size_t i=0;i<l_uiSize;++i )
 		{
+			//assert(0&&"fuck");
 			sFrequenceAndAmplitudeAndTime l_FrequenceAndTime = FrequencyAndAmplitudeToFrequenceAndAmplitudeAndTime(&l_CurrentFFTFrequencyAndAmplitudeVector[i],this->m_fCurrentTime);
 			m_CurrentWorkingFrequenceAndTimeVector.push_back(l_FrequenceAndTime);
 		}
@@ -169,7 +179,8 @@ void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDist
 		{
 			bool	l_bMatched = false;
 			sFrequencyAndAmplitude*l_pFrequencyAndAmplitude = &l_CurrentFFTFrequencyAndAmplitudeVector[j];
-			for(size_t i=0;i<m_CurrentWorkingFrequenceAndTimeVector.size();++i )
+			size_t l_uiCurrentWorkingFrequenceAndTimeVectorSize = m_CurrentWorkingFrequenceAndTimeVector.size();
+			for(size_t i=0;i<l_uiCurrentWorkingFrequenceAndTimeVectorSize;++i )
 			{
 				sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
 				assert(l_bMatched == false &&"m_fFrequencyOffsetRange too big? how come!");

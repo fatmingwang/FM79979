@@ -47,6 +47,8 @@ cSoundFFTCapture::cSoundFFTCapture()
 	m_vChartResolution.x *= 2;
 	//this->m_vChartShowPos.x += 0;
 	m_vChartResolution.x = 5000;
+	m_iUpdateFlag = SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG;
+	m_piFFTData = nullptr;
 }
 
 cSoundFFTCapture::~cSoundFFTCapture()
@@ -67,6 +69,7 @@ void	cSoundFFTCapture::Destroy()
 		Sleep(1);
 	}
 	m_PCMToFFTDataConvertr.Destroy();
+	SAFE_DELETE(m_piFFTData);
 	DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
 	SAFE_DELETE(m_pFUThreadPool);
 }
@@ -89,6 +92,7 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	{
 		m_iNFrameFFTDataCount = this->m_pSoundCapture->GetBuffersize()/2;
 	}
+	m_piFFTData = new int[m_iNFrameFFTDataCount];
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iNFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(1);
@@ -159,10 +163,45 @@ void	cSoundFFTCapture::CaptureSoundEndCallBack()
 	
 }
 
+
 void	cSoundFFTCapture::Update(float e_fElpaseTime)
 {
 	if( !this->m_bPause )
 		this->m_fCurrentTime += e_fElpaseTime;
+	if(	m_iUpdateFlag && SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG )
+	{
+		UpdateWithFetchFFTData(e_fElpaseTime);
+	}
+	if(	m_iUpdateFlag && SOUNS_FFT_CAPTURE_UPDATE_FETCH_FFT_DATA_FLAG )
+	{
+		UpdateWithDrawFFTData(e_fElpaseTime);
+	}
+}
+
+void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
+{
+	//dont need to do synchronzied,because only here will delete
+	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
+	{
+		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
+		if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GetCurrentFFTData(this->m_piFFTData,m_fCurrentTime) == -1 )
+		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
+		{
+			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
+			//wait for next new one.
+			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
+				break;
+			delete m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
+			m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.erase(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.begin());
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
+{
 	//dont need to do synchronzied,because only here will delete
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{

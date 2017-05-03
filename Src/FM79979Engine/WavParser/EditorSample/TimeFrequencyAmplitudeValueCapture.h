@@ -48,7 +48,9 @@ private:
 	void										FromCurrentWorkingToAllData();
 	std::vector<sFrequencyAndAmplitude>			GetSatisfiedFrequencyAndAmplitudeVector(float e_fFreqDistance,const int*e_pData,int e_iDataLength,int e_AmplitudeCondition);
 	//
+	TiXmlElement*	SaveConditionToTiXmlElement();
 	//
+public:
 	int		m_iParseFPS;//default is 30
 	float	m_fCurrentTime;
 	//frequencty change could have a range offset,assume default is CD quality
@@ -59,8 +61,6 @@ private:
 	float	m_fMinKeepTime;
 	//
 	int		m_iMinAmplitude;
-	//
-	TiXmlElement*	SaveConditionToTiXmlElement();
 	//
 public:
 	cTimeFrequencyAmplitudeValueCapture();
