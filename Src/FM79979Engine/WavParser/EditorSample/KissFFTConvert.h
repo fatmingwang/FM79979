@@ -2,6 +2,8 @@
 //default we expect 60fps
 #define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
 #define	WINDOWN_FUNCTION_FRUSTRUM	2
+//
+#define	AFTER_FILTER_MIN_VALUE	3
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 
@@ -13,9 +15,9 @@ protected:
 	//
 	float	m_fCurrentTime;	
 	//this value will dive data into parts,if value is frequence/m_iPerFrameFFTDataCount,value gigher performance higer but low accurance
-	int		m_iDivideFFTDataToNFrame;
+	GET_SET_DEC(int,m_iDivideFFTDataToNFrame,GetDivideFFTDataToNFrame,SetDivideFFTDataToNFrame);
 	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
-	int		m_iNFrameFFTDataCount;
+	int		m_iOneFrameFFTDataCount;
 	//for chart
 	Vector2	m_vChartResolution;
 	Vector2	m_vChartShowPos;
@@ -35,8 +37,10 @@ public:
 	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();
 	~cKissFFTConvertBase();
+	//
+	const int		GetOneFrameFFTDataCount(){return m_iOneFrameFFTDataCount;}
 	//now only support wav
-	virtual bool	FetchSoundDataStart(const char*e_strFileName){return false;}
+	virtual bool	FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true){return false;}
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime) = 0;
 	virtual void	Render() = 0;

@@ -1,0 +1,28 @@
+uniform sampler2D texSample;
+uniform float time;
+varying vec2 PSTexcoord;
+varying vec4 PSColor;
+void main()
+{
+//	vec2 l_vResoulution = vec2(1280,720);
+//	vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / l_vResoulution.xy;
+	vec2 l_vNewUC = PSTexcoord;
+	l_vNewUC.x -= 0.5;
+	l_vNewUC.y -= 0.5;
+	if( time == 0 )
+	{
+		float l_fAtanValue = atan(l_vNewUC.y,l_vNewUC.x);
+		gl_FragColor = vec4(l_fAtanValue,l_fAtanValue,l_fAtanValue,1);
+	}
+	else
+	{
+		float l_ftime = time;
+		//float l_ftime = 0;
+		float r = length( l_vNewUC );
+////		l_vNewUC.y = r;//two side
+		float l_fAtanValue = atan(l_vNewUC.y,l_vNewUC.x);
+		vec2 uv = vec2( 1.0/r+l_ftime , l_fAtanValue/3.1415927 );
+		gl_FragColor.rgb = texture2D( texSample, uv ).xyz;
+		gl_FragColor.a = 1;
+	}
+}

@@ -10,7 +10,7 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_TimeToUpdateFFTData.SetLoop(true);
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
-	m_iNFrameFFTDataCount = 0;
+	m_iOneFrameFFTDataCount = 0;
 	m_vChartResolution = Vector2(1280.f,600.f);
 	m_fScale = 3.f;
 	m_fNextChannelYGap = 800.f;
@@ -72,8 +72,8 @@ cKissFFTConvert::~cKissFFTConvert()
 //	m_FFTDataVectorChannelVector.reserve(m_pSoundFile->m_iSampleCount);
 //
 //	m_Timer.Update();
-//	const int l_iFetchDataCount = m_iNFrameFFTDataCount*this->m_pSoundFile->m_iChannel;
-//	assert(l_iFetchDataCount>=this->m_iNFrameFFTDataCount&&"frenquence is too high,is this okay?");
+//	const int l_iFetchDataCount = m_iOneFrameFFTDataCount*this->m_pSoundFile->m_iChannel;
+//	assert(l_iFetchDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 //	kiss_fft_cpx* l_pKiss_FFT_In = new kiss_fft_cpx[l_iFetchDataCount];
 //	kiss_fft_cpx* l_pKiss_FFT_Out = new kiss_fft_cpx[l_iFetchDataCount];
 //
@@ -143,8 +143,8 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 		return;
 	int  l_iChannels = m_pSoundFile->m_iChannel;
 	m_Timer.Update();
-	const int l_iFetchDataCount = m_iNFrameFFTDataCount;//*this->m_pSoundFile->m_iChannel;
-	assert(l_iFetchDataCount>=this->m_iNFrameFFTDataCount&&"frenquence is too high,is this okay?");
+	const int l_iFetchDataCount = m_iOneFrameFFTDataCount;//*this->m_pSoundFile->m_iChannel;
+	assert(l_iFetchDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
 
 	size_t l_uiSameCount = m_pSoundFile->m_iSampleCount;
@@ -272,9 +272,8 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		SAFE_DELETE(m_pSoundFile);
 		return false;
 	}
-	//for 60 fps
-	//m_iNFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
-	m_iNFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
+	//m_iOneFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
+	m_iOneFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
 	PreProcessedAllData(this->m_bFilter);
 	if( e_bPlaySound )
 	{
@@ -346,8 +345,8 @@ bool	cKissFFTConvert::FetchSoundDataByTimeRange(float e_fStartTime,float e_fDuri
 	int	l_iTargetIndex = (int)(m_fCurrentTime/(1.f/this->m_iDivideFFTDataToNFrame));
 	//because char to short? or
 	//because 6.plot N/2 (log) magnitude values,so divide 2
-	int l_iStartIndex = l_iTargetIndex*(m_iNFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
-	int l_iDuringRangeCount = this->m_iNFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
+	int l_iStartIndex = l_iTargetIndex*(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+	int l_iDuringRangeCount = this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
 	return FetchSoundData(l_iStartIndex,l_iDuringRangeCount);
 }
 
@@ -366,7 +365,7 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 			for(int i=0;i<m_pSoundFile->m_iChannel;++i)
 			{
 				std::vector<Vector2>*l_pData = new std::vector<Vector2>();
-				l_pData->reserve(m_iNFrameFFTDataCount);
+				l_pData->reserve(m_iOneFrameFFTDataCount);
 				m_FFTDataLinePointVectorVector.push_back(l_pData);
 			}
 		}
@@ -392,7 +391,7 @@ void	cKissFFTConvert::Render()
 				for(int i=0;i<m_iCurrentFFTDataLineCount;++i)
 				{
 					float*l_pData = (float*)&(*l_pDataVector)[i*2];
-					//if( i%m_iNFrameFFTDataCount == 0 )
+					//if( i%m_iOneFrameFFTDataCount == 0 )
 						//RenderLine(l_pData,2,Vector4::Red,2,cMatrix44::Identity,2);
 					//else
 						RenderLine(l_pData,2,Vector4::One,2,cMatrix44::Identity,2);
@@ -505,7 +504,7 @@ TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
 	TiXmlElement*l_pTiXmlElement = new TiXmlElement(cKissFFTConvertBase::TypeID);
 	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
 	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
-	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iNFrameFFTDataCount);
+	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iOneFrameFFTDataCount);
 	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
 	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
 	//l_pTiXmlElement->SetAttribute(L"MaxAmplitudeFrequence",m_iMaxAmplitudeFrequence);
@@ -526,9 +525,9 @@ void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 			m_iDivideFFTDataToNFrame = VALUE_TO_INT;
 		}
 		else
-		COMPARE_NAME("NFrameFFTDataCount")
+		COMPARE_NAME("OneFrameFFTDataCount")
 		{
-			m_iNFrameFFTDataCount = VALUE_TO_INT;
+			m_iOneFrameFFTDataCount = VALUE_TO_INT;
 		}
 		else
 		COMPARE_NAME("FrenquenceFilterEndScaleValue")

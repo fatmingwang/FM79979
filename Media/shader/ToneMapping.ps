@@ -1,0 +1,28 @@
+uniform float fExposureLevel;
+varying vec2 PSTexcoord;
+varying vec4 PSColor;
+uniform sampler2D tFull;
+uniform sampler2D tBlur;
+
+vec4 lerp(vec4 a, vec4 b, float w)
+{
+  return a + w*(b-a);
+}
+
+void	main()
+{
+	vec4 original = texture2D( tFull, PSTexcoord );
+	vec4 blur		= texture2D( tBlur, PSTexcoord );
+	gl_FragColor = original;
+	vec4 color	= lerp( original, blur, 0.4f );
+	//vec4 color	= original+blur*0.5;
+
+	vec2 l_TempTexCord = PSTexcoord - 0.5;
+	float vignette	= 1 - dot( l_TempTexCord, l_TempTexCord );
+	color		   *= pow( vignette, 4.0 );
+
+	color		   *= fExposureLevel;
+
+	gl_FragColor = pow( color,vec4( 0.55, 0.55, 0.55, 0.55) );
+	//gl_FragColor = color;
+}

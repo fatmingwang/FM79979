@@ -3,6 +3,7 @@
 
 #define	TOLERATE_TIME	0.016f
 #define	MIN_LEEP_TIME	0.016f
+//the filter min value is 3
 #define	MIN_AMPLITUDE	20
 
 class cKissFFTConvert;
@@ -43,7 +44,7 @@ private:
 	cKissFFTConvert*							m_pKissFFTConvert;
 	int*										m_piSoundDataForParse;
 	//
-	bool										AnalyizeStart(const char*e_strFileName);
+	bool										AnalyizeStart(const char*e_strFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue);
 	void										FrameByFrameAnaylize(float e_fFreqDistance,const int*e_pData,int e_iDataLength,float e_fElpaseTime);
 	void										FromCurrentWorkingToAllData();
 	std::vector<sFrequencyAndAmplitude>			GetSatisfiedFrequencyAndAmplitudeVector(float e_fFreqDistance,const int*e_pData,int e_iDataLength,int e_AmplitudeCondition);
@@ -66,5 +67,5 @@ public:
 	cTimeFrequencyAmplitudeValueCapture();
 	~cTimeFrequencyAmplitudeValueCapture();
 	//
-	bool	ParseAndSaveFileName(const char*e_strParseFileName,const char*e_strOutputFileName);
+	bool	ParseAndSaveFileName(const char*e_strParseFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue,const char*e_strOutputFileName);
 };

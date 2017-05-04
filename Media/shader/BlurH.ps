@@ -1,0 +1,16 @@
+uniform sampler2D texSample;
+uniform vec2 BlurOffset;//    = vec2( 0.001953195, 0 );//resolution
+varying vec2 PSTexcoord;
+varying vec4 PSColor;
+float PixelWeight[8] = { 0.2537, 0.2185, 0.0821, 0.0461, 0.0262, 0.0162, 0.0102, 0.0052 };
+void main()
+{
+	gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));
+
+	// Sample pixels on either side
+	for( int i = 0; i < 8; ++i )
+	{
+		gl_FragColor += texture2D( texSample, PSTexcoord + ( BlurOffset * i ) ) * PixelWeight[i];
+		gl_FragColor += texture2D( texSample, PSTexcoord - ( BlurOffset * i ) ) * PixelWeight[i];
+	}
+}

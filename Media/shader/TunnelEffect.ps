@@ -1,0 +1,63 @@
+//	vec2 l_vResoulution = vec2(1280,720);
+//	vec2 p = -1.0 + 2.0 * gl_FragCoord.xy / l_vResoulution.xy;
+uniform sampler2D texSample;
+uniform float time;
+varying vec2 PSTexcoord;
+varying vec4 PSColor;
+void main()
+{
+	float l_ftime = time;
+	vec2 l_vNewUV = PSTexcoord;
+                  //move coordinate to center
+	l_vNewUV.x -= 0.41;//+sin(time)*0.1;
+	l_vNewUV.y -= 0.45;//+cos(time)*0.1;
+                  //polar coordinate
+                  float l_fNewUVLength = length(l_vNewUV);
+	float l_fNewUVAtanAngleValue = atan(l_vNewUV.y,l_vNewUV.x);
+	vec2 l_vFinalUV = vec2( 1/l_fNewUVLength+l_ftime/10 , l_fNewUVAtanAngleValue);
+//	vec2 l_vFinalUV = vec2( l_fNewUVLength*l_ftime*5 ,l_fNewUVLength*l_ftime);
+
+//                  float l_fOriginalTextCorrdinateLength = length(PSTexcoord);
+//	float l_fAtanAngleValue = atan(PSTexcoord.y,PSTexcoord.x);
+//                  if(l_vFinalUV.y>0.1)
+  //                      l_vFinalUV.y = 0.5;
+//                  if(l_vFinalUV.x>0.1)
+  //                      l_vFinalUV.x = 0.5;
+//                  if( l_fAtanAngleValue > 100 )
+//                         l_fAtanAngleValue = 0;
+//                  if(tan(45) <= 1)
+//                  if( l_fNewUVAtanAngleValue < -3.0 )
+//                        l_fNewUVAtanAngleValue = 0;
+//                  l_vFinalUV.x  = l_vFinalUV.x*0.01+cos(time/360)*0.01;
+//                  l_vFinalUV.y  = l_vFinalUV.y*0.1;
+//                  l_vFinalUV.y  *= 0.1+cos(time/360)*0.01;
+                  float l_fHoleSize = 10000;//hole small make big
+                  if(  abs(l_vFinalUV.x) > l_fHoleSize )
+                  {
+                          l_vFinalUV.x  = 0.4;
+                  }
+                  if(  abs(l_vFinalUV.y) > l_fHoleSize )
+                  {
+                          l_vFinalUV.y  = 0.5;
+                  }
+                  if(  abs(l_vFinalUV.x) > 17 )
+                  {
+                   //       l_vFinalUV.x  *= l_vFinalUV.x;
+                  }
+                  if(  abs(l_vFinalUV.y) > 15 )
+                  {
+                   //       l_vFinalUV.y  = l_vFinalUV.x;
+                  }
+	if( time == -1 )
+	{
+		gl_FragColor = vec4(l_fNewUVLength,l_fNewUVLength,l_fNewUVLength,1);
+//		gl_FragColor = vec4( l_vFinalUV.x,l_vFinalUV.x, l_vFinalUV.x,1);
+//		gl_FragColor = vec4( l_vFinalUV.y, l_vFinalUV.y, l_vFinalUV.y,1);
+	}
+	else
+	{
+                                    vec4 l_Color = 0;
+		gl_FragColor.rgb = l_Color.rgb = texture2D( texSample, l_vFinalUV).xyz;
+		gl_FragColor.a = 1;
+	}
+}

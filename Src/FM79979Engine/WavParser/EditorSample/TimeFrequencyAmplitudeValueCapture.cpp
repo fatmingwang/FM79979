@@ -36,11 +36,11 @@ sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pEle
 TiXmlElement*sFrequenceAndAmplitudeAndTime::ToElement()
 {
 	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"FrequenceAndAmplitudeAndTime");
-	l_pTiXmlElement->SetAttribute(L"Frequency",fFrequency);
-	l_pTiXmlElement->SetAttribute(L"Amplitude",iAmplitude);
 	l_pTiXmlElement->SetAttribute(L"StartTime",fStartTime);
 	l_pTiXmlElement->SetAttribute(L"KeepTime",fKeepTime);
 	l_pTiXmlElement->SetAttribute(L"LastMatchTime",fLastMatchTime);
+	l_pTiXmlElement->SetAttribute(L"Frequency",fFrequency);
+	l_pTiXmlElement->SetAttribute(L"Amplitude",iAmplitude);
 	return l_pTiXmlElement;
 }
 
@@ -65,7 +65,7 @@ cTimeFrequencyAmplitudeValueCapture::~cTimeFrequencyAmplitudeValueCapture()
 	SAFE_DELETE(m_pKissFFTConvert);
 }
 
-bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName)
+bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue)
 {
 	SAFE_DELETE(m_pKissFFTConvert);
 	SAFE_DELETE(m_piSoundDataForParse);
@@ -73,9 +73,9 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 	m_CurrentWorkingFrequenceAndTimeVector.clear();
 	m_pKissFFTConvert = new cKissFFTConvert();
 	m_pKissFFTConvert->SetFilter(true);
-	m_pKissFFTConvert->SetiFrenquenceFilterEndScaleValue(0.5);
-	m_pKissFFTConvert->SetFilterStrengthValue(6);
-
+	m_pKissFFTConvert->SetiFrenquenceFilterEndScaleValue(e_fFilterEndFrequencyValue);
+	m_pKissFFTConvert->SetFilterStrengthValue(e_iFilterStregth);
+	m_pKissFFTConvert->SetDivideFFTDataToNFrame(m_iParseFPS);
 
 	if(m_pKissFFTConvert->FetchSoundDataStart(e_strFileName,false))
 	{
@@ -106,16 +106,19 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 		}
 		float l_fTimeLength = l_pSoundFile->m_fTime;
 		float l_fFrameTimeElpase = 1.f/m_iParseFPS;
-		int l_iNumCount = (int)(l_fTimeLength/l_fFrameTimeElpase);
 		//
-		int l_iOneFrameDataCount = l_pSoundFile->m_iSampleCount/l_iNumCount/WINDOWN_FUNCTION_FRUSTRUM;
+		int l_iOneFrameDataCount = m_pKissFFTConvert->GetOneFrameFFTDataCount();
+		int l_iNumCount = (int)(l_uiFFTDAtaCount/l_iOneFrameDataCount);
 		m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(l_pSoundFile->m_iFreq,m_iParseFPS);
 		for( int i=0;i<l_iNumCount;++i )
 		{
 			this->m_fCurrentTime = l_fFrameTimeElpase*i;
 			int l_iIndex = i*l_iOneFrameDataCount;
-			if( l_iIndex >= l_uiFFTDAtaCount )
+			if( l_iIndex >= (int)l_uiFFTDAtaCount )
+			{
+				assert(0&&"fuck how come I a fucking angry...");
 				continue;
+			}
 			int*l_piStartData = &m_piSoundDataForParse[i*l_iOneFrameDataCount];
 			FrameByFrameAnaylize(m_fFrequencyOffsetRange,l_piStartData,l_iOneFrameDataCount,l_fFrameTimeElpase);
 
@@ -183,16 +186,16 @@ void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDist
 			for(size_t i=0;i<l_uiCurrentWorkingFrequenceAndTimeVectorSize;++i )
 			{
 				sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
-				assert(l_bMatched == false &&"m_fFrequencyOffsetRange too big? how come!");
-				if( l_bMatched )
-					break;
+				//if( l_bMatched )
+					//break;
 				if( abs(l_pFrequenceAndAmplitudeAndTime->fFrequency-l_pFrequencyAndAmplitude->fFrequency) <= this->m_fFrequencyOffsetRange)
 				{
+					assert(l_bMatched == false &&"m_fFrequencyOffsetRange too big? how come!");
 					l_pFrequenceAndAmplitudeAndTime->fKeepTime += e_fElpaseTime;
 					l_pFrequenceAndAmplitudeAndTime->fLastMatchTime = this->m_fCurrentTime;
 					l_bMatched = true;
 					//I am afraid something wrong so now just make break as comment
-					//break;
+					break;
 				}
 			}
 			//new data!
@@ -213,23 +216,46 @@ void	cTimeFrequencyAmplitudeValueCapture::FromCurrentWorkingToAllData()
 	{
 		sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
 		//new data
-		if( l_pFrequenceAndAmplitudeAndTime->fStartTime == l_pFrequenceAndAmplitudeAndTime->fLastMatchTime )
-			continue;
+		//if( l_pFrequenceAndAmplitudeAndTime->fStartTime == l_pFrequenceAndAmplitudeAndTime->fLastMatchTime )
+		//	continue;
 		assert(this->m_fCurrentTime>=l_pFrequenceAndAmplitudeAndTime->fLastMatchTime&&"what happen!?FromCurrentWorkingToAllData");
 		float l_fElpaseTime = this->m_fCurrentTime-l_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
 		if( l_fElpaseTime >= this->m_fTolerateTime )
 		{//move to all data
+
 			m_CurrentWorkingFrequenceAndTimeVector.erase(m_CurrentWorkingFrequenceAndTimeVector.begin()+i);
-			this->m_AllData.push_back(*l_pFrequenceAndAmplitudeAndTime);
+			//here should do sort.
+			//very stupid way to do this,but I dont care because I am lazy...
+			size_t l_uiAllDataSize = this->m_AllData.size();
+			size_t l_uiHittedIndex = l_uiAllDataSize-1;
+			if( l_uiAllDataSize == 0 )
+				l_uiHittedIndex = 0;
+			for(size_t j=0;j<l_uiAllDataSize;++j)
+			{
+				if(l_pFrequenceAndAmplitudeAndTime->fStartTime<=m_AllData[j].fStartTime)
+				{
+					l_uiHittedIndex = j;
+					break;
+				}
+			}
+			m_AllData.insert(m_AllData.begin()+l_uiHittedIndex,*l_pFrequenceAndAmplitudeAndTime);
+			//this->m_AllData.push_back(*l_pFrequenceAndAmplitudeAndTime);
 			--i;
 		}
 	}
 }
 
-bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strParseFileName,const char*e_strOutputFileName)
+bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strParseFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue,const char*e_strOutputFileName)
 {
-	if(AnalyizeStart(e_strParseFileName))
+	if(AnalyizeStart(e_strParseFileName,e_iFilterStregth,e_fFilterEndFrequencyValue))
 	{
+		//dump all current working object ao all data
+		size_t l_uiSize = this->m_CurrentWorkingFrequenceAndTimeVector.size();
+		for(size_t i=0;i<l_uiSize;++i)
+		{
+			m_AllData.push_back(m_CurrentWorkingFrequenceAndTimeVector[i]);
+		}
+		m_CurrentWorkingFrequenceAndTimeVector.clear();
 		if( this->m_AllData.size() )
 		{
 			ISAXCallback l_ISAXCallback;

@@ -19,17 +19,24 @@ int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArr
 		++l_iNumFFTData;
 	}
 	l_dbTotalFFTValue /= (l_iEndFilterIndex/e_iFilterStrengthValue+1);
+	//cGameApp::OutputDebugInfoString(L"Start");
 	for(int i = 0; i < e_iTransformLength; i++ )
 	{
 		int l_iValue = e_pFFTDataSrc[l_iStartIndex];
 		l_iValue -= (int)l_dbTotalFFTValue;
 		if( l_iValue <= 1 )
-			l_iValue = 3;
+			l_iValue = AFTER_FILTER_MIN_VALUE;
 		else
+		{
 			l_iValue = (int)(log(l_iValue) *10);
+			//cGameApp::OutputDebugInfoString(ValueToString(l_iValue).c_str());
+			//OutputDebugString(ValueToStringW(l_iValue).c_str());
+			//OutputDebugString(L",");
+		}
 		e_pFFTDataSrc[l_iStartIndex] = l_iValue;
 		++l_iStartIndex;
 	}
+	//cGameApp::OutputDebugInfoString(L"\n");
 	return l_iNumFFTData;
 }
 void	SoundUpdateThread(size_t _workParameter, size_t _pUri)
@@ -66,7 +73,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 	if( !l_pKissFFTStreamingConvert->m_pOpanalOgg )
 		return;
 	int l_iNumChannel = l_pKissFFTStreamingConvert->m_pOpanalOgg->GetChannelCount();
-	int l_iNumFFTDataCount = l_pKissFFTStreamingConvert->m_iNFrameFFTDataCount;
+	int l_iNumFFTDataCount = l_pKissFFTStreamingConvert->m_iOneFrameFFTDataCount;
 	while( !l_pKissFFTStreamingConvert->m_bThreadStop && l_pKissFFTStreamingConvert->m_pOpanalOgg )
 	{
 		if( cGameApp::m_sbGamePause ||l_pKissFFTStreamingConvert->m_bPause)
@@ -335,16 +342,16 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 			goto FINISHED;
 		}
 	}
-	//float	l_fOneFFTDataPeriod = (float)this->m_iNFrameFFTDataCount/this->m_pOpanalOgg->GetPCMDataSize()*this->m_pOpanalOgg->GetTimeLength();
+	//float	l_fOneFFTDataPeriod = (float)this->m_iOneFrameFFTDataCount/this->m_pOpanalOgg->GetPCMDataSize()*this->m_pOpanalOgg->GetTimeLength();
 
 	int		l_iNextPCMDataStep = l_iNumPCMDataByShort/l_iNumFFTDataNeed;
 	size_t	l_uiEndIndex = l_iNextPCMDataStep*l_iNumFFTDataNeed;
 	int  l_iChannels = e_iNumChannel;//m_pOpanalOgg->GetChannel();
 	//assert(l_fFFTSampleScale<=1.f&&"l_fFFTSampleScale cant not over 1");
 	assert(l_fFFTSampleScale<=1.f&&"m_fFFTSampleScale cant not over 1");
-	int l_iFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iNFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
-	const int l_iOriginalFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iNFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
-	//assert(l_iFetchDataCount>=this->m_iNFrameFFTDataCount&&"frenquence is too high,is this okay?");
+	int l_iFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iOneFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
+	const int l_iOriginalFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iOneFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
+	//assert(l_iFetchDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	kiss_fft_cpx* l_pKiss_FFT_In = this->m_Kiss_FFT_In;
 	kiss_fft_cpx* l_pKiss_FFT_Out = this->m_Kiss_FFT_Out;
 	kiss_fft_state* l_pkiss_fft_state = this->m_pkiss_fft_state;
@@ -536,7 +543,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 			//
 			return;
 		}
-		const int l_iFetchDataCount = (int)(this->m_iNFrameFFTDataCount*this->m_PCMToFFTDataConvertr.GetFFTSampleScale());//m_iNFrameFFTDataCount*m_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
+		const int l_iFetchDataCount = (int)(this->m_iOneFrameFFTDataCount*this->m_PCMToFFTDataConvertr.GetFFTSampleScale());//m_iOneFrameFFTDataCount*m_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
 		if( e_iCount <= l_iFetchDataCount )
 		{
 #ifdef DEBUG
@@ -582,7 +589,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 }
 
 
-bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName)
+bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound)
 {
 	Destroy();
 	this->m_fCurrentTime = 0.f;
@@ -600,19 +607,19 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName)
 	}
 	//
 	//
-	m_iNFrameFFTDataCount = power_of_two(m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame);
-	//m_iNFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
-	if(m_iNFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
+	m_iOneFrameFFTDataCount = power_of_two(m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame);
+	//m_iOneFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
+	if(m_iOneFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
 	{//too big?give it one more chance
-		m_iNFrameFFTDataCount /= 2;
+		m_iOneFrameFFTDataCount /= 2;
 	}
-	if(m_iNFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
+	if(m_iOneFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
 	{
 		Destroy();
 		UT::ErrorMsg(L"m_iDivideFFTDataToNFrame is too small please incerase m_iDivideFFTDataToNFrame or increase FFT_DATA_LINE_POINTS_COUNT",L"Error!");
 		return false;
 	}
-	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iNFrameFFTDataCount);
+	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	//m_pOpanalOgg->SetUpdateNewBufferCallbackFunction(std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(2);
@@ -666,7 +673,7 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 				++l_iTest;
 				if( l_iTest % 10 == 0 )
 				{
-					const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+					const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
 					this->m_iMaxAmplitudeFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pOpanalOgg->GetFreq(),l_iFetchDataCount);
 				}
 				break;
@@ -679,7 +686,7 @@ void	cKissFFTStreamingConvert::RenderFrequenceNumber()
 {
 	if(this->m_pOpanalOgg)
 	{
-		const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+		const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
 		int l_iOneStepFrequence = this->m_pOpanalOgg->GetFreq()/l_iFetchDataCount;
 		//just need 10 so
 		l_iOneStepFrequence =this->m_pOpanalOgg->GetFreq()/10;
@@ -784,7 +791,7 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale,bool e_bForceSet
 		}
 	}
 
-	int l_iNum = (int)(this->m_iNFrameFFTDataCount*e_fScale);
+	int l_iNum = (int)(this->m_iOneFrameFFTDataCount*e_fScale);
 	SAFE_DELETE(this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue);
 	this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue = new float[l_iNum];
 

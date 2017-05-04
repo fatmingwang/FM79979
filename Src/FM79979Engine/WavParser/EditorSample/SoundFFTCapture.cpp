@@ -25,7 +25,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iNFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
+			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
 	}
 }
 
@@ -87,13 +87,13 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	float l_fFPSTime = 1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fNextSampleTime = l_fFPSTime;
 	//m_iFFTSampleForOneFrame = (int)(l_iSampleRate * l_fFPSTime);
-	m_iNFrameFFTDataCount = (int)(l_iSampleRate * l_fFPSTime)/sizeof(short);
-	if( m_iNFrameFFTDataCount >= this->m_pSoundCapture->GetBuffersize()/2)
+	m_iOneFrameFFTDataCount = (int)(l_iSampleRate * l_fFPSTime)/sizeof(short);
+	if( m_iOneFrameFFTDataCount >= this->m_pSoundCapture->GetBuffersize()/2)
 	{
-		m_iNFrameFFTDataCount = this->m_pSoundCapture->GetBuffersize()/2;
+		m_iOneFrameFFTDataCount = this->m_pSoundCapture->GetBuffersize()/2;
 	}
-	m_piFFTData = new int[m_iNFrameFFTDataCount];
-	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iNFrameFFTDataCount);
+	m_piFFTData = new int[m_iOneFrameFFTDataCount];
+	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(1);
 	FUStaticFunctor2<size_t, size_t, void>* workFunctor1 = new FUStaticFunctor2<size_t, size_t, void>(&SoundFFTCaptureKissFFTStreamingConvertThread);
@@ -213,7 +213,7 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 			++l_iTest;
 			if( l_iTest % 10 == 0 )
 			{
-				const int l_iFetchDataCount = (int)(m_iNFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
 				this->m_iMaxAmplitudeFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount);
 			}
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
