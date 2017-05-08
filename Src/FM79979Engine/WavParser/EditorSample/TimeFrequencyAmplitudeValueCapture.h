@@ -18,6 +18,7 @@ struct sFrequencyAndAmplitude
 struct sFrequenceAndAmplitudeAndTime:public sFrequencyAndAmplitude
 {
 	sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement);
+	sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime);
 	sFrequenceAndAmplitudeAndTime(){}
 	~sFrequenceAndAmplitudeAndTime(){}
 	float	fStartTime;

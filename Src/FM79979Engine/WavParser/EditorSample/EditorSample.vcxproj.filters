@@ -48,6 +48,15 @@
     <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="SoundTimeLineData.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleSoundCompare.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="QuickFFTDataFrequencyFinder.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -72,6 +81,15 @@
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundTimeLineData.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleSoundCompare.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="QuickFFTDataFrequencyFinder.h">
       <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>

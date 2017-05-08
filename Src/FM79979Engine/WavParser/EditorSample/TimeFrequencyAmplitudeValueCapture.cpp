@@ -33,6 +33,15 @@ sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pEle
 	PARSE_NAME_VALUE_END
 }
 
+sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime)
+{
+	fFrequency = e_pFrequenceAndAmplitudeAndTime->fFrequency;
+	fKeepTime = e_pFrequenceAndAmplitudeAndTime->fKeepTime;
+	fLastMatchTime = e_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
+	fStartTime = e_pFrequenceAndAmplitudeAndTime->fStartTime;
+	iAmplitude = e_pFrequenceAndAmplitudeAndTime->iAmplitude;
+}
+
 TiXmlElement*sFrequenceAndAmplitudeAndTime::ToElement()
 {
 	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"FrequenceAndAmplitudeAndTime");
@@ -215,9 +224,6 @@ void	cTimeFrequencyAmplitudeValueCapture::FromCurrentWorkingToAllData()
 	for(size_t i=0;i<m_CurrentWorkingFrequenceAndTimeVector.size();++i )
 	{
 		sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
-		//new data
-		//if( l_pFrequenceAndAmplitudeAndTime->fStartTime == l_pFrequenceAndAmplitudeAndTime->fLastMatchTime )
-		//	continue;
 		assert(this->m_fCurrentTime>=l_pFrequenceAndAmplitudeAndTime->fLastMatchTime&&"what happen!?FromCurrentWorkingToAllData");
 		float l_fElpaseTime = this->m_fCurrentTime-l_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
 		if( l_fElpaseTime >= this->m_fTolerateTime )
@@ -232,14 +238,13 @@ void	cTimeFrequencyAmplitudeValueCapture::FromCurrentWorkingToAllData()
 				l_uiHittedIndex = 0;
 			for(size_t j=0;j<l_uiAllDataSize;++j)
 			{
-				if(l_pFrequenceAndAmplitudeAndTime->fStartTime<=m_AllData[j].fStartTime)
+				if(l_pFrequenceAndAmplitudeAndTime->fStartTime < m_AllData[j].fStartTime)
 				{
 					l_uiHittedIndex = j;
 					break;
 				}
 			}
 			m_AllData.insert(m_AllData.begin()+l_uiHittedIndex,*l_pFrequenceAndAmplitudeAndTime);
-			//this->m_AllData.push_back(*l_pFrequenceAndAmplitudeAndTime);
 			--i;
 		}
 	}

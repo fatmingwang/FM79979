@@ -111,6 +111,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
+    <ClCompile Include="SingleSoundCompare.cpp" />
+    <ClCompile Include="SoundTimeLineData.cpp" />
     <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EditorSample.cpp" />
@@ -125,6 +128,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="QuickFFTDataFrequencyFinder.h" />
+    <ClInclude Include="SingleSoundCompare.h" />
+    <ClInclude Include="SoundTimeLineData.h" />
     <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
