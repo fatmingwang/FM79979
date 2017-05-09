@@ -1,7 +1,11 @@
 #pragma once
 
-#include "TimeFrequencyAmplitudeValueCapture.h"
 #include "QuickFFTDataFrequencyFinder.h"
+//#include "FrequenceAndAmplitudeAndTimeFinder.h"
+//#include "ToneData.h"
+
+//class cToneData;
+struct sFrequenceAndAmplitudeAndTimeFinder;
 
 class cSoundCompareParameter
 {
@@ -11,35 +15,13 @@ public:
 	static int		m_siAmplitudeOffset;
 };
 
-//typedef sCountAndData<sCountAndData<sFrequenceAndAmplitudeAndTime> >  sFrequenceAndAmplitudeAndTimeData;
-//typedef sCountAndData<std::vector<sFrequenceAndAmplitudeAndTime> >  sFrequenceAndAmplitudeAndTimeData;
-typedef std::vector<std::vector<sFrequenceAndAmplitudeAndTime*>* >  sFrequenceAndAmplitudeAndTimeData;
-
-
-struct sFrequenceAndAmplitudeAndTimeFinder
-{
-	sFrequenceAndAmplitudeAndTimeFinder(TiXmlElement*e_pTiXmlElement);
-	sFrequenceAndAmplitudeAndTimeFinder();
-	~sFrequenceAndAmplitudeAndTimeFinder();
-	////why need this one? how about just a reference?
-	//sFrequenceAndAmplitudeAndTimeFinder(sFrequenceAndAmplitudeAndTimeFinder*e_pFrequenceAndAmplitudeAndTimeFinder);
-	//sFrequenceAndAmplitudeAndTimeFinder*Clone();
-	//
-	sFrequenceAndAmplitudeAndTimeData	OneScondFrequenceAndAmplitudeAndTimeData;
-	//
-	std::vector<int>					TimeGapVector;
-	//
-	bool	GetDataByTime(float e_fTime,float e_fTolerateTime,std::vector<sFrequenceAndAmplitudeAndTime*>*e_pOutVector,bool e_bIgnodeSameObject);
-};
-
-
 //idea is one compare object has a reference sound data sFrequenceAndAmplitudeAndTimeFinder,
 //we have current matched index,and go through all steps(m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData),
 //but the problem is what if its a sequence sound and the ime offset is small this will has some problem
 //so ensure the sequency sound has a flag must match after proior
 //
 //here dont care about time only care about the frequency is matched by order
-class cSindSoundCompare
+class cSindSoundCompare:public NamedTypedObject
 {
 	//this just a reference.
 	sFrequenceAndAmplitudeAndTimeFinder*m_pFrequenceAndAmplitudeAndTimeFinder;
@@ -48,7 +30,10 @@ class cSindSoundCompare
 	int									m_iCurrentMatchedIndex;
 	int									m_iNumMatched;
 	float								GetSimilarityResultScore();
-	//float								m_fResultScore;
+	//get how many percent matched
+	float								m_fResultScore;
+	//the frequency is quite close but not same...so hard to do this.
+	//float								m_fErrorScore;
 	//for the sound happen in the rythem time line.
 	float								m_fCompareTime;
 	//avoid same sound is sequence.
@@ -56,14 +41,31 @@ class cSindSoundCompare
 	//time is over?
 	bool								IsFinish(float e_fCurrentTime);
 public:
+	DEFINE_TYPE_INFO();
 	cSindSoundCompare(sFrequenceAndAmplitudeAndTimeFinder*e_pData,float e_fCompareTime);
-	~cSindSoundCompare();
+	virtual ~cSindSoundCompare();
 	//if finish return true
 	bool		Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 };
-
-struct sFrequencyAndAmplitudeWithFFTBinIndex:public sFrequenceAndAmplitudeAndTime
+//<cSoundTimeLineCollection MusicInstrumentName="Quitar">
+//		<cSindSoundCompare ID="" SoundFilePath="" FFTSequenceFileName="" />
+//		...
+//		...
+//		...
+//		<cSindSoundCompare ID="" SoundFilePath="" />
+//</cSoundTimeLineCollection>
+//basicly should have a list of sound file and correspond ID for timeline sound data
+//this is the resources provide to access cSindSoundCompare.
+class cSoundTimeLineCollection:public cNamedTypedObjectVector<cSindSoundCompare>,public cNodeISAX
 {
-	//a quick index to find out amplitude value,because frequency could be different so make a captable offset
-	int	iFFTBinIndex[2];
+	virtual	bool	MyParse(TiXmlElement*e_pRoot);
+public:
+	cSoundTimeLineCollection();
+	virtual ~cSoundTimeLineCollection();
 };
+
+//struct sFrequencyAndAmplitudeWithFFTBinIndex:public sFrequenceAndAmplitudeAndTime
+//{
+//	//a quick index to find out amplitude value,because frequency could be different so make a captable offset
+//	int	iFFTBinIndex[2];
+//};

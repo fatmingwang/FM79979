@@ -1319,7 +1319,7 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 			if( l_strFileName && l_strFileName->Length > 0 )
 			{
 				std::string	l_strFileName2 = DNCT::GcStringToChar(l_strFileName);
-				std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".xml"));
+				std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".soundFFT"));
 				l_TimeFrequencyAmplitudeValueCapture.ParseAndSaveFileName(l_strFileName2.c_str(),l_iFilterStrangth,l_fFilterRange,l_strOutputFileName.c_str());
 			}
 		 }

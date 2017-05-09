@@ -1,7 +1,15 @@
 #pragma once
 
 #include "TimeFrequencyAmplitudeValueCapture.h"
+#include "SingleSoundCompare.h"
 
+
+//here for show the tone appear by time
+//and score with tone in timeline
+
+//<>
+//<>
+//<>
 
 class cSoundTimeLineDataVisualizar
 {

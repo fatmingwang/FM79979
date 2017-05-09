@@ -19,6 +19,15 @@
     <Filter Include="Game">
       <UniqueIdentifier>{93549e9d-caf0-4258-ace6-3f1e660bc12b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sound\TimeLine">
+      <UniqueIdentifier>{5d350e33-e5c7-41d0-b31e-30bb5a3db3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\CaptureAndCompare">
+      <UniqueIdentifier>{d272164b-6b46-4796-92ac-5ffe694c5acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\FFT">
+      <UniqueIdentifier>{f2c5d851-43ba-4e8b-bf31-3c538e90e4c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -33,29 +42,38 @@
     <ClCompile Include="MusicGameApp.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="KissFFTConvert.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="KissFFTStreaming.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundFFTCapture.cpp">
-      <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp">
-      <Filter>Sound</Filter>
+    <ClCompile Include="SoundTimeLineData.cpp">
+      <Filter>Sound\TimeLine</Filter>
     </ClCompile>
     <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp">
-      <Filter>Sound</Filter>
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClCompile>
-    <ClCompile Include="SoundTimeLineData.cpp">
-      <Filter>Sound</Filter>
+    <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClCompile>
-    <ClCompile Include="SingleSoundCompare.cpp">
-      <Filter>Sound</Filter>
+    <ClCompile Include="KissFFTConvert.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="KissFFTStreaming.cpp">
+      <Filter>Sound\FFT</Filter>
     </ClCompile>
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp">
-      <Filter>Sound</Filter>
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleSoundCompare.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundFFTCapture.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundTimeLineVisualizer.cpp">
+      <Filter>Sound\TimeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="ToneData.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="FrequenceAndAmplitudeAndTimeFinder.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,29 +86,38 @@
     <ClInclude Include="MusicGameApp.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="KissFFTConvert.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="KissFFTStreaming.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundFFTCapture.h">
-      <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h">
-      <Filter>Sound</Filter>
+    <ClInclude Include="SoundTimeLineData.h">
+      <Filter>Sound\TimeLine</Filter>
     </ClInclude>
     <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h">
-      <Filter>Sound</Filter>
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClInclude>
-    <ClInclude Include="SoundTimeLineData.h">
-      <Filter>Sound</Filter>
+    <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClInclude>
-    <ClInclude Include="SingleSoundCompare.h">
-      <Filter>Sound</Filter>
+    <ClInclude Include="KissFFTStreaming.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="KissFFTConvert.h">
+      <Filter>Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="QuickFFTDataFrequencyFinder.h">
-      <Filter>Sound</Filter>
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleSoundCompare.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundFFTCapture.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundTimeLineVisualizer.h">
+      <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="ToneData.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="FrequenceAndAmplitudeAndTimeFinder.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

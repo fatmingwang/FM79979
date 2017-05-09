@@ -6,8 +6,8 @@ cScoreCalculator::cScoreCalculator(std::vector<sFrequenceAndAmplitudeAndTime>*e_
 {
 	m_iTotalScore = 0;
 	m_iCurrentScore = 0;
-	m_Result;
-	m_PreParseResult;
+	//m_Result;
+	//m_PreParseResult;
 }
 
 cScoreCalculator::~cScoreCalculator()

@@ -32,7 +32,7 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	GET_SET_DEC(int,m_iUpdateFlag,GetUpdateFlag,SetUpdateFlag);
 public:
 	cSoundFFTCapture();
-	~cSoundFFTCapture();
+	virtual ~cSoundFFTCapture();
 	void			Destroy();
 	virtual void	CaptureSoundStartCallBack();
 	virtual void	CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData);

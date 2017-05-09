@@ -44,7 +44,7 @@ class cTimeFrequencyAmplitudeValueCompare:public cNodeISAX
 	float												m_fPreLoadTimeOffset;
 	bool												m_bFirstTimePreLoad;
 	//once time is over due erase data.
-	std::vector<sFrequencyAndAmplitudeWithFFTBinIndex>	WaitForCompareData;
+	//std::vector<sFrequencyAndAmplitudeWithFFTBinIndex>	WaitForCompareData;
 	void												FetchPreBuildData(float e_fCurrentTime);
 	//time warping...
 	void												SetCurrentTime(float e_fTargetTime);
@@ -53,7 +53,7 @@ class cTimeFrequencyAmplitudeValueCompare:public cNodeISAX
 	//
 public:
 	cTimeFrequencyAmplitudeValueCompare(float e_fPreLoadTimeOffset,const char*e_strFileName);
-	~cTimeFrequencyAmplitudeValueCompare();
+	virtual ~cTimeFrequencyAmplitudeValueCompare();
 
 	void	StartCompare();
 	void	Update(float e_fElpaseTime);

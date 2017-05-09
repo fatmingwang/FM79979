@@ -34,6 +34,16 @@ struct sFrequenceAndAmplitudeAndTime:public sFrequencyAndAmplitude
 //	int		iNumMatch;
 //};
 
+//export soundFFT data
+//format like below
+//<Root ParseFileName="Sound\21.wav">
+//    <TimeFrequencyAmplitudeValueCapture ParseFPS="25" FrequencyOffsetRange="12.50000" TolerateTime="0.03200" MinKeepTime="0.70000" MinAmplitude="30" />
+//    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.00000" LastMatchTime="0.00000" Frequency="322.99805" Amplitude="122" />
+//    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.00000" LastMatchTime="0.00000" Frequency="344.53125" Amplitude="126" />
+//</Root>
+//
+//
+
 class cTimeFrequencyAmplitudeValueCapture
 {
 private:
@@ -67,6 +77,6 @@ public:
 public:
 	cTimeFrequencyAmplitudeValueCapture();
 	~cTimeFrequencyAmplitudeValueCapture();
-	//
+	//the output extension file name should be soundFFT
 	bool	ParseAndSaveFileName(const char*e_strParseFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue,const char*e_strOutputFileName);
 };

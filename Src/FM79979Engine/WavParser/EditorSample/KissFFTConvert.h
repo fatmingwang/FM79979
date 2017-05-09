@@ -36,7 +36,7 @@ protected:
 public:
 	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();
-	~cKissFFTConvertBase();
+	virtual ~cKissFFTConvertBase();
 	//
 	const int		GetOneFrameFFTDataCount(){return m_iOneFrameFFTDataCount;}
 	//now only support wav
@@ -78,7 +78,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	virtual void	Destroy();
 public:
 	cKissFFTConvert();
-	~cKissFFTConvert();
+	virtual ~cKissFFTConvert();
 	//now only support wav
 	virtual bool	FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true);
 	//need another thread to do this?

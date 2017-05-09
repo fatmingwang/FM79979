@@ -17,7 +17,11 @@ cTimeFrequencyAmplitudeValueCompare::cTimeFrequencyAmplitudeValueCompare(float	e
 	{
 		UT::ErrorMsg("file parse failed!",e_strFileName);
 	}
-	
+}
+
+cTimeFrequencyAmplitudeValueCompare::~cTimeFrequencyAmplitudeValueCompare()
+{
+
 }
 
 bool	cTimeFrequencyAmplitudeValueCompare::MyParse(TiXmlElement*e_pRoot)
@@ -44,7 +48,7 @@ void	cTimeFrequencyAmplitudeValueCompare::FetchPreBuildData(float e_fCurrentTime
 void	cTimeFrequencyAmplitudeValueCompare::SetCurrentTime(float e_fTargetTime)
 {
 	m_fCurrentTime = e_fTargetTime;
-	WaitForCompareData.clear();
+	//WaitForCompareData.clear();
 	FetchPreBuildData(m_fCurrentTime);
 }
 
