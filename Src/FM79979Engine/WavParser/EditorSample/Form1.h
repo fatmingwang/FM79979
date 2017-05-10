@@ -4,10 +4,13 @@
 #include "KissFFTStreaming.h"
 #include "SoundFFTCapture.h"
 #include "TimeFrequencyAmplitudeValueCapture.h"
+
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 namespace EditorSample 
 {
 
@@ -32,6 +35,17 @@ namespace EditorSample
 	public:
 		Form1(void)
 		{
+			std::string l_str1;
+			std::wstring l_str2;
+			int l_ii = 0;
+			cSubMPDI l_subMPDI;
+			const char*po3 = typeid(l_subMPDI).name();
+			const char*po2 = typeid(l_str1).name();
+			const char*po = typeid(l_str2).name();
+			const char*po22 = typeid(l_str1).raw_name();
+			const char* l_pp2 = typeid(l_ii).name();
+			//std::string ll = typename(l_ii);
+			this->timer1->Enabled = true;
 			InitializeComponent();
 			//
 			//TODO: Add the constructor code here
@@ -65,7 +79,6 @@ namespace EditorSample
 			m_pTargetControl->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);
 			//
-			this->timer1->Enabled = true;
 		}
 
 	protected:

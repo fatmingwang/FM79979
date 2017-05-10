@@ -2,8 +2,8 @@
 
 #include "TimeFrequencyAmplitudeValueCapture.h"
 #include "SoundFFTCapture.h"
-#include "SingleSoundCompare.h"
-
+//#include "SoundCompare.h"
+struct sFindTimeDomainFrequenceAndAmplitude;
 //2way to compare sound
 //1:parse a sound file capture all sound data to a list
 //2:make instrument each sound as a file,record all the sounds and make a database
@@ -33,7 +33,7 @@ class cTimeFrequencyAmplitudeValueCompare:public cNodeISAX
 	cSoundFFTCapture*									m_pSoundFFTCapture;
 	cSoundCapture*										m_pSoundCapture;
 	//
-	sFrequenceAndAmplitudeAndTimeFinder*				m_pFrequenceAndAmplitudeAndTimeFinder;
+	sFindTimeDomainFrequenceAndAmplitude*				m_pFrequenceAndAmplitudeAndTimeFinder;
 	//
 	float												m_fCurrentTime;
 	//

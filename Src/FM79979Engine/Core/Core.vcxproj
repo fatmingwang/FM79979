@@ -334,6 +334,7 @@
     <ClCompile Include="Image\VideoSubMPDI.cpp" />
     <ClCompile Include="TimeUT.cpp" />
     <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="XML\LazyXmlParser.cpp" />
     <ClCompile Include="XML\StringToStructure.cpp" />
     <ClCompile Include="XML\AtgXmlWriter.cpp" />
     <ClCompile Include="XML\tinystr.cpp" />
@@ -483,6 +484,7 @@
     <ClInclude Include="Image\SubMPDI.h" />
     <ClInclude Include="Image\SubMPDIRenderPointData.h" />
     <ClInclude Include="Image\VideoSubMPDI.h" />
+    <ClInclude Include="XML\LazyXmlParser.h" />
     <ClInclude Include="XML\StringToStructure.h" />
     <ClInclude Include="XML\XMLLoader.h" />
     <ClInclude Include="XML\AtgXmlWriter.h" />

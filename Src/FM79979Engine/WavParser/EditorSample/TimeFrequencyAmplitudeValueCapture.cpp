@@ -6,10 +6,7 @@
 sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement)
 {
 	PARSE_ELEMENT_START(e_pElement)
-		COMPARE_NAME("Frequency")
-		{
-			fFrequency = VALUE_TO_FLOAT;
-		}
+		COMPARE_ASSIGN_FLOAT("Frequency",fFrequency)
 		else
 		COMPARE_NAME("Amplitude")
 		{

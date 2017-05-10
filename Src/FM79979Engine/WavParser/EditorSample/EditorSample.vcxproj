@@ -111,10 +111,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="FrequenceAndAmplitudeAndTimeFinder.cpp" />
+    <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
-    <ClCompile Include="SingleSoundCompare.cpp" />
     <ClCompile Include="SoundTimeLineData.cpp" />
+    <ClCompile Include="SoundTimeLineData1.cpp" />
     <ClCompile Include="SoundTimeLineVisualizer.cpp" />
     <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
@@ -131,10 +131,10 @@
     <ClCompile Include="ToneData.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FrequenceAndAmplitudeAndTimeFinder.h" />
+    <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h" />
     <ClInclude Include="QuickFFTDataFrequencyFinder.h" />
-    <ClInclude Include="SingleSoundCompare.h" />
     <ClInclude Include="SoundTimeLineData.h" />
+    <ClInclude Include="SoundTimeLineData1.h" />
     <ClInclude Include="SoundTimeLineVisualizer.h" />
     <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h" />
     <ClInclude Include="Form1.h">

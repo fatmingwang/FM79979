@@ -447,7 +447,40 @@ namespace FATMING_CORE
 			return L"Vector4";
 		if( e_eDataType == eDT_INT64 )
 			return L"int64";
+		if( e_eDataType == eDT_UINT64 )
+			return L"uint64";
 		return L"unknow";
+	}
+
+	eDataType		StringToDataType(const char*e_str)
+	{
+		if( !strcmp("char",e_str) || !strcmp("byte",e_str) )
+			return eDT_BYTE;
+		if( !strcmp("float",e_str) )
+			return eDT_FLOAT;
+		if( !strcmp("double",e_str) )
+			return eDT_DOUBLE;
+		if( !strcmp("int",e_str) )
+			return eDT_INT;
+		if( !strcmp("string",e_str) )
+			return eDT_STRING;
+		if( !strcmp("wstring",e_str) )
+			return eDT_WSTRING;
+		if( !strcmp("Vector2",e_str) )
+			return eDT_VECTOR2;
+		if( !strcmp("Vector3",e_str) )
+			return eDT_VECTOR3;
+		if( !strcmp("Vector4",e_str) )
+			return eDT_VECTOR4;
+		if( !strcmp("Point",e_str) )
+			return eDT_POINT;
+		if( !strcmp("void",e_str) )
+			return eDT_VOID;
+		if( !strcmp("int64",e_str) )
+			return eDT_INT64;
+		if( !strcmp("uint64",e_str) )
+			return eDT_UINT64;
+		return eDT_MAX;
 	}
 
 	std::wstring	ValueToStringW(std::wstring	e_strValue)

@@ -8,14 +8,19 @@
 typedef std::vector<std::vector<sFrequenceAndAmplitudeAndTime*>* >  sFrequenceAndAmplitudeAndTimeData;
 
 //data from soundFFT
-struct sFrequenceAndAmplitudeAndTimeFinder
+struct sFindTimeDomainFrequenceAndAmplitude
 {
-	sFrequenceAndAmplitudeAndTimeFinder(TiXmlElement*e_pTiXmlElement);
-	sFrequenceAndAmplitudeAndTimeFinder();
-	~sFrequenceAndAmplitudeAndTimeFinder();
+	//return total seconds
+	int		SetupTotalSecond(TiXmlElement*e_pTiXmlElement);
+	bool	GenerateFrequenceAndAmplitudeAndTime(TiXmlElement*e_pTiXmlElement,int e_iCurrentTimeInSecond);
+	//
+	sFindTimeDomainFrequenceAndAmplitude(const char*e_strFileName);
+	//sFindTimeDomainFrequenceAndAmplitude(TiXmlElement*e_pTiXmlElement);
+	sFindTimeDomainFrequenceAndAmplitude();
+	~sFindTimeDomainFrequenceAndAmplitude();
 	////why need this one? how about just a reference?
-	//sFrequenceAndAmplitudeAndTimeFinder(sFrequenceAndAmplitudeAndTimeFinder*e_pFrequenceAndAmplitudeAndTimeFinder);
-	//sFrequenceAndAmplitudeAndTimeFinder*Clone();
+	//sFindTimeDomainFrequenceAndAmplitude(sFindTimeDomainFrequenceAndAmplitude*e_pFrequenceAndAmplitudeAndTimeFinder);
+	//sFindTimeDomainFrequenceAndAmplitude*Clone();
 	//
 	sFrequenceAndAmplitudeAndTimeData	OneScondFrequenceAndAmplitudeAndTimeData;
 	//

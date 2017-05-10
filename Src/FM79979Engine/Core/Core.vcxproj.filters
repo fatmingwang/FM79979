@@ -692,6 +692,9 @@
     <ClCompile Include="GLSL\TunnelEffect.cpp">
       <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClCompile>
+    <ClCompile Include="XML\LazyXmlParser.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1200,6 +1203,9 @@
     </ClInclude>
     <ClInclude Include="GLSL\TunnelEffect.h">
       <Filter>RenderObject\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="XML\LazyXmlParser.h">
+      <Filter>XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

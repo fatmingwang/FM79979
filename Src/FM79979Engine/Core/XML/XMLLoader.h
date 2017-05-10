@@ -102,9 +102,25 @@ namespace FATMING_CORE
 	#define	VALUE_TO_DOUBLE							_wtof(l_strValue)
 	#define	VALUE_TO_BOOLEAN						VALUE_TO_INT?true:false
 	#define	VALUE_TO_POINT  						GetPoint(l_strValue)
+	#define	VALUE_TO_CHAR_STRING					UT::WcharToChar(l_strValue)
+	#define	VALUE_TO_WCHAR_STRING					l_strValue
 	#define	VALUE_TO_VECTOR2						GetVector2(l_strValue)
 	#define	VALUE_TO_VECTOR3						GetVector3(l_strValue)
 	#define	VALUE_TO_VECTOR4						GetVector4(l_strValue)
+
+	#define	COMPARE_ASSIGN_INT(KeyString,Variable)		COMPARE_NAME(KeyString){Variable = VALUE_TO_INT;}
+	#define	COMPARE_ASSIGN_FLOAT(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_FLOAT;}
+	#define	COMPARE_ASSIGN_DOUBLE(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_DOUBLE;}
+	#define	COMPARE_ASSIGN_BOOLEAN(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_BOOLEAN;}
+	#define	COMPARE_ASSIGN_POINT(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_POINT;}
+
+	#define	COMPARE_ASSIGN_CHAR_STRING(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_CHAR_STRING;}
+	#define	COMPARE_ASSIGN_WCHAR_STRING(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_WCHAR_STRING;}
+
+	#define	COMPARE_ASSIGN_VECTOR2(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_VECTOR2;}
+	#define	COMPARE_ASSIGN_VECTOR3(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_VECTOR3;}
+	#define	COMPARE_ASSIGN_VECTOR4(KeyString,Variable)	COMPARE_NAME(KeyString){Variable = VALUE_TO_VECTOR4;}
+
 
 	#define	PARSE_FAILED_MESSAGE_BOX(p,FileName)	if(!p->Parse(FileName)){ UT::ErrorMsg(FileName,"parse failed"); }
 
