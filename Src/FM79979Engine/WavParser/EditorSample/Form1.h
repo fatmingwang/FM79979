@@ -35,18 +35,18 @@ namespace EditorSample
 	public:
 		Form1(void)
 		{
-			std::string l_str1;
-			std::wstring l_str2;
-			int l_ii = 0;
-			cSubMPDI l_subMPDI;
-			const char*po3 = typeid(l_subMPDI).name();
-			const char*po2 = typeid(l_str1).name();
-			const char*po = typeid(l_str2).name();
-			const char*po22 = typeid(l_str1).raw_name();
-			const char* l_pp2 = typeid(l_ii).name();
+			//std::string l_str1;
+			//std::wstring l_str2;
+			//int l_ii = 0;
+			//cSubMPDI l_subMPDI;
+			//const char*po3 = typeid(l_subMPDI).name();
+			//const char*po2 = typeid(l_str1).name();
+			//const char*po = typeid(l_str2).name();
+			//const char*po22 = typeid(l_str1).raw_name();
+			//const char* l_pp2 = typeid(l_ii).name();
 			//std::string ll = typename(l_ii);
-			this->timer1->Enabled = true;
 			InitializeComponent();
+			this->timer1->Enabled = false;
 			//
 			//TODO: Add the constructor code here
 			//
@@ -58,7 +58,7 @@ namespace EditorSample
 			m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
 			m_pSoundFFTCapture = new cSoundFFTCapture();
-			int l_iFrequence = SOUND_CAPTURE_FREQUENCE;
+			int l_iFrequence = SOUND_CAPTURE_FREQUENCE/2;
 			m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
 			m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 			//m_pSoundCapture->AddSoundRecord();
@@ -78,6 +78,7 @@ namespace EditorSample
 			m_pTargetControl->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);
+			this->timer1->Enabled = true;
 			//
 		}
 

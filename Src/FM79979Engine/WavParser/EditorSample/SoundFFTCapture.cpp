@@ -92,6 +92,7 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	{
 		m_iOneFrameFFTDataCount = this->m_pSoundCapture->GetBuffersize()/2;
 	}
+
 	m_piFFTData = new int[m_iOneFrameFFTDataCount];
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
@@ -148,6 +149,7 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 		++m_iCurrentStreamingBufferDataIndex;
 		if( m_iCurrentStreamingBufferDataIndex >= PCM_SWAP_BUFFER_COUNT)
 			m_iCurrentStreamingBufferDataIndex = 0;
+#ifdef DEBUG
 		float l_pfshortToFloatArray[3000];
 		short*l_pSrouce = (short*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
 		for(size_t i=0;i<e_iSamplesIn/sizeof(short);++i)
@@ -155,6 +157,7 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 			l_pfshortToFloatArray[i] = (float)l_pSrouce[i];
 		}
 		//double l_dbValue = GoertzelFilter(l_pfshortToFloatArray,this->m_pSoundCapture->GetSampleRate(),20,60,int SIGNAL_SAMPLE_RATE);
+#endif
 
 }
 

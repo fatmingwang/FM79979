@@ -59,6 +59,16 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 	return this->IsFinish(e_fCurrentTime);
 }
 
+bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
+{
+	float l_fTimeDifference = abs( e_fTargetTime - this->m_fCompareTime );
+	if( l_fTimeDifference > this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime; )
+	{
+		return false;
+	}
+	return true;
+}
+
 bool		cSoundTimeLineData::IsFinish(float e_fCurrentTime)
 {
 	float l_iEndSecond = this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size()+this->m_fCompareTime;
@@ -81,6 +91,7 @@ bool		cSoundTimeLineData::IsFinish(float e_fCurrentTime)
 cSoundTimeLineDataCollection::cSoundTimeLineDataCollection()
 {
 	m_pToneDataVector = nullptr;
+	m_fLastToneDataCompareTime = -1.f;
 }
 
 cSoundTimeLineDataCollection::~cSoundTimeLineDataCollection()
@@ -120,7 +131,17 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 				}
 			}
 		PARSE_NAME_VALUE_END
+		auto l_pLastObject = this->GetLastObject();
+		if( l_pLastObject )
+		{
+			m_fLastToneDataCompareTime = l_pLastObject->GetCompareTime()+cSoundCompareParameter::m_sfTolerateTime;
+		}
 		return true;
 	}
 	return false;
+}
+
+float	cSoundTimeLineDataCollection::GetLastObjectCompareEndTime()
+{
+
 }

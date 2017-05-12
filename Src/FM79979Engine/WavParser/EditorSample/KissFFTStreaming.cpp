@@ -428,6 +428,15 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 					{
 						int val;
 						float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+#ifdef DEBUG
+						{//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
+							/* get normalized bin magnitude */
+							double l_dbNormBinMag = 2.*l_Msg / l_iFetchDataCount;
+							/* convert to dB value */
+							double l_dbDecebile = 20. * log10( l_dbNormBinMag );
+						}
+#endif
+						//
 						val = (int)(log(l_Msg) *10);
 						m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_iNumFFTData] = val;
 						//m_fFFTResultPhase[l_iCurrentChannelIndex][l_iNumFFTData] = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);

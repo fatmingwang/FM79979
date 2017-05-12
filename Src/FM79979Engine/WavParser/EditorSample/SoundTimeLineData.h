@@ -46,6 +46,8 @@ public:
 	virtual ~cSoundTimeLineData();
 	//if finish return true
 	bool		Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	float		GetCompareTime(){return m_fCompareTime;}
+	bool		IsStillInCompareTime(float e_fTargetTime);
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">
@@ -61,9 +63,12 @@ class cSoundTimeLineDataCollection:public cNamedTypedObjectVector<cSoundTimeLine
 {
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	cToneDataVector*m_pToneDataVector;
+	//for quick access to do tsomething
+	float			m_fLastToneDataCompareTime;
 public:
 	cSoundTimeLineDataCollection();
 	virtual ~cSoundTimeLineDataCollection();
+	float			GetLastObjectCompareEndTime();
 };
 
 //struct sFrequencyAndAmplitudeWithFFTBinIndex:public sFrequenceAndAmplitudeAndTime
