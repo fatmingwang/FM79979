@@ -7,6 +7,8 @@ TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
 float	cSoundCompareParameter::m_sfTolerateTime = 0.32f;
 int		cSoundCompareParameter::m_siAmplitudeOffset = 30;
+float	cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange = 2.f;
+float	cSoundCompareParameter::m_sfAfterCurrentTimeViewRange = 10.f;
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime)
 {
@@ -62,7 +64,7 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 {
 	float l_fTimeDifference = abs( e_fTargetTime - this->m_fCompareTime );
-	if( l_fTimeDifference > this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime; )
+	if( l_fTimeDifference > this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime )
 	{
 		return false;
 	}
@@ -143,5 +145,8 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 
 float	cSoundTimeLineDataCollection::GetLastObjectCompareEndTime()
 {
-
+	auto l_pLastObject = this->GetLastObject();
+	if(l_pLastObject)
+		return l_pLastObject->GetCompareTime();
+	return -1.f;
 }

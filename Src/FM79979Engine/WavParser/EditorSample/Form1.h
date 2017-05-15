@@ -4,7 +4,7 @@
 #include "KissFFTStreaming.h"
 #include "SoundFFTCapture.h"
 #include "TimeFrequencyAmplitudeValueCapture.h"
-
+#include "ToneData.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -1316,25 +1316,52 @@ private: System::Void SoundCaptureFilterStrength_numericUpDown_ValueChanged(Syst
 		 }
 private: System::Void CaptureToFile_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			int		l_iAmplitude = (int)CompareAndCaptureToFileMinAmplitude_numericUpDown->Value;
-			int		l_iParseFPS = (int)CompareAndCaptureToFileParseFPS_numericUpDown->Value;
-			float	l_fFreqOffset = (float)CompareAndCaptureToFileFreqOffset_numericUpDown->Value;
-			float	l_fTolerateTime = (float)CompareAndCaptureToFileTolerateTime_numericUpDown->Value;
-			float	l_fKeepTime = (float)CompareAndCaptureToFileKeepTime_numericUpDown->Value;
-			float	l_fFilterRange = (float)CompareAndCaptureToFileFilterRange_numericUpDown->Value;
-			int		l_iFilterStrangth = (int)CompareAndCaptureToFileFilterStrangth_numericUpDown->Value;
-			String^l_strFileName = RecordSoundFileName_textBox->Text;
-			cTimeFrequencyAmplitudeValueCapture l_TimeFrequencyAmplitudeValueCapture;
-			l_TimeFrequencyAmplitudeValueCapture.m_iParseFPS = l_iParseFPS;
-			l_TimeFrequencyAmplitudeValueCapture.m_fFrequencyOffsetRange = l_fFreqOffset;
-			l_TimeFrequencyAmplitudeValueCapture.m_fTolerateTime = l_fTolerateTime;
-			l_TimeFrequencyAmplitudeValueCapture.m_fMinKeepTime = l_fKeepTime;
-			l_TimeFrequencyAmplitudeValueCapture.m_iMinAmplitude = l_iAmplitude;
-			if( l_strFileName && l_strFileName->Length > 0 )
+			array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
+			if( l_strFileNames )
 			{
-				std::string	l_strFileName2 = DNCT::GcStringToChar(l_strFileName);
-				std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".soundFFT"));
-				l_TimeFrequencyAmplitudeValueCapture.ParseAndSaveFileName(l_strFileName2.c_str(),l_iFilterStrangth,l_fFilterRange,l_strOutputFileName.c_str());
+				int		l_iAmplitude = (int)CompareAndCaptureToFileMinAmplitude_numericUpDown->Value;
+				int		l_iParseFPS = (int)CompareAndCaptureToFileParseFPS_numericUpDown->Value;
+				float	l_fFreqOffset = (float)CompareAndCaptureToFileFreqOffset_numericUpDown->Value;
+				float	l_fTolerateTime = (float)CompareAndCaptureToFileTolerateTime_numericUpDown->Value;
+				float	l_fKeepTime = (float)CompareAndCaptureToFileKeepTime_numericUpDown->Value;
+				float	l_fFilterRange = (float)CompareAndCaptureToFileFilterRange_numericUpDown->Value;
+				int		l_iFilterStrangth = (int)CompareAndCaptureToFileFilterStrangth_numericUpDown->Value;
+				String^l_strGCOutputFileName = System::IO::Path::GetFileName(System::IO::Path::GetDirectoryName(l_strFileNames[0]));
+				String^l_strDirectory = System::IO::Path::GetDirectoryName(l_strFileNames[0]);
+				l_strDirectory += "/"+l_strGCOutputFileName;
+				l_strDirectory += ".xml";
+				ISAXCallback l_ISAXCallback;
+				TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
+				TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cToneDataVector");
+				l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
+				for each(auto l_strFileName in l_strFileNames)
+				{
+					if( l_strFileName && l_strFileName->Length > 0 )
+					{
+						cTimeFrequencyAmplitudeValueCapture l_TimeFrequencyAmplitudeValueCapture;
+						l_TimeFrequencyAmplitudeValueCapture.m_iParseFPS = l_iParseFPS;
+						l_TimeFrequencyAmplitudeValueCapture.m_fFrequencyOffsetRange = l_fFreqOffset;
+						l_TimeFrequencyAmplitudeValueCapture.m_fTolerateTime = l_fTolerateTime;
+						l_TimeFrequencyAmplitudeValueCapture.m_fMinKeepTime = l_fKeepTime;
+						l_TimeFrequencyAmplitudeValueCapture.m_iMinAmplitude = l_iAmplitude;
+						std::string	l_strFileName2 = DNCT::GcStringToChar(l_strFileName);
+						std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".soundFFT"));
+						l_TimeFrequencyAmplitudeValueCapture.ParseAndSaveFileName(l_strFileName2.c_str(),l_iFilterStrangth,l_fFilterRange,l_strOutputFileName.c_str());
+						std::wstring l_wstrFileName = DNCT::GcStringToWchar(System::IO::Path::GetFileName(l_strFileName));
+						TiXmlElement*l_pTiXmlElement = new TiXmlElement(cToneData::TypeID);
+						std::wstring l_strSoundFileName = L"MusicGame/";
+						l_strSoundFileName += DNCT::GcStringToWchar(l_strGCOutputFileName);
+						l_strSoundFileName += L"/";
+						l_strSoundFileName += l_wstrFileName;
+						l_pTiXmlElement->SetAttribute(L"SoundSourceFileName",l_strSoundFileName.c_str());
+						l_pTiXmlElement->SetAttribute(L"ID",UT::GetFileNameWithoutFullPath(l_wstrFileName.c_str()));
+						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+					}
+				}
+				l_ISAXCallback.SetDoc(l_pTiXmlDocument);
+				std::wstring l_strOutputFolderName = DNCT::GcStringToWchar(l_strDirectory);
+				l_ISAXCallback.Export(l_strOutputFolderName.c_str(),false);
+
 			}
 		 }
 private: System::Void CompareAndCaptureToFileParseFPS_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)

@@ -10,6 +10,10 @@ class cToneDataVector;
 class cSoundCompareParameter
 {
 public:
+	//time line
+	static float	m_sfBeforeCurrentTimeViewRange;
+	static float	m_sfAfterCurrentTimeViewRange;
+	//
 	static float	m_sfTolerateTime;
 	//if the frequency amplitude close enought
 	static int		m_siAmplitudeOffset;
@@ -55,12 +59,13 @@ public:
 //		...
 //		...
 //		...
-//		<cSoundTimeLineData ID="" SoundFilePath="" />
+//		<cSoundTimeLineData ID="" Time="5" />
 //</cSoundTimeLineDataCollection>
 //basicly should have a list of sound file and correspond ID for timeline sound data
 //this is the resources provide to access cSoundTimeLineData.
 class cSoundTimeLineDataCollection:public cNamedTypedObjectVector<cSoundTimeLineData>,public cNodeISAX
 {
+protected:
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	cToneDataVector*m_pToneDataVector;
 	//for quick access to do tsomething

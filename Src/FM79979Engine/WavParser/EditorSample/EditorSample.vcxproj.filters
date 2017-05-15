@@ -81,6 +81,9 @@
     <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp">
       <Filter>Sound\TimeLine</Filter>
     </ClCompile>
+    <ClCompile Include="PerformMusicPhase.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h">
       <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformMusicPhase.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

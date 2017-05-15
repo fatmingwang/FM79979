@@ -34,13 +34,13 @@ Vector2		cChartBasicInfo::GetGapByPoints(POINT e_ResolutionPoints)
 
 
 
-cTimeLineRange::cTimeLineRange(float e_fEndTime,float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange)
+cTimeLineRange::cTimeLineRange(float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange)
 {
 	m_fCurrentTime = 0.f;
 	m_fBeforeCurrentTimeViewRange = e_fBeforeCurrentTimeViewRange;
 	m_fAfterCurrentTimeViewRange = e_fAfterCurrentTimeViewRange;
 	//m_fStartTimne = 0.f;
-	m_fEndTime = e_fEndTime;//
+	m_fEndTime = -1.f;//
 	SetCurrentTimeViewRange(m_fBeforeCurrentTimeViewRange,m_fAfterCurrentTimeViewRange);
 }
 
@@ -86,9 +86,9 @@ Vector2	cTimeLineRange::GetCurrentTimeViewRange()
 
 
 
-cTimeLineRangeChart::cTimeLineRangeChart(cSoundTimeLineDataCollection*e_pSoundTimeLineDataCollection)
+cTimeLineRangeChart::cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange)
+	:cTimeLineRange(e_fBeforeCurrentTimeViewRange,e_fAfterCurrentTimeViewRange)
 {
-	m_pSoundTimeLineDataCollection = e_pSoundTimeLineDataCollection;
 	m_iLastToneDataObjectIndex = -1;
 }
 
@@ -103,34 +103,40 @@ void	cTimeLineRangeChart::Init()
 	m_iLastToneDataObjectIndex = 0;
 }
 
+bool	cTimeLineRangeChart::MyParse(TiXmlElement*e_pRoot)
+{
+	if(cSoundTimeLineDataCollection::MyParse(e_pRoot))
+	{
+		this->SetEndTime(this->GetLastObjectCompareEndTime());
+	}
+	return false;
+}
+
 void	cTimeLineRangeChart::CollectToneDataByTimeRange()
 {
 	m_iCountInCompareTime = 0;
-	if( m_pSoundTimeLineDataCollection && m_iLastToneDataObjectIndex != -1 )
+	int		l_iCount = Count();
+	if( m_iLastToneDataObjectIndex != -1 && l_iCount > 0 )
 	{
-		int		l_iCount = m_pSoundTimeLineDataCollection->Count();
-		if( l_iCount == 0 )
-			return;
 		//find statr and end index
 		float	l_fStartTime = this->m_fCurrentTime-this->m_fBeforeCurrentTimeViewRange;
 		float	l_fCompareEndTime = this->m_fCurrentTime-this->m_fAfterCurrentTimeViewRange;
 		float	l_fEndTime = this->m_fEndTime-this->m_fAfterCurrentTimeViewRange;
-		if(l_fEndTime >= m_pSoundTimeLineDataCollection->GetLastObjectCompareEndTime() )
+		if(l_fEndTime >= GetLastObjectCompareEndTime() )
 		{//finish
 			m_iLastToneDataObjectIndex = -1;
 			return;
 		}
-		cSoundTimeLineData*l_pFirstToneDataObject = m_pSoundTimeLineDataCollection->GetObject(0);
+		cSoundTimeLineData*l_pFirstToneDataObject = GetObject(0);
 		if( l_pFirstToneDataObject && l_pFirstToneDataObject->GetCompareTime() <= l_fStartTime )
 		{//wait start
 			return;
 		}
 		Vector2 l_vCurrentTimeViewRange = this->GetCurrentTimeViewRange();
 		cSoundTimeLineData*l_pSoundTimeLineData = nullptr;
-		int l_iCount = m_pSoundTimeLineDataCollection->Count();
 		while( !l_pSoundTimeLineData && m_iLastToneDataObjectIndex < l_iCount )
 		{
-			l_pSoundTimeLineData = m_pSoundTimeLineDataCollection->GetObject(m_iLastToneDataObjectIndex);
+			l_pSoundTimeLineData = GetObject(m_iLastToneDataObjectIndex);
 			if( l_pSoundTimeLineData && !l_pSoundTimeLineData->IsStillInCompareTime(l_fStartTime) )
 			{
 				l_pSoundTimeLineData = nullptr;
@@ -155,18 +161,33 @@ void	cTimeLineRangeChart::CollectToneDataByTimeRange()
 void	cTimeLineRangeChart::Update(float e_fElpaseTime)
 {
 	cTimeLineRange::Update(e_fElpaseTime);
-	if( !m_pSoundTimeLineDataCollection )
-		return;
+	SetCurrentTimeViewRange(m_fBeforeCurrentTimeViewRange,m_fAfterCurrentTimeViewRange);
 	CollectToneDataByTimeRange();
 }
 
 void	cTimeLineRangeChart::Render()
 {
+	//for edges
 	cChartBasicInfo::RenderEdgeLines();
+	float l_fTotalTime = m_fBeforeCurrentTimeViewRange+m_fAfterCurrentTimeViewRange;
+	float l_fShowCurrentTimePosX = m_fBeforeCurrentTimeViewRange/l_fTotalTime*this->m_vResolution.x+this->m_vShowPos.x;
+	const int l_iCurrentLineWidth = 5;
+	const int l_iNameYOffset = 10;
+	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX,m_vShowPos.y),(float)l_iCurrentLineWidth,this->m_vResolution.y,Vector4::One);
+	//
 	if( m_iCountInCompareTime < 1 )
 		return;
 	for(int i=0;i<this->m_iLastToneDataObjectIndex;this->m_iCountInCompareTime)
 	{
-	
+		auto l_pData = this->GetObject(i);
+		//get percentage
+		float l_fCompareTime = l_pData->GetCompareTime();
+		//float l_fLocalTime = this->m_fCurrentTime-l_fCompareTime;
+		float l_fLERP = GetTimeGapLERP(this->m_vCurrentTimeViewRange.x,this->m_vCurrentTimeViewRange.y,l_fCompareTime);
+		float l_fShowPosX = this->m_vResolution.x*l_fLERP;
+		Vector2 l_vShowPos = Vector2(l_fShowPosX,m_vShowPos.y);
+		GLRender::RenderRectangle(l_vShowPos,(float)l_iCurrentLineWidth,this->m_vResolution.y,Vector4::Green);
+		l_vShowPos.y -= l_iNameYOffset;
+		cGameApp::RenderFont(l_vShowPos,l_pData->GetName());
 	}
 }

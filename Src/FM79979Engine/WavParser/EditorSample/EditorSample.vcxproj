@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp" />
+    <ClCompile Include="PerformMusicPhase.cpp" />
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
     <ClCompile Include="SoundTimeLineData.cpp" />
     <ClCompile Include="SoundTimeLineData1.cpp" />
@@ -132,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h" />
+    <ClInclude Include="PerformMusicPhase.h" />
     <ClInclude Include="QuickFFTDataFrequencyFinder.h" />
     <ClInclude Include="SoundTimeLineData.h" />
     <ClInclude Include="SoundTimeLineData1.h" />

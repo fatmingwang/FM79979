@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SoundTimeLineData.h"
+
 class cChartBasicInfo
 {
 protected:
@@ -40,7 +42,7 @@ protected:
 	Vector2	m_vCurrentTimeViewRange;
 	//
 public:
-	cTimeLineRange(float e_fEndTime,float e_fBeforeCurrentTimeViewRange = 2.f,float e_fAfterCurrentTimeViewRange = 10.f);
+	cTimeLineRange(float e_fBeforeCurrentTimeViewRange = 2.f,float e_fAfterCurrentTimeViewRange = 10.f);
 	virtual ~cTimeLineRange();
 	virtual void	Init();
 	virtual void	Update(float e_fElpaseTime);
@@ -56,17 +58,18 @@ public:
 
 
 
-class cSoundTimeLineDataCollection;
+//class cSoundTimeLineDataCollection;
 
-class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange
+class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange,public cSoundTimeLineDataCollection
 {
-	cSoundTimeLineDataCollection*	m_pSoundTimeLineDataCollection;
 	int								m_iLastToneDataObjectIndex;
 	int								m_iCountInCompareTime;
 	void							CollectToneDataByTimeRange();
+	//
+	virtual	bool					MyParse(TiXmlElement*e_pRoot);
 public:
-	cTimeLineRangeChart(cSoundTimeLineDataCollection*e_pSoundTimeLineDataCollection);
-	~cTimeLineRangeChart();
+	cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange);
+	virtual ~cTimeLineRangeChart();
 	//
 	virtual void	Init();
 	virtual void	Update(float e_fElpaseTime);
