@@ -111,23 +111,24 @@ namespace	FATMING_CORE
 	//	const char *l_str = env->GetStringUTFChars(e_InputValue, 0);
 	//    env->ReleaseStringUTFChars(e_InputValue,l_str);
 	//}
-	void	cGameApp::SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight)
+	void	cGameApp::SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight,int e_iTargetResolutionWidth,int e_iTargetResolutionHeight)
 	{
 		double l_DeviceScreenRation = (double)e_iDeviceViewportWidth/e_iDeviceViewportHeight;
-		double l_GameResolutionRation = (double)m_svGameResolution.x/m_svGameResolution.y;
+		double l_GameResolutionRation = (double)e_iTargetResolutionWidth/e_iTargetResolutionHeight;
 		if( l_DeviceScreenRation == l_GameResolutionRation )
 			return;
-        float l_fScaleX = e_iDeviceViewportWidth / m_svGameResolution.x;
-        float l_fScaleY = e_iDeviceViewportHeight / m_svGameResolution.y;
+        float l_fScaleX = e_iDeviceViewportWidth / (float)e_iTargetResolutionWidth;
+        float l_fScaleY = e_iDeviceViewportHeight / (float)e_iTargetResolutionHeight;
 		l_fScaleX = l_fScaleY = min(l_fScaleX, l_fScaleY);
         // calculate the rect of viewport
-        float l_fViewPortW = m_svGameResolution.x * l_fScaleX;
-        float l_fViewPortH = m_svGameResolution.y * l_fScaleY;
+        float l_fViewPortW = (float)e_iTargetResolutionWidth * l_fScaleX;
+        float l_fViewPortH = (float)e_iTargetResolutionHeight * l_fScaleY;
 
 		m_svViewPortSize.x = (e_iDeviceViewportWidth - l_fViewPortW) / 2;
 		m_svViewPortSize.y = (e_iDeviceViewportHeight - l_fViewPortH) / 2;
-		m_svViewPortSize.z = l_fViewPortW;
-		m_svViewPortSize.w = l_fViewPortH;
+		m_svViewPortSize.z = m_svViewPortSize.x+l_fViewPortW;
+		m_svViewPortSize.w = m_svViewPortSize.y+l_fViewPortH;
+		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	}
 
 	void	cGameApp::SetAcceptRation(int e_iWidthRation,int e_iHeightRation,int e_iGap)

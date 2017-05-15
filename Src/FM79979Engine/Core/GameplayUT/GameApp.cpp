@@ -566,6 +566,11 @@ namespace	FATMING_CORE
 		RenderFont(e_iPosX,e_iPosY,e_strInfo.c_str());
 	}
 
+	void	cGameApp::RenderFont(Vector2 e_vPos,const wchar_t*e_pString)
+	{
+		RenderFont(e_vPos.x,e_vPos.y,e_pString);
+	}
+
 	void	cGameApp::RenderFont(float e_fPosX,float e_fPosY,std::wstring e_strInfo)
 	{
 		RenderFont((int)e_fPosX,(int)e_fPosY,e_strInfo.c_str());

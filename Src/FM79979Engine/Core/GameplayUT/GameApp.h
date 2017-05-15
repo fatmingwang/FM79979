@@ -77,7 +77,7 @@ namespace	FATMING_CORE
 		virtual	void				KeyDown(char e_char);
 		virtual	void				KeyUp(char e_char);
 		void						SetAcceptRation(int e_iWidthRation = 9,int e_iHeightRation = 16,int e_iGap = 80);
-		void						SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight);
+		static void					SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight,int e_iTargetResolutionWidth,int e_iTargetResolutionHeight);
 		void						RenderPause();
 		//static objects
 #if defined(ANDROID)
@@ -186,6 +186,9 @@ namespace	FATMING_CORE
 		static	void					RenderFont(int e_iPosX,int e_iPosY,std::wstring e_strInfo);
 		static	void					RenderFont(float e_fPosX,float e_fPosY,const wchar_t*e_strInfo);
 		static	void					RenderFont(float e_fPosX,float e_fPosY,std::wstring e_strInfo);
+		static	void					RenderFont(Vector2 e_vPos,const wchar_t*e_pString);
+
+
 		static	void					OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol = true);
 		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true);
 		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true);
