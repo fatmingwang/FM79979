@@ -5,6 +5,8 @@
 #define	MIN_LEEP_TIME	0.016f
 //the filter min value is 3
 #define	MIN_AMPLITUDE	20
+#define	SOUD_SOURCE_FILE_NAME "ParseFileName"
+
 
 class cKissFFTConvert;
 //for spectrum to get higest value and get its neighbor then find average.

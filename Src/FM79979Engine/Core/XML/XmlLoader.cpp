@@ -491,11 +491,9 @@ namespace FATMING_CORE
 		m_strErrorMsg.c_str();
 		SAFE_DELETE(m_pDoc);
 		int	l_iTextLength = strlen(e_strText);
-		wchar_t*l_strText = new wchar_t[l_iTextLength];
-		CHAR_TO_WCHAR(e_strText,l_strText);
+		std::wstring l_strText = UT::CharToWchar(e_strText);
 		m_pDoc = new TiXmlDocument( );
-		m_pDoc->Parse((const wchar_t*)l_strText, 0);
-		delete l_strText;
+		m_pDoc->Parse(l_strText.c_str(), 0);
 		if( m_pDoc->Error() )
 		{
 			delete m_pDoc;

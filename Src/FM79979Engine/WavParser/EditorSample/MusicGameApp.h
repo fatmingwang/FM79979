@@ -2,7 +2,8 @@
 
 class cMusicGameApp:public cGameApp
 {
-	protected:
+	cPhaseManager*m_pPhaseManager;
+public:
 #if defined(ANDROID)
 		cMusicGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);
 #elif defined(WIN32)
@@ -10,8 +11,13 @@ class cMusicGameApp:public cGameApp
 #else
 		cMusicGameApp(Vector2 e_vGameResolution = Vector2(IPHONE_RESOLUTION_WIDTH,IPHONE_RESOLUTION_HEIGHT),Vector2 e_vViewportSize = Vector2(IPHONE_RESOLUTION_WIDTH,IPHONE_RESOLUTION_HEIGHT));
 #endif
-
+		virtual ~cMusicGameApp();
+		//
 		virtual	void				Init();
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Render();
+
+		virtual	void				MouseDown(int e_iPosX,int e_iPosY);
+		virtual	void				MouseMove(int e_iPosX,int e_iPosY);
+		virtual	void				MouseUp(int e_iPosX,int e_iPosY);
 };

@@ -22,4 +22,9 @@
 #include "../../DotNetCommon/AllDNCTInclude.h"
 #include "../kiss_fft130/kiss_fft.h"
 //#include "../../kiss_fft.h/kiss_fft.h"
+
+#include "AllPhaseName.h"
+
 using namespace DNCT;
+
+#define	PARSE_TEST_SOUND

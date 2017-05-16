@@ -7,6 +7,18 @@ sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude(const
 	if(l_NodeISAX.ParseDataIntoXMLNode(e_strFileName))
 	{
 		TiXmlElement*l_pTiXmlElement = l_NodeISAX.GetRootElement();
+#ifdef PARSE_TEST_SOUND
+		{
+			const wchar_t*l_strSoundSourceFileName = l_pTiXmlElement->Attribute(CHAR_TO_WCHAR_DEFINE(SOUD_SOURCE_FILE_NAME));
+			if( l_strSoundSourceFileName )
+			{
+				std::wstring l_strSoundFileName = UT::GetFileNameWithoutFullPath(l_strSoundSourceFileName,false);
+				std::string l_strDirectory = UT::GetDirectoryWithoutFileName(e_strFileName);
+				l_strDirectory += UT::WcharToChar(l_strSoundFileName);
+				cGameApp::m_spSoundParser->AddStaticSound(cGameApp::m_spSoundParser,l_strDirectory.c_str());
+			}
+		}
+#endif
 		int l_iLastTimeInSecond = SetupTotalSecond(l_pTiXmlElement);
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(l_pTiXmlElement)
 			COMPARE_TARGET_ELEMENT_VALUE(l_pTiXmlElement,"FrequenceAndAmplitudeAndTime")
@@ -62,6 +74,8 @@ int	sFindTimeDomainFrequenceAndAmplitude::SetupTotalSecond(TiXmlElement*e_pTiXml
 		sFrequenceAndAmplitudeAndTime l_FrequenceAndAmplitudeAndTime(l_pLastChild->ToElement());
 		//l_iAssumeBigEnoughSecond = (int)(l_FrequenceAndAmplitudeAndTime.fStartTime+l_FrequenceAndAmplitudeAndTime.fKeepTime);
 		l_iAssumeBigEnoughSecond = (int)l_FrequenceAndAmplitudeAndTime.fStartTime;
+		if( l_iAssumeBigEnoughSecond == 0 )
+			l_iAssumeBigEnoughSecond = 1;
 		OneScondFrequenceAndAmplitudeAndTimeData.resize(l_iAssumeBigEnoughSecond);
 		for( int i=0;i<l_iAssumeBigEnoughSecond;++i )
 		{
@@ -75,7 +89,7 @@ bool		sFindTimeDomainFrequenceAndAmplitude::GenerateFrequenceAndAmplitudeAndTime
 {
 	sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = new sFrequenceAndAmplitudeAndTime(e_pTiXmlElement);
 	int l_iCurrentSecond = (int)l_pFrequenceAndAmplitudeAndTime->fStartTime;
-	assert(e_iCurrentTimeInSecond>l_iCurrentSecond&&"the total second get wrong...call fatming");
+	assert(e_iCurrentTimeInSecond > l_iCurrentSecond&&"the total second get wrong...call fatming");
 	if(!OneScondFrequenceAndAmplitudeAndTimeData[l_iCurrentSecond])
 	{
 		OneScondFrequenceAndAmplitudeAndTimeData[l_iCurrentSecond] = new std::vector<sFrequenceAndAmplitudeAndTime*>();

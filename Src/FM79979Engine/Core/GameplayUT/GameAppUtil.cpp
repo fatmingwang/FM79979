@@ -131,34 +131,6 @@ namespace	FATMING_CORE
 		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	}
 
-	void	cGameApp::SetAcceptRation(int e_iWidthRation,int e_iHeightRation,int e_iGap)
-	{
-		float	l_fWidthAceptRation = cGameApp::m_svViewPortSize.Width()/cGameApp::m_svViewPortSize.Height();
-		float	l_fTargetAceptRation = e_iWidthRation/(float)e_iHeightRation;
-		
-		if(fabs(l_fWidthAceptRation-l_fTargetAceptRation)>0.02)
-		{
-			Vector4	l_vOriginalSize = cGameApp::m_svViewPortSize;
-			int		l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
-			int		l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
-			float	l_fNewW =  cGameApp::m_svViewPortSize.Width()/e_iGap;
-			float	l_fNewH = cGameApp::m_svViewPortSize.Height()/e_iGap;
-			if( l_fNewW > l_fNewH )
-			{
-				int	l_iGap = l_iHeight/9;
-				l_iGap = (l_iWidth-(l_iGap*16))/2;
-				cGameApp::m_svViewPortSize.y = (float)l_iGap;
-				cGameApp::m_svViewPortSize.w = l_vOriginalSize.w-l_iGap;
-			}
-			else
-			{
-				int	l_iGap = l_iHeight/16;
-				l_iGap = (l_iWidth-(l_iGap*9))/2;
-				cGameApp::m_svViewPortSize.x = (float)l_iGap;
-				cGameApp::m_svViewPortSize.z = l_vOriginalSize.z-l_iGap;
-			}
-		}		
-	}
 
 	//<root FullScreen="0" Resolution="960,640" ViewPort="960,640" DeviceOrietation="0" />
 	void	cGameApp::ResoluctionParse(char*e_strFileName)

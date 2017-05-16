@@ -1,6 +1,9 @@
 #pragma once
 
 #include "QuickFFTDataFrequencyFinder.h"
+
+
+#define	SOUND_TIME_LINE_DATA_TIME	"Time"
 //#include "FindTimeDomainFrequenceAndAmplitude.h"
 
 //class cToneData;
@@ -17,6 +20,11 @@ public:
 	static float	m_sfTolerateTime;
 	//if the frequency amplitude close enought
 	static int		m_siAmplitudeOffset;
+
+	static Vector2	m_vTimelineShowPos;
+	static Vector2	m_vTimelineResolution;
+
+	static bool		m_sbAutoPlaySoundForDebugTest;
 };
 
 //idea is one compare object has a reference sound data sFindTimeDomainFrequenceAndAmplitude,
@@ -27,6 +35,8 @@ public:
 //here dont care about time only care about the frequency is matched by order
 class cSoundTimeLineData:public NamedTypedObject
 {
+	//for auto play test
+	bool								m_bAlreadyPlayTestFlag;
 	//this just a reference.
 	const sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
 	std::vector<int>					m_MatchIndexOrderVector;
@@ -48,6 +58,9 @@ public:
 	DEFINE_TYPE_INFO();
 	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime);
 	virtual ~cSoundTimeLineData();
+
+	void		Init();
+	void		Update(float e_fCurrentTime);
 	//if finish return true
 	bool		Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float		GetCompareTime(){return m_fCompareTime;}

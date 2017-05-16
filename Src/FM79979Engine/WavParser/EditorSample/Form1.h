@@ -5,6 +5,7 @@
 #include "SoundFFTCapture.h"
 #include "TimeFrequencyAmplitudeValueCapture.h"
 #include "ToneData.h"
+#include "MusicGameApp.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -55,7 +56,8 @@ namespace EditorSample
 			m_MyOpenGLWindowSize = m_pTargetControl->Size;
 			m_WindowStartSize = this->Size;
 			m_WindowStartSize.Height += 20;
-			m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
+			m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer());
+			//m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
 			m_pSoundFFTCapture = new cSoundFFTCapture();
 			int l_iFrequence = SOUND_CAPTURE_FREQUENCE/2;
@@ -1032,7 +1034,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			cGameApp::m_svViewPortSize.y = 0.f;
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
-			this->m_pGameApp->Run();
 			//glEnable2D(1920*2,1080*2);
 			glEnable2D(1920,1080*2);
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
@@ -1068,6 +1069,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 				m_pSoundFFTCapture->Update(l_fElpaseTime);
 				m_pSoundFFTCapture->Render();
 			}
+			this->m_pGameApp->Run();
 			cGameApp::ShowInfo();
 			SwapBuffers(m_HdcMV);
 		}
@@ -1330,9 +1332,17 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 				String^l_strDirectory = System::IO::Path::GetDirectoryName(l_strFileNames[0]);
 				l_strDirectory += "/"+l_strGCOutputFileName;
 				l_strDirectory += ".xml";
+
+				//std::wstring l_strOutputFolderName = DNCT::GcStringToWchar(l_strDirectory);
+				std::wstring l_strOutputFolderName = L"MusicGame/";
+				l_strOutputFolderName += DNCT::GcStringToWchar(l_strGCOutputFileName);
+				l_strOutputFolderName += L"/";
+				l_strOutputFolderName += DNCT::GcStringToWchar(l_strGCOutputFileName);
+				l_strOutputFolderName += L".xml";
 				ISAXCallback l_ISAXCallback;
 				TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
-				TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cToneDataVector");
+				TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cToneDataVector");				
+				//l_pRootTiXmlElement->SetAttribute(L"ToneDataFileName",l_strOutputFolderName.c_str());
 				l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 				for each(auto l_strFileName in l_strFileNames)
 				{
@@ -1347,19 +1357,18 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 						std::string	l_strFileName2 = DNCT::GcStringToChar(l_strFileName);
 						std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".soundFFT"));
 						l_TimeFrequencyAmplitudeValueCapture.ParseAndSaveFileName(l_strFileName2.c_str(),l_iFilterStrangth,l_fFilterRange,l_strOutputFileName.c_str());
-						std::wstring l_wstrFileName = DNCT::GcStringToWchar(System::IO::Path::GetFileName(l_strFileName));
+						std::wstring l_wstrFileName = DNCT::GcStringToWchar(System::IO::Path::ChangeExtension(System::IO::Path::GetFileName(l_strFileName),TONE_DATA_FILE_EXTENSION_NAME));
 						TiXmlElement*l_pTiXmlElement = new TiXmlElement(cToneData::TypeID);
 						std::wstring l_strSoundFileName = L"MusicGame/";
 						l_strSoundFileName += DNCT::GcStringToWchar(l_strGCOutputFileName);
 						l_strSoundFileName += L"/";
 						l_strSoundFileName += l_wstrFileName;
-						l_pTiXmlElement->SetAttribute(L"SoundSourceFileName",l_strSoundFileName.c_str());
-						l_pTiXmlElement->SetAttribute(L"ID",UT::GetFileNameWithoutFullPath(l_wstrFileName.c_str()));
+						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_SOUND_SOURCE_FILE_NAME).c_str(),l_strSoundFileName.c_str());
+						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_ID).c_str(),UT::GetFileNameWithoutFullPath(l_wstrFileName.c_str()));
 						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
 					}
 				}
 				l_ISAXCallback.SetDoc(l_pTiXmlDocument);
-				std::wstring l_strOutputFolderName = DNCT::GcStringToWchar(l_strDirectory);
 				l_ISAXCallback.Export(l_strOutputFolderName.c_str(),false);
 
 			}

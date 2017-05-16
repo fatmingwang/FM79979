@@ -264,7 +264,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 			TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
 			TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
 			TiXmlElement*l_pConditionTiXmlElement = SaveConditionToTiXmlElement();
-			l_pRootTiXmlElement->SetAttribute(L"ParseFileName",ValueToStringW(e_strParseFileName).c_str());
+			l_pRootTiXmlElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(SOUD_SOURCE_FILE_NAME),ValueToStringW(e_strParseFileName).c_str());
 			l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 			l_pRootTiXmlElement->LinkEndChild(l_pConditionTiXmlElement);
 			for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)

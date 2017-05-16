@@ -5,8 +5,9 @@
 
 cPerformMusicPhase::cPerformMusicPhase()
 {
+	this->SetName(PERFORM_MUSIC_PHASE);
 	m_pTimeLineRangeChart = nullptr;
-	m_strMusicFileName = "MusicGame/Piano/Piano.xml";
+	m_strMusicFileName = "MusicGame/Music/Test.xml";
 }
 
 cPerformMusicPhase::~cPerformMusicPhase()

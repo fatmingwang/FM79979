@@ -7,8 +7,13 @@ TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
 float	cSoundCompareParameter::m_sfTolerateTime = 0.32f;
 int		cSoundCompareParameter::m_siAmplitudeOffset = 30;
-float	cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange = 2.f;
-float	cSoundCompareParameter::m_sfAfterCurrentTimeViewRange = 10.f;
+float	cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange = 3.f;
+float	cSoundCompareParameter::m_sfAfterCurrentTimeViewRange = 7.f;
+
+Vector2	cSoundCompareParameter::m_vTimelineShowPos = Vector2(100,250);
+Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,300);
+
+bool	cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime)
 {
@@ -19,11 +24,31 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_iCurrentMatchedIndex = 0;
 	m_iNumMatched = 0;
 	m_bMustMatchAfterProior = false;
+	m_bAlreadyPlayTestFlag = false;
 }
 
 cSoundTimeLineData::~cSoundTimeLineData()
 {
 
+}
+
+void		cSoundTimeLineData::Init()
+{
+	m_bAlreadyPlayTestFlag = false;
+}
+
+void		cSoundTimeLineData::Update(float e_fCurrentTime)
+{
+#ifdef PARSE_TEST_SOUND
+	if( !m_bAlreadyPlayTestFlag )
+	{
+		if(this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfTolerateTime)
+		{
+			m_bAlreadyPlayTestFlag = true;
+			cGameApp::SoundPlay(this->GetName(),true);
+		}
+	}
+#endif
 }
 
 bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
@@ -64,7 +89,7 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 {
 	float l_fTimeDifference = abs( e_fTargetTime - this->m_fCompareTime );
-	if( l_fTimeDifference > this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime )
+	if( l_fTimeDifference > cSoundCompareParameter::m_sfTolerateTime )
 	{
 		return false;
 	}
@@ -104,6 +129,11 @@ cSoundTimeLineDataCollection::~cSoundTimeLineDataCollection()
 bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 {
 	const WCHAR*l_strToneDataFileName = e_pRoot->Attribute(L"ToneDataFileName");
+	if( !l_strToneDataFileName )
+	{
+		UT::ErrorMsg("ToneDataFileName not valid",this->m_strFileName);
+		return false;
+	}
 	if(m_pToneDataVector)
 	{
 		//same music instrument
@@ -112,19 +142,21 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 		SAFE_DELETE(m_pToneDataVector);
 	}
 	m_pToneDataVector = new cToneDataVector();
-	if(m_pToneDataVector->ParseTextWithMyParse(UT::WcharToChar(l_strToneDataFileName).c_str()))
+	if(m_pToneDataVector->ParseWithMyParse(UT::WcharToChar(l_strToneDataFileName).c_str()))
 	{
-		PARSE_ELEMENT_START(e_pRoot)
-			COMPARE_VALUE_WITH_DEFINE(cSoundTimeLineData::TypeID)
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pRoot)
+			COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pRoot,cSoundTimeLineData::TypeID)
 			{
-				const WCHAR*l_strSoundID = e_pRoot->Attribute(L"SoundID");
-				const WCHAR*l_strTime = e_pRoot->Attribute(L"Time");
+				const WCHAR*l_strSoundID = e_pRoot->Attribute(CHAR_TO_WCHAR_DEFINE(TONE_DATA_ID));
+				const WCHAR*l_strTime = e_pRoot->Attribute(CHAR_TO_WCHAR_DEFINE(SOUND_TIME_LINE_DATA_TIME));
 				if( l_strSoundID && l_strTime )
 				{
-					int		l_iSoundID	= GetInt(l_strSoundID);
+					//int		l_iSoundID	= GetInt(l_strSoundID);
 					float l_fTime = GetFloat(l_strTime);
-					const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinderBySoundID(l_iSoundID);
+					//const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinderBySoundID(l_iSoundID);
+					const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinder(l_strSoundID);
 					cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pFrequenceAndAmplitudeAndTimeFinder,l_fTime);
+					l_pSingleSoundCompare->SetName(l_strSoundID);
 					this->AddObjectNeglectExist(l_pSingleSoundCompare);
 				}
 				else
@@ -132,7 +164,7 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 					UT::ErrorMsg(cSoundTimeLineData::TypeID,L"data error no time or no Sound ID");
 				}
 			}
-		PARSE_NAME_VALUE_END
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pRoot)
 		auto l_pLastObject = this->GetLastObject();
 		if( l_pLastObject )
 		{

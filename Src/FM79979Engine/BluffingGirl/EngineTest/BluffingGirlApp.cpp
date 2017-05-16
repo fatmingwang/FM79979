@@ -55,6 +55,7 @@ void	WTLoading()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	UseShaderProgram(DEFAULT_SHADER);
+	Vector4 l_vViewPort = cGameApp::m_svViewPortSize;
 	glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
@@ -117,6 +118,7 @@ cBluffingGirlApp::~cBluffingGirlApp()
 void	cBluffingGirlApp::Init()
 {
 	cGameApp::Init();
+	//SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
 	////for sound volume
 	m_pPhaseManager = new cBluffingGirlPhaseManager();
 
@@ -194,31 +196,32 @@ void	cBluffingGirlApp::Init()
 	m_pPhaseManager->RegisterPopupMessenger("PhaseData/BuyGirlPopupMessenger.xml");
 	g_pFBFunction = new cFBFunction();
 
-	float	l_fWidthAceptRation = cGameApp::m_svViewPortSize.Width()/cGameApp::m_svViewPortSize.Height();
-	float	l_fTargetAceptRation = 720/1280.f;
-	if(l_fWidthAceptRation != l_fTargetAceptRation)
-	{
-		Vector4	l_vOriginalSize = cGameApp::m_svViewPortSize;
-		int		l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
-		int		l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
-		float	l_fNewW =  cGameApp::m_svViewPortSize.Width()/80;
-		float	l_fNewH = cGameApp::m_svViewPortSize.Height()/80;
-		if( l_fNewW > l_fNewH )
-		{
-			int	l_iGap = l_iHeight/9;
-			l_iGap = (l_iWidth-(l_iGap*16))/2;
-			cGameApp::m_svViewPortSize.y = (float)l_iGap;
-			cGameApp::m_svViewPortSize.w = l_vOriginalSize.w-l_iGap;
-		}
-		else
-		{
-			int	l_iGap = l_iHeight/16;
-			l_iGap = (l_iWidth-(l_iGap*9))/2;
-			cGameApp::m_svViewPortSize.x = (float)l_iGap;
-			cGameApp::m_svViewPortSize.z = l_vOriginalSize.z-l_iGap;
-		}
-	}
-	SetAcceptRation(9,16,80);
+	//float	l_fWidthAceptRation = cGameApp::m_svViewPortSize.Width()/cGameApp::m_svViewPortSize.Height();
+	//float	l_fTargetAceptRation = 720/1280.f;
+	//if(l_fWidthAceptRation != l_fTargetAceptRation)
+	//{
+	//	Vector4	l_vOriginalSize = cGameApp::m_svViewPortSize;
+	//	int		l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
+	//	int		l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
+	//	float	l_fNewW =  cGameApp::m_svViewPortSize.Width()/80;
+	//	float	l_fNewH = cGameApp::m_svViewPortSize.Height()/80;
+	//	if( l_fNewW > l_fNewH )
+	//	{
+	//		int	l_iGap = l_iHeight/9;
+	//		l_iGap = (l_iWidth-(l_iGap*16))/2;
+	//		cGameApp::m_svViewPortSize.y = (float)l_iGap;
+	//		cGameApp::m_svViewPortSize.w = l_vOriginalSize.w-l_iGap;
+	//	}
+	//	else
+	//	{
+	//		int	l_iGap = l_iHeight/16;
+	//		l_iGap = (l_iWidth-(l_iGap*9))/2;
+	//		cGameApp::m_svViewPortSize.x = (float)l_iGap;
+	//		cGameApp::m_svViewPortSize.z = l_vOriginalSize.z-l_iGap;
+	//	}
+	//}
+	//SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+	//SetAcceptRation(9,16,80);
 	g_pLoadingProgressCallBack = BGLoading;
 	g_pShowLogoPhase->m_bGotoMainPhase = true;
 	this->m_sTimeAndFPS.Update();
@@ -239,6 +242,7 @@ void	cBluffingGirlApp::Update(float e_fElpaseTime)
 
 void	cBluffingGirlApp::Render()
 {
+	//glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);

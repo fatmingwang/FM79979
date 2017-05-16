@@ -186,7 +186,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)
 		l_dwFlag = WS_VISIBLE | WS_POPUP |	WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
-	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), NULL, NULL, hInstance, NULL);
+	int l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
+	int l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
+	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, l_iWidth,l_iHeight, NULL, NULL, hInstance, NULL);
 
 	if (!g_hWnd)
 	{
@@ -221,8 +223,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case  WM_SIZE:
-		cGameApp::m_svViewPortSize.z = (float)LOWORD(lParam);
-		cGameApp::m_svViewPortSize.w = (float)HIWORD(lParam);
+		//cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam));
+		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		//cGameApp::m_svViewPortSize.z = (float)LOWORD(lParam);
+		//cGameApp::m_svViewPortSize.w = (float)HIWORD(lParam);
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )
