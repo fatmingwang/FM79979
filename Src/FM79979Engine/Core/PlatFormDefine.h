@@ -195,6 +195,16 @@ enum	eDataType
 	eDT_MAX,
 };
 
+//original name eUVDirection
+enum	eMoveDirection
+{
+	eMD_LEFT_TO_RIGHT = 0,
+	eMD_RIGHT_TO_LEFT,
+	eMD_UP_TO_DOWN,
+	eMD_DOWN_TO_UP,
+	eMD_MAX,
+};
+
 static int	g_iDataTypeSize[eDT_MAX] = {
 										sizeof(char),//byte
 										sizeof(float),//float

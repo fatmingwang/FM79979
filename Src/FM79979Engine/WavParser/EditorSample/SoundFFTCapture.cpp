@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SoundFFTCapture.h"
-
+#include "QuickFFTDataFrequencyFinder.h"
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 {
 	cSoundFFTCapture*l_pSoundFFTCapture = (cSoundFFTCapture*)_workParameter;
@@ -37,6 +37,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, siz
 
 cSoundFFTCapture::cSoundFFTCapture()
 {
+	m_pQuickFFTDataFrequencyFinder = nullptr;
 	m_bThreadInPause = false;
 	m_bThreadStop = true;
 	m_bThreadPause = false;
@@ -72,6 +73,7 @@ void	cSoundFFTCapture::Destroy()
 	SAFE_DELETE(m_piFFTData);
 	DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
 	SAFE_DELETE(m_pFUThreadPool);
+	SAFE_DELETE(m_pQuickFFTDataFrequencyFinder);
 }
 
 
@@ -94,6 +96,8 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	}
 
 	m_piFFTData = new int[m_iOneFrameFFTDataCount];
+	m_pQuickFFTDataFrequencyFinder = new cQuickFFTDataFrequencyFinder(m_iOneFrameFFTDataCount,l_iSampleRate);
+	m_pQuickFFTDataFrequencyFinder->SetFFTData(m_piFFTData);
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(1);

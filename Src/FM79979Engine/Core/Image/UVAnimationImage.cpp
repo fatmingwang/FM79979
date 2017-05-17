@@ -3,7 +3,7 @@
 #include "SimplePrimitive.h"
 namespace FATMING_CORE
 {
-	cUVAnimationImage::cUVAnimationImage(cBaseImage*e_pRenderImage,Vector2 e_vSize,eUVDirection e_eOrientation,Vector2 e_vShowPos)
+	cUVAnimationImage::cUVAnimationImage(cBaseImage*e_pRenderImage,Vector2 e_vSize,eMoveDirection e_eOrientation,Vector2 e_vShowPos)
 	{
 		m_vShowPos = e_vShowPos;
 		m_pRenderImage = e_pRenderImage;
@@ -28,8 +28,8 @@ namespace FATMING_CORE
 		float	l_fSecondPointDis = 0.f;
 		switch(m_eOrientation)
 		{
-			case eUVD_LEFT_TO_RIGHT:
-			case eUVD_RIGHT_TO_LEFT:
+			case eMD_LEFT_TO_RIGHT:
+			case eMD_RIGHT_TO_LEFT:
 				//horizontal
 				//0      2		4
 				//
@@ -57,8 +57,8 @@ namespace FATMING_CORE
 				m_vRenderVerticesPos[2].x = m_vRenderVerticesPos[3].x = m_vRenderVerticesPos[0].x + l_fSecondPointDis;
 				m_vRenderVerticesPos[4].x = m_vRenderVerticesPos[5].x = m_vShowPos.x+m_vSize.x;
 				break;
-			case eUVD_UP_TO_DOWN:
-			case eUVD_DOWN_TO_UP:++
+			case eMD_UP_TO_DOWN:
+			case eMD_DOWN_TO_UP:++
 				//vertical
 				//for UV
 				//0      1
@@ -98,16 +98,16 @@ namespace FATMING_CORE
 		float	l_fMovDis = e_fSpeed*e_fElpaseTime;
 		switch(m_eOrientation)
 		{
-			case eUVD_LEFT_TO_RIGHT:
+			case eMD_LEFT_TO_RIGHT:
 				m_vCurrentPos.x += l_fMovDis;
 				break;
-			case eUVD_RIGHT_TO_LEFT:
+			case eMD_RIGHT_TO_LEFT:
 				m_vCurrentPos.x -= l_fMovDis;
 				break;
-			case eUVD_UP_TO_DOWN:
+			case eMD_UP_TO_DOWN:
 				m_vCurrentPos.y -= l_fMovDis;
 				break;
-			case eUVD_DOWN_TO_UP:
+			case eMD_DOWN_TO_UP:
 				m_vCurrentPos.y += l_fMovDis;
 				break;
 		}
@@ -166,8 +166,8 @@ namespace FATMING_CORE
 		std::vector<Vector3>l_vPoint;
 		switch(m_eOrientation)
 		{
-			case eUVD_LEFT_TO_RIGHT:
-			case eUVD_RIGHT_TO_LEFT:
+			case eMD_LEFT_TO_RIGHT:
+			case eMD_RIGHT_TO_LEFT:
 				//horizontal
 				//0      2		4
 				//
@@ -187,8 +187,8 @@ namespace FATMING_CORE
 				l_vPoint.push_back(m_vRenderVerticesPos[5]);
 				l_vPoint.push_back(m_vRenderVerticesPos[3]);
 				break;
-			case eUVD_UP_TO_DOWN:
-			case eUVD_DOWN_TO_UP:
+			case eMD_UP_TO_DOWN:
+			case eMD_DOWN_TO_UP:
 				//vertical
 				//for UV
 				//0      1

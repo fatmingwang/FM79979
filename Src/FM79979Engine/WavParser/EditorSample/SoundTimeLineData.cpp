@@ -10,13 +10,17 @@ int		cSoundCompareParameter::m_siAmplitudeOffset = 30;
 float	cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange = 3.f;
 float	cSoundCompareParameter::m_sfAfterCurrentTimeViewRange = 7.f;
 
-Vector2	cSoundCompareParameter::m_vTimelineShowPos = Vector2(100,250);
-Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,300);
+Vector2	cSoundCompareParameter::m_vTimelineShowPos = Vector2(50,250);
+//Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,300);
+Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,800);
 
 bool	cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
+//int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE/2;
+int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE;
 
-cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime)
+cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData)
 {
+	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
 	m_fResultScore = 0.f;
 	m_fCompareTime = e_fCompareTime;
@@ -25,6 +29,7 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_iNumMatched = 0;
 	m_bMustMatchAfterProior = false;
 	m_bAlreadyPlayTestFlag = false;
+	m_bMatched = false;
 }
 
 cSoundTimeLineData::~cSoundTimeLineData()
@@ -34,6 +39,7 @@ cSoundTimeLineData::~cSoundTimeLineData()
 
 void		cSoundTimeLineData::Init()
 {
+	m_bMatched = false;
 	m_bAlreadyPlayTestFlag = false;
 }
 
@@ -53,9 +59,19 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 
 bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
 {
+	//already matched.
+	if( m_bMatched )
+		return true;
+	if(!IsStillInCompareTime(e_fCurrentTime))
+		return false;
 	float l_fLocalTime = e_fCurrentTime-this->m_fCompareTime;
 	int	l_iAllMatched = 0;
 	auto l_pDataVector = this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData[this->m_iCurrentMatchedIndex];
+	//if( l_fLocalTime < 0.f || l_fLocalTime >= l_pDataVector->size() )
+	//{
+	//	//not ready to match or time over.
+	//	return;
+	//}
 	for(auto l_pInnerData :	*l_pDataVector)
 	{
 		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetAmplitude((int)l_pInnerData->fFrequency);
@@ -123,7 +139,15 @@ cSoundTimeLineDataCollection::cSoundTimeLineDataCollection()
 
 cSoundTimeLineDataCollection::~cSoundTimeLineDataCollection()
 {
-	
+	SAFE_DELETE(m_pToneDataVector);
+}
+
+void	cSoundTimeLineDataCollection::Init()
+{
+	for(auto l_pData :this->m_ObjectList)
+	{
+		l_pData->Init();
+	}
 }
 
 bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
@@ -154,8 +178,13 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 					//int		l_iSoundID	= GetInt(l_strSoundID);
 					float l_fTime = GetFloat(l_strTime);
 					//const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinderBySoundID(l_iSoundID);
-					const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinder(l_strSoundID);
-					cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pFrequenceAndAmplitudeAndTimeFinder,l_fTime);
+					auto l_pToneData = m_pToneDataVector->GetObject(l_strSoundID);
+					if( !l_pToneData )
+					{
+						UT::ErrorMsg(l_strSoundID,L"tone data not exists");
+						continue;
+					}
+					cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTime,l_pToneData);
 					l_pSingleSoundCompare->SetName(l_strSoundID);
 					this->AddObjectNeglectExist(l_pSingleSoundCompare);
 				}

@@ -1,5 +1,6 @@
 #pragma once
 #include "KissFFTStreaming.h"
+class cQuickFFTDataFrequencyFinder;
 
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
@@ -30,6 +31,8 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	void							UpdateWithFetchFFTData(float e_fElpaseTime);
 	//
 	GET_SET_DEC(int,m_iUpdateFlag,GetUpdateFlag,SetUpdateFlag);
+	//
+	cQuickFFTDataFrequencyFinder*	m_pQuickFFTDataFrequencyFinder;
 public:
 	cSoundFFTCapture();
 	virtual ~cSoundFFTCapture();
@@ -41,6 +44,7 @@ public:
 	void			Render();
 	virtual void	GoToTime(float e_fElpaseTime){}
 	void			SetFFTSampleScale(float e_fScale);
+	cQuickFFTDataFrequencyFinder*	GetQuickFFTDataFrequencyFinder(){return m_pQuickFFTDataFrequencyFinder;}
 	//use this one for cSoundCapture(buffersize)
 	static int		GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence);
 };

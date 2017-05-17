@@ -3,14 +3,6 @@
 
 namespace FATMING_CORE
 {
-	enum	eUVDirection
-	{
-		eUVD_LEFT_TO_RIGHT = 0,
-		eUVD_RIGHT_TO_LEFT,
-		eUVD_UP_TO_DOWN,
-		eUVD_DOWN_TO_UP,
-		eUVD_MAX,
-	};
 	class	cUVAnimationImage
 	{
 		//for render
@@ -21,7 +13,7 @@ namespace FATMING_CORE
 		float			m_fImage1UV[4];
 		float			m_fImage2UV[4];
 		Vector2			m_vSize;
-		eUVDirection	m_eOrientation;
+		eMoveDirection	m_eOrientation;
 		Vector2			m_vShowPos;
 		//for render
 		Vector3			m_vRenderVerticesPos[6];
@@ -30,7 +22,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(Vector2,m_vCurrentPos,GetCurrentPos,SetCurrentPos);
 		void			SetupRenderDataByCurrentPos();
 	public:
-		cUVAnimationImage(cBaseImage*e_pRenderImage,Vector2 e_vSize,eUVDirection e_eOrientation,Vector2 e_vShowPos);
+		cUVAnimationImage(cBaseImage*e_pRenderImage,Vector2 e_vSize,eMoveDirection e_eOrientation,Vector2 e_vShowPos);
 		virtual ~cUVAnimationImage();
 
 		void	Update(float e_fElpaseTime,float e_fSpeed);

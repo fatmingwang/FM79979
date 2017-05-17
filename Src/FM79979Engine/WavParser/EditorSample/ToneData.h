@@ -3,6 +3,8 @@
 #define	TONE_DATA_SOUND_SOURCE_FILE_NAME	"SoundSourceFileName"
 #define	TONE_DATA_ID						"ID"
 
+#define	TONE_DATA_PICTURE_OFFSET_POS		"PosOffset"
+
 #define	TONE_DATA_FILE_EXTENSION_NAME		"soundFFT"
 
 
@@ -12,9 +14,9 @@ struct sFindTimeDomainFrequenceAndAmplitude;
 
 //filter FFT data and original sound file
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
-class cToneData:public NamedTypedObject,public cNodeISAX
+class cToneData:public Frame,public cNodeISAX
 {
-	std::string	m_strSoundFilePath;
+	std::string		m_strSoundFilePath;
 	//int			m_iSoundID;
 	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
 public:
@@ -29,7 +31,7 @@ public:
 //	<cToneData SoundSourceFileName="ooxx.wav" ID="0">
 //</cToneDataVector>
 
-class cToneDataVector:public cNamedTypedObjectVector<cToneData>,public cNodeISAX
+class cToneDataVector:public cNamedTypedObjectVector<cToneData>,public cNodeISAX//,public Frame
 {
 	virtual bool MyParse(TiXmlElement*e_pRoot);
 public:

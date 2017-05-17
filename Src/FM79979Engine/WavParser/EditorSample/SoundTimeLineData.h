@@ -8,8 +8,8 @@
 
 //class cToneData;
 struct sFindTimeDomainFrequenceAndAmplitude;
+class cToneData;
 class cToneDataVector;
-
 class cSoundCompareParameter
 {
 public:
@@ -25,6 +25,7 @@ public:
 	static Vector2	m_vTimelineResolution;
 
 	static bool		m_sbAutoPlaySoundForDebugTest;
+	static int		m_siRecordFrequency;
 };
 
 //idea is one compare object has a reference sound data sFindTimeDomainFrequenceAndAmplitude,
@@ -37,7 +38,10 @@ class cSoundTimeLineData:public NamedTypedObject
 {
 	//for auto play test
 	bool								m_bAlreadyPlayTestFlag;
+	//
+	bool								m_bMatched;
 	//this just a reference.
+	cToneData*							m_pToneData;
 	const sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
 	std::vector<int>					m_MatchIndexOrderVector;
 	//
@@ -54,17 +58,18 @@ class cSoundTimeLineData:public NamedTypedObject
 	GET_SET_DEC(bool,m_bMustMatchAfterProior,IsMustMatchAfterProior,SetMustMatchAfterProior);
 	//time is over?
 	bool								IsFinish(float e_fCurrentTime);
+	bool								IsStillInCompareTime(float e_fTargetTime);
 public:
 	DEFINE_TYPE_INFO();
-	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime);
+	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData);
 	virtual ~cSoundTimeLineData();
 
-	void		Init();
-	void		Update(float e_fCurrentTime);
+	void				Init();
+	void				Update(float e_fCurrentTime);
 	//if finish return true
-	bool		Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
-	float		GetCompareTime(){return m_fCompareTime;}
-	bool		IsStillInCompareTime(float e_fTargetTime);
+	bool				Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	float				GetCompareTime(){return m_fCompareTime;}
+	cToneData*			GetToneData(){return m_pToneData;}
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">
@@ -86,6 +91,7 @@ protected:
 public:
 	cSoundTimeLineDataCollection();
 	virtual ~cSoundTimeLineDataCollection();
+	void			Init();
 	float			GetLastObjectCompareEndTime();
 };
 

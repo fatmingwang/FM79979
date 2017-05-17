@@ -69,9 +69,6 @@
     <ClCompile Include="SoundTimeLineData.cpp">
       <Filter>Sound\TimeLine</Filter>
     </ClCompile>
-    <ClCompile Include="SoundTimeLineData1.cpp">
-      <Filter>Sound\TimeLine\Visualizer</Filter>
-    </ClCompile>
     <ClCompile Include="SoundTimeLineVisualizer.cpp">
       <Filter>Sound\TimeLine\Visualizer</Filter>
     </ClCompile>
@@ -118,9 +115,6 @@
     </ClInclude>
     <ClInclude Include="SoundTimeLineData.h">
       <Filter>Sound\TimeLine</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundTimeLineData1.h">
-      <Filter>Sound\TimeLine\Visualizer</Filter>
     </ClInclude>
     <ClInclude Include="SoundTimeLineVisualizer.h">
       <Filter>Sound\TimeLine\Visualizer</Filter>

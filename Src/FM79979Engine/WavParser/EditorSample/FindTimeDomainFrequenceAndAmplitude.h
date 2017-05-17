@@ -24,7 +24,5 @@ struct sFindTimeDomainFrequenceAndAmplitude
 	//
 	sFrequenceAndAmplitudeAndTimeData	OneScondFrequenceAndAmplitudeAndTimeData;
 	//
-	std::vector<int>					TimeGapVector;
-	//
 	bool	GetDataByTime(float e_fTime,float e_fTolerateTime,std::vector<sFrequenceAndAmplitudeAndTime*>*e_pOutVector,bool e_bIgnodeSameObject);
 };

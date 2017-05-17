@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "MusicGameApp.h"
 #include "PerformMusicPhase.h"
+#include "SoundFFTCapture.h"
+#include "SoundTimeLineData.h"
+
+
+cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
+cSoundFFTCapture*	cMusicGameApp::m_pSoundFFTCapture = nullptr;
 
 cMusicGameApp::
 #if defined(ANDROID)
@@ -19,24 +25,28 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 cMusicGameApp::~cMusicGameApp()
 {
 	SAFE_DELETE(m_pPhaseManager);
+	SAFE_DELETE(m_pSoundCapture);
+	m_pSoundFFTCapture = nullptr;
 }
 
 void	cMusicGameApp::Init()
 {
 	cGameApp::Init();
+	//sound setup
+	m_pSoundFFTCapture = new cSoundFFTCapture();
+	int l_iFrequence = cSoundCompareParameter::m_siRecordFrequency;
+	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
+	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
+	//
 	m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )
 	{
 		cPerformMusicPhase*l_pPerformMusicPhase = new cPerformMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pPerformMusicPhase);
-
-
-
-
-
 		//
 		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
+
 	cGameApp::m_sTimeAndFPS.Update();
 }
 

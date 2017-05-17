@@ -424,16 +424,16 @@ namespace	FATMING_CORE
 
 	void	cGameApp::KeyDown(char e_char)
 	{
-		//if(!m_sbEnableKeyboardSingnal)
-		//	return;
+		if(!m_sbEnableKeyboardSingnal)
+			return;
 		m_sucKeyData[(unsigned char)e_char] = true;
 	}
 
 	void	cGameApp::KeyPress(char e_char)
 	{
-		//if(!m_sbEnableKeyboardSingnal)
-		//	return;
-		m_sucKeyData[(unsigned char)e_char] = true;
+		if(!m_sbEnableKeyboardSingnal)
+			return;
+		//m_sucKeyData[(unsigned char)e_char] = true;
 	}
 
 	void	cGameApp::KeyUp(char e_char)
@@ -445,8 +445,8 @@ namespace	FATMING_CORE
 		//cGameApp::OutputDebugInfoString(l_ss2.c_str());
 		//cGameApp::OutputDebugInfoString(L"\n");
 
-		//if(!m_sbEnableKeyboardSingnal)
-		//	return;
+		if(!m_sbEnableKeyboardSingnal)
+			return;
 #ifdef WIN32
 		if( e_char == 'R' )
 		{

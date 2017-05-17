@@ -1,4 +1,9 @@
 #pragma once
+namespace	FATMING_CORE
+{
+	class cSoundCapture;
+}
+class cSoundFFTCapture;
 
 class cMusicGameApp:public cGameApp
 {
@@ -20,4 +25,7 @@ public:
 		virtual	void				MouseDown(int e_iPosX,int e_iPosY);
 		virtual	void				MouseMove(int e_iPosX,int e_iPosY);
 		virtual	void				MouseUp(int e_iPosX,int e_iPosY);
+		//I just lazy so put here,
+		static cSoundCapture*		m_pSoundCapture;
+		static cSoundFFTCapture*	m_pSoundFFTCapture;
 };

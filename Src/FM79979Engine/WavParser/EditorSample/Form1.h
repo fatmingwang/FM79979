@@ -59,10 +59,9 @@ namespace EditorSample
 			m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			//m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->Init();
-			m_pSoundFFTCapture = new cSoundFFTCapture();
-			int l_iFrequence = SOUND_CAPTURE_FREQUENCE/2;
-			m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
-			m_pSoundCapture->AddObject(m_pSoundFFTCapture);
+			m_pSoundCapture = m_pGameApp->m_pSoundCapture;
+			m_pSoundFFTCapture = m_pGameApp->m_pSoundFFTCapture;
+
 			//m_pSoundCapture->AddSoundRecord();
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
 			m_HGLRCMV = m_pGameApp->m_sHGLRC;
@@ -80,6 +79,14 @@ namespace EditorSample
 			m_pTargetControl->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);
+
+
+			std::vector<std::string>l_strDeviceList = cSoundCapture::GetAvalibeRecordDevice();
+			for(auto l_strDeviceName :l_strDeviceList)
+			{
+				cGameApp::OutputDebugInfoString(l_strDeviceName.c_str());
+			}
+
 			this->timer1->Enabled = true;
 			//
 		}
@@ -95,8 +102,6 @@ namespace EditorSample
 				delete components;
 			}
 			SAFE_DELETE(this->m_pWaveInfo);
-			SAFE_DELETE(m_pSoundCapture);
-			m_pSoundFFTCapture = nullptr;
 			SAFE_DELETE(m_pKissFFTConvertBase);
 			//SAFE_DELETE(this->m_pWavWaves);
 
@@ -110,10 +115,10 @@ namespace EditorSample
 		/// </summary>
 
 		//my
-		cGameApp*					m_pGameApp;
-		//
+		cMusicGameApp*				m_pGameApp;
 		cSoundCapture*				m_pSoundCapture;
 		cSoundFFTCapture*			m_pSoundFFTCapture;
+		//
 		cKissFFTConvertBase*		m_pKissFFTConvertBase;
 		//
 		HDC							m_HdcMV;
@@ -988,8 +993,12 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->Controls->Add(this->splitContainer1);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);
+			this->KeyPreview = true;
 			this->Name = L"Form1";
 			this->Text = L" ";
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::Form1_KeyPress);
+			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->EndInit();
@@ -1380,6 +1389,19 @@ private: System::Void CompareAndCaptureToFileParseFPS_numericUpDown_ValueChanged
 			int		l_iFreqOffset = (int)CompareAndCaptureToFileFreqOffset_numericUpDown->Value;
 			int		l_iTolerateTime = (int)CompareAndCaptureToFileTolerateTime_numericUpDown->Value;
 			int		l_iKeepTime = (int)CompareAndCaptureToFileKeepTime_numericUpDown->Value;
+		 }
+private: System::Void Form1_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
+		 {
+			 this->m_pGameApp->KeyUp((char)e->KeyCode);
+			 
+		 }
+private: System::Void Form1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e)
+		 {
+			 //this->m_pGameApp->KeyPress((char)e->KeyChar);
+		 }
+private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
+		 {
+			 this->m_pGameApp->KeyDown((char)e->KeyCode);
 		 }
 };
 }

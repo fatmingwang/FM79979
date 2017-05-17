@@ -31,14 +31,18 @@ namespace	FATMING_CORE
 		friend void		RecordingThread(size_t _workParameter, size_t _pUri);
 		friend void		RecordingDoneThread(size_t _workParameter, size_t _pUri);
 	private:
+		//ensure callback is start
+		bool			m_bStartCallBackCalled;
+		bool			m_bEndCallBackCalled;
 		void			PreCaptureSoundStartCallBack(cSoundCapture*e_pSoundCapture);
 		virtual void	CaptureSoundStartCallBack() = 0;
 		virtual void	CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData) = 0;
+		void			PreCaptureSoundEndCallBack();
 		virtual void	CaptureSoundEndCallBack() = 0;
 	protected:
 		cSoundCapture*	m_pSoundCapture;
 	public:
-		cSounRecordCallBackObject(){m_pSoundCapture = nullptr;}
+		cSounRecordCallBackObject(){m_pSoundCapture = nullptr; m_bStartCallBackCalled = false;m_bEndCallBackCalled = false; }
 		virtual ~cSounRecordCallBackObject(){}
 	};
 
@@ -90,8 +94,9 @@ namespace	FATMING_CORE
 		int								GetFileSize(){return m_iFileSize;}
 		int								GetBuffersize(){return m_iBufferSize;}
 		float							GetCurrntTime(){return m_fCurrntTime;}
-		//
+		//record sound to file
 		bool							AddSoundRecord(std::string e_strFileName = "Record.ogg",eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG);
+		static std::vector<std::string>	GetAvalibeRecordDevice();
 		//
 	};
 	//================================
@@ -131,4 +136,20 @@ namespace	FATMING_CORE
 //String chosenDevice = ...;
 //
 //ALCdevice device = ALC11.alcCaptureOpenDevice(chosenDevice, freq, format, bufferSize);
-
+//http://stackoverflow.com/questions/4281058/how-to-let-user-select-a-audio-recording-device-with-openal
+//// Get list of available Capture Devices
+//const ALchar *pDeviceList = alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
+//if (pDeviceList)
+//{
+//    ALFWprintf("\nAvailable Capture Devices are:-\n");
+//
+//    while (*pDeviceList)
+//    {
+//        ALFWprintf("%s\n", pDeviceList);
+//        pDeviceList += strlen(pDeviceList) + 1;
+//    }
+//}
+//
+//// Get the name of the 'default' capture device
+//szDefaultCaptureDevice = alcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER);
+//ALFWprintf("\nDefault Capture Device is '%s'\n\n", szDefaultCaptureDevice);

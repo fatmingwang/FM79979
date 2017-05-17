@@ -9,12 +9,19 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 {
 	m_pFrequenceAndAmplitudeAndTimeFinder = nullptr;
 	const wchar_t*l_strID = CHAR_TO_WCHAR_DEFINE(TONE_DATA_ID);
+	const wchar_t*l_strPosOffset = CHAR_TO_WCHAR_DEFINE(TONE_DATA_PICTURE_OFFSET_POS );
 	PARSE_ELEMENT_START(e_pTiXmlElement)
 		COMPARE_ASSIGN_CHAR_STRING("SoundSourceFileName",m_strSoundFilePath)
 		else
 		COMPARE_NAME_WITH_DEFINE( l_strID )
 		{
 			this->SetName(l_strValue);
+		}
+		else
+		COMPARE_NAME_WITH_DEFINE(l_strPosOffset)
+		{
+			Vector2 l_vPos = GetVector2(l_strValue);
+			this->SetLocalPosition(l_vPos);
 		}
 	PARSE_NAME_VALUE_END
 	m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
@@ -72,13 +79,20 @@ const sFindTimeDomainFrequenceAndAmplitude*cToneDataVector::GetFrequenceAndAmpli
 
 bool cToneDataVector::MyParse(TiXmlElement*e_pRoot)
 {
+	Vector3	l_vPos = Vector3::Zero;
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pRoot)
 		COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pRoot,cToneData::TypeID)
 		{
 			cToneData*l_pToneData = new cToneData(e_pRoot);
 			if(!this->AddObject(l_pToneData))
 			{
+				SAFE_DELETE(l_pToneData);
 				UT::ErrorMsg(l_pToneData->GetName(),L"ToneData Same Name!?");
+			}
+			else
+			{
+				l_vPos += l_pToneData->GetLocalPosition();
+				l_pToneData->SetLocalPosition(l_vPos);
 			}
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pRoot)

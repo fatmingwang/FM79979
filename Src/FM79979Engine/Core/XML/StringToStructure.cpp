@@ -452,6 +452,7 @@ namespace FATMING_CORE
 		return L"unknow";
 	}
 
+
 	eDataType		StringToDataType(const char*e_str)
 	{
 		if( !strcmp("char",e_str) || !strcmp("byte",e_str) )
@@ -481,6 +482,43 @@ namespace FATMING_CORE
 		if( !strcmp("uint64",e_str) )
 			return eDT_UINT64;
 		return eDT_MAX;
+	}
+
+	std::wstring	ValueToStringW(eMoveDirection e_eMoveDirection)
+	{
+		std::wstring l_strResult;
+		switch(e_eMoveDirection)
+		{
+			case eMD_DOWN_TO_UP:
+				l_strResult = L"DownToUp";
+			break;
+			case eMD_LEFT_TO_RIGHT:
+				l_strResult = L"LeftToRight";
+			break;
+			case eMD_RIGHT_TO_LEFT:
+				l_strResult = L"RightToLeft";
+			break;
+			case eMD_UP_TO_DOWN:
+				l_strResult = L"UpToDown";
+			break;
+			default:
+				l_strResult = L"unknow move direction";
+			break;
+		}
+		return l_strResult;
+	}
+
+	eMoveDirection	StringToMoveDirection(const char*e_str)
+	{
+		if( !strcmp("DownToUp",e_str))
+			return eMD_DOWN_TO_UP;
+		if( !strcmp("LeftToRight",e_str))
+			return eMD_LEFT_TO_RIGHT;
+		if( !strcmp("RightToLeft",e_str) )
+			return eMD_RIGHT_TO_LEFT;
+		if( !strcmp("UpToDown",e_str) )
+			return eMD_UP_TO_DOWN;
+		return eMD_MAX;
 	}
 
 	std::wstring	ValueToStringW(std::wstring	e_strValue)

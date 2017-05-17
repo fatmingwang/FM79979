@@ -5,8 +5,10 @@
 
 // TODO: reference additional headers your program requires here
 #pragma warning( disable : 4945 )
+#ifdef WIN32
 #include "windows.h"
 #include "../../../include/glew.h"
+#endif
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
@@ -19,12 +21,14 @@
 #include "../../Core/AllCoreInclude.h"
 #include "../../core/AVIPlayer/AVIPlayer.h"
 //#include "../../Core/AllPhysicInclude.h"
-#include "../../DotNetCommon/AllDNCTInclude.h"
 #include "../kiss_fft130/kiss_fft.h"
 //#include "../../kiss_fft.h/kiss_fft.h"
 
 #include "AllPhaseName.h"
 
+#ifdef WIN32
+#include "../../DotNetCommon/AllDNCTInclude.h"
 using namespace DNCT;
+#endif
 
 #define	PARSE_TEST_SOUND

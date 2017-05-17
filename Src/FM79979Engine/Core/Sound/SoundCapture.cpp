@@ -84,7 +84,7 @@ namespace	FATMING_CORE
 
 		for( int i=0;i<l_iNumCount;++i )
 		{
-			(*l_CallbackObjectVector)[i]->CaptureSoundEndCallBack();
+			(*l_CallbackObjectVector)[i]->PreCaptureSoundEndCallBack();
 		}
 		l_pSoundCapture->SetStop(false);
 	}
@@ -98,6 +98,13 @@ namespace	FATMING_CORE
 	{
 		m_pSoundCapture = e_pSoundCapture;
 		CaptureSoundStartCallBack();
+		m_bStartCallBackCalled = true;
+	}
+
+	void	cSounRecordCallBackObject::PreCaptureSoundEndCallBack()
+	{
+		CaptureSoundEndCallBack();
+		m_bEndCallBackCalled = true;
 	}
 
 	cSoundCapture*g_pSoundCapture = nullptr;
@@ -214,10 +221,33 @@ namespace	FATMING_CORE
 	{
 		this->m_iFileSize += e_iFileSize;
 	}
+
 	bool	cSoundCapture::AddSoundRecord(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
 	{
 		cSounRecordToFileCallBackObject*l_pSounRecordToFileCallBackObject = new cSounRecordToFileCallBackObject(e_strFileName,e_eCaptureSoundFileFormat);
 		return this->AddObject(l_pSounRecordToFileCallBackObject);
+	}
+
+	std::vector<std::string>	cSoundCapture::GetAvalibeRecordDevice()
+	{
+		std::vector<std::string> l_Result;
+		// Get list of available Capture Devices
+		const ALchar *pDeviceList = alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
+		if (pDeviceList)
+		{
+			while (*pDeviceList)
+			{
+				std::string l_strDeviceName = pDeviceList;
+				l_Result.push_back(l_strDeviceName);
+				pDeviceList += strlen(pDeviceList) + 1;
+			}
+		}
+
+		// Get the name of the 'default' capture device
+		//const char*l_strDefualtDevice = alcGetString(NULL, ALC_CAPTURE_DEFAULT_DEVICE_SPECIFIER);
+		//std::string l_strDefualt = l_strDefualtDevice;
+		//l_Result.push_back(l_strDefualt);
+		return l_Result;
 	}
 
 	cSounRecordToFileCallBackObject::cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)

@@ -67,11 +67,17 @@ class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange,public cS
 	void							CollectToneDataByTimeRange();
 	//
 	virtual	bool					MyParse(TiXmlElement*e_pRoot);
+	//
+	eMoveDirection					m_eMoveDirection;
+	void							RenderHorizontal();
+	void							RenderVertical();
 public:
-	cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange);
+	cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection = eMD_RIGHT_TO_LEFT);
 	virtual ~cTimeLineRangeChart();
 	//
 	virtual void	Init();
 	virtual void	Update(float e_fElpaseTime);
 	virtual void	Render();
+	virtual void	DebugRender();
+	bool			Compare(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 };
