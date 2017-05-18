@@ -66,6 +66,8 @@ public:
 
 	void				Init();
 	void				Update(float e_fCurrentTime);
+
+	bool				IsMatched(){return m_bMatched;}
 	//if finish return true
 	bool				Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float				GetCompareTime(){return m_fCompareTime;}

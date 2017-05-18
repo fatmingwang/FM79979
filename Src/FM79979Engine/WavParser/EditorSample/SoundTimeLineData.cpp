@@ -16,7 +16,7 @@ Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,800);
 
 bool	cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
 //int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE/2;
-int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE;
+int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE*2;
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData)
 {
@@ -48,7 +48,8 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 #ifdef PARSE_TEST_SOUND
 	if( !m_bAlreadyPlayTestFlag )
 	{
-		if(this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfTolerateTime)
+		//if(this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfTolerateTime)
+		if(IsStillInCompareTime(e_fCurrentTime))
 		{
 			m_bAlreadyPlayTestFlag = true;
 			cGameApp::SoundPlay(this->GetName(),true);
@@ -77,7 +78,7 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetAmplitude((int)l_pInnerData->fFrequency);
 		for(int l_iAmplitude :l_iAmplitudeVector)
 		{
-			if(cSoundCompareParameter::m_siAmplitudeOffset <= abs(l_iAmplitude-l_pInnerData->iAmplitude))
+			if(cSoundCompareParameter::m_siAmplitudeOffset >= abs(l_iAmplitude-l_pInnerData->iAmplitude))
 			{//matched
 				++l_iAllMatched;
 				break;
@@ -88,14 +89,16 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 			}
 		}
 	}
-
-	if( l_iAllMatched == l_pDataVector->size() )
+	//because some frequency just not we want but I have no idea how to filter this so...
+	const float l_iLazyDivide = 1.1f;
+	if( l_iAllMatched >= l_pDataVector->size()/l_iLazyDivide )
 	{
 		m_fResultScore = (float)m_iCurrentMatchedIndex/l_pDataVector->size();
 		++m_iCurrentMatchedIndex;
 	}
 	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
 	{
+		m_bMatched = true;
 		//all matched
 		return true;
 	}

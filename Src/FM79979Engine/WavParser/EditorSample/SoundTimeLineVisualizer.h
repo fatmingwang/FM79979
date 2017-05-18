@@ -2,6 +2,8 @@
 
 #include "SoundTimeLineData.h"
 
+
+
 class cChartBasicInfo
 {
 protected:
@@ -51,7 +53,7 @@ public:
 	//
 	void	JumpTo(float e_fTime);
 	//
-	bool	IsEnd();
+	//bool	IsEnd();
 	//
 	Vector2	GetCurrentTimeViewRange();
 };

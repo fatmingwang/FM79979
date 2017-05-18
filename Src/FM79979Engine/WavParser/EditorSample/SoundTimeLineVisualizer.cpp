@@ -75,12 +75,12 @@ void	cTimeLineRange::JumpTo(float e_fTime)
 	SetCurrentTimeViewRange(m_fBeforeCurrentTimeViewRange,m_fAfterCurrentTimeViewRange);
 }
 //
-bool	cTimeLineRange::IsEnd()
-{
-	if( m_fCurrentTime >= this->m_fEndTime )
-		return true;
-	return false;
-}
+//bool	cTimeLineRange::IsEnd()
+//{
+//	if( m_fCurrentTime >= this->m_fEndTime )
+//		return true;
+//	return false;
+//}
 //
 Vector2	cTimeLineRange::GetCurrentTimeViewRange()
 {
@@ -118,6 +118,21 @@ void	cTimeLineRangeChart::Init()
 bool	cTimeLineRangeChart::MyParse(TiXmlElement*e_pRoot)
 {
 	this->Destroy();
+	const wchar_t*l_strChartResolution = e_pRoot->Attribute(L"ChartResolution");
+	const wchar_t*l_strChartShowPos = e_pRoot->Attribute(L"ChartShowPos");
+	const wchar_t*l_strMoveDirection = e_pRoot->Attribute(L"MoveDirection");
+	if( l_strChartResolution )
+	{
+		m_vResolution = cSoundCompareParameter::m_vTimelineResolution = GetVector2(l_strChartResolution);		
+	}
+	if( l_strChartShowPos )
+	{
+		m_vShowPos = cSoundCompareParameter::m_vTimelineShowPos = GetVector2(l_strChartShowPos);
+	}
+	if( l_strMoveDirection )
+	{
+		m_eMoveDirection = StringToMoveDirection(l_strMoveDirection);
+	}
 	if(cSoundTimeLineDataCollection::MyParse(e_pRoot))
 	{
 		this->SetEndTime(this->GetLastObjectCompareEndTime());
@@ -202,7 +217,7 @@ void	cTimeLineRangeChart::RenderHorizontal()
 	l_fShowCurrentTimePosX = l_fShowCurrentTimePosX/l_fTotalTime*this->m_vResolution.x+this->m_vShowPos.x;
 	const float l_fCurrentLineWidth = 5.f;
 	const int l_iNameYOffset = 10;
-	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX,m_vShowPos.y),l_fCurrentLineWidth,this->m_vResolution.y,Vector4::One);
+	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX,m_vShowPos.y),1,this->m_vResolution.y,Vector4::Red);
 
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
@@ -252,9 +267,10 @@ void	cTimeLineRangeChart::RenderVertical()
 	}
 	l_fShowCurrentTimePosY = l_fShowCurrentTimePosY/l_fTotalTime*this->m_vResolution.y+this->m_vShowPos.y;								
 									
-	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,(float)l_fCurrentLineHeight,Vector4::One);
+	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,(float)1,Vector4::Red);
 
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
+	cGameApp::m_spGlyphFontRender->SetScale(2.f);
 	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
 	for(int i=m_iLastToneDataObjectIndex;i<l_iCount;++i)
 	//for(int i=0;i<this->m_iLastToneDataObjectIndex;this->m_iCountInCompareTime)
@@ -274,14 +290,17 @@ void	cTimeLineRangeChart::RenderVertical()
 		auto l_pToneData = l_pData->GetToneData();
 		l_vShowPos.x += l_pToneData->GetWorldPosition().x;
 		l_vShowPos.y += l_pToneData->GetWorldPosition().y;
-
-		GLRender::RenderRectangle(l_vShowPos,l_fCurrentLineHeight,(float)l_fCurrentLineHeight,Vector4::Green);
+		if(l_pData->IsMatched())
+			GLRender::RenderRectangle(l_vShowPos,l_fCurrentLineHeight,(float)l_fCurrentLineHeight,Vector4::Red);
+		else
+			GLRender::RenderRectangle(l_vShowPos,l_fCurrentLineHeight,(float)l_fCurrentLineHeight,Vector4::Green);
 		l_vShowPos.x -= l_iNameYOffset;
 		std::wstring l_strDebugInfo = l_pData->GetName();
 		l_strDebugInfo += L",";
 		l_strDebugInfo += ValueToStringW((int)l_pData->GetCompareTime());
 		cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
 	}
+	cGameApp::m_spGlyphFontRender->SetScale(1.f);
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 	std::wstring l_strCurrentTime = ValueToStringW(this->m_fCurrentTime);
 	Vector2 l_vFontPos = this->m_vShowPos;

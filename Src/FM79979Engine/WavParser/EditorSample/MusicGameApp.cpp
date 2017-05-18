@@ -38,7 +38,7 @@ void	cMusicGameApp::Init()
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//
-	m_pPhaseManager = new cPhaseManager();
+	//m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )
 	{
 		cPerformMusicPhase*l_pPerformMusicPhase = new cPerformMusicPhase();
@@ -94,5 +94,33 @@ void	cMusicGameApp::MouseUp(int e_iPosX,int e_iPosY)
 	if( m_pPhaseManager )
 	{
 		m_pPhaseManager->MouseUp(e_iPosX,e_iPosY);
+	}
+}
+
+
+void	cMusicGameApp::KeyPress(char e_char)
+{
+	cGameApp::KeyPress(e_char);
+	if( m_pPhaseManager )
+	{
+		m_pPhaseManager->KeyPress(e_char);
+	}
+}
+
+void	cMusicGameApp::KeyDown(char e_char)
+{
+	cGameApp::KeyDown(e_char);
+	if( m_pPhaseManager )
+	{
+		m_pPhaseManager->KeyDown(e_char);
+	}
+}
+
+void	cMusicGameApp::KeyUp(char e_char)
+{
+	cGameApp::KeyUp(e_char);
+	if( m_pPhaseManager )
+	{
+		m_pPhaseManager->KeyUp(e_char);
 	}
 }

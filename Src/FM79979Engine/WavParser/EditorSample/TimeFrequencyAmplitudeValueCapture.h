@@ -75,6 +75,9 @@ public:
 	float	m_fMinKeepTime;
 	//
 	int		m_iMinAmplitude;
+	//to strip some frequency is not need
+	int		m_iMinAllowFrequency;
+	int		m_iMaxAllowFrequency;
 	//
 public:
 	cTimeFrequencyAmplitudeValueCapture();

@@ -52,6 +52,8 @@ TiXmlElement*sFrequenceAndAmplitudeAndTime::ToElement()
 
 cTimeFrequencyAmplitudeValueCapture::cTimeFrequencyAmplitudeValueCapture()
 {
+	m_iMinAllowFrequency = 0;
+	m_iMaxAllowFrequency = 44100;
 	m_pKissFFTConvert = nullptr;
 	m_piSoundDataForParse = nullptr;
 	//
@@ -269,8 +271,19 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 			l_pRootTiXmlElement->LinkEndChild(l_pConditionTiXmlElement);
 			for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
 			{
-				TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
-				l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+				if(l_FrequenceAndAmplitudeAndTime.fKeepTime > 0.f &&
+					l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
+					l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
+				{
+					TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
+					l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+				}
+				//else
+				//{
+				//	std::wstring l_strDebugInfo = L"current amplitude is ";
+				//	l_strDebugInfo += ValueToStringW(l_FrequenceAndAmplitudeAndTime.iAmplitude);
+				//	cGameApp::OutputDebugInfoString(l_strDebugInfo);
+				//}
 			}
 			l_ISAXCallback.SetDoc(l_pTiXmlDocument);
 			l_ISAXCallback.Export(e_strOutputFileName,false);

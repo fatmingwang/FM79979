@@ -84,6 +84,9 @@
     <ClCompile Include="SoundTestButtons.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="StoreNoisePhase.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="SoundTestButtons.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreNoisePhase.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

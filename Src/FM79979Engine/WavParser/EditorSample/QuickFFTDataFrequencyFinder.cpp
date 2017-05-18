@@ -27,9 +27,24 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetAmplitude(int e_iFrequency)
 		int l_iAmplitudeLeft = this->m_piFFTData[l_iStep-1];
 		int l_iAmplitudeCenter = this->m_piFFTData[l_iStep];
 		int l_iAmplitudeRight = this->m_piFFTData[l_iStep+1];
-		l_Result.push_back(l_iAmplitudeLeft);
-		l_Result.push_back(l_iAmplitudeCenter);
-		l_Result.push_back(l_iAmplitudeRight);
+		if( 1 )
+		{
+			l_Result.push_back(l_iAmplitudeLeft);
+			l_Result.push_back(l_iAmplitudeCenter);
+			l_Result.push_back(l_iAmplitudeRight);
+		}
+		else
+		{
+			int l_iAmplidute[3] = {l_iAmplitudeLeft,l_iAmplitudeCenter,l_iAmplitudeRight};
+			int l_iFinalResult = 0;
+			for( int i=0;i<3;++i)
+			{
+				l_iFinalResult += l_iAmplidute[i];
+				//l_iAmplidute[i]-(m_fFrequencyGap*l_iStep)
+			}
+			l_iFinalResult /= 3;
+			l_Result.push_back(l_iFinalResult);
+		}
 	}
 	return l_Result;
 }

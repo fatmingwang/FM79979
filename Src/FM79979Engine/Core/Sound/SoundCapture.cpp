@@ -149,7 +149,7 @@ namespace	FATMING_CORE
 		}
 		g_pSoundCapture = this;
 		m_iSampleRate = frequency;
-		m_pDevice = alcCaptureOpenDevice(NULL, frequency, format, buffersize);
+		m_pDevice = alcCaptureOpenDevice(NULL, frequency, format, buffersize*2);
 		if (alGetError() != AL_NO_ERROR)
 		{
 			if( m_pDevice )
@@ -214,6 +214,7 @@ namespace	FATMING_CORE
 		{
 		
 		}
+		this->m_bStop = false;
 	}
 
 

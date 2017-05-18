@@ -508,6 +508,11 @@ namespace FATMING_CORE
 		return l_strResult;
 	}
 
+	eMoveDirection	StringToMoveDirection(const wchar_t*e_str)
+	{
+		return StringToMoveDirection(UT::WcharToChar(e_str).c_str());
+	}
+
 	eMoveDirection	StringToMoveDirection(const char*e_str)
 	{
 		if( !strcmp("DownToUp",e_str))

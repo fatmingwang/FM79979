@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 //#include "WavWaves.h"
 #include "KissFFTConvert.h"
 #include "KissFFTStreaming.h"
@@ -78,8 +78,7 @@ namespace EditorSample
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
 			m_pTargetControl->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
-			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);
-
+			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);			
 
 			std::vector<std::string>l_strDeviceList = cSoundCapture::GetAvalibeRecordDevice();
 			for(auto l_strDeviceName :l_strDeviceList)
@@ -190,6 +189,15 @@ namespace EditorSample
 	private: System::Windows::Forms::NumericUpDown^  CompareAndCaptureToFileFilterStrangth_numericUpDown;
 	private: System::Windows::Forms::Label^  CompareAndCaptureToFileFilterRange_label;
 	private: System::Windows::Forms::NumericUpDown^  CompareAndCaptureToFileFilterRange_numericUpDown;
+private: System::Windows::Forms::Label^  CompareAndCaptureToFileMaxAllowFrequency_label;
+private: System::Windows::Forms::NumericUpDown^  CompareAndCaptureToFileMaxAllowFrequency_numericUpDown;
+
+
+private: System::Windows::Forms::Label^  CompareAndCaptureToFileMinAllowFrequency_label;
+private: System::Windows::Forms::NumericUpDown^  CompareAndCaptureToFileMinAllowFrequency_numericUpDown;
+private: System::Windows::Forms::Label^  label1;
+
+
 
 
 
@@ -216,6 +224,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
+			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->WavFileName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->OPENGL_panel = (gcnew System::Windows::Forms::Panel());
@@ -253,6 +262,10 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FilterRange_label = (gcnew System::Windows::Forms::Label());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->CompareAndCaptureToFileMaxAllowFrequency_label = (gcnew System::Windows::Forms::Label());
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->CompareAndCaptureToFileMinAllowFrequency_label = (gcnew System::Windows::Forms::Label());
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->CompareAndCaptureToFileFilterStrangth_label = (gcnew System::Windows::Forms::Label());
 			this->CompareAndCaptureToFileFilterStrangth_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->CompareAndCaptureToFileMinAmplitude_label = (gcnew System::Windows::Forms::Label());
@@ -276,6 +289,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_label = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->BeginInit();
@@ -290,6 +304,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileFilterStrangth_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileFilterRange_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAmplitude_numericUpDown))->BeginInit();
@@ -314,7 +330,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(220, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"Sound\\1.ogg";
+			this->WavFileName_textBox->Text = L"MusicGame/Piano/A3.wav";
 			// 
 			// OPENGL_panel
 			// 
@@ -678,6 +694,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// splitContainer1.Panel2
 			// 
+			this->splitContainer1->Panel2->Controls->Add(this->label1);
 			this->splitContainer1->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundCapture_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->FFT_groupBox);
@@ -688,6 +705,10 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileMaxAllowFrequency_label);
+			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown);
+			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileMinAllowFrequency_label);
+			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown);
 			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileFilterStrangth_label);
 			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileFilterStrangth_numericUpDown);
 			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileMinAmplitude_label);
@@ -705,10 +726,54 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->groupBox1->Controls->Add(this->CaptureToFile_button);
 			this->groupBox1->Location = System::Drawing::Point(846, 21);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(210, 249);
+			this->groupBox1->Size = System::Drawing::Size(210, 312);
 			this->groupBox1->TabIndex = 37;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"CompareAndCaptureToFile";
+			// 
+			// CompareAndCaptureToFileMaxAllowFrequency_label
+			// 
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->AutoSize = true;
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->Location = System::Drawing::Point(2, 245);
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->Name = L"CompareAndCaptureToFileMaxAllowFrequency_label";
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->Size = System::Drawing::Size(102, 13);
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->TabIndex = 51;
+			this->CompareAndCaptureToFileMaxAllowFrequency_label->Text = L"MaxAllowFrequency";
+			// 
+			// CompareAndCaptureToFileMaxAllowFrequency_numericUpDown
+			// 
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Location = System::Drawing::Point(103, 244);
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {44100, 
+				0, 0, 0});
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 
+				0, 0, 0});
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Name = L"CompareAndCaptureToFileMaxAllowFrequency_numericUpDown";
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->TabIndex = 50;
+			this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000, 
+				0, 0, 0});
+			// 
+			// CompareAndCaptureToFileMinAllowFrequency_label
+			// 
+			this->CompareAndCaptureToFileMinAllowFrequency_label->AutoSize = true;
+			this->CompareAndCaptureToFileMinAllowFrequency_label->Location = System::Drawing::Point(2, 219);
+			this->CompareAndCaptureToFileMinAllowFrequency_label->Name = L"CompareAndCaptureToFileMinAllowFrequency_label";
+			this->CompareAndCaptureToFileMinAllowFrequency_label->Size = System::Drawing::Size(99, 13);
+			this->CompareAndCaptureToFileMinAllowFrequency_label->TabIndex = 49;
+			this->CompareAndCaptureToFileMinAllowFrequency_label->Text = L"MinAllowFrequency";
+			// 
+			// CompareAndCaptureToFileMinAllowFrequency_numericUpDown
+			// 
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 
+				0, 0, 65536});
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Location = System::Drawing::Point(103, 217);
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {44100, 
+				0, 0, 0});
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Name = L"CompareAndCaptureToFileMinAllowFrequency_numericUpDown";
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->TabIndex = 48;
+			this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 
+				0, 0, 0});
 			// 
 			// CompareAndCaptureToFileFilterStrangth_label
 			// 
@@ -825,7 +890,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->CompareAndCaptureToFileParseFPS_numericUpDown->Name = L"CompareAndCaptureToFileParseFPS_numericUpDown";
 			this->CompareAndCaptureToFileParseFPS_numericUpDown->Size = System::Drawing::Size(94, 20);
 			this->CompareAndCaptureToFileParseFPS_numericUpDown->TabIndex = 41;
-			this->CompareAndCaptureToFileParseFPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {25, 0, 
+			this->CompareAndCaptureToFileParseFPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 
 				0, 0});
 			this->CompareAndCaptureToFileParseFPS_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::CompareAndCaptureToFileParseFPS_numericUpDown_ValueChanged);
 			// 
@@ -879,7 +944,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// CaptureToFile_button
 			// 
-			this->CaptureToFile_button->Location = System::Drawing::Point(8, 218);
+			this->CaptureToFile_button->Location = System::Drawing::Point(6, 273);
 			this->CaptureToFile_button->Name = L"CaptureToFile_button";
 			this->CaptureToFile_button->Size = System::Drawing::Size(100, 23);
 			this->CaptureToFile_button->TabIndex = 0;
@@ -985,6 +1050,15 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTFilterRange_label->TabIndex = 38;
 			this->SoundCaptureDoFFTFilterRange_label->Text = L"FilterRange(0.1-1)";
 			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(1077, 21);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(464, 390);
+			this->label1->TabIndex = 38;
+			this->label1->Text = resources->GetString(L"label1.Text");
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1013,10 +1087,13 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->EndInit();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
+			this->splitContainer1->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileFilterStrangth_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileFilterRange_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAmplitude_numericUpDown))->EndInit();
@@ -1078,7 +1155,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 				m_pSoundFFTCapture->Update(l_fElpaseTime);
 				m_pSoundFFTCapture->Render();
 			}
-			this->m_pGameApp->Run();
+			//this->m_pGameApp->Run();
 			cGameApp::ShowInfo();
 			SwapBuffers(m_HdcMV);
 		}
@@ -1337,6 +1414,8 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 				float	l_fKeepTime = (float)CompareAndCaptureToFileKeepTime_numericUpDown->Value;
 				float	l_fFilterRange = (float)CompareAndCaptureToFileFilterRange_numericUpDown->Value;
 				int		l_iFilterStrangth = (int)CompareAndCaptureToFileFilterStrangth_numericUpDown->Value;
+				int		l_iMinAllowFrequency = (int)CompareAndCaptureToFileMinAllowFrequency_numericUpDown->Value;
+				int		l_iMaxAllowFrequency = (int)CompareAndCaptureToFileMaxAllowFrequency_numericUpDown->Value;
 				String^l_strGCOutputFileName = System::IO::Path::GetFileName(System::IO::Path::GetDirectoryName(l_strFileNames[0]));
 				String^l_strDirectory = System::IO::Path::GetDirectoryName(l_strFileNames[0]);
 				l_strDirectory += "/"+l_strGCOutputFileName;
@@ -1363,6 +1442,8 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 						l_TimeFrequencyAmplitudeValueCapture.m_fTolerateTime = l_fTolerateTime;
 						l_TimeFrequencyAmplitudeValueCapture.m_fMinKeepTime = l_fKeepTime;
 						l_TimeFrequencyAmplitudeValueCapture.m_iMinAmplitude = l_iAmplitude;
+						l_TimeFrequencyAmplitudeValueCapture.m_iMinAllowFrequency = l_iMinAllowFrequency;
+						l_TimeFrequencyAmplitudeValueCapture.m_iMaxAllowFrequency = l_iMaxAllowFrequency;
 						std::string	l_strFileName2 = DNCT::GcStringToChar(l_strFileName);
 						std::string	l_strOutputFileName = DNCT::GcStringToChar(System::IO::Path::ChangeExtension(l_strFileName,".soundFFT"));
 						l_TimeFrequencyAmplitudeValueCapture.ParseAndSaveFileName(l_strFileName2.c_str(),l_iFilterStrangth,l_fFilterRange,l_strOutputFileName.c_str());
@@ -1374,6 +1455,7 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 						l_strSoundFileName += l_wstrFileName;
 						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_SOUND_SOURCE_FILE_NAME).c_str(),l_strSoundFileName.c_str());
 						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_ID).c_str(),UT::GetFileNameWithoutFullPath(l_wstrFileName.c_str()));
+						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_PICTURE_OFFSET_POS).c_str(),L"30,0");
 						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
 					}
 				}

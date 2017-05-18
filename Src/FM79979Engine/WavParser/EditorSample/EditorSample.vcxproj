@@ -117,6 +117,7 @@
     <ClCompile Include="SoundTestButtons.cpp" />
     <ClCompile Include="SoundTimeLineData.cpp" />
     <ClCompile Include="SoundTimeLineVisualizer.cpp" />
+    <ClCompile Include="StoreNoisePhase.cpp" />
     <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EditorSample.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="SoundTestButtons.h" />
     <ClInclude Include="SoundTimeLineData.h" />
     <ClInclude Include="SoundTimeLineVisualizer.h" />
+    <ClInclude Include="StoreNoisePhase.h" />
     <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>

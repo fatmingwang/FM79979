@@ -120,4 +120,36 @@
   <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="label1.Text" xml:space="preserve">
+    <value>贝司：低音吉它：频响在700～1KHz之间，提高拨弦音为60～80Hz
+电贝司：低音在80～250Hz，拨弦力度在700～1KHz
+吉它：电吉它：65～1.7KHz，响度在2.5KHz，饱满度在240Hz
+木吉它：低音弦：80～120Hz，琴箱声：250Hz，清晰度：2.5KHz、3.75KHz、5KHz
+鼓：低音鼓：27～146Hz，低音：60～80Hz，敲击声：2.5KHz
+小鼓：饱满度：240Hz，响度：2KHz
+通通鼓：丰满度：240Hz，硬度：8KHz
+地筒鼓：丰满度：80～120Hz
+吊钗：130～2.6KHz，金属声：200Hz，尖锐声：7.5～10KHz，镲边声：12KHz
+手风琴：饱满度：240Hz
+钢琴：低音在80～120Hz，临场感2.5～8KHz，声音随频率的升高而变单薄
+Trumpet（小号）： 146～2.6KHz，丰满度：120～240Hz，临场感：5～7.5KHz
+小提琴：174～3.1KHz，丰满度：240～400Hz，拨弦声：1～2KHz，明亮度：7.5～10KHz
+大提琴：61～2.6KHz，丰满度：300～500Hz
+中提琴：123～2.6KHz
+琵琶：110～1.2KHz，丰满度：600～800Hz
+二胡：293～1318Hz
+Flute（笛子）：220～2.3K
+Piccolo（短笛）：494～4.1KHz
+Oboe（双簧管）：220～2.6KHz
+Clarinet（单簧管）：146～2.6KHz
+Bassoon（巴松管、低音管）：55～2.6KHz
+French Horn（法国号）：73～2.8KHz
+Trombone（长号）：65～2.6KHz
+Tuba（低音号）：43～2.6KHz
+一般人声音的频率范围
+人声：男：低音82～392Hz，基准音区64～523Hz
+男中音123～493Hz，男高音164～698Hz
+女：低音82～392Hz，基准音区160～1200Hz
+女中音123～493Hz，女高音220～1.1KHz</value>
+  </data>
 </root>

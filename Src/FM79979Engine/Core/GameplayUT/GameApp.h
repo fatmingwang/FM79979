@@ -307,3 +307,29 @@ void PrintMemoryInfo( wchar_t*e_strName = L"Memory" );
 //		m_pPhaseManager->MouseUp(e_iPosX,e_iPosY);
 //	}
 //}
+//void	cMusicGameApp::KeyPress(char e_char)
+//{
+//	cGameApp::KeyPress(e_char);
+//	if( m_pPhaseManager )
+//	{
+//		m_pPhaseManager->KeyPress(e_char);
+//	}
+//}
+//
+//void	cMusicGameApp::KeyDown(char e_char)
+//{
+//	cGameApp::KeyDown(e_char);
+//	if( m_pPhaseManager )
+//	{
+//		m_pPhaseManager->KeyDown(e_char);
+//	}
+//}
+//
+//void	cMusicGameApp::KeyUp(char e_char)
+//{
+//	cGameApp::KeyUp(e_char);
+//	if( m_pPhaseManager )
+//	{
+//		m_pPhaseManager->KeyUp(e_char);
+//	}
+//}

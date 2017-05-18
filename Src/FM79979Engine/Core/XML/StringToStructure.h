@@ -151,6 +151,7 @@ namespace FATMING_CORE
 	eDataType		StringToDataType(const char*e_str);
 	std::wstring	ValueToStringW(eMoveDirection e_eMoveDirection);
 	eMoveDirection	StringToMoveDirection(const char*e_str);
+	eMoveDirection	StringToMoveDirection(const wchar_t*e_str);
 
 	std::wstring	ValueToStringW(std::wstring	e_strValue);
 	std::wstring	ValueToStringW(std::string	e_strValue);

@@ -7,6 +7,7 @@ class cPerformMusicPhase:public cSimplePhase
 	cTimeLineRangeChart*			m_pTimeLineRangeChart;
 	void							FetchData(const wchar_t*e_strPhaseName,void*e_pData);
 	std::string						m_strMusicFileName;
+	cBaseImage*						m_pBG;
 public:
 	cPerformMusicPhase();
 	virtual ~cPerformMusicPhase();
@@ -16,4 +17,5 @@ public:
 	virtual	void	Destroy();
 	virtual	void	DebugRender();
 	virtual	void*	GetData();
+	virtual	void	KeyUp(char e_cKey);
 };

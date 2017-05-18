@@ -467,15 +467,15 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 	}
 #ifdef DEBUG
 	{
-		l_Timer.Update();
-		double secs = l_Timer.fElpaseTime;
-		static int l_iTest = 0;
-		++l_iTest;
-		std::wstring l_strDebugInfo = L"do fft spent  ";
-		l_strDebugInfo += ValueToStringW(secs);
-		l_strDebugInfo += L":";
-		l_strDebugInfo += ValueToStringW(l_iTest);
-		cGameApp::OutputDebugInfoString(l_strDebugInfo);
+		//l_Timer.Update();
+		//double secs = l_Timer.fElpaseTime;
+		//static int l_iTest = 0;
+		//++l_iTest;
+		//std::wstring l_strDebugInfo = L"do fft spent  ";
+		//l_strDebugInfo += ValueToStringW(secs);
+		//l_strDebugInfo += L":";
+		//l_strDebugInfo += ValueToStringW(l_iTest);
+		//cGameApp::OutputDebugInfoString(l_strDebugInfo);
 	}
 #endif
 	//
