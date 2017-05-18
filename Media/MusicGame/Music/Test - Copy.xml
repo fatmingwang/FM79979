@@ -1,0 +1,34 @@
+<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml">
+	<cSoundTimeLineData ID="A3" Time="0.5" />
+	<cSoundTimeLineData ID="A3" Time="1" />
+	<cSoundTimeLineData ID="A3" Time="1.5" />
+	<cSoundTimeLineData ID="A3" Time="2" />
+	<cSoundTimeLineData ID="A3" Time="2.5" />
+	<cSoundTimeLineData ID="A5" Time="3" />
+	<cSoundTimeLineData ID="A5" Time="4" />
+	<cSoundTimeLineData ID="A#3" Time="4.5" />
+	<cSoundTimeLineData ID="A5" Time="5" />
+	<cSoundTimeLineData ID="A#3" Time="5.5" />
+	<cSoundTimeLineData ID="A5" Time="6" />
+	<cSoundTimeLineData ID="A#3" Time="6.5" />
+	<cSoundTimeLineData ID="A5" Time="7" />
+	<cSoundTimeLineData ID="A#3" Time="7.5" />
+	<cSoundTimeLineData ID="A5" Time="8" />
+	<cSoundTimeLineData ID="A#3" Time="8.5" />
+	<cSoundTimeLineData ID="B3" Time="9" />
+	<cSoundTimeLineData ID="B4" Time="11" />
+	<cSoundTimeLineData ID="B5" Time="12" />
+	<cSoundTimeLineData ID="C#3" Time="13" />
+	<cSoundTimeLineData ID="C4-middleC" Time="14" />
+	<cSoundTimeLineData ID="C5" Time="15" />
+	<cSoundTimeLineData ID="C6" Time="16" />
+	<cSoundTimeLineData ID="D#3" Time="17" />
+	<cSoundTimeLineData ID="D#4" Time="18" />
+	<cSoundTimeLineData ID="D#5" Time="19" />
+	<cSoundTimeLineData ID="D3" Time="20" />
+	<cSoundTimeLineData ID="D4" Time="21" />
+	<cSoundTimeLineData ID="A#4" Time="22" />
+	<cSoundTimeLineData ID="A#4" Time="23" />
+	<cSoundTimeLineData ID="A#4" Time="24" />
+
+</cSoundTimeLineDataCollection>

@@ -1,0 +1,8 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\D5.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" FrequencyOffsetRange="30.00000" TolerateTime="0.03200" MinKeepTime="0.70000" MinAmplitude="30" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.03333" LastMatchTime="0.03333" Frequency="515.62500" Amplitude="121" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="515.62500" Amplitude="121" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="562.50000" Amplitude="127" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="609.37500" Amplitude="125" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="656.25000" Amplitude="108" />
+</Root>

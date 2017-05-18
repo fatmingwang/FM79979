@@ -1,0 +1,16 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\G3.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" FrequencyOffsetRange="30.00000" TolerateTime="0.03200" MinKeepTime="0.70000" MinAmplitude="30" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.03333" LastMatchTime="0.03333" Frequency="562.50000" Amplitude="111" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.08333" LastMatchTime="0.08333" Frequency="609.37500" Amplitude="108" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="375.00000" Amplitude="114" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.01667" LastMatchTime="0.03333" Frequency="140.62500" Amplitude="122" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.08333" LastMatchTime="0.10000" Frequency="140.62500" Amplitude="122" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.03333" LastMatchTime="0.03333" Frequency="328.12500" Amplitude="113" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.16667" LastMatchTime="0.16667" Frequency="234.37500" Amplitude="103" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.16667" LastMatchTime="0.16667" Frequency="375.00000" Amplitude="114" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.16667" LastMatchTime="0.16667" Frequency="421.87500" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.15000" LastMatchTime="0.16667" Frequency="140.62500" Amplitude="122" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.15000" LastMatchTime="0.16667" Frequency="187.50000" Amplitude="137" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.13333" KeepTime="0.03333" LastMatchTime="0.16667" Frequency="562.50000" Amplitude="102" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.13333" KeepTime="0.03333" LastMatchTime="0.16667" Frequency="609.37500" Amplitude="105" />
+</Root>

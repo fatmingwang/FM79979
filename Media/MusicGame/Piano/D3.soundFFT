@@ -1,0 +1,11 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\D3.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" FrequencyOffsetRange="30.00000" TolerateTime="0.03200" MinKeepTime="0.70000" MinAmplitude="30" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.03333" LastMatchTime="0.03333" Frequency="281.25000" Amplitude="133" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="140.62500" Amplitude="127" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="187.50000" Amplitude="135" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="281.25000" Amplitude="133" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="328.12500" Amplitude="129" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="375.00000" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="421.87500" Amplitude="135" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.13333" LastMatchTime="0.13333" Frequency="468.75000" Amplitude="133" />
+</Root>
