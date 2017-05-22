@@ -10,23 +10,6 @@
 struct sFindTimeDomainFrequenceAndAmplitude;
 class cToneData;
 class cToneDataVector;
-class cSoundCompareParameter
-{
-public:
-	//time line
-	static float	m_sfBeforeCurrentTimeViewRange;
-	static float	m_sfAfterCurrentTimeViewRange;
-	//
-	static float	m_sfTolerateTime;
-	//if the frequency amplitude close enought
-	static int		m_siAmplitudeOffset;
-
-	static Vector2	m_vTimelineShowPos;
-	static Vector2	m_vTimelineResolution;
-
-	static bool		m_sbAutoPlaySoundForDebugTest;
-	static int		m_siRecordFrequency;
-};
 
 //idea is one compare object has a reference sound data sFindTimeDomainFrequenceAndAmplitude,
 //we have current matched index,and go through all steps(m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData),

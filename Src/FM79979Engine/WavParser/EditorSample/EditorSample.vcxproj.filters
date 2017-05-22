@@ -48,9 +48,6 @@
     <ClCompile Include="MusicGameApp.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp">
-      <Filter>Sound\CaptureAndCompare</Filter>
-    </ClCompile>
     <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp">
       <Filter>Sound\CaptureAndCompare</Filter>
     </ClCompile>
@@ -87,6 +84,12 @@
     <ClCompile Include="StoreNoisePhase.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="FFTFindPeak.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="Parameters.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -97,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="MusicGameApp.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h">
-      <Filter>Sound\CaptureAndCompare</Filter>
     </ClInclude>
     <ClInclude Include="TimeFrequencyAmplitudeValueCapture.h">
       <Filter>Sound\CaptureAndCompare</Filter>
@@ -139,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="StoreNoisePhase.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="FFTFindPeak.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameters.h">
+      <Filter>Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

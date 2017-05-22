@@ -3,7 +3,7 @@
 #include "PerformMusicPhase.h"
 #include "SoundFFTCapture.h"
 #include "SoundTimeLineData.h"
-
+#include "Parameters.h"
 
 cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
 cSoundFFTCapture*	cMusicGameApp::m_pSoundFFTCapture = nullptr;
@@ -38,7 +38,7 @@ void	cMusicGameApp::Init()
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//
-	//m_pPhaseManager = new cPhaseManager();
+	m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )
 	{
 		cPerformMusicPhase*l_pPerformMusicPhase = new cPerformMusicPhase();

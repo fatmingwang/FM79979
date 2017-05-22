@@ -1,5 +1,6 @@
 #pragma once
 #include "KissFFTStreaming.h"
+
 class cQuickFFTDataFrequencyFinder;
 
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);

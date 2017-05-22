@@ -501,6 +501,9 @@ namespace FATMING_CORE
 			case eMD_UP_TO_DOWN:
 				l_strResult = L"UpToDown";
 			break;
+			case eMD_STAY:
+				l_strResult = L"Stay";
+			break;
 			default:
 				l_strResult = L"unknow move direction";
 			break;
@@ -523,6 +526,8 @@ namespace FATMING_CORE
 			return eMD_RIGHT_TO_LEFT;
 		if( !strcmp("UpToDown",e_str) )
 			return eMD_UP_TO_DOWN;
+		if( !strcmp("Stay",e_str) )
+			return 		eMD_STAY;
 		return eMD_MAX;
 	}
 

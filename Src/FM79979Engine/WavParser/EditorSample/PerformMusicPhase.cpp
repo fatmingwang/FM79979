@@ -49,8 +49,8 @@ void	cPerformMusicPhase::Init()
 	if(cMusicGameApp::m_pSoundFFTCapture)
 	{
 		cMusicGameApp::m_pSoundFFTCapture->SetFilter(true);
-		cMusicGameApp::m_pSoundFFTCapture->SetFilterStrengthValue(6);
-		cMusicGameApp::m_pSoundFFTCapture->SetiFrenquenceFilterEndScaleValue(0.3f);
+		cMusicGameApp::m_pSoundFFTCapture->SetFilterStrengthValue(80);
+		cMusicGameApp::m_pSoundFFTCapture->SetiFrenquenceFilterEndScaleValue(0.8f);
 	}
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StartRecord();

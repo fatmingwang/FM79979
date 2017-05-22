@@ -1,10 +1,17 @@
 #pragma once
 
+
+
 class cStoreNoisePhase:public cSimplePhase
 {
 	uint64*				m_pi64FFTDataFroNoise;
 	std::wstring		m_strMessage;
-	//UT::stim
+	struct sFFTBinData
+	{
+		int		iNumBin;
+		int64*	pi64AccumulateFFTAmplitude;
+		int		iAccmulationCount;
+	};
 public:
 	cStoreNoisePhase();
 	virtual ~cStoreNoisePhase();

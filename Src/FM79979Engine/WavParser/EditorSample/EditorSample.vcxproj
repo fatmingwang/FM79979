@@ -111,7 +111,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FFTFindPeak.cpp" />
     <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp" />
+    <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="PerformMusicPhase.cpp" />
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
     <ClCompile Include="SoundTestButtons.cpp" />
@@ -124,7 +126,6 @@
     <ClCompile Include="KissFFTConvert.cpp" />
     <ClCompile Include="KissFFTStreaming.cpp" />
     <ClCompile Include="MusicGameApp.cpp" />
-    <ClCompile Include="TimeFrequencyAmplitudeValueCampare.cpp" />
     <ClCompile Include="SoundFFTCapture.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -134,7 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllPhaseName.h" />
+    <ClInclude Include="FFTFindPeak.h" />
     <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h" />
+    <ClInclude Include="Parameters.h" />
     <ClInclude Include="PerformMusicPhase.h" />
     <ClInclude Include="QuickFFTDataFrequencyFinder.h" />
     <ClInclude Include="SoundTestButtons.h" />
@@ -148,7 +151,6 @@
     <ClInclude Include="KissFFTConvert.h" />
     <ClInclude Include="KissFFTStreaming.h" />
     <ClInclude Include="MusicGameApp.h" />
-    <ClInclude Include="TimeFrequencyAmplitudeValueCampare.h" />
     <ClInclude Include="SoundFFTCapture.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="ToneData.h" />

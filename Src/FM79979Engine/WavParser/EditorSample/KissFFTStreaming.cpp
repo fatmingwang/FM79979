@@ -18,12 +18,14 @@ int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArr
 		assert(l_iNumFFTData<=OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)&&"m_FFTData out of range");
 		++l_iNumFFTData;
 	}
-	l_dbTotalFFTValue /= (l_iEndFilterIndex/e_iFilterStrengthValue+1);
+	l_dbTotalFFTValue /= l_iEndFilterIndex;//(l_iEndFilterIndex/e_iFilterStrengthValue+1);
 	//cGameApp::OutputDebugInfoString(L"Start");
 	for(int i = 0; i < e_iTransformLength; i++ )
 	{
 		int l_iValue = e_pFFTDataSrc[l_iStartIndex];
-		l_iValue -= (int)l_dbTotalFFTValue;
+		//l_iValue -= (int)l_dbTotalFFTValue;
+		if(l_iValue < l_dbTotalFFTValue )
+			l_iValue /= e_iFilterStrengthValue;
 		if( l_iValue <= 1 )
 			l_iValue = AFTER_FILTER_MIN_VALUE;
 		else
@@ -106,6 +108,7 @@ void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri)
 
 cPCMToFFTDataConvertr::sTimeAndFFTData::sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap)
 {
+	iBiggestAmplitude = 0;
 	iCurrentTimeStampIndex = -1;
 	iCurrentFetchFFTDataTimeStampIndex = -1;
 	iBiggestFFTDataValueOfIndex = 0;
@@ -224,6 +227,7 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 			}
 		}
 	}
+	iBiggestAmplitude = l_iMax;
 	return true;
 }
 
@@ -683,7 +687,7 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 				if( l_iTest % 10 == 0 )
 				{
 					const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
-					this->m_iMaxAmplitudeFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pOpanalOgg->GetFreq(),l_iFetchDataCount);
+					this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pOpanalOgg->GetFreq(),l_iFetchDataCount,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestAmplitude);
 				}
 				break;
 			}
@@ -729,12 +733,7 @@ void	cKissFFTStreamingConvert::Render()
 			}
 			GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		}
-
-		std::wstring l_strInfo = L"Frequence:";
-		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
-		cGameApp::m_spGlyphFontRender->SetScale(2.f);
-		cGameApp::RenderFont(100,200,l_strInfo);
-		cGameApp::m_spGlyphFontRender->SetScale(1.f);
+		RenderMaxAmplitudeAndFrequencyInfo(100,200);
 		//right channel
 		if( l_pTimeAndFFTData->iNumChannel == 2 )
 		{

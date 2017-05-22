@@ -194,6 +194,13 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 		if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GetCurrentFFTData(this->m_piFFTData,m_fCurrentTime) == -1 )
 		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
+			static int l_iTest = 0;
+			++l_iTest;
+			if( l_iTest % 10 == 0 )
+			{
+				const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestAmplitude);
+			}
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
@@ -216,13 +223,6 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
 		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
-			static int l_iTest = 0;
-			++l_iTest;
-			if( l_iTest % 10 == 0 )
-			{
-				const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
-				this->m_iMaxAmplitudeFrequence = this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetSampleRate(),l_iFetchDataCount);
-			}
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
@@ -274,12 +274,7 @@ void	cSoundFFTCapture::Render()
 			}
 			GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		}
-
-		std::wstring l_strInfo = L"Frequence:";
-		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
-		cGameApp::m_spGlyphFontRender->SetScale(2.f);
-		cGameApp::RenderFont(100,200,l_strInfo);
-		cGameApp::m_spGlyphFontRender->SetScale(1.f);
+		RenderMaxAmplitudeAndFrequencyInfo(100,200);
 		//right channel
 		if( l_pTimeAndFFTData->iNumChannel == 2 )
 		{

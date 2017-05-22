@@ -1,10 +1,8 @@
 #pragma once
 
 
-#define	TOLERATE_TIME	0.016f
-#define	MIN_LEEP_TIME	0.016f
-//the filter min value is 3
-#define	MIN_AMPLITUDE	20
+//#define	TOLERATE_TIME	0.016f
+
 #define	SOUD_SOURCE_FILE_NAME "ParseFileName"
 
 
@@ -21,12 +19,13 @@ struct sFrequenceAndAmplitudeAndTime:public sFrequencyAndAmplitude
 {
 	sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement);
 	sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime);
-	sFrequenceAndAmplitudeAndTime(){}
+	sFrequenceAndAmplitudeAndTime(){bMatched=false;}
 	~sFrequenceAndAmplitudeAndTime(){}
 	float	fStartTime;
 	float	fKeepTime;
 	//the last time frequency and amplitude is matched
 	float	fLastMatchTime;
+	bool	bMatched;
 	TiXmlElement*ToElement();
 };
 
@@ -58,9 +57,9 @@ private:
 	int*										m_piSoundDataForParse;
 	//
 	bool										AnalyizeStart(const char*e_strFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue);
-	void										FrameByFrameAnaylize(float e_fFreqDistance,const int*e_pData,int e_iDataLength,float e_fElpaseTime);
+	void										FrameByFrameAnaylize(const int*e_pData,int e_iDataLength,float e_fElpaseTime);
 	void										FromCurrentWorkingToAllData();
-	std::vector<sFrequencyAndAmplitude>			GetSatisfiedFrequencyAndAmplitudeVector(float e_fFreqDistance,const int*e_pData,int e_iDataLength,int e_AmplitudeCondition);
+	std::vector<sFrequencyAndAmplitude>			GetSatisfiedFrequencyAndAmplitudeVector(const int*e_pData,int e_iDataLength,int e_AmplitudeCondition);
 	//
 	TiXmlElement*	SaveConditionToTiXmlElement();
 	//
@@ -68,11 +67,11 @@ public:
 	int		m_iParseFPS;//default is 30
 	float	m_fCurrentTime;
 	//frequencty change could have a range offset,assume default is CD quality
-	float	m_fFrequencyOffsetRange;
+	//float	m_fFrequencyOffsetRange;
 	//some times sample rate is possible not enough or missing some frequency
-	float	m_fTolerateTime;
+	//float	m_fTolerateTime;
 	//
-	float	m_fMinKeepTime;
+	float	m_fCaptureSoundRequireMinTime;
 	//
 	int		m_iMinAmplitude;
 	//to strip some frequency is not need

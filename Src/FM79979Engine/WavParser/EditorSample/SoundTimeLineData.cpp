@@ -2,21 +2,9 @@
 #include "ToneData.h"
 #include "SoundTimeLineData.h"
 #include "FindTimeDomainFrequenceAndAmplitude.h"
+#include "Parameters.h"
 
 TYPDE_DEFINE_MARCO(cSoundTimeLineData);
-
-float	cSoundCompareParameter::m_sfTolerateTime = 0.32f;
-int		cSoundCompareParameter::m_siAmplitudeOffset = 30;
-float	cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange = 3.f;
-float	cSoundCompareParameter::m_sfAfterCurrentTimeViewRange = 7.f;
-
-Vector2	cSoundCompareParameter::m_vTimelineShowPos = Vector2(50,250);
-//Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,300);
-Vector2	cSoundCompareParameter::m_vTimelineResolution = Vector2(1800,800);
-
-bool	cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
-//int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE/2;
-int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE*2;
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData)
 {
@@ -78,9 +66,16 @@ bool		cSoundTimeLineData::Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFin
 		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetAmplitude((int)l_pInnerData->fFrequency);
 		for(int l_iAmplitude :l_iAmplitudeVector)
 		{
-			if(cSoundCompareParameter::m_siAmplitudeOffset >= abs(l_iAmplitude-l_pInnerData->iAmplitude))
+			if( l_pInnerData->bMatched )
+			{
+				++l_iAllMatched;
+			}
+			else
+			if( l_iAmplitude >= 90 )
+			//if(cSoundCompareParameter::m_siAmplitudeOffset >= abs(l_iAmplitude-l_pInnerData->iAmplitude))
 			{//matched
 				++l_iAllMatched;
+				l_pInnerData->bMatched = true;
 				break;
 			}
 			else

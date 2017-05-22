@@ -202,6 +202,7 @@ enum	eMoveDirection
 	eMD_RIGHT_TO_LEFT,
 	eMD_UP_TO_DOWN,
 	eMD_DOWN_TO_UP,
+	eMD_STAY,
 	eMD_MAX,
 };
 

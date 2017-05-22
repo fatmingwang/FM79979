@@ -10,10 +10,6 @@ void	SoundUpdateThread(size_t _workParameter, size_t _pUri);
 void	SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
 
 
-#define	PCM_SWAP_BUFFER_COUNT	10
-#define	FFT_DATA_SWAP_BUFFER_COUNT	10
-//sometimes I need to test so just make this big
-#define	FFT_DATA_LINE_POINTS_COUNT	44100/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT*2//2 for lin need 2 points
 
 class cKissFFTStreamingConvert;
 struct sTimeAndPCMData
@@ -38,6 +34,7 @@ class cPCMToFFTDataConvertr
 public:
 	struct sTimeAndFFTData
 	{
+		int		iBiggestAmplitude;
 		int		iBiggestFFTDataValueOfIndex;
 		float	fStartTime;
 		float	fEndTime;

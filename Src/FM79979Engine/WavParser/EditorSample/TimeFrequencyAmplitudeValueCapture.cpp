@@ -5,6 +5,7 @@
 
 sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement)
 {
+	bMatched = false;
 	PARSE_ELEMENT_START(e_pElement)
 		COMPARE_ASSIGN_FLOAT("Frequency",fFrequency)
 		else
@@ -32,6 +33,7 @@ sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pEle
 
 sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime)
 {
+	bMatched = false;
 	fFrequency = e_pFrequenceAndAmplitudeAndTime->fFrequency;
 	fKeepTime = e_pFrequenceAndAmplitudeAndTime->fKeepTime;
 	fLastMatchTime = e_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
@@ -60,11 +62,11 @@ cTimeFrequencyAmplitudeValueCapture::cTimeFrequencyAmplitudeValueCapture()
 	m_iParseFPS = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
 	//frequencty change could have a range offset
-	m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(44100,m_iParseFPS);
+	//m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(44100,m_iParseFPS);
 	//some times sample rate is possible not enough or missing some frequency
-	m_fTolerateTime = TOLERATE_TIME;
-	m_fMinKeepTime = MIN_LEEP_TIME;
-	m_iMinAmplitude = MIN_AMPLITUDE;
+	//m_fTolerateTime = TOLERATE_TIME;
+	m_fCaptureSoundRequireMinTime = 0.1f;
+	m_iMinAmplitude = 80;
 }
 
 cTimeFrequencyAmplitudeValueCapture::~cTimeFrequencyAmplitudeValueCapture()
@@ -117,7 +119,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 		//
 		int l_iOneFrameDataCount = m_pKissFFTConvert->GetOneFrameFFTDataCount();
 		int l_iNumCount = (int)(l_uiFFTDAtaCount/l_iOneFrameDataCount);
-		m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(l_pSoundFile->m_iFreq,m_iParseFPS);
+		//m_fFrequencyOffsetRange = cKissFFTConvertBase::GetFrequencyGapByFPS(l_pSoundFile->m_iFreq,m_iParseFPS);
 		for( int i=0;i<l_iNumCount;++i )
 		{
 			this->m_fCurrentTime = l_fFrameTimeElpase*i;
@@ -128,7 +130,8 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 				continue;
 			}
 			int*l_piStartData = &m_piSoundDataForParse[i*l_iOneFrameDataCount];
-			FrameByFrameAnaylize(m_fFrequencyOffsetRange,l_piStartData,l_iOneFrameDataCount,l_fFrameTimeElpase);
+			//FrameByFrameAnaylize(m_fFrequencyOffsetRange,l_piStartData,l_iOneFrameDataCount,l_fFrameTimeElpase);
+			FrameByFrameAnaylize(l_piStartData,l_iOneFrameDataCount,l_fFrameTimeElpase);
 
 		}
 		return true;
@@ -137,7 +140,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 }
 
 
-std::vector<sFrequencyAndAmplitude>	cTimeFrequencyAmplitudeValueCapture::GetSatisfiedFrequencyAndAmplitudeVector(float e_fFreqDistance,const int*e_pData,int e_iDataLength,int e_AmplitudeCondition)
+std::vector<sFrequencyAndAmplitude>	cTimeFrequencyAmplitudeValueCapture::GetSatisfiedFrequencyAndAmplitudeVector(const int*e_pData,int e_iDataLength,int e_AmplitudeCondition)
 {
 	std::vector<sFrequencyAndAmplitude>	l_ResultVector;
 	int		l_iSourceFreq = this->m_pKissFFTConvert->GetSoundFile()->m_iFreq;
@@ -167,9 +170,9 @@ sFrequenceAndAmplitudeAndTime FrequencyAndAmplitudeToFrequenceAndAmplitudeAndTim
 	return l_sFrequenceAndAmplitudeAndTime;
 }
 
-void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDistance,const int*e_pData,int e_iDataLength,float e_fElpaseTime)
+void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(const int*e_pData,int e_iDataLength,float e_fElpaseTime)
 {
-	std::vector<sFrequencyAndAmplitude>l_CurrentFFTFrequencyAndAmplitudeVector =	GetSatisfiedFrequencyAndAmplitudeVector(e_fFreqDistance,e_pData,e_iDataLength,m_iMinAmplitude);
+	std::vector<sFrequencyAndAmplitude>l_CurrentFFTFrequencyAndAmplitudeVector =	GetSatisfiedFrequencyAndAmplitudeVector(e_pData,e_iDataLength,m_iMinAmplitude);
 	size_t l_uiSize = l_CurrentFFTFrequencyAndAmplitudeVector.size();
 	if(l_uiSize == 0 )
 		return;
@@ -196,7 +199,7 @@ void	cTimeFrequencyAmplitudeValueCapture::FrameByFrameAnaylize(float e_fFreqDist
 				sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
 				//if( l_bMatched )
 					//break;
-				if( abs(l_pFrequenceAndAmplitudeAndTime->fFrequency-l_pFrequencyAndAmplitude->fFrequency) <= this->m_fFrequencyOffsetRange)
+				if( abs(l_pFrequenceAndAmplitudeAndTime->fFrequency-l_pFrequencyAndAmplitude->fFrequency) <= 1)
 				{
 					assert(l_bMatched == false &&"m_fFrequencyOffsetRange too big? how come!");
 					l_pFrequenceAndAmplitudeAndTime->fKeepTime += e_fElpaseTime;
@@ -225,7 +228,7 @@ void	cTimeFrequencyAmplitudeValueCapture::FromCurrentWorkingToAllData()
 		sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = &m_CurrentWorkingFrequenceAndTimeVector[i];
 		assert(this->m_fCurrentTime>=l_pFrequenceAndAmplitudeAndTime->fLastMatchTime&&"what happen!?FromCurrentWorkingToAllData");
 		float l_fElpaseTime = this->m_fCurrentTime-l_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
-		if( l_fElpaseTime >= this->m_fTolerateTime )
+		if( l_fElpaseTime > 1.f/m_iParseFPS )
 		{//move to all data
 
 			m_CurrentWorkingFrequenceAndTimeVector.erase(m_CurrentWorkingFrequenceAndTimeVector.begin()+i);
@@ -271,7 +274,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 			l_pRootTiXmlElement->LinkEndChild(l_pConditionTiXmlElement);
 			for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
 			{
-				if(l_FrequenceAndAmplitudeAndTime.fKeepTime > 0.f &&
+				if(l_FrequenceAndAmplitudeAndTime.fKeepTime >= m_fCaptureSoundRequireMinTime &&
 					l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
 					l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
 				{
@@ -297,9 +300,9 @@ TiXmlElement*	cTimeFrequencyAmplitudeValueCapture::SaveConditionToTiXmlElement()
 {
 	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"TimeFrequencyAmplitudeValueCapture");
 	l_pTiXmlElement->SetAttribute(L"ParseFPS",m_iParseFPS);
-	l_pTiXmlElement->SetAttribute(L"FrequencyOffsetRange",m_fFrequencyOffsetRange);
-	l_pTiXmlElement->SetAttribute(L"TolerateTime",m_fTolerateTime);
-	l_pTiXmlElement->SetAttribute(L"MinKeepTime",m_fMinKeepTime);
+	//l_pTiXmlElement->SetAttribute(L"FrequencyOffsetRange",m_fFrequencyOffsetRange);
+	//l_pTiXmlElement->SetAttribute(L"TolerateTime",m_fTolerateTime);
+	l_pTiXmlElement->SetAttribute(L"CaptureSoundRequireMinTime",m_fCaptureSoundRequireMinTime);
 	l_pTiXmlElement->SetAttribute(L"MinAmplitude",m_iMinAmplitude);
 	return l_pTiXmlElement;
 }

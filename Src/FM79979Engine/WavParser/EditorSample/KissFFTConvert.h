@@ -1,9 +1,5 @@
 #pragma once
-//default we expect 60fps
-#define	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT	60
-#define	WINDOWN_FUNCTION_FRUSTRUM	2
-//
-#define	AFTER_FILTER_MIN_VALUE	3
+
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 
@@ -26,6 +22,7 @@ protected:
 	bool	m_bPause;
 	//
 	GET_SET_DEC(int,m_iMaxAmplitudeFrequence,GetMaxAmplitudeFrequence,SetMaxAmplitudeFrequence);
+	GET_SET_DEC(int,m_iMaxAmplitude,GetMaxAmplitude,SetMaxAmplitude);
 	//
 	GET_SET_DEC(bool,m_bFilter,IsFilter,SetFilter);
 	//https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition
@@ -52,10 +49,11 @@ public:
 	virtual void	GoToTime(float e_fElpaseTime) = 0;
 	virtual void	SetFFTSampleScale(float e_fScale,bool e_bForceSet = false){}
 	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
-	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
+	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
 	static float	GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS);
 	TiXmlElement*	ToTiXmlElement();
 	void			SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement);
+	void			RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

@@ -1,11 +1,15 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
 
+int ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 60;
+
 TYPDE_DEFINE_MARCO(cKissFFTConvertBase);
 
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
+	m_iMaxAmplitude = 0;
 	m_iMaxAmplitudeFrequence = 0;
+	m_iMaxAmplitude = 0;
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/6.f);
 	m_TimeToUpdateFFTData.SetLoop(true);
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
@@ -307,6 +311,10 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 	float l_fYStartPos = m_vChartShowPos.y;
 	int l_iIndex = 0;
 	assert(m_FFTDataLinePointVectorVector.size() == m_FFTDataVectorChannelVector.size());
+
+	int l_iMaxAmplitude = 0;
+	int l_iMaxAmplitudeFrequency = 0;
+
 	for( size_t l_iChannelIndex = 0;l_iChannelIndex<m_FFTDataLinePointVectorVector.size();++l_iChannelIndex )
 	{
 		auto l_pData = m_FFTDataLinePointVectorVector[l_iChannelIndex];
@@ -318,16 +326,22 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 		int l_iIndex = 0;
 		for(int i=e_iStartDataIndex;i<l_iEndIndex;++i)
 		{
+			int l_iAmplidude = (*l_pFFTDataVector)[i];
 			Vector2 l_vPos,l_vPos1;
 			//this->m_fFFTResultPhase[l_iChannelIndex][]
 			//l_vPos1.x = l_vPos.x = (l_fXGap*(*l_pFFTPhaseData)[l_iIndex])+l_fStartXPos;
 			l_vPos1.x = l_vPos.x = (l_fXGap*l_iIndex)+l_fStartXPos;
 			l_vPos1.y = l_fYStartPos+l_fYPos;
-			l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale)+l_fYPos;
+			l_vPos.y = l_fYStartPos-(l_iAmplidude*m_fScale)+l_fYPos;
 			//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
 			l_pData->push_back(l_vPos);
 			l_pData->push_back(l_vPos1);
 			++l_iIndex;
+			if( l_iMaxAmplitude < l_iAmplidude )
+			{
+				l_iMaxAmplitude = l_iAmplidude;
+				this->GetCurrentMaxFrequence(i-e_iStartDataIndex,m_pSoundFile->m_iFreq,e_iCount,l_iMaxAmplitude);
+			}
 		}
 		m_iCurrentFFTDataLineCount = l_iIndex;
 	}
@@ -370,7 +384,7 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 			}
 		}
 		m_TimeToUpdateFFTData.Update(e_fElpaseTime);
-		if( m_TimeToUpdateFFTData.bTragetTimrReached )
+		//if( m_TimeToUpdateFFTData.bTragetTimrReached )
 			FetchSoundDataByTimeRange(m_fCurrentTime,l_fElpaseTime);
 	}
 }
@@ -415,8 +429,10 @@ void	cKissFFTConvert::Render()
 				RenderLine(l_pDataVector,Vector4::One);
 			}
 		}
+
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
+		RenderMaxAmplitudeAndFrequencyInfo(100,200);
 	}
 	//std::vector<Vector2> l_Test;
 	//l_Test.push_back(Vector2(100,500));
@@ -449,10 +465,13 @@ float	cKissFFTConvert::GetTimeLength()
 
 void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 {
-	if(this->m_pSoundFile)
-	{
-		this->GoToTime(e_fElpaseTime);
-	}
+	if( m_fCurrentTime == e_fElpaseTime )
+		return;
+	m_fCurrentTime = e_fElpaseTime;
+	//if(this->m_pSoundFile)
+	//{
+	//	this->GoToTime(e_fElpaseTime);
+	//}
 }
 //http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 ////N = 1024          // size of FFT and sample window
@@ -487,9 +506,15 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 //
 //// convert index of largest peak to frequency
 //freq = max_index * Fs / N
-int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount)
+int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
 {
 	int l_iFrequence = e_iIndexOfFFTData*e_iFrequence/e_iCount;
+	this->m_iMaxAmplitude = e_iMaxAmplitude;
+	//if( m_iMaxAmplitude <= 0 )
+	//{
+	//	int a=0;
+	//}
+	this->m_iMaxAmplitudeFrequence = l_iFrequence;
 	return l_iFrequence;
 }
 
@@ -540,6 +565,18 @@ void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 			m_iFilterStrengthValue = VALUE_TO_INT;
 		}
 	PARSE_NAME_VALUE_END
+}
+
+void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY)
+{
+	std::wstring l_strInfo = L"Frequence:";
+	l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
+	l_strInfo += L"\n";
+	l_strInfo += L"MaxAmplitude";
+	l_strInfo += ValueToStringW(this->m_iMaxAmplitude);
+	cGameApp::m_spGlyphFontRender->SetScale(2.f);
+	cGameApp::RenderFont(e_iPosX,e_iPosY,l_strInfo);
+	cGameApp::m_spGlyphFontRender->SetScale(1.f);
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
