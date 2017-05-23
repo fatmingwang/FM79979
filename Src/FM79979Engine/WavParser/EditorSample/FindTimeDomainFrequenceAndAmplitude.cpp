@@ -69,17 +69,17 @@ int	sFindTimeDomainFrequenceAndAmplitude::SetupTotalSecond(TiXmlElement*e_pTiXml
 {
 	int l_iAssumeBigEnoughSecond = -1;
 	auto l_pLastChild = e_pTiXmlElement->LastChild();
-	if( l_pLastChild && l_pLastChild->ToElement() )
+	COMPARE_TARGET_ELEMENT_VALUE(l_pLastChild,"FrequenceAndAmplitudeAndTime")
 	{
-		sFrequenceAndAmplitudeAndTime l_FrequenceAndAmplitudeAndTime(l_pLastChild->ToElement());
-		//l_iAssumeBigEnoughSecond = (int)(l_FrequenceAndAmplitudeAndTime.fStartTime+l_FrequenceAndAmplitudeAndTime.fKeepTime);
-		l_iAssumeBigEnoughSecond = (int)l_FrequenceAndAmplitudeAndTime.fStartTime;
-		if( l_iAssumeBigEnoughSecond == 0 )
-			l_iAssumeBigEnoughSecond = 1;
-		OneScondFrequenceAndAmplitudeAndTimeData.resize(l_iAssumeBigEnoughSecond);
-		for( int i=0;i<l_iAssumeBigEnoughSecond;++i )
+		if( l_pLastChild && l_pLastChild->ToElement() )
 		{
-			OneScondFrequenceAndAmplitudeAndTimeData[i] = nullptr;
+			sFrequenceAndAmplitudeAndTime l_FrequenceAndAmplitudeAndTime(l_pLastChild->ToElement());
+			l_iAssumeBigEnoughSecond = (int)l_FrequenceAndAmplitudeAndTime.fStartTime+1;
+			OneScondFrequenceAndAmplitudeAndTimeData.resize(l_iAssumeBigEnoughSecond);
+			for( int i=0;i<l_iAssumeBigEnoughSecond;++i )
+			{
+				OneScondFrequenceAndAmplitudeAndTimeData[i] = nullptr;
+			}
 		}
 	}
 	return l_iAssumeBigEnoughSecond;
@@ -89,6 +89,10 @@ bool		sFindTimeDomainFrequenceAndAmplitude::GenerateFrequenceAndAmplitudeAndTime
 {
 	sFrequenceAndAmplitudeAndTime*l_pFrequenceAndAmplitudeAndTime = new sFrequenceAndAmplitudeAndTime(e_pTiXmlElement);
 	int l_iCurrentSecond = (int)l_pFrequenceAndAmplitudeAndTime->fStartTime;
+	if( e_iCurrentTimeInSecond <= l_iCurrentSecond )
+	{
+		int a=0;
+	}
 	assert(e_iCurrentTimeInSecond > l_iCurrentSecond&&"the total second get wrong...call fatming");
 	if(!OneScondFrequenceAndAmplitudeAndTimeData[l_iCurrentSecond])
 	{
@@ -98,23 +102,22 @@ bool		sFindTimeDomainFrequenceAndAmplitude::GenerateFrequenceAndAmplitudeAndTime
 	return true;
 }
 
-//sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude(sFindTimeDomainFrequenceAndAmplitude*e_pFrequenceAndAmplitudeAndTimeFinder)
-//{
-//	fCurrentTime = 0.f;
-//	size_t l_uiSize = e_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size();
-//	for( size_t i=0;i<l_uiSize;++i )
-//	{
-//		auto l_pData = e_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData[i];
-//		std::vector<sFrequenceAndAmplitudeAndTime*>*l_pNewVector = new std::vector<sFrequenceAndAmplitudeAndTime*>();
-//		for(auto l_pInnerData : *l_pData )
-//		{
-//			sFrequenceAndAmplitudeAndTime*l_pNewData = new sFrequenceAndAmplitudeAndTime(l_pInnerData);
-//			l_pNewVector->push_back(l_pNewData);
-//		}
-//		this->OneScondFrequenceAndAmplitudeAndTimeData.push_back(l_pNewVector);
-//	}
-//}
-//
+sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude(const sFindTimeDomainFrequenceAndAmplitude*e_pFrequenceAndAmplitudeAndTimeFinder)
+{
+	size_t l_uiSize = e_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size();
+	for( size_t i=0;i<l_uiSize;++i )
+	{
+		auto l_pData = e_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData[i];
+		std::vector<sFrequenceAndAmplitudeAndTime*>*l_pNewVector = new std::vector<sFrequenceAndAmplitudeAndTime*>();
+		for(auto l_pInnerData : *l_pData )
+		{
+			sFrequenceAndAmplitudeAndTime*l_pNewData = new sFrequenceAndAmplitudeAndTime(l_pInnerData);
+			l_pNewVector->push_back(l_pNewData);
+		}
+		this->OneScondFrequenceAndAmplitudeAndTimeData.push_back(l_pNewVector);
+	}
+}
+
 //sFindTimeDomainFrequenceAndAmplitude*	sFindTimeDomainFrequenceAndAmplitude::Clone()
 //{
 //	sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(this);

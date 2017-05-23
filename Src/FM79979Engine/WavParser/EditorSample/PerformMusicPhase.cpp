@@ -54,7 +54,7 @@ void	cPerformMusicPhase::Init()
 	}
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StartRecord();
-
+	cGameApp::m_sTimeAndFPS.Update();
 }
 
 void	cPerformMusicPhase::Update(float e_fElpaseTime)
@@ -73,7 +73,7 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 		std::wstring l_str;
 		for(int i=0;i<l_pQuickFFTDataFrequencyFinder->m_iFFTBinCount;++i)
 		{
-			if(l_pQuickFFTDataFrequencyFinder->GetFFTData()[i]>80)
+			if(l_pQuickFFTDataFrequencyFinder->GetFFTData()[i]>100)
 			{
 				int l_iFrequency = (int)l_pQuickFFTDataFrequencyFinder->m_fFrequencyGap*i;
 				//if(cGameApp::m_sfDebugValue!=1.f)
@@ -88,11 +88,11 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 			std::wstring l_strInfo = this->GetName();
 			l_strInfo += L":";
 			l_strInfo += l_str;
-		//	cGameApp::OutputDebugInfoString(l_strInfo.c_str());
+			//cGameApp::OutputDebugInfoString(l_strInfo.c_str());
 		}
 	}
 #endif
-		m_pTimeLineRangeChart->Compare(l_pQuickFFTDataFrequencyFinder);
+		m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);
 	}
 }
 

@@ -16,7 +16,6 @@ namespace	FATMING_CORE
 	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 	extern float g_fTest;
 	extern float g_fTest2;
-	#define CAP_SIZE 2048 // How much to capture at a time (affects latency)
 	void	RecordingThread(size_t _workParameter, size_t _pUri)
 	{
 		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
@@ -60,7 +59,6 @@ namespace	FATMING_CORE
 				// Poll for captured audio
 				alcGetIntegerv(l_pSoundCapture->GetDevice(),ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
 				if (l_iSamplesIn >= l_pSoundCapture->GetBuffersize()) {
-				//if (l_iSamplesIn>CAP_SIZE) {
 #define SRROUND_SOUND_TEST
 #ifdef SRROUND_SOUND_TEST
 					g_fTest = sin((float)l_iTest/360*20);

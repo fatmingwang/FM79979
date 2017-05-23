@@ -34,8 +34,9 @@ void	cMusicGameApp::Init()
 	cGameApp::Init();
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
-	int l_iFrequence = cSoundCompareParameter::m_siRecordFrequency;
-	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence));
+	//int l_iFrequence = cSoundCompareParameter::m_siRecordFrequency;
+	int l_iFrequence = 24000;
+	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//
 	m_pPhaseManager = new cPhaseManager();

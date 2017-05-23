@@ -5,6 +5,7 @@
 
 sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement)
 {
+	fCompareKeepTime = 0.f;
 	bMatched = false;
 	PARSE_ELEMENT_START(e_pElement)
 		COMPARE_ASSIGN_FLOAT("Frequency",fFrequency)
@@ -33,12 +34,13 @@ sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pEle
 
 sFrequenceAndAmplitudeAndTime::sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime)
 {
-	bMatched = false;
 	fFrequency = e_pFrequenceAndAmplitudeAndTime->fFrequency;
-	fKeepTime = e_pFrequenceAndAmplitudeAndTime->fKeepTime;
-	fLastMatchTime = e_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
-	fStartTime = e_pFrequenceAndAmplitudeAndTime->fStartTime;
 	iAmplitude = e_pFrequenceAndAmplitudeAndTime->iAmplitude;
+	fStartTime = e_pFrequenceAndAmplitudeAndTime->fStartTime;
+	fKeepTime = e_pFrequenceAndAmplitudeAndTime->fKeepTime;
+	fCompareKeepTime = 0.f;
+	fLastMatchTime = e_pFrequenceAndAmplitudeAndTime->fLastMatchTime;
+	bMatched = false;
 }
 
 TiXmlElement*sFrequenceAndAmplitudeAndTime::ToElement()
@@ -272,21 +274,95 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 			l_pRootTiXmlElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(SOUD_SOURCE_FILE_NAME),ValueToStringW(e_strParseFileName).c_str());
 			l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 			l_pRootTiXmlElement->LinkEndChild(l_pConditionTiXmlElement);
-			for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
-			{
-				if(l_FrequenceAndAmplitudeAndTime.fKeepTime >= m_fCaptureSoundRequireMinTime &&
-					l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
-					l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
+			//lazy find the amplitude value is bigger than average
+			//float	l_fTotalValue = 0.f;
+			//int		l_iAverageValue = 0;
+			std::vector<sFrequenceAndAmplitudeAndTime> l_MatchedDataVector;
+			//strip close frequency
+			FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
+			int l_fFrequencyOffsetRange = (int)cKissFFTConvertBase::GetFrequencyGapByFPS(l_pSoundFile->m_iFreq,m_iParseFPS)*2;
+			int l_iLastCloseFrequency = -79979;
+			int   l_iLastBigAmplitude = 0;
+			if( 1 )
+			{//strip close frequency
+				for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
+				{
+					if(l_FrequenceAndAmplitudeAndTime.fKeepTime >= m_fCaptureSoundRequireMinTime &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
+					{
+						if( l_iLastBigAmplitude <= l_FrequenceAndAmplitudeAndTime.iAmplitude || abs(l_iLastCloseFrequency - l_FrequenceAndAmplitudeAndTime.fFrequency) > l_fFrequencyOffsetRange )
+						{
+							l_iLastBigAmplitude = l_FrequenceAndAmplitudeAndTime.iAmplitude;
+							l_MatchedDataVector.push_back(l_FrequenceAndAmplitudeAndTime);
+							l_iLastCloseFrequency = (int)l_FrequenceAndAmplitudeAndTime.fFrequency;
+							int l_iLastFrequencyForBack = l_iLastCloseFrequency;
+							for( int i = l_MatchedDataVector.size()-2 ; i > 0; --i )
+							{
+								if(abs(l_iLastFrequencyForBack-l_MatchedDataVector[i].fFrequency)<=l_fFrequencyOffsetRange)
+								{
+									l_MatchedDataVector.erase(l_MatchedDataVector.begin()+i);
+									break;
+								}
+								else
+								{
+									break;
+								}
+							}
+						}
+						else
+						{
+							l_iLastBigAmplitude = 0;
+							l_iLastCloseFrequency = (int)l_FrequenceAndAmplitudeAndTime.fFrequency;					
+						}
+					}
+				}
+				for(auto l_FrequenceAndAmplitudeAndTime:l_MatchedDataVector)
 				{
 					TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
 					l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
 				}
-				//else
-				//{
-				//	std::wstring l_strDebugInfo = L"current amplitude is ";
-				//	l_strDebugInfo += ValueToStringW(l_FrequenceAndAmplitudeAndTime.iAmplitude);
-				//	cGameApp::OutputDebugInfoString(l_strDebugInfo);
-				//}
+			}
+			else
+			if( 0 )
+			{//find average
+				float l_fTotalValue = 0.f;
+				int l_iAverageValue = 0;
+				for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
+				{
+					if(l_FrequenceAndAmplitudeAndTime.fKeepTime >= m_fCaptureSoundRequireMinTime &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
+					{
+						l_fTotalValue += l_FrequenceAndAmplitudeAndTime.iAmplitude;
+						l_MatchedDataVector.push_back(l_FrequenceAndAmplitudeAndTime);
+						//TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
+						//l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+					}
+				}
+				l_iAverageValue = (int)l_fTotalValue/l_MatchedDataVector.size();
+				for(auto l_FrequenceAndAmplitudeAndTime:l_MatchedDataVector)
+				{
+					if(l_FrequenceAndAmplitudeAndTime.iAmplitude >= l_iAverageValue)
+					{
+						TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
+						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+					}
+				}
+			}
+			else
+			if( 0 )
+			{//
+				for(auto l_FrequenceAndAmplitudeAndTime:m_AllData)
+				{
+					if(l_FrequenceAndAmplitudeAndTime.fKeepTime >= m_fCaptureSoundRequireMinTime &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency >= this->m_iMinAllowFrequency &&
+						l_FrequenceAndAmplitudeAndTime.fFrequency <= this->m_iMaxAllowFrequency)
+					{
+						TiXmlElement*l_pTiXmlElement = l_FrequenceAndAmplitudeAndTime.ToElement();
+						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+					}
+				}		
 			}
 			l_ISAXCallback.SetDoc(l_pTiXmlDocument);
 			l_ISAXCallback.Export(e_strOutputFileName,false);
@@ -304,5 +380,6 @@ TiXmlElement*	cTimeFrequencyAmplitudeValueCapture::SaveConditionToTiXmlElement()
 	//l_pTiXmlElement->SetAttribute(L"TolerateTime",m_fTolerateTime);
 	l_pTiXmlElement->SetAttribute(L"CaptureSoundRequireMinTime",m_fCaptureSoundRequireMinTime);
 	l_pTiXmlElement->SetAttribute(L"MinAmplitude",m_iMinAmplitude);
+	l_pTiXmlElement->SetAttribute(L"SourceFrequency",this->m_pKissFFTConvert->GetSoundFile()->m_iFreq);
 	return l_pTiXmlElement;
 }

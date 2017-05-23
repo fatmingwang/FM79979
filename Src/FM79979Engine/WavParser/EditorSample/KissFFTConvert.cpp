@@ -18,7 +18,7 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_vChartResolution = Vector2(1280.f,600.f);
 	m_fScale = 3.f;
 	m_fNextChannelYGap = 800.f;
-	m_vChartShowPos = Vector2(200,cGameApp::m_svGameResolution.y-200);
+	m_vChartShowPos = Vector2(800,cGameApp::m_svGameResolution.y-600);
 	m_bPause = false;
 	m_fFrenquenceFilterEndScaleValue = 1.f;
 	m_bFilter = false;
@@ -29,6 +29,24 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 cKissFFTConvertBase::~cKissFFTConvertBase()
 {
 
+}
+
+void	cKissFFTConvertBase::SetOneFrameFFTDataCount(int e_iFrequency)
+{
+	int l_iOneFrameNumFFTData = e_iFrequency/m_iDivideFFTDataToNFrame;
+	m_iOneFrameFFTDataCount = power_of_two(l_iOneFrameNumFFTData);
+}
+
+void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
+{
+	Vector2	l_vChartResolution = this->m_vChartResolution;
+	Vector2 l_vLinePos[2];
+	l_vLinePos[0] = m_vChartShowPos;
+	l_vLinePos[0].y -= e_fAmplitude*m_fScale;
+
+	l_vLinePos[1] = l_vLinePos[0];
+	l_vLinePos[1].x += l_vChartResolution.x;
+	RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
 }
 
 void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
@@ -276,8 +294,7 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		SAFE_DELETE(m_pSoundFile);
 		return false;
 	}
-	//m_iOneFrameFFTDataCount = m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame;
-	m_iOneFrameFFTDataCount = power_of_two(m_pSoundFile->m_iFreq/m_iDivideFFTDataToNFrame);
+	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
 	PreProcessedAllData(this->m_bFilter);
 	if( e_bPlaySound )
 	{

@@ -625,92 +625,92 @@ public:
 
 
 
-	//do not support pointer data
-	template <class TYPE>inline	void	InvertVectorDateOrder(std::vector<TYPE>*e_pVectorData)
+//do not support pointer data
+template <class TYPE>inline	void	InvertVectorDateOrder(std::vector<TYPE>*e_pVectorData)
+{
+	int l_iLastIndex = (int)e_pVectorData->size()-1;
+	//only 1 or 0 data is not necessery to invert
+	if( l_iLastIndex <1 )
+		return;
+	UINT l_iSize = (UINT)e_pVectorData->size();
+	std::vector<TYPE> l_OriginalPointList = *e_pVectorData;
+	for( UINT i=0;i<l_iSize;++i )
 	{
-		int l_iLastIndex = (int)e_pVectorData->size()-1;
-		//only 1 or 0 data is not necessery to invert
-		if( l_iLastIndex <1 )
-			return;
-		UINT l_iSize = (UINT)e_pVectorData->size();
-		std::vector<TYPE> l_OriginalPointList = *e_pVectorData;
-		for( UINT i=0;i<l_iSize;++i )
-		{
-			l_OriginalPointList[l_iLastIndex-i] = (*e_pVectorData)[i];
-		}
-		*e_pVectorData = l_OriginalPointList;
+		l_OriginalPointList[l_iLastIndex-i] = (*e_pVectorData)[i];
 	}
-	//template <class Type>  inline	void	EraseVectorMemberByList(std::vector<Type>*e_pTypeVector,std::list<int> *e_pEraseIndexList)
-	//{
-	//	e_pEraseIndexList->sort();
-	//	int	l_iGoAhead = 0;
-	//	for( UINT i=0;i<e_pEraseIndexList->size();++i )
-	//	{
-	//		e_pTypeVector->erase(e_pTypeVector->begin()+e_pEraseIndexList[i]-l_iGoAhead);
-	//		l_iGoAhead++;
-	//	}
-	//};
-	//it dones't support pointer
-	template <class Type1,class Type2> map<Type1,Type2>	SwapMapData(Type1 e_iIndex1,Type1 e_iIndex2,map<Type1,Type2> e_pMap)
-	{
-		Type2	Object1 = e_pMap[e_iIndex1];
-		Type2	Object2 = e_pMap[e_iIndex2];
-		e_pMap.erase(e_iIndex1);
-		e_pMap.erase(e_iIndex2);
-		e_pMap.insert(make_pair(e_iIndex1,Object2));
-		e_pMap.insert(make_pair(e_iIndex2,Object1));
-		return e_pMap;
-	}
+	*e_pVectorData = l_OriginalPointList;
+}
+//template <class Type>  inline	void	EraseVectorMemberByList(std::vector<Type>*e_pTypeVector,std::list<int> *e_pEraseIndexList)
+//{
+//	e_pEraseIndexList->sort();
+//	int	l_iGoAhead = 0;
+//	for( UINT i=0;i<e_pEraseIndexList->size();++i )
+//	{
+//		e_pTypeVector->erase(e_pTypeVector->begin()+e_pEraseIndexList[i]-l_iGoAhead);
+//		l_iGoAhead++;
+//	}
+//};
+//it dones't support pointer
+template <class Type1,class Type2> map<Type1,Type2>	SwapMapData(Type1 e_iIndex1,Type1 e_iIndex2,map<Type1,Type2> e_pMap)
+{
+	Type2	Object1 = e_pMap[e_iIndex1];
+	Type2	Object2 = e_pMap[e_iIndex2];
+	e_pMap.erase(e_iIndex1);
+	e_pMap.erase(e_iIndex2);
+	e_pMap.insert(make_pair(e_iIndex1,Object2));
+	e_pMap.insert(make_pair(e_iIndex2,Object1));
+	return e_pMap;
+}
 
-	//it dones't support pointer
-	template <class Type1,class Type2> map<Type1,Type2>	ReplaceMapData(Type1 e_iIndex,Type2 e_Data,map<Type1,Type2> e_pMap)
+//it dones't support pointer
+template <class Type1,class Type2> map<Type1,Type2>	ReplaceMapData(Type1 e_iIndex,Type2 e_Data,map<Type1,Type2> e_pMap)
+{
+	e_pMap.erase(e_iIndex);
+	e_pMap.insert(make_pair(e_iIndex,e_Data));
+	return e_pMap;
+}
+template<class T>	inline	std::vector<int>	IndexListOfVector(T e_Object,std::vector<T>*e_pSrc)
+{
+	std::vector<int>l_List;
+	size_t	l_uiSize = e_pSrc->size();
+	for(size_t i=0;i<l_uiSize;++i  )
 	{
-		e_pMap.erase(e_iIndex);
-		e_pMap.insert(make_pair(e_iIndex,e_Data));
-		return e_pMap;
+		if((*e_pSrc)[i] == e_Object)
+			l_List.push_back(i);
 	}
-	template<class T>	inline	std::vector<int>	IndexListOfVector(T e_Object,std::vector<T>*e_pSrc)
+	return l_List;
+}
+template<class T>	inline	int		IndexOfVector(T e_Object,std::vector<T>*e_pSrc)
+{
+	size_t	l_uiSize = e_pSrc->size();
+	for(size_t i=0;i<l_uiSize;++i  )
 	{
-		std::vector<int>l_List;
-		size_t	l_uiSize = e_pSrc->size();
-		for(size_t i=0;i<l_uiSize;++i  )
-		{
-			if((*e_pSrc)[i] == e_Object)
-				l_List.push_back(i);
-		}
-		return l_List;
+		if((*e_pSrc)[i] == e_Object)
+			return i;
 	}
-	template<class T>	inline	int		IndexOfVector(T e_Object,std::vector<T>*e_pSrc)
+	return -1;
+}
+template<class T>	inline	bool	IsVectorContain(T e_Object,std::vector<T>*e_pSrc)
+{
+	size_t	l_uiSize = e_pSrc->size();
+	for(size_t i=0;i<l_uiSize;++i  )
 	{
-		size_t	l_uiSize = e_pSrc->size();
-		for(size_t i=0;i<l_uiSize;++i  )
-		{
-			if((*e_pSrc)[i] == e_Object)
-				return i;
-		}
-		return -1;
+		if((*e_pSrc)[i] == e_Object)
+			return true;
 	}
-	template<class T>	inline	bool	IsVectorContain(T e_Object,std::vector<T>*e_pSrc)
+	return false;
+}
+template<class T>	inline	int	NumVectorContain(T e_Object,std::vector<T>*e_pSrc)
+{
+	size_t	l_uiSize = e_pSrc->size();
+	int	l_iNum = 0;
+	for(size_t i=0;i<l_uiSize;++i  )
 	{
-		size_t	l_uiSize = e_pSrc->size();
-		for(size_t i=0;i<l_uiSize;++i  )
-		{
-			if((*e_pSrc)[i] == e_Object)
-				return true;
-		}
-		return false;
+		if((*e_pSrc)[i] == e_Object)
+			++l_iNum;
 	}
-	template<class T>	inline	int	NumVectorContain(T e_Object,std::vector<T>*e_pSrc)
-	{
-		size_t	l_uiSize = e_pSrc->size();
-		int	l_iNum = 0;
-		for(size_t i=0;i<l_uiSize;++i  )
-		{
-			if((*e_pSrc)[i] == e_Object)
-				++l_iNum;
-		}
-		return l_iNum;
-	}
+	return l_iNum;
+}
 
 
 #define	cStatusObjectChanger(T)	cFMWorkingObjectChanger<cObjectAndName<T > >

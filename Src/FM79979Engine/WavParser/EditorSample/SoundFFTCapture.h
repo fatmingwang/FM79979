@@ -13,7 +13,6 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 {
 	friend void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 	friend void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);
-	//int								m_iFFTSampleForOneFrame;
 	cFUSynchronized					m_FUSynchronizedForTimeAndPCMDataVector;
 	bool							m_bThreadInPause;
 	bool							m_bThreadAlreadyStop;
@@ -47,7 +46,7 @@ public:
 	void			SetFFTSampleScale(float e_fScale);
 	cQuickFFTDataFrequencyFinder*	GetQuickFFTDataFrequencyFinder(){return m_pQuickFFTDataFrequencyFinder;}
 	//use this one for cSoundCapture(buffersize)
-	static int		GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence);
+	static int		GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence,bool e_bFFTCompatibility,ALCenum e_Fromat);
 };
 
 

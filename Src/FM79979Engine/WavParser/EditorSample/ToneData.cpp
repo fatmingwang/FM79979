@@ -24,6 +24,7 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 			this->SetLocalPosition(l_vPos);
 		}
 	PARSE_NAME_VALUE_END
+	const char* l_strTest = m_strSoundFilePath.c_str();
 	m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
 }
 

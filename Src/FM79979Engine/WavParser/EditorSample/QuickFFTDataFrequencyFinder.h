@@ -8,6 +8,7 @@ class cQuickFFTDataFrequencyFinder
 	GET_SET_DEC(int*,m_piFFTData,GetFFTData,SetFFTData);
 	float					m_fFrequencyGap;
 	int						m_iFFTBinCount;
+	int						m_iFrequency;
 public:
 	cQuickFFTDataFrequencyFinder(int e_iFFTBins,int e_iMaxFrequency);
 	~cQuickFFTDataFrequencyFinder();

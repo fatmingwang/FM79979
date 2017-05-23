@@ -30,6 +30,9 @@ protected:
 	GET_SET_DEC(float,m_fFrenquenceFilterEndScaleValue,GetFrenquenceFilterEndScaleValue,SetiFrenquenceFilterEndScaleValue);
 	GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
 	GET_SET_DEC(float,m_fChartScale,GetChartScale,SetChartScale);
+	//
+	void		SetOneFrameFFTDataCount(int e_iFrequency);
+	void		RenderDebugAmplitudeLine(float e_fAmplitude);
 public:
 	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();

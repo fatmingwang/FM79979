@@ -192,7 +192,7 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 		iCurrentTimeStampIndex = e_iFFTSampleTargetIndex;
 	else//same time do nothing
 		return true;
-	float l_fXGap = e_vChartResolution.x/iFFTDataOneSample/2;
+	float l_fXGap = e_vChartResolution.x/iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
 	float l_fYGap = e_fNextChannelYGap;
 	float l_fStartXPos = e_vShowPos.x;
 	//float l_fNextChannelXPos = 100+e_vChartResolution.x/2;
@@ -620,7 +620,7 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 	}
 	//
 	//
-	m_iOneFrameFFTDataCount = power_of_two(m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame);
+	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pOpanalOgg->GetFreq());
 	//m_iOneFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
 	if(m_iOneFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
 	{//too big?give it one more chance

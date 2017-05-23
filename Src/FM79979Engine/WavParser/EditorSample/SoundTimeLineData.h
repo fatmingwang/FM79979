@@ -25,7 +25,7 @@ class cSoundTimeLineData:public NamedTypedObject
 	bool								m_bMatched;
 	//this just a reference.
 	cToneData*							m_pToneData;
-	const sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
+	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
 	std::vector<int>					m_MatchIndexOrderVector;
 	//
 	int									m_iCurrentMatchedIndex;
@@ -52,7 +52,7 @@ public:
 
 	bool				IsMatched(){return m_bMatched;}
 	//if finish return true
-	bool				Compare(float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	bool				Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float				GetCompareTime(){return m_fCompareTime;}
 	cToneData*			GetToneData(){return m_pToneData;}
 };
@@ -68,6 +68,7 @@ public:
 //this is the resources provide to access cSoundTimeLineData.
 class cSoundTimeLineDataCollection:public cNamedTypedObjectVector<cSoundTimeLineData>,public cNodeISAX
 {
+	bool			ParseMusicFile(TiXmlElement*e_pTiXmlElement);
 protected:
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	cToneDataVector*m_pToneDataVector;

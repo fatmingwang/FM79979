@@ -28,4 +28,6 @@ public:
 
 	static bool		m_sbAutoPlaySoundForDebugTest;
 	static int		m_siRecordFrequency;
+
+	static int		m_siDebugAmplitudeValue;
 };

@@ -17,6 +17,7 @@ struct sFindTimeDomainFrequenceAndAmplitude
 	sFindTimeDomainFrequenceAndAmplitude(const char*e_strFileName);
 	//sFindTimeDomainFrequenceAndAmplitude(TiXmlElement*e_pTiXmlElement);
 	sFindTimeDomainFrequenceAndAmplitude();
+	sFindTimeDomainFrequenceAndAmplitude(const sFindTimeDomainFrequenceAndAmplitude*e_pFindTimeDomainFrequenceAndAmplitude);
 	~sFindTimeDomainFrequenceAndAmplitude();
 	////why need this one? how about just a reference?
 	//sFindTimeDomainFrequenceAndAmplitude(sFindTimeDomainFrequenceAndAmplitude*e_pFrequenceAndAmplitudeAndTimeFinder);

@@ -200,6 +200,9 @@ private: System::Windows::Forms::Label^  FFT_FPS_label;
 private: System::Windows::Forms::NumericUpDown^  FFT_FPS_numericUpDown;
 private: System::Windows::Forms::Label^  DebugAmplitudeLineValue_label;
 private: System::Windows::Forms::NumericUpDown^  DebugAmplitudeLineValue_numericUpDown;
+private: System::Windows::Forms::NumericUpDown^  DebugAmplitudeValue_numericUpDown;
+
+private: System::Windows::Forms::Label^  DebugAmplitudeValue_label;
 
 
 
@@ -286,6 +289,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->CompareAndCaptureToFileKeepTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->CaptureToFile_button = (gcnew System::Windows::Forms::Button());
 			this->SoundCapture_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->DebugAmplitudeValue_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->DebugAmplitudeValue_label = (gcnew System::Windows::Forms::Label());
 			this->SoundCaptureFilterStrength_label = (gcnew System::Windows::Forms::Label());
 			this->SoundCaptureFilterStrength_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTChartScale_label = (gcnew System::Windows::Forms::Label());
@@ -317,6 +322,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileParseFPS_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileKeepTime_numericUpDown))->BeginInit();
 			this->SoundCapture_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DebugAmplitudeValue_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureFilterStrength_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTChartScale_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTFilterRange_numericUpDown))->BeginInit();
@@ -946,6 +952,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// SoundCapture_groupBox
 			// 
+			this->SoundCapture_groupBox->Controls->Add(this->DebugAmplitudeValue_numericUpDown);
+			this->SoundCapture_groupBox->Controls->Add(this->DebugAmplitudeValue_label);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureFilterStrength_label);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureFilterStrength_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTChartScale_label);
@@ -962,6 +970,25 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCapture_groupBox->TabStop = false;
 			this->SoundCapture_groupBox->Text = L"SoundCapture";
 			// 
+			// DebugAmplitudeValue_numericUpDown
+			// 
+			this->DebugAmplitudeValue_numericUpDown->Location = System::Drawing::Point(10, 140);
+			this->DebugAmplitudeValue_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {99999, 0, 0, 0});
+			this->DebugAmplitudeValue_numericUpDown->Name = L"DebugAmplitudeValue_numericUpDown";
+			this->DebugAmplitudeValue_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->DebugAmplitudeValue_numericUpDown->TabIndex = 44;
+			this->DebugAmplitudeValue_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {80, 0, 0, 0});
+			this->DebugAmplitudeValue_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::DebugAmplitudeValue_NumericUpDown_ValueChanged);
+			// 
+			// DebugAmplitudeValue_label
+			// 
+			this->DebugAmplitudeValue_label->AutoSize = true;
+			this->DebugAmplitudeValue_label->Location = System::Drawing::Point(7, 121);
+			this->DebugAmplitudeValue_label->Name = L"DebugAmplitudeValue_label";
+			this->DebugAmplitudeValue_label->Size = System::Drawing::Size(112, 13);
+			this->DebugAmplitudeValue_label->TabIndex = 45;
+			this->DebugAmplitudeValue_label->Text = L"DebugAmplitudeValue";
+			// 
 			// SoundCaptureFilterStrength_label
 			// 
 			this->SoundCaptureFilterStrength_label->AutoSize = true;
@@ -974,6 +1001,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// SoundCaptureFilterStrength_numericUpDown
 			// 
 			this->SoundCaptureFilterStrength_numericUpDown->Location = System::Drawing::Point(124, 156);
+			this->SoundCaptureFilterStrength_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000, 0, 
+				0, 0});
 			this->SoundCaptureFilterStrength_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
 				0});
 			this->SoundCaptureFilterStrength_numericUpDown->Name = L"SoundCaptureFilterStrength_numericUpDown";
@@ -1086,6 +1115,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileKeepTime_numericUpDown))->EndInit();
 			this->SoundCapture_groupBox->ResumeLayout(false);
 			this->SoundCapture_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DebugAmplitudeValue_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureFilterStrength_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTChartScale_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->SoundCaptureDoFFTFilterRange_numericUpDown))->EndInit();
@@ -1402,7 +1432,8 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 				l_strOutputFolderName += L".xml";
 				ISAXCallback l_ISAXCallback;
 				TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
-				TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cToneDataVector");				
+				TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cToneDataVector");
+				std::vector<int> l_SourceFrequencyVector;
 				//l_pRootTiXmlElement->SetAttribute(L"ToneDataFileName",l_strOutputFolderName.c_str());
 				l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 				for each(auto l_strFileName in l_strFileNames)
@@ -1430,8 +1461,17 @@ private: System::Void CaptureToFile_button_Click(System::Object^  sender, System
 						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_ID).c_str(),UT::GetFileNameWithoutFullPath(l_wstrFileName.c_str()));
 						l_pTiXmlElement->SetAttribute(UT::CharToWchar(TONE_DATA_PICTURE_OFFSET_POS).c_str(),L"30,0");
 						l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
+						//
+						cKissFFTConvert*l_pKissFFTConvert = l_TimeFrequencyAmplitudeValueCapture.GetKissFFTConvert();
+						int l_iSourceFreq = l_TimeFrequencyAmplitudeValueCapture.GetKissFFTConvert()->GetSoundFile()->m_iFreq;
+						if(!IsVectorContain<int>(l_iSourceFreq,&l_SourceFrequencyVector))
+						{
+							l_SourceFrequencyVector.push_back(l_iSourceFreq);
+						}
+						
 					}
 				}
+				l_pRootTiXmlElement->SetAttribute(L"SourceFreq",ValueToStringW(l_SourceFrequencyVector));
 				l_ISAXCallback.SetDoc(l_pTiXmlDocument);
 				l_ISAXCallback.Export(l_strOutputFolderName.c_str(),false);
 
@@ -1459,6 +1499,10 @@ private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Fo
 private: System::Void FFT_FPS_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = (int)FFT_FPS_numericUpDown->Value;
+		 }
+private: System::Void DebugAmplitudeValue_NumericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 cSoundCompareParameter::m_siDebugAmplitudeValue = (int)DebugAmplitudeValue_numericUpDown->Value;
 		 }
 };
 }

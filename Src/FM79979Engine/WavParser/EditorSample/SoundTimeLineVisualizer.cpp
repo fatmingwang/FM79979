@@ -328,14 +328,14 @@ void	cTimeLineRangeChart::Render()
 	//	RenderVertical();
 }
 
-bool	cTimeLineRangeChart::Compare(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
+bool	cTimeLineRangeChart::Compare(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
 {
 	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
 	for(int i=m_iLastToneDataObjectIndex;i<l_iCount;++i)
 	//for(int i=0;i<this->m_iLastToneDataObjectIndex;this->m_iCountInCompareTime)
 	{
 		auto l_pData = this->GetObject(i);
-		l_pData->Compare(this->m_fCurrentTime,e_pQuickFFTDataFrequencyFinder);
+		l_pData->Compare(e_fElpaseTime,this->m_fCurrentTime,e_pQuickFFTDataFrequencyFinder);
 	}
 	return false;	
 }

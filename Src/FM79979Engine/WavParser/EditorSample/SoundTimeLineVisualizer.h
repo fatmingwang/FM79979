@@ -81,5 +81,5 @@ public:
 	virtual void	Update(float e_fElpaseTime);
 	virtual void	Render();
 	virtual void	DebugRender();
-	bool			Compare(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	bool			Compare(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 };

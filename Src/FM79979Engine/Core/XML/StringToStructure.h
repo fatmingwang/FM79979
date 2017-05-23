@@ -232,7 +232,7 @@ namespace FATMING_CORE
 		for( size_t i=0;i<l_iSize;++i )
 		{
 			l_strResult += ValueToString(e_Vector[i]);
-			if( i < l_iSize )
+			if( i != l_iSize-1 )
 				l_strResult += ",";
 		}
 		return l_strResult;	

@@ -19,10 +19,12 @@ struct sFrequenceAndAmplitudeAndTime:public sFrequencyAndAmplitude
 {
 	sFrequenceAndAmplitudeAndTime(TiXmlElement*e_pElement);
 	sFrequenceAndAmplitudeAndTime(sFrequenceAndAmplitudeAndTime*e_pFrequenceAndAmplitudeAndTime);
-	sFrequenceAndAmplitudeAndTime(){bMatched=false;}
+	sFrequenceAndAmplitudeAndTime(){bMatched=false;fCompareKeepTime = 0.f;}
 	~sFrequenceAndAmplitudeAndTime(){}
 	float	fStartTime;
 	float	fKeepTime;
+	//for in game compare
+	float	fCompareKeepTime;
 	//the last time frequency and amplitude is matched
 	float	fLastMatchTime;
 	bool	bMatched;
@@ -83,4 +85,5 @@ public:
 	~cTimeFrequencyAmplitudeValueCapture();
 	//the output extension file name should be soundFFT
 	bool	ParseAndSaveFileName(const char*e_strParseFileName,int e_iFilterStregth,float e_fFilterEndFrequencyValue,const char*e_strOutputFileName);
+	cKissFFTConvert*		GetKissFFTConvert(){return m_pKissFFTConvert;}
 };
