@@ -207,6 +207,7 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 	//	l_iFFTDataLength /= 2;
 	//	return false;
 	//}
+	std::wstring l_ValueForTest;
 	int l_iMax = -79979;
 	this->iBiggestFFTDataValueOfIndex = -1;
 	for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
@@ -228,6 +229,10 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 		}
 	}
 	iBiggestAmplitude = l_iMax;
+	if( l_ValueForTest.length() )
+	{
+		cGameApp::OutputDebugInfoString(l_ValueForTest);
+	}
 	return true;
 }
 
@@ -733,6 +738,7 @@ void	cKissFFTStreamingConvert::Render()
 			}
 			GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		}
+
 		RenderMaxAmplitudeAndFrequencyInfo(100,200);
 		//right channel
 		if( l_pTimeAndFFTData->iNumChannel == 2 )

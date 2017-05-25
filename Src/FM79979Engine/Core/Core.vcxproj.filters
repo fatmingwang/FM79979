@@ -695,6 +695,9 @@
     <ClCompile Include="XML\LazyXmlParser.cpp">
       <Filter>XML</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp">
+      <Filter>GameplayUT\UI\Button</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1206,6 +1209,9 @@
     </ClInclude>
     <ClInclude Include="XML\LazyXmlParser.h">
       <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h">
+      <Filter>GameplayUT\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

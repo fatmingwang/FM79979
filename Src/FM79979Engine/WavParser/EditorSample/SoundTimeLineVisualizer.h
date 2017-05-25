@@ -16,6 +16,8 @@ public:
 	virtual ~cChartBasicInfo();
 	float		GetHeightGapByPoints(int e_iPoint);
 	float		GetWidthGapByPoints(int e_iPoint);
+	float		GetHeightGapByPoints(float e_fPoint);
+	float		GetWidthGapByPoints(float e_fPoint);
 	Vector2		GetGapByPoints(POINT e_ResolutionPoints);
 };
 
@@ -66,13 +68,20 @@ class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange,public cS
 {
 	int								m_iLastToneDataObjectIndex;
 	int								m_iCountInCompareTime;
+	float							m_fEndTimeWithBeforTime;
 	void							CollectToneDataByTimeRange();
 	//
 	virtual	bool					MyParse(TiXmlElement*e_pRoot);
 	//
+	cChartBasicInfo					m_SoundTimeLineDataTimeline;
+	std::vector<Vector2>			m_SoundTimeLineDataObjectSmallTimelinePosVector;
+	void							SetupSoundTimeLineDataObject(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fTotalTime);
+	void							RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime);
+	//
 	eMoveDirection					m_eMoveDirection;
 	void							RenderHorizontal();
 	void							RenderVertical();
+	void							RenderTimeLine();
 public:
 	cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection = eMD_RIGHT_TO_LEFT);
 	virtual ~cTimeLineRangeChart();

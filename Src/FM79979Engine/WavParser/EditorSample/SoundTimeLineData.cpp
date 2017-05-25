@@ -8,6 +8,7 @@ TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData)
 {
+	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
 	m_fResultScore = 0.f;
@@ -18,6 +19,8 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_bMustMatchAfterProior = false;
 	m_bAlreadyPlayTestFlag = false;
 	m_bMatched = false;
+	m_bActivedToCompare = false;
+	m_fActivedElpaseTime = 0.f;
 }
 
 cSoundTimeLineData::~cSoundTimeLineData()
@@ -27,8 +30,11 @@ cSoundTimeLineData::~cSoundTimeLineData()
 
 void		cSoundTimeLineData::Init()
 {
+	m_bActivedToCompare = false;
+	m_fActivedElpaseTime = 0.f;
 	this->m_fResultScore = 0.f;
 	m_bMatched = false;
+	m_bTimeOver = false;
 	m_bAlreadyPlayTestFlag = false;
 }
 
@@ -62,6 +68,7 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	//	//not ready to match or time over.
 	//	return;
 	//}
+	std::vector<int> l_MatchedVector;
 	for(auto l_pInnerData :	*l_pDataVector)
 	{
 		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetAmplitude((int)l_pInnerData->fFrequency);
@@ -84,17 +91,18 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 			{//matched
 				l_pInnerData->fCompareKeepTime += e_fElpaseTime;
 				l_iNumHitted++;
-				if( l_pInnerData->fCompareKeepTime >= l_pInnerData->fKeepTime/2.0f)
-				//if( l_pInnerData->fCompareKeepTime >= e_fElpaseTime*2)
+				//if( l_pInnerData->fCompareKeepTime >= l_pInnerData->fKeepTime)
+				//if( l_pInnerData->fCompareKeepTime >= 1/30.f)
 				{
+					l_MatchedVector.push_back((int)l_pInnerData->fFrequency);
 					++l_iAllMatched;
 					l_pInnerData->bMatched = true;
 				}
 				break;
 			}
 		}
-		if( l_iNumHitted == 0 )
-			l_pInnerData->fCompareKeepTime = 0.f;
+		//if( l_iNumHitted == 0 )
+			//l_pInnerData->fCompareKeepTime = 0.f;
 	}  
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iAllMatched/l_pDataVector->size();
@@ -107,11 +115,12 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 		cGameApp::OutputDebugInfoString(l_str);
 	}
 
-	if( l_fPercent >= 0.75f )
+	if( l_fPercent >= 0.95f )
 	//if( l_iAllMatched >= l_pDataVector->size()/l_iLazyDivide )
 	{
 //		m_fResultScore = (float)m_iCurrentMatchedIndex/l_pDataVector->size();
 		++m_iCurrentMatchedIndex;
+		cGameApp::OutputDebugInfoString(ValueToStringW(l_MatchedVector));
 	}
 	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
 	{
@@ -127,8 +136,10 @@ bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 	float l_fTimeDifference = abs( e_fTargetTime - this->m_fCompareTime );
 	if( l_fTimeDifference > cSoundCompareParameter::m_sfTolerateTime )
 	{
+		//cGameApp::OutputDebugInfoString(L"Not compare!!");
 		return false;
 	}
+	//cGameApp::OutputDebugInfoString(L"compare!!");
 	return true;
 }
 

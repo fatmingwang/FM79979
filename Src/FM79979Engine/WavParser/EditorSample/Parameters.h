@@ -30,4 +30,5 @@ public:
 	static int		m_siRecordFrequency;
 
 	static int		m_siDebugAmplitudeValue;
+	static bool		m_sbDebugRender;
 };

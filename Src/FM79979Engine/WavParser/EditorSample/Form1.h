@@ -346,7 +346,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->OPENGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->OPENGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OPENGL_panel->Name = L"OPENGL_panel";
-			this->OPENGL_panel->Size = System::Drawing::Size(1884, 430);
+			this->OPENGL_panel->Size = System::Drawing::Size(1480, 253);
 			this->OPENGL_panel->TabIndex = 3;
 			// 
 			// CurrentTime_trackBar
@@ -583,7 +583,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundFileConvert_groupBox->Controls->Add(this->ToOgg_button);
 			this->SoundFileConvert_groupBox->Controls->Add(this->WavToOggOnlyOneChannel);
 			this->SoundFileConvert_groupBox->Controls->Add(this->ConvertToWav_button);
-			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(562, 7);
+			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(561, 7);
 			this->SoundFileConvert_groupBox->Name = L"SoundFileConvert_groupBox";
 			this->SoundFileConvert_groupBox->Size = System::Drawing::Size(242, 167);
 			this->SoundFileConvert_groupBox->TabIndex = 33;
@@ -592,6 +592,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// FFT_groupBox
 			// 
+			this->FFT_groupBox->Controls->Add(this->FFT_FPS_label);
+			this->FFT_groupBox->Controls->Add(this->FFT_FPS_numericUpDown);
 			this->FFT_groupBox->Controls->Add(this->DebugAmplitudeLineValue_label);
 			this->FFT_groupBox->Controls->Add(this->DebugAmplitudeLineValue_numericUpDown);
 			this->FFT_groupBox->Controls->Add(this->FilterStrength_label);
@@ -715,21 +717,19 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// splitContainer1.Panel2
 			// 
-			this->splitContainer1->Panel2->Controls->Add(this->FFT_FPS_label);
-			this->splitContainer1->Panel2->Controls->Add(this->FFT_FPS_numericUpDown);
 			this->splitContainer1->Panel2->Controls->Add(this->label1);
 			this->splitContainer1->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundCapture_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->FFT_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundFileConvert_groupBox);
-			this->splitContainer1->Size = System::Drawing::Size(1884, 861);
-			this->splitContainer1->SplitterDistance = 430;
+			this->splitContainer1->Size = System::Drawing::Size(1480, 635);
+			this->splitContainer1->SplitterDistance = 253;
 			this->splitContainer1->TabIndex = 35;
 			// 
 			// FFT_FPS_label
 			// 
 			this->FFT_FPS_label->AutoSize = true;
-			this->FFT_FPS_label->Location = System::Drawing::Point(164, 331);
+			this->FFT_FPS_label->Location = System::Drawing::Point(118, 81);
 			this->FFT_FPS_label->Name = L"FFT_FPS_label";
 			this->FFT_FPS_label->Size = System::Drawing::Size(52, 13);
 			this->FFT_FPS_label->TabIndex = 39;
@@ -738,7 +738,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// FFT_FPS_numericUpDown
 			// 
 			this->FFT_FPS_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
-			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(167, 350);
+			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(119, 100);
 			this->FFT_FPS_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
 			this->FFT_FPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 0});
 			this->FFT_FPS_numericUpDown->Name = L"FFT_FPS_numericUpDown";
@@ -750,7 +750,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(1077, 21);
+			this->label1->Location = System::Drawing::Point(1074, 8);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(464, 390);
 			this->label1->TabIndex = 38;
@@ -773,7 +773,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileParseFPS_numericUpDown);
 			this->groupBox1->Controls->Add(this->CompareAndCaptureToFileKeepTime_numericUpDown);
 			this->groupBox1->Controls->Add(this->CaptureToFile_button);
-			this->groupBox1->Location = System::Drawing::Point(846, 21);
+			this->groupBox1->Location = System::Drawing::Point(810, 8);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(210, 251);
 			this->groupBox1->TabIndex = 37;
@@ -963,7 +963,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTFilterRange_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->RecordSoundPause_button);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTFilterRange_label);
-			this->SoundCapture_groupBox->Location = System::Drawing::Point(562, 210);
+			this->SoundCapture_groupBox->Location = System::Drawing::Point(562, 184);
 			this->SoundCapture_groupBox->Name = L"SoundCapture_groupBox";
 			this->SoundCapture_groupBox->Size = System::Drawing::Size(242, 189);
 			this->SoundCapture_groupBox->TabIndex = 36;
@@ -1075,7 +1075,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1884, 861);
+			this->ClientSize = System::Drawing::Size(1480, 635);
 			this->Controls->Add(this->splitContainer1);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);

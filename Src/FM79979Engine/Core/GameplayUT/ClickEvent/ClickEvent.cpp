@@ -25,7 +25,7 @@ namespace FATMING_CORE
 
 	cClickEvent::cClickEvent(bool e_bUseDefaultClickEffect)
 	{
-		m_bAllowParallelClick = false;
+		m_bSwallowedTouch = false;
 		m_TCForMouseUp.SetTargetTime(0.3f);
 		m_pMouseMoveData = new sMouseMoveData();
 		m_pObjectClickRespond = nullptr;
@@ -79,7 +79,7 @@ namespace FATMING_CORE
 		return false;
 	}
 
-    bool    cClickEvent::MouseDown(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEvent::MouseDown(int e_iPosX,int e_iPosY)
 	{
 		if( !m_bEnable )
 			return false;
@@ -91,13 +91,13 @@ namespace FATMING_CORE
 				m_eObjectMouseBehavior = eOMB_FIRST_TIME_INTO;
 				if( m_MouseDownFunction )
 					m_MouseDownFunction(m_pTargetFrame,e_iPosX,e_iPosY);
-				return true;
+				return this;
 			}
 		}
-		return false;
+		return nullptr;
 	}
 
-    bool    cClickEvent::MouseMove(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEvent::MouseMove(int e_iPosX,int e_iPosY)
 	{
 		if( !m_bEnable )
 			return false;
@@ -121,12 +121,12 @@ namespace FATMING_CORE
 						m_pObjectClickRespond->OnLeave(m_pTargetFrame);
 				}
 			}
-			return true;
+			return this;
 		}
-		return false;
+		return nullptr;
 	}
 
-    bool    cClickEvent::MouseUp(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEvent::MouseUp(int e_iPosX,int e_iPosY)
 	{
 		if( m_pTargetFrame == nullptr || m_pTargetFrame->GetLocalBound() == nullptr || !m_bEnable)
 			return false;
@@ -138,7 +138,7 @@ namespace FATMING_CORE
 			if(m_pTargetFrame->GetLocalBound()->Collide(e_iPosX,e_iPosY))
 			{
 				m_eObjectMouseBehavior = eOMB_UP;
-				return true;
+				return this;
 			}
 			else
 			{
@@ -149,7 +149,7 @@ namespace FATMING_CORE
 					m_MouseLeaveFunction(m_pTargetFrame,e_iPosX,e_iPosY);
 			}
 		}
-		return false;
+		return nullptr;
 	}
 
 	void	cClickEvent::SetClickFunction(ClickFunction		e_MouseDownFunction,
@@ -201,7 +201,7 @@ namespace FATMING_CORE
 
 	cClickEventGroup::cClickEventGroup()
 	{
-		m_pCurrentWorkingEvent = 0;
+
 	}
 
 	cClickEventGroup::~cClickEventGroup()
@@ -209,88 +209,85 @@ namespace FATMING_CORE
 
 	}
 
-    bool    cClickEventGroup::MouseDown(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEventGroup::MouseDown(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
-			return false;
+			return false;		
 		int	l_uiSize = Count();
-		if( l_uiSize == 0 )
-			return false;
-		for( int i=0;i<l_uiSize;++i )
+		if( l_uiSize != 0 )
 		{
-			//because we will try to hit from last to first
-			int	l_iTargtIndexFromBackToFront = l_uiSize-1-i;
-			cClickEvent*l_pClickEvent = (*this)[l_iTargtIndexFromBackToFront];
-			if( !m_pCurrentWorkingEvent || l_pClickEvent->IsAllowParallelClick() )
+			for( int i=0;i<l_uiSize;++i )
 			{
-				if(l_pClickEvent->MouseDown(e_iPosX,e_iPosY))
+				//because we will try to hit from last to first
+				int	l_iTargtIndexFromBackToFront = l_uiSize-1-i;
+				cClickEvent*l_pClickEvent = this->GetObject(l_iTargtIndexFromBackToFront);
+				cClickEvent*l_pResult = l_pClickEvent->MouseDown(e_iPosX,e_iPosY);
+				if( l_pResult && l_pResult->IsSwallowedTouch())
 				{
-					if( !l_pClickEvent->IsAllowParallelClick() )
-						m_pCurrentWorkingEvent = l_pClickEvent;
+					return l_pResult;
 				}
 			}
 		}
-		if( m_pCurrentWorkingEvent )
-			return true;
-		return false;
+		if(cClickEvent::MouseMove(e_iPosX,e_iPosY))
+		{
+			if( this->IsSwallowedTouch() )
+			{
+				return this;
+			}
+		}
+		return nullptr;
 	}
 
-    bool    cClickEventGroup::MouseMove(int e_iPosX,int e_iPosY)
+    cClickEvent*	cClickEventGroup::MouseMove(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
 			return false;
 		int	l_uiSize = Count();
-		if( l_uiSize == 0 )
-			return false;
-		bool	l_bEventFired = false;
-		if( m_pCurrentWorkingEvent )
-		{
-			m_pCurrentWorkingEvent->MouseMove(e_iPosX,e_iPosY);
-			l_bEventFired = true;
-		}
 		for( int i=0;i<l_uiSize;++i )
 		{
 			int	l_iTargtIndexFromBackToFront = l_uiSize-1-i;
-			cClickEvent*l_pClickEvent = (*this)[l_iTargtIndexFromBackToFront];
-			if( l_pClickEvent->IsAllowParallelClick() && m_pCurrentWorkingEvent != l_pClickEvent )
+			cClickEvent*l_pClickEvent = this->GetObject(l_iTargtIndexFromBackToFront);
+			cClickEvent*l_pResult = l_pClickEvent->MouseMove(e_iPosX,e_iPosY);
+			if( l_pResult && l_pResult->IsSwallowedTouch())
 			{
-				l_pClickEvent->MouseMove(e_iPosX,e_iPosY);
-				l_bEventFired = true;
+				return l_pResult;
 			}
 		}
-		return false;
+		if(cClickEvent::MouseMove(e_iPosX,e_iPosY))
+		{
+			if( this->IsSwallowedTouch() )
+				return this;
+		}
+		return nullptr;
 	}
 
-    bool    cClickEventGroup::MouseUp(int e_iPosX,int e_iPosY)
+    cClickEvent*	cClickEventGroup::MouseUp(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
 			return false;
 		int	l_uiSize = Count();
-		if( l_uiSize == 0 )
-			return false;
-		bool	l_bEventFired = false;
-		if( m_pCurrentWorkingEvent )
-		{
-			m_pCurrentWorkingEvent->MouseUp(e_iPosX,e_iPosY);
-			l_bEventFired = true;
-		}
 		for( int i=0;i<l_uiSize;++i )
 		{
 			int	l_iTargtIndexFromBackToFront = l_uiSize-1-i;
-			cClickEvent*l_pClickEvent = (*this)[l_iTargtIndexFromBackToFront];
-			if( l_pClickEvent->IsAllowParallelClick() && m_pCurrentWorkingEvent != l_pClickEvent )
+			cClickEvent*l_pClickEvent = this->GetObject(l_iTargtIndexFromBackToFront);
+			cClickEvent*l_pResult = l_pClickEvent->MouseUp(e_iPosX,e_iPosY);
+			if( l_pResult && l_pResult->IsSwallowedTouch())
 			{
-				l_pClickEvent->MouseUp(e_iPosX,e_iPosY);
-				l_bEventFired = true;
+				return l_pResult;
 			}
 		}
-		return l_bEventFired;
+		if(cClickEvent::MouseUp(e_iPosX,e_iPosY))
+		{
+			if( this->IsSwallowedTouch() )
+				return this;
+		}
+		return nullptr;
 	}
 
 
 	void	cClickEventGroup::Init()
 	{
-		m_pCurrentWorkingEvent	= 0;
+
 	}
 
     void    cClickEventGroup::Update(float e_fElpaseTime)
@@ -304,7 +301,7 @@ namespace FATMING_CORE
 
 	cClickEventDispatcher::cClickEventDispatcher()
 	{
-		m_pTopMenu = 0;
+		m_pCurrentWorkingEvent = 0;
 	}
 
 	cClickEventDispatcher::~cClickEventDispatcher()
@@ -312,47 +309,37 @@ namespace FATMING_CORE
 		
 	}
 
-    bool    cClickEventDispatcher::MouseDown(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEventDispatcher::MouseDown(int e_iPosX,int e_iPosY)
 	{
-		if( m_pTopMenu )
-		{
-			return m_pTopMenu->MouseDown(e_iPosX,e_iPosY);
-		}
-		else
-		{
-			return cClickEventGroup::MouseDown(e_iPosX,e_iPosY);
-		}
-		return false;
+		if(!this->IsEnable())
+			return nullptr;
+		m_pCurrentWorkingEvent = cClickEventGroup::MouseDown(e_iPosX,e_iPosY);
+		m_AlwaysNeedToWorkClickEventGroup.MouseDown(e_iPosX,e_iPosY);
+		return m_pCurrentWorkingEvent ;
 	}
 
-    bool    cClickEventDispatcher::MouseMove(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEventDispatcher::MouseMove(int e_iPosX,int e_iPosY)
 	{
-		if( m_pTopMenu )
-		{
-			return m_pTopMenu->MouseMove(e_iPosX,e_iPosY);
-		}
-		else
-		{
-			return cClickEventGroup::MouseMove(e_iPosX,e_iPosY);
-		}
-		return false;
+		if(!this->IsEnable())
+			return nullptr;
+		if( m_pCurrentWorkingEvent )
+			m_pCurrentWorkingEvent->MouseMove(e_iPosX,e_iPosY);
+		m_AlwaysNeedToWorkClickEventGroup.MouseMove(e_iPosX,e_iPosY);
+		return m_pCurrentWorkingEvent;
 	}
 
-    bool    cClickEventDispatcher::MouseUp(int e_iPosX,int e_iPosY)
+    cClickEvent*    cClickEventDispatcher::MouseUp(int e_iPosX,int e_iPosY)
 	{
-		if( m_pTopMenu )
-		{
-			return m_pTopMenu->MouseUp(e_iPosX,e_iPosY);
-		}
-		else
-		{
-			return cClickEventGroup::MouseUp(e_iPosX,e_iPosY);
-		}
-		return false;
+		if(!this->IsEnable())
+			return nullptr;
+		if( m_pCurrentWorkingEvent )
+			m_pCurrentWorkingEvent->MouseUp(e_iPosX,e_iPosY);
+		m_AlwaysNeedToWorkClickEventGroup.MouseUp(e_iPosX,e_iPosY);
+		return m_pCurrentWorkingEvent;
 	}
 
 	void	cClickEventDispatcher::SetTopClickEvent(cClickEvent*e_pEvent)
 	{
-		m_pTopMenu = e_pEvent;
+		m_pCurrentWorkingEvent = e_pEvent;
 	}
 }

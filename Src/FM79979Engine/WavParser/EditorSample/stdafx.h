@@ -32,4 +32,4 @@
 using namespace DNCT;
 #endif
 
-#define	PARSE_TEST_SOUND
+//#define	PARSE_TEST_SOUND

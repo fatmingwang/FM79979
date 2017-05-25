@@ -39,14 +39,17 @@ void	cKissFFTConvertBase::SetOneFrameFFTDataCount(int e_iFrequency)
 
 void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
 {
-	Vector2	l_vChartResolution = this->m_vChartResolution;
-	Vector2 l_vLinePos[2];
-	l_vLinePos[0] = m_vChartShowPos;
-	l_vLinePos[0].y -= e_fAmplitude*m_fScale;
+	if(cSoundCompareParameter::m_sbDebugRender)
+	{
+		Vector2	l_vChartResolution = this->m_vChartResolution;
+		Vector2 l_vLinePos[2];
+		l_vLinePos[0] = m_vChartShowPos;
+		l_vLinePos[0].y -= e_fAmplitude*m_fScale;
 
-	l_vLinePos[1] = l_vLinePos[0];
-	l_vLinePos[1].x += l_vChartResolution.x;
-	RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
+		l_vLinePos[1] = l_vLinePos[0];
+		l_vLinePos[1].x += l_vChartResolution.x;
+		RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
+	}
 }
 
 void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
@@ -586,14 +589,17 @@ void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 
 void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY)
 {
-	std::wstring l_strInfo = L"Frequence:";
-	l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
-	l_strInfo += L"\n";
-	l_strInfo += L"MaxAmplitude";
-	l_strInfo += ValueToStringW(this->m_iMaxAmplitude);
-	cGameApp::m_spGlyphFontRender->SetScale(2.f);
-	cGameApp::RenderFont(e_iPosX,e_iPosY,l_strInfo);
-	cGameApp::m_spGlyphFontRender->SetScale(1.f);
+	if( cSoundCompareParameter::m_sbDebugRender )
+	{
+		std::wstring l_strInfo = L"Frequence:";
+		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
+		l_strInfo += L"\n";
+		l_strInfo += L"MaxAmplitude";
+		l_strInfo += ValueToStringW(this->m_iMaxAmplitude);
+		cGameApp::m_spGlyphFontRender->SetScale(2.f);
+		cGameApp::RenderFont(e_iPosX,e_iPosY,l_strInfo);
+		cGameApp::m_spGlyphFontRender->SetScale(1.f);
+	}
 }
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)

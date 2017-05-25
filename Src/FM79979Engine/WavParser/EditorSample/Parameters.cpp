@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Parameters.h"
 
-float	cSoundCompareParameter::m_sfTolerateTime = 0.32f;
+float	cSoundCompareParameter::m_sfTolerateTime = 1.f;
 
 
 int		cSoundCompareParameter::m_siAmplitudeOffset = 20;
@@ -17,3 +17,5 @@ bool	cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
 int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE*2;
 
 int		cSoundCompareParameter::m_siDebugAmplitudeValue = 80;
+
+bool	cSoundCompareParameter::m_sbDebugRender = false;

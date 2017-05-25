@@ -27,6 +27,16 @@ float		cChartBasicInfo::GetWidthGapByPoints(int e_iPoint)
 	return m_vResolution.x/e_iPoint;
 }
 
+float	cChartBasicInfo::GetHeightGapByPoints(float e_fPoint)
+{
+	return m_vResolution.x/e_fPoint;
+}
+
+float	cChartBasicInfo::GetWidthGapByPoints(float e_fPoint)
+{
+	return m_vResolution.y/e_fPoint;
+}
+
 Vector2		cChartBasicInfo::GetGapByPoints(POINT e_ResolutionPoints)
 {
 	Vector2 l_v = Vector2(m_vResolution.x/e_ResolutionPoints.x,m_vResolution.y/e_ResolutionPoints.y);
@@ -58,7 +68,8 @@ void	cTimeLineRange::SetCurrentTimeViewRange(float e_fBefore,float e_fAfter)
 
 void	cTimeLineRange::Init()
 {
-	JumpTo(-(this->m_fBeforeCurrentTimeViewRange+this->m_fAfterCurrentTimeViewRange)/2);
+	//JumpTo(-(this->m_fBeforeCurrentTimeViewRange+this->m_fAfterCurrentTimeViewRange)/2);
+	JumpTo(-0.5f);
 }
 
 void	cTimeLineRange::Update(float e_fElpaseTime)
@@ -98,6 +109,9 @@ cTimeLineRangeChart::cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange,flo
 	m_eMoveDirection = eMD_UP_TO_DOWN;
 	//m_eMoveDirection = eMD_DOWN_TO_UP;
 	m_iLastToneDataObjectIndex = -1;
+	m_fEndTimeWithBeforTime = 0.f;
+	m_SoundTimeLineDataTimeline.SetShowPos(Vector2(0,860));
+	m_SoundTimeLineDataTimeline.SetResolution(Vector2(1920,220));
 }
 
 cTimeLineRangeChart::~cTimeLineRangeChart()
@@ -108,31 +122,29 @@ cTimeLineRangeChart::~cTimeLineRangeChart()
 void	cTimeLineRangeChart::Init()
 {
 	cTimeLineRange::Init();
+	cSoundTimeLineDataCollection::Init();
 	m_iLastToneDataObjectIndex = 0;
-	for(auto l_pData :this->m_ObjectList)
-	{
-		l_pData->Init();
-	}
+	m_fEndTimeWithBeforTime = this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange;
+	SetupSoundTimeLineDataObject(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),m_fEndTimeWithBeforTime);
 }
 
 bool	cTimeLineRangeChart::MyParse(TiXmlElement*e_pRoot)
 {
 	this->Destroy();
-	const wchar_t*l_strChartResolution = e_pRoot->Attribute(L"ChartResolution");
-	const wchar_t*l_strChartShowPos = e_pRoot->Attribute(L"ChartShowPos");
-	const wchar_t*l_strMoveDirection = e_pRoot->Attribute(L"MoveDirection");
-	if( l_strChartResolution )
-	{
-		m_vResolution = cSoundCompareParameter::m_vTimelineResolution = GetVector2(l_strChartResolution);		
-	}
-	if( l_strChartShowPos )
-	{
-		m_vShowPos = cSoundCompareParameter::m_vTimelineShowPos = GetVector2(l_strChartShowPos);
-	}
-	if( l_strMoveDirection )
-	{
-		m_eMoveDirection = StringToMoveDirection(l_strMoveDirection);
-	}
+	PARSE_ELEMENT_START(e_pRoot)
+		COMPARE_ASSIGN_VECTOR2("ChartResolution",m_vResolution)
+		else
+		COMPARE_ASSIGN_VECTOR2("ChartShowPos",m_vShowPos)
+		else
+		COMPARE_NAME("MoveDirection")
+		{
+			m_eMoveDirection = StringToMoveDirection(l_strValue);
+		}
+		else
+		COMPARE_ASSIGN_FLOAT("BeforeTime",this->m_fBeforeCurrentTimeViewRange)
+		else
+		COMPARE_ASSIGN_FLOAT("AfterTime",this->m_fAfterCurrentTimeViewRange)
+	TO_NEXT_VALUE
 	if(cSoundTimeLineDataCollection::MyParse(e_pRoot))
 	{
 		this->SetEndTime(this->GetLastObjectCompareEndTime());
@@ -148,10 +160,11 @@ void	cTimeLineRangeChart::CollectToneDataByTimeRange()
 	int		l_iCount = Count();
 	if( m_iLastToneDataObjectIndex != -1 && l_iCount > 0 )
 	{
+		int l_iLastToneDataObjectIndexTemp = m_iLastToneDataObjectIndex;
 		//find statr and end index
 		float	l_fCurrentStartTime = m_vCurrentTimeViewRange.x;
 		float	l_fCurrentEndTime = m_vCurrentTimeViewRange.y;
-		float	l_fEndTime = this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange;
+		float	l_fEndTime = m_fEndTimeWithBeforTime;
 
 		if( this->m_fCurrentTime > l_fEndTime )
 		{//finish
@@ -189,6 +202,14 @@ void	cTimeLineRangeChart::CollectToneDataByTimeRange()
 				break;
 			}
 		}
+		if( l_iLastToneDataObjectIndexTemp != m_iLastToneDataObjectIndex)
+		{
+			int l_iCount = m_iLastToneDataObjectIndex-l_iLastToneDataObjectIndexTemp;
+			for( int i=l_iLastToneDataObjectIndexTemp;i<l_iCount;++i )
+			{
+				this->m_ObjectList[i]->SetTimeOver(true);
+			}
+		}
 	}
 }
 
@@ -217,7 +238,11 @@ void	cTimeLineRangeChart::RenderHorizontal()
 	l_fShowCurrentTimePosX = l_fShowCurrentTimePosX/l_fTotalTime*this->m_vResolution.x+this->m_vShowPos.x;
 	const float l_fCurrentLineWidth = 5.f;
 	const int l_iNameYOffset = 10;
-	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX,m_vShowPos.y),1,this->m_vResolution.y,Vector4::Red);
+	float l_fPerformanceRange = cSoundCompareParameter::m_sfTolerateTime*2/l_fTotalTime;
+	l_fPerformanceRange = this->m_vResolution.x*l_fPerformanceRange;
+	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX,m_vShowPos.y),l_fPerformanceRange,this->m_vResolution.y,Vector4::Red);
+
+	GLRender::RenderRectangle(Vector2(l_fShowCurrentTimePosX-l_fPerformanceRange/2,m_vShowPos.y),1,this->m_vResolution.y,Vector4::Blue);
 
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
@@ -266,8 +291,12 @@ void	cTimeLineRangeChart::RenderVertical()
 		l_fShowCurrentTimePosY = m_fAfterCurrentTimeViewRange;
 	}
 	l_fShowCurrentTimePosY = l_fShowCurrentTimePosY/l_fTotalTime*this->m_vResolution.y+this->m_vShowPos.y;								
-									
-	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,(float)1,Vector4::Red);
+
+	float l_fPerformanceRange = cSoundCompareParameter::m_sfTolerateTime*2/l_fTotalTime;
+	l_fPerformanceRange = this->m_vResolution.y*l_fPerformanceRange;
+
+	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY-l_fPerformanceRange/2),this->m_vResolution.x,l_fPerformanceRange,Vector4::Red);
+	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,1,Vector4::Blue);
 
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 	cGameApp::m_spGlyphFontRender->SetScale(2.f);
@@ -308,6 +337,11 @@ void	cTimeLineRangeChart::RenderVertical()
 	cGameApp::RenderFont(l_vFontPos,l_strCurrentTime.c_str());
 }
 
+void	cTimeLineRangeChart::RenderTimeLine()
+{
+	
+}
+
 void	cTimeLineRangeChart::DebugRender()
 {
 	if( m_iCountInCompareTime < 1 )
@@ -316,6 +350,8 @@ void	cTimeLineRangeChart::DebugRender()
 		RenderHorizontal();
 	else
 		RenderVertical();
+
+	RenderTimeLineData(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),this->m_fCurrentTime,this->m_fEndTimeWithBeforTime);
 }
 
 void	cTimeLineRangeChart::Render()
@@ -338,4 +374,48 @@ bool	cTimeLineRangeChart::Compare(float e_fElpaseTime,cQuickFFTDataFrequencyFind
 		l_pData->Compare(e_fElpaseTime,this->m_fCurrentTime,e_pQuickFFTDataFrequencyFinder);
 	}
 	return false;	
+}
+
+//
+void	cTimeLineRangeChart::SetupSoundTimeLineDataObject(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fTotalTime)
+{
+	m_SoundTimeLineDataObjectSmallTimelinePosVector.clear();
+	float l_PosStepByTimeGap = this->m_vResolution.x/e_fTotalTime;
+	size_t l_uiSize = this->m_ObjectList.size();
+	for(size_t i=0;i<l_uiSize;++i)
+	{
+		auto l_pData  = this->m_ObjectList[i];
+		float l_fTime = l_pData->GetCompareTime();
+		float l_fPos = l_PosStepByTimeGap*l_fTime;
+		Vector2 l_vShowPos = Vector2(l_fPos,e_vShowPos.y);
+		m_SoundTimeLineDataObjectSmallTimelinePosVector.push_back(l_vShowPos);
+	}
+}
+
+void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime)
+{
+	GLRender::RenderFilledRectangle(e_vShowPos,e_vResolution.x,e_vResolution.y,Vector4(1,1,0,1),0);
+	float l_PosStepByTimeGap = e_vResolution.x/e_fTotalTime;
+	Vector2 l_vCurrentTimePos = Vector2(l_PosStepByTimeGap*e_fCurrentTime,e_vShowPos.y);
+	GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
+	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
+	if( l_uiSize >0 )
+	{
+		for(size_t i=0;i<l_uiSize;++i)
+		{
+			auto l_Data = this->m_ObjectList[i];
+			Vector4 l_vColor = Vector4::One;
+			if( l_Data->IsMatched() )
+			{
+				l_vColor = Vector4::Green;
+			}
+			else
+			if( l_Data->IsTimeOver() )
+			{
+				l_vColor = Vector4::Red;
+			}
+			GLRender::RenderRectangle(this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i],1,e_vResolution.y,l_vColor);
+		}
+	}
+
 }

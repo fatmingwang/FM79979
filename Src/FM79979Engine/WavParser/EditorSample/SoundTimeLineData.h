@@ -19,10 +19,13 @@ class cToneDataVector;
 //here dont care about time only care about the frequency is matched by order
 class cSoundTimeLineData:public NamedTypedObject
 {
+	bool								m_bActivedToCompare;
+	float								m_fActivedElpaseTime;
 	//for auto play test
 	bool								m_bAlreadyPlayTestFlag;
 	//
 	bool								m_bMatched;
+	bool								m_bTimeOver;//current time is big than its compare time
 	//this just a reference.
 	cToneData*							m_pToneData;
 	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
@@ -55,6 +58,8 @@ public:
 	bool				Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float				GetCompareTime(){return m_fCompareTime;}
 	cToneData*			GetToneData(){return m_pToneData;}
+	bool				IsTimeOver(){ return m_bTimeOver; }
+	void				SetTimeOver(bool e_bTimeOver){m_bTimeOver = e_bTimeOver;}
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">
@@ -68,12 +73,12 @@ public:
 //this is the resources provide to access cSoundTimeLineData.
 class cSoundTimeLineDataCollection:public cNamedTypedObjectVector<cSoundTimeLineData>,public cNodeISAX
 {
-	bool			ParseMusicFile(TiXmlElement*e_pTiXmlElement);
+	bool				ParseMusicFile(TiXmlElement*e_pTiXmlElement);
 protected:
-	virtual	bool	MyParse(TiXmlElement*e_pRoot);
-	cToneDataVector*m_pToneDataVector;
+	virtual	bool		MyParse(TiXmlElement*e_pRoot);
+	cToneDataVector*	m_pToneDataVector;
 	//for quick access to do tsomething
-	float			m_fLastToneDataCompareTime;
+	float				m_fLastToneDataCompareTime;
 public:
 	cSoundTimeLineDataCollection();
 	virtual ~cSoundTimeLineDataCollection();

@@ -31,20 +31,21 @@ namespace FATMING_CORE
 		virtual	void	Update(float e_fElpaseTime);
 		virtual	void	Render();
 	};
+
 	struct sMouseMoveData;
 	class cClickEventDispatcher;
 	typedef	std::function<bool(Frame*,int,int)>	ClickFunction;
 	typedef	std::function<bool(int,int)>		CollideFunction;
 	//sometimes we wanna do collide in our MouseClickEvent(ClickFunction) function;
 	bool	AlwaysHitCollideFunction(int e_iPosX,int e_iPosY){ return true; }
+
 	class cClickEvent:public NamedTypedObject
 	{
 		CollideFunction		m_CollideFunction;
 		virtual		bool	DoCollide(int e_iPosX,int e_iPosY);
-		friend class cClickEventDispatcher;
-		//means could be always click even the button is hiden.
-		//so please ensure overlap is not happen.
-		GET_SET_DEC(bool,m_bAllowParallelClick,IsAllowParallelClick,SetAllowParallelClick);
+		friend	class		cClickEventDispatcher;
+		//if true, the touch will be eat
+		GET_SET_DEC(bool,m_bSwallowedTouch,IsSwallowedTouch,SetSwallowedTouch);
 		sMouseMoveData*			m_pMouseMoveData;
 		//to show the object clicked
 		cObjectClickRespond*	m_pObjectClickRespond;
@@ -68,11 +69,11 @@ namespace FATMING_CORE
 		//so I am lazy to implement it now.
 		ClickFunction			m_DoubleClickedFunction;
         //first time into
-        virtual bool    		MouseDown(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*	MouseDown(int e_iPosX,int e_iPosY);
         //horver and move
-        virtual bool    		MouseMove(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*	MouseMove(int e_iPosX,int e_iPosY);
         //
-        virtual bool    		MouseUp(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*	MouseUp(int e_iPosX,int e_iPosY);
 	public:
 		cClickEvent(bool e_bUseDefaultClickEffect = true);
 		~cClickEvent();
@@ -95,33 +96,34 @@ namespace FATMING_CORE
 	//for a single touch group,a current working object to save performance
 	class cClickEventGroup:public cClickEvent,public cNamedTypedObjectVector<cClickEvent>
 	{
+		friend	class 				cClickEventDispatcher;
 	protected:
-		cClickEvent*				m_pCurrentWorkingEvent;
         //first time into
-        virtual bool    			MouseDown(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*		MouseDown(int e_iPosX,int e_iPosY);
         //horver and move
-        virtual bool    			MouseMove(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*   		MouseMove(int e_iPosX,int e_iPosY);
         //
-        virtual bool    			MouseUp(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*    	MouseUp(int e_iPosX,int e_iPosY);
 	public:
 		cClickEventGroup();
 		~cClickEventGroup();
 		void						Init();
         virtual void    			Update(float e_fElpaseTime);
 	};
-
+	//its higher than cClickEventGroup,because it has top menu and always need to work click event vector
 	class cClickEventDispatcher:public cClickEventGroup
 	{
 		//while this exists m_ClickEventVector won't work.
-		cClickEvent*				m_pTopMenu;
+		cClickEvent*							m_pCurrentWorkingEvent;
+		cClickEventGroup						m_AlwaysNeedToWorkClickEventGroup;
 	public:
 		cClickEventDispatcher();
 		~cClickEventDispatcher();
-        virtual bool    		MouseDown(int e_iPosX,int e_iPosY);
-        virtual bool    		MouseMove(int e_iPosX,int e_iPosY);
-        virtual bool    		MouseUp(int e_iPosX,int e_iPosY);
-		bool					AddClickEvent(cClickEvent*e_pClickEvent);
-		bool					RemoveClickEvent(cClickEvent*e_pClickEvent);
-		void					SetTopClickEvent(cClickEvent*e_pEvent);
+        virtual cClickEvent*    		MouseDown(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*    		MouseMove(int e_iPosX,int e_iPosY);
+        virtual cClickEvent*	   		MouseUp(int e_iPosX,int e_iPosY);
+		bool							AddAlwaysNeedToWorkClickEvent(cClickEvent*e_pClickEvent);
+		bool							RemoveAlwaysNeedToWorkClickEvent(cClickEvent*e_pClickEvent);
+		void							SetTopClickEvent(cClickEvent*e_pEvent);
 	};
 }

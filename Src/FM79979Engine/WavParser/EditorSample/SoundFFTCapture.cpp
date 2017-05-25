@@ -211,6 +211,87 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 			break;
 		}
 	}
+	if( 1 )
+	{
+		//bool
+		static std::vector<std::vector<int> >	l_iDebugInfoVectorVector;
+		//for debug
+		static bool l_bQKeyPress = false;
+		if( cGameApp::m_sucKeyData['Q'] )
+		{
+			l_bQKeyPress = true;
+		}
+		//if( l_bQKeyPress && !cGameApp::m_sucKeyData['Q'] && m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
+		if( cGameApp::m_sucKeyData['Q'] && m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
+		{
+			l_bQKeyPress = false;
+			auto*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
+			int l_iFFTDataLength = l_pTimeAndFFTData->iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
+			int l_iSampleRate = this->m_pSoundCapture->GetSampleRate();
+			int l_iSampleGap = l_iSampleRate/l_iFFTDataLength;
+			std::vector<int> l_Result;
+			std::wstring l_strDebugInfo;
+			for( int i=0;i<l_iFFTDataLength;++i )
+			{
+				if( this->m_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
+				{
+					l_strDebugInfo += ValueToStringW(l_iSampleGap*i);
+					l_strDebugInfo += L",";
+					l_Result.push_back(l_iSampleGap*i);
+				}
+			}
+			cGameApp::OutputDebugInfoString(l_strDebugInfo);
+			l_iDebugInfoVectorVector.push_back(l_Result);
+		}
+		static bool l_bWKeyPress = false;
+		if( cGameApp::m_sucKeyData['W'] )
+		{
+			l_bWKeyPress = true;
+		}
+		if( l_bWKeyPress && !cGameApp::m_sucKeyData['W'])
+		{
+			l_bWKeyPress = false;
+			std::wstring l_strDebugInfo;
+			std::map<int,int> l_FrequencyAndCount;
+			for(auto l_ResultVector: l_iDebugInfoVectorVector)
+			{
+				for(auto l_Frequency: l_ResultVector)
+				{
+					if(l_FrequencyAndCount.find(l_Frequency) == l_FrequencyAndCount.end() )
+					{
+						l_FrequencyAndCount[l_Frequency] = 1;
+					}
+					else
+					{
+						l_FrequencyAndCount[l_Frequency] = l_FrequencyAndCount[l_Frequency]+1;
+					}
+				}
+			}
+			int l_iTotalCount = 0;
+			int l_iFrequencyCount = 0;
+			int l_iAverage = 0;
+			for(std::map<int,int>::iterator l_Iterator = l_FrequencyAndCount.begin();l_Iterator!=l_FrequencyAndCount.end();++l_Iterator)
+			{
+				l_iTotalCount += l_Iterator->second;
+				++l_iFrequencyCount;
+			}
+			l_iAverage = l_iTotalCount/l_iFrequencyCount;
+			std::vector<int> l_FinalResultFrequencyVector;
+			for(std::map<int,int>::iterator l_Iterator = l_FrequencyAndCount.begin();l_Iterator!=l_FrequencyAndCount.end();++l_Iterator)
+			{
+				if( l_Iterator->second >= l_iAverage )
+				{
+					l_FinalResultFrequencyVector.push_back(l_Iterator->first);
+
+					std::wstring l_strLazyOutput = L"<FrequenceAndAmplitudeAndTime StartTime=\"0.01667\" KeepTime=\"0.11667\" LastMatchTime=\"0.13333\" Frequency=\"";
+					l_strLazyOutput += ValueToStringW(l_Iterator->first);
+					l_strLazyOutput += L"\" Amplitude=\"118\" />";
+					cGameApp::OutputDebugInfoString(l_strLazyOutput);
+				}
+			}
+			//cGameApp::OutputDebugInfoString(ValueToStringW(l_FinalResultFrequencyVector));
+		}
+	}
 }
 void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 {
@@ -249,10 +330,19 @@ void	cSoundFFTCapture::Render()
 {
 	if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
 	{
-		cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
-		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
-		//left channel
-		GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
+		if( cSoundCompareParameter::m_sbDebugRender )
+		{
+			cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
+			int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
+			//left channel
+			GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
+			//right channel
+			if( l_pTimeAndFFTData->iNumChannel == 2 )
+			{
+				int l_iRightChannelIndex = l_iNumPointd;
+				GLRender::RenderLine((float*)m_vFFTDataToPoints[l_iRightChannelIndex],l_iNumPointd,Vector4::One,2);
+			}
+		}
 
 		//if( m_fChartScale >= 2 )
 		//{
@@ -273,13 +363,7 @@ void	cSoundFFTCapture::Render()
 		//	GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		//}
 		RenderMaxAmplitudeAndFrequencyInfo(100,200);
-		RenderDebugAmplitudeLine(cSoundCompareParameter::m_siDebugAmplitudeValue);
-		//right channel
-		if( l_pTimeAndFFTData->iNumChannel == 2 )
-		{
-			int l_iRightChannelIndex = l_iNumPointd;
-			GLRender::RenderLine((float*)m_vFFTDataToPoints[l_iRightChannelIndex],l_iNumPointd,Vector4::One,2);
-		}
+		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
 	}
 }
 
