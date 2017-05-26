@@ -10,10 +10,13 @@ cPerformMusicPhase::cPerformMusicPhase()
 	m_pTimeLineRangeChart = nullptr;
 	m_strMusicFileName = "MusicGame/Music/Test.xml";
 	m_pBG = nullptr;
+	m_pClickEventDispatcher = new cClickEventDispatcher();
+		//cClickEvent*					cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect)
 }
 
 cPerformMusicPhase::~cPerformMusicPhase()
 {
+	SAFE_DELETE(m_pClickEventDispatcher);
 	SAFE_DELETE(m_pBG);
 	SAFE_DELETE(m_pTimeLineRangeChart);
 }
@@ -54,6 +57,12 @@ void	cPerformMusicPhase::Init()
 	}
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StartRecord();
+	if( m_pClickEventDispatcher )
+	{
+		//cClickEvent*l_pClickEvent = cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect = true);
+		m_pClickEventDispatcher->Init();
+	}
+
 	cGameApp::m_sTimeAndFPS.Update();
 }
 
@@ -94,6 +103,8 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 #endif
 		m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);
 	}
+	if( m_pClickEventDispatcher )
+		m_pClickEventDispatcher->Update(e_fElpaseTime);
 }
 
 void	cPerformMusicPhase::Render()
@@ -106,9 +117,31 @@ void	cPerformMusicPhase::Render()
 	DebugRender();
 }
 
+//
+void    cPerformMusicPhase::MouseDown(int e_iPosX,int e_iPosY)
+{
+	if( m_pClickEventDispatcher )
+		m_pClickEventDispatcher->MouseDown(e_iPosX,e_iPosY);
+}
+//
+void    cPerformMusicPhase::MouseMove(int e_iPosX,int e_iPosY)
+{
+	if( m_pClickEventDispatcher )
+		m_pClickEventDispatcher->MouseMove(e_iPosX,e_iPosY);
+}
+//
+void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
+{
+	if( m_pClickEventDispatcher )
+		m_pClickEventDispatcher->MouseUp(e_iPosX,e_iPosY);
+}
+
 void	cPerformMusicPhase::Destroy()
 {
-
+	if( cMusicGameApp::m_pSoundCapture )
+		cMusicGameApp::m_pSoundCapture->StopRecord();
+	SAFE_DELETE(m_pBG);
+	m_pClickEventDispatcher->Destroy();
 }
 
 void	cPerformMusicPhase::DebugRender()
@@ -123,9 +156,7 @@ void	cPerformMusicPhase::DebugRender()
 
 void*	cPerformMusicPhase::GetData()
 {
-	if( cMusicGameApp::m_pSoundCapture )
-		cMusicGameApp::m_pSoundCapture->StopRecord();
-	SAFE_DELETE(m_pBG);
+	Destroy();
 	return nullptr;
 }
 

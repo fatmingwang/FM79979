@@ -249,6 +249,9 @@
     <Filter Include="RenderObject\GLSL\PostEffect">
       <UniqueIdentifier>{8bdd0f24-4d89-4a09-b76b-c461438964bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\UI\Button\ClickEvent">
+      <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -696,7 +699,7 @@
       <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp">
-      <Filter>GameplayUT\UI\Button</Filter>
+      <Filter>GameplayUT\UI\Button\ClickEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1211,7 +1214,7 @@
       <Filter>XML</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h">
-      <Filter>GameplayUT\UI\Button</Filter>
+      <Filter>GameplayUT\UI\Button\ClickEvent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

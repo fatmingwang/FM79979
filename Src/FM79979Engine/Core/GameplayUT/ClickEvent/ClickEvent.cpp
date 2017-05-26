@@ -1,7 +1,7 @@
 #include "../../Stdafx.h"
 #include "../Mouse_Touch.h"
+#include "../../Sound/BasicSound.h"
 #include "ClickEvent.h"
-
 namespace FATMING_CORE
 {
 	void	cObjectClickRespond::OnClick(Frame*e_pFrame)
@@ -23,8 +23,35 @@ namespace FATMING_CORE
 	void	cObjectClickRespond::Update(float e_fElpaseTime){}
 	void	cObjectClickRespond::Render(){}
 
+	cClickEventButtonRenderStatus::cClickEventButtonRenderStatus()
+	{
+		m_pRenderObject = nullptr;
+	}
+	cClickEventButtonRenderStatus::~cClickEventButtonRenderStatus()
+	{
+		SAFE_DELETE(m_pRenderObject);
+	}
+
+	void	cClickEventButtonRenderStatus::Init()
+	{
+		if( m_pRenderObject )
+			m_pRenderObject->Init();
+	}
+
+	void	cClickEventButtonRenderStatus::Update(float e_fElpaseTime,eObjectMouseBehavior e_eObjectMouseBehavior)
+	{
+		if( m_pRenderObject )
+			m_pRenderObject->Update(e_fElpaseTime);
+	}
+	void	cClickEventButtonRenderStatus::Render(eObjectMouseBehavior e_eObjectMouseBehavior)
+	{
+		if( m_pRenderObject )
+			m_pRenderObject->Render();
+	}
+
 	cClickEvent::cClickEvent(bool e_bUseDefaultClickEffect)
 	{
+		m_pClickEventButtonRenderStatus = false;
 		m_bSwallowedTouch = false;
 		m_TCForMouseUp.SetTargetTime(0.3f);
 		m_pMouseMoveData = new sMouseMoveData();
@@ -37,15 +64,47 @@ namespace FATMING_CORE
 		m_ClickedFunction = nullptr;
 		m_MouseLeaveFunction = nullptr;
 		m_DoubleClickedFunction = nullptr;
+		m_pClickSound = nullptr;
 		m_eObjectMouseBehavior = eOMB_NONE;
 		if( e_bUseDefaultClickEffect )
 			m_pObjectClickRespond = new cObjectClickRespond();
 	}
 
+	cClickEvent::cClickEvent(cClickEventButtonRenderStatus*e_pClickEventButtonRenderStatus,bool e_bUseDefaultClickEffect)
+	{
+		m_pClickEventButtonRenderStatus = e_pClickEventButtonRenderStatus;
+		m_bSwallowedTouch = false;
+		m_TCForMouseUp.SetTargetTime(0.3f);
+		m_pMouseMoveData = new sMouseMoveData();
+		m_pObjectClickRespond = nullptr;
+		m_bEnable = true;
+		m_pTargetFrame = nullptr;
+		m_MouseDownFunction = nullptr;
+		m_MouseMoveFunction = nullptr;
+		m_MouseUpFunction = nullptr;
+		m_ClickedFunction = nullptr;
+		m_MouseLeaveFunction = nullptr;
+		m_DoubleClickedFunction = nullptr;
+		m_pClickSound = nullptr;
+		m_eObjectMouseBehavior = eOMB_NONE;
+		if( e_bUseDefaultClickEffect )
+			m_pObjectClickRespond = new cObjectClickRespond();	
+	}
+
 	cClickEvent::~cClickEvent()
 	{
+		SAFE_RELEASE(m_pClickSound,this);
 		SAFE_DELETE(m_pObjectClickRespond);
 		SAFE_DELETE(m_pMouseMoveData);
+		SAFE_DELETE(m_pClickEventButtonRenderStatus);
+	}
+
+	cClickEvent*	cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect)
+	{
+		cClickEventButtonRenderStatus*l_pClickEventButtonRenderStatus = new cClickEventButtonRenderStatus();
+		l_pClickEventButtonRenderStatus->SetRenderObject(e_pRenderObject);
+		cClickEvent*l_pClickEvent = new cClickEvent(l_pClickEventButtonRenderStatus,e_bUseDefaultClickEffect);
+		return l_pClickEvent;
 	}
 
 	void	cClickEvent::Init()
@@ -172,6 +231,32 @@ namespace FATMING_CORE
 		m_CollideFunction = e_CollideFunction;
 	}
 
+	cClickEventButtonRenderStatus*	cClickEvent::GetClickEventButtonRenderStatus()
+	{
+		return this->m_pClickEventButtonRenderStatus;
+	}
+
+	void		cClickEvent::SetClickEventButtonRenderStatus(cClickEventButtonRenderStatus*e_pClickEventButtonRenderStatus,bool e_bClone)
+	{
+		SAFE_DELETE(m_pClickEventButtonRenderStatus);
+		if( e_bClone )
+			m_pClickEventButtonRenderStatus = (cClickEventButtonRenderStatus*)e_pClickEventButtonRenderStatus->Clone();
+		else
+			m_pClickEventButtonRenderStatus = e_pClickEventButtonRenderStatus;
+	}
+
+	cBasicSound*	cClickEvent::GetClickSound()
+	{
+		return this->m_pClickSound;	
+	}
+
+	void	cClickEvent::SetClickSound(cBasicSound*e_pBasicSound)
+	{
+		SAFE_RELEASE(m_pClickSound,this);
+		m_pClickSound = e_pBasicSound;
+		m_pClickSound->AddRef(this);
+	}
+
 	void	cClickEvent::CopyClickFunctionFromTaget(cClickEvent*e_pClickEvent)
 	{
 		m_MouseDownFunction = e_pClickEvent->m_MouseDownFunction;
@@ -193,9 +278,20 @@ namespace FATMING_CORE
 				{
 					m_MouseUpFunction(m_pTargetFrame,m_pMouseMoveData->UpPos.x,m_pMouseMoveData->UpPos.y);
 				}
-				m_eObjectMouseBehavior = eOMB_NONE;
-				m_bEnable = true;
+				this->Init();
 			}
+		}
+		if(this->m_pClickEventButtonRenderStatus)
+		{
+			this->m_pClickEventButtonRenderStatus->Update(e_fElpaseTime,m_eObjectMouseBehavior);
+		}
+	}
+
+	void	cClickEvent::Render()
+	{
+		if(this->m_pClickEventButtonRenderStatus)
+		{
+			this->m_pClickEventButtonRenderStatus->Render(m_eObjectMouseBehavior);
 		}
 	}
 
@@ -208,6 +304,7 @@ namespace FATMING_CORE
 	{
 
 	}
+
 
     cClickEvent*    cClickEventGroup::MouseDown(int e_iPosX,int e_iPosY)
 	{
@@ -287,7 +384,11 @@ namespace FATMING_CORE
 
 	void	cClickEventGroup::Init()
 	{
-
+		cClickEvent::Init();
+		for(auto l_pData :this->m_ObjectList)
+		{
+			l_pData->Init();
+		}
 	}
 
     void    cClickEventGroup::Update(float e_fElpaseTime)
@@ -299,6 +400,15 @@ namespace FATMING_CORE
 		}
 	}
 
+	void	cClickEventGroup::Render()
+	{
+		cClickEvent::Init();
+		for(auto l_pData :this->m_ObjectList)
+		{
+			l_pData->Render();
+		}	
+	}
+
 	cClickEventDispatcher::cClickEventDispatcher()
 	{
 		m_pCurrentWorkingEvent = 0;
@@ -307,6 +417,19 @@ namespace FATMING_CORE
 	cClickEventDispatcher::~cClickEventDispatcher()
 	{
 		
+	}
+
+	void    cClickEventDispatcher::Update(float e_fElpaseTime)
+	{
+		if(!this->IsEnable())
+			return;
+		if( m_pCurrentWorkingEvent )
+			m_pCurrentWorkingEvent->Update(e_fElpaseTime);
+		else
+		{
+			cClickEventGroup::Update(e_fElpaseTime);
+		}
+		m_AlwaysNeedToWorkClickEventGroup.Update(e_fElpaseTime);
 	}
 
     cClickEvent*    cClickEventDispatcher::MouseDown(int e_iPosX,int e_iPosY)

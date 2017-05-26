@@ -69,6 +69,7 @@
         eOMB_LEAVE,
         eOMB_UP,
         eOMB_DOUBLU_CLICK_UP,
+		eOMB_MAX,
 		//eOMB_SLIDE_LEFT,		//
 		//eOMB_SLIDE_UP,		//
 		//eOMB_SLIDE_RIGHT,	//

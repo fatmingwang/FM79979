@@ -32,6 +32,7 @@ namespace FATMING_CORE
 	public:
 		//DEFINE_TYPE_INFO();
 		cSimplePhase(){ m_bSatisfiedCondition = false; m_bKillAfterSatisfiedCondition = false;  }
+		virtual ~cSimplePhase(){}
 		//virtual	void				Start(float e_fElpaseTime = EPSIONAL){}
 		virtual	void	Init() = 0;//it would be called if the stage is changed,set m_bSatisfiedCondition as false!?
 		virtual	void	Update(float e_fElpaseTime) = 0;
