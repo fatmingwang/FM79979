@@ -417,6 +417,7 @@ void	Frame::SetLocalBound( const cBound* e_pBound )
 		m_pCachedWorldBound = new cBound();
 	}
 	*m_pLocalBound = *e_pBound;
+	*m_pCachedWorldBound = *m_pLocalBound;
 	SetCachedWorldTransformDirty(); 
 }
 

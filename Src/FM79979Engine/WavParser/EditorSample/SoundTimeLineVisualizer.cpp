@@ -399,20 +399,20 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 	Vector2 l_vCurrentTimePos = Vector2(l_PosStepByTimeGap*e_fCurrentTime,e_vShowPos.y);
 	GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
 	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
-	if( l_uiSize >0 )
+	if( l_uiSize > 0 )
 	{
 		for(size_t i=0;i<l_uiSize;++i)
 		{
 			auto l_Data = this->m_ObjectList[i];
-			Vector4 l_vColor = Vector4::One;
+			Vector4 l_vColor = WAIT_TIME_TUNE;
 			if( l_Data->IsMatched() )
 			{
-				l_vColor = Vector4::Green;
+				l_vColor = CORRECT_TUNE_COLOR;
 			}
 			else
 			if( l_Data->IsTimeOver() )
 			{
-				l_vColor = Vector4::Red;
+				l_vColor = TUNE_TIME_PAST;
 			}
 			GLRender::RenderRectangle(this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i],1,e_vResolution.y,l_vColor);
 		}

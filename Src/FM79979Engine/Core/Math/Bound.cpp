@@ -71,6 +71,12 @@ cBound cBound::operator*( cMatrix44 World ) const
                                      Translation );
             return cBound( WorldAabb );
         }
+		case cBound::RECT2D_BOUND:
+        {
+			RECT l_Rect = GetRect();
+            TransformRect( &l_Rect,&l_Rect,Scale,Rotation,Translation );
+            return cBound( l_Rect );
+        }
         case cBound::No_Bound:
             return cBound();
     }

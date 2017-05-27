@@ -417,7 +417,16 @@ void TransformFrustum( sFrustum* pOut, const sFrustum* pIn,float Scale, Vector4 
 {
 
 }
-
+//I am lazy so just do a move
+void TransformRect( RECT* pOut, const RECT* pIn,float Scale, Vector4 Rotation, Vector4 Translation )
+{
+	POINT l_Size = {pIn->right-pIn->left,pIn->bottom-pIn->top};
+	POINT l_NewPos = { (LONG)Translation.x-pIn->left,(LONG)Translation.y-pIn->top };
+	pOut->left = l_NewPos.x-pIn->left;
+	pOut->top = l_NewPos.y-pIn->top;
+	pOut->right = pOut->left+l_Size.x;
+	pOut->bottom = pOut->top+l_Size.y;
+}
 
 
 //-----------------------------------------------------------------------------

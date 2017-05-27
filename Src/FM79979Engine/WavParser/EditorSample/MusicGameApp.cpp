@@ -18,6 +18,7 @@ cMusicGameApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGa
 cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+	*this->m_psstrGameAppName = "MusicGame";
 	SetAcceptRationWithGameresolution((int)e_vViewportSize.x,(int)e_vViewportSize.y,(int)e_vGameResolution.x,(int)e_vGameResolution.y);
 	m_pPhaseManager = nullptr;
 }
@@ -76,7 +77,7 @@ void	cMusicGameApp::MouseDown(int e_iPosX,int e_iPosY)
 	cGameApp::MouseDown(e_iPosX,e_iPosY);
 	if( m_pPhaseManager )
 	{
-		m_pPhaseManager->MouseDown(e_iPosX,e_iPosY);
+		m_pPhaseManager->MouseDown(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	}
 }
 
@@ -85,7 +86,7 @@ void	cMusicGameApp::MouseMove(int e_iPosX,int e_iPosY)
 	cGameApp::MouseMove(e_iPosX,e_iPosY);
 	if( m_pPhaseManager )
 	{
-		m_pPhaseManager->MouseMove(e_iPosX,e_iPosY);
+		m_pPhaseManager->MouseMove(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	}
 }
 
@@ -94,7 +95,7 @@ void	cMusicGameApp::MouseUp(int e_iPosX,int e_iPosY)
 	cGameApp::MouseUp(e_iPosX,e_iPosY);
 	if( m_pPhaseManager )
 	{
-		m_pPhaseManager->MouseUp(e_iPosX,e_iPosY);
+		m_pPhaseManager->MouseUp(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	}
 }
 

@@ -101,8 +101,8 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 				break;
 			}
 		}
-		//if( l_iNumHitted == 0 )
-			//l_pInnerData->fCompareKeepTime = 0.f;
+		if( l_iNumHitted == 0 )
+			l_pInnerData->fCompareKeepTime = 0.f;
 	}  
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iAllMatched/l_pDataVector->size();

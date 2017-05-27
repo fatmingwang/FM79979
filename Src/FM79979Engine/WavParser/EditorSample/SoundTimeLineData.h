@@ -2,6 +2,9 @@
 
 #include "QuickFFTDataFrequencyFinder.h"
 
+#define	CORRECT_TUNE_COLOR	Vector4::Green
+#define	WAIT_TIME_TUNE		Vector4::One
+#define	TUNE_TIME_PAST		Vector4::Red
 
 #define	SOUND_TIME_LINE_DATA_TIME	"Time"
 //#include "FindTimeDomainFrequenceAndAmplitude.h"

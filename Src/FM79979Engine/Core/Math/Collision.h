@@ -62,11 +62,10 @@ void ComputePlanesFromFrustum( const sFrustum* pVolume,Vector4* pPlane0,Vector4*
 // Bounding volume transforms.
 //-----------------------------------------------------------------------------
 void TransformSphere( sSphere* pOut, const sSphere* pIn,float Scale, Vector4 Rotation, Vector4 Translation );
-void TransformAxisAlignedBox( sAxisAlignedBox* pOut, const sAxisAlignedBox* pIn,float Scale, Vector4 Rotation,
-                              Vector4 Translation );
-void TransformOrientedBox( sOrientedBox* pOut, const sOrientedBox* pIn,float Scale, Vector4 Rotation,
-                           Vector4 Translation );
+void TransformAxisAlignedBox( sAxisAlignedBox* pOut, const sAxisAlignedBox* pIn,float Scale, Vector4 Rotation,Vector4 Translation );
+void TransformOrientedBox( sOrientedBox* pOut, const sOrientedBox* pIn,float Scale, Vector4 Rotation,Vector4 Translation );
 void TransformFrustum( sFrustum* pOut, const sFrustum* pIn,float Scale, Vector4 Rotation, Vector4 Translation );
+void TransformRect( RECT* pOut, const RECT* pIn,float Scale, Vector4 Rotation, Vector4 Translation );
 
 
 

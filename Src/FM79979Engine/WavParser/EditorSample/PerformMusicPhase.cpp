@@ -4,6 +4,9 @@
 #include "MusicGameApp.h"
 #include "SoundFFTCapture.h"
 #include "QuickFFTDataFrequencyFinder.h"
+
+cBaseImage*g_pEventClickTestImage = nullptr;
+
 cPerformMusicPhase::cPerformMusicPhase()
 {
 	this->SetName(PERFORM_MUSIC_PHASE);
@@ -19,6 +22,7 @@ cPerformMusicPhase::~cPerformMusicPhase()
 	SAFE_DELETE(m_pClickEventDispatcher);
 	SAFE_DELETE(m_pBG);
 	SAFE_DELETE(m_pTimeLineRangeChart);
+	SAFE_DELETE(g_pEventClickTestImage);
 }
 
 void	cPerformMusicPhase::FetchData(const wchar_t*e_strPhaseName,void*e_pData)
@@ -60,7 +64,19 @@ void	cPerformMusicPhase::Init()
 	if( m_pClickEventDispatcher )
 	{
 		//cClickEvent*l_pClickEvent = cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect = true);
+		cBaseImage*l_pImage = new cBaseImage("MusicGame/Image/Pause.png");
+		RECT l_RECT ={0,0,l_pImage->GetWidth(),l_pImage->GetHeight() };
+		cBound l_Bound(l_RECT);
+		l_pImage->SetLocalBound(&l_Bound);
+		g_pEventClickTestImage = l_pImage;
+		l_pImage->SetPos(Vector2(1800,600));
+		cBasicSound*l_pBasicSound = cGameApp::GetSoundByFileName(L"MusicGame/Piano/rf3.wav");
 		m_pClickEventDispatcher->Init();
+		m_pClickEventDispatcher->AddButton(l_pImage,
+			[&l_pImage](cObjectClickRespond*e_pObjectClickRespondprinter){
+				l_pImage->SetColor(Vector4(1,1,0,1));
+			}
+			,l_pBasicSound);
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();
@@ -115,6 +131,8 @@ void	cPerformMusicPhase::Render()
 		m_pBG->Render();
 	}
 	DebugRender();
+	if( g_pEventClickTestImage )
+		g_pEventClickTestImage->Render();
 }
 
 //

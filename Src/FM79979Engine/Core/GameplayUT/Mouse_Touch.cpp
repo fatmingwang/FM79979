@@ -12,6 +12,17 @@ namespace FATMING_CORE
             *e_pvDirection = l_vDirection;
         return l_vDirection.Length();
     }
+
+	bool	sMouseMoveData::IsDownUpDistanceSamePoint(Vector2 *e_pvDirection)
+	{
+		float l_fDistance = DownUpDistance(e_pvDirection);
+		if( l_fDistance < DOUBLE_CLICK_RESTRICTION_DISTANCE )
+		{
+			return true;
+		}
+		return false;
+	}
+
     float   sMouseMoveData::DownMoveDistance(Vector2 *e_pvDirection)
     {
         Vector2 l_vDirection((float)(MovePos.x-DownPos.x),(float)(MovePos.y-DownPos.y));
@@ -74,9 +85,8 @@ namespace FATMING_CORE
         UINT    l_uiElpaseTime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-MouseDownTime);
         fDownToUpElpaseTime = (float)((double)l_uiElpaseTime*cGameApp::m_sTimeAndFPS.dbConversion);
 #endif
-		float	l_fMoveDis = DownUpDistance();
 		//is first mouse up ?check distance and time.
-		if( l_fMoveDis<DOUBLE_CLICK_RESTRICTION_DISTANCE )
+		if( IsDownUpDistanceSamePoint() )
 		{
 			if( uiLastMouseUpClickElpaseTime == 0 )//mouse up
 			{

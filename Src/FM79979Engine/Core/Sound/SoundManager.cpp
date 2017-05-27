@@ -217,12 +217,12 @@ namespace FATMING_CORE
 		alSpeedOfSound(343.3f*e_fSpeed);  
 	}
 
-	bool	cSoundParser::AddSound(const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddSound(const char*e_strFileName)
 	{
 		return this->AddSound(this,e_strFileName);
 	}
 
-	bool	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
 		std::string	l_extensionName = UT::GetFileExtensionName(e_strFileName);
 		if(this->GetObject(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strFileName)).c_str()))
@@ -238,7 +238,7 @@ namespace FATMING_CORE
 					l_pOpanalWAV->Release(e_pRef);
 				}
 				else
-					return true;
+					return l_pOpanalWAV;
 			}
 			else
 			{
@@ -257,7 +257,7 @@ namespace FATMING_CORE
 					l_pOpanalOgg->Release(e_pRef);
 				}
 				else
-					return true;
+					return l_pOpanalOgg;
 			}
 		}
 		else
@@ -268,13 +268,13 @@ namespace FATMING_CORE
 		return false;
 	}
 
-	bool	cSoundParser::AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
 		return AddSound(e_pRef,e_strFileName);
 	}
 
 
-	bool	cSoundParser::AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName)
+	cBasicSound*	cSoundParser::AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
 		return AddSound(e_pRef,e_strFileName);
 	}

@@ -22,7 +22,7 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetAmplitude(int e_iFrequency)
 	int l_iStep = (int)(((float)e_iFrequency/m_iFrequency)*m_iFFTBinCount);
 	if( l_iStep < this->m_iFFTBinCount )
 	{
-		int l_iNeighborsData = 1;
+		int l_iNeighborsData = 2;
 		if( l_iStep < l_iNeighborsData )
 			l_iStep = l_iNeighborsData;
 		if( l_iStep >= m_iFFTBinCount-l_iNeighborsData)

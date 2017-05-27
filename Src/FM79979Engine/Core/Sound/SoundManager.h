@@ -23,11 +23,11 @@ namespace FATMING_CORE
 		ALCcontext*	m_pContext;	
 	#endif
 		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
-		void	ProcessStreamingData();
-		void	ProcessStaticData();
-		void	ProcessRootDirectory();
-		char	m_strDestDirectory[TEMP_SIZE];
-		float	m_fVolume;
+		void			ProcessStreamingData();
+		void			ProcessStaticData();
+		void			ProcessRootDirectory();
+		char			m_strDestDirectory[TEMP_SIZE];
+		float			m_fVolume;
 	public:
 		DEFINE_TYPE_INFO();
 		//reserve for BG sound
@@ -43,21 +43,21 @@ namespace FATMING_CORE
 		cSoundParser();
 		virtual ~cSoundParser();
 		//the referance should be use cResourceStamp to instead but I am lazy to fix right now
-		bool	AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName);
-		bool	AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName);
-		bool	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName);
-		bool	AddSound(const char*e_strFileName);
-		void	Export(char*e_strFileName);
-		//for 0 to 1
-		void	SetVolume(float e_fVolume);
-		float	GetVolume(){ return m_fVolume; }
-		float	m_fBGMVolume;
-		float	m_fSoundEffectVolume;
-		void	Pause(bool e_bPause);	//all sound pause
-		void	Stop();					//all sound stop
-		void	SetSpeed(float e_fSpeed);
-		void	Update(float e_fElpaseTime);
-		void	RemoveAllBGM();
+		cBasicSound*	AddStaticSound(NamedTypedObject*e_pRef,const char*e_strFileName);
+		cBasicSound*	AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName);
+		cBasicSound*	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName);
+		cBasicSound*	AddSound(const char*e_strFileName);
+		void			Export(char*e_strFileName);
+		//for 0			to 1
+		void			SetVolume(float e_fVolume);
+		float			GetVolume(){ return m_fVolume; }
+		float			m_fBGMVolume;
+		float			m_fSoundEffectVolume;
+		void			Pause(bool e_bPause);	//all sound pause
+		void			Stop();					//all sound stop
+		void			SetSpeed(float e_fSpeed);
+		void			Update(float e_fElpaseTime);
+		void			RemoveAllBGM();
 		//SimpleGLTexture could't add into cNamedTypedObjectVector
 		//but cBasicSound is able to do this,so release got a bit bitter,so I am override RemoveObject
 		//for release working decent.

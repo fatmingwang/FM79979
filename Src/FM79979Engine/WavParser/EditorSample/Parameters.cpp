@@ -18,4 +18,4 @@ int		cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE*2;
 
 int		cSoundCompareParameter::m_siDebugAmplitudeValue = 80;
 
-bool	cSoundCompareParameter::m_sbDebugRender = false;
+bool	cSoundCompareParameter::m_sbDebugRender = true;

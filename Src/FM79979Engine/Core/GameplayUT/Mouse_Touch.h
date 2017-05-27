@@ -68,6 +68,7 @@ namespace FATMING_CORE
 		void		MouseMove(int e_iPosX,int e_iPosY);
 		//if true double click is true or not
 		bool		MouseUp(int e_iPosX,int e_iPosY);
+		bool		IsDownUpDistanceSamePoint(Vector2 *e_pvDirection = 0);
     };
     //mouse behavior,Mouse Down,Mouse Horver MouseLeave MouseUp
     //basicly it will has a parent cClickMouseBehaviorVector.
