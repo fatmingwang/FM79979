@@ -452,7 +452,7 @@ void	cKissFFTConvert::Render()
 
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
-		RenderMaxAmplitudeAndFrequencyInfo(100,200);
+		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 	}
 	//std::vector<Vector2> l_Test;
 	//l_Test.push_back(Vector2(100,500));

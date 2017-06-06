@@ -26,5 +26,5 @@
 #include "RenderObjectVector.h"
 #include "ObjectXMLParser.h"
 #include "CameraZoomFunction.h"
-#include "ClickEvent/ClickEvent.h"
+#include "ClickBehavior/ClickBehavior.h"
 #endif

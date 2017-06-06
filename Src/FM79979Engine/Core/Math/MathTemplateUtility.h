@@ -27,6 +27,19 @@ namespace UT
 	{
 		return (TYPE)((e_fDest-e_fSrc)*e_fLERPValue+e_fSrc);
 	}
+	//if position is smaller than start pos return 0
+	//if position is bigger than end pos return 2
+	template<class TYPE>inline float	GetPosPercentageInRange(TYPE e_Pos,TYPE e_Start,TYPE e_End)
+	{
+		if(e_Pos<e_Start)
+			return 0.f;
+		if(e_Pos>e_End)
+			return 1.f;
+		TYPE l_Pos = e_Pos-e_Start;
+		TYPE l_Length = e_End-e_Start;
+		float l_fPercentage = (float)l_Pos/l_Length;
+		return l_fPercentage;
+	}
 
 	//for each
 	//template<class InputIterator, class Function>Function for_each(InputIterator first, InputIterator last, Function f)

@@ -7,17 +7,21 @@ namespace FATMING_CORE
 	//==========================
 	//change color and angle by m_pFontImage->SetColor SetAngle;
 	//==========================
-	class cGlyphFontRender:public NamedTypedObject
+	class cGlyphFontRender:public Frame
 	{
 		GET_SET_DEC(GlyphReader*,m_pGlyphReader,GetGlyphReader,SetGlyphReader);
 		GET_SET_DEC(float,m_fDepth,GetDepth,SetDepth);
-		cBaseImage* m_pFontImage;
+		cBaseImage*		m_pFontImage;
 		GET_SET_DEC(float,m_fScale,GetScale,SetScale);
-		Vector2	*m_pvVertexBuffer;
-		Vector2	*m_pvTextureUVBuffer;
-		Vector4	*m_pvColorBuffer;
+		Vector2	*		m_pvVertexBuffer;
+		Vector2	*		m_pvTextureUVBuffer;
+		Vector4	*		m_pvColorBuffer;
+		Vector2			m_vHalfSize;
+		int				m_iDrawCount;
+		int				m_iVertexBufferCount;
 		//for how many words
-		int		m_iBufferLength;
+		int				m_iBufferLength;
+		std::wstring	m_strText;
 	public:
 		DEFINE_TYPE_INFO();
 		cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize = 300);
@@ -32,6 +36,7 @@ namespace FATMING_CORE
 		void		RenderFont(float e_fX,float e_fY,std::wstring e_pString){ RenderFont(e_fX,e_fY,e_pString.c_str()); }
 		void		RenderFont(float e_fX,float e_fY,const wchar_t*e_pString,Vector4*e_pDrawRect);
 		inline void	RenderFont(Vector2 e_vPos,const wchar_t*e_pString){RenderFont(e_vPos.x,e_vPos.y,e_pString);}
+		void		RenderFont();
 		void		SetFontColor(Vector4 e_vColor);
 		Vector2		GetRenderSize(const wchar_t*e_strText);
 	};

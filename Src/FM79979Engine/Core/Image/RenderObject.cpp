@@ -13,7 +13,6 @@ namespace FATMING_CORE
 
 	cRenderObject::cRenderObject(cRenderObject*e_pRenderObjectBehavior):Frame(e_pRenderObjectBehavior)
 	{
-		this->SetName(e_pRenderObjectBehavior->GetName());
 		m_vRotation = e_pRenderObjectBehavior->m_vRotation;
 		m_pvPos = this->GetLocalPositionPointer();
 		this->SetLocalTransform(e_pRenderObjectBehavior->GetLocalTransform());
@@ -101,13 +100,13 @@ namespace FATMING_CORE
 
 	void	cRenderObject::ForAllNodesRender()
 	{
-		cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
+		auto*l_pNextSibling = this->GetNextSibling();
 		while( l_pNextSibling )
 		{
 			l_pNextSibling->Render();
-			l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
+			l_pNextSibling = l_pNextSibling->GetNextSibling();
 		}
-		cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
+		cRenderObject*l_pFirstChild = reinterpret_cast<cRenderObject*>(this->GetFirstChild());	
 		if(l_pFirstChild)
 			l_pFirstChild->ForAllNodesRender();	
 	}

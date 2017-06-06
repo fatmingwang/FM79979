@@ -362,7 +362,7 @@ void	cSoundFFTCapture::Render()
 		//	}
 		//	GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		//}
-		RenderMaxAmplitudeAndFrequencyInfo(100,200);
+		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
 	}
 }

@@ -10,10 +10,13 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(int e_iVertexBufferSize)
 	{
+		m_iVertexBufferCount = e_iVertexBufferSize;
+		m_vHalfSize = Vector2::Zero;
 		m_pFontImage = 0;
 		m_pGlyphReader = 0;
 		m_fDepth = 0.f;
 		m_fScale = 1.f;
+		m_iDrawCount = 0;
 		m_pvVertexBuffer = new Vector2[4*e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
 		m_pvTextureUVBuffer = new Vector2[4*e_iVertexBufferSize];
 		m_pvColorBuffer = new Vector4[4*e_iVertexBufferSize];
@@ -24,6 +27,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize)
 	{
+		m_iVertexBufferCount = e_iVertexBufferSize;
 		m_pvVertexBuffer = 0;
 		m_pvTextureUVBuffer = 0;
 		m_pvColorBuffer = 0;
@@ -53,6 +57,7 @@ namespace FATMING_CORE
 		sprintf(l_str,"%s%s.FontInfo",l_strForDirectory,l_strForStripExtensionName);
 		if(!m_pGlyphReader->LoadFontDataFile(l_str))
 			UT::ErrorMsg("read font info failed",l_str);
+		m_pGlyphReader->AddRef(this);
 		m_pvVertexBuffer = new Vector2[4*e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
 		m_pvTextureUVBuffer = new Vector2[4*e_iVertexBufferSize];
 		m_pvColorBuffer = new Vector4[4*e_iVertexBufferSize];
@@ -65,12 +70,23 @@ namespace FATMING_CORE
 	}
 	cGlyphFontRender::cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender)
 	{
-		assert(0&&"cGlyphFontRender lazy to implement clone");
+		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;
+		m_pFontImage = dynamic_cast<cBaseImage*>(e_pGlyphFontRender->m_pFontImage->Clone());
+		m_pGlyphReader = e_pGlyphFontRender->m_pGlyphReader;
+		m_pGlyphReader->AddRef(this);
+		m_pvVertexBuffer = new Vector2[4*m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[4*m_iVertexBufferCount];
+		m_pvColorBuffer = new Vector4[4*m_iVertexBufferCount];
+		m_iBufferLength = m_iVertexBufferCount;
+		for( int i=0;i<m_iVertexBufferCount*4;++i )
+			m_pvColorBuffer[i] = Vector4::One;
+		m_fDepth = 0.f;
+		m_fScale = 1.f;
 	}
 
 	cGlyphFontRender::~cGlyphFontRender()
 	{
-		SAFE_DELETE(m_pGlyphReader);
+		SAFE_RELEASE(m_pGlyphReader,this);
 		SAFE_DELETE(m_pFontImage);
 		SAFE_DELETE(m_pvVertexBuffer);
 		SAFE_DELETE(m_pvTextureUVBuffer);
@@ -82,119 +98,132 @@ namespace FATMING_CORE
 		RenderFont(e_fX,e_fY,e_pString,0);
 	}
 
+	void	cGlyphFontRender::RenderFont()
+	{
+		RenderFont(0,0,this->m_strText.c_str(),nullptr);
+	}
+
 	void	cGlyphFontRender::RenderFont(float e_fX,float e_fY,const wchar_t*e_pString,Vector4*e_pDrawRect)
 	{
 		int	l_iLen = (int)wcslen(e_pString);
 		if( l_iLen == 0 )
 			return;
-		if( l_iLen > m_iBufferLength )
+		if( wcscmp(m_strText.c_str(),e_pString) )
 		{
-			l_iLen = m_iBufferLength;
-		}
-		float	l_fXOffset = 0.f;
-		float	l_fYOffset = 0.f;
-		float	l_fFonyHeight = 0.f;
-		for( int i=0;i<l_iLen;++i )
-		{
-			if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]))
-				continue;
-			FILE_GLYPH_ATTR	l_FILE_GLYPH_ATTR = m_pGlyphReader->GetCharInfo(e_pString[i]);
-			l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_pString[i]).fHeight*m_fScale;
-		}
-		float	l_fMaxWidth = 0.f;
-		float	l_fMaxHeight = l_fFonyHeight;
-		int	l_iAliveIndex = 0;
-		for(int i=0;i<l_iLen;++i)
-		{
-			float*l_pfVertexData = (float*)&m_pvVertexBuffer[l_iAliveIndex*6];
-			float*l_pfTextData = (float*)&m_pvTextureUVBuffer[l_iAliveIndex*6];
-			//unicode
-			if( e_pString[i] == 13 && ((i+1<l_iLen)&&e_pString[i+1] == 10) )
+			m_strText = e_pString;
+			if( l_iLen > m_iBufferLength )
 			{
-				continue;
+				l_iLen = m_iBufferLength;
 			}
-			//ansi
-			if( e_pString[i] != L'\n' )
+			float	l_fXOffset = 0.f;
+			float	l_fYOffset = 0.f;
+			float	l_fFonyHeight = 0.f;
+			for( int i=0;i<l_iLen;++i )
 			{
 				if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]))
 					continue;
-				FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_pString[i]);
-				float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
-				float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
-				//pos
-				*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset+l_fCharacterHeight;		++l_pfVertexData;
-				
-				*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset+l_fCharacterHeight;		++l_pfVertexData;
-				*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
-				*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
-				*l_pfVertexData = l_fYOffset+l_fCharacterHeight;
-
-				//UV
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;				++l_pfTextData;
-
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
-				*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;
-				
-				l_fXOffset += l_fCharacterWidth;
-				if( l_fMaxWidth<l_fXOffset )
-					l_fMaxWidth = l_fXOffset;
-				++l_iAliveIndex;
+				FILE_GLYPH_ATTR	l_FILE_GLYPH_ATTR = m_pGlyphReader->GetCharInfo(e_pString[i]);
+				l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_pString[i]).fHeight*m_fScale;
 			}
-			else
+			float	l_fMaxWidth = 0.f;
+			float	l_fMaxHeight = l_fFonyHeight;
+			int	l_iAliveIndex = 0;
+			for(int i=0;i<l_iLen;++i)
 			{
-				//memset(l_pfVertexData,0,sizeof(float)*8);
-				//memset(l_pfTextData,0,sizeof(float)*8);
-				l_fXOffset = 0;
-				l_fYOffset += l_fFonyHeight;
-				l_fMaxHeight  += l_fFonyHeight;
-			}
-		}
-		if( l_iAliveIndex == 0 )
-			return;
-		if( e_pDrawRect )
-		{
-			e_pDrawRect->x = e_fX;
-			e_pDrawRect->y = e_fY;
-			e_pDrawRect->z = e_fX+l_fMaxWidth;
-			e_pDrawRect->w = e_fY+l_fMaxHeight;
-		}
-		float	l_fHalfWidth = l_fMaxWidth;
-		float	l_fHalfHeight = l_fMaxHeight;
-		for(int i=0;i<l_iAliveIndex;++i)
-		{
-			float*l_pfVertexData = (float*)&m_pvVertexBuffer[i*6];
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
+				float*l_pfVertexData = (float*)&m_pvVertexBuffer[l_iAliveIndex*6];
+				float*l_pfTextData = (float*)&m_pvTextureUVBuffer[l_iAliveIndex*6];
+				//unicode
+				if( e_pString[i] == 13 && ((i+1<l_iLen)&&e_pString[i+1] == 10) )
+				{
+					continue;
+				}
+				//ansi
+				if( e_pString[i] != L'\n' )
+				{
+					if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]))
+						continue;
+					FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_pString[i]);
+					float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
+					float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
+					//pos
+					*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset+l_fCharacterHeight;		++l_pfVertexData;
+				
+					*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset+l_fCharacterHeight;		++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset+l_fCharacterWidth;			++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset+l_fCharacterHeight;
 
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;			
-			*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight;
+					//UV
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;				++l_pfTextData;
+
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fLeft;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fTop;					++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
+					*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;
+				
+					l_fXOffset += l_fCharacterWidth;
+					if( l_fMaxWidth<l_fXOffset )
+						l_fMaxWidth = l_fXOffset;
+					++l_iAliveIndex;
+				}
+				else
+				{
+					//memset(l_pfVertexData,0,sizeof(float)*8);
+					//memset(l_pfTextData,0,sizeof(float)*8);
+					l_fXOffset = 0;
+					l_fYOffset += l_fFonyHeight;
+					l_fMaxHeight  += l_fFonyHeight;
+				}
+			}
+			if( l_iAliveIndex == 0 )
+				return;
+			m_iDrawCount = l_iAliveIndex;
+			if( e_pDrawRect )
+			{
+				e_pDrawRect->x = e_fX;
+				e_pDrawRect->y = e_fY;
+				e_pDrawRect->z = e_fX+l_fMaxWidth;
+				e_pDrawRect->w = e_fY+l_fMaxHeight;
+			}
+			float	l_fHalfWidth = l_fMaxWidth;
+			float	l_fHalfHeight = l_fMaxHeight;
+			for(int i=0;i<l_iAliveIndex;++i)
+			{
+				float*l_pfVertexData = (float*)&m_pvVertexBuffer[i*6];
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
+
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;			
+				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight;
+			}
+			m_vHalfSize.x = l_fHalfWidth;
+			m_vHalfSize.y = l_fHalfHeight;
 		}
 		UseShaderProgram(DEFAULT_SHADER);
 		m_pFontImage->ApplyImage();
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX+l_fHalfWidth,e_fY+l_fHalfHeight,0.f));
+		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX+m_vHalfSize.x,e_fY+m_vHalfSize.y,0.f));
+		l_mat *= this->GetWorldTransform();
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		myGlVertexPointer(2,m_pvVertexBuffer);
 		myGlUVPointer(2,m_pvTextureUVBuffer);
 		myGlColorPointer(4,m_pvColorBuffer);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6*l_iAliveIndex);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6*m_iDrawCount);
 	}
 
 	void	cGlyphFontRender::SetFontColor(Vector4 e_vColor)

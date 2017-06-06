@@ -115,7 +115,9 @@
     <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="Parameters.cpp" />
     <ClCompile Include="PerformMusicPhase.cpp" />
+    <ClCompile Include="PerformScoreCalculate.cpp" />
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
+    <ClCompile Include="SongSelectionPhase.cpp" />
     <ClCompile Include="SoundTestButtons.cpp" />
     <ClCompile Include="SoundTimeLineData.cpp" />
     <ClCompile Include="SoundTimeLineVisualizer.cpp" />
@@ -139,7 +141,9 @@
     <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="PerformMusicPhase.h" />
+    <ClInclude Include="PerformScoreCalculate.h" />
     <ClInclude Include="QuickFFTDataFrequencyFinder.h" />
+    <ClInclude Include="SongSelectionPhase.h" />
     <ClInclude Include="SoundTestButtons.h" />
     <ClInclude Include="SoundTimeLineData.h" />
     <ClInclude Include="SoundTimeLineVisualizer.h" />

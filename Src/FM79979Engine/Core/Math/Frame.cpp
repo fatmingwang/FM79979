@@ -19,12 +19,20 @@ Frame::Frame()
     m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
 	m_LocalTransform = cMatrix44::Identity;
 	m_bDestroyConnectionWhileDestroy =  true;
-	m_pLocalBound = 0;
-    m_pCachedWorldBound = 0;
+	m_pLocalBound = nullptr;
+    m_pCachedWorldBound = nullptr;
+	m_bAutoUpdateBound = true;
 }
 
 Frame::Frame(Frame*e_pFrame)
 {
+	m_pLocalBound = nullptr;
+    m_pCachedWorldBound = nullptr;
+	m_bAutoUpdateBound = e_pFrame->m_bAutoUpdateBound;
+	if( e_pFrame->m_pLocalBound )
+	{
+		this->SetLocalBound(e_pFrame->m_pLocalBound);
+	}
     m_pParent = nullptr;
     m_pNextSibling = nullptr;
     m_pFirstChild = nullptr;
@@ -54,6 +62,46 @@ Frame::~Frame()
 	}
 	SAFE_DELETE(m_pLocalBound);
     SAFE_DELETE(m_pCachedWorldBound);
+}
+
+//Frame*l_pFrameTest = new Frame();
+//l_pFrameTest->SetName(L"Root");
+//Frame*l_pFrameTest7 = new Frame();
+//l_pFrameTest7->SetName(L"_1");
+//Frame*l_pFrameTest1 = new Frame();
+//l_pFrameTest1->SetName(L"_2");
+//l_pFrameTest->AddChild(l_pFrameTest7);
+//l_pFrameTest->AddChild(l_pFrameTest1);
+//Frame*l_pFrameTest2 = new Frame();
+//l_pFrameTest2->SetName(L"_1_1");
+//Frame*l_pFrameTest3 = new Frame();
+//l_pFrameTest3->SetName(L"_1_2");
+//l_pFrameTest7->AddChild(l_pFrameTest2);
+//l_pFrameTest7->AddChild(l_pFrameTest3);
+//Frame*l_pFrameTest4 = new Frame();
+//l_pFrameTest4->SetName(L"_2_1");
+//l_pFrameTest1->AddChild(l_pFrameTest4);
+//Frame*l_pFrameTest5 = new Frame();
+//l_pFrameTest5->SetName(L"_2_1_1");
+//Frame*l_pFrameTest6 = new Frame();
+//l_pFrameTest6->SetName(L"_2_1_2");
+//l_pFrameTest4->AddChild(l_pFrameTest5);
+//l_pFrameTest4->AddChild(l_pFrameTest6);
+//Frame::DestoryWithChildren(l_pFrameTest);
+void	Frame::DestoryWithChildren(Frame*e_pFrame)
+{
+	if( e_pFrame )
+	{
+		e_pFrame->m_bDestroyConnectionWhileDestroy = false;
+		auto l_pFrame = e_pFrame->GetNextSibling();
+		if( l_pFrame )
+			DestoryWithChildren(l_pFrame);
+		l_pFrame = e_pFrame->GetFirstChild();
+		if( l_pFrame )
+			DestoryWithChildren(l_pFrame);
+		cGameApp::OutputDebugInfoString(e_pFrame->GetName());
+		SAFE_DELETE(e_pFrame);
+	}
 }
 
 void	Frame::SetLocalRotation(Vector3 e_vRotation)
@@ -222,6 +270,13 @@ bool Frame::IsChild( Frame* pOtherFrame )
 }
 
 
+void    Frame::SetLocalPosition( Vector3 e_vPos )
+{
+	SetCachedWorldTransformDirty();
+	m_LocalTransform.r[3] = VECTOR4Set(e_vPos.x,e_vPos.y,e_vPos.z,1.f);
+	SetTransformInternalData();
+}
+
 //-----------------------------------------------------------------------------
 // Name: Frame::GetWorldPosition()
 //-----------------------------------------------------------------------------
@@ -345,7 +400,7 @@ void Frame::UpdateCachedWorldTransformIfNeeded()
         {
             m_pParent->UpdateCachedWorldTransformIfNeeded();        
             m_CachedWorldTransform = m_pParent->m_CachedWorldTransform * m_LocalTransform;
-			if( m_pLocalBound )
+			if( m_pLocalBound && m_bAutoUpdateBound )
 			{
 				*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
 			}
@@ -353,7 +408,7 @@ void Frame::UpdateCachedWorldTransformIfNeeded()
         else
         {   
             m_CachedWorldTransform = m_LocalTransform;
-			if( m_pLocalBound )
+			if( m_pLocalBound && m_bAutoUpdateBound)
 			{
 				if( m_pLocalBound->GetType() != 0 )
 					*m_pCachedWorldBound = (*m_pLocalBound) * m_CachedWorldTransform;
@@ -369,6 +424,7 @@ void Frame::UpdateCachedWorldTransformIfNeeded()
 //-----------------------------------------------------------------------------
 void Frame::SetCachedWorldTransformDirty()
 {
+	//float* l_pAddress = &m_CachedWorldTransform._11;
 	if( m_CachedWorldTransform._11 != FRAME_DIRTY_WORLD_CACHE )
 	{
 		Frame *pChild;
@@ -424,6 +480,15 @@ void	Frame::SetLocalBound( const cBound* e_pBound )
 void	Frame::SetDestroyConnectionWhileDestoruction(bool e_bDestroyConnectionWhileDestroy)
 {
 	m_bDestroyConnectionWhileDestroy = e_bDestroyConnectionWhileDestroy;
+}
+
+bool	Frame::IsAutoUpdateBound()
+{
+	return this->m_bAutoUpdateBound;
+}
+void	Frame::SetAutoUpdateBound(bool e_bAutoUpdateBound)
+{
+	m_bAutoUpdateBound = e_bAutoUpdateBound;
 }
 
 void    Frame::Forward(float e_fDistance)

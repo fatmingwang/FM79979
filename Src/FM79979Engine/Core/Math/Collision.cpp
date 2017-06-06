@@ -421,11 +421,13 @@ void TransformFrustum( sFrustum* pOut, const sFrustum* pIn,float Scale, Vector4 
 void TransformRect( RECT* pOut, const RECT* pIn,float Scale, Vector4 Rotation, Vector4 Translation )
 {
 	POINT l_Size = {pIn->right-pIn->left,pIn->bottom-pIn->top};
-	POINT l_NewPos = { (LONG)Translation.x-pIn->left,(LONG)Translation.y-pIn->top };
-	pOut->left = l_NewPos.x-pIn->left;
-	pOut->top = l_NewPos.y-pIn->top;
-	pOut->right = pOut->left+l_Size.x;
-	pOut->bottom = pOut->top+l_Size.y;
+	l_Size.x /= 2;
+	l_Size.y /= 2;
+	POINT l_NewPos = { (LONG)Translation.x,(LONG)Translation.y };
+	pOut->left = l_NewPos.x-l_Size.x;
+	pOut->top = l_NewPos.y-l_Size.y;
+	pOut->right = l_NewPos.x+l_Size.x;
+	pOut->bottom = l_NewPos.y+l_Size.y;
 }
 
 

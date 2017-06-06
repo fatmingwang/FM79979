@@ -20,6 +20,7 @@ public:
     Frame();
 	Frame(Frame*e_pFrame);
     virtual ~Frame();
+	static	void				DestoryWithChildren(Frame*e_pFrame);
 	Frame*						FinFrameByName(wchar_t*e_strName);
     // frame hierarchy
     virtual	void                AddChild( Frame* pChild ,bool e_bUpdateRelatedPosition = true);
@@ -39,7 +40,7 @@ public:
     Vector3                     GetLocalPosition() const { return *(Vector3*)(&m_LocalTransform.r[3]); }
 	Vector3*                    GetLocalPositionPointer() const { return (Vector3*)(&m_LocalTransform.r[3]); }
     void                        SetLocalPosition( const VECTOR4& NewPosition ) { SetLocalPosition(Vector3(NewPosition.x,NewPosition.y,NewPosition.z)); }
-	void                        SetLocalPosition( Vector3 e_vPos ){ SetCachedWorldTransformDirty(); m_LocalTransform.r[3] = VECTOR4Set(e_vPos.x,e_vPos.y,e_vPos.z,1.f);SetTransformInternalData(); }
+	void                        SetLocalPosition( Vector3 e_vPos );
    
     // world position
     Vector3                     GetWorldPosition();
@@ -70,6 +71,9 @@ public:
     const cBound*				GetWorldBound() { UpdateCachedWorldTransformIfNeeded(); return m_pCachedWorldBound; }
 
 	void						SetDestroyConnectionWhileDestoruction(bool e_bDestroyConnectionWhileDestroy);
+	bool						IsAutoUpdateBound();
+	void						SetAutoUpdateBound(bool e_bAutoUpdateBound);
+	
 	
 	void                        Forward(float e_fDistance);
 	//only for first level not all children
@@ -96,6 +100,7 @@ protected:
     Frame*                      m_pNextSibling;
     Frame*                      m_pFirstChild;
 	bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
+	bool						m_bAutoUpdateBound;//button dont need this
 };
 
 #endif // ATG_FRAME_H

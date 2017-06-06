@@ -28,8 +28,9 @@ namespace FATMING_CORE
 	    virtual	void	InternalRender() = 0;
 		virtual	void	InternalDebugRender(){}
 		virtual	void	InternalDestroy(){}
-		//
+		//not right,but I am lazy to fix
 		void			DoChildUpdate(float e_fElpaseTime);
+		//not right,but I am lazy to fix
 		void			DoChildRender();
 		void			DoChildInit();
 	public:

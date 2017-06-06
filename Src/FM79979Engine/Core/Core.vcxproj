@@ -285,7 +285,8 @@
   <ItemGroup>
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
-    <ClCompile Include="GameplayUT\ClickEvent\ClickEvent.cpp" />
+    <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp" />
+    <ClCompile Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
     <ClCompile Include="GameplayUT\CustomBinaryData.cpp" />
     <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="GameplayUT\GameAppUtil.cpp" />
@@ -436,7 +437,8 @@
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
     <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
-    <ClInclude Include="GameplayUT\ClickEvent\ClickEvent.h" />
+    <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h" />
+    <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
     <ClInclude Include="GameplayUT\CustomBinaryData.h" />
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h" />
     <ClInclude Include="GLSL\Blur.h" />

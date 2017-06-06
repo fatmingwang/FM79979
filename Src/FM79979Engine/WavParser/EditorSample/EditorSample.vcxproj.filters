@@ -34,6 +34,9 @@
     <Filter Include="Sound\TimeLine\Visualizer">
       <UniqueIdentifier>{eb48f0a5-3014-4ab4-bb90-422c2be69451}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{c1b38948-4df0-491b-b63d-2bf3236318f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -75,9 +78,6 @@
     <ClCompile Include="FindTimeDomainFrequenceAndAmplitude.cpp">
       <Filter>Sound\TimeLine</Filter>
     </ClCompile>
-    <ClCompile Include="PerformMusicPhase.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="SoundTestButtons.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
@@ -89,6 +89,15 @@
     </ClCompile>
     <ClCompile Include="Parameters.cpp">
       <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformMusicPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformScoreCalculate.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SongSelectionPhase.cpp">
+      <Filter>Game\Phase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -128,12 +137,6 @@
     <ClInclude Include="FindTimeDomainFrequenceAndAmplitude.h">
       <Filter>Sound\TimeLine</Filter>
     </ClInclude>
-    <ClInclude Include="AllPhaseName.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="PerformMusicPhase.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="SoundTestButtons.h">
       <Filter>Sound</Filter>
     </ClInclude>
@@ -145,6 +148,18 @@
     </ClInclude>
     <ClInclude Include="Parameters.h">
       <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformMusicPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="AllPhaseName.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformScoreCalculate.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="SongSelectionPhase.h">
+      <Filter>Game\Phase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

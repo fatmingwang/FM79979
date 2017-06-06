@@ -19,7 +19,7 @@ public:
 	static float	m_sfBeforeCurrentTimeViewRange;
 	static float	m_sfAfterCurrentTimeViewRange;
 	//
-	static float	m_sfTolerateTime;
+	static float	m_sfCompareTuneTolerateTime;
 	//if the frequency amplitude close enought
 	static int		m_siAmplitudeOffset;
 

@@ -266,7 +266,7 @@ namespace FATMING_CORE
 		m_pDisableObject = 0;
 		if( e_pDisableObject )
 		{
-			NamedTypedObject*l_pNamedTypedObject = e_pDisableObject->Clone();
+			cRenderObject*l_pNamedTypedObject = dynamic_cast<cRenderObject*>(e_pDisableObject->Clone());
 			//have no idea why this occur crush
 			//m_pDisableObject = reinterpret_cast<cRenderObject*>(l_pNamedTypedObject);
 			m_pDisableObject = dynamic_cast<cRenderObject*>(l_pNamedTypedObject);

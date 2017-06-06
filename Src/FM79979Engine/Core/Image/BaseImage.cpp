@@ -35,7 +35,7 @@ namespace FATMING_CORE
 		m_OriginalSize.y = m_iHeight;
 	}
 
-	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage)
+	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage),Frame(e_pBaseImage)
 	{
 		SetTexBehaviorData(e_pBaseImage);
 		m_pTexture->AddRef(this);
@@ -293,8 +293,7 @@ namespace FATMING_CORE
 	{
 		if( !m_bVisible )
 			return;
-		Vector3	l_vPos = this->GetWorldPosition();
-		Render(l_vPos);
+		Render(this->GetWorldTransform());
 	}
 	
     void	cBaseImage::Render(cMatrix44 e_Mat)
@@ -352,6 +351,22 @@ namespace FATMING_CORE
 		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
 		this->m_iWidth = m_pTexture->GetWidth();
 		this->m_iHeight = m_pTexture->GetHeight();
+	}
+
+	POINT	cBaseImage::GetSize()
+	{
+		POINT l_Size = {this->m_iWidth,this->m_iHeight};
+		return l_Size;
+	}
+
+	void		cBaseImage::Create2DBound()
+	{
+		auto l_Size = GetSize();
+		l_Size.x /= 2;
+		l_Size.y /= 2;
+		RECT l_Rect = {-l_Size.x,-l_Size.y,l_Size.x,l_Size.y};
+		cBound l_Bound(l_Rect);
+		this->SetLocalBound(&l_Bound);
 	}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)
 	//{

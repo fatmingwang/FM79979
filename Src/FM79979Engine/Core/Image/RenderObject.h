@@ -2,10 +2,12 @@
 #define _RENDER_OBJECT_BEHAVIOR_H
 
 #include "../Math/Frame.h"
+//#include "../SmartPointer.h"
+
 #include <functional>
 namespace FATMING_CORE
 {
-	class	cRenderObject:public virtual Frame
+	class	cRenderObject:public virtual Frame//,virtual public cSmartObject
 	{
 		//just a rotiton reference
 		Vector3			m_vRotation;
@@ -23,6 +25,8 @@ namespace FATMING_CORE
 		cRenderObject();
 		cRenderObject(cRenderObject*e_pRenderObjectBehavior);
 		virtual ~cRenderObject();
+		//to avoid warning 4436
+		virtual NamedTypedObject*	Clone(){ return new NamedTypedObject(); }
 		Vector3			GetPos();
 		void			SetPos(Vector3 e_vPos);
 		void			SetPos(Vector2 e_vPos);

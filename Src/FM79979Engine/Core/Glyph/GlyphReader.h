@@ -1,6 +1,8 @@
 ﻿#ifndef Gluph_Reader_H
 #define Gluph_Reader_H
 
+#include "SmartPointer.h"
+
 const unsigned long FONTINFOFILEVERSION = 0x00000005; // Texture file properties
 //==========================================
 //reference from xbox360 FontMake tool
@@ -16,7 +18,7 @@ struct FILE_GLYPH_ATTR
 	float   fHeight;
 };
 
-class GlyphReader
+class GlyphReader:public cSmartObject
 {
 	bool	LoadFile( const char* strFileName);
 public:

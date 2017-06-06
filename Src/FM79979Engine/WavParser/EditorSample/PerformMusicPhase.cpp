@@ -13,13 +13,13 @@ cPerformMusicPhase::cPerformMusicPhase()
 	m_pTimeLineRangeChart = nullptr;
 	m_strMusicFileName = "MusicGame/Music/Test.xml";
 	m_pBG = nullptr;
-	m_pClickEventDispatcher = new cClickEventDispatcher();
-		//cClickEvent*					cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect)
+	m_bGamePause = false;
+	m_pClickBehaviorDispatcher = nullptr;
 }
 
 cPerformMusicPhase::~cPerformMusicPhase()
 {
-	SAFE_DELETE(m_pClickEventDispatcher);
+	SAFE_DELETE(m_pClickBehaviorDispatcher);
 	SAFE_DELETE(m_pBG);
 	SAFE_DELETE(m_pTimeLineRangeChart);
 	SAFE_DELETE(g_pEventClickTestImage);
@@ -30,8 +30,52 @@ void	cPerformMusicPhase::FetchData(const wchar_t*e_strPhaseName,void*e_pData)
 	m_strMusicFileName = (char*)e_pData;
 }
 
+void	cPerformMusicPhase::GenerateButtons()
+{
+	if( !m_pClickBehaviorDispatcher )
+	{
+		m_pClickBehaviorDispatcher = new cClickBehaviorDispatcher();
+		cBaseImage*l_pImage = new cBaseImage("MusicGame/Image/Pause.png");
+		Vector2 l_vSize(l_pImage->GetWidth(),l_pImage->GetHeight());
+		l_vSize /= 2.f;
+		RECT l_RECT ={(long)-l_vSize.x,(long)-l_vSize.y,(long)l_vSize.x,(long)l_vSize.y};
+		cBound l_Bound(l_RECT);
+		l_pImage->SetLocalBound(&l_Bound);
+		g_pEventClickTestImage = l_pImage;
+		l_pImage->SetPos(Vector2(1750,600));
+		cClickBehavior*l_pTimeControlButton = nullptr;
+		if( m_pTimeLineRangeChart )
+		{
+			l_pTimeControlButton = m_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(m_pTimeLineRangeChart->GetTimeControlImage(),nullptr,nullptr);
+			if(l_pTimeControlButton )
+			{
+				l_pTimeControlButton->SetEnable(false);
+				l_pTimeControlButton->SetAllowDrag(true);
+				l_pTimeControlButton->SetMouseFunction(
+					std::bind(&cTimeLineRangeChart::TimeControlCollision,m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2),
+					std::bind(&cTimeLineRangeChart::TimeControlMouseDown,m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+					std::bind(&cTimeLineRangeChart::TimeControlMouseMove,m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+					std::bind(&cTimeLineRangeChart::TimeControlMouseUp,m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+					nullptr,nullptr);
+			}
+		}
+		cBasicSound*l_pBasicSound = cGameApp::GetSoundByFileName(L"MusicGame/Piano/rf3.wav");
+		m_pClickBehaviorDispatcher->Init();
+		m_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pImage,
+			[l_pImage,this,l_pTimeControlButton](int e_iPosX,int e_iPosY,cClickBehavior*ClickBehavior){
+				l_pImage->SetColor(Vector4(1,1,0,1));
+				//m_bGamePause = !m_bGamePause;
+				cGameApp::m_sbGamePause = !cGameApp::m_sbGamePause;
+				if( l_pTimeControlButton )
+					l_pTimeControlButton->SetEnable(!l_pTimeControlButton->IsEnable());
+			}
+			,l_pBasicSound);
+	}
+}
+
 void	cPerformMusicPhase::Init()
 {
+	m_bGamePause = false;
 	this->m_bSatisfiedCondition = false;
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StopRecord();
@@ -53,6 +97,7 @@ void	cPerformMusicPhase::Init()
 			SAFE_DELETE(m_pTimeLineRangeChart);
 		}
 	}
+	GenerateButtons();
 	if(cMusicGameApp::m_pSoundFFTCapture)
 	{
 		cMusicGameApp::m_pSoundFFTCapture->SetFilter(true);
@@ -61,24 +106,6 @@ void	cPerformMusicPhase::Init()
 	}
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StartRecord();
-	if( m_pClickEventDispatcher )
-	{
-		//cClickEvent*l_pClickEvent = cClickEvent::LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect = true);
-		cBaseImage*l_pImage = new cBaseImage("MusicGame/Image/Pause.png");
-		RECT l_RECT ={0,0,l_pImage->GetWidth(),l_pImage->GetHeight() };
-		cBound l_Bound(l_RECT);
-		l_pImage->SetLocalBound(&l_Bound);
-		g_pEventClickTestImage = l_pImage;
-		l_pImage->SetPos(Vector2(1800,600));
-		cBasicSound*l_pBasicSound = cGameApp::GetSoundByFileName(L"MusicGame/Piano/rf3.wav");
-		m_pClickEventDispatcher->Init();
-		m_pClickEventDispatcher->AddButton(l_pImage,
-			[&l_pImage](cObjectClickRespond*e_pObjectClickRespondprinter){
-				l_pImage->SetColor(Vector4(1,1,0,1));
-			}
-			,l_pBasicSound);
-	}
-
 	cGameApp::m_sTimeAndFPS.Update();
 }
 
@@ -86,13 +113,17 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 {
 	if( cMusicGameApp::m_pSoundFFTCapture )
 	{
-		cMusicGameApp::m_pSoundFFTCapture->Update(e_fElpaseTime);
+		//cMusicGameApp::m_pSoundFFTCapture->Update(e_fElpaseTime);
 	}
 
 	if(m_pTimeLineRangeChart)
 	{
 		m_pTimeLineRangeChart->Update(e_fElpaseTime);
-		auto l_pQuickFFTDataFrequencyFinder = cMusicGameApp::m_pSoundFFTCapture->GetQuickFFTDataFrequencyFinder();
+		if( !cGameApp::m_sbGamePause )
+		{
+			auto l_pQuickFFTDataFrequencyFinder = cMusicGameApp::m_pSoundFFTCapture->GetQuickFFTDataFrequencyFinder();
+			m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);
+		}
 #ifdef PARSE_TEST_SOUND
 	{
 		std::wstring l_str;
@@ -117,10 +148,9 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 		}
 	}
 #endif
-		m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);
 	}
-	if( m_pClickEventDispatcher )
-		m_pClickEventDispatcher->Update(e_fElpaseTime);
+	if( m_pClickBehaviorDispatcher )
+		m_pClickBehaviorDispatcher->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
 }
 
 void	cPerformMusicPhase::Render()
@@ -138,20 +168,20 @@ void	cPerformMusicPhase::Render()
 //
 void    cPerformMusicPhase::MouseDown(int e_iPosX,int e_iPosY)
 {
-	if( m_pClickEventDispatcher )
-		m_pClickEventDispatcher->MouseDown(e_iPosX,e_iPosY);
+	if( m_pClickBehaviorDispatcher )
+		m_pClickBehaviorDispatcher->MouseDown(e_iPosX,e_iPosY);
 }
 //
 void    cPerformMusicPhase::MouseMove(int e_iPosX,int e_iPosY)
 {
-	if( m_pClickEventDispatcher )
-		m_pClickEventDispatcher->MouseMove(e_iPosX,e_iPosY);
+	if( m_pClickBehaviorDispatcher )
+		m_pClickBehaviorDispatcher->MouseMove(e_iPosX,e_iPosY);
 }
 //
 void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
 {
-	if( m_pClickEventDispatcher )
-		m_pClickEventDispatcher->MouseUp(e_iPosX,e_iPosY);
+	if( m_pClickBehaviorDispatcher )
+		m_pClickBehaviorDispatcher->MouseUp(e_iPosX,e_iPosY);
 }
 
 void	cPerformMusicPhase::Destroy()
@@ -159,7 +189,7 @@ void	cPerformMusicPhase::Destroy()
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StopRecord();
 	SAFE_DELETE(m_pBG);
-	m_pClickEventDispatcher->Destroy();
+	m_pClickBehaviorDispatcher->Destroy();
 }
 
 void	cPerformMusicPhase::DebugRender()

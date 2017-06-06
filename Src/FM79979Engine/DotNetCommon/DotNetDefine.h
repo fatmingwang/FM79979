@@ -1,7 +1,8 @@
 #ifndef _DOT_NET_DEFINE_H_
 #define _DOT_NET_DEFINE_H_
 //for default get and set method
-#define GET_SET(Type,VariableName,FuncName) property Type FuncName{Type get(){ return VariableName; }System::Void set(Type value){ VariableName = value; }}
+//original is GET_SET,but I have define in CORE project so change name to this
+#define DOT_NET_GET_SET(Type,VariableName,FuncName) property Type FuncName{Type get(){ return VariableName; }System::Void set(Type value){ VariableName = value; }}
 //for default get and set method with category attribute name
 #define GET_SET_CATE(Type,VariableName,FuncName,CateAttName) [CategoryAttribute(CateAttName)]GET_SET(Type,VariableName,FuncName)
 

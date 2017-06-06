@@ -4,11 +4,15 @@ class cTimeLineRangeChart;
 class cQuickFFTDataFrequencyFinder;
 class cPerformMusicPhase:public cSimplePhase
 {
-	cClickEventDispatcher*			m_pClickEventDispatcher;
+	cClickBehaviorDispatcher*		m_pClickBehaviorDispatcher;
 	cTimeLineRangeChart*			m_pTimeLineRangeChart;
 	void							FetchData(const wchar_t*e_strPhaseName,void*e_pData);
 	std::string						m_strMusicFileName;
 	cBaseImage*						m_pBG;
+	bool							m_bGamePause;
+	void							GenerateButtons();
+//	cRenderObject;
+//	cRenderNode;
 public:
 	cPerformMusicPhase();
 	virtual ~cPerformMusicPhase();

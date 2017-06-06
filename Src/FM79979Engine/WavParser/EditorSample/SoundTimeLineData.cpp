@@ -6,7 +6,7 @@
 
 TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
-cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData)
+cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fTuneKeepTime,float e_fCompareTime,cToneData*e_pToneData)
 {
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
@@ -18,9 +18,10 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_iNumMatched = 0;
 	m_bMustMatchAfterProior = false;
 	m_bAlreadyPlayTestFlag = false;
-	m_bMatched = false;
+	m_bTuneMatched = false;
 	m_bActivedToCompare = false;
 	m_fActivedElpaseTime = 0.f;
+	m_fTuneKeepTime = e_fTuneKeepTime;
 }
 
 cSoundTimeLineData::~cSoundTimeLineData()
@@ -33,7 +34,7 @@ void		cSoundTimeLineData::Init()
 	m_bActivedToCompare = false;
 	m_fActivedElpaseTime = 0.f;
 	this->m_fResultScore = 0.f;
-	m_bMatched = false;
+	m_bTuneMatched = false;
 	m_bTimeOver = false;
 	m_bAlreadyPlayTestFlag = false;
 }
@@ -43,7 +44,7 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 #ifdef PARSE_TEST_SOUND
 	if( !m_bAlreadyPlayTestFlag )
 	{
-		//if(this->m_fCompareTime+cSoundCompareParameter::m_sfTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfTolerateTime)
+		//if(this->m_fCompareTime+cSoundCompareParameter::m_sfCompareTuneTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfCompareTuneTolerateTime)
 		if(IsStillInCompareTime(e_fCurrentTime))
 		{
 			m_bAlreadyPlayTestFlag = true;
@@ -56,10 +57,12 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
 {
 	//already matched.
-	if( m_bMatched )
+	if( m_bTuneMatched )
 		return true;
 	if(!IsStillInCompareTime(e_fCurrentTime))
+	{
 		return false;
+	}
 	float l_fLocalTime = e_fCurrentTime-this->m_fCompareTime;
 	int	l_iAllMatched = 0;
 	auto l_pDataVector = this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData[this->m_iCurrentMatchedIndex];
@@ -124,7 +127,7 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	}
 	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
 	{
-		m_bMatched = true;
+		m_bTuneMatched = true;
 		//all matched
 		return true;
 	}
@@ -133,9 +136,15 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 
 bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 {
+	if( this->IsTimeOver() )
+		return false;
 	float l_fTimeDifference = abs( e_fTargetTime - this->m_fCompareTime );
-	if( l_fTimeDifference > cSoundCompareParameter::m_sfTolerateTime )
+	if( l_fTimeDifference > cSoundCompareParameter::m_sfCompareTuneTolerateTime )
 	{
+		if(IsFinish(e_fTargetTime))
+		{
+			this->SetTimeOver(true);
+		}
 		//cGameApp::OutputDebugInfoString(L"Not compare!!");
 		return false;
 	}
@@ -145,10 +154,10 @@ bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 
 bool		cSoundTimeLineData::IsFinish(float e_fCurrentTime)
 {
-	float l_iEndSecond = this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size()+this->m_fCompareTime;
-	if( e_fCurrentTime-l_iEndSecond >= cSoundCompareParameter::m_sfTolerateTime )
+	float l_iEndSecond = cSoundCompareParameter::m_sfCompareTuneTolerateTime+m_fCompareTime;
+	if( e_fCurrentTime-l_iEndSecond >= 0.f)
 	{
-		return true;	
+		return true;
 	}
 	return false;
 }
@@ -188,6 +197,10 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 		{
 			const WCHAR*l_strSoundID = e_pTiXmlElement->Attribute(CHAR_TO_WCHAR_DEFINE(TONE_DATA_ID));
 			const WCHAR*l_strTime = e_pTiXmlElement->Attribute(CHAR_TO_WCHAR_DEFINE(SOUND_TIME_LINE_DATA_TIME));
+			const WCHAR*l_strTuneKeepTime = e_pTiXmlElement->Attribute(CHAR_TO_WCHAR_DEFINE(SOUND_TIME_LINE_DATA_TUNE_KEEP_TIME));
+			float l_fTuneKeepTime = 0.1f;
+			if( l_strTuneKeepTime )
+				l_fTuneKeepTime = GetFloat(l_strTuneKeepTime);
 			if( l_strSoundID && l_strTime )
 			{
 				//int		l_iSoundID	= GetInt(l_strSoundID);
@@ -199,7 +212,7 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 					UT::ErrorMsg(l_strSoundID,L"tone data not exists");
 					continue;
 				}
-				cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTime,l_pToneData);
+				cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTuneKeepTime,l_fTime,l_pToneData);
 				l_pSingleSoundCompare->SetName(l_strSoundID);
 				this->AddObjectNeglectExist(l_pSingleSoundCompare);
 			}
@@ -212,7 +225,7 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 	auto l_pLastObject = this->GetLastObject();
 	if( l_pLastObject )
 	{
-		m_fLastToneDataCompareTime = l_pLastObject->GetCompareTime()+cSoundCompareParameter::m_sfTolerateTime;
+		m_fLastToneDataCompareTime = l_pLastObject->GetCompareTime()+cSoundCompareParameter::m_sfCompareTuneTolerateTime;
 	}
 	return true;
 }

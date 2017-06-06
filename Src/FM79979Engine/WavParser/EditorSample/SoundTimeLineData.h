@@ -6,7 +6,8 @@
 #define	WAIT_TIME_TUNE		Vector4::One
 #define	TUNE_TIME_PAST		Vector4::Red
 
-#define	SOUND_TIME_LINE_DATA_TIME	"Time"
+#define	SOUND_TIME_LINE_DATA_TIME			"Time"
+#define	SOUND_TIME_LINE_DATA_TUNE_KEEP_TIME	"TuneKeepTime"
 //#include "FindTimeDomainFrequenceAndAmplitude.h"
 
 //class cToneData;
@@ -27,7 +28,7 @@ class cSoundTimeLineData:public NamedTypedObject
 	//for auto play test
 	bool								m_bAlreadyPlayTestFlag;
 	//
-	bool								m_bMatched;
+	bool								m_bTuneMatched;
 	bool								m_bTimeOver;//current time is big than its compare time
 	//this just a reference.
 	cToneData*							m_pToneData;
@@ -43,6 +44,7 @@ class cSoundTimeLineData:public NamedTypedObject
 	//float								m_fErrorScore;
 	//for the sound happen in the rythem time line.
 	float								m_fCompareTime;
+	float								m_fTuneKeepTime;//some instrument can long press(piano)
 	//avoid same sound is sequence.
 	GET_SET_DEC(bool,m_bMustMatchAfterProior,IsMustMatchAfterProior,SetMustMatchAfterProior);
 	//time is over?
@@ -50,19 +52,21 @@ class cSoundTimeLineData:public NamedTypedObject
 	bool								IsStillInCompareTime(float e_fTargetTime);
 public:
 	DEFINE_TYPE_INFO();
-	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,cToneData*e_pToneData);
+	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
 	virtual ~cSoundTimeLineData();
 
 	void				Init();
 	void				Update(float e_fCurrentTime);
 
-	bool				IsMatched(){return m_bMatched;}
+	bool				IsTuneMatched(){return m_bTuneMatched;}
+	void				SetTuneMatched(bool e_bTuneMatched){m_bTuneMatched = e_bTuneMatched;}
 	//if finish return true
 	bool				Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float				GetCompareTime(){return m_fCompareTime;}
 	cToneData*			GetToneData(){return m_pToneData;}
 	bool				IsTimeOver(){ return m_bTimeOver; }
 	void				SetTimeOver(bool e_bTimeOver){m_bTimeOver = e_bTimeOver;}
+	float				GetTuneKeepTime(){ return m_fTuneKeepTime; }
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">

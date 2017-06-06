@@ -88,6 +88,7 @@ int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 			l_b = true;
 		}
 		assert(l_b&&"fuck no this pointer!!");
+		//cFUSynchronizedHold hold(&m_refCounterLock);
 		cFUSynchronizedHold*l_pHold = new cFUSynchronizedHold(&m_refCounterLock);
 		m_refCount--;
 		int	l_refCount = m_refCount;

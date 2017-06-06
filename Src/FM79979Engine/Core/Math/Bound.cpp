@@ -2,6 +2,8 @@
 #include "Bound.h"
 #include "Quaternion.h"
 
+#include "../Image/SimplePrimitive.h"
+
 const EnumStringMap cBound::BoundType_StringMap[] =
 {
     { cBound::No_Bound, L"nullptr" },
@@ -402,6 +404,17 @@ const	RECT&	cBound::GetRect() const
     return *( RECT* )m_Data;
 }
 
+
+void	cBound::DebugRender()
+{//I am lazy
+	if(BoundType::RECT2D_BOUND == this->m_Type)
+	{
+		const RECT l_Rect = this->GetRect();
+		Vector2 l_vPos(l_Rect.left,l_Rect.top);
+		Vector2 l_vSize(l_Rect.right-l_Rect.left,l_Rect.bottom-l_Rect.top);
+		GLRender::RenderRectangle(l_vPos,l_vSize.x,l_vSize.y,Vector4::One);
+	}
+}
 
 //-----------------------------------------------------------------------------
 // Name: cBound::GetMaxRadius

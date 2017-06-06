@@ -72,6 +72,7 @@
 
         // gets the bound's maximum radius
         float					GetMaxRadius() const;
+		void					DebugRender();
 
     private:
         BoundType				m_Type;

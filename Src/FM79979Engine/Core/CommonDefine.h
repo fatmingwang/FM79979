@@ -47,6 +47,8 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 
 //Type Variable,GetName,SetName
 #define GET_SET_DEC( T,V,p,q ) protected:T V;public:T p (){ return V; }void q (T value){ V = value; }
+
+#define GET_SET( T,V,p,q )		public:T p (){ return V; }void q (T value){ V = value; }
 ////Type Variable,GetName,SetName
 //return pointer
 #define GETP_SET_DEC( T,V,p,q ) protected:T V;public:T* p (){ return &V; }void q (T value){ V = value; }
