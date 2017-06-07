@@ -451,10 +451,12 @@ namespace FATMING_CORE
 				return l_pTiXmlElement;
 			if( e_pNode->NextSiblingElement() != nullptr)
 			{		
+				//why return ?check GoThoughAllFrameFromaFirstToEnd
 				return SearchTiXmlElement( e_pNode->NextSiblingElement(),e_pPointer,callback);
 			}
 			if (e_pNode->FirstChildElement() != nullptr)
 			{
+				//why return ?check GoThoughAllFrameFromaFirstToEnd
 				return SearchTiXmlElement( e_pNode->FirstChildElement(),e_pPointer,callback);
 			}
 		}

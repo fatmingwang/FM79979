@@ -1,6 +1,7 @@
 #ifndef FRAME_H
 #define FRAME_H
 
+#include <functional>
 #include "Matrix44.h"
 
 //-----------------------------------------------------------------------------
@@ -102,5 +103,10 @@ protected:
 	bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
 	bool						m_bAutoUpdateBound;//button dont need this
 };
+//sibling child then pop up back
+void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
+
+void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
+
 
 #endif // ATG_FRAME_H

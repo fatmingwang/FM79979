@@ -47,7 +47,7 @@ namespace FATMING_CORE
 		virtual	void	ForAllNodesRender();
 		virtual	void	ForAllNodesDebugRender();
 		//
-		virtual	void	Destroy() = 0;
+		virtual	void	Destroy(){}
 		virtual	void	SetColor(Vector4 e_vColor){}
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;

@@ -39,6 +39,7 @@ namespace FATMING_CORE
 		void		RenderFont();
 		void		SetFontColor(Vector4 e_vColor);
 		Vector2		GetRenderSize(const wchar_t*e_strText);
+		GET_SET(std::wstring,m_strText,GetText,SetText);
 	};
 
 //end namespace FATMING_CORE

@@ -558,3 +558,31 @@ void	Frame::DumpDebugInfo()
 		GetNextSibling()->DumpDebugInfo();
 	}
 }
+
+void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData)
+{
+	if( e_pFrame )
+	{
+		auto l_pFrame = e_pFrame->GetNextSibling();
+		if( l_pFrame )
+			GoThoughAllFrameFromaLastToFirst(e_Function,l_pFrame,e_pData);
+		l_pFrame = e_pFrame->GetFirstChild();
+		if( l_pFrame )
+			GoThoughAllFrameFromaLastToFirst(e_Function,l_pFrame,e_pData);
+		e_Function(e_pData,e_pFrame);
+	}
+}
+
+void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData)
+{
+	if( e_pFrame )
+	{
+		e_Function(e_pData,e_pFrame);
+		auto l_pFrame = e_pFrame->GetNextSibling();
+		if( l_pFrame )
+			GoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame,e_pData);
+		l_pFrame = e_pFrame->GetFirstChild();
+		if( l_pFrame )
+			GoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame,e_pData);
+	}
+}

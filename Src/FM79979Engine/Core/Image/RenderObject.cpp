@@ -87,42 +87,66 @@ namespace FATMING_CORE
 
 	void	cRenderObject::ForAllNodesUpdate(float e_fElpaseTime)
 	{
-		cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
-		while( l_pNextSibling )
-		{
-			l_pNextSibling->Update(e_fElpaseTime);
-			l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
-		}
-		cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
-		if(l_pFirstChild)
-			l_pFirstChild->ForAllNodesUpdate(e_fElpaseTime);
+		GoThoughAllFrameFromaFirstToEnd(
+			[e_fElpaseTime](void*e_pData,Frame*e_pFrame)
+			{
+				cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pFrame);
+				l_pRenderObject->Update(e_fElpaseTime);
+			}
+			,this,nullptr);
+		//fuck
+		//cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
+		//while( l_pNextSibling )
+		//{
+		//	l_pNextSibling->Update(e_fElpaseTime);
+		//	l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
+		//}
+		//cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
+		//if(l_pFirstChild)
+		//	l_pFirstChild->ForAllNodesUpdate(e_fElpaseTime);
 	}
 
 	void	cRenderObject::ForAllNodesRender()
 	{
-		auto*l_pNextSibling = this->GetNextSibling();
-		while( l_pNextSibling )
-		{
-			l_pNextSibling->Render();
-			l_pNextSibling = l_pNextSibling->GetNextSibling();
-		}
-		cRenderObject*l_pFirstChild = reinterpret_cast<cRenderObject*>(this->GetFirstChild());	
-		if(l_pFirstChild)
-			l_pFirstChild->ForAllNodesRender();	
+		GoThoughAllFrameFromaFirstToEnd(
+			[this](void*e_pData,Frame*e_pFrame){ e_pFrame->Render(); }
+			,this,nullptr);
+		//fuck
+		//check
+		//void	GoThoughAllFrameFromaLastToFirst(std::function<bool(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
+		//void	GoThoughAllFrameFromaFirstToEnd(std::function<bool(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
+		//this->Render();
+		//auto*l_pNextSibling = this->GetNextSibling();
+		//while( l_pNextSibling )
+		//{
+		//	l_pNextSibling->Render();
+		//	l_pNextSibling = l_pNextSibling->GetNextSibling();
+		//}
+		//cRenderObject*l_pFirstChild = reinterpret_cast<cRenderObject*>(this->GetFirstChild());	
+		//if(l_pFirstChild)
+		//	l_pFirstChild->ForAllNodesRender();	
 	}
 
 	void	cRenderObject::ForAllNodesDebugRender()
 	{
-		DebugRender();
-		cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
-		while( l_pNextSibling )
-		{
-			l_pNextSibling->DebugRender();
-			l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
-		}
-		cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
-		if(l_pFirstChild)
-			l_pFirstChild->ForAllNodesDebugRender();
+		GoThoughAllFrameFromaFirstToEnd(
+			[this](void*e_pData,Frame*e_pFrame)
+			{
+				cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pFrame);
+				l_pRenderObject->DebugRender(); 
+			}
+			,this,nullptr);
+		//fuck
+		//DebugRender();
+		//cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
+		//while( l_pNextSibling )
+		//{
+		//	l_pNextSibling->DebugRender();
+		//	l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
+		//}
+		//cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
+		//if(l_pFirstChild)
+		//	l_pFirstChild->ForAllNodesDebugRender();
 	}
 
 }

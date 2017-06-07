@@ -12,7 +12,7 @@ namespace FATMING_CORE
 		m_pstrCurrentText = 0;
 		m_pvTextBGColor = 0;
 		m_pstrPressedText = 0;
-		m_pGlyphFontRender = e_pGlyphFontRender;
+		m_pGlyphFontRender = new cGlyphFontRender(e_pGlyphFontRender);
 		m_pConnectRadianImage = e_pConnectRadianImage;
 		m_pLineImage = e_pLineImage;
 		SetText(e_strText);
@@ -23,7 +23,7 @@ namespace FATMING_CORE
 		m_pstrCurrentText = 0;
 		m_pvTextBGColor = 0;
 		m_pstrPressedText = 0;	
-		m_pGlyphFontRender = e_pFontWithFrame->m_pGlyphFontRender;
+		m_pGlyphFontRender = new cGlyphFontRender(e_pFontWithFrame->m_pGlyphFontRender);
 		if( e_pFontWithFrame->m_pConnectRadianImage )
 			m_pConnectRadianImage = dynamic_cast<cBaseImage*>(e_pFontWithFrame->m_pConnectRadianImage->Clone());
 		if( e_pFontWithFrame->m_pConnectRadianImage )
@@ -35,6 +35,7 @@ namespace FATMING_CORE
 
 	cFontWithFrame::~cFontWithFrame()
 	{
+		SAFE_DELETE(m_pGlyphFontRender);
 		SAFE_DELETE(m_pstrPressedText);
 		SAFE_DELETE(m_pvTextBGColor);
 	}

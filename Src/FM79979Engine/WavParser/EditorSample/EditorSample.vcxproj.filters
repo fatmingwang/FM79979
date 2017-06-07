@@ -37,6 +37,9 @@
     <Filter Include="Game\Phase">
       <UniqueIdentifier>{c1b38948-4df0-491b-b63d-2bf3236318f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\MusicRelated">
+      <UniqueIdentifier>{ae6aa3b0-0e5b-4d18-9828-4a064bfe82cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -94,9 +97,15 @@
       <Filter>Game\Phase</Filter>
     </ClCompile>
     <ClCompile Include="PerformScoreCalculate.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectMusicPhase.cpp">
       <Filter>Game\Phase</Filter>
     </ClCompile>
-    <ClCompile Include="SongSelectionPhase.cpp">
+    <ClCompile Include="MusicInfo.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectMusicUI.cpp">
       <Filter>Game\Phase</Filter>
     </ClCompile>
   </ItemGroup>
@@ -156,10 +165,13 @@
       <Filter>Game\Phase</Filter>
     </ClInclude>
     <ClInclude Include="PerformScoreCalculate.h">
+      <Filter>Game\MusicRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectMusicPhase.h">
       <Filter>Game\Phase</Filter>
     </ClInclude>
-    <ClInclude Include="SongSelectionPhase.h">
-      <Filter>Game\Phase</Filter>
+    <ClInclude Include="MusicInfo.h">
+      <Filter>Game\MusicRelated</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
