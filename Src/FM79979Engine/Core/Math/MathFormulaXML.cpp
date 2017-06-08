@@ -1,4 +1,5 @@
 #include "../stdafx.h"
+#ifdef USE_MU_PARSER
 #include "MathFormulaXML.h"
 #include "../GameplayUT/GameApp.h"
 #include "./MathParser/muParser.h"
@@ -167,3 +168,4 @@ namespace FATMING_CORE
 		return true;
 	}
 }
+#endif

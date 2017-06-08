@@ -185,10 +185,11 @@ namespace FATMING_CORE
         bool 					m_bClickMouseBehaviorSatisfied;
         virtual bool    		RenderViewportCollide(cClickMouseBehavior*e_pClickMouseBehavior){ return true; }
     public:
-        cClickMouseBehaviorVector(){ this->m_pCurrentMouseDownCollidedObject = 0;this->m_pCurrentWorkingObject = 0; this->m_bClickMouseBehaviorSatisfied = false;	 m_bReleaseCurrentWorkingObjectWhileReclickable = true; m_bReclickable = false; }
+        cClickMouseBehaviorVector(){ this->m_pCurrentMouseDownCollidedObject = 0;this->m_pCurrentWorkingObject = 0; this->m_bClickMouseBehaviorSatisfied = false;	 m_bReleaseCurrentWorkingObjectWhileReclickable = true; m_bReclickable = false; m_bIgnoreChildrenUpdate = true; }
 		cClickMouseBehaviorVector(cClickMouseBehaviorVector<T>*e_pClickMouseBehaviorList):cNamedTypedObjectVector<T>(e_pClickMouseBehaviorList),cClickMouseBehavior(e_pClickMouseBehaviorList)
 		{
 			//ADD_CLONE_DATA_TO_NEW_VECTOR(T,e_pClickMouseBehaviorList,this);
+			m_bIgnoreChildrenUpdate = e_pClickMouseBehaviorList->m_bIgnoreChildrenUpdate;
 			m_bReclickable = e_pClickMouseBehaviorList->m_bReclickable;
 			m_bReleaseCurrentWorkingObjectWhileReclickable = e_pClickMouseBehaviorList->m_bReleaseCurrentWorkingObjectWhileReclickable;
 			this->m_pCurrentMouseDownCollidedObject = 0;

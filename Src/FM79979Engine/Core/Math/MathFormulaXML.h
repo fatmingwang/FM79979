@@ -1,4 +1,5 @@
 #pragma once
+#ifdef USE_MU_PARSER
 #include "../XML/XMLLoader.h"
 #include "../NamedTypedObject.h"
 #include "../TemplateClass.h"
@@ -75,3 +76,4 @@ namespace FATMING_CORE
 	//	}	
 	//}
 }
+#endif

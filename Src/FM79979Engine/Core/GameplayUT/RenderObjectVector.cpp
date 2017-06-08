@@ -11,7 +11,7 @@ namespace FATMING_CORE
 
 	cRenderObjectVector::cRenderObjectVector()
 	{
-
+		m_bIgnoreChildrenUpdate = true;
 	}
 
 	cRenderObjectVector::~cRenderObjectVector()
@@ -21,6 +21,7 @@ namespace FATMING_CORE
 
 	cRenderObjectVector::cRenderObjectVector(cRenderObjectVector*e_pFontFrameVector):cBehaviorObjectList<cRenderObject>(e_pFontFrameVector)
 	{
+		m_bIgnoreChildrenUpdate = e_pFontFrameVector->m_bIgnoreChildrenUpdate;
 		int	l_iCount = this->Count();
 		for( int i=0;i<l_iCount;++i )
 		{

@@ -12,6 +12,7 @@ const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 //-----------------------------------------------------------------------------
 Frame::Frame()
 {
+	m_bIgnoreChildrenUpdate = false;
     m_pParent = nullptr;
     m_pNextSibling = nullptr;
     m_pFirstChild = nullptr;
@@ -26,6 +27,7 @@ Frame::Frame()
 
 Frame::Frame(Frame*e_pFrame)
 {
+	m_bIgnoreChildrenUpdate = e_pFrame->m_bIgnoreChildrenUpdate;
 	m_pLocalBound = nullptr;
     m_pCachedWorldBound = nullptr;
 	m_bAutoUpdateBound = e_pFrame->m_bAutoUpdateBound;
@@ -37,10 +39,7 @@ Frame::Frame(Frame*e_pFrame)
     m_pNextSibling = nullptr;
     m_pFirstChild = nullptr;
     m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
-	m_LocalTransform = cMatrix44::Identity;
 	m_bDestroyConnectionWhileDestroy =  true;
-	if( !e_pFrame )
-		return;
 	SetName(e_pFrame->GetName());
 	this->SetLocalTransform(e_pFrame->GetLocalTransform());
 }

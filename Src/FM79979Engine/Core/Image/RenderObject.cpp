@@ -85,15 +85,56 @@ namespace FATMING_CORE
 	}
 
 
-	void	cRenderObject::ForAllNodesUpdate(float e_fElpaseTime)
+	void	cRenderObject::RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
 	{
-		GoThoughAllFrameFromaFirstToEnd(
-			[e_fElpaseTime](void*e_pData,Frame*e_pFrame)
+		if( e_pFrame )
+		{
+			//OutputDebugString(e_pFrame->GetName());
+			//OutputDebugString(L"\n");
+			auto l_pFrame = e_pFrame->GetNextSibling();
+			if( l_pFrame )
+				RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
+			if( !e_pFrame->IsIgnoreChildrenUpdate() )
 			{
-				cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pFrame);
-				l_pRenderObject->Update(e_fElpaseTime);
+				l_pFrame = e_pFrame->GetFirstChild();
+				if( l_pFrame  )
+				{
+					RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
+				}
 			}
-			,this,nullptr);
+			e_Function(e_pFrame);
+		}	
+	}
+
+	void	cRenderObject::RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
+	{
+		if( e_pFrame )
+		{
+			//OutputDebugString(e_pFrame->GetName());
+			//OutputDebugString(L"\n");
+			e_Function(e_pFrame);
+			auto l_pFrame = e_pFrame->GetNextSibling();
+			if( l_pFrame )
+				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
+			if( e_pFrame->IsIgnoreChildrenUpdate() )
+				return;
+			l_pFrame = e_pFrame->GetFirstChild();
+			if( l_pFrame  )
+			{
+				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
+			}
+		}
+	}
+
+	void	cRenderObject::UpdateNodes(float e_fElpaseTime)
+	{
+		RenderObjectGoThoughAllFrameFromaFirstToEnd(
+			[e_fElpaseTime](Frame*e_pFrame)
+			{
+				//cRenderObject*l_pRenderObject = e_pFrame;
+				e_pFrame->Update(e_fElpaseTime);
+			}
+			,this);
 		//fuck
 		//cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
 		//while( l_pNextSibling )
@@ -106,11 +147,14 @@ namespace FATMING_CORE
 		//	l_pFirstChild->ForAllNodesUpdate(e_fElpaseTime);
 	}
 
-	void	cRenderObject::ForAllNodesRender()
+	void	cRenderObject::RenderNodes()
 	{
-		GoThoughAllFrameFromaFirstToEnd(
-			[this](void*e_pData,Frame*e_pFrame){ e_pFrame->Render(); }
-			,this,nullptr);
+		RenderObjectGoThoughAllFrameFromaFirstToEnd(
+			[](Frame*e_pFrame)
+			{
+				e_pFrame->Render(); 
+			}
+			,this);
 		//fuck
 		//check
 		//void	GoThoughAllFrameFromaLastToFirst(std::function<bool(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
@@ -127,7 +171,7 @@ namespace FATMING_CORE
 		//	l_pFirstChild->ForAllNodesRender();	
 	}
 
-	void	cRenderObject::ForAllNodesDebugRender()
+	void	cRenderObject::DebugRenderNodes()
 	{
 		GoThoughAllFrameFromaFirstToEnd(
 			[this](void*e_pData,Frame*e_pFrame)

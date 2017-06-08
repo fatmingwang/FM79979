@@ -131,6 +131,7 @@ namespace FATMING_CORE
 		bool					GetTransformedTrianglesVertices(float*e_pfVertices,float*e_pfUV,float*e_pfColor,bool e_bForceToFetch = true);
 		//old GetRenderDataByIndex
 		bool					GetTransformedVerticesByIndex(float*e_pfVertices,float*e_pfUV,float*e_pfColor,int e_iIndex);
+		Vector4					GetCollideRectByIndex(int e_iIndex);
 		//for editor if this PI is not in using return false
 		bool					IsUsingPuzzleImage(cPuzzleImage*e_pPI);
 		//

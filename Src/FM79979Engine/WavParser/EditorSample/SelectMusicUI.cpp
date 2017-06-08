@@ -4,19 +4,26 @@
 
 cSongInfoBoardUI::cSongInfoBoardUI(cMPDI*e_pMPDI)
 {
+	this->SetName(L"cSongInfoBoardUI");
 	m_pSongNameFont = nullptr;
 	m_pBestScoreFont = nullptr;
 	m_pSongInfoFont = nullptr;
-	m_pMPDI = nullptr;
 	m_pPlayButtonImage = nullptr;
 	m_pSelectScroller = nullptr;
+	m_pMPDI = new cMPDI(e_pMPDI);
+	//for test!
+	//cMPDIList*l_pMPDIList = cGameApp::m_spAnimationParser->GetMPDIListByFileName("MyFMBook/AnimationDemo/MPDI/endanimation.mpdi",true);
+	//m_pMPDI = new cMPDI(l_pMPDIList->GetObject(0));
+	m_pMPDI->Init();
 }
 
 cSongInfoBoardUI::~cSongInfoBoardUI()
 {
+	SAFE_DELETE(m_pMPDI);
 	SAFE_DELETE(m_pSongNameFont);
 	SAFE_DELETE(m_pBestScoreFont);
 	SAFE_DELETE(m_pSongInfoFont);
+	SAFE_DELETE(this->m_pSelectScroller);
 }
 
 void	cSongInfoBoardUI::PlayButtonClick(int e_iPosX,int e_iPosY,cClickBehavior*e_pButton)
@@ -28,6 +35,16 @@ bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector
 {
 	SAFE_DELETE(this->m_pSelectScroller);
 	this->m_pSelectScroller = new cSelectScroller(e_iRow,e_iColumn,e_vGap);
+	m_pSelectScroller->SetName(L"m_pSelectScroller");
+	const WCHAR*l_strtt = m_pMPDI->GetObject(2)->GetName();
+
+	auto*l_pBGImage = this->m_pMPDI->GetObject(L"slider-shell");
+	if( l_pBGImage )
+	{
+		//l_pBGImage->Init();
+		Vector4 l_vCollideRect = l_pBGImage->GetCollideRectByIndex(0);
+		m_pSelectScroller->SetCollisionRange(l_vCollideRect);
+	}
 	size_t l_uiSize = e_MusicInfoVector.size();
 	for(size_t i=0;i<l_uiSize;++i)
 	{
@@ -37,7 +54,7 @@ bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector
 													Vector4::Blue,
 													e_MusicInfoVector[i].strSongName.c_str()
 													);
-		
+		l_pTextButton->SetName(e_MusicInfoVector[i].strSongName.c_str());
 		this->m_pSelectScroller->AddObject(l_pTextButton);
 	}
 	//m_pFishCollectionScroller->SetCollisionRange(l_vCollisionRange);
@@ -46,42 +63,71 @@ bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector
 
 void	cSongInfoBoardUI::Init()
 {
-	if( m_pSelectScroller )
-	{
-		m_pSelectScroller->Init();
-	}
 	if( !m_pSongNameFont )
 	{
 		m_pSongNameFont = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
 		m_pBestScoreFont = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
 		m_pSongInfoFont = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
-		this->AddChild(m_pSongInfoFont);
-		this->AddChild(m_pBestScoreFont);
-		this->AddChild(m_pSongNameFont);
+		m_pSongNameFont->SetName(L"m_pSongNameFont");
+		m_pBestScoreFont->SetName(L"m_pBestScoreFont");
+		m_pSongInfoFont->SetName(L"m_pSongInfoFont");
+
+		Vector3 l_vPos;
+		m_pMPDI->GetObjectPos(L"SongInfoText",l_vPos);
+		m_pSongInfoFont->SetLocalPosition(l_vPos);
+		m_pMPDI->GetObjectPos(L"SonNameText",l_vPos);
+		m_pBestScoreFont->SetLocalPosition(l_vPos);
+		m_pMPDI->GetObjectPos(L"BestScoreTest",l_vPos);
+		m_pSongNameFont->SetLocalPosition(l_vPos);
+		this->AddChildToLast(m_pMPDI);
+		this->AddChildToLast(this->m_pSelectScroller);
+		this->AddChildToLast(m_pSongInfoFont);
+		this->AddChildToLast(m_pBestScoreFont);
+		this->AddChildToLast(m_pSongNameFont);
+
 	}
 	m_pSongNameFont->SetText(L"");
 	m_pBestScoreFont->SetText(L"");
 	m_pSongInfoFont->SetText(L"");
+	if( m_pMPDI )
+		m_pMPDI->Init();
+	if( m_pSelectScroller )
+	{
+		m_pSelectScroller->Init();
+	}
 }
 void	cSongInfoBoardUI::Update(float e_fElpaseTime)
 {
-
+	//this->UpdateNodes(e_fElpaseTime);
+	if( m_pSelectScroller )
+	{
+		const WCHAR*l_strName = m_pSelectScroller->GetCurrentWorkingObjectName();
+		if( l_strName )
+		{
+			m_pSongNameFont->SetText(l_strName);
+			m_pBestScoreFont->SetText(l_strName);
+			m_pSongInfoFont->SetText(l_strName);
+		}
+	}
 }
 void	cSongInfoBoardUI::Render()
 {
-
+	//this->RenderNodes();
 }
 void	cSongInfoBoardUI::MouseDown(int e_iPosX,int e_iPosY)
 {
-
+	if( m_pSelectScroller )
+		m_pSelectScroller->MouseDown(e_iPosX,e_iPosY);
 }
 void	cSongInfoBoardUI::MouseMove(int e_iPosX,int e_iPosY)
 {
-
+	if( m_pSelectScroller )
+		m_pSelectScroller->MouseMove(e_iPosX,e_iPosY);
 }
 void	cSongInfoBoardUI::MouseUp(int e_iPosX,int e_iPosY)
 {
-	
+	if( m_pSelectScroller )
+		m_pSelectScroller->MouseUp(e_iPosX,e_iPosY);	
 }
 
 bool	cSongInfoBoardUI::IsPlayMusic()

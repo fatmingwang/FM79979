@@ -53,14 +53,18 @@
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "Urlmon.lib")
 #ifdef _DEBUG
+#ifdef USE_MU_PARSER
 	#pragma comment(lib, "../../../lib/Debug/MathParser.lib")
+#endif
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
 	//#pragma comment(lib, "../../../lib/Debug/Core.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
 #else
+#ifdef USE_MU_PARSER
 	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
+#endif
 	#pragma comment(lib, "../../../lib/Release/MathParser.lib")
 	//#pragma comment(lib, "../../../lib/Release/Core.lib")
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")

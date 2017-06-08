@@ -25,7 +25,7 @@ namespace FATMING_CORE
 	}
 
 	cCueToStartCurveWithTime::cCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime)
-		:cMulti_PI_Image(e_pCueToStartCurvesWithTime),cCurveWithTime(e_pCueToStartCurvesWithTime)
+		:cMulti_PI_Image(e_pCueToStartCurvesWithTime),cCurveWithTime(e_pCueToStartCurvesWithTime),Frame(e_pCueToStartCurvesWithTime)
 	{
 		if(e_pCueToStartCurvesWithTime->IsStayAtLastFrame())
 		{
@@ -433,6 +433,17 @@ namespace FATMING_CORE
 			e_pfVertices[17] = l_Vertices[1].z;
 		}
 		return true;	
+	}
+
+	Vector4	cCueToStartCurveWithTime::GetCollideRectByIndex(int e_iIndex)
+	{
+		if(GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices,g_fMPDIOptmizeRenderUV,g_fMPDIOptmizeRenderColor,0))
+		{
+			Vector4	l_vRect(g_fMPDIOptmizeRenderVertices[6],g_fMPDIOptmizeRenderVertices[7],g_fMPDIOptmizeRenderVertices[12],g_fMPDIOptmizeRenderVertices[13]);
+			return l_vRect;
+		}
+		return Vector4::Zero;
+		//return Vector4(l_Vertices[0].x+l_vPos.x,l_Vertices[0].y+l_vPos.y,l_Vertices[3].x+l_vPos.x,l_Vertices[3].y+l_vPos.y);
 	}
 	//0    14
 	//23	5

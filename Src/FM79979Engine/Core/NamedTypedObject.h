@@ -45,6 +45,7 @@
 	//virtual bool IsDerivedFrom( const wchar_t* e_strTypeID ) const  { if( e_strTypeID == TypeID ) return true;  return __super::IsDerivedFrom( e_strTypeID ); }	\
 
 #define	CLONE_MYSELF(TYPE)	virtual NamedTypedObject*	Clone(){ return new TYPE(this); }
+
 //! class name="NamedTypedObject" Desc="Base class for exposed objects"
 //!    property name="Name" Desc="Name of the Object" Get=GetName Set=SetName
 /**

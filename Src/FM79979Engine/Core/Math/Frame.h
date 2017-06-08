@@ -87,6 +87,7 @@ public:
 	//virtual	void				AllRender();
 
 	void						DumpDebugInfo();
+	GET_SET(bool,m_bIgnoreChildrenUpdate,IsIgnoreChildrenUpdate,SetIgnoreChildrenUpdate);
 protected:
     virtual	void                UpdateCachedWorldTransformIfNeeded();
     void                        SetCachedWorldTransformDirty();
@@ -101,6 +102,7 @@ protected:
     Frame*                      m_pNextSibling;
     Frame*                      m_pFirstChild;
 	bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
+	bool						m_bIgnoreChildrenUpdate;//some object dont want update children,the child has relationship with parent
 	bool						m_bAutoUpdateBound;//button dont need this
 };
 //sibling child then pop up back

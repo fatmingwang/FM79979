@@ -71,6 +71,10 @@ void cSmartObject::AddRef(NamedTypedObject*e_pNamedTypedObject)
 #ifdef DEBUG
 	if( g_bShowSmartPointerInfo )
 	{
+		if(this->m_ReferenceList.GetObjectIndexByPointer(this)!=-1)
+		{
+			cGameApp::OutputDebugInfoString(L"add ref twice with same object?why you want to do this!?");
+		}
 		DumpInfo(L"AddRefCount:",this,e_pNamedTypedObject);
 	}
 #endif

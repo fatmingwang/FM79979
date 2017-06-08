@@ -14,6 +14,8 @@ namespace FATMING_CORE
 		//while set transform is called we might need some data update.ex:rotation
 		//if warning is appear override as below
 		//virtual	void	SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
+		void	RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 	protected:
 		bool			m_ChildrenIsRenderObject;//if false the children won't be update and render
 		virtual	void	SetTransformInternalData();
@@ -43,9 +45,9 @@ namespace FATMING_CORE
 		virtual	void	Render() = 0;
 		virtual	void	DebugRender(){}
 		//
-		virtual	void	ForAllNodesUpdate(float e_fElpaseTime);
-		virtual	void	ForAllNodesRender();
-		virtual	void	ForAllNodesDebugRender();
+		virtual	void	UpdateNodes(float e_fElpaseTime);
+		virtual	void	RenderNodes();
+		virtual	void	DebugRenderNodes();
 		//
 		virtual	void	Destroy(){}
 		virtual	void	SetColor(Vector4 e_vColor){}

@@ -8,7 +8,7 @@
 TYPDE_DEFINE_MARCO(cAssembleImageButton);
 cAssembleImageButton::cAssembleImageButton()
 {
-
+	m_bIgnoreChildrenUpdate = true;
 }
 
 cAssembleImageButton::~cAssembleImageButton()
@@ -18,6 +18,7 @@ cAssembleImageButton::~cAssembleImageButton()
 
 cAssembleImageButton::cAssembleImageButton(cAssembleImageButton*e_pAssembleImageButton):cImageButton(e_pAssembleImageButton)
 {
+	m_bIgnoreChildrenUpdate = e_pAssembleImageButton->m_bIgnoreChildrenUpdate;
 	this->CloneFromList(e_pAssembleImageButton);
 }
 

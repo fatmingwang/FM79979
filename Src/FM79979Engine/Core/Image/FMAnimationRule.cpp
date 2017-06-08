@@ -14,7 +14,7 @@ namespace FATMING_CORE
 		m_bStayAtLastFrame = false;
 		m_bInitCalled = false;
     }
-	cFMTimeLineAnimationRule::cFMTimeLineAnimationRule(cFMTimeLineAnimationRule*e_pFatmingAnimationRule):cRenderObject(e_pFatmingAnimationRule)
+	cFMTimeLineAnimationRule::cFMTimeLineAnimationRule(cFMTimeLineAnimationRule*e_pFatmingAnimationRule):cRenderObject(e_pFatmingAnimationRule),Frame(e_pFatmingAnimationRule)
     {
 		m_pUserData = 0;
 		m_fCurrentProgress = 0.f;
@@ -127,10 +127,15 @@ namespace FATMING_CORE
 			if( m_iCurrentPlayCount  != m_iPlayCount )
 			{
 				int l_iCurrentPlayTime = m_iCurrentPlayCount+1;
+				float l_fPastTime = m_fPastTime;
 				m_fPastTime = GetFloatModulus(m_fPastTime,m_fTotalPlayTime);
 				e_fElpaseTime = m_fPastTime;
 				this->Init();
 				m_iCurrentPlayCount = l_iCurrentPlayTime;
+				if(this->IsAnimationLoop())
+				{
+					m_fPastTime = this->m_fStartTime+0.0000001f;
+				}
 			}
 			else
 			{

@@ -54,10 +54,10 @@ namespace FATMING_CORE
 			return;
 		}
 		m_pGlyphReader = new GlyphReader();
+		m_pGlyphReader->AddRef(this);
 		sprintf(l_str,"%s%s.FontInfo",l_strForDirectory,l_strForStripExtensionName);
 		if(!m_pGlyphReader->LoadFontDataFile(l_str))
 			UT::ErrorMsg("read font info failed",l_str);
-		m_pGlyphReader->AddRef(this);
 		m_pvVertexBuffer = new Vector2[4*e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
 		m_pvTextureUVBuffer = new Vector2[4*e_iVertexBufferSize];
 		m_pvColorBuffer = new Vector4[4*e_iVertexBufferSize];

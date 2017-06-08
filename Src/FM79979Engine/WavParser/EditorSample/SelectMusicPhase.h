@@ -26,6 +26,8 @@ public:
     virtual void    MouseDown(int e_iPosX,int e_iPosY);
     virtual void    MouseMove(int e_iPosX,int e_iPosY);
     virtual void    MouseUp(int e_iPosX,int e_iPosY);
+	void			PlayButtonClick(int e_iPosX,int e_iPosY,cClickBehavior*e_pButton);
+
 };
 
 
@@ -53,6 +55,7 @@ public:
     void				MouseUp(int e_iPosX,int e_iPosY);
 	bool				IsPlayMusic();
 	std::wstring		GetSelectMusic();
+	cBaseImage*			GetPlayButtonImage(){return m_pPlayButtonImage;}
 };
 
 class	cSelectScroller:public cScroller//cTextButton
@@ -62,6 +65,6 @@ class	cSelectScroller:public cScroller//cTextButton
 	Vector2		m_vGap;
 public:
 	cSelectScroller(int e_iNumRow,int e_iNumColumn,Vector2 e_vGap);
-	~cSelectScroller();
+	virtual ~cSelectScroller();
 	virtual void			Init();
 };

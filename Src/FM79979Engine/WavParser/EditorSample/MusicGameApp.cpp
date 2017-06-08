@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MusicGameApp.h"
 #include "PerformMusicPhase.h"
+#include "SelectMusicPhase.h"
 #include "SoundFFTCapture.h"
 #include "SoundTimeLineData.h"
 #include "Parameters.h"
@@ -46,7 +47,10 @@ void	cMusicGameApp::Init()
 		cPerformMusicPhase*l_pPerformMusicPhase = new cPerformMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pPerformMusicPhase);
 		//
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
+		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
+		//
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();

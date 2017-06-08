@@ -40,7 +40,7 @@ namespace FATMING_CORE
 	}
 
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
-		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage)
+		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
 		m_pViewPort = 0;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
@@ -53,7 +53,6 @@ namespace FATMING_CORE
 		m_bRenderOptmize = e_pMultiPathDynamicImage->m_bRenderOptmize;
 		//m_fScale = e_pMultiPathDynamicImage->m_fScale;
 		m_vDrawSize = e_pMultiPathDynamicImage->GetDrawSize();
-		this->SetLocalTransform(e_pMultiPathDynamicImage->GetLocalTransform());
 		//this->SetPos(e_pMultiPathDynamicImage->m_vPos);
 	}
 
@@ -460,6 +459,17 @@ EXIT:
 		}
 		return false;
 	}
+
+	bool	cMultiPathDynamicImage::GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos)
+	{
+		auto*l_pData = this->GetObject(e_strName);
+		if( l_pData )
+		{
+			e_vPos = l_pData->GetLastPoint();
+			return true;
+		}
+		return false;
+	}
 	//<cMPDI cMPDIList="" cMPDI="" Loop="1"/>
 	cMultiPathDynamicImage*		cMultiPathDynamicImage::GetMe(TiXmlElement*e_pElement,bool e_bClone)
 	{
@@ -689,7 +699,7 @@ EXIT:
 	{
 		std::wstring	l_str;
 		wchar_t l_strTemp[TEMP_SIZE];
-		swprintf(l_strTemp,MAX_PATH,L"%ls_mpdi\0",UT::GetFileNameWithoutFullPath(UT::CharToWchar(e_strFileName).c_str()));
+		swprintf(l_strTemp,MAX_PATH,L"%ls_mpdi\0",UT::GetFileNameWithoutFullPath(UT::CharToWchar(e_strFileName).c_str()).c_str());
 		l_str = l_strTemp;
         return l_str;
 	}

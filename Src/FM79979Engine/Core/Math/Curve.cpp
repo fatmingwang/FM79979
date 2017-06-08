@@ -559,7 +559,7 @@ namespace FATMING_CORE
 		m_vMovedCoordinate = m_vCurrentDirection = Vector3::Zero;
 	}
 
-	cCurveWithTime::cCurveWithTime(cCurveWithTime*e_pCurveWithTime):cCurve(e_pCurveWithTime),cFMTimeLineAnimationRule(e_pCurveWithTime)
+	cCurveWithTime::cCurveWithTime(cCurveWithTime*e_pCurveWithTime):cCurve(e_pCurveWithTime),cFMTimeLineAnimationRule(e_pCurveWithTime),Frame(e_pCurveWithTime)
 	{
 		m_vMovedCoordinate = Vector3::Zero;
 		m_vCurrentDirection = e_pCurveWithTime->m_vCurrentDirection;
