@@ -19,7 +19,7 @@ namespace FATMING_CORE
 
 	typedef	std::function<void(int,int,cClickBehavior*)>		ClickFunction;
 	typedef	std::function<bool(int,int)>						CollideFunction;
-
+	inline	bool	FullscreenCollide(int e_iPodX,int e_iPodY){ return true; }
 
 	class cClickBehavior:public NamedTypedObject
 	{
@@ -71,6 +71,7 @@ namespace FATMING_CORE
 														ClickFunction		e_MouseUpFunction,
 														ClickFunction		e_MouseDoubleClickFunction,
 														ClickFunction		e_MouseLeaveFunction);
+		void							CreateFullScreenCollide();
 	};
 	//for a single touch group,a current working object to save performance
 	class cClickBehaviorGroup:public cClickBehavior,public cNamedTypedObjectVector<cClickBehavior>

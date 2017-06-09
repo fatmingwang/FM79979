@@ -1016,18 +1016,19 @@ namespace UT
 //		return false;
 	}
 
-	Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector2 e_vViewPortSize,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection)
+	Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection)
 	{
+		Vector2 l_vViewSize(e_vViewPort.Width(),e_vViewPort.Height());
 		Vector2	l_vScale(1.f,1.f);
 		switch(e_eDeviceDirection)
 		{
 			case eDD_PORTRAIT:
 			case eDD_UPSIDE_DOWN:
-				l_vScale = Vector2(e_vGameResolution.x/e_vViewPortSize.x,e_vGameResolution.y/e_vViewPortSize.y);
+				l_vScale = Vector2(e_vGameResolution.x/l_vViewSize.x,e_vGameResolution.y/l_vViewSize.y);
 				break;
 			case eDD_LANDSCAPE_LEFT:
 			case eDD_LANDSCAPE_RIGHT:
-				l_vScale = Vector2(e_vGameResolution.x/e_vViewPortSize.y,e_vGameResolution.y/e_vViewPortSize.x);
+				l_vScale = Vector2(e_vGameResolution.x/l_vViewSize.y,e_vGameResolution.y/l_vViewSize.x);
 				break;
 		}
 		e_v2DViewRange.x /= l_vScale.x;
@@ -1053,10 +1054,10 @@ namespace UT
 		{
 			case eDD_PORTRAIT:
 				l_vScissor.x = e_v2DViewRange.x;
-				l_vScissor.y = e_vViewPortSize.y-e_v2DViewRange.y-l_fHeight;
+				l_vScissor.y = l_vViewSize.y-e_v2DViewRange.y-l_fHeight;
 				break;
 			case eDD_UPSIDE_DOWN:
-				l_vScissor.x = e_vViewPortSize.x-(e_v2DViewRange.x+l_fWidth);
+				l_vScissor.x = l_vViewSize.x-(e_v2DViewRange.x+l_fWidth);
 				l_vScissor.y = e_v2DViewRange.y;
 				break;
 			case eDD_LANDSCAPE_LEFT:
@@ -1066,8 +1067,8 @@ namespace UT
 			}
 				break;
 			case eDD_LANDSCAPE_RIGHT:
-				l_vScissor.x = e_vViewPortSize.x-e_v2DViewRange.w;
-				l_vScissor.y = e_vViewPortSize.y-e_v2DViewRange.z;
+				l_vScissor.x = l_vViewSize.x-e_v2DViewRange.w;
+				l_vScissor.y = l_vViewSize.y-e_v2DViewRange.z;
 				break;
 		}
 		switch(e_eDeviceDirection)
@@ -1088,8 +1089,7 @@ namespace UT
 
 	Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange)
 	{
-		Vector2	l_vViewPort((float)cGameApp::m_svViewPortSize.Width(),(float)cGameApp::m_svViewPortSize.Height());
-		return ViewRectToOpenGLScissor(e_v2DViewRange,l_vViewPort,FATMING_CORE::cGameApp::m_svGameResolution,FATMING_CORE::cGameApp::m_seDeviceDirection);
+		return ViewRectToOpenGLScissor(e_v2DViewRange,cGameApp::m_svViewPortSize,FATMING_CORE::cGameApp::m_svGameResolution,FATMING_CORE::cGameApp::m_seDeviceDirection);
 	}
 //==================math
 	//101~106	A~F

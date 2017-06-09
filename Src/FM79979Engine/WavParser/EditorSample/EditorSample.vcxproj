@@ -119,10 +119,11 @@
     <ClCompile Include="PerformScoreCalculate.cpp" />
     <ClCompile Include="QuickFFTDataFrequencyFinder.cpp" />
     <ClCompile Include="SelectMusicPhase.cpp" />
-    <ClCompile Include="SelectMusicUI.cpp" />
+    <ClCompile Include="SelectMusicPhaseUI.cpp" />
     <ClCompile Include="SoundTestButtons.cpp" />
     <ClCompile Include="SoundTimeLineData.cpp" />
     <ClCompile Include="SoundTimeLineVisualizer.cpp" />
+    <ClCompile Include="PerformMusicPhaseUI.cpp" />
     <ClCompile Include="StoreNoisePhase.cpp" />
     <ClCompile Include="TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />

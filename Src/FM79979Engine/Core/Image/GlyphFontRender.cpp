@@ -10,6 +10,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(int e_iVertexBufferSize)
 	{
+		m_bTextChanged = true;
 		m_iVertexBufferCount = e_iVertexBufferSize;
 		m_vHalfSize = Vector2::Zero;
 		m_pFontImage = 0;
@@ -27,6 +28,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize)
 	{
+		m_bTextChanged = true;
 		m_iVertexBufferCount = e_iVertexBufferSize;
 		m_pvVertexBuffer = 0;
 		m_pvTextureUVBuffer = 0;
@@ -68,8 +70,10 @@ namespace FATMING_CORE
 		m_fScale = 1.f;
 
 	}
+
 	cGlyphFontRender::cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender)
 	{
+		m_bTextChanged = true;
 		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;
 		m_pFontImage = dynamic_cast<cBaseImage*>(e_pGlyphFontRender->m_pFontImage->Clone());
 		m_pGlyphReader = e_pGlyphFontRender->m_pGlyphReader;
@@ -98,7 +102,7 @@ namespace FATMING_CORE
 		RenderFont(e_fX,e_fY,e_pString,0);
 	}
 
-	void	cGlyphFontRender::RenderFont()
+	void	cGlyphFontRender::Render()
 	{
 		RenderFont(0,0,this->m_strText.c_str(),nullptr);
 	}
@@ -108,8 +112,9 @@ namespace FATMING_CORE
 		int	l_iLen = (int)wcslen(e_pString);
 		if( l_iLen == 0 )
 			return;
-		if( wcscmp(m_strText.c_str(),e_pString) )
+		if( wcscmp(m_strText.c_str(),e_pString) || m_bTextChanged )
 		{
+			m_bTextChanged = false;
 			m_strText = e_pString;
 			if( l_iLen > m_iBufferLength )
 			{
@@ -269,5 +274,16 @@ namespace FATMING_CORE
 			}
 		}
 		return Vector2(l_fMaxWidth,l_fMaxHeight);
+	}
+
+	std::wstring	cGlyphFontRender::GetText()
+	{
+		return this->m_strText.c_str();
+	}
+
+	void	cGlyphFontRender::SetText(const wchar_t*e_strText)
+	{
+		m_bTextChanged = true;
+		this->m_strText = e_strText;
 	}
 }

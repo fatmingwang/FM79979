@@ -21,6 +21,9 @@ public:
     Frame();
 	Frame(Frame*e_pFrame);
     virtual ~Frame();
+	//if you afried something wrong want manual to delete object set this->m_bIgnoreChildrenUpdate = true
+	//
+	//
 	static	void				DestoryWithChildren(Frame*e_pFrame);
 	Frame*						FinFrameByName(wchar_t*e_strName);
     // frame hierarchy

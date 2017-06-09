@@ -13,7 +13,6 @@ namespace FATMING_CORE
 		//if warning is appear override as below
 		//virtual	void	SetTransformInternalData(){ cRenderNode::SetTransformInternalData(); }
 	protected:
-		bool			m_ChildrenIsRenderObject;//if false the children won't be update and render
 		virtual	void	SetTransformInternalData();
 		GET_SET_DEC(bool,m_bUpdateRotation,IsUpdateRotation,SetUpdateRotation);
 		//if the object dont expect a reinit or destroy,the sequence root will be true to avoid unexpect init or destroy.

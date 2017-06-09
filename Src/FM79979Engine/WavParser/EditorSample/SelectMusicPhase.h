@@ -8,11 +8,12 @@ class cSelectScroller;
 //</SongList>
 class cSelectMusicPhase:public cSimplePhase,public cNodeISAX
 {
-	std::vector<sMusicInfo>			m_MusicInfoVector;
-	virtual	bool					MyParse(TiXmlElement*e_pRoot);
+	std::wstring								m_strSelectedMusicName;
+	cNamedTypedObjectVector<cMusicInfo>			m_MusicInfoVector;
+	virtual	bool								MyParse(TiXmlElement*e_pRoot);
 	//
-	cSongInfoBoardUI*				m_pSongInfoBoardUI;
-	cClickBehaviorDispatcher*		m_pClickBehaviorDispatcher;
+	cSongInfoBoardUI*							m_pSongInfoBoardUI;
+	cClickBehaviorDispatcher*					m_pClickBehaviorDispatcher;
 public:
 	cSelectMusicPhase();
 	~cSelectMusicPhase();
@@ -34,18 +35,19 @@ public:
 
 class cSongInfoBoardUI:public cRenderObject
 {
-	cGlyphFontRender*	m_pSongNameFont;
-	cGlyphFontRender*	m_pBestScoreFont;
-	cGlyphFontRender*	m_pSongInfoFont;
-	cMPDI*				m_pMPDI;
-	cBaseImage*			m_pPlayButtonImage;
-	cSelectScroller*	m_pSelectScroller;
+	cGlyphFontRender*						m_pSongNameFont;
+	cGlyphFontRender*						m_pBestScoreFont;
+	cGlyphFontRender*						m_pSongInfoFont;
+	cMPDI*									m_pMPDI;
+	cBaseImage*								m_pPlayButtonImage;
+	cSelectScroller*						m_pSelectScroller;
+	cNamedTypedObjectVector<cMusicInfo>*	m_pMusicInfoVector;
 public:
-	cSongInfoBoardUI(cMPDI*e_pMPDI);
+	cSongInfoBoardUI(cMPDI*e_pMPDI,cNamedTypedObjectVector<cMusicInfo>*e_pMusicInfoVector);
 	~cSongInfoBoardUI();
 	//
 	void				PlayButtonClick(int e_iPosX,int e_iPosY,cClickBehavior*e_pButton);
-	bool				CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector,int e_iRow,int e_iColumn,Vector2 e_vGap);
+	bool				CreateMusicList(cNamedTypedObjectVector<cMusicInfo>&e_MusicInfoVector,int e_iRow,int e_iColumn,Vector2 e_vGap);
 	//
 	void				Init();
 	void				Update(float e_fElpaseTime);
@@ -54,7 +56,7 @@ public:
     void				MouseMove(int e_iPosX,int e_iPosY);
     void				MouseUp(int e_iPosX,int e_iPosY);
 	bool				IsPlayMusic();
-	std::wstring		GetSelectMusic();
+	const wchar_t*		GetSelectMusicName();
 	cBaseImage*			GetPlayButtonImage(){return m_pPlayButtonImage;}
 };
 

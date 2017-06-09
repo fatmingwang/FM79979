@@ -53,6 +53,7 @@ namespace	FATMING_CORE
 	cNamedTypedObjectVector<c2DImageCollisionData>*		cGameApp::m_sp2DImageCollisionDataVector = 0;
 	cNamedTypedObjectVector<NamedTypedObject>*			cGameApp::m_spColladaParserVector = 0;
 	Vector4												cGameApp::m_svViewPortSize(0.f,0.f,1920.f,1080.f);
+	Vector4												cGameApp::m_svDeviceViewPortSize(0.f,0.f,1920.f,1080.f);	
 	Vector4												cGameApp::m_svBGColor(0.1f,0.1f,0.1f,1.f);	
 	Vector2												cGameApp::m_svGameResolution(1920.f,1080.f);
 	Vector2												cGameApp::m_svGameScale(1.f,1.f);
@@ -172,6 +173,7 @@ namespace	FATMING_CORE
 		m_svViewPortSize.y = 0.f;
 		m_svViewPortSize.z = (float)e_vViewportSize.x;
 		m_svViewPortSize.w = (float)e_vViewportSize.y;
+		this->m_svDeviceViewPortSize = m_svViewPortSize;
 		m_spMultiTouchPoints = new sMultiTouchPoints();
 		//if(!m_spClickMouseBehavior)
 		//	m_spClickMouseBehavior = new cClickMouseBehavior();

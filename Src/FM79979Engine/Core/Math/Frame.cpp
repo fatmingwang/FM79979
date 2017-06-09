@@ -92,12 +92,11 @@ void	Frame::DestoryWithChildren(Frame*e_pFrame)
 	if( e_pFrame )
 	{
 		e_pFrame->m_bDestroyConnectionWhileDestroy = false;
-		auto l_pFrame = e_pFrame->GetNextSibling();
-		if( l_pFrame )
-			DestoryWithChildren(l_pFrame);
-		l_pFrame = e_pFrame->GetFirstChild();
-		if( l_pFrame )
-			DestoryWithChildren(l_pFrame);
+		DestoryWithChildren(e_pFrame->GetNextSibling());
+		if( !e_pFrame->IsIgnoreChildrenUpdate() )
+		{
+			DestoryWithChildren(e_pFrame->GetFirstChild());
+		}
 		cGameApp::OutputDebugInfoString(e_pFrame->GetName());
 		SAFE_DELETE(e_pFrame);
 	}

@@ -85,6 +85,7 @@ TYPE*	NewTemplateList(TYPE*e_pSource,bool e_bFromREsource)
 	}
 	return l_pData;
 }
+
 //template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren;
 //key function RemoveResourceObject.
 template <class T> class cNamedTypedObjectVector:virtual public NamedTypedObject
@@ -260,6 +261,17 @@ public:
 	inline	bool	RemoveObjectWithoutDelete(wchar_t*e_strName){int	l_iIndex = GetObjectIndexByName(e_strName);if( l_iIndex != -1 )	return RemoveObjectWithoutDelete(l_iIndex);return false;}
 	inline	bool	RemoveObjectWithoutDelete(T*e_pObject){int	l_iIndex = GetObjectIndexByPointer(e_pObject);if( l_iIndex != -1 )	return RemoveObjectWithoutDelete(l_iIndex);return false;}
 	inline	bool	AddObject(T* e_t){if( !e_t )return false;if( GetObject(e_t->GetName()) )return false;return AddObjectNeglectExist(e_t);}
+
+	inline	bool	AddObjectWarningIfExists(T*e_pData)
+	{
+		if(!AddObject(e_pData))
+		{
+			UT::ErrorMsg(L"object exists!",e_pData->GetName());
+			return false;
+		}
+		return true;
+	}
+
 	inline	virtual	bool	AddObjectNeglectExist(T* e_t){AddObjectNotification(e_t);m_ObjectList.push_back(e_t);if(e_t)e_t->SetOwner(this);return true;}
 
 	int	Count(){ return (int)m_ObjectList.size(); }

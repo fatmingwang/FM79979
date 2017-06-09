@@ -30,3 +30,20 @@ public:
     //
     virtual void    MouseUp(int e_iPosX,int e_iPosY);
 };
+
+
+class cPerformMusicPhaseUI:public cRenderObject
+{
+	friend class cPerformMusicPhase;
+	cMPDI*m_PauseMPDI;
+	cMPDI*m_ScoreMPDI;
+	cClickBehavior*m_pPauseClickBehavior;
+	cClickBehavior*m_pScoreClickBehavior;
+public:
+	cPerformMusicPhaseUI();
+	~cPerformMusicPhaseUI();
+	bool			GenerateButtons(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher);
+	virtual	void	Init();
+	virtual	void	Update(float e_fElpaseTime);
+	virtual	void	Render();
+};

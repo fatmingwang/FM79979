@@ -105,7 +105,10 @@
     <ClCompile Include="MusicInfo.cpp">
       <Filter>Game\MusicRelated</Filter>
     </ClCompile>
-    <ClCompile Include="SelectMusicUI.cpp">
+    <ClCompile Include="PerformMusicPhaseUI.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectMusicPhaseUI.cpp">
       <Filter>Game\Phase</Filter>
     </ClCompile>
   </ItemGroup>

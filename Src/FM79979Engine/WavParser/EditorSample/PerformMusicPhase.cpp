@@ -27,7 +27,8 @@ cPerformMusicPhase::~cPerformMusicPhase()
 
 void	cPerformMusicPhase::FetchData(const wchar_t*e_strPhaseName,void*e_pData)
 {
-	m_strMusicFileName = (char*)e_pData;
+	std::wstring l_str = *(std::wstring*)e_pData;
+	m_strMusicFileName = UT::WcharToChar(l_str.c_str());
 }
 
 void	cPerformMusicPhase::GenerateButtons()

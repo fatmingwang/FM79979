@@ -127,7 +127,7 @@ namespace FATMING_CORE
 		void			RemoveViewPort();
 		bool			IsUsingPI(cPuzzleImage*e_pPI,bool e_bRemoveReferenceIfNotInUsing = true);
 
-		bool			GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos);
+		bool			GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos,bool e_bRemoveObject = false);
 	};
 
 	typedef cMultiPathDynamicImage	cMPDI;

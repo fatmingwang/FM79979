@@ -2,9 +2,11 @@
 #include "SelectMusicPhase.h"
 
 
-cSongInfoBoardUI::cSongInfoBoardUI(cMPDI*e_pMPDI)
+cSongInfoBoardUI::cSongInfoBoardUI(cMPDI*e_pMPDI,cNamedTypedObjectVector<cMusicInfo>*e_pMusicInfoVector)
 {
 	this->SetName(L"cSongInfoBoardUI");
+	m_pMusicInfoVector = e_pMusicInfoVector;
+	//this->m_bIgnoreChildrenUpdate = false;
 	m_pSongNameFont = nullptr;
 	m_pBestScoreFont = nullptr;
 	m_pSongInfoFont = nullptr;
@@ -19,11 +21,13 @@ cSongInfoBoardUI::cSongInfoBoardUI(cMPDI*e_pMPDI)
 
 cSongInfoBoardUI::~cSongInfoBoardUI()
 {
-	SAFE_DELETE(m_pMPDI);
-	SAFE_DELETE(m_pSongNameFont);
-	SAFE_DELETE(m_pBestScoreFont);
-	SAFE_DELETE(m_pSongInfoFont);
-	SAFE_DELETE(this->m_pSelectScroller);
+	//if you afried something wrong want manual to delete object set this->m_bIgnoreChildrenUpdate = true
+	//SAFE_DELETE(m_pMPDI);
+	//SAFE_DELETE(m_pSongNameFont);
+	//SAFE_DELETE(m_pBestScoreFont);
+	//SAFE_DELETE(m_pSongInfoFont);
+	//SAFE_DELETE(m_pPlayButtonImage);
+	//SAFE_DELETE(this->m_pSelectScroller);
 }
 
 void	cSongInfoBoardUI::PlayButtonClick(int e_iPosX,int e_iPosY,cClickBehavior*e_pButton)
@@ -31,7 +35,7 @@ void	cSongInfoBoardUI::PlayButtonClick(int e_iPosX,int e_iPosY,cClickBehavior*e_
 	
 }
 
-bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector,int e_iRow,int e_iColumn,Vector2 e_vGap)
+bool	cSongInfoBoardUI::CreateMusicList(cNamedTypedObjectVector<cMusicInfo>&e_MusicInfoVector,int e_iRow,int e_iColumn,Vector2 e_vGap)
 {
 	SAFE_DELETE(this->m_pSelectScroller);
 	this->m_pSelectScroller = new cSelectScroller(e_iRow,e_iColumn,e_vGap);
@@ -43,18 +47,19 @@ bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector
 	{
 		//l_pBGImage->Init();
 		Vector4 l_vCollideRect = l_pBGImage->GetCollideRectByIndex(0);
+		l_vCollideRect = l_vCollideRect.ScaleByCenter(0.8f);
 		m_pSelectScroller->SetCollisionRange(l_vCollideRect);
 	}
-	size_t l_uiSize = e_MusicInfoVector.size();
-	for(size_t i=0;i<l_uiSize;++i)
+	int l_iSize = e_MusicInfoVector.Count();
+	for(int i=0;i<l_iSize;++i)
 	{
 		//cTextButton(Vector2 e_vRenderPos,cGlyphFontRender*e_pGlyphFontRender,Vector4 e_vPressedColor,const wchar_t* e_strText,cBaseImage*e_pConnectRadianImage = 0,cBaseImage*e_pLineImage = 0);
 		cTextButton*l_pTextButton = new cTextButton(Vector2::Zero,
 													cGameApp::m_spGlyphFontRender,
 													Vector4::Blue,
-													e_MusicInfoVector[i].strSongName.c_str()
+													e_MusicInfoVector[i]->GetName()
 													);
-		l_pTextButton->SetName(e_MusicInfoVector[i].strSongName.c_str());
+		l_pTextButton->SetName(e_MusicInfoVector[i]->GetName());
 		this->m_pSelectScroller->AddObject(l_pTextButton);
 	}
 	//m_pFishCollectionScroller->SetCollisionRange(l_vCollisionRange);
@@ -63,6 +68,7 @@ bool	cSongInfoBoardUI::CreateMusicList(std::vector<sMusicInfo>&e_MusicInfoVector
 
 void	cSongInfoBoardUI::Init()
 {
+	bool l_b = this->m_bIgnoreChildrenUpdate;
 	if( !m_pSongNameFont )
 	{
 		m_pSongNameFont = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
@@ -73,22 +79,30 @@ void	cSongInfoBoardUI::Init()
 		m_pSongInfoFont->SetName(L"m_pSongInfoFont");
 
 		Vector3 l_vPos;
-		m_pMPDI->GetObjectPos(L"SongInfoText",l_vPos);
+		m_pMPDI->GetObjectPos(L"SongInfoText",l_vPos,true);
 		m_pSongInfoFont->SetLocalPosition(l_vPos);
-		m_pMPDI->GetObjectPos(L"SonNameText",l_vPos);
+		m_pMPDI->GetObjectPos(L"SonNameText",l_vPos,true);
 		m_pBestScoreFont->SetLocalPosition(l_vPos);
-		m_pMPDI->GetObjectPos(L"BestScoreTest",l_vPos);
+		m_pMPDI->GetObjectPos(L"BestScoreTest",l_vPos,true);
 		m_pSongNameFont->SetLocalPosition(l_vPos);
+		auto l_pPlayButtonMPDI = m_pMPDI->GetObject(L"PlayButton");
+		if( l_pPlayButtonMPDI )
+		{
+			m_pPlayButtonImage = l_pPlayButtonMPDI->PointDataToBaseImage(0);
+			m_pMPDI->RemoveObject(l_pPlayButtonMPDI);
+		}
 		this->AddChildToLast(m_pMPDI);
 		this->AddChildToLast(this->m_pSelectScroller);
 		this->AddChildToLast(m_pSongInfoFont);
 		this->AddChildToLast(m_pBestScoreFont);
 		this->AddChildToLast(m_pSongNameFont);
+		if( m_pPlayButtonImage )
+			this->AddChildToLast(m_pPlayButtonImage);
 
 	}
-	m_pSongNameFont->SetText(L"");
-	m_pBestScoreFont->SetText(L"");
-	m_pSongInfoFont->SetText(L"");
+	m_pSongNameFont->SetText(L"qoo");
+	m_pBestScoreFont->SetText(L"qoo");
+	m_pSongInfoFont->SetText(L"qoo");
 	if( m_pMPDI )
 		m_pMPDI->Init();
 	if( m_pSelectScroller )
@@ -102,8 +116,9 @@ void	cSongInfoBoardUI::Update(float e_fElpaseTime)
 	if( m_pSelectScroller )
 	{
 		const WCHAR*l_strName = m_pSelectScroller->GetCurrentWorkingObjectName();
-		if( l_strName )
+		if( l_strName && m_pMusicInfoVector )
 		{
+			//m_pMusicInfoVector->GetObject()
 			m_pSongNameFont->SetText(l_strName);
 			m_pBestScoreFont->SetText(l_strName);
 			m_pSongInfoFont->SetText(l_strName);
@@ -135,13 +150,13 @@ bool	cSongInfoBoardUI::IsPlayMusic()
 	return false;
 }
 
-std::wstring	cSongInfoBoardUI::GetSelectMusic()
+const wchar_t*	cSongInfoBoardUI::GetSelectMusicName()
 {
 	if(this->m_pSelectScroller)
 	{
 		return this->m_pSelectScroller->GetCurrentWorkingObjectName();
 	}
-	return L"";
+	return nullptr;
 }
 
 cSelectScroller::cSelectScroller(int e_iNumRow,int e_iNumColumn,Vector2 e_vGap)
@@ -176,7 +191,6 @@ void	cSelectScroller::Init()
     //POINT   l_Size = {*l_pClickMouseBehavior->GetWidth(),*l_pClickMouseBehavior->GetHeight()};
 	POINT   l_Size = {(int)l_pClickMouseBehavior->GetCollisionRange().Width(),(int)l_pClickMouseBehavior->GetCollisionRange().Height()};
     Vector3 l_vStargPos = Vector3(m_vCollisionRange.x,m_vCollisionRange.y,0.f);
-
 	for( int i=0;i<m_iNumColumn;++i )
 	{
 		Vector3 l_vPos;

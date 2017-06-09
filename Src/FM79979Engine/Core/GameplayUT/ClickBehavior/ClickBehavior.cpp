@@ -3,6 +3,7 @@
 #include "../../Sound/BasicSound.h"
 #include "ClickBehavior.h"
 #include "DefaultRenderClickBehavior.h"
+#include "../GameApp.h"
 #define MOUSE_UP_IDLE_TIME	0.1f
 
 namespace FATMING_CORE
@@ -194,6 +195,12 @@ namespace FATMING_CORE
 		m_MouseLeaveFunction		   = e_MouseLeaveFunction;
 	}
 
+
+	void	cClickBehavior::CreateFullScreenCollide()
+	{
+		this->m_CollideFunction = FullscreenCollide;
+	}
+
 	cClickBehaviorGroup::cClickBehaviorGroup()
 	{
 
@@ -305,6 +312,12 @@ namespace FATMING_CORE
 			return nullptr;
 		cDefaultRenderClickBehavior*l_pClickEvent = new cDefaultRenderClickBehavior();
 		l_pClickEvent->SetRenderObject(e_pRenderObject);
+		if(!e_pRenderObject->GenerateBound())
+		{
+			std::wstring l_strDebugInfo = e_pRenderObject->GetName();
+			l_strDebugInfo += L" generate bound faild,the object dont override the GenerateBound";
+			cGameApp::OutputDebugInfoString(l_strDebugInfo);
+		}
 		l_pClickEvent->SetMouseFunction(nullptr,nullptr,nullptr,e_ClickFunction,e_ClickFunction,nullptr);
 		l_pClickEvent->SetName(e_pRenderObject->GetName());
 		l_pClickEvent->SetClickSound(e_pBasicSound);

@@ -460,12 +460,16 @@ EXIT:
 		return false;
 	}
 
-	bool	cMultiPathDynamicImage::GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos)
+	bool	cMultiPathDynamicImage::GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos,bool e_bRemoveObject)
 	{
 		auto*l_pData = this->GetObject(e_strName);
 		if( l_pData )
 		{
 			e_vPos = l_pData->GetLastPoint();
+			if( e_bRemoveObject )
+			{
+				this->RemoveObject(l_pData);
+			}
 			return true;
 		}
 		return false;

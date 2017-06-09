@@ -128,7 +128,7 @@ void	cTimeLineRangeChart::Init()
 	if( !m_pTickImage )
 	{
 		m_pTickImage = new cBaseImage("MusicGame/Image/Tick.png");
-		m_pTickImage->Create2DBound();
+		m_pTickImage->GenerateBound();
 	}
 	m_fEndTimeWithBeforTime = this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange;
 	SetupSoundTimeLineDataObject(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),m_fEndTimeWithBeforTime);

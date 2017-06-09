@@ -135,7 +135,7 @@ namespace FATMING_CORE
 		virtual	void	Destroy(){}
 		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels);
 		POINT			GetSize();
-		virtual 		void		Create2DBound();
+		virtual bool	GenerateBound();
 	};
 
 	//===============

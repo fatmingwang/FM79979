@@ -1,8 +1,12 @@
 #pragma once
 
-
-struct sMusicInfo
+//std::wstring strSongName; is name
+class  cMusicInfo:public NamedTypedObject
 {
-	std::wstring strFileName;
-	std::wstring strSongName;
+public:
+	std::wstring m_strFileName;
+	std::wstring m_strInfo;
+	cMusicInfo(){}
+	virtual ~cMusicInfo(){}
+
 };

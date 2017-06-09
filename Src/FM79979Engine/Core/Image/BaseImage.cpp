@@ -359,7 +359,8 @@ namespace FATMING_CORE
 		return l_Size;
 	}
 
-	void		cBaseImage::Create2DBound()
+
+	bool	cBaseImage::GenerateBound()
 	{
 		auto l_Size = GetSize();
 		l_Size.x /= 2;
@@ -367,6 +368,7 @@ namespace FATMING_CORE
 		RECT l_Rect = {-l_Size.x,-l_Size.y,l_Size.x,l_Size.y};
 		cBound l_Bound(l_Rect);
 		this->SetLocalBound(&l_Bound);
+		return true;
 	}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)
 	//{

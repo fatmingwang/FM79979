@@ -71,7 +71,7 @@ namespace UT
 	bool					MyCreateDirectory( const char* e_strDirectoryName );
 	//ex:  view rang is 100,100,200,200
 	//                  4 factor represent x,y,x,y coordinate
-	Vector4					ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector2 e_vViewPortSize,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection);
+	Vector4					ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection);
 	//x,y showpos,zw width height
 	Vector4					ViewRectToOpenGLScissor(Vector4 e_v2DViewRange);
 	//============

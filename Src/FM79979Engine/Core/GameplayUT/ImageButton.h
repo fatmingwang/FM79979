@@ -56,9 +56,9 @@ namespace FATMING_CORE
 		virtual	void				Render();
 		virtual	void				DebugRender(){ cClickMouseBehavior::DebugRender(); }
 		//virtual	void	SetPosByImageCenter(Vector3 e_vPos);
-		cRenderObject*		GetPressedImage(){return m_pPressedImage;}
+		cRenderObject*				GetPressedImage(){return m_pPressedImage;}
 		void						SetPressedImage(cRenderObject*e_pImage,bool e_bLinkParent);
-		cRenderObject*		GetFinishImage(){return m_pFinishImage;}
+		cRenderObject*				GetFinishImage(){return m_pFinishImage;}
 		void						SetFinishImage(cRenderObject*e_pImage,bool e_bLinkParent);
 		//sound
 		const wchar_t*				GetButtonClickSoundName(){ return m_strButtonClickSoundName.c_str(); }

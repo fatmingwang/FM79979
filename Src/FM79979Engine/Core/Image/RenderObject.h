@@ -17,7 +17,6 @@ namespace FATMING_CORE
 		void	RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 		void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 	protected:
-		bool			m_ChildrenIsRenderObject;//if false the children won't be update and render
 		virtual	void	SetTransformInternalData();
 		GET_SET_DEC(bool,m_bUpdateRotation,IsUpdateRotation,SetUpdateRotation);
 		//local position
@@ -51,6 +50,7 @@ namespace FATMING_CORE
 		//
 		virtual	void	Destroy(){}
 		virtual	void	SetColor(Vector4 e_vColor){}
+		virtual bool	GenerateBound(){ return false; }
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;
 		//virtual	int		GetHeight() = 0;
