@@ -183,8 +183,6 @@ void	cSelectScroller::Init()
 	m_vCollisionRange = l_vOriginalViewRect;
 	m_bRollBack = false;
 	m_fTotalLength = 0.f;
-	if( this->m_pBG )
-		m_pBG->Init();
     int l_iCOunt = this->Count();
     if( l_iCOunt == 0 )
         return;

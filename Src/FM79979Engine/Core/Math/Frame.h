@@ -91,6 +91,7 @@ public:
 
 	void						DumpDebugInfo();
 	GET_SET(bool,m_bIgnoreChildrenUpdate,IsIgnoreChildrenUpdate,SetIgnoreChildrenUpdate);
+	GET_SET_DEC(bool,m_bVisible,IsVisible,SetVisible);
 protected:
     virtual	void                UpdateCachedWorldTransformIfNeeded();
     void                        SetCachedWorldTransformDirty();

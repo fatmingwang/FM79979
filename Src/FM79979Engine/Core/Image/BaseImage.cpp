@@ -317,7 +317,8 @@ namespace FATMING_CORE
 								   m_fUV[2],m_fUV[1],
 								   m_fUV[0],m_fUV[3],
 								   m_fUV[2],m_fUV[3],};
-        DrawQuadWithMatrix(l_Vertices,l_fTexPointer,this->m_vColor,e_Mat,2,1);
+		cMatrix44 l_Mat = cMatrix44::TranslationMatrix(l_fWidth,l_fHeight,0.f)*e_Mat;
+        DrawQuadWithMatrix(l_Vertices,l_fTexPointer,this->m_vColor,l_Mat,2,1);
     }
 
 	void	cBaseImage::RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos)

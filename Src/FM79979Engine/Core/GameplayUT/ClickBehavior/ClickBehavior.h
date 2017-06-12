@@ -16,12 +16,13 @@ namespace FATMING_CORE
 	class cBasicSound;
 	class cClickBehavior;
 	class cClickBehaviorDispatcher;
+	class cCueToStartCurveWithTime;
 
 	typedef	std::function<void(int,int,cClickBehavior*)>		ClickFunction;
 	typedef	std::function<bool(int,int)>						CollideFunction;
 	inline	bool	FullscreenCollide(int e_iPodX,int e_iPodY){ return true; }
 
-	class cClickBehavior:public NamedTypedObject
+	class cClickBehavior:public virtual NamedTypedObject
 	{
 		friend	class					cClickBehaviorDispatcher;
 	protected:
@@ -71,6 +72,7 @@ namespace FATMING_CORE
 														ClickFunction		e_MouseUpFunction,
 														ClickFunction		e_MouseDoubleClickFunction,
 														ClickFunction		e_MouseLeaveFunction);
+		//I am a mask to avoid click other buttons.
 		void							CreateFullScreenCollide();
 	};
 	//for a single touch group,a current working object to save performance
@@ -88,10 +90,11 @@ namespace FATMING_CORE
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();
 		DEFINE_TYPE_INFO();
-		void						Init();
-        virtual void    			Update(float e_fElpaseTime);
-		cClickBehavior*				AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
-		
+		void													Init();
+        virtual void    										Update(float e_fElpaseTime);
+		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
+		std::tuple<cClickBehavior*,cRenderObject*>				AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
+		virtual	NamedTypedObject*	Clone(){ return nullptr; }
 	};
 	//its higher than cClickBehaviorGroup,because it has top menu and always need to work click event vector
 	class cClickBehaviorDispatcher:public cClickBehaviorGroup
@@ -110,5 +113,22 @@ namespace FATMING_CORE
 		bool						AddAlwaysNeedToWorkClickEvent(cClickBehavior*e_pClickEvent);
 		bool						RemoveAlwaysNeedToWorkClickEvent(cClickBehavior*e_pClickEvent);
 		void						SetTopClickEvent(cClickBehavior*e_pEvent);
+	};
+
+
+	class cLazyClickBehaviorAndRenderObject:public NamedTypedObject
+	{
+	public:
+		cClickBehaviorGroup*	m_pClickBehaviorGroup;
+		cRenderObject*			m_pRenderObject;
+		cLazyClickBehaviorAndRenderObject(cClickBehaviorGroup*e_pClickBehaviorGroup,cRenderObject*e_pRenderObject);
+		cLazyClickBehaviorAndRenderObject();
+		~cLazyClickBehaviorAndRenderObject();
+		void	AddChild(cRenderObject*e_pRenderObject);
+		void	AddObject(cClickBehavior*e_pClickBehavior);
+		void	SetEnable(bool e_bEnable);
+		bool	IsEnable();
+		void	Init();
+		void	SetNameToAll(const wchar_t*e_strName);
 	};
 }

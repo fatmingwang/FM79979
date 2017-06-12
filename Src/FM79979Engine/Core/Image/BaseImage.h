@@ -74,14 +74,12 @@ namespace FATMING_CORE
 	protected:
 		cTexture*m_pTexture;
 		Vector4			m_vColor;
-
 		//GETP_SET_DEC(Vector3,m_vPos,GetPos,SetPos);								//render position
 		//GETP_SET_DEC(float,m_fAngle,GetAngle,SetAngle);							//angle
 
 		GETP_SET_DEC(POINT,m_OffsetPos,GetOffsetPos,SetOffsetPos);				//offset position,image offset,some image size is not as big as same sequence series,to save image size we have to keep this on.
 		GET_SET_DEC(int,m_iWidth,GetWidth,SetWidth);							//final width show on the screen
 		GET_SET_DEC(int,m_iHeight,GetHeight,SetHeight);						//final height show on the screen
-		GET_SET_DEC(bool,m_bVisible,IsVisible,SetVisible);
 		GET_SET_DEC(POINT,m_OriginalSize,GetOriginalSize,SetOriginalSize);
 		bool	m_bMirror;
 		float	m_fUV[4];														//left top right buttom.

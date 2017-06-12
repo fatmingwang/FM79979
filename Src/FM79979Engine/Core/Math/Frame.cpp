@@ -12,6 +12,7 @@ const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 //-----------------------------------------------------------------------------
 Frame::Frame()
 {
+	m_bVisible = true;
 	m_bIgnoreChildrenUpdate = false;
     m_pParent = nullptr;
     m_pNextSibling = nullptr;
@@ -27,6 +28,7 @@ Frame::Frame()
 
 Frame::Frame(Frame*e_pFrame)
 {
+	m_bVisible = e_pFrame->m_bVisible;
 	m_bIgnoreChildrenUpdate = e_pFrame->m_bIgnoreChildrenUpdate;
 	m_pLocalBound = nullptr;
     m_pCachedWorldBound = nullptr;

@@ -15,7 +15,8 @@ namespace FATMING_CORE
 		//if warning is appear override as below
 		//virtual	void	SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
 		void	RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
-		void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		void	DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		//void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 	protected:
 		virtual	void	SetTransformInternalData();
 		GET_SET_DEC(bool,m_bUpdateRotation,IsUpdateRotation,SetUpdateRotation);
@@ -27,7 +28,7 @@ namespace FATMING_CORE
 		cRenderObject(cRenderObject*e_pRenderObjectBehavior);
 		virtual ~cRenderObject();
 		//to avoid warning 4436
-		virtual NamedTypedObject*	Clone(){ return new NamedTypedObject(); }
+		virtual NamedTypedObject*	Clone(){ return new cRenderObject(this); }
 		Vector3			GetPos();
 		void			SetPos(Vector3 e_vPos);
 		void			SetPos(Vector2 e_vPos);
@@ -39,13 +40,14 @@ namespace FATMING_CORE
 		Vector3			GetRotation(){ return m_vRotation; }
 		void			SetAngle(float e_fAngle);
 		void			SetAngle(Vector3 e_vAngle);
-		virtual	void	Init() = 0;
-		virtual	void	Update(float e_fElpaseTime) = 0;
-		virtual	void	Render() = 0;
+		virtual	void	Init(){}
+		virtual	void	Update(float e_fElpaseTime){}
+		virtual	void	Render(){}
 		virtual	void	DebugRender(){}
 		//
 		virtual	void	UpdateNodes(float e_fElpaseTime);
 		virtual	void	RenderNodes();
+		virtual	void	InitNodes();
 		virtual	void	DebugRenderNodes();
 		//
 		virtual	void	Destroy(){}

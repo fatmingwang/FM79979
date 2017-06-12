@@ -13,6 +13,7 @@ namespace FATMING_CORE
 
 	cRenderObject::cRenderObject(cRenderObject*e_pRenderObjectBehavior):Frame(e_pRenderObjectBehavior)
 	{
+		m_bVisible = e_pRenderObjectBehavior->m_bVisible;
 		m_vRotation = e_pRenderObjectBehavior->m_vRotation;
 		m_pvPos = this->GetLocalPositionPointer();
 		this->SetLocalTransform(e_pRenderObjectBehavior->GetLocalTransform());
@@ -85,38 +86,62 @@ namespace FATMING_CORE
 	}
 
 
-	void	cRenderObject::RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
+	//void	cRenderObject::RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
+	//{
+	//	//OutputDebugString(e_pFrame->GetName());
+	//	//OutputDebugString(L"\n");
+	//	if( e_pFrame )
+	//	{
+	//		auto l_pFrame = e_pFrame->GetNextSibling();
+	//		if( l_pFrame  )
+	//			RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
+	//		if( !e_pFrame->IsIgnoreChildrenUpdate() )
+	//		{
+	//			l_pFrame = e_pFrame->GetFirstChild();
+	//			if( l_pFrame )
+	//			{
+	//				RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
+	//			}
+	//		}
+	//		if(e_pFrame->IsVisible())
+	//			e_Function(e_pFrame);
+	//	}	
+	//}
+
+	void	cRenderObject::DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
 	{
+		//OutputDebugString(e_pFrame->GetName());
+		//OutputDebugString(L"\n");
 		if( e_pFrame )
 		{
-			//OutputDebugString(e_pFrame->GetName());
-			//OutputDebugString(L"\n");
+			e_Function(e_pFrame);
 			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame )
-				RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
-			if( !e_pFrame->IsIgnoreChildrenUpdate() )
+				DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(e_Function,l_pFrame);
+			if( e_pFrame->IsIgnoreChildrenUpdate()  )
+				return;
+			l_pFrame = e_pFrame->GetFirstChild();
+			if( l_pFrame )
 			{
-				l_pFrame = e_pFrame->GetFirstChild();
-				if( l_pFrame  )
-				{
-					RenderObjectGoThoughAllFrameFromaEndToFirst(e_Function,l_pFrame);
-				}
+				DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(e_Function,l_pFrame);
 			}
-			e_Function(e_pFrame);
 		}	
 	}
 
 	void	cRenderObject::RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
 	{
+		//OutputDebugString(e_pFrame->GetName());
+		//OutputDebugString(L"\n");
 		if( e_pFrame )
 		{
-			//OutputDebugString(e_pFrame->GetName());
-			//OutputDebugString(L"\n");
-			e_Function(e_pFrame);
+			if(e_pFrame->IsVisible())
+				e_Function(e_pFrame);
 			auto l_pFrame = e_pFrame->GetNextSibling();
-			if( l_pFrame )
+			if( l_pFrame  )
+			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
-			if( e_pFrame->IsIgnoreChildrenUpdate() )
+			}
+			if( e_pFrame->IsIgnoreChildrenUpdate() || !e_pFrame->IsVisible() )
 				return;
 			l_pFrame = e_pFrame->GetFirstChild();
 			if( l_pFrame  )
@@ -155,20 +180,17 @@ namespace FATMING_CORE
 				e_pFrame->Render(); 
 			}
 			,this);
-		//fuck
-		//check
-		//void	GoThoughAllFrameFromaLastToFirst(std::function<bool(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
-		//void	GoThoughAllFrameFromaFirstToEnd(std::function<bool(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
-		//this->Render();
-		//auto*l_pNextSibling = this->GetNextSibling();
-		//while( l_pNextSibling )
-		//{
-		//	l_pNextSibling->Render();
-		//	l_pNextSibling = l_pNextSibling->GetNextSibling();
-		//}
-		//cRenderObject*l_pFirstChild = reinterpret_cast<cRenderObject*>(this->GetFirstChild());	
-		//if(l_pFirstChild)
-		//	l_pFirstChild->ForAllNodesRender();	
+	}
+	void	cRenderObject::InitNodes()
+	{
+		DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(
+			[](Frame*e_pFrame)
+			{
+				cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(e_pFrame);
+				if( l_pRenderObject )
+					l_pRenderObject->Init();
+			}
+			,this);
 	}
 
 	void	cRenderObject::DebugRenderNodes()

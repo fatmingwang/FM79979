@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\og
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotNetCommon", "..\DotNetCommon\DotNetCommon.vcxproj", "{941833B3-FD87-4BB5-8225-6ECC1098A767}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kiss_fft130", "kiss_fft130\kiss_fft130.vcxproj", "{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}"
 EndProject
 Global
@@ -81,18 +79,6 @@ Global
 		{941833B3-FD87-4BB5-8225-6ECC1098A767}.ReleaseFixedPipeline|Win32.Build.0 = Release|Win32
 		{941833B3-FD87-4BB5-8225-6ECC1098A767}.ReleaseFixedPipeline|x64.ActiveCfg = Release|x64
 		{941833B3-FD87-4BB5-8225-6ECC1098A767}.ReleaseFixedPipeline|x64.Build.0 = Release|x64
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Win32.ActiveCfg = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|Win32.Build.0 = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Debug|x64.ActiveCfg = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.DebugFixedPipeline|Win32.ActiveCfg = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.DebugFixedPipeline|Win32.Build.0 = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.DebugFixedPipeline|x64.ActiveCfg = Debug|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.ActiveCfg = Release|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Win32.Build.0 = Release|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|x64.ActiveCfg = Release|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.ReleaseFixedPipeline|Win32.ActiveCfg = Release|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.ReleaseFixedPipeline|Win32.Build.0 = Release|Win32
-		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.ReleaseFixedPipeline|x64.ActiveCfg = Release|Win32
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|Win32.ActiveCfg = Debug|Win32
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|Win32.Build.0 = Debug|Win32
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.Debug|x64.ActiveCfg = Debug|Win32

@@ -1,61 +1,130 @@
 #include "stdafx.h"
 #include "PerformMusicPhase.h"
+#include "SoundTimeLineVisualizer.h"
 
-cPerformMusicPhaseUI::cPerformMusicPhaseUI()
+cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase)
 {
-	m_PauseMPDI = nullptr;
-	m_ScoreMPDI = nullptr;
-	m_pPauseClickBehavior = nullptr;
-	m_pScoreClickBehavior = nullptr;
+	this->SetName(L"cPerformMusicPhaseUI");
+	m_pPerformMusicPhase = e_pPerformMusicPhase;
+	m_pPause = nullptr;
+	m_pScore = nullptr;
+	m_pBG = nullptr;
 }
 
 cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 {
-	
+	//SAFE_DELETE(m_pBG);	
+	SAFE_DELETE(m_pPause);
+	SAFE_DELETE(m_pScore);
 }
 
-bool	cPerformMusicPhaseUI::GenerateButtons(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher)
+void	cPerformMusicPhaseUI::GamePause()
 {
-	if( m_PauseMPDI == nullptr )
-	{
-		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/UI.mpdi");
-		m_PauseMPDI = l_pMPDIList->GetObject(L"PauseBoard");
-		m_ScoreMPDI = l_pMPDIList->GetObject(L"ScroeBoard");
-		{
-			auto l_pReplayButtonSubMPDI =  m_ScoreMPDI->GetObject(L"ReplayButton");
-			auto l_pLeaveButtonSubMPDI =  m_ScoreMPDI->GetObject(L"LeaveButton");
-			//l_pReplayButtonSubMPDI;
-			//cClickBehaviorGroup*l_pBGClickBehaviorGroup = new cClickBehaviorGroup();
-			//l_pBGClickBehaviorGroup->CreateFullScreenCollide();
-			//l_pBGClickBehaviorGroup->AddDefaultRenderClickBehaviorButton();
-		}
-		{
+	cGameApp::m_sbGamePause = !cGameApp::m_sbGamePause;
+	if( m_pTimeControlButton )
+		m_pTimeControlButton->SetEnable(!m_pTimeControlButton->IsEnable());
+	if(m_pPause)
+		m_pPause->SetEnable(!m_pPause->IsEnable());
+}
 
-			auto l_pLeaveButtonSubMPDI =  m_PauseMPDI->GetObject(L"LeaveButton");
-			auto l_pResumeButtonSubMPDI =  m_PauseMPDI->GetObject(L"ResumeButton");
+bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher)
+{
+	cBasicSound*l_pBasicSound = cGameApp::GetSoundByFileName(L"MusicGame/Piano/rf3.wav");
+	if( !m_pBG )
+	{
+		m_pBG = new cBaseImage("MusicGame/Image/Piano.jpg");
+		m_pBG->SetVisible(false);
+		//m_pBG->SetWidth(cGameApp::m_svGameResolution.x);
+		//m_pBG->SetHeight(cGameApp::m_svGameResolution.y);
+		this->AddChildToLast(m_pBG);
+		//generate time control
+		{
+			cBaseImage*l_pPauseImage = new cBaseImage("MusicGame/Image/Pause.png");
+			this->AddChildToLast(l_pPauseImage);
+			l_pPauseImage->SetPos(Vector2(1750,600));
+			cClickBehavior*l_pTimeControlButton = nullptr;
+			if( this->m_pPerformMusicPhase->m_pTimeLineRangeChart )
+			{
+				l_pTimeControlButton = e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(this->m_pPerformMusicPhase->m_pTimeLineRangeChart->GetTimeControlImage(),nullptr,nullptr);
+				m_pTimeControlButton = l_pTimeControlButton;
+				if(l_pTimeControlButton )
+				{
+					l_pTimeControlButton->SetEnable(false);
+					l_pTimeControlButton->SetAllowDrag(true);
+					l_pTimeControlButton->SetMouseFunction(
+						std::bind(&cTimeLineRangeChart::TimeControlCollision,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2),
+						std::bind(&cTimeLineRangeChart::TimeControlMouseDown,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+						std::bind(&cTimeLineRangeChart::TimeControlMouseMove,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+						std::bind(&cTimeLineRangeChart::TimeControlMouseUp,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+						nullptr,nullptr);
+				}
+			}
+			e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pPauseImage,
+				[l_pPauseImage,this,l_pTimeControlButton](int e_iPosX,int e_iPosY,cClickBehavior*ClickBehavior){
+					if( !m_pPause->IsEnable() )
+						l_pPauseImage->SetColor(Vector4(1,1,0,1));
+					else
+						l_pPauseImage->SetColor(Vector4(1,1,1,1));
+					GamePause();
+				}
+				,l_pBasicSound);
 		}
-		return true;
+	}
+	if( m_pPause == nullptr )
+	{
+		m_pScore = new cLazyClickBehaviorAndRenderObject();m_pScore->SetNameToAll(L"ScoreBoard");
+		m_pPause = new cLazyClickBehaviorAndRenderObject();m_pPause->SetNameToAll(L"PauseBoard");
+		e_pClickBehaviorDispatcher->AddObject(m_pScore->m_pClickBehaviorGroup);
+		e_pClickBehaviorDispatcher->AddObject(m_pPause->m_pClickBehaviorGroup);
+		this->AddChildToLast(m_pScore->m_pRenderObject);
+		this->AddChildToLast(m_pPause->m_pRenderObject);
+		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/UI.mpdi");
+		auto l_pPauseMPDI = l_pMPDIList->GetObject(L"PauseBoard");
+		auto l_pScoreMPDI = l_pMPDIList->GetObject(L"ScroeBoard");
+		{
+			auto l_pReplayButtonSubMPDI =  l_pScoreMPDI->GetObject(L"ReplayButton");
+			auto l_pLeaveButtonSubMPDI =  l_pScoreMPDI->GetObject(L"LeaveButton");
+			auto l_pLeaveImage = m_pScore->m_pClickBehaviorGroup->AddDefaultRenderClickBehaviorButton(l_pLeaveButtonSubMPDI,
+				[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+					this->m_pPerformMusicPhase->m_bSatisfiedCondition = true;
+				},l_pBasicSound);
+			auto l_pReplayImage = m_pScore->m_pClickBehaviorGroup->AddDefaultRenderClickBehaviorButton(l_pReplayButtonSubMPDI,
+				[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+					GamePause();
+				},l_pBasicSound);
+			m_pScore->AddChild(l_pScoreMPDI);
+			m_pScore->AddChild(std::get<1>(l_pLeaveImage));
+			m_pScore->AddChild(std::get<1>(l_pReplayImage));
+		}
+		{
+			auto l_pLeaveButtonSubMPDI =  l_pPauseMPDI->GetObject(L"LeaveButton");
+			auto l_pResumeButtonSubMPDI =  l_pPauseMPDI->GetObject(L"ResumeButton");
+			auto l_pLeaveImage = m_pPause->m_pClickBehaviorGroup->AddDefaultRenderClickBehaviorButton(l_pLeaveButtonSubMPDI,
+				[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+					this->m_pPerformMusicPhase->m_bSatisfiedCondition = true;
+				},l_pBasicSound);
+			auto l_pResumeImage = m_pPause->m_pClickBehaviorGroup->AddDefaultRenderClickBehaviorButton(l_pResumeButtonSubMPDI,
+				[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+					GamePause();
+				},l_pBasicSound);
+			m_pPause->AddChild(l_pPauseMPDI);
+			m_pPause->AddChild(std::get<1>(l_pLeaveImage));
+			m_pPause->AddChild(std::get<1>(l_pResumeImage));
+		}
 	}
 	return true;
 }
 
 void	cPerformMusicPhaseUI::Init()
 {
-	if( m_PauseMPDI == nullptr )
+	GenerateResources(m_pPerformMusicPhase->m_pClickBehaviorDispatcher);
+	if( m_pScore )
 	{
-		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/UI.mpdi");
-		m_PauseMPDI = l_pMPDIList->GetObject(L"PauseBoard");
-		m_ScoreMPDI = l_pMPDIList->GetObject(L"ScroeBoard");
-		{
-			auto l_pReplayButtonSubMPDI =  m_ScoreMPDI->GetObject(L"ReplayButton");
-			auto l_pLeaveButtonSubMPDI =  m_ScoreMPDI->GetObject(L"LeaveButton");
-		}
-		{
-
-			auto l_pLeaveButtonSubMPDI =  m_PauseMPDI->GetObject(L"LeaveButton");
-			auto l_pResumeButtonSubMPDI =  m_PauseMPDI->GetObject(L"ResumeButton");
-		}
-		
+		m_pScore->SetEnable(false);
+	}
+	if( m_pPause )
+	{
+		m_pPause->SetEnable(false);
 	}
 }
 void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
@@ -64,5 +133,9 @@ void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 }
 void	cPerformMusicPhaseUI::Render()
 {
-	
+	//if( m_pBG )
+	//{
+	//	m_pBG->SetPos(Vector2(100,600));
+	//	m_pBG->Render();
+	//}
 }

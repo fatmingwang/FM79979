@@ -2,15 +2,17 @@
 
 class cTimeLineRangeChart;
 class cQuickFFTDataFrequencyFinder;
+class cPerformMusicPhaseUI;
 class cPerformMusicPhase:public cSimplePhase
 {
+	friend	class					cPerformMusicPhaseUI;
+	cPerformMusicPhaseUI*			m_pPerformMusicPhaseUI;
+	//
 	cClickBehaviorDispatcher*		m_pClickBehaviorDispatcher;
 	cTimeLineRangeChart*			m_pTimeLineRangeChart;
 	void							FetchData(const wchar_t*e_strPhaseName,void*e_pData);
 	std::string						m_strMusicFileName;
-	cBaseImage*						m_pBG;
-	bool							m_bGamePause;
-	void							GenerateButtons();
+	void							GenerateResources();
 //	cRenderObject;
 //	cRenderNode;
 public:
@@ -34,16 +36,18 @@ public:
 
 class cPerformMusicPhaseUI:public cRenderObject
 {
-	friend class cPerformMusicPhase;
-	cMPDI*m_PauseMPDI;
-	cMPDI*m_ScoreMPDI;
-	cClickBehavior*m_pPauseClickBehavior;
-	cClickBehavior*m_pScoreClickBehavior;
+	cLazyClickBehaviorAndRenderObject*m_pPause;
+	cLazyClickBehaviorAndRenderObject*m_pScore;
+	cPerformMusicPhase*			m_pPerformMusicPhase;
+	cBaseImage*					m_pBG;
+	cClickBehavior*				m_pTimeControlButton;
+	void						GamePause();
 public:
-	cPerformMusicPhaseUI();
+	cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase);
 	~cPerformMusicPhaseUI();
-	bool			GenerateButtons(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher);
+	bool			GenerateResources(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher);
 	virtual	void	Init();
 	virtual	void	Update(float e_fElpaseTime);
 	virtual	void	Render();
+
 };

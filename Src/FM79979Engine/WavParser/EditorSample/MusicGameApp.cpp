@@ -50,7 +50,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();

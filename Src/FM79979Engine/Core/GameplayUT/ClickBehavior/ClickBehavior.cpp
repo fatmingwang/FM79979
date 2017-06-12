@@ -325,6 +325,14 @@ namespace FATMING_CORE
 		return l_pClickEvent;
 	}
 
+	std::tuple<cClickBehavior*,cRenderObject*>		cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound)
+	{
+		auto l_pImage = e_pSubMPDI->PointDataToBaseImage(0);
+		cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(e_pSubMPDI->GetOwner());
+		l_pMPDI->RemoveObject(e_pSubMPDI);
+		auto l_pData = AddDefaultRenderClickBehaviorButton(l_pImage,e_ClickFunction,e_pBasicSound);
+		return std::make_tuple(l_pData,l_pImage);
+	}
 	//bool	cClickBehaviorGroup::AddButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pClickSound)
 	//{
 	//	cSimpleObjectClickRespond*l_pObjectClickRespond = new cSimpleObjectClickRespond();
@@ -397,5 +405,60 @@ namespace FATMING_CORE
 	void	cClickBehaviorDispatcher::SetTopClickEvent(cClickBehavior*e_pEvent)
 	{
 		m_pCurrentWorkingEvent = e_pEvent;
+	}
+	
+	cLazyClickBehaviorAndRenderObject::cLazyClickBehaviorAndRenderObject()
+	{
+		m_pClickBehaviorGroup = new cClickBehaviorGroup();
+		m_pRenderObject = new cRenderObject();
+		m_pRenderObject->SetName(L"RenderObject");
+		m_pClickBehaviorGroup->SetName(L"Click");
+	}
+
+	cLazyClickBehaviorAndRenderObject::cLazyClickBehaviorAndRenderObject(cClickBehaviorGroup*e_pClickBehaviorGroup,cRenderObject*e_pRenderObject)
+	{
+		m_pClickBehaviorGroup = e_pClickBehaviorGroup;
+		m_pRenderObject = e_pRenderObject;
+	}
+	cLazyClickBehaviorAndRenderObject::~cLazyClickBehaviorAndRenderObject(){}
+	void	cLazyClickBehaviorAndRenderObject::AddChild(cRenderObject*e_pRenderObject)
+	{
+		if( e_pRenderObject->GetLocalBound() )
+		{
+			RECT l_rect = e_pRenderObject->GetLocalBound()->GetRect();
+			int i=0;
+		}
+		m_pRenderObject->AddChildToLast(e_pRenderObject);
+		
+	}
+	void	cLazyClickBehaviorAndRenderObject::AddObject(cClickBehavior*e_pClickBehavior)
+	{
+		m_pClickBehaviorGroup->AddObject(e_pClickBehavior);
+	}
+	void	cLazyClickBehaviorAndRenderObject::SetEnable(bool e_bEnable)
+	{
+		m_pClickBehaviorGroup->SetEnable(e_bEnable);
+		m_pRenderObject->SetVisible(e_bEnable);
+	}
+	bool	cLazyClickBehaviorAndRenderObject::IsEnable()
+	{
+		return m_pRenderObject->IsVisible();
+	}
+
+	void	cLazyClickBehaviorAndRenderObject::Init()
+	{
+		m_pRenderObject->InitNodes();
+		this->m_pClickBehaviorGroup->Init();
+	}
+
+	void	cLazyClickBehaviorAndRenderObject::SetNameToAll(const wchar_t*e_strName)
+	{
+		this->SetName(e_strName);
+		std::wstring l_strName = e_strName;
+		l_strName += L"RenderObject";
+		m_pRenderObject->SetName(l_strName);
+		l_strName = e_strName;
+		l_strName += L"Click";
+		m_pClickBehaviorGroup->SetName(e_strName);
 	}
 }
