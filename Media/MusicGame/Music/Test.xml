@@ -1,14 +1,13 @@
-<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml" ChartResolution="1820,980" ChartShowPos="10,10" MoveDirection="DownToUp" >
-	<cSoundTimeLineData ID="C3" Time="0.5" />
-	<cSoundTimeLineData ID="C3" Time="1.0" />
-	<cSoundTimeLineData ID="C3" Time="1.5" />
-	<cSoundTimeLineData ID="C3" Time="2.0" />
-	<cSoundTimeLineData ID="C3" Time="2.5" />
-	<cSoundTimeLineData ID="C3" Time="3.0" />
-	<cSoundTimeLineData ID="C3" Time="3.5" />
-	<cSoundTimeLineData ID="C3" Time="4.0" />
-	<cSoundTimeLineData ID="C3" Time="4.5" />
-	<cSoundTimeLineData ID="C3" Time="5.0" />
-	<cSoundTimeLineData ID="C3" Time="5.5" />
-
+<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml" ChartResolution="1820,600" ChartShowPos="10,10" MoveDirection="UpToDown" BeforeTime="4" AfterTime="6">
+	<cSoundTimeLineData ID="a3" Time="0.5" TuneKeepTime="0.5" />
+	<cSoundTimeLineData ID="b3" Time="1.0" />
+	<cSoundTimeLineData ID="b3" Time="2.5" />
+	<cSoundTimeLineData ID="b3" Time="3.0" />
+	<cSoundTimeLineData ID="a3" Time="4.5" TuneKeepTime="2.5"/>
+	<cSoundTimeLineData ID="c3" Time="6.5" />
+	<cSoundTimeLineData ID="b3" Time="7.0" />
+	<cSoundTimeLineData ID="a3" Time="8.5" />
+	<cSoundTimeLineData ID="b3" Time="9.0" />
+	<cSoundTimeLineData ID="a3" Time="10.5" />
+	<cSoundTimeLineData ID="b3" Time="11" />
 </cSoundTimeLineDataCollection>

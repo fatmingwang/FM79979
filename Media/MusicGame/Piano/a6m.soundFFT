@@ -1,0 +1,16 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a6m.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="44100" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.10000" LastMatchTime="0.10000" Frequency="990.52734" Amplitude="83" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.10000" LastMatchTime="0.10000" Frequency="1248.92578" Amplitude="88" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.10000" LastMatchTime="0.10000" Frequency="1765.72266" Amplitude="86" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="1076.66016" Amplitude="89" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.15000" LastMatchTime="0.16667" Frequency="1378.12500" Amplitude="101" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.21667" LastMatchTime="0.21667" Frequency="1464.25781" Amplitude="92" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.43333" LastMatchTime="0.43333" Frequency="1894.92188" Amplitude="96" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.10000" LastMatchTime="0.11667" Frequency="559.86328" Amplitude="123" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.10000" LastMatchTime="0.15000" Frequency="172.26563" Amplitude="123" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.10000" LastMatchTime="0.13333" Frequency="3746.77734" Amplitude="114" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.13333" LastMatchTime="0.16667" Frequency="301.46484" Amplitude="109" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.03333" KeepTime="0.10000" LastMatchTime="0.15000" Frequency="86.13281" Amplitude="102" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.06667" KeepTime="0.13333" LastMatchTime="0.20000" Frequency="1507.32422" Amplitude="91" />
+</Root>

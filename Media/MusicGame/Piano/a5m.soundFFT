@@ -1,0 +1,14 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a5m.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="44100" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.26667" LastMatchTime="0.26667" Frequency="861.32813" Amplitude="82" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.68333" LastMatchTime="0.68333" Frequency="904.39453" Amplitude="84" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.15000" LastMatchTime="0.16667" Frequency="1033.59375" Amplitude="116" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.16667" LastMatchTime="0.20000" Frequency="172.26563" Amplitude="124" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.21667" LastMatchTime="0.23333" Frequency="1033.59375" Amplitude="116" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.21667" LastMatchTime="0.26667" Frequency="86.13281" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.06667" KeepTime="0.18333" LastMatchTime="0.25000" Frequency="1851.85547" Amplitude="102" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.46667" KeepTime="0.10000" LastMatchTime="0.56667" Frequency="818.26172" Amplitude="81" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.46667" KeepTime="0.15000" LastMatchTime="0.61667" Frequency="1033.59375" Amplitude="86" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.58333" KeepTime="0.10000" LastMatchTime="0.68333" Frequency="86.13281" Amplitude="94" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.70000" LastMatchTime="0.70000" Frequency="947.46094" Amplitude="86" />
+</Root>
