@@ -49,11 +49,11 @@ namespace FATMING_CORE
 		if( l_pExternalFunction )
 		{
 			NamedTypedObject*l_pParent = this->GetOwner();
-			const WCHAR*l_str = l_pParent ->Type();
+			//const WCHAR*l_str = l_pParent ->Type();
 			if( l_pParent && l_pParent->GetOwner() )
 			{
 				l_pParent = l_pParent->GetOwner();
-				l_str = l_pParent ->Type();
+				//l_str = l_pParent ->Type();
 			}
 			if( l_pParent )
 			{

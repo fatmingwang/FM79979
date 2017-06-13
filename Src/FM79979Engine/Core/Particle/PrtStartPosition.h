@@ -69,7 +69,7 @@ namespace FATMING_CORE
 
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
 		{
-			Vector3	l_vOffsetPos = cMatrix44::StripPosFromMatrix(m_pFrame->GetWorldTransform()).TransformVector(m_vOffsetPos);
+			//Vector3	l_vOffsetPos = cMatrix44::StripPosFromMatrix(m_pFrame->GetWorldTransform()).TransformVector(m_vOffsetPos);
 			switch(m_eAttachFrameType)
 			{
 				case eAFT_CAMERA:

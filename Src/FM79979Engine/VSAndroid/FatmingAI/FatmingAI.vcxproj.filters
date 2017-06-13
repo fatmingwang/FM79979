@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\FatmingAI\FAIAnimationBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIAnimationCharacter.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIBaseBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAICharacterBehaviorBase.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAICharacterInterface.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAICollision.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIFiledPathBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAILeaveFiledBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIMachine.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIMultiTaskBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIParser.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIPathBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIStatus.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIStatusChangeByProbability.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAITranslationBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\FAIWallReflectMovingBehavior.cpp" />
+    <ClCompile Include="..\..\Core\FatmingAI\Stdafx.cpp" />
+  </ItemGroup>
+</Project>

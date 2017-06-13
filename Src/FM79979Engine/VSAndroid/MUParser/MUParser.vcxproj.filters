@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Math\MathParser\muParser.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserBase.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserBytecode.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserCallback.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserDLL.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserError.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserInt.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserTest.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathParser\muParserTokenReader.cpp" />
+  </ItemGroup>
+</Project>

@@ -619,6 +619,21 @@ EXIT:
 		}
 	}
 
+	cMultiPathDynamicImage*		cMPDIList::GetCloneObject(const wchar_t*e_strName)
+	{
+		return GetCloneObject(this->GetObjectIndexByName(e_strName));
+	}
+
+	cMultiPathDynamicImage*		cMPDIList::GetCloneObject(int e_iIndex)
+	{
+		auto l_pObject = this->GetObject(e_iIndex);
+		if( l_pObject )
+		{
+			return new cMultiPathDynamicImage(l_pObject);
+		}
+		return nullptr;
+	}
+
 	void	cMPDIList::ReleaseHintpointSoundData()
 	{
 		int	l_iNumMPDI = Count();

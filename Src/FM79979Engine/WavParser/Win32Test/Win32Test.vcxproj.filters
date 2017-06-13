@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{be06e294-40fb-4091-a0a9-3506bd3ab915}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{9c84e993-6be2-4b09-9e7f-8bf932b14dbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\CaptureAndCompare">
+      <UniqueIdentifier>{e0d55103-28d5-4fbd-8ede-6da3c6f17cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\FFT">
+      <UniqueIdentifier>{d55af8ec-cc2e-419e-aa79-b5df2d1ffc39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\TimeLine">
+      <UniqueIdentifier>{1e457f0f-4439-4c0a-9007-e8cb55cd9ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\ToneResource">
+      <UniqueIdentifier>{126aeefb-4565-4a64-b23c-78f23ccb6569}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\TimeLine\Visualizer">
+      <UniqueIdentifier>{e1af12e9-2fc0-49ed-b432-64736d2bbb84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MusicRelated">
+      <UniqueIdentifier>{946c6f65-cca7-4859-994a-03469b255fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{cb5ede1d-2eb9-4e79-9993-18d5f1a8e2b0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\FFTFindPeak.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\KissFFTConvert.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\KissFFTStreaming.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\QuickFFTDataFrequencyFinder.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SoundFFTCapture.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SoundTimeLineVisualizer.cpp">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp">
+      <Filter>Sound\TimeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SoundTimeLineData.cpp">
+      <Filter>Sound\TimeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\ToneData.cpp">
+      <Filter>Sound\ToneResource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\Parameters.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SoundTestButtons.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\MusicInfo.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\PerformScoreCalculate.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\PerformMusicPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\PerformMusicPhaseUI.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SelectMusicPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SelectMusicPhaseUI.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\MusicGameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\StoreNoisePhase.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\FFTFindPeak.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\KissFFTConvert.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\KissFFTStreaming.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\QuickFFTDataFrequencyFinder.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SoundFFTCapture.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SoundTimeLineVisualizer.h">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.h">
+      <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SoundTimeLineData.h">
+      <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\ToneData.h">
+      <Filter>Sound\ToneResource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\Parameters.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SoundTestButtons.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\MusicInfo.h">
+      <Filter>Game\MusicRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\PerformScoreCalculate.h">
+      <Filter>Game\MusicRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\AllPhaseName.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\PerformMusicPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SelectMusicPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\MusicGameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\StoreNoisePhase.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="test.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="test.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

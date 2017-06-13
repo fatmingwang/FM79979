@@ -172,7 +172,7 @@ namespace FATMING_CORE
 	{
 		int	l_iMagicID = 79979;
 		std::wstring l_str = GetDeviceID();
-		for(int i=0;i<l_str.length();++i)
+		for(size_t i=0;i<l_str.length();++i)
 		{
 			l_iMagicID += l_str[i];
 		}
@@ -185,7 +185,7 @@ namespace FATMING_CORE
 
 		const jchar *raw = env->GetStringChars(string, 0);
 		jsize len = env->GetStringLength(string);
-		const jchar *temp = raw;
+		//const jchar *temp = raw;
 
 		value.assign(raw, raw + len);
 
@@ -332,5 +332,6 @@ namespace FATMING_CORE
 
 		g_pMainThreadJNIUtilData->pJNIEnv->CallVoidMethod(g_pMainThreadJNIUtilData->ThreadThis, showToastAlert, jniTitle, jniContents, exitApp);
 		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);	
+		return true;
 	}
 }

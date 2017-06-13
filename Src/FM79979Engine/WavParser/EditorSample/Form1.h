@@ -1,11 +1,11 @@
 ﻿#pragma once
 //#include "WavWaves.h"
-#include "KissFFTConvert.h"
-#include "KissFFTStreaming.h"
-#include "SoundFFTCapture.h"
-#include "TimeFrequencyAmplitudeValueCapture.h"
-#include "ToneData.h"
-#include "MusicGameApp.h"
+#include "../MusicGame/KissFFTConvert.h"
+#include "../MusicGame/KissFFTStreaming.h"
+#include "../MusicGame/SoundFFTCapture.h"
+#include "../MusicGame/TimeFrequencyAmplitudeValueCapture.h"
+#include "../MusicGame/ToneData.h"
+#include "../MusicGame/MusicGameApp.h"
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.

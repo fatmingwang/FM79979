@@ -783,7 +783,7 @@ namespace FATMING_CORE
 			const wchar_t*l_strPIName = l_pIconPI->GetObject(i)->GetName();
 			std::string	l_strPIFileName = l_strPIFileName.c_str();
 			l_strPIFileName += UT::WcharToChar(l_strPIName);
-			cPuzzleImage*l_pPI = cGameApp::m_spAnimationParser->GetAllBaseImageList()->GetPuzzleImage((char*)l_strPIFileName.c_str(),l_strPIName);
+			cPuzzleImage*l_pPI = cGameApp::m_spAnimationParser->GetAllBaseImageList()->GetPuzzleImage(l_strPIFileName.c_str(),l_strPIName);
 
 			cMultiPages*l_pMultiPages = new cMultiPages(0,l_pPI,l_pNextPageButton->GetPointData(0)->GetPuzzleImageUnit(),l_pNextPageButton->GetOriginalPointList()[0],
 			l_pPriorPageButton->GetOriginalPointList()[0],l_vFirstPos,l_vDistance,l_iRow,l_iColumn,l_vBGRange,0);

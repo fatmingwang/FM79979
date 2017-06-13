@@ -1,7 +1,7 @@
 #pragma once
 
 #include "KissFFTConvert.h"
-
+#include "Parameters.h"
 
 void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);
 void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri);

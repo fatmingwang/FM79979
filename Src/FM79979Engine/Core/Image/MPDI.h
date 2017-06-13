@@ -147,14 +147,15 @@ namespace FATMING_CORE
 		virtual ~cMPDIList(){}
 		//if there is no any data use this pi,return true and remove the data,or return false and do not remove the data
 		//only remove reference not delete from animation parser!
-		bool    RemovePIReference(cPuzzleImage*e_pPuzzleImage,std::wstring*e_pInUsingDataInfo);
-		void    ForceRemovePIReference(cPuzzleImage*e_pPuzzleImage);
+		bool						RemovePIReference(cPuzzleImage*e_pPuzzleImage,std::wstring*e_pInUsingDataInfo);
+		void						ForceRemovePIReference(cPuzzleImage*e_pPuzzleImage);
 		//
-		void	Merge(cMPDIList*e_pMPDIList);
+		void						Merge(cMPDIList*e_pMPDIList);
 		//deprecate now instead by cResourceStamp
 		//but I am lazy to fix this right now
-		void	ReleaseHintpointSoundData();
-
+		void						ReleaseHintpointSoundData();
+		cMultiPathDynamicImage*		GetCloneObject(const wchar_t*e_strName);
+		cMultiPathDynamicImage*		GetCloneObject(int e_iIndex);
 		//set original name xxxx_mpdi as xxxx.mpdi
 		static  char*GetFileName(const wchar_t*e_strObjectName);
 		static  std::wstring FileToMPDIListName(const wchar_t*e_strObjectName);

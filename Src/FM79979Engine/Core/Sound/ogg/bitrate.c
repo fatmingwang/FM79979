@@ -24,7 +24,9 @@
 #include "os.h"
 #include "misc.h"
 #include "bitrate.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 /* compute bitrate tracking setup  */
 void vorbis_bitrate_init(vorbis_info *vi,bitrate_manager_state *bm){
   codec_setup_info *ci=vi->codec_setup;

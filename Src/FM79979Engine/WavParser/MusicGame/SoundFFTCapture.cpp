@@ -211,7 +211,7 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 			break;
 		}
 	}
-	if( 1 )
+	if( 0 )
 	{
 		//bool
 		static std::vector<std::vector<int> >	l_iDebugInfoVectorVector;

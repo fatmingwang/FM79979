@@ -30,7 +30,9 @@
 #include "envelope.h"
 #include "mdct.h"
 #include "misc.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 void _ve_envelope_init(envelope_lookup *e,vorbis_info *vi){
   codec_setup_info *ci=vi->codec_setup;
   vorbis_info_psy_global *gi=&ci->psy_g_param;

@@ -26,7 +26,7 @@ namespace FATMING_CORE
 		cPuzzleImage*l_pPI = 0;
 		Vector4	l_vColor(0,0,0,0);
 		Vector4	l_vFontColor = Vector4::One;
-		bool	l_bRepeat = false;
+		//bool	l_bRepeat = false;
 		PARSE_ELEMENT_START(e_pTiXmlElement)
 			COMPARE_NAME_WITH_DEFINE(NAME)
 			{
@@ -36,7 +36,7 @@ namespace FATMING_CORE
 			COMPARE_NAME_WITH_DEFINE(EVENT_REPEAT)
 			{
 				//this one doesn't work now...because I a lazy to do it...
-				l_bRepeat = VALUE_TO_BOOLEAN;
+				//l_bRepeat = VALUE_TO_BOOLEAN;
 			}
 			else
 			COMPARE_NAME("PressedText")
@@ -756,6 +756,8 @@ namespace FATMING_CORE
 			case eBST_ALL_PRESSED:
 				this->m_bSatisfiedCondition = IsAllPressedBehaviorDone();
 				break;
+			default:
+				break;
 		}
 		m_bClickMouseBehaviorSatisfied = m_bSatisfiedCondition;
 	}
@@ -783,12 +785,12 @@ namespace FATMING_CORE
 
 	void	cEventMultiButton::Init()
 	{
-		cEventButton*l_pSelectedEventButton = 0;
+		//cEventButton*l_pSelectedEventButton = 0;
 		//if( eBST_MULTI == m_eButtonSelectionType )
 		if( m_bStayAtLastSelect)
 		{
-			if( this->m_pCurrentWorkingObject )
-				l_pSelectedEventButton = dynamic_cast<cEventButton*>(this->m_pCurrentWorkingObject);
+			//if( this->m_pCurrentWorkingObject )
+				//l_pSelectedEventButton = dynamic_cast<cEventButton*>(this->m_pCurrentWorkingObject);
 		}
 		cEventBase::Init();
 		//if( l_pSelectedEventButton )

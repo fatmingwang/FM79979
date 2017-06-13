@@ -30,7 +30,9 @@
 #include "codebook.h"
 #include "misc.h"
 #include "os.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 #if defined(TRAIN_RES) || defined (TRAIN_RESAUX)
 #include <stdio.h>
 #include "../../Android/nv_file.h"

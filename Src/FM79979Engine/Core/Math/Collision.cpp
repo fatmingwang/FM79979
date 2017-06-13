@@ -314,6 +314,12 @@ namespace UT
 //end namespace
 }
 
+RECT	CreateRect(POINT e_Size,Vector3 e_vPos)
+{
+	RECT l_RECT = { (long)e_vPos.x,(long)e_vPos.y,(long)(e_Size.x+e_vPos.x),(long)(e_vPos.y+e_Size.y) };
+	return l_RECT;
+}
+
 
 //-----------------------------------------------------------------------------
 // Build a frustum from a persepective projection matrix.  The matrix may only
@@ -421,13 +427,8 @@ void TransformFrustum( sFrustum* pOut, const sFrustum* pIn,float Scale, Vector4 
 void TransformRect( RECT* pOut, const RECT* pIn,float Scale, Vector4 Rotation, Vector4 Translation )
 {
 	POINT l_Size = {pIn->right-pIn->left,pIn->bottom-pIn->top};
-	l_Size.x /= 2;
-	l_Size.y /= 2;
-	POINT l_NewPos = { (LONG)Translation.x,(LONG)Translation.y };
-	pOut->left = l_NewPos.x-l_Size.x;
-	pOut->top = l_NewPos.y-l_Size.y;
-	pOut->right = l_NewPos.x+l_Size.x;
-	pOut->bottom = l_NewPos.y+l_Size.y;
+	Vector3	l_vNewPos(Translation.x,Translation.y,0.f);
+	*pOut = CreateRect(l_Size,l_vNewPos);
 }
 
 

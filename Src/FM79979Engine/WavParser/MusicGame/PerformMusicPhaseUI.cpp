@@ -30,44 +30,48 @@ void	cPerformMusicPhaseUI::GamePause()
 bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher)
 {
 	cBasicSound*l_pBasicSound = cGameApp::GetSoundByFileName(L"MusicGame/Piano/rf3.wav");
+	cBaseImage*l_pPauseImage = nullptr;
 	if( !m_pBG )
 	{
 		m_pBG = new cBaseImage("MusicGame/Image/Piano.jpg");
 		m_pBG->SetVisible(false);
-		//m_pBG->SetWidth(cGameApp::m_svGameResolution.x);
+		m_pBG->SetWidth(cGameApp::m_svGameResolution.x);
 		//m_pBG->SetHeight(cGameApp::m_svGameResolution.y);
 		this->AddChildToLast(m_pBG);
 		//generate time control
 		{
-			cBaseImage*l_pPauseImage = new cBaseImage("MusicGame/Image/Pause.png");
-			this->AddChildToLast(l_pPauseImage);
-			l_pPauseImage->SetPos(Vector2(1750,600));
-			cClickBehavior*l_pTimeControlButton = nullptr;
-			if( this->m_pPerformMusicPhase->m_pTimeLineRangeChart )
+			l_pPauseImage = new cBaseImage("MusicGame/Image/Pause.png");
+			if( l_pPauseImage )
 			{
-				l_pTimeControlButton = e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(this->m_pPerformMusicPhase->m_pTimeLineRangeChart->GetTimeControlImage(),nullptr,nullptr);
-				m_pTimeControlButton = l_pTimeControlButton;
-				if(l_pTimeControlButton )
+				this->AddChildToLast(l_pPauseImage);
+				l_pPauseImage->SetPos(Vector2(1750,600));
+				cClickBehavior*l_pTimeControlButton = nullptr;
+				if( this->m_pPerformMusicPhase->m_pTimeLineRangeChart )
 				{
-					l_pTimeControlButton->SetEnable(false);
-					l_pTimeControlButton->SetAllowDrag(true);
-					l_pTimeControlButton->SetMouseFunction(
-						std::bind(&cTimeLineRangeChart::TimeControlCollision,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2),
-						std::bind(&cTimeLineRangeChart::TimeControlMouseDown,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
-						std::bind(&cTimeLineRangeChart::TimeControlMouseMove,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
-						std::bind(&cTimeLineRangeChart::TimeControlMouseUp,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
-						nullptr,nullptr);
+					l_pTimeControlButton = e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(this->m_pPerformMusicPhase->m_pTimeLineRangeChart->GetTimeControlImage(),nullptr,nullptr);
+					m_pTimeControlButton = l_pTimeControlButton;
+					if(l_pTimeControlButton )
+					{
+						l_pTimeControlButton->SetEnable(false);
+						l_pTimeControlButton->SetAllowDrag(true);
+						l_pTimeControlButton->SetMouseFunction(
+							std::bind(&cTimeLineRangeChart::TimeControlCollision,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2),
+							std::bind(&cTimeLineRangeChart::TimeControlMouseDown,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+							std::bind(&cTimeLineRangeChart::TimeControlMouseMove,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+							std::bind(&cTimeLineRangeChart::TimeControlMouseUp,m_pPerformMusicPhase->m_pTimeLineRangeChart,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3),
+							nullptr,nullptr);
+					}
 				}
+				e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pPauseImage,
+					[l_pPauseImage,this,l_pTimeControlButton](int e_iPosX,int e_iPosY,cClickBehavior*ClickBehavior){
+						if( !m_pPause->IsEnable() )
+							l_pPauseImage->SetColor(Vector4(1,1,0,1));
+						else
+							l_pPauseImage->SetColor(Vector4(1,1,1,1));
+						GamePause();
+					}
+					,l_pBasicSound);
 			}
-			e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pPauseImage,
-				[l_pPauseImage,this,l_pTimeControlButton](int e_iPosX,int e_iPosY,cClickBehavior*ClickBehavior){
-					if( !m_pPause->IsEnable() )
-						l_pPauseImage->SetColor(Vector4(1,1,0,1));
-					else
-						l_pPauseImage->SetColor(Vector4(1,1,1,1));
-					GamePause();
-				}
-				,l_pBasicSound);
 		}
 	}
 	if( m_pPause == nullptr )
@@ -79,8 +83,9 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 		this->AddChildToLast(m_pScore->m_pRenderObject);
 		this->AddChildToLast(m_pPause->m_pRenderObject);
 		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/UI.mpdi");
-		auto l_pPauseMPDI = l_pMPDIList->GetObject(L"PauseBoard");
-		auto l_pScoreMPDI = l_pMPDIList->GetObject(L"ScroeBoard");
+		auto l_pPauseMPDI = l_pMPDIList->GetCloneObject(L"PauseBoard");
+		auto l_pScoreMPDI = l_pMPDIList->GetCloneObject(L"ScroeBoard");
+		if( l_pScoreMPDI )
 		{
 			auto l_pReplayButtonSubMPDI =  l_pScoreMPDI->GetObject(L"ReplayButton");
 			auto l_pLeaveButtonSubMPDI =  l_pScoreMPDI->GetObject(L"LeaveButton");
@@ -96,6 +101,7 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 			m_pScore->AddChild(std::get<1>(l_pLeaveImage));
 			m_pScore->AddChild(std::get<1>(l_pReplayImage));
 		}
+		if( l_pPauseMPDI )
 		{
 			auto l_pLeaveButtonSubMPDI =  l_pPauseMPDI->GetObject(L"LeaveButton");
 			auto l_pResumeButtonSubMPDI =  l_pPauseMPDI->GetObject(L"ResumeButton");
@@ -104,7 +110,14 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 					this->m_pPerformMusicPhase->m_bSatisfiedCondition = true;
 				},l_pBasicSound);
 			auto l_pResumeImage = m_pPause->m_pClickBehaviorGroup->AddDefaultRenderClickBehaviorButton(l_pResumeButtonSubMPDI,
-				[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+				[this,l_pPauseImage](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
+					if( l_pPauseImage )
+					{
+						if( !m_pPause->IsEnable() )
+							l_pPauseImage->SetColor(Vector4(1,1,0,1));
+						else
+							l_pPauseImage->SetColor(Vector4(1,1,1,1));
+					}
 					GamePause();
 				},l_pBasicSound);
 			m_pPause->AddChild(l_pPauseMPDI);

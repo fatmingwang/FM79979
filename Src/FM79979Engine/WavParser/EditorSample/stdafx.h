@@ -24,9 +24,9 @@
 #include "../kiss_fft130/kiss_fft.h"
 //#include "../../kiss_fft.h/kiss_fft.h"
 
-#include "AllPhaseName.h"
-#include "Parameters.h"
-#include "SoundTimeLineData.h"
+#include "../MusicGame/AllPhaseName.h"
+#include "../MusicGame/Parameters.h"
+#include "../MusicGame/SoundTimeLineData.h"
 #ifdef WIN32
 #include "../../DotNetCommon/AllDNCTInclude.h"
 using namespace DNCT;

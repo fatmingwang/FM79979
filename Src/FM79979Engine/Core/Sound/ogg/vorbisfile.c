@@ -27,8 +27,11 @@
 
 #include "os.h"
 #include "misc.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
 #pragma warning( disable : 4996 )
+#endif
+
 
 /* A 'chained bitstream' is a Vorbis bitstream that contains more than
    one logical bitstream arranged end to end (the only form of Ogg

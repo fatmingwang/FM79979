@@ -45,7 +45,7 @@ struct	sSphere
 	Vector3				vCenter;// Center of the sphere.
 };
 
-
+RECT	CreateRect(POINT e_Size,Vector3 e_vPos);
 //-----------------------------------------------------------------------------
 // Bounding volume construction.
 //-----------------------------------------------------------------------------

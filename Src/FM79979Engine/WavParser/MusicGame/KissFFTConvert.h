@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../kiss_fft130/kiss_fft.h"
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 

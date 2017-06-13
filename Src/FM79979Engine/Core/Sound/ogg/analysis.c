@@ -27,8 +27,10 @@
 #include "scales.h"
 #include "os.h"
 #include "misc.h"
+#ifdef WIN32
 #pragma warning( disable : 4996 )
 #pragma warning( disable : 4244 )
+#endif
 int analysis_noisy=1;
 
 /* decides between modes, dispatches to the appropriate mapping. */

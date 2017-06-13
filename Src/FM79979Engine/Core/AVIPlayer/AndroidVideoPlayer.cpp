@@ -506,7 +506,7 @@ cBaseImage*		cFMVVideo::GetLastFrameImage()
 			cBaseImage*l_pImage = new cBaseImage(0,false);
 			cTexture*l_pTexture = new cTexture(l_pImage,l_pNewPixelData,m_iVideoWidth,m_iVideoHeight,L"FMVideoImage",false,false,GL_RGB);
 			l_pImage->SetTexture(l_pTexture);
-			SAFE_DELETE(l_pNewPixelData);
+			SAFE_DELETE_ARRAY(l_pNewPixelData);
 			return l_pImage;
 		}
 	}

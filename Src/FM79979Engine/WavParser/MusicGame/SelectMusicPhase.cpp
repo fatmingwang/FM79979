@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SelectMusicPhase.h"
-
+#include "AllPhaseName.h"
+#include "Parameters.h"
 
 cSelectMusicPhase::cSelectMusicPhase()
 {

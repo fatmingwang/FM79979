@@ -76,6 +76,10 @@ void	cMusicGameApp::Render()
 	{
 		m_pPhaseManager->Render();
 	}
+#ifdef WIN32
+	SwapBuffers(cGameApp::m_sHdc);
+#endif
+	glFlush();
 }
 
 

@@ -39,13 +39,13 @@ for(int i=0;i<l_iCount;++i)										\
 }
 
 
-//#define	ADD_CLONE_DATA_TO_NEW_VECTOR(TYPE,SRC_VECTOR,DEST_VECTOR)	\
-//int	l_iCount = SRC_VECTOR->Count();									\
-//for(int i=0;i<l_iCount;++i)											\
-//{																	\
-//	TYPE* l_pData = dynamic_cast<TYPE*>((*SRC_VECTOR)[i]->Clone());	\
-//	DEST_VECTOR->AddObjectNeglectExist(l_pData);					\
-//}
+/*#define	ADD_CLONE_DATA_TO_NEW_VECTOR(TYPE,SRC_VECTOR,DEST_VECTOR)	\
+int	l_iCount = SRC_VECTOR->Count();									\
+for(int i=0;i<l_iCount;++i)											\
+{																	\
+	TYPE* l_pData = dynamic_cast<TYPE*>((*SRC_VECTOR)[i]->Clone());	\
+	DEST_VECTOR->AddObjectNeglectExist(l_pData);					\
+}*/
 
 
 #define LIST_DO_FOR_ALL_CHILDREN(List,FUNCTION) \

@@ -42,7 +42,7 @@
 	static const  wchar_t*        TypeID;
 #endif
 	//virtual bool                IsDerivedFrom( const wchar_t* _TypeID ) const { return ( _TypeID == TypeID ); }
-	//virtual bool IsDerivedFrom( const wchar_t* e_strTypeID ) const  { if( e_strTypeID == TypeID ) return true;  return __super::IsDerivedFrom( e_strTypeID ); }	\
+	//virtual bool IsDerivedFrom( const wchar_t* e_strTypeID ) const  { if( e_strTypeID == TypeID ) return true;  return __super::IsDerivedFrom( e_strTypeID ); 
 
 #define	CLONE_MYSELF(TYPE)	virtual NamedTypedObject*	Clone(){ return new TYPE(this); }
 

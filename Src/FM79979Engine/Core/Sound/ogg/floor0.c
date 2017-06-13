@@ -33,7 +33,9 @@
 #include <stdio.h>
 #include "../../Android/nv_file.h"
 
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 typedef struct {
   int ln;
   int  m;

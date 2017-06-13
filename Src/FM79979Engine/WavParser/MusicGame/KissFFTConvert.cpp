@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
+#include "Parameters.h"
 
 int ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 60;
 

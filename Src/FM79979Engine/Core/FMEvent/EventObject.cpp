@@ -164,7 +164,9 @@ namespace   FATMING_CORE
             break;
             case eEOT_PARTICLE_GROUP:
                 return "ParticleGroup";
-            break;          
+            break;
+			default:
+				break;
         }
         return "Error";
     }    

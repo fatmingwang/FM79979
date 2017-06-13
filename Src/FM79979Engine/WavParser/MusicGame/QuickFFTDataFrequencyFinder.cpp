@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "QuickFFTDataFrequencyFinder.h"
-
+#include "Parameters.h"
 
 cQuickFFTDataFrequencyFinder::cQuickFFTDataFrequencyFinder(int e_iFFTBins,int e_iMaxFrequency)
 {

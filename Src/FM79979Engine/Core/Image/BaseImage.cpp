@@ -364,11 +364,10 @@ namespace FATMING_CORE
 	bool	cBaseImage::GenerateBound()
 	{
 		auto l_Size = GetSize();
-		l_Size.x /= 2;
-		l_Size.y /= 2;
-		RECT l_Rect = {-l_Size.x,-l_Size.y,l_Size.x,l_Size.y};
+		RECT l_Rect = CreateRect(l_Size,this->GetLocalPosition());
 		cBound l_Bound(l_Rect);
 		this->SetLocalBound(&l_Bound);
+
 		return true;
 	}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)

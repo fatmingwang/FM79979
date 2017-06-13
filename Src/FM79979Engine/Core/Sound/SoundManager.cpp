@@ -226,7 +226,7 @@ namespace FATMING_CORE
 	{
 		std::string	l_extensionName = UT::GetFileExtensionName(e_strFileName);
 		if(this->GetObject(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strFileName)).c_str()))
-		    return false;
+		    return nullptr;
 		if( !memcmp(l_extensionName.c_str(),"wav",sizeof(char)*3) )
 		{
 			cOpanalWAV*	l_pOpanalWAV = new cOpanalWAV(0,e_strFileName,false);
@@ -265,7 +265,7 @@ namespace FATMING_CORE
 			this->m_strErrorMsg += UT::CharToWchar(e_strFileName);
 			this->m_strErrorMsg += L" not support such format\n";
 		}
-		return false;
+		return nullptr;
 	}
 
 	cBasicSound*	cSoundParser::AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName)

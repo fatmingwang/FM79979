@@ -1,7 +1,7 @@
 ﻿#ifndef Gluph_Reader_H
 #define Gluph_Reader_H
 
-#include "SmartPointer.h"
+#include "../SmartPointer.h"
 
 const unsigned long FONTINFOFILEVERSION = 0x00000005; // Texture file properties
 //==========================================

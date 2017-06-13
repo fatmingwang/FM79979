@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotNetCommon", "..\DotNetCo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kiss_fft130", "kiss_fft130\kiss_fft130.vcxproj", "{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Test", "Win32Test\Win32Test.vcxproj", "{77E00846-770C-45AA-99A1-EF295FB97B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -91,6 +93,18 @@ Global
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.ReleaseFixedPipeline|Win32.ActiveCfg = Release|Win32
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.ReleaseFixedPipeline|Win32.Build.0 = Release|Win32
 		{78B7E03F-8B8D-4BBB-8076-21EA89D028F6}.ReleaseFixedPipeline|x64.ActiveCfg = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Win32.ActiveCfg = Debug|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Win32.Build.0 = Debug|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x64.ActiveCfg = Debug|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.DebugFixedPipeline|Win32.ActiveCfg = DebugFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.DebugFixedPipeline|Win32.Build.0 = DebugFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.DebugFixedPipeline|x64.ActiveCfg = DebugFixedPipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Win32.ActiveCfg = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Win32.Build.0 = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x64.ActiveCfg = Release|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.ReleaseFixedPipeline|Win32.ActiveCfg = ReleaseFixedpipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.ReleaseFixedPipeline|Win32.Build.0 = ReleaseFixedpipeline|Win32
+		{77E00846-770C-45AA-99A1-EF295FB97B74}.ReleaseFixedPipeline|x64.ActiveCfg = ReleaseFixedpipeline|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

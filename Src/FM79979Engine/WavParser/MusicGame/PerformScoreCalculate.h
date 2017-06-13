@@ -3,6 +3,7 @@
 //<PerformScoreCalculate SongName="Test">
 //	<PerformResult Result"0,1,0,1,0,1,0.....">
 //</PerformScoreCalculate>
+class cSoundTimeLineDataCollection;
 
 class cPerformScoreCalculate:public cNodeISAX
 {

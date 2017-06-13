@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\FatmingCollada\AnimationMesh.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaAnimations.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaCameras.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaControllers.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaEffects.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaGeometries.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaImages.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaLights.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaMaterials.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaParser.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaResourceManager.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ColladaVisualScene.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\FUDaeEnum.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\Mesh.cpp" />
+    <ClCompile Include="..\..\Core\FatmingCollada\ProcessController.cpp" />
+  </ItemGroup>
+</Project>

@@ -24,7 +24,9 @@
 #include "vorbis/codec.h"
 #include "codebook.h"
 #include "scales.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 /**** pack/unpack helpers ******************************************/
 int _ilog(unsigned int v){
   int ret=0;

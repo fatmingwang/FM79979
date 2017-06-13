@@ -34,7 +34,9 @@
 #include "smallft.h"
 #include "os.h"
 #include "misc.h"
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 static void drfti1(int n, float *wa, int *ifac){
   static int ntryh[4] = { 4,2,3,5 };
   static float tpi = 6.28318530717958648f;

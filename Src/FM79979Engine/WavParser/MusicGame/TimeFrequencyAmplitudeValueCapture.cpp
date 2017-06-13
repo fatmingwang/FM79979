@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
+#include "Parameters.h"
 #include "TimeFrequencyAmplitudeValueCapture.h"
 
 

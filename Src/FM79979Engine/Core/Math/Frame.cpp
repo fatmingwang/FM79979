@@ -99,7 +99,7 @@ void	Frame::DestoryWithChildren(Frame*e_pFrame)
 		{
 			DestoryWithChildren(e_pFrame->GetFirstChild());
 		}
-		cGameApp::OutputDebugInfoString(e_pFrame->GetName());
+		//cGameApp::OutputDebugInfoString(e_pFrame->GetName());
 		SAFE_DELETE(e_pFrame);
 	}
 }

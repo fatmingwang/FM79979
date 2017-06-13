@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Sound\ogg\analysis.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\barkmel.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\bitrate.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\bitwise.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\block.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\codebook.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\envelope.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\floor0.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\floor1.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\framing.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\info.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\lookup.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\lpc.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\lsp.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\mapping0.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\mdct.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\psy.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\registry.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\res0.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\sharedbook.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\smallft.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\synthesis.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\tone.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\vorbisenc.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\vorbisfile.c" />
+    <ClCompile Include="..\..\Core\Sound\ogg\window.c" />
+  </ItemGroup>
+</Project>

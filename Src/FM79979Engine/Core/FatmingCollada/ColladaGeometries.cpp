@@ -1246,7 +1246,7 @@ void	cLibraryGeometries::Parsegeometry_mesh_triangles_p(TiXmlElement*e_pTiXmlEle
 			m_pCurrentColladaGeomatry->pGeometryMesh->m_iAllSourceUsingIndicesBuffer++;
 		}
 	}
-	delete l_piAllOffsetIndex;
+	delete []l_piAllOffsetIndex;
 	assert(l_pTriangles->piIndexBuffer == 0);
 	const WCHAR*l_strText = e_pTiXmlElement->GetText();
 	assert(l_strText);

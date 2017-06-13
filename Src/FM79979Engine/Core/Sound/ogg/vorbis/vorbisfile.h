@@ -20,7 +20,9 @@
 #ifdef WIN32
 #include "vorbisfile_windows.h"
 #else
+#ifdef WIN32
 #pragma warning( disable : 4244 )
+#endif
 
 #ifdef __cplusplus
 extern "C"

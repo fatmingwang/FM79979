@@ -541,6 +541,11 @@ namespace FATMING_CORE
 			assert((m_iWidth<=texSize||m_iHeight<=texSize)&&"texture size is too big then card support");
 			MyTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,e_strName); // Texture specification.
 		}
+#ifdef DEBUG
+		std::wstring l_strFileName = e_strName;
+		l_strFileName += L" start to parse:Texture";
+		cGameApp::OutputDebugInfoString(l_strFileName);
+#endif
 	}
 	//===============
 	//
@@ -560,6 +565,11 @@ namespace FATMING_CORE
 			return;
 		}
 		LoadImage(e_strImageFileName,e_bFetchPixelData);
+#ifdef DEBUG
+		std::string l_strFileName = e_strImageFileName;
+		l_strFileName += " start to parse:Texture";
+		cGameApp::OutputDebugInfoString(l_strFileName);
+#endif
 	}
 	//===============
 	//
@@ -567,6 +577,11 @@ namespace FATMING_CORE
 	cTexture::~cTexture()
 	{
 		Destroy();
+#ifdef DEBUG
+		std::wstring l_strFileName = this->GetName();
+		l_strFileName += L" destroy:Texture";
+		cGameApp::OutputDebugInfoString(l_strFileName);
+#endif
 	}
 	//===============
 	//
@@ -666,6 +681,10 @@ namespace FATMING_CORE
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,  GL_REPEAT);
 		UpdatePixels((const GLvoid*)l_pucPixelData,e_bFetchPixelData);
 //#endif
+		if(!e_bFetchPixelData && l_strExtensionName.compare("jpg") == 0 )
+		{
+			delete l_pucPixelData;
+		}
 		//if loading failed show alert
 		if(!m_uiImageIndex)
 		{

@@ -4,6 +4,7 @@
 #include "MusicGameApp.h"
 #include "SoundFFTCapture.h"
 #include "QuickFFTDataFrequencyFinder.h"
+#include "AllPhaseName.h"
 
 cPerformMusicPhase::cPerformMusicPhase()
 {
