@@ -69,4 +69,5 @@ public:
 	cSelectScroller(int e_iNumRow,int e_iNumColumn,Vector2 e_vGap);
 	virtual ~cSelectScroller();
 	virtual void			Init();
+	void		SetCurrentWorkingObject(int e_iIndex);
 };

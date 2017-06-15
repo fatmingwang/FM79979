@@ -55,7 +55,7 @@ public:
 	//
 	void	JumpTo(float e_fTime);
 	//
-	//bool	IsEnd();
+	bool	IsEnd(bool e_bCalculateWithBeforeTime = true);
 	//
 	Vector2	GetCurrentTimeViewRange();
 };

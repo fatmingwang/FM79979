@@ -14,11 +14,13 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#ifdef WIN32
 #include <tchar.h>
+#include <xstring>
+#endif
 #include <map>
 #include <vector>
 #include <list>
-#include <xstring>
 #include "assert.h"
 #include "../../Core/AllCoreInclude.h"
 //#include "../../core/AVIPlayer/AVIPlayer.h"

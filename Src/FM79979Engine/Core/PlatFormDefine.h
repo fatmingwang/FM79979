@@ -148,6 +148,10 @@
 #include <stdint.h>
 //#else // OTHER...                 only for linux and windows!!
 //#error "Unsupported platform."
+#else
+#if defined(ANDROID)	
+#include "unistd.h"
+#endif //ANDROID
 #endif // LINUX || __PPU__
 #endif // IOS
 #endif // WIN32

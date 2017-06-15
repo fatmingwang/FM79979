@@ -16,6 +16,7 @@ namespace	FATMING_CORE
 	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 	extern float g_fTest;
 	extern float g_fTest2;
+
 	void	RecordingThread(size_t _workParameter, size_t _pUri)
 	{
 		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
@@ -180,6 +181,9 @@ namespace	FATMING_CORE
 	{
 		if(this->m_bStop||this->m_bPause)
 			return false;
+#ifdef ANDROID
+
+#endif
 		if(m_pDevice)
 		{
 			this->m_fCurrntTime = 0.f;
@@ -225,6 +229,11 @@ namespace	FATMING_CORE
 	{
 		cSounRecordToFileCallBackObject*l_pSounRecordToFileCallBackObject = new cSounRecordToFileCallBackObject(e_strFileName,e_eCaptureSoundFileFormat);
 		return this->AddObject(l_pSounRecordToFileCallBackObject);
+	}
+
+	bool	cSoundCapture::IsDeviceOpen()
+	{
+		return m_pDevice?true:false;
 	}
 
 	std::vector<std::string>	cSoundCapture::GetAvalibeRecordDevice()

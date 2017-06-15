@@ -355,7 +355,7 @@ void	cStageData::Init(const char*e_strStageFileName)
 	}
 	cPuzzleImage*l_pPI = cGameApp::GetPuzzleImage(L"Scene_Bg_Vestige");
 	cPuzzleImageUnit*l_pPIUnit = l_pPI->GetObject(L"Vestige_Bg_Limit");
-	m_pUVAnimationImage = new cUVAnimationImage(l_pPIUnit,Vector2(720,1280),eUVD_DOWN_TO_UP,Vector2::Zero);
+	m_pUVAnimationImage = new cUVAnimationImage(l_pPIUnit,Vector2(720,1280),eMD_DOWN_TO_UP,Vector2::Zero);
 }
 
 void	cStageData::Update(float e_fElpaseTime)

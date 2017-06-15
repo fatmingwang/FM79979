@@ -5,6 +5,7 @@ class cQuickFFTDataFrequencyFinder;
 class cPerformMusicPhaseUI;
 class cPerformMusicPhase:public cSimplePhase
 {
+	bool							m_bPasue;
 	friend	class					cPerformMusicPhaseUI;
 	cPerformMusicPhaseUI*			m_pPerformMusicPhaseUI;
 	//

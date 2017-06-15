@@ -86,12 +86,20 @@ void	cTimeLineRange::JumpTo(float e_fTime)
 	SetCurrentTimeViewRange(m_fBeforeCurrentTimeViewRange,m_fAfterCurrentTimeViewRange);
 }
 //
-//bool	cTimeLineRange::IsEnd()
-//{
-//	if( m_fCurrentTime >= this->m_fEndTime )
-//		return true;
-//	return false;
-//}
+bool	cTimeLineRange::IsEnd(bool e_bCalculateWithBeforeTime)
+{
+	if( e_bCalculateWithBeforeTime )
+	{
+		if( m_fCurrentTime >= this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange )
+			return true;
+	}
+	else
+	{
+		if( m_fCurrentTime >= this->m_fEndTime )
+			return true;
+	}
+	return false;
+}
 //
 Vector2	cTimeLineRange::GetCurrentTimeViewRange()
 {

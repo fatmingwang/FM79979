@@ -7,3 +7,12 @@ local.properties
 
 sdk.dir=F:\\NVPACK\\android-sdk-windows
 change to path
+
+
+
+
+if cannt start ensure
+
+project name as same as below System.loadLibrary
+ex:
+System.loadLibrary("MusicGame");

@@ -348,7 +348,9 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 		{
 			//fuck please increas the ogg cache size(OGG_STREAMING_SOUND_BUFFER_SIZE)
 			UT::ErrorMsg(L"the m_iDivideFFTDataToNFrameis too small increase m_iDivideFFTDataToNFrame or increas the ogg cache size(OGG_STREAMING_SOUND_BUFFER_SIZE)",L"Error!!");
-			goto FINISHED;
+			//goto FINISHED;
+			delete l_pTimeAndPCMData;
+			return;
 		}
 	}
 	//float	l_fOneFFTDataPeriod = (float)this->m_iOneFrameFFTDataCount/this->m_pOpanalOgg->GetPCMDataSize()*this->m_pOpanalOgg->GetTimeLength();
@@ -502,7 +504,7 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 	m_iCurrentFFTDataSwapBufferIndex++;
 	if( m_iCurrentFFTDataSwapBufferIndex >= FFT_DATA_SWAP_BUFFER_COUNT )
 		m_iCurrentFFTDataSwapBufferIndex = 0;
-FINISHED:
+//FINISHED:
 	delete l_pTimeAndPCMData;
 }
 

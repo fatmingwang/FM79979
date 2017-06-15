@@ -471,7 +471,9 @@ size_t      NvFFlush(NvFile* stream)
 
 int			NvFerror(NvFile*e_pFile)
 {
-	return ferror(NvGetFile(e_pFile));
+	return 0;
+	//sorry I have no idea with this,fuck
+	//return ferror(NvGetFile(e_pFile));
 }
 
 FILE*		NvGetFile(NvFile* stream)

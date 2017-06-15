@@ -51,7 +51,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
       <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
@@ -95,6 +95,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
     <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
@@ -107,6 +109,34 @@
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
     <ClCompile Include="..\..\Core\Network\Network.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c" />
+    <ClCompile Include="..\..\Core\Sound\OpenSL\AndroidRecord.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundFile.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundManager.cpp" />
@@ -138,6 +168,7 @@
     <ClCompile Include="..\..\Core\Terrain\ShockBoobsPainter.cpp" />
     <ClCompile Include="..\..\Core\Terrain\ShockBoobsShader.cpp" />
     <ClCompile Include="..\..\Core\Terrain\TerrianVertex.cpp" />
+    <None Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf_tables.inc" />
     <None Include="res\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -261,33 +292,6 @@
     <ClCompile Include="..\..\Core\SmartPointer.cpp" />
     <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp" />
     <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c" />
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c" />
     <ClCompile Include="..\..\Core\Synchronization\FUCriticalSection.cpp" />
     <ClCompile Include="..\..\Core\Synchronization\FUSemaphore.cpp" />
     <ClCompile Include="..\..\Core\Synchronization\FUSynchronized.cpp" />
@@ -376,6 +380,8 @@
     <ClInclude Include="..\..\Core\GameplayUT\AtgInput.h" />
     <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h" />
     <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
     <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h" />
     <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h" />

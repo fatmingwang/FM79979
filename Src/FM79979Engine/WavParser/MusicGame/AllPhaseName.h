@@ -8,7 +8,7 @@
 
 
 //																	PERFORM_MUSIC_PHASE
-//																	/
+//																	
 //SELECT_MUSIC_PHASE->PERFORM_MUSIC_PHASE->CALCULATE_MUSIC_SCORE_PHASE
-//																	\
+//																	
 //																	SELECT_MUSIC_PHASE

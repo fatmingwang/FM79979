@@ -108,6 +108,7 @@ void	cSongInfoBoardUI::Init()
 	if( m_pSelectScroller )
 	{
 		m_pSelectScroller->Init();
+		m_pSelectScroller->SetCurrentWorkingObject(0);
 	}
 }
 void	cSongInfoBoardUI::Update(float e_fElpaseTime)
@@ -206,4 +207,9 @@ void	cSelectScroller::Init()
 				return;
 		}		
 	}
+}
+
+void	cSelectScroller::SetCurrentWorkingObject(int e_iIndex)
+{
+	this->m_pCurrentWorkingObject = this->GetObject(0);
 }

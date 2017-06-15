@@ -9,6 +9,7 @@
 cPerformMusicPhase::cPerformMusicPhase()
 {
 	this->SetName(PERFORM_MUSIC_PHASE);
+	m_bPasue = false;
 	this->m_strNextPhaseName = SELECT_MUSIC_PHASE;
 	m_pTimeLineRangeChart = nullptr;
 	m_strMusicFileName = "MusicGame/Music/Test.xml";
@@ -40,6 +41,7 @@ void	cPerformMusicPhase::GenerateResources()
 
 void	cPerformMusicPhase::Init()
 {
+	m_bPasue = false;
 	this->m_bSatisfiedCondition = false;
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StopRecord();
@@ -75,18 +77,19 @@ void	cPerformMusicPhase::Init()
 
 void	cPerformMusicPhase::Update(float e_fElpaseTime)
 {
-	if( cMusicGameApp::m_pSoundFFTCapture && !cGameApp::m_sbGamePause )
+	if( cMusicGameApp::m_pSoundFFTCapture )
 	{
 		cMusicGameApp::m_pSoundFFTCapture->Update(e_fElpaseTime);
 	}
 
-	if(m_pTimeLineRangeChart)
+	if(m_pTimeLineRangeChart )
 	{
-		m_pTimeLineRangeChart->Update(e_fElpaseTime);
-		if( !cGameApp::m_sbGamePause )
+		m_pTimeLineRangeChart->Update(!m_bPasue?e_fElpaseTime:0.f);
+		if(!m_bPasue)
 		{
 			auto l_pQuickFFTDataFrequencyFinder = cMusicGameApp::m_pSoundFFTCapture->GetQuickFFTDataFrequencyFinder();
-			m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);
+			if( l_pQuickFFTDataFrequencyFinder )
+				m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);		
 		}
 #ifdef PARSE_TEST_SOUND
 	{
@@ -149,7 +152,6 @@ void	cPerformMusicPhase::Destroy()
 {
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StopRecord();
-	cGameApp::m_sbGamePause = false;
 	//m_pClickBehaviorDispatcher->Destroy();
 }
 

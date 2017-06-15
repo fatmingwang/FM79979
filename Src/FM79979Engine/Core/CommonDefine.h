@@ -64,9 +64,9 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define FM_NEW new(_CLIENT_BLOCK,__FILE__, __LINE__)
 #else
 //here should using
-//size_t iconv(iconv_t cd, char **restrict inbuf,
-//       size_t *restrict inbytesleft, char **restrict outbuf,
-//       size_t *restrict outbytesleft); 
+//size_t iconv(iconv_t cd, char **inbuf,
+//       size_t *inbytesleft, char **outbuf,
+//       size_t *outbytesleft); 
 //http://www.opengroup.org/onlinepubs/009695399/functions/iconv.html
 	#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
 	#if defined(ANDROID)

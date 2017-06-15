@@ -15,6 +15,9 @@ namespace	FATMING_CORE
 	#define SOUND_CAPTURE_FREQUENCE	22050
 	#define	SOUND_CAPTURE_BUFFSIZE	SOUND_CAPTURE_FREQUENCE
 	#define	SOUND_CAPTURE_FORMAT	AL_FORMAT_MONO16
+
+	typedef std::function<void(ALCint&,char*)> NewRecordBufferData;
+
 	enum eCaptureSoundFileFormat
 	{
 		eCSFF_WAV = 0,
@@ -97,6 +100,7 @@ namespace	FATMING_CORE
 		//record sound to file
 		bool							AddSoundRecord(std::string e_strFileName = "Record.ogg",eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG);
 		static std::vector<std::string>	GetAvalibeRecordDevice();
+		bool							IsDeviceOpen();
 		//
 	};
 	//================================
@@ -121,6 +125,25 @@ namespace	FATMING_CORE
 		const cSoundFile*		GetSoundfile();
 		eCaptureSoundFileFormat	GetCaptureSoundFileFormat(){return m_eCaptureSoundFileFormat;}
 	};
+
+
+#ifdef ANDROID
+	// (requires the RECORD_AUDIO permission)
+	class cOpenSLRecord
+	{
+		bool	m_bRecord;
+		bool	m_bPause;
+	public:
+		cOpenSLRecord(ALCuint frequency = SOUND_CAPTURE_FREQUENCE, ALCenum format = SOUND_CAPTURE_FORMAT, ALCsizei buffersize = SOUND_CAPTURE_BUFFSIZE);
+		~cOpenSLRecord();
+		void	StartRecord();
+		bool	Pause(bool e_bPause);
+		void	Close();
+		NewRecordBufferData	m_NewRecordBufferData;
+	};
+
+#endif
+
 }
 //end def USE_SOUND_CAPTURE
 #endif

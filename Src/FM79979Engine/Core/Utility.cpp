@@ -1044,8 +1044,8 @@ namespace UT
 		//add offset
 		if(cGameApp::m_svViewPortSize.y != 0)
 		{
-			e_v2DViewRange.y += cGameApp::m_svViewPortSize.y;
-			e_v2DViewRange.w += cGameApp::m_svViewPortSize.y;
+			e_v2DViewRange.y -= cGameApp::m_svViewPortSize.y;
+			e_v2DViewRange.w -= cGameApp::m_svViewPortSize.y;
 		}
 		Vector4	l_vScissor;
 		float	l_fWidth = (e_v2DViewRange.z-e_v2DViewRange.x);

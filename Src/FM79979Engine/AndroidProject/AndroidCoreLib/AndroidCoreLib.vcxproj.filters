@@ -250,6 +250,9 @@
     <Filter Include="jni\RenderObject\GLSL\PostEffect">
       <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\GamePlayUT\UI\Button\ClickBehavior">
+      <UniqueIdentifier>{c902f3c5-9f1d-4ffa-8c9d-ae897f36bf26}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -260,68 +263,11 @@
     <None Include="..\..\Core\Log.txt">
       <Filter>jni\Header Files</Filter>
     </None>
+    <None Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf_tables.inc">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Camera\CameraAnimation.cpp">
       <Filter>jni\Camera</Filter>
     </ClCompile>
@@ -442,9 +388,6 @@
     <ClCompile Include="..\..\Core\Particle\ParticleManager.cpp">
       <Filter>jni\Particle</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Android\nv_apk_file.c">
       <Filter>jni\AndroidJNI\Nvidia</Filter>
     </ClCompile>
@@ -465,12 +408,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Android\nv_native_app_glue.c">
       <Filter>jni\AndroidJNI\Nvidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\NamedTypedObject.cpp">
       <Filter>jni\Common\NamedTypedObject</Filter>
@@ -670,9 +607,6 @@
     <ClCompile Include="..\..\Core\Image\BaseImage.cpp">
       <Filter>jni\RenderObject\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Image\NumeralImage.cpp">
       <Filter>jni\RenderObject\Common</Filter>
     </ClCompile>
@@ -766,12 +700,6 @@
     <ClCompile Include="..\..\Core\XML\StringToStructure.cpp">
       <Filter>jni\XML</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\StringID.cpp">
       <Filter>jni\Common\NamedTypedObject</Filter>
     </ClCompile>
@@ -807,9 +735,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.cpp">
       <Filter>jni\VideoPlayer\MyJpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c">
-      <Filter>jni\Sound\AndroidOpenAL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Android\JNIUtil.cpp">
       <Filter>jni\AndroidJNI</Filter>
@@ -888,6 +813,96 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp">
       <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp">
+      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp">
+      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\loopback.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\null.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcEcho.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcModulator.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcReverb.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcRing.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcThread.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALu.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\bs2b.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\helpers.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\hrtf.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\mixer.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\panning.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alBuffer.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alEffect.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alError.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alExtension.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alFilter.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alListener.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alSource.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alState.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alThunk.c">
+      <Filter>jni\Sound\AndroidOpenAL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenSL\AndroidRecord.cpp">
+      <Filter>jni\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1503,6 +1518,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GLSL\TunnelEffect.h">
       <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.h">
+      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
+      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

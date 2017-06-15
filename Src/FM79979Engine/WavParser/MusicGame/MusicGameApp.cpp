@@ -20,7 +20,7 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 #endif
 {
 	*this->m_psstrGameAppName = "MusicGame";
-	SetAcceptRationWithGameresolution((int)e_vViewportSize.x,(int)e_vViewportSize.y,(int)e_vGameResolution.x,(int)e_vGameResolution.y);
+//	SetAcceptRationWithGameresolution((int)e_vViewportSize.x,(int)e_vViewportSize.y,(int)e_vGameResolution.x,(int)e_vGameResolution.y);
 	m_pPhaseManager = nullptr;
 }
 
@@ -50,8 +50,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();
@@ -76,6 +76,8 @@ void	cMusicGameApp::Render()
 	{
 		m_pPhaseManager->Render();
 	}
+	GLRender::RenderRectangle(1920,1080,cMatrix44::Identity,Vector4(1,1,0,1));
+	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif
