@@ -53,7 +53,7 @@ void	LoadSample()
 	//	"shader/Blur.vs","shader/BlurH.ps",
 	//	"shader/Blur.vs","shader/BlurV.ps",
 	//	l_Size);
-	g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
+	//g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
 	g_pBGImage = new cBaseImage("DownloadFont.png");
 	g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
 	g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);

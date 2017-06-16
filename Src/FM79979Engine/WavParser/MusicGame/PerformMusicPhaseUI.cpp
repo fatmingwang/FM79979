@@ -40,7 +40,7 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 	{
 		m_pBG = new cBaseImage("MusicGame/Image/Piano.jpg");
 		m_pBG->SetVisible(false);
-		m_pBG->SetWidth(cGameApp::m_svGameResolution.x);
+		m_pBG->SetWidth((int)cGameApp::m_svGameResolution.x);
 		//m_pBG->SetHeight(cGameApp::m_svGameResolution.y);
 		this->AddChildToLast(m_pBG);
 		//generate time control

@@ -8,15 +8,24 @@
 //use another thread to record sound
 class cFUThreadPool;
 class cSoundFile;
+#ifdef ANDROID
+	// (requires the RECORD_AUDIO permission)
+	extern void CreateAndroidAudioEngine();
+	extern unsigned char NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iSampleBitm,int e_iChannel);
+	extern void StartAndroidRecording(int e_iBufferSize);
+	extern void AndroidRecordShutdown();
+	extern void AndroidRecordPause(bool e_bPause);
+	extern void AndroidRecordStop();
+
+#endif
 namespace	FATMING_CORE
 {
+
 	class cGameApp;
 	class cBinaryFile;
 	#define SOUND_CAPTURE_FREQUENCE	22050
 	#define	SOUND_CAPTURE_BUFFSIZE	SOUND_CAPTURE_FREQUENCE
 	#define	SOUND_CAPTURE_FORMAT	AL_FORMAT_MONO16
-
-	typedef std::function<void(ALCint&,char*)> NewRecordBufferData;
 
 	enum eCaptureSoundFileFormat
 	{
@@ -30,6 +39,9 @@ namespace	FATMING_CORE
 
 	class cSounRecordCallBackObject:public NamedTypedObject
 	{
+#ifdef ANDROID
+		friend class	cOpenSLRecord;
+#endif
 		friend class	cSoundCapture;
 		friend void		RecordingThread(size_t _workParameter, size_t _pUri);
 		friend void		RecordingDoneThread(size_t _workParameter, size_t _pUri);
@@ -39,7 +51,6 @@ namespace	FATMING_CORE
 		bool			m_bEndCallBackCalled;
 		void			PreCaptureSoundStartCallBack(cSoundCapture*e_pSoundCapture);
 		virtual void	CaptureSoundStartCallBack() = 0;
-		virtual void	CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData) = 0;
 		void			PreCaptureSoundEndCallBack();
 		virtual void	CaptureSoundEndCallBack() = 0;
 	protected:
@@ -47,6 +58,7 @@ namespace	FATMING_CORE
 	public:
 		cSounRecordCallBackObject(){m_pSoundCapture = nullptr; m_bStartCallBackCalled = false;m_bEndCallBackCalled = false; }
 		virtual ~cSounRecordCallBackObject(){}
+		virtual void	CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData) = 0;
 	};
 
 	//===================================
@@ -67,12 +79,13 @@ namespace	FATMING_CORE
 		bool					m_bThreadExitStop;
 		//std::string				m_strSaveFileName;
 		//cSoundFile*				m_pSoundFile;
+#ifndef ANDROID
 		ALCdevice*				m_pDevice;
+#endif
 		int						m_iSampleRate;
 		int						m_iWriteChannel;
 		int						m_iWriteBitpersample;
 		int						m_iBufferSize;
-		static cSoundCapture*	m_spSoundCapture;
 		//cFUSynchronized			m_FUSynchronized;
 		bool					m_bIsRecording;
 		//no header file size
@@ -87,12 +100,10 @@ namespace	FATMING_CORE
 		bool							IsStop(){return m_bStop;}
 		bool							IsPause(){return m_bPause;}
 		void							Update(float e_fElpaseTime);
-		ALCdevice*						GetDevice(){return m_pDevice;}
 		int								GetSampleRate(){return m_iSampleRate;}
 		int								GetWriteChannel(){return m_iWriteChannel;}
 		int								GetWriteBitpersample(){return m_iWriteBitpersample;}
 		bool							IsRecording(){return m_bIsRecording;}
-		void							SetStop(bool e_bStop){m_bStop = e_bStop;}
 		void							AddFileSize(int e_iFileSize);
 		int								GetFileSize(){return m_iFileSize;}
 		int								GetBuffersize(){return m_iBufferSize;}
@@ -113,36 +124,19 @@ namespace	FATMING_CORE
 		std::string				m_strSaveFileName;
 		cSoundFile*				m_pSoundFile;
 		virtual void			CaptureSoundStartCallBack();
-		virtual void			CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData);
 		virtual void			CaptureSoundEndCallBack();
 		void					Destory();
 	public:
 		DEFINE_TYPE_INFO();
 		cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG);
 		~cSounRecordToFileCallBackObject();
+		virtual void			CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData);
 		void					SetSaveFileName(const char*e_strFileName);
 		const char*				GetSaveFileName();
 		const cSoundFile*		GetSoundfile();
 		eCaptureSoundFileFormat	GetCaptureSoundFileFormat(){return m_eCaptureSoundFileFormat;}
 	};
 
-
-#ifdef ANDROID
-	// (requires the RECORD_AUDIO permission)
-	class cOpenSLRecord
-	{
-		bool	m_bRecord;
-		bool	m_bPause;
-	public:
-		cOpenSLRecord(ALCuint frequency = SOUND_CAPTURE_FREQUENCE, ALCenum format = SOUND_CAPTURE_FORMAT, ALCsizei buffersize = SOUND_CAPTURE_BUFFSIZE);
-		~cOpenSLRecord();
-		void	StartRecord();
-		bool	Pause(bool e_bPause);
-		void	Close();
-		NewRecordBufferData	m_NewRecordBufferData;
-	};
-
-#endif
 
 }
 //end def USE_SOUND_CAPTURE

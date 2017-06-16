@@ -21,6 +21,7 @@
  *   src/com/example/nativeaudio/NativeAudio/NativeAudio.java
  */
 //https://audioprograming.wordpress.com/2012/03/03/android-audio-streaming-with-opensl-es-and-the-ndk/
+#include "../../../stdafx.h"
 #include <assert.h>
 #include <jni.h>
 #include <string.h>
@@ -36,7 +37,8 @@
 #include <android/asset_manager_jni.h>
 
 #include <functional>
-
+#include "../SoundCapture.h"
+#include "../../GameplayUT/GameApp.h"
 // engine interfaces
 static SLObjectItf engineObject = NULL;
 static SLEngineItf engineEngine;
@@ -46,21 +48,47 @@ static SLEngineItf engineEngine;
 //    recording is in session [not finished]
 //    user presses record button and another recording coming in
 // The action: when recording/playing back is not finished, ignore the new request
-static pthread_mutex_t  audioEngineLock = PTHREAD_MUTEX_INITIALIZER;
 // recorder interfaces
 static SLObjectItf recorderObject = NULL;
 static SLRecordItf recorderRecord;
 static SLAndroidSimpleBufferQueueItf recorderBufferQueue;
-// 5 seconds of recorded audio at 16 kHz mono, 16-bit signed little endian
-#define RECORDER_FRAMES (16000 * 5)
-static short recorderBuffer[RECORDER_FRAMES];
-static unsigned recorderSize = 0;
+#define RECORD_BUFFER_COUNT	1
+short*	g_pRecorderBuffer[RECORD_BUFFER_COUNT];
+int     g_tCurrentRecorderBuffer = 0;
+size_t	g_uiRecordBufferSize = 0;
 
+void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context);
 
-typedef	std::function<void(int&,void*)>		RecordCallbackFunction;
+namespace	FATMING_CORE
+{
+	extern cSoundCapture*g_pSoundCapture;
+}
+//https://github.com/googlesamples/android-ndk/blob/master/native-audio/app/src/main/cpp/native-audio-jni.c
+//https://github.com/libretro/ppsspp-native/blob/master/android/native-audio-so.cpp
+//https://stackoverflow.com/questions/18444354/save-recorded-audio-to-file-opensl-es-android
+void	RecordingThread(size_t e_ui, size_t _pUri)
+{
+
+}
+void	RecordingDoneThread(size_t _workParameter, size_t _pUri)
+{
+}
+
+void	AndroidRecordPause(bool e_bPause)
+{
+	if( e_bPause )
+		(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_PAUSED);
+	else
+		(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
+}
+
+void AndroidRecordStop()
+{
+	(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
+}
 
 // create the engine and output mix objects
-void CreateEngine()
+void CreateAndroidAudioEngine()
 {
     SLresult result;
 
@@ -79,22 +107,6 @@ void CreateEngine()
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
 
-}
-
-// this callback handler is called every time a buffer finishes recording
-void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
-{
-    assert(bq == recorderBufferQueue);
-    assert(NULL == context);
-    // for streaming recording, here we would call Enqueue to give recorder the next buffer to fill
-    // but instead, this is a one-time buffer so we stop recording
-    SLresult result;
-    result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
-    if (SL_RESULT_SUCCESS == result)
-	{
-        recorderSize = RECORDER_FRAMES * sizeof(short);
-    }
-    pthread_mutex_unlock(&audioEngineLock);
 }
 
 
@@ -137,22 +149,28 @@ SLuint32	FrequencyConvert(int e_iFrequency)
 }
 
 
-
 // create audio recorder: recorder is not in fast path
 //    like to avoid excessive re-sampling while playing back from Hello & Android clip
-jboolean NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iFormat,int e_iBuffersize)
+unsigned char NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iSampleBitm,int e_iChannel)
 {
-    SLresult result;
 
+	g_tCurrentRecorderBuffer = 0;
+	for(int i=0;i<RECORD_BUFFER_COUNT;++i)
+	{
+		g_pRecorderBuffer[i] = nullptr;
+	}
+
+    SLresult result;
+	SLuint32 l_Freq = FrequencyConvert(e_iFrequency);
     // configure audio source
     SLDataLocator_IODevice loc_dev = {SL_DATALOCATOR_IODEVICE, SL_IODEVICE_AUDIOINPUT,SL_DEFAULTDEVICEID_AUDIOINPUT, NULL};
     SLDataSource audioSrc = {&loc_dev, NULL};
 
     // configure audio sink
-    SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, 2};
+    SLDataLocator_AndroidSimpleBufferQueue loc_bq = {SL_DATALOCATOR_ANDROIDSIMPLEBUFFERQUEUE, RECORD_BUFFER_COUNT};
 
 	//frequency,int format,int buffersize
-    SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, 1, SL_SAMPLINGRATE_16,SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,SL_SPEAKER_FRONT_CENTER, SL_BYTEORDER_LITTLEENDIAN};
+    SLDataFormat_PCM format_pcm = {SL_DATAFORMAT_PCM, (SLuint32)e_iChannel, (SLuint32)l_Freq,SL_PCMSAMPLEFORMAT_FIXED_16, SL_PCMSAMPLEFORMAT_FIXED_16,SL_SPEAKER_FRONT_CENTER, SL_BYTEORDER_LITTLEENDIAN};
     SLDataSink audioSnk = {&loc_bq, &format_pcm};
 
     // create audio recorder
@@ -189,16 +207,21 @@ jboolean NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iFormat,int e_iBu
     return JNI_TRUE;
 }
 
+void	DoEnqueue()
+{
+    // enqueue an empty buffer to be filled by the recorder
+    // (for streaming recording, we would enqueue at least 2 empty buffers to start things off)
+    (*recorderBufferQueue)->Enqueue(recorderBufferQueue, g_pRecorderBuffer[g_tCurrentRecorderBuffer],g_uiRecordBufferSize*sizeof(short));
+	++g_tCurrentRecorderBuffer;
+	if( g_tCurrentRecorderBuffer >= RECORD_BUFFER_COUNT )
+		g_tCurrentRecorderBuffer = 0;
+}
 
 // set the recording state for the audio recorder
-void NativeAudioStartRecording()
+void StartAndroidRecording(int e_iBufferSize)
 {
+	g_uiRecordBufferSize = e_iBufferSize;
     SLresult result;
-
-    if (pthread_mutex_trylock(&audioEngineLock))
-	{
-        return;
-    }
     // in case already recording, stop recording and clear buffer queue
     result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
     assert(SL_RESULT_SUCCESS == result);
@@ -207,12 +230,18 @@ void NativeAudioStartRecording()
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
 
-    // the buffer is not valid for playback yet
-    recorderSize = 0;
 
-    // enqueue an empty buffer to be filled by the recorder
-    // (for streaming recording, we would enqueue at least 2 empty buffers to start things off)
-    result = (*recorderBufferQueue)->Enqueue(recorderBufferQueue, recorderBuffer,RECORDER_FRAMES * sizeof(short));
+	g_tCurrentRecorderBuffer = 0;
+	for(int i=0;i<RECORD_BUFFER_COUNT;++i)
+	{
+		if(g_pRecorderBuffer[i])
+		{
+			delete g_pRecorderBuffer[i];
+		}
+		g_pRecorderBuffer[i] = new short[g_uiRecordBufferSize*2];
+	}
+
+	DoEnqueue();
     // the most likely other result is SL_RESULT_BUFFER_INSUFFICIENT,
     // which for this code example would indicate a programming error
     assert(SL_RESULT_SUCCESS == result);
@@ -224,9 +253,38 @@ void NativeAudioStartRecording()
     (void)result;
 }
 
+//1 seond 44100
+short g_pAndroidTempRecordingData[1*44100];
+// this callback handler is called every time a buffer finishes recording
+void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
+{
+    assert(bq == recorderBufferQueue);
+    assert(NULL == context);
+	//fuck I am lazy
+	int l_iGetProperIndex = g_tCurrentRecorderBuffer;
+	if( l_iGetProperIndex == 0)
+	{
+		l_iGetProperIndex = 1;
+	}
+	else
+		l_iGetProperIndex = 0;
+//
+	//char*l_pData = g_pRecorderBuffer[l_iGetProperIndex];
+	//short*l_pData = g_pRecorderBuffer[0];
+	memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[0],g_uiRecordBufferSize*sizeof(short));
+	DoEnqueue();
+	g_pSoundCapture->AddFileSize(g_uiRecordBufferSize*sizeof(short));
+	int l_iNumCount = g_pSoundCapture->Count();
+	auto l_CallbackObjectVector = g_pSoundCapture->GetList();
+	for( int i=0;i<l_iNumCount;++i )
+	{
+		//(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pAndroidTempRecordingData);
+		(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pAndroidTempRecordingData);
+	}
+}
 
 // shut down the native audio system
-void NativeAudioShutdown()
+void AndroidRecordShutdown()
 {
 
     // destroy audio recorder object, and invalidate all associated interfaces
@@ -244,49 +302,12 @@ void NativeAudioShutdown()
         engineObject = NULL;
         engineEngine = NULL;
     }
-
-    pthread_mutex_destroy(&audioEngineLock);
-}
-
-class cOpenSLRecord
-{
-	bool	m_bRecord;
-	bool	m_bPause;
-public:
-	cOpenSLRecord(int frequency,int format,int buffersize)
+	for(int i=0;i<RECORD_BUFFER_COUNT;++i)
 	{
-		m_bRecord = false;
-		CreateEngine();
-		//NativeAudioCreateAudioRecorder();
-	}
-	~cOpenSLRecord();
-	void	StartRecord()
-	{
-		NativeAudioStartRecording();
-		m_bRecord = true;
-		m_bPause = false;
-	}
-
-	bool	Pause(bool e_bPause)
-	{
-		if(m_bRecord)
+		if(g_pRecorderBuffer[i])
 		{
-			if( m_bPause == e_bPause )
-				return true;
-			m_bPause = e_bPause;
-			SLresult result;
-			if( m_bPause )
-				result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_PAUSED);
-			else
-				result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
-			return result;
+			delete g_pRecorderBuffer[i];
+			g_pRecorderBuffer[i] = nullptr;
 		}
-		return false;
 	}
-
-	void	Close()
-	{
-		NativeAudioShutdown();
-		m_bRecord = false;
-	}
-};
+}

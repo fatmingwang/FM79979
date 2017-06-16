@@ -40,6 +40,8 @@ void	cMusicGameApp::Init()
 	int l_iFrequence = 44100;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
+	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
+	m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//
 	m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )
@@ -77,9 +79,9 @@ void	cMusicGameApp::Render()
 		m_pPhaseManager->Render();
 	}
 	GLRender::RenderRectangle(1920,1080,cMatrix44::Identity,Vector4(1,1,0,1));
-	cGameApp::ShowInfo();
+	//cGameApp::ShowInfo();
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	//SwapBuffers(cGameApp::m_sHdc);
 #endif
 	glFlush();
 }

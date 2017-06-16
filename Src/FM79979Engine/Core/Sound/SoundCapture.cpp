@@ -13,21 +13,20 @@
 namespace	FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSounRecordToFileCallBackObject);
-	cSoundCapture*cSoundCapture::m_spSoundCapture = nullptr;
 	extern float g_fTest;
 	extern float g_fTest2;
-
+#ifndef ANDROID
 	void	RecordingThread(size_t _workParameter, size_t _pUri)
 	{
 		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
 //		cSoundFile*l_pSoundFile = l_pSoundCapture->GetSoundFile();
-		if( !l_pSoundCapture->GetDevice() )
+		if( !l_pSoundCapture->m_pDevice )
 		{
 			UT::ErrorMsg("no capture device exists","ERROR!");
 			return;
 		}
-		alcCaptureStart(l_pSoundCapture->GetDevice());
-		ALCenum l_ErrorCode = alcGetError(l_pSoundCapture->GetDevice());
+		alcCaptureStart(l_pSoundCapture->m_pDevice);
+		ALCenum l_ErrorCode = alcGetError(l_pSoundCapture->m_pDevice);
 		if(  l_ErrorCode != AL_NO_ERROR)
 		{
 			UT::ErrorMsg("capture start failed ","ERROR!");
@@ -58,7 +57,7 @@ namespace	FATMING_CORE
 			else
 			{
 				// Poll for captured audio
-				alcGetIntegerv(l_pSoundCapture->GetDevice(),ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
+				alcGetIntegerv(l_pSoundCapture->m_pDevice,ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
 				if (l_iSamplesIn >= l_pSoundCapture->GetBuffersize()) {
 #define SRROUND_SOUND_TEST
 #ifdef SRROUND_SOUND_TEST
@@ -68,7 +67,7 @@ namespace	FATMING_CORE
 					++l_iTest;
 #endif
 					//because the open al give short data here need to conver to char size
-					alcCaptureSamples(l_pSoundCapture->GetDevice(),l_pBuffer,l_iSamplesIn);
+					alcCaptureSamples(l_pSoundCapture->m_pDevice,l_pBuffer,l_iSamplesIn);
 					l_pSoundCapture->AddFileSize(l_iSamplesIn);
 					for( int i=0;i<l_iNumCount;++i )
 					{
@@ -79,20 +78,20 @@ namespace	FATMING_CORE
 		}
 		delete l_pBuffer;
 		// Stop capture
-		alcCaptureStop(l_pSoundCapture->GetDevice());
+		alcCaptureStop(l_pSoundCapture->m_pDevice);
 
 		for( int i=0;i<l_iNumCount;++i )
 		{
 			(*l_CallbackObjectVector)[i]->PreCaptureSoundEndCallBack();
 		}
-		l_pSoundCapture->SetStop(false);
+		l_pSoundCapture->m_bStop = false;
 	}
 	void	RecordingDoneThread(size_t _workParameter, size_t _pUri)
 	{
 		cSoundCapture*l_pSoundCapture = (cSoundCapture*)_workParameter;
 		l_pSoundCapture->m_bThreadExitStop = true;
 	}
-
+#endif
 	void	cSounRecordCallBackObject::PreCaptureSoundStartCallBack(cSoundCapture*e_pSoundCapture)
 	{
 		m_pSoundCapture = e_pSoundCapture;
@@ -116,7 +115,6 @@ namespace	FATMING_CORE
 		m_pFUThreadPool = nullptr;
 		m_bPause = false;
 		m_bStop = false;
-		m_pDevice = nullptr;
 		m_iFileSize = 0;
 		if( format == AL_FORMAT_MONO16 || format == AL_FORMAT_STEREO16 )
 			m_iWriteBitpersample = 16;
@@ -148,6 +146,10 @@ namespace	FATMING_CORE
 		}
 		g_pSoundCapture = this;
 		m_iSampleRate = frequency;
+#ifdef ANDROID
+		CreateAndroidAudioEngine();
+		NativeAudioCreateAudioRecorder(frequency,m_iWriteBitpersample,m_iWriteChannel);
+#else
 		m_pDevice = alcCaptureOpenDevice(NULL, frequency, format, buffersize*2);
 		if (alGetError() != AL_NO_ERROR)
 		{
@@ -155,6 +157,7 @@ namespace	FATMING_CORE
 				alcCaptureCloseDevice(m_pDevice);
 			m_pDevice = nullptr;
 		}
+#endif
 	}
 
 	cSoundCapture::~cSoundCapture()
@@ -162,11 +165,15 @@ namespace	FATMING_CORE
 		StopRecord();
 		this->Destroy();
 		SAFE_DELETE(m_pFUThreadPool);
+#ifdef ANDROID
+		AndroidRecordShutdown();
+#else
 		if( m_pDevice )
 		{
 			alcCaptureStop(m_pDevice);
 			alcCaptureCloseDevice(m_pDevice);
 		}
+#endif
 		g_pSoundCapture = nullptr;
 	}
 
@@ -182,8 +189,15 @@ namespace	FATMING_CORE
 		if(this->m_bStop||this->m_bPause)
 			return false;
 #ifdef ANDROID
+		auto l_CallbackObjectVector = GetList();
+		int l_iNumCount = this->Count();
+		for( int i=0;i<l_iNumCount;++i )
+		{
+			(*l_CallbackObjectVector)[i]->PreCaptureSoundStartCallBack(this);
+		}
+		StartAndroidRecording(this->m_iBufferSize);
 
-#endif
+#else
 		if(m_pDevice)
 		{
 			this->m_fCurrntTime = 0.f;
@@ -197,19 +211,24 @@ namespace	FATMING_CORE
 			FUStaticFunctor2<size_t, size_t, void>* workFunctor = new FUStaticFunctor2<size_t, size_t, void>(&RecordingThread);
 			FUStaticFunctor2<size_t, size_t, void>* doneFunctor = new FUStaticFunctor2<size_t, size_t, void>(&RecordingDoneThread);
 			this->m_pFUThreadPool->ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
-
 			return true;
 		}
+#endif
 		return false;
 	
 	}
 	void	cSoundCapture::PauseRecord(bool e_bPause)
 	{
 		m_bPause = e_bPause;
+#ifdef ANDROID
+		AndroidRecordPause(m_bPause);
+#endif
 	}
+
 
 	void	cSoundCapture::StopRecord()
 	{
+#ifndef ANDROID
 		this->m_bStop = true;;
 		m_bIsRecording = false;
 		while( !m_bThreadExitStop )
@@ -217,6 +236,15 @@ namespace	FATMING_CORE
 		
 		}
 		this->m_bStop = false;
+#else
+		AndroidRecordStop();
+		auto l_CallbackObjectVector = GetList();
+		int l_iNumCount = this->Count();
+		for( int i=0;i<l_iNumCount;++i )
+		{
+			(*l_CallbackObjectVector)[i]->PreCaptureSoundEndCallBack();
+		}
+#endif
 	}
 
 
@@ -233,7 +261,11 @@ namespace	FATMING_CORE
 
 	bool	cSoundCapture::IsDeviceOpen()
 	{
+#ifdef ANDROID
+		return true;
+#else
 		return m_pDevice?true:false;
+#endif
 	}
 
 	std::vector<std::string>	cSoundCapture::GetAvalibeRecordDevice()
@@ -326,6 +358,7 @@ namespace	FATMING_CORE
 				m_pSoundFile->EndWriteOggData();
 			else
 				m_pSoundFile->EndWriteWavFile();
+			SAFE_DELETE(m_pSoundFile);
 		}
 	}
 }
