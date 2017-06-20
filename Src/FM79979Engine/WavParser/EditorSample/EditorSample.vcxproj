@@ -61,7 +61,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\MIDIParser;..\..\Core;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -111,6 +111,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\MIDIParser\Binasc.cpp" />
+    <ClCompile Include="..\MIDIParser\MidiEvent.cpp" />
+    <ClCompile Include="..\MIDIParser\MidiEventList.cpp" />
+    <ClCompile Include="..\MIDIParser\MidiFile.cpp" />
+    <ClCompile Include="..\MIDIParser\MidiMessage.cpp" />
+    <ClCompile Include="..\MIDIParser\Options.cpp" />
+    <ClCompile Include="..\MIDIParser\Test.cpp" />
     <ClCompile Include="..\MusicGame\FFTFindPeak.cpp" />
     <ClCompile Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="..\MusicGame\KissFFTConvert.cpp" />
@@ -139,6 +146,12 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\MIDIParser\Binasc.h" />
+    <ClInclude Include="..\MIDIParser\MidiEvent.h" />
+    <ClInclude Include="..\MIDIParser\MidiEventList.h" />
+    <ClInclude Include="..\MIDIParser\MidiFile.h" />
+    <ClInclude Include="..\MIDIParser\MidiMessage.h" />
+    <ClInclude Include="..\MIDIParser\Options.h" />
     <ClInclude Include="..\MusicGame\AllPhaseName.h" />
     <ClInclude Include="..\MusicGame\FFTFindPeak.h" />
     <ClInclude Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.h" />

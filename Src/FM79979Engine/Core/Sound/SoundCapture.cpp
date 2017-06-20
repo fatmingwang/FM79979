@@ -13,8 +13,11 @@
 namespace	FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSounRecordToFileCallBackObject);
+//#define SRROUND_SOUND_TEST
+#ifdef SRROUND_SOUND_TEST
 	extern float g_fTest;
 	extern float g_fTest2;
+#endif
 #ifndef ANDROID
 	void	RecordingThread(size_t _workParameter, size_t _pUri)
 	{
@@ -59,7 +62,6 @@ namespace	FATMING_CORE
 				// Poll for captured audio
 				alcGetIntegerv(l_pSoundCapture->m_pDevice,ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
 				if (l_iSamplesIn >= l_pSoundCapture->GetBuffersize()) {
-#define SRROUND_SOUND_TEST
 #ifdef SRROUND_SOUND_TEST
 					g_fTest = sin((float)l_iTest/360*20);
 					g_fTest2 = cos((float)l_iTest/360*20);
@@ -357,7 +359,13 @@ namespace	FATMING_CORE
 			if(m_eCaptureSoundFileFormat == eCSFF_OGG)
 				m_pSoundFile->EndWriteOggData();
 			else
+			{
 				m_pSoundFile->EndWriteWavFile();
+				//{
+				//	cSoundFile*l_pSoundFile = new cSoundFile();
+				//	l_pSoundFile->WavToOggFile(m_strSaveFileName.c_str(),"tt.ogg",0.5f,1);
+				//}
+			}
 			SAFE_DELETE(m_pSoundFile);
 		}
 	}

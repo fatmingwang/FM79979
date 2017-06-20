@@ -319,6 +319,8 @@ void	cTimeLineRangeChart::RenderVertical()
 	//for(int i=0;i<this->m_iLastToneDataObjectIndex;this->m_iCountInCompareTime)
 	{
 		auto l_pData = this->GetObject(i);
+		if( !l_pData )
+			break;
 		//get percentage
 		float l_fCompareTime = l_pData->GetCompareTime();
 		//float l_fLocalTime = this->m_fCurrentTime-l_fCompareTime;

@@ -400,7 +400,7 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
-#define SRROUND_SOUND_TEST
+//#define SRROUND_SOUND_TEST
 #ifdef SRROUND_SOUND_TEST
 //for circle sound data test
 float g_fTest = 1.f;

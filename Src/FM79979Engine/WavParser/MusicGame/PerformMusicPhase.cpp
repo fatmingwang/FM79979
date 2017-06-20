@@ -92,28 +92,28 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 				m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);		
 		}
 #ifdef PARSE_TEST_SOUND
-	{
-		std::wstring l_str;
-		for(int i=0;i<l_pQuickFFTDataFrequencyFinder->m_iFFTBinCount;++i)
-		{
-			if(l_pQuickFFTDataFrequencyFinder->GetFFTData()[i]>100)
-			{
-				int l_iFrequency = (int)l_pQuickFFTDataFrequencyFinder->m_fFrequencyGap*i;
-				//if(cGameApp::m_sfDebugValue!=1.f)
-				{
-					l_str += ValueToStringW(l_iFrequency);
-					l_str += L",";
-				}
-			}
-		}
-		if( l_str.length() )
-		{
-			std::wstring l_strInfo = this->GetName();
-			l_strInfo += L":";
-			l_strInfo += l_str;
-			//cGameApp::OutputDebugInfoString(l_strInfo.c_str());
-		}
-	}
+	//{
+	//	std::wstring l_str;
+	//	for(int i=0;i<l_pQuickFFTDataFrequencyFinder->m_iFFTBinCount;++i)
+	//	{
+	//		if(l_pQuickFFTDataFrequencyFinder->GetFFTData()[i]>100)
+	//		{
+	//			int l_iFrequency = (int)l_pQuickFFTDataFrequencyFinder->m_fFrequencyGap*i;
+	//			//if(cGameApp::m_sfDebugValue!=1.f)
+	//			{
+	//				l_str += ValueToStringW(l_iFrequency);
+	//				l_str += L",";
+	//			}
+	//		}
+	//	}
+	//	if( l_str.length() )
+	//	{
+	//		std::wstring l_strInfo = this->GetName();
+	//		l_strInfo += L":";
+	//		l_strInfo += l_str;
+	//		//cGameApp::OutputDebugInfoString(l_strInfo.c_str());
+	//	}
+	//}
 #endif
 	}
 	if( m_pClickBehaviorDispatcher )

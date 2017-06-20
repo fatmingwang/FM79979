@@ -41,6 +41,7 @@ class cPerformMusicPhaseUI:public cRenderObject
 	cLazyClickBehaviorAndRenderObject*m_pScore;
 	cPerformMusicPhase*			m_pPerformMusicPhase;
 	cBaseImage*					m_pBG;
+	cGlyphFontRender*			m_pScoreText;
 	cClickBehavior*				m_pTimeControlButton;
 	void						GamePause();
 public:

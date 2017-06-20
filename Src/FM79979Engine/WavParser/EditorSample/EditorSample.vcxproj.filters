@@ -40,6 +40,9 @@
     <Filter Include="Game\MusicRelated">
       <UniqueIdentifier>{ae6aa3b0-0e5b-4d18-9828-4a064bfe82cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MIDIParser">
+      <UniqueIdentifier>{38fdd288-c3ee-495d-9b7b-04918930a724}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -111,6 +114,27 @@
     <ClCompile Include="..\MusicGame\SoundTimeLineVisualizer.cpp">
       <Filter>Sound\TimeLine\Visualizer</Filter>
     </ClCompile>
+    <ClCompile Include="..\MIDIParser\Binasc.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\MidiEvent.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\MidiEventList.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\MidiFile.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\MidiMessage.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\Options.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MIDIParser\Test.cpp">
+      <Filter>MIDIParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -175,6 +199,24 @@
     </ClInclude>
     <ClInclude Include="..\MusicGame\SoundTimeLineVisualizer.h">
       <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\Binasc.h">
+      <Filter>MIDIParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\MidiEvent.h">
+      <Filter>MIDIParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\MidiEventList.h">
+      <Filter>MIDIParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\MidiFile.h">
+      <Filter>MIDIParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\MidiMessage.h">
+      <Filter>MIDIParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MIDIParser\Options.h">
+      <Filter>MIDIParser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

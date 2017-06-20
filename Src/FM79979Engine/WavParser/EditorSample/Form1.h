@@ -6,6 +6,10 @@
 #include "../MusicGame/TimeFrequencyAmplitudeValueCapture.h"
 #include "../MusicGame/ToneData.h"
 #include "../MusicGame/MusicGameApp.h"
+
+#include "MidiFile.h"
+#include "Options.h"
+
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //ensure preprocessor definiation DEBUG not _DEBUG or it will occur memory problem.
 //I donno why ask M$.
@@ -88,7 +92,7 @@ namespace EditorSample
 				cGameApp::OutputDebugInfoString(l_strDeviceName.c_str());
 			}
 
-			this->timer1->Enabled = true;
+			//this->timer1->Enabled = true;
 			//
 		}
 
@@ -205,6 +209,7 @@ private: System::Windows::Forms::NumericUpDown^  DebugAmplitudeLineValue_numeric
 private: System::Windows::Forms::NumericUpDown^  DebugAmplitudeValue_numericUpDown;
 
 private: System::Windows::Forms::Label^  DebugAmplitudeValue_label;
+private: System::Windows::Forms::Button^  MIDIToXml_button;
 
 
 
@@ -262,6 +267,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTFilterFrenquenceScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundFileConvert_groupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->FFT_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->FFT_FPS_label = (gcnew System::Windows::Forms::Label());
+			this->FFT_FPS_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DebugAmplitudeLineValue_label = (gcnew System::Windows::Forms::Label());
 			this->DebugAmplitudeLineValue_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FilterStrength_label = (gcnew System::Windows::Forms::Label());
@@ -271,8 +278,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->DoFFTFilter_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->FilterRange_label = (gcnew System::Windows::Forms::Label());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
-			this->FFT_FPS_label = (gcnew System::Windows::Forms::Label());
-			this->FFT_FPS_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->CompareAndCaptureToFileMaxAllowFrequency_label = (gcnew System::Windows::Forms::Label());
@@ -300,6 +305,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_label = (gcnew System::Windows::Forms::Label());
+			this->MIDIToXml_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->BeginInit();
@@ -307,6 +313,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTFilterFrenquenceScale_numericUpDown))->BeginInit();
 			this->SoundFileConvert_groupBox->SuspendLayout();
 			this->FFT_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DebugAmplitudeLineValue_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FilterStrength_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->BeginInit();
@@ -314,7 +321,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown))->BeginInit();
@@ -348,7 +354,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->OPENGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->OPENGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OPENGL_panel->Name = L"OPENGL_panel";
-			this->OPENGL_panel->Size = System::Drawing::Size(1480, 253);
+			this->OPENGL_panel->Size = System::Drawing::Size(1480, 252);
 			this->OPENGL_panel->TabIndex = 3;
 			// 
 			// CurrentTime_trackBar
@@ -626,6 +632,27 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFT_groupBox->TabStop = false;
 			this->FFT_groupBox->Text = L"FFT";
 			// 
+			// FFT_FPS_label
+			// 
+			this->FFT_FPS_label->AutoSize = true;
+			this->FFT_FPS_label->Location = System::Drawing::Point(118, 81);
+			this->FFT_FPS_label->Name = L"FFT_FPS_label";
+			this->FFT_FPS_label->Size = System::Drawing::Size(52, 13);
+			this->FFT_FPS_label->TabIndex = 39;
+			this->FFT_FPS_label->Text = L"FFT_FPS";
+			// 
+			// FFT_FPS_numericUpDown
+			// 
+			this->FFT_FPS_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(119, 100);
+			this->FFT_FPS_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
+			this->FFT_FPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 0});
+			this->FFT_FPS_numericUpDown->Name = L"FFT_FPS_numericUpDown";
+			this->FFT_FPS_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->FFT_FPS_numericUpDown->TabIndex = 38;
+			this->FFT_FPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
+			this->FFT_FPS_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFT_FPS_numericUpDown_ValueChanged);
+			// 
 			// DebugAmplitudeLineValue_label
 			// 
 			this->DebugAmplitudeLineValue_label->AutoSize = true;
@@ -719,35 +746,15 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// splitContainer1.Panel2
 			// 
+			this->splitContainer1->Panel2->Controls->Add(this->MIDIToXml_button);
 			this->splitContainer1->Panel2->Controls->Add(this->label1);
 			this->splitContainer1->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundCapture_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->FFT_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundFileConvert_groupBox);
 			this->splitContainer1->Size = System::Drawing::Size(1480, 635);
-			this->splitContainer1->SplitterDistance = 253;
+			this->splitContainer1->SplitterDistance = 252;
 			this->splitContainer1->TabIndex = 35;
-			// 
-			// FFT_FPS_label
-			// 
-			this->FFT_FPS_label->AutoSize = true;
-			this->FFT_FPS_label->Location = System::Drawing::Point(118, 81);
-			this->FFT_FPS_label->Name = L"FFT_FPS_label";
-			this->FFT_FPS_label->Size = System::Drawing::Size(52, 13);
-			this->FFT_FPS_label->TabIndex = 39;
-			this->FFT_FPS_label->Text = L"FFT_FPS";
-			// 
-			// FFT_FPS_numericUpDown
-			// 
-			this->FFT_FPS_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
-			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(119, 100);
-			this->FFT_FPS_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
-			this->FFT_FPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 0});
-			this->FFT_FPS_numericUpDown->Name = L"FFT_FPS_numericUpDown";
-			this->FFT_FPS_numericUpDown->Size = System::Drawing::Size(94, 20);
-			this->FFT_FPS_numericUpDown->TabIndex = 38;
-			this->FFT_FPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
-			this->FFT_FPS_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFT_FPS_numericUpDown_ValueChanged);
 			// 
 			// label1
 			// 
@@ -1073,6 +1080,16 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTFilterRange_label->TabIndex = 38;
 			this->SoundCaptureDoFFTFilterRange_label->Text = L"FilterRange(0.1-1)";
 			// 
+			// MIDIToXml_button
+			// 
+			this->MIDIToXml_button->Location = System::Drawing::Point(289, 316);
+			this->MIDIToXml_button->Name = L"MIDIToXml_button";
+			this->MIDIToXml_button->Size = System::Drawing::Size(116, 44);
+			this->MIDIToXml_button->TabIndex = 40;
+			this->MIDIToXml_button->Text = L"MIDIToXml";
+			this->MIDIToXml_button->UseVisualStyleBackColor = true;
+			this->MIDIToXml_button->Click += gcnew System::EventHandler(this, &Form1::MIDIToXml_button_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1097,6 +1114,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundFileConvert_groupBox->PerformLayout();
 			this->FFT_groupBox->ResumeLayout(false);
 			this->FFT_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->DebugAmplitudeLineValue_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FilterStrength_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->EndInit();
@@ -1105,7 +1123,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->EndInit();
@@ -1505,6 +1522,72 @@ private: System::Void FFT_FPS_numericUpDown_ValueChanged(System::Object^  sender
 private: System::Void DebugAmplitudeValue_NumericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 cSoundCompareParameter::m_siDebugAmplitudeValue = (int)DebugAmplitudeValue_numericUpDown->Value;
+		 }
+private: System::Void MIDIToXml_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+//<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml" ChartResolution="1820,600" ChartShowPos="10,10" MoveDirection="UpToDown" BeforeTime="4" AfterTime="6">
+//	<cSoundTimeLineData ID="a3" Time="0.5" TuneKeepTime="0.5" />
+//	<cSoundTimeLineData ID="b3" Time="1.0" />
+//	<cSoundTimeLineData ID="b3" Time="2.5" />
+//	<cSoundTimeLineData ID="b3" Time="3.0" />
+//	<cSoundTimeLineData ID="a3" Time="4.5" TuneKeepTime="2.5"/>
+//	<cSoundTimeLineData ID="c3" Time="6.5" />
+//</cSoundTimeLineDataCollection>			 
+			 auto l_pFileName = DNCT::OpenFileAndGetNames("midi files (*.mid)|*.mid|All files (*.*)|*.*");
+			 if(  l_pFileName )
+			 {
+				this->timer1->Enabled = false;
+				int l_iCount = l_pFileName->Length;
+				 for( int i=0;i<l_iCount;++i )
+				 {
+					ISAXCallback l_ISAXCallback;
+					TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
+					TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"cSoundTimeLineDataCollection");
+					l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
+					l_ISAXCallback.SetDoc(l_pTiXmlDocument);
+					l_pRootTiXmlElement->SetAttribute(L"ToneDataFileName",L"MusicGame/Piano/Piano.xml");
+					l_pRootTiXmlElement->SetAttribute(L"ChartResolution",L"1820,600");
+					l_pRootTiXmlElement->SetAttribute(L"ChartShowPos",L"10,10");
+					l_pRootTiXmlElement->SetAttribute(L"MoveDirection",L"UpToDown");
+					l_pRootTiXmlElement->SetAttribute(L"BeforeTime",L"4");
+					l_pRootTiXmlElement->SetAttribute(L"AfterTime",L"6");
+					auto l_gcstrFileName = l_pFileName[i];
+					std::string l_strFileName = DNCT::GcStringToChar(l_gcstrFileName);
+					//https://github.com/craigsapp/midifile/blob/462f55a906faa874a9b94fee18d4efd6945da7f8/src-programs/durations.cpp
+					MidiFile midifile;
+					midifile.read(l_strFileName.c_str());
+					int deltatick = 0;
+					double l_dbDuration = 0;
+					double l_dbStartTime = -1;
+					//midifile.linkNotePairs();
+					//midifile.joinTracks();
+					//midifile.doTimeAnalysis();
+					int tracks = midifile.getTrackCount();
+					for (int l_iTrack = 0; l_iTrack < tracks; ++l_iTrack)
+					{
+						MidiEventList* l_pMidiEventList = &midifile[l_iTrack];
+						for (int l_iEvent = 0; l_iEvent < l_pMidiEventList->size(); l_iEvent++)
+						{
+							MidiEvent*l_pMidiEvent = &(*l_pMidiEventList)[l_iEvent];
+							int l_iKeyNumber = l_pMidiEvent->getKeyNumber();
+							if ( l_pMidiEvent->isNoteOn() )
+							{
+								l_dbStartTime = l_pMidiEvent->seconds;
+								l_dbDuration = l_pMidiEvent->getDurationInSeconds();
+								TiXmlElement*l_pSoundTimeLineDataTiXmlElement = new TiXmlElement(L"cSoundTimeLineData");
+								l_pSoundTimeLineDataTiXmlElement->SetAttribute(L"Time",(float)l_dbStartTime);
+								l_pSoundTimeLineDataTiXmlElement->SetAttribute(L"ID",l_pMidiEvent->getKeyNumber());
+								l_pSoundTimeLineDataTiXmlElement->SetAttribute(L"TuneKeepTime",(float)l_dbDuration);
+								l_pRootTiXmlElement->LinkEndChild(l_pSoundTimeLineDataTiXmlElement);
+							}
+						}
+					}
+					String^l_gcstrOutputFileName = System::IO::Path::ChangeExtension(l_pFileName[i],".xml");
+					std::string l_strOutputFileName = ::GcStringToChar(l_gcstrOutputFileName);
+					l_ISAXCallback.Export(l_strOutputFileName.c_str(),false);
+				 }
+				 this->timer1->Enabled = true;
+			 }
 		 }
 };
 }

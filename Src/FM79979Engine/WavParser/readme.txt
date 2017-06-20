@@ -11,3 +11,7 @@ searce EditorSample
 
 do the same thing
 
+
+
+
+https://en.wikipedia.org/wiki/Scientific_pitch_notation

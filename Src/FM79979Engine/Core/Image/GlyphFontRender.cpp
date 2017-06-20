@@ -71,7 +71,7 @@ namespace FATMING_CORE
 
 	}
 
-	cGlyphFontRender::cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender)
+	cGlyphFontRender::cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender):cRenderObject(e_pGlyphFontRender)
 	{
 		m_bTextChanged = true;
 		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;

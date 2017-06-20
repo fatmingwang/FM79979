@@ -7,7 +7,7 @@ namespace FATMING_CORE
 	//==========================
 	//change color and angle by m_pFontImage->SetColor SetAngle;
 	//==========================
-	class cGlyphFontRender:public Frame
+	class cGlyphFontRender:public cRenderObject
 	{
 		GET_SET_DEC(GlyphReader*,m_pGlyphReader,GetGlyphReader,SetGlyphReader);
 		GET_SET_DEC(float,m_fDepth,GetDepth,SetDepth);

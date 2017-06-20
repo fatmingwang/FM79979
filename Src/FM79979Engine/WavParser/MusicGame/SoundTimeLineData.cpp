@@ -190,6 +190,17 @@ void	cSoundTimeLineDataCollection::Init()
 	}
 }
 
+const char*g_strKeyNymberToPianoString[88] = {
+"a1" ,"a1m","b1" ,"c1" ,"c1m","d1" ,"d1m","e1" ,"f1" ,"f1m",//10
+"g1" ,"g1m","a2" ,"a2m","b2" ,"c2" ,"c2m","d2" ,"d2m","e2" ,//20
+"f2" ,"f2m","g2" ,"g2m","a3" ,"a3m","b3" ,"c3" ,"c3m","d3" ,//30
+"d3m","e3" ,"f3" ,"f3m","g3" ,"g3m","a4" ,"a4m","b4" ,"c4" ,//40
+"c4m","d4" ,"d4m","e4" ,"f4" ,"f4m","g4" ,"g4m","a5" ,"a5m",//50
+"b5" ,"c5" ,"c5m","d5" ,"d5m","e5" ,"f5" ,"f5m","g5" ,"g5m",//60
+"a6" ,"a6m","b6" ,"c6" ,"c6m","d6" ,"d6m","e6" ,"f6" ,"f6m",//70
+"g6" ,"g6m","a7" ,"a7m","b7" ,"c7" ,"c7m","d7" ,"d7m","e7" ,//80
+"f7" ,"f7m","g7" ,"g7m","a8" ,"a8m","b8" ,"c8"};
+
 bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 {
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
@@ -206,14 +217,18 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 				//int		l_iSoundID	= GetInt(l_strSoundID);
 				float l_fTime = GetFloat(l_strTime);
 				//const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinderBySoundID(l_iSoundID);
-				auto l_pToneData = m_pToneDataVector->GetObject(l_strSoundID);
+				int l_iKeyNumber = GetInt(l_strSoundID);
+				int l_iIndex = l_iKeyNumber-21;
+				if( l_iIndex < 0 )
+					continue;
+				auto l_pToneData = m_pToneDataVector->GetObject(g_strKeyNymberToPianoString[l_iIndex]);
 				if( !l_pToneData )
 				{
-					UT::ErrorMsg(l_strSoundID,L"tone data not exists");
+					UT::ErrorMsg(g_strKeyNymberToPianoString[l_iIndex],"tone data not exists");
 					continue;
 				}
 				cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTuneKeepTime,l_fTime,l_pToneData);
-				l_pSingleSoundCompare->SetName(l_strSoundID);
+				l_pSingleSoundCompare->SetName(g_strKeyNymberToPianoString[l_iIndex]);
 				this->AddObjectNeglectExist(l_pSingleSoundCompare);
 			}
 			else

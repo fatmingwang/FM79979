@@ -168,8 +168,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	float   l_fScaleX = cGameApp::m_svGameResolution.x/cGameApp::m_svViewPortSize.x;
 	float   l_fScaleY = cGameApp::m_svGameResolution.y/cGameApp::m_svViewPortSize.y;
-	int toascii_return = 0;
-	WORD ascii_text_buffer[10];
 	switch (message)
 	{
 	case  WM_SIZE:

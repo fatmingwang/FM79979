@@ -3,10 +3,12 @@
 #include "SoundTimeLineVisualizer.h"
 #include "MusicGameApp.h"
 #include "SoundFFTCapture.h"
+#include "PerformScoreCalculate.h"
 cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase)
 {
 	this->SetName(L"cPerformMusicPhaseUI");
 	m_pPerformMusicPhase = e_pPerformMusicPhase;
+	m_pScoreText = nullptr;
 	m_pPause = nullptr;
 	m_pScore = nullptr;
 	m_pBG = nullptr;
@@ -104,9 +106,15 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 					[this](int e_iPosX,int e_iPosY,cClickBehavior*e_pClickBehavior){
 						this->m_pPerformMusicPhase->Init();
 					},l_pBasicSound);
+
+				Vector3 l_vPos;
+				m_pScoreText = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
+				l_pScoreMPDI->GetObjectPos(L"ScoreText",l_vPos,true);
+				m_pScoreText->SetLocalPosition(l_vPos);
 				m_pScore->AddChild(l_pScoreMPDI);
 				m_pScore->AddChild(std::get<1>(l_pLeaveImage));
 				m_pScore->AddChild(std::get<1>(l_pReplayImage));
+				m_pScore->AddChild(m_pScoreText);
 			}
 			if( l_pPauseMPDI )
 			{
@@ -155,6 +163,18 @@ void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 		if( !m_pScore->IsEnable() )
 		{
 			m_pScore->SetEnable(true);
+			if( this->m_pScoreText )
+			{
+				cPerformScoreCalculate l_cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
+				l_cPerformScoreCalculate.CalculateScore();
+				std::wstring l_strText = L"Correct:";
+				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iCorrect);
+				l_strText += L"\nWrong:";
+				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iWrong);
+				l_strText += L"\nScore:";
+				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iScore);
+				this->m_pScoreText->SetText(l_strText.c_str());
+			}
 		}
 	}
 }

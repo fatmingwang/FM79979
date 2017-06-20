@@ -6,6 +6,8 @@
 #include "SoundTimeLineData.h"
 #include "Parameters.h"
 
+#include "Sound/SoundFile.h"
+
 cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
 cSoundFFTCapture*	cMusicGameApp::m_pSoundFFTCapture = nullptr;
 
@@ -33,6 +35,10 @@ cMusicGameApp::~cMusicGameApp()
 
 void	cMusicGameApp::Init()
 {
+	
+	//FATMING_CORE::cSoundFile* l_SoundFile = new FATMING_CORE::cSoundFile();
+	//l_SoundFile->WavToOggFile("Sound/2owl.wav","t1.ogg");
+
 	cGameApp::Init();
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
@@ -40,8 +46,8 @@ void	cMusicGameApp::Init()
 	int l_iFrequence = 44100;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
-	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
+	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
 	m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )
@@ -81,7 +87,7 @@ void	cMusicGameApp::Render()
 	GLRender::RenderRectangle(1920,1080,cMatrix44::Identity,Vector4(1,1,0,1));
 	//cGameApp::ShowInfo();
 #ifdef WIN32
-	//SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_sHdc);
 #endif
 	glFlush();
 }
