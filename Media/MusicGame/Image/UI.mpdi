@@ -49,7 +49,7 @@
             <PointDataList Index="1" Position="664.00,438.00,0.00" Time="1.000000" Size="175.00,66.00" Scale="1.00,1.00" PIName="UI" ImageName="LeaveButton" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="ScoreText" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="412.00,372.00,0.00" Time="0.000000" Size="25.00,30.00" Scale="1.00,1.00" PIName="UI" ImageName="p" />
+            <PointDataList Index="0" Position="402.00,298.00,0.00" Time="0.000000" Size="25.00,30.00" Scale="1.00,1.00" PIName="UI" ImageName="p" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
 </MPDIList>

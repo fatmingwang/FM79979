@@ -1,3 +1,0 @@
-<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml" ChartResolution="1920,680" ChartShowPos="0,0" MoveDirection="UpToDown" BeforeTime="2" AfterTime="8">
-	<cSoundTimeLineData ID="a3" Time="0.5" />
-</cSoundTimeLineDataCollection>
