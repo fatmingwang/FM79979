@@ -1546,7 +1546,7 @@ private: System::Void MIDIToXml_button_Click(System::Object^  sender, System::Ev
 					l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 					l_ISAXCallback.SetDoc(l_pTiXmlDocument);
 					l_pRootTiXmlElement->SetAttribute(L"ToneDataFileName",L"MusicGame/Piano/Piano.xml");
-					l_pRootTiXmlElement->SetAttribute(L"ChartResolution",L"1820,600");
+					l_pRootTiXmlElement->SetAttribute(L"ChartResolution",L"1920,600");
 					l_pRootTiXmlElement->SetAttribute(L"ChartShowPos",L"10,10");
 					l_pRootTiXmlElement->SetAttribute(L"MoveDirection",L"UpToDown");
 					l_pRootTiXmlElement->SetAttribute(L"BeforeTime",L"4");
@@ -1559,9 +1559,10 @@ private: System::Void MIDIToXml_button_Click(System::Object^  sender, System::Ev
 					int deltatick = 0;
 					double l_dbDuration = 0;
 					double l_dbStartTime = -1;
-					//midifile.linkNotePairs();
-					//midifile.joinTracks();
-					//midifile.doTimeAnalysis();
+					midifile.absoluteTicks();
+				    midifile.linkNotePairs();
+				    midifile.joinTracks();
+				    midifile.doTimeAnalysis();
 					int tracks = midifile.getTrackCount();
 					for (int l_iTrack = 0; l_iTrack < tracks; ++l_iTrack)
 					{

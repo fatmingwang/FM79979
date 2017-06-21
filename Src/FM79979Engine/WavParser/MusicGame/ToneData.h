@@ -16,6 +16,8 @@ struct sFindTimeDomainFrequenceAndAmplitude;
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
 class cToneData:public Frame,public cNodeISAX
 {
+	//
+	bool*			m_pbBlackKey;
 	std::string		m_strSoundFilePath;
 	//int			m_iSoundID;
 	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
@@ -25,6 +27,7 @@ public:
 	~cToneData();
 	//const int GetSoundID();
 	const sFindTimeDomainFrequenceAndAmplitude*	GetFrequenceAndAmplitudeAndTimeFinder();
+	bool			IsBlackKey();
 };
 
 //<cToneDataVector>

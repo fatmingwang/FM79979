@@ -124,9 +124,9 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 
 void	cPerformMusicPhase::Render()
 {
-	DebugRender();
 	if( m_pPerformMusicPhaseUI )
 		this->m_pPerformMusicPhaseUI->RenderNodes();
+	DebugRender();
 }
 
 //

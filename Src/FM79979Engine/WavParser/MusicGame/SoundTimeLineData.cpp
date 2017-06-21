@@ -189,9 +189,11 @@ void	cSoundTimeLineDataCollection::Init()
 		l_pData->Init();
 	}
 }
+//http://www.sengpielaudio.com/calculator-notenames.htm
 
+//here is wrong because start should be a0,but I just lazy to fix this and change wav resources name start from a1
 const char*g_strKeyNymberToPianoString[88] = {
-"a1" ,"a1m","b1" ,"c1" ,"c1m","d1" ,"d1m","e1" ,"f1" ,"f1m",//10
+"a1" ,"a1m","b1" ,"c1" ,"c1m","d1" ,"d1m","e1" ,"f1" ,"f1m",//10,MIDI 21
 "g1" ,"g1m","a2" ,"a2m","b2" ,"c2" ,"c2m","d2" ,"d2m","e2" ,//20
 "f2" ,"f2m","g2" ,"g2m","a3" ,"a3m","b3" ,"c3" ,"c3m","d3" ,//30
 "d3m","e3" ,"f3" ,"f3m","g3" ,"g3m","a4" ,"a4m","b4" ,"c4" ,//40
@@ -218,9 +220,12 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 				float l_fTime = GetFloat(l_strTime);
 				//const sFindTimeDomainFrequenceAndAmplitude*l_pFrequenceAndAmplitudeAndTimeFinder = m_pToneDataVector->GetFrequenceAndAmplitudeAndTimeFinderBySoundID(l_iSoundID);
 				int l_iKeyNumber = GetInt(l_strSoundID);
+				//here is 88 key piano...out of range ignore
 				int l_iIndex = l_iKeyNumber-21;
-				if( l_iIndex < 0 )
+				if( l_iIndex < 0 || l_iIndex >= 88 )
+				{
 					continue;
+				}
 				auto l_pToneData = m_pToneDataVector->GetObject(g_strKeyNymberToPianoString[l_iIndex]);
 				if( !l_pToneData )
 				{

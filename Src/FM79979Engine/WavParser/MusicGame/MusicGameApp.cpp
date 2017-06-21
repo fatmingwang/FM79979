@@ -77,6 +77,7 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 
 void	cMusicGameApp::Render()
 {
+	m_svBGColor = Vector4(0.5,0.5,0.5,1);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
@@ -85,7 +86,7 @@ void	cMusicGameApp::Render()
 		m_pPhaseManager->Render();
 	}
 	GLRender::RenderRectangle(1920,1080,cMatrix44::Identity,Vector4(1,1,0,1));
-	//cGameApp::ShowInfo();
+	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

@@ -7,6 +7,7 @@ TYPDE_DEFINE_MARCO(cToneDataVector);
 
 cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 {
+	m_pbBlackKey = nullptr;
 	m_pFrequenceAndAmplitudeAndTimeFinder = nullptr;
 	const wchar_t*l_strID = CHAR_TO_WCHAR_DEFINE(TONE_DATA_ID);
 	const wchar_t*l_strPosOffset = CHAR_TO_WCHAR_DEFINE(TONE_DATA_PICTURE_OFFSET_POS );
@@ -30,6 +31,7 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 
 cToneData::~cToneData()
 {
+	SAFE_DELETE(m_pbBlackKey);
 	SAFE_DELETE(m_pFrequenceAndAmplitudeAndTimeFinder);
 }
 
@@ -41,6 +43,25 @@ cToneData::~cToneData()
 const sFindTimeDomainFrequenceAndAmplitude*	cToneData::GetFrequenceAndAmplitudeAndTimeFinder()
 {
 	return this->m_pFrequenceAndAmplitudeAndTimeFinder;
+}
+
+bool	cToneData::IsBlackKey()
+{
+	if(this->m_pbBlackKey == nullptr)
+	{
+		this->m_pbBlackKey = new bool;
+		*this->m_pbBlackKey = false;
+		std::wstring l_strName = this->GetName();
+		for(size_t i=0;i<l_strName.length();++i)
+		{
+			if( l_strName[i] == 'm' )
+			{
+				*this->m_pbBlackKey = true;
+				return *this->m_pbBlackKey;
+			}
+		}
+	}
+	return *this->m_pbBlackKey;
 }
 
 cToneDataVector::cToneDataVector()

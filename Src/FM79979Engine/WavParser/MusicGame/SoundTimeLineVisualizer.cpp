@@ -273,15 +273,20 @@ void	cTimeLineRangeChart::RenderHorizontal()
 
 		float l_fTuneKeepTime = l_pData->GetTuneKeepTime()*l_fOneSecondLength;
 		if(l_pData->IsTuneMatched())
-			GLRender::RenderRectangle(l_vShowPos,l_fTuneKeepTime,l_fCurrentLineHeight,Vector4::Green);
-		else
 			GLRender::RenderRectangle(l_vShowPos,l_fTuneKeepTime,l_fCurrentLineHeight,Vector4::Red);
+		else
+		{
+			if(l_pData->GetToneData()->IsBlackKey())
+				GLRender::RenderRectangle(l_vShowPos,l_fTuneKeepTime,l_fCurrentLineHeight,Vector4::Green);
+			else
+				GLRender::RenderRectangle(l_vShowPos,l_fTuneKeepTime,l_fCurrentLineHeight,Vector4::Blue);
+		}
 		
-		l_vShowPos.y -= l_iNameYOffset;
-		std::wstring l_strDebugInfo = l_pData->GetName();
-		l_strDebugInfo += L",";
-		l_strDebugInfo += ValueToStringW((int)l_pData->GetCompareTime());
-		cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
+		//l_vShowPos.y -= l_iNameYOffset;
+		//std::wstring l_strDebugInfo = l_pData->GetName();
+		//l_strDebugInfo += L",";
+		//l_strDebugInfo += ValueToStringW((int)l_pData->GetCompareTime());
+		//cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
 	}
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 	std::wstring l_strCurrentTime = ValueToStringW(this->m_fCurrentTime);
@@ -292,7 +297,7 @@ void	cTimeLineRangeChart::RenderHorizontal()
 
 void	cTimeLineRangeChart::RenderVertical()
 {
-	const float l_fCurrentLineWidth = 5.f;
+	const float l_fCurrentLineWidth = 2.f;
 	const int	l_iNameYOffset = 10;
 	float	l_fTotalTime = m_fBeforeCurrentTimeViewRange+m_fAfterCurrentTimeViewRange;
 	float	l_fShowCurrentTimePosY = m_fBeforeCurrentTimeViewRange;
@@ -331,7 +336,7 @@ void	cTimeLineRangeChart::RenderVertical()
 		}
 		float l_fShowPosY = this->m_vResolution.y*l_fLERP+this->m_vShowPos.y;
 		//fuck...
-		float l_fTuneKeepTime = l_pData->GetTuneKeepTime()*l_fOneSecondLength;
+		float l_fTuneKeepTime = l_pData->GetTuneKeepTime()*l_fOneSecondLength/4;
 		Vector2 l_vShowPos = Vector2(m_vShowPos.x,l_fShowPosY);
 		auto l_pToneData = l_pData->GetToneData();
 		l_vShowPos.x += l_pToneData->GetWorldPosition().x;
@@ -341,12 +346,17 @@ void	cTimeLineRangeChart::RenderVertical()
 		if(l_pData->IsTuneMatched())
 			GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Red);
 		else
-			GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Green);
-		l_vShowPos.x -= l_iNameYOffset;
-		std::wstring l_strDebugInfo = l_pData->GetName();
-		l_strDebugInfo += L",";
-		l_strDebugInfo += ValueToStringW((int)l_pData->GetCompareTime());
-		cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
+		{
+			if(l_pData->GetToneData()->IsBlackKey())
+				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Green);
+			else
+				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Blue);
+		}
+		//l_vShowPos.x -= l_iNameYOffset;
+		//std::wstring l_strDebugInfo = l_pData->GetName();
+		//l_strDebugInfo += L",";
+		//l_strDebugInfo += ValueToStringW((int)l_pData->GetCompareTime());
+		//cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
 	}
 	cGameApp::m_spGlyphFontRender->SetScale(1.f);
 	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);

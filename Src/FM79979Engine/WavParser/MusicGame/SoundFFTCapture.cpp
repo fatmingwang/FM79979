@@ -46,6 +46,8 @@ cSoundFFTCapture::cSoundFFTCapture()
 	m_fNextSampleTime = 1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	//m_vChartResolution.x *= 2;
 	//this->m_vChartShowPos.x += 0;
+	m_vChartShowPos.y = 670;
+	m_vChartShowPos.x = 100;
 	//m_vChartResolution.x = 5000;
 	m_iUpdateFlag = SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG;
 	m_piFFTData = nullptr;

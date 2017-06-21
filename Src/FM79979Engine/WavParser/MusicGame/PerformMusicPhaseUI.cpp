@@ -41,8 +41,11 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 	if( !m_pBG )
 	{
 		m_pBG = new cBaseImage("MusicGame/Image/Piano.jpg");
-		m_pBG->SetVisible(false);
-		m_pBG->SetWidth((int)cGameApp::m_svGameResolution.x);
+		//m_pBG->SetVisible(false);
+		//m_pBG->SetWidth((int)cGameApp::m_svGameResolution.x);
+		//MusicGame\Music,ChartResolution="1820,600" ChartShowPos="50,0"
+		m_pBG->SetWidth(1820);;
+		m_pBG->SetPos(Vector2(50,300));
 		//m_pBG->SetHeight(cGameApp::m_svGameResolution.y);
 		this->AddChildToLast(m_pBG);
 		//generate time control
