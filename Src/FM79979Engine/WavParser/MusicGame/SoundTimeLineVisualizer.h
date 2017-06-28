@@ -80,14 +80,22 @@ class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange,public cS
 	void							SetupSoundTimeLineDataObject(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fTotalTime);
 	Vector2							GetCurrenTimeControlPos(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime);
 	float							MousePositionToTime(int e_iMousePositionX,int e_iMousePositionY,Vector2 e_vShowPos,Vector2 e_vResolution,float e_fTotalTime);
+	void							DebugRenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime);
 	void							RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime);
 	//
 	eMoveDirection					m_eMoveDirection;
+	void							RenderDebugHorizontal();
+	void							RenderDebugVertical();
 	void							RenderHorizontal();
 	void							RenderVertical();
 	void							RenderTimeLine();
+	cRenderObject*					m_pTimelineNoteRoot;
+	cMPDI*							m_pTimeLineMPDI;
+	cBaseImage*						m_WhiteKeyImage;
+	cBaseImage*						m_BlackKeyImage;
+	cBaseImage*						m_NoteInTimelineImage;
 public:
-	cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection = eMD_RIGHT_TO_LEFT);
+	cTimeLineRangeChart(cMPDI*e_pTimeLineMPDI,float e_fBeforeCurrentTimeViewRange = cSoundCompareParameter::m_sfBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange = cSoundCompareParameter::m_sfAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection = eMD_RIGHT_TO_LEFT);
 	virtual ~cTimeLineRangeChart();
 	//
 	virtual void	Init();

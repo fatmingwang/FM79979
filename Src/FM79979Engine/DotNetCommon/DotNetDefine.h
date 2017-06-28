@@ -4,7 +4,7 @@
 //original is GET_SET,but I have define in CORE project so change name to this
 #define DOT_NET_GET_SET(Type,VariableName,FuncName) property Type FuncName{Type get(){ return VariableName; }System::Void set(Type value){ VariableName = value; }}
 //for default get and set method with category attribute name
-#define GET_SET_CATE(Type,VariableName,FuncName,CateAttName) [CategoryAttribute(CateAttName)]GET_SET(Type,VariableName,FuncName)
+#define GET_SET_CATE(Type,VariableName,FuncName,CateAttName) [CategoryAttribute(CateAttName)]DOT_NET_GET_SET(Type,VariableName,FuncName)
 
 //for declar variable and default get set method
 #define PUBLIC_OBJECT( Type,VariableName,FuncName) public:Type VariableName;public:GET_SET(Type,VariableName,FuncName);

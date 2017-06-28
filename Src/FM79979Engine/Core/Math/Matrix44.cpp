@@ -14,7 +14,7 @@
 #define D3DXToRadian(degree) ((degree) * (D3DX_PI / 180.0f))
 #endif
 
-static float __identity[] = { 1, 0, 0, 0, 0, 1, 0 ,0 ,0, 0, 1, 0, 0, 0, 0, 1 };
+static float g_Matrix44IdentityFloat[] = { 1, 0, 0, 0, 0, 1, 0 ,0 ,0, 0, 1, 0, 0, 0, 0, 1 };
 static float __ZupToYUp[] = { 1, 0, 0, 0,
 							  0, 0, -1, 0,
 							  0, 1, 0, 0,
@@ -37,7 +37,7 @@ static float __YupToYDown[] = {  1,  0,  0, 0,
 
 cMatrix44 cMatrix44::ZupToYUp(__ZupToYUp);
 cMatrix44 cMatrix44::YupToYDown(__YupToYDown);
-cMatrix44 cMatrix44::Identity(__identity);
+cMatrix44 cMatrix44::Identity(g_Matrix44IdentityFloat);
 
 cMatrix44 cMatrix44::X_TO_Z(__ZupToYUp);
 cMatrix44 cMatrix44::Y_TO_Z(__ZupToYUp);

@@ -108,10 +108,15 @@ Vector2	cTimeLineRange::GetCurrentTimeViewRange()
 
 
 
-cTimeLineRangeChart::cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection)
+cTimeLineRangeChart::cTimeLineRangeChart(cMPDI*e_pTimeLineMPDI,float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange,eMoveDirection e_eMoveDirection)
 	:cTimeLineRange(e_fBeforeCurrentTimeViewRange,e_fAfterCurrentTimeViewRange)
 {
+	m_pTimeLineMPDI = e_pTimeLineMPDI;
+	m_NoteInTimelineImage = nullptr;
 	m_pTickImage = nullptr;
+	m_pTimelineNoteRoot = nullptr;
+	m_WhiteKeyImage = nullptr;;
+	m_BlackKeyImage = nullptr;
 	m_eMoveDirection = e_eMoveDirection;
 	//m_eMoveDirection = eMD_LEFT_TO_RIGHT;
 	//m_eMoveDirection = eMD_RIGHT_TO_LEFT;
@@ -125,6 +130,11 @@ cTimeLineRangeChart::cTimeLineRangeChart(float e_fBeforeCurrentTimeViewRange,flo
 
 cTimeLineRangeChart::~cTimeLineRangeChart()
 {
+	if( m_pTimelineNoteRoot )
+		Frame::DestoryWithChildren(m_pTimelineNoteRoot);
+	SAFE_DELETE(m_NoteInTimelineImage);
+	SAFE_DELETE(m_WhiteKeyImage);
+	SAFE_DELETE(m_BlackKeyImage);
 	SAFE_DELETE(m_pTickImage);
 }
 
@@ -133,12 +143,66 @@ void	cTimeLineRangeChart::Init()
 	cTimeLineRange::Init();
 	cSoundTimeLineDataCollection::Init();
 	m_iLastToneDataObjectIndex = 0;
+	m_fEndTimeWithBeforTime = this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange;
+	if( !m_pTimelineNoteRoot && m_pTimeLineMPDI )
+	{
+		auto l_pTimer = m_pTimeLineMPDI->GetObject(L"timer");
+		auto l_pNote = m_pTimeLineMPDI->GetObject(L"Note");
+
+		auto l_pWhiteKey = m_pTimeLineMPDI->GetObject(L"WhiteKeySymbol");
+		auto l_pBlackKey = m_pTimeLineMPDI->GetObject(L"BlackKeySymbol");
+		if( l_pWhiteKey )
+		{
+			m_WhiteKeyImage = l_pWhiteKey->PointDataToBaseImage(0);
+		}
+		if( l_pBlackKey )
+		{
+			m_BlackKeyImage = l_pBlackKey->PointDataToBaseImage(0);
+		}
+		if( !m_NoteInTimelineImage )
+		{
+			m_NoteInTimelineImage = l_pNote->PointDataToBaseImage(0);
+			if( m_NoteInTimelineImage )
+			{
+				m_NoteInTimelineImage->SetColor(Vector4(1.2f,1.1f,1.9f,1.f));
+				m_NoteInTimelineImage->SetWidth((int)(m_NoteInTimelineImage->GetWidth()*0.5));
+				m_NoteInTimelineImage->SetHeight((int)(m_NoteInTimelineImage->GetHeight()*0.5));
+			}
+		}
+		
+		m_pTimelineNoteRoot = new cRenderObject();
+		if( !m_pTickImage )
+		{
+			m_pTickImage = l_pTimer->PointDataToBaseImage(0);
+			m_SoundTimeLineDataTimeline.SetShowPos(this->m_vShowPos);
+			m_SoundTimeLineDataTimeline.SetResolution(this->m_vResolution);
+			auto l_pLocalBount = m_pTickImage->GenerateBound();
+			if( l_pLocalBount )
+			{
+				RECT l_Rect = l_pLocalBount->GetRect();
+				POINT l_Size = {l_Rect.left-l_Rect.left,l_Rect.bottom-l_Rect.top};
+				l_Rect.left -= l_Size.x;
+				l_Rect.right += l_Size.x;
+				l_Rect.top -= l_Size.y;
+				l_Rect.bottom += l_Size.y;
+				cBound l_Bound(l_Rect);
+				m_pTickImage->SetLocalBound(&l_Bound);
+			}
+		}
+	}
+
 	if( !m_pTickImage )
 	{
 		m_pTickImage = new cBaseImage("MusicGame/Image/Tick.png");
 		m_pTickImage->GenerateBound();
 	}
-	m_fEndTimeWithBeforTime = this->m_fEndTime+this->m_fBeforeCurrentTimeViewRange;
+	if( m_pTickImage )
+	{
+		//this->m_vShowPos.x = m_pTickImage->GetPos().x;
+		//this->m_vShowPos.y = m_pTickImage->GetPos().y;
+		//this->m_vResolution.x = cGameApp::m_svGameResolution.x;
+		//this->m_vResolution.y = cGameApp::m_svGameResolution.y-m_pTickImage->GetPos().y;
+	}
 	SetupSoundTimeLineDataObject(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),m_fEndTimeWithBeforTime);
 }
 
@@ -235,6 +299,72 @@ void	cTimeLineRangeChart::Update(float e_fElpaseTime)
 
 void	cTimeLineRangeChart::RenderHorizontal()
 {
+
+}
+
+void	cTimeLineRangeChart::RenderVertical()
+{
+	float	l_fTotalTime = m_fBeforeCurrentTimeViewRange+m_fAfterCurrentTimeViewRange;
+	float	l_fOneSecondLength = this->m_vResolution.y/l_fTotalTime;
+	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
+	for(int i=m_iLastToneDataObjectIndex;i<l_iCount;++i)
+	//for(int i=0;i<this->m_iLastToneDataObjectIndex;this->m_iCountInCompareTime)
+	{
+		auto l_pData = this->GetObject(i);
+		if( !l_pData )
+			break;
+		//get percentage
+		float l_fCompareTime = l_pData->GetCompareTime();
+		//float l_fLocalTime = this->m_fCurrentTime-l_fCompareTime;
+		float l_fLERP = GetTimeGapLERP(this->m_vCurrentTimeViewRange.x,this->m_vCurrentTimeViewRange.y,l_fCompareTime);
+		if(m_eMoveDirection == eMD_UP_TO_DOWN)
+		{
+			l_fLERP = 1-l_fLERP;
+		}
+		if( l_fLERP >1.f )
+			continue;
+		float l_fShowPosY = this->m_vResolution.y*l_fLERP;//+this->m_vShowPos.y;
+		//fuck...
+		float l_fTuneKeepTime = l_pData->GetTuneKeepTime()*l_fOneSecondLength/4;
+		Vector2 l_vShowPos = Vector2(m_vShowPos.x,l_fShowPosY);
+		auto l_pToneData = l_pData->GetToneData();
+		l_vShowPos.x += l_pToneData->GetWorldPosition().x;
+		l_vShowPos.y += l_pToneData->GetWorldPosition().y;
+		Vector2 l_vTonePos = l_vShowPos;
+		if( l_pData->IsTuneMatched() )
+			continue;
+		//l_vTonePos.y -= l_fTuneKeepTime;
+		if(l_pData->IsTuneMatched())
+		{//play effect!?
+
+		}
+		else
+		{
+			if(l_pData->GetToneData()->IsBlackKey())
+			{
+				if(m_BlackKeyImage)
+				{
+					l_vTonePos.x -= m_BlackKeyImage->GetWidth()/2.f;
+					l_vTonePos.y -= m_BlackKeyImage->GetHeight()/2.f;
+					m_BlackKeyImage->Render(l_vTonePos);
+				}
+			}
+			else
+			{
+				if(m_WhiteKeyImage)
+				{
+					l_vTonePos.x -= m_WhiteKeyImage->GetWidth()/2.f;
+					l_vTonePos.y -= m_WhiteKeyImage->GetHeight()/2.f;
+					m_WhiteKeyImage->Render(l_vTonePos);
+				}
+			}
+		}
+	}
+}
+
+
+void	cTimeLineRangeChart::RenderDebugHorizontal()
+{
 	const float l_fCurrentLineHeight = 5.f;
 	const int l_iNameYOffset = 10;
 	float	l_fTotalTime = m_fBeforeCurrentTimeViewRange+m_fAfterCurrentTimeViewRange;
@@ -295,7 +425,7 @@ void	cTimeLineRangeChart::RenderHorizontal()
 	cGameApp::RenderFont(l_vFontPos,l_strCurrentTime.c_str());
 }
 
-void	cTimeLineRangeChart::RenderVertical()
+void	cTimeLineRangeChart::RenderDebugVertical()
 {
 	const float l_fCurrentLineWidth = 2.f;
 	const int	l_iNameYOffset = 10;
@@ -376,21 +506,22 @@ void	cTimeLineRangeChart::DebugRender()
 	if( m_iCountInCompareTime < 1 )
 		return;
 	if( m_eMoveDirection == eMD_LEFT_TO_RIGHT || m_eMoveDirection == eMD_RIGHT_TO_LEFT )
-		RenderHorizontal();
+		RenderDebugHorizontal();
 	else
-		RenderVertical();
+		RenderDebugVertical();
 
-	RenderTimeLineData(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),this->m_fCurrentTime,this->m_fEndTimeWithBeforTime);
+	DebugRenderTimeLineData(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),this->m_fCurrentTime,this->m_fEndTimeWithBeforTime);
 }
 
 void	cTimeLineRangeChart::Render()
 {
 	if( m_iCountInCompareTime < 1 )
 		return;
-	//if( m_eMoveDirection == eMD_LEFT_TO_RIGHT || m_eMoveDirection == eMD_RIGHT_TO_LEFT )
-	//	RenderHorizontal();
-	//else
-	//	RenderVertical();
+	if( m_eMoveDirection == eMD_LEFT_TO_RIGHT || m_eMoveDirection == eMD_RIGHT_TO_LEFT )
+		RenderHorizontal();
+	else
+		RenderVertical();
+	RenderTimeLineData(m_SoundTimeLineDataTimeline.GetShowPos(),m_SoundTimeLineDataTimeline.GetResolution(),this->m_fCurrentTime,this->m_fEndTimeWithBeforTime);
 }
 
 bool	cTimeLineRangeChart::Compare(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
@@ -436,7 +567,7 @@ float	cTimeLineRangeChart::MousePositionToTime(int e_iMousePositionX,int e_iMous
 	return l_fCurrentTime;
 }
 
-void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime)
+void	cTimeLineRangeChart::DebugRenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime)
 {
 	GLRender::RenderFilledRectangle(e_vShowPos,e_vResolution.x,e_vResolution.y,Vector4(1,1,0,1),0);
 	//float l_PosStepByTimeGap = e_vResolution.x/e_fTotalTime;
@@ -466,6 +597,36 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 				l_vColor = TUNE_TIME_PAST;
 			}
 			GLRender::RenderRectangle(this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i],1,e_vResolution.y,l_vColor);
+		}
+	}
+}
+
+void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime)
+{
+	Vector2 l_vCurrentTimePos = GetCurrenTimeControlPos(e_vShowPos,e_vResolution,e_fCurrentTime,e_fTotalTime);
+	if( m_pTickImage )
+	{
+		l_vCurrentTimePos.y = m_pTickImage->GetPos().y;
+		m_pTickImage->SetPos(l_vCurrentTimePos);
+		m_pTickImage->Render();
+	}
+	else
+		GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
+	if( m_pTimelineNoteRoot )
+	{
+		m_pTimelineNoteRoot->RenderNodes();
+	}
+	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
+	if( l_uiSize > 0 )
+	{
+		for(size_t i=0;i<l_uiSize;++i)
+		{
+			auto l_Data = this->m_ObjectList[i];
+			Vector2 l_vPos = this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i];
+			l_vPos.y = l_vCurrentTimePos.y;
+			//l_vPos.y += m_NoteInTimelineImage->GetHeight();
+			l_vPos.y += 36;
+			m_NoteInTimelineImage->Render(l_vPos);
 		}
 	}
 

@@ -1,6 +1,8 @@
 #include "../stdafx.h"
 #include "CurveManager.h"
+#ifdef WIN32
 #include "../XML/AtgXmlWriter.h"
+#endif
 #include "../Image/SimplePrimitive.h"
 #include "../GLSL/Shader.h"
 namespace FATMING_CORE

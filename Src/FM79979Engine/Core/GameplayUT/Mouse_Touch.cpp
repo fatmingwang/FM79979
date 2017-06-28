@@ -49,12 +49,7 @@ namespace FATMING_CORE
 	{
 		if( MouseDownTime == 0 )
 			return 0.f;
-#ifndef IOS
 		return (cGameApp::m_sTimeAndFPS.uiCurrentTime-MouseDownTime)/1000.f;
-#else
-        UINT    l_uiElpaseTime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-MouseDownTime);
-        return (float)((double)l_uiElpaseTime*cGameApp::m_sTimeAndFPS.dbConversion);
-#endif	
 	}
 	void	sMouseMoveData::MouseDown(int e_iPosX,int e_iPosY)
 	{
@@ -79,12 +74,7 @@ namespace FATMING_CORE
 		bool	l_bDoubleclick = false;
         UpPos.x = e_iPosX;
         UpPos.y = e_iPosY;        
-#ifndef IOS
         fDownToUpElpaseTime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-MouseDownTime)/1000.f;
-#else
-        UINT    l_uiElpaseTime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-MouseDownTime);
-        fDownToUpElpaseTime = (float)((double)l_uiElpaseTime*cGameApp::m_sTimeAndFPS.dbConversion);
-#endif
 		//is first mouse up ?check distance and time.
 		if( IsDownUpDistanceSamePoint() )
 		{
@@ -94,12 +84,7 @@ namespace FATMING_CORE
 			}//for double click check
 			else
 			{
-#ifndef IOS
 				float	l_fLastMouseUptime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-uiLastMouseUpClickElpaseTime)/1000.f;
-#else
-				UINT    l_uiElpaseTime = (cGameApp::m_sTimeAndFPS.uiCurrentTime-uiLastMouseUpClickElpaseTime);
-				float	l_fLastMouseUptime = (float)((double)l_uiElpaseTime*cGameApp::m_sTimeAndFPS.dbConversion);
-#endif
 				if( l_fLastMouseUptime<=DOUBLE_CLICK_TIME_SPAN )
 				{
 					l_bDoubleclick = true;

@@ -850,7 +850,7 @@ void *NVHHDDSAllocData(NVHHDDSImage *image)
 
         for (i = 1; i < planes; i++) // account for base plus each mip
         {
-            image->data[i] = (void*)(((NvS32)(image->data[i - 1]))
+            image->data[i] = (void*)((*(NvS32*)(image->data[i - 1]))
                 + image->size[i - 1]);
         }
 

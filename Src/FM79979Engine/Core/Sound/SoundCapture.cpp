@@ -7,6 +7,7 @@
 //#include <thread>
 #include "../Synchronization/FUThreadPool.h"
 #include "../GameplayUT/GameApp.h"
+#include "SoundManager.h"
 #ifndef WIN32
 #include "unistd.h"
 #endif
@@ -110,11 +111,13 @@ namespace	FATMING_CORE
 	cSoundCapture*g_pSoundCapture = nullptr;
 	cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 	{
+		m_iFormat = format;
 		m_bThreadExitStop = true;
 		m_iBufferSize = buffersize;
 		m_fCurrntTime = 0.f;
 		m_bIsRecording = false;
 		m_pFUThreadPool = nullptr;
+		m_pDevice = nullptr;
 		m_bPause = false;
 		m_bStop = false;
 		m_iFileSize = 0;
@@ -151,14 +154,6 @@ namespace	FATMING_CORE
 #ifdef ANDROID
 		CreateAndroidAudioEngine();
 		NativeAudioCreateAudioRecorder(frequency,m_iWriteBitpersample,m_iWriteChannel);
-#else
-		m_pDevice = alcCaptureOpenDevice(NULL, frequency, format, buffersize*2);
-		if (alGetError() != AL_NO_ERROR)
-		{
-			if( m_pDevice )
-				alcCaptureCloseDevice(m_pDevice);
-			m_pDevice = nullptr;
-		}
 #endif
 	}
 
@@ -200,6 +195,17 @@ namespace	FATMING_CORE
 		StartAndroidRecording(this->m_iBufferSize);
 
 #else
+		cGameApp::m_spSoundParser->IOSRecordContextSet(true);
+		if( !m_pDevice )
+		{
+			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iSampleRate, m_iFormat,this->m_iBufferSize*sizeof(short));
+			if (alGetError() != AL_NO_ERROR)
+			{
+				if( m_pDevice )
+					alcCaptureCloseDevice(m_pDevice);
+				m_pDevice = nullptr;
+			}
+		}
 		if(m_pDevice)
 		{
 			this->m_fCurrntTime = 0.f;
@@ -238,6 +244,12 @@ namespace	FATMING_CORE
 		
 		}
 		this->m_bStop = false;
+		if( m_pDevice )
+		{
+			alcCaptureStop(m_pDevice);
+			alcCaptureCloseDevice(m_pDevice);
+			m_pDevice = nullptr;
+		}
 #else
 		AndroidRecordStop();
 		auto l_CallbackObjectVector = GetList();
@@ -247,6 +259,7 @@ namespace	FATMING_CORE
 			(*l_CallbackObjectVector)[i]->PreCaptureSoundEndCallBack();
 		}
 #endif
+		cGameApp::m_spSoundParser->IOSRecordContextSet(false);
 	}
 
 

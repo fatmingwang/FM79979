@@ -46,7 +46,7 @@ void	cMusicGameApp::Init()
 	int l_iFrequence = 44100;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
-	m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
+	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
 	m_pPhaseManager = new cPhaseManager();
@@ -58,8 +58,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
-		//m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();
@@ -77,6 +77,7 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 
 void	cMusicGameApp::Render()
 {
+	//1600,1024
 	m_svBGColor = Vector4(0.5,0.5,0.5,1);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -85,8 +86,10 @@ void	cMusicGameApp::Render()
 	{
 		m_pPhaseManager->Render();
 	}
-	GLRender::RenderRectangle(1920,1080,cMatrix44::Identity,Vector4(1,1,0,1));
-	cGameApp::ShowInfo();
+#ifdef DEBUG
+	GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
+	//cGameApp::ShowInfo();
+#endif
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

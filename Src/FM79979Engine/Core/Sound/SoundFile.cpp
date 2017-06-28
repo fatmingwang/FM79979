@@ -3,7 +3,7 @@
 
 #include "../GameplayUT/BinaryFile.h"
 #include "OpenAlOgg.h"
-#ifdef ANDROID
+#ifndef WIN32
 #include "ogg/vorbis/vorbisenc.h"
 #endif
 const char*	g_strFMTFormat = "fmt ";

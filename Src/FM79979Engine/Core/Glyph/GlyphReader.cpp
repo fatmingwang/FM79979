@@ -90,18 +90,18 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 
 	BYTE*	l_pData = (BYTE*)m_pFontData;
     // Check version of file (to make sure it matches up with the FontMaker tool)
-    unsigned long dwFileVersion = *((unsigned long*)(l_pData)); l_pData += sizeof(unsigned long);
+    unsigned int dwFileVersion = *((unsigned int*)(l_pData)); l_pData += sizeof(unsigned int);
     if( dwFileVersion == 0x00000005 )
     {
         // Parse the font data
 		this->m_wFontHeight	= *((SHORT*)l_pData); l_pData += sizeof(SHORT);
-		this->m_dwMask		= *((unsigned long*)l_pData); l_pData += sizeof(unsigned long);
+		this->m_dwMask		= *((unsigned int*)l_pData); l_pData += sizeof(unsigned int);
         // Point to the translator string
         m_cMaxGlyph			= ((WORD*)l_pData)[0];   l_pData += sizeof(WORD);
         m_pTranslatorTable	= (WORD*)l_pData;       l_pData += sizeof(WORD)*(m_cMaxGlyph+1);
 
         // Read the glyph attributes from the file
-        m_dwNumGlyphs		= ((unsigned long*)l_pData)[0];  l_pData += sizeof(unsigned long);
+        m_dwNumGlyphs		= ((unsigned int*)l_pData)[0];  l_pData += sizeof(unsigned int);
 #if defined(ANDROID) || defined(IOS)
 		m_pGlyphs = new FILE_GLYPH_ATTR[m_dwNumGlyphs];
 		memcpy(m_pGlyphs,l_pData,sizeof(FILE_GLYPH_ATTR)*m_dwNumGlyphs);

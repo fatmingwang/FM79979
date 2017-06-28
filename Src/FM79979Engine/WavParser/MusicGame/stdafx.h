@@ -32,4 +32,4 @@
 #include "Parameters.h"
 #include "SoundTimeLineData.h"
 
-//#define	PARSE_TEST_SOUND
+#define	PARSE_TEST_SOUND

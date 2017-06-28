@@ -9,6 +9,9 @@ void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, siz
 #define	SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG		1<<1
 #define	SOUNS_FFT_CAPTURE_UPDATE_FETCH_FFT_DATA_FLAG	2<<1
 
+
+
+
 class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKissFFTConvertBase
 {
 	friend void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri);

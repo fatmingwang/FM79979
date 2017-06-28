@@ -6,10 +6,6 @@
 #include "Windowsx.h"
 
 #include "../../AllLibInclude.h"
-
-
-
-
 #define VLD_DEBUG
 
 #ifdef VLD_DEBUG
@@ -32,16 +28,13 @@ HHOOK MouseHook;
 bool	g_bLeave = false;
 
 
+
 cGameApp*g_pGameApp = 0;
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
-	const WCHAR*l_str = NamedTypedObject::TypeID;
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
-
  	// TODO: Place code here.
 	MSG msg;
 	//HACCEL hAccelTable;
@@ -56,6 +49,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
+	cGameApp::m_svGameResolution.x = 1600;
+	cGameApp::m_svGameResolution.y = 1024;
 	g_pGameApp = new cMusicGameApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
 	SetTimer (g_hWnd, 0, 0, NULL) ;

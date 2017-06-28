@@ -80,7 +80,7 @@ namespace FATMING_CORE
     cClickBehavior*    cClickBehavior::MouseDown(int e_iPosX,int e_iPosY)
 	{
 		if( !m_bEnable )
-			return false;
+			return nullptr;
 		if( m_eObjectMouseBehavior == eOMB_NONE)
 		{
 			if(Collide(e_iPosX,e_iPosY))
@@ -98,7 +98,7 @@ namespace FATMING_CORE
     cClickBehavior*    cClickBehavior::MouseMove(int e_iPosX,int e_iPosY)
 	{
 		if( !m_bEnable )
-			return false;
+			return nullptr;
 		if( m_eObjectMouseBehavior == eOMB_HORVER||
 			m_eObjectMouseBehavior == eOMB_FIRST_TIME_INTO ||
 			m_eObjectMouseBehavior == eOMB_LEAVE)
@@ -122,7 +122,7 @@ namespace FATMING_CORE
     cClickBehavior*    cClickBehavior::MouseUp(int e_iPosX,int e_iPosY)
 	{
 		if( !m_bEnable)
-			return false;
+			return nullptr;
 		if(this->Collide(e_iPosX,e_iPosY))
 		{
 			m_bEnable = false;
@@ -215,7 +215,7 @@ namespace FATMING_CORE
     cClickBehavior*    cClickBehaviorGroup::MouseDown(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
-			return false;		
+			return nullptr;		
 		int	l_uiSize = Count();
 		if( l_uiSize != 0 )
 		{
@@ -244,7 +244,7 @@ namespace FATMING_CORE
     cClickBehavior*	cClickBehaviorGroup::MouseMove(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
-			return false;
+			return nullptr;
 		int	l_uiSize = Count();
 		for( int i=0;i<l_uiSize;++i )
 		{
@@ -267,7 +267,7 @@ namespace FATMING_CORE
     cClickBehavior*	cClickBehaviorGroup::MouseUp(int e_iPosX,int e_iPosY)
 	{
 		if(!this->IsEnable())
-			return false;
+			return nullptr;
 		int	l_uiSize = Count();
 		for( int i=0;i<l_uiSize;++i )
 		{

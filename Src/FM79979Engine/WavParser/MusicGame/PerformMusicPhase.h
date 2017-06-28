@@ -37,19 +37,27 @@ public:
 
 class cPerformMusicPhaseUI:public cRenderObject
 {
-	cLazyClickBehaviorAndRenderObject*m_pPause;
-	cLazyClickBehaviorAndRenderObject*m_pScore;
-	cPerformMusicPhase*			m_pPerformMusicPhase;
-	cBaseImage*					m_pBG;
-	cGlyphFontRender*			m_pScoreText;
-	cClickBehavior*				m_pTimeControlButton;
-	void						GamePause();
+	cGlyphFontRender*					m_pScoreFont;
+	cMPDI*								m_pBGMPDI;
+	cMPDI*								m_pLaserMPDILeft;
+	cMPDI*								m_pLaserMPDIRight;
+	//
+	cLazyClickBehaviorAndRenderObject*	m_pPause;
+	cLazyClickBehaviorAndRenderObject*	m_pScore;
+	cPerformMusicPhase*					m_pPerformMusicPhase;
+	cRenderObject*						m_pBG;
+	cGlyphFontRender*					m_pScoreText;
+	cClickBehavior*						m_pTimeControlButton;
+	void								GamePause();
 public:
-	cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase);
+	cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase,cMPDI*e_pBGMPDI);
 	~cPerformMusicPhaseUI();
 	bool			GenerateResources(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher);
 	virtual	void	Init();
 	virtual	void	Update(float e_fElpaseTime);
 	virtual	void	Render();
+	//0,left 1 right
+	void			ShotLaser(int e_iChannel);
+//	virtual	void	RenderLaser();
 
 };

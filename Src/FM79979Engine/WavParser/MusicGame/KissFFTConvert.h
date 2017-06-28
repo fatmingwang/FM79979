@@ -4,6 +4,38 @@
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 
+
+struct sBufferSwaper
+{
+	int iTargetDataCount;
+	int iCurrentDataCount;
+	int iRestDataCount;
+	char*pCurrentBuffer;
+	char*pNextBuffer;
+	sBufferSwaper(int e_iTargetDataCount)
+	{
+		iTargetDataCount = e_iTargetDataCount;
+		iCurrentDataCount = 0;
+		iRestDataCount = e_iTargetDataCount;
+		pCurrentBuffer = new char[e_iTargetDataCount];
+		pNextBuffer = new char[e_iTargetDataCount];
+	}
+	~sBufferSwaper()
+	{
+		SAFE_DELETE(pCurrentBuffer);
+		SAFE_DELETE(pNextBuffer);
+	}
+	//0 still need data,1 data is filled,2 data is too many,need more buffer
+	int DataSwap(int e_iCount,char*e_pData)
+	{
+		if( iRestDataCount >= e_iCount)
+		{
+		
+		}
+		return false;
+	}
+};
+
 class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;

@@ -1,4 +1,4 @@
-#include "../stdAfx.h"
+#include "../stdafx.h"
 #include "FUThread.h"
 
 #if defined(WIN32)

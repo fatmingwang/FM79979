@@ -393,4 +393,14 @@ namespace FATMING_CORE
 		l_XMLWriter.EndElement();
 	#endif
 	}
+
+	void	cSoundParser::IOSRecordContextSet(bool e_bStartToRecord)
+	{
+#if defined(IOS)
+		if( e_bStartToRecord )
+			alcMakeContextCurrent(nullptr);
+		else
+			alcMakeContextCurrent(m_pContext);
+#endif	
+	}
 }

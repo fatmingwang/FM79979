@@ -11,9 +11,6 @@ namespace UT
 	struct sTimeAndFPS
 	{
 		timeval					TimevalStamp;
-#ifdef IOS
-		static double dbConversion;
-#endif
 		//calculate	elpase time
 		UINT					uiPreviousTime;		//previously frame time ticks
 		UINT					uiCurrentTime;		//current frame time ticks

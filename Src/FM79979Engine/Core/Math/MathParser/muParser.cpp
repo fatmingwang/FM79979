@@ -267,7 +267,7 @@ namespace mu
   int Parser::IsVal(const char_type* a_szExpr, int *a_iPos, value_type *a_fVal)
   {
 	  value_type fVal(0);
-	 int l_iValueLength = Mywtof(a_szExpr,&fVal);
+	 int l_iValueLength = Mywtof((const wchar_t*)a_szExpr,(double*)&fVal);
 	 if( l_iValueLength == 0 )
 		 return 0;
     *a_iPos += l_iValueLength;

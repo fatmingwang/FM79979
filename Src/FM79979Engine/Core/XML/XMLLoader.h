@@ -307,28 +307,28 @@ namespace FATMING_CORE
 	void GetIphoneAppFilePath(char* o_buffer, char* filename);
 	//http://svn.openscenegraph.org/osg/OpenSceneGraph/tags/OpenSceneGraph-2.3.8/src/osgDB/FileUtils.cpp
     // returns an absolute (POSIX on MacOS X) path from a CFURLRef
-    std::string GetPathFromCFURLRef(CFURLRef urlRef)
-    {
-        char buffer[1024];
-        std::string path;
-        if(CFURLGetFileSystemRepresentation(urlRef, true, (UInt8*)buffer, 1024))
-            path = std::string(buffer);
-        return path;
-    }
+    //std::string GetPathFromCFURLRef(CFURLRef urlRef)
+    //{
+    //    char buffer[1024];
+    //    std::string path;
+    //    if(CFURLGetFileSystemRepresentation(urlRef, true, (UInt8*)buffer, 1024))
+    //        path = std::string(buffer);
+    //    return path;
+    //}
 
-    // returns the absolute path to the main bundle
-    std::string GetApplicationBundlePath(CFBundleRef mainBundle)
-    {
-        std::string path;
-        CFURLRef urlRef = CFBundleCopyBundleURL(mainBundle);
-        if(urlRef)
-        {
-            path = GetPathFromCFURLRef(urlRef);
-            CFRelease(urlRef); // docs say we are responsible for releasing CFURLRef
-        }
-        return path;
-        
-    }
+    //// returns the absolute path to the main bundle
+    //std::string GetApplicationBundlePath(CFBundleRef mainBundle)
+    //{
+    //    std::string path;
+    //    CFURLRef urlRef = CFBundleCopyBundleURL(mainBundle);
+    //    if(urlRef)
+    //    {
+    //        path = GetPathFromCFURLRef(urlRef);
+    //        CFRelease(urlRef); // docs say we are responsible for releasing CFURLRef
+    //    }
+    //    return path;
+    //    
+    //}
 	#endif
 }
 #endif

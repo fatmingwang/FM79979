@@ -8,8 +8,8 @@
 
 #include "Matrix33.h"
 
-static float __identity[] = { 1, 0, 0, 0, 1, 0 ,0, 0, 1 };
-cMatrix33 cMatrix33::identity(__identity);
+static float g_MatrixIdentityFloat[] = { 1, 0, 0, 0, 1, 0 ,0, 0, 1 };
+cMatrix33 cMatrix33::identity(g_MatrixIdentityFloat);
 
 cMatrix33::cMatrix33(float* _m)
 {

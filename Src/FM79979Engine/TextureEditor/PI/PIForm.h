@@ -1608,8 +1608,13 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
   
 					for(int i=0;i<l_iImageCount;i++)
 					{
-						auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));						
-						inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_pUIImage->GetWidth()+l_iPixelXGap,l_pUIImage->GetHeight()+l_iPixelYGap), false );
+						auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+
+						//inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_pUIImage->GetWidth()+l_iPixelXGap,l_pUIImage->GetHeight()+l_iPixelYGap), false );
+						POINT l_LeftUpPos = *l_pUIImage->GetOffsetPos();
+						POINT l_RightDownPos = l_pUIImage->GetRightDownStripOffPos();
+						POINT l_Size = {l_RightDownPos.x-l_LeftUpPos.x,l_RightDownPos.y-l_LeftUpPos.y};
+						inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_Size.x+l_iPixelXGap,l_Size.y+l_iPixelYGap), false );
 					}
   
 					// Sort the input content by size... usually packs better.

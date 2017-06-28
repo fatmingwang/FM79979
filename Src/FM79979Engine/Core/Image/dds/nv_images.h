@@ -25,9 +25,14 @@
 
 #include "nv_hhdds.h"
 
-#ifndef WIN32
+
+
+#if defined(ANDROID)
 #include <GLES2/gl2.h>
-#else
+#elif defined(IOS)
+#include <OpemGLES/ES2/gl.h>
+//#include <OpemGLES/ES2/gl.h>
+#elif defined(WIN32)
 #include "../../../../Include/glew.h"
 #include "../../../../Include/glext.h"
 #endif

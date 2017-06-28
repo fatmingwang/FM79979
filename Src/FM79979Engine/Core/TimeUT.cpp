@@ -7,7 +7,6 @@
 #if defined(IOS)
 #include <mach/mach_time.h>
 #include <sys/time.h>
-double sTimeAndFPS::dbConversion = 0.0;
 #elif defined(WIN32)
 #include "strsafe.h"
 #pragma warning( disable : 4793 )
@@ -31,17 +30,6 @@ namespace UT
 		fTimeFor1Sec = 0.f;
 		memset(strFrameRate,0,sizeof(strFrameRate));
 		sprintf(strFrameRate,"%s fps","0");
-#ifdef IOS
-		if( dbConversion == 0 )
-		{
-			dbConversion = 1.0;//avoid enter again
-			mach_timebase_info_data_t l_Info;
-			kern_return_t err = mach_timebase_info(&l_Info);
-			if( err == 0 )
-				dbConversion = 1e-9*(double)l_Info.numer/(double)l_Info.denom;
-			//dbConversion = 1e-9;//*(double)l_Info.numer/(double)l_Info.denom;
-		}
-#endif
 	}
 	void	sTimeAndFPS::Update()//total game running time
 	{
@@ -49,20 +37,14 @@ namespace UT
 		uiPreviousTime = uiCurrentTime;
 #if defined(WIN32)
 		uiCurrentTime = GetTickCount();
-#elif defined(IOS)
-		uiCurrentTime = mach_absolute_time();
-#else//android or linux and else
+#else//android IOS or linux and else
 		struct timeval current;
 		gettimeofday(&current, nullptr);
 		uiCurrentTime = current.tv_sec * 1000 + current.tv_usec/1000;
 #endif
 
 		uiElpaseTime = uiCurrentTime-uiPreviousTime;
-#ifndef IOS		
 		fElpaseTime = (float)uiElpaseTime/1000.f;
-#else
-		fElpaseTime = (float)((double)uiElpaseTime*dbConversion);
-#endif
 		uiNumFrame++;
 		fTimeFor1Sec += fElpaseTime;
 		if(fTimeFor1Sec>=1.f)

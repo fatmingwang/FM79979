@@ -34,8 +34,22 @@ void	cPerformMusicPhase::GenerateResources()
 {
 	if( !m_pClickBehaviorDispatcher )
 	{
+		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/PerformPhaseAnimation.mpdi");
+		cMPDI*l_pBG = nullptr;
+		if( l_pMPDIList )
+		{
+			l_pBG = l_pMPDIList->GetObject(L"BGWithKeyBoard");
+		}
+		if( m_strMusicFileName.length() )
+		{
+			//fuck,orientation and chart resolution and else should setup here.
+			if( !m_pTimeLineRangeChart )
+			{
+				m_pTimeLineRangeChart = new cTimeLineRangeChart(l_pBG);
+			}
+		}
 		m_pClickBehaviorDispatcher = new cClickBehaviorDispatcher();
-		m_pPerformMusicPhaseUI = new cPerformMusicPhaseUI(this);
+		m_pPerformMusicPhaseUI = new cPerformMusicPhaseUI(this,l_pBG);
 	}
 }
 
@@ -45,21 +59,15 @@ void	cPerformMusicPhase::Init()
 	this->m_bSatisfiedCondition = false;
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StopRecord();
-	if( m_strMusicFileName.length() )
-	{
-		//fuck,orientation and chart resolution and else should setup here.
-		if( !m_pTimeLineRangeChart )
-			m_pTimeLineRangeChart = new cTimeLineRangeChart();
-		if(m_pTimeLineRangeChart->ParseWithMyParse(m_strMusicFileName.c_str()))
-		{
-			m_pTimeLineRangeChart->Init();
-		}
-		else
-		{
-			SAFE_DELETE(m_pTimeLineRangeChart);
-		}
-	}
 	GenerateResources();
+	if(m_pTimeLineRangeChart->ParseWithMyParse(m_strMusicFileName.c_str()))
+	{
+		m_pTimeLineRangeChart->Init();
+	}
+	else
+	{
+		SAFE_DELETE(m_pTimeLineRangeChart);
+	}
 	if( m_pPerformMusicPhaseUI )
 		this->m_pPerformMusicPhaseUI->InitNodes();
 	if( m_pClickBehaviorDispatcher )
@@ -119,14 +127,20 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
 	if( m_pPerformMusicPhaseUI )
-		this->m_pPerformMusicPhaseUI->UpdateNodes(cGameApp::m_sTimeAndFPS.fElpaseTime);
+		this->m_pPerformMusicPhaseUI->UpdateNodes(e_fElpaseTime);
 }
 
 void	cPerformMusicPhase::Render()
 {
 	if( m_pPerformMusicPhaseUI )
+	{
 		this->m_pPerformMusicPhaseUI->RenderNodes();
-	DebugRender();
+	}
+	if(m_pTimeLineRangeChart)
+	{
+		m_pTimeLineRangeChart->Render();
+	}
+	//DebugRender();
 }
 
 //
@@ -146,6 +160,14 @@ void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
 {
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->MouseUp(e_iPosX,e_iPosY);
+	static int l_i = 0;
+	if( m_pPerformMusicPhaseUI )
+	{
+		this->m_pPerformMusicPhaseUI->ShotLaser(l_i);
+	}
+	++l_i;
+	if( l_i >= 2 )
+		l_i = 0;
 }
 
 void	cPerformMusicPhase::Destroy()

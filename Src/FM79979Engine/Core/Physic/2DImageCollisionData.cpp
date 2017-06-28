@@ -2,7 +2,7 @@
 #include "2DImageCollisionData.h"
 #include "../GLSL/Shader.h"
 
-#include "LinearMath/btQuaternion.h"
+#include "../Bullet/LinearMath/btQuaternion.h"
 #include "LinearMath/btTransform.h"
 
 #include "BulletCollision/CollisionShapes/btCompoundShape.h"
@@ -20,7 +20,9 @@
 
 
 #include "../XML/XMLLoader.h"
+#ifdef WIN32
 #include "../XML/AtgXmlWriter.h"
+#endif
 namespace FATMING_CORE
 {
 	eCollisionType	StringToCollisionType(const wchar_t*e_strValue)

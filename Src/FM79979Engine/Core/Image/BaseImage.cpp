@@ -361,14 +361,13 @@ namespace FATMING_CORE
 	}
 
 
-	bool	cBaseImage::GenerateBound()
+	const cBound*	cBaseImage::GenerateBound()
 	{
 		auto l_Size = GetSize();
 		RECT l_Rect = CreateRect(l_Size,this->GetLocalPosition());
 		cBound l_Bound(l_Rect);
 		this->SetLocalBound(&l_Bound);
-
-		return true;
+		return this->GetLocalBound();
 	}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)
 	//{

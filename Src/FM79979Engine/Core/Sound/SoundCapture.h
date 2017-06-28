@@ -82,6 +82,7 @@ namespace	FATMING_CORE
 #ifndef ANDROID
 		ALCdevice*				m_pDevice;
 #endif
+		int						m_iFormat;
 		int						m_iSampleRate;
 		int						m_iWriteChannel;
 		int						m_iWriteBitpersample;
