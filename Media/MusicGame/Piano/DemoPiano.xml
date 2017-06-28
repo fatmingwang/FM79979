@@ -1,0 +1,18 @@
+<cToneDataVector SourceFreq="11025">
+  <cToneData SoundSourceFileName="MusicGame/Piano/f3.soundFFT"  ID="f3" PosOffset="38,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f3m.soundFFT" ID="f3m" PosOffset="62,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g3.soundFFT"  ID="g3" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g3m.soundFFT" ID="g3m" PosOffset="100,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a4.soundFFT"  ID="a4" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a4m.soundFFT" ID="a4m" PosOffset="100,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/b4.soundFFT"  ID="b4" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/c4.soundFFT"  ID="c4" PosOffset="180,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/c4m.soundFFT" ID="c4m" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/d4.soundFFT"  ID="d4" PosOffset="100,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/d4m.soundFFT" ID="d4m" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/e4.soundFFT"  ID="e4" PosOffset="100,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f4.soundFFT"  ID="f4" PosOffset="180,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f4m.soundFFT" ID="f4m" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g4.soundFFT"  ID="g4" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g4m.soundFFT" ID="g4m" PosOffset="80,0" />
+</cToneDataVector>

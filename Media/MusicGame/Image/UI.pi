@@ -1,9 +1,9 @@
-<!-- Author:leeyo,Time:2017/6/12 ¤U¤È 02:46:33 -->
+<!-- Author:leeyo,Time:2017/6/28 ¤U¤È 01:48:12 -->
 <PuzzleImage OriginalNameSort="Board,slider-shell,PlayButton,p,LeaveButton,ReplayButton,ScoareBoard,ResumeButton,Pause" ImageName="UI.png" Count="9" GeneratePuzzleimageUnit="0">
     <PuzzleUnit Name="Board" UV="0,0.2958984,0.6162109,0.6054688" OffsetPos="0,0" Size="631,317" OriginalSize="631,317" ShowPosInPI="0,303" />
     <PuzzleUnit Name="LeaveButton" UV="0.6171875,0.2958984,0.7880859,0.3603516" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,303" />
     <PuzzleUnit Name="p" UV="0.5126953,0.6064453,0.5371094,0.6357422" OffsetPos="0,0" Size="25,30" OriginalSize="25,30" ShowPosInPI="525,621" />
-    <PuzzleUnit Name="Pause" UV="0.8183594,0,0.9238281,0.08398438" OffsetPos="0,0" Size="108,86" OriginalSize="108,86" ShowPosInPI="838,0" />
+    <PuzzleUnit Name="Pause" UV="0.8183594,0,0.9433594,0.125" OffsetPos="0,0" Size="128,128" OriginalSize="128,128" ShowPosInPI="838,0" />
     <PuzzleUnit Name="PlayButton" UV="0.6171875,0.4921875,0.7421875,0.6171875" OffsetPos="0,0" Size="128,128" OriginalSize="128,128" ShowPosInPI="632,504" />
     <PuzzleUnit Name="ReplayButton" UV="0.6171875,0.3613281,0.7880859,0.4257813" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,370" />
     <PuzzleUnit Name="ResumeButton" UV="0.6171875,0.4267578,0.7880859,0.4912109" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,437" />
