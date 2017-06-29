@@ -1,12 +1,25 @@
-<!-- Author:leeyo,Time:2017/6/28 ¤U¤È 01:48:12 -->
-<PuzzleImage OriginalNameSort="Board,slider-shell,PlayButton,p,LeaveButton,ReplayButton,ScoareBoard,ResumeButton,Pause" ImageName="UI.png" Count="9" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Board" UV="0,0.2958984,0.6162109,0.6054688" OffsetPos="0,0" Size="631,317" OriginalSize="631,317" ShowPosInPI="0,303" />
-    <PuzzleUnit Name="LeaveButton" UV="0.6171875,0.2958984,0.7880859,0.3603516" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,303" />
-    <PuzzleUnit Name="p" UV="0.5126953,0.6064453,0.5371094,0.6357422" OffsetPos="0,0" Size="25,30" OriginalSize="25,30" ShowPosInPI="525,621" />
-    <PuzzleUnit Name="Pause" UV="0.8183594,0,0.9433594,0.125" OffsetPos="0,0" Size="128,128" OriginalSize="128,128" ShowPosInPI="838,0" />
-    <PuzzleUnit Name="PlayButton" UV="0.6171875,0.4921875,0.7421875,0.6171875" OffsetPos="0,0" Size="128,128" OriginalSize="128,128" ShowPosInPI="632,504" />
-    <PuzzleUnit Name="ReplayButton" UV="0.6171875,0.3613281,0.7880859,0.4257813" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,370" />
-    <PuzzleUnit Name="ResumeButton" UV="0.6171875,0.4267578,0.7880859,0.4912109" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="632,437" />
-    <PuzzleUnit Name="ScoareBoard" UV="0,0.6064453,0.5117188,0.8671875" OffsetPos="0,0" Size="524,267" OriginalSize="524,267" ShowPosInPI="0,621" />
-    <PuzzleUnit Name="slider-shell" UV="0,0,0.8173828,0.2949219" OffsetPos="0,0" Size="837,302" OriginalSize="837,302" ShowPosInPI="0,0" />
+<!-- Author:leeyo,Time:2017/6/29 ¤U¤È 03:25:41 -->
+<PuzzleImage OriginalNameSort="Board,slider-shell,ScoareBoard,0,1_1,2_1,3_1,4,5,6,7,8,9,Pause,quit,PlayButton,replay,score,p,LeaveButton,ReplayButton,ResumeButton" ImageName="UI.png" Count="22" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="0" UV="0,0.3095703,0.09960938,0.5546875" OffsetPos="3,21" Size="204,251" OriginalSize="226,332" ShowPosInPI="0,317" />
+    <PuzzleUnit Name="1_1" UV="0.1005859,0.3095703,0.1645508,0.5517578" OffsetPos="4,23" Size="131,248" OriginalSize="152,332" ShowPosInPI="206,317" />
+    <PuzzleUnit Name="2_1" UV="0.1655273,0.3095703,0.2661133,0.5566406" OffsetPos="6,21" Size="206,253" OriginalSize="219,332" ShowPosInPI="339,317" />
+    <PuzzleUnit Name="3_1" UV="0.2670898,0.3095703,0.3671875,0.5585938" OffsetPos="8,20" Size="205,255" OriginalSize="228,332" ShowPosInPI="547,317" />
+    <PuzzleUnit Name="4" UV="0.3681641,0.3095703,0.4711914,0.5566406" OffsetPos="6,20" Size="211,253" OriginalSize="239,332" ShowPosInPI="754,317" />
+    <PuzzleUnit Name="5" UV="0.472168,0.3095703,0.5698242,0.5517578" OffsetPos="6,23" Size="200,248" OriginalSize="212,332" ShowPosInPI="967,317" />
+    <PuzzleUnit Name="6" UV="0.5708008,0.3095703,0.659668,0.5566406" OffsetPos="5,20" Size="182,253" OriginalSize="212,332" ShowPosInPI="1169,317" />
+    <PuzzleUnit Name="7" UV="0.6606445,0.3095703,0.7573242,0.5576172" OffsetPos="7,20" Size="198,254" OriginalSize="212,332" ShowPosInPI="1353,317" />
+    <PuzzleUnit Name="8" UV="0.7583008,0.3095703,0.859375,0.5566406" OffsetPos="5,20" Size="207,253" OriginalSize="222,332" ShowPosInPI="1553,317" />
+    <PuzzleUnit Name="9" UV="0.8603516,0.3095703,0.9541016,0.5556641" OffsetPos="4,20" Size="192,252" OriginalSize="208,332" ShowPosInPI="1762,317" />
+    <PuzzleUnit Name="Board" UV="0,0,0.3081055,0.3095703" OffsetPos="0,0" Size="631,317" OriginalSize="631,317" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="LeaveButton" UV="0.3432617,0.9052734,0.4287109,0.9697266" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="703,927" />
+    <PuzzleUnit Name="p" UV="0.2929688,0.9140625,0.3051758,0.9433594" OffsetPos="0,0" Size="25,30" OriginalSize="25,30" ShowPosInPI="600,936" />
+    <PuzzleUnit Name="Pause" UV="0.9077148,0.5742188,0.9873047,0.7333984" OffsetPos="4,4" Size="163,163" OriginalSize="171,171" ShowPosInPI="1859,588" />
+    <PuzzleUnit Name="PlayButton" UV="0.2709961,0.5732422,0.7158203,0.8818359" OffsetPos="0,0" Size="911,316" OriginalSize="911,316" ShowPosInPI="555,587" />
+    <PuzzleUnit Name="quit" UV="0.737793,0.5839844,0.894043,0.7324219" OffsetPos="4,13" Size="320,152" OriginalSize="331,195" ShowPosInPI="1511,598" />
+    <PuzzleUnit Name="replay" UV="0.01367188,0.5693359,0.2548828,0.7167969" OffsetPos="5,12" Size="494,151" OriginalSize="505,195" ShowPosInPI="28,583" />
+    <PuzzleUnit Name="ReplayButton" UV="0.4467773,0.8925781,0.5322266,0.9570313" OffsetPos="0,0" Size="175,66" OriginalSize="175,66" ShowPosInPI="915,914" />
+    <PuzzleUnit Name="ResumeButton" UV="0.7265625,0.7695313,0.9824219,0.9599609" OffsetPos="0,0" Size="524,195" OriginalSize="524,195" ShowPosInPI="1488,788" />
+    <PuzzleUnit Name="ScoareBoard" UV="0.71875,0,0.9746094,0.2607422" OffsetPos="0,0" Size="524,267" OriginalSize="524,267" ShowPosInPI="1472,0" />
+    <PuzzleUnit Name="score" UV="0.008300781,0.7392578,0.2304688,0.9003906" OffsetPos="8,7" Size="455,165" OriginalSize="469,205" ShowPosInPI="17,757" />
+    <PuzzleUnit Name="slider-shell" UV="0.309082,0,0.7177734,0.2949219" OffsetPos="0,0" Size="837,302" OriginalSize="837,302" ShowPosInPI="633,0" />
 </PuzzleImage>

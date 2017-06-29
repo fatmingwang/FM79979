@@ -1,4 +1,4 @@
-<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/DemoPiano.xml" ChartResolution="1600,750" ChartShowPos="0,0" MoveDirection="UpToDown" BeforeTime="1" AfterTime="3">
+<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/DemoPiano.xml" ChartResolution="2208,750" ChartShowPos="0,0" MoveDirection="UpToDown" BeforeTime="0.25" AfterTime="1">
     <cSoundTimeLineData Time="1.00000" ID="53" TuneKeepTime="0.60000" />
     <cSoundTimeLineData Time="2.00000" ID="54" TuneKeepTime="1.20000" />
     <cSoundTimeLineData Time="3.00000" ID="55" TuneKeepTime="0.60000" />
@@ -10,9 +10,9 @@
     <cSoundTimeLineData Time="9.00000" ID="61" TuneKeepTime="1.20000" />
     <cSoundTimeLineData Time="10.00000" ID="62" TuneKeepTime="0.60000" />
     <cSoundTimeLineData Time="11.00000" ID="63" TuneKeepTime="1.20000" />
-    <cSoundTimeLineData Time="12.00000" ID="64" TuneKeepTime="0.60000" />
-    <cSoundTimeLineData Time="13.00000" ID="65" TuneKeepTime="1.20000" />
-    <cSoundTimeLineData Time="14.00000" ID="66" TuneKeepTime="1.20000" />
-    <cSoundTimeLineData Time="15.00000" ID="67" TuneKeepTime="0.60000" />
-    <cSoundTimeLineData Time="16.00000" ID="68" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="12.00000" ID="53" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="13.00000" ID="54" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="14.00000" ID="55" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="15.00000" ID="56" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="16.00000" ID="57" TuneKeepTime="0.60000" />
 </cSoundTimeLineDataCollection>
