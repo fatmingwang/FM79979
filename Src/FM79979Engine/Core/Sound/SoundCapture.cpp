@@ -199,7 +199,8 @@ namespace	FATMING_CORE
 		if( !m_pDevice )
 		{
 			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iSampleRate, m_iFormat,this->m_iBufferSize*sizeof(short));
-			if (alGetError() != AL_NO_ERROR)
+            auto l_Value = alGetError() ;
+			if (l_Value != AL_NO_ERROR)
 			{
 				if( m_pDevice )
 					alcCaptureCloseDevice(m_pDevice);
@@ -244,11 +245,12 @@ namespace	FATMING_CORE
 		
 		}
 		this->m_bStop = false;
+        this->m_bPause = false;
 		if( m_pDevice )
 		{
 			alcCaptureStop(m_pDevice);
-			alcCaptureCloseDevice(m_pDevice);
-			m_pDevice = nullptr;
+			//alcCaptureCloseDevice(m_pDevice);
+			//m_pDevice = nullptr;
 		}
 #else
 		AndroidRecordStop();

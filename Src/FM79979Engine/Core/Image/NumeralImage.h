@@ -38,6 +38,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(eDirection,m_eDirection,GetDirection,SetDirection);
 		void	Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
 		int64	m_i64Value;
+		GET_SET_DEC(bool,m_bDrawOnCenter,GetDrawOnCenter,SetDrawOnCenter);
 	public:
 		DEFINE_TYPE_INFO();
 		cNumeralImage(char*e_strImageName);

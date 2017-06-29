@@ -35,6 +35,7 @@ namespace	FATMING_CORE
 	class	c2DImageCollisionData;
 	struct	sJNIUtilData;
 	struct	sMultiTouchPoints;
+	class	cMessageSenderManager;
 	//in windows make sure touch points convert as well!.
 	//view port x and y might swap if direction is lanscape.
 	POINT	ConvertCoordinate(int e_iPosX,int e_iPosY,POINT e_ViewPort);
@@ -102,6 +103,7 @@ namespace	FATMING_CORE
 		static	Vector2												m_svGameScale;
 		//viewport resolution or game resolution,both them could be same,but depend on the game type.
 		static	Vector2												m_svGameResolution;
+		static	cMessageSenderManager*								m_spMessageSenderManager;
 		static  cAnimationParser*									m_spAnimationParser;
 		static  cSoundParser*										m_spSoundParser;
 		static  cImageParser*										m_spImageParser;
@@ -151,10 +153,6 @@ namespace	FATMING_CORE
 		static	bool												m_sbAllowParseBinaryFile;
 		static	cBinaryFile*										m_spLogFile;
 		static	std::string*										m_psstrGameAppName;
-
-		//mouse
-		//static cClickMouseBehavior*		m_spClickMouseBehavior;
-
 		//=================================================
 		static	void					ResoluctionParse(char*e_strFileName);
 
@@ -202,6 +200,8 @@ namespace	FATMING_CORE
 		static	cGlyphFontRender*		GetGlyphFontRenderByFileName(const wchar_t*e_strFileName);
 		static	cGlyphFontRender*		GetGlyphFontRender(const wchar_t*e_strFileName);
 		static	void					ShowInfo();
+
+		static	bool					EventMessageShot(unsigned int e_usID,void*e_pData);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
 		//FinishInput(String e_strValue);,Chancel();take a look at cpp

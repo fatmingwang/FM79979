@@ -14,6 +14,7 @@
 //https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
 //#include "C:/Program Files (x86)/Visual Leak Detector/include/vld.h"
 //#pragma comment(lib, "../../../lib/Win32/vld.lib")
+//#pragma comment(lib, "C:/Program Files (x86)/Visual Leak Detector/lib/Win32/vld.lib")
 #endif
 
 #define MAX_LOADSTRING 100
@@ -30,7 +31,7 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 HHOOK MouseHook;
 bool	g_bLeave = false;
 
-
+POINT g_WindowSize;
 cGameApp*g_pGameApp = 0;
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -57,6 +58,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 	g_pGameApp = new cEngineTestApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
+	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
 
@@ -169,8 +171,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case  WM_SIZE:
-		cGameApp::m_svViewPortSize.z = (float)LOWORD(lParam);
-		cGameApp::m_svViewPortSize.w = (float)HIWORD(lParam);
+		g_WindowSize.x = (int)LOWORD(lParam);
+		g_WindowSize.y = (int)HIWORD(lParam);
+		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )

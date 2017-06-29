@@ -9,7 +9,6 @@
 #if defined(IOS)
 #include <mach/mach_time.h>
 #include <sys/time.h>
-double sTimeAndFPS::dbConversion = 0.0;
 #elif defined(WIN32)
 #include "strsafe.h"
 #pragma warning( disable : 4793 )
@@ -49,6 +48,7 @@ namespace UT
 			cGameApp::OutputDebugInfoString(L"GLError occur");
 			int a=0;
 			//GL_INVALID_ENUM 1280
+			//GL_INVALID_VALUE 1281
 			//GL_INVALID_OPERATION 1282
 		}
 	}

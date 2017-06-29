@@ -229,10 +229,10 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 		}
 	}
 	iBiggestAmplitude = l_iMax;
-	if( l_ValueForTest.length() )
-	{
-		cGameApp::OutputDebugInfoString(l_ValueForTest);
-	}
+	//if( l_ValueForTest.length() )
+	//{
+	//	cGameApp::OutputDebugInfoString(l_ValueForTest);
+	//}
 	return true;
 }
 

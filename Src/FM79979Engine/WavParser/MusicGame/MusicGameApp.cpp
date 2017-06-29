@@ -6,7 +6,7 @@
 #include "SoundTimeLineData.h"
 #include "Parameters.h"
 
-#include "Sound/SoundFile.h"
+//#include "Sound/SoundFile.h"
 
 cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
 cSoundFFTCapture*	cMusicGameApp::m_pSoundFFTCapture = nullptr;
@@ -21,9 +21,10 @@ cMusicGameApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGa
 cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+	Vector4*l_pViewPort = &this->m_svViewPortSize;
 	*this->m_psstrGameAppName = "MusicGame";
-//	SetAcceptRationWithGameresolution((int)e_vViewportSize.x,(int)e_vViewportSize.y,(int)e_vGameResolution.x,(int)e_vGameResolution.y);
 	m_pPhaseManager = nullptr;
+	m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
 }
 
 cMusicGameApp::~cMusicGameApp()
@@ -58,8 +59,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();
@@ -77,14 +78,17 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 
 void	cMusicGameApp::Render()
 {
-	//1600,1024
-	m_svBGColor = Vector4(0.5,0.5,0.5,1);
+	//
+	//
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
 	if( m_pPhaseManager )
 	{
 		m_pPhaseManager->Render();
+		if( m_sbDebugFunctionWorking )
+			m_pPhaseManager->DebugRender();
+		
 	}
 #ifdef DEBUG
 	GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));

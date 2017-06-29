@@ -154,37 +154,42 @@ void	cTimeLineRangeChart::Init()
 		if( l_pWhiteKey )
 		{
 			m_WhiteKeyImage = l_pWhiteKey->PointDataToBaseImage(0);
+			m_pTimeLineMPDI->RemoveObject(l_pWhiteKey);
 		}
 		if( l_pBlackKey )
 		{
 			m_BlackKeyImage = l_pBlackKey->PointDataToBaseImage(0);
+			m_pTimeLineMPDI->RemoveObject(l_pBlackKey);
 		}
-		if( !m_NoteInTimelineImage )
+		if( !m_NoteInTimelineImage && l_pNote )
 		{
 			m_NoteInTimelineImage = l_pNote->PointDataToBaseImage(0);
 			if( m_NoteInTimelineImage )
 			{
 				m_NoteInTimelineImage->SetColor(Vector4(1.2f,1.1f,1.9f,1.f));
-				m_NoteInTimelineImage->SetWidth((int)(m_NoteInTimelineImage->GetWidth()*0.5));
-				m_NoteInTimelineImage->SetHeight((int)(m_NoteInTimelineImage->GetHeight()*0.5));
+				//m_NoteInTimelineImage->SetWidth((int)(m_NoteInTimelineImage->GetWidth()*0.5));
+				//m_NoteInTimelineImage->SetHeight((int)(m_NoteInTimelineImage->GetHeight()*0.5));
 			}
 		}
 		
 		m_pTimelineNoteRoot = new cRenderObject();
-		if( !m_pTickImage )
+		if( !m_pTickImage && l_pTimer )
 		{
 			m_pTickImage = l_pTimer->PointDataToBaseImage(0);
+			m_pTimeLineMPDI->RemoveObject(l_pTimer);
 			m_SoundTimeLineDataTimeline.SetShowPos(this->m_vShowPos);
 			m_SoundTimeLineDataTimeline.SetResolution(this->m_vResolution);
 			auto l_pLocalBount = m_pTickImage->GenerateBound();
 			if( l_pLocalBount )
 			{
 				RECT l_Rect = l_pLocalBount->GetRect();
-				POINT l_Size = {l_Rect.left-l_Rect.left,l_Rect.bottom-l_Rect.top};
-				l_Rect.left -= l_Size.x;
-				l_Rect.right += l_Size.x;
-				l_Rect.top -= l_Size.y;
-				l_Rect.bottom += l_Size.y;
+				POINT l_Size = {l_Rect.right-l_Rect.left,l_Rect.bottom-l_Rect.top};
+				//l_Rect.left -= l_Size.x*10;
+				//l_Rect.right += l_Size.x*10;
+				l_Rect.left = 128;
+				l_Rect.right = 128;
+				l_Rect.top -= l_Size.y*2;
+				l_Rect.bottom += l_Size.y*2;
 				cBound l_Bound(l_Rect);
 				m_pTickImage->SetLocalBound(&l_Bound);
 			}
@@ -330,6 +335,7 @@ void	cTimeLineRangeChart::RenderVertical()
 		auto l_pToneData = l_pData->GetToneData();
 		l_vShowPos.x += l_pToneData->GetWorldPosition().x;
 		l_vShowPos.y += l_pToneData->GetWorldPosition().y;
+		l_pData->SetPos(l_vShowPos);
 		Vector2 l_vTonePos = l_vShowPos;
 		if( l_pData->IsTuneMatched() )
 			continue;
@@ -573,13 +579,7 @@ void	cTimeLineRangeChart::DebugRenderTimeLineData(Vector2 e_vShowPos,Vector2 e_v
 	//float l_PosStepByTimeGap = e_vResolution.x/e_fTotalTime;
 	//Vector2 l_vCurrentTimePos = Vector2(l_PosStepByTimeGap*e_fCurrentTime,e_vShowPos.y);
 	Vector2 l_vCurrentTimePos = GetCurrenTimeControlPos(e_vShowPos,e_vResolution,e_fCurrentTime,e_fTotalTime);
-	if( m_pTickImage )
-	{
-		m_pTickImage->SetPos(l_vCurrentTimePos);
-		m_pTickImage->Render();
-	}
-	else
-		GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
+	GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
 	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
 	if( l_uiSize > 0 )
 	{
@@ -605,31 +605,29 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 {
 	Vector2 l_vCurrentTimePos = GetCurrenTimeControlPos(e_vShowPos,e_vResolution,e_fCurrentTime,e_fTotalTime);
 	if( m_pTickImage )
-	{
 		l_vCurrentTimePos.y = m_pTickImage->GetPos().y;
-		m_pTickImage->SetPos(l_vCurrentTimePos);
-		m_pTickImage->Render();
-	}
-	else
-		GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
 	if( m_pTimelineNoteRoot )
 	{
 		m_pTimelineNoteRoot->RenderNodes();
 	}
 	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
-	if( l_uiSize > 0 )
+	if( l_uiSize > 0 && m_NoteInTimelineImage )
 	{
 		for(size_t i=0;i<l_uiSize;++i)
 		{
 			auto l_Data = this->m_ObjectList[i];
 			Vector2 l_vPos = this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i];
 			l_vPos.y = l_vCurrentTimePos.y;
-			//l_vPos.y += m_NoteInTimelineImage->GetHeight();
-			l_vPos.y += 36;
+			l_vPos.y += m_NoteInTimelineImage->GetHeight()+10;
+			//l_vPos.y += 36;
 			m_NoteInTimelineImage->Render(l_vPos);
 		}
 	}
-
+	if( m_pTickImage )
+	{
+		m_pTickImage->SetPos(l_vCurrentTimePos);
+		m_pTickImage->Render();
+	}
 }
 
 cBaseImage*		cTimeLineRangeChart::GetTimeControlImage()

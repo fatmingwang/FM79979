@@ -4,28 +4,52 @@
 #include "MusicGameApp.h"
 #include "SoundFFTCapture.h"
 #include "PerformScoreCalculate.h"
+#include "AllPhaseName.h"
 cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase,cMPDI*e_pBGMPDI)
 {
 	this->SetName(L"cPerformMusicPhaseUI");
 	m_pBGMPDI = e_pBGMPDI;
 	m_pPerformMusicPhase = e_pPerformMusicPhase;
-	m_pScoreText = nullptr;
+	//m_pScoreText = nullptr;
 	m_pPause = nullptr;
 	m_pScore = nullptr;
 	m_pBG = nullptr;
-	m_pScoreFont = nullptr;
-	m_pLaserMPDILeft = nullptr;;
-	m_pLaserMPDIRight = nullptr;
+	//m_pScoreFont = nullptr;
+	m_pTouchMPDI = nullptr;
+	m_pScoreNumeial = nullptr;
+	REG_EVENT(TUNE_TIME_OVER_EVENTID,&cPerformMusicPhaseUI::TimeOverEventFire);
+	REG_EVENT(TUNE_MATCH_EVENT_ID,&cPerformMusicPhaseUI::TuneMatchedFire);
 }
 
 cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 {
 	//SAFE_DELETE(m_pBG);
+	SAFE_DELETE(m_pTouchMPDI);
 	SAFE_DELETE(m_pPause);
 	SAFE_DELETE(m_pScore);
-	SAFE_DELETE(m_pScoreFont);
-	SAFE_DELETE(m_pLaserMPDILeft);
-	SAFE_DELETE(m_pLaserMPDIRight);
+//	SAFE_DELETE(m_pScoreNumeial);
+	//SAFE_DELETE(m_pScoreFont);	
+}
+
+
+bool	cPerformMusicPhaseUI::TimeOverEventFire(void*e_pData)
+{
+	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
+	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetPos());
+	m_pTouchMPDI->Init();
+	m_pTouchMPDI->SetAnimationLoop(false);
+	m_pTouchMPDI->SetVisible(true);
+	return true;
+}
+
+bool	cPerformMusicPhaseUI::TuneMatchedFire(void*e_pData)
+{
+	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
+	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetPos());
+	m_pTouchMPDI->Init();
+	m_pTouchMPDI->SetAnimationLoop(false);
+	m_pTouchMPDI->SetVisible(true);
+	return true;
 }
 
 void	cPerformMusicPhaseUI::GamePause()
@@ -61,11 +85,24 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 			if( l_pPauseImage )
 			{
 				this->AddChildToLast(l_pPauseImage);
-				l_pPauseImage->SetPos(Vector2(1480,20));
+				l_pPauseImage->SetPos(Vector2(cGameApp::m_svGameResolution.x-l_pPauseImage->GetWidth()-20,20));
 				cClickBehavior*l_pTimeControlButton = nullptr;
 				if( this->m_pPerformMusicPhase->m_pTimeLineRangeChart )
 				{
-					l_pTimeControlButton = e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(this->m_pPerformMusicPhase->m_pTimeLineRangeChart->GetTimeControlImage(),nullptr,nullptr);
+					auto l_pTickImage = this->m_pPerformMusicPhase->m_pTimeLineRangeChart->GetTimeControlImage();
+					l_pTimeControlButton = e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pTickImage,nullptr,nullptr);
+					auto l_pLocalBound = l_pTickImage->GetLocalBound();
+					RECT l_Rect = l_pLocalBound->GetRect();
+					POINT l_Size = {l_Rect.right-l_Rect.left,l_Rect.bottom-l_Rect.top};
+					//l_Rect.left -= l_Size.x*10;
+					//l_Rect.right += l_Size.x*10;
+					l_Rect.left = -128;
+					l_Rect.right = 128;
+					l_Rect.top = -128;
+					l_Rect.bottom = 128;
+					cBound l_Bound(l_Rect);
+					l_pTickImage->SetLocalBound(&l_Bound);
+
 					m_pTimeControlButton = l_pTimeControlButton;
 					if(l_pTimeControlButton )
 					{
@@ -91,20 +128,42 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 			}
 		}
 	}
-	if(!m_pLaserMPDILeft)
+	if(m_LaserMPDILeftVector.Count() == 0)
 	{
 		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/PerformPhaseAnimation.mpdi");
-		auto l_pRightRaser = l_pMPDIList->GetObject(L"LaserRight");
-		auto l_pLeftRaser = l_pMPDIList->GetObject(L"LaserLeft");
-		if( l_pRightRaser )
+
+		auto l_pRightRaser = l_pMPDIList->GetObject(LEFT_LASER_MPDI_NAME);
+		auto l_pLeftRaser = l_pMPDIList->GetObject(RIGHT_LASER_MPDI_NAME);
+		for( int i=0;i<99;++i )
 		{
-			m_pLaserMPDIRight = new cMPDI(l_pRightRaser);
-			m_pLaserMPDIRight->SetVisible(false);
+			wchar_t l_strTemp[MAX_PATH];
+			swprintf(l_strTemp,MAX_PATH,L"LaserRight_%d_2208",i);
+			auto l_pRightMPDI = l_pMPDIList->GetObject(l_strTemp);
+			if( !l_pRightMPDI )
+				break;
+			cMPDI*l_pRightClone = new cMPDI(l_pRightMPDI);
+			l_pRightClone->SetVisible(false);
+			m_LaserMPDIRightVector.AddObject(l_pRightClone);
+			swprintf(l_strTemp,MAX_PATH,L"LaserLeft_%d_2208",i);
+			auto l_pLeftMPDI = l_pMPDIList->GetObject(l_strTemp);
+			if( !l_pLeftMPDI )
+				break;
+			cMPDI*l_pLeftClone = new cMPDI(l_pLeftMPDI);
+			l_pLeftClone->SetVisible(false);
+			m_LaserMPDILeftVector.AddObject(l_pLeftClone);
 		}
-		if( l_pLeftRaser )
+	}
+	if( !m_pTouchMPDI )
+	{
+		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"MusicGame/Image/PerformPhaseAnimation.mpdi");
+		if( l_pMPDIList )
 		{
-			m_pLaserMPDILeft = new cMPDI(l_pLeftRaser);
-			m_pLaserMPDILeft->SetVisible(false);
+			 auto l_pNoteTouchMPDI = l_pMPDIList->GetObject(L"NoteTouch");
+			 if( l_pNoteTouchMPDI )
+			 {
+				this->m_pTouchMPDI = new cMPDI(l_pNoteTouchMPDI);
+				m_pTouchMPDI->SetVisible(false);
+			 }
 		}
 	}
 	if( m_pPause == nullptr )
@@ -134,13 +193,26 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 					},l_pBasicSound);
 
 				Vector3 l_vPos;
-				m_pScoreText = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
+				//m_pScoreText = new cGlyphFontRender(cGameApp::m_spGlyphFontRender);
 				l_pScoreMPDI->GetObjectPos(L"ScoreText",l_vPos,true);
-				m_pScoreText->SetLocalPosition(l_vPos);
+				cPuzzleImage*l_pUIPI = cGameApp::GetPuzzleImageByFileName(L"MusicGame/Image/UI.pi");
+				if( l_pUIPI )
+				{
+					cBaseImage*l_pFirstImage = l_pUIPI->GetObject(L"0");
+					cBaseImage*l_pLastImage = l_pUIPI->GetObject(L"9");
+					if( l_pFirstImage && l_pLastImage )
+					{
+						m_pScoreNumeial = new cNumeralImage(l_pFirstImage,l_pLastImage);
+						m_pScoreNumeial->SetPos(l_vPos);
+					}
+				}
+				//m_pScoreText->SetLocalPosition(l_vPos);
 				m_pScore->AddChild(l_pScoreMPDI);
 				m_pScore->AddChild(std::get<1>(l_pLeaveImage));
 				m_pScore->AddChild(std::get<1>(l_pReplayImage));
-				m_pScore->AddChild(m_pScoreText);
+				if( m_pScoreNumeial )
+					m_pScore->AddChild(m_pScoreNumeial);
+				//m_pScore->AddChild(m_pScoreText);
 			}
 			if( l_pPauseMPDI )
 			{
@@ -167,18 +239,30 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 			}
 		}
 	}
-	if(!m_pScoreFont)
-	{
-		m_pScoreFont = new cGlyphFontRender("MusicGame/Fonts/Roboto_Slab18B");
-		m_pScoreFont->SetText(L"Score:0");
-		this->AddChildToLast(m_pScoreFont);
-	}
+	//if(!m_pScoreFont)
+	//{
+	//	m_pScoreFont = new cGlyphFontRender("MusicGame/Fonts/Roboto_Slab18B");
+	//	m_pScoreFont->SetText(L"Score:0");
+	//	this->AddChildToLast(m_pScoreFont);
+	//}
 	return true;
 }
 
 void	cPerformMusicPhaseUI::Init()
 {
 	GenerateResources(m_pPerformMusicPhase->m_pClickBehaviorDispatcher);
+	//m_LaserMPDIRightVector.Init();
+	int l_iCount = m_LaserMPDILeftVector.Count();
+	for(int i=0;i<l_iCount;++i)
+	{
+		m_LaserMPDILeftVector[i]->SetAnimationDone(true);
+	}
+	l_iCount = m_LaserMPDIRightVector.Count();
+	for(int i=0;i<l_iCount;++i)
+	{
+		m_LaserMPDIRightVector[i]->SetAnimationDone(true);
+	}
+
 	if( m_pScore )
 	{
 		m_pScore->SetEnable(false);
@@ -195,52 +279,73 @@ void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 		if( !m_pScore->IsEnable() )
 		{
 			m_pScore->SetEnable(true);
-			if( this->m_pScoreText )
+			if( this->m_pScoreNumeial )
 			{
 				cPerformScoreCalculate l_cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
 				l_cPerformScoreCalculate.CalculateScore();
-				std::wstring l_strText = L"Correct:";
-				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iCorrect);
-				l_strText += L"\nWrong:";
-				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iWrong);
-				l_strText += L"\nScore:";
-				l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iScore);
-				this->m_pScoreText->SetText(l_strText.c_str());
+				//this->m_pScoreNumeial->SetValue(l_cPerformScoreCalculate.m_iScore);
+				this->m_pScoreNumeial->SetValue(0);
+				this->m_pScoreNumeial->SetDrawOnCenter(true);
 			}
+			//if( this->m_pScoreText )
+			//{
+			//	cPerformScoreCalculate l_cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
+			//	l_cPerformScoreCalculate.CalculateScore();
+			//	std::wstring l_strText = L"Correct:";
+			//	l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iCorrect);
+			//	l_strText += L"\nWrong:";
+			//	l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iWrong);
+			//	l_strText += L"\nScore:";
+			//	l_strText += ValueToStringW(l_cPerformScoreCalculate.m_iScore);
+			//	this->m_pScoreText->SetText(l_strText.c_str());
+			//}
 		}
 	}
-	if(m_pLaserMPDIRight && m_pLaserMPDIRight->IsVisible())
+	int l_iCount = m_LaserMPDILeftVector.Count();
+	for(int i=0;i<l_iCount;++i)
 	{
-		m_pLaserMPDIRight->Update(e_fElpaseTime);
+		m_LaserMPDILeftVector[i]->Update(e_fElpaseTime);
 	}
-	if(m_pLaserMPDILeft && m_pLaserMPDILeft->IsVisible())
+	l_iCount = m_LaserMPDIRightVector.Count();
+	for(int i=0;i<l_iCount;++i)
 	{
-		m_pLaserMPDILeft->Update(e_fElpaseTime);
+		m_LaserMPDIRightVector[i]->Update(e_fElpaseTime);
+	}
+	if( m_pTouchMPDI && m_pTouchMPDI->IsVisible() )
+	{
+		m_pTouchMPDI->Update(e_fElpaseTime);
+		if(m_pTouchMPDI->IsAnimationDone())
+			m_pTouchMPDI->SetVisible(false);
 	}
 }
 
 void	cPerformMusicPhaseUI::Render()
 {
-	if(m_pLaserMPDIRight && m_pLaserMPDIRight->IsVisible())
+	int l_iCount = m_LaserMPDILeftVector.Count();
+	for(int i=0;i<l_iCount;++i)
 	{
-		m_pLaserMPDIRight->Render();
+		m_LaserMPDILeftVector[i]->Render();
 	}
-	if(m_pLaserMPDILeft && m_pLaserMPDILeft->IsVisible())
+	l_iCount = m_LaserMPDIRightVector.Count();
+	for(int i=0;i<l_iCount;++i)
 	{
-		m_pLaserMPDILeft->Render();
+		m_LaserMPDIRightVector[i]->Render();
 	}
+	if( m_pTouchMPDI && m_pTouchMPDI->IsVisible() )
+		m_pTouchMPDI->Render();
 }
 
 void	cPerformMusicPhaseUI::ShotLaser(int e_iChannel)
 {
-	if(m_pLaserMPDIRight && e_iChannel == 0)
+	int l_iTotalCount = m_LaserMPDIRightVector.Count()+m_LaserMPDILeftVector.Count();
+	int l_iIndex = e_iChannel%l_iTotalCount;
+	int l_iResult = l_iIndex/2;
+	if( l_iIndex%2 )
 	{
-		m_pLaserMPDIRight->Init();
-		m_pLaserMPDIRight->SetVisible(true);
+		m_LaserMPDIRightVector[l_iResult]->Init();
 	}
-	if(m_pLaserMPDILeft && e_iChannel == 1)
+	else
 	{
-		m_pLaserMPDILeft->Init();
-		m_pLaserMPDILeft->SetVisible(true);
+		m_LaserMPDILeftVector[l_iResult]->Init();
 	}
 }

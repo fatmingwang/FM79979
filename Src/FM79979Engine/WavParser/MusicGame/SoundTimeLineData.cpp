@@ -3,6 +3,7 @@
 #include "SoundTimeLineData.h"
 #include "FindTimeDomainFrequenceAndAmplitude.h"
 #include "Parameters.h"
+#include "AllPhaseName.h"
 
 TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
@@ -41,17 +42,17 @@ void		cSoundTimeLineData::Init()
 
 void		cSoundTimeLineData::Update(float e_fCurrentTime)
 {
-#ifdef PARSE_TEST_SOUND
 	if( !m_bAlreadyPlayTestFlag )
 	{
 		//if(this->m_fCompareTime+cSoundCompareParameter::m_sfCompareTuneTolerateTime-e_fCurrentTime<=cSoundCompareParameter::m_sfCompareTuneTolerateTime)
 		if(IsStillInCompareTime(e_fCurrentTime))
 		{
 			m_bAlreadyPlayTestFlag = true;
+#ifdef PARSE_TEST_SOUND
 			cGameApp::SoundPlay(this->GetName(),true);
+#endif
 		}
 	}
-#endif
 }
 
 bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
@@ -112,10 +113,12 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	if(m_fResultScore < l_fPercent )
 	{
 		m_fResultScore = l_fPercent;
+#ifdef DEBUG
 		std::wstring l_str = this->GetName();
 		l_str += L",Percent:";
 		l_str += ValueToStringW((int)(l_fPercent*100));
 		cGameApp::OutputDebugInfoString(l_str);
+#endif
 	}
 
 	if( l_fPercent >= 0.95f )
@@ -123,7 +126,11 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	{
 //		m_fResultScore = (float)m_iCurrentMatchedIndex/l_pDataVector->size();
 		++m_iCurrentMatchedIndex;
+		cGameApp::EventMessageShot(TUNE_MATCH_EVENT_ID,this);
+		
+#ifdef DEBUG
 		cGameApp::OutputDebugInfoString(ValueToStringW(l_MatchedVector));
+#endif
 	}
 	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
 	{
@@ -143,7 +150,11 @@ bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 	{
 		if(IsFinish(e_fTargetTime))
 		{
-			this->SetTimeOver(true);
+			if( !this->IsTimeOver() )
+			{
+				cGameApp::EventMessageShot(TUNE_TIME_OVER_EVENTID,this);
+				this->SetTimeOver(true);
+			}
 		}
 		//cGameApp::OutputDebugInfoString(L"Not compare!!");
 		return false;

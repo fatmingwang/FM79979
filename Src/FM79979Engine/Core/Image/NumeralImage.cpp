@@ -13,6 +13,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cTimeNumerialImage);
 	cNumeralImage::cNumeralImage(char*e_strImageName):cBaseImage(e_strImageName)
 	{
+		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		this->m_iSingleImageHeight = m_iHeight;	
 		this->m_iSingleImageWidth = m_iWidth/10;
@@ -34,6 +35,7 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cBaseImage*e_pImage,float*e_pftexCoordinate):cBaseImage(e_pImage)
 	{
+		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		m_eDirection = eD_LEFT;
 		//this->m_iImageSpace = e_iImageSpace;
@@ -54,6 +56,7 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9):cBaseImage(e_pImage0)
 	{
+		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		m_eDirection = eD_LEFT;
 		//this->m_iImageSpace = e_iImageSpace;
@@ -79,6 +82,7 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cNumeralImage*e_pNumeralImage):cBaseImage(e_pNumeralImage)
 	{
+		m_bDrawOnCenter = e_pNumeralImage->m_bDrawOnCenter;
 		m_i64Value = 0;
 		m_eDirection = e_pNumeralImage->m_eDirection;
 		//this->m_iImageSpace = e_iImageSpace;
@@ -253,7 +257,10 @@ namespace FATMING_CORE
 	void	cNumeralImage::Render()
 	{
 		Vector3	l_vPos = this->GetPos();
-		Draw(m_i64Value,(int)l_vPos.x,(int)l_vPos.y);
+		if( this->m_bDrawOnCenter )
+			DrawOnCenter(m_i64Value,(int)l_vPos.x,(int)l_vPos.y);
+		else
+			Draw(m_i64Value,(int)l_vPos.x,(int)l_vPos.y);
 	}
 
 	void	cNumeralImage::SetValue(int64 e_i64Value)

@@ -1,0 +1,69 @@
+<cSoundTimeLineDataCollection ToneDataFileName="MusicGame/Piano/Piano.xml" ChartResolution="1820,600" ChartShowPos="50,0" MoveDirection="UpToDown" BeforeTime="4" AfterTime="6">
+    <cSoundTimeLineData Time="2.00000" ID="21" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="22" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="23" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="24" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="25" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="26" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="27" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="28" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="29" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="30" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="31" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="32" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="33" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="34" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="35" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="36" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="37" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="38" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="39" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="40" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="41" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="42" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="43" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="44" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="45" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="46" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="47" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="48" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="49" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="50" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="51" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="52" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="53" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="54" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="55" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="56" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="57" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="58" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="59" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="60" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="61" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="62" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="63" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="64" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="65" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="66" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="67" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="68" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="69" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="70" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="71" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="72" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="73" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="74" TuneKeepTime="0.60000" />
+    <cSoundTimeLineData Time="2.00000" ID="75" TuneKeepTime="1.20000" />
+    <cSoundTimeLineData Time="2.00000" ID="76" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="77" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="78" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="79" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="80" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="81" TuneKeepTime="1.20000" />
+
+<cSoundTimeLineData Time="2.00000" ID="106" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="107" TuneKeepTime="1.20000" />
+  <cSoundTimeLineData Time="2.00000" ID="108" TuneKeepTime="1.20000" />
+  
+  
+</cSoundTimeLineDataCollection>

@@ -30,7 +30,7 @@
 #if defined(ANDROID)
 #include <GLES2/gl2.h>
 #elif defined(IOS)
-#include <OpemGLES/ES2/gl.h>
+#include <OpenGLES/ES2/gl.h>
 //#include <OpemGLES/ES2/gl.h>
 #elif defined(WIN32)
 #include "../../../../Include/glew.h"

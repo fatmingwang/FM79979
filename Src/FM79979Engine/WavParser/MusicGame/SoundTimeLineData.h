@@ -50,6 +50,8 @@ class cSoundTimeLineData:public NamedTypedObject
 	//time is over?
 	bool								IsFinish(float e_fCurrentTime);
 	bool								IsStillInCompareTime(float e_fTargetTime);
+	//for fire event
+	Vector3								m_vPos;
 public:
 	DEFINE_TYPE_INFO();
 	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
@@ -67,6 +69,8 @@ public:
 	bool				IsTimeOver(){ return m_bTimeOver; }
 	void				SetTimeOver(bool e_bTimeOver){m_bTimeOver = e_bTimeOver;}
 	float				GetTuneKeepTime(){ return m_fTuneKeepTime; }
+	Vector3				GetPos(){return m_vPos;}
+	void				SetPos(Vector3 e_vPos){m_vPos = e_vPos;}
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">

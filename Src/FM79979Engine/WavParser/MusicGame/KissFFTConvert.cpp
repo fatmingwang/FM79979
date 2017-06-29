@@ -275,8 +275,8 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 	SAFE_DELETE(l_pKiss_FFT_In);
 	SAFE_DELETE(l_pKiss_FFT_Out);
 	m_Timer.Update();
-	double secs = m_Timer.fElpaseTime;
-	cGameApp::OutputDebugInfoString(ValueToString(secs));
+	//double secs = m_Timer.fElpaseTime;
+	//cGameApp::OutputDebugInfoString(ValueToString(secs));
 }
 void	cKissFFTConvert::Destroy()
 {

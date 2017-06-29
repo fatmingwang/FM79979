@@ -230,8 +230,8 @@ namespace PI
 					//-1 for start at 0,0 if size is 256,256 it should be 0,0~255,255 so the size is match 256,256
 					l_pPuzzleData->Size.x,
 					l_pPuzzleData->Size.y);
-				if( l_fPosX+l_pPuzzleData->Size.x>= l_pOriginalImage->Width || 
-					l_fPosX+l_pPuzzleData->Size.y>= l_pOriginalImage->Height)
+				if( (int)l_fPosX+l_pPuzzleData->Size.x>= l_pOriginalImage->Width || 
+					(int)l_fPosY+l_pPuzzleData->Size.y>= l_pOriginalImage->Height)
 				{
 					l_bTextureHasBeenReized = true;
 				}

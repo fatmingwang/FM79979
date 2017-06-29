@@ -1,0 +1,42 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\g2m.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.18333" LastMatchTime="0.18333" Frequency="6244.62891" Amplitude="103" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.46667" LastMatchTime="0.46667" Frequency="5900.09766" Amplitude="104" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.68333" LastMatchTime="0.68333" Frequency="5684.76563" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.25000" LastMatchTime="0.26667" Frequency="86.13281" Amplitude="123" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.41667" LastMatchTime="0.43333" Frequency="387.59766" Amplitude="117" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.66667" LastMatchTime="0.68333" Frequency="86.13281" Amplitude="123" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.06667" KeepTime="0.18333" LastMatchTime="0.26667" Frequency="5555.56641" Amplitude="108" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.11667" KeepTime="0.55000" LastMatchTime="0.66667" Frequency="5986.23047" Amplitude="104" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.15000" KeepTime="0.11667" LastMatchTime="0.26667" Frequency="947.46094" Amplitude="101" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.35000" KeepTime="0.15000" LastMatchTime="0.50000" Frequency="1076.66016" Amplitude="96" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.36667" KeepTime="0.13333" LastMatchTime="0.51667" Frequency="6589.16016" Amplitude="95" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.28333" LastMatchTime="0.68333" Frequency="1248.92578" Amplitude="93" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.28333" LastMatchTime="0.68333" Frequency="7105.95703" Amplitude="94" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.41667" KeepTime="0.10000" LastMatchTime="0.51667" Frequency="1593.45703" Amplitude="93" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.46667" KeepTime="0.21667" LastMatchTime="0.68333" Frequency="6459.96094" Amplitude="92" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.53333" KeepTime="0.10000" LastMatchTime="0.63333" Frequency="1291.99219" Amplitude="90" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.53333" KeepTime="0.13333" LastMatchTime="0.66667" Frequency="5512.50000" Amplitude="96" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.53333" KeepTime="0.13333" LastMatchTime="0.68333" Frequency="6201.56250" Amplitude="90" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.58333" KeepTime="0.10000" LastMatchTime="0.68333" Frequency="1464.25781" Amplitude="90" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.68333" LastMatchTime="0.68333" Frequency="5598.63281" Amplitude="107" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.70000" LastMatchTime="0.70000" Frequency="5684.76563" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.70000" LastMatchTime="0.70000" Frequency="5770.89844" Amplitude="105" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.70000" LastMatchTime="0.70000" Frequency="5943.16406" Amplitude="105" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.66667" LastMatchTime="0.68333" Frequency="6158.49609" Amplitude="105" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.68333" LastMatchTime="0.68333" Frequency="6244.62891" Amplitude="103" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.66667" LastMatchTime="0.68333" Frequency="129.19922" Amplitude="124" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.68333" LastMatchTime="0.70000" Frequency="215.33203" Amplitude="130" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.68333" LastMatchTime="0.70000" Frequency="387.59766" Amplitude="117" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.66667" LastMatchTime="0.68333" Frequency="645.99609" Amplitude="115" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.68333" LastMatchTime="0.70000" Frequency="732.12891" Amplitude="107" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.28333" LastMatchTime="0.68333" Frequency="1248.92578" Amplitude="93" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.28333" LastMatchTime="0.68333" Frequency="6761.42578" Amplitude="94" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.28333" LastMatchTime="0.68333" Frequency="7105.95703" Amplitude="94" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.43333" KeepTime="0.25000" LastMatchTime="0.68333" Frequency="1550.39063" Amplitude="93" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.45000" KeepTime="0.25000" LastMatchTime="0.70000" Frequency="947.46094" Amplitude="91" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.46667" KeepTime="0.23333" LastMatchTime="0.70000" Frequency="6459.96094" Amplitude="92" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.50000" KeepTime="0.20000" LastMatchTime="0.70000" Frequency="904.39453" Amplitude="92" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.53333" KeepTime="0.13333" LastMatchTime="0.68333" Frequency="6201.56250" Amplitude="90" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.58333" KeepTime="0.10000" LastMatchTime="0.68333" Frequency="1464.25781" Amplitude="90" />
+</Root>

@@ -12,6 +12,8 @@
 #include "ImageButton.h"
 #include "../Physic/2DImageCollisionData.h"
 
+#include "EventSender/MessageSender.h"
+
 #if defined(ANDROID)//openAL,android.c
 #include <android/log.h>
 #include "../Android/nv_egl_util.h"
@@ -45,6 +47,7 @@ namespace	FATMING_CORE
 	bool												cGameApp::m_sbLeave = false;
 	bool												cGameApp::m_sbSpeedControl = false;
 	UT::sTimeAndFPS										cGameApp::m_sTimeAndFPS;
+	cMessageSenderManager*								cGameApp::m_spMessageSenderManager = nullptr;
 	cPaticleManager*									cGameApp::m_spPaticleManager = 0;
 	cBehaviorPaticleManager*							cGameApp::m_spBehaviorPaticleManager = 0;
 	cGlyphFontRender*									cGameApp::m_spGlyphFontRender = 0;
@@ -79,17 +82,10 @@ namespace	FATMING_CORE
 	bool												cGameApp::m_sucKeyData[MAX_PATH];
 	bool												cGameApp::m_sbEnableMouseSingnal = true;
 	bool												cGameApp::m_sbEnableKeyboardSingnal = true;
-#ifdef DEBUG
-	bool												cGameApp::m_sbDebugFunctionWorking = true;
-	bool												cGameApp::m_sbAllowParseBinaryFile = true;
-#else
 	bool												cGameApp::m_sbDebugFunctionWorking = false;
 	bool												cGameApp::m_sbAllowParseBinaryFile = true;
-#endif
 	std::string*										cGameApp::m_psstrGameAppName = 0;
 	cBinaryFile*										cGameApp::m_spLogFile = 0;
-	//cFUThreadPool*										cGameApp::m_spThreadPool = 0;
-	//cClickMouseBehavior*								cGameApp::m_spClickMouseBehavior = 0;
 //#if defined(ANDROID) || defined(IOS) 
 	eDeviceDirection									cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
 	//eDeviceDirection									cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
@@ -175,12 +171,11 @@ namespace	FATMING_CORE
 		m_svViewPortSize.w = (float)e_vViewportSize.y;
 		this->m_svDeviceViewPortSize = m_svViewPortSize;
 		m_spMultiTouchPoints = new sMultiTouchPoints();
-		//if(!m_spClickMouseBehavior)
-		//	m_spClickMouseBehavior = new cClickMouseBehavior();
         if( !m_spAnimationParser )
         {
 			//in android some how it will close force sunndenly by I donno who.
 			//m_spThreadPool = new cFUThreadPool;
+			m_spMessageSenderManager = new cMessageSenderManager();
 	        m_spAnimationParser = new cAnimationParser();
 			m_spImageParser = m_spAnimationParser->GetAllBaseImageList();
 	        m_spSoundParser = new cSoundParser();
@@ -284,7 +279,6 @@ namespace	FATMING_CORE
 		}
 		if( !m_spstrErrorMsgString )
 			m_spstrErrorMsgString = new std::wstring;
-		//m_spClickMouseBehavior->SetCollisionRange(Vector4(0,0,this->m_svGameResolution.x,this->m_svGameResolution.y));
 		m_sTimeAndFPS.Update();
 		srand(m_sTimeAndFPS.uiCurrentTime);
 		SystemErrorCheck();
@@ -295,7 +289,7 @@ namespace	FATMING_CORE
 		if( m_spLogFile )
 			m_spLogFile->WriteToFileImmediatelyWithLine("Destroy start");
 		SystemErrorCheck();
-		//SAFE_DELETE(m_spClickMouseBehavior);
+		SAFE_DELETE(m_spMessageSenderManager);
 		SAFE_DELETE(m_sp2DImageCollisionDataVector);
 		SAFE_DELETE(m_spColladaParserVector);
 		SAFE_DELETE(m_spMultiTouchPoints);
@@ -320,6 +314,8 @@ namespace	FATMING_CORE
 	{
 		m_dbGamePlayTime += e_fElpaseTime;
 		ShaderUpdate(e_fElpaseTime);
+		if(m_spMessageSenderManager)
+			m_spMessageSenderManager->Update(e_fElpaseTime);
 		SystemErrorCheck();
 	}
 	extern cBaseShader*g_pCurrentShader;
@@ -329,6 +325,9 @@ namespace	FATMING_CORE
 #ifndef OPENGLES_2_X
 		glEnableClientState(GL_VERTEX_ARRAY);
 #endif
+		//first for original resolution
+		glViewport(0,0,(GLsizei)this->m_svDeviceViewPortSize.Width(),(GLsizei)this->m_svDeviceViewPortSize.Height());
+		glClearColor(m_svBGColor.x,m_svBGColor.y,m_svBGColor.z,m_svBGColor.w);
 		glViewport((GLint)m_svViewPortSize.x,(GLint)m_svViewPortSize.y,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 		glEnable(GL_SCISSOR_TEST);
 		glScissor((GLint)m_svViewPortSize.x,(GLint)m_svViewPortSize.y,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
@@ -369,7 +368,6 @@ namespace	FATMING_CORE
 		POINT	l_Viewport = {(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height()};
 		m_sMousePosition = ConvertCoordinate(e_iPosX,e_iPosY,l_Viewport);
 		m_sbTouched = true;
-		//m_spClickMouseBehavior->MouseDown(e_iPosX,e_iPosY);
 	}
 
 	void	cGameApp::MouseMove(int e_iPosX,int e_iPosY)
@@ -380,7 +378,6 @@ namespace	FATMING_CORE
 		//	return;
 		POINT	l_Viewport = {(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height()};
         m_sMousePosition = ConvertCoordinate(e_iPosX,e_iPosY,l_Viewport);
-		//m_spClickMouseBehavior->MouseMove(e_iPosX,e_iPosY);
 	}
 
 	void	cGameApp::MouseUp(int e_iPosX,int e_iPosY)
@@ -392,7 +389,6 @@ namespace	FATMING_CORE
 		POINT	l_Viewport = {(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height()};
         m_sMousePosition = ConvertCoordinate(e_iPosX,e_iPosY,l_Viewport);
 		m_sbTouched = false;
-		//m_spClickMouseBehavior->MouseMove(e_iPosX,e_iPosY);
 	}
 
 	void	cGameApp::MouseButtonClickEvent(bool e_bDown,int e_iButtonIndex)
@@ -487,6 +483,10 @@ namespace	FATMING_CORE
 					this->m_seDeviceDirection = eDD_UPSIDE_DOWN;
 				break;
 			}
+		}
+		if( cGameApp::m_sucKeyData['D'] )
+		{
+			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
 		}
 #endif
 		m_sucKeyData[(unsigned char)e_char] = false;
@@ -656,7 +656,7 @@ namespace	FATMING_CORE
 
 	void		cGameApp::ApplyViewPort()
 	{
-		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
+		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
 	}
 
 	Vector2		cGameApp::GetViewPortAndGameResolutionScale()
@@ -760,6 +760,13 @@ namespace	FATMING_CORE
 			cGameApp::m_spGlyphFontRender->RenderFont(0,l_iStaryPosY,l_str);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
 		}	
+	}
+
+	bool	cGameApp::EventMessageShot(unsigned int e_usID,void*e_pData)
+	{
+		if(m_spMessageSenderManager)
+			return m_spMessageSenderManager->EventMessageShot(e_usID,e_pData);
+		return false;
 	}
 
 	std::wstring	cGameApp::GetDIDOrInstallationRandomID()

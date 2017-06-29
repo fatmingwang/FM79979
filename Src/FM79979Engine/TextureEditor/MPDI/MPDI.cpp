@@ -3309,6 +3309,10 @@ namespace MPDI
 		x480ToolStripMenuItem->Checked = false;
 		x1280ToolStripMenuItem->Checked = false;
 		x1024ToolStripMenuItem->Checked = false;
+		x1334ToolStripMenuItem->Checked = false;
+		x2208ToolStripMenuItem->Checked = false;
+		x2048ToolStripMenuItem->Checked = false;
+		x2732ToolStripMenuItem->Checked = false;
 		System::Windows::Forms::ToolStripMenuItem^l_pObject = (System::Windows::Forms::ToolStripMenuItem^)sender;
 		l_pObject->Checked = true;
 		if( l_pObject == x1080ToolStripMenuItem )
@@ -3339,6 +3343,30 @@ namespace MPDI
 		{
 			m_pvResolution->x = 1600.f;
 			m_pvResolution->y = 1024.f;
+		}
+		else
+		if( l_pObject == x1334ToolStripMenuItem )
+		{
+			m_pvResolution->x = 1334.f;
+			m_pvResolution->y = 750.f;
+		}
+		else
+		if( l_pObject == x2208ToolStripMenuItem )
+		{
+			m_pvResolution->x = 2208.f;
+			m_pvResolution->y = 1242.f;
+		}
+		else
+		if( l_pObject == x2048ToolStripMenuItem )
+		{
+			m_pvResolution->x = 2048;
+			m_pvResolution->y = 1536;
+		}
+		else
+		if( l_pObject == x2732ToolStripMenuItem )
+		{
+			m_pvResolution->x = 2732;
+			m_pvResolution->y = 2048;
 		}
 	}
 

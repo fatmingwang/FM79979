@@ -34,19 +34,27 @@ public:
     virtual void    MouseUp(int e_iPosX,int e_iPosY);
 };
 
-
-class cPerformMusicPhaseUI:public cRenderObject
+class cPerformMusicPhaseUI:public cRenderObject,public cMessageSender
 {
-	cGlyphFontRender*					m_pScoreFont;
+	//event
+	//now just for test
+	cMPDI*								m_pTouchMPDI;
+	bool								TimeOverEventFire(void*e_pData);
+	bool								TuneMatchedFire(void*e_pData);
+//
+	//cGlyphFontRender*					m_pScoreFont;
+	cNumeralImage*						m_pScoreNumeial;
 	cMPDI*								m_pBGMPDI;
-	cMPDI*								m_pLaserMPDILeft;
-	cMPDI*								m_pLaserMPDIRight;
+
+
+	cBehaviorObjectList<cMPDI>			m_LaserMPDILeftVector;
+	cBehaviorObjectList<cMPDI>			m_LaserMPDIRightVector;
 	//
 	cLazyClickBehaviorAndRenderObject*	m_pPause;
 	cLazyClickBehaviorAndRenderObject*	m_pScore;
 	cPerformMusicPhase*					m_pPerformMusicPhase;
 	cRenderObject*						m_pBG;
-	cGlyphFontRender*					m_pScoreText;
+	//cGlyphFontRender*					m_pScoreText;
 	cClickBehavior*						m_pTimeControlButton;
 	void								GamePause();
 public:

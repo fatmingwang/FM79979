@@ -249,6 +249,8 @@ namespace FATMING_CORE
 	void	cCurve::DoLOD()
 	{
 		m_FinallyPointList = m_OriginalPointList;
+		if( m_FinallyPointList.size() == 0 )
+			return;
 		if( m_iLOD>=2 )
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseLod();
@@ -637,6 +639,8 @@ namespace FATMING_CORE
 	//correspond LOD for finalpointlist
 	void	cCurveWithTime::IncreaseTimeLod()
 	{
+		if( m_FinalTimeList.size() == 0 )
+			return;
 		std::vector<float>	l_NewTimesList;
 		l_NewTimesList.push_back(m_FinalTimeList[0]);
 		
@@ -665,6 +669,8 @@ namespace FATMING_CORE
 	{
 		cCurve::DoLOD();
 		m_FinalTimeList = m_OriginalTimeList;
+		if( m_FinalTimeList.size() == 0 )
+			return;
 		if( m_iLOD>=2 )
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseTimeLod();

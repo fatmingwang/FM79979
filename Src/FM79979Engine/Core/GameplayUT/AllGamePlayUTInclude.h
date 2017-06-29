@@ -27,4 +27,5 @@
 #include "ObjectXMLParser.h"
 #include "CameraZoomFunction.h"
 #include "ClickBehavior/ClickBehavior.h"
+#include "EventSender/MessageSender.h"
 #endif

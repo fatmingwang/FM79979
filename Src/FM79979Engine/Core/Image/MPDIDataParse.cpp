@@ -215,6 +215,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 	
 	void	ExportMPDI(ATG::XMLWriter*e_pXMLWriter,cMPDIList*e_pMPDIList)
 	{
+		std::wstring l_strErrorMsg;
 		e_pXMLWriter->StartElement("MPDIList");
 		wchar_t	l_strMDPIName[MAX_PATH];
 		swprintf(l_strMDPIName,MAX_PATH,L"%ls_mpdi",e_pMPDIList->GetName());
@@ -276,9 +277,19 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					{
 						e_pXMLWriter->AddAttribute("RotationPosOffset",ValueToStringW(*l_pCueToStartCurvesWithTime->GetRotationAnglePosOffset()));
 					}
+					int l_iPointCount = (int)l_pCueToStartCurvesWithTime->GetOriginalPointList().size();
+					int l_iLODValue = l_pCueToStartCurvesWithTime->GetLOD();
 					e_pXMLWriter->AddAttribute("AnchorType",ValueToStringW(l_pCueToStartCurvesWithTime->GetAnchorType()));
-					e_pXMLWriter->AddAttribute("Count",(int)l_pCueToStartCurvesWithTime->GetOriginalPointList().size());
-					e_pXMLWriter->AddAttribute("LOD",l_pCueToStartCurvesWithTime->GetLOD());
+					if( l_iPointCount == 1 && l_iLODValue > 1 )
+					{
+						l_strErrorMsg += l_pCueToStartCurvesWithTime->GetName();
+						l_strErrorMsg += L" path point count is 1 but LOD is not 1 render could be wrong!\n";
+						l_pCueToStartCurvesWithTime->SetLOD(1);
+						l_iLODValue = 1;
+					}
+					e_pXMLWriter->AddAttribute("Count",l_iPointCount);
+					e_pXMLWriter->AddAttribute("LOD",l_iLODValue);
+
 					if( l_pCueToStartCurvesWithTime->IsAnimationLoop() )
 						e_pXMLWriter->AddAttribute("Loop",1);
 					ExportPointDataList(e_pXMLWriter,l_pCueToStartCurvesWithTime);
@@ -286,7 +297,11 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 			}
 			e_pXMLWriter->EndElement();//MultiPathDynamicImage
 		}
-		e_pXMLWriter->EndElement();//MPDIList	
+		e_pXMLWriter->EndElement();//MPDIList
+		if( l_strErrorMsg.length() > 0 )
+		{
+			UT::ErrorMsg(l_strErrorMsg.c_str(),L"ignore this message, because I have setup path LOD to 1 qoo");
+		}
 	}
 //end WIN32
 #endif	

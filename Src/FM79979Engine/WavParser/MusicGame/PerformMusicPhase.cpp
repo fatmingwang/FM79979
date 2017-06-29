@@ -38,7 +38,7 @@ void	cPerformMusicPhase::GenerateResources()
 		cMPDI*l_pBG = nullptr;
 		if( l_pMPDIList )
 		{
-			l_pBG = l_pMPDIList->GetObject(L"BGWithKeyBoard");
+			l_pBG = l_pMPDIList->GetObject(PERFORM_PHASE_BG_MPDI_NAME);
 		}
 		if( m_strMusicFileName.length() )
 		{
@@ -55,6 +55,7 @@ void	cPerformMusicPhase::GenerateResources()
 
 void	cPerformMusicPhase::Init()
 {
+	cGameApp::m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
 	m_bPasue = false;
 	this->m_bSatisfiedCondition = false;
 	if( cMusicGameApp::m_pSoundCapture )
@@ -127,7 +128,7 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
 	if( m_pPerformMusicPhaseUI )
-		this->m_pPerformMusicPhaseUI->UpdateNodes(e_fElpaseTime);
+		this->m_pPerformMusicPhaseUI->UpdateNodes(!m_bPasue?e_fElpaseTime:0.0000000001f);
 }
 
 void	cPerformMusicPhase::Render()
@@ -140,7 +141,6 @@ void	cPerformMusicPhase::Render()
 	{
 		m_pTimeLineRangeChart->Render();
 	}
-	//DebugRender();
 }
 
 //
@@ -166,8 +166,6 @@ void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
 		this->m_pPerformMusicPhaseUI->ShotLaser(l_i);
 	}
 	++l_i;
-	if( l_i >= 2 )
-		l_i = 0;
 }
 
 void	cPerformMusicPhase::Destroy()

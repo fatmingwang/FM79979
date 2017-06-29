@@ -213,6 +213,7 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 			break;
 		}
 	}
+	//for debug
 	if( 0 )
 	{
 		//bool

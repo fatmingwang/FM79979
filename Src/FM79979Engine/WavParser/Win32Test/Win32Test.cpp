@@ -27,7 +27,7 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 HHOOK MouseHook;
 bool	g_bLeave = false;
 
-
+POINT g_WindowSize;
 
 cGameApp*g_pGameApp = 0;
 int APIENTRY _tWinMain(HINSTANCE hInstance,
@@ -49,10 +49,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
-	cGameApp::m_svGameResolution.x = 1600;
-	cGameApp::m_svGameResolution.y = 1024;
+	cGameApp::m_svGameResolution.x = 2208;
+	cGameApp::m_svGameResolution.y = 1242;
 	g_pGameApp = new cMusicGameApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
+	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
 
@@ -166,6 +167,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case  WM_SIZE:
+		g_WindowSize.x = (int)LOWORD(lParam);
+		g_WindowSize.y = (int)HIWORD(lParam);
 		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 		//cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.y,(int)cGameApp::m_svGameResolution.x);
 		break;

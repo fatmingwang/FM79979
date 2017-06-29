@@ -1,0 +1,9 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a8.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.10000" LastMatchTime="0.11667" Frequency="9000.87891" Amplitude="114" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="3531.44531" Amplitude="111" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="9043.94531" Amplitude="119" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.10000" LastMatchTime="0.13333" Frequency="3574.51172" Amplitude="109" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.11667" LastMatchTime="0.13333" Frequency="9043.94531" Amplitude="119" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.06667" KeepTime="0.11667" LastMatchTime="0.20000" Frequency="5512.50000" Amplitude="89" />
+</Root>

@@ -1,0 +1,9 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\c7m.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="7751.95313" Amplitude="124" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.25000" LastMatchTime="0.25000" Frequency="7751.95313" Amplitude="124" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.31667" LastMatchTime="0.35000" Frequency="2239.45313" Amplitude="120" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.31667" LastMatchTime="0.35000" Frequency="5512.50000" Amplitude="108" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.35000" LastMatchTime="0.38333" Frequency="2239.45313" Amplitude="120" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.66667" LastMatchTime="0.71667" Frequency="5512.50000" Amplitude="108" />
+</Root>

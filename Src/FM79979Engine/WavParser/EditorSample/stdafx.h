@@ -10,7 +10,7 @@
 #include "../../../include/glew.h"
 #endif
 #include <stdlib.h>
-#include <malloc.h>
+//#include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
 #include <map>

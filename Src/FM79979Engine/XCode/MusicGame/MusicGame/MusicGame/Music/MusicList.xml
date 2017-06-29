@@ -1,0 +1,16 @@
+<SongList>
+  <Song FileName="MusicGame/Music/alb_esp1.xml" SongName="alb esp1"  Info="easy" />
+  <Song FileName="MusicGame/Music/bach_850.xml" SongName="bach 850"  Info="hard" />
+  <Song FileName="MusicGame/Music/elise.xml" SongName="Elise"  Info="normal" />
+  <Song FileName="MusicGame/Music/gra_esp_2.xml" SongName="gra esp 2"  Info="InfoTest1" />
+  <Song FileName="MusicGame/Music/haydn_7_1.xml" SongName="haydn 7 1"  Info="InfoTest2" />
+  <Song FileName="MusicGame/Music/haydn_8_2.xml" SongName="daydn 8 2"  Info="InfoTest3" />
+  <Song FileName="MusicGame/Music/monteverdi_libri_dei_madrigali_1_5_(c)icking-archive.xml" SongName="monteverdi "  Info="InfoTest4" />
+  <Song FileName="MusicGame/Music/muss_3.xml" SongName="Muss 3"  Info="InfoTest5" />
+  <Song FileName="MusicGame/Music/mz_545_3.xml" SongName="mz 545 3"  Info="InfoTest6" />
+  <Song FileName="MusicGame/Music/schumm-3.xml" SongName="schum 3" Info="InfoTest7" />
+  <Song FileName="MusicGame/Music/twinkle_twinkle.xml" SongName="Twinkle Twinkle" Info="InfoTest7" />
+  <Song FileName="MusicGame/Music/Test.xml" SongName="Test" Info="InfoTest7" />
+
+
+</SongList>

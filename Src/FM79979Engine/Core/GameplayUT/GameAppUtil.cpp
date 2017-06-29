@@ -129,6 +129,12 @@ namespace	FATMING_CORE
 		m_svViewPortSize.z = m_svViewPortSize.x+l_fViewPortW;
 		m_svViewPortSize.w = m_svViewPortSize.y+l_fViewPortH;
 		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
+#ifdef WIN32
+		m_svDeviceViewPortSize.x = 0;
+		m_svDeviceViewPortSize.y = 0;
+		m_svDeviceViewPortSize.z = (float)e_iDeviceViewportWidth;
+		m_svDeviceViewPortSize.w = (float)e_iDeviceViewportHeight;
+#endif
 	}
 
 

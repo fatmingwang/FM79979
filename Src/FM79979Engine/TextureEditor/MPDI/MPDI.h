@@ -139,6 +139,10 @@ namespace MPDI
 	private: System::Windows::Forms::ToolStripMenuItem^  x480ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  x1280ToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  x1024ToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^  x1334ToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^  x2208ToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^  x2048ToolStripMenuItem;
+private: System::Windows::Forms::ToolStripMenuItem^  x2732ToolStripMenuItem;
 private: 
 
 	//my
@@ -287,6 +291,7 @@ private:
 			this->childToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->resolutionToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x1080ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1024ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x720ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x480ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x1280ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -365,7 +370,10 @@ private:
 			this->EventPointName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DelEventPoint_button = (gcnew System::Windows::Forms::Button());
 			this->Video_groupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->x1024ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1334ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2208ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2048ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2732ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
@@ -721,8 +729,9 @@ private:
 			// 
 			// resolutionToolStripMenuItem
 			// 
-			this->resolutionToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {this->x1080ToolStripMenuItem, 
-				this->x1024ToolStripMenuItem, this->x720ToolStripMenuItem, this->x480ToolStripMenuItem, this->x1280ToolStripMenuItem});
+			this->resolutionToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {this->x480ToolStripMenuItem, 
+				this->x1280ToolStripMenuItem, this->x720ToolStripMenuItem, this->x1334ToolStripMenuItem, this->x1024ToolStripMenuItem, this->x1080ToolStripMenuItem, 
+				this->x2208ToolStripMenuItem, this->x2048ToolStripMenuItem, this->x2732ToolStripMenuItem});
 			this->resolutionToolStripMenuItem->Name = L"resolutionToolStripMenuItem";
 			this->resolutionToolStripMenuItem->Size = System::Drawing::Size(75, 20);
 			this->resolutionToolStripMenuItem->Text = L"Resolution";
@@ -733,6 +742,13 @@ private:
 			this->x1080ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
 			this->x1080ToolStripMenuItem->Text = L"1920x1080";
 			this->x1080ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x1024ToolStripMenuItem
+			// 
+			this->x1024ToolStripMenuItem->Name = L"x1024ToolStripMenuItem";
+			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x1024ToolStripMenuItem->Text = L"1600x1024";
+			this->x1024ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x720ToolStripMenuItem
 			// 
@@ -1789,12 +1805,33 @@ private:
 			this->Video_groupBox->TabStop = false;
 			this->Video_groupBox->Text = L"Video";
 			// 
-			// x1024ToolStripMenuItem
+			// x1334ToolStripMenuItem
 			// 
-			this->x1024ToolStripMenuItem->Name = L"x1024ToolStripMenuItem";
-			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x1024ToolStripMenuItem->Text = L"1600x1024";
-			this->x1024ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			this->x1334ToolStripMenuItem->Name = L"x1334ToolStripMenuItem";
+			this->x1334ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x1334ToolStripMenuItem->Text = L"1334x750";
+			this->x1334ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2208ToolStripMenuItem
+			// 
+			this->x2208ToolStripMenuItem->Name = L"x2208ToolStripMenuItem";
+			this->x2208ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2208ToolStripMenuItem->Text = L"2208x1242";
+			this->x2208ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2048ToolStripMenuItem
+			// 
+			this->x2048ToolStripMenuItem->Name = L"x2048ToolStripMenuItem";
+			this->x2048ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2048ToolStripMenuItem->Text = L"2048x1536";
+			this->x2048ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2732ToolStripMenuItem
+			// 
+			this->x2732ToolStripMenuItem->Name = L"x2732ToolStripMenuItem";
+			this->x2732ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2732ToolStripMenuItem->Text = L"2732x2048";
+			this->x2732ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// MPDIEditor
 			// 

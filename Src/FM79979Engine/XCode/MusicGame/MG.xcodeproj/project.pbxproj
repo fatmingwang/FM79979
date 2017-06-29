@@ -1,0 +1,605 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6156CD731EFBC64E00D10C36 /* FFTFindPeak.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD4B1EFBC64E00D10C36 /* FFTFindPeak.cpp */; };
+		6156CD741EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD4D1EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp */; };
+		6156CD751EFBC64F00D10C36 /* KissFFTConvert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD4F1EFBC64E00D10C36 /* KissFFTConvert.cpp */; };
+		6156CD761EFBC64F00D10C36 /* KissFFTStreaming.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD511EFBC64E00D10C36 /* KissFFTStreaming.cpp */; };
+		6156CD771EFBC64F00D10C36 /* MusicGameApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD531EFBC64E00D10C36 /* MusicGameApp.cpp */; };
+		6156CD781EFBC64F00D10C36 /* MusicInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD551EFBC64E00D10C36 /* MusicInfo.cpp */; };
+		6156CD791EFBC64F00D10C36 /* Parameters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD571EFBC64E00D10C36 /* Parameters.cpp */; };
+		6156CD7A1EFBC64F00D10C36 /* PerformMusicPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD591EFBC64E00D10C36 /* PerformMusicPhase.cpp */; };
+		6156CD7B1EFBC64F00D10C36 /* PerformMusicPhaseUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5B1EFBC64E00D10C36 /* PerformMusicPhaseUI.cpp */; };
+		6156CD7C1EFBC64F00D10C36 /* PerformScoreCalculate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5C1EFBC64E00D10C36 /* PerformScoreCalculate.cpp */; };
+		6156CD7D1EFBC64F00D10C36 /* QuickFFTDataFrequencyFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */; };
+		6156CD7E1EFBC64F00D10C36 /* SelectMusicPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD601EFBC64E00D10C36 /* SelectMusicPhase.cpp */; };
+		6156CD7F1EFBC64F00D10C36 /* SelectMusicPhaseUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD621EFBC64E00D10C36 /* SelectMusicPhaseUI.cpp */; };
+		6156CD801EFBC64F00D10C36 /* SoundFFTCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD631EFBC64E00D10C36 /* SoundFFTCapture.cpp */; };
+		6156CD811EFBC64F00D10C36 /* SoundTestButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD651EFBC64E00D10C36 /* SoundTestButtons.cpp */; };
+		6156CD821EFBC64F00D10C36 /* SoundTimeLineData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD671EFBC64E00D10C36 /* SoundTimeLineData.cpp */; };
+		6156CD831EFBC64F00D10C36 /* SoundTimeLineVisualizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD691EFBC64E00D10C36 /* SoundTimeLineVisualizer.cpp */; };
+		6156CD841EFBC64F00D10C36 /* StoreNoisePhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD6C1EFBC64E00D10C36 /* StoreNoisePhase.cpp */; };
+		6156CD851EFBC64F00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD6E1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp */; };
+		6156CD861EFBC64F00D10C36 /* ToneData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD701EFBC64E00D10C36 /* ToneData.cpp */; };
+		6156CD911EFBC79800D10C36 /* kiss_fft.c in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD8E1EFBC79800D10C36 /* kiss_fft.c */; };
+		6156CD9C1EFBD2D200D10C36 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6156CD9B1EFBD2D200D10C36 /* OpenAL.framework */; };
+		6156CD9E1EFBD2F800D10C36 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6156CD9D1EFBD2F800D10C36 /* CoreGraphics.framework */; };
+		6156D2431EFCDF9F00D10C36 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6156D2421EFCDF9F00D10C36 /* GLKit.framework */; };
+		6180570E1EFB6E8100C3F643 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6180570D1EFB6E8100C3F643 /* main.m */; };
+		618057111EFB6E8100C3F643 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 618057101EFB6E8100C3F643 /* AppDelegate.m */; };
+		618057161EFB6E8100C3F643 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 618057151EFB6E8100C3F643 /* ViewController.mm */; };
+		618D4DC41EFD04B4008D9932 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 618D4DC21EFD04B4008D9932 /* MainStoryboard.storyboard */; };
+		618D4DC61EFD05DD008D9932 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 618D4DC51EFD05DD008D9932 /* QuartzCore.framework */; };
+		618D4DC81EFD05E7008D9932 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 618D4DC71EFD05E7008D9932 /* OpenGLES.framework */; };
+		618D4DCA1EFD05F1008D9932 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 618D4DC91EFD05F1008D9932 /* UIKit.framework */; };
+		618D4E161EFD1873008D9932 /* MusicGame in Resources */ = {isa = PBXBuildFile; fileRef = 618D4E131EFD1873008D9932 /* MusicGame */; };
+		61C791771F00D73E0051A3FF /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C791761F00D73E0051A3FF /* libCore.a */; };
+		61C791AB1F03910A0051A3FF /* Font.FontInfo in Resources */ = {isa = PBXBuildFile; fileRef = 61C791A91F03910A0051A3FF /* Font.FontInfo */; };
+		61C791AC1F03910A0051A3FF /* Font.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C791AA1F03910A0051A3FF /* Font.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6156CD481EFBC64E00D10C36 /* AllPhaseName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AllPhaseName.h; path = ../../WavParser/MusicGame/AllPhaseName.h; sourceTree = "<group>"; };
+		6156CD491EFBC64E00D10C36 /* AudioSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioSettings.h; path = ../../WavParser/MusicGame/AudioSettings.h; sourceTree = "<group>"; };
+		6156CD4B1EFBC64E00D10C36 /* FFTFindPeak.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFTFindPeak.cpp; path = ../../WavParser/MusicGame/FFTFindPeak.cpp; sourceTree = "<group>"; };
+		6156CD4C1EFBC64E00D10C36 /* FFTFindPeak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFTFindPeak.h; path = ../../WavParser/MusicGame/FFTFindPeak.h; sourceTree = "<group>"; };
+		6156CD4D1EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FindTimeDomainFrequenceAndAmplitude.cpp; path = ../../WavParser/MusicGame/FindTimeDomainFrequenceAndAmplitude.cpp; sourceTree = "<group>"; };
+		6156CD4E1EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FindTimeDomainFrequenceAndAmplitude.h; path = ../../WavParser/MusicGame/FindTimeDomainFrequenceAndAmplitude.h; sourceTree = "<group>"; };
+		6156CD4F1EFBC64E00D10C36 /* KissFFTConvert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KissFFTConvert.cpp; path = ../../WavParser/MusicGame/KissFFTConvert.cpp; sourceTree = "<group>"; };
+		6156CD501EFBC64E00D10C36 /* KissFFTConvert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KissFFTConvert.h; path = ../../WavParser/MusicGame/KissFFTConvert.h; sourceTree = "<group>"; };
+		6156CD511EFBC64E00D10C36 /* KissFFTStreaming.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KissFFTStreaming.cpp; path = ../../WavParser/MusicGame/KissFFTStreaming.cpp; sourceTree = "<group>"; };
+		6156CD521EFBC64E00D10C36 /* KissFFTStreaming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KissFFTStreaming.h; path = ../../WavParser/MusicGame/KissFFTStreaming.h; sourceTree = "<group>"; };
+		6156CD531EFBC64E00D10C36 /* MusicGameApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicGameApp.cpp; path = ../../WavParser/MusicGame/MusicGameApp.cpp; sourceTree = "<group>"; };
+		6156CD541EFBC64E00D10C36 /* MusicGameApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicGameApp.h; path = ../../WavParser/MusicGame/MusicGameApp.h; sourceTree = "<group>"; };
+		6156CD551EFBC64E00D10C36 /* MusicInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicInfo.cpp; path = ../../WavParser/MusicGame/MusicInfo.cpp; sourceTree = "<group>"; };
+		6156CD561EFBC64E00D10C36 /* MusicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicInfo.h; path = ../../WavParser/MusicGame/MusicInfo.h; sourceTree = "<group>"; };
+		6156CD571EFBC64E00D10C36 /* Parameters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parameters.cpp; path = ../../WavParser/MusicGame/Parameters.cpp; sourceTree = "<group>"; };
+		6156CD581EFBC64E00D10C36 /* Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Parameters.h; path = ../../WavParser/MusicGame/Parameters.h; sourceTree = "<group>"; };
+		6156CD591EFBC64E00D10C36 /* PerformMusicPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformMusicPhase.cpp; path = ../../WavParser/MusicGame/PerformMusicPhase.cpp; sourceTree = "<group>"; };
+		6156CD5A1EFBC64E00D10C36 /* PerformMusicPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformMusicPhase.h; path = ../../WavParser/MusicGame/PerformMusicPhase.h; sourceTree = "<group>"; };
+		6156CD5B1EFBC64E00D10C36 /* PerformMusicPhaseUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformMusicPhaseUI.cpp; path = ../../WavParser/MusicGame/PerformMusicPhaseUI.cpp; sourceTree = "<group>"; };
+		6156CD5C1EFBC64E00D10C36 /* PerformScoreCalculate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformScoreCalculate.cpp; path = ../../WavParser/MusicGame/PerformScoreCalculate.cpp; sourceTree = "<group>"; };
+		6156CD5D1EFBC64E00D10C36 /* PerformScoreCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformScoreCalculate.h; path = ../../WavParser/MusicGame/PerformScoreCalculate.h; sourceTree = "<group>"; };
+		6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuickFFTDataFrequencyFinder.cpp; path = ../../WavParser/MusicGame/QuickFFTDataFrequencyFinder.cpp; sourceTree = "<group>"; };
+		6156CD5F1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuickFFTDataFrequencyFinder.h; path = ../../WavParser/MusicGame/QuickFFTDataFrequencyFinder.h; sourceTree = "<group>"; };
+		6156CD601EFBC64E00D10C36 /* SelectMusicPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectMusicPhase.cpp; path = ../../WavParser/MusicGame/SelectMusicPhase.cpp; sourceTree = "<group>"; };
+		6156CD611EFBC64E00D10C36 /* SelectMusicPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectMusicPhase.h; path = ../../WavParser/MusicGame/SelectMusicPhase.h; sourceTree = "<group>"; };
+		6156CD621EFBC64E00D10C36 /* SelectMusicPhaseUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectMusicPhaseUI.cpp; path = ../../WavParser/MusicGame/SelectMusicPhaseUI.cpp; sourceTree = "<group>"; };
+		6156CD631EFBC64E00D10C36 /* SoundFFTCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundFFTCapture.cpp; path = ../../WavParser/MusicGame/SoundFFTCapture.cpp; sourceTree = "<group>"; };
+		6156CD641EFBC64E00D10C36 /* SoundFFTCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundFFTCapture.h; path = ../../WavParser/MusicGame/SoundFFTCapture.h; sourceTree = "<group>"; };
+		6156CD651EFBC64E00D10C36 /* SoundTestButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundTestButtons.cpp; path = ../../WavParser/MusicGame/SoundTestButtons.cpp; sourceTree = "<group>"; };
+		6156CD661EFBC64E00D10C36 /* SoundTestButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundTestButtons.h; path = ../../WavParser/MusicGame/SoundTestButtons.h; sourceTree = "<group>"; };
+		6156CD671EFBC64E00D10C36 /* SoundTimeLineData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundTimeLineData.cpp; path = ../../WavParser/MusicGame/SoundTimeLineData.cpp; sourceTree = "<group>"; };
+		6156CD681EFBC64E00D10C36 /* SoundTimeLineData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundTimeLineData.h; path = ../../WavParser/MusicGame/SoundTimeLineData.h; sourceTree = "<group>"; };
+		6156CD691EFBC64E00D10C36 /* SoundTimeLineVisualizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundTimeLineVisualizer.cpp; path = ../../WavParser/MusicGame/SoundTimeLineVisualizer.cpp; sourceTree = "<group>"; };
+		6156CD6A1EFBC64E00D10C36 /* SoundTimeLineVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundTimeLineVisualizer.h; path = ../../WavParser/MusicGame/SoundTimeLineVisualizer.h; sourceTree = "<group>"; };
+		6156CD6B1EFBC64E00D10C36 /* stdafx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stdafx.h; path = ../../WavParser/MusicGame/stdafx.h; sourceTree = "<group>"; };
+		6156CD6C1EFBC64E00D10C36 /* StoreNoisePhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StoreNoisePhase.cpp; path = ../../WavParser/MusicGame/StoreNoisePhase.cpp; sourceTree = "<group>"; };
+		6156CD6D1EFBC64E00D10C36 /* StoreNoisePhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoreNoisePhase.h; path = ../../WavParser/MusicGame/StoreNoisePhase.h; sourceTree = "<group>"; };
+		6156CD6E1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeFrequencyAmplitudeValueCapture.cpp; path = ../../WavParser/MusicGame/TimeFrequencyAmplitudeValueCapture.cpp; sourceTree = "<group>"; };
+		6156CD6F1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeFrequencyAmplitudeValueCapture.h; path = ../../WavParser/MusicGame/TimeFrequencyAmplitudeValueCapture.h; sourceTree = "<group>"; };
+		6156CD701EFBC64E00D10C36 /* ToneData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ToneData.cpp; path = ../../WavParser/MusicGame/ToneData.cpp; sourceTree = "<group>"; };
+		6156CD711EFBC64E00D10C36 /* ToneData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ToneData.h; path = ../../WavParser/MusicGame/ToneData.h; sourceTree = "<group>"; };
+		6156CD8D1EFBC79800D10C36 /* _kiss_fft_guts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = _kiss_fft_guts.h; path = ../../WavParser/kiss_fft130/_kiss_fft_guts.h; sourceTree = "<group>"; };
+		6156CD8E1EFBC79800D10C36 /* kiss_fft.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = kiss_fft.c; path = ../../WavParser/kiss_fft130/kiss_fft.c; sourceTree = "<group>"; };
+		6156CD8F1EFBC79800D10C36 /* kiss_fft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = kiss_fft.h; path = ../../WavParser/kiss_fft130/kiss_fft.h; sourceTree = "<group>"; };
+		6156CD901EFBC79800D10C36 /* kissfft.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kissfft.hh; path = ../../WavParser/kiss_fft130/kissfft.hh; sourceTree = "<group>"; };
+		6156CD9B1EFBD2D200D10C36 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		6156CD9D1EFBD2F800D10C36 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6156D2421EFCDF9F00D10C36 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		618057091EFB6E8100C3F643 /* MG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6180570D1EFB6E8100C3F643 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MusicGame/main.m; sourceTree = "<group>"; };
+		6180570F1EFB6E8100C3F643 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		618057101EFB6E8100C3F643 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		618057141EFB6E8100C3F643 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		618057151EFB6E8100C3F643 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		6180571F1EFB6E8100C3F643 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		618D4DC31EFD04B4008D9932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = MusicGame/Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		618D4DC51EFD05DD008D9932 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		618D4DC71EFD05E7008D9932 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		618D4DC91EFD05F1008D9932 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		618D4E131EFD1873008D9932 /* MusicGame */ = {isa = PBXFileReference; lastKnownFileType = folder; name = MusicGame; path = MusicGame/MusicGame; sourceTree = "<group>"; };
+		618D4E4D1F00D0C3008D9932 /* libCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCore.a; sourceTree = "<group>"; };
+		61C791761F00D73E0051A3FF /* libCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCore.a; path = "../Core/build/Debug-iphoneos/libCore.a"; sourceTree = "<group>"; };
+		61C791A91F03910A0051A3FF /* Font.FontInfo */ = {isa = PBXFileReference; lastKnownFileType = file; name = Font.FontInfo; path = MusicGame/Font.FontInfo; sourceTree = "<group>"; };
+		61C791AA1F03910A0051A3FF /* Font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Font.png; path = MusicGame/Font.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		618057061EFB6E8100C3F643 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				61C791771F00D73E0051A3FF /* libCore.a in Frameworks */,
+				618D4DCA1EFD05F1008D9932 /* UIKit.framework in Frameworks */,
+				618D4DC81EFD05E7008D9932 /* OpenGLES.framework in Frameworks */,
+				618D4DC61EFD05DD008D9932 /* QuartzCore.framework in Frameworks */,
+				6156D2431EFCDF9F00D10C36 /* GLKit.framework in Frameworks */,
+				6156CD9E1EFBD2F800D10C36 /* CoreGraphics.framework in Frameworks */,
+				6156CD9C1EFBD2D200D10C36 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6156CD441EFBC61700D10C36 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD6B1EFBC64E00D10C36 /* stdafx.h */,
+				6156CD531EFBC64E00D10C36 /* MusicGameApp.cpp */,
+				6156CD541EFBC64E00D10C36 /* MusicGameApp.h */,
+				6156CD6C1EFBC64E00D10C36 /* StoreNoisePhase.cpp */,
+				6156CD6D1EFBC64E00D10C36 /* StoreNoisePhase.h */,
+				6156CD471EFBC63400D10C36 /* Phase */,
+				6156CD461EFBC62B00D10C36 /* MusicReleated */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		6156CD451EFBC62200D10C36 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD651EFBC64E00D10C36 /* SoundTestButtons.cpp */,
+				6156CD661EFBC64E00D10C36 /* SoundTestButtons.h */,
+				6156CD571EFBC64E00D10C36 /* Parameters.cpp */,
+				6156CD581EFBC64E00D10C36 /* Parameters.h */,
+				6156CD8B1EFBC6CD00D10C36 /* ToneResource */,
+				6156CD891EFBC6BC00D10C36 /* TimeLine */,
+				6156CD881EFBC6B500D10C36 /* FFT */,
+				6156CD871EFBC6A800D10C36 /* CaptureAndCompare */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		6156CD461EFBC62B00D10C36 /* MusicReleated */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD551EFBC64E00D10C36 /* MusicInfo.cpp */,
+				6156CD561EFBC64E00D10C36 /* MusicInfo.h */,
+				6156CD5C1EFBC64E00D10C36 /* PerformScoreCalculate.cpp */,
+				6156CD5D1EFBC64E00D10C36 /* PerformScoreCalculate.h */,
+			);
+			name = MusicReleated;
+			sourceTree = "<group>";
+		};
+		6156CD471EFBC63400D10C36 /* Phase */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD481EFBC64E00D10C36 /* AllPhaseName.h */,
+				6156CD491EFBC64E00D10C36 /* AudioSettings.h */,
+				6156CD591EFBC64E00D10C36 /* PerformMusicPhase.cpp */,
+				6156CD5A1EFBC64E00D10C36 /* PerformMusicPhase.h */,
+				6156CD5B1EFBC64E00D10C36 /* PerformMusicPhaseUI.cpp */,
+				6156CD601EFBC64E00D10C36 /* SelectMusicPhase.cpp */,
+				6156CD611EFBC64E00D10C36 /* SelectMusicPhase.h */,
+				6156CD621EFBC64E00D10C36 /* SelectMusicPhaseUI.cpp */,
+			);
+			name = Phase;
+			sourceTree = "<group>";
+		};
+		6156CD871EFBC6A800D10C36 /* CaptureAndCompare */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD4B1EFBC64E00D10C36 /* FFTFindPeak.cpp */,
+				6156CD4C1EFBC64E00D10C36 /* FFTFindPeak.h */,
+				6156CD6E1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp */,
+				6156CD6F1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.h */,
+			);
+			name = CaptureAndCompare;
+			sourceTree = "<group>";
+		};
+		6156CD881EFBC6B500D10C36 /* FFT */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD4F1EFBC64E00D10C36 /* KissFFTConvert.cpp */,
+				6156CD501EFBC64E00D10C36 /* KissFFTConvert.h */,
+				6156CD511EFBC64E00D10C36 /* KissFFTStreaming.cpp */,
+				6156CD521EFBC64E00D10C36 /* KissFFTStreaming.h */,
+				6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */,
+				6156CD5F1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.h */,
+				6156CD631EFBC64E00D10C36 /* SoundFFTCapture.cpp */,
+				6156CD641EFBC64E00D10C36 /* SoundFFTCapture.h */,
+			);
+			name = FFT;
+			sourceTree = "<group>";
+		};
+		6156CD891EFBC6BC00D10C36 /* TimeLine */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD4D1EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp */,
+				6156CD4E1EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.h */,
+				6156CD671EFBC64E00D10C36 /* SoundTimeLineData.cpp */,
+				6156CD681EFBC64E00D10C36 /* SoundTimeLineData.h */,
+				6156CD8A1EFBC6C300D10C36 /* Visualizer */,
+			);
+			name = TimeLine;
+			sourceTree = "<group>";
+		};
+		6156CD8A1EFBC6C300D10C36 /* Visualizer */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD691EFBC64E00D10C36 /* SoundTimeLineVisualizer.cpp */,
+				6156CD6A1EFBC64E00D10C36 /* SoundTimeLineVisualizer.h */,
+			);
+			name = Visualizer;
+			sourceTree = "<group>";
+		};
+		6156CD8B1EFBC6CD00D10C36 /* ToneResource */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD701EFBC64E00D10C36 /* ToneData.cpp */,
+				6156CD711EFBC64E00D10C36 /* ToneData.h */,
+			);
+			name = ToneResource;
+			sourceTree = "<group>";
+		};
+		6156CD8C1EFBC78200D10C36 /* kissfft */ = {
+			isa = PBXGroup;
+			children = (
+				6156CD8D1EFBC79800D10C36 /* _kiss_fft_guts.h */,
+				6156CD8E1EFBC79800D10C36 /* kiss_fft.c */,
+				6156CD8F1EFBC79800D10C36 /* kiss_fft.h */,
+				6156CD901EFBC79800D10C36 /* kissfft.hh */,
+			);
+			name = kissfft;
+			sourceTree = "<group>";
+		};
+		6156CD941EFBD2C200D10C36 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				61C791761F00D73E0051A3FF /* libCore.a */,
+				618D4E4D1F00D0C3008D9932 /* libCore.a */,
+				618D4DC91EFD05F1008D9932 /* UIKit.framework */,
+				618D4DC71EFD05E7008D9932 /* OpenGLES.framework */,
+				618D4DC51EFD05DD008D9932 /* QuartzCore.framework */,
+				6156D2421EFCDF9F00D10C36 /* GLKit.framework */,
+				6156CD9D1EFBD2F800D10C36 /* CoreGraphics.framework */,
+				6156CD9B1EFBD2D200D10C36 /* OpenAL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		618057001EFB6E8100C3F643 = {
+			isa = PBXGroup;
+			children = (
+				61C791A91F03910A0051A3FF /* Font.FontInfo */,
+				61C791AA1F03910A0051A3FF /* Font.png */,
+				618D4E131EFD1873008D9932 /* MusicGame */,
+				6180570D1EFB6E8100C3F643 /* main.m */,
+				618D4DC21EFD04B4008D9932 /* MainStoryboard.storyboard */,
+				6156CD8C1EFBC78200D10C36 /* kissfft */,
+				6156CD451EFBC62200D10C36 /* Sound */,
+				6156CD441EFBC61700D10C36 /* Game */,
+				6180570B1EFB6E8100C3F643 /* MusicGame */,
+				6180570A1EFB6E8100C3F643 /* Products */,
+				6156CD941EFBD2C200D10C36 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6180570A1EFB6E8100C3F643 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				618057091EFB6E8100C3F643 /* MG.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6180570B1EFB6E8100C3F643 /* MusicGame */ = {
+			isa = PBXGroup;
+			children = (
+				6180570F1EFB6E8100C3F643 /* AppDelegate.h */,
+				618057101EFB6E8100C3F643 /* AppDelegate.m */,
+				618057141EFB6E8100C3F643 /* ViewController.h */,
+				618057151EFB6E8100C3F643 /* ViewController.mm */,
+				6180571F1EFB6E8100C3F643 /* Info.plist */,
+			);
+			path = MusicGame;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		618057081EFB6E8100C3F643 /* MG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 618057381EFB6E8200C3F643 /* Build configuration list for PBXNativeTarget "MG" */;
+			buildPhases = (
+				618057051EFB6E8100C3F643 /* Sources */,
+				618057061EFB6E8100C3F643 /* Frameworks */,
+				618057071EFB6E8100C3F643 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MG;
+			productName = MusicGame;
+			productReference = 618057091EFB6E8100C3F643 /* MG.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		618057011EFB6E8100C3F643 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Cloud;
+				TargetAttributes = {
+					618057081EFB6E8100C3F643 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = SLY6QSXXS5;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 618057041EFB6E8100C3F643 /* Build configuration list for PBXProject "MG" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 618057001EFB6E8100C3F643;
+			productRefGroup = 6180570A1EFB6E8100C3F643 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				618057081EFB6E8100C3F643 /* MG */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		618057071EFB6E8100C3F643 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				618D4DC41EFD04B4008D9932 /* MainStoryboard.storyboard in Resources */,
+				618D4E161EFD1873008D9932 /* MusicGame in Resources */,
+				61C791AC1F03910A0051A3FF /* Font.png in Resources */,
+				61C791AB1F03910A0051A3FF /* Font.FontInfo in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		618057051EFB6E8100C3F643 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6156CD841EFBC64F00D10C36 /* StoreNoisePhase.cpp in Sources */,
+				6156CD811EFBC64F00D10C36 /* SoundTestButtons.cpp in Sources */,
+				6156CD851EFBC64F00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp in Sources */,
+				6156CD771EFBC64F00D10C36 /* MusicGameApp.cpp in Sources */,
+				6156CD7D1EFBC64F00D10C36 /* QuickFFTDataFrequencyFinder.cpp in Sources */,
+				6156CD861EFBC64F00D10C36 /* ToneData.cpp in Sources */,
+				6156CD731EFBC64E00D10C36 /* FFTFindPeak.cpp in Sources */,
+				6156CD821EFBC64F00D10C36 /* SoundTimeLineData.cpp in Sources */,
+				6156CD761EFBC64F00D10C36 /* KissFFTStreaming.cpp in Sources */,
+				6156CD7A1EFBC64F00D10C36 /* PerformMusicPhase.cpp in Sources */,
+				6156CD791EFBC64F00D10C36 /* Parameters.cpp in Sources */,
+				6156CD781EFBC64F00D10C36 /* MusicInfo.cpp in Sources */,
+				6156CD801EFBC64F00D10C36 /* SoundFFTCapture.cpp in Sources */,
+				6156CD7E1EFBC64F00D10C36 /* SelectMusicPhase.cpp in Sources */,
+				618057111EFB6E8100C3F643 /* AppDelegate.m in Sources */,
+				6156CD7F1EFBC64F00D10C36 /* SelectMusicPhaseUI.cpp in Sources */,
+				6156CD7B1EFBC64F00D10C36 /* PerformMusicPhaseUI.cpp in Sources */,
+				6156CD831EFBC64F00D10C36 /* SoundTimeLineVisualizer.cpp in Sources */,
+				6156CD741EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp in Sources */,
+				6156CD7C1EFBC64F00D10C36 /* PerformScoreCalculate.cpp in Sources */,
+				6156CD911EFBC79800D10C36 /* kiss_fft.c in Sources */,
+				618057161EFB6E8100C3F643 /* ViewController.mm in Sources */,
+				6180570E1EFB6E8100C3F643 /* main.m in Sources */,
+				6156CD751EFBC64F00D10C36 /* KissFFTConvert.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		618D4DC21EFD04B4008D9932 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				618D4DC31EFD04B4008D9932 /* Base */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		618057361EFB6E8200C3F643 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = SLY6QSXXS5;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					OPENGLES_2_X,
+					IOS,
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		618057371EFB6E8200C3F643 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = SLY6QSXXS5;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					IOS,
+					OPENGLES_2_X,
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		618057391EFB6E8200C3F643 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					OPENGLES_2_X,
+					IOS,
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					"DEBUG=1",
+					IOS,
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../Core",
+					"$(PROJECT_DIR)/../../WaveParser/MusicGame",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "$(PROJECT_DIR)/../../Core";
+				INFOPLIST_FILE = MusicGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skysoul.MusicGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6180573A1EFB6E8200C3F643 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					IOS,
+					OPENGLES_2_X,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../Core",
+					"$(PROJECT_DIR)/../../WaveParser/MusicGame",
+				);
+				"HEADER_SEARCH_PATHS[arch=*]" = "";
+				INFOPLIST_FILE = MusicGame/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skysoul.MusicGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		618057041EFB6E8100C3F643 /* Build configuration list for PBXProject "MG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				618057361EFB6E8200C3F643 /* Debug */,
+				618057371EFB6E8200C3F643 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		618057381EFB6E8200C3F643 /* Build configuration list for PBXNativeTarget "MG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				618057391EFB6E8200C3F643 /* Debug */,
+				6180573A1EFB6E8200C3F643 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 618057011EFB6E8100C3F643 /* Project object */;
+}

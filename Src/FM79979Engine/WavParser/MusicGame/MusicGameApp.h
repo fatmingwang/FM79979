@@ -4,10 +4,10 @@ namespace	FATMING_CORE
 	class cSoundCapture;
 }
 class cSoundFFTCapture;
-
+class cMessageSenderManager;
 class cMusicGameApp:public cGameApp
 {
-	cPhaseManager*m_pPhaseManager;
+	cPhaseManager*			m_pPhaseManager;
 public:
 #if defined(ANDROID)
 		cMusicGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);
