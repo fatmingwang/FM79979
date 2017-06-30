@@ -407,8 +407,8 @@ namespace FATMING_CORE
 	void	cShockBoobsPainter::TerrainTransform(cFrameCamera*e_pFrameCamera)
 	{
 		Vector3	l_vScale = m_vTerrianScale;
-		//l_vScale.x = cGameApp::m_svGameResolution.x/m_pTerrianVertex->GetGridWidth();
-		//l_vScale.y = cGameApp::m_svGameResolution.y/m_pTerrianVertex->GetGridHeight();
+		l_vScale.x = cGameApp::m_svGameResolution.x/m_pTerrianVertex->GetGridWidth();
+		l_vScale.y = cGameApp::m_svGameResolution.y/m_pTerrianVertex->GetGridHeight();
 		if( m_pPaintImage )
 		{
 			if( !e_pFrameCamera )
