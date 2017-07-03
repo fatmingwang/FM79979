@@ -65,7 +65,7 @@ public:
 	virtual	void	Update(float e_fElpaseTime);
 	virtual	void	Render();
 	//0,left 1 right
-	void			ShotLaser(int e_iChannel);
+	void			ShotLaser();
 //	virtual	void	RenderLaser();
 
 };

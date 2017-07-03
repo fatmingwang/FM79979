@@ -155,3 +155,54 @@ void	cMusicGameApp::KeyUp(char e_char)
 		m_pPhaseManager->KeyUp(e_char);
 	}
 }
+
+void	cMusicGameApp::EditorInit()
+{
+	cGameApp::Init();
+	//sound setup
+	m_pSoundFFTCapture = new cSoundFFTCapture();
+	int l_iFrequence = 44100;
+	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
+	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
+	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
+	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
+	//
+	cGameApp::m_sTimeAndFPS.Update();
+}
+
+void	cMusicGameApp::EditorUpdate(float e_fElpaseTime)
+{
+	cGameApp::Update(e_fElpaseTime);
+	if( m_pPhaseManager )
+	{
+		m_pPhaseManager->Update(e_fElpaseTime);
+	}
+	if( m_pSoundFFTCapture )
+		m_pSoundFFTCapture->Update(e_fElpaseTime);
+}
+
+void	cMusicGameApp::EditorRender()
+{
+	//
+	//
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+	cGameApp::Render();
+	if( m_pSoundFFTCapture )
+		m_pSoundFFTCapture->Render();
+}
+
+
+void	cMusicGameApp::EditorRun()
+{
+	    cTexture::m_suiLastUsingImageIndex = -1;
+		m_sTimeAndFPS.Update();
+		float	l_fElpaseTime = m_sTimeAndFPS.fElpaseTime;
+#ifdef DEBUG
+		if( m_sbGamePause )
+			l_fElpaseTime = 0.f;
+#endif
+		EditorUpdate(m_sbSpeedControl?l_fElpaseTime*this->m_sfDebugValue:l_fElpaseTime);
+		EditorRender();
+		cGameApp::m_sMouseWhellDelta = 0;
+}

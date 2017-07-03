@@ -623,7 +623,7 @@ float g_fTest2 = 1.f;
 		}
 		/* tell the library how much we actually submitted */
 		vorbis_analysis_wrote (&vd,i);
-
+	  int* l_iAddress = &vd.pcm_current;
 	  while (vorbis_analysis_blockout (&vd,&vb) == 1) {
 		vorbis_analysis (&vb,NULL);
 		vorbis_bitrate_addblock (&vb);

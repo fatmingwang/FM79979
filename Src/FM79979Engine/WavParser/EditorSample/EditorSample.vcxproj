@@ -138,8 +138,10 @@
     <ClCompile Include="..\MusicGame\StoreNoisePhase.cpp" />
     <ClCompile Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp" />
     <ClCompile Include="..\MusicGame\ToneData.cpp" />
+    <ClCompile Include="..\Win32Test\SoundBufferSwaper.cpp" />
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="EditorSample.cpp" />
+    <ClCompile Include="SoundFrequencyAnalyizer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -171,7 +173,11 @@
     <ClInclude Include="..\MusicGame\StoreNoisePhase.h" />
     <ClInclude Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.h" />
     <ClInclude Include="..\MusicGame\ToneData.h" />
+    <ClInclude Include="..\Win32Test\SoundBufferSwaper.h" />
     <ClInclude Include="Form1.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="SoundFrequencyAnalyizer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="stdafx.h" />
@@ -186,6 +192,9 @@
     <EmbeddedResource Include="Form1.resX">
       <DependentUpon>Form1.h</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoundFrequencyAnalyizer.resx">
+      <DependentUpon>SoundFrequencyAnalyizer.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

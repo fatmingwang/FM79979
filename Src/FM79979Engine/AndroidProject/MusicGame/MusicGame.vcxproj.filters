@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="jni\main.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\engine.cpp">
+      <Filter>jni</Filter>
+    </ClCompile>
+    <ClCompile Include="jni\MyJni.c">
+      <Filter>jni\JNI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\MusicGameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\StoreNoisePhase.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\kiss_fft130\kiss_fft.c">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\MusicInfo.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\PerformScoreCalculate.cpp">
+      <Filter>Game\MusicRelated</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\PerformMusicPhaseUI.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\PerformMusicPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SelectMusicPhaseUI.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SelectMusicPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\FFTFindPeak.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\KissFFTConvert.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\KissFFTStreaming.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundFFTCapture.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineVisualizer.cpp">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp">
+      <Filter>Sound\TimeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineData.cpp">
+      <Filter>Sound\TimeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\ToneData.cpp">
+      <Filter>Sound\ToneResource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\Parameters.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundTestButtons.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="res">
+      <UniqueIdentifier>{71183848-fe1d-45b6-9ea0-8badfad4faa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{60ee654b-a1b8-43b1-ac81-32961a296680}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util">
+      <UniqueIdentifier>{807d6fd1-06f6-4020-a3e4-7c352e31ce6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni">
+      <UniqueIdentifier>{59f6ca31-a43f-4d3e-980a-3308cf0c6fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\iab">
+      <UniqueIdentifier>{1cd20caf-d218-4aff-ad54-a6fadbb10307}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\JNI">
+      <UniqueIdentifier>{59cef181-c247-475d-b792-0b7bf43d67ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\layout">
+      <UniqueIdentifier>{7e496891-6842-49d5-9780-5e5333ba47f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gen">
+      <UniqueIdentifier>{183edd52-3ac7-4aef-a1af-d94ce43282a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{b6358d86-5e50-4c68-8a0d-cdb6432f6e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net">
+      <UniqueIdentifier>{da5e35df-0756-4dd4-a88f-1779dc7ebfc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala">
+      <UniqueIdentifier>{01d499ef-70f3-4eae-8f29-a440e225c28e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j">
+      <UniqueIdentifier>{d4e82564-5f5c-4a47-8767-1f99b5844c5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\core">
+      <UniqueIdentifier>{5f5a0740-a413-41e1-a752-ff8cc7a9fd88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto">
+      <UniqueIdentifier>{cc124bcf-33f5-4683-a98e-bec3e64bfb66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\exception">
+      <UniqueIdentifier>{905d8b76-bbca-41d7-b031-324dc9945f1b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\io">
+      <UniqueIdentifier>{379d5ac4-8c95-4545-9ca8-ada2f9ed6c2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\model">
+      <UniqueIdentifier>{60f2a3f6-ea0e-4102-961b-c11c508d577a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\progress">
+      <UniqueIdentifier>{1b90c8e2-129e-4af6-b106-b204f7aeb20c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\unzip">
+      <UniqueIdentifier>{2e521fbf-4fa3-4a79-8441-773052aa847c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\util">
+      <UniqueIdentifier>{5db58743-df27-437a-bc72-294a71947200}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\zip">
+      <UniqueIdentifier>{9b6fffe8-3ad2-49d0-bef7-d869ccfeb938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\engine">
+      <UniqueIdentifier>{9eb43dc7-20ec-46f3-97dc-62256e7f1735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\net\lingala\zip4j\crypto\PBKDF2">
+      <UniqueIdentifier>{0d42ba56-f89f-47c6-8b42-91e7dbfe40a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\facebook">
+      <UniqueIdentifier>{ed74c330-7350-4119-8f84-71592b7ec662}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com">
+      <UniqueIdentifier>{50fb5d25-aa55-4f9d-b893-bc719abe0391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\drawable">
+      <UniqueIdentifier>{44d7ca67-fc93-4e56-9458-90fee331b2cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="res\values">
+      <UniqueIdentifier>{e15c6fa2-36ac-467d-8082-60ff94e3f7e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\FM79979">
+      <UniqueIdentifier>{63142aac-1a29-42ae-b839-90f52c4403ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{c4bcfc4d-0f51-489e-905f-a70eac373391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MusicRelated">
+      <UniqueIdentifier>{59945e95-3498-401d-a4e5-7039fe1f5ff4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{9acafcbe-15ec-4637-9ab4-225afd07bb0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{d7742b06-5b54-4838-a34b-932fc62ff29b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\FFT">
+      <UniqueIdentifier>{cc52d9c4-7765-401a-9492-0eb081ff5c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\CaptureAndCompare">
+      <UniqueIdentifier>{c0e2c097-64be-4035-8e58-437a2154009d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\TimeLine">
+      <UniqueIdentifier>{721d280d-9fd6-4cd0-b24a-c22300e06d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\ToneResource">
+      <UniqueIdentifier>{2d11ddb2-948e-47eb-9976-7952f5cd2cd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\TimeLine\Visualizer">
+      <UniqueIdentifier>{ae4a4a14-fb5a-4251-814a-a68a426faa95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\com\FM79979\MusicGame">
+      <UniqueIdentifier>{34c186c2-0dda-43bb-87a5-04ed0fb2fe8b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="jni\engine.h">
+      <Filter>jni</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\MusicGameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\stdafx.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\StoreNoisePhase.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\MusicInfo.h">
+      <Filter>Game\MusicRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\PerformScoreCalculate.h">
+      <Filter>Game\MusicRelated</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\AllPhaseName.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\PerformMusicPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SelectMusicPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\FFTFindPeak.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\KissFFTConvert.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\KissFFTStreaming.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundFFTCapture.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundTimeLineVisualizer.h">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.h">
+      <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundTimeLineData.h">
+      <Filter>Sound\TimeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\ToneData.h">
+      <Filter>Sound\ToneResource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\Parameters.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundTestButtons.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <JCompile Include="src\util\iab\Base64.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Base64DecoderException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabException.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabHelper.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IabResult.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Inventory.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Purchase.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\SkuDetails.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\IABManager.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\iab\Security.java">
+      <Filter>src\util\iab</Filter>
+    </JCompile>
+    <JCompile Include="src\util\Define.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerManager.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AccelerometerListener.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\MyBitmap.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderReader.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\HeaderWriter.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\core\ZipFile.java">
+      <Filter>src\net\lingala\zip4j\core</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\AESEncrpyter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\IEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardDecrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\StandardEncrypter.java">
+      <Filter>src\net\lingala\zip4j\crypto</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\AESEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\engine\ZipCryptoEngine.java">
+      <Filter>src\net\lingala\zip4j\crypto\engine</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\BinTools.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\MacBasedPRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Engine.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2HexFormatter.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PBKDF2Parameters.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\crypto\PBKDF2\PRF.java">
+      <Filter>src\net\lingala\zip4j\crypto\PBKDF2</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipException.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\exception\ZipExceptionConstants.java">
+      <Filter>src\net\lingala\zip4j\exception</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\BaseOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\CipherOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\DeflaterOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\InflaterInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\PartInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\SplitOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipInputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\io\ZipOutputStream.java">
+      <Filter>src\net\lingala\zip4j\io</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\AESExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ArchiveExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\CentralDirectory.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DataDescriptor.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\DigitalSignature.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ExtraDataRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\FileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\LocalFileHeader.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipEngineParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\UnzipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirLocator.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64EndCentralDirRecord.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\Zip64ExtendedInfo.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipModel.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\model\ZipParameters.java">
+      <Filter>src\net\lingala\zip4j\model</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java">
+      <Filter>src\net\lingala\zip4j\zip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\ArchiveMaintainer.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\CRCUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\InternalZipConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Raw.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jConstants.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\util\Zip4jUtil.java">
+      <Filter>src\net\lingala\zip4j\util</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\Unzip.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipEngine.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\unzip\UnzipUtil.java">
+      <Filter>src\net\lingala\zip4j\unzip</Filter>
+    </JCompile>
+    <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java">
+      <Filter>src\net\lingala\zip4j\progress</Filter>
+    </JCompile>
+    <JCompile Include="src\util\facebook\FBManager.java">
+      <Filter>src\util\facebook</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ExternalStorage.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NetworkUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\ZipUtilActivity.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\RootUtil.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\NumericEditTextDialog.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\util\AdMobUtility.java">
+      <Filter>src\util</Filter>
+    </JCompile>
+    <JCompile Include="src\com\FM79979\MusicGame\MusicGame.java">
+      <Filter>src\com\FM79979\MusicGame</Filter>
+    </JCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidBuild Include="AndroidManifest.xml" />
+    <AndroidBuild Include="build.xml">
+      <Filter>res</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="project.properties">
+      <Filter>res</Filter>
+    </AndroidBuild>
+    <AndroidBuild Include="proguard.cfg" />
+    <AndroidBuild Include="res\values\strings.xml">
+      <Filter>res\values</Filter>
+    </AndroidBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\drawable\icon.png">
+      <Filter>res\drawable</Filter>
+    </None>
+    <None Include="res\layout\fbmanagerlayout.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\test.xml">
+      <Filter>res\layout</Filter>
+    </None>
+  </ItemGroup>
+</Project>

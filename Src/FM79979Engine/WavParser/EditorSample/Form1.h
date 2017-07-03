@@ -40,6 +40,11 @@ namespace EditorSample
 	public:
 		Form1(void)
 		{
+			//char**l_ppData = new char*[10];
+			//for( int i=0;i<10;++i )
+			//{
+			//	l_ppData[i] = new char[200];
+			//}
 			//std::string l_str1;
 			//std::wstring l_str2;
 			//int l_ii = 0;
@@ -64,7 +69,7 @@ namespace EditorSample
 			//m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(1920,1080));
 			m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(4096,2048));
 			//m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
-			m_pGameApp->Init();
+			m_pGameApp->EditorInit();
 			m_pSoundCapture = m_pGameApp->m_pSoundCapture;
 			m_pSoundFFTCapture = m_pGameApp->m_pSoundFFTCapture;
 
@@ -92,7 +97,7 @@ namespace EditorSample
 				cGameApp::OutputDebugInfoString(l_strDeviceName.c_str());
 			}
 
-			//this->timer1->Enabled = true;
+			this->timer1->Enabled = true;
 			//
 		}
 
@@ -1153,7 +1158,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			cGameApp::m_svViewPortSize.y = 0.f;
 			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
 			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
-			this->m_pGameApp->Run();
+			this->m_pGameApp->EditorRun();
 			//if( m_pWavWaves )
 			{
 				//m_pWavWaves->Render();
@@ -1175,13 +1180,11 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 					CurrentTime_label->Text = CurrentTime_trackBar->Value+"/"+(m_pKissFFTConvertBase->GetTimeLength()*10);
 				}
 			}
-			if( m_pSoundFFTCapture )
-			{
-				m_pSoundFFTCapture->Update(l_fElpaseTime);
-				m_pSoundFFTCapture->Render();
-			}
+#ifdef DEBUG
+			GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
 			cGameApp::ShowInfo();
-			SwapBuffers(m_HdcMV);
+#endif
+			SwapBuffers(cGameApp::m_sHdc);
 		}
 
 		System::Void MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)

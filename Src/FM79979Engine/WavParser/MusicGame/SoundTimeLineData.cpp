@@ -67,6 +67,10 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	float l_fLocalTime = e_fCurrentTime-this->m_fCompareTime;
 	int	l_iAllMatched = 0;
 	auto l_pDataVector = this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData[this->m_iCurrentMatchedIndex];
+	if( !l_pDataVector )
+	{//fuck
+		return false;
+	}
 	//if( l_fLocalTime < 0.f || l_fLocalTime >= l_pDataVector->size() )
 	//{
 	//	//not ready to match or time over.
@@ -126,6 +130,7 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	{
 //		m_fResultScore = (float)m_iCurrentMatchedIndex/l_pDataVector->size();
 		++m_iCurrentMatchedIndex;
+		m_bTuneMatched = true;
 		cGameApp::EventMessageShot(TUNE_MATCH_EVENT_ID,this);
 		
 #ifdef DEBUG

@@ -83,7 +83,7 @@ namespace	FATMING_CORE
 		ALCdevice*				m_pDevice;
 #endif
 		int						m_iFormat;
-		int						m_iSampleRate;
+		int						m_iFrequency;
 		int						m_iWriteChannel;
 		int						m_iWriteBitpersample;
 		int						m_iBufferSize;
@@ -101,7 +101,7 @@ namespace	FATMING_CORE
 		bool							IsStop(){return m_bStop;}
 		bool							IsPause(){return m_bPause;}
 		void							Update(float e_fElpaseTime);
-		int								GetSampleRate(){return m_iSampleRate;}
+		int								GetFrequency(){return m_iFrequency;}
 		int								GetWriteChannel(){return m_iWriteChannel;}
 		int								GetWriteBitpersample(){return m_iWriteBitpersample;}
 		bool							IsRecording(){return m_bIsRecording;}

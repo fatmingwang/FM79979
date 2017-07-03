@@ -1,0 +1,22 @@
+<!-- Author:leeyo,Time:2017/6/29 ¤W¤È 11:49:11 -->
+<PuzzleImage OriginalNameSort="Sparks_00000,Sparks_00001,Sparks_00002,Sparks_00003,Sparks_00004,Sparks_00005,Sparks_00006,Sparks_00007,Sparks_00008,Sparks_00009,Sparks_00010,Sparks_00011,Sparks_00012,Sparks_00013,Sparks_00014,Sparks_00015,Sparks_00016,Sparks_00017,Sparks_00018" ImageName="TouchEffect.png" Count="19" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Sparks_00000" UV="0.5478516,0.434082,0.6142578,0.5136719" OffsetPos="168,176" Size="136,163" OriginalSize="500,500" ShowPosInPI="1122,889" />
+    <PuzzleUnit Name="Sparks_00001" UV="0.7978516,0.1293945,0.8964844,0.2353516" OffsetPos="134,144" Size="202,217" OriginalSize="500,500" ShowPosInPI="1634,265" />
+    <PuzzleUnit Name="Sparks_00002" UV="0.7978516,0,0.9233398,0.1293945" OffsetPos="104,120" Size="257,265" OriginalSize="500,500" ShowPosInPI="1634,0" />
+    <PuzzleUnit Name="Sparks_00003" UV="0.6293945,0.4882813,0.7783203,0.637207" OffsetPos="78,100" Size="305,305" OriginalSize="500,500" ShowPosInPI="1289,1000" />
+    <PuzzleUnit Name="Sparks_00004" UV="0,0.6196289,0.1689453,0.7832031" OffsetPos="58,84" Size="346,335" OriginalSize="500,500" ShowPosInPI="0,1269" />
+    <PuzzleUnit Name="Sparks_00005" UV="0.4160156,0.2226563,0.6000977,0.3989258" OffsetPos="42,68" Size="377,361" OriginalSize="500,500" ShowPosInPI="852,456" />
+    <PuzzleUnit Name="Sparks_00006" UV="0,0.434082,0.1918945,0.6196289" OffsetPos="34,54" Size="393,380" OriginalSize="500,500" ShowPosInPI="0,889" />
+    <PuzzleUnit Name="Sparks_00007" UV="0.4311523,0,0.6293945,0.1948242" OffsetPos="28,40" Size="406,399" OriginalSize="500,500" ShowPosInPI="883,0" />
+    <PuzzleUnit Name="Sparks_00008" UV="0.2104492,0.2226563,0.4160156,0.4262695" OffsetPos="22,27" Size="421,417" OriginalSize="500,500" ShowPosInPI="431,456" />
+    <PuzzleUnit Name="Sparks_00009" UV="0,0.2226563,0.2104492,0.434082" OffsetPos="18,16" Size="431,433" OriginalSize="500,500" ShowPosInPI="0,456" />
+    <PuzzleUnit Name="Sparks_00010" UV="0.2167969,0,0.4311523,0.2172852" OffsetPos="14,8" Size="439,445" OriginalSize="500,500" ShowPosInPI="444,0" />
+    <PuzzleUnit Name="Sparks_00011" UV="0,0,0.2167969,0.2226563" OffsetPos="12,1" Size="444,456" OriginalSize="500,500" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Sparks_00012" UV="0.3701172,0.434082,0.5478516,0.6582031" OffsetPos="94,0" Size="364,459" OriginalSize="500,500" ShowPosInPI="758,889" />
+    <PuzzleUnit Name="Sparks_00013" UV="0.1918945,0.434082,0.3701172,0.6582031" OffsetPos="95,0" Size="365,459" OriginalSize="500,500" ShowPosInPI="393,889" />
+    <PuzzleUnit Name="Sparks_00014" UV="0.6293945,0,0.7978516,0.2441406" OffsetPos="116,0" Size="345,500" OriginalSize="500,500" ShowPosInPI="1289,0" />
+    <PuzzleUnit Name="Sparks_00015" UV="0.6293945,0.2441406,0.7973633,0.4882813" OffsetPos="119,0" Size="344,500" OriginalSize="500,500" ShowPosInPI="1289,500" />
+    <PuzzleUnit Name="Sparks_00016" UV="0.1918945,0.6582031,0.3569336,0.9023438" OffsetPos="124,0" Size="338,500" OriginalSize="500,500" ShowPosInPI="393,1348" />
+    <PuzzleUnit Name="Sparks_00017" UV="0.3569336,0.6582031,0.5205078,0.9023438" OffsetPos="126,0" Size="335,500" OriginalSize="500,500" ShowPosInPI="731,1348" />
+    <PuzzleUnit Name="Sparks_00018" UV="0,0.7832031,0.1582031,0.9428711" OffsetPos="134,0" Size="324,327" OriginalSize="500,500" ShowPosInPI="0,1604" />
+</PuzzleImage>

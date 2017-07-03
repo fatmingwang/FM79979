@@ -1,0 +1,16 @@
+<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\f5m.wav">
+    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.26667" LastMatchTime="0.26667" Frequency="7019.82422" Amplitude="103" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.38333" LastMatchTime="0.38333" Frequency="6244.62891" Amplitude="113" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.36667" LastMatchTime="0.38333" Frequency="732.12891" Amplitude="131" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.38333" LastMatchTime="0.41667" Frequency="1507.32422" Amplitude="114" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.05000" KeepTime="0.48333" LastMatchTime="0.55000" Frequency="5512.50000" Amplitude="92" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.10000" KeepTime="0.10000" LastMatchTime="0.20000" Frequency="1421.19141" Amplitude="83" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.10000" KeepTime="0.13333" LastMatchTime="0.23333" Frequency="6933.69141" Amplitude="86" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.31667" KeepTime="0.15000" LastMatchTime="0.48333" Frequency="7019.82422" Amplitude="81" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.40000" KeepTime="0.16667" LastMatchTime="0.56667" Frequency="6287.69531" Amplitude="80" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.41667" KeepTime="0.15000" LastMatchTime="0.56667" Frequency="689.06250" Amplitude="81" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.68333" LastMatchTime="0.68333" Frequency="6244.62891" Amplitude="113" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.41667" KeepTime="0.28333" LastMatchTime="0.70000" Frequency="732.12891" Amplitude="90" />
+    <FrequenceAndAmplitudeAndTime StartTime="0.58333" KeepTime="0.10000" LastMatchTime="0.68333" Frequency="5555.56641" Amplitude="82" />
+</Root>

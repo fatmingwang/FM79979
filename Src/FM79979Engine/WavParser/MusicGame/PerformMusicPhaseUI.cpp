@@ -49,6 +49,7 @@ bool	cPerformMusicPhaseUI::TuneMatchedFire(void*e_pData)
 	m_pTouchMPDI->Init();
 	m_pTouchMPDI->SetAnimationLoop(false);
 	m_pTouchMPDI->SetVisible(true);
+	ShotLaser();
 	return true;
 }
 
@@ -284,7 +285,7 @@ void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 				cPerformScoreCalculate l_cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
 				l_cPerformScoreCalculate.CalculateScore();
 				//this->m_pScoreNumeial->SetValue(l_cPerformScoreCalculate.m_iScore);
-				this->m_pScoreNumeial->SetValue(0);
+				this->m_pScoreNumeial->SetValue(l_cPerformScoreCalculate.m_iScore);
 				this->m_pScoreNumeial->SetDrawOnCenter(true);
 			}
 			//if( this->m_pScoreText )
@@ -335,10 +336,11 @@ void	cPerformMusicPhaseUI::Render()
 		m_pTouchMPDI->Render();
 }
 
-void	cPerformMusicPhaseUI::ShotLaser(int e_iChannel)
+void	cPerformMusicPhaseUI::ShotLaser()
 {
+	static int l_i = 0;
 	int l_iTotalCount = m_LaserMPDIRightVector.Count()+m_LaserMPDILeftVector.Count();
-	int l_iIndex = e_iChannel%l_iTotalCount;
+	int l_iIndex = l_i%l_iTotalCount;
 	int l_iResult = l_iIndex/2;
 	if( l_iIndex%2 )
 	{
@@ -348,4 +350,5 @@ void	cPerformMusicPhaseUI::ShotLaser(int e_iChannel)
 	{
 		m_LaserMPDILeftVector[l_iResult]->Init();
 	}
+	++l_i;
 }

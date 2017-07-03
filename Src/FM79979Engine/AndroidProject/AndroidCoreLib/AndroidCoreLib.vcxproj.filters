@@ -253,6 +253,9 @@
     <Filter Include="jni\GamePlayUT\UI\Button\ClickBehavior">
       <UniqueIdentifier>{c902f3c5-9f1d-4ffa-8c9d-ae897f36bf26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\GamePlayUT\EventSender">
+      <UniqueIdentifier>{99772d62-5721-4a8e-adb9-06ee89672151}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -904,6 +907,9 @@
     <ClCompile Include="..\..\Core\Sound\OpenSL\AndroidRecord.cpp">
       <Filter>jni\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp">
+      <Filter>jni\GamePlayUT\EventSender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1524,6 +1530,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
       <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\EventSender\MessageSender.h">
+      <Filter>jni\GamePlayUT\EventSender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,6 +22,12 @@ public:
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Render();
 
+		virtual	void				EditorInit();
+		virtual	void				EditorUpdate(float e_fElpaseTime);
+		virtual	void				EditorRender();
+
+		virtual	void				EditorRun();
+
 		virtual	void				MouseDown(int e_iPosX,int e_iPosY);
 		virtual	void				MouseMove(int e_iPosX,int e_iPosY);
 		virtual	void				MouseUp(int e_iPosX,int e_iPosY);

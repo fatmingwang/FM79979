@@ -135,6 +135,12 @@
     <ClCompile Include="..\MIDIParser\Test.cpp">
       <Filter>MIDIParser</Filter>
     </ClCompile>
+    <ClCompile Include="SoundFrequencyAnalyizer.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Win32Test\SoundBufferSwaper.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -218,6 +224,12 @@
     <ClInclude Include="..\MIDIParser\Options.h">
       <Filter>MIDIParser</Filter>
     </ClInclude>
+    <ClInclude Include="SoundFrequencyAnalyizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Win32Test\SoundBufferSwaper.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">
@@ -231,6 +243,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX">
+      <Filter>Resource Files</Filter>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoundFrequencyAnalyizer.resx">
       <Filter>Resource Files</Filter>
     </EmbeddedResource>
   </ItemGroup>

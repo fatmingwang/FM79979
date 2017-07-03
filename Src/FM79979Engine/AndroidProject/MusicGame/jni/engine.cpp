@@ -40,6 +40,7 @@ extern float	g_fForce;
 Engine::Engine(NvEGLUtil& egl, struct android_app* app) :
 	mEgl(egl)
 {
+	
 	//gpg::AndroidPlatformConfiguration platform_configuration;
 	//platform_configuration.SetActivity(app->activity->clazz);
 	//add gpg,z to lin input
@@ -76,9 +77,11 @@ bool Engine::initUI()
 		Vector2	l_vViewport(mEgl.getSurfaceWidth(),mEgl.getSurfaceHeight());
 		int	l_iX = l_vViewport.x;
 		int	l_iY = l_vViewport.y;
-		g_pAndroidTestApp = new cMusicGameApp(mApp->activity,mApp->appThreadEnv,&mApp->appThreadThis,Vector2(1920,1080),l_vViewport,&mEgl);
+		g_pAndroidTestApp = new cMusicGameApp(mApp->activity,mApp->appThreadEnv,&mApp->appThreadThis,Vector2(2204,1242),l_vViewport,&mEgl);
 		g_pAndroidTestApp->Init();
 		g_pAndroidTestApp->m_sbDoMultiTouch = true;
+	FATMING_CORE::cSoundFile l_File;
+	l_File.WavToOggFile("owl.wav","test.ogg");
 		//g_pAndroidTestApp->SetAcceptRationWithGameresolution(l_vViewport.x,l_vViewport.y,1920,1080);
 		//cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
 	}

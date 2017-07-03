@@ -166,7 +166,8 @@ void	cTimeLineRangeChart::Init()
 			m_NoteInTimelineImage = l_pNote->PointDataToBaseImage(0);
 			if( m_NoteInTimelineImage )
 			{
-				m_NoteInTimelineImage->SetColor(Vector4(1.2f,1.1f,1.9f,1.f));
+				m_pTimeLineMPDI->RemoveObject(l_pNote);
+				//m_NoteInTimelineImage->SetColor(Vector4(1.2f,1.1f,1.9f,1.f));
 				//m_NoteInTimelineImage->SetWidth((int)(m_NoteInTimelineImage->GetWidth()*0.5));
 				//m_NoteInTimelineImage->SetHeight((int)(m_NoteInTimelineImage->GetHeight()*0.5));
 			}
@@ -618,8 +619,17 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 			auto l_Data = this->m_ObjectList[i];
 			Vector2 l_vPos = this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i];
 			l_vPos.y = l_vCurrentTimePos.y;
-			l_vPos.y += m_NoteInTimelineImage->GetHeight()+10;
-			//l_vPos.y += 36;
+			//l_vPos.y += m_NoteInTimelineImage->GetHeight()+10;
+			l_vPos.y += 60;
+			if( l_Data->IsTuneMatched() )
+				m_NoteInTimelineImage->SetColor(Vector4(0,1,0,1.f));
+			else
+			if( l_Data->IsTimeOver() )
+			{
+				m_NoteInTimelineImage->SetColor(Vector4(1,0,0,1.f));
+			}
+			else
+				m_NoteInTimelineImage->SetColor(Vector4(18/255.f,0,35/255.f,1.f));
 			m_NoteInTimelineImage->Render(l_vPos);
 		}
 	}

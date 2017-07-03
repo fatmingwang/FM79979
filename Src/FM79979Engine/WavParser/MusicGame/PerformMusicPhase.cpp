@@ -160,12 +160,10 @@ void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
 {
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->MouseUp(e_iPosX,e_iPosY);
-	static int l_i = 0;
 	if( m_pPerformMusicPhaseUI )
 	{
-		this->m_pPerformMusicPhaseUI->ShotLaser(l_i);
+		this->m_pPerformMusicPhaseUI->ShotLaser();
 	}
-	++l_i;
 }
 
 void	cPerformMusicPhase::Destroy()

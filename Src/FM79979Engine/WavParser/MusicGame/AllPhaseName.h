@@ -17,6 +17,7 @@
 //event related
 #define								TUNE_TIME_OVER_EVENTID	0
 #define								TUNE_MATCH_EVENT_ID		1
+//#define								TUNE_MATCH_EVENT_ID		2
 //																	PERFORM_MUSIC_PHASE
 //																	
 //SELECT_MUSIC_PHASE->PERFORM_MUSIC_PHASE->CALCULATE_MUSIC_SCORE_PHASE

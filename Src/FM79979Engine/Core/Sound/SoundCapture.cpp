@@ -46,7 +46,7 @@ namespace	FATMING_CORE
 		}
 		l_pSoundCapture->m_bThreadExitStop = false;
 		//2 for 
-		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetSampleRate()*2]; // A buffer to hold captured audio
+		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetFrequency()*2]; // A buffer to hold captured audio
 		ALCint l_iSamplesIn = 0;  // How many samples are captured
 		int l_iTest = 0;
 		while(!l_pSoundCapture->IsStop())
@@ -117,7 +117,9 @@ namespace	FATMING_CORE
 		m_fCurrntTime = 0.f;
 		m_bIsRecording = false;
 		m_pFUThreadPool = nullptr;
+#ifndef ANDROID
 		m_pDevice = nullptr;
+#endif
 		m_bPause = false;
 		m_bStop = false;
 		m_iFileSize = 0;
@@ -150,7 +152,7 @@ namespace	FATMING_CORE
 			return;
 		}
 		g_pSoundCapture = this;
-		m_iSampleRate = frequency;
+		m_iFrequency = frequency;
 #ifdef ANDROID
 		CreateAndroidAudioEngine();
 		NativeAudioCreateAudioRecorder(frequency,m_iWriteBitpersample,m_iWriteChannel);
@@ -198,7 +200,7 @@ namespace	FATMING_CORE
 		cGameApp::m_spSoundParser->IOSRecordContextSet(true);
 		if( !m_pDevice )
 		{
-			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iSampleRate, m_iFormat,this->m_iBufferSize*sizeof(short));
+			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iFrequency, m_iFormat,this->m_iBufferSize*sizeof(short));
             auto l_Value = alGetError() ;
 			if (l_Value != AL_NO_ERROR)
 			{
@@ -333,7 +335,7 @@ namespace	FATMING_CORE
 		}
 		
 		m_pSoundFile = new cSoundFile();
-		int l_iSampleRate = this->m_pSoundCapture->GetSampleRate();
+		int l_iFrequency = this->m_pSoundCapture->GetFrequency();
 		int l_iWrtteChannel = this->m_pSoundCapture->GetWriteChannel();
 		int l_iWriteBitpersample = this->m_pSoundCapture->GetWriteBitpersample();
 		if(m_eCaptureSoundFileFormat == eCSFF_OGG)
@@ -342,13 +344,13 @@ namespace	FATMING_CORE
 			{
 				UT::ErrorMsg(L"sorry ogg format only support for 16 bit now",L"Because I am lazy to fix this!");
 			}
-			m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),l_iSampleRate,l_iWrtteChannel);
+			m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),l_iFrequency,l_iWrtteChannel);
 		}
 		else
 		{
 			//   ByteRate         == SampleRate * NumChannels * BitsPerSample/8
-			int l_iByteRate = l_iSampleRate*l_iWrtteChannel*l_iWriteBitpersample/8;
-			m_pSoundFile->SetWAVFmtHdr(1,l_iWrtteChannel,l_iSampleRate,l_iByteRate,4,l_iWriteBitpersample);
+			int l_iByteRate = l_iFrequency*l_iWrtteChannel*l_iWriteBitpersample/8;
+			m_pSoundFile->SetWAVFmtHdr(1,l_iWrtteChannel,l_iFrequency,l_iByteRate,4,l_iWriteBitpersample);
 			m_pSoundFile->StartWriteWavFile(m_strSaveFileName.c_str());
 		}
 	}

@@ -35,6 +35,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	FATMING_CORE::cSoundFile l_File;
+	l_File.WavToOggFile("Sound/owl.wav","test.ogg");
+     int l_iSize1 = sizeof(ogg_int64_t);
+     int l_iSize2 = sizeof(ogg_int32_t);
+     int l_iSize3 = sizeof(ogg_uint32_t);
+     int l_iSize4 = sizeof(ogg_int16_t);
+     int l_iSize5 = sizeof(ogg_uint16_t);
+
  	// TODO: Place code here.
 	MSG msg;
 	//HACCEL hAccelTable;

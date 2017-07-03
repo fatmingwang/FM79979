@@ -57,6 +57,7 @@ bool	g_bLeave = false;
 
 
 cGameApp*g_pGameApp = 0;
+POINT g_WindowSize;
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
@@ -97,6 +98,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	g_pGameApp = new cBluffingGirlApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	if( g_pGameApp )
 		g_pGameApp->Init();
+	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
     //MouseHook = SetWindowsHookEx(WH_MOUSE_LL,MouseHookProc,hInstance,0);
@@ -215,6 +217,7 @@ POINT g_MousePosition;
 bool	g_bLeftMouseDown = false;
 bool	g_bRightMouseDown = false;
 short	g_cMouseWhellDelta = 0;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	g_cMouseWhellDelta = 0;
@@ -224,7 +227,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 	case  WM_SIZE:
 		//cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam));
-		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		g_WindowSize.x = (int)LOWORD(lParam);
+		g_WindowSize.y = (int)HIWORD(lParam);
+		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
 		//cGameApp::m_svViewPortSize.z = (float)LOWORD(lParam);
 		//cGameApp::m_svViewPortSize.w = (float)HIWORD(lParam);
 		break;

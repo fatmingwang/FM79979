@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
     <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
@@ -384,6 +385,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
     <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\EventSender\MessageSender.h" />
     <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h" />
     <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.h" />
     <ClInclude Include="..\..\Core\GameplayUT\FontFrame.h" />
