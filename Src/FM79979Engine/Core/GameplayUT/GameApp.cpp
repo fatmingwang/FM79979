@@ -42,6 +42,7 @@ namespace	FATMING_CORE
 	HANDLE												cGameApp::m_sHandle = 0;
 	HGLRC												cGameApp::m_sHGLRC = 0;
 #endif
+	double												cGameApp::m_dbGamePlayTime = 0;
 	float												cGameApp::m_sfDebugValue = 1.f;
 	float												cGameApp::m_sfVersion = 1.f;
 	bool												cGameApp::m_sbLeave = false;
@@ -742,7 +743,9 @@ namespace	FATMING_CORE
 
 	void	cGameApp::ShowInfo()
 	{
+		//glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(1280,720);
 #ifndef OPENGLES_2_X
 		glEnable(GL_TEXTURE_2D);
 #endif
@@ -758,7 +761,11 @@ namespace	FATMING_CORE
 			swprintf(l_str,MAX_PATH,L"RealMousePos:%d,%d",m_sScreenMousePosition.x,m_sScreenMousePosition.y);
 			l_iStaryPosY += 20;
 			cGameApp::m_spGlyphFontRender->RenderFont(0,l_iStaryPosY,l_str);
+			std::wstring	l_strInfo = ComposeMsgByFormat(L"ElpaseTime:%.2f",(float)m_dbGamePlayTime);
+			l_iStaryPosY += 20;
+			cGameApp::m_spGlyphFontRender->RenderFont(0,l_iStaryPosY,l_strInfo);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
+			
 		}	
 	}
 

@@ -47,12 +47,12 @@ namespace	FATMING_CORE
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Render();
 	public:
-		double						m_dbGamePlayTime;
+		static double				m_dbGamePlayTime;
 #if defined(ANDROID)
 		cGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject* e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);
 #elif defined(WIN32)
 		cGameApp(HWND e_Hwnd,Vector2 e_vGameResolution = Vector2(1920.f,1080.f),Vector2 e_vViewportSize = Vector2(1920.f,1080.f));
-		virtual	void			OpenglInit(HWND e_Hwnd);
+		virtual	void				OpenglInit(HWND e_Hwnd);
 #else
 		cGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize );
 #endif

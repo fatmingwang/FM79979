@@ -62,19 +62,20 @@ int     cSoundFFTDataCalculator::GetOldSoundDataSize()
 
 cSoundBufferSwaper::cSoundBufferSwaper()
 {
+	m_iCurrentDataPos = 0;
 	m_iTargetDataSize = 0;
 	m_iRestDataSize = 0;
-	m_pPreviousBuffer = nullptr;
 	//SetupBuffer(e_iBufferCount,e_iBudderSize);
 }
 
 cSoundBufferSwaper::~cSoundBufferSwaper()
 {
-	SAFE_DELETE(m_pPreviousBuffer);
+
 }
 
 void	cSoundBufferSwaper::SetupBufferData(int e_iBufferCount,int e_iDoFFTFPS,int e_iFrequency,int e_iOldFFTCount)
 {
+	m_iCurrentDataPos = 0;
 	m_iTargetDataSize = 0;
 	m_iRestDataSize = 0;
 	m_SoundFFTDataCalculator.SetupParameter(e_iDoFFTFPS,e_iFrequency,e_iOldFFTCount);
@@ -82,29 +83,60 @@ void	cSoundBufferSwaper::SetupBufferData(int e_iBufferCount,int e_iDoFFTFPS,int 
 	m_SoundFFTDataCalculator.GetNewSoundDataSize();
 	
 	int l_iOneUpdateNeededFFTDataSize = m_SoundFFTDataCalculator.GetOneUpdateNeededFFTDataSize();
-	m_SoundData.SetupBufferData(e_iBufferCount,l_iOneUpdateNeededFFTDataSize);
-	m_WaitFetchData.SetupBufferData(e_iBufferCount,l_iOneUpdateNeededFFTDataSize);
-	SAFE_DELETE(m_pPreviousBuffer);
-	m_pPreviousBuffer = new char[m_SoundFFTDataCalculator.GetOldSoundDataSize()];
+	m_SoundBufferData.SetupBufferData(e_iBufferCount,l_iOneUpdateNeededFFTDataSize);
+//	m_WaitFetchData.SetupBufferData(e_iBufferCount,l_iOneUpdateNeededFFTDataSize);
+	m_iRestDataSize = this->m_iTargetDataSize;
+	m_iCurrentDataPos = 0;
 }
 
-//0 still need data,1 data is filled,2 data is too many,need more buffer
-int cSoundBufferSwaper::PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime)
+
+void	cSoundBufferSwaper::StartNewData()
 {
-	assert(m_iTargetDataSize == e_iTargetDataSize && "it should not happen");
+	char*l_pOldData = m_SoundBufferData.GetCurrentData();
+	int l_iOldDataSize = this->m_SoundFFTDataCalculator.GetOldSoundDataSize();
+	char*l_pNewData = m_SoundBufferData.GoOneStep();
+	memcpy(l_pNewData,l_pOldData,l_iOldDataSize);
+	m_iRestDataSize = this->m_iTargetDataSize-l_iOldDataSize;
+	m_iCurrentDataPos = l_iOldDataSize;
+}
+
+void	cSoundBufferSwaper::BufferCopy(char*e_pData,int e_iCount)
+{
+	char*l_pOldData = m_SoundBufferData.GetCurrentData();
+	memcpy(l_pOldData,e_pData,e_iCount);
+	m_iRestDataSize -= e_iCount;
+	m_iCurrentDataPos += e_iCount;
+}
+//0 still need data,1 data is filled,2 data is too many,need more buffer
+int	cSoundBufferSwaper::PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime,float e_fEndTime)
+{
+	//assert(m_iTargetDataSize == e_iTargetDataSize && "it should not happen");
+	assert(e_iTargetDataSize >= this->m_SoundBufferData.m_iEachBufferSize);
 	//what!? the data is too big
-	if( e_iTargetDataSize > m_iRestDataSize )
-	{
-	
-	}
-	//buffer filled
-	if( m_iRestDataSize <= e_iCurrentDataSize )
-	{
-		m_SoundData;
-	}
-	else//need more buffer
-	{
-		
-	}
+	//if( m_iRestDataSize >= e_iTargetDataSize )
+	//{
+	//	BufferCopy(e_pData,e_iCurrentDataSize);
+	//	if( m_iRestDataSize == 0 )
+	//	{
+	//		StartNewData();
+	//	}
+	//}
+	//else
+	//{
+		char*l_pTargetData = e_pData;
+		int l_iRestSize = e_iTargetDataSize;
+		int l_iNeedCopyDataSize = m_iRestDataSize;
+		//int l_iInputDataCount = ;
+		while( l_iRestSize > 0 )
+		{
+			BufferCopy(e_pData,l_iNeedCopyDataSize);
+			StartNewData();
+			l_pTargetData += l_iNeedCopyDataSize;
+			l_iRestSize -= l_iNeedCopyDataSize;
+			l_iNeedCopyDataSize = l_iRestSize;
+			if( l_iNeedCopyDataSize > this->m_iTargetDataSize )
+				l_iNeedCopyDataSize = m_iTargetDataSize;
+		}
+	//}
 	return true;
 }

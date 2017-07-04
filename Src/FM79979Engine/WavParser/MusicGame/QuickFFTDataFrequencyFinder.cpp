@@ -60,3 +60,108 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetAmplitude(int e_iFrequency)
 	}
 	return l_Result;
 }
+
+
+
+cFFTDataStore::cFFTHitCountAndTime::cFFTHitCountAndTime(float e_fStartTime,int e_iFFTBinCount)
+{
+	m_fStartTime = e_fStartTime;
+	m_pHittedCountArray = new int[e_iFFTBinCount];
+}
+
+cFFTDataStore::cFFTHitCountAndTime::~cFFTHitCountAndTime()
+{
+		
+}
+
+
+cFFTDataStore::cFFTDataStore()
+{
+	m_fNextDataTimeGap = 0.1f;
+	m_fCurrentTime = 0.f;
+	m_pCurrentFFTHitCountAndTime = nullptr;
+}
+
+cFFTDataStore::~cFFTDataStore()
+{
+}
+	//class cFFTHitCountAndTime
+	//{
+	//	float   m_fStartTime;
+	//	int		m_iFFTBinCount;
+	//	int*	m_pHittedCountArray;
+	//	int     m_iThreusholdAmplitude;
+	//};
+
+void	cFFTDataStore::Destroy()
+{
+	SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
+	DELETE_VECTOR(m_FFTHitCountAndTimeVector,cFFTHitCountAndTime*);
+}
+
+void	cFFTDataStore::Start()
+{
+	Destroy();
+	m_fRestNextDataTimeGap = 0.f;
+}
+
+void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount)
+{
+	m_fCurrentTime += e_fElpaseTime;
+	m_fRestNextDataTimeGap -= e_fElpaseTime;
+	if( m_fRestNextDataTimeGap <= 0.f )
+	{
+		m_fRestNextDataTimeGap = m_fNextDataTimeGap+m_fRestNextDataTimeGap;
+		cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
+		m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
+		this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
+	}
+	for( int i=0;i<e_iCount;++i )
+	{
+		if( e_piFFTData[i] >= this->m_iThreusholdAmplitude )
+			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;;
+	}
+}
+
+void	cFFTDataStore::RenderFFTHitCountAndTime(Vector2 e_vShowPos,Vector2 e_vRecolution,cFFTHitCountAndTime*e_pFFTHitCountAndTime)
+{
+	if( e_pFFTHitCountAndTime )
+	{
+		
+	}
+}
+
+void	cFFTDataStore::RenderCurrentData(Vector2 e_vShowPos,Vector2 e_vRecolution)
+{
+
+}
+
+void	cFFTDataStore::RenderByTime(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vRecolution)
+{
+	cFFTHitCountAndTime*l_pTargetcFFTHitCountAndTime = nullptr;
+	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
+	for( size_t i=0;i<l_uiSize;++i )
+	{
+		if(e_fTargetTime <= m_FFTHitCountAndTimeVector[i]->m_fStartTime )
+		{
+			l_pTargetcFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
+			break;
+		}
+	}
+	if( l_pTargetcFFTHitCountAndTime )
+	{
+		l_pTargetcFFTHitCountAndTime;
+	}
+}
+
+void	cFFTDataStore::Export(char*e_strFileName)
+{
+
+}
+//<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
+//    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
+//</Root>
+bool	cFFTDataStore::MyParse(TiXmlElement*e_pRoot)
+{
+	return false;
+}

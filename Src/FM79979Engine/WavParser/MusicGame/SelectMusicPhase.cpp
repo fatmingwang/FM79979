@@ -63,6 +63,7 @@ void	cSelectMusicPhase::Init()
 		if( l_pMPDIList )
 		{
 			m_pSongInfoBoardUI = new cSongInfoBoardUI(l_pMPDIList->GetObject(L"MusicDetail"),&this->m_MusicInfoVector);
+			//m_pSongInfoBoardUI = new cSongInfoBoardUI(l_pMPDIList->GetObject(L"MusicDetail2"),&this->m_MusicInfoVector);
 			m_pSongInfoBoardUI->CreateMusicList(m_MusicInfoVector,3,5,Vector2(200,60));
 		}
 	}
@@ -101,7 +102,8 @@ void	cSelectMusicPhase::DebugRender()
 }
 void*	cSelectMusicPhase::GetData()
 {
-	m_strSelectedMusicName = L"MusicGame/Music/Test.xml";
+
+	//m_strSelectedMusicName = L"MusicGame/Music/Test.xml";
 	return (void*)&m_strSelectedMusicName;
 }
 

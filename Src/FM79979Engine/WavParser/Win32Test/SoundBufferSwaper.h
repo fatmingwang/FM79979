@@ -4,14 +4,15 @@ template <class T>class sDataWithLimitCount:public NamedTypedObject
 {
 	T**			m_ppData;
 	T*			m_pCurrentData;
-	int			m_iTotalCount;
+	int			m_iEachBufferSize;
+	int			m_iBufferDataCount;
 	int			m_iCurrentDataIndex;
 	//
 	void		Destroy()
 	{
 		SAFE_DELETE_ARRAY(m_ppData);
 		m_pCurrentData = nullptr;
-		m_iTotalCount = 0;
+		m_iBufferDataCount = 0;
 		m_iCurrentDataIndex = 0;
 	}
 public:
@@ -19,7 +20,7 @@ public:
 	{
 		m_ppData = nullptr;
 		m_pCurrentData = nullptr;
-		m_iTotalCount = 0;
+		m_iBufferDataCount = 0;
 		m_iCurrentDataIndex = 0;
 	}
 	~sDataWithLimitCount()
@@ -27,24 +28,44 @@ public:
 		SAFE_DELETE_ARRAY(m_ppData);
 		m_pCurrentData = nullptr;
 	}
-	void	SetupBufferData(int e_iTotalBufferCount,int e_iEachBufferSize)
+	void	SetupBufferData(int e_iBufferDataSize,int e_iEachBufferSize)
 	{
 		Destroy();
-		m_ppData = new T*[e_iTotalBufferCount];
-		for( int i=0;i<e_iTotalBufferCount;++i )
+		m_iEachBufferSize = e_iEachBufferSize;
+		m_ppData = new T*[e_iBufferDataSize];
+		for( int i=0;i<e_iBufferDataSize;++i )
 		{
 			m_ppData = new T*[e_iEachBufferSize];
 		}
 		m_pCurrentData = m_ppData[0];
 	}
-	void	GoOneStep()
+	char*	GoOneStep()
 	{
 		++m_iCurrentDataIndex;
-		if( m_iCurrentDataIndex >= m_iTotalCount )
+		if( m_iCurrentDataIndex >= m_iBufferDataCount )
 			m_iCurrentDataIndex = 0;
-		m_pCurrentData = &m_ppData[m_iCurrentDataIndex];
+		m_pCurrentData = m_ppData[m_iCurrentDataIndex];
+		return m_pCurrentData;
 	}
 	T*	GetCurrentData(){ return m_pCurrentData; }
+
+	int			GetEachBufferSize(){return m_iEachBufferSize;}
+	int			GetBufferDataCount(){return m_iBufferDataCount;}
+	int			GetCurrentDataIndex(){return m_iCurrentDataIndex;}
+};
+
+class cSoundBufferData:public sDataWithLimitCount<char>
+{
+public:
+	float m_fStartTime;
+	float m_fEndTime;
+public:
+	cSoundBufferData()
+	{
+		m_fStartTime = 0.f;
+		m_fEndTime = 0.f;
+	}
+	~cSoundBufferData(){}
 };
 
 //the sould data need to be overlap,so we can get more accurate FFT data
@@ -100,26 +121,21 @@ public:
 
 class cSoundBufferSwaper
 {
-	struct sDataAndValueKey
-	{
-		float		fStartTime;
-		char*		pData;
-		sDataAndValueKey(){pData = nullptr;fStartTime = -1.f;}
-		~sDataAndValueKey(){}
-	};
 	cSoundFFTDataCalculator					m_SoundFFTDataCalculator;
-	sDataWithLimitCount<sDataAndValueKey>	m_WaitFetchData;
-	sDataWithLimitCount<char>				m_SoundData;
+	//sDataWithLimitCount<sDataAndValueKey>	m_WaitFetchData;
+	cSoundBufferData						m_SoundBufferData;
 	//
+	int										m_iCurrentDataPos;
 	int										m_iRestDataSize;
 	int										m_iTargetDataSize;
-	//for quick copy
-	char*									m_pPreviousBuffer;
+	//
+	void									StartNewData();
+	void									BufferCopy(char*e_pData,int e_iCount);
 public:
 	cSoundBufferSwaper();
 	~cSoundBufferSwaper();
 	void			SetupBufferData(int e_iBufferCount,int e_iDoFFTFPS,int e_iFrequency,int e_iOldFFTCount);
 	//0 still need data,1 data is filled,2 data is too many,need more buffer
-	int				PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime);
-	char*									GetSoundBufferByTime(float e_fTime);
+	int				PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime,float e_fEndTime);
+	char*			GetSoundBufferByTime(float e_fTime);
 };
