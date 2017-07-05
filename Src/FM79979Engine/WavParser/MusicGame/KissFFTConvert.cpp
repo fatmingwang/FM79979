@@ -2,7 +2,7 @@
 #include "KissFFTConvert.h"
 #include "Parameters.h"
 
-int ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 60;
+int ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 15;
 
 TYPDE_DEFINE_MARCO(cKissFFTConvertBase);
 
@@ -11,7 +11,7 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iMaxAmplitude = 0;
 	m_iMaxAmplitudeFrequence = 0;
 	m_iMaxAmplitude = 0;
-	m_TimeToUpdateFFTData.SetTargetTime(1.f/6.f);
+	m_TimeToUpdateFFTData.SetTargetTime(1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT);
 	m_TimeToUpdateFFTData.SetLoop(true);
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
@@ -40,7 +40,7 @@ void	cKissFFTConvertBase::SetOneFrameFFTDataCount(int e_iFrequency)
 
 void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
 {
-	if(cSoundCompareParameter::m_sbDebugRender)
+	if(cGameApp::m_sbDebugFunctionWorking)
 	{
 		Vector2	l_vChartResolution = this->m_vChartResolution;
 		Vector2 l_vLinePos[2];
@@ -55,11 +55,11 @@ void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
 
 void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
 {
-	if( e_fTime >= 1.f/20 )
-		e_fTime = 1/20.f;
-	if( e_fTime <= 1.f/60 )
-		e_fTime = 1/60.f;
-	m_TimeToUpdateFFTData.SetTargetTime(e_fTime);
+	//if( e_fTime >= 1.f/20 )
+	//	e_fTime = 1/20.f;
+	//if( e_fTime <= 1.f/60 )
+	//	e_fTime = 1/60.f;
+	//m_TimeToUpdateFFTData.SetTargetTime(e_fTime);
 }
 
 //bool GetFft(const int e_iCount,const kiss_fft_cpx*e_pIn,kiss_fft_cpx*e_pOut)
@@ -590,7 +590,7 @@ void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 
 void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY)
 {
-	if( cSoundCompareParameter::m_sbDebugRender )
+	if( cGameApp::m_sbDebugFunctionWorking )
 	{
 		std::wstring l_strInfo = L"Frequence:";
 		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);

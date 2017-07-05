@@ -2,45 +2,10 @@
 #include "KissFFTStreaming.h"
 #include "../kiss_fft130/_kiss_fft_guts.h"
 #include <math.h>
+#include "KissFFTFunction.h"
+//#include "SoundBufferSwaper.h"
 //suggest e_iFilterStrengthValue:6
-int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue)
-{
-	double l_dbTotalFFTValue = 0;
-	int l_iEndFilterIndex = (int)(e_iTransformLength*e_fFilterEndScaleValue);
-	int l_iStartIndex = e_iStartArrayIndex;
-	int l_iNumFFTData = e_iStartArrayIndex;
-	for(int i = 0; i < e_iTransformLength; i++ )
-	{
-		float l_Msg = sqrt((e_pKiss_FFT_Out[i].r * e_pKiss_FFT_Out[i].r) + (e_pKiss_FFT_Out[i].i * e_pKiss_FFT_Out[i].i));
-		if( i<l_iEndFilterIndex )
-			l_dbTotalFFTValue += l_Msg;
-		e_pFFTDataSrc[l_iNumFFTData] = (int)l_Msg;
-		assert(l_iNumFFTData<=OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)&&"m_FFTData out of range");
-		++l_iNumFFTData;
-	}
-	l_dbTotalFFTValue /= l_iEndFilterIndex;//(l_iEndFilterIndex/e_iFilterStrengthValue+1);
-	//cGameApp::OutputDebugInfoString(L"Start");
-	for(int i = 0; i < e_iTransformLength; i++ )
-	{
-		int l_iValue = e_pFFTDataSrc[l_iStartIndex];
-		//l_iValue -= (int)l_dbTotalFFTValue;
-		if(l_iValue < l_dbTotalFFTValue )
-			l_iValue /= e_iFilterStrengthValue;
-		if( l_iValue <= 1 )
-			l_iValue = AFTER_FILTER_MIN_VALUE;
-		else
-		{
-			l_iValue = (int)(log(l_iValue) *10);
-			//cGameApp::OutputDebugInfoString(ValueToString(l_iValue).c_str());
-			//OutputDebugString(ValueToStringW(l_iValue).c_str());
-			//OutputDebugString(L",");
-		}
-		e_pFFTDataSrc[l_iStartIndex] = l_iValue;
-		++l_iStartIndex;
-	}
-	//cGameApp::OutputDebugInfoString(L"\n");
-	return l_iNumFFTData;
-}
+extern int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 void	SoundUpdateThread(size_t _workParameter, size_t _pUri)
 {
 	cKissFFTStreamingConvert*l_pKissFFTStreamingConvert = (cKissFFTStreamingConvert*)_workParameter;
@@ -74,7 +39,6 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 	cKissFFTStreamingConvert*l_pKissFFTStreamingConvert = (cKissFFTStreamingConvert*)_workParameter;
 	if( !l_pKissFFTStreamingConvert->m_pOpanalOgg )
 		return;
-	int l_iNumChannel = l_pKissFFTStreamingConvert->m_pOpanalOgg->GetChannelCount();
 	int l_iNumFFTDataCount = l_pKissFFTStreamingConvert->m_iOneFrameFFTDataCount;
 	while( !l_pKissFFTStreamingConvert->m_bThreadStop && l_pKissFFTStreamingConvert->m_pOpanalOgg )
 	{
@@ -95,7 +59,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumChannel,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),l_pKissFFTStreamingConvert->GetFrenquenceFilterEndScaleValue(),l_pKissFFTStreamingConvert->GetFilterStrengthValue());
+			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),l_pKissFFTStreamingConvert->GetFrenquenceFilterEndScaleValue(),l_pKissFFTStreamingConvert->GetFilterStrengthValue());
 	}
 }
 
@@ -106,20 +70,17 @@ void	KissFFTStreamingConvertThreadDone(size_t _workParameter, size_t _pUri)
 }
 
 
-cPCMToFFTDataConvertr::sTimeAndFFTData::sTimeAndFFTData(int*e_piLeftFFTData,int*e_piRightFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,int e_iTotalFFTDataCount,int e_iNumChannel,float e_fNextFFTTimeGap)
+cPCMToFFTDataConvertr::sTimeAndFFTData::sTimeAndFFTData(int*e_piFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,float e_fNextFFTTimeGap)
 {
+	bUpdated = false;
 	iBiggestAmplitude = 0;
 	iCurrentTimeStampIndex = -1;
-	iCurrentFetchFFTDataTimeStampIndex = -1;
 	iBiggestFFTDataValueOfIndex = 0;
-	iNumChannel = e_iNumChannel;
 	//pPCMData = nullptr;
-	piLeftChannelFFTData = e_piLeftFFTData;
-	piRightChannelFFTData = e_piRightFFTData;
+	pFFTData = e_piFFTData;
 	fStartTime = e_fStartTime;
 	fEndTime = e_fEndTime;
 	iFFTDataOneSample = e_iFFTDataOneSample;
-	iTotalFFTDataCount = e_iTotalFFTDataCount;
 	fTimeGap = e_fNextFFTTimeGap;
 	//FFT_DATA_LINE_POINTS_COUNT
 	//assert(e_iFFTDataOneSample<1000&&"I didn't expect this...");
@@ -129,103 +90,33 @@ cPCMToFFTDataConvertr::sTimeAndFFTData::~sTimeAndFFTData()
 	//SAFE_DELETE(pPCMData); 
 }
 
-bool	cPCMToFFTDataConvertr::sTimeAndFFTData::ForceGenerateLastFFTLines(Vector2*e_pLinePoints,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
-{
-	int l_iIndex = (this->iTotalFFTDataCount/this->iFFTDataOneSample)-1;
-	GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,l_iIndex,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
-	return true;
-}
-
 bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
 {
-	int l_IndexToJump = GetIndexToJumpByTime(e_fTargetTime);
-	if( l_IndexToJump != -1 )
-	{
-		GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,l_IndexToJump,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
+	if(e_fTargetTime >= this->fEndTime )
+		return false;
+	if( bUpdated )
 		return true;
-	}
-	return false;
-}
-
-int	cPCMToFFTDataConvertr::sTimeAndFFTData::GetCurrentFFTData(int*e_piOutputData,float e_fTargetTime)
-{
-	int l_IndexToJump = GetIndexToJumpByTime(e_fTargetTime);
-	if( l_IndexToJump != -1 )
-	{
-		int l_iFFTDataLength = iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
-		if( this->iCurrentFetchFFTDataTimeStampIndex != l_IndexToJump )
-		{
-			this->iCurrentFetchFFTDataTimeStampIndex = l_IndexToJump;
-	//		this->iTotalFFTDataCount
-		//	e_piOutputData
-			//only one channel
-			if( this->iNumChannel == 1 )
-			{
-				int*l_pChannelData = piLeftChannelFFTData?piLeftChannelFFTData:piRightChannelFFTData;
-				int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*l_IndexToJump];
-				memcpy(e_piOutputData,l_pStartFFTData,sizeof(int)*l_iFFTDataLength);
-			}
-			else
-			{
-				for(int i=0;i<l_iFFTDataLength;++i)
-				{
-					e_piOutputData[i] = 0;
-					for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
-					{
-						int*l_pChannelData = l_iChannelIndex==0?piLeftChannelFFTData:piRightChannelFFTData;
-						int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*l_IndexToJump];
-						int l_iValue = l_pStartFFTData[i];
-						e_piOutputData[i] += l_iValue;
-					}
-					e_piOutputData[i] /= 2;
-				}
-			}
-		}
-		return l_iFFTDataLength;
-	}
-	return -1;
-}
-
-bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIndex(Vector2*e_pLinePoints,int e_iFFTSampleTargetIndex,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap)
-{
-	if( iCurrentTimeStampIndex != e_iFFTSampleTargetIndex)
-		iCurrentTimeStampIndex = e_iFFTSampleTargetIndex;
-	else//same time do nothing
-		return true;
+	bUpdated = true;
 	float l_fXGap = e_vChartResolution.x/iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
 	float l_fYGap = e_fNextChannelYGap;
 	float l_fStartXPos = e_vShowPos.x;
-	//float l_fNextChannelXPos = 100+e_vChartResolution.x/2;
-	float l_fNextChannelXPos = 0;
 	float l_fYStartPos = e_vShowPos.y;
 
-	int l_iFFTDataLength = iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
-	//
-	//if( e_iFFTSampleTargetIndex*l_iFFTDataLength+l_iFFTDataLength > this->iTotalFFTDataCount )
-	//{
-	//	l_iFFTDataLength = this->iTotalFFTDataCount-e_iFFTSampleTargetIndex*l_iFFTDataLength+l_iFFTDataLength;
-	//	l_iFFTDataLength /= 2;
-	//	return false;
-	//}
 	std::wstring l_ValueForTest;
 	int l_iMax = -79979;
 	this->iBiggestFFTDataValueOfIndex = -1;
-	for(int l_iChannelIndex = 0;l_iChannelIndex<this->iNumChannel;++l_iChannelIndex)
+	int*l_pStartFFTData = pFFTData;
+	for(int i=0;i<iFFTDataOneSample;++i)
 	{
-		int*l_pChannelData = l_iChannelIndex==0?piLeftChannelFFTData:piRightChannelFFTData;
-		int*l_pStartFFTData = &l_pChannelData[l_iFFTDataLength*e_iFFTSampleTargetIndex];
-		for(int i=0;i<l_iFFTDataLength;++i)
+		int l_iIndex = i*2;//one line 2 points
+		e_pLinePoints[l_iIndex+1].x = e_pLinePoints[l_iIndex].x = l_fStartXPos+l_fXGap*i;
+		e_pLinePoints[l_iIndex].y = l_fYStartPos+l_fYGap;
+		int l_iValue = l_pStartFFTData[i];
+		e_pLinePoints[l_iIndex+1].y = e_pLinePoints[l_iIndex].y-(l_iValue*e_fScale);
+		if( l_iMax < l_iValue )
 		{
-			int l_iIndex = i*2+l_iChannelIndex*(l_iFFTDataLength*2);//one line 2 points
-			e_pLinePoints[l_iIndex+1].x = e_pLinePoints[l_iIndex].x = l_fStartXPos+l_fXGap*i+l_fNextChannelXPos*l_iChannelIndex;
-			e_pLinePoints[l_iIndex].y = l_fYStartPos+l_fYGap*l_iChannelIndex;
-			int l_iValue = l_pStartFFTData[i];
-			e_pLinePoints[l_iIndex+1].y = e_pLinePoints[l_iIndex].y-(l_iValue*e_fScale);
-			if( l_iMax < l_iValue )
-			{
-				l_iMax = l_iValue;
-				this->iBiggestFFTDataValueOfIndex = i;
-			}
+			l_iMax = l_iValue;
+			this->iBiggestFFTDataValueOfIndex = i;
 		}
 	}
 	iBiggestAmplitude = l_iMax;
@@ -236,44 +127,13 @@ bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLinesByFFTSampleTargetIn
 	return true;
 }
 
-
-
-int		cPCMToFFTDataConvertr::sTimeAndFFTData::GetIndexToJumpByTime(float e_fTime)
+int	cPCMToFFTDataConvertr::sTimeAndFFTData::GetCurrentFFTData(int*e_piOutputData,float e_fTargetTime)
 {
-	//if( fEndTime-fTimeGap < e_fTargetTime )
-	//{
-	//	return false;
-	//}
-	int l_IndexToJump = (int)((e_fTime-this->fStartTime)/fTimeGap);
-	if(this->fStartTime>e_fTime)
-	{//how come this happen...fucking sad...
-		if(abs(this->fStartTime-e_fTime)>=1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT)
-		{
-#ifdef DEBUG
-			std::wstring l_strDebugInfo = L"1:S:";
-			l_strDebugInfo += ValueToStringW(this->fStartTime);
-			l_strDebugInfo += L",E:";
-			l_strDebugInfo += ValueToStringW(this->fEndTime);
-			l_strDebugInfo += L",TargetTime:";
-			l_strDebugInfo += ValueToStringW(e_fTime);
-			l_strDebugInfo += L":how come this happen,someone call go to time???...fucking sad,GenerateFFTLines";
-			cGameApp::OutputDebugInfoString(l_strDebugInfo);
-#endif
-			//anyway take a quick fetch avoid screen flash for go to time has been called
-			//GenerateFFTLinesByFFTSampleTargetIndex(e_pLinePoints,0,e_vShowPos,e_vChartResolution,e_fScale,e_fNextChannelYGap);
-			return -1;
-		}
-		l_IndexToJump = 0;
-	}
 	int l_iFFTDataLength = iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
-	if(iTotalFFTDataCount<l_IndexToJump*l_iFFTDataLength+l_iFFTDataLength)
-	{
-		//cGameApp::OutputDebugInfoString(L"GenerateFFTLines,here should not happen,fft data count is not enough,,cKissFFTStreamingConvert::ProcessFFTData() need more accurate the performance goes!.");
-		//here should not happen,cKissFFTStreamingConvert::ProcessFFTData() need more accurate the performance goes!.
-		return -1;
-	}
-	return l_IndexToJump;
+	memcpy(e_piOutputData,pFFTData,sizeof(int)*l_iFFTDataLength);
+	return l_iFFTDataLength;
 }
+
 
 cPCMToFFTDataConvertr::cPCMToFFTDataConvertr()
 {
@@ -299,198 +159,44 @@ void	cPCMToFFTDataConvertr::Destroy()
 	}
 }
 
-void	cPCMToFFTDataConvertr::SetNFrameFFTDataCount(int e_iNFrameFFTDataCount)
+void	cPCMToFFTDataConvertr::SetupWindowsFunctionConstValue(int e_iCount)
 {
-	Destroy();
-	this->m_pkiss_fft_state = kiss_fft_alloc((int)(e_iNFrameFFTDataCount*this->m_fFFTSampleScale), 0/*is_inverse_fft*/, NULL, NULL);
-	m_pfWindowFunctionConstantValue = new float[e_iNFrameFFTDataCount];
-
-	for( int l_iCount = 0;l_iCount <e_iNFrameFFTDataCount;++l_iCount)
+	SAFE_DELETE(m_pfWindowFunctionConstantValue);
+	m_pfWindowFunctionConstantValue = new float[e_iCount];
+	for( int l_iCount = 0;l_iCount <e_iCount;++l_iCount)
 	{
-		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(e_iNFrameFFTDataCount-1)));
+		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(e_iCount-1)));
 		m_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
 	}
 }
 
+void	cPCMToFFTDataConvertr::SetNFrameFFTDataCount(int e_iNFrameFFTDataCount)
+{
+	Destroy();
+	this->m_pkiss_fft_state = kiss_fft_alloc((int)(e_iNFrameFFTDataCount*this->m_fFFTSampleScale), 0/*is_inverse_fft*/, NULL, NULL);
+	SetupWindowsFunctionConstValue(e_iNFrameFFTDataCount);
+}
+
 //need a other thread to do this?
-void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNumChannel,int e_iNFrameFFTDataCount,bool e_bDoFilter,float e_fFilterEndScaleValue,int e_iFilterStrength)
+void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount,bool e_bDoFilter,float e_fFilterEndScaleValue,int e_iFilterStrength)
 {
 	if( !e_pTimeAndPCMData)
 		return;
-	//do fft by data length not elpase time.
-	bool	l_bForceDoAllFFT = false;
+	assert(e_iNFrameFFTDataCount == e_pTimeAndPCMData->iNumPCMData);
 	float l_fFFTSampleScale = m_fFFTSampleScale;
 	sTimeAndPCMData*l_pTimeAndPCMData = e_pTimeAndPCMData;
 	UT::sTimeAndFPS	l_Timer;
 	l_Timer.Update();
-	//
-	float	l_fTimeToUpdateFFT = e_fTimeToUpdateFFTData;
-	float	l_fCurrentNewDataTime = l_pTimeAndPCMData->fStartTime;
-	float	l_fEndTime = l_pTimeAndPCMData->fEndTime;
-	float	l_fDuring = l_fEndTime-l_fCurrentNewDataTime;
-	int		l_iNumFFTDataNeed = (int)(l_fDuring/l_fTimeToUpdateFFT);//this->m_TimeToUpdateFFTData.fTargetTime);
-	int l_iNumPCMDataByShort = l_pTimeAndPCMData->iNumPCMData/sizeof(short);
-	if( l_bForceDoAllFFT )
-	{
-		l_iNumFFTDataNeed = l_iNumPCMDataByShort/e_iNFrameFFTDataCount;
-		if( l_iNumPCMDataByShort%e_iNFrameFFTDataCount )
-		{//sorry I am lazy to do more...
-			//++l_iNumFFTDataNeed;
-		}
-		l_fTimeToUpdateFFT = l_fDuring/l_iNumFFTDataNeed;
-		l_fFFTSampleScale = 1.f;
-	}
-	if( l_iNumFFTDataNeed == 0 )
-	{
-		if( abs(l_fDuring-l_fTimeToUpdateFFT) <= 0.01f )
-			l_iNumFFTDataNeed = 1;
-		else
-		{
-			//fuck please increas the ogg cache size(OGG_STREAMING_SOUND_BUFFER_SIZE)
-			UT::ErrorMsg(L"the m_iDivideFFTDataToNFrameis too small increase m_iDivideFFTDataToNFrame or increas the ogg cache size(OGG_STREAMING_SOUND_BUFFER_SIZE)",L"Error!!");
-			//goto FINISHED;
-			delete l_pTimeAndPCMData;
-			return;
-		}
-	}
-	//float	l_fOneFFTDataPeriod = (float)this->m_iOneFrameFFTDataCount/this->m_pOpanalOgg->GetPCMDataSize()*this->m_pOpanalOgg->GetTimeLength();
-
-	int		l_iNextPCMDataStep = l_iNumPCMDataByShort/l_iNumFFTDataNeed;
-	size_t	l_uiEndIndex = l_iNextPCMDataStep*l_iNumFFTDataNeed;
-	int  l_iChannels = e_iNumChannel;//m_pOpanalOgg->GetChannel();
-	//assert(l_fFFTSampleScale<=1.f&&"l_fFFTSampleScale cant not over 1");
-	assert(l_fFFTSampleScale<=1.f&&"m_fFFTSampleScale cant not over 1");
-	int l_iFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iOneFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
-	const int l_iOriginalFetchDataCount = (int)(e_iNFrameFFTDataCount*l_fFFTSampleScale);//m_iOneFrameFFTDataCount*l_fFFTSampleScale;//*this->m_pSoundFile->m_iChannel;
-	//assert(l_iFetchDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
-	kiss_fft_cpx* l_pKiss_FFT_In = this->m_Kiss_FFT_In;
-	kiss_fft_cpx* l_pKiss_FFT_Out = this->m_Kiss_FFT_Out;
-	kiss_fft_state* l_pkiss_fft_state = this->m_pkiss_fft_state;
-	l_pkiss_fft_state->nfft = l_iFetchDataCount;
-	//auto l_pData = this->m_pkiss_fft_state;
-	//l_pData->nfft = l_iFetchDataCount;
-	bool l_bDoFFT = true;
-	int l_iNumFFTData2 = 0;
-	for(int l_iCurrentChannelIndex = 0;l_iCurrentChannelIndex<l_iChannels;++l_iCurrentChannelIndex)
-	{
-		size_t l_uiCurrentSoundDataIndex = 0;
-		int	l_iNumFFTData = 0;
-		//16bit 2 byte
-		short*l_pucSoundData = (short*)l_pTimeAndPCMData->pPCMData;
-		int l_iChannelIndex = 0;
-		if(l_iCurrentChannelIndex == 1)
-			l_iChannelIndex = 1;
-		if( l_bDoFFT )
-		{
-			//for how many FFT data
-			for(int l_iSampleIndex = 0;l_iSampleIndex<l_iNumFFTDataNeed;++l_iSampleIndex)
-			{
-				int l_iStartIndex = l_iSampleIndex*l_iNextPCMDataStep;
-				int l_iEndIndex = (l_iStartIndex+l_iOriginalFetchDataCount*l_iChannels);
-				if( l_iEndIndex > l_iNumPCMDataByShort )
-				{
-					if( l_bForceDoAllFFT )
-					{
-						int l_iRestCount = (l_iNumPCMDataByShort-l_iStartIndex)/l_iChannels;
-						l_iFetchDataCount = l_pkiss_fft_state->nfft = l_iRestCount;
-						if( l_iRestCount%2 )
-						{
-							int a=0;
-						}
-						if( l_iFetchDataCount == 0 )
-							break;
-					}
-					else
-					{
-						break;
-					}
-				}
-				else
-				{
-					l_iFetchDataCount = l_iOriginalFetchDataCount;
-					l_pkiss_fft_state->nfft = l_iFetchDataCount;
-				}
-				int l_iSoundDataOfChannel1 = 0;
-				for(int l_iCurrentIndex = 0;l_iCurrentIndex<l_iFetchDataCount;++l_iCurrentIndex)
-				{
-					int l_iTargetPCMIndex = l_iStartIndex+(l_iCurrentIndex*l_iChannels);
-					//Apply window function on the sample,Hann window
-					double multiplier = m_pfWindowFunctionConstantValue[l_iCurrentIndex];
-					int l_iSoundDataOfChannel = l_iChannelIndex+l_iTargetPCMIndex;
-					l_iSoundDataOfChannel1 = l_iSoundDataOfChannel;
-					if( l_iSoundDataOfChannel>=l_pTimeAndPCMData->iNumPCMData/l_iChannels )
-					{//out of range...how come this happen!.
-						int a=0;
-					}
-					short l_fValue = l_pucSoundData[l_iSoundDataOfChannel];
-					//if( l_fValue < 20 )
-						//l_fValue = 0;
-					l_pKiss_FFT_In[l_iCurrentIndex].r = (float)(multiplier * l_fValue);
-					l_pKiss_FFT_In[l_iCurrentIndex].i = 0;  //stores N samples 
-
-				}
-				kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
-				// calculate magnitude of first n/2 FFT
-				int l_iDidgitalWindownFunctionCount = l_iFetchDataCount/WINDOWN_FUNCTION_FRUSTRUM;
-				bool	l_bdoFilter = e_bDoFilter;
-				if( !l_bdoFilter )
-				{
-					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-					{
-						int val;
-						float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+	ProcessFFT(l_pTimeAndPCMData,this->m_pkiss_fft_state,this->m_Kiss_FFT_In,this->m_Kiss_FFT_Out,
+	this->m_pfWindowFunctionConstantValue,m_FFTData[m_iCurrentFFTDataSwapBufferIndex],e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
+	l_Timer.Update();
 #ifdef DEBUG
-						{//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
-							/* get normalized bin magnitude */
-							double l_dbNormBinMag = 2.*l_Msg / l_iFetchDataCount;
-							/* convert to dB value */
-							double l_dbDecebile = 20. * log10( l_dbNormBinMag );
-						}
+	std::wstring l_strDebugString = L"fft calculate time:";
+	l_strDebugString  += ValueToStringW(l_Timer.fElpaseTime);
+	l_strDebugString +=L"\n";
+	cGameApp::OutputDebugInfoString(l_strDebugString );
 #endif
-						//
-						val = (int)(log(l_Msg) *10);
-						m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_iNumFFTData] = val;
-						//m_fFFTResultPhase[l_iCurrentChannelIndex][l_iNumFFTData] = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-						assert(l_iNumFFTData<=OGG_STREAMING_SOUND_BUFFER_SIZE/sizeof(short)&&"m_FFTData out of range");
-						++l_iNumFFTData;
-						//int l_iPhase = 180*atan2(l_pKiss_FFT_Out[i].r,l_pKiss_FFT_Out[i].i)/D3DX_PI-90;
-						//int l_iPhase2 = 180*atan2(l_pKiss_FFT_Out[i].i,l_pKiss_FFT_Out[i].r)/D3DX_PI-90;
-					}
-				}
-				else
-				{
-					l_iNumFFTData = DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumFFTData,m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex],l_pKiss_FFT_Out,e_iFilterStrength);
-				}
-			}
-			l_iNumFFTData2 = l_iNumFFTData;
-		}
-		else
-		{
-			//m_fScale = 0.1f;
-			size_t l_uiCount = 0;
-			for( l_uiCount = l_uiCurrentSoundDataIndex;l_uiCount < l_uiEndIndex;l_uiCount++)
-			{
-				int l_iSoundDataOfChannel = l_iChannelIndex+(l_uiCount*2);
-				m_FFTData[m_iCurrentFFTDataSwapBufferIndex][l_iCurrentChannelIndex][l_uiCount] = l_pucSoundData[l_iSoundDataOfChannel];
-			}
-			break;	
-		}
-	}
-#ifdef DEBUG
-	{
-		//l_Timer.Update();
-		//double secs = l_Timer.fElpaseTime;
-		//static int l_iTest = 0;
-		//++l_iTest;
-		//std::wstring l_strDebugInfo = L"do fft spent  ";
-		//l_strDebugInfo += ValueToStringW(secs);
-		//l_strDebugInfo += L":";
-		//l_strDebugInfo += ValueToStringW(l_iTest);
-		//cGameApp::OutputDebugInfoString(l_strDebugInfo);
-	}
-#endif
-	//
-	sTimeAndFFTData*l_pTimeAndFFTData = new sTimeAndFFTData(m_FFTData[m_iCurrentFFTDataSwapBufferIndex][0],m_FFTData[m_iCurrentFFTDataSwapBufferIndex][1],l_fCurrentNewDataTime,l_fEndTime,l_iOriginalFetchDataCount,l_iNumFFTData2,l_iChannels,l_fTimeToUpdateFFT);
+	sTimeAndFFTData*l_pTimeAndFFTData = new sTimeAndFFTData(m_FFTData[m_iCurrentFFTDataSwapBufferIndex],l_pTimeAndPCMData->fStartTime,l_pTimeAndPCMData->fEndTime,e_iNFrameFFTDataCount,e_fTimeToUpdateFFTData);
 	{
 		cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndFFTDataVector);
 		m_TimeAndFFTDataVector.push_back(l_pTimeAndFFTData);
@@ -510,6 +216,7 @@ void	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 
 cKissFFTStreamingConvert::cKissFFTStreamingConvert()
 {
+	m_pvFFTDataToPoints = new Vector2[cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT];
 	m_bThreadInPause[0] = m_bThreadInPause[1] = false;
 	m_iCurrentStreamingBufferDataIndex = 0;
 	m_pFUThreadPool = nullptr;
@@ -521,6 +228,7 @@ cKissFFTStreamingConvert::cKissFFTStreamingConvert()
 
 cKissFFTStreamingConvert::~cKissFFTStreamingConvert()
 {
+	SAFE_DELETE(m_pvFFTDataToPoints);
 	Destroy();
 }
 
@@ -543,20 +251,17 @@ void	cKissFFTStreamingConvert::Destroy()
 //3.check how many fft data need to do
 //4.push data into m_TimeAndPCMDataVector
 //5.calculate fft data in sound thread.
-void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)
+void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex)
 {
+	//fuck!;
+	assert(e_iCount>=this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
 	if(m_pOpanalOgg)
 	{
-#ifdef DEBUG
-		static int l_iTest = 0;
-		++l_iTest;
-		std::wstring l_strDebugInfo = L"StreamingBuffer  ";
-		l_strDebugInfo += ValueToStringW(l_iTest);
-		cGameApp::OutputDebugInfoString(l_strDebugInfo);
-#endif
 		//the performance is too bad...skip this one
-		if( m_TimeAndPCMDataVector.size()+1 >= PCM_SWAP_BUFFER_COUNT)
+		if( m_TimeAndPCMDataVector.size() >= PCM_SWAP_BUFFER_COUNT)
 		{
+			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
+			DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
 #ifdef DEBUG
 			cGameApp::OutputDebugInfoString(L"StreamingBuffer is over size...fuck");
 #endif
@@ -570,7 +275,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 			UT::ErrorMsg(L"Error",L"ogg streaming input count is too small cannt satisfied m_iDivideFFTDataToNFrame,please increase file cached size or ogg cached size(OGG_STREAMING_SOUND_BUFFER_SIZE now is 32k)");
 #endif
 			//
-			return;		
+			return;
 		}
 		float	l_fTimeLength = m_pOpanalOgg->GetTimeLength();
 		ALsizei	l_iPCMDataLength = m_pOpanalOgg->GetPCMDataSize();
@@ -590,21 +295,29 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 			//return;
 		}
 		memcpy(m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_pData,e_iCount);
-		sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fEndTime,m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_iCount,m_iCurrentStreamingBufferDataIndex);
+		int l_iNumFFTDataIsComing = (int)(l_fDuring/m_TimeToUpdateFFTData.fTargetTime);
+		float	l_fTimeGap = l_fDuring/l_iNumFFTDataIsComing;
+		for( int i=0;i<l_iNumFFTDataIsComing;++i )
 		{
-			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
-			m_TimeAndPCMDataVector.push_back(l_pTimeAndPCMData);
-			if( m_TimeAndPCMDataVector.size()>=PCM_SWAP_BUFFER_COUNT )
+			float*l_pDataPos = (float*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
+			l_pDataPos += m_iOneFrameFFTDataCount*i;
+			sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+l_fTimeGap,m_pOpanalOgg->GetChannelCount(),(char*)l_pDataPos,m_iOneFrameFFTDataCount,m_iCurrentStreamingBufferDataIndex,eDataType::eDT_FLOAT);
 			{
+				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
+				m_TimeAndPCMDataVector.push_back(l_pTimeAndPCMData);
+				if( m_TimeAndPCMDataVector.size()>=PCM_SWAP_BUFFER_COUNT )
+				{
 #ifdef DEBUG
-				cGameApp::OutputDebugInfoString("streaming buffer is too small...");
+					cGameApp::OutputDebugInfoString("streaming buffer is too small...");
 #endif
+				}
 			}
+			l_fCurrentTime += l_fTimeGap;
+			++m_iCurrentStreamingBufferDataIndex;
+			if( m_iCurrentStreamingBufferDataIndex >= PCM_SWAP_BUFFER_COUNT)
+				m_iCurrentStreamingBufferDataIndex = 0;
+			//m_StreamingBufferector.push_back(l_pData);
 		}
-		++m_iCurrentStreamingBufferDataIndex;
-		if( m_iCurrentStreamingBufferDataIndex >= PCM_SWAP_BUFFER_COUNT)
-			m_iCurrentStreamingBufferDataIndex = 0;
-		//m_StreamingBufferector.push_back(l_pData);
 	}
 }
 
@@ -629,11 +342,11 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 	//
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pOpanalOgg->GetFreq());
 	//m_iOneFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
-	if(m_iOneFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
+	if(m_iOneFrameFFTDataCount*2 > cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT )
 	{//too big?give it one more chance
 		m_iOneFrameFFTDataCount /= 2;
 	}
-	if(m_iOneFrameFFTDataCount*2>FFT_DATA_LINE_POINTS_COUNT)
+	if(m_iOneFrameFFTDataCount*2 > cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT)
 	{
 		Destroy();
 		UT::ErrorMsg(L"m_iDivideFFTDataToNFrame is too small please incerase m_iDivideFFTDataToNFrame or increase FFT_DATA_LINE_POINTS_COUNT",L"Error!");
@@ -668,7 +381,7 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 		//dont need to do synchronzied,because only here will delete
 		while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 		{
-			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
+			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
 			{
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 				//wait for next new one.
@@ -720,7 +433,7 @@ void	cKissFFTStreamingConvert::Render()
 		cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
 		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
 		//left channel
-		GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
+		GLRender::RenderLine((float*)m_pvFFTDataToPoints,l_iNumPointd,Vector4::One,2);
 
 		if( m_fChartScale >= 2 )
 		{
@@ -742,12 +455,6 @@ void	cKissFFTStreamingConvert::Render()
 		}
 
 		RenderMaxAmplitudeAndFrequencyInfo(100,200);
-		//right channel
-		if( l_pTimeAndFFTData->iNumChannel == 2 )
-		{
-			int l_iRightChannelIndex = l_iNumPointd;
-			GLRender::RenderLine((float*)m_vFFTDataToPoints[l_iRightChannelIndex],l_iNumPointd,Vector4::One,2);
-		}
 	}
 }
 
@@ -808,21 +515,7 @@ void	cKissFFTStreamingConvert::SetFFTSampleScale(float e_fScale,bool e_bForceSet
 	}
 
 	int l_iNum = (int)(this->m_iOneFrameFFTDataCount*e_fScale);
-	SAFE_DELETE(this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue);
-	this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue = new float[l_iNum];
-
-	for( int l_iCount = 0;l_iCount <l_iNum;++l_iCount)
-	{
-
-		//const float £k = 3.1415926f;
-		// apply hanning window to buffer
-		//below one is possible divide by 0 so dont use this,fuck
-		//double multiplier  = 0.54f - 0.46f * cos( (float)l_iCount * 2.0f * D3DX_PI / (l_iCount-1) );
-		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/(l_iNum-1)));
-		// apply hanning window to buffer
-		//double multiplier = 0.54-0.46 * cos(2*D3DX_PI*l_iCount/(l_iNum));
-		this->m_PCMToFFTDataConvertr.m_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
-	}
+	this->m_PCMToFFTDataConvertr.SetupWindowsFunctionConstValue(l_iNum);
 	if( this->m_PCMToFFTDataConvertr.m_pkiss_fft_state )
 	{
 		free(this->m_PCMToFFTDataConvertr.m_pkiss_fft_state);
@@ -854,16 +547,17 @@ int	cKissFFTStreamingConvert::GetFrequenceAmplitiude(int e_iFrenquence)
 		int l_SecondFerequence = l_FirstFerequence+1;
 		float l_fLerpValue = 0.f;
 		//get proper 2 frequence and do lerp;
-		int l_iValueLeft1 = l_pTimeAndFFTData->piLeftChannelFFTData[l_FirstFerequence];
-		int l_iValueRightt1 = l_pTimeAndFFTData->piRightChannelFFTData[l_SecondFerequence];
-		int l_iValueLeft2 = l_pTimeAndFFTData->piLeftChannelFFTData[l_SecondFerequence];
-		int l_iValueRightt2 = l_pTimeAndFFTData->piRightChannelFFTData[l_SecondFerequence];
-		int l_iValue1 = (l_iValueLeft1+l_iValueRightt1)/2;
-		int l_iValue2 = (l_iValueRightt2+l_iValueLeft2)/2;
-		//float l_fFinalFrequenceValue
-		float l_fGap = (l_iValue2-l_iValue1)*l_fLerpValue;
-		int l_iFinalValue = (int)l_fGap+l_iValue1;
-		return l_iFinalValue;
+		int l_iValueLeft1 = l_pTimeAndFFTData->pFFTData[l_FirstFerequence];
+		//int l_iValueRightt1 = l_pTimeAndFFTData->piRightChannelFFTData[l_SecondFerequence];
+		//int l_iValueLeft2 = l_pTimeAndFFTData->piLeftChannelFFTData[l_SecondFerequence];
+		//int l_iValueRightt2 = l_pTimeAndFFTData->piRightChannelFFTData[l_SecondFerequence];
+		//int l_iValue1 = (l_iValueLeft1+l_iValueRightt1)/2;
+		//int l_iValue2 = (l_iValueRightt2+l_iValueLeft2)/2;
+		////float l_fFinalFrequenceValue
+		//float l_fGap = (l_iValue2-l_iValue1)*l_fLerpValue;
+		//int l_iFinalValue = (int)l_fGap+l_iValue1;
+		//return l_iFinalValue;
+		return 0;
 	}
 	return 0;
 }

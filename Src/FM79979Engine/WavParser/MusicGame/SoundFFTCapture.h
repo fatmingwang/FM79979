@@ -28,7 +28,7 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	int								m_iCurrentStreamingBufferDataIndex;
 	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
 	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
-	Vector2							m_vFFTDataToPoints[FFT_DATA_LINE_POINTS_COUNT];
+	Vector2*						m_pvFFTDataToPoints;
 	int*							m_piFFTData;
 	void							UpdateWithDrawFFTData(float e_fElpaseTime);
 	void							UpdateWithFetchFFTData(float e_fElpaseTime);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SoundFFTCapture.h"
 #include "QuickFFTDataFrequencyFinder.h"
+#include "KissFFTFunction.h"
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 {
 	cSoundFFTCapture*l_pSoundFFTCapture = (cSoundFFTCapture*)_workParameter;
@@ -25,7 +26,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_pSoundCapture->GetWriteChannel(),l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
+			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
 	}
 }
 
@@ -37,6 +38,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, siz
 
 cSoundFFTCapture::cSoundFFTCapture()
 {
+	m_pvFFTDataToPoints = new Vector2[cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT];
 	m_pQuickFFTDataFrequencyFinder = nullptr;
 	m_bThreadInPause = false;
 	m_bThreadStop = true;
@@ -56,6 +58,7 @@ cSoundFFTCapture::cSoundFFTCapture()
 cSoundFFTCapture::~cSoundFFTCapture()
 {
 	Destroy();
+	SAFE_DELETE(m_pvFFTDataToPoints);
 	m_bThreadInPause = false;
 	m_iCurrentStreamingBufferDataIndex = 0;
 	m_pFUThreadPool = nullptr;
@@ -109,6 +112,7 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData)
 {
 		//the performance is too bad...skip this one
+		assert(e_iSamplesIn >= this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
 		if( m_TimeAndPCMDataVector.size()+1 >= PCM_SWAP_BUFFER_COUNT)
 		{
 #ifdef DEBUG
@@ -137,9 +141,19 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 		//		++l_iNum2;
 		//		l_pData[i] = 0;
 		//	}
-		//}
+		//}		
 		float l_fCurrentTime = m_fCurrentTime+this->m_fNextSampleTime;
-		sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+this->m_fNextSampleTime,m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_iSamplesIn,m_iCurrentStreamingBufferDataIndex);
+		eDataType l_eDataType = eDataType::eDT_SHORT;
+		if(this->m_pSoundCapture->GetWriteBitpersample() == 16)
+			l_eDataType = eDataType::eDT_SHORT;
+		else
+		if(this->m_pSoundCapture->GetWriteBitpersample() == 8)
+			l_eDataType = eDataType::eDT_BYTE;
+		else
+		{
+			UT::ErrorMsg(L"Error",L"sound capture bit persample is not 8 or 16");
+		}
+		sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+this->m_fNextSampleTime,this->m_pSoundCapture->GetWriteChannel(),m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_iSamplesIn,m_iCurrentStreamingBufferDataIndex,l_eDataType);
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
 			m_TimeAndPCMDataVector.push_back(l_pTimeAndPCMData);
@@ -302,7 +316,7 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{
 		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
-		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
+		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
 		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
@@ -333,18 +347,12 @@ void	cSoundFFTCapture::Render()
 {
 	if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
 	{
-		if( cSoundCompareParameter::m_sbDebugRender )
+		if( cGameApp::m_sbDebugFunctionWorking )
 		{
 			cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
 			int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
 			//left channel
-			GLRender::RenderLine((float*)m_vFFTDataToPoints,l_iNumPointd,Vector4::One,2);
-			//right channel
-			if( l_pTimeAndFFTData->iNumChannel == 2 )
-			{
-				int l_iRightChannelIndex = l_iNumPointd;
-				GLRender::RenderLine((float*)m_vFFTDataToPoints[l_iRightChannelIndex],l_iNumPointd,Vector4::One,2);
-			}
+			GLRender::RenderLine((float*)m_pvFFTDataToPoints,l_iNumPointd,Vector4::One,2);
 		}
 
 		//if( m_fChartScale >= 2 )

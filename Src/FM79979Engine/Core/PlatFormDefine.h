@@ -184,6 +184,7 @@
 enum	eDataType
 {
 	eDT_BYTE = 0,
+	eDT_SHORT,
 	eDT_FLOAT,
 	eDT_DOUBLE,
 	eDT_INT,

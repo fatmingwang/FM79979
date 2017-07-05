@@ -111,7 +111,7 @@ void	cSoundBufferSwaper::BufferCopy(char*e_pData,int e_iCount)
 int	cSoundBufferSwaper::PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime,float e_fEndTime)
 {
 	//assert(m_iTargetDataSize == e_iTargetDataSize && "it should not happen");
-	assert(e_iTargetDataSize >= this->m_SoundBufferData.m_iEachBufferSize);
+	assert(e_iTargetDataSize >= this->m_SoundBufferData.GetEachBufferSize());
 	//what!? the data is too big
 	//if( m_iRestDataSize >= e_iTargetDataSize )
 	//{

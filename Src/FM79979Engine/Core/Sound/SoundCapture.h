@@ -58,6 +58,7 @@ namespace	FATMING_CORE
 	public:
 		cSounRecordCallBackObject(){m_pSoundCapture = nullptr; m_bStartCallBackCalled = false;m_bEndCallBackCalled = false; }
 		virtual ~cSounRecordCallBackObject(){}
+		//the data size is short,so the total size is e_iSamplesIn*sizeof(short)
 		virtual void	CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData) = 0;
 	};
 

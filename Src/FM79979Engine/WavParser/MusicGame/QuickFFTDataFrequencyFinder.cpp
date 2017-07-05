@@ -65,6 +65,7 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetAmplitude(int e_iFrequency)
 
 cFFTDataStore::cFFTHitCountAndTime::cFFTHitCountAndTime(float e_fStartTime,int e_iFFTBinCount)
 {
+	m_iFFTBinCount = e_iFFTBinCount;
 	m_fStartTime = e_fStartTime;
 	m_pHittedCountArray = new int[e_iFFTBinCount];
 }
@@ -123,20 +124,30 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 	}
 }
 
-void	cFFTDataStore::RenderFFTHitCountAndTime(Vector2 e_vShowPos,Vector2 e_vRecolution,cFFTHitCountAndTime*e_pFFTHitCountAndTime)
+void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime)
 {
 	if( e_pFFTHitCountAndTime )
 	{
-		
+		int l_iFFTBinCount = e_pFFTHitCountAndTime->m_iFFTBinCount;
+		float l_fGap = this->GetWidthGapByPoints(e_pFFTHitCountAndTime->m_iFFTBinCount);
+		Vector2 l_vShowPos = this->m_vShowPos;
+		for( int i=0;i<l_iFFTBinCount;++i )
+		{
+			m_vLineTempPos[i*2] = l_vShowPos;
+			m_vLineTempPos[i*2+1] = l_vShowPos;
+			m_vLineTempPos[i*2+1].y = e_pFFTHitCountAndTime->m_pHittedCountArray[i]*this->m_vResolution.y/200.f;
+			l_vShowPos.x += l_fGap;
+		}
+		GLRender::RenderLine((float*)&m_vLineTempPos[0],l_iFFTBinCount,Vector4::One,2);
 	}
 }
 
-void	cFFTDataStore::RenderCurrentData(Vector2 e_vShowPos,Vector2 e_vRecolution)
+void	cFFTDataStore::RenderCurrentData()
 {
-
+	RenderFFTHitCountAndTime(this->m_pCurrentFFTHitCountAndTime);
 }
 
-void	cFFTDataStore::RenderByTime(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vRecolution)
+void	cFFTDataStore::RenderByTime(float e_fTargetTime)
 {
 	cFFTHitCountAndTime*l_pTargetcFFTHitCountAndTime = nullptr;
 	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();

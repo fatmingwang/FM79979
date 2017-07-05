@@ -763,7 +763,7 @@ namespace	FATMING_CORE
 			cGameApp::m_spGlyphFontRender->RenderFont(0,l_iStaryPosY,l_str);
 			std::wstring	l_strInfo = ComposeMsgByFormat(L"ElpaseTime:%.2f",(float)m_dbGamePlayTime);
 			l_iStaryPosY += 20;
-			cGameApp::m_spGlyphFontRender->RenderFont(0,l_iStaryPosY,l_strInfo);
+			cGameApp::m_spGlyphFontRender->RenderFont(0.f,(float)l_iStaryPosY,l_strInfo);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
 			
 		}	

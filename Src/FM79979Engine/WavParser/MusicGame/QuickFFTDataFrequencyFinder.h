@@ -1,5 +1,6 @@
 #pragma once
 
+#include "TimelineBasicInfo.h"
 //for quick find the ampliture in frequency
 
 class cQuickFFTDataFrequencyFinder
@@ -20,10 +21,12 @@ public:
 
 
 
-class cFFTDataStore:public cNodeISAX
+class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 {
 	void	Destroy();
 	virtual	bool						MyParse(TiXmlElement*e_pRoot);
+	//I am lazy...
+	Vector2								m_vLineTempPos[44100*2];
 public:
 	cFFTDataStore();
 	~cFFTDataStore();
@@ -34,12 +37,13 @@ public:
 		~cFFTHitCountAndTime();
 		float   m_fStartTime;
 		int*	m_pHittedCountArray;
+		int		m_iFFTBinCount;
 	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start();
 	void								Export(char*e_strFileName);
-	void								RenderByTime(float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vRecolution);
-	void								RenderCurrentData(Vector2 e_vShowPos,Vector2 e_vRecolution);
+	void								RenderByTime(float e_fTargetTime);
+	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }
 private:
 	int									m_iThreusholdAmplitude;
@@ -49,7 +53,7 @@ private:
 	float								m_fRestNextDataTimeGap;
 private:
 	cFFTHitCountAndTime*				m_pCurrentFFTHitCountAndTime;
-	void								RenderFFTHitCountAndTime(Vector2 e_vShowPos,Vector2 e_vRecolution,cFFTHitCountAndTime*e_pFFTHitCountAndTime);
+	void								RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime);
 };
 
 

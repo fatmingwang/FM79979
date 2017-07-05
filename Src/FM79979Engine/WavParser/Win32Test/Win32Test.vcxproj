@@ -172,6 +172,7 @@
     <ClCompile Include="..\MusicGame\FFTFindPeak.cpp" />
     <ClCompile Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="..\MusicGame\KissFFTConvert.cpp" />
+    <ClCompile Include="..\MusicGame\KissFFTFunction.cpp" />
     <ClCompile Include="..\MusicGame\KissFFTStreaming.cpp" />
     <ClCompile Include="..\MusicGame\MusicGameApp.cpp" />
     <ClCompile Include="..\MusicGame\MusicInfo.cpp" />
@@ -182,12 +183,14 @@
     <ClCompile Include="..\MusicGame\QuickFFTDataFrequencyFinder.cpp" />
     <ClCompile Include="..\MusicGame\SelectMusicPhase.cpp" />
     <ClCompile Include="..\MusicGame\SelectMusicPhaseUI.cpp" />
+    <ClCompile Include="..\MusicGame\SoundBufferSwaper.cpp" />
     <ClCompile Include="..\MusicGame\SoundFFTCapture.cpp" />
     <ClCompile Include="..\MusicGame\SoundTestButtons.cpp" />
     <ClCompile Include="..\MusicGame\SoundTimeLineData.cpp" />
     <ClCompile Include="..\MusicGame\SoundTimeLineVisualizer.cpp" />
     <ClCompile Include="..\MusicGame\StoreNoisePhase.cpp" />
     <ClCompile Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp" />
+    <ClCompile Include="..\MusicGame\TimelineBasicInfo.cpp" />
     <ClCompile Include="..\MusicGame\ToneData.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">Create</PrecompiledHeader>
@@ -202,6 +205,7 @@
     <ClInclude Include="..\MusicGame\FFTFindPeak.h" />
     <ClInclude Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.h" />
     <ClInclude Include="..\MusicGame\KissFFTConvert.h" />
+    <ClInclude Include="..\MusicGame\KissFFTFunction.h" />
     <ClInclude Include="..\MusicGame\KissFFTStreaming.h" />
     <ClInclude Include="..\MusicGame\MusicGameApp.h" />
     <ClInclude Include="..\MusicGame\MusicInfo.h" />
@@ -210,12 +214,14 @@
     <ClInclude Include="..\MusicGame\PerformScoreCalculate.h" />
     <ClInclude Include="..\MusicGame\QuickFFTDataFrequencyFinder.h" />
     <ClInclude Include="..\MusicGame\SelectMusicPhase.h" />
+    <ClInclude Include="..\MusicGame\SoundBufferSwaper.h" />
     <ClInclude Include="..\MusicGame\SoundFFTCapture.h" />
     <ClInclude Include="..\MusicGame\SoundTestButtons.h" />
     <ClInclude Include="..\MusicGame\SoundTimeLineData.h" />
     <ClInclude Include="..\MusicGame\SoundTimeLineVisualizer.h" />
     <ClInclude Include="..\MusicGame\StoreNoisePhase.h" />
     <ClInclude Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.h" />
+    <ClInclude Include="..\MusicGame\TimelineBasicInfo.h" />
     <ClInclude Include="..\MusicGame\ToneData.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />

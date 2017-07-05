@@ -138,8 +138,14 @@
     <ClCompile Include="SoundFrequencyAnalyizer.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Win32Test\SoundBufferSwaper.cpp">
-      <Filter>Sound</Filter>
+    <ClCompile Include="..\MusicGame\SoundBufferSwaper.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\TimelineBasicInfo.cpp">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\KissFFTFunction.cpp">
+      <Filter>Sound\FFT</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -227,8 +233,14 @@
     <ClInclude Include="SoundFrequencyAnalyizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Win32Test\SoundBufferSwaper.h">
-      <Filter>Sound</Filter>
+    <ClInclude Include="..\MusicGame\SoundBufferSwaper.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\TimelineBasicInfo.h">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\KissFFTFunction.h">
+      <Filter>Sound\FFT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

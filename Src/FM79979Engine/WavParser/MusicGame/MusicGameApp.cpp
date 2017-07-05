@@ -25,6 +25,7 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 	*this->m_psstrGameAppName = "MusicGame";
 	m_pPhaseManager = nullptr;
 	m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
+	this->m_sbDebugFunctionWorking = true;
 }
 
 cMusicGameApp::~cMusicGameApp()
@@ -59,8 +60,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
-		//m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();

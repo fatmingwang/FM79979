@@ -5,10 +5,12 @@
 
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 
+
 class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;
 protected:
+	//
 	UT::sTimeCounter	m_TimeToUpdateFFTData;
 	//
 	float	m_fCurrentTime;	

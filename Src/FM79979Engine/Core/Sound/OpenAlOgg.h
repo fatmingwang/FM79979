@@ -32,10 +32,11 @@ namespace FATMING_CORE
 		//if this is true,it will take a little time to cache while cOpanalOgg is trying to new.if you want to cache later set to false,anyway cache need time to process
 		bool				m_bPreCached;
 		string				ErrorString(int code);
-		std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)>	m_UpdteNewBufferCallbackFunction;
+		//bit persample is 4(32bit)
+		std::function<void(int e_iCount,float*e_pfData,size_t e_iCurrentPCMDataPosIndex)>	m_UpdteNewBufferCallbackFunction;
 	public:
 		DEFINE_TYPE_INFO();
-		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction = nullptr,bool e_bPreCache = true);
+		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction = nullptr,bool e_bPreCache = true);
 		virtual ~cOpanalOgg();
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual bool	OpenFile(const char*e_strileName);
@@ -43,7 +44,7 @@ namespace FATMING_CORE
 		virtual	void	Destroy();
 		virtual bool	GoTo(float e_fTime);
 		virtual	void	Play(bool e_bPlay);
-		void			SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction);
+		void			SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction);
 		float			GetCurrentStreamingTime(){ return m_fCurrentStreamingTime; }
 	};
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime);

@@ -108,6 +108,15 @@
     <ClCompile Include="..\MusicGame\StoreNoisePhase.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\MusicGame\TimelineBasicInfo.cpp">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\SoundBufferSwaper.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\KissFFTFunction.cpp">
+      <Filter>Sound\FFT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -178,6 +187,15 @@
     </ClInclude>
     <ClInclude Include="..\MusicGame\StoreNoisePhase.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\TimelineBasicInfo.h">
+      <Filter>Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\SoundBufferSwaper.h">
+      <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\KissFFTFunction.h">
+      <Filter>Sound\FFT</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
