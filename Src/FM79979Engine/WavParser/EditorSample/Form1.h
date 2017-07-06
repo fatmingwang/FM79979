@@ -67,7 +67,7 @@ namespace EditorSample
 			m_WindowStartSize.Height += 20;
 			//m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(1280,720));
 			//m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(1920,1080));
-			m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(4096,2048));
+			m_pGameApp = new cMusicGameApp((HWND)m_pTargetControl->Handle.ToPointer(),Vector2(2048,1530));
 			//m_pGameApp = new cGameApp((HWND)m_pTargetControl->Handle.ToPointer());
 			m_pGameApp->EditorInit();
 			m_pSoundCapture = m_pGameApp->m_pSoundCapture;
@@ -1168,6 +1168,8 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 					cGameApp::m_spSoundParser->Update(l_fElpaseTime);
 			if( m_pKissFFTConvertBase )
 			{
+				//m_pKissFFTConvertBase->SetChartShowPos(Vector2(300,300));
+				//m_pKissFFTConvertBase->SetChartResolution(Vector2(2280,720));
 				m_pKissFFTConvertBase->Update(l_fElpaseTime);
 				m_pKissFFTConvertBase->Render();
 				float l_fCurrentPercentage = m_pKissFFTConvertBase->GetCurrentTimePercentage();

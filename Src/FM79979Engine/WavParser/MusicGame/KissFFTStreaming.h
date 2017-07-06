@@ -35,7 +35,7 @@ public:
 		sTimeAndFFTData(int*e_piFFTData,float e_fStartTime,float e_fEndTime,int e_iFFTDataOneSample,float e_fNextFFTTimeGap);
 		~sTimeAndFFTData();
 		//if false time over
-		bool	GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale,float e_fNextChannelYGap);
+		bool	GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale);
 		//return fft data length(how many bins)
 		int		GetCurrentFFTData(int*e_piOutputData,float e_fTargetTime);
 	};
@@ -50,7 +50,6 @@ public:
 	int								m_iNumFFTDataSwapBuffer;
 	int								m_iCurrentFFTDataSwapBufferIndex;
 	std::vector<sTimeAndFFTData*>	m_TimeAndFFTDataVector;
-	GET_SET_DEC(float,m_fFFTSampleScale,GetFFTSampleScale,SetFFTSampleScale);
 public:
 	cFUSynchronized			m_FUSynchronizedForTimeAndFFTDataVector;
 	cPCMToFFTDataConvertr();
@@ -58,7 +57,7 @@ public:
 	void					SetNFrameFFTDataCount(int e_iNFrameFFTDataCount);
 	void					Destroy();
 	//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
-	void					ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount,bool e_bDoFilter = false,float e_fFilterEndScaleValue = 1.f,int e_iFilterStrength = 6);
+	int*					ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount,bool e_bDoFilter = false,float e_fFilterEndScaleValue = 1.f,int e_iFilterStrength = 6);
 };
 
 class cKissFFTStreamingConvert:public cKissFFTConvertBase
@@ -81,7 +80,7 @@ class cKissFFTStreamingConvert:public cKissFFTConvertBase
 	friend			void			SoundUpdateThread(size_t _workParameter, size_t _pUri);
 	friend			void			SoundUpdateThreadDone(size_t _workParameter, size_t _pUri);
 	//
-	void							StreamingBuffer(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex);
+	void							StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex,int e_iBirPersample);
 	int								m_iCurrentStreamingBufferDataIndex;
 	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
 	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
@@ -102,6 +101,5 @@ public:
 	virtual float					GetCurrentTimePercentage();
 	virtual float					GetTimeLength();
 	virtual	void					GoToTime(float e_fTime);
-	void							SetFFTSampleScale(float e_fScale,bool e_bForceSet = false);
 	int								GetFrequenceAmplitiude(int e_iFrenquence);
 };

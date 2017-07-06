@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Parameters.h"
 
+int				ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 60;
+
 float			cSoundCompareParameter::m_sfCompareTuneTolerateTime = 0.3f;
 
 

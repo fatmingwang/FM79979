@@ -1,5 +1,7 @@
 #pragma once
+
 #include "KissFFTStreaming.h"
+#include "QuickFFTDataFrequencyFinder.h"
 
 class cQuickFFTDataFrequencyFinder;
 
@@ -8,9 +10,6 @@ void	SoundFFTCaptureKissFFTStreamingConvertThreadDone(size_t _workParameter, siz
 
 #define	SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG		1<<1
 #define	SOUNS_FFT_CAPTURE_UPDATE_FETCH_FFT_DATA_FLAG	2<<1
-
-
-
 
 class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKissFFTConvertBase
 {
@@ -26,7 +25,8 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	cFUThreadPool*					m_pFUThreadPool;
 	//
 	int								m_iCurrentStreamingBufferDataIndex;
-	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE];
+	//char							m_PreviousStreamingBufferData[OGG_STREAMING_SOUND_BUFFER_SIZE];
+	char							m_StreamingBufferData[PCM_SWAP_BUFFER_COUNT][OGG_STREAMING_SOUND_BUFFER_SIZE*2];
 	std::vector<sTimeAndPCMData*>	m_TimeAndPCMDataVector;
 	Vector2*						m_pvFFTDataToPoints;
 	int*							m_piFFTData;
@@ -36,6 +36,7 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	GET_SET_DEC(int,m_iUpdateFlag,GetUpdateFlag,SetUpdateFlag);
 	//
 	cQuickFFTDataFrequencyFinder*	m_pQuickFFTDataFrequencyFinder;
+	cFFTDataStore					m_FFTDataStore;
 public:
 	cSoundFFTCapture();
 	virtual ~cSoundFFTCapture();
@@ -46,7 +47,6 @@ public:
 	void			Update(float e_fElpaseTime);
 	void			Render();
 	virtual void	GoToTime(float e_fElpaseTime){}
-	void			SetFFTSampleScale(float e_fScale);
 	cQuickFFTDataFrequencyFinder*	GetQuickFFTDataFrequencyFinder(){return m_pQuickFFTDataFrequencyFinder;}
 	//use this one for cSoundCapture(buffersize)
 	static int		GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence,bool e_bFFTCompatibility,ALCenum e_Fromat);

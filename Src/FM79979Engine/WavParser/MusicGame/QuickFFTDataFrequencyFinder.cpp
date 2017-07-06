@@ -68,35 +68,37 @@ cFFTDataStore::cFFTHitCountAndTime::cFFTHitCountAndTime(float e_fStartTime,int e
 	m_iFFTBinCount = e_iFFTBinCount;
 	m_fStartTime = e_fStartTime;
 	m_pHittedCountArray = new int[e_iFFTBinCount];
+	memset(m_pHittedCountArray,0,sizeof(int)*e_iFFTBinCount);
 }
 
 cFFTDataStore::cFFTHitCountAndTime::~cFFTHitCountAndTime()
 {
-		
+	SAFE_DELETE(m_pHittedCountArray);
 }
 
 
 cFFTDataStore::cFFTDataStore()
 {
-	m_fNextDataTimeGap = 0.1f;
+	m_fNextDataTimeGap = 20.0f;
 	m_fCurrentTime = 0.f;
 	m_pCurrentFFTHitCountAndTime = nullptr;
+	this->m_vShowPos = Vector2(1000,1000);
+	this->m_vResolution.x = 1000;
+	this->m_vResolution.y = 500;
+	m_iAnplitudeScale = 3;
+	m_iMaxValue = 0;
+	//m_iThreusholdAmplitude = cSoundCompareParameter::m_siDebugAmplitudeValue;
 }
 
 cFFTDataStore::~cFFTDataStore()
 {
+	Destroy();
 }
-	//class cFFTHitCountAndTime
-	//{
-	//	float   m_fStartTime;
-	//	int		m_iFFTBinCount;
-	//	int*	m_pHittedCountArray;
-	//	int     m_iThreusholdAmplitude;
-	//};
+
 
 void	cFFTDataStore::Destroy()
 {
-	SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
+	//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
 	DELETE_VECTOR(m_FFTHitCountAndTimeVector,cFFTHitCountAndTime*);
 }
 
@@ -113,14 +115,20 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 	if( m_fRestNextDataTimeGap <= 0.f )
 	{
 		m_fRestNextDataTimeGap = m_fNextDataTimeGap+m_fRestNextDataTimeGap;
+		//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
 		cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
 		m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
 		this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
+		m_iMaxValue = 0;
 	}
 	for( int i=0;i<e_iCount;++i )
 	{
-		if( e_piFFTData[i] >= this->m_iThreusholdAmplitude )
-			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;;
+		if( e_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
+		{
+			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += m_iAnplitudeScale;
+			if(m_iMaxValue <m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] )
+				m_iMaxValue = m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i];
+		}
 	}
 }
 
@@ -135,10 +143,27 @@ void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountA
 		{
 			m_vLineTempPos[i*2] = l_vShowPos;
 			m_vLineTempPos[i*2+1] = l_vShowPos;
-			m_vLineTempPos[i*2+1].y = e_pFFTHitCountAndTime->m_pHittedCountArray[i]*this->m_vResolution.y/200.f;
+			m_vLineTempPos[i*2+1].y -= e_pFFTHitCountAndTime->m_pHittedCountArray[i];//*this->m_vResolution.y/200.f;
 			l_vShowPos.x += l_fGap;
 		}
-		GLRender::RenderLine((float*)&m_vLineTempPos[0],l_iFFTBinCount,Vector4::One,2);
+		GLRender::RenderLine((float*)&m_vLineTempPos[0],l_iFFTBinCount*2,Vector4::One,2);
+		std::wstring l_strInfo = L"RestTime:";
+		l_strInfo += ValueToStringW(m_fRestNextDataTimeGap);
+		l_strInfo += L"\nMaxValue:";
+		l_strInfo += ValueToStringW(m_iMaxValue);
+		cGameApp::RenderFont(this->m_vShowPos.x,this->m_vShowPos.y+200,l_strInfo);
+
+		if(cGameApp::m_sbDebugFunctionWorking)
+		{
+			Vector2	l_vChartResolution = this->m_vResolution;
+			Vector2 l_vLinePos[2];
+			l_vLinePos[0] = this->m_vShowPos;
+			l_vLinePos[0].y -= cSoundCompareParameter::m_siDebugAmplitudeValue*m_iAnplitudeScale;
+
+			l_vLinePos[1] = l_vLinePos[0];
+			l_vLinePos[1].x += l_vChartResolution.x;
+			RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
+		}
 	}
 }
 

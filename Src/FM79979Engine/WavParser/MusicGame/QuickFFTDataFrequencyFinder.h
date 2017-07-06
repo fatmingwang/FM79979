@@ -27,6 +27,8 @@ class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 	virtual	bool						MyParse(TiXmlElement*e_pRoot);
 	//I am lazy...
 	Vector2								m_vLineTempPos[44100*2];
+	int									m_iAnplitudeScale;
+	int									m_iMaxValue;
 public:
 	cFFTDataStore();
 	~cFFTDataStore();
@@ -46,7 +48,7 @@ public:
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }
 private:
-	int									m_iThreusholdAmplitude;
+	//int									m_iThreusholdAmplitude;
 	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;
 	float								m_fNextDataTimeGap;
 	float								m_fCurrentTime;

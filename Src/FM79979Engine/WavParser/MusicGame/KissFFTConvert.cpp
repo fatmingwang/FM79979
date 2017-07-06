@@ -1,9 +1,7 @@
 #include "stdafx.h"
 #include "KissFFTConvert.h"
 #include "Parameters.h"
-
-int ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 15;
-
+#include "KissFFTFunction.h"
 TYPDE_DEFINE_MARCO(cKissFFTConvertBase);
 
 cKissFFTConvertBase::cKissFFTConvertBase()
@@ -18,8 +16,8 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iOneFrameFFTDataCount = 0;
 	m_vChartResolution = Vector2(1280.f,600.f);
 	m_fScale = 3.f;
-	m_fNextChannelYGap = 800.f;
-	m_vChartShowPos = Vector2(800,cGameApp::m_svGameResolution.y-600);
+	m_fNextChannelYGap = 700.f;
+	m_vChartShowPos = Vector2(100,700);
 	m_bPause = false;
 	m_fFrenquenceFilterEndScaleValue = 1.f;
 	m_bFilter = false;
@@ -62,21 +60,6 @@ void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
 	//m_TimeToUpdateFFTData.SetTargetTime(e_fTime);
 }
 
-//bool GetFft(const int e_iCount,const kiss_fft_cpx*e_pIn,kiss_fft_cpx*e_pOut)
-//{
-//	kiss_fft_cfg cfg;
-//	if ((cfg = kiss_fft_alloc(e_iCount, 0/*is_inverse_fft*/, NULL, NULL)) != NULL)
-//	{
-//		kiss_fft(cfg, e_pIn, e_pOut);
-//		free(cfg);
-//	}
-//	else
-//	{
-//		printf("not enough memory?\n");
-//		return false;
-//	}
-//	return true;
-//}
 
 cKissFFTConvert::cKissFFTConvert()
 {
@@ -177,100 +160,120 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
 	kiss_fft_cpx* l_pKiss_FFT_In = new kiss_fft_cpx[l_iFetchDataCount];
 	kiss_fft_cpx* l_pKiss_FFT_Out = new kiss_fft_cpx[l_iFetchDataCount];
 	kiss_fft_state* l_pkiss_fft_state = kiss_fft_alloc(l_iFetchDataCount, 0/*is_inverse_fft*/, NULL, NULL);
-	bool l_bDoFFT = true;
-	for(int l_iCurrentChannelIndex = 0;l_iCurrentChannelIndex<l_iChannels;++l_iCurrentChannelIndex)
+	int l_iNumFFT = l_uiSameCount/l_iFetchDataCount;
+	float*l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(l_iFetchDataCount);
+	//int l_iLazyOutFFTData[32*1024];
+
+	std::vector<int>*l_pFFTDataVector = new std::vector<int>;
+	l_pFFTDataVector->resize(l_iNumFFT*l_iFetchDataCount);
+	for( int i=0;i<l_iNumFFT;++i )
 	{
-		std::vector<int>*l_pFFTDataVector = new std::vector<int>;
-		std::vector<float>*l_pFFTPhaseDataVector = new std::vector<float>;
-		l_pFFTDataVector->reserve(m_pSoundFile->m_iSampleCount);
-
-		size_t l_uiCurrentSoundDataIndex = 0;
-
-		short*l_pucSoundData = (short*)m_pSoundFile->GetChannelData(l_iCurrentChannelIndex);
-		int l_iNumWindow = 0;
-		int l_iNumFFT = 0;
-		while(l_uiCurrentSoundDataIndex < l_uiSameCount  )
-		{
-			if( l_bDoFFT )
-			{
-				size_t l_uiCount = 0;
-				size_t j = 0;
-				for( l_uiCount = l_uiCurrentSoundDataIndex;
-					 l_uiCount < (l_uiCurrentSoundDataIndex + l_iFetchDataCount) && l_uiCurrentSoundDataIndex < l_uiSameCount - l_iFetchDataCount ;
-					 l_uiCount++,j++  )
-				{
-					//https://en.wikipedia.org/wiki/Window_function#Hann_window
-					//Apply window function on the sample,Hann window
-					double multiplier = 0.5 * (1 - cos(2*D3DX_PI*j/(l_iFetchDataCount-1)));
-					l_pKiss_FFT_In[j].r = (float)(multiplier * l_pucSoundData[l_uiCount]);
-					l_pKiss_FFT_In[j].i = 0;  //stores N samples 
-				}
-				++l_iNumWindow;
-				if(l_uiCurrentSoundDataIndex < l_uiSameCount-l_iFetchDataCount )
-				{
-					l_uiCurrentSoundDataIndex = l_uiCount;
-				}
-				else
-				{    
-					size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
-					m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
-					m_FFTResultPhaseVector.push_back(l_pFFTPhaseDataVector);
-					break;
-				}
-				//GetFft(l_iFetchDataCount,l_pKiss_FFT_In,l_pKiss_FFT_Out);
-				kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
-				// calculate magnitude of first n/2 FFT
-				int l_iDidgitalWindownFunctionCount = l_iFetchDataCount/WINDOWN_FUNCTION_FRUSTRUM;
-				if( !e_bFilter )
-				{
-					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-					{
-						int val;
-						float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-						// N/2 Log magnitude values.
-						//for (i = 0; i < N/2 ; ++i){
-						//  x =   10 * log10(mag[i]) ;
-						//  printf("  log x= %g ", log(x));
-						//val = l_Msg;
-						val = (int)(log(l_Msg) *10); 
-						//l_FFTDataVector[i] = val;
-						l_pFFTDataVector->push_back(val);
-						float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-						l_pFFTPhaseDataVector->push_back(l_fPhase);
-						++l_iNumFFT;
-					}
-				}
-				else
-				{
-					const int l_iLazeLength = 1024*32*2;
-					int l_iIAmLazyToOptmizeFuck[l_iLazeLength];
-					assert(l_iLazeLength>l_iDidgitalWindownFunctionCount&&"basicly it won't happen if it happen call fatming(l_iIAmLazyToOptmizeFuck)");
-					DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
-					for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-					{
-						l_pFFTDataVector->push_back(l_iIAmLazyToOptmizeFuck[i]);
-						float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-						l_pFFTPhaseDataVector->push_back(l_fPhase);
-						++l_iNumFFT;
-					}
-
-				}
-			}
-			else
-			{
-				m_fScale = 0.1f;
-				size_t l_uiCount = 0;
-				for( l_uiCount = l_uiCurrentSoundDataIndex;l_uiCount < l_uiSameCount;l_uiCount++)
-				{
-					l_pFFTDataVector->push_back(l_pucSoundData[l_uiCount]);
-				}
-				size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
-				m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
-				break;	
-			}
-		}
-		size_t l_uiSize = l_pFFTDataVector->size();
+		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+(i*l_iFetchDataCount*l_iChannels*sizeof(short));
+		int*l_pOutFFTData = &(*l_pFFTDataVector)[i*l_iFetchDataCount];
+		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,l_iFetchDataCount*sizeof(short),eDataType::eDT_SHORT);
+		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
+						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
+						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
 	}
+	SAFE_DELETE(l_pfWindowFunctionConstantValue);
+	m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
+
+	//bool l_bDoFFT = true;
+	//for(int l_iCurrentChannelIndex = 0;l_iCurrentChannelIndex<l_iChannels;++l_iCurrentChannelIndex)
+	//{
+	//	std::vector<int>*l_pFFTDataVector = new std::vector<int>;
+	//	std::vector<float>*l_pFFTPhaseDataVector = new std::vector<float>;
+	//	l_pFFTDataVector->reserve(m_pSoundFile->m_iSampleCount);
+
+	//	size_t l_uiCurrentSoundDataIndex = 0;
+
+	//	short*l_pucSoundData = (short*)m_pSoundFile->GetChannelData(l_iCurrentChannelIndex);
+	//	int l_iNumWindow = 0;
+	//	int l_iNumFFT = 0;
+	//	while(l_uiCurrentSoundDataIndex < l_uiSameCount  )
+	//	{
+	//		if( l_bDoFFT )
+	//		{
+	//			size_t l_uiCount = 0;
+	//			size_t j = 0;
+	//			for( l_uiCount = l_uiCurrentSoundDataIndex;
+	//				 l_uiCount < (l_uiCurrentSoundDataIndex + l_iFetchDataCount) && l_uiCurrentSoundDataIndex < l_uiSameCount - l_iFetchDataCount ;
+	//				 l_uiCount++,j++  )
+	//			{
+	//				//https://en.wikipedia.org/wiki/Window_function#Hann_window
+	//				//Apply window function on the sample,Hann window
+	//				double multiplier = 0.5 * (1 - cos(2*D3DX_PI*j/(l_iFetchDataCount-1)));
+	//				l_pKiss_FFT_In[j].r = (float)(multiplier * l_pucSoundData[l_uiCount]);
+	//				l_pKiss_FFT_In[j].i = 0;  //stores N samples 
+	//			}
+	//			++l_iNumWindow;
+	//			if(l_uiCurrentSoundDataIndex < l_uiSameCount-l_iFetchDataCount )
+	//			{
+	//				l_uiCurrentSoundDataIndex = l_uiCount;
+	//			}
+	//			else
+	//			{    
+	//				size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
+	//				m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
+	//				m_FFTResultPhaseVector.push_back(l_pFFTPhaseDataVector);
+	//				break;
+	//			}
+	//			//GetFft(l_iFetchDataCount,l_pKiss_FFT_In,l_pKiss_FFT_Out);
+	//			kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
+	//			// calculate magnitude of first n/2 FFT
+	//			int l_iDidgitalWindownFunctionCount = l_iFetchDataCount/WINDOWN_FUNCTION_FRUSTRUM;
+	//			if( !e_bFilter )
+	//			{
+	//				for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
+	//				{
+	//					int val;
+	//					float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+	//					// N/2 Log magnitude values.
+	//					//for (i = 0; i < N/2 ; ++i){
+	//					//  x =   10 * log10(mag[i]) ;
+	//					//  printf("  log x= %g ", log(x));
+	//					//val = l_Msg;
+	//					val = (int)(log(l_Msg) *10); 
+	//					//l_FFTDataVector[i] = val;
+	//					l_pFFTDataVector->push_back(val);
+	//					float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+	//					l_pFFTPhaseDataVector->push_back(l_fPhase);
+	//					++l_iNumFFT;
+	//				}
+	//			}
+	//			else
+	//			{
+	//				const int l_iLazeLength = 1024*32*2;
+	//				int l_iIAmLazyToOptmizeFuck[l_iLazeLength];
+	//				assert(l_iLazeLength>l_iDidgitalWindownFunctionCount&&"basicly it won't happen if it happen call fatming(l_iIAmLazyToOptmizeFuck)");
+	//				//DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
+	//				DoFilter(l_iDidgitalWindownFunctionCount,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out);
+	//				//DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
+	//				for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
+	//				{
+	//					l_pFFTDataVector->push_back(l_iIAmLazyToOptmizeFuck[i]);
+	//					float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+	//					l_pFFTPhaseDataVector->push_back(l_fPhase);
+	//					++l_iNumFFT;
+	//				}
+
+	//			}
+	//		}
+	//		else
+	//		{
+	//			m_fScale = 0.1f;
+	//			size_t l_uiCount = 0;
+	//			for( l_uiCount = l_uiCurrentSoundDataIndex;l_uiCount < l_uiSameCount;l_uiCount++)
+	//			{
+	//				l_pFFTDataVector->push_back(l_pucSoundData[l_uiCount]);
+	//			}
+	//			size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
+	//			m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
+	//			break;	
+	//		}
+	//	}
+	//	size_t l_uiSize = l_pFFTDataVector->size();
+	//}
 	free(l_pkiss_fft_state);
 	SAFE_DELETE(l_pKiss_FFT_In);
 	SAFE_DELETE(l_pKiss_FFT_Out);
@@ -331,7 +334,7 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 	float l_fStartXPos = m_vChartShowPos.x;
 	float l_fYStartPos = m_vChartShowPos.y;
 	int l_iIndex = 0;
-	assert(m_FFTDataLinePointVectorVector.size() == m_FFTDataVectorChannelVector.size());
+	//assert(m_FFTDataLinePointVectorVector.size() == m_FFTDataVectorChannelVector.size());
 
 	int l_iMaxAmplitude = 0;
 	int l_iMaxAmplitudeFrequency = 0;
@@ -341,7 +344,7 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 		auto l_pData = m_FFTDataLinePointVectorVector[l_iChannelIndex];
 		auto l_pFFTDataVector = this->m_FFTDataVectorChannelVector[l_iChannelIndex];
 
-		auto l_pFFTPhaseDataVector = this->m_FFTResultPhaseVector[l_iChannelIndex];
+		//auto l_pFFTPhaseDataVector = this->m_FFTResultPhaseVector[l_iChannelIndex];
 
 		float l_fYPos = l_fYGap*l_iChannelIndex;
 		int l_iIndex = 0;
@@ -397,12 +400,12 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 		}
 		if( m_FFTDataLinePointVectorVector.size() == 0 )
 		{
-			for(int i=0;i<m_pSoundFile->m_iChannel;++i)
-			{
+			//for(int i=0;i<m_pSoundFile->m_iChannel;++i)
+			//{
 				std::vector<Vector2>*l_pData = new std::vector<Vector2>();
 				l_pData->reserve(m_iOneFrameFFTDataCount);
 				m_FFTDataLinePointVectorVector.push_back(l_pData);
-			}
+			//}
 		}
 		m_TimeToUpdateFFTData.Update(e_fElpaseTime);
 		//if( m_TimeToUpdateFFTData.bTragetTimrReached )

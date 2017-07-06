@@ -91,7 +91,7 @@ namespace FATMING_CORE
 	}
 
 	TYPDE_DEFINE_MARCO(cOpanalOgg);
-	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,std::function<void(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction,bool e_bPreCache):cBasicSound(e_pNamedTypedObject,e_bStreaming)
+	cOpanalOgg::cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,OGG_SOUND_STREAMING_CALL_BACK e_CallbuckFunction,bool e_bPreCache):cBasicSound(e_pNamedTypedObject,e_bStreaming)
 	{
 		m_bPreCached = e_bPreCache;
 		m_uiHowManyDataRead = 0;
@@ -316,10 +316,9 @@ namespace FATMING_CORE
 		m_fCurrentStreamingTime = (float)m_uiHowManyDataRead/(float)this->m_iPCMDataSize*this->m_fTimeLength;
 	    if(m_UpdteNewBufferCallbackFunction)
 		{
-			assert(size%sizeof(float) == 0);
 			//ogg_int64_t l_i64Size = m_pOggFile->end-m_pOggFile->offsets;
 			//ogg data is float
-			m_UpdteNewBufferCallbackFunction(size/4,(float*)pcm,l_uiStartPos);
+			m_UpdteNewBufferCallbackFunction(size,pcm,l_uiStartPos,sizeof(short));
 		}
 		alBufferData(buffer, this->m_iFormat, pcm, size, m_pVorbisInfo->rate);
 		check();
@@ -433,7 +432,7 @@ namespace FATMING_CORE
 		return ov_time_seek(this->m_pOggFile,l_fTime) == 0?true:false;
 	}
 
-	void	cOpanalOgg::SetUpdateNewBufferCallbackFunction(std::function<void(int e_iCount,float*e_pData,size_t e_iCurrentPCMDataPosIndex)> e_CallbuckFunction)
+	void	cOpanalOgg::SetUpdateNewBufferCallbackFunction(OGG_SOUND_STREAMING_CALL_BACK e_CallbuckFunction)
 	{
 		m_UpdteNewBufferCallbackFunction = e_CallbuckFunction;
 	}

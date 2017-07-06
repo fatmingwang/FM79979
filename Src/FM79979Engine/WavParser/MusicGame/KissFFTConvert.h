@@ -3,8 +3,6 @@
 #include "../kiss_fft130/kiss_fft.h"
 //#include "SwapBuffer.h"
 
-int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
-
 
 class cKissFFTConvertBase:public NamedTypedObject
 {
@@ -50,6 +48,7 @@ public:
 	virtual void	Render() = 0;
 	void			SetFFTDataUpdateTime(float e_fTime);
 	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
+	void			SetChartShowPos(Vector2 e_vChartShowPos){m_vChartShowPos = e_vChartShowPos;}
 	virtual float	GetCurrentTimePercentage(){ return 0.f; }
 	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
@@ -68,7 +67,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 {
 	cOpanalWAV*							m_pTestSound;
 	std::vector<std::vector<int>* >		m_FFTDataVectorChannelVector;
-		//it won't bigger than this...I guess
+	//it won't bigger than this...I guess
 	std::vector<std::vector<float>* >	m_FFTResultPhaseVector;
 	int									m_iCurrentFFTDataLineCount;
 	std::vector<std::vector<Vector2>*>	m_FFTDataLinePointVectorVector;

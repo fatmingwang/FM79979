@@ -43,8 +43,27 @@ int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArr
 	return l_iNumFFTData;
 }
 
+int DoFilter(int e_iNumFFT,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out)
+{
+	for(int i = 0; i < e_iNumFFT; i++ )
+	{
+		int l_iValue = e_pFFTDataSrc[i];
+		if(l_iValue < cSoundCompareParameter::m_siDebugAmplitudeValue )
+		{
+			l_iValue = AFTER_FILTER_MIN_VALUE;
+		}
+		//else
+		//{
+		//	l_iValue = (int)(log(l_iValue) *10);
+		//}
+		e_pFFTDataSrc[i] = l_iValue;
+	}
+	return false;
+}
+
 template<class T>void	PCMBufferToOneChannel(int e_iNumChannel,int e_iCPMBufferCount,T*e_pInPCMBuffer)
 {
+	//return;
 	if( e_iNumChannel == 1 )
 		return;
 	for( int l_iPCMBufferIndex=0;l_iPCMBufferIndex<e_iCPMBufferCount;++l_iPCMBufferIndex )
@@ -60,19 +79,21 @@ template<class T>void	PCMBufferToOneChannel(int e_iNumChannel,int e_iCPMBufferCo
 	}
 }
 
-template <class T>void	ProcessFFTWithType(int e_iNumChannel,char*e_pPCMBuffer,int e_iPCMBufferCount,kiss_fft_state*e_pkiss_fft_state,kiss_fft_cpx*e_pkiss_fft_In,kiss_fft_cpx*e_pkiss_fft_Out,
+template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_state,kiss_fft_cpx*e_pkiss_fft_In,kiss_fft_cpx*e_pkiss_fft_Out,
 				   float* e_pfPreCompiledWindowFunctionValue,int*e_piFFTOutData,
 				   bool e_bDoFilter,int e_iFilterStrength,float e_fFilterEndScaleValue)
 {
 	kiss_fft_cpx* l_pKiss_FFT_In = e_pkiss_fft_In;
 	kiss_fft_cpx* l_pKiss_FFT_Out = e_pkiss_fft_Out;
 	kiss_fft_state* l_pkiss_fft_state = e_pkiss_fft_state;
-	l_pkiss_fft_state->nfft = e_iPCMBufferCount;
+	assert(e_pTimeAndPCMData->eBitPerSameplType==eDataType::eDT_SHORT&&"sorry I am lazy now only support short!");
+	int l_iNumPCMBuffer = e_pTimeAndPCMData->iNumPCMData/sizeof(short);
+	l_pkiss_fft_state->nfft = l_iNumPCMBuffer;
 	//16bit 2 byte	,32 bit 4 byte
-	T*l_pucSoundData = (T*)e_pPCMBuffer;
+	T*l_pucSoundData = (T*)e_pTimeAndPCMData->pPCMData;
 	// calculate magnitude of first n/2 FFT
-	int l_iDidgitalWindownFunctionCount = e_iPCMBufferCount/WINDOWN_FUNCTION_FRUSTRUM;
-	for(int l_iSampleIndex = 0;l_iSampleIndex<e_iPCMBufferCount;++l_iSampleIndex)
+	int l_iDidgitalWindownFunctionCount = l_iNumPCMBuffer/WINDOWN_FUNCTION_FRUSTRUM;
+	for(int l_iSampleIndex = 0;l_iSampleIndex<l_iNumPCMBuffer;++l_iSampleIndex)
 	{
 		//Apply window function on the sample,Hann window
 		double multiplier = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex];
@@ -91,7 +112,7 @@ template <class T>void	ProcessFFTWithType(int e_iNumChannel,char*e_pPCMBuffer,in
 #ifdef DEBUG
 			{//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
 				/* get normalized bin magnitude */
-				double l_dbNormBinMag = 2.*l_Msg / e_iPCMBufferCount;
+				double l_dbNormBinMag = 2.*l_Msg / l_iNumPCMBuffer;
 				/* convert to dB value */
 				double l_dbDecebile = 20. * log10( l_dbNormBinMag );
 			}
@@ -104,7 +125,8 @@ template <class T>void	ProcessFFTWithType(int e_iNumChannel,char*e_pPCMBuffer,in
 	}
 	else
 	{
-		DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,e_iPCMBufferCount,e_piFFTOutData,l_pKiss_FFT_Out,e_iFilterStrength);
+		DoFilter(l_iDidgitalWindownFunctionCount,e_piFFTOutData,l_pKiss_FFT_Out);
+		//DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumPCMBuffer,e_piFFTOutData,l_pKiss_FFT_Out,e_iFilterStrength);
 	}
 #ifdef DEBUG
 	{
@@ -119,6 +141,7 @@ template <class T>void	ProcessFFTWithType(int e_iNumChannel,char*e_pPCMBuffer,in
 		//cGameApp::OutputDebugInfoString(l_strDebugInfo);
 	}
 #endif
+	return false;
 }
 
 void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_state,kiss_fft_cpx*e_pkiss_fft_In,kiss_fft_cpx*e_pkiss_fft_Out,
@@ -127,25 +150,37 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 {
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_SHORT )
 	{
-		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData,(short*)e_pTimeAndPCMData->pPCMData);
-		ProcessFFTWithType<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->pPCMData,e_pTimeAndPCMData->iNumPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
+		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(short),(short*)e_pTimeAndPCMData->pPCMData);
+		ProcessFFTWithType<short>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
 	}
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_FLOAT )
 	{
-		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData,(float*)e_pTimeAndPCMData->pPCMData);
-		ProcessFFTWithType<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->pPCMData,e_pTimeAndPCMData->iNumPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
+		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(float),(float*)e_pTimeAndPCMData->pPCMData);
+		ProcessFFTWithType<float>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
 	}
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_INT )
 	{
-		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData,(int*)e_pTimeAndPCMData->pPCMData);
-		ProcessFFTWithType<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->pPCMData,e_pTimeAndPCMData->iNumPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
+		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(int),(int*)e_pTimeAndPCMData->pPCMData);
+		ProcessFFTWithType<int>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
 	}
+}
+
+float*	GenerateWindowsFunctionValue(int e_iFFTBinCoutn)
+{
+	float*l_pfWindowFunctionConstantValue = new float[e_iFFTBinCoutn];
+	int l_iConstantValue = e_iFFTBinCoutn-1;
+	for( int l_iCount = 0;l_iCount <e_iFFTBinCoutn;++l_iCount)
+	{
+		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/l_iConstantValue));
+		l_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
+	}
+	return l_pfWindowFunctionConstantValue;
 }

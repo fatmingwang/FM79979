@@ -5,6 +5,8 @@
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 {
 	cSoundFFTCapture*l_pSoundFFTCapture = (cSoundFFTCapture*)_workParameter;
+	float	l_fTimeElpasee = 0.f;
+	float	l_fPreviousTime = 0.f;
 	while( !l_pSoundFFTCapture->m_bThreadStop )
 	{
 		if( cGameApp::m_sbGamePause ||l_pSoundFFTCapture->m_bThreadPause)
@@ -26,7 +28,12 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
+		{
+			l_fTimeElpasee = l_pTimeAndPCMData->fStartTime-l_fPreviousTime;
+			l_fPreviousTime = l_pTimeAndPCMData->fStartTime;
+			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
+			l_pSoundFFTCapture->m_FFTDataStore.UpdateFFTData(l_fTimeElpasee,l_pFFTData,l_pSoundFFTCapture->m_iOneFrameFFTDataCount);
+		}
 	}
 }
 
@@ -93,14 +100,17 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	float l_fFPSTime = 1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fNextSampleTime = l_fFPSTime;
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(l_iFrequency);
-	if( m_iOneFrameFFTDataCount > this->m_pSoundCapture->GetBuffersize())
+	int l_iMaxFFTCount = this->m_pSoundCapture->GetBuffersize()/sizeof(short);
+	if( m_iOneFrameFFTDataCount > l_iMaxFFTCount )
 	{
-		m_iOneFrameFFTDataCount = this->m_pSoundCapture->GetBuffersize();
+		m_iOneFrameFFTDataCount = l_iMaxFFTCount;
 	}
-
 	m_piFFTData = new int[m_iOneFrameFFTDataCount];
 	m_pQuickFFTDataFrequencyFinder = new cQuickFFTDataFrequencyFinder(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM,l_iFrequency);
 	m_pQuickFFTDataFrequencyFinder->SetFFTData(m_piFFTData);
+
+	m_FFTDataStore.Start();
+
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
 	this->m_pFUThreadPool->Spawn(1);
@@ -112,7 +122,8 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData)
 {
 		//the performance is too bad...skip this one
-		assert(e_iSamplesIn >= this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
+		assert(e_iSamplesIn*sizeof(short) >= (size_t)this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
+		e_iSamplesIn = this->m_iOneFrameFFTDataCount*sizeof(short);
 		if( m_TimeAndPCMDataVector.size()+1 >= PCM_SWAP_BUFFER_COUNT)
 		{
 #ifdef DEBUG
@@ -121,27 +132,7 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 			//
 			return;
 		}
-		//memset(m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],0,OGG_STREAMING_SOUND_BUFFER_SIZE);
 		memcpy(m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_pData,e_iSamplesIn);
-		//if( e_iSamplesIn%2 )
-		//{
-		//	int a=0;
-		//}
-		//short*l_pData = (short*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
-		//int l_iNum = 0;
-		//int l_iNum2 = 0;
-		//for(ALCint i=0;i<e_iSamplesIn/2;++i)
-		//{
-		//	if( l_pData[i]<10 )
-		//	{
-		//		++l_iNum;
-		//	}
-		//	if( l_pData[i]<100 )
-		//	{
-		//		++l_iNum2;
-		//		l_pData[i] = 0;
-		//	}
-		//}		
 		float l_fCurrentTime = m_fCurrentTime+this->m_fNextSampleTime;
 		eDataType l_eDataType = eDataType::eDT_SHORT;
 		if(this->m_pSoundCapture->GetWriteBitpersample() == 16)
@@ -153,7 +144,7 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 		{
 			UT::ErrorMsg(L"Error",L"sound capture bit persample is not 8 or 16");
 		}
-		sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+this->m_fNextSampleTime,this->m_pSoundCapture->GetWriteChannel(),m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_iSamplesIn,m_iCurrentStreamingBufferDataIndex,l_eDataType);
+		sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+this->m_fNextSampleTime,this->m_pSoundCapture->GetWriteChannel(),m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_iSamplesIn,l_eDataType);
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
 			m_TimeAndPCMDataVector.push_back(l_pTimeAndPCMData);
@@ -167,6 +158,7 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 		++m_iCurrentStreamingBufferDataIndex;
 		if( m_iCurrentStreamingBufferDataIndex >= PCM_SWAP_BUFFER_COUNT)
 			m_iCurrentStreamingBufferDataIndex = 0;
+		//memcpy(m_PreviousStreamingBufferData,e_pData,e_iSamplesIn);
 //#ifdef DEBUG
 //		float l_pfshortToFloatArray[3000];
 //		short*l_pSrouce = (short*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
@@ -212,7 +204,8 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 			++l_iTest;
 			if( l_iTest % 10 == 0 )
 			{
-				const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				//const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount*m_PCMToFFTDataConvertr.GetFFTSampleScale());
+				const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount);
 				this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetFrequency(),l_iFetchDataCount,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestAmplitude);
 			}
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
@@ -227,88 +220,6 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 			break;
 		}
 	}
-	//for debug
-	if( 0 )
-	{
-		//bool
-		static std::vector<std::vector<int> >	l_iDebugInfoVectorVector;
-		//for debug
-		static bool l_bQKeyPress = false;
-		if( cGameApp::m_sucKeyData['Q'] )
-		{
-			l_bQKeyPress = true;
-		}
-		//if( l_bQKeyPress && !cGameApp::m_sucKeyData['Q'] && m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
-		if( cGameApp::m_sucKeyData['Q'] && m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
-		{
-			l_bQKeyPress = false;
-			auto*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
-			int l_iFFTDataLength = l_pTimeAndFFTData->iFFTDataOneSample/WINDOWN_FUNCTION_FRUSTRUM;
-			int l_iFrequency = this->m_pSoundCapture->GetFrequency();
-			int l_iSampleGap = l_iFrequency/l_iFFTDataLength;
-			std::vector<int> l_Result;
-			std::wstring l_strDebugInfo;
-			for( int i=0;i<l_iFFTDataLength;++i )
-			{
-				if( this->m_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
-				{
-					l_strDebugInfo += ValueToStringW(l_iSampleGap*i);
-					l_strDebugInfo += L",";
-					l_Result.push_back(l_iSampleGap*i);
-				}
-			}
-			cGameApp::OutputDebugInfoString(l_strDebugInfo);
-			l_iDebugInfoVectorVector.push_back(l_Result);
-		}
-		static bool l_bWKeyPress = false;
-		if( cGameApp::m_sucKeyData['W'] )
-		{
-			l_bWKeyPress = true;
-		}
-		if( l_bWKeyPress && !cGameApp::m_sucKeyData['W'])
-		{
-			l_bWKeyPress = false;
-			std::wstring l_strDebugInfo;
-			std::map<int,int> l_FrequencyAndCount;
-			for(auto l_ResultVector: l_iDebugInfoVectorVector)
-			{
-				for(auto l_Frequency: l_ResultVector)
-				{
-					if(l_FrequencyAndCount.find(l_Frequency) == l_FrequencyAndCount.end() )
-					{
-						l_FrequencyAndCount[l_Frequency] = 1;
-					}
-					else
-					{
-						l_FrequencyAndCount[l_Frequency] = l_FrequencyAndCount[l_Frequency]+1;
-					}
-				}
-			}
-			int l_iTotalCount = 0;
-			int l_iFrequencyCount = 0;
-			int l_iAverage = 0;
-			for(std::map<int,int>::iterator l_Iterator = l_FrequencyAndCount.begin();l_Iterator!=l_FrequencyAndCount.end();++l_Iterator)
-			{
-				l_iTotalCount += l_Iterator->second;
-				++l_iFrequencyCount;
-			}
-			l_iAverage = l_iTotalCount/l_iFrequencyCount;
-			std::vector<int> l_FinalResultFrequencyVector;
-			for(std::map<int,int>::iterator l_Iterator = l_FrequencyAndCount.begin();l_Iterator!=l_FrequencyAndCount.end();++l_Iterator)
-			{
-				if( l_Iterator->second >= l_iAverage )
-				{
-					l_FinalResultFrequencyVector.push_back(l_Iterator->first);
-
-					std::wstring l_strLazyOutput = L"<FrequenceAndAmplitudeAndTime StartTime=\"0.01667\" KeepTime=\"0.11667\" LastMatchTime=\"0.13333\" Frequency=\"";
-					l_strLazyOutput += ValueToStringW(l_Iterator->first);
-					l_strLazyOutput += L"\" Amplitude=\"118\" />";
-					cGameApp::OutputDebugInfoString(l_strLazyOutput);
-				}
-			}
-			//cGameApp::OutputDebugInfoString(ValueToStringW(l_FinalResultFrequencyVector));
-		}
-	}
 }
 void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 {
@@ -316,7 +227,7 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{
 		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
-		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale,this->m_fNextChannelYGap) )
+		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale) )
 		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
@@ -373,8 +284,12 @@ void	cSoundFFTCapture::Render()
 		//	}
 		//	GLRender::RenderLine((float*)l_LinePos,l_ciFreqNeeded*2,Vector4::Red,2);
 		//}
+		const int l_iFetchDataCount = (int)(m_iOneFrameFFTDataCount);
+		this->GetCurrentMaxFrequence(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestFFTDataValueOfIndex,this->m_pSoundCapture->GetFrequency(),l_iFetchDataCount,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->iBiggestAmplitude);
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
+
+		this->m_FFTDataStore.RenderCurrentData();
 	}
 }
 
@@ -393,13 +308,4 @@ int		cSoundFFTCapture::GetOpanalCaptureBufferSize(int e_iFPS,int e_iFrequence,bo
 	if( e_bFFTCompatibility )
 		l_iBufferSize = power_of_two(l_iBufferSize);
 	return l_iBufferSize;
-}
-
-void	cSoundFFTCapture::SetFFTSampleScale(float e_fScale)
-{
-	if(e_fScale>1.f)
-		e_fScale = 1.f;
-	if(e_fScale<=0.f)
-		e_fScale = 0.1f;
-	this->m_PCMToFFTDataConvertr.SetFFTSampleScale(e_fScale);
 }

@@ -1374,7 +1374,7 @@ int Binasc::processDecimalWord(ostream& out, const string& word, int lineNum) {
             return 0;
          }
          ulong tempLong = (ulong)atoi(&word[quoteIndex + 1]);
-         uchar byte1 = (tempLong & 0x00ff0000) >> 16;
+         uchar byte1 = (uchar)((tempLong & 0x00ff0000) >> 16);
          uchar byte2 = (tempLong & 0x0000ff00) >>  8;
          uchar byte3 = (tempLong & 0x000000ff);
          if (endianIndex == -1) {

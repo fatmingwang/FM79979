@@ -103,40 +103,38 @@ void	cSoundBufferSwaper::StartNewData()
 void	cSoundBufferSwaper::BufferCopy(char*e_pData,int e_iCount)
 {
 	char*l_pOldData = m_SoundBufferData.GetCurrentData();
-	memcpy(l_pOldData,e_pData,e_iCount);
-	m_iRestDataSize -= e_iCount;
-	m_iCurrentDataPos += e_iCount;
+	if( e_iCount <= m_iRestDataSize )
+	{
+		memcpy(l_pOldData,e_pData,e_iCount);
+		m_iRestDataSize -= e_iCount;
+		m_iCurrentDataPos += e_iCount;
+	}
+	else
+	{
+		memcpy(l_pOldData,e_pData,m_iRestDataSize);
+		int l_NewDataSize = e_iCount-m_iRestDataSize;
+		StartNewData();
+		m_iRestDataSize -= l_NewDataSize;
+		m_iCurrentDataPos += l_NewDataSize;
+	}
 }
 //0 still need data,1 data is filled,2 data is too many,need more buffer
 int	cSoundBufferSwaper::PushData(int e_iTargetDataSize,int e_iCurrentDataSize,char*e_pData,float e_fCurrentTime,float e_fEndTime)
 {
 	//assert(m_iTargetDataSize == e_iTargetDataSize && "it should not happen");
 	assert(e_iTargetDataSize >= this->m_SoundBufferData.GetEachBufferSize());
-	//what!? the data is too big
-	//if( m_iRestDataSize >= e_iTargetDataSize )
-	//{
-	//	BufferCopy(e_pData,e_iCurrentDataSize);
-	//	if( m_iRestDataSize == 0 )
-	//	{
-	//		StartNewData();
-	//	}
-	//}
-	//else
-	//{
-		char*l_pTargetData = e_pData;
-		int l_iRestSize = e_iTargetDataSize;
-		int l_iNeedCopyDataSize = m_iRestDataSize;
-		//int l_iInputDataCount = ;
-		while( l_iRestSize > 0 )
-		{
-			BufferCopy(e_pData,l_iNeedCopyDataSize);
-			StartNewData();
-			l_pTargetData += l_iNeedCopyDataSize;
-			l_iRestSize -= l_iNeedCopyDataSize;
-			l_iNeedCopyDataSize = l_iRestSize;
-			if( l_iNeedCopyDataSize > this->m_iTargetDataSize )
-				l_iNeedCopyDataSize = m_iTargetDataSize;
-		}
-	//}
+	char*l_pTargetData = e_pData;
+	int l_iRestSize = e_iTargetDataSize;
+	int l_iNeedCopyDataSize = m_iRestDataSize;
+	//int l_iInputDataCount = ;
+	while( l_iRestSize > 0 )
+	{
+		BufferCopy(e_pData,l_iNeedCopyDataSize);
+		l_pTargetData += l_iNeedCopyDataSize;
+		l_iRestSize -= l_iNeedCopyDataSize;
+		l_iNeedCopyDataSize = l_iRestSize;
+		if( l_iNeedCopyDataSize > this->m_iTargetDataSize )
+			l_iNeedCopyDataSize = m_iTargetDataSize;
+	}
 	return true;
 }
