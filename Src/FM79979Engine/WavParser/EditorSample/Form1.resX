@@ -152,4 +152,7 @@ Tuba（低音号）：43～2.6KHz
 女：低音82～392Hz，基准音区160～1200Hz
 女中音123～493Hz，女高音220～1.1KHz</value>
   </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>32</value>
+  </metadata>
 </root>

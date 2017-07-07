@@ -95,28 +95,11 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 		FATMING_CORE::cSoundFile*l_pSoundFile = m_pKissFFTConvert->GetSoundFile();
 		//if channel is bigger than 1 add N channel and get average.
 		int l_iNumChannel = l_pSoundFile->m_iChannel;
-		std::vector<std::vector<int>* >*l_pFFTDataVectorChannelVector = m_pKissFFTConvert->GetFFTDataVectorChannelVector();
-		size_t l_uiFFTDAtaCount = (*l_pFFTDataVectorChannelVector)[0]->size();
+		std::vector<int>*l_pFFTDataVectorChannelVector = m_pKissFFTConvert->GetFFTDataVector();
+		size_t l_uiFFTDAtaCount = l_pFFTDataVectorChannelVector->size();
 		m_piSoundDataForParse = new int[l_uiFFTDAtaCount];
-		if( l_iNumChannel > 1 )
-		{
-			for(size_t j = 0;j<l_uiFFTDAtaCount;++j)
-			{
-				int l_iValue = 0;
-				for(int i = 0;i<l_iNumChannel;++i)
-				{
-					int l_iFFTData = (*(*l_pFFTDataVectorChannelVector)[i])[j];
-					l_iValue += l_iFFTData;
-				}
-				l_iValue /= l_iNumChannel;
-				m_piSoundDataForParse[j] = l_iValue;
-			}
-		}
-		else
-		{
-			int*l_picSoundData = (int*)(*l_pFFTDataVectorChannelVector)[0];
-			memcpy(m_piSoundDataForParse,l_picSoundData,sizeof(int)*l_uiFFTDAtaCount);
-		}
+		int*l_picSoundData = (int*)&l_pFFTDataVectorChannelVector;
+		memcpy(m_piSoundDataForParse,l_picSoundData,sizeof(int)*l_uiFFTDAtaCount);
 		float l_fTimeLength = l_pSoundFile->m_fTime;
 		float l_fFrameTimeElpase = 1.f/m_iParseFPS;
 		//

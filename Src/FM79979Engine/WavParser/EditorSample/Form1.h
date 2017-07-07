@@ -6,6 +6,8 @@
 #include "../MusicGame/TimeFrequencyAmplitudeValueCapture.h"
 #include "../MusicGame/ToneData.h"
 #include "../MusicGame/MusicGameApp.h"
+#include "../MusicGame/FFTStoreExporter.h"
+#include "../MusicGame/Parameters.h"
 
 #include "MidiFile.h"
 #include "Options.h"
@@ -145,9 +147,9 @@ namespace EditorSample
 	private: System::Windows::Forms::Panel^  OPENGL_panel;
 	private: System::Windows::Forms::TrackBar^  CurrentTime_trackBar;
 	private: System::Windows::Forms::Label^  CurrentTime_label;
-	private: System::Windows::Forms::Button^  ForwardStep_button;
 
-	private: System::Windows::Forms::Button^  BackStep_button;
+
+
 	private: System::Windows::Forms::Button^  RecordSound_button;
 	private: System::Windows::Forms::Button^  RecordSoundPause_button;
 	private: System::Windows::Forms::TextBox^  RecordSoundFileName_textBox;
@@ -215,6 +217,17 @@ private: System::Windows::Forms::NumericUpDown^  DebugAmplitudeValue_numericUpDo
 
 private: System::Windows::Forms::Label^  DebugAmplitudeValue_label;
 private: System::Windows::Forms::Button^  MIDIToXml_button;
+private: System::Windows::Forms::Button^  ForwardStep_button;
+private: System::Windows::Forms::Button^  BackStep_button;
+private: System::Windows::Forms::GroupBox^  FFTPrint_groupBox;
+private: System::Windows::Forms::ListBox^  FFTStore_listBox;
+private: System::Windows::Forms::Button^  OpenFileForFFTStore_button;
+private: System::Windows::Forms::Label^  FFTStoreAmplitude_label;
+private: System::Windows::Forms::Label^  FFTStoreGittedCountThreshold_label;
+private: System::Windows::Forms::NumericUpDown^  FFTStoreGittedCountThreshold_numericUpDown;
+private: System::Windows::Forms::NumericUpDown^  FFTStoreAmplitude_numericUpDown;
+private: System::Windows::Forms::Button^  FFTStoreExport_button;
+private: System::Windows::Forms::CheckBox^  FFTStore_checkBox;
 
 
 
@@ -249,8 +262,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->OPENGL_panel = (gcnew System::Windows::Forms::Panel());
 			this->CurrentTime_trackBar = (gcnew System::Windows::Forms::TrackBar());
 			this->CurrentTime_label = (gcnew System::Windows::Forms::Label());
-			this->ForwardStep_button = (gcnew System::Windows::Forms::Button());
-			this->BackStep_button = (gcnew System::Windows::Forms::Button());
 			this->RecordSound_button = (gcnew System::Windows::Forms::Button());
 			this->RecordSoundPause_button = (gcnew System::Windows::Forms::Button());
 			this->RecordSoundFileName_textBox = (gcnew System::Windows::Forms::TextBox());
@@ -282,7 +293,18 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DoFFTFilter_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->FilterRange_label = (gcnew System::Windows::Forms::Label());
+			this->ForwardStep_button = (gcnew System::Windows::Forms::Button());
+			this->BackStep_button = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
+			this->FFTPrint_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->FFTStoreAmplitude_label = (gcnew System::Windows::Forms::Label());
+			this->FFTStoreGittedCountThreshold_label = (gcnew System::Windows::Forms::Label());
+			this->FFTStoreGittedCountThreshold_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->FFTStoreAmplitude_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->FFTStoreExport_button = (gcnew System::Windows::Forms::Button());
+			this->FFTStore_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->OpenFileForFFTStore_button = (gcnew System::Windows::Forms::Button());
+			this->MIDIToXml_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 			this->CompareAndCaptureToFileMaxAllowFrequency_label = (gcnew System::Windows::Forms::Label());
@@ -310,7 +332,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_label = (gcnew System::Windows::Forms::Label());
-			this->MIDIToXml_button = (gcnew System::Windows::Forms::Button());
+			this->FFTStore_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->BeginInit();
@@ -326,6 +348,9 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
+			this->FFTPrint_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMinAllowFrequency_numericUpDown))->BeginInit();
@@ -352,14 +377,14 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
 			this->WavFileName_textBox->Size = System::Drawing::Size(220, 20);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"Sound/test.ogg";
+			this->WavFileName_textBox->Text = L"Sound/2owl.wav";
 			// 
 			// OPENGL_panel
 			// 
 			this->OPENGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->OPENGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OPENGL_panel->Name = L"OPENGL_panel";
-			this->OPENGL_panel->Size = System::Drawing::Size(1480, 252);
+			this->OPENGL_panel->Size = System::Drawing::Size(1884, 542);
 			this->OPENGL_panel->TabIndex = 3;
 			// 
 			// CurrentTime_trackBar
@@ -378,26 +403,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->CurrentTime_label->Size = System::Drawing::Size(64, 13);
 			this->CurrentTime_label->TabIndex = 6;
 			this->CurrentTime_label->Text = L"CurrentTime";
-			// 
-			// ForwardStep_button
-			// 
-			this->ForwardStep_button->Location = System::Drawing::Point(195, 248);
-			this->ForwardStep_button->Name = L"ForwardStep_button";
-			this->ForwardStep_button->Size = System::Drawing::Size(75, 23);
-			this->ForwardStep_button->TabIndex = 10;
-			this->ForwardStep_button->Text = L">>";
-			this->ForwardStep_button->UseVisualStyleBackColor = true;
-			this->ForwardStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
-			// 
-			// BackStep_button
-			// 
-			this->BackStep_button->Location = System::Drawing::Point(9, 248);
-			this->BackStep_button->Name = L"BackStep_button";
-			this->BackStep_button->Size = System::Drawing::Size(75, 23);
-			this->BackStep_button->TabIndex = 12;
-			this->BackStep_button->Text = L"<<";
-			this->BackStep_button->UseVisualStyleBackColor = true;
-			this->BackStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
 			// 
 			// RecordSound_button
 			// 
@@ -580,7 +585,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTFilterFrenquenceScale_numericUpDown->DecimalPlaces = 2;
 			this->FFTFilterFrenquenceScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
 				65536});
-			this->FFTFilterFrenquenceScale_numericUpDown->Location = System::Drawing::Point(305, 141);
+			this->FFTFilterFrenquenceScale_numericUpDown->Location = System::Drawing::Point(305, 162);
 			this->FFTFilterFrenquenceScale_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
 			this->FFTFilterFrenquenceScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
 			this->FFTFilterFrenquenceScale_numericUpDown->Name = L"FFTFilterFrenquenceScale_numericUpDown";
@@ -635,7 +640,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFT_groupBox->Size = System::Drawing::Size(534, 296);
 			this->FFT_groupBox->TabIndex = 34;
 			this->FFT_groupBox->TabStop = false;
-			this->FFT_groupBox->Text = L"FFT";
+			this->FFT_groupBox->Text = L"single FFT";
 			// 
 			// FFT_FPS_label
 			// 
@@ -661,27 +666,28 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// DebugAmplitudeLineValue_label
 			// 
 			this->DebugAmplitudeLineValue_label->AutoSize = true;
-			this->DebugAmplitudeLineValue_label->Location = System::Drawing::Point(405, 102);
+			this->DebugAmplitudeLineValue_label->Location = System::Drawing::Point(302, 81);
 			this->DebugAmplitudeLineValue_label->Name = L"DebugAmplitudeLineValue_label";
-			this->DebugAmplitudeLineValue_label->Size = System::Drawing::Size(59, 13);
+			this->DebugAmplitudeLineValue_label->Size = System::Drawing::Size(132, 13);
 			this->DebugAmplitudeLineValue_label->TabIndex = 39;
-			this->DebugAmplitudeLineValue_label->Text = L"ChartScale";
+			this->DebugAmplitudeLineValue_label->Text = L"DebugAmplitudeLineValue";
 			// 
 			// DebugAmplitudeLineValue_numericUpDown
 			// 
 			this->DebugAmplitudeLineValue_numericUpDown->DecimalPlaces = 1;
-			this->DebugAmplitudeLineValue_numericUpDown->Location = System::Drawing::Point(408, 121);
+			this->DebugAmplitudeLineValue_numericUpDown->Location = System::Drawing::Point(305, 99);
 			this->DebugAmplitudeLineValue_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 0, 
 				0});
 			this->DebugAmplitudeLineValue_numericUpDown->Name = L"DebugAmplitudeLineValue_numericUpDown";
 			this->DebugAmplitudeLineValue_numericUpDown->Size = System::Drawing::Size(120, 20);
 			this->DebugAmplitudeLineValue_numericUpDown->TabIndex = 38;
 			this->DebugAmplitudeLineValue_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {70, 0, 0, 0});
+			this->DebugAmplitudeLineValue_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::DebugAmplitudeLineValue_numericUpDown_ValueChanged);
 			// 
 			// FilterStrength_label
 			// 
 			this->FilterStrength_label->AutoSize = true;
-			this->FilterStrength_label->Location = System::Drawing::Point(302, 228);
+			this->FilterStrength_label->Location = System::Drawing::Point(302, 249);
 			this->FilterStrength_label->Name = L"FilterStrength_label";
 			this->FilterStrength_label->Size = System::Drawing::Size(69, 13);
 			this->FilterStrength_label->TabIndex = 37;
@@ -689,7 +695,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// FilterStrength_numericUpDown
 			// 
-			this->FilterStrength_numericUpDown->Location = System::Drawing::Point(305, 247);
+			this->FilterStrength_numericUpDown->Location = System::Drawing::Point(305, 268);
 			this->FilterStrength_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
 			this->FilterStrength_numericUpDown->Name = L"FilterStrength_numericUpDown";
 			this->FilterStrength_numericUpDown->Size = System::Drawing::Size(120, 20);
@@ -700,7 +706,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// ChartScale_label
 			// 
 			this->ChartScale_label->AutoSize = true;
-			this->ChartScale_label->Location = System::Drawing::Point(302, 179);
+			this->ChartScale_label->Location = System::Drawing::Point(302, 200);
 			this->ChartScale_label->Name = L"ChartScale_label";
 			this->ChartScale_label->Size = System::Drawing::Size(59, 13);
 			this->ChartScale_label->TabIndex = 35;
@@ -710,7 +716,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			this->FFTChartScale_numericUpDown->DecimalPlaces = 2;
 			this->FFTChartScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
-			this->FFTChartScale_numericUpDown->Location = System::Drawing::Point(305, 198);
+			this->FFTChartScale_numericUpDown->Location = System::Drawing::Point(305, 219);
 			this->FFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
 			this->FFTChartScale_numericUpDown->Name = L"FFTChartScale_numericUpDown";
 			this->FFTChartScale_numericUpDown->Size = System::Drawing::Size(120, 20);
@@ -721,7 +727,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// DoFFTFilter_checkBox
 			// 
 			this->DoFFTFilter_checkBox->AutoSize = true;
-			this->DoFFTFilter_checkBox->Location = System::Drawing::Point(305, 96);
+			this->DoFFTFilter_checkBox->Location = System::Drawing::Point(444, 85);
 			this->DoFFTFilter_checkBox->Name = L"DoFFTFilter_checkBox";
 			this->DoFFTFilter_checkBox->Size = System::Drawing::Size(81, 17);
 			this->DoFFTFilter_checkBox->TabIndex = 33;
@@ -732,11 +738,31 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// FilterRange_label
 			// 
 			this->FilterRange_label->AutoSize = true;
-			this->FilterRange_label->Location = System::Drawing::Point(302, 122);
+			this->FilterRange_label->Location = System::Drawing::Point(302, 143);
 			this->FilterRange_label->Name = L"FilterRange_label";
 			this->FilterRange_label->Size = System::Drawing::Size(91, 13);
 			this->FilterRange_label->TabIndex = 32;
 			this->FilterRange_label->Text = L"FilterRange(0.1-1)";
+			// 
+			// ForwardStep_button
+			// 
+			this->ForwardStep_button->Location = System::Drawing::Point(195, 248);
+			this->ForwardStep_button->Name = L"ForwardStep_button";
+			this->ForwardStep_button->Size = System::Drawing::Size(75, 23);
+			this->ForwardStep_button->TabIndex = 10;
+			this->ForwardStep_button->Text = L">>";
+			this->ForwardStep_button->UseVisualStyleBackColor = true;
+			this->ForwardStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
+			// 
+			// BackStep_button
+			// 
+			this->BackStep_button->Location = System::Drawing::Point(9, 248);
+			this->BackStep_button->Name = L"BackStep_button";
+			this->BackStep_button->Size = System::Drawing::Size(75, 23);
+			this->BackStep_button->TabIndex = 12;
+			this->BackStep_button->Text = L"<<";
+			this->BackStep_button->UseVisualStyleBackColor = true;
+			this->BackStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
 			// 
 			// splitContainer1
 			// 
@@ -751,20 +777,116 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// splitContainer1.Panel2
 			// 
+			this->splitContainer1->Panel2->Controls->Add(this->FFTPrint_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->MIDIToXml_button);
 			this->splitContainer1->Panel2->Controls->Add(this->label1);
 			this->splitContainer1->Panel2->Controls->Add(this->groupBox1);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundCapture_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->FFT_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundFileConvert_groupBox);
-			this->splitContainer1->Size = System::Drawing::Size(1480, 635);
-			this->splitContainer1->SplitterDistance = 252;
+			this->splitContainer1->Size = System::Drawing::Size(1884, 961);
+			this->splitContainer1->SplitterDistance = 542;
 			this->splitContainer1->TabIndex = 35;
+			// 
+			// FFTPrint_groupBox
+			// 
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStore_checkBox);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStoreAmplitude_label);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_label);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_numericUpDown);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStoreAmplitude_numericUpDown);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStoreExport_button);
+			this->FFTPrint_groupBox->Controls->Add(this->FFTStore_listBox);
+			this->FFTPrint_groupBox->Controls->Add(this->OpenFileForFFTStore_button);
+			this->FFTPrint_groupBox->Location = System::Drawing::Point(1026, 17);
+			this->FFTPrint_groupBox->Name = L"FFTPrint_groupBox";
+			this->FFTPrint_groupBox->Size = System::Drawing::Size(361, 377);
+			this->FFTPrint_groupBox->TabIndex = 41;
+			this->FFTPrint_groupBox->TabStop = false;
+			this->FFTPrint_groupBox->Text = L"FFTPrint";
+			// 
+			// FFTStoreAmplitude_label
+			// 
+			this->FFTStoreAmplitude_label->AutoSize = true;
+			this->FFTStoreAmplitude_label->Location = System::Drawing::Point(154, 13);
+			this->FFTStoreAmplitude_label->Name = L"FFTStoreAmplitude_label";
+			this->FFTStoreAmplitude_label->Size = System::Drawing::Size(144, 13);
+			this->FFTStoreAmplitude_label->TabIndex = 49;
+			this->FFTStoreAmplitude_label->Text = L"FFTStoreAmplitudeThreshold";
+			// 
+			// FFTStoreGittedCountThreshold_label
+			// 
+			this->FFTStoreGittedCountThreshold_label->AutoSize = true;
+			this->FFTStoreGittedCountThreshold_label->Location = System::Drawing::Point(154, 56);
+			this->FFTStoreGittedCountThreshold_label->Name = L"FFTStoreGittedCountThreshold_label";
+			this->FFTStoreGittedCountThreshold_label->Size = System::Drawing::Size(154, 13);
+			this->FFTStoreGittedCountThreshold_label->TabIndex = 48;
+			this->FFTStoreGittedCountThreshold_label->Text = L"FFTStoreGittedCountThreshold";
+			// 
+			// FFTStoreGittedCountThreshold_numericUpDown
+			// 
+			this->FFTStoreGittedCountThreshold_numericUpDown->Location = System::Drawing::Point(157, 74);
+			this->FFTStoreGittedCountThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 
+				0, 0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->Name = L"FFTStoreGittedCountThreshold_numericUpDown";
+			this->FFTStoreGittedCountThreshold_numericUpDown->Size = System::Drawing::Size(101, 20);
+			this->FFTStoreGittedCountThreshold_numericUpDown->TabIndex = 4;
+			this->FFTStoreGittedCountThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {10, 0, 0, 
+				0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
+			// 
+			// FFTStoreAmplitude_numericUpDown
+			// 
+			this->FFTStoreAmplitude_numericUpDown->Location = System::Drawing::Point(157, 29);
+			this->FFTStoreAmplitude_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 0, 0});
+			this->FFTStoreAmplitude_numericUpDown->Name = L"FFTStoreAmplitude_numericUpDown";
+			this->FFTStoreAmplitude_numericUpDown->Size = System::Drawing::Size(101, 20);
+			this->FFTStoreAmplitude_numericUpDown->TabIndex = 3;
+			this->FFTStoreAmplitude_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {80, 0, 0, 0});
+			this->FFTStoreAmplitude_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
+			// 
+			// FFTStoreExport_button
+			// 
+			this->FFTStoreExport_button->Location = System::Drawing::Point(19, 67);
+			this->FFTStoreExport_button->Name = L"FFTStoreExport_button";
+			this->FFTStoreExport_button->Size = System::Drawing::Size(129, 36);
+			this->FFTStoreExport_button->TabIndex = 2;
+			this->FFTStoreExport_button->Text = L"FFTStoreExport";
+			this->FFTStoreExport_button->UseVisualStyleBackColor = true;
+			// 
+			// FFTStore_listBox
+			// 
+			this->FFTStore_listBox->FormattingEnabled = true;
+			this->FFTStore_listBox->Location = System::Drawing::Point(19, 121);
+			this->FFTStore_listBox->Name = L"FFTStore_listBox";
+			this->FFTStore_listBox->Size = System::Drawing::Size(208, 225);
+			this->FFTStore_listBox->TabIndex = 1;
+			this->FFTStore_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::FFTStore_listBox_SelectedIndexChanged);
+			// 
+			// OpenFileForFFTStore_button
+			// 
+			this->OpenFileForFFTStore_button->Location = System::Drawing::Point(19, 25);
+			this->OpenFileForFFTStore_button->Name = L"OpenFileForFFTStore_button";
+			this->OpenFileForFFTStore_button->Size = System::Drawing::Size(129, 36);
+			this->OpenFileForFFTStore_button->TabIndex = 0;
+			this->OpenFileForFFTStore_button->Text = L"OpenFileForFFTStore";
+			this->OpenFileForFFTStore_button->UseVisualStyleBackColor = true;
+			this->OpenFileForFFTStore_button->Click += gcnew System::EventHandler(this, &Form1::OpenFileForFFTStore_button_Click);
+			// 
+			// MIDIToXml_button
+			// 
+			this->MIDIToXml_button->Location = System::Drawing::Point(12, 324);
+			this->MIDIToXml_button->Name = L"MIDIToXml_button";
+			this->MIDIToXml_button->Size = System::Drawing::Size(116, 44);
+			this->MIDIToXml_button->TabIndex = 40;
+			this->MIDIToXml_button->Text = L"MIDIToXml";
+			this->MIDIToXml_button->UseVisualStyleBackColor = true;
+			this->MIDIToXml_button->Click += gcnew System::EventHandler(this, &Form1::MIDIToXml_button_Click);
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(1074, 8);
+			this->label1->Location = System::Drawing::Point(1408, 16);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(464, 390);
 			this->label1->TabIndex = 38;
@@ -1085,27 +1207,28 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTFilterRange_label->TabIndex = 38;
 			this->SoundCaptureDoFFTFilterRange_label->Text = L"FilterRange(0.1-1)";
 			// 
-			// MIDIToXml_button
+			// FFTStore_checkBox
 			// 
-			this->MIDIToXml_button->Location = System::Drawing::Point(289, 316);
-			this->MIDIToXml_button->Name = L"MIDIToXml_button";
-			this->MIDIToXml_button->Size = System::Drawing::Size(116, 44);
-			this->MIDIToXml_button->TabIndex = 40;
-			this->MIDIToXml_button->Text = L"MIDIToXml";
-			this->MIDIToXml_button->UseVisualStyleBackColor = true;
-			this->MIDIToXml_button->Click += gcnew System::EventHandler(this, &Form1::MIDIToXml_button_Click);
+			this->FFTStore_checkBox->AutoSize = true;
+			this->FFTStore_checkBox->Location = System::Drawing::Point(248, 163);
+			this->FFTStore_checkBox->Name = L"FFTStore_checkBox";
+			this->FFTStore_checkBox->Size = System::Drawing::Size(105, 17);
+			this->FFTStore_checkBox->TabIndex = 50;
+			this->FFTStore_checkBox->Text = L"FFTStoreRender";
+			this->FFTStore_checkBox->UseVisualStyleBackColor = true;
+			this->FFTStore_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::FFTStore_checkBox_CheckedChanged);
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1480, 635);
+			this->ClientSize = System::Drawing::Size(1884, 961);
 			this->Controls->Add(this->splitContainer1);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);
 			this->KeyPreview = true;
 			this->Name = L"Form1";
-			this->Text = L" ";
+			this->Text = L" FFT";
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
 			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::Form1_KeyPress);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
@@ -1128,6 +1251,10 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->splitContainer1->Panel2->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
+			this->FFTPrint_groupBox->ResumeLayout(false);
+			this->FFTPrint_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CompareAndCaptureToFileMaxAllowFrequency_numericUpDown))->EndInit();
@@ -1593,6 +1720,46 @@ private: System::Void MIDIToXml_button_Click(System::Object^  sender, System::Ev
 					l_ISAXCallback.Export(l_strOutputFileName.c_str(),false);
 				 }
 				 this->timer1->Enabled = true;
+			 }
+		 }
+private: System::Void DebugAmplitudeLineValue_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+
+		 }
+private: System::Void OpenFileForFFTStore_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->timer1->Enabled = false;
+			 this->m_pGameApp->m_pFFTStoreExporter->Destroy();
+			 FFTStore_listBox->Items->Clear();
+			 array<String^>^ l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
+			 for each(auto l_strFileName in l_strFileNames)
+			 {
+				 this->m_pGameApp->m_pFFTStoreExporter->AddFile(DNCT::GcStringToChar(l_strFileName));
+				 FFTStore_listBox->Items->Add(System::IO::Path::GetFileName(l_strFileName));
+			 }
+			 this->timer1->Enabled = true;
+		 }
+private: System::Void FFTStore_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 this->m_pGameApp->m_pFFTStoreExporter->SetSelectedIndex( FFTStore_listBox->SelectedIndex);
+		 }
+private: System::Void FFTStoreAmplitude_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			if( FFTStore_listBox->SelectedIndex != -1 )
+			{
+				this->m_pGameApp->m_pFFTStoreExporter->GetObject(FFTStore_listBox->SelectedIndex)->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
+			}
+			cSoundCompareParameter::m_siDebugAmplitudeValue = (int)FFTStoreAmplitude_numericUpDown->Value;
+			
+		 }
+private: System::Void FFTStore_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(!FFTStore_checkBox->Checked)
+				 this->m_pGameApp->m_pFFTStoreExporter->SetSelectedIndex(-1);
+			 else
+			 if( FFTStore_listBox->SelectedIndex != -1 )
+			 {
+				 this->m_pGameApp->m_pFFTStoreExporter->SetSelectedIndex( FFTStore_listBox->SelectedIndex);
 			 }
 		 }
 };

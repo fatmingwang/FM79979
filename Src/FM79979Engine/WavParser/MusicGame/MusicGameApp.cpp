@@ -5,7 +5,7 @@
 #include "SoundFFTCapture.h"
 #include "SoundTimeLineData.h"
 #include "Parameters.h"
-
+#include "FFTStoreExporter.h"
 //#include "Sound/SoundFile.h"
 
 cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
@@ -21,6 +21,7 @@ cMusicGameApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGa
 cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+	m_pFFTStoreExporter = nullptr;
 	Vector4*l_pViewPort = &this->m_svViewPortSize;
 	*this->m_psstrGameAppName = "MusicGame";
 	m_pPhaseManager = nullptr;
@@ -32,6 +33,7 @@ cMusicGameApp::~cMusicGameApp()
 {
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(m_pSoundCapture);
+	SAFE_DELETE(m_pFFTStoreExporter);
 	m_pSoundFFTCapture = nullptr;
 }
 
@@ -45,7 +47,7 @@ void	cMusicGameApp::Init()
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
 	//int l_iFrequence = cSoundCompareParameter::m_siRecordFrequency;
-	int l_iFrequence = 44100;
+	int l_iFrequence = 11025;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
@@ -162,12 +164,13 @@ void	cMusicGameApp::EditorInit()
 	cGameApp::Init();
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
-	int l_iFrequence = 44100;
+	int l_iFrequence = 11025;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
+	m_pFFTStoreExporter = new cFFTStoreExporter();
 	cGameApp::m_sTimeAndFPS.Update();
 }
 
@@ -180,17 +183,20 @@ void	cMusicGameApp::EditorUpdate(float e_fElpaseTime)
 	}
 	if( m_pSoundFFTCapture )
 		m_pSoundFFTCapture->Update(e_fElpaseTime);
+	if( m_pFFTStoreExporter )
+		m_pFFTStoreExporter->Update(e_fElpaseTime);
 }
 
 void	cMusicGameApp::EditorRender()
 {
-	//
 	//
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
 	if( m_pSoundFFTCapture )
 		m_pSoundFFTCapture->Render();
+	if( m_pFFTStoreExporter )
+		m_pFFTStoreExporter->Render();
 }
 
 

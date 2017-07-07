@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "SoundFFTCapture.h"
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
 #include "KissFFTFunction.h"
 void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 {
@@ -32,7 +32,6 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 			l_fTimeElpasee = l_pTimeAndPCMData->fStartTime-l_fPreviousTime;
 			l_fPreviousTime = l_pTimeAndPCMData->fStartTime;
 			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
-			l_pSoundFFTCapture->m_FFTDataStore.UpdateFFTData(l_fTimeElpasee,l_pFFTData,l_pSoundFFTCapture->m_iOneFrameFFTDataCount);
 		}
 	}
 }
@@ -217,6 +216,8 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 		}
 		else
 		{
+			if( !cGameApp::m_sbGamePause )
+				m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 			break;
 		}
 	}
@@ -261,7 +262,7 @@ void	cSoundFFTCapture::Render()
 		if( cGameApp::m_sbDebugFunctionWorking )
 		{
 			cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
-			int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample/2*2;//*2 for one line 2 points,divide 2 for fft only have half count
+			int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample*2;//*2 for one line 2 points
 			//left channel
 			GLRender::RenderLine((float*)m_pvFFTDataToPoints,l_iNumPointd,Vector4::One,2);
 		}

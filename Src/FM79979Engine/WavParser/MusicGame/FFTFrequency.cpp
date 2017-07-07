@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
 #include "Parameters.h"
 
 cQuickFFTDataFrequencyFinder::cQuickFFTDataFrequencyFinder(int e_iFFTBins,int e_iMaxFrequency)
@@ -79,14 +79,15 @@ cFFTDataStore::cFFTHitCountAndTime::~cFFTHitCountAndTime()
 
 cFFTDataStore::cFFTDataStore()
 {
-	m_fNextDataTimeGap = 20.0f;
+	m_fNextDataTimeGap = 5.0f;
 	m_fCurrentTime = 0.f;
 	m_pCurrentFFTHitCountAndTime = nullptr;
-	this->m_vShowPos = Vector2(1000,1000);
-	this->m_vResolution.x = 1000;
+	this->m_vShowPos = Vector2(100,1200);
+	this->m_vResolution.x = 1200;
 	this->m_vResolution.y = 500;
-	m_iAnplitudeScale = 3;
+	m_iHittedCountScaleForVisual = 3;
 	m_iMaxValue = 0;
+	m_iExportThresholdValue = 5;
 	//m_iThreusholdAmplitude = cSoundCompareParameter::m_siDebugAmplitudeValue;
 }
 
@@ -125,7 +126,7 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 	{
 		if( e_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
 		{
-			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += m_iAnplitudeScale;
+			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;
 			if(m_iMaxValue <m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] )
 				m_iMaxValue = m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i];
 		}
@@ -143,7 +144,7 @@ void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountA
 		{
 			m_vLineTempPos[i*2] = l_vShowPos;
 			m_vLineTempPos[i*2+1] = l_vShowPos;
-			m_vLineTempPos[i*2+1].y -= e_pFFTHitCountAndTime->m_pHittedCountArray[i];//*this->m_vResolution.y/200.f;
+			m_vLineTempPos[i*2+1].y -= e_pFFTHitCountAndTime->m_pHittedCountArray[i]*m_iHittedCountScaleForVisual;
 			l_vShowPos.x += l_fGap;
 		}
 		GLRender::RenderLine((float*)&m_vLineTempPos[0],l_iFFTBinCount*2,Vector4::One,2);
@@ -158,7 +159,7 @@ void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountA
 			Vector2	l_vChartResolution = this->m_vResolution;
 			Vector2 l_vLinePos[2];
 			l_vLinePos[0] = this->m_vShowPos;
-			l_vLinePos[0].y -= cSoundCompareParameter::m_siDebugAmplitudeValue*m_iAnplitudeScale;
+			l_vLinePos[0].y -= m_iExportThresholdValue*m_iHittedCountScaleForVisual;
 
 			l_vLinePos[1] = l_vLinePos[0];
 			l_vLinePos[1].x += l_vChartResolution.x;
@@ -170,6 +171,16 @@ void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountA
 void	cFFTDataStore::RenderCurrentData()
 {
 	RenderFFTHitCountAndTime(this->m_pCurrentFFTHitCountAndTime);
+}
+
+int	cFFTDataStore::GetExportThresholdValue()
+{
+	return m_iExportThresholdValue;
+}
+
+void	cFFTDataStore::SetExportThresholdValue(int e_iExportThresholdValue)
+{
+	m_iExportThresholdValue = e_iExportThresholdValue;
 }
 
 void	cFFTDataStore::RenderByTime(float e_fTargetTime)
@@ -190,9 +201,42 @@ void	cFFTDataStore::RenderByTime(float e_fTargetTime)
 	}
 }
 
-void	cFFTDataStore::Export(char*e_strFileName)
+bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency)
 {
-
+	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
+	if( l_uiSize == 0 )
+		return false;
+	int l_iFFTCount = m_FFTHitCountAndTimeVector[0]->m_iFFTBinCount;
+	ISAXCallback l_ISAXCallback;
+	TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
+	TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
+	l_ISAXCallback.SetDoc(l_pTiXmlDocument);
+	l_pRootTiXmlElement->SetAttribute(L"Frequency",e_iFrequency);
+	l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
+	l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
+	float l_fFrequenctForOneFFT = (float)e_iFrequency/l_iFFTCount;
+	for(size_t i=0;i<l_uiSize;++i)
+	{
+		cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
+		std::vector<int>	l_FrequencyVector;
+		std::vector<int>	l_FrequencyHittedCountVector;
+		for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_pFFTHitCountAndTime->m_iFFTBinCount;++l_iCurrentFFTIndex )
+		{
+			if(l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex] >=this->m_iExportThresholdValue)
+			{
+				int l_iFrequency = (int)(l_fFrequenctForOneFFT*l_iCurrentFFTIndex);
+				l_FrequencyVector.push_back(l_iFrequency);
+				l_FrequencyHittedCountVector.push_back(l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex]);
+			}
+		}
+		TiXmlElement*l_pFFTHitCountAndTimeElement = new TiXmlElement(L"FFTHitCountAndTime");
+		l_pFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
+		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
+		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
+		l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
+	}
+	l_ISAXCallback.Export(e_strFileName,false);
+	return false;
 }
 //<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
 //    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />

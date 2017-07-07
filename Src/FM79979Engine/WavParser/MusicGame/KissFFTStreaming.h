@@ -93,7 +93,7 @@ public:
 	cKissFFTStreamingConvert();
 	virtual ~cKissFFTStreamingConvert();
 	//now only support wav
-	virtual bool					FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true);
+	virtual bool					FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true,bool e_bDoFFTDataStore = false);
 	//need another thread to do this?
 	virtual void					Update(float e_fElpaseTime);
 	virtual void					Render();

@@ -146,153 +146,118 @@ cKissFFTConvert::~cKissFFTConvert()
 //4.calculate magnitude of first N/2 FFT output bins (sqrt(re*re + im*im))
 //5.optionally convert magnitude to dB (log) scale (20 * log10(magnitude))
 //6.plot N/2 (log) magnitude values
-void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter)
+void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore)
 {
+	m_FFTDataStore.Start();
 	if( !m_pSoundFile )
 		return;
-	int  l_iChannels = m_pSoundFile->m_iChannel;
-	m_Timer.Update();
-	const int l_iFetchDataCount = m_iOneFrameFFTDataCount;//*this->m_pSoundFile->m_iChannel;
-	assert(l_iFetchDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
+	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
 
-	size_t l_uiSameCount = m_pSoundFile->m_iSampleCount;
-	kiss_fft_cpx* l_pKiss_FFT_In = new kiss_fft_cpx[l_iFetchDataCount];
-	kiss_fft_cpx* l_pKiss_FFT_Out = new kiss_fft_cpx[l_iFetchDataCount];
-	kiss_fft_state* l_pkiss_fft_state = kiss_fft_alloc(l_iFetchDataCount, 0/*is_inverse_fft*/, NULL, NULL);
-	int l_iNumFFT = l_uiSameCount/l_iFetchDataCount;
-	float*l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(l_iFetchDataCount);
-	//int l_iLazyOutFFTData[32*1024];
+	m_Timer.Update();
+	int					l_iChannels = m_pSoundFile->m_iChannel;
+	size_t				l_uiSameCount = m_pSoundFile->m_iSampleCount;
+	kiss_fft_cpx*		l_pKiss_FFT_In = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+	kiss_fft_cpx*		l_pKiss_FFT_Out = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+	kiss_fft_state*		l_pkiss_fft_state = kiss_fft_alloc(m_iOneFrameFFTDataCount, 0/*is_inverse_fft*/, NULL, NULL);
+	float*				l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(m_iOneFrameFFTDataCount);		
+	int					l_iOneStepSoundCount = m_iOneFrameFFTDataCount*l_iChannels*sizeof(short);
+	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
+	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount;
+	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
 
-	std::vector<int>*l_pFFTDataVector = new std::vector<int>;
-	l_pFFTDataVector->resize(l_iNumFFT*l_iFetchDataCount);
+	m_FFTDataVector.resize(l_iNumFFT*l_iHalfFFTCount);
 	for( int i=0;i<l_iNumFFT;++i )
 	{
-		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+(i*l_iFetchDataCount*l_iChannels*sizeof(short));
-		int*l_pOutFFTData = &(*l_pFFTDataVector)[i*l_iFetchDataCount];
-		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,l_iFetchDataCount*sizeof(short),eDataType::eDT_SHORT);
+		int l_iSoundIndex = i*l_iOneStepSoundCount;
+		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+l_iSoundIndex;
+		int*l_pOutFFTData = &(m_FFTDataVector)[i*l_iHalfFFTCount];
+		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
 		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
 						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
 						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
+		if( e_pFFTDataStore )
+			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
 	}
+
 	SAFE_DELETE(l_pfWindowFunctionConstantValue);
-	m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
-
-	//bool l_bDoFFT = true;
-	//for(int l_iCurrentChannelIndex = 0;l_iCurrentChannelIndex<l_iChannels;++l_iCurrentChannelIndex)
-	//{
-	//	std::vector<int>*l_pFFTDataVector = new std::vector<int>;
-	//	std::vector<float>*l_pFFTPhaseDataVector = new std::vector<float>;
-	//	l_pFFTDataVector->reserve(m_pSoundFile->m_iSampleCount);
-
-	//	size_t l_uiCurrentSoundDataIndex = 0;
-
-	//	short*l_pucSoundData = (short*)m_pSoundFile->GetChannelData(l_iCurrentChannelIndex);
-	//	int l_iNumWindow = 0;
-	//	int l_iNumFFT = 0;
-	//	while(l_uiCurrentSoundDataIndex < l_uiSameCount  )
-	//	{
-	//		if( l_bDoFFT )
-	//		{
-	//			size_t l_uiCount = 0;
-	//			size_t j = 0;
-	//			for( l_uiCount = l_uiCurrentSoundDataIndex;
-	//				 l_uiCount < (l_uiCurrentSoundDataIndex + l_iFetchDataCount) && l_uiCurrentSoundDataIndex < l_uiSameCount - l_iFetchDataCount ;
-	//				 l_uiCount++,j++  )
-	//			{
-	//				//https://en.wikipedia.org/wiki/Window_function#Hann_window
-	//				//Apply window function on the sample,Hann window
-	//				double multiplier = 0.5 * (1 - cos(2*D3DX_PI*j/(l_iFetchDataCount-1)));
-	//				l_pKiss_FFT_In[j].r = (float)(multiplier * l_pucSoundData[l_uiCount]);
-	//				l_pKiss_FFT_In[j].i = 0;  //stores N samples 
-	//			}
-	//			++l_iNumWindow;
-	//			if(l_uiCurrentSoundDataIndex < l_uiSameCount-l_iFetchDataCount )
-	//			{
-	//				l_uiCurrentSoundDataIndex = l_uiCount;
-	//			}
-	//			else
-	//			{    
-	//				size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
-	//				m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
-	//				m_FFTResultPhaseVector.push_back(l_pFFTPhaseDataVector);
-	//				break;
-	//			}
-	//			//GetFft(l_iFetchDataCount,l_pKiss_FFT_In,l_pKiss_FFT_Out);
-	//			kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
-	//			// calculate magnitude of first n/2 FFT
-	//			int l_iDidgitalWindownFunctionCount = l_iFetchDataCount/WINDOWN_FUNCTION_FRUSTRUM;
-	//			if( !e_bFilter )
-	//			{
-	//				for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-	//				{
-	//					int val;
-	//					float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-	//					// N/2 Log magnitude values.
-	//					//for (i = 0; i < N/2 ; ++i){
-	//					//  x =   10 * log10(mag[i]) ;
-	//					//  printf("  log x= %g ", log(x));
-	//					//val = l_Msg;
-	//					val = (int)(log(l_Msg) *10); 
-	//					//l_FFTDataVector[i] = val;
-	//					l_pFFTDataVector->push_back(val);
-	//					float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-	//					l_pFFTPhaseDataVector->push_back(l_fPhase);
-	//					++l_iNumFFT;
-	//				}
-	//			}
-	//			else
-	//			{
-	//				const int l_iLazeLength = 1024*32*2;
-	//				int l_iIAmLazyToOptmizeFuck[l_iLazeLength];
-	//				assert(l_iLazeLength>l_iDidgitalWindownFunctionCount&&"basicly it won't happen if it happen call fatming(l_iIAmLazyToOptmizeFuck)");
-	//				//DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
-	//				DoFilter(l_iDidgitalWindownFunctionCount,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out);
-	//				//DoFilter(m_fFrenquenceFilterEndScaleValue,l_iDidgitalWindownFunctionCount,0,l_iIAmLazyToOptmizeFuck,l_pKiss_FFT_Out,m_iFilterStrengthValue);
-	//				for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
-	//				{
-	//					l_pFFTDataVector->push_back(l_iIAmLazyToOptmizeFuck[i]);
-	//					float l_fPhase = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-	//					l_pFFTPhaseDataVector->push_back(l_fPhase);
-	//					++l_iNumFFT;
-	//				}
-
-	//			}
-	//		}
-	//		else
-	//		{
-	//			m_fScale = 0.1f;
-	//			size_t l_uiCount = 0;
-	//			for( l_uiCount = l_uiCurrentSoundDataIndex;l_uiCount < l_uiSameCount;l_uiCount++)
-	//			{
-	//				l_pFFTDataVector->push_back(l_pucSoundData[l_uiCount]);
-	//			}
-	//			size_t l_uFFTDataVectoriSize = l_pFFTDataVector->size();
-	//			m_FFTDataVectorChannelVector.push_back(l_pFFTDataVector);
-	//			break;	
-	//		}
-	//	}
-	//	size_t l_uiSize = l_pFFTDataVector->size();
-	//}
 	free(l_pkiss_fft_state);
 	SAFE_DELETE(l_pKiss_FFT_In);
 	SAFE_DELETE(l_pKiss_FFT_Out);
 	m_Timer.Update();
-	//double secs = m_Timer.fElpaseTime;
-	//cGameApp::OutputDebugInfoString(ValueToString(secs));
+	double l_dbElpaseTime = m_Timer.fElpaseTime;
+	std::wstring l_strDebugInfo = L"PreProcessedAllData spent:";
+	l_strDebugInfo += ValueToStringW(l_dbElpaseTime);
+	cGameApp::OutputDebugInfoString(l_strDebugInfo);
 }
+
+const int g_iFFTCountQuanty = 4;
+
+void	cKissFFTConvert::PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore)
+{
+	m_FFTDataStore.Start();
+	if( !m_pSoundFile )
+		return;
+	m_iOneFrameFFTDataCount *= g_iFFTCountQuanty;
+	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
+	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
+	m_Timer.Update();
+	int					l_iChannels = m_pSoundFile->m_iChannel;
+	size_t				l_uiSameCount = m_pSoundFile->m_iSampleCount;
+	kiss_fft_cpx*		l_pKiss_FFT_In = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+	kiss_fft_cpx*		l_pKiss_FFT_Out = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+	kiss_fft_state*		l_pkiss_fft_state = kiss_fft_alloc(m_iOneFrameFFTDataCount, 0/*is_inverse_fft*/, NULL, NULL);
+	float*				l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(m_iOneFrameFFTDataCount);
+	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
+	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
+
+	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount*g_iFFTCountQuanty;
+	int					l_iOneStepSoundCount = m_iOneFrameFFTDataCount/g_iFFTCountQuanty*l_iChannels*sizeof(short);
+
+	m_FFTDataVector.resize(l_iNumFFT*l_iHalfFFTCount);
+	for( int i=0;i<l_iNumFFT;++i )
+	{
+		int l_iSoundIndex = i*l_iOneStepSoundCount;
+		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+l_iSoundIndex;
+		int l_EndIndex = m_iOneFrameFFTDataCount/g_iFFTCountQuanty+m_iOneFrameFFTDataCount;
+		if( l_EndIndex >= (int)l_uiSameCount)
+		{
+			break;
+		}
+		int*l_pOutFFTData = &(m_FFTDataVector)[i*l_iHalfFFTCount];
+		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
+		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
+						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
+						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
+		if( e_pFFTDataStore )
+			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
+	}
+	SAFE_DELETE(l_pfWindowFunctionConstantValue);
+	free(l_pkiss_fft_state);
+	SAFE_DELETE(l_pKiss_FFT_In);
+	SAFE_DELETE(l_pKiss_FFT_Out);
+	m_Timer.Update();
+	double l_dbElpaseTime = m_Timer.fElpaseTime;
+	std::wstring l_strDebugInfo = L"PreProcessedDoubleAllData spent:";
+	l_strDebugInfo += ValueToStringW(l_dbElpaseTime);
+	cGameApp::OutputDebugInfoString(l_strDebugInfo);
+}
+
 void	cKissFFTConvert::Destroy()
 {
-	DELETE_VECTOR(m_FFTDataLinePointVectorVector,std::vector<Vector2>*);
-	DELETE_VECTOR(m_FFTDataVectorChannelVector,std::vector<int>*);
-	DELETE_VECTOR(m_FFTResultPhaseVector,std::vector<float>*);
+	m_FFTDataVector.clear();
+	m_FFTDataLinePointVector.clear();
+
+	//DELETE_VECTOR(m_FFTDataLinePointVectorVector,std::vector<Vector2>*);
+	//DELETE_VECTOR(m_FFTDataVectorChannelVector,std::vector<int>*);
+	//DELETE_VECTOR(m_FFTResultPhaseVector,std::vector<float>*);
 	SAFE_RELEASE(m_pTestSound,this);
-	//m_pTestSound->Release();
 	SAFE_DELETE(m_pSoundFile);
 }
 //
-bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound)
+bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound,bool e_bDoFFTDataStore)
 {
+	m_strSourceFileName = e_strFileName;
 	m_fCurrentTime = 0.f;
 	Destroy();
 	m_pSoundFile = new FATMING_CORE::cSoundFile();
@@ -302,10 +267,13 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		return false;
 	}
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
-	PreProcessedAllData(this->m_bFilter);
+	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
+	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	if( e_bPlaySound )
 	{
-		m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
+		//m_pTestSound = new cOpanalWAV(this,e_strFileName,false);
+		m_pTestSound = new cOpanalWAV(this,nullptr,false);
+		m_pTestSound->OpenFile(e_strFileName,true);
 		m_pTestSound->Play(true);
 	}
 	return true;	
@@ -313,77 +281,70 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 
 bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 {
-	if(m_FFTDataVectorChannelVector.size() < 1 || e_iCount == 0 )
+	m_FFTDataLinePointVector.clear();
+	int l_iTotalFFTData = (int)m_FFTDataVector.size();
+	if( e_iStartDataIndex+e_iCount >= l_iTotalFFTData )
 		return false;
-	for(size_t i=0;i<m_FFTDataLinePointVectorVector.size();++i)
-	{
-		m_FFTDataLinePointVectorVector[i]->clear();
-	}
 	m_iCurrentFFTDataLineCount = 0;
-	int l_m_FFTDataVectorChannelVectorSize = (int)m_FFTDataVectorChannelVector[0]->size();
-	if( e_iStartDataIndex >= l_m_FFTDataVectorChannelVectorSize )
-		return false;
 	int l_iEndIndex = (int)e_iStartDataIndex+e_iCount;
-	if( l_iEndIndex >= (int)m_FFTDataVectorChannelVector[0]->size())
-	{
-		l_iEndIndex = (int)m_FFTDataVectorChannelVector[0]->size()-1;
-	}
 	float l_fXGap = this->m_vChartResolution.x/(l_iEndIndex-e_iStartDataIndex)*m_fChartScale;	
 	//float l_fXGap = this->m_pSoundFile->m_iFreq/this->m_vChartResolution.x*m_fChartScale;
-	float l_fYGap = m_fNextChannelYGap;
+	float l_fYGap = 0;
 	float l_fStartXPos = m_vChartShowPos.x;
 	float l_fYStartPos = m_vChartShowPos.y;
-	int l_iIndex = 0;
 	//assert(m_FFTDataLinePointVectorVector.size() == m_FFTDataVectorChannelVector.size());
 
 	int l_iMaxAmplitude = 0;
 	int l_iMaxAmplitudeFrequency = 0;
 
-	for( size_t l_iChannelIndex = 0;l_iChannelIndex<m_FFTDataLinePointVectorVector.size();++l_iChannelIndex )
+
+	auto l_pFFTPointsData = &m_FFTDataLinePointVector;
+	auto l_pFFTDataVector = &m_FFTDataVector;
+
+	//auto l_pFFTPhaseDataVector = this->m_FFTResultPhaseVector[l_iChannelIndex];
+
+	float l_fYPos = l_fYGap;
+	int l_iIndex = 0;
+	for(int i=e_iStartDataIndex;i<l_iEndIndex;++i)
 	{
-		auto l_pData = m_FFTDataLinePointVectorVector[l_iChannelIndex];
-		auto l_pFFTDataVector = this->m_FFTDataVectorChannelVector[l_iChannelIndex];
-
-		//auto l_pFFTPhaseDataVector = this->m_FFTResultPhaseVector[l_iChannelIndex];
-
-		float l_fYPos = l_fYGap*l_iChannelIndex;
-		int l_iIndex = 0;
-		for(int i=e_iStartDataIndex;i<l_iEndIndex;++i)
+		int l_iAmplidude = (*l_pFFTDataVector)[i];
+		Vector2 l_vPos,l_vPos1;
+		//this->m_fFFTResultPhase[l_iChannelIndex][]
+		//l_vPos1.x = l_vPos.x = (l_fXGap*(*l_pFFTPhaseData)[l_iIndex])+l_fStartXPos;
+		l_vPos1.x = l_vPos.x = (l_fXGap*l_iIndex)+l_fStartXPos;
+		l_vPos1.y = l_fYStartPos+l_fYPos;
+		l_vPos.y = l_fYStartPos-(l_iAmplidude*m_fScale)+l_fYPos;
+		//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
+		l_pFFTPointsData->push_back(l_vPos);
+		l_pFFTPointsData->push_back(l_vPos1);
+		++l_iIndex;
+		if( l_iMaxAmplitude < l_iAmplidude )
 		{
-			int l_iAmplidude = (*l_pFFTDataVector)[i];
-			Vector2 l_vPos,l_vPos1;
-			//this->m_fFFTResultPhase[l_iChannelIndex][]
-			//l_vPos1.x = l_vPos.x = (l_fXGap*(*l_pFFTPhaseData)[l_iIndex])+l_fStartXPos;
-			l_vPos1.x = l_vPos.x = (l_fXGap*l_iIndex)+l_fStartXPos;
-			l_vPos1.y = l_fYStartPos+l_fYPos;
-			l_vPos.y = l_fYStartPos-(l_iAmplidude*m_fScale)+l_fYPos;
-			//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
-			l_pData->push_back(l_vPos);
-			l_pData->push_back(l_vPos1);
-			++l_iIndex;
-			if( l_iMaxAmplitude < l_iAmplidude )
-			{
-				l_iMaxAmplitude = l_iAmplidude;
-				this->GetCurrentMaxFrequence(i-e_iStartDataIndex,m_pSoundFile->m_iFreq,e_iCount,l_iMaxAmplitude);
-			}
+			l_iMaxAmplitude = l_iAmplidude;
+			this->GetCurrentMaxFrequence(i-e_iStartDataIndex,m_pSoundFile->m_iFreq,e_iCount,l_iMaxAmplitude);
 		}
-		m_iCurrentFFTDataLineCount = l_iIndex;
 	}
+	m_iCurrentFFTDataLineCount = l_iIndex;
 	return true;
+}
+
+int		cKissFFTConvert::GetStartFFTIndexByTime(float e_fTime)
+{
+	float l_fTotalTime = m_pSoundFile->m_fTime;
+	float l_fPercent = e_fTime/l_fTotalTime;
+	if( l_fPercent >= 1.f )
+		return -1;
+	size_t l_uiFFTCount = this->m_FFTDataVector.size();
+	int l_iIndexOfFFTData = l_uiFFTCount/(this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+	int l_iStartIndex = (int)((int)(l_iIndexOfFFTData*l_fPercent)*this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+	return l_iStartIndex;
 }
 
 bool	cKissFFTConvert::FetchSoundDataByTimeRange(float e_fStartTime,float e_fDuring)
 {
-	if( m_FFTDataVectorChannelVector.size() < 1 )
+	int l_iStartIndex = GetStartFFTIndexByTime(this->m_fCurrentTime);
+	if( l_iStartIndex == -1 )
 		return false;
-	float l_fTotalTime = m_pSoundFile->m_fTime;
-	float l_fPercent = m_fCurrentTime/l_fTotalTime;
-	if( l_fPercent >= 1.f )
-		return false;
-	int	l_iTargetIndex = (int)(m_fCurrentTime/(1.f/this->m_iDivideFFTDataToNFrame));
-	//because char to short? or
-	//because 6.plot N/2 (log) magnitude values,so divide 2
-	int l_iStartIndex = l_iTargetIndex*(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 	int l_iDuringRangeCount = this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
 	return FetchSoundData(l_iStartIndex,l_iDuringRangeCount);
 }
@@ -398,18 +359,16 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 		{//its end.
 			return;
 		}
-		if( m_FFTDataLinePointVectorVector.size() == 0 )
-		{
-			//for(int i=0;i<m_pSoundFile->m_iChannel;++i)
-			//{
-				std::vector<Vector2>*l_pData = new std::vector<Vector2>();
-				l_pData->reserve(m_iOneFrameFFTDataCount);
-				m_FFTDataLinePointVectorVector.push_back(l_pData);
-			//}
-		}
 		m_TimeToUpdateFFTData.Update(e_fElpaseTime);
-		//if( m_TimeToUpdateFFTData.bTragetTimrReached )
-			FetchSoundDataByTimeRange(m_fCurrentTime,l_fElpaseTime);
+		FetchSoundDataByTimeRange(m_fCurrentTime,l_fElpaseTime);
+
+		int l_iStartIndex = GetStartFFTIndexByTime(this->m_fCurrentTime);
+		if( l_iStartIndex != -1 )
+		{
+			auto l_pFFTDataVector = &m_FFTDataVector;
+			int* l_piFFTData = &(*l_pFFTDataVector)[l_iStartIndex];
+			m_FFTDataStore.UpdateFFTData(e_fElpaseTime,l_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+		}
 	}
 }
 
@@ -417,46 +376,30 @@ void	cKissFFTConvert::Render()
 {
 	if( m_iCurrentFFTDataLineCount > 0 )
 	{
-		size_t l_uiSize = m_FFTDataLinePointVectorVector.size();
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 		cGameApp::m_spGlyphFontRender->SetScale(5.f);
 		bool l_OnlyPoint = true;
-		for(size_t l_iCurrentIndex=0;l_iCurrentIndex<l_uiSize;++l_iCurrentIndex)
+		auto l_pDataVector = &m_FFTDataLinePointVector;
+		if( !l_OnlyPoint )
 		{
-			auto l_pDataVector = m_FFTDataLinePointVectorVector[l_iCurrentIndex];
-			if( !l_OnlyPoint )
+			for(int i=0;i<m_iCurrentFFTDataLineCount;++i)
 			{
-				for(int i=0;i<m_iCurrentFFTDataLineCount;++i)
-				{
-					float*l_pData = (float*)&(*l_pDataVector)[i*2];
-					//if( i%m_iOneFrameFFTDataCount == 0 )
-						//RenderLine(l_pData,2,Vector4::Red,2,cMatrix44::Identity,2);
-					//else
-						RenderLine(l_pData,2,Vector4::One,2,cMatrix44::Identity,2);
-					if( i == 0 )
-					{
-						if( l_iCurrentIndex == 0 )
-							cGameApp::RenderFont(l_pData[0]-200,1000.f,L"LeftChannel");
-						else
-							cGameApp::RenderFont(l_pData[0]-200,1800.f,L"RightChannel");
-					}
-					//if( i % 30 == 0 )
-					//{
-						//cGameApp::RenderFont((int)l_pData[0],100,ValueToStringW(i));
-						//l_pData[1] = -100;
-						//RenderLine(l_pData,2,Vector4::Red,2,cMatrix44::Identity,2);
-					//}
-				}
-			}
-			else
-			{
-				RenderLine(l_pDataVector,Vector4::One);
+				float*l_pData = (float*)&(*l_pDataVector)[i*2];
+				//if( i%m_iOneFrameFFTDataCount == 0 )
+					//RenderLine(l_pData,2,Vector4::Red,2,cMatrix44::Identity,2);
+				//else
+					RenderLine(l_pData,2,Vector4::One,2,cMatrix44::Identity,2);
 			}
 		}
-
+		else
+		{
+			RenderLine(l_pDataVector,Vector4::One);
+		}
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
+		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
+		m_FFTDataStore.RenderCurrentData();
 	}
 	//std::vector<Vector2> l_Test;
 	//l_Test.push_back(Vector2(100,500));
@@ -487,15 +430,25 @@ float	cKissFFTConvert::GetTimeLength()
 	return 0.f;
 }
 
+void	cKissFFTConvert::Play()
+{
+	SAFE_RELEASE(m_pTestSound,this);
+	m_pTestSound = new cOpanalWAV(this,nullptr,false);
+	m_pTestSound->OpenFile(this->m_strSourceFileName.c_str(),true);
+	m_pTestSound->Play(true);
+	this->m_FFTDataStore.Start();
+}
+
 void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 {
 	if( m_fCurrentTime == e_fElpaseTime )
 		return;
 	m_fCurrentTime = e_fElpaseTime;
-	//if(this->m_pSoundFile)
-	//{
-	//	this->GoToTime(e_fElpaseTime);
-	//}
+	m_FFTDataStore.Start();
+	if(this->m_pTestSound)
+	{//fuck I have no idea...
+		m_pTestSound->GoTo(e_fElpaseTime);
+	}
 }
 //http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 ////N = 1024          // size of FFT and sample window
@@ -605,6 +558,16 @@ void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_i
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 	}
 }
+
+
+//bool	cKissFFTConvert::ExportFFTDataStore(const char*e_strFileName,const char*e_strExportFileName)
+//{
+//	if(FetchSoundDataStart(e_strFileName,false,true))
+//	{
+//		return this->m_FFTDataStore.Export(e_strExportFileName);
+//	}
+//	return false;
+//}
 
 //void	cKissFFTConvert::Update(float e_fElpaseTime)
 //{

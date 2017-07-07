@@ -5,6 +5,7 @@ namespace	FATMING_CORE
 }
 class cSoundFFTCapture;
 class cMessageSenderManager;
+class cFFTStoreExporter;
 class cMusicGameApp:public cGameApp
 {
 	cPhaseManager*			m_pPhaseManager;
@@ -37,4 +38,5 @@ public:
 		//I just lazy so put here,
 		static cSoundCapture*		m_pSoundCapture;
 		static cSoundFFTCapture*	m_pSoundFFTCapture;
+		cFFTStoreExporter*			m_pFFTStoreExporter;
 };

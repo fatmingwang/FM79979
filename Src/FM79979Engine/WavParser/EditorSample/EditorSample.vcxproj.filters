@@ -90,9 +90,6 @@
     <ClCompile Include="..\MusicGame\KissFFTStreaming.cpp">
       <Filter>Sound\FFT</Filter>
     </ClCompile>
-    <ClCompile Include="..\MusicGame\QuickFFTDataFrequencyFinder.cpp">
-      <Filter>Sound\FFT</Filter>
-    </ClCompile>
     <ClCompile Include="..\MusicGame\SoundFFTCapture.cpp">
       <Filter>Sound\FFT</Filter>
     </ClCompile>
@@ -147,6 +144,12 @@
     <ClCompile Include="..\MusicGame\KissFFTFunction.cpp">
       <Filter>Sound\FFT</Filter>
     </ClCompile>
+    <ClCompile Include="..\MusicGame\FFTStoreExporter.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MusicGame\FFTFrequency.cpp">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -186,9 +189,6 @@
       <Filter>Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="..\MusicGame\KissFFTStreaming.h">
-      <Filter>Sound\FFT</Filter>
-    </ClInclude>
-    <ClInclude Include="..\MusicGame\QuickFFTDataFrequencyFinder.h">
       <Filter>Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="..\MusicGame\SoundFFTCapture.h">
@@ -241,6 +241,12 @@
     </ClInclude>
     <ClInclude Include="..\MusicGame\KissFFTFunction.h">
       <Filter>Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\FFTStoreExporter.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\MusicGame\FFTFrequency.h">
+      <Filter>Sound\CaptureAndCompare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

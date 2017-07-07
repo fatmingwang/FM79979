@@ -1,6 +1,6 @@
 #pragma once
 
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
 
 #define	CORRECT_TUNE_COLOR	Vector4::Green
 #define	WAIT_TIME_TUNE		Vector4::One

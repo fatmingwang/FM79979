@@ -87,7 +87,7 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 	kiss_fft_cpx* l_pKiss_FFT_Out = e_pkiss_fft_Out;
 	kiss_fft_state* l_pkiss_fft_state = e_pkiss_fft_state;
 	assert(e_pTimeAndPCMData->eBitPerSameplType==eDataType::eDT_SHORT&&"sorry I am lazy now only support short!");
-	int l_iNumPCMBuffer = e_pTimeAndPCMData->iNumPCMData/sizeof(short);
+	int l_iNumPCMBuffer = e_pTimeAndPCMData->iPCMDataSampleCount;
 	l_pkiss_fft_state->nfft = l_iNumPCMBuffer;
 	//16bit 2 byte	,32 bit 4 byte
 	T*l_pucSoundData = (T*)e_pTimeAndPCMData->pPCMData;
@@ -150,7 +150,7 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 {
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_SHORT )
 	{
-		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(short),(short*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(short),(short*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<short>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
@@ -158,7 +158,7 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_FLOAT )
 	{
-		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(float),(float*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(float),(float*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<float>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
@@ -166,7 +166,7 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_INT )
 	{
-		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iNumPCMData/sizeof(int),(int*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(int),(int*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<int>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData,
 					   e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);

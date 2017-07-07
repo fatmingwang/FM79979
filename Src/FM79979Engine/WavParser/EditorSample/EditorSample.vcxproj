@@ -120,6 +120,7 @@
     <ClCompile Include="..\MIDIParser\Options.cpp" />
     <ClCompile Include="..\MIDIParser\Test.cpp" />
     <ClCompile Include="..\MusicGame\FFTFindPeak.cpp" />
+    <ClCompile Include="..\MusicGame\FFTStoreExporter.cpp" />
     <ClCompile Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="..\MusicGame\KissFFTConvert.cpp" />
     <ClCompile Include="..\MusicGame\KissFFTFunction.cpp" />
@@ -130,7 +131,7 @@
     <ClCompile Include="..\MusicGame\PerformMusicPhase.cpp" />
     <ClCompile Include="..\MusicGame\PerformMusicPhaseUI.cpp" />
     <ClCompile Include="..\MusicGame\PerformScoreCalculate.cpp" />
-    <ClCompile Include="..\MusicGame\QuickFFTDataFrequencyFinder.cpp" />
+    <ClCompile Include="..\MusicGame\FFTFrequency.cpp" />
     <ClCompile Include="..\MusicGame\SelectMusicPhase.cpp" />
     <ClCompile Include="..\MusicGame\SelectMusicPhaseUI.cpp" />
     <ClCompile Include="..\MusicGame\SoundBufferSwaper.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="..\MIDIParser\Options.h" />
     <ClInclude Include="..\MusicGame\AllPhaseName.h" />
     <ClInclude Include="..\MusicGame\FFTFindPeak.h" />
+    <ClInclude Include="..\MusicGame\FFTStoreExporter.h" />
     <ClInclude Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.h" />
     <ClInclude Include="..\MusicGame\KissFFTConvert.h" />
     <ClInclude Include="..\MusicGame\KissFFTFunction.h" />
@@ -168,7 +170,7 @@
     <ClInclude Include="..\MusicGame\Parameters.h" />
     <ClInclude Include="..\MusicGame\PerformMusicPhase.h" />
     <ClInclude Include="..\MusicGame\PerformScoreCalculate.h" />
-    <ClInclude Include="..\MusicGame\QuickFFTDataFrequencyFinder.h" />
+    <ClInclude Include="..\MusicGame\FFTFrequency.h" />
     <ClInclude Include="..\MusicGame\SelectMusicPhase.h" />
     <ClInclude Include="..\MusicGame\SoundBufferSwaper.h" />
     <ClInclude Include="..\MusicGame\SoundFFTCapture.h" />

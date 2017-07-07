@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TimeFrequencyAmplitudeValueCapture.h"
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
 
 //typedef sCountAndData<sCountAndData<sFrequenceAndAmplitudeAndTime> >  sFrequenceAndAmplitudeAndTimeData;
 //typedef sCountAndData<std::vector<sFrequenceAndAmplitudeAndTime> >  sFrequenceAndAmplitudeAndTimeData;

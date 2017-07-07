@@ -3,7 +3,7 @@
 #include "SoundTimeLineVisualizer.h"
 #include "MusicGameApp.h"
 #include "SoundFFTCapture.h"
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
 #include "AllPhaseName.h"
 
 cPerformMusicPhase::cPerformMusicPhase()

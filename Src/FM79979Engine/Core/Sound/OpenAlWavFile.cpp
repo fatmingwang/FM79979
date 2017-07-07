@@ -225,6 +225,7 @@ namespace FATMING_CORE
 
 	bool	cOpanalWAV::GoTo(float e_fTime)
 	{
+		//fuck...have no idea how to make this works...
 		if( this->m_pSoundData )
 		{
 			float l_fPercent = e_fTime/m_fTimeLength;
@@ -238,11 +239,13 @@ namespace FATMING_CORE
 				l_fPercent = 0.f;
 			}
 			int l_iOriginalSize = m_iPCMDataSize;
-			m_iPCMDataSize = (int)(m_iPCMDataSize*l_fPercent);
-			this->Play(false);
-			char*l_pData = this->m_pSoundData+m_iPCMDataSize;
+			int l_iStartIndex = (int)(m_iPCMDataSize*(l_fPercent));
+			m_iPCMDataSize = l_iOriginalSize-l_iStartIndex;
+			Destroy();
+			char*l_pData = this->m_pSoundData+l_iStartIndex;
 			AssignBufferData(l_pData);
 			m_iPCMDataSize = l_iOriginalSize;
+			this->Play(true);
 			return true;
 		}
 		return false;

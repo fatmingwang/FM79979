@@ -27,8 +27,10 @@ class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 	virtual	bool						MyParse(TiXmlElement*e_pRoot);
 	//I am lazy...
 	Vector2								m_vLineTempPos[44100*2];
-	int									m_iAnplitudeScale;
+	int									m_iHittedCountScaleForVisual;
 	int									m_iMaxValue;
+	//for export,if the fft amplitude is smappler this ignore.
+	int									m_iExportThresholdValue;
 public:
 	cFFTDataStore();
 	~cFFTDataStore();
@@ -43,10 +45,12 @@ public:
 	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start();
-	void								Export(char*e_strFileName);
+	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }
+	int									GetExportThresholdValue();
+	void								SetExportThresholdValue(int e_iExportThresholdValue);
 private:
 	//int									m_iThreusholdAmplitude;
 	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;

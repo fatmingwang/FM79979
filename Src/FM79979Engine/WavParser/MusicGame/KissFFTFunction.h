@@ -4,16 +4,16 @@ struct sTimeAndPCMData
 {
 	eDataType		eBitPerSameplType;
 	char*			pPCMData;
-	int				iNumPCMData;
+	int				iPCMDataSampleCount;
 	int				iNumChannel;
 	float			fStartTime;
 	float			fEndTime;
-	sTimeAndPCMData(float e_fStartTime,float e_fEndTime,int e_iNumChannel,char*e_pPCMData,int	e_iNumPCMData,eDataType e_eBitPerSameplType)
+	sTimeAndPCMData(float e_fStartTime,float e_fEndTime,int e_iNumChannel,char*e_pPCMData,int	e_iPCMDataSampleCount,eDataType e_eBitPerSameplType)
 	{
 		iNumChannel = e_iNumChannel;
 		eBitPerSameplType = e_eBitPerSameplType;
 		pPCMData = e_pPCMData;
-		iNumPCMData = e_iNumPCMData;
+		iPCMDataSampleCount = e_iPCMDataSampleCount;
 		fStartTime = e_fStartTime;
 		fEndTime = e_fEndTime;
 	}

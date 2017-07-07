@@ -180,7 +180,7 @@ int*	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 {
 	if( !e_pTimeAndPCMData)
 		return nullptr;
-	assert(e_iNFrameFFTDataCount*sizeof(short) <= (size_t)e_pTimeAndPCMData->iNumPCMData);
+	assert(e_iNFrameFFTDataCount <= e_pTimeAndPCMData->iPCMDataSampleCount);
 //	float l_fFFTSampleScale = m_fFFTSampleScale;
 	sTimeAndPCMData*l_pTimeAndPCMData = e_pTimeAndPCMData;
 	UT::sTimeAndFPS	l_Timer;
@@ -227,7 +227,7 @@ cKissFFTStreamingConvert::cKissFFTStreamingConvert()
 	m_bThreadAlreadyStop[0] = m_bThreadAlreadyStop[1] = true;
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/m_iDivideFFTDataToNFrame);
 
-	this->m_vChartShowPos.x = cGameApp::m_svGameResolution.x/2-200;
+	this->m_vChartShowPos.x = cGameApp::m_svGameResolution.x/2-800;
 	this->m_vChartShowPos.y = cGameApp::m_svGameResolution.y/2+200;
 }
 
@@ -296,7 +296,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 		{
 			short*l_pDataPos = (short*)m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex];
 			l_pDataPos += m_iOneFrameFFTDataCount*i;
-			sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+l_fTimeGap,m_pOpanalOgg->GetChannelCount(),(char*)l_pDataPos,m_iOneFrameFFTDataCount*e_iBirPersample,e_iBirPersample==2?eDataType::eDT_SHORT:eDataType::eDT_INT);
+			sTimeAndPCMData*l_pTimeAndPCMData = new sTimeAndPCMData(l_fCurrentTime,l_fCurrentTime+l_fTimeGap,m_pOpanalOgg->GetChannelCount(),(char*)l_pDataPos,m_iOneFrameFFTDataCount,e_iBirPersample==2?eDataType::eDT_SHORT:eDataType::eDT_INT);
 			{
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
 				m_TimeAndPCMDataVector.push_back(l_pTimeAndPCMData);
@@ -322,8 +322,9 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 }
 
 
-bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound)
+bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound,bool e_bDoFFTDataStore)
 {
+	m_strSourceFileName = e_strFileName;
 	Destroy();
 	this->m_fCurrentTime = 0.f;
 	m_pOpanalOgg = new cOpanalOgg(this,e_strFileName,true,std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3,std::placeholders::_4),false);
@@ -442,7 +443,7 @@ void	cKissFFTStreamingConvert::Render()
 	if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() )
 	{
 		cPCMToFFTDataConvertr::sTimeAndFFTData*l_pTimeAndFFTData = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
-		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample;//*2 for one line 2 points,divide 2 for fft only have half count
+		int l_iNumPointd = l_pTimeAndFFTData->iFFTDataOneSample*2;//*2 for one line 2 points
 		//left channel
 		GLRender::RenderLine((float*)m_pvFFTDataToPoints,l_iNumPointd,Vector4::One,2);
 

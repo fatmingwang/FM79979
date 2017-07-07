@@ -1,7 +1,8 @@
 #pragma once
 
 #include "KissFFTStreaming.h"
-#include "QuickFFTDataFrequencyFinder.h"
+#include "FFTFrequency.h"
+
 
 class cQuickFFTDataFrequencyFinder;
 
@@ -36,7 +37,6 @@ class cSoundFFTCapture:public FATMING_CORE::cSounRecordCallBackObject,public cKi
 	GET_SET_DEC(int,m_iUpdateFlag,GetUpdateFlag,SetUpdateFlag);
 	//
 	cQuickFFTDataFrequencyFinder*	m_pQuickFFTDataFrequencyFinder;
-	cFFTDataStore					m_FFTDataStore;
 public:
 	cSoundFFTCapture();
 	virtual ~cSoundFFTCapture();
