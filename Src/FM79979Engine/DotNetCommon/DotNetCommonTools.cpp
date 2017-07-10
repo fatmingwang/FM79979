@@ -8,6 +8,27 @@ using namespace System::Drawing;
 
 namespace DNCT
 {
+
+	ref class cDNCTFunctionDragEnterAndDrop:public GCFORM::Control
+	{
+		public: System::Void DNCTFunction_textBox_DragDrop(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
+			 {
+				GCFORM::TextBox^l_pTextbox = (GCFORM::TextBox^)sender;
+				l_pTextbox->Text = "";
+				auto l_pData = DNCT::DragDropEventWhileFileDrop(e);
+				for each(auto l_strFileName in l_pData )
+				{
+					l_pTextbox->Text += l_strFileName;
+				}
+			 }
+		public: System::Void DNCTFunction_textBox_DragEnter(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
+			 {
+				if (e->Data->GetDataPresent(DataFormats::FileDrop, false) == true)
+				{
+					e->Effect = DragDropEffects::Copy;
+				}
+			 }	
+	};
 	char*	DNCTWcharToChar(wchar_t *e_strWchar)
 	{
 		static char	l_sChar[DOT_NET_TEMP_SIZE];
@@ -108,14 +129,14 @@ namespace DNCT
 
 	std::vector<std::string>	GCStringToSTDStringVector(String^e_str)
 	{
-		array<String^>^l_strArray = e_str->Split(L',');
+		cli::array<String^>^l_strArray = e_str->Split(L',');
 		return GCArrayToSTDStringVector(l_strArray);
 	}
 
-	std::vector<std::string>	GCArrayToSTDStringVector(array<String^>^e_str)
+	std::vector<std::string>	GCArrayToSTDStringVector(cli::array<String^>^e_str)
 	{
 		std::vector<std::string>	l_strVector;
-		array<String^>^l_strArray = e_str;
+		cli::array<String^>^l_strArray = e_str;
 		for each(String^l_str in l_strArray)
 		{
 			std::string	l_str1 = GcStringToChar(l_str);
@@ -126,14 +147,14 @@ namespace DNCT
 
 	std::vector<std::wstring >	GCStringToSTDWStringVector(String^e_str)
 	{
-		array<String^>^l_strArray = e_str->Split(L',');
+		cli::array<String^>^l_strArray = e_str->Split(L',');
 		return GCArrayToSTDWStringVector(l_strArray);
 	}
 
-	std::vector<std::wstring >	GCArrayToSTDWStringVector(array<String^>^e_str)
+	std::vector<std::wstring >	GCArrayToSTDWStringVector(cli::array<String^>^e_str)
 	{
 		std::vector<std::wstring>	l_strVector;
-		array<String^>^l_strArray = e_str;
+		cli::array<String^>^l_strArray = e_str;
 		for each(String^l_str in l_strArray)
 		{
 			std::wstring	l_str1 = GcStringToWchar(l_str);
@@ -147,7 +168,7 @@ namespace DNCT
 		std::vector<int>	l_Result;
 		if( *e_piSize )
 			*e_piSize = 0;
-		array<String^>^l_strArray = e_str->Split(L',');
+		cli::array<String^>^l_strArray = e_str->Split(L',');
 		for each(String^l_str in l_strArray)
 		{
 			int	l_iValue = System::Int32::Parse(l_str);
@@ -346,7 +367,7 @@ namespace DNCT
 	}
 
 	
-	array<String^>^OpenFileAndGetNames(char*e_pFileFilter)
+	cli::array<String^>^OpenFileAndGetNames(char*e_pFileFilter)
 	{
 		System::Windows::Forms::OpenFileDialog^	openFileDialog1 = gcnew System::Windows::Forms::OpenFileDialog();
 		openFileDialog1->Multiselect = true;
@@ -420,15 +441,39 @@ namespace DNCT
 		return TO_GCSTRING(l_temp);
 	}
 
-	array<String^>^ DragDropEventWhileFileDrop(System::Windows::Forms::DragEventArgs^  e	)
+
+	bool	AssignDragEnterAndDropEventToTextboxWithFileName(GCFORM::TextBox^e_pTextBox,GCFORM::Control::ControlCollection^e_pControlCollection)
 	{
-		array<String^>^ itemList;
+		String^l_str = "cDNCTFunctionDragEnterAndDrop";
+		cDNCTFunctionDragEnterAndDrop^l_pDNCTFunction = nullptr;
+		auto l_pControl = e_pControlCollection->Find(l_str,false);
+		e_pTextBox->AllowDrop = true;
+		if( !l_pControl || l_pControl->Length == 0 )
+		{
+			l_pDNCTFunction = gcnew cDNCTFunctionDragEnterAndDrop();
+			l_pDNCTFunction->Name = l_str;
+			e_pControlCollection->Add(l_pDNCTFunction);
+		}
+		else
+		{
+			l_pDNCTFunction = (cDNCTFunctionDragEnterAndDrop^)l_pControl[0];
+		}
+		if( !l_pDNCTFunction )
+			return false;
+		e_pTextBox->DragDrop += gcnew System::Windows::Forms::DragEventHandler(l_pDNCTFunction, &cDNCTFunctionDragEnterAndDrop::DNCTFunction_textBox_DragDrop);
+		e_pTextBox->DragEnter += gcnew System::Windows::Forms::DragEventHandler(l_pDNCTFunction, &cDNCTFunctionDragEnterAndDrop::DNCTFunction_textBox_DragEnter);
+		return true;
+	}
+
+	cli::array<String^>^ DragDropEventWhileFileDrop(System::Windows::Forms::DragEventArgs^  e	)
+	{
+		cli::array<String^>^ itemList;
 		if ( e->Data->GetDataPresent( DataFormats::FileDrop ) )
 		{
 			// Perform drag-and-drop, depending upon the effect.
 			if ( e->Effect == DragDropEffects::Copy )
 			{
-				itemList = dynamic_cast<array<String^>^>(e->Data->GetData( DataFormats::FileDrop ));
+				itemList = dynamic_cast<cli::array<String^>^>(e->Data->GetData( DataFormats::FileDrop ));
 				return itemList;
 			}
 		}
@@ -1047,7 +1092,7 @@ namespace DNCT
 			// Create directory if needed
 			System::IO::Directory::CreateDirectory(e_strTargetDirectoryName);
 			// Treate all the file under current source directory
-			array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
+			cli::array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
 			for each(String^ l_strFileName in l_strFiles)
 			{
 				System::IO::File::Copy(l_strFileName, e_strTargetDirectoryName +
@@ -1055,7 +1100,7 @@ namespace DNCT
 					System::IO::Path::GetFileName(l_strFileName),true);
 			}
 			// now treat all subdirectory and their related files (called this routine recursively)
-			array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
+			cli::array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
 			for each(String^ l_strDirectory in l_strDirectories)
 			{
 				CopyDirectory(l_strDirectory, e_strTargetDirectoryName +
@@ -1079,7 +1124,7 @@ namespace DNCT
 
 	void	GetFilesNameByRecursivelyDirectory(String^ e_strSourceDirectoryName,System::Collections::ArrayList^e_pArrayList,String^e_strSpecificExtensionName)
 	{
-		array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
+		cli::array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
 		for each(String^ l_strFileName in l_strFiles)
 		{
 			if( e_strSpecificExtensionName )
@@ -1090,7 +1135,7 @@ namespace DNCT
 			e_pArrayList->Add(l_strFileName);
 			// now treat all subdirectory and their related files (called this routine recursively)
 		}
-		array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
+		cli::array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
 		for each(String^ l_strDirectory in l_strDirectories)
 			GetFilesNameByRecursivelyDirectory(l_strDirectory,e_pArrayList,e_strSpecificExtensionName);
 	}
@@ -1138,14 +1183,14 @@ namespace DNCT
 
 	void	GetDiectoriesAndFilesNameByRecursivelyDirectory(String^ e_strSourceDirectoryName,System::Collections::ArrayList^e_pFileArrayList,System::Collections::ArrayList^e_pDirecoryArrayList)
 	{
-		array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
+		cli::array<String^>^ l_strFiles = System::IO::Directory::GetFiles(e_strSourceDirectoryName);
 		for each(String^ l_strFileName in l_strFiles)
 		{
 			e_pFileArrayList->Add(l_strFileName);
 			// now treat all subdirectory and their related files (called this routine recursively)
 		}
 		e_pDirecoryArrayList->Add(e_strSourceDirectoryName);
-		array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
+		cli::array<String^>^ l_strDirectories = System::IO::Directory::GetDirectories(e_strSourceDirectoryName);
 		for each(String^ l_strDirectory in l_strDirectories)
 		{
 			GetDiectoriesAndFilesNameByRecursivelyDirectory(l_strDirectory,e_pFileArrayList,e_pDirecoryArrayList);

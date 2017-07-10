@@ -41,11 +41,12 @@ public:
 		~cFFTHitCountAndTime();
 		float   m_fStartTime;
 		int*	m_pHittedCountArray;
+		int*	m_pHittedValueArray;
 		int		m_iFFTBinCount;
 	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start();
-	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency);
+	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency,int e_iDecibleThreshold);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }

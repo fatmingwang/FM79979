@@ -216,8 +216,6 @@ void	cSoundFFTCapture::UpdateWithFetchFFTData(float e_fElpaseTime)
 		}
 		else
 		{
-			if( !cGameApp::m_sbGamePause )
-				m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 			break;
 		}
 	}
@@ -228,13 +226,15 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 	while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 	{
 		//if(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLinesByFFTSampleTargetIndex(this->m_vFFTDataToPoints,0,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap))
-		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale) )
+		if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fChartAmplitudeScale) )
 		//if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_vFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution,this->m_fScale,this->m_fNextChannelYGap) )
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
 				break;
+			if( !cGameApp::m_sbGamePause )
+				m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 			float l_fStartTime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fStartTime;
 			float l_fEndime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fEndTime;
 			delete m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];

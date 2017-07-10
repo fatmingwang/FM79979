@@ -53,7 +53,7 @@ int	cFFTStoreExporter::Export(const char*e_strDirectory)
 		l_strDirectory += "/";
 		l_strDirectory += ValueToString(l_pKissFFTConvert->GetName());
 		l_strDirectory += ".fftstore";
-		if(!l_pKissFFTConvert->GetFFTDataStore()->Export(l_strDirectory.c_str(),l_pKissFFTConvert->GetSourceFileName().c_str(),l_pKissFFTConvert->GetSoundFile()->m_iFreq))
+		if(!l_pKissFFTConvert->GetFFTDataStore()->Export(l_strDirectory.c_str(),l_pKissFFTConvert->GetSourceFileName().c_str(),l_pKissFFTConvert->GetSoundFile()->m_iFreq,l_pKissFFTConvert->GetFFTDataStore()->GetExportThresholdValue()))
 			++l_iNumFailed;
 	}
 	return l_iNumFailed;

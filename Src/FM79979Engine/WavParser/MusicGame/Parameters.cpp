@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Parameters.h"
 
-int				ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 60;
+int				ONE_FRAME_NEED_NUM_FFT_DATA_COUNT = 20;
 
 float			cSoundCompareParameter::m_sfCompareTuneTolerateTime = 0.3f;
 
@@ -19,6 +19,7 @@ bool			cSoundCompareParameter::m_sbAutoPlaySoundForDebugTest = true;
 int				cSoundCompareParameter::m_siRecordFrequency = SOUND_CAPTURE_FREQUENCE*2;
 
 int				cSoundCompareParameter::m_siDebugAmplitudeValue = 80;
+int				cSoundCompareParameter::m_siFFTStoreThresholeValue = 15;
 
 const int		cSoundCompareParameter::CAPTURE_FREQUENCY = 44100;
 const int		cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT = cSoundCompareParameter::CAPTURE_FREQUENCY/6*2;

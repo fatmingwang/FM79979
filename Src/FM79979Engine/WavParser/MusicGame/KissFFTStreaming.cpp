@@ -92,7 +92,8 @@ cPCMToFFTDataConvertr::sTimeAndFFTData::~sTimeAndFFTData()
 
 bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale)
 {
-	if(e_fTargetTime >= this->fEndTime )
+	float l_fElpaseTime = this->fEndTime-this->fStartTime;
+	if( abs(e_fTargetTime - this->fEndTime) >= l_fElpaseTime )
 		return false;
 	if( bUpdated )
 		return true;
@@ -353,6 +354,7 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 		UT::ErrorMsg(L"m_iDivideFFTDataToNFrame is too small please incerase m_iDivideFFTDataToNFrame or increase FFT_DATA_LINE_POINTS_COUNT",L"Error!");
 		return false;
 	}
+	this->m_FFTDataStore.Start();
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	//m_pOpanalOgg->SetUpdateNewBufferCallbackFunction(std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 	this->m_pFUThreadPool = new cFUThreadPool();
@@ -382,8 +384,9 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 		//dont need to do synchronzied,because only here will delete
 		while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 		{
-			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fScale) )
+			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fChartAmplitudeScale) )
 			{
+				this->m_FFTDataStore.UpdateFFTData(e_fElpaseTime,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->pFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 				//wait for next new one.
 				if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
@@ -459,7 +462,7 @@ void	cKissFFTStreamingConvert::Render()
 				l_LinePos[i*2].x = i*l_fXGap+m_vChartShowPos.x;
 				l_LinePos[i*2+1].x = i*l_fXGap+m_vChartShowPos.x;
 				l_LinePos[i*2].y = m_vChartShowPos.y;
-				l_LinePos[i*2+1].y = 20*m_fScale+m_vChartShowPos.y;
+				l_LinePos[i*2+1].y = m_fChartAmplitudeScale+m_vChartShowPos.y;
 
 				cGameApp::RenderFont(l_LinePos[i*2].x,l_LinePos[i*2+1].y+30,ValueToStringW(i*this->m_pOpanalOgg->GetFreq()/l_ciFreqNeeded).c_str());
 			}

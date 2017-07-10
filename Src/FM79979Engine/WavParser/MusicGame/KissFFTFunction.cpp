@@ -4,6 +4,45 @@
 #include "KissFFTFunction.h"
 #include "Parameters.h"
 
+// display 15 bins around the frequency of interest 
+//    for (long k = 80; k < 110; k += 2) {
+//
+//    /* real */
+//        double re = fftBuffer[k];
+//
+//    /* imaginary */
+//        double im = fftBuffer[k+1];
+//
+//    /* get normalized bin magnitude */
+//        double normBinMag = 2.*sqrt(re*re + im*im) / FFT_SIZE;
+//
+//    /* convert to dB value */
+//        double amplitude = 20. * log10( normBinMag );
+//
+//    /* and display */
+//        printf("bin: %d,\tfreq: %f [Hz],\tmag: %f,\t ampl.: %f [dB]\n", \
+//               k/2, sampleRate*.5*(double)k/FFT_SIZE, normBinMag, amplitude);
+//    }
+inline float AmplitudeTodB(float e_fAmplitude,int e_iNUMFFTBin)
+{
+	double l_dbNormBinMag = 2*e_fAmplitude/e_iNUMFFTBin;
+	double l_dbAmplitude = 20.*log10(l_dbNormBinMag);
+	if( l_dbAmplitude <0 )
+		l_dbAmplitude = 0;
+	return (float)l_dbAmplitude;
+	//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
+	//e_piFFTOutData[i] = (int)(10*log10(4*(l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i)/(l_iDidgitalWindownFunctionCount*l_iDidgitalWindownFunctionCount)));
+	//m_fFFTResultPhase[l_iCurrentChannelIndex][l_iNumFFTData] = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+	//https://www.kvraudio.com/forum/viewtopic.php?t=276092
+	// 20 * log(2 * magnitude / N)
+	//return 20.0f * log10(e_fAmplitude/e_iNUMFFTBin);
+}
+ 
+inline float dBToAmplitude(float e_fDecebiles)
+{
+  return pow(10.0f, e_fDecebiles/20.0f);
+}
+
 int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue)
 {
 	double l_dbTotalFFTValue = 0;
@@ -88,7 +127,6 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 	kiss_fft_state* l_pkiss_fft_state = e_pkiss_fft_state;
 	assert(e_pTimeAndPCMData->eBitPerSameplType==eDataType::eDT_SHORT&&"sorry I am lazy now only support short!");
 	int l_iNumPCMBuffer = e_pTimeAndPCMData->iPCMDataSampleCount;
-	l_pkiss_fft_state->nfft = l_iNumPCMBuffer;
 	//16bit 2 byte	,32 bit 4 byte
 	T*l_pucSoundData = (T*)e_pTimeAndPCMData->pPCMData;
 	// calculate magnitude of first n/2 FFT
@@ -96,9 +134,9 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 	for(int l_iSampleIndex = 0;l_iSampleIndex<l_iNumPCMBuffer;++l_iSampleIndex)
 	{
 		//Apply window function on the sample,Hann window
-		double multiplier = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex];
+		float l_fMultiplier = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex];
 		T l_fValue = l_pucSoundData[l_iSampleIndex];
-		l_pKiss_FFT_In[l_iSampleIndex].r = (float)(multiplier * l_fValue);
+		l_pKiss_FFT_In[l_iSampleIndex].r = l_fMultiplier * l_fValue;
 		l_pKiss_FFT_In[l_iSampleIndex].i = 0;  //stores N samples
 	}
 	kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
@@ -107,20 +145,8 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 	{
 		for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
 		{
-			int val;
-			float l_Msg = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-#ifdef DEBUG
-			{//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
-				/* get normalized bin magnitude */
-				double l_dbNormBinMag = 2.*l_Msg / l_iNumPCMBuffer;
-				/* convert to dB value */
-				double l_dbDecebile = 20. * log10( l_dbNormBinMag );
-			}
-#endif
-			//
-			val = (int)(log(l_Msg) *10);
-			e_piFFTOutData[i] = val;
-			//m_fFFTResultPhase[l_iCurrentChannelIndex][l_iNumFFTData] = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
+			float l_Amplitude = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+			e_piFFTOutData[i] = (int)AmplitudeTodB(l_Amplitude,l_iNumPCMBuffer);
 		}
 	}
 	else

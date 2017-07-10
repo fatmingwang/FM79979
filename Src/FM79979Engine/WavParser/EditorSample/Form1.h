@@ -83,7 +83,6 @@ namespace EditorSample
 			//this->m_pWavWaves = nullptr;
 			//
 			m_pKissFFTConvertBase = nullptr;
-			m_pKissFFTConvertBase = nullptr;
 			//m_pKissFFTConvertBase = new cKissFFTConvert();
 			//m_pKissFFTConvertBase = new cKissFFTStreamingConvert();
 			//for mouse event
@@ -91,7 +90,11 @@ namespace EditorSample
 			m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
 			m_pTargetControl->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
 			m_pTargetControl->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseUp);
-			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);			
+			m_pTargetControl->SizeChanged += gcnew System::EventHandler(this, &Form1::MySizeChanged);
+
+
+			AssignDragEnterAndDropEventToTextboxWithFileName(RecordSoundFileName_textBox,this->Controls);
+			
 
 			std::vector<std::string>l_strDeviceList = cSoundCapture::GetAvalibeRecordDevice();
 			for(auto l_strDeviceName :l_strDeviceList)
@@ -228,6 +231,9 @@ private: System::Windows::Forms::NumericUpDown^  FFTStoreGittedCountThreshold_nu
 private: System::Windows::Forms::NumericUpDown^  FFTStoreAmplitude_numericUpDown;
 private: System::Windows::Forms::Button^  FFTStoreExport_button;
 private: System::Windows::Forms::CheckBox^  FFTStore_checkBox;
+private: System::Windows::Forms::Button^  CpatureSound_button;
+private: System::Windows::Forms::Label^  CurrentRecordName_label;
+private: System::Windows::Forms::TextBox^  CurrentRecordName_textBox;
 
 
 
@@ -297,6 +303,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->BackStep_button = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->FFTPrint_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->FFTStore_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->FFTStoreAmplitude_label = (gcnew System::Windows::Forms::Label());
 			this->FFTStoreGittedCountThreshold_label = (gcnew System::Windows::Forms::Label());
 			this->FFTStoreGittedCountThreshold_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
@@ -323,6 +330,9 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->CompareAndCaptureToFileKeepTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->CaptureToFile_button = (gcnew System::Windows::Forms::Button());
 			this->SoundCapture_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->CpatureSound_button = (gcnew System::Windows::Forms::Button());
+			this->CurrentRecordName_label = (gcnew System::Windows::Forms::Label());
+			this->CurrentRecordName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DebugAmplitudeValue_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DebugAmplitudeValue_label = (gcnew System::Windows::Forms::Label());
 			this->SoundCaptureFilterStrength_label = (gcnew System::Windows::Forms::Label());
@@ -332,7 +342,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->SoundCaptureDoFFTFilterRange_label = (gcnew System::Windows::Forms::Label());
-			this->FFTStore_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->WaveUpdateIndex_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTDataCountScale_numericUpDown))->BeginInit();
@@ -373,11 +382,14 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// WavFileName_textBox
 			// 
+			this->WavFileName_textBox->AllowDrop = true;
 			this->WavFileName_textBox->Location = System::Drawing::Point(305, 51);
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
-			this->WavFileName_textBox->Size = System::Drawing::Size(220, 20);
+			this->WavFileName_textBox->Size = System::Drawing::Size(178, 20);
 			this->WavFileName_textBox->TabIndex = 1;
 			this->WavFileName_textBox->Text = L"Sound/2owl.wav";
+			this->WavFileName_textBox->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::WavFileName_textBox_DragDrop);
+			this->WavFileName_textBox->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::WavFileName_textBox_DragEnter);
 			// 
 			// OPENGL_panel
 			// 
@@ -637,7 +649,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFT_groupBox->Controls->Add(this->FFTTest_button);
 			this->FFT_groupBox->Location = System::Drawing::Point(3, 7);
 			this->FFT_groupBox->Name = L"FFT_groupBox";
-			this->FFT_groupBox->Size = System::Drawing::Size(534, 296);
+			this->FFT_groupBox->Size = System::Drawing::Size(490, 296);
 			this->FFT_groupBox->TabIndex = 34;
 			this->FFT_groupBox->TabStop = false;
 			this->FFT_groupBox->Text = L"single FFT";
@@ -727,7 +739,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// DoFFTFilter_checkBox
 			// 
 			this->DoFFTFilter_checkBox->AutoSize = true;
-			this->DoFFTFilter_checkBox->Location = System::Drawing::Point(444, 85);
+			this->DoFFTFilter_checkBox->Location = System::Drawing::Point(408, 130);
 			this->DoFFTFilter_checkBox->Name = L"DoFFTFilter_checkBox";
 			this->DoFFTFilter_checkBox->Size = System::Drawing::Size(81, 17);
 			this->DoFFTFilter_checkBox->TabIndex = 33;
@@ -805,6 +817,17 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTPrint_groupBox->TabStop = false;
 			this->FFTPrint_groupBox->Text = L"FFTPrint";
 			// 
+			// FFTStore_checkBox
+			// 
+			this->FFTStore_checkBox->AutoSize = true;
+			this->FFTStore_checkBox->Location = System::Drawing::Point(248, 163);
+			this->FFTStore_checkBox->Name = L"FFTStore_checkBox";
+			this->FFTStore_checkBox->Size = System::Drawing::Size(105, 17);
+			this->FFTStore_checkBox->TabIndex = 50;
+			this->FFTStore_checkBox->Text = L"FFTStoreRender";
+			this->FFTStore_checkBox->UseVisualStyleBackColor = true;
+			this->FFTStore_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::FFTStore_checkBox_CheckedChanged);
+			// 
 			// FFTStoreAmplitude_label
 			// 
 			this->FFTStoreAmplitude_label->AutoSize = true;
@@ -853,6 +876,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->FFTStoreExport_button->TabIndex = 2;
 			this->FFTStoreExport_button->Text = L"FFTStoreExport";
 			this->FFTStoreExport_button->UseVisualStyleBackColor = true;
+			this->FFTStoreExport_button->Click += gcnew System::EventHandler(this, &Form1::FFTStoreExport_button_Click);
 			// 
 			// FFTStore_listBox
 			// 
@@ -1088,6 +1112,9 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// 
 			// SoundCapture_groupBox
 			// 
+			this->SoundCapture_groupBox->Controls->Add(this->CpatureSound_button);
+			this->SoundCapture_groupBox->Controls->Add(this->CurrentRecordName_label);
+			this->SoundCapture_groupBox->Controls->Add(this->CurrentRecordName_textBox);
 			this->SoundCapture_groupBox->Controls->Add(this->DebugAmplitudeValue_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->DebugAmplitudeValue_label);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureFilterStrength_label);
@@ -1099,12 +1126,40 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTFilterRange_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->RecordSoundPause_button);
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTFilterRange_label);
-			this->SoundCapture_groupBox->Location = System::Drawing::Point(562, 184);
+			this->SoundCapture_groupBox->Location = System::Drawing::Point(509, 184);
 			this->SoundCapture_groupBox->Name = L"SoundCapture_groupBox";
-			this->SoundCapture_groupBox->Size = System::Drawing::Size(242, 189);
+			this->SoundCapture_groupBox->Size = System::Drawing::Size(295, 222);
 			this->SoundCapture_groupBox->TabIndex = 36;
 			this->SoundCapture_groupBox->TabStop = false;
 			this->SoundCapture_groupBox->Text = L"SoundCapture";
+			// 
+			// CpatureSound_button
+			// 
+			this->CpatureSound_button->Location = System::Drawing::Point(202, 15);
+			this->CpatureSound_button->Name = L"CpatureSound_button";
+			this->CpatureSound_button->Size = System::Drawing::Size(95, 36);
+			this->CpatureSound_button->TabIndex = 51;
+			this->CpatureSound_button->Text = L"CpatureSound\r\nExport";
+			this->CpatureSound_button->UseVisualStyleBackColor = true;
+			this->CpatureSound_button->Click += gcnew System::EventHandler(this, &Form1::CpatureSound_button_Click);
+			// 
+			// CurrentRecordName_label
+			// 
+			this->CurrentRecordName_label->AutoSize = true;
+			this->CurrentRecordName_label->Location = System::Drawing::Point(4, 171);
+			this->CurrentRecordName_label->Name = L"CurrentRecordName_label";
+			this->CurrentRecordName_label->Size = System::Drawing::Size(104, 13);
+			this->CurrentRecordName_label->TabIndex = 41;
+			this->CurrentRecordName_label->Text = L"CurrentRecordName";
+			// 
+			// CurrentRecordName_textBox
+			// 
+			this->CurrentRecordName_textBox->AllowDrop = true;
+			this->CurrentRecordName_textBox->Location = System::Drawing::Point(7, 194);
+			this->CurrentRecordName_textBox->Name = L"CurrentRecordName_textBox";
+			this->CurrentRecordName_textBox->Size = System::Drawing::Size(220, 20);
+			this->CurrentRecordName_textBox->TabIndex = 40;
+			this->CurrentRecordName_textBox->Text = L"c4.wav";
 			// 
 			// DebugAmplitudeValue_numericUpDown
 			// 
@@ -1159,7 +1214,7 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			// SoundCaptureDoFFTFilter_checkBox
 			// 
 			this->SoundCaptureDoFFTFilter_checkBox->AutoSize = true;
-			this->SoundCaptureDoFFTFilter_checkBox->Location = System::Drawing::Point(123, 28);
+			this->SoundCaptureDoFFTFilter_checkBox->Location = System::Drawing::Point(109, 19);
 			this->SoundCaptureDoFFTFilter_checkBox->Name = L"SoundCaptureDoFFTFilter_checkBox";
 			this->SoundCaptureDoFFTFilter_checkBox->Size = System::Drawing::Size(81, 17);
 			this->SoundCaptureDoFFTFilter_checkBox->TabIndex = 39;
@@ -1206,17 +1261,6 @@ private: System::Windows::Forms::GroupBox^  FFT_groupBox;
 			this->SoundCaptureDoFFTFilterRange_label->Size = System::Drawing::Size(91, 13);
 			this->SoundCaptureDoFFTFilterRange_label->TabIndex = 38;
 			this->SoundCaptureDoFFTFilterRange_label->Text = L"FilterRange(0.1-1)";
-			// 
-			// FFTStore_checkBox
-			// 
-			this->FFTStore_checkBox->AutoSize = true;
-			this->FFTStore_checkBox->Location = System::Drawing::Point(248, 163);
-			this->FFTStore_checkBox->Name = L"FFTStore_checkBox";
-			this->FFTStore_checkBox->Size = System::Drawing::Size(105, 17);
-			this->FFTStore_checkBox->TabIndex = 50;
-			this->FFTStore_checkBox->Text = L"FFTStoreRender";
-			this->FFTStore_checkBox->UseVisualStyleBackColor = true;
-			this->FFTStore_checkBox->CheckedChanged += gcnew System::EventHandler(this, &Form1::FFTStore_checkBox_CheckedChanged);
 			// 
 			// Form1
 			// 
@@ -1560,7 +1604,7 @@ private: System::Void SoundCaptureFilterStrength_numericUpDown_ValueChanged(Syst
 		 }
 private: System::Void CaptureToFile_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
+			cli::array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
 			if( l_strFileNames )
 			{
 				int		l_iAmplitude = (int)CompareAndCaptureToFileMinAmplitude_numericUpDown->Value;
@@ -1731,7 +1775,7 @@ private: System::Void OpenFileForFFTStore_button_Click(System::Object^  sender, 
 			 this->timer1->Enabled = false;
 			 this->m_pGameApp->m_pFFTStoreExporter->Destroy();
 			 FFTStore_listBox->Items->Clear();
-			 array<String^>^ l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
+			 cli::array<String^>^ l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
 			 for each(auto l_strFileName in l_strFileNames)
 			 {
 				 this->m_pGameApp->m_pFFTStoreExporter->AddFile(DNCT::GcStringToChar(l_strFileName));
@@ -1750,6 +1794,15 @@ private: System::Void FFTStoreAmplitude_numericUpDown_ValueChanged(System::Objec
 				this->m_pGameApp->m_pFFTStoreExporter->GetObject(FFTStore_listBox->SelectedIndex)->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
 			}
 			cSoundCompareParameter::m_siDebugAmplitudeValue = (int)FFTStoreAmplitude_numericUpDown->Value;
+			cSoundCompareParameter::m_siFFTStoreThresholeValue = (int)FFTStoreGittedCountThreshold_numericUpDown->Value;
+			if(m_pKissFFTConvertBase)
+			{
+				m_pKissFFTConvertBase->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
+			}
+			 if( m_pSoundFFTCapture )
+			 {
+				 m_pSoundFFTCapture->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
+			 }
 			
 		 }
 private: System::Void FFTStore_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
@@ -1760,6 +1813,38 @@ private: System::Void FFTStore_checkBox_CheckedChanged(System::Object^  sender, 
 			 if( FFTStore_listBox->SelectedIndex != -1 )
 			 {
 				 this->m_pGameApp->m_pFFTStoreExporter->SetSelectedIndex( FFTStore_listBox->SelectedIndex);
+			 }
+		 }
+private: System::Void WavFileName_textBox_DragDrop(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
+		 {
+			 WavFileName_textBox->Text = "";
+			auto l_pData = DNCT::DragDropEventWhileFileDrop(e);
+			for each(auto l_strFileName in l_pData )
+			{
+				WavFileName_textBox->Text += l_strFileName;
+			}
+		 }
+private: System::Void WavFileName_textBox_DragEnter(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
+		 {
+			if (e->Data->GetDataPresent(DataFormats::FileDrop, false) == true)
+			{
+				e->Effect = DragDropEffects::Copy;
+			}
+		 }
+private: System::Void FFTStoreExport_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if(m_pKissFFTConvertBase)
+				 m_pKissFFTConvertBase->DumpDebugInfo(cSoundCompareParameter::m_siDebugAmplitudeValue,"qoo.wav");
+		 }
+private: System::Void CpatureSound_button_Click(System::Object^  sender, System::EventArgs^  e)
+		 {
+			 if( m_pSoundFFTCapture )
+			 {
+				 String^l_strFileName = CurrentRecordName_textBox->Text;
+				 if( l_strFileName->Length == 0 )
+					 l_strFileName = "c4.wav";
+				 std::string l_strOutName = DNCT::GcStringToChar(l_strFileName);
+				 m_pSoundFFTCapture->DumpDebugInfo(cSoundCompareParameter::m_siDebugAmplitudeValue,l_strOutName.c_str());
 			 }
 		 }
 };

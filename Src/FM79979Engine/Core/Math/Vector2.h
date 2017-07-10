@@ -20,6 +20,7 @@ using namespace std;
 	@param byteCount The number of bytes to align to.*/
 //#define ALIGN_STRUCT(byteCount) __declspec(align(byteCount))
 #pragma warning( disable : 4996 )
+#include <algorithm>
 #define ALIGN_STRUCT(byteCount)
 #else // !WIN32
 #define ALIGN_STRUCT(byteCount)

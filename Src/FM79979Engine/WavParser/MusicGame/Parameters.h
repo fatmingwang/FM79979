@@ -33,6 +33,7 @@ public:
 	static int			m_siRecordFrequency;
 
 	static int			m_siDebugAmplitudeValue;
+	static int			m_siFFTStoreThresholeValue;
 
 	static const int	CAPTURE_FREQUENCY;	//44100
 	static const int	FFT_DATA_LINE_POINTS_COUNT;//	44100/6*2//2 for lin need 2 points

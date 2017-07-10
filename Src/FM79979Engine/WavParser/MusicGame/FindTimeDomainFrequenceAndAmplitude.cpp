@@ -172,3 +172,32 @@ bool	sFindTimeDomainFrequenceAndAmplitude::GetDataByTime(float e_fTime,float e_f
 	}
 	return false;
 }
+
+
+sNoteFrequencyAndDecibles::sNoteFrequencyAndDecibles(TiXmlElement*e_pFFTHitCountAndTimeElement)
+{ 
+	PARSE_ELEMENT_START(e_pFFTHitCountAndTimeElement)
+		COMPARE_NAME("FrequencyVector")
+		{
+	
+		}
+		else
+		COMPARE_NAME("FrequencyHittedCount")
+		{
+
+		}
+		else
+		COMPARE_NAME("FrequencyHittedValue")
+		{
+
+		}
+	PARSE_NAME_VALUE_END
+	FrequencyVector;
+	FrequencyHittedValueVector;
+	FrequencyHittedCountVector;
+}
+
+sNoteFrequencyAndDecibles::~sNoteFrequencyAndDecibles()
+{
+	
+}

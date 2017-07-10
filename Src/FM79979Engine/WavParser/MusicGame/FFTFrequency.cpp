@@ -69,25 +69,29 @@ cFFTDataStore::cFFTHitCountAndTime::cFFTHitCountAndTime(float e_fStartTime,int e
 	m_fStartTime = e_fStartTime;
 	m_pHittedCountArray = new int[e_iFFTBinCount];
 	memset(m_pHittedCountArray,0,sizeof(int)*e_iFFTBinCount);
+	m_pHittedValueArray = new int[e_iFFTBinCount];
+	memset(m_pHittedValueArray,0,sizeof(int)*e_iFFTBinCount);
 }
 
 cFFTDataStore::cFFTHitCountAndTime::~cFFTHitCountAndTime()
 {
+	SAFE_DELETE(m_pHittedValueArray);
 	SAFE_DELETE(m_pHittedCountArray);
 }
 
 
 cFFTDataStore::cFFTDataStore()
 {
-	m_fNextDataTimeGap = 5.0f;
+	//because I am lazy lah
+	m_fNextDataTimeGap = 999.f;
 	m_fCurrentTime = 0.f;
 	m_pCurrentFFTHitCountAndTime = nullptr;
 	this->m_vShowPos = Vector2(100,1200);
-	this->m_vResolution.x = 1200;
-	this->m_vResolution.y = 500;
+	this->m_vResolution.x = 1800;
+	this->m_vResolution.y = 600;
 	m_iHittedCountScaleForVisual = 3;
 	m_iMaxValue = 0;
-	m_iExportThresholdValue = 5;
+	m_iExportThresholdValue = cSoundCompareParameter::m_siFFTStoreThresholeValue;
 	//m_iThreusholdAmplitude = cSoundCompareParameter::m_siDebugAmplitudeValue;
 }
 
@@ -127,6 +131,7 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 		if( e_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
 		{
 			m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;
+			m_pCurrentFFTHitCountAndTime->m_pHittedValueArray[i] += e_piFFTData[i];
 			if(m_iMaxValue <m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] )
 				m_iMaxValue = m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i];
 		}
@@ -201,7 +206,7 @@ void	cFFTDataStore::RenderByTime(float e_fTargetTime)
 	}
 }
 
-bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency)
+bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency,int e_iDecibleThreshold)
 {
 	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
 	if( l_uiSize == 0 )
@@ -210,29 +215,36 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 	ISAXCallback l_ISAXCallback;
 	TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
 	TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
+	l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 	l_ISAXCallback.SetDoc(l_pTiXmlDocument);
 	l_pRootTiXmlElement->SetAttribute(L"Frequency",e_iFrequency);
 	l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
 	l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
+	l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",e_iDecibleThreshold);
 	float l_fFrequenctForOneFFT = (float)e_iFrequency/l_iFFTCount;
 	for(size_t i=0;i<l_uiSize;++i)
 	{
 		cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
 		std::vector<int>	l_FrequencyVector;
 		std::vector<int>	l_FrequencyHittedCountVector;
+		std::vector<int>	l_FrequencyHittedValueVector;
 		for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_pFFTHitCountAndTime->m_iFFTBinCount;++l_iCurrentFFTIndex )
 		{
-			if(l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex] >=this->m_iExportThresholdValue)
+			int l_iCount = l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex];
+			if(l_iCount >=this->m_iExportThresholdValue)
 			{
 				int l_iFrequency = (int)(l_fFrequenctForOneFFT*l_iCurrentFFTIndex);
 				l_FrequencyVector.push_back(l_iFrequency);
-				l_FrequencyHittedCountVector.push_back(l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex]);
+				l_FrequencyHittedCountVector.push_back(l_iCount);
+				int l_iAeverageValue = l_pFFTHitCountAndTime->m_pHittedValueArray[l_iCurrentFFTIndex]/l_iCount;
+				l_FrequencyHittedValueVector.push_back(l_iAeverageValue);
 			}
 		}
 		TiXmlElement*l_pFFTHitCountAndTimeElement = new TiXmlElement(L"FFTHitCountAndTime");
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
+		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
 		l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
 	}
 	l_ISAXCallback.Export(e_strFileName,false);

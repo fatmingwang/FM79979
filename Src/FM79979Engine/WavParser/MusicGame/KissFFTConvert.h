@@ -8,6 +8,7 @@ class cKissFFTConvertBase:public NamedTypedObject
 {
 	virtual void	Destroy() = 0;
 protected:
+	int					m_iFreq;
 	std::string			m_strSourceFileName;
 	//
 	UT::sTimeCounter	m_TimeToUpdateFFTData;
@@ -20,7 +21,7 @@ protected:
 	//for chart
 	Vector2				m_vChartResolution;
 	Vector2				m_vChartShowPos;
-	float				m_fScale;
+	float				m_fChartAmplitudeScale;
 	float				m_fNextChannelYGap;
 	bool				m_bPause;
 	//
@@ -66,11 +67,17 @@ public:
 
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }
+	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
 class cKissFFTConvert:public cKissFFTConvertBase
 {
+	std::vector<float>					m_StartCaptureTimeVector;
+	void								RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesData,Vector2 e_vShowPos,Vector2 e_vResolution);
+	int									m_iNumFFTGraph;
+	float*								m_pfDecibles;
+	float								m_fMaxDecible;
 	cOpanalWAV*							m_pTestSound;
 	std::vector<int>					m_FFTDataVector;
 	//it won't bigger than this...I guess
@@ -85,7 +92,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
 	void	PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore = nullptr);
-	void	PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore);
+	//void	PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore);
 	//
 	virtual void	Destroy();
 public:
@@ -102,8 +109,7 @@ public:
 	virtual float	GetTimeLength();
 	virtual void	GoToTime(float e_fElpaseTime);
 	void			Play();
-
+	int				GetNumFFTGraphByDuration(float e_fDuration);
 	//bool			ExportFFTDataStore(const char*e_strFileName,const char*e_strExportFileName);
-
 	std::vector<int>*GetFFTDataVector(){return &m_FFTDataVector;}
 };

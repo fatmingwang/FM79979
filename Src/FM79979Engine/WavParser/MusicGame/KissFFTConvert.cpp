@@ -6,6 +6,7 @@ TYPDE_DEFINE_MARCO(cKissFFTConvertBase);
 
 cKissFFTConvertBase::cKissFFTConvertBase()
 {
+	m_iFreq = 0;
 	m_iMaxAmplitude = 0;
 	m_iMaxAmplitudeFrequence = 0;
 	m_iMaxAmplitude = 0;
@@ -14,8 +15,8 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
 	m_iOneFrameFFTDataCount = 0;
-	m_vChartResolution = Vector2(1280.f,600.f);
-	m_fScale = 3.f;
+	m_vChartResolution = Vector2(1800,1000.f);
+	m_fChartAmplitudeScale = 10.f;
 	m_fNextChannelYGap = 700.f;
 	m_vChartShowPos = Vector2(100,700);
 	m_bPause = false;
@@ -30,8 +31,92 @@ cKissFFTConvertBase::~cKissFFTConvertBase()
 
 }
 
+void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName)
+{
+	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,"xml");
+	this->m_FFTDataStore.Export(l_strOutputFileName.c_str(),e_strFileName,m_iFreq,e_iDeciblesThreshold);
+}
+
+int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
+{
+	int l_iFrequence = e_iIndexOfFFTData*e_iFrequence/e_iCount;
+	this->m_iMaxAmplitude = e_iMaxAmplitude;
+	//if( m_iMaxAmplitude <= 0 )
+	//{
+	//	int a=0;
+	//}
+	this->m_iMaxAmplitudeFrequence = l_iFrequence;
+	return l_iFrequence;
+}
+
+float	cKissFFTConvertBase::GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS)
+{
+	float l_fOffsetRange = (float)e_iFrequency/2.f/((float)e_iFrequency/e_iFPS);
+	return l_fOffsetRange;
+}
+
+TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
+{
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(cKissFFTConvertBase::TypeID);
+	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
+	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
+	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iOneFrameFFTDataCount);
+	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
+	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
+	//l_pTiXmlElement->SetAttribute(L"MaxAmplitudeFrequence",m_iMaxAmplitudeFrequence);
+	//l_pTiXmlElement->SetAttribute(L"ChartScale",m_fChartScale);
+	return l_pTiXmlElement;
+}
+
+void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
+{
+	PARSE_ELEMENT_START(e_pTiXmlElement)
+		COMPARE_NAME("TimeToUpdateFFTData")
+		{
+			m_TimeToUpdateFFTData.fTargetTime = VALUE_TO_FLOAT;
+		}
+		else
+		COMPARE_NAME("DivideFFTDataToNFrame")
+		{
+			m_iDivideFFTDataToNFrame = VALUE_TO_INT;
+		}
+		else
+		COMPARE_NAME("OneFrameFFTDataCount")
+		{
+			m_iOneFrameFFTDataCount = VALUE_TO_INT;
+		}
+		else
+		COMPARE_NAME("FrenquenceFilterEndScaleValue")
+		{
+			m_fFrenquenceFilterEndScaleValue = VALUE_TO_FLOAT;
+		}
+		else
+		COMPARE_NAME("FilterStrengthValue")
+		{
+			m_iFilterStrengthValue = VALUE_TO_INT;
+		}
+	PARSE_NAME_VALUE_END
+}
+
+void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY)
+{
+	if( cGameApp::m_sbDebugFunctionWorking )
+	{
+		std::wstring l_strInfo = L"Frequence:";
+		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
+		l_strInfo += L"\n";
+		l_strInfo += L"MaxAmplitude";
+		l_strInfo += ValueToStringW(this->m_iMaxAmplitude);
+		cGameApp::m_spGlyphFontRender->SetScale(2.f);
+		cGameApp::RenderFont(e_iPosX,e_iPosY,l_strInfo);
+		cGameApp::m_spGlyphFontRender->SetScale(1.f);
+	}
+}
+
+
 void	cKissFFTConvertBase::SetOneFrameFFTDataCount(int e_iFrequency)
 {
+	m_iFreq = e_iFrequency;
 	int l_iOneFrameNumFFTData = e_iFrequency/m_iDivideFFTDataToNFrame;
 	m_iOneFrameFFTDataCount = power_of_two(l_iOneFrameNumFFTData);
 }
@@ -43,13 +128,14 @@ void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
 		Vector2	l_vChartResolution = this->m_vChartResolution;
 		Vector2 l_vLinePos[2];
 		l_vLinePos[0] = m_vChartShowPos;
-		l_vLinePos[0].y -= e_fAmplitude*m_fScale;
+		l_vLinePos[0].y -= e_fAmplitude*m_fChartAmplitudeScale;
 
 		l_vLinePos[1] = l_vLinePos[0];
 		l_vLinePos[1].x += l_vChartResolution.x;
 		RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
 	}
 }
+
 
 void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
 {
@@ -63,13 +149,81 @@ void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
 
 cKissFFTConvert::cKissFFTConvert()
 {
+	m_pfDecibles = nullptr;
 	m_pTestSound = nullptr;
 	m_pSoundFile = nullptr;
 	m_iCurrentFFTDataLineCount = 0;
+	m_iNumFFTGraph = 0;
 }
 cKissFFTConvert::~cKissFFTConvert()
 {
 	Destroy();
+}
+
+int	cKissFFTConvert::GetNumFFTGraphByDuration(float e_fDuration)
+{
+	float l_fOneFFTDuration = this->m_pSoundFile->m_fTime/this->m_iNumFFTGraph;
+	int l_iCount = (int)(e_fDuration/l_fOneFFTDuration);
+	return l_iCount;
+}
+
+void	cKissFFTConvert::RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesData,Vector2 e_vShowPos,Vector2 e_vResolution)
+{
+	if(cGameApp::m_sbDebugFunctionWorking)
+	{
+		//0.1 second one decibles * 44100 sample rate * 60 seconds
+		const int l_iCount = (int)(44100/256*60*2);
+		float l_fXGap = e_vResolution.x/e_iNumSampleCount;
+		if( e_iNumSampleCount >= l_iCount )
+			return;
+		Vector2 l_vShowPos = e_vShowPos;
+		Vector2 l_vIAMLazyVector[l_iCount];
+		for( int i=0;i<e_iNumSampleCount;++i )
+		{
+			l_vIAMLazyVector[i*2].x = e_vShowPos.x;
+			l_vIAMLazyVector[i*2+1].x = e_vShowPos.x;
+			l_vIAMLazyVector[i*2].y = e_vShowPos.y;
+			l_vIAMLazyVector[i*2+1].y = (e_pfDeciblesData[i]*200)+e_vShowPos.y;
+			e_vShowPos.x += l_fXGap;
+		}
+		RenderLine((float*)&l_vIAMLazyVector,e_iNumSampleCount*2,Vector4::Green,2);
+		e_vShowPos = l_vShowPos;
+		e_vShowPos.x -= l_fXGap;
+		int l_iNumAccept = 0;
+		int l_bHittedHigest = false;
+		int l_iRestCount = cKissFFTConvert::GetNumFFTGraphByDuration(0.3f);
+		int l_iRestCount2 = cKissFFTConvert::GetNumFFTGraphByDuration(0.5);
+		for( int i=0;i<e_iNumSampleCount;++i )
+		{
+			e_vShowPos.x += l_fXGap;
+			if( !l_bHittedHigest )
+			{
+				if( e_pfDeciblesData[i]+0.1f >= 1.f  )
+					l_bHittedHigest = true;
+				else
+					continue;
+			}
+			if( e_pfDeciblesData[i] >= 0.1f  )
+			{
+				++l_iNumAccept;
+			}
+			else
+				continue;
+			int l_iIndex = l_iNumAccept-1;
+			l_vIAMLazyVector[l_iIndex*2].x = e_vShowPos.x;
+			l_vIAMLazyVector[l_iIndex*2+1].x = e_vShowPos.x;
+			l_vIAMLazyVector[l_iIndex*2].y = e_vShowPos.y;
+			l_vIAMLazyVector[l_iIndex*2+1].y = (e_pfDeciblesData[i]*200)+e_vShowPos.y;
+		}
+		RenderLine((float*)&l_vIAMLazyVector,l_iNumAccept*2,Vector4::Blue,2);
+
+		Vector2 l_vCurrentTimeIndicator[2];
+		float l_fCurrentPos = this->m_fCurrentTime/this->m_pSoundFile->m_fTime*e_vResolution.x+l_vShowPos.x;
+		l_vCurrentTimeIndicator[0].x = l_vCurrentTimeIndicator[1].x = l_fCurrentPos;
+		l_vCurrentTimeIndicator[0].y = l_vShowPos.y;
+		l_vCurrentTimeIndicator[1].y = l_vCurrentTimeIndicator[0].y+50;
+		RenderLine((float*)&l_vCurrentTimeIndicator,2,Vector4::Red,2);
+	}
 }
 
 //void	cKissFFTConvert::PreProcessedAllData()
@@ -165,8 +319,10 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDat
 	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
 	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount;
 	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
-
+	m_iNumFFTGraph = l_iNumFFT;
+	m_pfDecibles = new float[l_iNumFFT];
 	m_FFTDataVector.resize(l_iNumFFT*l_iHalfFFTCount);
+	m_fMaxDecible = -77979.f;
 	for( int i=0;i<l_iNumFFT;++i )
 	{
 		int l_iSoundIndex = i*l_iOneStepSoundCount;
@@ -176,9 +332,28 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDat
 		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
 						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
 						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
-		if( e_pFFTDataStore )
-			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
+		float l_fDecibles = 0.f;
+		for( int j=0;j<l_iHalfFFTCount;++j )
+		{
+			l_fDecibles += l_pOutFFTData[j];
+		}
+		m_pfDecibles[i] = l_fDecibles;
+		if( m_fMaxDecible <= l_fDecibles)
+			m_fMaxDecible = l_fDecibles;
+		//if( e_pFFTDataStore )
+			//e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
 	}
+	for( int i=0;i<l_iNumFFT;++i )
+	{
+		m_pfDecibles[i] /= m_fMaxDecible;
+		if( m_pfDecibles[i] +0.1f >= 1.f )
+		{
+			m_StartCaptureTimeVector.push_back(i*l_fOneFrameDuration);
+		}
+	}
+
+	
+	
 
 	SAFE_DELETE(l_pfWindowFunctionConstantValue);
 	free(l_pkiss_fft_state);
@@ -193,58 +368,60 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDat
 
 const int g_iFFTCountQuanty = 4;
 
-void	cKissFFTConvert::PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore)
-{
-	m_FFTDataStore.Start();
-	if( !m_pSoundFile )
-		return;
-	m_iOneFrameFFTDataCount *= g_iFFTCountQuanty;
-	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
-	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
-	m_Timer.Update();
-	int					l_iChannels = m_pSoundFile->m_iChannel;
-	size_t				l_uiSameCount = m_pSoundFile->m_iSampleCount;
-	kiss_fft_cpx*		l_pKiss_FFT_In = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
-	kiss_fft_cpx*		l_pKiss_FFT_Out = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
-	kiss_fft_state*		l_pkiss_fft_state = kiss_fft_alloc(m_iOneFrameFFTDataCount, 0/*is_inverse_fft*/, NULL, NULL);
-	float*				l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(m_iOneFrameFFTDataCount);
-	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
-	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
-
-	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount*g_iFFTCountQuanty;
-	int					l_iOneStepSoundCount = m_iOneFrameFFTDataCount/g_iFFTCountQuanty*l_iChannels*sizeof(short);
-
-	m_FFTDataVector.resize(l_iNumFFT*l_iHalfFFTCount);
-	for( int i=0;i<l_iNumFFT;++i )
-	{
-		int l_iSoundIndex = i*l_iOneStepSoundCount;
-		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+l_iSoundIndex;
-		int l_EndIndex = m_iOneFrameFFTDataCount/g_iFFTCountQuanty+m_iOneFrameFFTDataCount;
-		if( l_EndIndex >= (int)l_uiSameCount)
-		{
-			break;
-		}
-		int*l_pOutFFTData = &(m_FFTDataVector)[i*l_iHalfFFTCount];
-		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
-		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
-						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
-						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
-		if( e_pFFTDataStore )
-			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
-	}
-	SAFE_DELETE(l_pfWindowFunctionConstantValue);
-	free(l_pkiss_fft_state);
-	SAFE_DELETE(l_pKiss_FFT_In);
-	SAFE_DELETE(l_pKiss_FFT_Out);
-	m_Timer.Update();
-	double l_dbElpaseTime = m_Timer.fElpaseTime;
-	std::wstring l_strDebugInfo = L"PreProcessedDoubleAllData spent:";
-	l_strDebugInfo += ValueToStringW(l_dbElpaseTime);
-	cGameApp::OutputDebugInfoString(l_strDebugInfo);
-}
+//void	cKissFFTConvert::PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore)
+//{
+//	m_FFTDataStore.Start();
+//	if( !m_pSoundFile )
+//		return;
+//	m_iOneFrameFFTDataCount *= g_iFFTCountQuanty;
+//	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
+//	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
+//	m_Timer.Update();
+//	int					l_iChannels = m_pSoundFile->m_iChannel;
+//	size_t				l_uiSameCount = m_pSoundFile->m_iSampleCount;
+//	kiss_fft_cpx*		l_pKiss_FFT_In = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+//	kiss_fft_cpx*		l_pKiss_FFT_Out = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
+//	kiss_fft_state*		l_pkiss_fft_state = kiss_fft_alloc(m_iOneFrameFFTDataCount, 0/*is_inverse_fft*/, NULL, NULL);
+//	float*				l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(m_iOneFrameFFTDataCount);
+//	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
+//	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
+//
+//	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount*g_iFFTCountQuanty;
+//	int					l_iOneStepSoundCount = m_iOneFrameFFTDataCount/g_iFFTCountQuanty*l_iChannels*sizeof(short);
+//
+//	m_FFTDataVector.resize(l_iNumFFT*l_iHalfFFTCount);
+//	for( int i=0;i<l_iNumFFT;++i )
+//	{
+//		int l_iSoundIndex = i*l_iOneStepSoundCount;
+//		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+l_iSoundIndex;
+//		int l_EndIndex = m_iOneFrameFFTDataCount/g_iFFTCountQuanty+m_iOneFrameFFTDataCount;
+//		if( l_EndIndex >= (int)l_uiSameCount)
+//		{
+//			break;
+//		}
+//		int*l_pOutFFTData = &(m_FFTDataVector)[i*l_iHalfFFTCount];
+//		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
+//		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
+//						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
+//						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
+//		if( e_pFFTDataStore )
+//			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
+//	}
+//	SAFE_DELETE(l_pfWindowFunctionConstantValue);
+//	free(l_pkiss_fft_state);
+//	SAFE_DELETE(l_pKiss_FFT_In);
+//	SAFE_DELETE(l_pKiss_FFT_Out);
+//	m_Timer.Update();
+//	double l_dbElpaseTime = m_Timer.fElpaseTime;
+//	std::wstring l_strDebugInfo = L"PreProcessedDoubleAllData spent:";
+//	l_strDebugInfo += ValueToStringW(l_dbElpaseTime);
+//	cGameApp::OutputDebugInfoString(l_strDebugInfo);
+//}
 
 void	cKissFFTConvert::Destroy()
 {
+	m_StartCaptureTimeVector.clear();
+	SAFE_DELETE(m_pfDecibles);
 	m_FFTDataVector.clear();
 	m_FFTDataLinePointVector.clear();
 
@@ -313,8 +490,8 @@ bool	cKissFFTConvert::FetchSoundData(int e_iStartDataIndex,int e_iCount)
 		//l_vPos1.x = l_vPos.x = (l_fXGap*(*l_pFFTPhaseData)[l_iIndex])+l_fStartXPos;
 		l_vPos1.x = l_vPos.x = (l_fXGap*l_iIndex)+l_fStartXPos;
 		l_vPos1.y = l_fYStartPos+l_fYPos;
-		l_vPos.y = l_fYStartPos-(l_iAmplidude*m_fScale)+l_fYPos;
-		//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
+		l_vPos.y = l_fYStartPos-(l_iAmplidude*m_fChartAmplitudeScale)+l_fYPos;
+		//l_vPos.y = l_fYStartPos-((*l_pFFTDataVector)[i]*m_fChartAmplitudeScale*(*l_pFFTPhaseDataVector)[i]/4)+l_fYPos;
 		l_pFFTPointsData->push_back(l_vPos);
 		l_pFFTPointsData->push_back(l_vPos1);
 		++l_iIndex;
@@ -362,12 +539,21 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 		m_TimeToUpdateFFTData.Update(e_fElpaseTime);
 		FetchSoundDataByTimeRange(m_fCurrentTime,l_fElpaseTime);
 
-		int l_iStartIndex = GetStartFFTIndexByTime(this->m_fCurrentTime);
-		if( l_iStartIndex != -1 )
+
+
+		if(m_StartCaptureTimeVector.size())
 		{
-			auto l_pFFTDataVector = &m_FFTDataVector;
-			int* l_piFFTData = &(*l_pFFTDataVector)[l_iStartIndex];
-			m_FFTDataStore.UpdateFFTData(e_fElpaseTime,l_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+			float l_fStartCaptureTime = m_StartCaptureTimeVector[0];
+			if( this->m_fCurrentTime >= l_fStartCaptureTime && l_fStartCaptureTime + 0.3f >= this->m_fCurrentTime )
+			{
+				int l_iStartIndex = GetStartFFTIndexByTime(this->m_fCurrentTime);
+				if( l_iStartIndex != -1 )
+				{
+					auto l_pFFTDataVector = &m_FFTDataVector;
+					int* l_piFFTData = &(*l_pFFTDataVector)[l_iStartIndex];
+					m_FFTDataStore.UpdateFFTData(e_fElpaseTime,l_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+				}
+			}
 		}
 	}
 }
@@ -399,6 +585,7 @@ void	cKissFFTConvert::Render()
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
+		RenderDecibels(m_iNumFFTGraph,this->m_pfDecibles,Vector2(100.f,750.f),Vector2(1800.f,50.f));
 		m_FFTDataStore.RenderCurrentData();
 	}
 	//std::vector<Vector2> l_Test;
@@ -450,6 +637,8 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 		m_pTestSound->GoTo(e_fElpaseTime);
 	}
 }
+
+
 //http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 ////N = 1024          // size of FFT and sample window
 //Fs = 44100        // sample rate = 44.1 kHz
@@ -483,82 +672,6 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 //
 //// convert index of largest peak to frequency
 //freq = max_index * Fs / N
-int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
-{
-	int l_iFrequence = e_iIndexOfFFTData*e_iFrequence/e_iCount;
-	this->m_iMaxAmplitude = e_iMaxAmplitude;
-	//if( m_iMaxAmplitude <= 0 )
-	//{
-	//	int a=0;
-	//}
-	this->m_iMaxAmplitudeFrequence = l_iFrequence;
-	return l_iFrequence;
-}
-
-float	cKissFFTConvertBase::GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS)
-{
-	float l_fOffsetRange = (float)e_iFrequency/2.f/((float)e_iFrequency/e_iFPS);
-	return l_fOffsetRange;
-}
-
-TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
-{
-	TiXmlElement*l_pTiXmlElement = new TiXmlElement(cKissFFTConvertBase::TypeID);
-	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
-	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
-	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iOneFrameFFTDataCount);
-	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
-	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
-	//l_pTiXmlElement->SetAttribute(L"MaxAmplitudeFrequence",m_iMaxAmplitudeFrequence);
-	//l_pTiXmlElement->SetAttribute(L"ChartScale",m_fChartScale);
-	return l_pTiXmlElement;
-}
-
-void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
-{
-	PARSE_ELEMENT_START(e_pTiXmlElement)
-		COMPARE_NAME("TimeToUpdateFFTData")
-		{
-			m_TimeToUpdateFFTData.fTargetTime = VALUE_TO_FLOAT;
-		}
-		else
-		COMPARE_NAME("DivideFFTDataToNFrame")
-		{
-			m_iDivideFFTDataToNFrame = VALUE_TO_INT;
-		}
-		else
-		COMPARE_NAME("OneFrameFFTDataCount")
-		{
-			m_iOneFrameFFTDataCount = VALUE_TO_INT;
-		}
-		else
-		COMPARE_NAME("FrenquenceFilterEndScaleValue")
-		{
-			m_fFrenquenceFilterEndScaleValue = VALUE_TO_FLOAT;
-		}
-		else
-		COMPARE_NAME("FilterStrengthValue")
-		{
-			m_iFilterStrengthValue = VALUE_TO_INT;
-		}
-	PARSE_NAME_VALUE_END
-}
-
-void	cKissFFTConvertBase::RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY)
-{
-	if( cGameApp::m_sbDebugFunctionWorking )
-	{
-		std::wstring l_strInfo = L"Frequence:";
-		l_strInfo += ValueToStringW(this->m_iMaxAmplitudeFrequence);
-		l_strInfo += L"\n";
-		l_strInfo += L"MaxAmplitude";
-		l_strInfo += ValueToStringW(this->m_iMaxAmplitude);
-		cGameApp::m_spGlyphFontRender->SetScale(2.f);
-		cGameApp::RenderFont(e_iPosX,e_iPosY,l_strInfo);
-		cGameApp::m_spGlyphFontRender->SetScale(1.f);
-	}
-}
-
 
 //bool	cKissFFTConvert::ExportFFTDataStore(const char*e_strFileName,const char*e_strExportFileName)
 //{

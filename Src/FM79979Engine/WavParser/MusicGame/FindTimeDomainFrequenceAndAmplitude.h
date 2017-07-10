@@ -27,3 +27,14 @@ struct sFindTimeDomainFrequenceAndAmplitude
 	//
 	bool	GetDataByTime(float e_fTime,float e_fTolerateTime,std::vector<sFrequenceAndAmplitudeAndTime*>*e_pOutVector,bool e_bIgnodeSameObject);
 };
+
+
+struct sNoteFrequencyAndDecibles
+{
+	std::vector<int>				FrequencyHittedCountVector;
+	std::vector<int>				FrequencyVector;
+	std::vector<int>				FrequencyHittedValueVector;
+
+	sNoteFrequencyAndDecibles(TiXmlElement*e_pFFTHitCountAndTimeElement);
+	~sNoteFrequencyAndDecibles();
+};

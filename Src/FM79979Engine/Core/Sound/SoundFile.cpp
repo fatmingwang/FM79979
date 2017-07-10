@@ -222,7 +222,7 @@ namespace FATMING_CORE
 			UT::ErrorMsg("wav file bit per sample can not smaller than 7",e_strFileName);
 			return false;
 		}
-
+		return true;
 		int l_iOneSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
 		assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_iSoundDataSize&&"this is not a common wav file");
 		std::vector<char>*l_pChannelDataPointer = nullptr;

@@ -84,9 +84,9 @@ namespace DNCT
 	String^	ForceAddExtenName(String^e_strDest,char*e_strExtensionName);
 	//
 	std::vector<int>	GetIntegerListByCommaDivide(String^e_str,int* e_piSize);
-	std::vector<std::string >	GCArrayToSTDStringVector(array<String^>^e_str);
+	std::vector<std::string >	GCArrayToSTDStringVector(cli::array<String^>^e_str);
 	std::vector<std::string >	GCStringToSTDStringVector(String^e_str);
-	std::vector<std::wstring >	GCArrayToSTDWStringVector(array<String^>^e_str);
+	std::vector<std::wstring >	GCArrayToSTDWStringVector(cli::array<String^>^e_str);
 	std::vector<std::wstring >	GCStringToSTDWStringVector(String^e_str);
 	//===============================================
 	//eplace hashtable value by key
@@ -123,7 +123,7 @@ namespace DNCT
 	//"image files (*.png)|*.png|All files (*.*)|*.*"
 	//"xml files (*.xml)|*.xml|All files (*.*)|*.*"
 	//"png files (*.png)|*.png|All files (*.*)|*.*"
-	array<String^>^ OpenFileAndGetNames(char*e_pFileFilter = 0);
+	cli::array<String^>^ OpenFileAndGetNames(char*e_pFileFilter = 0);
 	System::String^	OpenFileAndGetName(char*e_pFileFilter = 0);
 	//"XML	Files(*.dae;*.xml;*.fat;prt)|*.dae;*.xml;*.fat;*.prt|All files (*.*)|*.*"
 	char*	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter = false);
@@ -132,8 +132,10 @@ namespace DNCT
 	System::String^	OpenFileGetText(String^e_strFileName = nullptr,String^e_strCodeName = "UTF-16");
 	System::String^	GetChanglineString();
 
-	array<String^>^		DragDropEventWhileFileDrop(System::Windows::Forms::DragEventArgs^  e);
-	GCFORM::TreeNode^	DragDropEventWhileTreeNodeDrop(System::Windows::Forms::DragEventArgs^  e,bool e_bForceToFetch = false);
+
+	bool						AssignDragEnterAndDropEventToTextboxWithFileName(GCFORM::TextBox^e_pTextBox,GCFORM::Control::ControlCollection^e_pControlCollection);
+	cli::array<String^>^		DragDropEventWhileFileDrop(System::Windows::Forms::DragEventArgs^  e);
+	GCFORM::TreeNode^			DragDropEventWhileTreeNodeDrop(System::Windows::Forms::DragEventArgs^  e,bool e_bForceToFetch = false);
 
 	//===============================================
 	//swap listbox content by two value,if the index content is not exist,return false,or index is the same
