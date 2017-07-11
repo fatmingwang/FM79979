@@ -15,15 +15,15 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
 	m_iOneFrameFFTDataCount = 0;
-	m_vChartResolution = Vector2(1800,1000.f);
+	m_vChartResolution = Vector2(3600,1000.f);
 	m_fChartAmplitudeScale = 10.f;
 	m_fNextChannelYGap = 700.f;
 	m_vChartShowPos = Vector2(100,700);
 	m_bPause = false;
-	m_fFrenquenceFilterEndScaleValue = 1.f;
 	m_bFilter = false;
 	m_fChartScale = 1.f;
-	m_iFilterStrengthValue = 6;
+//	m_fFrenquenceFilterEndScaleValue = 1.f;
+//	m_iFilterStrengthValue = 6;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
@@ -31,10 +31,15 @@ cKissFFTConvertBase::~cKissFFTConvertBase()
 
 }
 
-void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName)
+void	cKissFFTConvertBase::MouseMove(int e_iPosX,int e_iPosY)
 {
-	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,"xml");
-	this->m_FFTDataStore.Export(l_strOutputFileName.c_str(),e_strFileName,m_iFreq,e_iDeciblesThreshold);
+	this->m_FFTDataStore.MouseMove(e_iPosX,e_iPosY);
+}
+
+void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency)
+{
+	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME);
+	this->m_FFTDataStore.Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold,e_iThresholdFrequency);
 }
 
 int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
@@ -61,8 +66,8 @@ TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
 	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
 	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
 	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iOneFrameFFTDataCount);
-	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
-	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
+//	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
+//	l_pTiXmlElement->SetAttribute(L"FilterStrengthValue",m_iFilterStrengthValue);
 	//l_pTiXmlElement->SetAttribute(L"MaxAmplitudeFrequence",m_iMaxAmplitudeFrequence);
 	//l_pTiXmlElement->SetAttribute(L"ChartScale",m_fChartScale);
 	return l_pTiXmlElement;
@@ -88,12 +93,12 @@ void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 		else
 		COMPARE_NAME("FrenquenceFilterEndScaleValue")
 		{
-			m_fFrenquenceFilterEndScaleValue = VALUE_TO_FLOAT;
+//			m_fFrenquenceFilterEndScaleValue = VALUE_TO_FLOAT;
 		}
 		else
 		COMPARE_NAME("FilterStrengthValue")
 		{
-			m_iFilterStrengthValue = VALUE_TO_INT;
+			//m_iFilterStrengthValue = VALUE_TO_INT;
 		}
 	PARSE_NAME_VALUE_END
 }
@@ -331,7 +336,7 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDat
 		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
 		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
 						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
-						   e_bFilter,m_iFilterStrengthValue,m_fFrenquenceFilterEndScaleValue);
+						   e_bFilter,0,0);
 		float l_fDecibles = 0.f;
 		for( int j=0;j<l_iHalfFFTCount;++j )
 		{
@@ -443,6 +448,7 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		SAFE_DELETE(m_pSoundFile);
 		return false;
 	}
+	this->m_FFTDataStore.SetFrequency(m_pSoundFile->m_iFreq);
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
 	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
@@ -632,8 +638,9 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 		return;
 	m_fCurrentTime = e_fElpaseTime;
 	m_FFTDataStore.Start();
+	return;
 	if(this->m_pTestSound)
-	{//fuck I have no idea...
+	{//fuck I have no idea...why crash...
 		m_pTestSound->GoTo(e_fElpaseTime);
 	}
 }

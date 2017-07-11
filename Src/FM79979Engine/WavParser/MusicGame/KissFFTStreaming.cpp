@@ -59,7 +59,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),l_pKissFFTStreamingConvert->GetFrenquenceFilterEndScaleValue(),l_pKissFFTStreamingConvert->GetFilterStrengthValue());
+			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),0,0);
 	}
 }
 
@@ -342,6 +342,7 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 	}
 	//
 	//
+	this->m_FFTDataStore.SetFrequency(m_pOpanalOgg->GetFreq());
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pOpanalOgg->GetFreq());
 	//m_iOneFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
 	if(m_iOneFrameFFTDataCount*2 > cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT )

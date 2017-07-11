@@ -12,6 +12,7 @@
 
 //class cToneData;
 struct sFindTimeDomainFrequenceAndAmplitude;
+struct sNoteFrequencyAndDecibles;
 class cToneData;
 class cToneDataVector;
 
@@ -33,6 +34,7 @@ class cSoundTimeLineData:public NamedTypedObject
 	//this just a reference.
 	cToneData*							m_pToneData;
 	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
+	sNoteFrequencyAndDecibles*			m_pNoteFrequencyAndDecibles;
 	std::vector<int>					m_MatchIndexOrderVector;
 	//
 	int									m_iCurrentMatchedIndex;
@@ -55,6 +57,7 @@ class cSoundTimeLineData:public NamedTypedObject
 public:
 	DEFINE_TYPE_INFO();
 	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
+	cSoundTimeLineData(const sNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
 	virtual ~cSoundTimeLineData();
 
 	void				Init();
@@ -64,6 +67,8 @@ public:
 	void				SetTuneMatched(bool e_bTuneMatched){m_bTuneMatched = e_bTuneMatched;}
 	//if finish return true
 	bool				Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	bool				CompareWithNoteFrequencyAndDecibles(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	bool				CompareWithFrequenceAndAmplitudeAndTimeFinder(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 	float				GetCompareTime(){return m_fCompareTime;}
 	cToneData*			GetToneData(){return m_pToneData;}
 	bool				IsTimeOver(){ return m_bTimeOver; }
@@ -85,6 +90,8 @@ public:
 class cSoundTimeLineDataCollection:public cNamedTypedObjectVector<cSoundTimeLineData>,public cNodeISAX
 {
 	bool				ParseMusicFile(TiXmlElement*e_pTiXmlElement);
+	virtual	bool		MyParseWithFindTimeDomainFrequenceAndAmplitude(TiXmlElement*e_pRoot);
+	virtual	bool		MyParseWithNoteFrequencyAndDecibles(TiXmlElement*e_pRoot);
 protected:
 	virtual	bool		MyParse(TiXmlElement*e_pRoot);
 	cToneDataVector*	m_pToneDataVector;

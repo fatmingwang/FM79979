@@ -13,7 +13,7 @@ public:
 	void	Render();
 	//
 	bool	AddFile(const char*e_strFileName);
-	int		Export(const char*e_strDirectory);
+	int		Export(const char*e_strDirectory,int e_iThresholdFrequency);
 
 	void	SetSelectedIndex(int e_iIndex);
 	void	SetHittedCountThresholdValue(int e_iValue);

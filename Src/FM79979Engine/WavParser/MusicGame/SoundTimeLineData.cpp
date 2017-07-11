@@ -9,6 +9,7 @@ TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
 cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fTuneKeepTime,float e_fCompareTime,cToneData*e_pToneData)
 {
+	m_pNoteFrequencyAndDecibles = nullptr;
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
@@ -25,8 +26,28 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_fTuneKeepTime = e_fTuneKeepTime;
 }
 
+cSoundTimeLineData::cSoundTimeLineData(const sNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
+{
+	m_pNoteFrequencyAndDecibles = nullptr;
+	m_bTimeOver = false;
+	m_pToneData = e_pToneData;
+	//m_fErrorScore = 0.f;
+	m_fResultScore = 0.f;
+	m_fCompareTime = e_fCompareTime;
+	m_pFrequenceAndAmplitudeAndTimeFinder = nullptr;
+	m_iCurrentMatchedIndex = 0;
+	m_iNumMatched = 0;
+	m_bMustMatchAfterProior = false;
+	m_bAlreadyPlayTestFlag = false;
+	m_bTuneMatched = false;
+	m_bActivedToCompare = false;
+	m_fActivedElpaseTime = 0.f;
+	m_fTuneKeepTime = e_fTuneKeepTime;
+}
+
 cSoundTimeLineData::~cSoundTimeLineData()
 {
+	SAFE_DELETE(m_pNoteFrequencyAndDecibles);
 	SAFE_DELETE(m_pFrequenceAndAmplitudeAndTimeFinder);
 }
 
@@ -57,6 +78,13 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 
 bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
 {
+	if( m_pFrequenceAndAmplitudeAndTimeFinder )
+		return CompareWithFrequenceAndAmplitudeAndTimeFinder(e_fElpaseTime,e_fCurrentTime,e_pQuickFFTDataFrequencyFinder);
+	return CompareWithNoteFrequencyAndDecibles(e_fElpaseTime,e_fCurrentTime,e_pQuickFFTDataFrequencyFinder);
+}
+
+bool		cSoundTimeLineData::CompareWithFrequenceAndAmplitudeAndTimeFinder(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
+{
 	//already matched.
 	if( m_bTuneMatched )
 		return true;
@@ -79,7 +107,7 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	std::vector<int> l_MatchedVector;
 	for(auto l_pInnerData :	*l_pDataVector)
 	{
-		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetAmplitude((int)l_pInnerData->fFrequency);
+		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency((int)l_pInnerData->fFrequency);
 		int l_iNumHitted = 0;
 		for(int l_iAmplitude :l_iAmplitudeVector)
 		{
@@ -145,6 +173,68 @@ bool		cSoundTimeLineData::Compare(float e_fElpaseTime,float e_fCurrentTime,cQuic
 	}
 	return this->IsFinish(e_fCurrentTime);
 }
+
+
+bool		cSoundTimeLineData::CompareWithNoteFrequencyAndDecibles(float e_fElpaseTime,float e_fCurrentTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
+{
+	if(!this->m_pNoteFrequencyAndDecibles)
+		return false;
+	//already matched.
+	if( m_bTuneMatched )
+		return true;
+	if(!IsStillInCompareTime(e_fCurrentTime))
+	{
+		return false;
+	}
+	int l_iNumMatched = 0;
+	float l_fLocalTime = e_fCurrentTime-this->m_fCompareTime;
+	size_t l_uiSize = m_pNoteFrequencyAndDecibles->FrequencyVector.size();
+	for(size_t i=0;i<l_uiSize;++i  )
+	{
+		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
+		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i];
+		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
+		for( int l_iDecible : l_DeciblesVector )
+		{
+			if( l_iTargetDecibels <= l_iDecible)
+			{
+				++l_iNumMatched;
+				break;
+			}
+		}
+	}
+	
+	//because some frequency just not we want but I have no idea how to filter this so...
+	float l_fPercent = (float)l_iNumMatched/l_uiSize;
+	if(m_fResultScore < l_fPercent )
+	{
+		m_fResultScore = l_fPercent;
+#ifdef DEBUG
+		std::wstring l_str = this->GetName();
+		l_str += L",Percent:";
+		l_str += ValueToStringW((int)(l_fPercent*100));
+		cGameApp::OutputDebugInfoString(l_str);
+#endif
+	}
+
+	if( l_fPercent >= 0.95f )
+	{
+		m_bTuneMatched = true;
+		cGameApp::EventMessageShot(TUNE_MATCH_EVENT_ID,this);
+		
+#ifdef DEBUG
+//		cGameApp::OutputDebugInfoString(ValueToStringW(l_MatchedVector));
+#endif
+	}
+	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
+	{
+		m_bTuneMatched = true;
+		//all matched
+		return true;
+	}
+	return this->IsFinish(e_fCurrentTime);
+}
+
 
 bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 {
@@ -248,7 +338,11 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 					UT::ErrorMsg(g_strKeyNymberToPianoString[l_iIndex],"tone data not exists");
 					continue;
 				}
-				cSoundTimeLineData*l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTuneKeepTime,l_fTime,l_pToneData);
+				cSoundTimeLineData*l_pSingleSoundCompare = nullptr;
+				if( l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder() )
+					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTuneKeepTime,l_fTime,l_pToneData);
+				else
+					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetNoteFrequencyAndDecibles(),l_fTuneKeepTime,l_fTime,l_pToneData);
 				l_pSingleSoundCompare->SetName(g_strKeyNymberToPianoString[l_iIndex]);
 				this->AddObjectNeglectExist(l_pSingleSoundCompare);
 			}
@@ -266,7 +360,12 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 	return true;
 }
 
-bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
+bool		cSoundTimeLineDataCollection::MyParseWithNoteFrequencyAndDecibles(TiXmlElement*e_pRoot)
+{
+	return false;
+}
+
+bool		cSoundTimeLineDataCollection::MyParseWithFindTimeDomainFrequenceAndAmplitude(TiXmlElement*e_pRoot)
 {
 	const WCHAR*l_strToneDataFileName = e_pRoot->Attribute(L"ToneDataFileName");
 	if( !l_strToneDataFileName )
@@ -290,6 +389,11 @@ bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
 		return ParseMusicFile(e_pRoot);
 	}
 	return false;
+}
+
+bool	cSoundTimeLineDataCollection::MyParse(TiXmlElement*e_pRoot)
+{
+	return MyParseWithFindTimeDomainFrequenceAndAmplitude(e_pRoot);
 }
 
 float	cSoundTimeLineDataCollection::GetLastObjectCompareEndTime()

@@ -195,10 +195,10 @@ namespace FATMING_CORE
 
 	std::string				Vector3VectorToString(std::vector<Vector3>* e_pvPosVector);
 	std::string				Vector2VectorToString(std::vector<Vector2>* e_pvPosVector);
-	std::vector<Vector2>	StringToVector2Vector(wchar_t*e_str,int e_iSize = 0);
-	std::vector<Vector3>	StringToVector3Vector(wchar_t*e_str,int e_iSize = 0);
-	std::vector<Vector2>	StringToVector2Vector(char*e_str,int e_iSize = 0);
-	std::vector<Vector3>	StringToVector3Vector(char*e_str,int e_iSize = 0);
+	std::vector<Vector2>	StringToVector2Vector(const wchar_t*e_str,int e_iSize = 0);
+	std::vector<Vector3>	StringToVector3Vector(const wchar_t*e_str,int e_iSize = 0);
+	std::vector<Vector2>	StringToVector2Vector(const char*e_str,int e_iSize = 0);
+	std::vector<Vector3>	StringToVector3Vector(const char*e_str,int e_iSize = 0);
 
 	enum	eShapeType
 	{

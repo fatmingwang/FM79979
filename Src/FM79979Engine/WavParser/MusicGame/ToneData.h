@@ -11,7 +11,7 @@
 //here are resources
 
 struct sFindTimeDomainFrequenceAndAmplitude;
-
+struct sNoteFrequencyAndDecibles;
 //filter FFT data and original sound file
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
 class cToneData:public Frame,public cNodeISAX
@@ -20,13 +20,15 @@ class cToneData:public Frame,public cNodeISAX
 	bool*			m_pbBlackKey;
 	std::string		m_strSoundFilePath;
 	//int			m_iSoundID;
-	sFindTimeDomainFrequenceAndAmplitude*m_pFrequenceAndAmplitudeAndTimeFinder;
+	sFindTimeDomainFrequenceAndAmplitude*	m_pFrequenceAndAmplitudeAndTimeFinder;
+	sNoteFrequencyAndDecibles*				m_pNoteFrequencyAndDecibles;
 public:
 	DEFINE_TYPE_INFO();
 	cToneData(TiXmlElement*e_pTiXmlElement);
 	~cToneData();
 	//const int GetSoundID();
 	const sFindTimeDomainFrequenceAndAmplitude*	GetFrequenceAndAmplitudeAndTimeFinder();
+	const sNoteFrequencyAndDecibles*			GetNoteFrequencyAndDecibles();
 	bool			IsBlackKey();
 };
 

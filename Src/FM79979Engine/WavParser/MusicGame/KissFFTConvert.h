@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../kiss_fft130/kiss_fft.h"
+#include "FFTFrequency.h"
 //#include "SwapBuffer.h"
 
 
@@ -31,8 +32,8 @@ protected:
 	GET_SET_DEC(bool,m_bFilter,IsFilter,SetFilter);
 	//https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition
 	//However, in one song the range of strong frequencies might vary between low C - C1 (32.70 Hz) and high C - C8 (4,186.01 Hz
-	GET_SET_DEC(float,m_fFrenquenceFilterEndScaleValue,GetFrenquenceFilterEndScaleValue,SetiFrenquenceFilterEndScaleValue);
-	GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
+	//GET_SET_DEC(float,m_fFrenquenceFilterEndScaleValue,GetFrenquenceFilterEndScaleValue,SetiFrenquenceFilterEndScaleValue);
+	//GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
 	GET_SET_DEC(float,m_fChartScale,GetChartScale,SetChartScale);
 	//
 	void			SetOneFrameFFTDataCount(int e_iFrequency);
@@ -67,12 +68,14 @@ public:
 
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }
-	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName);
+	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency);
+	void			MouseMove(int e_iPosX,int e_iPosY);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output
 class cKissFFTConvert:public cKissFFTConvertBase
 {
+	//the most significant decibels time to update to updateFFTStore
 	std::vector<float>					m_StartCaptureTimeVector;
 	void								RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesData,Vector2 e_vShowPos,Vector2 e_vResolution);
 	int									m_iNumFFTGraph;

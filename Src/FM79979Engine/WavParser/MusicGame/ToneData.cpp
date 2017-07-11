@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "FindTimeDomainFrequenceAndAmplitude.h"
 #include "ToneData.h"
+#include "ToneData.h"
+#include "Parameters.h"
 TYPDE_DEFINE_MARCO(cToneData);
 TYPDE_DEFINE_MARCO(cToneDataVector);
 
@@ -8,6 +10,7 @@ TYPDE_DEFINE_MARCO(cToneDataVector);
 cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 {
 	m_pbBlackKey = nullptr;
+	m_pNoteFrequencyAndDecibles = nullptr;
 	m_pFrequenceAndAmplitudeAndTimeFinder = nullptr;
 	const wchar_t*l_strID = CHAR_TO_WCHAR_DEFINE(TONE_DATA_ID);
 	const wchar_t*l_strPosOffset = CHAR_TO_WCHAR_DEFINE(TONE_DATA_PICTURE_OFFSET_POS );
@@ -26,15 +29,19 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 		}
 	PARSE_NAME_VALUE_END
 	const char* l_strTest = m_strSoundFilePath.c_str();
-	m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
+	if(UT::IsStringContain(l_strTest,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME))
+		m_pNoteFrequencyAndDecibles = new sNoteFrequencyAndDecibles(m_strSoundFilePath.c_str());
+	else
+		m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
+		
 }
 
 cToneData::~cToneData()
 {
+	SAFE_DELETE(m_pNoteFrequencyAndDecibles);
 	SAFE_DELETE(m_pbBlackKey);
 	SAFE_DELETE(m_pFrequenceAndAmplitudeAndTimeFinder);
 }
-
 //const int cToneData::GetSoundID()
 //{
 //	return this->m_iSoundID;
@@ -43,6 +50,11 @@ cToneData::~cToneData()
 const sFindTimeDomainFrequenceAndAmplitude*	cToneData::GetFrequenceAndAmplitudeAndTimeFinder()
 {
 	return this->m_pFrequenceAndAmplitudeAndTimeFinder;
+}
+
+const sNoteFrequencyAndDecibles*			cToneData::GetNoteFrequencyAndDecibles()
+{
+	return m_pNoteFrequencyAndDecibles;
 }
 
 bool	cToneData::IsBlackKey()

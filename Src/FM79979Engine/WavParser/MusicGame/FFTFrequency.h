@@ -14,8 +14,8 @@ public:
 	cQuickFFTDataFrequencyFinder(int e_iFFTBins,int e_iMaxFrequency);
 	~cQuickFFTDataFrequencyFinder();
 	//get left center and right data
-	//here is possible have some precious problem,so I give close result
-	std::vector<int>						GetAmplitude(int e_iFrequency);
+	//here is possible have some precious problem,so I give close result,acctual here is becibles...
+	std::vector<int>						GetDecibelsByFrequency(int e_iFrequency);
 };
 
 
@@ -29,8 +29,14 @@ class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 	Vector2								m_vLineTempPos[44100*2];
 	int									m_iHittedCountScaleForVisual;
 	int									m_iMaxValue;
+	int									m_Frequency;
+	int									m_iMouseMoveFreq;
+	int									m_iMouseMoveFreqHittedCount;
 	//for export,if the fft amplitude is smappler this ignore.
 	int									m_iExportThresholdValue;
+	//
+	void								SortMostHittedFequency(std::vector<int>&e_FrequencyVector,std::vector<int>&e_FrequencyHittedCountVector,std::vector<int>&e_FrequencyHittedValueVector);
+	void								RenderMouseMoveInfo();
 public:
 	cFFTDataStore();
 	~cFFTDataStore();
@@ -46,19 +52,21 @@ public:
 	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start();
-	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iFrequency,int e_iDecibleThreshold);
+	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }
 	int									GetExportThresholdValue();
 	void								SetExportThresholdValue(int e_iExportThresholdValue);
+	void								MouseMove(int e_iMousePosX,int e_iMousePosY);
+	int									GetFrequency(){return m_Frequency;}
+	void								SetFrequency(int e_iFreq){m_Frequency = e_iFreq;}
 private:
 	//int									m_iThreusholdAmplitude;
 	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;
 	float								m_fNextDataTimeGap;
 	float								m_fCurrentTime;
 	float								m_fRestNextDataTimeGap;
-private:
 	cFFTHitCountAndTime*				m_pCurrentFFTHitCountAndTime;
 	void								RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime);
 };

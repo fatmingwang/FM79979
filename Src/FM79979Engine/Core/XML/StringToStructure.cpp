@@ -805,12 +805,13 @@ namespace FATMING_CORE
 		return l_str;	
 	}
 
-	std::vector<Vector2>	StringToVector2Vector(wchar_t*e_str,int e_iSize)
+	std::vector<Vector2>	StringToVector2Vector(const wchar_t*e_str,int e_iSize)
 	{
 		std::vector<Vector2>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok(e_str,L", ");
+		wchar_t*l_strConvertString = (wchar_t*)e_str;
+		wchar_t*	l_str = wcstok(l_strConvertString,L", ");
 		while(l_str)
 		{
 			Vector2	l_v;
@@ -823,12 +824,13 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<Vector3>	StringToVector3Vector(wchar_t*e_str,int e_iSize)
+	std::vector<Vector3>	StringToVector3Vector(const wchar_t*e_str,int e_iSize)
 	{
 		std::vector<Vector3>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok(e_str,L", ");
+		wchar_t*l_strConvertString = (wchar_t*)e_str;
+		wchar_t*	l_str = wcstok(l_strConvertString,L", ");
 		while(l_str)
 		{
 			Vector3	l_v;
@@ -843,12 +845,13 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<Vector2>	StringToVector2Vector(char*e_str,int e_iSize)
+	std::vector<Vector2>	StringToVector2Vector(const char*e_str,int e_iSize)
 	{
 		std::vector<Vector2>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str,", ");
+		char*l_strConvertString = (char*)e_str;
+		char*	l_str = strtok(l_strConvertString,", ");
 		while(l_str)
 		{
 			Vector2	l_v;
@@ -861,12 +864,13 @@ namespace FATMING_CORE
 		return l_NumeralList;	
 	}
 
-	std::vector<Vector3>	StringToVector3Vector(char*e_str,int e_iSize)
+	std::vector<Vector3>	StringToVector3Vector(const char*e_str,int e_iSize)
 	{
 		std::vector<Vector3>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str,", ");
+		char*l_strConvertString = (char*)e_str;
+		char*	l_str = strtok(l_strConvertString,", ");
 		while(l_str)
 		{
 			Vector3	l_v;

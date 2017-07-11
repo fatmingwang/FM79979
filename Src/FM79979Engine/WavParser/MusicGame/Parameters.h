@@ -1,5 +1,7 @@
 #pragma once
 
+#define	FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME	"FreqDeci"
+
 #define	PCM_SWAP_BUFFER_COUNT	20
 #define	FFT_DATA_SWAP_BUFFER_COUNT	20
 //sometimes I need to test so just make this big
@@ -14,6 +16,8 @@ extern int	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 
 //FOR DEBUG vision
 #define	AFTER_FILTER_MIN_VALUE	3
+
+#define	BEST_RECORD_FPS 22
 
 class cSoundCompareParameter
 {

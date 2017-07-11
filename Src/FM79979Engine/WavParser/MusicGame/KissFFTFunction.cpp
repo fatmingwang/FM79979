@@ -4,6 +4,9 @@
 #include "KissFFTFunction.h"
 #include "Parameters.h"
 
+//http://users.ece.utexas.edu/~valvano/Starterfiles/FFT.CPP
+//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
+//https://www.kvraudio.com/forum/viewtopic.php?t=276092
 // display 15 bins around the frequency of interest 
 //    for (long k = 80; k < 110; k += 2) {
 //
@@ -30,10 +33,8 @@ inline float AmplitudeTodB(float e_fAmplitude,int e_iNUMFFTBin)
 	if( l_dbAmplitude <0 )
 		l_dbAmplitude = 0;
 	return (float)l_dbAmplitude;
-	//https://groups.google.com/forum/#!topic/comp.dsp/cZsS1ftN5oI
 	//e_piFFTOutData[i] = (int)(10*log10(4*(l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i)/(l_iDidgitalWindownFunctionCount*l_iDidgitalWindownFunctionCount)));
 	//m_fFFTResultPhase[l_iCurrentChannelIndex][l_iNumFFTData] = atan2(l_pKiss_FFT_Out[i].i, l_pKiss_FFT_Out[i].r);
-	//https://www.kvraudio.com/forum/viewtopic.php?t=276092
 	// 20 * log(2 * magnitude / N)
 	//return 20.0f * log10(e_fAmplitude/e_iNUMFFTBin);
 }

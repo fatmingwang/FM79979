@@ -46,7 +46,7 @@ namespace	FATMING_CORE
 		}
 		l_pSoundCapture->m_bThreadExitStop = false;
 		//2 for 
-		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetFrequency()*2]; // A buffer to hold captured audio
+		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetFrequency()*sizeof(short)]; // A buffer to hold captured audio
 		ALCint l_iSamplesIn = 0;  // How many samples are captured
 		int l_iTest = 0;
 		while(!l_pSoundCapture->IsStop())

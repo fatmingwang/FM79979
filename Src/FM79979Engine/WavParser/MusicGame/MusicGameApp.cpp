@@ -46,8 +46,7 @@ void	cMusicGameApp::Init()
 	cGameApp::Init();
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
-	//int l_iFrequence = cSoundCompareParameter::m_siRecordFrequency;
-	int l_iFrequence = 44100;
+	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
@@ -164,7 +163,7 @@ void	cMusicGameApp::EditorInit()
 	cGameApp::Init();
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
-	int l_iFrequence = 11025;
+	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);

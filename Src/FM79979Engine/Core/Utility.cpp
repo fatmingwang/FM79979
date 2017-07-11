@@ -681,6 +681,22 @@ namespace UT
 		return l_strNewFileName;
 	}
 
+	bool					IsStringContain(const char*e_strSource,const char*e_strCompare)
+	{
+		std::string l_str = e_strSource;
+		if(l_str.find(e_strCompare) != std::string::npos)
+			return true;
+		return false;
+	}
+
+	bool					IsStringContain(const wchar_t*e_strSource,const wchar_t*e_strCompare)
+	{
+		std::wstring l_str = e_strSource;
+		if(l_str.find(e_strCompare) != std::wstring::npos)
+			return true;
+		return false;
+	}
+
 	std::string	GetDirectoryWithoutFileName(const char*e_str)
 	{
 		std::string	l_strResult;

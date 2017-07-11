@@ -31,7 +31,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 		{
 			l_fTimeElpasee = l_pTimeAndPCMData->fStartTime-l_fPreviousTime;
 			l_fPreviousTime = l_pTimeAndPCMData->fStartTime;
-			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),l_pSoundFFTCapture->GetFrenquenceFilterEndScaleValue(),l_pSoundFFTCapture->GetFilterStrengthValue());
+			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),0,0);
 		}
 	}
 }
@@ -104,6 +104,7 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	{
 		m_iOneFrameFFTDataCount = l_iMaxFFTCount;
 	}
+	this->m_FFTDataStore.SetFrequency(l_iFrequency);
 	m_piFFTData = new int[m_iOneFrameFFTDataCount];
 	m_pQuickFFTDataFrequencyFinder = new cQuickFFTDataFrequencyFinder(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM,l_iFrequency);
 	m_pQuickFFTDataFrequencyFinder->SetFFTData(m_piFFTData);

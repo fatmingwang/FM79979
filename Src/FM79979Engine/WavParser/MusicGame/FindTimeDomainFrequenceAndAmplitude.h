@@ -31,10 +31,12 @@ struct sFindTimeDomainFrequenceAndAmplitude
 
 struct sNoteFrequencyAndDecibles
 {
+	bool ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement);
+
 	std::vector<int>				FrequencyHittedCountVector;
 	std::vector<int>				FrequencyVector;
 	std::vector<int>				FrequencyHittedValueVector;
 
-	sNoteFrequencyAndDecibles(TiXmlElement*e_pFFTHitCountAndTimeElement);
+	sNoteFrequencyAndDecibles(const char*e_strFileName);
 	~sNoteFrequencyAndDecibles();
 };

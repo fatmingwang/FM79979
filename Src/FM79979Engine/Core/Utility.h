@@ -51,6 +51,9 @@ namespace UT
 	std::string				GetFileExtensionName(const char*e_pString);
 	std::string				ChangeFileExtensionName(const char*e_pFileNameString,const char*e_strNewExtensionName);
 	std::string				GetDirectoryWithoutFileName(const char*e_str);
+	//
+	bool					IsStringContain(const char*e_strSource,const char*e_strCompare);
+	bool					IsStringContain(const wchar_t*e_strSource,const wchar_t*e_strCompare);
 	//for cross platform
 	////http://forum.codecall.net/topic/42319-what-mode-should-i-use-at-fopen-r-r-wb/
 	//For creating/writing/reading use w+ For opening/appending/reading use r+
