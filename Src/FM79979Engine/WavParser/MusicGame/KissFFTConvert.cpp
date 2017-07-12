@@ -547,10 +547,10 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 
 
 
-		if(m_StartCaptureTimeVector.size())
+		//if(m_StartCaptureTimeVector.size())
 		{
-			float l_fStartCaptureTime = m_StartCaptureTimeVector[0];
-			if( this->m_fCurrentTime >= l_fStartCaptureTime && l_fStartCaptureTime + 0.3f >= this->m_fCurrentTime )
+			//float l_fStartCaptureTime = m_StartCaptureTimeVector[0];
+			//if( this->m_fCurrentTime >= l_fStartCaptureTime && l_fStartCaptureTime + 0.3f >= this->m_fCurrentTime )
 			{
 				int l_iStartIndex = GetStartFFTIndexByTime(this->m_fCurrentTime);
 				if( l_iStartIndex != -1 )
@@ -591,7 +591,10 @@ void	cKissFFTConvert::Render()
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
-		RenderDecibels(m_iNumFFTGraph,this->m_pfDecibles,Vector2(100.f,750.f),Vector2(1800.f,50.f));
+		Vector2 l_vPos = m_vChartShowPos;
+		l_vPos.y += 100;
+		RenderDecibels(m_iNumFFTGraph,this->m_pfDecibles,l_vPos,this->m_vChartResolution);
+
 		m_FFTDataStore.RenderCurrentData();
 	}
 	//std::vector<Vector2> l_Test;

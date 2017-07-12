@@ -30,7 +30,7 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 	PARSE_NAME_VALUE_END
 	const char* l_strTest = m_strSoundFilePath.c_str();
 	if(UT::IsStringContain(l_strTest,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME))
-		m_pNoteFrequencyAndDecibles = new sNoteFrequencyAndDecibles(m_strSoundFilePath.c_str());
+		m_pNoteFrequencyAndDecibles = new cNoteFrequencyAndDecibles(m_strSoundFilePath.c_str());
 	else
 		m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
 		
@@ -52,7 +52,7 @@ const sFindTimeDomainFrequenceAndAmplitude*	cToneData::GetFrequenceAndAmplitudeA
 	return this->m_pFrequenceAndAmplitudeAndTimeFinder;
 }
 
-const sNoteFrequencyAndDecibles*			cToneData::GetNoteFrequencyAndDecibles()
+const cNoteFrequencyAndDecibles*			cToneData::GetNoteFrequencyAndDecibles()
 {
 	return m_pNoteFrequencyAndDecibles;
 }
@@ -74,6 +74,35 @@ bool	cToneData::IsBlackKey()
 		}
 	}
 	return *this->m_pbBlackKey;
+}
+
+float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
+{
+	if( !e_pQuickFFTDataFrequencyFinder )
+		return 0.f;
+	int l_iNumMatched = 0;
+	size_t l_uiSize = m_pNoteFrequencyAndDecibles->FrequencyVector.size();
+	if( l_uiSize == 0 )
+		return -1.f;
+	for(size_t i=0;i<l_uiSize;++i  )
+	{
+		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
+		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i];
+		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
+		for( int l_iDecible : l_DeciblesVector )
+		{
+			if( l_iDecible > l_iTargetDecibels-10)
+			{
+				++l_iNumMatched;
+				break;
+			}
+		}
+	}
+	
+	//because some frequency just not we want but I have no idea how to filter this so...
+	float l_fPercent = (float)l_iNumMatched/l_uiSize;
+	float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
+	return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
 }
 
 cToneDataVector::cToneDataVector()
@@ -131,4 +160,70 @@ bool cToneDataVector::MyParse(TiXmlElement*e_pRoot)
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pRoot)
 	return true;
+}
+
+void	cToneDataVector::Update(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
+{
+	m_MatchName.clear();
+	m_ResultVector.clear();
+	if( !e_pQuickFFTDataFrequencyFinder )
+		return;
+	int l_iCount = this->Count();
+	for( int i=0;i<l_iCount;++i )
+	{
+		auto l_pData = this->GetObject(i);
+		float l_fResult = l_pData->CompareFFTDecibles(e_pQuickFFTDataFrequencyFinder);
+		m_ResultVector.push_back(l_fResult);
+		std::wstring l_strResult = l_pData->GetName();
+		l_strResult += L":";
+		l_strResult += ValueToStringW(l_fResult);
+		m_MatchName.push_back(l_strResult);
+	}
+}
+
+void	cToneDataVector::Render()
+{	
+	Vector2 l_vShowPos(cGameApp::m_svGameResolution.x/2,200);
+	cGameApp::m_spGlyphFontRender->SetScale(2);
+	//if( !m_TempForMatchName.bTragetTimrReached )
+	{
+		float l_fMax = 0.f;
+		int l_iMaxIndex = -1;
+		for(size_t i=0;i<m_MatchName.size();++i)
+		{
+			if( m_ResultVector[i]>=0.9 )
+				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Green);
+			else
+				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
+			cGameApp::RenderFont(l_vShowPos,m_MatchName[i].c_str());
+			l_vShowPos.y += 70;
+			if( l_fMax < m_ResultVector[i] )
+			{
+				l_fMax = m_ResultVector[i];
+				l_iMaxIndex = i;
+			}
+		}
+		if( l_iMaxIndex != -1 )
+		{
+			l_vShowPos = Vector2(cGameApp::m_svGameResolution.x/2+600,680);
+			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
+			cGameApp::RenderFont(l_vShowPos,m_MatchName[l_iMaxIndex].c_str());
+		}
+	}
+	//else
+	//{
+	//	static int l_i=0;
+	//	++l_i;
+	//	std::wstring l_str = L"Detecting";
+	//	int l_iSize = wcslen(l_str.c_str());
+	//	wchar_t l_str2[200];
+	//	memset(l_str2,0,sizeof(200)*sizeof(wchar_t));
+	//	for( int i=0;i<l_i;++i )
+	//		l_str2[i] = l_str[i];
+	//	cGameApp::RenderFont(l_vShowPos,l_str2);
+	//	if( l_i >=l_iSize )
+	//		l_i = 0;
+	//}
+	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
+	cGameApp::m_spGlyphFontRender->SetScale(1);
 }

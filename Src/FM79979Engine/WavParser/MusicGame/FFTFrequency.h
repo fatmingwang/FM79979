@@ -23,13 +23,19 @@ public:
 
 class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 {
+	struct sFilterData
+	{
+		int iFrequencyThresholdStart;
+		int iFrequencyDecibelsThreshold;
+	};
+	std::vector<sFilterData>			m_FilterDataVector;
 	void	Destroy();
 	virtual	bool						MyParse(TiXmlElement*e_pRoot);
 	//I am lazy...
 	Vector2								m_vLineTempPos[44100*2];
 	int									m_iHittedCountScaleForVisual;
 	int									m_iMaxValue;
-	int									m_Frequency;
+	int									m_iFrequency;
 	int									m_iMouseMoveFreq;
 	int									m_iMouseMoveFreqHittedCount;
 	//for export,if the fft amplitude is smappler this ignore.
@@ -59,8 +65,8 @@ public:
 	int									GetExportThresholdValue();
 	void								SetExportThresholdValue(int e_iExportThresholdValue);
 	void								MouseMove(int e_iMousePosX,int e_iMousePosY);
-	int									GetFrequency(){return m_Frequency;}
-	void								SetFrequency(int e_iFreq){m_Frequency = e_iFreq;}
+	int									GetFrequency(){return m_iFrequency;}
+	void								SetFrequency(int e_iFreq){m_iFrequency = e_iFreq;}
 private:
 	//int									m_iThreusholdAmplitude;
 	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;
@@ -69,6 +75,7 @@ private:
 	float								m_fRestNextDataTimeGap;
 	cFFTHitCountAndTime*				m_pCurrentFFTHitCountAndTime;
 	void								RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime);
+	void								AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue);
 };
 
 

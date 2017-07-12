@@ -145,7 +145,11 @@ namespace EditorSample
 		//
 		System::Drawing::Size		m_MyOpenGLWindowSize;
 		System::Drawing::Size		m_WindowStartSize;
-		bool						m_bTimerUpdateEnd;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
+private: System::Windows::Forms::Button^  button1;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown3;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
+		 bool						m_bTimerUpdateEnd;
 		void						WaitUpdateEnd(){ while(!m_bTimerUpdateEnd){} }
 		//
 
@@ -262,12 +266,16 @@ namespace EditorSample
 			this->BackStep_button = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->Filter_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->numericUpDown3 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FFTPrintFrequencyThreshold_label = (gcnew System::Windows::Forms::Label());
+			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FFTPrintFrequencyThreshold_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FFTStoreAmplitude_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
-			this->FFTStoreGittedCountThreshold_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FFTStoreGittedCountThreshold_label = (gcnew System::Windows::Forms::Label());
 			this->FFTStoreAmplitude_label = (gcnew System::Windows::Forms::Label());
+			this->FFTStoreGittedCountThreshold_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FFTPrint_groupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->FFTStore_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->FFTStore_listBox = (gcnew System::Windows::Forms::ListBox());
@@ -310,6 +318,9 @@ namespace EditorSample
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->Filter_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTPrintFrequencyThreshold_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->BeginInit();
@@ -391,7 +402,7 @@ namespace EditorSample
 			// 
 			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(9, 32);
 			this->RecordSoundFileName_textBox->Name = L"RecordSoundFileName_textBox";
-			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(220, 20);
+			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(162, 20);
 			this->RecordSoundFileName_textBox->TabIndex = 17;
 			this->RecordSoundFileName_textBox->Text = L"Sound\\21.wav";
 			// 
@@ -407,7 +418,7 @@ namespace EditorSample
 			// 
 			// ConvertToWav_button
 			// 
-			this->ConvertToWav_button->Location = System::Drawing::Point(9, 121);
+			this->ConvertToWav_button->Location = System::Drawing::Point(83, 92);
 			this->ConvertToWav_button->Name = L"ConvertToWav_button";
 			this->ConvertToWav_button->Size = System::Drawing::Size(59, 26);
 			this->ConvertToWav_button->TabIndex = 19;
@@ -550,9 +561,9 @@ namespace EditorSample
 			this->SoundFileConvert_groupBox->Controls->Add(this->ToOgg_button);
 			this->SoundFileConvert_groupBox->Controls->Add(this->WavToOggOnlyOneChannel);
 			this->SoundFileConvert_groupBox->Controls->Add(this->ConvertToWav_button);
-			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(521, 9);
+			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(198, 292);
 			this->SoundFileConvert_groupBox->Name = L"SoundFileConvert_groupBox";
-			this->SoundFileConvert_groupBox->Size = System::Drawing::Size(331, 167);
+			this->SoundFileConvert_groupBox->Size = System::Drawing::Size(175, 120);
 			this->SoundFileConvert_groupBox->TabIndex = 33;
 			this->SoundFileConvert_groupBox->TabStop = false;
 			this->SoundFileConvert_groupBox->Text = L"SoundFileConvert";
@@ -696,33 +707,67 @@ namespace EditorSample
 			// 
 			// Filter_groupBox
 			// 
+			this->Filter_groupBox->Controls->Add(this->numericUpDown2);
+			this->Filter_groupBox->Controls->Add(this->button1);
+			this->Filter_groupBox->Controls->Add(this->numericUpDown3);
 			this->Filter_groupBox->Controls->Add(this->FFTPrintFrequencyThreshold_label);
+			this->Filter_groupBox->Controls->Add(this->numericUpDown1);
 			this->Filter_groupBox->Controls->Add(this->FFTPrintFrequencyThreshold_numericUpDown);
 			this->Filter_groupBox->Controls->Add(this->FFTStoreAmplitude_numericUpDown);
-			this->Filter_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_numericUpDown);
 			this->Filter_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_label);
 			this->Filter_groupBox->Controls->Add(this->FFTStoreAmplitude_label);
-			this->Filter_groupBox->Location = System::Drawing::Point(871, 263);
+			this->Filter_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_numericUpDown);
+			this->Filter_groupBox->Location = System::Drawing::Point(499, 16);
 			this->Filter_groupBox->Name = L"Filter_groupBox";
-			this->Filter_groupBox->Size = System::Drawing::Size(206, 144);
+			this->Filter_groupBox->Size = System::Drawing::Size(206, 375);
 			this->Filter_groupBox->TabIndex = 53;
 			this->Filter_groupBox->TabStop = false;
 			this->Filter_groupBox->Text = L"FilterParameter";
 			// 
+			// numericUpDown2
+			// 
+			this->numericUpDown2->Location = System::Drawing::Point(26, 293);
+			this->numericUpDown2->Name = L"numericUpDown2";
+			this->numericUpDown2->Size = System::Drawing::Size(120, 20);
+			this->numericUpDown2->TabIndex = 55;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(26, 327);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 53;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			// 
+			// numericUpDown3
+			// 
+			this->numericUpDown3->Location = System::Drawing::Point(26, 265);
+			this->numericUpDown3->Name = L"numericUpDown3";
+			this->numericUpDown3->Size = System::Drawing::Size(120, 20);
+			this->numericUpDown3->TabIndex = 56;
+			// 
 			// FFTPrintFrequencyThreshold_label
 			// 
 			this->FFTPrintFrequencyThreshold_label->AutoSize = true;
-			this->FFTPrintFrequencyThreshold_label->Location = System::Drawing::Point(21, 13);
+			this->FFTPrintFrequencyThreshold_label->Location = System::Drawing::Point(9, 13);
 			this->FFTPrintFrequencyThreshold_label->Name = L"FFTPrintFrequencyThreshold_label";
 			this->FFTPrintFrequencyThreshold_label->Size = System::Drawing::Size(137, 26);
 			this->FFTPrintFrequencyThreshold_label->TabIndex = 52;
 			this->FFTPrintFrequencyThreshold_label->Text = L"FrequencyThreshold\r\nsmall than this will be ignore";
 			// 
+			// numericUpDown1
+			// 
+			this->numericUpDown1->Location = System::Drawing::Point(26, 239);
+			this->numericUpDown1->Name = L"numericUpDown1";
+			this->numericUpDown1->Size = System::Drawing::Size(120, 20);
+			this->numericUpDown1->TabIndex = 54;
+			// 
 			// FFTPrintFrequencyThreshold_numericUpDown
 			// 
 			this->FFTPrintFrequencyThreshold_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
 				65536});
-			this->FFTPrintFrequencyThreshold_numericUpDown->Location = System::Drawing::Point(23, 40);
+			this->FFTPrintFrequencyThreshold_numericUpDown->Location = System::Drawing::Point(11, 40);
 			this->FFTPrintFrequencyThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {44100, 0, 
 				0, 0});
 			this->FFTPrintFrequencyThreshold_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 
@@ -735,30 +780,18 @@ namespace EditorSample
 			// 
 			// FFTStoreAmplitude_numericUpDown
 			// 
-			this->FFTStoreAmplitude_numericUpDown->Location = System::Drawing::Point(25, 78);
+			this->FFTStoreAmplitude_numericUpDown->Location = System::Drawing::Point(13, 78);
 			this->FFTStoreAmplitude_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 0, 0});
 			this->FFTStoreAmplitude_numericUpDown->Name = L"FFTStoreAmplitude_numericUpDown";
 			this->FFTStoreAmplitude_numericUpDown->Size = System::Drawing::Size(101, 20);
 			this->FFTStoreAmplitude_numericUpDown->TabIndex = 3;
-			this->FFTStoreAmplitude_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {25, 0, 0, 0});
+			this->FFTStoreAmplitude_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {15, 0, 0, 0});
 			this->FFTStoreAmplitude_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
-			// 
-			// FFTStoreGittedCountThreshold_numericUpDown
-			// 
-			this->FFTStoreGittedCountThreshold_numericUpDown->Location = System::Drawing::Point(25, 123);
-			this->FFTStoreGittedCountThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 
-				0, 0});
-			this->FFTStoreGittedCountThreshold_numericUpDown->Name = L"FFTStoreGittedCountThreshold_numericUpDown";
-			this->FFTStoreGittedCountThreshold_numericUpDown->Size = System::Drawing::Size(101, 20);
-			this->FFTStoreGittedCountThreshold_numericUpDown->TabIndex = 4;
-			this->FFTStoreGittedCountThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {10, 0, 0, 
-				0});
-			this->FFTStoreGittedCountThreshold_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
 			// 
 			// FFTStoreGittedCountThreshold_label
 			// 
 			this->FFTStoreGittedCountThreshold_label->AutoSize = true;
-			this->FFTStoreGittedCountThreshold_label->Location = System::Drawing::Point(22, 105);
+			this->FFTStoreGittedCountThreshold_label->Location = System::Drawing::Point(10, 105);
 			this->FFTStoreGittedCountThreshold_label->Name = L"FFTStoreGittedCountThreshold_label";
 			this->FFTStoreGittedCountThreshold_label->Size = System::Drawing::Size(154, 13);
 			this->FFTStoreGittedCountThreshold_label->TabIndex = 48;
@@ -767,11 +800,23 @@ namespace EditorSample
 			// FFTStoreAmplitude_label
 			// 
 			this->FFTStoreAmplitude_label->AutoSize = true;
-			this->FFTStoreAmplitude_label->Location = System::Drawing::Point(22, 62);
+			this->FFTStoreAmplitude_label->Location = System::Drawing::Point(10, 62);
 			this->FFTStoreAmplitude_label->Name = L"FFTStoreAmplitude_label";
 			this->FFTStoreAmplitude_label->Size = System::Drawing::Size(144, 13);
 			this->FFTStoreAmplitude_label->TabIndex = 49;
 			this->FFTStoreAmplitude_label->Text = L"FFTStoreAmplitudeThreshold";
+			// 
+			// FFTStoreGittedCountThreshold_numericUpDown
+			// 
+			this->FFTStoreGittedCountThreshold_numericUpDown->Location = System::Drawing::Point(12, 121);
+			this->FFTStoreGittedCountThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 
+				0, 0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->Name = L"FFTStoreGittedCountThreshold_numericUpDown";
+			this->FFTStoreGittedCountThreshold_numericUpDown->Size = System::Drawing::Size(101, 20);
+			this->FFTStoreGittedCountThreshold_numericUpDown->TabIndex = 4;
+			this->FFTStoreGittedCountThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {10, 0, 0, 
+				0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
 			// 
 			// FFTPrint_groupBox
 			// 
@@ -1038,9 +1083,9 @@ namespace EditorSample
 			this->SoundCapture_groupBox->Controls->Add(this->SoundCaptureDoFFTChartScale_numericUpDown);
 			this->SoundCapture_groupBox->Controls->Add(this->RecordSound_button);
 			this->SoundCapture_groupBox->Controls->Add(this->RecordSoundPause_button);
-			this->SoundCapture_groupBox->Location = System::Drawing::Point(521, 190);
+			this->SoundCapture_groupBox->Location = System::Drawing::Point(740, 3);
 			this->SoundCapture_groupBox->Name = L"SoundCapture_groupBox";
-			this->SoundCapture_groupBox->Size = System::Drawing::Size(331, 222);
+			this->SoundCapture_groupBox->Size = System::Drawing::Size(125, 302);
 			this->SoundCapture_groupBox->TabIndex = 36;
 			this->SoundCapture_groupBox->TabStop = false;
 			this->SoundCapture_groupBox->Text = L"SoundCapture";
@@ -1069,14 +1114,14 @@ namespace EditorSample
 			this->CurrentRecordName_textBox->AllowDrop = true;
 			this->CurrentRecordName_textBox->Location = System::Drawing::Point(7, 194);
 			this->CurrentRecordName_textBox->Name = L"CurrentRecordName_textBox";
-			this->CurrentRecordName_textBox->Size = System::Drawing::Size(220, 20);
+			this->CurrentRecordName_textBox->Size = System::Drawing::Size(108, 20);
 			this->CurrentRecordName_textBox->TabIndex = 40;
 			this->CurrentRecordName_textBox->Text = L"c4.wav";
 			// 
 			// SoundCaptureDoFFTChartScale_label
 			// 
 			this->SoundCaptureDoFFTChartScale_label->AutoSize = true;
-			this->SoundCaptureDoFFTChartScale_label->Location = System::Drawing::Point(145, 55);
+			this->SoundCaptureDoFFTChartScale_label->Location = System::Drawing::Point(4, 250);
 			this->SoundCaptureDoFFTChartScale_label->Name = L"SoundCaptureDoFFTChartScale_label";
 			this->SoundCaptureDoFFTChartScale_label->Size = System::Drawing::Size(59, 13);
 			this->SoundCaptureDoFFTChartScale_label->TabIndex = 41;
@@ -1085,7 +1130,7 @@ namespace EditorSample
 			// SoundCaptureDoFFTFilter_checkBox
 			// 
 			this->SoundCaptureDoFFTFilter_checkBox->AutoSize = true;
-			this->SoundCaptureDoFFTFilter_checkBox->Location = System::Drawing::Point(148, 28);
+			this->SoundCaptureDoFFTFilter_checkBox->Location = System::Drawing::Point(7, 223);
 			this->SoundCaptureDoFFTFilter_checkBox->Name = L"SoundCaptureDoFFTFilter_checkBox";
 			this->SoundCaptureDoFFTFilter_checkBox->Size = System::Drawing::Size(81, 17);
 			this->SoundCaptureDoFFTFilter_checkBox->TabIndex = 39;
@@ -1098,7 +1143,7 @@ namespace EditorSample
 			this->SoundCaptureDoFFTChartScale_numericUpDown->DecimalPlaces = 1;
 			this->SoundCaptureDoFFTChartScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 
 				0, 65536});
-			this->SoundCaptureDoFFTChartScale_numericUpDown->Location = System::Drawing::Point(148, 71);
+			this->SoundCaptureDoFFTChartScale_numericUpDown->Location = System::Drawing::Point(7, 266);
 			this->SoundCaptureDoFFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 
 				65536});
 			this->SoundCaptureDoFFTChartScale_numericUpDown->Name = L"SoundCaptureDoFFTChartScale_numericUpDown";
@@ -1139,6 +1184,9 @@ namespace EditorSample
 			this->splitContainer1->ResumeLayout(false);
 			this->Filter_groupBox->ResumeLayout(false);
 			this->Filter_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTPrintFrequencyThreshold_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->EndInit();

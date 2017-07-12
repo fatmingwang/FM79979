@@ -82,9 +82,11 @@ cFFTDataStore::cFFTHitCountAndTime::~cFFTHitCountAndTime()
 
 cFFTDataStore::cFFTDataStore()
 {
+	sFilterData l_sFilterData = {768,8};
+	m_FilterDataVector.push_back(l_sFilterData);
 	m_iMouseMoveFreq = -1;
 	m_iMouseMoveFreqHittedCount = -1;
-	m_Frequency = 44100;
+	m_iFrequency = 44100;
 	//why 999?because I am lazy lah
 	m_fNextDataTimeGap = 999.f;
 	m_fCurrentTime = 0.f;
@@ -92,7 +94,7 @@ cFFTDataStore::cFFTDataStore()
 	this->m_vShowPos = Vector2(100,1200);
 	this->m_vResolution.x = 3600;
 	this->m_vResolution.y = 600;
-	m_iHittedCountScaleForVisual = 3;
+	m_iHittedCountScaleForVisual = 1;
 	m_iMaxValue = 0;
 	m_iExportThresholdValue = cSoundCompareParameter::m_siFFTStoreThresholeValue;
 	//m_iThreusholdAmplitude = cSoundCompareParameter::m_siDebugAmplitudeValue;
@@ -131,9 +133,33 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 	}
 	if( m_pCurrentFFTHitCountAndTime )
 	{
+		float l_fFrequenctForOneFFT = (float)this->m_iFrequency/e_iCount;
+
+		size_t l_uiSize = m_FilterDataVector.size();
+		int l_iCurrentIndex = 0;
+		sFilterData*l_pFilterData = nullptr;
+		if( l_uiSize > 0 )
+			l_pFilterData = &m_FilterDataVector[l_iCurrentIndex];
+
 		for( int i=0;i<e_iCount;++i )
 		{
-			if( e_piFFTData[i] >= cSoundCompareParameter::m_siDebugAmplitudeValue )
+			int l_iCurrentFrequency = (int)(l_fFrequenctForOneFFT*i);
+			int l_iDecibelsThresholdValue = cSoundCompareParameter::m_siDebugAmplitudeValue;
+
+			int l_iNexdIndex = l_iCurrentIndex+1;
+			if( (int)l_uiSize > l_iNexdIndex )
+			{
+				sFilterData*l_pNewFilterData = &m_FilterDataVector[l_iNexdIndex];
+				if(l_pNewFilterData->iFrequencyThresholdStart >= l_iCurrentFrequency)
+				{
+					l_pFilterData = &m_FilterDataVector[l_iNexdIndex];
+				}
+			}
+			if( l_pFilterData && l_pFilterData->iFrequencyThresholdStart >= l_iCurrentFrequency )
+			{
+				l_iDecibelsThresholdValue = l_pFilterData->iFrequencyDecibelsThreshold;
+			}
+			if( e_piFFTData[i] >= l_iDecibelsThresholdValue )
 			{
 				m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;
 				m_pCurrentFFTHitCountAndTime->m_pHittedValueArray[i] += e_piFFTData[i];
@@ -141,6 +167,23 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 					m_iMaxValue = m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i];
 			}
 		}
+	}
+	if( cGameApp::m_sucKeyData['Z'] )
+	{
+		this->m_vResolution.x *= 2;
+	}
+
+	if( cGameApp::m_sucKeyData['X'] )
+	{
+		this->m_vResolution.x /= 2;
+	}
+	if( cGameApp::m_sucKeyData['C'] )
+	{
+		this->m_vShowPos.x += this->m_vResolution.x/30;
+	}
+	if( cGameApp::m_sucKeyData['V'] )
+	{
+		this->m_vShowPos.x -= this->m_vResolution.x/30;
 	}
 }
 
@@ -178,6 +221,22 @@ void	cFFTDataStore::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountA
 			l_vLinePos[1] = l_vLinePos[0];
 			l_vLinePos[1].x += l_vChartResolution.x;
 			RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
+
+
+			size_t l_uiSize = m_FilterDataVector.size();
+			for( size_t i=0;i<l_uiSize;++i )
+			{
+				auto l_pFilterDataVector = &m_FilterDataVector[i];
+				Vector2	l_vChartResolution = this->m_vResolution;
+				Vector2 l_vLinePos[2];
+				l_vLinePos[0] = this->m_vShowPos;
+				l_vLinePos[0].x += (float)l_pFilterDataVector->iFrequencyThresholdStart;
+				l_vLinePos[0].y -= l_pFilterDataVector->iFrequencyDecibelsThreshold *m_iHittedCountScaleForVisual;
+
+				l_vLinePos[1] = l_vLinePos[0];
+				l_vLinePos[1].x += l_vChartResolution.x-l_pFilterDataVector->iFrequencyThresholdStart;
+				RenderLine((float*)&l_vLinePos,2,Vector4::Red,2);			
+			}
 		}
 	}
 }
@@ -192,6 +251,7 @@ void	cFFTDataStore::RenderMouseMoveInfo()
 		l_str += ValueToStringW(this->m_iMouseMoveFreqHittedCount);
 		Vector2 l_vPos = this->m_vShowPos;
 		l_vPos.y += 100;
+		l_vPos.x = 100;
 		cGameApp::RenderFont(l_vPos,l_str.c_str());
 	}
 }
@@ -212,12 +272,12 @@ void	cFFTDataStore::MouseMove(int e_iMousePosX,int e_iMousePosY)
 	float l_fEndPosX = m_vShowPos.x+this->m_vResolution.x;
 	m_iMouseMoveFreq = -1;
 	m_iMouseMoveFreqHittedCount = -1;
-	if( e_iMousePosX <= l_fEndPosX && e_iMousePosX >= m_vShowPos.x)
+	//if( e_iMousePosX <= l_fEndPosX && e_iMousePosX >= m_vShowPos.x)
 	{
 		float l_fDis = e_iMousePosX-m_vShowPos.x;
 		float l_fLERP = l_fDis/this->m_vResolution.x;
 
-		int l_iCurrentMouseFreq = (int)(this->m_Frequency*l_fLERP);
+		int l_iCurrentMouseFreq = (int)(this->m_iFrequency*l_fLERP);
 		m_iMouseMoveFreq = l_iCurrentMouseFreq;
 		if( m_pCurrentFFTHitCountAndTime )
 		{
@@ -298,12 +358,12 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 	TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
 	l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
 	l_ISAXCallback.SetDoc(l_pTiXmlDocument);
-	l_pRootTiXmlElement->SetAttribute(L"Frequency",m_Frequency);
+	l_pRootTiXmlElement->SetAttribute(L"Frequency",m_iFrequency);
 	l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
 	l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
 	l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",e_iDecibleThreshold);
 	l_pRootTiXmlElement->SetAttribute(L"FrequencyThreshold",e_iFrequencyThreshold);
-	float l_fFrequenctForOneFFT = (float)this->m_Frequency/l_iFFTCount;
+	float l_fFrequenctForOneFFT = (float)this->m_iFrequency/l_iFFTCount;
 	//to avoid noise...
 	int l_iPreviousFrequencyHittedCount = -1;
 	for(size_t i=0;i<l_uiSize;++i)
@@ -349,7 +409,9 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
 		l_pRootTiXmlElement->LinkEndChild(l_pSortFFTHitCountAndTimeElement);
 	}
-	l_ISAXCallback.Export(e_strFileName,false);
+	std::string l_strDirectory = "MusicGame/Piano/";
+	l_strDirectory += e_strFileName;
+	l_ISAXCallback.Export(l_strDirectory.c_str(),false);
 	return false;
 }
 //<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
@@ -358,4 +420,10 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 bool	cFFTDataStore::MyParse(TiXmlElement*e_pRoot)
 {
 	return false;
+}
+
+void	cFFTDataStore::AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue)
+{
+	sFilterData l_sFilterData = {e_iStartFrequenct,e_iDecibelsThresholdValue};
+	this->m_FilterDataVector.push_back(l_sFilterData);
 }

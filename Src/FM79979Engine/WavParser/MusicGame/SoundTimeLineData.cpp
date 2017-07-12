@@ -26,7 +26,7 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_fTuneKeepTime = e_fTuneKeepTime;
 }
 
-cSoundTimeLineData::cSoundTimeLineData(const sNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
+cSoundTimeLineData::cSoundTimeLineData(const cNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
 {
 	m_pNoteFrequencyAndDecibles = nullptr;
 	m_bTimeOver = false;

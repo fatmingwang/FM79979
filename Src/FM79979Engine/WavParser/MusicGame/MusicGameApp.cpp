@@ -6,6 +6,7 @@
 #include "SoundTimeLineData.h"
 #include "Parameters.h"
 #include "FFTStoreExporter.h"
+#include "ToneData.h"
 //#include "Sound/SoundFile.h"
 
 cSoundCapture*		cMusicGameApp::m_pSoundCapture = nullptr;
@@ -27,6 +28,7 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 	m_pPhaseManager = nullptr;
 	m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
 	this->m_sbDebugFunctionWorking = true;
+	m_pEditorTestcToneDataVector = nullptr;
 }
 
 cMusicGameApp::~cMusicGameApp()
@@ -34,6 +36,7 @@ cMusicGameApp::~cMusicGameApp()
 	SAFE_DELETE(m_pPhaseManager);
 	SAFE_DELETE(m_pSoundCapture);
 	SAFE_DELETE(m_pFFTStoreExporter);
+	SAFE_DELETE(m_pEditorTestcToneDataVector);
 	m_pSoundFFTCapture = nullptr;
 }
 
@@ -47,7 +50,7 @@ void	cMusicGameApp::Init()
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
 	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
-	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
+	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(BEST_RECORD_FPS,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
@@ -164,12 +167,17 @@ void	cMusicGameApp::EditorInit()
 	//sound setup
 	m_pSoundFFTCapture = new cSoundFFTCapture();
 	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
-	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(ONE_FRAME_NEED_NUM_FFT_DATA_COUNT,l_iFrequence,true,AL_FORMAT_MONO16));
+	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(BEST_RECORD_FPS,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
 	m_pFFTStoreExporter = new cFFTStoreExporter();
+	if( 1 )
+	{
+		m_pEditorTestcToneDataVector = new cToneDataVector();
+		m_pEditorTestcToneDataVector->ParseWithMyParse("MusicGame/Piano/DemoPiano.xml");
+	}
 	cGameApp::m_sTimeAndFPS.Update();
 }
 
@@ -181,7 +189,13 @@ void	cMusicGameApp::EditorUpdate(float e_fElpaseTime)
 		m_pPhaseManager->Update(e_fElpaseTime);
 	}
 	if( m_pSoundFFTCapture )
+	{
 		m_pSoundFFTCapture->Update(e_fElpaseTime);
+		if( m_pEditorTestcToneDataVector )
+		{
+			m_pEditorTestcToneDataVector->Update(e_fElpaseTime,m_pSoundFFTCapture->GetQuickFFTDataFrequencyFinder());
+		}
+	}
 	if( m_pFFTStoreExporter )
 		m_pFFTStoreExporter->Update(e_fElpaseTime);
 }
@@ -196,6 +210,10 @@ void	cMusicGameApp::EditorRender()
 		m_pSoundFFTCapture->Render();
 	if( m_pFFTStoreExporter )
 		m_pFFTStoreExporter->Render();
+	if( m_pEditorTestcToneDataVector )
+	{
+		m_pEditorTestcToneDataVector->Render();
+	}
 }
 
 

@@ -29,14 +29,13 @@ struct sFindTimeDomainFrequenceAndAmplitude
 };
 
 
-struct sNoteFrequencyAndDecibles
+class cNoteFrequencyAndDecibles:public NamedTypedObject
 {
 	bool ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement);
-
+public:
 	std::vector<int>				FrequencyHittedCountVector;
 	std::vector<int>				FrequencyVector;
 	std::vector<int>				FrequencyHittedValueVector;
-
-	sNoteFrequencyAndDecibles(const char*e_strFileName);
-	~sNoteFrequencyAndDecibles();
+	cNoteFrequencyAndDecibles(const char*e_strFileName);
+	~cNoteFrequencyAndDecibles();
 };

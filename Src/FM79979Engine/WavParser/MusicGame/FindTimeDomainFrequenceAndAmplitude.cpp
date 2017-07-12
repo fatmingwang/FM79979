@@ -174,7 +174,7 @@ bool	sFindTimeDomainFrequenceAndAmplitude::GetDataByTime(float e_fTime,float e_f
 }
 
 
-sNoteFrequencyAndDecibles::sNoteFrequencyAndDecibles(const char*e_strFileName)
+cNoteFrequencyAndDecibles::cNoteFrequencyAndDecibles(const char*e_strFileName)
 { 
 	cNodeISAX l_NodeISAX;
 	if(l_NodeISAX.ParseDataIntoXMLNode(e_strFileName))
@@ -184,14 +184,19 @@ sNoteFrequencyAndDecibles::sNoteFrequencyAndDecibles(const char*e_strFileName)
 	}
 }
 
-sNoteFrequencyAndDecibles::~sNoteFrequencyAndDecibles()
+cNoteFrequencyAndDecibles::~cNoteFrequencyAndDecibles()
 {
 	
 }
 
-bool sNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement)
+bool cNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement)
 {
+	e_pFFTHitCountAndTimeElement = e_pFFTHitCountAndTimeElement->FirstChildElement();
 	PARSE_ELEMENT_START(e_pFFTHitCountAndTimeElement)
+		COMPARE_NAME("StartTime")
+		{
+		}
+		else
 		COMPARE_NAME("FrequencyVector")
 		{
 			FrequencyVector = GetValueListByCommaDivide<int>(l_strValue);
@@ -199,12 +204,12 @@ bool sNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeEl
 		else
 		COMPARE_NAME("FrequencyHittedCount")
 		{
-			FrequencyHittedValueVector = GetValueListByCommaDivide<int>(l_strValue);
+			FrequencyHittedCountVector = GetValueListByCommaDivide<int>(l_strValue);
 		}
 		else
 		COMPARE_NAME("FrequencyHittedValue")
 		{
-			FrequencyHittedCountVector = GetValueListByCommaDivide<int>(l_strValue);
+			 FrequencyHittedValueVector = GetValueListByCommaDivide<int>(l_strValue);
 		}
 	PARSE_NAME_VALUE_END
 	return true;

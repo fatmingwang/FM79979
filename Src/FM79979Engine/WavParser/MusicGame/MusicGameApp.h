@@ -6,9 +6,11 @@ namespace	FATMING_CORE
 class cSoundFFTCapture;
 class cMessageSenderManager;
 class cFFTStoreExporter;
+class cToneDataVector;
 class cMusicGameApp:public cGameApp
 {
 	cPhaseManager*			m_pPhaseManager;
+	cToneDataVector*		m_pEditorTestcToneDataVector;
 public:
 #if defined(ANDROID)
 		cMusicGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);

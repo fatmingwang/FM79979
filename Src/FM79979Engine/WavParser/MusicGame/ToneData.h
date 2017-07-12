@@ -11,7 +11,8 @@
 //here are resources
 
 struct sFindTimeDomainFrequenceAndAmplitude;
-struct sNoteFrequencyAndDecibles;
+class cNoteFrequencyAndDecibles;
+class cQuickFFTDataFrequencyFinder;
 //filter FFT data and original sound file
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
 class cToneData:public Frame,public cNodeISAX
@@ -21,15 +22,17 @@ class cToneData:public Frame,public cNodeISAX
 	std::string		m_strSoundFilePath;
 	//int			m_iSoundID;
 	sFindTimeDomainFrequenceAndAmplitude*	m_pFrequenceAndAmplitudeAndTimeFinder;
-	sNoteFrequencyAndDecibles*				m_pNoteFrequencyAndDecibles;
+	cNoteFrequencyAndDecibles*				m_pNoteFrequencyAndDecibles;
 public:
 	DEFINE_TYPE_INFO();
 	cToneData(TiXmlElement*e_pTiXmlElement);
 	~cToneData();
 	//const int GetSoundID();
 	const sFindTimeDomainFrequenceAndAmplitude*	GetFrequenceAndAmplitudeAndTimeFinder();
-	const sNoteFrequencyAndDecibles*			GetNoteFrequencyAndDecibles();
-	bool			IsBlackKey();
+	const cNoteFrequencyAndDecibles*			GetNoteFrequencyAndDecibles();
+	bool										IsBlackKey();
+
+	float										CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
 };
 
 //<cToneDataVector>
@@ -39,10 +42,16 @@ public:
 class cToneDataVector:public cNamedTypedObjectVector<cToneData>,public cNodeISAX//,public Frame
 {
 	virtual bool MyParse(TiXmlElement*e_pRoot);
+	std::vector<std::wstring>	m_MatchName;
+	std::vector<float>			m_ResultVector;
+	//UT::sTimeCounter	m_TempForMatchName;
 public:
 	DEFINE_TYPE_INFO();
 	cToneDataVector();
 	~cToneDataVector();
 	//const sFindTimeDomainFrequenceAndAmplitude*GetFrequenceAndAmplitudeAndTimeFinderBySoundID(int e_iSoundID);
 	const sFindTimeDomainFrequenceAndAmplitude*GetFrequenceAndAmplitudeAndTimeFinder(const WCHAR*e_strName);
+	//for test
+	void	Update(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	void	Render();
 };
