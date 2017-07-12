@@ -1,0 +1,4 @@
+<Root Frequency="44100" SoundFile="g4#.wav" FFTCount="1024" DecibleThreshole="120" FrequencyThreshold="220">
+    <FFTHitCountAndTime StartTime="61.86638" FrequencyVector="732,818,861,1636,1679,2454,2497,2540,3316,3359,4177,4220,4995,5038,5081" FrequencyHittedCount="100,103,100,135,145,119,158,118,165,169,144,104,142,183,177" FrequencyHittedValue="25,33,32,33,33,26,29,26,27,27,26,25,24,30,25" />
+    <SortFFTHitCountAndTime StartTime="61.86638" FrequencyVector="861,732,818,4220,2540,2454,1636,4995,4177,1679,2497,3316,3359,5081,5038" FrequencyHittedCount="100,100,103,104,118,119,135,142,144,145,158,165,169,177,183" FrequencyHittedValue="32,25,33,25,26,26,33,24,26,33,29,27,27,25,30" />
+</Root>
