@@ -142,19 +142,19 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 	}
 	kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
 	bool	l_bdoFilter = e_bDoFilter;
-	if( !l_bdoFilter )
-	{
+	//if( !l_bdoFilter )
+	//{
 		for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
 		{
 			float l_Amplitude = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
 			e_piFFTOutData[i] = (int)AmplitudeTodB(l_Amplitude,l_iNumPCMBuffer);
 		}
-	}
-	else
-	{
-		DoFilter(l_iDidgitalWindownFunctionCount,e_piFFTOutData,l_pKiss_FFT_Out);
-		//DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumPCMBuffer,e_piFFTOutData,l_pKiss_FFT_Out,e_iFilterStrength);
-	}
+	//}
+	//else
+	//{
+	//	DoFilter(l_iDidgitalWindownFunctionCount,e_piFFTOutData,l_pKiss_FFT_Out);
+	//	//DoFilter(e_fFilterEndScaleValue,l_iDidgitalWindownFunctionCount,l_iNumPCMBuffer,e_piFFTOutData,l_pKiss_FFT_Out,e_iFilterStrength);
+	//}
 #ifdef DEBUG
 	{
 		//l_Timer.Update();

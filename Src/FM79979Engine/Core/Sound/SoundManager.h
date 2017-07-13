@@ -63,7 +63,7 @@ namespace FATMING_CORE
 		//for release working decent.
 		virtual	bool	RemoveObject(int e_iIndex);
 		using			cNamedTypedObjectVector<cBasicSound>::RemoveObject;
-		void			IOSRecordContextSet(bool e_bStartToRecord);
+		//void			IOSRecordContextSet(bool e_bStartToRecord);
 	};
 }
 #endif

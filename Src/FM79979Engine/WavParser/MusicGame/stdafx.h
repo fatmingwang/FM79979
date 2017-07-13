@@ -12,7 +12,7 @@
 #endif
 
 #include <stdlib.h>
-#include <malloc.h>
+//#include <malloc.h>
 #include <memory.h>
 #ifdef WIN32
 #include <tchar.h>
@@ -32,4 +32,4 @@
 #include "Parameters.h"
 #include "SoundTimeLineData.h"
 
-#define	PARSE_TEST_SOUND
+//#define	PARSE_TEST_SOUND

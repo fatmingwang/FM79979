@@ -64,8 +64,8 @@ void	cMusicGameApp::Init()
 		cSelectMusicPhase*l_pSelectMusicPhase = new cSelectMusicPhase();
 		m_pPhaseManager->AddObjectNeglectExist(l_pSelectMusicPhase);
 		//
-		//m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
-		m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
+		m_pPhaseManager->SetCurrentCurrentPhase(l_pSelectMusicPhase->GetName());
+		//m_pPhaseManager->SetCurrentCurrentPhase(l_pPerformMusicPhase->GetName());
 	}
 
 	cGameApp::m_sTimeAndFPS.Update();
@@ -78,6 +78,27 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 	if( m_pPhaseManager )
 	{
 		m_pPhaseManager->Update(e_fElpaseTime);
+	}
+	if( m_pEditorTestcToneDataVector )
+	{
+		m_pEditorTestcToneDataVector->Update(e_fElpaseTime,m_pSoundFFTCapture->GetQuickFFTDataFrequencyFinder());
+	}
+	if(m_spMultiTouchPoints)
+	{
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 3)
+		{
+			SoundRecognitionTest(true);
+		}
+		else
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 4)
+		{
+			SoundRecognitionTest(false);
+		}
+		else
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 5)
+		{
+			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
+		}
 	}
 }
 
@@ -93,7 +114,10 @@ void	cMusicGameApp::Render()
 		m_pPhaseManager->Render();
 		if( m_sbDebugFunctionWorking )
 			m_pPhaseManager->DebugRender();
-		
+	}
+	if( m_pEditorTestcToneDataVector )
+	{
+		m_pEditorTestcToneDataVector->Render();
 	}
 #ifdef DEBUG
 	GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
@@ -159,6 +183,26 @@ void	cMusicGameApp::KeyUp(char e_char)
 	{
 		m_pPhaseManager->KeyUp(e_char);
 	}
+	if( 'T' )
+	{
+		this->SoundRecognitionTest(true);
+	}
+}
+
+void	cMusicGameApp::SoundRecognitionTest(bool e_bWake)
+{
+	if( e_bWake )
+	{
+		if( !m_pEditorTestcToneDataVector )
+		{
+			m_pEditorTestcToneDataVector = new cToneDataVector();
+			m_pEditorTestcToneDataVector->ParseWithMyParse("MusicGame/Piano/DemoPiano.xml");
+		}
+	}
+	else
+	{
+		SAFE_DELETE(m_pEditorTestcToneDataVector);
+	}
 }
 
 void	cMusicGameApp::EditorInit()
@@ -172,12 +216,8 @@ void	cMusicGameApp::EditorInit()
 	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
+	SoundRecognitionTest(true);
 	m_pFFTStoreExporter = new cFFTStoreExporter();
-	if( 1 )
-	{
-		m_pEditorTestcToneDataVector = new cToneDataVector();
-		m_pEditorTestcToneDataVector->ParseWithMyParse("MusicGame/Piano/DemoPiano.xml");
-	}
 	cGameApp::m_sTimeAndFPS.Update();
 }
 

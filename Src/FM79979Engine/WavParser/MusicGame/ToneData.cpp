@@ -6,7 +6,6 @@
 TYPDE_DEFINE_MARCO(cToneData);
 TYPDE_DEFINE_MARCO(cToneDataVector);
 
-
 cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 {
 	m_pbBlackKey = nullptr;
@@ -33,7 +32,9 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 		m_pNoteFrequencyAndDecibles = new cNoteFrequencyAndDecibles(m_strSoundFilePath.c_str());
 	else
 		m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
-		
+	m_iMatchTime = 0;
+	m_iMatchTimeCondition = 3;
+	m_bStartHittedCount = false;
 }
 
 cToneData::~cToneData()
@@ -78,20 +79,26 @@ bool	cToneData::IsBlackKey()
 
 float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder)
 {
-	if( !e_pQuickFFTDataFrequencyFinder )
-		return 0.f;
+	if( !e_pQuickFFTDataFrequencyFinder || !m_pNoteFrequencyAndDecibles )
+		return -2.f;
 	int l_iNumMatched = 0;
 	size_t l_uiSize = m_pNoteFrequencyAndDecibles->FrequencyVector.size();
 	if( l_uiSize == 0 )
 		return -1.f;
+	//float l_fCurrentProgress = 0.f;
+	//float l_fOneStep = 1.f/l_uiSize;
 	for(size_t i=0;i<l_uiSize;++i  )
 	{
+		//l_fCurrentProgress += l_fOneStep;
 		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
-		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i];
+		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
+		//int l_iTargetDecibels = 8;
 		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
+		//l_iTargetDecibels -= (1-l_fCurrentProgress)*13.f;
+		//l_iTargetDecibels -= 13;
 		for( int l_iDecible : l_DeciblesVector )
 		{
-			if( l_iDecible > l_iTargetDecibels-10)
+			if( l_iDecible > l_iTargetDecibels)
 			{
 				++l_iNumMatched;
 				break;
@@ -101,8 +108,32 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iNumMatched/l_uiSize;
+	return l_fPercent;
 	float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
 	return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
+	//if(l_fPercent >= 0.9)
+	//{
+	//	m_bStartHittedCount = true;
+	//}
+	//if( m_bStartHittedCount )
+	//{
+	//	if(l_fPercent >= 0.7)
+	//	{
+	//		++m_iMatchTime;
+	//		if( m_iMatchTime < m_iMatchTimeCondition )
+	//		{
+	//			l_fPercent = 0.f;
+	//		}
+	//	}
+	//	else
+	//		m_bStartHittedCount = false;
+	//}
+	//else
+	//{
+	//	m_iMatchTime = 0;
+	//	l_fPercent = 0.f;
+	//}
+	return l_fPercent;
 }
 
 cToneDataVector::cToneDataVector()
@@ -183,7 +214,7 @@ void	cToneDataVector::Update(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_
 
 void	cToneDataVector::Render()
 {	
-	Vector2 l_vShowPos(cGameApp::m_svGameResolution.x/2,200);
+	Vector2 l_vShowPos(cGameApp::m_svGameResolution.x/2,20);
 	cGameApp::m_spGlyphFontRender->SetScale(2);
 	//if( !m_TempForMatchName.bTragetTimrReached )
 	{
@@ -191,7 +222,7 @@ void	cToneDataVector::Render()
 		int l_iMaxIndex = -1;
 		for(size_t i=0;i<m_MatchName.size();++i)
 		{
-			if( m_ResultVector[i]>=0.9 )
+			if( m_ResultVector[i] >= 0.97 )
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Green);
 			else
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);

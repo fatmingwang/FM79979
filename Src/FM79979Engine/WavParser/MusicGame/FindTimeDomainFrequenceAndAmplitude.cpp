@@ -211,6 +211,10 @@ bool cNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeEl
 		{
 			 FrequencyHittedValueVector = GetValueListByCommaDivide<int>(l_strValue);
 		}
+		else
+		COMPARE_NAME("Count")
+		{//only for check
+		}
 	PARSE_NAME_VALUE_END
 	return true;
 }

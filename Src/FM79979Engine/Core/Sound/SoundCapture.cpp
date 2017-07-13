@@ -11,6 +11,9 @@
 #ifndef WIN32
 #include "unistd.h"
 #endif
+#ifdef IOS
+#import <AVFoundation/AVFoundation.h>
+#endif
 namespace	FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSounRecordToFileCallBackObject);
@@ -111,6 +114,13 @@ namespace	FATMING_CORE
 	cSoundCapture*g_pSoundCapture = nullptr;
 	cSoundCapture::cSoundCapture(ALCuint frequency, ALCenum format, ALCsizei buffersize)
 	{
+#ifdef IOS
+        //http://www.cocoachina.com/bbs/read.php?tid=220163
+        NSError *l_pError;
+        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionMixWithOthers error: &l_pError];
+        [[AVAudioSession sharedInstance] overrideOutputAudioPort: AVAudioSessionPortOverrideSpeaker error:&l_pError];
+        [[AVAudioSession sharedInstance] setActive: YES error: nil];
+#endif
 		m_iFormat = format;
 		m_bThreadExitStop = true;
 		m_iBufferSize = buffersize;
@@ -197,7 +207,7 @@ namespace	FATMING_CORE
 		StartAndroidRecording(this->m_iBufferSize);
 
 #else
-		cGameApp::m_spSoundParser->IOSRecordContextSet(true);
+		//cGameApp::m_spSoundParser->IOSRecordContextSet(true);
 		if( !m_pDevice )
 		{
 			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iFrequency, m_iFormat,this->m_iBufferSize*sizeof(short));
@@ -246,8 +256,6 @@ namespace	FATMING_CORE
 		{
 		
 		}
-		this->m_bStop = false;
-        this->m_bPause = false;
 		if( m_pDevice )
 		{
 			alcCaptureStop(m_pDevice);
@@ -263,7 +271,9 @@ namespace	FATMING_CORE
 			(*l_CallbackObjectVector)[i]->PreCaptureSoundEndCallBack();
 		}
 #endif
-		cGameApp::m_spSoundParser->IOSRecordContextSet(false);
+		this->m_bStop = false;
+        this->m_bPause = false;
+		//cGameApp::m_spSoundParser->IOSRecordContextSet(false);
 	}
 
 

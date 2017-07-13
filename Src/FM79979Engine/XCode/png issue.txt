@@ -1,0 +1,9 @@
+https://stackoverflow.com/questions/8216515/why-does-png-format-get-changed-when-on-iphone-or-ipad-device
+
+
+Yes, Apple optimizes all PNGs for display on the iPhone. For example, if you go to iOS .app in the Finder and view its "contents", you will see that all PNGs do not display correctly on Mac OS X.
+
+The solution is to import your file as a "file" rather than an "image". One easy way to do this is to remove the extension then drag it into your project. Another way is to select the image in Xcode and change the File Type under the Identity and Type section in the assistant editor.
+
+
+fuck I change file type to xml...

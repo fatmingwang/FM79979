@@ -173,7 +173,8 @@ void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pD
 
 void	cSoundFFTCapture::CaptureSoundEndCallBack()
 {
-	
+	cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
+	Destroy();
 }
 
 
@@ -234,8 +235,7 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
 				break;
-			if( !cGameApp::m_sbGamePause )
-				m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+			m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 			float l_fStartTime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fStartTime;
 			float l_fEndime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fEndTime;
 			delete m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];

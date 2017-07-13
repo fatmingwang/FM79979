@@ -187,8 +187,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\WavParser\kiss_fft130\kiss_fft.c" />
     <ClCompile Include="..\..\WavParser\MusicGame\FFTFindPeak.cpp" />
+    <ClCompile Include="..\..\WavParser\MusicGame\FFTFrequency.cpp" />
+    <ClCompile Include="..\..\WavParser\MusicGame\FFTStoreExporter.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\KissFFTConvert.cpp" />
+    <ClCompile Include="..\..\WavParser\MusicGame\KissFFTFunction.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\KissFFTStreaming.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\MusicGameApp.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\MusicInfo.cpp" />
@@ -196,15 +199,16 @@
     <ClCompile Include="..\..\WavParser\MusicGame\PerformMusicPhase.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\PerformMusicPhaseUI.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\PerformScoreCalculate.cpp" />
-    <ClCompile Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SelectMusicPhase.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SelectMusicPhaseUI.cpp" />
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundBufferSwaper.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SoundFFTCapture.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTestButtons.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineData.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineVisualizer.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\StoreNoisePhase.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp" />
+    <ClCompile Include="..\..\WavParser\MusicGame\TimelineBasicInfo.cpp" />
     <ClCompile Include="..\..\WavParser\MusicGame\ToneData.cpp" />
     <ClCompile Include="jni\engine.cpp" />
     <ClCompile Include="jni\main.cpp" />
@@ -213,16 +217,19 @@
   <ItemGroup>
     <ClInclude Include="..\..\WavParser\MusicGame\AllPhaseName.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\FFTFindPeak.h" />
+    <ClInclude Include="..\..\WavParser\MusicGame\FFTFrequency.h" />
+    <ClInclude Include="..\..\WavParser\MusicGame\FFTStoreExporter.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\KissFFTConvert.h" />
+    <ClInclude Include="..\..\WavParser\MusicGame\KissFFTFunction.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\KissFFTStreaming.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\MusicGameApp.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\MusicInfo.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\Parameters.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\PerformMusicPhase.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\PerformScoreCalculate.h" />
-    <ClInclude Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\SelectMusicPhase.h" />
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundBufferSwaper.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\SoundFFTCapture.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\SoundTestButtons.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\SoundTimeLineData.h" />
@@ -230,6 +237,7 @@
     <ClInclude Include="..\..\WavParser\MusicGame\stdafx.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\StoreNoisePhase.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.h" />
+    <ClInclude Include="..\..\WavParser\MusicGame\TimelineBasicInfo.h" />
     <ClInclude Include="..\..\WavParser\MusicGame\ToneData.h" />
     <ClInclude Include="jni\engine.h" />
   </ItemGroup>

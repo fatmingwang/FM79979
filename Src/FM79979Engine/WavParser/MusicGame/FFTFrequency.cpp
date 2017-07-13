@@ -155,7 +155,7 @@ void	cFFTDataStore::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCou
 					l_pFilterData = &m_FilterDataVector[l_iNexdIndex];
 				}
 			}
-			if( l_pFilterData && l_pFilterData->iFrequencyThresholdStart >= l_iCurrentFrequency )
+			if( l_pFilterData && l_iCurrentFrequency >= l_pFilterData->iFrequencyThresholdStart )
 			{
 				l_iDecibelsThresholdValue = l_pFilterData->iFrequencyDecibelsThreshold;
 			}
@@ -399,6 +399,7 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
 		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+		l_pFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
 		l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
 
 		TiXmlElement*l_pSortFFTHitCountAndTimeElement = new TiXmlElement(L"SortFFTHitCountAndTime");
@@ -407,6 +408,7 @@ bool	cFFTDataStore::Export(const char*e_strFileName,const char*e_strOriginalSour
 		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
 		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
 		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
 		l_pRootTiXmlElement->LinkEndChild(l_pSortFFTHitCountAndTimeElement);
 	}
 	std::string l_strDirectory = "MusicGame/Piano/";

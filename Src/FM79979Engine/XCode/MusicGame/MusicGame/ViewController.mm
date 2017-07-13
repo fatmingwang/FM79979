@@ -88,7 +88,7 @@ cMusicGameApp*g_pMusicGameApp = nullptr;
         g_pMusicGameApp->Run();
     [ glContext presentRenderbuffer:GL_RENDERBUFFER];
 }
-
+bool g_bMultiTouched = false;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     CGPoint location = [[touches anyObject] locationInView:[self view]];
@@ -115,15 +115,21 @@ cMusicGameApp*g_pMusicGameApp = nullptr;
     //NSLog(@"touchesMoved: (%d, %d)", locX, locY);
     
     g_pMusicGameApp->MouseMove(locY, locX);
+    NSUInteger l_iNumTouches = [touches count];
+    if( l_iNumTouches >= 3 )
+    {
+        g_bMultiTouched = true;
+    }
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     //UITouch* touch = [[event touchesForView:self] anyObject];
     //CGPoint location = [touch locationInView:self];
-    NSUInteger l_iNumTouches = [touches count];
-    if( l_iNumTouches >= 3 )
+    if( g_bMultiTouched )
     {
         cGameApp::m_sbDebugFunctionWorking = !cGameApp::m_sbDebugFunctionWorking;
+        g_bMultiTouched = false;
     }
     CGPoint location = [[touches anyObject] locationInView:[self view]];
     GLKView *view = (GLKView *)self.view;

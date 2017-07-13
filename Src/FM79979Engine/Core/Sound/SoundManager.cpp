@@ -394,13 +394,13 @@ namespace FATMING_CORE
 	#endif
 	}
 
-	void	cSoundParser::IOSRecordContextSet(bool e_bStartToRecord)
-	{
-#if defined(IOS)
-		if( e_bStartToRecord )
-			alcMakeContextCurrent(nullptr);
-		else
-			alcMakeContextCurrent(m_pContext);
-#endif	
-	}
+//	void	cSoundParser::IOSRecordContextSet(bool e_bStartToRecord)
+//	{
+//#if defined(IOS)
+//		if( e_bStartToRecord )
+//			alcMakeContextCurrent(nullptr);
+//		else
+//			alcMakeContextCurrent(m_pContext);
+//#endif	
+//	}
 }

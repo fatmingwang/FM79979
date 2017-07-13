@@ -53,7 +53,7 @@ static SLObjectItf recorderObject = NULL;
 static SLRecordItf recorderRecord;
 static SLAndroidSimpleBufferQueueItf recorderBufferQueue;
 #define RECORD_BUFFER_COUNT	1
-short*	g_pRecorderBuffer[RECORD_BUFFER_COUNT];
+char*	g_pRecorderBuffer[RECORD_BUFFER_COUNT];
 int     g_tCurrentRecorderBuffer = 0;
 size_t	g_uiRecordBufferSize = 0;
 
@@ -211,7 +211,7 @@ void	DoEnqueue()
 {
     // enqueue an empty buffer to be filled by the recorder
     // (for streaming recording, we would enqueue at least 2 empty buffers to start things off)
-    (*recorderBufferQueue)->Enqueue(recorderBufferQueue, g_pRecorderBuffer[g_tCurrentRecorderBuffer],g_uiRecordBufferSize*sizeof(short));
+    (*recorderBufferQueue)->Enqueue(recorderBufferQueue, g_pRecorderBuffer[g_tCurrentRecorderBuffer],g_uiRecordBufferSize);
 	++g_tCurrentRecorderBuffer;
 	if( g_tCurrentRecorderBuffer >= RECORD_BUFFER_COUNT )
 		g_tCurrentRecorderBuffer = 0;
@@ -238,7 +238,7 @@ void StartAndroidRecording(int e_iBufferSize)
 		{
 			delete g_pRecorderBuffer[i];
 		}
-		g_pRecorderBuffer[i] = new short[g_uiRecordBufferSize*2];
+		g_pRecorderBuffer[i] = new char[g_uiRecordBufferSize*2];
 	}
 
 	DoEnqueue();
@@ -271,9 +271,9 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 //
 	//char*l_pData = g_pRecorderBuffer[l_iGetProperIndex];
 	//short*l_pData = g_pRecorderBuffer[0];
-	memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[0],g_uiRecordBufferSize*sizeof(short));
+	memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[0],g_uiRecordBufferSize);
 	DoEnqueue();
-	g_pSoundCapture->AddFileSize(g_uiRecordBufferSize*sizeof(short));
+	g_pSoundCapture->AddFileSize(g_uiRecordBufferSize);
 	int l_iNumCount = g_pSoundCapture->Count();
 	auto l_CallbackObjectVector = g_pSoundCapture->GetList();
 	for( int i=0;i<l_iNumCount;++i )

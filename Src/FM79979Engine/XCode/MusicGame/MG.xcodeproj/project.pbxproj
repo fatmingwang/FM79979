@@ -17,7 +17,6 @@
 		6156CD7A1EFBC64F00D10C36 /* PerformMusicPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD591EFBC64E00D10C36 /* PerformMusicPhase.cpp */; };
 		6156CD7B1EFBC64F00D10C36 /* PerformMusicPhaseUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5B1EFBC64E00D10C36 /* PerformMusicPhaseUI.cpp */; };
 		6156CD7C1EFBC64F00D10C36 /* PerformScoreCalculate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5C1EFBC64E00D10C36 /* PerformScoreCalculate.cpp */; };
-		6156CD7D1EFBC64F00D10C36 /* QuickFFTDataFrequencyFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */; };
 		6156CD7E1EFBC64F00D10C36 /* SelectMusicPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD601EFBC64E00D10C36 /* SelectMusicPhase.cpp */; };
 		6156CD7F1EFBC64F00D10C36 /* SelectMusicPhaseUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD621EFBC64E00D10C36 /* SelectMusicPhaseUI.cpp */; };
 		6156CD801EFBC64F00D10C36 /* SoundFFTCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6156CD631EFBC64E00D10C36 /* SoundFFTCapture.cpp */; };
@@ -41,7 +40,13 @@
 		618D4E161EFD1873008D9932 /* MusicGame in Resources */ = {isa = PBXBuildFile; fileRef = 618D4E131EFD1873008D9932 /* MusicGame */; };
 		61C791771F00D73E0051A3FF /* libCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C791761F00D73E0051A3FF /* libCore.a */; };
 		61C791AB1F03910A0051A3FF /* Font.FontInfo in Resources */ = {isa = PBXBuildFile; fileRef = 61C791A91F03910A0051A3FF /* Font.FontInfo */; };
-		61C791AC1F03910A0051A3FF /* Font.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C791AA1F03910A0051A3FF /* Font.png */; };
+		61C9BD7C1F176F1500FB8858 /* FFTFrequency.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61C9BD781F176F1500FB8858 /* FFTFrequency.cpp */; };
+		61C9BD7D1F176F1500FB8858 /* KissFFTFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61C9BD7A1F176F1500FB8858 /* KissFFTFunction.cpp */; };
+		61C9BD801F176F2E00FB8858 /* TimelineBasicInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61C9BD7E1F176F2E00FB8858 /* TimelineBasicInfo.cpp */; };
+		61C9BD851F176F4700FB8858 /* FFTStoreExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61C9BD811F176F4700FB8858 /* FFTStoreExporter.cpp */; };
+		61C9BD861F176F4700FB8858 /* SoundBufferSwaper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61C9BD831F176F4700FB8858 /* SoundBufferSwaper.cpp */; };
+		61C9BD8E1F177D8D00FB8858 /* Font.png in Resources */ = {isa = PBXBuildFile; fileRef = 61C9BD8D1F177D8D00FB8858 /* Font.png */; };
+		61C9BD901F17845C00FB8858 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61C9BD8F1F17845C00FB8858 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,8 +71,6 @@
 		6156CD5B1EFBC64E00D10C36 /* PerformMusicPhaseUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformMusicPhaseUI.cpp; path = ../../WavParser/MusicGame/PerformMusicPhaseUI.cpp; sourceTree = "<group>"; };
 		6156CD5C1EFBC64E00D10C36 /* PerformScoreCalculate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformScoreCalculate.cpp; path = ../../WavParser/MusicGame/PerformScoreCalculate.cpp; sourceTree = "<group>"; };
 		6156CD5D1EFBC64E00D10C36 /* PerformScoreCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformScoreCalculate.h; path = ../../WavParser/MusicGame/PerformScoreCalculate.h; sourceTree = "<group>"; };
-		6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QuickFFTDataFrequencyFinder.cpp; path = ../../WavParser/MusicGame/QuickFFTDataFrequencyFinder.cpp; sourceTree = "<group>"; };
-		6156CD5F1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuickFFTDataFrequencyFinder.h; path = ../../WavParser/MusicGame/QuickFFTDataFrequencyFinder.h; sourceTree = "<group>"; };
 		6156CD601EFBC64E00D10C36 /* SelectMusicPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectMusicPhase.cpp; path = ../../WavParser/MusicGame/SelectMusicPhase.cpp; sourceTree = "<group>"; };
 		6156CD611EFBC64E00D10C36 /* SelectMusicPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectMusicPhase.h; path = ../../WavParser/MusicGame/SelectMusicPhase.h; sourceTree = "<group>"; };
 		6156CD621EFBC64E00D10C36 /* SelectMusicPhaseUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SelectMusicPhaseUI.cpp; path = ../../WavParser/MusicGame/SelectMusicPhaseUI.cpp; sourceTree = "<group>"; };
@@ -108,7 +111,18 @@
 		618D4E4D1F00D0C3008D9932 /* libCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libCore.a; sourceTree = "<group>"; };
 		61C791761F00D73E0051A3FF /* libCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCore.a; path = "../Core/build/Debug-iphoneos/libCore.a"; sourceTree = "<group>"; };
 		61C791A91F03910A0051A3FF /* Font.FontInfo */ = {isa = PBXFileReference; lastKnownFileType = file; name = Font.FontInfo; path = MusicGame/Font.FontInfo; sourceTree = "<group>"; };
-		61C791AA1F03910A0051A3FF /* Font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Font.png; path = MusicGame/Font.png; sourceTree = "<group>"; };
+		61C9BD781F176F1500FB8858 /* FFTFrequency.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFTFrequency.cpp; path = ../../WavParser/MusicGame/FFTFrequency.cpp; sourceTree = "<group>"; };
+		61C9BD791F176F1500FB8858 /* FFTFrequency.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFTFrequency.h; path = ../../WavParser/MusicGame/FFTFrequency.h; sourceTree = "<group>"; };
+		61C9BD7A1F176F1500FB8858 /* KissFFTFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KissFFTFunction.cpp; path = ../../WavParser/MusicGame/KissFFTFunction.cpp; sourceTree = "<group>"; };
+		61C9BD7B1F176F1500FB8858 /* KissFFTFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KissFFTFunction.h; path = ../../WavParser/MusicGame/KissFFTFunction.h; sourceTree = "<group>"; };
+		61C9BD7E1F176F2E00FB8858 /* TimelineBasicInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimelineBasicInfo.cpp; path = ../../WavParser/MusicGame/TimelineBasicInfo.cpp; sourceTree = "<group>"; };
+		61C9BD7F1F176F2E00FB8858 /* TimelineBasicInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimelineBasicInfo.h; path = ../../WavParser/MusicGame/TimelineBasicInfo.h; sourceTree = "<group>"; };
+		61C9BD811F176F4700FB8858 /* FFTStoreExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FFTStoreExporter.cpp; path = ../../WavParser/MusicGame/FFTStoreExporter.cpp; sourceTree = "<group>"; };
+		61C9BD821F176F4700FB8858 /* FFTStoreExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FFTStoreExporter.h; path = ../../WavParser/MusicGame/FFTStoreExporter.h; sourceTree = "<group>"; };
+		61C9BD831F176F4700FB8858 /* SoundBufferSwaper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundBufferSwaper.cpp; path = ../../WavParser/MusicGame/SoundBufferSwaper.cpp; sourceTree = "<group>"; };
+		61C9BD841F176F4700FB8858 /* SoundBufferSwaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundBufferSwaper.h; path = ../../WavParser/MusicGame/SoundBufferSwaper.h; sourceTree = "<group>"; };
+		61C9BD8D1F177D8D00FB8858 /* Font.png */ = {isa = PBXFileReference; explicitFileType = text.xml; name = Font.png; path = MusicGame/Font.png; sourceTree = "<group>"; };
+		61C9BD8F1F17845C00FB8858 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61C9BD901F17845C00FB8858 /* AVFoundation.framework in Frameworks */,
 				61C791771F00D73E0051A3FF /* libCore.a in Frameworks */,
 				618D4DCA1EFD05F1008D9932 /* UIKit.framework in Frameworks */,
 				618D4DC81EFD05E7008D9932 /* OpenGLES.framework in Frameworks */,
@@ -187,6 +202,10 @@
 		6156CD871EFBC6A800D10C36 /* CaptureAndCompare */ = {
 			isa = PBXGroup;
 			children = (
+				61C9BD811F176F4700FB8858 /* FFTStoreExporter.cpp */,
+				61C9BD821F176F4700FB8858 /* FFTStoreExporter.h */,
+				61C9BD831F176F4700FB8858 /* SoundBufferSwaper.cpp */,
+				61C9BD841F176F4700FB8858 /* SoundBufferSwaper.h */,
 				6156CD4B1EFBC64E00D10C36 /* FFTFindPeak.cpp */,
 				6156CD4C1EFBC64E00D10C36 /* FFTFindPeak.h */,
 				6156CD6E1EFBC64E00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp */,
@@ -198,12 +217,14 @@
 		6156CD881EFBC6B500D10C36 /* FFT */ = {
 			isa = PBXGroup;
 			children = (
+				61C9BD781F176F1500FB8858 /* FFTFrequency.cpp */,
+				61C9BD791F176F1500FB8858 /* FFTFrequency.h */,
+				61C9BD7A1F176F1500FB8858 /* KissFFTFunction.cpp */,
+				61C9BD7B1F176F1500FB8858 /* KissFFTFunction.h */,
 				6156CD4F1EFBC64E00D10C36 /* KissFFTConvert.cpp */,
 				6156CD501EFBC64E00D10C36 /* KissFFTConvert.h */,
 				6156CD511EFBC64E00D10C36 /* KissFFTStreaming.cpp */,
 				6156CD521EFBC64E00D10C36 /* KissFFTStreaming.h */,
-				6156CD5E1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.cpp */,
-				6156CD5F1EFBC64E00D10C36 /* QuickFFTDataFrequencyFinder.h */,
 				6156CD631EFBC64E00D10C36 /* SoundFFTCapture.cpp */,
 				6156CD641EFBC64E00D10C36 /* SoundFFTCapture.h */,
 			);
@@ -225,6 +246,8 @@
 		6156CD8A1EFBC6C300D10C36 /* Visualizer */ = {
 			isa = PBXGroup;
 			children = (
+				61C9BD7E1F176F2E00FB8858 /* TimelineBasicInfo.cpp */,
+				61C9BD7F1F176F2E00FB8858 /* TimelineBasicInfo.h */,
 				6156CD691EFBC64E00D10C36 /* SoundTimeLineVisualizer.cpp */,
 				6156CD6A1EFBC64E00D10C36 /* SoundTimeLineVisualizer.h */,
 			);
@@ -254,6 +277,7 @@
 		6156CD941EFBD2C200D10C36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				61C9BD8F1F17845C00FB8858 /* AVFoundation.framework */,
 				61C791761F00D73E0051A3FF /* libCore.a */,
 				618D4E4D1F00D0C3008D9932 /* libCore.a */,
 				618D4DC91EFD05F1008D9932 /* UIKit.framework */,
@@ -269,8 +293,8 @@
 		618057001EFB6E8100C3F643 = {
 			isa = PBXGroup;
 			children = (
+				61C9BD8D1F177D8D00FB8858 /* Font.png */,
 				61C791A91F03910A0051A3FF /* Font.FontInfo */,
-				61C791AA1F03910A0051A3FF /* Font.png */,
 				618D4E131EFD1873008D9932 /* MusicGame */,
 				6180570D1EFB6E8100C3F643 /* main.m */,
 				618D4DC21EFD04B4008D9932 /* MainStoryboard.storyboard */,
@@ -364,7 +388,7 @@
 			files = (
 				618D4DC41EFD04B4008D9932 /* MainStoryboard.storyboard in Resources */,
 				618D4E161EFD1873008D9932 /* MusicGame in Resources */,
-				61C791AC1F03910A0051A3FF /* Font.png in Resources */,
+				61C9BD8E1F177D8D00FB8858 /* Font.png in Resources */,
 				61C791AB1F03910A0051A3FF /* Font.FontInfo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,12 +404,12 @@
 				6156CD811EFBC64F00D10C36 /* SoundTestButtons.cpp in Sources */,
 				6156CD851EFBC64F00D10C36 /* TimeFrequencyAmplitudeValueCapture.cpp in Sources */,
 				6156CD771EFBC64F00D10C36 /* MusicGameApp.cpp in Sources */,
-				6156CD7D1EFBC64F00D10C36 /* QuickFFTDataFrequencyFinder.cpp in Sources */,
 				6156CD861EFBC64F00D10C36 /* ToneData.cpp in Sources */,
 				6156CD731EFBC64E00D10C36 /* FFTFindPeak.cpp in Sources */,
 				6156CD821EFBC64F00D10C36 /* SoundTimeLineData.cpp in Sources */,
 				6156CD761EFBC64F00D10C36 /* KissFFTStreaming.cpp in Sources */,
 				6156CD7A1EFBC64F00D10C36 /* PerformMusicPhase.cpp in Sources */,
+				61C9BD7D1F176F1500FB8858 /* KissFFTFunction.cpp in Sources */,
 				6156CD791EFBC64F00D10C36 /* Parameters.cpp in Sources */,
 				6156CD781EFBC64F00D10C36 /* MusicInfo.cpp in Sources */,
 				6156CD801EFBC64F00D10C36 /* SoundFFTCapture.cpp in Sources */,
@@ -393,9 +417,13 @@
 				618057111EFB6E8100C3F643 /* AppDelegate.m in Sources */,
 				6156CD7F1EFBC64F00D10C36 /* SelectMusicPhaseUI.cpp in Sources */,
 				6156CD7B1EFBC64F00D10C36 /* PerformMusicPhaseUI.cpp in Sources */,
+				61C9BD801F176F2E00FB8858 /* TimelineBasicInfo.cpp in Sources */,
+				61C9BD851F176F4700FB8858 /* FFTStoreExporter.cpp in Sources */,
+				61C9BD861F176F4700FB8858 /* SoundBufferSwaper.cpp in Sources */,
 				6156CD831EFBC64F00D10C36 /* SoundTimeLineVisualizer.cpp in Sources */,
 				6156CD741EFBC64E00D10C36 /* FindTimeDomainFrequenceAndAmplitude.cpp in Sources */,
 				6156CD7C1EFBC64F00D10C36 /* PerformScoreCalculate.cpp in Sources */,
+				61C9BD7C1F176F1500FB8858 /* FFTFrequency.cpp in Sources */,
 				6156CD911EFBC79800D10C36 /* kiss_fft.c in Sources */,
 				618057161EFB6E8100C3F643 /* ViewController.mm in Sources */,
 				6180570E1EFB6E8100C3F643 /* main.m in Sources */,

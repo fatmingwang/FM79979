@@ -17,7 +17,7 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\kiss_fft130\kiss_fft.c">
-      <Filter>Sound</Filter>
+      <Filter>Game\Sound</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\MusicInfo.cpp">
       <Filter>Game\MusicRelated</Filter>
@@ -38,40 +38,52 @@
       <Filter>Game\Phase</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\FFTFindPeak.cpp">
-      <Filter>Sound\CaptureAndCompare</Filter>
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp">
-      <Filter>Sound\CaptureAndCompare</Filter>
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\KissFFTConvert.cpp">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\KissFFTStreaming.cpp">
-      <Filter>Sound\FFT</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.cpp">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\SoundFFTCapture.cpp">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineVisualizer.cpp">
-      <Filter>Sound\TimeLine\Visualizer</Filter>
+      <Filter>Game\Sound\TimeLine\Visualizer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp">
-      <Filter>Sound\TimeLine</Filter>
+      <Filter>Game\Sound\TimeLine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTimeLineData.cpp">
-      <Filter>Sound\TimeLine</Filter>
+      <Filter>Game\Sound\TimeLine</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\ToneData.cpp">
-      <Filter>Sound\ToneResource</Filter>
+      <Filter>Game\Sound\ToneResource</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\Parameters.cpp">
-      <Filter>Sound</Filter>
+      <Filter>Game\Sound</Filter>
     </ClCompile>
     <ClCompile Include="..\..\WavParser\MusicGame\SoundTestButtons.cpp">
-      <Filter>Sound</Filter>
+      <Filter>Game\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\TimelineBasicInfo.cpp">
+      <Filter>Game\Sound\TimeLine\Visualizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\KissFFTFunction.cpp">
+      <Filter>Game\Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\SoundBufferSwaper.cpp">
+      <Filter>Game\Sound\FFT</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\FFTFrequency.cpp">
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\WavParser\MusicGame\FFTStoreExporter.cpp">
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,26 +180,26 @@
     <Filter Include="Game\Phase">
       <UniqueIdentifier>{9acafcbe-15ec-4637-9ab4-225afd07bb0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Sound">
-      <UniqueIdentifier>{d7742b06-5b54-4838-a34b-932fc62ff29b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound\FFT">
-      <UniqueIdentifier>{cc52d9c4-7765-401a-9492-0eb081ff5c79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound\CaptureAndCompare">
-      <UniqueIdentifier>{c0e2c097-64be-4035-8e58-437a2154009d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound\TimeLine">
-      <UniqueIdentifier>{721d280d-9fd6-4cd0-b24a-c22300e06d01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound\ToneResource">
-      <UniqueIdentifier>{2d11ddb2-948e-47eb-9976-7952f5cd2cd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Sound\TimeLine\Visualizer">
-      <UniqueIdentifier>{ae4a4a14-fb5a-4251-814a-a68a426faa95}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\com\FM79979\MusicGame">
       <UniqueIdentifier>{34c186c2-0dda-43bb-87a5-04ed0fb2fe8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound">
+      <UniqueIdentifier>{d7742b06-5b54-4838-a34b-932fc62ff29b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound\FFT">
+      <UniqueIdentifier>{cc52d9c4-7765-401a-9492-0eb081ff5c79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound\CaptureAndCompare">
+      <UniqueIdentifier>{c0e2c097-64be-4035-8e58-437a2154009d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound\TimeLine">
+      <UniqueIdentifier>{721d280d-9fd6-4cd0-b24a-c22300e06d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound\TimeLine\Visualizer">
+      <UniqueIdentifier>{ae4a4a14-fb5a-4251-814a-a68a426faa95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Sound\ToneResource">
+      <UniqueIdentifier>{2d11ddb2-948e-47eb-9976-7952f5cd2cd1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -219,40 +231,52 @@
       <Filter>Game\Phase</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\FFTFindPeak.h">
-      <Filter>Sound\CaptureAndCompare</Filter>
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\TimeFrequencyAmplitudeValueCapture.h">
-      <Filter>Sound\CaptureAndCompare</Filter>
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\KissFFTConvert.h">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\KissFFTStreaming.h">
-      <Filter>Sound\FFT</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\WavParser\MusicGame\QuickFFTDataFrequencyFinder.h">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\SoundFFTCapture.h">
-      <Filter>Sound\FFT</Filter>
+      <Filter>Game\Sound\FFT</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\SoundTimeLineVisualizer.h">
-      <Filter>Sound\TimeLine\Visualizer</Filter>
+      <Filter>Game\Sound\TimeLine\Visualizer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\FindTimeDomainFrequenceAndAmplitude.h">
-      <Filter>Sound\TimeLine</Filter>
+      <Filter>Game\Sound\TimeLine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\SoundTimeLineData.h">
-      <Filter>Sound\TimeLine</Filter>
+      <Filter>Game\Sound\TimeLine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\ToneData.h">
-      <Filter>Sound\ToneResource</Filter>
+      <Filter>Game\Sound\ToneResource</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\Parameters.h">
-      <Filter>Sound</Filter>
+      <Filter>Game\Sound</Filter>
     </ClInclude>
     <ClInclude Include="..\..\WavParser\MusicGame\SoundTestButtons.h">
-      <Filter>Sound</Filter>
+      <Filter>Game\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\TimelineBasicInfo.h">
+      <Filter>Game\Sound\TimeLine\Visualizer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\KissFFTFunction.h">
+      <Filter>Game\Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\SoundBufferSwaper.h">
+      <Filter>Game\Sound\FFT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\FFTFrequency.h">
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\WavParser\MusicGame\FFTStoreExporter.h">
+      <Filter>Game\Sound\CaptureAndCompare</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

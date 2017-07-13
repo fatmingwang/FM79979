@@ -1116,7 +1116,7 @@ private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 			this->CurrentRecordName_textBox->Name = L"CurrentRecordName_textBox";
 			this->CurrentRecordName_textBox->Size = System::Drawing::Size(108, 20);
 			this->CurrentRecordName_textBox->TabIndex = 40;
-			this->CurrentRecordName_textBox->Text = L"c4.wav";
+			this->CurrentRecordName_textBox->Text = L"qoo.wav";
 			// 
 			// SoundCaptureDoFFTChartScale_label
 			// 
@@ -1306,7 +1306,7 @@ private: System::Void RecordSound_button_Click(System::Object^  sender, System::
 				 else
 				 {
 					 this->timer1->Enabled = false;
-					 Sleep(1);
+					 Sleep(10);
 					 m_pSoundCapture->StopRecord();
 					 RecordSound_button->Text = "Stop!";
 					 this->timer1->Enabled = true;

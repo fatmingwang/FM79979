@@ -17,6 +17,9 @@ class cQuickFFTDataFrequencyFinder;
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
 class cToneData:public Frame,public cNodeISAX
 {
+	bool			m_bStartHittedCount;
+	int				m_iMatchTime;
+	int				m_iMatchTimeCondition;
 	//
 	bool*			m_pbBlackKey;
 	std::string		m_strSoundFilePath;

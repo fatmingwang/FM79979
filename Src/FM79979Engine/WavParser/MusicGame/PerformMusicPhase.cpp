@@ -177,7 +177,7 @@ void	cPerformMusicPhase::DebugRender()
 {
 	if(m_pTimeLineRangeChart)
 	{
-		m_pTimeLineRangeChart->DebugRender();
+		//m_pTimeLineRangeChart->DebugRender();
 	}
 	if( cMusicGameApp::m_pSoundFFTCapture )
 		cMusicGameApp::m_pSoundFFTCapture->Render();

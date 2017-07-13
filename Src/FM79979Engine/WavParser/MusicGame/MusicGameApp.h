@@ -37,6 +37,7 @@ public:
 		virtual	void				KeyPress(char e_char);
 		virtual	void				KeyDown(char e_char);
 		virtual	void				KeyUp(char e_char);
+		void						SoundRecognitionTest(bool e_bWake);
 		//I just lazy so put here,
 		static cSoundCapture*		m_pSoundCapture;
 		static cSoundFFTCapture*	m_pSoundFFTCapture;
