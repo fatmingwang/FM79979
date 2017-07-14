@@ -1,4 +1,4 @@
-<Root Frequency="44100" SoundFile="c4#.wav" FFTCount="1024" DecibleThreshole="125" FrequencyThreshold="220">
-    <FFTHitCountAndTime StartTime="76.49849" FrequencyVector="559,1076,1119,1162,2196,2239,2756,2799,3316,3359,3919" FrequencyHittedCount="145,303,307,305,146,153,193,204,204,280,181" FrequencyHittedValue="28,42,45,37,33,34,31,33,29,30,29" />
-    <SortFFTHitCountAndTime StartTime="76.49849" FrequencyVector="559,2196,2239,3919,2756,3316,2799,3359,1076,1162,1119" FrequencyHittedCount="145,146,153,181,193,204,204,280,303,305,307" FrequencyHittedValue="28,33,34,29,31,29,33,30,42,37,45" />
+<Root Frequency="44100" SoundFile="c4#.wav" FFTCount="1024" DecibleThreshole="3" FrequencyThreshold="1500">
+    <FFTHitCountAndTime StartTime="97.80936" FrequencyVector="1507,1550,1593,1636,1679,1722,2153,2196,2239,2282,2756,2799,2842,3316,3359,3402,3875,3919,3962,6201,6244" FrequencyHittedCount="255,229,226,325,338,292,209,300,273,222,246,254,190,314,323,288,348,377,330,292,301" FrequencyHittedValue="4,3,3,8,10,4,3,9,9,5,6,7,3,10,11,6,8,12,7,5,6" Count="21" />
+    <SortFFTHitCountAndTime StartTime="97.80936" FrequencyVector="2842,2153,2282,1593,1550,2756,2799,1507,2239,3402,6201,1722,2196,6244,3316,3359,1636,3962,1679,3875,3919" FrequencyHittedCount="190,209,222,226,229,246,254,255,273,288,292,292,300,301,314,323,325,330,338,348,377" FrequencyHittedValue="3,3,5,3,3,6,7,4,9,6,5,4,9,6,10,11,8,7,10,8,12" Count="21" />
 </Root>
