@@ -42,6 +42,32 @@ Vector2		cChartBasicInfo::GetGapByPoints(POINT e_ResolutionPoints)
 	return l_v;
 }
 
+void		cChartBasicInfo::RenderWithData(Vector2 e_vShowPos,Vector2 e_vResolution,int*e_piData,int e_iCount,Vector2*e_pvPointsData,Vector4 e_vColor,float e_fYScale)
+{
+	if( !e_pvPointsData )
+		return;
+	float l_fXGap = e_vResolution.x/e_iCount;
+	Vector2 l_vShowPos = e_vShowPos;
+	std::vector<Vector2>	l_vBlueLinePos;
+	for( int i=0;i<e_iCount;++i )
+	{
+		e_pvPointsData[i*2].x = l_vShowPos.x;
+		e_pvPointsData[i*2+1].x = l_vShowPos.x;
+		e_pvPointsData[i*2].y = l_vShowPos.y;
+		e_pvPointsData[i*2+1].y = e_piData[i]*e_fYScale+l_vShowPos.y;
+		if( i % 100 == 0 )
+		{
+			Vector2 l_vPosYIncrease = e_pvPointsData[i*2+1];
+			l_vPosYIncrease.y += 20;
+			l_vBlueLinePos.push_back(e_pvPointsData[i*2]);
+			l_vBlueLinePos.push_back(l_vPosYIncrease);
+		}
+		l_vShowPos.x += l_fXGap;
+	}
+	RenderLine((float*)e_pvPointsData,e_iCount*2,e_vColor,2);
+	RenderLine(&l_vBlueLinePos,Vector4::Blue);
+}
+
 
 
 cTimeLineRange::cTimeLineRange(float e_fBeforeCurrentTimeViewRange,float e_fAfterCurrentTimeViewRange)

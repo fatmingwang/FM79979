@@ -2,10 +2,11 @@
 
 #include "../kiss_fft130/kiss_fft.h"
 #include "FFTFrequency.h"
+#include "TimelineBasicInfo.h"
 //#include "SwapBuffer.h"
 
 
-class cKissFFTConvertBase:public NamedTypedObject
+class cKissFFTConvertBase:public NamedTypedObject,public cChartBasicInfo
 {
 	virtual void	Destroy() = 0;
 protected:
@@ -20,8 +21,8 @@ protected:
 	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
 	int					m_iOneFrameFFTDataCount;
 	//for chart
-	Vector2				m_vChartResolution;
-	Vector2				m_vChartShowPos;
+	//Vector2				m_vChartResolution;
+	//Vector2				m_vChartShowPos;
 	float				m_fChartAmplitudeScale;
 	float				m_fNextChannelYGap;
 	bool				m_bPause;
@@ -38,7 +39,7 @@ protected:
 	//
 	void			SetOneFrameFFTDataCount(int e_iFrequency);
 	void			RenderDebugAmplitudeLine(float e_fAmplitude);
-	cFFTDataStore	m_FFTDataStore;
+	cFFTDecibelsAnalyzer	m_FFTDataStore;
 public:
 	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();
@@ -51,8 +52,6 @@ public:
 	virtual void	Update(float e_fElpaseTime) = 0;
 	virtual void	Render() = 0;
 	void			SetFFTDataUpdateTime(float e_fTime);
-	void			SetChartResolution(Vector2 e_vResolution){m_vChartResolution = e_vResolution;}
-	void			SetChartShowPos(Vector2 e_vChartShowPos){m_vChartShowPos = e_vChartShowPos;}
 	virtual float	GetCurrentTimePercentage(){ return 0.f; }
 	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
@@ -64,7 +63,7 @@ public:
 	TiXmlElement*	ToTiXmlElement();
 	void			SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement);
 	void			RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY);
-	cFFTDataStore*	GetFFTDataStore(){return &m_FFTDataStore;}
+	cFFTDecibelsAnalyzer*	GetFFTDataStore(){return &m_FFTDataStore;}
 
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }
@@ -79,7 +78,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	std::vector<float>					m_StartCaptureTimeVector;
 	void								RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesData,Vector2 e_vShowPos,Vector2 e_vResolution);
 	int									m_iNumFFTGraph;
-	float*								m_pfDecibles;
+	float*								m_pfEachFFTDataDecibles;
 	float								m_fMaxDecible;
 	cOpanalWAV*							m_pTestSound;
 	std::vector<int>					m_FFTDataVector;
@@ -94,8 +93,8 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	int		GetStartFFTIndexByTime(float e_fTime);
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
-	void	PreProcessedAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore = nullptr);
-	//void	PreProcessedDoubleAllData(bool e_bFilter,cFFTDataStore*e_pFFTDataStore);
+	void	PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore = nullptr);
+	//void	PreProcessedDoubleAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore);
 	//
 	virtual void	Destroy();
 public:

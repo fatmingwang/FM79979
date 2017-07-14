@@ -51,10 +51,11 @@ namespace	FATMING_CORE
 		//2 for 
 		unsigned char* l_pBuffer = new unsigned char[l_pSoundCapture->GetFrequency()*sizeof(short)]; // A buffer to hold captured audio
 		ALCint l_iSamplesIn = 0;  // How many samples are captured
-		int l_iTest = 0;
+		int l_iTest = 0;		
+		int l_iTargetSampleCount = l_pSoundCapture->GetBuffersize()/l_pSoundCapture->m_iWriteChannel/(l_pSoundCapture->m_iWriteBitpersample/8);
+		int l_iOneSampleSize = l_pSoundCapture->m_iWriteChannel/(l_pSoundCapture->m_iWriteBitpersample/8);
 		while(!l_pSoundCapture->IsStop())
 		{
-			l_Timer.Update();
 			l_pSoundCapture->Update(l_Timer.fElpaseTime);
 			if(l_pSoundCapture->IsPause()||cGameApp::m_sbGamePause)
 			{
@@ -65,7 +66,7 @@ namespace	FATMING_CORE
 			{
 				// Poll for captured audio
 				alcGetIntegerv(l_pSoundCapture->m_pDevice,ALC_CAPTURE_SAMPLES,1,&l_iSamplesIn);
-				if (l_iSamplesIn >= l_pSoundCapture->GetBuffersize()) {
+				if (l_iSamplesIn >= l_iTargetSampleCount) {
 #ifdef SRROUND_SOUND_TEST
 					g_fTest = sin((float)l_iTest/360*20);
 					g_fTest2 = cos((float)l_iTest/360*20);
@@ -74,7 +75,9 @@ namespace	FATMING_CORE
 #endif
 					//because the open al give short data here need to conver to char size
 					alcCaptureSamples(l_pSoundCapture->m_pDevice,l_pBuffer,l_iSamplesIn);
-					l_pSoundCapture->AddFileSize(l_iSamplesIn);
+					l_pSoundCapture->AddFileSize(l_iSamplesIn*l_iOneSampleSize);
+					l_Timer.Update();
+					cGameApp::OutputDebugInfoString(l_Timer.GetFPS());
 					for( int i=0;i<l_iNumCount;++i )
 					{
 						(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(l_iSamplesIn,(char*)l_pBuffer);
@@ -371,11 +374,14 @@ namespace	FATMING_CORE
 		{
 			//the channel is 2,data size is double.
 			int l_iChannel = this->m_pSoundCapture->GetWriteChannel();
-			int l_iSamplesIn = e_iSamplesIn*sizeof(short)/sizeof(char)*l_iChannel;
+			int l_iOneSampleSize = this->m_pSoundCapture->GetWriteChannel()*this->m_pSoundCapture->GetWriteBitpersample()/8;
+			int l_iBufferSize = e_iSamplesIn*l_iOneSampleSize;
 			if(m_eCaptureSoundFileFormat == eCSFF_OGG)
-				this->m_pSoundFile->WriteOggData(l_iSamplesIn,(char*)e_pData,l_iChannel);
+				this->m_pSoundFile->WriteOggData(l_iBufferSize,(char*)e_pData,l_iChannel);
 			else
-				this->m_pSoundFile->WriteWavData(l_iSamplesIn,(unsigned char*)e_pData);
+			{
+				this->m_pSoundFile->WriteWavData(l_iBufferSize,(unsigned char*)e_pData);
+			}
 		}
 	}
 

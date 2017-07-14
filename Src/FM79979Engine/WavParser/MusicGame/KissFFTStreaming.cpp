@@ -92,8 +92,10 @@ cPCMToFFTDataConvertr::sTimeAndFFTData::~sTimeAndFFTData()
 
 bool	cPCMToFFTDataConvertr::sTimeAndFFTData::GenerateFFTLines(Vector2*e_pLinePoints,float e_fTargetTime,Vector2 e_vShowPos,Vector2 e_vChartResolution,float e_fScale)
 {
-	float l_fElpaseTime = this->fEndTime-this->fStartTime;
-	if( abs(e_fTargetTime - this->fEndTime) >= l_fElpaseTime )
+	//float l_fElpaseTime = this->fEndTime-this->fStartTime;
+	//if( abs(e_fTargetTime - this->fEndTime) >= l_fElpaseTime )
+		//return false;
+	if( e_fTargetTime > fEndTime )
 		return false;
 	if( bUpdated )
 		return true;
@@ -227,9 +229,6 @@ cKissFFTStreamingConvert::cKissFFTStreamingConvert()
 	m_bThreadStop = false;
 	m_bThreadAlreadyStop[0] = m_bThreadAlreadyStop[1] = true;
 	m_TimeToUpdateFFTData.SetTargetTime(1.f/m_iDivideFFTDataToNFrame);
-
-	this->m_vChartShowPos.x = cGameApp::m_svGameResolution.x/2-800;
-	this->m_vChartShowPos.y = cGameApp::m_svGameResolution.y/2+200;
 }
 
 cKissFFTStreamingConvert::~cKissFFTStreamingConvert()
@@ -385,7 +384,7 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 		//dont need to do synchronzied,because only here will delete
 		while(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size())
 		{
-			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime,this->m_vChartShowPos,this->m_vChartResolution*m_fChartScale,this->m_fChartAmplitudeScale) )
+			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime-1/22.f,this->m_vShowPos,this->m_vResolution*m_fChartScale,this->m_fChartAmplitudeScale) )
 			{
 				this->m_FFTDataStore.UpdateFFTData(e_fElpaseTime,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->pFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
@@ -456,14 +455,14 @@ void	cKissFFTStreamingConvert::Render()
 			//int l_iFreqGap = this->m_pOpanalOgg->GetFreq()/l_pTimeAndFFTData->iFFTDataOneSample;
 			const int l_ciFreqNeeded = 100;
 			//int l_iFreqGap = this->m_pOpanalOgg->GetFreq()/l_ciFreqNeeded;
-			float l_fXGap = m_vChartResolution.x/l_ciFreqNeeded/4*this->m_fChartScale;
+			float l_fXGap = m_vResolution.x/l_ciFreqNeeded/4*this->m_fChartScale;
 			Vector2 l_LinePos[l_ciFreqNeeded*2];
 			for(int i=0;i<l_ciFreqNeeded;i++)
 			{
-				l_LinePos[i*2].x = i*l_fXGap+m_vChartShowPos.x;
-				l_LinePos[i*2+1].x = i*l_fXGap+m_vChartShowPos.x;
-				l_LinePos[i*2].y = m_vChartShowPos.y;
-				l_LinePos[i*2+1].y = m_fChartAmplitudeScale+m_vChartShowPos.y;
+				l_LinePos[i*2].x = i*l_fXGap+m_vShowPos.x;
+				l_LinePos[i*2+1].x = i*l_fXGap+m_vShowPos.x;
+				l_LinePos[i*2].y = m_vShowPos.y;
+				l_LinePos[i*2+1].y = m_fChartAmplitudeScale+m_vShowPos.y;
 
 				cGameApp::RenderFont(l_LinePos[i*2].x,l_LinePos[i*2+1].y+30,ValueToStringW(i*this->m_pOpanalOgg->GetFreq()/l_ciFreqNeeded).c_str());
 			}

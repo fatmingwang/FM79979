@@ -54,7 +54,7 @@ static SLRecordItf recorderRecord;
 static SLAndroidSimpleBufferQueueItf recorderBufferQueue;
 #define RECORD_BUFFER_COUNT	1
 char*	g_pRecorderBuffer[RECORD_BUFFER_COUNT];
-int     g_tCurrentRecorderBuffer = 0;
+int     g_iCurrentRecorderBuffer = 0;
 size_t	g_uiRecordBufferSize = 0;
 
 void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context);
@@ -154,7 +154,7 @@ SLuint32	FrequencyConvert(int e_iFrequency)
 unsigned char NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iSampleBitm,int e_iChannel)
 {
 
-	g_tCurrentRecorderBuffer = 0;
+	g_iCurrentRecorderBuffer = 0;
 	for(int i=0;i<RECORD_BUFFER_COUNT;++i)
 	{
 		g_pRecorderBuffer[i] = nullptr;
@@ -211,16 +211,16 @@ void	DoEnqueue()
 {
     // enqueue an empty buffer to be filled by the recorder
     // (for streaming recording, we would enqueue at least 2 empty buffers to start things off)
-    (*recorderBufferQueue)->Enqueue(recorderBufferQueue, g_pRecorderBuffer[g_tCurrentRecorderBuffer],g_uiRecordBufferSize);
-	++g_tCurrentRecorderBuffer;
-	if( g_tCurrentRecorderBuffer >= RECORD_BUFFER_COUNT )
-		g_tCurrentRecorderBuffer = 0;
+    (*recorderBufferQueue)->Enqueue(recorderBufferQueue, g_pRecorderBuffer[g_iCurrentRecorderBuffer],g_uiRecordBufferSize);
+	++g_iCurrentRecorderBuffer;
+	if( g_iCurrentRecorderBuffer >= RECORD_BUFFER_COUNT )
+		g_iCurrentRecorderBuffer = 0;
 }
 
 // set the recording state for the audio recorder
 void StartAndroidRecording(int e_iBufferSize)
 {
-	g_uiRecordBufferSize = e_iBufferSize;
+	g_uiRecordBufferSize = e_iBufferSize;///sizeof(short);
     SLresult result;
     // in case already recording, stop recording and clear buffer queue
     result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
@@ -231,14 +231,14 @@ void StartAndroidRecording(int e_iBufferSize)
     (void)result;
 
 
-	g_tCurrentRecorderBuffer = 0;
+	g_iCurrentRecorderBuffer = 0;
 	for(int i=0;i<RECORD_BUFFER_COUNT;++i)
 	{
 		if(g_pRecorderBuffer[i])
 		{
 			delete g_pRecorderBuffer[i];
 		}
-		g_pRecorderBuffer[i] = new char[g_uiRecordBufferSize*2];
+		g_pRecorderBuffer[i] = new char[g_uiRecordBufferSize];
 	}
 
 	DoEnqueue();
@@ -256,12 +256,16 @@ void StartAndroidRecording(int e_iBufferSize)
 //1 seond 44100
 short g_pAndroidTempRecordingData[1*44100];
 // this callback handler is called every time a buffer finishes recording
+UT::sTimeAndFPS g_OPenSLTestTimeCounter;
 void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 {
+	g_OPenSLTestTimeCounter.Update();
+	char*l_str = g_OPenSLTestTimeCounter.GetFPS();
+	cGameApp::OutputDebugInfoString(l_str);
     assert(bq == recorderBufferQueue);
     assert(NULL == context);
 	//fuck I am lazy
-	int l_iGetProperIndex = g_tCurrentRecorderBuffer;
+	int l_iGetProperIndex = g_iCurrentRecorderBuffer;
 	if( l_iGetProperIndex == 0)
 	{
 		l_iGetProperIndex = 1;
@@ -271,16 +275,18 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 //
 	//char*l_pData = g_pRecorderBuffer[l_iGetProperIndex];
 	//short*l_pData = g_pRecorderBuffer[0];
+	//memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[l_iGetProperIndex],g_uiRecordBufferSize);
 	memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[0],g_uiRecordBufferSize);
-	DoEnqueue();
 	g_pSoundCapture->AddFileSize(g_uiRecordBufferSize);
 	int l_iNumCount = g_pSoundCapture->Count();
 	auto l_CallbackObjectVector = g_pSoundCapture->GetList();
 	for( int i=0;i<l_iNumCount;++i )
 	{
 		//(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pAndroidTempRecordingData);
-		(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pAndroidTempRecordingData);
+		//(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pRecorderBuffer[l_iGetProperIndex]);
+		(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize/sizeof(short),(char*)g_pRecorderBuffer[0]);
 	}
+	DoEnqueue();
 }
 
 // shut down the native audio system

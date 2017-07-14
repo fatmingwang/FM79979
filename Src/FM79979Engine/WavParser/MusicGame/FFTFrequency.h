@@ -21,8 +21,22 @@ public:
 
 
 
-class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
+class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 {
+	class cFFTFrequencyDecibels:public cChartBasicInfo
+	{
+	public:
+		int					m_iUpdateCount;
+		int*				m_piDecibleBiggetThanZeroCount;
+		int*				m_piTotalDecibleValue;
+		int*				m_piAverageDecibleValue;
+		int					m_iFFTCount;
+		cFFTFrequencyDecibels(int e_iFFTCount);
+		~cFFTFrequencyDecibels();
+		void	Update(int e_iCount,int*e_piFFTCount);
+		void	Render(int e_iThresholdValue);
+	};
+	//=======================
 	struct sFilterData
 	{
 		int iFrequencyThresholdStart;
@@ -36,21 +50,25 @@ class cFFTDataStore:public cNodeISAX,public cChartBasicInfo
 	int									m_iHittedCountScaleForVisual;
 	int									m_iMaxValue;
 	int									m_iFrequency;
+
 	int									m_iMouseMoveFreq;
-	int									m_iMouseMoveFreqHittedCount;
+	int									m_iMouseMoveFreqFFTBinIndex;
+	int									m_iMouseMoveFreqDecibelAverage;
+
 	//for export,if the fft amplitude is smappler this ignore.
 	int									m_iExportThresholdValue;
 	//
 	void								SortMostHittedFequency(std::vector<int>&e_FrequencyVector,std::vector<int>&e_FrequencyHittedCountVector,std::vector<int>&e_FrequencyHittedValueVector);
 	void								RenderMouseMoveInfo();
 public:
-	cFFTDataStore();
-	~cFFTDataStore();
+	cFFTDecibelsAnalyzer();
+	~cFFTDecibelsAnalyzer();
 	class cFFTHitCountAndTime
 	{
 	public:
 		cFFTHitCountAndTime(float e_fStartTime,int e_iFFTBinCount);
 		~cFFTHitCountAndTime();
+		cFFTFrequencyDecibels*m_pFFTFrequencyDecibels;
 		float   m_fStartTime;
 		int*	m_pHittedCountArray;
 		int*	m_pHittedValueArray;
@@ -59,6 +77,7 @@ public:
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start();
 	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
+	bool								ExportWithAverageDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }

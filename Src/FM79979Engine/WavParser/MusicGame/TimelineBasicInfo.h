@@ -17,6 +17,7 @@ public:
 	float		GetHeightGapByPoints(float e_fPoint);
 	float		GetWidthGapByPoints(float e_fPoint);
 	Vector2		GetGapByPoints(POINT e_ResolutionPoints);
+	void		RenderWithData(Vector2 e_vShowPos,Vector2 e_vResolution,int*e_piData,int e_iCount,Vector2*e_pvPointsData,Vector4 e_vColor = Vector4::One,float e_fYScale = 1.f);
 };
 
 //

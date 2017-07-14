@@ -775,7 +775,7 @@ private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 			this->FFTPrintFrequencyThreshold_numericUpDown->Name = L"FFTPrintFrequencyThreshold_numericUpDown";
 			this->FFTPrintFrequencyThreshold_numericUpDown->Size = System::Drawing::Size(103, 20);
 			this->FFTPrintFrequencyThreshold_numericUpDown->TabIndex = 51;
-			this->FFTPrintFrequencyThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {220, 0, 0, 
+			this->FFTPrintFrequencyThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {2000, 0, 0, 
 				0});
 			// 
 			// FFTStoreAmplitude_numericUpDown

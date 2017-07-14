@@ -91,14 +91,15 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	{
 		//l_fCurrentProgress += l_fOneStep;
 		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
-		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
-		//int l_iTargetDecibels = 8;
+		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
+		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/2.f;
+		//int l_fTargetDecibels = 8;
 		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
-		//l_iTargetDecibels -= (1-l_fCurrentProgress)*13.f;
-		//l_iTargetDecibels -= 13;
+		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;
+		//l_fTargetDecibels -= 13;
 		for( int l_iDecible : l_DeciblesVector )
 		{
-			if( l_iDecible > l_iTargetDecibels)
+			if( (float)l_iDecible > l_fTargetDecibels)
 			{
 				++l_iNumMatched;
 				break;
@@ -218,11 +219,11 @@ void	cToneDataVector::Render()
 	cGameApp::m_spGlyphFontRender->SetScale(2);
 	//if( !m_TempForMatchName.bTragetTimrReached )
 	{
-		float l_fMax = 0.f;
+		float l_fMax = 0.8f;
 		int l_iMaxIndex = -1;
 		for(size_t i=0;i<m_MatchName.size();++i)
 		{
-			if( m_ResultVector[i] >= 0.97 )
+			if( m_ResultVector[i] >= 0.9 )
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Green);
 			else
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
