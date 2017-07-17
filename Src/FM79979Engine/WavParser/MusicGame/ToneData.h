@@ -15,7 +15,7 @@ class cNoteFrequencyAndDecibles;
 class cQuickFFTDataFrequencyFinder;
 //filter FFT data and original sound file
 //sFindTimeDomainFrequenceAndAmplitude from soundFFT file
-class cToneData:public Frame,public cNodeISAX
+class cToneData:public Frame,public cNodeISAX,public cChartBasicInfo
 {
 	bool			m_bStartHittedCount;
 	int				m_iMatchTime;
@@ -36,6 +36,7 @@ public:
 	bool										IsBlackKey();
 
 	float										CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);
+	void										Render();
 };
 
 //<cToneDataVector>

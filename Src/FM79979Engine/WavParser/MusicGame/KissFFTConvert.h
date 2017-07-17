@@ -68,7 +68,9 @@ public:
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }
 	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency);
+	void			MouseDown(int e_iPosX,int e_iPosY);
 	void			MouseMove(int e_iPosX,int e_iPosY);
+	void			MouseUp(int e_iPosX,int e_iPosY);
 };
 
 //http://stackoverflow.com/questions/14536950/applying-kiss-fft-on-audio-samples-and-getting-nan-output

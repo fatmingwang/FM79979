@@ -33,7 +33,7 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 	else
 		m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
 	m_iMatchTime = 0;
-	m_iMatchTimeCondition = 3;
+	m_iMatchTimeCondition = 5;
 	m_bStartHittedCount = false;
 }
 
@@ -90,11 +90,12 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	for(size_t i=0;i<l_uiSize;++i  )
 	{
 		//l_fCurrentProgress += l_fOneStep;
-		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
+		//int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
+		int l_iFFTBinIndex = m_pNoteFrequencyAndDecibles->FrequencyBinIndexVector[i];
 		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
 		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/2.f;
 		//int l_fTargetDecibels = 8;
-		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
+		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex(l_iFFTBinIndex);
 		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;
 		//l_fTargetDecibels -= 13;
 		for( int l_iDecible : l_DeciblesVector )
@@ -110,24 +111,24 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iNumMatched/l_uiSize;
 	return l_fPercent;
-	float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
-	return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
+	//float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
+	//return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
 	//if(l_fPercent >= 0.9)
 	//{
 	//	m_bStartHittedCount = true;
 	//}
 	//if( m_bStartHittedCount )
 	//{
-	//	if(l_fPercent >= 0.7)
-	//	{
-	//		++m_iMatchTime;
-	//		if( m_iMatchTime < m_iMatchTimeCondition )
-	//		{
-	//			l_fPercent = 0.f;
-	//		}
-	//	}
-	//	else
-	//		m_bStartHittedCount = false;
+		if(l_fPercent >= 0.7)
+		{
+			++m_iMatchTime;
+			if( m_iMatchTime < m_iMatchTimeCondition )
+			{
+				l_fPercent = 0.f;
+			}
+		}
+		else
+			m_bStartHittedCount = false;
 	//}
 	//else
 	//{
@@ -136,6 +137,35 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	//}
 	return l_fPercent;
 }
+
+void	cToneData::Render()
+{
+	if( !m_pNoteFrequencyAndDecibles )
+		return;
+	//int l_iCount = (int)m_pNoteFrequencyAndDecibles->FrequencyVector.size();
+	//float l_fXGap = this->GetWidthGapByPoints(l_iCount);
+	//Vector2 l_vShowPos = m_vShowPos;
+	//std::vector<Vector2>	l_vBlueLinePos;
+	//Vector2 l_vLazyLineTemplate[2048*2];
+	//for( int i=0;i<l_iCount;++i )
+	//{
+	//	l_vLazyLineTemplate[i*2].x = l_vShowPos.x;
+	//	l_vLazyLineTemplate[i*2+1].x = l_vShowPos.x;
+	//	l_vLazyLineTemplate[i*2].y = l_vShowPos.y;
+	//	l_vLazyLineTemplate[i*2+1].y = e_piData[i]*e_fYScale+l_vShowPos.y;
+	//	if( i % 100 == 0 )
+	//	{
+	//		Vector2 l_vPosYIncrease = e_pvPointsData[i*2+1];
+	//		l_vPosYIncrease.y += 20;
+	//		l_vBlueLinePos.push_back(e_pvPointsData[i*2]);
+	//		l_vBlueLinePos.push_back(l_vPosYIncrease);
+	//	}
+	//	l_vShowPos.x += l_fXGap;
+	//}
+	//RenderLine((float*)e_pvPointsData,e_iCount*2,e_vColor,2);
+	//RenderLine(&l_vBlueLinePos,Vector4::Blue);
+}
+
 
 cToneDataVector::cToneDataVector()
 {
@@ -223,7 +253,7 @@ void	cToneDataVector::Render()
 		int l_iMaxIndex = -1;
 		for(size_t i=0;i<m_MatchName.size();++i)
 		{
-			if( m_ResultVector[i] >= 0.9 )
+			if( m_ResultVector[i] >= 1.f )
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Green);
 			else
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);

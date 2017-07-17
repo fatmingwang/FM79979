@@ -33,8 +33,11 @@ class cNoteFrequencyAndDecibles:public NamedTypedObject
 {
 	bool ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement);
 public:
+	int								m_iFFTcount;
+	int								m_iFrequency;
 	std::vector<int>				FrequencyHittedCountVector;
 	std::vector<int>				FrequencyVector;
+	std::vector<int>				FrequencyBinIndexVector;
 	std::vector<int>				FrequencyHittedValueVector;
 	cNoteFrequencyAndDecibles(const char*e_strFileName);
 	~cNoteFrequencyAndDecibles();

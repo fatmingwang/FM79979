@@ -107,7 +107,8 @@ bool		cSoundTimeLineData::CompareWithFrequenceAndAmplitudeAndTimeFinder(float e_
 	std::vector<int> l_MatchedVector;
 	for(auto l_pInnerData :	*l_pDataVector)
 	{
-		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency((int)l_pInnerData->fFrequency);
+		//std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency((int)l_pInnerData->fFrequency);
+		std::vector<int>l_iAmplitudeVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex((int)l_pInnerData->fFrequency);
 		int l_iNumHitted = 0;
 		for(int l_iAmplitude :l_iAmplitudeVector)
 		{

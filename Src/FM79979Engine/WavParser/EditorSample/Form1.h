@@ -1258,6 +1258,10 @@ private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 				return;
 			if( m_pGameApp )
 				m_pGameApp->MouseDown(e->X,e->Y);
+			if(m_pSoundFFTCapture)
+				m_pSoundFFTCapture->MouseDown(m_pGameApp->m_sMousePosition.x,m_pGameApp->m_sMousePosition.y);
+			if( m_pKissFFTConvertBase )
+				m_pKissFFTConvertBase->MouseDown(m_pGameApp->m_sMousePosition.x,m_pGameApp->m_sMousePosition.y);
 		}
 		System::Void MyMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 		{
@@ -1277,6 +1281,10 @@ private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
 				return;
 			if( m_pGameApp )
 				m_pGameApp->MouseUp(e->X,e->Y);
+			if(m_pSoundFFTCapture)
+				m_pSoundFFTCapture->MouseUp(m_pGameApp->m_sMousePosition.x,m_pGameApp->m_sMousePosition.y);
+			if( m_pKissFFTConvertBase )
+				m_pKissFFTConvertBase->MouseUp(m_pGameApp->m_sMousePosition.x,m_pGameApp->m_sMousePosition.y);
 		}
 
 		System::Void MySizeChanged(System::Object^  sender, System::EventArgs^  e) 

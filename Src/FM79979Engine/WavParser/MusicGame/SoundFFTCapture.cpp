@@ -59,6 +59,7 @@ cSoundFFTCapture::cSoundFFTCapture()
 	//m_vResolution.x = 5000;
 	m_iUpdateFlag = SOUNS_FFT_CAPTURE_UPDATE_DRAW_LINES_FLAG;
 	m_piFFTData = nullptr;
+	m_iDivideFFTDataToNFrame = BEST_RECORD_FPS;
 }
 
 cSoundFFTCapture::~cSoundFFTCapture()
@@ -104,12 +105,11 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	{
 		m_iOneFrameFFTDataCount = l_iMaxFFTCount;
 	}
-	this->m_FFTDataStore.SetFrequency(l_iFrequency);
 	m_piFFTData = new int[m_iOneFrameFFTDataCount];
 	m_pQuickFFTDataFrequencyFinder = new cQuickFFTDataFrequencyFinder(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM,l_iFrequency);
 	m_pQuickFFTDataFrequencyFinder->SetFFTData(m_piFFTData);
 
-	m_FFTDataStore.Start();
+	m_FFTDataStore.Start(l_iFrequency);
 
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
@@ -122,7 +122,7 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 void	cSoundFFTCapture::CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData)
 {
 		//the performance is too bad...skip this one
-		assert(e_iSamplesIn >= (size_t)this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
+		assert(e_iSamplesIn >= this->m_iOneFrameFFTDataCount && "PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
 		e_iSamplesIn = this->m_iOneFrameFFTDataCount;
 		if( m_TimeAndPCMDataVector.size()+1 >= PCM_SWAP_BUFFER_COUNT)
 		{

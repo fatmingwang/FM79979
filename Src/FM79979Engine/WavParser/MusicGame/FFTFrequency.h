@@ -16,6 +16,7 @@ public:
 	//get left center and right data
 	//here is possible have some precious problem,so I give close result,acctual here is becibles...
 	std::vector<int>						GetDecibelsByFrequency(int e_iFrequency);
+	std::vector<int>						GetDecibelsByFFTBinIndex(int e_iIndex);
 };
 
 
@@ -34,7 +35,7 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 		cFFTFrequencyDecibels(int e_iFFTCount);
 		~cFFTFrequencyDecibels();
 		void	Update(int e_iCount,int*e_piFFTCount);
-		void	Render(int e_iThresholdValue);
+		void	Render(int e_iThresholdValue,int e_iScale);
 	};
 	//=======================
 	struct sFilterData
@@ -50,15 +51,20 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 	int									m_iHittedCountScaleForVisual;
 	int									m_iMaxValue;
 	int									m_iFrequency;
-
+	//
+	bool								m_bMouseDown;
 	int									m_iMouseMoveFreq;
 	int									m_iMouseMoveFreqFFTBinIndex;
 	int									m_iMouseMoveFreqDecibelAverage;
+	int*								m_piCurrentFFTDataReferencePointer;
+	std::vector<int>					m_PickupIndexVector;
+	bool								m_bSelectedModeIsAdd;
 
 	//for export,if the fft amplitude is smappler this ignore.
 	int									m_iExportThresholdValue;
+	int									m_iDecibelsRenderScale;
 	//
-	void								SortMostHittedFequency(std::vector<int>&e_FrequencyVector,std::vector<int>&e_FrequencyHittedCountVector,std::vector<int>&e_FrequencyHittedValueVector);
+	void								SortMostHittedFequency(std::vector<int>&e_Vector1,std::vector<int>&e_Vector2,std::vector<int>&e_Vector3,std::vector<int>&e_Vector4);
 	void								RenderMouseMoveInfo();
 public:
 	cFFTDecibelsAnalyzer();
@@ -75,17 +81,19 @@ public:
 		int		m_iFFTBinCount;
 	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
-	void								Start();
+	void								Start(int e_iFrequency);
 	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
 	bool								ExportWithAverageDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
+	bool								ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }
 	int									GetExportThresholdValue();
 	void								SetExportThresholdValue(int e_iExportThresholdValue);
+	void								MouseUp(int e_iMousePosX,int e_iMousePosY);
+	void								MouseDown(int e_iMousePosX,int e_iMousePosY);
 	void								MouseMove(int e_iMousePosX,int e_iMousePosY);
 	int									GetFrequency(){return m_iFrequency;}
-	void								SetFrequency(int e_iFreq){m_iFrequency = e_iFreq;}
 private:
 	//int									m_iThreusholdAmplitude;
 	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;

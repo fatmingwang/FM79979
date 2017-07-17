@@ -32,6 +32,16 @@ cKissFFTConvertBase::~cKissFFTConvertBase()
 
 }
 
+void	cKissFFTConvertBase::MouseDown(int e_iPosX,int e_iPosY)
+{
+	this->m_FFTDataStore.MouseDown(e_iPosX,e_iPosY);
+}
+
+void	cKissFFTConvertBase::MouseUp(int e_iPosX,int e_iPosY)
+{
+	this->m_FFTDataStore.MouseUp(e_iPosX,e_iPosY);
+}
+
 void	cKissFFTConvertBase::MouseMove(int e_iPosX,int e_iPosY)
 {
 	this->m_FFTDataStore.MouseMove(e_iPosX,e_iPosY);
@@ -309,9 +319,9 @@ void	cKissFFTConvert::RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesDat
 //6.plot N/2 (log) magnitude values
 void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore)
 {
-	m_FFTDataStore.Start();
 	if( !m_pSoundFile )
 		return;
+	m_FFTDataStore.Start(m_pSoundFile->m_iFreq);
 	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
 
@@ -450,7 +460,6 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		SAFE_DELETE(m_pSoundFile);
 		return false;
 	}
-	this->m_FFTDataStore.SetFrequency(m_pSoundFile->m_iFreq);
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
 	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
@@ -634,7 +643,7 @@ void	cKissFFTConvert::Play()
 	m_pTestSound = new cOpanalWAV(this,nullptr,false);
 	m_pTestSound->OpenFile(this->m_strSourceFileName.c_str(),true);
 	m_pTestSound->Play(true);
-	this->m_FFTDataStore.Start();
+	this->m_FFTDataStore.Start(m_pTestSound->GetFreq());
 }
 
 void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
@@ -642,7 +651,8 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 	if( m_fCurrentTime == e_fElpaseTime )
 		return;
 	m_fCurrentTime = e_fElpaseTime;
-	m_FFTDataStore.Start();
+	if( m_pSoundFile )
+		m_FFTDataStore.Start(this->m_pSoundFile->m_iFreq);
 	return;
 	if(this->m_pTestSound)
 	{//fuck I have no idea...why crash...

@@ -192,9 +192,16 @@ cNoteFrequencyAndDecibles::~cNoteFrequencyAndDecibles()
 bool cNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement)
 {
 	e_pFFTHitCountAndTimeElement = e_pFFTHitCountAndTimeElement->FirstChildElement();
+	m_iFFTcount;
+	m_iFrequency;
 	PARSE_ELEMENT_START(e_pFFTHitCountAndTimeElement)
 		COMPARE_NAME("StartTime")
 		{
+		}
+		else
+		COMPARE_NAME("FFTBinIndex")
+		{
+			FrequencyBinIndexVector = GetValueListByCommaDivide<int>(l_strValue);
 		}
 		else
 		COMPARE_NAME("FrequencyVector")
@@ -213,6 +220,14 @@ bool cNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeEl
 		}
 		else
 		COMPARE_NAME("Count")
+		{//only for check
+		}
+		else
+		COMPARE_NAME("Frequency")
+		{//only for check
+		}
+		else
+		COMPARE_NAME("FFTCount")
 		{//only for check
 		}
 	PARSE_NAME_VALUE_END

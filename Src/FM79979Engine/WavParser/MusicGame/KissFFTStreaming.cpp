@@ -340,8 +340,6 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 		UT::ErrorMsg(ValueToString(l_PCMSizeDivideFrenquency).c_str(),"ogg file sample Size is not 2 byte!?ignore this and have no idea will happen.");
 	}
 	//
-	//
-	this->m_FFTDataStore.SetFrequency(m_pOpanalOgg->GetFreq());
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pOpanalOgg->GetFreq());
 	//m_iOneFrameFFTDataCount = m_pOpanalOgg->GetFreq()/m_iDivideFFTDataToNFrame;
 	if(m_iOneFrameFFTDataCount*2 > cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT )
@@ -354,7 +352,7 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 		UT::ErrorMsg(L"m_iDivideFFTDataToNFrame is too small please incerase m_iDivideFFTDataToNFrame or increase FFT_DATA_LINE_POINTS_COUNT",L"Error!");
 		return false;
 	}
-	this->m_FFTDataStore.Start();
+	this->m_FFTDataStore.Start(m_pOpanalOgg->GetFreq());
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	//m_pOpanalOgg->SetUpdateNewBufferCallbackFunction(std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 	this->m_pFUThreadPool = new cFUThreadPool();

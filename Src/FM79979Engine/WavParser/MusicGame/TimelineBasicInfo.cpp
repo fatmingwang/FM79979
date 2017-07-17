@@ -57,15 +57,15 @@ void		cChartBasicInfo::RenderWithData(Vector2 e_vShowPos,Vector2 e_vResolution,i
 		e_pvPointsData[i*2+1].y = e_piData[i]*e_fYScale+l_vShowPos.y;
 		if( i % 100 == 0 )
 		{
-			Vector2 l_vPosYIncrease = e_pvPointsData[i*2+1];
-			l_vPosYIncrease.y += 20;
 			l_vBlueLinePos.push_back(e_pvPointsData[i*2]);
+			Vector2 l_vPosYIncrease = e_pvPointsData[i*2+1];
+			l_vPosYIncrease.y = l_vShowPos.y+20;
 			l_vBlueLinePos.push_back(l_vPosYIncrease);
 		}
 		l_vShowPos.x += l_fXGap;
 	}
 	RenderLine((float*)e_pvPointsData,e_iCount*2,e_vColor,2);
-	RenderLine(&l_vBlueLinePos,Vector4::Blue);
+	RenderLine((float*)&l_vBlueLinePos[0],l_vBlueLinePos.size(),Vector4::Blue,2);
 }
 
 
