@@ -5,6 +5,7 @@
 
 
 #include "BasicSound.h"
+#include "../GameplayUT/EventSender/MessageSender.h"
 //use another thread to record sound
 class cFUThreadPool;
 class cSoundFile;
@@ -69,10 +70,12 @@ namespace	FATMING_CORE
 	//===================================
 	void	RecordingThread(size_t _workParameter, size_t _pUri);
 	void	RecordingDoneThread(size_t _workParameter, size_t _pUri);
-	class cSoundCapture:public cNamedTypedObjectVector<cSounRecordCallBackObject>
+	class cSoundCapture:public cNamedTypedObjectVector<cSounRecordCallBackObject>,public cMessageSender
 	{
 		friend void	RecordingThread(size_t _workParameter, size_t _pUri);
 		friend void	RecordingDoneThread(size_t _workParameter, size_t _pUri);
+
+		bool					GamePauseEventFromGameApp(void*e_pData);
 	protected:
 		cFUThreadPool*			m_pFUThreadPool;
 		bool					m_bPause;

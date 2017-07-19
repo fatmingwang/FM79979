@@ -51,7 +51,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
       <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
@@ -66,7 +66,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
       <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>

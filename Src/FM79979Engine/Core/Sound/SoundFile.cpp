@@ -539,7 +539,8 @@ float g_fTest2 = 1.f;
 		ogg_stream_packetin (&os,&header_code);
 
 		/* Ensures the audio data will start on a new page. */
-		while (true){
+		while (true)
+		{
 			int result = ogg_stream_flush (&os,&og);
 			if (result == 0)
 				break;
@@ -623,27 +624,30 @@ float g_fTest2 = 1.f;
 		}
 		/* tell the library how much we actually submitted */
 		vorbis_analysis_wrote (&vd,i);
-	  int* l_iAddress = &vd.pcm_current;
-	  while (vorbis_analysis_blockout (&vd,&vb) == 1) {
-		vorbis_analysis (&vb,NULL);
-		vorbis_bitrate_addblock (&vb);
+		int* l_iAddress = &vd.pcm_current;
+		while (vorbis_analysis_blockout (&vd,&vb) == 1) 
+		{
+			vorbis_analysis (&vb,NULL);
+			vorbis_bitrate_addblock (&vb);
 
-		while (vorbis_bitrate_flushpacket (&vd,&op)) {
-		  ogg_stream_packetin (&os,&op);
+			while (vorbis_bitrate_flushpacket (&vd,&op))
+			{
+				ogg_stream_packetin (&os,&op);
 
-		  while (true) {
-			  int result = ogg_stream_pageout (&os,&og);
-			  if (result == 0)
-				  break;
-			  NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
-			  NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+				while (true)
+				{
+					int result = ogg_stream_pageout (&os,&og);
+					if (result == 0)
+						break;
+					NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
+					NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
 
-			  if (ogg_page_eos (&og))
-				  break;
-		  }
+					if (ogg_page_eos (&og))
+					break;
+				}
+			}
 		}
-	  }
-	  return true;
+		return true;
 	}
 
 	bool	cSoundFile::EndWriteOggData()

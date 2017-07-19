@@ -49,8 +49,8 @@ static SLEngineItf engineEngine;
 //    user presses record button and another recording coming in
 // The action: when recording/playing back is not finished, ignore the new request
 // recorder interfaces
-static SLObjectItf recorderObject = NULL;
-static SLRecordItf recorderRecord;
+static SLObjectItf g_pRecorderObjectItf = NULL;
+static SLRecordItf g_pRecorderRecordItf;
 static SLAndroidSimpleBufferQueueItf recorderBufferQueue;
 #define RECORD_BUFFER_COUNT	1
 char*	g_pRecorderBuffer[RECORD_BUFFER_COUNT];
@@ -76,15 +76,19 @@ void	RecordingDoneThread(size_t _workParameter, size_t _pUri)
 
 void	AndroidRecordPause(bool e_bPause)
 {
-	if( e_bPause )
-		(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_PAUSED);
-	else
-		(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
+	if( g_pRecorderRecordItf )
+	{
+		if( e_bPause )
+			(*g_pRecorderRecordItf)->SetRecordState(g_pRecorderRecordItf, SL_RECORDSTATE_PAUSED);
+		else
+			(*g_pRecorderRecordItf)->SetRecordState(g_pRecorderRecordItf, SL_RECORDSTATE_RECORDING);
+	}
 }
 
 void AndroidRecordStop()
 {
-	(*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
+	if( g_pRecorderRecordItf )
+		(*g_pRecorderRecordItf)->SetRecordState(g_pRecorderRecordItf, SL_RECORDSTATE_STOPPED);
 }
 
 // create the engine and output mix objects
@@ -179,25 +183,25 @@ unsigned char NativeAudioCreateAudioRecorder(int e_iFrequency,int e_iSampleBitm,
     // (requires the RECORD_AUDIO permission)
     const SLInterfaceID id[1] = {SL_IID_ANDROIDSIMPLEBUFFERQUEUE};
     const SLboolean req[1] = {SL_BOOLEAN_TRUE};
-    result = (*engineEngine)->CreateAudioRecorder(engineEngine, &recorderObject, &audioSrc,&audioSnk, 1, id, req);
+    result = (*engineEngine)->CreateAudioRecorder(engineEngine, &g_pRecorderObjectItf, &audioSrc,&audioSnk, 1, id, req);
     if (SL_RESULT_SUCCESS != result) {
         return JNI_FALSE;
     }
 
     // realize the audio recorder
-    result = (*recorderObject)->Realize(recorderObject, SL_BOOLEAN_FALSE);
+    result = (*g_pRecorderObjectItf)->Realize(g_pRecorderObjectItf, SL_BOOLEAN_FALSE);
     if (SL_RESULT_SUCCESS != result)
 	{
         return JNI_FALSE;
     }
 
     // get the record interface
-    result = (*recorderObject)->GetInterface(recorderObject, SL_IID_RECORD, &recorderRecord);
+    result = (*g_pRecorderObjectItf)->GetInterface(g_pRecorderObjectItf, SL_IID_RECORD, &g_pRecorderRecordItf);
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
 
     // get the buffer queue interface
-    result = (*recorderObject)->GetInterface(recorderObject, SL_IID_ANDROIDSIMPLEBUFFERQUEUE,&recorderBufferQueue);
+    result = (*g_pRecorderObjectItf)->GetInterface(g_pRecorderObjectItf, SL_IID_ANDROIDSIMPLEBUFFERQUEUE,&recorderBufferQueue);
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
 
@@ -225,7 +229,7 @@ void StartAndroidRecording(int e_iBufferSize)
 	g_uiRecordBufferSize = e_iBufferSize;///sizeof(short);
     SLresult result;
     // in case already recording, stop recording and clear buffer queue
-    result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_STOPPED);
+    result = (*g_pRecorderRecordItf)->SetRecordState(g_pRecorderRecordItf, SL_RECORDSTATE_STOPPED);
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
     result = (*recorderBufferQueue)->Clear(recorderBufferQueue);
@@ -250,7 +254,7 @@ void StartAndroidRecording(int e_iBufferSize)
     (void)result;
 
     // start recording
-    result = (*recorderRecord)->SetRecordState(recorderRecord, SL_RECORDSTATE_RECORDING);
+    result = (*g_pRecorderRecordItf)->SetRecordState(g_pRecorderRecordItf, SL_RECORDSTATE_RECORDING);
     assert(SL_RESULT_SUCCESS == result);
     (void)result;
 }
@@ -297,10 +301,10 @@ void AndroidRecordShutdown()
 {
 
     // destroy audio recorder object, and invalidate all associated interfaces
-    if (recorderObject != NULL) {
-        (*recorderObject)->Destroy(recorderObject);
-        recorderObject = NULL;
-        recorderRecord = NULL;
+    if (g_pRecorderObjectItf != NULL) {
+        (*g_pRecorderObjectItf)->Destroy(g_pRecorderObjectItf);
+        g_pRecorderObjectItf = NULL;
+        g_pRecorderRecordItf = NULL;
         recorderBufferQueue = NULL;
     }
 

@@ -415,4 +415,10 @@ void Engine::setGameplayMode(bool running)
 {
 	mGameplayMode = running;
 	cGameApp::m_sbGamePause = !running;
+	if( cGameApp::m_spMessageSenderManager )
+	{
+		cGameApp::m_spMessageSenderManager->EventMessageShot(GAME_PAUSE_EVENT_ID,nullptr);
+		cGameApp::m_spMessageSenderManager->Update(0.016f);
+	}
+
 }

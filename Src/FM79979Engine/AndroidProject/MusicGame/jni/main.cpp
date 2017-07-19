@@ -29,7 +29,7 @@
 //extern int	g_iHeartTest;
 void android_main(struct android_app* app)
 {	
-     int l_iSize1 = sizeof(ogg_int64_t);
+     int l_iSize1 = sizeof(double);
      int l_iSize2 = sizeof(ogg_int32_t);
      int l_iSize3 = sizeof(ogg_uint32_t);
      int l_iSize4 = sizeof(ogg_int16_t);

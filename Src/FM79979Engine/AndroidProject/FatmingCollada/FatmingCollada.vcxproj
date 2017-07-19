@@ -65,6 +65,8 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;OPENGLES_2_X</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>

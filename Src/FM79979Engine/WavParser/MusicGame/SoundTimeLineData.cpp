@@ -217,7 +217,7 @@ bool		cSoundTimeLineData::CompareWithNoteFrequencyAndDecibles(float e_fElpaseTim
 		//int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
 		int l_iFFTBinIndex = m_pNoteFrequencyAndDecibles->FrequencyBinIndexVector[i];
 		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
-		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/4.f;
+		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/2.f;
 		//int l_fTargetDecibels = 8;
 		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex(l_iFFTBinIndex);
 		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;

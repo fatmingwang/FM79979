@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>

@@ -4,7 +4,6 @@ namespace	FATMING_CORE
 	class cSoundCapture;
 }
 class cSoundFFTCapture;
-class cMessageSenderManager;
 class cFFTStoreExporter;
 class cToneDataVector;
 class cMusicGameApp:public cGameApp

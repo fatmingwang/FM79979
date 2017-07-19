@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="vorbis">
-      <UniqueIdentifier>{f107482e-0179-4ae1-8130-d45fce301206}</UniqueIdentifier>
-    </Filter>
     <Filter Include="books">
       <UniqueIdentifier>{49be853c-ec21-47e2-a1a2-f1b5f257aa18}</UniqueIdentifier>
     </Filter>
@@ -20,7 +17,10 @@
       <UniqueIdentifier>{d251aa4c-6519-42c1-9416-4b424befaf59}</UniqueIdentifier>
     </Filter>
     <Filter Include="ogg">
-      <UniqueIdentifier>{8cf0f8ad-e8d7-4fda-b41b-64482eeb49a0}</UniqueIdentifier>
+      <UniqueIdentifier>{80baa9b6-7792-4eb0-bf2d-8fe65076c242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="voribs">
+      <UniqueIdentifier>{df9a9df1-7c1c-4d3e-ba46-e5c6dd5cf115}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -57,8 +57,6 @@
     <ClInclude Include="..\..\Core\Sound\ogg\modes\setup_44u.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\modes\setup_8.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\modes\setup_X.h" />
-    <ClInclude Include="..\..\Core\Sound\ogg\ogg\ogg.h" />
-    <ClInclude Include="..\..\Core\Sound\ogg\ogg\os_types.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\os.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\psy.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\registry.h" />
@@ -68,6 +66,12 @@
     <ClInclude Include="..\..\Core\Sound\ogg\vorbis\vorbisenc.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\vorbis\vorbisfile.h" />
     <ClInclude Include="..\..\Core\Sound\ogg\window.h" />
+    <ClInclude Include="..\..\Core\Sound\ogg\ogg\ogg.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\ogg\ogg\os_types.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Core\Sound\ogg\analysis.c" />

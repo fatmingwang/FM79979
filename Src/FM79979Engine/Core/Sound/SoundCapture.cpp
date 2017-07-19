@@ -166,6 +166,7 @@ namespace	FATMING_CORE
 		}
 		g_pSoundCapture = this;
 		m_iFrequency = frequency;
+		REG_EVENT(GAME_PAUSE_EVENT_ID,&cSoundCapture::GamePauseEventFromGameApp);
 #ifdef ANDROID
 		CreateAndroidAudioEngine();
 		NativeAudioCreateAudioRecorder(frequency,m_iWriteBitpersample,m_iWriteChannel);
@@ -241,6 +242,14 @@ namespace	FATMING_CORE
 		return false;
 	
 	}
+
+
+	bool	cSoundCapture::GamePauseEventFromGameApp(void*e_pData)
+	{
+		PauseRecord(cGameApp::m_sbGamePause);
+		return true;
+	}
+
 	void	cSoundCapture::PauseRecord(bool e_bPause)
 	{
 		m_bPause = e_bPause;

@@ -36,6 +36,9 @@ namespace	FATMING_CORE
 	struct	sJNIUtilData;
 	struct	sMultiTouchPoints;
 	class	cMessageSenderManager;
+
+	#define GAME_PAUSE_EVENT_ID	-123456789
+
 	//in windows make sure touch points convert as well!.
 	//view port x and y might swap if direction is lanscape.
 	POINT	ConvertCoordinate(int e_iPosX,int e_iPosY,POINT e_ViewPort);
@@ -200,7 +203,7 @@ namespace	FATMING_CORE
 		static	cGlyphFontRender*		GetGlyphFontRenderByFileName(const wchar_t*e_strFileName);
 		static	cGlyphFontRender*		GetGlyphFontRender(const wchar_t*e_strFileName);
 		static	void					ShowInfo();
-
+		//GAME_PAUSE_EVENT_ID	-123456789 is game pause
 		static	bool					EventMessageShot(unsigned int e_usID,void*e_pData);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
