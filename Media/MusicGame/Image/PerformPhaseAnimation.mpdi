@@ -164,90 +164,90 @@
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="BG" PathCount="4" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.999000">
         <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
-            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
-            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line-alpha" BehaviorUpdate="1" Blending="1" SrcBlendingData="3" DestBlendingData="7" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1642.23,72.80" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1648.62,77.00" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="MonsterCome" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.999000">
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="PeformPhaseBG" PathCount="47" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
         <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
-            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
-            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="pw1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
             <PointDataList Index="0" Position="-71.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
@@ -301,37 +301,37 @@
             <PointDataList Index="0" Position="1471.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line-alpha" BehaviorUpdate="1" Blending="1" SrcBlendingData="3" DestBlendingData="7" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1642.23,72.80" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1648.62,77.00" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="UFO1" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
-            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="UFO22" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
-            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="pw13" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
             <PointDataList Index="0" Position="-71.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
@@ -385,40 +385,40 @@
             <PointDataList Index="0" Position="1471.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line20" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="time-line-alpha21" BehaviorUpdate="1" Blending="1" SrcBlendingData="3" DestBlendingData="7" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1642.23,72.80" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1642.23,72.80" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="0" Position="-353.00,527.00,0.00" Time="0.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-353.00,527.00,0.00" Time="0.500000" Size="1648.62,77.00" Scale="0.71,0.70" Color="2.00,2.00,1.90,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-353.00,527.00,0.00" Time="1.000000" Size="1648.62,77.00" Scale="0.71,0.70" Color="0.50,0.50,0.50,0.00" PIName="PerformPhaseImage" ImageName="time-line" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="Laser" StartTime="0.000000" AnchorType="CenterCenter" Count="52" LOD="3">
             <PointDataList Index="0" Position="16.00,-271.00,0.00" Time="0.000000" Size="540.00,331.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00000" />
@@ -529,105 +529,8 @@
             <PointDataList Index="51" Position="1091.00,-273.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="PerformHint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
-            <PointDataList Index="0" Position="629.00,644.00,0.00" Time="0.000000" Size="377.00,142.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="sweet" />
-            <PointDataList Index="1" Position="629.00,455.00,0.00" Time="0.500000" Size="377.00,142.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="sweet" />
-        </CueToStartCurvesWithTime>
-    </MultiPathDynamicImage>
-    <MultiPathDynamicImage Name="BGWithKeyBoard" PathCount="25" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
-        <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
-            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
-            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-71.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="104.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="279.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="454.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="629.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="804.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="979.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw8" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1154.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw9" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1329.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pw-10" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1504.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="66.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="246.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="421.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="771.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="946.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1296.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1471.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1619.10,72.80" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Note" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="10.00,573.00,0.00" Time="3.000000" Size="38.00,38.00" Scale="1.00,1.00" Color="1.20,1.10,1.90,1.00" PIName="PerformPhaseImage" ImageName="hmprod" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="timer" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1.00,535.00,0.00" Time="3.000000" Size="10.00,94.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="timer" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="BlackKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="0.00,603.00,0.00" Time="3.000000" Size="148.00,177.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-1" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="WhiteKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="0.00,594.00,0.00" Time="3.000000" Size="136.00,149.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="PerformHint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
-            <PointDataList Index="0" Position="629.00,644.00,0.00" Time="0.000000" Size="377.00,142.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="sweet" />
-            <PointDataList Index="1" Position="629.00,455.00,0.00" Time="0.500000" Size="377.00,142.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="sweet" />
+            <PointDataList Index="0" Position="629.00,644.00,0.00" Time="0.000000" Size="67.00,81.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="1" />
+            <PointDataList Index="1" Position="629.00,455.00,0.00" Time="0.500000" Size="67.00,81.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="1" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.971154">
@@ -686,17 +589,17 @@
             <PointDataList Index="51" Position="1091.00,-273.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="1463.86,187.72,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1309.86,189.47,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1257.51,175.74,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1231.83,230.38,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1187.75,186.44,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1154.76,228.25,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1126.77,187.92,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1099.68,225.59,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1071.66,184.26,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1067.00,239.39,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1019.68,185.53,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.971154">
@@ -755,45 +658,45 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="-364.00,209.00,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="-210.00,211.00,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="-158.00,226.00,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="-131.00,172.00,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="-88.00,217.00,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="-54.00,176.00,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="-27.00,217.00,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1.00,180.00,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="28.00,222.00,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="34.00,167.00,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="80.00,222.00,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="MonsterCome2208" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="2.999000">
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-278.00,286.00,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="-124.00,288.00,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="-72.00,303.00,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="-45.00,249.00,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="-2.00,294.00,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="32.00,253.00,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="59.00,294.00,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="87.00,257.00,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="114.00,299.00,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="120.00,244.00,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="166.00,299.00,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="-278.00,286.00,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="-124.00,288.00,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="-72.00,303.00,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="-45.00,249.00,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="-2.00,294.00,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="32.00,253.00,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="59.00,294.00,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="87.00,257.00,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="114.00,299.00,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="120.00,244.00,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="166.00,299.00,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="2068.86,294.72,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1914.86,296.47,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1862.51,282.74,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1836.83,337.38,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1792.75,293.44,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1759.76,335.25,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1731.77,294.92,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1704.68,332.59,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1676.66,291.26,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1672.00,346.39,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1624.68,292.53,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="2068.86,294.72,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1914.86,296.47,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1862.51,282.74,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1836.83,337.38,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1792.75,293.44,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1759.76,335.25,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1731.77,294.92,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1704.68,332.59,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1676.66,291.26,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1672.00,346.39,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1624.68,292.53,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="NoteTouch" PathCount="1" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.150000">
@@ -817,102 +720,6 @@
             <PointDataList Index="16" Position="-267.00,-201.00,0.00" Time="0.133333" Size="338.00,500.00" Scale="1.00,1.00" PIName="TouchEffect" ImageName="Sparks_00016" />
             <PointDataList Index="17" Position="-267.00,-201.00,0.00" Time="0.141667" Size="335.00,500.00" Scale="1.00,1.00" PIName="TouchEffect" ImageName="Sparks_00017" />
             <PointDataList Index="18" Position="-267.00,-201.00,0.00" Time="0.150000" Size="324.00,327.00" Scale="1.00,1.00" PIName="TouchEffect" ImageName="Sparks_00018" />
-        </CueToStartCurvesWithTime>
-    </MultiPathDynamicImage>
-    <MultiPathDynamicImage Name="BGWithKeyBoard2208" PathCount="25" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.000000">
-        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1098.00,1036.00,0.00" Time="3.000000" Size="2208.00,420.00" Scale="441.60,84.00" Color="1.99,1.91,1.86,2.00" PIName="PerformPhaseImage" ImageName="Blank" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
-            <PointDataList Index="0" Position="221.00,46.00,0.00" Time="0.000000" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="1" Position="221.00,36.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="2" Position="221.00,46.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="3" Position="221.00,36.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="4" Position="221.00,46.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="5" Position="221.00,36.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="6" Position="221.00,46.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="7" Position="221.00,36.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="8" Position="221.00,46.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="9" Position="221.00,36.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
-            <PointDataList Index="0" Position="1693.00,62.00,0.00" Time="0.333222" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="1" Position="1693.00,67.00,0.00" Time="0.666444" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="2" Position="1693.00,62.00,0.00" Time="0.999667" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="3" Position="1693.00,67.00,0.00" Time="1.332889" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="4" Position="1693.00,62.00,0.00" Time="1.666111" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="5" Position="1693.00,67.00,0.00" Time="1.999333" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="6" Position="1693.00,62.00,0.00" Time="2.332556" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-            <PointDataList Index="7" Position="1693.00,67.00,0.00" Time="2.665778" Size="343.00,220.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
-            <PointDataList Index="8" Position="1693.00,62.00,0.00" Time="2.999000" Size="343.00,340.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="714.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="862.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1160.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1308.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1458.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Note" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="308.00,804.00,0.00" Time="3.000000" Size="38.00,38.00" Scale="1.00,1.00" Color="1.20,1.10,1.90,1.00" PIName="PerformPhaseImage" ImageName="hmprod" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="timer" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="319.00,748.00,0.00" Time="3.000000" Size="10.00,94.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="timer" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="BlackKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="298.00,834.00,0.00" Time="3.000000" Size="148.00,177.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-1" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="pb-6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1037.00,838.00,0.00" Time="2.999000" Size="24.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-1" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="WhiteKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="298.00,825.00,0.00" Time="3.000000" Size="136.00,149.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-2" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="-33.00,765.00,0.00" Time="0.000000" Size="2313.00,104.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="1" Position="-33.00,765.00,0.00" Time="0.500000" Size="2313.00,104.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-            <PointDataList Index="2" Position="-33.00,765.00,0.00" Time="1.000000" Size="2313.00,104.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="718.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="797.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="873.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="944.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1092.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1168.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1313.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam8" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1393.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam9" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1466.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam10" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1241.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
-        </CueToStartCurvesWithTime>
-        <CueToStartCurvesWithTime Name="Beam11" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
-            <PointDataList Index="0" Position="1011.00,-17.00,0.00" Time="3.000000" Size="59.00,864.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -971,17 +778,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="396.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="404.00,558.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-1" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_1_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1040,17 +847,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_0_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1109,17 +916,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="538.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="548.00,570.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-2" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_2_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1178,17 +985,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="536.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="546.00,406.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-3" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_3_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1247,17 +1054,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="551.00,551.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="562.00,561.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-4" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_4_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1316,17 +1123,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="396.00,389.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="408.00,398.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-5" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserLeft_5_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1385,17 +1192,17 @@
             <PointDataList Index="51" Position="16.00,-271.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome1" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
-            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="515.00,515.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="0" Position="-294.00,274.00,0.00" Time="0.000000" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="1" Position="-140.00,276.00,0.00" Time="0.299900" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="2" Position="-88.00,291.00,0.00" Time="0.599800" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="3" Position="-61.00,237.00,0.00" Time="0.899700" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="4" Position="-18.00,282.00,0.00" Time="1.199600" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="5" Position="16.00,241.00,0.00" Time="1.499500" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="6" Position="43.00,282.00,0.00" Time="1.799400" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="7" Position="71.00,245.00,0.00" Time="2.099300" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="8" Position="98.00,287.00,0.00" Time="2.399200" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="9" Position="104.00,232.00,0.00" Time="2.699100" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
+            <PointDataList Index="10" Position="150.00,287.00,0.00" Time="2.999000" Size="523.00,521.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-6" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1454,17 +1261,17 @@
             <PointDataList Index="51" Position="1623.00,-156.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1995.86,304.72,0.00" Time="0.000000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1841.86,306.47,0.00" Time="0.299900" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1789.51,292.74,0.00" Time="0.599800" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1763.83,347.38,0.00" Time="0.899700" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1719.75,303.44,0.00" Time="1.199600" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1686.76,345.25,0.00" Time="1.499500" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1658.77,304.92,0.00" Time="1.799400" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1631.68,342.59,0.00" Time="2.099300" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1603.66,301.26,0.00" Time="2.399200" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1599.00,356.39,0.00" Time="2.699100" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1551.68,302.53,0.00" Time="2.999000" Size="258.50,235.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="1995.86,304.72,0.00" Time="0.000000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1841.86,306.47,0.00" Time="0.299900" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1789.51,292.74,0.00" Time="0.599800" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1763.83,347.38,0.00" Time="0.899700" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1719.75,303.44,0.00" Time="1.199600" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1686.76,345.25,0.00" Time="1.499500" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1658.77,304.92,0.00" Time="1.799400" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1631.68,342.59,0.00" Time="2.099300" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1603.66,301.26,0.00" Time="2.399200" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1599.00,356.39,0.00" Time="2.699100" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1551.68,302.53,0.00" Time="2.999000" Size="263.50,239.50" Scale="0.50,0.50" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_4_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1523,17 +1330,17 @@
             <PointDataList Index="51" Position="1318.00,-81.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1737.86,383.72,0.00" Time="0.000000" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="1" Position="1583.86,385.47,0.00" Time="0.299900" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="2" Position="1531.51,371.74,0.00" Time="0.599800" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="3" Position="1505.83,426.38,0.00" Time="0.899700" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="4" Position="1461.75,382.44,0.00" Time="1.199600" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="5" Position="1428.76,424.25,0.00" Time="1.499500" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="6" Position="1400.77,383.92,0.00" Time="1.799400" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="7" Position="1373.68,421.59,0.00" Time="2.099300" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="8" Position="1345.66,380.26,0.00" Time="2.399200" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="9" Position="1341.00,435.39,0.00" Time="2.699100" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
-            <PointDataList Index="10" Position="1293.68,381.53,0.00" Time="2.999000" Size="561.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="0" Position="1737.86,383.72,0.00" Time="0.000000" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="1" Position="1583.86,385.47,0.00" Time="0.299900" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="2" Position="1531.51,371.74,0.00" Time="0.599800" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="3" Position="1505.83,426.38,0.00" Time="0.899700" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="4" Position="1461.75,382.44,0.00" Time="1.199600" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="5" Position="1428.76,424.25,0.00" Time="1.499500" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="6" Position="1400.77,383.92,0.00" Time="1.799400" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="7" Position="1373.68,421.59,0.00" Time="2.099300" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="8" Position="1345.66,380.26,0.00" Time="2.399200" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="9" Position="1341.00,435.39,0.00" Time="2.699100" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
+            <PointDataList Index="10" Position="1293.68,381.53,0.00" Time="2.999000" Size="569.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-12" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_3_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1592,17 +1399,17 @@
             <PointDataList Index="51" Position="1232.00,-215.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1604.86,245.72,0.00" Time="0.000000" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="1" Position="1450.86,247.47,0.00" Time="0.299900" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="2" Position="1398.51,233.74,0.00" Time="0.599800" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="3" Position="1372.83,288.38,0.00" Time="0.899700" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="4" Position="1328.75,244.44,0.00" Time="1.199600" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="5" Position="1295.76,286.25,0.00" Time="1.499500" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="6" Position="1267.77,245.92,0.00" Time="1.799400" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="7" Position="1240.68,283.59,0.00" Time="2.099300" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="8" Position="1212.66,242.26,0.00" Time="2.399200" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="9" Position="1208.00,297.39,0.00" Time="2.699100" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
-            <PointDataList Index="10" Position="1160.68,243.53,0.00" Time="2.999000" Size="479.00,536.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="0" Position="1604.86,245.72,0.00" Time="0.000000" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="1" Position="1450.86,247.47,0.00" Time="0.299900" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="2" Position="1398.51,233.74,0.00" Time="0.599800" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="3" Position="1372.83,288.38,0.00" Time="0.899700" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="4" Position="1328.75,244.44,0.00" Time="1.199600" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="5" Position="1295.76,286.25,0.00" Time="1.499500" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="6" Position="1267.77,245.92,0.00" Time="1.799400" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="7" Position="1240.68,283.59,0.00" Time="2.099300" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="8" Position="1212.66,242.26,0.00" Time="2.399200" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="9" Position="1208.00,297.39,0.00" Time="2.699100" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
+            <PointDataList Index="10" Position="1160.68,243.53,0.00" Time="2.999000" Size="487.00,545.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-13" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_2_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1661,17 +1468,17 @@
             <PointDataList Index="51" Position="1375.00,-178.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1747.86,282.72,0.00" Time="0.000000" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="1" Position="1593.86,284.47,0.00" Time="0.299900" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="2" Position="1541.51,270.74,0.00" Time="0.599800" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="3" Position="1515.83,325.38,0.00" Time="0.899700" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="4" Position="1471.75,281.44,0.00" Time="1.199600" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="5" Position="1438.76,323.25,0.00" Time="1.499500" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="6" Position="1410.77,282.92,0.00" Time="1.799400" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="7" Position="1383.68,320.59,0.00" Time="2.099300" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="8" Position="1355.66,279.26,0.00" Time="2.399200" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="9" Position="1351.00,334.39,0.00" Time="2.699100" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
-            <PointDataList Index="10" Position="1303.68,280.53,0.00" Time="2.999000" Size="487.00,549.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="0" Position="1747.86,282.72,0.00" Time="0.000000" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="1" Position="1593.86,284.47,0.00" Time="0.299900" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="2" Position="1541.51,270.74,0.00" Time="0.599800" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="3" Position="1515.83,325.38,0.00" Time="0.899700" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="4" Position="1471.75,281.44,0.00" Time="1.199600" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="5" Position="1438.76,323.25,0.00" Time="1.499500" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="6" Position="1410.77,282.92,0.00" Time="1.799400" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="7" Position="1383.68,320.59,0.00" Time="2.099300" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="8" Position="1355.66,279.26,0.00" Time="2.399200" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="9" Position="1351.00,334.39,0.00" Time="2.699100" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
+            <PointDataList Index="10" Position="1303.68,280.53,0.00" Time="2.999000" Size="498.00,557.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-9" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_0_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1730,17 +1537,17 @@
             <PointDataList Index="51" Position="1357.00,-151.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1729.86,309.72,0.00" Time="0.000000" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="1" Position="1575.86,311.47,0.00" Time="0.299900" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="2" Position="1523.51,297.74,0.00" Time="0.599800" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="3" Position="1497.83,352.38,0.00" Time="0.899700" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="4" Position="1453.75,308.44,0.00" Time="1.199600" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="5" Position="1420.76,350.25,0.00" Time="1.499500" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="6" Position="1392.77,309.92,0.00" Time="1.799400" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="7" Position="1365.68,347.59,0.00" Time="2.099300" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="8" Position="1337.66,306.26,0.00" Time="2.399200" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="9" Position="1333.00,361.39,0.00" Time="2.699100" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
-            <PointDataList Index="10" Position="1285.68,307.53,0.00" Time="2.999000" Size="517.00,471.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="0" Position="1729.86,309.72,0.00" Time="0.000000" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="1" Position="1575.86,311.47,0.00" Time="0.299900" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="2" Position="1523.51,297.74,0.00" Time="0.599800" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="3" Position="1497.83,352.38,0.00" Time="0.899700" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="4" Position="1453.75,308.44,0.00" Time="1.199600" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="5" Position="1420.76,350.25,0.00" Time="1.499500" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="6" Position="1392.77,309.92,0.00" Time="1.799400" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="7" Position="1365.68,347.59,0.00" Time="2.099300" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="8" Position="1337.66,306.26,0.00" Time="2.399200" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="9" Position="1333.00,361.39,0.00" Time="2.699100" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
+            <PointDataList Index="10" Position="1285.68,307.53,0.00" Time="2.999000" Size="527.00,479.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-7" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_5_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1799,17 +1606,17 @@
             <PointDataList Index="51" Position="1367.00,-166.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1739.86,294.72,0.00" Time="0.000000" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="1" Position="1585.86,296.47,0.00" Time="0.299900" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="2" Position="1533.51,282.74,0.00" Time="0.599800" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="3" Position="1507.83,337.38,0.00" Time="0.899700" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="4" Position="1463.75,293.44,0.00" Time="1.199600" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="5" Position="1430.76,335.25,0.00" Time="1.499500" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="6" Position="1402.77,294.92,0.00" Time="1.799400" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="7" Position="1375.68,332.59,0.00" Time="2.099300" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="8" Position="1347.66,291.26,0.00" Time="2.399200" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="9" Position="1343.00,346.39,0.00" Time="2.699100" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
-            <PointDataList Index="10" Position="1295.68,292.53,0.00" Time="2.999000" Size="550.00,454.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="0" Position="1739.86,294.72,0.00" Time="0.000000" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="1" Position="1585.86,296.47,0.00" Time="0.299900" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="2" Position="1533.51,282.74,0.00" Time="0.599800" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="3" Position="1507.83,337.38,0.00" Time="0.899700" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="4" Position="1463.75,293.44,0.00" Time="1.199600" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="5" Position="1430.76,335.25,0.00" Time="1.499500" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="6" Position="1402.77,294.92,0.00" Time="1.799400" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="7" Position="1375.68,332.59,0.00" Time="2.099300" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="8" Position="1347.66,291.26,0.00" Time="2.399200" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="9" Position="1343.00,346.39,0.00" Time="2.699100" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
+            <PointDataList Index="10" Position="1295.68,292.53,0.00" Time="2.999000" Size="562.00,462.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-15" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="LaserRight_1_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.971154">
@@ -1868,17 +1675,207 @@
             <PointDataList Index="51" Position="1456.00,-200.00,0.00" Time="1.471154" Size="34.00,25.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00051" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="MonsterCome2" StartTime="0.000000" AnchorType="CenterCenter" Count="11" LOD="3">
-            <PointDataList Index="0" Position="1828.86,260.72,0.00" Time="0.000000" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="1" Position="1674.86,262.47,0.00" Time="0.299900" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="2" Position="1622.51,248.74,0.00" Time="0.599800" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="3" Position="1596.83,303.38,0.00" Time="0.899700" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="4" Position="1552.75,259.44,0.00" Time="1.199600" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="5" Position="1519.76,301.25,0.00" Time="1.499500" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="6" Position="1491.77,260.92,0.00" Time="1.799400" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="7" Position="1464.68,298.59,0.00" Time="2.099300" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="8" Position="1436.66,257.26,0.00" Time="2.399200" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="9" Position="1432.00,312.39,0.00" Time="2.699100" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
-            <PointDataList Index="10" Position="1384.68,258.53,0.00" Time="2.999000" Size="515.00,550.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="0" Position="1828.86,260.72,0.00" Time="0.000000" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="1" Position="1674.86,262.47,0.00" Time="0.299900" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="2" Position="1622.51,248.74,0.00" Time="0.599800" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="3" Position="1596.83,303.38,0.00" Time="0.899700" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="4" Position="1552.75,259.44,0.00" Time="1.199600" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="5" Position="1519.76,301.25,0.00" Time="1.499500" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="6" Position="1491.77,260.92,0.00" Time="1.799400" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="7" Position="1464.68,298.59,0.00" Time="2.099300" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="8" Position="1436.66,257.26,0.00" Time="2.399200" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="9" Position="1432.00,312.39,0.00" Time="2.699100" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+            <PointDataList Index="10" Position="1384.68,258.53,0.00" Time="2.999000" Size="525.00,559.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="monster-8" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="BGWithKeyBoard" PathCount="25" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
+            <PointDataList Index="0" Position="115.00,5.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="1" Position="115.00,-5.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="2" Position="115.00,5.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="3" Position="115.00,-5.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="4" Position="115.00,5.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="5" Position="115.00,-5.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="6" Position="115.00,5.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="7" Position="115.00,-5.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="8" Position="115.00,5.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="9" Position="115.00,-5.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
+            <PointDataList Index="0" Position="1189.00,17.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="1" Position="1189.00,22.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="2" Position="1189.00,17.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="3" Position="1189.00,22.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="4" Position="1189.00,17.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="5" Position="1189.00,22.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="6" Position="1189.00,17.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="7" Position="1189.00,22.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="8" Position="1189.00,17.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-71.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="104.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="279.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="454.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="629.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="804.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="979.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw8" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1154.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw9" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1329.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pw-10" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1504.00,600.00,0.00" Time="3.000000" Size="175.00,421.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="single-note" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="66.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="246.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="421.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="771.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="946.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1296.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1471.00,600.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-364.00,525.00,0.00" Time="0.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-364.00,525.00,0.00" Time="0.500000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-364.00,525.00,0.00" Time="1.000000" Size="1625.40,77.00" Scale="0.70,0.70" Color="1.10,1.10,1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Note" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="10.00,573.00,0.00" Time="3.000000" Size="67.00,81.00" Scale="1.00,1.00" Color="1.20,1.10,1.90,1.00" PIName="PerformPhaseImage" ImageName="1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="timer" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1.00,535.00,0.00" Time="3.000000" Size="10.00,94.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="timer" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BlackKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="0.00,603.00,0.00" Time="3.000000" Size="158.00,188.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="WhiteKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="0.00,594.00,0.00" Time="3.000000" Size="146.00,161.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="PerformHint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="3">
+            <PointDataList Index="0" Position="629.00,644.00,0.00" Time="0.000000" Size="67.00,81.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="1" />
+            <PointDataList Index="1" Position="629.00,455.00,0.00" Time="0.500000" Size="67.00,81.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="1" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="BGWithKeyBoard2208" PathCount="24" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.000000">
+        <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1091.00,1084.00,0.00" Time="3.000000" Size="2399.94,601.02" Scale="35.82,7.42" Color="1.99,1.91,1.86,2.00" PIName="PerformPhaseImage" ImageName="1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
+            <PointDataList Index="0" Position="221.00,46.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="1" Position="221.00,36.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="2" Position="221.00,46.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="3" Position="221.00,36.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="4" Position="221.00,46.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="5" Position="221.00,36.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="6" Position="221.00,46.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="7" Position="221.00,36.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="8" Position="221.00,46.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="9" Position="221.00,36.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="UFO2" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="3">
+            <PointDataList Index="0" Position="1693.00,62.00,0.00" Time="0.333222" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="1" Position="1693.00,67.00,0.00" Time="0.666444" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="2" Position="1693.00,62.00,0.00" Time="0.999667" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="3" Position="1693.00,67.00,0.00" Time="1.332889" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="4" Position="1693.00,62.00,0.00" Time="1.666111" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="5" Position="1693.00,67.00,0.00" Time="1.999333" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="6" Position="1693.00,62.00,0.00" Time="2.332556" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+            <PointDataList Index="7" Position="1693.00,67.00,0.00" Time="2.665778" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
+            <PointDataList Index="8" Position="1693.00,62.00,0.00" Time="2.999000" Size="351.00,350.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="timer" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="319.00,748.00,0.00" Time="3.000000" Size="10.00,94.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="timer" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="BlackKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="298.00,834.00,0.00" Time="3.000000" Size="158.00,188.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1037.00,838.00,0.00" Time="2.999000" Size="24.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="WhiteKeySymbol" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="298.00,825.00,0.00" Time="3.000000" Size="146.00,161.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="note-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="time-line" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="-33.00,765.00,0.00" Time="0.000000" Size="2322.00,110.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="1" Position="-33.00,765.00,0.00" Time="0.500000" Size="2322.00,110.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+            <PointDataList Index="2" Position="-33.00,765.00,0.00" Time="1.000000" Size="2322.00,110.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="time-line" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="718.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="797.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="873.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="944.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Note" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="308.00,804.00,0.00" Time="3.000000" Size="26.00,26.00" Scale="1.00,1.00" Color="1.20,1.10,1.90,1.00" PIName="PerformPhaseImage" ImageName="3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1092.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam6" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1168.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam7" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1313.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam8" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1393.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam9" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1466.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Beam10" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1241.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="714.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-2" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="862.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-3" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1160.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-4" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1308.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="pb-5" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1458.00,840.00,0.00" Time="3.000000" Size="76.00,420.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="piano-2" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
 </MPDIList>
