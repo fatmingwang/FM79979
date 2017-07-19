@@ -23,3 +23,9 @@ int				cSoundCompareParameter::m_siFFTStoreThresholeValue = 15;
 
 const int		cSoundCompareParameter::CAPTURE_FREQUENCY = 44100;
 const int		cSoundCompareParameter::FFT_DATA_LINE_POINTS_COUNT = cSoundCompareParameter::CAPTURE_FREQUENCY/6*2;
+const float		cSoundCompareParameter::m_sfDebugAlphaValue = 0.5f;
+
+float			cSoundCompareParameter::m_sfAcceptableNoteMatchValue = 0.98f;
+
+
+eMUSIC_GAME_MODE cSoundCompareParameter::m_seMusicGameMode = eMGM_GAME;

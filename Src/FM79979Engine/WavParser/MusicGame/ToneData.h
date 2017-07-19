@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TimelineBasicInfo.h"
+
 #define	TONE_DATA_SOUND_SOURCE_FILE_NAME	"SoundSourceFileName"
 #define	TONE_DATA_ID						"ID"
 
@@ -32,7 +34,7 @@ public:
 	~cToneData();
 	//const int GetSoundID();
 	const sFindTimeDomainFrequenceAndAmplitude*	GetFrequenceAndAmplitudeAndTimeFinder();
-	const cNoteFrequencyAndDecibles*			GetNoteFrequencyAndDecibles();
+	cNoteFrequencyAndDecibles*					GetNoteFrequencyAndDecibles();
 	bool										IsBlackKey();
 
 	float										CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTDataFrequencyFinder);

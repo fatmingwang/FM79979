@@ -29,11 +29,18 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 	PARSE_NAME_VALUE_END
 	const char* l_strTest = m_strSoundFilePath.c_str();
 	if(UT::IsStringContain(l_strTest,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME))
+	{
 		m_pNoteFrequencyAndDecibles = new cNoteFrequencyAndDecibles(m_strSoundFilePath.c_str());
+	}
 	else
 		m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(m_strSoundFilePath.c_str());
 	m_iMatchTime = 0;
+	//fuck...PC and IOS 5 is okay but android not work...why have no idea... 
+#ifdef ANDROID
+	m_iMatchTimeCondition = 3;
+#else
 	m_iMatchTimeCondition = 5;
+#endif
 	m_bStartHittedCount = false;
 }
 
@@ -53,7 +60,7 @@ const sFindTimeDomainFrequenceAndAmplitude*	cToneData::GetFrequenceAndAmplitudeA
 	return this->m_pFrequenceAndAmplitudeAndTimeFinder;
 }
 
-const cNoteFrequencyAndDecibles*			cToneData::GetNoteFrequencyAndDecibles()
+cNoteFrequencyAndDecibles*			cToneData::GetNoteFrequencyAndDecibles()
 {
 	return m_pNoteFrequencyAndDecibles;
 }
@@ -211,8 +218,8 @@ bool cToneDataVector::MyParse(TiXmlElement*e_pRoot)
 			cToneData*l_pToneData = new cToneData(e_pRoot);
 			if(!this->AddObject(l_pToneData))
 			{
-				SAFE_DELETE(l_pToneData);
 				UT::ErrorMsg(l_pToneData->GetName(),L"ToneData Same Name!?");
+				SAFE_DELETE(l_pToneData);
 			}
 			else
 			{

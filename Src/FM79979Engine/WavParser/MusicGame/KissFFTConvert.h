@@ -37,9 +37,9 @@ protected:
 	//GET_SET_DEC(int,m_iFilterStrengthValue,GetFilterStrengthValue,SetFilterStrengthValue);
 	GET_SET_DEC(float,m_fChartScale,GetChartScale,SetChartScale);
 	//
-	void			SetOneFrameFFTDataCount(int e_iFrequency);
-	void			RenderDebugAmplitudeLine(float e_fAmplitude);
-	cFFTDecibelsAnalyzer	m_FFTDataStore;
+	void					SetOneFrameFFTDataCount(int e_iFrequency);
+	void					RenderDebugAmplitudeLine(float e_fAmplitude);
+	cFFTDecibelsAnalyzer*	m_pFFTDataStore;
 public:
 	DEFINE_TYPE_INFO();
 	cKissFFTConvertBase();
@@ -63,7 +63,7 @@ public:
 	TiXmlElement*	ToTiXmlElement();
 	void			SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement);
 	void			RenderMaxAmplitudeAndFrequencyInfo(int e_iPosX,int e_iPosY);
-	cFFTDecibelsAnalyzer*	GetFFTDataStore(){return &m_FFTDataStore;}
+	cFFTDecibelsAnalyzer*	GetFFTDataStore(){return m_pFFTDataStore;}
 
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }

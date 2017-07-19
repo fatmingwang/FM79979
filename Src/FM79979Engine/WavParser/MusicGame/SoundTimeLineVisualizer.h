@@ -31,7 +31,6 @@ class cTimeLineRangeChart:public cChartBasicInfo,public cTimeLineRange,public cS
 	void							RenderDebugVertical();
 	void							RenderHorizontal();
 	void							RenderVertical();
-	void							RenderTimeLine();
 	cRenderObject*					m_pTimelineNoteRoot;
 	cMPDI*							m_pTimeLineMPDI;
 	cBaseImage*						m_WhiteKeyImage;

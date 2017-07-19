@@ -42,6 +42,7 @@ namespace EditorSample
 	public:
 		Form1(void)
 		{
+			cSoundCompareParameter::m_seMusicGameMode = eMGM_EDITOR;
 			//char**l_ppData = new char*[10];
 			//for( int i=0;i<10;++i )
 			//{

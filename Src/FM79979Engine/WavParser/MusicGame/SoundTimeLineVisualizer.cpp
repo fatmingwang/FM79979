@@ -232,11 +232,14 @@ void	cTimeLineRangeChart::RenderVertical()
 		auto l_pToneData = l_pData->GetToneData();
 		l_vShowPos.x += l_pToneData->GetWorldPosition().x;
 		l_vShowPos.y += l_pToneData->GetWorldPosition().y;
-		l_pData->SetPos(l_vShowPos);
+		l_pData->SetNoteShowPos(l_vShowPos);
 		Vector2 l_vTonePos = l_vShowPos;
 		if( l_pData->IsTuneMatched() )
 			continue;
 		//l_vTonePos.y -= l_fTuneKeepTime;
+		Vector4 l_vColor = Vector4::One;
+		if( l_pData->IsAllowToCompare() )
+			l_vColor = Vector4::Green;
 		if(l_pData->IsTuneMatched())
 		{//play effect!?
 
@@ -249,6 +252,7 @@ void	cTimeLineRangeChart::RenderVertical()
 				{
 					l_vTonePos.x -= m_BlackKeyImage->GetWidth()/2.f;
 					l_vTonePos.y -= m_BlackKeyImage->GetHeight()/2.f;
+					m_BlackKeyImage->SetColor(l_vColor);
 					m_BlackKeyImage->Render(l_vTonePos);
 				}
 			}
@@ -258,6 +262,7 @@ void	cTimeLineRangeChart::RenderVertical()
 				{
 					l_vTonePos.x -= m_WhiteKeyImage->GetWidth()/2.f;
 					l_vTonePos.y -= m_WhiteKeyImage->GetHeight()/2.f;
+					m_WhiteKeyImage->SetColor(l_vColor);
 					m_WhiteKeyImage->Render(l_vTonePos);
 				}
 			}
@@ -347,10 +352,10 @@ void	cTimeLineRangeChart::RenderDebugVertical()
 
 	l_fPerformanceRange = this->m_vResolution.y*l_fPerformanceRange;
 
-	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY-l_fPerformanceRange/2),this->m_vResolution.x,l_fPerformanceRange,Vector4::Red);
-	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,1,Vector4::Blue);
+	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY-l_fPerformanceRange/2),this->m_vResolution.x,l_fPerformanceRange,Vector4(1,0,0,cSoundCompareParameter::m_sfDebugAlphaValue));
+	GLRender::RenderRectangle(Vector2(m_vShowPos.x,l_fShowCurrentTimePosY),this->m_vResolution.x,1,Vector4(0,0,1,cSoundCompareParameter::m_sfDebugAlphaValue));
 
-	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
+	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,0,0,cSoundCompareParameter::m_sfDebugAlphaValue*3));
 	cGameApp::m_spGlyphFontRender->SetScale(2.f);
 	int l_iCount = m_iLastToneDataObjectIndex+this->m_iCountInCompareTime;
 	for(int i=m_iLastToneDataObjectIndex;i<l_iCount;++i)
@@ -377,14 +382,15 @@ void	cTimeLineRangeChart::RenderDebugVertical()
 		Vector2 l_vTonePos = l_vShowPos;
 		l_vTonePos.y -= l_fTuneKeepTime;
 		if(l_pData->IsTuneMatched())
-			GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Red);
+			GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4(1,0,0,cSoundCompareParameter::m_sfDebugAlphaValue));
 		else
 		{
 			if(l_pData->GetToneData()->IsBlackKey())
-				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Green);
+				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4(0,1,0,cSoundCompareParameter::m_sfDebugAlphaValue));
 			else
-				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4::Blue);
+				GLRender::RenderRectangle(l_vTonePos,l_fCurrentLineWidth,l_fTuneKeepTime,Vector4(0,0,1,cSoundCompareParameter::m_sfDebugAlphaValue));
 		}
+		cGameApp::RenderFont(l_vTonePos.x,l_vTonePos.y,l_pData->GetName());
 		//l_vShowPos.x -= l_iNameYOffset;
 		//std::wstring l_strDebugInfo = l_pData->GetName();
 		//l_strDebugInfo += L",";
@@ -392,17 +398,14 @@ void	cTimeLineRangeChart::RenderDebugVertical()
 		//cGameApp::RenderFont(l_vShowPos,l_strDebugInfo.c_str());
 	}
 	cGameApp::m_spGlyphFontRender->SetScale(1.f);
-	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
+	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,cSoundCompareParameter::m_sfDebugAlphaValue));
 	std::wstring l_strCurrentTime = ValueToStringW(this->m_fCurrentTime);
 	Vector2 l_vFontPos = this->m_vShowPos;
 	l_vFontPos.y -= 50;
 	cGameApp::RenderFont(l_vFontPos,l_strCurrentTime.c_str());
+	cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 }
 
-void	cTimeLineRangeChart::RenderTimeLine()
-{
-	
-}
 
 void	cTimeLineRangeChart::DebugRender()
 {
@@ -472,12 +475,13 @@ float	cTimeLineRangeChart::MousePositionToTime(int e_iMousePositionX,int e_iMous
 
 void	cTimeLineRangeChart::DebugRenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResolution,float e_fCurrentTime,float e_fTotalTime)
 {
-	GLRender::RenderFilledRectangle(e_vShowPos,e_vResolution.x,e_vResolution.y,Vector4(1,1,0,1),0);
+	GLRender::RenderFilledRectangle(e_vShowPos,e_vResolution.x,e_vResolution.y,Vector4(1,1,0,cSoundCompareParameter::m_sfDebugAlphaValue),0);
 	//float l_PosStepByTimeGap = e_vResolution.x/e_fTotalTime;
 	//Vector2 l_vCurrentTimePos = Vector2(l_PosStepByTimeGap*e_fCurrentTime,e_vShowPos.y);
 	Vector2 l_vCurrentTimePos = GetCurrenTimeControlPos(e_vShowPos,e_vResolution,e_fCurrentTime,e_fTotalTime);
-	GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,1));
+	GLRender::RenderRectangle(l_vCurrentTimePos,1,e_vResolution.y,Vector4(1,0,1,cSoundCompareParameter::m_sfDebugAlphaValue));
 	size_t l_uiSize = m_SoundTimeLineDataObjectSmallTimelinePosVector.size();
+	Vector2 l_vPos;
 	if( l_uiSize > 0 )
 	{
 		for(size_t i=0;i<l_uiSize;++i)
@@ -493,7 +497,8 @@ void	cTimeLineRangeChart::DebugRenderTimeLineData(Vector2 e_vShowPos,Vector2 e_v
 			{
 				l_vColor = TUNE_TIME_PAST;
 			}
-			GLRender::RenderRectangle(this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i],1,e_vResolution.y,l_vColor);
+			l_vPos = this->m_SoundTimeLineDataObjectSmallTimelinePosVector[i];
+			GLRender::RenderRectangle(l_vPos,1,e_vResolution.y,l_vColor);
 		}
 	}
 }
@@ -518,14 +523,14 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 			//l_vPos.y += m_NoteInTimelineImage->GetHeight()+10;
 			l_vPos.y += 60;
 			if( l_Data->IsTuneMatched() )
-				m_NoteInTimelineImage->SetColor(Vector4(0,1,0,1.f));
+				m_NoteInTimelineImage->SetColor(Vector4(0,2,0,1.f));
 			else
 			if( l_Data->IsTimeOver() )
 			{
-				m_NoteInTimelineImage->SetColor(Vector4(1,0,0,1.f));
+				m_NoteInTimelineImage->SetColor(Vector4(2,0,0,1.f));
 			}
 			else
-				m_NoteInTimelineImage->SetColor(Vector4(18/255.f,0,35/255.f,1.f));
+				m_NoteInTimelineImage->SetColor(Vector4(36/255.f,0,70/255.f,1.f));
 			m_NoteInTimelineImage->Render(l_vPos);
 		}
 	}

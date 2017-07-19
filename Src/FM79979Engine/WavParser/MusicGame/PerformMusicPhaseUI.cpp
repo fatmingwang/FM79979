@@ -35,7 +35,7 @@ cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 bool	cPerformMusicPhaseUI::TimeOverEventFire(void*e_pData)
 {
 	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
-	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetPos());
+	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
 	m_pTouchMPDI->Init();
 	m_pTouchMPDI->SetAnimationLoop(false);
 	m_pTouchMPDI->SetVisible(true);
@@ -45,7 +45,7 @@ bool	cPerformMusicPhaseUI::TimeOverEventFire(void*e_pData)
 bool	cPerformMusicPhaseUI::TuneMatchedFire(void*e_pData)
 {
 	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
-	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetPos());
+	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
 	m_pTouchMPDI->Init();
 	m_pTouchMPDI->SetAnimationLoop(false);
 	m_pTouchMPDI->SetVisible(true);

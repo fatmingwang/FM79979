@@ -19,26 +19,35 @@ extern int	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 
 #define	BEST_RECORD_FPS 22
 
+enum eMUSIC_GAME_MODE
+{
+	eMGM_EDITOR = 0,
+	eMGM_GAME,
+};
+
 class cSoundCompareParameter
 {
 public:
 	//time line
-	static float		m_sfBeforeCurrentTimeViewRange;
-	static float		m_sfAfterCurrentTimeViewRange;
+	static float					m_sfBeforeCurrentTimeViewRange;
+	static float					m_sfAfterCurrentTimeViewRange;
 	//
-	static float		m_sfCompareTuneTolerateTime;
+	static float					m_sfCompareTuneTolerateTime;
 	//if the frequency amplitude close enought
-	static int			m_siAmplitudeOffset;
+	static int						m_siAmplitudeOffset;
 
-	static Vector2		m_vTimelineShowPos;
-	static Vector2		m_vTimelineResolution;
+	static Vector2					m_vTimelineShowPos;
+	static Vector2					m_vTimelineResolution;
 
-	static bool			m_sbAutoPlaySoundForDebugTest;
-	static int			m_siRecordFrequency;
+	static bool						m_sbAutoPlaySoundForDebugTest;
+	static int						m_siRecordFrequency;
 
-	static int			m_siDebugAmplitudeValue;
-	static int			m_siFFTStoreThresholeValue;
+	static int						m_siDebugAmplitudeValue;
+	static int						m_siFFTStoreThresholeValue;
 
-	static const int	CAPTURE_FREQUENCY;	//44100
-	static const int	FFT_DATA_LINE_POINTS_COUNT;//	44100/6*2//2 for lin need 2 points
+	static const int				CAPTURE_FREQUENCY;	//44100
+	static const int				FFT_DATA_LINE_POINTS_COUNT;//	44100/6*2//2 for lin need 2 points
+	static eMUSIC_GAME_MODE			m_seMusicGameMode;
+	static const float				m_sfDebugAlphaValue;
+	static float					m_sfAcceptableNoteMatchValue;
 };

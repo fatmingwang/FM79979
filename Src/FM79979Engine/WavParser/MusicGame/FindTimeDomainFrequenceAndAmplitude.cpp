@@ -7,7 +7,7 @@ sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude(const
 	if(l_NodeISAX.ParseDataIntoXMLNode(e_strFileName))
 	{
 		TiXmlElement*l_pTiXmlElement = l_NodeISAX.GetRootElement();
-#ifdef PARSE_TEST_SOUND
+		if(cGameApp::m_sbDebugFunctionWorking)
 		{
 			const wchar_t*l_strSoundSourceFileName = l_pTiXmlElement->Attribute(CHAR_TO_WCHAR_DEFINE(SOUD_SOURCE_FILE_NAME));
 			if( l_strSoundSourceFileName )
@@ -18,7 +18,6 @@ sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude(const
 				cGameApp::m_spSoundParser->AddStaticSound(cGameApp::m_spSoundParser,l_strDirectory.c_str());
 			}
 		}
-#endif
 		int l_iLastTimeInSecond = SetupTotalSecond(l_pTiXmlElement);
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(l_pTiXmlElement)
 			COMPARE_TARGET_ELEMENT_VALUE(l_pTiXmlElement,"FrequenceAndAmplitudeAndTime")

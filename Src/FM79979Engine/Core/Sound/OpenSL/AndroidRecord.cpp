@@ -126,24 +126,26 @@ SLuint32	FrequencyConvert(int e_iFrequency)
 	if( e_iFrequency <= 8000 )
 		return SL_SAMPLINGRATE_8;
 	if( e_iFrequency <= 11025 )
-		return SL_SAMPLINGRATE_12;
+		return SL_SAMPLINGRATE_11_025;
 	if( e_iFrequency <= 12000 )
-		return SL_SAMPLINGRATE_16;
+		return SL_SAMPLINGRATE_12;
 	if( e_iFrequency <= 16000 )
-		return SL_SAMPLINGRATE_22_05;
+		return SL_SAMPLINGRATE_16;
 	if( e_iFrequency <= 22050 )
-		return SL_SAMPLINGRATE_24;
+		return SL_SAMPLINGRATE_22_05;
 	if( e_iFrequency <= 24000 )
-		return SL_SAMPLINGRATE_32;
+		return SL_SAMPLINGRATE_24;
 	if( e_iFrequency <= 32000 )
-		return SL_SAMPLINGRATE_44_1;
+		return SL_SAMPLINGRATE_32;
 	if( e_iFrequency <= 44100 )
-		return SL_SAMPLINGRATE_48;
+		return SL_SAMPLINGRATE_44_1;
 	if( e_iFrequency <= 48000 )
-		return SL_SAMPLINGRATE_64;
+		return SL_SAMPLINGRATE_48;
 	if( e_iFrequency <= 64000 )
-		return SL_SAMPLINGRATE_88_2;
+		return SL_SAMPLINGRATE_64;
 	if( e_iFrequency <= 88200 )
+		return SL_SAMPLINGRATE_88_2;
+	if( e_iFrequency <= 96000 )
 		return SL_SAMPLINGRATE_96;
 	return SL_SAMPLINGRATE_192;
 }
@@ -254,7 +256,7 @@ void StartAndroidRecording(int e_iBufferSize)
 }
 
 //1 seond 44100
-short g_pAndroidTempRecordingData[1*44100];
+short g_pAndroidTempRecordingData[44100];
 // this callback handler is called every time a buffer finishes recording
 UT::sTimeAndFPS g_OPenSLTestTimeCounter;
 void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
@@ -276,6 +278,7 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 	//char*l_pData = g_pRecorderBuffer[l_iGetProperIndex];
 	//short*l_pData = g_pRecorderBuffer[0];
 	//memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[l_iGetProperIndex],g_uiRecordBufferSize);
+	//memset(g_pAndroidTempRecordingData,0,sizeof(g_pAndroidTempRecordingData));
 	memcpy(g_pAndroidTempRecordingData,g_pRecorderBuffer[0],g_uiRecordBufferSize);
 	g_pSoundCapture->AddFileSize(g_uiRecordBufferSize);
 	int l_iNumCount = g_pSoundCapture->Count();
@@ -284,7 +287,7 @@ void bqRecorderCallback(SLAndroidSimpleBufferQueueItf bq, void *context)
 	{
 		//(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pAndroidTempRecordingData);
 		//(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize,(char*)g_pRecorderBuffer[l_iGetProperIndex]);
-		(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize/sizeof(short),(char*)g_pRecorderBuffer[0]);
+		(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(g_uiRecordBufferSize/sizeof(short),(char*)g_pAndroidTempRecordingData);
 	}
 	DoEnqueue();
 }

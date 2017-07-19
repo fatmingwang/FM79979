@@ -352,7 +352,11 @@ bool	cKissFFTStreamingConvert::FetchSoundDataStart(const char*e_strFileName,bool
 		UT::ErrorMsg(L"m_iDivideFFTDataToNFrame is too small please incerase m_iDivideFFTDataToNFrame or increase FFT_DATA_LINE_POINTS_COUNT",L"Error!");
 		return false;
 	}
-	this->m_FFTDataStore.Start(m_pOpanalOgg->GetFreq());
+	if( cSoundCompareParameter::m_seMusicGameMode == eMGM_EDITOR )
+	{
+		this->m_pFFTDataStore = new cFFTDecibelsAnalyzer();
+		this->m_pFFTDataStore->Start(m_pOpanalOgg->GetFreq());
+	}
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	//m_pOpanalOgg->SetUpdateNewBufferCallbackFunction(std::bind(&cKissFFTStreamingConvert::StreamingBuffer,this,std::placeholders::_1,std::placeholders::_2,std::placeholders::_3));
 	this->m_pFUThreadPool = new cFUThreadPool();
@@ -384,7 +388,8 @@ void	cKissFFTStreamingConvert::Update(float e_fElpaseTime)
 		{
 			if( !m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->GenerateFFTLines(this->m_pvFFTDataToPoints,m_fCurrentTime-1/22.f,this->m_vShowPos,this->m_vResolution*m_fChartScale,this->m_fChartAmplitudeScale) )
 			{
-				this->m_FFTDataStore.UpdateFFTData(e_fElpaseTime,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->pFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+				if( m_pFFTDataStore )
+					m_pFFTDataStore->UpdateFFTData(e_fElpaseTime,m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->pFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 				cFUSynchronizedHold	l_cFUSynchronizedHold(&m_PCMToFFTDataConvertr.m_FUSynchronizedForTimeAndFFTDataVector);
 				//wait for next new one.
 				if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )

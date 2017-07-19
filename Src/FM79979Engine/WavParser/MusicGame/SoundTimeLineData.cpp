@@ -7,8 +7,9 @@
 
 TYPDE_DEFINE_MARCO(cSoundTimeLineData);
 
-cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fTuneKeepTime,float e_fCompareTime,cToneData*e_pToneData)
+cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
 {
+	m_bAllowToCompare = false;
 	m_pNoteFrequencyAndDecibles = nullptr;
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
@@ -24,11 +25,21 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_bActivedToCompare = false;
 	m_fActivedElpaseTime = 0.f;
 	m_fTuneKeepTime = e_fTuneKeepTime;
+
+	m_iMatchTime = 0;
+	//fuck...PC and IOS 5 is okay but android not work...why have no idea... 
+#ifdef ANDROID
+	m_iMatchTimeCondition = 3;
+#else
+	m_iMatchTimeCondition = 5;
+#endif
+	m_bStartHittedCount = false;
 }
 
-cSoundTimeLineData::cSoundTimeLineData(const cNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
+cSoundTimeLineData::cSoundTimeLineData(cNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData)
 {
-	m_pNoteFrequencyAndDecibles = nullptr;
+	m_bAllowToCompare = false;
+	m_pNoteFrequencyAndDecibles = e_pData;
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
@@ -43,11 +54,20 @@ cSoundTimeLineData::cSoundTimeLineData(const cNoteFrequencyAndDecibles*e_pData,f
 	m_bActivedToCompare = false;
 	m_fActivedElpaseTime = 0.f;
 	m_fTuneKeepTime = e_fTuneKeepTime;
+
+	m_iMatchTime = 0;
+	//fuck...PC and IOS 5 is okay but android not work...why have no idea... 
+#ifdef ANDROID
+	m_iMatchTimeCondition = 3;
+#else
+	m_iMatchTimeCondition = 5;
+#endif
+	m_bStartHittedCount = false;
 }
 
 cSoundTimeLineData::~cSoundTimeLineData()
 {
-	SAFE_DELETE(m_pNoteFrequencyAndDecibles);
+	m_pNoteFrequencyAndDecibles = nullptr;
 	SAFE_DELETE(m_pFrequenceAndAmplitudeAndTimeFinder);
 }
 
@@ -59,6 +79,7 @@ void		cSoundTimeLineData::Init()
 	m_bTuneMatched = false;
 	m_bTimeOver = false;
 	m_bAlreadyPlayTestFlag = false;
+	m_bAllowToCompare = false;
 }
 
 void		cSoundTimeLineData::Update(float e_fCurrentTime)
@@ -69,9 +90,8 @@ void		cSoundTimeLineData::Update(float e_fCurrentTime)
 		if(IsStillInCompareTime(e_fCurrentTime))
 		{
 			m_bAlreadyPlayTestFlag = true;
-#ifdef PARSE_TEST_SOUND
-			cGameApp::SoundPlay(this->GetName(),true);
-#endif
+			if(cGameApp::m_sbDebugFunctionWorking)
+				cGameApp::SoundPlay(this->GetName(),true);
 		}
 	}
 }
@@ -188,50 +208,46 @@ bool		cSoundTimeLineData::CompareWithNoteFrequencyAndDecibles(float e_fElpaseTim
 		return false;
 	}
 	int l_iNumMatched = 0;
-	float l_fLocalTime = e_fCurrentTime-this->m_fCompareTime;
 	size_t l_uiSize = m_pNoteFrequencyAndDecibles->FrequencyVector.size();
+	if( l_uiSize == 0 )
+		return false;
 	for(size_t i=0;i<l_uiSize;++i  )
 	{
-		int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
-		int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i];
-		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFrequency(l_iFrequency);
+		//l_fCurrentProgress += l_fOneStep;
+		//int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
+		int l_iFFTBinIndex = m_pNoteFrequencyAndDecibles->FrequencyBinIndexVector[i];
+		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
+		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/4.f;
+		//int l_fTargetDecibels = 8;
+		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex(l_iFFTBinIndex);
+		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;
+		//l_fTargetDecibels -= 13;
 		for( int l_iDecible : l_DeciblesVector )
 		{
-			if( l_iTargetDecibels <= l_iDecible)
+			if( (float)l_iDecible > l_fTargetDecibels)
 			{
 				++l_iNumMatched;
 				break;
 			}
 		}
-	}
-	
+	}	
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iNumMatched/l_uiSize;
-	if(m_fResultScore < l_fPercent )
-	{
-		m_fResultScore = l_fPercent;
-#ifdef DEBUG
-		std::wstring l_str = this->GetName();
-		l_str += L",Percent:";
-		l_str += ValueToStringW((int)(l_fPercent*100));
-		cGameApp::OutputDebugInfoString(l_str);
-#endif
-	}
+	//if(l_fPercent >= 0.7)
+	//{
+	//	++m_iMatchTime;
+	//	if( m_iMatchTime < m_iMatchTimeCondition )
+	//	{
+	//		l_fPercent = 0.f;
+	//	}
+	//}
+	//else
+	//	m_bStartHittedCount = false;
 
-	if( l_fPercent >= 0.95f )
+	if( l_fPercent >= cSoundCompareParameter::m_sfAcceptableNoteMatchValue  )
 	{
 		m_bTuneMatched = true;
 		cGameApp::EventMessageShot(TUNE_MATCH_EVENT_ID,this);
-		
-#ifdef DEBUG
-//		cGameApp::OutputDebugInfoString(ValueToStringW(l_MatchedVector));
-#endif
-	}
-	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
-	{
-		m_bTuneMatched = true;
-		//all matched
-		return true;
 	}
 	return this->IsFinish(e_fCurrentTime);
 }
@@ -253,9 +269,11 @@ bool		cSoundTimeLineData::IsStillInCompareTime(float e_fTargetTime)
 			}
 		}
 		//cGameApp::OutputDebugInfoString(L"Not compare!!");
+		m_bAllowToCompare = false;
 		return false;
 	}
 	//cGameApp::OutputDebugInfoString(L"compare!!");
+	m_bAllowToCompare = true;
 	return true;
 }
 
@@ -300,15 +318,14 @@ void	cSoundTimeLineDataCollection::Init()
 
 //here is wrong because start should be a0,but I just lazy to fix this and change wav resources name start from a1
 const char*g_strKeyNymberToPianoString[88] = {
-"a1" ,"a1m","b1" ,"c1" ,"c1m","d1" ,"d1m","e1" ,"f1" ,"f1m",//10,MIDI 21
-"g1" ,"g1m","a2" ,"a2m","b2" ,"c2" ,"c2m","d2" ,"d2m","e2" ,//20
-"f2" ,"f2m","g2" ,"g2m","a3" ,"a3m","b3" ,"c3" ,"c3m","d3" ,//30
-"d3m","e3" ,"f3" ,"f3m","g3" ,"g3m","a4" ,"a4m","b4" ,"c4" ,//40
-"c4m","d4" ,"d4m","e4" ,"f4" ,"f4m","g4" ,"g4m","a5" ,"a5m",//50
-"b5" ,"c5" ,"c5m","d5" ,"d5m","e5" ,"f5" ,"f5m","g5" ,"g5m",//60
-"a6" ,"a6m","b6" ,"c6" ,"c6m","d6" ,"d6m","e6" ,"f6" ,"f6m",//70
-"g6" ,"g6m","a7" ,"a7m","b7" ,"c7" ,"c7m","d7" ,"d7m","e7" ,//80
-"f7" ,"f7m","g7" ,"g7m","a8" ,"a8m","b8" ,"c8"};
+"a0" ,"a0m","b0" ,"c1" ,"c1m","d1" ,"d1m","e1" ,"f1" ,"f1m","g1" ,"g1m",//12
+"a1" ,"a1m","b1" ,"c2" ,"c2m","d2" ,"d2m","e2" ,"f2" ,"f2m","g2" ,"g2m",//13-24
+"a2" ,"a2m","b2" ,"c3" ,"c3m","d3" ,"d3m","e3" ,"f3" ,"f3m","g3" ,"g3m",//25-36
+"a3" ,"a3m","b3" ,"c4" ,"c4m","d4" ,"d4m","e4" ,"f4" ,"f4m","g4" ,"g4m",//37-48
+"a4" ,"a4m","b4" ,"c5" ,"c5m","d5" ,"d5m","e5" ,"f5" ,"f5m","g5" ,"g5m",//49-60
+"a5" ,"a5m","b5" ,"c6" ,"c6m","d6" ,"d6m","e6" ,"f6" ,"f6m","g6" ,"g6m",//61-72
+"a6" ,"a6m","b6" ,"c7" ,"c7m","d7" ,"d7m","e7" ,"f7" ,"f7m","g7" ,"g7m",//73-84
+"a7" ,"a7m","b7" ,"c8"};
 
 bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 {
@@ -341,9 +358,9 @@ bool	cSoundTimeLineDataCollection::ParseMusicFile(TiXmlElement*e_pTiXmlElement)
 				}
 				cSoundTimeLineData*l_pSingleSoundCompare = nullptr;
 				if( l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder() )
-					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTuneKeepTime,l_fTime,l_pToneData);
+					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetFrequenceAndAmplitudeAndTimeFinder(),l_fTime,l_fTuneKeepTime,l_pToneData);
 				else
-					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetNoteFrequencyAndDecibles(),l_fTuneKeepTime,l_fTime,l_pToneData);
+					l_pSingleSoundCompare = new cSoundTimeLineData(l_pToneData->GetNoteFrequencyAndDecibles(),l_fTime,l_fTuneKeepTime,l_pToneData);
 				l_pSingleSoundCompare->SetName(g_strKeyNymberToPianoString[l_iIndex]);
 				this->AddObjectNeglectExist(l_pSingleSoundCompare);
 			}

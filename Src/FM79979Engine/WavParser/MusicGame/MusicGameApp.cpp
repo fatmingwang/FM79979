@@ -52,7 +52,7 @@ void	cMusicGameApp::Init()
 	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(BEST_RECORD_FPS,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
-	m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
+	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
 	m_pPhaseManager = new cPhaseManager();
@@ -120,8 +120,8 @@ void	cMusicGameApp::Render()
 		m_pEditorTestcToneDataVector->Render();
 	}
 #ifdef DEBUG
-	GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
-	//cGameApp::ShowInfo();
+	//GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
+	cGameApp::ShowInfo();
 #endif
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
@@ -178,14 +178,17 @@ void	cMusicGameApp::KeyDown(char e_char)
 
 void	cMusicGameApp::KeyUp(char e_char)
 {
+	if( cGameApp::m_sucKeyData['T'] )
+	{
+		if( m_pEditorTestcToneDataVector )
+			this->SoundRecognitionTest(false);
+		else
+			this->SoundRecognitionTest(true);
+	}
 	cGameApp::KeyUp(e_char);
 	if( m_pPhaseManager )
 	{
 		m_pPhaseManager->KeyUp(e_char);
-	}
-	if( 'T' )
-	{
-		this->SoundRecognitionTest(true);
 	}
 }
 
@@ -213,8 +216,8 @@ void	cMusicGameApp::EditorInit()
 	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(BEST_RECORD_FPS,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
-	m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
-	m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
+	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
+	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
 	//
 	SoundRecognitionTest(true);
 	m_pFFTStoreExporter = new cFFTStoreExporter();

@@ -632,7 +632,7 @@ namespace	FATMING_CORE
 	#elif	defined(ANDROID)
 			std::string	l_str = "GameApp___ ";
 			l_str += UT::WcharToChar(e_str);
-			LOGD("%s",l_str.c_str());
+			LOGI("%s",l_str.c_str());
 	#elif	defined(IOS)
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());

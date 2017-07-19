@@ -109,7 +109,11 @@ void	cSoundFFTCapture::CaptureSoundStartCallBack()
 	m_pQuickFFTDataFrequencyFinder = new cQuickFFTDataFrequencyFinder(m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM,l_iFrequency);
 	m_pQuickFFTDataFrequencyFinder->SetFFTData(m_piFFTData);
 
-	m_FFTDataStore.Start(l_iFrequency);
+	if( cSoundCompareParameter::m_seMusicGameMode == eMGM_EDITOR )
+	{
+		this->m_pFFTDataStore = new cFFTDecibelsAnalyzer();
+		this->m_pFFTDataStore->Start(l_iFrequency);
+	}
 
 	this->m_PCMToFFTDataConvertr.SetNFrameFFTDataCount(m_iOneFrameFFTDataCount);
 	this->m_pFUThreadPool = new cFUThreadPool();
@@ -236,7 +240,8 @@ void	cSoundFFTCapture::UpdateWithDrawFFTData(float e_fElpaseTime)
 			//wait for next new one.
 			if( m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.size() == 1 )
 				break;
-			m_FFTDataStore.UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+			if( m_pFFTDataStore )
+				m_pFFTDataStore->UpdateFFTData(e_fElpaseTime,this->m_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 			float l_fStartTime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fStartTime;
 			float l_fEndime = m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0]->fEndTime;
 			delete m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[0];
@@ -292,7 +297,8 @@ void	cSoundFFTCapture::Render()
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
 
-		this->m_FFTDataStore.RenderCurrentData();
+		if( m_pFFTDataStore )
+				m_pFFTDataStore->RenderCurrentData();
 	}
 }
 

@@ -13,7 +13,7 @@ cChartBasicInfo::~cChartBasicInfo()
 
 void	cChartBasicInfo::RenderEdgeLines()
 {
-	GLRender::RenderRectangle(this->m_vShowPos,this->m_vResolution.x,this->m_vResolution.y,Vector4::One);
+	GLRender::RenderRectangle(this->m_vShowPos,this->m_vResolution.x,this->m_vResolution.y,Vector4(1,1,1,cSoundCompareParameter::m_sfDebugAlphaValue));
 }
 
 float		cChartBasicInfo::GetHeightGapByPoints(int e_iPoint)
@@ -65,7 +65,7 @@ void		cChartBasicInfo::RenderWithData(Vector2 e_vShowPos,Vector2 e_vResolution,i
 		l_vShowPos.x += l_fXGap;
 	}
 	RenderLine((float*)e_pvPointsData,e_iCount*2,e_vColor,2);
-	RenderLine((float*)&l_vBlueLinePos[0],l_vBlueLinePos.size(),Vector4::Blue,2);
+	RenderLine((float*)&l_vBlueLinePos[0],l_vBlueLinePos.size(),Vector4(0,0,1,cSoundCompareParameter::m_sfDebugAlphaValue),2);
 }
 
 

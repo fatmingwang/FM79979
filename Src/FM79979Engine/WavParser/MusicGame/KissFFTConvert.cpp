@@ -23,35 +23,40 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_bPause = false;
 	m_bFilter = false;
 	m_fChartScale = 1.f;
+	m_pFFTDataStore = nullptr;
 //	m_fFrenquenceFilterEndScaleValue = 1.f;
 //	m_iFilterStrengthValue = 6;
 }
 
 cKissFFTConvertBase::~cKissFFTConvertBase()
 {
-
+	SAFE_DELETE(m_pFFTDataStore);
 }
 
 void	cKissFFTConvertBase::MouseDown(int e_iPosX,int e_iPosY)
 {
-	this->m_FFTDataStore.MouseDown(e_iPosX,e_iPosY);
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->MouseDown(e_iPosX,e_iPosY);
 }
 
 void	cKissFFTConvertBase::MouseUp(int e_iPosX,int e_iPosY)
 {
-	this->m_FFTDataStore.MouseUp(e_iPosX,e_iPosY);
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->MouseUp(e_iPosX,e_iPosY);
 }
 
 void	cKissFFTConvertBase::MouseMove(int e_iPosX,int e_iPosY)
 {
-	this->m_FFTDataStore.MouseMove(e_iPosX,e_iPosY);
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->MouseMove(e_iPosX,e_iPosY);
 }
 
 
 void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency)
 {
 	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME);
-	this->m_FFTDataStore.Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold,e_iThresholdFrequency);
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold,e_iThresholdFrequency);
 }
 
 int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
@@ -321,7 +326,8 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_
 {
 	if( !m_pSoundFile )
 		return;
-	m_FFTDataStore.Start(m_pSoundFile->m_iFreq);
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->Start(m_pSoundFile->m_iFreq);
 	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
 
@@ -461,7 +467,7 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		return false;
 	}
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
-	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
+	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?this->m_pFFTDataStore:nullptr);
 	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	if( e_bPlaySound )
 	{
@@ -568,7 +574,8 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 				{
 					auto l_pFFTDataVector = &m_FFTDataVector;
 					int* l_piFFTData = &(*l_pFFTDataVector)[l_iStartIndex];
-					m_FFTDataStore.UpdateFFTData(e_fElpaseTime,l_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+					if( m_pFFTDataStore )
+						this->m_pFFTDataStore->UpdateFFTData(e_fElpaseTime,l_piFFTData,m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 				}
 			}
 		}
@@ -606,7 +613,8 @@ void	cKissFFTConvert::Render()
 		l_vPos.y += 100;
 		RenderDecibels(m_iNumFFTGraph,this->m_pfEachFFTDataDecibles,l_vPos,this->m_vResolution);
 
-		m_FFTDataStore.RenderCurrentData();
+		if( m_pFFTDataStore )
+			this->m_pFFTDataStore->RenderCurrentData();
 	}
 	//std::vector<Vector2> l_Test;
 	//l_Test.push_back(Vector2(100,500));
@@ -643,7 +651,8 @@ void	cKissFFTConvert::Play()
 	m_pTestSound = new cOpanalWAV(this,nullptr,false);
 	m_pTestSound->OpenFile(this->m_strSourceFileName.c_str(),true);
 	m_pTestSound->Play(true);
-	this->m_FFTDataStore.Start(m_pTestSound->GetFreq());
+	if( m_pFFTDataStore )
+		this->m_pFFTDataStore->Start(m_pTestSound->GetFreq());
 }
 
 void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
@@ -651,8 +660,8 @@ void	cKissFFTConvert::GoToTime(float e_fElpaseTime)
 	if( m_fCurrentTime == e_fElpaseTime )
 		return;
 	m_fCurrentTime = e_fElpaseTime;
-	if( m_pSoundFile )
-		m_FFTDataStore.Start(this->m_pSoundFile->m_iFreq);
+	if( m_pSoundFile && m_pFFTDataStore )
+		this->m_pFFTDataStore->Start(this->m_pSoundFile->m_iFreq);
 	return;
 	if(this->m_pTestSound)
 	{//fuck I have no idea...why crash...

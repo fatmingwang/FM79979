@@ -103,7 +103,7 @@ void	cSelectMusicPhase::DebugRender()
 void*	cSelectMusicPhase::GetData()
 {
 
-	//m_strSelectedMusicName = L"MusicGame/Music/Test.xml";
+	m_strSelectedMusicName = L"MusicGame/Music/Test.xml";
 	return (void*)&m_strSelectedMusicName;
 }
 

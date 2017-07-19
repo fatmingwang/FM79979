@@ -2,9 +2,9 @@
 
 #include "FFTFrequency.h"
 
-#define	CORRECT_TUNE_COLOR	Vector4::Green
-#define	WAIT_TIME_TUNE		Vector4::One
-#define	TUNE_TIME_PAST		Vector4::Red
+#define	CORRECT_TUNE_COLOR	Vector4(0,1,0,cSoundCompareParameter::m_sfDebugAlphaValue)
+#define	WAIT_TIME_TUNE		Vector4(1,1,1,cSoundCompareParameter::m_sfDebugAlphaValue)
+#define	TUNE_TIME_PAST		Vector4(1,0,0,cSoundCompareParameter::m_sfDebugAlphaValue)
 
 #define	SOUND_TIME_LINE_DATA_TIME			"Time"
 #define	SOUND_TIME_LINE_DATA_TUNE_KEEP_TIME	"TuneKeepTime"
@@ -47,17 +47,22 @@ class cSoundTimeLineData:public NamedTypedObject
 	//for the sound happen in the rythem time line.
 	float								m_fCompareTime;
 	float								m_fTuneKeepTime;//some instrument can long press(piano)
+	bool								m_bStartHittedCount;
+	int									m_iMatchTime;
+	int									m_iMatchTimeCondition;
+	bool								m_bAllowToCompare;
 	//avoid same sound is sequence.
 	GET_SET_DEC(bool,m_bMustMatchAfterProior,IsMustMatchAfterProior,SetMustMatchAfterProior);
 	//time is over?
 	bool								IsFinish(float e_fCurrentTime);
 	bool								IsStillInCompareTime(float e_fTargetTime);
 	//for fire event
-	Vector3								m_vPos;
+	Vector3								m_vNoteShowPos;
+
 public:
 	DEFINE_TYPE_INFO();
 	cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitude*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
-	cSoundTimeLineData(const cNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
+	cSoundTimeLineData(cNoteFrequencyAndDecibles*e_pData,float e_fCompareTime,float e_fTuneKeepTime,cToneData*e_pToneData);
 	virtual ~cSoundTimeLineData();
 
 	void				Init();
@@ -74,8 +79,9 @@ public:
 	bool				IsTimeOver(){ return m_bTimeOver; }
 	void				SetTimeOver(bool e_bTimeOver){m_bTimeOver = e_bTimeOver;}
 	float				GetTuneKeepTime(){ return m_fTuneKeepTime; }
-	Vector3				GetPos(){return m_vPos;}
-	void				SetPos(Vector3 e_vPos){m_vPos = e_vPos;}
+	Vector3				GetNoteShowPos(){return m_vNoteShowPos;}
+	void				SetNoteShowPos(Vector3 e_vPos){m_vNoteShowPos = e_vPos;}
+	bool				IsAllowToCompare(){return  m_bAllowToCompare;}
 };
 
 //<cSoundTimeLineDataCollection ToneDataFileName="Quitar.xml">

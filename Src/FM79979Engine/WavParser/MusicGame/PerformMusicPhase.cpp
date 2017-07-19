@@ -100,30 +100,6 @@ void	cPerformMusicPhase::Update(float e_fElpaseTime)
 			if( l_pQuickFFTDataFrequencyFinder )
 				m_pTimeLineRangeChart->Compare(e_fElpaseTime,l_pQuickFFTDataFrequencyFinder);		
 		}
-#ifdef PARSE_TEST_SOUND
-	//{
-	//	std::wstring l_str;
-	//	for(int i=0;i<l_pQuickFFTDataFrequencyFinder->m_iFFTBinCount;++i)
-	//	{
-	//		if(l_pQuickFFTDataFrequencyFinder->GetFFTData()[i]>100)
-	//		{
-	//			int l_iFrequency = (int)l_pQuickFFTDataFrequencyFinder->m_fFrequencyGap*i;
-	//			//if(cGameApp::m_sfDebugValue!=1.f)
-	//			{
-	//				l_str += ValueToStringW(l_iFrequency);
-	//				l_str += L",";
-	//			}
-	//		}
-	//	}
-	//	if( l_str.length() )
-	//	{
-	//		std::wstring l_strInfo = this->GetName();
-	//		l_strInfo += L":";
-	//		l_strInfo += l_str;
-	//		//cGameApp::OutputDebugInfoString(l_strInfo.c_str());
-	//	}
-	//}
-#endif
 	}
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
@@ -140,6 +116,8 @@ void	cPerformMusicPhase::Render()
 	if(m_pTimeLineRangeChart)
 	{
 		m_pTimeLineRangeChart->Render();
+		if( cGameApp::m_sbDebugFunctionWorking )
+			m_pTimeLineRangeChart->DebugRender();
 	}
 }
 
@@ -162,7 +140,7 @@ void    cPerformMusicPhase::MouseUp(int e_iPosX,int e_iPosY)
 		m_pClickBehaviorDispatcher->MouseUp(e_iPosX,e_iPosY);
 	if( m_pPerformMusicPhaseUI )
 	{
-		this->m_pPerformMusicPhaseUI->ShotLaser();
+		//this->m_pPerformMusicPhaseUI->ShotLaser();
 	}
 }
 
