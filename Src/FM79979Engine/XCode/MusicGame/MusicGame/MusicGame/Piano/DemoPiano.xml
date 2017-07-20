@@ -1,18 +1,23 @@
 <cToneDataVector SourceFreq="11025">  
-  <cToneData SoundSourceFileName="MusicGame/Piano/f3.FreqDeci"  ID="f3" PosOffset="718,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/f3#.FreqDeci" ID="f3m" PosOffset="79,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/g3.FreqDeci"  ID="g3" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/g3#.FreqDeci" ID="g3m" PosOffset="71,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/a4.FreqDeci"  ID="a4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/a4#.FreqDeci" ID="a4m" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/b4.FreqDeci"  ID="b4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/c4.FreqDeci"  ID="c4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/c4#.FreqDeci" ID="c4m" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/d4.FreqDeci"  ID="d4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/d4#.FreqDeci" ID="d4m" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/e4.FreqDeci"  ID="e4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/f4.FreqDeci"  ID="f4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/f4#.FreqDeci" ID="f4m" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/g4.FreqDeci"  ID="g4" PosOffset="76,0" />
-  <cToneData SoundSourceFileName="MusicGame/Piano/g4#.FreqDeci" ID="g4m" PosOffset="76,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f3.FreqDeci"  ID="f3" PosOffset="-500,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f3#.FreqDeci" ID="f3m" PosOffset="0,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g3.FreqDeci"  ID="g3" PosOffset="0,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g3#.FreqDeci" ID="g3m" PosOffset="0,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a3.FreqDeci"  ID="a3" PosOffset="0,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a3#.FreqDeci" ID="a3m" PosOffset="0,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/b3.FreqDeci"  ID="b3" PosOffset="0,0" />
+  
+  <cToneData SoundSourceFileName="MusicGame/Piano/c4.FreqDeci"  ID="c4" PosOffset="1180,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/c4#.FreqDeci" ID="c4m" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/d4.FreqDeci"  ID="d4" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/d4#.FreqDeci" ID="d4m" PosOffset="80,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/e4.FreqDeci"  ID="e4" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f4.FreqDeci"  ID="f4" PosOffset="140,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/f4#.FreqDeci" ID="f4m" PosOffset="90,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g4.FreqDeci"  ID="g4" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/g4#.FreqDeci" ID="g4m" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a4.FreqDeci"  ID="a4" PosOffset="70,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/a4#.FreqDeci" ID="a4m" PosOffset="90,0" />
+  <cToneData SoundSourceFileName="MusicGame/Piano/b4.FreqDeci"  ID="b4" PosOffset="70,0" />
+  
 </cToneDataVector>

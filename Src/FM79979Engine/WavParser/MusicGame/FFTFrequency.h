@@ -34,6 +34,7 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 		int					m_iFFTCount;
 		cFFTFrequencyDecibels(int e_iFFTCount);
 		~cFFTFrequencyDecibels();
+		void	CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels);
 		void	Update(int e_iCount,int*e_piFFTCount);
 		void	Render(int e_iThresholdValue,int e_iScale);
 	};
@@ -58,7 +59,13 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 	int									m_iMouseMoveFreqDecibelAverage;
 	int*								m_piCurrentFFTDataReferencePointer;
 	std::vector<int>					m_PickupIndexVector;
-	bool								m_bSelectedModeIsAdd;
+	enum eCurrentMarkFrequencyMode
+	{
+		eCMFM_NONE = 0,
+		eCMFM_ADD,
+		eCMFM_DELETE,
+	};
+	eCurrentMarkFrequencyMode			m_eCurrentMarkFrequencyMode;
 
 	//for export,if the fft amplitude is smappler this ignore.
 	int									m_iExportThresholdValue;

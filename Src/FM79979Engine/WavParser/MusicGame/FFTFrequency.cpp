@@ -131,6 +131,15 @@ cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::~cFFTFrequencyDecibels()
 	SAFE_DELETE(m_piDecibleBiggetThanZeroCount);
 }
 
+void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels)
+{
+	if( m_piAverageDecibleValue && this->m_iFFTCount )
+	{
+		memcpy(e_pFFTFrequencyDecibels->m_piTotalDecibleValue,m_piAverageDecibleValue,sizeof(int)*m_iFFTCount);
+		e_pFFTFrequencyDecibels->m_iUpdateCount = 1;
+	}
+}
+
 void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::Update(int e_iCount,int*e_piFFTCount)
 {
 	assert(e_iCount == this->m_iFFTCount);
@@ -141,6 +150,7 @@ void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::Update(int e_iCount,int*e_piFF
 		if( l_iValue > 0 )
 		{
 			++m_piDecibleBiggetThanZeroCount[i];
+			int l_iOriginalValue = this->m_piTotalDecibleValue[i];
 			this->m_piTotalDecibleValue[i] += l_iValue;
 		}
 		if( 1 )
@@ -193,7 +203,7 @@ cFFTDecibelsAnalyzer::cFFTDecibelsAnalyzer()
 	m_iMouseMoveFreqDecibelAverage = -1;
 	m_iFrequency = 44100;
 	//why 999?because I am lazy lah
-	m_fNextDataTimeGap = 999.f;
+	m_fNextDataTimeGap = 9;
 	m_fCurrentTime = 0.f;
 	m_pCurrentFFTHitCountAndTime = nullptr;
 	this->m_vShowPos = Vector2(100,1200);
@@ -204,7 +214,7 @@ cFFTDecibelsAnalyzer::cFFTDecibelsAnalyzer()
 	m_iExportThresholdValue = cSoundCompareParameter::m_siFFTStoreThresholeValue;
 	m_bMouseDown = false;
 	m_iDecibelsRenderScale = 10;
-	m_bSelectedModeIsAdd = true;
+	m_eCurrentMarkFrequencyMode = eCurrentMarkFrequencyMode::eCMFM_NONE;
 	//m_iThreusholdAmplitude = cSoundCompareParameter::m_siDebugAmplitudeValue;
 }
 
@@ -231,11 +241,14 @@ void	cFFTDecibelsAnalyzer::Start(int e_iFrequency)
 
 void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount)
 {
-	//alter
+	//ctrl
 	if( cGameApp::m_sucKeyData[17] )	
-		this->m_bSelectedModeIsAdd = false;
+		m_eCurrentMarkFrequencyMode = eCMFM_DELETE;
+	else//alter
+	if( cGameApp::m_sucKeyData[18] )	
+		m_eCurrentMarkFrequencyMode = eCMFM_ADD;
 	else
-		this->m_bSelectedModeIsAdd = true;
+		m_eCurrentMarkFrequencyMode = eCMFM_NONE;
 	m_piCurrentFFTDataReferencePointer = e_piFFTData;
 	m_fCurrentTime += e_fElpaseTime;
 	m_fRestNextDataTimeGap -= e_fElpaseTime;
@@ -246,6 +259,8 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 		cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
 		l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetShowPos(this->m_vShowPos);
 		l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
+		if( m_pCurrentFFTHitCountAndTime && m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
+			m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->CopyAverageValue(l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels);
 		m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
 		this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
 		m_iMaxValue = 0;
@@ -455,13 +470,13 @@ void	cFFTDecibelsAnalyzer::MouseMove(int e_iMousePosX,int e_iMousePosY)
 			if( m_bMouseDown && m_piCurrentFFTDataReferencePointer )
 			{
 				float l_fDecibels = m_piCurrentFFTDataReferencePointer[l_iIndex]*m_iDecibelsRenderScale+this->m_vShowPos.y;
-				if( e_iMousePosY <= l_fDecibels )
+				//if( e_iMousePosY <= l_fDecibels )
 				{
 					int l_iIndexOfVector = UT::IsVectorContainValue<int>(m_PickupIndexVector,l_iIndex);
-					if( l_iIndexOfVector == -1 && m_bSelectedModeIsAdd )
+					if( l_iIndexOfVector == -1 && m_eCurrentMarkFrequencyMode == eCMFM_ADD )
 						m_PickupIndexVector.push_back(l_iIndex);
 					else
-					if( l_iIndexOfVector != -1 && !m_bSelectedModeIsAdd )
+					if( l_iIndexOfVector != -1 && m_eCurrentMarkFrequencyMode == eCMFM_DELETE )
 					{
 						m_PickupIndexVector.erase(m_PickupIndexVector.begin()+l_iIndexOfVector);
 					}

@@ -264,9 +264,9 @@ namespace	FATMING_CORE
 #ifndef ANDROID
 		this->m_bStop = true;;
 		m_bIsRecording = false;
-		while( !m_bThreadExitStop )
+		if( !m_bThreadExitStop )
 		{
-		
+			Sleep(100);
 		}
 		if( m_pDevice )
 		{
@@ -294,9 +294,9 @@ namespace	FATMING_CORE
 		this->m_iFileSize += e_iFileSize;
 	}
 
-	bool	cSoundCapture::AddSoundRecord(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
+	bool	cSoundCapture::AddSoundRecord(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat,int e_iOggWriteChannel)
 	{
-		cSounRecordToFileCallBackObject*l_pSounRecordToFileCallBackObject = new cSounRecordToFileCallBackObject(e_strFileName,e_eCaptureSoundFileFormat);
+		cSounRecordToFileCallBackObject*l_pSounRecordToFileCallBackObject = new cSounRecordToFileCallBackObject(e_strFileName,e_eCaptureSoundFileFormat,e_iOggWriteChannel);
 		return this->AddObject(l_pSounRecordToFileCallBackObject);
 	}
 
@@ -331,9 +331,10 @@ namespace	FATMING_CORE
 		return l_Result;
 	}
 
-	cSounRecordToFileCallBackObject::cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat)
+	cSounRecordToFileCallBackObject::cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat,int e_iOggWriteChannel )
 	{
 		this->SetName(e_strFileName.c_str());
+		m_iOggWriteChannel = e_iOggWriteChannel;
 		m_pSoundFile = nullptr;	
 		m_eCaptureSoundFileFormat = e_eCaptureSoundFileFormat;
 		this->m_strSaveFileName = e_strFileName;
@@ -366,7 +367,7 @@ namespace	FATMING_CORE
 			{
 				UT::ErrorMsg(L"sorry ogg format only support for 16 bit now",L"Because I am lazy to fix this!");
 			}
-			m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),l_iFrequency,l_iWrtteChannel);
+			m_pSoundFile->StartWriteOggData(m_strSaveFileName.c_str(),l_iFrequency,m_iOggWriteChannel,1);
 		}
 		else
 		{

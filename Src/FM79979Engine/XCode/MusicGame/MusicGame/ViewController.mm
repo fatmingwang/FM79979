@@ -140,5 +140,20 @@ bool g_bMultiTouched = false;
     g_pMusicGameApp->MouseUp(locY, locX);
 }
 
+//http://blog.csdn.net/m372897500/article/details/32710321
+- (void)applicationWillResignActive:(UIApplication*)application
+{
+  //  cGameApp::m_sbGamePause = true;
+}
+
+- (void)applicationDidBecomeActive:(UIApplication*)application
+{
+  //  cGameApp::m_sbGamePause = false;
+}
+
+- (void)applicationWillTerminate:(UIApplication*)application
+{
+    
+}
 
 @end

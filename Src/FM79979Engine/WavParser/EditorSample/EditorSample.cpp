@@ -16,6 +16,10 @@ using namespace EditorSample;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
+	char l_c = -1;
+	char l_c2 = -2;
+	int a = l_c;
+	int a2 = l_c2;
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 

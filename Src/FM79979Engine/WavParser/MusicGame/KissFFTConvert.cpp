@@ -326,8 +326,8 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_
 {
 	if( !m_pSoundFile )
 		return;
-	if( m_pFFTDataStore )
-		this->m_pFFTDataStore->Start(m_pSoundFile->m_iFreq);
+	if( e_pFFTDataStore )
+		e_pFFTDataStore->Start(m_pSoundFile->m_iFreq);
 	assert(m_iOneFrameFFTDataCount>=this->m_iOneFrameFFTDataCount&&"frenquence is too high,is this okay?");
 	assert(this->m_pSoundFile->m_iBitPerSample/8 == sizeof(short)&&"now only support one channel for 8 byte");
 
@@ -363,8 +363,8 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_
 		m_pfEachFFTDataDecibles[i] = l_fDecibles;
 		if( m_fMaxDecible <= l_fDecibles)
 			m_fMaxDecible = l_fDecibles;
-		//if( e_pFFTDataStore )
-			//e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
+		if( e_pFFTDataStore )
+			e_pFFTDataStore->UpdateFFTData(l_fOneFrameDuration,l_pOutFFTData,l_iHalfFFTCount);
 	}
 	for( int i=0;i<l_iNumFFT;++i )
 	{
@@ -453,12 +453,12 @@ void	cKissFFTConvert::Destroy()
 	//DELETE_VECTOR(m_FFTResultPhaseVector,std::vector<float>*);
 	SAFE_RELEASE(m_pTestSound,this);
 	SAFE_DELETE(m_pSoundFile);
+	SAFE_DELETE(m_pFFTDataStore);
 }
 //
 bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound,bool e_bDoFFTDataStore)
 {
 	m_strSourceFileName = e_strFileName;
-	m_fCurrentTime = 0.f;
 	Destroy();
 	m_pSoundFile = new FATMING_CORE::cSoundFile();
 	if(!m_pSoundFile->OpenFile(e_strFileName))
@@ -467,6 +467,13 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		return false;
 	}
 	cKissFFTConvertBase::SetOneFrameFFTDataCount(m_pSoundFile->m_iFreq);
+
+	if( e_bDoFFTDataStore && !m_pFFTDataStore )
+	{
+		this->m_pFFTDataStore = new cFFTDecibelsAnalyzer();
+		this->m_pFFTDataStore->Start(m_pSoundFile->m_iFreq);
+	}
+
 	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?this->m_pFFTDataStore:nullptr);
 	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	if( e_bPlaySound )
@@ -476,6 +483,8 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		m_pTestSound->OpenFile(e_strFileName,true);
 		m_pTestSound->Play(true);
 	}
+	m_fCurrentTime = 0.f;
+	cGameApp::m_sTimeAndFPS.Update();
 	return true;	
 }
 

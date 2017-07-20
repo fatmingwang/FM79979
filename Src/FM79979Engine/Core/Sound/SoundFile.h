@@ -103,25 +103,27 @@ namespace FATMING_CORE
 	class cSoundFile
 	{
 		//for ogg
-		ogg_stream_state os;
-		ogg_page         og;
-		ogg_packet       op;
-		vorbis_info      vi;
-		vorbis_comment   vc;
-		vorbis_dsp_state vd;
-		vorbis_block     vb;
+		ogg_stream_state				os;
+		ogg_page						og;
+		ogg_packet						op;
+		vorbis_info						vi;
+		vorbis_comment					vc;
+		vorbis_dsp_state				vd;
+		vorbis_block					vb;
+		//:( why
+		int								m_iOggEOSValue;
 	private:
 		//for write
 		cBinaryFile*					m_pWriteFile;
 		size_t							m_uiDataSize;
 		int								m_iWriteChannel;
 		//
-		std::vector<unsigned char*>		m_AllChannelData;
+		std::vector<char*>				m_AllChannelData;
 		void							AssignChannelData();
 		//
 		bool							WriteHeadData();
 	public:
-		unsigned char*					m_pSoundData;
+		char*							m_pSoundData;
 		//
 		//std::vector<char>	m_LeftChannelSoundData;
 		//std::vector<char>	m_RigtChannelSoundData;
@@ -147,7 +149,7 @@ namespace FATMING_CORE
 		bool							OpenFile(const char*e_strFileName);
 		int								GetSampleIndexByTime(float e_fTime);
 		unsigned char*					GetSample(int e_iSampleIndex);
-		unsigned char*					GetChannelData(int e_iChannelIndex);
+		char*							GetChannelData(int e_iChannelIndex);
 		//int								GetOneChannelBitPerSample();
 		size_t							GetChannelCount(){ return m_AllChannelData.size(); }
 		void							SetWAVFmtHdr(unsigned short e_usFormat,unsigned short e_usChannels,
@@ -157,7 +159,8 @@ namespace FATMING_CORE
 		bool							StartWriteWavFile(const char*e_strFileName);
 		bool							WriteWavData(size_t e_uiSize,unsigned char*e_pusData);
 		bool							EndWriteWavFile();
-		//
+		//fuck...somehow I have no idea why android treat char -1 to int as 256...so I have to convertvalue to correct one...(fuck NDK default char is unsigned char, add command line with -fsigned-char(CFLAGS + "-fsigned-char") )
+		//what I learned is while the sound listen have a lot noise it's because the value change to the wrong value(-1 become 255)
 		bool							StartWriteOggData(const char*e_strFileName,int e_iSampleRate,int e_iChannel = 2,float e_fQuality = 0.4f);
 		//fuck ogg format is not allow unsigned,it spend my whole night!
 		bool							WriteOggData(size_t e_uiSize,char*e_pusData,int e_iInChannel);

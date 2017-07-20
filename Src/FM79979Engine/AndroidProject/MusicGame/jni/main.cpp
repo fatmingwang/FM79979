@@ -25,17 +25,20 @@
 #include <android/sensor.h>
 #include <android/log.h>
 #include "engine.h"
-#include "../../../FishingFun/Win32Test/stdafx.h"
+
 //extern int	g_iHeartTest;
+
 void android_main(struct android_app* app)
 {	
-     int l_iSize1 = sizeof(double);
-     int l_iSize2 = sizeof(ogg_int32_t);
-     int l_iSize3 = sizeof(ogg_uint32_t);
-     int l_iSize4 = sizeof(ogg_int16_t);
-     int l_iSize5 = sizeof(ogg_uint16_t);
+	char a = -1;
+	int b = a;
+ //    int l_iSize1 = sizeof(double);
+ //    int l_iSize2 = sizeof(ogg_int32_t);
+ //    int l_iSize3 = sizeof(ogg_uint32_t);
+ //    int l_iSize4 = sizeof(ogg_int16_t);
+ //    int l_iSize5 = sizeof(ogg_uint16_t);
     // Make sure glue isn't stripped.
-    app_dummy();
+    //app_dummy();
 
 	NvEGLUtil* egl = NvEGLUtil::create();
     if (!egl) 

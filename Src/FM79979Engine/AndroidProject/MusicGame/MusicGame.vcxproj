@@ -53,7 +53,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID;DEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\ogg;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>--rtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>

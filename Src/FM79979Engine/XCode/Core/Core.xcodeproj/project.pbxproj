@@ -340,7 +340,7 @@
 		6156CB431EFB76B900D10C36 /* TemplateClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TemplateClass.h; path = ../../Core/TemplateClass.h; sourceTree = "<group>"; };
 		6156CB441EFB76B900D10C36 /* TimeUT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TimeUT.cpp; path = ../../Core/TimeUT.cpp; sourceTree = "<group>"; };
 		6156CB451EFB76B900D10C36 /* TimeUT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TimeUT.h; path = ../../Core/TimeUT.h; sourceTree = "<group>"; };
-		6156CB461EFB76B900D10C36 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utility.cpp; path = ../../Core/Utility.cpp; sourceTree = "<group>"; };
+		6156CB461EFB76B900D10C36 /* Utility.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = Utility.cpp; path = ../../Core/Utility.cpp; sourceTree = "<group>"; };
 		6156CB471EFB76B900D10C36 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utility.h; path = ../../Core/Utility.h; sourceTree = "<group>"; };
 		6156CB481EFB76B900D10C36 /* VS_TO_GNN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VS_TO_GNN.h; path = ../../Core/VS_TO_GNN.h; sourceTree = "<group>"; };
 		6156CB6E1EFB9B0D00D10C36 /* CameraAnimation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CameraAnimation.cpp; path = ../../Core/Camera/CameraAnimation.cpp; sourceTree = "<group>"; };

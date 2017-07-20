@@ -9,6 +9,10 @@
 #if defined(IOS)
 #include <mach/mach_time.h>
 #include <sys/time.h>
+#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UIImage.h>
+#include <stdio.h>
+#include <sys/stat.h>
 #elif defined(WIN32)
 #include "strsafe.h"
 #pragma warning( disable : 4793 )
@@ -19,9 +23,6 @@
 //#define WGL_SAMPLES_ARB		0x2042
 bool	arbMultisampleSupported	= false;
 int		arbMultisampleFormat	= 0;
-#elif defined(IOS)
-#include <stdio.h>
-#include <sys/stat.h>
 #elif defined(ANDROID)
 #include "jni.h"
 #include <sys/stat.h>
@@ -804,7 +805,41 @@ namespace UT
 		return true;
 	}
 
-	NvFile*	MyFileOpen( const char* FileName,const char*e_strMode )
+#ifdef IOS
+	//because iphone using bundle resource,so the resource store in its specific path.
+	void GetAppleBundelResourcePathByObjectPath( const char*e_strSrc,char*e_strDest)
+	{
+		char	l_strFileName[1024];
+		sprintf(l_strFileName,"%s",GetFileNameWithoutFullPath(e_strSrc,false).c_str());
+		NSString* l_str = 0;
+		NSString*l_NSDirectory = 0;
+		NSString*l_strName = [[NSString alloc]initWithUTF8String:l_strFileName];
+		char	l_strDirectory[1024];
+		std::string l_strDirectoryName = GetDirectoryWithoutFileName(e_strSrc);
+		if( l_strDirectoryName.length() )
+		{
+			sprintf(l_strDirectory,"%s",l_strDirectoryName.c_str());
+			l_NSDirectory = [[NSString alloc]initWithUTF8String:l_strDirectory];
+		}
+		l_str = [[NSBundle mainBundle] pathForResource:l_strName ofType:nil inDirectory:l_NSDirectory ];
+		//ensure u add the right type in the XCode
+		const char* datechar = [l_str UTF8String];
+		if( datechar )
+		{
+			assert(e_strDest);
+			sprintf(e_strDest,"%s",datechar);
+		}
+	}
+
+	void GetIphoneAppFilePath(const char* e_strFileName, char*e_strOutputFileName)
+	{
+		NSArray *Paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *documentsDirectory = [Paths objectAtIndex:0];
+		sprintf(&e_strOutputFileName, "%s/%s", [documentsDirectory UTF8String], e_strFileName);
+	}
+#endif
+
+	NvFile*	MyFileOpen( const char* e_strFileName,const char*e_strMode )
 	{
 		NvFile* fp = nullptr;
 		bool	l_bWrite = false;
@@ -813,18 +848,24 @@ namespace UT
 			if( e_strMode[i] == 'w' )
 			{
 				l_bWrite = true;
+				break;
 			}
 		}
 #if defined(IOS)
 		char	l_strFileName[MAX_PATH];
-		GetAppleBundelResourcePathByObjectPath(FileName,l_strFileName);
+		GetAppleBundelResourcePathByObjectPath(e_strFileName,l_strFileName);
 		fp = fopen( l_strFileName, e_strMode );
+		if( !fp )
+		{
+			GetIphoneAppFilePath(e_strFileName,l_strFileName);
+			fp = fopen( l_strFileName, e_strMode );
+		}
 #elif defined (ANDROID)
 		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
 		//http://androgeek.info/?p=275
 		if( l_bWrite )
-			mkpath( std::string(FileName) );
-		fp = NvFOpen(FileName,e_strMode);
+			mkpath( std::string(e_strFileName) );
+		fp = NvFOpen(e_strFileName,e_strMode);
 		if( !fp )
 		{
 			//try external sd card first
@@ -833,7 +874,7 @@ namespace UT
 				std::string l_strFileName = *cGameApp::m_spExternalSDDirectory;
 				l_strFileName += *cGameApp::m_psstrGameAppName;
 				l_strFileName += "/";
-				l_strFileName += FileName;
+				l_strFileName += e_strFileName;
 				if( l_bWrite )
 					mkpath( l_strFileName );
 				fp = NvFOpen(l_strFileName.c_str(),e_strMode);
@@ -844,7 +885,7 @@ namespace UT
 			std::string l_strFileName = "/sdcard/";
 			l_strFileName += *cGameApp::m_psstrGameAppName;
 			l_strFileName += "/";
-			l_strFileName += FileName;
+			l_strFileName += e_strFileName;
 			//I am lazy to do recursive mkdir,so here may not working
 			if( l_bWrite )
 				mkpath(l_strFileName);
@@ -855,7 +896,7 @@ namespace UT
 				l_strFileName += "/";	
 				l_strFileName += *cGameApp::m_psstrGameAppName;
 				l_strFileName += "/";
-				l_strFileName += FileName;
+				l_strFileName += e_strFileName;
 				if( l_bWrite )
 					mkpath(l_strFileName);
 				fp = NvFOpen(l_strFileName.c_str(),e_strMode);
@@ -876,8 +917,8 @@ namespace UT
 		}
 #else
 		if( l_bWrite )
-			mkpath( std::string(FileName) );
-		fp = fopen( FileName, e_strMode );
+			mkpath( std::string(e_strFileName) );
+		fp = fopen( e_strFileName, e_strMode );
 #endif
 		return fp;
 	}

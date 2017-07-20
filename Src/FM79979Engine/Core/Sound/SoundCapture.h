@@ -114,7 +114,7 @@ namespace	FATMING_CORE
 		int								GetBuffersize(){return m_iBufferSize;}
 		float							GetCurrntTime(){return m_fCurrntTime;}
 		//record sound to file
-		bool							AddSoundRecord(std::string e_strFileName = "Record.ogg",eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG);
+		bool							AddSoundRecord(std::string e_strFileName = "Record.ogg",eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG,int e_iOggWriteChannel = 1);
 		static std::vector<std::string>	GetAvalibeRecordDevice();
 		bool							IsDeviceOpen();
 		//
@@ -127,13 +127,15 @@ namespace	FATMING_CORE
 		//
 		eCaptureSoundFileFormat	m_eCaptureSoundFileFormat;
 		std::string				m_strSaveFileName;
+		int						m_iOggWriteChannel;
 		cSoundFile*				m_pSoundFile;
 		virtual void			CaptureSoundStartCallBack();
 		virtual void			CaptureSoundEndCallBack();
 		void					Destory();
 	public:
 		DEFINE_TYPE_INFO();
-		cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG);
+		//e_iOggWriteChannel only for ogg
+		cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG,int e_iOggWriteChannel = 2);
 		~cSounRecordToFileCallBackObject();
 		virtual void			CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData);
 		void					SetSaveFileName(const char*e_strFileName);

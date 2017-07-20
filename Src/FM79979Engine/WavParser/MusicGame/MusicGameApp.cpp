@@ -46,7 +46,7 @@ void	cMusicGameApp::Init()
 {
 	
 	//FATMING_CORE::cSoundFile* l_SoundFile = new FATMING_CORE::cSoundFile();
-	//l_SoundFile->WavToOggFile("Sound/2owl.wav","t1.ogg");
+	//l_SoundFile->WavToOggFile("MusicGame/Piano/a1.wav","a1.ogg");
 
 	cGameApp::Init();
 	//sound setup
@@ -54,8 +54,8 @@ void	cMusicGameApp::Init()
 	int l_iFrequence = cSoundCompareParameter::CAPTURE_FREQUENCY;
 	m_pSoundCapture = new cSoundCapture(l_iFrequence,AL_FORMAT_MONO16,m_pSoundFFTCapture->GetOpanalCaptureBufferSize(BEST_RECORD_FPS,l_iFrequence,true,AL_FORMAT_MONO16));
 	m_pSoundCapture->AddObject(m_pSoundFFTCapture);
-	//m_pSoundCapture->AddSoundRecord("Test.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
-	//m_pSoundCapture->AddSoundRecord("Test.wav",eCaptureSoundFileFormat::eCSFF_WAV);
+
+	//m_pSoundCapture->AddSoundRecord("3939889.ogg",eCaptureSoundFileFormat::eCSFF_OGG);
 	//
 	m_pPhaseManager = new cPhaseManager();
 	if( m_pPhaseManager )

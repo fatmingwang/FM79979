@@ -96,7 +96,6 @@ namespace EditorSample
 
 
 			AssignDragEnterAndDropEventToTextboxWithFileName(RecordSoundFileName_textBox,this->Controls);
-			
 
 			std::vector<std::string>l_strDeviceList = cSoundCapture::GetAvalibeRecordDevice();
 			for(auto l_strDeviceName :l_strDeviceList)
@@ -1360,7 +1359,7 @@ private: System::Void FFTTest_button_Click(System::Object^  sender, System::Even
 					//m_pKissFFTConvertBase->SetFilterStrengthValue((int)FilterStrength_numericUpDown->Value);
 					 float l_fTimeToUpDate = 1.f/(int)WaveUpdateIndex_numericUpDown->Value;
 					 m_pKissFFTConvertBase->SetFFTDataUpdateTime(l_fTimeToUpDate);
-					if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str()))
+					if(m_pKissFFTConvertBase->FetchSoundDataStart(l_strFileName.c_str(),true,true))
 					{
 						CurrentTime_trackBar->Maximum = (int)(m_pKissFFTConvertBase->GetTimeLength()*10);
 						GoToTime_trackBar->Maximum = CurrentTime_trackBar->Maximum;
@@ -1386,9 +1385,9 @@ private: System::Void BackStep_button_Click(System::Object^  sender, System::Eve
 		 }
 private: System::Void ToOgg_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 if(System::IO::File::Exists(WavFileName_textBox->Text))
+			 if(System::IO::File::Exists(RecordSoundFileName_textBox->Text))
 			 {
-				std::string l_FileName = DNCT::GcStringToChar(this->WavFileName_textBox->Text);
+				std::string l_FileName = DNCT::GcStringToChar(this->RecordSoundFileName_textBox->Text);
 				FATMING_CORE::cSoundFile*l_pSoundFile = new FATMING_CORE::cSoundFile();
 				if( sender == ToOgg_button )
 				{

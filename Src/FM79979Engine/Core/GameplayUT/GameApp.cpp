@@ -624,7 +624,7 @@ namespace	FATMING_CORE
 
 	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol)
 	{
-//#ifdef DEBUG		
+#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
 			if( e_bWithNextLineSymbol )
@@ -637,7 +637,7 @@ namespace	FATMING_CORE
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());
 	#endif
-//#endif
+#endif
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol)

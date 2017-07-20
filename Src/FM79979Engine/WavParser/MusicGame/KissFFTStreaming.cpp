@@ -473,6 +473,8 @@ void	cKissFFTStreamingConvert::Render()
 		}
 		RenderMaxAmplitudeAndFrequencyInfo(100,200);
 		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
+		if( m_pFFTDataStore )
+			m_pFFTDataStore->RenderCurrentData();
 	}
 }
 
@@ -512,6 +514,8 @@ void	cKissFFTStreamingConvert::GoToTime(float e_fTime)
 		DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
 		this->m_pOpanalOgg->GoTo(e_fTime);
 		this->m_fCurrentTime = e_fTime;
+		if(this->m_pFFTDataStore)
+			this->m_pFFTDataStore->Start(this->m_pOpanalOgg->GetFreq());
 		cGameApp::m_sbGamePause = false;
 	}
 }

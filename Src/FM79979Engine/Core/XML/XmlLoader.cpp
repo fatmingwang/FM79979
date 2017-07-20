@@ -6,10 +6,6 @@
 #include "../GameplayUT/BinaryFile.h"
 #include "../Math/MathUtility.h"
 #include "../Sound/SoundManager.h"
-#ifdef IOS
-#import <QuartzCore/QuartzCore.h>
-#import <UIKit/UIImage.h>
-#endif
 namespace FATMING_CORE
 {
 	bool	g_bDumpXmlContent = false;
@@ -62,40 +58,6 @@ namespace FATMING_CORE
 		SwapBuffers(cGameApp::m_sHdc);
 #endif
 	}
-	#ifdef IOS
-	//because iphone using bundle resource,so the resource store in its specific path.
-	void GetAppleBundelResourcePathByObjectPath( const char*e_strSrc,char*e_strDest)
-	{
-		char	l_strFileName[1024];
-		sprintf(l_strFileName,"%s",GetFileNameWithoutFullPath(e_strSrc,false).c_str());
-		NSString* l_str = 0;
-		NSString*l_NSDirectory = 0;
-		NSString*l_strName = [[NSString alloc]initWithUTF8String:l_strFileName];
-		char	l_strDirectory[1024];
-		std::string l_strDirectoryName = GetDirectoryWithoutFileName(e_strSrc);
-		if( l_strDirectoryName.length() )
-		{
-			sprintf(l_strDirectory,"%s",l_strDirectoryName.c_str());
-			l_NSDirectory = [[NSString alloc]initWithUTF8String:l_strDirectory];
-		}
-		l_str = [[NSBundle mainBundle] pathForResource:l_strName ofType:nil inDirectory:l_NSDirectory ];
-		//ensure u add the right type in the XCode
-		const char* datechar = [l_str UTF8String];
-		if( datechar )
-		{
-			assert(e_strDest);
-			sprintf(e_strDest,"%s",datechar);
-		}
-	}
-
-	void GetIphoneAppFilePath(char* o_buffer, char* ifilename)
-	{
-		NSArray *Paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *documentsDirectory = [Paths objectAtIndex:0];
-		sprintf(o_buffer, "%s/%s", [documentsDirectory UTF8String], ifilename);
-	}
-	#endif
-
 	ISAXCallback::ISAXCallback(bool e_bSetRunBack)
 	{
 		m_pCurrentTiXmlElement = 0;

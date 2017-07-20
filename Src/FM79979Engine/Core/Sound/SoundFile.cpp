@@ -2,6 +2,7 @@
 #include "SoundFile.h"
 
 #include "../GameplayUT/BinaryFile.h"
+#include "../GameplayUT/GameApp.h"
 #include "OpenAlOgg.h"
 #ifndef WIN32
 #include "ogg/vorbis/vorbisenc.h"
@@ -59,7 +60,7 @@ namespace FATMING_CORE
 
 	cSoundFile::~cSoundFile()
 	{
-		DELETE_VECTOR(m_AllChannelData,unsigned char*);
+		DELETE_VECTOR(m_AllChannelData,char*);
 		SAFE_DELETE(m_pSoundData);
 		SAFE_DELETE(m_pWriteFile);
 	}
@@ -176,7 +177,7 @@ namespace FATMING_CORE
 						this->m_iSoundDataSize = l_WAVChunkHdr_Struct.Size;
 						//whye here need more 31 byte? for empty sound!?
 						int	l_iEndSounddForEmpty_DataLength = 0;
-						m_pSoundData = (unsigned char*)malloc(l_WAVChunkHdr_Struct.Size+l_iEndSounddForEmpty_DataLength);
+						m_pSoundData = new char[l_WAVChunkHdr_Struct.Size+l_iEndSounddForEmpty_DataLength];
 						NvFRead(m_pSoundData,1,l_WAVChunkHdr_Struct.Size,l_pFile);
 						//if( l_iEndSounddForEmpty_DataLength > 0 )
 							//memset(m_pSoundData+l_WAVChunkHdr_Struct.Size,0,l_iEndSounddForEmpty_DataLength);
@@ -223,6 +224,7 @@ namespace FATMING_CORE
 			return false;
 		}
 		return true;
+		//below is separate channels,we dont need it right now.
 		int l_iOneSampleLength = m_WAVFmtHdr_Struct.BlockAlign;
 		assert(m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign == m_iSoundDataSize&&"this is not a common wav file");
 		std::vector<char>*l_pChannelDataPointer = nullptr;
@@ -230,15 +232,15 @@ namespace FATMING_CORE
 		for(int i=0;i<this->m_WAVFmtHdr_Struct.Channels;++i)
 		{
 			int	l_iCurrentSampleIndex = i*m_WAVFmtHdr_Struct.BlockAlign;
-			unsigned char*l_pCurrentChannelData = new unsigned char[m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels];
+			char*l_pCurrentChannelData = new char[m_iSampleCount*m_WAVFmtHdr_Struct.BlockAlign/this->m_WAVFmtHdr_Struct.Channels];
 			//int
 			int l_iHowManyBytesCopy = 0;
 			for(int k=0;k<m_iSampleCount;++k)
 			{
 				int l_iSrcIndex = (l_iOneSampleLength*k)+l_iSampleStep*i;
 				int l_iTargetIndex = l_iSampleStep*k;
-				unsigned char*l_CurrentChannelData = m_pSoundData+l_iSrcIndex;
-				unsigned char*l_pCopyData = l_pCurrentChannelData+l_iTargetIndex;
+				char*l_CurrentChannelData = m_pSoundData+l_iSrcIndex;
+				char*l_pCopyData = l_pCurrentChannelData+l_iTargetIndex;
 				memcpy(l_pCopyData,l_CurrentChannelData,l_iSampleStep);
 				l_iHowManyBytesCopy += l_iSampleStep;
 			}
@@ -281,7 +283,7 @@ namespace FATMING_CORE
 	//	return m_iBitPerSample/this->m_iChannel;
 	//}
 
-	unsigned char*	cSoundFile::GetChannelData(int e_iChannelIndex)
+	char*	cSoundFile::GetChannelData(int e_iChannelIndex)
 	{
 		if(e_iChannelIndex<(int)m_AllChannelData.size())
 		{
@@ -426,6 +428,7 @@ float g_fTest2 = 1.f;
 				l_iNumData += 1;
 			}
 			int l_iCurrentDataPos = 0;
+			char*l_pData = (char*)this->m_pSoundData;
 			for( int i=0;i<l_iNumData;++i )
 			{
 				int l_iDataLen = l_iWriteSize;
@@ -455,6 +458,7 @@ float g_fTest2 = 1.f;
 
 	bool	cSoundFile::WavToOggFileOnlyChannel(const char*e_strFileName,const char*e_strOutputFileName,float e_fQuality,int e_iOutChannel ,int e_iTargetChannelIndex)
 	{
+		assert( 0 &&"fuck dont use this one, because I am lazy o fix this!");
 		if( e_iTargetChannelIndex >1 )
 			e_iTargetChannelIndex = 1;
 		if(OpenWavFile(e_strFileName))
@@ -472,7 +476,7 @@ float g_fTest2 = 1.f;
 			{
 				l_iNumData += 1;
 			}
-			unsigned char*l_pCurrentSoundData = m_AllChannelData[0];
+			char*l_pCurrentSoundData = m_AllChannelData[0];
 			int l_iCurrentDataPos = 0;
 			for( int i=0;i<l_iNumData;++i )
 			{
@@ -496,62 +500,67 @@ float g_fTest2 = 1.f;
 
 	bool	cSoundFile::StartWriteOggData(const char*e_strFileName,int e_iSampleRate,int e_iChannel,float e_fQuality)
 	{
-	  m_iWriteChannel = e_iChannel;
-	  SAFE_DELETE(m_pWriteFile);
-	  m_pWriteFile = new cBinaryFile();
-	  int ret;
-
-	  if (!m_pWriteFile->Writefile(e_strFileName,true,false)) {
-		//printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
-		  UT::ErrorMsg("write file failed",e_strFileName);
-		return false;
-	  }
-
-	  /********** Encode setup ************/
-
-	  vorbis_info_init (&vi);
-
-	  //	//l_ret = vorbis_encode_init_vbr(&l_vi,2,44100,0.1);
-	  int l_iChannel = e_iChannel;
-	  float l_fQuality = e_fQuality;
-	  int l_iSamplerate = e_iSampleRate;
-	  ret = vorbis_encode_init_vbr (&vi,l_iChannel,l_iSamplerate,l_fQuality);
-	  if (ret) {
-		printf ("vorbis_encode_init_vbr return %d\n", ret) ;
-		return false;
-	  }
-
-	  vorbis_comment_init (&vc);
-	  vorbis_comment_add_tag (&vc,"ENCODER","test/util.c");
-	  vorbis_analysis_init (&vd,&vi);
-	  vorbis_block_init (&vd,&vb);
-
-	  ogg_stream_init (&os,rand());
-
-	  {
-		ogg_packet header;
-		ogg_packet header_comm;
-		ogg_packet header_code;
-
-		vorbis_analysis_headerout (&vd,&vc,&header,&header_comm,&header_code);
-		ogg_stream_packetin (&os,&header);
-		ogg_stream_packetin (&os,&header_comm);
-		ogg_stream_packetin (&os,&header_code);
-
-		/* Ensures the audio data will start on a new page. */
-		while (true)
+		m_iOggEOSValue = 0;
+		m_iWriteChannel = e_iChannel;
+		SAFE_DELETE(m_pWriteFile);
+		m_pWriteFile = new cBinaryFile();
+		if (!m_pWriteFile->Writefile(e_strFileName,true,false))
 		{
-			int result = ogg_stream_flush (&os,&og);
-			if (result == 0)
-				break;
-			NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
-			NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+			//printf("\n\nError : fopen failed : %s\n", strerror (errno)) ;
+			UT::ErrorMsg("write file failed",e_strFileName);
+			return false;
+		}
+		int ret;
+		/********** Encode setup ************/
+
+		vorbis_info_init (&vi);
+
+		//	//l_ret = vorbis_encode_init_vbr(&l_vi,2,44100,0.1);
+		int l_iChannel = e_iChannel;
+		float l_fQuality = e_fQuality;
+		int l_iSamplerate = e_iSampleRate;
+		ret = vorbis_encode_init_vbr (&vi,l_iChannel,l_iSamplerate,l_fQuality);
+		//ret = vorbis_encode_init_vbr (&vi,l_iChannel,l_iSamplerate,-1);
+		if (ret)
+		{
+			std::wstring l_strInfo = L"vorbis_encode_init_vbr return ";
+			l_strInfo += ValueToStringW(ret);
+			cGameApp::OutputDebugInfoString(l_strInfo);
+			return false;
 		}
 
-	  }
-	  return true;
-	}
+		vorbis_comment_init (&vc);
+		vorbis_comment_add_tag (&vc,"ENCODER","SoundFile.cpp");
+		/* set up the analysis state and auxiliary encoding storage */
+		vorbis_analysis_init (&vd,&vi);
+		vorbis_block_init (&vd,&vb);
 
+		//ogg_stream_init (&os,rand());
+		ogg_stream_init(&os,79979);
+		{
+			ogg_packet header;
+			ogg_packet header_comm;
+			ogg_packet header_code;
+
+			vorbis_analysis_headerout (&vd,&vc,&header,&header_comm,&header_code);
+			ogg_stream_packetin (&os,&header);
+
+			ogg_stream_packetin (&os,&header_comm);
+			ogg_stream_packetin (&os,&header_code);
+
+			/* Ensures the audio data will start on a new page. */
+			while (!m_iOggEOSValue)
+			{
+				int result = ogg_stream_flush (&os,&og);
+				if (result == 0)
+					break;
+				NvFWrite (og.header,1,og.header_len,m_pWriteFile->GetFile());
+				NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
+			}
+
+		}
+		return true;
+	}
 	bool	cSoundFile::WriteOggData(size_t e_uiSize,char*e_pusData,int e_iInChannel)
 	{
 		//byte to float
@@ -624,17 +633,17 @@ float g_fTest2 = 1.f;
 		}
 		/* tell the library how much we actually submitted */
 		vorbis_analysis_wrote (&vd,i);
-		int* l_iAddress = &vd.pcm_current;
+
 		while (vorbis_analysis_blockout (&vd,&vb) == 1) 
 		{
-			vorbis_analysis (&vb,NULL);
+			vorbis_analysis (&vb,nullptr);
 			vorbis_bitrate_addblock (&vb);
 
 			while (vorbis_bitrate_flushpacket (&vd,&op))
 			{
 				ogg_stream_packetin (&os,&op);
 
-				while (true)
+				while (!m_iOggEOSValue)
 				{
 					int result = ogg_stream_pageout (&os,&og);
 					if (result == 0)
@@ -643,7 +652,7 @@ float g_fTest2 = 1.f;
 					NvFWrite (og.body,1,og.body_len,m_pWriteFile->GetFile());
 
 					if (ogg_page_eos (&og))
-					break;
+						m_iOggEOSValue = 1;
 				}
 			}
 		}
@@ -652,16 +661,17 @@ float g_fTest2 = 1.f;
 
 	bool	cSoundFile::EndWriteOggData()
 	{
-	  vorbis_analysis_wrote (&vd,0);
-	  ogg_stream_clear (&os);
-	  vorbis_block_clear (&vb);
-	  vorbis_dsp_clear (&vd);
-	  vorbis_comment_clear (&vc);
-	  vorbis_info_clear (&vi);
+		vorbis_analysis_wrote (&vd,0);
 
-	  m_pWriteFile->CloseFile();
-	  SAFE_DELETE(m_pWriteFile);
-	  return true;
+		ogg_stream_clear (&os);
+		vorbis_block_clear (&vb);
+		vorbis_dsp_clear (&vd);
+		vorbis_comment_clear (&vc);
+		vorbis_info_clear (&vi);
+
+		m_pWriteFile->CloseFile();
+		SAFE_DELETE(m_pWriteFile);
+		return true;
 	}
 //end namespace FATMING_CORE
 }
