@@ -29,8 +29,6 @@ protected:
 	//
 	GET_SET_DEC(int,m_iMaxAmplitudeFrequence,GetMaxAmplitudeFrequence,SetMaxAmplitudeFrequence);
 	GET_SET_DEC(int,m_iMaxAmplitude,GetMaxAmplitude,SetMaxAmplitude);
-	//
-	GET_SET_DEC(bool,m_bFilter,IsFilter,SetFilter);
 	//https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition
 	//However, in one song the range of strong frequencies might vary between low C - C1 (32.70 Hz) and high C - C8 (4,186.01 Hz
 	//GET_SET_DEC(float,m_fFrenquenceFilterEndScaleValue,GetFrenquenceFilterEndScaleValue,SetiFrenquenceFilterEndScaleValue);
@@ -95,7 +93,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	int		GetStartFFTIndexByTime(float e_fTime);
 	//time for estimate PreProcessedAllData
 	UT::sTimeAndFPS	m_Timer;
-	void	PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore = nullptr);
+	void	PreProcessedAllData(cFFTDecibelsAnalyzer*e_pFFTDataStore = nullptr);
 	//void	PreProcessedDoubleAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore);
 	//
 	virtual void	Destroy();

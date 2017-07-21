@@ -34,7 +34,7 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 		int					m_iFFTCount;
 		cFFTFrequencyDecibels(int e_iFFTCount);
 		~cFFTFrequencyDecibels();
-		void	CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels);
+		bool	CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels,int*e_pNewFFTData,int e_iFFTCount);
 		void	Update(int e_iCount,int*e_piFFTCount);
 		void	Render(int e_iThresholdValue,int e_iScale);
 	};

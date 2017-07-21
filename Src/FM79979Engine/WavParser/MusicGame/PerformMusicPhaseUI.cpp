@@ -14,6 +14,8 @@ cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPha
 	m_pPause = nullptr;
 	m_pScore = nullptr;
 	m_pBG = nullptr;
+	m_pC4Text = nullptr;
+	m_pG4Text = nullptr;
 	//m_pScoreFont = nullptr;
 	m_pTouchMPDI = nullptr;
 	m_pScoreNumeial = nullptr;
@@ -34,6 +36,8 @@ cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 
 bool	cPerformMusicPhaseUI::TimeOverEventFire(void*e_pData)
 {
+	//Justin dont want this.
+	return true; 
 	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
 	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
 	m_pTouchMPDI->Init();
@@ -239,6 +243,22 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 				m_pPause->AddChild(std::get<1>(l_pResumeImage));
 			}
 		}
+	}
+	if( !m_pC4Text )
+	{
+		m_pC4Text  = new cGlyphFontRender("MusicGame/Fonts/MingLiU36");
+		m_pC4Text->SetText(L"C4");
+		m_pC4Text->SetFontColor(Vector4(0,0,0,1));
+		m_pC4Text->SetName(L"m_pC4Text");
+		this->AddChildToLast(m_pC4Text);
+		m_pC4Text->SetLocalPosition(Vector2(650,1150));
+		//m_pC4Text->SetLocalPosition(Vector2(650,550));
+		m_pG4Text = new cGlyphFontRender(m_pC4Text);
+		m_pG4Text->SetText(L"G4");
+		m_pG4Text->SetFontColor(Vector4(0,0,0,1));
+		m_pG4Text->SetName(L"m_pG4Text ");
+		m_pG4Text->SetLocalPosition(Vector2(1550,1150));
+		this->AddChildToLast(m_pG4Text);
 	}
 	//if(!m_pScoreFont)
 	//{

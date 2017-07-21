@@ -85,7 +85,6 @@ bool	cTimeFrequencyAmplitudeValueCapture::AnalyizeStart(const char*e_strFileName
 	m_AllData.clear();
 	m_CurrentWorkingFrequenceAndTimeVector.clear();
 	m_pKissFFTConvert = new cKissFFTConvert();
-	m_pKissFFTConvert->SetFilter(true);
 //	m_pKissFFTConvert->SetiFrenquenceFilterEndScaleValue(e_fFilterEndFrequencyValue);
 //	m_pKissFFTConvert->SetFilterStrengthValue(e_iFilterStregth);
 	m_pKissFFTConvert->SetDivideFFTDataToNFrame(m_iParseFPS);

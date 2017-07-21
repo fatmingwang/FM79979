@@ -73,12 +73,6 @@ void	cPerformMusicPhase::Init()
 		this->m_pPerformMusicPhaseUI->InitNodes();
 	if( m_pClickBehaviorDispatcher )
 		m_pClickBehaviorDispatcher->Init();
-	if(cMusicGameApp::m_pSoundFFTCapture)
-	{
-		cMusicGameApp::m_pSoundFFTCapture->SetFilter(true);
-//		cMusicGameApp::m_pSoundFFTCapture->SetFilterStrengthValue(80);
-	//	cMusicGameApp::m_pSoundFFTCapture->SetiFrenquenceFilterEndScaleValue(0.8f);
-	}
 	if( cMusicGameApp::m_pSoundCapture )
 		cMusicGameApp::m_pSoundCapture->StartRecord();
 	cGameApp::m_sTimeAndFPS.Update();

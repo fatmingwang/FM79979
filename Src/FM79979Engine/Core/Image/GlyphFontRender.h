@@ -6,6 +6,7 @@ namespace FATMING_CORE
 {
 	//==========================
 	//change color and angle by m_pFontImage->SetColor SetAngle;
+	//m_spGlyphFontRender = new cGlyphFontRender("Font");
 	//==========================
 	class cGlyphFontRender:public cRenderObject
 	{

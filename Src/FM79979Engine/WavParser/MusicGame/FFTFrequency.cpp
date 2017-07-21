@@ -131,13 +131,21 @@ cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::~cFFTFrequencyDecibels()
 	SAFE_DELETE(m_piDecibleBiggetThanZeroCount);
 }
 
-void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels)
+bool	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::CopyAverageValue(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels,int*e_pNewFFTData,int e_iFFTCount)
 {
+	if( e_iFFTCount != m_iFFTCount )
+		return false;
 	if( m_piAverageDecibleValue && this->m_iFFTCount )
 	{
 		memcpy(e_pFFTFrequencyDecibels->m_piTotalDecibleValue,m_piAverageDecibleValue,sizeof(int)*m_iFFTCount);
-		e_pFFTFrequencyDecibels->m_iUpdateCount = 1;
+		e_pFFTFrequencyDecibels->m_iUpdateCount = 5;
+		for( int i=0;i<e_iFFTCount;++i )
+		{
+			e_pFFTFrequencyDecibels->m_piTotalDecibleValue[i] += e_pNewFFTData[i];
+		}
+		return true;
 	}
+	return false;
 }
 
 void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::Update(int e_iCount,int*e_piFFTCount)
@@ -203,7 +211,7 @@ cFFTDecibelsAnalyzer::cFFTDecibelsAnalyzer()
 	m_iMouseMoveFreqDecibelAverage = -1;
 	m_iFrequency = 44100;
 	//why 999?because I am lazy lah
-	m_fNextDataTimeGap = 9;
+	m_fNextDataTimeGap = 1;
 	m_fCurrentTime = 0.f;
 	m_pCurrentFFTHitCountAndTime = nullptr;
 	this->m_vShowPos = Vector2(100,1200);
@@ -255,15 +263,25 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 	if( m_fRestNextDataTimeGap <= 0.f )
 	{
 		m_fRestNextDataTimeGap = m_fNextDataTimeGap+m_fRestNextDataTimeGap;
-		//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
-		cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
-		l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetShowPos(this->m_vShowPos);
-		l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
-		if( m_pCurrentFFTHitCountAndTime && m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
-			m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->CopyAverageValue(l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels);
-		m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
-		this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
-		m_iMaxValue = 0;
+		if( m_FFTHitCountAndTimeVector.size() == 0 )
+		{
+			//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
+			cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
+			l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetShowPos(this->m_vShowPos);
+			l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
+			if( m_pCurrentFFTHitCountAndTime && m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
+				m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->CopyAverageValue(l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels,e_piFFTData,e_iCount);
+			m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
+			this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
+			m_iMaxValue = 0;
+		}
+		else
+		{
+			const int l_iSmmothDivide = (int)(m_fNextDataTimeGap*60)/20;
+			for(int i=0;i<m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_iFFTCount;++i)
+				m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piTotalDecibleValue[i] /= l_iSmmothDivide;
+			m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_iUpdateCount /= l_iSmmothDivide;
+		}
 	}
 	if( m_pCurrentFFTHitCountAndTime )
 	{

@@ -36,6 +36,8 @@ public:
 
 class cPerformMusicPhaseUI:public cRenderObject,public cMessageSender
 {
+	cGlyphFontRender*					m_pC4Text;
+	cGlyphFontRender*					m_pG4Text;
 	//event
 	//now just for test
 	cMPDI*								m_pTouchMPDI;

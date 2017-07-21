@@ -743,8 +743,9 @@ namespace	FATMING_CORE
 
 	void	cGameApp::ShowInfo()
 	{
+		if( !m_sbDebugFunctionWorking )
+			return;
 		//glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 		glEnable2D(1280,720);
 #ifndef OPENGLES_2_X
 		glEnable(GL_TEXTURE_2D);
@@ -766,7 +767,8 @@ namespace	FATMING_CORE
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f,(float)l_iStaryPosY,l_strInfo);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
 			
-		}	
+		}
+		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 	}
 
 	bool	cGameApp::EventMessageShot(unsigned int e_usID,void*e_pData)

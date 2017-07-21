@@ -16,8 +16,13 @@ extern int	ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 
 //FOR DEBUG vision
 #define	AFTER_FILTER_MIN_VALUE	3
-
-#define	BEST_RECORD_FPS 22
+//assume sound input is 441000 and need 30 fps(iOS limit 30 fps)
+//44100/30 = 1470,fft need power of two,most close 1470 is 2048
+//and
+//44100/21 = 2100
+//44100/22 = 2004
+//so fps 21 is the best
+#define	BEST_RECORD_FPS 21
 
 enum eMUSIC_GAME_MODE
 {

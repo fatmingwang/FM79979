@@ -59,7 +59,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount,l_pKissFFTStreamingConvert->IsFilter(),0,0);
+			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount);
 	}
 }
 
@@ -179,7 +179,7 @@ void	cPCMToFFTDataConvertr::SetNFrameFFTDataCount(int e_iNFrameFFTDataCount)
 }
 
 //need a other thread to do this?
-int*	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount,bool e_bDoFilter,float e_fFilterEndScaleValue,int e_iFilterStrength)
+int*	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount)
 {
 	if( !e_pTimeAndPCMData)
 		return nullptr;
@@ -190,7 +190,7 @@ int*	cPCMToFFTDataConvertr::ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,flo
 	l_Timer.Update();
 	int*l_pOutData = m_FFTData[m_iCurrentFFTDataSwapBufferIndex];
 	ProcessFFT(l_pTimeAndPCMData,this->m_pkiss_fft_state,this->m_Kiss_FFT_In,this->m_Kiss_FFT_Out,
-	this->m_pfWindowFunctionConstantValue,m_FFTData[m_iCurrentFFTDataSwapBufferIndex],e_bDoFilter,e_iFilterStrength,e_fFilterEndScaleValue);
+	this->m_pfWindowFunctionConstantValue,m_FFTData[m_iCurrentFFTDataSwapBufferIndex]);
 	l_Timer.Update();
 #ifdef DEBUG
 	std::wstring l_strDebugString = L"processFFTData:";
@@ -258,6 +258,11 @@ void	cKissFFTStreamingConvert::Destroy()
 //5.calculate fft data in sound thread.
 void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex,int e_iBirPersample)
 {
+	if( e_iCount <= m_iOneFrameFFTDataCount)
+	{
+		cGameApp::OutputDebugInfoString(L"StreamingBuffer e_iCount smaller than m_iOneFrameFFTDataCount,end of ogg file!?");
+		return;
+	}
 	assert(e_iCount>=this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
 	if(m_pOpanalOgg)
 	{

@@ -31,7 +31,7 @@ void	SoundFFTCaptureKissFFTStreamingConvertThread(size_t _workParameter, size_t 
 		{
 			l_fTimeElpasee = l_pTimeAndPCMData->fStartTime-l_fPreviousTime;
 			l_fPreviousTime = l_pTimeAndPCMData->fStartTime;
-			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount,l_pSoundFFTCapture->IsFilter(),0,0);
+			int*l_pFFTData = l_pSoundFFTCapture->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pSoundFFTCapture->m_fNextSampleTime,l_pSoundFFTCapture->m_iOneFrameFFTDataCount);
 		}
 	}
 }

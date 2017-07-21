@@ -21,7 +21,6 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_fNextChannelYGap = 700.f;
 	m_vShowPos = Vector2(100,700);
 	m_bPause = false;
-	m_bFilter = false;
 	m_fChartScale = 1.f;
 	m_pFFTDataStore = nullptr;
 //	m_fFrenquenceFilterEndScaleValue = 1.f;
@@ -322,7 +321,7 @@ void	cKissFFTConvert::RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesDat
 //4.calculate magnitude of first N/2 FFT output bins (sqrt(re*re + im*im))
 //5.optionally convert magnitude to dB (log) scale (20 * log10(magnitude))
 //6.plot N/2 (log) magnitude values
-void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_pFFTDataStore)
+void	cKissFFTConvert::PreProcessedAllData(cFFTDecibelsAnalyzer*e_pFFTDataStore)
 {
 	if( !m_pSoundFile )
 		return;
@@ -352,9 +351,7 @@ void	cKissFFTConvert::PreProcessedAllData(bool e_bFilter,cFFTDecibelsAnalyzer*e_
 		char*l_pTargetData = (char*)m_pSoundFile->m_pSoundData+l_iSoundIndex;
 		int*l_pOutFFTData = &(m_FFTDataVector)[i*l_iHalfFFTCount];
 		sTimeAndPCMData l_sTimeAndPCMData(0,0,l_iChannels,l_pTargetData,m_iOneFrameFFTDataCount,eDataType::eDT_SHORT);
-		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,
-						   l_pfWindowFunctionConstantValue,l_pOutFFTData,
-						   e_bFilter,0,0);
+		ProcessFFT(&l_sTimeAndPCMData,l_pkiss_fft_state,l_pKiss_FFT_In,l_pKiss_FFT_Out,l_pfWindowFunctionConstantValue,l_pOutFFTData);
 		float l_fDecibles = 0.f;
 		for( int j=0;j<l_iHalfFFTCount;++j )
 		{
@@ -474,7 +471,7 @@ bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlayS
 		this->m_pFFTDataStore->Start(m_pSoundFile->m_iFreq);
 	}
 
-	PreProcessedAllData(this->m_bFilter,e_bDoFFTDataStore?this->m_pFFTDataStore:nullptr);
+	PreProcessedAllData(e_bDoFFTDataStore?this->m_pFFTDataStore:nullptr);
 	//PreProcessedDoubleAllData(this->m_bFilter,e_bDoFFTDataStore?&this->m_FFTDataStore:nullptr);
 	if( e_bPlaySound )
 	{

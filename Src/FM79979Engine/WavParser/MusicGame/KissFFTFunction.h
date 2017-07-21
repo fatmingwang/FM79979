@@ -20,13 +20,9 @@ struct sTimeAndPCMData
 	~sTimeAndPCMData(){}
 };
 
-int DoFilter(int e_iNumFFT,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out);
-
-int DoFilter(float e_fFilterEndScaleValue,int e_iTransformLength,int e_iStartArrayIndex,int*e_pFFTDataSrc,kiss_fft_cpx*e_pKiss_FFT_Out,int e_iFilterStrengthValue);
 
 void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_state,kiss_fft_cpx*e_pkiss_fft_In,kiss_fft_cpx*e_pkiss_fft_Out,
-				   float* e_pfPreCompiledWindowFunctionValue,int*e_piFFTOutData,
-				   bool e_bDoFilter,int e_iFilterStrength,float e_fFilterEndScaleValue);
+				   float* e_pfPreCompiledWindowFunctionValue,int*e_piFFTOutData);
 
 
 float*	GenerateWindowsFunctionValue(int e_iFFTBinCoutn);

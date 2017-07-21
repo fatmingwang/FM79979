@@ -125,7 +125,8 @@ void	cMusicGameApp::Render()
 	RenderPause();
 #ifdef DEBUG
 	//GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4(1,1,0,1));
-	cGameApp::ShowInfo();
+	if( cGameApp::m_sbDebugFunctionWorking )
+		cGameApp::ShowInfo();
 #endif
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
@@ -261,6 +262,7 @@ void	cMusicGameApp::EditorRender()
 	{
 		m_pEditorTestcToneDataVector->Render();
 	}
+	cGameApp::ShowInfo();
 }
 
 

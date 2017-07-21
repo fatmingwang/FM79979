@@ -57,7 +57,7 @@ public:
 	void					SetNFrameFFTDataCount(int e_iNFrameFFTDataCount);
 	void					Destroy();
 	//if performance is not good enough,e_iOneFrameFFTDataCount should be small to improve performance.
-	int*					ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount,bool e_bDoFilter = false,float e_fFilterEndScaleValue = 1.f,int e_iFilterStrength = 6);
+	int*					ProcessFFTData(sTimeAndPCMData*e_pTimeAndPCMData,float e_fTimeToUpdateFFTData,int e_iNFrameFFTDataCount);
 };
 
 class cKissFFTStreamingConvert:public cKissFFTConvertBase
