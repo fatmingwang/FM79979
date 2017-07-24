@@ -1595,11 +1595,11 @@ private: System::Void FFTStoreAmplitude_numericUpDown_ValueChanged(System::Objec
 			}
 			cSoundCompareParameter::m_siDebugAmplitudeValue = (int)FFTStoreAmplitude_numericUpDown->Value;
 			cSoundCompareParameter::m_siFFTStoreThresholeValue = (int)FFTStoreGittedCountThreshold_numericUpDown->Value;
-			if(m_pKissFFTConvertBase)
+			if(m_pKissFFTConvertBase && m_pKissFFTConvertBase->GetFFTDataStore())
 			{
 				m_pKissFFTConvertBase->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
 			}
-			 if( m_pSoundFFTCapture )
+			 if( m_pSoundFFTCapture && m_pSoundFFTCapture->GetFFTDataStore() )
 			 {
 				 m_pSoundFFTCapture->GetFFTDataStore()->SetExportThresholdValue((int)FFTStoreGittedCountThreshold_numericUpDown->Value);
 			 }

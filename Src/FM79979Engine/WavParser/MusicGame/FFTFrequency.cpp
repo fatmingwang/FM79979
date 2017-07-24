@@ -237,6 +237,7 @@ void	cFFTDecibelsAnalyzer::Destroy()
 {
 	//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
 	DELETE_VECTOR(m_FFTHitCountAndTimeVector,cFFTHitCountAndTime*);
+	m_pCurrentFFTHitCountAndTime = nullptr;
 }
 
 void	cFFTDecibelsAnalyzer::Start(int e_iFrequency)
@@ -482,6 +483,15 @@ void	cFFTDecibelsAnalyzer::MouseMove(int e_iMousePosX,int e_iMousePosY)
 		if( m_pCurrentFFTHitCountAndTime )
 		{
 			int l_iIndex = (int)(m_pCurrentFFTHitCountAndTime->m_iFFTBinCount*l_fLERP);
+			if( l_iIndex >= m_pCurrentFFTHitCountAndTime->m_iFFTBinCount )
+			{
+				m_iMouseMoveFreq = m_pCurrentFFTHitCountAndTime->m_iFFTBinCount-1;
+			}
+			else
+			if( l_iIndex < 0 )
+			{
+				m_iMouseMoveFreq = 0;
+			}
 			m_iMouseMoveFreqDecibelAverage = this->m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
 			m_iMouseMoveFreqFFTBinIndex = l_iIndex;
 			m_iMouseMoveFreq = (int)((float)this->m_iFrequency/m_pCurrentFFTHitCountAndTime->m_iFFTBinCount*l_iIndex);

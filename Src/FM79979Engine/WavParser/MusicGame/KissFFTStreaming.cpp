@@ -258,12 +258,13 @@ void	cKissFFTStreamingConvert::Destroy()
 //5.calculate fft data in sound thread.
 void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t e_iCurrentPCMDataPosIndex,int e_iBirPersample)
 {
-	if( e_iCount <= m_iOneFrameFFTDataCount)
+	int l_iBirPersample = e_iBirPersample;
+	if( e_iCount*l_iBirPersample <= m_iOneFrameFFTDataCount)
 	{
 		cGameApp::OutputDebugInfoString(L"StreamingBuffer e_iCount smaller than m_iOneFrameFFTDataCount,end of ogg file!?");
 		return;
 	}
-	assert(e_iCount>=this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
+	assert(e_iCount*l_iBirPersample>=this->m_iOneFrameFFTDataCount&&"PCM buffer could must gerat than m_iOneFrameFFTDataCount,because I am lazy to fix this!.");
 	if(m_pOpanalOgg)
 	{
 		//the performance is too bad...skip this one
@@ -295,7 +296,8 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 			return;
 		}
 		memcpy(m_StreamingBufferData[m_iCurrentStreamingBufferDataIndex],e_pData,e_iCount);
-		int l_iNumFFTDataIsComing = (int)(l_fDuring/m_TimeToUpdateFFTData.fTargetTime);
+		//int l_iNumFFTDataIsComing = (int)(l_fDuring/m_TimeToUpdateFFTData.fTargetTime);
+		int l_iNumFFTDataIsComing = e_iCount/(m_iOneFrameFFTDataCount*sizeof(short));
 		float	l_fTimeGap = l_fDuring/l_iNumFFTDataIsComing;
 		for( int i=0;i<l_iNumFFTDataIsComing;++i )
 		{
