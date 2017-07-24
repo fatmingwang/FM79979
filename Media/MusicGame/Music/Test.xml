@@ -5,14 +5,14 @@
      <cSoundTimeLineData Time="13.00000" ID="63" TuneKeepTime="1.20000" />
      <cSoundTimeLineData Time="16.00000" ID="64" TuneKeepTime="0.60000" />
      <cSoundTimeLineData Time="19.00000" ID="65" TuneKeepTime="1.20000" />
-     <cSoundTimeLineData Time="21.00000" ID="66" TuneKeepTime="0.60000" />
-     <cSoundTimeLineData Time="24.00000" ID="67" TuneKeepTime="0.60000" />
-     <cSoundTimeLineData Time="27.00000" ID="68" TuneKeepTime="1.20000" />
-     <cSoundTimeLineData Time="30.00000" ID="69" TuneKeepTime="0.60000" />
-     <cSoundTimeLineData Time="31.00000" ID="70" TuneKeepTime="1.20000" />
-     <cSoundTimeLineData Time="34.00000" ID="71" TuneKeepTime="0.60000" />
+     <cSoundTimeLineData Time="22.00000" ID="66" TuneKeepTime="0.60000" />
+     <cSoundTimeLineData Time="25.00000" ID="67" TuneKeepTime="0.60000" />
+     <cSoundTimeLineData Time="28.00000" ID="68" TuneKeepTime="1.20000" />
+     <cSoundTimeLineData Time="31.00000" ID="69" TuneKeepTime="0.60000" />
+     <cSoundTimeLineData Time="34.00000" ID="70" TuneKeepTime="1.20000" />
+     <cSoundTimeLineData Time="37.00000" ID="71" TuneKeepTime="0.60000" />
 
-     <cSoundTimeLineData Time="37.00000"  ID="60" TuneKeepTime="0.60000" />
+
      <cSoundTimeLineData Time="40.00000"  ID="61" TuneKeepTime="1.20000" />
      <cSoundTimeLineData Time="43.00000"  ID="62" TuneKeepTime="0.60000" />
      <cSoundTimeLineData Time="46.00000"  ID="63" TuneKeepTime="1.20000" />

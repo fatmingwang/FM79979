@@ -1,4 +1,4 @@
-<MPDIList Name="PerformPhaseAnimation_mpdi" Count="25" MPDIVersion="1.3" PICount="3" ImageName="PerformPhaseImage.pi,Effect.pi,TouchEffect.pi">
+<MPDIList Name="PerformPhaseAnimation_mpdi" Count="27" MPDIVersion="1.3" PICount="3" ImageName="PerformPhaseImage.pi,Effect.pi,TouchEffect.pi">
     <MultiPathDynamicImage Name="Laser" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.471154">
         <CueToStartCurvesWithTime Name="Laser" StartTime="0.000000" AnchorType="CenterCenter" Count="52" LOD="3">
             <PointDataList Index="0" Position="16.00,-271.00,0.00" Time="0.000000" Size="540.00,331.00" Scale="1.00,1.00" PIName="Effect" ImageName="Ray_00000" />
@@ -1026,7 +1026,7 @@
             <PointDataList Index="10" Position="137.00,-48.00,0.00" Time="2.999000" Size="0.00,0.00" Scale="0.00,0.00" PIName="PerformPhaseImage" ImageName="monster-4" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
-    <MultiPathDynamicImage Name="LaserLeft_2_2208" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.471154">
+    <MultiPathDynamicImage Name="LaserLeft_2_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.471154">
         <CueToStartCurvesWithTime Name="Laser" StartTime="2.000000" AnchorType="CenterCenter" Count="52" LOD="3">
             <PointDataList Index="0" Position="104.00,-263.00,0.00" Time="0.000000" Size="810.00,496.50" Scale="1.50,1.50" PIName="Effect" ImageName="Ray_00000" />
             <PointDataList Index="1" Position="104.00,-263.00,0.00" Time="0.028846" Size="697.50,541.50" Scale="1.50,1.50" PIName="Effect" ImageName="Ray_00001" />
@@ -1233,7 +1233,7 @@
             <PointDataList Index="10" Position="154.00,-20.00,0.00" Time="2.999000" Size="0.00,0.00" Scale="0.00,0.00" PIName="PerformPhaseImage" ImageName="monster-6" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
-    <MultiPathDynamicImage Name="LaserLeft_5_2208" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.471154">
+    <MultiPathDynamicImage Name="LaserLeft_5_2208" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" ViewPort="0.00,0.00,2208.00,1242.00" TotalPlayTime="3.471154">
         <CueToStartCurvesWithTime Name="Laser" StartTime="2.000000" AnchorType="CenterCenter" Count="52" LOD="3">
             <PointDataList Index="0" Position="104.00,-263.00,0.00" Time="0.000000" Size="810.00,496.50" Scale="1.50,1.50" PIName="Effect" ImageName="Ray_00000" />
             <PointDataList Index="1" Position="104.00,-263.00,0.00" Time="0.028846" Size="697.50,541.50" Scale="1.50,1.50" PIName="Effect" ImageName="Ray_00001" />
@@ -1785,9 +1785,21 @@
             <PointDataList Index="10" Position="1610.68,27.53,0.00" Time="2.999000" Size="0.00,0.00" Scale="0.00,0.00" PIName="PerformPhaseImage" ImageName="monster-16" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Great" PathCount="1" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.900000">
+        <CueToStartCurvesWithTime Name="great" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-173.00,-82.00,0.00" Time="0.000000" Size="389.00,176.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="great" />
+            <PointDataList Index="1" Position="-173.00,-158.00,0.00" Time="0.900000" Size="389.00,176.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="PerformPhaseImage" ImageName="great" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Oops" PathCount="1" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.900000">
+        <CueToStartCurvesWithTime Name="great" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-163.00,-101.00,0.00" Time="0.000000" Size="324.00,176.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="oops" />
+            <PointDataList Index="1" Position="-163.00,-177.00,0.00" Time="0.900000" Size="324.00,176.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="PerformPhaseImage" ImageName="oops" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="BGWithKeyBoard2208" PathCount="26" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
         <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
-            <PointDataList Index="0" Position="1122.00,1401.00,0.00" Time="3.000000" Size="2500.00,1300.00" Scale="37.31,16.05" Color="1.99,1.91,1.86,2.00" PIName="PerformPhaseImage" ImageName="1" />
+            <PointDataList Index="0" Position="1128.00,1401.00,0.00" Time="3.000000" Size="2499.77,1300.05" Scale="37.31,16.05" Color="2.00,2.00,2.00,2.00" PIName="PerformPhaseImage" ImageName="1" />
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="UFO" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="3">
             <PointDataList Index="0" Position="221.00,46.00,0.00" Time="0.000000" Size="351.00,227.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="spaceship-1" />
