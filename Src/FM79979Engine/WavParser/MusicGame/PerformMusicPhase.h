@@ -3,6 +3,7 @@
 class cTimeLineRangeChart;
 class cQuickFFTDataFrequencyFinder;
 class cPerformMusicPhaseUI;
+class cPerformScoreCalculate;
 class cPerformMusicPhase:public cSimplePhase
 {
 	bool							m_bPasue;
@@ -39,12 +40,17 @@ class cPerformMusicPhaseUI:public cRenderObject,public cMessageSender
 	cGlyphFontRender*					m_pC4Text;
 	cGlyphFontRender*					m_pG4Text;
 	//event
+	cMPDI*								m_pGreatMPDI;
+	cMPDI*								m_pOopsMPDI;
 	//now just for test
 	cMPDI*								m_pTouchMPDI;
 	bool								TimeOverEventFire(void*e_pData);
 	bool								TuneMatchedFire(void*e_pData);
 //
 	//cGlyphFontRender*					m_pScoreFont;
+	//int									m_iCurrentScore;
+	cNumeralImage*						m_pCurrentScoreNumeial;
+	cPerformScoreCalculate*				m_pPerformScoreCalculate;
 	cNumeralImage*						m_pScoreNumeial;
 	cMPDI*								m_pBGMPDI;
 

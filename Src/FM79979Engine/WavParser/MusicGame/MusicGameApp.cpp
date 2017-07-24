@@ -44,7 +44,6 @@ cMusicGameApp::~cMusicGameApp()
 
 void	cMusicGameApp::Init()
 {
-	
 	//FATMING_CORE::cSoundFile* l_SoundFile = new FATMING_CORE::cSoundFile();
 	//l_SoundFile->WavToOggFile("MusicGame/Piano/a1.wav","a1.ogg");
 
@@ -100,9 +99,20 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 		else
 		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 5)
 		{
-			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
+			this->m_sbDebugFunctionWorking = false;
+		}
+		else
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 6)
+		{
+			this->m_sbDebugFunctionWorking = true;
+		}
+		else
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 7)
+		{
+			this->m_bDoScreenShot = true;
 		}
 	}
+	m_spMultiTouchPoints->TouchPointWorkingIndex.clear();
 }
 
 void	cMusicGameApp::Render()

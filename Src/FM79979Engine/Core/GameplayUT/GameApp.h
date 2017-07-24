@@ -47,6 +47,7 @@ namespace	FATMING_CORE
 	class	cGameApp
 	{
 	protected:
+		bool						m_bDoScreenShot;
 		virtual	void				Update(float e_fElpaseTime);
 		virtual	void				Render();
 	public:

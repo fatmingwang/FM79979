@@ -94,7 +94,7 @@ namespace MPDI
 			{
 				static int ll = 0;++ll;
 				String^l_strtt = ll.ToString()+"test.png";
-				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt),l_iWidth,l_iHeight);
+				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt));
 				l_pBitmap->Save(l_strtt);
 			}
 		}

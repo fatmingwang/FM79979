@@ -2,7 +2,7 @@
 #include "GameApp.h"
 
 #ifdef WIN32
-#include "../../../include/IL/il.h"
+//#include "../../../include/IL/il.h"
 #include <direct.h>
 #endif
 #include "../Sound/SoundManager.h"
@@ -108,6 +108,7 @@ namespace	FATMING_CORE
 	cGameApp::cGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize)
 #endif
 	{
+		m_bDoScreenShot = false;
 		m_sbMouseClickStatus[0] = m_sbMouseClickStatus[1] = m_sbMouseClickStatus[2] = false;
 		cGameApp::m_sbGamePause = false;
 		cGameApp::m_psstrGameAppName = new std::string;
@@ -154,7 +155,7 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 #if	defined(WIN32)
 		PrintMemoryInfo();
-		ilInit();
+//		ilInit();
 		if( e_Hwnd )
 		{
 			OpenglInit(e_Hwnd);
@@ -304,7 +305,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spExternalFunctionVector);
 		DeleteAllShader();
 #if	defined(WIN32) || defined(LINUX)
-		ilShutDown();
+//		ilShutDown();
 #endif
 		SystemErrorCheck();
 		if( m_spLogFile )
@@ -357,6 +358,20 @@ namespace	FATMING_CORE
 #endif
 		Update(m_sbSpeedControl?l_fElpaseTime*this->m_sfDebugValue:l_fElpaseTime);
 		Render();
+		if( m_bDoScreenShot )
+		{
+			m_bDoScreenShot = false;
+			std::wstring l_strFileName;
+			if( m_psstrGameAppName )
+			{
+				l_strFileName += ValueToStringW(this->m_psstrGameAppName->c_str());
+				l_strFileName += L"_";
+			}
+			l_strFileName += L"ScreenShot_";
+			l_strFileName += GetSystemTimeForFile(false);
+			l_strFileName += L".jpeg";
+			SaveCurrentBufferToImage(ValueToString(l_strFileName).c_str());
+		}
 		cGameApp::m_sMouseWhellDelta = 0;
 	}
 
@@ -488,6 +503,11 @@ namespace	FATMING_CORE
 		if( cGameApp::m_sucKeyData['D'] )
 		{
 			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
+		}
+		//screen print
+		if( e_char == 44 )
+		{
+			m_bDoScreenShot = true;
 		}
 #endif
 		m_sucKeyData[(unsigned char)e_char] = false;

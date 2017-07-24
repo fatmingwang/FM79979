@@ -8,6 +8,7 @@
 #include "png/pngLoader.h"
 #include "dds/nv_images.h"
 #include "jpeg/jpgd.h"
+#include "jpeg/jpge.h"
 #if defined(WIN32)
 #include "../../../Include/IL/il.h"
 //if u like to link under windows copy and paste to the main.cpp
@@ -425,39 +426,41 @@ namespace FATMING_CORE
 //1
 //[self removeImage: @"myUIImageName"
 
-	void	SaveCurrentBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight)
+	void	SaveCurrentBufferToImage(const char*e_strFileName)
 	{
-#if defined(WIN32)
-		//if it not working check ILInit is called?
-		ilEnable(IL_FILE_OVERWRITE);
-		unsigned char *l_pPixelData = new unsigned char[e_iWidth*e_iHeight*3];
-		glReadPixels( 0, 0, e_iWidth, e_iHeight, GL_RGB, GL_UNSIGNED_BYTE, l_pPixelData );
-		ILuint uiID;
-		ilGenImages( 1, &uiID );
-		ilBindImage( uiID );
-		ilTexImage( e_iWidth, e_iHeight, 1, 3, IL_RGB, IL_UNSIGNED_BYTE, l_pPixelData);
-		ilSave( IL_PNG, (wchar_t*)e_strFileName );
-		ilDeleteImages(1, &uiID); // Because we have already copied image data into texture data
+#ifndef IOS
+		int l_iNumChannel = 4;//3
+		GLenum l_Format = GL_RGBA;//GL_RGB
+		int l_iWidth = (int)cGameApp::m_svDeviceViewPortSize.Width();
+		int l_iHeight = (int)cGameApp::m_svDeviceViewPortSize.Height();
+		unsigned char *l_pPixelData = new unsigned char[l_iWidth*l_iHeight*l_iNumChannel];
+		unsigned char *l_pPixelData2 = new unsigned char[l_iWidth*l_iNumChannel];
+		glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+		glPixelStorei(GL_PACK_ALIGNMENT,1);
+		glReadPixels( 0,0,l_iWidth,(GLsizei)l_iHeight, l_Format, GL_UNSIGNED_BYTE, l_pPixelData );
+		int l_iHalfHeight = l_iHeight/2;
+		for( int i=0;i<l_iHalfHeight;++i )
+		{
+			int l_iIndex1 = l_iNumChannel*l_iWidth*(l_iHeight-i-1);
+			int l_iIndex2 = l_iNumChannel*l_iWidth*i;
+			memcpy(l_pPixelData2,&l_pPixelData[l_iIndex1],sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+			memcpy(&l_pPixelData[l_iIndex1],&l_pPixelData[l_iIndex2],sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+			memcpy(&l_pPixelData[l_iIndex2],l_pPixelData2,sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+		}
+		SaveBufferToImage(e_strFileName,l_iWidth,l_iHeight,l_pPixelData,l_iNumChannel);
 		delete l_pPixelData;
+		delete l_pPixelData2;
 #elif defined(IOS)//for iphone,save into album
         captureToPhotoAlbum();
-#elif defined(ANDROID)
-
 #endif
 	}
 
-    void	SaveBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight,void*e_pPixel)
+    void	SaveBufferToImage(const char*e_strFileName,int e_iWidth,int e_iHeight,unsigned char*e_pPixel,int e_iChannel)
     {
-#if defined(WIN32)
-		ILuint uiID;
-		ilGenImages( 1, &uiID );
-		ilBindImage( uiID );
-		ilTexImage( e_iWidth, e_iHeight, 1, 3, IL_RGB, IL_UNSIGNED_BYTE, e_pPixel);
-		ilSave( IL_PNG, (wchar_t*)e_strFileName );
-		ilDeleteImages(1, &uiID); // Because we have already copied image data into texture data
+#ifndef IOS
+		jpge::compress_image_to_jpeg_file(e_strFileName,e_iWidth,e_iHeight,e_iChannel,e_pPixel);
 #elif defined(IOS)//for iphone,save into album
         captureToPhotoAlbum();
-#elif defined(ANDROID)
 #endif
     }
 

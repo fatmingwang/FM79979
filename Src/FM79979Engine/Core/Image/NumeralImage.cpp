@@ -207,13 +207,12 @@ namespace FATMING_CORE
 			cMatrix44 l_mat;
 			if( e_bCenter )
 			{
-				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,this->GetPos().z)*	cMatrix44::ZAxisRotationMatrix(this->GetAngle());
+				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0);
 			}
 			else
 			{
 				int	l_iMinusCount = l_iNum-1;
-				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,GetPos().z)*
-					cMatrix44::ZAxisRotationMatrix(this->GetAngle())*cMatrix44::TranslationMatrix(l_fHalfWidth-l_iMinusCount*m_iSingleImageWidth,l_fHalfHeight,0.f);
+				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0)*cMatrix44::TranslationMatrix(l_fHalfWidth-l_iMinusCount*m_iSingleImageWidth,l_fHalfHeight,0.f);
 			}
 			if( e_pmat )
 			{
@@ -256,11 +255,10 @@ namespace FATMING_CORE
 
 	void	cNumeralImage::Render()
 	{
-		Vector3	l_vPos = this->GetPos();
 		if( this->m_bDrawOnCenter )
-			DrawOnCenter(m_i64Value,(int)l_vPos.x,(int)l_vPos.y);
+			DrawOnCenter(m_i64Value,0,0,this->GetWorldTransform());
 		else
-			Draw(m_i64Value,(int)l_vPos.x,(int)l_vPos.y);
+			Draw(m_i64Value,0,0,this->GetWorldTransform());
 	}
 
 	void	cNumeralImage::SetValue(int64 e_i64Value)

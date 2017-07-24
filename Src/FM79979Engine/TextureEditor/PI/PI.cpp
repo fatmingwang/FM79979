@@ -5,6 +5,7 @@
 
 #include "../../../Include/IL/il.h"
 #include "../../AllLibInclude.h"
+#pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
 using namespace System::Drawing::Imaging;
 namespace PI

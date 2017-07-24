@@ -8,10 +8,13 @@
 cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPhase,cMPDI*e_pBGMPDI)
 {
 	this->SetName(L"cPerformMusicPhaseUI");
+	m_pGreatMPDI = nullptr;;
+	m_pOopsMPDI = nullptr;;
 	m_pBGMPDI = e_pBGMPDI;
 	m_pPerformMusicPhase = e_pPerformMusicPhase;
 	//m_pScoreText = nullptr;
 	m_pPause = nullptr;
+	m_pCurrentScoreNumeial = nullptr;
 	m_pScore = nullptr;
 	m_pBG = nullptr;
 	m_pC4Text = nullptr;
@@ -19,6 +22,7 @@ cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPha
 	//m_pScoreFont = nullptr;
 	m_pTouchMPDI = nullptr;
 	m_pScoreNumeial = nullptr;
+	m_pPerformScoreCalculate = new cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
 	REG_EVENT(TUNE_TIME_OVER_EVENTID,&cPerformMusicPhaseUI::TimeOverEventFire);
 	REG_EVENT(TUNE_MATCH_EVENT_ID,&cPerformMusicPhaseUI::TuneMatchedFire);
 }
@@ -26,6 +30,8 @@ cPerformMusicPhaseUI::cPerformMusicPhaseUI(cPerformMusicPhase*e_pPerformMusicPha
 cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 {
 	//SAFE_DELETE(m_pBG);
+	//SAFE_DELETE(m_pCurrentScoreNumeial);
+	SAFE_DELETE(m_pPerformScoreCalculate);
 	SAFE_DELETE(m_pTouchMPDI);
 	SAFE_DELETE(m_pPause);
 	SAFE_DELETE(m_pScore);
@@ -36,9 +42,15 @@ cPerformMusicPhaseUI::~cPerformMusicPhaseUI()
 
 bool	cPerformMusicPhaseUI::TimeOverEventFire(void*e_pData)
 {
+	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
+	if( m_pGreatMPDI )
+	{
+		m_pOopsMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
+		m_pOopsMPDI->Init();
+	}
+	
 	//Justin dont want this.
 	return true; 
-	cSoundTimeLineData*l_pSoundTimeLineData = (cSoundTimeLineData*)e_pData;
 	m_pTouchMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
 	m_pTouchMPDI->Init();
 	m_pTouchMPDI->SetAnimationLoop(false);
@@ -54,6 +66,13 @@ bool	cPerformMusicPhaseUI::TuneMatchedFire(void*e_pData)
 	m_pTouchMPDI->SetAnimationLoop(false);
 	m_pTouchMPDI->SetVisible(true);
 	ShotLaser();
+	if( m_pPerformScoreCalculate )
+		m_pPerformScoreCalculate->CalculateScore();
+	if( m_pGreatMPDI )
+	{
+		m_pGreatMPDI->SetPos(l_pSoundTimeLineData->GetNoteShowPos());
+		m_pGreatMPDI->Init();
+	}
 	return true;
 }
 
@@ -170,6 +189,16 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 				m_pTouchMPDI->SetVisible(false);
 			 }
 		}
+		auto l_pGreatMPDI = l_pMPDIList->GetObject(L"Great");
+		if( l_pGreatMPDI )
+			m_pGreatMPDI = new cMPDI(l_pGreatMPDI);
+		l_pGreatMPDI = l_pMPDIList->GetObject(L"Oops");
+		if( l_pGreatMPDI )
+			m_pOopsMPDI = new cMPDI(l_pGreatMPDI);
+		if( m_pGreatMPDI )
+			this->AddChildToLast(m_pGreatMPDI);
+		if( m_pOopsMPDI )
+			this->AddChildToLast(m_pOopsMPDI);
 	}
 	if( m_pPause == nullptr )
 	{
@@ -209,6 +238,10 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 					{
 						m_pScoreNumeial = new cNumeralImage(l_pFirstImage,l_pLastImage);
 						m_pScoreNumeial->SetPos(l_vPos);
+						m_pCurrentScoreNumeial = new cNumeralImage(m_pScoreNumeial);
+						m_pCurrentScoreNumeial->SetDrawOnCenter(true);
+						m_pCurrentScoreNumeial->SetLocalTransform(cMatrix44::ScaleMatrix(Vector3(0.5f,0.5f,0.5f)));
+						m_pCurrentScoreNumeial->SetPos(Vector2(100,50));
 					}
 				}
 				//m_pScoreText->SetLocalPosition(l_vPos);
@@ -232,9 +265,13 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 						if( l_pPauseImage )
 						{
 							if( !m_pPause->IsEnable() )
+							{
 								l_pPauseImage->SetColor(Vector4(1,1,0,1));
+							}
 							else
 								l_pPauseImage->SetColor(Vector4(1,1,1,1));
+							if( m_pPerformScoreCalculate )
+								m_pPerformScoreCalculate->CalculateScore();
 						}
 						GamePause();
 					},l_pBasicSound);
@@ -251,13 +288,16 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 		m_pC4Text->SetFontColor(Vector4(0,0,0,1));
 		m_pC4Text->SetName(L"m_pC4Text");
 		this->AddChildToLast(m_pC4Text);
-		m_pC4Text->SetLocalPosition(Vector2(650,1150));
+		m_pC4Text->SetLocalPosition(Vector2(670,1200));
 		//m_pC4Text->SetLocalPosition(Vector2(650,550));
 		m_pG4Text = new cGlyphFontRender(m_pC4Text);
 		m_pG4Text->SetText(L"G4");
 		m_pG4Text->SetFontColor(Vector4(0,0,0,1));
 		m_pG4Text->SetName(L"m_pG4Text ");
-		m_pG4Text->SetLocalPosition(Vector2(1550,1150));
+		m_pG4Text->SetLocalPosition(Vector2(1520,1200));
+
+		if( m_pCurrentScoreNumeial )
+			this->AddChildToLast(m_pCurrentScoreNumeial);
 		this->AddChildToLast(m_pG4Text);
 	}
 	//if(!m_pScoreFont)
@@ -292,9 +332,14 @@ void	cPerformMusicPhaseUI::Init()
 	{
 		m_pPause->SetEnable(false);
 	}
+	if( m_pPerformScoreCalculate )
+		m_pPerformScoreCalculate->CalculateScore();
 }
+
 void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 {
+	if( m_pCurrentScoreNumeial )
+		m_pCurrentScoreNumeial->SetValue(m_pPerformScoreCalculate->m_iScore);
 	if( m_pScore && this->m_pPerformMusicPhase->m_pTimeLineRangeChart->IsEnd() )
 	{
 		if( !m_pScore->IsEnable() )
@@ -302,10 +347,11 @@ void	cPerformMusicPhaseUI::Update(float e_fElpaseTime)
 			m_pScore->SetEnable(true);
 			if( this->m_pScoreNumeial )
 			{
-				cPerformScoreCalculate l_cPerformScoreCalculate(this->m_pPerformMusicPhase->m_pTimeLineRangeChart);
-				l_cPerformScoreCalculate.CalculateScore();
-				//this->m_pScoreNumeial->SetValue(l_cPerformScoreCalculate.m_iScore);
-				this->m_pScoreNumeial->SetValue(l_cPerformScoreCalculate.m_iScore);
+				if( m_pPerformScoreCalculate )
+				{
+					m_pPerformScoreCalculate->CalculateScore();	
+					this->m_pScoreNumeial->SetValue(m_pPerformScoreCalculate->m_iScore);
+				}
 				this->m_pScoreNumeial->SetDrawOnCenter(true);
 			}
 			//if( this->m_pScoreText )

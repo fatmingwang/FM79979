@@ -2944,7 +2944,7 @@ namespace MPDI
 				this->timer1->Enabled = false;
 				Sleep(10);
 				m_pOrthogonalCamera->Reset();
-				SaveCurrentBufferToImage("test.png",splitContainer3->Panel1->Width,splitContainer3->Panel1->Height);
+				SaveCurrentBufferToImage("test.png");
 				Sleep(10);
 				System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap("test.png");
 				Sleep(10);

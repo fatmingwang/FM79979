@@ -923,7 +923,7 @@ public:
    bool open(const char *pFilename)
    {
       close();
-      m_pFile = NvFOpen(pFilename, "wb");
+	  m_pFile = MyFileOpen(pFilename, "wb");
       m_bStatus = (m_pFile != nullptr);
       return m_bStatus;
    }

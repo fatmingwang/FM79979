@@ -15,6 +15,7 @@
 #include <sys/stat.h>
 #elif defined(WIN32)
 #include "strsafe.h"
+#include <time.h>
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
 #include "../../Include/wglext.h"
@@ -835,7 +836,7 @@ namespace UT
 	{
 		NSArray *Paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *documentsDirectory = [Paths objectAtIndex:0];
-		sprintf(&e_strOutputFileName, "%s/%s", [documentsDirectory UTF8String], e_strFileName);
+		sprintf(e_strOutputFileName, "%s/%s", [documentsDirectory UTF8String], e_strFileName);
 	}
 #endif
 
@@ -1274,80 +1275,98 @@ namespace UT
 
 	std::wstring			GetSystemTimeForFile(bool e_bCN)
 	{
-		std::wstring	l_str;
-#ifdef WIN32
-		SYSTEMTIME l_st;
-//		GetSystemTime(&l_st);
-		GetLocalTime(&l_st);
-		if( e_bCN )
-		{
-			l_str += ValueToStringW(l_st.wYear);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wMonth);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wDay);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wHour);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wMinute);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wSecond);
-		}
-		else
-		{
-			l_str += ValueToStringW(l_st.wMonth);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wDay);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wYear);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wHour);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wMinute);
-			l_str += L"_";
-			l_str += ValueToStringW(l_st.wSecond);	
-		}
-#endif	
+		struct tm *tm;
+		char buf[200];
+		time_t ltime; time(&ltime);
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		/* format time days.month.year hour:minute:seconds */
+		strftime(buf, sizeof(buf), "%d_%m_%Y_%H_%M_%S",tm);
+
+		std::wstring	l_str = ValueToStringW(buf);
 		return l_str;
+//#ifdef WIN32
+//		SYSTEMTIME l_st;
+////		GetSystemTime(&l_st);
+//		GetLocalTime(&l_st);
+//		if( e_bCN )
+//		{
+//			l_str += ValueToStringW(l_st.wYear);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wMonth);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wDay);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wHour);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wMinute);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wSecond);
+//		}
+//		else
+//		{
+//			l_str += ValueToStringW(l_st.wMonth);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wDay);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wYear);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wHour);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wMinute);
+//			l_str += L"_";
+//			l_str += ValueToStringW(l_st.wSecond);	
+//		}
+//#endif	
+//		return l_str;
 	}
 
 	std::wstring			GetSystemTime(bool e_bCN)
 	{
-		std::wstring	l_str;
-#ifdef WIN32
-		SYSTEMTIME l_st;
-//		GetSystemTime(&l_st);
-		GetLocalTime(&l_st);
-		if( e_bCN )
-		{
-			l_str += ValueToStringW(l_st.wYear);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wMonth);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wDay);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wHour);
-			l_str += L":";
-			l_str += ValueToStringW(l_st.wMinute);
-			l_str += L":";
-			l_str += ValueToStringW(l_st.wSecond);
-		}
-		else
-		{
-			l_str += ValueToStringW(l_st.wMonth);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wDay);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wYear);
-			l_str += L".";
-			l_str += ValueToStringW(l_st.wHour);
-			l_str += L":";
-			l_str += ValueToStringW(l_st.wMinute);
-			l_str += L":";
-			l_str += ValueToStringW(l_st.wSecond);	
-		}
-#endif
+		struct tm *tm;
+		char buf[200];
+		time_t ltime; time(&ltime);
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		/* format time days.month.year hour:minute:seconds */
+		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S",tm);
+
+		std::wstring	l_str = ValueToStringW(buf);
 		return l_str;
+//#ifdef WIN32
+//		SYSTEMTIME l_st;
+////		GetSystemTime(&l_st);
+//		GetLocalTime(&l_st);
+//		if( e_bCN )
+//		{
+//			l_str += ValueToStringW(l_st.wYear);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wMonth);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wDay);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wHour);
+//			l_str += L":";
+//			l_str += ValueToStringW(l_st.wMinute);
+//			l_str += L":";
+//			l_str += ValueToStringW(l_st.wSecond);
+//		}
+//		else
+//		{
+//			l_str += ValueToStringW(l_st.wMonth);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wDay);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wYear);
+//			l_str += L".";
+//			l_str += ValueToStringW(l_st.wHour);
+//			l_str += L":";
+//			l_str += ValueToStringW(l_st.wMinute);
+//			l_str += L":";
+//			l_str += ValueToStringW(l_st.wSecond);	
+//		}
+//#endif
+//		return l_str;
 	}
 
 	void	WcharToChar(const wchar_t *e_strSrc,char*e_strDest)

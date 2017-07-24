@@ -29,7 +29,7 @@
 #pragma comment(lib, "../../../lib/ffmpeg/swscale.lib")
 #endif
 //#pragma comment(lib, "Vfw32.lib")
-#pragma comment(lib, "../../../lib/Devil.lib")
+//#pragma comment(lib, "../../../lib/Devil.lib")
 #pragma comment(lib, "../../../lib/OpenAL32.lib")
 #pragma comment(lib, "../../../lib/alut.lib")
 #pragma comment(lib, "../../../lib/glew32.lib")

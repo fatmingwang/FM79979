@@ -4,9 +4,9 @@
 namespace FATMING_CORE
 {
 	extern bool	g_bSupportNonPowerOfTwoTexture;
-	//glCopyTexSubImage2D
-	void	SaveCurrentBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight);
-	void	SaveBufferToImage(char*e_strFileName,int e_iWidth,int e_iHeight,void*e_pPixel);
+	//glCopyTexSubImage2D	//
+	void	SaveCurrentBufferToImage(const char*e_strFileName);
+	void	SaveBufferToImage(const char*e_strFileName,int e_iWidth,int e_iHeight,unsigned char*e_pPixel,int e_iChannel);
 
 	float*	UVToTriangleStrip(float*e_pfUV);
 	float*	UVToTwoTriangle(float*e_pfUV);

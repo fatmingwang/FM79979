@@ -266,6 +266,10 @@ void	cToneDataVector::Render()
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 			cGameApp::RenderFont(l_vShowPos,m_MatchName[i].c_str());
 			l_vShowPos.y += 70;
+			if( cGameApp::m_svGameResolution.y-100 <= l_vShowPos.y )
+			{
+				l_vShowPos.y = 20.f;
+			}
 			if( l_fMax < m_ResultVector[i] )
 			{
 				l_fMax = m_ResultVector[i];
