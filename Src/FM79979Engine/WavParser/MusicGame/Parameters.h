@@ -55,4 +55,6 @@ public:
 	static eMUSIC_GAME_MODE			m_seMusicGameMode;
 	static const float				m_sfDebugAlphaValue;
 	static float					m_sfAcceptableNoteMatchValue;
+
+	static float					m_sfDecibelsMatchDivideValue;
 };

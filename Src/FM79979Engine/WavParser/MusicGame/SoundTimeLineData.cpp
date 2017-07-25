@@ -14,7 +14,6 @@ cSoundTimeLineData::cSoundTimeLineData(const sFindTimeDomainFrequenceAndAmplitud
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
-	m_fResultScore = 0.f;
 	m_fCompareTime = e_fCompareTime;
 	m_pFrequenceAndAmplitudeAndTimeFinder = new sFindTimeDomainFrequenceAndAmplitude(e_pData);
 	m_iCurrentMatchedIndex = 0;
@@ -43,7 +42,6 @@ cSoundTimeLineData::cSoundTimeLineData(cNoteFrequencyAndDecibles*e_pData,float e
 	m_bTimeOver = false;
 	m_pToneData = e_pToneData;
 	//m_fErrorScore = 0.f;
-	m_fResultScore = 0.f;
 	m_fCompareTime = e_fCompareTime;
 	m_pFrequenceAndAmplitudeAndTimeFinder = nullptr;
 	m_iCurrentMatchedIndex = 0;
@@ -75,7 +73,6 @@ void		cSoundTimeLineData::Init()
 {
 	m_bActivedToCompare = false;
 	m_fActivedElpaseTime = 0.f;
-	this->m_fResultScore = 0.f;
 	m_bTuneMatched = false;
 	m_bTimeOver = false;
 	m_bAlreadyPlayTestFlag = false;
@@ -163,33 +160,41 @@ bool		cSoundTimeLineData::CompareWithFrequenceAndAmplitudeAndTimeFinder(float e_
 	}  
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iAllMatched/l_pDataVector->size();
-	if(m_fResultScore < l_fPercent )
+	//return l_fPercent;
+	//float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
+	//return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
+	if(l_fPercent >= 0.7)
 	{
-		m_fResultScore = l_fPercent;
-#ifdef DEBUG
-		std::wstring l_str = this->GetName();
-		l_str += L",Percent:";
-		l_str += ValueToStringW((int)(l_fPercent*100));
-		cGameApp::OutputDebugInfoString(l_str);
-#endif
+		m_bStartHittedCount = true;
 	}
-
-	if( l_fPercent >= 0.95f )
-	//if( l_iAllMatched >= l_pDataVector->size()/l_iLazyDivide )
+	if( m_bStartHittedCount )
 	{
-//		m_fResultScore = (float)m_iCurrentMatchedIndex/l_pDataVector->size();
-		++m_iCurrentMatchedIndex;
+		if(l_fPercent >= 0.7)
+		{
+			++m_iMatchTime;
+			if( m_iMatchTime < m_iMatchTimeCondition )
+			{
+				l_fPercent = 0.f;
+			}
+		}
+		else
+		{
+			m_bStartHittedCount = false;
+		}
+	}
+	else
+	{
+		m_iMatchTime = 0;
+		l_fPercent = 0.f;
+	}
+	if( l_fPercent >= 0.95f )
+	{
 		m_bTuneMatched = true;
 		cGameApp::EventMessageShot(TUNE_MATCH_EVENT_ID,this);
 		
 #ifdef DEBUG
 		cGameApp::OutputDebugInfoString(ValueToStringW(l_MatchedVector));
 #endif
-	}
-	if(this->m_iCurrentMatchedIndex >= (int)this->m_pFrequenceAndAmplitudeAndTimeFinder->OneScondFrequenceAndAmplitudeAndTimeData.size())
-	{
-		m_bTuneMatched = true;
-		//all matched
 		return true;
 	}
 	return this->IsFinish(e_fCurrentTime);
@@ -217,7 +222,7 @@ bool		cSoundTimeLineData::CompareWithNoteFrequencyAndDecibles(float e_fElpaseTim
 		//int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
 		int l_iFFTBinIndex = m_pNoteFrequencyAndDecibles->FrequencyBinIndexVector[i];
 		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
-		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/2.f;
+		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/cSoundCompareParameter::m_sfDecibelsMatchDivideValue;
 		//int l_fTargetDecibels = 8;
 		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex(l_iFFTBinIndex);
 		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;

@@ -23,7 +23,7 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetDecibelsByFFTBinIndex(int e_i
 	int l_iStep = e_iIndex;
 	if( l_iStep < this->m_iFFTBinCount )
 	{
-		int l_iNeighborsData = 1;
+		int l_iNeighborsData = 2;
 		if( l_iStep < l_iNeighborsData )
 			l_iStep = l_iNeighborsData;
 		if( l_iStep >= m_iFFTBinCount-l_iNeighborsData)
@@ -256,8 +256,13 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 	else//alter
 	if( cGameApp::m_sucKeyData[18] )	
 		m_eCurrentMarkFrequencyMode = eCMFM_ADD;
+	else//'C'
+	if( cGameApp::m_sucKeyData[37] )
+	{
+		Start(m_iFrequency);
+	}
 	else
-		m_eCurrentMarkFrequencyMode = eCMFM_NONE;
+		m_eCurrentMarkFrequencyMode = eCMFM_ADD;//eCMFM_NONE;
 	m_piCurrentFFTDataReferencePointer = e_piFFTData;
 	m_fCurrentTime += e_fElpaseTime;
 	m_fRestNextDataTimeGap -= e_fElpaseTime;

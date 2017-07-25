@@ -39,7 +39,7 @@ cToneData::cToneData(TiXmlElement*e_pTiXmlElement)
 #ifdef ANDROID
 	m_iMatchTimeCondition = 3;
 #else
-	m_iMatchTimeCondition = 5;
+	m_iMatchTimeCondition = 7;
 #endif
 	m_bStartHittedCount = false;
 }
@@ -100,7 +100,12 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 		//int l_iFrequency = m_pNoteFrequencyAndDecibles->FrequencyVector[i];
 		int l_iFFTBinIndex = m_pNoteFrequencyAndDecibles->FrequencyBinIndexVector[i];
 		//int l_iTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]-13;
-		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/2.f;
+		float l_fTargetDecibels = m_pNoteFrequencyAndDecibles->FrequencyHittedValueVector[i]/cSoundCompareParameter::m_sfDecibelsMatchDivideValue;
+		if( l_fTargetDecibels < 9 )
+		{//too small ignore this and set it as matched
+			++l_iNumMatched;
+			continue;
+		}
 		//int l_fTargetDecibels = 8;
 		std::vector<int>	l_DeciblesVector = e_pQuickFFTDataFrequencyFinder->GetDecibelsByFFTBinIndex(l_iFFTBinIndex);
 		//l_fTargetDecibels -= (1-l_fCurrentProgress)*13.f;
@@ -117,15 +122,15 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 	
 	//because some frequency just not we want but I have no idea how to filter this so...
 	float l_fPercent = (float)l_iNumMatched/l_uiSize;
-	return l_fPercent;
+	//return l_fPercent;
 	//float l_fToomanySampleSoGiveALittleReduce = l_uiSize/800.f;
 	//return l_fPercent+l_fToomanySampleSoGiveALittleReduce;
-	//if(l_fPercent >= 0.9)
-	//{
-	//	m_bStartHittedCount = true;
-	//}
-	//if( m_bStartHittedCount )
-	//{
+	if(l_fPercent >= 0.7)
+	{
+		m_bStartHittedCount = true;
+	}
+	if( m_bStartHittedCount )
+	{
 		if(l_fPercent >= 0.7)
 		{
 			++m_iMatchTime;
@@ -135,13 +140,15 @@ float	cToneData::CompareFFTDecibles(cQuickFFTDataFrequencyFinder*e_pQuickFFTData
 			}
 		}
 		else
+		{
 			m_bStartHittedCount = false;
-	//}
-	//else
-	//{
-	//	m_iMatchTime = 0;
-	//	l_fPercent = 0.f;
-	//}
+		}
+	}
+	else
+	{
+		m_iMatchTime = 0;
+		l_fPercent = 0.f;
+	}
 	return l_fPercent;
 }
 
@@ -269,6 +276,7 @@ void	cToneDataVector::Render()
 			if( cGameApp::m_svGameResolution.y-100 <= l_vShowPos.y )
 			{
 				l_vShowPos.y = 20.f;
+				l_vShowPos.x += 600.f;
 			}
 			if( l_fMax < m_ResultVector[i] )
 			{

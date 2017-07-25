@@ -27,5 +27,7 @@ const float		cSoundCompareParameter::m_sfDebugAlphaValue = 0.5f;
 
 float			cSoundCompareParameter::m_sfAcceptableNoteMatchValue = 0.98f;
 
+float			cSoundCompareParameter::m_sfDecibelsMatchDivideValue = 2.f;
+
 
 eMUSIC_GAME_MODE cSoundCompareParameter::m_seMusicGameMode = eMGM_GAME;

@@ -81,6 +81,7 @@ cMusicGameApp*g_pMusicGameApp = nullptr;
         g_pMusicGameApp = new cMusicGameApp(Vector2(2208,1242),
                                             Vector2(view.drawableWidth,view.drawableHeight));
         g_pMusicGameApp->Init();
+        g_pMusicGameApp->m_spMultiTouchPoints = new sMultiTouchPoints();
         //cGameApp::SetAcceptRationWithGameresolution(view.drawableWidth,view.drawableHeight,1600,1024);
        
     }
@@ -88,7 +89,6 @@ cMusicGameApp*g_pMusicGameApp = nullptr;
         g_pMusicGameApp->Run();
     [ glContext presentRenderbuffer:GL_RENDERBUFFER];
 }
-bool g_bMultiTouched = false;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     CGPoint location = [[touches anyObject] locationInView:[self view]];
@@ -115,10 +115,15 @@ bool g_bMultiTouched = false;
     //NSLog(@"touchesMoved: (%d, %d)", locX, locY);
     
     g_pMusicGameApp->MouseMove(locY, locX);
-    NSUInteger l_iNumTouches = [touches count];
-    if( l_iNumTouches >= 3 )
+    NSUInteger l_iNumTouches = [[event allTouches]count];//[touches count];
+    
+    if(g_pMusicGameApp->m_spMultiTouchPoints)
     {
-        g_bMultiTouched = true;
+        g_pMusicGameApp->m_spMultiTouchPoints->TouchPointWorkingIndex.clear();
+        for( int i=0;i<l_iNumTouches;++i )
+        {
+            g_pMusicGameApp->m_spMultiTouchPoints->TouchPointWorkingIndex.push_back(0);
+        }
     }
     
 }
@@ -126,11 +131,6 @@ bool g_bMultiTouched = false;
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     //UITouch* touch = [[event touchesForView:self] anyObject];
     //CGPoint location = [touch locationInView:self];
-    if( g_bMultiTouched )
-    {
-        cGameApp::m_sbDebugFunctionWorking = !cGameApp::m_sbDebugFunctionWorking;
-        g_bMultiTouched = false;
-    }
     CGPoint location = [[touches anyObject] locationInView:[self view]];
     GLKView *view = (GLKView *)self.view;
     int locX = static_cast<int>(location.y)*view.contentScaleFactor;
@@ -138,6 +138,7 @@ bool g_bMultiTouched = false;
     //NSLog(@"touchesEnded: (%d, %d)", locX, locY);
     
     g_pMusicGameApp->MouseUp(locY, locX);
+
 }
 
 //http://blog.csdn.net/m372897500/article/details/32710321
