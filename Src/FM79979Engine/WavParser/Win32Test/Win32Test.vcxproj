@@ -75,7 +75,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>..\..\..\..\Media\</OutDir>
-    <IntDir>..\..\..\..\Media\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">
