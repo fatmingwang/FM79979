@@ -13,3 +13,6 @@ x86/
 [Bb]in/
 [Oo]bj/
 Tegra-Android
+.vs
+ARM
+.DS_Store
