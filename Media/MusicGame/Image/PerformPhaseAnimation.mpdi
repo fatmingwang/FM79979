@@ -1791,12 +1791,6 @@
             <PointDataList Index="1" Position="-173.00,-158.00,0.00" Time="0.900000" Size="389.00,176.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="PerformPhaseImage" ImageName="great" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
-    <MultiPathDynamicImage Name="Oops" PathCount="1" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.900000">
-        <CueToStartCurvesWithTime Name="great" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
-            <PointDataList Index="0" Position="-163.00,-101.00,0.00" Time="0.000000" Size="324.00,176.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="oops" />
-            <PointDataList Index="1" Position="-163.00,-177.00,0.00" Time="0.900000" Size="324.00,176.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="PerformPhaseImage" ImageName="oops" />
-        </CueToStartCurvesWithTime>
-    </MultiPathDynamicImage>
     <MultiPathDynamicImage Name="BGWithKeyBoard2208" PathCount="26" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="3.000000">
         <CueToStartCurvesWithTime Name="BG" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
             <PointDataList Index="0" Position="1128.00,1401.00,0.00" Time="3.000000" Size="2499.77,1300.05" Scale="37.31,16.05" Color="2.00,2.00,2.00,2.00" PIName="PerformPhaseImage" ImageName="1" />
@@ -1894,6 +1888,12 @@
         </CueToStartCurvesWithTime>
         <CueToStartCurvesWithTime Name="Beam12" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1" Loop="1">
             <PointDataList Index="0" Position="1548.00,-17.00,0.00" Time="3.000000" Size="66.00,882.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="been" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Oops" PathCount="1" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="0.900000">
+        <CueToStartCurvesWithTime Name="great" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-164.00,-158.00,0.00" Time="0.000000" Size="324.00,176.00" Scale="1.00,1.00" PIName="PerformPhaseImage" ImageName="oops" />
+            <PointDataList Index="1" Position="-164.00,-234.00,0.00" Time="0.900000" Size="324.00,176.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="PerformPhaseImage" ImageName="oops" />
         </CueToStartCurvesWithTime>
     </MultiPathDynamicImage>
 </MPDIList>
