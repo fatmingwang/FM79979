@@ -221,6 +221,8 @@ namespace FATMING_CORE
 		MyGlErrorTest();
 
 	}
+	//https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/discard.php
+	//http://jerome.jouvie.free.fr/opengl-tutorials/Tutorial6.php
 	//GLfloat	g_fMAG_FILTERValue = GL_NEAREST;
 	//GLfloat	g_fMIN_FILTERValue = GL_NEAREST;
 	GLfloat	g_fMAG_FILTERValue = GL_LINEAR;
