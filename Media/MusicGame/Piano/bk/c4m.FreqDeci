@@ -1,4 +1,0 @@
-<Root Frequency="44100" SoundFile="c4m.wav" FFTCount="1024" DecibleThreshole="125" FrequencyThreshold="220">
-    <FFTHitCountAndTime StartTime="0.32800" FrequencyVector="1033,1076,1119,1162,1636,1679,2196,2239,2756,2799" FrequencyHittedCount="64,355,392,288,81,152,128,149,98,125" FrequencyHittedValue="28,36,38,34,26,27,28,29,27,28" />
-    <SortFFTHitCountAndTime StartTime="0.32800" FrequencyVector="1033,1636,2756,2799,2196,2239,1679,1162,1076,1119" FrequencyHittedCount="64,81,98,125,128,149,152,288,355,392" FrequencyHittedValue="28,26,27,28,28,29,27,34,36,38" />
-</Root>

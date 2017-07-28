@@ -1,9 +1,0 @@
-<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a6m.wav">
-    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.40000" LastMatchTime="0.40000" Frequency="6416.89453" Amplitude="122" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.65000" LastMatchTime="0.65000" Frequency="6503.02734" Amplitude="116" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.66667" LastMatchTime="0.68333" Frequency="947.46094" Amplitude="142" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.28333" KeepTime="0.41667" LastMatchTime="0.70000" Frequency="5555.56641" Amplitude="93" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.45000" KeepTime="0.16667" LastMatchTime="0.61667" Frequency="6373.82813" Amplitude="85" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.46667" KeepTime="0.16667" LastMatchTime="0.63333" Frequency="5512.50000" Amplitude="105" />
-</Root>

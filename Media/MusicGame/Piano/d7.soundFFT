@@ -1,6 +1,0 @@
-<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\d7.wav">
-    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.00000" KeepTime="0.20000" LastMatchTime="0.20000" Frequency="7881.15234" Amplitude="118" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.01667" KeepTime="0.21667" LastMatchTime="0.23333" Frequency="2368.65234" Amplitude="123" />
-    <FrequenceAndAmplitudeAndTime StartTime="0.33333" KeepTime="0.33333" LastMatchTime="0.68333" Frequency="5512.50000" Amplitude="83" />
-</Root>
