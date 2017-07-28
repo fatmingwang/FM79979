@@ -1,0 +1,15 @@
+first Activity set content form file
+	java code:
+	        setContentView(R.layout.fbmanagerlayout);
+	file is $ProjectRoot/red/ooxxooxx
+	above file full directory is  $ProjectRoot\res\layout\fbmanagerlayout.xml
+
+	Now we can get object by R.id,because now R = R.layout.fbmanagerlayout
+	java code:
+	        loginButton = (LoginButton) findViewById(R.id.login_button);
+		you can find object in file $ProjectRoot\res\layout\fbmanagerlayout.xml and element android:id="@+id/login_button"
+		now you know this button type is com.facebook.widget.LoginButton
+
+
+
+	I have no idea why java(only Android?) design UI like this....-_-
