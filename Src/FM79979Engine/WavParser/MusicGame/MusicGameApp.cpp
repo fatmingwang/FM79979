@@ -106,11 +106,11 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 		{
 			this->m_sbDebugFunctionWorking = true;
 		}
-		else
-		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 7)
-		{
-			this->m_bDoScreenShot = true;
-		}
+		//else
+		//if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 7)
+		//{
+		//	this->m_bDoScreenShot = true;
+		//}
 	}
 	m_spMultiTouchPoints->TouchPointWorkingIndex.clear();
 }

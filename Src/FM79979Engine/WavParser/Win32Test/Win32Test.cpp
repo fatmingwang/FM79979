@@ -57,8 +57,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
-	cGameApp::m_svGameResolution.x = 2208;
-	cGameApp::m_svGameResolution.y = 1242;
+	//cGameApp::m_svGameResolution.x = 2208;
+	//cGameApp::m_svGameResolution.y = 1242;
 	g_pGameApp = new cMusicGameApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
 	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);

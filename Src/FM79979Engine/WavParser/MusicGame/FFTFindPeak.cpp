@@ -22,7 +22,7 @@ cFFTBinStatus::sFFTBinData::sFFTBinData()
 eMoveDirection	cFFTBinStatus::sFFTBinData::GetMoveDirectionByMoveDirectionHistory(int e_iMoveDirectionHistoryIndex)
 {
 	int l_iMaxAmplitude = 0;
-	int l_iNumMatch = 0;	
+	int l_iNumMatch = 0;
 	for( int i=0;i<MOVE_DIRECTION_HISTORY_COUNT;++i )
 	{
 		int l_iIndex = UT::GetLoopIndex(e_iMoveDirectionHistoryIndex,MOVE_DIRECTION_HISTORY_COUNT);
@@ -32,7 +32,7 @@ eMoveDirection	cFFTBinStatus::sFFTBinData::GetMoveDirectionByMoveDirectionHistor
 		}
 		//else
 		{
-		
+
 		}
 	}
 	return eMD_MAX;
