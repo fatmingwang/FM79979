@@ -89,25 +89,6 @@ std::vector<int>		cQuickFFTDataFrequencyFinder::GetDecibelsByFrequency(int e_iFr
 
 
 
-cFFTDecibelsAnalyzer::cFFTHitCountAndTime::cFFTHitCountAndTime(float e_fStartTime,int e_iFFTBinCount)
-{
-	m_iFFTBinCount = e_iFFTBinCount;
-	m_fStartTime = e_fStartTime;
-	m_pHittedCountArray = new int[e_iFFTBinCount];
-	m_pHittedValueArray = new int[e_iFFTBinCount];
-	memset(m_pHittedCountArray,0,sizeof(int)*e_iFFTBinCount);
-	memset(m_pHittedValueArray,0,sizeof(int)*e_iFFTBinCount);
-	m_pFFTFrequencyDecibels = new cFFTFrequencyDecibels(m_iFFTBinCount);
-}
-
-cFFTDecibelsAnalyzer::cFFTHitCountAndTime::~cFFTHitCountAndTime()
-{
-	SAFE_DELETE(m_pFFTFrequencyDecibels);
-	SAFE_DELETE(m_pHittedValueArray);
-	SAFE_DELETE(m_pHittedCountArray);
-}
-
-
 cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::cFFTFrequencyDecibels(int e_iFFTCount)
 {
 	m_piTotalDecibleValue = new int[e_iFFTCount]; 
@@ -204,8 +185,6 @@ void	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::Render(int e_iThresholdValue,i
 cFFTDecibelsAnalyzer::cFFTDecibelsAnalyzer()
 {
 	m_piCurrentFFTDataReferencePointer = nullptr;
-	sFilterData l_sFilterData = {768,8};
-	m_FilterDataVector.push_back(l_sFilterData);
 	m_iMouseMoveFreq = -1;
 	m_iMouseMoveFreqFFTBinIndex = -1;
 	m_iMouseMoveFreqDecibelAverage = -1;
@@ -213,7 +192,7 @@ cFFTDecibelsAnalyzer::cFFTDecibelsAnalyzer()
 	//why 999?because I am lazy lah
 	m_fNextDataTimeGap = 1;
 	m_fCurrentTime = 0.f;
-	m_pCurrentFFTHitCountAndTime = nullptr;
+	m_pCurrentFFTFrequencyDecibels = nullptr;
 	this->m_vShowPos = Vector2(100,1200);
 	this->m_vResolution.x = 3600;
 	this->m_vResolution.y = 600;
@@ -235,9 +214,9 @@ cFFTDecibelsAnalyzer::~cFFTDecibelsAnalyzer()
 
 void	cFFTDecibelsAnalyzer::Destroy()
 {
-	//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
-	DELETE_VECTOR(m_FFTHitCountAndTimeVector,cFFTHitCountAndTime*);
-	m_pCurrentFFTHitCountAndTime = nullptr;
+	//SAFE_DELETE(m_pCurrentFFTFrequencyDecibels);
+	DELETE_VECTOR(m_FFTFrequencyDecibelsVector,cFFTFrequencyDecibels*);
+	m_pCurrentFFTFrequencyDecibels = nullptr;
 }
 
 void	cFFTDecibelsAnalyzer::Start(int e_iFrequency)
@@ -269,64 +248,38 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 	if( m_fRestNextDataTimeGap <= 0.f )
 	{
 		m_fRestNextDataTimeGap = m_fNextDataTimeGap+m_fRestNextDataTimeGap;
-		if( m_FFTHitCountAndTimeVector.size() == 0 )
+		if( m_FFTFrequencyDecibelsVector.size() == 0 )
 		{
-			//SAFE_DELETE(m_pCurrentFFTHitCountAndTime);
-			cFFTHitCountAndTime*l_pNewFFTHitCountAndTime = new cFFTHitCountAndTime(m_fCurrentTime,e_iCount);
-			l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetShowPos(this->m_vShowPos);
-			l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
-			if( m_pCurrentFFTHitCountAndTime && m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
-				m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->CopyAverageValue(l_pNewFFTHitCountAndTime->m_pFFTFrequencyDecibels,e_piFFTData,e_iCount);
-			m_pCurrentFFTHitCountAndTime = l_pNewFFTHitCountAndTime;
-			this->m_FFTHitCountAndTimeVector.push_back(l_pNewFFTHitCountAndTime);
+			//SAFE_DELETE(m_pCurrentFFTFrequencyDecibels);
+			cFFTFrequencyDecibels*l_pFFTFrequencyDecibels = new cFFTFrequencyDecibels(e_iCount);
+			l_pFFTFrequencyDecibels->SetShowPos(this->m_vShowPos);
+			l_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
+			if( m_pCurrentFFTFrequencyDecibels )
+				m_pCurrentFFTFrequencyDecibels->CopyAverageValue(l_pFFTFrequencyDecibels,e_piFFTData,e_iCount);
+			m_pCurrentFFTFrequencyDecibels = l_pFFTFrequencyDecibels;
+			this->m_FFTFrequencyDecibelsVector.push_back(l_pFFTFrequencyDecibels);
 			m_iMaxValue = 0;
 		}
 		else
 		{
 			const int l_iSmmothDivide = (int)(m_fNextDataTimeGap*60)/20;
-			for(int i=0;i<m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_iFFTCount;++i)
-				m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piTotalDecibleValue[i] /= l_iSmmothDivide;
-			m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_iUpdateCount /= l_iSmmothDivide;
+			for(int i=0;i<m_pCurrentFFTFrequencyDecibels->m_iFFTCount;++i)
+				m_pCurrentFFTFrequencyDecibels->m_piTotalDecibleValue[i] /= l_iSmmothDivide;
+			m_pCurrentFFTFrequencyDecibels->m_iUpdateCount /= l_iSmmothDivide;
 		}
 	}
-	if( m_pCurrentFFTHitCountAndTime )
+
+	for( int i=0;i<e_iCount;++i )
+	{
+		int l_iDecibelsThresholdValue = cSoundCompareParameter::m_siDebugAmplitudeValue;
+		if(m_iMaxValue < e_piFFTData[i] )
+			m_iMaxValue = e_piFFTData[i];
+	}
+	if( m_pCurrentFFTFrequencyDecibels )
 	{
 		float l_fFrequenctForOneFFT = (float)this->m_iFrequency/e_iCount;
-
-		size_t l_uiSize = m_FilterDataVector.size();
-		int l_iCurrentIndex = 0;
-		sFilterData*l_pFilterData = nullptr;
-		if( l_uiSize > 0 )
-			l_pFilterData = &m_FilterDataVector[l_iCurrentIndex];
-
-		for( int i=0;i<e_iCount;++i )
-		{
-			int l_iCurrentFrequency = (int)(l_fFrequenctForOneFFT*i);
-			int l_iDecibelsThresholdValue = cSoundCompareParameter::m_siDebugAmplitudeValue;
-
-			int l_iNexdIndex = l_iCurrentIndex+1;
-			if( (int)l_uiSize > l_iNexdIndex )
-			{
-				sFilterData*l_pNewFilterData = &m_FilterDataVector[l_iNexdIndex];
-				if(l_pNewFilterData->iFrequencyThresholdStart >= l_iCurrentFrequency)
-				{
-					l_pFilterData = &m_FilterDataVector[l_iNexdIndex];
-				}
-			}
-			if( l_pFilterData && l_iCurrentFrequency >= l_pFilterData->iFrequencyThresholdStart )
-			{
-				l_iDecibelsThresholdValue = l_pFilterData->iFrequencyDecibelsThreshold;
-			}
-			if( e_piFFTData[i] >= l_iDecibelsThresholdValue )
-			{
-				m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] += 1;
-				m_pCurrentFFTHitCountAndTime->m_pHittedValueArray[i] += e_piFFTData[i];
-				if(m_iMaxValue <m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i] )
-					m_iMaxValue = m_pCurrentFFTHitCountAndTime->m_pHittedCountArray[i];
-			}
-		}
-		if( m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
-			m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->Update(e_iCount,e_piFFTData);
+		if( m_pCurrentFFTFrequencyDecibels)
+			m_pCurrentFFTFrequencyDecibels->Update(e_iCount,e_piFFTData);
 	}
 	if( cGameApp::m_sucKeyData['Z'] )
 	{
@@ -345,61 +298,23 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 	{
 		this->m_vShowPos.x -= this->m_vResolution.x/30;
 	}
-	if( m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
+	if( m_pCurrentFFTFrequencyDecibels )
 	{
-		m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetResolution(this->m_vResolution);
-		m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->SetShowPos(m_vShowPos);
+		m_pCurrentFFTFrequencyDecibels->SetResolution(this->m_vResolution);
+		m_pCurrentFFTFrequencyDecibels->SetShowPos(m_vShowPos);
 	}
 }
 
-void	cFFTDecibelsAnalyzer::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime)
+void	cFFTDecibelsAnalyzer::RenderFFTHitCountAndTime(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels)
 {
-	if( e_pFFTHitCountAndTime )
+	if( e_pFFTFrequencyDecibels )
 	{
-		int l_iFFTBinCount = e_pFFTHitCountAndTime->m_iFFTBinCount;
+		int l_iFFTBinCount = e_pFFTFrequencyDecibels->m_iFFTCount;
 		//have no idea...while I jump time
 		if( l_iFFTBinCount < 0 || l_iFFTBinCount > 100000 )
 			return;
-		float l_fGap = this->GetWidthGapByPoints(e_pFFTHitCountAndTime->m_iFFTBinCount);
+		float l_fGap = this->GetWidthGapByPoints(e_pFFTFrequencyDecibels->m_iFFTCount);
 		Vector2 l_vShowPos = this->m_vShowPos;
-		if( 0 )
-		{
-			for( int i=0;i<l_iFFTBinCount;++i )
-			{
-				m_vLineTempPos[i*2] = l_vShowPos;
-				m_vLineTempPos[i*2+1] = l_vShowPos;
-				m_vLineTempPos[i*2+1].y -= e_pFFTHitCountAndTime->m_pHittedCountArray[i]*m_iHittedCountScaleForVisual;
-				l_vShowPos.x += l_fGap;
-			}
-			GLRender::RenderLine((float*)&m_vLineTempPos[0],l_iFFTBinCount*2,Vector4::One,2);
-
-			if(cGameApp::m_sbDebugFunctionWorking)
-			{
-				Vector2	l_vChartResolution = this->m_vResolution;
-				Vector2 l_vLinePos[2];
-				l_vLinePos[0] = this->m_vShowPos;
-				l_vLinePos[0].y -= m_iExportThresholdValue*m_iHittedCountScaleForVisual;
-
-				l_vLinePos[1] = l_vLinePos[0];
-				l_vLinePos[1].x += l_vChartResolution.x;
-				RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
-
-				size_t l_uiSize = m_FilterDataVector.size();
-				for( size_t i=0;i<l_uiSize;++i )
-				{
-					auto l_pFilterDataVector = &m_FilterDataVector[i];
-					Vector2	l_vChartResolution = this->m_vResolution;
-					Vector2 l_vLinePos[2];
-					l_vLinePos[0] = this->m_vShowPos;
-					l_vLinePos[0].x += (float)l_pFilterDataVector->iFrequencyThresholdStart;
-					l_vLinePos[0].y -= l_pFilterDataVector->iFrequencyDecibelsThreshold *m_iHittedCountScaleForVisual;
-
-					l_vLinePos[1] = l_vLinePos[0];
-					l_vLinePos[1].x += l_vChartResolution.x-l_pFilterDataVector->iFrequencyThresholdStart;
-					RenderLine((float*)&l_vLinePos,2,Vector4::Red,2);			
-				}
-			}
-		}
 
 		std::wstring l_strInfo = L"RestTime:";
 		l_strInfo += ValueToStringW(m_fRestNextDataTimeGap);
@@ -407,12 +322,11 @@ void	cFFTDecibelsAnalyzer::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHi
 		l_strInfo += ValueToStringW(m_iMaxValue);
 		cGameApp::RenderFont(this->m_vShowPos.x,this->m_vShowPos.y+200,l_strInfo);
 
-		if( m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels )
-			this->m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->Render(this->m_iExportThresholdValue,m_iDecibelsRenderScale);
+		if( m_pCurrentFFTFrequencyDecibels )
+			m_pCurrentFFTFrequencyDecibels->Render(this->m_iExportThresholdValue,m_iDecibelsRenderScale);
 
 		if(m_iMouseMoveFreqFFTBinIndex != -1)
 		{
-			auto l_pFilterDataVector = &m_FilterDataVector[0];
 			Vector2 l_vLinePos[2];
 			l_vLinePos[1].x = l_vLinePos[0].x = this->m_vShowPos.x+(l_fGap*m_iMouseMoveFreqFFTBinIndex);
 			l_vLinePos[0].y = this->m_vShowPos.y;
@@ -420,13 +334,13 @@ void	cFFTDecibelsAnalyzer::RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHi
 			RenderLine((float*)&l_vLinePos,2,Vector4(1,1,1,1),2);
 		}
 
-		if(e_pFFTHitCountAndTime->m_iFFTBinCount >= 4096)
+		if(e_pFFTFrequencyDecibels->m_iFFTCount >= 4096)
 			return;
 		size_t l_uiPickupIndexVectorSize = m_PickupIndexVector.size();
 		if( l_uiPickupIndexVectorSize > 0 )
 		{
 			Vector2 l_LazyPoints[4096*2];
-			float l_fGap = this->GetWidthGapByPoints(e_pFFTHitCountAndTime->m_iFFTBinCount);
+			float l_fGap = this->GetWidthGapByPoints(e_pFFTFrequencyDecibels->m_iFFTCount);
 			for( size_t i=0;i<l_uiPickupIndexVectorSize;++i )
 			{
 				int l_iIndex = m_PickupIndexVector[i];
@@ -458,7 +372,7 @@ void	cFFTDecibelsAnalyzer::RenderMouseMoveInfo()
 
 void	cFFTDecibelsAnalyzer::RenderCurrentData()
 {
-	RenderFFTHitCountAndTime(this->m_pCurrentFFTHitCountAndTime);
+	RenderFFTHitCountAndTime(this->m_pCurrentFFTFrequencyDecibels);
 	RenderMouseMoveInfo();
 }
 
@@ -485,21 +399,21 @@ void	cFFTDecibelsAnalyzer::MouseMove(int e_iMousePosX,int e_iMousePosY)
 
 		int l_iCurrentMouseFreq = (int)(this->m_iFrequency*l_fLERP);
 		m_iMouseMoveFreq = l_iCurrentMouseFreq;
-		if( m_pCurrentFFTHitCountAndTime )
+		if( m_pCurrentFFTFrequencyDecibels )
 		{
-			int l_iIndex = (int)(m_pCurrentFFTHitCountAndTime->m_iFFTBinCount*l_fLERP);
-			if( l_iIndex >= m_pCurrentFFTHitCountAndTime->m_iFFTBinCount )
+			int l_iIndex = (int)(m_pCurrentFFTFrequencyDecibels->m_iFFTCount*l_fLERP);
+			if( l_iIndex >= m_pCurrentFFTFrequencyDecibels->m_iFFTCount )
 			{
-				m_iMouseMoveFreq = m_pCurrentFFTHitCountAndTime->m_iFFTBinCount-1;
+				m_iMouseMoveFreq = m_pCurrentFFTFrequencyDecibels->m_iFFTCount-1;
 			}
 			else
 			if( l_iIndex < 0 )
 			{
 				m_iMouseMoveFreq = 0;
 			}
-			m_iMouseMoveFreqDecibelAverage = this->m_pCurrentFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
+			m_iMouseMoveFreqDecibelAverage = this->m_pCurrentFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
 			m_iMouseMoveFreqFFTBinIndex = l_iIndex;
-			m_iMouseMoveFreq = (int)((float)this->m_iFrequency/m_pCurrentFFTHitCountAndTime->m_iFFTBinCount*l_iIndex);
+			m_iMouseMoveFreq = (int)((float)this->m_iFrequency/m_pCurrentFFTFrequencyDecibels->m_iFFTCount*l_iIndex);
 			if( m_bMouseDown && m_piCurrentFFTDataReferencePointer )
 			{
 				float l_fDecibels = m_piCurrentFFTDataReferencePointer[l_iIndex]*m_iDecibelsRenderScale+this->m_vShowPos.y;
@@ -534,20 +448,20 @@ void	cFFTDecibelsAnalyzer::SetExportThresholdValue(int e_iExportThresholdValue)
 
 void	cFFTDecibelsAnalyzer::RenderByTime(float e_fTargetTime)
 {
-	cFFTHitCountAndTime*l_pTargetcFFTHitCountAndTime = nullptr;
-	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
-	for( size_t i=0;i<l_uiSize;++i )
-	{
-		if(e_fTargetTime <= m_FFTHitCountAndTimeVector[i]->m_fStartTime )
-		{
-			l_pTargetcFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
-			break;
-		}
-	}
-	if( l_pTargetcFFTHitCountAndTime )
-	{
-		l_pTargetcFFTHitCountAndTime;
-	}
+	//cFFTFrequencyDecibels*l_pTargetFFTFrequencyDecibels = nullptr;
+	//size_t l_uiSize = m_FFTFrequencyDecibelsVector.size();
+	//for( size_t i=0;i<l_uiSize;++i )
+	//{
+	//	if(e_fTargetTime <= m_FFTFrequencyDecibelsVector[i]->m_fStartTime )
+	//	{
+	//		l_pTargetFFTFrequencyDecibels = m_FFTFrequencyDecibelsVector[i];
+	//		break;
+	//	}
+	//}
+	//if( l_pTargetFFTFrequencyDecibels )
+	//{
+	//	l_pTargetFFTFrequencyDecibels;
+	//}
 }
 
 int		FintBiggestValueInVector(std::vector<int>*e_pVector,std::vector<int>*e_pVectorIndex)
@@ -610,10 +524,10 @@ void	cFFTDecibelsAnalyzer::SortMostHittedFequency(std::vector<int>&e_Vector1,std
 
 bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
 {
-	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
+	size_t l_uiSize = m_FFTFrequencyDecibelsVector.size();
 	if( l_uiSize == 0 )
 		return false;
-	int l_iFFTCount = m_FFTHitCountAndTimeVector[0]->m_iFFTBinCount;
+	int l_iFFTCount = m_FFTFrequencyDecibelsVector[0]->m_iFFTCount;
 	ISAXCallback l_ISAXCallback;
 	TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
 	TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
@@ -627,7 +541,7 @@ bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,con
 	float l_fFrequenctForOneFFT = (float)this->m_iFrequency/l_iFFTCount;
 	for(size_t i=0;i<l_uiSize;++i)
 	{
-		cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
+		cFFTFrequencyDecibels*l_pFFTFrequencyDecibels = m_FFTFrequencyDecibelsVector[i];
 		std::vector<int>	l_FrequencyVector;
 		std::vector<int>	l_FrequencyBinIndexVector;
 		std::vector<int>	l_FrequencyHittedCountVector;
@@ -636,39 +550,37 @@ bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,con
 		for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_iPickupIndexSize;++l_iCurrentFFTIndex )
 		{
 			int l_iIndex = m_PickupIndexVector[l_iCurrentFFTIndex];
-			int l_iDecibels = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
+			int l_iDecibels = l_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
 			int l_iFrequency = (int)(l_fFrequenctForOneFFT*l_iIndex);
 			l_FrequencyBinIndexVector.push_back(l_iIndex);
 			l_FrequencyVector.push_back(l_iFrequency);
-			int l_iCount = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piDecibleBiggetThanZeroCount[l_iIndex];
-			int l_iAeverageValue = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
+			int l_iCount = l_pFFTFrequencyDecibels->m_piDecibleBiggetThanZeroCount[l_iIndex];
+			int l_iAeverageValue = l_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iIndex];
 			l_FrequencyHittedCountVector.push_back(l_iCount);
 			l_FrequencyHittedValueVector.push_back(l_iAeverageValue);
 		}
-		TiXmlElement*l_pFFTHitCountAndTimeElement = new TiXmlElement(L"FFTHitCountAndTime");
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTBinCount));
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
-		l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
+		TiXmlElement*l_pFFTFrequencyDecibelsElement = new TiXmlElement(L"FFTFrequencyDecibels");
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTFrequencyDecibels->m_iFFTCount));
+		l_pFFTFrequencyDecibelsElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
+		l_pRootTiXmlElement->LinkEndChild(l_pFFTFrequencyDecibelsElement);
 
-		TiXmlElement*l_pSortFFTHitCountAndTimeElement = new TiXmlElement(L"SortFFTHitCountAndTime");
+		TiXmlElement*l_pSortFFTFrequencyDecibelsElement = new TiXmlElement(L"SortFFTFrequencyDecibels");
 		SortMostHittedFequency(l_FrequencyVector,l_FrequencyBinIndexVector,l_FrequencyHittedCountVector,l_FrequencyHittedValueVector);
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
 
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
 
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTBinCount));
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
-		l_pRootTiXmlElement->LinkEndChild(l_pSortFFTHitCountAndTimeElement);
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTFrequencyDecibels->m_iFFTCount));
+		l_pSortFFTFrequencyDecibelsElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
+		l_pRootTiXmlElement->LinkEndChild(l_pSortFFTFrequencyDecibelsElement);
 	}
 	std::string l_strDirectory = "MusicGame/Piano/";
 	l_strDirectory += e_strFileName;
@@ -678,85 +590,10 @@ bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,con
 
 bool	cFFTDecibelsAnalyzer::ExportWithAverageDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
 {
-	size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
-	if( l_uiSize == 0 )
-		return false;
-	int l_iFFTCount = m_FFTHitCountAndTimeVector[0]->m_iFFTBinCount;
-	ISAXCallback l_ISAXCallback;
-	TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
-	TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
-	l_pTiXmlDocument->LinkEndChild(l_pRootTiXmlElement);
-	l_ISAXCallback.SetDoc(l_pTiXmlDocument);
-	l_pRootTiXmlElement->SetAttribute(L"Frequency",m_iFrequency);
-	l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
-	l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
-	l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",m_iExportThresholdValue);
-	l_pRootTiXmlElement->SetAttribute(L"FrequencyThreshold",e_iFrequencyThreshold);
-	float l_fFrequenctForOneFFT = (float)this->m_iFrequency/l_iFFTCount;
-	for(size_t i=0;i<l_uiSize;++i)
-	{
-		cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
-		std::vector<int>	l_FrequencyVector;
-		std::vector<int>	l_FrequencyBinIndexVector;
-		std::vector<int>	l_FrequencyHittedCountVector;
-		std::vector<int>	l_FrequencyHittedValueVector;
-		for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_pFFTHitCountAndTime->m_iFFTBinCount;++l_iCurrentFFTIndex )
-		{
-			int l_iDecibels = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iCurrentFFTIndex];
-			//l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->
-			//check threshold value
-			if(l_iDecibels >=this->m_iExportThresholdValue)
-			{
-				int l_iFrequency = (int)(l_fFrequenctForOneFFT*l_iCurrentFFTIndex);
-				if( e_iFrequencyThreshold >= l_iFrequency || l_iFrequency >= 38000 )//dont ask me why 38000...I am lazy
-					continue;
-				l_FrequencyBinIndexVector.push_back(l_iCurrentFFTIndex);
-				l_FrequencyVector.push_back(l_iFrequency);
-				int l_iCount = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piDecibleBiggetThanZeroCount[l_iCurrentFFTIndex];
-				int l_iAeverageValue = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iCurrentFFTIndex];
-				l_FrequencyHittedCountVector.push_back(l_iCount);
-				l_FrequencyHittedValueVector.push_back(l_iAeverageValue);
-			}
-		}
-		TiXmlElement*l_pFFTHitCountAndTimeElement = new TiXmlElement(L"FFTHitCountAndTime");
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTBinCount));
-		l_pFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
-		l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
-
-		TiXmlElement*l_pSortFFTHitCountAndTimeElement = new TiXmlElement(L"SortFFTHitCountAndTime");
-		SortMostHittedFequency(l_FrequencyVector,l_FrequencyBinIndexVector,l_FrequencyHittedCountVector,l_FrequencyHittedValueVector);
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
-
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
-
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTBinCount));
-		l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
-		l_pRootTiXmlElement->LinkEndChild(l_pSortFFTHitCountAndTimeElement);
-	}
-	std::string l_strDirectory = "MusicGame/Piano/";
-	l_strDirectory += e_strFileName;
-	l_ISAXCallback.Export(l_strDirectory.c_str(),false);
-	return false;
-}
-
-bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
-{
-	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
-	return ExportWithAverageDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
-	//size_t l_uiSize = m_FFTHitCountAndTimeVector.size();
+	//size_t l_uiSize = m_FFTFrequencyDecibelsVector.size();
 	//if( l_uiSize == 0 )
 	//	return false;
-	//int l_iFFTCount = m_FFTHitCountAndTimeVector[0]->m_iFFTBinCount;
+	//int l_iFFTCount = m_FFTFrequencyDecibelsVector[0]->m_iFFTCount;
 	//ISAXCallback l_ISAXCallback;
 	//TiXmlDocument*l_pTiXmlDocument = new TiXmlDocument();
 	//TiXmlElement*l_pRootTiXmlElement = new TiXmlElement(L"Root");
@@ -765,59 +602,69 @@ bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOrigi
 	//l_pRootTiXmlElement->SetAttribute(L"Frequency",m_iFrequency);
 	//l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
 	//l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
-	//l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",e_iDecibleThreshold);
+	//l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",m_iExportThresholdValue);
 	//l_pRootTiXmlElement->SetAttribute(L"FrequencyThreshold",e_iFrequencyThreshold);
 	//float l_fFrequenctForOneFFT = (float)this->m_iFrequency/l_iFFTCount;
-	////to avoid noise...
-	//int l_iPreviousFrequencyHittedCount = -1;
 	//for(size_t i=0;i<l_uiSize;++i)
 	//{
-	//	cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTHitCountAndTimeVector[i];
+	//	cFFTHitCountAndTime*l_pFFTHitCountAndTime = m_FFTFrequencyDecibelsVector[i];
 	//	std::vector<int>	l_FrequencyVector;
+	//	std::vector<int>	l_FrequencyBinIndexVector;
 	//	std::vector<int>	l_FrequencyHittedCountVector;
 	//	std::vector<int>	l_FrequencyHittedValueVector;
-	//	for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_pFFTHitCountAndTime->m_iFFTBinCount;++l_iCurrentFFTIndex )
+	//	for( int l_iCurrentFFTIndex = 0;l_iCurrentFFTIndex<l_pFFTHitCountAndTime->m_iFFTCount;++l_iCurrentFFTIndex )
 	//	{
-	//		int l_iCount = l_pFFTHitCountAndTime->m_pHittedCountArray[l_iCurrentFFTIndex];
+	//		int l_iDecibels = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iCurrentFFTIndex];
+	//		//l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->
 	//		//check threshold value
-	//		if(l_iCount >=this->m_iExportThresholdValue)
+	//		if(l_iDecibels >=this->m_iExportThresholdValue)
 	//		{
 	//			int l_iFrequency = (int)(l_fFrequenctForOneFFT*l_iCurrentFFTIndex);
 	//			if( e_iFrequencyThreshold >= l_iFrequency || l_iFrequency >= 38000 )//dont ask me why 38000...I am lazy
 	//				continue;
-	//			if( l_iPreviousFrequencyHittedCount == l_iCount)
-	//				continue;
-	//			l_iPreviousFrequencyHittedCount = l_iCount;
+	//			l_FrequencyBinIndexVector.push_back(l_iCurrentFFTIndex);
 	//			l_FrequencyVector.push_back(l_iFrequency);
+	//			int l_iCount = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piDecibleBiggetThanZeroCount[l_iCurrentFFTIndex];
+	//			int l_iAeverageValue = l_pFFTHitCountAndTime->m_pFFTFrequencyDecibels->m_piAverageDecibleValue[l_iCurrentFFTIndex];
 	//			l_FrequencyHittedCountVector.push_back(l_iCount);
-	//			int l_iAeverageValue = l_pFFTHitCountAndTime->m_pHittedValueArray[l_iCurrentFFTIndex]/l_iCount;
 	//			l_FrequencyHittedValueVector.push_back(l_iAeverageValue);
-	//		}
-	//		else
-	//		{
-	//			l_iPreviousFrequencyHittedCount = 0;
 	//		}
 	//	}
 	//	TiXmlElement*l_pFFTHitCountAndTimeElement = new TiXmlElement(L"FFTHitCountAndTime");
 	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
 	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
+	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
 	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
 	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
+	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTCount));
 	//	l_pFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
 	//	l_pRootTiXmlElement->LinkEndChild(l_pFFTHitCountAndTimeElement);
 
 	//	TiXmlElement*l_pSortFFTHitCountAndTimeElement = new TiXmlElement(L"SortFFTHitCountAndTime");
-	//	SortMostHittedFequency(l_FrequencyVector,l_FrequencyHittedCountVector,l_FrequencyHittedValueVector);
+	//	SortMostHittedFequency(l_FrequencyVector,l_FrequencyBinIndexVector,l_FrequencyHittedCountVector,l_FrequencyHittedValueVector);
 	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"StartTime",l_pFFTHitCountAndTime->m_fStartTime);
+
 	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyVector",ValueToStringW(l_FrequencyVector).c_str());
+	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTBinIndex",ValueToStringW(l_FrequencyBinIndexVector).c_str());
 	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedCount",ValueToStringW(l_FrequencyHittedCountVector).c_str());
 	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FrequencyHittedValue",ValueToStringW(l_FrequencyHittedValueVector).c_str());
+
+	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Frequency",ValueToStringW(this->m_iFrequency));
+	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"FFTCount",ValueToStringW(l_pFFTHitCountAndTime->m_iFFTCount));
 	//	l_pSortFFTHitCountAndTimeElement->SetAttribute(L"Count",ValueToStringW(l_FrequencyHittedValueVector.size()).c_str());
 	//	l_pRootTiXmlElement->LinkEndChild(l_pSortFFTHitCountAndTimeElement);
 	//}
 	//std::string l_strDirectory = "MusicGame/Piano/";
 	//l_strDirectory += e_strFileName;
 	//l_ISAXCallback.Export(l_strDirectory.c_str(),false);
+	return false;
+}
+
+bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
+{
+	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
+	return ExportWithAverageDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
 	return false;
 }
 //<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
@@ -828,8 +675,8 @@ bool	cFFTDecibelsAnalyzer::MyParse(TiXmlElement*e_pRoot)
 	return false;
 }
 
-void	cFFTDecibelsAnalyzer::AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue)
-{
-	sFilterData l_sFilterData = {e_iStartFrequenct,e_iDecibelsThresholdValue};
-	this->m_FilterDataVector.push_back(l_sFilterData);
-}
+//void	cFFTDecibelsAnalyzer::AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue)
+//{
+//	sFilterData l_sFilterData = {e_iStartFrequenct,e_iDecibelsThresholdValue};
+//	this->m_FilterDataVector.push_back(l_sFilterData);
+//}

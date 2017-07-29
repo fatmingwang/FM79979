@@ -38,13 +38,6 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 		void	Update(int e_iCount,int*e_piFFTCount);
 		void	Render(int e_iThresholdValue,int e_iScale);
 	};
-	//=======================
-	struct sFilterData
-	{
-		int iFrequencyThresholdStart;
-		int iFrequencyDecibelsThreshold;
-	};
-	std::vector<sFilterData>			m_FilterDataVector;
 	void	Destroy();
 	virtual	bool						MyParse(TiXmlElement*e_pRoot);
 	//I am lazy...
@@ -76,17 +69,6 @@ class cFFTDecibelsAnalyzer:public cNodeISAX,public cChartBasicInfo
 public:
 	cFFTDecibelsAnalyzer();
 	~cFFTDecibelsAnalyzer();
-	class cFFTHitCountAndTime
-	{
-	public:
-		cFFTHitCountAndTime(float e_fStartTime,int e_iFFTBinCount);
-		~cFFTHitCountAndTime();
-		cFFTFrequencyDecibels*m_pFFTFrequencyDecibels;
-		float   m_fStartTime;
-		int*	m_pHittedCountArray;
-		int*	m_pHittedValueArray;
-		int		m_iFFTBinCount;
-	};
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start(int e_iFrequency);
 	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
@@ -103,13 +85,13 @@ public:
 	int									GetFrequency(){return m_iFrequency;}
 private:
 	//int									m_iThreusholdAmplitude;
-	std::vector<cFFTHitCountAndTime*>	m_FFTHitCountAndTimeVector;
+	std::vector<cFFTFrequencyDecibels*>	m_FFTFrequencyDecibelsVector;
 	float								m_fNextDataTimeGap;
 	float								m_fCurrentTime;
 	float								m_fRestNextDataTimeGap;
-	cFFTHitCountAndTime*				m_pCurrentFFTHitCountAndTime;
-	void								RenderFFTHitCountAndTime(cFFTHitCountAndTime*e_pFFTHitCountAndTime);
-	void								AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue);
+	cFFTFrequencyDecibels*				m_pCurrentFFTFrequencyDecibels;
+	void								RenderFFTHitCountAndTime(cFFTFrequencyDecibels*e_pFFTFrequencyDecibels);
+	//void								AddFFTUpdateFilterData(int e_iStartFrequenct,int e_iDecibelsThresholdValue);
 };
 
 
