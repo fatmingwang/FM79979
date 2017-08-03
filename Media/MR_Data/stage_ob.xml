@@ -43,8 +43,8 @@
   <node ID="126" amount="1" score="0" speed="0" duration="0" coin="5" dropid="0" prefab="A_Pickup_Crystal_01" pickup_fx="PFX_Crystal" description="Crystal 1" finishModeType="0"/>
   <node ID="127" amount="1" score="0" speed="0" duration="6.0" coin="0" dropid="0" prefab="A_Pickup_TimeLimit_01" pickup_fx="PFX_TimeLimit" description="Extend Time Limit 1" finishModeType="0"/>
   
-  <node ID="128" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_AddStamina_01" pickup_fx="PFX_AddStamina" effectValue="0.2" description="Add stamina 1" finishModeType="0"/>
-  <node ID="129" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_FillStamina_01" pickup_fx="PFX_FillStamina" effectValue="0.4" description="Fill stamina bar" finishModeType="0"/>
+  <node ID="128" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_AddStamina_01" pickup_fx="PFX_AddStamina" effectValue="0.2" description="Add stamina " finishModeType="1001"/>
+  <node ID="129" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_FillStamina_01" pickup_fx="PFX_FillStamina" effectValue="0.4" description="Fill stamina bar" finishModeType="1001"/>
   <node ID="130" amount="1" score="0" speed="0" duration="5.0" coin="0" dropid="0" prefab="A_Pickup_DoubleStaminaCost_01" pickup_fx="PFX_DoubleStaminaCost" description="Double stamina cost of actions" finishModeType="0"/>
   
   <!--  A_Pickup_BladeStorm_01-->
@@ -96,4 +96,6 @@
   <node ID="174" amount="1" score="0" speed="0" duration="0" coin="10" dropid="1018" prefab="A_Npc_Bird" pickup_fx="" description="飞鸟" finishModeType="0"/>
   <node ID="175" amount="1" score="0" speed="0" duration="0" coin="1" dropid="0" prefab="A_Pickup_Coin_01_SkyMode"  pickup_fx="PFX_CoinPickupBird" description="金币1" finishModeType="0"/>
   <node ID="176" amount="1" score="500" subscore="0" speed="0" deltaIncreaseSpeed="1" deltaIncreaseSpeedLimit="10" duration="0" coin="5" dropid="1018" prefab="A_Npc_Boar_fly_King" pickup_fx="" description="猪王" finishModeType="1"/>
+  <node ID="177" amount="1" score="0" speed="0" duration="0" coin="0" dropid="0" prefab="A_Pickup_AddStamina_01" pickup_fx="PFX_AddStamina" description="Add stamina 1" finishModeType="0"/>
+
 </root>

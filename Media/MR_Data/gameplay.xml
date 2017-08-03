@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－初始教程－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="0" gameplayName="gameplay_05_01_Tutorial" trackMeshName="track_05_01_Tutorial" trackNumber="3" GamePlayIndex="11" npcLevel="1">
+  <node gameplayId="0" gameplayName="gameplay_05_01_Tutorial" trackMeshName="track_05_01_Tutorial" trackNumber="3" GamePlayIndex="11" npcLevel="1" endStory="0">
     <triggers groupName="PickupTrigger" length="20" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="10" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="12" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -22,45 +22,75 @@
       <trigger name="Coin" objectType="101" length="14" trackId="1" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Coin" objectType="101" length="16" trackId="1" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Coin" objectType="101" length="18" trackId="1" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin (6)" objectType="101" length="10" trackId="2" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin (7)" objectType="101" length="12" trackId="2" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin (8)" objectType="101" length="14" trackId="2" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Coin (9)" objectType="101" length="16" trackId="2" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin (10)" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Coin (11)" objectType="101" length="18" trackId="3" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Coin (12)" objectType="101" length="16" trackId="3" hp="0" offset="30" TriggerIndex="11" />
+      <trigger name="Coin (13)" objectType="101" length="14" trackId="3" hp="0" offset="30" TriggerIndex="12" />
+      <trigger name="Coin (14)" objectType="101" length="12" trackId="3" hp="0" offset="30" TriggerIndex="13" />
+      <trigger name="Coin (15)" objectType="101" length="10" trackId="3" hp="0" offset="30" TriggerIndex="14" />
     </triggers>
+
     <triggers groupName="PickupTrigger" length="80" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="3">
       <trigger name="Coin" objectType="101" length="10" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="12" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Coin" objectType="101" length="14" trackId="2" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Coin" objectType="101" length="16" trackId="2" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Coin" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin (1)" objectType="101" length="18" trackId="1" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin (2)" objectType="101" length="16" trackId="1" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin (3)" objectType="101" length="14" trackId="1" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Coin (4)" objectType="101" length="12" trackId="1" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin (5)" objectType="101" length="10" trackId="1" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Coin (6)" objectType="101" length="10" trackId="3" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Coin (7)" objectType="101" length="12" trackId="3" hp="0" offset="30" TriggerIndex="11" />
+      <trigger name="Coin (8)" objectType="101" length="14" trackId="3" hp="0" offset="30" TriggerIndex="12" />
+      <trigger name="Coin (9)" objectType="101" length="16" trackId="3" hp="0" offset="30" TriggerIndex="13" />
+      <trigger name="Coin (10)" objectType="101" length="18" trackId="3" hp="0" offset="30" TriggerIndex="14" />
     </triggers>
     <triggers groupName="Hurdles" length="107" triggerType="7" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="4">
-      <trigger name="Hurdle" objectType="142" length="10" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Hurdle" objectType="142" length="10" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Hurdle" objectType="142" length="10" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Hurdle" objectType="142" length="10" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Hurdle" objectType="142" length="10" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Hurdle" objectType="142" length="10" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="PickupTrigger" length="112" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="5">
-      <trigger name="Coin" objectType="101" length="11" trackId="3" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="12" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="11" trackId="1" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Coin (1)" objectType="101" length="13" trackId="1" hp="0" offset="30" TriggerIndex="5" />
-      <trigger name="Coin (3)" objectType="101" length="14" trackId="2" hp="0" offset="30" TriggerIndex="7" />
-      <trigger name="Coin (4)" objectType="101" length="13" trackId="3" hp="0" offset="30" TriggerIndex="8" />
-      <trigger name="Coin (6)" objectType="101" length="17" trackId="1" hp="0" offset="30" TriggerIndex="10" />
-      <trigger name="Coin (8)" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="12" />
-      <trigger name="Coin (9)" objectType="101" length="17" trackId="3" hp="0" offset="30" TriggerIndex="13" />
-      <trigger name="Coin (12)" objectType="101" length="19" trackId="3" hp="0" offset="30" TriggerIndex="16" />
-      <trigger name="Coin (13)" objectType="101" length="20" trackId="2" hp="0" offset="30" TriggerIndex="17" />
-      <trigger name="Coin (15)" objectType="101" length="19" trackId="1" hp="0" offset="30" TriggerIndex="19" />
-      <trigger name="Coin (16)" objectType="101" length="25" trackId="1" hp="0" offset="30" TriggerIndex="20" />
-      <trigger name="Coin (18)" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="22" />
-      <trigger name="Coin (19)" objectType="101" length="25" trackId="3" hp="0" offset="30" TriggerIndex="23" />
-      <trigger name="Coin (22)" objectType="101" length="23" trackId="3" hp="0" offset="30" TriggerIndex="26" />
-      <trigger name="Coin (23)" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="27" />
-      <trigger name="Coin (25)" objectType="101" length="23" trackId="1" hp="0" offset="30" TriggerIndex="29" />
+    <triggers groupName="Magnet" length="110" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="5">
+      <trigger name="magnet" objectType="166" length="0" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="magnet" objectType="166" length="0" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="magnet" objectType="166" length="0" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
+    <triggers groupName="PickupTrigger" length="112" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="6">
+      <trigger name="Coin" objectType="101" length="11" trackId="3" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="12" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="11" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin (1)" objectType="101" length="13" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin (3)" objectType="101" length="14" trackId="2" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin (4)" objectType="101" length="13" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin (6)" objectType="101" length="17" trackId="1" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin (8)" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Coin (9)" objectType="101" length="17" trackId="3" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin (12)" objectType="101" length="19" trackId="3" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Coin (13)" objectType="101" length="20" trackId="2" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Coin (15)" objectType="101" length="19" trackId="1" hp="0" offset="30" TriggerIndex="11" />
+      <trigger name="Coin (16)" objectType="101" length="25" trackId="1" hp="0" offset="30" TriggerIndex="12" />
+      <trigger name="Coin (18)" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="13" />
+      <trigger name="Coin (19)" objectType="101" length="25" trackId="3" hp="0" offset="30" TriggerIndex="14" />
+      <trigger name="Coin (22)" objectType="101" length="23" trackId="3" hp="0" offset="30" TriggerIndex="15" />
+      <trigger name="Coin (23)" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="16" />
+      <trigger name="Coin (25)" objectType="101" length="23" trackId="1" hp="0" offset="30" TriggerIndex="17" />
+    </triggers>
+
+  	
+
+
     <triggers groupName="PickupTrigger" length="144" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="7">
-      <trigger name="Coin" objectType="101" length="10" trackId="3" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="14" trackId="3" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="18" trackId="3" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="22" trackId="3" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="26" trackId="3" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin" objectType="101" length="10" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="14" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="22" trackId="2" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
     <triggers groupName="PickupTrigger" length="144" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="8">
       <trigger name="Coin" objectType="101" length="12" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -69,31 +99,51 @@
       <trigger name="Coin" objectType="101" length="24" trackId="1" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Coin" objectType="101" length="28" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="BreakableTrigger" length="182" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="13">
-      <trigger name="breakable" objectType="162" length="10" trackId="1" offset="30" TriggerIndex="0" />
-      <trigger name="breakable" objectType="162" length="10" trackId="2" offset="30" TriggerIndex="1" />
-      <trigger name="breakable" objectType="162" length="10" trackId="3" offset="30" TriggerIndex="2" />
+    <triggers groupName="PickupTrigger (1)" length="144" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="9">
+      <trigger name="Coin" objectType="101" length="12" trackId="3" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="16" trackId="3" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="20" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="24" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="28" trackId="3" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="PickupTrigger" length="186" triggerType="2" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
+    <triggers groupName="BreakableTrigger" length="182" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="10">
+      <trigger name="breakable" objectType="163" length="10" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="breakable" objectType="163" length="10" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="breakable" objectType="163" length="10" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+    </triggers>
+    <triggers groupName="BreakableTrigger (1)" length="182" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="11">
+      <trigger name="breakable" objectType="163" length="10" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="breakable" objectType="163" length="10" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="breakable" objectType="163" length="10" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+    </triggers>
+    <triggers groupName="PickupTrigger" length="205" triggerType="2" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Stamina" objectType="128" length="0" trackId="2" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
-    <triggers groupName="PickupTrigger" length="200" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="7">
+    <triggers groupName="PickupTrigger" length="210" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="13">
       <trigger name="Coin" objectType="101" length="10" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="14" trackId="3" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Coin" objectType="101" length="18" trackId="3" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Coin" objectType="101" length="22" trackId="3" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Coin" objectType="101" length="26" trackId="3" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="PickupTrigger" length="200" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="8">
-      <trigger name="Coin" objectType="101" length="12" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="16" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="20" trackId="1" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="24" trackId="1" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="28" trackId="1" hp="0" offset="30" TriggerIndex="4" />
+    <triggers groupName="PickupTrigger" length="210" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="14">
+      <trigger name="Coin" objectType="101" length="12" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="16" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="20" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="28" trackId="2" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
+    <!-- <triggers groupName="Story" length="258" triggerType="11" isChaserTrigger="0" extraGroup="1"> 
+      <trigger name="Story00" storyId="0"/> 
+      </triggers> -->
+  	
+
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第一关打击模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="1" gameplayName="CloudSea_01_TUT" trackMeshName="track_05_01" trackNumber="5" GamePlayIndex="12" npcLevel="1" challengeLevel="2">
+  <node gameplayId="1" gameplayName="CloudSea_01_TUT" trackMeshName="track_05_01" trackNumber="5" GamePlayIndex="12" npcLevel="1" challengeLevel="1" startStory="1" endStory="2">
+    <triggers groupName="BOSSTrigger_02" length="20" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="0" extraGroup="1">
+      <trigger name="BirdBoss" objectType="185" length="-10" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+    </triggers>
     <triggers groupName="NPCTrigger" length="12" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Boar" objectType="104" length="-10" trackId="1" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
@@ -103,7 +153,7 @@
     <triggers groupName="NPCTrigger" length="62" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="2">
       <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
-    <triggers groupName="NPCTrigger" length="120" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
+    <triggers groupName="NPCTrigger" length="123" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="3">
       <trigger name="Boar" objectType="104" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar (1)" objectType="104" length="-24" trackId="0" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar (2)" objectType="104" length="-28" trackId="0" hp="0" offset="30" TriggerIndex="2" />
@@ -120,155 +170,147 @@
       <trigger name="Boar (13)" objectType="104" length="-24" trackId="3" hp="0" offset="30" TriggerIndex="13" />
       <trigger name="Boar (14)" objectType="104" length="-28" trackId="3" hp="0" offset="30" TriggerIndex="14" />
       <trigger name="Boar (15)" objectType="104" length="-32" trackId="3" hp="0" offset="30" TriggerIndex="15" />
-<!--      <trigger name="Boar (16)" objectType="176" length="-38" trackId="2" hp="0" offset="30" TriggerIndex="16" />-->
     </triggers>
-    <triggers groupName="NPCTrigger" length="200" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="5">
-      <trigger name="Boar" objectType="104" length="-34" trackId="4" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar (1)" objectType="104" length="-32" trackId="3" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar (2)" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Boar (3)" objectType="104" length="-32" trackId="1" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Boar (4)" objectType="104" length="-34" trackId="0" hp="0" offset="30" TriggerIndex="4" />
-    </triggers>
-    <triggers groupName="PickupTrigger" length="205" triggerType="2" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="3">
-      <trigger name="randomSkill" objectType="161" length="0" trackId="1" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="randomSkill" objectType="161" length="0" trackId="4" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>
+  <!-- <triggers groupName="Story" length="10" triggerType="11" isChaserTrigger="0" extraGroup="1"> 
+      <trigger name="Story00" storyId="1"/> 
+    </triggers> -->
+  	
+
+
     <triggers groupName="PickupTrigger" length="190" triggerType="2" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="4">
-      <trigger name="Stamina" objectType="128" length="0" trackId="1" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Stamina" objectType="128" length="0" trackId="4" pickupSpeed="30" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Stamina" objectType="129" length="0" trackId="2" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
-    <triggers groupName="NPCTrigger (2)" length="214" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="8">
-      <trigger name="Boar" objectType="104" length="-28" trackId="3" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>
-    <triggers groupName="NPCTrigger (1)" length="287" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
+    <triggers groupName="NPCTrigger" length="210" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="5">
       <trigger name="Boar" objectType="104" length="-34" trackId="4" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar (1)" objectType="104" length="-32" trackId="3" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar (2)" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Boar (3)" objectType="104" length="-32" trackId="1" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Boar (4)" objectType="104" length="-34" trackId="0" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
+    <triggers groupName="NPCTrigger (1)" length="271" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
+      <trigger name="Boar" objectType="104" length="-33" trackId="3" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Boar (1)" objectType="104" length="-29" trackId="3" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar (2)" objectType="104" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar (3)" objectType="104" length="-29" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Boar (4)" objectType="104" length="-33" trackId="1" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Boar (5)" objectType="104" length="-37" trackId="1" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Boar (6)" objectType="104" length="-37" trackId="3" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Boar (7)" objectType="104" length="-41" trackId="2" hp="0" offset="30" TriggerIndex="7" />
+    </triggers>
+    <triggers groupName="PickupTrigger" length="271" triggerType="2" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
+      <trigger name="randomSkill" objectType="161" length="0" trackId="1" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="randomSkill" objectType="161" length="0" trackId="4" pickupSpeed="30" hp="0" offset="30" TriggerIndex="1" />
+    </triggers>
+    <triggers groupName="PickupTrigger (1)" length="317" triggerType="9" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
+      <trigger name="vine" objectType="163" length="0" trackId="2" pickupSpeed="30" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="vine (1)" objectType="163" length="0" trackId="3" pickupSpeed="30" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="vine (2)" objectType="163" length="0" trackId="1" pickupSpeed="30" hp="0" offset="30" TriggerIndex="2" />
+    </triggers>
+
+    <!-- <triggers groupName="Story" length="350" triggerType="11" isChaserTrigger="0" extraGroup="1"> 
+      <trigger name="Story00" storyId="2"/> 
+     </triggers> -->
+  	
+
   </node>
-  <node gameplayId="2" gameplayName="CloudSea_01" trackMeshName="track_05_01" trackNumber="5" GamePlayIndex="13" npcLevel="1" challengeLevel="2">
-    <triggers groupName="PicupTrigger_01" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
-      <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="28" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="30" trackId="2" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="130" trackId="2" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Coin" objectType="101" length="132" trackId="2" hp="0" offset="30" TriggerIndex="5" />
-      <trigger name="Coin" objectType="101" length="138" trackId="2" hp="0" offset="30" TriggerIndex="6" />
-      <trigger name="Coin" objectType="101" length="140" trackId="2" hp="0" offset="30" TriggerIndex="7" />
-      <trigger name="Coin" objectType="101" length="166" trackId="4" hp="0" offset="30" TriggerIndex="8" />
-      <trigger name="Coin" objectType="101" length="170" trackId="2" hp="0" offset="30" TriggerIndex="9" />
-      <trigger name="Coin" objectType="101" length="174" trackId="4" hp="0" offset="30" TriggerIndex="10" />
-      <trigger name="Coin" objectType="101" length="166" trackId="0" hp="0" offset="30" TriggerIndex="11" />
-      <trigger name="Coin" objectType="101" length="174" trackId="0" hp="0" offset="30" TriggerIndex="12" />
-      <trigger name="Coin" objectType="101" length="200" trackId="1" hp="0" offset="30" TriggerIndex="13" />
-      <trigger name="Coin" objectType="101" length="202" trackId="1" hp="0" offset="30" TriggerIndex="14" />
-      <trigger name="Coin" objectType="101" length="204" trackId="1" hp="0" offset="30" TriggerIndex="15" />
-      <trigger name="Coin" objectType="101" length="210" trackId="1" hp="0" offset="30" TriggerIndex="16" />
-      <trigger name="Coin" objectType="101" length="212" trackId="1" hp="0" offset="30" TriggerIndex="17" />
-      <trigger name="Coin" objectType="101" length="214" trackId="1" hp="0" offset="30" TriggerIndex="18" />
-      <trigger name="Coin" objectType="101" length="200" trackId="3" hp="0" offset="30" TriggerIndex="19" />
-      <trigger name="Coin" objectType="101" length="202" trackId="3" hp="0" offset="30" TriggerIndex="20" />
-      <trigger name="Coin" objectType="101" length="204" trackId="3" hp="0" offset="30" TriggerIndex="21" />
-      <trigger name="Coin" objectType="101" length="210" trackId="3" hp="0" offset="30" TriggerIndex="22" />
-      <trigger name="Coin" objectType="101" length="212" trackId="3" hp="0" offset="30" TriggerIndex="23" />
-      <trigger name="Coin" objectType="101" length="214" trackId="3" hp="0" offset="30" TriggerIndex="24" />
-      <trigger name="Coin" objectType="101" length="240" trackId="1" hp="0" offset="30" TriggerIndex="25" />
-      <trigger name="Coin" objectType="101" length="242" trackId="1" hp="0" offset="30" TriggerIndex="26" />
-      <trigger name="Coin" objectType="101" length="246" trackId="1" hp="0" offset="30" TriggerIndex="27" />
-      <trigger name="Coin" objectType="101" length="248" trackId="1" hp="0" offset="30" TriggerIndex="28" />
-      <trigger name="Coin" objectType="101" length="250" trackId="1" hp="0" offset="30" TriggerIndex="29" />
-      <trigger name="Coin" objectType="101" length="254" trackId="1" hp="0" offset="30" TriggerIndex="30" />
-      <trigger name="Coin" objectType="101" length="256" trackId="1" hp="0" offset="30" TriggerIndex="31" />
-      <trigger name="Coin" objectType="101" length="258" trackId="1" hp="0" offset="30" TriggerIndex="32" />
-      <trigger name="Coin" objectType="101" length="240" trackId="3" hp="0" offset="30" TriggerIndex="33" />
-      <trigger name="Coin" objectType="101" length="242" trackId="3" hp="0" offset="30" TriggerIndex="34" />
-      <trigger name="Coin" objectType="101" length="246" trackId="3" hp="0" offset="30" TriggerIndex="35" />
-      <trigger name="Coin" objectType="101" length="248" trackId="3" hp="0" offset="30" TriggerIndex="36" />
-      <trigger name="Coin" objectType="101" length="250" trackId="3" hp="0" offset="30" TriggerIndex="37" />
-      <trigger name="Coin" objectType="101" length="254" trackId="3" hp="0" offset="30" TriggerIndex="38" />
-      <trigger name="Coin" objectType="101" length="256" trackId="3" hp="0" offset="30" TriggerIndex="39" />
-      <trigger name="Coin" objectType="101" length="258" trackId="3" hp="0" offset="30" TriggerIndex="40" />
-      <trigger name="Coin" objectType="101" length="290" trackId="3" hp="0" offset="30" TriggerIndex="41" />
-      <trigger name="Coin" objectType="101" length="292" trackId="3" hp="0" offset="30" TriggerIndex="42" />
-      <trigger name="Coin" objectType="101" length="296" trackId="3" hp="0" offset="30" TriggerIndex="43" />
-      <trigger name="Coin" objectType="101" length="298" trackId="3" hp="0" offset="30" TriggerIndex="44" />
-      <trigger name="Coin" objectType="101" length="300" trackId="3" hp="0" offset="30" TriggerIndex="45" />
-      <trigger name="Coin" objectType="101" length="288" trackId="3" hp="0" offset="30" TriggerIndex="46" />
-      <trigger name="Coin" objectType="101" length="290" trackId="1" hp="0" offset="30" TriggerIndex="47" />
-      <trigger name="Coin" objectType="101" length="292" trackId="1" hp="0" offset="30" TriggerIndex="48" />
-      <trigger name="Coin" objectType="101" length="296" trackId="1" hp="0" offset="30" TriggerIndex="49" />
-      <trigger name="Coin" objectType="101" length="298" trackId="1" hp="0" offset="30" TriggerIndex="50" />
-      <trigger name="Coin" objectType="101" length="300" trackId="1" hp="0" offset="30" TriggerIndex="51" />
-      <trigger name="Coin" objectType="101" length="288" trackId="1" hp="0" offset="30" TriggerIndex="52" />
+  <node gameplayId="2" gameplayName="CloudSea_01" trackMeshName="track_05_01" trackNumber="5" GamePlayIndex="13" npcLevel="1" challengeLevel="1" HardModeSpeed="1.5">
+    <triggers groupName="PicupTrigger" length="26" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
+      <trigger name="Coin" objectType="101" length="0" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="2" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="4" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="12" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="14" trackId="3" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin" objectType="101" length="16" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin (1)" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin (2)" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Coin (3)" objectType="101" length="28" trackId="2" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin (4)" objectType="101" length="36" trackId="1" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Coin (5)" objectType="101" length="38" trackId="1" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Coin (6)" objectType="101" length="40" trackId="1" hp="0" offset="30" TriggerIndex="11" />
     </triggers>
-    <triggers groupName="HurdleTrigger_01" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
-      <trigger name="Hurdle" objectType="142" length="180" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Hurdle" objectType="142" length="180" trackId="4" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Hurdle" objectType="142" length="220" trackId="4" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Hurdle" objectType="142" length="220" trackId="0" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Hurdle" objectType="142" length="265" trackId="1" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Hurdle" objectType="142" length="265" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+    <triggers groupName="NPCTrigger_02" length="65" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
+      <trigger name="Boar" objectType="104" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Boar (1)" objectType="104" length="-24" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar" objectType="104" length="-40" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar (2)" objectType="104" length="-44" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Boar" objectType="104" length="-60" trackId="1" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Boar (3)" objectType="104" length="-64" trackId="1" hp="0" offset="30" TriggerIndex="5" />
     </triggers>
-    <triggers groupName="PicupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="2" />
-    <triggers groupName="NPCTrigger_01" length="25" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="3">
-      <trigger name="Boar" objectType="136" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+    <triggers groupName="NPCTrigger_02 (1)" length="128" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="5">
+      <trigger name="Boar (2)" objectType="104" length="-28" trackId="3" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Boar (3)" objectType="104" length="-28" trackId="1" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Boar (4)" objectType="104" length="-32" trackId="3" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Boar (5)" objectType="104" length="-32" trackId="1" hp="0" offset="30" TriggerIndex="7" />
     </triggers>
-    <triggers groupName="NPCTrigger_02" length="55" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="4">
-      <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="136" length="-30" trackId="3" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar" objectType="104" length="-30" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+    <triggers groupName="PicupTrigger (1)" length="134" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="3">
+      <trigger name="cake" objectType="128" length="0" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="cake" objectType="128" length="0" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="cake" objectType="128" length="0" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="PicupTrigger_02" length="60" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="5">
-      <trigger name="Coin" objectType="101" length="29" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="27" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="25" trackId="1" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="29" trackId="3" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="27" trackId="3" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Coin" objectType="101" length="25" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+    <triggers groupName="PicupTrigger_03 (1)" length="134" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="4">
+      <trigger name="Coin" objectType="101" length="15" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="17" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="19" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="21" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="23" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="PicupTrigger_03" length="90" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6">
-      <trigger name="Coin" objectType="101" length="15" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="17" trackId="2" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="19" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="21" trackId="2" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="23" trackId="2" hp="0" offset="30" TriggerIndex="4" />
+    <triggers groupName="PicupTrigger_03 (2)" length="188" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6">
+      <trigger name="Coin" objectType="101" length="0" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="2" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="4" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="6" trackId="2" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="8" trackId="2" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_03" length="90" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
-      <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+    <triggers groupName="VineTrigger_01 (1)" length="205" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="7">
+      <trigger name="Hurdle" objectType="163" length="0" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Hurdle" objectType="163" length="0" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Hurdle" objectType="163" length="0" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <!--    <triggers groupName="BreakTrigger_01" length="120" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="8">
-      <trigger name="Breakble" objectType="163" length="25" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>-->
-    <triggers groupName="NPCTrigger_04" length="123" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
-      <trigger name="Boar" objectType="104" length="-28" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-28" trackId="3" hp="0" offset="30" TriggerIndex="1" />
+    <triggers groupName="PicupTrigger_03 (3)" length="210" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="12">
+      <trigger name="Coin" objectType="101" length="0" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="2" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="4" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="6" trackId="2" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="8" trackId="2" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_05" length="160" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
-      <trigger name="Boar" objectType="104" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+    <triggers groupName="PicupTrigger_03 (4)" length="224" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="13">
+      <trigger name="Coin" objectType="101" length="0" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="2" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="4" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="6" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="8" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_06" length="194" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
-      <trigger name="Boar" objectType="104" length="-10" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-10" trackId="0" hp="0" offset="30" TriggerIndex="1" />
+    <triggers groupName="PicupTrigger_03 (5)" length="235" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="14">
+      <trigger name="Coin" objectType="101" length="0" trackId="3" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="2" trackId="3" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="4" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="6" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="8" trackId="3" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_07" length="237" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
+    <triggers groupName="PicupTrigger" length="249" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="8">
+      <trigger name="cake" objectType="128" length="0" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="cake" objectType="128" length="0" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="cake" objectType="128" length="0" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+    </triggers>
+    <triggers groupName="NPCTrigger_08 (1)" length="249" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
+      <trigger name="Boar" objectType="104" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Boar" objectType="104" length="-25" trackId="4" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar" objectType="104" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar (1)" objectType="104" length="-25" trackId="0" hp="0" offset="30" TriggerIndex="3" />
+    </triggers>
+    <triggers groupName="NPCTrigger_08" length="278" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
       <trigger name="Boar" objectType="104" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar" objectType="104" length="-23" trackId="2" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar" objectType="104" length="-26" trackId="2" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <!--    <triggers groupName="BreakTrigger_02" length="283" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="13">
-      <trigger name="Breakble" objectType="163" length="21" trackId="3" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Breakble (1)" objectType="163" length="21" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-    </triggers>-->
-    <triggers groupName="NPCTrigger_08" length="283" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="14">
-      <trigger name="Boar" objectType="104" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="136" length="-25" trackId="0" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar" objectType="104" length="-25" trackId="4" hp="0" offset="30" TriggerIndex="2" />
+    <triggers groupName="HurdleTrigger_01" length="336" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="11">
+      <trigger name="Hurdle" objectType="142" length="0" trackId="0" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Hurdle" objectType="142" length="0" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Hurdle" objectType="142" length="0" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Hurdle (1)" objectType="142" length="0" trackId="4" hp="0" offset="30" TriggerIndex="3" />
     </triggers>
   </node>
-  <!--  <node gameplayId="2" gameplayName="TrackTest" trackMeshName="trackTest_Spline" trackNumber="5" GamePlayIndex="13" npcLevel="1">
+  <!--  <node gameplayId="2" gameplayName="TrackTest" trackMeshName="trackTest_Spline" trackNumber="5" GamePlayIndex="13" npcLevel="1" HardModeSpeed="1.5">
   	<triggers groupName="NPCTrigger_04" length="50" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
       <trigger name="Boar" objectType="104" length="-28" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-28" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -292,7 +334,7 @@
       <trigger name="Coin" objectType="101" length="10" trackId="4" hp="0" offset="30" TriggerIndex="3" />
     </triggers>
   </node>-->
-  <node gameplayId="3" gameplayName="CloudSea_02" trackMeshName="track_05_04" trackNumber="5" npcLevel="1" challengeLevel="2" GamePlayIndex="14">
+  <node gameplayId="3" gameplayName="CloudSea_02" trackMeshName="track_05_04" trackNumber="5" npcLevel="1" challengeLevel="1" GamePlayIndex="14" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger_01" length="11" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="12" trackId="1" pickupSpeed="40" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="14" trackId="1" pickupSpeed="40" hp="0" offset="30" TriggerIndex="1" />
@@ -480,13 +522,14 @@
       <trigger name="Stamina (2)" objectType="129" length="0" trackId="1" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="4" gameplayName="CloudSea_03" trackMeshName="track_05_04" trackNumber="5" npcLevel="1" challengeLevel="3" GamePlayIndex="15">
+  <node gameplayId="4" gameplayName="CloudSea_03" trackMeshName="track_05_04" trackNumber="5" npcLevel="1" challengeLevel="1" GamePlayIndex="15" HardModeSpeed="1.5" endStory="3">
+    <triggers groupName="BOSSTrigger_02" length="20" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="0" extraGroup="1">
+      <trigger name="BirdBoss" objectType="186" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+    </triggers>
     <triggers groupName="NPCTrigger_01" length="25" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="0">
-      <trigger name="Boar" objectType="104" length="-40" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-35" trackId="2" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Boar" objectType="104" length="-25" trackId="2" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Boar" objectType="104" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Boar" objectType="104" length="-28" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar" objectType="104" length="-24" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Boar" objectType="104" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
     <triggers groupName="PickupTrigger_00" length="84" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="1">
       <trigger name="Stamina (1)" objectType="129" length="0" trackId="4" hp="0" offset="30" TriggerIndex="0" />
@@ -502,7 +545,7 @@
       <trigger name="Hurdle" objectType="142" length="0" trackId="3" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Hurdle" objectType="142" length="0" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_01 (1)" length="130" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
+    <!-- <triggers groupName="NPCTrigger_01 (1)" length="130" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
       <trigger name="Boar" objectType="104" length="-48" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-41" trackId="3" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="104" length="-34" trackId="3" hp="0" offset="30" TriggerIndex="2" />
@@ -513,7 +556,7 @@
       <trigger name="Boar" objectType="104" length="-34" trackId="1" hp="0" offset="30" TriggerIndex="7" />
       <trigger name="Boar" objectType="104" length="-27" trackId="1" hp="0" offset="30" TriggerIndex="8" />
       <trigger name="Boar" objectType="104" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="9" />
-    </triggers>
+    </triggers> -->
     <triggers groupName="PickupTrigger_00 (1)" length="175" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="3">
       <trigger name="Stamina (1)" objectType="129" length="0" trackId="4" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Stamina (2)" objectType="129" length="0" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -562,23 +605,9 @@
       <trigger name="Stamina (5)" objectType="129" length="0" trackId="0" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
     <triggers groupName="NPCTrigger_01 (3)" length="370" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
-      <trigger name="Boar" objectType="104" length="-44" trackId="4" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="104" length="-38" trackId="4" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar" objectType="104" length="-32" trackId="4" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Boar" objectType="104" length="-26" trackId="4" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Boar" objectType="104" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Boar" objectType="104" length="-44" trackId="3" hp="0" offset="30" TriggerIndex="5" />
-      <trigger name="Boar" objectType="104" length="-38" trackId="3" hp="0" offset="30" TriggerIndex="6" />
       <trigger name="Boar" objectType="104" length="-32" trackId="3" hp="0" offset="30" TriggerIndex="7" />
       <trigger name="Boar" objectType="104" length="-26" trackId="3" hp="0" offset="30" TriggerIndex="8" />
       <trigger name="Boar" objectType="104" length="-20" trackId="3" hp="0" offset="30" TriggerIndex="9" />
-      <trigger name="Boar" objectType="104" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="10" />
-      <trigger name="Boar" objectType="104" length="-26" trackId="0" hp="0" offset="30" TriggerIndex="11" />
-      <trigger name="Boar" objectType="104" length="-32" trackId="0" hp="0" offset="30" TriggerIndex="12" />
-      <trigger name="Boar" objectType="104" length="-38" trackId="0" hp="0" offset="30" TriggerIndex="13" />
-      <trigger name="Boar" objectType="104" length="-44" trackId="0" hp="0" offset="30" TriggerIndex="14" />
-      <trigger name="Boar" objectType="104" length="-44" trackId="1" hp="0" offset="30" TriggerIndex="15" />
-      <trigger name="Boar" objectType="104" length="-38" trackId="1" hp="0" offset="30" TriggerIndex="16" />
       <trigger name="Boar" objectType="104" length="-32" trackId="1" hp="0" offset="30" TriggerIndex="17" />
       <trigger name="Boar" objectType="104" length="-26" trackId="1" hp="0" offset="30" TriggerIndex="18" />
       <trigger name="Boar" objectType="104" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="19" />
@@ -597,8 +626,14 @@
       <trigger name="Break (2)" objectType="163" length="0" trackId="3" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Break (3)" objectType="163" length="0" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
+
+    <!-- <triggers groupName="Story" length="500" triggerType="11" isChaserTrigger="0" extraGroup="1"> 
+      <trigger name="Story00" storyId="3"/> 
+  </triggers> -->
+
+
   </node>
-  <node gameplayId="18" gameplayName="CloudSea_04" trackMeshName="track_05_02" trackNumber="5" npcLevel="2" challengeLevel="4" GamePlayIndex="16">
+  <node gameplayId="18" gameplayName="CloudSea_04" trackMeshName="track_05_02" trackNumber="5" npcLevel="2" challengeLevel="2" GamePlayIndex="16" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigge_01" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="15" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="15" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -698,7 +733,7 @@
       <trigger name="Break (1)" objectType="163" length="22" trackId="2" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="32" gameplayName="CloudSea_05" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="2" challengeLevel="5" GamePlayIndex="17">
+  <node gameplayId="32" gameplayName="CloudSea_05" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="2" challengeLevel="2" GamePlayIndex="17" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -836,7 +871,10 @@
       <trigger name="Boar" objectType="104" length="-15" trackId="4" hp="0" appearType="1" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="46" gameplayName="CloudSea_06" trackMeshName="track_05_02" trackNumber="5" npcLevel="2" challengeLevel="6" GamePlayIndex="18">
+  <node gameplayId="46" gameplayName="CloudSea_06" trackMeshName="track_05_02" trackNumber="5" npcLevel="2" challengeLevel="2" GamePlayIndex="18" HardModeSpeed="1.5">
+    <triggers groupName="BOSSTrigger_02" length="35" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2" extraGroup="1">
+      <trigger name="BirdBoss" objectType="181" length="-30" trackId="2" hp="0" skillCount="2" skillLength0="150" skillLength1="250" offset="30" TriggerIndex="0" />
+    </triggers>
     <triggers groupName="HurdleTrigger_01" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="15" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="15" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -955,212 +993,134 @@
       <trigger name="Boar" objectType="104" length="-20" trackId="3" hp="0" appearType="2" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="47" gameplayName="CloudSea_07" trackMeshName="track_05_04" trackNumber="5" npcLevel="3" challengeLevel="7" GamePlayIndex="19">
+  <node gameplayId="47" gameplayName="CloudSea_07" trackMeshName="track_05_04" trackNumber="5" npcLevel="3" challengeLevel="3" GamePlayIndex="19" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger_01" length="10" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="16" trackId="3" hp="0" offset="30" TriggerIndex="0" />
-      <!--      <trigger name="Coin" objectType="101" length="18" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
-      <trigger name="Coin" objectType="101" length="20" trackId="1" hp="0" offset="30" TriggerIndex="2" />
-      <!--      <trigger name="Coin" objectType="101" length="22" trackId="2" hp="0" offset="30" TriggerIndex="3" />-->
-      <trigger name="Coin" objectType="101" length="24" trackId="3" hp="0" offset="30" TriggerIndex="4" />
-      <!--      <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="5" />-->
-      <trigger name="Coin" objectType="101" length="28" trackId="1" hp="0" offset="30" TriggerIndex="6" />
-      <!--      <trigger name="Coin" objectType="101" length="30" trackId="2" hp="0" offset="30" TriggerIndex="7" />-->
-      <trigger name="Coin" objectType="101" length="32" trackId="3" hp="0" offset="30" TriggerIndex="8" />
-      <!--      <trigger name="Coin" objectType="101" length="34" trackId="2" hp="0" offset="30" TriggerIndex="9" />-->
-      <trigger name="Coin" objectType="101" length="36" trackId="1" hp="0" offset="30" TriggerIndex="10" />
-      <!--      <trigger name="Coin" objectType="101" length="38" trackId="2" hp="0" offset="30" TriggerIndex="11" />-->
-      <trigger name="Coin" objectType="101" length="40" trackId="3" hp="0" offset="30" TriggerIndex="12" />
-      <!--      <trigger name="Coin" objectType="101" length="42" trackId="2" hp="0" offset="30" TriggerIndex="13" />-->
-      <trigger name="Coin" objectType="101" length="44" trackId="1" hp="0" offset="30" TriggerIndex="14" />
-      <trigger name="Stamina" objectType="128" length="46" trackId="2" hp="0" offset="30" TriggerIndex="15" />
-      <trigger name="Coin" objectType="101" length="48" trackId="3" hp="0" offset="30" TriggerIndex="16" />
-      <!--      <trigger name="Coin" objectType="101" length="50" trackId="2" hp="0" offset="30" TriggerIndex="17" />-->
-      <!--      <trigger name="Coin" objectType="101" length="58" trackId="2" hp="0" offset="30" TriggerIndex="18" />
-      <trigger name="Coin" objectType="101" length="60" trackId="2" hp="0" offset="30" TriggerIndex="19" />
-      <trigger name="Coin" objectType="101" length="62" trackId="2" hp="0" offset="30" TriggerIndex="20" />-->
-      <!--      <trigger name="Coin" objectType="101" length="82" trackId="2" hp="0" offset="30" TriggerIndex="21" />
-      <trigger name="Coin" objectType="101" length="84" trackId="2" hp="0" offset="30" TriggerIndex="22" />
-      <trigger name="Coin" objectType="101" length="86" trackId="2" hp="0" offset="30" TriggerIndex="23" />
-      <trigger name="Coin" objectType="101" length="94" trackId="2" hp="0" offset="30" TriggerIndex="24" />
-      <trigger name="Coin" objectType="101" length="96" trackId="2" hp="0" offset="30" TriggerIndex="25" />
-      <trigger name="Coin" objectType="101" length="98" trackId="2" hp="0" offset="30" TriggerIndex="26" />-->
-      <trigger name="Glaves" objectType="170" length="161" trackId="0" hp="0" offset="30" TriggerIndex="27" />
-      <trigger name="Glaves (1)" objectType="170" length="161" trackId="2" hp="0" offset="30" TriggerIndex="28" />
-      <trigger name="Glaves (2)" objectType="170" length="161" trackId="4" hp="0" offset="30" TriggerIndex="29" />
+      <trigger name="Coin" objectType="101" length="20" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="24" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="28" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="32" trackId="3" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin" objectType="101" length="36" trackId="1" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin" objectType="101" length="40" trackId="3" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin" objectType="101" length="44" trackId="1" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Stamina" objectType="128" length="46" trackId="2" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin" objectType="101" length="48" trackId="3" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Glaves" objectType="170" length="161" trackId="0" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Glaves (1)" objectType="170" length="161" trackId="2" hp="0" offset="30" TriggerIndex="11" />
+      <trigger name="Glaves (2)" objectType="170" length="161" trackId="4" hp="0" offset="30" TriggerIndex="12" />
     </triggers>
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
       <trigger name="Coin" objectType="169" length="12" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <!--      <trigger name="Coin (1)" objectType="169" length="12" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
-      <trigger name="Coin (2)" objectType="169" length="12" trackId="3" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin (2)" objectType="169" length="12" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_01" length="22" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
-      <trigger name="Boar" objectType="104" length="-18" trackId="0" hp="0" appearType="1" offset="30" TriggerIndex="0" />
-    </triggers>
-    <triggers groupName="NPCTrigger_02" length="42" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="3">
-      <trigger name="Boar" objectType="136" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="0" />
-    </triggers>
-    <triggers groupName="NPCTrigger_03" length="60" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="4" />
-    <triggers groupName="NPCTrigger_04" length="75" triggerType="0" isChaserTrigger="1" intervalTime="0.2" TriggerGroupIndex="5">
-      <trigger name="Boar" objectType="104" length="-20" trackId="1" hp="0" appearType="2" offset="30" TriggerIndex="0" />
-      <trigger name="Boar (1)" objectType="104" length="-20" trackId="3" hp="0" appearType="2" offset="30" TriggerIndex="1" />
-    </triggers>
-    <triggers groupName="BreakTrigger_01" length="80" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6">
+    <!-- <triggers groupName="BOSSTrigger_02" length="35" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2" extraGroup="1">
+      <trigger name="BirdBoss" objectType="181" length="-30" trackId="2" hp="0" skillCount="2" skillLength0="150" skillLength1="250" offset="30" TriggerIndex="0" />
+    </triggers> -->
+    <triggers groupName="BreakTrigger_01" length="80" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="3">
       <trigger name="Break" objectType="163" length="20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Break (1)" objectType="163" length="20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Break (2)" objectType="163" length="20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="PickupTrigger" length="89" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="7">
+    <triggers groupName="PickupTrigger" length="89" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="4">
       <trigger name="Magnet" objectType="166" length="21" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Magnet (1)" objectType="166" length="21" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Magnet (2)" objectType="166" length="21" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="PickupTrigger_02" length="122" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="8">
-      <!--      <trigger name="Coin" objectType="101" length="10" trackId="1" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Coin" objectType="101" length="12" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Coin" objectType="101" length="14" trackId="1" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Coin" objectType="101" length="16" trackId="1" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Coin" objectType="101" length="18" trackId="1" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Coin" objectType="101" length="20" trackId="2" hp="0" offset="30" TriggerIndex="5" />
-      <trigger name="Coin" objectType="101" length="22" trackId="2" hp="0" offset="30" TriggerIndex="6" />
-      <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="7" />
-      <trigger name="Coin" objectType="101" length="26" trackId="2" hp="0" offset="30" TriggerIndex="8" />
-      <trigger name="Coin" objectType="101" length="28" trackId="2" hp="0" offset="30" TriggerIndex="9" />-->
-      <trigger name="Coin" objectType="101" length="90" trackId="1" hp="0" offset="30" TriggerIndex="10" />
-      <!--      <trigger name="Coin" objectType="101" length="92" trackId="1" hp="0" offset="30" TriggerIndex="11" />-->
-      <trigger name="Coin" objectType="101" length="94" trackId="1" hp="0" offset="30" TriggerIndex="12" />
-      <!--      <trigger name="Coin" objectType="101" length="96" trackId="1" hp="0" offset="30" TriggerIndex="13" />-->
-      <trigger name="Coin" objectType="101" length="98" trackId="1" hp="0" offset="30" TriggerIndex="14" />
-      <!--      <trigger name="Coin" objectType="101" length="90" trackId="2" hp="0" offset="30" TriggerIndex="15" />
-      <trigger name="Coin" objectType="101" length="92" trackId="2" hp="0" offset="30" TriggerIndex="16" />
-      <trigger name="Coin" objectType="101" length="94" trackId="2" hp="0" offset="30" TriggerIndex="17" />
-      <trigger name="Coin" objectType="101" length="96" trackId="2" hp="0" offset="30" TriggerIndex="18" />
-      <trigger name="Coin" objectType="101" length="98" trackId="2" hp="0" offset="30" TriggerIndex="19" />-->
-      <trigger name="Coin" objectType="101" length="90" trackId="3" hp="0" offset="30" TriggerIndex="20" />
-      <!--      <trigger name="Coin" objectType="101" length="92" trackId="3" hp="0" offset="30" TriggerIndex="21" />-->
-      <trigger name="Coin" objectType="101" length="94" trackId="3" hp="0" offset="30" TriggerIndex="22" />
-      <!--      <trigger name="Coin" objectType="101" length="96" trackId="3" hp="0" offset="30" TriggerIndex="23" />-->
-      <trigger name="Coin" objectType="101" length="98" trackId="3" hp="0" offset="30" TriggerIndex="24" />
-      <!--      <trigger name="Coin" objectType="101" length="116" trackId="3" hp="0" offset="30" TriggerIndex="25" />-->
-      <trigger name="Coin" objectType="101" length="118" trackId="3" hp="0" offset="30" TriggerIndex="26" />
-      <!--      <trigger name="Coin" objectType="101" length="120" trackId="3" hp="0" offset="30" TriggerIndex="27" />-->
-      <trigger name="Coin" objectType="101" length="122" trackId="3" hp="0" offset="30" TriggerIndex="28" />
-      <!--      <trigger name="Coin" objectType="101" length="124" trackId="3" hp="0" offset="30" TriggerIndex="29" />-->
-      <trigger name="Coin" objectType="101" length="126" trackId="3" hp="0" offset="30" TriggerIndex="30" />
-      <!--      <trigger name="Coin" objectType="101" length="116" trackId="1" hp="0" offset="30" TriggerIndex="31" />-->
-      <trigger name="Coin" objectType="101" length="118" trackId="1" hp="0" offset="30" TriggerIndex="32" />
-      <!--      <trigger name="Coin" objectType="101" length="120" trackId="1" hp="0" offset="30" TriggerIndex="33" />-->
-      <trigger name="Coin" objectType="101" length="122" trackId="1" hp="0" offset="30" TriggerIndex="34" />
-      <!--      <trigger name="Coin" objectType="101" length="124" trackId="1" hp="0" offset="30" TriggerIndex="35" />-->
-      <trigger name="Coin" objectType="101" length="126" trackId="1" hp="0" offset="30" TriggerIndex="36" />
-      <!--      <trigger name="Coin" objectType="101" length="135" trackId="1" hp="0" offset="30" TriggerIndex="37" />-->
-      <trigger name="Coin" objectType="101" length="137" trackId="1" hp="0" offset="30" TriggerIndex="38" />
-      <!--      <trigger name="Coin" objectType="101" length="139" trackId="1" hp="0" offset="30" TriggerIndex="39" />-->
-      <trigger name="Coin" objectType="101" length="141" trackId="1" hp="0" offset="30" TriggerIndex="40" />
-      <!--      <trigger name="Coin" objectType="101" length="143" trackId="1" hp="0" offset="30" TriggerIndex="41" />-->
-      <trigger name="Coin" objectType="101" length="145" trackId="1" hp="0" offset="30" TriggerIndex="42" />
-      <!--      <trigger name="Coin" objectType="101" length="135" trackId="3" hp="0" offset="30" TriggerIndex="43" />-->
-      <trigger name="Coin" objectType="101" length="137" trackId="3" hp="0" offset="30" TriggerIndex="44" />
-      <!--      <trigger name="Coin" objectType="101" length="139" trackId="3" hp="0" offset="30" TriggerIndex="45" />-->
-      <trigger name="Coin" objectType="101" length="141" trackId="3" hp="0" offset="30" TriggerIndex="46" />
-      <!--      <trigger name="Coin" objectType="101" length="143" trackId="3" hp="0" offset="30" TriggerIndex="47" />-->
-      <trigger name="Coin" objectType="101" length="145" trackId="3" hp="0" offset="30" TriggerIndex="48" />
-      <trigger name="Coin" objectType="101" length="155" trackId="3" hp="0" offset="30" TriggerIndex="49" />
-      <trigger name="Coin" objectType="101" length="157" trackId="3" hp="0" offset="30" TriggerIndex="50" />
-      <trigger name="Coin" objectType="101" length="159" trackId="3" hp="0" offset="30" TriggerIndex="51" />
-      <trigger name="Coin" objectType="101" length="165" trackId="3" hp="0" offset="30" TriggerIndex="52" />
-      <trigger name="Coin" objectType="101" length="167" trackId="3" hp="0" offset="30" TriggerIndex="53" />
-      <trigger name="Coin" objectType="101" length="169" trackId="3" hp="0" offset="30" TriggerIndex="54" />
-      <trigger name="Coin" objectType="101" length="155" trackId="1" hp="0" offset="30" TriggerIndex="55" />
-      <trigger name="Coin" objectType="101" length="157" trackId="1" hp="0" offset="30" TriggerIndex="56" />
-      <trigger name="Coin" objectType="101" length="159" trackId="1" hp="0" offset="30" TriggerIndex="57" />
-      <trigger name="Coin" objectType="101" length="165" trackId="1" hp="0" offset="30" TriggerIndex="58" />
-      <trigger name="Coin" objectType="101" length="167" trackId="1" hp="0" offset="30" TriggerIndex="59" />
-      <trigger name="Coin" objectType="101" length="169" trackId="1" hp="0" offset="30" TriggerIndex="60" />
-      <trigger name="Coin" objectType="101" length="192" trackId="2" hp="0" offset="30" TriggerIndex="61" />
-      <trigger name="Coin" objectType="101" length="194" trackId="2" hp="0" offset="30" TriggerIndex="62" />
-      <!--      <trigger name="Coin" objectType="101" length="184" trackId="2" hp="0" offset="30" TriggerIndex="63" />-->
-      <trigger name="Coin" objectType="101" length="186" trackId="2" hp="0" offset="30" TriggerIndex="64" />
-      <trigger name="Coin" objectType="101" length="188" trackId="2" hp="0" offset="30" TriggerIndex="65" />
-      <trigger name="Coin" objectType="101" length="190" trackId="2" hp="0" offset="30" TriggerIndex="66" />
-      <trigger name="Coin" objectType="101" length="235" trackId="1" hp="0" offset="30" TriggerIndex="67" />
-      <trigger name="Coin" objectType="101" length="237" trackId="1" hp="0" offset="30" TriggerIndex="68" />
-      <trigger name="Coin" objectType="101" length="239" trackId="1" hp="0" offset="30" TriggerIndex="69" />
-      <trigger name="Coin" objectType="101" length="241" trackId="1" hp="0" offset="30" TriggerIndex="70" />
-      <trigger name="Coin" objectType="101" length="243" trackId="1" hp="0" offset="30" TriggerIndex="71" />
-      <trigger name="Coin" objectType="101" length="245" trackId="1" hp="0" offset="30" TriggerIndex="72" />
-      <trigger name="Coin" objectType="101" length="235" trackId="3" hp="0" offset="30" TriggerIndex="73" />
-      <trigger name="Coin" objectType="101" length="237" trackId="3" hp="0" offset="30" TriggerIndex="74" />
-      <trigger name="Coin" objectType="101" length="239" trackId="3" hp="0" offset="30" TriggerIndex="75" />
-      <trigger name="Coin" objectType="101" length="241" trackId="3" hp="0" offset="30" TriggerIndex="76" />
-      <trigger name="Coin" objectType="101" length="243" trackId="3" hp="0" offset="30" TriggerIndex="77" />
-      <trigger name="Coin" objectType="101" length="245" trackId="3" hp="0" offset="30" TriggerIndex="78" />
+    <triggers groupName="PickupTrigger_02" length="122" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="5">
+      <trigger name="Coin" objectType="101" length="90" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Coin" objectType="101" length="94" trackId="1" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Coin" objectType="101" length="98" trackId="1" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Coin" objectType="101" length="90" trackId="3" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Coin" objectType="101" length="94" trackId="3" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Coin" objectType="101" length="98" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Coin" objectType="101" length="118" trackId="3" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Coin" objectType="101" length="122" trackId="3" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Coin" objectType="101" length="126" trackId="3" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Coin" objectType="101" length="118" trackId="1" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Coin" objectType="101" length="122" trackId="1" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Coin" objectType="101" length="126" trackId="1" hp="0" offset="30" TriggerIndex="11" />
+      <trigger name="Coin" objectType="101" length="137" trackId="1" hp="0" offset="30" TriggerIndex="12" />
+      <trigger name="Coin" objectType="101" length="141" trackId="1" hp="0" offset="30" TriggerIndex="13" />
+      <trigger name="Coin" objectType="101" length="145" trackId="1" hp="0" offset="30" TriggerIndex="14" />
+      <trigger name="Coin" objectType="101" length="137" trackId="3" hp="0" offset="30" TriggerIndex="15" />
+      <trigger name="Coin" objectType="101" length="141" trackId="3" hp="0" offset="30" TriggerIndex="16" />
+      <trigger name="Coin" objectType="101" length="145" trackId="3" hp="0" offset="30" TriggerIndex="17" />
+      <trigger name="Coin" objectType="101" length="155" trackId="3" hp="0" offset="30" TriggerIndex="18" />
+      <trigger name="Coin" objectType="101" length="157" trackId="3" hp="0" offset="30" TriggerIndex="19" />
+      <trigger name="Coin" objectType="101" length="159" trackId="3" hp="0" offset="30" TriggerIndex="20" />
+      <trigger name="Coin" objectType="101" length="165" trackId="3" hp="0" offset="30" TriggerIndex="21" />
+      <trigger name="Coin" objectType="101" length="167" trackId="3" hp="0" offset="30" TriggerIndex="22" />
+      <trigger name="Coin" objectType="101" length="169" trackId="3" hp="0" offset="30" TriggerIndex="23" />
+      <trigger name="Coin" objectType="101" length="155" trackId="1" hp="0" offset="30" TriggerIndex="24" />
+      <trigger name="Coin" objectType="101" length="157" trackId="1" hp="0" offset="30" TriggerIndex="25" />
+      <trigger name="Coin" objectType="101" length="159" trackId="1" hp="0" offset="30" TriggerIndex="26" />
+      <trigger name="Coin" objectType="101" length="165" trackId="1" hp="0" offset="30" TriggerIndex="27" />
+      <trigger name="Coin" objectType="101" length="167" trackId="1" hp="0" offset="30" TriggerIndex="28" />
+      <trigger name="Coin" objectType="101" length="169" trackId="1" hp="0" offset="30" TriggerIndex="29" />
+      <trigger name="Coin" objectType="101" length="192" trackId="2" hp="0" offset="30" TriggerIndex="30" />
+      <trigger name="Coin" objectType="101" length="194" trackId="2" hp="0" offset="30" TriggerIndex="31" />
+      <trigger name="Coin" objectType="101" length="186" trackId="2" hp="0" offset="30" TriggerIndex="32" />
+      <trigger name="Coin" objectType="101" length="188" trackId="2" hp="0" offset="30" TriggerIndex="33" />
+      <trigger name="Coin" objectType="101" length="190" trackId="2" hp="0" offset="30" TriggerIndex="34" />
+      <trigger name="Coin" objectType="101" length="235" trackId="1" hp="0" offset="30" TriggerIndex="35" />
+      <trigger name="Coin" objectType="101" length="237" trackId="1" hp="0" offset="30" TriggerIndex="36" />
+      <trigger name="Coin" objectType="101" length="239" trackId="1" hp="0" offset="30" TriggerIndex="37" />
+      <trigger name="Coin" objectType="101" length="241" trackId="1" hp="0" offset="30" TriggerIndex="38" />
+      <trigger name="Coin" objectType="101" length="243" trackId="1" hp="0" offset="30" TriggerIndex="39" />
+      <trigger name="Coin" objectType="101" length="245" trackId="1" hp="0" offset="30" TriggerIndex="40" />
+      <trigger name="Coin" objectType="101" length="235" trackId="3" hp="0" offset="30" TriggerIndex="41" />
+      <trigger name="Coin" objectType="101" length="237" trackId="3" hp="0" offset="30" TriggerIndex="42" />
+      <trigger name="Coin" objectType="101" length="239" trackId="3" hp="0" offset="30" TriggerIndex="43" />
+      <trigger name="Coin" objectType="101" length="241" trackId="3" hp="0" offset="30" TriggerIndex="44" />
+      <trigger name="Coin" objectType="101" length="243" trackId="3" hp="0" offset="30" TriggerIndex="45" />
+      <trigger name="Coin" objectType="101" length="245" trackId="3" hp="0" offset="30" TriggerIndex="46" />
     </triggers>
-    <triggers groupName="HurdleTrigger_01" length="122" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="9">
+    <triggers groupName="HurdleTrigger_01" length="122" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6">
       <trigger name="Hurdle" objectType="142" length="10" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="10" trackId="2" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Hurdle" objectType="142" length="10" trackId="3" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Hurdle" objectType="142" length="10" trackId="4" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Hurdle" objectType="142" length="20" trackId="4" hp="0" offset="30" TriggerIndex="4" />
-      <trigger name="Hurdle" objectType="142" length="20" trackId="3" hp="0" offset="30" TriggerIndex="5" />
-      <trigger name="Hurdle" objectType="142" length="20" trackId="1" hp="0" offset="30" TriggerIndex="6" />
-      <trigger name="Hurdle" objectType="142" length="20" trackId="0" hp="0" offset="30" TriggerIndex="7" />
-      <trigger name="Hurdle" objectType="142" length="30" trackId="0" hp="0" offset="30" TriggerIndex="8" />
-      <trigger name="Hurdle" objectType="142" length="30" trackId="1" hp="0" offset="30" TriggerIndex="9" />
-      <trigger name="Hurdle" objectType="142" length="30" trackId="2" hp="0" offset="30" TriggerIndex="10" />
-      <trigger name="Hurdle" objectType="142" length="30" trackId="3" hp="0" offset="30" TriggerIndex="11" />
-      <trigger name="Hurdle" objectType="142" length="30" trackId="4" hp="0" offset="30" TriggerIndex="12" />
-      <trigger name="Hurdle" objectType="142" length="101" trackId="1" hp="0" offset="30" TriggerIndex="13" />
-      <trigger name="Hurdle" objectType="142" length="101" trackId="2" hp="0" offset="30" TriggerIndex="14" />
-      <trigger name="Hurdle" objectType="142" length="101" trackId="3" hp="0" offset="30" TriggerIndex="15" />
-      <trigger name="Hurdle" objectType="142" length="162" trackId="3" hp="0" offset="30" TriggerIndex="16" />
-      <trigger name="Hurdle" objectType="142" length="162" trackId="1" hp="0" offset="30" TriggerIndex="17" />
-      <trigger name="Hurdle" objectType="142" length="250" trackId="3" hp="0" offset="30" TriggerIndex="18" />
-      <trigger name="Hurdle" objectType="142" length="250" trackId="1" hp="0" offset="30" TriggerIndex="19" />
-      <trigger name="Hurdle" objectType="142" length="130" trackId="1" hp="0" offset="30" TriggerIndex="20" />
-      <trigger name="Hurdle" objectType="142" length="130" trackId="3" hp="0" offset="30" TriggerIndex="21" />
-      <trigger name="Hurdle" objectType="142" length="365" trackId="0" hp="0" offset="30" TriggerIndex="22" />
-      <trigger name="Hurdle" objectType="142" length="365" trackId="1" hp="0" offset="30" TriggerIndex="23" />
-      <trigger name="Hurdle" objectType="142" length="365" trackId="2" hp="0" offset="30" TriggerIndex="24" />
-      <trigger name="Hurdle" objectType="142" length="365" trackId="3" hp="0" offset="30" TriggerIndex="25" />
-      <trigger name="Hurdle" objectType="142" length="365" trackId="4" hp="0" offset="30" TriggerIndex="26" />
+      <trigger name="Hurdle" objectType="142" length="10" trackId="4" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Hurdle" objectType="142" length="20" trackId="4" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="Hurdle" objectType="142" length="20" trackId="0" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Hurdle" objectType="142" length="250" trackId="3" hp="0" offset="30" TriggerIndex="5" />
+      <trigger name="Hurdle" objectType="142" length="250" trackId="1" hp="0" offset="30" TriggerIndex="6" />
+      <trigger name="Hurdle" objectType="142" length="365" trackId="0" hp="0" offset="30" TriggerIndex="7" />
+      <trigger name="Hurdle" objectType="142" length="365" trackId="1" hp="0" offset="30" TriggerIndex="8" />
+      <trigger name="Hurdle" objectType="142" length="365" trackId="2" hp="0" offset="30" TriggerIndex="9" />
+      <trigger name="Hurdle" objectType="142" length="365" trackId="3" hp="0" offset="30" TriggerIndex="10" />
+      <trigger name="Hurdle" objectType="142" length="365" trackId="4" hp="0" offset="30" TriggerIndex="11" />
     </triggers>
-    <triggers groupName="BreakTrigger_02" length="140" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="10">
+    <triggers groupName="BreakTrigger_02" length="140" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="7">
       <trigger name="Break" objectType="163" length="22" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Break (1)" objectType="163" length="22" trackId="1" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Break (2)" objectType="163" length="22" trackId="2" hp="0" offset="30" TriggerIndex="2" />
-      <trigger name="Break (3)" objectType="163" length="22" trackId="3" hp="0" offset="30" TriggerIndex="3" />
-      <trigger name="Break (4)" objectType="163" length="22" trackId="4" hp="0" offset="30" TriggerIndex="4" />
+      <trigger name="Break (4)" objectType="163" length="22" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_05" length="182" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
+    <triggers groupName="NPCTrigger_05" length="182" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Boar" objectType="104" length="-24" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-24" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_06" length="204" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
+    <triggers groupName="NPCTrigger_06" length="204" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="9">
       <trigger name="Boar" objectType="104" length="-22" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-22" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_07" length="238" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="13">
+    <triggers groupName="NPCTrigger_07" length="238" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="10">
       <trigger name="Boar" objectType="104" length="-26" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-26" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_08" length="266" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="14">
+    <triggers groupName="NPCTrigger_08" length="266" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="11">
       <trigger name="Boar" objectType="104" length="-28" trackId="2" hp="0" appearType="1" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-28" trackId="0" hp="0" appearType="2" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_09" length="296" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="15">
+    <triggers groupName="NPCTrigger_09" length="296" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="12">
       <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_10" length="320" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="16" />
-    <triggers groupName="PickupTrigger_03" length="340" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="17">
+    <triggers groupName="PickupTrigger_03" length="340" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="13">
       <trigger name="Stamina" objectType="129" length="10" trackId="2" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
-    <triggers groupName="NPCTrigger_11" length="345" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="18">
+    <triggers groupName="NPCTrigger_11" length="345" triggerType="0" isChaserTrigger="1" intervalTime="0.5" TriggerGroupIndex="14">
       <trigger name="Boar" objectType="104" length="-18" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <!--<trigger name="Boar" objectType="174" length="-18" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
-      <trigger name="Boar" objectType="104" length="-18" trackId="4" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar" objectType="104" length="-18" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="PickupTrigger_04" length="370" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="19">
+    <triggers groupName="PickupTrigger_04" length="370" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="15">
       <trigger name="Coin" objectType="101" length="14" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="16" trackId="1" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Coin" objectType="101" length="18" trackId="1" hp="0" offset="30" TriggerIndex="2" />
@@ -1192,17 +1152,16 @@
       <trigger name="Coin" objectType="101" length="108" trackId="2" hp="0" offset="30" TriggerIndex="28" />
       <trigger name="Coin" objectType="101" length="110" trackId="2" hp="0" offset="30" TriggerIndex="29" />
     </triggers>
-    <triggers groupName="NPCTrigger_12" length="384" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="20">
+    <triggers groupName="NPCTrigger_12" length="384" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="16">
       <trigger name="Boar" objectType="104" length="-28" trackId="2" hp="0" appearType="2" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-28" trackId="0" hp="0" appearType="2" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_13" length="414" triggerType="0" isChaserTrigger="1" intervalTime="0.15" TriggerGroupIndex="21">
+    <triggers groupName="NPCTrigger_13" length="414" triggerType="0" isChaserTrigger="1" intervalTime="0.15" TriggerGroupIndex="17">
       <trigger name="Boar" objectType="104" length="-30" trackId="2" hp="0" appearType="2" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="104" length="-30" trackId="4" hp="0" appearType="2" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_14" length="440" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="22" />
   </node>
-  <node gameplayId="48" gameplayName="CloudSea_08" trackMeshName="track_05_02" trackNumber="5" npcLevel="3" challengeLevel="8" GamePlayIndex="20">
+  <node gameplayId="48" gameplayName="CloudSea_08" trackMeshName="track_05_02" trackNumber="5" npcLevel="3" challengeLevel="3" GamePlayIndex="20" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="15">
       <trigger name="Shield" objectType="167" length="11" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Shield" objectType="167" length="11" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -1303,7 +1262,7 @@
       <trigger name="Boar" objectType="104" length="-20" trackId="2" hp="0" appearType="2" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="49" gameplayName="CloudSea_09" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="4" challengeLevel="9" GamePlayIndex="21">
+  <node gameplayId="49" gameplayName="CloudSea_09" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="4" challengeLevel="4" GamePlayIndex="21" HardModeSpeed="1.5">
     <triggers groupName="BreakTrigger_01" length="10" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Break" objectType="163" length="20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Break (1)" objectType="163" length="20" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -1440,7 +1399,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第一关拾取模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="50" gameplayName="CloudSea_01_COL" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="22" npcLevel="2" challengeLevel="1">
+  <node gameplayId="50" gameplayName="CloudSea_01_COL" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="22" npcLevel="5" challengeLevel="5" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="45" trackId="1" hp="0" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="58" trackId="2" hp="0" TriggerIndex="1" />
@@ -1498,8 +1457,8 @@
     <triggers groupName="PickupTrigger" length="227" triggerType="3" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
       <trigger name="Candy" objectType="123" length="0" trackId="2" numSpawns="8" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="0" />
     </triggers>
-  </node>  
-  <node gameplayId="52" gameplayName="CloudSea_02_COL" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="3" challengeLevel="2" GamePlayIndex="24">
+  </node>
+  <node gameplayId="52" gameplayName="CloudSea_02_COL" trackMeshName="track_05_01_03new" trackNumber="5" npcLevel="4" challengeLevel="4" GamePlayIndex="24" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="30" trackId="0" hp="0" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="30" trackId="2" hp="0" TriggerIndex="1" />
@@ -1606,7 +1565,7 @@
       <trigger name="Candy" objectType="123" length="0" trackId="4" numSpawns="5" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="0" />
     </triggers>
   </node>
-  <node gameplayId="51" gameplayName="CloudSea_03_COL" trackMeshName="track_05_02" trackNumber="5" npcLevel="4" challengeLevel="2" GamePlayIndex="23">
+  <node gameplayId="51" gameplayName="CloudSea_03_COL" trackMeshName="track_05_02" trackNumber="5" npcLevel="5" challengeLevel="5" GamePlayIndex="23" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="4" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="124" length="8" trackId="2" numSpawns="4" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="124" length="12" trackId="3" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="1" />
@@ -1615,31 +1574,34 @@
       <trigger name="Candy" objectType="124" length="16" trackId="0" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="4" />
       <trigger name="Candy" objectType="124" length="20" trackId="2" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="5" />
     </triggers>
+    <!-- <triggers groupName="BOSSTrigger_02" length="50" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="1" extraGroup="1"> 
+          <trigger name="BirdBoss" objectType="180" length="30" trackId="2" hp="0" offset="30" TriggerIndex="0" /> 
+     </triggers> -->
     <!--    <triggers groupName="NPCTrigger" length="31" triggerType="0" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
       <trigger name="Fly_fish" objectType="143" length="0" trackId="1" hp="0" actionMode="2" TriggerIndex="0" />
     </triggers>-->
-    <triggers groupName="PickupTrigger" length="39" triggerType="3" isChaserTrigger="1" intervalTime="0" cameraMode="1" playerControl="2" TriggerGroupIndex="2">
+    <triggers groupName="PickupTrigger" length="39" triggerType="3" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
       <trigger name="Candy" objectType="123" length="-8" trackId="1" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="-8" trackId="3" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="47" triggerType="0" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="3">
-      <trigger name="Fly_fish" objectType="143" length="0" trackId="3" hp="0" actionMode="1" TriggerIndex="0" />
+      <!--<trigger name="Fly_fish" objectType="143" length="0" trackId="3" hp="0" actionMode="1" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="PickupTrigger" length="59" triggerType="3" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="4">
       <trigger name="Candy" objectType="123" length="-8" trackId="0" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="-8" trackId="4" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="61" triggerType="0" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="5">
-      <trigger name="Fly_fish" objectType="143" length="0" trackId="1" hp="0" actionMode="1" TriggerIndex="0" />
+      <!--<trigger name="Fly_fish" objectType="143" length="0" trackId="1" hp="0" actionMode="1" TriggerIndex="0" />-->
     </triggers>
     <triggers groupName="PickupTrigger" length="79" triggerType="3" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="6">
       <trigger name="Candy" objectType="124" length="-9" trackId="1" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="124" length="-9" trackId="3" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="1" />
     </triggers>
     <triggers groupName="NPCTrigger" length="79" triggerType="0" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="7">
-      <trigger name="Fly_fish" objectType="143" length="0" trackId="3" hp="0" actionMode="1" TriggerIndex="0" />
+      <!--<trigger name="Fly_fish" objectType="143" length="0" trackId="3" hp="0" actionMode="1" TriggerIndex="0" />-->
     </triggers>
-    <triggers groupName="PickupTrigger" length="99" triggerType="3" isChaserTrigger="1" intervalTime="0" cameraMode="0" playerControl="1" TriggerGroupIndex="8">
+    <triggers groupName="PickupTrigger" length="99" triggerType="3" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Candy" objectType="123" length="0" trackId="2" numSpawns="7" timeBetweenSpawns="0.25" pickupSpeed="15" hp="0" TriggerIndex="0" />
     </triggers>
     <!--    <triggers groupName="NPCTrigger" length="100" triggerType="0" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="9">
@@ -1698,8 +1660,12 @@
       <trigger name="Candy" objectType="124" length="0" trackId="2" pickupSpeed="15" hp="0" TriggerIndex="1" />
       <trigger name="Candy" objectType="124" length="0" trackId="1" pickupSpeed="15" hp="0" TriggerIndex="2" />
     </triggers>
+
+<!--   	<triggers groupName="Story" length="270" triggerType="11" isChaserTrigger="0" extraGroup="1"> 
+  		<trigger name="Story00" storyId="4"/> 
+	</triggers>  -->   
   </node>
-  <!-- <node gameplayId="53" gameplayName="gameplay_05_02_Collect_01" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="25">
+  <!-- <node gameplayId="53" gameplayName="gameplay_05_02_Collect_01" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="25" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger4" length="15" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup1" objectType="123" length="10" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup2" objectType="123" length="12" trackId="3" TriggerIndex="1" />
@@ -1748,7 +1714,7 @@
      <trigger name="Pickup_Energy1" objectType="129" length="20" trackId="2" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="54" gameplayName="gameplay_05_02_Collect_02" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="26">
+     <node gameplayId="54" gameplayName="gameplay_05_02_Collect_02" trackMeshName="track_05_02" trackNumber="5" GamePlayIndex="26" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger2" length="30" triggerType="3" isChaserTrigger="1" TriggerGroupIndex="0">
      <trigger name="Pickup_Candy1" objectType="123" length="40" trackId="0" numSpawns="10" timeBetweenSpawns="0.1" pickupSpeed="40" TriggerIndex="0" />
      </triggers>
@@ -1822,7 +1788,7 @@
      </triggers>
      </node>－<-->
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第一关时间模式－－－－－－－－－－－－－－－－－－－－－－－－－－
-     <node gameplayId="5001" gameplayName="gameplay_05_04_TimeAttack_Tut" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5001">
+     <node gameplayId="5001" gameplayName="gameplay_05_04_TimeAttack_Tut" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5001" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup1" objectType="101" length="10" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup2" objectType="101" length="12" trackId="3" TriggerIndex="1" />
@@ -1963,7 +1929,7 @@
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="35" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="5002" gameplayName="gameplay_05_04_TimeAttack_01" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5002">
+     <node gameplayId="5002" gameplayName="gameplay_05_04_TimeAttack_01" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5002" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup1" objectType="101" length="10" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup2" objectType="101" length="12" trackId="3" TriggerIndex="1" />
@@ -2104,7 +2070,7 @@
      <trigger name="speedpad" objectType="139" length="30" trackId="1" TriggerIndex="1" />
      </triggers>
      </node>
-     <node gameplayId="5003" gameplayName="gameplay_05_04_TimeAttack_02" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5003">
+     <node gameplayId="5003" gameplayName="gameplay_05_04_TimeAttack_02" trackMeshName="track_05_04" trackNumber="5" GamePlayIndex="5003" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup2" objectType="101" length="18" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup3" objectType="101" length="20" trackId="3" TriggerIndex="1" />
@@ -2243,7 +2209,7 @@
      </triggers>
      </node><-->
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第二关打击模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="55" gameplayName="SouthValley_01" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="27" npcLevel="3" challengeLevel="2">
+  <node gameplayId="55" gameplayName="SouthValley_01" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="27" npcLevel="3" challengeLevel="3" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="17" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="19" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -2387,7 +2353,7 @@
       <trigger name="Boar" objectType="134" length="-29" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="56" gameplayName="SouthValley_02" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="28" npcLevel="4" challengeLevel="3">
+  <node gameplayId="56" gameplayName="SouthValley_02" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="28" npcLevel="4" challengeLevel="4" HardModeSpeed="1.5">
     <triggers groupName="BreakTrigger_01" length="10" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Break" objectType="162" length="15" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Break (1)" objectType="162" length="15" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -2654,7 +2620,7 @@
       <trigger name="Break (4)" objectType="162" length="25" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="57" gameplayName="SouthValley_03" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="29" npcLevel="4" challengeLevel="4">
+  <node gameplayId="57" gameplayName="SouthValley_03" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="29" npcLevel="4" challengeLevel="4" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="55" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="57" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -2824,7 +2790,7 @@
       <trigger name="Boar" objectType="105" length="-19" trackId="0" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="58" gameplayName="SouthValley_04" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="30" npcLevel="5" challengeLevel="5">
+  <node gameplayId="58" gameplayName="SouthValley_04" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="30" npcLevel="3" challengeLevel="5" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger_01" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="114" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="114" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -2876,9 +2842,9 @@
       <trigger name="Coin" objectType="101" length="202" trackId="3" hp="0" offset="30" TriggerIndex="39" />
     </triggers>
     <triggers groupName="NPCTrigger_01" length="16" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="2">
-      <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
-      <trigger name="Boar" objectType="136" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="1" />
-      <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar" objectType="105" length="-15" trackId="2" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Boar" objectType="136" length="-15" trackId="0" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="Boar" objectType="105" length="-15" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
     <triggers groupName="NPCTrigger_02" length="30" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="3">
       <trigger name="Boar" objectType="105" length="-14" trackId="1" hp="0" offset="30" TriggerIndex="0" />
@@ -2896,7 +2862,13 @@
       <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="105" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="PickupTrigger_02" length="70" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6" />
+    <triggers groupName="PickupTrigger_02" length="84" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="6">
+      <trigger name="cake" objectType="129" length="0" trackId="3" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="cake (1)" objectType="129" length="0" trackId="4" hp="0" offset="30" TriggerIndex="1" />
+      <trigger name="cake (2)" objectType="129" length="0" trackId="2" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="cake (3)" objectType="129" length="0" trackId="1" hp="0" offset="30" TriggerIndex="3" />
+      <trigger name="cake (4)" objectType="129" length="0" trackId="0" hp="0" offset="30" TriggerIndex="4" />
+    </triggers>
     <triggers groupName="NPCTrigger_05" length="90" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="7">
       <trigger name="Boar" objectType="136" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="1" />
@@ -2904,52 +2876,51 @@
     </triggers>
     <triggers groupName="NPCTrigger_06" length="110" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="8">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
-      <!--<trigger name="Boar" objectType="174" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />-->
-      <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="2" />
+      <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="BreakbleTrigger_01" length="121" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="17">
-      <trigger name="Breakble" objectType="162" length="21" trackId="1" offset="30" TriggerIndex="0" />
-      <trigger name="Breakble (1)" objectType="162" length="21" trackId="3" offset="30" TriggerIndex="1" />
+    <triggers groupName="BreakbleTrigger_01" length="121" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="9">
+      <trigger name="Breakble" objectType="162" length="21" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Breakble (1)" objectType="162" length="21" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_07" length="125" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="9">
+    <triggers groupName="NPCTrigger_07" length="125" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="10">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_08" length="140" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="10">
+    <triggers groupName="NPCTrigger_08" length="140" triggerType="0" isChaserTrigger="1" intervalTime="0.3" TriggerGroupIndex="11">
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_09" length="180" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="11">
+    <triggers groupName="NPCTrigger_09" length="180" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Boar" objectType="134" length="-30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="134" length="-30" trackId="1" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="134" length="-30" trackId="3" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Boar" objectType="134" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Boar" objectType="134" length="-30" trackId="0" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_10" length="185" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="12">
+    <triggers groupName="NPCTrigger_10" length="185" triggerType="0" isChaserTrigger="1" intervalTime="1" TriggerGroupIndex="13">
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-20" trackId="4" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="134" length="-10" trackId="2" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Boar" objectType="134" length="-10" trackId="3" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Boar" objectType="134" length="-10" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="BreakbleTrigger_02" length="190" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="16">
-      <trigger name="Breakble" objectType="162" length="21" trackId="1" offset="30" TriggerIndex="0" />
-      <trigger name="Breakble (1)" objectType="162" length="21" trackId="3" offset="30" TriggerIndex="1" />
+    <triggers groupName="BreakbleTrigger_02" length="190" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="14">
+      <trigger name="Breakble" objectType="162" length="21" trackId="1" hp="0" offset="30" TriggerIndex="0" />
+      <trigger name="Breakble (1)" objectType="162" length="21" trackId="3" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
-    <triggers groupName="NPCTrigger_11" length="235" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="13">
+    <triggers groupName="NPCTrigger_11" length="235" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="15">
       <trigger name="Boar" objectType="105" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="134" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="134" length="-31" trackId="0" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-    <triggers groupName="NPCTrigger_12" length="260" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="14">
+    <triggers groupName="NPCTrigger_12" length="260" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="16">
       <trigger name="Boar" objectType="105" length="-25" trackId="4" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-25" trackId="0" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="134" length="-35" trackId="3" hp="0" offset="30" TriggerIndex="2" />
       <trigger name="Boar" objectType="134" length="-35" trackId="2" hp="0" offset="30" TriggerIndex="3" />
       <trigger name="Boar" objectType="134" length="-35" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
-    <triggers groupName="NPCTrigger_13" length="280" triggerType="0" isChaserTrigger="1" intervalTime="0.8" TriggerGroupIndex="15">
+    <triggers groupName="NPCTrigger_13" length="280" triggerType="0" isChaserTrigger="1" intervalTime="0.8" TriggerGroupIndex="17">
       <trigger name="Boar" objectType="105" length="-20" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Boar" objectType="105" length="-20" trackId="3" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Boar" objectType="134" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="2" />
@@ -2957,7 +2928,7 @@
       <trigger name="Boar" objectType="134" length="-30" trackId="0" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="59" gameplayName="SouthValley_05" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="31" npcLevel="5" challengeLevel="6">
+  <node gameplayId="59" gameplayName="SouthValley_05" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="31" npcLevel="5" challengeLevel="5" HardModeSpeed="1.5">
     <triggers groupName="BreakableTrigger" length="10" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="13">
       <trigger name="breakable" objectType="162" length="15" trackId="1" offset="30" TriggerIndex="0" />
       <trigger name="breakable (1)" objectType="162" length="15" trackId="2" offset="30" TriggerIndex="1" />
@@ -3038,7 +3009,7 @@
       <trigger name="Boar_05" objectType="136" length="-18" trackId="0" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="60" gameplayName="SouthValley_06" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="32" npcLevel="5" challengeLevel="7">
+  <node gameplayId="60" gameplayName="SouthValley_06" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="32" npcLevel="5" challengeLevel="5" HardModeSpeed="1.5">
     <triggers groupName="breakableTrigger_01" length="5" triggerType="9" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="breakable" objectType="162" length="16" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="breakable (1)" objectType="162" length="16" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -3243,7 +3214,7 @@
       <trigger name="Boar" objectType="105" length="-25" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="61" gameplayName="SouthValley_07" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="33" npcLevel="6" challengeLevel="8">
+  <node gameplayId="61" gameplayName="SouthValley_07" trackMeshName="track_01_01" trackNumber="5" GamePlayIndex="33" npcLevel="6" challengeLevel="6" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0.5" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="55" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="57" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -3414,7 +3385,7 @@
       <trigger name="Boar" objectType="105" length="-25" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="62" gameplayName="SouthValley_08" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="34" npcLevel="6" challengeLevel="8">
+  <node gameplayId="62" gameplayName="SouthValley_08" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="34" npcLevel="6" challengeLevel="6" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="45" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="45" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -3580,7 +3551,7 @@
       <trigger name="Boar" objectType="105" length="-20" trackId="0" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="63" gameplayName="SouthValley_09" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="35" npcLevel="7" challengeLevel="9">
+  <node gameplayId="63" gameplayName="SouthValley_09" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="35" npcLevel="7" challengeLevel="7" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="10" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="23" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="23" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -3723,7 +3694,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第二关拾取模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="64" gameplayName="SouthValley_COL_01" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="36" npcLevel="5" challengeLevel="2">
+  <node gameplayId="64" gameplayName="SouthValley_COL_01" trackMeshName="track_01_03" trackNumber="5" GamePlayIndex="36" npcLevel="8" challengeLevel="8" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
       <trigger name="Candy" objectType="123" length="7" trackId="2" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="9" trackId="2" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="1" />
@@ -3851,7 +3822,7 @@
       <trigger name="Candy" objectType="124" length="0" trackId="0" numSpawns="4" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="65" gameplayName="SouthValley_COL_02" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="37" npcLevel="6" challengeLevel="2">
+  <node gameplayId="65" gameplayName="SouthValley_COL_02" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="37" npcLevel="7" challengeLevel="7" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="5" trackId="1" numSpawns="8" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="7" trackId="1" numSpawns="8" timeBetweenSpawns="0.3" pickupSpeed="15" hp="0" TriggerIndex="1" />
@@ -3992,7 +3963,7 @@
       <trigger name="Candy" objectType="124" length="9" trackId="1" pickupSpeed="15" hp="0" TriggerIndex="5" />
     </triggers>
   </node>
-  <node gameplayId="11" gameplayName="SouthValley_COL_03" trackMeshName="track_01_01_800" trackNumber="5" npcLevel="7" challengeLevel="2" GamePlayIndex="6">
+  <node gameplayId="11" gameplayName="SouthValley_COL_03" trackMeshName="track_01_01_800" trackNumber="5" npcLevel="8" challengeLevel="8" GamePlayIndex="6" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="4" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="12" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="14" trackId="3" hp="0" TriggerIndex="1" />
@@ -4281,7 +4252,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第二关时间模式－－－－－－－－－－－－－－－－－－－－－－－－－－
-     <node gameplayId="6001" gameplayName="gameplay_01_02_time_01" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6001">
+     <node gameplayId="6001" gameplayName="gameplay_01_02_time_01" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6001" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger2" length="30" triggerType="3" isChaserTrigger="1" TriggerGroupIndex="0">
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="5" timeBetweenSpawns="0.3" pickupSpeed="27" TriggerIndex="0" />
      </triggers>
@@ -4427,7 +4398,7 @@
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="35" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="6002" gameplayName="gameplay_01_02_time_02" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6002">
+     <node gameplayId="6002" gameplayName="gameplay_01_02_time_02" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6002" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup1" objectType="101" length="10" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup2" objectType="101" length="12" trackId="3" TriggerIndex="1" />
@@ -4571,7 +4542,7 @@
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="35" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="6003" gameplayName="gameplay_01_02_time_03" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6003">
+     <node gameplayId="6003" gameplayName="gameplay_01_02_time_03" trackMeshName="track_01_02" trackNumber="5" GamePlayIndex="6003" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="2" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup2" objectType="101" length="18" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup3" objectType="101" length="20" trackId="3" TriggerIndex="1" />
@@ -4712,13 +4683,13 @@
      </triggers>
      </node>-->
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第二关boss模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="67" gameplayName="SouthValley_Boss" trackMeshName="track_01_04" trackNumber="5" GamePlayIndex="39" npcLevel="8" challengeLevel="2">
+  <node gameplayId="67" gameplayName="SouthValley_Boss" trackMeshName="track_01_04" trackNumber="5" GamePlayIndex="39" npcLevel="8" challengeLevel="8" HardModeSpeed="1.5">
     <triggers groupName="Boss" length="0" triggerType="6" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="BOSS_LACY" objectType="139" length="0" trackId="2" hp="0" TriggerIndex="0" />
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第三关打击模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="68" gameplayName="RedDesert_01" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="40" npcLevel="7" challengeLevel="4">
+  <node gameplayId="68" gameplayName="RedDesert_01" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="40" npcLevel="7" challengeLevel="7" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="25" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="27" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -4906,7 +4877,7 @@
       <trigger name="Gino_01" objectType="113" length="-27" trackId="1" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
   </node>
-  <node gameplayId="69" gameplayName="RedDesert_02" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="41" npcLevel="7" challengeLevel="5">
+  <node gameplayId="69" gameplayName="RedDesert_02" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="41" npcLevel="7" challengeLevel="7" HardModeSpeed="1.5">
     <triggers groupName="Hurdle_Trigger_01" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="149" length="80" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="149" length="80" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -5095,7 +5066,7 @@
       <trigger name="Gino" objectType="114" length="-25" trackId="1" hp="0" offset="30" TriggerIndex="0" />
     </triggers>
   </node>
-  <node gameplayId="70" gameplayName="RedDesert_03" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="42" npcLevel="8" challengeLevel="5">
+  <node gameplayId="70" gameplayName="RedDesert_03" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="42" npcLevel="8" challengeLevel="8" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="30" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="32" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -5302,7 +5273,7 @@
       <trigger name="Sand_Monster" objectType="116" length="-30" trackId="4" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="71" gameplayName="RedDesert_04" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="43" npcLevel="8" challengeLevel="7">
+  <node gameplayId="71" gameplayName="RedDesert_04" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="43" npcLevel="8" challengeLevel="8" HardModeSpeed="1.5">
     <triggers groupName="Hurdle_Trigger" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="149" length="84" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="149" length="84" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -5528,7 +5499,7 @@
       <trigger name="Summon_Boar" objectType="111" length="-24" trackId="0" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="72" gameplayName="RedDesert_05" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="44" npcLevel="9" challengeLevel="7">
+  <node gameplayId="72" gameplayName="RedDesert_05" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="44" npcLevel="9" challengeLevel="9" HardModeSpeed="1.5">
     <triggers groupName="CoinTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="40" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="42" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -5785,7 +5756,7 @@
       <trigger name="Gino" objectType="113" length="-32" trackId="0" hp="0" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="73" gameplayName="RedDesert_06" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="45" npcLevel="9" challengeLevel="7">
+  <node gameplayId="73" gameplayName="RedDesert_06" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="45" npcLevel="9" challengeLevel="9" HardModeSpeed="1.5">
     <triggers groupName="Pickup_Trigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="22" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="24" trackId="2" hp="0" offset="30" TriggerIndex="1" />
@@ -5986,7 +5957,7 @@
       <trigger name="Gino" objectType="113" length="-27" trackId="4" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="74" gameplayName="RedDesert_07" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="46" npcLevel="10" challengeLevel="8">
+  <node gameplayId="74" gameplayName="RedDesert_07" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="46" npcLevel="10" challengeLevel="10" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="15" trackId="0" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="17" trackId="0" hp="0" offset="30" TriggerIndex="1" />
@@ -6221,7 +6192,7 @@
       <trigger name="Summon_Boar" objectType="111" length="-20" trackId="2" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="75" gameplayName="RedDesert_08" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="47" npcLevel="10" challengeLevel="8">
+  <node gameplayId="75" gameplayName="RedDesert_08" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="47" npcLevel="10" challengeLevel="10" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Coin" objectType="101" length="20" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="18" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -6447,7 +6418,7 @@
       <trigger name="Sand_Monster" objectType="116" length="-27" trackId="1" hp="0" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="76" gameplayName="RedDesert_09" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="48" npcLevel="11" challengeLevel="9">
+  <node gameplayId="76" gameplayName="RedDesert_09" trackMeshName="track_02_03" trackNumber="5" GamePlayIndex="48" npcLevel="11" challengeLevel="11" HardModeSpeed="1.5">
     <triggers groupName="Hurdle_Trigger" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="149" length="74" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="149" length="74" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -6663,7 +6634,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第三关拾取模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="77" gameplayName="RedDesert_01_COL" trackMeshName="track_02_01" trackNumber="5" GamePlayIndex="49" npcLevel="9" challengeLevel="2">
+  <node gameplayId="77" gameplayName="RedDesert_01_COL" trackMeshName="track_02_01" trackNumber="5" GamePlayIndex="49" npcLevel="11" challengeLevel="11" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
       <trigger name="Candy" objectType="123" length="6" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="8" trackId="3" hp="0" TriggerIndex="1" />
@@ -6845,7 +6816,7 @@
       <trigger name="Candy" objectType="123" length="0" trackId="4" numSpawns="8" timeBetweenSpawns="0.2" pickupSpeed="15" hp="0" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="78" gameplayName="RedDesert_02_COL" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="50" npcLevel="10" challengeLevel="2">
+  <node gameplayId="78" gameplayName="RedDesert_02_COL" trackMeshName="track_02_02" trackNumber="5" GamePlayIndex="50" npcLevel="11" challengeLevel="11" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="10" triggerType="1" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="125" length="5" trackId="1" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="125" length="7" trackId="1" hp="0" TriggerIndex="1" />
@@ -6989,7 +6960,7 @@
       <trigger name="Candy" objectType="123" length="-2" trackId="1" numSpawns="3" timeBetweenSpawns="0.2" delayTime="1" pickupSpeed="15" hp="0" TriggerIndex="5" />
     </triggers>
   </node>
-  <node gameplayId="79" gameplayName="RedDesert_03_COL" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="51" npcLevel="11" challengeLevel="2">
+  <node gameplayId="79" gameplayName="RedDesert_03_COL" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="51" npcLevel="11" challengeLevel="11" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="10" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="12" trackId="3" hp="0" TriggerIndex="1" />
@@ -7228,7 +7199,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第三关时间模式－－－－－－－－－－－－－－－－－－－－－－－－－－
-     <node gameplayId="36" gameplayName="gameplay_02_04_time_01" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8001">
+     <node gameplayId="36" gameplayName="gameplay_02_04_time_01" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8001" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger2" length="30" triggerType="3" isChaserTrigger="1" TriggerGroupIndex="0">
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="5" timeBetweenSpawns="0.3" pickupSpeed="27" TriggerIndex="0" />
      </triggers>
@@ -7384,7 +7355,7 @@
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="35" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="37" gameplayName="gameplay_02_04_time_02" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8002">
+     <node gameplayId="37" gameplayName="gameplay_02_04_time_02" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8002" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup1" objectType="101" length="10" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup2" objectType="101" length="12" trackId="3" TriggerIndex="1" />
@@ -7525,7 +7496,7 @@
      <trigger name="Pickup_Candy1" objectType="101" length="40" trackId="1" numSpawns="10" timeBetweenSpawns="0.3" pickupSpeed="35" TriggerIndex="0" />
      </triggers>
      </node>
-     <node gameplayId="38" gameplayName="gameplay_02_04_time_03" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8003">
+     <node gameplayId="38" gameplayName="gameplay_02_04_time_03" trackMeshName="track_02_04" trackNumber="5" GamePlayIndex="8003" HardModeSpeed="1.5">
      <triggers groupName="PickupTrigger1" length="20" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
      <trigger name="Pickup2" objectType="101" length="18" trackId="3" TriggerIndex="0" />
      <trigger name="Pickup3" objectType="101" length="20" trackId="3" TriggerIndex="1" />
@@ -7666,7 +7637,7 @@
      </triggers>
      </node><-->
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第三关boss模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="80" gameplayName="RedDesert_Boss" trackMeshName="track_02_01" trackNumber="5" GamePlayIndex="52" npcLevel="12" challengeLevel="2">
+  <node gameplayId="80" gameplayName="RedDesert_Boss" trackMeshName="track_02_01" trackNumber="5" GamePlayIndex="52" npcLevel="12" challengeLevel="12" HardModeSpeed="1.5">
     <triggers groupName="Boss" length="0" triggerType="6" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="BOSS_SCORPY" objectType="139" length="0" trackId="2" hp="0" TriggerIndex="0" />
     </triggers>
@@ -7680,7 +7651,7 @@
     </triggers>
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第四关打击模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="81" gameplayName="GreatMine_01" trackMeshName="track_04_05" trackNumber="5" GamePlayIndex="53" npcLevel="11" challengeLevel="4">
+  <node gameplayId="81" gameplayName="GreatMine_01" trackMeshName="track_04_05" trackNumber="5" GamePlayIndex="53" npcLevel="11" challengeLevel="11" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="1" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="60" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="60" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -7925,8 +7896,8 @@
     <triggers groupName="NPCTrigger" length="455" triggerType="0" isChaserTrigger="1" intervalTime="0" TriggerGroupIndex="18">
       <trigger name="Rugg" objectType="119" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
     </triggers>
-  </node>  
-  <node gameplayId="9" gameplayName="GreatMine_02" trackMeshName="track_04_03" trackNumber="5" npcLevel="11" challengeLevel="5" GamePlayIndex="4">
+  </node>
+  <node gameplayId="9" gameplayName="GreatMine_02" trackMeshName="track_04_03" trackNumber="5" npcLevel="11" challengeLevel="11" GamePlayIndex="4" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="250" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="250" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -8087,7 +8058,7 @@
       <trigger name="Breakble (4)" objectType="165" length="24" trackId="4" offset="30" TriggerIndex="4" />
     </triggers>
   </node>
-  <node gameplayId="83" gameplayName="GreatMine_03" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="55" npcLevel="11" challengeLevel="5">
+  <node gameplayId="83" gameplayName="GreatMine_03" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="55" npcLevel="12" challengeLevel="12" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="144" trackId="3" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="144" trackId="1" hp="0" offset="30" TriggerIndex="1" />
@@ -8259,7 +8230,7 @@
       <trigger name="Rugg" objectType="119" length="-30" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="5" gameplayName="GreatMine_04" trackMeshName="track_04_02" trackNumber="5" npcLevel="12" challengeLevel="5" GamePlayIndex="0">
+  <node gameplayId="5" gameplayName="GreatMine_04" trackMeshName="track_04_02" trackNumber="5" npcLevel="12" challengeLevel="12" GamePlayIndex="0" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="256" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="256" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -8441,7 +8412,7 @@
       <trigger name="Rugg" objectType="119" length="-25" trackId="4" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="6" gameplayName="GreatMine_05" trackMeshName="track_04_01" trackNumber="5" npcLevel="11" challengeLevel="6" GamePlayIndex="1">
+  <node gameplayId="6" gameplayName="GreatMine_05" trackMeshName="track_04_01" trackNumber="5" npcLevel="12" challengeLevel="12" GamePlayIndex="1" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Trigger" objectType="142" length="269" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Trigger" objectType="142" length="269" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -8661,7 +8632,7 @@
       <trigger name="Rugg" objectType="119" length="-35" trackId="3" hp="0" actionMode="4" closeDistance="25" skillCount="2" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="7" gameplayName="GreatMine_06" trackMeshName="track_04_03" trackNumber="5" npcLevel="14" challengeLevel="6" GamePlayIndex="2">
+  <node gameplayId="7" gameplayName="GreatMine_06" trackMeshName="track_04_03" trackNumber="5" npcLevel="13" challengeLevel="14" GamePlayIndex="2" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="0" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="12">
       <trigger name="Coin" objectType="101" length="50" trackId="4" TriggerIndex="0" />
       <trigger name="Coin" objectType="101" length="48" trackId="4" TriggerIndex="1" />
@@ -8834,7 +8805,7 @@
       <trigger name="Gino" objectType="114" length="-20" trackId="1" hp="0" actionMode="2" closeDistance="25" skillCount="1" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="8" gameplayName="GreatMine_07" trackMeshName="track_04_03" trackNumber="5" npcLevel="13" challengeLevel="8" GamePlayIndex="3">
+  <node gameplayId="8" gameplayName="GreatMine_07" trackMeshName="track_04_03" trackNumber="5" npcLevel="13" challengeLevel="13" GamePlayIndex="3" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="80" trackId="4" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="80" trackId="0" hp="0" offset="30" TriggerIndex="1" />
@@ -8951,8 +8922,8 @@
       <trigger name="Rugg" objectType="119" length="-35" trackId="1" hp="0" actionMode="2" closeDistance="25" skillCount="1" offset="30" TriggerIndex="0" />
       <trigger name="Rugg" objectType="119" length="-35" trackId="0" hp="0" actionMode="1" closeDistance="25" skillCount="1" offset="30" TriggerIndex="1" />
     </triggers>
-  </node>  
-  <node gameplayId="82" gameplayName="GreatMine_08" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="54" npcLevel="12" challengeLevel="9">
+  </node>
+  <node gameplayId="82" gameplayName="GreatMine_08" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="54" npcLevel="13" challengeLevel="13" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="5" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="1">
       <trigger name="Hurdle" objectType="142" length="9" trackId="2" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="9" trackId="0" hp="0" offset="30" TriggerIndex="1" />
@@ -9129,7 +9100,7 @@
       <trigger name="Sand_Monster" objectType="116" length="-30" trackId="3" hp="0" actionMode="1" closeDistance="20" skillCount="1" offset="30" TriggerIndex="1" />
     </triggers>
   </node>
-  <node gameplayId="10" gameplayName="GreatMine_09" trackMeshName="track_04_01" trackNumber="5" npcLevel="14" challengeLevel="9" GamePlayIndex="5">
+  <node gameplayId="10" gameplayName="GreatMine_09" trackMeshName="track_04_01" trackNumber="5" npcLevel="14" challengeLevel="14" GamePlayIndex="5" HardModeSpeed="1.5">
     <triggers groupName="HurdleTrigger" length="0" triggerType="7" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Hurdle" objectType="142" length="90" trackId="1" hp="0" offset="30" TriggerIndex="0" />
       <trigger name="Hurdle" objectType="142" length="90" trackId="3" hp="0" offset="30" TriggerIndex="1" />
@@ -9375,9 +9346,9 @@
       <trigger name="Sand_Monster" objectType="116" length="-35" trackId="2" hp="0" offset="30" TriggerIndex="1" />
       <trigger name="Sand_Monster" objectType="116" length="-35" trackId="3" hp="0" offset="30" TriggerIndex="2" />
     </triggers>
-  </node>  
+  </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第四关拾取模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="84" gameplayName="GreatMine_01_COL" trackMeshName="track_04_03" trackNumber="5" GamePlayIndex="70" npcLevel="11" challengeLevel="2">
+  <node gameplayId="84" gameplayName="GreatMine_01_COL" trackMeshName="track_04_03" trackNumber="5" GamePlayIndex="70" npcLevel="14" challengeLevel="14" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="6" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="8" trackId="3" hp="0" TriggerIndex="1" />
@@ -9498,7 +9469,7 @@
       <trigger name="Rotten_Apple" objectType="137" length="0" trackId="1" numSpawns="2" timeBetweenSpawns="0.2" pickupSpeed="15" hp="0" TriggerIndex="2" />
     </triggers>
   </node>
-  <node gameplayId="85" gameplayName="GreatMine_02_COL" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="71" npcLevel="12" challengeLevel="2">
+  <node gameplayId="85" gameplayName="GreatMine_02_COL" trackMeshName="track_04_02" trackNumber="5" GamePlayIndex="71" npcLevel="12" challengeLevel="14" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="10" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="12" trackId="3" hp="0" TriggerIndex="1" />
@@ -9678,7 +9649,7 @@
       <trigger name="Candy" objectType="124" length="-4" trackId="3" delayTime="1.4" pickupSpeed="15" hp="0" TriggerIndex="9" />
     </triggers>
   </node>
-  <node gameplayId="86" gameplayName="GreatMine_03_COL" trackMeshName="track_04_01" trackNumber="5" GamePlayIndex="72" npcLevel="13" challengeLevel="2">
+  <node gameplayId="86" gameplayName="GreatMine_03_COL" trackMeshName="track_04_01" trackNumber="5" GamePlayIndex="72" npcLevel="12" challengeLevel="14" HardModeSpeed="1.5">
     <triggers groupName="PickupTrigger" length="5" triggerType="1" isChaserTrigger="0" intervalTime="0" TriggerGroupIndex="0">
       <trigger name="Candy" objectType="123" length="8" trackId="3" hp="0" TriggerIndex="0" />
       <trigger name="Candy" objectType="123" length="10" trackId="3" hp="0" TriggerIndex="1" />
@@ -9902,7 +9873,7 @@
   </node>
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第四关时间模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
   <!-->－－－－－－－－－－－－－－－－－－－－－－－第四关boss模式－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="90" gameplayName="GreatMine_boss" trackMeshName="track_04_01" trackNumber="5" GamePlayIndex="76" npcLevel="15" challengeLevel="2">
+  <node gameplayId="90" gameplayName="GreatMine_boss" trackMeshName="track_04_01" trackNumber="5" GamePlayIndex="76" npcLevel="13" challengeLevel="15" HardModeSpeed="1.5">
     <triggers groupName="Boss" length="0" triggerType="6" isChaserTrigger="0" intervalTime="1" TriggerGroupIndex="0">
       <trigger name="BOSS_GRUPPY" objectType="139" length="0" trackId="2" hp="0" TriggerIndex="0" />
     </triggers>
@@ -9910,7 +9881,7 @@
   <!-->－－－－－－－－－－－－－－－－－－－－－－－special
   
   模式－－－－－－－－－－－－－－－－－－－－－－－－－－－<-->
-  <node gameplayId="91" gameplayName="gameplay_05_02_Collect_sp" trackMeshName="Trk05_Special" trackNumber="5" GamePlayIndex="77" gamePlayMode="1" groupCount="0">
+  <node gameplayId="91" gameplayName="gameplay_05_02_Collect_sp" trackMeshName="Trk05_Special" trackNumber="5" GamePlayIndex="77" gamePlayMode="1" groupCount="0" HardModeSpeed="1.5" npcLevel="5" challengeLevel="5">
     <triggers groupName="RandomTrigger" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
       <!--      <trigger name="HealthUp" objectType="130" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />
       <trigger name="EnergyUp" objectType="122" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" delayTime="0" pickupSpeed="25" hp="0" TriggerIndex="1" />
@@ -9956,7 +9927,7 @@
       <member memberGamePlayName="CloudSea_09" />
     </groupGamePlay>
   </node>
-  <node gameplayId="92" gameplayName="gameplay_01_02_Collect_sp" trackNumber="5" GamePlayIndex="78" gamePlayMode="1">
+  <node gameplayId="92" gameplayName="gameplay_01_02_Collect_sp" trackNumber="5" GamePlayIndex="78" gamePlayMode="1" HardModeSpeed="1.5" npcLevel="9" challengeLevel="9">
     <triggers groupName="RandomTrigger" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
       <trigger name="HealthUp" objectType="130" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />
       <trigger name="EnergyUp" objectType="122" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="1" />
@@ -9994,7 +9965,7 @@
       <member memberGamePlayName="SouthValley_09" />
     </groupGamePlay>
   </node>
-  <node gameplayId="93" gameplayName="gameplay_02_02_Collect_sp" trackNumber="5" GamePlayIndex="79" gamePlayMode="1">
+  <node gameplayId="93" gameplayName="gameplay_02_02_Collect_sp" trackNumber="5" GamePlayIndex="79" gamePlayMode="1" HardModeSpeed="1.5" npcLevel="11" challengeLevel="11">
     <triggers groupName="RandomTrigger" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
       <trigger name="PICKUP_AddStamina_01" objectType="128" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />
       <trigger name="PICKUP_BladeStorm_01" objectType="131" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />
@@ -10035,7 +10006,7 @@
       <member memberGamePlayName="RedDesert_09" />
     </groupGamePlay>
   </node>
-  <node gameplayId="94" gameplayName="gameplay_04_02_Collect_sp" trackNumber="5" GamePlayIndex="80" gamePlayMode="1">
+  <node gameplayId="94" gameplayName="gameplay_04_02_Collect_sp" trackNumber="5" GamePlayIndex="80" gamePlayMode="1" HardModeSpeed="1.5" npcLevel="14" challengeLevel="14">
     <triggers groupName="RandomTrigger" triggerType="1" isChaserTrigger="0" TriggerGroupIndex="0">
       <trigger name="PICKUP_AddStamina_01" objectType="128" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />
       <trigger name="PICKUP_BladeStorm_01" objectType="131" length="0" trackId="-1" numSpawns="1" timeBetweenSpawns="0.2" pickupSpeed="25" hp="0" TriggerIndex="0" />

@@ -4,274 +4,274 @@
 <!--costType :  0 coin 1 crystal-->
 
 <root>
-    <node ID="104" level="1"  HP="5"  attack="5"  rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" description="野猪飞" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="2"  HP="8"  attack="8"  rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="3"  HP="13"  attack="12"  rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="4"  HP="19"  attack="17"  rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="5"  HP="26"  attack="23"  rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="6"  HP="33"  attack="29"  rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="7"  HP="41"  attack="35"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="8"  HP="51"  attack="42"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="9"  HP="61"  attack="50"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="10" HP="72" attack="58"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="11" HP="84" attack="67"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="12" HP="97" attack="77"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="13" HP="111" attack="87"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="14" HP="125" attack="98"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
-    <node ID="104" level="15" HP="141" attack="110"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.5"/>
+    <node ID="104" level="1"  HP="5"  attack="5"  rewardTime="2"    reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" description="野猪飞" recoverMonsterSkillTime="0.5"/>
+    <node ID="104" level="2"  HP="8"  attack="8"  rewardTime="2"    reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.4"/>
+    <node ID="104" level="3"  HP="13"  attack="12"  rewardTime="2"  reduceTime="1.5" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.3"/>
+    <node ID="104" level="4"  HP="19"  attack="17"  rewardTime="2"  reduceTime="1.5" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.2"/>
+    <node ID="104" level="5"  HP="26"  attack="23"  rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.1"/>
+    <node ID="104" level="6"  HP="33"  attack="29"  rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="7"  HP="41"  attack="35"  rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="8"  HP="51"  attack="42"  rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="9"  HP="61"  attack="50"  rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="10" HP="72" attack="58"  rewardTime="2"   reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="11" HP="84" attack="67"  rewardTime="2"   reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="12" HP="97" attack="77"  rewardTime="2"   reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="13" HP="111" attack="87"  rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="14" HP="125" attack="98"  rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
+    <node ID="104" level="15" HP="141" attack="110"  rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly" recoverMonsterSkillTime="0.0"/>
 
 
-  <node ID="105" level="1"    HP="8" attack="6"  rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" description="野猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="2"  HP="16"  attack="10" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="3"  HP="25"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="4"  HP="34"  attack="21" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="5"  HP="44"  attack="28" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="6"  HP="54"  attack="35" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="7"  HP="64"  attack="42" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="8"  HP="75"  attack="50" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="9"  HP="86"  attack="59" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="10" HP="97"  attack="69" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="11" HP="109" attack="79" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="12" HP="122" attack="89" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="13" HP="135" attack="100" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="14" HP="148" attack="112" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
-  <node ID="105" level="15" HP="162" attack="124" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.5"/>
+  <node ID="105" level="1"    HP="8" attack="6"  rewardTime="2"  reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" description="野猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="105" level="2"  HP="16"  attack="10" rewardTime="2"  reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.4"/>
+  <node ID="105" level="3"  HP="25"  attack="15" rewardTime="2"  reduceTime="1.5" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.3"/>
+  <node ID="105" level="4"  HP="34"  attack="21" rewardTime="2"  reduceTime="1.5" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.2"/>
+  <node ID="105" level="5"  HP="44"  attack="28" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.1"/>
+  <node ID="105" level="6"  HP="54"  attack="35" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0.0"/>
+  <node ID="105" level="7"  HP="64"  attack="42" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="8"  HP="75"  attack="50" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="9"  HP="86"  attack="59" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="10" HP="97"  attack="69" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="11" HP="109" attack="79" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="12" HP="122" attack="89" rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="13" HP="135" attack="100" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="14" HP="148" attack="112" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
+  <node ID="105" level="15" HP="162" attack="124" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar" recoverMonsterSkillTime="0"/>
 
-  <node ID="111" level="1"  HP="8"  attack="6" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" description="火焰野猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="2"  HP="16"   attack="11" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="3"  HP="25"   attack="18" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="4"  HP="34"   attack="25" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="5"  HP="44"   attack="33" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="6"  HP="55"   attack="42" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="7"  HP="66"   attack="51" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="8"  HP="77"   attack="62" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="9"  HP="89"   attack="73" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="10" HP="101"  attack="84" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="11" HP="114"  attack="97" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="12" HP="127"  attack="110" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="13" HP="141"  attack="124" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="14" HP="155"  attack="139" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
-  <node ID="111" level="15" HP="170"  attack="154" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.5"/>
+  <node ID="111" level="1"  HP="8"  attack="6" rewardTime="2"     reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" description="火焰野猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="111" level="2"  HP="16"   attack="11" rewardTime="2"  reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.4"/>
+  <node ID="111" level="3"  HP="25"   attack="18" rewardTime="2"  reduceTime="1.5" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.3"/>
+  <node ID="111" level="4"  HP="34"   attack="25" rewardTime="2"  reduceTime="1.5" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.2"/>
+  <node ID="111" level="5"  HP="44"   attack="33" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.1"/>
+  <node ID="111" level="6"  HP="55"   attack="42" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="7"  HP="66"   attack="51" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="8"  HP="77"   attack="62" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="9"  HP="89"   attack="73" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="10" HP="101"  attack="84" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="11" HP="114"  attack="97" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="12" HP="127"  attack="110" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="13" HP="141"  attack="124" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="14" HP="155"  attack="139" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+  <node ID="111" level="15" HP="170"  attack="154" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
    
 
-    <node ID="113" level="1"   HP="8" attack="6" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" description="穿鞋的基佬" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="2"   HP="15" attack="10" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="3"   HP="22" attack="16" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="4"   HP="30" attack="22" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="5"   HP="38" attack="30" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="6"   HP="46" attack="38" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="7"   HP="54" attack="46" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="8"   HP="62" attack="56" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="9"   HP="71" attack="66" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="10"  HP="80" attack="77" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="11"  HP="89" attack="89" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="12"  HP="98" attack="102" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="13"  HP="108" attack="116" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="14"  HP="118" attack="130" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>
-    <node ID="113" level="15"  HP="128" attack="146" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.5"/>  
+    <node ID="113" level="1"   HP="8" attack="6" rewardTime="2"     reduceTime="1"  maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" description="穿鞋的基佬" recoverMonsterSkillTime="0.5"/>
+    <node ID="113" level="2"   HP="15" attack="10" rewardTime="2"   reduceTime="1"  maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.4"/>
+    <node ID="113" level="3"   HP="22" attack="16" rewardTime="2"   reduceTime="1.5" maxSpeed="17" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.3"/>
+    <node ID="113" level="4"   HP="30" attack="22" rewardTime="2"   reduceTime="1.5" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.2"/>
+    <node ID="113" level="5"   HP="38" attack="30" rewardTime="2"   reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0.1"/>
+    <node ID="113" level="6"   HP="46" attack="38" rewardTime="2"   reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="7"   HP="54" attack="46" rewardTime="2"   reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="8"   HP="62" attack="56" rewardTime="2"   reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="9"   HP="71" attack="66" rewardTime="2"   reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="10"  HP="80" attack="77" rewardTime="2"   reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="11"  HP="89" attack="89" rewardTime="2"   reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="12"  HP="98" attack="102" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="13"  HP="108" attack="116" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="14"  HP="118" attack="130" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>
+    <node ID="113" level="15"  HP="128" attack="146" rewardTime="2" reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Shoes" recoverMonsterSkillTime="0"/>  
   
   
-  <node ID="114" level="1"    HP="8" attack="6" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" description="穿盔甲的基佬" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="2"  HP="15"  attack="11" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="3"  HP="23"  attack="17" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="4"  HP="31"  attack="24" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="5"  HP="39"  attack="32" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="6"  HP="48"  attack="41" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="7"  HP="57"  attack="51" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="8"  HP="66"  attack="62" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="9"  HP="76"  attack="74" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="10" HP="86"  attack="87" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="11" HP="97"  attack="101" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="12" HP="108" attack="116" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="13" HP="119" attack="132" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="14" HP="130" attack="149" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>
-  <node ID="114" level="15" HP="142" attack="167" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.5"/>  
+  <node ID="114" level="1"    HP="8" attack="6" rewardTime="2"   reduceTime="1"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" description="穿盔甲的基佬" recoverMonsterSkillTime="0.5"/>
+  <node ID="114" level="2"  HP="15"  attack="11" rewardTime="2"  reduceTime="1"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.4"/>
+  <node ID="114" level="3"  HP="23"  attack="17" rewardTime="2"  reduceTime="1.5" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.3"/>
+  <node ID="114" level="4"  HP="31"  attack="24" rewardTime="2"  reduceTime="1.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.2"/>
+  <node ID="114" level="5"  HP="39"  attack="32" rewardTime="2"  reduceTime="2"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0.1"/>
+  <node ID="114" level="6"  HP="48"  attack="41" rewardTime="2"  reduceTime="2"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="7"  HP="57"  attack="51" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="8"  HP="66"  attack="62" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="9"  HP="76"  attack="74" rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="10" HP="86"  attack="87" rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="11" HP="97"  attack="101" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="12" HP="108" attack="116" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="13" HP="119" attack="132" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="14" HP="130" attack="149" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>
+  <node ID="114" level="15" HP="142" attack="167" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Gino_Armor" recoverMonsterSkillTime="0"/>  
  
  
-  <node ID="115" level="1"  HP="8"   attack="6" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Ball_Spike" description="司考披的爪子" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="2"  HP="11"  attack="11" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="3"  HP="14"  attack="17" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="4"  HP="18"  attack="24" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="5"  HP="23"  attack="32" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="6"  HP="27"  attack="41" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="7"  HP="32"  attack="51" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="8"  HP="37"  attack="62" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="9"  HP="42"  attack="74" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="10" HP="48"  attack="87" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="11" HP="54"  attack="101" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="12" HP="60"  attack="116" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="13" HP="67"  attack="132" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="14" HP="74"  attack="149" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
-  <node ID="115" level="15" HP="81"  attack="167" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="1"  HP="8"   attack="6" rewardTime="2"    reduceTime="1"  maxSpeed="20"   closeSpeed="22" prefab="A_Npc_Ball_Spike" description="司考披的爪子" recoverMonsterSkillTime="0.5"/>
+  <node ID="115" level="2"  HP="11"  attack="11" rewardTime="2"   reduceTime="1"  maxSpeed="20"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0.4"/>
+  <node ID="115" level="3"  HP="14"  attack="17" rewardTime="2"   reduceTime="1.5" maxSpeed="20"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0.3"/>
+  <node ID="115" level="4"  HP="18"  attack="24" rewardTime="2"   reduceTime="1.5" maxSpeed="21"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0.2"/>
+  <node ID="115" level="5"  HP="23"  attack="32" rewardTime="2"   reduceTime="2"  maxSpeed="21"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0.1"/>
+  <node ID="115" level="6"  HP="27"  attack="41" rewardTime="2"   reduceTime="2"  maxSpeed="21"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="7"  HP="32"  attack="51" rewardTime="2"   reduceTime="2.5" maxSpeed="22"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="8"  HP="37"  attack="62" rewardTime="2"   reduceTime="2.5" maxSpeed="22"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="9"  HP="42"  attack="74" rewardTime="2"   reduceTime="3"  maxSpeed="22"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="10" HP="48"  attack="87" rewardTime="2"   reduceTime="3"  maxSpeed="22"  closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="11" HP="54"  attack="101" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="12" HP="60"  attack="116" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="13" HP="67"  attack="132" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="14" HP="74"  attack="149" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
+  <node ID="115" level="15" HP="81"  attack="167" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Ball_Spike" recoverMonsterSkillTime="0"/>
 
 
-  <node ID="116" level="1"     HP="8"   attack="8" rewardTime="2" reduceTime="1" maxSpeed="25" closeSpeed="0" prefab="A_NPC_SandMonster" description="沙虫" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="2"   HP="14"  attack="13" rewardTime="2" reduceTime="1" maxSpeed="25" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="3"   HP="22"  attack="20" rewardTime="2" reduceTime="1" maxSpeed="25" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="4"   HP="32"  attack="29" rewardTime="2" reduceTime="1" maxSpeed="25" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="5"   HP="43"  attack="39" rewardTime="2" reduceTime="1" maxSpeed="25" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="6"   HP="55"  attack="50" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="7"   HP="69"  attack="63" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="8"   HP="85"  attack="78" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="9"   HP="102" attack="94" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="10"  HP="120" attack="111" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="11"  HP="140" attack="130" rewardTime="2" reduceTime="1" maxSpeed="28" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="12"  HP="161" attack="151" rewardTime="2" reduceTime="1" maxSpeed="29" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="13"  HP="184" attack="172" rewardTime="2" reduceTime="1" maxSpeed="29" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="14"  HP="209" attack="196" rewardTime="2" reduceTime="1" maxSpeed="29" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
-  <node ID="116" level="15"  HP="235" attack="221" rewardTime="2" reduceTime="1" maxSpeed="29" closeSpeed="0" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="1"     HP="8"   attack="8" rewardTime="2" reduceTime="1"  maxSpeed="25" closeSpeed="29" prefab="A_NPC_SandMonster" description="沙虫" recoverMonsterSkillTime="0.5"/>
+  <node ID="116" level="2"   HP="14"  attack="13" rewardTime="2"  reduceTime="1"  maxSpeed="25"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0.4"/>
+  <node ID="116" level="3"   HP="22"  attack="20" rewardTime="2"  reduceTime="1.5" maxSpeed="25"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0.3"/>
+  <node ID="116" level="4"   HP="32"  attack="29" rewardTime="2"  reduceTime="1.5" maxSpeed="25"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0.2"/>
+  <node ID="116" level="5"   HP="43"  attack="39" rewardTime="2"  reduceTime="2"  maxSpeed="25"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0.1"/>
+  <node ID="116" level="6"   HP="55"  attack="50" rewardTime="2"  reduceTime="2"  maxSpeed="28"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="7"   HP="69"  attack="63" rewardTime="2"  reduceTime="2.5" maxSpeed="28"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="8"   HP="85"  attack="78" rewardTime="2"  reduceTime="2.5" maxSpeed="28"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="9"   HP="102" attack="94" rewardTime="2"  reduceTime="3"  maxSpeed="28"  closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="10"  HP="120" attack="111" rewardTime="2" reduceTime="3"  maxSpeed="28" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="11"  HP="140" attack="130" rewardTime="2" reduceTime="3"  maxSpeed="28" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="12"  HP="161" attack="151" rewardTime="2" reduceTime="3"  maxSpeed="29" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="13"  HP="184" attack="172" rewardTime="2" reduceTime="3"  maxSpeed="29" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="14"  HP="209" attack="196" rewardTime="2" reduceTime="3"  maxSpeed="29" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
+  <node ID="116" level="15"  HP="235" attack="221" rewardTime="2" reduceTime="3"  maxSpeed="29" closeSpeed="29" prefab="A_NPC_SandMonster" recoverMonsterSkillTime="0"/>
     
-    <node ID="117" level="1" HP="28" attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" description="石头猪" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="2" HP="42" attack="18" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="3" HP="56" attack="21" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="4" HP="70" attack="24" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="5" HP="84" attack="27" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="6" HP="98" attack="30" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="7" HP="112" attack="33" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="8" HP="126" attack="36" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="9" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="10" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="11" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="12" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="13" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="14" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
-    <node ID="117" level="15" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.5"/>
+    <node ID="117" level="1" HP="28" attack="15" rewardTime="2"   reduceTime="1"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" description="石头猪" recoverMonsterSkillTime="0.5"/>
+    <node ID="117" level="2" HP="42" attack="18" rewardTime="2"   reduceTime="1"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.4"/>
+    <node ID="117" level="3" HP="56" attack="21" rewardTime="2"   reduceTime="1.5" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.3"/>
+    <node ID="117" level="4" HP="70" attack="24" rewardTime="2"   reduceTime="1.5" maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.2"/>
+    <node ID="117" level="5" HP="84" attack="27" rewardTime="2"   reduceTime="2"  maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0.1"/>
+    <node ID="117" level="6" HP="98" attack="30" rewardTime="2"   reduceTime="2"  maxSpeed="19" closeSpeed="11" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="7" HP="112" attack="33" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="8" HP="126" attack="36" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="9" HP="140" attack="39" rewardTime="2"  reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="10" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="11" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="12" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="13" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="14" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
+    <node ID="117" level="15" HP="140" attack="39" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocker" recoverMonsterSkillTime="0"/>
     
-    <node ID="118" level="1" HP="30" attack="24" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" description="石头基佬" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="2" HP="52" attack="27" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="3" HP="74" attack="30" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="4" HP="96" attack="33" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="5" HP="118" attack="36" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="6" HP="140" attack="39" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="7" HP="162" attack="42" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="8" HP="184" attack="45" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="9" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="10" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="11" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="12" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="13" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="14" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
-    <node ID="118" level="15" HP="206" attack="48" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.5"/>
+    <node ID="118" level="1" HP="30" attack="24" rewardTime="2"   reduceTime="1"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" description="石头基佬" recoverMonsterSkillTime="0.5"/>
+    <node ID="118" level="2" HP="52" attack="27" rewardTime="2"   reduceTime="1"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.4"/>
+    <node ID="118" level="3" HP="74" attack="30" rewardTime="2"   reduceTime="1.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.3"/>
+    <node ID="118" level="4" HP="96" attack="33" rewardTime="2"   reduceTime="1.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.2"/>
+    <node ID="118" level="5" HP="118" attack="36" rewardTime="2"  reduceTime="2"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0.1"/>
+    <node ID="118" level="6" HP="140" attack="39" rewardTime="2"  reduceTime="2"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="7" HP="162" attack="42" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="8" HP="184" attack="45" rewardTime="2"  reduceTime="2.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="9" HP="206" attack="48" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="10" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="11" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="12" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="13" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="14" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
+    <node ID="118" level="15" HP="206" attack="48" rewardTime="2" reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rocky" recoverMonsterSkillTime="0"/>
 
 
   
   
 
-  <node ID="119" level="1"  HP="8"   attack="8" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" description="扛石头怪" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="2"  HP="16"  attack="13" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="3"  HP="25"  attack="20" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="4"  HP="34"  attack="27" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="5"  HP="44"  attack="35" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="6"  HP="54"  attack="44" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="7"  HP="64"  attack="53" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="8"  HP="75"  attack="64" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="9"  HP="86"  attack="75" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="10" HP="97"  attack="86" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="11" HP="109" attack="99" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="12" HP="122" attack="112" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="13" HP="135" attack="126" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="14" HP="148" attack="141" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
-  <node ID="119" level="15" HP="162" attack="156" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.5"/>
+  <node ID="119" level="1"  HP="8"   attack="8" rewardTime="2"    reduceTime="1"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" description="扛石头怪" recoverMonsterSkillTime="0.5"/>
+  <node ID="119" level="2"  HP="16"  attack="13" rewardTime="2"   reduceTime="1"  maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.4"/>
+  <node ID="119" level="3"  HP="25"  attack="20" rewardTime="2"   reduceTime="1.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.3"/>
+  <node ID="119" level="4"  HP="34"  attack="27" rewardTime="2"   reduceTime="1.5" maxSpeed="20" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.2"/>
+  <node ID="119" level="5"  HP="44"  attack="35" rewardTime="2"   reduceTime="2"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0.1"/>
+  <node ID="119" level="6"  HP="54"  attack="44" rewardTime="2"   reduceTime="2"  maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="7"  HP="64"  attack="53" rewardTime="2"   reduceTime="2.5" maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="8"  HP="75"  attack="64" rewardTime="2"   reduceTime="2.5" maxSpeed="22" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="9"  HP="86"  attack="75" rewardTime="2"   reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="10" HP="97"  attack="86" rewardTime="2"   reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="11" HP="109" attack="99" rewardTime="2"   reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="12" HP="122" attack="112" rewardTime="2"  reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="13" HP="135" attack="126" rewardTime="2"  reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="14" HP="148" attack="141" rewardTime="2"  reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
+  <node ID="119" level="15" HP="162" attack="156" rewardTime="2"  reduceTime="3"  maxSpeed="24" closeSpeed="12" prefab="A_Npc_Rugg" recoverMonsterSkillTime="0"/>
 
 
 
-  <node ID="134" level="1"     HP="5"   attack="8" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" description="蓝色的忧郁小猪" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="2"   HP="15"  attack="13" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="3"   HP="25"  attack="18" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="4"   HP="36"  attack="24" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="5"   HP="47"  attack="31" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="6"   HP="58"  attack="38" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="7"   HP="69"  attack="45" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="8"   HP="80"  attack="53" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="9"   HP="92"  attack="61" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="10"  HP="104" attack="70" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="11"  HP="115" attack="80" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="12"  HP="128" attack="90" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="13"  HP="140" attack="100" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="14"  HP="153" attack="112" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
-  <node ID="134" level="15"  HP="165" attack="123" rewardTime="2" reduceTime="1" maxSpeed="23" closeSpeed="0" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="1"     HP="5"   attack="8" rewardTime="2" reduceTime="1"  maxSpeed="23" closeSpeed="23" prefab="A_Npc_Boar_fly_Small" description="蓝色的忧郁小猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="134" level="2"   HP="15"  attack="13" rewardTime="2"  reduceTime="1"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0.4"/>
+  <node ID="134" level="3"   HP="25"  attack="18" rewardTime="2"  reduceTime="1.5" maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0.3"/>
+  <node ID="134" level="4"   HP="36"  attack="24" rewardTime="2"  reduceTime="1.5" maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0.2"/>
+  <node ID="134" level="5"   HP="47"  attack="31" rewardTime="2"  reduceTime="2"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0.1"/>
+  <node ID="134" level="6"   HP="58"  attack="38" rewardTime="2"  reduceTime="2"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="7"   HP="69"  attack="45" rewardTime="2"  reduceTime="2.5" maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="8"   HP="80"  attack="53" rewardTime="2"  reduceTime="2.5" maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="9"   HP="92"  attack="61" rewardTime="2"  reduceTime="3"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="10"  HP="104" attack="70" rewardTime="2"  reduceTime="3"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="11"  HP="115" attack="80" rewardTime="2"  reduceTime="3"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="12"  HP="128" attack="90" rewardTime="2"  reduceTime="3"  maxSpeed="23"  closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="13"  HP="140" attack="100" rewardTime="2" reduceTime="3"  maxSpeed="23" closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="14"  HP="153" attack="112" rewardTime="2" reduceTime="3"  maxSpeed="23" closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
+  <node ID="134" level="15"  HP="165" attack="123" rewardTime="2" reduceTime="3"  maxSpeed="23" closeSpeed="23" prefab="A_Npc_Boar_fly_Small" recoverMonsterSkillTime="0"/>
 
   
 
-  <node ID="135" level="1"    HP="8" attack="7" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" description="闪电猪" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="2"  HP="16"  attack="18" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="3"  HP="25"  attack="29" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="4"  HP="34"  attack="40" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="5"  HP="44"  attack="51" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="6"  HP="55"  attack="62" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="7"  HP="66"  attack="73" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="8"  HP="77"  attack="84" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="9"  HP="89"  attack="95" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="10" HP="101" attack="106" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="11" HP="114" attack="117" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="12" HP="127" attack="128" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="13" HP="141" attack="139" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="14" HP="155" attack="150" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-  <node ID="135" level="15" HP="170" attack="161" rewardTime="2" reduceTime="1" maxSpeed="21" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="1"    HP="8" attack="7" rewardTime="2"  reduceTime="1"  maxSpeed="19" closeSpeed="19" prefab="A_Npc_Boar_fly_Electric" description="闪电猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="135" level="2"  HP="16"  attack="18" rewardTime="2" reduceTime="1"  maxSpeed="19" closeSpeed="19" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.4"/>
+  <node ID="135" level="3"  HP="25"  attack="29" rewardTime="2" reduceTime="1.5" maxSpeed="19" closeSpeed="19" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.3"/>
+  <node ID="135" level="4"  HP="34"  attack="40" rewardTime="2" reduceTime="1.5" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.2"/>
+  <node ID="135" level="5"  HP="44"  attack="51" rewardTime="2" reduceTime="2"  maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.1"/>
+  <node ID="135" level="6"  HP="55"  attack="62" rewardTime="2" reduceTime="2"  maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="7"  HP="66"  attack="73" rewardTime="2" reduceTime="2.5" maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="8"  HP="77"  attack="84" rewardTime="2" reduceTime="2.5" maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="9"  HP="89"  attack="95" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="10" HP="101" attack="106" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="11" HP="114" attack="117" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="12" HP="127" attack="128" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="13" HP="141" attack="139" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="14" HP="155" attack="150" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+  <node ID="135" level="15" HP="170" attack="161" rewardTime="2" reduceTime="3"  maxSpeed="21" closeSpeed="21" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
 
-  <node ID="136" level="1"  HP="5"   attack="10" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="2"  HP="13"  attack="16" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="3"  HP="21"  attack="22" rewardTime="2" reduceTime="1" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="4"  HP="31"  attack="29" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="5"  HP="41"  attack="37" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="6"  HP="53"  attack="46" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="7"  HP="65"  attack="55" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="8"  HP="77"  attack="64" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="9"  HP="91"  attack="74" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="10" HP="105" attack="85" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="11" HP="120" attack="96" rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="12" HP="136" attack="108" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="13" HP="153" attack="121" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="14" HP="171" attack="134" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
-  <node ID="136" level="15" HP="189" attack="148" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="136" level="1"  HP="5"   attack="10" rewardTime="2"  reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.5"/>
+  <node ID="136" level="2"  HP="13"  attack="16" rewardTime="2"  reduceTime="1"  maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.4"/>
+  <node ID="136" level="3"  HP="21"  attack="22" rewardTime="2"  reduceTime="1.5" maxSpeed="17" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.3"/>
+  <node ID="136" level="4"  HP="31"  attack="29" rewardTime="2"  reduceTime="1.5" maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.2"/>
+  <node ID="136" level="5"  HP="41"  attack="37" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="11" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0.1"/>
+  <node ID="136" level="6"  HP="53"  attack="46" rewardTime="2"  reduceTime="2"  maxSpeed="18" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="7"  HP="65"  attack="55" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="8"  HP="77"  attack="64" rewardTime="2"  reduceTime="2.5" maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="9"  HP="91"  attack="74" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="10" HP="105" attack="85" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="11" HP="120" attack="96" rewardTime="2"  reduceTime="3"  maxSpeed="19" closeSpeed="12" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="12" HP="136" attack="108" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="13" HP="153" attack="121" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="14" HP="171" attack="134" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
+  <node ID="136" level="15" HP="189" attack="148" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="13" prefab="A_Npc_Boar_fly_Gold" description="黄金猪" recoverMonsterSkillTime="0"/>
     
-    <node ID="140" level="1" HP="10" attack="10" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" description="小型旋风小怪" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="2" HP="20" attack="13" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="3" HP="30" attack="16" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="4" HP="40" attack="19" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="5" HP="50" attack="22" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="6" HP="60" attack="25" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="7" HP="70" attack="28" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="8" HP="80" attack="31" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="9" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="10" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="11" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="12" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="13" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="14" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
-    <node ID="140" level="15" HP="90" attack="34" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="1" HP="10" attack="10" rewardTime="2"  reduceTime="1"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" description="小型旋风小怪" recoverMonsterSkillTime="0.5"/>
+    <node ID="140" level="2" HP="20" attack="13" rewardTime="2"  reduceTime="1"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.4"/>
+    <node ID="140" level="3" HP="30" attack="16" rewardTime="2"  reduceTime="1.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.3"/>
+    <node ID="140" level="4" HP="40" attack="19" rewardTime="2"  reduceTime="1.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.2"/>
+    <node ID="140" level="5" HP="50" attack="22" rewardTime="2"  reduceTime="2"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0.1"/>
+    <node ID="140" level="6" HP="60" attack="25" rewardTime="2"  reduceTime="2"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="7" HP="70" attack="28" rewardTime="2"  reduceTime="2.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="8" HP="80" attack="31" rewardTime="2"  reduceTime="2.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="9" HP="90" attack="34" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="10" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="11" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="12" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="13" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="14" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
+    <node ID="140" level="15" HP="90" attack="34" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_fly_Electric" recoverMonsterSkillTime="0"/>
     
-    <node ID="141" level="1" HP="10" attack="10" rewardTime="2" reduceTime="1" maxSpeed="2" closeSpeed="0" prefab="A_Npc_Boar_Angry" description="大型旋风小怪" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="2" HP="20" attack="15" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="3" HP="30" attack="20" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="4" HP="40" attack="25" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="5" HP="50" attack="30" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="6" HP="60" attack="35" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="7" HP="70" attack="40" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="8" HP="80" attack="45" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="9" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="10" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="11" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="12" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="13" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="14" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
-    <node ID="141" level="15" HP="90" attack="50" rewardTime="2" reduceTime="1" maxSpeed="22" closeSpeed="0" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="1" HP="10" attack="10" rewardTime="2"  reduceTime="1"  maxSpeed="2" closeSpeed="22" prefab="A_Npc_Boar_Angry" description="大型旋风小怪" recoverMonsterSkillTime="0.5"/>
+    <node ID="141" level="2" HP="20" attack="15" rewardTime="2"  reduceTime="1"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.4"/>
+    <node ID="141" level="3" HP="30" attack="20" rewardTime="2"  reduceTime="1.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.3"/>
+    <node ID="141" level="4" HP="40" attack="25" rewardTime="2"  reduceTime="1.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.2"/>
+    <node ID="141" level="5" HP="50" attack="30" rewardTime="2"  reduceTime="2"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0.1"/>
+    <node ID="141" level="6" HP="60" attack="35" rewardTime="2"  reduceTime="2"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="7" HP="70" attack="40" rewardTime="2"  reduceTime="2.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="8" HP="80" attack="45" rewardTime="2"  reduceTime="2.5" maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="9" HP="90" attack="50" rewardTime="2"  reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="10" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="11" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="12" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="13" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="14" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
+    <node ID="141" level="15" HP="90" attack="50" rewardTime="2" reduceTime="3"  maxSpeed="22" closeSpeed="22" prefab="A_Npc_Boar_Angry" recoverMonsterSkillTime="0"/>
     
-    <node ID="143" level="1" HP="10"   attack="6"   rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="2" HP="20"   attack="10"  rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="3" HP="30"   attack="15"  rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="4" HP="30"   attack="21"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="5" HP="30"   attack="28"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="6" HP="30"   attack="35"  rewardTime="2" reduceTime="1" maxSpeed="19" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="7" HP="30"   attack="42"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="8" HP="30"   attack="50"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="9" HP="30"   attack="59"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="10" HP="30"  attack="69"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="11" HP="30"  attack="79"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="12" HP="30"  attack="89"  rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="13" HP="30"  attack="100" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="14" HP="30"  attack="112" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
-    <node ID="143" level="15" HP="30"  attack="124" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="0" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="1" HP="10"   attack="6"   rewardTime="2" reduceTime="1"  maxSpeed="18" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="2" HP="20"   attack="10"  rewardTime="2" reduceTime="1"  maxSpeed="18" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="3" HP="30"   attack="15"  rewardTime="2" reduceTime="1.5" maxSpeed="18" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="4" HP="30"   attack="21"  rewardTime="2" reduceTime="1.5" maxSpeed="19" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="5" HP="30"   attack="28"  rewardTime="2" reduceTime="2"  maxSpeed="19" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="6" HP="30"   attack="35"  rewardTime="2" reduceTime="2"  maxSpeed="19" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="7" HP="30"   attack="42"  rewardTime="2" reduceTime="2.5" maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="8" HP="30"   attack="50"  rewardTime="2" reduceTime="2.5" maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="9" HP="30"   attack="59"  rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="10" HP="30"  attack="69"  rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="11" HP="30"  attack="79"  rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="12" HP="30"  attack="89"  rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="13" HP="30"  attack="100" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="14" HP="30"  attack="112" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
+    <node ID="143" level="15" HP="30"  attack="124" rewardTime="2" reduceTime="3"  maxSpeed="20" closeSpeed="18" prefab="A_Npc_flyfish_attack" description="飞机" recoverMonsterSkillTime="0"/>
 
 
  
@@ -339,19 +339,33 @@
     <node ID="174" level="14" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
     <node ID="174" level="15" HP="36" attack="20" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Bird" description="飞鸟" recoverMonsterSkillTime="0"/>
   
-  <node ID="176" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="2"  HP="33"  attack="21" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="3"  HP="48"  attack="28" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="4"  HP="65" attack="36" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="5"  HP="84" attack="45" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="6"  HP="105" attack="55" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="7"  HP="128" attack="66" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="8"  HP="153" attack="77" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="9"  HP="179" attack="90" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="10" HP="208" attack="104" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="11" HP="239" attack="119" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="12" HP="272" attack="135" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="13" HP="307" attack="152" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="14" HP="344" attack="170" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
-  <node ID="176" level="15" HP="384" attack="190" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="2"  HP="33"  attack="21" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="3"  HP="48"  attack="28" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="4"  HP="65" attack="36" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="5"  HP="84" attack="45" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="6"  HP="105" attack="55" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="18" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="7"  HP="128" attack="66" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="8"  HP="153" attack="77" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="9"  HP="179" attack="90" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="10" HP="208" attack="104" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="11" HP="239" attack="119" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="12" HP="272" attack="135" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="13" HP="307" attack="152" rewardTime="2" reduceTime="1" maxSpeed="20" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="14" HP="344" attack="170" rewardTime="2" reduceTime="1" maxSpeed="24" closeSpeed="20" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="176" level="15" HP="384" attack="190" rewardTime="2" reduceTime="1" maxSpeed="24" closeSpeed="24" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+
+
+
+  <node ID="1001" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1002" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1003" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1004" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1005" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1006" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1007" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1008" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1009" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  <node ID="1010" level="1"  HP="20"  attack="15" rewardTime="2" reduceTime="1" maxSpeed="18" closeSpeed="0" prefab="A_Npc_Boar_fly_King" description="猪王" recoverMonsterSkillTime="0"/>
+  
 </root>

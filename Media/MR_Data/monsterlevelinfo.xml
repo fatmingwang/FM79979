@@ -6,36 +6,36 @@
   <node ID="1001" level="1"  exp="30" point="1" stamina="20" levelSpeed="1" powerUpId="1"   coinCost="0" skillCD="20"/>
   <node ID="1001" level="2"	 exp="69" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="100"   timeCost="60"	  crystalCost="1"    skillCD="20"/>
   <node ID="1001" level="3"	 exp="111" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="230"   timeCost="180"	  crystalCost="1"    skillCD="20"/>
-  <node ID="1001" level="4"	 exp="165" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="390"   timeCost="720"	  crystalCost="5"    skillCD="20"/>
-  <node ID="1001" level="5"	 exp="240" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="580"   timeCost="1740"  crystalCost="12"   skillCD="20"/>
-  <node ID="1001" level="6"	 exp="340" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="800"   timeCost="3240"  crystalCost="24"   skillCD="20"/>
-  <node ID="1001" level="7"	 exp="489" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1050"  timeCost="5280"  crystalCost="39"   skillCD="20"/>
-  <node ID="1001" level="8"	 exp="681" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="1330"  timeCost="7920"  crystalCost="58"   skillCD="20"/>
-  <node ID="1001" level="9"	 exp="930" point="1" stamina="60" levelSpeed="1" powerUpId="1"  coinCost="1640"  timeCost="11220" crystalCost="83"   skillCD="20"/>
-  <node ID="1001" level="10" exp="1245" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="1980"  timeCost="15240" crystalCost="112"  skillCD="20"/>
-  <node ID="1001" level="11" exp="1635" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="2350"  timeCost="19980" crystalCost="148"  skillCD="20"/>
-  <node ID="1001" level="12" exp="2109" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="2750"  timeCost="25560" crystalCost="189"  skillCD="20"/>
-  <node ID="1001" level="13" exp="2676" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="3180"  timeCost="31920" crystalCost="236"  skillCD="20"/>
-  <node ID="1001" level="14" exp="3345" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="3640"  timeCost="39240" crystalCost="290"  skillCD="20"/>
-  <node ID="1001" level="15" exp="4125" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="4130"  timeCost="47460" crystalCost="351"  skillCD="20"/>
+  <node ID="1001" level="4"	 exp="165" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="390"   timeCost="420"	  crystalCost="5"    skillCD="20"/>
+  <node ID="1001" level="5"	 exp="240" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="580"   timeCost="900"  crystalCost="12"    skillCD="20"/>
+  <node ID="1001" level="6"	 exp="340" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="800"   timeCost="1800"  crystalCost="24"   skillCD="20"/>
+  <node ID="1001" level="7"	 exp="489" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1050"  timeCost="3600"  crystalCost="39"   skillCD="20"/>
+  <node ID="1001" level="8"	 exp="681" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="1330"  timeCost="5400"  crystalCost="58"   skillCD="20"/>
+  <node ID="1001" level="9"	 exp="930" point="1" stamina="60" levelSpeed="1" powerUpId="1"  coinCost="1640"  timeCost="7200" crystalCost="83"    skillCD="20"/>
+  <node ID="1001" level="10" exp="1245" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="1980"  timeCost="10800" crystalCost="112"  skillCD="20"/>
+  <node ID="1001" level="11" exp="1635" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="2350"  timeCost="14400" crystalCost="148"  skillCD="20"/>
+  <node ID="1001" level="12" exp="2109" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="2750"  timeCost="18000" crystalCost="189"  skillCD="20"/>
+  <node ID="1001" level="13" exp="2676" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="3180"  timeCost="24000" crystalCost="236"  skillCD="20"/>
+  <node ID="1001" level="14" exp="3345" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="3640"  timeCost="36000" crystalCost="290"  skillCD="20"/>
+  <node ID="1001" level="15" exp="4125" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="4130"  timeCost="42000" crystalCost="351"  skillCD="20"/>
   <!--EXP start=30 step=30 grident=0.1 steep=0.5 -->
   <!--CoinCost start=0 step=100 grident=0.5 steep=0 -->
   <!--timeCost start=60 step=100 grident=5 steep=0.5 round 60 -->
   <node ID="1002" level="1"  exp="30" point="1" stamina="20" levelSpeed="1" powerUpId="1"   coinCost="0" skillCD="20"/>
-  <node ID="1002" level="2"	 exp="75" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="0"    timeCost="60"		crystalCost="1"    timeCrystalRate="0" skillCD="20"/>
-  <node ID="1002" level="3"	 exp="123" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="250"  timeCost="180"		crystalCost="1"    skillCD="20"/>
-  <node ID="1002" level="4"	 exp="189" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="450"  timeCost="840"		crystalCost="6"    skillCD="20"/>
-  <node ID="1002" level="5"	 exp="288" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="700"  timeCost="2040"	crystalCost="15"    skillCD="20"/>
-  <node ID="1002" level="6"	 exp="435" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1000" timeCost="3840"	crystalCost="28"    skillCD="20"/>
-  <node ID="1002" level="7"	 exp="645" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1350" timeCost="6300"	crystalCost="46"    skillCD="20"/>
-  <node ID="1002" level="8"	 exp="933" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="1750" timeCost="9420"	crystalCost="69"    skillCD="20"/>
-  <node ID="1002" level="9"	 exp="1314" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2200" timeCost="13320"	crystalCost="98"    skillCD="20"/>
-  <node ID="1002" level="10" exp="1803" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="2700" timeCost="18060"	crystalCost="133"    skillCD="20"/>
-  <node ID="1002" level="11" exp="2415" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3250" timeCost="23580"	crystalCost="174"    skillCD="20"/>
-  <node ID="1002" level="12" exp="3165" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="3850" timeCost="30060"	crystalCost="222"    skillCD="20"/>
-  <node ID="1002" level="13" exp="4068" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="4500" timeCost="37440"	crystalCost="277"     skillCD="20"/>
-  <node ID="1002" level="14" exp="5139" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="5200" timeCost="45840"	crystalCost="339"     skillCD="20"/>
-  <node ID="1002" level="15" exp="6393" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="5950" timeCost="55260"	crystalCost="409"     skillCD="20"/>
+  <node ID="1002" level="2"	 exp="75" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="0"    timeCost="60"		crystalCost="1"    timeCrystalRate="0"  skillCD="20"/>
+  <node ID="1002" level="3"	 exp="123" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="250"  timeCost="180"		crystalCost="1"                       skillCD="20"/>
+  <node ID="1002" level="4"	 exp="189" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="450"  timeCost="840"		crystalCost="6"                       skillCD="25"/>
+  <node ID="1002" level="5"	 exp="288" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="700"  timeCost="2040"	crystalCost="15"                        skillCD="25"/>
+  <node ID="1002" level="6"	 exp="435" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1000" timeCost="3840"	crystalCost="28"                        skillCD="25"/>
+  <node ID="1002" level="7"	 exp="645" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1350" timeCost="6300"	crystalCost="46"                        skillCD="25"/>
+  <node ID="1002" level="8"	 exp="933" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="1750" timeCost="9420"	crystalCost="69"                        skillCD="30"/>
+  <node ID="1002" level="9"	 exp="1314" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2200" timeCost="13320"	crystalCost="98"                      skillCD="30"/>
+  <node ID="1002" level="10" exp="1803" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="2700" timeCost="18060"	crystalCost="133"                     skillCD="30"/>
+  <node ID="1002" level="11" exp="2415" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3250" timeCost="23580"	crystalCost="174"                     skillCD="30"/>
+  <node ID="1002" level="12" exp="3165" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="3850" timeCost="30060"	crystalCost="222"                     skillCD="30"/>
+  <node ID="1002" level="13" exp="4068" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="4500" timeCost="37440"	crystalCost="277"                     skillCD="35"/>
+  <node ID="1002" level="14" exp="5139" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="5200" timeCost="45840"	crystalCost="339"                     skillCD="35"/>
+  <node ID="1002" level="15" exp="6393" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="5950" timeCost="55260"	crystalCost="409"                     skillCD="35"/>
   <!--EXP start=50 step=30 grident=0.11 steep=0.55 -->
   <!--CoinCost start=0 step=100 grident=0.5 steep=0 -->
   <!--timeCost start=60 step=100 grident=6 steep=0.5 round 60 -->
@@ -43,53 +43,53 @@
   <node ID="1003" level="2"	 exp="96" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="100"   timeCost="60"	  crystalCost="1"	     skillCD="20"/>
   <node ID="1003" level="3"	 exp="146" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="250"   timeCost="180"	  crystalCost="1"	     skillCD="20"/>
   <node ID="1003" level="4"	 exp="215" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="450"   timeCost="960"	  crystalCost="7"	     skillCD="20"/>
-  <node ID="1003" level="5"	 exp="321" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="700"   timeCost="2340"  crystalCost="17"	     skillCD="20"/>
-  <node ID="1003" level="6"	 exp="480" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1000"  timeCost="4440"  crystalCost="32"	    skillCD="20"/>
-  <node ID="1003" level="7"	 exp="708" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1350"  timeCost="7260"  crystalCost="53"	    skillCD="20"/>
-  <node ID="1003" level="8"	 exp="1022" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="1750"  timeCost="10920" crystalCost="80"	    skillCD="20"/>
-  <node ID="1003" level="9"	 exp="1438" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2200"  timeCost="15420" crystalCost="114"	    skillCD="20"/>
-  <node ID="1003" level="10" exp="1973" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="2700"  timeCost="20820" crystalCost="154"	    skillCD="20"/>
-  <node ID="1003" level="11" exp="2643" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3250"  timeCost="27180" crystalCost="201"	    skillCD="20"/>
-  <node ID="1003" level="12" exp="3465" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="3850"  timeCost="34560" crystalCost="256"	    skillCD="20"/>
-  <node ID="1003" level="13" exp="4455" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="4500"  timeCost="42960" crystalCost="318"	   skillCD="20"/>
-  <node ID="1003" level="14" exp="5630" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="5200"  timeCost="52440" crystalCost="388"	   skillCD="20"/>
-  <node ID="1003" level="15" exp="7007" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="5950"  timeCost="63060" crystalCost="467"	   skillCD="20"/>
+  <node ID="1003" level="5"	 exp="321" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="700"   timeCost="2340"  crystalCost="17"	   skillCD="25"/>
+  <node ID="1003" level="6"	 exp="480" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1000"  timeCost="4440"  crystalCost="32"	   skillCD="25"/>
+  <node ID="1003" level="7"	 exp="708" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1350"  timeCost="7260"  crystalCost="53"	   skillCD="25"/>
+  <node ID="1003" level="8"	 exp="1022" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="1750"  timeCost="10920" crystalCost="80"	   skillCD="25"/>
+  <node ID="1003" level="9"	 exp="1438" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2200"  timeCost="15420" crystalCost="114"	   skillCD="25"/>
+  <node ID="1003" level="10" exp="1973" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="2700"  timeCost="20820" crystalCost="154"	   skillCD="30"/>
+  <node ID="1003" level="11" exp="2643" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3250"  timeCost="27180" crystalCost="201"	   skillCD="30"/>
+  <node ID="1003" level="12" exp="3465" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="3850"  timeCost="34560" crystalCost="256"	   skillCD="30"/>
+  <node ID="1003" level="13" exp="4455" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="4500"  timeCost="42960" crystalCost="318"	   skillCD="35"/>
+  <node ID="1003" level="14" exp="5630" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="5200"  timeCost="52440" crystalCost="388"	   skillCD="35"/>
+  <node ID="1003" level="15" exp="7007" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="5950"  timeCost="63060" crystalCost="467"	   skillCD="35"/>
   <!--EXP start=60 step=30 grident=0.12 steep=0.65 -->
   <!--CoinCost start=0 step=120 grident=0.5 steep=0 -->
   <!--timeCost start=60 step=100 grident=6.5 steep=0.5 round 60 -->
   <node ID="1004" level="1"  exp="60" point="1" stamina="20" levelSpeed="1" powerUpId="1"   coinCost="0" skillCD="20"/>
-  <node ID="1004" level="2"  exp="109" point="1" stamina="25" levelSpeed="1" powerUpId="1"  coinCost="120"  timeCost="60"	    crystalCost="1"	  skillCD="20"/>
-  <node ID="1004" level="3"  exp="162" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="300"  timeCost="180"	  crystalCost="1"	  skillCD="20"/>
-  <node ID="1004" level="4"  exp="238" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="540"  timeCost="960"	  crystalCost="7"	  skillCD="20"/>
-  <node ID="1004" level="5"  exp="357" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="840"  timeCost="2460"	  crystalCost="18"	  skillCD="20"/>
-  <node ID="1004" level="6"  exp="538" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1200" timeCost="4740"	  crystalCost="35"	  skillCD="20"/>
-  <node ID="1004" level="7"  exp="801" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1620" timeCost="7800"	  crystalCost="57"	  skillCD="20"/>
-  <node ID="1004" level="8"  exp="1164" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="2100" timeCost="11700"  crystalCost="86"	  skillCD="20"/>
-  <node ID="1004" level="9"  exp="1648" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2640" timeCost="16500"  crystalCost="122"	  skillCD="20"/>
-  <node ID="1004" level="10" exp="2273" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="3240" timeCost="22260"  crystalCost="164"	  skillCD="20"/>
-  <node ID="1004" level="11" exp="3056" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3900" timeCost="28980"  crystalCost="214"	  skillCD="20"/>
-  <node ID="1004" level="12" exp="4019" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="4620" timeCost="36780"  crystalCost="272"	   skillCD="20"/>
-  <node ID="1004" level="13" exp="5181" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="5400" timeCost="45660"  crystalCost="338"	   skillCD="20"/>
-  <node ID="1004" level="14" exp="6561" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="6240" timeCost="55740"  crystalCost="412"	   skillCD="20"/>
-  <node ID="1004" level="15" exp="8178" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="7140" timeCost="66960"  crystalCost="496"	   skillCD="20"/>
+  <node ID="1004" level="2"  exp="109" point="1" stamina="25" levelSpeed="1" powerUpId="1"  coinCost="120"  timeCost="60"	    crystalCost="1"	    skillCD="20"/>
+  <node ID="1004" level="3"  exp="162" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="300"  timeCost="180"	  crystalCost="1"	    skillCD="20"/>
+  <node ID="1004" level="4"  exp="238" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="540"  timeCost="960"	  crystalCost="7"	    skillCD="20"/>
+  <node ID="1004" level="5"  exp="357" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="840"  timeCost="2460"	  crystalCost="18"	  skillCD="25"/>
+  <node ID="1004" level="6"  exp="538" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1200" timeCost="4740"	  crystalCost="35"	  skillCD="25"/>
+  <node ID="1004" level="7"  exp="801" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1620" timeCost="7800"	  crystalCost="57"	  skillCD="25"/>
+  <node ID="1004" level="8"  exp="1164" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="2100" timeCost="11700"  crystalCost="86"	  skillCD="25"/>
+  <node ID="1004" level="9"  exp="1648" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2640" timeCost="16500"  crystalCost="122"	  skillCD="30"/>
+  <node ID="1004" level="10" exp="2273" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="3240" timeCost="22260"  crystalCost="164"	  skillCD="30"/>
+  <node ID="1004" level="11" exp="3056" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="3900" timeCost="28980"  crystalCost="214"	  skillCD="30"/>
+  <node ID="1004" level="12" exp="4019" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="4620" timeCost="36780"  crystalCost="272"	  skillCD="30"/>
+  <node ID="1004" level="13" exp="5181" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="5400" timeCost="45660"  crystalCost="338"	  skillCD="35"/>
+  <node ID="1004" level="14" exp="6561" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="6240" timeCost="55740"  crystalCost="412"	  skillCD="35"/>
+  <node ID="1004" level="15" exp="8178" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="7140" timeCost="66960"  crystalCost="496"	  skillCD="35"/>
   <!--EXP start=70 step=30 grident=0.12 steep=0.75 -->
   <!--CoinCost start=0 step=120 grident=0.6 steep=0 -->
   <!--timeCost start=60 step=100 grident=7.5 steep=0.5 round 60 -->  
   <node ID="1005" level="1"  exp="70" point="1" stamina="20" levelSpeed="1" powerUpId="1"   coinCost="0" skillCD="20"/>
-  <node ID="1005" level="2"  exp="122" point="1" stamina="25" levelSpeed="1" powerUpId="1"  coinCost="120"  timeCost="60"	 crystalCost="1" skillCD="20"/>
-  <node ID="1005" level="3"  exp="178" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="310"  timeCost="180"	 crystalCost="1" skillCD="20"/>
-  <node ID="1005" level="4"  exp="260" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="570"  timeCost="1080"	 crystalCost="8" skillCD="20"/>
-  <node ID="1005" level="5"  exp="391" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="910"  timeCost="2760"	 crystalCost="20" skillCD="20"/>
-  <node ID="1005" level="6"  exp="593" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1320" timeCost="5340"	 crystalCost="39" skillCD="20"/>
-  <node ID="1005" level="7"  exp="889" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1800" timeCost="8760"	 crystalCost="64" skillCD="20"/>
-  <node ID="1005" level="8"  exp="1300" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="2350" timeCost="13200" crystalCost="97" skillCD="20"/>
-  <node ID="1005" level="9"  exp="1850" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2970" timeCost="18600" crystalCost="137" skillCD="20"/>
-  <node ID="1005" level="10" exp="2562" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="3670" timeCost="25020" crystalCost="185" skillCD="20"/>
-  <node ID="1005" level="11" exp="3457" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="4440" timeCost="32580" crystalCost="241" skillCD="20"/>
-  <node ID="1005" level="12" exp="4558" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="5280" timeCost="41280" crystalCost="305" skillCD="20"/>
-  <node ID="1005" level="13" exp="5887" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="6190" timeCost="51180" crystalCost="379" skillCD="20"/>
-  <node ID="1005" level="14" exp="7468" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="7170" timeCost="62340" crystalCost="461" skillCD="20"/>
-  <node ID="1005" level="15" exp="9322" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="8230" timeCost="74760" crystalCost="553" skillCD="20"/>
+  <node ID="1005" level="2"  exp="122" point="1" stamina="25" levelSpeed="1" powerUpId="1"  coinCost="120"  timeCost="60"	 crystalCost="1"      skillCD="20"/>
+  <node ID="1005" level="3"  exp="178" point="1" stamina="30" levelSpeed="1" powerUpId="1"  coinCost="310"  timeCost="180"	 crystalCost="1"    skillCD="20"/>
+  <node ID="1005" level="4"  exp="260" point="1" stamina="35" levelSpeed="1" powerUpId="1"  coinCost="570"  timeCost="1080"	 crystalCost="8"    skillCD="20"/>
+  <node ID="1005" level="5"  exp="391" point="1" stamina="40" levelSpeed="1" powerUpId="1"  coinCost="910"  timeCost="2760"	 crystalCost="20"   skillCD="20"/>
+  <node ID="1005" level="6"  exp="593" point="1" stamina="45" levelSpeed="1" powerUpId="1"  coinCost="1320" timeCost="5340"	 crystalCost="39"   skillCD="20"/>
+  <node ID="1005" level="7"  exp="889" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="1800" timeCost="8760"	 crystalCost="64"   skillCD="20"/>
+  <node ID="1005" level="8"  exp="1300" point="1" stamina="55" levelSpeed="1" powerUpId="1" coinCost="2350" timeCost="13200" crystalCost="97"   skillCD="25"/>
+  <node ID="1005" level="9"  exp="1850" point="1" stamina="60" levelSpeed="1" powerUpId="1" coinCost="2970" timeCost="18600" crystalCost="137"  skillCD="25"/>
+  <node ID="1005" level="10" exp="2562" point="1" stamina="65" levelSpeed="1" powerUpId="1" coinCost="3670" timeCost="25020" crystalCost="185"  skillCD="25"/>
+  <node ID="1005" level="11" exp="3457" point="1" stamina="70" levelSpeed="1" powerUpId="1" coinCost="4440" timeCost="32580" crystalCost="241"  skillCD="25"/>
+  <node ID="1005" level="12" exp="4558" point="1" stamina="75" levelSpeed="1" powerUpId="1" coinCost="5280" timeCost="41280" crystalCost="305"  skillCD="25"/>
+  <node ID="1005" level="13" exp="5887" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="6190" timeCost="51180" crystalCost="379"  skillCD="25"/>
+  <node ID="1005" level="14" exp="7468" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="7170" timeCost="62340" crystalCost="461"  skillCD="25"/>
+  <node ID="1005" level="15" exp="9322" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="8230" timeCost="74760" crystalCost="553"  skillCD="25"/>
   <!--EXP start=80 step=40 grident=0.12 steep=0.7 -->
   <!--CoinCost start=0 step=130 grident=0.65 steep=0 -->
   <!--timeCost start=60 step=100 grident=8 steep=0.5 round 60 -->
@@ -112,20 +112,20 @@
   <!--CoinCost start=0 step=140 grident=0.65 steep=0.05 -->
   <!--timeCost start=60 step=100 grident=8.5 steep=0.5 round 60 -->
   <node ID="1007" level="1"  exp="70" point="1" stamina="20" levelSpeed="1" powerUpId="1"    coinCost="0" skillCD="20"/>
-  <node ID="1007" level="2"	 exp="160" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="140"   timeCost="60"   crystalCost="1" skillCD="20"/>
-  <node ID="1007" level="3"	 exp="256" point="1" stamina="30" levelSpeed="1" powerUpId="1"   coinCost="385"   timeCost="180"  crystalCost="1" skillCD="20"/>
-  <node ID="1007" level="4"	 exp="399" point="1" stamina="35" levelSpeed="1" powerUpId="1"   coinCost="720"   timeCost="1200" crystalCost="8" skillCD="20"/>
-  <node ID="1007" level="5"	 exp="629" point="1" stamina="40" levelSpeed="1" powerUpId="1"   coinCost="1160"  timeCost="3060" crystalCost="22" skillCD="20"/>
-  <node ID="1007" level="6"	 exp="985" point="1" stamina="45" levelSpeed="1" powerUpId="1"   coinCost="1710"  timeCost="5940" crystalCost="44" skillCD="20"/>
-  <node ID="1007" level="7"	 exp="1507" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="2380"  timeCost="9780" crystalCost="72" skillCD="20"/>
-  <node ID="1007" level="8"	 exp="2236" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="3180"  timeCost="14700" crystalCost="108" skillCD="20"/>
-  <node ID="1007" level="9"  exp="3212" point="1" stamina="60" levelSpeed="1" powerUpId="1"  coinCost="4110"  timeCost="20700" crystalCost="153"  skillCD="20"/>
-  <node ID="1007" level="10" exp="4474" point="1" stamina="65" levelSpeed="1" powerUpId="1"  coinCost="5180"  timeCost="27840" crystalCost="206"  skillCD="20"/>
-  <node ID="1007" level="11" exp="6062" point="1" stamina="70" levelSpeed="1" powerUpId="1"  coinCost="6400"  timeCost="36180" crystalCost="268"  skillCD="20"/>
-  <node ID="1007" level="12" exp="8017" point="1" stamina="75" levelSpeed="1" powerUpId="1"  coinCost="7770"  timeCost="45780" crystalCost="339"  skillCD="20"/>
-  <node ID="1007" level="13" exp="10379" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="9310"  timeCost="56700" crystalCost="419" skillCD="20"/>
-  <node ID="1007" level="14" exp="13187" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="11000" timeCost="68940" crystalCost="510" skillCD="20"/>
-  <node ID="1007" level="15" exp="16481" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="12880" timeCost="82560" crystalCost="611" skillCD="20"/>
+  <node ID="1007" level="2"	 exp="160" point="1" stamina="25" levelSpeed="1" powerUpId="1"   coinCost="140"   timeCost="60"   crystalCost="1"     skillCD="20"/>
+  <node ID="1007" level="3"	 exp="256" point="1" stamina="30" levelSpeed="1" powerUpId="1"   coinCost="385"   timeCost="180"  crystalCost="1"     skillCD="20"/>
+  <node ID="1007" level="4"	 exp="399" point="1" stamina="35" levelSpeed="1" powerUpId="1"   coinCost="720"   timeCost="1200" crystalCost="8"     skillCD="20"/>
+  <node ID="1007" level="5"	 exp="629" point="1" stamina="40" levelSpeed="1" powerUpId="1"   coinCost="1160"  timeCost="3060" crystalCost="22"    skillCD="25"/>
+  <node ID="1007" level="6"	 exp="985" point="1" stamina="45" levelSpeed="1" powerUpId="1"   coinCost="1710"  timeCost="5940" crystalCost="44"    skillCD="25"/>
+  <node ID="1007" level="7"	 exp="1507" point="1" stamina="50" levelSpeed="1" powerUpId="1"  coinCost="2380"  timeCost="9780" crystalCost="72"    skillCD="25"/>
+  <node ID="1007" level="8"	 exp="2236" point="1" stamina="55" levelSpeed="1" powerUpId="1"  coinCost="3180"  timeCost="14700" crystalCost="108"  skillCD="25"/>
+  <node ID="1007" level="9"  exp="3212" point="1" stamina="60" levelSpeed="1" powerUpId="1"  coinCost="4110"  timeCost="20700" crystalCost="153"  skillCD="30"/>
+  <node ID="1007" level="10" exp="4474" point="1" stamina="65" levelSpeed="1" powerUpId="1"  coinCost="5180"  timeCost="27840" crystalCost="206"  skillCD="30"/>
+  <node ID="1007" level="11" exp="6062" point="1" stamina="70" levelSpeed="1" powerUpId="1"  coinCost="6400"  timeCost="36180" crystalCost="268"  skillCD="30"/>
+  <node ID="1007" level="12" exp="8017" point="1" stamina="75" levelSpeed="1" powerUpId="1"  coinCost="7770"  timeCost="45780" crystalCost="339"  skillCD="30"/>
+  <node ID="1007" level="13" exp="10379" point="1" stamina="80" levelSpeed="1" powerUpId="1" coinCost="9310"  timeCost="56700" crystalCost="419"  skillCD="35"/>
+  <node ID="1007" level="14" exp="13187" point="1" stamina="85" levelSpeed="1" powerUpId="1" coinCost="11000" timeCost="68940" crystalCost="510"  skillCD="35"/>
+  <node ID="1007" level="15" exp="16481" point="1" stamina="90" levelSpeed="1" powerUpId="1" coinCost="12880" timeCost="82560" crystalCost="611"  skillCD="35"/>
   <!--EXP start=70 step=50 grident=0.13 steep=0.8 -->
   <!--CoinCost start=0 step=140 grident=0.65 steep=0.03 -->
   <!--timeCost start=60 step=100 grident=9 steep=0.5 round 60 -->

@@ -9,15 +9,15 @@
         <goods rank="5" getCoins="81000" bonus="8100" spendCrystals="2430" name="Treasure Load" name_CN="一大车金币"/>
     </node>
     <node type="2" >  <!-- CrystalsShop    -->
-        <goods rank="0" getCrystals="66"    getCrystals_CN="66"   bonus="6"       spendMoney="0.99"  spendMoney_CN="6"   productId="com.skysoul.MR.Handful" name="Handful" name_CN="一捧水晶"/>
-        <goods rank="1" getCrystals="198"   getCrystals_CN="198"  bonus="18"      spendMoney="2.99"  spendMoney_CN="18"  productId="com.skysoul.MR.Pile" name="Pile" name_CN="一小袋水晶"/>
-        <goods rank="2" getCrystals="668"   getCrystals_CN="668"  bonus="68"      spendMoney="9.99"  spendMoney_CN="60"  productId="com.skysoul.MR.Sack" name="Sack" name_CN="一麻袋水晶"/>
-        <goods rank="3" getCrystals="1368"  getCrystals_CN="1368" bonus="168"     spendMoney="19.99" spendMoney_CN="120" productId="com.skysoul.MR.Barrel" name="Barrel" name_CN="一桶水晶"/>
-        <goods rank="4" getCrystals="3338"  getCrystals_CN="3338" bonus="368"     spendMoney="49.99" spendMoney_CN="300" productId="com.skysoul.MR.Mountain" name="Mountain" name_CN="一堆水晶"/>
-        <goods rank="5" getCrystals="6888"  getCrystals_CN="6888" bonus="888"     spendMoney="99.99" spendMoney_CN="600" productId="com.skysoul.MR.TreasureLoad" name="Treasure Load" name_CN="一大车水晶"/>
+        <goods rank="0" getCrystals="60"    getCrystals_CN="60"   bonus="0"       spendMoney="0.99"  spendMoney_CN="6"   productId="com.skysoul.MR.CrystalShop.Handful" name="Handful" name_CN="一捧水晶"/>
+        <goods rank="1" getCrystals="180"   getCrystals_CN="180"  bonus="0"      spendMoney="2.99"  spendMoney_CN="18"   productId="com.skysoul.MR.CrystalShop.Pile" name="Pile" name_CN="一小袋水晶"/>
+        <goods rank="2" getCrystals="668"   getCrystals_CN="668"  bonus="68"      spendMoney="9.99"  spendMoney_CN="60"  productId="com.skysoul.MR.CrystalShop.Sack" name="Sack" name_CN="一麻袋水晶"/>
+        <goods rank="3" getCrystals="1368"  getCrystals_CN="1368" bonus="168"     spendMoney="19.99" spendMoney_CN="120" productId="com.skysoul.MR.CrystalShop.Barrel" name="Barrel" name_CN="一桶水晶"/>
+        <goods rank="4" getCrystals="3368"  getCrystals_CN="3368" bonus="368"     spendMoney="49.99" spendMoney_CN="300" productId="com.skysoul.MR.CrystalShop.Mountain" name="Mountain" name_CN="一堆水晶"/>
+        <goods rank="5" getCrystals="6888"  getCrystals_CN="6888" bonus="888"     spendMoney="99.99" spendMoney_CN="600" productId="com.skysoul.MR.CrystalShop.TreasureLoad" name="Treasure Load" name_CN="一大车水晶"/>
     </node>
     <node type="3" >  <!-- FatigueShop    -->
-        <goods rank="0" fatigueCrystals="10" count="1"/>
+        <goods rank="0" fatigueCrystals="5" count="1"/>
     </node>
  
 </root>

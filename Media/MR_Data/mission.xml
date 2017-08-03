@@ -2,38 +2,38 @@
 <root>
 	<achievement id="0">
 		<mission id="0" finishparamtype="19" finishparamamount="100" condition_CN = "消灭他们！" condition = "Hit em Up!" discription_CN="消灭 {0}个猪" discription="Barge {0}  enemies off the track! " coins="500" crystals="10"/> 
-		<mission id="1" finishparamtype="19" finishparamamount="300" condition_CN = "消灭他们！" condition = "Hit em Up!" discription_CN="消灭 {0}个猪" discription="Barge {0} enemies off the track! " coins="1000" crystals="20"/> 
-		<mission id="2" finishparamtype="19" finishparamamount="1000" condition_CN = "消灭他们！" condition = "Hit em Up!" discription_CN="消灭 {0}个猪" discription="Barge {0} enemies off the track! " coins="5000" crystals="50"/> 
+		<mission id="1" finishparamtype="19" finishparamamount="500" condition_CN = "消灭他们！" condition = "Hit em Up!" discription_CN="消灭 {0}个猪" discription="Barge {0} enemies off the track! " coins="1000" crystals="20"/> 
+		<mission id="2" finishparamtype="19" finishparamamount="1000" condition_CN = "消灭他们！" condition = "Hit em Up!" discription_CN="消灭 {0}个猪" discription="Barge {0} enemies off the track! " coins="5000" crystals="30"/> 
 	</achievement>
 	<achievement id="1">
 		<mission id="0" finishparamtype="20" finishparamamount="500" condition_CN = "收藏家！" condition = "Hoarder" discription_CN="收集 {0}个水果果实" discription="Collect {0} pick ups " coins="600" crystals="10"/> 
-		<mission id="1" finishparamtype="20" finishparamamount="800" condition_CN = "收藏家！" condition = "Hoarder" discription_CN="收集 {0}个水果果实" discription="Collect {0} pick ups " coins="1800" crystals="30"/> 
-		<mission id="2" finishparamtype="20" finishparamamount="1500" condition_CN = "收藏家！" condition = "Hoarder" discription_CN="收集 {0}个水果果实" discription="Collect {0} pick ups " coins="3600" crystals="60"/> 	
+		<mission id="1" finishparamtype="20" finishparamamount="800" condition_CN = "收藏家！" condition = "Hoarder" discription_CN="收集 {0}个水果果实" discription="Collect {0} pick ups " coins="1800" crystals="20"/> 
+		<mission id="2" finishparamtype="20" finishparamamount="2000" condition_CN = "收藏家！" condition = "Hoarder" discription_CN="收集 {0}个水果果实" discription="Collect {0} pick ups " coins="3600" crystals="30"/> 	
 	</achievement>
 	<achievement id="2">
 		<mission id="0" finishparamtype="61" finishparamamount="50" condition_CN = "跳高达人" condition = "High Jumper" discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles " coins="400" crystals="10"/> 
-		<mission id="1" finishparamtype="61" finishparamamount="150" condition_CN = "跳高达人" condition = "High Jumper" discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles " coins="800" crystals="20"/> 
-		<mission id="2" finishparamtype="61" finishparamamount="300" condition_CN = "跳高达人" condition = "High Jumper" discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles " coins="2000" crystals="50"/> 
+		<mission id="1" finishparamtype="61" finishparamamount="200" condition_CN = "跳高达人" condition = "High Jumper" discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles " coins="800" crystals="20"/> 
+		<mission id="2" finishparamtype="61" finishparamamount="500" condition_CN = "跳高达人" condition = "High Jumper" discription_CN="成功清除 {0}个障碍物" discription="Sucessfully clear {0} hurdles " coins="2000" crystals="30"/> 
 	</achievement>
 	<achievement id="3">
-		<mission id="0" finishparamtype="51" finishparamamount="1" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="1000" crystals="20"/> 
-		<mission id="1" finishparamtype="51" finishparamamount="5" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="3000" crystals="40"/> 
-		<mission id="2" finishparamtype="51" finishparamamount="20" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="10000" crystals="80"/> 
+		<mission id="0" finishparamtype="51" finishparamamount="1" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="3星击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="1000" crystals="20"/> 
+		<mission id="1" finishparamtype="51" finishparamamount="5" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="3星击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="3000" crystals="30"/> 
+		<mission id="2" finishparamtype="51" finishparamamount="20" condition_CN = "丛林之王" condition = "King of the Jungle" discription_CN="3星击败丛林之王的头目 {0}次" discription="Deafeat Level {0} Jungle Boss with 3 stars" coins="10000" crystals="50"/> 
 	</achievement>
 	<achievement id="4">
-		<mission id="0" finishparamtype="52" finishparamamount="1" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="2000" crystals="30"/> 
-		<mission id="1" finishparamtype="52" finishparamamount="5" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="3600" crystals="60"/> 
-		<mission id="2" finishparamtype="52" finishparamamount="20" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="10000" crystals="100"/> 
+		<mission id="0" finishparamtype="52" finishparamamount="1" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="3星击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="2000" crystals="30"/> 
+		<mission id="1" finishparamtype="52" finishparamamount="5" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="3星击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="3600" crystals="40"/> 
+		<mission id="2" finishparamtype="52" finishparamamount="20" condition_CN = "沙漠之恶" condition = "Desert Outlaw" discription_CN="3星击败沙漠之恶的头目 {0}次" discription="Deafeat Level {0} Desert Boss with 3 stars" coins="10000" crystals="50"/> 
 	</achievement>
 	<achievement id="5">
-		<mission id="0" finishparamtype="53" finishparamamount="1" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="3000" crystals="40"/> 
-		<mission id="1" finishparamtype="53" finishparamamount="5" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="6000" crystals="80"/> 
-		<mission id="2" finishparamtype="53" finishparamamount="20" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="10000" crystals="150"/> 
+		<mission id="0" finishparamtype="53" finishparamamount="1" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="3星击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="3000" crystals="40"/> 
+		<mission id="1" finishparamtype="53" finishparamamount="5" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="3星击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="6000" crystals="50"/> 
+		<mission id="2" finishparamtype="53" finishparamamount="20" condition_CN = "矿洞战争" condition = "Minecrafter" discription_CN="3星击败矿洞战争的头目 {0}次" discription="Deafeat Level {0} Mine Boss with 3 stars" coins="10000" crystals="60"/> 
 	</achievement>
 	<achievement id="6"> 
-		<mission id="0" finishparamtype="9" finishparamamount="120" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="500" crystals="10"/> 
-		<mission id="1" finishparamtype="9" finishparamamount="350" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="1000" crystals="20"/> 
-		<mission id="2" finishparamtype="9" finishparamamount="800" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="3000" crystals="30"/> 
+		<mission id="0" finishparamtype="9" finishparamamount="150" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="500" crystals="10"/>
+		<mission id="1" finishparamtype="9" finishparamamount="500" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="1000" crystals="20"/> 
+		<mission id="2" finishparamtype="9" finishparamamount="1000" condition_CN = "怪物猎人！" condition = "Pig Hunter!" discription_CN="消灭 {0}个猪" discription="Barge {0} Pigs off the track! " coins="3000" crystals="30"/> 
 	</achievement>
 	<achievement id="7">
 		<mission id="0" finishparamtype="14" finishparamamount="120" condition_CN = "我喜欢你的靴子" condition = "I Like your Shoes" discription_CN="消灭 {0}个骑士的怨灵" discription="Barge {0} Ginos off the track! " coins="500" crystals="10"/> 

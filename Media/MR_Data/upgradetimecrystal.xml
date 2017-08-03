@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root>
-  <node ID="1" MinTime="60" MaxTime="7200" MinCrystal="10" MaxCrystal="46"/>
-  <node ID="2" MinTime="7200" MaxTime="18000" MinCrystal="47" MaxCrystal="150"/>
-  <node ID="3" MinTime="18000" MaxTime="54000" MinCrystal="150" MaxCrystal="440"/>
-  <node ID="4" MinTime="54000" MaxTime="86400" MinCrystal="440" MaxCrystal="640"/>
+  <node ID="1" MinTime="60" MaxTime="900" MinCrystal="1" MaxCrystal="1"/>
+  <node ID="2" MinTime="900" MaxTime="7200" MinCrystal="10" MaxCrystal="46"/>
+  <node ID="3" MinTime="7200" MaxTime="18000" MinCrystal="46" MaxCrystal="150"/>
+  <node ID="4" MinTime="18000" MaxTime="54000" MinCrystal="150" MaxCrystal="440"/>
+  <node ID="5" MinTime="54000" MaxTime="86400" MinCrystal="440" MaxCrystal="640"/>
 <!--  
   <node ID="1" time="60" crystal="0"/>
   <node ID="2" time="300" crystal="1"/>
