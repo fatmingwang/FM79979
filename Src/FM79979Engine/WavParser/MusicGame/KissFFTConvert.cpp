@@ -11,8 +11,6 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_iMaxAmplitude = 0;
 	m_iMaxAmplitudeFrequence = 0;
 	m_iMaxAmplitude = 0;
-	m_TimeToUpdateFFTData.SetTargetTime(1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT);
-	m_TimeToUpdateFFTData.SetLoop(true);
 	m_iDivideFFTDataToNFrame = ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 	m_fCurrentTime = 0.f;
 	m_iOneFrameFFTDataCount = 0;
@@ -23,6 +21,7 @@ cKissFFTConvertBase::cKissFFTConvertBase()
 	m_bPause = false;
 	m_fChartScale = 1.f;
 	m_pFFTDataStore = nullptr;
+	m_fNextFFTUpdateElpaseTime = 1.f/ONE_FRAME_NEED_NUM_FFT_DATA_COUNT;
 //	m_fFrenquenceFilterEndScaleValue = 1.f;
 //	m_iFilterStrengthValue = 6;
 }
@@ -51,11 +50,11 @@ void	cKissFFTConvertBase::MouseMove(int e_iPosX,int e_iPosY)
 }
 
 
-void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency)
+void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName)
 {
 	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME);
 	if( m_pFFTDataStore )
-		this->m_pFFTDataStore->Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold,e_iThresholdFrequency);
+		this->m_pFFTDataStore->Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold);
 }
 
 int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)
@@ -79,7 +78,6 @@ float	cKissFFTConvertBase::GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS)
 TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
 {
 	TiXmlElement*l_pTiXmlElement = new TiXmlElement(cKissFFTConvertBase::TypeID);
-	l_pTiXmlElement->SetAttribute(L"TimeToUpdateFFTData",m_TimeToUpdateFFTData.fTargetTime);
 	l_pTiXmlElement->SetAttribute(L"DivideFFTDataToNFrame",m_iDivideFFTDataToNFrame);
 	l_pTiXmlElement->SetAttribute(L"NFrameFFTDataCount",m_iOneFrameFFTDataCount);
 //	l_pTiXmlElement->SetAttribute(L"FrenquenceFilterEndScaleValue",m_fFrenquenceFilterEndScaleValue);
@@ -92,11 +90,6 @@ TiXmlElement*	cKissFFTConvertBase::ToTiXmlElement()
 void	cKissFFTConvertBase::SetDataFromTiXmlElement(TiXmlElement*e_pTiXmlElement)
 {
 	PARSE_ELEMENT_START(e_pTiXmlElement)
-		COMPARE_NAME("TimeToUpdateFFTData")
-		{
-			m_TimeToUpdateFFTData.fTargetTime = VALUE_TO_FLOAT;
-		}
-		else
 		COMPARE_NAME("DivideFFTDataToNFrame")
 		{
 			m_iDivideFFTDataToNFrame = VALUE_TO_INT;
@@ -155,16 +148,6 @@ void	cKissFFTConvertBase::RenderDebugAmplitudeLine(float e_fAmplitude)
 		l_vLinePos[1].x += l_vChartResolution.x;
 		RenderLine((float*)&l_vLinePos,2,Vector4::Green,2);
 	}
-}
-
-
-void	cKissFFTConvertBase::SetFFTDataUpdateTime(float e_fTime)
-{
-	//if( e_fTime >= 1.f/20 )
-	//	e_fTime = 1/20.f;
-	//if( e_fTime <= 1.f/60 )
-	//	e_fTime = 1/60.f;
-	//m_TimeToUpdateFFTData.SetTargetTime(e_fTime);
 }
 
 
@@ -452,6 +435,14 @@ void	cKissFFTConvert::Destroy()
 	SAFE_DELETE(m_pSoundFile);
 	SAFE_DELETE(m_pFFTDataStore);
 }
+
+void	cKissFFTConvert::Pause(bool e_bPause)
+{
+	this->m_bPause = e_bPause;
+	if(this->m_pTestSound)
+		m_pTestSound->Pause(e_bPause);
+}
+
 //
 bool	cKissFFTConvert::FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound,bool e_bDoFFTDataStore)
 {
@@ -565,7 +556,6 @@ void	cKissFFTConvert::Update(float e_fElpaseTime)
 		{//its end.
 			return;
 		}
-		m_TimeToUpdateFFTData.Update(e_fElpaseTime);
 		FetchSoundDataByTimeRange(m_fCurrentTime,l_fElpaseTime);
 
 

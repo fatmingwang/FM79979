@@ -241,10 +241,11 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 		Start(m_iFrequency);
 	}
 	else
-		m_eCurrentMarkFrequencyMode = eCMFM_ADD;//eCMFM_NONE;
+		m_eCurrentMarkFrequencyMode = eCMFM_NONE;//eCMFM_ADD
 	m_piCurrentFFTDataReferencePointer = e_piFFTData;
 	m_fCurrentTime += e_fElpaseTime;
 	m_fRestNextDataTimeGap -= e_fElpaseTime;
+	m_iMaxValue = 0;
 	if( m_fRestNextDataTimeGap <= 0.f )
 	{
 		m_fRestNextDataTimeGap = m_fNextDataTimeGap+m_fRestNextDataTimeGap;
@@ -262,7 +263,7 @@ void	cFFTDecibelsAnalyzer::UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int
 		}
 		else
 		{
-			const int l_iSmmothDivide = (int)(m_fNextDataTimeGap*60)/20;
+			const int l_iSmmothDivide = (int)(m_fNextDataTimeGap*60)/15;
 			for(int i=0;i<m_pCurrentFFTFrequencyDecibels->m_iFFTCount;++i)
 				m_pCurrentFFTFrequencyDecibels->m_piTotalDecibleValue[i] /= l_iSmmothDivide;
 			m_pCurrentFFTFrequencyDecibels->m_iUpdateCount /= l_iSmmothDivide;
@@ -522,7 +523,7 @@ void	cFFTDecibelsAnalyzer::SortMostHittedFequency(std::vector<int>&e_Vector1,std
 	}
 }
 
-bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
+bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold)
 {
 	size_t l_uiSize = m_FFTFrequencyDecibelsVector.size();
 	if( l_uiSize == 0 )
@@ -537,7 +538,6 @@ bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,con
 	l_pRootTiXmlElement->SetAttribute(L"SoundFile",ValueToStringW(e_strOriginalSourceFileName).c_str());
 	l_pRootTiXmlElement->SetAttribute(L"FFTCount",l_iFFTCount);
 	l_pRootTiXmlElement->SetAttribute(L"DecibleThreshole",m_iExportThresholdValue);
-	l_pRootTiXmlElement->SetAttribute(L"FrequencyThreshold",e_iFrequencyThreshold);
 	float l_fFrequenctForOneFFT = (float)this->m_iFrequency/l_iFFTCount;
 	for(size_t i=0;i<l_uiSize;++i)
 	{
@@ -661,11 +661,9 @@ bool	cFFTDecibelsAnalyzer::ExportWithAverageDecibels(const char*e_strFileName,co
 	return false;
 }
 
-bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold)
+bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold)
 {
-	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
-	return ExportWithAverageDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold,e_iFrequencyThreshold);
-	return false;
+	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold);
 }
 //<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
 //    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />

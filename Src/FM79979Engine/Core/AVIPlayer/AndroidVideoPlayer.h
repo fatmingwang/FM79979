@@ -1,3 +1,5 @@
+#ifdef USE_OPEN_CV
+
 #ifndef	_ANDROID_VIDEO_PLAYER_H_
 #define	_ANDROID_VIDEO_PLAYER_H_
 
@@ -104,4 +106,6 @@
 		cBaseImage*					GetLastFrameImage();
 	};
 //end	_ANDROID_VIDEO_PLAYER_H_
+#endif
+//USE_OPEN_CV
 #endif

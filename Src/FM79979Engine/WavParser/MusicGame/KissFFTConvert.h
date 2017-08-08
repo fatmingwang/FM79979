@@ -13,9 +13,8 @@ protected:
 	int					m_iFreq;
 	std::string			m_strSourceFileName;
 	//
-	UT::sTimeCounter	m_TimeToUpdateFFTData;
-	//
 	float				m_fCurrentTime;
+	float				m_fNextFFTUpdateElpaseTime;
 	//this value will dive data into parts,if value is frequence/m_iPerFrameFFTDataCount,value gigher performance higer but low accurance
 	GET_SET_DEC(int,m_iDivideFFTDataToNFrame,GetDivideFFTDataToNFrame,SetDivideFFTDataToNFrame);
 	//ex:frequence is 44100 and fps is 60,count is 44100/60 = 735.
@@ -49,12 +48,10 @@ public:
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime) = 0;
 	virtual void	Render() = 0;
-	void			SetFFTDataUpdateTime(float e_fTime);
 	virtual float	GetCurrentTimePercentage(){ return 0.f; }
 	virtual float	GetTimeLength(){ return -1.f; }
 	virtual void	Pause(bool e_bPause){ m_bPause = e_bPause; }
 	virtual void	GoToTime(float e_fElpaseTime) = 0;
-	virtual void	SetFFTSampleScale(float e_fScale,bool e_bForceSet = false){}
 	//http://stackoverflow.com/questions/7674877/how-to-get-frequency-from-fft-result
 	int				GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude);//freq = max_index * Fs(1 second how many sample) / N(fft sample count)
 	static float	GetFrequencyGapByFPS(int e_iFrequency,int e_iFPS);
@@ -65,7 +62,7 @@ public:
 
 	std::string		GetSourceFileName(){return m_strSourceFileName;}
 	void			SetCurrentTime(float e_fTime){ m_fCurrentTime = e_fTime; }
-	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName,int e_iThresholdFrequency);
+	virtual void	DumpDebugInfo(int e_iDeciblesThreshold,const char*e_strFileName);
 	void			MouseDown(int e_iPosX,int e_iPosY);
 	void			MouseMove(int e_iPosX,int e_iPosY);
 	void			MouseUp(int e_iPosX,int e_iPosY);
@@ -78,6 +75,7 @@ class cKissFFTConvert:public cKissFFTConvertBase
 	std::vector<float>					m_StartCaptureTimeVector;
 	void								RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesData,Vector2 e_vShowPos,Vector2 e_vResolution);
 	int									m_iNumFFTGraph;
+	float								m_fNextFFTUpdateElpaseTime;
 	float*								m_pfEachFFTDataDecibles;
 	float								m_fMaxDecible;
 	cOpanalWAV*							m_pTestSound;
@@ -102,6 +100,7 @@ public:
 	virtual ~cKissFFTConvert();
 	//now only support wav
 	virtual bool	FetchSoundDataStart(const char*e_strFileName,bool e_bPlaySound = true,bool e_bDoFFTDataStore = false);
+	virtual void	Pause(bool e_bPause);
 	//need another thread to do this?
 	virtual void	Update(float e_fElpaseTime);
 	virtual void	Render();

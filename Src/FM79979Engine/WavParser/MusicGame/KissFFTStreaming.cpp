@@ -59,7 +59,7 @@ void	KissFFTStreamingConvertThread(size_t _workParameter, size_t _pUri)
 			}
 		}
 		if( l_pTimeAndPCMData != nullptr )
-			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_TimeToUpdateFFTData.fTargetTime,l_iNumFFTDataCount);
+			l_pKissFFTStreamingConvert->m_PCMToFFTDataConvertr.ProcessFFTData(l_pTimeAndPCMData,l_pKissFFTStreamingConvert->m_fNextFFTUpdateElpaseTime,l_iNumFFTDataCount);
 	}
 }
 
@@ -228,7 +228,7 @@ cKissFFTStreamingConvert::cKissFFTStreamingConvert()
 	m_pOpanalOgg = nullptr;
 	m_bThreadStop = false;
 	m_bThreadAlreadyStop[0] = m_bThreadAlreadyStop[1] = true;
-	m_TimeToUpdateFFTData.SetTargetTime(1.f/m_iDivideFFTDataToNFrame);
+	m_fNextFFTUpdateElpaseTime = 1.f/m_iDivideFFTDataToNFrame;
 }
 
 cKissFFTStreamingConvert::~cKissFFTStreamingConvert()

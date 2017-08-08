@@ -1,5 +1,5 @@
 #ifdef WIN32
-#define USE_OPEN_CV
+//#define USE_OPEN_CV
 //#pragma comment(lib, "opengl32.lib")
 //#pragma comment(lib, "Glu32.lib")
 //#pragma comment(lib, "gdi32.lib")

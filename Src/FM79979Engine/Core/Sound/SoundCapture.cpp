@@ -238,6 +238,10 @@ namespace	FATMING_CORE
 			this->m_pFUThreadPool->ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
 			return true;
 		}
+		else
+		{
+			UT::ErrorMsg("no record device found!","Error!");
+		}
 #endif
 		return false;
 	

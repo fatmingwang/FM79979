@@ -42,7 +42,7 @@ bool	cFFTStoreExporter::AddFile(const char*e_strFileName)
 	return true;
 }
 
-int	cFFTStoreExporter::Export(const char*e_strDirectory,int e_iThresholdFrequency)
+int	cFFTStoreExporter::Export(const char*e_strDirectory)
 {
 	int l_iNumFailed = 0;
 	int l_icount = this->Count();
@@ -53,7 +53,7 @@ int	cFFTStoreExporter::Export(const char*e_strDirectory,int e_iThresholdFrequenc
 		l_strDirectory += "/";
 		l_strDirectory += ValueToString(l_pKissFFTConvert->GetName());
 		l_strDirectory += ".fftstore";
-		if(!l_pKissFFTConvert->GetFFTDataStore()->Export(l_strDirectory.c_str(),l_pKissFFTConvert->GetSourceFileName().c_str(),l_pKissFFTConvert->GetFFTDataStore()->GetExportThresholdValue(),e_iThresholdFrequency))
+		if(!l_pKissFFTConvert->GetFFTDataStore()->Export(l_strDirectory.c_str(),l_pKissFFTConvert->GetSourceFileName().c_str(),l_pKissFFTConvert->GetFFTDataStore()->GetExportThresholdValue()))
 			++l_iNumFailed;
 	}
 	return l_iNumFailed;
