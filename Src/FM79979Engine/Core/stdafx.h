@@ -8,7 +8,7 @@
 #if defined(WIN32)
 	#pragma warning( disable : 4996 )
 	#define WIN32_LEAN_AND_MEAN
-	#include "windows.h"
+	#include <windows.h>
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 	#include <crtdbg.h>

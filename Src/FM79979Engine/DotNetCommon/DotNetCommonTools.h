@@ -58,7 +58,7 @@ namespace DNCT
 	//p System.String  q char*
 	#define GCSTRING_TO_WCHAR(p,q){assert(q && "nullptr Execption");						\
 	WCHAR* stringPointer = (WCHAR*) System::Runtime::InteropServices::Marshal::StringToCoTaskMemUni(p).ToPointer();	\
-		swprintf_s(q,DOT_NET_TEMP_SIZE,L"%s\0",stringPointer);									\
+		swprintf_s(q,DOT_NET_TEMP_SIZE,L"%ls\0",stringPointer);									\
 		System::Runtime::InteropServices::Marshal::FreeHGlobal(IntPtr(stringPointer));}
 	//beware while the gc string contain unicode it may conver error,
 	#define GCSTRING_TO_CHAR(p,q){WCHAR	l_strForLocalTemp[DOT_NET_TEMP_SIZE];GCSTRING_TO_WCHAR(p,l_strForLocalTemp);		\

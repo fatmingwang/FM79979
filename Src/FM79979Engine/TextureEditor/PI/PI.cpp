@@ -878,7 +878,7 @@ namespace PI
 #ifndef USER_CONTROL_ENABLE
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
 	ilInit();
 	alutInit (0,0);
