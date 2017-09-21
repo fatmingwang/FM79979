@@ -189,7 +189,7 @@ namespace FATMING_CORE
 		m_bPressedRepeatMouseUp = false;
 		this->SetLocalPosition(Vector3(e_vRenderPos.x,e_vRenderPos.y,0.f));
 		m_vCollisionRange = Vector4(0,0,m_vRenderSize.x,m_vRenderSize.y);
-		m_TC.SetTargetTime(MOUSE_UP_TIME_OFFSET);
+		m_TCForShortUpdateDelay.SetTargetTime(MOUSE_UP_TIME_OFFSET);
 		m_TCForRepeat.SetTargetTime(cImageButton::m_sfRepeatTime);
 		this->m_pvTextBGColor = new Vector4(e_vPressedColor);
 		m_vPressedColor = g_vImageButtonClickedColor;
@@ -203,7 +203,7 @@ namespace FATMING_CORE
 		if( e_pTextButton->m_pstrPressedText )
 			this->SetPressedText(e_pTextButton->m_pstrPressedText->c_str());
 		m_bPressedRepeatMouseUp = e_pTextButton->m_bPressedRepeatMouseUp;
-		m_TC.SetTargetTime(MOUSE_UP_TIME_OFFSET);
+		m_TCForShortUpdateDelay.SetTargetTime(MOUSE_UP_TIME_OFFSET);
 		m_TCForRepeat.SetTargetTime(cImageButton::m_sfRepeatTime);
 		this->m_pvTextBGColor = new Vector4(*e_pTextButton->m_pvTextBGColor);
 		m_vPressedColor = e_pTextButton->m_vPressedColor;
@@ -218,6 +218,11 @@ namespace FATMING_CORE
 
 	void	cTextButton::Destroy()
 	{
+	}
+
+	void	cTextButton::SetShortUpdateDelay(float e_fElpaseTime)
+	{
+		this->m_TCForShortUpdateDelay.SetTargetTime(e_fElpaseTime);
 	}
 
 	void	cTextButton::SetScale(float e_fScale)
@@ -254,8 +259,8 @@ namespace FATMING_CORE
 	{
 		SetColor(this->m_vFontColor);
 		m_pstrCurrentText = this->m_strText.c_str();
-		if( m_TC.fRestTime >0.00001f )
-			m_TC.Start();
+		if(m_TCForShortUpdateDelay.fRestTime >0.00001f )
+			m_TCForShortUpdateDelay.Start();
 	}
 
 	bool    cTextButton::IsSatisfiedCondition()
@@ -266,7 +271,7 @@ namespace FATMING_CORE
 		}
 		if( cClickMouseBehavior::IsSatisfiedCondition() )
 		{
-			return this->m_TC.bTragetTimrReached;
+			return this->m_TCForShortUpdateDelay.bTragetTimrReached;
 		}
 		return false;
 	}
@@ -274,7 +279,7 @@ namespace FATMING_CORE
 	void    cTextButton::Init()
 	{
 		eObjectMouseBehavior	l_eObjectMouseBehavior = m_eObjectMouseBehavior;
-		m_TC.Start();
+		m_TCForShortUpdateDelay.Start();
 		cClickMouseBehavior::Init();
 		InternalMouseUp(0,0);
 		if( l_eObjectMouseBehavior == eOMB_HORVER )
@@ -300,10 +305,10 @@ namespace FATMING_CORE
 		}
 		if( cClickMouseBehavior::IsSatisfiedCondition() )
 		{
-			if( !m_TC.bTragetTimrReached )
+			if( !m_TCForShortUpdateDelay.bTragetTimrReached )
 			{
-				m_TC.Update(e_fElpaseTime);
-				if( m_TC.bTragetTimrReached )
+				m_TCForShortUpdateDelay.Update(e_fElpaseTime);
+				if(m_TCForShortUpdateDelay.bTragetTimrReached )
 				{
 					InternalMouseUp(0,0);
 					CallExternalFunction(this);

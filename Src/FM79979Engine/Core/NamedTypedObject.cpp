@@ -85,7 +85,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 					{
 						NamedTypedObject*l_pNamedTypedObject = (NamedTypedObject*)(*i);
 						wchar_t	l_strData[MAX_PATH];
-						swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%d\n",l_pNamedTypedObject->Type(),l_pNamedTypedObject->GetName(),l_pNamedTypedObject->GetUniqueID());
+						swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%llu\n",l_pNamedTypedObject->Type(),l_pNamedTypedObject->GetName(),l_pNamedTypedObject->GetUniqueID());
 						cGameApp::OutputDebugInfoString(l_strData);
 					}
 				}
@@ -101,7 +101,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 				for( size_t i=0;i<g_pNamedTypedObjectList->size();++i )
 				{
 					wchar_t	l_strData[MAX_PATH];
-					swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%d\n",(*g_pNamedTypedObjectList)[i]->Type(),(*g_pNamedTypedObjectList)[i]->GetName(),(*g_pNamedTypedObjectList)[i]->GetUniqueID());
+					swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%llu\n",(*g_pNamedTypedObjectList)[i]->Type(),(*g_pNamedTypedObjectList)[i]->GetName(),(*g_pNamedTypedObjectList)[i]->GetUniqueID());
 					cGameApp::OutputDebugInfoString(l_strData);
 				}
 			}

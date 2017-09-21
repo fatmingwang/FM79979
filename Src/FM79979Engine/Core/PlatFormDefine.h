@@ -188,6 +188,7 @@ enum	eDataType
 	eDT_FLOAT,
 	eDT_DOUBLE,
 	eDT_INT,
+	eDT_UINT,
 	eDT_STRING, //string(std::string)
 	eDT_WSTRING,//wstring(std::wstring)
 	eDT_VECTOR2,

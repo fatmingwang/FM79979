@@ -59,13 +59,13 @@ namespace UT
 			Min = (T)e_Value.x;
 			Max = (T)e_Value.y;
 		}
-		inline sMinMaxData<T> operator =(Vector2 e_vData)
-		{
-			sMinMaxData<T>	l_Data;
-			l_Data.Min = (T)e_vData.x;
-			l_Data.Max = (T)e_vData.y;
-			return l_Data;
-		}
+		//inline sMinMaxData<T> operator =(Vector2 e_vData)
+		//{
+		//	sMinMaxData<T>	l_Data;
+		//	l_Data.Min = (T)e_vData.x;
+		//	l_Data.Max = (T)e_vData.y;
+		//	return l_Data;
+		//}
 		inline	T	Rand()
 		{
 			//Value = rand(Min,Max);

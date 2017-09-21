@@ -13,6 +13,7 @@ namespace FATMING_CORE
 	bool    g_bSkipImageLoad = false;
 	cImageParser::cImageParser(bool e_bSortPIFileAsOriginal):ISAXCallback(true)
 	{
+		this->m_bShowErrorMsg = false;
 		m_bSortPIFileAsOriginal = e_bSortPIFileAsOriginal;
 		m_eImageType = eIT_MAX;
 		m_pCurrentImageIndexOfAnimationList = 0;

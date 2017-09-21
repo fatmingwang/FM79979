@@ -200,7 +200,7 @@ namespace FATMING_CORE
 			cGameApp::m_spstrErrorMsgString->clear();
 		}
 		bool	l_bErrorMsgStringExist = FATMING_CORE::cGameApp::m_spstrErrorMsgString?true:false;
-		bool	l_bWhoErrorMsg = FATMING_CORE::cGameApp::m_sbShowErrorMsgBox;
+		int	l_iWhoErrorMsg = FATMING_CORE::cGameApp::m_siShowErrorType;
 #ifndef	DEBUG
 		FATMING_CORE::cGameApp::m_sbShowErrorMsgBox = false;
 #endif
@@ -227,7 +227,7 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pDoc);
 		if( FATMING_CORE::cGameApp::m_spstrErrorMsgString->length() )
 		{
-			FATMING_CORE::cGameApp::m_sbShowErrorMsgBox = true;
+			FATMING_CORE::cGameApp::m_siShowErrorType = 1;
 			UT::ErrorMsg((wchar_t*)FATMING_CORE::cGameApp::m_spstrErrorMsgString->c_str(),L"Error message");
 			FATMING_CORE::cGameApp::m_spstrErrorMsgString->clear();
 		}
@@ -235,7 +235,7 @@ namespace FATMING_CORE
 		{
 			SAFE_DELETE(FATMING_CORE::cGameApp::m_spstrErrorMsgString);
 		}
-		FATMING_CORE::cGameApp::m_sbShowErrorMsgBox = l_bWhoErrorMsg;
+		FATMING_CORE::cGameApp::m_siShowErrorType = l_iWhoErrorMsg;
 		return true;
 	}
 

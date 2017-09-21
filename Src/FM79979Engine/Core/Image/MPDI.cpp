@@ -17,8 +17,6 @@
 #endif
 namespace FATMING_CORE
 {
-	char	g_strForMPDIString[MAX_PATH];
-	wchar_t	g_strForMPDIStringW[MAX_PATH];
 
 	TYPDE_DEFINE_MARCO(cMPDIList);
 	TYPDE_DEFINE_MARCO(cMPDI);
@@ -93,11 +91,11 @@ namespace FATMING_CORE
 		//find out draw rect
 		int	l_iCount = this->Count();
 		Vector4	l_vDrawRect(FLT_MAX,FLT_MAX,FLT_MIN,FLT_MIN);
+		POINT l_vOriginalSize;
 		for( int i=0;i<l_iCount;++i )
 		{
 			cCueToStartCurveWithTime*l_pCueToStartCurveWithTime = GetObject(i);
 			std::vector<Vector3>l_vPointPos = l_pCueToStartCurveWithTime->GetOriginalPointList();
-			std::vector<sTexBehaviorDataWithImageIndexData*>*l_pDataPointList = l_pCueToStartCurveWithTime->GetPointDataList();
 			int	l_iSize = (int)l_vPointPos.size();
 			for( int i=0;i<l_iSize;++i )
 			{
@@ -107,7 +105,11 @@ namespace FATMING_CORE
 				if( l_vDrawRect.y >l_vPos.y )
 					l_vDrawRect.y = l_vPos.y;
 				sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(i);
-				Vector2	l_vRightDownPos(l_vPos.x+l_pTexBehaviorDataWithImageIndexData->Size.x,l_vPos.y+l_pTexBehaviorDataWithImageIndexData->Size.y);
+				if (!l_pTexBehaviorDataWithImageIndexData->pPI)
+					break;
+				cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+				l_vOriginalSize = l_pPIUnit->GetOriginalSize();
+				Vector2	l_vRightDownPos(l_vPos.x+ l_vOriginalSize.x,l_vPos.y+ l_vOriginalSize.y);
 				if( l_vDrawRect.z <l_vRightDownPos.x )
 					l_vDrawRect.z = l_vRightDownPos.x;
 				if( l_vDrawRect.w <l_vRightDownPos.y )
@@ -346,6 +348,49 @@ EXIT:
 		{
 			m_ObjectList[i]->SetCurrentColor(e_vColor);
 		}	
+	}
+
+	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataion, Vector3*e_pvScale)
+	{
+		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
+		//cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(-l_fHalfDrawSize.x, -l_fHalfDrawSize.y, 0));		
+		cMatrix44 l_matTranslation = cMatrix44::Identity;
+		//cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fZRoataion));
+		cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(0);
+		l_matTranslation *= l_matRotation;
+		if (e_pvScale)
+		{
+			cMatrix44 l_matScale = cMatrix44::ScaleMatrix(*e_pvScale);
+			l_matTranslation *= l_matScale;
+		}
+		this->SetLocalTransform(l_matTranslation);
+		e_vPos -= l_fHalfDrawSize;
+		this->SetLocalPosition(e_vPos);
+	}
+
+	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, Vector3*e_pvRoataion, Vector3*e_pvScale)
+	{
+		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
+		//cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(-l_fHalfDrawSize.x, -l_fHalfDrawSize.y,0));
+		cMatrix44 l_matTranslation = cMatrix44::Identity;
+		if (e_pvRoataion)
+		{
+			cMatrix44 l_matRotation = cMatrix44::RotationMatrix(*e_pvRoataion);
+			l_matTranslation *= l_matRotation;
+		}
+		if (e_pvScale)
+		{
+			cMatrix44 l_matScale = cMatrix44::ScaleMatrix(*e_pvScale);
+			l_matTranslation *= l_matScale;
+		}
+		this->SetLocalTransform(l_matTranslation);
+		this->SetLocalPosition(e_vPos);
+	}
+
+	void	cMultiPathDynamicImage::SetSubMPDIChildrenScale(float e_fValue)
+	{
+		for (int i = 0; i<Count(); ++i)
+			this->m_ObjectList[i]->SetScale(e_fValue);
 	}
 
     void    cMultiPathDynamicImage::SetColor(Vector4 e_vColor)
@@ -613,7 +658,7 @@ EXIT:
 			{
 				static int	l_isSeriesIndex = 0;
 				++l_isSeriesIndex;
-				sprintf(l_strName,"%ls%d",UT::WcharToChar(l_pOriginal->GetName()).c_str(),l_isSeriesIndex);
+				sprintf(l_strName,"%s%d",UT::WcharToChar(l_pOriginal->GetName()).c_str(),l_isSeriesIndex);
 				l_pNewOne->SetName(UT::CharToWchar(l_strName));
 			}
 		}
@@ -676,19 +721,21 @@ EXIT:
 	}
 
 
-    char*  cMPDIList::GetFileName(const wchar_t*e_strObjectName)
+    std::string  cMPDIList::GetFileName(const wchar_t*e_strObjectName)
     {
-		sprintf(g_strForMPDIString,"%s\0",UT::WcharToChar(e_strObjectName).c_str());
+		char l_strForMPDIString[MAX_PATH];
+		sprintf(l_strForMPDIString,"%s\0",UT::WcharToChar(e_strObjectName).c_str());
         int l_iIndex = UT::FindChacterIndexFromBackBuffer(e_strObjectName,L'_');
 		if( l_iIndex == -1 )
 		{
-			sprintf(g_strForMPDIString,"%s.mpdi\0",UT::WcharToChar(e_strObjectName).c_str());
+			sprintf(l_strForMPDIString,"%s.mpdi\0",UT::WcharToChar(e_strObjectName).c_str());
 		}
 		else
 		{
-			g_strForMPDIString[l_iIndex] = L'.';
+			l_strForMPDIString[l_iIndex] = L'.';
 		}
-        return g_strForMPDIString;
+		std::string l_strResult = l_strForMPDIString;
+        return l_strResult;
     }
 
 #ifdef ANDROID

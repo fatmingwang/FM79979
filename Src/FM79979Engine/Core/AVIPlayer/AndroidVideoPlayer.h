@@ -1,4 +1,4 @@
-#ifdef USE_OPEN_CV
+//#ifdef USE_OPEN_CV
 
 #ifndef	_ANDROID_VIDEO_PLAYER_H_
 #define	_ANDROID_VIDEO_PLAYER_H_
@@ -108,4 +108,4 @@
 //end	_ANDROID_VIDEO_PLAYER_H_
 #endif
 //USE_OPEN_CV
-#endif
+//#endif

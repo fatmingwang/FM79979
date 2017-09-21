@@ -84,9 +84,10 @@ namespace FATMING_CORE
 		//cMatrix44		GetTransform();
 		//cMatrix44		GetTransformByImageCenter();
 		//wanna image center show at the position we indicate
-		//void			SetPosByImageCenter(Vector3 e_vPos);
+		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos,Vector3*e_pvRoataion = nullptr, Vector3*e_pvScale = nullptr);
+		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataion, Vector3*e_pvScale = nullptr);
 		////a scale value to change size at the game
-		//virtual	void	SetScale(float e_fValue);
+		virtual	void	SetSubMPDIChildrenScale(float e_fValue);
 		////to effect children's size
 		//float			GetScale(){ return m_fScale; }
 		//
@@ -157,9 +158,9 @@ namespace FATMING_CORE
 		cMultiPathDynamicImage*		GetCloneObject(const wchar_t*e_strName);
 		cMultiPathDynamicImage*		GetCloneObject(int e_iIndex);
 		//set original name xxxx_mpdi as xxxx.mpdi
-		static  char*GetFileName(const wchar_t*e_strObjectName);
-		static  std::wstring FileToMPDIListName(const wchar_t*e_strObjectName);
-		static  std::wstring FileToMPDIListName(const char*e_strFileName);
+		static  std::string		GetFileName(const wchar_t*e_strObjectName);
+		static  std::wstring	FileToMPDIListName(const wchar_t*e_strObjectName);
+		static  std::wstring	FileToMPDIListName(const char*e_strFileName);
 	};
 }
 #endif

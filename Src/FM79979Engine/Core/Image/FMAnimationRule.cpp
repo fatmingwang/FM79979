@@ -118,8 +118,9 @@ namespace FATMING_CORE
 			m_fCurrentProgress = 1.f;
 		    return;
 		}
-	    m_fPastTime += e_fElpaseTime;
+		float	l_fPreviousPastTime = m_fPastTime;
 		float	l_fEndTime = this->GetEndTime();
+	    m_fPastTime += e_fElpaseTime;
 		if( m_fPastTime >= l_fEndTime )
 		{
 			//seems use m_iCurrentPlayCount += m_fPastTime/l_fEndTime; is better but I do care.
@@ -141,9 +142,8 @@ namespace FATMING_CORE
 			{
 				if( m_bStayAtLastFrame )
 				{
-					float l_fRestTime = m_fPastTime - e_fElpaseTime;
-					l_fRestTime = l_fEndTime - m_fPastTime;
-					InternalUpdate(l_fRestTime);
+					float	l_fRestTimeToEnd = l_fEndTime - l_fPreviousPastTime + EPSIONAL;
+					InternalUpdate(l_fRestTimeToEnd);
 					//m_fPastTime += e_fElpaseTime;
 					//if(m_fCurrentProgress != 1.f)
 					//{

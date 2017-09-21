@@ -1384,7 +1384,11 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 #endif
 	{
 		char*l_strAnsii = (char*)buf;
-		std::wstring l_strCharToWchar = UT::CharToWchar(l_strAnsii);
+		std::wstring l_strCharToWchar;
+		{
+			std::string		l_strForCopy = l_strAnsii;
+			l_strCharToWchar.assign(l_strForCopy.begin(), l_strForCopy.end());
+		}
 		int	l_iNewBufferSize = l_strCharToWchar.length();
 		wchar_t* pNewbuf = new wchar_t[ l_iLength+1 ];
 		memcpy(pNewbuf,&l_strCharToWchar[0],sizeof(wchar_t)*l_iLength);

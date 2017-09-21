@@ -49,7 +49,7 @@ namespace FATMING_CORE
 	class	cTextButton:public cFontWithFrame,public cClickMouseBehavior
 	{
 		virtual	void			SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
-		UT::sTimeCounter		m_TC;
+		UT::sTimeCounter		m_TCForShortUpdateDelay;
         virtual void			InternalMouseDown(int e_iPosX,int e_iPosY);
 		virtual void			InternalMouseLeave(int e_iPosX,int e_iPosY);
         virtual void			InternalMouseUp(int e_iPosX,int e_iPosY);
@@ -74,6 +74,7 @@ namespace FATMING_CORE
 		virtual	void			Destroy();
 		static	cTextButton*	GetMe(TiXmlElement*e_pElement);
 		void					SetScale(float e_fScale);
+		void					SetShortUpdateDelay(float e_fElpaseTime);
 	};
 	//sample
 	//cTextButton	*g_pTextButton = 0;

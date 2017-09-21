@@ -559,6 +559,7 @@ namespace FATMING_CORE
 		m_bCalculateAngle = false;
 		m_fCurrentLERPTime = 0.f;
 		m_vMovedCoordinate = m_vCurrentDirection = Vector3::Zero;
+		m_bStayAtLastFrame = true;
 	}
 
 	cCurveWithTime::cCurveWithTime(cCurveWithTime*e_pCurveWithTime):cCurve(e_pCurveWithTime),cFMTimeLineAnimationRule(e_pCurveWithTime),Frame(e_pCurveWithTime)
@@ -1029,6 +1030,7 @@ namespace FATMING_CORE
 	void	cCurveWithTime::Render(Vector4 e_vColor,cMatrix44 e_mat)
 	{
 		this->RenderCurve(e_vColor,e_mat);
+		GLRender::RenderPoint(this->m_vCurrentPosition);
 	}
 
 	void	cCurveWithTime::InvertOrder()

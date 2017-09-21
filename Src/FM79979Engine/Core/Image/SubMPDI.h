@@ -61,7 +61,7 @@ namespace FATMING_CORE
 		cCueToStartCurveWithTime(cMulti_PI_Image*e_pMulti_PI_Image);
 		cCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime);
 		virtual ~cCueToStartCurveWithTime();
-		int	GetCurrentImageIndex(){ return this->m_pCurrentPointData->iImageIndex; }
+		int	GetCurrentImageIndex() { return this->m_pCurrentPointData ? this->m_pCurrentPointData->iImageIndex : -1; }
 		//prevent ambiguous
 		inline	virtual void	Init(){ cFMTimeLineAnimationRule::Init(); }
 		//prevent ambiguous

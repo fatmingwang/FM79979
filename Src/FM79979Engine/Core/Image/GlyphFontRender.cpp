@@ -34,7 +34,7 @@ namespace FATMING_CORE
 		m_pvTextureUVBuffer = 0;
 		m_pvColorBuffer = 0;
 		char	l_strForStripExtensionName[TEMP_SIZE];
-		sprintf(l_strForStripExtensionName,"%s\0",UT::GetFileNameWithoutFullPath(e_strFontName).c_str());
+		sprintf(l_strForStripExtensionName,"%s\0",UT::GetFileNameWithoutFullPath(e_strFontName, false).c_str());
 		char	l_strForDirectory[TEMP_SIZE];
 		std::string	l_strFoneName = UT::GetDirectoryWithoutFileName(e_strFontName);
 		if( l_strFoneName.length() )
@@ -47,12 +47,12 @@ namespace FATMING_CORE
 		m_pFontImage = new cBaseImage(l_str);
 		if(m_pFontImage->GetTexture()->GetImageIndex() == 0 )
 		{
-			bool	l_b = FATMING_CORE::cGameApp::m_sbShowErrorMsgBox;
-			FATMING_CORE::cGameApp::m_sbShowErrorMsgBox = true;
+			int l_iShowErrorMsgType = FATMING_CORE::cGameApp::m_siShowErrorType;
+			FATMING_CORE::cGameApp::m_siShowErrorType = 1;
 			SAFE_DELETE(m_pFontImage);
 			m_pGlyphReader = 0;
 			UT::ErrorMsg(e_strFontName,"font image not exist");
-			FATMING_CORE::cGameApp::m_sbShowErrorMsgBox = l_b;
+			FATMING_CORE::cGameApp::m_siShowErrorType = l_iShowErrorMsgType;
 			return;
 		}
 		m_pGlyphReader = new GlyphReader();

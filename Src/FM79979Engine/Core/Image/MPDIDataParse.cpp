@@ -567,7 +567,8 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 
 					}
 				TO_NEXT_VALUE
-				m_pCurrentMultiPathDynamicImage->AddObject(l_pCueToStartCurvesWithTime);
+				//m_pCurrentMultiPathDynamicImage->AddObject(l_pCueToStartCurvesWithTime);
+				m_pCurrentMultiPathDynamicImage->AddObjectNeglectExist(l_pCueToStartCurvesWithTime);
 			}
 			else
 			{
@@ -632,87 +633,99 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					Vector2	l_vScale(-1.f,-1.f);
 					sTexBehaviorDataWithImageIndexData	l_sTexBehaviorDataWithImageIndexData;
 					PARSE_CURRENT_ELEMENT_START
-					COMPARE_NAME("Index")
-					{
+						COMPARE_NAME("Index")
+						{
 
-					}
-					else				
-					COMPARE_NAME("Size")
-					{
-						l_sTexBehaviorDataWithImageIndexData.Size = VALUE_TO_VECTOR2;
-					}
-					else				
-					COMPARE_NAME("Scale")
-					{
-						l_vScale = VALUE_TO_VECTOR2;
-					}
-					else//xy
-					COMPARE_NAME("Angle")
-					{
-						l_sTexBehaviorDataWithImageIndexData.vAngle.z = VALUE_TO_FLOAT;
-					}
-					else//xyz
-					COMPARE_NAME("Angles")
-					{
-						l_sTexBehaviorDataWithImageIndexData.vAngle = VALUE_TO_VECTOR3;
-					}
-					else
-					COMPARE_NAME("Color")
-					{
-						l_sTexBehaviorDataWithImageIndexData.vColor = VALUE_TO_VECTOR4;
-					}
-					else
-					COMPARE_NAME("PIName")
-					{
-						l_strPIName = l_strValue;
-					    l_pPuzzleImage = this->m_pCurrentcMPDIList->GetPuzzleImage(l_strValue);
-					    if( l_pPuzzleImage )
-					    {
-						    m_pCurrentCueToStartCurvesWithTime->SetPuzzleImage(l_pPuzzleImage);
+						}
+						else				
+						COMPARE_NAME("Size")
+						{
+							l_sTexBehaviorDataWithImageIndexData.Size = VALUE_TO_VECTOR2;
+						}
+						else				
+						COMPARE_NAME("Scale")
+						{
+							l_vScale = VALUE_TO_VECTOR2;
+						}
+						else//xy
+						COMPARE_NAME("Angle")
+						{
+							l_sTexBehaviorDataWithImageIndexData.vAngle.z = VALUE_TO_FLOAT;
+						}
+						else//xyz
+						COMPARE_NAME("Angles")
+						{
+							l_sTexBehaviorDataWithImageIndexData.vAngle = VALUE_TO_VECTOR3;
 						}
 						else
+						COMPARE_NAME("Color")
 						{
-						    this->m_strErrorMsg += l_strValue;
-						    this->m_strErrorMsg += L" pi not exist!";
+							l_sTexBehaviorDataWithImageIndexData.vColor = VALUE_TO_VECTOR4;
 						}
-					}
-					else
-					COMPARE_NAME("ImageName")
-					{
-						if( l_pPuzzleImage )
+						else
+						COMPARE_NAME("PIName")
 						{
-							l_sTexBehaviorDataWithImageIndexData.iImageIndex = l_pPuzzleImage->GetObjectIndexByName(l_strValue);
-							if( l_sTexBehaviorDataWithImageIndexData.iImageIndex != -1 )
+							l_strPIName = l_strValue;
+							l_pPuzzleImage = this->m_pCurrentcMPDIList->GetPuzzleImage(l_strValue);
+							if( l_pPuzzleImage )
 							{
-								l_pPuzzleData = l_pPuzzleImage->GetPuzzleData()[l_sTexBehaviorDataWithImageIndexData.iImageIndex];
+								m_pCurrentCueToStartCurvesWithTime->SetPuzzleImage(l_pPuzzleImage);
+							}
+							else
+							{
+								//some people make a lazy way to fetch Image without PI ,this is totaly wrong,so I have to add this line to fix this -_-"
+								if (wcslen(l_strValue) == 0 && abs(this->m_fMPDIVersion - 1.2)<0.01f)
+								{
+									const wchar_t* l_strImageName = m_pCurrentTiXmlElement->Attribute(L"ImageName");
+									if (l_strImageName)
+									{
+										m_pCurrentCueToStartCurvesWithTime->SetName(l_strImageName);
+									}
+								}
+								else
+								{
+									this->m_strErrorMsg += l_strValue;
+									this->m_strErrorMsg += L" pi not exist!";
+								}
 							}
 						}
 						else
-							l_sTexBehaviorDataWithImageIndexData.iImageIndex = -1;
-						if( l_sTexBehaviorDataWithImageIndexData.iImageIndex == -1 )
+						COMPARE_NAME("ImageName")
 						{
-							l_sTexBehaviorDataWithImageIndexData.iImageIndex = 0;
-							this->m_strErrorMsg += l_strValue;
-							this->m_strErrorMsg += L" is not exist at pi ";
-							this->m_strErrorMsg += l_strPIName;
-							this->m_strErrorMsg += L"\n";
+							if( l_pPuzzleImage )
+							{
+								l_sTexBehaviorDataWithImageIndexData.iImageIndex = l_pPuzzleImage->GetObjectIndexByName(l_strValue);
+								if( l_sTexBehaviorDataWithImageIndexData.iImageIndex != -1 )
+								{
+									l_pPuzzleData = l_pPuzzleImage->GetPuzzleData()[l_sTexBehaviorDataWithImageIndexData.iImageIndex];
+								}
+							}
+							else
+								l_sTexBehaviorDataWithImageIndexData.iImageIndex = -1;
+							if( l_sTexBehaviorDataWithImageIndexData.iImageIndex == -1 )
+							{
+								l_sTexBehaviorDataWithImageIndexData.iImageIndex = 0;
+								this->m_strErrorMsg += l_strValue;
+								this->m_strErrorMsg += L" is not exist at pi ";
+								this->m_strErrorMsg += l_strPIName;
+								this->m_strErrorMsg += L"\n";
+							}
 						}
-					}
-					else
-					COMPARE_NAME("Mirror")
-					{
-						l_sTexBehaviorDataWithImageIndexData.bMirror = VALUE_TO_BOOLEAN;
-					}
-					else
-					COMPARE_NAME("Position")
-					{
-						l_vPos = VALUE_TO_VECTOR3;
-					}
-					else
-					COMPARE_NAME("Time")
-					{
-						l_fTime = VALUE_TO_FLOAT;
-					}
+						else
+						COMPARE_NAME("Mirror")
+						{
+							l_sTexBehaviorDataWithImageIndexData.bMirror = VALUE_TO_BOOLEAN;
+						}
+						else
+						COMPARE_NAME("Position")
+						{
+							l_vPos = VALUE_TO_VECTOR3;
+						}
+						else
+						COMPARE_NAME("Time")
+						{
+							l_fTime = VALUE_TO_FLOAT;
+						}
 					PARSE_NAME_VALUE_END
 					if(m_fMPDIVersion <= 1.0f )
 					{

@@ -393,11 +393,11 @@ namespace FATMING_CORE
 		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		l_TempData[l_iLength] = 0;
 		std::vector<std::wstring>	l_List;
-		wchar_t*	l_str = wcstok(l_TempData,L", _");
+		wchar_t*	l_str = wcstok(l_TempData,L", ");
 		while(l_str)
 		{
 			l_List.push_back(l_str);
-			l_str = wcstok(0,L", _");
+			l_str = wcstok(0,L", ");
 		}
 		delete l_pStart;
 		return l_List;	
@@ -411,11 +411,11 @@ namespace FATMING_CORE
 		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		l_TempData[l_iLength] = 0;
 		std::vector<std::string>	l_List;
-		wchar_t*	l_str = wcstok(l_TempData,L", _");
+		wchar_t*	l_str = wcstok(l_TempData,L", ");
 		while(l_str)
 		{
 			l_List.push_back(UT::WcharToChar(l_str));
-			l_str = wcstok(0,L", _");
+			l_str = wcstok(0,L", ");
 		}
 		delete l_pStart;
 		return l_List;

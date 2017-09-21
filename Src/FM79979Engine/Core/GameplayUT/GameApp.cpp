@@ -78,7 +78,7 @@ namespace	FATMING_CORE
 	cImageParser*										cGameApp::m_spImageParser = 0;
 	cSoundParser*										cGameApp::m_spSoundParser = 0;
 	cNamedTypedObjectVector<cCurveManager>*				cGameApp::m_spPathFileList;
-	bool												cGameApp::m_sbShowErrorMsgBox = true;
+	int													cGameApp::m_siShowErrorType = 1;
 	std::wstring*										cGameApp::m_spstrErrorMsgString = 0;
 	bool												cGameApp::m_sucKeyData[MAX_PATH];
 	bool												cGameApp::m_sbEnableMouseSingnal = true;
@@ -500,6 +500,7 @@ namespace	FATMING_CORE
 				break;
 			}
 		}
+#ifdef DEBUG
 		if( cGameApp::m_sucKeyData['D'] )
 		{
 			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
@@ -509,6 +510,7 @@ namespace	FATMING_CORE
 		{
 			m_bDoScreenShot = true;
 		}
+#endif
 #endif
 		m_sucKeyData[(unsigned char)e_char] = false;
 	}

@@ -51,7 +51,7 @@ namespace FATMING_CORE
 	char*	cPrtTextureActDynamicTexture::GetDataInfo()
 	{
 		if( this->m_pImageIndexOfAnimation )
-			sprintf(m_sTemp,"PIName:%s\nAnimationName:%ws\n",this->m_pEmitterOwner->GetTexture()->GetCharName().c_str(),m_pImageIndexOfAnimation->GetCharName().c_str());
+			sprintf(m_sTemp,"PIName:%s\nAnimationName:%s\n",this->m_pEmitterOwner->GetTexture()->GetCharName().c_str(),m_pImageIndexOfAnimation->GetCharName().c_str());
 		else
 			sprintf(m_sTemp,"change image index every second");
 		return m_sTemp;

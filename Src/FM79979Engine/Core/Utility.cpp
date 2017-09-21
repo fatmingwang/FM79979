@@ -307,50 +307,63 @@ namespace UT
 	}
 	eDataType	GetDataType(const wchar_t*e_str)
 	{
-		if( !e_str )
-			return eDT_MAX;
-		if( !wcscmp(e_str,L"int") )
-			return eDT_INT;
-		if( !wcscmp(e_str,L"float") )
-			return eDT_FLOAT;
-		if( !wcscmp(e_str,L"byte") )
-			return eDT_BYTE;
-		if( !wcscmp(e_str,L"double") )
-			return eDT_DOUBLE;
-		if( !wcscmp(e_str,L"wstring") )
-			return eDT_WSTRING;
-		if( !wcscmp(e_str,L"string") )
-			return eDT_STRING;
-		if( !wcscmp(e_str,L"void") )
-			return eDT_VOID;
-		if( !wcscmp(e_str,L"Point") )
-			return eDT_POINT;
-		if( !wcscmp(e_str,L"Vector2") )
-			return eDT_VECTOR2;
-		if( !wcscmp(e_str,L"Vector3") )
-			return eDT_VECTOR3;
-		if( !wcscmp(e_str,L"Vector4") )
-			return eDT_VECTOR4;
-		if( !wcscmp(e_str,L"int64") )
-			return eDT_INT64;
-		if( !wcscmp(e_str,L"uint64") )
-			return eDT_UINT64;
-		return eDT_MAX;
+		return GetDataType(ValueToString(e_str).c_str());
+		//if( !e_str )
+		//	return eDT_MAX;
+		//if( !wcscmp(e_str,L"int") )
+		//	return eDT_INT;
+		//if( !wcscmp(e_str,L"float") )
+		//	return eDT_FLOAT;
+		//if( !wcscmp(e_str,L"byte") )
+		//	return eDT_BYTE;
+		//if( !wcscmp(e_str,L"double") )
+		//	return eDT_DOUBLE;
+		//if( !wcscmp(e_str,L"wstring") )
+		//	return eDT_WSTRING;
+		//if( !wcscmp(e_str,L"string") )
+		//	return eDT_STRING;
+		//if( !wcscmp(e_str,L"void") )
+		//	return eDT_VOID;
+		//if( !wcscmp(e_str,L"Point") )
+		//	return eDT_POINT;
+		//if( !wcscmp(e_str,L"Vector2") )
+		//	return eDT_VECTOR2;
+		//if( !wcscmp(e_str,L"Vector3") )
+		//	return eDT_VECTOR3;
+		//if( !wcscmp(e_str,L"Vector4") )
+		//	return eDT_VECTOR4;
+		//if( !wcscmp(e_str,L"int64") )
+		//	return eDT_INT64;
+		//if( !wcscmp(e_str,L"uint64") )
+		//	return eDT_UINT64;
+		//return eDT_MAX;
 	}
 	eDataType	GetDataType(const char*e_str)
 	{
+		if (!strcmp(e_str, "char") || !strcmp(e_str, "byte"))
+			return eDT_BYTE;
+		if (!strcmp(e_str, "short"))
+			return eDT_SHORT;
+		if (!strcmp(e_str, "float"))
+			return eDT_FLOAT;
+		if (!strcmp(e_str, "double"))
+			return eDT_DOUBLE;
 		if( !strcmp(e_str,"int") )
 			return eDT_INT;
-		if( !strcmp(e_str,"float") )
-			return eDT_FLOAT;
-		if( !strcmp(e_str,"byte") )
-			return eDT_BYTE;
-		if( !strcmp(e_str,"double") )
-			return eDT_DOUBLE;
+		if (!strcmp(e_str, "uint"))
+			return eDT_UINT;
+		if (!strcmp(e_str, "string"))
+			return eDT_STRING;
 		if( !strcmp(e_str,"wstring") )
 			return eDT_WSTRING;
-		if( !strcmp(e_str,"string") )
-			return eDT_STRING;
+		if (!strcmp(e_str, "vector2"))
+			return eDT_VECTOR2;
+		if (!strcmp(e_str, "vector3"))
+			return eDT_VECTOR3;
+		if (!strcmp(e_str, "vector4"))
+			return eDT_VECTOR4;
+		if (!strcmp(e_str, "point"))
+			return eDT_POINT;
 		if( !strcmp(e_str,"void") )
 			return eDT_VOID;
 		if( !strcmp(e_str,"int64") )
@@ -369,7 +382,7 @@ namespace UT
 	void	ErrorMsg(const wchar_t*e_strErrMsg1,const wchar_t*e_strErrMsg2)
 	{
 #if defined(WIN32)
-		if( FATMING_CORE::cGameApp::m_sbShowErrorMsgBox )
+		if( FATMING_CORE::cGameApp::m_siShowErrorType == 1)
 		{
 			try
 			{
@@ -386,6 +399,14 @@ namespace UT
 				const char*l_str = ex.what();
 				int a=0;
 			}
+		}
+		if (FATMING_CORE::cGameApp::m_siShowErrorType == 2)
+		{
+			std::wstring	l_str = L"Error:";
+			l_str += e_strErrMsg1;
+			l_str += L" : ";
+			l_str += e_strErrMsg2;
+			cGameApp::OutputDebugInfoString(l_str);
 		}
 		else
 		if( FATMING_CORE::cGameApp::m_spstrErrorMsgString )
@@ -842,6 +863,10 @@ namespace UT
 
 	NvFile*	MyFileOpen( const char* e_strFileName,const char*e_strMode )
 	{
+#if defined(WIN32) && defined(DEBUG)
+		WCHAR l_dwCurrenctDirectory[MAX_PATH];
+		GetCurrentDirectory(MAX_PATH, l_dwCurrenctDirectory);
+#endif
 		NvFile* fp = nullptr;
 		bool	l_bWrite = false;
 		for(size_t i=0;i<strlen(e_strMode);++i)
@@ -1391,9 +1416,11 @@ namespace UT
 
 	std::string	WcharToChar(const wchar_t *e_strWchar)
 	{
-		std::string		l_strResult;
-		std::wstring	l_strForCopy = e_strWchar;
-		l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
+		char l_strTemp[TEMP_SIZE];
+		WcharToChar(e_strWchar, l_strTemp);
+		std::string		l_strResult = l_strTemp;
+		//std::wstring	l_strForCopy = e_strWchar;
+		//l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
 		return l_strResult;
 	}
 
@@ -1423,9 +1450,12 @@ namespace UT
 	}
 	std::wstring	CharToWchar(const char *e_strChar)
 	{
-		std::wstring	l_strResult;
-		std::string		l_strForCopy = e_strChar;
-		l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
+		wchar_t l_strTemp[TEMP_SIZE];
+		CharToWchar(e_strChar, l_strTemp);
+		std::wstring	l_strResult = l_strTemp;
+//		std::wstring	l_strResult;
+		//std::string		l_strForCopy = e_strChar;
+		//l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
 		return l_strResult;
 		//if here occured crush,in the dot net that's because fucking MS
 		//using critical section to lock

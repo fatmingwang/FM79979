@@ -67,7 +67,7 @@ namespace FATMING_CORE
 		if(!m_pFrame)
 			return "none Data ot Data error";
 		string	l_strAttachFrameType = UT::WcharToChar(AttachFrameTypeToString(m_eAttachFrameType));
-		sprintf(m_sTemp,"Type:%s\nModelName:%s\nSubFrameName:%s\nOffsetPos:%.2f,%.2f,%.2f\0",l_strAttachFrameType.c_str(),m_pFrame->GetName(),wcslen(this->m_psSubFrameName)?m_psSubFrameName:L"",m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
+		sprintf(m_sTemp,"Type:%s\nModelName:%ls\nSubFrameName:%ls\nOffsetPos:%.2f,%.2f,%.2f\0",l_strAttachFrameType.c_str(),m_pFrame->GetName(),wcslen(this->m_psSubFrameName)?m_psSubFrameName:L"",m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
 		return m_sTemp;
 	}
 	char*	cPrtStartPositionInitByFrame::GetOutputDataString()

@@ -569,12 +569,14 @@ namespace FATMING_CORE
 		{//if image resource does't need to read,the texture resource is come from external,so we do not to delete it
 			return;
 		}
-		LoadImage(e_strImageFileName,e_bFetchPixelData);
+		if (!LoadImage(e_strImageFileName, e_bFetchPixelData))
+		{
 #ifdef DEBUG
-		std::string l_strFileName = e_strImageFileName;
-		l_strFileName += " start to parse:Texture";
-		cGameApp::OutputDebugInfoString(l_strFileName);
+			std::string l_strFileName = e_strImageFileName;
+			l_strFileName += "parse:Texture failed!";
+			cGameApp::OutputDebugInfoString(l_strFileName);
 #endif
+		}
 	}
 	//===============
 	//
