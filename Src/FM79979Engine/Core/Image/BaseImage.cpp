@@ -90,18 +90,19 @@ namespace FATMING_CORE
 	{
 		m_pvPos->x = (float)e_Pos.x;
 		m_pvPos->y = (float)e_Pos.y;
-		Frame::SetLocalPosition(*m_pvPos);
+		//Frame::SetLocalPosition(*m_pvPos);
 	}
 	void	cBaseImage::SetPos(Vector2 e_vPos)
 	{
 		m_pvPos->x = e_vPos.x;
 		m_pvPos->y = e_vPos.y;
-		Frame::SetLocalPosition(*m_pvPos);
+		//Frame::SetLocalPosition(*m_pvPos);
 	}
 	void	cBaseImage::SetPosByImageCenter(Vector3 e_vPos)
 	{
-		m_pvPos->x = e_vPos.x-m_iWidth/2.f;m_pvPos->y = e_vPos.y-m_iHeight/2.f;
-		Frame::SetLocalPosition(*m_pvPos);
+		m_pvPos->x = e_vPos.x-this->m_OriginalSize.x /2.f;
+		m_pvPos->y = e_vPos.y- m_OriginalSize.y /2.f;
+		//Frame::SetLocalPosition(*m_pvPos);
 	}
 
     bool    cBaseImage::CollideTexture(int e_iX,int e_iY,bool e_bTestAlphaChannel,Vector4*e_pvCollidedColor)
@@ -303,10 +304,10 @@ namespace FATMING_CORE
         m_pTexture->ApplyImage();
 		float l_fWidth = m_iWidth/2.f;
 		float l_fHeight = m_iHeight/2.f;
-		float	l_Vertices[] = { -l_fWidth,-l_fHeight,
-								 l_fWidth, -l_fHeight,
-								 -l_fWidth, l_fHeight,
-								 l_fWidth,l_fHeight};
+		float	l_Vertices[] = { -l_fWidth+this->m_OffsetPos.x,-l_fHeight + this->m_OffsetPos.y,
+								 l_fWidth + this->m_OffsetPos.x, -l_fHeight + this->m_OffsetPos.y,
+								 -l_fWidth + this->m_OffsetPos.x, l_fHeight + this->m_OffsetPos.y,
+								 l_fWidth + this->m_OffsetPos.x,l_fHeight + this->m_OffsetPos.y };
 /*        float l_fWidth = m_iWidth;
 		float l_fHeight = m_iHeight;
 		float	l_Vertices[] = { 0,0,

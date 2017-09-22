@@ -282,7 +282,11 @@ namespace FATMING_CORE
 			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData,3,(float*)this->m_2DVertices.vPos,(float*)m_2DVertices.fUV,e_pPuzzleData);
-		DrawQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_pCurrentPointData->vColor,this->GetWorldTransform(),3,1);
+		//79979
+		Vector3 l_vConvertedVertices[4];
+		cMatrix44 l_ConvertedMatrix;
+		ConverVerticesWithWholeMPDIDrawSize(l_vConvertedVertices, &l_ConvertedMatrix);
+		DrawQuadWithMatrix((float*)l_vConvertedVertices,(float*)m_2DVertices.fUV,m_pCurrentPointData->vColor, l_ConvertedMatrix,3,1);
 		if(this->m_bColorBlending)
 		{
 			glBlendFunc(l_OriginalSrc,l_OriginalDest);
@@ -380,33 +384,33 @@ namespace FATMING_CORE
 		l_mat2DTransform *= cMatrix44::RotationMatrix(this->m_pCurrentPointData->vAngle);
 		l_mat2DTransform *= cMatrix44::TranslationMatrix(m_vRotationAnglePosOffset+l_vCenterToOffset);
 		this->SetLocalTransform(l_mat2DTransform);
-		//if( this->GetParent() )
-		//{
-		//	//cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(this->GetParent());
-		//	//l_pMPDI->GetRotationCenter();
-		//	cMatrix44	l_Parentmat = this->GetParent()->GetWorldTransform();
-		//	l_mat2DTransform = l_Parentmat*l_mat2DTransform;
-		//}
-		//return l_mat2DTransform;
 	}
 
-	bool	cCueToStartCurveWithTime::GetTransformedVerticesByIndex(float*e_pfVertices,float*e_pfUV,float*e_pfColor,int e_iIndex)
+	Vector4	cCueToStartCurveWithTime::GetCollideRectByIndex(int e_iIndex)
 	{
-		sTexBehaviorDataWithImageIndexData*l_pData = this->GetPointData(e_iIndex);
-		sPuzzleData*l_pPuzzleData = l_pData->pPI->GetPuzzleData()[l_pData->iImageIndex];
-		if( e_pfColor )
+		if (GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices, g_fMPDIOptmizeRenderUV, g_fMPDIOptmizeRenderColor, 0))
 		{
-			for( int i=0;i<6;++i )
-				memcpy(&e_pfColor[i*4],&l_pData->vColor,sizeof(Vector4));
+			Vector4	l_vRect(g_fMPDIOptmizeRenderVertices[6], g_fMPDIOptmizeRenderVertices[7], g_fMPDIOptmizeRenderVertices[12], g_fMPDIOptmizeRenderVertices[13]);
+			return l_vRect;
 		}
-		Vector3	l_Vertices[4];
-		GetRenderPuzzleDataAndMatrix(l_pData,3,(float*)l_Vertices,e_pfUV,l_pPuzzleData);
-		cMatrix44  l_mat2DTransform = this->GetWorldTransform();
-		memcpy(l_Vertices,this->m_2DVertices.vPos,sizeof(Vector3)*4);
-		//left down
-		if( e_pfVertices )
+		return Vector4::Zero;
+		//return Vector4(l_Vertices[0].x+l_vPos.x,l_Vertices[0].y+l_vPos.y,l_Vertices[3].x+l_vPos.x,l_Vertices[3].y+l_vPos.y);
+	}
+
+	bool	cCueToStartCurveWithTime::AssignColorAndTransformToVertices(Vector4 e_vInputColor, float*e_pfVertices, float*e_pfColor)
+	{
+		if (e_pfColor)
 		{
-			for( int i=0;i<4;++i )
+			for (int i = 0; i<6; ++i)
+				memcpy(&e_pfColor[i * 4], &e_vInputColor, sizeof(Vector4));
+		}
+		//79979
+		cMatrix44  l_mat2DTransform;
+		Vector3 l_Vertices[4];
+		ConverVerticesWithWholeMPDIDrawSize(l_Vertices, &l_mat2DTransform);
+		if (e_pfVertices)
+		{
+			for (int i = 0; i<4; ++i)
 				l_Vertices[i] = l_mat2DTransform.TransformCoordinate(l_Vertices[i]);
 			e_pfVertices[0] = l_Vertices[2].x;			//left down
 			e_pfVertices[1] = l_Vertices[2].y;
@@ -432,19 +436,18 @@ namespace FATMING_CORE
 			e_pfVertices[16] = l_Vertices[1].y;
 			e_pfVertices[17] = l_Vertices[1].z;
 		}
-		return true;	
+		return true;
 	}
 
-	Vector4	cCueToStartCurveWithTime::GetCollideRectByIndex(int e_iIndex)
+	bool	cCueToStartCurveWithTime::GetTransformedVerticesByIndex(float*e_pfVertices,float*e_pfUV,float*e_pfColor,int e_iIndex)
 	{
-		if(GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices,g_fMPDIOptmizeRenderUV,g_fMPDIOptmizeRenderColor,0))
-		{
-			Vector4	l_vRect(g_fMPDIOptmizeRenderVertices[6],g_fMPDIOptmizeRenderVertices[7],g_fMPDIOptmizeRenderVertices[12],g_fMPDIOptmizeRenderVertices[13]);
-			return l_vRect;
-		}
-		return Vector4::Zero;
-		//return Vector4(l_Vertices[0].x+l_vPos.x,l_Vertices[0].y+l_vPos.y,l_Vertices[3].x+l_vPos.x,l_Vertices[3].y+l_vPos.y);
+		sTexBehaviorDataWithImageIndexData*l_pData = this->GetPointData(e_iIndex);
+		sPuzzleData*l_pPuzzleData = l_pData->pPI->GetPuzzleData()[l_pData->iImageIndex];
+		Vector3	l_Vertices[4];
+		GetRenderPuzzleDataAndMatrix(l_pData,3,(float*)l_Vertices,e_pfUV,l_pPuzzleData);
+		return AssignColorAndTransformToVertices(l_pData->vColor, e_pfVertices,e_pfColor);
 	}
+
 	//0    14
 	//23	5
 	bool	cCueToStartCurveWithTime::GetTransformedTrianglesVertices(float*e_pfVertices,float*e_pfUV,float*e_pfColor,bool e_bForceToFetch)
@@ -461,46 +464,11 @@ namespace FATMING_CORE
 			return false;
 		if( !m_bStart || m_pCurrentPointData->vColor.a == 0 )
 			return false;
+
 		sPuzzleData*l_pPuzzleData = this->m_pCurrentPointData->pPI->GetPuzzleData()[this->m_pCurrentPointData->iImageIndex];
 		if( e_pfUV )
 			AssignUVDataTo2Triangles(l_pPuzzleData->fUV,e_pfUV,m_pCurrentPointData->bMirror);
-		if( e_pfColor )
-		{
-			for( int i=0;i<6;++i )
-				memcpy(&e_pfColor[i*4],&m_pCurrentPointData->vColor,sizeof(Vector4));
-		}
-		Vector3	l_Vertices[4];
-		memcpy(l_Vertices,this->m_2DVertices.vPos,sizeof(Vector3)*4);
-		cMatrix44  l_mat2DTransform = this->GetWorldTransform();
-		//left down
-		if( e_pfVertices )
-		{
-			for( int i=0;i<4;++i )
-				l_Vertices[i] = l_mat2DTransform.TransformCoordinate(l_Vertices[i]);
-			e_pfVertices[0] = l_Vertices[2].x;			//left down
-			e_pfVertices[1] = l_Vertices[2].y;
-			e_pfVertices[2] = l_Vertices[2].z;
-
-			e_pfVertices[3] = l_Vertices[3].x;			//right down
-			e_pfVertices[4] = l_Vertices[3].y;
-			e_pfVertices[5] = l_Vertices[3].z;
-
-			e_pfVertices[6] = l_Vertices[0].x;			//left up
-			e_pfVertices[7] = l_Vertices[0].y;
-			e_pfVertices[8] = l_Vertices[0].z;
-
-			e_pfVertices[9] = l_Vertices[0].x;			//left up
-			e_pfVertices[10] = l_Vertices[0].y;
-			e_pfVertices[11] = l_Vertices[0].z;
-
-			e_pfVertices[12] = l_Vertices[3].x;			//right down
-			e_pfVertices[13] = l_Vertices[3].y;
-			e_pfVertices[14] = l_Vertices[3].z;
-
-			e_pfVertices[15] = l_Vertices[1].x;			//right up
-			e_pfVertices[16] = l_Vertices[1].y;
-			e_pfVertices[17] = l_Vertices[1].z;
-		}
+		AssignColorAndTransformToVertices(m_pCurrentPointData->vColor, e_pfVertices, e_pfColor);
 		return true;
 	}
 
@@ -561,6 +529,26 @@ namespace FATMING_CORE
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData,3,(float*)this->m_2DVertices.vPos,(float*)m_2DVertices.fUV,l_pPuzzleData);
 	}
 
+	void	cCueToStartCurveWithTime::ConverVerticesWithWholeMPDIDrawSize( Vector3*e_pvConvertedVertices, cMatrix44*e_pConvertedMatrix)
+	{
+		//here for whole MPDI draw size rotation center offest
+		memcpy(e_pvConvertedVertices, m_2DVertices.vPos, sizeof(Vector3) * 4);		
+		//cMPDI*l_pParent = (cMPDI*)((size_t)this->GetParent());
+		cMPDI*l_pParent = dynamic_cast<cMPDI*>(this->GetParent());
+		if (!l_pParent)
+		{
+			*e_pConvertedMatrix = this->GetWorldTransform();
+			return;
+		}
+		Vector2 l_vHalfDrawSize = l_pParent->GetDrawSize() / 2;
+		for (int i = 0; i < 4; ++i)
+		{
+			e_pvConvertedVertices[i].x -= l_vHalfDrawSize.x;
+			e_pvConvertedVertices[i].y -= l_vHalfDrawSize.y;
+		}
+		*e_pConvertedMatrix = cMatrix44::TranslationMatrix(Vector3(l_vHalfDrawSize.x, l_vHalfDrawSize.y, 0))*this->GetWorldTransform();
+	}
+
 	void cCueToStartCurveWithTime::InternalRender()
 	{
 		if( this->m_bCurveMoveDone )
@@ -592,7 +580,11 @@ namespace FATMING_CORE
 			glGetIntegerv(GL_BLEND_DST,(GLint*)&l_OriginalDest);
 			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 		}
-		DrawQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_pCurrentPointData->vColor,this->GetWorldTransform(),3,1);
+
+		cMatrix44 l_mat;
+		Vector3 l_vPos[4];
+		ConverVerticesWithWholeMPDIDrawSize(l_vPos,&l_mat);
+		DrawQuadWithMatrix((float*)l_vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if(this->m_bColorBlending)
 		{
 			glBlendFunc(l_OriginalSrc,l_OriginalDest);

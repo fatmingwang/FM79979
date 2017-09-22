@@ -50,8 +50,10 @@ namespace FATMING_CORE
 		virtual		void	UpdateData();
 		virtual		void	InternalInit();
 		virtual		void	InternalUpdate(float e_fElpaseTime);
+		void				ConverVerticesWithWholeMPDIDrawSize(Vector3*e_pvConvertedVertices, cMatrix44*e_pConvertedMatrix);
 		virtual		void	InternalRender();
 		void  				GetRenderPuzzleDataAndMatrix(sTexBehaviorDataWithImageIndexData*e_pImageData,int e_iStride,float*e_pOutVertices,float*e_pOutTextureUV,sPuzzleData*e_pPuzzleData);
+		bool				AssignColorAndTransformToVertices(Vector4 e_vInputColor,float*e_pfVertices, float*e_pfColor);
 		//force to render,input the position u want to show,default m_vCurrentPos and m_vPos is working inside
 		void				RenderPuzzleData(sPuzzleData*e_pPuzzleData);
 	public:

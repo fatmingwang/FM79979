@@ -84,8 +84,8 @@ namespace FATMING_CORE
 		//cMatrix44		GetTransform();
 		//cMatrix44		GetTransformByImageCenter();
 		//wanna image center show at the position we indicate
-		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos,Vector3*e_pvRoataion = nullptr, Vector3*e_pvScale = nullptr);
-		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataion, Vector3*e_pvScale = nullptr);
+		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos,Vector3*e_pvRoataionDegree = nullptr, Vector3*e_pvScale = nullptr);
+		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataionRadius, Vector3*e_pvScale = nullptr);
 		////a scale value to change size at the game
 		virtual	void	SetSubMPDIChildrenScale(float e_fValue);
 		////to effect children's size

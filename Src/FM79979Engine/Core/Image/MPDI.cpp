@@ -350,13 +350,13 @@ EXIT:
 		}	
 	}
 
-	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataion, Vector3*e_pvScale)
+	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataionRadius, Vector3*e_pvScale)
 	{
 		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
-		//cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(-l_fHalfDrawSize.x, -l_fHalfDrawSize.y, 0));		
-		cMatrix44 l_matTranslation = cMatrix44::Identity;
-		//cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fZRoataion));
-		cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(0);
+		e_vPos.x -= l_fHalfDrawSize.x;
+		e_vPos.y -= l_fHalfDrawSize.y;
+		cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(e_vPos);
+		cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(e_fZRoataionRadius);
 		l_matTranslation *= l_matRotation;
 		if (e_pvScale)
 		{
@@ -364,18 +364,16 @@ EXIT:
 			l_matTranslation *= l_matScale;
 		}
 		this->SetLocalTransform(l_matTranslation);
-		e_vPos -= l_fHalfDrawSize;
-		this->SetLocalPosition(e_vPos);
 	}
 
-	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, Vector3*e_pvRoataion, Vector3*e_pvScale)
+	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, Vector3*e_pvRoataionDegree, Vector3*e_pvScale)
 	{
 		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
 		//cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(-l_fHalfDrawSize.x, -l_fHalfDrawSize.y,0));
 		cMatrix44 l_matTranslation = cMatrix44::Identity;
-		if (e_pvRoataion)
+		if (e_pvRoataionDegree)
 		{
-			cMatrix44 l_matRotation = cMatrix44::RotationMatrix(*e_pvRoataion);
+			cMatrix44 l_matRotation = cMatrix44::RotationMatrix(*e_pvRoataionDegree);
 			l_matTranslation *= l_matRotation;
 		}
 		if (e_pvScale)

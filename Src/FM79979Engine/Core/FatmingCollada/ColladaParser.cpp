@@ -53,8 +53,8 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 			int a=0;
 		}
 	}
-	bool	l_bShowErrorMsgBox = cGameApp::m_sbShowErrorMsgBox;
-	cGameApp::m_sbShowErrorMsgBox = false;
+	int l_iShowErrorMsgBoxType = cGameApp::m_siShowErrorType == 1?true:false;
+	cGameApp::m_siShowErrorType = 0;
 	if( e_bStroeInfo )
 		g_strParsingDataList = &this->m_strParsingDataList;
 	if(!cNodeISAX::ParseDataIntoXMLNode(e_strFileName))
@@ -136,7 +136,7 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 			l_pColladaGeomatries->pGeometryMesh->AllMeshIndexList.clear();
 	}
 
-	cGameApp::m_sbShowErrorMsgBox = true;
+	cGameApp::m_siShowErrorType = l_iShowErrorMsgBoxType;
 	if(cGameApp::m_spstrErrorMsgString)
 	{
 		if(cGameApp::m_spstrErrorMsgString->length())
@@ -144,7 +144,6 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 			UT::ErrorMsg((WCHAR*)cGameApp::m_spstrErrorMsgString->c_str(),L"Error msg");
 		}
 	}
-	cGameApp::m_sbShowErrorMsgBox = l_bShowErrorMsgBox;
 	if( !l_bErrorMsgExists )
 	{
 		SAFE_DELETE(cGameApp::m_spstrErrorMsgString);

@@ -1,4 +1,4 @@
-#ifdef USE_OPEN_CV
+//#ifdef USE_OPEN_CV
 #ifdef WIN32
 char*g_strCommonVideoFS = "													\
 						  uniform sampler2D texSample;								\
@@ -816,4 +816,4 @@ bool	cFMVVideo::IsPlayDone()
 	return m_iTotalFrame <= this->m_iCurrentFrame;
 }
 //end USE_OPEN_CV
-#endif
+//#endif

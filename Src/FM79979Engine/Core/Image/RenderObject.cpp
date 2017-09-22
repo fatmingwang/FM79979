@@ -75,8 +75,8 @@ namespace FATMING_CORE
 
 	void	cRenderObject::SetAngle(float e_fAngle)
 	{
-		m_vRotation.x = e_fAngle;
-		SetLocalTransform(cMatrix44::RotationMatrix(Vector3(0.f,0.f,e_fAngle)));
+		m_vRotation.z = e_fAngle;
+		SetLocalTransform(cMatrix44::TranslationMatrix(*this->m_pvPos)*cMatrix44::ZAxisRotationMatrix(D3DXToRadian(m_vRotation.z)));
 	}
 
 	void	cRenderObject::SetAngle(Vector3 e_vAngle)
