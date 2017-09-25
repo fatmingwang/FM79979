@@ -24,6 +24,7 @@ namespace FATMING_CORE
 	bool	cMPDIList::m_b3DCameraView = false;
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMulti_PI_Image*e_pMulti_PI_Image):cMulti_PI_Image(e_pMulti_PI_Image)
 	{
+		m_eRotationWithObjectCenterType = eRWOCT_ORIGINAL_POINT;
 		m_pViewPort = 0;
 		m_bHitHintPoint = false;
 		//m_vPos = Vector3::Zero;
@@ -41,6 +42,7 @@ namespace FATMING_CORE
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
 		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
+		m_eRotationWithObjectCenterType = e_pMultiPathDynamicImage->m_eRotationWithObjectCenterType;
 		m_pViewPort = 0;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
 		{
@@ -351,37 +353,6 @@ EXIT:
 		{
 			m_ObjectList[i]->SetCurrentColor(e_vColor);
 		}	
-	}
-
-	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataionRadius, Vector3*e_pvScale)
-	{
-		cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(e_vPos);
-		cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(e_fZRoataionRadius);
-		l_matTranslation *= l_matRotation;
-		if (e_pvScale)
-		{
-			cMatrix44 l_matScale = cMatrix44::ScaleMatrix(*e_pvScale);
-			l_matTranslation *= l_matScale;
-		}
-		this->SetLocalTransform(l_matTranslation);
-	}
-
-	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, Vector3*e_pvRoataionDegree, Vector3*e_pvScale)
-	{
-		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
-		cMatrix44 l_matTranslation = cMatrix44::Identity;
-		if (e_pvRoataionDegree)
-		{
-			cMatrix44 l_matRotation = cMatrix44::RotationMatrix(*e_pvRoataionDegree);
-			l_matTranslation *= l_matRotation;
-		}
-		if (e_pvScale)
-		{
-			cMatrix44 l_matScale = cMatrix44::ScaleMatrix(*e_pvScale);
-			l_matTranslation *= l_matScale;
-		}
-		this->SetLocalTransform(l_matTranslation);
-		this->SetLocalPosition(e_vPos);
 	}
 
 	void	cMultiPathDynamicImage::SetSubMPDIChildrenScale(float e_fValue)

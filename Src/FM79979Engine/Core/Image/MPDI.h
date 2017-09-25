@@ -38,8 +38,16 @@ namespace FATMING_CORE
 	//I am lazy to test...
 	class	cMultiPathDynamicImage:public cFatmingGroupBehaviorList<cCueToStartCurveWithTime>,public cMulti_PI_Image
 	{
+	public:
+		enum eRotationWithObjectCenterType
+		{
+			eRWOCT_SELF = 0,
+			eRWOCT_ORIGINAL_POINT,
+			eRWOCT_MAX
+		};
 	private:
-		//Vector3			m_vPos;
+		//while call with SetTranslationRotatopnScaleWithImageCenter,type is eRWOCT_SELF else is eRWOCT_ORIGINAL_POINT,
+		GET_SET_DEC(eRotationWithObjectCenterType,m_eRotationWithObjectCenterType,GetRotationWithObjectCenterType,SetRotationWithObjectCenterType);
 	protected:
 		//
 		//call CheckRenderOptmize to change render mode,while AddObject is called,make sure CheckRenderOptmize is caled
@@ -84,9 +92,6 @@ namespace FATMING_CORE
 		//virtual	void	SetTransformByImageCenter(cMatrix44 e_mat);
 		//cMatrix44		GetTransform();
 		//cMatrix44		GetTransformByImageCenter();
-		//wanna image center show at the position we indicate
-		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos,Vector3*e_pvRoataionDegree = nullptr, Vector3*e_pvScale = nullptr);
-		void			SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataionRadius, Vector3*e_pvScale = nullptr);
 		////a scale value to change size at the game
 		virtual	void	SetSubMPDIChildrenScale(float e_fValue);
 		////to effect children's size
