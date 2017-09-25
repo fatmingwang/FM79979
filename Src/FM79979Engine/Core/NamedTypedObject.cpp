@@ -44,7 +44,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 
 	void	DebugResourceDelete(NamedTypedObject*e_pNamedTypedObject)
 	{
-		if( g_iDumpUsing == 0 )
+		if( g_iDumpUsing == 0 && g_pNameIndexedCollection)
 		{
 			g_pNameIndexedCollection->Remove(e_pNamedTypedObject);
 			if( g_pNameIndexedCollection->Size() == 0 )
@@ -53,7 +53,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 			}
 		}
 		else
-		if( g_iDumpUsing == 1 )
+		if( g_iDumpUsing == 1 && g_pNamedTypedObjectList)
 		{
 			for( size_t i=0;i<g_pNamedTypedObjectList->size();++i )
 			{

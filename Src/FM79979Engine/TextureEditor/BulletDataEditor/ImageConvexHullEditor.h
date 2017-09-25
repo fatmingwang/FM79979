@@ -747,8 +747,10 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			if(m_pPuzzleImageUnit)
 			{
 				sPuzzleData*l_pPuzzleData = m_pPuzzleImageUnit->GetPuzzleData();
-				m_pPuzzleImageUnit->Render(-l_pPuzzleData->OriginalSize.x/2+l_pPuzzleData->OffsetPos.x,-l_pPuzzleData->OriginalSize.y/2+l_pPuzzleData->OffsetPos.y);
-				//m_pPuzzleImageUnit->Render(-l_pPuzzleData->OriginalSize.x/2,-l_pPuzzleData->OriginalSize.y/2);
+				//m_pPuzzleImageUnit->Render(-l_pPuzzleData->Size.x/2,-l_pPuzzleData->Size.y/2);
+				m_pPuzzleImageUnit->SetPosByImageCenter(Vector3(0,0,0));
+				m_pPuzzleImageUnit->Render();
+				//m_pPuzzleImageUnit->Render(-l_pPuzzleData->OriginalSize.x+ l_pPuzzleData->Size.x / 2,-l_pPuzzleData->OriginalSize.y+ l_pPuzzleData->Size.y / 2);
 				if( m_p2DImageCollisionData->GetSelectedIndex() != -1)
 				{
 					glDisable(GL_TEXTURE_2D);

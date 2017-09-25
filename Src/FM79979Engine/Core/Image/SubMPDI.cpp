@@ -540,13 +540,23 @@ namespace FATMING_CORE
 			*e_pConvertedMatrix = this->GetWorldTransform();
 			return;
 		}
-		Vector2 l_vHalfDrawSize = l_pParent->GetDrawSize() / 2;
+		//Vector2 l_vHalfDrawSize = l_pParent->GetDrawSize() / 2;
+		Vector4 l_vDrawRect = l_pParent->GetDrawRect();
+		Vector2 l_vHalfDrawSize = Vector2(l_vDrawRect.Width() / 2, l_vDrawRect.Height() / 2);
+		Vector2 l_vDrawRectCenter = Vector2((l_vDrawRect.z- l_vDrawRect.x) / 2, (l_vDrawRect.w - l_vDrawRect.y) / 2);
+		l_vHalfDrawSize.x -= l_vDrawRectCenter.x;
+		l_vHalfDrawSize.y -= l_vDrawRectCenter.y;
 		for (int i = 0; i < 4; ++i)
 		{
 			e_pvConvertedVertices[i].x -= l_vHalfDrawSize.x;
 			e_pvConvertedVertices[i].y -= l_vHalfDrawSize.y;
+			//e_pvConvertedVertices[i].x -= l_vDrawRect.x;
+			//e_pvConvertedVertices[i].y -= l_vDrawRect.y;
 		}
-		*e_pConvertedMatrix = cMatrix44::TranslationMatrix(Vector3(l_vHalfDrawSize.x, l_vHalfDrawSize.y, 0))*this->GetWorldTransform();
+		//*e_pConvertedMatrix = cMatrix44::TranslationMatrix(Vector3(l_vHalfDrawSize.x+ l_vDrawRect.x, l_vHalfDrawSize.y+ l_vDrawRect.y, 0))*this->GetWorldTransform();
+		//*e_pConvertedMatrix = cMatrix44::TranslationMatrix(Vector3(l_vHalfDrawSize.x + l_vDrawRect.Width() / 2, l_vHalfDrawSize.y + l_vDrawRect.Height() / 2, 0))*this->GetWorldTransform();
+		*e_pConvertedMatrix = cMatrix44::TranslationMatrix(Vector3(l_vHalfDrawSize.x , l_vHalfDrawSize.y, 0))*this->GetWorldTransform();
+		//*e_pConvertedMatrix = this->GetWorldTransform();
 	}
 
 	void cCueToStartCurveWithTime::InternalRender()

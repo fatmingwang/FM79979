@@ -47,7 +47,7 @@ namespace MPDI
 
 		int	l_iTotalSize = l_iWidth*l_iHeight*3;
 		unsigned char *l_pPixelData = new unsigned char[l_iTotalSize];
-		array<Byte>^ values = gcnew array<Byte>(l_iTotalSize);  
+		cli::array<Byte>^ values = gcnew cli::array<Byte>(l_iTotalSize);  
 		m_pOrthogonalCamera->Render();
 
 		cMPDI*l_pMPDI = new cMPDI(m_pMultiPathDynamicImageAWP);

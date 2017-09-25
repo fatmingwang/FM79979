@@ -35,6 +35,7 @@ namespace FATMING_CORE
 		m_iCurrentPlayCount = 0;
 		m_bRenderOptmize = false;
 		m_vDrawSize = Vector2::Zero;
+		m_vDrawRect = Vector4::Zero;
 	}
 
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
@@ -51,6 +52,7 @@ namespace FATMING_CORE
 		m_bRenderOptmize = e_pMultiPathDynamicImage->m_bRenderOptmize;
 		//m_fScale = e_pMultiPathDynamicImage->m_fScale;
 		m_vDrawSize = e_pMultiPathDynamicImage->GetDrawSize();
+		m_vDrawRect = e_pMultiPathDynamicImage->m_vDrawRect;
 		//this->SetPos(e_pMultiPathDynamicImage->m_vPos);
 	}
 
@@ -116,6 +118,7 @@ namespace FATMING_CORE
 					l_vDrawRect.w = l_vRightDownPos.y;
 			}
 		}
+		m_vDrawRect = l_vDrawRect;
 		SetDrawSize(Vector2(l_vDrawRect.Width(),l_vDrawRect.Height()));	
 		CheckRenderOptmize();
 		FindoutAllPointsCenter();
@@ -352,9 +355,6 @@ EXIT:
 
 	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, float e_fZRoataionRadius, Vector3*e_pvScale)
 	{
-		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
-		e_vPos.x -= l_fHalfDrawSize.x;
-		e_vPos.y -= l_fHalfDrawSize.y;
 		cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(e_vPos);
 		cMatrix44 l_matRotation = cMatrix44::ZAxisRotationMatrix(e_fZRoataionRadius);
 		l_matTranslation *= l_matRotation;
@@ -369,7 +369,6 @@ EXIT:
 	void	cMultiPathDynamicImage::SetTranslationRotatopnScaleWithImageCenter(Vector3 e_vPos, Vector3*e_pvRoataionDegree, Vector3*e_pvScale)
 	{
 		Vector2 l_fHalfDrawSize = this->m_vDrawSize / 2;
-		//cMatrix44 l_matTranslation = cMatrix44::TranslationMatrix(Vector3(-l_fHalfDrawSize.x, -l_fHalfDrawSize.y,0));
 		cMatrix44 l_matTranslation = cMatrix44::Identity;
 		if (e_pvRoataionDegree)
 		{

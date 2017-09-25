@@ -143,7 +143,8 @@ private: System::Windows::Forms::ToolStripMenuItem^  x1334ToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  x2208ToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  x2048ToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  x2732ToolStripMenuItem;
-private: 
+private: System::Windows::Forms::ToolStripMenuItem^  x900ToolStripMenuItem;
+private:
 
 	//my
 	CoreWPF::Common::ColorPicker^m_pBGColorPicker;
@@ -290,11 +291,15 @@ private:
 			this->floatToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->childToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->resolutionToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x1080ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x1024ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x720ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x480ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x1280ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x720ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1334ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1024ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1080ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2208ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2048ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x2732ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->Edit_tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->Path_tabPage = (gcnew System::Windows::Forms::TabPage());
@@ -370,22 +375,19 @@ private:
 			this->EventPointName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DelEventPoint_button = (gcnew System::Windows::Forms::Button());
 			this->Video_groupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->x1334ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x2208ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x2048ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->x2732ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x900ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->Edit_tabControl->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer3))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
 			this->splitContainer3->Panel2->SuspendLayout();
 			this->splitContainer3->SuspendLayout();
 			this->flowLayoutPanel3->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentProgress_trackBar))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentProgress_trackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->Panel1->SuspendLayout();
 			this->splitContainer2->Panel2->SuspendLayout();
 			this->splitContainer2->SuspendLayout();
@@ -394,19 +396,19 @@ private:
 			this->flowLayoutPanel1->SuspendLayout();
 			this->AnimationData_collpaseForm->SuspendLayout();
 			this->GroupData_collpaseForm->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterY_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterX_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterZ_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupScale_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationY_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationX_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationZ_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationX_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosY_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosX_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosZ_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationZ_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterX_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterZ_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupScale_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationX_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationZ_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationX_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosX_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosZ_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationZ_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationY_numericUpDown))->BeginInit();
 			this->tabPage2->SuspendLayout();
 			this->flowLayoutPanel2->SuspendLayout();
 			this->Path_groupBox->SuspendLayout();
@@ -449,8 +451,10 @@ private:
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {this->backgroundImageToolStripMenuItem, 
-				this->editModeToolStripMenuItem, this->assistantModeToolStripMenuItem, this->hockToolStripMenuItem, this->resolutionToolStripMenuItem});
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(5) {
+				this->backgroundImageToolStripMenuItem,
+					this->editModeToolStripMenuItem, this->assistantModeToolStripMenuItem, this->hockToolStripMenuItem, this->resolutionToolStripMenuItem
+			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Size = System::Drawing::Size(1904, 24);
@@ -459,98 +463,102 @@ private:
 			// 
 			// backgroundImageToolStripMenuItem
 			// 
-			this->backgroundImageToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(11) {this->openToolStripMenuItem, 
-				this->saveToolStripMenuItem, this->openImageFileToolStripMenuItemToolStripMenuItem, this->AddPI_toolStripMenuItem, this->toolStripMenuItem2, 
-				this->openPathFileToolStripMenuItem, this->savePathFileToolStripMenuItem, this->saveGamePathToolStripMenuItem, this->saveAviFileToolStripMenuItem, 
-				this->saveImageToolStripMenuItem, this->mergeToolStripMenuItem});
+			this->backgroundImageToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(11) {
+				this->openToolStripMenuItem,
+					this->saveToolStripMenuItem, this->openImageFileToolStripMenuItemToolStripMenuItem, this->AddPI_toolStripMenuItem, this->toolStripMenuItem2,
+					this->openPathFileToolStripMenuItem, this->savePathFileToolStripMenuItem, this->saveGamePathToolStripMenuItem, this->saveAviFileToolStripMenuItem,
+					this->saveImageToolStripMenuItem, this->mergeToolStripMenuItem
+			});
 			this->backgroundImageToolStripMenuItem->Name = L"backgroundImageToolStripMenuItem";
-			this->backgroundImageToolStripMenuItem->Size = System::Drawing::Size(37, 20);
+			this->backgroundImageToolStripMenuItem->Size = System::Drawing::Size(34, 20);
 			this->backgroundImageToolStripMenuItem->Text = L"File";
 			// 
 			// openToolStripMenuItem
 			// 
 			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-			this->openToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->openToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->openToolStripMenuItem->Text = L"Open";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-			this->saveToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->saveToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->saveToolStripMenuItem->Text = L"Save";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openToolStripMenuItem_Click);
 			// 
 			// openImageFileToolStripMenuItemToolStripMenuItem
 			// 
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Name = L"openImageFileToolStripMenuItemToolStripMenuItem";
-			this->openImageFileToolStripMenuItemToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->openImageFileToolStripMenuItemToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Text = L"Open PI/打開PI檔";
 			this->openImageFileToolStripMenuItemToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::OpenImageFile_button_Click);
 			// 
 			// AddPI_toolStripMenuItem
 			// 
 			this->AddPI_toolStripMenuItem->Name = L"AddPI_toolStripMenuItem";
-			this->AddPI_toolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->AddPI_toolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->AddPI_toolStripMenuItem->Text = L"AddPI/增加PI檔";
 			this->AddPI_toolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::OpenImageFile_button_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this->toolStripMenuItem2->Name = L"toolStripMenuItem2";
-			this->toolStripMenuItem2->Size = System::Drawing::Size(236, 22);
+			this->toolStripMenuItem2->Size = System::Drawing::Size(214, 22);
 			this->toolStripMenuItem2->Text = L"BackgroundImage/背景圖片";
 			this->toolStripMenuItem2->Click += gcnew System::EventHandler(this, &MPDIEditor::BKImage_button_Click);
 			// 
 			// openPathFileToolStripMenuItem
 			// 
 			this->openPathFileToolStripMenuItem->Name = L"openPathFileToolStripMenuItem";
-			this->openPathFileToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->openPathFileToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->openPathFileToolStripMenuItem->Text = L"OpenPathFile";
 			this->openPathFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openPathFileToolStripMenuItem_Click);
 			// 
 			// savePathFileToolStripMenuItem
 			// 
 			this->savePathFileToolStripMenuItem->Name = L"savePathFileToolStripMenuItem";
-			this->savePathFileToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->savePathFileToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->savePathFileToolStripMenuItem->Text = L"SavePathFile";
 			this->savePathFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openPathFileToolStripMenuItem_Click);
 			// 
 			// saveGamePathToolStripMenuItem
 			// 
 			this->saveGamePathToolStripMenuItem->Name = L"saveGamePathToolStripMenuItem";
-			this->saveGamePathToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->saveGamePathToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->saveGamePathToolStripMenuItem->Text = L"SaveGamePath/儲存遊戲路徑";
 			this->saveGamePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::openPathFileToolStripMenuItem_Click);
 			// 
 			// saveAviFileToolStripMenuItem
 			// 
 			this->saveAviFileToolStripMenuItem->Name = L"saveAviFileToolStripMenuItem";
-			this->saveAviFileToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->saveAviFileToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->saveAviFileToolStripMenuItem->Text = L"SaveAviFile";
 			this->saveAviFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::saveAviFileToolStripMenuItem_Click);
 			// 
 			// saveImageToolStripMenuItem
 			// 
 			this->saveImageToolStripMenuItem->Name = L"saveImageToolStripMenuItem";
-			this->saveImageToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->saveImageToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->saveImageToolStripMenuItem->Text = L"SaveImage";
 			this->saveImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::saveImageToolStripMenuItem_Click);
 			// 
 			// mergeToolStripMenuItem
 			// 
 			this->mergeToolStripMenuItem->Name = L"mergeToolStripMenuItem";
-			this->mergeToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->mergeToolStripMenuItem->Size = System::Drawing::Size(214, 22);
 			this->mergeToolStripMenuItem->Text = L"Merge";
 			this->mergeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::mergeToolStripMenuItem_Click);
 			// 
 			// editModeToolStripMenuItem
 			// 
-			this->editModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {this->addPointModeToolStripMenuItem, 
-				this->fixPointModeToolStripMenuItem, this->moveWholePathToolStripMenuItem, this->moveAllPathToolStripMenuItem, this->rotatePathToolStripMenuItem, 
-				this->rotateAllPathToolStripMenuItem});
+			this->editModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(6) {
+				this->addPointModeToolStripMenuItem,
+					this->fixPointModeToolStripMenuItem, this->moveWholePathToolStripMenuItem, this->moveAllPathToolStripMenuItem, this->rotatePathToolStripMenuItem,
+					this->rotateAllPathToolStripMenuItem
+			});
 			this->editModeToolStripMenuItem->Name = L"editModeToolStripMenuItem";
-			this->editModeToolStripMenuItem->Size = System::Drawing::Size(127, 20);
+			this->editModeToolStripMenuItem->Size = System::Drawing::Size(114, 20);
 			this->editModeToolStripMenuItem->Text = L"EditMode/編輯模式";
 			// 
 			// addPointModeToolStripMenuItem
@@ -558,42 +566,42 @@ private:
 			this->addPointModeToolStripMenuItem->Checked = true;
 			this->addPointModeToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->addPointModeToolStripMenuItem->Name = L"addPointModeToolStripMenuItem";
-			this->addPointModeToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->addPointModeToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->addPointModeToolStripMenuItem->Text = L"AddPointMode/增加";
 			this->addPointModeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// fixPointModeToolStripMenuItem
 			// 
 			this->fixPointModeToolStripMenuItem->Name = L"fixPointModeToolStripMenuItem";
-			this->fixPointModeToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->fixPointModeToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->fixPointModeToolStripMenuItem->Text = L"FixPointMode/修改";
 			this->fixPointModeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// moveWholePathToolStripMenuItem
 			// 
 			this->moveWholePathToolStripMenuItem->Name = L"moveWholePathToolStripMenuItem";
-			this->moveWholePathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->moveWholePathToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->moveWholePathToolStripMenuItem->Text = L"MoveWholePath/移動整條路徑";
 			this->moveWholePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// moveAllPathToolStripMenuItem
 			// 
 			this->moveAllPathToolStripMenuItem->Name = L"moveAllPathToolStripMenuItem";
-			this->moveAllPathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->moveAllPathToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->moveAllPathToolStripMenuItem->Text = L"MoveAllPath/移動所有路徑";
 			this->moveAllPathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// rotatePathToolStripMenuItem
 			// 
 			this->rotatePathToolStripMenuItem->Name = L"rotatePathToolStripMenuItem";
-			this->rotatePathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->rotatePathToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->rotatePathToolStripMenuItem->Text = L"RotatePath/旋轉路徑";
 			this->rotatePathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
 			// rotateAllPathToolStripMenuItem
 			// 
 			this->rotateAllPathToolStripMenuItem->Name = L"rotateAllPathToolStripMenuItem";
-			this->rotateAllPathToolStripMenuItem->Size = System::Drawing::Size(245, 22);
+			this->rotateAllPathToolStripMenuItem->Size = System::Drawing::Size(223, 22);
 			this->rotateAllPathToolStripMenuItem->Text = L"RotateAllPath/旋轉所有路徑";
 			this->rotateAllPathToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::addPointModeToolStripMenuItem_Click);
 			// 
@@ -601,25 +609,27 @@ private:
 			// 
 			this->assistantModeToolStripMenuItem->Checked = true;
 			this->assistantModeToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->assistantModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(12) {this->showImageBoderToolStripMenuItem, 
-				this->showSelectedImageToolStripMenuItem, this->showPath_ToolStripMenuItem, this->showErrorMsh_ToolStripMenuItem, this->showPanelToolStripMenuItem, 
-				this->showPIImageToolStripMenuItem, this->ScaleWithPIAlphaStripPixel_toolStripMenuItem, this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem, 
-				this->flashSelectedImageToolStripMenuItem, this->cameraFitToolStripMenuItem, this->showBGToolStripMenuItem, this->showGridToolStripMenuItem});
+			this->assistantModeToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(12) {
+				this->showImageBoderToolStripMenuItem,
+					this->showSelectedImageToolStripMenuItem, this->showPath_ToolStripMenuItem, this->showErrorMsh_ToolStripMenuItem, this->showPanelToolStripMenuItem,
+					this->showPIImageToolStripMenuItem, this->ScaleWithPIAlphaStripPixel_toolStripMenuItem, this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem,
+					this->flashSelectedImageToolStripMenuItem, this->cameraFitToolStripMenuItem, this->showBGToolStripMenuItem, this->showGridToolStripMenuItem
+			});
 			this->assistantModeToolStripMenuItem->Name = L"assistantModeToolStripMenuItem";
-			this->assistantModeToolStripMenuItem->Size = System::Drawing::Size(154, 20);
+			this->assistantModeToolStripMenuItem->Size = System::Drawing::Size(135, 20);
 			this->assistantModeToolStripMenuItem->Text = L"AssistantMode/輔助模式";
 			// 
 			// showImageBoderToolStripMenuItem
 			// 
 			this->showImageBoderToolStripMenuItem->Name = L"showImageBoderToolStripMenuItem";
-			this->showImageBoderToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showImageBoderToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showImageBoderToolStripMenuItem->Text = L"ShowImageBorder/顯示圖片邊框";
 			this->showImageBoderToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
 			// showSelectedImageToolStripMenuItem
 			// 
 			this->showSelectedImageToolStripMenuItem->Name = L"showSelectedImageToolStripMenuItem";
-			this->showSelectedImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showSelectedImageToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showSelectedImageToolStripMenuItem->Text = L"ShowSelectedImage/顯示選擇圖片";
 			this->showSelectedImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -628,7 +638,7 @@ private:
 			this->showPath_ToolStripMenuItem->Checked = true;
 			this->showPath_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPath_ToolStripMenuItem->Name = L"showPath_ToolStripMenuItem";
-			this->showPath_ToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPath_ToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showPath_ToolStripMenuItem->Text = L"ShowPath/顯示線段";
 			this->showPath_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -637,13 +647,13 @@ private:
 			this->showErrorMsh_ToolStripMenuItem->Checked = true;
 			this->showErrorMsh_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showErrorMsh_ToolStripMenuItem->Name = L"showErrorMsh_ToolStripMenuItem";
-			this->showErrorMsh_ToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showErrorMsh_ToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showErrorMsh_ToolStripMenuItem->Text = L"ShowErrorMsh/顯示錯誤訊息";
 			// 
 			// showPanelToolStripMenuItem
 			// 
 			this->showPanelToolStripMenuItem->Name = L"showPanelToolStripMenuItem";
-			this->showPanelToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPanelToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showPanelToolStripMenuItem->Text = L"ShowPanel/顯示面板";
 			this->showPanelToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -652,28 +662,28 @@ private:
 			this->showPIImageToolStripMenuItem->Checked = true;
 			this->showPIImageToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPIImageToolStripMenuItem->Name = L"showPIImageToolStripMenuItem";
-			this->showPIImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPIImageToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showPIImageToolStripMenuItem->Text = L"Show PI Image/顯示pi圖片";
 			this->showPIImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// ScaleWithPIAlphaStripPixel_toolStripMenuItem
 			// 
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Name = L"ScaleWithPIAlphaStripPixel_toolStripMenuItem";
-			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Text = L"ScaleWithPIAlphaStripPixelProble/縮放pi檔案中去除的pizel問題";
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::ScaleWithPIAlphaStripPixel_toolStripMenuItem_Click);
 			// 
 			// renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem
 			// 
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Name = L"renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem";
-			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Text = L"RenewImageSize(ignore all animation with size)";
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem_Click);
 			// 
 			// flashSelectedImageToolStripMenuItem
 			// 
 			this->flashSelectedImageToolStripMenuItem->Name = L"flashSelectedImageToolStripMenuItem";
-			this->flashSelectedImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->flashSelectedImageToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->flashSelectedImageToolStripMenuItem->Text = L"FlashSelectedImage";
 			this->flashSelectedImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -682,7 +692,7 @@ private:
 			this->cameraFitToolStripMenuItem->Checked = true;
 			this->cameraFitToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cameraFitToolStripMenuItem->Name = L"cameraFitToolStripMenuItem";
-			this->cameraFitToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->cameraFitToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->cameraFitToolStripMenuItem->Text = L"CameraFit";
 			this->cameraFitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -691,7 +701,7 @@ private:
 			this->showBGToolStripMenuItem->Checked = true;
 			this->showBGToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showBGToolStripMenuItem->Name = L"showBGToolStripMenuItem";
-			this->showBGToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showBGToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showBGToolStripMenuItem->Text = L"ShowBG/顯示背景圖片";
 			this->showBGToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -700,62 +710,45 @@ private:
 			this->showGridToolStripMenuItem->Checked = true;
 			this->showGridToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showGridToolStripMenuItem->Name = L"showGridToolStripMenuItem";
-			this->showGridToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showGridToolStripMenuItem->Size = System::Drawing::Size(384, 22);
 			this->showGridToolStripMenuItem->Text = L"ShowGrid";
 			this->showGridToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// hockToolStripMenuItem
 			// 
-			this->hockToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->floatToolStripMenuItem, 
-				this->childToolStripMenuItem});
+			this->hockToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->floatToolStripMenuItem,
+					this->childToolStripMenuItem
+			});
 			this->hockToolStripMenuItem->Enabled = false;
 			this->hockToolStripMenuItem->Name = L"hockToolStripMenuItem";
-			this->hockToolStripMenuItem->Size = System::Drawing::Size(46, 20);
+			this->hockToolStripMenuItem->Size = System::Drawing::Size(42, 20);
 			this->hockToolStripMenuItem->Text = L"Dock";
 			// 
 			// floatToolStripMenuItem
 			// 
 			this->floatToolStripMenuItem->Name = L"floatToolStripMenuItem";
-			this->floatToolStripMenuItem->Size = System::Drawing::Size(102, 22);
+			this->floatToolStripMenuItem->Size = System::Drawing::Size(96, 22);
 			this->floatToolStripMenuItem->Text = L"Float";
 			this->floatToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::floatToolStripMenuItem_Click);
 			// 
 			// childToolStripMenuItem
 			// 
 			this->childToolStripMenuItem->Name = L"childToolStripMenuItem";
-			this->childToolStripMenuItem->Size = System::Drawing::Size(102, 22);
+			this->childToolStripMenuItem->Size = System::Drawing::Size(96, 22);
 			this->childToolStripMenuItem->Text = L"Child";
 			this->childToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::floatToolStripMenuItem_Click);
 			// 
 			// resolutionToolStripMenuItem
 			// 
-			this->resolutionToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(9) {this->x480ToolStripMenuItem, 
-				this->x1280ToolStripMenuItem, this->x720ToolStripMenuItem, this->x1334ToolStripMenuItem, this->x1024ToolStripMenuItem, this->x1080ToolStripMenuItem, 
-				this->x2208ToolStripMenuItem, this->x2048ToolStripMenuItem, this->x2732ToolStripMenuItem});
+			this->resolutionToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(10) {
+				this->x480ToolStripMenuItem,
+					this->x1280ToolStripMenuItem, this->x720ToolStripMenuItem, this->x900ToolStripMenuItem, this->x1334ToolStripMenuItem, this->x1024ToolStripMenuItem,
+					this->x1080ToolStripMenuItem, this->x2208ToolStripMenuItem, this->x2048ToolStripMenuItem, this->x2732ToolStripMenuItem
+			});
 			this->resolutionToolStripMenuItem->Name = L"resolutionToolStripMenuItem";
-			this->resolutionToolStripMenuItem->Size = System::Drawing::Size(75, 20);
+			this->resolutionToolStripMenuItem->Size = System::Drawing::Size(67, 20);
 			this->resolutionToolStripMenuItem->Text = L"Resolution";
-			// 
-			// x1080ToolStripMenuItem
-			// 
-			this->x1080ToolStripMenuItem->Name = L"x1080ToolStripMenuItem";
-			this->x1080ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x1080ToolStripMenuItem->Text = L"1920x1080";
-			this->x1080ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
-			// 
-			// x1024ToolStripMenuItem
-			// 
-			this->x1024ToolStripMenuItem->Name = L"x1024ToolStripMenuItem";
-			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x1024ToolStripMenuItem->Text = L"1600x1024";
-			this->x1024ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
-			// 
-			// x720ToolStripMenuItem
-			// 
-			this->x720ToolStripMenuItem->Name = L"x720ToolStripMenuItem";
-			this->x720ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x720ToolStripMenuItem->Text = L"1280x720";
-			this->x720ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x480ToolStripMenuItem
 			// 
@@ -773,6 +766,55 @@ private:
 			this->x1280ToolStripMenuItem->Text = L"720x1280";
 			this->x1280ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
+			// x720ToolStripMenuItem
+			// 
+			this->x720ToolStripMenuItem->Name = L"x720ToolStripMenuItem";
+			this->x720ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x720ToolStripMenuItem->Text = L"1280x720";
+			this->x720ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x1334ToolStripMenuItem
+			// 
+			this->x1334ToolStripMenuItem->Name = L"x1334ToolStripMenuItem";
+			this->x1334ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x1334ToolStripMenuItem->Text = L"1334x750";
+			this->x1334ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x1024ToolStripMenuItem
+			// 
+			this->x1024ToolStripMenuItem->Name = L"x1024ToolStripMenuItem";
+			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x1024ToolStripMenuItem->Text = L"1600x1024";
+			this->x1024ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x1080ToolStripMenuItem
+			// 
+			this->x1080ToolStripMenuItem->Name = L"x1080ToolStripMenuItem";
+			this->x1080ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x1080ToolStripMenuItem->Text = L"1920x1080";
+			this->x1080ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2208ToolStripMenuItem
+			// 
+			this->x2208ToolStripMenuItem->Name = L"x2208ToolStripMenuItem";
+			this->x2208ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2208ToolStripMenuItem->Text = L"2208x1242";
+			this->x2208ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2048ToolStripMenuItem
+			// 
+			this->x2048ToolStripMenuItem->Name = L"x2048ToolStripMenuItem";
+			this->x2048ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2048ToolStripMenuItem->Text = L"2048x1536";
+			this->x2048ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x2732ToolStripMenuItem
+			// 
+			this->x2732ToolStripMenuItem->Name = L"x2732ToolStripMenuItem";
+			this->x2732ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x2732ToolStripMenuItem->Text = L"2732x2048";
+			this->x2732ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
 			// splitContainer1
 			// 
 			this->splitContainer1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
@@ -786,16 +828,16 @@ private:
 			// splitContainer1.Panel1
 			// 
 			this->splitContainer1->Panel1->AutoScroll = true;
-			this->splitContainer1->Panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->splitContainer1->Panel1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->splitContainer1->Panel1->Controls->Add(this->Edit_tabControl);
-			this->splitContainer1->Panel1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->splitContainer1->Panel1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			// 
 			// splitContainer1.Panel2
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->splitContainer3);
-			this->splitContainer1->Size = System::Drawing::Size(1613, 1021);
+			this->splitContainer1->Size = System::Drawing::Size(1613, 941);
 			this->splitContainer1->SplitterDistance = 304;
 			this->splitContainer1->SplitterWidth = 3;
 			this->splitContainer1->TabIndex = 145;
@@ -814,7 +856,7 @@ private:
 			// Path_tabPage
 			// 
 			this->Path_tabPage->AutoScroll = true;
-			this->Path_tabPage->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->Path_tabPage->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->Path_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Path_tabPage->Name = L"Path_tabPage";
@@ -828,7 +870,7 @@ private:
 			this->Camera_tabPage->Location = System::Drawing::Point(4, 22);
 			this->Camera_tabPage->Name = L"Camera_tabPage";
 			this->Camera_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->Camera_tabPage->Size = System::Drawing::Size(1597, 274);
+			this->Camera_tabPage->Size = System::Drawing::Size(1597, 251);
 			this->Camera_tabPage->TabIndex = 1;
 			this->Camera_tabPage->Text = L"Camera";
 			this->Camera_tabPage->UseVisualStyleBackColor = true;
@@ -848,15 +890,15 @@ private:
 			// splitContainer3.Panel2
 			// 
 			this->splitContainer3->Panel2->Controls->Add(this->flowLayoutPanel3);
-			this->splitContainer3->Size = System::Drawing::Size(1609, 710);
-			this->splitContainer3->SplitterDistance = 658;
+			this->splitContainer3->Size = System::Drawing::Size(1609, 630);
+			this->splitContainer3->SplitterDistance = 583;
 			this->splitContainer3->SplitterWidth = 3;
 			this->splitContainer3->TabIndex = 0;
 			this->splitContainer3->Resize += gcnew System::EventHandler(this, &MPDIEditor::splitContainer3_Resize);
 			// 
 			// flowLayoutPanel3
 			// 
-			this->flowLayoutPanel3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->flowLayoutPanel3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->flowLayoutPanel3->Controls->Add(this->AllPlay_checkBox);
 			this->flowLayoutPanel3->Controls->Add(this->AllCurveLoop_checkBox);
@@ -867,11 +909,11 @@ private:
 			this->flowLayoutPanel3->Controls->Add(this->CameraWorking_checkBox);
 			this->flowLayoutPanel3->Controls->Add(this->BGColor_panel);
 			this->flowLayoutPanel3->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->flowLayoutPanel3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->flowLayoutPanel3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->flowLayoutPanel3->Location = System::Drawing::Point(0, 0);
 			this->flowLayoutPanel3->Name = L"flowLayoutPanel3";
-			this->flowLayoutPanel3->Size = System::Drawing::Size(1609, 49);
+			this->flowLayoutPanel3->Size = System::Drawing::Size(1609, 44);
 			this->flowLayoutPanel3->TabIndex = 0;
 			// 
 			// AllPlay_checkBox
@@ -879,7 +921,7 @@ private:
 			this->AllPlay_checkBox->AutoSize = true;
 			this->AllPlay_checkBox->Enabled = false;
 			this->AllPlay_checkBox->Font = (gcnew System::Drawing::Font(L"PMingLiU", 8));
-			this->AllPlay_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AllPlay_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AllPlay_checkBox->Location = System::Drawing::Point(3, 3);
 			this->AllPlay_checkBox->Name = L"AllPlay_checkBox";
@@ -892,9 +934,9 @@ private:
 			// 
 			this->AllCurveLoop_checkBox->AutoSize = true;
 			this->AllCurveLoop_checkBox->Enabled = false;
-			this->AllCurveLoop_checkBox->Font = (gcnew System::Drawing::Font(L"PMingLiU", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->AllCurveLoop_checkBox->Font = (gcnew System::Drawing::Font(L"PMingLiU", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
-			this->AllCurveLoop_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AllCurveLoop_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AllCurveLoop_checkBox->Location = System::Drawing::Point(112, 3);
 			this->AllCurveLoop_checkBox->Name = L"AllCurveLoop_checkBox";
@@ -907,7 +949,7 @@ private:
 			// 
 			this->StayAtLastFrame_checkBox->AutoSize = true;
 			this->StayAtLastFrame_checkBox->Font = (gcnew System::Drawing::Font(L"PMingLiU", 8));
-			this->StayAtLastFrame_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->StayAtLastFrame_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->StayAtLastFrame_checkBox->Location = System::Drawing::Point(266, 3);
 			this->StayAtLastFrame_checkBox->Name = L"StayAtLastFrame_checkBox";
@@ -922,15 +964,15 @@ private:
 			this->label9->ForeColor = System::Drawing::Color::White;
 			this->label9->Location = System::Drawing::Point(439, 0);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(98, 13);
+			this->label9->Size = System::Drawing::Size(91, 12);
 			this->label9->TabIndex = 174;
 			this->label9->Text = L"Progess/目前進度";
 			// 
 			// CurrentProgress_trackBar
 			// 
-			this->CurrentProgress_trackBar->Location = System::Drawing::Point(543, 3);
+			this->CurrentProgress_trackBar->Location = System::Drawing::Point(536, 3);
 			this->CurrentProgress_trackBar->Name = L"CurrentProgress_trackBar";
-			this->CurrentProgress_trackBar->Size = System::Drawing::Size(453, 45);
+			this->CurrentProgress_trackBar->Size = System::Drawing::Size(453, 42);
 			this->CurrentProgress_trackBar->TabIndex = 0;
 			// 
 			// MPDIWorking_checkBox
@@ -938,9 +980,9 @@ private:
 			this->MPDIWorking_checkBox->AutoSize = true;
 			this->MPDIWorking_checkBox->Checked = true;
 			this->MPDIWorking_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->MPDIWorking_checkBox->Location = System::Drawing::Point(1002, 3);
+			this->MPDIWorking_checkBox->Location = System::Drawing::Point(995, 3);
 			this->MPDIWorking_checkBox->Name = L"MPDIWorking_checkBox";
-			this->MPDIWorking_checkBox->Size = System::Drawing::Size(96, 17);
+			this->MPDIWorking_checkBox->Size = System::Drawing::Size(97, 16);
 			this->MPDIWorking_checkBox->TabIndex = 175;
 			this->MPDIWorking_checkBox->Text = L"MPDI Working";
 			this->MPDIWorking_checkBox->UseVisualStyleBackColor = true;
@@ -950,18 +992,18 @@ private:
 			this->CameraWorking_checkBox->AutoSize = true;
 			this->CameraWorking_checkBox->Checked = true;
 			this->CameraWorking_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->CameraWorking_checkBox->Location = System::Drawing::Point(1104, 3);
+			this->CameraWorking_checkBox->Location = System::Drawing::Point(1098, 3);
 			this->CameraWorking_checkBox->Name = L"CameraWorking_checkBox";
-			this->CameraWorking_checkBox->Size = System::Drawing::Size(105, 17);
+			this->CameraWorking_checkBox->Size = System::Drawing::Size(105, 16);
 			this->CameraWorking_checkBox->TabIndex = 176;
 			this->CameraWorking_checkBox->Text = L"Camera Working";
 			this->CameraWorking_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// BGColor_panel
 			// 
-			this->BGColor_panel->Location = System::Drawing::Point(1215, 3);
+			this->BGColor_panel->Location = System::Drawing::Point(1209, 3);
 			this->BGColor_panel->Name = L"BGColor_panel";
-			this->BGColor_panel->Size = System::Drawing::Size(85, 24);
+			this->BGColor_panel->Size = System::Drawing::Size(85, 22);
 			this->BGColor_panel->TabIndex = 185;
 			// 
 			// splitContainer2
@@ -979,7 +1021,7 @@ private:
 			// splitContainer2.Panel2
 			// 
 			this->splitContainer2->Panel2->Controls->Add(this->splitContainer1);
-			this->splitContainer2->Size = System::Drawing::Size(1904, 1021);
+			this->splitContainer2->Size = System::Drawing::Size(1904, 941);
 			this->splitContainer2->SplitterDistance = 288;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 146;
@@ -993,19 +1035,19 @@ private:
 			this->tabControl1->Multiline = true;
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(284, 1017);
+			this->tabControl1->Size = System::Drawing::Size(284, 937);
 			this->tabControl1->TabIndex = 0;
 			// 
 			// tabPage1
 			// 
 			this->tabPage1->AutoScroll = true;
-			this->tabPage1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(104)), static_cast<System::Int32>(static_cast<System::Byte>(104)), 
+			this->tabPage1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(104)), static_cast<System::Int32>(static_cast<System::Byte>(104)),
 				static_cast<System::Int32>(static_cast<System::Byte>(104)));
 			this->tabPage1->Controls->Add(this->flowLayoutPanel1);
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(276, 991);
+			this->tabPage1->Size = System::Drawing::Size(276, 911);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"EditAnimationData/編輯動畫資料";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -1019,7 +1061,7 @@ private:
 			this->flowLayoutPanel1->FlowDirection = System::Windows::Forms::FlowDirection::TopDown;
 			this->flowLayoutPanel1->Location = System::Drawing::Point(3, 3);
 			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
-			this->flowLayoutPanel1->Size = System::Drawing::Size(270, 985);
+			this->flowLayoutPanel1->Size = System::Drawing::Size(270, 905);
 			this->flowLayoutPanel1->TabIndex = 0;
 			// 
 			// AnimationData_collpaseForm
@@ -1036,23 +1078,24 @@ private:
 			this->AnimationData_collpaseForm->Controls->Add(this->label15);
 			this->AnimationData_collpaseForm->Location = System::Drawing::Point(3, 3);
 			this->AnimationData_collpaseForm->Name = L"AnimationData_collpaseForm";
-			this->AnimationData_collpaseForm->Size = System::Drawing::Size(264, 393);
+			this->AnimationData_collpaseForm->Size = System::Drawing::Size(264, 363);
 			this->AnimationData_collpaseForm->TabIndex = 1;
 			// 
 			// WholeAnimationList_listBox
 			// 
 			this->WholeAnimationList_listBox->AllowDrop = true;
-			this->WholeAnimationList_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)), 
+			this->WholeAnimationList_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
 				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->WholeAnimationList_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->WholeAnimationList_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->WholeAnimationList_listBox->FormattingEnabled = true;
-			this->WholeAnimationList_listBox->Location = System::Drawing::Point(4, 69);
+			this->WholeAnimationList_listBox->ItemHeight = 12;
+			this->WholeAnimationList_listBox->Location = System::Drawing::Point(4, 64);
 			this->WholeAnimationList_listBox->Margin = System::Windows::Forms::Padding(4);
-			this->WholeAnimationList_listBox->MinimumSize = System::Drawing::Size(4, 92);
+			this->WholeAnimationList_listBox->MinimumSize = System::Drawing::Size(4, 85);
 			this->WholeAnimationList_listBox->Name = L"WholeAnimationList_listBox";
 			this->WholeAnimationList_listBox->ScrollAlwaysVisible = true;
-			this->WholeAnimationList_listBox->Size = System::Drawing::Size(222, 316);
+			this->WholeAnimationList_listBox->Size = System::Drawing::Size(222, 292);
 			this->WholeAnimationList_listBox->TabIndex = 114;
 			this->WholeAnimationList_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &MPDIEditor::WholeAnimationList_listBox_SelectedIndexChanged);
 			this->WholeAnimationList_listBox->DoubleClick += gcnew System::EventHandler(this, &MPDIEditor::WholeAnimationList_listBox_DoubleClick);
@@ -1060,13 +1103,13 @@ private:
 			// 
 			// WholeAnimationListUp_button
 			// 
-			this->WholeAnimationListUp_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->WholeAnimationListUp_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->WholeAnimationListUp_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->WholeAnimationListUp_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->WholeAnimationListUp_button->Location = System::Drawing::Point(232, 115);
+			this->WholeAnimationListUp_button->Location = System::Drawing::Point(232, 106);
 			this->WholeAnimationListUp_button->Name = L"WholeAnimationListUp_button";
-			this->WholeAnimationListUp_button->Size = System::Drawing::Size(22, 42);
+			this->WholeAnimationListUp_button->Size = System::Drawing::Size(22, 39);
 			this->WholeAnimationListUp_button->TabIndex = 139;
 			this->WholeAnimationListUp_button->Text = L"^\r\n^";
 			this->WholeAnimationListUp_button->UseVisualStyleBackColor = false;
@@ -1074,14 +1117,14 @@ private:
 			// 
 			// MergeMPDIData_button
 			// 
-			this->MergeMPDIData_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->MergeMPDIData_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->MergeMPDIData_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->MergeMPDIData_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->MergeMPDIData_button->Location = System::Drawing::Point(192, 2);
 			this->MergeMPDIData_button->Margin = System::Windows::Forms::Padding(4);
 			this->MergeMPDIData_button->Name = L"MergeMPDIData_button";
-			this->MergeMPDIData_button->Size = System::Drawing::Size(67, 27);
+			this->MergeMPDIData_button->Size = System::Drawing::Size(67, 25);
 			this->MergeMPDIData_button->TabIndex = 118;
 			this->MergeMPDIData_button->Text = L"Merge/混合";
 			this->MergeMPDIData_button->UseVisualStyleBackColor = false;
@@ -1089,13 +1132,13 @@ private:
 			// 
 			// WholeAnimationListDown_lbutton
 			// 
-			this->WholeAnimationListDown_lbutton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->WholeAnimationListDown_lbutton->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->WholeAnimationListDown_lbutton->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->WholeAnimationListDown_lbutton->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->WholeAnimationListDown_lbutton->Location = System::Drawing::Point(233, 239);
+			this->WholeAnimationListDown_lbutton->Location = System::Drawing::Point(233, 221);
 			this->WholeAnimationListDown_lbutton->Name = L"WholeAnimationListDown_lbutton";
-			this->WholeAnimationListDown_lbutton->Size = System::Drawing::Size(22, 54);
+			this->WholeAnimationListDown_lbutton->Size = System::Drawing::Size(22, 50);
 			this->WholeAnimationListDown_lbutton->TabIndex = 138;
 			this->WholeAnimationListDown_lbutton->Text = L"v\r\nv";
 			this->WholeAnimationListDown_lbutton->UseVisualStyleBackColor = false;
@@ -1103,26 +1146,26 @@ private:
 			// 
 			// AnimationName_textBox
 			// 
-			this->AnimationName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AnimationName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AnimationName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AnimationName_textBox->Location = System::Drawing::Point(84, 4);
 			this->AnimationName_textBox->Margin = System::Windows::Forms::Padding(4);
 			this->AnimationName_textBox->Name = L"AnimationName_textBox";
-			this->AnimationName_textBox->Size = System::Drawing::Size(105, 20);
+			this->AnimationName_textBox->Size = System::Drawing::Size(105, 22);
 			this->AnimationName_textBox->TabIndex = 115;
 			// 
 			// DeleteListObject_button
 			// 
-			this->DeleteListObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->DeleteListObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->DeleteListObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->DeleteListObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DeleteListObject_button->Location = System::Drawing::Point(81, 35);
+			this->DeleteListObject_button->Location = System::Drawing::Point(81, 32);
 			this->DeleteListObject_button->Margin = System::Windows::Forms::Padding(4);
 			this->DeleteListObject_button->Name = L"DeleteListObject_button";
-			this->DeleteListObject_button->Size = System::Drawing::Size(109, 26);
+			this->DeleteListObject_button->Size = System::Drawing::Size(109, 24);
 			this->DeleteListObject_button->TabIndex = 113;
 			this->DeleteListObject_button->Text = L"DeleteListObject/刪除物件";
 			this->DeleteListObject_button->UseVisualStyleBackColor = false;
@@ -1130,14 +1173,14 @@ private:
 			// 
 			// AnimationInvert_button
 			// 
-			this->AnimationInvert_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AnimationInvert_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationInvert_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AnimationInvert_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationInvert_button->Location = System::Drawing::Point(196, 34);
+			this->AnimationInvert_button->Location = System::Drawing::Point(196, 31);
 			this->AnimationInvert_button->Margin = System::Windows::Forms::Padding(4);
 			this->AnimationInvert_button->Name = L"AnimationInvert_button";
-			this->AnimationInvert_button->Size = System::Drawing::Size(69, 27);
+			this->AnimationInvert_button->Size = System::Drawing::Size(69, 25);
 			this->AnimationInvert_button->TabIndex = 117;
 			this->AnimationInvert_button->Text = L"ReEdit/重新編輯";
 			this->AnimationInvert_button->UseVisualStyleBackColor = false;
@@ -1145,14 +1188,14 @@ private:
 			// 
 			// AddAnimationToList_button
 			// 
-			this->AddAnimationToList_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AddAnimationToList_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AddAnimationToList_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AddAnimationToList_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddAnimationToList_button->Location = System::Drawing::Point(3, 35);
+			this->AddAnimationToList_button->Location = System::Drawing::Point(3, 32);
 			this->AddAnimationToList_button->Margin = System::Windows::Forms::Padding(4);
 			this->AddAnimationToList_button->Name = L"AddAnimationToList_button";
-			this->AddAnimationToList_button->Size = System::Drawing::Size(75, 26);
+			this->AddAnimationToList_button->Size = System::Drawing::Size(75, 24);
 			this->AddAnimationToList_button->TabIndex = 112;
 			this->AddAnimationToList_button->Text = L"AddToList/增加到輸出檔案列表";
 			this->AddAnimationToList_button->UseVisualStyleBackColor = false;
@@ -1161,14 +1204,14 @@ private:
 			// label15
 			// 
 			this->label15->AutoSize = true;
-			this->label15->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->label15->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label15->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->label15->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label15->Location = System::Drawing::Point(2, 7);
+			this->label15->Location = System::Drawing::Point(2, 6);
 			this->label15->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label15->Name = L"label15";
-			this->label15->Size = System::Drawing::Size(122, 13);
+			this->label15->Size = System::Drawing::Size(120, 12);
 			this->label15->TabIndex = 116;
 			this->label15->Text = L"AnimationName/動畫名";
 			// 
@@ -1201,210 +1244,210 @@ private:
 			this->GroupData_collpaseForm->Controls->Add(this->GroupRotationY_numericUpDown);
 			this->GroupData_collpaseForm->Controls->Add(this->GroupRotationType_comboBox);
 			this->GroupData_collpaseForm->ForeColor = System::Drawing::SystemColors::ControlDark;
-			this->GroupData_collpaseForm->Location = System::Drawing::Point(3, 402);
+			this->GroupData_collpaseForm->Location = System::Drawing::Point(3, 372);
 			this->GroupData_collpaseForm->Name = L"GroupData_collpaseForm";
-			this->GroupData_collpaseForm->Size = System::Drawing::Size(265, 216);
+			this->GroupData_collpaseForm->Size = System::Drawing::Size(265, 199);
 			this->GroupData_collpaseForm->TabIndex = 0;
 			// 
 			// CameraRotationCenter_label
 			// 
 			this->CameraRotationCenter_label->AutoSize = true;
-			this->CameraRotationCenter_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationCenter_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationCenter_label->Location = System::Drawing::Point(193, 55);
+			this->CameraRotationCenter_label->Location = System::Drawing::Point(193, 51);
 			this->CameraRotationCenter_label->Name = L"CameraRotationCenter_label";
-			this->CameraRotationCenter_label->Size = System::Drawing::Size(78, 13);
+			this->CameraRotationCenter_label->Size = System::Drawing::Size(76, 12);
 			this->CameraRotationCenter_label->TabIndex = 37;
 			this->CameraRotationCenter_label->Text = L"RotationCenter";
 			// 
 			// CameraRotationCenterY_numericUpDown
 			// 
-			this->CameraRotationCenterY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationCenterY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationCenterY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationCenterY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationCenterY_numericUpDown->Location = System::Drawing::Point(206, 106);
-			this->CameraRotationCenterY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationCenterY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationCenterY_numericUpDown->Location = System::Drawing::Point(206, 98);
+			this->CameraRotationCenterY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationCenterY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationCenterY_numericUpDown->Name = L"CameraRotationCenterY_numericUpDown";
-			this->CameraRotationCenterY_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->CameraRotationCenterY_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->CameraRotationCenterY_numericUpDown->TabIndex = 36;
 			this->CameraRotationCenterY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// CameraRotationCenterX_numericUpDown
 			// 
-			this->CameraRotationCenterX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationCenterX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationCenterX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationCenterX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationCenterX_numericUpDown->Location = System::Drawing::Point(207, 76);
-			this->CameraRotationCenterX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationCenterX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationCenterX_numericUpDown->Location = System::Drawing::Point(207, 70);
+			this->CameraRotationCenterX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationCenterX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationCenterX_numericUpDown->Name = L"CameraRotationCenterX_numericUpDown";
-			this->CameraRotationCenterX_numericUpDown->Size = System::Drawing::Size(57, 20);
+			this->CameraRotationCenterX_numericUpDown->Size = System::Drawing::Size(57, 22);
 			this->CameraRotationCenterX_numericUpDown->TabIndex = 34;
 			this->CameraRotationCenterX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// CameraRotationCenterZ_numericUpDown
 			// 
-			this->CameraRotationCenterZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationCenterZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationCenterZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationCenterZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationCenterZ_numericUpDown->Location = System::Drawing::Point(206, 137);
-			this->CameraRotationCenterZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationCenterZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationCenterZ_numericUpDown->Location = System::Drawing::Point(206, 126);
+			this->CameraRotationCenterZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationCenterZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationCenterZ_numericUpDown->Name = L"CameraRotationCenterZ_numericUpDown";
-			this->CameraRotationCenterZ_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->CameraRotationCenterZ_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->CameraRotationCenterZ_numericUpDown->TabIndex = 35;
 			this->CameraRotationCenterZ_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// label26
 			// 
 			this->label26->AutoSize = true;
-			this->label26->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->label26->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label26->Location = System::Drawing::Point(8, 13);
+			this->label26->Location = System::Drawing::Point(8, 12);
 			this->label26->Name = L"label26";
-			this->label26->Size = System::Drawing::Size(151, 13);
+			this->label26->Size = System::Drawing::Size(140, 12);
 			this->label26->TabIndex = 21;
 			this->label26->Text = L"Perentage Scale/百分比大小";
 			// 
 			// GroupScale_numericUpDown
 			// 
-			this->GroupScale_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupScale_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupScale_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupScale_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupScale_numericUpDown->Location = System::Drawing::Point(142, 10);
-			this->GroupScale_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->GroupScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->GroupScale_numericUpDown->Location = System::Drawing::Point(142, 9);
+			this->GroupScale_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->GroupScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->GroupScale_numericUpDown->Name = L"GroupScale_numericUpDown";
-			this->GroupScale_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->GroupScale_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->GroupScale_numericUpDown->TabIndex = 25;
-			this->GroupScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {100, 0, 0, 0});
+			this->GroupScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100, 0, 0, 0 });
 			// 
 			// CameraRotation_label3
 			// 
 			this->CameraRotation_label3->AutoSize = true;
-			this->CameraRotation_label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotation_label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotation_label3->Location = System::Drawing::Point(141, 54);
+			this->CameraRotation_label3->Location = System::Drawing::Point(141, 50);
 			this->CameraRotation_label3->Name = L"CameraRotation_label3";
-			this->CameraRotation_label3->Size = System::Drawing::Size(47, 13);
+			this->CameraRotation_label3->Size = System::Drawing::Size(45, 12);
 			this->CameraRotation_label3->TabIndex = 33;
 			this->CameraRotation_label3->Text = L"Rotation";
 			// 
 			// CameraRotationY_numericUpDown
 			// 
-			this->CameraRotationY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationY_numericUpDown->Location = System::Drawing::Point(143, 104);
-			this->CameraRotationY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationY_numericUpDown->Location = System::Drawing::Point(143, 96);
+			this->CameraRotationY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationY_numericUpDown->Name = L"CameraRotationY_numericUpDown";
-			this->CameraRotationY_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->CameraRotationY_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->CameraRotationY_numericUpDown->TabIndex = 32;
 			this->CameraRotationY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// CameraRotationX_numericUpDown
 			// 
-			this->CameraRotationX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationX_numericUpDown->Location = System::Drawing::Point(144, 74);
-			this->CameraRotationX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationX_numericUpDown->Location = System::Drawing::Point(144, 68);
+			this->CameraRotationX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationX_numericUpDown->Name = L"CameraRotationX_numericUpDown";
-			this->CameraRotationX_numericUpDown->Size = System::Drawing::Size(57, 20);
+			this->CameraRotationX_numericUpDown->Size = System::Drawing::Size(57, 22);
 			this->CameraRotationX_numericUpDown->TabIndex = 30;
 			this->CameraRotationX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// CameraRotationZ_numericUpDown
 			// 
-			this->CameraRotationZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->CameraRotationZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->CameraRotationZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->CameraRotationZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->CameraRotationZ_numericUpDown->Location = System::Drawing::Point(143, 134);
-			this->CameraRotationZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->CameraRotationZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->CameraRotationZ_numericUpDown->Location = System::Drawing::Point(143, 124);
+			this->CameraRotationZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->CameraRotationZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->CameraRotationZ_numericUpDown->Name = L"CameraRotationZ_numericUpDown";
-			this->CameraRotationZ_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->CameraRotationZ_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->CameraRotationZ_numericUpDown->TabIndex = 31;
 			this->CameraRotationZ_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::CameraRotationX_numericUpDown_ValueChanged);
 			// 
 			// GroupRotationX_numericUpDown
 			// 
-			this->GroupRotationX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupRotationX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupRotationX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupRotationX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupRotationX_numericUpDown->Location = System::Drawing::Point(10, 73);
-			this->GroupRotationX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, 0});
-			this->GroupRotationX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, System::Int32::MinValue});
+			this->GroupRotationX_numericUpDown->Location = System::Drawing::Point(10, 67);
+			this->GroupRotationX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
+			this->GroupRotationX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
 			this->GroupRotationX_numericUpDown->Name = L"GroupRotationX_numericUpDown";
-			this->GroupRotationX_numericUpDown->Size = System::Drawing::Size(57, 20);
+			this->GroupRotationX_numericUpDown->Size = System::Drawing::Size(57, 22);
 			this->GroupRotationX_numericUpDown->TabIndex = 18;
 			// 
 			// GroupPosY_numericUpDown
 			// 
-			this->GroupPosY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupPosY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupPosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupPosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupPosY_numericUpDown->Location = System::Drawing::Point(74, 103);
-			this->GroupPosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->GroupPosY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->GroupPosY_numericUpDown->Location = System::Drawing::Point(74, 95);
+			this->GroupPosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->GroupPosY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->GroupPosY_numericUpDown->Name = L"GroupPosY_numericUpDown";
-			this->GroupPosY_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->GroupPosY_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->GroupPosY_numericUpDown->TabIndex = 7;
 			// 
 			// label29
 			// 
 			this->label29->AutoSize = true;
-			this->label29->Location = System::Drawing::Point(-1, 133);
+			this->label29->Location = System::Drawing::Point(-1, 123);
 			this->label29->Name = L"label29";
-			this->label29->Size = System::Drawing::Size(12, 13);
+			this->label29->Size = System::Drawing::Size(10, 12);
 			this->label29->TabIndex = 28;
 			this->label29->Text = L"z";
 			// 
 			// GroupPosX_numericUpDown
 			// 
-			this->GroupPosX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupPosX_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupPosX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupPosX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupPosX_numericUpDown->Location = System::Drawing::Point(74, 73);
-			this->GroupPosX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->GroupPosX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->GroupPosX_numericUpDown->Location = System::Drawing::Point(74, 67);
+			this->GroupPosX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->GroupPosX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->GroupPosX_numericUpDown->Name = L"GroupPosX_numericUpDown";
-			this->GroupPosX_numericUpDown->Size = System::Drawing::Size(57, 20);
+			this->GroupPosX_numericUpDown->Size = System::Drawing::Size(57, 22);
 			this->GroupPosX_numericUpDown->TabIndex = 5;
 			// 
 			// label28
 			// 
 			this->label28->AutoSize = true;
-			this->label28->Location = System::Drawing::Point(-1, 103);
+			this->label28->Location = System::Drawing::Point(-1, 95);
 			this->label28->Name = L"label28";
-			this->label28->Size = System::Drawing::Size(12, 13);
+			this->label28->Size = System::Drawing::Size(11, 12);
 			this->label28->TabIndex = 27;
 			this->label28->Text = L"y";
 			// 
 			// GroupPosZ_numericUpDown
 			// 
-			this->GroupPosZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupPosZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupPosZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupPosZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupPosZ_numericUpDown->Location = System::Drawing::Point(74, 133);
-			this->GroupPosZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, 0});
-			this->GroupPosZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {79979, 0, 0, System::Int32::MinValue});
+			this->GroupPosZ_numericUpDown->Location = System::Drawing::Point(74, 123);
+			this->GroupPosZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
+			this->GroupPosZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->GroupPosZ_numericUpDown->Name = L"GroupPosZ_numericUpDown";
-			this->GroupPosZ_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->GroupPosZ_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->GroupPosZ_numericUpDown->TabIndex = 6;
 			// 
 			// GroupImageRotate_checkBox
@@ -1412,9 +1455,9 @@ private:
 			this->GroupImageRotate_checkBox->AutoSize = true;
 			this->GroupImageRotate_checkBox->Checked = true;
 			this->GroupImageRotate_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->GroupImageRotate_checkBox->Location = System::Drawing::Point(10, 160);
+			this->GroupImageRotate_checkBox->Location = System::Drawing::Point(10, 148);
 			this->GroupImageRotate_checkBox->Name = L"GroupImageRotate_checkBox";
-			this->GroupImageRotate_checkBox->Size = System::Drawing::Size(116, 17);
+			this->GroupImageRotate_checkBox->Size = System::Drawing::Size(113, 16);
 			this->GroupImageRotate_checkBox->TabIndex = 29;
 			this->GroupImageRotate_checkBox->Text = L"GroupImageRotate";
 			this->GroupImageRotate_checkBox->UseVisualStyleBackColor = true;
@@ -1422,32 +1465,32 @@ private:
 			// label24
 			// 
 			this->label24->AutoSize = true;
-			this->label24->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->label24->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label24->Location = System::Drawing::Point(70, 33);
+			this->label24->Location = System::Drawing::Point(70, 30);
 			this->label24->Name = L"label24";
-			this->label24->Size = System::Drawing::Size(73, 13);
+			this->label24->Size = System::Drawing::Size(69, 12);
 			this->label24->TabIndex = 11;
 			this->label24->Text = L"Position/位置";
 			// 
 			// label27
 			// 
 			this->label27->AutoSize = true;
-			this->label27->Location = System::Drawing::Point(-1, 73);
+			this->label27->Location = System::Drawing::Point(-1, 67);
 			this->label27->Name = L"label27";
-			this->label27->Size = System::Drawing::Size(12, 13);
+			this->label27->Size = System::Drawing::Size(11, 12);
 			this->label27->TabIndex = 26;
 			this->label27->Text = L"x";
 			// 
 			// ApplyGroupDataChange_button
 			// 
-			this->ApplyGroupDataChange_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->ApplyGroupDataChange_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->ApplyGroupDataChange_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->ApplyGroupDataChange_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ApplyGroupDataChange_button->Location = System::Drawing::Point(-4, 179);
+			this->ApplyGroupDataChange_button->Location = System::Drawing::Point(-4, 165);
 			this->ApplyGroupDataChange_button->Name = L"ApplyGroupDataChange_button";
-			this->ApplyGroupDataChange_button->Size = System::Drawing::Size(240, 25);
+			this->ApplyGroupDataChange_button->Size = System::Drawing::Size(240, 23);
 			this->ApplyGroupDataChange_button->TabIndex = 13;
 			this->ApplyGroupDataChange_button->Text = L"ApplyGroupDataChange/群組資料變更應用";
 			this->ApplyGroupDataChange_button->UseVisualStyleBackColor = false;
@@ -1455,77 +1498,77 @@ private:
 			// 
 			// GroupPositionMoveType_comboBox
 			// 
-			this->GroupPositionMoveType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupPositionMoveType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupPositionMoveType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupPositionMoveType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->GroupPositionMoveType_comboBox->FormattingEnabled = true;
-			this->GroupPositionMoveType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) {L"None", L"Relative", L"World"});
-			this->GroupPositionMoveType_comboBox->Location = System::Drawing::Point(74, 47);
+			this->GroupPositionMoveType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Relative", L"World" });
+			this->GroupPositionMoveType_comboBox->Location = System::Drawing::Point(74, 43);
 			this->GroupPositionMoveType_comboBox->Name = L"GroupPositionMoveType_comboBox";
-			this->GroupPositionMoveType_comboBox->Size = System::Drawing::Size(62, 21);
+			this->GroupPositionMoveType_comboBox->Size = System::Drawing::Size(62, 20);
 			this->GroupPositionMoveType_comboBox->TabIndex = 17;
 			// 
 			// GroupRotationZ_numericUpDown
 			// 
-			this->GroupRotationZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupRotationZ_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupRotationZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupRotationZ_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupRotationZ_numericUpDown->Location = System::Drawing::Point(10, 133);
-			this->GroupRotationZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, 0});
-			this->GroupRotationZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, System::Int32::MinValue});
+			this->GroupRotationZ_numericUpDown->Location = System::Drawing::Point(10, 123);
+			this->GroupRotationZ_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
+			this->GroupRotationZ_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
 			this->GroupRotationZ_numericUpDown->Name = L"GroupRotationZ_numericUpDown";
-			this->GroupRotationZ_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->GroupRotationZ_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->GroupRotationZ_numericUpDown->TabIndex = 19;
 			// 
 			// label23
 			// 
 			this->label23->AutoSize = true;
-			this->label23->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->label23->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label23->Location = System::Drawing::Point(8, 33);
+			this->label23->Location = System::Drawing::Point(8, 30);
 			this->label23->Name = L"label23";
-			this->label23->Size = System::Drawing::Size(76, 13);
+			this->label23->Size = System::Drawing::Size(72, 12);
 			this->label23->TabIndex = 9;
 			this->label23->Text = L"Rotation/旋轉";
 			// 
 			// GroupRotationY_numericUpDown
 			// 
-			this->GroupRotationY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupRotationY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupRotationY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupRotationY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->GroupRotationY_numericUpDown->Location = System::Drawing::Point(10, 103);
-			this->GroupRotationY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, 0});
-			this->GroupRotationY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {360, 0, 0, System::Int32::MinValue});
+			this->GroupRotationY_numericUpDown->Location = System::Drawing::Point(10, 95);
+			this->GroupRotationY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, 0 });
+			this->GroupRotationY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 360, 0, 0, System::Int32::MinValue });
 			this->GroupRotationY_numericUpDown->Name = L"GroupRotationY_numericUpDown";
-			this->GroupRotationY_numericUpDown->Size = System::Drawing::Size(58, 20);
+			this->GroupRotationY_numericUpDown->Size = System::Drawing::Size(58, 22);
 			this->GroupRotationY_numericUpDown->TabIndex = 20;
 			// 
 			// GroupRotationType_comboBox
 			// 
-			this->GroupRotationType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->GroupRotationType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->GroupRotationType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->GroupRotationType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->GroupRotationType_comboBox->FormattingEnabled = true;
-			this->GroupRotationType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) {L"None", L"Self", L"World"});
-			this->GroupRotationType_comboBox->Location = System::Drawing::Point(8, 47);
+			this->GroupRotationType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Self", L"World" });
+			this->GroupRotationType_comboBox->Location = System::Drawing::Point(8, 43);
 			this->GroupRotationType_comboBox->Name = L"GroupRotationType_comboBox";
-			this->GroupRotationType_comboBox->Size = System::Drawing::Size(62, 21);
+			this->GroupRotationType_comboBox->Size = System::Drawing::Size(62, 20);
 			this->GroupRotationType_comboBox->TabIndex = 8;
 			// 
 			// tabPage2
 			// 
 			this->tabPage2->AutoScroll = true;
-			this->tabPage2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(104)), static_cast<System::Int32>(static_cast<System::Byte>(104)), 
+			this->tabPage2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(104)), static_cast<System::Int32>(static_cast<System::Byte>(104)),
 				static_cast<System::Int32>(static_cast<System::Byte>(104)));
 			this->tabPage2->Controls->Add(this->flowLayoutPanel2);
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(276, 991);
+			this->tabPage2->Size = System::Drawing::Size(276, 913);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"Utility/雜項功能";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -1540,7 +1583,7 @@ private:
 			this->flowLayoutPanel2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->flowLayoutPanel2->Location = System::Drawing::Point(3, 3);
 			this->flowLayoutPanel2->Name = L"flowLayoutPanel2";
-			this->flowLayoutPanel2->Size = System::Drawing::Size(270, 985);
+			this->flowLayoutPanel2->Size = System::Drawing::Size(270, 907);
 			this->flowLayoutPanel2->TabIndex = 0;
 			// 
 			// Path_groupBox
@@ -1553,21 +1596,21 @@ private:
 			this->Path_groupBox->Margin = System::Windows::Forms::Padding(2);
 			this->Path_groupBox->Name = L"Path_groupBox";
 			this->Path_groupBox->Padding = System::Windows::Forms::Padding(2);
-			this->Path_groupBox->Size = System::Drawing::Size(268, 170);
+			this->Path_groupBox->Size = System::Drawing::Size(268, 157);
 			this->Path_groupBox->TabIndex = 0;
 			this->Path_groupBox->TabStop = false;
 			this->Path_groupBox->Text = L"Path";
 			// 
 			// AddPathIntoAllPath_button
 			// 
-			this->AddPathIntoAllPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AddPathIntoAllPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AddPathIntoAllPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AddPathIntoAllPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddPathIntoAllPath_button->Location = System::Drawing::Point(14, 17);
+			this->AddPathIntoAllPath_button->Location = System::Drawing::Point(14, 16);
 			this->AddPathIntoAllPath_button->Margin = System::Windows::Forms::Padding(2);
 			this->AddPathIntoAllPath_button->Name = L"AddPathIntoAllPath_button";
-			this->AddPathIntoAllPath_button->Size = System::Drawing::Size(57, 23);
+			this->AddPathIntoAllPath_button->Size = System::Drawing::Size(57, 21);
 			this->AddPathIntoAllPath_button->TabIndex = 1;
 			this->AddPathIntoAllPath_button->Text = L"Add/增加";
 			this->AddPathIntoAllPath_button->UseVisualStyleBackColor = false;
@@ -1575,27 +1618,28 @@ private:
 			// 
 			// AllPath_listBox
 			// 
-			this->AllPath_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)), 
+			this->AllPath_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)),
 				static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->AllPath_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AllPath_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AllPath_listBox->FormattingEnabled = true;
-			this->AllPath_listBox->Location = System::Drawing::Point(12, 47);
+			this->AllPath_listBox->ItemHeight = 12;
+			this->AllPath_listBox->Location = System::Drawing::Point(12, 43);
 			this->AllPath_listBox->Margin = System::Windows::Forms::Padding(0);
 			this->AllPath_listBox->Name = L"AllPath_listBox";
-			this->AllPath_listBox->Size = System::Drawing::Size(241, 108);
+			this->AllPath_listBox->Size = System::Drawing::Size(241, 100);
 			this->AllPath_listBox->TabIndex = 0;
 			// 
 			// DelPathIntoAllPath_button
 			// 
-			this->DelPathIntoAllPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->DelPathIntoAllPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->DelPathIntoAllPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->DelPathIntoAllPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DelPathIntoAllPath_button->Location = System::Drawing::Point(107, 17);
+			this->DelPathIntoAllPath_button->Location = System::Drawing::Point(107, 16);
 			this->DelPathIntoAllPath_button->Margin = System::Windows::Forms::Padding(2);
 			this->DelPathIntoAllPath_button->Name = L"DelPathIntoAllPath_button";
-			this->DelPathIntoAllPath_button->Size = System::Drawing::Size(57, 22);
+			this->DelPathIntoAllPath_button->Size = System::Drawing::Size(57, 20);
 			this->DelPathIntoAllPath_button->TabIndex = 2;
 			this->DelPathIntoAllPath_button->Text = L"Del/刪除";
 			this->DelPathIntoAllPath_button->UseVisualStyleBackColor = false;
@@ -1603,14 +1647,14 @@ private:
 			// 
 			// UsingIntoCurrentPath_button
 			// 
-			this->UsingIntoCurrentPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->UsingIntoCurrentPath_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->UsingIntoCurrentPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->UsingIntoCurrentPath_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->UsingIntoCurrentPath_button->Location = System::Drawing::Point(183, 17);
+			this->UsingIntoCurrentPath_button->Location = System::Drawing::Point(183, 16);
 			this->UsingIntoCurrentPath_button->Margin = System::Windows::Forms::Padding(2);
 			this->UsingIntoCurrentPath_button->Name = L"UsingIntoCurrentPath_button";
-			this->UsingIntoCurrentPath_button->Size = System::Drawing::Size(53, 23);
+			this->UsingIntoCurrentPath_button->Size = System::Drawing::Size(53, 21);
 			this->UsingIntoCurrentPath_button->TabIndex = 3;
 			this->UsingIntoCurrentPath_button->Text = L"Using/使用";
 			this->UsingIntoCurrentPath_button->UseVisualStyleBackColor = false;
@@ -1622,40 +1666,41 @@ private:
 			this->ImageHintPoint_groupBox->Controls->Add(this->DelShowImageOnScreenObject_button);
 			this->ImageHintPoint_groupBox->Controls->Add(this->label16);
 			this->ImageHintPoint_groupBox->Controls->Add(this->AddShowImageOnScreenObject_button);
-			this->ImageHintPoint_groupBox->Location = System::Drawing::Point(2, 176);
+			this->ImageHintPoint_groupBox->Location = System::Drawing::Point(2, 163);
 			this->ImageHintPoint_groupBox->Margin = System::Windows::Forms::Padding(2);
 			this->ImageHintPoint_groupBox->Name = L"ImageHintPoint_groupBox";
 			this->ImageHintPoint_groupBox->Padding = System::Windows::Forms::Padding(2);
-			this->ImageHintPoint_groupBox->Size = System::Drawing::Size(268, 139);
+			this->ImageHintPoint_groupBox->Size = System::Drawing::Size(268, 128);
 			this->ImageHintPoint_groupBox->TabIndex = 1;
 			this->ImageHintPoint_groupBox->TabStop = false;
 			this->ImageHintPoint_groupBox->Text = L"ImageHintPoint";
 			// 
 			// ShowImageOnScreen_listBox
 			// 
-			this->ShowImageOnScreen_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->ShowImageOnScreen_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->ShowImageOnScreen_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->ShowImageOnScreen_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->ShowImageOnScreen_listBox->FormattingEnabled = true;
-			this->ShowImageOnScreen_listBox->Location = System::Drawing::Point(96, 18);
+			this->ShowImageOnScreen_listBox->ItemHeight = 12;
+			this->ShowImageOnScreen_listBox->Location = System::Drawing::Point(96, 17);
 			this->ShowImageOnScreen_listBox->Margin = System::Windows::Forms::Padding(2);
-			this->ShowImageOnScreen_listBox->MinimumSize = System::Drawing::Size(4, 81);
+			this->ShowImageOnScreen_listBox->MinimumSize = System::Drawing::Size(4, 75);
 			this->ShowImageOnScreen_listBox->Name = L"ShowImageOnScreen_listBox";
 			this->ShowImageOnScreen_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
-			this->ShowImageOnScreen_listBox->Size = System::Drawing::Size(141, 108);
+			this->ShowImageOnScreen_listBox->Size = System::Drawing::Size(141, 100);
 			this->ShowImageOnScreen_listBox->TabIndex = 131;
 			// 
 			// DelShowImageOnScreenObject_button
 			// 
-			this->DelShowImageOnScreenObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->DelShowImageOnScreenObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->DelShowImageOnScreenObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->DelShowImageOnScreenObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DelShowImageOnScreenObject_button->Location = System::Drawing::Point(25, 82);
+			this->DelShowImageOnScreenObject_button->Location = System::Drawing::Point(25, 76);
 			this->DelShowImageOnScreenObject_button->Margin = System::Windows::Forms::Padding(2);
 			this->DelShowImageOnScreenObject_button->Name = L"DelShowImageOnScreenObject_button";
-			this->DelShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 18);
+			this->DelShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 17);
 			this->DelShowImageOnScreenObject_button->TabIndex = 132;
 			this->DelShowImageOnScreenObject_button->Text = L"Del/刪除";
 			this->DelShowImageOnScreenObject_button->UseVisualStyleBackColor = false;
@@ -1664,10 +1709,10 @@ private:
 			// label16
 			// 
 			this->label16->AutoSize = true;
-			this->label16->Font = (gcnew System::Drawing::Font(L"PMingLiU", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point, 
+			this->label16->Font = (gcnew System::Drawing::Font(L"PMingLiU", 7.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(136)));
 			this->label16->ForeColor = System::Drawing::Color::White;
-			this->label16->Location = System::Drawing::Point(22, 28);
+			this->label16->Location = System::Drawing::Point(22, 26);
 			this->label16->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label16->Name = L"label16";
 			this->label16->Size = System::Drawing::Size(59, 11);
@@ -1676,14 +1721,14 @@ private:
 			// 
 			// AddShowImageOnScreenObject_button
 			// 
-			this->AddShowImageOnScreenObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AddShowImageOnScreenObject_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AddShowImageOnScreenObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AddShowImageOnScreenObject_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddShowImageOnScreenObject_button->Location = System::Drawing::Point(25, 46);
+			this->AddShowImageOnScreenObject_button->Location = System::Drawing::Point(25, 42);
 			this->AddShowImageOnScreenObject_button->Margin = System::Windows::Forms::Padding(2);
 			this->AddShowImageOnScreenObject_button->Name = L"AddShowImageOnScreenObject_button";
-			this->AddShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 20);
+			this->AddShowImageOnScreenObject_button->Size = System::Drawing::Size(38, 18);
 			this->AddShowImageOnScreenObject_button->TabIndex = 133;
 			this->AddShowImageOnScreenObject_button->Text = L"Add/增加";
 			this->AddShowImageOnScreenObject_button->UseVisualStyleBackColor = false;
@@ -1698,20 +1743,20 @@ private:
 			this->HintPoint_groupBox->Controls->Add(this->label17);
 			this->HintPoint_groupBox->Controls->Add(this->EventPointName_textBox);
 			this->HintPoint_groupBox->Controls->Add(this->DelEventPoint_button);
-			this->HintPoint_groupBox->Location = System::Drawing::Point(2, 319);
+			this->HintPoint_groupBox->Location = System::Drawing::Point(2, 295);
 			this->HintPoint_groupBox->Margin = System::Windows::Forms::Padding(2);
 			this->HintPoint_groupBox->Name = L"HintPoint_groupBox";
 			this->HintPoint_groupBox->Padding = System::Windows::Forms::Padding(2);
-			this->HintPoint_groupBox->Size = System::Drawing::Size(268, 221);
+			this->HintPoint_groupBox->Size = System::Drawing::Size(268, 204);
 			this->HintPoint_groupBox->TabIndex = 6;
 			this->HintPoint_groupBox->TabStop = false;
 			this->HintPoint_groupBox->Text = L"HintPoint";
 			// 
 			// EventFindFile_button
 			// 
-			this->EventFindFile_button->Location = System::Drawing::Point(234, 33);
+			this->EventFindFile_button->Location = System::Drawing::Point(234, 30);
 			this->EventFindFile_button->Name = L"EventFindFile_button";
-			this->EventFindFile_button->Size = System::Drawing::Size(19, 20);
+			this->EventFindFile_button->Size = System::Drawing::Size(19, 18);
 			this->EventFindFile_button->TabIndex = 7;
 			this->EventFindFile_button->Text = L"...";
 			this->EventFindFile_button->UseVisualStyleBackColor = true;
@@ -1720,36 +1765,37 @@ private:
 			// AllEventPointHint_listBox
 			// 
 			this->AllEventPointHint_listBox->FormattingEnabled = true;
-			this->AllEventPointHint_listBox->Location = System::Drawing::Point(21, 98);
+			this->AllEventPointHint_listBox->ItemHeight = 12;
+			this->AllEventPointHint_listBox->Location = System::Drawing::Point(21, 90);
 			this->AllEventPointHint_listBox->Margin = System::Windows::Forms::Padding(2);
 			this->AllEventPointHint_listBox->Name = L"AllEventPointHint_listBox";
-			this->AllEventPointHint_listBox->Size = System::Drawing::Size(216, 108);
+			this->AllEventPointHint_listBox->Size = System::Drawing::Size(216, 100);
 			this->AllEventPointHint_listBox->TabIndex = 6;
 			// 
 			// HintPointType_comboBox
 			// 
-			this->HintPointType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->HintPointType_comboBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->HintPointType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->HintPointType_comboBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->HintPointType_comboBox->FormattingEnabled = true;
-			this->HintPointType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) {L"None", L"Sound", L"Particle"});
-			this->HintPointType_comboBox->Location = System::Drawing::Point(59, 30);
+			this->HintPointType_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"None", L"Sound", L"Particle" });
+			this->HintPointType_comboBox->Location = System::Drawing::Point(59, 28);
 			this->HintPointType_comboBox->Margin = System::Windows::Forms::Padding(2);
 			this->HintPointType_comboBox->Name = L"HintPointType_comboBox";
-			this->HintPointType_comboBox->Size = System::Drawing::Size(86, 21);
+			this->HintPointType_comboBox->Size = System::Drawing::Size(86, 20);
 			this->HintPointType_comboBox->TabIndex = 0;
 			// 
 			// AddEventPOint_button
 			// 
-			this->AddEventPOint_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->AddEventPOint_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AddEventPOint_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->AddEventPOint_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddEventPOint_button->Location = System::Drawing::Point(41, 56);
+			this->AddEventPOint_button->Location = System::Drawing::Point(41, 52);
 			this->AddEventPOint_button->Margin = System::Windows::Forms::Padding(2);
 			this->AddEventPOint_button->Name = L"AddEventPOint_button";
-			this->AddEventPOint_button->Size = System::Drawing::Size(56, 21);
+			this->AddEventPOint_button->Size = System::Drawing::Size(56, 19);
 			this->AddEventPOint_button->TabIndex = 4;
 			this->AddEventPOint_button->Text = L"Add/增加";
 			this->AddEventPOint_button->UseVisualStyleBackColor = false;
@@ -1758,39 +1804,39 @@ private:
 			// label17
 			// 
 			this->label17->AutoSize = true;
-			this->label17->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->label17->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->label17->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label17->Location = System::Drawing::Point(10, 33);
+			this->label17->Location = System::Drawing::Point(10, 30);
 			this->label17->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label17->Name = L"label17";
-			this->label17->Size = System::Drawing::Size(60, 13);
+			this->label17->Size = System::Drawing::Size(56, 12);
 			this->label17->TabIndex = 2;
 			this->label17->Text = L"Type/類別";
 			// 
 			// EventPointName_textBox
 			// 
-			this->EventPointName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->EventPointName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->EventPointName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->EventPointName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->EventPointName_textBox->Location = System::Drawing::Point(149, 30);
+			this->EventPointName_textBox->Location = System::Drawing::Point(149, 28);
 			this->EventPointName_textBox->Margin = System::Windows::Forms::Padding(2);
 			this->EventPointName_textBox->Name = L"EventPointName_textBox";
-			this->EventPointName_textBox->Size = System::Drawing::Size(83, 20);
+			this->EventPointName_textBox->Size = System::Drawing::Size(83, 22);
 			this->EventPointName_textBox->TabIndex = 1;
 			// 
 			// DelEventPoint_button
 			// 
-			this->DelEventPoint_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), 
+			this->DelEventPoint_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->DelEventPoint_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
+			this->DelEventPoint_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DelEventPoint_button->Location = System::Drawing::Point(140, 56);
+			this->DelEventPoint_button->Location = System::Drawing::Point(140, 52);
 			this->DelEventPoint_button->Margin = System::Windows::Forms::Padding(2);
 			this->DelEventPoint_button->Name = L"DelEventPoint_button";
-			this->DelEventPoint_button->Size = System::Drawing::Size(56, 21);
+			this->DelEventPoint_button->Size = System::Drawing::Size(56, 19);
 			this->DelEventPoint_button->TabIndex = 5;
 			this->DelEventPoint_button->Text = L"Del/刪除";
 			this->DelEventPoint_button->UseVisualStyleBackColor = false;
@@ -1798,47 +1844,26 @@ private:
 			// 
 			// Video_groupBox
 			// 
-			this->Video_groupBox->Location = System::Drawing::Point(3, 545);
+			this->Video_groupBox->Location = System::Drawing::Point(3, 504);
 			this->Video_groupBox->Name = L"Video_groupBox";
-			this->Video_groupBox->Size = System::Drawing::Size(271, 328);
+			this->Video_groupBox->Size = System::Drawing::Size(271, 303);
 			this->Video_groupBox->TabIndex = 7;
 			this->Video_groupBox->TabStop = false;
 			this->Video_groupBox->Text = L"Video";
 			// 
-			// x1334ToolStripMenuItem
+			// x900ToolStripMenuItem
 			// 
-			this->x1334ToolStripMenuItem->Name = L"x1334ToolStripMenuItem";
-			this->x1334ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x1334ToolStripMenuItem->Text = L"1334x750";
-			this->x1334ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
-			// 
-			// x2208ToolStripMenuItem
-			// 
-			this->x2208ToolStripMenuItem->Name = L"x2208ToolStripMenuItem";
-			this->x2208ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x2208ToolStripMenuItem->Text = L"2208x1242";
-			this->x2208ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
-			// 
-			// x2048ToolStripMenuItem
-			// 
-			this->x2048ToolStripMenuItem->Name = L"x2048ToolStripMenuItem";
-			this->x2048ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x2048ToolStripMenuItem->Text = L"2048x1536";
-			this->x2048ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
-			// 
-			// x2732ToolStripMenuItem
-			// 
-			this->x2732ToolStripMenuItem->Name = L"x2732ToolStripMenuItem";
-			this->x2732ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
-			this->x2732ToolStripMenuItem->Text = L"2732x2048";
-			this->x2732ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			this->x900ToolStripMenuItem->Name = L"x900ToolStripMenuItem";
+			this->x900ToolStripMenuItem->Size = System::Drawing::Size(152, 22);
+			this->x900ToolStripMenuItem->Text = L"1440x900";
+			this->x900ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// MPDIEditor
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::ButtonFace;
-			this->ClientSize = System::Drawing::Size(1904, 1045);
+			this->ClientSize = System::Drawing::Size(1904, 965);
 			this->Controls->Add(this->splitContainer2);
 			this->Controls->Add(this->menuStrip1);
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
@@ -1850,18 +1875,18 @@ private:
 			this->menuStrip1->PerformLayout();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			this->Edit_tabControl->ResumeLayout(false);
 			this->splitContainer3->Panel2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer3))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
 			this->splitContainer3->ResumeLayout(false);
 			this->flowLayoutPanel3->ResumeLayout(false);
 			this->flowLayoutPanel3->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentProgress_trackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentProgress_trackBar))->EndInit();
 			this->splitContainer2->Panel1->ResumeLayout(false);
 			this->splitContainer2->Panel2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
@@ -1870,19 +1895,19 @@ private:
 			this->AnimationData_collpaseForm->PerformLayout();
 			this->GroupData_collpaseForm->ResumeLayout(false);
 			this->GroupData_collpaseForm->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterY_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterX_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationCenterZ_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupScale_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationY_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationX_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CameraRotationZ_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationX_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosY_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosX_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupPosZ_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationZ_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GroupRotationY_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterY_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterX_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationCenterZ_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupScale_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationY_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationX_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CameraRotationZ_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationX_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosY_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosX_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupPosZ_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationZ_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GroupRotationY_numericUpDown))->EndInit();
 			this->tabPage2->ResumeLayout(false);
 			this->flowLayoutPanel2->ResumeLayout(false);
 			this->Path_groupBox->ResumeLayout(false);

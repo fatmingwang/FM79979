@@ -19,6 +19,8 @@ cEngineTestApp::cEngineTestApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_v
 cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+	this->m_sbDebugFunctionWorking = true;
+	this->m_sbSpeedControl = true;
 	m_bLeave = false;
 	m_pPhaseManager = new cPhaseManager();	
 #ifdef DEBUG
@@ -84,6 +86,7 @@ void	cEngineTestApp::Render()
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
 	}
+	cGameApp::ShowInfo();
 	glDisable(GL_TEXTURE_2D);
 	this->m_pPhaseManager->DebugRender();
 	glDisable2D();

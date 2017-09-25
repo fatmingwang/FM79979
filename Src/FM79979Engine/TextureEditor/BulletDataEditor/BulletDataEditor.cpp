@@ -55,10 +55,10 @@ namespace BulletDataEditor
 }
 //
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
-	ilInit();
-	alutInit (0,0);
+	//ilInit();
+	//alutInit (0,0);
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
@@ -68,8 +68,8 @@ int main(array<System::String ^> ^args)
 		Application::Run(gcnew BulletDataEditor::ImageConvexHullEditor(args[0]));
 	else
 		Application::Run(gcnew BulletDataEditor::ImageConvexHullEditor(""));
-	alutExit();
-	ilShutDown();
+	//alutExit();
+	//ilShutDown();
 	_CrtDumpMemoryLeaks();
 	NamedTypedObject::DumpUnReleaseInfo();
 	return 0;

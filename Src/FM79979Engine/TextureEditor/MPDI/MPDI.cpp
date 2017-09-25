@@ -789,6 +789,8 @@ namespace MPDI
 						}
 					}
 					m_pMultiPathDynamicImageAWP->RenderByGlobalTime();
+					if(showImageBoderToolStripMenuItem->Checked)
+						m_pMultiPathDynamicImageAWP->RenderCollide();
 					if( l_pViewPort )
 					{
 						glDisable(GL_SCISSOR_TEST);
@@ -876,7 +878,7 @@ namespace MPDI
 					}
 					l_CueToStartCurvesWithTime.SetAnimationDone(false);
 					l_CueToStartCurvesWithTime.SetStart(true);
-					RenderHintPoint(&l_CueToStartCurvesWithTime,true);
+					RenderHintPoint(&l_CueToStartCurvesWithTime, showImageBoderToolStripMenuItem->Checked);
 				}
 			}
 			glDisable(GL_ALPHA_TEST);
@@ -2312,6 +2314,18 @@ namespace MPDI
 					m_pMPDICamera->Update(m_pTimeAndFPS->fElpaseTime,CurrentProgress_trackBar->Value/1000.f);
 					m_pMPDICamera->Render();
 				}
+				if (m_pMultiPathDynamicImageAWP && m_pMPDIUI->MPDIRotationTest_checkBox->Checked)
+				{
+					static Frame l_TestFrame;
+					static float l_sfTestAngele = 270.f;
+					l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
+					//l_sfTestAngele = 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
+					//l_TestFrame.SetLocalTransform(l_TestFrame.GetLocalTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
+					l_TestFrame.SetLocalTransform(cMatrix44::TranslationMatrix(1440,460,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
+					if (!m_pMultiPathDynamicImageAWP->GetParent())
+						m_pMultiPathDynamicImageAWP->SetParent(&l_TestFrame,false);
+					//m_pMultiPathDynamicImageAWP->SetTranslationRotatopnScaleWithImageCenter(Vector3(0, 0, 0), l_sfTestAngele);
+				}
 				if( MPDIWorking_checkBox->Checked )
 					MPDIRender();
 				if( m_pDebugFont )
@@ -3313,24 +3327,31 @@ namespace MPDI
 		x2208ToolStripMenuItem->Checked = false;
 		x2048ToolStripMenuItem->Checked = false;
 		x2732ToolStripMenuItem->Checked = false;
+		x900ToolStripMenuItem->Checked = false;
 		System::Windows::Forms::ToolStripMenuItem^l_pObject = (System::Windows::Forms::ToolStripMenuItem^)sender;
 		l_pObject->Checked = true;
-		if( l_pObject == x1080ToolStripMenuItem )
-		{
-			m_pvResolution->x = 1920.f;
-			m_pvResolution->y = 1080.f;
-		}
-		else
-		if( l_pObject == x720ToolStripMenuItem )
-		{
-			m_pvResolution->x = 1280.f;
-			m_pvResolution->y = 720.f;		
-		}
-		else
 		if( l_pObject == x480ToolStripMenuItem )
 		{
 			m_pvResolution->x = 640.f;
 			m_pvResolution->y = 480.f;		
+		}
+		else
+		if (l_pObject == x720ToolStripMenuItem)
+		{
+			m_pvResolution->x = 1280.f;
+			m_pvResolution->y = 720.f;
+		}
+		else
+		if(l_pObject == x900ToolStripMenuItem)
+		{
+			m_pvResolution->x = 1440.f;
+			m_pvResolution->y = 900.f;
+		}
+		else
+		if (l_pObject == x1080ToolStripMenuItem)
+		{
+			m_pvResolution->x = 1920.f;
+			m_pvResolution->y = 1080.f;
 		}
 		else
 		if( l_pObject == x1280ToolStripMenuItem )

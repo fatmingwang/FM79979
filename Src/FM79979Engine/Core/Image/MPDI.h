@@ -46,6 +46,7 @@ namespace FATMING_CORE
 		bool	m_bRenderOptmize;
 		//MPDI's width and height
 		GET_SET_DEC(Vector2,m_vDrawSize,GetDrawSize,SetDrawSize);
+		GET_SET_DEC(Vector4,m_vDrawRect, GetDrawRect, SetDrawRect);
 		//scale for image size
 		//float			m_fScale;
 		bool			m_bHitHintPoint;
