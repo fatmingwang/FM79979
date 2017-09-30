@@ -39,15 +39,6 @@ namespace FATMING_CORE
 	class	cMultiPathDynamicImage:public cFatmingGroupBehaviorList<cCueToStartCurveWithTime>,public cMulti_PI_Image
 	{
 	public:
-		enum eRotationWithObjectCenterType
-		{
-			eRWOCT_SELF = 0,
-			eRWOCT_ORIGINAL_POINT,
-			eRWOCT_MAX
-		};
-	private:
-		//while call with SetTranslationRotatopnScaleWithImageCenter,type is eRWOCT_SELF else is eRWOCT_ORIGINAL_POINT,
-		GET_SET_DEC(eRotationWithObjectCenterType,m_eRotationWithObjectCenterType,GetRotationWithObjectCenterType,SetRotationWithObjectCenterType);
 	protected:
 		//
 		//call CheckRenderOptmize to change render mode,while AddObject is called,make sure CheckRenderOptmize is caled
@@ -93,7 +84,6 @@ namespace FATMING_CORE
 		//cMatrix44		GetTransform();
 		//cMatrix44		GetTransformByImageCenter();
 		////a scale value to change size at the game
-		virtual	void	SetSubMPDIChildrenScale(float e_fValue);
 		////to effect children's size
 		//float			GetScale(){ return m_fScale; }
 		//
@@ -135,6 +125,8 @@ namespace FATMING_CORE
 		bool			IsUsingPI(cPuzzleImage*e_pPI,bool e_bRemoveReferenceIfNotInUsing = true);
 
 		bool			GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos,bool e_bRemoveObject = false);
+		void			SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset);
+		void			SetRotationAnglePosOffsetWithDrawSize(bool e_bOn);
 	};
 
 	typedef cMultiPathDynamicImage	cMPDI;
@@ -152,6 +144,7 @@ namespace FATMING_CORE
 		//for clone
 		cMPDIList(cMPDIList*e_pcMPDIList);
 		virtual ~cMPDIList(){}
+
 		//if there is no any data use this pi,return true and remove the data,or return false and do not remove the data
 		//only remove reference not delete from animation parser!
 		bool						RemovePIReference(cPuzzleImage*e_pPuzzleImage,std::wstring*e_pInUsingDataInfo);

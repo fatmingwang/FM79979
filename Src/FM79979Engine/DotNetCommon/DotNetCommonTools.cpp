@@ -1210,7 +1210,7 @@ namespace DNCT
 			{
 				if (fs->Length > 3)//判斷檔案長度需大於3
 				{
-					array<Byte>^header = gcnew array<Byte>(1024);
+					cli::array<Byte>^header = gcnew cli::array<Byte>(1024);
 					fs->Read(header, 0, 4);
 					//以下幾種編碼的判斷來源,可以參考文章後的參考.
 					  if ((header[0] == 0xef && header[1] == 0xbb && header[2] == 0xbf))

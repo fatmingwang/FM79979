@@ -113,8 +113,9 @@ namespace FATMING_CORE
 			return eIAT_RIGHT_DOWN;
 		return eIAT_MAX;
 	}
-	Vector4				GetExtendImagePoint(eImageAnchorType e_eImageAnchorType,Vector2 e_vHalfImageSize,Vector2 e_vImageSize,float e_fScale)
+	Vector4				GetExtendImagePoint(eImageAnchorType e_eImageAnchorType,Vector2 e_vImageSize,float e_fScale)
 	{
+		Vector2 l_vHalfImageSize = e_vImageSize / 2;
 		//assume left up potin is anchor point to assign data.
 		Vector4 l_vEntendImagePoint(0,0,0,0);
 		switch(e_eImageAnchorType)
@@ -126,9 +127,9 @@ namespace FATMING_CORE
 				l_vEntendImagePoint.w = e_vImageSize.y;
 				break;
 			case eIAT_CENTER_UP:
-				l_vEntendImagePoint.x = -e_vHalfImageSize.x;
+				l_vEntendImagePoint.x = -l_vHalfImageSize.x;
 				l_vEntendImagePoint.y = 0.f;
-				l_vEntendImagePoint.z = e_vHalfImageSize.x;
+				l_vEntendImagePoint.z = l_vHalfImageSize.x;
 				l_vEntendImagePoint.w = e_vImageSize.y;
 				break;
 			case eIAT_RIGHT_UP:
@@ -139,21 +140,21 @@ namespace FATMING_CORE
 				break;
 			case eIAT_LEFT_CENTER:
 				l_vEntendImagePoint.x = 0.f;
-				l_vEntendImagePoint.y = -e_vHalfImageSize.y;
+				l_vEntendImagePoint.y = -l_vHalfImageSize.y;
 				l_vEntendImagePoint.z = e_vImageSize.x;
-				l_vEntendImagePoint.w = e_vHalfImageSize.y;
+				l_vEntendImagePoint.w = l_vHalfImageSize.y;
 				break;
 			case eIAT_CENTER_CENTER:
-				l_vEntendImagePoint.x = -e_vHalfImageSize.x;
-				l_vEntendImagePoint.y = -e_vHalfImageSize.y;
-				l_vEntendImagePoint.z = e_vHalfImageSize.x;
-				l_vEntendImagePoint.w = e_vHalfImageSize.y;
+				l_vEntendImagePoint.x = -l_vHalfImageSize.x;
+				l_vEntendImagePoint.y = -l_vHalfImageSize.y;
+				l_vEntendImagePoint.z = l_vHalfImageSize.x;
+				l_vEntendImagePoint.w = l_vHalfImageSize.y;
 				break;
 			case eIAT_RIGHT_CENTER:
 				l_vEntendImagePoint.x = -e_vImageSize.x;
-				l_vEntendImagePoint.y = -e_vHalfImageSize.y;
+				l_vEntendImagePoint.y = -l_vHalfImageSize.y;
 				l_vEntendImagePoint.z = 0;
-				l_vEntendImagePoint.w = e_vHalfImageSize.y;
+				l_vEntendImagePoint.w = l_vHalfImageSize.y;
 				break;
 			case eIAT_LEFT_DOWN:
 				l_vEntendImagePoint.x = 0;
@@ -162,9 +163,9 @@ namespace FATMING_CORE
 				l_vEntendImagePoint.w = 0;
 				break;
 			case eIAT_CENTER_DOWN:
-				l_vEntendImagePoint.x = -e_vHalfImageSize.x;
+				l_vEntendImagePoint.x = -l_vHalfImageSize.x;
 				l_vEntendImagePoint.y = -e_vImageSize.y;
-				l_vEntendImagePoint.z = e_vHalfImageSize.x;
+				l_vEntendImagePoint.z = l_vHalfImageSize.x;
 				l_vEntendImagePoint.w = 0;
 				break;
 			case eIAT_RIGHT_DOWN:

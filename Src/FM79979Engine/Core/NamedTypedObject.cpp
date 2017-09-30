@@ -23,7 +23,6 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 	bool	g_bDumpUsing = true;
 	//0,1,2 no use
 	int		g_iDumpUsing = 0;
-	std::vector<NamedTypedObject*>*g_pNamedTypedObjectList = 0;
 	NameIndexedCollection*g_pNameIndexedCollection = 0;
 	void	DebugResourceInfoAdd(NamedTypedObject*e_pNamedTypedObject)
 	{
@@ -33,39 +32,16 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 				g_pNameIndexedCollection = new NameIndexedCollection;
 			g_pNameIndexedCollection->Add(e_pNamedTypedObject);
 		}
-		else
-		if( g_iDumpUsing == 1 )
-		{
-			if(!g_pNamedTypedObjectList)
-				g_pNamedTypedObjectList = new std::vector<NamedTypedObject*>;
-			g_pNamedTypedObjectList->push_back(e_pNamedTypedObject);
-		}
 	}
 
 	void	DebugResourceDelete(NamedTypedObject*e_pNamedTypedObject)
 	{
-		if( g_iDumpUsing == 0 && g_pNameIndexedCollection)
+		if( g_iDumpUsing == 0 )
 		{
 			g_pNameIndexedCollection->Remove(e_pNamedTypedObject);
 			if( g_pNameIndexedCollection->Size() == 0 )
 			{
 				SAFE_DELETE(g_pNameIndexedCollection);
-			}
-		}
-		else
-		if( g_iDumpUsing == 1 && g_pNamedTypedObjectList)
-		{
-			for( size_t i=0;i<g_pNamedTypedObjectList->size();++i )
-			{
-				if( (*g_pNamedTypedObjectList)[i] == e_pNamedTypedObject )
-				{
-					g_pNamedTypedObjectList->erase(g_pNamedTypedObjectList->begin()+i);
-					break;
-				}
-			}
-			if( g_pNamedTypedObjectList->size() == 0 )
-			{
-				SAFE_DELETE(g_pNamedTypedObjectList);
 			}
 		}
 	}
@@ -90,20 +66,6 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 					}
 				}
 				SAFE_DELETE(g_pNameIndexedCollection);
-			}
-		}
-		else
-		if( g_iDumpUsing == 1 )
-		{
-			if( g_pNamedTypedObjectList )
-			{
-				assert(g_pNamedTypedObjectList->size() == 0&&"unrelease object exists!!");
-				for( size_t i=0;i<g_pNamedTypedObjectList->size();++i )
-				{
-					wchar_t	l_strData[MAX_PATH];
-					swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%llu\n",(*g_pNamedTypedObjectList)[i]->Type(),(*g_pNamedTypedObjectList)[i]->GetName(),(*g_pNamedTypedObjectList)[i]->GetUniqueID());
-					cGameApp::OutputDebugInfoString(l_strData);
-				}
 			}
 		}
 	}

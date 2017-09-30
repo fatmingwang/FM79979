@@ -272,9 +272,9 @@ namespace GLRender
 		UseShaderProgram(e_strShaderName);
 		e_fWidth/=2;
 		e_fHeight/=2;
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_iX+e_fWidth,e_iY+e_fHeight, 0.f));
-		g_mat2DTransform *= cMatrix44::RotationMatrix(e_vRotationAngle);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+e_fWidth,e_iY+e_fHeight, 0.f));
+		l_mat *= cMatrix44::RotationMatrix(e_vRotationAngle);
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_UV(e_pfTexCoordinate);
 		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,e_fDepth);
 		ASSIGN_2D_COLOR(e_vColor);
@@ -287,10 +287,10 @@ namespace GLRender
 		UseShaderProgram(DEFAULT_SHADER);
 		e_iWidth/=2;
 		e_iHeight/=2;
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_iX+e_iWidth,e_iY+e_iHeight, 0.f));
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+e_iWidth,e_iY+e_iHeight, 0.f));
 		if(e_fRotationAngle!=0.f)
-			g_mat2DTransform *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fRotationAngle));
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+			l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fRotationAngle));
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_MIRROR_UV(e_pfTexCoordinate);
 		ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
 		ASSIGN_2D_COLOR(e_vColor);
@@ -342,9 +342,9 @@ namespace GLRender
 		glLineWidth(radius);
 		float angle = atan2(D.y, D.x);
 		float	l_fLength = D.Length();
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(P.x, P.y, 0.0f));
-		g_mat2DTransform *= cMatrix44::ScaleMatrix(Vector3(l_fLength,l_fLength, 1.0f));
-		g_mat2DTransform *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(angle));
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(P.x, P.y, 0.0f));
+		l_mat *= cMatrix44::ScaleMatrix(Vector3(l_fLength,l_fLength, 1.0f));
+		l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(angle));
 		float	l_fAllVertices[] = { 0.f,0.f,
 									 1.f,0.f,
 									 1.f,0.f,
@@ -354,7 +354,7 @@ namespace GLRender
 									 };
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,l_fAllVertices);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 6);
 	}
 
@@ -553,7 +553,6 @@ namespace GLRender
 		int	l_iNum = (int)(360.f/e_fDensityAngle);
 		float	l_fStepAngle = 1/e_fDensityAngle;
 		Vector2	l_vFirestPos = Vector2(sin(l_fStepAngle)*e_fRadius,cos(l_fStepAngle)*e_fRadius);
-		g_mat2DTransform = e_mat;
 		for( int i=0;i<l_iNum;++i )
 		{
 			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
@@ -567,7 +566,7 @@ namespace GLRender
 		}
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum*2);
 		if( e_bDrawPoint )
 		{
@@ -589,7 +588,7 @@ namespace GLRender
 		int	l_iNum = (int)(360.f/e_fDensityAngle);
 		float	l_fStepAngle = 1/e_fDensityAngle;
 		Vector2	l_vFirestPos = Vector2(sin(l_fStepAngle)*e_fRadius,cos(l_fStepAngle)*e_fRadius);
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_vPos.x,e_vPos.y, 0.0f));
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_vPos.x,e_vPos.y, 0.0f));
 		for( int i=0;i<l_iNum;++i )
 		{
 			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
@@ -603,7 +602,7 @@ namespace GLRender
 		}
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum*2);
 		if( e_bDrawPoint )
 		{
@@ -628,9 +627,9 @@ namespace GLRender
 	}
 	void	RenderRectangle(Vector2 e_Pos,float e_fWidth,float e_fHeight,Vector4 e_vColor,Vector3 e_vAngle,float e_fLineWidth)
 	{
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_Pos.x,e_Pos.y, 0.f));
-		g_mat2DTransform *= cMatrix44::RotationMatrix(e_vAngle);
-		RenderRectangle(e_fWidth,e_fHeight,g_mat2DTransform,e_vColor,e_fLineWidth);
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_Pos.x,e_Pos.y, 0.f));
+		l_mat *= cMatrix44::RotationMatrix(e_vAngle);
+		RenderRectangle(e_fWidth,e_fHeight, l_mat,e_vColor,e_fLineWidth);
 	}
 
 	void	RenderRectangle(float e_fWidth,float e_fHeight,cMatrix44 e_Mat,Vector4 e_vColor,float e_fLineWidth)
@@ -639,7 +638,6 @@ namespace GLRender
 		glLineWidth(e_fLineWidth);
 		float	l_fWidth = e_fWidth;
 		float	l_fHeight = e_fHeight;
-		g_mat2DTransform = e_Mat;
 		float	l_fAllVertices[16] = {0,0,
 									  0,l_fHeight,
 
@@ -654,7 +652,7 @@ namespace GLRender
 
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,l_fAllVertices);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		FATMING_CORE::SetupShaderWorldMatrix(e_Mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
 
 		//cBaseShader*l_p2DShader = GetCurrentShader();
@@ -684,10 +682,10 @@ namespace GLRender
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		e_fWidth/=2;
 		e_fHeight/=2;
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_Pos.x+e_fWidth,e_Pos.y+e_fHeight, 0.f));
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_Pos.x+e_fWidth,e_Pos.y+e_fHeight, 0.f));
 		if(e_fAngle!=0.f)
-			g_mat2DTransform *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fAngle));
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+			l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fAngle));
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,0.f);
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
@@ -699,9 +697,9 @@ namespace GLRender
 		glLineWidth(e_fLineWidth);
 		float	l_fWidth = e_iWidth/2.f;
 		float	l_fHeight = e_iHeight/2.f;
-		g_mat2DTransform = cMatrix44::TranslationMatrix(Vector3(e_Pos.x+l_fWidth,e_Pos.y+l_fHeight, 0.f));
+		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_Pos.x+l_fWidth,e_Pos.y+l_fHeight, 0.f));
 		if( e_fAngle !=0.f )
-			g_mat2DTransform *= cMatrix44::ZAxisRotationMatrix(e_fAngle);
+			l_mat *= cMatrix44::ZAxisRotationMatrix(e_fAngle);
 		float	l_fAllVertices[16] = {-l_fWidth,-l_fHeight,
 									  l_fWidth,-l_fHeight,
 									  -l_fWidth,-l_fHeight,
@@ -713,7 +711,7 @@ namespace GLRender
 
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,l_fAllVertices);
-		FATMING_CORE::SetupShaderWorldMatrix(g_mat2DTransform);
+		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
 	}
 

@@ -831,8 +831,8 @@ namespace MPDI
 					sPuzzleData*l_pPuzzleData = l_ppPuzzleData[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex];
 					POINT	l_OriginalSize = l_pPuzzleData->OriginalSize;
 					POINT	l_ShowPos = {l_CameraMousePos.x,l_CameraMousePos.y};
-					POINT	l_OffsetPos = l_pPuzzleData->OffsetPos;
-					m_pMultiPathDynamicImageAWP->m_pBasemageForShow->Render(l_ShowPos.x+l_OffsetPos.x,l_ShowPos.y+l_OffsetPos.y);
+					//POINT	l_OffsetPos = l_pPuzzleData->OffsetPos;
+					m_pMultiPathDynamicImageAWP->m_pBasemageForShow->Render(l_ShowPos.x,l_ShowPos.y);
 					glDisable(GL_TEXTURE_2D);
 					glDisable(GL_ALPHA_TEST);
 					if(m_pMPDIUI->ShowSelectedImageBorder_checkBox->Checked)
@@ -2314,17 +2314,27 @@ namespace MPDI
 					m_pMPDICamera->Update(m_pTimeAndFPS->fElpaseTime,CurrentProgress_trackBar->Value/1000.f);
 					m_pMPDICamera->Render();
 				}
-				if (m_pMultiPathDynamicImageAWP && m_pMPDIUI->MPDIRotationTest_checkBox->Checked)
+				if (m_pMultiPathDynamicImageAWP)
 				{
-					static Frame l_TestFrame;
-					static float l_sfTestAngele = 270.f;
-					l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
-					//l_sfTestAngele = 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
-					//l_TestFrame.SetLocalTransform(l_TestFrame.GetLocalTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
-					l_TestFrame.SetLocalTransform(cMatrix44::TranslationMatrix(1440,460,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
-					if (!m_pMultiPathDynamicImageAWP->GetParent())
-						m_pMultiPathDynamicImageAWP->SetParent(&l_TestFrame,false);
-					//m_pMultiPathDynamicImageAWP->SetTranslationRotatopnScaleWithImageCenter(Vector3(0, 0, 0), l_sfTestAngele);
+					m_pMultiPathDynamicImageAWP->SetRotationAnglePosOffsetWithDrawSize(m_pMPDIUI->RotationWithRotationPosOffset_checkBox->Checked);
+				}
+				if (m_pMultiPathDynamicImageAWP)
+				{
+					if (m_pMPDIUI->MPDIRotationTest_checkBox->Checked)
+					{
+						//static Frame l_TestFrame;
+						static float l_sfTestAngele = 0.f;
+						l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
+						//l_sfTestAngele = 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
+						//l_TestFrame.SetLocalTransform(l_TestFrame.GetLocalTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
+						//l_TestFrame.SetLocalTransform(cMatrix44::TranslationMatrix(0,0,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
+						//if (!m_pMultiPathDynamicImageAWP->GetParent())
+							//m_pMultiPathDynamicImageAWP->SetParent(&l_TestFrame,false);
+						m_pMultiPathDynamicImageAWP->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(0, 0, 0))*cMatrix44::ZAxisRotationMatrix(l_sfTestAngele));
+						//m_pMultiPathDynamicImageAWP->SetTranslationRotatopnScaleWithImageCenter(Vector3(0, 0, 0), l_sfTestAngele);
+					}
+					else
+						m_pMultiPathDynamicImageAWP->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(0, 0, 0)));
 				}
 				if( MPDIWorking_checkBox->Checked )
 					MPDIRender();

@@ -78,6 +78,6 @@ namespace FATMING_CORE
 
 	wchar_t*	ValueToStringW(eImageAnchorType e_eAnchorType);
 	eImageAnchorType	GetAnchorType(const wchar_t*e_str);
-	Vector4				GetExtendImagePoint(eImageAnchorType e_eImageAnchorType,Vector2 e_vHalfImageSize,Vector2 e_vImageSize,float e_fScale);
+	Vector4				GetExtendImagePoint(eImageAnchorType e_eImageAnchorType,Vector2 e_vImageSize,float e_fScale);
 }
 #endif

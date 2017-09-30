@@ -16,7 +16,6 @@ static float		g_f2DColorOne[16] = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
 static float		g_f2DTextureCoordinate[8] = {1,1,1,1,1,1,1,1};
 static Vector3		g_v2DVertexBuffer[4]={ Vector3::Zero,Vector3::Zero,Vector3::Zero,Vector3::Zero };
 static Vector4		g_f2DColor[4]={Vector4::Zero,Vector4::Zero,Vector4::Zero,Vector4::Zero};
-static cMatrix44	g_mat2DTransform = cMatrix44::Identity;
 //for MPDI
 static float		g_fMPDIOptmizeRenderVertices[640*2*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];//7.5k
 static float		g_fMPDIOptmizeRenderUV[640*2*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];//7.5k

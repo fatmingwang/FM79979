@@ -182,10 +182,10 @@ private: System::Void Decode_button_Click(System::Object^  sender, System::Event
 			 Result_textBox->Text = String(llll.c_str()).ToString();
 			 return;
 			 
-				array<String^>^l_strSplitString = InputData_textBox->Text->Split(m_cSplitCharacter);
+				cli::array<String^>^l_strSplitString = InputData_textBox->Text->Split(m_cSplitCharacter);
 				unsigned char	l_strtemp[79979];
 				int	l_iCount = 0;
-				for each(String^l_strValue in l_strSplitString)
+				for each(System::String^l_strValue in l_strSplitString)
 				{
 					l_strtemp[l_iCount] = (unsigned char)System::Int16::Parse(l_strValue);
 					++l_iCount;

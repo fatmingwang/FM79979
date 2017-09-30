@@ -301,7 +301,7 @@ namespace FATMING_CORE
 
 			Vector2	l_vFinalOffsetPos = l_vOriginalSize/2;
 			//although this one is not correct but work for some function.
-			Vector4	l_vEntendImagePoint = GetExtendImagePoint(m_eAnchorType,l_vImageHalfSize,l_vImageSize,1.f);
+			Vector4	l_vEntendImagePoint = GetExtendImagePoint(m_eAnchorType,l_vImageSize,1.f);
 			Vector4	l_vDrawRect = l_vEntendImagePoint;
 			if( m_eAnchorType == eIAT_CENTER_CENTER )
 			{

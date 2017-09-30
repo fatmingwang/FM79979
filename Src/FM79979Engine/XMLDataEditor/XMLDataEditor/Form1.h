@@ -1232,7 +1232,7 @@ private: System::Void splitContainer1_Panel2_SizeChanged(System::Object^  sender
 private: System::Void MainNode_treeView_DragDrop(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
 		 {
 			this->Text = "";
-			array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
+			cli::array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
 			if( l_strFileNames->Length == 1 )
 			{
 				 GCFORM::TreeNode^l_pNode = OpenFileGetTreeNode(l_strFileNames[0]);
@@ -1369,7 +1369,7 @@ private: System::Void addFilesIntoAttributeToolStripMenuItem_Click(System::Objec
 				if( l_pString )
 				{
 					WARNING_MSG("select file ");
-					array<String^>^l_FilesName = DNCT::OpenFileAndGetNames();
+					cli::array<String^>^l_FilesName = DNCT::OpenFileAndGetNames();
 					if( !l_FilesName )
 						return;
 					int	l_iIndex = 0;
@@ -1394,8 +1394,8 @@ private: System::Void addFilesIntoAttributeToolStripMenuItem_Click(System::Objec
 				System::String^l_pFilesName = GetTextStringFrom("");
 				if( !l_pFilesName )
 					return;
-				array<Char>^l_Chars = {'\n'};
-				array<String^>^l_strExtensionNameSplit = l_pFilesName->Split( l_Chars );
+				cli::array<Char>^l_Chars = {'\n'};
+				cli::array<String^>^l_strExtensionNameSplit = l_pFilesName->Split( l_Chars );
 				int	l_iIndex = 1;
 				for each(String^l_FileName in l_strExtensionNameSplit)
 				{
@@ -1567,7 +1567,7 @@ private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e)
 
 private: System::Void toUTF32ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 array<String^>^l_str = OpenFileAndGetNames();
+	cli::array<String^>^l_str = OpenFileAndGetNames();
 			 for each(String^ l_strFileName in l_str )
 			 {
 				FileToUnicode(l_strFileName,"big5");
@@ -1578,7 +1578,7 @@ private: System::Void openToolStripMenuItem1_Click(System::Object^  sender, Syst
 		 {
 			 if( sender == Encode_ToolStripMenuItem )
 			 {
-				 array<String^>^ l_strNames = DNCT::OpenFileAndGetNames();
+				 cli::array<String^>^ l_strNames = DNCT::OpenFileAndGetNames();
 				 if( l_strNames )
 				 {
 					 String^l_strDirectory = DNCT::GetDirectoryWithoutFileName(l_strNames[0]);
@@ -1587,7 +1587,7 @@ private: System::Void openToolStripMenuItem1_Click(System::Object^  sender, Syst
 					 for each (String^l_strName in l_strNames )
 					 {
 						std::string	l_strFileNmae = DNCT::GcStringToChar(l_strName);
-						String^l_strOutputFileName = l_strDirectory+"\\"+DNCT::GetFileNameWithoutFullPath(l_strName);
+						System::String^l_strOutputFileName = l_strDirectory+"\\"+DNCT::GetFileNameWithoutFullPath(l_strName);
 						std::string	l_strOutputFullFileName = DNCT::GcStringToChar(l_strOutputFileName);
 						bool	l_b = forceIfFileIsInlegalToolStripMenuItem->Checked;
 						FileCompressHuffman(l_strFileNmae.c_str(),l_strOutputFullFileName.c_str(),m_iBinaryHeaderID,l_b);
@@ -1648,7 +1648,7 @@ private: System::Void saveToolStripMenuItem1_Click(System::Object^  sender, Syst
 		 {
 			 if( sender == Decode_ToolStripMenuItem )
 			 {
-				 array<String^>^ l_strNames = DNCT::OpenFileAndGetNames();
+				 cli::array<String^>^ l_strNames = DNCT::OpenFileAndGetNames();
 				 if( l_strNames )
 				 {
 					 String^l_strDirectory = DNCT::GetDirectoryWithoutFileName(l_strNames[0]);

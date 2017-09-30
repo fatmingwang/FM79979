@@ -184,7 +184,6 @@ namespace FATMING_CORE
 	cTextButton::cTextButton(Vector2 e_vRenderPos,cGlyphFontRender*e_pGlyphFontRender,Vector4 e_vPressedColor,const wchar_t* e_strText,cBaseImage*e_pConnectRadianImage,cBaseImage*e_pLineImage)
 		:cFontWithFrame(e_pGlyphFontRender,e_strText,e_pConnectRadianImage,e_pLineImage)
 	{
-		m_fScale = 1.f;
 		m_vFontColor = Vector4::One;
 		m_bPressedRepeatMouseUp = false;
 		this->SetLocalPosition(Vector3(e_vRenderPos.x,e_vRenderPos.y,0.f));
@@ -198,7 +197,6 @@ namespace FATMING_CORE
 	cTextButton::cTextButton(cTextButton*e_pTextButton):cFontWithFrame(e_pTextButton->m_pGlyphFontRender,e_pTextButton->m_strText.c_str(),e_pTextButton->m_pConnectRadianImage,e_pTextButton->m_pLineImage),
 		cClickMouseBehavior(e_pTextButton)
 	{
-		m_fScale = 1.f;
 		SetLocalPosition(e_pTextButton->GetLocalPosition());
 		if( e_pTextButton->m_pstrPressedText )
 			this->SetPressedText(e_pTextButton->m_pstrPressedText->c_str());
@@ -227,8 +225,8 @@ namespace FATMING_CORE
 
 	void	cTextButton::SetScale(float e_fScale)
 	{
-		m_fScale = e_fScale;
-		m_vCollisionRange = Vector4(0,0,m_vRenderSize.x*e_fScale,m_vRenderSize.y*e_fScale);
+		assert(0&&"not support fuck,instead to call SetTransform and ensure Collision Range");
+		//m_vCollisionRange = Vector4(0,0,m_vRenderSize.x*e_fScale,m_vRenderSize.y*e_fScale);
 	}
 
 	void	cTextButton::SetColor(Vector4 e_vColor)
@@ -325,15 +323,11 @@ namespace FATMING_CORE
 				this->m_pGlyphFontRender->SetFontColor(m_vPressedColor);
 		}
 		Vector3	l_vPos = this->GetWorldPosition();
-		if( m_pGlyphFontRender )
-		{
-			m_pGlyphFontRender->SetScale(this->m_fScale);
-		}
-		Vector2	l_vRenderSize = this->m_vRenderSize;
-		m_vRenderSize.x *= m_fScale;
-		m_vRenderSize.y *= m_fScale;
+		//Vector2	l_vRenderSize = this->m_vRenderSize;
+		//m_vRenderSize.x *= m_fScale;
+		//m_vRenderSize.y *= m_fScale;
 		cFontWithFrame::Render((int)l_vPos.x,(int)l_vPos.y);
-		m_vRenderSize = l_vRenderSize;
+		//m_vRenderSize = l_vRenderSize;
 		if( m_pGlyphFontRender )
 			m_pGlyphFontRender->SetFontColor(Vector4::One);
 	}

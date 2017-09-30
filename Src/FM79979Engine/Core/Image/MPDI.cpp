@@ -24,7 +24,6 @@ namespace FATMING_CORE
 	bool	cMPDIList::m_b3DCameraView = false;
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMulti_PI_Image*e_pMulti_PI_Image):cMulti_PI_Image(e_pMulti_PI_Image)
 	{
-		m_eRotationWithObjectCenterType = eRWOCT_ORIGINAL_POINT;
 		m_pViewPort = 0;
 		m_bHitHintPoint = false;
 		//m_vPos = Vector3::Zero;
@@ -42,7 +41,6 @@ namespace FATMING_CORE
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
 		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
-		m_eRotationWithObjectCenterType = e_pMultiPathDynamicImage->m_eRotationWithObjectCenterType;
 		m_pViewPort = 0;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
 		{
@@ -355,12 +353,6 @@ EXIT:
 		}	
 	}
 
-	void	cMultiPathDynamicImage::SetSubMPDIChildrenScale(float e_fValue)
-	{
-		for (int i = 0; i<Count(); ++i)
-			this->m_ObjectList[i]->SetScale(e_fValue);
-	}
-
     void    cMultiPathDynamicImage::SetColor(Vector4 e_vColor)
     {
 		for( size_t i=0;i<this->m_ObjectList.size();++i )
@@ -487,6 +479,33 @@ EXIT:
 		}
 		return false;
 	}
+
+	void	cMultiPathDynamicImage::SetRotationAnglePosOffsetWithDrawSize(bool e_bOn)
+	{
+		Vector3 l_vOffseetPos = Vector3::Zero;
+		if (e_bOn)
+		{
+			Vector2 l_vDrawSize = this->GetDrawSize();
+			l_vOffseetPos = Vector3(l_vDrawSize.x, l_vDrawSize.y, 0.f);
+			l_vOffseetPos /= 2;
+		}
+		int l_iCount = this->Count();
+		for (int i = 0; i < l_iCount; ++i)
+		{
+			this->GetObject(i)->SetRotationAnglePosOffset(-l_vOffseetPos);
+		}
+
+	}
+
+	void	cMultiPathDynamicImage::SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset)
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i < l_iCount; ++i)
+		{
+			this->GetObject(i)->SetRotationAnglePosOffset(e_vRotationAnglePosOffset);
+		}
+	}
+
 	//<cMPDI cMPDIList="" cMPDI="" Loop="1"/>
 	cMultiPathDynamicImage*		cMultiPathDynamicImage::GetMe(TiXmlElement*e_pElement,bool e_bClone)
 	{
@@ -541,7 +560,8 @@ EXIT:
 	{
 
 	}
-	
+
+
 	bool    cMPDIList::RemovePIReference(cPuzzleImage*e_pPuzzleImage,std::wstring*e_pInUsingDataInfo)
 	{
 		bool	l_bInUse = false;

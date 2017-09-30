@@ -59,7 +59,6 @@ namespace FATMING_CORE
 		Vector4					m_vPressedColor;
 		void					SetColor(Vector4 e_vColor);
 		GET_SET_DEC(Vector4,m_vFontColor,GetFontColor,SetFontColor);
-		float					m_fScale;
 	public:
 		DEFINE_TYPE_INFO();
 		cTextButton(Vector2 e_vRenderPos,cGlyphFontRender*e_pGlyphFontRender,Vector4 e_vPressedColor,const wchar_t* e_strText,cBaseImage*e_pConnectRadianImage = 0,cBaseImage*e_pLineImage = 0);

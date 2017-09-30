@@ -155,6 +155,7 @@ namespace FATMING_CORE
 
 		virtual bool			Collide(int e_iPosX,int e_iPosY){ return InternalCollide(e_iPosX,e_iPosY); }
 		void					SetRepeatTime(float e_fRepeatTime);
+		bool					IsKeyDown() { return m_bKeyDown; }
 		//for button interface,instead GetLocalPositionPointer()
 		//virtual	Vector3*		GetPosPointer(){ return GetLocalPositionPointer(); }
 		//instead Frame::SetLocalPosition

@@ -765,7 +765,6 @@ namespace FATMING_CORE
 				Vector3	l_vCurrentPos = Vector3Lerp(l_PerviousPos,m_FinallyPointList[i],l_fStepThough);
 				if(this->m_bCalculateAngle)
 				{
-					//so weired here must minus 180.
 					this->m_fCurrentPosToNextPointAngle = GetAngleByFinalListIndex(m_iCurrentPointIndex);
 				}
 				return l_vCurrentPos;

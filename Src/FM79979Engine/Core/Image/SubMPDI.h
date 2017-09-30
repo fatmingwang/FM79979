@@ -28,7 +28,7 @@ namespace FATMING_CORE
 		//the pos to anchor image size change
 		GET_SET_DEC(eImageAnchorType,m_eAnchorType,GetAnchorType,SetAnchorType);
 		GETP_SET_DEC(Vector3,m_vRotationAnglePosOffset,GetRotationAnglePosOffset,SetRotationAnglePosOffset);
-		GET_SET_DEC(float,m_fScale,GetScale,SetScale);
+		//GET_SET_DEC(float,m_fScale,GetScale,SetScale);
 		//blending data,if all cCueToStartCurveWithTime under its parent MPDI,it could optmize to speed up,but I am not doing it right now,fatming,fuck
 		GET_SET_DEC(bool,m_bColorBlending,IsColorBlending,SetColorBlending);
 		GET_SET_DEC(GLenum,m_SrcBlendingMode,GetSrcBlendingMode,SetSrcBlendingMode);
@@ -50,7 +50,6 @@ namespace FATMING_CORE
 		virtual		void	UpdateData();
 		virtual		void	InternalInit();
 		virtual		void	InternalUpdate(float e_fElpaseTime);
-		void				ConverVerticesWithWholeMPDIDrawSize(Vector3*e_pvConvertedVertices, cMatrix44*e_pConvertedMatrix);
 		virtual		void	InternalRender();
 		void  				GetRenderPuzzleDataAndMatrix(sTexBehaviorDataWithImageIndexData*e_pImageData,int e_iStride,float*e_pOutVertices,float*e_pOutTextureUV,sPuzzleData*e_pPuzzleData);
 		bool				AssignColorAndTransformToVertices(Vector4 e_vInputColor,float*e_pfVertices, float*e_pfColor);
