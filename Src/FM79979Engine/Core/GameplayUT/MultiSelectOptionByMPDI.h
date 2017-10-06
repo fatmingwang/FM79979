@@ -69,7 +69,7 @@ namespace FATMING_CORE
             //if( cClickMouseBehavior::IsSatisfiedCondition() )
             {
 				if( this->m_pCurrentWorkingObject == this->m_ObjectList[eSOS_SELECTED] )
-                if(this->m_pCurrentWorkingObject->IsCurveMoveDone())
+                if(this->m_pCurrentWorkingObject->IsAnimationDone())
                     return true;
             }
             return false;
@@ -81,7 +81,7 @@ namespace FATMING_CORE
         virtual void    DebugRender();
         virtual void    Render();
         //enusre m_pCurrentAnimation is not null
-        bool    IsAnimationPlayDone(){ return m_pCurrentWorkingObject->IsCurveMoveDone(); }
+        bool    IsAnimationPlayDone(){ return m_pCurrentWorkingObject->IsAnimationDone(); }
         //move animation by relative position.
         inline  virtual void    SetRelativePosition( Vector3 e_vPos )
         {

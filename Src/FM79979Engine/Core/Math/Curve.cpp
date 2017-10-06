@@ -554,7 +554,7 @@ namespace FATMING_CORE
 		m_fCurrentTime = 0.f;
 		m_iCurrentPointIndex = -1;
 		m_iPerviousPointIndex = -1;
-		m_bCurveMoveDone = true;
+		//m_bCurveMoveDone = true;
 		m_bCurveLoop = false;
 		m_bCalculateAngle = false;
 		m_fCurrentLERPTime = 0.f;
@@ -574,7 +574,7 @@ namespace FATMING_CORE
 		m_fCurrentTime = e_pCurveWithTime->m_fCurrentTime;
 		m_iCurrentPointIndex = e_pCurveWithTime->m_iCurrentPointIndex;
 		m_iPerviousPointIndex = e_pCurveWithTime->m_iPerviousPointIndex;
-		m_bCurveMoveDone = e_pCurveWithTime->m_bCurveMoveDone;
+		//m_bCurveMoveDone = e_pCurveWithTime->m_bCurveMoveDone;
 		m_bCurveLoop = e_pCurveWithTime->m_bCurveLoop;
 		m_bCalculateAngle = e_pCurveWithTime->m_bCalculateAngle;
 		m_fCurrentLERPTime = e_pCurveWithTime->m_fCurrentLERPTime;
@@ -821,7 +821,7 @@ namespace FATMING_CORE
 		this->m_fCurrentTime = 0.f;
 		m_iCurrentPointIndex = 0;
 		m_iPerviousPointIndex = -1;
-		m_bCurveMoveDone = false;
+		//m_bCurveMoveDone = false;
 		m_vPreviousPosition = this->m_vCurrentPosition = this->m_OriginalPointList[0];
 		m_fCurrentPosToNextPointAngle = 0.f;
 		m_fCurrentPosToNextPointAngle = 0.f;
@@ -831,11 +831,11 @@ namespace FATMING_CORE
 
 	void	cCurveWithTime::MovedDistanceCalculate(float e_fElpaseTime)
 	{
-		if( m_bCurveMoveDone )
-			return;
+		//if( m_bCurveMoveDone )
+			//return;
 		if( m_FinalTimeList.size() == 0 )
 		{
-			m_bCurveMoveDone = true;
+			//m_bCurveMoveDone = true;
 			return;
 		}
 
@@ -867,7 +867,7 @@ namespace FATMING_CORE
 				m_fCurrentLERPTime = 1.f;
 				m_iCurrentPointIndex = (int)m_FinallyPointList.size()-1;
 				m_vCurrentPosition = this->m_FinallyPointList[m_iCurrentPointIndex];
-				m_bCurveMoveDone = true;
+				//m_bCurveMoveDone = true;
 			}
 			return;
 		}

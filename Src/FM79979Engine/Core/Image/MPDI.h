@@ -46,6 +46,8 @@ namespace FATMING_CORE
 		//MPDI's width and height
 		GET_SET_DEC(Vector2,m_vDrawSize,GetDrawSize,SetDrawSize);
 		GET_SET_DEC(Vector4,m_vDrawRect, GetDrawRect, SetDrawRect);
+		//for 2D O point(left up) is not center,but game may expect a 3D object transformation,so make position offset the object transformation will like 3D
+		GET_SET_DEC(bool,m_bDoPositionOffsetToCenter,IsDoPositionOffsetToCenter, SetDoPositionOffsetToCenter);
 		//scale for image size
 		//float			m_fScale;
 		bool			m_bHitHintPoint;

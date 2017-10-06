@@ -130,7 +130,7 @@ namespace FATMING_CORE
 		Vector3	m_vCurrentPosition;
 		Vector3	m_vPreviousPosition;
 		//if curent time is bigger than last point's time it's done
-		GET_SET_DEC(bool,m_bCurveMoveDone,IsCurveMoveDone,SetCurveMoveDone);
+		//GET_SET_DEC(bool,m_bCurveMoveDone,IsCurveMoveDone,SetCurveMoveDone);
 		//quickly to search index
 		int m_iCurrentPointIndex;
 		//let us know is it reach a new point index

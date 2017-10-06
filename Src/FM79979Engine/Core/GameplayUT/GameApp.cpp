@@ -462,56 +462,60 @@ namespace	FATMING_CORE
 		if(!m_sbEnableKeyboardSingnal)
 			return;
 #ifdef WIN32
-		if( e_char == 'R' )
+		//alter
+		if (m_sucKeyData[17])
 		{
-			m_sfDebugValue = 1.f;
-		}
-	    if( e_char == 107 )//107'+'
-		{
-			m_sfDebugValue *= 2.f;
-			if( m_sfDebugValue >1073741824 )
-				m_sfDebugValue  = 1073741824;
-		}
-		else
-		if( e_char == 109 )//109'-'
-		{
-			m_sfDebugValue /= 2.f;	
-			if( m_sfDebugValue <= 0.00000000001f )
-				m_sfDebugValue = 0.00000000001f;
-		}
-		if(m_sucKeyData['P'])
-			m_sbGamePause = !m_sbGamePause;
-		if( cGameApp::m_sucKeyData[17] )//alt
-		{
-			switch(e_char)
+			if (e_char == 'R')
 			{
+				m_sfDebugValue = 1.f;
+			}
+			if (e_char == 107)//107'+'
+			{
+				m_sfDebugValue *= 2.f;
+				if (m_sfDebugValue > 1073741824)
+					m_sfDebugValue = 1073741824;
+			}
+			else
+			if (e_char == 109)//109'-'
+			{
+				m_sfDebugValue /= 2.f;
+				if (m_sfDebugValue <= 0.00000000001f)
+					m_sfDebugValue = 0.00000000001f;
+			}
+			if (m_sucKeyData['P'])
+				m_sbGamePause = !m_sbGamePause;
+			if (cGameApp::m_sucKeyData[17])//alt
+			{
+				switch (e_char)
+				{
 				case 38://up
 					//cGameApp::m_svGameResolution.x = ;
 					this->m_seDeviceDirection = eDD_PORTRAIT;
-				break;
+					break;
 				case 37://left
 					this->m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
-				break;
+					break;
 				case 39://right
 					this->m_seDeviceDirection = eDD_LANDSCAPE_RIGHT;
-				break;
+					break;
 				case 40://down
 					this->m_seDeviceDirection = eDD_UPSIDE_DOWN;
-				break;
+					break;
+				}
 			}
-		}
 #ifdef DEBUG
-		if( cGameApp::m_sucKeyData['D'] )
-		{
-			this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
-		}
-		//screen print
-		if( e_char == 44 )
-		{
-			m_bDoScreenShot = true;
-		}
+			if (cGameApp::m_sucKeyData['D'])
+			{
+				this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
+			}
+			//screen print
+			if (e_char == 44)
+			{
+				m_bDoScreenShot = true;
+			}
 #endif
 #endif
+		}
 		m_sucKeyData[(unsigned char)e_char] = false;
 	}
 

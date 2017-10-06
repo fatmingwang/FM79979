@@ -27,7 +27,7 @@ namespace FATMING_CORE
 {
 	eCollisionType	StringToCollisionType(const wchar_t*e_strValue)
 	{
-		if(!wcscmp(e_strValue,L"Sphere"))
+		if(!wcscmp(e_strValue,L"Sphere")|| !wcscmp(e_strValue, L"Circle"))
 		{
 			return eCT_Sphere;
 		}

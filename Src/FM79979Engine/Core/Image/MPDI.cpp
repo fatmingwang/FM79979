@@ -24,6 +24,7 @@ namespace FATMING_CORE
 	bool	cMPDIList::m_b3DCameraView = false;
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMulti_PI_Image*e_pMulti_PI_Image):cMulti_PI_Image(e_pMulti_PI_Image)
 	{
+		m_bDoPositionOffsetToCenter = false;
 		m_pViewPort = 0;
 		m_bHitHintPoint = false;
 		//m_vPos = Vector3::Zero;
@@ -42,6 +43,7 @@ namespace FATMING_CORE
 		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
 		m_pViewPort = 0;
+		m_bDoPositionOffsetToCenter = e_pMultiPathDynamicImage->m_bDoPositionOffsetToCenter;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
 		{
 			m_pViewPort = new Vector4();
@@ -506,6 +508,7 @@ EXIT:
 		}
 	}
 
+
 	//<cMPDI cMPDIList="" cMPDI="" Loop="1"/>
 	cMultiPathDynamicImage*		cMultiPathDynamicImage::GetMe(TiXmlElement*e_pElement,bool e_bClone)
 	{
@@ -630,6 +633,7 @@ EXIT:
 	    }
 		cMulti_PI_Image::RemovePIReference(e_pPuzzleImage);
     }
+
 
 	void	cMPDIList::Merge(cMPDIList*e_pMPDIList)
 	{

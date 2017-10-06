@@ -21,6 +21,7 @@ namespace FATMING_CORE
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
 		m_bHintPoint = false;
+		m_bStayAtLastFrame = false;
 	}
 
 	cCueToStartCurveWithTime::cCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime)
@@ -70,6 +71,20 @@ namespace FATMING_CORE
 	{
 		DELETE_VECTOR(m_PointDataList, sTexBehaviorDataWithImageIndexData*);
 		SAFE_DELETE(m_pCurrentPointData);
+	}
+
+	cMatrix44			cCueToStartCurveWithTime::GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter()
+	{
+		cMPDI*l_pParent = dynamic_cast<cMPDI*>(this->GetParent());
+//		cMPDI*l_pParent = reinterpret_cast<cMPDI*>(this->GetParent());
+		if (l_pParent && l_pParent->IsDoPositionOffsetToCenter())
+		{
+			Vector2 l_vDrawSize = l_pParent->GetDrawSize() / 2;
+			cMatrix44 l_matParentMatrix = l_pParent->GetWorldTransform()*cMatrix44::TranslationMatrix(-Vector3(l_vDrawSize.x, l_vDrawSize.y, 0));
+			l_matParentMatrix *= this->GetLocalTransform();
+			return l_matParentMatrix;
+		}
+		return this->GetWorldTransform();
 	}
 
 	void	cCueToStartCurveWithTime::UpdateData()//to detec current point index and image index
@@ -279,7 +294,8 @@ namespace FATMING_CORE
 			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
-		DrawQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, this->GetWorldTransform(), 3, 1);
+		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
+		DrawQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if (this->m_bColorBlending)
 		{
 			glBlendFunc(l_OriginalSrc, l_OriginalDest);
@@ -396,8 +412,7 @@ namespace FATMING_CORE
 			for (int i = 0; i<6; ++i)
 				memcpy(&e_pfColor[i * 4], &e_vInputColor, sizeof(Vector4));
 		}
-		//79979
-		cMatrix44  l_mat2DTransform = this->GetWorldTransform();
+		cMatrix44 l_mat2DTransform = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
 		Vector3 l_Vertices[4];
 		memcpy(l_Vertices, &this->m_2DVertices.vPos, sizeof(Vector3) * 4);
 		if (e_pfVertices)
@@ -448,7 +463,6 @@ namespace FATMING_CORE
 		{
 			if (this->IsAnimationDone())
 			{
-				if (this->m_bCurveMoveDone && !this->IsAnimationLoop())
 					return  false;
 			}
 		}
@@ -513,8 +527,8 @@ namespace FATMING_CORE
 	}
 	void	cCueToStartCurveWithTime::InternalUpdate(float e_fElpaseTime)
 	{
-		if (this->m_bCurveMoveDone)
-			return;
+		//if (this->m_bCurveMoveDone)
+			//return;
 		cCurveWithTime::InternalUpdate(e_fElpaseTime);
 		UpdateData();
 		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[this->m_pCurrentPointData->iImageIndex];
@@ -523,7 +537,7 @@ namespace FATMING_CORE
 
 	void cCueToStartCurveWithTime::InternalRender()
 	{
-		if (this->m_bCurveMoveDone)
+		if (this->IsAnimationDone())
 		{
 			if (m_bStayAtLastFrame)
 			{
@@ -552,8 +566,8 @@ namespace FATMING_CORE
 			glGetIntegerv(GL_BLEND_DST, (GLint*)&l_OriginalDest);
 			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
-
-		DrawQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, this->GetWorldTransform(), 3, 1);
+		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
+		DrawQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if (this->m_bColorBlending)
 		{
 			glBlendFunc(l_OriginalSrc, l_OriginalDest);
@@ -822,12 +836,10 @@ namespace FATMING_CORE
 	{
 		if (!m_pCurrentPointData || m_pCurrentPointData->iImageIndex == -1)
 			return;
-		//l_vPos.x += this->GetPos().x+m_pCurrentPointData->Size.x/2.f;
-		//l_vPos.y += this->GetPos().y+m_pCurrentPointData->Size.y/2.f;
-		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(l_vPos)*cMatrix44::RotationMatrix(m_pCurrentPointData->vAngle)*cMatrix44::ScaleMatrix(Vector3(m_pCurrentPointData->Size.x,m_pCurrentPointData->Size.y,1.f));
-		//RenderRectangle(1,1,l_mat,m_pCurrentPointData->vColor);
-		//sPuzzleData*l_p = m_pCurrentPointData->pPI->GetPuzzleData(m_pCurrentPointData->iImageIndex);
-		GLRender::RenderRectangle(GetPos() + this->m_vRotationAnglePosOffset, m_pCurrentPointData->Size.x, m_pCurrentPointData->Size.y, m_pCurrentPointData->vColor, m_pCurrentPointData->vAngle);
+		cMatrix44 l_mat = this->GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
+		GLRender::RenderRectangle( m_pCurrentPointData->Size.x, m_pCurrentPointData->Size.y, l_mat, m_pCurrentPointData->vColor);
+
+		//GLRender::RenderRectangle(GetPos() + this->m_vRotationAnglePosOffset, m_pCurrentPointData->Size.x, m_pCurrentPointData->Size.y, m_pCurrentPointData->vColor, m_pCurrentPointData->vAngle);
 	}
 	//<SubMPDI cMPDIList="" cMPDI="" cSubMPDI=""/>
 	cCueToStartCurveWithTime*		cCueToStartCurveWithTime::GetMe(TiXmlElement*e_pElement, bool e_bClone)

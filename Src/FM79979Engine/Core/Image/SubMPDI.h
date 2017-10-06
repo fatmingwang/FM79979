@@ -55,6 +55,7 @@ namespace FATMING_CORE
 		bool				AssignColorAndTransformToVertices(Vector4 e_vInputColor,float*e_pfVertices, float*e_pfColor);
 		//force to render,input the position u want to show,default m_vCurrentPos and m_vPos is working inside
 		void				RenderPuzzleData(sPuzzleData*e_pPuzzleData);
+		cMatrix44			GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
 	public:
 		DEFINE_TYPE_INFO();
 		CLONE_MYSELF(cCueToStartCurveWithTime);
@@ -79,7 +80,7 @@ namespace FATMING_CORE
 		virtual	void			RenderLastFrame();
 		virtual	void			SetAnimationLoop(bool e_bLoop);
 		//
-		virtual bool			IsAnimationDone(){ return cFMTimeLineAnimationRule::IsAnimationDone()?false:this->IsCurveMoveDone(); }
+		//virtual bool			IsAnimationDone(){ return cFMTimeLineAnimationRule::IsAnimationDone()?false:this->IsCurveMoveDone(); }
 		//because RearrangeTime Function so I do not override it,so ensure u get last time as u expect
 		//virtual	float	GetLastTime(){ if( m_fOriinalTimeList.size() )return m_fStartTime+m_fOriinalTimeList[m_fOriinalTimeList.size()-1]; return 0.f; }
 		//example

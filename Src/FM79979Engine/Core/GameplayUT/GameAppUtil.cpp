@@ -201,7 +201,7 @@ namespace	FATMING_CORE
 			}
 			if( l_strTexturePowerOfTwo )
 			{
-				//g_bSupportNonPowerOfTwoTexture = _wtoi(l_strTexturePowerOfTwo)?true:false;
+				g_bSupportNonPowerOfTwoTexture = _wtoi(l_strTexturePowerOfTwo)?true:false;
 			}
 		}
 	}

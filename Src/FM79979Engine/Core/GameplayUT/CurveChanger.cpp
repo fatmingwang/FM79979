@@ -73,7 +73,7 @@ namespace FATMING_CORE
 				m_fToTargetPositionAngle = m_fCurrentAngle;
 			}
 			m_vCurrentPos = m_CurveWithTime.GetCurrentPosition();
-			if( m_CurveWithTime.IsCurveMoveDone() )
+			if( m_CurveWithTime.IsAnimationDone() )
 				m_bChangeCurve = false;
 		}
 		else
