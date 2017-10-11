@@ -182,6 +182,7 @@ namespace FATMING_CORE
 		}
 		assert(m_NetworkMessageFunctionAndObjectIDMap.size() == 0);
 		assert(m_EventFunctionAndTypeMap.size() == 0);
+		g_pMessageSenderManager = nullptr;
 	}
 
 	bool cMessageSenderManager::NetworkMessageShot(unsigned int e_usID,FATMING_CORE::sReceivedPacket* e_pPacket)
