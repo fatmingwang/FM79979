@@ -386,5 +386,10 @@ namespace FATMING_CORE
 		{
 			this->m_TCForRepeat.SetTargetTime(e_fRepeatTime);
 		}
+
+		float	cClickMouseBehavior::GetRepeatTime()
+		{
+			return this->m_TCForRepeat.fTargetTime;
+		}
 //end namepsace namespace FATMING_CORE
 }

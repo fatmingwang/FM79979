@@ -135,7 +135,7 @@ namespace	FATMING_CORE
 		static	bool												m_sbGamePause;
 		static	eDeviceDirection									m_seDeviceDirection;
 		//static	cFUThreadPool*										m_spThreadPool;
-		//if windows messagebox will pop up or just a outputdebugstring,0 for do m_spstrErrorMsgString,1 for immediately shoe messagebox,2 for OutputDebugString,
+		//if windows messagebox will pop up or just a outputdebugstring,0 for do m_spstrErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,
 		static	int													m_siShowErrorType;
 		static	std::wstring*										m_spstrErrorMsgString;
 		//will be effect by key + and -,so keep - and + reserved

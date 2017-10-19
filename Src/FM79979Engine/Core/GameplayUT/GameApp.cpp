@@ -108,6 +108,14 @@ namespace	FATMING_CORE
 	cGameApp::cGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize)
 #endif
 	{
+#ifdef WIN32
+		DWORD  nBufferLength;
+		wchar_t l_strDirectory[MAX_PATH];
+		GetCurrentDirectory(nBufferLength, l_strDirectory);
+		std::wstring l_strDirectpryInfo = L"Working Directory:";
+		l_strDirectpryInfo += l_strDirectory;
+		cGameApp::OutputDebugInfoString(l_strDirectpryInfo);
+#endif
 		m_bDoScreenShot = false;
 		m_sbMouseClickStatus[0] = m_sbMouseClickStatus[1] = m_sbMouseClickStatus[2] = false;
 		cGameApp::m_sbGamePause = false;
@@ -262,7 +270,7 @@ namespace	FATMING_CORE
 			m_spLogFile->WriteToFileImmediatelyWithLine("parse font data");
 		if( !m_spGlyphFontRender )
 		{
-			m_spGlyphFontRender = new cGlyphFontRender("Font");
+			m_spGlyphFontRender = new cGlyphFontRender("Font",3000);
 			if(!m_spGlyphFontRender->GetFontImage())
 			{
 				SAFE_DELETE(m_spGlyphFontRender);
@@ -452,69 +460,52 @@ namespace	FATMING_CORE
 
 	void	cGameApp::KeyUp(char e_char)
 	{
-		//SHORT	l_ = GetAsyncKeyState('A');
-		//cGameApp::KeyUp(e_char);
-		//std::string	l_sss = UT::ComposeMsgByFormat("KeyValue:%s",&e_char);
-		//std::wstring l_ss2 = UT::CharToWchar(l_sss.c_str());
-		//cGameApp::OutputDebugInfoString(l_ss2.c_str());
-		//cGameApp::OutputDebugInfoString(L"\n");
-
 		if(!m_sbEnableKeyboardSingnal)
 			return;
-#ifdef WIN32
 		//alter
 		if (m_sucKeyData[17])
 		{
-			if (e_char == 'R')
-			{
-				m_sfDebugValue = 1.f;
-			}
-			if (e_char == 107)//107'+'
-			{
-				m_sfDebugValue *= 2.f;
-				if (m_sfDebugValue > 1073741824)
-					m_sfDebugValue = 1073741824;
-			}
-			else
-			if (e_char == 109)//109'-'
-			{
-				m_sfDebugValue /= 2.f;
-				if (m_sfDebugValue <= 0.00000000001f)
-					m_sfDebugValue = 0.00000000001f;
-			}
-			if (m_sucKeyData['P'])
-				m_sbGamePause = !m_sbGamePause;
-			if (cGameApp::m_sucKeyData[17])//alt
+			if (m_sbDebugFunctionWorking)
 			{
 				switch (e_char)
 				{
-				case 38://up
-					//cGameApp::m_svGameResolution.x = ;
-					this->m_seDeviceDirection = eDD_PORTRAIT;
-					break;
-				case 37://left
-					this->m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
-					break;
-				case 39://right
-					this->m_seDeviceDirection = eDD_LANDSCAPE_RIGHT;
-					break;
-				case 40://down
-					this->m_seDeviceDirection = eDD_UPSIDE_DOWN;
-					break;
+					case 'R':
+						m_sfDebugValue = 1.f;
+						break;
+					case 'P':
+						m_sbGamePause = !m_sbGamePause;
+						break;
+					case 38://up
+						this->m_seDeviceDirection = eDD_PORTRAIT;
+						break;
+					case 37://left
+						this->m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
+						break;
+					case 39://right
+						this->m_seDeviceDirection = eDD_LANDSCAPE_RIGHT;
+						break;
+					case 40://down
+						this->m_seDeviceDirection = eDD_UPSIDE_DOWN;
+						break;
+					case 44://PrtScr/SysRq
+						m_bDoScreenShot = true;
+						break;
+					case 107://107'+'
+						m_sfDebugValue *= 2.f;
+						if (m_sfDebugValue > 1073741824)
+							m_sfDebugValue = 1073741824;
+						break;
+					case 109://109'-'
+						m_sfDebugValue /= 2.f;
+						if (m_sfDebugValue <= 0.00000000001f)
+							m_sfDebugValue = 0.00000000001f;
+						break;
+					default:
+						break;
 				}
 			}
-#ifdef DEBUG
-			if (cGameApp::m_sucKeyData['D'])
-			{
+			if (e_char == 'D')
 				this->m_sbDebugFunctionWorking = !this->m_sbDebugFunctionWorking;
-			}
-			//screen print
-			if (e_char == 44)
-			{
-				m_bDoScreenShot = true;
-			}
-#endif
-#endif
 		}
 		m_sucKeyData[(unsigned char)e_char] = false;
 	}
@@ -650,7 +641,7 @@ namespace	FATMING_CORE
 
 	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol)
 	{
-#ifdef DEBUG		
+//#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
 			if( e_bWithNextLineSymbol )
@@ -660,10 +651,11 @@ namespace	FATMING_CORE
 			l_str += UT::WcharToChar(e_str);
 			LOGI("%s",l_str.c_str());
 	#elif	defined(IOS)
+
+	#endif
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());
-	#endif
-#endif
+//#endif
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol)
