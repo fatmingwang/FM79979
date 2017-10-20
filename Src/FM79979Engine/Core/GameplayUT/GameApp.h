@@ -191,10 +191,10 @@ namespace	FATMING_CORE
 		static	void					RenderFont(Vector2 e_vPos,const wchar_t*e_pString);
 
 
-		static	void					OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol = true);
-		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true);
-		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true);
-		static	void					OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol = true);
+		static	void					OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol = true,bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
 		static	void					WriteLog(wchar_t*e_strMessage);
 		static	void					WriteLog(std::wstring e_strMessage);
 		static	void					WriteLog(char*e_strMessage);

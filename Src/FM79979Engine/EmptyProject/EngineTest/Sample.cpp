@@ -21,7 +21,7 @@ cCurveWithTime*g_p2DCurvesWithTime = 0;
 cMPDIList*g_pMPDIList = 0;
 cMultiPathDynamicImage*g_pMultiPathDynamicImage = 0;
 cMultiPathDynamicImage*g_pMultiPathDynamicImageClone = 0;
-cCurveWithTime			g_TestCurveWithTime;
+cCurveWithTime*			g_pTestCurveWithTime = nullptr;;
 c2DImageCollisionData*	g_pCollisionData = nullptr;
 
 
@@ -146,14 +146,18 @@ void	LoadSample()
 	}
 	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
 	//
-	g_TestCurveWithTime.SetCalAngle(true);
-	g_TestCurveWithTime.AddPoint(Vector3(300, 300, 0), 0);
-	g_TestCurveWithTime.AddPoint(Vector3(300, 500, 0), 5);
-	g_TestCurveWithTime.AddPoint(Vector3(700, 300, 0), 10);
-	g_TestCurveWithTime.AddPoint(Vector3(1000, 680, 0), 15);
-	g_TestCurveWithTime.AddPoint(Vector3(1440, 900, 0), 20);
-	g_TestCurveWithTime.SetLOD(3);
-	g_TestCurveWithTime.Init();
+	g_pTestCurveWithTime = new cCurveWithTime();
+	if (g_pTestCurveWithTime)
+	{
+		g_pTestCurveWithTime->SetCalAngle(true);
+		g_pTestCurveWithTime->AddPoint(Vector3(300, 300, 0), 0);
+		g_pTestCurveWithTime->AddPoint(Vector3(300, 500, 0), 5);
+		g_pTestCurveWithTime->AddPoint(Vector3(700, 300, 0), 10);
+		g_pTestCurveWithTime->AddPoint(Vector3(1000, 680, 0), 15);
+		g_pTestCurveWithTime->AddPoint(Vector3(1440, 900, 0), 20);
+		g_pTestCurveWithTime->SetLOD(3);
+		g_pTestCurveWithTime->Init();
+	}
 }
 
 void	DestorySampleObject()
@@ -162,6 +166,7 @@ void	DestorySampleObject()
 	//g_pMultiPathDynamicImageClone is a clone object so delete it.
 	SAFE_DELETE(g_pMultiPathDynamicImageClone);
 	SAFE_DELETE(g_pCameraZoomFunction);
+	SAFE_DELETE(g_pTestCurveWithTime);
 	//not necessary,it will auto release while m_pAnimationParser is delete
 	//cGameApp::m_pAnimationParser->RemoveObject(L"fmbook_mpdi");
 	SAFE_DELETE(g_pFrameCamera);
@@ -187,40 +192,32 @@ void	SampleUpdate(float e_fElpaseTime)
 	if (g_pMultiPathDynamicImage)
 	{
 		Vector2 l_vDrawSize = g_pMultiPathDynamicImage->GetDrawSize() / 2;
-		g_TestCurveWithTime.Update(e_fElpaseTime);
+		if (g_pTestCurveWithTime)
+		{
+			g_pTestCurveWithTime->Update(e_fElpaseTime);
+			g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(g_pTestCurveWithTime->GetCurrentPosition() - Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*cMatrix44::ZAxisRotationMatrix(g_pTestCurveWithTime->GetCurrentPosToNextPointAngle() - 90));
+		}
 		static float l_sfAngle = e_fElpaseTime;
 		l_sfAngle += 1 * e_fElpaseTime;
-		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition(), g_TestCurveWithTime.GetCurrentPosToNextPointAngle()-90);
 		g_pMultiPathDynamicImage->SetRotationAnglePosOffsetWithDrawSize(true);
-		g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition()-Vector3(l_vDrawSize.x, l_vDrawSize.y,0))*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
-		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(Vector3(260,900,0), l_sfAngle);
-		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition(),0.f);
-		//g_pMultiPathDynamicImage->SetWorldTransform(g_pMultiPathDynamicImage->GetWorldTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfAngle)));
-		//g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(1440,500,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfAngle)));
 		g_pMultiPathDynamicImage->Update(e_fElpaseTime);
 		if (g_pMultiPathDynamicImageClone)
-		{
-			//g_pMultiPathDynamicImageClone->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition()- l_vDrawSize, g_TestCurveWithTime.GetCurrentPosToNextPointAngle());
-			//g_pMultiPathDynamicImageClone->SetRotationAnglePosOffsetWithDrawSize(true);
-			//g_pMultiPathDynamicImageClone->SetRotationAnglePosOffset(Vector3())
-			//l_vDrawSize = g_pMultiPathDynamicImage->GetDrawSize() / 2;
-			//g_pMultiPathDynamicImageClone->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition() )*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
-			g_pMultiPathDynamicImageClone->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition())*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
-			//g_pMultiPathDynamicImageClone->SetTranslationRotatopnScaleWithImageCenter(Vector3(1440, 260, 0),l_sfAngle);
+		{			
+			if (g_pTestCurveWithTime)
+				g_pMultiPathDynamicImageClone->SetWorldTransform(cMatrix44::TranslationMatrix(g_pTestCurveWithTime->GetCurrentPosition())*cMatrix44::ZAxisRotationMatrix(g_pTestCurveWithTime->GetCurrentPosToNextPointAngle() - 90));
 			g_pMultiPathDynamicImageClone->Update(e_fElpaseTime);
 			g_pMultiPathDynamicImageClone->SetColor(Vector4::Red);
 		}
 		int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
-		Vector3 l_vPos = g_TestCurveWithTime.GetCurrentPosition();
-		//for (int i = 0; i < g_pCollisionData->Count();++i)
+		if (g_pTestCurveWithTime)
 		{
-			
-			//cMatrix44 l_mat = cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition())*cMatrix44::RotationMatrix(Vector3(0, 0, g_TestCurveWithTime.GetCurrentPosToNextPointAngle()-90));
-			//cMatrix44 l_mat = cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition());
-			cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(l_vDrawSize.x, l_vDrawSize.y,0))*g_pMultiPathDynamicImage->GetWorldTransform();
-			if (g_pCollisionData)
+			Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
 			{
-				(*g_pCollisionData)[l_iIndex]->SetTransform(l_mat);
+				cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*g_pMultiPathDynamicImage->GetWorldTransform();
+				if (g_pCollisionData)
+				{
+					(*g_pCollisionData)[l_iIndex]->SetTransform(l_mat);
+				}
 			}
 		}
 	}
@@ -324,13 +321,16 @@ void	SampleRender()
 		g_pMultiPathDynamicImage->Render();
 		if (g_pMultiPathDynamicImageClone)
 			g_pMultiPathDynamicImageClone->Render();
-		g_TestCurveWithTime.Render();
-		Vector3 l_vPos = g_TestCurveWithTime.GetCurrentPosition();
-		int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
-		if(g_pCollisionData)
-		//for (int i = 0; i < g_CollisionData.Count();++i)
+		if (g_pTestCurveWithTime)
 		{
-			(*g_pCollisionData)[l_iIndex]->DebugRender();
+			g_pTestCurveWithTime->Render();
+			Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
+			int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
+			if (g_pCollisionData)
+				//for (int i = 0; i < g_CollisionData.Count();++i)
+			{
+				(*g_pCollisionData)[l_iIndex]->DebugRender();
+			}
 		}
 		//GLRender::RenderPoint(Vector3(500, 500, 0), 30);
 	}
@@ -399,6 +399,7 @@ void	SampleKeyup(char e_cKey)
 	{
 		//SAFE_DELETE(g_pTunnelEffect);
 		//g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
-		g_TestCurveWithTime.Init();
+		if (g_pTestCurveWithTime)
+			g_pTestCurveWithTime->Init();
 	}
 }

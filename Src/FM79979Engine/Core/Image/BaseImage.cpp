@@ -15,7 +15,7 @@ namespace FATMING_CORE
 	{
 		if( e_strImageName )
 			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
-		m_pTexture = new cTexture(this,e_strImageName,e_bFetchPixels);
+		m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
 		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
 		m_bMirror = false;
 		m_bVisible = true;

@@ -639,9 +639,9 @@ namespace	FATMING_CORE
 		return 0;
 	}
 
-	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol)
+	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-//#ifdef DEBUG		
+#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
 			if( e_bWithNextLineSymbol )
@@ -655,22 +655,26 @@ namespace	FATMING_CORE
 	#endif
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());
-//#endif
+			if (e_bWriteLog)
+			{
+				cGameApp::WriteLog(ValueToString(e_str));
+			}
+#endif
 	}
 
-	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol)
+	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str));
+		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str), e_bWithNextLineSymbol, e_bWriteLog);
 	}
 
-	void		cGameApp::OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol)
+	void		cGameApp::OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str));
+		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str), e_bWithNextLineSymbol, e_bWriteLog);
 	}
 
-	void		cGameApp::OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol)
+	void		cGameApp::OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(e_str.c_str());
+		cGameApp::OutputDebugInfoString(e_str.c_str(), e_bWithNextLineSymbol,e_bWriteLog);
 	}
 
 	void		cGameApp::ApplyViewPort()

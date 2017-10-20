@@ -10,7 +10,7 @@
 #include "jpeg/jpgd.h"
 #include "jpeg/jpge.h"
 #if defined(WIN32)
-#include "../../../Include/IL/il.h"
+//#include "../../../Include/IL/il.h"
 //if u like to link under windows copy and paste to the main.cpp
 //#pragma comment(lib, "../../lib/unicode/Devil.lib")
 #elif defined(IOS)
@@ -76,6 +76,47 @@ void    captureToPhotoAlbum()
 #endif 
 namespace FATMING_CORE
 {
+	cNamedTypedObjectVector<cTexture>*	g_pTextureStore = nullptr;
+	cNamedTypedObjectVector<cTexture>*	GetTextureStore()
+	{
+		if (!g_pTextureStore)
+		{
+			g_pTextureStore = new cNamedTypedObjectVector<cTexture>();
+			g_pTextureStore->SetName(L"g_pTextureStore");
+		}
+		return g_pTextureStore;
+	}
+
+	void	AddTextureToTextureStore(cTexture*e_pTexture)
+	{
+		auto l_pTextureStore = GetTextureStore();
+		if (l_pTextureStore)
+		{
+			assert(l_pTextureStore->GetObjectIndexByName(e_pTexture->GetName()) == -1);
+			if (l_pTextureStore)
+			{
+				l_pTextureStore->AddObjectNeglectExist(e_pTexture);
+			}
+		}
+	}
+
+	void	RemoveTextureFromTextureStore(cTexture*e_pTexture)
+	{
+		auto l_pTextureStore = GetTextureStore();
+		if (l_pTextureStore)
+		{
+			assert( l_pTextureStore->GetObjectIndexByName(e_pTexture->GetName()) != -1);
+			if (l_pTextureStore)
+			{
+				l_pTextureStore->RemoveObjectWithoutDelete(e_pTexture);
+			}
+		}
+		if (l_pTextureStore && l_pTextureStore->Count() == 0)
+		{
+			SAFE_DELETE(g_pTextureStore);
+		}
+	}
+
 	//if graphic card does not support non power of two,set as false
 #ifdef OPENGLES_2_X
 	//bool	g_bSupportNonPowerOfTwoTexture = true;
@@ -184,7 +225,7 @@ namespace FATMING_CORE
 		//}
 		//else
 		{
-			cGameApp::OutputDebugInfoString(l_str.c_str());
+			cGameApp::OutputDebugInfoString(l_str.c_str(),true,true);
 		}
 #endif
 #endif
@@ -276,7 +317,7 @@ namespace FATMING_CORE
 				l_iChannel = 3;
 				break;
 			default:
-				cGameApp::OutputDebugInfoString(L"not support color format");
+				cGameApp::OutputDebugInfoString(L"not support color format", true, true);
 				break;
 		}
 		return l_iChannel;
@@ -472,6 +513,12 @@ namespace FATMING_CORE
 	//===============
 	cTexture::cTexture(NamedTypedObject*e_pOwner,char*e_pPixels,int e_iWidth,int e_iHeight,const wchar_t*e_strName,bool e_bCopyPixels,bool e_bAllocateMemoryForPixelIfFetch,GLenum e_eImageType)
 	{
+
+#ifdef DEBUG
+		std::wstring l_strFileName = e_strName;
+		l_strFileName += L" start to parse:Texture";
+		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+#endif
 		m_iChannel = GetChannelByColorFormat(e_eImageType);
 		m_pstrFullFileName = new std::string;
 //		wchar_t	l_Address = (wchar_t)m_pstrFullFileName;
@@ -529,9 +576,9 @@ namespace FATMING_CORE
 	#ifdef WIN32
 	#ifdef DEBUG
 			cGameApp::OutputDebugInfoString(e_strName);
-			cGameApp::OutputDebugInfoString(L"  image has not correct respond width and height,because none power of 2\n");
+			cGameApp::OutputDebugInfoString(L"  image has not correct respond width and height,because none power of 2\n", true, true);
 			if( m_iPixelFormat == GL_RGB )
-				cGameApp::OutputDebugInfoString(L"UV is changed,because image size is not to become power of 2");
+				cGameApp::OutputDebugInfoString(L"UV is changed,because image size is not to become power of 2", true, true);
 	#endif
 	#endif
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,m_iPixelFormat==GL_RGBA?true:false);
@@ -546,17 +593,18 @@ namespace FATMING_CORE
 			assert((m_iWidth<=texSize||m_iHeight<=texSize)&&"texture size is too big then card support");
 			MyTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,e_strName); // Texture specification.
 		}
-#ifdef DEBUG
-		std::wstring l_strFileName = e_strName;
-		l_strFileName += L" start to parse:Texture";
-		cGameApp::OutputDebugInfoString(l_strFileName);
-#endif
+		AddTextureToTextureStore(this);
 	}
 	//===============
 	//
 	//===============
 	cTexture::cTexture(NamedTypedObject*e_pOwner,const char*e_strImageFileName,bool e_bFetchPixelData)
 	{
+#ifdef DEBUG
+		std::wstring l_strFileName = ValueToStringW(e_strImageFileName);
+		l_strFileName += L" start to parse:Texture";
+		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+#endif
 		m_iChannel = 0;
 		m_pstrFullFileName = 0;
 		this->AddRef(e_pOwner);
@@ -574,9 +622,10 @@ namespace FATMING_CORE
 #ifdef DEBUG
 			std::string l_strFileName = e_strImageFileName;
 			l_strFileName += "parse:Texture failed!";
-			cGameApp::OutputDebugInfoString(l_strFileName);
+			cGameApp::OutputDebugInfoString(l_strFileName, true, true);
 #endif
 		}
+		AddTextureToTextureStore(this);
 	}
 	//===============
 	//
@@ -588,8 +637,9 @@ namespace FATMING_CORE
 		std::wstring l_strFileName = this->GetName();
 		l_strFileName += L" destroy:Texture,Ate Ram:";
 		l_strFileName += ValueToStringW(g_iAteVideoMomory);
-		cGameApp::OutputDebugInfoString(l_strFileName);
+		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
 #endif
+		RemoveTextureFromTextureStore(this);
 	}
 
 	//===============
@@ -845,5 +895,50 @@ namespace FATMING_CORE
 		if(  !g_bSupportNonPowerOfTwoTexture && (l_iWidthPO2!=e_iWidth||l_iHeightPO2!=e_iHeight) )//make it power of two
 			return TextureToPowOfTwo((char*)e_pPixels,e_iWidth,e_iHeight,e_iChannel==4?true:false);
 		return 0;
+	}
+
+	cTexture*	cTexture::GetTexture(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData)
+	{
+		cTexture*l_pTexture = nullptr;
+		auto l_pTextureStore = GetTextureStore();
+		if (l_pTextureStore)
+		{
+			l_pTexture = l_pTextureStore->GetObject(e_strImageFileName);
+			if (!l_pTexture)
+			{
+				std::string		l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+				std::wstring	l_ssss = CharToWchar(l_strImageName.c_str());
+				l_pTexture =    l_pTextureStore->GetObject(l_ssss.c_str());
+			}
+			if (l_pTexture)
+			{
+				l_pTexture->AddRef(e_pOwner);
+				return l_pTexture;
+			}
+		}
+
+		l_pTexture = new cTexture(e_pOwner,e_strImageFileName,e_bFetchPixelData);
+		return l_pTexture;
+	}
+
+	void		cTexture::DumpDebugInfo()
+	{
+		auto l_pTextureStore = GetTextureStore();
+		if (l_pTextureStore)
+		{
+			int l_iCount = l_pTextureStore->Count();
+			for (int i = 0; i < l_iCount; ++i)
+			{
+				std::wstring l_strInfo = L"Texture Not Delete:";
+				auto l_pTexture = (*l_pTextureStore)[i];
+				if(l_pTexture)
+					l_strInfo += l_pTexture->GetName();
+				else
+				{
+					l_strInfo += L"call fatming!";
+				}
+				cGameApp::OutputDebugInfoString(l_strInfo);
+			}
+		}
 	}
 }
