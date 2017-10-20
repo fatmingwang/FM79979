@@ -93,6 +93,8 @@ public:
     void                        SetName( const char*e_pString );
 	//dump all un release data
 	static void					DumpUnReleaseInfo();
+	//haha......I am lazy to implement this virtual function now,because too many class have to do...so it only work at cTexture for now!
+	//virtual wchar_t*              DescriptionInfo(){return L"I am NamedTypedObject";}
 	//while u are assign object is not pointer it's possible get same unique ID
 	uint64						GetUniqueID(){ return m_uiUniqueID; }
 	//

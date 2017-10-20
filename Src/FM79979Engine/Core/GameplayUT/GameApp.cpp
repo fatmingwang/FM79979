@@ -74,6 +74,7 @@ namespace	FATMING_CORE
 	bool												cGameApp::m_sbDeviceExist = false;	
 	sMultiTouchPoints*									cGameApp::m_spMultiTouchPoints = 0;
 	bool												cGameApp::m_sbDoMultiTouch = false;
+	bool												cGameApp::m_sbDoLockFPS = false;
 	cAnimationParser*									cGameApp::m_spAnimationParser = 0;
 	cImageParser*										cGameApp::m_spImageParser = 0;
 	cSoundParser*										cGameApp::m_spSoundParser = 0;
@@ -305,16 +306,14 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spMultiTouchPoints);
 		SAFE_DELETE(m_spSoundParser);
 		SAFE_DELETE(m_spstrErrorMsgString);
-	    SAFE_DELETE(m_spAnimationParser);
+		//must delete before m_spAnimationParser,because m_spBehaviorPaticleManager has a ImageParser
 		SAFE_DELETE(m_spBehaviorPaticleManager);
+	    SAFE_DELETE(m_spAnimationParser);
 		SAFE_DELETE(m_spPathFileList);
 		SAFE_DELETE(m_spGlyphFontRenderVector);
 		m_spGlyphFontRender = 0;
 		SAFE_DELETE(m_spExternalFunctionVector);
 		DeleteAllShader();
-#if	defined(WIN32) || defined(LINUX)
-//		ilShutDown();
-#endif
 		SystemErrorCheck();
 		if( m_spLogFile )
 			m_spLogFile->WriteToFileImmediatelyWithLine("all Destroy done");
@@ -364,6 +363,8 @@ namespace	FATMING_CORE
 		if( m_sbGamePause )
 			l_fElpaseTime = 0.f;
 #endif
+		if(cGameApp::m_sbDoLockFPS)
+			l_fElpaseTime = 0.016f;
 		Update(m_sbSpeedControl?l_fElpaseTime*this->m_sfDebugValue:l_fElpaseTime);
 		Render();
 		if( m_bDoScreenShot )
@@ -641,7 +642,7 @@ namespace	FATMING_CORE
 
 	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-#ifdef DEBUG		
+//#ifdef DEBUG		
 	#if defined(WIN32)
 			::OutputDebugString(e_str);
 			if( e_bWithNextLineSymbol )
@@ -659,7 +660,7 @@ namespace	FATMING_CORE
 			{
 				cGameApp::WriteLog(ValueToString(e_str));
 			}
-#endif
+//#endif
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol, bool e_bWriteLog)
@@ -698,15 +699,15 @@ namespace	FATMING_CORE
 
 	void		cGameApp::WriteLog(std::wstring e_strMessage)
 	{
-		WriteLog((wchar_t*)e_strMessage.c_str());
+		WriteLog(e_strMessage.c_str());
 	}
 
-	void		cGameApp::WriteLog(wchar_t*e_strMessage)
+	void		cGameApp::WriteLog(const wchar_t*e_strMessage)
 	{
 		if(cGameApp::m_spLogFile)cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(e_strMessage);	
 	}
 
-	void		cGameApp::WriteLog(char*e_strMessage)
+	void		cGameApp::WriteLog(const char*e_strMessage)
 	{
 		if(cGameApp::m_spLogFile)cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(e_strMessage);	
 	}
@@ -787,6 +788,8 @@ namespace	FATMING_CORE
 			std::wstring	l_strInfo = ComposeMsgByFormat(L"ElpaseTime:%.2f",(float)m_dbGamePlayTime);
 			l_iStaryPosY += 20;
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f,(float)l_iStaryPosY,l_strInfo);
+			l_iStaryPosY += 20;
+			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, cGameApp::m_sbDoLockFPS?L"LockFPS":L"No LockFPS");
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
 			
 		}

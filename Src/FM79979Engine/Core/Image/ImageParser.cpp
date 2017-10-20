@@ -29,11 +29,6 @@ namespace FATMING_CORE
 
 	void	cImageParser::RemoveResourceObject(NamedTypedObject*e_pObject)
 	{
-		if(e_pObject->Type() == cTexture::TypeID)
-		{
-			cTexture*l_pSimpleGLTexture = dynamic_cast<cTexture*>(e_pObject);
-			l_pSimpleGLTexture->Release(this);
-		}
 	}
 	
     void	cImageParser::InternalParse()

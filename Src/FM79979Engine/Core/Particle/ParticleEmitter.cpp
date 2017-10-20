@@ -34,7 +34,7 @@ namespace FATMING_CORE
 	{
 		m_iPlayCount = -1;
 		m_fCurrentTime = 0.f;
-		m_pTexture = 0;
+		m_pBaseImage = nullptr;
 		m_iPrimitiveType = GL_QUADS;
 		this->m_pVelocityInit = new cPrtVelocityInitSetVelocity();
 		m_fGapTimeToShot = 0.5f;
@@ -83,7 +83,7 @@ namespace FATMING_CORE
 		m_pvAllPosPointer = 0;
 		m_pvAllTexCoordinatePointer = 0;
 		m_pParticleData = 0;
-		m_pTexture = e_pPrtEmitter->m_pTexture;
+		m_pBaseImage = e_pPrtEmitter->m_pBaseImage;
 		this->SetMaxParticleCount(e_pPrtEmitter->GetMaxParticleCount());
 		//cPrtTextureActDynamicTexture
 		if( e_pPrtEmitter->GetInitPolicyParticleList()->IsOwenrOfPolicyIsImportant() || e_pPrtEmitter->GetActPolicyParticleList()->IsOwenrOfPolicyIsImportant() )
@@ -117,12 +117,12 @@ namespace FATMING_CORE
 		}
 	}
 
-	void	cPrtEmitter::SetTexture(cBaseImage*e_pTexture)
+	void	cPrtEmitter::SetBaseImage(cBaseImage*e_pBaseImage)
 	{
-		this->m_pTexture = e_pTexture;
-		if(this->m_pTexture)
+		this->m_pBaseImage = e_pBaseImage;
+		if(this->m_pBaseImage)
 		{
-			memcpy(m_pvAllTexCoordinatePointer,UVToTwoTriangle(m_pTexture->GetUV()),sizeof(Vector2)*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+			memcpy(m_pvAllTexCoordinatePointer,UVToTwoTriangle(m_pBaseImage->GetUV()),sizeof(Vector2)*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 		}
 		else
 		{
@@ -134,7 +134,7 @@ namespace FATMING_CORE
 			m_pvAllTexCoordinatePointer[4].x = 1.f;			m_pvAllTexCoordinatePointer[4].y = 1.f;
 			m_pvAllTexCoordinatePointer[5].x = 1.f;			m_pvAllTexCoordinatePointer[5].y = 0.f;
 		}
-		if( m_pTexture && m_pTexture->Type() != cTexture::TypeID )
+		if(m_pBaseImage && m_pBaseImage->Type() != cTexture::TypeID )
 		{
 			for( int i=1;i<m_iMaxParticleCount;++i )
 			{
@@ -264,9 +264,9 @@ namespace FATMING_CORE
 			m_pvAllColorPointer = l_pvAllColorPointer;
 			m_pvAllPosPointer = l_pvAllPosPointer;
 			m_pvAllTexCoordinatePointer = l_pvAllTexCoordinatePointer;
-			if(this->m_pTexture)
+			if(this->m_pBaseImage)
 			{
-				memcpy(m_pvAllTexCoordinatePointer,UVToTwoTriangle(m_pTexture->GetUV()),sizeof(Vector2)*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+				memcpy(m_pvAllTexCoordinatePointer,UVToTwoTriangle(m_pBaseImage->GetUV()),sizeof(Vector2)*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 			}
 			else
 			{
@@ -414,8 +414,8 @@ namespace FATMING_CORE
 				l_bSameBleinding = true;
 			else
 				glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
-			if(m_pTexture )
-				m_pTexture->ApplyImage();
+			if(m_pBaseImage)
+				m_pBaseImage->ApplyImage();
 			cMatrix44	l_mat;
 			cMatrix44	l_matWorldTransform = this->GetWorldTransform();
 			if( m_iPrimitiveType == GL_QUADS )

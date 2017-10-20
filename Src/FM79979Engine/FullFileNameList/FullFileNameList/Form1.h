@@ -312,6 +312,7 @@ namespace FullFileNameList {
 	private: System::Void	StringChangeToTextBox(System::Collections::ArrayList^e_pArrayList)
 			 {
 				AllFileList_textBox->Text = "";
+				int l_iMatchCount = 0;
 				//search all file
 				if( ExtensionName_textBox->Text->Trim()->Length == 0 )
 				{
@@ -321,13 +322,13 @@ namespace FullFileNameList {
 						if (l_strFileName)
 						{
 							AllFileList_textBox->Text += l_strFileName;
+							++l_iMatchCount;
 						}
 						AllFileList_textBox->Text += DNCT::GetChanglineString();
 					}
 				}
 				else
 				{
-					AllFileList_textBox->Text = "";
 					array<Char>^l_Chars = {','};
 					array<String^>^l_strExtensionNameSplit = ExtensionName_textBox->Text->Split( l_Chars );
 					if (!TakeExtensionOrder_checkBox->Checked)
@@ -343,7 +344,10 @@ namespace FullFileNameList {
 									{//keep directory exists
 										String^l_strFileName = CombinePreFixAndAfter(l_FileName);
 										if (l_strFileName)
+										{
 											AllFileList_textBox->Text += l_strFileName;
+											++l_iMatchCount;
+										}
 										AllFileList_textBox->Text += DNCT::GetChanglineString();
 									}
 								}
@@ -352,7 +356,7 @@ namespace FullFileNameList {
 					}
 					else
 					{
-						for each(String^l_strExtenName in l_strExtensionNameSplit)		.mp				
+						for each(String^l_strExtenName in l_strExtensionNameSplit)
 						{
 							for each(String^l_FileName in e_pArrayList)
 							{
@@ -363,14 +367,32 @@ namespace FullFileNameList {
 									{//keep directory exists
 										String^l_strFileName = CombinePreFixAndAfter(l_FileName);
 										if (l_strFileName)
+										{
 											AllFileList_textBox->Text += l_strFileName;
+											++l_iMatchCount;
+										}
 										AllFileList_textBox->Text += DNCT::GetChanglineString();
 									}
 								}
 							}
 						}
 					}
-				}				
+				}
+				if (e_pArrayList)
+				{
+					if (DoPrefix_After_checkBox->Checked)
+					{
+						String^l_strRoot = L"<Root Count=\"";
+						l_strRoot += l_iMatchCount.ToString();
+						l_strRoot += "\" >";
+						l_strRoot += DNCT::GetChanglineString();
+						l_strRoot += AllFileList_textBox->Text;
+						l_strRoot += "</Root>";
+						AllFileList_textBox->Text = l_strRoot;
+					}
+					else
+						AllFileList_textBox->Text += l_iMatchCount.ToString();
+				}
 			 }
 
 	private: System::Void DirectorySelect_button_Click(System::Object^  sender, System::EventArgs^  e)

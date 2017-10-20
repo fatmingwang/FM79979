@@ -21,7 +21,7 @@ namespace FATMING_CORE
 	char*	cPrtTextureActDynamicTexture::GetOutputDataString()
 	{
 		memset(m_sTemp,0,sizeof(char)*MAX_PATH);
-		if( this->m_pEmitterOwner->GetTexture()->Type() == cPuzzleImage::TypeID )
+		if( this->m_pEmitterOwner->GetBaseImage()->Type() == cPuzzleImage::TypeID )
 		{
 			if( this->m_pImageIndexOfAnimation )
 			{
@@ -51,7 +51,7 @@ namespace FATMING_CORE
 	char*	cPrtTextureActDynamicTexture::GetDataInfo()
 	{
 		if( this->m_pImageIndexOfAnimation )
-			sprintf(m_sTemp,"PIName:%s\nAnimationName:%s\n",this->m_pEmitterOwner->GetTexture()->GetCharName().c_str(),m_pImageIndexOfAnimation->GetCharName().c_str());
+			sprintf(m_sTemp,"PIName:%s\nAnimationName:%s\n",this->m_pEmitterOwner->GetBaseImage()->GetCharName().c_str(),m_pImageIndexOfAnimation->GetCharName().c_str());
 		else
 			sprintf(m_sTemp,"change image index every second");
 		return m_sTemp;
@@ -63,8 +63,8 @@ namespace FATMING_CORE
 		char* l_pString = strtok(e_pString,",");			
 		if( !l_pString )
 			return false;
-		assert(this->m_pEmitterOwner->GetTexture()->Type() == cPuzzleImage::TypeID&&"dynamic tecture must be PI texture!!");
-		cPuzzleImage*l_pPI = dynamic_cast<cPuzzleImage*>(this->m_pEmitterOwner->GetTexture());
+		assert(this->m_pEmitterOwner->GetBaseImage()->Type() == cPuzzleImage::TypeID&&"dynamic tecture must be PI texture!!");
+		cPuzzleImage*l_pPI = dynamic_cast<cPuzzleImage*>(this->m_pEmitterOwner->GetBaseImage());
 		this->SetPuzzleImage(l_pPI);
 		assert(l_pPI->GetImageIndexOfAnimationList()&&"ensure this pi has animation!!");
 		this->m_pImageIndexOfAnimation = l_pPI->GetImageIndexOfAnimationList()->GetObject(UT::CharToWchar(l_pString).c_str());

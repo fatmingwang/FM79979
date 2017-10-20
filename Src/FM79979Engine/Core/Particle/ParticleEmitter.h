@@ -66,7 +66,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(GLenum,m_SrcBlendingMode,GetSrcBlendingMode,SetSrcBlendingMode);
 		GET_SET_DEC(GLenum,m_DestBlendingMode,GetDestBlendingMode,SetDestBlendingMode);
 		//texture,it always come from resource,or u have to delete it by urself
-		cBaseImage*	m_pTexture;
+		cBaseImage*	m_pBaseImage;
 		//Actived,Start
 		bool	m_bActived;
 		//comr from particle manager
@@ -162,8 +162,8 @@ namespace FATMING_CORE
 		cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone = true);
 		CLONE_MYSELF(cPrtEmitter);
 		virtual ~cPrtEmitter();
-		cBaseImage*		GetTexture(){return m_pTexture;}
-		void			SetTexture(cBaseImage*e_pTexture);
+		cBaseImage*		GetBaseImage(){return m_pBaseImage;}
+		void			SetBaseImage(cBaseImage*e_pBaseImage);
 
 		//add into policy list,after add into list u should call SetupPolicy
 		void			AddInitPolicy(cParticleBase*e_pParticleBase);

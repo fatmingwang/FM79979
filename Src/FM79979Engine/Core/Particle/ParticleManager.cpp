@@ -192,14 +192,14 @@ namespace FATMING_CORE
 			cPrtEmitter*l_pPrtEmitter = (*this)[i];
 			if( e_Src != l_pPrtEmitter )
 			{
-				if( l_pPrtEmitter->GetTexture()->Type() == cPuzzleImageUnit::TypeID )
+				if( l_pPrtEmitter->GetBaseImage()->Type() == cPuzzleImageUnit::TypeID )
 				{
-					cPuzzleImageUnit*l_pPuzzleImageUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetTexture();
+					cPuzzleImageUnit*l_pPuzzleImageUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetBaseImage();
 					if(l_pPuzzleImageUnit->GetParent() == e_pNamedTypedObject)
 						return true;
 				}
 				else
-				if(l_pPrtEmitter->GetTexture() == e_pNamedTypedObject)
+				if(l_pPrtEmitter->GetBaseImage() == e_pNamedTypedObject)
 				{
 					return true;
 				}
@@ -249,14 +249,14 @@ namespace FATMING_CORE
 				l_pXMLWriter->StartElement( PRTDATA_EMITER );
 				l_pXMLWriter->AddAttribute("Name",l_pPrtEmitter->GetName());
 				l_pXMLWriter->AddAttribute("Data",l_pPrtEmitter->GetDataInfo());
-				if( l_pPrtEmitter->GetTexture() )
+				if( l_pPrtEmitter->GetBaseImage() )
 				{
-					if( l_pPrtEmitter->GetTexture()->Type() == cPuzzleImageUnit::TypeID )
+					if( l_pPrtEmitter->GetBaseImage()->Type() == cPuzzleImageUnit::TypeID )
 					{
-						cPuzzleImageUnit*l_pPIUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetTexture();
+						cPuzzleImageUnit*l_pPIUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetBaseImage();
 						l_pXMLWriter->AddAttribute("PIName",l_pPIUnit->GetParent()->GetName());
 					}
-					l_pXMLWriter->AddAttribute("Texture",l_pPrtEmitter->GetTexture()->GetName());
+					l_pXMLWriter->AddAttribute("Texture",l_pPrtEmitter->GetBaseImage()->GetName());
 				}
 				cQuickUpdateParticleObjectListByName*l_pInitPolicyParticleList = l_pPrtEmitter->GetInitPolicyParticleList();
 				cParticleBase*l_pParticleBase = 0;
@@ -333,11 +333,19 @@ namespace FATMING_CORE
 				std::wstring	l_strExtensionaName = UT::GetFileExtensionName((wchar_t*)l_strValue).c_str();
 				if( !wcscmp(l_strExtensionaName.c_str(),L"pi") )
 				{
-					bool	l_b = m_ImageParser.Parse(l_strFullPath);
-					if( !l_b )
+					//2 Image Parser will occur cPuzzleImage memory leak...because the resource is sahare...
+					//so add into GameApp::ImageParser then clone one.
+					auto*l_pPI = cGameApp::GetPuzzleImageByFileName(ValueToStringW(l_strFullPath));
+					if (l_pPI)
 					{
-						UT::ErrorMsg(l_strFullPath,"pi parse failed!");
+						auto*l_pClone = l_pPI->Clone();
+						m_ImageParser.AddObject(l_pClone);
 					}
+					//bool	l_b = m_ImageParser.Parse(l_strFullPath);
+					//if( !l_b )
+					//{
+					//	UT::ErrorMsg(l_strFullPath,"pi parse failed!");
+					//}
 				}
 				else
 				{
@@ -391,13 +399,13 @@ namespace FATMING_CORE
 						const wchar_t*l_strType = l_pNamedTypedObject->Type();
 						if( l_strType == cBaseImage::TypeID )
 						{
-							l_pPrtEmitter->SetTexture(dynamic_cast<cBaseImage*>(l_pNamedTypedObject));
+							l_pPrtEmitter->SetBaseImage(dynamic_cast<cBaseImage*>(l_pNamedTypedObject));
 						}
 						else
 						if( l_strType == cPuzzleImage::TypeID )
 						{
 							cPuzzleImage*l_pPI2 = dynamic_cast<cPuzzleImage*>(l_pNamedTypedObject);
-							l_pPrtEmitter->SetTexture(l_pPI2);
+							l_pPrtEmitter->SetBaseImage(l_pPI2);
 						}
 						else
 						{
@@ -406,7 +414,7 @@ namespace FATMING_CORE
 					}
 					else
 					{
-						l_pPrtEmitter->SetTexture(l_pPI->GetObject(l_strValue));
+						l_pPrtEmitter->SetBaseImage(l_pPI->GetObject(l_strValue));
 					}
 				}
 			PARSE_NAME_VALUE_END
