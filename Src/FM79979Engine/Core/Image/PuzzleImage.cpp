@@ -160,7 +160,7 @@ namespace FATMING_CORE
 		//left 1 to reference
 		if( l_iRefCount == 1 )
 		{
-		    assert( this->m_bFromResource == false &&"both ot them shoudl not cloned object " );
+		    assert( this->m_bFromResource == false &&"both ot them shoudl not cloned object,or image parser delete order is wrong!?particle or new image parser?! " );
 		    SAFE_DELETE(m_pImageIndexOfAnimation);
 		    SAFE_DELETE(m_pfAllChildrenTriangleStripUV);
 		    SAFE_DELETE(m_pfAllChildrenTwoTriangleUV);

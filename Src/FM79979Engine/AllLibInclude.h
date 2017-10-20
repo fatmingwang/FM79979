@@ -29,16 +29,17 @@
 #pragma comment(lib, "../../../lib/ffmpeg/swscale.lib")
 #endif
 //#pragma comment(lib, "Vfw32.lib")
-//#pragma comment(lib, "../../../lib/Devil.lib")
+//CoreDotNetTools.cpp need this one...
+#pragma comment(lib, "../../../lib/Devil.lib")
 #pragma comment(lib, "../../../lib/OpenAL32.lib")
 #pragma comment(lib, "../../../lib/alut.lib")
 #pragma comment(lib, "../../../lib/glew32.lib")
 
-#ifdef USE_OPEN_CV
+//#ifdef USE_OPEN_CV
 #pragma comment(lib, "../../../lib/opencv_core249.lib")
 #pragma comment(lib, "../../../lib/opencv_highgui249.lib")
 #pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
-#endif
+//#endif
 //#ifdef _OGG_
 //#pragma comment(lib, "../../../lib/ogg.lib")
 //#pragma comment(lib, "../../../lib/vorbis.lib")
@@ -57,16 +58,16 @@
 	#pragma comment(lib, "../../../lib/Debug/MathParser.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
-	//#pragma comment(lib, "../../../lib/Debug/Core.lib")
+	#pragma comment(lib, "../../../lib/Debug/Core.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
 #else
 #ifdef USE_MU_PARSER
-	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
-#endif
 	#pragma comment(lib, "../../../lib/Release/MathParser.lib")
-	//#pragma comment(lib, "../../../lib/Release/Core.lib")
+#endif
+	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
+	#pragma comment(lib, "../../../lib/Release/Core.lib")
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Release/ogg.lib")
 #endif

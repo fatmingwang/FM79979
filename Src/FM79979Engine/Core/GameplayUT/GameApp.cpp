@@ -713,7 +713,7 @@ namespace	FATMING_CORE
 	}
 	void		cGameApp::WriteLog(std::string e_strMessage)
 	{
-		WriteLog((char*)e_strMessage.c_str());
+		WriteLog(e_strMessage.c_str());
 	}
 
 	void		cGameApp::CallExternalFunction(std::wstring e_strName,void*e_pData)

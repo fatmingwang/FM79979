@@ -2,7 +2,7 @@
 #include "GameApp.h"
 
 #ifdef WIN32
-#include "../../../include/IL/il.h"
+//#include "../../../include/IL/il.h"
 #include <direct.h>
 #endif
 #include "../Sound/SoundManager.h"

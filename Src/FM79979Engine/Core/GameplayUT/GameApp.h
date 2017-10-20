@@ -118,6 +118,7 @@ namespace	FATMING_CORE
 		static	cNamedTypedObjectVector<cExternalFunction>*			m_spExternalFunctionVector;
 		static	sMultiTouchPoints*									m_spMultiTouchPoints;
 		static	bool												m_sbDoMultiTouch;
+		static	bool												m_sbDoLockFPS;
 		static	cNamedTypedObjectVector<cCurveManager>*				m_spPathFileList;
 		static	cNamedTypedObjectVector<c2DImageCollisionData>*		m_sp2DImageCollisionDataVector;
 		static	cNamedTypedObjectVector<NamedTypedObject>*			m_spColladaParserVector;
@@ -195,9 +196,9 @@ namespace	FATMING_CORE
 		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
 		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
 		static	void					OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
-		static	void					WriteLog(wchar_t*e_strMessage);
+		static	void					WriteLog(const wchar_t*e_strMessage);
 		static	void					WriteLog(std::wstring e_strMessage);
-		static	void					WriteLog(char*e_strMessage);
+		static	void					WriteLog(const char*e_strMessage);
 		static	void					WriteLog(std::string e_strMessage);
 		static	void					CallExternalFunction(std::wstring e_strName,void*e_pData);
 		static	bool					AddExternalFunction(DoButtonGoal_Callback e_pCallBack,const wchar_t*e_strExternalFunctionName);

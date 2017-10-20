@@ -155,9 +155,9 @@ namespace ParticlePolicyForm
 			 cPuzzleImage*l_pPI = 0;
 			 if( PI_listBox->SelectedIndex != -1 )
 			 {
-				 if( g_pPrtTextureActDynamicTexture->GetEmitterOwner()&&g_pPrtTextureActDynamicTexture->GetEmitterOwner()->GetTexture() )
+				 if( g_pPrtTextureActDynamicTexture->GetEmitterOwner()&&g_pPrtTextureActDynamicTexture->GetEmitterOwner()->GetBaseImage() )
 				 {
-					 if( g_pPrtTextureActDynamicTexture->GetEmitterOwner()->GetTexture()->Type() != cPuzzleImage::TypeID )
+					 if( g_pPrtTextureActDynamicTexture->GetEmitterOwner()->GetBaseImage()->Type() != cPuzzleImage::TypeID )
 					 {
 						WARNING_MSG("please select pi as texture");
 						return;

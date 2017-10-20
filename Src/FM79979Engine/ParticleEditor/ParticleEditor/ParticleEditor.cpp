@@ -15,7 +15,7 @@
 using namespace ParticalEditor;
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 

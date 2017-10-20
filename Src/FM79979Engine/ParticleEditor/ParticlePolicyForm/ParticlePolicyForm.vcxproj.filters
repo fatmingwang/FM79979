@@ -161,4 +161,24 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AutoCollpaseUnit.resx" />
+    <EmbeddedResource Include="PrtColorActBlending.resx" />
+    <EmbeddedResource Include="PrtColorActBlendingBy2Color.resx" />
+    <EmbeddedResource Include="PrtColorActBlendingByLife.resx" />
+    <EmbeddedResource Include="PrtColorInitrSetColor.resx" />
+    <EmbeddedResource Include="PrtColorInitrSetRandomColor.resx" />
+    <EmbeddedResource Include="PrtLifeInitrSetLife.resx" />
+    <EmbeddedResource Include="PrtRotateActRotate.resx" />
+    <EmbeddedResource Include="PrtRotateInitRotate.resx" />
+    <EmbeddedResource Include="PrtSizeActBlending.resx" />
+    <EmbeddedResource Include="PrtSizeInitSetSize.resx" />
+    <EmbeddedResource Include="PrtStartPositionInitByFrame.resx" />
+    <EmbeddedResource Include="PrtStartPositionInitBySquareRange.resx" />
+    <EmbeddedResource Include="PrtVelocityActAcceleration.resx" />
+    <EmbeddedResource Include="PrtVelocityActDircctionChange.resx" />
+    <EmbeddedResource Include="PrtVelocityInitRandomFly.resx" />
+    <EmbeddedResource Include="PrtVelocityInitSetVelocity.resx" />
+    <EmbeddedResource Include="PrtDynamicTecxture.resx" />
+  </ItemGroup>
 </Project>

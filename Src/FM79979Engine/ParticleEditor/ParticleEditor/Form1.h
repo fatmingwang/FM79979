@@ -1,5 +1,5 @@
 #pragma once
-#include "../../../include/IL/il.h"
+//#include "../../../include/IL/il.h"
 #include "EditState.h"
 #include "MeshViewer.h"
 #include "EmitterEditor.h"
@@ -52,7 +52,7 @@ namespace ParticalEditor
 			m_pFrameCamera = 0;
 			m_Hdc = 0;
 			m_pHGLRC = 0;
-			ilInit();
+			//ilInit();
 			g_pOrthogonalCamera = new cOrthogonalCamera;
 			m_pFrameCamera = new cFrameCamera();
 			Projection	l_ProjectionMV;
@@ -1850,7 +1850,7 @@ private: System::Void AddTexture_button_Click(System::Object^  sender, System::E
 		 {
 			 this->timer1->Enabled = false;
 			 g_pPrtEmitter->Stop();
-			 array<String^>^l_pFileNames = DNCT::OpenFileAndGetNames("Image Files(*.dds;*.png;*.pi)|*.dds;*.png;*.pi|All files (*.*)|*.*");
+			 cli::array<String^>^l_pFileNames = DNCT::OpenFileAndGetNames("Image Files(*.dds;*.png;*.pi)|*.dds;*.png;*.pi|All files (*.*)|*.*");
 			 if( l_pFileNames )
 			 for each( String^l_strFileName in l_pFileNames )
 			 {
@@ -1931,13 +1931,13 @@ private: System::Void AddEmiter_button_Click(System::Object^  sender, System::Ev
 					 delete l_pPrtEmitter;
 				 }
 				 cPrtEmitter*l_pPrtEmitter = new cPrtEmitter(g_pPrtEmitter,false);
-				 if( !l_pPrtEmitter->GetTexture() )
+				 if( !l_pPrtEmitter->GetBaseImage() )
 				 {
 					 //EmiteListr_listBox->Items->Remove(l_strFileName);
 					 //WARNING_MSG("texture assign failed!!");
 					 if(this->Texture_treeView->SelectedNode)
 					 {
-						l_pPrtEmitter->SetTexture(dynamic_cast<cBaseImage*>(g_pPaticleManager->GetImageParser()->GetObject(DNCT::GcStringToWchar(Texture_treeView->SelectedNode->Text))));
+						l_pPrtEmitter->SetBaseImage(dynamic_cast<cBaseImage*>(g_pPaticleManager->GetImageParser()->GetObject(DNCT::GcStringToWchar(Texture_treeView->SelectedNode->Text))));
 					 }
 				 }
 				 l_pPrtEmitter->SetName(DNCT::GcStringToWchar(l_strFileName));
@@ -1978,7 +1978,7 @@ private: System::Void DataInvert_button_Click(System::Object^  sender, System::E
 				cPrtEmitter*l_pPrtEmitter = (*g_pPaticleManager)[EmiteListr_listBox->SelectedIndex];
 				g_pPrtEmitter->SetDataByDataString(l_pPrtEmitter->GetDataInfo());
 				g_pPrtEmitter->SetName(l_pPrtEmitter->GetName());
-				g_pPrtEmitter->SetTexture(l_pPrtEmitter->GetTexture());
+				g_pPrtEmitter->SetBaseImage(l_pPrtEmitter->GetBaseImage());
 				//velovcity clone
 				cPrtVelocityInitSetVelocity*l_pPrtVelocityInitSetVelocity = (cPrtVelocityInitSetVelocity*)g_pPrtEmitter->GetVelocity();
 				PrtVelocityInitSetVelocity^l_pGCPrtVelocityInitSetVelocity = gcnew PrtVelocityInitSetVelocity(&l_pPrtVelocityInitSetVelocity->GetVeolcity()->x,
@@ -2013,20 +2013,20 @@ private: System::Void DataInvert_button_Click(System::Object^  sender, System::E
 				int	l_iDestIndex = BlendingIndexToIndex(l_pPrtEmitter->GetDestBlendingMode());
 				SrcBlending_listBox->SelectedIndex = l_iSrcIndex;
 				DestBlending_listBox->SelectedIndex = l_iDestIndex;
-				if( l_pPrtEmitter->GetTexture() )
+				if( l_pPrtEmitter->GetBaseImage())
 				{
-					if( l_pPrtEmitter->GetTexture()->Type() == cBaseImage::TypeID||
-						l_pPrtEmitter->GetTexture()->Type() == cPuzzleImage::TypeID)
+					if( l_pPrtEmitter->GetBaseImage()->Type() == cBaseImage::TypeID||
+						l_pPrtEmitter->GetBaseImage()->Type() == cPuzzleImage::TypeID)
 					{
-						String^l_strTextureName = DNCT::WcharToGcstring(l_pPrtEmitter->GetTexture()->GetName());
+						String^l_strTextureName = DNCT::WcharToGcstring(l_pPrtEmitter->GetBaseImage()->GetName());
 						Texture_treeView->SelectedNode = Texture_treeView->Nodes[l_strTextureName];
 					}
 					else
-					if(l_pPrtEmitter->GetTexture()->Type() == cPuzzleImageUnit::TypeID)
+					if(l_pPrtEmitter->GetBaseImage()->Type() == cPuzzleImageUnit::TypeID)
 					{
-						cPuzzleImageUnit*l_pPuzzleImageUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetTexture();
+						cPuzzleImageUnit*l_pPuzzleImageUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetBaseImage();
 						String^l_strPIName = DNCT::WcharToGcstring(l_pPuzzleImageUnit->GetParent()->GetName());
-						String^l_strTextureName = DNCT::WcharToGcstring(l_pPrtEmitter->GetTexture()->GetName());
+						String^l_strTextureName = DNCT::WcharToGcstring(l_pPrtEmitter->GetBaseImage()->GetName());
 						Texture_treeView->SelectedNode = Texture_treeView->Nodes[l_strPIName]->Nodes[l_strTextureName];					
 					}
 					else
@@ -2179,7 +2179,7 @@ private: System::Void DeleteTexture_button_Click(System::Object^  sender, System
 		 }
 private: System::Void DisableTexture_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 g_pPrtEmitter->SetTexture(0);
+			 g_pPrtEmitter->SetBaseImage(nullptr);
 		 }
 private: System::Void ParticleType_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
@@ -2398,7 +2398,7 @@ private: System::Void Texture_treeView_AfterSelect(System::Object^  sender, Syst
  				 if( !Texture_treeView->SelectedNode->Parent )//simple gl texture
 				 {
 					 WCHAR*l_strTextureName = DNCT::GcStringToWchar(l_strName);//it could be simple texture or pi texture!.
-					 g_pPrtEmitter->SetTexture(dynamic_cast<cBaseImage*>(g_pPaticleManager->GetImageParser()->GetObject(l_strTextureName)));
+					 g_pPrtEmitter->SetBaseImage(dynamic_cast<cBaseImage*>(g_pPaticleManager->GetImageParser()->GetObject(l_strTextureName)));
 				 }
 				 else//pi
 				 {
@@ -2406,7 +2406,7 @@ private: System::Void Texture_treeView_AfterSelect(System::Object^  sender, Syst
 					l_strTextureName = DNCT::GcStringToWchar(l_strParentName);
 					cPuzzleImage*l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(g_pPaticleManager->GetImageParser()->GetObject(l_strTextureName));
 					l_strTextureName = DNCT::GcStringToWchar(l_strName);
-					g_pPrtEmitter->SetTexture(l_pPuzzleImage->GetObject(l_strTextureName));
+					g_pPrtEmitter->SetBaseImage(l_pPuzzleImage->GetObject(l_strTextureName));
 				 }
 			 }
 		 }
