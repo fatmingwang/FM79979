@@ -26,7 +26,7 @@ using namespace std;
 //T must be a pointer
 //void    MyAssert2(bool e_b,char*e_str = "Error")
 //{
-  //      assert(e_b&&e_str);
+//      assert(e_b&&e_str);
 //}
 
 //only work for the class has new self
@@ -43,8 +43,8 @@ for(int i=0;i<l_iCount;++i)										\
 int	l_iCount = SRC_VECTOR->Count();									\
 for(int i=0;i<l_iCount;++i)											\
 {																	\
-	TYPE* l_pData = dynamic_cast<TYPE*>((*SRC_VECTOR)[i]->Clone());	\
-	DEST_VECTOR->AddObjectNeglectExist(l_pData);					\
+TYPE* l_pData = dynamic_cast<TYPE*>((*SRC_VECTOR)[i]->Clone());	\
+DEST_VECTOR->AddObjectNeglectExist(l_pData);					\
 }*/
 
 
@@ -64,21 +64,21 @@ for(int i=0;i<l_iCount;++i)											\
 			DestVector.push_back(l_pObject);			\
 		}												\
 
-template<class TYPE,class CHILDTYPE>
-TYPE*	NewTemplateList(TYPE*e_pSource,bool e_bFromREsource)
+template<class TYPE, class CHILDTYPE>
+TYPE*	NewTemplateList(TYPE*e_pSource, bool e_bFromREsource)
 {
 	TYPE* l_pData = new TYPE();
 	l_pData->SetName(e_pSource->GetName());
-	if( e_bFromREsource )
+	if (e_bFromREsource)
 	{
 		l_pData->CopyListPointer(e_pSource);
 	}
 	else
 	{
 		int	l_iCount = e_pSource->Count();
-		for( int i=0;i<l_iCount;++i  )
+		for (int i = 0; i<l_iCount; ++i)
 		{
-			CHILDTYPE* l_p = new CHILDTYPE( (*e_pSource)[i] );
+			CHILDTYPE* l_p = new CHILDTYPE((*e_pSource)[i]);
 			l_p->SetName((*e_pSource)[i]->GetName());
 			l_pData->AddObjectNeglectExist(l_p);
 		}
@@ -88,48 +88,48 @@ TYPE*	NewTemplateList(TYPE*e_pSource,bool e_bFromREsource)
 
 //template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren;
 //key function RemoveResourceObject.
-template <class T> class cNamedTypedObjectVector:virtual public NamedTypedObject
+template <class T> class cNamedTypedObjectVector :virtual public NamedTypedObject
 {
 	//friend class	cObjectListWithItsChildren<cNamedTypedObjectVector<T*>,T*>;
 	//this one to remove the resource if object has something must to delete
 	//ex:AnimationParser or particle or else.....
-	virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject){}
+	virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject) {}
 	//
-	virtual	void	AddObjectNotification(T* e_t){}
-	virtual	void	RemoveObjectNotification(T* e_t){}
+	virtual	void	AddObjectNotification(T* e_t) {}
+	virtual	void	RemoveObjectNotification(T* e_t) {}
 protected:
 	vector < T* > m_ObjectList;
 	bool	m_bFromResource;
 public:
-	cNamedTypedObjectVector(){ m_bFromResource = false; }
+	cNamedTypedObjectVector() { m_bFromResource = false; }
 	cNamedTypedObjectVector(cNamedTypedObjectVector<T>*e_pObjectListByName)
 	{
 		CloneFromList(e_pObjectListByName);
 		SetName(e_pObjectListByName->GetName());
 	}
-	virtual	NamedTypedObject*	Clone(){ return new cNamedTypedObjectVector<T>(this); }
-	virtual ~cNamedTypedObjectVector(){ Destroy(); }
+	virtual	NamedTypedObject*	Clone() { return new cNamedTypedObjectVector<T>(this); }
+	virtual ~cNamedTypedObjectVector() { Destroy(); }
 	//ensure what are u doing while old data is not from resource
-    inline  void    CloneFromList(cNamedTypedObjectVector<T>*e_pObjectListByName)
-    {
-        int l_iCount = e_pObjectListByName->Count();
-        for( int i=0;i<l_iCount;++i )
-        {
-            T*l_p = dynamic_cast<T*>(e_pObjectListByName->GetObject(i)->Clone());
+	inline  void    CloneFromList(cNamedTypedObjectVector<T>*e_pObjectListByName)
+	{
+		int l_iCount = e_pObjectListByName->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			T*l_p = dynamic_cast<T*>(e_pObjectListByName->GetObject(i)->Clone());
 			assert(l_p);
-            this->AddObjectNeglectExist(l_p);
-        }
+			this->AddObjectNeglectExist(l_p);
+		}
 		m_bFromResource = false;
-    }
-	bool	IsFromResource(){ return m_bFromResource; }
-	void	SetFromResource(bool e_bFromResource){ m_bFromResource = e_bFromResource; }
+	}
+	bool	IsFromResource() { return m_bFromResource; }
+	void	SetFromResource(bool e_bFromResource) { m_bFromResource = e_bFromResource; }
 	virtual	void	Destroy()
 	{
-		if(!m_bFromResource)
+		if (!m_bFromResource)
 		{
-			while( m_ObjectList.size() )
+			while (m_ObjectList.size())
 			{
-				if(!RemoveObject(0))
+				if (!RemoveObject(0))
 					m_ObjectList.erase(m_ObjectList.begin());
 				//m_ObjectList[i].~T();
 			}
@@ -139,65 +139,65 @@ public:
 
 	T*	GetObjectByUniqueID(uint64 e_uiID)
 	{
-		for(UINT i=0;i<m_ObjectList.size();++i)
+		for (UINT i = 0; i<m_ObjectList.size(); ++i)
 		{
 			T* l_t = m_ObjectList[i];
-			if(l_t->GetUniqueID() == e_uiID)
+			if (l_t->GetUniqueID() == e_uiID)
 				return l_t;
 		}
-		return 0;	
+		return 0;
 	}
-	inline T*	operator [](const wchar_t*e_pString){return GetObject(e_pString);}
+	inline T*	operator [](const wchar_t*e_pString) { return GetObject(e_pString); }
 
-	inline T*	operator [](int e_iIndex){return GetObject(e_iIndex);}
+	inline T*	operator [](int e_iIndex) { return GetObject(e_iIndex); }
 
-	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
-	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
-	inline T*	GetObject(wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
+	inline T*	GetObject(int e_i) { if (e_i<this->Count() && e_i>-1)return m_ObjectList[e_i];	return 0; }
+	inline T*	GetObject(std::wstring e_pString) { return this->GetObject(e_pString.c_str()); }
+	inline T*	GetObject(wchar_t*e_pString) { return this->GetObject(this->GetObjectIndexByName(e_pString)); }
 
-	inline T*	GetObject(char*e_pString){std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str());}
-	inline T*	GetObject(const char*e_pString){std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str());}
+	inline T*	GetObject(char*e_pString) { std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str()); }
+	inline T*	GetObject(const char*e_pString) { std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str()); }
 
-	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));}
+	inline T*	GetObject(const wchar_t*e_pString) { return this->GetObject(this->GetObjectIndexByName(e_pString)); }
 
-	inline T*	GetLastObject(){	return this->GetObject((int)m_ObjectList.size()-1);}
+	inline T*	GetLastObject() { return this->GetObject((int)m_ObjectList.size() - 1); }
 	inline bool	IsContain(T*e_pObject)
 	{
-		if( this->GetObjectIndexByPointer(e_pObject) != -1 || this->GetObjectIndexByName(e_pObject->GetName())!= -1 )
+		if (this->GetObjectIndexByPointer(e_pObject) != -1 || this->GetObjectIndexByName(e_pObject->GetName()) != -1)
 			return true;
 		return false;
 	}
-	inline bool	InsertObject(int e_iIndex,T*e_pObject,bool e_bAllowSameName = false)
+	inline bool	InsertObject(int e_iIndex, T*e_pObject, bool e_bAllowSameName = false)
 	{
-		if( e_pObject == nullptr )
+		if (e_pObject == nullptr)
 			return false;
-		if( (int)m_ObjectList.size() < e_iIndex )
+		if ((int)m_ObjectList.size() < e_iIndex)
 		{
 			return false;
 		}
-		if( e_bAllowSameName == false )
+		if (e_bAllowSameName == false)
 		{
-			if(IsContain(e_pObject))
+			if (IsContain(e_pObject))
 				return false;
 		}
-		if((int)m_ObjectList.size() == e_iIndex)
+		if ((int)m_ObjectList.size() == e_iIndex)
 		{
 			this->m_ObjectList.push_back(e_pObject);
 		}
 		else
 		{
-			this->m_ObjectList.insert(m_ObjectList.begin()+e_iIndex,e_pObject);
+			this->m_ObjectList.insert(m_ObjectList.begin() + e_iIndex, e_pObject);
 		}
 		return true;
 	}
 	//however data is existed or not remove data and add it
-	inline bool	ReplaceObject(int e_iIndex,T* e_T,bool e_bDeleteObject = true)
+	inline bool	ReplaceObject(int e_iIndex, T* e_T, bool e_bDeleteObject = true)
 	{
 		assert((int)m_ObjectList.size() > e_iIndex);
 		//if( e_T )
 		{
 			T*l_pObject = this->m_ObjectList[e_iIndex];
-			if( e_bDeleteObject )
+			if (e_bDeleteObject)
 			{
 				RemoveObjectNotification(l_pObject);
 				SAFE_DELETE(l_pObject);
@@ -212,33 +212,33 @@ public:
 	inline T* GetObjectByType(const wchar_t*e_pString)
 	{
 		size_t l_uiSize = m_ObjectList.size();
-		for(size_t i=0;i<l_uiSize;++i  )
+		for (size_t i = 0; i<l_uiSize; ++i)
 		{
-			if( m_ObjectList[i]->Type() == e_pString )
+			if (m_ObjectList[i]->Type() == e_pString)
 				return m_ObjectList[i];
 		}
 		return 0;
 	}
-	
+
 	inline T* GetObjectByTypePointer(T*e_pObject)
 	{
 		size_t l_uiSize = m_ObjectList.size();
 		for (size_t i = 0; i<l_uiSize; ++i)
 		{
-			if( m_ObjectList[i]->Type() == e_pObject->Type() )
+			if (m_ObjectList[i]->Type() == e_pObject->Type())
 				return m_ObjectList[i];
 		}
 		return 0;
-	}	
+	}
 	//only need to overwrite RemoveObject(int e_iIndex).
-	inline	bool	RemoveObject(const wchar_t*e_pString){return RemoveObject(GetObjectIndexByName(e_pString));}
-	inline	bool	RemoveObject(wchar_t*e_pString){return RemoveObject(GetObjectIndexByName(e_pString));}
-	inline	bool	RemoveObject(NamedTypedObject* e_t){return RemoveObject(GetObjectIndexByName(e_t->GetName()));}
+	inline	bool	RemoveObject(const wchar_t*e_pString) { return RemoveObject(GetObjectIndexByName(e_pString)); }
+	inline	bool	RemoveObject(wchar_t*e_pString) { return RemoveObject(GetObjectIndexByName(e_pString)); }
+	inline	bool	RemoveObject(NamedTypedObject* e_t) { return RemoveObject(GetObjectIndexByName(e_t->GetName())); }
 	inline	virtual	bool	RemoveObject(int e_iIndex)
 	{
 		T*l_p = this->GetObject(e_iIndex);
 		RemoveObjectWithoutDelete(e_iIndex);
-		if( l_p )
+		if (l_p)
 		{
 			RemoveResourceObject(l_p);
 			delete l_p;
@@ -250,43 +250,43 @@ public:
 	bool	RemoveObjectWithoutDelete(int e_iIndex)
 	{
 		T*l_p = this->GetObject(e_iIndex);
-		if( l_p )
+		if (l_p)
 		{
 			RemoveObjectNotification(l_p);
 			l_p->SetOwner(0);
-			m_ObjectList.erase(m_ObjectList.begin()+e_iIndex);
+			m_ObjectList.erase(m_ObjectList.begin() + e_iIndex);
 			return true;
 		}
 		return false;
 	}
-	inline	bool	RemoveObjectWithoutDelete(const wchar_t*e_strName){ return RemoveObjectWithoutDelete((wchar_t*)e_strName); }
-	inline	bool	RemoveObjectWithoutDelete(wchar_t*e_strName){int	l_iIndex = GetObjectIndexByName(e_strName);if( l_iIndex != -1 )	return RemoveObjectWithoutDelete(l_iIndex);return false;}
-	inline	bool	RemoveObjectWithoutDelete(T*e_pObject){int	l_iIndex = GetObjectIndexByPointer(e_pObject);if( l_iIndex != -1 )	return RemoveObjectWithoutDelete(l_iIndex);return false;}
-	inline	bool	AddObject(T* e_t){if( !e_t )return false;if( GetObject(e_t->GetName()) )return false;return AddObjectNeglectExist(e_t);}
+	inline	bool	RemoveObjectWithoutDelete(const wchar_t*e_strName) { return RemoveObjectWithoutDelete((wchar_t*)e_strName); }
+	inline	bool	RemoveObjectWithoutDelete(wchar_t*e_strName) { int	l_iIndex = GetObjectIndexByName(e_strName); if (l_iIndex != -1)	return RemoveObjectWithoutDelete(l_iIndex); return false; }
+	inline	bool	RemoveObjectWithoutDelete(T*e_pObject) { int	l_iIndex = GetObjectIndexByPointer(e_pObject); if (l_iIndex != -1)	return RemoveObjectWithoutDelete(l_iIndex); return false; }
+	inline	bool	AddObject(T* e_t) { if (!e_t)return false; if (GetObject(e_t->GetName()))return false; return AddObjectNeglectExist(e_t); }
 
 	inline	bool	AddObjectWarningIfExists(T*e_pData)
 	{
-		if(!AddObject(e_pData))
+		if (!AddObject(e_pData))
 		{
-			UT::ErrorMsg(L"object exists!",e_pData->GetName());
+			UT::ErrorMsg(L"object exists!", e_pData->GetName());
 			return false;
 		}
 		return true;
 	}
 
-	inline	virtual	bool	AddObjectNeglectExist(T* e_t){AddObjectNotification(e_t);m_ObjectList.push_back(e_t);if(e_t)e_t->SetOwner(this);return true;}
+	inline	virtual	bool	AddObjectNeglectExist(T* e_t) { AddObjectNotification(e_t); m_ObjectList.push_back(e_t); if (e_t)e_t->SetOwner(this); return true; }
 
-	int	Count(){ return (int)m_ObjectList.size(); }
+	int	Count() { return (int)m_ObjectList.size(); }
 
-	inline	int	GetObjectIndexByName(const wchar_t* e_pString){return GetObjectIndexByName((wchar_t*)e_pString);}
+	inline	int	GetObjectIndexByName(const wchar_t* e_pString) { return GetObjectIndexByName((wchar_t*)e_pString); }
 	inline	int	GetObjectIndexByName(wchar_t* e_pString)
 	{
-		if( e_pString )
+		if (e_pString)
 		{
 			size_t l_uiSize = m_ObjectList.size();
 			for (size_t i = 0; i<l_uiSize; ++i)
 			{
-				if( !wcscmp(m_ObjectList[i]->GetName(),e_pString) )
+				if (!wcscmp(m_ObjectList[i]->GetName(), e_pString))
 				{
 					return i;
 				}
@@ -300,7 +300,7 @@ public:
 		size_t l_uiSize = m_ObjectList.size();
 		for (size_t i = 0; i<l_uiSize; ++i)
 		{
-			if( m_ObjectList[i] == e_T )
+			if (m_ObjectList[i] == e_T)
 			{
 				return i;
 			}
@@ -308,7 +308,7 @@ public:
 		return -1;
 	}
 
-	std::vector<T*>*	GetList(){return &m_ObjectList;}
+	std::vector<T*>*	GetList() { return &m_ObjectList; }
 	//=========================
 	//set from resource true and assign pointer to dest
 	//get data from dest
@@ -317,8 +317,8 @@ public:
 	{
 		Destroy();
 		this->m_bFromResource = true;
-		size_t l_uiSize = m_ObjectList.size();
-		for (size_t i = 0; i<l_uiSize; ++i)
+		int l_iSize = e_pList->Count();
+		for (int i = 0; i<l_iSize; ++i)
 		{
 			m_ObjectList.push_back((*e_pList)[i]);
 		}
@@ -343,32 +343,32 @@ public:
 	//ensure m_bFromResource set as well
 	//
 	//=========================
-	virtual	void	AddListToMe(cNamedTypedObjectVector<T>*e_pList,bool e_bIgnoreSameName = false,bool e_bIgnoreSameData = false)
+	virtual	void	AddListToMe(cNamedTypedObjectVector<T>*e_pList, bool e_bIgnoreSameName = false, bool e_bIgnoreSameData = false)
 	{
 		this->m_bFromResource = true;
 		int l_uiSize = e_pList->Count();
 		for (int i = 0; i<l_uiSize; ++i)
 		{
-		    if( !e_bIgnoreSameName )
-		    {
-		        if(this->GetObject(e_pList->m_ObjectList[i]->GetName()))
-		            continue;
-		    }
-			if( !e_bIgnoreSameData )
+			if (!e_bIgnoreSameName)
 			{
-				if(GetObjectIndexByPointer(e_pList->m_ObjectList[i]) != -1)
+				if (this->GetObject(e_pList->m_ObjectList[i]->GetName()))
+					continue;
+			}
+			if (!e_bIgnoreSameData)
+			{
+				if (GetObjectIndexByPointer(e_pList->m_ObjectList[i]) != -1)
 				{
 					continue;
 				}
 			}
 			m_ObjectList.push_back(e_pList->m_ObjectList[i]);
-	    }
+		}
 	}
 	//==================================
 	//swap data index
 	//2 objects change index
 	//==================================
-	void	SwapIndex(int e_iIndex1,int e_iIndex2)
+	void	SwapIndex(int e_iIndex1, int e_iIndex2)
 	{
 		T* l_1 = this->m_ObjectList[e_iIndex1];
 		T* l_2 = this->m_ObjectList[e_iIndex2];
@@ -380,31 +380,31 @@ public:
 	int		GetLoopIndex(int e_iCurrentIndex)
 	{
 		int	l_iTotalCount = (int)m_ObjectList.size();
-		if( e_iCurrentIndex<0 )
-			return l_iTotalCount-1;
-		if( e_iCurrentIndex+1>=l_iTotalCount )
-			return l_iTotalCount-1;
+		if (e_iCurrentIndex<0)
+			return l_iTotalCount - 1;
+		if (e_iCurrentIndex + 1 >= l_iTotalCount)
+			return l_iTotalCount - 1;
 		return e_iCurrentIndex;
 	}
 	//compare 2list to get different data list
-	static cNamedTypedObjectVector<T>	GetDifferentObjectList(cNamedTypedObjectVector<T>*e_pList1,cNamedTypedObjectVector<T>*e_pList2)
+	static cNamedTypedObjectVector<T>	GetDifferentObjectList(cNamedTypedObjectVector<T>*e_pList1, cNamedTypedObjectVector<T>*e_pList2)
 	{
 		cNamedTypedObjectVector<T>	l_DiffObjectList;
 		int	l_iCount1 = e_pList1->Count();
 		int	l_iCount2 = e_pList2->Count();
 		T*l_pObject = 0;
 		bool	l_bSame = false;
-		for( int i=0;i<l_iCount1;++i )
+		for (int i = 0; i<l_iCount1; ++i)
 		{
 			l_pObject = e_pList1->GetObject(i);
-			for( int j=0;j<l_iCount2;++j )
+			for (int j = 0; j<l_iCount2; ++j)
 			{
-				if(e_pList2->GetObject(j) == l_pObject)
+				if (e_pList2->GetObject(j) == l_pObject)
 				{
 					l_bSame = true;
 					break;
 				}
-				if( !l_bSame )
+				if (!l_bSame)
 				{
 					l_DiffObjectList.AddObjectNeglectExist(l_pObject);
 				}
@@ -415,23 +415,23 @@ public:
 };
 //T must inhirent NamedTypedObject
 template<class  T>
-class   cFMWorkingObjectChanger:public cNamedTypedObjectVector<T>
+class   cFMWorkingObjectChanger :public cNamedTypedObjectVector<T>
 {
 protected:
-    T*  m_pCurrentWorkingObject;
+	T*  m_pCurrentWorkingObject;
 public:
-    cFMWorkingObjectChanger(){ m_pCurrentWorkingObject = 0;}
-    virtual ~cFMWorkingObjectChanger(){}
-	cFMWorkingObjectChanger(cFMWorkingObjectChanger<T>*e_pFMWorkingObjectChanger):cNamedTypedObjectVector<T>(e_pFMWorkingObjectChanger){ m_pCurrentWorkingObject = 0; }
+	cFMWorkingObjectChanger() { m_pCurrentWorkingObject = 0; }
+	virtual ~cFMWorkingObjectChanger() {}
+	cFMWorkingObjectChanger(cFMWorkingObjectChanger<T>*e_pFMWorkingObjectChanger) :cNamedTypedObjectVector<T>(e_pFMWorkingObjectChanger) { m_pCurrentWorkingObject = 0; }
 
-	inline	int		GetCurrentWorkingObjectIndex(){ if( !m_pCurrentWorkingObject )return -1;return this->GetObjectIndexByPointer(m_pCurrentWorkingObject); }
-    inline  T*      GetCurrentWorkingObject(){return m_pCurrentWorkingObject; }
-    inline  virtual	bool      SetCurrentWorkingObject(int e_iIndex,bool e_bRestart = true)
+	inline	int		GetCurrentWorkingObjectIndex() { if (!m_pCurrentWorkingObject)return -1; return this->GetObjectIndexByPointer(m_pCurrentWorkingObject); }
+	inline  T*      GetCurrentWorkingObject() { return m_pCurrentWorkingObject; }
+	inline  virtual	bool      SetCurrentWorkingObject(int e_iIndex, bool e_bRestart = true)
 	{
 		m_pCurrentWorkingObject = this->GetObject(e_iIndex);
-		if( m_pCurrentWorkingObject )
+		if (m_pCurrentWorkingObject)
 		{
-			if( e_bRestart ) 
+			if (e_bRestart)
 			{
 				m_pCurrentWorkingObject->Init();
 				m_pCurrentWorkingObject->Update(0.f);
@@ -440,22 +440,22 @@ public:
 		}
 		return false;
 	}
-    inline  bool      SetCurrentWorkingObject(const wchar_t*e_strName,bool e_bRestart = true)
+	inline  bool      SetCurrentWorkingObject(const wchar_t*e_strName, bool e_bRestart = true)
 	{
-		return SetCurrentWorkingObject(this->GetObjectIndexByName(e_strName),e_bRestart);
+		return SetCurrentWorkingObject(this->GetObjectIndexByName(e_strName), e_bRestart);
 	}
-    inline  void    InitAllObject()
-    {
-        int l_iCount = this->Count();
-        for( int i=0;i<l_iCount;++i )
-        {
-            this->m_ObjectList[i]->Init();
-        }
-    }
-	virtual	void	Init(){ if( m_pCurrentWorkingObject )m_pCurrentWorkingObject->Init(); }
+	inline  void    InitAllObject()
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			this->m_ObjectList[i]->Init();
+		}
+	}
+	virtual	void	Init() { if (m_pCurrentWorkingObject)m_pCurrentWorkingObject->Init(); }
 	//virtual	void	Destroy(){ if( m_pCurrentWorkingObject )m_pCurrentWorkingObject->Destroy(); }
-	virtual	void	Update(float e_fElpaseTime){ if( m_pCurrentWorkingObject )m_pCurrentWorkingObject->Update(e_fElpaseTime); }
-	virtual	void	Render(){ if( m_pCurrentWorkingObject )m_pCurrentWorkingObject->Render(); }
+	virtual	void	Update(float e_fElpaseTime) { if (m_pCurrentWorkingObject)m_pCurrentWorkingObject->Update(e_fElpaseTime); }
+	virtual	void	Render() { if (m_pCurrentWorkingObject)m_pCurrentWorkingObject->Render(); }
 };
 
 
@@ -471,7 +471,7 @@ public:
 //
 //LIST as parent
 //CHILDREN_DATA_TYPE as its child
-template < class LIST,class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren:public cNamedTypedObjectVector< LIST >
+template < class LIST, class CHILDREN_DATA_TYPE > class cObjectListWithItsChildren :public cNamedTypedObjectVector< LIST >
 {
 protected:
 	LIST*	m_pCurrentList;
@@ -479,56 +479,56 @@ public:
 	cObjectListWithItsChildren()
 	{
 		m_pCurrentList = 0;
-	}	
-	cObjectListWithItsChildren(cObjectListWithItsChildren<LIST,CHILDREN_DATA_TYPE>*e_pObjectListTree):cNamedTypedObjectVector<LIST>(e_pObjectListTree){ m_pCurrentList = 0; }
-	virtual ~cObjectListWithItsChildren(){}
+	}
+	cObjectListWithItsChildren(cObjectListWithItsChildren<LIST, CHILDREN_DATA_TYPE>*e_pObjectListTree) :cNamedTypedObjectVector<LIST>(e_pObjectListTree) { m_pCurrentList = 0; }
+	virtual ~cObjectListWithItsChildren() {}
 	virtual	void	Destroy()
 	{
 		cNamedTypedObjectVector< LIST >::Destroy();
 		m_pCurrentList = 0;
 	}
-	bool	AddChildObject(wchar_t*e_strListName,CHILDREN_DATA_TYPE e_pObject)
+	bool	AddChildObject(wchar_t*e_strListName, CHILDREN_DATA_TYPE e_pObject)
 	{
 		LIST*l_pTargetList = this->GetObject(e_strListName);
-		if( l_pTargetList )
+		if (l_pTargetList)
 			return l_pTargetList->GetObject(e_strListName)->AddObject(e_pObject);
 		return false;
 	}
 
-	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strListName,wchar_t*ChildName)
+	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strListName, wchar_t*ChildName)
 	{
 		LIST*l_pTargetList = this->GetObject(e_strListName);
-		if( l_pTargetList )
-			return l_pTargetList->GetObject(ChildName); 
+		if (l_pTargetList)
+			return l_pTargetList->GetObject(ChildName);
 		return nullptr;
 	}
-	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iListIndex,int e_iChildIndex)
+	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iListIndex, int e_iChildIndex)
 	{
 		LIST*l_pTargetList = this->GetObject(e_iListIndex);
-		if( l_pTargetList )
-			return l_pTargetList->GetObject(e_iChildIndex); 
+		if (l_pTargetList)
+			return l_pTargetList->GetObject(e_iChildIndex);
 		return nullptr;
 	}
 	//from current list
-	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strChildName){ if(m_pCurrentList)return m_pCurrentList->GetObject(e_strChildName); return nullptr; }
-	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iChildIndex){ if(m_pCurrentList)return m_pCurrentList->GetObject(e_iChildIndex); return nullptr; }
+	inline CHILDREN_DATA_TYPE*	GetChildObject(wchar_t*e_strChildName) { if (m_pCurrentList)return m_pCurrentList->GetObject(e_strChildName); return nullptr; }
+	inline CHILDREN_DATA_TYPE*	GetChildObject(int e_iChildIndex) { if (m_pCurrentList)return m_pCurrentList->GetObject(e_iChildIndex); return nullptr; }
 
-	inline void	SetCurrentList(wchar_t*e_strName){m_pCurrentList = this->GetObject(e_strName);}
-	inline void	SetCurrentList(LIST* e_pList){ m_pCurrentList = e_pList; }
-	inline void	SetCurrentList(int e_iIndex){ m_pCurrentList = this->m_ObjectList[e_iIndex]; }
+	inline void	SetCurrentList(wchar_t*e_strName) { m_pCurrentList = this->GetObject(e_strName); }
+	inline void	SetCurrentList(LIST* e_pList) { m_pCurrentList = e_pList; }
+	inline void	SetCurrentList(int e_iIndex) { m_pCurrentList = this->m_ObjectList[e_iIndex]; }
 
-	inline LIST*	GetCurrentList(){ return m_pCurrentList; }
+	inline LIST*	GetCurrentList() { return m_pCurrentList; }
 	//this one is a sample and it sux....it should considate recursive sitiation(list of list of list...listtree type)
 	inline CHILDREN_DATA_TYPE*	GetListChildByUniqueID(uint64 e_uiID)
 	{
 		int	l_iCount = this->Count();
-		for( int i=0;i<l_iCount;++i )
+		for (int i = 0; i<l_iCount; ++i)
 		{
 			LIST*	l_pList = this->m_ObjectList[i];
 			int	l_iCount2 = l_pList->Count();
-			for( int j=0;j<l_iCount2;++j )
+			for (int j = 0; j<l_iCount2; ++j)
 			{
-				if( (*l_pList)[j]->GetUniqueID() == e_uiID )
+				if ((*l_pList)[j]->GetUniqueID() == e_uiID)
 				{
 					return (*l_pList)[j];
 				}
@@ -541,59 +541,59 @@ public:
 //=================
 //the object T must has update and render
 //=================
-template <class T> class    cBehaviorObjectList:public cNamedTypedObjectVector<T>
+template <class T> class    cBehaviorObjectList :public cNamedTypedObjectVector<T>
 {
 public:
-	cBehaviorObjectList(){}
-	cBehaviorObjectList(cBehaviorObjectList*e_pBehaviorObjectList):cNamedTypedObjectVector<T>(e_pBehaviorObjectList){}
-	virtual ~cBehaviorObjectList(){}
-    virtual void    Init()
-    {
-        int l_iCount = this->Count();
-        for(int i=0;i<l_iCount;++i)
-        {
-            this->m_ObjectList[i]->Init();
-        }
-    }
-    virtual void    Update(float e_fElpaseTime)
-    {
-        int l_iCount = this->Count();
-        for(int i=0;i<l_iCount;++i)
-        {
-            this->m_ObjectList[i]->Update(e_fElpaseTime);
-        }
-    }
-    inline	virtual void    Render()
-    {
-        int l_iCount = this->Count();
-        for(int i=0;i<l_iCount;++i)
-        {
-            this->m_ObjectList[i]->Render();
-        }    
-    }
-    //inline	virtual void    Start(float e_fElpaseTime = EPSIONAL)
-    //{
-    //    int l_iCount = this->Count();
-    //    for(int i=0;i<l_iCount;++i)
-    //    {
-    //        this->m_ObjectList[i]->Start(e_fElpaseTime);
-    //    }    
-    //}
-    inline	virtual void    Destroy()
-    {
-        int l_iCount = this->Count();
-        for(int i=0;i<l_iCount;++i)
-        {
-            this->m_ObjectList[i]->Destroy();
-        }
-    }
+	cBehaviorObjectList() {}
+	cBehaviorObjectList(cBehaviorObjectList*e_pBehaviorObjectList) :cNamedTypedObjectVector<T>(e_pBehaviorObjectList) {}
+	virtual ~cBehaviorObjectList() {}
+	virtual void    Init()
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			this->m_ObjectList[i]->Init();
+		}
+	}
+	virtual void    Update(float e_fElpaseTime)
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			this->m_ObjectList[i]->Update(e_fElpaseTime);
+		}
+	}
+	inline	virtual void    Render()
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			this->m_ObjectList[i]->Render();
+		}
+	}
+	//inline	virtual void    Start(float e_fElpaseTime = EPSIONAL)
+	//{
+	//    int l_iCount = this->Count();
+	//    for(int i=0;i<l_iCount;++i)
+	//    {
+	//        this->m_ObjectList[i]->Start(e_fElpaseTime);
+	//    }    
+	//}
+	inline	virtual void    Destroy()
+	{
+		int l_iCount = this->Count();
+		for (int i = 0; i<l_iCount; ++i)
+		{
+			this->m_ObjectList[i]->Destroy();
+		}
+	}
 };
 //for level editor cMapLayer
-template <class T> class cNamedTypedObjectVectorWithData:public cNamedTypedObjectVector<T>
+template <class T> class cNamedTypedObjectVectorWithData :public cNamedTypedObjectVector<T>
 {
-	GET_SET_DEC(void*,m_pData,GetData,SetData);
+	GET_SET_DEC(void*, m_pData, GetData, SetData);
 public:
-	cNamedTypedObjectVectorWithData():cNamedTypedObjectVector<T>()
+	cNamedTypedObjectVectorWithData() :cNamedTypedObjectVector<T>()
 	{
 		m_pData = 0;
 	}
@@ -602,22 +602,22 @@ public:
 		SAFE_DELETE(m_pData);
 	}
 
-	cNamedTypedObjectVectorWithData(cNamedTypedObjectVectorWithData*e_pObjectListByNameWithData):cNamedTypedObjectVector<T>(e_pObjectListByNameWithData)
+	cNamedTypedObjectVectorWithData(cNamedTypedObjectVectorWithData*e_pObjectListByNameWithData) :cNamedTypedObjectVector<T>(e_pObjectListByNameWithData)
 	{
 		m_pData = 0;
 	}
 
-	virtual	NamedTypedObject*	Clone(){ return new cNamedTypedObjectVectorWithData<T>(this); }
+	virtual	NamedTypedObject*	Clone() { return new cNamedTypedObjectVectorWithData<T>(this); }
 };
 
 //T must inhirent NamedTypedObject
-template<class T>class	cObjectAndName:public NamedTypedObject
+template<class T>class	cObjectAndName :public NamedTypedObject
 {
 	T	*m_pObject;
 public:
 	//must set up object
-	cObjectAndName(const wchar_t*e_strName){SetName(e_strName);}
-	cObjectAndName(const wchar_t*e_strName,T*e_pObject)
+	cObjectAndName(const wchar_t*e_strName) { SetName(e_strName); }
+	cObjectAndName(const wchar_t*e_strName, T*e_pObject)
 	{
 		SetName(e_strName);
 		m_pObject = dynamic_cast<T*>(e_pObject->Clone());
@@ -633,13 +633,13 @@ public:
 		SAFE_DELETE(m_pObject);
 	}
 	//virtual	void	Start(float e_fElpaseTime = 0.f){ m_pObject->Start(e_fElpaseTime); }
-	virtual	void	Init(){ m_pObject->Init(); }
-	virtual	void	Destroy(){ m_pObject->Destroy(); }
-	virtual	void	Update(float e_fElpaseTime){ m_pObject->Update(e_fElpaseTime); }
-	virtual	void	Render(){ m_pObject->Render(); }
-	T*				GetObject(){ return m_pObject; }
+	virtual	void	Init() { m_pObject->Init(); }
+	virtual	void	Destroy() { m_pObject->Destroy(); }
+	virtual	void	Update(float e_fElpaseTime) { m_pObject->Update(e_fElpaseTime); }
+	virtual	void	Render() { m_pObject->Render(); }
+	T*				GetObject() { return m_pObject; }
 	//ensure memory control
-	void			SetObject(T*e_pData){ m_pObject = e_pData; }
+	void			SetObject(T*e_pData) { m_pObject = e_pData; }
 };
 
 
@@ -647,15 +647,15 @@ public:
 //do not support pointer data
 template <class TYPE>inline	void	InvertVectorDateOrder(std::vector<TYPE>*e_pVectorData)
 {
-	int l_iLastIndex = (int)e_pVectorData->size()-1;
+	int l_iLastIndex = (int)e_pVectorData->size() - 1;
 	//only 1 or 0 data is not necessery to invert
-	if( l_iLastIndex <1 )
+	if (l_iLastIndex <1)
 		return;
 	size_t l_iSize = (size_t)e_pVectorData->size();
 	std::vector<TYPE> l_OriginalPointList = *e_pVectorData;
-	for(size_t i=0;i<l_iSize;++i )
+	for (size_t i = 0; i<l_iSize; ++i)
 	{
-		l_OriginalPointList[l_iLastIndex-i] = (*e_pVectorData)[i];
+		l_OriginalPointList[l_iLastIndex - i] = (*e_pVectorData)[i];
 	}
 	*e_pVectorData = l_OriginalPointList;
 }
@@ -670,62 +670,62 @@ template <class TYPE>inline	void	InvertVectorDateOrder(std::vector<TYPE>*e_pVect
 //	}
 //};
 //it dones't support pointer
-template <class Type1,class Type2> map<Type1,Type2>	SwapMapData(Type1 e_iIndex1,Type1 e_iIndex2,map<Type1,Type2> e_pMap)
+template <class Type1, class Type2> map<Type1, Type2>	SwapMapData(Type1 e_iIndex1, Type1 e_iIndex2, map<Type1, Type2> e_pMap)
 {
 	Type2	Object1 = e_pMap[e_iIndex1];
 	Type2	Object2 = e_pMap[e_iIndex2];
 	e_pMap.erase(e_iIndex1);
 	e_pMap.erase(e_iIndex2);
-	e_pMap.insert(make_pair(e_iIndex1,Object2));
-	e_pMap.insert(make_pair(e_iIndex2,Object1));
+	e_pMap.insert(make_pair(e_iIndex1, Object2));
+	e_pMap.insert(make_pair(e_iIndex2, Object1));
 	return e_pMap;
 }
 
 //it dones't support pointer
-template <class Type1,class Type2> map<Type1,Type2>	ReplaceMapData(Type1 e_iIndex,Type2 e_Data,map<Type1,Type2> e_pMap)
+template <class Type1, class Type2> map<Type1, Type2>	ReplaceMapData(Type1 e_iIndex, Type2 e_Data, map<Type1, Type2> e_pMap)
 {
 	e_pMap.erase(e_iIndex);
-	e_pMap.insert(make_pair(e_iIndex,e_Data));
+	e_pMap.insert(make_pair(e_iIndex, e_Data));
 	return e_pMap;
 }
-template<class T>	inline	std::vector<int>	IndexListOfVector(T e_Object,std::vector<T>*e_pSrc)
+template<class T>	inline	std::vector<int>	IndexListOfVector(T e_Object, std::vector<T>*e_pSrc)
 {
 	std::vector<int>l_List;
 	size_t	l_uiSize = e_pSrc->size();
-	for(size_t i=0;i<l_uiSize;++i  )
+	for (size_t i = 0; i<l_uiSize; ++i)
 	{
-		if((*e_pSrc)[i] == e_Object)
+		if ((*e_pSrc)[i] == e_Object)
 			l_List.push_back(i);
 	}
 	return l_List;
 }
-template<class T>	inline	int		IndexOfVector(T e_Object,std::vector<T>*e_pSrc)
+template<class T>	inline	int		IndexOfVector(T e_Object, std::vector<T>*e_pSrc)
 {
 	size_t	l_uiSize = e_pSrc->size();
-	for(size_t i=0;i<l_uiSize;++i  )
+	for (size_t i = 0; i<l_uiSize; ++i)
 	{
-		if((*e_pSrc)[i] == e_Object)
+		if ((*e_pSrc)[i] == e_Object)
 			return i;
 	}
 	return -1;
 }
-template<class T>	inline	bool	IsVectorContain(T e_Object,std::vector<T>*e_pSrc)
+template<class T>	inline	bool	IsVectorContain(T e_Object, std::vector<T>*e_pSrc)
 {
 	size_t	l_uiSize = e_pSrc->size();
-	for(size_t i=0;i<l_uiSize;++i  )
+	for (size_t i = 0; i<l_uiSize; ++i)
 	{
-		if((*e_pSrc)[i] == e_Object)
+		if ((*e_pSrc)[i] == e_Object)
 			return true;
 	}
 	return false;
 }
-template<class T>	inline	int	NumVectorContain(T e_Object,std::vector<T>*e_pSrc)
+template<class T>	inline	int	NumVectorContain(T e_Object, std::vector<T>*e_pSrc)
 {
 	size_t	l_uiSize = e_pSrc->size();
 	int	l_iNum = 0;
-	for(size_t i=0;i<l_uiSize;++i  )
+	for (size_t i = 0; i<l_uiSize; ++i)
 	{
-		if((*e_pSrc)[i] == e_Object)
+		if ((*e_pSrc)[i] == e_Object)
 			++l_iNum;
 	}
 	return l_iNum;
