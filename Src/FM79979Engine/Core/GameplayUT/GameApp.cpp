@@ -109,7 +109,7 @@ namespace	FATMING_CORE
 #endif
 	{
 #ifdef WIN32
-		DWORD  nBufferLength;
+		DWORD  nBufferLength = 0;
 		wchar_t l_strDirectory[MAX_PATH];
 		GetCurrentDirectory(nBufferLength, l_strDirectory);
 		std::wstring l_strDirectpryInfo = L"Working Directory:";

@@ -21,6 +21,9 @@ cCurveWithTime*g_p2DCurvesWithTime = 0;
 cMPDIList*g_pMPDIList = 0;
 cMultiPathDynamicImage*g_pMultiPathDynamicImage = 0;
 cMultiPathDynamicImage*g_pMultiPathDynamicImageClone = 0;
+cCurveWithTime			g_TestCurveWithTime;
+c2DImageCollisionData*	g_pCollisionData = nullptr;
+
 
 cColladaParser*g_pColladaParser = 0;
 //cAnimationMesh*g_pAnimationMesh = 0;
@@ -38,6 +41,9 @@ cTunnelEffect*g_pTunnelEffect = nullptr;
 void	LoadSample();
 void	DestoryObject();
 void	SampleUpdate(float e_fElpaseTime);
+
+void	KeyboardDataRender();
+
 void	SampleRender();
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY);
@@ -46,6 +52,7 @@ void	SampleMouseUp(int e_iPosX,int e_iPosY);
 void	SampleKeyup(char e_cKey);
 void	LoadSample()
 {
+	return;
 	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
@@ -73,6 +80,7 @@ void	LoadSample()
 			l_pPosData->AddData(Vector3(100,200,0),5.f);
 			l_pPosData->AddData(Vector3(500,600,0),7.5f);
 			l_pPosData->AddData(Vector3(649,285,0),10.f);
+			l_pPosData->AddData(Vector3(1440, 900, 0), 20.f);
 			l_pPosData->SetLOD(5);
 			l_pPosData->Rearrange(5.f);
 		}
@@ -82,18 +90,30 @@ void	LoadSample()
 	}
 
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
+	g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/ClownFish_0001/ClownFish_0001.mpdi");
+	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.mpdi");	
 	if( g_pMPDIList )
 	{
+		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(0);
 		//ensure u have call start
 		g_pMultiPathDynamicImage->Init();
+		g_pMultiPathDynamicImage->SetPos(Vector3(350, 500, 0));
 		g_pMultiPathDynamicImage->SetAnimationLoop(true);
-		if( 0 )
+		if( 1 )
 		{
-			g_pMultiPathDynamicImageClone = new cMultiPathDynamicImage(g_pMultiPathDynamicImage);
-			//g_pMultiPathDynamicImage->SetLoop(true);
-			g_pMultiPathDynamicImage->SetStayAtLastFrame(true);
+			//g_pMultiPathDynamicImageClone = new cMultiPathDynamicImage(g_pMPDIList->GetObject(L"DiedShow2"));
+			g_pMultiPathDynamicImageClone = new cMultiPathDynamicImage(g_pMPDIList->GetObject(0));
+			g_pMultiPathDynamicImageClone->Init();
+			g_pMultiPathDynamicImageClone->SetAnimationLoop(true);
+			//g_pMultiPathDynamicImage->SetStayAtLastFrame(true);
 		}
+	}
+	g_pCollisionData = new c2DImageCollisionData();
+	if (g_pCollisionData && g_pCollisionData->Parse("C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/ClownFish_0001/ClownFish_0001.collision"))
+	//if (g_pCollisionData && g_pCollisionData->Parse("C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.collision"))
+	{
+
 	}
 	//g_pParticleEmitterGroup = cGameApp::GetPRTG("ParticleData/Stage1.prtg",L"Fire");
 	if( g_pParticleEmitterGroup )
@@ -124,8 +144,16 @@ void	LoadSample()
 			g_pCurve->Init();
 		}
 	}
-	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
+	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
 	//
+	g_TestCurveWithTime.SetCalAngle(true);
+	g_TestCurveWithTime.AddPoint(Vector3(300, 300, 0), 0);
+	g_TestCurveWithTime.AddPoint(Vector3(300, 500, 0), 5);
+	g_TestCurveWithTime.AddPoint(Vector3(700, 300, 0), 10);
+	g_TestCurveWithTime.AddPoint(Vector3(1000, 680, 0), 15);
+	g_TestCurveWithTime.AddPoint(Vector3(1440, 900, 0), 20);
+	g_TestCurveWithTime.SetLOD(3);
+	g_TestCurveWithTime.Init();
 }
 
 void	DestorySampleObject()
@@ -156,8 +184,46 @@ void	SampleUpdate(float e_fElpaseTime)
 	{
 		g_pMPDINode->Update(e_fElpaseTime);
 	}
-	if( g_pMultiPathDynamicImage )
+	if (g_pMultiPathDynamicImage)
+	{
+		Vector2 l_vDrawSize = g_pMultiPathDynamicImage->GetDrawSize() / 2;
+		g_TestCurveWithTime.Update(e_fElpaseTime);
+		static float l_sfAngle = e_fElpaseTime;
+		l_sfAngle += 1 * e_fElpaseTime;
+		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition(), g_TestCurveWithTime.GetCurrentPosToNextPointAngle()-90);
+		g_pMultiPathDynamicImage->SetRotationAnglePosOffsetWithDrawSize(true);
+		g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition()-Vector3(l_vDrawSize.x, l_vDrawSize.y,0))*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
+		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(Vector3(260,900,0), l_sfAngle);
+		//g_pMultiPathDynamicImage->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition(),0.f);
+		//g_pMultiPathDynamicImage->SetWorldTransform(g_pMultiPathDynamicImage->GetWorldTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfAngle)));
+		//g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(1440,500,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfAngle)));
 		g_pMultiPathDynamicImage->Update(e_fElpaseTime);
+		if (g_pMultiPathDynamicImageClone)
+		{
+			//g_pMultiPathDynamicImageClone->SetTranslationRotatopnScaleWithImageCenter(g_TestCurveWithTime.GetCurrentPosition()- l_vDrawSize, g_TestCurveWithTime.GetCurrentPosToNextPointAngle());
+			//g_pMultiPathDynamicImageClone->SetRotationAnglePosOffsetWithDrawSize(true);
+			//g_pMultiPathDynamicImageClone->SetRotationAnglePosOffset(Vector3())
+			//l_vDrawSize = g_pMultiPathDynamicImage->GetDrawSize() / 2;
+			//g_pMultiPathDynamicImageClone->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition() )*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
+			g_pMultiPathDynamicImageClone->SetWorldTransform(cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition())*cMatrix44::ZAxisRotationMatrix(g_TestCurveWithTime.GetCurrentPosToNextPointAngle() - 90));
+			//g_pMultiPathDynamicImageClone->SetTranslationRotatopnScaleWithImageCenter(Vector3(1440, 260, 0),l_sfAngle);
+			g_pMultiPathDynamicImageClone->Update(e_fElpaseTime);
+			g_pMultiPathDynamicImageClone->SetColor(Vector4::Red);
+		}
+		int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
+		Vector3 l_vPos = g_TestCurveWithTime.GetCurrentPosition();
+		//for (int i = 0; i < g_pCollisionData->Count();++i)
+		{
+			
+			//cMatrix44 l_mat = cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition())*cMatrix44::RotationMatrix(Vector3(0, 0, g_TestCurveWithTime.GetCurrentPosToNextPointAngle()-90));
+			//cMatrix44 l_mat = cMatrix44::TranslationMatrix(g_TestCurveWithTime.GetCurrentPosition());
+			cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(l_vDrawSize.x, l_vDrawSize.y,0))*g_pMultiPathDynamicImage->GetWorldTransform();
+			if (g_pCollisionData)
+			{
+				(*g_pCollisionData)[l_iIndex]->SetTransform(l_mat);
+			}
+		}
+	}
 	if( g_pPrtEmitter )
 		g_pPrtEmitter->Update(e_fElpaseTime);
 	if( g_pParticleEmitterGroup )
@@ -181,8 +247,44 @@ void	SampleUpdate(float e_fElpaseTime)
 	}
 }
 
+void	KeyboardDataRender()
+{
+	int l_iStartPosX = 100;
+	int l_iStartPosY = 100;
+	static bool l_bAllKeyHasBeenPressed[260];
+	for (int i = 0; i < MAX_PATH; ++i)
+	{
+		bool l_b = cGameApp::m_sucKeyData[i];
+		wchar_t l_str[3] = {i,L':',0};
+		std::wstring l_strInfo = ValueToStringW(i);
+		l_strInfo += L":";
+		l_strInfo += l_str;
+		if(l_b)
+			l_bAllKeyHasBeenPressed[i] = l_b;
+		if (l_bAllKeyHasBeenPressed[i])
+		{
+			cGameApp::m_spGlyphFontRender->SetColor(Vector4::Red);
+		}
+		else
+		{
+			cGameApp::m_spGlyphFontRender->SetColor(Vector4::One);
+		}
+		cGameApp::RenderFont(Vector2(l_iStartPosX, l_iStartPosY), l_strInfo.c_str());
+		cGameApp::RenderFont(Vector2(l_iStartPosX+110, l_iStartPosY), l_b?L"1":L"0");
+		l_iStartPosY += 30;
+		if (l_iStartPosY >= 1000)
+		{
+			l_iStartPosX += 200;
+			l_iStartPosY = 100;
+		}
+	}
+}
+
 void	SampleRender()
 {
+	glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
+	KeyboardDataRender();
+	return;
 	if( g_pTunnelEffect )
 	{
 		g_pTunnelEffect->Use();
@@ -213,11 +315,25 @@ void	SampleRender()
 
 	if(g_pOrthogonalCamera)
 	{
-		g_pOrthogonalCamera->Render();
+		//g_pOrthogonalCamera->Render();
 		//g_pOrthogonalCamera->DrawGrid();
 	}
-	if( g_pMultiPathDynamicImage )
+	GLRender::RenderRectangle(1440, 900,cMatrix44::Identity,Vector4::One);
+	if (g_pMultiPathDynamicImage)
+	{
 		g_pMultiPathDynamicImage->Render();
+		if (g_pMultiPathDynamicImageClone)
+			g_pMultiPathDynamicImageClone->Render();
+		g_TestCurveWithTime.Render();
+		Vector3 l_vPos = g_TestCurveWithTime.GetCurrentPosition();
+		int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
+		if(g_pCollisionData)
+		//for (int i = 0; i < g_CollisionData.Count();++i)
+		{
+			(*g_pCollisionData)[l_iIndex]->DebugRender();
+		}
+		//GLRender::RenderPoint(Vector3(500, 500, 0), 30);
+	}
 	if( g_pPrtEmitter )
 		g_pPrtEmitter->Render();
 	if( g_pParticleEmitterGroup )
@@ -281,7 +397,8 @@ void	SampleKeyup(char e_cKey)
 	}
 	if( e_cKey == 'R' )
 	{
-		SAFE_DELETE(g_pTunnelEffect);
-		g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
+		//SAFE_DELETE(g_pTunnelEffect);
+		//g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
+		g_TestCurveWithTime.Init();
 	}
 }

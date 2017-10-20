@@ -44,4 +44,7 @@
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resX" />
+  </ItemGroup>
 </Project>

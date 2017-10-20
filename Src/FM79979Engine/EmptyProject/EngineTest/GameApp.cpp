@@ -86,7 +86,7 @@ void	cEngineTestApp::Render()
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
 	}
-	cGameApp::ShowInfo();
+	//cGameApp::ShowInfo();
 	glDisable(GL_TEXTURE_2D);
 	this->m_pPhaseManager->DebugRender();
 	glDisable2D();

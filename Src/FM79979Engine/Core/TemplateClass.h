@@ -211,7 +211,8 @@ public:
 
 	inline T* GetObjectByType(const wchar_t*e_pString)
 	{
-		for( UINT i=0;i<m_ObjectList.size();++i  )
+		size_t l_uiSize = m_ObjectList.size();
+		for(size_t i=0;i<l_uiSize;++i  )
 		{
 			if( m_ObjectList[i]->Type() == e_pString )
 				return m_ObjectList[i];
@@ -221,7 +222,8 @@ public:
 	
 	inline T* GetObjectByTypePointer(T*e_pObject)
 	{
-		for( UINT i=0;i<m_ObjectList.size();++i  )
+		size_t l_uiSize = m_ObjectList.size();
+		for (size_t i = 0; i<l_uiSize; ++i)
 		{
 			if( m_ObjectList[i]->Type() == e_pObject->Type() )
 				return m_ObjectList[i];
@@ -281,7 +283,8 @@ public:
 	{
 		if( e_pString )
 		{
-			for( UINT i=0;i<m_ObjectList.size();++i  )
+			size_t l_uiSize = m_ObjectList.size();
+			for (size_t i = 0; i<l_uiSize; ++i)
 			{
 				if( !wcscmp(m_ObjectList[i]->GetName(),e_pString) )
 				{
@@ -294,7 +297,8 @@ public:
 
 	inline	int	GetObjectIndexByPointer(T* e_T)
 	{
-		for( UINT i=0;i<m_ObjectList.size();++i  )
+		size_t l_uiSize = m_ObjectList.size();
+		for (size_t i = 0; i<l_uiSize; ++i)
 		{
 			if( m_ObjectList[i] == e_T )
 			{
@@ -313,7 +317,8 @@ public:
 	{
 		Destroy();
 		this->m_bFromResource = true;
-		for( int i=0;i<e_pList->Count();++i )
+		size_t l_uiSize = m_ObjectList.size();
+		for (size_t i = 0; i<l_uiSize; ++i)
 		{
 			m_ObjectList.push_back((*e_pList)[i]);
 		}
@@ -325,7 +330,8 @@ public:
 	virtual	void	DumpListPointer(cNamedTypedObjectVector<T>*e_pList)
 	{
 		this->m_bFromResource = false;
-		for( int i=0;i<Count();++i )
+		size_t l_uiSize = m_ObjectList.size();
+		for (size_t i = 0; i<l_uiSize; ++i)
 		{
 			bool	l_b = e_pList->AddObject(m_ObjectList[i]);
 			assert(l_b&&"such file has already exist");
@@ -340,7 +346,8 @@ public:
 	virtual	void	AddListToMe(cNamedTypedObjectVector<T>*e_pList,bool e_bIgnoreSameName = false,bool e_bIgnoreSameData = false)
 	{
 		this->m_bFromResource = true;
-		for( int i=0;i<e_pList->Count();++i )
+		int l_uiSize = e_pList->Count();
+		for (int i = 0; i<l_uiSize; ++i)
 		{
 		    if( !e_bIgnoreSameName )
 		    {
@@ -644,9 +651,9 @@ template <class TYPE>inline	void	InvertVectorDateOrder(std::vector<TYPE>*e_pVect
 	//only 1 or 0 data is not necessery to invert
 	if( l_iLastIndex <1 )
 		return;
-	UINT l_iSize = (UINT)e_pVectorData->size();
+	size_t l_iSize = (size_t)e_pVectorData->size();
 	std::vector<TYPE> l_OriginalPointList = *e_pVectorData;
-	for( UINT i=0;i<l_iSize;++i )
+	for(size_t i=0;i<l_iSize;++i )
 	{
 		l_OriginalPointList[l_iLastIndex-i] = (*e_pVectorData)[i];
 	}
