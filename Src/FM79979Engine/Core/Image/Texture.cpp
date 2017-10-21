@@ -601,9 +601,16 @@ namespace FATMING_CORE
 	cTexture::cTexture(NamedTypedObject*e_pOwner,const char*e_strImageFileName,bool e_bFetchPixelData)
 	{
 #ifdef DEBUG
-		std::wstring l_strFileName = ValueToStringW(e_strImageFileName);
-		l_strFileName += L" start to parse:Texture";
-		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+		if(e_strImageFileName)
+		{
+			std::wstring l_strFileName = ValueToStringW(e_strImageFileName);
+			l_strFileName += L" start to parse:Texture";
+			cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+		}
+		else
+		{
+			cGameApp::OutputDebugInfoString("start to parse:Texture but Imahe FileNmae is nullptr", true, true);
+		}
 #endif
 		m_iChannel = 0;
 		m_pstrFullFileName = 0;
@@ -901,7 +908,7 @@ namespace FATMING_CORE
 	{
 		cTexture*l_pTexture = nullptr;
 		auto l_pTextureStore = GetTextureStore();
-		if (l_pTextureStore)
+		if (l_pTextureStore&& e_strImageFileName)
 		{
 			l_pTexture = l_pTextureStore->GetObject(e_strImageFileName);
 			if (!l_pTexture)

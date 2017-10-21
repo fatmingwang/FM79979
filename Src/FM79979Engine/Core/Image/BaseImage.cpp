@@ -13,14 +13,19 @@ namespace FATMING_CORE
 	//====================
 	cBaseImage::cBaseImage(const char*e_strImageName,bool e_bFetchPixels):cRenderObject()
 	{
+		m_pTexture = nullptr;
+		m_iWidth = 0;
+		m_iHeight = 0;
 		if( e_strImageName )
+		{
 			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
-		m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
-		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
+			m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
+			m_iWidth = m_pTexture->GetWidth();
+			m_iHeight = m_pTexture->GetHeight();
+			memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
+		}
 		m_bMirror = false;
 		m_bVisible = true;
-		m_iWidth = m_pTexture->GetWidth();
-		m_iHeight = m_pTexture->GetHeight();
 		//if( !g_bSupportNonPowerOfTwoTexture )
 		//{
 		//	if(m_pTexture->GetUV()[2] != 1.f || m_pTexture->GetUV()[3] == 1.f)
@@ -415,7 +420,8 @@ namespace FATMING_CORE
 		int	l_iHeightPO2 = power_of_two(m_iHeight);
 		GLint texSize; glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
 		int	l_iChannel = e_iDataFormat == GL_RGB?3:4;
-		m_pTexture->Release(this);
+		if(m_pTexture)
+			m_pTexture->Release(this);
 		//make sure power of 2,because not every fukcing graphic card support it
 		//but if u exactly sure it do support power of 2 u could mark this.
 		if( !g_bSupportNonPowerOfTwoTexture&&(l_iWidthPO2!=e_iWidth||l_iHeightPO2!=e_iHeight) )
