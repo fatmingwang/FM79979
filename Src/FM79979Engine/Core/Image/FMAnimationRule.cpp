@@ -121,7 +121,7 @@ namespace FATMING_CORE
 		float	l_fPreviousPastTime = m_fPastTime;
 		float	l_fEndTime = this->GetEndTime();
 	    m_fPastTime += e_fElpaseTime;
-		if( m_fPastTime >= l_fEndTime )
+		if (m_fPastTime >= (l_fEndTime - EPSIONAL))
 		{
 			//seems use m_iCurrentPlayCount += m_fPastTime/l_fEndTime; is better but I do care.
 			m_iCurrentPlayCount++;

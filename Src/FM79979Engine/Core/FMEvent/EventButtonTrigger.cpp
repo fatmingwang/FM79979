@@ -215,6 +215,7 @@ namespace FATMING_CORE
 	cEventButton::~cEventButton()
 	{
 		SAFE_DELETE(m_pButton);
+		SAFE_DELETE(m_pstrPressedText);
 	}
 
 	void	cEventButton::SetButton(cClickMouseBehavior*e_pButton,cBaseImage*e_pReferenceImage)

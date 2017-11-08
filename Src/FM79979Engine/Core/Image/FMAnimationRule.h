@@ -232,7 +232,7 @@ namespace FATMING_CORE
 			size_t	l_iCount = this->m_ObjectList.size();
 		    for( UINT i=0;i<l_iCount;++i )
 			    ((cFMTimeLineAnimationRule*)this->m_ObjectList[i])->Update(e_fElpaseTime);
-		    if( m_fCurrentProgress >= 1.f )
+			if (m_fCurrentProgress >= (1.f - EPSIONAL))
 		    {
 			    ++m_iCurrentPlayCount;
 			    if( m_iPlayCount == -1 ||//if loop

@@ -63,6 +63,19 @@ namespace FATMING_CORE
 		SetTexture(e_pTexture);
 	}
 
+	cBaseImage::cBaseImage(const wchar_t*e_strName)
+	{
+		this->SetName(e_strName);
+		m_pTexture = nullptr;
+		m_bMirror = false;
+		m_bVisible = true;
+		m_iWidth = 0;
+		m_iHeight = 0;
+		m_vColor = Vector4::One;
+		m_OffsetPos.x = m_OffsetPos.y = 0;
+		m_OriginalSize.x = m_iWidth;
+		m_OriginalSize.y = m_iHeight;
+	}
 	cBaseImage::~cBaseImage()
 	{
 		m_pTexture->Release(this);
@@ -90,18 +103,21 @@ namespace FATMING_CORE
 	{
 		m_pvPos->x = (float)e_Pos.x;
 		m_pvPos->y = (float)e_Pos.y;
+		this->SetCachedWorldTransformDirty();
 		//Frame::SetLocalPosition(*m_pvPos);
 	}
 	void	cBaseImage::SetPos(Vector2 e_vPos)
 	{
 		m_pvPos->x = e_vPos.x;
 		m_pvPos->y = e_vPos.y;
+		this->SetCachedWorldTransformDirty();
 		//Frame::SetLocalPosition(*m_pvPos);
 	}
 	void	cBaseImage::SetPosByImageCenter(Vector3 e_vPos)
 	{
 		m_pvPos->x = e_vPos.x-this->m_OriginalSize.x /2.f;
 		m_pvPos->y = e_vPos.y- m_OriginalSize.y /2.f;
+		this->SetCachedWorldTransformDirty();
 		//Frame::SetLocalPosition(*m_pvPos);
 	}
 
@@ -398,7 +414,7 @@ namespace FATMING_CORE
 		m_vEditorAttachParentRelativePos = Vector3::Zero;
 	}
 
-	cUIImage::cUIImage(const wchar_t*e_strName,char*e_pPixelsData,int e_iWidth,int e_iHeight,GLint e_iDataFormat):cBaseImage(0,false)
+	cUIImage::cUIImage(const wchar_t*e_strName,char*e_pPixelsData,int e_iWidth,int e_iHeight,GLint e_iDataFormat):cBaseImage(e_strName)
 	{
 		this->SetName(e_strName);
 		m_OriginalImageSize.x = -1;
@@ -415,7 +431,8 @@ namespace FATMING_CORE
 		int	l_iHeightPO2 = power_of_two(m_iHeight);
 		GLint texSize; glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
 		int	l_iChannel = e_iDataFormat == GL_RGB?3:4;
-		m_pTexture->Release(this);
+		if(m_pTexture)
+			m_pTexture->Release(this);
 		//make sure power of 2,because not every fukcing graphic card support it
 		//but if u exactly sure it do support power of 2 u could mark this.
 		if( !g_bSupportNonPowerOfTwoTexture&&(l_iWidthPO2!=e_iWidth||l_iHeightPO2!=e_iHeight) )

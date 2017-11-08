@@ -72,7 +72,7 @@ namespace FATMING_CORE
 		void 				WriteToFile(int64	  val );
 		//create file
 		//for cet to write for WIN32 to set flag
-		virtual	bool		Writefile(const char*,bool e_bBinary,bool e_bForceToWrite);
+		virtual	bool		Writefile(const char*,bool e_bBinary,bool e_bForceToWrite,const char*e_strFileMode = nullptr);
 		bool				Flush();
 		//fclose
 		void				CloseFile();
@@ -111,7 +111,7 @@ namespace FATMING_CORE
 		//this one will skip the rand header
 		//e_piFileLength for the real file length.
 		void*				GetDataFile(UINT e_uiStart,int* e_piRealFileLength = nullptr);
-		virtual	bool		Writefile(const char*e_strFileName,bool e_bBinary,bool e_bForceToWrite);
+		virtual	bool		Writefile(const char*e_strFileName,bool e_bBinary,bool e_bForceToWrite, const char*e_strFileMode = nullptr);
 		int					GetSkipHeaderAndHMagicNumberHeader();
 		void				AddGarbageEndFile();
 	};

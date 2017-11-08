@@ -134,8 +134,7 @@ namespace	FATMING_CORE
 		g_pMainThreadJNIUtilData = m_spJNIUtilData;
 		SetupAPKFilePath(e_pActivity,e_pThreadEnv);
 #endif
-#ifdef DEBUG
-		if( !m_spLogFile )
+		if( !m_spLogFile && this->m_sbDebugFunctionWorking )
 		{
 			OutputDebugInfoString(L"log file");
 			m_spLogFile = new cBinaryFile();
@@ -160,7 +159,6 @@ namespace	FATMING_CORE
 			}
 #endif
 		}
-#endif
 		SystemErrorCheck();
 #if	defined(WIN32)
 		PrintMemoryInfo();
@@ -321,7 +319,6 @@ namespace	FATMING_CORE
 
 	void	cGameApp::Update(float e_fElpaseTime)
 	{
-		m_dbGamePlayTime += e_fElpaseTime;
 		ShaderUpdate(e_fElpaseTime);
 		if(m_spMessageSenderManager)
 			m_spMessageSenderManager->Update(e_fElpaseTime);
@@ -348,7 +345,6 @@ namespace	FATMING_CORE
 		cTexture::m_suiLastUsingImageIndex = -1;
 		//FATMING_CORE::UseShaderProgram();
 		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-		glClearColor( m_svBGColor.x,m_svBGColor.y,m_svBGColor.z,m_svBGColor.w );
 		//glClearDepth(1.0f);								// Depth Buffer Setup
 		glEnable2D(m_svGameResolution.x,m_svGameResolution.y);
 		SystemErrorCheck();
@@ -359,12 +355,11 @@ namespace	FATMING_CORE
 	    cTexture::m_suiLastUsingImageIndex = -1;
 		m_sTimeAndFPS.Update();
 		float	l_fElpaseTime = m_sTimeAndFPS.fElpaseTime;
-#ifdef DEBUG
+		m_dbGamePlayTime += l_fElpaseTime;
+		if (cGameApp::m_sbDoLockFPS)
+			l_fElpaseTime = 0.016f;
 		if( m_sbGamePause )
 			l_fElpaseTime = 0.f;
-#endif
-		if(cGameApp::m_sbDoLockFPS)
-			l_fElpaseTime = 0.016f;
 		Update(m_sbSpeedControl?l_fElpaseTime*this->m_sfDebugValue:l_fElpaseTime);
 		Render();
 		if( m_bDoScreenShot )
@@ -470,6 +465,9 @@ namespace	FATMING_CORE
 			{
 				switch (e_char)
 				{
+						case 13://enter
+						this->m_sbDoLockFPS = !this->m_sbDoLockFPS;
+						break;
 					case 'R':
 						m_sfDebugValue = 1.f;
 						break;
@@ -656,6 +654,8 @@ namespace	FATMING_CORE
 	#endif
 			std::string	l_str = UT::WcharToChar(e_str);
 			printf(l_str.c_str());
+			if (e_bWithNextLineSymbol)
+				printf("\n");
 			if (e_bWriteLog)
 			{
 				cGameApp::WriteLog(ValueToString(e_str));
@@ -790,7 +790,15 @@ namespace	FATMING_CORE
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f,(float)l_iStaryPosY,l_strInfo);
 			l_iStaryPosY += 20;
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, cGameApp::m_sbDoLockFPS?L"LockFPS":L"No LockFPS");
-			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1,1,1,1));
+			l_iStaryPosY += 20;
+			l_strInfo = L"Speed:";
+			l_strInfo += ValueToStringW(m_sfDebugValue);
+			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, l_strInfo);
+			l_iStaryPosY += 20;
+			l_strInfo = L"Pause:";
+			l_strInfo += ValueToStringW(m_sbGamePause);
+			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, l_strInfo);
+			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 1, 1));
 			
 		}
 		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);

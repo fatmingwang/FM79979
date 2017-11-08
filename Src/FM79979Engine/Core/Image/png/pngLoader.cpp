@@ -4721,8 +4721,8 @@ static void decodeGeneric(unsigned char** out, unsigned* w, unsigned* h,
     {
       ucvector outv;
       ucvector_init(&outv);
-      if(!ucvector_resizev(&outv,
-          lodepng_get_raw_size(*w, *h, &state->info_png.color), 0)) state->error = 83; /*alloc fail*/
+      if(!ucvector_resizev(&outv,lodepng_get_raw_size(*w, *h, &state->info_png.color), 0)) 
+		  state->error = 83; /*alloc fail*/
       if(!state->error) state->error = postProcessScanlines(outv.data, scanlines.data, *w, *h, &state->info_png);
       *out = outv.data;
     }

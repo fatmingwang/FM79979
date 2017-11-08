@@ -79,7 +79,7 @@ namespace FATMING_CORE
 	{
 		*m_pstrChangePachageName = L"";
 		*m_pstrWorkingDirectory = "";
-		cGameApp::m_sbShowErrorMsgBox = false;
+		cGameApp::m_siShowErrorType = 0;
 		m_pPrtGList->Destroy();
 		m_pExternalFunctionList->Destroy();
 		m_pEventInstanceList->Destroy();
@@ -141,7 +141,7 @@ namespace FATMING_CORE
 					m_pEventFont = new cGlyphFontRender(l_strFileName.c_str(),2000);
 				}
 			PARSE_NAME_VALUE_END
-			cGameApp::m_sbShowErrorMsgBox = true;
+			cGameApp::m_siShowErrorType = 1;
 			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
 			{
 				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),UT::CharToWchar(e_strFileName));
@@ -149,7 +149,7 @@ namespace FATMING_CORE
 			cGameApp::m_spstrErrorMsgString->clear();
 			return true;
 		}
-		cGameApp::m_sbShowErrorMsgBox = true;
+		cGameApp::m_siShowErrorType = 1;
 		UT::ErrorMsg("Packages data error",e_strFileName);
 		return false;
 	}

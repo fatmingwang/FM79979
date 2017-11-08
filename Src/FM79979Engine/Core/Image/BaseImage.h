@@ -86,6 +86,7 @@ namespace FATMING_CORE
 		virtual	void	Render(int e_iX,int e_iY);				//render by indicate position without offset position.
 	public:
 		DEFINE_TYPE_INFO();
+		cBaseImage(const wchar_t*e_strName);
 		cBaseImage(const char*e_strImageName,bool e_bFetchPixels = false);
 		cBaseImage(cBaseImage*e_pBaseImage);					//here is clone,but be sure do not delete original one before all resource release
 		cBaseImage(cTexture*e_pTexture);

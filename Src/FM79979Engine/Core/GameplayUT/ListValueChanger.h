@@ -42,7 +42,7 @@ namespace FATMING_CORE
 		virtual	void		SetSelectedValue(const wchar_t*e_str) = 0;
 		virtual	int			GetRandomValue() = 0;
 		static cListValuChangerBase*	GetListValuChangerBaseByElement(TiXmlElement*e_pElement);
-		virtual	wchar_t*				ConvertSelectedDataToString() = 0;
+		virtual	std::wstring		ConvertSelectedDataToString() = 0;
 		TiXmlElement*				ToTiXmlElement();
 		virtual	void				SetAttribute(TiXmlElement*e_pTiXmlElement) = 0;
 	};
@@ -187,15 +187,14 @@ namespace FATMING_CORE
 				return &(*m_pDataList)[m_iSelectedIndex];
 			return ;
 		}
-		virtual	wchar_t*				ConvertSelectedDataToString()
+		virtual	std::wstring				ConvertSelectedDataToString()
 		{
-			static wchar_t l_strTemp[MAX_PATH];
 			if( m_iSelectedIndex != -1 )
 			{
-				WCHAR_TO_WCHAR(ValueToStringW((*m_pDataList)[m_iSelectedIndex]).c_str(),l_strTemp);
-				return l_strTemp;
+				return ValueToStringW((*m_pDataList)[m_iSelectedIndex]).c_str();
 			}
-			return 0;			
+			std::wstring l_strTemp;
+			return l_strTemp;
 		}
 		eDataType	GetDataType(){return m_eDataType;}
 		int			FindIndexByValue(const wchar_t*e_strValue)

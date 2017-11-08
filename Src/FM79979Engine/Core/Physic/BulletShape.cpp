@@ -26,7 +26,7 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-	bool	g_sbCollisionRender = true;
+	bool	g_sbCollisionRender = false;
 	TYPDE_DEFINE_MARCO(cbtShapeCollision);
 	TYPDE_DEFINE_MARCO(cbtConvexHullShape);
 	TYPDE_DEFINE_MARCO(cbtSphereShape);

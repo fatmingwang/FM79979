@@ -61,7 +61,7 @@ namespace   FATMING_CORE
 		PARSE_ELEMENT_START(e_pTiXmlElement)
 			COMPARE_NAME("MPDIList")
 			{
-		        char*e_strMPDIName = cMPDIList::GetFileName((WCHAR*)l_strValue);
+		        std::string l_strMPDIName = cMPDIList::GetFileName((WCHAR*)l_strValue);
 		        //char*    l_strMPDIListFullName = FileNameConbineCurrentPageDirectory(e_strMPDIName);
 		        //bool    l_b = cGameApp::m_spAnimationParser->Parse(l_strMPDIListFullName);
 		        std::string l_str = *g_pCurrentEventManager->m_pstrWorkingDirectory;
@@ -70,7 +70,7 @@ namespace   FATMING_CORE
 					l_str += l_strRelativePath;
 					l_str += "/";
 				}
-		        l_str += e_strMPDIName;
+		        l_str += l_strMPDIName;
 				l_pMPDIList = dynamic_cast<cMPDIList*>(cGameApp::m_spAnimationParser->GetMPDIListByFileName(l_str.c_str()));
 			    assert(l_pMPDIList);
 			}

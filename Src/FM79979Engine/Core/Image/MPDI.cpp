@@ -42,7 +42,7 @@ namespace FATMING_CORE
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
 		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
-		m_pViewPort = 0;
+		m_pViewPort = nullptr;
 		m_bDoPositionOffsetToCenter = e_pMultiPathDynamicImage->m_bDoPositionOffsetToCenter;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
 		{
@@ -228,13 +228,16 @@ namespace FATMING_CORE
 	void	cMultiPathDynamicImage::InternalRender()
 	{
 		size_t	l_siSize = m_ObjectList.size();
-		GLboolean	l_vSissorTest = false;
-		if(this->m_pViewPort)
+		GLboolean	l_bSissorTest = false;
+		GLint		l_vScissorBox[4];
+		if (this->m_pViewPort)
 		{
 			Vector4 l_ResultViewPort = ViewRectToOpenGLScissor(*m_pViewPort);
 			glEnable(GL_SCISSOR_TEST);
-			glGetBooleanv(GL_SCISSOR_TEST,&l_vSissorTest);
-			glScissor((int)l_ResultViewPort.x,(int)l_ResultViewPort.y,(int)l_ResultViewPort.z,(int)l_ResultViewPort.w);		
+			glGetBooleanv(GL_SCISSOR_TEST, &l_bSissorTest);
+			if (l_bSissorTest)
+				glGetIntegerv(GL_SCISSOR_BOX, l_vScissorBox);
+			glScissor((int)l_ResultViewPort.x, (int)l_ResultViewPort.y, (int)l_ResultViewPort.z, (int)l_ResultViewPort.w);
 		}
 		cMatrix44	l_OriginalCameraView;
 		int	l_iIndex = 0;
@@ -287,10 +290,14 @@ namespace FATMING_CORE
 			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 		}
 EXIT:
-		if(this->m_pViewPort)
+		if (this->m_pViewPort)
 		{
-			if(!l_vSissorTest)
+			if (!l_bSissorTest)
 				glDisable(GL_SCISSOR_TEST);
+			else
+			{
+				glScissor(l_vScissorBox[0], l_vScissorBox[1], l_vScissorBox[2], l_vScissorBox[3]);
+			}
 		}
 	}
 

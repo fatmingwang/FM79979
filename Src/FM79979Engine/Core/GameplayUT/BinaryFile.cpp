@@ -189,7 +189,7 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
-	bool	cBinaryFile::Writefile(const char*e_str,bool e_bBinary,bool e_bForceToWrite)
+	bool	cBinaryFile::Writefile(const char*e_str,bool e_bBinary,bool e_bForceToWrite, const char*e_strFileMode)
 	{
 		CloseFile();
 #ifdef WIN32
@@ -204,10 +204,17 @@ namespace FATMING_CORE
 				int file_descriptor = _open_osfhandle((intptr_t)m_FileHandle, 0);
 				if (file_descriptor != -1) 
 				{
-					if( e_bBinary )
-						m_pFile = _fdopen(file_descriptor, "wb+");//b for windows only
+					if (e_strFileMode == nullptr)
+					{
+						if (e_bBinary)
+							m_pFile = _fdopen(file_descriptor, "wb+");//b for windows only
+						else
+							this->m_pFile = _fdopen(file_descriptor, "w");
+					}
 					else
-						this->m_pFile = _fdopen(file_descriptor,"w");
+					{
+						m_pFile = _fdopen(file_descriptor, e_strFileMode);//b for windows only
+					}
 				}
 			}
 		}
@@ -432,9 +439,9 @@ namespace FATMING_CORE
 		return true;	
 	}
 
-	bool		cSkipHeaderBinaryFile::Writefile(const char*e_strFileName,bool e_bBinary,bool e_bForceToWrite)
+	bool		cSkipHeaderBinaryFile::Writefile(const char*e_strFileName,bool e_bBinary,bool e_bForceToWrite, const char*e_strFileMode)
 	{
-		if(cBinaryFile::Writefile(e_strFileName,e_bBinary,e_bForceToWrite))
+		if(cBinaryFile::Writefile(e_strFileName,e_bBinary,e_bForceToWrite, e_strFileMode))
 		{
 			return CreateHeader();
 		}

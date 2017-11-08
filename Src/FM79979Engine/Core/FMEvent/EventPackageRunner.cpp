@@ -319,7 +319,7 @@ namespace   FATMING_CORE
 		}
 		if( l_pTiXmlElement || l_pCurrentEventPackage )
 		{
-			cGameApp::m_sbShowErrorMsgBox = false;
+			cGameApp::m_siShowErrorType = 0;
 			//force to remove all partivle resource,because I am lazy to calculate relatived in use or not
 			this->m_pEventManager->m_pPrtGList->Destroy();
 			if( !l_pCurrentEventPackage )
@@ -335,7 +335,7 @@ namespace   FATMING_CORE
 			m_pCurrentEventPackage = l_pCurrentEventPackage;
 			if( m_pCurrentEventPackage )
 				m_pCurrentEventPackage->Init();
-			cGameApp::m_sbShowErrorMsgBox = true;
+			cGameApp::m_siShowErrorType = 1;
 			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
 			{
 				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),e_strPackageName);
@@ -375,7 +375,7 @@ namespace   FATMING_CORE
 		TiXmlElement*l_pTiXmlElement = this->m_pEventManager->GetChildOfRootXmlElementByAttribueName(L"EventPackage",m_strNewPageName.c_str(),NAME);
 		if( l_pTiXmlElement )
 		{
-			cGameApp::m_sbShowErrorMsgBox = false;
+			cGameApp::m_siShowErrorType = 0;
 			//force to remove all partivle resource,because I am lazy to calculate relatived in use or not
 			this->m_pEventManager->m_pPrtGList->Destroy();
 			cEventPackage*l_pCurrentEventPackage = this->m_pEventManager->GetEventPackage(l_pTiXmlElement);
@@ -387,7 +387,7 @@ namespace   FATMING_CORE
 			m_pCurrentEventPackage = l_pCurrentEventPackage;
 			if( m_pCurrentEventPackage )
 				m_pCurrentEventPackage->Init();
-			cGameApp::m_sbShowErrorMsgBox = true;
+			cGameApp::m_siShowErrorType = 1;
 			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
 			{
 				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),m_strNewPageName.c_str());

@@ -1485,22 +1485,33 @@ namespace UT
 		return e_iIndex;
 	}
 
-	void			itoa64(int64 val,char*e_strBuffer, int base)
+	void			itoa64(int64 e_i64Val, char*e_strBuffer, int base)
 	{
-		char buf[64] = {0};
-		memset(buf,0,sizeof(char)*64);
-		if( val!=0 )
+		char buf[64] = { 0 };
+		memset(buf, 0, sizeof(char) * 64);
+		int64	l_i64OriginalValue = e_i64Val;
+		if (l_i64OriginalValue != 0)
 		{
+			if (l_i64OriginalValue < 0)
+				l_i64OriginalValue = -l_i64OriginalValue;
 			int i = 62;//last one is 0,value start from last 2.
-			for(; val && i ; --i, val /= base)
-				buf[i] = "0123456789abcdef"[val % base];
-			memcpy(e_strBuffer,&buf[i+1],sizeof(char)*64-i-1);
+			for (; l_i64OriginalValue && i; --i, l_i64OriginalValue /= base)
+				buf[i] = "0123456789abcdef"[l_i64OriginalValue % base];
+			if (e_i64Val < 0)
+			{
+				memcpy(&e_strBuffer[1], &buf[i + 1], sizeof(char) * 64 - i - 1);
+				e_strBuffer[0] = L'-';
+			}
+			else
+			{
+				memcpy(e_strBuffer, &buf[i + 1], sizeof(char) * 64 - i - 1);
+			}
 		}
 		else
 		{
 			e_strBuffer[0] = '0';
 			e_strBuffer[1] = '\0';
-		}	
+		}
 	}
 
 

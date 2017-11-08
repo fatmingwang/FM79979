@@ -309,9 +309,9 @@ namespace FATMING_CORE
 				m_pListValuChangerBase->SetSelectedValue(m_pListValuChangerBase->GetRandomValue());
 				break;
 		}
-		WCHAR*	l_str = m_pListValuChangerBase->ConvertSelectedDataToString();
+		std::wstring l_str = m_pListValuChangerBase->ConvertSelectedDataToString();
 		if( m_pEventVariable )
-			m_pEventVariable->SetDataByString(l_str);
+			m_pEventVariable->SetDataByString(l_str.c_str());
 	}
 	void	cEventListValueSelectionActiver::InternalRender()
 	{
