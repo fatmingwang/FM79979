@@ -155,8 +155,17 @@ public:
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
 	inline T*	GetObject(wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
 
-	inline T*	GetObject(char*e_pString){std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str());}
-	inline T*	GetObject(const char*e_pString){std::wstring	l_strName = UT::CharToWchar(e_pString);	return this->GetObject(l_strName.c_str());}
+	//inline T*	GetObject(char*e_pString)
+	//{
+	//	std::wstring	l_strName = UT::CharToWchar(e_pString);
+	//	return this->GetObject(l_strName.c_str());
+	//}
+	inline T*	GetObject(const char*e_pString)
+	{
+		if(!e_pString)return nullptr;
+		std::wstring	l_strName = UT::CharToWchar(e_pString);
+		return this->GetObject(l_strName.c_str());
+	}
 
 	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));}
 

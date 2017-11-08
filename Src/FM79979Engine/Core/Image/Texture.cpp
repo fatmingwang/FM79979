@@ -607,6 +607,10 @@ namespace FATMING_CORE
 			l_strFileName += L" start to parse:Texture";
 			cGameApp::OutputDebugInfoString(l_strFileName, true, true);
 		}
+		else
+		{
+			cGameApp::OutputDebugInfoString("start to parse:Texture but Imahe FileNmae is nullptr", true, true);
+		}
 #endif
 		m_iChannel = 0;
 		m_pstrFullFileName = 0;

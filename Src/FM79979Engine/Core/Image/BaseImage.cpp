@@ -13,14 +13,22 @@ namespace FATMING_CORE
 	//====================
 	cBaseImage::cBaseImage(const char*e_strImageName,bool e_bFetchPixels):cRenderObject()
 	{
+		m_pTexture = nullptr;
+		m_iWidth = 0;
+		m_iHeight = 0;
 		if( e_strImageName )
+		{
 			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
-		m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
-		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
+			m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
+			if (m_pTexture)
+			{
+				m_iWidth = m_pTexture->GetWidth();
+				m_iHeight = m_pTexture->GetHeight();
+				memcpy(this->m_fUV, m_pTexture->GetUV(), sizeof(float) * 4);
+			}
+		}
 		m_bMirror = false;
 		m_bVisible = true;
-		m_iWidth = m_pTexture->GetWidth();
-		m_iHeight = m_pTexture->GetHeight();
 		//if( !g_bSupportNonPowerOfTwoTexture )
 		//{
 		//	if(m_pTexture->GetUV()[2] != 1.f || m_pTexture->GetUV()[3] == 1.f)
