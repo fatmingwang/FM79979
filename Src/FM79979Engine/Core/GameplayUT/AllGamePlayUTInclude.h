@@ -1,6 +1,7 @@
 #ifndef ALL_GAME_PLAY_UT_INCLUDE_H
 #define ALL_GAME_PLAY_UT_INCLUDE_H
 
+#include "Language/LanguageFile.h"
 #include "BinaryFile.h"
 #include "PhaseControl.h"
 #include "PhasePopupMessager.h"
