@@ -1,6 +1,6 @@
 #include "../../stdafx.h"
 #include "LanguageFile.h"
-
+#include "../GameApp.h"
 namespace FATMING_CORE
 {
 	//<cXMLFileList Name="CH">
@@ -57,11 +57,11 @@ namespace FATMING_CORE
 	}
 		
 
-	std::wstring*		cXMLFileList::GetFileName(const wchar_t*e_strKey)
+	const wchar_t*		cXMLFileList::GetFileName(const wchar_t*e_strKey)
 	{
 		auto l_Iterator = m_KeyAndFileNameMap.find(e_strKey);
 		if (l_Iterator != m_KeyAndFileNameMap.end())
-			return l_Iterator->second;
+			return l_Iterator->second->c_str();
 		return nullptr;
 	}
 
@@ -118,7 +118,7 @@ namespace FATMING_CORE
 		}
 		return true;
 	}
-	std::wstring*		cLanguageFile::GetFileName(const wchar_t*e_strKey)
+	const wchar_t*		cLanguageFile::GetFileName(const wchar_t*e_strKey)
 	{
 		auto l_pObject = this->GetObject(m_strCurrentLanguage.c_str());
 		if (l_pObject)
@@ -130,9 +130,17 @@ namespace FATMING_CORE
 			}
 		}
 		l_pObject = this->GetObject(m_strDefaultLanguage.c_str());
-		assert(l_pObject &&"no default object!?");
-		if(l_pObject)
-			return l_pObject->GetFileName(e_strKey);
+		auto l_strResult = l_pObject->GetFileName(e_strKey);
+		if (l_strResult)
+		{
+			return l_strResult;
+		}
+		std::wstring l_strInfo = e_strKey;
+		l_strInfo += L" no such key ";
+		l_strInfo += e_strKey;
+		l_strInfo += L" in ";
+		l_strInfo += this->m_strCurrentLanguage;
+		cGameApp::OutputDebugInfoString(l_strInfo);
 		return nullptr;
 	}
 

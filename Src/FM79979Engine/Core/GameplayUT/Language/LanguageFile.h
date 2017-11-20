@@ -13,7 +13,7 @@ namespace FATMING_CORE
 	public:
 		cXMLFileList();
 		~cXMLFileList();
-		std::wstring*		GetFileName(const wchar_t*e_strKey);
+		const wchar_t*		GetFileName(const wchar_t*e_strKey);
 	};
 	//if target language cann find the file use default file.
 	//<cLanguageFile Default="CH">
@@ -30,7 +30,7 @@ namespace FATMING_CORE
 		~cLanguageFile();
 		const std::wstring	GetCurrentLanguage() { return m_strCurrentLanguage; }
 		void				SetCurrentLanguage(const wchar_t*e_strCurrentLanguage) { m_strCurrentLanguage = e_strCurrentLanguage; }
-		std::wstring*		GetFileName(const wchar_t*e_strKey);
+		const wchar_t*		GetFileName(const wchar_t*e_strKey);
 	};
 
 	//cLanguageFile l_LanguageFile("Language/Language.xml");
