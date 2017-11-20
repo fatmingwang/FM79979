@@ -275,6 +275,7 @@ namespace FATMING_CORE
 		virtual	bool	ParseDataIntoXMLNode(const char*e_strText);
 		virtual	bool	ParseDataIntoXMLNode(const wchar_t*e_strText);
 		virtual	bool	ParseTextIntoXMLNode(const char*e_str);
+		bool			ParseWithMyParse(const wchar_t*e_strFileName, bool e_bDeleteXLDocument = true);
 		virtual	bool	ParseWithMyParse(const char*e_strFileName,bool e_bDeleteXLDocument = true);
 		virtual	bool	ParseTextWithMyParse(const char*e_strFileName,bool e_bDeleteXLDocument = true);
 		TiXmlElement*	GetXmlElementByNameFromRoot( wchar_t*e_pString ){ return SearchTiXmlElement(m_pRootElement,(void*)e_pString,FindElementByName);  }

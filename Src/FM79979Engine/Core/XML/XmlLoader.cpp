@@ -539,6 +539,12 @@ namespace FATMING_CORE
 		return l_b;	
 	}
 
+	bool	cNodeISAX::ParseWithMyParse(const wchar_t*e_strFileName, bool e_bDeleteXLDocument)
+	{
+		std::string l_str = ValueToString(e_strFileName);
+		return ParseWithMyParse(l_str.c_str(), e_bDeleteXLDocument);
+	}
+
 	bool	cNodeISAX::ParseWithMyParse(const char*e_strFileName,bool e_bDeleteXLDocument)
 	{
 		m_strErrorMsg.c_str();

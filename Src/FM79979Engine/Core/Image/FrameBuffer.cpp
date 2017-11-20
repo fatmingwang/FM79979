@@ -203,6 +203,9 @@ namespace FATMING_CORE
 	{
 		//for depth
 		glGetIntegerv(GL_VIEWPORT,m_iOriginalViewPortSize);
+		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		if(m_bEnableScissor)
+			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_svViewPortSize.x = 0.f;
 		cGameApp::m_svViewPortSize.y = 0.f;
 		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
@@ -218,6 +221,8 @@ namespace FATMING_CORE
 		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
 //		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
 		glViewport(0,0,this->m_uiWidth,this->m_uiHeight);
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
 
 		// Set the render target
 		//glDrawBuffer(GL_COLOR_ATTACHMENT0);
@@ -238,6 +243,12 @@ namespace FATMING_CORE
 		cGameApp::m_svViewPortSize.z = (float)m_iOriginalViewPortSize[2];
 		cGameApp::m_svViewPortSize.w = (float)m_iOriginalViewPortSize[3];
 		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
+		if (m_bEnableScissor)
+			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
+		else
+		{
+			glDisable(GL_SCISSOR_TEST);
+		}
 	}
 
 	void	cFrameBuffer::DrawBuffer(POINT e_Pos,POINT e_Size,const WCHAR*e_strShaderName)

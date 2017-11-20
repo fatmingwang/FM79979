@@ -805,7 +805,7 @@ namespace UT
 		long	l_uiFileSize = UT::GetFileSize(l_pFile);
 		char*l_Temp = new char[l_uiFileSize+1];//1 MB
 		int	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
-		l_Temp[l_uiFileSize] = 0;
+		l_Temp[l_iNumRead] = 0;
 		l_strContent = l_Temp;
 		delete l_Temp;
 		NvFClose(l_pFile);

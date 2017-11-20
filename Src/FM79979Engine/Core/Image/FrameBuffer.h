@@ -27,15 +27,17 @@ namespace FATMING_CORE
 //=====================
 	class	cFrameBuffer:public Frame
 	{
-		GLint	m_iOriginalViewPortSize[4];
-		GLuint	m_uiFramebufferID;	//id for frame buffer
-		GLuint	m_uiTextureID;		//where to render
-		GLuint	m_uiRenderufferID;	//for depth
-		UINT	m_uiWidth;			//
-		UINT	m_uiHeight;			//
-		bool	m_bDepthNeed;		//2d may do not need this
-		GLenum	m_eImageType;		//GL_RGB or GL_RGBA
-		GLenum	m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
+		GLboolean	m_bEnableScissor;
+		GLint		m_iOriginalScissortSize[4];
+		GLint		m_iOriginalViewPortSize[4];
+		GLuint		m_uiFramebufferID;	//id for frame buffer
+		GLuint		m_uiTextureID;		//where to render
+		GLuint		m_uiRenderufferID;	//for depth
+		UINT		m_uiWidth;			//
+		UINT		m_uiHeight;			//
+		bool		m_bDepthNeed;		//2d may do not need this
+		GLenum		m_eImageType;		//GL_RGB or GL_RGBA
+		GLenum		m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
 	public:
 		cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed = false,GLenum e_eImageType = GL_RGB,GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
 		virtual ~cFrameBuffer();

@@ -252,6 +252,9 @@
     <Filter Include="GameplayUT\UI\Button\ClickBehavior">
       <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\Language">
+      <UniqueIdentifier>{0de65bcd-c97f-4e40-b53d-e893fe9e3dcd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -703,6 +706,9 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp">
       <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Language\LanguageFile.cpp">
+      <Filter>GameplayUT\Language</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1221,6 +1227,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h">
       <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Language\LanguageFile.h">
+      <Filter>GameplayUT\Language</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

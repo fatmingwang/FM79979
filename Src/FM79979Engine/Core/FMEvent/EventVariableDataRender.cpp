@@ -18,6 +18,7 @@ namespace FATMING_CORE
 			COMPARE_NAME_WITH_DEFINE(cEventVariable::TypeID)
 			{
 				m_pEventVariable = g_pCurrentEventManager->m_pEventVariableManager->GetObject(l_strValue);
+				assert(m_pEventVariable&&"m_pEventVariable not exists!");
 			}
 			else
 				COMPARE_NAME("Pos")
