@@ -1,0 +1,4 @@
+<cLanguageFile Default="CH">
+	<Language Name="CH" FileName="Language/CH_LanguageSetting.xml"/>
+	<Language Name="EN" FileName="Language/EN_LanguageSetting.xml"/>
+</cLanguageFile>

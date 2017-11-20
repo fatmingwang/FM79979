@@ -1,0 +1,5 @@
+<cXMLFileList Name="CH">
+	<File Key="KeyName" FileName="somewhere/filename.extension" />
+	<File Key="KeyName1" FileName="somewhere/filename.extension1" />
+	<File Key="KeyName2" FileName="somewhere/filename.extension2" />
+</cXMLFileList>
