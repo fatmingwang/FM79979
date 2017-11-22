@@ -215,7 +215,7 @@ void	sController::sSkin::GenerateWeightsAndBonesData()
 //		}
 //#endif
 	}
-	int	l_iWeightCount = l_AllWeightsVector.size();
+	int	l_iWeightCount = (int)l_AllWeightsVector.size();
 	assert(l_AllWeightsVector.size() == l_iRelateDataCount);
 	assert(l_AllJointsVector.size() == l_iRelateDataCount);
 	//third create the data store

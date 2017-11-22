@@ -147,37 +147,34 @@ namespace FATMING_CORE
 		m_eRGBDataType = e_eRGBDataType;
 		//in openglES 2.0 glGenFramebuffers
 		glGenFramebuffers(1, &m_uiFramebufferID); 
-		{//glBindFramebuffer
-			// Set up the FBO with one texture attachment 
-			//in openglES 2.0 glBindFramebuffer
-			glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
-			//initialize renderbuffer
-			if( m_bDepthNeed )
-			{
-				glGenRenderbuffers(1, &this->m_uiRenderufferID);
-				glBindRenderbuffer(GL_RENDERBUFFER, m_uiRenderufferID);
-				glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight);//GL_DEPTH_COMPONENT24
-				//bind  render buffer with texture
-				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, 
-								 GL_RENDERBUFFER, m_uiRenderufferID);
-			}
-			// Now setup a texture to render to
-			glGenTextures(1, &m_uiTextureID);
-			glBindTexture(GL_TEXTURE_2D, m_uiTextureID); 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-			glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0,m_eImageType, m_eRGBDataType, nullptr);
-			MyGlErrorTest();
-			//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
-			//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			//	glGenerateMipmapEXT(GL_TEXTURE_2D);
-			//assign texture to framebuffer
-			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
-							GL_TEXTURE_2D, m_uiTextureID, 0);
+		// Set up the FBO with one texture attachment 
+		//in openglES 2.0 glBindFramebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		//initialize renderbuffer
+		if( m_bDepthNeed )
+		{
+			glGenRenderbuffers(1, &this->m_uiRenderufferID);
+			glBindRenderbuffer(GL_RENDERBUFFER, m_uiRenderufferID);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight);//GL_DEPTH_COMPONENT24
+			//bind  render buffer with texture
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, 
+								GL_RENDERBUFFER, m_uiRenderufferID);
 		}
+		// Now setup a texture to render to
+		glGenTextures(1, &m_uiTextureID);
+		glBindTexture(GL_TEXTURE_2D, m_uiTextureID); 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0,m_eImageType, m_eRGBDataType, nullptr);
+		MyGlErrorTest();
+		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//	glGenerateMipmapEXT(GL_TEXTURE_2D);
+		//assign texture to framebuffer
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D, m_uiTextureID, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		static bool	l_bCheck = false;
 		if( !l_bCheck )
@@ -281,7 +278,129 @@ namespace FATMING_CORE
 	}
 
 
+	cMSAAFrameBuffer::cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType, GLenum e_eRGBDataType)
+	{
+		m_uiWidth = e_iWidth;
+		m_uiHeight = e_iHeight;
+		m_eImageType = e_eImageType;
+		m_eRGBDataType = e_eRGBDataType;
+		//in openglES 2.0 glGenFramebuffers
+		glGenFramebuffers(1, &m_uiFramebufferID);
+		// Set up the FBO with one texture attachment 
+		//in openglES 2.0 glBindFramebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		// Now setup a texture to render to
+		glGenTextures(1, &m_uiTextureID);
+		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
+		MyGlErrorTest();
+		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//	glGenerateMipmapEXT(GL_TEXTURE_2D);
+		//assign texture to framebuffer
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_uiTextureID, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		static bool	l_bCheck = false;
+		if (!l_bCheck)
+		{
+			l_bCheck = true;
+			bool	l_b = CheckFramebufferStatus();
+			assert(l_b&&"display card is too old!!");
+		}
+	}
 
+	cMSAAFrameBuffer::~cMSAAFrameBuffer()
+	{
+		//Tear down the FBO and texture attachment 
+		glDeleteTextures(1, &m_uiTextureID);
+		glDeleteFramebuffers(1, &m_uiFramebufferID);
+	}
+
+	void	cMSAAFrameBuffer::StartDraw(bool e_bClearScreen)
+	{
+		//for depth
+		glGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
+		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		if (m_bEnableScissor)
+			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
+		cGameApp::m_svViewPortSize.x = 0.f;
+		cGameApp::m_svViewPortSize.y = 0.f;
+		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
+		cGameApp::m_svViewPortSize.w = (float)this->m_uiHeight;
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		if (e_bClearScreen)
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//glClearColor( 0,0.5,0.5,0.f );
+			glClearColor(0, 0, 0, 1);
+		}
+		//for RGB
+		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
+		//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
+		glViewport(0, 0, this->m_uiWidth, this->m_uiHeight);
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
+
+		// Set the render target
+		//glDrawBuffer(GL_COLOR_ATTACHMENT0);
+		// Render as normal here
+		// output goes to the FBO and itís attached buffers
+		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index,
+		//                          newTarget, texture.getID(), 0);
+
+	}
+
+	void	cMSAAFrameBuffer::EndDraw()
+	{
+		//		glPopAttrib();
+		//glViewport(m_OriginalViewPortSize[0],m_OriginalViewPortSize[1],m_OriginalViewPortSize[2],m_OriginalViewPortSize[3]);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		cGameApp::m_svViewPortSize.x = (float)m_iOriginalViewPortSize[0];
+		cGameApp::m_svViewPortSize.y = (float)m_iOriginalViewPortSize[1];
+		cGameApp::m_svViewPortSize.z = (float)m_iOriginalViewPortSize[2];
+		cGameApp::m_svViewPortSize.w = (float)m_iOriginalViewPortSize[3];
+		glViewport((int)cGameApp::m_svViewPortSize.x, (int)cGameApp::m_svViewPortSize.y, (int)cGameApp::m_svViewPortSize.z, (int)cGameApp::m_svViewPortSize.w);
+		if (m_bEnableScissor)
+			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
+		else
+		{
+			glDisable(GL_SCISSOR_TEST);
+		}
+	}
+
+	void	cMSAAFrameBuffer::DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName)
+	{
+		cTexture::ApplyImage(m_uiTextureID);
+		//I have no idea why the frame buffer have to rotate Y with180,and change UV
+		//real freak........
+		//int e_iWidth = e_Size.x/2;
+		//int e_iHeight = e_Size.y/2;
+		//float	l_fTexPointer[] = {  1,0,
+		//							 0,0,
+		//							 1,1,
+		//							 0,1};
+		//
+		////float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
+		////						 (float)e_iWidth, (float)-e_iHeight,0,
+		////						 (float)-e_iWidth, (float)e_iHeight,0,
+		////						 (float)e_iWidth,(float)e_iHeight,0};
+
+		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_Pos.x+e_iWidth),(float)(e_Pos.y+e_iHeight), 0))*  cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180.f));
+		//SetupShaderWorldMatrix(l_mat*GetWorldTransform());
+		//ASSIGN_2D_COLOR(Vector4::One);
+		////myGlVertexPointer( 2, l_Vertices );
+		//ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,0.f);
+		//myGlUVPointer(  2, l_fTexPointer );
+		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		//UseShaderProgram(l_p2DShader);
+		float	l_fTextureCoordinate[] = { 0,1,1,0 };
+		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
+	}
 
 
 

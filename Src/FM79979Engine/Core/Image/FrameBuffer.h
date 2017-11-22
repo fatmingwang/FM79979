@@ -50,6 +50,29 @@ namespace FATMING_CORE
 	};
 	//
 
+	class	cMSAAFrameBuffer :public Frame
+	{
+		GLboolean	m_bEnableScissor;
+		GLint		m_iOriginalScissortSize[4];
+		GLint		m_iOriginalViewPortSize[4];
+		GLuint		m_uiFramebufferID;	//id for frame buffer
+		GLuint		m_uiTextureID;		//where to render
+		GLuint		m_uiRenderufferID;	//for depth
+		UINT		m_uiWidth;			//
+		UINT		m_uiHeight;			//
+		GLenum		m_eImageType;		//GL_RGB or GL_RGBA
+		GLenum		m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
+	public:
+		cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType = GL_RGB, GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
+		virtual ~cMSAAFrameBuffer();
+		void	StartDraw(bool e_bClearScreen = true);		//store original
+		void	EndDraw();			//restore original
+		UINT	GetWidth() { return m_uiWidth; }
+		UINT	GetHeight() { return m_uiHeight; }
+		void	DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName = DEFAULT_SHADER);
+		GLuint	GetTextureID() { return m_uiTextureID; }
+	};
+
 	//// Your code to draw content to the FBO 
 	//// ... 
 	//// Make the window the target 

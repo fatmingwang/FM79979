@@ -125,8 +125,9 @@ namespace	FATMING_CORE
 		static	bool    											m_bMouseHover;
 		//betwen -1,1,device direction
 		static  Vector3												m_svAccelerometer;
-		//0-40(or bigger depend on device)
+		//0-40(or bigger depend on device)????what is this?
 		static  float												m_sfForce;
+		static  float												m_sfOpenGLVersion;
 		static  POINT												m_sMousePosition;
 		static  POINT												m_sScreenMousePosition;
 		static	bool												m_sbMouseClickStatus[3];//0 left,1 right,2 mid button

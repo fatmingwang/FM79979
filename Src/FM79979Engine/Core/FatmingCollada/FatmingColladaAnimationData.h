@@ -70,13 +70,13 @@
 		{
 			std::string l_strName = UT::WcharToChar(e_strName);
 			const WCHAR*l_strCurrentCompareName = 0;
-			UINT	l_AnimationVectorSize = AnimationVector.size();
+			size_t	l_AnimationVectorSize = AnimationVector.size();
 			sAnimation*l_pAnimation = 0;
-			for(UINT i=0;i<l_AnimationVectorSize;++i)
+			for(size_t i=0;i<l_AnimationVectorSize;++i)
 			{
 				l_pAnimation = AnimationVector[i];
-				UINT	l_ChannelVecotrSize = l_pAnimation->ChannelVector.size();
-				for(UINT j=0;j<l_pAnimation->ChannelVector.size();++j)
+				size_t	l_ChannelVecotrSize = l_pAnimation->ChannelVector.size();
+				for(size_t j=0;j<l_ChannelVecotrSize;++j)
 				{
 					l_strCurrentCompareName = l_pAnimation->ChannelVector[j]->strTarget;
 					size_t	l_iLength = strlen(l_strName.c_str());
@@ -105,8 +105,8 @@
 			for(UINT i=0;i<AnimationVector.size();++i)
 			{
 				sAnimation*l_pAnimation = AnimationVector[i];
-				UINT	l_uiNumChannel = l_pAnimation->ChannelVector.size();
-				for(UINT j=0;j<l_uiNumChannel;++j)
+				size_t	l_uiNumChannel = l_pAnimation->ChannelVector.size();
+				for(size_t j=0;j<l_uiNumChannel;++j)
 				{
 					sAnimationLibrary::sAnimation::sChannel*l_pChannel = l_pAnimation->ChannelVector[j];
 					l_strrAnimationName = wcstok((WCHAR*)l_pChannel->strTarget,L"/");

@@ -1,6 +1,21 @@
 #include "../stdafx.h"
 #include "Shader.h"
 
+//shader opengl ES2 to openGL ES3
+//
+//http://www.shaderific.com/blog/2014/3/13/tutorial-how-to-update-a-shader-for-opengl-es-30
+//OpenGL ES 2.0 / GLSL 1.00:					OpenGL ES 3.0 / GLSL 3.00 :
+//attribute vec4 position;						in vec4 position;
+//attribute vec2 texture;						in vec2 texCoord;
+//varying vec2 textureCoordinate;				out vec2 textureCoordinate;
+//varying vec2 textureCoordinate;				in vec2 textureCoordinate;
+//mediump vec4 gl_FragColor;					out vec4 fragmentColor;
+//vec4 texture2D(sampler2D, vec2 coord);		vec4 texture(sampler{ 2,3 }D sampler, vec2 coord);
+//vec4 textureCube(samplerCube, vec3 coord;	vec4 texture(samplerCube sampler, vec3 coord);
+
+
+
+
 //gl_Color
 //gl_FrontColor
 //gl_BackColor

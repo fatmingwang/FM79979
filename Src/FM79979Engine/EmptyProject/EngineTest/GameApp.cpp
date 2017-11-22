@@ -60,14 +60,7 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 
 void	cEngineTestApp::Render()
 {
-	glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
-	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
-	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-	glClearColor( 0,0.5,0.5,1 );
-	glClearDepth(1.0f);	
-	float	l_fVP[16];
-	UseShaderProgram();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+	cGameApp::Render();
 #ifndef OPENGLES_2_X
 	glEnable(GL_TEXTURE_2D);
 #endif
@@ -75,10 +68,8 @@ void	cEngineTestApp::Render()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	//glAlphaFunc(GL_GREATER,0.001f);	
-	cGameApp::Render();
 	SampleRender();
 	this->m_pPhaseManager->Render();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
 	if( cGameApp::m_spGlyphFontRender )
 	{
 	    WCHAR   l_str[MAX_PATH];
@@ -86,7 +77,7 @@ void	cEngineTestApp::Render()
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
 	}
-	//cGameApp::ShowInfo();
+	cGameApp::ShowInfo();
 	glDisable(GL_TEXTURE_2D);
 	this->m_pPhaseManager->DebugRender();
 	glDisable2D();

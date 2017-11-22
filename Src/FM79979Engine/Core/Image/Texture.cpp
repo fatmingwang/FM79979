@@ -643,7 +643,7 @@ namespace FATMING_CORE
 #ifdef DEBUG
 		std::wstring l_strFileName = this->GetName();
 		l_strFileName += L" destroy:Texture,Ate Ram:";
-		l_strFileName += ValueToStringW(g_iAteVideoMomory);
+		l_strFileName += ValueToStringW((int)g_iAteVideoMomory);
 		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
 #endif
 		RemoveTextureFromTextureStore(this);

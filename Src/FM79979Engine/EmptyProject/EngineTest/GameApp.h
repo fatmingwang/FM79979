@@ -7,7 +7,7 @@
 	protected:
 		void	Update(float e_fElpaseTime);
 		void	Render();
-#ifdef WIN32
+#ifdef WINDOWS
 		virtual	void	OpenglInit(HWND e_Hwnd){}
 #endif
 	public:
@@ -18,7 +18,7 @@
 #else
 		cEngineTestApp(Vector2 e_vGameResolution = Vector2(IPHONE_RESOLUTION_WIDTH,IPHONE_RESOLUTION_HEIGHT),Vector2 e_vViewportSize = Vector2(IPHONE_RESOLUTION_WIDTH,IPHONE_RESOLUTION_HEIGHT));
 #endif
-		~cEngineTestApp();
+		virtual ~cEngineTestApp();
 
 		void	Init();
 		virtual	void	MouseDown(int e_iPosX,int e_iPosY);

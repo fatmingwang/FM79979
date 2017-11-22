@@ -297,7 +297,7 @@ public:
 			{
 				if( !wcscmp(m_ObjectList[i]->GetName(),e_pString) )
 				{
-					return i;
+					return (int)i;
 				}
 			}
 		}
@@ -311,7 +311,7 @@ public:
 		{
 			if( m_ObjectList[i] == e_T )
 			{
-				return i;
+				return (int)i;
 			}
 		}
 		return -1;

@@ -69,7 +69,7 @@ cBone*	cBone::FinChildByName(WCHAR*e_strBoneName)
 void	cBone::SetFormKeyFrames(FloatTocMatrix44Map	e_FormKeyFrames)
 {
 	m_FormKeyFrames = e_FormKeyFrames;
-	UINT	l_uiSize = m_FormKeyFrames.size();
+	size_t	l_uiSize = m_FormKeyFrames.size();
 	float l_fMinKeyTime(FLT_MAX), l_fMaxKeyTime(FLT_MIN),l_fKeyTime;
 	for( FloatTocMatrix44Map::iterator l_Iterator = m_FormKeyFrames.begin();l_Iterator!=m_FormKeyFrames.end();++l_Iterator )
 	{

@@ -62,7 +62,8 @@ namespace	FATMING_CORE
 	Vector2												cGameApp::m_svGameResolution(1920.f,1080.f);
 	Vector2												cGameApp::m_svGameScale(1.f,1.f);
 	Vector3												cGameApp::m_svAccelerometer = Vector3::Zero;
-	float												cGameApp::m_sfForce = 0.f;	
+	float												cGameApp::m_sfForce = 0.f;
+	float												cGameApp::m_sfOpenGLVersion = 2.f;
 	POINT												cGameApp::m_sMousePosition = {0,0};
 	POINT												cGameApp::m_sScreenMousePosition = {0,0};
 	bool												cGameApp::m_sbMouseClickStatus[3] = {false,false,false};
@@ -333,6 +334,7 @@ namespace	FATMING_CORE
 #endif
 		//first for original resolution
 		glViewport(0,0,(GLsizei)this->m_svDeviceViewPortSize.Width(),(GLsizei)this->m_svDeviceViewPortSize.Height());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(m_svBGColor.x,m_svBGColor.y,m_svBGColor.z,m_svBGColor.w);
 		glViewport((GLint)m_svViewPortSize.x,(GLint)m_svViewPortSize.y,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 		glEnable(GL_SCISSOR_TEST);
@@ -343,8 +345,6 @@ namespace	FATMING_CORE
 		//NO_TEXTURE_SHADER =L"MyPrtShaderNoTexture";
 		UseShaderProgram(DEFAULT_SHADER);
 		cTexture::m_suiLastUsingImageIndex = -1;
-		//FATMING_CORE::UseShaderProgram();
-		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 		//glClearDepth(1.0f);								// Depth Buffer Setup
 		glEnable2D(m_svGameResolution.x,m_svGameResolution.y);
 		SystemErrorCheck();

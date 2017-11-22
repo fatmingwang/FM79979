@@ -117,12 +117,12 @@ void	sGeometryMesh::AssignVertexType()
 {
 	//below is wrong
 	//first we have assign the ID:vertex to ID:position
-	UINT l_NumTriangle = this->AllGeometryMeshTrianglesList.size();
-	for( UINT l_iIndex = 0;l_iIndex<l_NumTriangle;++l_iIndex )
+	size_t l_NumTriangle = this->AllGeometryMeshTrianglesList.size();
+	for(size_t l_iIndex = 0;l_iIndex<l_NumTriangle;++l_iIndex )
 	{
 		sTriangles*l_pTriangles = AllGeometryMeshTrianglesList[l_iIndex];
-		UINT	l_uiSize = l_pTriangles->AllInputDataList.size();
-		for(UINT i=0;i<l_uiSize;++i)
+		size_t	l_uiSize = l_pTriangles->AllInputDataList.size();
+		for(size_t i=0;i<l_uiSize;++i)
 		{
 			sGeometryMesh::sTriangles::sInputData*l_pInputData = l_pTriangles->AllInputDataList[i];
 			const WCHAR*l_strSourceName = 0;
@@ -140,8 +140,8 @@ void	sGeometryMesh::AssignVertexType()
 	for( UINT l_iIndex = 0;l_iIndex<l_NumTriangle;++l_iIndex )
 	{
 		sTriangles*l_pTriangles = AllGeometryMeshTrianglesList[l_iIndex];
-		UINT	l_uiSize = l_pTriangles->AllInputDataList.size();
-		for(UINT i=0;i<l_uiSize;++i)
+		size_t	l_uiSize = l_pTriangles->AllInputDataList.size();
+		for(size_t i=0;i<l_uiSize;++i)
 		{
 			sGeometryMesh::sTriangles::sInputData*l_pInputData = l_pTriangles->AllInputDataList[i];
 			assert(l_pInputData->strSource);
@@ -490,7 +490,7 @@ void	sGeometryMesh::GenerateUniqueIndicesAndVertexData_OPENGL(sAllVertexData*e_p
 	assert((UINT)e_pAllVertexData->uiNumIndices>=e_pAllVertexData->AllIndicesNeededInOriginalPosVertex.size());
 	//copy new data into store
 	assert((UINT)l_iCurrentVertexCount<=e_pAllVertexData->uiNumIndices&&"after optmize original vertex count should bigger than optmized");
-	UINT	l_uiNewIndicesCount = l_NewIndices.size();
+	size_t	l_uiNewIndicesCount = l_NewIndices.size();
 	assert(l_uiNewIndicesCount == e_pAllVertexData->uiNumIndices);
 	e_pAllVertexData->puiIndices = new UINT[l_uiNewIndicesCount];
 	memcpy(e_pAllVertexData->puiIndices,&l_NewIndices[0],sizeof(int)*l_uiNewIndicesCount);

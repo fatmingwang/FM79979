@@ -140,3 +140,10 @@ The empty string was causing my problems. I changed the file to say this:
 [assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L".NETFramework,Version=v4.0", FrameworkDisplayName=L".NET Framework 4")];
 Now everything works! I don't know how the file got into that state, but I never touched it. I don't think it's used in VS2008. I'm somewhat irked that such a file is being used in my build.
 
+
+
+Nov 11 2017
+trying to upgrade to x64 and misunderstanding _WIN32 flag
+_WIN32 it means use windows32 API not compile as 32bit
+but _WIN64 mean compile to 64bit...
+https://stackoverflow.com/questions/17380340/win32-preprocessor-definition-in-64bit-windows-platform

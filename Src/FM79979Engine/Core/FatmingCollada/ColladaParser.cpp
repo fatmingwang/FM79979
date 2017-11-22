@@ -182,8 +182,8 @@ void	cColladaParser::ProcessGeometries()
 		}
 	}
 	//assign texture data by mesh data
-	UINT	l_iInstanceNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector.size();
-	for(UINT l_iNumInstance = 0;l_iNumInstance<l_iInstanceNode;++l_iNumInstance)
+	size_t	l_iInstanceNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector.size();
+	for(size_t l_iNumInstance = 0;l_iNumInstance<l_iInstanceNode;++l_iNumInstance)
 	{
 		sVisualSceneLibrary::sNode*l_pNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector[l_iNumInstance];
 		sColladaGeomatries*l_pColladaGeomatries = 0;
@@ -397,8 +397,8 @@ void	cColladaParser::ProcessAnimations()
 
 void	cColladaParser::ProcessWeightAndBlendingBoneIndicesMergeToMesh()
 {
-	UINT	l_uiSize = m_LibraryControllers.m_ControllerList.size();
-	for( UINT i=0;i<l_uiSize;++i )
+	size_t	l_uiSize = m_LibraryControllers.m_ControllerList.size();
+	for(size_t i=0;i<l_uiSize;++i )
 	{
 		sController*l_pController = m_LibraryControllers.m_ControllerList[i];
 		if(m_LibraryGeometries.GenerateSkinningTriangleBlendicesWeights(l_pController))

@@ -7,8 +7,8 @@ void	cColladaParser::ProcessController()
 	if( !m_pAllAnimationMesh )
 		m_pAllAnimationMesh = new cNamedTypedObjectVector<cAnimationMesh>;
 	//search all skeleton node,and fetch controller then assign coorespond data
-	UINT	l_iNumInstanceNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector.size();
-	for( UINT i=0;i<l_iNumInstanceNode;++i )
+	size_t	l_iNumInstanceNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector.size();
+	for(size_t i=0;i<l_iNumInstanceNode;++i )
 	{
 		sVisualSceneLibrary::sNode*l_pNode = m_LibraryVisualScenes.m_VisualSceneData.AllInstanceNodesVector[i];
 		sVisualSceneLibrary::sNode::sInstance*l_pInstance = l_pNode->pInstance;

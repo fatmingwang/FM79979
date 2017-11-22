@@ -130,7 +130,7 @@ namespace FATMING_CORE
 							this->m_iFreq = m_WAVFmtHdr_Struct.SampleRate;
 							this->m_iChannel = m_WAVFmtHdr_Struct.Channels;
 							//why need this?
-							size_t l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
+							long l_uiStep = l_WAVChunkHdr_Struct.Size-sizeof(My_WAVFmtHdr_Struct);
 							NvFSeek(l_pFile,l_uiStep,SEEK_CUR);
 						}					
 						else //17
@@ -360,13 +360,13 @@ namespace FATMING_CORE
 		if( m_pWriteFile )
 		{
 			m_pWriteFile->SetFilePos(0);
-			int l_TotalSize = m_uiDataSize;
+			size_t l_TotalSize = m_uiDataSize;
 			l_TotalSize += sizeof(My_WAVFileHdr_Struct);
 			l_TotalSize += sizeof(My_WAVChunkHdr_Struct);
 			l_TotalSize += sizeof(My_WAVFmtHdr_Struct);
 			l_TotalSize += sizeof(My_WAVChunkHdr_Struct);
 
-			My_WAVFileHdr_Struct l_My_WAVFileHdr_Struct = GetWAVFileHdr_Struct(m_uiDataSize);
+			My_WAVFileHdr_Struct l_My_WAVFileHdr_Struct = GetWAVFileHdr_Struct((int)m_uiDataSize);
 			m_pWriteFile->WriteToFile((char*)&l_My_WAVFileHdr_Struct,sizeof(l_My_WAVFileHdr_Struct));
 			//for My_WAVFmtHdr_Struct
 			My_WAVChunkHdr_Struct l_My_WAVChunkHdr_Struct = GetWAVChunkHdr_Struct(sizeof(My_WAVFmtHdr_Struct),g_strFMTFormat);
@@ -374,7 +374,7 @@ namespace FATMING_CORE
 			My_WAVFmtHdr_Struct l_My_WAVFmtHdr_Struct = m_WAVFmtHdr_Struct;
 			m_pWriteFile->WriteToFile((char*)&l_My_WAVFmtHdr_Struct,sizeof(My_WAVFmtHdr_Struct));
 			//for data
-			l_My_WAVChunkHdr_Struct = GetWAVChunkHdr_Struct(m_uiDataSize,g_strWAVData);
+			l_My_WAVChunkHdr_Struct = GetWAVChunkHdr_Struct((int)m_uiDataSize,g_strWAVData);
 			m_pWriteFile->WriteToFile((char*)&l_My_WAVChunkHdr_Struct,sizeof(l_My_WAVChunkHdr_Struct));
 			return true;
 		}
@@ -564,7 +564,7 @@ float g_fTest2 = 1.f;
 	bool	cSoundFile::WriteOggData(size_t e_uiSize,char*e_pusData,int e_iInChannel)
 	{
 		//byte to float
-		int l_iDataCount = e_uiSize;
+		int l_iDataCount = (int)e_uiSize;
 		if( e_iInChannel == 2 )
 			l_iDataCount /= 4;
 		else

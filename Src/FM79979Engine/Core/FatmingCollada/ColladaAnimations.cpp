@@ -5,19 +5,19 @@
 std::map<float, cMatrix44>	sAnimationLibrary::sAnimation::GenerateKeyFrameMatrix(const WCHAR*e_strJointeName)
 {
 	std::map<float, cMatrix44>	l_MapData;
-	UINT	l_uiSize = this->SourceVector.size();
+	size_t	l_uiSize = this->SourceVector.size();
 	float*l_pKeyFrame = 0;
 	float*l_pMatrix = 0;
 	int	l_iCount = 0;
 	sSource*l_pAnimationSource[2] = {0,0};
-	for(UINT i=0;i<l_uiSize;++i  )
+	for(size_t i=0;i<l_uiSize;++i  )
 	{
 		sSource*l_pSource = SourceVector[i];
 		if(!l_pSource->pNameArray)
 		{
 			bool	l_bSanmeName = true;
-			int	l_iLength = wcslen(e_strJointeName);
-			const WCHAR*l_strFor_Matrix = &l_pSource->strID[l_iLength];
+			size_t	l_uiLength = wcslen(e_strJointeName);
+			const WCHAR*l_strFor_Matrix = &l_pSource->strID[l_uiLength];
 			//_matrix
 			if( l_strFor_Matrix[0] != L'_'||
 				l_strFor_Matrix[1] != L'm'||
@@ -27,7 +27,7 @@ std::map<float, cMatrix44>	sAnimationLibrary::sAnimation::GenerateKeyFrameMatrix
 				l_strFor_Matrix[5] != L'i'||
 				l_strFor_Matrix[6] != L'x')
 			{
-				if( wcslen(l_pSource->strID)-l_iLength>10 )
+				if( wcslen(l_pSource->strID)- l_uiLength>10 )
 				{
 					//for old version
 					if( l_strFor_Matrix[0] != L'-'||
@@ -45,7 +45,7 @@ std::map<float, cMatrix44>	sAnimationLibrary::sAnimation::GenerateKeyFrameMatrix
 				else
 					continue;
 			}
-			for( int j=0;j<l_iLength;++j )
+			for( size_t j=0;j<l_uiLength;++j )
 			{
 				if( l_pSource->strID[j] != e_strJointeName[j] )
 				{

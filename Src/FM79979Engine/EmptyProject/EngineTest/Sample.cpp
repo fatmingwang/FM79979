@@ -50,9 +50,36 @@ void	SampleMouseDown(int e_iPosX,int e_iPosY);
 void	SampleMouseMove(int e_iPosX,int e_iPosY);
 void	SampleMouseUp(int e_iPosX,int e_iPosY);
 void	SampleKeyup(char e_cKey);
+
+char*g_strGL3CommonVS = "#version 300				\
+	in vec3 VSPosition;								\
+	in vec4 VSColor;									\
+	in vec2 VSTexcoord;								\
+	uniform mat4 matVP;										\
+	uniform mat4 matW;										\
+	out vec2 PSTexcoord;								\
+	out vec4 PSColor;									\
+	void main()												\
+	{														\
+		gl_Position = matVP*matW*vec4(VSPosition,1);		\
+		PSTexcoord = VSTexcoord;							\
+		PSColor = VSColor;									\
+	}";
+
+char*g_strGL3MSAA_FS = "#version 300\
+					uniform  sampler2DMS    texSample; \
+					int	vec2 PSTexcoord;\
+					void main()\
+					{\
+						gl_FragColor = texelFetch(texSample, PSTexcoord);\
+					}";
+cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
-	return;
+	//g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
+	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("C:/Users/fatming/Desktop/FM79979/Media/Sound/MainBG.ogg");
+	if (l_pSound)
+		l_pSound->Play(true);
 	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
@@ -90,7 +117,13 @@ void	LoadSample()
 	}
 
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
-	g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/ClownFish_0001/ClownFish_0001.mpdi");
+
+	std::wstring l_strPrefixName = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
+	std::wstring l_strMPDIResultFileName = l_strPrefixName;
+	std::wstring l_strCollisionResultFileName = l_strPrefixName;
+	l_strMPDIResultFileName += L".mpdi";
+	l_strCollisionResultFileName += L".collision";
+	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.mpdi");	
 	if( g_pMPDIList )
 	{
@@ -110,8 +143,7 @@ void	LoadSample()
 		}
 	}
 	g_pCollisionData = new c2DImageCollisionData();
-	if (g_pCollisionData && g_pCollisionData->Parse("C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/ClownFish_0001/ClownFish_0001.collision"))
-	//if (g_pCollisionData && g_pCollisionData->Parse("C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.collision"))
+	if (g_pCollisionData && g_pCollisionData->Parse(l_strCollisionResultFileName.c_str()))
 	{
 
 	}
@@ -164,6 +196,7 @@ void	DestorySampleObject()
 {
 	//do not delete g_pMultiPathDynamicImage,it come from g_pMPDIList
 	//g_pMultiPathDynamicImageClone is a clone object so delete it.
+	SAFE_DELETE(g_pCollisionData);
 	SAFE_DELETE(g_pMultiPathDynamicImageClone);
 	SAFE_DELETE(g_pCameraZoomFunction);
 	SAFE_DELETE(g_pTestCurveWithTime);
@@ -181,6 +214,8 @@ void	DestorySampleObject()
 
 void	SampleUpdate(float e_fElpaseTime)
 {
+	if (cGameApp::m_spSoundParser)
+		cGameApp::m_spSoundParser->Update(0.016f);
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->Update(e_fElpaseTime);
@@ -279,9 +314,8 @@ void	KeyboardDataRender()
 
 void	SampleRender()
 {
-	glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
-	KeyboardDataRender();
-	return;
+	//glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
+	//KeyboardDataRender();
 	if( g_pTunnelEffect )
 	{
 		g_pTunnelEffect->Use();
@@ -294,12 +328,12 @@ void	SampleRender()
 	//glEnable2D(1280,720);
 	if( g_pBGImage && g_pTunnelEffect )
 	{
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2*0.1,0,0));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2*0.1f,0.f,0.f));
 		g_pBGImage->SetWidth((int)(cGameApp::m_svGameResolution.x/2*0.8));
 		g_pBGImage->SetHeight((int)(cGameApp::m_svGameResolution.y/2*0.8));
 	//	g_pBGImage->Render();
 		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2+cGameApp::m_svGameResolution.x/2*0.1,0,0));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2+cGameApp::m_svGameResolution.x/2*0.1f,0,0));
 		g_pTunnelEffect->SetTime(-1);
 		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
 		//g_pBGImage->Render(cMatrix44::Identity);

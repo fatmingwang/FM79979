@@ -3408,6 +3408,7 @@ namespace MPDI
 		m_pvBGColor->y = l_pColorPicker->GetSelectedColor().ScG;
 		m_pvBGColor->z = l_pColorPicker->GetSelectedColor().ScB;
 		m_pvBGColor->w = l_pColorPicker->GetSelectedColor().ScA;
+		cGameApp::m_svBGColor = *m_pvBGColor;
 	}
 //end namespace
 }

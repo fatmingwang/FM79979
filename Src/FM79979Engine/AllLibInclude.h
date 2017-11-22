@@ -1,24 +1,4 @@
 #ifdef WIN32
-//#define USE_OPEN_CV
-//#pragma comment(lib, "opengl32.lib")
-//#pragma comment(lib, "Glu32.lib")
-//#pragma comment(lib, "gdi32.lib")
-//#pragma comment(lib, "User32.lib")
-//#pragma comment(lib, "vfw32.lib")
-//#pragma comment(lib, "winmm.lib")
-//#pragma comment(lib, "kernel32.lib")
-//#pragma comment(lib, "user32.lib")
-//#pragma comment(lib, "gdi32.lib")
-//#pragma comment(lib, "winspool.lib")
-//#pragma comment(lib, "comdlg32.lib")
-//#pragma comment(lib, "advapi32.lib")
-//#pragma comment(lib, "shell32.lib ")
-//#pragma comment(lib, "ole32.lib ")
-//#pragma comment(lib, "oleaut32.lib")
-//#pragma comment(lib, "uuid.lib ")
-//#pragma comment(lib, "odbc32.lib")
-//#pragma comment(lib, "odbccp32.lib")
-//#pragma comment(lib, "../../../lib/glew.lib"
 #ifdef 	FFMPEG
 #pragma comment(lib, "../../../lib/ffmpeg/avcodec.lib")
 #pragma comment(lib, "../../../lib/ffmpeg/avdevice.lib")
@@ -30,10 +10,9 @@
 #endif
 //#pragma comment(lib, "Vfw32.lib")
 //CoreDotNetTools.cpp need this one...
-#pragma comment(lib, "../../../lib/Devil.lib")
+//#pragma comment(lib, "../../../lib/Devil.lib")
 #pragma comment(lib, "../../../lib/OpenAL32.lib")
 #pragma comment(lib, "../../../lib/alut.lib")
-#pragma comment(lib, "../../../lib/glew32.lib")
 
 //#ifdef USE_OPEN_CV
 #pragma comment(lib, "../../../lib/opencv_core249.lib")
@@ -44,6 +23,7 @@
 //#pragma comment(lib, "../../../lib/ogg.lib")
 //#pragma comment(lib, "../../../lib/vorbis.lib")
 //#endif
+//#pragma comment(lib, "../../../lib/glew.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "Glu32.lib")
 #pragma comment(lib, "gdi32.lib")
