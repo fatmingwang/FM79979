@@ -551,17 +551,13 @@ namespace PathEditor
 }
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
-	ilInit();
-	alutInit (0,0);
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
 	// Create the main window and run it
 	Application::Run(gcnew PathEditor::EditPath());
-	alutExit();
-	ilShutDown();
 	_CrtDumpMemoryLeaks();
 	NamedTypedObject::DumpUnReleaseInfo();
 	return 0;

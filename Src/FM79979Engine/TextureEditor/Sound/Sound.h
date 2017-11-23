@@ -252,7 +252,7 @@ namespace Sound
 				 }
 				 else
 				 {
-					array<String^>^l_strNameList = DNCT::OpenFileAndGetNames();
+					cli::array<String^>^l_strNameList = DNCT::OpenFileAndGetNames();
 					if(!l_strNameList)
 						return;
 					for each(String^l_strName in l_strNameList)

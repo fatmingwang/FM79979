@@ -1057,7 +1057,7 @@ private: System::Void tabControl_SelectedIndexChanged(System::Object^  sender, S
 			 }
 		}
 private: System::Void AddImage_button_Click(System::Object^  sender, System::EventArgs^  e) {
-			 array<String^>^l_str = DNCT::OpenFileAndGetNames();
+			 cli::array<String^>^l_str = DNCT::OpenFileAndGetNames();
 			 if( l_str )
 			 for each(String^l_strName in l_str )
 			 {

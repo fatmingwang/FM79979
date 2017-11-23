@@ -154,6 +154,14 @@
     <OutDir>..\..\lib\ReleaseFixedpipeline\</OutDir>
     <IntDir>..\..\..\Intermedia\ReleaseFixedpipeline\Core\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|x64'">
+    <OutDir>..\..\lib\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|x64'">
+    <OutDir>..\..\lib\$(Configuration)\</OutDir>
+    <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>

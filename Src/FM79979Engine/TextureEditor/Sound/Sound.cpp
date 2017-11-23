@@ -6,7 +6,7 @@
 using namespace Sound;
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
 	alutInit (0,0);
 	// Enabling Windows XP visual effects before any controls are created

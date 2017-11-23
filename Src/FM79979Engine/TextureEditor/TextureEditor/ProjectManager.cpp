@@ -201,7 +201,7 @@ namespace TextureEditor
 		l_pElementHots->Dock = DockStyle::Fill;
 		l_pElementHots->Child = m_pProjectUI;
 		m_pSplitPanel->Panel1->Controls->Add(l_pElementHots);
-		array<String^>^l_strArray = {".mpdi",".pi",".path",".xml",".collision"};
+		cli::array<String^>^l_strArray = {".mpdi",".pi",".path",".xml",".collision"};
 
 		m_pProjectUI->m_FMCFolderExplorerTree->m_FolderExplorerTree->m_strExtensionName = l_strArray;
 		CheckWorkingDirectory();
