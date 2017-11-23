@@ -155,7 +155,7 @@ namespace XMLDataEditor {
 				return ;
 				unsigned char *pDes;
 				int nDesLen;
-				if( CompressHuffman((unsigned char*)l_str.c_str(),l_str.length(), pDes, nDesLen) )
+				if( CompressHuffman((unsigned char*)l_str.c_str(),(int)l_str.length(), pDes, nDesLen) )
 				{
 					Result_textBox->Text = "";
 					char l_strSplit[2] = {m_cSplitCharacter,0};

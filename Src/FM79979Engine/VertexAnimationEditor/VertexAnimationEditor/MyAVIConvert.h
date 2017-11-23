@@ -220,7 +220,7 @@ namespace VertexAnimationEditor
 #pragma endregion
 	private: System::Void AVIConvert_button_Click(System::Object^  sender, System::EventArgs^  e)
 			 {
-				 array<String^>^l_strNameList = OpenFileAndGetNames("avi files (*.avil)|*.avi|All files (*.*)|*.*");
+				 cli::array<String^>^l_strNameList = OpenFileAndGetNames("avi files (*.avil)|*.avi|All files (*.*)|*.*");
 				 String^l_strErrorMsg = gcnew String("");
 				 if( l_strNameList )
 				 {

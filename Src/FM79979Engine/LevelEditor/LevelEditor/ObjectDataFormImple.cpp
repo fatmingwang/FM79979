@@ -501,7 +501,7 @@ namespace LevelEditor
 		 }
 		System::Void cObjectDataFormImple::treeView1_DragDrop(System::Object^  sender, System::Windows::Forms::DragEventArgs^  e)
 		 {
-			array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
+			cli::array<String^>^l_strFileNames = DNCT::DragDropEventWhileFileDrop(e);
 			for each(String^l_str in l_strFileNames)
 			{
 				 GCFORM::TreeNode^l_pNode = DNCT::OpenXmlFileToNode(l_str);
@@ -535,7 +535,7 @@ namespace LevelEditor
 
 		System::Void cObjectDataFormImple::addNewNodeFromFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames();
+			cli::array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames();
 			if(!l_strFileNames)
 				return;
 			for each(String^l_str in l_strFileNames)
@@ -573,7 +573,7 @@ namespace LevelEditor
 		 {
 			if( sender == AddImage_button )
 			{
-				array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("Image Files(*.pi;*.mpdi)|*.pi;*.mpdi|All files (*.*)|*.*");
+				cli::array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("Image Files(*.pi;*.mpdi)|*.pi;*.mpdi|All files (*.*)|*.*");
 				if(l_strFileNames)
 				for each(String^l_strName in l_strFileNames)
 				{

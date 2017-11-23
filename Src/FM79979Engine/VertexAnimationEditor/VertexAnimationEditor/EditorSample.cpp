@@ -3,8 +3,9 @@
 #include "stdafx.h"
 #include "Form1.h"
 #include "MyAVIConvert.h"
-#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
+#include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/opencv_core249.lib")
+#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
 #pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
 
 
@@ -12,7 +13,7 @@ using namespace EditorSample;
 using namespace VertexAnimationEditor;
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();

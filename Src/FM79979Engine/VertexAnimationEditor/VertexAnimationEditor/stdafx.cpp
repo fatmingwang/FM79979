@@ -8,4 +8,3 @@
 //#else
 //#pragma comment(lib, "../../../lib/Release/Core.lib")
 //#endif
-#include "../../AllLibInclude.h"

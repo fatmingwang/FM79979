@@ -163,7 +163,6 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 #if	defined(WIN32)
 		PrintMemoryInfo();
-//		ilInit();
 		if( e_Hwnd )
 		{
 			OpenglInit(e_Hwnd);

@@ -10,9 +10,6 @@
 #include "jpeg/jpgd.h"
 #include "jpeg/jpge.h"
 #if defined(WIN32)
-//#include "../../../Include/IL/il.h"
-//if u like to link under windows copy and paste to the main.cpp
-//#pragma comment(lib, "../../lib/unicode/Devil.lib")
 #elif defined(IOS)
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIImage.h>
@@ -20,7 +17,7 @@
 #elif defined(ANDROID)
 #include "../Android/nv_images.h"
 #elif defined(LINUX)
-#include "IL/il.h"//linux
+//#include "IL/il.h"//linux
 #endif
 #ifdef IOS
 //saving an image 

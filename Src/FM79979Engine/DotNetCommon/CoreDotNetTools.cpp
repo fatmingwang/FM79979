@@ -2,6 +2,7 @@
 #include "CoreDotNetTools.h"
 #include "../../Include/IL/il.h"
 #include "../Core/GameplayUT/StringCompress.h"
+#pragma comment(lib, "../../../lib/Devil.lib")
 namespace DNCT
 {
 	System::Windows::Forms::TreeNode^	MPDIListToTreeNode(cMPDIList*e_pMPDIList)

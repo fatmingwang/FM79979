@@ -265,8 +265,11 @@ private: System::Void LevelEditorForm_SizeChanged(System::Object^  sender, Syste
 			 for each(GCFORM::TabPage^l_pTabPage in tabControl1->TabPages)
 			 {
 				 l_pTabPage->Width = tabControl1->Width;
-				 GCFORM::UserControl^l_pUserControl = (GCFORM::UserControl^)l_pTabPage->Controls[0];
-				 l_pUserControl->Width = l_pTabPage->Width;
+				 if (l_pTabPage->Controls->Count)
+				 {
+					 GCFORM::UserControl^l_pUserControl = (GCFORM::UserControl^)l_pTabPage->Controls[0];
+					 l_pUserControl->Width = l_pTabPage->Width;
+				 }
 			 }
 		 }
 };

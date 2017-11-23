@@ -15,15 +15,15 @@
 #pragma comment(lib, "../../../lib/alut.lib")
 
 //#ifdef USE_OPEN_CV
-#pragma comment(lib, "../../../lib/opencv_core249.lib")
-#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
-#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
+//#pragma comment(lib, "../../../lib/opencv_core249.lib")
+//#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
+//#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
 //#endif
 //#ifdef _OGG_
 //#pragma comment(lib, "../../../lib/ogg.lib")
 //#pragma comment(lib, "../../../lib/vorbis.lib")
 //#endif
-//#pragma comment(lib, "../../../lib/glew.lib")
+#pragma comment(lib, "../../../lib/glew.lib")
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "Glu32.lib")
 #pragma comment(lib, "gdi32.lib")

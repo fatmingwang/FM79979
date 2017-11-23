@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MPDI.h"
-#include "../../../Include/IL/il.h"
+//#include "../../../Include/IL/il.h"
 #include "../../Core/GameplayUT/StringCompress.h"
 #include "DotMPDICamera.h"
 
@@ -267,7 +267,7 @@ namespace MPDI
 			m_pMPDIUI->PathLOD_numericUpDown->Value = l_cCurveWithTime->GetLOD();
 			StayAtLastFrame_checkBox->Checked = m_pMultiPathDynamicImageAWP->IsStayAtLastFrame();
 			m_pMPDIUI->PathNode_listBox->Items->Clear();
-			int	l_iNum = l_PointList.size();
+			int	l_iNum = (int)l_PointList.size();
 			for( int i=0;i<l_iNum;++i )
 			{
 				Vector3	l_v2 = l_PointList[i];
@@ -400,7 +400,7 @@ namespace MPDI
 				 m_pMultiPathDynamicImageAWP->m_pCurrentCurve->SetStart(true);
 				 AllPlay_checkBox->Checked = false;
 				 m_fTimeForCurrentProgess = 0.f;
-				 UINT	l_iSize = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetOriginalTimeList().size();
+				 size_t	l_iSize = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetOriginalTimeList().size();
 				 if( l_iSize )
 				 {
 					 CurrentProgressValueChange(1);
@@ -718,7 +718,7 @@ namespace MPDI
 			{
 				if( m_pMultiPathDynamicImageAWP->m_pCurrentCurve )
 				{
-					UINT	l_iSize = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetOriginalTimeList().size();
+					size_t	l_iSize = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetOriginalTimeList().size();
 					if( l_iSize )
 					{
 						float	l_fTotalPlayTime = m_pMultiPathDynamicImageAWP->GetEndTime();
@@ -1549,11 +1549,11 @@ namespace MPDI
 					l_iSelectedIndex = l_pPI->GetObjectIndexByName(DNCT::GcStringToWchar(m_pMPDIUI->WholePuzzleImageUnit_listBox->Items[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex]->ToString()));
 				POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->Size;
 				//POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->OriginalSize;
-				int	l_iNumPoint = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size();
+				size_t	l_uiNumPoint = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size();
 				if( m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size() == 0 )
 					m_pMultiPathDynamicImageAWP->m_pCurrentCurve->AddPoint(Vector2(l_vMouseWorldPos.x,l_vMouseWorldPos.y),0.000f,Vector2((float)l_Size.x,(float)l_Size.y),Vector3::Zero,Vector4::One,l_iSelectedIndex,m_pMPDIUI->Mirror_checkBox->Checked,l_pPI,false);
 				else
-					m_pMultiPathDynamicImageAWP->m_pCurrentCurve->AddPoint(Vector2(l_vMouseWorldPos.x,l_vMouseWorldPos.y),m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetTimeList()[l_iNumPoint-1]+0.1f,Vector2((float)l_Size.x,(float)l_Size.y),Vector3::Zero,Vector4::One,l_iSelectedIndex,m_pMPDIUI->Mirror_checkBox->Checked,l_pPI);
+					m_pMultiPathDynamicImageAWP->m_pCurrentCurve->AddPoint(Vector2(l_vMouseWorldPos.x,l_vMouseWorldPos.y),m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetTimeList()[l_uiNumPoint -1]+0.1f,Vector2((float)l_Size.x,(float)l_Size.y),Vector3::Zero,Vector4::One,l_iSelectedIndex,m_pMPDIUI->Mirror_checkBox->Checked,l_pPI);
 				System::EventArgs^  e3;
 				WholePath_listBox_SelectedIndexChanged(m_pMPDIUI->WholePath_listBox,e3);
 			}
@@ -1821,9 +1821,9 @@ namespace MPDI
 					l_pDestCurvesWithTime->SetCurveLoop(l_pCurvesWithTime->IsCurveLoop());
 
 					POINT	l_Size = m_pMultiPathDynamicImageAWP->GetPuzzleData()[0]->Size;
-					UINT	l_iuNumPoint = l_pDestCurvesWithTime->GetOriginalPointList().size();
+					size_t	l_iuNumPoint = l_pDestCurvesWithTime->GetOriginalPointList().size();
 					cPuzzleImage*l_pPI = m_pInterlUseForShowImagePos->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()));
-					for(UINT i=0;i<l_iuNumPoint;++i)
+					for(size_t i=0;i<l_iuNumPoint;++i)
 						m_pMultiPathDynamicImageAWP->m_pCurrentCurve->AddPoint(l_pDestCurvesWithTime->GetOriginalPointList()[i],l_pCurvesWithTime->GetOriginalTimeList()[i],
 						Vector2((float)l_Size.x,(float)l_Size.y),Vector3::Zero,Vector4::One,0,m_pMPDIUI->Mirror_checkBox->Checked,l_pPI);
 					m_pMultiPathDynamicImageAWP->m_pCurrentCurve->DoLOD();
@@ -2432,17 +2432,17 @@ namespace MPDI
 						if(l_pCueToStartCurveWithTime)
 						{
 							std::vector<float> l_fTimeList = l_pCueToStartCurveWithTime->GetOriginalTimeList();
-							int	l_iNum = l_fTimeList.size();
-							if(l_iNum == 1)//avoid only one point,we still have to setup data
+							size_t	l_uiNum = l_fTimeList.size();
+							if(l_uiNum == 1)//avoid only one point,we still have to setup data
 							{
-								l_iNum = 2;
-								float	l_fTimeGap = (float)m_pMPDIUI->TotalPlayTime_numericUpDown->Value/(float)(l_iNum-1)/1000.f;
+								l_uiNum = 2;
+								float	l_fTimeGap = (float)m_pMPDIUI->TotalPlayTime_numericUpDown->Value/(float)(l_uiNum -1)/1000.f;
 								l_fTimeList[0] = l_fTimeGap;
 							}
 							else
 							{
-								float	l_fTimeGap = (float)m_pMPDIUI->TotalPlayTime_numericUpDown->Value/(float)(l_iNum-1)/1000.f;
-								for( int i=0;i<l_iNum;++i )
+								float	l_fTimeGap = (float)m_pMPDIUI->TotalPlayTime_numericUpDown->Value/(float)(l_uiNum -1)/1000.f;
+								for( size_t i=0;i<l_uiNum;++i )
 									l_fTimeList[i] = i*l_fTimeGap;
 							}
 							l_pCueToStartCurveWithTime->SetOriginalTimeList(l_fTimeList);

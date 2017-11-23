@@ -3,3 +3,8 @@ and wake them individual
 
 July 14 2013
 MPDI export binary file
+
+
+Nov 23 2017
+https://stackoverflow.com/questions/13361199/error-hresult-e-fail-has-been-returned-from-a-call-to-a-com-component-vs2012-whe
+from x86 to x64 problem

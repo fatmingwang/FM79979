@@ -11,6 +11,7 @@
 #include "StringCompress.h"
 
 //////////////////////////////////////////////////////////////////////
+//https://www.codeproject.com/Articles/9021/Simple-and-fast-Huffman-coding?msg=4226603
 class CHuffmanNode
 {
 public:
@@ -81,7 +82,11 @@ int GetHuffmanTree(CHuffmanNode nodes[], bool bSetCodes = true)
 		for( i= nBackNode; i >= 0; i--)
 			if(pNodes[i]->nFrequency >= pNode->nFrequency)
 				break;
+#if defined(__LP64__) || defined(_WIN64)
+		memmove(pNodes + i + 2, pNodes + i + 1, (nBackNode - i) * sizeof(void*));//64 bit,debug by jiangyong
+#else
 		memmove(pNodes+i+2, pNodes+i+1, (nBackNode-i)*sizeof(int));
+#endif
 		pNodes[i+1] = pNode;
 		nBackNode++;
 	}
@@ -213,6 +218,7 @@ bool	CompressHuffmanToFile(unsigned char *pSrc, int nSrcLen,const  char*e_strFil
 		NvFClose(l_pFile);
 		//for test
 		//DecompressHuffmanToFile(pDes,nDesLen,"D:/Fish/FM79979/Media/Fish/Image/28825252.png",e_iMagicID)
+		//DecompressHuffmanToFile(pDes, nDesLen, "C:/Users/fatming/Desktop/28825252.txt");
 	}
 	SAFE_DELETE(pDes);
 	return l_bResult;

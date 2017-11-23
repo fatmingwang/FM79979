@@ -52,7 +52,6 @@ namespace ParticalEditor
 			m_pFrameCamera = 0;
 			m_Hdc = 0;
 			m_pHGLRC = 0;
-			//ilInit();
 			g_pOrthogonalCamera = new cOrthogonalCamera;
 			m_pFrameCamera = new cFrameCamera();
 			Projection	l_ProjectionMV;
@@ -81,7 +80,6 @@ namespace ParticalEditor
 			this->m_pRenderPanel->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseEvent);
 			this->m_pRenderPanel->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseEvent);
 			InitPolicyToListBox();
-			//glewInit();
 			g_pPaticleManager = new cPaticleManager();
 			//call again ensure the wgl content is this form
 			wglMakeCurrent( m_Hdc,m_pHGLRC );

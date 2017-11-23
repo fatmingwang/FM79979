@@ -17,7 +17,8 @@ namespace FATMING_CORE
 		int	m_iSize;
 	public:
 		cQuickUpdateParticleObjectListByName(cQuickUpdateParticleObjectListByName*e_pQuickUpdateParticleObjectListByName,cPrtEmitter*e_pCloneTargetPrtEmitter);
-		cQuickUpdateParticleObjectListByName(){}
+		cQuickUpdateParticleObjectListByName() { m_iSize = 0; }
+		virtual ~cQuickUpdateParticleObjectListByName(){}
 		//en sure u have call this after remover object or add object
 		void	GenerateListBuffer()
 		{

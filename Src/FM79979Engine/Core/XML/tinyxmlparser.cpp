@@ -570,7 +570,12 @@ void TiXmlDocument::SetError( int err, const wchar_t* pError, TiXmlParsingData* 
 	// The first error in a chain is more accurate - don't set again!
 	if ( error )
 		return;
-
+#ifdef WIN32
+#ifdef DEBUG	
+	OutputDebugString(L"TiXmlDocument::SetError:");
+	OutputDebugString(FATMING_CORE::ValueToStringW(err).c_str());
+#endif
+#endif
 	assert( err > 0 && err < TIXML_ERROR_STRING_COUNT );
 	error   = true;
 	errorId = err;
