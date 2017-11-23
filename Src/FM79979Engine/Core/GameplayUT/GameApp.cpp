@@ -888,7 +888,7 @@ void PrintMemoryInfo(wchar_t*e_strName)
 		cGameApp::OutputDebugInfoString(L"Memory Check Name:");
 		cGameApp::OutputDebugInfoString(e_strName);
 		cGameApp::OutputDebugInfoString(L"\n");
-		swprintf(l_str,L"Current Memory:%d\n",pmc.WorkingSetSize );
+		swprintf(l_str,L"Current Memory:%zu\n",pmc.WorkingSetSize );
 		cGameApp::OutputDebugInfoString(l_str);
 		if( !l_sbFirstTimeIntoHere )
 		{
@@ -897,10 +897,10 @@ void PrintMemoryInfo(wchar_t*e_strName)
 		}
 		else
 		{
-			size_t	l_iMemoryChangeSize = pmc.WorkingSetSize-l_sMemoryUsed;
-			float	l_fMB = (float)l_iMemoryChangeSize/1024.f/1024.f;
-			float	l_fKB = (float)l_iMemoryChangeSize/1024.f;
-			swprintf(l_str,L"Memory Change:In MB:%.2f,In KB:%.2f,In Byte:%d\n",l_fMB,l_fKB,l_iMemoryChangeSize );
+			size_t	l_uiMemoryChangeSize = pmc.WorkingSetSize-l_sMemoryUsed;
+			float	l_fMB = (float)l_uiMemoryChangeSize/1024.f/1024.f;
+			float	l_fKB = (float)l_uiMemoryChangeSize/1024.f;
+			swprintf(l_str,L"Memory Change:In MB:%.2f,In KB:%.2f,In Byte:%zu\n",l_fMB,l_fKB,l_uiMemoryChangeSize );
 			cGameApp::OutputDebugInfoString(l_str);
 			l_sMemoryUsed = pmc.WorkingSetSize;
 		}

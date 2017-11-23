@@ -33,7 +33,7 @@ namespace FATMING_CORE
 		float	l_fPosX = cGameApp::m_svGameResolution.x/2-50;
 		float	l_fPosY = cGameApp::m_svGameResolution.x/2;
 		const wchar_t*l_strLoadingInfo = L"Loading";
-		int	l_iLength = wcslen(l_strLoadingInfo);
+		int	l_iLength = (int)wcslen(l_strLoadingInfo);
 		int	l_iTemp[] = {0,0,0,0,0,0,0};
 		vector<int>	l_uiAllMagicIDVector1 = UT::GenerateRandomTable(l_iLength,l_iLength);
 		std::wstring	l_strInfo;
@@ -142,7 +142,7 @@ namespace FATMING_CORE
 	bool	ISAXCallback::ParseText(const char*e_strFileName)
 	{
 		SAFE_DELETE(m_pDoc);
-		int	l_iTextLength = strlen(e_strFileName);
+		size_t	l_iTextLength = strlen(e_strFileName);
 		wchar_t*l_strText = new wchar_t[l_iTextLength];
 		CHAR_TO_WCHAR(e_strFileName,l_strText);
 		m_pDoc = new TiXmlDocument( );
@@ -454,7 +454,6 @@ namespace FATMING_CORE
 		SystemErrorCheck();
 		m_strErrorMsg.c_str();
 		SAFE_DELETE(m_pDoc);
-		int	l_iTextLength = strlen(e_strText);
 		std::wstring l_strText = UT::CharToWchar(e_strText);
 		m_pDoc = new TiXmlDocument( );
 		m_pDoc->Parse(l_strText.c_str(), 0);

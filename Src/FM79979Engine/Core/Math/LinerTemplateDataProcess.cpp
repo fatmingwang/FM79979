@@ -412,7 +412,7 @@ namespace	FATMING_CORE
 	template <class T>
 	TiXmlElement*	cLinerDataProcessor<T>::ToTiXmlElement()
 	{
-		int	l_iSize = m_TimeVector.size();
+		int	l_iSize = (int)m_TimeVector.size();
 		if( l_iSize == 0 || ( m_LinerDataVector.size() != m_TimeVector.size() ) )
 			return 0;
 		TiXmlElement*	l_pLinerTemplateDataProcessElement = new TiXmlElement(L"cLinerDataProcessor");
@@ -832,7 +832,7 @@ namespace	FATMING_CORE
 			}
 		}
 		if( e_bRenderPoint )
-			RenderPoints(&(this->m_LinerDataVector)[0],m_LinerDataVector.size(),15,e_vColor,e_mat);
+			RenderPoints(&(this->m_LinerDataVector)[0],(int)m_LinerDataVector.size(),15,e_vColor,e_mat);
 		//if( e_bRenderIndex )
 		//{
 		//	size_t	l_uiSize = m_LinerDataVector.size();
@@ -876,7 +876,7 @@ namespace	FATMING_CORE
 			}
 		}
 		if( e_bRenderPoint )
-			RenderPoints(&(l_NewData)[0],l_NewData.size(),15,e_vColor,e_mat);
+			RenderPoints(&(l_NewData)[0],(int)l_NewData.size(),15,e_vColor,e_mat);
 	}
 //=========================
 //

@@ -280,7 +280,7 @@ void NameIndexedCollection::Remove( NamedTypedObject *pObjectToRemove )
     assert( pObjectToRemove );
 	size_t iBucket = ((size_t)pObjectToRemove)%DEFAULT_COLLECTION_HASHSIZE;
 	std::vector<NamedTypedObject *>*l_pList = &s_Lists[ iBucket ];
-	int	l_iSize = l_pList->size();
+	int	l_iSize = (int)l_pList->size();
 	//if here crush check g_pNameIndexedCollection is null and void	NamedTypedObject::DumpUnReleaseInfo() not call before all object is delete
 	//uint64	l_ui46ID = pObjectToRemove->GetUniqueID();
 	for( int i=l_iSize-1;i>-1;--i )
@@ -367,7 +367,7 @@ unsigned long NameIndexedCollection::Size()
     unsigned long dwSize = 0;
     for( unsigned long i = 0; i < DEFAULT_COLLECTION_HASHSIZE; i++ )
     {
-        dwSize += s_Lists[i].size();
+        dwSize += (unsigned long)s_Lists[i].size();
     }
     return dwSize;
 }

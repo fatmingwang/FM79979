@@ -48,7 +48,7 @@ namespace FATMING_CORE
 	void	cPrtStartPositionInitByFrame::SetSubFrameName(wchar_t*e_pString)
 	{
 		assert(e_pString&&"the attach frame name is empty");
-		int	l_iLength = wcslen(e_pString);
+		size_t	l_iLength = wcslen(e_pString);
 		memcpy(m_psSubFrameName,e_pString,l_iLength);		
 		m_psSubFrameName[l_iLength] = L'\0';
 	}

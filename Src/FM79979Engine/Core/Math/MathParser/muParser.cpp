@@ -221,7 +221,7 @@ namespace mu
         }
         double  l_dbValue = 0.f;
         int     l_dotStart = -1;
-        int l_iLength = wcslen(e_str);
+        int l_iLength = (int)wcslen(e_str);
         for( int i=0;i<l_iLength;++i )
         {
             if( e_str[i] == L'.' )

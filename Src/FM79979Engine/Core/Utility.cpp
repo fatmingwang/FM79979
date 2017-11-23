@@ -804,7 +804,7 @@ namespace UT
 		}
 		long	l_uiFileSize = UT::GetFileSize(l_pFile);
 		char*l_Temp = new char[l_uiFileSize+1];//1 MB
-		int	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
+		size_t	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
 		l_Temp[l_iNumRead] = 0;
 		l_strContent = l_Temp;
 		delete l_Temp;
@@ -969,7 +969,7 @@ namespace UT
 					int	l_iRestBuffer = l_uiFileSize;
 					while( l_iRestBuffer )
 					{
-						int	l_iNumRead = NvFRead(l_Temp,1,l_iBuffer,l_pSrcFile);
+						int	l_iNumRead = (int)NvFRead(l_Temp,1,l_iBuffer,l_pSrcFile);
 						if( l_iNumRead <= 0 )//all read done
 							break;
 						l_iRestBuffer -= l_iNumRead;

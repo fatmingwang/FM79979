@@ -110,7 +110,7 @@ void TiXmlBase::EncodeString( const TIXML_STRING& str, TIXML_STRING* outString )
 			wchar_t buf[ 32 ];
 			char l_cbuf[ 32 ];
 			sprintf( l_cbuf, "&#x%02X;", (unsigned) ( c & 0xff ) );
-			int	l_iLength = strlen(l_cbuf);
+			int	l_iLength = (int)strlen(l_cbuf);
 			for( int ii=0;ii<l_iLength;++ii )
 			{
 				buf[ii] = l_cbuf[ii];
@@ -1389,7 +1389,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 			std::string		l_strForCopy = l_strAnsii;
 			l_strCharToWchar.assign(l_strForCopy.begin(), l_strForCopy.end());
 		}
-		int	l_iNewBufferSize = l_strCharToWchar.length();
+		int	l_iNewBufferSize = (int)l_strCharToWchar.length();
 		wchar_t* pNewbuf = new wchar_t[ l_iLength+1 ];
 		memcpy(pNewbuf,&l_strCharToWchar[0],sizeof(wchar_t)*l_iLength);
 		pNewbuf[l_iLength] = L'\0';

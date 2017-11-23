@@ -80,7 +80,7 @@ namespace	FATMING_CORE
 		void								ChangeTime(int e_iIndex,float e_fTime);
 		void								SetTimeVector(std::vector<float>e_TimeVector){ m_TimeVector = e_TimeVector; }
 		float*								GetTime(int e_iIndex){if((int)m_TimeVector.size()>e_iIndex && e_iIndex!= -1)return &m_TimeVector[e_iIndex];return 0;}
-		size_t								Count(){ return m_TimeVector.size(); }
+		int									Count(){ return (int)m_TimeVector.size(); }
 		virtual	bool						RemoveDtaa(int e_iIndex) = 0;
 		virtual	bool						InsertDataWithLiner(int e_iIndex,int e_iCount) = 0;
 		virtual	void*						GetDataPointerByIndex(int e_iIndex){ assert(0&&"please override this" );return 0; }

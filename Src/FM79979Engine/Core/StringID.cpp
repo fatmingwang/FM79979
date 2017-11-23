@@ -105,7 +105,7 @@ const wchar_t* StringID::AddString( const wchar_t* strString )
     }
     
     // $OPTIMIZE: use a fixed size allocator here
-    unsigned long bufferLength = wcslen( strString ) + 1;
+    unsigned long bufferLength = (unsigned long)(wcslen( strString ) + 1);
     wchar_t* strCopy = new wchar_t[ bufferLength ];
 	wcscpy(strCopy, strString);
     //wcscpy_s( strCopy, bufferLength, strString );

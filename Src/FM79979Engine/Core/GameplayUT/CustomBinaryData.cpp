@@ -191,7 +191,7 @@ namespace FATMING_CORE
 	{
 		cDataAndPos*l_pDataAndPos = m_DataAndPosVector.GetObject(e_strID);
 		l_pDataAndPos = AssignData(l_pDataAndPos,e_pData,e_iDataLength);
-		l_pDataAndPos->pData->pName->iSize = sizeof(char)*strlen(e_strID);
+		l_pDataAndPos->pData->pName->iSize = (int)(sizeof(char)*strlen(e_strID));
 		l_pDataAndPos->pData->pName->pData = new char[l_pDataAndPos->pData->pName->iSize];
 		memcpy(l_pDataAndPos->pData->pName->pData,e_strID,l_pDataAndPos->pData->pName->iSize);
 		l_pDataAndPos->iLength += l_pDataAndPos->pData->pName->iSize;
@@ -201,7 +201,7 @@ namespace FATMING_CORE
 	{
 		cDataAndPos*l_pDataAndPos = m_DataAndPosVector.GetObject(e_strID);
 		l_pDataAndPos = AssignData(l_pDataAndPos,e_pData,e_iDataLength);
-		l_pDataAndPos->pData->pName->iSize = sizeof(wchar_t)*wcslen(e_strID);
+		l_pDataAndPos->pData->pName->iSize = (int)(sizeof(wchar_t)*wcslen(e_strID));
 		l_pDataAndPos->pData->pName->pData = (char*)new wchar_t[l_pDataAndPos->pData->pName->iSize];
 		memcpy(l_pDataAndPos->pData->pName->pData,e_strID,l_pDataAndPos->pData->pName->iSize*sizeof(wchar_t));
 		l_pDataAndPos->iLength += l_pDataAndPos->pData->pName->iSize;
