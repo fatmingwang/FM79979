@@ -45,7 +45,43 @@
 //    }
 //    return bWin7;
 //}
+void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
+{
+	static DWORD savedExStyle;
+	static DWORD savedStyle;
+	static RECT rcSaved;
 
+	if (e_bFullScreen)
+	{
+		// Moving to full screen mode.
+		savedExStyle = GetWindowLong(e_hwnd, GWL_EXSTYLE);
+		savedStyle = GetWindowLong(e_hwnd, GWL_STYLE);
+		GetWindowRect(e_hwnd, &rcSaved);
+		int l_iSM_CXSCREEN = GetSystemMetrics(SM_CXSCREEN);
+		int l_iSM_CYSCREEN = GetSystemMetrics(SM_CYSCREEN);
+		SetWindowLong(e_hwnd, GWL_EXSTYLE, 0);
+		SetWindowLong(e_hwnd, GWL_STYLE, WS_POPUP | WS_CLIPCHILDREN | WS_CLIPSIBLINGS);
+		SetWindowPos(e_hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+		SetWindowPos(e_hwnd, HWND_TOPMOST, 0, 0, l_iSM_CXSCREEN, l_iSM_CYSCREEN, SWP_SHOWWINDOW);
+		cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
+		cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.x = 0;
+		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = l_iSM_CXSCREEN;
+		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = l_iSM_CYSCREEN;
+	}
+	else
+	{
+		// Moving back to windowed mode.
+		SetWindowLong(e_hwnd, GWL_EXSTYLE, savedExStyle);
+		SetWindowLong(e_hwnd, GWL_STYLE, savedStyle);
+		SetWindowPos(e_hwnd, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED | SWP_SHOWWINDOW);
+		SetWindowPos(e_hwnd, HWND_NOTOPMOST, rcSaved.left, rcSaved.top, rcSaved.right - rcSaved.left, rcSaved.bottom - rcSaved.top, SWP_SHOWWINDOW);
+		cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
+		cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.x = 0;
+		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = rcSaved.right - rcSaved.left;
+		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = rcSaved.bottom - rcSaved.top;		
+	}
+	cGameApp::SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height(), (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+}
 namespace	FATMING_CORE
 {
 	void	DumpGraphicsInfo()
@@ -53,6 +89,12 @@ namespace	FATMING_CORE
 		std::wstring	l_str;
 		const GLubyte*l_strGL_VERSION = glGetString(GL_VERSION);
 		const GLubyte*l_strGL_SHADING_LANGUAGE_VERSION = glGetString(GL_SHADING_LANGUAGE_VERSION);
+		//https://stackoverflow.com/questions/28242148/glews-glewissupportedgl-version-3-1-returning-false-on-mbp-osx-10-10-1-with
+		//OSX
+		//const GLubyte*l_strGL_GL_MINOR_VERSION = glGetString(GL_MINOR_VERSION);
+		//const GLubyte*l_strGL_GL_MAJOR_VERSION = glGetString(GL_MAJOR_VERSION);
+		//too much things...I am lazy to parse this
+		//const GLubyte*l_strGL_GL_EXTENSIONS = glGetString(GL_EXTENSIONS);
 		float l_fVersion = GetFloat((char*)l_strGL_VERSION);
 		float l_f2 = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION);
 		cGameApp::m_sfOpenGLVersion = l_fVersion;
@@ -144,7 +186,6 @@ namespace	FATMING_CORE
 		m_svDeviceViewPortSize.w = (float)e_iDeviceViewportHeight;
 #endif
 	}
-
 
 	//<root FullScreen="0" Resolution="960,640" ViewPort="960,640" DeviceOrietation="0" />
 	void	cGameApp::ResoluctionParse(char*e_strFileName)

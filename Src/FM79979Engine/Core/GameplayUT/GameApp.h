@@ -37,11 +37,11 @@ namespace	FATMING_CORE
 	struct	sMultiTouchPoints;
 	class	cMessageSenderManager;
 
-	#define GAME_PAUSE_EVENT_ID	-123456789
+#define GAME_PAUSE_EVENT_ID	-123456789
 
 	//in windows make sure touch points convert as well!.
 	//view port x and y might swap if direction is lanscape.
-	POINT	ConvertCoordinate(int e_iPosX,int e_iPosY,POINT e_ViewPort);
+	POINT	ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
 
 
 	class	cGameApp
@@ -53,12 +53,12 @@ namespace	FATMING_CORE
 	public:
 		static double				m_dbGamePlayTime;
 #if defined(ANDROID)
-		cGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject* e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);
+		cGameApp(ANativeActivity* e_pActivity, JNIEnv*e_pThreadEnv, jobject* e_pAppThreadThis, Vector2 e_vGameResolution, Vector2 e_vViewportSize, NvEGLUtil*e_pNvEGLUtil);
 #elif defined(WIN32)
-		cGameApp(HWND e_Hwnd,Vector2 e_vGameResolution = Vector2(1920.f,1080.f),Vector2 e_vViewportSize = Vector2(1920.f,1080.f));
+		cGameApp(HWND e_Hwnd, Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
 		virtual	void				OpenglInit(HWND e_Hwnd);
 #else
-		cGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize );
+		cGameApp(Vector2 e_vGameResolution, Vector2 e_vViewportSize);
 #endif
 		virtual~cGameApp();
 		virtual	void				Destroy();
@@ -67,21 +67,21 @@ namespace	FATMING_CORE
 		//update and render
 		virtual	void				Run();
 		//basicly we don't use below function,instead call by TouchSignalProcess
-		virtual	void				MouseDown(int e_iPosX,int e_iPosY);
-		virtual	void				MouseMove(int e_iPosX,int e_iPosY);
-		virtual	void				MouseUp(int e_iPosX,int e_iPosY);
+		virtual	void				MouseDown(int e_iPosX, int e_iPosY);
+		virtual	void				MouseMove(int e_iPosX, int e_iPosY);
+		virtual	void				MouseUp(int e_iPosX, int e_iPosY);
 		//e_iButtonIndex:0 for left,1 for right,2 for mid.
-		virtual	void				MouseButtonClickEvent(bool e_bDown,int e_iButtonIndex);
+		virtual	void				MouseButtonClickEvent(bool e_bDown, int e_iButtonIndex);
 		//it will automaticly to call mouse relateive function for their behavior
 		//this one for single touch
 		//while 2 touche point is clicked,keep doing 2 touch event but if first touch point is mouse up,keep doing mouse2 event until mouseup2 is called,
 		//make m_b2Touched is set to false.
-		virtual void				TouchSignalProcess(int e_iPosX,int e_iPosY,bool e_bTouch);
+		virtual void				TouchSignalProcess(int e_iPosX, int e_iPosY, bool e_bTouch);
 		//virtual void    TouchTwoProcess(int e_iPosX,int e_iPosY,int e_iPos2X,int e_iPos2Y,bool e_bTouch1,bool e_bTouch2);
 		virtual	void				KeyPress(char e_char);
 		virtual	void				KeyDown(char e_char);
 		virtual	void				KeyUp(char e_char);
-		static void					SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth,int e_iDeviceViewportHeight,int e_iTargetResolutionWidth,int e_iTargetResolutionHeight);
+		static void					SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);
 		void						RenderPause();
 		//static objects
 #if defined(ANDROID)
@@ -119,6 +119,7 @@ namespace	FATMING_CORE
 		static	sMultiTouchPoints*									m_spMultiTouchPoints;
 		static	bool												m_sbDoMultiTouch;
 		static	bool												m_sbDoLockFPS;
+		static	bool												m_sbMultisample;
 		static	cNamedTypedObjectVector<cCurveManager>*				m_spPathFileList;
 		static	cNamedTypedObjectVector<c2DImageCollisionData>*		m_sp2DImageCollisionDataVector;
 		static	cNamedTypedObjectVector<NamedTypedObject>*			m_spColladaParserVector;
@@ -171,48 +172,48 @@ namespace	FATMING_CORE
 		static	cPuzzleImage*			GetPuzzleImageByFileName(std::wstring e_strFileName);
 
 		static	cMPDIList*				GetMPDIList(const wchar_t*e_strName);
-		static	cMPDIList*				GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMsg = false);
-		static	cMPDIList*				GetMPDIList(const char*e_strFileName,const wchar_t*e_strName);
+		static	cMPDIList*				GetMPDIListByFileName(const wchar_t*e_strFileName, bool e_bShowErrorMsg = false);
+		static	cMPDIList*				GetMPDIList(const char*e_strFileName, const wchar_t*e_strName);
 		static	cMPDIList*				GetMPDIList(int e_iIndex);
 		static	cCurveManager*			GetCurveManagerByFileName(const wchar_t*e_strFileName);
 
-		static	cParticleEmitterGroup*	GetPRTG(const char*e_strFileName,const wchar_t*e_strName);
-		static	cParticleEmitterGroup*	GetPRTG(const wchar_t*e_strFileName,const wchar_t*e_strName);
+		static	cParticleEmitterGroup*	GetPRTG(const char*e_strFileName, const wchar_t*e_strName);
+		static	cParticleEmitterGroup*	GetPRTG(const wchar_t*e_strFileName, const wchar_t*e_strName);
 		static	cParticleEmitterGroup*	GetPRTG(const wchar_t*e_strName);
-		static	cPrtEmitter*			GetPrtEmitter(const char*e_strFileName,const wchar_t*e_strName);
-		static	cPrtEmitter*			GetPrtEmitter(const wchar_t*e_strFileName,const wchar_t*e_strName);
+		static	cPrtEmitter*			GetPrtEmitter(const char*e_strFileName, const wchar_t*e_strName);
+		static	cPrtEmitter*			GetPrtEmitter(const wchar_t*e_strFileName, const wchar_t*e_strName);
 		static	cPrtEmitter*			GetPrtEmitter(const wchar_t*e_strName);
-		static	bool					SoundPlay(const wchar_t*e_strSoundName,bool e_bPlay);
+		static	bool					SoundPlay(const wchar_t*e_strSoundName, bool e_bPlay);
 		static	cBasicSound*			GetSoundByFileName(const wchar_t*e_strSoundFileName);
 		static	cBasicSound*			GetSound(const wchar_t*e_strSoundName);
-		static	void					RenderFont(long e_iPosX,long e_iPosY,const wchar_t*e_strInfo);
-		static	void					RenderFont(int e_iPosX,int e_iPosY,const wchar_t*e_strInfo);
-		static	void					RenderFont(int e_iPosX,int e_iPosY,std::wstring e_strInfo);
-		static	void					RenderFont(float e_fPosX,float e_fPosY,const wchar_t*e_strInfo);
-		static	void					RenderFont(float e_fPosX,float e_fPosY,std::wstring e_strInfo);
-		static	void					RenderFont(Vector2 e_vPos,const wchar_t*e_pString);
+		static	void					RenderFont(long e_iPosX, long e_iPosY, const wchar_t*e_strInfo);
+		static	void					RenderFont(int e_iPosX, int e_iPosY, const wchar_t*e_strInfo);
+		static	void					RenderFont(int e_iPosX, int e_iPosY, std::wstring e_strInfo);
+		static	void					RenderFont(float e_fPosX, float e_fPosY, const wchar_t*e_strInfo);
+		static	void					RenderFont(float e_fPosX, float e_fPosY, std::wstring e_strInfo);
+		static	void					RenderFont(Vector2 e_vPos, const wchar_t*e_pString);
 
 
-		static	void					OutputDebugInfoString(const wchar_t*e_str,bool e_bWithNextLineSymbol = true,bool e_bWriteLog = false);
-		static	void					OutputDebugInfoString(std::wstring e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
-		static	void					OutputDebugInfoString(std::string e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
-		static	void					OutputDebugInfoString(const char*e_str,bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(const wchar_t*e_str, bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(std::wstring e_str, bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(std::string e_str, bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
+		static	void					OutputDebugInfoString(const char*e_str, bool e_bWithNextLineSymbol = true, bool e_bWriteLog = false);
 		static	void					WriteLog(const wchar_t*e_strMessage);
 		static	void					WriteLog(std::wstring e_strMessage);
 		static	void					WriteLog(const char*e_strMessage);
 		static	void					WriteLog(std::string e_strMessage);
-		static	void					CallExternalFunction(std::wstring e_strName,void*e_pData);
-		static	bool					AddExternalFunction(DoButtonGoal_Callback e_pCallBack,const wchar_t*e_strExternalFunctionName);
+		static	void					CallExternalFunction(std::wstring e_strName, void*e_pData);
+		static	bool					AddExternalFunction(DoButtonGoal_Callback e_pCallBack, const wchar_t*e_strExternalFunctionName);
 		static	cGlyphFontRender*		GetGlyphFontRenderByFileName(const wchar_t*e_strFileName);
 		static	cGlyphFontRender*		GetGlyphFontRender(const wchar_t*e_strFileName);
 		static	void					ShowInfo();
 		//GAME_PAUSE_EVENT_ID	-123456789 is game pause
-		static	bool					EventMessageShot(unsigned int e_usID,void*e_pData);
+		static	bool					EventMessageShot(unsigned int e_usID, void*e_pData);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
 		//FinishInput(String e_strValue);,Chancel();take a look at cpp
 		//take a see at cpp
-		static  void					OpenKeyBoard(int e_iKeyBoardType,const wchar_t*e_strTitle=L"GameApp",const wchar_t*e_strMessage=L"please input data");
+		static  void					OpenKeyBoard(int e_iKeyBoardType, const wchar_t*e_strTitle = L"GameApp", const wchar_t*e_strMessage = L"please input data");
 		static	std::wstring			GetDIDOrInstallationRandomID();
 	};
 	//end namespace
@@ -220,7 +221,8 @@ namespace	FATMING_CORE
 
 #ifdef WIN32
 #include "Psapi.h"
-void PrintMemoryInfo( wchar_t*e_strName = L"Memory" );
+void PrintMemoryInfo(wchar_t*e_strName = L"Memory");
+void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd);
 #endif
 
 //#define	WRITELOG

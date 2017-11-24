@@ -20,8 +20,7 @@ namespace UT
 	#define	MyGlErrorTest()
 #endif
 #ifdef WIN32
-	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV);
-	bool 					InitMultisample(HINSTANCE hInstance,HWND hWnd);
+	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV,bool e_bEnableMultisample = false);
 	bool 					IsExtensionSupported( char* szTargetExtension );
 #endif
 	eDataType				GetDataType(const wchar_t*e_str);
