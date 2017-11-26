@@ -291,7 +291,7 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 		m_pC4Text->SetLocalPosition(Vector2(670,1200));
 		//m_pC4Text->SetLocalPosition(Vector2(650,550));
 		m_pG4Text = new cGlyphFontRender(m_pC4Text);
-		m_pG4Text->SetText(L"G4");
+		m_pG4Text->SetText(L"B4");
 		m_pG4Text->SetFontColor(Vector4(0,0,0,1));
 		m_pG4Text->SetName(L"m_pG4Text ");
 		m_pG4Text->SetLocalPosition(Vector2(1520,1200));

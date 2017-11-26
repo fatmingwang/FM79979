@@ -38,7 +38,7 @@
     <ProjectGuid>{D5962A80-CFCF-437A-B224-01C03CF9FD1A}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="Configuration">

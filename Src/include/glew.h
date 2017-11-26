@@ -195,6 +195,7 @@ typedef _W64 int ptrdiff_t;
 
 //79979
 #define GLEW_STATIC
+#define GLEW_NO_GLU
 
 /*
  * GLEW_STATIC is defined for static library.

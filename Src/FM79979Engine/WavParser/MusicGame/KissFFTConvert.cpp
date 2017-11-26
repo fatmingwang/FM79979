@@ -54,7 +54,7 @@ void	cKissFFTConvertBase::DumpDebugInfo(int e_iDeciblesThreshold,const char*e_st
 {
 	std::string l_strOutputFileName = UT::ChangeFileExtensionName(e_strFileName,FREQUENCY_AND_DEIBELS_EXTENSION_FILE_NAME);
 	if( m_pFFTDataStore )
-		this->m_pFFTDataStore->Export(l_strOutputFileName.c_str(),e_strFileName,e_iDeciblesThreshold);
+		this->m_pFFTDataStore->Export(l_strOutputFileName.c_str(),e_strFileName);//,e_iDeciblesThreshold);
 }
 
 int	cKissFFTConvertBase::GetCurrentMaxFrequence(int e_iIndexOfFFTData,int e_iFrequence,int e_iCount,int e_iMaxAmplitude)

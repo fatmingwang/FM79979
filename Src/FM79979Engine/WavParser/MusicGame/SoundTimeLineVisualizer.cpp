@@ -536,7 +536,7 @@ void	cTimeLineRangeChart::RenderTimeLineData(Vector2 e_vShowPos,Vector2 e_vResol
 	}
 	if( m_pTickImage )
 	{
-		m_pTickImage->SetPos(l_vCurrentTimePos);
+		m_pTickImage->SetLocalPosition(l_vCurrentTimePos);
 		m_pTickImage->Render();
 	}
 }

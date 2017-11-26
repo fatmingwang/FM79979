@@ -71,9 +71,9 @@ public:
 	~cFFTDecibelsAnalyzer();
 	void								UpdateFFTData(float e_fElpaseTime,int*e_piFFTData,int e_iCount);
 	void								Start(int e_iFrequency);
-	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold);
+	bool								Export(const char*e_strFileName,const char*e_strOriginalSourceFileName);
 	bool								ExportWithAverageDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold,int e_iFrequencyThreshold);
-	bool								ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold);
+	bool								ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName);
 	void								RenderByTime(float e_fTargetTime);
 	void								RenderCurrentData();
 	float								GetCurrentTime(){ return m_fCurrentTime; }

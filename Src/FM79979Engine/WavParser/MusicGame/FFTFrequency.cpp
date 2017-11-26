@@ -523,7 +523,7 @@ void	cFFTDecibelsAnalyzer::SortMostHittedFequency(std::vector<int>&e_Vector1,std
 	}
 }
 
-bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold)
+bool	cFFTDecibelsAnalyzer::ExportBySelectedDecibels(const char*e_strFileName,const char*e_strOriginalSourceFileName)
 {
 	size_t l_uiSize = m_FFTFrequencyDecibelsVector.size();
 	if( l_uiSize == 0 )
@@ -661,9 +661,9 @@ bool	cFFTDecibelsAnalyzer::ExportWithAverageDecibels(const char*e_strFileName,co
 	return false;
 }
 
-bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName,int e_iDecibleThreshold)
+bool	cFFTDecibelsAnalyzer::Export(const char*e_strFileName,const char*e_strOriginalSourceFileName)
 {
-	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName,e_iDecibleThreshold);
+	return ExportBySelectedDecibels(e_strFileName,e_strOriginalSourceFileName);
 }
 //<Root ParseFileName="C:\Users\leeyo\Desktop\FM79979\Media\MusicGame\Piano\a2m.wav">
 //    <TimeFrequencyAmplitudeValueCapture ParseFPS="60" CaptureSoundRequireMinTime="0.10000" MinAmplitude="80" SourceFrequency="11025" />

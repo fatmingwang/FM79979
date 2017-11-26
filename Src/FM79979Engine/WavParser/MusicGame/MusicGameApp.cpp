@@ -27,9 +27,9 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 	*this->m_psstrGameAppName = "MusicGame";
 	m_pPhaseManager = nullptr;
 	m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
-#ifdef DEBUG
+//#ifdef DEBUG
 	this->m_sbDebugFunctionWorking = true;
-#endif
+//#endif
 	m_pEditorTestcToneDataVector = nullptr;
 }
 
