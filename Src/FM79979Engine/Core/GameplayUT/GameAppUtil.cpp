@@ -65,8 +65,8 @@ void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
 		SetWindowPos(e_hwnd, HWND_TOPMOST, 0, 0, l_iSM_CXSCREEN, l_iSM_CYSCREEN, SWP_SHOWWINDOW);
 		cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
 		cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.x = 0;
-		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = l_iSM_CXSCREEN;
-		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = l_iSM_CYSCREEN;
+		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = (float)l_iSM_CXSCREEN;
+		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = (float)l_iSM_CYSCREEN;
 	}
 	else
 	{
@@ -77,10 +77,10 @@ void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
 		SetWindowPos(e_hwnd, HWND_NOTOPMOST, rcSaved.left, rcSaved.top, rcSaved.right - rcSaved.left, rcSaved.bottom - rcSaved.top, SWP_SHOWWINDOW);
 		cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
 		cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.x = 0;
-		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = rcSaved.right - rcSaved.left;
-		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = rcSaved.bottom - rcSaved.top;		
+		cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.x = (float)(rcSaved.right - rcSaved.left);
+		cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.x = (float)(rcSaved.bottom - rcSaved.top);
 	}
-	cGameApp::SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height(), (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+	cGameApp::SetAcceptRationWithGameresolution((int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 }
 namespace	FATMING_CORE
 {

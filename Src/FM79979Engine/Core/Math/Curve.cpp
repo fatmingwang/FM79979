@@ -70,7 +70,7 @@ namespace FATMING_CORE
 		if( m_iLOD>=2 )
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseLod();
-		assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
+		//assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
 		return true;
 	}
 	//===============
@@ -254,7 +254,7 @@ namespace FATMING_CORE
 		if( m_iLOD>=2 )
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseLod();
-		assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
+//		assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
 	}
 	//
 	void	cCurve::AddPoint(Vector3 e_vPos)

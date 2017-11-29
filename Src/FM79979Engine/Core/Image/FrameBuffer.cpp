@@ -9,25 +9,25 @@ namespace FATMING_CORE
 #if defined(WIN32) || defined(LINUX)
 	cScreenCapture::cScreenCapture()
 	{
-		m_pPixelBuffer = 0; 
+		m_pPixelBuffer = 0;
 		m_uiWidth = -1;
 		m_uiHeight = -1;
 		glGenTextures(1, &m_uiTextureID);
 		//give a super big size
-		m_pPixelBuffer = new char[1920*1080*3];
+		m_pPixelBuffer = new char[1920 * 1080 * 3];
 	}
 	cScreenCapture::~cScreenCapture()
 	{
-		glDeleteTextures(1,&m_uiTextureID);
+		glDeleteTextures(1, &m_uiTextureID);
 		SAFE_DELETE(m_pPixelBuffer);
 	}
 	void	cScreenCapture::Capture(int*e_piViewport)
 	{
-		if( m_pPixelBuffer == 0 || m_uiWidth != e_piViewport[2] || m_uiHeight != e_piViewport[3] )
+		if (m_pPixelBuffer == 0 || m_uiWidth != e_piViewport[2] || m_uiHeight != e_piViewport[3])
 		{
 			m_uiWidth = e_piViewport[2];
 			m_uiHeight = e_piViewport[3];
-			if(!g_bSupportNonPowerOfTwoTexture)
+			if (!g_bSupportNonPowerOfTwoTexture)
 			{
 				m_uiWidth = UT::power_of_two(m_uiWidth);
 				m_uiHeight = UT::power_of_two(m_uiHeight);
@@ -37,35 +37,35 @@ namespace FATMING_CORE
 		}
 		glPixelStorei(GL_PACK_ALIGNMENT, 1);
 		glReadBuffer(GL_BACK);
-		glReadPixels(e_piViewport[0],e_piViewport[1],m_uiWidth,m_uiHeight,GL_RGB, GL_UNSIGNED_BYTE,m_pPixelBuffer);
+		glReadPixels(e_piViewport[0], e_piViewport[1], m_uiWidth, m_uiHeight, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
 		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
-		glTexImage2D(GL_TEXTURE_2D, 0,3,m_uiWidth,m_uiHeight, 0,GL_RGB,GL_UNSIGNED_BYTE,m_pPixelBuffer);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	// Set Texture Max Filter
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// Set Texture Min Filter
+		glTexImage2D(GL_TEXTURE_2D, 0, 3, m_uiWidth, m_uiHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
 	}
 
-	void	cScreenCapture::Render(Vector3 e_vPos,int e_iWidth,int e_iHeight)
+	void	cScreenCapture::Render(Vector3 e_vPos, int e_iWidth, int e_iHeight)
 	{
-		if( m_uiWidth == -1 )
+		if (m_uiWidth == -1)
 			return;
-		glBindTexture( GL_TEXTURE_2D, m_uiTextureID);
+		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
 		e_iWidth /= 2;
 		e_iHeight /= 2;
 
-		float	l_fTexPointer[] = {  0,1,
-									 1,1,
-									 0,0,
-									 1,0};
-		
-		float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
-								 (float)e_iWidth, (float)-e_iHeight,0,
-								 (float)-e_iWidth, (float)e_iHeight,0,
-								 (float)e_iWidth,(float)e_iHeight,0};
+		float	l_fTexPointer[] = { 0,1,
+			1,1,
+			0,0,
+			1,0 };
 
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x+e_iWidth),(float)(e_vPos.y+e_iHeight), e_vPos.z));
+		float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
+			(float)e_iWidth, (float)-e_iHeight,0,
+			(float)-e_iWidth, (float)e_iHeight,0,
+			(float)e_iWidth,(float)e_iHeight,0 };
+
+		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z));
 		SetupShaderWorldMatrix(l_mat*GetWorldTransform());
-		myGlVertexPointer(3,l_Vertices);
-		myGlUVPointer(2,l_fTexPointer);
+		myGlVertexPointer(3, l_Vertices);
+		myGlUVPointer(2, l_fTexPointer);
 		ASSIGN_2D_COLOR(Vector4::One);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
 
@@ -90,196 +90,57 @@ namespace FATMING_CORE
 	//	}
 	//}
 
-	bool CheckFramebufferStatus( bool silent = false)
+	bool CheckFramebufferStatus(bool silent = false)
 	{
 		GLenum status;
-		status = (GLenum) glCheckFramebufferStatus(GL_FRAMEBUFFER);
-		switch(status) {
-			case GL_FRAMEBUFFER_COMPLETE:
-				break;
-			case GL_FRAMEBUFFER_UNSUPPORTED:
-				if (!silent) printf("Unsupported framebuffer format\n");
-				return false;
-			case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
-				if (!silent) printf("Framebuffer incomplete, missing attachment\n");
-				return false;
-			case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
-				if (!silent) printf("Framebuffer incomplete, duplicate attachment\n");
-				return false;
-			case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
-				if (!silent) printf("Framebuffer incomplete, attached images must have same dimensions\n");
-				return false;
+		status = (GLenum)glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		switch (status) {
+		case GL_FRAMEBUFFER_COMPLETE:
+			break;
+		case GL_FRAMEBUFFER_UNSUPPORTED:
+			if (!silent) printf("Unsupported framebuffer format\n");
+			return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT:
+			if (!silent) printf("Framebuffer incomplete, missing attachment\n");
+			return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT:
+			if (!silent) printf("Framebuffer incomplete, duplicate attachment\n");
+			return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
+			if (!silent) printf("Framebuffer incomplete, attached images must have same dimensions\n");
+			return false;
 #if defined(WIN32) || defined(LINUX)
-			case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
-				if (!silent) printf("Framebuffer incomplete, attached images must have same format\n");
-				return false;
-			case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
-				if (!silent) printf("Framebuffer incomplete, missing draw buffer\n");
-				return false;
-			case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
-				if (!silent) printf("Framebuffer incomplete, missing read buffer\n");
-				return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
+			if (!silent) printf("Framebuffer incomplete, attached images must have same format\n");
+			return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT:
+			if (!silent) printf("Framebuffer incomplete, missing draw buffer\n");
+			return false;
+		case GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT:
+			if (!silent) printf("Framebuffer incomplete, missing read buffer\n");
+			return false;
 #endif
-			default:
-				assert(0);
-				return false;
+		default:
+			assert(0);
+			return false;
 		}
 		return true;
 	}
 
-	cFrameBuffer::cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed,GLenum e_eImageType,GLenum e_eRGBDataType)
+	cFrameBuffer::cFrameBuffer(int e_iWidth, int e_iHeight, bool e_bDepthNeed, GLenum e_eImageType, GLenum e_eRGBDataType)
 	{
-	//Setting up a framebuffer for texturing
-	//generate mipmap
-	//glGenTextures(1, &img);
-	//glBindTexture(GL_TEXTURE_2D, img);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,  width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
-	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	//glGenerateMipmapEXT(GL_TEXTURE_2D);
+		//Setting up a framebuffer for texturing
+		//generate mipmap
+		//glGenTextures(1, &img);
+		//glBindTexture(GL_TEXTURE_2D, img);
+		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,  width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//glGenerateMipmapEXT(GL_TEXTURE_2D);
 
 		m_bDepthNeed = e_bDepthNeed;
-		m_uiWidth = e_iWidth;
-		m_uiHeight = e_iHeight;
-		m_eImageType = e_eImageType;
-		m_eRGBDataType = e_eRGBDataType;
-		//in openglES 2.0 glGenFramebuffers
-		glGenFramebuffers(1, &m_uiFramebufferID); 
-		// Set up the FBO with one texture attachment 
-		//in openglES 2.0 glBindFramebuffer
-		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
-		//initialize renderbuffer
-		if( m_bDepthNeed )
-		{
-			glGenRenderbuffers(1, &this->m_uiRenderufferID);
-			glBindRenderbuffer(GL_RENDERBUFFER, m_uiRenderufferID);
-			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight);//GL_DEPTH_COMPONENT24
-			//bind  render buffer with texture
-			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, 
-								GL_RENDERBUFFER, m_uiRenderufferID);
-		}
-		// Now setup a texture to render to
-		glGenTextures(1, &m_uiTextureID);
-		glBindTexture(GL_TEXTURE_2D, m_uiTextureID); 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); 
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0,m_eImageType, m_eRGBDataType, nullptr);
-		MyGlErrorTest();
-		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		//	glGenerateMipmapEXT(GL_TEXTURE_2D);
-		//assign texture to framebuffer
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D, m_uiTextureID, 0);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		static bool	l_bCheck = false;
-		if( !l_bCheck )
-		{
-			l_bCheck = true;
-			bool	l_b = CheckFramebufferStatus();
-			assert(l_b&&"display card is too old!!");
-		}
-	}
-
-	cFrameBuffer::~cFrameBuffer()
-	{
-		//Tear down the FBO and texture attachment 
-		glDeleteTextures(1, &m_uiTextureID); 
-		glDeleteFramebuffers(1, &m_uiFramebufferID); 
-		if( m_bDepthNeed )
-			glDeleteRenderbuffers(1, &m_uiRenderufferID);
-
-
-	}
-
-	void	cFrameBuffer::StartDraw(bool e_bClearScreen)
-	{
-		//for depth
-		glGetIntegerv(GL_VIEWPORT,m_iOriginalViewPortSize);
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
-		if(m_bEnableScissor)
-			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
-		cGameApp::m_svViewPortSize.x = 0.f;
-		cGameApp::m_svViewPortSize.y = 0.f;
-		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
-		cGameApp::m_svViewPortSize.w = (float)this->m_uiHeight;
-		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
-		if( e_bClearScreen )
-		{
-			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-			//glClearColor( 0,0.5,0.5,0.f );
-			glClearColor( 0,0,0,1 );
-		}
-		//for RGB
-		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
-//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
-		glViewport(0,0,this->m_uiWidth,this->m_uiHeight);
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
-
-		// Set the render target
-		//glDrawBuffer(GL_COLOR_ATTACHMENT0);
-		// Render as normal here
-		// output goes to the FBO and itís attached buffers
-		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index,
-		//                          newTarget, texture.getID(), 0);
-
-	}
-
-	void	cFrameBuffer::EndDraw()
-	{
-//		glPopAttrib();
-		//glViewport(m_OriginalViewPortSize[0],m_OriginalViewPortSize[1],m_OriginalViewPortSize[2],m_OriginalViewPortSize[3]);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		cGameApp::m_svViewPortSize.x = (float)m_iOriginalViewPortSize[0];
-		cGameApp::m_svViewPortSize.y = (float)m_iOriginalViewPortSize[1];
-		cGameApp::m_svViewPortSize.z = (float)m_iOriginalViewPortSize[2];
-		cGameApp::m_svViewPortSize.w = (float)m_iOriginalViewPortSize[3];
-		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
-		if (m_bEnableScissor)
-			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
-		else
-		{
-			glDisable(GL_SCISSOR_TEST);
-		}
-	}
-
-	void	cFrameBuffer::DrawBuffer(POINT e_Pos,POINT e_Size,const WCHAR*e_strShaderName)
-	{
-		cTexture::ApplyImage(m_uiTextureID);
-		//I have no idea why the frame buffer have to rotate Y with180,and change UV
-		//real freak........
-		//int e_iWidth = e_Size.x/2;
-		//int e_iHeight = e_Size.y/2;
-		//float	l_fTexPointer[] = {  1,0,
-		//							 0,0,
-		//							 1,1,
-		//							 0,1};
-		//
-		////float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
-		////						 (float)e_iWidth, (float)-e_iHeight,0,
-		////						 (float)-e_iWidth, (float)e_iHeight,0,
-		////						 (float)e_iWidth,(float)e_iHeight,0};
-
-		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_Pos.x+e_iWidth),(float)(e_Pos.y+e_iHeight), 0))*  cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180.f));
-		//SetupShaderWorldMatrix(l_mat*GetWorldTransform());
-		//ASSIGN_2D_COLOR(Vector4::One);
-		////myGlVertexPointer( 2, l_Vertices );
-		//ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,0.f);
-		//myGlUVPointer(  2, l_fTexPointer );
-		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		//UseShaderProgram(l_p2DShader);
-		float	l_fTextureCoordinate[] ={0,1,1,0};
-		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x,(float)e_Pos.y,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,e_strShaderName);
-	}
-
-
-	cMSAAFrameBuffer::cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType, GLenum e_eRGBDataType)
-	{
 		m_uiWidth = e_iWidth;
 		m_uiHeight = e_iHeight;
 		m_eImageType = e_eImageType;
@@ -289,6 +150,15 @@ namespace FATMING_CORE
 		// Set up the FBO with one texture attachment 
 		//in openglES 2.0 glBindFramebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		//initialize renderbuffer
+		if (m_bDepthNeed)
+		{
+			glGenRenderbuffers(1, &this->m_uiRenderufferID);
+			glBindRenderbuffer(GL_RENDERBUFFER, m_uiRenderufferID);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, e_iWidth, e_iHeight);//GL_DEPTH_COMPONENT24
+																							//bind  render buffer with texture
+			glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_uiRenderufferID);
+		}
 		// Now setup a texture to render to
 		glGenTextures(1, &m_uiTextureID);
 		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
@@ -314,8 +184,147 @@ namespace FATMING_CORE
 		}
 	}
 
+	cFrameBuffer::~cFrameBuffer()
+	{
+		//Tear down the FBO and texture attachment 
+		glDeleteTextures(1, &m_uiTextureID);
+		glDeleteFramebuffers(1, &m_uiFramebufferID);
+		if (m_bDepthNeed)
+			glDeleteRenderbuffers(1, &m_uiRenderufferID);
+
+
+	}
+
+	void	cFrameBuffer::StartDraw(bool e_bClearScreen)
+	{
+		//for depth
+		glGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
+		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		if (m_bEnableScissor)
+			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
+		cGameApp::m_svViewPortSize.x = 0.f;
+		cGameApp::m_svViewPortSize.y = 0.f;
+		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
+		cGameApp::m_svViewPortSize.w = (float)this->m_uiHeight;
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		if (e_bClearScreen)
+		{
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			//glClearColor( 0,0.5,0.5,0.f );
+			glClearColor(0, 0, 0, 1);
+		}
+		//for RGB
+		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
+		//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
+		glViewport(0, 0, this->m_uiWidth, this->m_uiHeight);
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
+
+		// Set the render target
+		//glDrawBuffer(GL_COLOR_ATTACHMENT0);
+		// Render as normal here
+		// output goes to the FBO and itís attached buffers
+		//glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + index,
+		//                          newTarget, texture.getID(), 0);
+
+	}
+
+	void	cFrameBuffer::EndDraw()
+	{
+		//		glPopAttrib();
+		//glViewport(m_OriginalViewPortSize[0],m_OriginalViewPortSize[1],m_OriginalViewPortSize[2],m_OriginalViewPortSize[3]);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		cGameApp::m_svViewPortSize.x = (float)m_iOriginalViewPortSize[0];
+		cGameApp::m_svViewPortSize.y = (float)m_iOriginalViewPortSize[1];
+		cGameApp::m_svViewPortSize.z = (float)m_iOriginalViewPortSize[2];
+		cGameApp::m_svViewPortSize.w = (float)m_iOriginalViewPortSize[3];
+		glViewport((int)cGameApp::m_svViewPortSize.x, (int)cGameApp::m_svViewPortSize.y, (int)cGameApp::m_svViewPortSize.z, (int)cGameApp::m_svViewPortSize.w);
+		if (m_bEnableScissor)
+			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
+		else
+		{
+			glDisable(GL_SCISSOR_TEST);
+		}
+	}
+
+	void	cFrameBuffer::DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName)
+	{
+		cTexture::ApplyImage(m_uiTextureID);
+		//I have no idea why the frame buffer have to rotate Y with180,and change UV
+		//real freak........
+		//int e_iWidth = e_Size.x/2;
+		//int e_iHeight = e_Size.y/2;
+		//float	l_fTexPointer[] = {  1,0,
+		//							 0,0,
+		//							 1,1,
+		//							 0,1};
+		//
+		////float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
+		////						 (float)e_iWidth, (float)-e_iHeight,0,
+		////						 (float)-e_iWidth, (float)e_iHeight,0,
+		////						 (float)e_iWidth,(float)e_iHeight,0};
+
+		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_Pos.x+e_iWidth),(float)(e_Pos.y+e_iHeight), 0))*  cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180.f));
+		//SetupShaderWorldMatrix(l_mat*GetWorldTransform());
+		//ASSIGN_2D_COLOR(Vector4::One);
+		////myGlVertexPointer( 2, l_Vertices );
+		//ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,0.f);
+		//myGlUVPointer(  2, l_fTexPointer );
+		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		//UseShaderProgram(l_p2DShader);
+		float	l_fTextureCoordinate[] = { 0,1,1,0 };
+		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
+	}
+
+	const wchar_t*g_pstrMultiSamlingShader = L"MultiSamlingShader";
+	extern cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList;
+	cMSAAFrameBuffer::cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType, int e_iNumSamples)
+	{
+		m_pFrameBuffer = new cFrameBuffer(e_iWidth, e_iHeight);
+		std::string l_strVS = UT::GetTxtFileContent("shader/MultiSampling.vs");
+		std::string l_strPS = UT::GetTxtFileContent("shader/MultiSampling.ps");
+		m_pMultiSamplingShader = new cBaseShader(l_strVS.c_str(), l_strPS.c_str(), g_pstrMultiSamlingShader);
+		if (g_pAll2DShaderList && m_pMultiSamplingShader)
+		{
+			g_pAll2DShaderList->AddObjectNeglectExist(m_pMultiSamplingShader);
+		}
+		m_iNumSamples = e_iNumSamples;
+		m_uiWidth = e_iWidth;
+		m_uiHeight = e_iHeight;
+		m_eImageType = e_eImageType;
+		// Now setup a texture to render to
+		glGenTextures(1, &m_uiTextureID);
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_uiTextureID);
+		//https://stackoverflow.com/questions/22678146/creating-multisample-texture-correctly
+		//glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_iNumSamples, GL_RGB, e_iWidth, e_iHeight, 0);
+		//in openglES 2.0 glGenFramebuffers
+		glGenFramebuffers(1, &m_uiFramebufferID);
+		// Set up the FBO with one texture attachment 
+		//in openglES 2.0 glBindFramebuffer
+		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, m_uiTextureID, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		static bool	l_bCheck = false;
+		if (!l_bCheck)
+		{
+			l_bCheck = true;
+			bool	l_b = CheckFramebufferStatus();
+			assert(l_b&&"graphic card is too old!!");
+		}
+	}
+
 	cMSAAFrameBuffer::~cMSAAFrameBuffer()
 	{
+		SAFE_DELETE(m_pFrameBuffer);
+		if (g_pAll2DShaderList && m_pMultiSamplingShader)
+		{
+			g_pAll2DShaderList->RemoveObjectWithoutDelete(m_pMultiSamplingShader);
+		}
+		SAFE_DELETE(m_pMultiSamplingShader);
 		//Tear down the FBO and texture attachment 
 		glDeleteTextures(1, &m_uiTextureID);
 		glDeleteFramebuffers(1, &m_uiFramebufferID);
@@ -357,8 +366,6 @@ namespace FATMING_CORE
 
 	void	cMSAAFrameBuffer::EndDraw()
 	{
-		//		glPopAttrib();
-		//glViewport(m_OriginalViewPortSize[0],m_OriginalViewPortSize[1],m_OriginalViewPortSize[2],m_OriginalViewPortSize[3]);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		cGameApp::m_svViewPortSize.x = (float)m_iOriginalViewPortSize[0];
 		cGameApp::m_svViewPortSize.y = (float)m_iOriginalViewPortSize[1];
@@ -375,31 +382,23 @@ namespace FATMING_CORE
 
 	void	cMSAAFrameBuffer::DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName)
 	{
-		cTexture::ApplyImage(m_uiTextureID);
-		//I have no idea why the frame buffer have to rotate Y with180,and change UV
-		//real freak........
-		//int e_iWidth = e_Size.x/2;
-		//int e_iHeight = e_Size.y/2;
-		//float	l_fTexPointer[] = {  1,0,
-		//							 0,0,
-		//							 1,1,
-		//							 0,1};
-		//
-		////float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
-		////						 (float)e_iWidth, (float)-e_iHeight,0,
-		////						 (float)-e_iWidth, (float)e_iHeight,0,
-		////						 (float)e_iWidth,(float)e_iHeight,0};
-
-		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_Pos.x+e_iWidth),(float)(e_Pos.y+e_iHeight), 0))*  cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180.f));
-		//SetupShaderWorldMatrix(l_mat*GetWorldTransform());
-		//ASSIGN_2D_COLOR(Vector4::One);
-		////myGlVertexPointer( 2, l_Vertices );
-		//ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,0.f);
-		//myGlUVPointer(  2, l_fTexPointer );
-		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		//UseShaderProgram(l_p2DShader);
-		float	l_fTextureCoordinate[] = { 0,1,1,0 };
-		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
+		if (m_pMultiSamplingShader)
+			m_pMultiSamplingShader->Use();
+		glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, m_uiTextureID);
+		if (m_pFrameBuffer)
+		{
+			m_pFrameBuffer->StartDraw();
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_pFrameBuffer->GetFramebufferID());
+			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
+			glDrawBuffer(GL_BACK);
+			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+			m_pFrameBuffer->EndDraw();
+			m_pFrameBuffer->DrawBuffer(e_Pos, e_Size);
+		}
+		//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		//glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
+		//glDrawBuffer(GL_BACK);
+		//glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
 	}
 
 

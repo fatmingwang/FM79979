@@ -5,11 +5,11 @@
 namespace FATMING_CORE
 {
 	extern wchar_t*DEFAULT_SHADER;
-//==========================
-//if there is no framebuffer exist...
-//==========================
+	//==========================
+	//if there is no framebuffer exist...
+	//==========================
 #if defined(WIN32) || defined(LINUX)
-	class	cScreenCapture:public Frame
+	class	cScreenCapture :public Frame
 	{
 		char*m_pPixelBuffer;
 		GLuint	m_uiWidth;
@@ -19,13 +19,13 @@ namespace FATMING_CORE
 		cScreenCapture();
 		virtual ~cScreenCapture();
 		void	Capture(int*e_piViewport);
-		void	Render(Vector3 e_vPos,int e_iWidth,int e_iHeight);
+		void	Render(Vector3 e_vPos, int e_iWidth, int e_iHeight);
 	};
 #endif
-//=====================
-//
-//=====================
-	class	cFrameBuffer:public Frame
+	//=====================
+	//
+	//=====================
+	class	cFrameBuffer :public Frame
 	{
 		GLboolean	m_bEnableScissor;
 		GLint		m_iOriginalScissortSize[4];
@@ -39,19 +39,22 @@ namespace FATMING_CORE
 		GLenum		m_eImageType;		//GL_RGB or GL_RGBA
 		GLenum		m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
 	public:
-		cFrameBuffer(int e_iWidth,int e_iHeight,bool e_bDepthNeed = false,GLenum e_eImageType = GL_RGB,GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
+		cFrameBuffer(int e_iWidth, int e_iHeight, bool e_bDepthNeed = false, GLenum e_eImageType = GL_RGB, GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
 		virtual ~cFrameBuffer();
 		void	StartDraw(bool e_bClearScreen = true);		//store original
 		void	EndDraw();			//restore original
-		UINT	GetWidth(){ return m_uiWidth; }
-		UINT	GetHeight(){ return m_uiHeight; }
-		void	DrawBuffer(POINT e_Pos,POINT e_Size,const WCHAR*e_strShaderName = DEFAULT_SHADER);
-		GLuint	GetTextureID(){return m_uiTextureID;}
+		UINT	GetWidth() { return m_uiWidth; }
+		UINT	GetHeight() { return m_uiHeight; }
+		void	DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName = DEFAULT_SHADER);
+		GLuint	GetTextureID() { return m_uiTextureID; }
+		GLuint	GetFramebufferID() { return m_uiFramebufferID; }
 	};
-	//
-
+	//after I test this one useless for 2D...
+	class cBaseShader;
 	class	cMSAAFrameBuffer :public Frame
 	{
+		cFrameBuffer*m_pFrameBuffer;
+		cBaseShader*m_pMultiSamplingShader;
 		GLboolean	m_bEnableScissor;
 		GLint		m_iOriginalScissortSize[4];
 		GLint		m_iOriginalViewPortSize[4];
@@ -61,9 +64,9 @@ namespace FATMING_CORE
 		UINT		m_uiWidth;			//
 		UINT		m_uiHeight;			//
 		GLenum		m_eImageType;		//GL_RGB or GL_RGBA
-		GLenum		m_eRGBDataType;		//GL_UNSIGNED_BYTE,GL_FLOAT
+		int			m_iNumSamples;
 	public:
-		cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType = GL_RGB, GLenum e_eRGBDataType = GL_UNSIGNED_BYTE);//GL_RGB32F,GL_RGB16F
+		cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType = GL_RGB, int e_iNumSamples = 4);//GL_RGB32F,GL_RGB16F
 		virtual ~cMSAAFrameBuffer();
 		void	StartDraw(bool e_bClearScreen = true);		//store original
 		void	EndDraw();			//restore original
