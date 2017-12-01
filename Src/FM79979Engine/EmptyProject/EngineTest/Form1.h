@@ -1,11 +1,12 @@
 #pragma once
 
 #include "GameApp.h"
+#include "TestShader.h"
 #include "../../include/IL/il.h"
 #include "../../DotNetCommon/DotNetCommonTools.h"
-#include "../../Core/GLSL/TunnelEffect.h"
-#include "Trigonometric.h"
-extern cTunnelEffect*g_pTunnelEffect;
+//#include "../../Core/GLSL/TunnelEffect.h"
+//#include "Trigonometric.h"
+extern cTestShader*g_pTestShader;
 extern cBaseImage*g_pBGImage;
 namespace FATMING_CORE
 {
@@ -55,8 +56,8 @@ namespace EngineTest
 			AssignShader(VSShaderFile_textBox,VSShaderContent_textBox);
 			AssignShader(PSShaderFile_textBox,PSShaderContent_textBox);
 			m_fTimeForShaderReload = 0.f;
-			Trigonometric^l_pTrigonometric = gcnew Trigonometric();
-			l_pTrigonometric->Show();
+			//Trigonometric^l_pTrigonometric = gcnew Trigonometric();
+			//l_pTrigonometric->Show();
 			this->timer1->Enabled = true;
 		}
 
@@ -121,7 +122,7 @@ namespace EngineTest
 			this->PSLog_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->toolStrip1 = (gcnew System::Windows::Forms::ToolStrip());
 			this->toolStripButton1 = (gcnew System::Windows::Forms::ToolStripButton());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->tabControl->SuspendLayout();
@@ -145,7 +146,7 @@ namespace EngineTest
 			// splitContainer1.Panel2
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->tabControl);
-			this->splitContainer1->Size = System::Drawing::Size(1013, 692);
+			this->splitContainer1->Size = System::Drawing::Size(1013, 639);
 			this->splitContainer1->SplitterDistance = 395;
 			this->splitContainer1->TabIndex = 2;
 			// 
@@ -157,7 +158,7 @@ namespace EngineTest
 			this->tabControl->Location = System::Drawing::Point(0, 0);
 			this->tabControl->Name = L"tabControl";
 			this->tabControl->SelectedIndex = 0;
-			this->tabControl->Size = System::Drawing::Size(612, 690);
+			this->tabControl->Size = System::Drawing::Size(612, 637);
 			this->tabControl->TabIndex = 3;
 			// 
 			// tabPage1
@@ -168,7 +169,7 @@ namespace EngineTest
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(604, 664);
+			this->tabPage1->Size = System::Drawing::Size(604, 611);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"vs";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -176,12 +177,12 @@ namespace EngineTest
 			// VSShaderContent_textBox
 			// 
 			this->VSShaderContent_textBox->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->VSShaderContent_textBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, 
+			this->VSShaderContent_textBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->VSShaderContent_textBox->Location = System::Drawing::Point(3, 23);
+			this->VSShaderContent_textBox->Location = System::Drawing::Point(3, 25);
 			this->VSShaderContent_textBox->Multiline = true;
 			this->VSShaderContent_textBox->Name = L"VSShaderContent_textBox";
-			this->VSShaderContent_textBox->Size = System::Drawing::Size(598, 518);
+			this->VSShaderContent_textBox->Size = System::Drawing::Size(598, 472);
 			this->VSShaderContent_textBox->TabIndex = 0;
 			this->VSShaderContent_textBox->TextChanged += gcnew System::EventHandler(this, &Form1::VSShaderContent_textBox_TextChanged);
 			// 
@@ -190,17 +191,17 @@ namespace EngineTest
 			this->VSShaderFile_textBox->Dock = System::Windows::Forms::DockStyle::Top;
 			this->VSShaderFile_textBox->Location = System::Drawing::Point(3, 3);
 			this->VSShaderFile_textBox->Name = L"VSShaderFile_textBox";
-			this->VSShaderFile_textBox->Size = System::Drawing::Size(598, 20);
+			this->VSShaderFile_textBox->Size = System::Drawing::Size(598, 22);
 			this->VSShaderFile_textBox->TabIndex = 2;
-			this->VSShaderFile_textBox->Text = L"shader/TunnelEffect.vs";
+			this->VSShaderFile_textBox->Text = L"shader/MultiSampling.vs";
 			// 
 			// VSLog_textBox
 			// 
 			this->VSLog_textBox->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->VSLog_textBox->Location = System::Drawing::Point(3, 541);
+			this->VSLog_textBox->Location = System::Drawing::Point(3, 497);
 			this->VSLog_textBox->Multiline = true;
 			this->VSLog_textBox->Name = L"VSLog_textBox";
-			this->VSLog_textBox->Size = System::Drawing::Size(598, 120);
+			this->VSLog_textBox->Size = System::Drawing::Size(598, 111);
 			this->VSLog_textBox->TabIndex = 1;
 			// 
 			// tabPage2
@@ -211,7 +212,7 @@ namespace EngineTest
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(604, 664);
+			this->tabPage2->Size = System::Drawing::Size(604, 611);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"ps";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -219,12 +220,12 @@ namespace EngineTest
 			// PSShaderContent_textBox
 			// 
 			this->PSShaderContent_textBox->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->PSShaderContent_textBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, 
+			this->PSShaderContent_textBox->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->PSShaderContent_textBox->Location = System::Drawing::Point(3, 23);
+			this->PSShaderContent_textBox->Location = System::Drawing::Point(3, 25);
 			this->PSShaderContent_textBox->Multiline = true;
 			this->PSShaderContent_textBox->Name = L"PSShaderContent_textBox";
-			this->PSShaderContent_textBox->Size = System::Drawing::Size(598, 551);
+			this->PSShaderContent_textBox->Size = System::Drawing::Size(598, 502);
 			this->PSShaderContent_textBox->TabIndex = 3;
 			this->PSShaderContent_textBox->TextChanged += gcnew System::EventHandler(this, &Form1::PSShaderContent_textBox_TextChanged);
 			// 
@@ -233,34 +234,34 @@ namespace EngineTest
 			this->PSShaderFile_textBox->Dock = System::Windows::Forms::DockStyle::Top;
 			this->PSShaderFile_textBox->Location = System::Drawing::Point(3, 3);
 			this->PSShaderFile_textBox->Name = L"PSShaderFile_textBox";
-			this->PSShaderFile_textBox->Size = System::Drawing::Size(598, 20);
+			this->PSShaderFile_textBox->Size = System::Drawing::Size(598, 22);
 			this->PSShaderFile_textBox->TabIndex = 5;
-			this->PSShaderFile_textBox->Text = L"shader/TunnelEffect.ps";
+			this->PSShaderFile_textBox->Text = L"shader/MultiSampling.ps";
 			// 
 			// PSLog_textBox
 			// 
 			this->PSLog_textBox->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->PSLog_textBox->Location = System::Drawing::Point(3, 574);
+			this->PSLog_textBox->Location = System::Drawing::Point(3, 527);
 			this->PSLog_textBox->Multiline = true;
 			this->PSLog_textBox->Name = L"PSLog_textBox";
-			this->PSLog_textBox->Size = System::Drawing::Size(598, 87);
+			this->PSLog_textBox->Size = System::Drawing::Size(598, 81);
 			this->PSLog_textBox->TabIndex = 4;
 			// 
 			// toolStrip1
 			// 
 			this->toolStrip1->AllowItemReorder = true;
 			this->toolStrip1->Dock = System::Windows::Forms::DockStyle::Left;
-			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->toolStripButton1});
+			this->toolStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripButton1 });
 			this->toolStrip1->Location = System::Drawing::Point(0, 0);
 			this->toolStrip1->Name = L"toolStrip1";
-			this->toolStrip1->Size = System::Drawing::Size(24, 692);
+			this->toolStrip1->Size = System::Drawing::Size(24, 639);
 			this->toolStrip1->TabIndex = 3;
 			this->toolStrip1->Text = L"toolStrip1";
 			// 
 			// toolStripButton1
 			// 
 			this->toolStripButton1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Image;
-			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^  >(resources->GetObject(L"toolStripButton1.Image")));
+			this->toolStripButton1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"toolStripButton1.Image")));
 			this->toolStripButton1->ImageTransparentColor = System::Drawing::Color::Magenta;
 			this->toolStripButton1->Name = L"toolStripButton1";
 			this->toolStripButton1->Size = System::Drawing::Size(21, 20);
@@ -269,18 +270,19 @@ namespace EngineTest
 			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1013, 692);
+			this->ClientSize = System::Drawing::Size(1013, 639);
 			this->Controls->Add(this->toolStrip1);
 			this->Controls->Add(this->splitContainer1);
 			this->KeyPreview = true;
 			this->Name = L"Form1";
 			this->Text = L"Form1";
+			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			this->splitContainer1->Panel2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			this->tabControl->ResumeLayout(false);
 			this->tabPage1->ResumeLayout(false);
@@ -322,27 +324,27 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 						//SaveTxtToFile(l_strShaderFileName.c_str(),l_strContent.c_str(),l_strShaderContent->Length);
 						if( l_bFromFile )
 							StreamWriteFileFromString(l_strShaderContent,l_strFileName,System::Text::Encoding::GetEncoding("big5"));
-						if( g_pTunnelEffect )
+						if(g_pTestShader)
 						{
-							std::wstring l_strShaderName = g_pTunnelEffect->GetName();
-							SAFE_DELETE(g_pTunnelEffect);
+							std::wstring l_strShaderName = g_pTestShader->GetName();
+							SAFE_DELETE(g_pTestShader);
 							if( l_bFromFile )//from file
 							{
 								std::string l_strVSFileName = DNCT::GcStringToChar(VSShaderFile_textBox->Text);
 								std::string l_strPSFileName = DNCT::GcStringToChar(PSShaderFile_textBox->Text);
-								g_pTunnelEffect = cTunnelEffect::CreateShader(l_strVSFileName.c_str(),l_strPSFileName.c_str(),l_strShaderName.c_str());
+								g_pTestShader = cTestShader::CreateShader(l_strVSFileName.c_str(),l_strPSFileName.c_str(),l_strShaderName.c_str());
 							}
 							else
 							{
 								std::string l_strVSContent = DNCT::GcStringToChar(VSShaderContent_textBox->Text);
 								std::string l_strPSContent = DNCT::GcStringToChar(PSShaderContent_textBox->Text);
-								g_pTunnelEffect = new cTunnelEffect(l_strVSContent.c_str(),l_strPSContent.c_str(),l_strShaderName.c_str());
+								g_pTestShader = new cTestShader(l_strVSContent.c_str(),l_strPSContent.c_str(),l_strShaderName.c_str());
 							}
 
-							if(g_pTunnelEffect->m_strShaderLog.length())
+							if(g_pTestShader->m_strShaderLog.length())
 							{
-								VSLog_textBox->Text = gcnew String(g_pTunnelEffect->m_strShaderLog.c_str());
-								PSLog_textBox->Text = gcnew String(g_pTunnelEffect->m_strShaderLog.c_str());
+								VSLog_textBox->Text = gcnew String(g_pTestShader->m_strShaderLog.c_str());
+								PSLog_textBox->Text = gcnew String(g_pTestShader->m_strShaderLog.c_str());
 							}
 						}
 					}
@@ -388,11 +390,13 @@ private: System::Void PSShaderContent_textBox_TextChanged(System::Object^  sende
 		 {
 			 m_fTimeForShaderReload = 0.0001f;
 			 m_CurrentShaderType = 1;
+			 PSLog_textBox->Text = "";
 		 }
 private: System::Void VSShaderContent_textBox_TextChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 m_fTimeForShaderReload = 0.0001f;
 			 m_CurrentShaderType = 0;
+			 VSLog_textBox->Text = "";
 		 }
 private: void AssignShader(GCFORM::TextBox^e_pstrShaderFileName,GCFORM::TextBox^e_pstrShaderContent)
 		 {
@@ -410,5 +414,7 @@ private: System::Void toolStripButton1_Click(System::Object^  sender, System::Ev
 			g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
 			g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
 		 }
+private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+}
 };
 }

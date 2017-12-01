@@ -38,7 +38,7 @@
     <ProjectGuid>{77E00846-770C-45AA-99A1-EF295FB97B74}</ProjectGuid>
     <RootNamespace>test</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'" Label="Configuration">
@@ -315,6 +315,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugFixedPipeline|x64'">Create</PrecompiledHeader>
@@ -331,6 +332,7 @@
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -352,13 +354,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
       <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\glew\glew.vcxproj">
-      <Project>{8b4ef6bb-a0be-490c-8b4b-e4fb1b863034}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
-      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

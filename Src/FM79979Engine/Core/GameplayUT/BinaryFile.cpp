@@ -42,10 +42,10 @@ namespace FATMING_CORE
 		W0 = 1;W1 = 0;
 	}
 
-	void cBinaryFile::WriteToFile(FLOAT val )
+	void cBinaryFile::WriteToFile(float val )
 	{
-		CHAR data[4] = { ((CHAR*)&val)[D0], ((CHAR*)&val)[D1],
-						 ((CHAR*)&val)[D2], ((CHAR*)&val)[D3] };
+		char data[4] = { ((char*)&val)[D0], ((char*)&val)[D1],
+						 ((char*)&val)[D2], ((char*)&val)[D3] };
 		NvFWrite( data, sizeof(data), 1, m_pFile );
 	}
 
@@ -62,30 +62,30 @@ namespace FATMING_CORE
 
 	void cBinaryFile::WriteToFile(int	  val )
 	{
-		CHAR data[4] = { ((CHAR*)&val)[D0], ((CHAR*)&val)[D1],
-						 ((CHAR*)&val)[D2], ((CHAR*)&val)[D3] };
+		char data[4] = { ((char*)&val)[D0], ((char*)&val)[D1],
+						 ((char*)&val)[D2], ((char*)&val)[D3] };
 		NvFWrite( data, sizeof(data), 1, m_pFile );
 	}
 
-	void 	cBinaryFile::WriteToFile(UINT  val )
+	void 	cBinaryFile::WriteToFile(unsigned int  val )
 	{
-		CHAR data[4] = { ((CHAR*)&val)[D0], ((CHAR*)&val)[D1],
-						 ((CHAR*)&val)[D2], ((CHAR*)&val)[D3] };
+		char data[4] = { ((char*)&val)[D0], ((char*)&val)[D1],
+						 ((char*)&val)[D2], ((char*)&val)[D3] };
 		NvFWrite( data, sizeof(data), 1, m_pFile );	
 
 	}
 
 	void cBinaryFile::WriteToFile(unsigned long val )
 	{
-		CHAR data[4] = { ((CHAR*)&val)[D0], ((CHAR*)&val)[D1],
-						 ((CHAR*)&val)[D2], ((CHAR*)&val)[D3] };
+		char data[4] = { ((char*)&val)[D0], ((char*)&val)[D1],
+						 ((char*)&val)[D2], ((char*)&val)[D3] };
 		NvFWrite( data, sizeof(data), 1, m_pFile ); 
 	}
 
 
-	void cBinaryFile::WriteToFile(SHORT val )
+	void cBinaryFile::WriteToFile(short val )
 	{
-		CHAR data[2] = { ((CHAR*)&val)[W0], ((CHAR*)&val)[W1] };
+		char data[2] = { ((char*)&val)[W0], ((char*)&val)[W1] };
 		NvFWrite( data, sizeof(data), 1, m_pFile ); 
 	}
 
@@ -93,12 +93,6 @@ namespace FATMING_CORE
 	void cBinaryFile::WriteToFile(long val )
 	{
 		NvFWrite( &val, sizeof(val), 1, m_pFile );
-	}
-
-	void cBinaryFile::WriteToFile(WORD val )
-	{
-		CHAR data[2] = { ((CHAR*)&val)[W0], ((CHAR*)&val)[W1] };
-		NvFWrite( data, sizeof(data), 1, m_pFile );
 	}
 
 	void cBinaryFile::WriteToFileImmediatelyWithLine(const char* val ,bool e_bTimeStamp)
@@ -155,10 +149,10 @@ namespace FATMING_CORE
 		NvFWrite( data, sizeof(data), 1, m_pFile );
 	}
 
-	void cBinaryFile::WriteToFile(const wchar_t* val )
+	bool cBinaryFile::WriteToFile(const wchar_t* val )
 	{
 		if( !m_pFile )
-			return;
+			return false;
 		int	l_iLength = (int)wcslen(val);
 		if( m_bBigEndian )
 		{
@@ -169,11 +163,24 @@ namespace FATMING_CORE
 			for( int i=0;i<l_iLength;++i )
 				WriteToFile((int64)val[i]);
 		}
+		return true;
 	}
 
-	void 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
+	bool 	cBinaryFile::WriteToFile(const char*e_pData, size_t e_iLength, int e_iPos)
 	{
-		NvFWrite( e_pData, e_iLength, 1, m_pFile );
+		if (NvFSeek(this->m_pFile,e_iPos, SEEK_SET) == 0)
+		{
+			return WriteToFile(e_pData, e_iLength);
+		}
+		return false;
+	}
+
+	bool 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
+	{
+		assert(m_pFile&&"file not open yet!?");
+		if(NvFWrite( e_pData, e_iLength, 1, m_pFile ) == e_iLength)
+			return true;
+		return false;
 	}
 
 	bool	cBinaryFile::Flush()
@@ -278,7 +285,7 @@ namespace FATMING_CORE
 		return UT::GetFileSize(this->m_pFile);
 
 	}
-	void*	cBinaryFile::GetDataFile(UINT e_uiStart)
+	void*	cBinaryFile::GetDataFile(unsigned int e_uiStart)
 	{
 		if(!m_pData)
 		{
@@ -296,12 +303,13 @@ namespace FATMING_CORE
 	}
 
 	//push data into e_pDestData
-	void*	cBinaryFile::GetDataFileSegment(UINT e_uiStart,UINT e_uiSLength,void*e_pDestData)
+	//https://stackoverflow.com/questions/3348637/fgetpos-fsetpos-and-ftell-fseek
+	void*	cBinaryFile::GetDataFileSegment(unsigned int e_uiStart,unsigned int e_uiSLength,void*e_pDestData)
 	{
 	#ifdef WIN32
 		fpos_t pos = e_uiStart;
 		fsetpos(m_pFile,&pos);
-		fread(e_pDestData,sizeof(BYTE),e_uiSLength,m_pFile);
+		fread(e_pDestData,sizeof(char),e_uiSLength,m_pFile);
 		rewind(m_pFile);
 		return e_pDestData;
 	#else

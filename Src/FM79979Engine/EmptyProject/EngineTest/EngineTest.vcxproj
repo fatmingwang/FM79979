@@ -39,7 +39,7 @@
     <ProjectGuid>{AB01A4B3-0845-4E11-B727-7F5CF67B5663}</ProjectGuid>
     <RootNamespace>EngineTest</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedpipeline|Win32'" Label="Configuration">
@@ -340,6 +340,7 @@
     <ClCompile Include="GameApp.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="TestPhase.cpp" />
+    <ClCompile Include="TestShader.cpp" />
     <ClCompile Include="Trigonometric.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +351,7 @@
     <ClInclude Include="..\..\DotNetCommon\DotNetCommonTools.h" />
     <ClInclude Include="GameApp.h" />
     <ClInclude Include="TestPhase.h" />
+    <ClInclude Include="TestShader.h" />
     <ClInclude Include="Trigonometric.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -370,10 +372,6 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
       <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
-      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\DotNetCommon\DotNetCommon.vcxproj">

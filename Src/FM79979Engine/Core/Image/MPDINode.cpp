@@ -183,7 +183,6 @@ namespace FATMING_CORE
 		m_vWorkingRotation							=	Vector3::Zero;
 		m_vWorkingColor								=	Vector4::One;
 		m_vWorkingSize								=	Vector2::Zero;
-		m_vWorkingRotation							=	Vector3::Zero;
 		m_matAnimationMatrix						=	cMatrix44::Identity;
 		m_pUserData									=	nullptr;
 		m_pWorkingpImage							=	0;

@@ -60,7 +60,6 @@ namespace FATMING_CORE
 		GLint		m_iOriginalViewPortSize[4];
 		GLuint		m_uiFramebufferID;	//id for frame buffer
 		GLuint		m_uiTextureID;		//where to render
-		GLuint		m_uiRenderufferID;	//for depth
 		UINT		m_uiWidth;			//
 		UINT		m_uiHeight;			//
 		GLenum		m_eImageType;		//GL_RGB or GL_RGBA

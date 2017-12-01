@@ -47,43 +47,41 @@ namespace FATMING_CORE
 		//copy data into memory.
 		//void				FetchData();
 		bool				m_bBigEndian;
-	public:
 #ifdef WIN32
 		HANDLE				m_FileHandle;
 #endif
+	public:
 		cBinaryFile(bool e_bBigEndian = true);
 		virtual ~cBinaryFile();
 
 		void 				WriteToFile(int	  val );
-		void 				WriteToFile(UINT  val );
-		void 				WriteToFile(FLOAT val );
+		void 				WriteToFile(unsigned int val );
+		void 				WriteToFile(float val );
 		//if u want to write double please use float or int64 instead
 		//void 				WriteToFile(double val );
 		void 				WriteToFile(unsigned long val );
 		//void 				WriteToFile(wchar_t val );
-		void 				WriteToFile(SHORT val );
-		void 				WriteToFile(WORD val );
+		void 				WriteToFile(short val );
 		void 				WriteToFile(long val );
-		//for string
 		void 				WriteToFile(const char* val );
-		//for string
-		void 				WriteToFile(const wchar_t* val );
-		void 				WriteToFile(const char*e_pData,size_t e_iLength);
+		bool				WriteToFile(const wchar_t* val );
+		bool 				WriteToFile(const char*e_pData,size_t e_iLength);
+		bool 				WriteToFile(const char*e_pData, size_t e_iLength,int e_iPos);
 		void 				WriteToFile(int64	  val );
 		//create file
 		//for cet to write for WIN32 to set flag
 		virtual	bool		Writefile(const char*,bool e_bBinary,bool e_bForceToWrite,const char*e_strFileMode = nullptr);
+		//http://forum.codecall.net/topic/42319-what-mode-should-i-use-at-fopen-r-r-wb/
+		bool				Openfile(const char*, const char*e_strformat = "r+");
 		bool				Flush();
 		//fclose
 		void				CloseFile();
-		//fopen
-		//http://forum.codecall.net/topic/42319-what-mode-should-i-use-at-fopen-r-r-wb/
-		bool				Openfile(const char*,const char*e_strformat = "r+");
-		//from m_pFontData
-		void*				GetDataFile(UINT e_uiStart);
+		//from m_pFontData,this one only support one time fopen,it wont update again.
+		void*				GetDataFile(unsigned int e_uiStart);
 		int					GetDataFileSize();
 		//push data into e_pDestData
-		void*				GetDataFileSegment(UINT e_uiStart,UINT e_uiSLength,void*e_pDestData);
+		//https://stackoverflow.com/questions/3348637/fgetpos-fsetpos-and-ftell-fseek
+		void*				GetDataFileSegment(unsigned int e_uiStart, unsigned int e_uiSLength,void*e_pDestData);
 		//below for log file
 		void 				WriteToFileImmediatelyWithLine(const char* val,bool e_bTimeStamp = true);
 		void 				WriteToFileImmediatelyWithLine(const wchar_t* val,bool e_bTimeStamp = true);

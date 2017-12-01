@@ -44,6 +44,9 @@
     <ClCompile Include="Trigonometric.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestShader.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -63,6 +66,9 @@
     </ClInclude>
     <ClInclude Include="Trigonometric.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestShader.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

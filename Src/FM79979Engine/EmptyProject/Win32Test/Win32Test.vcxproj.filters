@@ -33,6 +33,9 @@
     <ClCompile Include="..\EngineTest\Sample.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\TestShader.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\EngineTest\GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\TestShader.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

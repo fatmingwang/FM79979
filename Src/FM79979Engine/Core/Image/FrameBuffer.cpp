@@ -166,6 +166,10 @@ namespace FATMING_CORE
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		//https://stackoverflow.com/questions/24490591/opengl-es-2-0-is-it-possible-to-draw-to-depth-and-color-buffer-simultaneously
+		// you need to attach either a color texture or a color renderbuffer to GL_COLOR_ATTACHMENT0,
+		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
+		//here I need do it as a texture to scale so glTexImage2D is suit for me.
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
 		MyGlErrorTest();
 		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
@@ -306,6 +310,10 @@ namespace FATMING_CORE
 		// Set up the FBO with one texture attachment 
 		//in openglES 2.0 glBindFramebuffer
 		glBindFramebuffer(GL_FRAMEBUFFER, m_uiFramebufferID);
+		//https://stackoverflow.com/questions/24490591/opengl-es-2-0-is-it-possible-to-draw-to-depth-and-color-buffer-simultaneously
+		// you need to attach either a color texture or a color renderbuffer to GL_COLOR_ATTACHMENT0,
+		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
+		//glFramebufferTexture2D or glFramebufferRenderbuffer is same
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D_MULTISAMPLE, m_uiTextureID, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		static bool	l_bCheck = false;
@@ -390,15 +398,18 @@ namespace FATMING_CORE
 			m_pFrameBuffer->StartDraw();
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_pFrameBuffer->GetFramebufferID());
 			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
-			glDrawBuffer(GL_BACK);
+			//glDrawBuffer(GL_BACK);
 			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 			m_pFrameBuffer->EndDraw();
 			m_pFrameBuffer->DrawBuffer(e_Pos, e_Size);
 		}
-		//glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		//glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
-		//glDrawBuffer(GL_BACK);
-		//glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+		else
+		{
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
+			//glDrawBuffer(GL_BACK);
+			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+		}
 	}
 
 

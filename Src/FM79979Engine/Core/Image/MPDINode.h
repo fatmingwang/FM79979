@@ -24,7 +24,6 @@ namespace FATMING_CORE
 	//MDINode,different is ,contain a start pose(bind pose could move(SRT) with children)
 	class	cMPDINode:public cFMTimelineAnimationObject,public cMulti_PI_Image
 	{
-				
 	private:
 		//for internal render use(m_vWorkingRotation,m_vWorkingPosition).
 		cMatrix44						m_matAnimationMatrix;
