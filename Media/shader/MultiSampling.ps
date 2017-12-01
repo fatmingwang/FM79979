@@ -1,0 +1,28 @@
+#version 400
+
+uniform  sampler2DMS    texSample; 
+
+in 	vec2 PSTexcoord;
+in 	vec4 PSColor;
+out            vec4 gl_FragColor;
+
+vec4 textureMultisample(sampler2DMS sampler, ivec2 coord,int e_iTextureSamples)
+{
+    vec4 color = vec4(0.0);
+
+    for (int i = 0; i <e_iTextureSamples; i++)
+        color += texelFetch(sampler, coord, i);
+
+    color /= float(e_iTextureSamples);
+
+    return color;
+}
+
+void main()
+{
+        //get texture size with LOD 0
+        vec2 uv = vec2(0.5, 0.5); // normalized coordinates
+        ivec2 texSize = textureSize(texSample);
+        ivec2 texCoord = ivec2(uv * texSize);
+        gl_FragColor = textureMultisample(texSample, texCoord,4)*PSColor;
+}
