@@ -115,12 +115,8 @@ namespace FATMING_CORE
 	}
 
 	//if graphic card does not support non power of two,set as false
-#ifdef OPENGLES_2_X
 	//bool	g_bSupportNonPowerOfTwoTexture = true;
 	bool	g_bSupportNonPowerOfTwoTexture = false;
-#else
-	bool	g_bSupportNonPowerOfTwoTexture = false;
-#endif
 	UINT	g_iAteVideoMomory = 0;//in KB
 	//intel chip,return MB
 	int GetVideoMemorySize()
@@ -551,9 +547,7 @@ namespace FATMING_CORE
 		m_iPixelFormat = e_eImageType;
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
 		assert(m_uiImageIndex!=(UINT)-1&&"opengl init???");
-#ifdef 	OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0 );
-#endif
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();/* Binding of texture name */
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
@@ -732,9 +726,7 @@ namespace FATMING_CORE
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
 		//		GLenum	l_GLenum = glGetError();
 		//		assert(l_GLenum);
-#ifdef 	OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
-#endif
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
@@ -822,9 +814,6 @@ namespace FATMING_CORE
 		if( m_uiImageIndex == -1 )
 		{
 			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */	
-#ifndef OPENGLES_2_X
-			glEnable(GL_TEXTURE_2D);
-#endif
 			glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);
 			glTexImage2D(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iPixelWidth,l_iPixelHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,0);
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter

@@ -270,15 +270,6 @@ namespace FATMING_CORE
 		else
 		{
 			//DrawCube(Vector3(1,1,1),cMatrix44::Identity,Vector4(1,1,0,1));
-	#ifndef OPENGLES_2_X
-			myGlVertexPointer(3, m_ppfVerticesBuffer[FVF_POS]);
-			if( m_bVerticesBuffer[FVF_TEX0] )
-				myGlUVPointer(2, m_ppfVerticesBuffer[FVF_TEX0]);
-			if( m_bVerticesBuffer[FVF_NORMAL] )
-				myGlNormalPointer(3,m_ppfVerticesBuffer[FVF_NORMAL]);
-			if( m_bVerticesBuffer[FVF_DIFFUSE] )
-				myGlColorPointer(4,m_ppfVerticesBuffer[FVF_DIFFUSE]);
-	#else
 			for( int i=0;i<TOTAL_FVF;++i )
 			{
 				if( this->m_ppfVerticesBuffer[i] && g_uiAttribArray[i] != -1 )
@@ -286,7 +277,6 @@ namespace FATMING_CORE
 					glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],0, 0, m_ppfVerticesBuffer[i]);
 				}
 			}
-	#endif
 			MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
 		}
 	}

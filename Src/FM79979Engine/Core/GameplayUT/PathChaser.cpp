@@ -162,9 +162,6 @@ namespace FATMING_CORE
 		float	l_fPoints[4] = { m_pvAllLinePositionInfo[0].x,m_pvAllLinePositionInfo[0].y,
 								!m_bTouched?m_vCurrentPosition.x:this->m_vCurrentTouchedPosition.x,
 								!m_bTouched?m_vCurrentPosition.y:m_vCurrentTouchedPosition.y };
-#ifndef OPENGLES_2_X
-		glPointSize(25);
-#endif//set gl_PointSize value at shader code.
 		myGlVertexPointer(2, l_fPoints);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 2);
 	}

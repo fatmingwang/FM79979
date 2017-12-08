@@ -147,3 +147,6 @@ trying to upgrade to x64 and misunderstanding _WIN32 flag
 _WIN32 it means use windows32 API not compile as 32bit
 but _WIN64 mean compile to 64bit...
 https://stackoverflow.com/questions/17380340/win32-preprocessor-definition-in-64bit-windows-platform
+
+Dec 08 2017
+remove opengl es1

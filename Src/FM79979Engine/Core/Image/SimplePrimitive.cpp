@@ -10,11 +10,7 @@ void ASSIGN_2D_COLOR(Vector4 Color)
 	memcpy(&g_f2DColorOne[4],Color,sizeof(float)*4);
 	memcpy(&g_f2DColorOne[8],Color,sizeof(float)*4);
 	memcpy(&g_f2DColorOne[12],Color,sizeof(float)*4);
-#ifdef OPENGLES_2_X
 	glVertexAttribPointer( g_uiAttribArray[FVF_DIFFUSE], 4, GL_FLOAT, 0, 0, g_f2DColorOne );
-#else
-	glColorPointer( 4, GL_FLOAT, 0, g_f2DColorOne );
-#endif
 	MyGlErrorTest();
 }
 
@@ -25,11 +21,7 @@ void	ASSIGN_2D_VerticesBySize(float Width,float Height,float Depth)
 	g_v2DVertexBuffer[2].x = (float)-Width;	g_v2DVertexBuffer[2].y = (float)Height;
 	g_v2DVertexBuffer[3].x = (float)Width;	g_v2DVertexBuffer[3].y = (float)Height;
 	g_v2DVertexBuffer[0].z = g_v2DVertexBuffer[1].z = g_v2DVertexBuffer[2].z = g_v2DVertexBuffer[3].z = (float)Depth;
-#ifdef OPENGLES_2_X
 	glVertexAttribPointer( g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, g_v2DVertexBuffer );
-#else
-	glVertexPointer( 3, GL_FLOAT, 0, g_v2DVertexBuffer );
-#endif
 	MyGlErrorTest();
 }
 
@@ -39,11 +31,7 @@ void	ASSIGN_2D_UV(float*UV)
 	g_f2DTextureCoordinate[2] = UV[2]; g_f2DTextureCoordinate[3] = UV[1];
 	g_f2DTextureCoordinate[4] = UV[0]; g_f2DTextureCoordinate[5] = UV[3];
 	g_f2DTextureCoordinate[6] = UV[2]; g_f2DTextureCoordinate[7] = UV[3];
-#ifdef OPENGLES_2_X
 	glVertexAttribPointer( g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate );
-#else
-	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate );
-#endif
 	MyGlErrorTest();
 }
 
@@ -53,15 +41,11 @@ void	ASSIGN_2D_MIRROR_UV(float* UV)
 	g_f2DTextureCoordinate[2] = UV[0]; g_f2DTextureCoordinate[3] = UV[1];
 	g_f2DTextureCoordinate[4] = UV[2]; g_f2DTextureCoordinate[5] = UV[3];
 	g_f2DTextureCoordinate[6] = UV[0]; g_f2DTextureCoordinate[7] = UV[3];
-#ifdef OPENGLES_2_X
 	glVertexAttribPointer( g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate );
-#else
-	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate );
-#endif
 	MyGlErrorTest();
 }
 
-#ifdef OPENGLES_2_X
+
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_POS],Stride, GL_FLOAT,0, 0, pData);
@@ -82,24 +66,6 @@ void	myGlNormalPointer(int Stride, const GLvoid*pData)
 	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL],Stride, GL_FLOAT,0, 0, pData);
 	MyGlErrorTest();
 }
-#else
-void	myGlVertexPointer(int Stride, const GLvoid*pData)
-{
-	glVertexPointer		(Stride,	GL_FLOAT,0, pData);
-}
-void	myGlUVPointer(int Stride, const GLvoid*pData)
-{
-	glTexCoordPointer		(Stride,	GL_FLOAT,0, pData);
-}
-void	myGlColorPointer(int Stride, const GLvoid*pData)
-{
-	glColorPointer		(Stride,	GL_FLOAT,0, pData);
-}
-void	myGlNormalPointer(int Stride, const GLvoid*pData)
-{
-	glNormalPointer		(GL_FLOAT,	Stride,    pData);
-}
-#endif
 
 namespace GLRender
 {
@@ -367,9 +333,6 @@ namespace GLRender
 	void	RenderPoint(Vector2	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
-#if !defined(OPENGLES_2_X) || defined(WIN32)
-		glPointSize(e_fSize);
-#endif
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,e_vPos);
@@ -380,9 +343,6 @@ namespace GLRender
 	void	RenderPoint(Vector3	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
-#ifndef OPENGLES_2_X
-		glPointSize(e_fSize);
-#endif
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(3,e_vPos);
@@ -394,9 +354,6 @@ namespace GLRender
 		if( e_iNumPoints < 1 )
 			return;
 		UseShaderProgram(NO_TEXTURE_SHADER);
-#if !defined(OPENGLES_2_X) || defined(WIN32)
-		glPointSize(e_fSize);
-#endif
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(3,e_pvPos);
@@ -409,9 +366,6 @@ namespace GLRender
 		if( e_iNumPoints < 1 )
 			return;
 		UseShaderProgram(NO_TEXTURE_SHADER);
-#ifndef OPENGLES_2_X
-		glPointSize(e_fSize);
-#endif
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,e_pvPos);
@@ -425,9 +379,6 @@ namespace GLRender
 		if( e_iNumPoints < 1 )
 			return;
 		UseShaderProgram(NO_TEXTURE_SHADER);
-#if !defined(OPENGLES_2_X) || defined(WIN32)
-		glPointSize(e_fSize);
-#endif
 		std::vector<Vector3>	l_TempVector;
 		l_TempVector.resize(e_iNumPoints);
 		for( int i=0;i<e_iNumPoints;++i )

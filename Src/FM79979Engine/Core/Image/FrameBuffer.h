@@ -1,4 +1,4 @@
-//#if defined WIN32 || defined OPENGLES_2_X//or iPhone??
+//#if defined WIN32
 #ifndef FRAME_BUFFER_H
 #define FRAME_BUFFER_H
 
@@ -120,5 +120,4 @@ namespace FATMING_CORE
 }
 //end FRAME_BUFFER_H
 #endif
-//end OPENGLES_2_X
 //#endif

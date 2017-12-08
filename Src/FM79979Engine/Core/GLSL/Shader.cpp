@@ -199,28 +199,6 @@ namespace FATMING_CORE
 	{
 		g_pCurrentShader = this;
 		MyGlErrorTest();
-#ifndef OPENGLES_2_X
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		if(m_uiAttribArray[FVF_TEX0] != -1)
-		{
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glEnable(GL_TEXTURE_2D);
-		}
-		else
-		{
-			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-			glDisable(GL_TEXTURE_2D);
-		}
-		if(m_uiAttribArray[FVF_NORMAL] != -1)
-			glEnableClientState(GL_NORMAL_ARRAY);
-		else
-			glDisableClientState(GL_NORMAL_ARRAY);
-
-		if(m_uiAttribArray[FVF_DIFFUSE]	!= -1)
-			glEnableClientState(GL_COLOR_ARRAY);
-		else
-			glDisableClientState(GL_COLOR_ARRAY);
-#else
 		MyGlErrorTest();
 		glUseProgram( m_uiProgram );
 		MyGlErrorTest();
@@ -256,7 +234,6 @@ namespace FATMING_CORE
 		if( g_iColorLoacation != -1 )
 			SetupShaderColor(Vector4::One);
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;
-#endif
 		if(e_bUseLastWVPMatrix)
 		{
 			SetupShaderViewProjectionMatrix(g_fViewProjectionMatrix,false);
@@ -265,14 +242,12 @@ namespace FATMING_CORE
 	}
 	void	cBaseShader::Disable()
 	{
-#ifdef OPENGLES_2_X
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
 			if( m_uiAttribArray[i] != -1 )
 				glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
 		glUseProgram( 0 );
-#endif
 	}
 
 	cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList = 0;
@@ -288,21 +263,13 @@ namespace FATMING_CORE
 		l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 		if( l_p2DShader )
 			return l_p2DShader;
-#ifdef OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
 		l_p2DShader = new cBaseShader(e_strName,e_pbClientState[FVF_TEX0]);
-#else
-		l_p2DShader = new cBaseShader(e_strName,e_pbClientState);
-		glEnableClientState(GL_VERTEX_ARRAY);
-#endif
 		g_pAll2DShaderList->AddObject(l_p2DShader);
 		return l_p2DShader;
 	}
 	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName)
 	{
-#ifndef OPENGLES_2_X
-		glEnableClientState(GL_VERTEX_ARRAY);
-#endif
 		cBaseShader*l_p2DShader = 0;
 		if( !g_pAll2DShaderList )
 		{
@@ -312,13 +279,8 @@ namespace FATMING_CORE
 		l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 		if( l_p2DShader )
 			return l_p2DShader;
-#ifdef OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
 		l_p2DShader = new cBaseShader(e_strVS,e_strPS,e_strName,e_pbClientState[FVF_TEX0]);
-#else
-		l_p2DShader = new cBaseShader(e_strName,e_pbClientState);
-		glEnableClientState(GL_VERTEX_ARRAY);
-#endif
 		g_pAll2DShaderList->AddObject(l_p2DShader);
 		return l_p2DShader;
 	}
@@ -450,14 +412,7 @@ namespace FATMING_CORE
 		int ll= g_iMatrixVPLoacation;
 		MyGlErrorTest();
 #endif
-#ifdef OPENGLES_2_X
 		glUniformMatrix4fv( g_iMatrixVPLoacation, 1, GL_FALSE, g_fViewProjectionMatrix);
-#else
-		glMatrixMode(GL_PROJECTION);
-		glLoadMatrixf(g_fViewProjectionMatrix);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-#endif
 		MyGlErrorTest();
 	}
 
@@ -465,11 +420,7 @@ namespace FATMING_CORE
 	void	SetupShaderWorldMatrix(float*e_pfWMatrix)
 	{
 		memcpy(g_fWorldMatrix,e_pfWMatrix,sizeof(float)*16);
-#ifdef OPENGLES_2_X
 		glUniformMatrix4fv( g_iMatrixWLoacation , 1, GL_FALSE, e_pfWMatrix);
-#else
-		glLoadMatrixf(e_pfWMatrix);
-#endif
 #ifdef DEBUG
 		cMatrix44 l_mat = g_fWorldMatrix;
 		int ll = g_iMatrixWLoacation;
@@ -481,11 +432,7 @@ namespace FATMING_CORE
 	{
 		MyGlErrorTest();
 		e_vColor = Vector4Multiply(e_vColor,g_vGlobalScaleColor);
-#ifdef OPENGLES_2_X
 		glUniform4fv( g_iColorLoacation,1, (float*)&e_vColor);;
-#else
-		glColor4f(e_vColor.x,e_vColor.y,e_vColor.z,e_vColor.w);
-#endif
 #ifdef DEBUG
 		MyGlErrorTest();
 #endif
@@ -493,11 +440,7 @@ namespace FATMING_CORE
 
 	void	SetupShaderBonesData(cMatrix44*e_pBoneMatrices,int e_iCount)
 	{
-#ifdef OPENGLES_2_X
 		glUniformMatrix4fv( g_iBonesMatrixoacation , e_iCount, GL_FALSE, (float*)e_pBoneMatrices);
-#else
-
-#endif
 #ifdef DEBUG
 		MyGlErrorTest();
 #endif

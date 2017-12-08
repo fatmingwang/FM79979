@@ -154,29 +154,6 @@ namespace FATMING_CORE
 	{
 		if( m_iVertexStride == 0 )
 			Init();
-#ifndef OPENGLES_2_X
-		glBindBuffer(GL_ARRAY_BUFFER, m_uiAllBufferID[FVF_POS]);
-		glVertexPointer(m_uiAllBufferID[FVF_POS], g_iFVF_DataType[FVF_POS], 0, 0);
-		//int	l_iPointerStartOffset = sizeof(float)*3;
-		if( m_uiAllBufferID[FVF_DIFFUSE] )
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_uiAllBufferID[FVF_DIFFUSE]);
-			glColorPointer(m_uiAllBufferID[FVF_DIFFUSE], g_iFVF_DataType[FVF_DIFFUSE], 0, 0);
-			//l_iPointerStartOffset += sizeof(float)*4;
-		}
-		if( m_uiAllBufferID[FVF_NORMAL] )
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_uiAllBufferID[FVF_NORMAL]);
-			glNormalPointer(m_uiAllBufferID[FVF_NORMAL], g_iFVF_DataType[FVF_NORMAL], 0);
-			//l_iPointerStartOffset += sizeof(float)*3;
-		}
-		if( m_uiAllBufferID[FVF_TEX0] )
-		{
-			glBindBuffer(GL_ARRAY_BUFFER, m_uiAllBufferID[FVF_TEX0]);
-			glTexCoordPointer(m_uiAllBufferID[FVF_TEX0], g_iFVF_DataType[FVF_TEX0], 0, 0);			
-			//l_iPointerStartOffset += sizeof(float)*2;
-		}
-#else
 		//const char*l_strError = (const char*)glGetString(glGetError());
 		//If a non-zero named buffer object is bound to the GL_ARRAY_BUFFER target (see glBindBuffer)
 		//while a generic vertex attribute array is specified, pointer is treated as a byte offset into the buffer object's data store.
@@ -194,7 +171,6 @@ namespace FATMING_CORE
 				//l_iPointerStartOffset += sizeof(float)*g_iFVF_DataStride[i];
 			}
 		}
-#endif
 		if( m_uiIndicesCount != 0 )
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiDrawIndicesBufferID);

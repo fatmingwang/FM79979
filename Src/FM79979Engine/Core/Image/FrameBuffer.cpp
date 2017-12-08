@@ -1,5 +1,4 @@
 ﻿#include "../stdafx.h"
-#if defined WIN32 || defined OPENGLES_2_X//or iPhone??
 #include "FrameBuffer.h"
 #include "SimplePrimitive.h"
 #include "../GLSL/Shader.h"
@@ -671,5 +670,3 @@ namespace FATMING_CORE
 	//
 	//
 }
-//end OPENGLES_2_X
-#endif

@@ -245,12 +245,8 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 		//This hint can improve the speed of texturing when perspective- correct texture coordinate interpolation isn't needed, such as when using a glOrtho() projection.
 		//glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
-#ifdef OPENGLES_2_X
 		g_bVBOSupported = true;
 		glUseProgram(0);
-#else
-		glEnableClientState(GL_VERTEX_ARRAY);
-#endif
 		if (m_spLogFile)
 			m_spLogFile->WriteToFileImmediatelyWithLine("init shader");
 
@@ -329,9 +325,6 @@ namespace	FATMING_CORE
 	void	cGameApp::Render()
 	{
 		g_pCurrentShader = 0;
-#ifndef OPENGLES_2_X
-		glEnableClientState(GL_VERTEX_ARRAY);
-#endif
 		//first for original resolution
 		glViewport(0, 0, (GLsizei)this->m_svDeviceViewPortSize.Width(), (GLsizei)this->m_svDeviceViewPortSize.Height());
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -778,9 +771,6 @@ namespace	FATMING_CORE
 			return;
 		//glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 		glEnable2D(1280, 720);
-#ifndef OPENGLES_2_X
-		glEnable(GL_TEXTURE_2D);
-#endif
 		if (cGameApp::m_spGlyphFontRender)
 		{
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 0, 1));

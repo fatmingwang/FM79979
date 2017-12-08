@@ -61,9 +61,7 @@
 #include "GLSL/GLSLUiniform.h"
 #endif
 
-#ifdef  OPENGLES_2_X//iphone 3g only support openGLES 1.5,android up to 2.0
 #include "GLSL/GLSLUiniform.h"
-#endif
 
 #include "GLSL/Shader.h"
 

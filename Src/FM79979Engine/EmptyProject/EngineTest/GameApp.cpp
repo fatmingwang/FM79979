@@ -60,15 +60,15 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 
 void	cEngineTestApp::Render()
 {
+	MyGlErrorTest();
 	cGameApp::Render();
-#ifndef OPENGLES_2_X
-	glEnable(GL_TEXTURE_2D);
-#endif
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	//glAlphaFunc(GL_GREATER,0.001f);	
+	MyGlErrorTest();
 	SampleRender();
+	MyGlErrorTest();
 	this->m_pPhaseManager->Render();
 	if( cGameApp::m_spGlyphFontRender )
 	{

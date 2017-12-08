@@ -469,9 +469,6 @@ namespace FATMING_CORE
 					m_pvAllPosPointer[i] = l_pParticleData->vPos;
 				}
 				//here could speed up by shader and change size.
-#ifndef OPENGLES_2_X
-				glPointSize(15);
-#endif//set gl_PointSize value at shader code.
 				UseShaderProgram(NO_TEXTURE_SHADER);
 				//myGlColorPointer(4, m_pvAllColorPointer);
 				myGlVertexPointer(3, m_pvAllPosPointer);

@@ -14,17 +14,11 @@
 	#include <crtdbg.h>
 #elif defined(ANDROID)
  //#include <cstdarg>
-	#ifndef OPENGLES_2_X
-	#define OPENGLES_1_X
-	#endif
 #elif defined(IOS)
 
 //#ifndef IOS
 //#define	IOS
 //#endif
-	#ifndef OPENGLES_2_X
-	#define OPENGLES_1_X
-	#endif
 
 #endif
 
@@ -49,6 +43,9 @@
 #elif defined(LINUX)
 	//#include "glew.h"
 	//#include "glext.h"
+#elif defined(WASM)
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
 #endif
 
 #include <stdio.h>

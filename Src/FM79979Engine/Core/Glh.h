@@ -1,8 +1,6 @@
 #ifndef _GLH_H_
 #define _GLH_H_
 
-//OPENGLES_2_X	//for shader
-//OPENGLES_1_X	//fixed pipeline and no GL_UNSIGNED_INT.
 //=======================
 //the old function for setup matrix is glMultMatrixf
 //but for the shader we need to ge tthe martix and setup it

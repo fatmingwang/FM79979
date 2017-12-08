@@ -610,28 +610,6 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 	SetupShaderBonesData(m_pAllBonesMatrixForSkinned,l_iBoneSize);
 	if( !m_pVBOBuffer )
 	{
-#ifndef OPENGLES_2_X
-		Vector3	*l_pvPos = 0;
-		l_pvPos = (Vector3*)this->m_ppfVerticesBuffer[FVF_POS];
-		float*	l_fWeight = this->m_ppfVerticesBuffer[FVF_SKINNING_WEIGHT];
-		char*	l_pcInflunceJoints = (char*)m_ppfVerticesBuffer[FVF_SKINNING_BONE_INDEX];//endusr the size as expected
-		cMatrix44	l_mat;
-		for( UINT i=0;i<m_uiVertexBufferCount;++i )
-		{
-			Vector3	l_vPos = GetSkinWorldPosBySkinningData(
-										l_pvPos[i],
-										&l_fWeight[i*MAX_RELEATED_BONE_COUNT],
-										&l_pcInflunceJoints[i*MAX_RELEATED_BONE_COUNT]);
-			m_pvVertexBuferForSkinned[i*3] = l_vPos.x;
-			m_pvVertexBuferForSkinned[i*3+1] = l_vPos.y;
-			m_pvVertexBuferForSkinned[i*3+2] = l_vPos.z;
-		}
-		myGlVertexPointer(3,m_pvVertexBuferForSkinned);
-		if( m_ppfVerticesBuffer[FVF_TEX0] )
-			myGlUVPointer(2,m_ppfVerticesBuffer[FVF_TEX0]);
-		if( m_ppfVerticesBuffer[FVF_NORMAL] )
-			myGlNormalPointer(3,m_ppfVerticesBuffer[FVF_NORMAL]);
-#else
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
 			if( this->m_bVerticesBuffer[i] && g_uiAttribArray[i] != -1 )
@@ -639,7 +617,6 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 				glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],0, 0, m_ppfVerticesBuffer[i]);
 			}
 		}
-#endif
 		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
 	}
 	else//for shader
