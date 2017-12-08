@@ -2,6 +2,7 @@
 #include "Utility.h"
 #include "GameplayUT/GameApp.h"
 #include <errno.h>
+//#include <locale>
 #ifdef WIN32
 #include <direct.h>
 #endif
@@ -1422,11 +1423,28 @@ namespace UT
 
 	std::string	WcharToChar(const wchar_t *e_strWchar)
 	{
-		char l_strTemp[TEMP_SIZE];
-		WcharToChar(e_strWchar, l_strTemp);
-		std::string		l_strResult = l_strTemp;
-		//std::wstring	l_strForCopy = e_strWchar;
-		//l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
+		//char l_strTemp[TEMP_SIZE];
+		//WcharToChar(e_strWchar, l_strTemp);
+		//std::string		l_strResult = l_strTemp;
+		////std::wstring	l_strForCopy = e_strWchar;
+		////l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
+
+		//https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
+		//std::setlocale(LC_ALL, "");
+		std::string		l_strResult;
+		const std::wstring ws = e_strWchar;
+		const std::locale locale("");
+		typedef std::codecvt<wchar_t, char, std::mbstate_t> converter_type;
+		const converter_type& converter = std::use_facet<converter_type>(locale);
+		std::vector<char> to(ws.length() * converter.max_length());
+		std::mbstate_t state;
+		const wchar_t* from_next;
+		char* to_next;
+		const converter_type::result result = converter.out(state, ws.data(), ws.data() + ws.length(), from_next, &to[0], &to[0] + to.size(), to_next);
+		if (result == converter_type::ok || result == converter_type::noconv) 
+		{
+			l_strResult = std::string(&to[0], to_next);
+		}
 		return l_strResult;
 	}
 

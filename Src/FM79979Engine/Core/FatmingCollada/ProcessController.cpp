@@ -29,11 +29,16 @@ void	cColladaParser::ProcessController()
 			}
 			cMesh*l_pMesh = 0;
 			sColladaGeomatries*l_pColladaGeomatries = m_LibraryGeometries.GetGeometryByID(l_strName);
-			if( l_pColladaGeomatries )
+			if (l_pColladaGeomatries)
 			{
 				//it should only has one mesh
 				assert(l_pColladaGeomatries->pGeometryMesh->AllMeshIndexList.size() == 1);
 				l_pMesh = l_pColladaGeomatries->pGeometryMesh->AllMeshIndexList[0];
+			}
+			else
+			{
+				UT::ErrorMsg(L"cannt find ColladaGeomatries", l_strName);
+				continue;
 			}
 			cAnimationMesh*l_pAnimationMesh = new cAnimationMesh(l_pMesh,l_pController->Skin.matBindShapeMatrix);
 			if( !l_pMesh )

@@ -206,6 +206,11 @@ namespace	FATMING_CORE
 			const wchar_t*l_strTexturePowerOfTwo = l_pTiXmlElement->Attribute(L"TexturePowerOfTwo");
 			const wchar_t*l_strDevice = l_pTiXmlElement->Attribute(L"Device");
 			const wchar_t*l_strDebugFunctionWorking = l_pTiXmlElement->Attribute(L"DebugFunction");
+			const wchar_t*l_strLockFPS = l_pTiXmlElement->Attribute(L"LockFPS");
+			if (l_strLockFPS)
+			{
+				cGameApp::m_sbDoLockFPS = GetBoolean(l_strLockFPS);
+			}
 			if( l_strDebugFunctionWorking )
 			{
 				m_sbDebugFunctionWorking = _wtoi(l_strDebugFunctionWorking)?true:false;

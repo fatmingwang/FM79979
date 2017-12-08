@@ -38,7 +38,7 @@
     <ProjectGuid>{85ABEB51-2B7C-44A9-A0EC-3A3ED0CFDC66}</ProjectGuid>
     <RootNamespace>ParticlePolicyForm</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFixedPipeline|Win32'" Label="Configuration">
