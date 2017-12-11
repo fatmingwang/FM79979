@@ -404,6 +404,8 @@ namespace FATMING_CORE
 				case eDD_LANDSCAPE_RIGHT://for 2D Y is invert so angle is 90
 					memcpy(g_fViewProjectionMatrix,cMatrix44::ZAxisRotationMatrix(D3DXToRadian(-90.f))*cMatrix44(e_pfVPMatrix),sizeof(float)*16);
 					break;
+				default:
+					break;
 			}
 		}
 		else
@@ -467,10 +469,11 @@ namespace FATMING_CORE
 		int	l_i = glGetError();
 		if( l_i != 0 )
 		{
-			bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
-			bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
-			bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
-			bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
+			//opengl es1 code.
+			//bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
+			//bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
+			//bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
+			//bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
 			int a=0;
 		}
 	}

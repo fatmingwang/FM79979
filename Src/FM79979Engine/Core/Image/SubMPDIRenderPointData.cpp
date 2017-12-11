@@ -85,6 +85,9 @@ namespace FATMING_CORE
 				return L"CenterDown";
 			case eIAT_RIGHT_DOWN:
 				return L"RightDown";
+			default:
+				return L"eImageAnchorType wrong!";
+				break;
 		}
 		return L"unknow";
 	}
@@ -173,6 +176,8 @@ namespace FATMING_CORE
 				l_vEntendImagePoint.y = -e_vImageSize.y;
 				l_vEntendImagePoint.z = 0;
 				l_vEntendImagePoint.w = 0;
+				break;
+			default:
 				break;
 		}
 		return l_vEntendImagePoint;

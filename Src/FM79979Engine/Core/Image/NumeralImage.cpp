@@ -4,9 +4,9 @@
 
 #include "../GLSL/Shader.h"
 #include "PuzzleImage.h"
-#include "../GamePlayUT/GameApp.h"
+#include "../GameplayUT/GameApp.h"
 #include "../XML/XMLLoader.h"
-#include "../GamePlayUT/ObjectXMLParser.h"
+#include "../GameplayUT/ObjectXMLParser.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cNumeralImage);
@@ -177,6 +177,9 @@ namespace FATMING_CORE
 					l_fOffsetPosY = (float)m_iSingleImageHeight;
 					l_fHalfWidth = m_iSingleImageWidth/2.f;
 					l_fHalfHeight = m_iSingleImageHeight*l_iNum/2.f;
+					break;
+				default:
+					assert(0 &&" lazy to implement cNumeralImage::Draw");
 					break;
 			}
 			float	l_fImageHalfWidth = m_iSingleImageWidth/2.f;

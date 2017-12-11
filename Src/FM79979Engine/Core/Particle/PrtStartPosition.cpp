@@ -6,10 +6,17 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cPrtStartPositionInitByFrame);
 	TYPDE_DEFINE_MARCO(cPrtStartPositionInitBySquareRange);
 
+#ifdef WIN32
 	char*	cPrtStartPositionInitBySquareRange::UsageExplanation =
 	{
 		"width weight deepth equal xyz,it will appear by -value,value\nwidth weight deepth 就是xyz,例子會出現在正值跟負值之間的亂數"
 	};
+#else
+	char*	cPrtStartPositionInitBySquareRange::UsageExplanation =
+	{
+		"width weight deepth equal xyz,it will appear by -value,value\n"
+	};
+#endif
 	char*	cPrtStartPositionInitByFrame::UsageExplanation =
 	{
 		"lazy to do"
@@ -90,6 +97,8 @@ namespace FATMING_CORE
 				else
 					l_strName = L" ";
 				break;
+			default:
+				break;
 		}
 
 		wchar_t *l_strNAme = L"";
@@ -159,6 +168,8 @@ namespace FATMING_CORE
 				//	this->m_pD3DMatrix = CT::GetFrameMatrixByName(l_tempStringForFrame,l_p->GetRootFrame());
 				//	CT::ErrorMsgW(m_pD3DMatrix?true:false,m_psSubFrameName,L"not exist");
 				//}
+				break;
+			default:
 				break;
 		}
 		return true;

@@ -13,6 +13,7 @@ namespace FATMING_CORE
 	{
 		"RGBA for color from 0 to 1"
 	};
+#ifdef WIN32
 	char*	cPrtColorInitrSetRandomColor::UsageExplanation =
 	{
 		"as RandomValue close 1 as effective\nRandomValue 越靠近1顏色變化越大"
@@ -29,6 +30,24 @@ namespace FATMING_CORE
 	{
 		"2 setp color changing\n兩階段的顏色變換"
 	};
+#else
+	char*	cPrtColorInitrSetRandomColor::UsageExplanation =
+	{
+		"as RandomValue close 1 as effective\nRandomValue"
+	};
+	char*	cPrtColorActBlending::UsageExplanation =
+	{
+		"if m_bFade is true per sceond will minus color u input else add\n"
+	};
+	char*	cPrtColorActBlendingByLife::UsageExplanation =
+	{
+		"color will become what u specific when time passing\n"
+	};
+	char*	cPrtColorActBlendingBy2Color::UsageExplanation =
+	{
+		"2 setp color changing\n"
+	};
+#endif
 	//================================================================
 	//here divide two part one part is implement data,
 	//another part is interface for transform the current interface to wanted by ChangeProperty(  Data.p and Data.cpp )

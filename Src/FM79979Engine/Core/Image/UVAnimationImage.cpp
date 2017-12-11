@@ -58,7 +58,7 @@ namespace FATMING_CORE
 				m_vRenderVerticesPos[4].x = m_vRenderVerticesPos[5].x = m_vShowPos.x+m_vSize.x;
 				break;
 			case eMD_UP_TO_DOWN:
-			case eMD_DOWN_TO_UP:++
+			case eMD_DOWN_TO_UP:
 				//vertical
 				//for UV
 				//0      1
@@ -88,6 +88,8 @@ namespace FATMING_CORE
 				m_vRenderVerticesPos[2].y = m_vRenderVerticesPos[3].y = m_vRenderVerticesPos[0].y + l_fSecondPointDis;
 				m_vRenderVerticesPos[4].y = m_vRenderVerticesPos[5].y = m_vShowPos.y+m_vSize.y;
 				break;
+			default:
+				break;
 		}
 		for( int i=0;i<6;++i )
 			m_vRenderVerticesPos[i].z = 0.f;
@@ -109,6 +111,8 @@ namespace FATMING_CORE
 				break;
 			case eMD_DOWN_TO_UP:
 				m_vCurrentPos.y += l_fMovDis;
+				break;
+			default:
 				break;
 		}
 		SetupRenderDataByCurrentPos();
@@ -231,6 +235,9 @@ namespace FATMING_CORE
 				//l_vPoint.push_back(m_vRenderVerticesPos[5]);
 				//l_vPoint.push_back(m_vRenderVerticesPos[5]);
 				//l_vPoint.push_back(m_vRenderVerticesPos[3]);
+				break;
+			default:
+				break;
 		}
 	}
 //end namespace

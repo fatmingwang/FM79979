@@ -3,7 +3,7 @@
 #include "SoundManager.h"
 #include "OpenAlOgg.h"
 #include "OpenAlWavFile.h"
-#include "../GamePlayUT/GameApp.h"
+#include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cBasicSound);

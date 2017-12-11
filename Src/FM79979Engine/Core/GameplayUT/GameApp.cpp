@@ -694,6 +694,8 @@ namespace	FATMING_CORE
 		case eDD_LANDSCAPE_LEFT:
 		case eDD_LANDSCAPE_RIGHT:
 			return Vector2(m_svGameResolution.x / m_svViewPortSize.Height(), m_svGameResolution.y / m_svViewPortSize.Width());
+		default:
+			break;
 		}
 		return Vector2(1, 1);
 	}

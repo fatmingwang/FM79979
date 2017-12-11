@@ -5,7 +5,7 @@ namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cPrtLifeInitrSetLife);
 	TYPDE_DEFINE_MARCO(cPrtLifeActDyingByGameTime);
-
+#ifdef WIN32
 	char*	cPrtLifeInitrSetLife::UsageExplanation =
 	{
 		"LifeMin for the base file,\nLifeRange will add with baselife,\nif Random is active the randge will fetch a random betwnn 0 to m_fLifeRange\n			LifeMin 為最小生命值\nLifeRange為該生命可增加的範圍,當random被作用將會將lifeRange做一0到指定數值的加給"
@@ -15,7 +15,17 @@ namespace FATMING_CORE
 	{
 		"life time minuse elpase time ,將生命減少"
 	};
+#else
+	char*	cPrtLifeInitrSetLife::UsageExplanation =
+	{
+		"LifeMin for the base file,\nLifeRange will add with baselife,\nif Random is active the randge will fetch a random betwnn 0 to m_fLifeRange\n"
 
+	};
+	char*	cPrtLifeActDyingByGameTime::UsageExplanation =
+	{
+		"life time minuse elpase time"
+	};
+#endif
 	NamedTypedObject*  cPrtLifeInitrSetLife::Clone()
 	{
 		cPrtLifeInitrSetLife* l_p = new cPrtLifeInitrSetLife; 

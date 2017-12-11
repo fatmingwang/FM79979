@@ -25,6 +25,8 @@ namespace FATMING_CORE
 			case MyMath::Z:
 				e_vPos.z = 0.f;
 				break;
+			default:
+				break;
 		}
 		return e_vPos;
 	}
@@ -41,6 +43,8 @@ namespace FATMING_CORE
 				break;
 			case MyMath::Z:
 				e_vDestSrc.z = e_vSrcPos.z;
+				break;
+			default:
 				break;
 		}
 		return e_vDestSrc;
@@ -176,6 +180,8 @@ namespace FATMING_CORE
 				}
 			}
 				return;
+			default:
+				break;
 		}
 		if( m_iCurrentSelectedIndex>= this->Count() )
 			return;

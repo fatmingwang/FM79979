@@ -1,5 +1,5 @@
 #include "../stdafx.h"
-#include "NetWork.h"
+#include "Network.h"
 #include "../GameplayUT/GameApp.h"
 #include "SDLnetsys.h"
 #ifdef WIN32
@@ -398,7 +398,7 @@ namespace FATMING_CORE
 			int*l_pDebugData = (int*)l_pData;
 			int*l_pDebugData2 = (int*)e_pPacket->pData;
 			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket,l_pData,(int)(e_pPacket->iSize+sizeof(size_t))) == 0?false:true;
-			delete l_pData;
+			delete[] l_pData;
 			return l_bSent;
 		}
 		return false;

@@ -142,6 +142,8 @@ namespace FATMING_CORE
 			case eIT_PUZZLE_IMAGE:
 				ProcessPuzzleImageTexture();
 				break;
+			default:
+				break;
 		}
 	}
 	//<Common Name="BackGround/BKImage.png" UV="0,0,1,1" />

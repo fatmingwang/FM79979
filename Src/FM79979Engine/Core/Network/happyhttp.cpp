@@ -41,6 +41,17 @@
 	#define vsnprintf _vsnprintf
 #endif
 
+#if defined(WASM)
+ //	#include <sys/types.h>
+#include <sys/select.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>	// for gethostbyname()
+#include <errno.h>
+#include <unistd.h>
+#endif
+
 #include <cstdio>
 #include <cstring>
 #include <cstdarg>

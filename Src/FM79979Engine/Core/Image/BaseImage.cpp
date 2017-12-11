@@ -458,7 +458,11 @@ namespace FATMING_CORE
 #ifdef ANDROID
 			if( e_iDataFormat == GL_RGBA )//android not support GL_BGRA?or just nvidia ignore it?
 #else
-			if( e_iDataFormat == GL_RGBA || e_iDataFormat == GL_BGRA )
+			if( e_iDataFormat == GL_RGBA 
+#if !defined(WASM)//https://www.opengl.org/discussion_boards/showthread.php/185197-Why-OpenGLES-2-spec-doesn-t-support-BGRA-texture-format
+				|| e_iDataFormat == GL_BGRA 
+#endif
+				)
 #endif
 				e_balpah = true;
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixelsData,e_iWidth,e_iHeight,e_balpah);

@@ -8,7 +8,7 @@
 
 #if defined(FP_APPLE)
 #include <CoreServices/CoreServices.h>
-#elif defined(LINUX) || defined(IOS)|| defined(ANDROID)
+#elif defined(LINUX) || defined(IOS)|| defined(ANDROID)|| defined(WASM)
 #include <semaphore.h>
 #endif
 
@@ -24,7 +24,7 @@ private:
 	HANDLE semaphoreHandle;
 #elif defined(FP_APPLE)
 	MPSemaphoreID semaphoreHandle;
-#elif defined(LINUX) || defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) || defined(IOS) || defined(ANDROID)|| defined(WASM)
 	sem_t semaphoreHandle;
 #else
 #warning "cFUSemaphore is not implemented on this platform"

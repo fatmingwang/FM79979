@@ -1,4 +1,4 @@
-#include "../../Stdafx.h"
+#include "../../stdafx.h"
 #include "../../Sound/BasicSound.h"
 #include "DefaultRenderClickBehavior.h"
 #define MOUSE_DOWN_SCALE_VALUE	1.2f

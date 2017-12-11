@@ -27,7 +27,7 @@ freely, subject to the following restrictions:
 The manual and changelog are in the header file "lodepng.h"
 Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for C.
 */
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "pngLoader.h"
 
 #include <stdio.h>
@@ -38,9 +38,9 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 #endif /*LODEPNG_COMPILE_CPP*/
 
 #define VERSION_STRING "20130415"
-#include "../Utility.h"
-#include "../GameplayUT/StringCompress.h"
-#include "../GameplayUT/GameApp.h"
+#include "../../Utility.h"
+#include "../../GameplayUT/StringCompress.h"
+#include "../../GameplayUT/GameApp.h"
 
 /*
 This source file is built up in the following large parts. The code sections
@@ -6074,7 +6074,7 @@ void load_file(std::vector<unsigned char>& buffer, const std::string& filename)
 				unsigned char*l_pDataSotre = &buffer[0];
 				memcpy(l_pDataSotre,l_pData,l_iSize);
 			}
-			delete l_pData;
+			delete[] l_pData;
 		}
 		NvFClose(l_pFile);
 	}

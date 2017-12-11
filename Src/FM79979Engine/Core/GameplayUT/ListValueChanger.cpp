@@ -39,6 +39,9 @@ namespace FATMING_CORE
 				case eDT_FLOAT:
 					l_pListValuChangerBase = new cListValueChanger<float>(e_pElement);
 					break;
+				default:
+					assert(0&&"not support cListValuChangerBase::GetListValuChangerBaseByElement");
+					break;
 		}
 		return l_pListValuChangerBase;
 	}

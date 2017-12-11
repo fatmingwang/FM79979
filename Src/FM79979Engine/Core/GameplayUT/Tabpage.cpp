@@ -1,5 +1,5 @@
 #include "../stdafx.h"
-#include "TabPage.h"
+#include "Tabpage.h"
 #include "GameApp.h"
 #include "Scroller.h"
 #include "ImageWithSlider.h"
@@ -50,7 +50,7 @@ namespace FATMING_CORE
 		if( e_pTabPage->m_pIcon )
 		{
 			NamedTypedObject*l_pNamedTypedObject = e_pTabPage->m_pIcon->Clone();
-			m_pIcon = reinterpret_cast<cClickMouseBehavior*>(l_pNamedTypedObject);
+			m_pIcon = dynamic_cast<cClickMouseBehavior*>(l_pNamedTypedObject);
 		}
 		m_bCheckOutOfWorking = e_pTabPage->m_bCheckOutOfWorking;
 	}
@@ -636,13 +636,13 @@ namespace FATMING_CORE
 				}
 			}
 		}
+
 		std::string	l_strPIFileName = UT::GetDirectoryWithoutFileName(e_strIconPIFileName);
 		int	l_iCount = l_pIconPI->Count();
 		for( int i=0;i<l_iCount;++i )
 		{
 			const wchar_t*l_strPIName = l_pIconPI->GetObject(i)->GetName();
-			std::string	l_strPIFileName = l_strPIFileName.c_str();
-			l_strPIFileName += UT::WcharToChar(l_strPIName);
+			std::string	l_strPIFileName = UT::WcharToChar(l_strPIName);
 			cPuzzleImage*l_pPI = cGameApp::m_spAnimationParser->GetAllBaseImageList()->GetPuzzleImage((char*)l_strPIFileName.c_str(),l_strPIName);
 			Vector3	l_vIconPos;
 			if(l_pIconObjectPos)
@@ -781,8 +781,7 @@ namespace FATMING_CORE
 		for( int i=0;i<l_iCount;++i )
 		{
 			const wchar_t*l_strPIName = l_pIconPI->GetObject(i)->GetName();
-			std::string	l_strPIFileName = l_strPIFileName.c_str();
-			l_strPIFileName += UT::WcharToChar(l_strPIName);
+			std::string	l_strPIFileName = UT::WcharToChar(l_strPIName);
 			cPuzzleImage*l_pPI = cGameApp::m_spAnimationParser->GetAllBaseImageList()->GetPuzzleImage(l_strPIFileName.c_str(),l_strPIName);
 
 			cMultiPages*l_pMultiPages = new cMultiPages(0,l_pPI,l_pNextPageButton->GetPointData(0)->GetPuzzleImageUnit(),l_pNextPageButton->GetOriginalPointList()[0],

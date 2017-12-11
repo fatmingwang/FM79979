@@ -61,13 +61,13 @@ static int _ov_header_fseek_wrap(NvFile *f,ogg_int64_t off,int whence){
 }
 
 static ov_callbacks OV_CALLBACKS_DEFAULT = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (size_t (*)(void *, size_t, size_t, void *))  fread,
 #else
   (size_t (*)(void *, size_t, size_t, void *))  NvFRead,
 #endif
   (int (*)(void *, ogg_int64_t, int))           _ov_header_fseek_wrap,
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (int (*)(void *))                             fclose,
   (long (*)(void *))                            ftell
 #else
@@ -77,7 +77,7 @@ static ov_callbacks OV_CALLBACKS_DEFAULT = {
 };
 
 static ov_callbacks OV_CALLBACKS_NOCLOSE = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (size_t (*)(void *, size_t, size_t, void *))  fread,
 #else
   (size_t (*)(void *, size_t, size_t, void *))  NvFRead,
@@ -85,7 +85,7 @@ static ov_callbacks OV_CALLBACKS_NOCLOSE = {
 
   (int (*)(void *, ogg_int64_t, int))           _ov_header_fseek_wrap,
   (int (*)(void *))                             NULL,
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (long (*)(void *))                            ftell
 #else
   (long (*)(void *))                            NvFTell
@@ -94,13 +94,13 @@ static ov_callbacks OV_CALLBACKS_NOCLOSE = {
 };
 
 static ov_callbacks OV_CALLBACKS_STREAMONLY = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (size_t (*)(void *, size_t, size_t, void *))  fread,
 #else
   (size_t (*)(void *, size_t, size_t, void *))  NvFRead,
 #endif
   (int (*)(void *, ogg_int64_t, int))           NULL,
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (int (*)(void *))                             fclose,
 #else
   (int (*)(void *))                             NvFClose,
@@ -109,7 +109,7 @@ static ov_callbacks OV_CALLBACKS_STREAMONLY = {
 };
 
 static ov_callbacks OV_CALLBACKS_STREAMONLY_NOCLOSE = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
   (size_t (*)(void *, size_t, size_t, void *))  fread,
 #else
   (size_t (*)(void *, size_t, size_t, void *))  NvFRead,

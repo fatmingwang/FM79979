@@ -90,7 +90,7 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 
 #define	FM	FATMING_CORE
 
-#if defined(ANDROID)||defined(IOS) || defined(LINUX)
+#if defined(ANDROID)||defined(IOS) || defined(LINUX) || defined(WASM)
 #define	Sleep(TIME)	usleep(TIME*1000);//unistd.h
 #endif
 //#define CORE_DLL

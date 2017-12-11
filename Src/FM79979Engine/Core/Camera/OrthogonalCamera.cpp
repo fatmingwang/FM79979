@@ -260,6 +260,8 @@ namespace FATMING_CORE
 				break;
 			case MyMath::Z:
 				break;
+			default:
+				break;
 		}
 		this->SetLocalTransform(l_OrthogonalCamera.GetLocalTransform());
 	}

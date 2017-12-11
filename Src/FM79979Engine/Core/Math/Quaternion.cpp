@@ -382,20 +382,20 @@ Vector3 operator*(const Vector3& v, const Quaternion& q)
 
 
 
-void TrickLinkerQuaternion()
-{
-	const float x[4] = { (float)0, (float) 0, (float) 1, (float) 0 }; float f = (float) 0.2;
-	Quaternion q, q1(x), q2(q), q3(0, 0, 0, 0), q4(Vector3::XAxis, f);
-	(const float*) const_cast<const Quaternion&>(q); (float*) q1; q2 = x; q3.NormalizeIt(); q4 = q3 * q2; q4 = ~q2; q1 *= q;
-	q1 = q2; Vector3 v = q1.ToEuler(); q3.Average(q4); q2.ToAngleAxis(v, f);
-	cMatrix44 m = q3.ToMatrix(); q3.SetToMatrix(m); bool b = q2 == q3;
-	v = q2 * v; v = v * q2; Quaternion::EulerRotationQuaternion(f, f, b ? f : (float) 0.2);
-	q = Quaternion::MatrixRotationQuaternion(m); q2 = Quaternion::LookAtQuaternion(v, v);
-	q1.Normalize();
-}
-
-extern void TrickLinkerFMQuaternion()
-{
-	TrickLinkerQuaternion();
-	TrickLinkerQuaternion();
-}
+//void TrickLinkerQuaternion()
+//{
+//	const float x[4] = { (float)0, (float) 0, (float) 1, (float) 0 }; float f = (float) 0.2;
+//	Quaternion q, q1(x), q2(q), q3(0, 0, 0, 0), q4(Vector3::XAxis, f);
+//	(const float*) const_cast<const Quaternion&>(q); (float*) q1; q2 = x; q3.NormalizeIt(); q4 = q3 * q2; q4 = ~q2; q1 *= q;
+//	q1 = q2; Vector3 v = q1.ToEuler(); q3.Average(q4); q2.ToAngleAxis(v, f);
+//	cMatrix44 m = q3.ToMatrix(); q3.SetToMatrix(m); bool b = q2 == q3;
+//	v = q2 * v; v = v * q2; Quaternion::EulerRotationQuaternion(f, f, b ? f : (float) 0.2);
+//	q = Quaternion::MatrixRotationQuaternion(m); q2 = Quaternion::LookAtQuaternion(v, v);
+//	q1.Normalize();
+//}
+//
+//extern void TrickLinkerFMQuaternion()
+//{
+//	TrickLinkerQuaternion();
+//	TrickLinkerQuaternion();
+//}

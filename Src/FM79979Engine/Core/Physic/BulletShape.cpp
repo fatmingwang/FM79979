@@ -1,5 +1,5 @@
 //#if defined USING_BULLET_PHYSICAL_ENGINE || defined(WIN32)//or iPhone??
-#include "../Stdafx.h"
+#include "../stdafx.h"
 #include "BulletShape.h"
 #include "2DImageCollisionData.h"
 #define USE_GJK

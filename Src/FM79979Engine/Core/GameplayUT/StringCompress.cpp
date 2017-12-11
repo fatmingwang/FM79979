@@ -298,7 +298,7 @@ bool	FileDempressHuffman(const char*e_strTargetFile,const char*e_strOutputFileNa
 		}
 		return false;
 	}
-	delete pFileBuffer;
+	delete[] pFileBuffer;
 	return l_bResult;
 }
 

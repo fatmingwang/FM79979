@@ -1254,7 +1254,7 @@ NVHHDDSImage *NVCompressToDXT(NVHHDDSImage *srcImage, NvS32 toFormat, NvS32 bMak
     // set srcdata for first time through loop.  
     // do this as we may generate mip data on-the-fly, 
     // not pulled from srcImage->data[n]...
-    if (!srcImage->data || !srcImage->data[0])
+    if ( (uintptr_t)srcImage->data || srcImage->data[0] != nullptr)
     {
         NVHHDDSFree(dstImage);
         return NV_NULL;

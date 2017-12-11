@@ -76,6 +76,8 @@ namespace FATMING_CORE
 				}
 			}
 				return;
+			default:
+				break;
 		}
 		if( m_iCurrentSelectedIndex>= this->Count() )
 			return;

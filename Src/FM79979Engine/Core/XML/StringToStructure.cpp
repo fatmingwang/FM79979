@@ -219,7 +219,7 @@ namespace FATMING_CORE
 			l_str[i] = (char)(e_str[i]);
 		l_str[l_iLength] = '\0';
 		cMatrix44	*l_pMartices = GetMatrcies(l_str,e_iSize,e_bTranspose);
-		delete l_str;
+		delete[] l_str;
 		return l_pMartices;
 	}
     //this might lost data if parse string again!

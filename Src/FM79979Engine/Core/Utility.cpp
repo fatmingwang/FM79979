@@ -2,6 +2,7 @@
 #include "Utility.h"
 #include "GameplayUT/GameApp.h"
 #include <errno.h>
+
 //#include <locale>
 #ifdef WIN32
 #include <direct.h>
@@ -28,6 +29,10 @@ int		arbMultisampleFormat	= 0;
 #elif defined(ANDROID)
 #include "jni.h"
 #include <sys/stat.h>
+#elif defined(WASM)
+#include <stdarg.h>
+#include <sys/stat.h>
+#include <locale>
 #endif
 
 namespace FATMING_CORE
@@ -268,9 +273,9 @@ namespace UT
 	// Name: DebugSpewV()
 	// Desc: Internal helper function
 	//--------------------------------------------------------------------------------------
-	void DebugSpewV( const CHAR* strFormat, const va_list pArgList )
+	void DebugSpewV( const char* strFormat, va_list pArgList )
 	{
-		CHAR str[2048];
+		char str[2048];
 		// Use the secure CRT to avoid buffer overruns. Specify a count of
 		// _TRUNCATE so that too long strings will be silently truncated
 		// rather than triggering an error.
@@ -814,7 +819,7 @@ namespace UT
 		size_t	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
 		l_Temp[l_iNumRead] = 0;
 		l_strContent = l_Temp;
-		delete l_Temp;
+		delete[] l_Temp;
 		NvFClose(l_pFile);
 		return l_strContent;
 	}
@@ -983,7 +988,7 @@ namespace UT
 						NvFWrite(l_Temp,1,l_iNumRead,l_pCopyImageFile);					
 					}
 					NvFClose(l_pCopyImageFile);
-					delete l_Temp;
+					delete[] l_Temp;
 				}
 				NvFClose(l_pSrcFile);
 			}
@@ -1120,6 +1125,8 @@ namespace UT
 			case eDD_LANDSCAPE_RIGHT:
 				l_vScale = Vector2(e_vGameResolution.x/l_vViewSize.y,e_vGameResolution.y/l_vViewSize.x);
 				break;
+			default:
+				break;
 		}
 		e_v2DViewRange.x /= l_vScale.x;
 		e_v2DViewRange.y /= l_vScale.y;
@@ -1160,6 +1167,8 @@ namespace UT
 				l_vScissor.x = l_vViewSize.x-e_v2DViewRange.w;
 				l_vScissor.y = l_vViewSize.y-e_v2DViewRange.z;
 				break;
+			default:
+				break;
 		}
 		switch(e_eDeviceDirection)
 		{
@@ -1172,6 +1181,8 @@ namespace UT
 			case eDD_LANDSCAPE_RIGHT:
 				l_vScissor.w = l_fWidth;
 				l_vScissor.z = l_fHeight;
+				break;
+			default:
 				break;
 		}
 		return l_vScissor;
@@ -1433,6 +1444,7 @@ namespace UT
 		//std::setlocale(LC_ALL, "");
 		std::string		l_strResult;
 		const std::wstring ws = e_strWchar;
+		//#include <locale>
 		const std::locale locale("");
 		typedef std::codecvt<wchar_t, char, std::mbstate_t> converter_type;
 		const converter_type& converter = std::use_facet<converter_type>(locale);

@@ -442,7 +442,7 @@ namespace FATMING_CORE
 			for( int i=0;i<m_iSkpiHeaderSize;++i )
 				l_pRandData[i] = (char)rand()%255;
 			NvFWrite( l_pRandData, sizeof(char)*m_iSkpiHeaderSize, 1, m_pFile );
-			delete l_pRandData;
+			delete[] l_pRandData;
 		}
 		return true;	
 	}
@@ -472,7 +472,7 @@ namespace FATMING_CORE
 			for( int i=0;i<l_iGrabageSize;++i )
 				l_pRandData[i] = (char)rand()%255;
 			NvFWrite( l_pRandData, sizeof(char)*l_iGrabageSize, 1, m_pFile );
-			delete l_pRandData;
+			delete[] l_pRandData;
 		}
 	}
 }

@@ -303,7 +303,11 @@ namespace FATMING_CORE
 		//glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+#ifdef WASM 
+		assert(0 && "use glRenderbufferStorageMultisample instead glTexImage2DMultisample");
+#else
 		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_iNumSamples, GL_RGB, e_iWidth, e_iHeight, 0);
+#endif
 		//in openglES 2.0 glGenFramebuffers
 		glGenFramebuffers(1, &m_uiFramebufferID);
 		// Set up the FBO with one texture attachment 
@@ -410,9 +414,6 @@ namespace FATMING_CORE
 			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		}
 	}
-
-
-
 
 
 

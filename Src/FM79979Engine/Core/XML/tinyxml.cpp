@@ -1372,7 +1372,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 		unsigned char *pDes;
 		int nDesLen;
 		DecompressHuffman((unsigned char*)buf,l_iLength, pDes, nDesLen);
-		delete buf;
+		delete[] buf;
 		buf = (wchar_t*)pDes;
 		l_iLength = nDesLen;
 	}
@@ -1433,7 +1433,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	//fuck android sometimes crash here
 	try
 	{
-		delete buf;
+		delete[] buf;
 	}
 	catch(const std::exception& ex)
 	{

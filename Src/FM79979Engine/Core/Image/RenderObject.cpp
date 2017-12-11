@@ -198,7 +198,7 @@ namespace FATMING_CORE
 		GoThoughAllFrameFromaFirstToEnd(
 			[this](void*e_pData,Frame*e_pFrame)
 			{
-				cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pFrame);
+				cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(e_pFrame);
 				l_pRenderObject->DebugRender(); 
 			}
 			,this,nullptr);

@@ -1,6 +1,10 @@
 #ifndef _GLH_H_
 #define _GLH_H_
 
+#if defined(WASM)
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+#endif
 //=======================
 //the old function for setup matrix is glMultMatrixf
 //but for the shader we need to ge tthe martix and setup it

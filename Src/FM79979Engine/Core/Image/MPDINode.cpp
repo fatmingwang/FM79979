@@ -199,7 +199,7 @@ namespace FATMING_CORE
 		Frame*l_pFrame = e_pMPDINode->GetFirstChild();
 		while( l_pFrame )
 		{
-			Frame*CloneFrame = reinterpret_cast<Frame*>(l_pFrame->Clone());
+			Frame*CloneFrame = dynamic_cast<Frame*>(l_pFrame->Clone());
 			this->AddChildToLast(CloneFrame);
 			l_pFrame = l_pFrame->GetNextSibling();
 		}

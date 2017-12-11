@@ -33,6 +33,9 @@ namespace FATMING_CORE
 				case eDT_FLOAT:
 					l_pRestrictValueBase = new cRestrictValue<float>(e_pElement);
 					break;
+				default:
+					assert(0 &&"cRestrictValueBase::GetRestrictValueBaseByElement not support format");
+					break;
 		}
 		return l_pRestrictValueBase;
 	}

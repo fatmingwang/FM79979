@@ -117,7 +117,7 @@ namespace FATMING_CORE
 		if( e_pFARQueuePlayer->m_pFMAnimationRule )
 		{
 			NamedTypedObject*l_pNamedTypedObject = e_pFARQueuePlayer->m_pFMAnimationRule->Clone();
-			m_pFMAnimationRule = reinterpret_cast<cFMTimeLineAnimationRule*>(l_pNamedTypedObject);
+			m_pFMAnimationRule = dynamic_cast<cFMTimeLineAnimationRule*>(l_pNamedTypedObject);
 			
 		}
 	}

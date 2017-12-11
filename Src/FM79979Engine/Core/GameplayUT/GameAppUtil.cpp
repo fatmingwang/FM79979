@@ -45,6 +45,7 @@
 //    }
 //    return bWin7;
 //}
+#ifdef WIN32
 void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
 {
 	static DWORD savedExStyle;
@@ -82,6 +83,7 @@ void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
 	}
 	cGameApp::SetAcceptRationWithGameresolution((int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 }
+#endif
 namespace	FATMING_CORE
 {
 	void	DumpGraphicsInfo()

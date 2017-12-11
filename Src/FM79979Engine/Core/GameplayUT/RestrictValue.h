@@ -219,6 +219,9 @@ namespace FATMING_CORE
 				case eDT_DOUBLE:
 					return SetValue((T)_wtof(e_strValue));
 					break;
+				default:
+					assert(0 &&"lazy to implement cRestrictValue::SetValue");
+					break;
 			}
 			return false;
 		}

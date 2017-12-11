@@ -8,9 +8,9 @@
 #ifdef IOS
 #include "ogg/ogg/ogg.h"
 #include "ogg/vorbis/vorbisfile.h"
-#elif defined(ANDROID)
-#include "../../ogg/ogg/ogg.h"
-#include "../../ogg/vorbis/vorbisfile.h"
+#elif defined(ANDROID) || defined(WASM)
+#include "ogg/ogg/ogg.h"
+#include "ogg/vorbis/vorbisfile.h"
 #elif defined(WIN32)
 #include "../../../Include/ogg/ogg.h"
 #include "../../../Include/vorbis/vorbisfile.h"

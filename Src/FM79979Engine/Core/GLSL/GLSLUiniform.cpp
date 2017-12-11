@@ -268,7 +268,7 @@ namespace FATMING_CORE
 		if( !e_pTiXmlElement->m_bDone )
 		{
 			cUniformData *l_pNewUniform = new cUniformData;
-			memset( l_pNewUniform, 0, sizeof(cUniformData) );
+			//memset( l_pNewUniform, 0, sizeof(cUniformData) );
 			m_pCurrentUniformData = l_pNewUniform;
 			const wchar_t*	l_strName = e_pTiXmlElement->Value();
 			COMPARE_NAME("GLSL")

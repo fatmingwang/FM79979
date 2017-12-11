@@ -301,7 +301,7 @@ namespace FATMING_CORE
 		switch(e_GLenum)
 		{
 			case GL_RGBA:
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(WASM)
 			case GL_BGRA:
 #endif
 				l_iChannel = 4;
@@ -484,8 +484,8 @@ namespace FATMING_CORE
 			memcpy(&l_pPixelData[l_iIndex2],l_pPixelData2,sizeof(unsigned char)*l_iNumChannel*l_iWidth);
 		}
 		SaveBufferToImage(e_strFileName,l_iWidth,l_iHeight,l_pPixelData,l_iNumChannel);
-		delete l_pPixelData;
-		delete l_pPixelData2;
+		delete[] l_pPixelData;
+		delete[] l_pPixelData2;
 #elif defined(IOS)//for iphone,save into album
         captureToPhotoAlbum();
 #endif

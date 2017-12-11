@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "Frame.h"
 #include "Bound.h"
-#include "../GamePlayUT/GameApp.h"
+#include "../GameplayUT/GameApp.h"
 
 
 const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;

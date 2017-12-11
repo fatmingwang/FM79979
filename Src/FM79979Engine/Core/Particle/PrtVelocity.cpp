@@ -8,7 +8,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cPrtVelocityActAcceleration);
 	TYPDE_DEFINE_MARCO(cPrtVelocityActBySatelliteAction);
 	TYPDE_DEFINE_MARCO(cPrtVelocityActDircctionChange);
-
+#ifdef WIN32
 	char*	cPrtVelocityInitSetVelocity::UsageExplanation =
 	{
 		"particle velocity\n粒子噴射的速度"
@@ -17,6 +17,16 @@ namespace FATMING_CORE
 	{
 		"current velocity = velocity+AccelerationSpeed*Direction+OriginalSpeed\n粒子的加速度"
 	};
+#else
+	char*	cPrtVelocityInitSetVelocity::UsageExplanation =
+	{
+		"particle velocity\n"
+	};
+	char*	cPrtVelocityActAcceleration::UsageExplanation =
+	{
+		"current velocity = velocity+AccelerationSpeed*Direction+OriginalSpeed\n"
+	};
+#endif
 	char*	cPrtVelocityActBySatelliteAction::UsageExplanation =
 	{
 		"lazy to do"

@@ -256,7 +256,7 @@ const wchar_t* TiXmlBase::SkipWhiteSpace( const wchar_t* p)
 	}
 
 	wchar_t lp = 65279;
-	while ( *p && IsWhiteSpace( *p ) || *p == L'\n' || *p == L'\r'|| *p== lp || *p == L'\t' )
+	while ( (*p && IsWhiteSpace( *p )) || *p == L'\n' || *p == L'\r'|| *p== lp || *p == L'\t' )
 		++p;
 
 	return p;

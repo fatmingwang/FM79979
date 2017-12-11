@@ -169,7 +169,7 @@ namespace FATMING_CORE
 			this->m_MouseMoveData.Init();
 			m_TCForRepeat.Start();
 			InternalMouseLeave(-1,-1);
-			if( this->m_ucKeyData != -1 && cGameApp::m_sucKeyData[this->m_ucKeyData] )
+			if( this->m_ucKeyData != (unsigned char)-1 && cGameApp::m_sucKeyData[this->m_ucKeyData] )
 			{
 				m_bKeyDown = true;
 			}

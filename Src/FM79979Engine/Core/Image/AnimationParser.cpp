@@ -53,6 +53,8 @@ namespace FATMING_CORE
 			case eIPTL_MPDI:
 				ProcessMPDI();
 				break;
+			default:
+				break;
 		}
 	}
 	//kill imageplayer and image resource and puzzle data

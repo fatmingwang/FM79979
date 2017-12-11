@@ -6,7 +6,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cPrtSizeActBlending);
 	TYPDE_DEFINE_MARCO(cPrtSizeInitSetSize);
 
-
+#ifdef WIN32
 	char*	cPrtSizeInitSetSize::UsageExplanation =
 	{
 		"size will decide by size *random(0,RandomValue),RandomValue 越大尺寸就會越亂"
@@ -15,6 +15,16 @@ namespace FATMING_CORE
 	{
 		"while Add is active,size is going to add specific,I.E\nAdd 為真的話將會粒子尺寸將會越大反之變小"
 	};
+#else
+	char*	cPrtSizeInitSetSize::UsageExplanation =
+	{
+		"size will decide by size *random(0,RandomValue)"
+	};
+	char*	cPrtSizeActBlending::UsageExplanation =
+	{
+		"while Add is active,size is going to add specific,I.E\n"
+	};
+#endif
 	NamedTypedObject*  cPrtSizeInitSetSize::Clone()
 	{
 		cPrtSizeInitSetSize* l_p = new cPrtSizeInitSetSize; 

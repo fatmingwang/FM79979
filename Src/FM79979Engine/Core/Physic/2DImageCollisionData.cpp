@@ -540,7 +540,9 @@ namespace FATMING_CORE
 				case eCT_CONVEX:
 					l_pCollisionData->ConvexHullPointData = StringToVector3Vector((wchar_t*)l_strData,l_iCount);
 					l_pCollisionData->bConvex = true;
-					break;					
+					break;
+				default:
+					break;
 			}
 		}
 	}
@@ -656,6 +658,8 @@ namespace FATMING_CORE
 					l_pbtShapeCollision = new cbtConvexHullShape((float*)&l_vPos[0],l_iCount,sizeof(float)*3);
 				}
 				break;					
+			default:
+				break;
 		}
 		m_pbtConcaveShapeList->AddObjectNeglectExist(l_pbtShapeCollision);
 	}

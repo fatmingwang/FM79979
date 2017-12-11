@@ -50,12 +50,12 @@ namespace FATMING_CORE
 		m_pFinishImage = 0;
 		if( e_pImageButton->m_pPressedImage )
 		{
-			cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pImageButton->m_pPressedImage->Clone());
+			cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(e_pImageButton->m_pPressedImage->Clone());
 			m_pPressedImage = l_pRenderObject;
 		}
 		if( e_pImageButton->m_pFinishImage )
 		{
-			cRenderObject*l_pRenderObject = reinterpret_cast<cRenderObject*>(e_pImageButton->m_pFinishImage->Clone());
+			cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(e_pImageButton->m_pFinishImage->Clone());
 			m_pFinishImage = l_pRenderObject;
 		}
 		m_TC.SetTargetTime(e_pImageButton->m_TC.fTargetTime);
@@ -673,7 +673,6 @@ namespace FATMING_CORE
 
 	void    cButtonDialog::Init()
 	{
-		this->m_vCollisionRange;
 		//if( m_pYesImageButton )m_pYesImageButton->Init();
 		//if( m_pNoImageButton )m_pNoImageButton->Init();
 		cClickMouseBehaviorVector<cClickMouseBehavior>::Init();

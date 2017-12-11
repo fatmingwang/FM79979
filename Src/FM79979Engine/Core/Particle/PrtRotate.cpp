@@ -8,7 +8,8 @@ namespace FATMING_CORE
 
 	char*	cPrtRotateActRotate::UsageExplanation =
 	{
-		"while ParticleRotateMode is none this should be erase,random value as big as effective,if Negative is true the random will decide by -m_fRandomOffset and m_fRandomOffset,or 0,m_fRandomOffset\n當ParticleRotateMode 為 none 此物件應該刪除,亂數值越大旋轉越快,當Negative 為真那亂數數值將會介於-m_fRandomOffset,m_fRandomOffset否則為0,m_fRandomOffset"
+		//"while ParticleRotateMode is none this should be erase,random value as big as effective,if Negative is true the random will decide by -m_fRandomOffset and m_fRandomOffset,or 0,m_fRandomOffset\n當ParticleRotateMode 為 none 此物件應該刪除,亂數值越大旋轉越快,當Negative 為真那亂數數值將會介於-m_fRandomOffset,m_fRandomOffset否則為0,m_fRandomOffset"
+		"while ParticleRotateMode is none this should be erase,random value as big as effective,if Negative is true the random will decide by -m_fRandomOffset and m_fRandomOffset,or 0,m_fRandomOffset\n"
 	};
 	char*	cPrtRotateInitRotate::UsageExplanation =
 	{

@@ -39,9 +39,6 @@
     typedef long                LONG;
     typedef unsigned short      WORD;
     typedef short				SHORT;
-#ifndef IOS
-//	typedef bool				BOOL;
-#endif
     typedef int8_t				int8;
     typedef int16_t				int16;
     typedef int32_t				int32;
@@ -76,6 +73,7 @@
 	#define	_atoi64	atoll//for string to uint64
     #ifndef _CLIMITS_
     #include <climits>
+	#include <unistd.h>//for usleep
     #endif // _CLIMITS_
 #endif // PLATFORMS
 //===============================================

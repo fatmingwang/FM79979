@@ -85,7 +85,7 @@ namespace	FATMING_CORE
 				}
 			}
 		}
-		delete l_pBuffer;
+		delete[] l_pBuffer;
 		// Stop capture
 		alcCaptureStop(l_pSoundCapture->m_pDevice);
 

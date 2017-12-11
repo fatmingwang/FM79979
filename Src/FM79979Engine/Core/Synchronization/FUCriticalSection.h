@@ -28,7 +28,7 @@ private:
 	mutable CRITICAL_SECTION criticalSection; // windows-only
 #elif defined(FP_APPLE)
 	mutable MPCriticalRegionID criticalSection;
-#elif defined(LINUX) || defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) || defined(IOS) || defined(ANDROID)|| defined(WASM)
 	mutable pthread_mutex_t criticalSection;
 #else
 #warning "cFUCriticalSection: Critical section not implemented for other platforms."

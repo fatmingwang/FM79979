@@ -13,7 +13,7 @@
 typedef unsigned long cFUThreadRef;
 #elif defined(FP_APPLE) 
 typedef MPTaskID cFUThreadRef;
-#elif defined(LINUX) || defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) || defined(IOS) || defined(ANDROID) || defined(WASM)
 #include <pthread.h>
 typedef pthread_t cFUThreadRef;
 #else

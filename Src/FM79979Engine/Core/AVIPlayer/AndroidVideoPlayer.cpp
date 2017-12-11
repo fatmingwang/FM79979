@@ -46,7 +46,7 @@ void main()																		\
 }";
 #endif
 #include "../stdafx.h"
-#include "../GamePlayUT/GameApp.h"
+#include "../GameplayUT/GameApp.h"
 #include "../zlib/zlib.h"
 #include "../Image/jpeg/jpge.h"
 #include "../Image/jpeg/jpgd.h"

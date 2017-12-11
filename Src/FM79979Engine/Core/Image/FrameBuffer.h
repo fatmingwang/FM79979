@@ -49,6 +49,7 @@ namespace FATMING_CORE
 		GLuint	GetTextureID() { return m_uiTextureID; }
 		GLuint	GetFramebufferID() { return m_uiFramebufferID; }
 	};
+
 	//after I test this one useless for 2D...
 	class cBaseShader;
 	class	cMSAAFrameBuffer :public Frame

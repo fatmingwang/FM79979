@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		if( e_pMouse_TouchWithCancelButton->m_pCancelButton )
 		{
 			NamedTypedObject*l_pObject = e_pMouse_TouchWithCancelButton->m_pCancelButton->Clone();
-			cClickMouseBehavior*l_pClickMouseBehavior = reinterpret_cast<cClickMouseBehavior*>(l_pObject);
+			cClickMouseBehavior*l_pClickMouseBehavior = dynamic_cast<cClickMouseBehavior*>(l_pObject);
 			m_pCancelButton = l_pClickMouseBehavior;
 			m_pCancelButton->SetName(CANCEL_BUTTON_NAME);
 		}

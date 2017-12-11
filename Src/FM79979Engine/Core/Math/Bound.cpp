@@ -81,6 +81,8 @@ cBound cBound::operator*( cMatrix44 World ) const
         }
         case cBound::No_Bound:
             return cBound();
+		default:
+			break;
     }
 
     return cBound();
@@ -106,6 +108,8 @@ bool cBound::Collide( const sOrientedBox& Obb ) const
             return IntersectAxisAlignedBoxOrientedBox( &GetAabb(), &Obb );
         case cBound::No_Bound:
             return true;
+		default:
+			break;
     }
 
     return false;
@@ -140,6 +144,8 @@ bool cBound::Collide( const sSphere& Sphere ) const
             return IntersectSphereAxisAlignedBox( &Sphere, &GetAabb() );
         case cBound::No_Bound:
             return true;
+		default:
+			break;
     }
 
     return false;
@@ -164,6 +170,8 @@ bool cBound::Collide( const sAxisAlignedBox& Aabb ) const
             return IntersectAxisAlignedBoxAxisAlignedBox( &GetAabb(), &Aabb );
         case cBound::No_Bound:
             return true;
+		default:
+			break;
     }
 
     return false;
@@ -188,6 +196,8 @@ bool cBound::Collide( const sFrustum& Frustum ) const
             return IntersectAxisAlignedBoxFrustum( &GetAabb(), &Frustum )?true:false;
         case cBound::No_Bound:
             return true;
+		default:
+			break;
     }
 
     return false;
@@ -212,6 +222,8 @@ bool cBound::Collide( const cBound& Other ) const
             return Collide( Other.GetAabb() );
         case cBound::No_Bound:
             return true;
+		default:
+			break;
     }
 
     return false;
@@ -393,6 +405,8 @@ Vector3 cBound::GetCenter() const
 			}
         case cBound::No_Bound:
             break;
+		default:
+			break;
     }
 
     return Vector3( 0.0f, 0.0f, 0.0f );
@@ -448,6 +462,8 @@ float cBound::GetMaxRadius() const
         }
         case cBound::No_Bound:
             break;
+		default:
+			break;
     }
 
     return 0.0f;

@@ -26,7 +26,7 @@ typedef unsigned (__stdcall *TaskProc)(void*);
 #define THREAD_ROUTINE_POINTER TaskProc
 #define DeclareThreadRoutine(_name, param) static OSStatus _name(void* param);
 #define ImplementThreadRoutine(_name, param) OSStatus _name(void* param)
-#elif defined(LINUX) || defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) || defined(IOS) || defined(ANDROID)|| defined(WASM)
 typedef void* (*TaskProc)(void*);
 #define THREAD_ROUTINE_POINTER TaskProc
 #define DeclareThreadRoutine(_name, param) static void* _name(void* param);

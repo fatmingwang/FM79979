@@ -236,9 +236,10 @@ namespace FATMING_CORE
 							return i;
 					}
 					break;
-				case eDT_BYTE:
-				case eDT_DOUBLE:
-				case eDT_FLOAT:
+				//case eDT_BYTE:
+				//case eDT_DOUBLE:
+				//case eDT_FLOAT:
+				default:
 					UT::ErrorMsg(L"currently I am lazy so only support int",L"Warning");
 					break;
 			}

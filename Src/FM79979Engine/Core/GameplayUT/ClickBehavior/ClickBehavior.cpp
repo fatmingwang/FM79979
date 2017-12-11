@@ -1,4 +1,4 @@
-#include "../../Stdafx.h"
+#include "../../stdafx.h"
 #include "../Mouse_Touch.h"
 #include "../../Sound/BasicSound.h"
 #include "ClickBehavior.h"
