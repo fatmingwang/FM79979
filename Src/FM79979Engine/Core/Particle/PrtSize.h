@@ -12,7 +12,7 @@ namespace FATMING_CORE
 	{
 		GETP_SET_DEC(float,m_fRandomValue,GetRandomValue,SetRandomValue);//only between 1~0 else will occur exceed expactation,more close 1 more effective
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		explicit	cPrtSizeInitSetSize() throw(){  x = 1.f; y = 1.f; m_fRandomValue = 0.f; }
 		virtual ~cPrtSizeInitSetSize(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -45,7 +45,7 @@ namespace FATMING_CORE
 	{//add or minus
 		bool	m_bAdd;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtSizeActBlending()throw():m_bAdd(true){ x = y = 5.f; }
 		virtual ~cPrtSizeActBlending(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)

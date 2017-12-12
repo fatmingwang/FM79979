@@ -12,7 +12,7 @@ namespace FATMING_CORE
 		GETP_SET_DEC(float,m_fWidth,GetWidth,SetWidth);
 		GETP_SET_DEC(float,m_fDeepth,GetDeepth,SetDeepth);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtStartPositionInitBySquareRange(){ m_fHeight = 10.f; m_fWidth =  10.f; m_fDeepth = 10.f; }
 		virtual ~cPrtStartPositionInitBySquareRange(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -63,7 +63,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(Frame*,m_pFrame,GetFrame,SetFrame);
 		GET_SET_DEC(Vector3,m_vOffsetPos,GetOffsetPos,SetOffsetPos);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtStartPositionInitByFrame(){ m_pFrame = 0; memset(m_psSubFrameName,0,sizeof(m_psSubFrameName)); m_pSubFrameOfModel = 0; m_pD3DMatrix = 0; m_eAttachFrameType = eAFT_CAMERA; }
 		virtual ~cPrtStartPositionInitByFrame(){}
 

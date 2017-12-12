@@ -27,7 +27,7 @@ namespace FATMING_CORE
         virtual void    InternalMouseDown(int e_iPosX,int e_iPosY);
         virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cSliderBar(Vector3	e_vPos,cBaseImage*e_pBar,cBaseImage*e_pSlider,eOrientation e_eOrientation = eO_HORIZONTAL);
 		cSliderBar(cCueToStartCurveWithTime*e_pBar,cCueToStartCurveWithTime*e_pSlider,eOrientation e_eOrientation = eO_HORIZONTAL);
 		cSliderBar(cBaseImage*e_pBar,cBaseImage*e_pSlider);

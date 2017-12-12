@@ -109,7 +109,7 @@ namespace FATMING_CORE
 		void	ProcessShapeData();
 		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		c2DImageCollisionData();
 		virtual ~c2DImageCollisionData();
 	};

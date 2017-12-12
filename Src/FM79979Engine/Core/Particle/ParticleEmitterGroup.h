@@ -15,7 +15,7 @@ namespace FATMING_CORE
 		cMatrix44	m_matOrientationAndPositionTransform;
 		cMatrix44	m_matParticleDirectionTransform;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cParticleEmitterGroup();
 		cParticleEmitterGroup(cParticleEmitterGroup*e_pParticleEmitterGroup);
 		virtual~cParticleEmitterGroup();

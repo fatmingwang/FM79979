@@ -10,7 +10,7 @@
 		virtual	void			AddObjectNotification(cRenderObject* e_t){ if(e_t)this->AddChild(e_t); }
 		virtual	void			RemoveObjectNotification(cRenderObject* e_t){ if(e_t)e_t->SetParent(0); }
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cAssembleImageButton();
 		virtual ~cAssembleImageButton();
 		cAssembleImageButton(cAssembleImageButton*e_pAssembleImageButton);

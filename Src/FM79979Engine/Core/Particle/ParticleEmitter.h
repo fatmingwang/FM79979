@@ -155,7 +155,7 @@ namespace FATMING_CORE
 		//shot particles
 		void	Shot(int e_iNumParticle,float e_fElpaseTime = 0.016f);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtEmitter(const wchar_t*e_pName);
 		//basicly u just input cPrtEmitter,
 		//but if u wanna clone policy list u have set e_bPolicyFromClone as true

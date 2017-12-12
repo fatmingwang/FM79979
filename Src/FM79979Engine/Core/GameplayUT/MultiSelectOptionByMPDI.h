@@ -36,7 +36,7 @@ namespace FATMING_CORE
         //
         virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
     public:
-        DEFINE_TYPE_INFO();
+        DEFINE_TYPE_INFO()
 		//there are 3 ways to seup button here,
 		//1st get a MPDIList and get its child by assigned index(specific key words as Idle,Horver,Selected)
 		//2nd input Idle,Horver,Selected
@@ -104,7 +104,7 @@ namespace FATMING_CORE
     protected:
         cAnimationParser    m_AnimationParser;
     public:
-        DEFINE_TYPE_INFO();
+        DEFINE_TYPE_INFO()
         //cCueToStartCurveWithTime;
         //cMultiPathDynamicImage
         cMultiSelectOptionByMPDI(char*e_strFileName);

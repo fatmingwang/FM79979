@@ -17,7 +17,7 @@ namespace FATMING_CORE
 		//static char	m_sTemp[MAX_PATH];
 		char	m_sTemp[MAX_PATH];
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		inline	cParticleBase(){ m_pEmitterOwner = 0; }
 		inline	virtual ~cParticleBase(){}
 		//index for the working particle index

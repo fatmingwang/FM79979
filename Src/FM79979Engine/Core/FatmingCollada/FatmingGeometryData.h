@@ -26,6 +26,8 @@
 				case eDT_INT:
 					l_iSize = sizeof(int);
 					break;
+				default:
+					break;
 			}
 			pData = new char[e_uiCount*l_iSize];
 		}

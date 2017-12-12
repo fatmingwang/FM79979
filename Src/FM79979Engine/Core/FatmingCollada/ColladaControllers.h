@@ -91,7 +91,7 @@ class cLibraryControllers :public NamedTypedObject
 	sController*		m_pCurrentController;
 	sController::sSkin::sSource*	m_pCurrentSource;
 public:
-        DEFINE_TYPE_INFO();
+        DEFINE_TYPE_INFO()
         void	ParseData(TiXmlElement*e_pTiXmlElement);
 		std::vector<sController*>	m_ControllerList;
 		sController*	GetController(WCHAR*e_strSource)

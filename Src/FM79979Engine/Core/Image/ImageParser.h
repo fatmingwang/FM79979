@@ -57,9 +57,9 @@ namespace FATMING_CORE
 		//
 		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject);
 	public:
-		DEFINE_TYPE_INFO();
-		DEFINE_FILE_EXTENSION_NAME_INFO();
-		//DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
+		DEFINE_FILE_EXTENSION_NAME_INFO()
+		//DEFINE_TYPE_INFO()
 		//because pi editor need original data sort.
 		cImageParser(bool e_bSortPIFileAsOriginal = false);
 		virtual ~cImageParser();

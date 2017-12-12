@@ -913,13 +913,13 @@ int ov_open_callbacks(void *f,OggVorbis_File *vf,char *initial,long ibytes,
 #ifndef WIN32
 int ov_open(NvFile *f,OggVorbis_File *vf,char *initial,long ibytes){
   ov_callbacks callbacks = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
     (size_t (*)(void *, size_t, size_t, void *))  fread,
 #else
     (size_t (*)(void *, size_t, size_t, void *))  NvFRead,
 #endif
     (int (*)(void *, ogg_int64_t, int))              _fseek64_wrap,
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
     (int (*)(void *))                             fclose,
     (long (*)(void *))                            ftell
 #else
@@ -995,7 +995,7 @@ int ov_test_callbacks(void *f,OggVorbis_File *vf,char *initial,long ibytes,
 #ifndef WIN32
 int ov_test(NvFile *f,OggVorbis_File *vf,char *initial,long ibytes){
   ov_callbacks callbacks = {
-#ifdef IOS
+#if defined(IOS) || defined(WASM)
 	  (size_t (*)(void *, size_t, size_t, void *))  fread,
 	  (int (*)(void *, ogg_int64_t, int))           _fseek64_wrap,
 	  (int (*)(void *))                             fclose,

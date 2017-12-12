@@ -30,7 +30,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(bool,m_bKillAfterSatisfiedCondition,IsKillAfterSatisfiedCondition,SetKillAfterSatisfiedCondition);
 		virtual bool    InternalCollide(int e_iPosX,int e_iPosY){ return true; }
 	public:
-		//DEFINE_TYPE_INFO();
+		//DEFINE_TYPE_INFO()
 		cSimplePhase(){ m_bSatisfiedCondition = false; m_bKillAfterSatisfiedCondition = false;  }
 		virtual ~cSimplePhase(){}
 		//virtual	void				Start(float e_fElpaseTime = EPSIONAL){}
@@ -109,7 +109,7 @@ namespace FATMING_CORE
 //class	cGamePhase:public cSimplePhase
 //{
 //public:
-//	DEFINE_TYPE_INFO();
+//	DEFINE_TYPE_INFO()
 //	cPhase();
 //	virtual	void	Update(float e_fElpaseTime);
 //	virtual	void	Init();

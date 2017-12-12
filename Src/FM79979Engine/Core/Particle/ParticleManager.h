@@ -42,8 +42,8 @@ namespace FATMING_CORE
 		//
 		GETP_SET_DEC(cImageParser,m_ImageParser,GetImageParser,SetImageParser);
 	public:
-		DEFINE_FILE_EXTENSION_NAME_INFO();
-		DEFINE_TYPE_INFO();
+		DEFINE_FILE_EXTENSION_NAME_INFO()
+		DEFINE_TYPE_INFO()
 		//cCurveManager	m_CurveManager;//now for test
 		cPaticleManager();
 		virtual ~cPaticleManager();
@@ -76,8 +76,8 @@ namespace FATMING_CORE
 		void	ProcessBehaviorGroupType();
 		void	ProcressWithTimeBehavior();
 	public:
-		DEFINE_FILE_EXTENSION_NAME_INFO();
-		DEFINE_TYPE_INFO();
+		DEFINE_FILE_EXTENSION_NAME_INFO()
+		DEFINE_TYPE_INFO()
 		cBehaviorPaticleManager();
 		virtual ~cBehaviorPaticleManager();
 		cPaticleManager	*m_pPaticleManager;

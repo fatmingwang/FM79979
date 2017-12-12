@@ -1,11 +1,30 @@
-// test.cpp : Defines the entry point for the application.
 //
 #include "stdafx.h"
 #include "test.h"
 #include "GameApp.h"
-#include "Windowsx.h"
 
 #include "../../AllLibInclude.h"
+#ifdef WASM
+cGameApp*g_pGameApp = 0;
+int main()
+{
+	g_pGameApp = new cEngineTestApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+	g_pGameApp->Init();
+	cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+	while (1)
+	{
+		g_pGameApp->Run();
+	}
+
+	SAFE_DELETE(g_pGameApp);
+	return 0;
+}
+
+
+#else
+#include "Windowsx.h"
+// test.cpp : Defines the entry point for the application.
+
 
 
 #define VLD_DEBUG
@@ -263,3 +282,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return 0;
 }
+#endif

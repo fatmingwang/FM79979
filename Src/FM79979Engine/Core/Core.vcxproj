@@ -61,9 +61,11 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -105,6 +107,12 @@
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <OutDir>..\..\lib\$(Configuration)\</OutDir>
     <IntDir>..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -158,19 +166,25 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <ClCompile>
-      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WASM;DEBUG</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <ExceptionHandling>true</ExceptionHandling>
-      <CLanguageStandard>Default</CLanguageStandard>
+      <CLanguageStandard>
+      </CLanguageStandard>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
       <AdditionalIncludeDirectories>./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <EnableMicrosoftExtensions>
+      </EnableMicrosoftExtensions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
-      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -312,10 +326,10 @@
     <ClCompile Include="Particle\PrtTexture.cpp" />
     <ClCompile Include="Particle\ParticleBase.cpp" />
     <ClCompile Include="Network\happyhttp.cpp" />
-    <ClCompile Include="Network\SDLnet.c" />
-    <ClCompile Include="Network\SDLnetselect.c" />
-    <ClCompile Include="Network\SDLnetTCP.c" />
-    <ClCompile Include="Network\SDLnetUDP.c" />
+    <ClCompile Include="Network\SDLnet.cpp" />
+    <ClCompile Include="Network\SDLnetselect.cpp" />
+    <ClCompile Include="Network\SDLnetTCP.cpp" />
+    <ClCompile Include="Network\SDLnetUDP.cpp" />
     <ClCompile Include="Synchronization\FUCriticalSection.cpp" />
     <ClCompile Include="Synchronization\FUSemaphore.cpp" />
     <ClCompile Include="Synchronization\FUSynchronized.cpp" />

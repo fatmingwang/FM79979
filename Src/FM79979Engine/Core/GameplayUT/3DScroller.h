@@ -56,7 +56,7 @@ namespace FATMING_CORE
         //
         virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
     public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
         //if e_pPI is nullptr,uadd images by yourself or add pi later
         c3DScroller(cPuzzleImage*e_pPI,Vector4 e_vTotalViewRect,cClickMouseBehavior*e_pCancelButton = 0,cClickMouseBehavior*e_pIcon = 0,bool e_bHorizontal = true);
 		//c3DScroller(c3DScroller*e_p3DScroller);

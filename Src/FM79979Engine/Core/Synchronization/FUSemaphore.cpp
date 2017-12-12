@@ -1,4 +1,4 @@
-#include "../stdAfx.h"
+#include "../stdafx.h"
 #include "FUSemaphore.h"
 
 

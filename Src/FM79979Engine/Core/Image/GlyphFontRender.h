@@ -25,7 +25,7 @@ namespace FATMING_CORE
 		std::wstring	m_strText;
 		bool			m_bTextChanged;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize = 300);
 		cGlyphFontRender(int e_iVertexBufferSize = 300);
 		cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender);

@@ -37,7 +37,7 @@ class cLibraryImages :public NamedTypedObject
 	//
 	sLibraryImages*	m_pCurrentLibraryImages;
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cLibraryImages();
 	~cLibraryImages();
 	void	ParseData(TiXmlElement*e_pTiXmlElement);

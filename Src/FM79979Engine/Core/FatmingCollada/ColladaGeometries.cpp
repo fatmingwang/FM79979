@@ -507,7 +507,8 @@ void	sGeometryMesh::GenerateUniqueIndicesAndVertexData_OPENGL(sAllVertexData*e_p
 			e_pAllVertexData->ppVerticesData[i] = l_ppVerticesData[i];
 		}
 	}
-	SAFE_DELETE(l_ppVerticesData);
+	//SAFE_DELETE(l_ppVerticesData);
+	delete[] l_ppVerticesData;
 }
 
 sColladaGeomatries*cLibraryGeometries::GetColladaGeomatries(const WCHAR*e_strID)

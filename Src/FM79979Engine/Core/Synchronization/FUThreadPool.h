@@ -73,7 +73,7 @@ public:
 	bool WaitForIdle(uint32 maxWaitTime = (uint32) -1);
 
 private:
-	DeclareThreadRoutine(WorkerThread, threadPool);
+	DeclareThreadRoutine(WorkerThread, threadPool)
 };
 
 //cFUThreadPool*g_pFUThreadPool = 0;

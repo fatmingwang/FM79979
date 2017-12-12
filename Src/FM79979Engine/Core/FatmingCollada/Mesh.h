@@ -60,7 +60,7 @@ protected:
 	UINT	m_uiIndexBufferCount;//m_uiIndexBufferCount/3 equal num triangle to draw.
 	sSphere	m_Sphere;
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 		UINT	e_uiVertexBufferCount,
 		UINT*	e_puiIndexBuffer,

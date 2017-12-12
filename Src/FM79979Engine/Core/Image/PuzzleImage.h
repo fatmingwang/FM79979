@@ -64,7 +64,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(cPuzzleImageUnit*,m_pPrior,GetPrior,SetPrior);
 		sPuzzleData*m_pPuzzleData;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPuzzleImageUnit(sPuzzleData*e_pPuzzleData,cPuzzleImage*e_pPuzzleImageParent);
 		cPuzzleImageUnit(cPuzzleImageUnit*e_pPuzzleImageUnit);
 		cPuzzleImageUnit(cBaseImage*e_pBaseImage);
@@ -189,7 +189,7 @@ namespace FATMING_CORE
 		//internal using,generate all image unit while parse data is done
 		void	GenerateAllPuzzleImageUnit();
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPuzzleImage(cPuzzleImage*e_pPuzzleImage);
 		cPuzzleImage(char*e_strName,std::vector<sPuzzleData> *e_pPuzzleDataList,bool e_bGenerateAllUnit = false,bool e_bFetchPixels = false);
 		CLONE_MYSELF(cPuzzleImage);

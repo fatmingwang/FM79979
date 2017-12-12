@@ -9,7 +9,7 @@ namespace FATMING_CORE
 		cRenderObjectVector();
 		cRenderObjectVector(cRenderObjectVector*e_pFontFrameVector);
 		virtual ~cRenderObjectVector();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		CLONE_MYSELF(cRenderObjectVector);
 		static cRenderObjectVector*GetMe(TiXmlElement*e_pElement);
 		void			AddData(wchar_t*e_strText,cGlyphFontRender*e_pGlyphFontRender,cSubMPDI*e_pPos);

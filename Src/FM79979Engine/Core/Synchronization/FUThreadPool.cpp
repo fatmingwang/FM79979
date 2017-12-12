@@ -1,4 +1,4 @@
-#include "../StdAfx.h"
+#include "../stdafx.h"
 #include "FUCriticalSection.h"
 #include "FUThread.h"
 #include "FUThreadPool.h"

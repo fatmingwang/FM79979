@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(bool,m_bSetRenderStatusBack,IsSetRenderStatusBack,SetSetRenderStatusBack);
 		cMatrix44		m_matOriginalCameraView;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cCameraAnimation();
 		cCameraAnimation(TiXmlElement*e_pTiXmlElement);
 		cCameraAnimation(cCameraAnimation*e_p2DCameraAnimation);

@@ -57,7 +57,7 @@ namespace FATMING_CORE
 		void				RenderPuzzleData(sPuzzleData*e_pPuzzleData);
 		cMatrix44			GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		CLONE_MYSELF(cCueToStartCurveWithTime);
 		cCueToStartCurveWithTime();
 		cCueToStartCurveWithTime(cMulti_PI_Image*e_pMulti_PI_Image);

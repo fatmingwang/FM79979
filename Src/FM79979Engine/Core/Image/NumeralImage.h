@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	//{
 	//	int	m_iEachImageWidth;
 	//public:
-	//	DEFINE_TYPE_INFO();
+	//	DEFINE_TYPE_INFO()
 	//	cNumeralImage(char*e_strImageName);
 	//	virtual ~cNumeralImage();
 
@@ -40,7 +40,7 @@ namespace FATMING_CORE
 		int64	m_i64Value;
 		GET_SET_DEC(bool,m_bDrawOnCenter,GetDrawOnCenter,SetDrawOnCenter);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cNumeralImage(char*e_strImageName);
 		cNumeralImage(cBaseImage*e_pImage,float*e_pftexCoordinate);//copy from specific image and specific tex coordinate,ex:puzzle image
 		cNumeralImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9);
@@ -71,7 +71,7 @@ namespace FATMING_CORE
 		Vector3					m_vSecondPos;
 		cRenderObject*	m_pDisableObject;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cTimeNumerialImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9,cCueToStartCurveWithTime*e_pHourSubMPDI,cCueToStartCurveWithTime*e_pMinSubMPDI,cCueToStartCurveWithTime*e_pSecondSubMPDI,cRenderObject*e_pDisableObject = 0);
 		virtual ~cTimeNumerialImage();
 		virtual	void	Init();

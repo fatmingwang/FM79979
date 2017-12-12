@@ -47,7 +47,7 @@ namespace FATMING_CORE
 		//GET_SET_DEC(bool,m_bRotationObject,IsRotationObject,SetRotationObject);
 		virtual	void		DoLOD();//while point is changed call this
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cCurve();
 		cCurve(cCurve*e_pCurve);
 		//CLONE_MYSELF(cCurve);
@@ -160,7 +160,7 @@ namespace FATMING_CORE
 		virtual	float	GetEndTime();//float			GetLastTime();
 		virtual	void	Destroy();//void	Clear();
 		//
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//======================
 		cCurveWithTime();
 		cCurveWithTime(cCurveWithTime*e_pCurveWithTime);

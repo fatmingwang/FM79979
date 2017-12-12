@@ -58,7 +58,7 @@ namespace FATMING_CORE
 		//make all its children to render by one bunch
 		virtual	void	InternalRender();
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		CLONE_MYSELF(cMultiPathDynamicImage);
 		//for create
 		cMultiPathDynamicImage(cMulti_PI_Image*e_pMulti_PI_Image);
@@ -141,7 +141,7 @@ namespace FATMING_CORE
 		//if true reorder vertex sort,ensure u have set this back or 2D render view will be wrong
 		static bool	m_b3DCameraView;
 
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cMPDIList();
 		//for clone
 		cMPDIList(cMPDIList*e_pcMPDIList);

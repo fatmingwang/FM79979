@@ -22,7 +22,7 @@ namespace FATMING_CORE
 		//get all possible nex points data
 		cNamedTypedObjectVector<cCurveWithTime>	m_CurveWithTimeVector;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//current curve data
 		Vector3					m_vCurrentPos;
 		float					m_fCurrentAngle;

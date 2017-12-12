@@ -85,7 +85,7 @@ namespace FATMING_CORE
 		float	m_fUV[4];														//left top right buttom.
 		virtual	void	Render(int e_iX,int e_iY);				//render by indicate position without offset position.
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cBaseImage(const wchar_t*e_strName);
 		cBaseImage(const char*e_strImageName,bool e_bFetchPixels = false);
 		cBaseImage(cBaseImage*e_pBaseImage);					//here is clone,but be sure do not delete original one before all resource release
@@ -153,7 +153,7 @@ namespace FATMING_CORE
 		//for PI ediotr
 		cUIImage*m_pEditorAttachParent;
 		Vector3	m_vEditorAttachParentRelativePos;
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cUIImage(cUIImage*e_pUIImage);
 		cUIImage(char*e_strImageName);
 		//it will pointer pixel data to e_pPixelsData and will delete the data,so do not delete the data from input

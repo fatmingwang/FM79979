@@ -36,7 +36,7 @@ namespace FATMING_CORE
 		//bit persample is 4(32bit)
 		OGG_SOUND_STREAMING_CALL_BACK	m_UpdteNewBufferCallbackFunction;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,OGG_SOUND_STREAMING_CALL_BACK e_CallbuckFunction = nullptr,bool e_bPreCache = true);
 		virtual ~cOpanalOgg();
 		virtual	NamedTypedObject*	Clone(){ return 0; }

@@ -29,7 +29,7 @@ namespace FATMING_CORE
 		char			m_strDestDirectory[TEMP_SIZE];
 		float			m_fVolume;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//reserve for BG sound
 		static	int		m_siReserveBGSourceCount;
 		//how many reserver BG sound ID is used

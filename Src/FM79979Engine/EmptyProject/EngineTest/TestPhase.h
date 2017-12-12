@@ -4,7 +4,7 @@
 class	cGamePhase:public cSimplePhase	
 {
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cGamePhase();
 	~cGamePhase();
 	virtual	void	Init();

@@ -616,7 +616,7 @@ void	cLibraryEffects::Parseeffect_profile_COMMON_technique_texture_extra_techniq
 		l_strValue = l_pTiXmlAttribute->Value();
 		if(!wcscmp(l_strName,L"profile"))
 		{
-			l_strValue;
+			//l_strValue;
 		}
 		else
 		{
@@ -832,7 +832,7 @@ void	cLibraryEffects::Parseeffect_extra_technique(TiXmlElement*e_pTiXmlElement)
 		l_strValue = l_pTiXmlAttribute->Value();
 		if(!wcscmp(l_strName,L"profile"))
 		{
-			l_strValue;
+			//l_strValue;
 		}
 		else
 		{

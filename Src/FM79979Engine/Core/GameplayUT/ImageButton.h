@@ -36,7 +36,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(Vector4,m_vOriginalColor,GetOriginalColor,SetOriginalColor);
 		GET_SET_DEC(Vector4,m_vPressedColor,GetPressedColor,SetPressedColor);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cImageButton();
 		cImageButton(cPuzzleImageUnit*e_pImage,Vector3 e_vPos);
 		cImageButton(cBaseImage*e_pImage,Vector3 e_vPos);
@@ -99,7 +99,7 @@ namespace FATMING_CORE
 		bool										ProcessData(TiXmlElement*e_pElement);
 		void										ProcessData(cMPDI*e_pMPDI,const wchar_t*e_strDescription,const wchar_t*e_strYesButton,const wchar_t*e_strNoButton,const wchar_t*e_strBG,bool e_bStripButtonForBG);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cButtonDialog();
 		//e_bStripButtonForBG  if true will strip button and font,and the rest are BG animation
 		cButtonDialog(cMPDI*e_pMPDI,const wchar_t*e_strDescription,const wchar_t*e_strYesButton = 0,const wchar_t*e_strNoButton = 0,const wchar_t*e_strBG = 0,bool e_bStripButtonForBG = false);

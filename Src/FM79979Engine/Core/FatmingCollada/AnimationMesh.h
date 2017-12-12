@@ -58,7 +58,7 @@ class	cAnimationMesh:public cMesh
 	//cGLSLProgram*m_pGLSLProgram;
 	cMatrix44 m_matMeshBindShapePose;//start controller pose
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cAnimationMesh(cMesh*e_pMesh,cMatrix44 e_matMeshBindShapePose);
 	cAnimationMesh(cAnimationMesh*e_pAnimationMesh);
 	CLONE_MYSELF(cAnimationMesh);

@@ -9,7 +9,7 @@
 	MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "stdAfx.h"
+#include "StdAfx.h"
 #include "FUDaeEnum.h"
 #include "FUDaeEnumSyntax.h"
 #include "FUDaeSyntax.h"

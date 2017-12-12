@@ -35,7 +35,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(float,m_fGridWidth,GetGridWidth,SetGridWidth);
 		GET_SET_DEC(float,m_fGridHeight,GetGridHeight,SetGridHeight);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cOrthogonalCamera(Vector2 e_vResolution = Vector2(1920.f,1080.f));
 		cOrthogonalCamera(cOrthogonalCamera*e_pOrthogonalCamera);
 		CLONE_MYSELF(cOrthogonalCamera);

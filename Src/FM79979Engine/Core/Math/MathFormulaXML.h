@@ -23,7 +23,7 @@ namespace FATMING_CORE
 		cVariable();
 		cVariable(TiXmlElement*e_pElement);
 		virtual ~cVariable();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		virtual	TiXmlElement*		ToTiXmlElement();
 		double m_dbValue;
 	};

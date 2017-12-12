@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	  //more cloase 0 more effective
 	  GETP_SET_DEC(float,m_fRandomOffSet,GetRandomOffSet,SetRandomOffSet);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtVelocityInitSetVelocity()
 		{
 			m_vVeolcity = Vector3(1.0f, 1.f, 0.f);
@@ -73,7 +73,7 @@ namespace FATMING_CORE
 	//	GETP_SET_DEC(bool,m_bRandom,IsRandom,SetRandom);
 	//	GETP_SET_DEC(Vector3,m_vDir,GetDir,SetDir);
 	//public :
-	//	DEFINE_TYPE_INFO();
+	//	DEFINE_TYPE_INFO()
 	//	explicit cPrtVelocityInitRandomFly()
 	//	{
 	//		m_fDistance = 1.f;
@@ -124,7 +124,7 @@ namespace FATMING_CORE
 	{
 		GETP_SET_DEC(float,m_fAccelerationSpeed,GetAccelerationSpeed,SetAccelerationSpeed);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtVelocityActAcceleration(){ m_fAccelerationSpeed = 0.f; }
 		virtual ~cPrtVelocityActAcceleration(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -154,7 +154,7 @@ namespace FATMING_CORE
 		//after direction speed time is up,new move velocity is oging for accesleration or normal speed
 		GETP_SET_DEC(bool,m_bAccesleration,IsAccesleration,SetAccesleration)
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtVelocityActDircctionChange(){ m_vNewSpeed = m_vStopTime = Vector3::One; m_bAccesleration = true; }
 		virtual ~cPrtVelocityActDircctionChange(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -233,7 +233,7 @@ namespace FATMING_CORE
 		//rotate by specific pivot
 		GET_SET_DEC(Vector3,m_vPivot,GetPivot,SetPivot);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtVelocityActBySatelliteAction(){  m_vPivot = Vector3(0.f,1.f,0.f); m_fRadius = 0.f;  }
 		virtual ~cPrtVelocityActBySatelliteAction(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)

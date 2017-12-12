@@ -1,0 +1,50 @@
+<PuzzleImage ImageName="end_animation.png" Count="48" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="1small_dragon1" UV="0,0,0.1234568,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="1small_dragon2" UV="0.1234568,0,0.2469136,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="1small_dragon3" UV="0.2474074,0,0.3708642,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="1small_dragon4" UV="0.3718519,0,0.4953086,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="2small_dragon1" UV="0.4958025,0,0.6192592,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="2small_dragon2" UV="0.6197531,0,0.7432099,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="2small_dragon3" UV="0.7437037,0,0.8671605,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="2small_dragon4" UV="0.8676543,0,0.9911111,0.1391667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="3small_dragon1" UV="0,0.14,0.1234568,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="3small_dragon2" UV="0.1234568,0.14,0.2469136,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="3small_dragon3" UV="0.2474074,0.14,0.3708642,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="3small_dragon4" UV="0.3718519,0.14,0.4953086,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="4small_dragon1" UV="0.4958025,0.14,0.6192592,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="4small_dragon2" UV="0.6197531,0.14,0.7432099,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="4small_dragon3" UV="0.7437037,0.14,0.8671605,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="4small_dragon4" UV="0.8676543,0.14,0.9911111,0.2791667," OffsetPos="0,0," Size="250,167" OriginalSize="250,167" />
+    <PuzzleUnit Name="gold coin1" UV="0,0.28,0.05333333,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin2" UV="0.05382716,0.28,0.1071605,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin3" UV="0.1071605,0.28,0.1604938,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin4" UV="0.1614815,0.28,0.2148148,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin5" UV="0.214321,0.28,0.2676543,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin6" UV="0.2691358,0.28,0.3224691,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin7" UV="0.322963,0.28,0.3762963,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="gold coin8" UV="0.3762963,0.28,0.4296296,0.3583333," OffsetPos="0,0," Size="108,94" OriginalSize="108,94" />
+    <PuzzleUnit Name="Dragon Ball_effect1" UV="0.4306173,0.28,0.4528395,0.3208333," OffsetPos="0,0," Size="45,49" OriginalSize="45,49" />
+    <PuzzleUnit Name="Dragon Ball_effect2" UV="0.4528395,0.28,0.4997531,0.3583333," OffsetPos="0,0," Size="95,94" OriginalSize="95,94" />
+    <PuzzleUnit Name="Dragon Ball_effect3" UV="0.5007408,0.28,0.6098765,0.4483333," OffsetPos="0,0," Size="221,202" OriginalSize="221,202" />
+    <PuzzleUnit Name="Dragon Ball_effect4" UV="0.6103704,0.28,0.7303703,0.4483333," OffsetPos="0,0," Size="243,202" OriginalSize="243,202" />
+    <PuzzleUnit Name="Dragon Ball_effect5" UV="0.7308642,0.28,0.8454321,0.4483333," OffsetPos="0,0," Size="232,202" OriginalSize="232,202" />
+    <PuzzleUnit Name="Dragon Ball_effect6" UV="0.9160494,0.69,0.9985185,0.8258333," OffsetPos="0,0," Size="167,163" OriginalSize="167,163" />
+    <PuzzleUnit Name="Dragon Ball_effect7" UV="0,0.3608333,0.09333333,0.5125," OffsetPos="0,0," Size="189,182" OriginalSize="189,182" />
+    <PuzzleUnit Name="Dragon Ball_effect8" UV="0.09432099,0.3608333,0.1965432,0.5225," OffsetPos="0,0," Size="207,194" OriginalSize="207,194" />
+    <PuzzleUnit Name="Dragon Ball1" UV="0.8474074,0.2825,0.9955556,0.5325," OffsetPos="0,0," Size="300,300" OriginalSize="300,300" />
+    <PuzzleUnit Name="flash1" UV="0.6014815,0.4525,0.7002469,0.6066667," OffsetPos="0,0," Size="200,185" OriginalSize="200,185" />
+    <PuzzleUnit Name="flash2" UV="0.7022222,0.4525,0.8009877,0.6066667," OffsetPos="0,0," Size="200,185" OriginalSize="200,185" />
+    <PuzzleUnit Name="flash3" UV="0.6508642,0.61,0.7496296,0.7641667," OffsetPos="0,0," Size="200,185" OriginalSize="200,185" />
+    <PuzzleUnit Name="flash4" UV="0.8814815,0.5333334,0.9802469,0.6875," OffsetPos="0,0," Size="200,185" OriginalSize="200,185" />
+    <PuzzleUnit Name="gold_dragon" UV="0.1980247,0.3608333,0.4982716,0.7775," OffsetPos="0,0," Size="608,500" OriginalSize="608,500" />
+    <PuzzleUnit Name="optical line1" UV="0.5007408,0.62,0.6488889,0.82," OffsetPos="0,0," Size="300,240" OriginalSize="300,240" />
+    <PuzzleUnit Name="optical line2" UV="0.5007408,0.4516667,0.5995062,0.6175," OffsetPos="0,0," Size="200,199" OriginalSize="200,199" />
+    <PuzzleUnit Name="Dragon effect1" UV="0.0009876543,0.515,0.08049383,0.6533333," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="Dragon effect2" UV="0.08246914,0.525,0.1619753,0.6633334," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="Dragon effect3" UV="0.0009876543,0.6558333,0.08049383,0.7941667," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="Dragon effect4" UV="0.08246914,0.6658334,0.1619753,0.8041667," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="Dragon effect5" UV="0.8014815,0.5333334,0.8809876,0.6716667," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="Dragon effect6" UV="0.8350617,0.69,0.9145679,0.8283333," OffsetPos="0,0," Size="161,166" OriginalSize="161,166" />
+    <PuzzleUnit Name="end_txt1" UV="0.002962963,0.8091667,0.1017284,0.9858333," OffsetPos="0,0," Size="200,212" OriginalSize="200,212" />
+    <PuzzleUnit Name="end_txt2" UV="0.1051852,0.8091667,0.2039506,0.9858333," OffsetPos="0,0," Size="200,212" OriginalSize="200,212" />
+</PuzzleImage>

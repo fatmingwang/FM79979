@@ -49,8 +49,8 @@ namespace FATMING_CORE
 		Vector2	m_vRotationCenter;
 		std::vector<Vector3>	m_fOriginalPosForRotatePointAroundRotationCenter;
 	public:
-		DEFINE_TYPE_INFO();
-		DEFINE_FILE_EXTENSION_NAME_INFO();
+		DEFINE_TYPE_INFO()
+		DEFINE_FILE_EXTENSION_NAME_INFO()
 		cCurveManager();
 		virtual ~cCurveManager();
 		bool	m_bBaseImageFromResource;

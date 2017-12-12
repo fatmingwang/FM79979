@@ -146,7 +146,7 @@ namespace FATMING_CORE
 		PSTexcoord = VSTexcoord;							\
 		PSColor = VSColor;									\
 	}";
-#if defined(IOS) || defined(ANDROID)
+#if defined(IOS) || defined(ANDROID) || defined (WASM)
 	char*g_strCommonFS = "										\
 	uniform sampler2D texSample;								\
 	varying lowp vec2 PSTexcoord;								\
@@ -200,7 +200,7 @@ namespace FATMING_CORE
 		gl_Position = matVP*matW*vec4(VSPosition,1);		\
 		PSColor = Color;									\
 	}";
-#if defined(IOS) || defined(ANDROID)
+#if defined(IOS) || defined(ANDROID)|| defined (WASM)
 	char*g_strCommonFSNoTexture = "							\
 	varying lowp vec4 PSColor;								\
 	void main()												\

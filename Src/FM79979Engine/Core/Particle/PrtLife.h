@@ -14,7 +14,7 @@ namespace FATMING_CORE
 		GETP_SET_DEC(float,m_fLifeRange,GetLifeRange,SetLifeRange);
 		GETP_SET_DEC(bool,m_bRandom,IsRandom,SetRandom);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		explicit cPrtLifeInitrSetLife() throw():m_fLifeMin(0.5f), m_fLifeRange(5.f),m_bRandom(true) {}
 		virtual ~cPrtLifeInitrSetLife(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -53,7 +53,7 @@ namespace FATMING_CORE
 	class cPrtLifeActDyingByGameTime:public cParticleBase
 	{
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		explicit cPrtLifeActDyingByGameTime(){}
 		virtual ~cPrtLifeActDyingByGameTime(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -99,7 +99,7 @@ namespace FATMING_CORE
 	//	void	SetCount(int e_iCount){ m_iCount = m_iCountCompaer = e_iCount; }
 	//	wchar_t*	GetParticleName(){ return m_sParticleName; }
 	//	void	SetParticleName(wchar_t*e_pName){ swprintf_s(m_sParticleName,MAX_PATH,L"%s\0",e_pName); }
-	//	DEFINE_TYPE_INFO();
+	//	DEFINE_TYPE_INFO()
 	//	virtual inline void	operator()(sParticleData*e_pParticleData,float e_fElpaseTime)
 	//	{//if need to shot still by count value bigger 0,and deadlinetime
 	//		if( e_pParticleData->fLifespan<=m_fDeadlineTime&&m_iCountCompaer )

@@ -38,7 +38,7 @@ namespace FATMING_CORE
 	public:
 		//last image index has been used
         static  GLuint  m_suiLastUsingImageIndex;
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//if e_bCopyPixels is true,u have to ensure the e_pPixels has delete or keep in somewhere u want keep!!
 		//!!ensure u know how to use it!
 		cTexture(NamedTypedObject*e_pOwner,char*e_pPixels,int e_iWidth,int e_iHeight,const wchar_t*e_strName,bool e_bCopyPixels,bool e_bAllocateMemoryForPixelIfFetch,GLenum e_eImageType = GL_RGBA);

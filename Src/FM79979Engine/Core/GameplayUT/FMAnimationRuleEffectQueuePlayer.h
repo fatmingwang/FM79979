@@ -19,7 +19,7 @@ namespace FATMING_CORE
 		cFMARQueuePlayer(cFMARQueuePlayer*e_pFARQueuePlayer);
 		virtual ~cFMARQueuePlayer();
 		CLONE_MYSELF(cFMARQueuePlayer);
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//cNamedTypedObjectVector<cMultiPathDynamicImage>		m_MPDIQueue;
 		//
 		virtual	void	RearrangeTime(float e_fNewTime);

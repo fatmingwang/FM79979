@@ -12,7 +12,7 @@ namespace FATMING_CORE
 		float*m_pfAllUVToTwoTriangleData;
 	public:
 		cImageIndexOfAnimation*m_pImageIndexOfAnimation;
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		explicit cPrtTextureActDynamicTexture();
 		virtual ~cPrtTextureActDynamicTexture();
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)

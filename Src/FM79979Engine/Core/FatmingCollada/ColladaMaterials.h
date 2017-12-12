@@ -27,7 +27,7 @@ class cLibraryMaterials :public NamedTypedObject
 	void	Parsematerial_instance_effect(TiXmlElement*e_pTiXmlElement);
 	sMaterial*	m_pCurrentMaterial;
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cLibraryMaterials (){}
 	~cLibraryMaterials ()
 	{

@@ -102,7 +102,7 @@ namespace FATMING_CORE
 		Vector3	m_vCurveRotationAngle;
 		eParticleRotateMode	m_eParticleRotateMode;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cParticleEmiterWithShowPosition(wchar_t*e_strName);
 		cParticleEmiterWithShowPosition(cParticleEmiterWithShowPosition*e_pParticleEmiterWithShowPosition);
 		CLONE_MYSELF(cParticleEmiterWithShowPosition)

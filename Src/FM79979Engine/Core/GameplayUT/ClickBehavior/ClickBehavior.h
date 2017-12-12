@@ -54,7 +54,7 @@ namespace FATMING_CORE
 	public:
 		cClickBehavior();
 		~cClickBehavior();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		GET_SET(bool,m_bAllowDrag,IsAllowDrag,SetAllowDrag);
 		//
 		//static cClickBehavior*				LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect = true);
@@ -89,7 +89,7 @@ namespace FATMING_CORE
 	public:
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		void													Init();
         virtual void    										Update(float e_fElpaseTime);
 		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
@@ -105,7 +105,7 @@ namespace FATMING_CORE
 	public:
 		cClickBehaviorDispatcher();
 		~cClickBehaviorDispatcher();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		virtual void    			Update(float e_fElpaseTime);
         virtual cClickBehavior*    	MouseDown(int e_iPosX,int e_iPosY);
         virtual cClickBehavior*    	MouseMove(int e_iPosX,int e_iPosY);

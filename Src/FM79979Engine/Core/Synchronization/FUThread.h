@@ -47,14 +47,14 @@ private:
 	uint32 exitCode;
 	std::string name;
 
-	DeclareThreadRoutine(InternalFunc, paramPtr);
+	DeclareThreadRoutine(InternalFunc, paramPtr)
 
 #if defined(WIN32)
 	HANDLE thread;
 #elif defined(FP_APPLE)
 	MPTaskID thread;
 	MPQueueID queue;
-#elif defined(LINUX) || defined(IOS)|| defined(ANDROID)
+#elif defined(LINUX) || defined(IOS)|| defined(ANDROID) || defined(WASM)
 	pthread_t thread;
 #endif
 

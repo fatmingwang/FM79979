@@ -68,7 +68,7 @@ class cLibraryAnimation :public NamedTypedObject
 	sAnimationLibrary::sAnimation::sSampler*m_pCurrentSampler;
 	sAnimationLibrary::sAnimation::sChannel*m_pCurrentChannel;
 public:
-        //DEFINE_TYPE_INFO();
+        //DEFINE_TYPE_INFO()
         void	ParseData(TiXmlElement*e_pTiXmlElement);
 		sAnimationLibrary	m_AnimationLibrary;
 		void	ClearData(){ m_AnimationLibrary.ClearData(); }

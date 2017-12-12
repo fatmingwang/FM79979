@@ -55,7 +55,7 @@ class cLibraryCameras :public NamedTypedObject
 //
 	void	Parsecamera_extra_technique_target(TiXmlElement*e_pTiXmlElement);
 public:
-        DEFINE_TYPE_INFO();
+        DEFINE_TYPE_INFO()
         void	ParseData(TiXmlElement*e_pTiXmlElement);
 };
 

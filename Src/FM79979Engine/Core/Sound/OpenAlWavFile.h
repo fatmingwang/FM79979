@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	{
 		char*m_pSoundData;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//cOpanalWAV(NamedTypedObject*e_pNamedTypedObject):cBasicSound(e_pNamedTypedObject){}
 		cOpanalWAV(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming);
 		virtual ~cOpanalWAV();

@@ -33,7 +33,7 @@ namespace FATMING_CORE
 		cRenderObject*		m_pBG;
 		cFontWithFrame*				m_pText;
 public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPhasePopUpMessager(TiXmlElement*e_pTiXmlElement);
 		cPhasePopUpMessager(cButtonDialog*e_pYesNoDialog);
 		cPhasePopUpMessager();

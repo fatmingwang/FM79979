@@ -59,7 +59,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(GLfloat,m_fRotatedY,GetRotatedY,SetRotatedY);
 		GET_SET_DEC(GLfloat,m_fRotatedZ,GetRotatedZ,SetRotatedZ);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cCamera();				//inits the values (Position: (0|0|0) Target: (0|0|-1) )
 		void 				Render ( void );	//executes some glRotates and a glTranslate command
 								//Note: You should call glLoadIdentity before using Render
@@ -85,7 +85,7 @@ namespace FATMING_CORE
 		cFrameCamera(cFrameCamera*e_pFrameCamera);
 		CLONE_MYSELF(cFrameCamera);
 		virtual ~cFrameCamera(){}
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		// Projection
 		const Projection&    GetProjection() const { return m_Projection; }
 		void                 SetProjection( const Projection& Proj ) { m_Projection = Proj; }

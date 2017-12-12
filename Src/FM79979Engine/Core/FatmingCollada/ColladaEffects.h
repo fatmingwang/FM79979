@@ -161,7 +161,7 @@ class cLibraryEffects :public NamedTypedObject
 	sEffectData*	m_pCurrentEffectData;
 	sEffectData::sComonEffect::sNewParam*		m_pCurrentNewParam;
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cLibraryEffects()
 	{
 		m_pCurrentEffectData = 0;

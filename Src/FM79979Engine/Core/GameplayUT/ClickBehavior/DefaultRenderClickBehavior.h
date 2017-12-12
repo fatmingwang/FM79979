@@ -24,7 +24,7 @@ namespace FATMING_CORE
 	public:
 		cDefaultRenderClickBehavior();
 		~cDefaultRenderClickBehavior();
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		void			Update(float e_fElpaseTime);
 		cRenderObject*	GetRenderObject(){ return m_pRenderObject;}
 		void			SetRenderObject(cRenderObject*e_pRenderObject);

@@ -86,7 +86,7 @@ class cLibraryVisualScenes :public NamedTypedObject
 //
 	void	Parsevisual_scene_extra_technique_frame_rate(TiXmlElement*e_pTiXmlElement);
 public:
-	DEFINE_TYPE_INFO();
+	DEFINE_TYPE_INFO()
 	cLibraryVisualScenes()
 	{
 	}

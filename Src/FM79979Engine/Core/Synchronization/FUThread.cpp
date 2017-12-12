@@ -6,7 +6,7 @@
 #	define cFUThread_INVALID nullptr
 #elif defined(FP_APPLE)
 #	define cFUThread_INVALID kInvalidID
-#elif defined(LINUX) ||defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) ||defined(IOS) || defined(ANDROID) || defined(WASM)
 #	include <pthread.h>
 #	include <unistd.h>
 #	define cFUThread_INVALID 0
@@ -26,7 +26,7 @@ struct cFUThreadInternalParam
 #elif defined(FP_APPLE)
 	void* parameter;
 	OSStatus (*func)(void*);
-#elif defined(LINUX) ||defined (IOS)||defined (ANDROID)
+#elif defined(LINUX) ||defined (IOS)||defined (ANDROID) || defined (WASM)
 	void* parameter;
 	TaskProc func;
 #endif
@@ -222,7 +222,7 @@ ImplementThreadRoutine(cFUThread::InternalFunc, paramPtr)
 {
 	cFUThreadInternalParam* params = (cFUThreadInternalParam*) paramPtr;
 	if( params == nullptr )
-#if defined(LINUX) || defined (IOS)|| defined(ANDROID)
+#if defined(LINUX) || defined (IOS)|| defined(ANDROID) || defined(WASM)
 		return (void*)1;
 #else
 		return 1;
@@ -244,7 +244,7 @@ ImplementThreadRoutine(cFUThread::InternalFunc, paramPtr)
 		params->object->exitCode = code;
 	}
 	SAFE_DELETE(params);
-#if defined(LINUX) || defined (IOS)|| defined(ANDROID)
+#if defined(LINUX) || defined (IOS)|| defined(ANDROID) || defined(WASM)
 	return (void*)code;
 #else
 	return code;

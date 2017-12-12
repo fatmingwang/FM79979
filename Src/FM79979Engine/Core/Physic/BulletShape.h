@@ -34,7 +34,7 @@ namespace FATMING_CORE
 		btCollisionShape*m_pbtCollisionShape;
 		btTransform *m_pmatTransform;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cbtShapeCollision();
 		//static cbtShapeCollision*GetMe(TiXmlElement*e_pElement);
 		cbtShapeCollision(cbtShapeCollision*e_pbtShapeCollision);
@@ -56,7 +56,7 @@ namespace FATMING_CORE
 	class	cbtConvexHullShape:public cbtShapeCollision
 	{
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//input position(xyz)
 		cbtConvexHullShape(float *e_pfVertex,int e_iCount,int e_iStride = sizeof(float)*4);//btVector3 has xyzw.
 		cbtConvexHullShape(cbtConvexHullShape*e_pbtConvexHullShape);
@@ -73,7 +73,7 @@ namespace FATMING_CORE
 		Vector3	m_vOriginalPos;//to set original position
 		float	m_fRadius;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cbtSphereShape(float e_fRadius,Vector3 e_vPos = Vector3::Zero);
 		cbtSphereShape(cbtSphereShape*e_pbtSphereShape);
 		virtual ~cbtSphereShape(){}
@@ -87,7 +87,7 @@ namespace FATMING_CORE
 	{
 		void	ApplyTransformToChild();
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cbtConcaveShapeList();
 		cbtConcaveShapeList(cbtConcaveShapeList*e_pbtConcaveShapeList);
 		CLONE_MYSELF(cbtConcaveShapeList);

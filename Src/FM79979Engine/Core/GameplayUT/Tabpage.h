@@ -18,7 +18,7 @@ namespace FATMING_CORE
 		//not necessary but if it's a tabpage's children
 		cClickMouseBehavior*		m_pIcon;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cTabPage();
 		cTabPage(cPuzzleImage*e_pPI,Vector4 e_vWorkingZone,cClickMouseBehavior*e_pCancelButton = 0,cBaseImage*e_pIcon = 0,Vector3 *e_pvIconPos = 0,bool e_bForceSetCancelButtonPos = false);
 		cTabPage(cPuzzleImage*e_pPI,Vector4 e_vWorkingZone,cClickMouseBehavior*e_pCancelButton = 0,cClickMouseBehavior*e_pIcon = 0,bool e_bForceSetCancelButtonPos = false);

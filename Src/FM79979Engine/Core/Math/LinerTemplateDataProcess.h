@@ -106,7 +106,7 @@ namespace	FATMING_CORE
 		//indicate the original data.
 		std::vector<T>*				m_pCurrentLinerDataVector;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cLinerDataProcessor();
 		cLinerDataProcessor(cLinerDataProcessor*e_pLinerDataProcessor);
 		virtual ~cLinerDataProcessor();

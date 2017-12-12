@@ -217,8 +217,8 @@ namespace FATMING_CORE
 	public:
 		//if true the class implement ISAXCallback could decide the error message show or not
 		bool	m_bShowErrorMsg;
-		//DEFINE_TYPE_INFO();
-		DEFINE_FILE_EXTENSION_NAME_INFO();
+		//DEFINE_TYPE_INFO()
+		DEFINE_FILE_EXTENSION_NAME_INFO()
 		ISAXCallback(bool e_bSetRunBack = false);
 		~ISAXCallback(){SAFE_DELETE(m_pDoc);}
 		//if e_bRemoveOldResource is true,u have to implement InternalParse to remove the resource u don't want keep
@@ -268,7 +268,7 @@ namespace FATMING_CORE
 		//if GetRootElement is failed ensure ParseDataIntoXMLNode is called
 		GET_SET_DEC(TiXmlElement*,m_pRootElement,GetRootElement,SetRootElement);
 	public:
-	    //DEFINE_TYPE_INFO();
+	    //DEFINE_TYPE_INFO()
 		cNodeISAX();
 		virtual ~cNodeISAX();
 		//call this will store m_pTiXmlDoc,so we could use it.

@@ -8,7 +8,7 @@ namespace FATMING_CORE
 	{	
 		GETP_SET_DEC(Vector3,m_vAngle,GetAngle,SetAngle);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtRotateInitRotate(){ memset(m_vAngle,0,sizeof(Vector3)); }
 		virtual ~cPrtRotateInitRotate(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		//if true random value could be negatic
 		GETP_SET_DEC(bool,m_bNegative,IsNegative,SetNegative);
 	public :
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtRotateActRotate(){ memset(m_vAngle,0,sizeof(Vector3)); m_bRandom = false; m_fRandomOffset = 0.f; m_ePRM = ePRM_SELF; m_bNegative = false; }
 		virtual ~cPrtRotateActRotate(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)

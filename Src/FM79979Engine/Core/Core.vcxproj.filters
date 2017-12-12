@@ -578,18 +578,6 @@
     <ClCompile Include="Network\happyhttp.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Network\SDLnet.c">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Network\SDLnetselect.c">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Network\SDLnetTCP.c">
-      <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Network\SDLnetUDP.c">
-      <Filter>NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="Synchronization\FUCriticalSection.cpp">
       <Filter>Synchronization</Filter>
     </ClCompile>
@@ -709,6 +697,18 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\Language\LanguageFile.cpp">
       <Filter>GameplayUT\Language</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SDLnet.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SDLnetselect.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SDLnetTCP.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SDLnetUDP.cpp">
+      <Filter>NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

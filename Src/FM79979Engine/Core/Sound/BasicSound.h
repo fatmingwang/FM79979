@@ -54,7 +54,7 @@ namespace FATMING_CORE
 		void	SetChannelByFormat(ALenum e_eFormat);
 		int		CalculatePCMDataSize(int e_iChannel,int e_iFrequence,float e_fTime,int e_iSampleBit);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming);
 		virtual			~cBasicSound();
 		bool			IsUsing();//check is it still on using(occupied source ID)

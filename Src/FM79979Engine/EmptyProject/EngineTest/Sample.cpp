@@ -38,7 +38,7 @@ cBaseImage*g_pBGImage = nullptr;
 
 cTunnelEffect*g_pTunnelEffect = nullptr;
 cTestShader*g_pTestShader = nullptr;
-cMSAAFrameBuffer*g_pMSAAFrameBuffer = nullptr;
+//cMSAAFrameBuffer*g_pMSAAFrameBuffer = nullptr;
 cFrameBuffer*g_pFrameBuffer = nullptr;
 void	LoadSample();
 void	DestoryObject();
@@ -99,11 +99,8 @@ void	LoadSample()
 
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
-	std::wstring l_strPrefixName = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-神龍九龍珠/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
-	std::wstring l_strMPDIResultFileName = l_strPrefixName;
-	std::wstring l_strCollisionResultFileName = l_strPrefixName;
-	l_strMPDIResultFileName += L".mpdi";
-	l_strCollisionResultFileName += L".collision";
+	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-神龍九龍珠/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
+	std::wstring l_strMPDIResultFileName = L"assets/MPDI/bgrounda01.mpdi";
 	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.mpdi");	
 	if( g_pMPDIList )
@@ -124,7 +121,7 @@ void	LoadSample()
 		}
 	}
 	//g_pCollisionData = new c2DImageCollisionData();
-	if (g_pCollisionData && g_pCollisionData->Parse(l_strCollisionResultFileName.c_str()))
+	//if (g_pCollisionData && g_pCollisionData->Parse(l_strCollisionResultFileName.c_str()))
 	{
 
 	}
@@ -171,13 +168,13 @@ void	LoadSample()
 		g_pTestCurveWithTime->SetLOD(3);
 		g_pTestCurveWithTime->Init();
 	}
-	g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
+	//g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
 	g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
 }
 
 void	DestorySampleObject()
 {
-	SAFE_DELETE(g_pMSAAFrameBuffer);
+	//SAFE_DELETE(g_pMSAAFrameBuffer);
 	SAFE_DELETE(g_pFrameBuffer);
 	//do not delete g_pMultiPathDynamicImage,it come from g_pMPDIList
 	//g_pMultiPathDynamicImageClone is a clone object so delete it.

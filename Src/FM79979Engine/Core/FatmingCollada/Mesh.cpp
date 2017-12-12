@@ -100,7 +100,7 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 			l_pusData[i] = (unsigned short)e_puiIndexBuffer[i];
 		}
 		m_pVBOBuffer->SetupIndicesBuffer((float*)l_pusData,m_uiIndexBufferCount);
-		delete l_pusData;
+		delete[] l_pusData;
 #endif
 		
 		m_puiIndexBuffer = 0;

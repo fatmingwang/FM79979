@@ -127,7 +127,7 @@
 		//
 		void	Parsegeometry_spline_control_vertices_input(TiXmlElement*e_pTiXmlElement);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cLibraryGeometries();
 		~cLibraryGeometries();
 		void	ParseData(TiXmlElement*e_pTiXmlElement);

@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	{
 		GETP_SET_DEC(Vector4,m_vColor,GetColor,SetColor);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtColorInitrSetColor(){ m_vColor = Vector4::One; }
 		virtual ~cPrtColorInitrSetColor(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -34,7 +34,7 @@ namespace FATMING_CORE
 	class cPrtColorInitrSetRandomColor :public cPrtColorInitrSetColor
 	{
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		explicit  cPrtColorInitrSetRandomColor() throw(){}
 		virtual ~cPrtColorInitrSetRandomColor(){}
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -95,7 +95,7 @@ namespace FATMING_CORE
 				//e_pParticleData->Color+=l_dwValue;
 			}	
 		}
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		//usage explanation
 		static char*	UsageExplanation;
 		//
@@ -112,7 +112,7 @@ namespace FATMING_CORE
 	class cPrtColorActBlendingByLife :public cPrtColorActBlending
 	{
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
 		{
 			float l_fCurrentProgress = 1-(e_pParticleData->fLifespan/e_pParticleData->fOriginaLifeSpan);
@@ -132,7 +132,7 @@ namespace FATMING_CORE
 		GETP_SET_DEC(Vector4,m_vColor1,GetColor1,SetColor1);
 		GETP_SET_DEC(Vector4,m_vColor2,GetColor2,SetColor2);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cPrtColorActBlendingBy2Color()
 		{
 			m_vColor1 = Vector4::One;

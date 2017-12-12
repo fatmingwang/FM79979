@@ -147,7 +147,7 @@ namespace FATMING_CORE
 		CHAR_TO_WCHAR(e_strFileName,l_strText);
 		m_pDoc = new TiXmlDocument( );
 		m_pDoc->Parse((const wchar_t*)l_strText, 0);
-		delete l_strText;
+		delete[] l_strText;
 		if( m_pDoc->Error() )
 		{
 			delete m_pDoc;

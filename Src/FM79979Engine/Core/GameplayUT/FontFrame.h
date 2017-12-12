@@ -18,7 +18,7 @@ namespace FATMING_CORE
 		Vector4*				m_pvTextBGColor;
 		Vector2					m_vRenderSize;
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cFontWithFrame(cGlyphFontRender*e_pGlyphFontRender,const wchar_t* e_strText,cBaseImage*e_pConnectRadianImage = 0,cBaseImage*e_pLineImage = 0);
 		cFontWithFrame(cFontWithFrame*e_pFontWithFrame);
 		CLONE_MYSELF(cFontWithFrame);
@@ -60,7 +60,7 @@ namespace FATMING_CORE
 		void					SetColor(Vector4 e_vColor);
 		GET_SET_DEC(Vector4,m_vFontColor,GetFontColor,SetFontColor);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cTextButton(Vector2 e_vRenderPos,cGlyphFontRender*e_pGlyphFontRender,Vector4 e_vPressedColor,const wchar_t* e_strText,cBaseImage*e_pConnectRadianImage = 0,cBaseImage*e_pLineImage = 0);
 		cTextButton(cTextButton*e_pTextButton);
 		CLONE_MYSELF(cTextButton);

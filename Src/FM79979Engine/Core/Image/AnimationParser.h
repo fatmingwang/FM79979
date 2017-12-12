@@ -72,8 +72,8 @@ namespace FATMING_CORE
 		//
 		void								DeleteSoundObject(NamedTypedObject*e_pNamedTypedObject);
 	public:
-		DEFINE_TYPE_INFO();
-		DEFINE_FILE_EXTENSION_NAME_INFO();
+		DEFINE_TYPE_INFO()
+		DEFINE_FILE_EXTENSION_NAME_INFO()
 		cAnimationParser();
 		virtual ~cAnimationParser();
 		//if we want to remove pi but want to check how many object is using it call this function to check

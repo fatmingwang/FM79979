@@ -133,7 +133,7 @@ namespace FATMING_CORE
 		void	ProcessUniformData();
 		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
 	public:
-		DEFINE_TYPE_INFO();
+		DEFINE_TYPE_INFO()
 		cUniformManager();
 		virtual ~cUniformManager();
 	};

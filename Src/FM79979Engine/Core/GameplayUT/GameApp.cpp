@@ -266,7 +266,11 @@ namespace	FATMING_CORE
 			m_spLogFile->WriteToFileImmediatelyWithLine("parse font data");
 		if (!m_spGlyphFontRender)
 		{
+#ifdef WASM
+			m_spGlyphFontRender = new cGlyphFontRender("assets/Font", 3000);
+#else
 			m_spGlyphFontRender = new cGlyphFontRender("Font", 3000);
+#endif
 			if (!m_spGlyphFontRender->GetFontImage())
 			{
 				SAFE_DELETE(m_spGlyphFontRender);
