@@ -451,13 +451,13 @@ namespace FATMING_CORE
 		{
 			TerrainTransform(e_pFrameCamera);
 			if( m_ePatinerMode != ePM_GAME_MODE )
-				glEnable(GL_DEPTH_TEST);
+				MyGLEnable(GL_DEPTH_TEST);
 			if( m_pPaintImage )
 				m_pTerrianVertex->DebugRender((int)m_pPaintImage->GetTexture()->GetImageIndex(),m_pShockBoobsShader->GetName());
 			else
 				m_pTerrianVertex->DebugRender((int)m_pOriginalPaintImage->GetTexture()->GetImageIndex(),m_pShockBoobsShader->GetName());
 			if( m_ePatinerMode != ePM_GAME_MODE )
-				glDisable(GL_DEPTH_TEST);
+				MyGLDisable(GL_DEPTH_TEST);
 		}
 	}
 
@@ -476,12 +476,12 @@ namespace FATMING_CORE
 		{
 			TerrainTransform(e_pFrameCamera);
 			if( m_ePatinerMode != ePM_GAME_MODE )
-				glEnable(GL_DEPTH_TEST);
-			//glEnable(GL_CULL_FACE);
+				MyGLEnable(GL_DEPTH_TEST);
+			//MyGLEnable(GL_CULL_FACE);
 			m_pTerrianVertex->Render((int)m_pOriginalPaintImage->GetTexture()->GetImageIndex(),m_pShockBoobsShader->GetName());
 			if( m_ePatinerMode != ePM_GAME_MODE )
-				glDisable(GL_DEPTH_TEST);
-			//glDisable(GL_CULL_FACE);
+				MyGLDisable(GL_DEPTH_TEST);
+			//MyGLDisable(GL_CULL_FACE);
 		}
 	}
 

@@ -156,7 +156,7 @@ cFUThreadRef cFUThread::CurrentThreadID()
 	return ::GetCurrentThreadId();
 #elif defined (FP_APPLE)
 	return MPCurrentTaskID();
-#elif defined(LINUX) || defined(IOS)|| defined(ANDROID)
+#elif defined(LINUX) || defined(IOS)|| defined(ANDROID) || defined(WASM)
 	return pthread_self();
 #endif
 }

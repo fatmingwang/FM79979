@@ -60,15 +60,12 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 
 void	cEngineTestApp::Render()
 {
-	MyGlErrorTest();
+	MyGlErrorTest("cEngineTestApp::Render");
 	cGameApp::Render();
-	glEnable(GL_ALPHA_TEST);
-	glEnable(GL_BLEND);
+	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	//glAlphaFunc(GL_GREATER,0.001f);	
-	MyGlErrorTest();
 	SampleRender();
-	MyGlErrorTest();
 	this->m_pPhaseManager->Render();
 	if( cGameApp::m_spGlyphFontRender )
 	{
@@ -78,7 +75,6 @@ void	cEngineTestApp::Render()
 	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
 	}
 	cGameApp::ShowInfo();
-	glDisable(GL_TEXTURE_2D);
 	this->m_pPhaseManager->DebugRender();
 	glDisable2D();
 #ifdef WIN32

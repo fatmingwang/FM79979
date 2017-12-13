@@ -50,7 +50,7 @@ bool cFUSemaphore::Down(uint32 blockTime)
 	return WaitForSingleObject(semaphoreHandle, blockTime) == WAIT_OBJECT_0;
 #elif defined(FP_APPLE)
 	return MPWaitOnSemaphore(semaphoreHandle, (blockTime == (uint32)-1) ? kDurationForever : blockTime) == noErr;
-#elif defined(LINUX) || defined(ANDROID) || defined(IOS)
+#elif defined(LINUX) || defined(ANDROID) || defined(IOS)|| defined(WASM)
 	if (blockTime == (uint32) -1)
 	{
 		return sem_wait(&semaphoreHandle) == 0;

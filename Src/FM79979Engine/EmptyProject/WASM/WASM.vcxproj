@@ -204,6 +204,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>

@@ -41,25 +41,40 @@ namespace FATMING_CORE
 }
 namespace UT
 {
-	char	g_sstrForStringToStructure[TEMP_SIZE];
-	wchar_t	g_sstrForStringToStructureW[TEMP_SIZE];
 #ifdef DEBUG
-	void	MyGlErrorTest()
+	void	MyGlErrorTest(const char*e_strMessage)
 	{
 		int	l_i = glGetError();
 		if( l_i != 0 )
 		{
-			//bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
-			//bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
-			//bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
-			//bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
-			cGameApp::OutputDebugInfoString(L"GLError occur");
+			std::string l_str = "glGetError:";
+			l_str += ValueToString(l_i);
+			l_str += ":";
+			l_str += e_strMessage;
+			cGameApp::OutputDebugInfoString(l_str.c_str());
 			int a=0;
 			//GL_INVALID_ENUM 1280
 			//GL_INVALID_VALUE 1281
 			//GL_INVALID_OPERATION 1282
 		}
 	}
+
+	void					MyGLEnable(GLenum e_GLenum)
+	{
+		glEnable(e_GLenum);
+		std::string l_strInfo = "MyGLEnable:";
+		l_strInfo += ValueToString(e_GLenum);
+		MyGlErrorTest(l_strInfo.c_str());
+	}
+
+	void					MyGLDisable(GLenum e_GLenum)
+	{
+		glDisable(e_GLenum);
+		std::string l_strInfo = "MyGLDisable:";
+		l_strInfo += ValueToString(e_GLenum);
+		MyGlErrorTest(l_strInfo.c_str());
+	}
+
 #endif
 #ifdef WIN32
 	bool WGLisExtensionSupported(const char *extension)
@@ -235,7 +250,7 @@ namespace UT
 			assert(l_eErrorID == 0);
 		}
 		FATMING_CORE::g_bVBOSupported = IsExtensionSupported( "GL_ARB_vertex_buffer_object" );
-		MyGlErrorTest();
+		MyGlErrorTest("HGLRC	InitOpenGL");
 		return l_HGLRC;
 	}
 

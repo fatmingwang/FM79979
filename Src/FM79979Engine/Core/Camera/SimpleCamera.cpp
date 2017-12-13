@@ -422,7 +422,7 @@ namespace FATMING_CORE
 
 	void	cFrameCamera::Render()
 	{
-		//glEnable(GL_DEPTH_TEST);
+		//MyGLEnable(GL_DEPTH_TEST);
 		FATMING_CORE::SetupShaderViewProjectionMatrix(m_Projection.GetMatrix()*this->GetWorldView(),true);
 	}
 

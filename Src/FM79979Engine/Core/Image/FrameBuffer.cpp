@@ -170,7 +170,7 @@ namespace FATMING_CORE
 		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
 		//here I need do it as a texture to scale so glTexImage2D is suit for me.
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
-		MyGlErrorTest();
+		MyGlErrorTest("cFrameBuffer::cFrameBuffer glTexImage2D");
 		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
@@ -220,7 +220,7 @@ namespace FATMING_CORE
 		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
 		//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, this->m_uiWidth, this->m_uiHeight);
-		glEnable(GL_SCISSOR_TEST);
+		MyGLEnable(GL_SCISSOR_TEST);
 		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
 
 		// Set the render target
@@ -246,7 +246,7 @@ namespace FATMING_CORE
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else
 		{
-			glDisable(GL_SCISSOR_TEST);
+			MyGLDisable(GL_SCISSOR_TEST);
 		}
 	}
 
@@ -363,7 +363,7 @@ namespace FATMING_CORE
 		//glBindRenderbufferEXT(GL_RENDERBUFFER, m_RenderufferID);
 		//		glPushAttrib(GL_VIEWPORT_BIT|GL_COLOR_BUFFER_BIT);
 		glViewport(0, 0, this->m_uiWidth, this->m_uiHeight);
-		glEnable(GL_SCISSOR_TEST);
+		MyGLEnable(GL_SCISSOR_TEST);
 		glScissor(0, 0, this->m_uiWidth, this->m_uiHeight);
 
 		// Set the render target
@@ -387,7 +387,7 @@ namespace FATMING_CORE
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else
 		{
-			glDisable(GL_SCISSOR_TEST);
+			MyGLDisable(GL_SCISSOR_TEST);
 		}
 	}
 

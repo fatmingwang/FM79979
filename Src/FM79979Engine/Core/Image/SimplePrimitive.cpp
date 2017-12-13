@@ -6,23 +6,31 @@
 //for opengl es1 compatibility,so we need color vertex buffer
 void ASSIGN_2D_COLOR(Vector4 Color)
 {
-	memcpy(g_f2DColorOne,Color,sizeof(float)*4);
-	memcpy(&g_f2DColorOne[4],Color,sizeof(float)*4);
-	memcpy(&g_f2DColorOne[8],Color,sizeof(float)*4);
-	memcpy(&g_f2DColorOne[12],Color,sizeof(float)*4);
-	glVertexAttribPointer( g_uiAttribArray[FVF_DIFFUSE], 4, GL_FLOAT, 0, 0, g_f2DColorOne );
-	MyGlErrorTest();
+	memcpy(g_f2DColorOne, Color, sizeof(float) * 4);
+	memcpy(&g_f2DColorOne[4], Color, sizeof(float) * 4);
+	memcpy(&g_f2DColorOne[8], Color, sizeof(float) * 4);
+	memcpy(&g_f2DColorOne[12], Color, sizeof(float) * 4);
+//#ifdef OPENGLES_2_X
+	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], 4, GL_FLOAT, 0, 0, g_f2DColorOne);
+//#else
+//	glColorPointer(4, GL_FLOAT, 0, g_f2DColorOne);
+//#endif
+	MyGlErrorTest("ASSIGN_2D_COLOR");
 }
 
-void	ASSIGN_2D_VerticesBySize(float Width,float Height,float Depth)
+void	ASSIGN_2D_VerticesBySize(float Width, float Height, float Depth)
 {
 	g_v2DVertexBuffer[0].x = (float)-Width;	g_v2DVertexBuffer[0].y = (float)-Height;
 	g_v2DVertexBuffer[1].x = (float)Width;	g_v2DVertexBuffer[1].y = (float)-Height;
 	g_v2DVertexBuffer[2].x = (float)-Width;	g_v2DVertexBuffer[2].y = (float)Height;
 	g_v2DVertexBuffer[3].x = (float)Width;	g_v2DVertexBuffer[3].y = (float)Height;
 	g_v2DVertexBuffer[0].z = g_v2DVertexBuffer[1].z = g_v2DVertexBuffer[2].z = g_v2DVertexBuffer[3].z = (float)Depth;
-	glVertexAttribPointer( g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, g_v2DVertexBuffer );
-	MyGlErrorTest();
+//#ifdef OPENGLES_2_X
+	glVertexAttribPointer(g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, g_v2DVertexBuffer);
+//#else
+//	glVertexPointer(3, GL_FLOAT, 0, g_v2DVertexBuffer);
+//#endif
+	MyGlErrorTest("ASSIGN_2D_VerticesBySize");
 }
 
 void	ASSIGN_2D_UV(float*UV)
@@ -31,8 +39,12 @@ void	ASSIGN_2D_UV(float*UV)
 	g_f2DTextureCoordinate[2] = UV[2]; g_f2DTextureCoordinate[3] = UV[1];
 	g_f2DTextureCoordinate[4] = UV[0]; g_f2DTextureCoordinate[5] = UV[3];
 	g_f2DTextureCoordinate[6] = UV[2]; g_f2DTextureCoordinate[7] = UV[3];
-	glVertexAttribPointer( g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate );
-	MyGlErrorTest();
+//#ifdef OPENGLES_2_X
+	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate);
+//#else
+//	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
+//#endif
+	MyGlErrorTest("ASSIGN_2D_UV");
 }
 
 void	ASSIGN_2D_MIRROR_UV(float* UV)
@@ -41,31 +53,57 @@ void	ASSIGN_2D_MIRROR_UV(float* UV)
 	g_f2DTextureCoordinate[2] = UV[0]; g_f2DTextureCoordinate[3] = UV[1];
 	g_f2DTextureCoordinate[4] = UV[2]; g_f2DTextureCoordinate[5] = UV[3];
 	g_f2DTextureCoordinate[6] = UV[0]; g_f2DTextureCoordinate[7] = UV[3];
-	glVertexAttribPointer( g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate );
-	MyGlErrorTest();
+//#ifdef OPENGLES_2_X
+	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate);
+//#else
+//	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
+//#endif
+	MyGlErrorTest("ASSIGN_2D_MIRROR_UV");
 }
 
-
+//#ifdef OPENGLES_2_X
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
-	glVertexAttribPointer(g_uiAttribArray[FVF_POS],Stride, GL_FLOAT,0, 0, pData);
-	MyGlErrorTest();
+	glVertexAttribPointer(g_uiAttribArray[FVF_POS], Stride, GL_FLOAT, 0, 0, pData);
+	MyGlErrorTest("myGlVertexPointer");
 }
 void	myGlUVPointer(int Stride, const GLvoid*pData)
 {
-	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0],Stride, GL_FLOAT,0, 0, pData);
-	MyGlErrorTest();
+	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], Stride, GL_FLOAT, 0, 0, pData);
+	MyGlErrorTest("myGlUVPointer");
 }
 void	myGlColorPointer(int Stride, const GLvoid*pData)
 {
-	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE],Stride, GL_FLOAT,0, 0, pData);
-	MyGlErrorTest();
+	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], Stride, GL_FLOAT, 0, 0, pData);
+	MyGlErrorTest("myGlColorPointer");
 }
 void	myGlNormalPointer(int Stride, const GLvoid*pData)
 {
-	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL],Stride, GL_FLOAT,0, 0, pData);
-	MyGlErrorTest();
+	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
+	MyGlErrorTest("myGlNormalPointer");
 }
+//#else
+//void	myGlVertexPointer(int Stride, const GLvoid*pData)
+//{
+//	glVertexPointer(Stride, GL_FLOAT, 0, pData);
+//	MyGlErrorTest("myGlVertexPointer");
+//}
+//void	myGlUVPointer(int Stride, const GLvoid*pData)
+//{
+//	glTexCoordPointer(Stride, GL_FLOAT, 0, pData);
+//	MyGlErrorTest("myGlUVPointer");
+//}
+//void	myGlColorPointer(int Stride, const GLvoid*pData)
+//{
+//	glColorPointer(Stride, GL_FLOAT, 0, pData);
+//	MyGlErrorTest("myGlColorPointer");
+//}
+//void	myGlNormalPointer(int Stride, const GLvoid*pData)
+//{
+//	glNormalPointer(GL_FLOAT, Stride, pData);
+//	MyGlErrorTest("myGlNormalPointer");
+//}
+//#endif
 
 namespace GLRender
 {
@@ -82,7 +120,7 @@ namespace GLRender
 	//
 	//==============================
 	//GLenum	g_enumforCullFace = 0;
-	//glDisable(GL_CULL_FACE);
+	//MyGLDisable(GL_CULL_FACE);
 	//basicly just treat as left hand coordinate(forward Z is postive backward is nagtive)
 	void glEnable2D(float e_fResolutionWidth,float e_fResolutionHeight,float*e_pfMatrix,bool e_bInvertYAxis)
 	{
@@ -125,8 +163,9 @@ namespace GLRender
 		{
 			memcpy(e_pfMatrix,l_matProjection,sizeof(float)*16);
 		}
-	   glDisable(GL_DEPTH_TEST);
-	   glDisable(GL_CULL_FACE);
+
+		MyGLDisable(GL_DEPTH_TEST);
+		MyGLDisable(GL_CULL_FACE);
 	   //glDepthMask(GL_FALSE);
 	}
 	//===========================================
@@ -325,7 +364,7 @@ namespace GLRender
 	}
 
 	//enable point size in opengl ES2.0 shader
-	//glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
+	//MyGLEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
 	//void VertexShader_main() 
 	//{
 	//	gl_PointSize = PointSize;

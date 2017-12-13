@@ -15,9 +15,12 @@
 namespace UT
 {
 #ifdef DEBUG
-	void					MyGlErrorTest();
+	void					MyGlErrorTest(const char*e_strMessage);
+	void					MyGLEnable(GLenum e_GLenum);
+	void					MyGLDisable(GLenum e_GLenum);
 #else
-	#define	MyGlErrorTest()
+	#define	MyGlErrorTest(q)
+	#define	MyGLEnable(p)	glEnable(p)
 #endif
 #ifdef WIN32
 	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV,bool e_bEnableMultisample = false);

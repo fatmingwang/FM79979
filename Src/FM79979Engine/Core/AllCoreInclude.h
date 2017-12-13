@@ -32,8 +32,8 @@
 #include <OpenGLES/ES1/glext.h>
 //add gles2 here?
 #elif defined(WASM)
-#include <GLES/gl.h>
-#include <GLES/glext.h>
+//#include <GLES/gl.h>
+//#include <GLES/glext.h>
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 //#include <GLES3/gl3.h>

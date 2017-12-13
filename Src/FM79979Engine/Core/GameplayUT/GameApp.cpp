@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "GameApp.h"
-
+#include "../Utility.h"
 #ifdef WIN32
 //#include "../../../include/IL/il.h"
 #include <direct.h>
@@ -13,7 +13,7 @@
 #include "../Physic/2DImageCollisionData.h"
 
 #include "EventSender/MessageSender.h"
-
+using namespace UT;
 #if defined(ANDROID)//openAL,android.c
 #include <android/log.h>
 #include "../Android/nv_egl_util.h"
@@ -245,11 +245,15 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 		//This hint can improve the speed of texturing when perspective- correct texture coordinate interpolation isn't needed, such as when using a glOrtho() projection.
 		//glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
+//#ifdef OPENGLES_2_X
 		g_bVBOSupported = true;
 		glUseProgram(0);
+//#else
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//#endif
 		if (m_spLogFile)
 			m_spLogFile->WriteToFileImmediatelyWithLine("init shader");
-
+		cGameApp::OutputDebugInfoString("start to create shader");
 		//2d image shader
 		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
 		//for non texture shader
@@ -329,13 +333,22 @@ namespace	FATMING_CORE
 	void	cGameApp::Render()
 	{
 		g_pCurrentShader = 0;
+//#ifndef OPENGLES_2_X
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//#endif
 		//first for original resolution
+		MyGlErrorTest("before viewport");
 		glViewport(0, 0, (GLsizei)this->m_svDeviceViewPortSize.Width(), (GLsizei)this->m_svDeviceViewPortSize.Height());
+		MyGlErrorTest("after viewport");
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(m_svBGColor.x, m_svBGColor.y, m_svBGColor.z, m_svBGColor.w);
+		MyGlErrorTest("before viewport 1");
 		glViewport((GLint)m_svViewPortSize.x, (GLint)m_svViewPortSize.y, (int)m_svViewPortSize.Width(), (int)m_svViewPortSize.Height());
-		glEnable(GL_SCISSOR_TEST);
+		MyGlErrorTest("after viewport 2");
+		MyGLEnable(GL_SCISSOR_TEST);
+		MyGlErrorTest("before scissor");
 		glScissor((GLint)m_svViewPortSize.x, (GLint)m_svViewPortSize.y, (int)m_svViewPortSize.Width(), (int)m_svViewPortSize.Height());
+		MyGlErrorTest("after scissor");
 		SystemErrorCheck();
 		//the comment part is required if u are not using GameApp::Run
 		//DEFAULT_SHADER = L"MyPrtShader";
@@ -777,6 +790,9 @@ namespace	FATMING_CORE
 			return;
 		//glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
 		glEnable2D(1280, 720);
+//#ifndef OPENGLES_2_X
+//		MyGLEnable(GL_TEXTURE_2D);
+//#endif
 		if (cGameApp::m_spGlyphFontRender)
 		{
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 0, 1));

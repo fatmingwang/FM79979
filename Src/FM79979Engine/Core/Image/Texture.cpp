@@ -93,6 +93,9 @@ namespace FATMING_CORE
 			if (l_pTextureStore)
 			{
 				l_pTextureStore->AddObjectNeglectExist(e_pTexture);
+				std::wstring l_str = e_pTexture->GetName();
+				l_str += L" add into TextureStore";
+				cGameApp::OutputDebugInfoString(l_str);
 			}
 		}
 	}
@@ -194,14 +197,11 @@ namespace FATMING_CORE
 
 	void	DeleteTexture(cTexture*e_pSimpleGLTexture)
 	{
-#ifdef WIN32
 #ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 #endif
-#endif
 		GLuint	l_iImageIndex = e_pSimpleGLTexture->GetImageIndex();
 		glDeleteTextures(1,&l_iImageIndex);
-#ifdef WIN32
 #ifdef DEBUG
 		int	l_iAfterAlivableVRamKB = CheckRestVRam();
 		int	l_iDiffErentKB = l_iBeforeAlivableVRamKB-l_iAfterAlivableVRamKB;
@@ -211,7 +211,7 @@ namespace FATMING_CORE
 		//g_iAteVideoMomory += l_iValue;
 		float	l_fMB = l_iAteVRamKB/1024.f;
 		float	l_fTotalMB = g_iAteVideoMomory/1024.f;
-		std::wstring	l_str = UT::ComposeMsgByFormat(L"DeleteTexture-------------\n:%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_pSimpleGLTexture->GetName(),l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
+		std::wstring	l_str = UT::ComposeMsgByFormat(L"DeleteTexture-------------\n:%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n",e_pSimpleGLTexture->GetName(),l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
 	//	if(cGameApp::m_spLogFile)
 		//{
 		//	cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(l_str.c_str());
@@ -221,26 +221,22 @@ namespace FATMING_CORE
 			cGameApp::OutputDebugInfoString(l_str.c_str(),true,true);
 		}
 #endif
-#endif
 	}
 	void MyTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels,const wchar_t*e_strFileName)
 	{
-#ifdef WIN32
 #ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 #endif
-#endif
 		glTexImage2D(target,level,internalformat, width,height,border,format,type,pixels);
-#ifdef WIN32
 #ifdef DEBUG
 		int	l_iAfterAlivableVRamKB = CheckRestVRam();
 		int	l_iDiffErentKB = l_iBeforeAlivableVRamKB-l_iAfterAlivableVRamKB;
 		int	l_iAteVRamKB = (width*height*(format==GL_RGBA?4:3))/1024;
 		g_iAteVideoMomory += l_iAteVRamKB;
-
 		//g_iAteVideoMomory += l_iValue;
 		float	l_fMB = l_iAteVRamKB/1024.f;
 		float	l_fTotalMB = g_iAteVideoMomory/1024.f;
+		MyGlErrorTest("MyTextureGenerate");
 		//std::wstring	l_str = UT::ComposeMsgByFormat(L"GenerateTexture-------------\n%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_strFileName,l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
 	//	if(cGameApp::m_spLogFile)
 		//{
@@ -251,8 +247,6 @@ namespace FATMING_CORE
 			//cGameApp::OutputDebugInfoString(l_str.c_str());
 		}
 #endif
-#endif
-		MyGlErrorTest();
 
 	}
 	//https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/discard.php
@@ -547,7 +541,9 @@ namespace FATMING_CORE
 		m_iPixelFormat = e_eImageType;
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
 		assert(m_uiImageIndex!=(UINT)-1&&"opengl init???");
-		glActiveTexture( GL_TEXTURE0 );
+//#ifdef 	OPENGLES_2_X
+		glActiveTexture(GL_TEXTURE0);
+//#endif
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();/* Binding of texture name */
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
@@ -564,13 +560,11 @@ namespace FATMING_CORE
 		if( !g_bSupportNonPowerOfTwoTexture&&(l_iWidthPO2!=m_iWidth||l_iHeightPO2!=m_iHeight) )
 		{
 			assert((l_iWidthPO2<=texSize||l_iHeightPO2<=texSize)&&"texture size is too big then card support");
-	#ifdef WIN32
 	#ifdef DEBUG
 			cGameApp::OutputDebugInfoString(e_strName);
 			cGameApp::OutputDebugInfoString(L"  image has not correct respond width and height,because none power of 2\n", true, true);
 			if( m_iPixelFormat == GL_RGB )
 				cGameApp::OutputDebugInfoString(L"UV is changed,because image size is not to become power of 2", true, true);
-	#endif
 	#endif
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,m_iPixelFormat==GL_RGBA?true:false);
 			MyTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, l_iWidthPO2,l_iHeightPO2, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,e_strName); // Texture specification.
@@ -726,7 +720,9 @@ namespace FATMING_CORE
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
 		//		GLenum	l_GLenum = glGetError();
 		//		assert(l_GLenum);
-		glActiveTexture( GL_TEXTURE0  );
+//#ifdef 	OPENGLES_2_X
+		glActiveTexture(GL_TEXTURE0);
+//#endif
 		m_suiLastUsingImageIndex = -1;
 		this->ApplyImage();
 		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
@@ -814,6 +810,9 @@ namespace FATMING_CORE
 		if( m_uiImageIndex == -1 )
 		{
 			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */	
+//#ifndef OPENGLES_2_X
+//			MyGLEnable(GL_TEXTURE_2D);
+//#endif
 			glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);
 			glTexImage2D(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iPixelWidth,l_iPixelHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,0);
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter

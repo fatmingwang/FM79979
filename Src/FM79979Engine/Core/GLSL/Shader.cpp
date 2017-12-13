@@ -37,6 +37,9 @@ namespace FATMING_CORE
 		bool	l_b = CreateProgram(e_bTexture?g_strCommonVS:g_strCommonVSNoTexture,
 									e_bTexture?g_strCommonFS:g_strCommonFSNoTexture,
 									e_bTexture);
+		std::wstring l_str = e_strName;
+		l_str += L" shader created";
+		cGameApp::OutputDebugInfoString(l_str);
 		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
 	}
 
@@ -139,9 +142,9 @@ namespace FATMING_CORE
 
 	GLuint	cBaseShader::GetUniFormLocationByName(const char*e_strName)
 	{
-		MyGlErrorTest();
+		MyGlErrorTest("cBaseShader::GetUniFormLocationByName");
 		GLuint	l_ui = glGetUniformLocation( m_uiProgram,e_strName);
-		MyGlErrorTest();
+		MyGlErrorTest("cBaseShader::GetUniFormLocationByName glGetUniformLocation( m_uiProgram,e_strName);");
 		return l_ui;
 	}
 
@@ -155,6 +158,10 @@ namespace FATMING_CORE
 	bool	cBaseShader::CreateProgram(const char*e_strVS,const char*e_strPS,bool e_bTexture)
 	{
 		m_uiProgram = glCreateProgram();
+		std::wstring l_strProgramInfo = this->GetName();;
+		l_strProgramInfo += L" program location:";
+		l_strProgramInfo += ValueToStringW(m_uiProgram);;
+		cGameApp::OutputDebugInfoString(l_strProgramInfo);
 		if( CreateVS(e_strVS) )
 		{
 			if( CreateFS(e_strPS) )
@@ -174,10 +181,18 @@ namespace FATMING_CORE
 					if( e_bTexture )
 					{//there are 
 						m_uiTexLoacation = GetUniFormLocationByName("texSample" );
-						if( m_uiTexLoacation != 0xffffffff )
-							glUniform1i( m_uiTexLoacation, 0 );
+						if (m_uiTexLoacation != -1)
+						{
+							std::wstring l_str = this->GetName();;
+							l_str += L" tex location:";
+							l_str += ValueToStringW(m_uiTexLoacation);;
+							cGameApp::OutputDebugInfoString(l_str);
+							glUniform1i(m_uiTexLoacation, 0);
+							MyGlErrorTest("cBaseShader::CreateProgram glUniform1i(m_uiTexLoacation)");
+
+						}
 					}
-					
+					MyGlErrorTest("cBaseShader::123");
 					m_uiColorLoacation = GetUniFormLocationByName("Color");
 					m_uiMatrixVPLoacation = GetUniFormLocationByName("matVP");
 					m_uiMatrixWLoacation = GetUniFormLocationByName("matW" );
@@ -185,7 +200,7 @@ namespace FATMING_CORE
 
 					for(int i=0;i<TOTAL_FVF;++i)
 						m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
-
+					MyGlErrorTest("cBaseShader::456");
 					glLinkProgram( m_uiProgram );
 					glUseProgram( m_uiProgram );
 					return true;
@@ -198,10 +213,39 @@ namespace FATMING_CORE
 	void	cBaseShader::Use(bool e_bUseLastWVPMatrix)
 	{
 		g_pCurrentShader = this;
-		MyGlErrorTest();
-		MyGlErrorTest();
+//#ifndef OPENGLES_2_X
+//		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//		if (m_uiAttribArray[FVF_TEX0] != -1)
+//		{
+//			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//			glEnable(GL_TEXTURE_2D);
+//		}
+//		else
+//		{
+//			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//			MyGLDisable(GL_TEXTURE_2D);
+//		}
+//		if (m_uiAttribArray[FVF_NORMAL] != -1)
+//			glEnableClientState(GL_NORMAL_ARRAY);
+//		else
+//			glDisableClientState(GL_NORMAL_ARRAY);
+//
+//		if (m_uiAttribArray[FVF_DIFFUSE] != -1)
+//			glEnableClientState(GL_COLOR_ARRAY);
+//		else
+//			glDisableClientState(GL_COLOR_ARRAY);
+//#else
 		glUseProgram( m_uiProgram );
-		MyGlErrorTest();
+#ifdef WASM
+		m_uiTexLoacation = GetUniFormLocationByName("texSample");
+		m_uiColorLoacation = GetUniFormLocationByName("Color");
+		m_uiMatrixVPLoacation = GetUniFormLocationByName("matVP");
+		m_uiMatrixWLoacation = GetUniFormLocationByName("matW");
+		m_uiBonesLocation = GetUniFormLocationByName("matBones");
+		MyGlErrorTest("cBaseShader::Use get new iniform location");
+		for (int i = 0; i<TOTAL_FVF; ++i)
+			m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
+#endif
 		//if u wanna to draw lines or else be careful the attribute array
 		//0 for position,1 for UV,2 for color
 		int	l_iIndex = 0;
@@ -210,22 +254,26 @@ namespace FATMING_CORE
 			if( m_uiAttribArray[i] == -1 )
 			{
 				glDisableVertexAttribArray( l_iIndex );
+				MyGlErrorTest("cBaseShader::Use after glDisableVertexAttribArray");
 				++l_iIndex;
 			}
 		}
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
-			if( m_uiAttribArray[i] != -1 )
-				glEnableVertexAttribArray( m_uiAttribArray[i] );
+			if (m_uiAttribArray[i] != -1)
+			{
+				glEnableVertexAttribArray(m_uiAttribArray[i]);
+				MyGlErrorTest("cBaseShader::Use after glEnableVertexAttribArray");
+			}
 			//else
 				//glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
-		MyGlErrorTest();
 		if( m_uiTexLoacation != -1 )
 		{
 			//order is uniform,active,bind.
 			glUniform1i( m_uiTexLoacation, 0 );
 			glActiveTexture( GL_TEXTURE0  );
+			MyGlErrorTest("cBaseShader::Use glActiveTexture");
 		}
 		g_iMatrixVPLoacation =	m_uiMatrixVPLoacation;
 		g_iMatrixWLoacation = m_uiMatrixWLoacation;
@@ -234,6 +282,7 @@ namespace FATMING_CORE
 		if( g_iColorLoacation != -1 )
 			SetupShaderColor(Vector4::One);
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;
+//#endif
 		if(e_bUseLastWVPMatrix)
 		{
 			SetupShaderViewProjectionMatrix(g_fViewProjectionMatrix,false);
@@ -242,12 +291,14 @@ namespace FATMING_CORE
 	}
 	void	cBaseShader::Disable()
 	{
+//#ifdef OPENGLES_2_X
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
 			if( m_uiAttribArray[i] != -1 )
 				glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
 		glUseProgram( 0 );
+//#endif
 	}
 
 	cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList = 0;
@@ -263,24 +314,36 @@ namespace FATMING_CORE
 		l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 		if( l_p2DShader )
 			return l_p2DShader;
+//#ifdef OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
 		l_p2DShader = new cBaseShader(e_strName,e_pbClientState[FVF_TEX0]);
+//#else
+//		l_p2DShader = new cBaseShader(e_strName, e_pbClientState);
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//#endif
 		g_pAll2DShaderList->AddObject(l_p2DShader);
 		return l_p2DShader;
 	}
 	cBaseShader*	CreateShader(bool *e_pbClientState,const char*e_strVS,const char*e_strPS,wchar_t*e_strName)
 	{
+//#ifndef OPENGLES_2_X
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//#endif
 		cBaseShader*l_p2DShader = 0;
 		if( !g_pAll2DShaderList )
 		{
-			glActiveTexture( GL_TEXTURE0  );
 			g_pAll2DShaderList = new cNamedTypedObjectVector<cBaseShader>;
 		}
 		l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
 		if( l_p2DShader )
 			return l_p2DShader;
+//#ifdef OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
 		l_p2DShader = new cBaseShader(e_strVS,e_strPS,e_strName,e_pbClientState[FVF_TEX0]);
+//#else
+//		l_p2DShader = new cBaseShader(e_strName, e_pbClientState);
+//		glEnableClientState(GL_VERTEX_ARRAY);
+//#endif
 		g_pAll2DShaderList->AddObject(l_p2DShader);
 		return l_p2DShader;
 	}
@@ -412,50 +475,66 @@ namespace FATMING_CORE
 			memcpy(g_fViewProjectionMatrix,e_pfVPMatrix,sizeof(float)*16);
 #ifdef DEBUG
 		int ll= g_iMatrixVPLoacation;
-		MyGlErrorTest();
+		MyGlErrorTest("SetupShaderViewProjectionMatrix");
 #endif
-		glUniformMatrix4fv( g_iMatrixVPLoacation, 1, GL_FALSE, g_fViewProjectionMatrix);
-		MyGlErrorTest();
+//#ifdef OPENGLES_2_X
+		glUniformMatrix4fv(g_iMatrixVPLoacation, 1, GL_FALSE, g_fViewProjectionMatrix);
+		MyGlErrorTest("SetupShaderViewProjectionMatrix after glUniformMatrix4fv");
+//#else
+//		glMatrixMode(GL_PROJECTION);
+//		glLoadMatrixf(g_fViewProjectionMatrix);
+//		glMatrixMode(GL_MODELVIEW);
+//		glLoadIdentity();
+//#endif
 	}
 
 
 	void	SetupShaderWorldMatrix(float*e_pfWMatrix)
 	{
 		memcpy(g_fWorldMatrix,e_pfWMatrix,sizeof(float)*16);
+//#ifdef OPENGLES_2_X
 		glUniformMatrix4fv( g_iMatrixWLoacation , 1, GL_FALSE, e_pfWMatrix);
+//#else
+//		glLoadMatrixf(e_pfWMatrix);
+//#endif
 #ifdef DEBUG
 		cMatrix44 l_mat = g_fWorldMatrix;
 		int ll = g_iMatrixWLoacation;
-		MyGlErrorTest();
+		MyGlErrorTest("SetupShaderWorldMatrix");
 #endif
 	}
 
 	void	SetupShaderColor(Vector4 e_vColor)
 	{
-		MyGlErrorTest();
+		MyGlErrorTest("SetupShaderColor");
 		e_vColor = Vector4Multiply(e_vColor,g_vGlobalScaleColor);
-		glUniform4fv( g_iColorLoacation,1, (float*)&e_vColor);;
-#ifdef DEBUG
-		MyGlErrorTest();
-#endif
+
+//#ifdef OPENGLES_2_X
+		glUniform4fv(g_iColorLoacation, 1, (float*)&e_vColor);;
+//#else
+//		glColor4f(e_vColor.x, e_vColor.y, e_vColor.z, e_vColor.w);
+//#endif
+		MyGlErrorTest("SetupShaderColor after glUniform4fv");
 	}
 
 	void	SetupShaderBonesData(cMatrix44*e_pBoneMatrices,int e_iCount)
 	{
-		glUniformMatrix4fv( g_iBonesMatrixoacation , e_iCount, GL_FALSE, (float*)e_pBoneMatrices);
-#ifdef DEBUG
-		MyGlErrorTest();
-#endif
+//#ifdef OPENGLES_2_X
+		glUniformMatrix4fv(g_iBonesMatrixoacation, e_iCount, GL_FALSE, (float*)e_pBoneMatrices);
+//#else
+//
+//#endif
+		MyGlErrorTest("SetupShaderBonesData");
 	}
 
 	void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
 	{
 #ifdef DEBUG
-		MyGlErrorTest();
+		MyGlErrorTest("MY_GLDRAW_ARRAYS");
 #endif
 		glDrawArrays(mode,first,count);
 #ifdef DEBUG
-		MyGlErrorTest();
+		MyGlErrorTest("MY_GLDRAW_ARRAYS after glDrawArrays");
 #endif
 	}
 

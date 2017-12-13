@@ -105,7 +105,7 @@ namespace FATMING_CORE
 			std::string	l_str = UT::ComposeMsgByFormat("file %s open failed! uft8 or file is not exist!?",e_strFileName);
 			if( cGameApp::m_spLogFile )
 				cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(l_str.c_str());
-#ifdef WIN32
+#ifdef DEBUG
 			std::string	l_strErrorMsg = e_strFileName;
 			l_strErrorMsg += " encode error or file not exist or xml format error??\n";
 			cGameApp::OutputDebugInfoString(l_strErrorMsg);

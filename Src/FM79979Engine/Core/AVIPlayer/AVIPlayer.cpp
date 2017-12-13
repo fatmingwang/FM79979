@@ -362,7 +362,7 @@ bool cAVIPlayer::OpenFile(const wchar_t*e_strFileName)
 		CloseFile();
 		return false;
 	}
-	glEnable(GL_TEXTURE_2D);											// Enable Texture Mapping
+	MyGLEnable(GL_TEXTURE_2D);											// Enable Texture Mapping
 	glBindTexture( GL_TEXTURE_2D, m_uiTex_id);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
@@ -543,7 +543,7 @@ bool	cAVIPlayer::OpenFile(wchar_t*e_strFileName)
 	m_iMPF		  = (int)(1000/m_fFPS);
 
 
-	glEnable(GL_TEXTURE_2D);											// Enable Texture Mapping
+	MyGLEnable(GL_TEXTURE_2D);											// Enable Texture Mapping
 	glBindTexture( GL_TEXTURE_2D, m_uiTex_id);
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter

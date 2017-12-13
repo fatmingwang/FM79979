@@ -70,8 +70,8 @@ namespace FATMING_CORE
 
 	void	cOrthogonalCamera::Render(Vector2 e_vCameraPos)
 	{
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
+		MyGLDisable(GL_DEPTH_TEST);
+		MyGLDisable(GL_CULL_FACE);
 		glhOrthof2(m_ProjectionMatrix,m_vViewRect.x+e_vCameraPos.x,m_vViewRect.z+e_vCameraPos.x,m_vViewRect.w+e_vCameraPos.y,m_vViewRect.y+e_vCameraPos.y, -10000, 10000);
 		m_ProjectionMatrix *= cMatrix44::RotationMatrix(m_vCameraAngle);
 		FATMING_CORE::SetupShaderViewProjectionMatrix( m_ProjectionMatrix,true );
@@ -80,8 +80,8 @@ namespace FATMING_CORE
 	void	cOrthogonalCamera::Render(bool e_bYInvert)
 	{
 		//push attribute
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_CULL_FACE);
+		MyGLDisable(GL_DEPTH_TEST);
+		MyGLDisable(GL_CULL_FACE);
 		if( e_bYInvert )
 			glhOrthof2(m_ProjectionMatrix,m_vViewRect.x,m_vViewRect.z,m_vViewRect.y,m_vViewRect.w, -10000, 10000);
 		else

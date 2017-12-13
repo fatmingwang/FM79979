@@ -453,7 +453,7 @@ namespace FATMING_CORE
 		int	l_SicissorRange[4];
 		glGetBooleanv(GL_SCISSOR_TEST,&l_vSissorTest);
 		if( !l_vSissorTest )
-			glEnable(GL_SCISSOR_TEST);
+			MyGLEnable(GL_SCISSOR_TEST);
 		else
 			glGetIntegerv(GL_SCISSOR_BOX,l_SicissorRange);
 		Vector4	l_vViewRect = ViewRectToOpenGLScissor(m_vCollisionRange);
@@ -501,7 +501,7 @@ namespace FATMING_CORE
 			}
 		}
 		if( !l_vSissorTest )
-			glDisable(GL_SCISSOR_TEST);
+			MyGLDisable(GL_SCISSOR_TEST);
 		else
 			glScissor(l_SicissorRange[0],l_SicissorRange[1],l_SicissorRange[2],l_SicissorRange[3]);
 		MiscRender();

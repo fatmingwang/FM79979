@@ -101,7 +101,7 @@ void	LoadSample()
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
 	std::wstring l_strMPDIResultFileName = L"assets/MPDI/bgrounda01.mpdi";
-	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
+	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.mpdi");	
 	if( g_pMPDIList )
 	{
@@ -169,7 +169,8 @@ void	LoadSample()
 		g_pTestCurveWithTime->Init();
 	}
 	//g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
-	g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
+	//g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
+	cGameApp::OutputDebugInfoString("LoadSample() finish");
 }
 
 void	DestorySampleObject()
@@ -197,6 +198,7 @@ void	DestorySampleObject()
 
 void	SampleUpdate(float e_fElpaseTime)
 {
+	MyGlErrorTest("SampleUpdate start");
 	if (cGameApp::m_spSoundParser)
 		cGameApp::m_spSoundParser->Update(0.016f);
 	if( g_pCameraZoomFunction )
@@ -207,6 +209,7 @@ void	SampleUpdate(float e_fElpaseTime)
 	{
 		g_pMPDINode->Update(e_fElpaseTime);
 	}
+	MyGlErrorTest("before g_pMultiPathDynamicImage");
 	if (g_pMultiPathDynamicImage)
 	{
 		Vector2 l_vDrawSize = g_pMultiPathDynamicImage->GetDrawSize() / 2;
@@ -239,6 +242,7 @@ void	SampleUpdate(float e_fElpaseTime)
 			}
 		}
 	}
+	MyGlErrorTest("after g_pMultiPathDynamicImage");
 	if( g_pPrtEmitter )
 		g_pPrtEmitter->Update(e_fElpaseTime);
 	if( g_pParticleEmitterGroup )
@@ -260,6 +264,7 @@ void	SampleUpdate(float e_fElpaseTime)
 			}
 		}
 	}
+	MyGlErrorTest("SampleUpdate end");
 }
 
 void	KeyboardDataRender()

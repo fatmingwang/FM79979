@@ -233,7 +233,7 @@ namespace FATMING_CORE
 		if (this->m_pViewPort)
 		{
 			Vector4 l_ResultViewPort = ViewRectToOpenGLScissor(*m_pViewPort);
-			glEnable(GL_SCISSOR_TEST);
+			MyGLEnable(GL_SCISSOR_TEST);
 			glGetBooleanv(GL_SCISSOR_TEST, &l_bSissorTest);
 			if (l_bSissorTest)
 				glGetIntegerv(GL_SCISSOR_BOX, l_vScissorBox);
@@ -293,7 +293,7 @@ EXIT:
 		if (this->m_pViewPort)
 		{
 			if (!l_bSissorTest)
-				glDisable(GL_SCISSOR_TEST);
+				MyGLDisable(GL_SCISSOR_TEST);
 			else
 			{
 				glScissor(l_vScissorBox[0], l_vScissorBox[1], l_vScissorBox[2], l_vScissorBox[3]);

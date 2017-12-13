@@ -88,7 +88,7 @@ namespace FATMING_CORE
 		//if( !l_bEnbleTexture )
 		l_pCurvesWithTime->RenderPointIndex();
 		//if( !l_bEnbleTexture )
-			//glDisable(GL_TEXTURE_2D);
+			//MyGLDisable(GL_TEXTURE_2D);
 		if( m_iFocusPoint!=-1 )
 		{
 			Vector3	l_v = l_pCurvesWithTime->GetOriginalPointList()[this->m_iFocusPoint];
