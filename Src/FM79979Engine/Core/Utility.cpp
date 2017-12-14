@@ -63,7 +63,7 @@ namespace UT
 	{
 		glEnable(e_GLenum);
 		std::string l_strInfo = "MyGLEnable:";
-		l_strInfo += ValueToString(e_GLenum);
+		l_strInfo += ValueToString((uint64)e_GLenum);
 		MyGlErrorTest(l_strInfo.c_str());
 	}
 
@@ -71,7 +71,15 @@ namespace UT
 	{
 		glDisable(e_GLenum);
 		std::string l_strInfo = "MyGLDisable:";
-		l_strInfo += ValueToString(e_GLenum);
+		l_strInfo += ValueToString((uint64)e_GLenum);
+		MyGlErrorTest(l_strInfo.c_str());
+	}
+
+	void		MyGLGetIntegerv(GLenum e_GLenum, GLint *params)
+	{
+		glGetIntegerv(e_GLenum, params);
+		std::string l_strInfo = "MyGLGetIntegerv:";
+		l_strInfo += ValueToString((uint64)e_GLenum);
 		MyGlErrorTest(l_strInfo.c_str());
 	}
 

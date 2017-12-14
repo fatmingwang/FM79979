@@ -407,8 +407,8 @@ namespace FATMING_CORE
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
 			GLint	l_Src,l_Dest;
-			glGetIntegerv(GL_BLEND_SRC,&l_Src);
-			glGetIntegerv(GL_BLEND_DST,&l_Dest);
+			MyGLGetIntegerv(GL_BLEND_SRC,&l_Src);
+			MyGLGetIntegerv(GL_BLEND_DST,&l_Dest);
 			bool	l_bSameBleinding = false;
 			if( l_Src == m_SrcBlendingMode&&m_DestBlendingMode == l_Dest  )
 				l_bSameBleinding = true;

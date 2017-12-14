@@ -160,7 +160,7 @@ namespace FATMING_CORE
 		m_uiProgram = glCreateProgram();
 		std::wstring l_strProgramInfo = this->GetName();;
 		l_strProgramInfo += L" program location:";
-		l_strProgramInfo += ValueToStringW(m_uiProgram);;
+		l_strProgramInfo += ValueToStringW((uint64)m_uiProgram);;
 		cGameApp::OutputDebugInfoString(l_strProgramInfo);
 		if( CreateVS(e_strVS) )
 		{
@@ -185,7 +185,7 @@ namespace FATMING_CORE
 						{
 							std::wstring l_str = this->GetName();;
 							l_str += L" tex location:";
-							l_str += ValueToStringW(m_uiTexLoacation);;
+							l_str += ValueToStringW((uint64)m_uiTexLoacation);;
 							cGameApp::OutputDebugInfoString(l_str);
 							glUniform1i(m_uiTexLoacation, 0);
 							MyGlErrorTest("cBaseShader::CreateProgram glUniform1i(m_uiTexLoacation)");

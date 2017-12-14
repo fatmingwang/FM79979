@@ -160,11 +160,11 @@ namespace FATMING_CORE
 		if( pch )//this is nvidia
 		{
 			//GLint total_mem_kb = 0;
-			//glGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,&total_mem_kb);
+			//MyGLGetIntegerv(GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX,&total_mem_kb);
 			//int	l_iTotalMB = total_mem_kb/1024;
 			//int	l_iRestTotalKB = total_mem_kb%1024;
 			GLint cur_avail_mem_kb = 0;
-			glGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,&cur_avail_mem_kb);
+			MyGLGetIntegerv(GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX,&cur_avail_mem_kb);
 			return cur_avail_mem_kb;
 		}
 		else
@@ -182,7 +182,7 @@ namespace FATMING_CORE
 				#endif
 				//returns in kB, so if you want MB,divide by 1024
 				int free_mem = -1;
-				glGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI,&free_mem);
+				MyGLGetIntegerv(GL_TEXTURE_FREE_MEMORY_ATI,&free_mem);
 				return free_mem;
 				
 			}
@@ -554,7 +554,7 @@ namespace FATMING_CORE
 		//if (width & (width - 1)) or (height & (height - 1)):
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
 		int	l_iHeightPO2 = power_of_two(m_iHeight);
-		GLint texSize; glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+		GLint texSize; MyGLGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
 		//make sure power of 2,because not every fukcing graphic card support it
 		//but if u exactly sure it do support power of 2 u could mark this.
 		if( !g_bSupportNonPowerOfTwoTexture&&(l_iWidthPO2!=m_iWidth||l_iHeightPO2!=m_iHeight) )

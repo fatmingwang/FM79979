@@ -236,7 +236,7 @@ namespace FATMING_CORE
 			MyGLEnable(GL_SCISSOR_TEST);
 			glGetBooleanv(GL_SCISSOR_TEST, &l_bSissorTest);
 			if (l_bSissorTest)
-				glGetIntegerv(GL_SCISSOR_BOX, l_vScissorBox);
+				MyGLGetIntegerv(GL_SCISSOR_BOX, l_vScissorBox);
 			glScissor((int)l_ResultViewPort.x, (int)l_ResultViewPort.y, (int)l_ResultViewPort.z, (int)l_ResultViewPort.w);
 		}
 		cMatrix44	l_OriginalCameraView;

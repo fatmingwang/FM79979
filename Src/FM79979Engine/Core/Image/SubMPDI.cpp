@@ -286,11 +286,10 @@ namespace FATMING_CORE
 	{
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
 			return;
-		GLenum	l_OriginalSrc, l_OriginalDest;
+		sBlendfunctionRestore l_BlendfunctionRestore;
 		if (this->m_bColorBlending)
 		{
-			glGetIntegerv(GL_BLEND_SRC, (GLint*)&l_OriginalSrc);
-			glGetIntegerv(GL_BLEND_DST, (GLint*)&l_OriginalDest);
+			l_BlendfunctionRestore.GetStatus();
 			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
@@ -298,7 +297,7 @@ namespace FATMING_CORE
 		DrawQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if (this->m_bColorBlending)
 		{
-			glBlendFunc(l_OriginalSrc, l_OriginalDest);
+			l_BlendfunctionRestore.Restore();
 		}
 	}
 
@@ -562,8 +561,8 @@ namespace FATMING_CORE
 		GLenum	l_OriginalSrc, l_OriginalDest;
 		if (this->m_bColorBlending)
 		{
-			glGetIntegerv(GL_BLEND_SRC, (GLint*)&l_OriginalSrc);
-			glGetIntegerv(GL_BLEND_DST, (GLint*)&l_OriginalDest);
+			MyGLGetIntegerv(GL_BLEND_SRC, (GLint*)&l_OriginalSrc);
+			MyGLGetIntegerv(GL_BLEND_DST, (GLint*)&l_OriginalDest);
 			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();

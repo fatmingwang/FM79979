@@ -94,6 +94,23 @@ namespace GLRender
 	void	AssignUVDataToTriangleStrip(float*e_pSrc,float*e_pDest,bool e_bMirror);
 	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStrip);
 	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStrip);
+
+
+	struct sBlendfunctionRestore
+	{
+		GLint iColorParameter[4];
+		void	GetStatus() 
+		{
+			glGetIntegerv(GL_BLEND_SRC_RGB, &iColorParameter[0]);
+			glGetIntegerv(GL_BLEND_DST_RGB, &iColorParameter[1]);
+			glGetIntegerv(GL_BLEND_SRC_ALPHA, &iColorParameter[2]);
+			glGetIntegerv(GL_BLEND_DST_ALPHA, &iColorParameter[3]);
+		}
+		void	Restore()
+		{
+			glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
+		}
+	};
 };
 using namespace GLRender;
 //end namespace GLRender

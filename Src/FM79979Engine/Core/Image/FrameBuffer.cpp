@@ -201,10 +201,10 @@ namespace FATMING_CORE
 	void	cFrameBuffer::StartDraw(bool e_bClearScreen)
 	{
 		//for depth
-		glGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
+		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
 		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
-			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
+			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_svViewPortSize.x = 0.f;
 		cGameApp::m_svViewPortSize.y = 0.f;
 		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;
@@ -344,10 +344,10 @@ namespace FATMING_CORE
 	void	cMSAAFrameBuffer::StartDraw(bool e_bClearScreen)
 	{
 		//for depth
-		glGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
+		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
 		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
-			glGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
+			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_svViewPortSize.x = 0.f;
 		cGameApp::m_svViewPortSize.y = 0.f;
 		cGameApp::m_svViewPortSize.z = (float)this->m_uiWidth;

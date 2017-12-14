@@ -18,9 +18,11 @@ namespace UT
 	void					MyGlErrorTest(const char*e_strMessage);
 	void					MyGLEnable(GLenum e_GLenum);
 	void					MyGLDisable(GLenum e_GLenum);
+	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);
 #else
 	#define	MyGlErrorTest(q)
-	#define	MyGLEnable(p)	glEnable(p)
+	#define	MyGLEnable(p)			glEnable(p)
+	#define	MyGLGetIntegerv(p,q)	glGetIntegerv(p,q)
 #endif
 #ifdef WIN32
 	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV,bool e_bEnableMultisample = false);

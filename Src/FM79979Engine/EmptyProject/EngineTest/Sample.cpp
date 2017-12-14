@@ -100,18 +100,21 @@ void	LoadSample()
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
+#ifdef WASM
 	std::wstring l_strMPDIResultFileName = L"assets/MPDI/bgrounda01.mpdi";
-	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
-	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"C:/Users/fatming/Desktop/Work/Media/Fish/Image/Fish/Eel_0001/Eel_0001.mpdi");	
+#else
+	std::wstring l_strMPDIResultFileName = L"MyFMBook/AnimationDemo/MPDI/bgrounda01.mpdi";
+#endif
+	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
 	{
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(0);
 		//ensure u have call start
 		g_pMultiPathDynamicImage->Init();
-		g_pMultiPathDynamicImage->SetPos(Vector3(350, 500, 0));
+		//g_pMultiPathDynamicImage->SetPos(Vector3(350, 500, 0));
 		g_pMultiPathDynamicImage->SetAnimationLoop(true);
-		if( 1 )
+		if( 0 )
 		{
 			//g_pMultiPathDynamicImageClone = new cMultiPathDynamicImage(g_pMPDIList->GetObject(L"DiedShow2"));
 			g_pMultiPathDynamicImageClone = new cMultiPathDynamicImage(g_pMPDIList->GetObject(0));
@@ -216,11 +219,11 @@ void	SampleUpdate(float e_fElpaseTime)
 		if (g_pTestCurveWithTime)
 		{
 			g_pTestCurveWithTime->Update(e_fElpaseTime);
-			g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(g_pTestCurveWithTime->GetCurrentPosition() - Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*cMatrix44::ZAxisRotationMatrix(g_pTestCurveWithTime->GetCurrentPosToNextPointAngle() - 90));
+			//g_pMultiPathDynamicImage->SetWorldTransform(cMatrix44::TranslationMatrix(g_pTestCurveWithTime->GetCurrentPosition() - Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*cMatrix44::ZAxisRotationMatrix(g_pTestCurveWithTime->GetCurrentPosToNextPointAngle() - 90));
 		}
 		static float l_sfAngle = e_fElpaseTime;
 		l_sfAngle += 1 * e_fElpaseTime;
-		g_pMultiPathDynamicImage->SetRotationAnglePosOffsetWithDrawSize(true);
+		//g_pMultiPathDynamicImage->SetRotationAnglePosOffsetWithDrawSize(true);
 		g_pMultiPathDynamicImage->Update(e_fElpaseTime);
 		if (g_pMultiPathDynamicImageClone)
 		{			
@@ -229,18 +232,18 @@ void	SampleUpdate(float e_fElpaseTime)
 			g_pMultiPathDynamicImageClone->Update(e_fElpaseTime);
 			g_pMultiPathDynamicImageClone->SetColor(Vector4::Red);
 		}
-		int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
-		if (g_pTestCurveWithTime)
-		{
-			Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
-			{
-				cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*g_pMultiPathDynamicImage->GetWorldTransform();
-				if (g_pCollisionData)
-				{
-					(*g_pCollisionData)[l_iIndex]->SetTransform(l_mat);
-				}
-			}
-		}
+		//int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
+		//if (g_pTestCurveWithTime)
+		//{
+		//	Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
+		//	{
+		//		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(l_vDrawSize.x, l_vDrawSize.y, 0))*g_pMultiPathDynamicImage->GetWorldTransform();
+		//		if (g_pCollisionData)
+		//		{
+		//			(*g_pCollisionData)[l_iIndex]->SetTransform(l_mat);
+		//		}
+		//	}
+		//}
 	}
 	MyGlErrorTest("after g_pMultiPathDynamicImage");
 	if( g_pPrtEmitter )
@@ -362,13 +365,13 @@ void	SampleRender()
 		if (g_pTestCurveWithTime)
 		{
 			g_pTestCurveWithTime->Render();
-			Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
-			int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
-			if (g_pCollisionData)
-				//for (int i = 0; i < g_CollisionData.Count();++i)
-			{
-				(*g_pCollisionData)[l_iIndex]->DebugRender();
-			}
+			//Vector3 l_vPos = g_pTestCurveWithTime->GetCurrentPosition();
+			//int l_iIndex = (*g_pMultiPathDynamicImage)[0]->GetCurrentPointData()->iImageIndex;
+			//if (g_pCollisionData)
+			//	//for (int i = 0; i < g_CollisionData.Count();++i)
+			//{
+			//	(*g_pCollisionData)[l_iIndex]->DebugRender();
+			//}
 		}
 		//GLRender::RenderPoint(Vector3(500, 500, 0), 30);
 	}

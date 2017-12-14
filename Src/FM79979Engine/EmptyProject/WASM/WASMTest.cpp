@@ -23,13 +23,14 @@ static void handle_key_down(SDL_keysym* keysym)
 	* Handle the arrow keys and have that change the
 	* viewing position/angle.
 	*/
-	switch (keysym->sym) {
-	case SDLK_ESCAPE:
-		break;
-	case SDLK_SPACE:
-		break;
-	default:
-		break;
+	switch (keysym->sym) 
+	{
+		case SDLK_ESCAPE:
+			break;
+		case SDLK_SPACE:
+			break;
+		default:
+			break;
 	}
 }
 
@@ -52,8 +53,19 @@ static void process_events(void)
 		}
 
 	}
-
 }
+
+void Loop()
+{
+	g_pGameApp->Run();
+	process_events();
+	SDL_GL_SwapBuffers();
+	//static int l_iTest = 0;
+	//l_iTest++;
+	//if(l_iTest == 6)
+	//	emscripten_cancel_main_loop();
+}
+
 
 int main()
 {
@@ -70,8 +82,12 @@ int main()
 	//https://kripken.github.io/emscripten-site/docs/porting/files/packaging_files.html
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
-	cGameApp::m_svDeviceViewPortSize.x = cGameApp::m_svGameResolution.x = 640;
-	cGameApp::m_svDeviceViewPortSize.y = cGameApp::m_svGameResolution.y = 480;
+#define	CANVANS_WIDTH	640
+#define	CANVANS_HEIGHT	480
+	cGameApp::m_svGameResolution.x = 1920;
+	cGameApp::m_svGameResolution.y = 1080;
+	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = CANVANS_WIDTH;
+	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -79,7 +95,7 @@ int main()
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
-	if ((l_pSurf_Display = SDL_SetVideoMode(640, 480, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) 
+	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
 	{
 		return -1;
 	}
@@ -99,15 +115,12 @@ int main()
 		//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 		//esRegisterDrawFunc(&esContext, Draw);
 		//esMainLoop(&esContext);
-		//emscripten_set_main_loop()
-		while (1)
+		emscripten_set_main_loop(&Loop, 0, 1);
+		//while (1)
 		{
-			g_pGameApp->Run();
-			//esMainLoop(&esContext);
-			Sleep(1);
-			SDL_GL_SwapBuffers();
+
 		}
-		//SAFE_DELETE(g_pGameApp);
+		SAFE_DELETE(g_pGameApp);
 	}
 	else
 	{

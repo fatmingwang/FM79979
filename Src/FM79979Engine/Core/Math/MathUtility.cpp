@@ -277,7 +277,7 @@ namespace UT
 		GLint realy;
 		float win_x,win_y,win_z;
 		int viewport[4];
-		glGetIntegerv(GL_VIEWPORT,viewport);
+		MyGLGetIntegerv(GL_VIEWPORT,viewport);
         gluProject(objX,objY,objZ,e_pfModelViewMatrix,e_pfProjectionMatrix,viewport,&win_x,&win_y,&win_z);
 		realy = viewport[3]-(GLint)win_y -1;
 

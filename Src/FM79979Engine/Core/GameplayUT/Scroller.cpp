@@ -455,7 +455,7 @@ namespace FATMING_CORE
 		if( !l_vSissorTest )
 			MyGLEnable(GL_SCISSOR_TEST);
 		else
-			glGetIntegerv(GL_SCISSOR_BOX,l_SicissorRange);
+			MyGLGetIntegerv(GL_SCISSOR_BOX,l_SicissorRange);
 		Vector4	l_vViewRect = ViewRectToOpenGLScissor(m_vCollisionRange);
 		glScissor((int)l_vViewRect.x,(int)l_vViewRect.y,(int)l_vViewRect.z,(int)l_vViewRect.w);
 		int	l_iCurrentSelectedIndex = this->GetCurrentWorkingObjectIndex();

@@ -164,6 +164,13 @@
 #define GL_RGB16F										GL_RGB16F_ARB
 #endif
 #endif
+
+#ifndef GL_BLEND_SRC
+#define GL_BLEND_SRC GL_BLEND_SRC_RGB
+#endif
+#ifndef GL_BLEND_DST
+#define GL_BLEND_DST GL_BLEND_DST_RGB
+#endif
 //===============================================
 #ifdef WIN32
 #pragma warning(disable:4702)

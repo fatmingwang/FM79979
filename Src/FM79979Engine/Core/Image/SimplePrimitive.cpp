@@ -125,7 +125,7 @@ namespace GLRender
 	void glEnable2D(float e_fResolutionWidth,float e_fResolutionHeight,float*e_pfMatrix,bool e_bInvertYAxis)
 	{
 	   //int vPort[4];
-	   //glGetIntegerv(GL_CULL_FACE,&g_enumforCullFace);
+	   //MyGLGetIntegerv(GL_CULL_FACE,&g_enumforCullFace);
 	   //glIsEnabled(GL_CULL_FACE);
 		//depend on how do y loading the image
 	   //if the pixel data is lefr to right or right to left it will effect the UV

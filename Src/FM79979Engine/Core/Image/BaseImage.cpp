@@ -437,7 +437,7 @@ namespace FATMING_CORE
 		this->m_iWidth = e_iWidth;
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
 		int	l_iHeightPO2 = power_of_two(m_iHeight);
-		GLint texSize; glGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
+		GLint texSize; MyGLGetIntegerv(GL_MAX_TEXTURE_SIZE, &texSize);
 		int	l_iChannel = e_iDataFormat == GL_RGB?3:4;
 		if(m_pTexture)
 			m_pTexture->Release(this);
