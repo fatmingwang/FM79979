@@ -67,16 +67,8 @@ void	cEngineTestApp::Render()
 	//glAlphaFunc(GL_GREATER,0.001f);	
 	SampleRender();
 	this->m_pPhaseManager->Render();
-	if( cGameApp::m_spGlyphFontRender )
-	{
-	    WCHAR   l_str[MAX_PATH];
-	    swprintf(l_str,MAX_PATH,L"MousePos:%d,%d",cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
-	    //cGameApp::m_spGlyphFontRender->RenderFont(0,0,l_str);
-	    //cGameApp::m_spGlyphFontRender->RenderFont(0,20,UT::CharToWchar(cGameApp::m_sTimeAndFPS.GetFPS()));
-	}
 	cGameApp::ShowInfo();
 	this->m_pPhaseManager->DebugRender();
-	glDisable2D();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

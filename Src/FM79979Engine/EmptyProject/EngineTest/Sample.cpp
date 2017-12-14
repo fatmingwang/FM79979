@@ -324,7 +324,6 @@ void	SampleRender()
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->StartDraw();
 	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
-	//glEnable2D(1280,720);
 	if( g_pBGImage && g_pTunnelEffect )
 	{
 		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2*0.1f,0.f,0.f));
@@ -356,7 +355,6 @@ void	SampleRender()
 		//g_pOrthogonalCamera->Render();
 		//g_pOrthogonalCamera->DrawGrid();
 	}
-	GLRender::RenderRectangle(1440, 900,cMatrix44::Identity,Vector4::One);
 	if (g_pMultiPathDynamicImage)
 	{
 		g_pMultiPathDynamicImage->Render();

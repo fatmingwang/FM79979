@@ -1,62 +1,83 @@
 #include "stdafx.h"
-//#include "esUtil.h"
-#include "test.h"
-#include "GameApp.h"
-
 #include "../../AllLibInclude.h"
+#include "GameApp.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
+
 cGameApp*g_pGameApp = 0;
 
-//void Draw(ESContext *esContext)
-//{
-//	g_pGameApp->Run();
-//}
-
-static void handle_key_down(SDL_keysym* keysym)
+void handle_key_up(SDL_keysym* keysym)
 {
-	/*
-	* We're only interested if 'Esc' has
-	* been presssed.
-	*
-	* EXERCISE:
-	* Handle the arrow keys and have that change the
-	* viewing position/angle.
-	*/
+	std::wstring l_str = L"KeyUp";
+	l_str += ValueToStringW((int)keysym->sym);
+	cGameApp::OutputDebugInfoString(l_str);
+	switch (keysym->sym)
+	{
+	case SDLK_ESCAPE:
+		break;
+	case SDLK_SPACE:
+
+		break;
+	default:
+		break;
+	}
+}
+
+void handle_key_down(SDL_keysym* keysym)
+{
+	std::wstring l_str = L"KeyDown";
+	l_str += ValueToStringW((int)keysym->sym);
+	cGameApp::OutputDebugInfoString(l_str);
 	switch (keysym->sym) 
 	{
 		case SDLK_ESCAPE:
 			break;
 		case SDLK_SPACE:
+			
 			break;
 		default:
 			break;
 	}
 }
 
-static void process_events(void)
+void process_events(void)
 {
 	/* Our SDL event placeholder. */
 	SDL_Event event;
-
 	/* Grab all the events off the queue. */
-	while (SDL_PollEvent(&event)) {
-
-		switch (event.type) {
-		case SDL_KEYDOWN:
-			/* Handle key presses. */
-			handle_key_down(&event.key.keysym);
-			break;
-		case SDL_QUIT:
-			/* Handle quit requests (like Ctrl-c). */
-			break;
+	while (SDL_PollEvent(&event))
+	{
+		if (g_pGameApp)
+		{
+			switch (event.type)
+			{
+				case SDL_KEYDOWN:
+					/* Handle key presses. */
+					handle_key_down(&event.key.keysym);
+					break;
+				case SDL_KEYUP:
+					handle_key_up(&event.key.keysym);
+					break;
+				case SDL_QUIT:
+					/* Handle quit requests (like Ctrl-c). */
+					break;
+				case SDL_MOUSEMOTION:
+					g_pGameApp->MouseMove(event.motion.x, event.motion.y);
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					g_pGameApp->MouseDown(event.motion.x, event.motion.y);
+					break;
+				case SDL_MOUSEBUTTONUP:
+					g_pGameApp->MouseUp(event.motion.x, event.motion.y);
+					break;
+			}
 		}
-
 	}
 }
 
 void Loop()
 {
+	cGameApp::m_sbDebugFunctionWorking = true;
 	g_pGameApp->Run();
 	process_events();
 	SDL_GL_SwapBuffers();
@@ -82,12 +103,12 @@ int main()
 	//https://kripken.github.io/emscripten-site/docs/porting/files/packaging_files.html
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
-#define	CANVANS_WIDTH	640
-#define	CANVANS_HEIGHT	480
-	cGameApp::m_svGameResolution.x = 1920;
-	cGameApp::m_svGameResolution.y = 1080;
-	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = CANVANS_WIDTH;
-	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = CANVANS_HEIGHT;
+#define	CANVANS_WIDTH	1280
+#define	CANVANS_HEIGHT	720
+	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
+	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
+	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -99,23 +120,21 @@ int main()
 	{
 		return -1;
 	}
-
-	//Set up the screen
-	SDL_Surface *screen = SDL_SetVideoMode(cGameApp::m_svDeviceViewPortSize.x, cGameApp::m_svDeviceViewPortSize.y, 32, SDL_OPENGL);
-
 	//ESContext esContext;
 	//esInitContext(&esContext);
 	//GLboolean l_b = esCreateWindow(&esContext, "Hello Triangle", 320, 240, ES_WINDOW_RGB);
-	if (screen)
+	if (l_pSurf_Display)
 	{
 		cGameApp::m_sbDebugFunctionWorking = true;
+		cGameApp::m_svGameResolution.x = 1920;
+		cGameApp::m_svGameResolution.y = 1080;
 		g_pGameApp = new cEngineTestApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		g_pGameApp->Init();
 		g_pGameApp->m_svBGColor = Vector4::Red;
 		//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 		//esRegisterDrawFunc(&esContext, Draw);
 		//esMainLoop(&esContext);
-		emscripten_set_main_loop(&Loop, 0, 1);
+		emscripten_set_main_loop(&Loop, 60, 1);
 		//while (1)
 		{
 

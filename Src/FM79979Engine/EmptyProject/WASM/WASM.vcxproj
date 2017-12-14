@@ -224,7 +224,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
-    <ClCompile Include="esUtil.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -238,9 +237,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\TestShader.h" />
-    <ClInclude Include="esUtil.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="test.h" />
     <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
   </ItemGroup>
