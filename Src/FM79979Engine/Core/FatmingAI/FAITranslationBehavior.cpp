@@ -67,7 +67,7 @@ namespace FATMING_AI
 		l_vDirection.NormalizeIt();
 		m_CurveWithTime.Update(e_fElpaseTime);
 		m_pSrcCharacter->SetAngle(Vector3(0,0,m_CurveWithTime.GetCurrentPosToNextPointAngle()));
-		if( m_CurveWithTime.IsCurveMoveDone() )
+		if( m_CurveWithTime.IsAnimationDone() )
         {
             this->m_bSatisfiedCondition = true;
         }

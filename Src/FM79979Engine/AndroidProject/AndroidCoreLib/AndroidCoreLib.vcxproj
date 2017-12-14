@@ -110,6 +110,10 @@
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
     <ClCompile Include="..\..\Core\Network\Network.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnet.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp" />
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\ALc.c" />
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcConfig.c" />
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\alcDedicated.c" />
@@ -271,10 +275,6 @@
     <ClCompile Include="..\..\Core\Math\ValueSortingObject.cpp" />
     <ClCompile Include="..\..\Core\Math\Vector3.cpp" />
     <ClCompile Include="..\..\Core\Math\Vector4.cpp" />
-    <ClCompile Include="..\..\Core\Network\SDLnet.c" />
-    <ClCompile Include="..\..\Core\Network\SDLnetselect.c" />
-    <ClCompile Include="..\..\Core\Network\SDLnetTCP.c" />
-    <ClCompile Include="..\..\Core\Network\SDLnetUDP.c" />
     <ClCompile Include="..\..\Core\Particle\AllPolicyNameList.cpp" />
     <ClCompile Include="..\..\Core\Particle\ParticleBase.cpp" />
     <ClCompile Include="..\..\Core\Particle\ParticleEmitter.cpp" />
@@ -471,7 +471,6 @@
     <ClInclude Include="..\..\Core\Network\begin_code.h" />
     <ClInclude Include="..\..\Core\Network\happyhttp.h" />
     <ClInclude Include="..\..\Core\Network\Network.h" />
-    <ClInclude Include="..\..\Core\Network\SDLnetsys.h" />
     <ClInclude Include="..\..\Core\Network\SDL_endian.h" />
     <ClInclude Include="..\..\Core\Network\SDL_net.h" />
     <ClInclude Include="..\..\Core\Particle\AllParticleInclude.h" />

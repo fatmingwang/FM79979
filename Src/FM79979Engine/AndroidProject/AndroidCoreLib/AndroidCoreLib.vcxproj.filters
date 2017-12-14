@@ -547,18 +547,6 @@
     <ClCompile Include="..\..\Core\Math\LinerTemplateDataProcess.cpp">
       <Filter>jni\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnet.c">
-      <Filter>jni\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetselect.c">
-      <Filter>jni\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetTCP.c">
-      <Filter>jni\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetUDP.c">
-      <Filter>jni\NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Particle\ParticleEmitter.cpp">
       <Filter>jni\Particle\Emitter</Filter>
     </ClCompile>
@@ -910,6 +898,18 @@
     <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp">
       <Filter>jni\GamePlayUT\EventSender</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnet.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1256,9 +1256,6 @@
       <Filter>jni\NetWork</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Network\SDL_net.h">
-      <Filter>jni\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Network\SDLnetsys.h">
       <Filter>jni\NetWork</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Particle\ParticleEmitter.h">

@@ -49,7 +49,7 @@ namespace FATMING_CORE
 		GLuint	GetTextureID() { return m_uiTextureID; }
 		GLuint	GetFramebufferID() { return m_uiFramebufferID; }
 	};
-
+#ifndef ANDROID//require opengl es3
 	//after I test this one useless for 2D...
 	class cBaseShader;
 	class	cMSAAFrameBuffer :public Frame
@@ -75,7 +75,7 @@ namespace FATMING_CORE
 		void	DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName = DEFAULT_SHADER);
 		GLuint	GetTextureID() { return m_uiTextureID; }
 	};
-
+#endif
 	//// Your code to draw content to the FBO 
 	//// ... 
 	//// Make the window the target 

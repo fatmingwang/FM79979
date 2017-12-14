@@ -69,7 +69,7 @@ namespace FATMING_AI
 			}
 			m_pSrcCharacter->SetLocalPosition(l_vPos);
 		}
-		if(m_CurveWithTime.IsCurveMoveDone())
+		if(m_CurveWithTime.IsAnimationDone())
 		{
 			this->m_bSatisfiedCondition = true;
 		}

@@ -670,8 +670,7 @@ namespace	FATMING_CORE
 #elif	defined(IOS)
 
 #endif
-		std::string	l_str = UT::WcharToChar(e_str);
-		printf(l_str.c_str());
+		printf(UT::WcharToChar(e_str).c_str());
 		if (e_bWithNextLineSymbol)
 			printf("\n");
 		if (e_bWriteLog)

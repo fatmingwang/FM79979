@@ -278,7 +278,7 @@ namespace FATMING_CORE
 		float	l_fTextureCoordinate[] = { 0,1,1,0 };
 		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
 	}
-
+#ifndef ANDROID
 	const wchar_t*g_pstrMultiSamlingShader = L"MultiSamlingShader";
 	extern cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList;
 	cMSAAFrameBuffer::cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType, int e_iNumSamples)
@@ -414,7 +414,7 @@ namespace FATMING_CORE
 			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		}
 	}
-
+#endif
 
 
 

@@ -123,7 +123,6 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 		ANativeActivity_finish(mApp->activity);
 		return false;
 	}
-	MyGlErrorTest();
 	//resizeIfNeeded();
 	mOrientation = nv_app_get_display_rotation(mApp);
 	if( g_pAndroidTestApp )
@@ -145,7 +144,6 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
 				break;
 		}
-		MyGlErrorTest();
 		
 		if( g_bLostFocus )
 		{

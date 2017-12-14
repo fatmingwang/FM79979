@@ -170,7 +170,7 @@ namespace FATMING_AI
 		float	l_fAngle = m_CurveWithTime.GetCurrentPosToNextPointAngle();
 		Vector3	l_vPos = m_CurveWithTime.GetCurrentPosition();
 		bool	l_bKeepMoving = true;
-		if(m_CurveWithTime.IsCurveMoveDone())
+		if(m_CurveWithTime.IsAnimationDone())
 		{
 			if( m_fLeaveAwayProbability >= frand(0,1) )
 				this->m_bSatisfiedCondition = true;

@@ -111,7 +111,7 @@ namespace FATMING_AI
 			m_pSrcCharacter->SetAngle(l_v2DAngle);
 			m_pSrcCharacter->SetLocalPosition(m_CurveWithTime.GetCurrentPosition());
 		}
-		if(m_CurveWithTime.IsCurveMoveDone())
+		if(m_CurveWithTime.IsAnimationDone())
 		{
 			this->m_bSatisfiedCondition = true;
 		}
