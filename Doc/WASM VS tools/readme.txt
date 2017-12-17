@@ -30,3 +30,10 @@ also
 Emscripten Linker->Input 
 preloaded Resource Files I have made ../asserts as preload files
 if any file you want to add please add into this folder
+
+
+4.
+aftern built you have to start python simple htt server in the folder you generate html(python -m SimpleHTTPServer)
+
+then type the 127.0.0.1:port/ooxx.html(127.0.0.1:8000/WASM.html)
+after few seconds download then it should works.
