@@ -25,7 +25,7 @@ namespace CoreWPF.Common
             InitializeComponent();
         }
 
-        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
+        private void ColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color?> e)
         {
             if (f_SelectedColorChanged != null)
             {
@@ -34,7 +34,7 @@ namespace CoreWPF.Common
         }
         public Color GetSelectedColor()
         {
-            return this.m_ColorPicker.SelectedColor;
+            return this.m_ColorPicker.SelectedColor.Value;
         }
         public void SetUsingAlphaChannel(bool e_b)
         {

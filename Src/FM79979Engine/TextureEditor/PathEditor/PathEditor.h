@@ -74,7 +74,7 @@ namespace PathEditor
 			LanguageSwitch(this->Controls,"/",this->Handle);
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
 			m_HGLRCMV = UT::InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
-			InitMultisample((HINSTANCE)System::Runtime::InteropServices::Marshal::GetHINSTANCE(splitContainer2->Panel1->GetType()->Module).ToPointer(),(HWND)this->splitContainer2->Panel1->Handle.ToPointer());
+			//InitMultisample((HINSTANCE)System::Runtime::InteropServices::Marshal::GetHINSTANCE(splitContainer2->Panel1->GetType()->Module).ToPointer(),(HWND)this->splitContainer2->Panel1->Handle.ToPointer());
 			//m_HdcMV = GetDC((HWND)splitContainer2->Panel1->Handle.ToPointer());
 			wglMakeCurrent( m_HdcMV,m_HGLRCMV );
 			//AutoScaleChildrenForm^l_pAutoScaleChildrenForm = gcnew AutoScaleChildrenForm(m_pTabPage,this);

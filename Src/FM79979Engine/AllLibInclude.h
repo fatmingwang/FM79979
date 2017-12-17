@@ -8,9 +8,6 @@
 #pragma comment(lib, "../../../lib/ffmpeg/swresample.lib")
 #pragma comment(lib, "../../../lib/ffmpeg/swscale.lib")
 #endif
-//#pragma comment(lib, "Vfw32.lib")
-//CoreDotNetTools.cpp need this one...
-//#pragma comment(lib, "../../../lib/Devil.lib")
 #pragma comment(lib, "../../../lib/OpenAL32.lib")
 #pragma comment(lib, "../../../lib/alut.lib")
 
@@ -18,10 +15,6 @@
 //#pragma comment(lib, "../../../lib/opencv_core249.lib")
 //#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
 //#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
-//#endif
-//#ifdef _OGG_
-//#pragma comment(lib, "../../../lib/ogg.lib")
-//#pragma comment(lib, "../../../lib/vorbis.lib")
 //#endif
 #pragma comment(lib, "../../../lib/glew.lib")
 #pragma comment(lib, "opengl32.lib")

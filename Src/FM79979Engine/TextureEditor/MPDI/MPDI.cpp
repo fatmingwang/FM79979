@@ -785,7 +785,6 @@ namespace MPDI
 						if(m_pOrthogonalCamera->ViewportConvert(*l_pViewPort,l_vViewPort,&l_ResultViewPort))
 						{
 							glScissor((int)l_ResultViewPort.x,(int)l_ResultViewPort.y,(int)l_ResultViewPort.z,(int)l_ResultViewPort.w);
-							MyGlErrorTest();
 						}
 					}
 					m_pMultiPathDynamicImageAWP->RenderByGlobalTime();

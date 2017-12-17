@@ -62,7 +62,7 @@ void	LoadSample()
 	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("assets/MainBG.ogg");
 #else
 	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
-#else
+#endif
 	if (l_pSound)
 		l_pSound->Play(true);
 	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };

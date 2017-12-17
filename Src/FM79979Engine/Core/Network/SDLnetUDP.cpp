@@ -361,7 +361,7 @@ int SDLNet_UDP_SendV(UDPsocket sock, UDPpacket **packets, int npackets)
 			sock_addr.sin_port = packets[i]->address.port;
 			sock_addr.sin_family = AF_INET;
 			status = sendto(sock->channel, 
-					packets[i]->data, packets[i]->len, 0,
+					(char*)packets[i]->data, packets[i]->len, 0,
 					(struct sockaddr *)&sock_addr,sock_len);
 			if ( status >= 0 )
 			{
@@ -384,7 +384,7 @@ int SDLNet_UDP_SendV(UDPsocket sock, UDPpacket **packets, int npackets)
 				sock_addr.sin_port = binding->address[j].port;
 				sock_addr.sin_family = AF_INET;
 				status = sendto(sock->channel, 
-						packets[i]->data, packets[i]->len, 0,
+					(char*)packets[i]->data, packets[i]->len, 0,
 						(struct sockaddr *)&sock_addr,sock_len);
 				if ( status >= 0 )
 				{
@@ -458,7 +458,7 @@ extern int SDLNet_UDP_RecvV(UDPsocket sock, UDPpacket **packets)
 		
 		sock_len = sizeof(sock_addr);
 		packet->status = recvfrom(sock->channel,
-				packet->data, packet->maxlen, 0,
+			(char*)packet->data, packet->maxlen, 0,
 				(struct sockaddr *)&sock_addr,
 						&sock_len);
 		if ( packet->status >= 0 ) {
