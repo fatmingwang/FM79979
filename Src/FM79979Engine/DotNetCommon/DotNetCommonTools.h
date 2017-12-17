@@ -18,6 +18,7 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace System::Diagnostics;
 
 #ifndef CHAR_TO_WCHAR
 #define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
@@ -46,6 +47,7 @@ using namespace System::Windows::Forms;
 		String^l_strNewOne = "[assembly: System::Runtime::Versioning::TargetFrameworkAttribute(L"".NETFramework,Version=v4.0"", FrameworkDisplayName=L"".NET Framework 4"")];";\
 		System::Windows::Forms::MessageBox::Show("please open C:/Users/UserName/AppData/Local/Temp/.NETFramework,Version=v4.0.AssemblyAttributes.cpp\n\n\n"+l_Exp,"waring",GCFORM::MessageBoxButtons::OK);\
 		System::Windows::Forms::MessageBox::Show("replace"+l_strOriginal+"\n to \n"+l_strNewOne,"waring",GCFORM::MessageBoxButtons::OK);\
+		Debug::WriteLine(l_Exp);\
 	}
 
 
