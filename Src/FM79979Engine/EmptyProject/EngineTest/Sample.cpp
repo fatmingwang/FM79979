@@ -57,9 +57,14 @@ cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
-	//cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("C:/Users/fatming/Desktop/FM79979/Media/Sound/MainBG.ogg");
-	//if (l_pSound)
-	//	l_pSound->Play(true);
+	//here should do mu;ti thread but I am lazy.
+#ifdef WASM
+	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("assets/MainBG.ogg");
+#else
+	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
+#else
+	if (l_pSound)
+		l_pSound->Play(true);
 	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",

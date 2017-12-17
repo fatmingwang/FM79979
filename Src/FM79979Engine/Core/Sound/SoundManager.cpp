@@ -22,7 +22,7 @@ namespace FATMING_CORE
 		}
 #endif
 
-#if defined(ANDROID) || defined(IOS)
+#if defined(ANDROID) || defined(IOS) || defined(WASM)
 		// Initialization
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160

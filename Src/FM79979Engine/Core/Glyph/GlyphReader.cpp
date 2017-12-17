@@ -102,7 +102,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 
         // Read the glyph attributes from the file
         m_dwNumGlyphs		= ((unsigned int*)l_pData)[0];  l_pData += sizeof(unsigned int);
-#if defined(ANDROID) || defined(IOS)
+#if defined(ANDROID) || defined(IOS) || defined(WASM)
 		m_pGlyphs = new FILE_GLYPH_ATTR[m_dwNumGlyphs];
 		memcpy(m_pGlyphs,l_pData,sizeof(FILE_GLYPH_ATTR)*m_dwNumGlyphs);
 #else

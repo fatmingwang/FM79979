@@ -152,6 +152,11 @@
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ClCompile>
+      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="books\coupled\res_books_stereo.h" />
     <ClInclude Include="books\floor\floor_books.h" />

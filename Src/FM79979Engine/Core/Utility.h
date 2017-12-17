@@ -22,6 +22,7 @@ namespace UT
 #else
 	#define	MyGlErrorTest(q)
 	#define	MyGLEnable(p)			glEnable(p)
+	#define	MyGLDisable(p)			glDisable(p)
 	#define	MyGLGetIntegerv(p,q)	glGetIntegerv(p,q)
 #endif
 #ifdef WIN32
