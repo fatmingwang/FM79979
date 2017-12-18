@@ -10,7 +10,8 @@ namespace FATMING_CORE
 	{
 		printf("Finished downloading %llu bytes from URL %s.\n", fetch->numBytes, fetch->url);
 		cPreLoadFromInternet*l_pPreLoadFromInternet = (cPreLoadFromInternet*)fetch->userData;
-		std::string l_strFileName = UT::GetFileNameWithoutFullPath(fetch->url, false);
+		//std::string l_strFileName = UT::GetFileNameWithoutFullPath(fetch->url, false);
+		std::string l_strFileName = fetch->url;
 		cBinaryFile l_cBinaryFile;
 		cGameApp::OutputDebugInfoString("trying to save file");
 		if (l_cBinaryFile.Writefile(l_strFileName.c_str(), true, true))

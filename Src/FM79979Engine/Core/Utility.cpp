@@ -977,6 +977,15 @@ namespace UT
 			}
 #endif
 		}
+#elif defined(WASM)
+		{
+			std::string l_strWASMFile = UT::GetFileNameWithoutFullPath(e_strFileName, false);
+			fp = fopen(l_strWASMFile.c_str(), e_strMode);
+			if (!fp)
+			{
+				fp = fopen(e_strFileName, e_strMode);
+			}
+		}
 #else
 		if( l_bWrite )
 			mkpath( std::string(e_strFileName) );
