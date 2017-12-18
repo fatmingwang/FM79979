@@ -6,15 +6,15 @@ namespace FATMING_CORE
 {
 	struct sReceivedPacket;
 
-
+#define WAIT_EMIT_EVENT_DATA_SIZE	2048
 	typedef std::function<bool(FATMING_CORE::sReceivedPacket*)>		NetworkMessageFunction;
 	typedef std::function<bool(void*)>								EventFunction;
 
 
 	//REG_NET_MESSAGE_FUNCTION(MSG_GS2CL_CHANGE_ROUTE_RESPONSE,&cTradeRouteDataFromServer::Received_MSG_GS2CL_CHANGE_ROUTE_RESPONSE);
-	#define REG_NET_MESSAGE_FUNCTION(proto,Function)RegNetworkMessageFunction<proto>(_##proto,std::bind(Function,this,std::placeholders::_1));
+#define REG_NET_MESSAGE_FUNCTION(proto,Function)RegNetworkMessageFunction<proto>(_##proto,std::bind(Function,this,std::placeholders::_1));
 	//REG_EVENT(eOPEM_CLOSE_TRADE_ROUTE_UI_LAYOUT,&cRegionMapChange::OnCloseLayout);
-	#define	REG_EVENT(EventID,Function)RegEvent(EventID,std::bind(Function,this,std::placeholders::_1));
+#define	REG_EVENT(EventID,Function)RegEvent(EventID,std::bind(Function,this,std::placeholders::_1));
 
 
 
@@ -25,9 +25,9 @@ namespace FATMING_CORE
 	{
 		friend class cMessageSenderManager;
 		//network
-		std::map<unsigned int,NetworkMessageFunction>		m_NetworkMessageFunctionMap;
+		std::map<unsigned int, NetworkMessageFunction>		m_NetworkMessageFunctionMap;
 		//event
-		std::map<unsigned int,EventFunction>				m_EventFunctionMap;
+		std::map<unsigned int, EventFunction>				m_EventFunctionMap;
 		//
 		cMessageSenderManager*m_pParent;
 		//
@@ -36,15 +36,15 @@ namespace FATMING_CORE
 		cMessageSender();
 		virtual ~cMessageSender();
 		//please keep e_pData,or it will be a wild pointer.
-		bool					RegEvent(unsigned int e_usID,EventFunction e_MessageFunction);
+		bool					RegEvent(unsigned int e_usID, EventFunction e_MessageFunction);
 		//see REG_NET_MESSAGE_FUNCTION
-		template <class T>bool	RegNetworkMessageFunction(unsigned int e_usID,NetworkMessageFunction e_MessageFunction);
+		template <class T>bool	RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction);
 		//
 		bool					UnregNetworkMessageFunction(unsigned int e_usID);
 		bool					UnregEvent(unsigned int e_usID);
 		void					UnregistorAll();
 		//do not use this one!.
-		cMessageSenderManager*	GetParent(){ return m_pParent; }
+		cMessageSenderManager*	GetParent() { return m_pParent; }
 	};
 
 
@@ -66,35 +66,39 @@ namespace FATMING_CORE
 			EventFunction	f_EventFunction;
 			//void*			pData;
 		};
+
 		struct sWaitEmitEvent
 		{
 			unsigned int	usID;
 			void*			pData;
+			char			cData[WAIT_EMIT_EVENT_DATA_SIZE];
+			sWaitEmitEvent() { pData = nullptr; memset(cData, sizeof(char), WAIT_EMIT_EVENT_DATA_SIZE); }
+			~sWaitEmitEvent() {}
 		};
 	public:
 		std::vector<cMessageSender*>	m_AllMessageSenderVector;
 		//vector<size_t> as many as senders.
-		std::map< unsigned int,std::vector<sNetworkMessageFunctionAndObjectID*> >	m_NetworkMessageFunctionAndObjectIDMap;
-		//fic memory leak problem
-		std::map< unsigned int,std::vector<sEventFunctionAndType*> >				m_EventFunctionAndTypeMap;
+		std::map< unsigned int, std::vector<sNetworkMessageFunctionAndObjectID*> >	m_NetworkMessageFunctionAndObjectIDMap;
+		//fix memory leak problem
+		std::map< unsigned int, std::vector<sEventFunctionAndType*> >				m_EventFunctionAndTypeMap;
 		//
-		//void	RemoveObject(cMessageSender*e_pMessageSender);
-		//void	AddObject(cMessageSender*e_pMessageSender);
 		std::vector<sWaitEmitEvent*>									m_WaitForEmitEvent;
 	public:
 		cMessageSenderManager();
 		~cMessageSenderManager();
-		bool NetworkMessageShot(unsigned int e_usID,FATMING_CORE::sReceivedPacket* e_pPacket);
-		bool EventMessageShot(unsigned int e_usID,void*e_pData);
+		bool NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sReceivedPacket* e_pPacket);
+		bool EventMessageShot(unsigned int e_usID, void*e_pData);
+		//ensure size is small than WAIT_EMIT_EVENT_DATA_SIZE
+		bool EventMessageShot(unsigned int e_usID, char*e_pData, int e_iSize);
 		//for emit event for frame
 		void	Update(float e_fElpaseTime);
 	};
 
 
-	template <class T>bool	cMessageSender::RegNetworkMessageFunction(unsigned int e_usID,NetworkMessageFunction e_MessageFunction)
+	template <class T>bool	cMessageSender::RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction)
 	{
 		Setparent();
-		if( this->m_NetworkMessageFunctionMap.find(e_usID) != m_NetworkMessageFunctionMap.end())
+		if (this->m_NetworkMessageFunctionMap.find(e_usID) != m_NetworkMessageFunctionMap.end())
 			return false;
 		m_NetworkMessageFunctionMap[e_usID] = e_MessageFunction;
 
@@ -103,11 +107,11 @@ namespace FATMING_CORE
 		l_sMessageFunctionAndType.f_NetworkMessageFunction = e_MessageFunction;
 		l_sMessageFunctionAndType.uiAddress = (size_t)this;
 		m_NetworkMessageFunctionMap[e_usID] = e_MessageFunction;
-		if( m_pParent )
+		if (m_pParent)
 		{
 			std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID*>*l_pVector = nullptr;
 			auto l_Iterator = m_pParent->m_NetworkMessageFunctionAndObjectIDMap.find(e_usID);
-			if( l_Iterator == m_pParent->m_NetworkMessageFunctionAndObjectIDMap.end() )
+			if (l_Iterator == m_pParent->m_NetworkMessageFunctionAndObjectIDMap.end())
 			{
 				std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID*>	l_Temp;
 				m_pParent->m_NetworkMessageFunctionAndObjectIDMap[e_usID] = l_Temp;

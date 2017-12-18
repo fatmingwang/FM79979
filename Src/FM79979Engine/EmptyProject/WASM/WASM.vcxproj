@@ -204,7 +204,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>
@@ -222,7 +222,7 @@
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
     </Link>
   </ItemDefinitionGroup>

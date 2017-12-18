@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Emscripten">
+      <Configuration>Debug</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Emscripten">
+      <Configuration>Release</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D0047C04-7DB5-4F46-B175-742FDE7863F6}</ProjectGuid>
+    <RootNamespace>MusicGameWASM</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>HTMLPage</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>HTMLPage</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <ClCompile>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <PreprocessorDefinitions>WASM;DEBUG</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <PreloadFile>../assets_WASM</PreloadFile>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ClCompile>
+      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\MusicGame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <PreloadFile>../assets_WASM</PreloadFile>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\MusicGame\FFTFindPeak.cpp" />
+    <ClCompile Include="..\MusicGame\FFTFrequency.cpp" />
+    <ClCompile Include="..\MusicGame\FFTStoreExporter.cpp" />
+    <ClCompile Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.cpp" />
+    <ClCompile Include="..\MusicGame\KissFFTConvert.cpp" />
+    <ClCompile Include="..\MusicGame\KissFFTFunction.cpp" />
+    <ClCompile Include="..\MusicGame\KissFFTStreaming.cpp" />
+    <ClCompile Include="..\MusicGame\MusicGameApp.cpp" />
+    <ClCompile Include="..\MusicGame\MusicInfo.cpp" />
+    <ClCompile Include="..\MusicGame\Parameters.cpp" />
+    <ClCompile Include="..\MusicGame\PerformMusicPhase.cpp" />
+    <ClCompile Include="..\MusicGame\PerformMusicPhaseUI.cpp" />
+    <ClCompile Include="..\MusicGame\PerformScoreCalculate.cpp" />
+    <ClCompile Include="..\MusicGame\SelectMusicPhase.cpp" />
+    <ClCompile Include="..\MusicGame\SelectMusicPhaseUI.cpp" />
+    <ClCompile Include="..\MusicGame\SoundBufferSwaper.cpp" />
+    <ClCompile Include="..\MusicGame\SoundFFTCapture.cpp" />
+    <ClCompile Include="..\MusicGame\SoundTestButtons.cpp" />
+    <ClCompile Include="..\MusicGame\SoundTimeLineData.cpp" />
+    <ClCompile Include="..\MusicGame\SoundTimeLineVisualizer.cpp" />
+    <ClCompile Include="..\MusicGame\StoreNoisePhase.cpp" />
+    <ClCompile Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.cpp" />
+    <ClCompile Include="..\MusicGame\TimelineBasicInfo.cpp" />
+    <ClCompile Include="..\MusicGame\ToneData.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="WASMMain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MusicGame\AllPhaseName.h" />
+    <ClInclude Include="..\MusicGame\FFTFindPeak.h" />
+    <ClInclude Include="..\MusicGame\FFTFrequency.h" />
+    <ClInclude Include="..\MusicGame\FFTStoreExporter.h" />
+    <ClInclude Include="..\MusicGame\FindTimeDomainFrequenceAndAmplitude.h" />
+    <ClInclude Include="..\MusicGame\KissFFTConvert.h" />
+    <ClInclude Include="..\MusicGame\KissFFTFunction.h" />
+    <ClInclude Include="..\MusicGame\KissFFTStreaming.h" />
+    <ClInclude Include="..\MusicGame\MusicGameApp.h" />
+    <ClInclude Include="..\MusicGame\MusicInfo.h" />
+    <ClInclude Include="..\MusicGame\Parameters.h" />
+    <ClInclude Include="..\MusicGame\PerformMusicPhase.h" />
+    <ClInclude Include="..\MusicGame\PerformScoreCalculate.h" />
+    <ClInclude Include="..\MusicGame\SelectMusicPhase.h" />
+    <ClInclude Include="..\MusicGame\SoundBufferSwaper.h" />
+    <ClInclude Include="..\MusicGame\SoundFFTCapture.h" />
+    <ClInclude Include="..\MusicGame\SoundTestButtons.h" />
+    <ClInclude Include="..\MusicGame\SoundTimeLineData.h" />
+    <ClInclude Include="..\MusicGame\SoundTimeLineVisualizer.h" />
+    <ClInclude Include="..\MusicGame\StoreNoisePhase.h" />
+    <ClInclude Include="..\MusicGame\TimeFrequencyAmplitudeValueCapture.h" />
+    <ClInclude Include="..\MusicGame\TimelineBasicInfo.h" />
+    <ClInclude Include="..\MusicGame\ToneData.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
+      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Math\MathParser\MathParser.vcxproj">
+      <Project>{5c1f4bc1-20c6-40d1-b0b8-bec8f333dc99}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\kiss_fft130\kiss_fft130.vcxproj">
+      <Project>{78b7e03f-8b8d-4bbb-8076-21ea89d028f6}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

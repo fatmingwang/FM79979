@@ -255,6 +255,9 @@
     <Filter Include="GameplayUT\Language">
       <UniqueIdentifier>{0de65bcd-c97f-4e40-b53d-e893fe9e3dcd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\Preload">
+      <UniqueIdentifier>{deb9534d-4217-451f-9603-00d8ad437de2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -709,6 +712,9 @@
     </ClCompile>
     <ClCompile Include="Network\SDLnetUDP.cpp">
       <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Preload\PreloadResource.cpp">
+      <Filter>GameplayUT\Preload</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1230,6 +1236,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Language\LanguageFile.h">
       <Filter>GameplayUT\Language</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Preload\PreloadResource.h">
+      <Filter>GameplayUT\Preload</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "../../AllLibInclude.h"
-#include "GameApp.h"
+#include "../MusicGame/MusicGameApp.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
 cGameApp*g_pGameApp = 0;
@@ -21,15 +21,15 @@ void handle_key_up(SDL_keysym* keysym)
 
 void handle_key_down(SDL_keysym* keysym)
 {
-	switch (keysym->sym) 
+	switch (keysym->sym)
 	{
-		case SDLK_ESCAPE:
-			break;
-		case SDLK_SPACE:
-			
-			break;
-		default:
-			break;
+	case SDLK_ESCAPE:
+		break;
+	case SDLK_SPACE:
+
+		break;
+	default:
+		break;
 	}
 }
 
@@ -42,23 +42,23 @@ void process_events(void)
 		{
 			switch (event.type)
 			{
-				case SDL_KEYDOWN:
-					handle_key_down(&event.key.keysym);
-					break;
-				case SDL_KEYUP:
-					handle_key_up(&event.key.keysym);
-					break;
-				case SDL_QUIT:
-					break;
-				case SDL_MOUSEMOTION:
-					g_pGameApp->MouseMove(event.motion.x, event.motion.y);
-					break;
-				case SDL_MOUSEBUTTONDOWN:
-					g_pGameApp->MouseDown(event.motion.x, event.motion.y);
-					break;
-				case SDL_MOUSEBUTTONUP:
-					g_pGameApp->MouseUp(event.motion.x, event.motion.y);
-					break;
+			case SDL_KEYDOWN:
+				handle_key_down(&event.key.keysym);
+				break;
+			case SDL_KEYUP:
+				handle_key_up(&event.key.keysym);
+				break;
+			case SDL_QUIT:
+				break;
+			case SDL_MOUSEMOTION:
+				g_pGameApp->MouseMove(event.motion.x, event.motion.y);
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				g_pGameApp->MouseDown(event.motion.x, event.motion.y);
+				break;
+			case SDL_MOUSEBUTTONUP:
+				g_pGameApp->MouseUp(event.motion.x, event.motion.y);
+				break;
 			}
 		}
 	}
@@ -106,7 +106,7 @@ int main()
 	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
 	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
 	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
-	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
+	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
 	}
@@ -123,10 +123,8 @@ int main()
 	if (l_pSurf_Display)
 	{
 		cGameApp::m_sbDebugFunctionWorking = true;
-		cGameApp::m_svGameResolution.x = 1920;
-		cGameApp::m_svGameResolution.y = 1080;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
-		emscripten_set_main_loop(&Loop, 0 ,1);
+		//g_pGameApp = new cMusicGameApp(g_hWnd, cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		emscripten_set_main_loop(&Loop, 0, 1);
 	}
 	return 0;
 }

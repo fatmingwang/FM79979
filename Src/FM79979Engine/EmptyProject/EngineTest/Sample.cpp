@@ -59,7 +59,7 @@ void	LoadSample()
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
-	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("assets/MainBG.ogg");
+	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("MainBG.ogg");
 #else
 	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
 #endif
@@ -106,7 +106,7 @@ void	LoadSample()
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
 #ifdef WASM
-	std::wstring l_strMPDIResultFileName = L"assets/MPDI/bgrounda01.mpdi";
+	std::wstring l_strMPDIResultFileName = L"bgrounda01.mpdi";
 #else
 	std::wstring l_strMPDIResultFileName = L"MyFMBook/AnimationDemo/MPDI/bgrounda01.mpdi";
 #endif

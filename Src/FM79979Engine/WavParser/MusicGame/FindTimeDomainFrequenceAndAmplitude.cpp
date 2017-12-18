@@ -191,8 +191,8 @@ cNoteFrequencyAndDecibles::~cNoteFrequencyAndDecibles()
 bool cNoteFrequencyAndDecibles::ProcessData(TiXmlElement*e_pFFTHitCountAndTimeElement)
 {
 	e_pFFTHitCountAndTimeElement = e_pFFTHitCountAndTimeElement->FirstChildElement();
-	m_iFFTcount;
-	m_iFrequency;
+	//m_iFFTcount;
+	//m_iFrequency;
 	PARSE_ELEMENT_START(e_pFFTHitCountAndTimeElement)
 		COMPARE_NAME("StartTime")
 		{

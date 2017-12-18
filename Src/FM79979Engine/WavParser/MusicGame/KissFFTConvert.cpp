@@ -360,8 +360,8 @@ void	cKissFFTConvert::PreProcessedAllData(cFFTDecibelsAnalyzer*e_pFFTDataStore)
 
 	SAFE_DELETE(l_pfWindowFunctionConstantValue);
 	free(l_pkiss_fft_state);
-	SAFE_DELETE(l_pKiss_FFT_In);
-	SAFE_DELETE(l_pKiss_FFT_Out);
+	delete[] l_pKiss_FFT_In;
+	delete[] l_pKiss_FFT_Out;
 	m_Timer.Update();
 	double l_dbElpaseTime = m_Timer.fElpaseTime;
 	std::wstring l_strDebugInfo = L"PreProcessedAllData spent:";

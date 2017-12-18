@@ -14,7 +14,7 @@
 
 cFFTBinStatus::sFFTBinData::sFFTBinData()
 {
-	memset(this,0,sizeof(this));
+	memset(this,0,sizeof(cFFTBinStatus));
 	eCurrentMoveDirection = eMD_MAX;
 }
 
