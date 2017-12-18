@@ -21,4 +21,11 @@ ParticalEditor.exe
 FM79979\Doc\FM79979\Particle
 http://wordpress-tw.marcpov.com/first-smoke-fx.htm
 
+=========================================
+WASM build tools
+pleae take look at 
+Doc\WASM VS tools
 
+
+more ermscripten example
+https://github.com/reklatsmasters/webassembly-examples
