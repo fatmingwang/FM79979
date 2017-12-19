@@ -66,7 +66,8 @@ void process_events(void)
 
 void Loop()
 {
-	g_pGameApp->Run();
+	if(g_pGameApp)
+		g_pGameApp->Run();
 	if (g_pPreLoadFromInternet)
 	{
 		g_pPreLoadFromInternet->Run();
@@ -74,8 +75,11 @@ void Loop()
 		{
 			SAFE_DELETE(g_pPreLoadFromInternet);
 			cGameApp::OutputDebugInfoString("finish pre-download files");
-			g_pGameApp->Init();
-			g_pGameApp->m_svBGColor = Vector4::Red;
+			if (g_pGameApp)
+			{
+				g_pGameApp->Init();
+				g_pGameApp->m_svBGColor = Vector4::Red;
+			}
 		}
 	}
 	else
@@ -119,11 +123,16 @@ int main()
 	}
 	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 	g_pPreLoadFromInternet = new cPreLoadFromInternet();
-	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
+	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets_WASM/PreloadFile.xml");
 	if (l_pSurf_Display)
 	{
-		cGameApp::m_sbDebugFunctionWorking = true;
-		//g_pGameApp = new cMusicGameApp(g_hWnd, cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		//cGameApp::m_sbDebugFunctionWorking = true;
+		cGameApp::m_svGameResolution.x = 2208;
+		cGameApp::m_svGameResolution.y = 1242;
+		g_pGameApp = new cMusicGameApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		g_pGameApp->m_spGlyphFontRender = new cGlyphFontRender("assets_WASM/Font", 3000);
+		cGameApp*l_pGameApp = g_pGameApp;
+		l_pGameApp->Init();
 		emscripten_set_main_loop(&Loop, 0, 1);
 	}
 	return 0;
