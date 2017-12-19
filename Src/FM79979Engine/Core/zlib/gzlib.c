@@ -4,9 +4,10 @@
  */
 
 #include "gzguts.h"
-
 #ifdef _LARGEFILE64_SOURCE
 #  define LSEEK lseek64
+#elif defined(WASM)
+#  define LSEEK fseek
 #else
 #  define LSEEK lseek
 #endif

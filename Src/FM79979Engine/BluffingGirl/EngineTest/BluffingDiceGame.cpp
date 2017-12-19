@@ -40,7 +40,7 @@ void	cBluffingDiceGame::cBattleRoundData::Init()
 	m_iCurrentLoseCount = 0;
 	if( !m_pHintMPDI )
 	{
-		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Image/GamePlay.mpdi");
+		cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/GamePlay.mpdi");
 		cMPDI*l_pMPDI = l_pMPDIList->GetObject(L"Pass_Necessary");
 		if( l_pMPDI )
 		{
@@ -94,11 +94,11 @@ void	cBluffingDiceGame::cBattleRoundData::ResultLog(int e_iWinIndex)
 {
 	if( e_iWinIndex == 0 )
 	{
-		cGameApp::SoundPlay(L"Sound/win.wav",true);
+		cGameApp::SoundPlay(L"BluffingGirl/Sound/win.wav",true);
 	}
 	else
 	{
-		cGameApp::SoundPlay(L"Sound/lose.wav",true);
+		cGameApp::SoundPlay(L"BluffingGirl/Sound/lose.wav",true);
 	}
 	std::wstring	l_str = e_iWinIndex == 0?L"PlayerWin	":L"AIWin	";
 	l_str += L"AIWinCount = ,	";
@@ -131,7 +131,7 @@ cBluffingDiceGame::cBluffingDiceGame()
 	m_pShowMPDI = 0;
 	m_bLastStage = false;
 	m_strBGFileName = L"Image/Girl/Girl1/BG.png";
-	m_strGameSetupFileName = "PhaseData/GirlStage/GameSetup/EasyMode.xml";
+	m_strGameSetupFileName = "BluffingGirl/PhaseData/GirlStage/GameSetup/EasyMode.xml";
 	m_pBGImage = 0;
 	m_pResultMPDI = 0;
 	m_eCatchType = eCT_NO_CATCH;
@@ -907,7 +907,7 @@ void	cBluffingDiceGame::UpdateDiceShakeVideo(float e_fElpaseTime)
 		{
 			m_pVideo->Destroy();
 			m_eGameStatus = eGS_CLAIRVOYANT_USE_CHOICE;
-			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/BG.ogg");
+			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/BG.ogg");
 			if(l_pSound)
 			{
 				l_pSound->Play(true);
@@ -977,7 +977,7 @@ void	cBluffingDiceGame::UpdateResultVideo(float e_fElpaseTime)
 						{
 							this->m_bSatisfiedCondition = true;
 							m_strNextPhaseName = CHOICE_GIRL_PHASE_NAME;
-							cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+							cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 							if(l_pSound)
 							{
 								l_pSound->Play(true);
@@ -1050,7 +1050,7 @@ void	cBluffingDiceGame::Update(float e_fElpaseTime)
 		Destroy();
 		if(!wcscmp(CHOICE_GIRL_PHASE_NAME,m_strNextPhaseName.c_str()))
 		{
-			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 			if(l_pSound)
 			{
 				l_pSound->Play(true);
@@ -1074,7 +1074,7 @@ void	cBluffingDiceGame::CallDiceImageUpdate(int e_iCount,int e_iPoint,bool e_bPl
 		if( m_pDiceCallSound  )	
 			m_pDiceCallSound->Release(this);
 		char	l_strSoundFileName[MAX_PATH];
-		sprintf(l_strSoundFileName,"Sound/%d%d.wav",m_iCallDiceCountIndex+1,m_iCallDicePoint+1);
+		sprintf(l_strSoundFileName,"BluffingGirl/Sound/%d%d.wav",m_iCallDiceCountIndex+1,m_iCallDicePoint+1);
 		m_pDiceCallSound = new cOpanalWAV(this,l_strSoundFileName,false);
 		m_pDiceCallSound->Play(true);
 	}
@@ -1265,7 +1265,7 @@ void	cBluffingDiceGame::FetchData(const WCHAR*e_strPhaseName,void*e_pData)
 		{
 			//check all gir's final stage is unlocked and get newest unlock girl name
 			cNodeISAX	l_AllStageFile;
-			if(l_AllStageFile.ParseDataIntoXMLNode("PhaseData/AllStage.xml"))
+			if(l_AllStageFile.ParseDataIntoXMLNode("BluffingGirl/PhaseData/AllStage.xml"))
 			{
 				//first finr current girl index
 				TiXmlElement*l_pElemnt = l_AllStageFile.GetRootElement();
@@ -1379,7 +1379,7 @@ void	cBluffingDiceGame::UpdateUseChairvoyant(float e_fElpaseTime)
 				m_pBluffingDiceAI->SetCheatEnable(!*g_pbUseClairvoyant);
 		}
 		ChangeDiceShowImage();
-		cGameApp::SoundPlay(L"Sound/DiceShaka.wav",true);
+		cGameApp::SoundPlay(L"BluffingGirl/Sound/DiceShaka.wav",true);
 	}
 }
 

@@ -84,7 +84,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -131,7 +136,7 @@
       <PreprocessorDefinitions>WASM;DEBUG</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <PreloadFile>../assets_WASM</PreloadFile>
+      <PreloadFile>./assets</PreloadFile>
       <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -141,7 +146,7 @@
       <AdditionalIncludeDirectories>..\MusicGame;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <PreloadFile>../assets_WASM</PreloadFile>
+      <PreloadFile>./assets</PreloadFile>
       <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>

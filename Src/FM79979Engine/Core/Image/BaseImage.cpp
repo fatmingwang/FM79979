@@ -45,8 +45,8 @@ namespace FATMING_CORE
 
 	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage),Frame(e_pBaseImage)
 	{
+		m_pTexture = nullptr;
 		SetTexBehaviorData(e_pBaseImage);
-		m_pTexture->AddRef(this);
 	}
 
 	//<cBaseImage ImageName="" Pos="" Color="" Width="" Height="" FetchPixel="0" />
@@ -86,7 +86,7 @@ namespace FATMING_CORE
 	}
 	cBaseImage::~cBaseImage()
 	{
-		m_pTexture->Release(this);
+		SAFE_RELEASE(m_pTexture, this);
 	}
 	//===============
 	//
@@ -241,7 +241,10 @@ namespace FATMING_CORE
 	void	cBaseImage::SetTexBehaviorData(cBaseImage*e_pBaseImage)
 	{
 		this->SetName(e_pBaseImage->GetName());
+		SAFE_RELEASE(m_pTexture, this);
 		m_pTexture = e_pBaseImage->m_pTexture;
+		if (m_pTexture)
+			m_pTexture->AddRef(this);
 		m_OriginalSize = e_pBaseImage->m_OriginalSize;
 		memcpy(this->m_fUV,e_pBaseImage->GetUV(),sizeof(float)*4);
 		m_bMirror = e_pBaseImage->m_bMirror;

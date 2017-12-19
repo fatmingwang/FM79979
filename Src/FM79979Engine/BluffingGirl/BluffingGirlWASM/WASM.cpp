@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "../../AllLibInclude.h"
-#include "../MusicGame/MusicGameApp.h"
+#include "BluffingGirlApp.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
 cGameApp*g_pGameApp = 0;
@@ -66,7 +66,7 @@ void process_events(void)
 
 void Loop()
 {
-	if(g_pGameApp)
+	if (g_pGameApp)
 		g_pGameApp->Run();
 	if (g_pPreLoadFromInternet)
 	{
@@ -126,9 +126,9 @@ int main()
 	if (l_pSurf_Display)
 	{
 		//cGameApp::m_sbDebugFunctionWorking = true;
-		cGameApp::m_svGameResolution.x = 2208;
-		cGameApp::m_svGameResolution.y = 1242;
-		g_pGameApp = new cMusicGameApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		cGameApp::m_svGameResolution.x = 1280;
+		cGameApp::m_svGameResolution.y = 720;
+		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		emscripten_set_main_loop(&Loop, 0, 1);
 	}
 	return 0;

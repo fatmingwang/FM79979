@@ -77,7 +77,7 @@ std::string		ConvertIP(const char*e_strIP)
 		strtok(0,"."),
 		strtok(0,".")
 	};
-	int	l_iAddLength[4] = {3-strlen(l_strStripIP[0]),3-strlen(l_strStripIP[1]),3-strlen(l_strStripIP[2]),3-strlen(l_strStripIP[3])};
+	int	l_iAddLength[4] = {3-(int)strlen(l_strStripIP[0]),3- (int)strlen(l_strStripIP[1]),3- (int)strlen(l_strStripIP[2]),3- (int)strlen(l_strStripIP[3])};
 	std::string	l_strIP;
 	for( int i=0;i<4;++i )
 	{
@@ -253,7 +253,7 @@ void	cNetWorkConnectPhase::Init()
 	Destroy();
 	cBluffingGirlApp::m_spGameNetwork->Init();
 	m_eConnectStep = eCS_SELECT_SERVER_OR_CLIENT;
-	PARSE_FAILED_MESSAGE_BOX(this,"PhaseData/NetWorkConnectPhase.xml");
+	PARSE_FAILED_MESSAGE_BOX(this,"BluffingGirl/PhaseData/NetWorkConnectPhase.xml");
 	m_iTotalPlayer = 0;
 	m_iConnectedPlayerCount = 1;
 	m_iPlayerIDIndex = -1;

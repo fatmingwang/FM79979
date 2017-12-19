@@ -9,7 +9,7 @@ cWinPrizePhase::cWinPrizePhase()
 	m_TimeToHideButton.SetTargetTime(3.f);
 	m_bFirstMouseUpForShowLeaveButton = false;
 	m_pLeaveButton = 0;
-	this->Parse("PhaseData/WinPrizePhase.xml");
+	this->Parse("BluffingGirl/PhaseData/WinPrizePhase.xml");
 }
 
 cWinPrizePhase::~cWinPrizePhase()
@@ -50,7 +50,10 @@ void	cWinPrizePhase::Init()
 	if(!m_pFMPlayer->OpenFile(UT::WcharToChar(m_strVideoFileName.c_str()).c_str()))
 	{
 		this->m_bSatisfiedCondition = true;
-		UT::ErrorMsg(L"file is not exist",m_strVideoFileName.c_str());
+		std::wstring l_str = m_strVideoFileName;
+		l_str += L" file is not exist";
+		cGameApp::OutputDebugInfoString(l_str);
+		//UT::ErrorMsg(L"file is not exist",m_strVideoFileName.c_str());
 		//file is not exists
 		return;
 	}
@@ -92,7 +95,7 @@ void	cWinPrizePhase::Update(float e_fElpaseTime)
 		wcscmp(SETUP_PHASE_NAME,m_strNextPhaseName.c_str()))
 	{
 		Destroy();
-		cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+		cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 		if(l_pSound)
 		{
 			l_pSound->Play(true);

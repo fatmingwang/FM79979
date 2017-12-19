@@ -339,7 +339,7 @@ void	cChoiceGirlStagePhase::Init()
 	}
 	m_MainfunctionButton.Init();
 	//
-	ParseGirlStagePhseData("PhaseData/GirlStage/GirlStageChoicePhase.xml");
+	ParseGirlStagePhseData("BluffingGirl/PhaseData/GirlStage/GirlStageChoicePhase.xml");
 	//
 	m_strNextPhaseName = L"";
 	m_iLatestGameCouldBePlay = -1;
@@ -483,7 +483,7 @@ void	cChoiceGirlStagePhase::UpdateSelectStage(float e_fElpaseTime)
 				cGameApp::m_spSoundParser->RemoveAllBGM();
 			}
 
-			if( this->m_pScroller && m_pScroller->GetCurrentWorkingObjectIndex() != -1 && (m_pPlayGameButton && m_pPlayGameButton->IsSatisfiedCondition() || m_SelectedGirlImage.IsSatisfiedCondition() ) )
+			if( this->m_pScroller && m_pScroller->GetCurrentWorkingObjectIndex() != -1 && ((m_pPlayGameButton && m_pPlayGameButton->IsSatisfiedCondition()) || m_SelectedGirlImage.IsSatisfiedCondition() ) )
 			{
 				m_eSelectStageTYpe = eSST_INTO_GAME;
 				m_pPlayGameButton->Init();
@@ -652,7 +652,7 @@ void	cChoiceGirlStagePhase::FetchData(const WCHAR*e_strPhaseName,void*e_pData)
 	{
 		const WCHAR*l_strSelectedGirlName = (const WCHAR*)e_pData;
 		m_strCurrentSelectedGirlName = l_strSelectedGirlName;
-		m_strFileName = "PhaseData/GirlStage/";
+		m_strFileName = "BluffingGirl/PhaseData/GirlStage/";
 		m_strFileName += UT::WcharToChar(m_strCurrentSelectedGirlName.c_str());
 		m_strFileName += ".xml";
 	}

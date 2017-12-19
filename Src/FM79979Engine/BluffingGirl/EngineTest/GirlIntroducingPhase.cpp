@@ -10,7 +10,7 @@ cGirlIntroducingPhase::cGirlIntroducingPhase()
 	m_TimeToHideButton.SetTargetTime(3.f);
 	m_bFirstMouseUpForShowLeaveButton = false;
 	m_pLeaveButton = 0;
-	this->Parse("PhaseData/GirlIntroducingPhase.xml");
+	this->Parse("BluffingGirl/PhaseData/GirlIntroducingPhase.xml");
 }
 
 cGirlIntroducingPhase::~cGirlIntroducingPhase()
@@ -52,7 +52,10 @@ void	cGirlIntroducingPhase::Init()
 	if(!m_pFMPlayer->OpenFile(UT::WcharToChar(m_strVideoFileName.c_str()).c_str()))
 	{
 		this->m_bSatisfiedCondition = true;
-		UT::ErrorMsg(L"file is not exist",m_strVideoFileName.c_str());
+		std::wstring l_str = m_strVideoFileName;
+		l_str += L" file is not exist";
+		cGameApp::OutputDebugInfoString(l_str);
+		//UT::ErrorMsg(L"file is not exist",m_strVideoFileName.c_str());
 		SAFE_DELETE(m_pFMPlayer);
 		//file is not exists
 		return;

@@ -46,7 +46,7 @@ void	cShowLogoPhase::Init()
 	SAFE_DELETE(m_pUnpackExpansionPack);
 	m_pUnpackExpansionPack = new cUnpackExpansionPack();
 	m_bGotoMainPhase = false;
-	cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Image/Title.mpdi");
+	cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Title.mpdi");
 	if( l_pMPDIList )
 	{
 		m_pBGMPDI = l_pMPDIList->GetObject(L"Title");
@@ -57,7 +57,7 @@ void	cShowLogoPhase::Init()
 			m_pBGMPDI->Update(0.5f);
 		}
 	}
-	g_pLogoMusic = new cOpanalOgg(this,"Sound/Opening.ogg",true);
+	g_pLogoMusic = new cOpanalOgg(this,"BluffingGirl/Sound/Opening.ogg",true);
 	if(g_pLogoMusic)
 	{
 		g_pLogoMusic->Play(true);
@@ -100,7 +100,7 @@ void	cShowLogoPhase::Update(float e_fElpaseTime)
 					this->Destroy();
 					//
 					cGameApp::m_spSoundParser->RemoveAllBGM();
-					cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+					cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 					if(l_pSound)
 					{
 						l_pSound->Play(true);

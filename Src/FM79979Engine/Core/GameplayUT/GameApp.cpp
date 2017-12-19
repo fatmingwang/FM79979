@@ -166,7 +166,8 @@ namespace	FATMING_CORE
 		PrintMemoryInfo();
 		if (e_Hwnd)
 		{
-			OpenglInit(e_Hwnd);
+			m_sHdc = GetDC(e_Hwnd);
+			m_sHGLRC = UT::InitOpenGL(e_Hwnd, true, m_sHdc, cGameApp::m_sbMultisample);
 			//m_sHdc = GetDC(e_Hwnd);
 			m_sHandle = e_Hwnd;
 		}
@@ -207,6 +208,9 @@ namespace	FATMING_CORE
 		//std::string l_str222 = UT::WcharToChar(l_str111);
 		//const char* l_str333 = l_str222.c_str();
 		//SystemErrorCheck();
+#ifdef WASM
+		cGameApp::Init();
+#endif
 	}
 
 	cGameApp::~cGameApp()
@@ -228,15 +232,11 @@ namespace	FATMING_CORE
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
 		NamedTypedObject::DumpUnReleaseInfo();
 	}
-#ifdef WIN32
-	void	cGameApp::OpenglInit(HWND e_Hwnd)
-	{
-		m_sHdc = GetDC(e_Hwnd);
-		m_sHGLRC = UT::InitOpenGL(e_Hwnd, true, m_sHdc, cGameApp::m_sbMultisample);
-	}
-#endif
+
 	void	cGameApp::Init()
 	{
+		if (m_spGlyphFontRender)
+			return;
 #ifdef DEBUG
 		DumpGraphicsInfo();
 #endif

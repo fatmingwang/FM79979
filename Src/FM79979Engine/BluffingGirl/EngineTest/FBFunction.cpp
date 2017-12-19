@@ -8,7 +8,7 @@ bool	SetupFBInfo()
 {
 #ifdef ANDROID
 	cNodeISAX	l_XmlNode;
-	if(l_XmlNode.ParseDataIntoXMLNode("PhaseData/FBLinkInfo.xml"))
+	if(l_XmlNode.ParseDataIntoXMLNode("BluffingGirl/PhaseData/FBLinkInfo.xml"))
 	{
 		TiXmlElement*l_pRoot = l_XmlNode.GetRootElement();
 		const WCHAR*l_strName = l_pRoot->Attribute(L"Name");
@@ -40,7 +40,7 @@ cFBFunction::cFBFunction()
 {
 	m_pFBSharePrizeConfirmPopUpMessager = 0;
 	//cPhasePopUpMessager*	m_pFBSharePrizeConfirmPopUpMessager;
-	cBluffingGirlApp::RegisterPopupSystemMessenger("PhaseData/FBPrize.xml");
+	cBluffingGirlApp::RegisterPopupSystemMessenger("BluffingGirl/PhaseData/FBPrize.xml");
 
 	m_pFBSharePrizeConfirmPopUpMessager = cBluffingGirlApp::GetPopupSystemMessenger(L"FBPrize");;
 #ifdef ANDROID

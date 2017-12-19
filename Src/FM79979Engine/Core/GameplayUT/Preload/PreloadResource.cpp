@@ -63,6 +63,7 @@ namespace FATMING_CORE
 		std::string l_strFileName = e_strFileName;
 		m_strDownloadFailedFileName.push_back(l_strFileName);
 		m_bWaitForDownloadFromInternet = false;
+		//++m_iCurrentResourceIndex;
 	}
 
 	bool	cPreLoadFromInternet::Init(const char*e_strPreloadFileName)

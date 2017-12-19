@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{6f6d5a65-5c30-402b-bc5a-188f1eda8c3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\DownloadFile">
+      <UniqueIdentifier>{5152e862-8afb-4751-84d4-e6dd395e8ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\FB">
+      <UniqueIdentifier>{89c26acb-ed0b-49b5-94f6-7aaab0a98c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\IAB">
+      <UniqueIdentifier>{8d1fddc3-6f35-41bc-b19a-c637fb5acc8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MainFunctionButton">
+      <UniqueIdentifier>{2fc55cd1-b5b8-4401-b863-5617da2082c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{ddb8c2fb-7be7-4250-a038-865b739af096}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{f60e8117-3d8a-4ac4-a964-bed330277bc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Unzip">
+      <UniqueIdentifier>{e74bdc47-3ec0-4afc-b761-a9674a88398e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo">
+      <UniqueIdentifier>{9d89a463-9ce1-414a-a6ee-dbf3df623450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\UnpackExpansionPack">
+      <UniqueIdentifier>{6c9c7c55-76df-4762-a7b3-edbad6bc5206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title">
+      <UniqueIdentifier>{61718ea0-9d9a-4ba2-81eb-f2311f76c84e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\GameRulePhase">
+      <UniqueIdentifier>{7a4787d3-16fa-4d98-9abb-e8e3dbaedfda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\NetworkConnect">
+      <UniqueIdentifier>{534aab97-b50a-42d0-ab89-5b5777f03ebe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu">
+      <UniqueIdentifier>{fbbb858e-5b59-4f22-816a-0de1b183a338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\NetworkConnect\BluffingDiceMultiPlayrGame">
+      <UniqueIdentifier>{95ec2b41-079c-4169-93eb-ff960cb40a96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\NetworkConnect\NetWork">
+      <UniqueIdentifier>{af0737c9-4d7e-4361-95cf-f3fb52e6ab57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase">
+      <UniqueIdentifier>{79d3fda8-3de7-456c-bea9-dea7c7ed0291}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB">
+      <UniqueIdentifier>{680693c2-e856-4626-bd00-faf11e2c8dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase">
+      <UniqueIdentifier>{022452da-c8a4-44d5-bf7d-c438d1f31100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup">
+      <UniqueIdentifier>{1eb37c62-cc2e-451e-ae31-6d79b7803b8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store">
+      <UniqueIdentifier>{fe3dec6a-424d-4343-ab4b-b2e7b0cbbc4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase">
+      <UniqueIdentifier>{f64476ec-3816-44c8-9562-743e710cb989}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\DownloadFilePhase">
+      <UniqueIdentifier>{9fa3ae1f-7b7e-44f1-b472-c607e18fea2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StageClearFile">
+      <UniqueIdentifier>{60aec7f4-16f5-4aaa-bd52-9ff3f88e668a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase">
+      <UniqueIdentifier>{01d601d0-b44b-440f-8e0f-a9541c020af9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\WinPrizePhase">
+      <UniqueIdentifier>{a9cc8d9f-3cc0-4d0c-a4a8-a6f5400662d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI">
+      <UniqueIdentifier>{3ca20610-2da7-4270-8dda-a652c5dc1454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable">
+      <UniqueIdentifier>{0358de64-f591-49ee-ab0c-3ea9999884a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability">
+      <UniqueIdentifier>{4dbf5458-911f-48bd-8068-547828ed011c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WASM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingGirlApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\DownloadFile.cpp">
+      <Filter>Game\DownloadFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\FBFunction.cpp">
+      <Filter>Game\FB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\IABSetup.cpp">
+      <Filter>Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\IABWindowsDeviceFunction.cpp">
+      <Filter>Game\IAB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\MainFunctionButton.cpp">
+      <Filter>Game\MainFunctionButton</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\Unzip.cpp">
+      <Filter>Game\Unzip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\PlayerData.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\UnpackExpansionPack.cpp">
+      <Filter>Game\Phase\UnpackExpansionPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\GameRulePhase.cpp">
+      <Filter>Game\Phase\Logo\Title\GameRulePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingDiceMultiPlayerGame.cpp">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect\BluffingDiceMultiPlayrGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\GameNetwork.cpp">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\NetWorkConnectPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingDiceAI.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\DiceTable.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingGameProbability.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingDiceGame.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\GirlIntroducingPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\SpecialDiceRule.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\WinPrizePhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\WinPrizePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\ChoiceGirlPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\ChoiceGirlStagePhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\DownloadContentPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\DownloadFilePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\StageClearFile.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StageClearFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\FBPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\HeartRecoverPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\HeartRecoverSelectGirlPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\SetupPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\StorePhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\MainMenuPhase.cpp">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\TitlePhase.cpp">
+      <Filter>Game\Phase\Logo\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\ShowLogoPhase.cpp">
+      <Filter>Game\Phase\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\BluffingGirlPhaseManager.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingGirlApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\DownloadFile.h">
+      <Filter>Game\DownloadFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\FBFunction.h">
+      <Filter>Game\FB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\IABSetup.h">
+      <Filter>Game\IAB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\MyJni.h">
+      <Filter>Game\IAB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\MainFunctionButton.h">
+      <Filter>Game\MainFunctionButton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\Unzip.h">
+      <Filter>Game\Unzip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\PlayerData.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\UnpackExpansionPack.h">
+      <Filter>Game\Phase\UnpackExpansionPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\GameRulePhase.h">
+      <Filter>Game\Phase\Logo\Title\GameRulePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingDiceMultiPlayerGame.h">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect\BluffingDiceMultiPlayrGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\GameNetwork.h">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\NetWorkConnectPhase.h">
+      <Filter>Game\Phase\Logo\Title\NetworkConnect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingDiceAI.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\DiceTable.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\DiceTable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingGameProbability.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase\Probability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingDiceGame.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\GirlIntroducingPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\SpecialDiceRule.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\BluffingDicePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\WinPrizePhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase\WinPrizePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\ChoiceGirlPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\ChoiceGirlStagePhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\ChoiceGirlStagePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\DownloadContentPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\DownloadFilePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\StageClearFile.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\ChoiceGirlPhase\StageClearFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\FBPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\FB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\HeartRecoverPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\HeartRecoverSelectGirlPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\HeartRecoverPhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\SetupPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\StorePhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu\Store</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\MainMenuPhase.h">
+      <Filter>Game\Phase\Logo\Title\SinglePlayModeMainMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\TitlePhase.h">
+      <Filter>Game\Phase\Logo\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\ShowLogoPhase.h">
+      <Filter>Game\Phase\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\BluffingGirlPhaseManager.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

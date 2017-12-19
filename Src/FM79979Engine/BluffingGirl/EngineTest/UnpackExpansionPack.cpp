@@ -13,7 +13,7 @@ cUnpackExpansionPack::cUnpackExpansionPack()
 	m_strCheckedFileName = "ExpansionpackFile.bin";
 	m_pUnZip = 0;
 	cNodeISAX	l_cNodeISAX;
-	if(l_cNodeISAX.ParseDataIntoXMLNode("PhaseData/Unpack.xml"))
+	if(l_cNodeISAX.ParseDataIntoXMLNode("BluffingGirl/PhaseData/Unpack.xml"))
 	{
 		TiXmlElement*l_pRoot = l_cNodeISAX.GetRootElement();
 		const WCHAR*l_strExpansionPackFileName = l_pRoot->Attribute(L"ExpansionPackFileName");

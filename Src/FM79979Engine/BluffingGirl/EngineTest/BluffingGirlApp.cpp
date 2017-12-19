@@ -95,7 +95,7 @@ cBluffingGirlApp::cBluffingGirlApp(Vector2 e_vGameResolution,Vector2 e_vViewport
 	g_pBluffingGirlApp = this;
 	m_bLeave = false;
 	m_pPhaseManager = 0;
-	//m_pIABSetup = new cIABSetup("IAB/IABSetup.xml");
+	//m_pIABSetup = new cIABSetup("BluffingGirl/IAB/IABSetup.xml");
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
@@ -129,25 +129,25 @@ void	cBluffingGirlApp::Init()
 	m_pPhaseManager->AddObjectNeglectExist(g_pShowLogoPhase);
 	m_pPhaseManager->SetCurrentCurrentPhase(g_pShowLogoPhase->GetName());
 
-	cGameApp::m_spSoundParser->Parse("Sound/Sound.xml");
+	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
 
-	cGameApp::GetPuzzleImageByFileName(L"Image/Mm_Photo_001.pi");
+	cGameApp::GetPuzzleImageByFileName(L"BluffingGirl/Image/Mm_Photo_001.pi");
 	//common file parse
-	cMPDIList*l_pCommonMPDIList = cGameApp::GetMPDIListByFileName(L"Image/Main_Massage.mpdi");
+	cMPDIList*l_pCommonMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
 	
 	cTitlePhase*l_pTitlePhase = new cTitlePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pTitlePhase);
 	//
-	cMainMenuPhase*l_pMainMenuPhase = new cMainMenuPhase("PhaseData/MainMenuPhase.xml");
+	cMainMenuPhase*l_pMainMenuPhase = new cMainMenuPhase("BluffingGirl/PhaseData/MainMenuPhase.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pMainMenuPhase);
 	//
-	cStorePhase*l_pIABMenu = new cStorePhase();	l_pIABMenu->Parse("IAB/IABMenu.xml");
+	cStorePhase*l_pIABMenu = new cStorePhase();	l_pIABMenu->Parse("BluffingGirl/IAB/IABMenu.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pIABMenu);
 	////
 	cFBPhase*l_pFBPhase = new cFBPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pFBPhase);
 	////
-	cChoiceGirlPhase*l_pChoiceGirlPhase = new cChoiceGirlPhase("PhaseData/ChoiceGirlPhase.xml");
+	cChoiceGirlPhase*l_pChoiceGirlPhase = new cChoiceGirlPhase("BluffingGirl/PhaseData/ChoiceGirlPhase.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pChoiceGirlPhase);
 	////
 	cChoiceGirlStagePhase*l_pChoiceGirlStagePhase = new cChoiceGirlStagePhase();
@@ -159,7 +159,7 @@ void	cBluffingGirlApp::Init()
 	cWinPrizePhase*l_pWinPrizePhase = new cWinPrizePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pWinPrizePhase);
 	//
-	cHeartRecoverSelectGirlPhase*l_pHeartRecoverSelectGirlPhase = new cHeartRecoverSelectGirlPhase("PhaseData/HeartRecoverChoiceGirlPhase.xml");
+	cHeartRecoverSelectGirlPhase*l_pHeartRecoverSelectGirlPhase = new cHeartRecoverSelectGirlPhase("BluffingGirl/PhaseData/HeartRecoverChoiceGirlPhase.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pHeartRecoverSelectGirlPhase);
 	//
 	cHeartRecoverPhase*l_pHeartRecoverPhase = new cHeartRecoverPhase();
@@ -177,7 +177,7 @@ void	cBluffingGirlApp::Init()
 	cBluffingDiceMultiPlayerGame*l_pBluffingDiceMultiPlayerGame = new cBluffingDiceMultiPlayerGame();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pBluffingDiceMultiPlayerGame);
 	//
-	m_spPlayerData = new cPlayerData("PlayerData/PlayerItemData.xml","PlayerData.xml");
+	m_spPlayerData = new cPlayerData("BluffingGirl/PlayerData/PlayerItemData.xml","PlayerData.xml");
 	m_spPlayerData->Init();
 	//
 	//m_pPhaseManager->SetCurrentCurrentPhase(l_pHeartRecoverPhase->GetName());
@@ -189,11 +189,11 @@ void	cBluffingGirlApp::Init()
 	//m_pPhaseManager->SetCurrentCurrentPhase(BLUFFING_MULTI_PLAY_DICEGAME_PHASE_NAME);
 	//m_pPhaseManager->SetCurrentCurrentPhase(l_pTitlePhase->GetName());
 
-	m_pPhaseManager->RegisterPopupMessenger("PhaseData/ClairvoyantNotEnoughPopupMessenger.xml");
-	m_pPhaseManager->RegisterPopupMessenger("PhaseData/NotEnoughPopupMessenger.xml");
-	m_pPhaseManager->RegisterPopupMessenger("PhaseData/GameFailedPopupMessenger.xml");
-	//m_pPhaseManager->RegisterPopupMessenger("PhaseData/WarningMessengerPopupMessenger.xml");
-	m_pPhaseManager->RegisterPopupMessenger("PhaseData/BuyGirlPopupMessenger.xml");
+	m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/ClairvoyantNotEnoughPopupMessenger.xml");
+	m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/NotEnoughPopupMessenger.xml");
+	m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/GameFailedPopupMessenger.xml");
+	//m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/WarningMessengerPopupMessenger.xml");
+	m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/BuyGirlPopupMessenger.xml");
 	g_pFBFunction = new cFBFunction();
 
 	//float	l_fWidthAceptRation = cGameApp::m_svViewPortSize.Width()/cGameApp::m_svViewPortSize.Height();

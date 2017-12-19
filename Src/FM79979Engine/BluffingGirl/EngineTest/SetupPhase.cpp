@@ -153,7 +153,7 @@ void	cSetupPhase::Init()
 {
 	m_AllButton.Destroy();
 	m_ResourceStamp.StampResource1();
-	PARSE_FAILED_MESSAGE_BOX(this,"PhaseData/SetupPhase.xml")
+	PARSE_FAILED_MESSAGE_BOX(this,"BluffingGirl/PhaseData/SetupPhase.xml")
 	if(m_SoundVolumeFile.Openfile("Sound.xml"))
 	{
 		float*l_pfData = (float*)m_SoundVolumeFile.GetDataFile(0);

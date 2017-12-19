@@ -49,7 +49,7 @@ void	cTitlePhase::HandleElementData(TiXmlElement*e_pTiXmlElement)
 void	cTitlePhase::Init()
 {
 	Destroy();
-	PARSE_FAILED_MESSAGE_BOX(this,"PhaseData/TitlePhase.xml");
+	PARSE_FAILED_MESSAGE_BOX(this,"BluffingGirl/PhaseData/TitlePhase.xml");
 	if( m_pOpeningMPDI )
 		m_pOpeningMPDI->Init();
 	if( m_pClickMouseBehaviorVector )

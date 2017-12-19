@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Emscripten">
+      <Configuration>Debug</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Emscripten">
+      <Configuration>Release</Configuration>
+      <Platform>Emscripten</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{22205F91-41AA-4700-80CE-6E743F3BEC3A}</ProjectGuid>
+    <RootNamespace>BluffingGirlWASM</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>HTMLPage</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <PlatformToolset>emcc</PlatformToolset>
+    <ConfigurationType>HTMLPage</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <PreloadFile>./assets</PreloadFile>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
+    </ClCompile>
+    <Link>
+      <PreloadFile>./assets</PreloadFile>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\EngineTest\BluffingDiceAI.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingDiceGame.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingDiceMultiPlayerGame.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGameProbability.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGirlApp.cpp" />
+    <ClCompile Include="..\EngineTest\BluffingGirlPhaseManager.cpp" />
+    <ClCompile Include="..\EngineTest\ChoiceGirlPhase.cpp" />
+    <ClCompile Include="..\EngineTest\ChoiceGirlStagePhase.cpp" />
+    <ClCompile Include="..\EngineTest\DiceTable.cpp" />
+    <ClCompile Include="..\EngineTest\DownloadContentPhase.cpp" />
+    <ClCompile Include="..\EngineTest\DownloadFile.cpp" />
+    <ClCompile Include="..\EngineTest\FBFunction.cpp" />
+    <ClCompile Include="..\EngineTest\FBPhase.cpp" />
+    <ClCompile Include="..\EngineTest\GameNetwork.cpp" />
+    <ClCompile Include="..\EngineTest\GameRulePhase.cpp" />
+    <ClCompile Include="..\EngineTest\GirlIntroducingPhase.cpp" />
+    <ClCompile Include="..\EngineTest\HeartRecoverPhase.cpp" />
+    <ClCompile Include="..\EngineTest\HeartRecoverSelectGirlPhase.cpp" />
+    <ClCompile Include="..\EngineTest\IABSetup.cpp" />
+    <ClCompile Include="..\EngineTest\IABWindowsDeviceFunction.cpp" />
+    <ClCompile Include="..\EngineTest\MainFunctionButton.cpp" />
+    <ClCompile Include="..\EngineTest\MainMenuPhase.cpp" />
+    <ClCompile Include="..\EngineTest\NetWorkConnectPhase.cpp" />
+    <ClCompile Include="..\EngineTest\PlayerData.cpp" />
+    <ClCompile Include="..\EngineTest\SetupPhase.cpp" />
+    <ClCompile Include="..\EngineTest\ShowLogoPhase.cpp" />
+    <ClCompile Include="..\EngineTest\SpecialDiceRule.cpp" />
+    <ClCompile Include="..\EngineTest\StageClearFile.cpp" />
+    <ClCompile Include="..\EngineTest\StorePhase.cpp" />
+    <ClCompile Include="..\EngineTest\TitlePhase.cpp" />
+    <ClCompile Include="..\EngineTest\UnpackExpansionPack.cpp" />
+    <ClCompile Include="..\EngineTest\Unzip.cpp" />
+    <ClCompile Include="..\EngineTest\WinPrizePhase.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="WASM.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\EngineTest\BluffingDiceAI.h" />
+    <ClInclude Include="..\EngineTest\BluffingDiceGame.h" />
+    <ClInclude Include="..\EngineTest\BluffingDiceMultiPlayerGame.h" />
+    <ClInclude Include="..\EngineTest\BluffingGameProbability.h" />
+    <ClInclude Include="..\EngineTest\BluffingGirlApp.h" />
+    <ClInclude Include="..\EngineTest\BluffingGirlPhaseManager.h" />
+    <ClInclude Include="..\EngineTest\ChoiceGirlPhase.h" />
+    <ClInclude Include="..\EngineTest\ChoiceGirlStagePhase.h" />
+    <ClInclude Include="..\EngineTest\DiceTable.h" />
+    <ClInclude Include="..\EngineTest\DownloadContentPhase.h" />
+    <ClInclude Include="..\EngineTest\DownloadFile.h" />
+    <ClInclude Include="..\EngineTest\FBFunction.h" />
+    <ClInclude Include="..\EngineTest\FBPhase.h" />
+    <ClInclude Include="..\EngineTest\GameNetwork.h" />
+    <ClInclude Include="..\EngineTest\GameRulePhase.h" />
+    <ClInclude Include="..\EngineTest\GirlIntroducingPhase.h" />
+    <ClInclude Include="..\EngineTest\HeartRecoverPhase.h" />
+    <ClInclude Include="..\EngineTest\HeartRecoverSelectGirlPhase.h" />
+    <ClInclude Include="..\EngineTest\IABSetup.h" />
+    <ClInclude Include="..\EngineTest\MainFunctionButton.h" />
+    <ClInclude Include="..\EngineTest\MainMenuPhase.h" />
+    <ClInclude Include="..\EngineTest\MyJni.h" />
+    <ClInclude Include="..\EngineTest\NetWorkConnectPhase.h" />
+    <ClInclude Include="..\EngineTest\PlayerData.h" />
+    <ClInclude Include="..\EngineTest\SetupPhase.h" />
+    <ClInclude Include="..\EngineTest\ShowLogoPhase.h" />
+    <ClInclude Include="..\EngineTest\SpecialDiceRule.h" />
+    <ClInclude Include="..\EngineTest\StageClearFile.h" />
+    <ClInclude Include="..\EngineTest\StorePhase.h" />
+    <ClInclude Include="..\EngineTest\TitlePhase.h" />
+    <ClInclude Include="..\EngineTest\UnpackExpansionPack.h" />
+    <ClInclude Include="..\EngineTest\Unzip.h" />
+    <ClInclude Include="..\EngineTest\WinPrizePhase.h" />
+    <ClInclude Include="stdafx.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
+      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FMEvent\Event.vcxproj">
+      <Project>{cb79dca3-5f7a-423f-ba3e-01df441c06b1}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
+      <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -6,8 +6,8 @@ cGameRulePhase::cGameRulePhase()
 	this->SetName(RULE_PHASE_NAME);
 	m_pScroller = 0;
 	m_pBackButton = 0;
-	m_pBGMPDI = 0;
-	PARSE_FAILED_MESSAGE_BOX(this,"PhaseData/Rule.xml");
+	m_pBGMPDI = 0;	
+	PARSE_FAILED_MESSAGE_BOX(this,"BluffingGirl/PhaseData/Rule.xml");
 }
 
 cGameRulePhase::~cGameRulePhase()

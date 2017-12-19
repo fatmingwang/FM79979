@@ -30,7 +30,7 @@ cBluffingDiceMultiPlayerGame::cBluffingDiceMultiPlayerGame()
 	m_pShowMPDI = 0;
 	m_pResultMPDI = 0;
 	m_pBGMPDI = 0;
-	m_strGameSetupFileName = "PhaseData/MultiPlayerSetup.xml";
+	m_strGameSetupFileName = "BluffingGirl/PhaseData/MultiPlayerSetup.xml";
 	m_eCatchType = eCT_NO_CATCH;
 	m_iWinIndex = -1;
 	m_iCallDicePoint = -1;
@@ -974,7 +974,7 @@ void	cBluffingDiceMultiPlayerGame::Update(float e_fElpaseTime)
 		Destroy();
 		if(!wcscmp(TITLE_PHASE_NAME,m_strNextPhaseName.c_str()))
 		{
-			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+			cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 			if(l_pSound)
 			{
 				l_pSound->Play(true);

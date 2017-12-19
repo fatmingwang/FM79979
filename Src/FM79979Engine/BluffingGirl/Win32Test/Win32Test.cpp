@@ -183,7 +183,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	cNodeISAX	l_NodeISAX;
 	cGameApp::m_svViewPortSize.x = 1024.;
 	cGameApp::m_svViewPortSize.y = 768.f;
-	cGameApp::ResoluctionParse("EngineTestSetup.xml");
+	cGameApp::ResoluctionParse("BluffingGirl/EngineTestSetup.xml");
 
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)

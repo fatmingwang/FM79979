@@ -31,7 +31,9 @@
 #  include <io.h>
 #  define vsnprintf _vsnprintf
 #endif
-
+#ifdef WASM
+#include <unistd.h>
+#endif
 #ifndef local
 #  define local static
 #endif

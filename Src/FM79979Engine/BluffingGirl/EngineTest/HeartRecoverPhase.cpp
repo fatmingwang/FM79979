@@ -165,7 +165,7 @@ void	cHeartRecoverPhase::Init()
 {
 	Destroy();
 	m_pCurrentMessenger = 0;
-	cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/ShakeBG.ogg");
+	cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/ShakeBG.ogg");
 	if(l_pSound)
 	{
 		l_pSound->Play(true);
@@ -178,12 +178,12 @@ void	cHeartRecoverPhase::Init()
 	m_pShockDirectionValue = new cValueChangeFilter<Vector3>(&cGameApp::m_svAccelerometer,0.1f);
 
 	m_pShockBoobsPainter = new cShockBoobsPainter(0,ePM_GAME_MODE);
-	const char*l_strFileDirectory = "ShockingBoobs/";
+	const char*l_strFileDirectory = "BluffingGirl/ShockingBoobs/";
 	std::string	l_strFileName = l_strFileDirectory;
 	l_strFileName += m_strSelectedGirlName;
 	l_strFileName += ".xml";
 	PARSE_FAILED_MESSAGE_BOX(m_pShockBoobsPainter,l_strFileName.c_str());
-	PARSE_FAILED_MESSAGE_BOX(this,"PhaseData/HeartRecoverPhase.xml");
+	PARSE_FAILED_MESSAGE_BOX(this,"BluffingGirl/PhaseData/HeartRecoverPhase.xml");
 	m_RestTimetoshockTC.Start();
 	m_ResourceStamp.StampResource2();
 	g_pCurrentShader = 0;
@@ -399,7 +399,7 @@ const   WCHAR*	cHeartRecoverPhase::GetNextPhaseName()
 
 void*	cHeartRecoverPhase::GetData()
 {
-	cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"Sound/MainBG.ogg");
+	cBasicSound*l_pSound = cGameApp::GetSoundByFileName(L"BluffingGirl/Sound/MainBG.ogg");
 	if(l_pSound)
 	{
 		l_pSound->Play(true);
