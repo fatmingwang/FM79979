@@ -1,0 +1,4 @@
+<SoundData Root="BluffingGirl/Sound/">
+    <Static Name="CallClick.wav" Loop="0" />
+    <Static Name="CallClickInlegal.wav" Loop="0" />
+</SoundData>

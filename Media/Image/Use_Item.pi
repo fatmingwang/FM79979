@@ -1,4 +1,0 @@
-<!-- Author:scrr,Time:2014/5/28 ¤U¤È 03:53:11 -->
-<PuzzleImage OriginalNameSort="Use_Item" ImageName="Use_Item.png" Count="1" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Use_Item" UV="0.03125,0.02929688,0.9472656,0.9453125" OffsetPos="22,22" Size="469,469" OriginalSize="512,512" ShowPosInPI="16,15" />
-</PuzzleImage>

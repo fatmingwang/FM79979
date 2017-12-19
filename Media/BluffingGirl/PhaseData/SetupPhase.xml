@@ -1,0 +1,22 @@
+<SetupPhase>
+	<cSliderBar Name="BGMVolume" CollideRange="275,365,590,430">
+		<SliderSubMPDI>
+			<cSubMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board_Voice_Bar_Bgm"/>
+		</SliderSubMPDI>
+		<BarSubMPDI>
+			<cSubMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board"/>
+		</BarSubMPDI>
+	</cSliderBar>
+	<cSliderBar Name="EffectVolume" CollideRange="270,480,590,540">
+		<SliderSubMPDI>
+			<cSubMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board_Voice_Bar_Se"/>
+		</SliderSubMPDI>
+	</cSliderBar>
+	<cImageButton Name="Apply" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board_Check" />
+	<cImageButton Name="Cancel" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board_Cancel" />
+	<cImageButton Name="Mute" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="System_Switch" cSubMPDI="System_Board_Silent" />
+	<Sound BGM="Sound/MainBG.ogg" Effect="Sound/CallClick.wav" />
+	<BG>
+		<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Bg_Animation" />
+	</BG>
+</SetupPhase>

@@ -1,7 +1,0 @@
-<!-- Author:scrr,Time:2014/7/2 ¤U¤È 02:56:23 -->
-<PuzzleImage OriginalNameSort="Alert_Board_No_S,Challenge_Again,GainAheart,Shakeheart_Training" ImageName="Finish_Shake.png" Count="4" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Alert_Board_No_S" UV="0,0,0.09375,0.09375" OffsetPos="0,0" Size="48,48" OriginalSize="48,48" ShowPosInPI="0,0" />
-    <PuzzleUnit Name="Challenge_Again" UV="0.09570313,0,0.8046875,0.359375" OffsetPos="0,0" Size="363,184" OriginalSize="363,184" ShowPosInPI="49,0" />
-    <PuzzleUnit Name="GainAheart" UV="0,0.3613281,0.6269531,0.6445313" OffsetPos="0,0" Size="321,145" OriginalSize="321,145" ShowPosInPI="0,185" />
-    <PuzzleUnit Name="Shakeheart_Training" UV="0,0.6464844,0.6269531,0.9296875" OffsetPos="0,0" Size="321,145" OriginalSize="321,145" ShowPosInPI="0,331" />
-</PuzzleImage>

@@ -1,0 +1,17 @@
+<Root>
+	<BackButton>
+		<cImageButton cMPDIList="BluffingGirl/Image/Game_Rules.mpdi" cMPDI="Got_It" cSubMPDI="Got_It" Name="ChoiceGirl" />
+	</BackButton>
+	<cScroller ScrollRect="50,70,720,1080" ItemGap="0" Direction="Vertical">
+		<Items>
+			<cPuzzleImageUnit PI="BluffingGirl/Image/Game_Rules.pi" PIUnit="Game_Rules_E_001" Name="Girl1"/>
+			<cPuzzleImageUnit PI="BluffingGirl/Image/Game_Rules.pi" PIUnit="Game_Rules_E_002" Name="Girl2"/>
+			<cPuzzleImageUnit PI="BluffingGirl/Image/Game_Rules.pi" PIUnit="Game_Rules_E_003" Name="Girl3"/>
+			<cPuzzleImageUnit PI="BluffingGirl/Image/Game_Rules.pi" PIUnit="Game_Rules_E_004" Name="Girl4"/>
+			<cPuzzleImageUnit PI="BluffingGirl/Image/Game_Rules.pi" PIUnit="Game_Rules_E_005" Name="Girl5"/>
+		</Items>
+	</cScroller>
+	<BGAnimation>
+		<cMPDI cMPDIList="BluffingGirl/Image/Game_Rules.mpdi" cMPDI="Outline" />
+	</BGAnimation>
+</Root>

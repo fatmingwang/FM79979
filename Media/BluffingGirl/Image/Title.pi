@@ -1,0 +1,7 @@
+<!-- Author:scrr,Time:2014/9/11 ¤W¤È 11:17:00 -->
+<PuzzleImage OriginalNameSort="Title_Blackbg,Title_Horse,Title_Start,Title_WH" ImageName="Title.png" Count="4" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Title_Blackbg" UV="0.4970703,0,0.5595703,0.0625" OffsetPos="0,0" Size="64,64" OriginalSize="64,64" ShowPosInPI="509,0" />
+    <PuzzleUnit Name="Title_Horse" UV="0.53125,0.1962891,0.9755859,0.5634766" OffsetPos="0,0" Size="455,376" OriginalSize="455,376" ShowPosInPI="544,201" />
+    <PuzzleUnit Name="Title_Start" UV="0.5664063,0.08300781,0.9355469,0.1503906" OffsetPos="0,0" Size="378,69" OriginalSize="378,69" ShowPosInPI="580,85" />
+    <PuzzleUnit Name="Title_WH" UV="0.6767578,0.6279297,0.859375,0.7529297" OffsetPos="0,0" Size="187,128" OriginalSize="187,128" ShowPosInPI="693,643" />
+</PuzzleImage>

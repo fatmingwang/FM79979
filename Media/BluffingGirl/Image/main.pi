@@ -1,0 +1,29 @@
+<!-- Author:scrr,Time:2014/9/24 ¤U¤È 02:57:39 -->
+<PuzzleImage OriginalNameSort="Main_Message_Board_Close,Main_Message_Heart_Icon,Main_Message_Mmshake_Words,Main_Message_Number_x,Mmshake_Button,Return_Button,System_Button,Main_Message_Top_Bar,Main_Message_Glass_Icon,Number_0,Number_1,Number_2,Number_3,Number_4,Number_5,Number_6,Number_7,Number_8,Number_9,Camera_Button,Play_Button,Shop_Button,Main_Message_Board,Fb_Button,Main_Message_Number_Board,CountDown_Heart" ImageName="main.png" Count="26" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Camera_Button" UV="0.6171875,0.11133,0.7558594,0.2334975" OffsetPos="1,4" Size="142,124" OriginalSize="143,128" ShowPosInPI="632,113" />
+    <PuzzleUnit Name="CountDown_Heart" UV="0.5136719,0.4128079,0.6484375,0.4758621" OffsetPos="0,0" Size="138,64" OriginalSize="138,64" ShowPosInPI="526,419" />
+    <PuzzleUnit Name="Fb_Button" UV="0.5126953,0.3369458,0.7070313,0.4009852" OffsetPos="0,0" Size="199,65" OriginalSize="199,65" ShowPosInPI="525,342" />
+    <PuzzleUnit Name="Main_Message_Board" UV="0,0,0.5029297,0.5004926" OffsetPos="0,0" Size="515,508" OriginalSize="515,508" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="Main_Message_Board_Close" UV="0.5107422,0.2098522,0.5927734,0.2926108" OffsetPos="22,23" Size="84,84" OriginalSize="128,128" ShowPosInPI="523,213" />
+    <PuzzleUnit Name="Main_Message_Glass_Icon" UV="0.6201172,0.2374384,0.7373047,0.3123153" OffsetPos="69,90" Size="120,76" OriginalSize="256,256" ShowPosInPI="635,241" />
+    <PuzzleUnit Name="Main_Message_Heart_Icon" UV="0.9267578,0.0009852217,0.9990234,0.05812808" OffsetPos="27,36" Size="74,58" OriginalSize="128,128" ShowPosInPI="949,1" />
+    <PuzzleUnit Name="Main_Message_Mmshake_Words" UV="0.5117188,0.06009852,0.8886719,0.1054187" OffsetPos="64,228" Size="386,46" OriginalSize="512,512" ShowPosInPI="524,61" />
+    <PuzzleUnit Name="Main_Message_Number_Board" UV="0.4179688,0.5113301,0.9931641,0.7004926" OffsetPos="0,0" Size="589,192" OriginalSize="589,192" ShowPosInPI="428,519" />
+    <PuzzleUnit Name="Main_Message_Number_x" UV="0.9023438,0.06896552,0.9277344,0.0955665" OffsetPos="20,19" Size="26,27" OriginalSize="64,64" ShowPosInPI="924,70" />
+    <PuzzleUnit Name="Main_Message_Top_Bar" UV="0.8447266,0.1103448,0.9111328,0.1783251" OffsetPos="30,30" Size="68,69" OriginalSize="128,128" ShowPosInPI="865,112" />
+    <PuzzleUnit Name="Mmshake_Button" UV="0.5166016,0.1182266,0.6005859,0.2039409" OffsetPos="21,21" Size="86,87" OriginalSize="128,128" ShowPosInPI="529,120" />
+    <PuzzleUnit Name="Number_0" UV="0.5068359,0.002955665,0.5419922,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="519,3" />
+    <PuzzleUnit Name="Number_1" UV="0.5429688,0.002955665,0.578125,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="556,3" />
+    <PuzzleUnit Name="Number_2" UV="0.5791016,0.002955665,0.6142578,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="593,3" />
+    <PuzzleUnit Name="Number_3" UV="0.6142578,0.002955665,0.6494141,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="629,3" />
+    <PuzzleUnit Name="Number_4" UV="0.6513672,0.002955665,0.6865234,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="667,3" />
+    <PuzzleUnit Name="Number_5" UV="0.6875,0.001970443,0.7226563,0.05418719" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="704,2" />
+    <PuzzleUnit Name="Number_6" UV="0.7226563,0.001970443,0.7578125,0.05418719" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="740,2" />
+    <PuzzleUnit Name="Number_7" UV="0.7587891,0.002955665,0.7939453,0.05517241" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="777,3" />
+    <PuzzleUnit Name="Number_8" UV="0.7958984,0.001970443,0.8310547,0.05418719" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="815,2" />
+    <PuzzleUnit Name="Number_9" UV="0.8320313,0.001970443,0.8671875,0.05418719" OffsetPos="0,0" Size="36,53" OriginalSize="36,53" ShowPosInPI="852,2" />
+    <PuzzleUnit Name="Play_Button" UV="0.7578125,0.1980296,0.8759766,0.320197" OffsetPos="4,3" Size="121,124" OriginalSize="128,128" ShowPosInPI="776,201" />
+    <PuzzleUnit Name="Return_Button" UV="0.7617188,0.1093596,0.84375,0.1931034" OffsetPos="22,22" Size="84,85" OriginalSize="128,128" ShowPosInPI="780,111" />
+    <PuzzleUnit Name="Shop_Button" UV="0.8789063,0.1980296,0.9970703,0.320197" OffsetPos="4,4" Size="121,124" OriginalSize="128,128" ShowPosInPI="900,201" />
+    <PuzzleUnit Name="System_Button" UV="0.9150391,0.1093596,0.9970703,0.1931034" OffsetPos="22,22" Size="84,85" OriginalSize="128,128" ShowPosInPI="937,111" />
+</PuzzleImage>

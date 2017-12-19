@@ -1,6 +1,0 @@
-<!-- Author:scrr,Time:2014/8/12 ¤U¤È 04:07:44 -->
-<PuzzleImage OriginalNameSort="Download,Movie_Download,Main_Message_Board_Close" ImageName="Download_Movie.png" Count="3" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Download" UV="0.5058594,0.8339844,0.6738281,0.9355469" OffsetPos="1,1" Size="172,52" OriginalSize="176,53" ShowPosInPI="518,427" />
-    <PuzzleUnit Name="Main_Message_Board_Close" UV="0.5048828,0.6054688,0.5869141,0.7695313" OffsetPos="22,23" Size="84,84" OriginalSize="128,128" ShowPosInPI="517,310" />
-    <PuzzleUnit Name="Movie_Download" UV="0.01074219,0.01367188,0.5019531,0.9804688" OffsetPos="9,5" Size="503,495" OriginalSize="515,508" ShowPosInPI="11,7" />
-</PuzzleImage>

@@ -1,7 +1,0 @@
-<!-- Author:scrr,Time:2014/8/15 ¤W¤È 10:29:10 -->
-<PuzzleImage OriginalNameSort="Network_Error,Multi_Black,Player_Win,Player_Lose" ImageName="Win_Or_Lose.png" Count="4" GeneratePuzzleimageUnit="0">
-    <PuzzleUnit Name="Multi_Black" UV="0.6826172,0.001953125,0.9638672,1.001953" OffsetPos="0,0" Size="288,512" OriginalSize="288,512" ShowPosInPI="699,1" />
-    <PuzzleUnit Name="Network_Error" UV="0.005859375,0.7070313,0.6630859,0.9707031" OffsetPos="12,13" Size="673,135" OriginalSize="689,161" ShowPosInPI="6,362" />
-    <PuzzleUnit Name="Player_Lose" UV="0.004882813,0.3515625,0.6386719,0.6914063" OffsetPos="9,6" Size="649,174" OriginalSize="670,184" ShowPosInPI="5,180" />
-    <PuzzleUnit Name="Player_Win" UV="0.002929688,0.00390625,0.6367188,0.34375" OffsetPos="9,6" Size="649,174" OriginalSize="670,184" ShowPosInPI="3,2" />
-</PuzzleImage>
