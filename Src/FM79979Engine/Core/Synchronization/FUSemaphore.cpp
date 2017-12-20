@@ -2,7 +2,7 @@
 #include "FUSemaphore.h"
 
 
-#if defined(LINUX) || defined(ANDROID) || defined(IOS)
+#if defined(LINUX) || defined(ANDROID) || defined(IOS) || defined(WASM)
 #include <time.h>
 #endif
 
@@ -17,7 +17,7 @@ cFUSemaphore::cFUSemaphore(uint32 initialValue, uint32 maximumValue)
 	assert(semaphoreHandle != nullptr);
 #elif defined(FP_APPLE)
 	MPCreateSemaphore(maximumValue, initialValue, &semaphoreHandle);
-#elif defined(LINUX) || defined(ANDROID) || defined(IOS)
+#elif defined(LINUX) || defined(ANDROID) || defined(IOS) || defined(WASM)
 	sem_init(&semaphoreHandle, 0, initialValue);
 #endif
 }
@@ -28,7 +28,7 @@ cFUSemaphore::~cFUSemaphore()
 	CloseHandle(semaphoreHandle);
 #elif defined(FP_APPLE)
 	MPDeleteSemaphore(semaphoreHandle);
-#elif defined(LINUX) || defined(ANDROID) || defined(IOS)
+#elif defined(LINUX) || defined(ANDROID) || defined(IOS) || defined(WASM)
 	sem_destroy(&semaphoreHandle);
 #endif
 }
@@ -39,7 +39,7 @@ void cFUSemaphore::Up()
 	ReleaseSemaphore(semaphoreHandle, 1, nullptr);
 #elif defined(FP_APPLE)
 	MPSignalSemaphore(semaphoreHandle);
-#elif defined(LINUX) || defined(ANDROID) || defined(IOS)
+#elif defined(LINUX) || defined(ANDROID) || defined(IOS) || defined(WASM)
 	sem_post(&semaphoreHandle);
 #endif
 }

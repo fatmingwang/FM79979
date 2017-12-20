@@ -94,7 +94,8 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 -s USE_PTHREADS=1</AdditionalOptions>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
@@ -105,7 +106,8 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 -s USE_PTHREADS=1</AdditionalOptions>
+      <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

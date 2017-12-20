@@ -78,10 +78,15 @@ cFUThread::cFUThread(THREAD_ROUTINE_POINTER startAddress, void* parameter, bool 
 		if (status == noErr)
 			status = MPCreateTask(&InternalFunc, params, 0, queue, &exitCode, nullptr, 0, &thread);
 	}
-#elif defined(LINUX) || defined(IOS) || defined(ANDROID)
+#elif defined(LINUX) || defined(IOS) || defined(ANDROID) || defined(WASM)
 	int status = pthread_create(&thread, nullptr, InternalFunc, params);
 	if (status == 0) // Success
 		threadStartedSemaphore.Down();
+	else
+	{
+		//https://kripken.github.io/emscripten-site/docs/porting/pthreads.html
+		printf("error pthread_create failed,WASM need to set -s USE_PTHREADS=1\n");
+	}
 #endif
 }
 
@@ -115,7 +120,7 @@ void cFUThread::StopThread()
 	//MPTerminateTask(thread, status);
 	status = MPWaitOnQueue(queue, nullptr, nullptr, nullptr, kDurationForever);
 	status = MPDeleteQueue(queue);
-#elif defined(LINUX) || defined(IOS)|| defined(ANDROID)
+#elif defined(LINUX) || defined(IOS)|| defined(ANDROID) || defined(WASM)
 	pthread_join(thread, nullptr);
 #endif
 	thread = cFUThread_INVALID;
@@ -132,7 +137,7 @@ void cFUThread::YieldCurrentThread()
 	//Below is a CoreFoundation call that I'm not sure about.
 	//CFRunLoopRunInMode(kCFRunLoopDefaultMode, 0, true);
 	MPYield();
-#elif defined(LINUX)|| defined(ANDROID)|| defined(IOS)
+#elif defined(LINUX)|| defined(ANDROID)|| defined(IOS) || defined(WASM)
 	//pthread_yield();//linux
 	sched_yield();//android
 #endif

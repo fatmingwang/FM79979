@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "IABSetup.h"
 #include "MyJni.h"
-#ifdef WIN32
+#if defined(WIN32) || defined(WASM)
 bool		CallIABRCreate()
 {
 

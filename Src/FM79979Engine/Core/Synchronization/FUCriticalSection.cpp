@@ -2,7 +2,7 @@
 #include "FUCriticalSection.h"
 #include "FUThread.h"
 
-#if defined(LINUX) || defined(ANDROID)|| defined(IOS)
+#if defined(LINUX) || defined(ANDROID)|| defined(IOS) || defined(WASM)
 #include <pthread.h>
 #endif
 
@@ -14,7 +14,7 @@ cFUCriticalSection::cFUCriticalSection()
 	InitializeCriticalSection(&criticalSection);
 #elif defined(FP_APPLE)
 	MPCreateCriticalRegion(&criticalSection);
-#elif defined(LINUX)|| defined(ANDROID) || defined(IOS)
+#elif defined(LINUX)|| defined(ANDROID) || defined(IOS) || defined(WASM)
 	criticalSection = (pthread_mutex_t) PTHREAD_MUTEX_INITIALIZER;//or PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP;  PTHREAD_RMUTEX_INITIALIZER?
 #endif
 }
@@ -26,7 +26,7 @@ cFUCriticalSection::~cFUCriticalSection()
 	DeleteCriticalSection(&criticalSection);
 #elif defined(FP_APPLE)
 	MPDeleteCriticalRegion(criticalSection);
-#elif defined(LINUX) || defined(ANDROID) || defined(IOS)
+#elif defined(LINUX) || defined(ANDROID) || defined(IOS) || defined(WASM)
 	pthread_mutex_destroy(&criticalSection);
 #endif
 }
@@ -37,7 +37,7 @@ void cFUCriticalSection::Enter() const
 	EnterCriticalSection(&criticalSection);
 #elif defined(FP_APPLE)
 	MPEnterCriticalRegion(criticalSection, kDurationForever);
-#elif defined(LINUX) || defined(ANDROID)|| defined(IOS)
+#elif defined(LINUX) || defined(ANDROID)|| defined(IOS) || defined(WASM)
 	pthread_mutex_lock(&criticalSection);
 #endif
 	// it is an error to enter a critical section that thinks it is owned.
@@ -63,7 +63,7 @@ void cFUCriticalSection::Leave() const
 	LeaveCriticalSection(&criticalSection);
 #elif defined(FP_APPLE)
 	MPExitCriticalRegion(criticalSection);
-#elif defined(LINUX) || defined(ANDROID)|| defined(IOS)
+#elif defined(LINUX) || defined(ANDROID)|| defined(IOS) || defined(WASM)
 	pthread_mutex_unlock(&criticalSection);
 #endif
 }
