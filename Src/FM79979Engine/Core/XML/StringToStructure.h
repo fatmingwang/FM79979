@@ -9,7 +9,6 @@ namespace FATMING_CORE
 {
 	//x,y
 	//"100,200"
-	POINT	GetPoint(char* e_str);
 	POINT	GetPoint(const char* e_str);
 	POINT	GetPoint(const wchar_t* e_str);
 	POINT	GetPoint(std::wstring e_str);

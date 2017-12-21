@@ -178,9 +178,7 @@
       </EnableMicrosoftExtensions>
     </ClCompile>
     <Lib />
-    <Lib>
-      <AdditionalOptions>-s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
-    </Lib>
+    <Lib />
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>

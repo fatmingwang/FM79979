@@ -9,10 +9,10 @@ namespace FATMING_CORE
 	{
 		m_bShockDone = true;
 		m_uiShockValueLocation = -1;
+		m_uiShockValueLocation = GetUniFormLocationByName("ShockValue");
 		m_vCurrentShockDirectionValue = m_vShockDirection = Vector3(0,1,0);
 		m_fMaximumShockStregth = e_fMaximumShockStregth;
 		m_fCurrentShockStregth = 0.f;
-		m_uiShockValueLocation = GetUniFormLocationByName("ShockValue");
 		g_pAll2DShaderList->AddObjectNeglectExist(this);
 		m_fShockSpeed = m_fCurrentShockSpeed = 1.f;
 		m_fShockSpeedMinus = 1.f;
@@ -86,6 +86,9 @@ namespace FATMING_CORE
 	{
 		cBaseShader::Use(e_bUseLastWVPMatrix);
 		Vector3	l_vValue = m_vCurrentShockDirectionValue * m_fShockStrgethValue;
+#if defined(WASM)
+		m_uiShockValueLocation = GetUniFormLocationByName("ShockValue");
+#endif
 		glUniform3f(m_uiShockValueLocation,l_vValue.x,l_vValue.y,l_vValue.z);
 	}
 	const char*cShockBoobsShader::m_sVS = "					\
@@ -124,7 +127,7 @@ namespace FATMING_CORE
 	//	PSTexcoord = VSTexcoord;							\
 	//}";
 
-	#if defined(IOS) || defined(ANDROID)
+	#if defined(IOS) || defined(ANDROID) || defined(WASM)
 		const char*cShockBoobsShader::m_sFS = "						\
 		uniform sampler2D texSample;								\
 		varying lowp vec2 PSTexcoord;								\

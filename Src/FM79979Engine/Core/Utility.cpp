@@ -985,6 +985,11 @@ namespace UT
 			{
 				fp = fopen(e_strFileName, e_strMode);
 			}
+			std::string l_strFileName = e_strFileName;
+			l_strFileName += "  :";
+			l_strFileName += l_strWASMFile;
+			cGameApp::OutputDebugInfoString(l_strFileName);
+			cGameApp::OutputDebugInfoString(fp ? "open okay" : "open failed");
 		}
 #else
 		if( l_bWrite )

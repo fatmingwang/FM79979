@@ -1392,7 +1392,7 @@ void	cBluffingDiceGame::MouseDown(int e_iX,int e_iY)
 		if( m_pUseClairvoyant )
 			m_pUseClairvoyant->MouseDown(e_iX,e_iY);
 	}
-	if( m_pShowMPDI && !m_pShowMPDI->IsAnimationDone() || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
+	if( (m_pShowMPDI && !m_pShowMPDI->IsAnimationDone()) || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
 		return;
 	if( m_eGameStatus == e_GAME_PLAY )
 	{
@@ -1431,7 +1431,7 @@ void	cBluffingDiceGame::MouseMove(int e_iX,int e_iY)
 		if( m_pUseClairvoyant )
 			m_pUseClairvoyant->MouseMove(e_iX,e_iY);
 	}
-	if( m_pShowMPDI && !m_pShowMPDI->IsAnimationDone() || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
+	if( (m_pShowMPDI && !m_pShowMPDI->IsAnimationDone()) || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
 		return;
 	if( m_eGameStatus == e_GAME_PLAY )
 	{
@@ -1471,7 +1471,7 @@ void	cBluffingDiceGame::MouseUp(int e_iX,int e_iY)
 		if( m_pUseClairvoyant )
 			m_pUseClairvoyant->MouseUp(e_iX,e_iY);
 	}
-	if( m_pShowMPDI && !m_pShowMPDI->IsAnimationDone() || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
+	if( (m_pShowMPDI && !m_pShowMPDI->IsAnimationDone()) || (m_AIDiceTableCallResultVector.size()>0&&m_AIDiceTableCallResultVector[0]->IsWaitForAI()) )
 		return;
 	if( m_eGameStatus == e_GAME_PLAY )
 	{

@@ -347,7 +347,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					else
 					COMPARE_NAME("ImageName")
 					{
-#ifdef ANDROID
+#if defined(ANDROID) || defined(WASM)
 						std::string	l_strTemp;
 					    char*l_strPIName = 0;
 					    char   l_strOriginalName[MAX_PATH];

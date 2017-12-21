@@ -7,26 +7,26 @@
 #endif
 namespace FATMING_CORE
 {
-	POINT	GetPoint(const wchar_t* e_str){return GetPoint(UT::WcharToChar(e_str).c_str());}
+	POINT	GetPoint(const wchar_t* e_str)
+	{
+		auto l_str = UT::WcharToChar(e_str);
+		return GetPoint(l_str.c_str());
+	}
 
 	POINT	GetPoint(const char* e_str)
 	{
-		return GetPoint((char*)e_str);
-	}
-
-	POINT	GetPoint(char* e_str)
-	{
 		char	l_temp[TEMP_SIZE];
-		sprintf(l_temp,"%s\0",e_str);
+		sprintf(l_temp, "%s\0", e_str);
 		POINT	l_Point;
-		char*	l_str = strtok(l_temp,",: ");
-		assert(l_str&&"parse POINT data error");
+		char*	l_str = strtok(l_temp, ",: ");
+		assert(l_str&&"parse POINT data error 1");
 		l_Point.x = atol(l_str);
-		l_str = strtok(0,",: ");
-		assert(l_str&&"parse POINT data error");
+		l_str = strtok(0, ",: ");
+		assert(l_str&&"parse POINT data error 2");
 		l_Point.y = atol(l_str);
 		return l_Point;
 	}
+
 	POINT	GetPoint(std::string e_str){return GetPoint(e_str.c_str());}
 	POINT	GetPoint(std::wstring e_str){return GetPoint(e_str.c_str());}
 

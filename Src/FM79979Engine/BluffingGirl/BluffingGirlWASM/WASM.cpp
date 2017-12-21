@@ -103,8 +103,9 @@ int main()
 	//https://kripken.github.io/emscripten-site/docs/porting/files/packaging_files.html
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
-#define	CANVANS_WIDTH	1024
-#define	CANVANS_HEIGHT	768
+	//with pthread memory is not allow enlarge instead enlarge to use -s TOTAL_MEMORY=33554432
+#define	CANVANS_WIDTH	1024*0.7
+#define	CANVANS_HEIGHT	768*0.7
 	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
 	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
 	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
@@ -126,9 +127,11 @@ int main()
 	if (l_pSurf_Display)
 	{
 		//cGameApp::m_sbDebugFunctionWorking = true;
-		cGameApp::m_svGameResolution.x = 1280;
-		cGameApp::m_svGameResolution.y = 720;
+		cGameApp::m_svGameResolution.x = 720;
+		cGameApp::m_svGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+		//cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"assets/Title.mpdi");
 		emscripten_set_main_loop(&Loop, 0, 1);
 	}
 	return 0;

@@ -82,7 +82,7 @@ int GetHuffmanTree(CHuffmanNode nodes[], bool bSetCodes = true)
 		for( i= nBackNode; i >= 0; i--)
 			if(pNodes[i]->nFrequency >= pNode->nFrequency)
 				break;
-#if defined(__LP64__) || defined(_WIN64)
+#if defined(__LP64__) || defined(_WIN64) || defined(WASM)
 		memmove(pNodes + i + 2, pNodes + i + 1, (nBackNode - i) * sizeof(void*));//64 bit,debug by jiangyong
 #else
 		memmove(pNodes+i+2, pNodes+i+1, (nBackNode-i)*sizeof(int));

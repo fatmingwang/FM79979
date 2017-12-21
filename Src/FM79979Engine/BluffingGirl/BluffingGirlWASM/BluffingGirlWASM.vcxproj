@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Emscripten">
@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 -s USE_PTHREADS=1</AdditionalOptions>
+      <AdditionalOptions>-s TOTAL_MEMORY=1006632960  -s FETCH=1 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=2  -s FULL_ES2=1</AdditionalOptions>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -106,9 +106,15 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions> -s ALLOW_MEMORY_GROWTH=1 -s FULL_ES2=1  -s FETCH=1 -s USE_PTHREADS=1</AdditionalOptions>
+      <AdditionalOptions>-s TOTAL_MEMORY=1006632960  -s FETCH=1 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=2  -s FULL_ES2=1</AdditionalOptions>
       <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\EngineTest\BluffingDiceAI.cpp" />

@@ -25,6 +25,7 @@ http://wordpress-tw.marcpov.com/first-smoke-fx.htm
 WASM build tools
 pleae take look at 
 Doc\WASM VS tools
+if compile failed make sure /MP and setting(commandline) is suite for emscripten
 
 
 more ermscripten example

@@ -45,8 +45,10 @@ void	cShowLogoPhase::Init()
 	m_ResourceStamp.StampResource1();
 	SAFE_DELETE(m_pUnpackExpansionPack);
 	m_pUnpackExpansionPack = new cUnpackExpansionPack();
+	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() 4!");
 	m_bGotoMainPhase = false;
 	cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Title.mpdi");
+	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() 5!");
 	if( l_pMPDIList )
 	{
 		m_pBGMPDI = l_pMPDIList->GetObject(L"Title");
@@ -58,6 +60,7 @@ void	cShowLogoPhase::Init()
 		}
 	}
 	g_pLogoMusic = new cOpanalOgg(this,"BluffingGirl/Sound/Opening.ogg",true);
+	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() 6!");
 	if(g_pLogoMusic)
 	{
 		g_pLogoMusic->Play(true);
@@ -68,6 +71,7 @@ void	cShowLogoPhase::Init()
 	}
 	m_pUnpackExpansionPack->IsInUnpackProgress();
 	m_ResourceStamp.StampResource2();
+	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() Finish!");
 }
 void	cShowLogoPhase::Destroy()
 {

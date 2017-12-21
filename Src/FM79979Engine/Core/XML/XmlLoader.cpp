@@ -189,8 +189,10 @@ namespace FATMING_CORE
 	{
 		m_strErrorMsg.clear();
 		TiXmlElement*l_pRootElement = ISAXCallback::LoadingXML((char*)e_strFileName);
-		if( !l_pRootElement )
+		if (!l_pRootElement)
+		{
 			return false;
+		}
 		if(cGameApp::m_spstrErrorMsgString)
 		{
 			if(cGameApp::m_spstrErrorMsgString->length())

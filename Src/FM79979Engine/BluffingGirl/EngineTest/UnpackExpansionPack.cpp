@@ -4,13 +4,13 @@
 
 cUnpackExpansionPack::cUnpackExpansionPack()
 {
-	m_bCheckedFileExists = UT::IsFileExists(m_strCheckedFileName.c_str());
 #ifdef ENGLISH
 	m_strUnzipFileName = "/Android/obb/com.wh.BluffingGirlEN/main.2.com.wh.BluffingGirl.obb";
 #else
 	m_strUnzipFileName = "/Android/obb/com.wh.BluffingGirl/main.2.com.wh.BluffingGirl.obb";
 #endif
 	m_strCheckedFileName = "ExpansionpackFile.bin";
+	m_bCheckedFileExists = UT::IsFileExists(m_strCheckedFileName.c_str());
 	m_pUnZip = 0;
 	cNodeISAX	l_cNodeISAX;
 	if(l_cNodeISAX.ParseDataIntoXMLNode("BluffingGirl/PhaseData/Unpack.xml"))
