@@ -86,20 +86,21 @@ void cFUThreadPool::ExecuteWork(IFunctor2<size_t, size_t, void>* _workFunctor, I
 
 bool cFUThreadPool::WaitForIdle(uint32 maxWaitTime)
 {
-	while (maxWaitTime >= 0)
+	int64 l_i64MaxWaitTime = maxWaitTime;
+	while (l_i64MaxWaitTime >= 0)
 	{
 		ExecuteCriticalCodeBlock(*workQueueCS, if (workQueue.empty() && idleThreadCount == (int32) threads.size()) return true);
-		if (maxWaitTime == 0) break;
+		if (l_i64MaxWaitTime == 0) break;
 		else
-		if (maxWaitTime <= 10)
+		if (l_i64MaxWaitTime <= 10)
 		{
-			cFUThread::SleepCurrentThread(maxWaitTime);
-			maxWaitTime = 0; 
+			cFUThread::SleepCurrentThread(l_i64MaxWaitTime);
+			l_i64MaxWaitTime = 0;
 		}
 		else
 		{
 			cFUThread::SleepCurrentThread(10);
-			maxWaitTime -= 10;
+			l_i64MaxWaitTime -= 10;
 		}
 	}
 	return false;

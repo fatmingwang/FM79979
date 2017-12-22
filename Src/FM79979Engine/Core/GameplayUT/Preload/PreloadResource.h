@@ -16,6 +16,7 @@ namespace FATMING_CORE
 		std::wstring	m_strLastObject;
 		int				m_iResourceCount;
 		int				m_iCurrentResourceIndex;
+		int				m_iSkipDomainNameIndex;
 		std::vector<cBaseImage*>	m_BaseImageVector;
 	public:
 		cPreLoadFromInternet();
@@ -27,6 +28,7 @@ namespace FATMING_CORE
 		void	Update(float e_fElpaseTime);
 		void	Render();
 		float	GetProgress();
+		int		GetSkipDomainNameIndex() {return m_iSkipDomainNameIndex;}
 	};
 //end namespace FATMING_CORE
 }

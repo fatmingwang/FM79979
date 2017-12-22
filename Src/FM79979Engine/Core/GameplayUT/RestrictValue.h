@@ -19,6 +19,9 @@ namespace FATMING_CORE
 			m_bValueLoop = true;
 			m_eDataType = eDT_MAX;
 		}
+		virtual ~cRestrictValueBase()
+		{
+		}
 		virtual	cRestrictValueBase*	Clone() = 0;
 		virtual	bool				IncreaseValue() = 0;
 		virtual	bool				DecreaseValue() = 0;

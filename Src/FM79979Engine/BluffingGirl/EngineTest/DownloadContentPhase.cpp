@@ -13,7 +13,7 @@ cDownloadContentPhase::cDownloadContentPhase(TiXmlElement*e_pPhasePopUpMessagerE
 	{
 		m_pPhasePopUpMessager = new cPhasePopUpMessager(e_pPhasePopUpMessagerElement);
 	}
-	char*l_strDownloadFileName = "DownloadFont";
+	char*l_strDownloadFileName = "BluffingGirl/DownloadFont";
 	m_strDownloadFontName = UT::CharToWchar(l_strDownloadFileName);
 	cGlyphFontRender*l_pDownloadFont = new cGlyphFontRender(l_strDownloadFileName);
 	cGameApp::m_spGlyphFontRenderVector->AddObject(l_pDownloadFont);
@@ -46,6 +46,10 @@ bool	cDownloadContentPhase::StartToDownload(const char*e_strDownloadFileURL,cons
 
 void	cDownloadContentPhase::Update(float e_fElpaseTime)
 {
+	//10.168.1.133 / BluffingGirlWASM.html
+#ifdef WASM
+	m_bSatisfiedCondition = true;
+#endif
 	if( m_pPhasePopUpMessager && !m_pPhasePopUpMessager->IsSatisfiedCondition() )
 	{
 		m_pPhasePopUpMessager->Update(e_fElpaseTime);

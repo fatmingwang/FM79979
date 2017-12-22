@@ -201,7 +201,7 @@ namespace FATMING_CORE
 		m_pReferenceImage = e_pEventButton->m_pReferenceImage;
 		this->SetName(e_pEventButton->GetName());
 		NamedTypedObject*l_pObject = e_pEventButton->m_pButton->Clone();		
-		this->m_pButton = reinterpret_cast<cClickMouseBehavior*>(l_pObject);
+		this->m_pButton = dynamic_cast<cClickMouseBehavior*>(l_pObject);
 		//InternalCollide is override so we dont need this acctually
 		if(!m_pButton)
 		{
@@ -638,7 +638,7 @@ namespace FATMING_CORE
 		if( e_pEventMultiButton->m_pPrefixButton )
 		{
 			NamedTypedObject*l_pObject = e_pEventMultiButton->m_pPrefixButton->Clone();
-			m_pPrefixButton = reinterpret_cast<cClickMouseBehavior*>(l_pObject);
+			m_pPrefixButton = dynamic_cast<cClickMouseBehavior*>(l_pObject);
 		}
 	}
 

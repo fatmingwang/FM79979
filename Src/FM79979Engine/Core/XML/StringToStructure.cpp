@@ -327,6 +327,21 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
+	std::vector<int64>	GetInt64ListByCommaDivide(const wchar_t*e_str, int e_iSize)
+	{
+		std::vector<int64>	l_NumeralList;
+		if (e_iSize)
+			l_NumeralList.reserve(e_iSize);
+		wchar_t*	l_str = wcstok((wchar_t*)e_str, L", ");
+		while (l_str)
+		{
+			int64 l_i64Value =  GetInt64(l_str);
+			l_NumeralList.push_back(l_i64Value);
+			l_str = wcstok(0, L", ");
+		}
+		return l_NumeralList;
+	}
+
 	std::vector<int>	GetIntegerListByCommaDivide(char*e_str,int e_iSize)
 	{
 		std::vector<int>	l_NumeralList;
@@ -365,6 +380,20 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
+	std::vector<int64>	GetInt64ListByCommaDivide(char*e_str, int e_iSize)
+	{
+		std::vector<int64>	l_NumeralList;
+		if (e_iSize)
+			l_NumeralList.reserve(e_iSize);
+		char*	l_str = strtok(e_str, ", ");
+		while (l_str)
+		{
+			int64 l_i64 = GetInt64(l_str);
+			l_NumeralList.push_back(l_i64);
+			l_str = strtok(0, ", ");
+		}
+		return l_NumeralList;
+	}
 
 	std::vector<float>	GetFloatListByCommaDivide(char*e_str,int e_iSize)
 	{

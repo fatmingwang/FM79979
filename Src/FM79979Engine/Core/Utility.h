@@ -51,7 +51,7 @@ namespace UT
 	std::wstring			GetFileNameWithoutFullPath(std::wstring e_pString,bool e_bStripExtensionFileName = true);
 	std::string				GetFileNameWithoutFullPath(const char*e_pString,bool e_bStripExtensionFileName = true);
 	std::string				GetFileNameWithoutFullPath(std::string e_pString,bool e_bStripExtensionFileName = true);
-
+	std::string				ConvertFileNameWithoutFullPath(const char*e_strFileName,char e_cSlashReplaceCharacter = '_');
 	std::wstring			GetFileExtensionName(const wchar_t*e_pString);
 	std::string				GetFileExtensionName(const char*e_pString);
 	std::string				ChangeFileExtensionName(const char*e_pFileNameString,const char*e_strNewExtensionName);

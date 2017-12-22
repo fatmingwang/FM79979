@@ -691,6 +691,21 @@ namespace UT
 		return l_strResult;
 	}
 
+	std::string		ConvertFileNameWithoutFullPath(const char*e_strFileName, char e_cSlashReplaceCharacter)
+	{
+		std::string l_strResult = e_strFileName;
+		int	l_iFileNameLength = strlen(e_strFileName);
+		//skip the file name start with ./
+		for (int i = 2; i < l_iFileNameLength; ++i)
+		{
+			if (e_strFileName[i] == '/' || e_strFileName[i] == '\\')
+			{
+				l_strResult[i] = e_cSlashReplaceCharacter;
+			}
+		}
+		return l_strResult;
+	}
+
 	std::string	GetFileExtensionName(const char*e_pString)
 	{
 		std::string	l_strExtensionName;
@@ -979,7 +994,7 @@ namespace UT
 		}
 #elif defined(WASM)
 		{
-			std::string l_strWASMFile = UT::GetFileNameWithoutFullPath(e_strFileName, false);
+			std::string l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
 			fp = fopen(l_strWASMFile.c_str(), e_strMode);
 			if (!fp)
 			{
@@ -1033,10 +1048,9 @@ namespace UT
 		}
 		return true;
 	}
-	bool IsFileExists( const char* FileName )
+	bool IsFileExists( const char* e_strFileName)
 	{
-		
-		NvFile*l_pFile = MyFileOpen(FileName,"r");
+		NvFile*l_pFile = MyFileOpen(e_strFileName,"r");
 		if( l_pFile )
 		{
 			NvFClose(l_pFile);
@@ -1045,9 +1059,25 @@ namespace UT
 		return false;
 	}
 
-	bool	MyRemoveFile( const char* FileName )
+	bool	MyRemoveFile( const char* e_strFileName)
 	{
-		int	l_iResult = remove(FileName);
+		int	l_iResult = remove(e_strFileName);
+		if (l_iResult != 0)
+		{
+#if defined(WASM)
+			std::string l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
+			l_iResult = remove(l_strWASMFile.c_str());
+
+#elif defined(ANDROID)
+			//do somethig with ANDROID path.
+#endif
+		}
+		if (l_iResult != 0)
+		{
+			std::string l_strInfo = e_strFileName;
+			l_strInfo += " remove file failed";
+			cGameApp::OutputDebugInfoString(l_strInfo);
+		}
 		return l_iResult==0?true:false;
 	}
 

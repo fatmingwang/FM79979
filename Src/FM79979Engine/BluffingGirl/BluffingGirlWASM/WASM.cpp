@@ -104,6 +104,46 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	//with pthread memory is not allow enlarge instead enlarge to use -s TOTAL_MEMORY=33554432
+	//if you got any problem with IIS cannt download file,please check /wwwroot/web.config
+	//please add allow extension file in IIS setup
+	//< ? xml version = "1.0" encoding = "UTF-8" ? >
+	//	<configuration>
+	//	<system.webServer>
+	//	<httpProtocol>
+	//	<customHeaders>
+	//	<add name = "Access-Control-Allow-Origin" value = "*" / >
+	//	<add name = "Access-Control-Allow-Methods" value = "OPTIONS,POST,GET,PUT" / >
+	//	<add name = "Access-Control-Allow-Headers" value = "x-requested-with" / >
+	//	<add name = "Access-Control-Allow-Credentials" value = "true" / >
+	//	< / customHeaders>
+	//	< / httpProtocol>
+	//	<security>
+	//	<requestFiltering>
+	//	<fileExtensions>
+	//	<remove fileExtension = ".asa" / >
+	//	<add fileExtension = ".mem" allowed = "true" / >
+	//	<add fileExtension = ".data" allowed = "true" / >
+	//	<add fileExtension = ".xml" allowed = "true" / >
+	//	<add fileExtension = ".pi" allowed = "true" / >
+	//	<add fileExtension = ".ogg" allowed = "true" / >
+	//	<add fileExtension = ".mpdi" allowed = "true" / >
+	//	<add fileExtension = ".png" allowed = "true" / >
+	//	<add fileExtension = ".wav" allowed = "true" / >
+	//	<add fileExtension = ".html" allowed = "true" / >
+	//	<add fileExtension = ".FontInfo" allowed = "true" / >
+	//	< / fileExtensions>
+	//	< / requestFiltering>
+	//	< / security>
+	//	<staticContent>
+	//	<mimeMap fileExtension = ".data" mimeType = "text/plain" / >
+	//	<mimeMap fileExtension = ".mem" mimeType = "text/plain" / >
+	//	<mimeMap fileExtension = ".mpdi" mimeType = "text/plain" / >
+	//	<mimeMap fileExtension = ".pi" mimeType = "text/plain" / >
+	//	<mimeMap fileExtension = ".FontInfo" mimeType = "text/plain" / >
+	//	< / staticContent>
+	//	< / system.webServer>
+	//	< / configuration>
+	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
 #define	CANVANS_WIDTH	1024*0.7
 #define	CANVANS_HEIGHT	768*0.7
 	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;

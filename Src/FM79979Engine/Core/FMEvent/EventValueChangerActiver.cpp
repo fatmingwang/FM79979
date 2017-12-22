@@ -171,6 +171,8 @@ namespace FATMING_CORE
 						m_pRestrictValue->SetValue(ValueToStringW(l_iValue));
 					}
 					break;
+				default:
+					break;
 			}
 		}
 		else
@@ -307,6 +309,8 @@ namespace FATMING_CORE
 				break;
 			case eCVT_RANDOM_VALUE:
 				m_pListValuChangerBase->SetSelectedValue(m_pListValuChangerBase->GetRandomValue());
+				break;
+			default:
 				break;
 		}
 		std::wstring l_str = m_pListValuChangerBase->ConvertSelectedDataToString();

@@ -33,7 +33,7 @@ namespace FATMING_CORE
 	TiXmlElement*		cEventKeyUpDectect::ToTiXmlElement()
 	{
 		TiXmlElement*l_pEvent = this->GetMyTiXmlElement();
-		if( m_ucKeyData != -1 )
+		if( m_ucKeyData != (unsigned char)-1 )
 		{
 			l_pEvent->SetAttribute(EVENT_KEY_DATA,(unsigned char)this->m_ucKeyData);
 		}

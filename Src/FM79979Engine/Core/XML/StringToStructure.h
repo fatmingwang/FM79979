@@ -76,10 +76,12 @@ namespace FATMING_CORE
 	std::vector<int>	GetIntegerListByCommaDivide(char*,int e_iSize);
 	std::vector<float>	GetFloatListByCommaDivide(char*,int e_iSize);
 	std::vector<double>	GetDoubleListByCommaDivide(char*,int e_iSize);
+	std::vector<int64>	GetInt64ListByCommaDivide(char*, int e_iSize);
 
 	std::vector<int>	GetIntegerListByCommaDivide(const wchar_t*,int e_iSize);
 	std::vector<float>	GetFloatListByCommaDivide(const wchar_t*,int e_iSize);
 	std::vector<double>	GetDoubleListByCommaDivide(const wchar_t*,int e_iSize);
+	std::vector<int64>	GetInt64ListByCommaDivide(const wchar_t*, int e_iSize);
 
 	std::vector<std::wstring>	GetWStringListByCommaDivide(const wchar_t*e_str);
 	std::vector<std::string>	GetStringListByCommaDivide(const wchar_t*e_str);

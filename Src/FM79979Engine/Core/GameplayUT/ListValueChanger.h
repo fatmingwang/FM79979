@@ -49,27 +49,33 @@ namespace FATMING_CORE
 
 	template<class T>class	cListValueChanger:public cListValuChangerBase
 	{
-		void	AssignDataToDataList(eDataType	l_eDataType,const wchar_t*e_strValue,void*e_pData)
+		void	AssignDataToDataList(eDataType	l_eDataType, const wchar_t*e_strValue, void*e_pData)
 		{
-			if( l_eDataType == eDT_INT )
+			if (l_eDataType == eDT_INT)
 			{
-				std::vector<int>l_DataList = GetIntegerListByCommaDivide(e_strValue,1);
+				std::vector<int>l_DataList = GetIntegerListByCommaDivide(e_strValue, 1);
 				*(std::vector<int>*)e_pData = l_DataList;
 			}
 			else
-			if( l_eDataType == eDT_FLOAT )
+			if (l_eDataType == eDT_INT64)
 			{
-				std::vector<float>l_DataList = GetFloatListByCommaDivide(e_strValue,1);
+				std::vector<int64>l_DataList = GetInt64ListByCommaDivide(e_strValue, 1);
+				*(std::vector<int64>*)e_pData = l_DataList;
+			}
+			else
+			if (l_eDataType == eDT_FLOAT)
+			{
+				std::vector<float>l_DataList = GetFloatListByCommaDivide(e_strValue, 1);
 				*(std::vector<float>*)e_pData = l_DataList;
 			}
 			else
-			if( l_eDataType == eDT_STRING )
+			if (l_eDataType == eDT_STRING)
 			{
 				std::vector<std::string>l_DataList = GetStringListByCommaDivide(e_strValue);
 				*(std::vector<string>*)e_pData = l_DataList;
 			}
 			else
-			if( l_eDataType == eDT_WSTRING )
+			if (l_eDataType == eDT_WSTRING)
 			{
 				std::vector<std::wstring>l_DataList = GetWStringListByCommaDivide(e_strValue);
 				*(std::vector<wstring>*)e_pData = l_DataList;
@@ -199,49 +205,59 @@ namespace FATMING_CORE
 		eDataType	GetDataType(){return m_eDataType;}
 		int			FindIndexByValue(const wchar_t*e_strValue)
 		{
-			int i=0;
+			size_t luiSize = m_pDataList->size();
 			void*l_pData = 0;
-			switch(m_eDataType)
+			switch (m_eDataType)
 			{
-				case eDT_INT:
+			case eDT_INT:
+			{
+				int	l_iValue = GetInt(e_strValue);
+				for (size_t i = 0; i<luiSize; ++i)
 				{
-					int	l_iValue = _wtoi(e_strValue);
-					for( ;i<(int)m_pDataList->size();++i )
-					{
-						l_pData = (void*)&(*m_pDataList)[i];
-						if(*(int*)l_pData == l_iValue)
-							return i;
-					}
+					l_pData = (void*)&(*m_pDataList)[i];
+					if (*(int*)l_pData == l_iValue)
+						return (int)i;
 				}
-					break;
-				case eDT_STRING:
+			}
+			break;
+			case eDT_INT64:
+			{
+				int64	l_i64Value = GetInt64(e_strValue);
+				for (size_t i = 0; i<luiSize; ++i)
 				{
-					std::string	l_strTemp = UT::WcharToChar(e_strValue);
-					const char*l_strValue = l_strTemp.c_str();
-					for( ;i<(int)m_pDataList->size();++i )
-					{
-						std::string*l_str = (std::string*)&(*m_pDataList)[i];
-						//wchar_t*l_str = (wchar_t*)l_pData;
-						if( !strcmp(l_str->c_str(),l_strValue))
-							return i;
-					}
+					l_pData = (void*)&(*m_pDataList)[i];
+					if (*(int64*)l_pData == l_i64Value)
+						return (int)i;
 				}
-					break;
-				case eDT_WSTRING:
-					for( ;i<(int)m_pDataList->size();++i )
-					{
-						std::wstring*l_str = (std::wstring*)&(*m_pDataList)[i];
-						//wchar_t*l_str = (wchar_t*)l_pData;
-						if( !wcscmp(l_str->c_str(),e_strValue))
-							return i;
-					}
-					break;
+			}
+			break;
+			case eDT_STRING:
+			{
+				std::string	l_strTemp = UT::WcharToChar(e_strValue);
+				for (size_t i = 0; i<luiSize; ++i)
+				{
+					std::string*l_str = (std::string*)&(*m_pDataList)[i];
+					//wchar_t*l_str = (wchar_t*)l_pData;
+					if (!strcmp(l_str->c_str(), l_strTemp.c_str()))
+						return (int)i;
+				}
+			}
+			break;
+			case eDT_WSTRING:
+				for (size_t i = 0; i<luiSize; ++i)
+				{
+					std::wstring*l_str = (std::wstring*)&(*m_pDataList)[i];
+					//wchar_t*l_str = (wchar_t*)l_pData;
+					if (!wcscmp(l_str->c_str(), e_strValue))
+						return (int)i;
+				}
+				break;
 				//case eDT_BYTE:
 				//case eDT_DOUBLE:
 				//case eDT_FLOAT:
-				default:
-					UT::ErrorMsg(L"currently I am lazy so only support int",L"Warning");
-					break;
+			default:
+				UT::ErrorMsg(L"currently I am lazy so only support int", L"Warning");
+				break;
 			}
 			return -1;
 		}

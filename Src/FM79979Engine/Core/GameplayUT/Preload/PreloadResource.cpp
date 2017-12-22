@@ -10,10 +10,14 @@ namespace FATMING_CORE
 	{
 		printf("Finished downloading %llu bytes from URL %s.\n", fetch->numBytes, fetch->url);
 		cPreLoadFromInternet*l_pPreLoadFromInternet = (cPreLoadFromInternet*)fetch->userData;
-		//std::string l_strFileName = UT::GetFileNameWithoutFullPath(fetch->url, false);
-		std::string l_strFileName = fetch->url;
+		int l_iSkipDomainNameIndex = l_pPreLoadFromInternet->GetSkipDomainNameIndex();
+		int	l_iLength = strlen(fetch->url);
+		int l_iCopyLength = l_iLength - l_iSkipDomainNameIndex;
 		cBinaryFile l_cBinaryFile;
-		cGameApp::OutputDebugInfoString("trying to save file");
+		char l_strSaveFileName[MAX_PATH];
+		memcpy(l_strSaveFileName, &fetch->url[l_iSkipDomainNameIndex], l_iCopyLength);
+		l_strSaveFileName[l_iCopyLength] = 0;
+		std::string l_strFileName = l_strSaveFileName;
 		if (l_cBinaryFile.Writefile(l_strFileName.c_str(), true, true))
 		{
 			l_cBinaryFile.WriteToFile(&fetch->data[0], fetch->numBytes);
@@ -44,6 +48,7 @@ namespace FATMING_CORE
 		m_iResourceCount = 0;
 		m_iCurrentResourceIndex = 0;
 		m_bWaitForDownloadFromInternet = false;
+		m_iSkipDomainNameIndex = 0;
 	}
 	cPreLoadFromInternet::~cPreLoadFromInternet()
 	{
@@ -79,8 +84,11 @@ namespace FATMING_CORE
 			if (m_pCurrentTiXmlElement)
 			{
 				auto l_strCount = m_pCurrentTiXmlElement->Attribute(L"Count");
+				auto l_strDomainName = m_pCurrentTiXmlElement->Attribute(L"DomainName");
 				if (l_strCount)
 					m_iResourceCount = GetInt(l_strCount);
+				if (l_strDomainName)
+					m_iSkipDomainNameIndex = wcslen(l_strDomainName);
 				m_pCurrentTiXmlElement = m_pCurrentTiXmlElement->FirstChildElement();
 				if (m_pCurrentTiXmlElement)
 				{

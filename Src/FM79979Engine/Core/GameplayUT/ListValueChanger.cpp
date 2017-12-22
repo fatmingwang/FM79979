@@ -21,6 +21,9 @@ namespace FATMING_CORE
 		eDataType	l_eDataType = UT::GetDataType(ATTRIBUT_VALUE_WITH_DEFINE(e_pElement,DATA_TYPE));
 		switch( l_eDataType )
 		{
+				case eDT_INT64:
+					l_pListValuChangerBase = new cListValueChanger<int64>(e_pElement);
+					break;
 				case eDT_INT:
 					l_pListValuChangerBase = new cListValueChanger<int>(e_pElement);
 					break;

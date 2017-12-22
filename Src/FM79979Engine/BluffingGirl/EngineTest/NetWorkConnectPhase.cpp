@@ -486,6 +486,8 @@ void	cNetWorkConnectPhase::MouseDown(int e_iX,int e_iY)
 			break;
 		case eCS_GO_TO_NEXT_PHASE:
 			break;
+		default:
+			break;
 	}
 	if( m_pBackButon )
 		m_pBackButon->MouseDown(e_iX,e_iY);
@@ -511,6 +513,8 @@ void	cNetWorkConnectPhase::MouseUp(int e_iX,int e_iY)
 		case eCS_NETWORK_ERROR:
 			this->m_bSatisfiedCondition = true;
 			break;
+		default:
+			break;
 	}
 	if( m_pBackButon )
 		m_pBackButon->MouseUp(e_iX,e_iY);
@@ -533,6 +537,8 @@ void	cNetWorkConnectPhase::MouseMove(int e_iX,int e_iY)
 		case eCS_INPUT_SERVER_IP:
 			break;
 		case eCS_GO_TO_NEXT_PHASE:
+			break;
+		default:
 			break;
 	}
 	if( m_pBackButon )
