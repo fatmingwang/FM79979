@@ -259,6 +259,10 @@ namespace FATMING_CORE
 				else
 					return l_pOpanalOgg;
 			}
+			else
+			{
+				l_pOpanalOgg->Release(e_pRef);
+			}
 		}
 		else
 		{

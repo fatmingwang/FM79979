@@ -10,7 +10,6 @@ cShowLogoPhase::cShowLogoPhase()
 	this->SetName(SHOWLOGO_PHASE_NAME);
 	m_pBGMPDI = 0;
 	m_bGotoMainPhase = false;
-	m_ThreadPool.Spawn(1);
 	m_pUnpackExpansionPack = 0;
 }
 

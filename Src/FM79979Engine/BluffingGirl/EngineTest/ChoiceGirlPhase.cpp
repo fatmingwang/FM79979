@@ -56,6 +56,7 @@ bool	cChoiceGirlPhase::DoCheckVideoFile()
 		assert("video is not exists!");
 		return true;
 #endif
+#ifdef ANDROID
 		m_pDownloadContentPhase = new cDownloadContentPhase(m_pDownloadPopupMessageXmlElement);
 		const WCHAR*l_strDownloadURL = l_pElement->Attribute(L"DownloadURL");
 		const WCHAR*l_strDescription = l_pElement->Attribute(L"Description");
@@ -71,6 +72,7 @@ bool	cChoiceGirlPhase::DoCheckVideoFile()
 													ValueToString(l_strPassword).c_str(),
 													ValueToString(l_strExtractDirectory).c_str(),true);
 		return false;
+#endif
 	}
 	return true;
 }

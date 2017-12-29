@@ -216,6 +216,7 @@
     <ClCompile Include="Math\LinerDataMouseChanger.cpp" />
     <ClCompile Include="Math\MathFormulaXML.cpp" />
     <ClCompile Include="Network\Network.cpp" />
+    <ClCompile Include="Network\SDLnet.cpp" />
     <ClCompile Include="Sound\SoundCapture.cpp" />
     <ClCompile Include="Sound\SoundFile.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
@@ -330,7 +331,6 @@
     <ClCompile Include="Particle\PrtTexture.cpp" />
     <ClCompile Include="Particle\ParticleBase.cpp" />
     <ClCompile Include="Network\happyhttp.cpp" />
-    <ClCompile Include="Network\SDLnet.cpp" />
     <ClCompile Include="Network\SDLnetselect.cpp" />
     <ClCompile Include="Network\SDLnetTCP.cpp" />
     <ClCompile Include="Network\SDLnetUDP.cpp" />

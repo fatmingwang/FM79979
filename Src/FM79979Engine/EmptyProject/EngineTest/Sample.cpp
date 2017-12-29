@@ -110,7 +110,7 @@ void	LoadSample()
 #else
 	std::wstring l_strMPDIResultFileName = L"MyFMBook/AnimationDemo/MPDI/bgrounda01.mpdi";
 #endif
-	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
+	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
 	{
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
@@ -315,7 +315,7 @@ void	SampleRender()
 		g_pFrameBuffer->StartDraw();
 	}
 	//glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
-	//KeyboardDataRender();
+	KeyboardDataRender();
 	if( g_pTunnelEffect )
 	{
 		g_pTunnelEffect->Use();

@@ -41,10 +41,9 @@ void cFUCriticalSection::Enter() const
 	pthread_mutex_lock(&criticalSection);
 #endif
 	// it is an error to enter a critical section that thinks it is owned.
-	assert((ownerThread == 0  && lockCount == 0) ||
-			 (cFUThread::CurrentThreadID() == ownerThread));
-
+	assert((ownerThread == 0  && lockCount == 0) ||(cFUThread::CurrentThreadID() == ownerThread));
 	ownerThread = cFUThread::CurrentThreadID();
+	printf("ownerThread%d", ownerThread);
 	++ lockCount;
 }
 

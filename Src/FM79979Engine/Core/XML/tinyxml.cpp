@@ -1351,8 +1351,10 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	int	l_iLength = e_iLength;
 	if( l_iMagicID == HUFFMAN_MAGIC_ID )
 	{
+		cGameApp::OutputDebugInfoString("thi is HUFFMAN file");
 		if( !cGameApp::m_sbAllowParseBinaryFile )
 		{
+			cGameApp::OutputDebugInfoString("not allow HUFFMAN file");
 			return false;
 		}
 		l_iLength -= sizeof(int);
@@ -1377,13 +1379,19 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 		l_iLength = nDesLen;
 	}
 	unsigned char*l_strEncoding = (unsigned char*)buf;
+//#if defined(ANDROID) || defined(WASM)
 #if defined(ANDROID)
 	if( buf[0] != 0xfeff )//this is ansii file,convert ansii file to unicode
 #else
 	if( l_strEncoding[0] != 0xff && l_strEncoding[1] != 0xfe )//this is ansii file,convert ansii file to unicode
 #endif
 	{
+		cGameApp::OutputDebugInfoString("anscii convert to wchar1");
 		char*l_strAnsii = (char*)buf;
+		if (l_bBinary)
+		{
+			printf(l_strAnsii);
+		}
 		std::wstring l_strCharToWchar;
 		{
 			std::string		l_strForCopy = l_strAnsii;
@@ -1402,11 +1410,12 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 		buf = pNewbuf;
 	}
 	else
-	if( buf[1] == 0 )
+	if( buf[1] == 0 )//wchar_t (00 3c) equal (<),xml start with <
 	{
 		//it's utf 32...works for IOS and Android but windows,skip 8 byte to keept format correct
 		if( l_iLength%2 == 0 && (l_strEncoding[0] == 0xff && l_strEncoding[1] == 0xfe) )
 		{
+			cGameApp::OutputDebugInfoString("anscii convert to wchar2");
 			wchar_t* l_pNewBuffer = new wchar_t[ l_iLength/2+1 ];//assume all file is unicode
 			int	l_iIndex = 0;
 			for( int i=0;i<l_iLength;i+=2 )

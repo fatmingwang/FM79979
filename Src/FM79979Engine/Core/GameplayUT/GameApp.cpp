@@ -339,6 +339,8 @@ namespace	FATMING_CORE
 		//first for original resolution
 		MyGlErrorTest("before viewport");
 		glViewport(0, 0, (GLsizei)this->m_svDeviceViewPortSize.Width(), (GLsizei)this->m_svDeviceViewPortSize.Height());
+		//need this one or screen flash...and I dont know why
+		glScissor(0, 0, (GLsizei)this->m_svDeviceViewPortSize.Width(), (GLsizei)this->m_svDeviceViewPortSize.Height());
 		MyGlErrorTest("after viewport");
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(m_svBGColor.x, m_svBGColor.y, m_svBGColor.z, m_svBGColor.w);
@@ -350,9 +352,6 @@ namespace	FATMING_CORE
 		glScissor((GLint)m_svViewPortSize.x, (GLint)m_svViewPortSize.y, (int)m_svViewPortSize.Width(), (int)m_svViewPortSize.Height());
 		MyGlErrorTest("after scissor");
 		SystemErrorCheck();
-		//the comment part is required if u are not using GameApp::Run
-		//DEFAULT_SHADER = L"MyPrtShader";
-		//NO_TEXTURE_SHADER =L"MyPrtShaderNoTexture";
 		UseShaderProgram(DEFAULT_SHADER);
 		cTexture::m_suiLastUsingImageIndex = -1;
 		//glClearDepth(1.0f);								// Depth Buffer Setup

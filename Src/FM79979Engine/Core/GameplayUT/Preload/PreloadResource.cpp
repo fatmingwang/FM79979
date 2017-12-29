@@ -20,6 +20,10 @@ namespace FATMING_CORE
 		std::string l_strFileName = l_strSaveFileName;
 		if (l_cBinaryFile.Writefile(l_strFileName.c_str(), true, true))
 		{
+			//if (l_strFileName.find("xml") != std::string::npos)
+			//{
+			//	cGameApp::OutputDebugInfoString(fetch->data);
+			//}
 			l_cBinaryFile.WriteToFile(&fetch->data[0], fetch->numBytes);
 			cGameApp::OutputDebugInfoString("save file finish");
 		}
@@ -123,19 +127,30 @@ namespace FATMING_CORE
 			if (l_pAttribute)
 			{
 				const wchar_t*l_pValue = l_pAttribute->Value();
-				m_bWaitForDownloadFromInternet = true;
-				//add command  -s FETCH=1
-				emscripten_fetch_attr_t attr;
-				emscripten_fetch_attr_init(&attr);
-				strcpy(attr.requestMethod, "GET");
-				attr.attributes = EMSCRIPTEN_FETCH_LOAD_TO_MEMORY;
-				attr.onsuccess = downloadSucceeded;
-				attr.onerror = downloadFailed;
-				attr.userData = this;
 				std::string l_strFileName = ValueToString(l_pValue);
-				emscripten_fetch(&attr, l_strFileName.c_str());
-				cGameApp::OutputDebugInfoString("start to download");
-				cGameApp::OutputDebugInfoString(l_strFileName.c_str());
+				//if (!IsFileExists(l_strFileName.c_str()))
+				{
+					m_bWaitForDownloadFromInternet = true;
+					//add command  -s FETCH=1
+					emscripten_fetch_attr_t attr;
+					emscripten_fetch_attr_init(&attr);
+					strcpy(attr.requestMethod, "GET");
+					attr.attributes = EMSCRIPTEN_FETCH_LOAD_TO_MEMORY;//EMSCRIPTEN_FETCH_REPLACE
+					attr.onsuccess = downloadSucceeded;
+					attr.onerror = downloadFailed;
+					attr.userData = this;
+					emscripten_fetch(&attr, l_strFileName.c_str());
+					
+					//cGameApp::OutputDebugInfoString("start to download");
+					//cGameApp::OutputDebugInfoString(l_strFileName.c_str());
+					cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("start to download %s", l_strFileName.c_str()).c_str());
+				}
+				//else
+				//{
+				//	//cGameApp::OutputDebugInfoString(l_strFileName.c_str());
+				//	//cGameApp::OutputDebugInfoString("exists skip download!");
+				//	cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("%s exists skip download!", l_strFileName.c_str()).c_str());
+				//}
 			}
 			m_pCurrentTiXmlElement = m_pCurrentTiXmlElement->NextSiblingElement();
 			if (m_pCurrentTiXmlElement)

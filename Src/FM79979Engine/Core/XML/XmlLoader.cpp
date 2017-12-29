@@ -109,6 +109,8 @@ namespace FATMING_CORE
 			std::string	l_strErrorMsg = e_strFileName;
 			l_strErrorMsg += " encode error or file not exist or xml format error??\n";
 			cGameApp::OutputDebugInfoString(l_strErrorMsg);
+			std::string l_strContent = UT::GetTxtFileContent(e_strFileName);
+			cGameApp::OutputDebugInfoString(l_strContent);
 #endif
 				return 0;
 		}

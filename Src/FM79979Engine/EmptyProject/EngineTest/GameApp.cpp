@@ -69,6 +69,7 @@ void	cEngineTestApp::Render()
 	this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();
 	this->m_pPhaseManager->DebugRender();
+
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

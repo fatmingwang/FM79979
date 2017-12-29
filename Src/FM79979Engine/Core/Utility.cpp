@@ -845,7 +845,7 @@ namespace UT
 #endif
 	std::string				GetTxtFileContent(const char* e_strFileName)
 	{
-		std::string	l_strContent;
+		std::string	l_strContent = e_strFileName;
 		NvFile*l_pFile = MyFileOpen(e_strFileName,"r");
 		if(!l_pFile)
 		{
@@ -854,11 +854,14 @@ namespace UT
 			return l_strContent;
 		}
 		long	l_uiFileSize = UT::GetFileSize(l_pFile);
-		char*l_Temp = new char[l_uiFileSize+1];//1 MB
-		size_t	l_iNumRead = NvFRead(l_Temp,1,l_uiFileSize,l_pFile);
-		l_Temp[l_iNumRead] = 0;
-		l_strContent = l_Temp;
-		delete[] l_Temp;
+		if (l_uiFileSize != 0)
+		{
+			char*l_Temp = new char[l_uiFileSize + 1];//1 MB
+			size_t	l_iNumRead = NvFRead(l_Temp, 1, l_uiFileSize, l_pFile);
+			l_Temp[l_iNumRead] = 0;
+			l_strContent = l_Temp;
+			delete[] l_Temp;
+		}
 		NvFClose(l_pFile);
 		return l_strContent;
 	}
@@ -1003,8 +1006,15 @@ namespace UT
 			std::string l_strFileName = e_strFileName;
 			l_strFileName += "  :";
 			l_strFileName += l_strWASMFile;
+			if (!fp)
+			{
+				l_strFileName += " open failed";
+			}
+			else
+			{
+				l_strFileName += " open okay";
+			}
 			cGameApp::OutputDebugInfoString(l_strFileName);
-			cGameApp::OutputDebugInfoString(fp ? "open okay" : "open failed");
 		}
 #else
 		if( l_bWrite )

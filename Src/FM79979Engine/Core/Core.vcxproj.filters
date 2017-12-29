@@ -701,9 +701,6 @@
     <ClCompile Include="GameplayUT\Language\LanguageFile.cpp">
       <Filter>GameplayUT\Language</Filter>
     </ClCompile>
-    <ClCompile Include="Network\SDLnet.cpp">
-      <Filter>NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="Network\SDLnetselect.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
@@ -715,6 +712,9 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\Preload\PreloadResource.cpp">
       <Filter>GameplayUT\Preload</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\SDLnet.cpp">
+      <Filter>NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

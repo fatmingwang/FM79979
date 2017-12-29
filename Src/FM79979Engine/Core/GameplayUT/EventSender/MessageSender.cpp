@@ -1,7 +1,7 @@
 #include "../../stdafx.h"
 #include "MessageSender.h"
 #include "../../Network/Network.h"
-
+#include "../GameApp.h"
 namespace FATMING_CORE
 {
 	cMessageSenderManager*g_pMessageSenderManager = nullptr;
@@ -189,7 +189,7 @@ namespace FATMING_CORE
 	{
 		unsigned short iSize = *(unsigned short*)e_pPacket->pData;
 		unsigned short iMessageID = *(((unsigned short*)(e_pPacket->pData)) + 1);
-		printf("MessageIDInProcess:%d\n", iMessageID);
+		cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", iMessageID));
 		if (e_pPacket == nullptr)
 		{//for test
 			auto l_Iterator = m_NetworkMessageFunctionAndObjectIDMap.find(e_usID);

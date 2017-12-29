@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "../../AllLibInclude.h"
 #include "BluffingGirlApp.h"
+#include "../../Core/Network/SDL_net.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
 cGameApp*g_pGameApp = 0;
@@ -150,6 +151,11 @@ int main()
 	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
 	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
 	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
+	printf("SDLNet_Init\n");
+	SDLNet_Init();
+	printf("SDLNet_Quit\n");
+	SDLNet_Quit();
+	printf("SDL_Init\n");
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
@@ -157,11 +163,14 @@ int main()
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
+	printf("SDL_SetVideoMode \n");
 	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
 	{
 		return -1;
 	}
 	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+	printf("new cPreLoadFromInternet\n");
+	//please copy Media/BluffingGirl folder into your server repository
 	g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadFile.xml");
 	if (l_pSurf_Display)

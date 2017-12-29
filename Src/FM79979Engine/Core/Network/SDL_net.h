@@ -368,7 +368,7 @@ extern unsigned int SDLNet_Read32(void *area);
 //#define SDLNet_SetError	SDL_SetError
 //#define SDLNet_GetError	SDL_GetError
 
-#define SDLNet_SetError	
+#define SDLNet_SetError(p)	{printf("SDLNet:");printf(p);}
 #define SDLNet_GetError	
 
 /* I'm eventually going to try to disentangle SDL_net from SDL, thus making

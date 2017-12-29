@@ -94,8 +94,8 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>-s TOTAL_MEMORY=2013265920  -s FETCH=1 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=2  -s FULL_ES2=1</AdditionalOptions>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-s TOTAL_MEMORY=2013265920  -s FETCH=1 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=2  -s FULL_ES2=1 -s</AdditionalOptions>
+      <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
