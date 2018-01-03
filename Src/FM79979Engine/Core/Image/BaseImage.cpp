@@ -19,7 +19,7 @@ namespace FATMING_CORE
 		if( e_strImageName )
 		{
 			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
-			m_pTexture = cTexture::GetTexture(this, e_strImageName, e_bFetchPixels);
+			m_pTexture = cTextureManager::GetInstance()->GetObject(this, e_strImageName, e_bFetchPixels);
 			if (m_pTexture)
 			{
 				m_iWidth = m_pTexture->GetWidth();

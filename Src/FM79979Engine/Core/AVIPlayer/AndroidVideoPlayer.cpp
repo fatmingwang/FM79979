@@ -615,7 +615,7 @@ void	VideoThread(size_t _workParameter, size_t _pUri)
 		}
 		l_TC.Update();
 #ifdef DEBUG
-		l_pFMVVideo->Update(l_TC.fElpaseTime*cGameApp::m_sfDebugValue);
+		l_pFMVVideo->Update(l_TC.fElpaseTime*cGameApp::m_sfGameSpeedValue);
 #else
 		l_pFMVVideo->Update(l_TC.fElpaseTime);
 #endif

@@ -2,6 +2,7 @@
 #define BASEIMAGE_H
 
 #include "Texture.h"
+#include "TextureManager.h"
 #include "RenderObject.h"
 
 namespace FATMING_CORE

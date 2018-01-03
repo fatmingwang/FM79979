@@ -1,16 +1,10 @@
-#ifndef glLoadImage_H
-#define glLoadImage_H
+#pragma once
+
 #include "../SmartPointer.h"
 namespace FATMING_CORE
 {
+	class cTextureManager;
 	extern bool	g_bSupportNonPowerOfTwoTexture;
-	//glCopyTexSubImage2D	//
-	void	SaveCurrentBufferToImage(const char*e_strFileName);
-	void	SaveBufferToImage(const char*e_strFileName,int e_iWidth,int e_iHeight,unsigned char*e_pPixel,int e_iChannel);
-
-	float*	UVToTriangleStrip(float*e_pfUV);
-	float*	UVToTwoTriangle(float*e_pfUV);
-	int		GetChannelByColorFormat(GLenum e_GLenum);
 	//=======================
 	//base image that contain UV and width and height data
 	//also contain the pixel data if u want to fetch it.
@@ -18,6 +12,7 @@ namespace FATMING_CORE
 	//=======================
 	class	cTexture:public cSmartObject
 	{
+		friend class cTextureManager;
 		bool	LoadDDS(const char*e_strFileName);
 		cTexture(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData = false);
 	protected:
@@ -55,10 +50,7 @@ namespace FATMING_CORE
 		int		GetWidth(){ return m_iWidth; }
 		int		GetHeight(){ return m_iHeight; }
 		GLint	GetPixelFormat(){ return m_iPixelFormat; }
-		inline	bool	IsSameTextureID(cTexture*e_pSimpleGLTexture)
-		{
-			return e_pSimpleGLTexture->m_uiImageIndex == m_uiImageIndex?true:false;
-		}
+		inline	bool	IsSameTextureID(cTexture*e_pSimpleGLTexture){return e_pSimpleGLTexture->m_uiImageIndex == m_uiImageIndex?true:false;}
 		virtual wchar_t*DescriptionInfo()
 		{
 			static  wchar_t   l_sStrDescription[MAX_PATH];
@@ -78,7 +70,6 @@ namespace FATMING_CORE
 		void				ForceUpdatePixels(const GLvoid *e_pPixels);
 		//must delete return data .
 		static char*		GeneratePowerOfTwoPixelData(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,const GLvoid *e_pPixels);
-		static  cTexture*	GetTexture(NamedTypedObject*e_pOwner, const char*e_strImageFileName, bool e_bFetchPixelData = false);
 		static  void		DumpDebugInfo();
 	};
 	//sample to get pixel by texture ID
@@ -89,4 +80,3 @@ namespace FATMING_CORE
 	//glGetTexImage( GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_pPixels );
 	//m_iPixelFormat = GL_RGBA;
 }
-#endif

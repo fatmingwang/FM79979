@@ -199,7 +199,11 @@ namespace FATMING_CORE
 		Frame*l_pFrame = e_pMPDINode->GetFirstChild();
 		while( l_pFrame )
 		{
-			Frame*CloneFrame = dynamic_cast<Frame*>(l_pFrame->Clone());
+			//this occur warning,so I use address method to fix
+			//Frame*CloneFrame = dynamic_cast<Frame*>(l_pFrame->Clone());
+			size_t l_uiCloneFrameAddress = (size_t)l_pFrame->Clone();
+			Frame*CloneFrame = (Frame*)l_uiCloneFrameAddress;
+			//this could be wrong,I am not sure,
 			this->AddChildToLast(CloneFrame);
 			l_pFrame = l_pFrame->GetNextSibling();
 		}

@@ -716,6 +716,9 @@
     <ClCompile Include="Network\SDLnet.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
+    <ClCompile Include="Image\TextureManager.cpp">
+      <Filter>RenderObject\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1239,6 +1242,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Preload\PreloadResource.h">
       <Filter>GameplayUT\Preload</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\TextureManager.h">
+      <Filter>RenderObject\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

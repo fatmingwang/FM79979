@@ -43,12 +43,13 @@ namespace	FATMING_CORE
 	HGLRC												cGameApp::m_sHGLRC = 0;
 #endif
 	double												cGameApp::m_dbGamePlayTime = 0;
-	float												cGameApp::m_sfDebugValue = 1.f;
+	float												cGameApp::m_sfGameSpeedValue = 1.f;
 	float												cGameApp::m_sfVersion = 1.f;
 	bool												cGameApp::m_sbLeave = false;
 	bool												cGameApp::m_sbSpeedControl = false;
 	bool												cGameApp::m_sbMultisample = false;
 	UT::sTimeAndFPS										cGameApp::m_sTimeAndFPS;
+	std::vector<int>*									cGameApp::m_piSupportCompressedFormatVector = nullptr;;
 	cMessageSenderManager*								cGameApp::m_spMessageSenderManager = nullptr;
 	cPaticleManager*									cGameApp::m_spPaticleManager = 0;
 	cBehaviorPaticleManager*							cGameApp::m_spBehaviorPaticleManager = 0;
@@ -316,6 +317,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spGlyphFontRenderVector);
 		m_spGlyphFontRender = 0;
 		SAFE_DELETE(m_spExternalFunctionVector);
+		SAFE_DELETE(cGameApp::m_piSupportCompressedFormatVector);
 		DeleteAllShader();
 		SystemErrorCheck();
 		if (m_spLogFile)
@@ -369,7 +371,7 @@ namespace	FATMING_CORE
 			l_fElpaseTime = 0.016f;
 		if (m_sbGamePause)
 			l_fElpaseTime = 0.f;
-		Update(m_sbSpeedControl ? l_fElpaseTime*this->m_sfDebugValue : l_fElpaseTime);
+		Update(m_sbSpeedControl ? l_fElpaseTime*this->m_sfGameSpeedValue : l_fElpaseTime);
 		Render();
 		if (m_bDoScreenShot)
 		{
@@ -486,7 +488,7 @@ namespace	FATMING_CORE
 					this->m_sbDoLockFPS = !this->m_sbDoLockFPS;
 					break;
 				case 'R':
-					m_sfDebugValue = 1.f;
+					m_sfGameSpeedValue = 1.f;
 					break;
 				case 'P':
 					m_sbGamePause = !m_sbGamePause;
@@ -507,14 +509,14 @@ namespace	FATMING_CORE
 					m_bDoScreenShot = true;
 					break;
 				case 107://107'+'
-					m_sfDebugValue *= 2.f;
-					if (m_sfDebugValue > 1073741824)
-						m_sfDebugValue = 1073741824;
+					m_sfGameSpeedValue *= 2.f;
+					if (m_sfGameSpeedValue > 1073741824)
+						m_sfGameSpeedValue = 1073741824;
 					break;
 				case 109://109'-'
-					m_sfDebugValue /= 2.f;
-					if (m_sfDebugValue <= 0.00000000001f)
-						m_sfDebugValue = 0.00000000001f;
+					m_sfGameSpeedValue /= 2.f;
+					if (m_sfGameSpeedValue <= 0.00000000001f)
+						m_sfGameSpeedValue = 0.00000000001f;
 					break;
 				default:
 					break;
@@ -810,7 +812,7 @@ namespace	FATMING_CORE
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, cGameApp::m_sbDoLockFPS ? L"LockFPS" : L"No LockFPS");
 			l_iStaryPosY += 20;
 			l_strInfo = L"Speed:";
-			l_strInfo += ValueToStringW(m_sfDebugValue);
+			l_strInfo += ValueToStringW(m_sfGameSpeedValue);
 			cGameApp::m_spGlyphFontRender->RenderFont(0.f, (float)l_iStaryPosY, l_strInfo);
 			l_iStaryPosY += 20;
 			l_strInfo = L"Pause:";

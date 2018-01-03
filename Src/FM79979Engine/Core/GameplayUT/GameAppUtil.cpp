@@ -115,6 +115,30 @@ namespace	FATMING_CORE
 		MyGLGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&l_iValue);					l_str = L"GL_MAX_VERTEX_ATTRIBS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
 		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,&l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
 		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
+
+		//http://www.informit.com/articles/article.aspx?p=770639&seqNum=3
+		//GLfloat l_fGL_TEXTURE_COMPRESSED;
+		const int l_ciSupportFormatCountTestValue = 100;
+		GLint	l_iSupportFormat[l_ciSupportFormatCountTestValue];
+		memset(l_iSupportFormat, 0, sizeof(l_iSupportFormat));
+		SAFE_DELETE(cGameApp::m_piSupportCompressedFormatVector);
+		cGameApp::m_piSupportCompressedFormatVector = new std::vector<int>();
+		MyGLGetIntegerv(GL_COMPRESSED_TEXTURE_FORMATS, l_iSupportFormat);
+		l_str = L"GL_COMPRESSED_TEXTURE_FORMATS:";
+		for (int i = 0; i < l_ciSupportFormatCountTestValue; ++i)
+		{
+			if (l_iSupportFormat[i] == 0)
+				break;
+			cGameApp::m_piSupportCompressedFormatVector->push_back(l_iSupportFormat[i]);
+			char hexString[20];
+			itoa(l_iSupportFormat[i], hexString, 16);
+			l_str += ValueToStringW(hexString);
+			l_str += L",";
+		}
+		l_str += L"\n";
+		cGameApp::OutputDebugInfoString(l_str.c_str());
+		//
+		//glGetTexLevelParameterfv(GL_TEXTURE_2D,0, GL_TEXTURE_COMPRESSED,&l_fGL_TEXTURE_COMPRESSED);
 	}
 	POINT	ConvertCoordinate(int e_iPosX,int e_iPosY,POINT e_ViewPort)
 	{
@@ -150,6 +174,24 @@ namespace	FATMING_CORE
 		l_Pos.x = (int)(l_Pos.x*l_vScale.x);
 		l_Pos.y = (int)(l_Pos.y*l_vScale.y);
 		return l_Pos;
+	}
+
+	bool	cGameApp::IsCompressedFormatSupport(int e_iFormat)
+	{
+		if (!cGameApp::m_piSupportCompressedFormatVector)
+		{
+			DumpGraphicsInfo();
+		}
+		if (cGameApp::m_piSupportCompressedFormatVector)
+		{
+			int l_iSize = (int)cGameApp::m_piSupportCompressedFormatVector->size();
+			for (int i = 0; i <l_iSize; ++i)
+			{
+				if (e_iFormat == (*cGameApp::m_piSupportCompressedFormatVector)[i])
+					return true;
+			}
+		}
+		return false;
 	}
 	//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 	//in android if e_iKeyBoardType is one u have to setup

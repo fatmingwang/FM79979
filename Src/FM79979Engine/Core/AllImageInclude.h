@@ -3,6 +3,7 @@
 
 #include "Image/SimplePrimitive.h"
 #include "Image/Texture.h"
+#include "Image/TextureManager.h"
 #include "Image/BaseImage.h"
 #include "Image/UVAnimationImage.h"
 #include "Image/FrameBuffer.h"

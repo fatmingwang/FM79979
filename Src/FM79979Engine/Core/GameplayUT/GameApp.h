@@ -98,6 +98,7 @@ namespace	FATMING_CORE
 		static	HANDLE												m_sHandle;
 		static	HGLRC												m_sHGLRC;
 #endif
+		static  std::vector<int>*									m_piSupportCompressedFormatVector;
 		static	UT::sTimeAndFPS										m_sTimeAndFPS;
 		static	Vector4												m_svViewPortSize;
 		static	Vector4												m_svDeviceViewPortSize;
@@ -141,7 +142,7 @@ namespace	FATMING_CORE
 		static	int													m_siShowErrorType;
 		static	std::wstring*										m_spstrErrorMsgString;
 		//will be effect by key + and -,so keep - and + reserved
-		static	float												m_sfDebugValue;
+		static	float												m_sfGameSpeedValue;
 		//this one could be write into file,so we could check user version
 		static  float												m_sfVersion;
 		//if true game exit
@@ -214,6 +215,7 @@ namespace	FATMING_CORE
 		//take a see at cpp
 		static  void					OpenKeyBoard(int e_iKeyBoardType, const wchar_t*e_strTitle = L"GameApp", const wchar_t*e_strMessage = L"please input data");
 		static	std::wstring			GetDIDOrInstallationRandomID();
+		bool							IsCompressedFormatSupport(int e_iFormat);
 	};
 	//end namespace
 }

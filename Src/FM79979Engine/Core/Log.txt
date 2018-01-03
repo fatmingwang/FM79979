@@ -150,3 +150,11 @@ https://stackoverflow.com/questions/17380340/win32-preprocessor-definition-in-64
 
 Dec 08 2017
 remove opengl es1
+
+Jan 03 2018
+1>msvcrtd.lib(_init_.obj) : error LNK2001: unresolved external symbol _CrtDbgReport
+1>msvcrtd.lib(_init_.obj) : error LNK2001: unresolved external symbol _CrtDbgReportW
+https://social.msdn.microsoft.com/Forums/vstudio/en-US/5e126c79-77f3-4d50-a47f-a9ce35cff0a4/unresolved-external-symbol-impcrtdbgreportw?forum=vcgeneral
+I had to do something very similar to fix this issue.   
+In our case we had to differentiate between the debug and release versions.
+So, when doing a release build, ignore msvcrtd.lib, and in debug build ignore msvcrt.lib
