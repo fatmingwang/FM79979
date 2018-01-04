@@ -1,4 +1,4 @@
-<IABMenu PI="Image/Shopping.pi" IABSetupFile="BluffingGirl/IAB/IABSetup.xml" ScrollRect="50,300,720,1080" ItemGap="20">
+<IABMenu PI="BluffingGirl/Image/Shopping.pi" IABSetupFile="BluffingGirl/IAB/IABSetup.xml" ScrollRect="50,300,720,1080" ItemGap="20">
 	<ProductData Image="Buy_First_Gift" ProductName="FirstBuy" />
 	<ProductData Image="Buy_Heart" ProductName="Heart" />
 	<ProductData Image="Buy_Glass" ProductName="Glasses" />
