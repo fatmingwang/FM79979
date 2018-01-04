@@ -6,9 +6,9 @@
 	<ProductData Image="Buy_Glass_25" ProductName="Glasses25" />
 	<ProductData Image="Buy_Glass_50" ProductName="Glasses50" />
 	<BG>
-		<cMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main_Bg_Animation" />
+		<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Bg_Animation" />
 	</BG>
 	<CancelButton>
-		<cSubMPDI cMPDIList="Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Return_Button"/>
+		<cSubMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Return_Button"/>
 	</CancelButton>
 </IABMenu>
