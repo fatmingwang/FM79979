@@ -124,56 +124,67 @@ void	cBluffingGirlApp::Init()
 
 	cSetupPhase*l_pSetupPhase = new cSetupPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pSetupPhase);
-
+	cGameApp::OutputDebugInfoString(L"new g_pShowLogoPhase");
 	g_pShowLogoPhase = new cShowLogoPhase();
 	m_pPhaseManager->AddObjectNeglectExist(g_pShowLogoPhase);
 	m_pPhaseManager->SetCurrentCurrentPhase(g_pShowLogoPhase->GetName());
-
 	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
-
 	cGameApp::GetPuzzleImageByFileName(L"BluffingGirl/Image/Mm_Photo_001.pi");
 	//common file parse
 	cMPDIList*l_pCommonMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
-	
+	cGameApp::OutputDebugInfoString(L"new cTitlePhase");
 	cTitlePhase*l_pTitlePhase = new cTitlePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pTitlePhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cMainMenuPhase");
 	cMainMenuPhase*l_pMainMenuPhase = new cMainMenuPhase("BluffingGirl/PhaseData/MainMenuPhase.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pMainMenuPhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cStorePhase");
 	cStorePhase*l_pIABMenu = new cStorePhase();	l_pIABMenu->Parse("BluffingGirl/IAB/IABMenu.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pIABMenu);
-	////
+	//
+	cGameApp::OutputDebugInfoString(L"new cFBPhase");
 	cFBPhase*l_pFBPhase = new cFBPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pFBPhase);
-	////
-	cChoiceGirlPhase*l_pChoiceGirlPhase = new cChoiceGirlPhase("BluffingGirl/PhaseData/ChoiceGirlPhase.xml");
-	this->m_pPhaseManager->AddObjectNeglectExist(l_pChoiceGirlPhase);
-	////
+	//
+	cGameApp::OutputDebugInfoString(L"new cChoiceGirlStagePhase");
 	cChoiceGirlStagePhase*l_pChoiceGirlStagePhase = new cChoiceGirlStagePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pChoiceGirlStagePhase);
-	////
+	//
+	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase");
+	cChoiceGirlPhase*l_pChoiceGirlPhase = new cChoiceGirlPhase("BluffingGirl/PhaseData/ChoiceGirlPhase.xml");
+	this->m_pPhaseManager->AddObjectNeglectExist(l_pChoiceGirlPhase);
+	///
+	cGameApp::OutputDebugInfoString(L"new cBluffingDiceGame");
 	cBluffingDiceGame*l_pBluffingDiceGame = new cBluffingDiceGame();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pBluffingDiceGame);
-	////
+	//
+	cGameApp::OutputDebugInfoString(L"new cWinPrizePhase");
 	cWinPrizePhase*l_pWinPrizePhase = new cWinPrizePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pWinPrizePhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cHeartRecoverSelectGirlPhase");
 	cHeartRecoverSelectGirlPhase*l_pHeartRecoverSelectGirlPhase = new cHeartRecoverSelectGirlPhase("BluffingGirl/PhaseData/HeartRecoverChoiceGirlPhase.xml");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pHeartRecoverSelectGirlPhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cHeartRecoverPhase");
 	cHeartRecoverPhase*l_pHeartRecoverPhase = new cHeartRecoverPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pHeartRecoverPhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cGirlIntroducingPhase");
 	cGirlIntroducingPhase*l_pGirlIntroducingPhase = new cGirlIntroducingPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pGirlIntroducingPhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cGameRulePhase");
 	cGameRulePhase*l_pGameRulePhase = new cGameRulePhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pGameRulePhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cNetWorkConnectPhase");
 	cNetWorkConnectPhase*l_pNetWorkConnectPhase = new cNetWorkConnectPhase();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pNetWorkConnectPhase);
 	//
+	cGameApp::OutputDebugInfoString(L"new cBluffingDiceMultiPlayerGame");
 	cBluffingDiceMultiPlayerGame*l_pBluffingDiceMultiPlayerGame = new cBluffingDiceMultiPlayerGame();
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pBluffingDiceMultiPlayerGame);
 	//

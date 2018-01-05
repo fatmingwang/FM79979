@@ -5,12 +5,19 @@
 #include "unistd.h"
 #endif
 #include "UnpackExpansionPack.h"
+#include <thread>
+#include <mutex>
+bool	g_bWaitThreadFinish = true;
+bool	g_bThreadFinish = false;
 cShowLogoPhase::cShowLogoPhase()
 {
 	this->SetName(SHOWLOGO_PHASE_NAME);
 	m_pBGMPDI = 0;
 	m_bGotoMainPhase = false;
 	m_pUnpackExpansionPack = 0;
+	g_bWaitThreadFinish = true;
+	g_bThreadFinish = false;
+
 }
 
 cShowLogoPhase::~cShowLogoPhase()
@@ -18,20 +25,19 @@ cShowLogoPhase::~cShowLogoPhase()
 	Destroy();
 }
 
-bool	g_bWait = true;
-
 cBasicSound*g_pLogoMusic = 0;
 void	ShowLogoBGM(size_t _workParameter, size_t _pUri)
 {
 	UT::sTimeAndFPS	l_TC;
 	l_TC.Update();
-	while( g_bWait )
+	while(g_bWaitThreadFinish)
 	{
 		l_TC.Update();
 		if(!cGameApp::m_sbGamePause)
 			g_pLogoMusic->Update(l_TC.fElpaseTime);
 		Sleep(160);
 	}
+	g_bThreadFinish = true;
 }
 void	ShowLogoBGMDone(size_t _workParameter, size_t _pUri)
 {
@@ -64,9 +70,15 @@ void	cShowLogoPhase::Init()
 	{
 		g_pLogoMusic->Play(true);
 		g_pLogoMusic->SetLoop(true);
-		FUStaticFunctor2<size_t, size_t, void>* workFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGM);
-		FUStaticFunctor2<size_t, size_t, void>* doneFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGMDone);
-		this->m_ThreadPool.ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
+//#ifndef WASM
+		//FUStaticFunctor2<size_t, size_t, void>* workFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGM);
+		//FUStaticFunctor2<size_t, size_t, void>* doneFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGMDone);
+		//this->m_ThreadPool.ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
+//#else
+		std::thread l_ShowLogoBGMThread(ShowLogoBGM,(size_t)this, 0);
+		l_ShowLogoBGMThread.detach();
+		//l_ShowLogoBGMThread.join();
+//#endif
 	}
 	m_pUnpackExpansionPack->IsInUnpackProgress();
 	m_ResourceStamp.StampResource2();
@@ -74,9 +86,14 @@ void	cShowLogoPhase::Init()
 }
 void	cShowLogoPhase::Destroy()
 {
-	g_bWait = false;
+	g_bWaitThreadFinish = false;
 	m_pBGMPDI = 0;
-	m_ThreadPool.Clear();
+	//m_ThreadPool.Clear();
+	while (!g_bThreadFinish)
+	{
+		Sleep(100);
+		cGameApp::OutputDebugInfoString(L"wait g_pLogoMusic thread finish");
+	}
 	if( g_pLogoMusic )
 		g_pLogoMusic->Release(this);
 	g_pLogoMusic = 0;
@@ -98,7 +115,7 @@ void	cShowLogoPhase::Update(float e_fElpaseTime)
 				}
 				else
 				{
-					g_bWait = false;
+					g_bWaitThreadFinish = false;
 					this->m_bSatisfiedCondition = true;
 					this->Destroy();
 					//

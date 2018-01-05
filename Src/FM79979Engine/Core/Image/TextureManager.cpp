@@ -86,7 +86,7 @@ namespace FATMING_CORE
 	}
 	cTextureManager::cTextureManager()
 	{
-		SetName(L"g_pTextureStore");
+		SetName(L"cTextureManager");
 	}
 
 	cTextureManager::~cTextureManager()
@@ -100,7 +100,7 @@ namespace FATMING_CORE
 			AddObjectNeglectExist(e_pTexture);
 #ifdef DEBUG
 			std::wstring l_str = e_pTexture->GetName();
-			l_str += L" add into TextureStore";
+			l_str += L" add into cTextureManager";
 			cGameApp::OutputDebugInfoString(l_str);
 #endif
 	}
@@ -250,12 +250,13 @@ namespace FATMING_CORE
 
 	void	OpenGLDeleteTexture(cTexture*e_pSimpleGLTexture)
 	{
+		GLuint	l_iImageIndex = e_pSimpleGLTexture->GetImageIndex();
+		if (l_iImageIndex == -1)
+			return;
 	#ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 	#endif
-		GLuint	l_iImageIndex = e_pSimpleGLTexture->GetImageIndex();
-		if(l_iImageIndex != -1)
-			glDeleteTextures(1, &l_iImageIndex);
+		glDeleteTextures(1, &l_iImageIndex);
 	#ifdef DEBUG
 		int	l_iAfterAlivableVRamKB = CheckRestVRam();
 		int	l_iDiffErentKB = l_iBeforeAlivableVRamKB - l_iAfterAlivableVRamKB;

@@ -6,7 +6,7 @@ class cUnpackExpansionPack;
 class cShowLogoPhase:public cSimplePhase,public ISAXCallback
 {
 	cUnpackExpansionPack*	m_pUnpackExpansionPack;
-	cFUThreadPool			m_ThreadPool;
+	//cFUThreadPool			m_ThreadPool;
 	cMPDI*					m_pBGMPDI;
 	cResourceStamp			m_ResourceStamp;
 public:

@@ -1351,7 +1351,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	int	l_iLength = e_iLength;
 	if( l_iMagicID == HUFFMAN_MAGIC_ID )
 	{
-		cGameApp::OutputDebugInfoString("thi is HUFFMAN file");
+		cGameApp::OutputDebugInfoString("this is HUFFMAN file");
 		if( !cGameApp::m_sbAllowParseBinaryFile )
 		{
 			cGameApp::OutputDebugInfoString("not allow HUFFMAN file");
@@ -1388,10 +1388,6 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	{
 		cGameApp::OutputDebugInfoString("anscii convert to wchar1");
 		char*l_strAnsii = (char*)buf;
-		if (l_bBinary)
-		{
-			printf(l_strAnsii);
-		}
 		std::wstring l_strCharToWchar;
 		{
 			std::string		l_strForCopy = l_strAnsii;

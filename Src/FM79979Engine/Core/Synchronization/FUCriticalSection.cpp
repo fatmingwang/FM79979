@@ -43,7 +43,6 @@ void cFUCriticalSection::Enter() const
 	// it is an error to enter a critical section that thinks it is owned.
 	assert((ownerThread == 0  && lockCount == 0) ||(cFUThread::CurrentThreadID() == ownerThread));
 	ownerThread = cFUThread::CurrentThreadID();
-	printf("ownerThread%d", ownerThread);
 	++ lockCount;
 }
 
