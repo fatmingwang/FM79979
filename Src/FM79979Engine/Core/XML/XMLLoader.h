@@ -225,7 +225,7 @@ namespace FATMING_CORE
 		virtual	bool	Parse(const char*e_strFileName,bool e_bShowLoadingState = false);
 		virtual	bool	Parse(std::string e_strFileName,bool e_bShowLoadingState = false);
 		virtual	bool	Parse(const wchar_t*e_strFileName,bool e_bShowLoadingState = false);
-		virtual	bool	ParseText(const char*e_strFileName);
+		virtual	bool	ParseText(const wchar_t*e_strContext);
 		char*	GetFileName(){ return m_strFileName; }
 		bool	HasErrorMessage(){ if( wcslen(m_strErrorMsg.c_str()) )return true;return false; }
 		const   wchar_t*GetErrorMsg(){ return m_strErrorMsg.c_str(); }

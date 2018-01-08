@@ -2323,7 +2323,7 @@ namespace MPDI
 					{
 						//static Frame l_TestFrame;
 						static float l_sfTestAngele = 0.f;
-						l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
+						l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime;// *cGameApp::m_sfDebugValue;
 						//l_sfTestAngele = 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
 						//l_TestFrame.SetLocalTransform(l_TestFrame.GetLocalTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
 						//l_TestFrame.SetLocalTransform(cMatrix44::TranslationMatrix(0,0,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));

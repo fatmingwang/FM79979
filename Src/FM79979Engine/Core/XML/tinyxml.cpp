@@ -1309,9 +1309,8 @@ bool TiXmlDocument::SaveFile() const
 //		return true;
 //
 //	return false;
-    char    l_strFileName[MAX_PATH];
-    WCHAR_TO_CHAR(Value(),l_strFileName);
-    return SaveFile( l_strFileName );
+	std::string l_strFileName = ValueToString(Value());
+    return SaveFile( l_strFileName.c_str() );
 	//return SaveFile( Value() );
 }
 

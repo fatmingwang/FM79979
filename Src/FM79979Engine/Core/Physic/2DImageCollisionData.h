@@ -85,7 +85,7 @@ namespace FATMING_CORE
 		//for editor use
 		std::vector<sImageCollisionData*>m_ImageCollisionDataVector;
 		void	Export(char*e_strFileName,cPuzzleImage*e_pPuzzleImage);
-		wchar_t	m_strForCollidedpiFile[MAX_PATH];
+		std::wstring	m_strForCollidedpiFile;
 		//for editor use
 		//0 for add 1 for fix
 		sImageCollisionData*m_pCurrentImageCollisionData;

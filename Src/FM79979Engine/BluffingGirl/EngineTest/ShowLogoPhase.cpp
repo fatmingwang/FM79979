@@ -47,6 +47,7 @@ void	ShowLogoBGMDone(size_t _workParameter, size_t _pUri)
 
 void	cShowLogoPhase::Init()
 {
+	g_bWaitThreadFinish = true;
 	m_ResourceStamp.StampResource1();
 	SAFE_DELETE(m_pUnpackExpansionPack);
 	m_pUnpackExpansionPack = new cUnpackExpansionPack();

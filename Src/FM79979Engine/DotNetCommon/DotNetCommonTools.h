@@ -19,7 +19,6 @@
 using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Diagnostics;
-
 #ifndef CHAR_TO_WCHAR
 #define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
 #endif
@@ -80,9 +79,10 @@ namespace DNCT
 	
 	#define GCNEW(p,q) p^ q = gcnew p;//class and named object
 
-	char*	GcStringToChar(System::String^e_str);
-	WCHAR*	GcStringToWchar(System::String^e_str);
+	std::string		GcStringToChar(System::String^e_str);
+	std::wstring	GcStringToWchar(System::String^e_str);
 	String^	WcharToGcstring(const WCHAR*e_str);
+	inline String^	WcharToGcstring(std::wstring e_str) { return WcharToGcstring(e_str.c_str()); }
 	String^	ForceAddExtenName(String^e_strDest,char*e_strExtensionName);
 	//
 	std::vector<int>	GetIntegerListByCommaDivide(String^e_str,int* e_piSize);
@@ -125,12 +125,12 @@ namespace DNCT
 	//"image files (*.png)|*.png|All files (*.*)|*.*"
 	//"xml files (*.xml)|*.xml|All files (*.*)|*.*"
 	//"png files (*.png)|*.png|All files (*.*)|*.*"
-	cli::array<String^>^ OpenFileAndGetNames(char*e_pFileFilter = 0);
-	System::String^	OpenFileAndGetName(char*e_pFileFilter = 0);
+	cli::array<String^>^ OpenFileAndGetNames(const char*e_pFileFilter = 0);
+	System::String^	OpenFileAndGetName(const char*e_pFileFilter = 0);
 	//"XML	Files(*.dae;*.xml;*.fat;prt)|*.dae;*.xml;*.fat;*.prt|All files (*.*)|*.*"
-	char*	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter = false);
-	char*	ConbineFileDescribtionWithExtensionToFilter(char*e_strDescribtion,const char*e_strExtension,bool e_bWithAllFileFilter = false);
-	System::String^	SaveFileAndGetName(char*e_pFileFilter = 0);
+	std::string	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter = false);
+	std::string	ConbineFileDescribtionWithExtensionToFilter(const char*e_strDescribtion,const char*e_strExtension,bool e_bWithAllFileFilter = false);
+	System::String^	SaveFileAndGetName(const char*e_pFileFilter = 0);
 	System::String^	OpenFileGetText(String^e_strFileName = nullptr,String^e_strCodeName = "UTF-16");
 	System::String^	GetChanglineString();
 

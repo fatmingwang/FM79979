@@ -81,7 +81,7 @@ namespace ParticalEditor
 	}
 	 bool	EmitterEditor::OpenFile()
 	 {
-		String^l_str = DNCT::OpenFileAndGetName(ConbineFileDescribtionWithExtensionToFilter("ParticleGroup Files",m_pBehaviorPaticleManager->ExtensionName(),true));
+		String^l_str = DNCT::OpenFileAndGetName(ConbineFileDescribtionWithExtensionToFilter("ParticleGroup Files",m_pBehaviorPaticleManager->ExtensionName(),true).c_str());
 		if( l_str )
 		{
 			m_pBehaviorPaticleManager->Destroy();
@@ -118,14 +118,14 @@ namespace ParticalEditor
 
 	 void	EmitterEditor::SaveFile()
 	 {
-		String^l_strFileName = DNCT::SaveFileAndGetName(ConvertExtensionToFilter((char*)m_pBehaviorPaticleManager->ExtensionName()));
+		String^l_strFileName = DNCT::SaveFileAndGetName(ConvertExtensionToFilter((char*)m_pBehaviorPaticleManager->ExtensionName()).c_str());
 		if( l_strFileName )
 		{
 			l_strFileName = ForceAddExtenName(l_strFileName,(char*)m_pBehaviorPaticleManager->ExtensionName());
 			string	l_strUseerNameAndTime = DNCT::GcStringToChar(DNCT::GetUseerNameAndTime());
 			//just take it for save data
 			m_pBehaviorPaticleManager->m_pPaticleManager = g_pPaticleManager;
-			this->m_pBehaviorPaticleManager->Export(DNCT::GcStringToChar(l_strFileName),(char*)l_strUseerNameAndTime.c_str());
+			this->m_pBehaviorPaticleManager->Export(DNCT::GcStringToChar(l_strFileName).c_str(),(char*)l_strUseerNameAndTime.c_str());
 			m_pBehaviorPaticleManager->m_pPaticleManager = 0;
 		}	 
 	 }

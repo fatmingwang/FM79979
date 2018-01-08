@@ -7,6 +7,8 @@
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
+#include "../../../include/vld.h"
+#pragma comment(lib, "../../../lib/vld.lib")
 using namespace System::Drawing::Imaging;
 namespace PI
 {
@@ -276,7 +278,7 @@ namespace PI
 					{
 						WARNING_MSG(l_strCurrenDirectory+" not exists"+DNCT::GetChanglineString()+l_pExp->ToString());
 					}
-					cUIImage*l_pUIImage = GetNewUIImageByBitMap(l_pBitMap,l_pPuzzleData->strFileName);
+					cUIImage*l_pUIImage = GetNewUIImageByBitMap(l_pBitMap,l_pPuzzleData->strFileName.c_str());
 					 //cUIImage*l_pUIImage = new cUIImage(DNCT::GcStringToChar(l_strCurrenDirectory+l_strFileName));
 					l_pUIImage->SetOffsetPos(l_pPuzzleData->OffsetPos);
 					POINT	l_RightDown = l_pPuzzleData->OffsetPos+l_pPuzzleData->Size;

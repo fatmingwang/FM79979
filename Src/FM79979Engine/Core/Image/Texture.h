@@ -51,15 +51,7 @@ namespace FATMING_CORE
 		int		GetHeight(){ return m_iHeight; }
 		GLint	GetPixelFormat(){ return m_iPixelFormat; }
 		inline	bool	IsSameTextureID(cTexture*e_pSimpleGLTexture){return e_pSimpleGLTexture->m_uiImageIndex == m_uiImageIndex?true:false;}
-		virtual wchar_t*DescriptionInfo()
-		{
-			static  wchar_t   l_sStrDescription[MAX_PATH];
-			char   l_scStrDescription[MAX_PATH];
-			sprintf(l_scStrDescription,"Size:%d,%d\nUV:%.2f,%2.f,%.2f,%.2f",m_iWidth,m_iHeight,m_fUV[0],m_fUV[1],m_fUV[2],m_fUV[3]);
-			CHAR_TO_WCHAR(l_scStrDescription,l_sStrDescription);
-
-			return l_sStrDescription;
-		}
+		virtual std::wstring DescriptionInfo();
 		float*	GetUV();
 		std::string*		m_pstrFullFileName;
 		//GLAPI void GLAPIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);

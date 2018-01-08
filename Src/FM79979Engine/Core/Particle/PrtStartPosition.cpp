@@ -52,19 +52,17 @@ namespace FATMING_CORE
 		return true;
 	}
 
-	void	cPrtStartPositionInitByFrame::SetSubFrameName(wchar_t*e_pString)
+	void	cPrtStartPositionInitByFrame::SetSubFrameName(const wchar_t*e_pString)
 	{
 		assert(e_pString&&"the attach frame name is empty");
-		size_t	l_iLength = wcslen(e_pString);
-		memcpy(m_psSubFrameName,e_pString,l_iLength);		
-		m_psSubFrameName[l_iLength] = L'\0';
+		m_strSubFrameName = e_pString;
 	}
 	NamedTypedObject*  cPrtStartPositionInitByFrame::Clone()
 	{
 		cPrtStartPositionInitByFrame* l_p = new cPrtStartPositionInitByFrame; 
 		l_p->SetFrame(m_pFrame);
 		l_p->SetAttachFrameType(m_eAttachFrameType);
-		l_p->SetSubFrameName(m_psSubFrameName);
+		l_p->SetSubFrameName(m_strSubFrameName.c_str());
 		l_p->SetOffsetPos(this->m_vOffsetPos);
 		l_p->SetName(GetName());
 		return l_p; 
@@ -74,7 +72,7 @@ namespace FATMING_CORE
 		if(!m_pFrame)
 			return "none Data ot Data error";
 		string	l_strAttachFrameType = UT::WcharToChar(AttachFrameTypeToString(m_eAttachFrameType));
-		sprintf(m_sTemp,"Type:%s\nModelName:%ls\nSubFrameName:%ls\nOffsetPos:%.2f,%.2f,%.2f\0",l_strAttachFrameType.c_str(),m_pFrame->GetName(),wcslen(this->m_psSubFrameName)?m_psSubFrameName:L"",m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
+		sprintf(m_sTemp,"Type:%s\nModelName:%ls\nSubFrameName:%ls\nOffsetPos:%.2f,%.2f,%.2f\0",l_strAttachFrameType.c_str(),m_pFrame->GetName(),m_strSubFrameName.c_str(),m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
 		return m_sTemp;
 	}
 	char*	cPrtStartPositionInitByFrame::GetOutputDataString()
@@ -101,11 +99,8 @@ namespace FATMING_CORE
 				break;
 		}
 
-		wchar_t *l_strNAme = L"";
-        if(wcslen(this->m_psSubFrameName))
-            l_strNAme = (wchar_t*)m_psSubFrameName;
 		std::string	l_strFrameName = m_pFrame?m_pFrame->GetCharName():" ";
-		std::string	l_strSubFrameName = wcslen(this->m_psSubFrameName)?UT::WcharToChar(m_psSubFrameName):" ";
+		std::string	l_strSubFrameName = UT::WcharToChar(m_strSubFrameName);
 		sprintf(m_sTemp,"%d,%s,%s,%.2f,%.2f,%.2f\0",(int)m_eAttachFrameType,l_strFrameName.c_str(),l_strSubFrameName.c_str(),m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
 		return m_sTemp;
 	}
@@ -126,7 +121,7 @@ namespace FATMING_CORE
 			//CT::ErrorMsg(m_pFrame?true:false,l_pString,"can't find mesh");
 		}
 		l_pString = strtok(0,",");
-		CHAR_TO_WCHAR(l_pString,m_psSubFrameName);
+		m_strSubFrameName = ValueToStringW(l_pString);
 		l_pString = strtok(0,",");//offset pos x
 		this->m_vOffsetPos.x = (float)atof(l_pString);
 		l_pString = strtok(0,",");//offset pos y

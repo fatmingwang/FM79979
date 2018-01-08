@@ -3,6 +3,9 @@
 //#include "vld.h"
 #pragma comment(lib, "Vfw32.lib")
 #include "../../AllLibInclude.h"
+
+#include "../../../include/vld.h"
+#pragma comment(lib, "../../../lib/vld.lib")
 using namespace MPDI;
 //
 [STAThreadAttribute]

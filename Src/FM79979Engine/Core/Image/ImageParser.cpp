@@ -344,7 +344,7 @@ namespace FATMING_CORE
 							{
 								for( size_t i=0;i<l_pPuzzleDataList->size();++i )
 								{
-									if(!wcscmp((*l_pPuzzleDataList)[i].strFileName,l_ImageName))
+									if(!wcscmp((*l_pPuzzleDataList)[i].strFileName.c_str(),l_ImageName))
 									{
 										l_PuzzleDataList.push_back((*l_pPuzzleDataList)[i]);
 										(*l_pPuzzleDataList).erase(l_pPuzzleDataList->begin()+i);
@@ -382,7 +382,7 @@ namespace FATMING_CORE
 				PARSE_CURRENT_ELEMENT_START
 					COMPARE_NAME("Name")
 					{
-						WCHAR_TO_WCHAR(l_strValue,l_sPuzzleData.strFileName);
+						l_sPuzzleData.strFileName = l_strValue;
 					}
 					else
 					COMPARE_NAME("UV")

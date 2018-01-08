@@ -89,7 +89,6 @@ public:
     void                        SetName( wchar_t*e_pString ){m_sObjectName = e_pString;}
 	void                        SetName( std::wstring e_strName ){m_sObjectName = e_strName.c_str();}
 	void                        SetName( const wchar_t*e_pString ){	m_sObjectName = e_pString;}
-    void                        SetName( char*e_pString );
     void                        SetName( const char*e_pString );
 	//dump all un release data
 	static void					DumpUnReleaseInfo();

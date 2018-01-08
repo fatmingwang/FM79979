@@ -29,58 +29,30 @@ namespace DNCT
 				}
 			 }	
 	};
-	char*	DNCTWcharToChar(wchar_t *e_strWchar)
-	{
-		static char	l_sChar[DOT_NET_TEMP_SIZE];
-		assert(e_strWchar&&"the WCHAR string is nullptr");
-		WCHAR_TO_CHAR(e_strWchar,l_sChar);
-		return l_sChar;
-	}
 
-	char*	DNCTWcharToChar(const wchar_t *e_strWchar)
-	{
-		static char	l_sChar[DOT_NET_TEMP_SIZE];
-		assert(e_strWchar&&"the WCHAR string is nullptr");
-		WCHAR_TO_CHAR(e_strWchar,l_sChar);
-		return l_sChar;
-	}
-
-	wchar_t*	DNCTCharToWchar(char *e_strChar)
-	{
-		static wchar_t	l_sWchar[DOT_NET_TEMP_SIZE];
-		assert(e_strChar&&"the WCHAR string is nullptr");
-		CHAR_TO_WCHAR(e_strChar,l_sWchar);
-		return l_sWchar;
-	}
-
-	wchar_t*	DNCTCharToWchar(const char *e_strChar)
-	{
-		static wchar_t	l_sWchar[DOT_NET_TEMP_SIZE];
-		assert(e_strChar&&"the WCHAR string is nullptr");
-		CHAR_TO_WCHAR(e_strChar,l_sWchar);
-		return l_sWchar;
-	}
-	char*	GcStringToChar(System::String^e_str)
+	std::string	GcStringToChar(System::String^e_str)
 	{
 		if( !e_str )
 		{
 			//WARNING_MSG("input gcstring string is empty");
-			return 0;
+			return std::string();
 		}
-		static char	l_sStr[DOT_NET_TEMP_SIZE];
+		char	l_sStr[DOT_NET_TEMP_SIZE];
 		GCSTRING_TO_CHAR(e_str,l_sStr);
-		return l_sStr;
+		std::string l_strResult = l_sStr;
+		return l_strResult;
 	}
-	WCHAR*	GcStringToWchar(System::String^e_str)
+	std::wstring	GcStringToWchar(System::String^e_str)
 	{
 		if( !e_str )
 		{
 			//WARNING_MSG("input gcstring string is empty");
-			return 0;
+			return std::wstring();
 		}
-		static WCHAR	l_sStr[DOT_NET_TEMP_SIZE];
+		WCHAR	l_sStr[DOT_NET_TEMP_SIZE];
 		GCSTRING_TO_WCHAR(e_str,l_sStr);
-		return l_sStr;
+		std::wstring l_strResult = l_sStr;
+		return l_strResult;
 	}
 
 	String^	WcharToGcstring(const WCHAR*e_str)
@@ -117,7 +89,6 @@ namespace DNCT
 			{
 				if( e_strDest[i] == L'.' )
 				{
-					char*l_strName = DNCT::GcStringToChar(e_strDest);
 					e_strDest = gcnew String(e_strDest->Substring(0,i+1)+String(e_strExtensionName).ToString());
 					break;
 				}
@@ -330,7 +301,7 @@ namespace DNCT
 
 	}
 
-	System::String^	OpenFileAndGetName(char*e_pFileFilter)
+	System::String^	OpenFileAndGetName(const char*e_pFileFilter)
 	{
 		System::Windows::Forms::OpenFileDialog^	openFileDialog1 = gcnew System::Windows::Forms::OpenFileDialog();
 		
@@ -367,7 +338,7 @@ namespace DNCT
 	}
 
 	
-	cli::array<String^>^OpenFileAndGetNames(char*e_pFileFilter)
+	cli::array<String^>^OpenFileAndGetNames(const char*e_pFileFilter)
 	{
 		System::Windows::Forms::OpenFileDialog^	openFileDialog1 = gcnew System::Windows::Forms::OpenFileDialog();
 		openFileDialog1->Multiselect = true;
@@ -380,16 +351,17 @@ namespace DNCT
 		}
 		return nullptr;
 	}
-	char*	ConbineFileDescribtionWithExtensionToFilter(char*e_strDescribtion,const char*e_strExtension,bool e_bWithAllFileFilter)
+	std::string	ConbineFileDescribtionWithExtensionToFilter(const char*e_strDescribtion,const char*e_strExtension,bool e_bWithAllFileFilter)
 	{
-		static char	l_sFilter[MAX_PATH];
+		char	l_sFilter[MAX_PATH];
 		memset(l_sFilter,0,sizeof(char)*MAX_PATH);
 		strcpy_s(l_sFilter,e_strDescribtion);
-		strcpy_s(l_sFilter,ConvertExtensionToFilter(e_strExtension,e_bWithAllFileFilter));
+		strcpy_s(l_sFilter,ConvertExtensionToFilter(e_strExtension,e_bWithAllFileFilter).c_str());
+		std::string l_strResult = l_sFilter;
 		return l_sFilter;
 	}
 
-	char*	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter)
+	std::string	ConvertExtensionToFilter(const char*e_strExtension,bool e_bWithAllFileFilter)
 	{
 		String^l_str = "(*"+String(e_strExtension).ToString()+")|*"+String(e_strExtension).ToString();
 		if( e_bWithAllFileFilter )
@@ -399,7 +371,7 @@ namespace DNCT
 		return DNCT::GcStringToChar(l_str);
 	}
 
-	System::String^	SaveFileAndGetName(char*e_pFileFilter)
+	System::String^	SaveFileAndGetName(const char*e_pFileFilter)
 	{
 		System::Windows::Forms::SaveFileDialog^	SaveFileDialog1 = gcnew System::Windows::Forms::SaveFileDialog();
 		if(e_pFileFilter)
@@ -1263,7 +1235,7 @@ namespace DNCT
 		{
 			WARNING_MSG(l_pExp->ToString());
 			OutputDebugString(L"\n");
-			OutputDebugString(DNCT::GcStringToWchar(l_pExp->ToString()));
+			OutputDebugString(DNCT::GcStringToWchar(l_pExp->ToString()).c_str());
 			OutputDebugString(L"\n");
 		}
 		l_pWriter->Close();

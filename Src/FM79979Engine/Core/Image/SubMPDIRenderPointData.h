@@ -56,7 +56,10 @@ namespace FATMING_CORE
 		eAnimationEvent	AnimationEvent;
 		sHintPoint(int e_iIndex,wchar_t*e_str,eAnimationEvent e_eAnimationEvent)
 		{
-			WCHAR_TO_WCHAR(e_str,strEventName);
+			size_t l_uiSize = wcslen(e_str);
+			assert(l_uiSize < MAX_PATH &&" sPuzzleData name size over TEMP_SIZE");
+			memcpy(strEventName, e_str, sizeof(wchar_t)*l_uiSize);
+			strEventName[l_uiSize] = 0;
 			AnimationEvent = e_eAnimationEvent;
 			iPointIndex = e_iIndex; 
 		}

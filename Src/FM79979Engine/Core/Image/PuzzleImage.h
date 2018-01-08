@@ -38,13 +38,13 @@ namespace FATMING_CORE
 	//derive from UV data with name
 	struct	sPuzzleData:public sUVData
 	{
-		wchar_t	strFileName[TEMP_SIZE];
+		std::wstring	strFileName;
 		sPuzzleData(){}
-		inline	sPuzzleData(wchar_t*e_strName,float*e_pfUV,POINT e_OffsetPos,POINT e_Size,POINT	e_OriginalSize,POINT e_ShowPosInPI)
+		inline	sPuzzleData(const wchar_t*e_strName,float*e_pfUV,POINT e_OffsetPos,POINT e_Size,POINT	e_OriginalSize,POINT e_ShowPosInPI)
 		{
 			ShowPosInPI = e_ShowPosInPI;
 			OriginalSize = e_OriginalSize;
-			WCHAR_TO_WCHAR(e_strName,strFileName);
+			strFileName = e_strName;
 			memcpy(fUV,e_pfUV,sizeof(float)*4);
 			OffsetPos = e_OffsetPos;
 			Size = e_Size;

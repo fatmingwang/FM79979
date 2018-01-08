@@ -75,10 +75,10 @@ namespace FATMING_CORE
 		void	MouseDown(Vector3 e_vPos,MyMath::AXIS e_Axis = MyMath::W,float*e_pvProjectionMatrix = 0,float*e_pfViewMatrix = 0,int *e_piViewPort = 0);//xyz for orthognal,w for pespective
 		void	MouseUp(Vector3 e_vPos,MyMath::AXIS e_Axis = MyMath::W,float*e_pvProjectionMatrix = 0,float*e_pfViewMatrix = 0,int *e_piViewPort = 0);//xyz for orthognal,w for pespective
 		//e_strForCollidedpiFile for edit collision data,it need a pi file.
-		void	ExportData(char*e_strFileName,char*e_strForCollidedpiFile = 0,char*e_pstrAutorData = 0);
+		void	ExportData(const char*e_strFileName, const char*e_strForCollidedpiFile = 0, const char*e_pstrAutorData = 0);
 		//if the file name is existed,it's for collision data use
 		//make sure the data u have get while u keep parse collision data
-		wchar_t	m_strForCollidedpiFile[MAX_PATH];
+		std::wstring m_strForCollidedpiFile;
 		//while ePM_PATH_MOVING_ALL or ePM_ALL_PATH_ROTATION we could detected the index we wanna to process.
 		std::vector<int>		m_SelectedIndicesToMovingOrRotating;
 		//

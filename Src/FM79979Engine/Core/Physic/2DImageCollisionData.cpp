@@ -455,7 +455,7 @@ namespace FATMING_CORE
 			PARSE_CURRENT_ELEMENT_START
 				COMPARE_NAME("Name")
 				{
-					WCHAR_TO_WCHAR(l_strValue,m_strForCollidedpiFile);
+					m_strForCollidedpiFile = l_strValue;
 				}
 				else
 				COMPARE_NAME("Count")

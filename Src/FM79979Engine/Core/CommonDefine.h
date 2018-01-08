@@ -58,9 +58,9 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define GET_SET_DEC_QUICK( TYPE, NAME )   TYPE	m_##NAME; void Set##NAME(TYPE e_Data ){m_##NAME = e_Data;} TYPE Get##NAME(){ return m_##NAME; }
 //here the limit for string length is TEMP_SIZE = 255
 #ifdef WIN32
-#define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
-#define	WCHAR_TO_CHAR( p,q )  WideCharToMultiByte( CP_ACP, 0, p, -1, q, 256, nullptr, nullptr );//q for return p for convert
-#define	WCHAR_TO_WCHAR( p,q ){ size_t l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
+//#define	CHAR_TO_WCHAR( p,q )	 MultiByteToWideChar( CP_ACP, 0, p, -1, q, 512 );//q for return p for convert
+//#define	WCHAR_TO_CHAR( p,q )  WideCharToMultiByte( CP_ACP, 0, p, -1, q, 256, nullptr, nullptr );//q for return p for convert
+//#define	WCHAR_TO_WCHAR( p,q ){ size_t l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
 #define FM_NEW new(_CLIENT_BLOCK,__FILE__, __LINE__)
 #else
 //here should using
@@ -68,14 +68,14 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 //       size_t *inbytesleft, char **outbuf,
 //       size_t *outbytesleft); 
 //http://www.opengroup.org/onlinepubs/009695399/functions/iconv.html
-	#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
-	#if defined(ANDROID)
-		#define WCHAR_TO_CHAR(wchar_t_,char_){	int	l_iSize = wcslen(wchar_t_);	for(int i=0;i<l_iSize;++i){	char_[i] = (char)wchar_t_[i];}char_[l_iSize] = '\0'; }
-		#define CHAR_TO_WCHAR(char_,wchar_t_){	int	l_iSize = strlen(char_);for(int i=0;i<l_iSize;++i){	wchar_t_[i] = (wchar_t)char_[i];}wchar_t_[l_iSize] = L'\0';}
-	#else
-		#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}
-		#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
-	#endif
+	//#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
+	//#if defined(ANDROID)
+	//	#define WCHAR_TO_CHAR(wchar_t_,char_){	int	l_iSize = wcslen(wchar_t_);	for(int i=0;i<l_iSize;++i){	char_[i] = (char)wchar_t_[i];}char_[l_iSize] = '\0'; }
+	//	#define CHAR_TO_WCHAR(char_,wchar_t_){	int	l_iSize = strlen(char_);for(int i=0;i<l_iSize;++i){	wchar_t_[i] = (wchar_t)char_[i];}wchar_t_[l_iSize] = L'\0';}
+	//#else
+	//	#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}
+	//	#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
+	//#endif
 
 #endif
 

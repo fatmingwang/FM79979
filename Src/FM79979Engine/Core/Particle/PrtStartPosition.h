@@ -56,7 +56,7 @@ namespace FATMING_CORE
 			cMatrix44*	m_pD3DMatrix;//for animation
 		};
 		//destination subframe name
-		wchar_t	m_psSubFrameName[MAX_PATH];
+		std::wstring m_strSubFrameName;
 		//to get data from 
 		GET_SET_DEC(eAttachFrameType,m_eAttachFrameType,GetAttachFramType,SetAttachFrameType);
 		//destination frame
@@ -64,7 +64,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(Vector3,m_vOffsetPos,GetOffsetPos,SetOffsetPos);
 	public :
 		DEFINE_TYPE_INFO()
-		cPrtStartPositionInitByFrame(){ m_pFrame = 0; memset(m_psSubFrameName,0,sizeof(m_psSubFrameName)); m_pSubFrameOfModel = 0; m_pD3DMatrix = 0; m_eAttachFrameType = eAFT_CAMERA; }
+		cPrtStartPositionInitByFrame(){ m_pFrame = 0; m_pSubFrameOfModel = 0; m_pD3DMatrix = 0; m_eAttachFrameType = eAFT_CAMERA; }
 		virtual ~cPrtStartPositionInitByFrame(){}
 
 		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
@@ -100,8 +100,8 @@ namespace FATMING_CORE
 				}
 			}
 		}
-		wchar_t*	GetSubFrameName(){ return m_psSubFrameName; }
-		void	SetSubFrameName(wchar_t*e_pString);
+		const wchar_t*	GetSubFrameName(){ return m_strSubFrameName.c_str(); }
+		void	SetSubFrameName(const wchar_t*e_pString);
 		//usage explanation
 		static char*	UsageExplanation;
 		//

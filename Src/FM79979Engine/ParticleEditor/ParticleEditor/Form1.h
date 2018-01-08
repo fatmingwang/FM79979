@@ -14,7 +14,7 @@ extern float	DRAW_PANEL_RESOLUTION_HEIGHT;
 extern bool	g_bCameraResetClick;
 extern cBaseImage*g_pBKImage;
 //extern cColladaParser*	g_pParticleColladaParser;
-char*	GetUsageExplanaing(WCHAR*e_str);
+char*	GetUsageExplanaing(const WCHAR*e_str);
 namespace ParticalEditor
 {
 	using namespace System;
@@ -1852,7 +1852,7 @@ private: System::Void AddTexture_button_Click(System::Object^  sender, System::E
 			 if( l_pFileNames )
 			 for each( String^l_strFileName in l_pFileNames )
 			 {
-				WCHAR*l_str = DNCT::GcStringToWchar(DNCT::GetFileNameWithoutFullPath(l_strFileName,true));
+				std::wstring l_str = DNCT::GcStringToWchar(DNCT::GetFileNameWithoutFullPath(l_strFileName,true));
 				if( g_pPaticleManager->GetImageParser()->GetObject(l_str) )
 				{
 					WARNING_MSG(l_strFileName+" exists!!");
@@ -1873,7 +1873,7 @@ private: System::Void AddTexture_button_Click(System::Object^  sender, System::E
 				}
 				else
 				{
-					 cBaseImage*l_pBaseImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName));
+					 cBaseImage*l_pBaseImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName).c_str());
 					 if(l_pBaseImage->GetImageIndex())
 					 {
 						g_pPaticleManager->GetImageParser()->AddObject(l_pBaseImage);
@@ -1898,11 +1898,11 @@ private: System::Void saveToolStripMenuItem_Click(System::Object^  sender, Syste
 		 {
 			 if( sender == saveToolStripMenuItem )
 			 {
-				 String^l_strFileName = DNCT::SaveFileAndGetName(ConvertExtensionToFilter((char*)g_pPaticleManager->ExtensionName()));
+				 String^l_strFileName = DNCT::SaveFileAndGetName(ConvertExtensionToFilter(g_pPaticleManager->ExtensionName()).c_str());
 				 if( l_strFileName )
 				 {
 					l_strFileName = ForceAddExtenName(l_strFileName,(char*)g_pPaticleManager->ExtensionName());
-					g_pPaticleManager->Export(DNCT::GcStringToChar(l_strFileName));
+					g_pPaticleManager->Export(DNCT::GcStringToChar(l_strFileName).c_str());
 				 }
 			 }
 			 else
@@ -2058,7 +2058,7 @@ private: System::Void openToolStripMenuItem_Click(System::Object^  sender, Syste
 			 else
 			 if( sender == openToolStripMenuItem )
 			 {
-				 String^l_str = DNCT::OpenFileAndGetName(ConbineFileDescribtionWithExtensionToFilter("Particle Files",g_pPaticleManager->ExtensionName(),true));
+				 String^l_str = DNCT::OpenFileAndGetName(ConbineFileDescribtionWithExtensionToFilter("Particle Files",g_pPaticleManager->ExtensionName(),true).c_str());
 				 if( l_str )
 				 {
 					 //SAFE_DELETE(g_pPaticleManager);
@@ -2099,7 +2099,7 @@ private: System::Void backGroundToolStripMenuItem_Click(System::Object^  sender,
 			 if( l_str )
 			 {
 				SAFE_DELETE(g_pBKImage);
-				g_pBKImage = new cBaseImage(DNCT::GcStringToChar(l_str));
+				g_pBKImage = new cBaseImage(DNCT::GcStringToChar(l_str).c_str());
 			 }
 		 }
 private: System::Void x1080ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -2163,7 +2163,7 @@ private: System::Void x1080ToolStripMenuItem_Click(System::Object^  sender, Syst
                     l_fNewHeight /= 1.5f;
 			        RenderingPlaneAndPolicyPlane_splitContainer->SplitterDistance = (int)l_fNewWidth;
 			        EmiterListAndDrawPanel_splitContainer->SplitterDistance = (int)(EmiterListAndDrawPanel_splitContainer->Height - l_fNewHeight);			    
-					OutputDebugString(DNCT::GcStringToWchar(l_pExp->ToString()));
+					OutputDebugString(DNCT::GcStringToWchar(l_pExp->ToString()).c_str());
 			    }
              }
 
@@ -2260,8 +2260,8 @@ private: System::Void Policy_listBox_SelectedIndexChanged(System::Object^  sende
 			 GCFORM::ListBox^l_pListBox = (ListBox^)sender;
 			 if( l_pListBox->SelectedIndex != -1 )
 			 {
-				 char*	l_str = GetUsageExplanaing(DNCT::GcStringToWchar(l_pListBox->SelectedItem->ToString()));		
-				 PolictHin_toolTip->Show(String(l_str).ToString(),l_pListBox);
+				 std::string	l_str = GetUsageExplanaing(DNCT::GcStringToWchar(l_pListBox->SelectedItem->ToString()).c_str());
+				 PolictHin_toolTip->Show(String(l_str.c_str()).ToString(),l_pListBox);
 			 }
 		 }
 private: System::Void dToolStripMenuItem1_Click(System::Object^  sender, System::EventArgs^  e)
@@ -2392,10 +2392,10 @@ private: System::Void Texture_treeView_AfterSelect(System::Object^  sender, Syst
 			 if( Texture_treeView->SelectedNode )
 			 {
 				 String^l_strName = Texture_treeView->SelectedNode->Text;
-				 WCHAR*l_strTextureName = DNCT::GcStringToWchar(l_strName);
+				 std::wstring l_strTextureName = DNCT::GcStringToWchar(l_strName);
  				 if( !Texture_treeView->SelectedNode->Parent )//simple gl texture
 				 {
-					 WCHAR*l_strTextureName = DNCT::GcStringToWchar(l_strName);//it could be simple texture or pi texture!.
+					 std::wstring l_strTextureName = DNCT::GcStringToWchar(l_strName);//it could be simple texture or pi texture!.
 					 g_pPrtEmitter->SetBaseImage(dynamic_cast<cBaseImage*>(g_pPaticleManager->GetImageParser()->GetObject(l_strTextureName)));
 				 }
 				 else//pi

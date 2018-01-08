@@ -18,7 +18,7 @@
 //</Particle>
 namespace FATMING_CORE
 {
-	cParticleBase*NameGetParticleType(wchar_t*e_strTypeID);
+	cParticleBase*NameGetParticleType(const wchar_t*e_strTypeID);
 	class cPaticleManager:public cNamedTypedObjectVector<cPrtEmitter>,public ISAXCallback
 	{
 		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject);
@@ -50,7 +50,7 @@ namespace FATMING_CORE
 		cPrtEmitter*		GetEmitter(const char*e_strFileName,const wchar_t*e_strName);
 		//if texture is used by emitters,input cPulleImage or cPullaImageUnit or cBaseImage.
 		bool	TextureIsInUsing(NamedTypedObject*e_pNamedTypedObject,cPrtEmitter*e_Src);
-		void	Export(char*,char*e_strDataAndAuthor = 0);
+		void	Export(const char*,char*e_strDataAndAuthor = 0);
 	};
 	//=================
 	//behavior collection list
@@ -82,7 +82,7 @@ namespace FATMING_CORE
 		virtual ~cBehaviorPaticleManager();
 		cPaticleManager	*m_pPaticleManager;
 		cCurveManager	 m_CurveManager;
-		void	Export(char*e_strFileName,char*e_strDataAndAuthor = 0);
+		void	Export(const char*e_strFileName,char*e_strDataAndAuthor = 0);
 		cPaticleManager*	GetPaticleManager(){return m_pPaticleManager;}
 		cCurveManager*		GetCurveManager(){return &m_CurveManager;}
 		//clear all resource

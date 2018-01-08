@@ -412,7 +412,7 @@ namespace FATMING_CORE
 	//====================
 	//
 	//====================
-	cUIImage::cUIImage(char*e_strImageName):cBaseImage(e_strImageName,true)
+	cUIImage::cUIImage(const char*e_strImageName):cBaseImage(e_strImageName,true)
 	{
 		m_pvPos->x = 0;m_pvPos->y = 0;
 		m_OriginalImageSize.x = -1;

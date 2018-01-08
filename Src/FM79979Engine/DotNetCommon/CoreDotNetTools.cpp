@@ -80,7 +80,7 @@ namespace DNCT
 			ilGenImages(1, &s_iImageID);
 			ilBindImage(s_iImageID);
 
-			if (0==ilLoadImage((WCHAR*)DNCT::GcStringToChar(e_strFileName)))
+			if ( 0 == ilLoadImage((wchar_t*)DNCT::GcStringToChar(e_strFileName).c_str()))
 			{
 				return l_pppp;
 			}
@@ -130,9 +130,9 @@ namespace DNCT
 			{
 				String^l_strExtensionName = System::IO::Path::GetExtension(e_strFileName);
 				String^l_strTempFileName = System::IO::Path::GetDirectoryName(e_strFileName)+"/1234abcdXXZZ.png";
-				std::string	l_strTempFileName2 = UT::GetDirectoryWithoutFileName(DNCT::GcStringToChar(e_strFileName));
+				std::string	l_strTempFileName2 = UT::GetDirectoryWithoutFileName(DNCT::GcStringToChar(e_strFileName).c_str());
 				l_strTempFileName2	+= "1234abcdXXZZ.png";
-				if( FileDempressHuffman(DNCT::GcStringToChar(e_strFileName),l_strTempFileName2.c_str()) )
+				if( FileDempressHuffman(DNCT::GcStringToChar(e_strFileName).c_str(),l_strTempFileName2.c_str()) )
 				{
 					
 					System::IO::FileStream^ binStream = gcnew System::IO::FileStream(l_strTempFileName,System::IO::FileMode::Open);
@@ -164,7 +164,7 @@ namespace DNCT
 
 	TiXmlElement*TreeNodeToTinyXMLNode(GCFORM::TreeNode^e_pNode,TiXmlElement*e_pParent)
 	{
-		TiXmlElement*l_pNewNode = new TiXmlElement(DNCT::GcStringToWchar(e_pNode->Text));
+		TiXmlElement*l_pNewNode = new TiXmlElement(DNCT::GcStringToWchar(e_pNode->Text).c_str());
 		if( e_pParent )
 			e_pParent->LinkEndChild(l_pNewNode);
 		for each( GCFORM::TreeNode^l_pChildNode in  e_pNode->Nodes )
@@ -241,7 +241,7 @@ namespace DNCT
 		{
 			assert(*e_pUIImage == 0);
 			cUIImage*l_pUIImage = 0;
-			l_pUIImage = new cUIImage(DNCT::GcStringToChar(e_strFileName));
+			l_pUIImage = new cUIImage(DNCT::GcStringToChar(e_strFileName).c_str());
 			//cSimpleGLTexture	l_SimpleGLTexture(DNCT::GcStringToChar(e_strFileName),true);
 			int	l_iChannel = l_pUIImage->GetPixelFormat()==GL_RGB?3:4;
 			System::Drawing::Imaging::PixelFormat	l_PizelFormat = l_iChannel==4?System::Drawing::Imaging::PixelFormat::Format32bppArgb:System::Drawing::Imaging::PixelFormat::Format24bppRgb;

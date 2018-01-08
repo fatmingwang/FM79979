@@ -15,7 +15,7 @@ Vector3	g_vEmiterPos = Vector3(500,500,0);
 
 cPrtTextureActDynamicTexture*g_pPrtTextureActDynamicTexture = 0;
 
-char*	GetUsageExplanaing(WCHAR*e_str)
+char*	GetUsageExplanaing(const WCHAR*e_str)
 {
 	if( !wcscmp(e_str,cPrtColorInitrSetColor::TypeID ))
 	{
@@ -328,7 +328,7 @@ namespace ParticalEditor
 		{
 			if(::MessageBox(0
 				,L"such policy is exists,would u like to add it?",
-				DNCT::GcStringToWchar(l_pListBox->SelectedItem->ToString()),MB_YESNO) != 6)
+				DNCT::GcStringToWchar(l_pListBox->SelectedItem->ToString()).c_str(),MB_YESNO) != 6)
 				return l_str;
 		}
 		e_pListBox->Items->Add(l_pListBox->SelectedItem->ToString());
@@ -358,7 +358,7 @@ namespace ParticalEditor
 		String^l_str = MyAddPolicyIntoListBox(m_pInitTabpageWithListBox,InitPolicy_tabControl,AllInitPolicy_listBox);
 		if( l_str )
 		{
-			cParticleBase*l_pParticleBase = NameGetParticleType(DNCT::GcStringToWchar(l_str));
+			cParticleBase*l_pParticleBase = NameGetParticleType(DNCT::GcStringToWchar(l_str).c_str());
 			AutoCollpaseUnit^l_pAutoCollpaseUnit;
 			if( l_pParticleBase )
 			{
@@ -397,7 +397,7 @@ namespace ParticalEditor
 		String^l_str = MyAddPolicyIntoListBox(m_pActTabpageWithListBox,ActPolicy_tabControl,AllActPolicy_listBox);
 		if( l_str )
 		{
-			cParticleBase*l_pParticleBase = NameGetParticleType(DNCT::GcStringToWchar(l_str));
+			cParticleBase*l_pParticleBase = NameGetParticleType(DNCT::GcStringToWchar(l_str).c_str());
 			l_pParticleBase->SetOwner(g_pPrtEmitter);
 			AutoCollpaseUnit^l_pAutoCollpaseUnit;
 			if( l_pParticleBase )

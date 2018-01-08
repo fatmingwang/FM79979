@@ -1039,7 +1039,7 @@ private: System::Void AddParticleEmitter_button_Click(System::Object^  sender, S
 			 {
 				 if( EmitterName_textBox->Text->Length == 0 )
 					 return;
-				 WCHAR*l_strName = DNCT::GcStringToWchar(EmitterName_textBox->Text);
+				 std::wstring l_strName = DNCT::GcStringToWchar(EmitterName_textBox->Text);
 				 if( !g_pPaticleManager->GetObject(m_pParticleEmiterWithShowPosition->GetPrtEmitter()->GetName()) )
 				 {
 					 WARNING_MSG("particle must add in to list before save this behavior emitter");

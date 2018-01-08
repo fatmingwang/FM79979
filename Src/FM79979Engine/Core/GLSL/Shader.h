@@ -140,8 +140,8 @@ namespace FATMING_CORE
 	//
 	void	SetGlobalScaleColor(Vector4 e_vColor);
 #ifndef DEBUG
-#define	MY_GLDRAW_ARRAYS	glDrawArrays
-#define	MY_GLDRAW_ELEMENTS	glDrawElements
+#define	MY_GLDRAW_ARRAYS(mode, first,count)	glDrawArrays(mode, first,count)
+#define	MY_GLDRAW_ELEMENTS(mode,count,type,indices)	glDrawElements(mode,count,type,indices)
 #else
 	void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count);
 	void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);

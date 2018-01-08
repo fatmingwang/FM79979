@@ -241,7 +241,7 @@ public:
 	}	
 	//only need to overwrite RemoveObject(int e_iIndex).
 	inline	bool	RemoveObject(const wchar_t*e_pString){return RemoveObject(GetObjectIndexByName(e_pString));}
-	inline	bool	RemoveObject(wchar_t*e_pString){return RemoveObject(GetObjectIndexByName(e_pString));}
+	inline	bool	RemoveObject(std::wstring e_pString) { return RemoveObject(GetObjectIndexByName(e_pString.c_str())); }
 	inline	bool	RemoveObject(NamedTypedObject* e_t){return RemoveObject(GetObjectIndexByName(e_t->GetName()));}
 	inline	virtual	bool	RemoveObject(int e_iIndex)
 	{

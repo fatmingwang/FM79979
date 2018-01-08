@@ -50,7 +50,7 @@ namespace FATMING_CORE
 		void	ExportData(char*e_strFileName,char*e_strForCollidedpiFile = 0,char*e_pstrAutorData = 0);
 		//if the file name is existed,it's for collision data use
 		//make sure the data u have get while u keep parse collision data
-		wchar_t	m_strForCollidedpiFile[MAX_PATH];
+		std::wstring	m_strForCollidedpiFile;
 		//while ePM_PATH_MOVING_ALL or ePM_ALL_PATH_ROTATION we could detected the index we wanna to process.
 		std::vector<int>		m_SelectedIndicesToMovingOrRotating;
 	};

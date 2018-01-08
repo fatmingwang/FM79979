@@ -10,7 +10,6 @@ namespace FATMING_CORE
 	cMPDIForEditor::cMPDIForEditor(cMultiPathDynamicImage*e_pMultiPathDynamicImage):cMultiPathDynamicImage(e_pMultiPathDynamicImage)
 	{
 		this->SetName(e_pMultiPathDynamicImage->GetName());
-		memset(m_strForCollidedpiFile,0,sizeof(wchar_t)*MAX_PATH);
 		m_vRotationCenter.x = m_vRotationCenter.y = 0.f;
 		m_ePathMode = ePM_EDIT;
 		m_iFocusPoint = -1;
@@ -22,7 +21,6 @@ namespace FATMING_CORE
 	cMPDIForEditor::cMPDIForEditor(cMulti_PI_Image*e_pMulti_PI_Image)
 	:cMultiPathDynamicImage(e_pMulti_PI_Image)
 	{
-		memset(m_strForCollidedpiFile,0,sizeof(wchar_t)*MAX_PATH);
 		m_vRotationCenter.x = m_vRotationCenter.y = 0.f;
 		m_ePathMode = ePM_EDIT;
 		m_iFocusPoint = -1;

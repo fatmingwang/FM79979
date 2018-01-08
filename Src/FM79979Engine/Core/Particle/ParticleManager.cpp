@@ -27,7 +27,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cPaticleManager);
 	TYPDE_DEFINE_MARCO(cBehaviorPaticleManager);
 
-	cParticleBase*NameGetParticleType(wchar_t*e_strTypeID)
+	cParticleBase*NameGetParticleType(const wchar_t*e_strTypeID)
 	{
 		cParticleBase*l_pParticleBase = 0;
 		if( !wcscmp(e_strTypeID,cPrtColorInitrSetColor::TypeID) )
@@ -209,7 +209,7 @@ namespace FATMING_CORE
 		return false;
 	}
 
-	void	cPaticleManager::Export(char*e_pString,char*e_strDataAndAuthor)
+	void	cPaticleManager::Export(const char*e_pString,char*e_strDataAndAuthor)
 	{
 		assert(e_pString);
 #ifdef WIN32
@@ -754,7 +754,7 @@ namespace FATMING_CORE
 		SAFE_DELETE(this->m_pPaticleManager);
 	}
 
-	void	cBehaviorPaticleManager::Export(char*e_strFileName,char*e_strDataAndAuthor)
+	void	cBehaviorPaticleManager::Export(const char*e_strFileName,char*e_strDataAndAuthor)
 	{
 	#ifdef WIN32
 		if(!this->Count())

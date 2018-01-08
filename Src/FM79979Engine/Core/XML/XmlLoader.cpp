@@ -141,15 +141,11 @@ namespace FATMING_CORE
 		return itemElement;
 	}
 
-	bool	ISAXCallback::ParseText(const char*e_strFileName)
+	bool	ISAXCallback::ParseText(const wchar_t*e_strContext)
 	{
 		SAFE_DELETE(m_pDoc);
-		size_t	l_iTextLength = strlen(e_strFileName);
-		wchar_t*l_strText = new wchar_t[l_iTextLength];
-		CHAR_TO_WCHAR(e_strFileName,l_strText);
 		m_pDoc = new TiXmlDocument( );
-		m_pDoc->Parse((const wchar_t*)l_strText, 0);
-		delete[] l_strText;
+		m_pDoc->Parse(e_strContext, 0);
 		if( m_pDoc->Error() )
 		{
 			delete m_pDoc;

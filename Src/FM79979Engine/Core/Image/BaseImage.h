@@ -156,7 +156,7 @@ namespace FATMING_CORE
 		Vector3	m_vEditorAttachParentRelativePos;
 		DEFINE_TYPE_INFO()
 		cUIImage(cUIImage*e_pUIImage);
-		cUIImage(char*e_strImageName);
+		cUIImage(const char*e_strImageName);
 		//it will pointer pixel data to e_pPixelsData and will delete the data,so do not delete the data from input
 		cUIImage(const wchar_t*e_strName,char*e_pPixelsData,int e_iWidth,int e_iHeight,GLint e_iDataFormat);//create by pixle data
 		virtual ~cUIImage();

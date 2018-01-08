@@ -461,26 +461,24 @@ namespace FATMING_CORE
 	std::wstring			ValueToString(eButtonSelectionType e_eButtonSelectionType)
 	{
 		std::wstring	l_str;
-		WCHAR	l_strTemp[TEMP_SIZE];
 		switch(e_eButtonSelectionType)
 		{
 			case eBST_ONE:
-				WCHAR_TO_WCHAR(L"One",l_strTemp);
+				l_str = L"One";
 				break;
 			case eBST_ALL_CLICK:
-				WCHAR_TO_WCHAR(L"AllClick",l_strTemp);
+				l_str = L"AllClick";
 				break;
 			case eBST_REPEAT:
-				WCHAR_TO_WCHAR(EVENT_REPEAT,l_strTemp);
+				l_str = EVENT_REPEAT;
 				break;
 			case eBST_ALL_PRESSED:
-				WCHAR_TO_WCHAR(L"AllPressed",l_strTemp);
+				l_str = L"AllPressed";
 				break;
 			default:
-				WCHAR_TO_WCHAR(L"unknow",l_strTemp);
+				l_str = L"unknow";
 				break;
 		}
-		l_str = l_strTemp;
 		return l_str;
 	}
 	

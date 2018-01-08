@@ -704,7 +704,7 @@ private: System::Void openToolStripMenuItem_Click(System::Object^  sender, Syste
 				 Animation_checkBox->Checked = false;
 				 SAFE_DELETE(m_pColladaParser);
 				 m_pColladaParser = new cColladaParser();
-				 m_pColladaParser->ParseDataIntoXMLNode(DNCT::GcStringToChar(l_strFileName),true);
+				 m_pColladaParser->ParseDataIntoXMLNode(DNCT::GcStringToChar(l_strFileName).c_str(),true);
 				 m_pAllMesh->Destroy();
 				 m_pColladaParser->m_pAllMesh->DumpListPointer(m_pAllMesh);
 				 m_pColladaParser->m_pAllMesh->Destroy();
@@ -838,7 +838,7 @@ private: System::Void savePathFileToolStripMenuItem_Click(System::Object^  sende
 						}
 						l_vCurveManager.AddObjectNeglectExist(l_p);
 					}
-					l_vCurveManager.ExportData(DNCT::GcStringToChar(l_strfileName));
+					l_vCurveManager.ExportData(DNCT::GcStringToChar(l_strfileName).c_str());
 				 }
 			 }
 		 }

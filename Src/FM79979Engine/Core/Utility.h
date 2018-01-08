@@ -97,14 +97,12 @@ namespace UT
 	//this is good for immediately to get pointer,but becareful!
 	//because here using static variable
 	//====================
-	void					WcharToChar(const wchar_t *e_strSrc,char*e_strDest);
-	void					WcharToChar(wchar_t *e_strSrc,char*e_strDest);
-	std::string				WcharToChar(wchar_t *e_strWchar);
+//	void					WcharToChar(const wchar_t *e_strSrc,char*e_strDest);
+	//void					WcharToChar(wchar_t *e_strSrc,char*e_strDest);
 	std::string				WcharToChar(const wchar_t *e_strWchar);
 	std::string				WcharToChar(std::wstring e_strWchar);
-	void					CharToWchar(const char *e_strSrc,wchar_t*e_strDest);
-	void					CharToWchar(char *e_strSrc,wchar_t*e_strDest);
-	std::wstring			CharToWchar(char *e_strChar);
+	//void					CharToWchar(const char *e_strSrc,wchar_t*e_strDest);
+	//void					CharToWchar(char *e_strSrc,wchar_t*e_strDest);
 	std::wstring			CharToWchar(const char *e_strChar);
 	std::wstring			CharToWchar(std::string	e_strChar);
 	POINT					GetScreenResolution();

@@ -127,24 +127,13 @@ void	NamedTypedObject::SetupInternalData()
 
 std::string	NamedTypedObject::GetCharName()
 {
-	char	l_sTemp[MAX_PATH];
-	WCHAR_TO_CHAR(m_sObjectName,l_sTemp);
-	std::string	l_str = l_sTemp;
+	std::string	l_str = ValueToString(m_sObjectName);
 	return l_str;
-}
-
-void NamedTypedObject::SetName( char*e_pString )
-{
-	wchar_t	l_str[2048];
-	UT::CharToWchar(e_pString,l_str);
-	this->m_sObjectName = l_str;
 }
 
 void NamedTypedObject::SetName( const char*e_pString )
 {
-	wchar_t	l_str[2048];
-	UT::CharToWchar(e_pString,l_str);
-	this->m_sObjectName = l_str;
+	this->m_sObjectName = ValueToStringW(e_pString).c_str();
 }
 
 

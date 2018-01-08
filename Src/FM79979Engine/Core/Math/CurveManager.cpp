@@ -52,7 +52,6 @@ namespace FATMING_CORE
 
 	cCurveManager::cCurveManager()
 	{
-		memset(m_strForCollidedpiFile,0,sizeof(wchar_t)*MAX_PATH);
 		m_vRotationCenter.x = m_vRotationCenter.y = 0.f;
 		m_ePathMode = ePM_EDIT;
 		m_iFocusPoint = -1;
@@ -603,13 +602,7 @@ namespace FATMING_CORE
 
 	void	cCurveManager::ProcessPIFileName()
 	{
-#ifdef ANDROID
-		char	l_str[MAX_PATH];
-		sprintf(l_str,"%s_mpdi",UT::WcharToChar(this->m_pCurrentTiXmlElement->FirstAttribute()->Value()).c_str());
-		CHAR_TO_WCHAR(l_str,m_strForCollidedpiFile);
-#else
-		swprintf(m_strForCollidedpiFile,MAX_PATH,L"%ls\0",this->m_pCurrentTiXmlElement->FirstAttribute()->Value());
-#endif
+		m_strForCollidedpiFile = this->m_pCurrentTiXmlElement->FirstAttribute()->Value();
 	}
 
 	void	cCurveManager::DoScale(Vector2 e_vScale)
@@ -633,7 +626,7 @@ namespace FATMING_CORE
 		
 	}
 
-	void	cCurveManager::ExportData(char*e_strFileName,char*e_strForCollidedpiFile,char*e_pstrAutorData)
+	void	cCurveManager::ExportData(const char*e_strFileName, const char*e_strForCollidedpiFile, const char*e_pstrAutorData)
 	{
 #ifdef WIN32
 		ATG::XMLWriter*     l_pXMLWriter = new ATG::XMLWriter(e_strFileName);

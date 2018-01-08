@@ -346,6 +346,14 @@ namespace FATMING_CORE
 		return true;	
 	}
 
+	std::wstring cTexture::DescriptionInfo()
+	{
+		wchar_t   l_strStrDescription[MAX_PATH];
+		swprintf(l_strStrDescription, MAX_PATH, L"Size:%d,%d\nUV:%.2f,%2.f,%.2f,%.2f", m_iWidth, m_iHeight, m_fUV[0], m_fUV[1], m_fUV[2], m_fUV[3]);
+		std::wstring l_strResult = l_strStrDescription;
+		return l_strResult;
+	}
+
 	bool	cTexture::ApplyImage()
 	{
 	    if( m_suiLastUsingImageIndex != m_uiImageIndex )

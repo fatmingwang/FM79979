@@ -142,7 +142,7 @@ namespace FATMING_CORE
 			for( int i=0;i<m_iNumImage;++i )
 			{
 				sPuzzleData l_DestsPuzzleData = (*e_pPuzzleDataList)[i];
-				m_ppPuzzleData[i] = new sPuzzleData(l_DestsPuzzleData.strFileName,l_DestsPuzzleData.fUV,l_DestsPuzzleData.OffsetPos,l_DestsPuzzleData.Size,l_DestsPuzzleData.OriginalSize,l_DestsPuzzleData.ShowPosInPI);
+				m_ppPuzzleData[i] = new sPuzzleData(l_DestsPuzzleData.strFileName.c_str(),l_DestsPuzzleData.fUV,l_DestsPuzzleData.OffsetPos,l_DestsPuzzleData.Size,l_DestsPuzzleData.OriginalSize,l_DestsPuzzleData.ShowPosInPI);
 				if( e_bGenerateAllUnit )
 				{
 					cPuzzleImageUnit*l_p = new cPuzzleImageUnit(m_ppPuzzleData[i],this);

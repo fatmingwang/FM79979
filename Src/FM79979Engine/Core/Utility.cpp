@@ -328,11 +328,9 @@ namespace UT
 		cGameApp::WriteLog(e_strErrMsg1);
 		cGameApp::WriteLog(e_strErrMsg2);
 #if defined(WIN32)
-		wchar_t	l_temp1[TEMP_SIZE];
-		wchar_t	l_temp2[TEMP_SIZE];
-		CHAR_TO_WCHAR(e_strErrMsg1,l_temp1);
-		CHAR_TO_WCHAR(e_strErrMsg2,l_temp2);
-		ErrorMsg(l_temp1,l_temp2);
+		std::wstring	l_temp1 = ValueToStringW(e_strErrMsg1);
+		std::wstring	l_temp2 = ValueToStringW(e_strErrMsg2);
+		ErrorMsg(l_temp1.c_str(),l_temp2.c_str());
 #else
 		//printf("%s, %s\n\0",e_strErrMsg1,e_strErrMsg2);
 		std::string	l_strMessage = e_strErrMsg1;
@@ -694,9 +692,9 @@ namespace UT
 	std::string		ConvertFileNameWithoutFullPath(const char*e_strFileName, char e_cSlashReplaceCharacter)
 	{
 		std::string l_strResult = e_strFileName;
-		int	l_iFileNameLength = strlen(e_strFileName);
+		size_t	l_iFileNameLength = strlen(e_strFileName);
 		//skip the file name start with ./
-		for (int i = 2; i < l_iFileNameLength; ++i)
+		for (size_t i = 2; i < l_iFileNameLength; ++i)
 		{
 			if (e_strFileName[i] == '/' || e_strFileName[i] == '\\')
 			{
@@ -1454,129 +1452,88 @@ namespace UT
 
 		std::wstring	l_str = ValueToStringW(buf);
 		return l_str;
-//#ifdef WIN32
-//		SYSTEMTIME l_st;
-////		GetSystemTime(&l_st);
-//		GetLocalTime(&l_st);
-//		if( e_bCN )
-//		{
-//			l_str += ValueToStringW(l_st.wYear);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wMonth);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wDay);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wHour);
-//			l_str += L":";
-//			l_str += ValueToStringW(l_st.wMinute);
-//			l_str += L":";
-//			l_str += ValueToStringW(l_st.wSecond);
-//		}
-//		else
-//		{
-//			l_str += ValueToStringW(l_st.wMonth);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wDay);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wYear);
-//			l_str += L".";
-//			l_str += ValueToStringW(l_st.wHour);
-//			l_str += L":";
-//			l_str += ValueToStringW(l_st.wMinute);
-//			l_str += L":";
-//			l_str += ValueToStringW(l_st.wSecond);	
-//		}
+	}
+#if defined(WIN32)
+//#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
+//#if defined(ANDROID)
+//#define WCHAR_TO_CHAR(wchar_t_,char_){	int	l_iSize = wcslen(wchar_t_);	for(int i=0;i<l_iSize;++i){	char_[i] = (char)wchar_t_[i];}char_[l_iSize] = '\0'; }
+//#define CHAR_TO_WCHAR(char_,wchar_t_){	int	l_iSize = strlen(char_);for(int i=0;i<l_iSize;++i){	wchar_t_[i] = (wchar_t)char_[i];}wchar_t_[l_iSize] = L'\0';}
+//#else
+//#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}
+//#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
 //#endif
-//		return l_str;
+// Convert a wide Unicode string to an UTF8 string
+//https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte
+	std::string WcharToChar(const wchar_t* e_strString)
+	{
+		int l_iSize = (int)wcslen(e_strString);
+		if (!e_strString || l_iSize == 0) return std::string();
+		//int size_needed = WideCharToMultiByte(CP_UTF8, 0, e_strString, l_iSize, NULL, 0, NULL, NULL);
+		int size_needed = WideCharToMultiByte(CP_ACP, 0, e_strString, l_iSize, NULL, 0, NULL, NULL);
+		std::string strTo(size_needed, 0);
+		WideCharToMultiByte(CP_ACP, 0, e_strString, l_iSize, &strTo[0], size_needed, NULL, NULL);
+		return strTo;
 	}
 
-	void	WcharToChar(const wchar_t *e_strSrc,char*e_strDest)
+	// Convert an UTF8 string to a wide Unicode String
+	std::wstring CharToWchar(const char* e_strString)
 	{
-		assert(e_strDest&&"dest can't be nullptr");
-		assert(e_strSrc&&"the wchar_t string is nullptr");
-        memset(e_strDest,0,sizeof(char)*MAX_PATH);
-		WCHAR_TO_CHAR(e_strSrc,e_strDest);
+		int l_iSize = (int)strlen(e_strString);
+		if (!e_strString || l_iSize == 0) return std::wstring();
+		int size_needed = MultiByteToWideChar(CP_ACP, 0, e_strString, l_iSize, NULL, 0);
+		std::wstring wstrTo(size_needed, 0);
+		MultiByteToWideChar(CP_ACP, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
+		return wstrTo;
 	}
-	void	WcharToChar(wchar_t *e_strSrc,char*e_strDest)
-	{
-		assert(e_strDest&&"dest can't be nullptr");
-		assert(e_strSrc&&"the wchar_t string is nullptr");
-        memset(e_strDest,0,sizeof(char)*MAX_PATH);
-		WCHAR_TO_CHAR(e_strSrc,e_strDest);
-	}
-
-	std::string	WcharToChar(wchar_t *e_strWchar)
-	{
-		return WcharToChar((const wchar_t*)e_strWchar);
-	}
-
+#elif defined(ANDROID) 
 	std::string	WcharToChar(const wchar_t *e_strWchar)
 	{
 		////https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
 		////std::setlocale(LC_ALL, "");
 		std::string		l_strResult;
-		//const std::wstring ws = e_strWchar;
-		////#include <locale>
-		//const std::locale locale("");
-		//typedef std::codecvt<wchar_t, char, std::mbstate_t> converter_type;
-		//const converter_type& converter = std::use_facet<converter_type>(locale);
-		//std::vector<char> to(ws.length() * converter.max_length());
-		//std::mbstate_t state;
-		//const wchar_t* from_next;
-		//char* to_next;
-		//const converter_type::result result = converter.out(state, ws.data(), ws.data() + ws.length(), from_next, &to[0], &to[0] + to.size(), to_next);
-		//if (result == converter_type::ok || result == converter_type::noconv) 
-		//{
-		//	l_strResult = std::string(&to[0], to_next);
-		//}
-		//else
-		//{
-			//char l_strTemp[TEMP_SIZE];
-			//WcharToChar(e_strWchar, l_strTemp);
-			//std::string		l_strResult = l_strTemp;
-			std::wstring	l_strForCopy = e_strWchar;
-			l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
+		std::wstring	l_strForCopy = e_strWchar;
+		l_strResult.assign(l_strForCopy.begin(), l_strForCopy.end());
 		//}
 		return l_strResult;
 	}
+	// Convert an UTF8 string to a wide Unicode String
+	std::wstring CharToWchar(const char* e_strString)
+	{
+		int l_iSize = (int)strlen(e_strString);
+		if (!e_strString || l_iSize == 0) return std::wstring();
+		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, NULL, 0);
+		std::wstring wstrTo(size_needed, 0);
+		MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
+		return wstrTo;
+	}
+#else
+
+	//#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}
+	//#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
+	std::string	WcharToChar(const wchar_t *e_strWchar)
+	{
+		size_t l_uiSize = wcslen(e_strWchar);
+		std::string	l_strResult(l_uiSize, 0);
+		wcstombs(&l_strResult[0], e_strWchar, l_uiSize);
+		return l_strResult;
+	}
+
+
+	//#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
+	// Convert an UTF8 string to a wide Unicode String
+	std::wstring CharToWchar(const char* e_strString)
+	{
+		size_t l_uiSize = (int)strlen(e_strString);
+		if (!e_strString || l_uiSize == 0) return std::wstring();
+		std::wstring wstrTo(l_uiSize, 0);
+		mbstowcs(&wstrTo[0], e_strString, l_uiSize);
+		return wstrTo;
+	}
+#endif
 
 	std::string	WcharToChar(std::wstring e_strWchar)
 	{
 		return WcharToChar(e_strWchar.c_str());
-	}
-
-	void	CharToWchar(const char *e_strSrc,wchar_t*e_strDest)
-	{
-		assert(e_strDest&&"dest can't be nullptr");
-		assert(e_strSrc&&"the wchar_t string is nullptr");
-        memset(e_strDest,0,sizeof(wchar_t)*MAX_PATH);
-		CHAR_TO_WCHAR(e_strSrc,e_strDest);
-	}
-
-	void	CharToWchar(char *e_strSrc,wchar_t*e_strDest)
-	{
-		assert(e_strDest&&"dest can't be nullptr");
-		assert(e_strSrc&&"the wchar_t string is nullptr");
-        memset(e_strDest,0,sizeof(wchar_t)*MAX_PATH);
-		CHAR_TO_WCHAR(e_strSrc,e_strDest);
-	}
-	std::wstring	CharToWchar(char *e_strChar)
-	{
-		return CharToWchar((const char *)e_strChar);
-	}
-	std::wstring	CharToWchar(const char *e_strChar)
-	{
-		wchar_t l_strTemp[TEMP_SIZE];
-		CharToWchar(e_strChar, l_strTemp);
-		std::wstring	l_strResult = l_strTemp;
-//		std::wstring	l_strResult;
-		//std::string		l_strForCopy = e_strChar;
-		//l_strResult.assign(l_strForCopy.begin(),l_strForCopy.end());
-		return l_strResult;
-		//if here occured crush,in the dot net that's because fucking MS
-		//using critical section to lock
-		//please call this after whole windos form is showed
-		//or using DNCT::OpenfileGet Name.
 	}
 
 	std::wstring	CharToWchar(std::string	e_strChar)
