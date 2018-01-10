@@ -56,18 +56,13 @@ namespace FATMING_CORE
 			0,0,
 			1,0 };
 
-		float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
-			(float)e_iWidth, (float)-e_iHeight,0,
-			(float)-e_iWidth, (float)e_iHeight,0,
-			(float)e_iWidth,(float)e_iHeight,0 };
+		float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,
+			(float)e_iWidth, (float)-e_iHeight,
+			(float)-e_iWidth, (float)e_iHeight,
+			(float)e_iWidth,(float)e_iHeight };
 
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z));
-		SetupShaderWorldMatrix(l_mat*GetWorldTransform());
-		myGlVertexPointer(3, l_Vertices);
-		myGlUVPointer(2, l_fTexPointer);
-		ASSIGN_2D_COLOR(Vector4::One);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-
+		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z))*GetWorldTransform();
+		RenderQuadWithMatrix(l_Vertices, l_fTexPointer, Vector4::One, l_mat,3,1);
 	}
 #endif	
 	//CHECK_FRAMEBUFFER_STATUS() 
@@ -253,30 +248,8 @@ namespace FATMING_CORE
 	void	cFrameBuffer::DrawBuffer(POINT e_Pos, POINT e_Size, const WCHAR*e_strShaderName)
 	{
 		cTexture::ApplyImage(m_uiTextureID);
-		//I have no idea why the frame buffer have to rotate Y with180,and change UV
-		//real freak........
-		//int e_iWidth = e_Size.x/2;
-		//int e_iHeight = e_Size.y/2;
-		//float	l_fTexPointer[] = {  1,0,
-		//							 0,0,
-		//							 1,1,
-		//							 0,1};
-		//
-		////float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,0,
-		////						 (float)e_iWidth, (float)-e_iHeight,0,
-		////						 (float)-e_iWidth, (float)e_iHeight,0,
-		////						 (float)e_iWidth,(float)e_iHeight,0};
-
-		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_Pos.x+e_iWidth),(float)(e_Pos.y+e_iHeight), 0))*  cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180.f));
-		//SetupShaderWorldMatrix(l_mat*GetWorldTransform());
-		//ASSIGN_2D_COLOR(Vector4::One);
-		////myGlVertexPointer( 2, l_Vertices );
-		//ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,0.f);
-		//myGlUVPointer(  2, l_fTexPointer );
-		//MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
-		//UseShaderProgram(l_p2DShader);
 		float	l_fTextureCoordinate[] = { 0,1,1,0 };
-		DrawQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
+		RenderQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
 	}
 #ifndef ANDROID
 	const wchar_t*g_pstrMultiSamlingShader = L"MultiSamlingShader";

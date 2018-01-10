@@ -276,7 +276,7 @@ namespace FATMING_CORE
 			return;
 		if(m_pTexture->ApplyImage())
 		{
-			GLRender::DrawQuadWithTextureAndColorAndCoordinate(e_vPos.x+m_OffsetPos.x,e_vPos.y+m_OffsetPos.y,e_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
+			GLRender::RenderQuadWithTextureAndColorAndCoordinate(e_vPos.x+m_OffsetPos.x,e_vPos.y+m_OffsetPos.y,e_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
 		}
 		else
 		{
@@ -298,7 +298,7 @@ namespace FATMING_CORE
 		//	return;
 		//m_pTexture->ApplyImage();
 		//Vector3	l_vPos = this->GetWorldPosition();
-		//DrawQuadWithTextureAndColorAndCoordinate(l_vPos.x+this->m_OffsetPos.x,l_vPos.y+this->m_OffsetPos.y,l_vPos.z,this->m_iWidth,this->m_iHeight,m_vColor,this->m_fUV,Vector3::Zero);
+		//RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x+this->m_OffsetPos.x,l_vPos.y+this->m_OffsetPos.y,l_vPos.z,this->m_iWidth,this->m_iHeight,m_vColor,this->m_fUV,Vector3::Zero);
   //  }
 	void	cBaseImage::RenderWithShader(const WCHAR*e_strShaderName)
 	{
@@ -307,7 +307,7 @@ namespace FATMING_CORE
 		if(m_pTexture->ApplyImage())
 		{
 			Vector3 l_vPos = this->GetWorldPosition();
-			GLRender::DrawQuadWithTextureAndColorAndCoordinate(l_vPos.x+(float)m_OffsetPos.x,l_vPos.y+(float)m_OffsetPos.y,0.f,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation(),e_strShaderName);
+			GLRender::RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x+(float)m_OffsetPos.x,l_vPos.y+(float)m_OffsetPos.y,0.f,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation(),e_strShaderName);
 		}
 		else
 		{
@@ -335,18 +335,13 @@ namespace FATMING_CORE
 								 l_fWidth + this->m_OffsetPos.x, -l_fHeight + this->m_OffsetPos.y,
 								 -l_fWidth + this->m_OffsetPos.x, l_fHeight + this->m_OffsetPos.y,
 								 l_fWidth + this->m_OffsetPos.x,l_fHeight + this->m_OffsetPos.y };
-/*        float l_fWidth = m_iWidth;
-		float l_fHeight = m_iHeight;
-		float	l_Vertices[] = { 0,0,
-								 l_fWidth,0,
-								 0, l_fHeight,
-								 l_fWidth,l_fHeight};	*/							 
+
 		float	l_fTexPointer[] = {  m_fUV[0],m_fUV[1],
 								   m_fUV[2],m_fUV[1],
 								   m_fUV[0],m_fUV[3],
 								   m_fUV[2],m_fUV[3],};
 		cMatrix44 l_Mat = cMatrix44::TranslationMatrix(l_fWidth,l_fHeight,0.f)*e_Mat;
-        DrawQuadWithMatrix(l_Vertices,l_fTexPointer,this->m_vColor,l_Mat,2,1);
+        RenderQuadWithMatrix(l_Vertices,l_fTexPointer,this->m_vColor,l_Mat,2,1);
     }
 
 	void	cBaseImage::RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos)
@@ -368,10 +363,7 @@ namespace FATMING_CORE
 									l_pfTex[0],l_pfTex[3] };
 
 		float	l_pVertices[8] = { l_v3.x,l_v3.y,l_v2.x,l_v2.y,l_v0.x,l_v0.y,l_v1.x,l_v1.y};
-		myGlUVPointer(2,l_pfTexPointer);
-		myGlVertexPointer(2,l_pfTexPointer);
-		ASSIGN_2D_COLOR(m_vColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
+		RenderQuadWithMatrix(l_pVertices, l_pfTexPointer, m_vColor, cMatrix44::Identity, 2, 1);
 	}
 
 	void	cBaseImage::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels)
@@ -510,7 +502,7 @@ namespace FATMING_CORE
 		if(m_pTexture->ApplyImage())
 		{
 			Vector3	l_vPos = this->GetWorldPosition();
-			GLRender::DrawQuadWithTextureAndColorAndCoordinate(l_vPos.x,l_vPos.y,l_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
+			GLRender::RenderQuadWithTextureAndColorAndCoordinate(l_vPos.x,l_vPos.y,l_vPos.z,(float)this->m_iWidth,(float)this->m_iHeight,this->m_vColor,m_fUV,this->GetRotation());
 		}
 		else
 		{

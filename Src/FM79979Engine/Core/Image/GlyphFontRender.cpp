@@ -224,11 +224,7 @@ namespace FATMING_CORE
 		m_pFontImage->ApplyImage();
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX+m_vHalfSize.x,e_fY+m_vHalfSize.y,0.f));
 		l_mat *= this->GetWorldTransform();
-		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
-		myGlVertexPointer(2,m_pvVertexBuffer);
-		myGlUVPointer(2,m_pvTextureUVBuffer);
-		myGlColorPointer(4,m_pvColorBuffer);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6*m_iDrawCount);
+		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount*ONE_QUAD_IS_TWO_TRIANGLES);
 	}
 
 	void	cGlyphFontRender::SetFontColor(Vector4 e_vColor)

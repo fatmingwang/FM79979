@@ -1568,9 +1568,9 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 //					l_f+=1.f;
 //					//m_pFrameCamera->Render();
 //					cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(l_f));
-//					DrawPlane(cMatrix44::Identity,100,100,1,1,3);
-//					DrawPlane(l_mat,100,100,1,1,3);
-//					GLRender::DrawCube(Vector3(10,10,10),cMatrix44::Identity,Vector4(1,1,1,1));
+//					RenderPlane(cMatrix44::Identity,100,100,1,1,3);
+//					RenderPlane(l_mat,100,100,1,1,3);
+//					GLRender::RenderCube(Vector3(10,10,10),cMatrix44::Identity,Vector4(1,1,1,1));
 //					RenderCircle(Vector2(0,0),10);
 //					if( m_pEmitterEditor )
 //						m_pEmitterEditor->MyHintRender(g_sTimeAndFPS.fElpaseTime);
@@ -1636,9 +1636,9 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 				{
 					m_pFrameCamera->Render();
 					cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
-					DrawPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
-					//DrawPlane(l_mat,10,10,1,1,1)
-					//DrawPlane(cMatrix44::TranslationMatrix(Vector3(0,0,5))*l_mat,10,10,1,1,1);
+					RenderPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
+					//RenderPlane(l_mat,10,10,1,1,1)
+					//RenderPlane(cMatrix44::TranslationMatrix(Vector3(0,0,5))*l_mat,10,10,1,1,1);
 					if( m_pEmitterEditor )
 					{
 						glEnable(GL_ALPHA_TEST);

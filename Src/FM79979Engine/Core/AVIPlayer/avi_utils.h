@@ -10,7 +10,7 @@ DECLARE_HANDLE(HAVI);
 // An HAVI identifies an avi file that is being created
 
 
-HAVI CreateAvi(wchar_t*fn, int frameperiod, const WAVEFORMATEX *wfx);
+HAVI CreateAvi(const wchar_t*fn, int frameperiod, const WAVEFORMATEX *wfx);
 // CreateAvi - call this to start the creation of the avi file.
 // The period is the number of ms between each bitmap frame.
 // The waveformat can be null if you're not going to add any audio,

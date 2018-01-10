@@ -75,9 +75,9 @@ void	LoadSample()
 	//g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs","shader/TunnelEffect.ps",L"MyTunnelEffecr");
 	//g_pTestShader = cTestShader::CreateShader("shader/test.vs", "shader/test.ps", L"MyTest");;
 	//g_pBGImage = new cBaseImage("DownloadFont.png");
+	//g_pBGImage = new cBaseImage("MyFMBook/iPhone_Monster/MPDI/Coveer_2.png");
 	//g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
 	//g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
-	//g_pBGImage = new cBaseImage("MyFMBook/iPhone_Monster/MPDI/Coveer_2.png");
 	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
 	//g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
@@ -108,7 +108,8 @@ void	LoadSample()
 #ifdef WASM
 	std::wstring l_strMPDIResultFileName = L"bgrounda01.mpdi";
 #else
-	std::wstring l_strMPDIResultFileName = L"MyFMBook/AnimationDemo/MPDI/bgrounda01.mpdi";
+	
+	std::wstring l_strMPDIResultFileName = L"BluffingGirl/Image/GamePlay.mpdi";
 #endif
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
@@ -164,7 +165,7 @@ void	LoadSample()
 	}
 	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
 	//
-	g_pTestCurveWithTime = new cCurveWithTime();
+	//g_pTestCurveWithTime = new cCurveWithTime();
 	if (g_pTestCurveWithTime)
 	{
 		g_pTestCurveWithTime->SetCalAngle(true);
@@ -315,7 +316,7 @@ void	SampleRender()
 		g_pFrameBuffer->StartDraw();
 	}
 	//glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
-	KeyboardDataRender();
+	//KeyboardDataRender();
 	if( g_pTunnelEffect )
 	{
 		g_pTunnelEffect->Use();
@@ -351,6 +352,15 @@ void	SampleRender()
 		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x / 2 + cGameApp::m_svGameResolution.x / 2 * 0.1f, 0, 0));
 		g_pBGImage->RenderWithShader(g_pTestShader->GetName());
 	}
+	if (g_pBGImage)
+	{
+		static float l_fAngle = 0.f;
+		l_fAngle += 1.f;
+		UseShaderProgram();
+		glEnable2D(1920,1080);
+		g_pBGImage->SetLocalTransform(cMatrix44::YAxisRotationMatrix(l_fAngle));
+		g_pBGImage->Render();
+	}
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->Render();
@@ -360,6 +370,7 @@ void	SampleRender()
 		//g_pOrthogonalCamera->Render();
 		//g_pOrthogonalCamera->DrawGrid();
 	}
+	GLRender::RenderRectangle(1440, 900, cMatrix44::Identity, Vector4::One);
 	if (g_pMultiPathDynamicImage)
 	{
 		g_pMultiPathDynamicImage->Render();
@@ -404,6 +415,7 @@ void	SampleRender()
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
 		}
 	}
+	RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->EndDraw();
 	if (g_pFrameBuffer)

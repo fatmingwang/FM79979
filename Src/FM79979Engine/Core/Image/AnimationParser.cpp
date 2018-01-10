@@ -164,7 +164,7 @@ namespace FATMING_CORE
 		return l_iNum;
 	}
 
-	void	cAnimationParser::Export(char*e_strFileName,bool e_bBinary)
+	void	cAnimationParser::Export(const char*e_strFileName,bool e_bBinary)
 	{
 	#ifdef WIN32
 		ATG::XMLWriter	l_XMLWriter(e_strFileName);

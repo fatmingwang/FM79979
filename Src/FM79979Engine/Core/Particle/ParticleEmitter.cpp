@@ -406,14 +406,9 @@ namespace FATMING_CORE
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
-			GLint	l_Src,l_Dest;
-			MyGLGetIntegerv(GL_BLEND_SRC,&l_Src);
-			MyGLGetIntegerv(GL_BLEND_DST,&l_Dest);
-			bool	l_bSameBleinding = false;
-			if( l_Src == m_SrcBlendingMode&&m_DestBlendingMode == l_Dest  )
-				l_bSameBleinding = true;
-			else
-				glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			sBlendfunctionRestore l_BlendfunctionRestore;
+			l_BlendfunctionRestore.GetStatus();
+			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 			if(m_pBaseImage)
 				m_pBaseImage->ApplyImage();
 			cMatrix44	l_mat;
@@ -449,12 +444,7 @@ namespace FATMING_CORE
 					m_pvAllPosPointer[l_iIndex+1] = l_vPos;
 					m_pvAllPosPointer[l_iIndex+4] = l_vPos;
 				}
-				SetupShaderWorldMatrix(cMatrix44::Identity);
-				myGlVertexPointer(  3, m_pvAllPosPointer );
-				myGlUVPointer( 2, m_pvAllTexCoordinatePointer );
-				myGlColorPointer( 4,  m_pvAllColorPointer );
-				//GL_TRIANGLE_STRIP will conbine together so do not work for particle
-				MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, m_iCurrentWorkingParticles*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+				RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*ONE_QUAD_IS_TWO_TRIANGLES);
 			}
 			else
 			if( m_iPrimitiveType == GL_POINTS )
@@ -468,18 +458,14 @@ namespace FATMING_CORE
 					m_pvAllColorPointer[i] = l_pParticleData->vColor;
 					m_pvAllPosPointer[i] = l_pParticleData->vPos;
 				}
-				//here could speed up by shader and change size.
-				UseShaderProgram(NO_TEXTURE_SHADER);
-				//myGlColorPointer(4, m_pvAllColorPointer);
-				myGlVertexPointer(3, m_pvAllPosPointer);
-				MY_GLDRAW_ARRAYS(GL_POINTS, 0, m_iCurrentWorkingParticles);
+				//because I am lazy to write a particle shader....so m_pvAllColorPointer dons't work at all fuck.
+				RenderPoints(m_pvAllPosPointer, m_iCurrentWorkingParticles, 2, Vector4::One);
 			}
 #ifdef DEBUG
 			else
 				assert(0&&"do not support such privmative");
 #endif
-			if(!l_bSameBleinding)
-				glBlendFunc(l_Src,l_Dest);
+			l_BlendfunctionRestore.Restore();
 		}
 	}
 

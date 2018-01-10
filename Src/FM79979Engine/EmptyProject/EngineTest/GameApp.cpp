@@ -60,11 +60,10 @@ void	cEngineTestApp::Update(float e_fElpaseTime)
 
 void	cEngineTestApp::Render()
 {
-	MyGlErrorTest("cEngineTestApp::Render");
-	cGameApp::Render();
+	glEnable(GL_ALPHA_TEST);
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-	//glAlphaFunc(GL_GREATER,0.001f);	
+	cGameApp::Render();
 	SampleRender();
 	this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();

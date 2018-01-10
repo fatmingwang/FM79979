@@ -272,22 +272,18 @@ namespace FATMING_CORE
 			//	int a=0;
 			//}
 			assert(l_iIndex*3*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT < (1280*6)&&"cMultiPathDynamicImage::InternalRender() over 768");
-			if(l_pTYPE->GetTransformedTrianglesVertices(&g_fMPDIOptmizeRenderVertices[l_iIndex*3*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
-				&g_fMPDIOptmizeRenderUV[l_iIndex*2*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
-				&g_fMPDIOptmizeRenderColor[l_iIndex*4*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],this->m_bStayAtLastFrame))
+			if(l_pTYPE->GetTransformedTrianglesVertices(&g_fGlobalTempBufferForRenderVertices[l_iIndex*3*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
+				&g_fGlobalTempBufferForRenderUV[l_iIndex*2*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],
+				&g_fGlobalTempBufferForRenderColor[l_iIndex*4*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT],this->m_bStayAtLastFrame))
 			{
 				++l_iIndex;
 			}
 	    }
 		if( l_iIndex >0 )
 		{
-			UseShaderProgram(DEFAULT_SHADER);
 			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
-			SetupShaderWorldMatrix(cMatrix44::Identity);
-			myGlVertexPointer(3,g_fMPDIOptmizeRenderVertices);
-			myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
-			myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
-			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+
+			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * ONE_QUAD_IS_TWO_TRIANGLES);
 		}
 EXIT:
 		if (this->m_pViewPort)
@@ -737,29 +733,29 @@ EXIT:
         return l_strResult;
     }
 
-#ifdef ANDROID
-    std::wstring cMPDIList::FileToMPDIListName(const wchar_t*e_strFileName)
-    {
-		std::wstring	l_wstring;
-		char	l_str[MAX_PATH];
-		sprintf(l_str,"%s_mpdi\0",UT::GetFileNameWithoutFullPath(UT::WcharToChar(e_strFileName)).c_str());
-		wchar_t	l_temp[MAX_PATH];
-		CHAR_TO_WCHAR(l_str,l_temp);
-		l_wstring = l_temp;
-        return l_wstring;
-    }
-
-	std::wstring cMPDIList::FileToMPDIListName(const char*e_strFileName)
-	{
-		std::wstring	l_wstring;
-		char	l_str[MAX_PATH];
-		sprintf(l_str,"%s_mpdi\0",UT::GetFileNameWithoutFullPath(e_strFileName).c_str());
-		wchar_t	l_temp[MAX_PATH];
-		CHAR_TO_WCHAR(l_str,l_temp);
-		l_wstring = l_temp;
-        return l_wstring;
-	}
-#else
+//#ifdef ANDROID
+//    std::wstring cMPDIList::FileToMPDIListName(const wchar_t*e_strFileName)
+//    {
+//		std::wstring	l_wstring;
+//		char	l_str[MAX_PATH];
+//		sprintf(l_str,"%s_mpdi\0",UT::GetFileNameWithoutFullPath(UT::WcharToChar(e_strFileName)).c_str());
+//		wchar_t	l_temp[MAX_PATH];
+//		CHAR_TO_WCHAR(l_str,l_temp);
+//		l_wstring = l_temp;
+//        return l_wstring;
+//    }
+//
+//	std::wstring cMPDIList::FileToMPDIListName(const char*e_strFileName)
+//	{
+//		std::wstring	l_wstring;
+//		char	l_str[MAX_PATH];
+//		sprintf(l_str,"%s_mpdi\0",UT::GetFileNameWithoutFullPath(e_strFileName).c_str());
+//		wchar_t	l_temp[MAX_PATH];
+//		CHAR_TO_WCHAR(l_str,l_temp);
+//		l_wstring = l_temp;
+//        return l_wstring;
+//	}
+//#else
 	std::wstring cMPDIList::FileToMPDIListName(const char*e_strFileName)
 	{
 		std::wstring	l_str;
@@ -776,6 +772,6 @@ EXIT:
 		l_str = l_strTemp;
         return l_str;
     }
-#endif
+//#endif
 //end namespace FATMING_CORE
 }

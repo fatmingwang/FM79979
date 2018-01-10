@@ -84,7 +84,7 @@ namespace FATMING_CORE
 		cbtShapeCollision*	GetShapeCollisionByIndex(int e_iIndex);
 		//for editor use
 		std::vector<sImageCollisionData*>m_ImageCollisionDataVector;
-		void	Export(char*e_strFileName,cPuzzleImage*e_pPuzzleImage);
+		void	Export(const char*e_strFileName,cPuzzleImage*e_pPuzzleImage);
 		std::wstring	m_strForCollidedpiFile;
 		//for editor use
 		//0 for add 1 for fix

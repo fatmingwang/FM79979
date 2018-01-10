@@ -123,6 +123,7 @@ namespace FATMING_CORE
 		if( m_iTotalGridVertexSize != l_iTotalCount )
 		{
 			m_iTotalGridVertexSize = l_iTotalCount;
+			SAFE_DELETE(m_pDrawGridVertex);
 			m_pDrawGridVertex = new Vector2[m_iTotalGridVertexSize];
 		}
 		Vector2*l_vAllVertices = m_pDrawGridVertex;
@@ -147,12 +148,8 @@ namespace FATMING_CORE
 			l_vAllVertices[l_iTotalRow+j*2].y	+=	e_fYOffset;
 			l_vAllVertices[l_iTotalRow+j*2+1].y	+=	e_fYOffset;
 		}
-		UseShaderProgram(NO_TEXTURE_SHADER);
 		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(-l_fXOffset,-l_fYOffset,0.f));
-		SetupShaderWorldMatrix(l_mat);
-		myGlVertexPointer(2,&l_vAllVertices[0]);
-		SetupShaderColor(e_vColor);
-		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iTotalCount);
+		RenderLine((float*)l_vAllVertices, l_iTotalCount, e_vColor, 2, l_mat);
 	}
 
 	void	cOrthogonalCamera::DrawSelectFrame()

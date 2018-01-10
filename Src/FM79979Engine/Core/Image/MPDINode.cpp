@@ -352,7 +352,7 @@ namespace FATMING_CORE
 					l_BlendfunctionRestore.GetStatus();
 					glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 				}
-				DrawQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_vWorkingColor,l_RenderMatrix,3,1);
+				RenderQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_vWorkingColor,l_RenderMatrix,3,1);
 				if(this->m_bColorBlending)
 				{
 					l_BlendfunctionRestore.Restore();

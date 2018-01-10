@@ -4,61 +4,55 @@
 #include "../GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 //for opengl es1 compatibility,so we need color vertex buffer
-void ASSIGN_2D_COLOR(Vector4 Color)
+void ASSIGN_2D_QUAD_COLOR(Vector4 Color)
 {
-	memcpy(g_f2DColorOne, Color, sizeof(float) * 4);
-	memcpy(&g_f2DColorOne[4], Color, sizeof(float) * 4);
-	memcpy(&g_f2DColorOne[8], Color, sizeof(float) * 4);
-	memcpy(&g_f2DColorOne[12], Color, sizeof(float) * 4);
+	static float		l_f2DColorOne[16] = { 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1 };
+	memcpy(l_f2DColorOne, Color, sizeof(float) * 4);
+	memcpy(&l_f2DColorOne[4], Color, sizeof(float) * 4);
+	memcpy(&l_f2DColorOne[8], Color, sizeof(float) * 4);
+	memcpy(&l_f2DColorOne[12], Color, sizeof(float) * 4);
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], 4, GL_FLOAT, 0, 0, g_f2DColorOne);
+	myGlColorPointer(4, l_f2DColorOne);
 //#else
 //	glColorPointer(4, GL_FLOAT, 0, g_f2DColorOne);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_COLOR");
 }
 
-void	ASSIGN_2D_VerticesBySize(float Width, float Height, float Depth)
+void	ASSIGN_2D_QUAD_VerticesBySize(float Width, float Height, float Depth)
 {
-	g_v2DVertexBuffer[0].x = (float)-Width;	g_v2DVertexBuffer[0].y = (float)-Height;
-	g_v2DVertexBuffer[1].x = (float)Width;	g_v2DVertexBuffer[1].y = (float)-Height;
-	g_v2DVertexBuffer[2].x = (float)-Width;	g_v2DVertexBuffer[2].y = (float)Height;
-	g_v2DVertexBuffer[3].x = (float)Width;	g_v2DVertexBuffer[3].y = (float)Height;
-	g_v2DVertexBuffer[0].z = g_v2DVertexBuffer[1].z = g_v2DVertexBuffer[2].z = g_v2DVertexBuffer[3].z = (float)Depth;
+	static Vector3 l_v2DVertexBuffer[4] = { Vector3::Zero,Vector3::Zero,Vector3::Zero,Vector3::Zero };
+	l_v2DVertexBuffer[0].x = (float)-Width;	l_v2DVertexBuffer[0].y = (float)-Height;
+	l_v2DVertexBuffer[1].x = (float)Width;	l_v2DVertexBuffer[1].y = (float)-Height;
+	l_v2DVertexBuffer[2].x = (float)-Width;	l_v2DVertexBuffer[2].y = (float)Height;
+	l_v2DVertexBuffer[3].x = (float)Width;	l_v2DVertexBuffer[3].y = (float)Height;
+	l_v2DVertexBuffer[0].z = l_v2DVertexBuffer[1].z = l_v2DVertexBuffer[2].z = l_v2DVertexBuffer[3].z = (float)Depth;
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_POS], 3, GL_FLOAT, 0, 0, g_v2DVertexBuffer);
+	myGlVertexPointer(3, l_v2DVertexBuffer);
 //#else
 //	glVertexPointer(3, GL_FLOAT, 0, g_v2DVertexBuffer);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_VerticesBySize");
 }
 
-void	ASSIGN_2D_UV(float*UV)
+void	ASSIGN_2D_QUAD_UV(float*UV)
 {
-	g_f2DTextureCoordinate[0] = UV[0]; g_f2DTextureCoordinate[1] = UV[1];
-	g_f2DTextureCoordinate[2] = UV[2]; g_f2DTextureCoordinate[3] = UV[1];
-	g_f2DTextureCoordinate[4] = UV[0]; g_f2DTextureCoordinate[5] = UV[3];
-	g_f2DTextureCoordinate[6] = UV[2]; g_f2DTextureCoordinate[7] = UV[3];
+	static float l_f2DTextureCoordinate[8] = { UV[0], UV[1], UV[2],UV[1], UV[0],UV[3],	UV[2],UV[3] };
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate);
+	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, l_f2DTextureCoordinate);
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_UV");
+	MyGlErrorTest("ASSIGN_2D_QUAD_UV");
 }
 
-void	ASSIGN_2D_MIRROR_UV(float* UV)
+void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV)
 {
-	g_f2DTextureCoordinate[0] = UV[2]; g_f2DTextureCoordinate[1] = UV[1];
-	g_f2DTextureCoordinate[2] = UV[0]; g_f2DTextureCoordinate[3] = UV[1];
-	g_f2DTextureCoordinate[4] = UV[2]; g_f2DTextureCoordinate[5] = UV[3];
-	g_f2DTextureCoordinate[6] = UV[0]; g_f2DTextureCoordinate[7] = UV[3];
+	static float l_f2DTextureCoordinate[8] = { UV[2], UV[1], UV[0],UV[1], UV[2],UV[3],	UV[0],UV[3] };
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, g_f2DTextureCoordinate);
+	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, &l_f2DTextureCoordinate[0]);
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_MIRROR_UV");
+	MyGlErrorTest("ASSIGN_2D_QUAD_MIRROR_UV");
 }
 
 //#ifdef OPENGLES_2_X
@@ -104,6 +98,36 @@ void	myGlNormalPointer(int Stride, const GLvoid*pData)
 //	MyGlErrorTest("myGlNormalPointer");
 //}
 //#endif
+
+void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
+{
+#ifdef DEBUG
+	MyGlErrorTest("MY_GLDRAW_ARRAYS");
+#endif
+	glDrawArrays(mode, first, count);
+#ifdef DEBUG
+	MyGlErrorTest("MY_GLDRAW_ARRAYS after glDrawArrays");
+#endif
+}
+
+void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
+{
+	glDrawElements(mode, count, type, indices);
+	//GL_NO_ERROR 0
+	//GL_INVALID_ENUM 0x0500
+	//GL_INVALID_VALUE 0x0501
+	//GL_INVALID_OPERATION 0x0502
+	int	l_i = glGetError();
+	if (l_i != 0)
+	{
+		//opengl es1 code.
+		//bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
+		//bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
+		//bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
+		//bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
+		int a = 0;
+	}
+}
 
 namespace GLRender
 {
@@ -272,7 +296,7 @@ namespace GLRender
 		e_pfVertices[17] = l_vPos[1].z;
 	}
 
-	void	DrawQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLfloat  e_fWidth,GLfloat  e_fHeight,Vector4 e_vColor,float *e_pfTexCoordinate,Vector3 e_vRotationAngle,const wchar_t*e_strShaderName)
+	void	RenderQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,GLfloat  e_fWidth,GLfloat  e_fHeight,Vector4 e_vColor,float *e_pfTexCoordinate,Vector3 e_vRotationAngle,const wchar_t*e_strShaderName)
 	{
 		UseShaderProgram(e_strShaderName);
 		e_fWidth/=2;
@@ -280,14 +304,14 @@ namespace GLRender
 		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_iX+e_fWidth,e_iY+e_fHeight, 0.f));
 		l_mat *= cMatrix44::RotationMatrix(e_vRotationAngle);
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
-		ASSIGN_2D_UV(e_pfTexCoordinate);
-		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,e_fDepth);
-		ASSIGN_2D_COLOR(e_vColor);
+		ASSIGN_2D_QUAD_UV(e_pfTexCoordinate);
+		ASSIGN_2D_QUAD_VerticesBySize(e_fWidth,e_fHeight,e_fDepth);
+		ASSIGN_2D_QUAD_COLOR(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
 	}
 
 
-	void	DrawMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,float e_iWidth,float e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle)
+	void	RenderMirrorQuadWithTextureAndColorAndCoordinate(GLfloat e_iX,GLfloat e_iY,GLfloat e_fDepth,float e_iWidth,float e_iHeight,Vector4 e_vColor,float *e_pfTexCoordinate,float e_fRotationAngle)
 	{
 		UseShaderProgram(DEFAULT_SHADER);
 		e_iWidth/=2;
@@ -296,19 +320,29 @@ namespace GLRender
 		if(e_fRotationAngle!=0.f)
 			l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fRotationAngle));
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
-		ASSIGN_2D_MIRROR_UV(e_pfTexCoordinate);
-		ASSIGN_2D_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
-		ASSIGN_2D_COLOR(e_vColor);
+		ASSIGN_2D_QUAD_MIRROR_UV(e_pfTexCoordinate);
+		ASSIGN_2D_QUAD_VerticesBySize(e_iWidth,e_iHeight,e_fDepth);
+		ASSIGN_2D_QUAD_COLOR(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
 	}
 
 	
-	void    DrawQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
+	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName)
+	{
+		UseShaderProgram(DEFAULT_SHADER);
+		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
+		myGlVertexPointer(e_iPosStride, e_pfVertices);
+		myGlUVPointer(2, e_pfTextureUV);
+		myGlColorPointer(4, e_pvColor);
+		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 3 * e_iNumTriangles);
+	}
+
+	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName )
 	{
 		UseShaderProgram(e_strShaderName );
 	   // draw with client side arrays (in real apps you should use cached VBOs which is much better for performance)
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
-		ASSIGN_2D_COLOR(e_vColor);
+		ASSIGN_2D_QUAD_COLOR(e_vColor);
 		myGlVertexPointer(e_iPosStride,e_pfVertices);
 		myGlUVPointer(2,e_pfTextureUV);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4*e_iNumQuad);
@@ -431,11 +465,11 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
 	}
 	//e_iNum as many as line points
-	void	RenderLine(float*e_pPosition,int e_iNumPoints,Vector4 e_vColor,int e_iStride,float*e_pfMatrix,float e_fLineSize)
+	void	RenderLine(float*e_pPosition,int e_iNumPoints,Vector4 e_vColor,int e_iStride,float*e_pfMatrix,float e_fLineSize,const wchar_t*e_strShaderName)
 	{
 		if( e_iNumPoints<2 )
 			return;
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(e_strShaderName);
 		glLineWidth(e_fLineSize);
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(e_iStride,e_pPosition);
@@ -443,10 +477,11 @@ namespace GLRender
 		assert((e_iStride == 2 || e_iStride == 3)&&"draw line stride must be 2 or 3");
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, e_iNumPoints);
 	}
-	void	RenderLine(std::vector<Vector2>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont)
+	void	RenderLine(std::vector<Vector2>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont, const wchar_t*e_strShaderName)
 	{
 		if( e_pPositionPoint->size() < 2 )
 			return;
+		UseShaderProgram(e_strShaderName);
 		//draw line
 		std::vector<Vector2>	l_CurvePointVector;
 		int	l_iNumPoint = ((int)e_pPositionPoint->size()-1)*2;
@@ -471,12 +506,13 @@ namespace GLRender
 			}
 		}
 	}
-	void	RenderLine(std::vector<Vector3>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont)
+	void	RenderLine(std::vector<Vector3>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont, const wchar_t*e_strShaderName)
 	{
 		if( e_pPositionPoint->size() == 0 )
 			return;
 		if( e_pPositionPoint->size() > 1 )
 		{
+			UseShaderProgram(e_strShaderName);
 			//draw line
 			std::vector<Vector3>	l_CurvePointVector;
 			int	l_iNumPoint = ((int)e_pPositionPoint->size()-1)*2;
@@ -487,28 +523,29 @@ namespace GLRender
 				l_CurvePointVector[i*2+1] = (*e_pPositionPoint)[i+1];
 			}
 			RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_pfMatrix);
-		}
-		if( e_bRenderPoints )
-			RenderPoints(&(*e_pPositionPoint)[0],(int)e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
-		cMatrix44	l_mat(e_pfMatrix);
-		if( e_bRenderIndexFont )
-		{
-			size_t	l_uiSize = e_pPositionPoint->size();
-			for( size_t i=0;i<l_uiSize;++i )
+			if (e_bRenderPoints)
+				RenderPoints(&(*e_pPositionPoint)[0], (int)e_pPositionPoint->size(), 15, e_vColor, e_pfMatrix);
+			cMatrix44	l_mat(e_pfMatrix);
+			if (e_bRenderIndexFont)
 			{
-				Vector3	l_vPos((*e_pPositionPoint)[i]);
-				l_vPos = l_mat.TransformCoordinate(l_vPos);
-				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
+				size_t	l_uiSize = e_pPositionPoint->size();
+				for (size_t i = 0; i<l_uiSize; ++i)
+				{
+					Vector3	l_vPos((*e_pPositionPoint)[i]);
+					l_vPos = l_mat.TransformCoordinate(l_vPos);
+					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(i).c_str());
+				}
 			}
 		}
 	}
 
-	void	RenderLine(std::vector<Vector4>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont)
+	void	RenderLine(std::vector<Vector4>* e_pPositionPoint,Vector4 e_vColor,float*e_pfMatrix,bool e_bRenderPoints,bool e_bRenderIndexFont, const wchar_t*e_strShaderName)
 	{
 		if( e_pPositionPoint->size() == 0 )
 			return;
 		if( e_pPositionPoint->size() > 1 )
 		{
+			UseShaderProgram(e_strShaderName);
 			//draw line
 			std::vector<Vector3>	l_CurvePointVector;
 			int	l_iNumPoint = ((int)e_pPositionPoint->size()-1)*2;
@@ -519,18 +556,18 @@ namespace GLRender
 				l_CurvePointVector[i*2+1] = Vector3((*e_pPositionPoint)[i+1]);
 			}
 			RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_pfMatrix);
-		}
-		if( e_bRenderPoints )
-			RenderPoints(&(*e_pPositionPoint)[0],(int)e_pPositionPoint->size(),15,e_vColor,e_pfMatrix);
-		if( e_bRenderIndexFont )
-		{
-			cMatrix44	l_mat(e_pfMatrix);
-			size_t	l_uiSize = e_pPositionPoint->size();
-			for( size_t i=0;i<l_uiSize;++i )
+			if (e_bRenderPoints)
+				RenderPoints(&(*e_pPositionPoint)[0], (int)e_pPositionPoint->size(), 15, e_vColor, e_pfMatrix);
+			if (e_bRenderIndexFont)
 			{
-				Vector3	l_vPos((*e_pPositionPoint)[i]);
-				l_vPos = l_mat.TransformCoordinate(l_vPos);
-				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
+				cMatrix44	l_mat(e_pfMatrix);
+				size_t	l_uiSize = e_pPositionPoint->size();
+				for (size_t i = 0; i<l_uiSize; ++i)
+				{
+					Vector3	l_vPos((*e_pPositionPoint)[i]);
+					l_vPos = l_mat.TransformCoordinate(l_vPos);
+					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(i).c_str());
+				}
 			}
 		}
 	}
@@ -548,24 +585,24 @@ namespace GLRender
 			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
 			float	l_fY = cos(l_fStepAngle*i)*e_fRadius;
 			Vector2	l_vPos = Vector2(l_fX,l_fY);
-			g_fMPDIOptmizeRenderColor[i*4] = l_vFirestPos.x;
-			g_fMPDIOptmizeRenderColor[i*4+1] = l_vFirestPos.y;
-			g_fMPDIOptmizeRenderColor[i*4+2] = l_vPos.x;
-			g_fMPDIOptmizeRenderColor[i*4+3] = l_vPos.y;
+			g_fGlobalTempBufferForRenderVertices[i*4] = l_vFirestPos.x;
+			g_fGlobalTempBufferForRenderVertices[i*4+1] = l_vFirestPos.y;
+			g_fGlobalTempBufferForRenderVertices[i*4+2] = l_vPos.x;
+			g_fGlobalTempBufferForRenderVertices[i*4+3] = l_vPos.y;
 			l_vFirestPos = l_vPos;
 		}
 		FATMING_CORE::SetupShaderColor(e_vColor);
-		myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
+		myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum*2);
 		if( e_bDrawPoint )
 		{
 			for( int i=0;i<l_iNum;++i )
 			{
-				g_fMPDIOptmizeRenderColor[i*2] = sin(l_fStepAngle*i)*e_fRadius;
-				g_fMPDIOptmizeRenderColor[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2] = sin(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
 			}
-			myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
+			myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);
 		}
 	}
@@ -584,24 +621,24 @@ namespace GLRender
 			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
 			float	l_fY = cos(l_fStepAngle*i)*e_fRadius;
 			Vector2	l_vPos = Vector2(l_fX,l_fY);
-			g_fMPDIOptmizeRenderColor[i*4] = l_vFirestPos.x;
-			g_fMPDIOptmizeRenderColor[i*4+1] = l_vFirestPos.y;
-			g_fMPDIOptmizeRenderColor[i*4+2] = l_vPos.x;
-			g_fMPDIOptmizeRenderColor[i*4+3] = l_vPos.y;
+			g_fGlobalTempBufferForRenderVertices[i*4] = l_vFirestPos.x;
+			g_fGlobalTempBufferForRenderVertices[i*4+1] = l_vFirestPos.y;
+			g_fGlobalTempBufferForRenderVertices[i*4+2] = l_vPos.x;
+			g_fGlobalTempBufferForRenderVertices[i*4+3] = l_vPos.y;
 			l_vFirestPos = l_vPos;
 		}
 		FATMING_CORE::SetupShaderColor(e_vColor);
-		myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
+		myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum*2);
 		if( e_bDrawPoint )
 		{
 			for( int i=0;i<l_iNum;++i )
 			{
-				g_fMPDIOptmizeRenderColor[i*2] = sin(l_fStepAngle*i)*e_fRadius;
-				g_fMPDIOptmizeRenderColor[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2] = sin(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
 			}
-			myGlVertexPointer(2,g_fMPDIOptmizeRenderColor);
+			myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);
 		}
 	}
@@ -676,7 +713,7 @@ namespace GLRender
 		if(e_fAngle!=0.f)
 			l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(e_fAngle));
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
-		ASSIGN_2D_VerticesBySize(e_fWidth,e_fHeight,0.f);
+		ASSIGN_2D_QUAD_VerticesBySize(e_fWidth,e_fHeight,0.f);
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLE_STRIP, 0, 4);
 	}
@@ -705,7 +742,7 @@ namespace GLRender
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
 	}
 
-	void	DrawPlane(cMatrix44 e_mat,float	e_fWidth,float	e_fHeight,float e_fGridWidthDistance,float e_fGridHeightDistance,float e_fLineWidth,Vector4 e_vColor)
+	void	RenderPlane(cMatrix44 e_mat,float	e_fWidth,float	e_fHeight,float e_fGridWidthDistance,float e_fGridHeightDistance,float e_fLineWidth,Vector4 e_vColor)
 	{
 		assert(e_fWidth>e_fGridWidthDistance&&e_fHeight>e_fGridHeightDistance);
 		int	l_iRow = (int)(e_fWidth/e_fGridWidthDistance)+1;
@@ -717,22 +754,22 @@ namespace GLRender
 		glLineWidth(e_fLineWidth);
 		Vector2	l_vLeftUp(-e_fWidth/2,-e_fHeight/2.f);
 		Vector2	l_vRightDown(e_fWidth/2,e_fHeight/2.f);
-		Vector2	*l_pvVerticesForDrawPlane = (Vector2*)g_fMPDIOptmizeRenderColor;
+		Vector2	*l_pvVerticesForRenderPlane = (Vector2*)g_fGlobalTempBufferForRenderVertices;
 		//for row
 		for( int i=0;i<l_iRow;++i )
 		{
-			l_pvVerticesForDrawPlane[i*2] = Vector2(l_vLeftUp.x,l_vLeftUp.y+i*e_fGridHeightDistance);
-			l_pvVerticesForDrawPlane[i*2+1] = Vector2(l_vRightDown.x,l_vLeftUp.y+i*e_fGridHeightDistance);
+			l_pvVerticesForRenderPlane[i*2] = Vector2(l_vLeftUp.x,l_vLeftUp.y+i*e_fGridHeightDistance);
+			l_pvVerticesForRenderPlane[i*2+1] = Vector2(l_vRightDown.x,l_vLeftUp.y+i*e_fGridHeightDistance);
 		}
 		//+2 from l_iTotalCount
 		int	l_iTotalRow = l_iRow*2;
 		for( int j=0;j<l_iColumn+2;++j )
 		{
-			l_pvVerticesForDrawPlane[l_iTotalRow+j*2] = Vector2(l_vLeftUp.x+j*e_fGridWidthDistance,l_vLeftUp.y);
-			l_pvVerticesForDrawPlane[l_iTotalRow+j*2+1] = Vector2(l_vLeftUp.x+j*e_fGridWidthDistance,l_vRightDown.y);
+			l_pvVerticesForRenderPlane[l_iTotalRow+j*2] = Vector2(l_vLeftUp.x+j*e_fGridWidthDistance,l_vLeftUp.y);
+			l_pvVerticesForRenderPlane[l_iTotalRow+j*2+1] = Vector2(l_vLeftUp.x+j*e_fGridWidthDistance,l_vRightDown.y);
 		}
 		FATMING_CORE::SetupShaderColor(e_vColor);
-		myGlVertexPointer(2,l_pvVerticesForDrawPlane);
+		myGlVertexPointer(2,l_pvVerticesForRenderPlane);
 		FATMING_CORE::SetupShaderWorldMatrix(e_mat);
 		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iTotalCount);
 		
@@ -831,7 +868,7 @@ namespace GLRender
 		AssignUVDataTo2Triangles(e_pUVSrc,e_pUVDest,false);
 	}
 
-	void	DrawVectorProject(Vector3 e_v1,Vector3 e_v2,cMatrix44 e_mat)
+	void	RenderVectorProject(Vector3 e_v1,Vector3 e_v2,cMatrix44 e_mat)
 	{
 		Vector3	l_vD3 = e_v1.Projected(e_v2);
 		float	l_f1[6] = {0,0,0,e_v1.x,e_v1.y,e_v1.z};
@@ -844,7 +881,7 @@ namespace GLRender
 		glDisable2D();	
 	}
 
-	void	DrawCube(Vector3 e_vSize,cMatrix44 e_mat,Vector4 e_vColor)
+	void	RenderCube(Vector3 e_vSize,cMatrix44 e_mat,Vector4 e_vColor)
 	{
 				//2,3				5
 				//0					1,4

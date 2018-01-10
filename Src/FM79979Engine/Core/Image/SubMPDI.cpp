@@ -294,7 +294,7 @@ namespace FATMING_CORE
 		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		DrawQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
+		RenderQuadWithMatrix((float*)&this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if (this->m_bColorBlending)
 		{
 			l_BlendfunctionRestore.Restore();
@@ -395,9 +395,9 @@ namespace FATMING_CORE
 
 	Vector4	cCueToStartCurveWithTime::GetCollideRectByIndex(int e_iIndex)
 	{
-		if (GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices, g_fMPDIOptmizeRenderUV, g_fMPDIOptmizeRenderColor, 0))
+		if (GetTransformedVerticesByIndex(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, 0))
 		{
-			Vector4	l_vRect(g_fMPDIOptmizeRenderVertices[6], g_fMPDIOptmizeRenderVertices[7], g_fMPDIOptmizeRenderVertices[12], g_fMPDIOptmizeRenderVertices[13]);
+			Vector4	l_vRect(g_fGlobalTempBufferForRenderVertices[6], g_fGlobalTempBufferForRenderVertices[7], g_fGlobalTempBufferForRenderVertices[12], g_fGlobalTempBufferForRenderVertices[13]);
 			return l_vRect;
 		}
 		return Vector4::Zero;
@@ -558,18 +558,17 @@ namespace FATMING_CORE
 		}
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
 			return;
-		GLenum	l_OriginalSrc, l_OriginalDest;
+		sBlendfunctionRestore l_BlendfunctionRestore;
 		if (this->m_bColorBlending)
 		{
-			MyGLGetIntegerv(GL_BLEND_SRC, (GLint*)&l_OriginalSrc);
-			MyGLGetIntegerv(GL_BLEND_DST, (GLint*)&l_OriginalDest);
+			l_BlendfunctionRestore.GetStatus();
 			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		DrawQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
+		RenderQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);
 		if (this->m_bColorBlending)
 		{
-			glBlendFunc(l_OriginalSrc, l_OriginalDest);
+			l_BlendfunctionRestore.Restore();
 		}
 	}
 

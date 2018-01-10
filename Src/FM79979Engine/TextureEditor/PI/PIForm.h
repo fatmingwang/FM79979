@@ -1382,7 +1382,7 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 					            continue;
 					        //remove old data
 					        m_ImageTale->Remove(l_strFileNameWithoutDirectory);
-					        l_iOriginalIndex = m_pImageomposerIRM->GetObjectIndexByName(DNCT::GcStringToWchar(l_strFileNameWithoutDirectory));
+					        l_iOriginalIndex = m_pImageomposerIRM->GetObjectIndexByName(DNCT::GcStringToWchar(l_strFileNameWithoutDirectory).c_str());
 					        cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(DNCT::GcStringToWchar(l_strFileNameWithoutDirectory)));
 					        SAFE_DELETE(l_pUIImage);
 					    }
@@ -1405,8 +1405,8 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 
 
 							m_ImageTale[l_strFileNameWithoutDirectory] = l_pImage;
-							WCHAR*l_strWcharFileName = DNCT::GcStringToWchar(l_strFileName);
-							std::wstring l_strwstringFileName = UT::GetFileNameWithoutFullPath(l_strWcharFileName);
+							std::wstring l_strWcharFileName = DNCT::GcStringToWchar(l_strFileName);
+							std::wstring l_strwstringFileName = UT::GetFileNameWithoutFullPath(l_strWcharFileName.c_str());
 							if( !l_pUIImage )
 								l_pUIImage = GetNewUIImageByBitMap(l_pImage,l_strwstringFileName.c_str());
 
@@ -1461,7 +1461,7 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 				glEnable(GL_ALPHA_TEST);
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-				glEnable(GL_TEXTURE_2D);
+				//glEnable(GL_TEXTURE_2D);
 				for( int i=0;i<m_pImageomposerIRM->Count();++i )
 				{
 					cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
@@ -1533,11 +1533,11 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 				RenderRectangle(l_Pos,(int)ImageWidth_numericUpDown->Value,(int)ImageHeight_numericUpDown->Value,Vector4(1.f,0.3f,0.3f,0.8f));
 				if( m_pDebugFont )
 				{
-					glEnable(GL_TEXTURE_2D);
+					UseShaderProgram();
+					glEnable2D(1280, 720);
 					POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
-					WCHAR*l_strMousePos;
-					l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
-					m_pDebugFont->RenderFont((int)(m_pOrthogonalCamera->GetCameraPos().x-m_pOrthogonalCamera->GetScreenViewPortSize().x/2),(int)(m_pOrthogonalCamera->GetCameraPos().y-m_pOrthogonalCamera->GetScreenViewPortSize().y/2),l_strMousePos);
+					std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
+					m_pDebugFont->RenderFont(0,0,l_strMousePos.c_str());
 					glDisable(GL_TEXTURE_2D);
 				}
 				glDisable(GL_ALPHA_TEST);
@@ -1657,7 +1657,7 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 							const BinPack2D::Content<cUIImage*> &content = *itor;
 							// retreive your data.
 							auto myContent = content.content;
-							myContent->SetPos(Vector3(content.coord.x-myContent->GetOffsetPos()->x,content.coord.y-myContent->GetOffsetPos()->y,0));
+							myContent->SetPos(Vector3((float)content.coord.x-myContent->GetOffsetPos()->x, (float)content.coord.y-myContent->GetOffsetPos()->y,0));
   
 							//printf("\t%9s of size %3dx%3d at position %3d,%3d,%2d rotated=%s\n",
 							//   myContent.str.c_str(), 
@@ -1977,7 +1977,7 @@ private: System::Void InvertPuzzleImage_button_Click(System::Object^  sender, Sy
 			 {
 				 cNodeISAX	l_cNodeISAX;
 				 TiXmlElement*l_pRootTiXmlElement = 0;
-				 bool	l_b = l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(l_fileName));
+				 bool	l_b = l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(l_fileName).c_str());
 				 if( l_b )
 				 {
 					const WCHAR*	l_strFileName = 0;
@@ -2147,7 +2147,7 @@ private: System::Void AddAnimationImage_button_Click(System::Object^  sender, Sy
 				 while(AllImage_listBox->SelectedIndices->Count != 0 )
 				 {
 					int	l_iIndex = AllImage_listBox->SelectedIndices[0];
-					m_pImageIndexOfAnimation->AddNameObject(DNCT::GcStringToWchar(AllImage_listBox->SelectedItems[0]->ToString()),AllImage_listBox->SelectedIndices[0],0.1f);
+					m_pImageIndexOfAnimation->AddNameObject(DNCT::GcStringToWchar(AllImage_listBox->SelectedItems[0]->ToString()).c_str(),AllImage_listBox->SelectedIndices[0],0.1f);
 					AnimationData_listBox->Items->Add(AllImage_listBox->SelectedItems[0]->ToString());
 					AllImage_listBox->SelectedItems->Remove(AllImage_listBox->SelectedItems[0]);
 				 }

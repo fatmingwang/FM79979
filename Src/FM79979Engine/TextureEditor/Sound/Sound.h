@@ -260,8 +260,8 @@ namespace Sound
 						String^l_strFileName = DNCT::GetFileNameWithoutFullPath(l_strName,true);
 						if(!DNCT::CheckListContainStringAndAdd(this->Sound_listBox,l_strFileName))
 						{
-						  char*l_strFileName = DNCT::GcStringToChar(l_strName);
-						  bool	l_b = m_pSoundParser->AddSound(m_pSoundParser,l_strFileName);
+						  std::string l_strFileName = DNCT::GcStringToChar(l_strName);
+						  bool	l_b = m_pSoundParser->AddSound(m_pSoundParser,l_strFileName.c_str());
 						  if(!l_b)
 						  {
 							  Sound_listBox->Items->RemoveAt(Sound_listBox->Items->Count-1);
@@ -302,10 +302,10 @@ private: System::Void openToolStripMenuItem_Click(System::Object^  sender, Syste
 				if(!l_FileName)
 					return;
 				l_FileName = ForceAddExtenName(l_FileName,"xml");
-				char*l_strFileName = DNCT::GcStringToChar(l_FileName);
-				if( l_strFileName )
+				std::string l_strFileName = DNCT::GcStringToChar(l_FileName);
+				if( l_strFileName.length() )
 				{
-					m_pSoundParser->Export(l_strFileName);
+					m_pSoundParser->Export(l_strFileName.c_str());
 //					FileToUnicode(String(l_strFileName).ToString());
 				}
 			}

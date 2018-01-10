@@ -26,17 +26,17 @@ namespace FATMING_CORE
 		if( m_eProjectionType == Projection::Perspective )
 		{
 			e_pFrameCamera->Render();
-			DrawPlane(cMatrix44::XAxisRotationMatrix(0),10,10,1,1,4,Vector4(1,0,0,1));
-			DrawPlane(cMatrix44::XAxisRotationMatrix(D3DXToRadian(90)),10,10,1,1,4,Vector4(0,1,0,1));
-			DrawPlane(cMatrix44::YAxisRotationMatrix(D3DXToRadian(90)),10,10,1,1,4,Vector4(0,0,1,1));
+			RenderPlane(cMatrix44::XAxisRotationMatrix(0),10,10,1,1,4,Vector4(1,0,0,1));
+			RenderPlane(cMatrix44::XAxisRotationMatrix(D3DXToRadian(90)),10,10,1,1,4,Vector4(0,1,0,1));
+			RenderPlane(cMatrix44::YAxisRotationMatrix(D3DXToRadian(90)),10,10,1,1,4,Vector4(0,0,1,1));
 			RenderPoint(Vector3(0,0,0),5,Vector4(1,1,1,1));
 		}
 		else
 		{
 			e_pOrthogonalCamera->Render();
-			DrawPlane(cMatrix44::Identity,1000,1000,100,100,4,Vector4(1,0,0,1));
-			DrawPlane(cMatrix44::XAxisRotationMatrix(D3DXToRadian(90)),1000,1000,100,100,4,Vector4(0,1,0,1));
-			DrawPlane(cMatrix44::YAxisRotationMatrix(D3DXToRadian(90)),1000,1000,100,100,4,Vector4(0,0,1,1));
+			RenderPlane(cMatrix44::Identity,1000,1000,100,100,4,Vector4(1,0,0,1));
+			RenderPlane(cMatrix44::XAxisRotationMatrix(D3DXToRadian(90)),1000,1000,100,100,4,Vector4(0,1,0,1));
+			RenderPlane(cMatrix44::YAxisRotationMatrix(D3DXToRadian(90)),1000,1000,100,100,4,Vector4(0,0,1,1));
 			RenderPoint(Vector2(0,0),5,Vector4(1,1,1,1));
 		}
 	}

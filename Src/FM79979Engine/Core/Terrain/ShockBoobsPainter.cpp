@@ -443,7 +443,7 @@ namespace FATMING_CORE
 			FATMING_CORE::UseShaderProgram(NO_TEXTURE_SHADER);
 			e_pFrameCamera->Render();
 			cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
-			DrawPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
+			RenderPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
 			FATMING_CORE::UseShaderProgram(DEFAULT_SHADER);
 			e_pFrameCamera->Render();
 		}
@@ -468,7 +468,7 @@ namespace FATMING_CORE
 			FATMING_CORE::UseShaderProgram(NO_TEXTURE_SHADER);
 			e_pFrameCamera->Render();
 			cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
-			DrawPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
+			RenderPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
 			FATMING_CORE::UseShaderProgram(DEFAULT_SHADER);
 			e_pFrameCamera->Render();
 		}

@@ -286,7 +286,7 @@ namespace TextureEditor
 		{
 			HWND l_pParentHandle = (HWND)this->m_pSplitPanel->Panel2->Handle.ToPointer();
 			GCFORM::Form^l_pForm = GetForm();
-			OutputDebugString(DNCT::GcStringToWchar(this->m_pSplitPanel->Panel2->Handle.ToString()));
+			OutputDebugString(DNCT::GcStringToWchar(this->m_pSplitPanel->Panel2->Handle.ToString()).c_str());
 			//System::Diagnostics::ProcessStartInfo^l_pProcessStartInfo = gcnew System::Diagnostics::ProcessStartInfo(e_strFileName,this->m_pSplitPanel->Panel2->Handle.ToString());
 			System::Diagnostics::ProcessStartInfo^l_pProcessStartInfo = gcnew System::Diagnostics::ProcessStartInfo(e_strFileName,e_strTargetFileName);
 			l_pProcessStartInfo->UseShellExecute = false;

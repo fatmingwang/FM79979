@@ -189,9 +189,9 @@ namespace FATMING_CORE
 			//from small to big
 			for( int i=0;i<l_iNum;++i )
 			{
-				float	*l_pfVertices	=	&g_fMPDIOptmizeRenderVertices[i*3*6];
-				float	*l_pfUV			=	&g_fMPDIOptmizeRenderUV[i*2*6];
-				float	*l_pfColor		=	&g_fMPDIOptmizeRenderColor[i*4*6];
+				float	*l_pfVertices	=	&g_fGlobalTempBufferForRenderVertices[i*3*6];
+				float	*l_pfUV			=	&g_fGlobalTempBufferForRenderUV[i*2*6];
+				float	*l_pfColor		=	&g_fGlobalTempBufferForRenderColor[i*4*6];
 
 				AssignUVDataTo2Triangles(&m_pfTexCoordinate[(l_str[i]-'0')*4],l_pfUV,false);
 				for( int j=0;j<6;++j )
@@ -221,11 +221,7 @@ namespace FATMING_CORE
 			{
 				l_mat = l_mat*cMatrix44(e_pmat);
 			}
-			SetupShaderWorldMatrix(l_mat);
-			myGlVertexPointer(3,g_fMPDIOptmizeRenderVertices);
-			myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
-			myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
-			MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iNum*6);
+			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, l_mat,3, l_iNum*ONE_QUAD_IS_TWO_TRIANGLES);
 		}
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
@@ -411,9 +407,9 @@ namespace FATMING_CORE
 		for( int i=0;i<l_iNum;++i )
 		{
 			int	l_iIndex = *e_piIndex;
-			float	*l_pfVertices	=	&g_fMPDIOptmizeRenderVertices[l_iIndex*3*6];
-			float	*l_pfUV			=	&g_fMPDIOptmizeRenderUV[l_iIndex*2*6];
-			float	*l_pfColor		=	&g_fMPDIOptmizeRenderColor[l_iIndex*4*6];
+			float	*l_pfVertices	=	&g_fGlobalTempBufferForRenderVertices[l_iIndex*3*6];
+			float	*l_pfUV			=	&g_fGlobalTempBufferForRenderUV[l_iIndex*2*6];
+			float	*l_pfColor		=	&g_fGlobalTempBufferForRenderColor[l_iIndex*4*6];
 			AssignUVDataTo2Triangles(&e_pfUV[(l_Value[i])*4],l_pfUV,false);
 			for( int i=0;i<6;++i )
 				memcpy(&l_pfColor[i*4],&e_vColor,sizeof(Vector4));
@@ -456,12 +452,8 @@ namespace FATMING_CORE
 		if( m_bEnableHour )
 			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vHourPos,l_iHour,1);
 		this->ApplyImage();
-		UseShaderProgram(DEFAULT_SHADER);
-		SetupShaderWorldMatrix(cMatrix44::Identity);
-		myGlVertexPointer(3,g_fMPDIOptmizeRenderVertices);
-		myGlUVPointer(2,g_fMPDIOptmizeRenderUV);
-		myGlColorPointer(4,g_fMPDIOptmizeRenderColor);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, l_iNum*6);
+
+		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * ONE_QUAD_IS_TWO_TRIANGLES);
 		if( m_pDisableObject && m_i64Value == 0 )
 		{
 			m_pDisableObject->Render();

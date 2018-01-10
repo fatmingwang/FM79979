@@ -67,7 +67,7 @@ namespace MPDI
 
 	}
 
-	void	cMPDIVideo_Editor::FileOpen(char*e_strFileName)
+	void	cMPDIVideo_Editor::FileOpen(const char*e_strFileName)
 	{
 		m_pVideoSubMPDI->OpenFile(e_strFileName);
 		m_pSliderTime->Minimum = 0;
@@ -84,7 +84,7 @@ namespace MPDI
 		String^l_strFileName = DNCT::OpenFileAndGetName("avi files (*.avi)|*.avi|All files (*.*)|*.*");
 		if( l_strFileName )
 		{
-			FileOpen(DNCT::GcStringToChar(l_strFileName));
+			FileOpen(DNCT::GcStringToChar(l_strFileName).c_str());
 			m_pVideoSubMPDI->Init();
 			this->m_pAVIPlayer->SetPause(false);
 			this->m_pAVIPlayer->SetLoop(true);

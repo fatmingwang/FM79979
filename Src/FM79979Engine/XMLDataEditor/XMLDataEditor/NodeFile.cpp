@@ -23,7 +23,7 @@ System::Void	NodeFile::LoadFile(System::String^e_pFileName,System::String^e_pStr
 	}
 	catch(Exception^ ex)
 	{
-		OutputDebugString(DNCT::GcStringToWchar(ex->ToString()));
+		OutputDebugString(DNCT::GcStringToWchar(ex->ToString()).c_str());
 		//WARNING_MSG("Default.fun not exist or direction error \n  \n  \n  \n  \n "+ex->ToString());
 	}	
 }

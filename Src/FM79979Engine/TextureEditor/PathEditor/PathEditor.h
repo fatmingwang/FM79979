@@ -1053,7 +1053,7 @@ private: System::Void tabControl_SelectedIndexChanged(System::Object^  sender, S
 			 if( l_str )
 			 {
 				 SAFE_DELETE(m_pBKImageEP);
-				 m_pBKImageEP = new cBaseImage(DNCT::GcStringToChar(l_str));
+				 m_pBKImageEP = new cBaseImage(DNCT::GcStringToChar(l_str).c_str());
 			 }
 		}
 private: System::Void AddImage_button_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -1061,7 +1061,7 @@ private: System::Void AddImage_button_Click(System::Object^  sender, System::Eve
 			 if( l_str )
 			 for each(String^l_strName in l_str )
 			 {
-				 cBaseImage*l_pImage = new cBaseImage(DNCT::GcStringToChar(l_strName));
+				 cBaseImage*l_pImage = new cBaseImage(DNCT::GcStringToChar(l_strName).c_str());
 				 bool	l_b = m_pBaseImageListEP->AddObject(l_pImage);
 				 if( !l_b )
 					 m_pBaseImageListEP->RemoveObject(l_pImage);

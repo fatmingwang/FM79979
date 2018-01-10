@@ -54,7 +54,7 @@ namespace FATMING_CORE
 		int		iPointIndex;
 		wchar_t	strEventName[MAX_PATH];//ensure all the size is n*MAX_PATH
 		eAnimationEvent	AnimationEvent;
-		sHintPoint(int e_iIndex,wchar_t*e_str,eAnimationEvent e_eAnimationEvent)
+		sHintPoint(int e_iIndex,const wchar_t*e_str,eAnimationEvent e_eAnimationEvent)
 		{
 			size_t l_uiSize = wcslen(e_str);
 			assert(l_uiSize < MAX_PATH &&" sPuzzleData name size over TEMP_SIZE");

@@ -151,7 +151,7 @@ namespace FATMING_CORE
 	void	cBaseShader::DebugRender()
 	{
 		float	l_fTextureCoordinate[] ={0,1,1,0};
-		DrawQuadWithTextureAndColorAndCoordinate(0,0,0.f,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,L"");	
+		RenderQuadWithTextureAndColorAndCoordinate(0,0,0.f,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,L"");	
 	}
 
 
@@ -525,36 +525,6 @@ namespace FATMING_CORE
 //
 //#endif
 		MyGlErrorTest("SetupShaderBonesData");
-	}
-
-	void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
-	{
-#ifdef DEBUG
-		MyGlErrorTest("MY_GLDRAW_ARRAYS");
-#endif
-		glDrawArrays(mode,first,count);
-#ifdef DEBUG
-		MyGlErrorTest("MY_GLDRAW_ARRAYS after glDrawArrays");
-#endif
-	}
-
-	void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
-	{
-		glDrawElements(mode,count,type,indices);
-		//GL_NO_ERROR 0
-		//GL_INVALID_ENUM 0x0500
-		//GL_INVALID_VALUE 0x0501
-		//GL_INVALID_OPERATION 0x0502
-		int	l_i = glGetError();
-		if( l_i != 0 )
-		{
-			//opengl es1 code.
-			//bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
-			//bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
-			//bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
-			//bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
-			int a=0;
-		}
 	}
 
 	bool CheckProgram(int Object, int Type,wchar_t*e_strMessage)

@@ -143,7 +143,7 @@ namespace BulletDataEditor
 	cOrthogonalCamera*				m_pOrthogonalCamera;
 	Vector4*						m_pvBGColor;
 	Vector2*						m_pvResolution;
-	void	OpenPIFile(char*e_strFileName,bool e_bErasePathData)
+	void	OpenPIFile(const char*e_strFileName,bool e_bErasePathData)
 	{
 		cImageParser	l_ImageParser;
 		l_ImageParser.SetFromResource(true);
@@ -662,7 +662,7 @@ namespace BulletDataEditor
 						if( l_strFileName )
 						{
 							std::string	l_strFileNmae = UT::WcharToChar(m_pPuzzleImage->GetName());
-							m_p2DImageCollisionData->Export(DNCT::GcStringToChar(l_strFileName),m_pPuzzleImage);
+							m_p2DImageCollisionData->Export(DNCT::GcStringToChar(l_strFileName).c_str(),m_pPuzzleImage);
 							//if( BinaryExport_checkBox->Checked )
 							//{
 							//	if( System::IO::File::Exists(l_strFileName) )
@@ -688,7 +688,7 @@ namespace BulletDataEditor
 				{
 					cImageParser	l_ImageParser;
 					l_ImageParser.SetFromResource(true);
-					OpenPIFile(DNCT::GcStringToChar(l_strFileName),true);
+					OpenPIFile(DNCT::GcStringToChar(l_strFileName).c_str(),true);
 				}
 			 }
 private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e)
@@ -762,7 +762,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 				int	l_iLastXPos = 0;
 				for each(int l_iIndex in QuickApply_listBox->SelectedIndices)
 				{
-					 WCHAR*l_strName = DNCT::GcStringToWchar(QuickApply_listBox->Items[l_iIndex]->ToString());
+					 std::wstring l_strName = DNCT::GcStringToWchar(QuickApply_listBox->Items[l_iIndex]->ToString());
 					 cPuzzleImageUnit*l_pPuzzleImageUnit = m_pPuzzleImage->GetObject(l_strName);
 					 l_pPuzzleImageUnit->Render(l_iLastXPos,l_iLastYPos);
 					 l_iLastYPos += l_pPuzzleImageUnit->GetHeight();
@@ -782,9 +782,8 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			{
 				glEnable2D(1280,720);
 				glEnable(GL_TEXTURE_2D);
-				WCHAR*l_strMousePos;
-				l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
-				m_pDebugFont->RenderFont((int)(m_pOrthogonalCamera->GetCameraPos().x-m_pOrthogonalCamera->GetScreenViewPortSize().x/2),(int)(m_pOrthogonalCamera->GetCameraPos().y-m_pOrthogonalCamera->GetScreenViewPortSize().y/2),l_strMousePos);
+				std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
+				m_pDebugFont->RenderFont((int)(m_pOrthogonalCamera->GetCameraPos().x-m_pOrthogonalCamera->GetScreenViewPortSize().x/2),(int)(m_pOrthogonalCamera->GetCameraPos().y-m_pOrthogonalCamera->GetScreenViewPortSize().y/2),l_strMousePos.c_str());
 				glDisable(GL_TEXTURE_2D);
 			}
 			glDisable(GL_TEXTURE_2D);
@@ -885,7 +884,7 @@ private: System::Void PuzzleImageUnit_listBox_SelectedIndexChanged(System::Objec
 			 }
 			 else
 			 {
-				 WCHAR*l_strName = DNCT::GcStringToWchar(PuzzleImageUnit_listBox->Items[PuzzleImageUnit_listBox->SelectedIndex]->ToString());
+				 std::wstring l_strName = DNCT::GcStringToWchar(PuzzleImageUnit_listBox->Items[PuzzleImageUnit_listBox->SelectedIndex]->ToString());
 				 m_pPuzzleImageUnit = m_pPuzzleImage->GetObject(l_strName);
 				 int	l_iSelectedIndex = m_p2DImageCollisionData->GetSelectedIndex();
 				 if( m_pPuzzleImageUnit && l_iSelectedIndex != -1 )

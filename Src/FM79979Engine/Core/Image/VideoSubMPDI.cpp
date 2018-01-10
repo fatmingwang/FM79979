@@ -56,7 +56,7 @@ namespace FATMING_CORE
 		m_pAVIPlayer->Render(l_fPosX,l_fPosY,l_Size);
 	}
 
-	bool	cVideoSubMPDI::OpenFile(char*e_strFileName)
+	bool	cVideoSubMPDI::OpenFile(const char*e_strFileName)
 	{
 		bool	l_b = m_pAVIPlayer->OpenFile(UT::CharToWchar(e_strFileName).c_str());
 		if( l_b )

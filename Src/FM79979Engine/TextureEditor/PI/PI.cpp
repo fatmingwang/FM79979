@@ -162,7 +162,7 @@ namespace PI
 	{
 		cNamedTypedObjectVector<cPuzzleUnitChild>	l_PIUnitChildVector;
 		cNodeISAX	l_cNodeISAX;
-		if(l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(e_strFileName)))
+		if(l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(e_strFileName).c_str()))
 		{
 			TiXmlElement*l_pTiXmlElement = l_cNodeISAX.GetRootElement();
 			l_pTiXmlElement = l_pTiXmlElement->FirstChildElement();
@@ -397,8 +397,8 @@ namespace PI
 //=======================
 	cPuzzleImage*	cPIEditor::OpenPuzzleFile(String^e_strFileName)
 	{
-		 char	*l_strFileName = DNCT::GcStringToChar(e_strFileName);
-		 bool	l_b = m_pImageomposerIRM->Parse(l_strFileName);
+		 std::string l_strFileName = DNCT::GcStringToChar(e_strFileName);
+		 bool	l_b = m_pImageomposerIRM->Parse(l_strFileName.c_str());
 		 cPuzzleImage*l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_pImageomposerIRM->GetObject(DNCT::GcStringToWchar(DNCT::GetFileNameWithoutFullPath(e_strFileName,true))));
 		 if( l_pPuzzleImage )
 		 {
@@ -450,7 +450,6 @@ namespace PI
 			{
 				if( l_FileName[i] == L'.' )
 				{
-					char*l_strName = DNCT::GcStringToChar(l_FileName);
 					if(this->ImageSaveAsDDS_checkBox->Checked)
 						l_FileName = gcnew String(l_FileName->Substring(0,i+1)+"dds");
 					else
@@ -475,8 +474,8 @@ namespace PI
 				l_pGr->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::NearestNeighbor;
 				l_pGr->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::None;
 			}
-			char	*l_str = DNCT::GcStringToChar(l_FileName);
-			char*	l_ExtensionName = &l_str[strlen(l_str)-3];
+			std::string	l_str = DNCT::GcStringToChar(l_FileName);
+			char*	l_ExtensionName = &l_str[strlen(l_str.c_str())-3];
 			sprintf(l_ExtensionName,"Image");
 			//FILE*l_pFopen = fopen(l_str,"w");
 			float	l_fUV[4];
@@ -486,9 +485,9 @@ namespace PI
 				sprintf(l_ExtensionName,"pi");
 			String^l_strUserNameAndData = GetUseerNameAndTime();
 			std::string	l_strXmlFileName = l_str;
-			ATG::XMLWriter	l_XMLWriter(l_str);
+			ATG::XMLWriter	l_XMLWriter(l_str.c_str());
 			l_XMLWriter.StartComment();
-			l_XMLWriter.WriteString(DNCT::GcStringToChar(l_strUserNameAndData));
+			l_XMLWriter.WriteString(DNCT::GcStringToChar(l_strUserNameAndData).c_str());
 			l_XMLWriter.EndComment();
 			l_XMLWriter.StartElement("PuzzleImage");
 			    GCFORM::ListBox^l_pImageListBox = gcnew GCFORM::ListBox();
@@ -574,26 +573,26 @@ namespace PI
 				    l_XMLWriter.StartElement("PuzzleUnit");
 					    //l_XMLWriter.AddAttribute("Size",l_iPixelSize);
 					    l_XMLWriter.AddAttribute("Name",l_pUIImage->GetName());
-					    char*	l_strUVData = DNCT::GcStringToChar(
+					    std::string	l_strUVData = DNCT::GcStringToChar(
 						    l_fUV[0].ToString()+","+
 						    l_fUV[1].ToString()+","+
 						    l_fUV[2].ToString()+","+
 						    l_fUV[3].ToString());
-					    l_XMLWriter.AddAttribute("UV",l_strUVData);
-					    char*	l_strOffsetPos = DNCT::GcStringToChar(
+					    l_XMLWriter.AddAttribute("UV",l_strUVData.c_str());
+					    std::string	l_strOffsetPos = DNCT::GcStringToChar(
 						    l_Offset.x.ToString()+","+
 						    l_Offset.y.ToString());
-					    l_XMLWriter.AddAttribute("OffsetPos",l_strOffsetPos);
+					    l_XMLWriter.AddAttribute("OffsetPos",l_strOffsetPos.c_str());
 					    //the result here may not as expect so I just set size as showImageSize???
-					    char*	l_strSize = DNCT::GcStringToChar(l_ImageRealPixelSize.x.ToString()+","+l_ImageRealPixelSize.y.ToString());
-					    l_XMLWriter.AddAttribute("Size",l_strSize);
-					    char*	l_strOriginalSize = DNCT::GcStringToChar(l_OriginaleSize.x.ToString()+","+l_OriginaleSize.y.ToString());
-					    l_XMLWriter.AddAttribute("OriginalSize",l_strOriginalSize);
+					    std::string	l_strSize = DNCT::GcStringToChar(l_ImageRealPixelSize.x.ToString()+","+l_ImageRealPixelSize.y.ToString());
+					    l_XMLWriter.AddAttribute("Size",l_strSize.c_str());
+					    std::string	l_strOriginalSize = DNCT::GcStringToChar(l_OriginaleSize.x.ToString()+","+l_OriginaleSize.y.ToString());
+					    l_XMLWriter.AddAttribute("OriginalSize",l_strOriginalSize.c_str());
 						assert(l_OriginaleSize.x>=l_ImageRealPixelSize.x &&"did u change the .pi file manually ?");
 						assert(l_OriginaleSize.y>=l_ImageRealPixelSize.y &&"did u change the .pi file manually ?");
 					    RECT	l_rc = {l_RenderPoint.x,l_RenderPoint.y,l_RenderPoint.x+l_ImageRealPixelSize.x,+l_RenderPoint.y+l_ImageRealPixelSize.y};
 					    POINT	l_ShowPosInPI = {l_RenderPoint.x,l_RenderPoint.y};
-					    char*	l_strShowPosInPI = DNCT::GcStringToChar(
+					    std::string	l_strShowPosInPI = DNCT::GcStringToChar(
 						    l_rc.left.ToString()+","+
 						    l_rc.top.ToString());
 					    //char*	l_strShowPosInPI = DNCT::GcStringToChar(
@@ -676,7 +675,7 @@ namespace PI
 				ilTexImage( l_pBitMap->Width, l_pBitMap->Height, 1, 4, IL_RGBA, IL_UNSIGNED_BYTE, (void*)(l_pBd->Scan0));
 				ilSetInteger(IL_DXTC_FORMAT,  IL_DXT5);
 				ilEnable(IL_FILE_OVERWRITE);
-				if(!ilSaveImage( (WCHAR*)DNCT::GcStringToChar(l_FileName) ))
+				if(!ilSaveImage( (WCHAR*)DNCT::GcStringToChar(l_FileName).c_str() ))
 				{
 					ILenum   l_ErrorIF = ilGetError();
 					int a=0;
@@ -695,7 +694,7 @@ namespace PI
 					FILE*l_pFile = fopen(l_strTargetFileName.c_str(),"rb");
 					int	l_iLength = UT::GetFileSize(l_pFile);
 					unsigned char*l_pData = new unsigned char[l_iLength];
-					int	l_iRead = fread(l_pData,1,l_iLength,l_pFile);
+					int	l_iRead = (int)fread(l_pData,1,l_iLength,l_pFile);
 					l_strTargetFileName += "b";
 					CompressHuffmanToFile(l_pData,l_iLength,l_strTargetFileName.c_str(),HUFFMAN_MAGIC_ID);
 					delete l_pData;

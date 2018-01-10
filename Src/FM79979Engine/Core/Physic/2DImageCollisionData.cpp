@@ -375,7 +375,7 @@ namespace FATMING_CORE
 		//e_pPuzzleImage->Count()
 	}
 
-	void	c2DImageCollisionDataForEditor::Export(char*e_strFileName,cPuzzleImage*e_pPuzzleImage)
+	void	c2DImageCollisionDataForEditor::Export(const char*e_strFileName,cPuzzleImage*e_pPuzzleImage)
 	{
 #ifdef WIN32
 		size_t l_iuiNumImageCollisionData = m_ImageCollisionDataVector.size();

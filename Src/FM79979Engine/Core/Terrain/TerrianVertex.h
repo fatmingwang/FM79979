@@ -2,6 +2,7 @@
 #define	_TERRIAN_VERTEX_H_
 
 #include "../GLSL/Shader.h"
+#include "../Image/SimplePrimitive.h"
 namespace FATMING_CORE
 {
 	class	cVBOBuffer;

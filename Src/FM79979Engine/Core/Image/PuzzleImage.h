@@ -124,7 +124,7 @@ namespace FATMING_CORE
 		        m_pNameList->clear();
 			m_ImageAnimationDataList.clear();
 		}
-		void    AddNameObject(wchar_t*e_strName,int e_iIndex,float e_fTimeGap)
+		void    AddNameObject(const wchar_t*e_strName,int e_iIndex,float e_fTimeGap)
 		{
 		    std::wstring    l_strName = e_strName;
 		    m_pNameList->push_back(l_strName);

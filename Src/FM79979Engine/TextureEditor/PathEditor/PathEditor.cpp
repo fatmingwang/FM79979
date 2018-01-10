@@ -58,7 +58,7 @@ namespace PathEditor
 		{
 			PathLOD_numericUpDown->Value = l_cCurveWithTime->GetLOD();
 			PathNode_listBox->Items->Clear();
-			int	l_iNum = l_PointList.size();
+			int	l_iNum = (int)l_PointList.size();
 			for( int i=0;i<l_iNum;++i )
 			{
 				Vector3	l_v2 = l_PointList[i];
@@ -171,7 +171,7 @@ namespace PathEditor
 						if(m_pCurveManagerEP->m_pCurrentCurve)
 						{
 							std::vector<float> l_fTimeList = m_pCurveManagerEP->m_pCurrentCurve->GetOriginalTimeList();
-							int	l_iNum = l_fTimeList.size();
+							int	l_iNum = (int)l_fTimeList.size();
 							if(l_iNum == 1)//avoid only one point,we still have to setup data
 							{
 								l_iNum = 2;
@@ -301,11 +301,11 @@ namespace PathEditor
 	{
 				 if( sender == saveToolStripMenuItem )
 				 {
-					 String^l_str = DNCT::SaveFileAndGetName(DNCT::ConvertExtensionToFilter(m_pCurveManagerEP->ExtensionName()));
+					 String^l_str = DNCT::SaveFileAndGetName(DNCT::ConvertExtensionToFilter(m_pCurveManagerEP->ExtensionName()).c_str());
 					 if( l_str )
 					 {
 						l_str = ForceAddExtenName(l_str,(char*)m_pCurveManagerEP->ExtensionName());
-						m_pCurveManagerEP->ExportData(DNCT::GcStringToChar(l_str));
+						m_pCurveManagerEP->ExportData(DNCT::GcStringToChar(l_str).c_str());
 //						FileToUnicode(l_str);
 					 }
 				 }
@@ -541,9 +541,8 @@ namespace PathEditor
 			cOrthogonalCamera	l_OrthogonalCamera;
 			l_OrthogonalCamera.Render();
 			glEnable(GL_TEXTURE_2D);
-			WCHAR*l_strMousePos;
-			l_strMousePos = DNCT::GcStringToWchar("x:"+((int)l_vMousePos.x).ToString()+",y:"+((int)l_vMousePos.y).ToString()+",z:"+((int)l_vMousePos.z).ToString());
-			m_pDebugFont->RenderFont(0,0,l_strMousePos);
+			std::wstring l_strMousePos = DNCT::GcStringToWchar("x:"+((int)l_vMousePos.x).ToString()+",y:"+((int)l_vMousePos.y).ToString()+",z:"+((int)l_vMousePos.z).ToString());
+			m_pDebugFont->RenderFont(0,0,l_strMousePos.c_str());
 			glDisable(GL_TEXTURE_2D);
 			m_pDebugFont->SetScale(l_fScale);
 		}

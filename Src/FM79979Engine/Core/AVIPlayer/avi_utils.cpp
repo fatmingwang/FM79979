@@ -53,7 +53,7 @@ typedef struct
 } TAviUtil;
 
 
-HAVI CreateAvi(wchar_t*fn, int frameperiod, const WAVEFORMATEX *wfx)
+HAVI CreateAvi(const wchar_t*fn, int frameperiod, const WAVEFORMATEX *wfx)
 {
 	IAVIFile *pfile;
 	AVIFileInit();

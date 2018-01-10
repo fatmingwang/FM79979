@@ -364,7 +364,7 @@ namespace FATMING_CORE
 	}
 
 
-	void	cSoundParser::Export(char*e_strFileName)
+	void	cSoundParser::Export(const char*e_strFileName)
 	{
 	#ifdef WIN32
 		int	l_iNum = Count();

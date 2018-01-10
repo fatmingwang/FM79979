@@ -137,7 +137,7 @@ namespace FATMING_CORE
 			DoBlur(this->m_pVerticalBlur,m_pHoricontalBlur->GetFrameBuffer());
 			this->Use();
 			float	l_fTextureCoordinate[] ={0,1,1,0};
-			DrawQuadWithTextureAndColorAndCoordinate(0.f,0.f,0.f,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,this->GetName());
+			RenderQuadWithTextureAndColorAndCoordinate(0.f,0.f,0.f,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4::One,l_fTextureCoordinate,Vector3::Zero,this->GetName());
 			//if( cGameApp::m_sucKeyData['D'] )
 			{
 				DebugRender();

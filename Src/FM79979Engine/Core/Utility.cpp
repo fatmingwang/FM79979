@@ -1485,27 +1485,27 @@ namespace UT
 		MultiByteToWideChar(CP_ACP, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
 		return wstrTo;
 	}
-#elif defined(ANDROID) 
-	std::string	WcharToChar(const wchar_t *e_strWchar)
-	{
-		////https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
-		////std::setlocale(LC_ALL, "");
-		std::string		l_strResult;
-		std::wstring	l_strForCopy = e_strWchar;
-		l_strResult.assign(l_strForCopy.begin(), l_strForCopy.end());
-		//}
-		return l_strResult;
-	}
-	// Convert an UTF8 string to a wide Unicode String
-	std::wstring CharToWchar(const char* e_strString)
-	{
-		int l_iSize = (int)strlen(e_strString);
-		if (!e_strString || l_iSize == 0) return std::wstring();
-		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, NULL, 0);
-		std::wstring wstrTo(size_needed, 0);
-		MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
-		return wstrTo;
-	}
+//#elif defined(ANDROID) 
+//	std::string	WcharToChar(const wchar_t *e_strWchar)
+//	{
+//		////https://stackoverflow.com/questions/4804298/how-to-convert-wstring-into-string
+//		////std::setlocale(LC_ALL, "");
+//		std::string		l_strResult;
+//		std::wstring	l_strForCopy = e_strWchar;
+//		l_strResult.assign(l_strForCopy.begin(), l_strForCopy.end());
+//		//}
+//		return l_strResult;
+//	}
+//	// Convert an UTF8 string to a wide Unicode String
+//	std::wstring CharToWchar(const char* e_strString)
+//	{
+//		int l_iSize = (int)strlen(e_strString);
+//		if (!e_strString || l_iSize == 0) return std::wstring();
+//		int size_needed = MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, NULL, 0);
+//		std::wstring wstrTo(size_needed, 0);
+//		MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
+//		return wstrTo;
+//	}
 #else
 
 	//#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}

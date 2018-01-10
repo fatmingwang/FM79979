@@ -25,7 +25,7 @@ namespace BulletDataEditor
 				if( m_p2DImageCollisionData->m_ImageCollisionDataVector.size() )
 				{
 					String^l_strPIFIleName = System::IO::Path::GetDirectoryName(e_strFileName)+"/"+DNCT::WcharToGcstring(m_p2DImageCollisionData->m_strForCollidedpiFile)+".pi";
-					OpenPIFile(DNCT::GcStringToChar(l_strPIFIleName),false);
+					OpenPIFile(DNCT::GcStringToChar(l_strPIFIleName).c_str(),false);
 				}
 			}
 		}	

@@ -433,7 +433,7 @@ void	cAVIPlayer::Render(float e_fPosX,float e_fPosY,POINT e_Size)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, m_pDIBData);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pDIBData);
 	float	l_UV[] = {0,1,1,0};
-	DrawQuadWithTextureAndColorAndCoordinate(e_fPosX,e_fPosY,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_UV,Vector3::Zero);
+	RenderQuadWithTextureAndColorAndCoordinate(e_fPosX,e_fPosY,0.f,(float)e_Size.x,(float)e_Size.y,Vector4::One,l_UV,Vector3::Zero);
 
 }
 
@@ -631,7 +631,7 @@ void	cAVIPlayer::Render(float e_fPosX,float e_fPosY,POINT e_Size)
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pCurrentTextureData);
 
 	float	l_UV[] = {0,0,1,1};
-	DrawQuadWithTextureAndColorAndCoordinate(e_fPosX,e_fPosY,0.f,e_Size.x,e_Size.y,Vector4::One,l_UV,Vector3::Zero);
+	RenderQuadWithTextureAndColorAndCoordinate(e_fPosX,e_fPosY,0.f,e_Size.x,e_Size.y,Vector4::One,l_UV,Vector3::Zero);
 }
 
 bool	cAVIPlayer::IsFileOpen()

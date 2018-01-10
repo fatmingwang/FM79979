@@ -40,7 +40,7 @@ namespace MPDI
 		String^l_strAviName = DNCT::SaveFileAndGetName("avi files (*.avi)|*.avi|All files (*.*)|*.*");
 		if( !l_strAviName )
 			return;
-		HAVI avi = CreateAvi(DNCT::GcStringToWchar(l_strAviName),(int)(l_fElpasedTime*1000),nullptr); // 1000ms is the period between frames
+		HAVI avi = CreateAvi(DNCT::GcStringToWchar(l_strAviName).c_str(),(int)(l_fElpasedTime*1000),nullptr); // 1000ms is the period between frames
 		Bitmap^ systemBitmap = gcnew Bitmap(l_iWidth, l_iHeight, System::Drawing::Imaging::PixelFormat::Format24bppRgb);
 		int	l_ViewPort[4];
 		glGetIntegerv(GL_VIEWPORT, l_ViewPort);
@@ -94,7 +94,7 @@ namespace MPDI
 			{
 				static int ll = 0;++ll;
 				String^l_strtt = ll.ToString()+"test.png";
-				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt));
+				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt).c_str());
 				l_pBitmap->Save(l_strtt);
 			}
 		}

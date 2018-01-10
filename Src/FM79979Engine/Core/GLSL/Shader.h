@@ -138,15 +138,7 @@ namespace FATMING_CORE
 	//CheckShader(e_uiShaderHandle, GL_COMPILE_STATUS,L"Compile\n");
 	bool	CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog = nullptr);
 	//
-	void	SetGlobalScaleColor(Vector4 e_vColor);
-#ifndef DEBUG
-#define	MY_GLDRAW_ARRAYS(mode, first,count)	glDrawArrays(mode, first,count)
-#define	MY_GLDRAW_ELEMENTS(mode,count,type,indices)	glDrawElements(mode,count,type,indices)
-#else
-	void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count);
-	void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
-#endif
-	
+	void	SetGlobalScaleColor(Vector4 e_vColor);	
 }
 
 #endif//end _2DSHADER_H

@@ -588,7 +588,7 @@ namespace ParticalEditor {
 				FATMING_CORE::UseShaderProgram(NO_TEXTURE_SHADER);
 				m_pFrameCamera->Render();
 				cMatrix44	l_mat = cMatrix44::XAxisRotationMatrix(D3DXToRadian(90));
-				DrawPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
+				RenderPlane(cMatrix44::TranslationMatrix(Vector3(0,0,-5))*l_mat,10,10,1,1,1,Vector4(0.5,1,0,1));
 				//DisableShaderProgram(L"MeshShader_NoTexture");
 				glEnable(GL_ALPHA_TEST);
 				glEnable(GL_BLEND);

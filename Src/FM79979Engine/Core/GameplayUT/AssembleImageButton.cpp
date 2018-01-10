@@ -80,9 +80,10 @@ void	cAssembleImageButton::Init()
 		if( l_strTypeID == cSubMPDI::TypeID)
 		{
 			cSubMPDI*l_pSubMPDI = (cSubMPDI*)GetObject(i);
-			if(l_pSubMPDI->GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices,g_fMPDIOptmizeRenderUV,g_fMPDIOptmizeRenderColor,0))
+			float l_fTempBufferForRenderVertices[18];
+			if(l_pSubMPDI->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices,nullptr,nullptr,0))
 			{
-				Vector4	l_vRect(g_fMPDIOptmizeRenderVertices[6],g_fMPDIOptmizeRenderVertices[7],g_fMPDIOptmizeRenderVertices[12],g_fMPDIOptmizeRenderVertices[13]);
+				Vector4	l_vRect(l_fTempBufferForRenderVertices[6], l_fTempBufferForRenderVertices[7], l_fTempBufferForRenderVertices[12], l_fTempBufferForRenderVertices[13]);
 				l_vDrawRect = GetBiggerRect(l_vDrawRect,l_vRect);
 			}
 			else

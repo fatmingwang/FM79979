@@ -134,16 +134,16 @@ namespace FATMING_CORE
 		Vector3	l_vPos[12];
 		for( int i=0;i<12;++i )
 			l_vColor[i] = Vector4::One;
-
-		float	l_fInputUV[4] = {m_vRenderVerticesUV[0].x,m_vRenderVerticesUV[0].y,m_vRenderVerticesUV[3].x,m_vRenderVerticesUV[3].y};
+		const int l_ciTwoQuadIs4Triangles = 4;
+		float	l_fInputUV[l_ciTwoQuadIs4Triangles] = {m_vRenderVerticesUV[0].x,m_vRenderVerticesUV[0].y,m_vRenderVerticesUV[3].x,m_vRenderVerticesUV[3].y};
 		Assign4VerticesDataTo2Triangles((float*)&m_vRenderVerticesPos,(float*)&l_vPos,(float*)&l_fInputUV,(float*)&l_vUV,3);
-		float	l_fInputUV2[4] = {m_fTargetUV[0],m_fTargetUV[1],m_vRenderVerticesUV[5].x,m_vRenderVerticesUV[5].y};
+		float	l_fInputUV2[l_ciTwoQuadIs4Triangles] = {m_fTargetUV[0],m_fTargetUV[1],m_vRenderVerticesUV[5].x,m_vRenderVerticesUV[5].y};
 		//2 is overlap start.
 		Assign4VerticesDataTo2Triangles((float*)&m_vRenderVerticesPos[2],(float*)&l_vPos[6],(float*)&l_fInputUV2,(float*)&l_vUV[6],3);
 
-		UseShaderProgram(DEFAULT_SHADER);
-		SetupShaderWorldMatrix(cMatrix44::Identity);
 
+		//UseShaderProgram(DEFAULT_SHADER);
+		//SetupShaderWorldMatrix(cMatrix44::Identity);
 		//test code
 		//for( int i=6;i<12;++i )
 		//	l_vColor[i] += Vector4::Blue;
@@ -158,11 +158,8 @@ namespace FATMING_CORE
 		//myGlUVPointer(2,&l_vUV[6]);
 		//myGlColorPointer(4,&l_vColor[6]);
 		//MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 6);
-		
-		myGlVertexPointer(3,&l_vPos[0]);
-		myGlUVPointer(2,&l_vUV[0]);
-		myGlColorPointer(4,&l_vColor[0]);
-		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 12);
+
+		RenderTrianglesWithMatrix((float*)l_vPos, (float*)l_vUV, (float*)l_vColor, cMatrix44::Identity, 3, l_ciTwoQuadIs4Triangles);
 	}
 
 	void	cUVAnimationImage::DebugRender()

@@ -76,11 +76,11 @@ bool Engine::initUI()
 		Vector2	l_vViewport(mEgl.getSurfaceWidth(),mEgl.getSurfaceHeight());
 		int	l_iX = l_vViewport.x;
 		int	l_iY = l_vViewport.y;
-		MyGlErrorTest();
+		//MyGlErrorTest();
 		g_pAndroidTestApp = new cBluffingGirlApp(mApp->activity,mApp->appThreadEnv,&mApp->appThreadThis,Vector2(720,1280),l_vViewport,&mEgl);
-		MyGlErrorTest();
+		//MyGlErrorTest();
 		g_pAndroidTestApp->Init();
-		MyGlErrorTest();
+		//MyGlErrorTest();
 		cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
 	}
 	m_uiInitialized = true;
@@ -126,7 +126,7 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 		ANativeActivity_finish(mApp->activity);
 		return false;
 	}
-	MyGlErrorTest();
+	//MyGlErrorTest();
 	//resizeIfNeeded();
 	mOrientation = nv_app_get_display_rotation(mApp);
 	if( g_pAndroidTestApp )
@@ -148,7 +148,7 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
 				break;
 		}
-		MyGlErrorTest();
+		//MyGlErrorTest();
 		
 		if( g_bLostFocus )
 		{

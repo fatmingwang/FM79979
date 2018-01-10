@@ -910,6 +910,9 @@
     <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp">
       <Filter>jni\NetWork</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Image\TextureManager.cpp">
+      <Filter>jni\RenderObject\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1530,6 +1533,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\EventSender\MessageSender.h">
       <Filter>jni\GamePlayUT\EventSender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\TextureManager.h">
+      <Filter>jni\RenderObject\Texture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

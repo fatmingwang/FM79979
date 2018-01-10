@@ -258,6 +258,9 @@
     <Filter Include="GameplayUT\Preload">
       <UniqueIdentifier>{deb9534d-4217-451f-9603-00d8ad437de2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderObject\OpenGLCommand">
+      <UniqueIdentifier>{b7d8cef5-82b4-4528-baee-3eac8aa3b638}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

@@ -188,7 +188,7 @@ void	cMesh::Render(WCHAR*e_strShaderName)
 	}
 	else
 	{
-		//DrawCube(Vector3(1,1,1),cMatrix44::Identity,Vector4(1,1,0,1));
+		//RenderCube(Vector3(1,1,1),cMatrix44::Identity,Vector4(1,1,0,1));
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
 			if( this->m_bVerticesBuffer[i] && g_uiAttribArray[i] != -1 )

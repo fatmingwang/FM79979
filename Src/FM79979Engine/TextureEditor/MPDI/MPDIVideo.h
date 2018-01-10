@@ -29,7 +29,7 @@ namespace MPDI
 		cVideoSubMPDI*m_pVideoSubMPDI;
 		CoreWPF::VideoPlayer::VideoPlayer^m_pVideoPlayer;
 		System::Windows::Controls::Slider^m_pSliderTime;
-		void	FileOpen(char*e_strFileName);
+		void	FileOpen(const char*e_strFileName);
 		private: System::Void FileOpen(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void StartTimeValueChanged(System::Object^  sender, System::EventArgs^  e);
 		private: System::Void EndTimeValueChanged(System::Object^  sender, System::EventArgs^  e);

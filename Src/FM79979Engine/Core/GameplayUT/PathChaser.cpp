@@ -155,14 +155,11 @@ namespace FATMING_CORE
 			else
 				m_pvAllLinePositionInfo[i*2+1] = m_FinallyPointList[i+1];
 		}
-		myGlVertexPointer(2, m_pvAllLinePositionInfo);
-		FATMING_CORE::SetupShaderColor(e_vColor);
-		MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iSize*2);
+		RenderLine((float*)m_pvAllLinePositionInfo, l_iSize * 2, e_vColor, 2, cMatrix44::Identity);
 		//draw each point
 		float	l_fPoints[4] = { m_pvAllLinePositionInfo[0].x,m_pvAllLinePositionInfo[0].y,
 								!m_bTouched?m_vCurrentPosition.x:this->m_vCurrentTouchedPosition.x,
 								!m_bTouched?m_vCurrentPosition.y:m_vCurrentTouchedPosition.y };
-		myGlVertexPointer(2, l_fPoints);
-		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 2);
+		RenderPoints((Vector2*)l_fPoints, 2);
 	}
 }

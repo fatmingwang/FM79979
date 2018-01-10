@@ -19,7 +19,7 @@ namespace FATMING_CORE
 	public:
 		cVideoSubMPDI();
 		virtual ~cVideoSubMPDI();
-		bool			OpenFile(char*e_strFileName);
+		bool			OpenFile(const char*e_strFileName);
 		cAVIPlayer*		GetAVIPlayer(){return m_pAVIPlayer;}
 		virtual void    RenderFirsttFrameImage(bool e_bBlending,Vector4 e_vColor);
 		virtual	void	RenderByGlobalTime(float e_fTime);

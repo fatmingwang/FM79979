@@ -69,17 +69,18 @@ namespace FATMING_CORE
 		e_pSubMPDI->Update(0.000001f);
 		Vector3	l_vPos = e_pSubMPDI->GetOriginalPointList()[0];
 		Vector4	l_vCollisionRange;
-		if(e_pSubMPDI->GetTransformedVerticesByIndex(g_fMPDIOptmizeRenderVertices,g_fMPDIOptmizeRenderUV,g_fMPDIOptmizeRenderColor,0))
+		float l_fTempBufferForRenderVertices[18];
+		if(e_pSubMPDI->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices,nullptr, nullptr,0))
 		{
 			bool l_bImageZRotate90ToSaveMemory = false;
 			Vector3	l_vAngle = e_pSubMPDI->GetPointData(0)->vAngle;
 			e_pImageButton->SetAngle(l_vAngle);
 			//left up
-			l_vCollisionRange.x = g_fMPDIOptmizeRenderVertices[6];
-			l_vCollisionRange.y = g_fMPDIOptmizeRenderVertices[7];
+			l_vCollisionRange.x = l_fTempBufferForRenderVertices[6];
+			l_vCollisionRange.y = l_fTempBufferForRenderVertices[7];
 			//right down
-			l_vCollisionRange.z = g_fMPDIOptmizeRenderVertices[12];
-			l_vCollisionRange.w = g_fMPDIOptmizeRenderVertices[13];
+			l_vCollisionRange.z = l_fTempBufferForRenderVertices[12];
+			l_vCollisionRange.w = l_fTempBufferForRenderVertices[13];
 			if( l_vCollisionRange.x > l_vCollisionRange.z )
 			{//set x as left,the axis has been rotated
 				float	l_fPosX = l_vCollisionRange.z;

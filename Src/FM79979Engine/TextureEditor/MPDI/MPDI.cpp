@@ -567,7 +567,7 @@ namespace MPDI
 				{
 					if(!DNCT::CheckListContainStringAndAdd(this->m_pMPDIUI->WholePath_listBox,l_pForm->m_strTextName))
 					{
-						WCHAR*	l_strName = DNCT::GcStringToWchar(m_pMPDIUI->WholePath_listBox->SelectedItem->ToString());
+						std::wstring	l_strName = DNCT::GcStringToWchar(m_pMPDIUI->WholePath_listBox->SelectedItem->ToString());
 						cCueToStartCurveWithTime*l_pOriginalCueToStartCurvesWithTimeAWP = m_pMultiPathDynamicImageAWP->GetObject(l_strName);
 						cCueToStartCurveWithTime*l_pCueToStartCurvesWithTime = new cCueToStartCurveWithTime(l_pOriginalCueToStartCurvesWithTimeAWP);
 
@@ -631,7 +631,7 @@ namespace MPDI
 			WARNING_MSG(l_strErrorMsg);
 		 }
 		 bool	l_bNewObject = true;
-		 WCHAR*l_strName = DNCT::GcStringToWchar( AnimationName_textBox->Text );
+		 std::wstring l_strName = DNCT::GcStringToWchar( AnimationName_textBox->Text );
 		 if( CheckListContainStringAndAdd(WholeAnimationList_listBox,AnimationName_textBox->Text ) )
 		 {
 			 WARING_YES_NO_TO_NO("such object name already exists,would u like to replace?"+DNCT::GetChanglineString()+
@@ -1492,7 +1492,7 @@ namespace MPDI
 				WARNING_MSG("please save to animation list please!");
 				return;
 			}
-			String^l_strFileName = DNCT::SaveFileAndGetName(DNCT::ConvertExtensionToFilter(m_pImagePlayManagerAWP->ExtensionName()));
+			String^l_strFileName = DNCT::SaveFileAndGetName(DNCT::ConvertExtensionToFilter(m_pImagePlayManagerAWP->ExtensionName()).c_str());
 			Save(l_strFileName);
 		}
 		else
@@ -1545,7 +1545,7 @@ namespace MPDI
     			cPuzzleImage*l_pPI = this->m_pCurrentWorkingPI;
 				int	l_iSelectedIndex = 0;
 				if( m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex != -1 )
-					l_iSelectedIndex = l_pPI->GetObjectIndexByName(DNCT::GcStringToWchar(m_pMPDIUI->WholePuzzleImageUnit_listBox->Items[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex]->ToString()));
+					l_iSelectedIndex = l_pPI->GetObjectIndexByName(DNCT::GcStringToWchar(m_pMPDIUI->WholePuzzleImageUnit_listBox->Items[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex]->ToString()).c_str());
 				POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->Size;
 				//POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->OriginalSize;
 				size_t	l_uiNumPoint = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size();
@@ -1821,7 +1821,7 @@ namespace MPDI
 
 					POINT	l_Size = m_pMultiPathDynamicImageAWP->GetPuzzleData()[0]->Size;
 					size_t	l_iuNumPoint = l_pDestCurvesWithTime->GetOriginalPointList().size();
-					cPuzzleImage*l_pPI = m_pInterlUseForShowImagePos->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()));
+					cPuzzleImage*l_pPI = m_pInterlUseForShowImagePos->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()).c_str());
 					for(size_t i=0;i<l_iuNumPoint;++i)
 						m_pMultiPathDynamicImageAWP->m_pCurrentCurve->AddPoint(l_pDestCurvesWithTime->GetOriginalPointList()[i],l_pCurvesWithTime->GetOriginalTimeList()[i],
 						Vector2((float)l_Size.x,(float)l_Size.y),Vector3::Zero,Vector4::One,0,m_pMPDIUI->Mirror_checkBox->Checked,l_pPI);
@@ -1893,7 +1893,7 @@ namespace MPDI
 					 WARNING_MSG("please select type!!");
 					 return;
 				 }
-				 WCHAR*l_strText = L"__empty";
+				 std::wstring l_strText = L"__empty";
 				 if( l_eIndex != eAE_NONE )
 				 {
 					if(EventPointName_textBox->Text->Length == 0)
@@ -1903,7 +1903,7 @@ namespace MPDI
 					}
 					l_strText = DNCT::GcStringToWchar(EventPointName_textBox->Text);
 				 }
-				 sHintPoint l_HintPoint(m_pMPDIUI->PathNode_listBox->SelectedIndex,l_strText,l_eIndex);
+				 sHintPoint l_HintPoint(m_pMPDIUI->PathNode_listBox->SelectedIndex,l_strText.c_str(),l_eIndex);
 				 l_pVectorPointer->push_back(l_HintPoint);
 				 AllEventPointHint_listBox->Items->Add(m_pMPDIUI->PathNode_listBox->SelectedIndex.ToString()+":"+HintPointType_comboBox->SelectedItem->ToString()+","+EventPointName_textBox->Text);
 			 }
@@ -1981,7 +1981,7 @@ namespace MPDI
 
 	void	MPDIEditor::AddPIFile(String^e_strFileName)
 	{
-		WCHAR*l_strName = DNCT::GcStringToWchar(System::IO::Path::GetFileNameWithoutExtension(e_strFileName));
+		std::wstring l_strName = DNCT::GcStringToWchar(System::IO::Path::GetFileNameWithoutExtension(e_strFileName));
 		if(m_pImageResourceManagerAWP->GetObject(l_strName))
 		{
 			WARNING_MSG("this pi's name has already added!");
@@ -2089,7 +2089,7 @@ namespace MPDI
 		 {
 			 m_strCurrentSaveFileName = l_strFileName;
 			 m_pMPDIList->SetName(DNCT::GcStringToWchar(DNCT::GetFileNameWithoutFullPath(l_strFileName,true)));
-			 m_pImagePlayManagerAWP->Export(DNCT::GcStringToChar(l_strFileName));
+			 m_pImagePlayManagerAWP->Export(DNCT::GcStringToChar(l_strFileName).c_str());
 			 if(this->m_pMPDIExtraData->Count)
 			 {
 				 GCFORM::TreeNode^l_pNodes = gcnew GCFORM::TreeNode(DNCT::WcharToGcstring(m_pMPDIList->GetName()));
@@ -2112,13 +2112,13 @@ namespace MPDI
 		 int	l_iCount = m_pImagePlayManagerAWP->Count();
 		 if( !m_pImagePlayManagerAWP || m_pImagePlayManagerAWP->Count() == 0 )
 			 return;
-		 std::wstring l_strMPDIListName = cMPDIList::FileToMPDIListName(DNCT::GcStringToWchar(e_strFileName));
+		 std::wstring l_strMPDIListName = cMPDIList::FileToMPDIListName(DNCT::GcStringToWchar(e_strFileName).c_str());
 		 if(!m_pImagePlayManagerAWP->GetObject(l_strMPDIListName.c_str()))
 		 {
 			 WholeAnimationList_listBox->Items->Clear();
 			 m_pMPDIUI->AllPI_listBox->Items->Clear();
-			 char*	l_str = DNCT::GcStringToChar(e_strFileName);
-			 if(m_pImagePlayManagerAWP->Parse(l_str))
+			 std::string	l_str = DNCT::GcStringToChar(e_strFileName);
+			 if(m_pImagePlayManagerAWP->Parse(l_str.c_str()))
 			 {
 				 cMPDIList*l_pOriginaleMPDIList = m_pMPDIList;
 				 cMPDIList*l_pMPDIList = m_pImagePlayManagerAWP->GetMPDIList(l_strMPDIListName.c_str());
@@ -2160,9 +2160,9 @@ namespace MPDI
 		System::Object^  l_pSender;
 		System::EventArgs^l_pEventArgsE;
 		WholePath_listBox_SelectedIndexChanged(l_pSender,l_pEventArgsE);
-		char*	l_strFileName = DNCT::GcStringToChar(e_strFileName);
+		std::string	l_strFileName = DNCT::GcStringToChar(e_strFileName);
 		m_pImagePlayManagerAWP->m_bShowErrorMsg = showErrorMsh_ToolStripMenuItem->Checked;
-		bool	l_b = m_pImagePlayManagerAWP->Parse(l_strFileName);
+		bool	l_b = m_pImagePlayManagerAWP->Parse(l_strFileName.c_str());
 		if( l_b )
 		{
 			CameraRotationX_numericUpDown->Value = 0;
@@ -2259,7 +2259,7 @@ namespace MPDI
 		if( l_strFileName )
 		{
 			SAFE_DELETE(m_pBKImageAWP);
-			m_pBKImageAWP = new cBaseImage(DNCT::GcStringToChar(l_strFileName));
+			m_pBKImageAWP = new cBaseImage(DNCT::GcStringToChar(l_strFileName).c_str());
 		}
 	}
 
@@ -2344,9 +2344,9 @@ namespace MPDI
 					glEnable(GL_TEXTURE_2D);
 					glEnable2D(1920,1080);
 					POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
-					WCHAR*l_strMousePos;
+					std::wstring l_strMousePos;
 					l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
-					m_pDebugFont->RenderFont(0,0,l_strMousePos);
+					m_pDebugFont->RenderFont(0,0,l_strMousePos.c_str());
 					glDisable(GL_TEXTURE_2D);
 				}
 				m_pOrthogonalCamera->Render();
@@ -2673,7 +2673,7 @@ namespace MPDI
 								}
 							}
 						}
-						l_pCurveManager->ExportData(DNCT::GcStringToChar(l_str));
+						l_pCurveManager->ExportData(DNCT::GcStringToChar(l_str).c_str());
 						SAFE_DELETE(l_pCurveManager);
 					}			
 				}
@@ -2684,7 +2684,7 @@ namespace MPDI
 						return;
 					String^l_str = DNCT::SaveFileAndGetName();
 					if( l_str )
-						m_pReferenceCurveManagerAWP->ExportData(DNCT::GcStringToChar(l_str));
+						m_pReferenceCurveManagerAWP->ExportData(DNCT::GcStringToChar(l_str).c_str());
 				}
 				else
 				if( sender == openPathFileToolStripMenuItem )
@@ -2853,7 +2853,7 @@ namespace MPDI
 					}
 					if( m_pMPDIList )
 					{
-						m_pCurrentWorkingPI = m_pMPDIList->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()));
+						m_pCurrentWorkingPI = m_pMPDIList->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()).c_str());
 						if( m_pCurrentWorkingPI->Count() )
 							m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex = 0;
 					}
@@ -3103,7 +3103,7 @@ namespace MPDI
 					for each( int l_iIndex in m_pMPDIUI->WholePath_listBox->SelectedIndices )
 					{
 						l_bAdded = true;
-						WCHAR*l_strImageName = DNCT::GcStringToWchar(m_pMPDIUI->WholePath_listBox->Items[l_iIndex]->ToString());
+						std::wstring l_strImageName = DNCT::GcStringToWchar(m_pMPDIUI->WholePath_listBox->Items[l_iIndex]->ToString());
 						cCueToStartCurveWithTime*l_pCueToStartCurveWithTime = m_pMultiPathDynamicImageAWP->GetObject(l_iIndex);
 						cPuzzleImageUnit*l_pPIUnit = m_pCurrentWorkingPI->GetObject(l_strImageName);
 						if( l_pCueToStartCurveWithTime->GetOriginalPointList().size() == 0 )
@@ -3307,7 +3307,7 @@ namespace MPDI
 		String^l_strFileName = DNCT::OpenFileAndGetName("Event Files(*.wav;*.prt)|*.wav;*.prt");
 		if( l_strFileName && HintPointType_comboBox->SelectedIndex == 1 )
 		{
-			cGameApp::m_spSoundParser->AddStaticSound(cGameApp::m_spSoundParser,DNCT::GcStringToChar(l_strFileName));
+			cGameApp::m_spSoundParser->AddStaticSound(cGameApp::m_spSoundParser,DNCT::GcStringToChar(l_strFileName).c_str());
 			EventPointName_textBox->Text = DNCT::GetFileNameWithoutFullPath(l_strFileName);
 		}
 	}

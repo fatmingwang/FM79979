@@ -173,7 +173,7 @@ private: System::Windows::Forms::GroupBox^  groupBox4;
 					//if( m_pSelectedFCDSceneNode )
 					{
 						//cMatrix44	l_mat = *(cMatrix44*)&m_pSelectedFCDSceneNode->CalculateWorldTransform();
-						//DrawCube(Vector3(m_fMaximaCubeSize,m_fMaximaCubeSize,m_fMaximaCubeSize),cMatrix44::TranslationMatrix(l_mat.r[3]),Vector4(1,l_fColor,l_fColor,1));
+						//RenderCube(Vector3(m_fMaximaCubeSize,m_fMaximaCubeSize,m_fMaximaCubeSize),cMatrix44::TranslationMatrix(l_mat.r[3]),Vector4(1,l_fColor,l_fColor,1));
 					}
 				}
 				RenderAssistance(e_fElpaseTime);

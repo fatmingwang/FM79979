@@ -201,7 +201,7 @@ namespace ParticalEditor
 					Vector3 l_vPos = *l_pParticleEmiterWithShowPosition->GetEmitterPos();
 					if(l_pParticleEmiterWithShowPosition->GetPrtEmitter())
 					{
-						GLRender::DrawCube(Vector3(1,1,1),cMatrix44::TranslationMatrix(l_vPos),Vector4(l_fColor,l_fColor*i,l_fColor*2,0.2f));
+						GLRender::RenderCube(Vector3(1,1,1),cMatrix44::TranslationMatrix(l_vPos),Vector4(l_fColor,l_fColor*i,l_fColor*2,0.2f));
 						GLRender::Render3DArrow(l_vPos,l_pParticleEmiterWithShowPosition->GetPrtEmitter()->GetEmitDirection(),Vector4(l_fColor,l_fColor*i,l_fColor*2,l_fColor),3);
 					}
 				}
@@ -222,7 +222,7 @@ namespace ParticalEditor
 			if(m_pParticleEmiterWithShowPosition->GetPrtEmitter())
 			{
 				GLRender::Render3DArrow(l_vPos,l_vPos+m_pParticleEmiterWithShowPosition->GetPrtEmitter()->GetEmitDirection(),Vector4(1,l_fColor,l_fColor*2,l_fColor),3);
-				GLRender::DrawCube(Vector3(1,1,1),cMatrix44::TranslationMatrix(l_vPos),Vector4(1,1,1,0.1f));
+				GLRender::RenderCube(Vector3(1,1,1),cMatrix44::TranslationMatrix(l_vPos),Vector4(1,1,1,0.1f));
 			}
 		}
 		if(ParticlePathPos_xyzNumeriaclControl->m_bValueChanged||ParticlePathAngle_xyzNumeriaclControl->m_bValueChanged)

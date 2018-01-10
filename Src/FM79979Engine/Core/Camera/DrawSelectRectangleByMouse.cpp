@@ -54,8 +54,6 @@ namespace FATMING_CORE
 									 (float)m_EndPos.x,(float)m_EndPos.y,
 									 (float)m_StartPos.x,(float)m_EndPos.y
 									 };
-		myGlVertexPointer(2,&l_fAllVertices);
-		SetupShaderColor(Vector4::One);
-		MY_GLDRAW_ARRAYS(GL_LINES, 0, 8);
+		RenderLine(l_fAllVertices, 8, Vector4::One, 2, cMatrix44::Identity);
 	}
 }

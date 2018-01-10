@@ -81,7 +81,7 @@ namespace FATMING_CORE
 		//if u want to get puzzle data
 		cImageParser*						GetAllBaseImageList(){ return &m_AllBaseImageList; }
 		//
-		void								Export(char*e_strFileName,bool e_bBinary = false);
+		void								Export(const char*e_strFileName,bool e_bBinary = false);
 
 		cMPDIList*GetMPDIList(const wchar_t*e_strName){ return dynamic_cast<cMPDIList*>(GetObject(e_strName)); }
 		cMPDIList*GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMessage = false);
