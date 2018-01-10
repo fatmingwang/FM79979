@@ -794,7 +794,7 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
     /*Package-Merge algorithm represented by coin collector's problem
     For every symbol, maxbitlen coins will be created*/
 
-    coinmem = numpresent * 2; /*max amount of coins needed with the current algo*/
+    coinmem = (unsigned)(numpresent * 2); /*max amount of coins needed with the current algo*/
     coins = (Coin*)lodepng_malloc(sizeof(Coin) * coinmem);
     prev_row = (Coin*)lodepng_malloc(sizeof(Coin) * coinmem);
     if(!coins || !prev_row) return 83; /*alloc fail*/
@@ -802,8 +802,8 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
     init_coins(prev_row, coinmem);
 
     /*first row, lowest denominator*/
-    error = append_symbol_coins(coins, frequencies, numcodes, sum);
-    numcoins = numpresent;
+    error = append_symbol_coins(coins, frequencies, (unsigned)numcodes, sum);
+    numcoins = (unsigned)numpresent;
     sort_coins(coins, numcoins);
     if(!error)
     {
@@ -833,7 +833,7 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
         if(j < maxbitlen)
         {
           error = append_symbol_coins(coins + numcoins, frequencies, numcodes, sum);
-          numcoins += numpresent;
+          numcoins += (unsigned)numpresent;
         }
         sort_coins(coins, numcoins);
       }
@@ -3406,7 +3406,7 @@ unsigned lodepng_convert(unsigned char* out, const unsigned char* in,
 
   if(mode_out->colortype == LCT_PALETTE)
   {
-    size_t palsize = 1 << mode_out->bitdepth;
+    size_t palsize = 1ull << mode_out->bitdepth;
     if(mode_out->palettesize < palsize) palsize = mode_out->palettesize;
     color_tree_init(&tree);
     for(i = 0; i < palsize; i++)
@@ -5420,7 +5420,7 @@ static unsigned filter(unsigned char* out, const unsigned char* in, unsigned w, 
     {
       for(type = 0; type < 5; type++)
       {
-        unsigned testsize = attempt[type].size;
+		size_t testsize = attempt[type].size;
         /*if(testsize > 8) testsize /= 8;*/ /*it already works good enough by testing a part of the row*/
 
         filterScanline(attempt[type].data, &in[y * linebytes], prevline, linebytes, bytewidth, type);
@@ -5625,7 +5625,7 @@ returns 2 if the palette is semi-translucent.
 */
 static unsigned getPaletteTranslucency(const unsigned char* palette, size_t palettesize)
 {
-  size_t i, key = 0;
+  unsigned i, key = 0;
   unsigned r = 0, g = 0, b = 0; /*the value of the color with alpha 0, so long as color keying is possible*/
   for(i = 0; i < palettesize; i++)
   {
@@ -5633,7 +5633,7 @@ static unsigned getPaletteTranslucency(const unsigned char* palette, size_t pale
     {
       r = palette[4 * i + 0]; g = palette[4 * i + 1]; b = palette[4 * i + 2];
       key = 1;
-      i = (size_t)(-1); /*restart from beginning, to detect earlier opaque colors with key's value*/
+      i = (unsigned)(-1); /*restart from beginning, to detect earlier opaque colors with key's value*/
     }
     else if(palette[4 * i + 3] != 255) return 2;
     /*when key, no opaque RGB may have key's RGB*/
@@ -6044,7 +6044,7 @@ void load_file(std::vector<unsigned char>& buffer, const std::string& filename)
 		if(l_iSize > 0)
 		{
 			unsigned char*l_pData = new unsigned char[l_iSize];
-			int	l_iReadSize = NvFRead(l_pData,1,l_iSize,l_pFile);
+			int	l_iReadSize = (int)NvFRead(l_pData,1,l_iSize,l_pFile);
 			if( l_iReadSize != l_iSize)
 			{
 				int a=0;//impossible or memory is not enough

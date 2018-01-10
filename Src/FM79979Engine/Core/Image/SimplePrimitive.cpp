@@ -37,7 +37,7 @@ void	ASSIGN_2D_QUAD_UV(float*UV)
 {
 	static float l_f2DTextureCoordinate[8] = { UV[0], UV[1], UV[2],UV[1], UV[0],UV[3],	UV[2],UV[3] };
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, l_f2DTextureCoordinate);
+	myGlUVPointer(2, l_f2DTextureCoordinate);
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
@@ -48,13 +48,13 @@ void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV)
 {
 	static float l_f2DTextureCoordinate[8] = { UV[2], UV[1], UV[0],UV[1], UV[2],UV[3],	UV[0],UV[3] };
 //#ifdef OPENGLES_2_X
-	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], 2, GL_FLOAT, 0, 0, &l_f2DTextureCoordinate[0]);
+	myGlUVPointer(2, l_f2DTextureCoordinate);
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
 	MyGlErrorTest("ASSIGN_2D_QUAD_MIRROR_UV");
 }
-
+#ifdef DEBUG
 //#ifdef OPENGLES_2_X
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
@@ -76,6 +76,13 @@ void	myGlNormalPointer(int Stride, const GLvoid*pData)
 	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
 	MyGlErrorTest("myGlNormalPointer");
 }
+
+void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer)
+{
+	glVertexAttribPointer(index, size, type, normalized,stride,pointer);
+	MyGlErrorTest("myVertexAttribPointer");
+}
+#endif
 //#else
 //void	myGlVertexPointer(int Stride, const GLvoid*pData)
 //{
@@ -98,7 +105,7 @@ void	myGlNormalPointer(int Stride, const GLvoid*pData)
 //	MyGlErrorTest("myGlNormalPointer");
 //}
 //#endif
-
+#ifdef DEBUG
 void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
 {
 #ifdef DEBUG
@@ -128,7 +135,7 @@ void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *i
 		int a = 0;
 	}
 }
-
+#endif
 namespace GLRender
 {
 	//========comment start======================

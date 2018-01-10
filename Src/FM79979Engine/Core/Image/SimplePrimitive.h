@@ -26,10 +26,19 @@ void	ASSIGN_2D_QUAD_COLOR(Vector4 Color);
 void	ASSIGN_2D_QUAD_VerticesBySize(float Width,float Height,float Depth);
 void	ASSIGN_2D_QUAD_UV(float*UV);
 void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV);
+#ifdef DEBUG
 void	myGlVertexPointer(int Stride, const GLvoid*pData);
 void	myGlUVPointer(int Stride, const GLvoid*pData);
 void	myGlColorPointer(int Stride, const GLvoid*pData);
 void	myGlNormalPointer(int Stride, const GLvoid*pData);
+void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer);
+#else
+#define	myGlVertexPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_POS], Stride, GL_FLOAT, 0, 0, pData)
+#define	myGlUVPointer(Stride,pData)											glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], Stride, GL_FLOAT, 0, 0, pData)
+#define	myGlColorPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], Stride, GL_FLOAT, 0, 0, pData)
+#define	myGlNormalPointer(Stride,pData)										glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
+#define	myVertexAttribPointer(index,size,type,normalized,stride,pointer);	glVertexAttribPointer(index,size,type,normalized,stride,pointer);
+#endif
 #ifndef DEBUG
 #define	MY_GLDRAW_ARRAYS(mode, first,count)	glDrawArrays(mode, first,count)
 #define	MY_GLDRAW_ELEMENTS(mode,count,type,indices)	glDrawElements(mode,count,type,indices)

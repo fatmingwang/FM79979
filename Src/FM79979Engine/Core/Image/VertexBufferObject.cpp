@@ -188,9 +188,10 @@ namespace FATMING_CORE
 			if( m_uiAllBufferID[i] && g_uiAttribArray[i] != -1 )
 			{
 				glBindBuffer(GL_ARRAY_BUFFER, m_uiAllBufferID[i]);
-				//glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], GL_FLOAT,GL_FALSE, 0, (GLvoid*)l_iPointerStartOffset);
+				//myVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], GL_FLOAT,GL_FALSE, 0, (GLvoid*)l_iPointerStartOffset);
 				//ensure the shader has been call cBaseShader->Use,or g_uiAttribArray won't be assigned.
-				glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],GL_FALSE,e_benableDataStride?m_iVertexStride:0, 0);
+				myVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],GL_FALSE,e_benableDataStride?m_iVertexStride:0, 0);
+
 				//l_iPointerStartOffset += sizeof(float)*g_iFVF_DataStride[i];
 			}
 		}

@@ -274,7 +274,7 @@ namespace FATMING_CORE
 			{
 				if( this->m_ppfVerticesBuffer[i] && g_uiAttribArray[i] != -1 )
 				{
-					glVertexAttribPointer(g_uiAttribArray[i],g_iFVF_DataStride[i], g_iFVF_DataType[i],0, 0, m_ppfVerticesBuffer[i]);
+					myVertexAttribPointer(g_uiAttribArray[i], g_iFVF_DataStride[i], g_iFVF_DataType[i],0,0, m_ppfVerticesBuffer[i]);
 				}
 			}
 			MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
