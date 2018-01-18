@@ -114,7 +114,7 @@ namespace UT
 	template <class T>inline	bool	IsLegalIndexInVector(std::vector<T>*e_pVector,int e_iIndex){if( e_iIndex<0 )return false;if( e_iIndex>=(int)e_pVector->size() )return false;return true;	}
 
 
-	template <class T>inline	int	IsVectorContainValue(std::vector<T>&e_Vector,int e_Value){size_t l_uiSize = e_Vector.size();for( size_t i=0;i<l_uiSize;++i ){if(e_Vector[i] == e_Value)return i;}return -1;}
+	template <class T>inline	int	IsVectorContainValue(std::vector<T>&e_Vector,int e_Value){int l_iSize = (int)e_Vector.size();for( int i=0;i<l_iSize;++i ){if(e_Vector[i] == e_Value)return i;}return -1;}
 	//
 	void					itoa64(int64 val,char*e_strBuffer, int base);
 	//

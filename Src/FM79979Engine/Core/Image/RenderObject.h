@@ -28,7 +28,7 @@ namespace FATMING_CORE
 		cRenderObject(cRenderObject*e_pRenderObjectBehavior);
 		virtual ~cRenderObject();
 		//to avoid warning 4436
-		virtual NamedTypedObject*	Clone(){ return new cRenderObject(this); }
+		virtual			NamedTypedObject*	Clone();
 		Vector3			GetPos();
 		void			SetPos(Vector3 e_vPos);
 		void			SetPos(Vector2 e_vPos);
@@ -43,6 +43,7 @@ namespace FATMING_CORE
 		virtual	void	Init(){}
 		virtual	void	Update(float e_fElpaseTime){}
 		virtual	void	Render(){}
+		virtual	void	DoRenderCommand() { assert(0 &&"not support"); }
 		virtual	void	DebugRender(){}
 		//
 		virtual	void	UpdateNodes(float e_fElpaseTime);

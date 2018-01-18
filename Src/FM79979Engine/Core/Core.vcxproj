@@ -87,6 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4436</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,10 +146,9 @@
     <ClCompile Include="Image\dds\nv_hhdds.cpp" />
     <ClCompile Include="Image\dds\nv_images.cpp" />
     <ClCompile Include="Image\dds\nv_log.cpp" />
-    <ClCompile Include="Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="Image\MPDINode.cpp" />
     <ClCompile Include="Image\png\pngLoader.cpp" />
-    <ClCompile Include="Image\RenderNode.cpp" />
+    <ClCompile Include="Image\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
     <ClCompile Include="Image\TextureManager.cpp" />
@@ -301,10 +301,11 @@
     <ClInclude Include="Image\dds\nv_images.h" />
     <ClInclude Include="Image\dds\nv_log.h" />
     <ClInclude Include="Image\dds\nv_types.h" />
-    <ClInclude Include="Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="Image\MPDINode.h" />
     <ClInclude Include="Image\png\pngLoader.h" />
-    <ClInclude Include="Image\RenderNode.h" />
+    <ClInclude Include="Image\RenderQueue\RenderCommand.h" />
+    <ClInclude Include="Image\RenderQueue\RenderQueue.h" />
+    <ClInclude Include="Image\RenderQueue\RenderQueueManager.h" />
     <ClInclude Include="Image\TextureManager.h" />
     <ClInclude Include="Math\LinerDataMouseChanger.h" />
     <ClInclude Include="Math\MathFormulaXML.h" />

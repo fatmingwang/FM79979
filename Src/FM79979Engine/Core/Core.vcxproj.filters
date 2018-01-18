@@ -261,6 +261,9 @@
     <Filter Include="RenderObject\OpenGLCommand">
       <UniqueIdentifier>{b7d8cef5-82b4-4528-baee-3eac8aa3b638}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RenderObject\RenderQueue">
+      <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -635,12 +638,6 @@
     <ClCompile Include="Image\MPDINode.cpp">
       <Filter>RenderObject\MPDI</Filter>
     </ClCompile>
-    <ClCompile Include="Image\FMTimelineAnimationObject.cpp">
-      <Filter>RenderObject\FMAnimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\RenderNode.cpp">
-      <Filter>RenderObject\Common</Filter>
-    </ClCompile>
     <ClCompile Include="Math\MathFormulaXML.cpp">
       <Filter>Math\MUParserXML</Filter>
     </ClCompile>
@@ -721,6 +718,9 @@
     </ClCompile>
     <ClCompile Include="Image\TextureManager.cpp">
       <Filter>RenderObject\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\RenderQueue\RenderCommand.cpp">
+      <Filter>RenderObject\RenderQueue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1168,12 +1168,6 @@
     <ClInclude Include="Image\MPDINode.h">
       <Filter>RenderObject\MPDI</Filter>
     </ClInclude>
-    <ClInclude Include="Image\FMTimelineAnimationObject.h">
-      <Filter>RenderObject\FMAnimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\RenderNode.h">
-      <Filter>RenderObject\Common</Filter>
-    </ClInclude>
     <ClInclude Include="Math\MathFormulaXML.h">
       <Filter>Math\MUParserXML</Filter>
     </ClInclude>
@@ -1248,6 +1242,15 @@
     </ClInclude>
     <ClInclude Include="Image\TextureManager.h">
       <Filter>RenderObject\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\RenderQueue\RenderQueue.h">
+      <Filter>RenderObject\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\RenderQueue\RenderCommand.h">
+      <Filter>RenderObject\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\RenderQueue\RenderQueueManager.h">
+      <Filter>RenderObject\RenderQueue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

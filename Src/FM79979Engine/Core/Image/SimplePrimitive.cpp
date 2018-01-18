@@ -35,7 +35,15 @@ void	ASSIGN_2D_QUAD_VerticesBySize(float Width, float Height, float Depth)
 
 void	ASSIGN_2D_QUAD_UV(float*UV)
 {
-	static float l_f2DTextureCoordinate[8] = { UV[0], UV[1], UV[2],UV[1], UV[0],UV[3],	UV[2],UV[3] };
+	static float l_f2DTextureCoordinate[8] = { 0,0,1,0,0,1,1,1 };
+	l_f2DTextureCoordinate[0] =UV[0];
+	l_f2DTextureCoordinate[1] =UV[1];
+	l_f2DTextureCoordinate[2] =UV[2];
+	l_f2DTextureCoordinate[3] =UV[1];
+	l_f2DTextureCoordinate[4] =UV[0];
+	l_f2DTextureCoordinate[5] =UV[3];
+	l_f2DTextureCoordinate[6] =UV[2];
+	l_f2DTextureCoordinate[7] =UV[3];
 //#ifdef OPENGLES_2_X
 	myGlUVPointer(2, l_f2DTextureCoordinate);
 //#else

@@ -832,7 +832,7 @@ unsigned lodepng_huffman_code_lengths(unsigned* lengths, const unsigned* frequen
         /*fill in all the original symbols again*/
         if(j < maxbitlen)
         {
-          error = append_symbol_coins(coins + numcoins, frequencies, numcodes, sum);
+          error = append_symbol_coins(coins + numcoins, frequencies, (unsigned)numcodes, sum);
           numcoins += (unsigned)numpresent;
         }
         sort_coins(coins, numcoins);

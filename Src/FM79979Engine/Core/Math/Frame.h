@@ -10,7 +10,6 @@
 //       Note: X is Right, Y is Up, and Z is back
 //-----------------------------------------------------------------------------
 class cBound;
-
 class Frame :virtual  public NamedTypedObject
 {
 	//while set transform is called we might need some data update.ex:rotation
@@ -21,6 +20,7 @@ public:
     Frame();
 	Frame(Frame*e_pFrame);
     virtual ~Frame();
+	Frame*	CloneFrameWithHierarchy();
 	//if you afried something wrong want manual to delete object set this->m_bIgnoreChildrenUpdate = true
 	//
 	//
@@ -110,9 +110,6 @@ protected:
 	bool						m_bAutoUpdateBound;//button dont need this
 };
 //sibling child then pop up back
-void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
-
-void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Frame*)> e_Function,Frame*e_pFrame,void*e_pData);
-
-
+void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
+void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
 #endif // ATG_FRAME_H

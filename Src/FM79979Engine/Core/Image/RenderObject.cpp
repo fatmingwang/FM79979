@@ -23,7 +23,11 @@ namespace FATMING_CORE
 	cRenderObject::~cRenderObject()
 	{
 	}
-
+	NamedTypedObject*	cRenderObject::Clone()
+	{
+		assert(0 && "cRenderObject not allow t clone"); 
+		return nullptr; 
+	}
 	void	cRenderObject::SetTransformInternalData()
 	{
 		if( !m_bUpdateRotation )

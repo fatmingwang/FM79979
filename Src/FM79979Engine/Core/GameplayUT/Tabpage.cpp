@@ -50,10 +50,10 @@ namespace FATMING_CORE
 		if( e_pTabPage->m_pIcon )
 		{
 			//this occur warning,so I use address method to fix
-			//NamedTypedObject*l_pNamedTypedObject = e_pTabPage->m_pIcon->Clone();
-			//m_pIcon = dynamic_cast<cClickMouseBehavior*>(l_pNamedTypedObject);
-			size_t l_uiObjectAddress = (size_t)e_pTabPage->m_pIcon->Clone();
-			m_pIcon = (cClickMouseBehavior*)l_uiObjectAddress;
+			NamedTypedObject*l_pNamedTypedObject = e_pTabPage->m_pIcon->Clone();
+			m_pIcon = dynamic_cast<cClickMouseBehavior*>(l_pNamedTypedObject);
+			//size_t l_uiObjectAddress = (size_t)e_pTabPage->m_pIcon->Clone();
+			//m_pIcon = (cClickMouseBehavior*)l_uiObjectAddress;
 		}
 		m_bCheckOutOfWorking = e_pTabPage->m_bCheckOutOfWorking;
 	}

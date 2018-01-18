@@ -286,15 +286,18 @@ namespace FATMING_CORE
 						l_pPuzzleImage->SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
 						if(!g_bSupportNonPowerOfTwoTexture)
 						{
-							float	l_fWidthScale = l_pPuzzleImage->GetUV()[2]/1.f;
-							float	l_fHeightScale = l_pPuzzleImage->GetUV()[3]/1.f;
-							for( int i=0;i<l_pPuzzleImage->GetNumImage();++i )
+							if (l_pPuzzleImage->GetWidth() != power_of_two(l_pPuzzleImage->GetWidth()) || l_pPuzzleImage->GetHeight() != power_of_two(l_pPuzzleImage->GetHeight()))
 							{
-								float*	l_pfUV = l_pPuzzleImage->GetPuzzleData()[i]->fUV;
-								l_pfUV[0]*=l_fWidthScale;
-								l_pfUV[2]*=l_fWidthScale;
-								l_pfUV[1]*=l_fHeightScale;
-								l_pfUV[3]*=l_fHeightScale;
+								float	l_fWidthScale = l_pPuzzleImage->GetUV()[2] / 1.f;
+								float	l_fHeightScale = l_pPuzzleImage->GetUV()[3] / 1.f;
+								for (int i = 0; i < l_pPuzzleImage->GetNumImage(); ++i)
+								{
+									float*	l_pfUV = l_pPuzzleImage->GetPuzzleData()[i]->fUV;
+									l_pfUV[0] *= l_fWidthScale;
+									l_pfUV[2] *= l_fWidthScale;
+									l_pfUV[1] *= l_fHeightScale;
+									l_pfUV[3] *= l_fHeightScale;
+								}
 							}
 						}
 

@@ -115,7 +115,10 @@ namespace	FATMING_CORE
 		MyGLGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&l_iValue);					l_str = L"GL_MAX_VERTEX_ATTRIBS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
 		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,&l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
 		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-
+#ifdef WIN32
+		MyGLGetIntegerv(GL_ARB_texture_non_power_of_two,&l_iValue);
+		g_bSupportNonPowerOfTwoTexture = l_iValue ? true : false;
+#endif
 		//http://www.informit.com/articles/article.aspx?p=770639&seqNum=3
 		//GLfloat l_fGL_TEXTURE_COMPRESSED;
 		const int l_ciSupportFormatCountTestValue = 100;
@@ -299,6 +302,9 @@ namespace	FATMING_CORE
 			}
 			if( l_strTexturePowerOfTwo )
 			{
+				//MyGLGetIntegerv(GL_ARB_texture_non_power_of_two, &l_iValue);
+				//g_bSupportNonPowerOfTwoTexture = l_iValue ? true : false;
+				//auto detect while platfore is PC,but you still can test it
 				g_bSupportNonPowerOfTwoTexture = _wtoi(l_strTexturePowerOfTwo)?true:false;
 			}
 		}

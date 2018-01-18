@@ -6,6 +6,34 @@
 
 const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 
+// int e_iType:0 for next sibling,1 for first child
+Frame*	GoThoughAllFrameFromaFirstToEndWithClone(Frame*e_pSrcFrame, Frame*e_pDestFrame, int e_iType)
+{
+	if (e_pSrcFrame)
+	{
+		Frame*l_pCloneFrame = dynamic_cast<Frame*>(e_pSrcFrame->Clone());
+		if (e_pDestFrame)
+		{
+			if (e_iType == 0)
+			{
+				e_pDestFrame->SetNextSibling(l_pCloneFrame);
+			}
+			else
+				if (e_iType == 1)
+				{
+					e_pDestFrame->AddChildToLast(l_pCloneFrame);
+				}
+		}
+		auto l_pFrame = e_pSrcFrame->GetNextSibling();
+		if (l_pFrame)
+			GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 0);
+		l_pFrame = e_pSrcFrame->GetFirstChild();
+		if (l_pFrame)
+			GoThoughAllFrameFromaFirstToEndWithClone(l_pFrame, l_pCloneFrame, 1);
+		return l_pCloneFrame;
+	}
+	return nullptr;
+}
 
 //-----------------------------------------------------------------------------
 // Name: Frame::Frame()
@@ -63,6 +91,12 @@ Frame::~Frame()
 	}
 	SAFE_DELETE(m_pLocalBound);
     SAFE_DELETE(m_pCachedWorldBound);
+}
+
+Frame*	Frame::CloneFrameWithHierarchy()
+{
+	Frame*l_pRoot = GoThoughAllFrameFromaFirstToEndWithClone(this, nullptr, -1);
+	return l_pRoot;
 }
 
 //Frame*l_pFrameTest = new Frame();
@@ -541,7 +575,7 @@ void	Frame::DumpDebugInfo()
 	int	l_iLevel = 0;
 	while( l_pParentNode )
 	{
-		cGameApp::OutputDebugInfoString(L"-----");
+		cGameApp::OutputDebugInfoString(L"-----",false,false);
 		l_pParentNode = l_pParentNode->GetParent();
 		l_iLevel++;
 	}
