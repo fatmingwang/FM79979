@@ -2313,28 +2313,6 @@ namespace MPDI
 					m_pMPDICamera->Update(m_pTimeAndFPS->fElpaseTime,CurrentProgress_trackBar->Value/1000.f);
 					m_pMPDICamera->Render();
 				}
-				if (m_pMultiPathDynamicImageAWP)
-				{
-					m_pMultiPathDynamicImageAWP->SetRotationAnglePosOffsetWithDrawSize(m_pMPDIUI->RotationWithRotationPosOffset_checkBox->Checked);
-				}
-				if (m_pMultiPathDynamicImageAWP)
-				{
-					if (m_pMPDIUI->MPDIRotationTest_checkBox->Checked)
-					{
-						//static Frame l_TestFrame;
-						static float l_sfTestAngele = 0.f;
-						l_sfTestAngele += 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime;// *cGameApp::m_sfDebugValue;
-						//l_sfTestAngele = 1.f*cGameApp::m_sTimeAndFPS.fElpaseTime*cGameApp::m_sfDebugValue;
-						//l_TestFrame.SetLocalTransform(l_TestFrame.GetLocalTransform()*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
-						//l_TestFrame.SetLocalTransform(cMatrix44::TranslationMatrix(0,0,0)*cMatrix44::RotationMatrix(Vector3(0, 0, l_sfTestAngele)));
-						//if (!m_pMultiPathDynamicImageAWP->GetParent())
-							//m_pMultiPathDynamicImageAWP->SetParent(&l_TestFrame,false);
-						m_pMultiPathDynamicImageAWP->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(0, 0, 0))*cMatrix44::ZAxisRotationMatrix(l_sfTestAngele));
-						//m_pMultiPathDynamicImageAWP->SetTranslationRotatopnScaleWithImageCenter(Vector3(0, 0, 0), l_sfTestAngele);
-					}
-					else
-						m_pMultiPathDynamicImageAWP->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(0, 0, 0)));
-				}
 				if( MPDIWorking_checkBox->Checked )
 					MPDIRender();
 				if( m_pDebugFont )

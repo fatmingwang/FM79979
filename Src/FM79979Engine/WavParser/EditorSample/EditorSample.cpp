@@ -5,16 +5,16 @@
 
 //#ifdef VLD_DEBUG
 //https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
-#include "C:/Program Files (x86)/Visual Leak Detector/include/vld.h"
-#pragma comment(lib, "C:/Program Files (x86)/Visual Leak Detector/lib/Win32/vld.lib")
+#include "../../../include/vld.h"
+#pragma comment(lib, "../../../lib/vld.lib")
 //#endif
-
+#include "../../AllLibInclude.h"
 using namespace EditorSample;
 
 
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String^> ^args)
 {
 	char l_c = -1;
 	char l_c2 = -2;

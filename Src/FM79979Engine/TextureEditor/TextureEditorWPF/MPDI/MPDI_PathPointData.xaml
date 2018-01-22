@@ -20,7 +20,7 @@
             <RowDefinition />
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
-        <TabControl  Grid.Row="0">
+        <TabControl  Grid.Row="0" MinWidth="500" MinHeight="300">
             <TabItem Header="PointData">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -36,7 +36,7 @@
                     <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" Background="Gray"/>
                     <GridSplitter Grid.Column="5" Width="5" HorizontalAlignment="Stretch" Background="Gray"/>
                     <Grid Grid.Column="0">
-                        <TabControl TabStripPlacement="Left" Name="m_TabControl" x:FieldModifier="public" SelectionChanged="TabControl_SelectionChanged">
+                        <TabControl TabStripPlacement="Left" Name="m_TabControl" x:FieldModifier="public" SelectionChanged="TabControl_SelectionChanged" MinWidth="200">
                             <TabItem Header="Pos">
                                 <StackPanel>
                                     <Label Content="Pos:XYZ"/>
@@ -57,14 +57,15 @@
                                     <Label Content="Color(RGBA)" />
                                     <my:XYZWNumeric x:FieldModifier="public" Name="m_Color"/>
                                     <my:ColorPicker Name="m_ColorPicker" />
+                                    <CheckBox Content="ColorEffectChildren" x:FieldModifier="public" x:Name="m_ColorEffectChildrenCheckBox" ToolTip="all children color wiil be effect"/>
                                 </StackPanel>
                             </TabItem>
                             <TabItem Header="Size">
                                 <StackPanel>
                                     <Label Content="Width/Height"/>
-                                    <my:XYNumeric x:FieldModifier="public" Name="m_Size"/>
+                                    <my:XYNumeric x:FieldModifier="public" Name="m_Size" />
                                     <Label Content="Scale"/>
-                                    <my:NumericUpDown x:FieldModifier="public" Name="m_Scale"/>
+                                    <my:NumericUpDown x:FieldModifier="public" Name="m_Scale" />
                                 </StackPanel>
                             </TabItem>
                             <TabItem Header="Rotation">
@@ -76,6 +77,18 @@
                             <TabItem Header="Image" >
                                 <FMC:PI x:FieldModifier="public" Name="m_PI" />
                             </TabItem>
+                            <TabItem Header="Event" >
+                                <StackPanel>
+                                    <Label Content="EventTYpe"/>
+                                    <ComboBox x:FieldModifier="public" Name="m_EventTypeCombox"  Height="20">
+                                        <ComboBoxItem Content="Sound"/>
+                                        <ComboBoxItem Content="Particle"/>
+                                        <ComboBoxItem Content="UserData"/>
+                                    </ComboBox>
+                                    <Label Content="Data"/>
+                                    <TextBox x:FieldModifier="public" Name="m_EventDataTextBox" />
+                                </StackPanel>
+                            </TabItem>                            
                             <!--<TabItem Header="BindPose" >
                                 <StackPanel>
                                     <Label Content="Scale"/>
@@ -89,7 +102,7 @@
                         </TabControl>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <ListBox MinHeight="165" MinWidth="120" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" Name="m_CurrentWorkingListbox"  SelectionMode="Extended" SelectionChanged="ListBoxSelectionChanged">
+                        <ListBox MinHeight="165" MinWidth="200" Style="{StaticResource UtilityListBoxStyle}" x:FieldModifier="public" Name="m_CurrentWorkingListbox"  SelectionMode="Extended" SelectionChanged="ListBoxSelectionChanged">
                             <!--<ListBox.InputBindings>
                                 <KeyBinding Command="SelectAll" Modifiers="Ctrl" Key="A" />
                             </ListBox.InputBindings>-->
@@ -123,7 +136,7 @@
                             <Label Content="TotalTime/整體時間" />
                             <my:NumericUpDown Name="m_CurrentDataTotalTime" x:FieldModifier="public" />
                             <Label Content="AllDataTotalTime/總時間" />
-                            <my:NumericUpDown Name="m_AllDataTotalTime" x:FieldModifier="public" />                    
+                            <my:NumericUpDown Name="m_AllDataTotalTime" x:FieldModifier="public" />
                             <Button Content="Add/增加" x:FieldModifier="public" Name="m_1AddButton" Click="Button_Click"/>
                         </StackPanel>
                     </Grid>
@@ -149,10 +162,10 @@
         </TabControl>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <Slider MinWidth="200" x:FieldModifier="public" x:Name="m_TimeSlider" />
-            <Label x:FieldModifier="public" x:Name="m_TimeLabel" Content="00:00:00" />
-            <CheckBox Content="SinglePlay" x:FieldModifier="public" x:Name="m_SinglePlayCheck" Checked="Button_Click"/>
-            <CheckBox Content="AllPlay" x:FieldModifier="public" x:Name="m_AllPlayCheck" Checked="Button_Click"/>
-            <CheckBox Content="Loop" x:FieldModifier="public" x:Name="m_LoopCheck" Checked="Button_Click"/>
+            <Label x:FieldModifier="public" x:Name="m_TimeLabel" Content="00:00:00" Foreground="Wheat"/>
+            <CheckBox Content="SinglePlay" x:FieldModifier="public" x:Name="m_SinglePlayCheck" Checked="Button_Click" Foreground="Wheat"/>
+            <CheckBox Content="AllPlay" x:FieldModifier="public" x:Name="m_AllPlayCheck" Checked="Button_Click" Foreground="Wheat"/>
+            <CheckBox Content="Loop" x:FieldModifier="public" x:Name="m_LoopCheck" Checked="Button_Click" Foreground="Wheat"/>
         </StackPanel>        
     </Grid>
 </UserControl>

@@ -281,7 +281,7 @@ void	cToneDataVector::Render()
 			if( l_fMax < m_ResultVector[i] )
 			{
 				l_fMax = m_ResultVector[i];
-				l_iMaxIndex = i;
+				l_iMaxIndex = (int)i;
 			}
 		}
 		if( l_iMaxIndex != -1 )

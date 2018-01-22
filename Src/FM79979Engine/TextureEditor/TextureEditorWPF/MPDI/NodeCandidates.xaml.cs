@@ -49,10 +49,13 @@ namespace TextureEditorWPF.MPDI
 // var dragSource = e.Data.GetData(typeof(MyDragSource))
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Label l_Label = sender as Label;
-            var l_DataObject = new DataObject(l_Label.Content);
-            l_DataObject.SetData("String", l_Label.Content);
-            DragDrop.DoDragDrop((System.Windows.DependencyObject)sender, l_DataObject, DragDropEffects.Copy);
+            if (m_TypeCombox.SelectedItem != null && m_NodeNmaeEditableTextBlock.Text.Length > 0)
+            {
+                ComboBoxItem l_ComboBoxItem = m_TypeCombox.SelectedItem as ComboBoxItem;
+                var l_DataObject = new DataObject(l_ComboBoxItem.Content);
+                l_DataObject.SetData("String", m_NodeNmaeEditableTextBlock.Text);
+                DragDrop.DoDragDrop((System.Windows.DependencyObject)sender, l_DataObject, DragDropEffects.Copy);
+            }
         }
     }
 }

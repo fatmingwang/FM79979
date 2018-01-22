@@ -175,7 +175,6 @@ cMPDINode*	GetMPDINodeByTreeViewItem(System::Windows::Controls::TreeView^e_pTree
 		}
 		l_Path.erase(l_Path.begin()+l_Path.size()-1);
 	}
-	l_pMPDINode->DumpDebugInfo();
 	return l_pMPDINode;
 
 	//cMPDINode*l_pMPDINode = e_pRoot;

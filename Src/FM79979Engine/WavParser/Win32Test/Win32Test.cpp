@@ -138,6 +138,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	cNodeISAX	l_NodeISAX;
 	cGameApp::m_svViewPortSize.x = 1024.;
 	cGameApp::m_svViewPortSize.y = 768.f;
+	cGameApp::m_svGameResolution = Vector2(2208, 1242);
 	cGameApp::ResoluctionParse("MusicGame.xml");
 
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;

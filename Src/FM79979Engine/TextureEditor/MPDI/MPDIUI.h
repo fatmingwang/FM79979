@@ -170,8 +170,6 @@ namespace MPDI
 	private: System::Windows::Forms::TabPage^  RotationOffset;
 	private: System::Windows::Forms::Panel^  ColorPicker_panel;
 	public: System::Windows::Forms::ToolStripMenuItem^  yesNoDialogToolStripMenuItem;
-	public: System::Windows::Forms::CheckBox^  MPDIRotationTest_checkBox;
-	public: System::Windows::Forms::CheckBox^  RotationWithRotationPosOffset_checkBox;
 public:
 	//my
 	CoreWPF::Common::ColorPicker^m_pColorPicker;
@@ -299,8 +297,6 @@ private: System::ComponentModel::IContainer^  components;
 			this->ViewPort_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->ColorBlending = (gcnew System::Windows::Forms::TabPage());
 			this->RotationOffset = (gcnew System::Windows::Forms::TabPage());
-			this->MPDIRotationTest_checkBox = (gcnew System::Windows::Forms::CheckBox());
-			this->RotationWithRotationPosOffset_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->groupBox1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TotalPlayTime_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeWholePathTime_numericUpDown))->BeginInit();
@@ -1577,34 +1573,12 @@ private: System::ComponentModel::IContainer^  components;
 			this->RotationOffset->Text = L"RotationOffset";
 			this->RotationOffset->UseVisualStyleBackColor = true;
 			// 
-			// MPDIRotationTest_checkBox
-			// 
-			this->MPDIRotationTest_checkBox->AutoSize = true;
-			this->MPDIRotationTest_checkBox->Location = System::Drawing::Point(943, 203);
-			this->MPDIRotationTest_checkBox->Name = L"MPDIRotationTest_checkBox";
-			this->MPDIRotationTest_checkBox->Size = System::Drawing::Size(111, 16);
-			this->MPDIRotationTest_checkBox->TabIndex = 201;
-			this->MPDIRotationTest_checkBox->Text = L"MPDIRotationTest";
-			this->MPDIRotationTest_checkBox->UseVisualStyleBackColor = true;
-			// 
-			// RotationWithRotationPosOffset_checkBox
-			// 
-			this->RotationWithRotationPosOffset_checkBox->AutoSize = true;
-			this->RotationWithRotationPosOffset_checkBox->Location = System::Drawing::Point(867, 181);
-			this->RotationWithRotationPosOffset_checkBox->Name = L"RotationWithRotationPosOffset_checkBox";
-			this->RotationWithRotationPosOffset_checkBox->Size = System::Drawing::Size(195, 16);
-			this->RotationWithRotationPosOffset_checkBox->TabIndex = 202;
-			this->RotationWithRotationPosOffset_checkBox->Text = L"RotationWithDrawSize(only for test)";
-			this->RotationWithRotationPosOffset_checkBox->UseVisualStyleBackColor = true;
-			// 
 			// MPDIUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->Controls->Add(this->RotationWithRotationPosOffset_checkBox);
-			this->Controls->Add(this->MPDIRotationTest_checkBox);
 			this->Controls->Add(this->WholePath_listBox);
 			this->Controls->Add(this->PathPiorityDown_button);
 			this->Controls->Add(this->ApplyLODToPoints_button);

@@ -139,12 +139,13 @@ namespace FATMING_CORE
 		//m_pColorLinerDataProcessor					=	nullptr;
 		//m_pSizeLinerDataProcessor					=	nullptr;
 		//m_pRotationLinerDataProcessor				=	nullptr;
+		m_bColorEffectToChildren					=	false;
 		m_bColorBlending							=	false;
 		m_SrcBlendingMode							=	GL_SRC_ALPHA;
 		m_DestBlendingMode							=	GL_ONE_MINUS_SRC_ALPHA;
 		m_eMPDINodeType								=	eMPDI_NT_ANIMATION;
 		m_pUserData									=	nullptr;
-		m_pWorkingpImage							=	0;
+		m_pWorkingpImage							=	nullptr;
 		m_fMaxLinerDataPlayTime						=	0.f;
 		m_vRotationAnglePosOffset					=	Vector3::Zero;
 		m_vWorkingPosition							=	Vector3::Zero;
@@ -175,6 +176,7 @@ namespace FATMING_CORE
 		//m_pColorLinerDataProcessor					=	nullptr;
 		//m_pSizeLinerDataProcessor					=	nullptr;
 		//m_pRotationLinerDataProcessor				=	nullptr;
+		m_bColorEffectToChildren					=	e_pMPDINode->m_bColorEffectToChildren;
 		m_bColorBlending							=	e_pMPDINode->m_bColorBlending;
 		m_SrcBlendingMode							=	e_pMPDINode->m_SrcBlendingMode;
 		m_DestBlendingMode							=	e_pMPDINode->m_DestBlendingMode;
@@ -185,7 +187,7 @@ namespace FATMING_CORE
 		m_vWorkingSize								=	Vector2::Zero;
 		m_matAnimationMatrix						=	cMatrix44::Identity;
 		m_pUserData									=	nullptr;
-		m_pWorkingpImage							=	0;
+		m_pWorkingpImage							=	nullptr;
 		m_vRotationAnglePosOffset					=	e_pMPDINode->m_vRotationAnglePosOffset;
 		m_fMaxLinerDataPlayTime						=	e_pMPDINode->m_fMaxLinerDataPlayTime;
 		//
@@ -195,18 +197,6 @@ namespace FATMING_CORE
 		m_pColorLinerDataProcessor =				(cLinerDataProcessor<Vector4>*)m_pLinerDataContainer->m_ContainerVector[2];
 		m_pSizeLinerDataProcessor =					(cLinerDataProcessor<Vector2>*)m_pLinerDataContainer->m_ContainerVector[3];
 		m_pRotationLinerDataProcessor =				(cLinerDataProcessor<Vector3>*)m_pLinerDataContainer->m_ContainerVector[3];
-
-		Frame*l_pFrame = e_pMPDINode->GetFirstChild();
-		while( l_pFrame )
-		{
-			//this occur warning,so I use address method to fix
-			//Frame*CloneFrame = dynamic_cast<Frame*>(l_pFrame->Clone());
-			size_t l_uiCloneFrameAddress = (size_t)l_pFrame->Clone();
-			Frame*CloneFrame = (Frame*)l_uiCloneFrameAddress;
-			//this could be wrong,I am not sure,
-			this->AddChildToLast(CloneFrame);
-			l_pFrame = l_pFrame->GetNextSibling();
-		}
 	}
 
 
@@ -267,7 +257,20 @@ namespace FATMING_CORE
 		//m_pSizeLinerDataProcessor->Init();
 		//m_pRotationLinerDataProcessor->Init();
 		//m_pImageData->Init();
-	}  
+	}
+
+	void	cMPDINode::GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Vector4*e_pParentColor)> e_Function, void*e_pFrame, Vector4*e_pParentColor)
+	{
+		if (e_pFrame)
+		{
+			e_Function(e_pFrame, e_pParentColor);
+			cMPDINode*l_pFrame = static_cast<cMPDINode*>(e_pFrame);
+			if (l_pFrame->GetNextSibling())
+				GoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame->GetNextSibling(),nullptr);
+			if (l_pFrame->GetFirstChild())
+				GoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame->GetFirstChild(),l_pFrame->IsColorEffectToChildren()?&l_pFrame->m_vWorkingColor:nullptr);
+		}
+	}
 
 	void	cMPDINode::InternalUpdate(float e_fElpaseTime)
 	{
@@ -282,7 +285,14 @@ namespace FATMING_CORE
 		}
 		if(m_pColorLinerDataProcessor->IsDuringWorking())
 		{
-			m_vWorkingColor = m_pColorLinerDataProcessor->GetCurrentData();
+			m_vWorkingColor = m_pColorLinerDataProcessor->GetCurrentData();// *m_vParentColor;
+			//if (m_bColorEffectToChildren)
+			//{
+			//	if (m_vParentColor.x != 1.f || m_vParentColor.y != 1.f || m_vParentColor.y != 1.f || m_vParentColor.w != 1.f)
+			//	{//set first child
+			//		this->GetFirstChild();
+			//	}
+			//}
 		}
 		if(m_pSizeLinerDataProcessor->IsDuringWorking())
 		{
@@ -438,15 +448,51 @@ namespace FATMING_CORE
 		this->m_pPosLinerDataProcessor->DebugRender(true,true,Vector4::Red,l_RenderMatrix);
 	}
 
-	void	cMPDINode::InternalUpdateByGlobalTime(float e_fGlobalTime)
+	void		cMPDINode::UpdateNodes(float e_fElpaseTime)
 	{
-		//if( this->m_fPastTime != e_fGlobalTime )
+		GoThoughAllFrameFromaFirstToEnd(
+			[e_fElpaseTime](void*e_pFrame,Vector4*e_pParentColor)
+			{
+				cMPDINode*l_pMPDINode = (cMPDINode*)e_pFrame;
+				l_pMPDINode->Update(e_fElpaseTime);
+				if (e_pParentColor)
+				{
+					l_pMPDINode->m_vWorkingColor = Vector4Multiply(l_pMPDINode->m_vWorkingColor,*e_pParentColor);
+				}
+			}
+		, this, this->m_bColorEffectToChildren ? &this->m_vWorkingColor:nullptr);
+	}
+
+	void	cMPDINode::RenderNodes()
+	{
+		RenderObjectGoThoughAllFrameFromaFirstToEnd(
+			[](Frame*e_pFrame)
+		{
+			e_pFrame->Render();
+		}
+		, this);
+	}
+
+	void	cMPDINode::UpdateNodesByGlobalTime(float e_fGlobalTime)
+	{
+		if( this->m_fPastTime != e_fGlobalTime )
+		{
+			this->SetAnimationLoop(true);
+			//this->Init();
+			m_fPastTime = 0.f;
+			this->UpdateNodes(e_fGlobalTime);
+		}
+	}
+
+	void	cMPDINode::UpdateByGlobalTime(float e_fGlobalTime)
+	{
+		if( this->m_fPastTime != e_fGlobalTime )
 		{
 			this->SetAnimationLoop(true);
 			//this->Init();
 			m_fPastTime = 0.f;
 			this->Update(e_fGlobalTime);
-		}	
+		}
 	}
 //end namespace FATMING_CORE
 }

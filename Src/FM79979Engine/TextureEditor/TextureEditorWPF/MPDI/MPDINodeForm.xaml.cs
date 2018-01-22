@@ -71,7 +71,7 @@ namespace TextureEditorWPF.MPDI
 
         public void SetGoodSize()
         {
-            m_MPDIDataPanel.DockHeight = new GridLength(330);
+            //m_MPDIDataPanel.DockHeight = new GridLength(330);
             m_FileAnimationName.DockWidth = new GridLength(200);
             m_RightUtilityPanel.DockWidth = new GridLength(150);
         }

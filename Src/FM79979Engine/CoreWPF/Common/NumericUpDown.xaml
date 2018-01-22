@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" 
              x:Class="CoreWPF.Common.NumericUpDown">
-    <Grid>
-        <xctk:DoubleUpDown Name="m_Increase_Button" x:FieldModifier="public" ValueChanged="ValueChangedCallback" KeyUp="Increase_Button_KeyUp"/>
+    <Grid MinHeight="12" MinWidth="50">
+        <xctk:DoubleUpDown Name="m_Increase_Button" x:FieldModifier="public" ValueChanged="ValueChangedCallback" KeyUp="Increase_Button_KeyUp" Value="0" FormatString="F3"/>
     </Grid>
 </UserControl>

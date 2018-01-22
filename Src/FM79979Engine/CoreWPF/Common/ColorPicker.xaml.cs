@@ -34,6 +34,8 @@ namespace CoreWPF.Common
         }
         public Color GetSelectedColor()
         {
+            if (this.m_ColorPicker.SelectedColor == null)
+                this.m_ColorPicker.SelectedColor = Colors.Gray;
             return this.m_ColorPicker.SelectedColor.Value;
         }
         public void SetUsingAlphaChannel(bool e_b)

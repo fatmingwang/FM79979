@@ -354,7 +354,7 @@ namespace MPDINodeForm
 		{
 			if( cGameApp::m_spImageParser == nullptr )
 				return;
-			array<String^>^l_strFiles = DNCT::OpenFileAndGetNames();
+			cli::array<String^>^l_strFiles = DNCT::OpenFileAndGetNames();
 			if( l_strFiles )
 			{
 				for each( String^l_strFileName in l_strFiles )
@@ -381,7 +381,7 @@ namespace MPDINodeForm
 		System::Void MPDINodeData::PIListBoxDrop(System::Object^  sender, System::EventArgs^  e)
 		{
 			System::Windows::DragEventArgs^l_pDragEventArgs = (System::Windows::DragEventArgs^)e;
-			array<String^>^l_strFileNames = CoreWPF::Common::CommonFunction::DragDropEventWhileFileDrop(l_pDragEventArgs);
+			cli::array<String^>^l_strFileNames = CoreWPF::Common::CommonFunction::DragDropEventWhileFileDrop(l_pDragEventArgs);
 			for each(String^l_strFileName in l_strFileNames)
 			{
 				if(AddPIFile(l_strFileName))

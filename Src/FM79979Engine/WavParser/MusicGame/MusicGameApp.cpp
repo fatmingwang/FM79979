@@ -285,7 +285,7 @@ void	cMusicGameApp::EditorRun()
 		if( m_sbGamePause )
 			l_fElpaseTime = 0.f;
 #endif
-		EditorUpdate(m_sbSpeedControl?l_fElpaseTime*this->m_sfDebugValue:l_fElpaseTime);
+		EditorUpdate(m_sbSpeedControl?l_fElpaseTime*this->m_sfGameSpeedValue:l_fElpaseTime);
 		EditorRender();
 		cGameApp::m_sMouseWhellDelta = 0;
 }

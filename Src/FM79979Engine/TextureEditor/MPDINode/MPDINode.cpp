@@ -24,12 +24,12 @@ namespace MPDINodeForm
 		m_pMPDINodeForm->m_ResolutionWidth->f_ValueChanged	+=	gcnew System::EventHandler(this, &MPDINodeEditor::SeetingChanged);
 		m_pMPDINodeForm->m_BGColor->f_SelectedColorChanged	+=	gcnew System::EventHandler(this, &MPDINodeEditor::SeetingChanged);
 		m_pMPDINodeForm->f_ShowCheckboxCheckedChange		+=	gcnew System::EventHandler(this, &MPDINodeEditor::SeetingChanged);
-		m_pMPDINodeForm->m_TreeView->f_ChangeSelectedItem	+=	gcnew System::EventHandler(this, &MPDINodeEditor::ChangeSelectedItem);
-		m_pMPDINodeForm->m_TreeView->f_AddNewItem			+=	gcnew CoreWPF::Common::OnAddNewItem(this, &MPDINodeEditor::AddNewMPDINode);
-		m_pMPDINodeForm->m_TreeView->f_DropTreeViewItemToAnotherTreeViewItem +=	gcnew CoreWPF::Common::OnTreeViewItemDragAndDrop(this, &MPDINodeEditor::DropTreeViewItemToAnotherTreeViewItem);
+		m_pMPDINodeForm->m_NodeCandidates->m_TreeView->f_ChangeSelectedItem	+=	gcnew System::EventHandler(this, &MPDINodeEditor::ChangeSelectedItem);
+		m_pMPDINodeForm->m_NodeCandidates->m_TreeView->f_AddNewItem			+=	gcnew CoreWPF::Common::OnAddNewItem(this, &MPDINodeEditor::AddNewMPDINode);
+		m_pMPDINodeForm->m_NodeCandidates->m_TreeView->f_DropTreeViewItemToAnotherTreeViewItem +=	gcnew CoreWPF::Common::OnTreeViewItemDragAndDrop(this, &MPDINodeEditor::DropTreeViewItemToAnotherTreeViewItem);
 
-		m_pMPDINodeForm->m_TreeView->f_Delete				+=	gcnew System::EventHandler(this, &MPDINodeEditor::MPDINodeDelete);
-		m_pMPDINodeForm->m_TreeView->f_Paste				+=	gcnew System::EventHandler(this, &MPDINodeEditor::MPDINodePaste);
+		m_pMPDINodeForm->m_NodeCandidates->m_TreeView->f_Delete				+=	gcnew System::EventHandler(this, &MPDINodeEditor::MPDINodeDelete);
+		m_pMPDINodeForm->m_NodeCandidates->m_TreeView->f_Paste				+=	gcnew System::EventHandler(this, &MPDINodeEditor::MPDINodePaste);
 
 		m_pMPDINodeForm->f_OpenGLFormSizeChanged			+=	gcnew System::EventHandler(this, &MPDINodeEditor::MPDINodeEditor_SizeChanged); 
 		m_pMPDINodeForm->f_KeyUp							+=	gcnew System::Windows::Input::KeyEventHandler(this, &MPDINodeEditor::KeyUp);
@@ -193,8 +193,8 @@ namespace MPDINodeForm
 
 	System::Void MPDINodeEditor::DropTreeViewItemToAnotherTreeViewItem(System::Windows::Controls::TreeViewItem^e_pDragObject, System::Windows::Controls::TreeViewItem^e_pDropObject)
 	{
-		cMPDINode*l_pDragMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,e_pDragObject,m_pMPDIRootNode);
-		cMPDINode*l_pDropMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,e_pDropObject,m_pMPDIRootNode);
+		cMPDINode*l_pDragMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView,e_pDragObject,m_pMPDIRootNode);
+		cMPDINode*l_pDropMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView,e_pDropObject,m_pMPDIRootNode);
 		l_pDragMPDINode->SetParent(nullptr);
 		l_pDropMPDINode->AddChildToLast(l_pDragMPDINode);
 	}
@@ -206,7 +206,7 @@ namespace MPDINodeForm
 		l_pMPDINode->SetName(DNCT::GcStringToWchar(e_strType));
 		if( e_pTreeViewItem != nullptr )
 		{
-			cMPDINode*l_pParentMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,e_pTreeViewItem,m_pMPDIRootNode);
+			cMPDINode*l_pParentMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView,e_pTreeViewItem,m_pMPDIRootNode);
 			l_pParentMPDINode->AddChildToLast(l_pMPDINode);
 		}
 		else
@@ -218,17 +218,22 @@ namespace MPDINodeForm
 
 	System::Void MPDINodeEditor::MPDINodePaste(System::Object^  sender, System::EventArgs^  e)
 	{
-		cMPDINode*l_pParentMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,m_pMPDINodeForm->m_TreeView->m_PasteItem,m_pMPDIRootNode);
-		if( m_pMPDINodeForm->m_TreeView->m_CopyItem != nullptr )
+		cMPDINode*l_pParentMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView, m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_PasteItem,m_pMPDIRootNode);
+		if (l_pParentMPDINode && !l_pParentMPDINode->GetParent())
+		{//not allow copy root
+			//return;
+		}
+		if(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_CopyItem != nullptr )
 		{
-			cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,m_pMPDINodeForm->m_TreeView->m_CopyItem,m_pMPDIRootNode);
-			cMPDINode*l_pCloneMPDINode = dynamic_cast<cMPDINode*>(l_pTargetMPDINode->Clone());
+			cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView, m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_CopyItem,m_pMPDIRootNode);
+			cMPDINode*l_pCloneMPDINode = dynamic_cast<cMPDINode*>(l_pTargetMPDINode->CloneFrameWithHierarchy());
+			l_pCloneMPDINode->DumpDebugInfo();
 			l_pParentMPDINode->AddChildToLast(l_pCloneMPDINode);
 		}
 		else
-		if( m_pMPDINodeForm->m_TreeView->m_CutItem != nullptr )
+		if(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_CutItem != nullptr )
 		{
-			cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,m_pMPDINodeForm->m_TreeView->m_CutItem,m_pMPDIRootNode);
+			cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView, m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_CutItem,m_pMPDIRootNode);
 			if( l_pTargetMPDINode == l_pParentMPDINode )
 				return;
 			l_pTargetMPDINode->SetParent(nullptr);
@@ -238,14 +243,14 @@ namespace MPDINodeForm
 
 	System::Void MPDINodeEditor::MPDINodeDelete(System::Object^  sender, System::EventArgs^  e)
 	{
-		cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,(System::Windows::Controls::TreeViewItem^)m_pMPDINodeForm->m_TreeView->m_DeleteItem,m_pMPDIRootNode);
+		cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView,(System::Windows::Controls::TreeViewItem^)m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_DeleteItem,m_pMPDIRootNode);
 		l_pTargetMPDINode->SetParent(nullptr);
 		SAFE_DELETE(l_pTargetMPDINode);
 	}
 
 	System::Void MPDINodeEditor::ChangeSelectedItem(System::Object^  sender, System::EventArgs^  e)
 	{
-		cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_TreeView->m_TreeView,(System::Windows::Controls::TreeViewItem^)m_pMPDINodeForm->m_TreeView->m_TreeView->SelectedItem,m_pMPDIRootNode);	 
+		cMPDINode*l_pTargetMPDINode = GetMPDINodeByTreeViewItem(m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView,(System::Windows::Controls::TreeViewItem^)m_pMPDINodeForm->m_NodeCandidates->m_TreeView->m_TreeView->SelectedItem,m_pMPDIRootNode);
 		m_pMPDINodeData->SetMPDINode(l_pTargetMPDINode);
 		//m_pMPDIRootNode->DumpDebugInfo();
 	}
@@ -282,8 +287,7 @@ namespace MPDINodeForm
 
 		glEnable2D(1280,720);
 		POINT	ptCursor = {(int)m_pOrthgonalCamera->GetMouseWorldPos().x,(int)m_pOrthgonalCamera->GetMouseWorldPos().y};
-		WCHAR*l_strMousePos;
-		l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
+		std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
 		cGameApp::RenderFont(0,0,l_strMousePos);
 		SwapBuffers(cGameApp::m_sHdc);
 	}

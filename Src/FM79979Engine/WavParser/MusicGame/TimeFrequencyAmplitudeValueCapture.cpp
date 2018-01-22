@@ -280,7 +280,8 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 							l_MatchedDataVector.push_back(l_FrequenceAndAmplitudeAndTime);
 							l_iLastCloseFrequency = (int)l_FrequenceAndAmplitudeAndTime.fFrequency;
 							int l_iLastFrequencyForBack = l_iLastCloseFrequency;
-							for( int i = l_MatchedDataVector.size()-2 ; i > 0; --i )
+							int l_iMatchedDataVectorSize = (int)l_MatchedDataVector.size()-2;
+							for( int i = l_iMatchedDataVectorSize; i > 0; --i )
 							{
 								if(abs(l_iLastFrequencyForBack-l_MatchedDataVector[i].fFrequency)<=l_fFrequencyOffsetRange)
 								{
@@ -323,7 +324,7 @@ bool	cTimeFrequencyAmplitudeValueCapture::ParseAndSaveFileName(const char*e_strP
 						//l_pRootTiXmlElement->LinkEndChild(l_pTiXmlElement);
 					}
 				}
-				l_iAverageValue = (int)l_fTotalValue/l_MatchedDataVector.size();
+				l_iAverageValue = (int)(l_fTotalValue/l_MatchedDataVector.size());
 				for(auto l_FrequenceAndAmplitudeAndTime:l_MatchedDataVector)
 				{
 					if(l_FrequenceAndAmplitudeAndTime.iAmplitude >= l_iAverageValue)

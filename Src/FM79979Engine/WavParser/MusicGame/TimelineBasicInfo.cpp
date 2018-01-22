@@ -65,7 +65,7 @@ void		cChartBasicInfo::RenderWithData(Vector2 e_vShowPos,Vector2 e_vResolution,i
 		l_vShowPos.x += l_fXGap;
 	}
 	RenderLine((float*)e_pvPointsData,e_iCount*2,e_vColor,2);
-	RenderLine((float*)&l_vBlueLinePos[0],l_vBlueLinePos.size(),Vector4(0,0,1,cSoundCompareParameter::m_sfDebugAlphaValue),2);
+	RenderLine((float*)&l_vBlueLinePos[0],(int)l_vBlueLinePos.size(),Vector4(0,0,1,cSoundCompareParameter::m_sfDebugAlphaValue),2);
 	for( size_t i=0;i<l_vBlueLinePos.size();++i )
 	{
 	

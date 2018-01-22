@@ -147,7 +147,21 @@ namespace CoreWPF.Common
             }
         }
 
+        private void TextBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            //IsInEditMode = false;
+        }
+
+        private void MenuItem_RenameClick(object sender, RoutedEventArgs e)
+        {
+            IsInEditMode = true;
+        }
+
         #endregion Event Handlers
 
+        //private void MenuItem_RenameClick(object sender, RoutedEventArgs e)
+        //{
+
+        //}
     }
 }

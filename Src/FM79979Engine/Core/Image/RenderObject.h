@@ -9,6 +9,7 @@ namespace FATMING_CORE
 {
 	class	cRenderObject:public virtual Frame//,virtual public cSmartObject
 	{
+	protected:
 		//just a rotiton reference
 		Vector3			m_vRotation;
 		//while set transform is called we might need some data update.ex:rotation

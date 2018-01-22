@@ -3,3 +3,7 @@ July/10/2013
 pi binary file invert to generate a template file then delete it okay.
 
 CoreDotNetTools.cpp OpenImageFile
+
+1/Jan/2018
+trying to add ear clipping(earcut.hpp) from
+https://github.com/mapbox/earcut.hpp

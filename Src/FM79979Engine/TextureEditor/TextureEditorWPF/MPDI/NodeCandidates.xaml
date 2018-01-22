@@ -3,17 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:my="clr-namespace:CoreWPF.Common;assembly=CoreWPF"
              mc:Ignorable="d" >
-    <StackPanel Orientation="Horizontal">
-        <Border Width="60" Height="30" Name="m_Border">
-            <!--<Label Content="Button" DragEnter="Label_DragEnter" DragOver="Label_DragOver" DragLeave="Label_DragLeave" x:FieldModifier="public" x:Name="m_Button"/>-->
-            <Label Content="Button" x:FieldModifier="public" x:Name="m_Button" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
-        </Border>
-        <Border Width="60" Height="30" >
-            <Label Content="MPDINode" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
-        </Border>
-        <Border Width="60" Height="30" >
-            <Label Content="Text" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
-        </Border>        
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <ComboBox x:Name="m_TypeCombox" SelectedIndex="0" MinWidth="100">
+                <ComboBoxItem Content="MPDINode" />
+            </ComboBox>
+            <Border>
+                <!---->
+                <my:EditableTextBlock x:Name="m_NodeNmaeEditableTextBlock" Text="Node" MinWidth="100" Background="Gray" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
+            </Border>
+        </StackPanel>
+        <my:TreeVewDragDrop Grid.Row="1" ScrollViewer.CanContentScroll="True" MinHeight="330" MaxHeight="200" x:FieldModifier="public" x:Name="m_TreeView"/>
+    </Grid>
 </UserControl>

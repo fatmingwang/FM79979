@@ -37,10 +37,19 @@ namespace CoreWPF.Common
         public TreeViewItem m_CutItem;
         public TreeViewItem m_PasteItem;
         public TreeViewItem m_DeleteItem;
-
+        public System.Collections.Generic.SortedDictionary<int, object> m_VisibleItems;
+        private System.Timers.Timer m_ScrollChangeTimer;
+        private bool m_bScrollChangedFinish;
         public TreeVewDragDrop()
         {
             InitializeComponent();
+            m_ScrollChangeTimer = new System.Timers.Timer();
+            m_ScrollChangeTimer.Interval = 500;
+            m_ScrollChangeTimer.Elapsed += OnScrollChangedTimedEvent;
+            m_ScrollChangeTimer.AutoReset = false;
+            m_ScrollChangeTimer.Enabled = false;
+            m_bScrollChangedFinish = true;
+            m_VisibleItems = new System.Collections.Generic.SortedDictionary<int, object>();
         }
         private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -64,11 +73,11 @@ namespace CoreWPF.Common
         {
             try
             {
+                Point currentPosition2 = e.GetPosition(m_TreeView);
+                System.Diagnostics.Debug.WriteLine(currentPosition2);
                 if (e.LeftButton == MouseButtonState.Pressed)
                 {
                     Point currentPosition = e.GetPosition(m_TreeView);
-
-
                     if ((Math.Abs(currentPosition.X - _lastMouseDown.X) > 10.0) ||
                         (Math.Abs(currentPosition.Y - _lastMouseDown.Y) > 10.0))
                     {
@@ -333,32 +342,7 @@ namespace CoreWPF.Common
                     MenuItem_DeleteClick(sender, e);
                 }
             }
-            else
-            if (e.Key == Key.F2)
-                SetCurrentItemInEditMode(true);
-        }
-
-        private void SetCurrentItemInEditMode(bool EditMode)
-        {
-            // Make sure that the SelectedItem is actually a TreeViewItem
-            // and not null or something else
-            if (m_TreeView.SelectedItem is TreeViewItem)
-            {
-                TreeViewItem tvi = m_TreeView.SelectedItem as TreeViewItem;
-
-                // Also make sure that the TreeViewItem
-                // uses an EditableTextBlock as its header
-                if (tvi.Header is EditableTextBlock)
-                {
-                    EditableTextBlock etb = tvi.Header as EditableTextBlock;
-
-                    // Finally make sure that we are
-                    // allowed to edit the TextBlock
-                    if (etb.IsEditable)
-                        etb.IsInEditMode = EditMode;
-                }
-            }
-        }
+        }        
 
         private void MenuItem_LevelUpClick(object sender, RoutedEventArgs e)
         {
@@ -556,9 +540,77 @@ namespace CoreWPF.Common
             m_DeleteItem = null;
         }
 
-        private void TreeView_MouseLeave(object sender, MouseEventArgs e)
-        {
 
+        private void IsVisibleCallRecursive(ItemCollection e_ItemCollection,System.Collections.Generic.SortedDictionary<int,object> e_VisibleArrayList)
+        {
+            // Print each node recursively.  
+            var l_pItems = e_ItemCollection;
+            foreach (TreeViewItem l_TreeViewItem in l_pItems)
+            {
+                if(l_TreeViewItem.IsVisible)
+                {
+                    //https://social.msdn.microsoft.com/Forums/vstudio/en-US/281a8cdd-69a9-4a4a-9fc3-c039119af8ed/absolute-screen-coordinates-of-wpf-user-control?forum=wpf
+                    //Point locationFromWindow = Button1.TranslatePoint(new Point(0, 0), this);
+                    //Point locationFromScreen = Button1.PointToScreen(locationFromWindow);
+                    Point l_Pos = l_TreeViewItem.TranslatePoint(new Point(0, 0), this.m_TreeView);
+                    if (l_Pos.Y >= 0 && l_Pos.Y <= this.m_TreeView.RenderSize.Height)
+                    {
+                        if (e_VisibleArrayList.Keys.Contains((int)l_Pos.Y))
+                        {
+                            e_VisibleArrayList.Clear();
+                            object l_NullSender = null;
+                            ScrollChangedEventArgs l_NullE = null;
+                            TreeView_ScrollChanged(l_NullSender, l_NullE);
+                            return;
+                        }
+                        e_VisibleArrayList.Add((int)l_Pos.Y, l_TreeViewItem);
+                    }
+                }
+                IsVisibleCallRecursive(l_TreeViewItem.Items, e_VisibleArrayList);
+            }
+        }
+
+
+
+        private void RefreshVisibleItems()
+        {
+            if (m_bScrollChangedFinish)
+            {
+                m_bScrollChangedFinish = false;
+                m_VisibleItems.Clear();
+                IsVisibleCallRecursive(m_TreeView.Items, m_VisibleItems);
+                //do sort by position
+                //foreach (var l_KeyValue in l_SortedDictionary)
+                //{
+                //    TreeViewItem l_Item = l_KeyValue.Value as TreeViewItem;
+                //    EditableTextBlock l_EditableTextBlock = l_Item.Header as EditableTextBlock;
+                //    System.Diagnostics.Debug.WriteLine(l_EditableTextBlock.Text);
+                //}
+                m_bScrollChangedFinish = true;
+            }
+        }
+
+        private void OnScrollChangedTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            Action methodDelegate = delegate ()
+            {
+                RefreshVisibleItems();
+            };
+            this.Dispatcher.BeginInvoke(methodDelegate);
+            
+        }
+
+        private void TreeView_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            //m_bScrollChangedFinish
+            if (!m_ScrollChangeTimer.Enabled)
+            {
+                if (!m_bScrollChangedFinish)
+                    m_ScrollChangeTimer.Interval = 2000;
+                else
+                    m_ScrollChangeTimer.Interval = 500;
+                m_ScrollChangeTimer.Enabled = true;
+            }
         }
 
         private void TreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)

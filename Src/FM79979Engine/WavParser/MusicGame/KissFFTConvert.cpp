@@ -315,14 +315,14 @@ void	cKissFFTConvert::PreProcessedAllData(cFFTDecibelsAnalyzer*e_pFFTDataStore)
 
 	m_Timer.Update();
 	int					l_iChannels = m_pSoundFile->m_iChannel;
-	size_t				l_uiSameCount = m_pSoundFile->m_iSampleCount;
+	int					l_iSameCount = m_pSoundFile->m_iSampleCount;
 	kiss_fft_cpx*		l_pKiss_FFT_In = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
 	kiss_fft_cpx*		l_pKiss_FFT_Out = new kiss_fft_cpx[m_iOneFrameFFTDataCount];
 	kiss_fft_state*		l_pkiss_fft_state = kiss_fft_alloc(m_iOneFrameFFTDataCount, 0/*is_inverse_fft*/, NULL, NULL);
 	float*				l_pfWindowFunctionConstantValue = GenerateWindowsFunctionValue(m_iOneFrameFFTDataCount);		
 	int					l_iOneStepSoundCount = m_iOneFrameFFTDataCount*l_iChannels*sizeof(short);
 	float				l_fOneFrameDuration = (float)m_iOneFrameFFTDataCount/(float)m_pSoundFile->m_iSampleCount*m_pSoundFile->m_fTime;
-	int					l_iNumFFT = l_uiSameCount/m_iOneFrameFFTDataCount;
+	int					l_iNumFFT = l_iSameCount/m_iOneFrameFFTDataCount;
 	int					l_iHalfFFTCount = m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM;
 	m_iNumFFTGraph = l_iNumFFT;
 	m_pfEachFFTDataDecibles = new float[l_iNumFFT];
@@ -532,7 +532,7 @@ int		cKissFFTConvert::GetStartFFTIndexByTime(float e_fTime)
 	if( l_fPercent >= 1.f )
 		return -1;
 	size_t l_uiFFTCount = this->m_FFTDataVector.size();
-	int l_iIndexOfFFTData = l_uiFFTCount/(this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
+	int l_iIndexOfFFTData = (int)l_uiFFTCount/(this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 	int l_iStartIndex = (int)((int)(l_iIndexOfFFTData*l_fPercent)*this->m_iOneFrameFFTDataCount/WINDOWN_FUNCTION_FRUSTRUM);
 	return l_iStartIndex;
 }

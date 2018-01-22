@@ -11,20 +11,21 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock">
     <Grid>
-        <Grid.RowDefinitions>
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Menu IsMainMenu="true">
+        </Grid.RowDefinitions>-->
+        <!--<Menu IsMainMenu="true">
             <MenuItem Header="Window">
-                <!--http://www.wpftutorial.net/Menus.html-->
+                --><!--http://www.wpftutorial.net/Menus.html--><!--
                 <MenuItem Header="RenderWindow" Click="MenuItem_Click" IsCheckable="True"/>
                 <MenuItem Header="Utility" Click="MenuItem_Click" IsCheckable="True"/>
                 <MenuItem Header="MPDINodeData" Click="MenuItem_Click" IsCheckable="True"/>
                 <MenuItem Header="File" Click="MenuItem_Click" IsCheckable="True"/>
             </MenuItem>
-        </Menu>
-        <xcad:DockingManager AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1" Grid.Row="1">
+        </Menu>-->
+        <!--<xcad:DockingManager AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1" Grid.Row="1">-->
+        <xcad:DockingManager AllowMixedOrientation="True" BorderBrush="Black" BorderThickness="1" >
             <xcad:DockingManager.DocumentHeaderTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -41,12 +42,11 @@
                         </xcad:LayoutAnchorable>
                     </xcad:LayoutAnchorablePane >
                     <xcad:LayoutPanel Orientation="Vertical" >
-                            <xcad:LayoutAnchorablePane x:Name="m_MPDIDataPanel" DockHeight="340">
+                            <xcad:LayoutAnchorablePane x:Name="m_MPDIDataPanel" DockMinHeight="340">
                                 <xcad:LayoutAnchorable ContentId="document1" Title="Node2" CanClose="False" CanHide="false">
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
-                                            <MPDI:NodeCandidates/>
-                                            <CoreWPF:TreeVewDragDrop Width="200" ScrollViewer.CanContentScroll="True" Height="280" x:FieldModifier="public" x:Name="m_TreeView"/>
+                                        <MPDI:NodeCandidates x:FieldModifier="public" x:Name="m_NodeCandidates"/>
                                         </StackPanel>
                                         <my:MPDI_PathPointData x:FieldModifier="public" x:Name="m_MPDI_PathPointData"/>
                                     </StackPanel>

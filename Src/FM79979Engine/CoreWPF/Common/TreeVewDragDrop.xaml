@@ -6,7 +6,7 @@
              xmlns:my="clr-namespace:CoreWPF.Common"
              mc:Ignorable="d" >
     <Grid MinWidth="100" MinHeight="100">
-        <TreeView Name="m_TreeView" AllowDrop="True" Background="PowderBlue" Foreground="DarkBlue" FontSize="15" KeyUp="tvParameters_KeyUp" x:FieldModifier="public" MouseLeave="TreeView_MouseLeave" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItemChanged="TreeView_SelectedItemChanged">
+        <TreeView Name="m_TreeView" AllowDrop="True" Background="PowderBlue" Foreground="DarkBlue" FontSize="15" KeyUp="tvParameters_KeyUp" x:FieldModifier="public" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Visible" SelectedItemChanged="TreeView_SelectedItemChanged" ScrollViewer.ScrollChanged="TreeView_ScrollChanged" >
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="LevelUp(ctrl+↑)" Click="MenuItem_LevelUpClick"/>

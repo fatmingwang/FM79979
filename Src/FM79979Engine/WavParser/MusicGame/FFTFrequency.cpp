@@ -349,7 +349,7 @@ void	cFFTDecibelsAnalyzer::RenderFFTHitCountAndTime(cFFTFrequencyDecibels*e_pFFT
 				l_LazyPoints[i*2].y = this->m_vShowPos.y;
 				l_LazyPoints[i*2+1].y = l_LazyPoints[i*2].y+30;
 			}
-			RenderLine((float*)&l_LazyPoints[0],l_uiPickupIndexVectorSize*2,Vector4::Red,2);
+			RenderLine((float*)&l_LazyPoints[0],(int)l_uiPickupIndexVectorSize*2,Vector4::Red,2);
 		}
 	}
 }
@@ -476,7 +476,7 @@ int		FintBiggestValueInVector(std::vector<int>*e_pVector,std::vector<int>*e_pVec
 		if( l_iBiggestValue <= (*e_pVector)[l_iTargetIndex] )
 		{
 			l_iBiggestValue = (*e_pVector)[l_iTargetIndex];
-			l_iIndex = i;
+			l_iIndex = (int)i;
 		}
 	}
 	return l_iIndex;
@@ -488,7 +488,7 @@ std::vector<int> SortVectorGetOrder(std::vector<int>*e_pCompareData)
 	std::vector<int> l_Result;
 	size_t l_uiSize = e_pCompareData->size();
 	for(size_t i=0;i<l_uiSize;++i)
-		l_ResultDataToCompareVector.push_back(i);
+		l_ResultDataToCompareVector.push_back((int)i);
 	while( l_ResultDataToCompareVector.size() )
 	{
 		int l_iIndex = FintBiggestValueInVector(e_pCompareData,&l_ResultDataToCompareVector);

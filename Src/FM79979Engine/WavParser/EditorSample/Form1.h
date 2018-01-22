@@ -831,7 +831,7 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			{
 				//m_pWavWaves->Render();
 			}
-			float l_fElpaseTime = this->m_pGameApp->m_sTimeAndFPS.fElpaseTime*this->m_pGameApp->m_sfDebugValue;
+			float l_fElpaseTime = this->m_pGameApp->m_sTimeAndFPS.fElpaseTime*this->m_pGameApp->m_sfGameSpeedValue;
 			if( cGameApp::m_spSoundParser )
 					cGameApp::m_spSoundParser->Update(l_fElpaseTime);
 			if( m_pKissFFTConvertBase )
@@ -1159,7 +1159,7 @@ private: System::Void OpenFileForFFTStore_button_Click(System::Object^  sender, 
 			 cli::array<String^>^ l_strFileNames = DNCT::OpenFileAndGetNames("wav files (*.wav)|*.wav|All files (*.*)|*.*");
 			 for each(auto l_strFileName in l_strFileNames)
 			 {
-				 this->m_pGameApp->m_pFFTStoreExporter->AddFile(DNCT::GcStringToChar(l_strFileName));
+				 this->m_pGameApp->m_pFFTStoreExporter->AddFile(DNCT::GcStringToChar(l_strFileName).c_str());
 				 FFTStore_listBox->Items->Add(System::IO::Path::GetFileName(l_strFileName));
 			 }
 			 this->timer1->Enabled = true;

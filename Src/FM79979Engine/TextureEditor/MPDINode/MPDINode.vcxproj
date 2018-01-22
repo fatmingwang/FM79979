@@ -46,9 +46,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <EnableManagedIncrementalBuild>false</EnableManagedIncrementalBuild>
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\..\..\..\Media</OutDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>..\..\..\..\Media</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -136,10 +140,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CoreWPF\CoreWPF.csproj">
       <Project>{465dd0fb-be46-4e00-a957-816464e15056}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>

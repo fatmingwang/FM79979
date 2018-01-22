@@ -18,15 +18,16 @@
             <TabItem Header="CameraPose">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition MaxWidth="80"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition MaxWidth="80" Width="69*"/>
+                        <ColumnDefinition Width="38*"/>
+                        <ColumnDefinition Width="369*"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <Label Content="Current Data" x:Name="m_GameResolutionContent" />
                         <!--<Common:XYZWNumeric  Height="80"/>-->
                         <Button Content="Apply" Click="ViewWidthHeightApply"/>
                     </StackPanel>
-                    <Common:TimeWithVector Grid.Column="1" x:FieldModifier="public" x:Name="m_ViewWidthHeightUI" />
+                    <Common:TimeWithVector Grid.Column="1" x:FieldModifier="public" x:Name="m_ViewWidthHeightUI" Grid.ColumnSpan="2" />
                 </Grid>
             </TabItem>
             <TabItem Header="Angle">
@@ -41,7 +42,7 @@
                         <Button Content="Apply" Click="AngleApply"/>
                     </StackPanel>
                     <Common:TimeWithVector Grid.Column="1" x:FieldModifier="public" x:Name="m_AngleUI"/>
-                </Grid>                
+                </Grid>
             </TabItem>
             <TabItem Header="Pos">
                 <Grid Background="#FFE5E5E5">

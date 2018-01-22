@@ -16,6 +16,9 @@
     <Filter Include="Pack">
       <UniqueIdentifier>{1f3e35be-646b-48c5-b4f8-86d6d6457dc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="EarClipping">
+      <UniqueIdentifier>{1a58af3a-f99e-4b5a-8bcc-a1b53fa88f39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -29,6 +32,9 @@
     </ClCompile>
     <ClCompile Include="pack.cpp">
       <Filter>Pack</Filter>
+    </ClCompile>
+    <ClCompile Include="EarClipping.cpp">
+      <Filter>EarClipping</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +52,12 @@
     </ClInclude>
     <ClInclude Include="BinPack.h">
       <Filter>Pack</Filter>
+    </ClInclude>
+    <ClInclude Include="earcut.hpp">
+      <Filter>EarClipping</Filter>
+    </ClInclude>
+    <ClInclude Include="EarClipping.h">
+      <Filter>EarClipping</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

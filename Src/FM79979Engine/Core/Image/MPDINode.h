@@ -3,7 +3,6 @@
 #include "../Math/Frame.h"
 #include "../XML/XMLLoader.h"
 #include "../TemplateClass.h"
-#include "FMTimelineAnimationObject.h"
 #include "BaseUVImageData.h"
 #include "SubMPDIRenderPointData.h"
 
@@ -22,12 +21,15 @@ namespace FATMING_CORE
 	class	cLinerDataContainer;
 	class	cMPDINodeImageData;
 	//MDINode,different is ,contain a start pose(bind pose could move(SRT) with children)
-	class	cMPDINode:public cFMTimelineAnimationObject,public cMulti_PI_Image
+	class	cMPDINode:public cFMTimeLineAnimationRule,public cMulti_PI_Image
 	{
 	private:
 		//for internal render use(m_vWorkingRotation,m_vWorkingPosition).
 		cMatrix44						m_matAnimationMatrix;
-		virtual	void					UpdateCachedWorldTransformIfNeeded();
+		virtual	void					UpdateCachedWorldTransformIfNeeded() override;
+		//if true set child's m_vParentColor to current color or Vector4::One
+		GET_SET_DEC(bool,m_bColorEffectToChildren,IsColorEffectToChildren,SetColorEffectToChildren);
+		void							GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Vector4*e_pParentColor)> e_Function, void*e_pFrame,Vector4*e_pParentColor);
 	protected:
 		struct	s2DVertex
 		{
@@ -44,7 +46,6 @@ namespace FATMING_CORE
 	    virtual	void					InternalRender();
 		virtual	void					InternalDestroy();
 		virtual	void					InternalDebugRender();
-		virtual	void					InternalUpdateByGlobalTime(float e_fGlobalTime);
 		//
 		cLinerDataContainer*			m_pLinerDataContainer;
 		cLinerDataProcessor<Vector3>*	m_pPosLinerDataProcessor;
@@ -70,12 +71,16 @@ namespace FATMING_CORE
 		cMPDINode(cMPDINode*e_pMPDINode);
 		CLONE_MYSELF(cMPDINode);
 		virtual ~cMPDINode();
-	    virtual	void					RearrangeTime(float e_fNewTime);
-		virtual	void					RearrangeTimeByPercent(float e_fPercenttage);
-	    virtual	void					RenderByGlobalTime(float e_fTime);
-	    virtual	void					InvertOrder();
+		virtual void					UpdateNodes(float e_fElpaseTime) override;
+		virtual	void					RenderNodes() override;
+		virtual	void					UpdateByGlobalTime(float e_fGlobalTime) override;
+		virtual	void					UpdateNodesByGlobalTime(float e_fGlobalTime);
+	    virtual	void					RearrangeTime(float e_fNewTime) override;
+		virtual	void					RearrangeTimeByPercent(float e_fPercenttage) override;
+	    virtual	void					RenderByGlobalTime(float e_fTime) override;
+	    virtual	void					InvertOrder() override;
 	    //start and last time.
-	    virtual	float					GetEndTime();
+	    virtual	float					GetEndTime() override;
 		void							RefreshMaxLinerDataPlayTime();
 		float							GetMaxLinerDataPlayTime();
 		//for extra data
@@ -85,7 +90,7 @@ namespace FATMING_CORE
 		cLinerDataProcessor<Vector2>*	GetSizeData();
 		cLinerDataProcessor<Vector3>*	GetRotationData();
 		cMPDINodeImageData*				GetImageData();
-		//cMatrix44						GetAnimationMatrix(){return m_matAnimationMatrix;}
+		cMatrix44						GetAnimationMatrix(){return m_matAnimationMatrix;}
 	};
 
 	class	cMPDINodeImageData:public cTimeAndDataLinerUpdateInterface

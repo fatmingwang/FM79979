@@ -5,17 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              xmlns:local="clr-namespace:CoreWPF.Common"
-             x:Name="mainControl">
+             x:Name="mainControl">    
     <UserControl.Resources>
-
+        <!--<ContextMenu x:Key="DisplayModeTemplate2">
+                <MenuItem Header="Rename" Click="MenuItem_RenameClick"/>
+            </ContextMenu>-->
         <DataTemplate x:Key="EditModeTemplate">
-            <TextBox KeyDown="TextBox_KeyDown" Loaded="TextBox_Loaded" LostFocus="TextBox_LostFocus"
+            <TextBox KeyDown="TextBox_KeyDown" Loaded="TextBox_Loaded" MouseLeave="TextBox_MouseLeave"  LostFocus="TextBox_LostFocus" 
                      Text="{Binding ElementName=mainControl, Path=Text, UpdateSourceTrigger=PropertyChanged}"
-                     Margin="0" BorderThickness="1" />
+                     Margin="0" BorderThickness="1" >
+            </TextBox>
         </DataTemplate>
 
         <DataTemplate x:Key="DisplayModeTemplate">
-            <TextBlock Text="{Binding ElementName=mainControl, Path=FormattedText}" Margin="5,3,5,3" />
+            <TextBlock Text="{Binding ElementName=mainControl, Path=FormattedText}" >
+                <TextBlock.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Rename" Click="MenuItem_RenameClick"/>
+                    </ContextMenu>
+                </TextBlock.ContextMenu>                
+            </TextBlock>
         </DataTemplate>
 
         <Style TargetType="{x:Type local:EditableTextBlock}">
