@@ -51,8 +51,9 @@ namespace FATMING_CORE
 	:cBaseImage(e_pPuzzleImageParent)
 	{
 		SetName(e_pPuzzleData->strFileName);
-		m_pNext = 0;
-		m_pPrior = 0;
+		//m_pHintPointVectorFromPIEditor = nullptr;
+		m_pNext = nullptr;
+		m_pPrior = nullptr;
 		memcpy(this->m_fUV,e_pPuzzleData->fUV,sizeof(float)*4);
 		this->m_OffsetPos = e_pPuzzleData->OffsetPos;
 		this->m_iWidth  = e_pPuzzleData->Size.x;
@@ -64,15 +65,27 @@ namespace FATMING_CORE
 	cPuzzleImageUnit::cPuzzleImageUnit(cPuzzleImageUnit*e_pPuzzleImageUnit):cBaseImage(e_pPuzzleImageUnit)
 	{
 		SetName(e_pPuzzleImageUnit->GetName());
+		//m_pHintPointVectorFromPIEditor = nullptr;
+		//if (e_pPuzzleImageUnit->m_pHintPointVectorFromPIEditor)
+		//{
+		//	m_pHintPointVectorFromPIEditor = new std::vector<Vector2>;
+		//	*m_pHintPointVectorFromPIEditor = *e_pPuzzleImageUnit->m_pHintPointVectorFromPIEditor;
+		//}
 		m_pPuzzleData = e_pPuzzleImageUnit->m_pPuzzleData;
 		m_pNext = e_pPuzzleImageUnit->GetNext();
 		m_pPrior = e_pPuzzleImageUnit->GetPrior();
 	}
 	cPuzzleImageUnit::cPuzzleImageUnit(cBaseImage*e_pBaseImage):cBaseImage(e_pBaseImage)
 	{
-		m_pPuzzleData = 0;
-		m_pNext = 0;
-		m_pPrior = 0;
+		//m_pHintPointVectorFromPIEditor = nullptr;
+		m_pPuzzleData = nullptr;
+		m_pNext = nullptr;
+		m_pPrior = nullptr;
+	}
+
+	cPuzzleImageUnit::~cPuzzleImageUnit()
+	{
+		//SAFE_DELETE(m_pHintPointVectorFromPIEditor);
 	}
 
 	//<cPuzzleImageUnit PI="" PIUnit="" Name="" Pos="" Color=""/>
@@ -168,7 +181,6 @@ namespace FATMING_CORE
 				SAFE_DELETE(m_ppPuzzleData[i]);
 			SAFE_DELETE_ARRAY(m_ppPuzzleData);
 		}
-		//DELETE_VECTOR(m_PuzzleImageChildrenList,cPuzzleImage*);
 	}
 
 	void	cPuzzleImage::GenerateAllPuzzleImageUnit()

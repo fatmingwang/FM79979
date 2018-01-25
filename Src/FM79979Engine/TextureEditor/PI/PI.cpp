@@ -8,7 +8,7 @@
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
 #include "../../../include/vld.h"
-#pragma comment(lib, "../../../lib/vld.lib")
+//#pragma comment(lib, "../../../lib/vld.lib")
 using namespace System::Drawing::Imaging;
 namespace PI
 {
@@ -876,11 +876,123 @@ namespace PI
 //end namespace
 }
 
+void SaveFile(const char*e_strFileName,unsigned char*e_pData,size_t e_uiFileSize)
+{
+	int l_iWidth = 0;
+	int l_iHeight = 0;
+	memcpy(&l_iWidth, e_pData, sizeof(int)); e_pData += sizeof(int);
+	memcpy(&l_iHeight, e_pData, sizeof(int)); e_pData += sizeof(int);
+	/*memcpy(&width, RomBuf, sizeof(int));*/ e_pData += sizeof(int);
+	/*memcpy(&height, RomBuf, sizeof(int));*/ e_pData += sizeof(int);
+	SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, e_pData, 4);
+}
+
+void LoadROMData(const char * chFileName)
+{
+	GLubyte ID[9], ID2[9], ID3[9], bDataReserve;
+	DWORD	length;
+	char TempFileName[128];
+	FILE *file;
+	unsigned char *buffer;
+	int  size;
+	sprintf(TempFileName, "%s", chFileName);
+	file = fopen(TempFileName, "rb");
+	fseek(file, 0, SEEK_END);
+	size = ftell(file);
+	fseek(file, 0, SEEK_SET);
+	buffer = (unsigned char *)malloc(size);
+	if ((buffer != nullptr) && (size != 0))
+	{
+		fread(buffer, size, 1, file);
+	}
+	fclose(file);
+	auto RomData = buffer;
+	auto RomBuf = RomData;
+	ID[8] = '\0';
+	ID2[8] = '\0';
+	ID3[8] = '\0';
+	// 檢查檔案識別碼		
+	memcpy(ID, RomBuf, 8); RomBuf += 8;
+	memcpy(&length, RomBuf, 4); RomBuf += 4;
+	if (memcmp(ID, "ACT_CC2D", 8) && memcmp(ID, "ACT_ZL3D", 8))
+	{
+		assert(0);
+	}
+	int TotalDDS = 0;
+	int TotalETC = 0;
+	int TotalImage = 0;
+	int TotalAction = 0;
+	int TotalFontImage = 0;
+	int l_iIndex = 0;
+	std::string l_strDirectory = UT::GetFileNameWithoutFullPath(chFileName);
+	do
+	{
+		std::string l_strFileName = l_strDirectory;
+		l_strFileName += "/File";
+		l_strFileName += ValueToString(l_iIndex);
+		memcpy(ID, RomBuf, 8); RomBuf += 8;
+		memcpy(&length, RomBuf, 4); RomBuf += 4;
+		++l_iIndex;
+		if (!memcmp(ID, "TGA_OPGL", 8))
+		{ // TGA 圖形 for OpenGL
+
+			memcpy(&bDataReserve, RomBuf, 1); RomBuf += 1;
+			l_strFileName += ".png";
+			SaveFile(l_strFileName.c_str(), RomBuf, length);
+			RomBuf += (length - 1);
+			TotalImage++;
+		}
+		else if (!memcmp(ID, "DDS_OPGL", 8))
+		{ // DDS 圖形
+			l_strFileName += ".dds";
+			SaveFile(l_strFileName.c_str(), RomBuf, length);
+			RomBuf += length;
+			TotalDDS++;
+			TotalImage++;
+		}
+		else if (!memcmp(ID, "ETC_OPGL", 8))
+		{ // DDS 圖形 
+			l_strFileName += ".etc";
+			OutputDebugString(L"etc file:");
+			OutputDebugString(UT::CharToWchar(l_strFileName).c_str());
+			OutputDebugString(L"\n");
+//			SaveFile(l_strFileName.c_str(), RomBuf, length);
+			RomBuf += length;
+			TotalETC++;
+			TotalImage++;
+		}
+		else if (!memcmp(ID, "ACT_DATA", 8))
+		{ // action data                        
+			RomBuf += length;
+		}
+		else if (!memcmp(ID, "FILE_END", 8)) break;// 結束
+		else
+		{
+			RomBuf += length;
+		}
+	} while (1);
+
+	free(buffer);
+}
+void SaveRomFile()
+{
+	auto l_strFileNames = DNCT::OpenFileAndGetNames();
+	if (l_strFileNames)
+	{
+		for each (auto l_strFileName in l_strFileNames)
+		{
+			std::string l_strFinalName = ::GcStringToChar(l_strFileName);
+			LoadROMData(l_strFinalName.c_str());
+		}
+	}
+}
+
 #ifndef USER_CONTROL_ENABLE
 
 [STAThreadAttribute]
 int main(cli::array<System::String ^> ^args)
 {
+	//SaveRomFile();
 	ilInit();
 	alutInit (0,0);
 	// Enabling Windows XP visual effects before any controls are created

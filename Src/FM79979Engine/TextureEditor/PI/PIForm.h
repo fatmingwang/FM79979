@@ -284,6 +284,8 @@ private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
 private: System::Windows::Forms::ToolStripMenuItem^  toolToolStripMenuItem;
 private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripMenuItem;
 private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
+private: System::Windows::Forms::Label^  MouseBehavior_label;
+private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -375,6 +377,8 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 			this->AddAnimationImage_button = (gcnew System::Windows::Forms::Button());
 			this->AnimationData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
+			this->MouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->MouseBehavior_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -723,6 +727,8 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 			// splitContainer1.Panel1
 			// 
 			this->splitContainer1->Panel1->BackColor = System::Drawing::SystemColors::ControlDarkDark;
+			this->splitContainer1->Panel1->Controls->Add(this->MouseBehavior_label);
+			this->splitContainer1->Panel1->Controls->Add(this->MouseBehavior_comboBox);
 			this->splitContainer1->Panel1->Controls->Add(this->AutoAligment_checkBox);
 			this->splitContainer1->Panel1->Controls->Add(this->BinaryExport_checkBox);
 			this->splitContainer1->Panel1->Controls->Add(this->ImageSaveAsDDS_checkBox);
@@ -1261,6 +1267,27 @@ private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 			this->splitContainer2->SplitterDistance = 356;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
+			// 
+			// MouseBehavior_comboBox
+			// 
+			this->MouseBehavior_comboBox->FormattingEnabled = true;
+			this->MouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
+				L"MoveImage", L"AddImagePoint", L"MoveImagePoint",
+					L"DeleteImagePoint"
+			});
+			this->MouseBehavior_comboBox->Location = System::Drawing::Point(718, 133);
+			this->MouseBehavior_comboBox->Name = L"MouseBehavior_comboBox";
+			this->MouseBehavior_comboBox->Size = System::Drawing::Size(121, 20);
+			this->MouseBehavior_comboBox->TabIndex = 86;
+			// 
+			// MouseBehavior_label
+			// 
+			this->MouseBehavior_label->AutoSize = true;
+			this->MouseBehavior_label->Location = System::Drawing::Point(633, 140);
+			this->MouseBehavior_label->Name = L"MouseBehavior_label";
+			this->MouseBehavior_label->Size = System::Drawing::Size(79, 12);
+			this->MouseBehavior_label->TabIndex = 87;
+			this->MouseBehavior_label->Text = L"MouseBehavior";
 			// 
 			// cPIEditor
 			// 

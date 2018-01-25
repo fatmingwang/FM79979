@@ -102,7 +102,7 @@ namespace DNCT
 			//windows if BGRA
 			//ilCopyPixels(0, 0, 0, iW, iH, 1, IL_BGRA, IL_UNSIGNED_BYTE, pScan0);
 			//
-			ilCopyPixels(0, 0, 0, iW, iH, 1, IL_RGBA, IL_UNSIGNED_BYTE, pScan0);
+			ilCopyPixels(0, 0, 0, iW, iH, 1, IL_BGRA, IL_UNSIGNED_BYTE, pScan0);
 			
 			ilDeleteImages(1, &s_iImageID);
 

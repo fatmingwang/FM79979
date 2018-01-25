@@ -79,7 +79,7 @@ static NvS32 size_image(NvS32 width, NvS32 height, const NVHHDDSImage* image)
 
 //================================================================================
 //================================================================================
-static NvS32 total_image_data_size(NVHHDDSImage* image)
+NvS32 total_image_data_size(NVHHDDSImage* image)
 {
     NvS32 i, j, index = 0, size=0, w, h;
     NvS32 cubeCount = image->cubemap ? 6 : 1;

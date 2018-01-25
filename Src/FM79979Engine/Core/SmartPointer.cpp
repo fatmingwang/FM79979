@@ -18,7 +18,6 @@ cSmartObject::cSmartObject(NamedTypedObject*e_pNamedTypedObject)
 
 cSmartObject::~cSmartObject()
 {
-	cFUSynchronizedHold hold(&m_refCounterLock);
 	assert(m_ReferenceList.Count() == 0);
 	assert(m_refCount == 0);
 }
@@ -92,8 +91,6 @@ int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 			l_b = true;
 		}
 		assert(l_b&&"fuck no this pointer!!");
-		//cFUSynchronizedHold hold(&m_refCounterLock);
-		cFUSynchronizedHold*l_pHold = new cFUSynchronizedHold(&m_refCounterLock);
 		m_refCount--;
 		int	l_refCount = m_refCount;
 		assert(m_ReferenceList.Count() == l_refCount);
@@ -103,7 +100,6 @@ int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 			DumpInfo(L"AddRefCount:",this,e_pNamedTypedObject);
 		}
 #endif
-		delete l_pHold;
 		if( l_refCount <= 0 )
 		{
 			//if( e_bDelete )

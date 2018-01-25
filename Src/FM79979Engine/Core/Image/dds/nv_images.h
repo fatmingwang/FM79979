@@ -44,6 +44,12 @@ GLuint NvCreateTextureFromDDSEx(const char* filename, NvBool flipVertical,
 
 GLuint NvCreateTextureFromHHDDSImage(const NVHHDDSImage& image,
                                 NvBool useMipmaps, NvS32* width, NvS32* height, NvBool* alpha, NvBool *isCubeMap);
+//no mip map cannt be cube map and delete return pixeldata!
+//int width; int height; NvBool alpha; int l_iImagePixelSize = 0;
+//auto l_strFileName = DNCT::GcStringToChar(e_strFileName);
+//auto l_pPixelData = GetPixelsFromDDS(l_strFileName.c_str(), &width, &height, &alpha, &l_iImagePixelSize);
+//dont use this because the pixel data is compressed...
+void*	GetPixelsFromDDS(const char* filename,NvS32* width, NvS32* height, NvBool* alpha,int*e_piImageSize);
+bool	GetInfoFromDDS(const char* filename, NvS32* width, NvS32* height, NvBool* alpha);
 
 #endif
-

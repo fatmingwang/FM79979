@@ -533,8 +533,15 @@ namespace FATMING_CORE
 
 	void	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel)
 	{
+		std::string l_strExtensionName = GetFileExtensionName(e_strFileName);
 	#ifndef IOS
-		jpge::compress_image_to_jpeg_file(e_strFileName, e_iWidth, e_iHeight, e_iChannel, e_pPixel);
+		if (l_strExtensionName.compare("png") || l_strExtensionName.compare("PNG"))
+		{
+			//8bit?
+			lodepng_encode_file(e_strFileName, e_pPixel, e_iWidth,e_iHeight, e_iChannel==3?LodePNGColorType::LCT_RGB: LodePNGColorType ::LCT_RGBA,8);
+		}
+		else
+			jpge::compress_image_to_jpeg_file(e_strFileName, e_iWidth, e_iHeight, e_iChannel, e_pPixel);
 	#else
 		captureToPhotoAlbum();
 	#endif

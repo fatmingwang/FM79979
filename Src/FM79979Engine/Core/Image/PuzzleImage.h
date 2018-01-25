@@ -63,13 +63,15 @@ namespace FATMING_CORE
 		GET_SET_DEC(cPuzzleImageUnit*,m_pNext,GetNext,SetNext);
 		GET_SET_DEC(cPuzzleImageUnit*,m_pPrior,GetPrior,SetPrior);
 		sPuzzleData*m_pPuzzleData;
+		//do we need this one?
+		//GET_SET_DEC(std::vector<Vector2>*,m_pHintPointVectorFromPIEditor,GetHintPointVectorFromPIEditor,SetHintPointVectorFromPIEditor);
 	public:
 		DEFINE_TYPE_INFO()
 		cPuzzleImageUnit(sPuzzleData*e_pPuzzleData,cPuzzleImage*e_pPuzzleImageParent);
 		cPuzzleImageUnit(cPuzzleImageUnit*e_pPuzzleImageUnit);
 		cPuzzleImageUnit(cBaseImage*e_pBaseImage);
 		CLONE_MYSELF(cPuzzleImageUnit);
-		virtual ~cPuzzleImageUnit(){}
+		virtual ~cPuzzleImageUnit();
 		sPuzzleData*					GetPuzzleData(){return m_pPuzzleData;}
 		static	cPuzzleImageUnit*		GetMe(TiXmlElement*e_pElement,bool e_bClone = true);
 	};
@@ -183,8 +185,6 @@ namespace FATMING_CORE
 		GET_SET_DEC(int,m_iNumImage,GetNumImage,SetNumImage);
 		//image data uv offset pos and name....
 		GET_SET_DEC(sPuzzleData**,m_ppPuzzleData,GetPuzzleData,SetPuzzleData);
-		//if u wanna to merge 2 puzzle image,u could call DumpIntoPuzzleImage.so we could merge.
-		//std::vector<cPuzzleImage*>		m_PuzzleImageChildrenList;
 
 		//internal using,generate all image unit while parse data is done
 		void	GenerateAllPuzzleImageUnit();

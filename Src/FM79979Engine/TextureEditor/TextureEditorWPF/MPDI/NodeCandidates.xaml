@@ -15,7 +15,6 @@
                 <ComboBoxItem Content="MPDINode" />
             </ComboBox>
             <Border>
-                <!---->
                 <my:EditableTextBlock x:Name="m_NodeNmaeEditableTextBlock" Text="Node" MinWidth="100" Background="Gray" MouseLeftButtonDown="Border_MouseLeftButtonDown"/>
             </Border>
         </StackPanel>

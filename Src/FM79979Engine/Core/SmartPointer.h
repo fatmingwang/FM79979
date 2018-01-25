@@ -27,14 +27,12 @@ Implements the System Functions.
 //any object inhiretance cSmartObject,make sure u are not calling delete but release
 //or u have to know u have control resource very well
 //====================
-class cSmartObject:public NamedTypedObject,public cFUSynchronized
+class cSmartObject:public NamedTypedObject
 {
 private:
 
 	/// Reference Counter
 	int m_refCount;
-	/// Lock
-	cFUSynchronized m_refCounterLock;
 	cNamedTypedObjectVector<NamedTypedObject>	m_ReferenceList;
 protected:
 	cSmartObject();
@@ -67,6 +65,5 @@ public:
 //	aa():cSmartObject(this){ a = new int[50]; }
 //	~aa(){ delete a; }
 //};
-
 
 #endif

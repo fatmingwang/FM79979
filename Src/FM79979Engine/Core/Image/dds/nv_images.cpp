@@ -27,6 +27,7 @@
 
 #include "nv_images.h"
 #include "../../GameplayUT/GameApp.h"
+#include "nv_hhdds_internal.h"
 //#include <nv_log/nv_log.h>
 
 //#include <nv_file/nv_file.h>
@@ -86,6 +87,51 @@ static int LoadTextureFromDDSData(GLenum target, NvS32 startLevel, const NVHHDDS
     return 1;
 }
 
+bool	GetInfoFromDDS(const char* filename, NvS32* width, NvS32* height)
+{
+	NvFile*l_pNvFile = MyFileOpen(filename, "rb");
+	if (l_pNvFile)
+	{
+		DDS_HEADER ddsh;
+		char filecode[4];
+		// read in file marker, make sure its a DDS file
+		NvFRead(filecode, 1, 4, l_pNvFile);
+		if (memcmp(filecode, "DDS ", 4) != 0)
+		{
+			NvFClose(l_pNvFile);
+			return false;
+		}
+		// read in DDS header
+		NvFRead(&ddsh, sizeof(ddsh), 1, l_pNvFile);
+		NvFClose(l_pNvFile);
+		if(width)
+			*width = ddsh.dwWidth;
+		if(height)
+			*height = ddsh.dwHeight;
+		return true;
+	}
+	return false;
+}
+//extern NvS32 total_image_data_size(NVHHDDSImage* image);
+void*	GetPixelsFromDDS(const char* filename, NvS32* width, NvS32* height, NvBool* alpha, int*e_piImageSize)
+{
+	void*l_pResultData = nullptr;
+	NVHHDDSImage *img = NVHHDDSLoad(filename, 0);
+	if (!img)
+		return nullptr;
+	if (e_piImageSize)
+		*e_piImageSize = total_image_data_size(img)*4;//rgba
+	if (width)
+		*width = img->width;
+	if (height)
+		*height = img->height;
+	if (alpha)
+		*alpha = img->alpha ? NV_TRUE : NV_FALSE;
+	l_pResultData = img->dataBlock;
+	img->dataBlock = nullptr;
+	NVHHDDSFree(img);
+	return l_pResultData;
+}
 
 GLuint NvCreateTextureFromDDSEx(const char* filename, NvBool flipVertical, NvBool useMipmaps, NvS32* width, NvS32* height, NvBool* alpha, NvBool *isCubeMap)
 {

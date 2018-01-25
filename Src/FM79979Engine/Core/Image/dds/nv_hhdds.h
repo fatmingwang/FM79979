@@ -256,6 +256,7 @@ NVHHDDSImage *NVCompressToDXT(NVHHDDSImage *srcImage, NvS32 toFormat, NvS32 bMak
 */
 void          NVCompressFlush(void);
 
+NvS32			total_image_data_size(NVHHDDSImage* image);
 
 #ifdef __cplusplus
 }

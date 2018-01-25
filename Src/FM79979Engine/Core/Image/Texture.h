@@ -72,3 +72,15 @@ namespace FATMING_CORE
 	//glGetTexImage( GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_pPixels );
 	//m_iPixelFormat = GL_RGBA;
 }
+//get texture infomation
+////https://www.opengl.org/discussion_boards/showthread.php/154674-Save-compressed-texture
+//GLint imageFormat = 0;
+//GLenum l_Para = { GL_TEXTURE_COMPRESSED , };
+//glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_INTERNAL_FORMAT, &amp; imageFormat);
+//
+//GLint dataSize = 0;
+//glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_COMPRESSED_IMAGE_SIZE_ARB, &amp; dataSize);
+//
+//unsigned char* imageData = (unsigned char*)malloc(dataSize);
+//glGetCompressedTexImageARB(GL_TEXTURE_2D, 0, imageData);
+//free(imageData);
