@@ -22,7 +22,7 @@
     <ProjectGuid>{D5962A80-CFCF-437A-B224-01C03CF9FD1A}</ProjectGuid>
     <RootNamespace>Core</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -184,6 +184,7 @@
     <ClCompile Include="Image\SubMPDI.cpp" />
     <ClCompile Include="Image\SubMPDIRenderPointData.cpp" />
     <ClCompile Include="Image\VideoSubMPDI.cpp" />
+    <ClCompile Include="Synchronization\CPP11Thread.cpp" />
     <ClCompile Include="TimeUT.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="XML\LazyXmlParser.cpp" />
@@ -341,6 +342,7 @@
     <ClInclude Include="Image\SubMPDI.h" />
     <ClInclude Include="Image\SubMPDIRenderPointData.h" />
     <ClInclude Include="Image\VideoSubMPDI.h" />
+    <ClInclude Include="Synchronization\CPP11Thread.h" />
     <ClInclude Include="XML\LazyXmlParser.h" />
     <ClInclude Include="XML\StringToStructure.h" />
     <ClInclude Include="XML\XMLLoader.h" />

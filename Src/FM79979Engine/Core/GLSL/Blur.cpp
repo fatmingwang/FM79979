@@ -27,7 +27,7 @@ namespace FATMING_CORE
 		l_pBlurShader->m_vResolutionOffset.x = 0;
 		return l_pBlurShader;
 	}
-	cBlurShader::cBlurShader(const char*e_strVS,const char*e_strPS,POINT e_Resolution,wchar_t*e_strName)
+	cBlurShader::cBlurShader(const char*e_strVS,const char*e_strPS,POINT e_Resolution, const wchar_t*e_strName)
 	:cBaseShader(e_strVS,e_strPS,e_strName,true)
 	{
 		m_pFrameBuffer = new cFrameBuffer(e_Resolution.x,e_Resolution.y);

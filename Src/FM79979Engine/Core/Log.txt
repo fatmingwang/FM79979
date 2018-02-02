@@ -158,3 +158,19 @@ https://social.msdn.microsoft.com/Forums/vstudio/en-US/5e126c79-77f3-4d50-a47f-a
 I had to do something very similar to fix this issue.   
 In our case we had to differentiate between the debug and release versions.
 So, when doing a release build, ignore msvcrtd.lib, and in debug build ignore msvcrt.lib
+
+
+29/Jan/2018
+how to use precompiled header where the folder we want
+https://stackoverflow.com/questions/6096384/how-to-fix-pch-file-missing-on-build
+sometimes we just want use precompiled header in a special folder
+right click on the stdafx.cpp
+go to c++->precompiled header select  Precompiled Header Create (/Yc).
+
+
+2/Feb/2018
+https://www.google.com.tw/search?q=inheritance&spell=1&sa=X&ved=0ahUKEwjzq87xlobZAhXGErwKHWamCNYQBQgiKAA&biw=1536&bih=756
+while inherited 2 object which parent devired from same class,it need add virtual public,
+or the data would be wrong.
+virtual inheritance
+ex:cCPP11Thread

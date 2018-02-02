@@ -161,7 +161,7 @@ namespace	FATMING_CORE
 		static	cBinaryFile*										m_spLogFile;
 		static	std::string*										m_psstrGameAppName;
 		//=================================================
-		static	void					ResoluctionParse(char*e_strFileName);
+		static	void					ResoluctionParse(const char*e_strFileName);
 
 		static	Vector2					GetViewPortAndGameResolutionScale();
 		static	void					ApplyViewPort();
@@ -222,7 +222,7 @@ namespace	FATMING_CORE
 
 #ifdef WIN32
 #include "Psapi.h"
-void PrintMemoryInfo(wchar_t*e_strName = L"Memory");
+void PrintMemoryInfo(const wchar_t*e_strName = L"Memory");
 void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd);
 #endif
 

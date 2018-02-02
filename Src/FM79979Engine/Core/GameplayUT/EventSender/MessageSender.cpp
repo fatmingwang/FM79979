@@ -45,15 +45,7 @@ namespace FATMING_CORE
 		}
 		if (m_pParent)
 		{
-			size_t	l_uiSize = m_pParent->m_AllMessageSenderVector.size();
-			for (size_t i = 0; i < l_uiSize; i++)
-			{
-				if (m_pParent->m_AllMessageSenderVector[i] == this)
-				{
-					m_pParent->m_AllMessageSenderVector.erase(m_pParent->m_AllMessageSenderVector.begin() + i);
-					break;
-				}
-			}
+			m_pParent->RemoveMessageSender((size_t)this);
 			m_pParent = nullptr;
 		}
 	}
@@ -63,8 +55,8 @@ namespace FATMING_CORE
 		if (m_pParent == nullptr)
 		{
 			assert(g_pMessageSenderManager&&"please create cMessageSenderManager first");
+			g_pMessageSenderManager->AddMessageSender((size_t)this, this);
 			m_pParent = g_pMessageSenderManager;
-			m_pParent->m_AllMessageSenderVector.push_back(this);
 		}
 	}
 
@@ -90,7 +82,7 @@ namespace FATMING_CORE
 			l_pVector->push_back(l_EventFunction);
 			return true;
 		}
-		return false;
+return false;
 	}
 
 	bool	cMessageSender::UnregNetworkMessageFunction(unsigned int e_usID)
@@ -104,6 +96,7 @@ namespace FATMING_CORE
 				size_t l_uiSize = l_pVector->size();
 				for (size_t i = 0; i < l_uiSize; i++)
 				{
+					//basicly only have one,is it need to break?
 					if ((*l_pVector)[i]->uiAddress == (size_t)this)
 					{
 						delete (*l_pVector)[i];
@@ -138,6 +131,7 @@ namespace FATMING_CORE
 				size_t l_uiSize = l_pVector->size();
 				for (size_t i = 0; i < l_uiSize; i++)
 				{
+					//basicly only have one,is it need to break?
 					if ((*l_pVector)[i]->uiAddress == (size_t)this)
 					{
 						delete (*l_pVector)[i];
@@ -167,13 +161,9 @@ namespace FATMING_CORE
 	}
 	cMessageSenderManager::~cMessageSenderManager()
 	{
-		//for(size_t	i = 0;i<m_AllMessageSenderVector.size();++i)
-		//{
-		//	m_AllMessageSenderVector[i]->UnregistorAll();
-		//}
-		while (m_AllMessageSenderVector.size())
-		{
-			m_AllMessageSenderVector[0]->UnregistorAll();
+		while(m_AllMessageSenderMap.size())
+		{//UnregistorAll will erase from m_AllMessageSenderMap
+			m_AllMessageSenderMap.begin()->second->UnregistorAll();
 		}
 		while (m_WaitForEmitEvent.size())
 		{
@@ -183,6 +173,21 @@ namespace FATMING_CORE
 		assert(m_NetworkMessageFunctionAndObjectIDMap.size() == 0);
 		assert(m_EventFunctionAndTypeMap.size() == 0);
 		g_pMessageSenderManager = nullptr;
+	}
+
+	void	cMessageSenderManager::AddMessageSender(size_t e_uiAddress, cMessageSender*e_pMessageSender)
+	{
+		assert(m_AllMessageSenderMap[e_uiAddress] == nullptr && "AddMessageSender!!add again!?");
+		m_AllMessageSenderMap.insert(std::make_pair(e_uiAddress, e_pMessageSender));
+	}
+
+	void	cMessageSenderManager::RemoveMessageSender(size_t e_uiAddress)
+	{
+		auto l_Iterator = m_AllMessageSenderMap.find(e_uiAddress);
+		if (l_Iterator != m_AllMessageSenderMap.end())
+		{
+			m_AllMessageSenderMap.erase(e_uiAddress);
+		}
 	}
 
 	bool cMessageSenderManager::NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sReceivedPacket* e_pPacket)

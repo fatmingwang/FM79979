@@ -235,7 +235,7 @@ namespace	FATMING_CORE
 	}
 
 	//<root FullScreen="0" Resolution="960,640" ViewPort="960,640" DeviceOrietation="0" />
-	void	cGameApp::ResoluctionParse(char*e_strFileName)
+	void	cGameApp::ResoluctionParse(const char*e_strFileName)
 	{
 		cNodeISAX	l_NodeISAX;
 		bool	l_bFullScreen = false;

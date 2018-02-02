@@ -265,7 +265,6 @@ namespace FATMING_CORE
 	{
 		if( !m_bVisible )
 			return;
-		m_pTexture->ApplyImage();
 		Vector3	l_vPos((float)e_iX,(float)e_iY,0.f);
 		Render(l_vPos);
 	}

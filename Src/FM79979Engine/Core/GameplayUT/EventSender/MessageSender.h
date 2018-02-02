@@ -75,9 +75,12 @@ namespace FATMING_CORE
 			sWaitEmitEvent() { pData = nullptr; memset(cData, sizeof(char), WAIT_EMIT_EVENT_DATA_SIZE); }
 			~sWaitEmitEvent() {}
 		};
-	public:
-		std::vector<cMessageSender*>	m_AllMessageSenderVector;
-		//vector<size_t> as many as senders.
+		void				AddMessageSender(size_t e_uiAddress,cMessageSender*e_pMessageSender);
+		void				RemoveMessageSender(size_t e_uiAddress);
+	private:
+		//key is address
+		std::map<size_t,cMessageSender*>	m_AllMessageSenderMap;
+		//
 		std::map< unsigned int, std::vector<sNetworkMessageFunctionAndObjectID*> >	m_NetworkMessageFunctionAndObjectIDMap;
 		//fix memory leak problem
 		std::map< unsigned int, std::vector<sEventFunctionAndType*> >				m_EventFunctionAndTypeMap;

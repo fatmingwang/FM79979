@@ -49,6 +49,7 @@ namespace FATMING_CORE
 		bool				m_bBigEndian;
 #ifdef WIN32
 		HANDLE				m_FileHandle;
+		int					m_iFileDescriptor;
 #endif
 	public:
 		cBinaryFile(bool e_bBigEndian = true);

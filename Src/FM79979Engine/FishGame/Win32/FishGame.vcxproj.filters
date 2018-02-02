@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b13646de-642b-4e6b-8e4a-816c903ffd04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ControlPanel">
+      <UniqueIdentifier>{11f3ff6d-43cd-448a-9340-aee8631a95fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameEffect">
+      <UniqueIdentifier>{33fa6224-0e14-4a86-8763-fb2c8c77f7dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Monster">
+      <UniqueIdentifier>{d6330cd5-8a02-4e72-a179-ef41ce016bee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{99b0ac27-0ecd-4918-901d-8def422eea05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Probability">
+      <UniqueIdentifier>{320a763b-4661-4171-8e93-b9c6ca7590eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\RenderLayer">
+      <UniqueIdentifier>{d98cc634-f099-436b-b8f0-a9da5b4f06ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene">
+      <UniqueIdentifier>{6023873b-f18c-4e8f-99d9-bc98bb75411c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\WriteFile">
+      <UniqueIdentifier>{bce53fbe-a77a-4886-9f09-d694468f493e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Bullet">
+      <UniqueIdentifier>{36529e92-de2f-47f0-919f-8fa180932f63}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\Sample.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\TestShader.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\WriteFile\WriteFile.cpp">
+      <Filter>Game\WriteFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Bullet\Bullet.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Bullet\BulletManager.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp">
+      <Filter>Game\Probability</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Scene\SceneManager.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameApp\GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameApp\TestShader.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h">
+      <Filter>Game\RenderLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Monster\MonsterBase.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\WriteFile\WriteFile.h">
+      <Filter>Game\WriteFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerBehaviorBase.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerData.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Monster\MonsterManager.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Bullet\Bullet.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Bullet\BulletManager.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Probability\ProbabilityMain.h">
+      <Filter>Game\Probability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Scene\SceneManager.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

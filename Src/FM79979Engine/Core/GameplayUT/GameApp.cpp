@@ -873,7 +873,7 @@ namespace	FATMING_CORE
 	//end namespace
 }
 #ifdef WIN32
-void PrintMemoryInfo(wchar_t*e_strName)
+void PrintMemoryInfo(const wchar_t*e_strName)
 //void PrintMemoryInfo( unsigned long processID )
 {
 	unsigned long processID = GetCurrentProcessId();

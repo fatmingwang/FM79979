@@ -722,6 +722,9 @@
     <ClCompile Include="Image\RenderQueue\RenderCommand.cpp">
       <Filter>RenderObject\RenderQueue</Filter>
     </ClCompile>
+    <ClCompile Include="Synchronization\CPP11Thread.cpp">
+      <Filter>Synchronization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1251,6 +1254,9 @@
     </ClInclude>
     <ClInclude Include="Image\RenderQueue\RenderQueueManager.h">
       <Filter>RenderObject\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="Synchronization\CPP11Thread.h">
+      <Filter>Synchronization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -16,9 +16,10 @@ namespace FATMING_CORE
 			SwapToPc();
 		else
 			SwapToXBOX();
-		m_pData = 0;
-		m_pFile = 0;
+		m_pData = nullptr;
+		m_pFile = nullptr;
 #ifdef WIN32
+		m_iFileDescriptor = -1;
 		m_FileHandle = 0;
 #endif
 	}
@@ -187,10 +188,13 @@ namespace FATMING_CORE
 	{
 		if(m_pFile)
 		{
-			NvFFlush(m_pFile);
 #ifdef WIN32
 			if( m_FileHandle )
 				FlushFileBuffers(m_FileHandle);
+			else
+				NvFFlush(m_pFile);
+#else
+			NvFFlush(m_pFile);
 #endif
 			return true;
 		}
@@ -205,32 +209,45 @@ namespace FATMING_CORE
 			int	l_iFlag = FILE_ATTRIBUTE_NORMAL;
 			if( e_bForceToWrite )
 				l_iFlag |= (FILE_FLAG_WRITE_THROUGH);
-			m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, l_iFlag, nullptr);
+			m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
+			//m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_ALL, 0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
 			if (m_FileHandle != INVALID_HANDLE_VALUE) 
 			{
-				int file_descriptor = _open_osfhandle((intptr_t)m_FileHandle, 0);
-				if (file_descriptor != -1) 
+				m_iFileDescriptor = _open_osfhandle((intptr_t)m_FileHandle, 0);				
+				if (m_iFileDescriptor != -1)
 				{
 					if (e_strFileMode == nullptr)
 					{
 						if (e_bBinary)
-							m_pFile = _fdopen(file_descriptor, "wb+");//b for windows only
+							m_pFile = _fdopen(m_iFileDescriptor, "wb+");//b for windows only
 						else
-							this->m_pFile = _fdopen(file_descriptor, "w");
+							this->m_pFile = _fdopen(m_iFileDescriptor, "w");
 					}
 					else
 					{
-						m_pFile = _fdopen(file_descriptor, e_strFileMode);//b for windows only
+						m_pFile = _fdopen(m_iFileDescriptor, e_strFileMode);//b for windows only
 					}
+					if (!m_pFile)
+						_close(m_iFileDescriptor);
+				}
+				else
+				{
+					CloseHandle(m_FileHandle);
+					m_FileHandle = nullptr;
 				}
 			}
 		}
 		else
 		{
-			if( e_bBinary )
-				this->m_pFile = MyFileOpen(e_str,"wb+");
+			if(e_strFileMode)
+				this->m_pFile = MyFileOpen(e_str, e_strFileMode);
 			else
-				this->m_pFile = MyFileOpen(e_str,"w");		
+			{
+				if (e_bBinary)
+					this->m_pFile = MyFileOpen(e_str, "wb+");
+				else
+					this->m_pFile = MyFileOpen(e_str, "w");
+			}
 		}
 #else
 		std::string	l_strFileName = e_str;
@@ -251,8 +268,21 @@ namespace FATMING_CORE
 		if( m_FileHandle )
 		{
 			this->Flush();
-			CloseHandle(m_FileHandle);
+			SystemErrorCheck();
+			if (m_pFile)
+			{
+				fclose(m_pFile);
+				m_pFile = nullptr;
+			}
+			//SystemErrorCheck();
+			//_close(m_iFileDescriptor);
+			//SystemErrorCheck();
+			//bool l_bResult = CloseHandle(m_FileHandle);
+			//SystemErrorCheck();
+			//SystemErrorCheck();
+			m_iFileDescriptor = -1;
 			m_FileHandle = 0;
+			m_pFile = nullptr;
 		}
 		else
 		if( m_pFile )
