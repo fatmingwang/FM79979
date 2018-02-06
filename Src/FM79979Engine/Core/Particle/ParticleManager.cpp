@@ -335,6 +335,7 @@ namespace FATMING_CORE
 				{
 					//2 Image Parser will occur cPuzzleImage memory leak...because the resource is sahare...
 					//so add into GameApp::ImageParser then clone one.
+					assert(cGameApp::m_spImageParser&&"please new cGameApp");
 					auto*l_pPI = cGameApp::GetPuzzleImageByFileName(ValueToStringW(l_strFullPath));
 					if (l_pPI)
 					{

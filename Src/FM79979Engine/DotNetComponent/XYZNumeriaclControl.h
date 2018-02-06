@@ -93,9 +93,16 @@ namespace DotNetComponent {
 					}
 					else
 					{
-						X_numericUpDown->Value = System::Decimal(*m_pfX);
-						Y_numericUpDown->Value = System::Decimal(*m_pfY);
-						Z_numericUpDown->Value = System::Decimal(*m_pfZ);					
+						try
+						{
+							X_numericUpDown->Value = System::Decimal(*m_pfX);
+							Y_numericUpDown->Value = System::Decimal(*m_pfY);
+							Z_numericUpDown->Value = System::Decimal(*m_pfZ);
+						}
+						catch (System::Exception^e)
+						{
+							WARNING_MSG("XYZNumeriaclControl AssignValueToUI value is bigger than max or small than min");
+						}
 					}
 				}
 		   }

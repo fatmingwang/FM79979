@@ -5,13 +5,12 @@
 class cWriteFileManager :public cNamedTypedObjectVector<cWriteBinaryFile>, public cCPP11Thread
 {
 public:
-	std::mutex						m_pMutex;
 	std::vector<cWriteBinaryFile*>	m_WriteBinaryFileVector;
 	void	WriteFileThread(float e_fElpaseTime);
 public:
 	cWriteFileManager();
 	virtual ~cWriteFileManager();
-	virtual	NamedTypedObject*	Clone()override { return NamedTypedObject::Clone(); };
+	virtual	NamedTypedObject*	Clone()override { return nullptr; };
 };
 
 cWriteFileManager::cWriteFileManager()

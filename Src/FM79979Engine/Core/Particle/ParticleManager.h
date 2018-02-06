@@ -39,7 +39,7 @@ namespace FATMING_CORE
 		void	ProcressInitPolicy();
 		void	ProcressActPolicy();
 		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
-		//
+		//need this one is because export function(for image)
 		GETP_SET_DEC(cImageParser,m_ImageParser,GetImageParser,SetImageParser);
 	public:
 		DEFINE_FILE_EXTENSION_NAME_INFO()

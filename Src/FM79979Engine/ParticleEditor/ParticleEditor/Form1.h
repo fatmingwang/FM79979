@@ -52,6 +52,7 @@ namespace ParticalEditor
 			m_pFrameCamera = 0;
 			m_Hdc = 0;
 			m_pHGLRC = 0;
+			cGameApp::m_spImageParser = new cImageParser();
 			g_pOrthogonalCamera = new cOrthogonalCamera;
 			m_pFrameCamera = new cFrameCamera();
 			Projection	l_ProjectionMV;
@@ -120,6 +121,7 @@ namespace ParticalEditor
 			FATMING_CORE::DeleteShader(L"MyPrtShaderNoTexture");
 			//m_pEmitterEditor->MyDestroy();
 			m_pEmitterEditor->~EmitterEditor();
+			SAFE_DELETE(cGameApp::m_spImageParser);
 		}
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::ComponentModel::IContainer^  components;
@@ -2023,7 +2025,7 @@ private: System::Void DataInvert_button_Click(System::Object^  sender, System::E
 					if(l_pPrtEmitter->GetBaseImage()->Type() == cPuzzleImageUnit::TypeID)
 					{
 						cPuzzleImageUnit*l_pPuzzleImageUnit = (cPuzzleImageUnit*)l_pPrtEmitter->GetBaseImage();
-						String^l_strPIName = DNCT::WcharToGcstring(l_pPuzzleImageUnit->GetParent()->GetName());
+						String^l_strPIName = DNCT::WcharToGcstring(l_pPuzzleImageUnit->GetOwner()->GetName());
 						String^l_strTextureName = DNCT::WcharToGcstring(l_pPrtEmitter->GetBaseImage()->GetName());
 						Texture_treeView->SelectedNode = Texture_treeView->Nodes[l_strPIName]->Nodes[l_strTextureName];					
 					}

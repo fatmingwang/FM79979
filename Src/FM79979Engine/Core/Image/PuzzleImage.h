@@ -59,7 +59,6 @@ namespace FATMING_CORE
 	//=======================
 	class	cPuzzleImageUnit:public cBaseImage
 	{
-		//GET_SET_DEC(cPuzzleImage*,m_pParent,GetParent,SetParent);
 		GET_SET_DEC(cPuzzleImageUnit*,m_pNext,GetNext,SetNext);
 		GET_SET_DEC(cPuzzleImageUnit*,m_pPrior,GetPrior,SetPrior);
 		sPuzzleData*m_pPuzzleData;

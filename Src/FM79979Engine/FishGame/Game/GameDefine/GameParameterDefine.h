@@ -1,0 +1,7 @@
+#pragma once
+
+
+#define LEVEL_CHANGE_REACH_MAX_STAY_TIME			1.5f
+
+#define	SHOW_IO_ERROR_WAIT_TIME						0.5f
+#define	PRESS_BUTTON_ADD_SCORE_LIMIT_SHOW_MPDI_TIME	5.f

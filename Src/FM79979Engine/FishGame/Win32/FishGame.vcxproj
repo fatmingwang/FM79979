@@ -21,10 +21,19 @@
   <ItemGroup>
     <ClCompile Include="..\Game\Bullet\Bullet.cpp" />
     <ClCompile Include="..\Game\Bullet\BulletManager.cpp" />
-    <ClCompile Include="..\Game\GameApp\GameApp.cpp" />
+    <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp" />
+    <ClCompile Include="..\Game\GameApp\FishGameApp.cpp" />
+    <ClCompile Include="..\Game\GameApp\FishGameObject.cpp" />
     <ClCompile Include="..\Game\GameApp\Sample.cpp" />
     <ClCompile Include="..\Game\GameApp\TestShader.cpp" />
+    <ClCompile Include="..\Game\GameDefine\GameDefine.cpp" />
+    <ClCompile Include="..\Game\GameEffect\GameEffectBase.cpp" />
+    <ClCompile Include="..\Game\GameEffect\GameEffectManagerParse.cpp" />
+    <ClCompile Include="..\Game\Player\PlayerKeyBehavior.cpp" />
+    <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp" />
     <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp" />
+    <ClCompile Include="..\Game\Scene\CameraShake.cpp" />
+    <ClCompile Include="..\Game\Scene\SceneContent.cpp" />
     <ClCompile Include="..\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="..\Game\WriteFile\WriteFile.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -36,16 +45,26 @@
   <ItemGroup>
     <ClInclude Include="..\Game\Bullet\Bullet.h" />
     <ClInclude Include="..\Game\Bullet\BulletManager.h" />
-    <ClInclude Include="..\Game\GameApp\GameApp.h" />
+    <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />
+    <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h" />
+    <ClInclude Include="..\Game\GameApp\FishGameApp.h" />
     <ClInclude Include="..\Game\GameApp\TestShader.h" />
+    <ClInclude Include="..\Game\GameDefine\FishGameEventMessageID.h" />
+    <ClInclude Include="..\Game\GameDefine\GameDefine.h" />
+    <ClInclude Include="..\Game\GameDefine\GameParameterDefine.h" />
+    <ClInclude Include="..\Game\GameEffect\GameEffectBase.h" />
+    <ClInclude Include="..\Game\Monster\FixedPathMonster.h" />
     <ClInclude Include="..\Game\Monster\MonsterBase.h" />
     <ClInclude Include="..\Game\Monster\MonsterManager.h" />
     <ClInclude Include="..\Game\Player\PlayerBehaviorBase.h" />
-    <ClInclude Include="..\Game\Player\PlayerData.h" />
+    <ClInclude Include="..\Game\Player\PlayerKeyBehavior.h" />
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h" />
     <ClInclude Include="..\Game\Probability\ProbabilityMain.h" />
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h" />
+    <ClInclude Include="..\Game\Scene\CameraShake.h" />
+    <ClInclude Include="..\Game\Scene\SceneContent.h" />
     <ClInclude Include="..\Game\Scene\SceneManager.h" />
+    <ClInclude Include="..\Game\Weapon\FishGameWeaponBase.h" />
     <ClInclude Include="..\Game\WriteFile\WriteFile.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>

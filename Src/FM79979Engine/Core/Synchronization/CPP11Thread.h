@@ -24,5 +24,23 @@ public:
 	bool		IsThreadWorking() {return m_bThreadWorking;}
 };
 
-//mutex
-////cPP11MutexHolder l_cPP11MutexHolder(m_Mutex);
+//class cWriteFileManager :public cCPP11Thread
+//{
+//public:
+//	std::mutex						m_pMutex;
+//	void	WriteFileThread(float e_fElpaseTime)
+//	{
+//		{
+//			cPP11MutexHolder l_cPP11MutexHolder(m_Mutex);
+//		}
+//		Sleep(10);
+//	}
+//public:
+//	cWriteFileManager::cWriteFileManager()
+//	{
+//		cPP11MutexHolder l_cPP11MutexHolder(m_Mutex);
+//		f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cWriteFileManager::WriteFileThread, this, std::placeholders::_1);
+//		ThreadDetach(l_f_ThreadWorkingFunction);
+//	}
+//	virtual	NamedTypedObject*	Clone()override { return nullptr; };
+//};

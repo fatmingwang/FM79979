@@ -9,31 +9,27 @@ enum	eBulletStatus
 	eBS_MAX,
 };
 //
-class	cBullet:public Frame
+class	cBaseBullet:public Frame
 {
 private:
-	float					m_fAngle;
-	Vector3					m_vPos;
 	//web
-	bool					m_bDoCollided;
-	cMPDI*					m_pWebMPDI;
-	void					WebUpdate(float e_fElpaseTime);
+	cMPDI*					m_pExplosionMPDI;
+	cMPDI*					m_pBulletMPDI;
+	void					ExplosionUpdate(float e_fElpaseTime);
+	void					BulletUpdate(float e_fElpaseTime);
 	//bullet
 	eBulletStatus			m_eBulletStatus;
 	cbtShapeCollision*		m_pBulletCollision;
-	cMPDI*					m_pBulletMPDI;
 	Vector3					m_vDirection;
 	float					m_fSpeed;
+	float					m_fAngle;
+	Vector3					m_vPos;
 	void					SetDirection( Vector3 e_vDirection );
-	void					BulletUpdate( float e_fElpaseTime );
 	void					SetTransform();
-	//how many will be paid
-	int						m_iBetScore;
-	//
 public:
 	//
-	cBullet( cMPDI*e_pBulletMPDI, cbtShapeCollision* e_pBulletCollision, float e_fSpeed,cMPDI* e_pWeb);
-	~cBullet(void);
+	cBaseBullet( cMPDI*e_pBulletMPDI, cbtShapeCollision* e_pBulletCollision, float e_fSpeed,cMPDI* e_pExplosion);
+	~cBaseBullet(void);
 	//
 	virtual	void			Init();
 	virtual	void			Update(float e_fElpaseTime );

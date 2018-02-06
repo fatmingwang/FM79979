@@ -1,12 +1,12 @@
 #pragma once
 
+#include "Bullet.h"
 
 class cBulletManager:public cNamedTypedObjectVector<cBullet>,public cNodeISAX
 {
 private:
 	void						ProcessCollisionFile(TiXmlElement*e_pRoot);
 	void						ProcessPlayerBullet(TiXmlElement*e_pRoot);
-	void						ProcessWeb(TiXmlElement*e_pRoot);
 	virtual	bool				MyParse(TiXmlElement*e_pRoot);
 	int							m_iNumWorking;
 	//for update only

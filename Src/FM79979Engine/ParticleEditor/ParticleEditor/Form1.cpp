@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Form1.h"
+cGameApp*g_pParticleApp = nullptr;;
 cPaticleManager*g_pPaticleManager = 0;
 cPrtEmitter*g_pPrtEmitter = 0;
 UT::sTimeAndFPS g_sTimeAndFPS;

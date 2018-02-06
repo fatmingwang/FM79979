@@ -130,3 +130,34 @@ namespace FATMING_CORE
 		return false;
 	}
 }
+
+//enum eEventMessage
+//{
+//	eREGISTER_IN = 300,
+//	eREGISTER_OUT,
+//	eREGISTER_MAX,
+//};
+//
+//class cRegisterManager : public cMessageSender
+//{
+//	bool					ExchangeOutEventFuntion(void *e_pData)
+//	{
+//		int l_iValue = *(int*)e_pData;
+//	}
+//	bool					ExchangeInWithPointer(void *e_pData)
+//	{
+//		sSomething l_pSomething = (sSomething*)e_pData;
+//	}
+//};
+//cRegisterManager::cRegisterManager()
+//{
+//	REG_EVENT(eREGISTER_OUT, &cRegisterManager::ExchangeOutEventFuntion);
+//	REG_EVENT(eREGISTER_IN, &cRegisterManager::ExchangeInWithPointer);
+//}
+//
+////send message with specific data
+//int64 l_i64OutCount = 50;
+//cGameApp::m_spMessageSenderManager->EventMessageShot(eREGISTER_OUT, (char*)&l_i64OutCount, sizeof(int64));
+//struct sSomething;
+//void*l_pPointer = (void*)sSomething;
+//cGameApp::m_spMessageSenderManager->EventMessageShot(eREGISTER_IN, l_pPointer);

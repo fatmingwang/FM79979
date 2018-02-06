@@ -5,9 +5,6 @@ class	cFishGameApp:public cGameApp
 protected:
 	void	Update(float e_fElpaseTime);
 	void	Render();
-#ifdef WINDOWS
-	virtual	void	OpenglInit(HWND e_Hwnd){}
-#endif
 public:
 #if defined(ANDROID)
 	cFishGameApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil);
@@ -19,11 +16,14 @@ public:
 	virtual ~cFishGameApp();
 
 	void	Init();
-	virtual	void	MouseDown(int e_iPosX,int e_iPosY);
-	virtual	void	MouseMove(int e_iPosX,int e_iPosY);
-	virtual	void	MouseUp(int e_iPosX,int e_iPosY);
-	void	KeyDown(char e_char);
-	void	KeyUp(char e_char);
+	virtual	void	MouseDown(int e_iPosX,int e_iPosY) override;
+	virtual	void	MouseMove(int e_iPosX,int e_iPosY) override;
+	virtual	void	MouseUp(int e_iPosX,int e_iPosY) override;
+	virtual	void	KeyDown(char e_char) override;
+	virtual	void	KeyUp(char e_char) override;
 	//if true game exit
 	bool	m_bLeave;
 };
+
+bool	InitOnceObject();
+bool	DeleteOnceObject();

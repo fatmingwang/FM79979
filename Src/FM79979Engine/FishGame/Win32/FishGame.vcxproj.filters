@@ -43,6 +43,15 @@
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{36529e92-de2f-47f0-919f-8fa180932f63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameDefine">
+      <UniqueIdentifier>{881d4d30-0e46-4ca0-997e-1b55f2cfaf6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Weapon">
+      <UniqueIdentifier>{9d0d3f44-952d-4fdb-b51e-7e8eabe8b775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Common">
+      <UniqueIdentifier>{c7410eef-b182-49a6-aee3-d91df766633d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -50,9 +59,6 @@
     </ClCompile>
     <ClCompile Include="Win32.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\GameApp\GameApp.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Game\GameApp\Sample.cpp">
       <Filter>Game</Filter>
@@ -75,13 +81,40 @@
     <ClCompile Include="..\Game\Scene\SceneManager.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\Scene\SceneContent.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Scene\CameraShake.cpp">
+      <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Player\PlayerKeyBehavior.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameDefine\GameDefine.cpp">
+      <Filter>Game\GameDefine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\FishGameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\FishGameObject.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameEffect\GameEffectBase.cpp">
+      <Filter>Game\GameEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameEffect\GameEffectManagerParse.cpp">
+      <Filter>Game\GameEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp">
+      <Filter>Game\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\GameApp\GameApp.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\GameApp\TestShader.h">
       <Filter>Game</Filter>
@@ -96,9 +129,6 @@
       <Filter>Game\WriteFile</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Player\PlayerBehaviorBase.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Player\PlayerData.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h">
@@ -118,6 +148,42 @@
     </ClInclude>
     <ClInclude Include="..\Game\Scene\SceneManager.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Scene\SceneContent.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Scene\CameraShake.h">
+      <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerKeyBehavior.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameDefine\FishGameEventMessageID.h">
+      <Filter>Game\GameDefine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameDefine\GameParameterDefine.h">
+      <Filter>Game\GameDefine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameDefine\GameDefine.h">
+      <Filter>Game\GameDefine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameApp\FishGameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameEffect\GameEffectBase.h">
+      <Filter>Game\GameEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Monster\FixedPathMonster.h">
+      <Filter>Game\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\FishGameWeaponBase.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h">
+      <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Common\CommonRegisterManager.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

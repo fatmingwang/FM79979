@@ -56,7 +56,7 @@ protected:
 protected:
 	static int64				m_si64ScoreLimit;
 	bool						m_bRefundingCoin;
-	bool						InitMessageResource(cMatrix44 e_matShowMatrix);
+	bool						InitMessageResource(cMatrix44 e_matShowMatrix,int64 e_i64ScoreLimit,int64 e_i64ButtonAddScoreLimit);
 	virtual void				UpdateMessageStatus(float e_fElpaseTime);
 	virtual void				RenderMessageStatus();
 	virtual bool				AddScoreByMoneyChangeType(eMoneyChangeType e_eMoneyChangeType, bool e_bMessageOn = false);

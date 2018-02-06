@@ -1,6 +1,5 @@
 #include "stdafx.h"
-//#include "stdafx.h"
-#include "GameApp.h"
+#include "FishGameApp.h"
 
 extern void	LoadSample();
 extern void	DestorySampleObject();
@@ -86,4 +85,13 @@ void	cFishGameApp::KeyUp(char e_char)
 {
 	cGameApp::KeyUp(e_char);
 	SampleKeyup(e_char);
+}
+
+bool	cFishGameApp::InitOnceObject()
+{
+
+}
+bool	cFishGameApp::DeleteOnceObject()
+{
+
 }

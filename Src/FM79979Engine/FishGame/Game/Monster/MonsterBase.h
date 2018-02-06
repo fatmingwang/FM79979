@@ -9,8 +9,6 @@ enum	eMonsterStatus
 	eMS_DYING,					//hitted play died animation
 	eMS_DIED_SHOW,				//
 	eMS_WAITING_FOR_CLEAN,		//
-	eMS_CONTROL_BY_MINI_GAME,	//
-	eMS_TRANSFORM_SHOW,
 	eMS_MAX,
 
 };
@@ -20,47 +18,41 @@ enum	eBodyType
 	eBT_Small,
 	eBT_Medium,
 	eBT_Big,
-	eBT_Special,
+	eBT_Enormous,
 	eBT_Total,
 };
 
 eBodyType	GetBodyType(const wchar_t *e_str);
 
-class cMonster : public Frame
+class cMonsterBase : public cRenderObject
 {
-	//
 private:
 	virtual	void				ProcessPhysicalData(TiXmlElement*e_pElement) = 0;
 	void						ProcessMonsterData(TiXmlElement*e_pTiXmlElement);
-	//
-	eBodyType					m_eBodyType;
-	eBodyType					GetBodyType();
 protected:
-	//how long s it alive
-	float						m_fAliveTime;
+	eBodyType					m_eBodyType;
+	cMPDI*						m_pMonsterAnimation[eMS_MAX];
 	//
 	UT::sTimeCounter			m_HittedHintTC;
-	//for out of screen test
+	int							m_iID;
+	float						m_fScale;
 	float						m_fRadius;
 	eMonsterStatus				m_eMonsterStatus;
 	//internal 
 	virtual	void				InternalInit() = 0;
 	virtual	void				InternalUpdate(float e_fElpaseTime) = 0;
-	int							m_iID;
-	float						m_fScale;
+	virtual void				StatusChange(eMonsterStatus e_eMonsterStatus);
 public:
 	//
-	cMonster();
-	virtual ~cMonster();
-	cMonster(cMonster*e_pMonster);	
+	cMonsterBase();
+	virtual ~cMonsterBase();
+	cMonsterBase(cMonsterBase*e_pMonsterBase);
+	eBodyType					GetBodyType();
 	float						GetRadius() { return m_fRadius; }
 	int							GetID() { return m_iID; }
 	void						Init();
 	virtual	void				Update(float e_fElpaseTime);
 	virtual	bool				IsCollide(cbtShapeCollision*e_pbtShapeCollision) = 0;
-	virtual	void				DebugRender() {}
-	virtual	void				SetPath() = 0;
-	virtual	void				SetPath(cCurveWithTime* e_pCurveWithTime) = 0;
 	//while monster status is wait for clear or control by mini game cannot be died
 	bool						IsStatusAllowToDied();
 	float						GetScale() { return m_fScale; }

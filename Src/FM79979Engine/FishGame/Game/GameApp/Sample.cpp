@@ -1,6 +1,6 @@
 #include "stdafx.h"
 //#include "stdafx.h"
-#include "GameApp.h"
+#include "FishGameApp.h"
 #include "../../../Core/GLSL/ToneMapping.h"
 #include "../../../Core/GLSL/TunnelEffect.h"
 #include "TestShader.h"
