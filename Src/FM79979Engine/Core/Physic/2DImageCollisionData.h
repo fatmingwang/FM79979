@@ -64,7 +64,7 @@ namespace FATMING_CORE
 			std::vector<sCollisionData*>	CollisionDataVector;
 			sImageCollisionData(sImageCollisionData*e_pImageCollisionData);
 			sImageCollisionData(){	iCollisionDataIndex = -1; pCurrentCollisionData = 0; }
-			~sImageCollisionData(){ DELETE_VECTOR(CollisionDataVector,sCollisionData*); }
+			~sImageCollisionData(){ DELETE_VECTOR(CollisionDataVector); }
 
 			void	Render(Vector4 e_vColor);
 			int		Collide(float e_fRadius,float *e_pfMatrix);

@@ -53,7 +53,7 @@
 					const WCHAR*strSource;
 				};
 				std::vector<sInput*>	InputList;
-				~sJoints(){ DELETE_VECTOR(InputList,sInput*); }
+				~sJoints(){ DELETE_VECTOR(InputList); }
 			};
 			struct	sVertexWeights
 			{
@@ -76,10 +76,10 @@
 					return 0;
 				}
 				sVertexWeights(){ pVcount = 0; pV = 0; iCount = 0; uiAllVertexInfluncebones  =0 ;  }
-				~sVertexWeights(){ 	DELETE_VECTOR(InputList,sInput*);  SAFE_DELETE(pVcount); SAFE_DELETE(pV);  }
+				~sVertexWeights(){ 	DELETE_VECTOR(InputList);  SAFE_DELETE(pVcount); SAFE_DELETE(pV);  }
 			};
 			sSkin(){ pInflunceWeightsForVertex = 0; pInflunceBonesForVertex = 0; strSource = 0; }
-			~sSkin(){ DELETE_VECTOR(AllSource,sSource*); 	SAFE_DELETE(pInflunceBonesForVertex);	SAFE_DELETE(pInflunceWeightsForVertex); }
+			~sSkin(){ DELETE_VECTOR(AllSource); 	SAFE_DELETE(pInflunceBonesForVertex);	SAFE_DELETE(pInflunceWeightsForVertex); }
 			//internal data
 			std::vector<sSource*>	AllSource;
 			sJoints					Joints;

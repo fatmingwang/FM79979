@@ -1,39 +1,39 @@
 #pragma once
 
-#include "../Common/Common.h"
-
-enum eGameEffectList
+enum eGameEffectType
 {
-	eGEL_TEXT = 0,
-	eGEL_MAX
+	eGET_TEXT = 0,
+	eGET_MAX
 };
 
 #define	REGISTER_TO_MANGER(TYPE,MANAGER)
 
 class cGameEffectBase :public cRenderObject
 {
-	eGameEffectList m_eGameEffectList;
-	cGameEffectBase*	RegisterToGameEffectManager()
-	{
-	}
+	eGameEffectType m_eGameEffectType;
+	bool			m_bGameEffectDone;
+	int				m_iRenderPirority;//0 is smallest
 public:
 	cGameEffectBase();
 	virtual ~cGameEffectBase();
-	virtual	void	Update(float e_fElpaseTime) = 0;
-	virtual	void	Render() = 0;
+	//static cGameEffectBase*GetMe(TiXmlElement*e_pTiXmlElement);
+	virtual	void	Update(float e_fElpaseTime) {}
+	virtual	void	Render() {}
+	bool			IsGameEffectDone(){return m_bGameEffectDone;}
 };
 
-typedef std::function<cGameEffectBase*(TiXmlElement*)> GameEffectTypeRegister;
-
-class GameEffectManager:public cNamedTypedObjectVector<cGameEffectBase>,public cNodeISAX
+class cGameEffectManager:public cNamedTypedObjectVector<cGameEffectBase>,public cNodeISAX,public cFishGameCommonRegisterManager
 {
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	bool	ProcessGameEffect(TiXmlElement*e_pRoot);
-	std::list<GameEffectTypeRegister>				m_AllGameEffectRegisterList;
 	//
-	std::map<eGameEffectList, cWaitForFetchFunctionObjectList<cGameEffectBase*>*>	m_AllGameEffecBaseMap;
+	std::map<eGameEffectType, cWaitForFetchFunctionObjectList<cGameEffectBase>*>	m_AllGameEffecBaseMap;
+	virtual void	AddCloneRegisterFunction() override;
 public:
-	cGameEffectBase * Require(eGameEffectList e_eGameEffectList);
+	cGameEffectManager();
+	virtual ~cGameEffectManager();
+	cGameEffectBase * Require(eGameEffectType e_eGameEffectType);
+	void		Update(float e_fElpaseTime);
 	void		BeforeRender();
 	void		Render();
 	void		LastRender();

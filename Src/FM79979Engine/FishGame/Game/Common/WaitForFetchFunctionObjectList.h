@@ -4,11 +4,15 @@
 template< class TYPE >
 class cWaitForFetchFunctionObjectList :public std::list<TYPE*>
 {
+public:
 	std::list<TYPE*>	m_WorkingList;
 	std::list<TYPE*>	m_WaitFetchList;
-	//
-	void	Update(float e_fElpaseTime);
 public:
+	cWaitForFetchFunctionObjectList(){}
+	~cWaitForFetchFunctionObjectList()
+	{
+		CLEAR_AND_DELETE_OBJECT_IN_LIST(this);
+	}
 	TYPE * RequireAvaliableObject()
 	{
 		TYPE*l_pResult = nullptr;
@@ -28,6 +32,13 @@ public:
 			TYPE*l_pCloneObject = dynamic_cast<TYPE*>(l_pObject->Clone());
 			this->push_back(l_pResult);
 			m_WorkingList.push_back(l_pResult);
+#ifdef DEBUG
+			std::wstring l_str = l_pObject->Type();
+			l_str += L":";
+			l_str += l_pObject->GetName();
+			l_str += L":Count not enough";
+			cGameApp::OutputDebugInfoString(l_str);
+#endif
 		}
 		return  l_pResult;
 	}

@@ -141,7 +141,7 @@
 		//
 		std::vector<cCurve>	ProcessCurveData();
 		//
-		void	ClearData(){DELETE_VECTOR(m_ColladaGeomatryList,sColladaGeomatries*);}
+		void	ClearData(){DELETE_VECTOR(m_ColladaGeomatryList);}
 		
 	};
 

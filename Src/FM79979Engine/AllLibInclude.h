@@ -31,7 +31,7 @@
 	#pragma comment(lib, "../../../lib/Debug/MathParser.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
-	#pragma comment(lib, "../../../lib/Debug/Core.lib")
+	//#pragma comment(lib, "../../../lib/Debug/Core.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 

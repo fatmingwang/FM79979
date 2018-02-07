@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "PlayerKeyBehavior.h"
-
+#include "../GameDefine/GameParameterDefine.h"
 sChangeBetRateKeyDownTC::sChangeBetRateKeyDownTC()
 {
 	LevelKeyClickMouseBehavior.SetPressedRepeatMouseUp(true);

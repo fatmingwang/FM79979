@@ -103,7 +103,7 @@ public:
 			}
 			return 0;
 		}
-		void	ClearData(){ DELETE_VECTOR(m_ControllerList,sController*); }
+		void	ClearData(){ DELETE_VECTOR(m_ControllerList); }
 		cLibraryControllers(){}
 		~cLibraryControllers()
 		{

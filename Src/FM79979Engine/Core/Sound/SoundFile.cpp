@@ -60,7 +60,7 @@ namespace FATMING_CORE
 
 	cSoundFile::~cSoundFile()
 	{
-		DELETE_VECTOR(m_AllChannelData,char*);
+		DELETE_VECTOR(m_AllChannelData);
 		SAFE_DELETE(m_pSoundData);
 		SAFE_DELETE(m_pWriteFile);
 	}

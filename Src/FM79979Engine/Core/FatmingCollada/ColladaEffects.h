@@ -169,7 +169,7 @@ public:
 	}
 	~cLibraryEffects()
 	{
-		DELETE_VECTOR(m_AllEffectData,sEffectData*);
+		DELETE_VECTOR(m_AllEffectData);
 	}
 	void	ParseData(TiXmlElement*e_pTiXmlElement);
 	std::vector<sEffectData*>	m_AllEffectData;

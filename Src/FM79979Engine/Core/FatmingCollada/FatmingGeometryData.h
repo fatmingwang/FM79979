@@ -112,7 +112,7 @@
 			}
 			~sVertices()
 			{
-				DELETE_VECTOR(AllInput,sInput*)
+				DELETE_VECTOR(AllInput)
 			}
 		};
 		struct	sTriangles
@@ -152,7 +152,7 @@
 			~sTriangles()
 			{
 				//SAFE_DELETE(pReuseVertexPositions);
-				DELETE_VECTOR(AllInputDataList,sInputData*);
+				DELETE_VECTOR(AllInputDataList);
 				SAFE_DELETE(piIndexBuffer);
 			}
 		};
@@ -249,9 +249,9 @@
 		~sGeometryMesh()
 		{
 			DEL_MAP(sTriangles*,sAllVertexData*,AllTriangleVertexData);
-			DELETE_VECTOR(AllGeometryMeshSourceList,sSource*);
-			DELETE_VECTOR(AllGeometryMeshTrianglesList,sTriangles*);
-			DELETE_VECTOR(AllMeshIndexList,cMesh*);
+			DELETE_VECTOR(AllGeometryMeshSourceList);
+			DELETE_VECTOR(AllGeometryMeshTrianglesList);
+			DELETE_VECTOR(AllMeshIndexList);
 		}
 	};
 	struct	sSpline
@@ -267,7 +267,7 @@
 		}
 		~sSpline()
 		{
-			DELETE_VECTOR(AllSplineSource,sGeometryMesh::sSource*);
+			DELETE_VECTOR(AllSplineSource);
 		}
 		cCurve	ContertToCurve()
 		{

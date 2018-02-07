@@ -18,7 +18,7 @@ cLibraryImages::cLibraryImages()
 }
 cLibraryImages::~cLibraryImages()
 {
-	DELETE_VECTOR(AllLibraryImages,sLibraryImages*);
+	DELETE_VECTOR(AllLibraryImages);
 	if( m_pImageList != cGameApp::m_spImageParser )
 	{
 		SAFE_DELETE(m_pImageList);

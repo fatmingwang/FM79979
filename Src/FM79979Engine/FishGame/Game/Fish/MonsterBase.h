@@ -4,18 +4,15 @@ enum	eMonsterStatus
 {
 	eMS_NONE = 0,				//not on the scene
 	eMS_ALIVE,					//on the scene,do AIMachine
-	eMS_HITTED,					//probability give
-	eMS_STRUGGLE,				//while fish is hitted it will has a fake probability to play this
-	eMS_DYING,					//hitted play died animation
+	eMS_STRUGGLE,				//while fish is hitted it will has a fake probability to play this,make speed slower
 	eMS_DIED_SHOW,				//
 	eMS_WAITING_FOR_CLEAN,		//
 	eMS_MAX,
-
 };
 
 enum	eBodyType
 {
-	eBT_Small,
+	eBT_Small = 0,
 	eBT_Medium,
 	eBT_Big,
 	eBT_Enormous,
@@ -27,13 +24,14 @@ eBodyType	GetBodyType(const wchar_t *e_str);
 class cMonsterBase : public cRenderObject
 {
 private:
-	virtual	void				ProcessPhysicalData(TiXmlElement*e_pElement) = 0;
-	void						ProcessMonsterData(TiXmlElement*e_pTiXmlElement);
+	virtual	void				ProcessCollisionlData(TiXmlElement*e_pElement) = 0;
+	void						ProcessStatusData(TiXmlElement*e_pTiXmlElement);
 protected:
 	eBodyType					m_eBodyType;
 	cMPDI*						m_pMonsterAnimation[eMS_MAX];
 	//
-	UT::sTimeCounter			m_HittedHintTC;
+	static sMinMaxData<float>	m_StruggleTime;
+	UT::sTimeCounter			m_StruggleTC;
 	int							m_iID;
 	float						m_fScale;
 	float						m_fRadius;
@@ -45,15 +43,17 @@ protected:
 public:
 	//
 	cMonsterBase();
-	virtual ~cMonsterBase();
 	cMonsterBase(cMonsterBase*e_pMonsterBase);
+	virtual ~cMonsterBase();
+	//static GetMe(TiXmlElement*e_pElement);
 	eBodyType					GetBodyType();
 	float						GetRadius() { return m_fRadius; }
 	int							GetID() { return m_iID; }
 	void						Init();
 	virtual	void				Update(float e_fElpaseTime);
+	virtual	void				Render();
 	virtual	bool				IsCollide(cbtShapeCollision*e_pbtShapeCollision) = 0;
 	//while monster status is wait for clear or control by mini game cannot be died
-	bool						IsStatusAllowToDied();
+	virtual bool				IsStatusAllowToDied();
 	float						GetScale() { return m_fScale; }
 };

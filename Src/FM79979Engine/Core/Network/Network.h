@@ -51,7 +51,7 @@ namespace FATMING_CORE
 	template<class T> class	cVectorDataSynchornized:public cFUSynchronized,public std::vector<T*>
 	{
 	public:
-		void	Clear(){ DELETE_VECTOR((*this),T*); }
+		void	Clear(){ DELETE_VECTOR((*this)); }
 		cVectorDataSynchornized(){}
 		virtual ~cVectorDataSynchornized(){ Clear(); }
 	};

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "../Game/GameApp/GameApp.h"
+#include "../Game/GameApp/FishGameApp.h"
 #include "Windowsx.h"
 #include "../../AllLibInclude.h"
 // test.cpp : Defines the entry point for the application.

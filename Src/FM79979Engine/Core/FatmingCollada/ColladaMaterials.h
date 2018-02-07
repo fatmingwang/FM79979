@@ -31,7 +31,7 @@ public:
 	cLibraryMaterials (){}
 	~cLibraryMaterials ()
 	{
-		DELETE_VECTOR(AllMaterial,sMaterial*);
+		DELETE_VECTOR(AllMaterial);
 	}
 	void	ParseData(TiXmlElement*e_pTiXmlElement);
 	std::vector<sMaterial*>	AllMaterial;

@@ -86,12 +86,3 @@ void	cFishGameApp::KeyUp(char e_char)
 	cGameApp::KeyUp(e_char);
 	SampleKeyup(e_char);
 }
-
-bool	cFishGameApp::InitOnceObject()
-{
-
-}
-bool	cFishGameApp::DeleteOnceObject()
-{
-
-}

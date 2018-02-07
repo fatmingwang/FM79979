@@ -22,9 +22,6 @@
     <Filter Include="Game\GameEffect">
       <UniqueIdentifier>{33fa6224-0e14-4a86-8763-fb2c8c77f7dc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Monster">
-      <UniqueIdentifier>{d6330cd5-8a02-4e72-a179-ef41ce016bee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Player">
       <UniqueIdentifier>{99b0ac27-0ecd-4918-901d-8def422eea05}</UniqueIdentifier>
     </Filter>
@@ -51,6 +48,9 @@
     </Filter>
     <Filter Include="Game\Common">
       <UniqueIdentifier>{c7410eef-b182-49a6-aee3-d91df766633d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Fish">
+      <UniqueIdentifier>{d6330cd5-8a02-4e72-a179-ef41ce016bee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +111,21 @@
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\Fish\MonsterBase.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\MonsterManager.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\MonsterManagerRegister.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FixedPathMonster.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\NormalFish.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -122,9 +137,6 @@
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h">
       <Filter>Game\RenderLayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Game\Monster\MonsterBase.h">
-      <Filter>Game\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\WriteFile\WriteFile.h">
       <Filter>Game\WriteFile</Filter>
     </ClInclude>
@@ -133,9 +145,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h">
       <Filter>Game\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Monster\MonsterManager.h">
-      <Filter>Game\Monster</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Bullet\Bullet.h">
       <Filter>Game\Bullet</Filter>
@@ -173,9 +182,6 @@
     <ClInclude Include="..\Game\GameEffect\GameEffectBase.h">
       <Filter>Game\GameEffect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Game\Monster\FixedPathMonster.h">
-      <Filter>Game\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\Weapon\FishGameWeaponBase.h">
       <Filter>Game\Weapon</Filter>
     </ClInclude>
@@ -184,6 +190,18 @@
     </ClInclude>
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h">
       <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FixedPathMonster.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\MonsterBase.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\MonsterManager.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\NormalFish.h">
+      <Filter>Game\Fish</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

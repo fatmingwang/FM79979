@@ -69,7 +69,7 @@ namespace FATMING_CORE
 
 	cCueToStartCurveWithTime::~cCueToStartCurveWithTime()
 	{
-		DELETE_VECTOR(m_PointDataList, sTexBehaviorDataWithImageIndexData*);
+		DELETE_VECTOR(m_PointDataList);
 		SAFE_DELETE(m_pCurrentPointData);
 	}
 
@@ -271,7 +271,7 @@ namespace FATMING_CORE
 			sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = new sTexBehaviorDataWithImageIndexData(m_PointDataList[i / l_iStepSize]);
 			l_PointDataList.push_back(l_pTexBehaviorDataWithImageIndexData);
 		}
-		DELETE_VECTOR(m_PointDataList, sTexBehaviorDataWithImageIndexData*);
+		DELETE_VECTOR(m_PointDataList);
 		m_PointDataList.reserve(l_uiSize);
 		for (UINT i = 0; i<l_uiSize; ++i)
 		{

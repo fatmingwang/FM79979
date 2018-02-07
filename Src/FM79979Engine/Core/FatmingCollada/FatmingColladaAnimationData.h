@@ -47,7 +47,7 @@
 					sInput(){ strSemantic = 0; strSource= 0; }
 				};
 				std::vector<sInput*>	InputVector;
-				~sSampler(){ DELETE_VECTOR(InputVector,sInput*); }
+				~sSampler(){ DELETE_VECTOR(InputVector); }
 			};
 			struct sChannel
 			{
@@ -59,12 +59,12 @@
 			std::vector<sSampler*>	SamplerVector;
 			std::vector<sChannel*>	ChannelVector;
 			sAnimation(){  }
-			~sAnimation(){ DELETE_VECTOR(SamplerVector,sSampler*); DELETE_VECTOR(ChannelVector,sChannel*); DELETE_VECTOR(SourceVector,sSource*); }
+			~sAnimation(){ DELETE_VECTOR(SamplerVector); DELETE_VECTOR(ChannelVector); DELETE_VECTOR(SourceVector); }
 			std::map<float, cMatrix44>	GenerateKeyFrameMatrix(const WCHAR*e_strJointeName);
 		};
 		sAnimationLibrary(){}
 		~sAnimationLibrary(){ ClearData(); }
-		void	ClearData(){ DELETE_VECTOR(AnimationVector,sAnimation*); }
+		void	ClearData(){ DELETE_VECTOR(AnimationVector); }
 		std::vector<sAnimation*>	AnimationVector;
 		inline	sAnimation*	GetAnimation(WCHAR*e_strName)
 		{

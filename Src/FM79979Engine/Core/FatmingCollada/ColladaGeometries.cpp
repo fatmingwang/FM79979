@@ -734,7 +734,7 @@ sColladaGeomatries*	cLibraryGeometries::GetGeometryByID(const WCHAR*e_strID)
 
 void	cLibraryGeometries::ParseData(TiXmlElement*e_pTiXmlElement)
 {
-	DELETE_VECTOR(m_ColladaGeomatryList,sColladaGeomatries*);
+	DELETE_VECTOR(m_ColladaGeomatryList);
 	const WCHAR*l_strName = 0;
 	const WCHAR*l_strValue = 0;
 	TiXmlElement*l_pChildTiXmlElement = e_pTiXmlElement->FirstChildElement();

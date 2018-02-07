@@ -679,7 +679,7 @@ namespace FATMING_CORE
 		return l_Doc.SaveFile(e_strFileName);
 	}
 
-	bool	cLevelData::Export(char*e_strFileName,bool e_bDoYInvert,bool e_bAlsoExportXInvert)
+	bool	cLevelData::Export(const char*e_strFileName,bool e_bDoYInvert,bool e_bAlsoExportXInvert)
 	{
 		if( !m_pTemplateList->Count() )
 			return false;

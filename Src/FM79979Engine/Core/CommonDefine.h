@@ -22,28 +22,39 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define SAFE_DELETE_ARRAY(p) { if(p) { delete[] (p);   (p)=nullptr; } }
 #endif
 
-#define DELETE_VECTOR(List,T){for( size_t i = 0;i<List.size();++i){	T l_p = List[i];SAFE_DELETE(l_p);}List.clear();}
+//#define DELETE_VECTOR(List,T){for( size_t i = 0;i<List.size();++i){	T l_p = List[i];SAFE_DELETE(l_p);}List.clear();}
+#define DELETE_VECTOR(LIST){for( size_t i = 0;i<LIST.size();++i){	auto l_p = LIST[i];SAFE_DELETE(l_p);}LIST.clear();}
 #define DELETE_POINTER_VECTOR(List,T){for( UINT i = 0;i<List->size();++i){	T l_p = (*List)[i];SAFE_DELETE(l_p);}SAFE_DELETE(List);}
 //std::vector<std::vector<Dataooxx*>*>
-#define DELETE_VECTOR_VECTORPOINTER(List,T){for( size_t i = 0;i<List.size();++i){auto l_pDataVector = List[i];if( l_pDataVector ){DELETE_VECTOR((*l_pDataVector),T);SAFE_DELETE(l_pDataVector);}}List.clear();}
+#define DELETE_VECTOR_VECTORPOINTER(List){for( size_t i = 0;i<List.size();++i){auto l_pDataVector = List[i];if( l_pDataVector ){DELETE_VECTOR((*l_pDataVector));SAFE_DELETE(l_pDataVector);}}List.clear();}
+
+#define CLEAR_AND_DELETE_OBJECT_IN_LIST(LIST){auto l_pObject = LIST->back();delete l_pObject;LIST->pop_back();LIST->clear();}
 
 
-//p for first q for second r for map object
-#define DEL_MAP(p,q,r){											\
-	std::map<p,q>::iterator i=r.begin();						\
-	for(;i!=r.end();++i)										\
+
+#define DELETE_MAP(MAP){					\
+	auto i=MAP.begin();						\
+	for(;i!=MAP.end();++i)										\
 	{															\
-		q l_Type2=i->second;									\
+		auto l_Type2=i->second;									\
 		SAFE_DELETE(l_Type2);									\
-	}r.clear();}
+	}MAP.clear();}
 
-#define RELEASE_MAP(p,q,r){											\
-	std::map<p,q>::iterator i=r.begin();						\
-	for(;i!=r.end();++i)										\
+#define DEL_MAP(KEY,VALUE,MAP){											\
+	std::map<KEY,VALUE>::iterator i=MAP.begin();						\
+	for(;i!=MAP.end();++i)										\
 	{															\
-		q l_Type2=i->second;									\
+		VALUE l_Type2=i->second;									\
+		SAFE_DELETE(l_Type2);									\
+	}MAP.clear();}
+
+#define RELEASE_MAP(KEY,VALUE,MAP){											\
+	std::map<KEY,VALUE>::iterator i=MAP.begin();						\
+	for(;i!=MAP.end();++i)										\
+	{															\
+		VALUE l_Type2=i->second;									\
 		SAFE_RELEASE(l_Type2);									\
-	}r.clear();}
+	}MAP.clear();}
 
 //Type Variable,GetName,SetName
 #define GET_SET_DEC( T,V,p,q ) protected:T V;public:T p (){ return V; }void q (T value){ V = value; }

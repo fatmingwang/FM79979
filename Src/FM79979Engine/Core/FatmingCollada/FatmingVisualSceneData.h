@@ -151,8 +151,8 @@ struct sVisualSceneLibrary
 	}
 	~sVisualSceneLibrary()
 	{
-		DELETE_VECTOR(AllSkeletonNodeVector,sSkeletonNode*);
-		DELETE_VECTOR(AllNodesVector,sNode*);
+		DELETE_VECTOR(AllSkeletonNodeVector);
+		DELETE_VECTOR(AllNodesVector);
 	}
 	//count to show count info
 	void				DumpNodeInfo(sNode*e_pNode,int *e_piCount);

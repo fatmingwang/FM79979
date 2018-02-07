@@ -714,10 +714,10 @@ namespace LevelEditor
 					 {
 						 if( ImageList_treeView->SelectedNode )
 						 {
-							 cPuzzleImage*l_pPi = cGameApp::m_spImageParser->GetPuzzleImage(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text));
+							 cPuzzleImage*l_pPi = cGameApp::m_spImageParser->GetPuzzleImage(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text).c_str());
 							 if( !l_pPi )
 							 {
-								 cMPDIList*l_pMPDIList = cGameApp::m_spAnimationParser->GetMPDIList(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text));
+								 cMPDIList*l_pMPDIList = cGameApp::m_spAnimationParser->GetMPDIList(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text).c_str());
 								 l_pRenderObjectBehavior = l_pMPDIList->GetObject(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Text));
 							 }
 							 else
@@ -786,7 +786,7 @@ namespace LevelEditor
 		 {
 			if( sender == AddStage_button )
 			{
-				WCHAR*	l_strName = DNCT::GcStringToWchar(StageName_textBox->Text);
+				std::wstring	l_strName = DNCT::GcStringToWchar(StageName_textBox->Text);
 				if( m_pLevelEditorApp->m_pLevelData->GetObject(l_strName) )
 				{
 					WARING_YES_NO_TO_NO("replace data?")
@@ -794,11 +794,11 @@ namespace LevelEditor
 						return;
 					}
 					//this->RemoveUserDefineNode(m_pLevelEditorApp->m_pLevelData->GetObject(l_strName));
-					m_pLevelEditorApp->m_pLevelData->RemoveObject(l_strName);
+					m_pLevelEditorApp->m_pLevelData->RemoveObject(l_strName.c_str());
 					AllStage_listBox->Items->Remove(StageName_textBox->Text);
 					m_pLevelEditorApp->m_bStageDataChanged = false;
 				}
-				m_pLevelEditorApp->m_pCurrentStageEditData->SetName(l_strName);
+				m_pLevelEditorApp->m_pCurrentStageEditData->SetName(l_strName.c_str());
 				Row_numericUpDown_ValueChanged(sender,e);
 				GridHeight_numericUpDown_ValueChanged(sender,e);
 				StartX_numericUpDown_ValueChanged(sender,e);
@@ -923,8 +923,8 @@ namespace LevelEditor
 		 {
 			 if( Template_listBox->SelectedIndex != -1 )
 			 {
-				 WCHAR*l_strName = DNCT::GcStringToWchar(Template_listBox->SelectedItem->ToString());
-				 m_pLevelEditorApp->m_pCurrentSelectedImage = this->m_pLevelEditorApp->m_pLevelData->m_pTemplateList->GetObject(l_strName)->GetImage();
+				 std::wstring l_strName = DNCT::GcStringToWchar(Template_listBox->SelectedItem->ToString());
+				 m_pLevelEditorApp->m_pCurrentSelectedImage = this->m_pLevelEditorApp->m_pLevelData->m_pTemplateList->GetObject(l_strName.c_str())->GetImage();
 				 TemplateDataInvertorReEdit();
 			 }
 		 }
@@ -943,8 +943,8 @@ namespace LevelEditor
 				 String^l_strForUnity = System::IO::Path::GetDirectoryName(l_strFileName);
 				l_strForUnity += "_Unity";
 				l_strForUnity += System::IO::Path::GetFileName(l_strFileName);
-				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strFileName));
-				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strForUnity),true,true);
+				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strFileName).c_str());
+				this->m_pLevelEditorApp->m_pLevelData->Export(DNCT::GcStringToChar(l_strForUnity).c_str(),true,true);
 				//for quick apply
 				String^l_strTempDirectory = System::IO::Path::GetDirectoryName(l_strFileName)+"/XmlTemp";
 				System::IO::Directory::CreateDirectory(l_strTempDirectory);
@@ -962,7 +962,7 @@ namespace LevelEditor
 			if( l_strFileName )
 			{
 				SAFE_DELETE(m_pLevelEditorApp->m_pBGImage);
-				m_pLevelEditorApp->m_pBGImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName));
+				m_pLevelEditorApp->m_pBGImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName).c_str());
 			}
 		 }
 
@@ -986,7 +986,7 @@ namespace LevelEditor
 				cGameApp::m_spAnimationParser->Destroy();
 				cGameApp::m_spImageParser->Destroy();
 				m_pLevelEditorApp->DestoryOldData();
-				bool	l_b = this->m_pLevelEditorApp->m_pLevelData->ParseWithMyParse(DNCT::GcStringToChar(l_strFileName));
+				bool	l_b = this->m_pLevelEditorApp->m_pLevelData->ParseWithMyParse(DNCT::GcStringToChar(l_strFileName).c_str());
 				if( l_b )
 				{
 					//return;
@@ -1183,8 +1183,8 @@ namespace LevelEditor
             if( ImageList_treeView->SelectedNode && ImageList_treeView->SelectedNode->Parent )
             {
 				 TemplateName_textBox->Text = ImageList_treeView->SelectedNode->Text;
-				 WCHAR*l_strSelectedName = DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text);
-                 cPuzzleImage*l_pPI = dynamic_cast<cPuzzleImage*>(cGameApp::m_spImageParser->GetObject(l_strSelectedName));
+				 std::wstring l_strSelectedName = DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Parent->Text);
+                 cPuzzleImage*l_pPI = dynamic_cast<cPuzzleImage*>(cGameApp::m_spImageParser->GetObject(l_strSelectedName.c_str()));
 				 if( l_pPI )
 				 {
 					cPuzzleImageUnit*l_pPuzzleImageUnit = dynamic_cast<cPuzzleImageUnit*>(l_pPI->GetObject(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Text)));
@@ -1193,7 +1193,7 @@ namespace LevelEditor
 				 }
 				 else
 				 {
-					cMPDIList*l_pMPDIList = dynamic_cast<cMPDIList*>(cGameApp::m_spAnimationParser->GetObject(l_strSelectedName));
+					cMPDIList*l_pMPDIList = dynamic_cast<cMPDIList*>(cGameApp::m_spAnimationParser->GetObject(l_strSelectedName.c_str()));
 					if( l_pMPDIList )
 					{
 						cMPDI*l_pMPDI = l_pMPDIList->GetObject(DNCT::GcStringToWchar(ImageList_treeView->SelectedNode->Text));

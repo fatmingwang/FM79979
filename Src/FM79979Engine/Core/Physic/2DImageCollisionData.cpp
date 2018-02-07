@@ -150,7 +150,7 @@ namespace FATMING_CORE
 	{
 		//SAFE_DELETE(m_pCurveLoader);
 		//DELETE_VECTOR(m_btShapeCollisionVector,cbtShapeCollision*);
-		DELETE_VECTOR(m_ImageCollisionDataVector,sImageCollisionData*);
+		DELETE_VECTOR(m_ImageCollisionDataVector);
 	}
 
 	//void	c2DImageCollisionDataForEditor::OpenFile(char*e_strFileName)
@@ -194,7 +194,7 @@ namespace FATMING_CORE
 	//}
 	void	c2DImageCollisionDataForEditor::ClearImageCollisionDataVector()
 	{
-		DELETE_VECTOR(m_ImageCollisionDataVector,sImageCollisionData*);
+		DELETE_VECTOR(m_ImageCollisionDataVector);
 	}
 
 	void	c2DImageCollisionDataForEditor::Render(Vector4 e_vColor)
@@ -468,7 +468,7 @@ namespace FATMING_CORE
 		else
 		{
 			//clear data before we start to do this shit.
-			DELETE_VECTOR(m_ImageCollisionDataVector,sImageCollisionData*);		
+			DELETE_VECTOR(m_ImageCollisionDataVector);		
 		}
 	}
     //<CollisionData Name="08fish-run0000" Count="0" />

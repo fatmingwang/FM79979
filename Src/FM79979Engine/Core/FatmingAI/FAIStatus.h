@@ -37,7 +37,7 @@ namespace FATMING_AI
 		eFAI_CBSS_MAX
 	};
 
-	static WCHAR*	g_strCharacterAttribute[eCA_UNKNOW+1] = {
+	static const wchar_t*	g_strCharacterAttribute[eCA_UNKNOW+1] = {
 		L"HP",
 		L"MP",
 		L"DEF",
@@ -50,7 +50,7 @@ namespace FATMING_AI
 		L"Unknow!!",
 	};
 
-	static WCHAR*	g_strCharacterStatus[eFAI_CBS_MAX+1] = {
+	static const wchar_t*	g_strCharacterStatus[eFAI_CBS_MAX+1] = {
 		L"Idle",
 		L"IntoScene",
 		L"Hurt",

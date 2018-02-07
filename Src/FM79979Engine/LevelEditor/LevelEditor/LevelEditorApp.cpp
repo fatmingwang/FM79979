@@ -391,7 +391,7 @@ void	cLevelEditorApp::AddObjectOnCell(GCFORM::ListBox^e_pLayerObjectData_listBox
 		}
 	}
 	bool	l_bSamePositiob = false;
-	WCHAR*l_strName = DNCT::GcStringToWchar(e_pTemplate_listBox->SelectedItem->ToString());
+	//std::wstring l_strName = DNCT::GcStringToWchar(e_pTemplate_listBox->SelectedItem->ToString());
 	if( !m_bAllowSamepositionObject )//if same object is not allow to at same position
 	{
 		//if( l_vPos.x == l_vCurrentPos.x && l_vPos.y == l_vCurrentPos.y )
@@ -416,9 +416,9 @@ void	cLevelEditorApp::AddObjectIntoCurrentStage(Vector3 e_vPos,GCFORM::ListBox^e
 		return;
 	}
 
-	WCHAR*l_strName = DNCT::GcStringToWchar(e_pTemplate_listBox->SelectedItem->ToString());
-	cLevelLayerGridData*l_pLevelLayerGridData = new cLevelLayerGridData(m_pLevelData->m_pTemplateList->GetObject(l_strName));
-	l_pLevelLayerGridData->SetName(l_strName);
+	std::wstring l_strName = DNCT::GcStringToWchar(e_pTemplate_listBox->SelectedItem->ToString());
+	cLevelLayerGridData*l_pLevelLayerGridData = new cLevelLayerGridData(m_pLevelData->m_pTemplateList->GetObject(l_strName.c_str()));
+	l_pLevelLayerGridData->SetName(l_strName.c_str());
 	if(l_pLevelLayerGridData->GetImage()->Type() == cPuzzleImageUnit::TypeID)
 	{
 		cPuzzleImageUnit*l_pPIUnit = (cPuzzleImageUnit*)l_pLevelLayerGridData->GetImage();

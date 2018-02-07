@@ -117,8 +117,8 @@
 			sComonEffect(){ strSid = 0; strTechniqueName = 0; }
 			~sComonEffect()
 			{
-				DELETE_VECTOR(AllTechniqueAndTextureName,sTechniqueData*)
-				DELETE_VECTOR(AllNewParam,sNewParam*);
+				DELETE_VECTOR(AllTechniqueAndTextureName)
+				DELETE_VECTOR(AllNewParam);
 			}
 		};
 		const WCHAR*m_strID;//effect file name( xxx.fx )

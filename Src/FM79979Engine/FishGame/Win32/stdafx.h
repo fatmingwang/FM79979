@@ -7,4 +7,7 @@
 #include "../../Core/AllCoreInclude.h"
 #include "../../Core/Particle/AllParticleInclude.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"
+#include "../../Core/FatmingAI/AllFatmingAIInclude.h"
+#include "../Game/Common/CommonRegisterManager.h"
+#include "../Game/Common/WaitForFetchFunctionObjectList.h"
 //#include "../Game/GameDefine/GameDefine.h"

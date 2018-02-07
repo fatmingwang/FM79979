@@ -6,7 +6,7 @@ cLanguageFile*g_pLanguageFile = nullptr;
 bool	InitOnceObject()
 {
 	DeleteOnceObject();
-	g_pLanguageFile = new cLanguageFile();
+	g_pLanguageFile = new cLanguageFile("");
 	return true;
 }
 
