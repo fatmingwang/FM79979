@@ -114,10 +114,8 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 //#elif defined(IOS) || defined(LINUX)
 #else
 #define CORE_EXPORT __attribute__((visibility("default")))
-//#define FCOLLADA_LOCAL __attribute__((visibility("hidden")))
 #endif
-#else // FCOLLADA_DLL
-//#define FCOLLADA_EXPORT
-#endif // FCOLLADA_DLL
+#else
+#endif
 
 #endif

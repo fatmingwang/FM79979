@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "PlayerKeyBehavior.h"
+#include "KeyPressBehavior.h"
 #include "../GameDefine/GameParameterDefine.h"
 sChangeBetRateKeyDownTC::sChangeBetRateKeyDownTC()
 {

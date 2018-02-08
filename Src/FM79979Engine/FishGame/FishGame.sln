@@ -9,46 +9,42 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FishGame", "Win32\FishGame.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingAI", "..\Core\FatmingAI\FatmingAI.vcxproj", "{377C8B76-B1E4-4004-83E6-65C42799380E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FishGameProbability", "FishGameProbability\FishGameProbability.vcxproj", "{ED600932-90EB-44D8-A932-85F9F21ED660}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Emscripten = Debug|Emscripten
 		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Emscripten = Release|Emscripten
 		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x64.ActiveCfg = Debug|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x64.Build.0 = Debug|x64
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x86.ActiveCfg = Debug|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Emscripten.ActiveCfg = Release|Emscripten
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Emscripten.Build.0 = Release|Emscripten
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.ActiveCfg = Release|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.Build.0 = Release|x64
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x86.ActiveCfg = Release|x64
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|Emscripten.ActiveCfg = Debug|Win32
+		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|Emscripten.ActiveCfg = Debug|x64
 		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|x64.ActiveCfg = Debug|x64
 		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|x64.Build.0 = Debug|x64
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|x86.ActiveCfg = Debug|Win32
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Debug|x86.Build.0 = Debug|Win32
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|Emscripten.ActiveCfg = Release|Win32
+		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|Emscripten.ActiveCfg = Release|x64
 		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|x64.ActiveCfg = Release|x64
 		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|x64.Build.0 = Release|x64
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|x86.ActiveCfg = Release|Win32
-		{EAA73960-342D-42F3-8C61-A503FE2AF758}.Release|x86.Build.0 = Release|Win32
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|Emscripten.ActiveCfg = Debug|Win32
+		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|Emscripten.ActiveCfg = Debug|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|x64.ActiveCfg = Debug|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|x64.Build.0 = Debug|x64
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|x86.ActiveCfg = Debug|Win32
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Debug|x86.Build.0 = Debug|Win32
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|Emscripten.ActiveCfg = Release|Win32
+		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|Emscripten.ActiveCfg = Release|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x64.ActiveCfg = Release|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x64.Build.0 = Release|x64
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x86.ActiveCfg = Release|Win32
-		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x86.Build.0 = Release|Win32
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Debug|Emscripten.ActiveCfg = Debug|x64
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Debug|x64.ActiveCfg = Debug|x64
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Debug|x64.Build.0 = Debug|x64
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|Emscripten.ActiveCfg = Release|x64
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|x64.ActiveCfg = Release|x64
+		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

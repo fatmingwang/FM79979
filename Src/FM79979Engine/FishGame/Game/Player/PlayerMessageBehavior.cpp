@@ -1,10 +1,7 @@
 #include "stdafx.h"
 #include "PlayerMessageBehavior.h"
 #include "../GameDefine/GameDefine.h"
-
-
-int64	cPlayerMessageBehavior::m_si64ScoreLimit = 10000000;
-int64	cPlayerMessageBehavior::m_si64ButtonAddScoreLimit = 10000000;
+#include "../ControlPanel/ControlSettingParameter.h"
 
 
 cPlayerMessageBehavior::cPlayerMessageBehavior()
@@ -24,8 +21,6 @@ bool	cPlayerMessageBehavior::InitMessageResource(cMatrix44 e_matShowMatrix, int6
 	m_PressButtonAddScoreLimitMPDIShowTime.SetTargetTime(PRESS_BUTTON_ADD_SCORE_LIMIT_SHOW_MPDI_TIME);
 	m_bCoinNotEnoughToRefund = false;
 	m_bRefundingCoin = false;
-	m_si64ScoreLimit = e_i64ScoreLimit;
-	m_si64ButtonAddScoreLimit = e_i64ButtonAddScoreLimit;
 	const wchar_t*l_strMEssageMPDIName[ePMT_MAX] =
 	{
 		L"IOError",
@@ -137,6 +132,10 @@ bool	cPlayerMessageBehavior::AddScoreByMoneyChangeType(eMoneyChangeType e_eMoney
 		//{
 		//	m_MessageStatus[ePMT_PRESS_BUTTON_ADD_SCORE_LIMIT].m_bMesageOn = false;
 		//}
+		//sControlSettingParameter::m_si64ScoreLimit;
+		//sControlSettingParameter::m_si64ButtonAddScoreLimit
+		//m_si64ScoreLimit = e_i64ScoreLimit;
+		//m_si64ButtonAddScoreLimit = e_i64ButtonAddScoreLimit;
 		break;
 	case eMoneyChangeType::eMCT_COIN_TOST_ADD_SCORE:
 	case eMoneyChangeType::eMCT_FISH_DIED_ADD_SCORE:

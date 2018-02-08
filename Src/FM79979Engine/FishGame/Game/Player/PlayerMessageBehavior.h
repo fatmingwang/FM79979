@@ -1,6 +1,4 @@
 #pragma once
-	
-class	cPlayerManager;
 
 enum eMoneyChangeType
 {
@@ -36,9 +34,7 @@ enum ePlayerMessageType
 
 class cPlayerMessageBehavior
 {
-	friend	class 				cPlayerManager;
 protected:
-	static int64				m_si64ButtonAddScoreLimit;
 	//
 	struct sMessageStatus
 	{
@@ -51,23 +47,20 @@ protected:
 	bool						m_bCoinNotEnoughToRefund;//not enough coin or ticket for refund
 	UT::sTimeCounter			m_PressButtonAddScoreLimitMPDIShowTime;//10 seconds? why
 	float						m_ShowIOErrorWaitTime;//0.5 second sometimes IO just get wrong but get back immediatly,so wait for a while to show error message
-
+	bool						InitMessageResource(cMatrix44 e_matShowMatrix, int64 e_i64ScoreLimit, int64 e_i64ButtonAddScoreLimit);
 	//
 protected:
-	static int64				m_si64ScoreLimit;
+	int64						m_i64Score;
 	bool						m_bRefundingCoin;
-	bool						InitMessageResource(cMatrix44 e_matShowMatrix,int64 e_i64ScoreLimit,int64 e_i64ButtonAddScoreLimit);
 	virtual void				UpdateMessageStatus(float e_fElpaseTime);
 	virtual void				RenderMessageStatus();
 	virtual bool				AddScoreByMoneyChangeType(eMoneyChangeType e_eMoneyChangeType, bool e_bMessageOn = false);
-	virtual int64				GetScore() = 0;
 public:
 	cPlayerMessageBehavior();
 	virtual ~cPlayerMessageBehavior();
 	bool						IsAllowToFire();
 	bool*						GetCoinNotEnoughToRefundPointer() {return &m_bCoinNotEnoughToRefund;}
 	bool*						GetRefundingCoinPointer() { return &m_bRefundingCoin; }
-
-	static void					SetScoreLimit(int64 e_i64ScoreLimit){ m_si64ScoreLimit = e_i64ScoreLimit; }
 	bool						IsDeleteMessageOn();
+	int64				GetScore() { return m_i64Score; }
 };

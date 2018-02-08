@@ -28,5 +28,5 @@ public:
 	void						Render();
 	void						DebugRender();
 	void						Destroy();
-	void						Collide( cMonsterManager* e_pMonsterManager );
+	void						Collide( cFishManager* e_pMonsterManager );
 };

@@ -2,7 +2,7 @@
 //
 #include "NormalFish.h"
 
-class cFixedMonsterMonster: public cNormalFish
+class cFixedFishMonster: public cNormalFish
 {
 	cNamedTypedObjectVector<cCurveWithTime>	m_CurveWithTimeVector;
 private:
@@ -12,8 +12,8 @@ protected:
 	virtual	void				InternalUpdate(float e_fElpaseTime);
 public:
 	//
-	cFixedMonsterMonster();
-	virtual ~cFixedMonsterMonster();
-	cFixedMonsterMonster(cFixedMonsterMonster*e_pMonster);
-	cFixedMonsterMonster*GetMe(TiXmlElement*e_pTiXmlElement);
+	cFixedFishMonster();
+	virtual ~cFixedFishMonster();
+	cFixedFishMonster(cFixedFishMonster*e_pMonster);
+	cFixedFishMonster*GetMe(TiXmlElement*e_pTiXmlElement);
 };

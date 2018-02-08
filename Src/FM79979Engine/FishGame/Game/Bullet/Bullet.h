@@ -9,15 +9,15 @@ enum	eBulletStatus
 	eBS_MAX,
 };
 //
+class cPlayerBehaviorBase;
+//
 class	cBaseBullet:public Frame
 {
 private:
-	//web
 	cMPDI*					m_pExplosionMPDI;
 	cMPDI*					m_pBulletMPDI;
 	void					ExplosionUpdate(float e_fElpaseTime);
 	void					BulletUpdate(float e_fElpaseTime);
-	//bullet
 	eBulletStatus			m_eBulletStatus;
 	cbtShapeCollision*		m_pBulletCollision;
 	Vector3					m_vDirection;

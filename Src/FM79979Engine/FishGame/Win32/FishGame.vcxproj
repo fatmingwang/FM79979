@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -22,10 +14,11 @@
     <ClCompile Include="..\Game\Bullet\Bullet.cpp" />
     <ClCompile Include="..\Game\Bullet\BulletManager.cpp" />
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp" />
-    <ClCompile Include="..\Game\Fish\FixedPathMonster.cpp" />
-    <ClCompile Include="..\Game\Fish\MonsterBase.cpp" />
-    <ClCompile Include="..\Game\Fish\MonsterManager.cpp" />
-    <ClCompile Include="..\Game\Fish\MonsterManagerRegister.cpp" />
+    <ClCompile Include="..\Game\ControlPanel\ControlSettingParameter.cpp" />
+    <ClCompile Include="..\Game\Fish\FixedPathFish.cpp" />
+    <ClCompile Include="..\Game\Fish\FishBase.cpp" />
+    <ClCompile Include="..\Game\Fish\FishManager.cpp" />
+    <ClCompile Include="..\Game\Fish\FishManagerRegister.cpp" />
     <ClCompile Include="..\Game\Fish\NormalFish.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameApp.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameObject.cpp" />
@@ -34,12 +27,18 @@
     <ClCompile Include="..\Game\GameDefine\GameDefine.cpp" />
     <ClCompile Include="..\Game\GameEffect\GameEffectBase.cpp" />
     <ClCompile Include="..\Game\GameEffect\GameEffectManagerParse.cpp" />
-    <ClCompile Include="..\Game\Player\PlayerKeyBehavior.cpp" />
     <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp" />
     <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp" />
     <ClCompile Include="..\Game\Scene\CameraShake.cpp" />
     <ClCompile Include="..\Game\Scene\SceneContent.cpp" />
     <ClCompile Include="..\Game\Scene\SceneManager.cpp" />
+    <ClCompile Include="..\Game\Weapon\FishGameCommonWeapon.cpp" />
+    <ClCompile Include="..\Game\Weapon\FishGameMiniGameWeapon.cpp" />
+    <ClCompile Include="..\Game\Weapon\FishGameTraceFishWeapon.cpp" />
+    <ClCompile Include="..\Game\Weapon\FishGameWeaponBase.cpp" />
+    <ClCompile Include="..\Game\Weapon\FishGameWeaponManager.cpp" />
+    <ClCompile Include="..\Game\Weapon\KeyPressBehavior.cpp" />
+    <ClCompile Include="..\Game\Weapon\WeaponManagerParser.cpp" />
     <ClCompile Include="..\Game\WriteFile\WriteFile.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -48,13 +47,15 @@
     <ClCompile Include="Win32.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\FishGameProbability\FishProbabilityInterface.h" />
     <ClInclude Include="..\Game\Bullet\Bullet.h" />
     <ClInclude Include="..\Game\Bullet\BulletManager.h" />
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />
     <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h" />
-    <ClInclude Include="..\Game\Fish\FixedPathMonster.h" />
-    <ClInclude Include="..\Game\Fish\MonsterBase.h" />
-    <ClInclude Include="..\Game\Fish\MonsterManager.h" />
+    <ClInclude Include="..\Game\ControlPanel\ControlSettingParameter.h" />
+    <ClInclude Include="..\Game\Fish\FixedPathFish.h" />
+    <ClInclude Include="..\Game\Fish\FishBase.h" />
+    <ClInclude Include="..\Game\Fish\FishManager.h" />
     <ClInclude Include="..\Game\Fish\NormalFish.h" />
     <ClInclude Include="..\Game\GameApp\FishGameApp.h" />
     <ClInclude Include="..\Game\GameApp\TestShader.h" />
@@ -62,15 +63,20 @@
     <ClInclude Include="..\Game\GameDefine\GameDefine.h" />
     <ClInclude Include="..\Game\GameDefine\GameParameterDefine.h" />
     <ClInclude Include="..\Game\GameEffect\GameEffectBase.h" />
-    <ClInclude Include="..\Game\Player\PlayerBehaviorBase.h" />
-    <ClInclude Include="..\Game\Player\PlayerKeyBehavior.h" />
+    <ClInclude Include="..\Game\Player\PlayerBehavior.h" />
+    <ClInclude Include="..\Game\Player\PlayerManager.h" />
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h" />
     <ClInclude Include="..\Game\Probability\ProbabilityMain.h" />
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h" />
     <ClInclude Include="..\Game\Scene\CameraShake.h" />
     <ClInclude Include="..\Game\Scene\SceneContent.h" />
     <ClInclude Include="..\Game\Scene\SceneManager.h" />
+    <ClInclude Include="..\Game\Weapon\FishGameCommonWeapon.h" />
+    <ClInclude Include="..\Game\Weapon\FishGameMiniGameWeapon.h" />
+    <ClInclude Include="..\Game\Weapon\FishGameTraceFishWeapon.h" />
     <ClInclude Include="..\Game\Weapon\FishGameWeaponBase.h" />
+    <ClInclude Include="..\Game\Weapon\FishGameWeaponManager.h" />
+    <ClInclude Include="..\Game\Weapon\KeyPressBehavior.h" />
     <ClInclude Include="..\Game\WriteFile\WriteFile.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
@@ -87,19 +93,6 @@
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -118,12 +111,6 @@
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -133,12 +120,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -159,38 +140,6 @@
       </EntryPointSymbol>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-    </Link>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <ConformanceMode>true</ConformanceMode>
-    </ClCompile>
-    <Link>
-      <SubSystem>Windows</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

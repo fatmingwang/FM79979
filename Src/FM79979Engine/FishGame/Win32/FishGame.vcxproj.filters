@@ -87,9 +87,6 @@
     <ClCompile Include="..\Game\Scene\CameraShake.cpp">
       <Filter>Game\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game\Player\PlayerKeyBehavior.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
@@ -111,26 +108,47 @@
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game\Fish\MonsterBase.cpp">
-      <Filter>Game\Fish</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\Fish\MonsterManager.cpp">
-      <Filter>Game\Fish</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\Fish\MonsterManagerRegister.cpp">
-      <Filter>Game\Fish</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\Fish\FixedPathMonster.cpp">
-      <Filter>Game\Fish</Filter>
-    </ClCompile>
     <ClCompile Include="..\Game\Fish\NormalFish.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FishBase.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FishManager.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FixedPathFish.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\WeaponManagerParser.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\FishGameCommonWeapon.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\FishGameMiniGameWeapon.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\FishGameTraceFishWeapon.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\FishGameWeaponBase.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\KeyPressBehavior.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Weapon\FishGameWeaponManager.cpp">
+      <Filter>Game\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\ControlPanel\ControlSettingParameter.cpp">
+      <Filter>ControlPanel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FishManagerRegister.cpp">
       <Filter>Game\Fish</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\GameApp\TestShader.h">
       <Filter>Game</Filter>
     </ClInclude>
@@ -139,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\WriteFile\WriteFile.h">
       <Filter>Game\WriteFile</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Player\PlayerBehaviorBase.h">
-      <Filter>Game\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h">
       <Filter>Game\Player</Filter>
@@ -163,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\Scene\CameraShake.h">
       <Filter>Game\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Player\PlayerKeyBehavior.h">
-      <Filter>Game\Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\GameDefine\FishGameEventMessageID.h">
       <Filter>Game\GameDefine</Filter>
@@ -191,17 +203,47 @@
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h">
       <Filter>Game\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Game\Fish\FixedPathMonster.h">
-      <Filter>Game\Fish</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Fish\MonsterBase.h">
-      <Filter>Game\Fish</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Fish\MonsterManager.h">
-      <Filter>Game\Fish</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\Fish\NormalFish.h">
       <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FishBase.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FishManager.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FixedPathFish.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\FishGameCommonWeapon.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\FishGameTraceFishWeapon.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\FishGameMiniGameWeapon.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\KeyPressBehavior.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\ControlPanel\ControlSettingParameter.h">
+      <Filter>ControlPanel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerManager.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Player\PlayerBehavior.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Weapon\FishGameWeaponManager.h">
+      <Filter>Game\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\FishGameProbability\FishProbabilityInterface.h">
+      <Filter>Game\Probability</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

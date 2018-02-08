@@ -1,7 +1,19 @@
-#ifndef _cPlayerWeapon_H_
-#define _cPlayerWeapon_H_
+#pragma once
 
-#include "PlayerBehaviorBase.h"
+#include "../Common/CommonRegisterManager.h"
+
+#include "KeyPressBehavior.h"
+
+enum eFishPlayerKey
+{
+	eFPK_UP = 0,
+	eFPK_DOWN,
+	eFPK_LEFT,
+	eFPK_RIGHT,
+	eFPK_FIRE,
+	eFPK_BET,
+	eFPK_MAX
+};
 
 enum eWeaponStatus
 {
@@ -27,32 +39,19 @@ enum eWeaponType
 class	cFishGameWeaponBase :public cRenderObject
 {
 protected:
+	//e_pucKey = cWeaponManager::m_ucKey
+	//
 	cMPDI*			m_pWeaponAnimation[eWS_MAX];
 	float			m_fWeaponFireSpeed;//somehow control panel ask to fire fast...change by SetOneSecondCanFireNBullet
-	eDirection		m_eMovingDirection;
+	eDirection		m_eMovingDirection;//only left or ight
 	bool			m_bFire;
-	void			InternalStatusChange(eDirection e_eDirection) = 0;
+	virtual	bool	Fire() = 0;//require bullet
 public:
-	cPlayerWeapon();
-	virtual ~cPlayerWeapon();
-	void			StatusChange(eDirection e_eDirection);
+	cFishGameWeaponBase();
+	virtual ~cFishGameWeaponBase();
 	virtual	void	Init() = 0;
-	virtual	void	Update(float e_fElpaseTime) = 0;
-	virtual	void	Render();
-	virtual	bool	Fire() = 0;
-	bool			IsAllowFire() = 0;
+	virtual	void	Update(float e_fElpaseTime,unsigned char*e_pucKey) = 0;
+	virtual	void	Render() = 0;
+	virtual bool	IsAllowFire() = 0;
+	virtual bool	IsLeave() = 0;//after mini game fired.,common game never return true,cWeaponManager::SwitchWeapon
 };
-
-
-class cWeaponManager:public cRenderObject
-{
-	cNamedTypeObjectVector<cFishGameWeaponBase*>	m_CommonWeaponVector;
-	cNamedTypeObjectVector<cFishGameWeaponBase*>	m_MiniGameWeaponVector;
-	cFishGameWeaponBase*							m_pCurrentWeapon;
-	cFishGameWeaponBase*							m_pLastSelectedCommonWeapon;//from mini game to common weapon
-public:
-	void	SwitchWeapon();
-	void	SwitchToNextCommonWeapon();
-};
-
-#endif

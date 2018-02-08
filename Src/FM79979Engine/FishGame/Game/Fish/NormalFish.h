@@ -1,8 +1,8 @@
 #pragma once
 //
-#include "MonsterBase.h"
+#include "FishBase.h"
 
-class cNormalFish : public cMonsterBase
+class cNormalFish : public cFishBase
 {
 private:
 	virtual	void				ProcessCollisionlData(TiXmlElement*e_pElement) override;

@@ -11,5 +11,10 @@ NamedTypedObject*cFishGameCommonRegisterManager::GetObject(TiXmlElement*e_pTiXml
 		if (l_pNamedTypedObject)
 			return l_pNamedTypedObject;
 	}
+#ifdef DEBUG
+	std::wstring l_str = e_pTiXmlElement->Value();
+	l_str += L" not registered element";
+	cGameApp::OutputDebugInfoString(l_str);
+#endif
 	return nullptr;
 }

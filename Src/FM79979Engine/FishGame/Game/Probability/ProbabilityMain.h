@@ -50,9 +50,8 @@ struct sHittedFishData
 	sToProbabilityHittedFishData GetToProbabilityHittedFishData();
 };
 
-
 //
-class cProbability
+class cFishProbability
 {
 	bool											m_bLeaveThread;
 	bool											m_bThreadFinish;

@@ -10,4 +10,5 @@
 #include "../../Core/FatmingAI/AllFatmingAIInclude.h"
 #include "../Game/Common/CommonRegisterManager.h"
 #include "../Game/Common/WaitForFetchFunctionObjectList.h"
+#include "../FishGameProbability/FishProbabilityInterface.h"
 //#include "../Game/GameDefine/GameDefine.h"
