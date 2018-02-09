@@ -11,7 +11,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtRotateInitRotate(){ memset(m_vAngle,0,sizeof(Vector3)); }
 		virtual ~cPrtRotateInitRotate(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			e_pParticleData->vAngle += m_vAngle;
 		    e_pParticleData->vOriginaAngle = e_pParticleData->vAngle;
@@ -20,11 +20,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 
 	class cPrtRotateActRotate:public cParticleBase
@@ -40,7 +40,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtRotateActRotate(){ memset(m_vAngle,0,sizeof(Vector3)); m_bRandom = false; m_fRandomOffset = 0.f; m_ePRM = ePRM_SELF; m_bNegative = false; }
 		virtual ~cPrtRotateActRotate(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			e_pParticleData->ePRM = m_ePRM;
 
@@ -58,11 +58,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 }
 

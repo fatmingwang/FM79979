@@ -107,7 +107,7 @@ namespace FATMING_CORE
 		void	ProcessImageCollisionData();
 		void	ProcessCollisionData();
 		void	ProcessShapeData();
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 	public:
 		DEFINE_TYPE_INFO()
 		c2DImageCollisionData();

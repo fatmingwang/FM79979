@@ -13,20 +13,20 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtColorInitrSetColor(){ m_vColor = Vector4::One; }
 		virtual ~cPrtColorInitrSetColor(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			e_pParticleData->vColor = m_vColor;
 			e_pParticleData->vOriginalColor = m_vColor;
 		}
-		virtual NamedTypedObject*  Clone();
+		virtual NamedTypedObject*  Clone()override;
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual char*	GetDataInfo();
+		virtual char*	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 	//===========
 	//
@@ -37,7 +37,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		explicit  cPrtColorInitrSetRandomColor() throw(){}
 		virtual ~cPrtColorInitrSetRandomColor(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float	l_fR = UT::frand(m_vColor.r,1.f);
 			float	l_fG = UT::frand(m_vColor.g,1.f);
@@ -49,12 +49,12 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 	//===========
 	//
@@ -65,7 +65,7 @@ namespace FATMING_CORE
 		GETP_SET_DEC(bool,m_bFade,IsFade,SetFade);
 	public:
 		cPrtColorActBlending(){m_vColor = Vector4::One;}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			//get value
 			Vector4	l_vColor = e_fElpaseTime*m_vColor;
@@ -99,12 +99,12 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 	//===========
 	//
@@ -113,7 +113,7 @@ namespace FATMING_CORE
 	{
 	public:
 		DEFINE_TYPE_INFO()
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float l_fCurrentProgress = 1-(e_pParticleData->fLifespan/e_pParticleData->fOriginaLifeSpan);
 			e_pParticleData->vColor = (m_vColor-e_pParticleData->vOriginalColor)*l_fCurrentProgress+e_pParticleData->vOriginalColor;
@@ -121,7 +121,7 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();	
+		virtual NamedTypedObject*  Clone()override;
 	};
 	//===========
 	//
@@ -141,13 +141,13 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float l_fCurrentProgress = 1-(e_pParticleData->fLifespan/e_pParticleData->fOriginaLifeSpan);
 			if( l_fCurrentProgress<0.5f )

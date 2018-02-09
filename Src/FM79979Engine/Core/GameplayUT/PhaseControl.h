@@ -68,7 +68,7 @@ namespace FATMING_CORE
 		//for internal use if u have default render or update override it,ex background image
 		virtual	void			InternalRender(){}
 		virtual	void			InternalUpdate(float e_fElpaseTime){}
-		virtual bool			InternalCollide(int e_iPosX,int e_iPosY){ return false; }
+		virtual bool			InternalCollide(int e_iPosX,int e_iPosY)override { return false; }
 		void					SetNewWorkingPhase(int e_iNewPhaseIndex,int e_iOldPhaseIndex,bool e_bDestroyOldPhase = false,bool e_bInitNewPhase = true,bool e_bFetchData = true);
 	protected:
 		bool					PopUpMessagerUpdate(float e_fElpaseTime);
@@ -81,24 +81,24 @@ namespace FATMING_CORE
 		const	wchar_t*			GetCurrentPhaseName();
 		//char*	GetCurrentPhaseNameByChar();
 		bool					SetCurrentCurrentPhase(const wchar_t*e_strPhaseNAme);
-		virtual	bool			IsSatisfiedCondition(){ return this->m_iCurrentPhase == -1; }
-		void					SetSatisfiedCondition(bool e_b){}
-		virtual	void			Init(){ cClickMouseBehaviorVector<cSimplePhase>::Init(); }
-		virtual	void			Update(float e_fElpaseTime);
-		virtual	void			Render();
-		virtual	void			Destroy();
-		virtual	void			DebugRender();
-		virtual	void			MouseDown(int e_iX,int e_iY);
-		virtual	void			MouseUp(int e_iX,int e_iY);
-		virtual	void			MouseMove(int e_iX,int e_iY);
-		virtual	void			KeyUp(char e_cKey);
-		virtual	void			KeyDown(char e_cKey);
-		virtual	void			KeyPress(char e_cKey);
+		virtual	bool			IsSatisfiedCondition()override { return this->m_iCurrentPhase == -1; }
+		virtual void			SetSatisfiedCondition(bool e_b)override {}
+		virtual	void			Init()override { cClickMouseBehaviorVector<cSimplePhase>::Init(); }
+		virtual	void			Update(float e_fElpaseTime)override;
+		virtual	void			Render()override;
+		virtual	void			Destroy()override;
+		virtual	void			DebugRender()override;
+		virtual	void			MouseDown(int e_iX,int e_iY)override;
+		virtual	void			MouseUp(int e_iX,int e_iY)override;
+		virtual	void			MouseMove(int e_iX,int e_iY)override;
+		virtual	void			KeyUp(char e_cKey)override;
+		virtual	void			KeyDown(char e_cKey)override;
+		virtual	void			KeyPress(char e_cKey)override;
 		//
-		virtual	const   wchar_t*	GetNextPhaseName(){ return 0;}
-		virtual void			SingnalProcess(unsigned char e_usKey){ cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(e_usKey); }
-		virtual void			SingnalProcess(){ cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(); }
-		virtual void			SetRelativePosition( Vector3 e_vPos ){}
+		virtual	const   wchar_t*	GetNextPhaseName()override { return 0;}
+		virtual void			SingnalProcess(unsigned char e_usKey)override { cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(e_usKey); }
+		virtual void			SingnalProcess()override { cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(); }
+		virtual void			SetRelativePosition( Vector3 e_vPos )override {}
 		bool					WakePopupMessenger(const wchar_t*e_strName,const wchar_t*e_strPhaseNameName);
 		void					RegisterPopupMessenger(char*e_strFileName);
 		cPhasePopUpMessager*	RegisterPopupMessenger(TiXmlElement*e_pTiXmlElement);

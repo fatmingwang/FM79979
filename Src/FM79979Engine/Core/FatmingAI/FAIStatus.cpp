@@ -73,7 +73,7 @@ namespace FATMING_AI
 			if(l_pCharacterAttributeAndUIInfo->CharacterAttribute == e_CharacterAttribute)
 			{
 				if( e_piReceivedIndex )
-					*e_piReceivedIndex = i;
+					*e_piReceivedIndex = (int)i;
 				return l_pCharacterAttributeAndUIInfo;
 			}
 		}

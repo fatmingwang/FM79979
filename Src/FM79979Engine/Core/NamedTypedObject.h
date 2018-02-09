@@ -38,13 +38,13 @@
 #ifndef DEFINE_TYPE_INFO
 #define DEFINE_TYPE_INFO() \
     public: \
-	virtual const wchar_t*        Type() const { return TypeID; }\
+	virtual const wchar_t*        Type() const override { return TypeID; }\
 	static const  wchar_t*        TypeID;
 #endif
 	//virtual bool                IsDerivedFrom( const wchar_t* _TypeID ) const { return ( _TypeID == TypeID ); }
 	//virtual bool IsDerivedFrom( const wchar_t* e_strTypeID ) const  { if( e_strTypeID == TypeID ) return true;  return __super::IsDerivedFrom( e_strTypeID ); 
 
-#define	CLONE_MYSELF(TYPE)	virtual NamedTypedObject*	Clone(){ return new TYPE(this); }
+#define	CLONE_MYSELF(TYPE)	virtual NamedTypedObject*	Clone()override{ return new TYPE(this); }
 
 //! class name="NamedTypedObject" Desc="Base class for exposed objects"
 //!    property name="Name" Desc="Name of the Object" Get=GetName Set=SetName

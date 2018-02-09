@@ -18,7 +18,7 @@ namespace FATMING_CORE
 			m_fRandomOffSet = 0.1f;
 		}
 		virtual ~cPrtVelocityInitSetVelocity(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			if( m_bRandom )
 			{
@@ -52,14 +52,14 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
+		virtual NamedTypedObject*  Clone()override;
 
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 
-		virtual char*	GetDataInfo();
+		virtual char*	GetDataInfo()override;
 
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	}; 
 	//===================
 	//we should only have one initial velocity policy
@@ -127,20 +127,20 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtVelocityActAcceleration(){ m_fAccelerationSpeed = 0.f; }
 		virtual ~cPrtVelocityActAcceleration(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			e_pParticleData->vVelocity += m_fAccelerationSpeed*e_fElpaseTime*e_pParticleData->vOrigonalVelocity.Normalize();
 		}
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
+		virtual NamedTypedObject*  Clone()override;
 		//
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//
-		virtual char*	GetDataInfo();
+		virtual char*	GetDataInfo()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 	//==================================
 	//
@@ -157,7 +157,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtVelocityActDircctionChange(){ m_vNewSpeed = m_vStopTime = Vector3::One; m_bAccesleration = true; }
 		virtual ~cPrtVelocityActDircctionChange(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float	l_fProgress = 0.f;
 			float	l_fPastTime = e_pParticleData->fOriginaLifeSpan - e_pParticleData->fLifespan;
@@ -213,13 +213,13 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
+		virtual NamedTypedObject*  Clone()override;
 		//
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//
-		virtual char*	GetDataInfo();
+		virtual char*	GetDataInfo()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 
 	class cPrtVelocityActBySatelliteAction:public cParticleBase
@@ -236,7 +236,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtVelocityActBySatelliteAction(){  m_vPivot = Vector3(0.f,1.f,0.f); m_fRadius = 0.f;  }
 		virtual ~cPrtVelocityActBySatelliteAction(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 		  //set pivot
 		  cMatrix44	l_mat = cMatrix44::Identity;
@@ -253,11 +253,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};  //  end of class StartPositionByVelocityAction
 
 //end namespace FATMING_CORE

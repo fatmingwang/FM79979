@@ -131,7 +131,7 @@ namespace FATMING_CORE
 		//void	ProcessTextureData();
 		void	ProcessAttributeData();
 		void	ProcessUniformData();
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 	public:
 		DEFINE_TYPE_INFO()
 		cUniformManager();

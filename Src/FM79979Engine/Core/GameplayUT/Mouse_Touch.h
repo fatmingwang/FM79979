@@ -143,9 +143,9 @@ namespace FATMING_CORE
         //it's possible we want to move the object
         virtual void    		SetRelativePosition( Vector3 e_vPos ){}
         //
-        virtual void    		Update(float e_fElpaseTime);
+        virtual void    		Update(float e_fElpaseTime)override;
         //
-        virtual void    		Render(){}
+        virtual void    		Render()override {}
 		//
 		virtual void    		DebugRender();
 		//
@@ -173,8 +173,8 @@ namespace FATMING_CORE
     {
 		bool					m_bReleaseCurrentWorkingObjectWhileReclickable;//rechoice if true
 		bool					m_bReclickable;//rechoice if true
-		virtual	void			AddObjectNotification(T* e_t){ if(e_t)this->AddChild(e_t); }
-		virtual	void			RemoveObjectNotification(T* e_t){ if(e_t)e_t->SetParent(0); }
+		virtual	void			AddObjectNotification(T* e_t)override { if(e_t)this->AddChild(e_t); }
+		virtual	void			RemoveObjectNotification(T* e_t)override { if(e_t)e_t->SetParent(0); }
     protected:
 		//while its children has thing want to lock all mouse or render set working aas true or false
 		//
@@ -208,7 +208,7 @@ namespace FATMING_CORE
 		T*						GetCurrentMouseDownCollidedObject(){ return m_pCurrentMouseDownCollidedObject; }
 		void					SetCurrentMouseDownCollidedObject(T*e_pData){ m_pCurrentMouseDownCollidedObject = e_pData; }
 
-        inline  virtual void    Init()
+        inline  virtual void    Init()override
         {
             cClickMouseBehavior::Init();
             this->m_bClickMouseBehaviorSatisfied = false;
@@ -231,7 +231,7 @@ namespace FATMING_CORE
 			}
         }
         //first time into
-        inline  virtual void    MouseDown(int e_iPosX,int e_iPosY)
+        inline  virtual void    MouseDown(int e_iPosX,int e_iPosY)override
         {
 			m_bCollided = false;
             if( this->m_bClickMouseBehaviorSatisfied && !m_bReclickable )
@@ -282,7 +282,7 @@ namespace FATMING_CORE
 			else
 				m_bCollided = true;
         }
-        inline  virtual void    MouseMove(int e_iPosX,int e_iPosY)
+        inline  virtual void    MouseMove(int e_iPosX,int e_iPosY)override
         {
             if( this->m_bClickMouseBehaviorSatisfied && !m_bReclickable )
 			{
@@ -297,7 +297,7 @@ namespace FATMING_CORE
             cClickMouseBehavior::MouseMove(e_iPosX,e_iPosY);
         }
         //
-        inline  virtual void    MouseUp(int e_iPosX,int e_iPosY)
+        inline  virtual void    MouseUp(int e_iPosX,int e_iPosY)override
         {
             if( this->m_bClickMouseBehaviorSatisfied && !m_bReclickable )
 			{
@@ -319,9 +319,9 @@ namespace FATMING_CORE
         T*  					GetCurrentWorkingObject(){return this->m_pCurrentWorkingObject;}
 		int  					GetCurrentWorkingObjectIndex(){if( !m_pCurrentWorkingObject )return -1;return this->GetObjectIndexByPointer(m_pCurrentWorkingObject);}
 		const wchar_t*			GetCurrentWorkingObjectName(){if( !m_pCurrentWorkingObject )return 0;return m_pCurrentWorkingObject->GetName();}
-        virtual bool    		IsSatisfiedCondition(){ return this->m_bClickMouseBehaviorSatisfied;  }
-		void					SetSatisfiedCondition(bool e_b){ this->m_bClickMouseBehaviorSatisfied = e_b;}
-        inline  virtual void    SetRelativePosition( Vector3 e_vPos )
+        virtual bool    		IsSatisfiedCondition()override { return this->m_bClickMouseBehaviorSatisfied;  }
+		void					SetSatisfiedCondition(bool e_b)override { this->m_bClickMouseBehaviorSatisfied = e_b;}
+        inline  virtual void    SetRelativePosition( Vector3 e_vPos )override
         {
             int l_iCount = this->Count();
             for( int i=0;i<l_iCount;++i )
@@ -329,7 +329,7 @@ namespace FATMING_CORE
                 this->m_ObjectList[i]->SetRelativePosition(e_vPos);
             }
         }
-        virtual void    		Update(float e_fElpaseTime)
+        virtual void    		Update(float e_fElpaseTime)override
         {
             //all mouse event condition is filled so ignore all child update.
             //only update current workingobject
@@ -353,7 +353,7 @@ namespace FATMING_CORE
                 }
             }
         }
-        virtual     void		Render()
+        virtual     void		Render()override
         {
             int l_iCount = this->Count();
             for( int i=0;i<l_iCount;++i )
@@ -362,7 +362,7 @@ namespace FATMING_CORE
                     this->m_ObjectList[i]->Render();
             }
         }
-        virtual     void		DebugRender()
+        virtual     void		DebugRender()override
         {
 			//not cool here but I am lzy to fix this
 			//GLRender::RenderRectangle(this->m_vCollisionRange.Width(),m_vCollisionRange.Height(),this->GetWorldTransform(),Vector4::One);
@@ -411,7 +411,7 @@ namespace FATMING_CORE
 			return 0;
 		}
 
-		virtual	void			SingnalProcess()
+		virtual	void			SingnalProcess()override
 		{
 			//if( m_pCurrentWorkingObject )
 			//	return;
@@ -436,7 +436,7 @@ namespace FATMING_CORE
 				}
             }		
 		}
-		virtual void			SingnalProcess(unsigned char e_usKey)
+		virtual void			SingnalProcess(unsigned char e_usKey)override
 		{
 			//if( m_pCurrentWorkingObject )
 			//	return;

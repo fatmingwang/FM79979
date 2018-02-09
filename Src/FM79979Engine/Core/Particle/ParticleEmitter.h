@@ -149,9 +149,9 @@ namespace FATMING_CORE
 				}
 			}		
 		}
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpaseTime);
-		virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpaseTime)override;
+		virtual	void	InternalRender()override;
 		//shot particles
 		void	Shot(int e_iNumParticle,float e_fElpaseTime = 0.016f);
 	public:
@@ -183,11 +183,11 @@ namespace FATMING_CORE
 		void			SetMaxParticleCount(int	 e_iMaxParticleCount);
 		bool			IsActived(){ return m_bActived; }
 		//
-		virtual void	Update(float e_fElpaseTime);
+		virtual void	Update(float e_fElpaseTime)override;
 		//all alive particle to be killed and call shot
 		void			Emit(Vector3 e_vPos,float e_fStartTime = 0.0001f,bool e_bKillOldParticles = true);
 		void			Emit(bool e_bKillOldParticles = true);
-		void			Stop(){ m_iCurrentWorkingParticles = 0; this->m_iCurrentEmitCount = this->m_iParticleEmitCount;  }
+		void			Stop()override { m_iCurrentWorkingParticles = 0; this->m_iCurrentEmitCount = this->m_iParticleEmitCount;  }
 		//for 2D using,if particle has been rotated,it does't work,because it have to transform or fetch matrix to get last position.
 		//it cose a lot work,so I rather forget this.
 		virtual	void	KillParticleByOutRange(RECT e_rc);
@@ -195,12 +195,12 @@ namespace FATMING_CORE
 		//ensure if u do not expect loop, the emit count is what u want
 		void			SetLoop(bool e_bLoop);
 		bool			IsLoop();
-		virtual	void	RearrangeTime(float e_fNewTime){ assert(0&&"not support"); }
-		virtual	void	RearrangeTimeByPercent(float e_fPercenttage){ assert(0&&"not support"); }
-		virtual	void	UpdateByGlobalTime(float e_fGlobalTime){ assert(0&&"not support"); }
-		virtual	void	RenderByGlobalTime(float e_fTime){assert(0&&"not support");}
-		virtual	void	InvertOrder(){}
-		virtual	float	GetEndTime(){ return -1.f; }
+		virtual	void	RearrangeTime(float e_fNewTime)override { assert(0&&"not support"); }
+		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override { assert(0&&"not support"); }
+		virtual	void	UpdateByGlobalTime(float e_fGlobalTime)override { assert(0&&"not support"); }
+		virtual	void	RenderByGlobalTime(float e_fTime)override {assert(0&&"not support");}
+		virtual	void	InvertOrder()override {}
+		virtual	float	GetEndTime()override { return -1.f; }
 	};
 //end namespace FATMING_CORE
 }

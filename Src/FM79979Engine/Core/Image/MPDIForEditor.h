@@ -19,7 +19,8 @@ namespace FATMING_CORE
 		std::vector<Vector3>	m_fOriginalPosForRotatePointAroundRotationCenter;
 	public:
 		DEFINE_TYPE_INFO()
-		DEFINE_FILE_EXTENSION_NAME_INFO()
+		virtual const char*        ExtensionName() const { return ExtensionNameID; }
+		static const  char*        ExtensionNameID;
 		CLONE_MYSELF(cMPDIForEditor);
 		//for create
 		cMPDIForEditor(cMulti_PI_Image*e_pMulti_PI_Image);

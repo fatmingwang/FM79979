@@ -26,15 +26,15 @@ namespace FATMING_CORE
         //if global font render is exists it will show at image\s right side.
         std::wstring    m_strDescription;
         //for state change
-        virtual void    InternalMouseMove(int e_iPosX,int e_iPosY);
+        virtual void    InternalMouseMove(int e_iPosX,int e_iPosY)override;
         //first time mouse into
-        virtual void    InternalMouseDown(int e_iPosX,int e_iPosY);
+        virtual void    InternalMouseDown(int e_iPosX,int e_iPosY)override;
         //while mouse clicked is up
-        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
+        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY)override;
         //
-        virtual void    InternalMouseLeave(int e_iPosX,int e_iPosY);
+        virtual void    InternalMouseLeave(int e_iPosX,int e_iPosY)override;
         //
-        virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
+        virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override;
     public:
         DEFINE_TYPE_INFO()
 		//there are 3 ways to seup button here,
@@ -55,7 +55,7 @@ namespace FATMING_CORE
         //m_pAnimationState[eSOS_SELECTED] this animation can't be animation loop
         cSelectOptionByCueToStartCurveWithTime(cCueToStartCurveWithTime*e_pIdel,cCueToStartCurveWithTime*e_pHorver,cCueToStartCurveWithTime*e_pSelect,Vector3 e_vPos,int e_iPIImageIndex);
 		cSelectOptionByCueToStartCurveWithTime(cSelectOptionByCueToStartCurveWithTime*e_pSelectOptionByCueToStartCurveWithTime);
-		virtual	cClickMouseBehavior*	Clone(){ return new cSelectOptionByCueToStartCurveWithTime(this); }
+		virtual	cClickMouseBehavior*	Clone()override { return new cSelectOptionByCueToStartCurveWithTime(this); }
         virtual ~cSelectOptionByCueToStartCurveWithTime();
 
         //inline  virtual void    Init()
@@ -64,7 +64,7 @@ namespace FATMING_CORE
         //    AllAnimationStart();
         //}
         //one of option is mouse up and m_eObjectMouseBehavior is eOMB_UP return true
-        virtual bool	IsSatisfiedCondition()
+        virtual bool	IsSatisfiedCondition()override
         {
             //if( cClickMouseBehavior::IsSatisfiedCondition() )
             {
@@ -75,15 +75,15 @@ namespace FATMING_CORE
             return false;
         }
 		//virtual	void	Start(float e_fElpaseTime = 0.f){ cClickMouseBehavior::Start(e_fElpaseTime); }
-		virtual	void	Init(){ cClickMouseBehavior::Init(); }
-		virtual	void	Destroy(){}
-        virtual void    Update(float e_fElpaseTime);
-        virtual void    DebugRender();
-        virtual void    Render();
+		virtual	void	Init()override { cClickMouseBehavior::Init(); }
+		virtual	void	Destroy()override {}
+        virtual void    Update(float e_fElpaseTime)override;
+        virtual void    DebugRender()override;
+        virtual void    Render()override;
         //enusre m_pCurrentAnimation is not null
         bool    IsAnimationPlayDone(){ return m_pCurrentWorkingObject->IsAnimationDone(); }
         //move animation by relative position.
-        inline  virtual void    SetRelativePosition( Vector3 e_vPos )
+        inline  virtual void    SetRelativePosition( Vector3 e_vPos )override
         {
             for( int i=0;i<eSOS_MAX;++i )
             {
@@ -110,11 +110,11 @@ namespace FATMING_CORE
         cMultiSelectOptionByMPDI(char*e_strFileName);
         cMultiSelectOptionByMPDI(){}
         virtual ~cMultiSelectOptionByMPDI();
-        virtual	void	DebugRender();
-        inline  virtual void    MouseMove(int e_iPosX,int e_iPosY){cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseMove(e_iPosX,e_iPosY);}
-        inline  virtual void    MouseDown(int e_iPosX,int e_iPosY){cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseDown(e_iPosX,e_iPosY);}
-        inline  virtual void    MouseUp(int e_iPosX,int e_iPosY){cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseUp(e_iPosX,e_iPosY);}
-        inline  virtual bool    IsSatisfiedCondition()
+        virtual	void	DebugRender()override;
+        inline  virtual void    MouseMove(int e_iPosX,int e_iPosY)override {cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseMove(e_iPosX,e_iPosY);}
+        inline  virtual void    MouseDown(int e_iPosX,int e_iPosY)override {cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseDown(e_iPosX,e_iPosY);}
+        inline  virtual void    MouseUp(int e_iPosX,int e_iPosY)override {cClickMouseBehaviorVector<cSelectOptionByCueToStartCurveWithTime>::MouseUp(e_iPosX,e_iPosY);}
+        inline  virtual bool    IsSatisfiedCondition()override
         {             
             if(this->m_bClickMouseBehaviorSatisfied)
             if(this->m_pCurrentWorkingObject->IsAnimationPlayDone())

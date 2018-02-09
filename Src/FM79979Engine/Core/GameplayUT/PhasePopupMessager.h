@@ -38,11 +38,11 @@ public:
 		cPhasePopUpMessager(cButtonDialog*e_pYesNoDialog);
 		cPhasePopUpMessager();
 		virtual ~cPhasePopUpMessager();
-		virtual	void					Init();
-		virtual void					Update(float e_fElpaseTime);
-		virtual void					Render();
-		virtual void					DebugRender(){ cClickMouseBehaviorVector<cImageButton>::DebugRender(); }
-		virtual	const   wchar_t*			GetNextPhaseName();
+		virtual	void					Init()override;
+		virtual void					Update(float e_fElpaseTime)override;
+		virtual void					Render()override;
+		virtual void					DebugRender()override { cClickMouseBehaviorVector<cImageButton>::DebugRender(); }
+		virtual	const   wchar_t*			GetNextPhaseName()override;
 		cRenderObject*			GetBG(){return m_pBG;}
 		//const wchar_t*	GetWakePhaseName(){return m_strWakePhaseName.c_str();}
 		//void			SetWakePhaseName(const wchar_t*e_strWakrPhaseName){m_strWakePhaseName = e_strWakrPhaseName;}

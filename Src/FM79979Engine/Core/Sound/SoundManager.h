@@ -22,7 +22,7 @@ namespace FATMING_CORE
 		ALCdevice*	m_pDevice;
 		ALCcontext*	m_pContext;	
 	#endif
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		void			ProcessStreamingData();
 		void			ProcessStaticData();
 		void			ProcessRootDirectory();
@@ -61,7 +61,7 @@ namespace FATMING_CORE
 		//SimpleGLTexture could't add into cNamedTypedObjectVector
 		//but cBasicSound is able to do this,so release got a bit bitter,so I am override RemoveObject
 		//for release working decent.
-		virtual	bool	RemoveObject(int e_iIndex);
+		virtual	bool	RemoveObject(int e_iIndex)override;
 		using			cNamedTypedObjectVector<cBasicSound>::RemoveObject;
 		//void			IOSRecordContextSet(bool e_bStartToRecord);
 	};

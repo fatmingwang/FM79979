@@ -39,12 +39,12 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cOpanalOgg(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming,OGG_SOUND_STREAMING_CALL_BACK e_CallbuckFunction = nullptr,bool e_bPreCache = true);
 		virtual ~cOpanalOgg();
-		virtual	NamedTypedObject*	Clone(){ return 0; }
-		virtual bool	OpenFile(const char*e_strileName);
-		virtual	void	Update(float e_fElpaseTime);
-		virtual	void	Destroy();
-		virtual bool	GoTo(float e_fTime);
-		virtual	void	Play(bool e_bPlay);
+		virtual	NamedTypedObject*	Clone()override { return 0; }
+		virtual bool	OpenFile(const char*e_strileName)override;
+		virtual	void	Update(float e_fElpaseTime)override;
+		virtual	void	Destroy()override;
+		virtual bool	GoTo(float e_fTime)override;
+		virtual	void	Play(bool e_bPlay)override;
 		void			SetUpdateNewBufferCallbackFunction(OGG_SOUND_STREAMING_CALL_BACK e_CallbuckFunction);
 		float			GetCurrentStreamingTime(){ return m_fCurrentStreamingTime; }
 	};

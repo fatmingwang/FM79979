@@ -51,17 +51,17 @@ namespace FATMING_CORE
 	//MPDIList
 	class	cAnimationParser:public cNamedTypedObjectVector<NamedTypedObject>,public ISAXCallback
 	{
-		virtual	void						RemoveResourceObject(NamedTypedObject*e_pObject);
+		virtual	void						RemoveResourceObject(NamedTypedObject*e_pObject)override;
 		//the data has changed so mark this for version check,set it as 0.f while parse is called!
 		float								m_fMPDIVersion;
-		virtual	void						InternalParse(){ m_fMPDIVersion = 0.f; }
+		virtual	void						InternalParse()override { m_fMPDIVersion = 0.f; }
 		//internal using
 		cMPDIList*							m_pCurrentcMPDIList;
 		cMultiPathDynamicImage*				m_pCurrentMultiPathDynamicImage;
 		cCueToStartCurveWithTime*			m_pCurrentCueToStartCurvesWithTime;
 
 		//for loading image file
-		virtual	void						HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void						HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		//for MPDI
 		void	ProcessMPDI();
 		eImagePlayerTypeList				m_eImagePlayerTypeList;

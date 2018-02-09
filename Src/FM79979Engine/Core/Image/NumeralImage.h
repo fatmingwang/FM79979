@@ -56,7 +56,7 @@ namespace FATMING_CORE
 		void	DrawOnCenter(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0);
 		//max u value for texture space
 		float	GetMaxU(){ return m_pfTexCoordinate[38]; }
-		virtual	void	Render();
+		virtual	void	Render()override;
 		void	SetValue(int64 e_i64Value);
 		int64	GetValue(){return m_i64Value;}
 	};
@@ -74,9 +74,9 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cTimeNumerialImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9,cCueToStartCurveWithTime*e_pHourSubMPDI,cCueToStartCurveWithTime*e_pMinSubMPDI,cCueToStartCurveWithTime*e_pSecondSubMPDI,cRenderObject*e_pDisableObject = 0);
 		virtual ~cTimeNumerialImage();
-		virtual	void	Init();
-		virtual	void	Update(float e_fElpaseTime);
-		virtual	void	Render();
+		virtual	void	Init()override;
+		virtual	void	Update(float e_fElpaseTime)override;
+		virtual	void	Render()override;
 		static cTimeNumerialImage*GetMe(TiXmlElement*e_pXmlelement);
 	};
 }

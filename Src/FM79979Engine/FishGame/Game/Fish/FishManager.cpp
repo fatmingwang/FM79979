@@ -67,6 +67,11 @@ cFishBase*	cFishManager::FishRequire (int e_iFishIndex,cFAIMachine* e_pAI)
 	return nullptr;
 }
 
+cFishBase*	cFishManager::ForceFishRequire(int e_iFishIndex, cFAIMachine* e_pAI)
+{
+	return nullptr;
+}
+
 cFishBase*	cFishManager::GetMonsterByID(int e_iID)
 {
 	return nullptr;

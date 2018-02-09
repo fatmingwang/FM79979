@@ -91,9 +91,9 @@ namespace	FATMING_CORE
 
 	template<class T>class	cLinerDataProcessor:public cTimeAndDataLinerUpdateInterface
 	{
-		virtual	void				InternalInit(){}
+		virtual	void				InternalInit()override{}
 		//check void cCurve::IncreaseLod()
-		virtual	void				IncreaseLod();
+		virtual	void				IncreaseLod()override;
 	protected:
 		//find biggest  value,for debug render.
 		T*							m_pvValueForSmallestBiggestAndDis;
@@ -111,11 +111,11 @@ namespace	FATMING_CORE
 		cLinerDataProcessor(cLinerDataProcessor*e_pLinerDataProcessor);
 		virtual ~cLinerDataProcessor();
 		cLinerDataProcessor(TiXmlElement*e_pElement);
-		virtual	cTimeAndDataLinerUpdateInterface*	Clone();
-		virtual	TiXmlElement*						ToTiXmlElement();
+		virtual	cTimeAndDataLinerUpdateInterface*	Clone()override;
+		virtual	TiXmlElement*						ToTiXmlElement()override;
 		//
 		virtual	void								DumpTo(cLinerDataProcessor<T>*e_pTarget);
-		virtual	void*								GetDataPointerByIndex(int e_iIndex);
+		virtual	void*								GetDataPointerByIndex(int e_iIndex)override;
 		int											GetLOD();
 		void										SetLOD(int e_iLOD);
 		std::vector<T>*								GetLinerDataVector();
@@ -124,19 +124,19 @@ namespace	FATMING_CORE
 		virtual	void								Init();
 		//for debug won't be called in Init()
 		void										InitValueForSmallestBiggestAndDis();
-		virtual	void								Update(float e_fElpaseTime);
-		virtual	void								Clear();
-		virtual	void								InvertOrder();
+		virtual	void								Update(float e_fElpaseTime)override;
+		virtual	void								Clear()override;
+		virtual	void								InvertOrder()override;
 		T											GetCurrentData();
 		virtual	void								AddData(T e_Data,float e_fTime);
 		virtual	void								SetData(std::vector<float>e_TimeVector,std::vector<T>e_LinerDataVector);
 		virtual	bool								ChangeData(int e_iIndex,T e_Data);
 		virtual	bool								ChangeDataWithTime(int e_iIndex,T e_Data,float e_fTime);
-		virtual	bool								InsertDataWithLiner(int e_iIndex,int e_iCount);
+		virtual	bool								InsertDataWithLiner(int e_iIndex,int e_iCount)override;
 		virtual	bool								InsertData(int e_iIndex,T e_Data,float e_fTime);
-		virtual	bool								RemoveDtaa(int e_iIndex);
+		virtual	bool								RemoveDtaa(int e_iIndex)override;
 		//if data is changed call this for necessary data change.
-		virtual	void								DoLOD();
+		virtual	void								DoLOD()override;
 		bool										DoDataLiner(T e_StartData,T e_EndData);
 		bool										DoDataLiner(bool e_bUpToDownLiner);
 		int											GetClosetPointIndex(T e_vComparePoint,float e_fScanDis = 20.f);

@@ -38,8 +38,8 @@ namespace FATMING_CORE
 		void			RenderFont(float e_fX,float e_fY,std::wstring e_pString){ RenderFont(e_fX,e_fY,e_pString.c_str()); }
 		void			RenderFont(float e_fX,float e_fY,const wchar_t*e_pString,Vector4*e_pDrawRect);
 		inline void		RenderFont(Vector2 e_vPos,const wchar_t*e_pString){RenderFont(e_vPos.x,e_vPos.y,e_pString);}
-		virtual void	Render();
-		virtual	void	SetColor(Vector4 e_vColor) { SetFontColor(e_vColor); }
+		virtual void	Render()override;
+		virtual	void	SetColor(Vector4 e_vColor)override { SetFontColor(e_vColor); }
 		void			SetFontColor(Vector4 e_vColor);
 		Vector2			GetRenderSize(const wchar_t*e_strText);
 		std::wstring	GetText();

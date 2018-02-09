@@ -193,7 +193,7 @@ namespace FATMING_CORE
 		cPuzzleImage(char*e_strName,std::vector<sPuzzleData> *e_pPuzzleDataList,bool e_bGenerateAllUnit = false,bool e_bFetchPixels = false);
 		CLONE_MYSELF(cPuzzleImage);
 		virtual ~cPuzzleImage();
-		virtual	void	Render(){ cBaseImage::Render(); }
+		virtual	void	Render()override { cBaseImage::Render(); }
 		void	Render(int e_iIndex);
 		//dump data into destination,so we could delete the source puzzleImage.
 		//void	DumpIntoPuzzleImage(cPuzzleImage*e_pPuzzleImage);

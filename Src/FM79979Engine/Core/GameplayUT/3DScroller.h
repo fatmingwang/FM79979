@@ -54,7 +54,7 @@ namespace FATMING_CORE
         //each image's distance,depend on image's width
         float   m_fEachImageDistance;
         //
-        virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
+        virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override;
     public :
 		DEFINE_TYPE_INFO()
         //if e_pPI is nullptr,uadd images by yourself or add pi later
@@ -71,15 +71,15 @@ namespace FATMING_CORE
         //the index we focus,and it also is the index for last decision.
         int     GetCurrentFocusIndex(){return m_iCurrentFocusIndex;}
         //set data to correct
-        virtual void    Init();
-        virtual	void    Update(float e_fElpaseTime);
-        void    Render();
-        void    DebugRender();
+        virtual void    Init()override;
+        virtual	void    Update(float e_fElpaseTime)override;
+        virtual void    Render()override;
+        void    DebugRender()override;
         //
         //if mouse up and the position is not similar,it's mean the mouse move from the other,so ignore it
-        virtual void    MouseMove(int e_iPosX,int e_iPosY);
-        virtual void    MouseDown(int e_iPosX,int e_iPosY);
-        virtual void    MouseUp(int e_iPosX,int e_iPosY);
+        virtual void    MouseMove(int e_iPosX,int e_iPosY)override;
+        virtual void    MouseDown(int e_iPosX,int e_iPosY)override;
+        virtual void    MouseUp(int e_iPosX,int e_iPosY)override;
 		static c3DScroller*	GetMe(TiXmlElement*e_pElement);
     };
 //end namespace FATMING_CORE

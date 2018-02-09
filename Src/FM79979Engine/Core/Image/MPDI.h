@@ -54,9 +54,9 @@ namespace FATMING_CORE
 		//
 		Vector4*		m_pViewPort;
 		//
-		virtual	void	InternalUpdate(float e_fElpaseTime);
+		virtual	void	InternalUpdate(float e_fElpaseTime)override;
 		//make all its children to render by one bunch
-		virtual	void	InternalRender();
+		virtual	void	InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO()
 		CLONE_MYSELF(cMultiPathDynamicImage);
@@ -90,14 +90,14 @@ namespace FATMING_CORE
 		//float			GetScale(){ return m_fScale; }
 		//
 		//cMatrix44		GetMatrix();
-		void            SetColor(Vector4 e_vColor);
+		virtual void    SetColor(Vector4 e_vColor)override;
 		void            SetColorScale(Vector4 e_vColor);
 		void            SetCurrentColor(Vector4 e_vColor);
 		//you could could call update and assign last time and minus a little bit offset to get same result
 		void			RenderLastFrameImage();
 		void			RenderFirsttFrameImage(bool e_bBlending = true,Vector4 e_vColor = Vector4::One);
 		bool			IsHitHintPoint(){ return m_bHitHintPoint; }
-		virtual	void	RenderByGlobalTime();
+		virtual	void	RenderByGlobalTime()override;
 		//virtual	void	Init(){ cFatmingGroupBehaviorList<cCueToStartCurveWithTime>::Init(); }
 		//assume we only have one cCueToStartCurveWithTime,so input is 0,or u should indicate specific one
 		Vector3			GetLastFramePos(int e_iIndex = 0);

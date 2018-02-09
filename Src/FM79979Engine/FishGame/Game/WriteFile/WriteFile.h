@@ -6,7 +6,7 @@
 
 //a basic write file with a virtual function WriteFile
 //a Manager it will do multithread to write file
-class cWriteBinaryFile:public cBinaryFile
+class cWriteBinaryFile:virtual public cBinaryFile
 {
 public:
 	struct sRegister_Header_Struct

@@ -41,9 +41,9 @@ namespace FATMING_CORE
 		float							m_fMaxLinerDataPlayTime;
 		//default is eMT_ANIMATION.
 		eMPDINodeType					m_eMPDINodeType;
-	    virtual	void					InternalInit();
-	    virtual	void					InternalUpdate(float e_fElpaseTime);
-	    virtual	void					InternalRender();
+	    virtual	void					InternalInit() override;
+	    virtual	void					InternalUpdate(float e_fElpaseTime) override;
+	    virtual	void					InternalRender() override;
 		virtual	void					InternalDestroy();
 		virtual	void					InternalDebugRender();
 		//

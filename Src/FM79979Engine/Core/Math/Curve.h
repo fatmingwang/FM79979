@@ -47,7 +47,8 @@ namespace FATMING_CORE
 		//GET_SET_DEC(bool,m_bRotationObject,IsRotationObject,SetRotationObject);
 		virtual	void		DoLOD();//while point is changed call this
 	public:
-		DEFINE_TYPE_INFO()
+		virtual const wchar_t*        Type() const{ return TypeID; }
+		static const  wchar_t*        TypeID;
 		cCurve();
 		cCurve(cCurve*e_pCurve);
 		//CLONE_MYSELF(cCurve);
@@ -111,9 +112,9 @@ namespace FATMING_CORE
 	{
 	protected:
 		//inherit from cFMTimeLineAnimationRule
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpaseTime);
-		virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpaseTime)override;
+		virtual	void	InternalRender()override;
 		//
 		Vector3		m_vMovedCoordinate;
 		//correspond LOD for finalpointlist
@@ -138,7 +139,7 @@ namespace FATMING_CORE
 		//true for loopable show line
 		GET_SET_DEC(bool,m_bCurveLoop,IsCurveLoop,SetCurveLoop);
 		//while time is changed call this
-		virtual	void	DoLOD();
+		virtual	void	DoLOD()override;
 		Vector3	m_vCurrentDirection;
 		//if we need to calculate angle set it to true
 		GET_SET_DEC(bool,m_bCalculateAngle,IsCalAngle,SetCalAngle);
@@ -152,13 +153,13 @@ namespace FATMING_CORE
 		void		MovedDistanceCalculate(float e_fElpaseTime);
 	public:
 		//inherit from cFMTimeLineAnimationRule
-		virtual	void	RearrangeTime(float e_fNewMaxTime);
-		virtual	void	RearrangeTimeByPercent(float e_fPercenttage);
-		virtual	void	UpdateByGlobalTime(float e_fGlobalTime);
-		virtual	void	RenderByGlobalTime(float e_fTime);
-		virtual	void	InvertOrder();
-		virtual	float	GetEndTime();//float			GetLastTime();
-		virtual	void	Destroy();//void	Clear();
+		virtual	void	RearrangeTime(float e_fNewMaxTime)override;
+		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override;
+		virtual	void	UpdateByGlobalTime(float e_fGlobalTime)override;
+		virtual	void	RenderByGlobalTime(float e_fTime)override;
+		virtual	void	InvertOrder()override;
+		virtual	float	GetEndTime()override;//float			GetLastTime();
+		virtual	void	Destroy()override;//void	Clear();
 		//
 		DEFINE_TYPE_INFO()
 		//======================
@@ -167,19 +168,19 @@ namespace FATMING_CORE
 		cCurveWithTime(TiXmlElement*e_pTiXmlElement);
 		CLONE_MYSELF(cCurveWithTime);
 		virtual ~cCurveWithTime();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 		//add point by speficif time and position
 		virtual	void	AddPoint(Vector3 e_vPos,float e_fTime);
-		virtual	void	DelPoint(int e_iIndex);
+		virtual	void	DelPoint(int e_iIndex)override;
 		void			InsertPoint(Vector3 e_vPos,float e_fTime,int e_iIndex);
 		//erase old point replace new one
 		void			FixPoint(int e_iIndex,Vector3 e_vPos,float e_fTime);
 		void			FixPoint(int e_iIndex,Vector3 e_vPos);
-		bool			SetLOD(int e_iLOD);
+		virtual bool	SetLOD(int e_iLOD)override;
 		//while data is modified without function(FixPoint,AddPoint),call this to refresh data		
 		void			Refresh(){ DoLOD(); }
 		//let origina time and original position become as final data,
-		virtual	void	SetOriginalToFinal();
+		virtual	void	SetOriginalToFinal()override;
 		//
 		//virtual	void	ReplacePointsByCount(int e_iNumPoint);
 		//performance is very very bad...it should only running under win32,not retail version

@@ -21,7 +21,7 @@ namespace FATMING_CORE
 	cParticleBase*NameGetParticleType(const wchar_t*e_strTypeID);
 	class cPaticleManager:public cNamedTypedObjectVector<cPrtEmitter>,public ISAXCallback
 	{
-		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject);
+		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject)override;
 		//
 		enum	ePRTDataList
 		{
@@ -38,7 +38,7 @@ namespace FATMING_CORE
 		void	ProcressEmiter();
 		void	ProcressInitPolicy();
 		void	ProcressActPolicy();
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		//need this one is because export function(for image)
 		GETP_SET_DEC(cImageParser,m_ImageParser,GetImageParser,SetImageParser);
 	public:
@@ -66,10 +66,10 @@ namespace FATMING_CORE
 	class cBehaviorPaticleManager:public cNamedTypedObjectVector<NamedTypedObject>,public ISAXCallback
 	{
 		//delete not in use prtEmitter
-		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject);
+		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject)override;
 		//
-		virtual	void	InternalParse();
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	InternalParse()override;
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		//prt pi path file..
 		void	ProcessRootRelativeFile();
 		cParticleEmitterGroup*m_pCurrentParticleEmitterGroup;
@@ -86,7 +86,7 @@ namespace FATMING_CORE
 		cPaticleManager*	GetPaticleManager(){return m_pPaticleManager;}
 		cCurveManager*		GetCurveManager(){return &m_CurveManager;}
 		//clear all resource
-		virtual	void	Destroy();
+		virtual	void	Destroy()override;
 		
 		cParticleEmitterGroup*  GetPRTG(int e_iIndex);
 		cParticleEmitterGroup*  GetPRTG(const wchar_t*e_strName);

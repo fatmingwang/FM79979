@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	    //how many working particles is alive?
 		int	CalculateWorkingParticles();
 		int	m_iCurrentWorkingParticles;
-		virtual bool	WaitUntilAllAnimationIsDone();
+		virtual bool	WaitUntilAllAnimationIsDone()override;
 		//the matrix to effect child emit direction
 		cMatrix44	m_matOrientationAndPositionTransform;
 		cMatrix44	m_matParticleDirectionTransform;
@@ -28,9 +28,9 @@ namespace FATMING_CORE
 		void        SetPos(Vector3 e_vPos);
 		Vector3     GetPos();
 		//
-		virtual	void	Init();
-        virtual	void	Update(float e_fElpaseTime);
-        virtual	void	Stop();
+		virtual	void	Init()override;
+        virtual	void	Update(float e_fElpaseTime)override;
+        virtual	void	Stop()override;
 	};
 	typedef cParticleEmitterGroup cPRTG;
 //end name space

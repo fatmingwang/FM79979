@@ -599,7 +599,7 @@ void XMLWriter::PushName( const CHAR* strName )
         return;
     }
     m_NameStackPositions.push_back( (UINT)( m_strNameStackTop - m_strNameStack ) );
-    unsigned long dwBufSize = ARRAYSIZE( m_strNameStack ) - ( m_strNameStackTop - m_strNameStack );
+    auto dwBufSize = ARRAYSIZE( m_strNameStack ) - ( m_strNameStackTop - m_strNameStack );
     strcpy_s( m_strNameStackTop, dwBufSize, strName );
     m_strNameStackTop += uLen;
 }

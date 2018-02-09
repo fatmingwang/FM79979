@@ -30,7 +30,7 @@ namespace FATMING_CORE
 	    int				m_iPlayCount;
 		int				m_iCurrentPlayCount;
 	    //===================================
-		void*			m_pUserData;
+		char*			m_pUserData;
     private:
 	    //the start condition for inherit class to implement
 	    virtual	void	InternalInit() = 0;

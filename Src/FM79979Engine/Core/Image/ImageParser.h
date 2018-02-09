@@ -33,7 +33,7 @@ namespace FATMING_CORE
 		//unsigned char	m_ucOldImageKeepOrMergeOrKill;
 
 		//for loading image file
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		void	DistributeElementToLoaders();
 		//	<Numeral Name="NumeralImage/CardNI.png" />
 		void	ProcessNumeralTexture();
@@ -53,9 +53,9 @@ namespace FATMING_CORE
 		eImageType	m_eImageType;
 		bool	m_bSortPIFileAsOriginal;
 		//
-		virtual	void	InternalParse();
+		virtual	void	InternalParse()override;
 		//
-		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject);
+		virtual	void	RemoveResourceObject(NamedTypedObject*e_pObject)override;
 	public:
 		DEFINE_TYPE_INFO()
 		DEFINE_FILE_EXTENSION_NAME_INFO()

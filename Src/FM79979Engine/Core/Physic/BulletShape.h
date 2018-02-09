@@ -65,7 +65,7 @@ namespace FATMING_CORE
 		//for debug render
 		int		m_iVerticesCount;
 		Vector3*m_pvPos;
-		virtual	void DebugRender();
+		virtual	void DebugRender()override;
 	};
 
 	class	cbtSphereShape:public cbtShapeCollision
@@ -78,9 +78,9 @@ namespace FATMING_CORE
 		cbtSphereShape(cbtSphereShape*e_pbtSphereShape);
 		virtual ~cbtSphereShape(){}
 		CLONE_MYSELF(cbtSphereShape);
-		virtual	void	SetTransform(float*e_pfMatrix);
-		virtual	void	SetTransform(btTransform*e_pMatrix);
-		virtual	void	DebugRender();
+		virtual	void	SetTransform(float*e_pfMatrix)override;
+		virtual	void	SetTransform(btTransform*e_pMatrix)override;
+		virtual	void	DebugRender()override;
 	};
 
 	class	cbtConcaveShapeList:public cNamedTypedObjectVector<cbtShapeCollision>,public cbtShapeCollision
@@ -92,10 +92,10 @@ namespace FATMING_CORE
 		cbtConcaveShapeList(cbtConcaveShapeList*e_pbtConcaveShapeList);
 		CLONE_MYSELF(cbtConcaveShapeList);
 		virtual ~cbtConcaveShapeList();
-		virtual	void	SetTransform(float*e_pfMatrix);
-		virtual	void	SetTransform(btTransform*e_pMatrix);
-		virtual	bool	Collide(cbtShapeCollision*e_pbtShapeCollision);
-		void			DebugRender();
+		virtual	void	SetTransform(float*e_pfMatrix)override;
+		virtual	void	SetTransform(btTransform*e_pMatrix)override;
+		virtual	bool	Collide(cbtShapeCollision*e_pbtShapeCollision)override;
+		virtual void	DebugRender()override;
 	};
 
 	void	Test();

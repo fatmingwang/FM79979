@@ -14,10 +14,10 @@ namespace FATMING_CORE
 		//cOpanalWAV(NamedTypedObject*e_pNamedTypedObject):cBasicSound(e_pNamedTypedObject){}
 		cOpanalWAV(NamedTypedObject*e_pNamedTypedObject,const char*e_strileName,bool e_bStreaming);
 		virtual ~cOpanalWAV();
-		virtual	NamedTypedObject*	Clone(){ return 0; }
+		virtual	NamedTypedObject*	Clone()override { return 0; }
 		bool	OpenFile(const char*e_strileName,bool e_bKeepData = false);
-		virtual bool	OpenFile(const char*e_strileName);
-		virtual bool	GoTo(float e_fTime);
+		virtual bool	OpenFile(const char*e_strileName)override;
+		virtual bool	GoTo(float e_fTime)override;
 	};
 }
 

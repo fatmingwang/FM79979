@@ -15,7 +15,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		explicit cPrtTextureActDynamicTexture();
 		virtual ~cPrtTextureActDynamicTexture();
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			if( m_pImageIndexOfAnimation )
 			{
@@ -32,16 +32,16 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*	Clone();
-		virtual	void				SetPuzzleImage(cPuzzleImage*e_pPuzzleImage);
+		virtual NamedTypedObject*	Clone()override;
+		virtual	void				SetPuzzleImage(cPuzzleImage*e_pPuzzleImage)override;
 		//
-		virtual char*				GetDataInfo();
+		virtual char*				GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*				GetOutputDataString();
+		virtual char*				GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool				SetDataByDataString(char*e_pString);
+		virtual bool				SetDataByDataString(char*e_pString)override;
 		//owner is important so this one can't be cloned!.
-		virtual	bool				IsOwnerIsImportant(){ return true; }
+		virtual	bool				IsOwnerIsImportant()override { return true; }
 	};
 //end namespace FATMING_CORE
 }

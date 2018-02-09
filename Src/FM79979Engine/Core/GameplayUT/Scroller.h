@@ -47,14 +47,14 @@ namespace FATMING_CORE
 		cScroller(std::vector<cBaseImage*>*e_pImageList,Vector4 e_vTotalViewRect,cClickMouseBehavior*e_pCancelButton = nullptr,bool e_bHorizontal = true,cPuzzleImageUnit*e_pIcon = nullptr,Vector3* e_pvIconPos = nullptr);
         virtual ~cScroller();
         //set data to correct
-        virtual void			Init();
-        virtual	void			Update(float e_fElpaseTime);
-        virtual	void			Render();
-        virtual	void			DebugRender();
+        virtual void			Init()override;
+        virtual	void			Update(float e_fElpaseTime)override;
+        virtual	void			Render()override;
+        virtual	void			DebugRender()override;
 		//
-        virtual void			MouseMove(int e_iPosX,int e_iPosY);
-        virtual void			MouseDown(int e_iPosX,int e_iPosY);
-        virtual void			MouseUp(int e_iPosX,int e_iPosY);
+        virtual void			MouseMove(int e_iPosX,int e_iPosY)override;
+        virtual void			MouseDown(int e_iPosX,int e_iPosY)override;
+        virtual void			MouseUp(int e_iPosX,int e_iPosY)override;
 		static	cScroller*		GetMe(TiXmlElement*e_pElement);
 		//
 		//static cScroller*GetMe(TiXmlElement*e_pTiXmlElement);

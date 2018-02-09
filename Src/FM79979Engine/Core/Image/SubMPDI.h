@@ -48,9 +48,9 @@ namespace FATMING_CORE
 		//find out the image index by CurrentPositionIndex
 		int					CalculateCurrentPointIndex();
 		virtual		void	UpdateData();
-		virtual		void	InternalInit();
-		virtual		void	InternalUpdate(float e_fElpaseTime);
-		virtual		void	InternalRender();
+		virtual		void	InternalInit()override;
+		virtual		void	InternalUpdate(float e_fElpaseTime)override;
+		virtual		void	InternalRender()override;
 		void  				GetRenderPuzzleDataAndMatrix(sTexBehaviorDataWithImageIndexData*e_pImageData,int e_iStride,float*e_pOutVertices,float*e_pOutTextureUV,sPuzzleData*e_pPuzzleData);
 		bool				AssignColorAndTransformToVertices(Vector4 e_vInputColor,float*e_pfVertices, float*e_pfColor);
 		//force to render,input the position u want to show,default m_vCurrentPos and m_vPos is working inside
@@ -65,20 +65,20 @@ namespace FATMING_CORE
 		virtual ~cCueToStartCurveWithTime();
 		int	GetCurrentImageIndex() { return this->m_pCurrentPointData ? this->m_pCurrentPointData->iImageIndex : -1; }
 		//prevent ambiguous
-		inline	virtual void	Init(){ cFMTimeLineAnimationRule::Init(); }
+		inline	virtual void	Init()override { cFMTimeLineAnimationRule::Init(); }
 		//prevent ambiguous
-		inline	virtual void	Render(){ cFMTimeLineAnimationRule::Render(); }
+		inline	virtual void	Render()override { cFMTimeLineAnimationRule::Render(); }
 		//prevent ambiguous
-		inline	virtual void	Update(float e_fElpaseTime){ cFMTimeLineAnimationRule::Update(e_fElpaseTime); }
+		inline	virtual void	Update(float e_fElpaseTime)override { cFMTimeLineAnimationRule::Update(e_fElpaseTime); }
 		virtual void			RenderFirsttFrameImage(bool e_bBlending,Vector4 e_vColor);
 		virtual	Vector3			GetPositionByTime(float e_fGlobalTime);
 		//virtual	void ReplacePointsByCount(int e_iNumPoint);
 		//virtual	void	Render(Vector3 e_vRotateCenter = Vector3(0.f,0.f,0.f));
-		virtual	void			InvertOrder();
+		virtual	void			InvertOrder()override;
 		//most time we do not expect a specular angle to rotate,but programmer might need to do rotate if we want.
-		virtual	void			RenderByGlobalTime(float e_fTime);
+		virtual	void			RenderByGlobalTime(float e_fTime)override;
 		virtual	void			RenderLastFrame();
-		virtual	void			SetAnimationLoop(bool e_bLoop);
+		virtual	void			SetAnimationLoop(bool e_bLoop)override;
 		//
 		//virtual bool			IsAnimationDone(){ return cFMTimeLineAnimationRule::IsAnimationDone()?false:this->IsCurveMoveDone(); }
 		//because RearrangeTime Function so I do not override it,so ensure u get last time as u expect
@@ -95,13 +95,13 @@ namespace FATMING_CORE
 		cBaseImage*				PointDataToBaseImage(int e_iIndex);
 		void					AddPoint(Vector3 e_vPos,float e_fTime,Vector2 e_Size,Vector3 e_vAngle,Vector4 e_vColor,int e_iImageIndex,bool e_bMirror,cPuzzleImage*e_pPI,bool e_bCheckOptmize = false);
 		void					AddPoint(Vector3 e_vPos,float e_fTime,Vector2 e_Size,float e_fAngle,Vector4 e_vColor,int e_iImageIndex,bool e_bMirror,cPuzzleImage*e_pPI,bool e_bCheckOptmize = false);
-		void					DelPoint(int e_iIndex);
+		virtual void			DelPoint(int e_iIndex)override;
 		void					ClearPoint();
 		void					InsertPoint(Vector3 e_Pos,float e_fTime,sTexBehaviorDataWithImageIndexData*e_pTexBehaviorDataWithImageIndexData,int e_iIndex);
 		//let the path and time store list be same,
-		void					SetOriginalToFinal();
+		virtual void			SetOriginalToFinal()override;
 		//do not call this every frame because it reset all color.
-		void					SetColor(Vector4 e_vColor);
+		virtual void			SetColor(Vector4 e_vColor)override;
 		void					SetColorScale(Vector4 e_vColor);
 		void					SetCurrentColor(Vector4 e_vColor);
 		//it could be none if it doesn't occur any hitpoint

@@ -118,24 +118,24 @@ namespace FATMING_CORE
 		void			SetPos(Vector2 e_vPos);
 		void			SetPosByImageCenter(Vector3 e_vPos);
 		virtual	Vector4*GetColor(){return &m_vColor;}
-		virtual	void	SetColor(Vector4 e_vColor){ m_vColor = e_vColor; }
+		virtual	void	SetColor(Vector4 e_vColor)override { m_vColor = e_vColor; }
 		void			SetTexBehaviorData(cBaseImage*e_pTexData);
 		void			ApplyImage();
 		virtual	void	Render(Vector3 e_vPos);					//render by indicate position without offset position.
-		virtual	void	DebugRender();
+		virtual	void	DebugRender()override;
 		//virtual	void	RenderWithoutOffset(int e_iX,int e_iY);	//render with offset position.
 		//virtual	void	RenderWithoutOffset(Vector3 e_vPos);		//render with offset position.
 		//virtual	void	RenderWithOffset();		                //render with offset position.
-		virtual	void	Render();								//render by texture behavior.
+		virtual	void	Render()override;								//render by texture behavior.
 		virtual	void	RenderWithShader(const WCHAR*e_strShaderName);
 		virtual	void	Render(cMatrix44 e_Mat);                //render by matrix
 		virtual	void	RenderBySpecificPos(Vector3 e_vStartPos,Vector3 e_vEndPos);//change the width by 2 points distance
-		virtual	void	Init(){}
-		virtual	void	Update(float e_fElpaseTime){}
-		virtual	void	Destroy(){}
+		virtual	void	Init()override {}
+		virtual	void	Update(float e_fElpaseTime)override {}
+		virtual	void	Destroy()override {}
 		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels);
 		POINT			GetSize();
-		virtual const cBound*	GenerateBound();
+		virtual const cBound*	GenerateBound()override;
 	};
 
 	//===============
@@ -160,8 +160,8 @@ namespace FATMING_CORE
 		//it will pointer pixel data to e_pPixelsData and will delete the data,so do not delete the data from input
 		cUIImage(const wchar_t*e_strName,char*e_pPixelsData,int e_iWidth,int e_iHeight,GLint e_iDataFormat);//create by pixle data
 		virtual ~cUIImage();
-		virtual	void	Render();								//render by texture behavior.
-		virtual	void	DebugRender();
+		virtual	void	Render()override;								//render by texture behavior.
+		virtual	void	DebugRender()override;
 		//virtual	void	RenderWithOffset();
 		//this collide include rotation data(Angle around Z axis).
 		//not same as cTextureWithcTexData and cTexData

@@ -81,20 +81,20 @@ namespace FATMING_CORE
 		friend	class 				cClickBehaviorDispatcher;
 	protected:
         //first time into
-        virtual cClickBehavior*		MouseDown(int e_iPosX,int e_iPosY);
+        virtual cClickBehavior*		MouseDown(int e_iPosX,int e_iPosY)override;
         //horver and move
-        virtual cClickBehavior*   	MouseMove(int e_iPosX,int e_iPosY);
+        virtual cClickBehavior*   	MouseMove(int e_iPosX,int e_iPosY)override;
         //
-        virtual cClickBehavior*    	MouseUp(int e_iPosX,int e_iPosY);
+        virtual cClickBehavior*    	MouseUp(int e_iPosX,int e_iPosY)override;
 	public:
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();
 		DEFINE_TYPE_INFO()
 		void													Init();
-        virtual void    										Update(float e_fElpaseTime);
+        virtual void    										Update(float e_fElpaseTime)override;
 		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
 		std::tuple<cClickBehavior*,cRenderObject*>				AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
-		virtual	NamedTypedObject*	Clone(){ return nullptr; }
+		virtual	NamedTypedObject*	Clone()override { return nullptr; }
 	};
 	//its higher than cClickBehaviorGroup,because it has top menu and always need to work click event vector
 	class cClickBehaviorDispatcher:public cClickBehaviorGroup
@@ -106,10 +106,10 @@ namespace FATMING_CORE
 		cClickBehaviorDispatcher();
 		~cClickBehaviorDispatcher();
 		DEFINE_TYPE_INFO()
-		virtual void    			Update(float e_fElpaseTime);
-        virtual cClickBehavior*    	MouseDown(int e_iPosX,int e_iPosY);
-        virtual cClickBehavior*    	MouseMove(int e_iPosX,int e_iPosY);
-        virtual cClickBehavior*	   	MouseUp(int e_iPosX,int e_iPosY);
+		virtual void    			Update(float e_fElpaseTime)override;
+        virtual cClickBehavior*    	MouseDown(int e_iPosX,int e_iPosY)override;
+        virtual cClickBehavior*    	MouseMove(int e_iPosX,int e_iPosY)override;
+        virtual cClickBehavior*	   	MouseUp(int e_iPosX,int e_iPosY)override;
 		bool						AddAlwaysNeedToWorkClickEvent(cClickBehavior*e_pClickEvent);
 		bool						RemoveAlwaysNeedToWorkClickEvent(cClickBehavior*e_pClickEvent);
 		void						SetTopClickEvent(cClickBehavior*e_pEvent);

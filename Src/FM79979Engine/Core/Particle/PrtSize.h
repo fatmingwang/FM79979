@@ -15,7 +15,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		explicit	cPrtSizeInitSetSize() throw(){  x = 1.f; y = 1.f; m_fRandomValue = 0.f; }
 		virtual ~cPrtSizeInitSetSize(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			if( m_fRandomValue == 0.f )
 			{
@@ -34,11 +34,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 	//while primitive is points ActSizeBlending and initSize just fetch x data
 	class cPrtSizeActBlending:public cParticleBase,public Vector2
@@ -48,7 +48,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtSizeActBlending()throw():m_bAdd(true){ x = y = 5.f; }
 		virtual ~cPrtSizeActBlending(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float	l_fAddX = x*e_fElpaseTime;
 			float	l_fAddY = y*e_fElpaseTime;
@@ -73,11 +73,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 //end namespace FATMING_CORE
 }

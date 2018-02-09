@@ -11,9 +11,9 @@ namespace FATMING_CORE
 		void				ProcssMPDIEffect(TiXmlElement*e_pElement);
 		void				ProcssParticleEffect(TiXmlElement*e_pElement);
 		//
-	    virtual	void		InternalInit();
-	    virtual	void		InternalUpdate(float e_fElpaseTime);
-	    virtual	void		InternalRender();
+	    virtual	void		InternalInit()override;
+	    virtual	void		InternalUpdate(float e_fElpaseTime)override;
+	    virtual	void		InternalRender()override;
 	public:
 		cFMARQueuePlayer(TiXmlElement*e_pElement);
 		cFMARQueuePlayer(cFMARQueuePlayer*e_pFARQueuePlayer);
@@ -22,12 +22,12 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		//cNamedTypedObjectVector<cMultiPathDynamicImage>		m_MPDIQueue;
 		//
-		virtual	void	RearrangeTime(float e_fNewTime);
-		virtual	void	RearrangeTimeByPercent(float e_fPercenttage);
-		virtual	void	RenderByGlobalTime(float e_fTime);
-		virtual	void	InvertOrder();
+		virtual	void	RearrangeTime(float e_fNewTime)override;
+		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override;
+		virtual	void	RenderByGlobalTime(float e_fTime)override;
+		virtual	void	InvertOrder()override;
 		//
-		virtual	void	SetData(void*e_pData);
+		virtual	void	SetData(void*e_pData)override;
 	};
 //end namespace
 }

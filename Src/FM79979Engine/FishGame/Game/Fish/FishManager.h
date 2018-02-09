@@ -7,13 +7,14 @@ class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, p
 	virtual void																AddCloneRegisterFunction() override;
 	//
 	virtual	bool																MyParse(TiXmlElement*e_pRoot) override;
-	cFishBase*																ProcessMonster(TiXmlElement*e_pTiXmlElement,const WCHAR*l_strTypeID);
+	cFishBase*																	ProcessMonster(TiXmlElement*e_pTiXmlElement,const WCHAR*l_strTypeID);
 	void																		ProcessFishBodyTypeAmount(TiXmlElement* e_pTiXmlElement);
 	//
-	cFishBase**																m_ppWorkingMonster;
+	cFishBase**																	m_ppWorkingMonster;
 	int																			m_iWorkingMonsterSize;
 	std::list< cWaitForFetchFunctionObjectList<cFishBase>* >	m_AllFish;
 //	cFAIBehaviorParser*															m_pFAIBehaviorParser;
+	//std::map<std::wstring, int>													m_FishNameAndIDMap;
 public:
 	cFishManager();
 	~cFishManager();
@@ -24,9 +25,11 @@ public:
 	void			RenderMonsterDiedShow();
 	void			DebugRender();
 	void			Destroy();
-	cFishBase*	FishRequire(int e_iFishIndex,cFAIMachine* e_pAI = NULL);
-	cFishBase*	GetMonsterByID(int e_iID);
+	cFishBase*		FishRequire(int e_iFishIndex,cFAIMachine* e_pAI = NULL);
+	//Fish Group must has fish
+	cFishBase*		ForceFishRequire(int e_iFishIndex, cFAIMachine* e_pAI = NULL);
+	cFishBase*		GetMonsterByID(int e_iID);
 	int				GetFishIDByName(const wchar_t* e_pString);
-	eFishBodyType		GetFishSizeByID(int e_iFishIdx);
-	eFishBodyType		GetFishSizeByName(const wchar_t* e_pString);
+	eFishBodyType	GetFishSizeByID(int e_iFishIdx);
+	eFishBodyType	GetFishSizeByName(const wchar_t* e_pString);
 };

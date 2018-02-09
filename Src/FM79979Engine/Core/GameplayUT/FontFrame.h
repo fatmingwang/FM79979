@@ -27,10 +27,10 @@ namespace FATMING_CORE
 		void					SetText(const wchar_t*e_strText);
 		void					SetPressedText(const wchar_t*e_strText);
 		void					Render(int e_iX,int e_iY);
-		virtual void			Init(){}
-		virtual void			Update(float e_fElpaseTime){}
-		virtual	void			Render();
-		virtual	void			Destroy(){}
+		virtual void			Init()override {}
+		virtual void			Update(float e_fElpaseTime)override {}
+		virtual	void			Render()override;
+		virtual	void			Destroy()override {}
 		//void			Render();
 		Vector4*				GetTextBGColor(){ return m_pvTextBGColor; }
 		void					SetTextBGColor(Vector4 e_vColor);
@@ -48,16 +48,16 @@ namespace FATMING_CORE
 	//cTextButton just reference from cImageButton
 	class	cTextButton:public cFontWithFrame,public cClickMouseBehavior
 	{
-		virtual	void			SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
+		virtual	void			SetTransformInternalData()override { cRenderObject::SetTransformInternalData(); }
 		UT::sTimeCounter		m_TCForShortUpdateDelay;
-        virtual void			InternalMouseDown(int e_iPosX,int e_iPosY);
-		virtual void			InternalMouseLeave(int e_iPosX,int e_iPosY);
-        virtual void			InternalMouseUp(int e_iPosX,int e_iPosY);
+        virtual void			InternalMouseDown(int e_iPosX,int e_iPosY)override;
+		virtual void			InternalMouseLeave(int e_iPosX,int e_iPosY)override;
+        virtual void			InternalMouseUp(int e_iPosX,int e_iPosY)override;
 		//
 		UT::sTimeCounter		m_TCForRepeat;
 		GET_SET_DEC(bool,m_bPressedRepeatMouseUp,IsPressedRepeatMouseUp,SetPressedRepeatMouseUp);
 		Vector4					m_vPressedColor;
-		void					SetColor(Vector4 e_vColor);
+		virtual void			SetColor(Vector4 e_vColor)override;
 		GET_SET_DEC(Vector4,m_vFontColor,GetFontColor,SetFontColor);
 	public:
 		DEFINE_TYPE_INFO()
@@ -65,12 +65,12 @@ namespace FATMING_CORE
 		cTextButton(cTextButton*e_pTextButton);
 		CLONE_MYSELF(cTextButton);
 		virtual ~cTextButton();
-		virtual bool			IsSatisfiedCondition();
-		virtual void			Init();
+		virtual bool			IsSatisfiedCondition()override;
+		virtual void			Init()override;
 		virtual void			InitRepeat();
-		virtual void			Update(float e_fElpaseTime);
-		virtual	void			Render();
-		virtual	void			Destroy();
+		virtual void			Update(float e_fElpaseTime)override;
+		virtual	void			Render()override;
+		virtual	void			Destroy()override;
 		static	cTextButton*	GetMe(TiXmlElement*e_pElement);
 		void					SetScale(float e_fScale);
 		void					SetShortUpdateDelay(float e_fElpaseTime);

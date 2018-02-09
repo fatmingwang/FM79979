@@ -163,7 +163,7 @@ namespace FATMING_CORE
 #ifndef DEFINE_FILE_EXTENSION_NAME_INFO
 #define DEFINE_FILE_EXTENSION_NAME_INFO() \
     public: \
-	virtual const char*        ExtensionName() const { return ExtensionNameID; }\
+	virtual const char*        ExtensionName() const override{ return ExtensionNameID; }\
 	static const  char*        ExtensionNameID;
 #endif
 	TiXmlElement	*FindElementByName( TiXmlElement*e_pCallbackFrame ,void* e_pcallbackPointer );
@@ -218,7 +218,8 @@ namespace FATMING_CORE
 		//if true the class implement ISAXCallback could decide the error message show or not
 		bool	m_bShowErrorMsg;
 		//DEFINE_TYPE_INFO()
-		DEFINE_FILE_EXTENSION_NAME_INFO()
+		virtual const char*        ExtensionName() const{ return ExtensionNameID; }
+		static const  char*        ExtensionNameID;
 		ISAXCallback(bool e_bSetRunBack = false);
 		~ISAXCallback(){SAFE_DELETE(m_pDoc);}
 		//if e_bRemoveOldResource is true,u have to implement InternalParse to remove the resource u don't want keep

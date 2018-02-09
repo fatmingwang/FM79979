@@ -147,6 +147,9 @@
     <ClCompile Include="..\Game\Fish\FishManagerRegister.cpp">
       <Filter>Game\Fish</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\Fish\FishGroup.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Game\GameApp\TestShader.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\FishGameProbability\FishProbabilityInterface.h">
       <Filter>Game\Probability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FishGroup.h">
+      <Filter>Game\Fish</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

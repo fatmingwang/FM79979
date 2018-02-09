@@ -1,5 +1,4 @@
 #include "stdafx.h"
-//#include "stdafx.h"
 #include "WriteFile.h"
 
 class cWriteFileManager :public cNamedTypedObjectVector<cWriteBinaryFile>, public cCPP11Thread
@@ -10,7 +9,7 @@ public:
 public:
 	cWriteFileManager();
 	virtual ~cWriteFileManager();
-	virtual	NamedTypedObject*	Clone()override { return nullptr; };
+	virtual	NamedTypedObject*	Clone()override { return nullptr; }
 };
 
 cWriteFileManager::cWriteFileManager()

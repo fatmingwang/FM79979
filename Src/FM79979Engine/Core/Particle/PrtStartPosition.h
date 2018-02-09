@@ -15,7 +15,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		cPrtStartPositionInitBySquareRange(){ m_fHeight = 10.f; m_fWidth =  10.f; m_fDeepth = 10.f; }
 		virtual ~cPrtStartPositionInitBySquareRange(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float l_fXPos = frand(m_fWidth,-m_fWidth);
 			float l_fYPos = frand(m_fHeight,-m_fHeight);
@@ -30,11 +30,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 
 	enum	eAttachFrameType
@@ -67,7 +67,7 @@ namespace FATMING_CORE
 		cPrtStartPositionInitByFrame(){ m_pFrame = 0; m_pSubFrameOfModel = 0; m_pD3DMatrix = 0; m_eAttachFrameType = eAFT_CAMERA; }
 		virtual ~cPrtStartPositionInitByFrame(){}
 
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			//Vector3	l_vOffsetPos = cMatrix44::StripPosFromMatrix(m_pFrame->GetWorldTransform()).TransformVector(m_vOffsetPos);
 			switch(m_eAttachFrameType)
@@ -105,11 +105,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
-		virtual char*	GetOutputDataString();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};
 //end namespace FATMING_CORE
 }

@@ -61,10 +61,10 @@ namespace FATMING_CORE
 		//void	DoPolicyDataChangedUpdate(float e_fElpaseTime);
 		//void	AddPolicyDataChanged(sPolicyDataChanged*e_pData){m_pPolicyDataChangedVector.push_back(e_pData);}
 		//
-		inline	void	InternalInit();
+		virtual void	InternalInit()override;
 		//virtual	void	InternalStart(float e_fStartTime);
-		virtual	void	InternalUpdate(float e_fElpaseTime);
-		inline	void	InternalRender(){if(this->m_fPastTime<this->m_fStartTime)return;m_pPrtEmitter->Render();}
+		virtual	void	InternalUpdate(float e_fElpaseTime)override;
+		inline	void	InternalRender()override {if(this->m_fPastTime<this->m_fStartTime)return;m_pPrtEmitter->Render();}
 		void	PathUpdate(float e_fElpaseTime);
 	public:
 		//how particled will emit at the specific position
@@ -107,15 +107,15 @@ namespace FATMING_CORE
 		cParticleEmiterWithShowPosition(cParticleEmiterWithShowPosition*e_pParticleEmiterWithShowPosition);
 		CLONE_MYSELF(cParticleEmiterWithShowPosition)
 		virtual ~cParticleEmiterWithShowPosition();
-		virtual	void		InvertOrder(){}
-		virtual	void		RearrangeTime(float e_fNewTime);
-		virtual	void		RearrangeTimeByPercent(float e_fPercenttage);
-		virtual	void		UpdateByGlobalTime(float e_fGlobalTime);
-		virtual	void		RenderByGlobalTime(float e_fTime);
+		virtual	void		InvertOrder()override {}
+		virtual	void		RearrangeTime(float e_fNewTime)override;
+		virtual	void		RearrangeTimeByPercent(float e_fPercenttage)override;
+		virtual	void		UpdateByGlobalTime(float e_fGlobalTime)override;
+		virtual	void		RenderByGlobalTime(float e_fTime)override;
 		//start with endtime counter time
-		virtual	float		GetEndTime();
-		virtual	void		SetAnimationLoop(bool e_bLoop);
-		virtual	void		SetAnimationDone(bool e_bAnimationDone);
+		virtual	float		GetEndTime()override;
+		virtual	void		SetAnimationLoop(bool e_bLoop)override;
+		virtual	void		SetAnimationDone(bool e_bAnimationDone)override;
 		ePathType			GetPathType(){ return m_ePathType; }
 		void				SetPathType(ePathType e_ePathType);
 		cCurveWithTime*		GetCurveWithTime(){ return m_pCurveWithTime; }

@@ -17,7 +17,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		explicit cPrtLifeInitrSetLife() throw():m_fLifeMin(0.5f), m_fLifeRange(5.f),m_bRandom(true) {}
 		virtual ~cPrtLifeInitrSetLife(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			if( m_bRandom )
 			{
@@ -39,12 +39,12 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone();
-		virtual char*	GetDataInfo();
+		virtual NamedTypedObject*  Clone()override;
+		virtual char*	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString();
+		virtual char*	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool	SetDataByDataString(char*e_pString)override;
 	};	
 	//===========================================
 	//Life Action
@@ -56,7 +56,7 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		explicit cPrtLifeActDyingByGameTime(){}
 		virtual ~cPrtLifeActDyingByGameTime(){}
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)
+		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			e_pParticleData->fLifespan -= e_fElpaseTime;
 			e_pParticleData->fPastTime = e_pParticleData->fOriginaLifeSpan-e_pParticleData->fLifespan;
@@ -64,7 +64,7 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone()
+		virtual NamedTypedObject*  Clone()override
 		{
 			cPrtLifeActDyingByGameTime* l_p = new cPrtLifeActDyingByGameTime; 
 			l_p->SetName(GetName());

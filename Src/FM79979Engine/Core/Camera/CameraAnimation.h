@@ -30,9 +30,9 @@ namespace FATMING_CORE
 		void			Update2DCamera();
 		void			Update3DCamera();
 		//
-		virtual	void	InternalInit();
-	    virtual	void	InternalUpdate(float e_fElpaseTime);
-	    virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+	    virtual	void	InternalUpdate(float e_fElpaseTime)override;
+	    virtual	void	InternalRender()override;
 		virtual	void	RenderLastFrame();
 		GET_SET_DEC(bool,m_bSetRenderStatusBack,IsSetRenderStatusBack,SetSetRenderStatusBack);
 		cMatrix44		m_matOriginalCameraView;
@@ -44,12 +44,12 @@ namespace FATMING_CORE
 		virtual ~cCameraAnimation();
 		CLONE_MYSELF(cCameraAnimation);
 		TiXmlElement*	Export();
-	    virtual	void	RearrangeTime(float e_fNewTime);
-		virtual	void	RearrangeTimeByPercent(float e_fPercenttage);
-		virtual	void	UpdateByGlobalTime(float e_fGlobalTime);
-	    virtual	void	RenderByGlobalTime(float e_fTime);
-	    virtual	void	InvertOrder();
-	    virtual	float	GetEndTime();
+	    virtual	void	RearrangeTime(float e_fNewTime)override;
+		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override;
+		virtual	void	UpdateByGlobalTime(float e_fGlobalTime)override;
+	    virtual	void	RenderByGlobalTime(float e_fTime)override;
+	    virtual	void	InvertOrder()override;
+	    virtual	float	GetEndTime()override;
 		virtual	void	Clear();
 		void			SetRenderStatusBack();
 

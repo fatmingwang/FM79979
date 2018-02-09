@@ -95,7 +95,7 @@ namespace FATMING_CORE
 		cMatrix44            GetWorldViewProjection() { return m_Projection.GetMatrix()*GetWorldTransform().Inverted(); }
 		cMatrix44            GetLocalInvView() const { return GetLocalTransform(); }
 		cMatrix44            GetWorldInvView() { return GetWorldTransform(); }
-		void				 Render();
+		virtual void		Render()override;
 		void				 DisableRender();
 	};
 }

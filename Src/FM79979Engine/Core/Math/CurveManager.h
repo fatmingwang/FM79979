@@ -40,7 +40,7 @@ namespace FATMING_CORE
 		void	ProcessCurveTime();
 		//<PIFile FileName=""   />
 		void	ProcessPIFileName();
-		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
+		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement)override;
 		int	m_iCurrentSelectedIndex;	//which curve is selected
 		GET_SET_DEC(ePathMode,m_ePathMode,GetPathMode,SetPathMode);
 		//for roataion
