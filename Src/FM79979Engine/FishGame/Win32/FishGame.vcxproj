@@ -23,7 +23,7 @@
     <ClCompile Include="..\Game\Bullet\BulletManager.cpp" />
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp" />
     <ClCompile Include="..\Game\ControlPanel\ControlSettingParameter.cpp" />
-    <ClCompile Include="..\Game\Fish\FishGroup.cpp" />
+    <ClCompile Include="..\Game\Fish\SceneChangeFishGroup.cpp" />
     <ClCompile Include="..\Game\Fish\FixedPathFish.cpp" />
     <ClCompile Include="..\Game\Fish\FishBase.cpp" />
     <ClCompile Include="..\Game\Fish\FishManager.cpp" />
@@ -39,7 +39,7 @@
     <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp" />
     <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp" />
     <ClCompile Include="..\Game\Scene\CameraShake.cpp" />
-    <ClCompile Include="..\Game\Scene\SceneContent.cpp" />
+    <ClCompile Include="..\Game\Scene\BaseScene.cpp" />
     <ClCompile Include="..\Game\Scene\SceneManager.cpp" />
     <ClCompile Include="..\Game\Weapon\FishGameCommonWeapon.cpp" />
     <ClCompile Include="..\Game\Weapon\FishGameMiniGameWeapon.cpp" />
@@ -64,7 +64,7 @@
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />
     <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h" />
     <ClInclude Include="..\Game\ControlPanel\ControlSettingParameter.h" />
-    <ClInclude Include="..\Game\Fish\FishGroup.h" />
+    <ClInclude Include="..\Game\Fish\SceneChangeFishGroup.h" />
     <ClInclude Include="..\Game\Fish\FixedPathFish.h" />
     <ClInclude Include="..\Game\Fish\FishBase.h" />
     <ClInclude Include="..\Game\Fish\FishManager.h" />
@@ -81,7 +81,7 @@
     <ClInclude Include="..\Game\Probability\ProbabilityMain.h" />
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h" />
     <ClInclude Include="..\Game\Scene\CameraShake.h" />
-    <ClInclude Include="..\Game\Scene\SceneContent.h" />
+    <ClInclude Include="..\Game\Scene\BaseScene.h" />
     <ClInclude Include="..\Game\Scene\SceneManager.h" />
     <ClInclude Include="..\Game\Weapon\FishGameCommonWeapon.h" />
     <ClInclude Include="..\Game\Weapon\FishGameMiniGameWeapon.h" />

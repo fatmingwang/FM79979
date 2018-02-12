@@ -8,6 +8,7 @@ enum eFishGameFileName
 {
 	eFGFN_MESSAGE_MPDILIST = 0,
 	eFGFN_LANGUAGE,
+	eFGFN_SCENE_MANAGER_FILE_NAME,
 	eFGFN_MAX
 };
 std::string		GetFishGameFileName(eFishGameFileName e_eFishGameFileName);

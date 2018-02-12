@@ -1,18 +1,37 @@
 ﻿#pragma once
-
-class cBaseScene;
+#include "../WriteFile/WriteFile.h"
 class cCameraShake;
-
-class cSceneChange : public ISAXCallback,public cPhaseManager
+class cSceneChangeFishGroupManager;
+class cFishManager;
+//cPhaseManager contain a cPhaseManager and it own SceneBase
+class cSceneManager : public cNodeISAX,public cPhaseManager, public cWriteBinaryFile,public cMessageSender
 {
-private:
-	cCameraShake * m_pCameraShake;
-	virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
-	void			ProcessBG(TiXmlElement*e_pTiXmlElement);
-
-public:	cSceneChange();
-	~cSceneChange();
+	//this is the data write into file and control scene change
+	struct sSceneData
+	{
+		int		iSceneIndex;
+		int		iFishGroupIndex;
+		sSceneData() { iSceneIndex = 0; iFishGroupIndex = 0; }
+		~sSceneData() {}
+	};
+	sSceneData						m_CurrentSceneData;
+	int								m_iFishGroupCount;
+	virtual bool					OpenFileGetData(int e_iDataSizeWithOutFileExtension, char*e_pData, sRegister_Header_Struct*e_pRegister_Header_Struct)override;
+	//
+	bool							SceneChangeEvent(void*e_pFishGroupName);
+	bool							FishGroupGoEvent(void*e_pFishGroupName);
+	//
+	cCameraShake*					m_pCameraShake;
+	cSceneChangeFishGroupManager*	m_pSceneChangeFishGroupManager;
+	cFishManager*					m_pFishManagerReference;
+	virtual	bool					MyParse(TiXmlElement*e_pRoot)override;
+	void							ProcessSceneContent(TiXmlElement*e_pTiXmlElement);
+	void							ProcessFishGroup(TiXmlElement*e_pTiXmlElement);
+	virtual void					WriteFileUpdate(float e_fElpaseTime)override;
+public:	
+	cSceneManager(cFishManager*e_pFishManager);
+	~cSceneManager();
 	void	LastRender();
 	void	DebugRender();
-	void	Update(float e_fElpaseTime);
+	virtual void	Update(float e_fElpaseTime)override;
 };

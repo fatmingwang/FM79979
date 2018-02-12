@@ -46,6 +46,7 @@ namespace FATMING_CORE
 		//must call after SetCondition via SetCondition we could know what the data is needed
 		virtual	void	ReadDataByMultiThread(){};
 		virtual	const   wchar_t*	GetNextPhaseName(){ return m_strNextPhaseName.c_str(); }
+		void			SetNextPhaseName(const wchar_t* e_strPhaseName) { m_strNextPhaseName = e_strPhaseName; }
 		//if the condition is full,sometimes we need to know the data we want use in this phase,ex: the menu final select object index or else...
 		//u could release memory here if u ensure this will called while phase condition if filled.
 		virtual	void*	GetData(){return 0;}

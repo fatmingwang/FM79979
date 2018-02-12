@@ -5,7 +5,8 @@ extern cLanguageFile*g_pLanguageFile;
 const wchar_t*g_strFishGameFileName[eFGFN_MAX] =
 {
 	L"MESSAGE_MPDILIST",
-	L"",
+	L"Language/Language.xml",
+	L"SceneManager.xml",
 };
 
 
