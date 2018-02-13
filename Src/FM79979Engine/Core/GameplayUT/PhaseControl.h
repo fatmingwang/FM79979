@@ -82,6 +82,7 @@ namespace FATMING_CORE
 		const	wchar_t*			GetCurrentPhaseName();
 		//char*	GetCurrentPhaseNameByChar();
 		bool					SetCurrentCurrentPhase(const wchar_t*e_strPhaseNAme);
+		bool					SetCurrentCurrentPhase(int e_iIndex);
 		virtual	bool			IsSatisfiedCondition()override { return this->m_iCurrentPhase == -1; }
 		virtual void			SetSatisfiedCondition(bool e_b)override {}
 		virtual	void			Init()override { cClickMouseBehaviorVector<cSimplePhase>::Init(); }

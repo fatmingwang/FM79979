@@ -11,6 +11,48 @@ cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 
 	if(m_pstrSceneChangeFishGroupName)
 		REG_EVENT(eFGEMI_FISH_GROUP_FINISH, &cBaseScene::FishGroupFinishEvent);
+	e_pTiXmlElement;
+	//<SceneContent Name="1A" NextSceneName="">
+	//	<cBaseScene MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300" SceneChangeFishGroupName="SFG1"/>
+	//	<cBaseScene MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300"/>
+	//</SceneContent>
+	cMPDIList*l_pMPDIList = nullptr;
+	PARSE_ELEMENT_START(e_pTiXmlElement)
+		COMPARE_NAME("MPDIFileName")
+		{
+			l_pMPDIList = cGameApp::GetMPDIListByFileName(l_strValue,true);
+		}
+		else
+		COMPARE_NAME("StartMPDI")
+		{
+			if (l_pMPDIList)
+				m_pBGMPDI[eSS_START] = l_pMPDIList->GetObject(l_strValue);
+		}
+		else
+		COMPARE_NAME("LoopMPDI")
+		{
+		if (l_pMPDIList)
+			m_pBGMPDI[eSS_LOOP] = l_pMPDIList->GetObject(l_strValue);
+		}
+		else
+		COMPARE_NAME("EndMPDI")
+		{
+		if (l_pMPDIList)
+			m_pBGMPDI[eSS_END] = l_pMPDIList->GetObject(l_strValue);
+		}
+		else
+		COMPARE_NAME("Time")
+		{
+			m_pToNextSceneTC = new sTimeCounter();
+			m_pToNextSceneTC->SetTargetTime(VALUE_TO_FLOAT);
+		}
+		else
+		COMPARE_NAME("SceneChangeFishGroupName")
+		{
+			m_pstrSceneChangeFishGroupName = new std::wstring;
+			*m_pstrSceneChangeFishGroupName = l_strValue;
+		}
+	PARSE_NAME_VALUE_END
 }
 cBaseScene::~cBaseScene()
 {
@@ -18,8 +60,9 @@ cBaseScene::~cBaseScene()
 
 bool	cBaseScene::FishGroupFinishEvent(void*e_pFishGroupName)
 {
-	assert(eSS_LOOP == m_eCurrentSceneStatus&&"FishGroupFinishEvent status is wrong!");
-	m_eCurrentSceneStatus = eSS_END;
+	//assert(eSS_LOOP == m_eCurrentSceneStatus&&"FishGroupFinishEvent status is wrong!");
+	if(m_eCurrentSceneStatus == eSS_LOOP)
+		m_eCurrentSceneStatus = eSS_END;
 	return true;
 }
 
@@ -53,6 +96,11 @@ void	cBaseScene::ToNextScene()
 {
 	m_bSatisfiedCondition = true;
 	cGameApp::EventMessageShot(eFGEMI_SCENE_CHANGE, nullptr);
+#ifdef DEBUG
+	//auto l_strNextPhaseName = this->GetNextPhaseName();
+	//cPhaseManager*l_pPhaseManager = dynamic_cast<cPhaseManager*>(this->GetOwner());
+	//assert(l_pPhaseManager->GetObject(l_strNextPhaseName));
+#endif
 }
 
 void	cBaseScene::UpdateStartStatus(float e_fElpaseTime)
@@ -85,6 +133,8 @@ void	cBaseScene::UpdateLoopStatus(float e_fElpaseTime)
 	else
 	if(!m_pstrSceneChangeFishGroupName)
 	{
+		//it should't never happen
+		//it should wait FishGroupFinishEvent to set this.
 		m_eCurrentSceneStatus = eSS_END;
 	}
 }

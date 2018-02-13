@@ -77,10 +77,10 @@ namespace FATMING_CORE
 	//	return	UT::WcharToChar(this->m_ObjectList[m_iCurrentPhase]->GetName());
 	//}
 
-	bool	cPhaseManager::SetCurrentCurrentPhase(const wchar_t*e_strPhaseName)
+	bool	cPhaseManager::SetCurrentCurrentPhase(int e_iIndex)
 	{
-		int	l_i = this->GetObjectIndexByName(e_strPhaseName);
-		if( l_i != -1 )
+		int	l_i = e_iIndex;
+		if (l_i != -1)
 		{
 			m_iCurrentPhase = l_i;
 			(*this)[l_i]->Init();
@@ -90,6 +90,12 @@ namespace FATMING_CORE
 		}
 		m_pCurrentWorkingObject = 0;
 		return false;
+	}
+
+	bool	cPhaseManager::SetCurrentCurrentPhase(const wchar_t*e_strPhaseName)
+	{
+		int	l_i = this->GetObjectIndexByName(e_strPhaseName);
+		return SetCurrentCurrentPhase(l_i);
 	}
 
 

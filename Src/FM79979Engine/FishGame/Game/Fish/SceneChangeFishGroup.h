@@ -37,7 +37,8 @@ public:
 	DEFINE_TYPE_INFO();
 	cSceneChangeFishGroupManager(cFishManager*e_pFishManager);
 	~cSceneChangeFishGroupManager();
-	bool	ProcessSceneChangeFishGroup(TiXmlElement*e_pRoot);
+	//return cSceneChangeFishGroup count of this fish group name
+	int		ProcessSceneChangeFishGroup(TiXmlElement*e_pRoot);
 	void	Update(float e_fElpaseTime);
 	//bool	IsAllowToChangeSceneWhenFishGroupFinish();//while m_pCurrentFishGroup is not empty and the fishes still working
 	void	SetCurrentFishGroup(std::wstring e_strFishGroupName, int e_FishGroupIndexOfScene);

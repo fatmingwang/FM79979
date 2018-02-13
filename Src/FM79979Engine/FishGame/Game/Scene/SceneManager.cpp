@@ -60,7 +60,7 @@ void	cSceneManager::ProcessSceneContent(TiXmlElement*e_pTiXmlElement)
 {
 	auto l_strName = e_pTiXmlElement->Attribute(L"Name");
 	auto l_strNextSceneName = e_pTiXmlElement->Attribute(L"NextSceneName");
-	cPhaseManager*l_pPhaseManager = new cPhaseManager();
+	cPhaseManagerInPhaseManager*l_pPhaseManager = new cPhaseManagerInPhaseManager();
 	l_pPhaseManager->SetName(l_strName);
 	l_pPhaseManager->SetNextPhaseName(l_strNextSceneName);
 	int l_iCount = 0;
@@ -70,15 +70,24 @@ void	cSceneManager::ProcessSceneContent(TiXmlElement*e_pTiXmlElement)
 			cBaseScene*l_pBaseScene = new cBaseScene(e_pTiXmlElement);
 			l_pBaseScene->SetName(ValueToStringW(l_iCount));
 			++l_iCount;
-			l_pPhaseManager->AddObject(l_pBaseScene);
+			l_pBaseScene->SetNextPhaseName(ValueToStringW(l_iCount).c_str());
+			l_pPhaseManager->AddObjectNeglectExist(l_pBaseScene);
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
+	if (!this->AddObject(l_pPhaseManager))
+	{
+		UT:ErrorMsg(l_pPhaseManager->GetName(),L"same Scene Name");
+		SAFE_DELETE(l_pPhaseManager);
+	}
 }
 void	cSceneManager::ProcessFishGroup(TiXmlElement*e_pTiXmlElement)
 {
 	if (m_pSceneChangeFishGroupManager)
 	{
-		m_pSceneChangeFishGroupManager->ProcessSceneChangeFishGroup(e_pTiXmlElement);
+		int l_iCount = m_pSceneChangeFishGroupManager->ProcessSceneChangeFishGroup(e_pTiXmlElement);
+		if (m_iFishGroupCount == 0)
+			m_iFishGroupCount = l_iCount;
+		assert(l_iCount == m_iFishGroupCount&&"each scene must has same fish group");
 	}
 }
 
@@ -94,7 +103,7 @@ void	cSceneManager::DebugRender()
 
 void	cSceneManager::Update(float e_fElpaseTime)
 {
-	cPhaseManager::Update(e_fElpaseTime);
+	cPhaseManagerInPhaseManager::Update(e_fElpaseTime);
 	if (m_pSceneChangeFishGroupManager)
 	{
 		m_pSceneChangeFishGroupManager->Update(e_fElpaseTime);
@@ -103,14 +112,32 @@ void	cSceneManager::Update(float e_fElpaseTime)
 
 bool	cSceneManager::SceneChangeEvent(void*e_pFishGroupName)
 {
-	//do scene loop check
-	++m_CurrentSceneData.iSceneIndex;
-	if (m_CurrentSceneData.iSceneIndex >= this->Count())
+	//current 
+	cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(this->m_iCurrentPhase);
+	if (l_pPhaseManager)
 	{
-		m_CurrentSceneData.iSceneIndex = 0;
-		++m_CurrentSceneData.iFishGroupIndex;
-		if (m_CurrentSceneData.iFishGroupIndex >= m_iFishGroupCount)
-			m_CurrentSceneData.iFishGroupIndex = 0;
+		//do scene loop check
+		//first check sub scene count
+		//second check scene count
+		//third check fish group.
+		++m_CurrentSceneData.iSubSceneIndex;
+		if (m_CurrentSceneData.iSubSceneIndex >= l_pPhaseManager->Count())
+		{
+			m_CurrentSceneData.iSubSceneIndex = 0;
+			++m_CurrentSceneData.iSceneIndex;
+			if (m_CurrentSceneData.iSceneIndex >= this->Count())
+			{
+				m_CurrentSceneData.iSceneIndex = 0;
+				++m_CurrentSceneData.iFishGroupIndex;
+				if (m_CurrentSceneData.iFishGroupIndex >= m_iFishGroupCount)
+					m_CurrentSceneData.iFishGroupIndex = 0;
+			}
+			this->SetCurrentCurrentPhase(m_CurrentSceneData.iSceneIndex);
+			cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(m_CurrentSceneData.iSceneIndex);
+			l_pPhaseManager->SetCurrentCurrentPhase(0);//same as m_CurrentSceneData.iSubSceneIndex
+		}
+		//write file
+		WriteFileUpdate(0.f);
 	}
 	return true;
 }
@@ -133,6 +160,11 @@ bool	cSceneManager::OpenFileGetData(int e_iDataSizeWithOutFileExtension, char*e_
 		sSceneData*l_pSceneData = (sSceneData*)e_pData;
 		m_CurrentSceneData = *l_pSceneData;
 		this->SetCurrentPhase(m_CurrentSceneData.iSceneIndex);
+		cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(m_CurrentSceneData.iSceneIndex);
+		if (l_pPhaseManager)
+		{
+			l_pPhaseManager->SetCurrentPhase(m_CurrentSceneData.iSubSceneIndex);
+		}
 		return true;
 	}
 	return false;

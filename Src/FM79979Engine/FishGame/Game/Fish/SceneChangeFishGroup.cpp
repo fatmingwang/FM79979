@@ -80,7 +80,7 @@ cSceneChangeFishGroupManager::~cSceneChangeFishGroupManager()
 //		<FishGroup MPDIName="Name4" / >
 //	</SceneChangeFishGroup>
 
-bool	cSceneChangeFishGroupManager::ProcessSceneChangeFishGroup(TiXmlElement*e_pRoot)
+int	cSceneChangeFishGroupManager::ProcessSceneChangeFishGroup(TiXmlElement*e_pRoot)
 {
 	ASSERT_TARGET_ELEMENT_VALUE(e_pRoot, "SceneChangeFishGroup");
 	auto l_strMPDIFileName = e_pRoot->Attribute(L"MPDIFileName");
@@ -103,8 +103,9 @@ bool	cSceneChangeFishGroupManager::ProcessSceneChangeFishGroup(TiXmlElement*e_pR
 			l_pChildElement = l_pChildElement->NextSiblingElement();
 		}
 		m_FishGroupNameAndIndexOfNamedTypedObjectVectorVector.insert(std::make_pair(l_strFishGroupName, l_IndexOfVector));
+		return (int)l_IndexOfVector.size();
 	}
-	return false;
+	return 0;
 }
 void	cSceneChangeFishGroupManager::AddFishGroupByMPDIFile(const wchar_t* e_strFileName,cMPDIList*e_pMPDIList)
 {

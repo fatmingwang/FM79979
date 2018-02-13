@@ -3,15 +3,19 @@
 class cCameraShake;
 class cSceneChangeFishGroupManager;
 class cFishManager;
+
+//it contain BaseScene(s) which it should has a Fishgroup and a common scene(time up to turn to next scene).
+typedef cPhaseManager cPhaseManagerInPhaseManager;
 //cPhaseManager contain a cPhaseManager and it own SceneBase
-class cSceneManager : public cNodeISAX,public cPhaseManager, public cWriteBinaryFile,public cMessageSender
+class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, public cWriteBinaryFile,public cMessageSender
 {
 	//this is the data write into file and control scene change
 	struct sSceneData
 	{
 		int		iSceneIndex;
+		int		iSubSceneIndex;
 		int		iFishGroupIndex;
-		sSceneData() { iSceneIndex = 0; iFishGroupIndex = 0; }
+		sSceneData() {	iSceneIndex = 0; iFishGroupIndex = 0; iSubSceneIndex= 0;}
 		~sSceneData() {}
 	};
 	sSceneData						m_CurrentSceneData;
