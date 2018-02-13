@@ -14,4 +14,5 @@ public:
 	cNormalFish(cNormalFish*e_pMonsterBase);
 	virtual ~cNormalFish();
 	static cNormalFish*GetMe(TiXmlElement*e_pElement);
+	DEFINE_TYPE_INFO();
 };

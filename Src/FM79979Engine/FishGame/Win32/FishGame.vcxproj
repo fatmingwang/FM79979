@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\FishGameProbability\FishProbabilityInterface.h" />
+    <ClInclude Include="..\Game\Bullet\AreaExplosionBullet.h" />
     <ClInclude Include="..\Game\Bullet\Bullet.h" />
     <ClInclude Include="..\Game\Bullet\BulletManager.h" />
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />

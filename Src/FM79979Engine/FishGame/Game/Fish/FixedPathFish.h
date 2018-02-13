@@ -16,4 +16,5 @@ public:
 	virtual ~cFixedFishMonster();
 	cFixedFishMonster(cFixedFishMonster*e_pMonster);
 	cFixedFishMonster*GetMe(TiXmlElement*e_pTiXmlElement);
+	DEFINE_TYPE_INFO();
 };

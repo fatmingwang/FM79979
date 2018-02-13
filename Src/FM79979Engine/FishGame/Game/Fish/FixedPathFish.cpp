@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "FixedPathFish.h"
-
+TYPDE_DEFINE_MARCO(cFixedFishMonster);
 cFixedFishMonster::cFixedFishMonster()
 {
 

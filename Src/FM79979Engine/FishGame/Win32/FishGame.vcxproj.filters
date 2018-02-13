@@ -302,5 +302,8 @@
     <ClInclude Include="..\Game\IO\RegisterManager.h">
       <Filter>Game\IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\Game\Bullet\AreaExplosionBullet.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

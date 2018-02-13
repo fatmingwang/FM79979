@@ -27,9 +27,9 @@ private:
 	void					SetDirection( Vector3 e_vDirection );
 	void					SetTransform();
 public:
-	//
 	cBaseBullet( cMPDI*e_pBulletMPDI, cbtShapeCollision* e_pBulletCollision, float e_fSpeed,cMPDI* e_pExplosion);
-	~cBaseBullet(void);
+	~cBaseBullet();
+	DEFINE_TYPE_INFO();
 	//
 	virtual	void			Init();
 	virtual	void			Update(float e_fElpaseTime );
@@ -39,8 +39,6 @@ public:
 	//
 	void					Fire(cPlayerBehaviorBase*e_pPlayer,Vector3 e_vStartPos,Vector3 e_vDirection);
 	virtual	bool			Collide(cbtShapeCollision*e_pbtShapeCollision);
-	int						GetBetScore(){return m_iBetScore;}
 	eBulletStatus			GetBulletStatus(void){return m_eBulletStatus;}
 	void					SetBulletStatus(eBulletStatus status);
-	cPlayerBehaviorBase*	GetBulletOwner() { return m_pBulletOwner; }
 };

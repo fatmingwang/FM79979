@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "NormalFish.h"
-
+TYPDE_DEFINE_MARCO(cNormalFish);
 cNormalFish::cNormalFish()
 {
 
