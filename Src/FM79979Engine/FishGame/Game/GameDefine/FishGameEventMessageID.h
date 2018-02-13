@@ -8,5 +8,8 @@ enum eFishGameEventMessageID
 	eFGEMI_SCENE_CHANGE,
 	eFGEMI_FISH_GROUP_GO,
 	eFGEMI_FISH_GROUP_FINISH,
+	//for hardware register
+	eFGEMI_REGISTER_IN,
+	eFGEMI_REGISTER_OUT,
 	eFGEMI_MAX,
 };

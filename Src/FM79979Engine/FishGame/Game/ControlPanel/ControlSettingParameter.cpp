@@ -7,6 +7,12 @@ bool	sControlSettingParameter::m_sbTimeUpAutoShotOneBullet = false;
 int		sControlSettingParameter::m_siLongPressedFireKeyShotBulletSpeed = 1;
 int64	sControlSettingParameter::m_si64ScoreLimit = 100000000;
 int64	sControlSettingParameter::m_si64ButtonAddScoreLimit = 10000000;
+int		sControlSettingParameter::m_siIOMode = 1;
+int		sControlSettingParameter::m_siCoinToScoreRate = 1;
+int		sControlSettingParameter::m_siScoreToMoneyIOMode = 0;
+
+int		sControlSettingParameter::m_siAddScoreIOBehaviod = 1;
+
 
 sControlSettingParameter::sControlSettingParameter()
 {

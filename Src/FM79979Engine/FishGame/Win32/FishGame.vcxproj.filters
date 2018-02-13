@@ -52,6 +52,12 @@
     <Filter Include="Game\Fish">
       <UniqueIdentifier>{d6330cd5-8a02-4e72-a179-ef41ce016bee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\IO">
+      <UniqueIdentifier>{85b94d50-6197-4e46-acab-f857b832c320}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\IO\Comport">
+      <UniqueIdentifier>{867def8f-5a89-410b-8c52-2147629a7add}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -149,6 +155,30 @@
     </ClCompile>
     <ClCompile Include="..\Game\Scene\BaseScene.cpp">
       <Filter>Game\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Player\PlayerBehavior.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\Comport\ComportData.cpp">
+      <Filter>Game\IO\Comport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\Comport\IOData.cpp">
+      <Filter>Game\IO\Comport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\Comport\IOSMIOData_Empty.cpp">
+      <Filter>Game\IO\Comport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\Comport\RS232ForFishGame.cpp">
+      <Filter>Game\IO\Comport</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\DeviceRefundCoinBase.cpp">
+      <Filter>Game\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\DeviceRefundCoinManager.cpp">
+      <Filter>Game\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\IO\RegisterManager.cpp">
+      <Filter>Game\IO</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -250,6 +280,27 @@
     </ClInclude>
     <ClInclude Include="..\Game\Scene\BaseScene.h">
       <Filter>Game\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\Comport\ComportData.h">
+      <Filter>Game\IO\Comport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\Comport\IOControlInterface.h">
+      <Filter>Game\IO\Comport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\Comport\IOData.h">
+      <Filter>Game\IO\Comport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\Comport\RS232ForFishGame.h">
+      <Filter>Game\IO\Comport</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\DeviceRefundCoinBase.h">
+      <Filter>Game\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\DeviceRefundCoinManager.h">
+      <Filter>Game\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\IO\RegisterManager.h">
+      <Filter>Game\IO</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

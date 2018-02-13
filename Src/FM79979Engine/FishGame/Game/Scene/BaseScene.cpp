@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "../GameDefine/FishGameEventMessageID.h"
 
+TYPDE_DEFINE_MARCO(cBaseScene);
 cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 {
 	for (int i = 0; i < eSS_MAX; ++i)

@@ -1,22 +1,14 @@
 #pragma once
-	
-class	cPlayerManager : public cNamedTypedObjectVector<cPlayerBehaviorBase>
+
+#include "PlayerBehavior.h"
+
+class	cPlayerManager : public cNamedTypedObjectVector<cPlayerBehavior>
 {
 	std::map<int, std::vector<cMatrix44>>	m_IndexAndPlayerMatrixMap;
-	int					m_iDebugPlayerPosIndex;
 	void				ProcessPlayerCountAndPlayerPosMap(TiXmlElement*e_pTiXmlElement);
-private:
-	int				m_iPlayerCount;
-	//cEventReceiverKey	*m_pEvent[ePMK_Total];
-
 public:
-	cMPDI * m_pSlimeCrown;  //聚寶盆專用
-	cMPDI*			m_pSlimeCrownPos;  //聚寶盆專用
-	int				m_nIdxPlayer;	//聚寶盆專用
-	cMatrix44		m_Mat44Tmp1;	//聚寶盆專用
-									//
-	cPlayerManager(void);
-	~cPlayerManager(void);
+	cPlayerManager();
+	~cPlayerManager();
 
 	void	ProcessSet(TiXmlElement* e_pElement);
 	//

@@ -32,19 +32,18 @@ namespace UT
 	eDataType				GetDataType(const wchar_t*e_str);
 	eDataType				GetDataType(const char*e_str);
 	//inline char*			ConstCharToChar(const char* e_str){ static char l_strTemp[TEMP_SIZE]; sprintf(l_strTemp,"%s\0",e_str);return l_strTemp; }
-	std::wstring			ComposeMsgByFormat(wchar_t*e_strErrMsg1,...);
-	std::string				ComposeMsgByFormat(char*e_strErrMsg1,...);
+	std::wstring			ComposeMsgByFormat(const wchar_t*e_strErrMsg1,...);
+	std::string				ComposeMsgByFormat(const char*e_strErrMsg1,...);
+
 	void					ErrorMsg(const wchar_t*e_strErrMsg1,const wchar_t*e_strErrMsg2);
+	void					ErrorMsg(const wchar_t*  e_strErrMsg1, std::wstring e_strErrMsg2);
+
 	void					ErrorMsg(std::wstring  e_strErrMsg1,std::wstring e_strErrMsg2);
-	void					ErrorMsg(const wchar_t*  e_strErrMsg1,std::wstring e_strErrMsg2);
 	void					ErrorMsg(std::wstring e_strErrMsg1,const wchar_t*  e_strErrMsg2);
 
-	void					ErrorMsg(char*e_strErrMsg1,char*e_strErrMsg2);
-	void					ErrorMsg(const char*e_strErrMsg1,char*e_strErrMsg2);
-	void					ErrorMsg(char*e_strErrMsg1,const char*e_strErrMsg2);
-	void					ErrorMsg(const char*e_strErrMsg1,const char*e_strErrMsg2);	
-	void					ErrorMsgByFormat(char*e_strErrMsg1,...);
-	void					ErrorMsgByFormat(wchar_t*e_strErrMsg1,...);
+	void					ErrorMsg(const char*e_strErrMsg1, const char*e_strErrMsg2);
+	void					ErrorMsgByFormat(const char*e_strErrMsg1,...);
+	void					ErrorMsgByFormat(const wchar_t*e_strErrMsg1,...);
 	//
 	void					SystemErrorCheck();
 	std::wstring			GetFileNameWithoutFullPath(const wchar_t*e_pString,bool e_bStripExtensionFileName = true);

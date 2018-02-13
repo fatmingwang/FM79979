@@ -10,3 +10,10 @@
 
 
 #define	ALL_FISH_NOT_IN_SCENE_CHANGE_TO_SCENEB_TIME	5.f
+
+#define	CHANG_SEN_IO_MODE							1
+#define	TWLEADSTREAM_IO_MODE						3
+
+#define	REFUND_MODE_COIN							0
+#define	REFUND_MODE_TICKER							1
+#define	REFUND_MODE_PRINT							2

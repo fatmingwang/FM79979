@@ -323,7 +323,7 @@ namespace UT
 		cGameApp::OutputDebugInfoString( str );
 	}
 
-	void	ErrorMsg(char*e_strErrMsg1,char*e_strErrMsg2)
+	void	ErrorMsg(const char*e_strErrMsg1, const char*e_strErrMsg2)
 	{
 		cGameApp::WriteLog(e_strErrMsg1);
 		cGameApp::WriteLog(e_strErrMsg2);
@@ -406,9 +406,7 @@ namespace UT
 			return eDT_UINT64;
 		return eDT_MAX;
 	}
-	void	ErrorMsg(const char*e_strErrMsg1,char*e_strErrMsg2){ ErrorMsg((char*)e_strErrMsg1,(char*)e_strErrMsg2);  }
-	void	ErrorMsg(char*e_strErrMsg1,const char*e_strErrMsg2){ ErrorMsg((char*)e_strErrMsg1,(char*)e_strErrMsg2); }
-	void	ErrorMsg(const char*e_strErrMsg1,const char*e_strErrMsg2){ ErrorMsg((char*)e_strErrMsg1,(char*)e_strErrMsg2); }
+
 	void	ErrorMsg(std::wstring  e_strErrMsg1,std::wstring e_strErrMsg2){ ErrorMsg(e_strErrMsg1.c_str(),e_strErrMsg2.c_str()); }
 	void	ErrorMsg(const wchar_t*  e_strErrMsg1,std::wstring e_strErrMsg2){ErrorMsg(e_strErrMsg1,e_strErrMsg2.c_str());}
 	void	ErrorMsg(std::wstring e_strErrMsg1,const wchar_t*  e_strErrMsg2){ ErrorMsg(e_strErrMsg1.c_str(),e_strErrMsg2); }
@@ -530,7 +528,7 @@ namespace UT
 	//here are some varargs3(5)
 	//hello, world
 	// 
-	void	ErrorMsgByFormat(char*e_strErrMsg1,...)
+	void	ErrorMsgByFormat(const char*e_strErrMsg1,...)
 	{
 		va_list pArgList;
 		va_start( pArgList, e_strErrMsg1 );
@@ -538,7 +536,7 @@ namespace UT
 		va_end( pArgList );		
 	}
 
-	std::wstring			ComposeMsgByFormat(wchar_t*e_strErrMsg1,...)
+	std::wstring			ComposeMsgByFormat(const wchar_t*e_strErrMsg1,...)
 	{
 //#ifdef ANDROID
 //		std::wstring	l_str;
@@ -558,7 +556,7 @@ namespace UT
 		l_str = str;
 		return l_str;
 	}
-	std::string			ComposeMsgByFormat(char*e_strErrMsg1,...)
+	std::string			ComposeMsgByFormat(const char*e_strErrMsg1,...)
 	{
 		std::string	l_str;
 		va_list pArgList;
@@ -569,7 +567,7 @@ namespace UT
 		l_str = str;
 		return l_str;	
 	}
-	void					ErrorMsgByFormat(wchar_t*e_strErrMsg1,...)
+	void					ErrorMsgByFormat(const wchar_t*e_strErrMsg1,...)
 	{
 		va_list pArgList;
 		va_start( pArgList, e_strErrMsg1 );

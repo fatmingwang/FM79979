@@ -62,5 +62,6 @@ public:
 	bool*						GetCoinNotEnoughToRefundPointer() {return &m_bCoinNotEnoughToRefund;}
 	bool*						GetRefundingCoinPointer() { return &m_bRefundingCoin; }
 	bool						IsDeleteMessageOn();
-	int64				GetScore() { return m_i64Score; }
+	int64						GetScore(){ return m_i64Score; }
+	int64*						GetScorePointer(){ return &m_i64Score; }
 };
