@@ -62,3 +62,8 @@ void	cGameEffectManager::LastRender()
 {
 
 }
+
+cGameEffectBase * RequireGameEffect(eGameEffectType e_eGameEffectType)
+{
+	return nullptr;
+}

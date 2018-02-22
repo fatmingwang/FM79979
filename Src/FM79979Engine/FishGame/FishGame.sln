@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingAI", "..\Core\Fatmin
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FishGameProbability", "FishGameProbability\FishGameProbability.vcxproj", "{ED600932-90EB-44D8-A932-85F9F21ED660}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet", "..\Core\Bullet\Bullet.vcxproj", "{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Emscripten = Debug|Emscripten
@@ -51,6 +53,14 @@ Global
 		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|Emscripten.Build.0 = Release|Emscripten
 		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|x64.ActiveCfg = Release|x64
 		{ED600932-90EB-44D8-A932-85F9F21ED660}.Release|x64.Build.0 = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|Emscripten.Build.0 = Debug|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|x64.ActiveCfg = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|x64.Build.0 = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|Emscripten.Build.0 = Release|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|x64.ActiveCfg = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

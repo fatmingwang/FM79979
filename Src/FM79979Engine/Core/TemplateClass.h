@@ -153,8 +153,26 @@ public:
 
 	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
-	inline T*	GetObject(wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
+	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
 
+	inline T*	GetObjectWithWarningMessage(int e_i)
+	{
+		auto l_pObject = this->GetObject(e_i);
+		if (!l_pObject)
+		{
+			UT::ErrorMsg(e_pString, "index not in range");
+		}
+		return l_pObject;
+	}
+	inline T*	GetObjectWithWarningMessage(const wchar_t*e_pString)
+	{
+		auto l_pObject = this->GetObject(this->GetObjectIndexByName(e_pString)); 
+		if (!l_pObject)
+		{
+			UT::ErrorMsg(e_pString,"not exist");
+		}
+		return l_pObject;
+	}
 	//inline T*	GetObject(char*e_pString)
 	//{
 	//	std::wstring	l_strName = UT::CharToWchar(e_pString);
@@ -166,8 +184,6 @@ public:
 		std::wstring	l_strName = UT::CharToWchar(e_pString);
 		return this->GetObject(l_strName.c_str());
 	}
-
-	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));}
 
 	inline T*	GetLastObject(){	return this->GetObject((int)m_ObjectList.size()-1);}
 	inline bool	IsContain(T*e_pObject)

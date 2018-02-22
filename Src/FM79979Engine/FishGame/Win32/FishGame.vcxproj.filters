@@ -111,9 +111,6 @@
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp">
       <Filter>Game\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Game\Fish\NormalFish.cpp">
-      <Filter>Game\Fish</Filter>
-    </ClCompile>
     <ClCompile Include="..\Game\Fish\FishBase.cpp">
       <Filter>Game\Fish</Filter>
     </ClCompile>
@@ -180,6 +177,24 @@
     <ClCompile Include="..\Game\IO\RegisterManager.cpp">
       <Filter>Game\IO</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\Bullet\AimMonsterBullet.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Bullet\AreaExplosionBullet.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Player\PlayerManager.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameEffect\GameEffecWinMoneyNumber.cpp">
+      <Filter>Game\GameEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FishLockPoints.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\Fish\FAIFish.cpp">
+      <Filter>Game\Fish</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Game\GameApp\TestShader.h">
@@ -232,9 +247,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h">
       <Filter>Game\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Fish\NormalFish.h">
-      <Filter>Game\Fish</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Fish\FishBase.h">
       <Filter>Game\Fish</Filter>
@@ -304,6 +316,21 @@
     </ClInclude>
     <ClInclude Include="..\Game\Bullet\AreaExplosionBullet.h">
       <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Bullet\AimMonsterBullet.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameEffect\GameEffecWinMoneyNumber.h">
+      <Filter>Game\GameEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FishLockPoints.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Fish\FAIFish.h">
+      <Filter>Game\Fish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Common\SingltonTemplate.h">
+      <Filter>Game\Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

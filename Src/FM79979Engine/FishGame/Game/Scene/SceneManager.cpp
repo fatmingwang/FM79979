@@ -76,7 +76,7 @@ void	cSceneManager::ProcessSceneContent(TiXmlElement*e_pTiXmlElement)
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
 	if (!this->AddObject(l_pPhaseManager))
 	{
-		UT:ErrorMsg(l_pPhaseManager->GetName(),L"same Scene Name");
+		ErrorMsg(l_pPhaseManager->GetName(),L"same Scene Name");
 		SAFE_DELETE(l_pPhaseManager);
 	}
 }

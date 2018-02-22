@@ -111,7 +111,9 @@ namespace FATMING_CORE
 	public:
 		DEFINE_TYPE_INFO()
 		c2DImageCollisionData();
+		c2DImageCollisionData(c2DImageCollisionData*e_p2DImageCollisionData);
 		virtual ~c2DImageCollisionData();
+		CLONE_MYSELF(c2DImageCollisionData);
 	};
 
 //end namespace FATMING_CORE

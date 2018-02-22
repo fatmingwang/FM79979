@@ -6,7 +6,7 @@ enum eGameEffectType
 	eGET_MAX
 };
 
-#define	REGISTER_TO_MANGER(TYPE,MANAGER)
+//#define	REGISTER_TO_MANGER(TYPE,MANAGER)
 
 class cGameEffectBase :public cRenderObject
 {
@@ -17,8 +17,8 @@ public:
 	cGameEffectBase();
 	virtual ~cGameEffectBase();
 	//static cGameEffectBase*GetMe(TiXmlElement*e_pTiXmlElement);
-	virtual	void	Update(float e_fElpaseTime) {}
-	virtual	void	Render() {}
+	virtual	void	Update(float e_fElpaseTime) = 0;
+	virtual	void	Render() = 0;
 	bool			IsGameEffectDone(){return m_bGameEffectDone;}
 };
 
@@ -38,3 +38,6 @@ public:
 	void		Render();
 	void		LastRender();
 };
+
+
+cGameEffectBase * RequireGameEffect(eGameEffectType e_eGameEffectType);

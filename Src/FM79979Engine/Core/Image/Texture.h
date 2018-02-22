@@ -10,7 +10,7 @@ namespace FATMING_CORE
 	//also contain the pixel data if u want to fetch it.
 	//please do not Inheritance it,it's a smart pointer!
 	//=======================
-	class	cTexture:public cSmartObject
+	class	cTexture:public cSmartObject,public NamedTypedObject
 	{
 		friend class cTextureManager;
 		bool	LoadDDS(const char*e_strFileName);

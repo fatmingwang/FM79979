@@ -3,7 +3,7 @@
 #include "../XML/XMLLoader.h"
 #include "../GameplayUT/StringCompress.h"
 #include "../GameplayUT/GameApp.h"
-GlyphReader::GlyphReader()
+GlyphReader::GlyphReader():cSmartObject(this)
 {
 	m_pFontData = 0;
 	m_wFontHeight = 0;

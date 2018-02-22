@@ -554,6 +554,11 @@ namespace FATMING_CORE
 		InitBT();
 	}
 
+	c2DImageCollisionData::c2DImageCollisionData(c2DImageCollisionData*e_p2DImageCollisionData):cNamedTypedObjectVector<cbtShapeCollision>(e_p2DImageCollisionData)
+	{
+		m_pbtConcaveShapeList = 0;
+	}
+
 	c2DImageCollisionData::~c2DImageCollisionData()
 	{
 		ExitBT();

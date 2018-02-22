@@ -229,8 +229,7 @@ namespace FATMING_CORE
 		    return nullptr;
 		if( !memcmp(l_extensionName.c_str(),"wav",sizeof(char)*3) )
 		{
-			cOpanalWAV*	l_pOpanalWAV = new cOpanalWAV(0,e_strFileName,false);
-			l_pOpanalWAV->AddRef(e_pRef);
+			cOpanalWAV*	l_pOpanalWAV = new cOpanalWAV(e_pRef,e_strFileName,false);
 			if( wcslen(l_pOpanalWAV->GetName()) != 0 )
 			{
 				if(!this->AddObject(l_pOpanalWAV))//such sound already existed
@@ -248,8 +247,7 @@ namespace FATMING_CORE
 		else
 		if( !memcmp(l_extensionName.c_str(),"ogg",sizeof(char)*3) )
 		{
-			cOpanalOgg*	l_pOpanalOgg = new cOpanalOgg(0,e_strFileName,true);
-			l_pOpanalOgg->AddRef(e_pRef);
+			cOpanalOgg*	l_pOpanalOgg = new cOpanalOgg(e_pRef,e_strFileName,true);
 			if( wcslen(l_pOpanalOgg->GetName()) != 0 )
 			{
 				if(!this->AddObject(l_pOpanalOgg))//such sound already existed

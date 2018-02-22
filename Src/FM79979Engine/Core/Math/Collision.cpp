@@ -144,41 +144,50 @@ namespace UT
 	//return value,0 for non collide,1for inside,2 for top,3 for bottom,,4 for left,5 for right,6 for corrnor
 	int				SphereCollideRect( RECT e_rc,POINT e_CenterPoint,float e_fRadius)
 	{
+		Vector4 l_vWall((float)e_rc.left, (float)e_rc.top, (float)e_rc.right, (float)e_rc.bottom);
+		return SphereCollideRect(l_vWall, Vector3((float)e_CenterPoint.x, (float)e_CenterPoint.y, 0.f), e_fRadius);
+	}
+
+	int		SphereCollideRect(Vector4 e_vWall, Vector3 e_CenterPoint, float e_fRadius)
+	{
 		//1
-		if( e_CenterPoint.x>=e_rc.left&&e_CenterPoint.x<=e_rc.right)
+		if (e_CenterPoint.x >= e_vWall.x &&e_CenterPoint.x <= e_vWall.z)
 		{
-			if( e_CenterPoint.y>=e_rc.top&&e_CenterPoint.y<=e_rc.bottom )//inside the rectangle
+			if (e_CenterPoint.y >= e_vWall.y &&e_CenterPoint.y <= e_vWall.w)//inside the rectangle
 				return 1;
 			//2
-			if(e_CenterPoint.y<=e_rc.top&&e_CenterPoint.y+e_fRadius>=e_rc.top)//top collided
+			if (e_CenterPoint.y <= e_vWall.y &&e_CenterPoint.y + e_fRadius >= e_vWall.y)//top collided
 				return 2;
-			if(e_CenterPoint.y>=e_rc.bottom&&e_CenterPoint.y-e_fRadius<=e_rc.bottom)//down collided
+			if (e_CenterPoint.y >= e_vWall.w &&e_CenterPoint.y - e_fRadius <= e_vWall.w)//down collided
 				return 3;
 		}
 		else
 		//3
-		if( e_CenterPoint.y>=e_rc.top&&e_CenterPoint.y<=e_rc.bottom )
+		if (e_CenterPoint.y >= e_vWall.y &&e_CenterPoint.y <= e_vWall.w)
 		{
-			if(e_CenterPoint.x<=e_rc.left&&e_CenterPoint.x+e_fRadius>=e_rc.left)//left collided
+			if (e_CenterPoint.x <= e_vWall.x && e_CenterPoint.x + e_fRadius >= e_vWall.x)//left collided
 				return 4;
-			if(e_CenterPoint.x>=e_rc.right&&e_CenterPoint.x-e_fRadius<=e_rc.right)//right collided
+			if (e_CenterPoint.x >= e_vWall.z && e_CenterPoint.x - e_fRadius <= e_vWall.z)//right collided
 				return 5;
 		}
 		//4
 		else
 		{	//leftup,rightup leftdown right diwn
-			POINT	l_fCorner[4] = {{e_rc.left,e_rc.top},{e_rc.right,e_rc.top},{e_rc.left,e_rc.bottom},{e_rc.right,e_rc.bottom}};
-			for(int i=0;i<4;++i)
+			POINT	l_fCorner[4] = { { (long)e_vWall.x,(long)e_vWall.y },
+										{ (long)e_vWall.z,(long)e_vWall.y },
+										{ (long)e_vWall.x,(long)e_vWall.w },
+										{ (long)e_vWall.z,(long)e_vWall.w } };
+			for (int i = 0; i<4; ++i)
 			{
-				POINT	l_Dis = { e_CenterPoint.x-l_fCorner[i].x,e_CenterPoint.y-l_fCorner[i].y };
-				if( (l_Dis.x*l_Dis.x)+(l_Dis.y*l_Dis.y)<(e_fRadius*e_fRadius) )
-					return 6+i;
+				POINT	l_Dis = { (long)(e_CenterPoint.x - l_fCorner[i].x),(long)(e_CenterPoint.y - l_fCorner[i].y) };
+				if ((l_Dis.x*l_Dis.x) + (l_Dis.y*l_Dis.y)<(e_fRadius*e_fRadius))
+					return 6 + i;
 			}
 		}
 		return 0;
 	}
 
-	bool				SphereCollideSphere(sSphere e_Sphere1,sSphere e_Sphere2)
+	bool	SphereCollideSphere(sSphere e_Sphere1,sSphere e_Sphere2)
 	{
 		float	l_fDistance = (e_Sphere1.vCenter-e_Sphere2.vCenter).Length();
 		float	l_fRadius = e_Sphere1.fRadius+e_Sphere2.fRadius;

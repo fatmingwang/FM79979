@@ -12,11 +12,11 @@ public:
 
 	void	ProcessSet(TiXmlElement* e_pElement);
 	//
-	void	Init(void);
+	void	Init();
 	void	Update(float e_fElpaseTime);
-	void	Render(void);
+	void	Render();
 	void	MessageRender();
-	void	Destroy(void);
+	void	Destroy();
 	void	RenderMissileDirTex();
 	bool	IsAllowToFireBullet(int e_iIndex, int e_iLimitCount);
 };

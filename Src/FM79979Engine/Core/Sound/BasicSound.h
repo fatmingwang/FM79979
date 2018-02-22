@@ -26,7 +26,7 @@ namespace FATMING_CORE
 	//it's quick tightly to combine with cSoundParser's static members
 	//
 	//========================
-	class	cBasicSound:public cSmartObject
+	class	cBasicSound:public cSmartObject,public NamedTypedObject
 	{
 		static	ALuint	m_suiTotalSoundIndex;		//how many sound we have created
 	protected:

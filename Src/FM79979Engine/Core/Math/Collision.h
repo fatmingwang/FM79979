@@ -152,6 +152,7 @@ namespace UT
 	bool 					RectCollideRectWithNewPosition(const RECT& rcObject1, const RECT& rcObject2, POINT* pptOutPenetration = 0, const POINT* pptMovement = 0);
 	bool					SphereCollidePoint(Vector3 e_vPoint,sSphere e_Sphere);
 	int						SphereCollideRect( RECT e_rc,POINT e_CenterPoint,float e_fRadius);
+	int						SphereCollideRect(Vector4 e_vWall,Vector3 e_cCenterPoint,float e_fRadius);
 	bool					SphereCollideSphere(sSphere e_Sphere1,sSphere e_Sphere2);
 	bool 					VecAngleTest(float e_fMaxAngle, Vector3 e_v1, Vector3 e_v2 );
 	//fuck it does't work

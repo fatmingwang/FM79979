@@ -1,15 +1,18 @@
 #pragma once
-//
-#include "NormalFish.h"
 
-class cFixedFishMonster: public cNormalFish
+#include "FishBase.h"
+
+
+class cFixedFishMonster: public cFishBase
 {
 	cNamedTypedObjectVector<cCurveWithTime>	m_CurveWithTimeVector;
+	cCurveWithTime*							m_pCurrentPath;
 private:
 	void						ProcessPathFile(TiXmlElement*e_pTiXmlElement);
 protected:
-	virtual	void				InternalInit();
-	virtual	void				InternalUpdate(float e_fElpaseTime);
+	virtual	void				InternalInit()override;
+	virtual	void				InternalUpdate(float e_fElpaseTime)override;
+	virtual	void				SetTransform()override;
 public:
 	//
 	cFixedFishMonster();

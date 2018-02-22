@@ -19,16 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Game\Bullet\AreaExplosionBullet.cpp" />
     <ClCompile Include="..\Game\Bullet\Bullet.cpp" />
     <ClCompile Include="..\Game\Bullet\BulletManager.cpp" />
+    <ClCompile Include="..\Game\Bullet\AimMonsterBullet.cpp" />
     <ClCompile Include="..\Game\Common\CommonRegisterManager.cpp" />
     <ClCompile Include="..\Game\ControlPanel\ControlSettingParameter.cpp" />
+    <ClCompile Include="..\Game\Fish\FishLockPoints.cpp" />
     <ClCompile Include="..\Game\Fish\SceneChangeFishGroup.cpp" />
     <ClCompile Include="..\Game\Fish\FixedPathFish.cpp" />
     <ClCompile Include="..\Game\Fish\FishBase.cpp" />
     <ClCompile Include="..\Game\Fish\FishManager.cpp" />
     <ClCompile Include="..\Game\Fish\FishManagerRegister.cpp" />
-    <ClCompile Include="..\Game\Fish\NormalFish.cpp" />
+    <ClCompile Include="..\Game\Fish\FAIFish.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameApp.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameObject.cpp" />
     <ClCompile Include="..\Game\GameApp\Sample.cpp" />
@@ -36,6 +39,7 @@
     <ClCompile Include="..\Game\GameDefine\GameDefine.cpp" />
     <ClCompile Include="..\Game\GameEffect\GameEffectBase.cpp" />
     <ClCompile Include="..\Game\GameEffect\GameEffectManagerParse.cpp" />
+    <ClCompile Include="..\Game\GameEffect\GameEffecWinMoneyNumber.cpp" />
     <ClCompile Include="..\Game\IO\Comport\ComportData.cpp" />
     <ClCompile Include="..\Game\IO\Comport\IOData.cpp" />
     <ClCompile Include="..\Game\IO\Comport\IOSMIOData_Empty.cpp" />
@@ -44,6 +48,7 @@
     <ClCompile Include="..\Game\IO\DeviceRefundCoinManager.cpp" />
     <ClCompile Include="..\Game\IO\RegisterManager.cpp" />
     <ClCompile Include="..\Game\Player\PlayerBehavior.cpp" />
+    <ClCompile Include="..\Game\Player\PlayerManager.cpp" />
     <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp" />
     <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp" />
     <ClCompile Include="..\Game\Scene\CameraShake.cpp" />
@@ -70,20 +75,24 @@
     <ClInclude Include="..\Game\Bullet\AreaExplosionBullet.h" />
     <ClInclude Include="..\Game\Bullet\Bullet.h" />
     <ClInclude Include="..\Game\Bullet\BulletManager.h" />
+    <ClInclude Include="..\Game\Bullet\AimMonsterBullet.h" />
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />
+    <ClInclude Include="..\Game\Common\SingltonTemplate.h" />
     <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h" />
     <ClInclude Include="..\Game\ControlPanel\ControlSettingParameter.h" />
+    <ClInclude Include="..\Game\Fish\FishLockPoints.h" />
     <ClInclude Include="..\Game\Fish\SceneChangeFishGroup.h" />
     <ClInclude Include="..\Game\Fish\FixedPathFish.h" />
     <ClInclude Include="..\Game\Fish\FishBase.h" />
     <ClInclude Include="..\Game\Fish\FishManager.h" />
-    <ClInclude Include="..\Game\Fish\NormalFish.h" />
+    <ClInclude Include="..\Game\Fish\FAIFish.h" />
     <ClInclude Include="..\Game\GameApp\FishGameApp.h" />
     <ClInclude Include="..\Game\GameApp\TestShader.h" />
     <ClInclude Include="..\Game\GameDefine\FishGameEventMessageID.h" />
     <ClInclude Include="..\Game\GameDefine\GameDefine.h" />
     <ClInclude Include="..\Game\GameDefine\GameParameterDefine.h" />
     <ClInclude Include="..\Game\GameEffect\GameEffectBase.h" />
+    <ClInclude Include="..\Game\GameEffect\GameEffecWinMoneyNumber.h" />
     <ClInclude Include="..\Game\IO\Comport\ComportData.h" />
     <ClInclude Include="..\Game\IO\Comport\IOControlInterface.h" />
     <ClInclude Include="..\Game\IO\Comport\IOData.h" />
@@ -111,6 +120,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FatmingAI\FatmingAI.vcxproj">
+      <Project>{377c8b76-b1e4-4004-83e6-65c42799380e}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -168,7 +180,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>..\..\..\..\Media</OutDir>
+    <OutDir>..\..\..\..\Media\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <LinkIncremental>true</LinkIncremental>
@@ -176,7 +188,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
-    <OutDir>..\..\..\..\Media</OutDir>
+    <OutDir>..\..\..\..\Media\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <LinkIncremental>false</LinkIncremental>

@@ -18,6 +18,7 @@ void	SampleForWriteBinaryFileTest()
 		l_sRegister_Header_Struct.fVersion = 1.f;
 		g_pSampleForWriteBinaryFile->OpenFileWhatEverFileIsExitOrNotExit("79979.zzo", l_sRegister_Header_Struct, true);
 	}
+	cGameApp::SoundPlay(L"MyFMBook/FMBOOK_DEMO/1.wav",true);
 }
 void	LoadSample()
 {

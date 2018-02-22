@@ -35,6 +35,7 @@ namespace FATMING_CORE
 	//
 	//===============
 	cTexture::cTexture(NamedTypedObject*e_pOwner,char*e_pPixels,int e_iWidth,int e_iHeight,const wchar_t*e_strName,bool e_bCopyPixels,bool e_bAllocateMemoryForPixelIfFetch,GLenum e_eImageType)
+	:cSmartObject(this)
 	{
 
 #ifdef DEBUG
@@ -118,7 +119,7 @@ namespace FATMING_CORE
 	//===============
 	//
 	//===============
-	cTexture::cTexture(NamedTypedObject*e_pOwner,const char*e_strImageFileName,bool e_bFetchPixelData)
+	cTexture::cTexture(NamedTypedObject*e_pOwner,const char*e_strImageFileName,bool e_bFetchPixelData) :cSmartObject(this)
 	{
 #ifdef DEBUG
 		if (e_strImageFileName)

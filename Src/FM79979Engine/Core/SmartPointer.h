@@ -15,7 +15,6 @@ An Interface for the Smart Object.
 #include "Synchronization/AllFUThreadInclude.h"
 #include "NamedTypedObject.h"
 #include "TemplateClass.h"
-#include "Synchronization/FUSynchronized.h"
 /*! 
 @class cSmartObject cSmartObject.h
 @brief This is a base class for Smart Object Classes  
@@ -27,16 +26,18 @@ Implements the System Functions.
 //any object inhiretance cSmartObject,make sure u are not calling delete but release
 //or u have to know u have control resource very well
 //====================
-class cSmartObject:public NamedTypedObject
+class cSmartObject
 {
 private:
 
 	/// Reference Counter
 	int m_refCount;
+	NamedTypedObject*m_pRecource;
+#ifdef DEBUG
 	cNamedTypedObjectVector<NamedTypedObject>	m_ReferenceList;
+#endif
 protected:
-	cSmartObject();
-	cSmartObject(NamedTypedObject*e_pNamedTypedObject);
+	cSmartObject(NamedTypedObject*e_pResource);
 
 	virtual ~cSmartObject();
 public:
@@ -56,6 +57,8 @@ public:
 	if the reference count is 0 then delete this object.
 	*/
 	int Release(NamedTypedObject*e_pNamedTypedObject);
+
+	const wchar_t*GetSmartObjectName();
 };
 //sample
 //class	aa:public cSmartObject,public NamedTypedObject

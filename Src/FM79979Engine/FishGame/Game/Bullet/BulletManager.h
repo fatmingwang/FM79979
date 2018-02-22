@@ -2,27 +2,18 @@
 
 #include "Bullet.h"
 
-class cBulletManager:public cNamedTypedObjectVector<cBullet>,public cNodeISAX
+class cFishManager;
+class cBulletManager:public cNamedTypedObjectVector<cBaseBullet>,public cNodeISAX
 {
 private:
 	void						ProcessCollisionFile(TiXmlElement*e_pRoot);
 	void						ProcessPlayerBullet(TiXmlElement*e_pRoot);
 	virtual	bool				MyParse(TiXmlElement*e_pRoot);
-	int							m_iNumWorking;
-	//for update only
-	cBullet**					m_ppWorkingBullet;
-	//each play has its limit bullet count
-	int							m_iEachPlayerLimitCount;
-	//
-	int							m_ibCollideSkipIndex;
 public:
-	bool						IsDoCollideSkip(int e_iPlayerIndex);
 	cBulletManager();
 	~cBulletManager();
-	int							GetEachPlayerLimitCount(){return  m_iEachPlayerLimitCount;}
 	//
-	//each play has its own bullet limit.
-	cBullet*					Require( int e_iPlayerIndex, int e_iLevel, int e_iPayRate);
+	cBaseBullet*					Require( int e_iPlayerIndex, int e_iLevel, int e_iPayRate);
 	void						Init();
 	void						Update(float e_fElpaseTime);
 	void						Render();

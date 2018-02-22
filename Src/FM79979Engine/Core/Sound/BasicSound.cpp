@@ -9,8 +9,9 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cBasicSound);
 
 	ALuint	cBasicSound::m_suiTotalSoundIndex = 0;		//how many sound we have created
-	cBasicSound::cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming):cSmartObject(e_pNamedTypedObject)
+	cBasicSound::cBasicSound(NamedTypedObject*e_pNamedTypedObject,bool e_bStreaming):cSmartObject(this)
 	{
+		this->AddRef(e_pNamedTypedObject);
 		m_iChannelCount = 0;
 		m_bStreaming = e_bStreaming;
 		m_uiIndex = m_suiTotalSoundIndex++;

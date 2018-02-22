@@ -18,7 +18,7 @@ struct FILE_GLYPH_ATTR
 	float   fHeight;
 };
 
-class GlyphReader:public cSmartObject
+class GlyphReader:public cSmartObject,public NamedTypedObject
 {
 	bool	LoadFile( const char* strFileName);
 public:
