@@ -10,7 +10,7 @@
 
 #ifdef VLD_DEBUG
 //#include "C:/Program Files (x86)/Visual Leak Detector/include/vld.h"
-#pragma comment(lib, "C:/Program Files (x86)/Visual Leak Detector/lib/Win32/vld.lib")
+#pragma comment(lib, "../../../lib/vld.lib")
 #endif
 
 #define MAX_LOADSTRING 100

@@ -53,13 +53,12 @@ class cPerformMusicPhaseUI:public cRenderObject,public cMessageSender
 	cPerformScoreCalculate*				m_pPerformScoreCalculate;
 	cNumeralImage*						m_pScoreNumeial;
 	cMPDI*								m_pBGMPDI;
-
-
+	cBaseImage*							m_pMusicSheetImage;//	SheetMusic.png
 	cBehaviorObjectList<cMPDI>			m_LaserMPDILeftVector;
 	cBehaviorObjectList<cMPDI>			m_LaserMPDIRightVector;
 	//
-	cLazyClickBehaviorAndRenderObject*	m_pPause;
-	cLazyClickBehaviorAndRenderObject*	m_pScore;
+	cLazyClickBehaviorAndRenderObject*	m_pPauseButton;
+	cLazyClickBehaviorAndRenderObject*	m_pScoreButton;
 	cPerformMusicPhase*					m_pPerformMusicPhase;
 	cRenderObject*						m_pBG;
 	//cGlyphFontRender*					m_pScoreText;
