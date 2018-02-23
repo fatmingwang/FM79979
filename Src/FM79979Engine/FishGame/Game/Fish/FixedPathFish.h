@@ -3,7 +3,7 @@
 #include "FishBase.h"
 
 
-class cFixedFishMonster: public cFishBase
+class cFixedPathFish: public cFishBase
 {
 	cNamedTypedObjectVector<cCurveWithTime>	m_CurveWithTimeVector;
 	cCurveWithTime*							m_pCurrentPath;
@@ -12,12 +12,11 @@ private:
 protected:
 	virtual	void				InternalInit()override;
 	virtual	void				InternalUpdate(float e_fElpaseTime)override;
-	virtual	void				SetTransform()override;
 public:
 	//
-	cFixedFishMonster();
-	virtual ~cFixedFishMonster();
-	cFixedFishMonster(cFixedFishMonster*e_pMonster);
-	cFixedFishMonster*GetMe(TiXmlElement*e_pTiXmlElement);
+	cFixedPathFish();
+	virtual ~cFixedPathFish();
+	cFixedPathFish(cFixedPathFish*e_pMonster);
+	static cFixedPathFish*GetMe(TiXmlElement*e_pTiXmlElement);
 	DEFINE_TYPE_INFO();
 };

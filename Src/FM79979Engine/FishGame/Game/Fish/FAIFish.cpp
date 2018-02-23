@@ -2,8 +2,8 @@
 #include "FAIFish.h"
 #include "FishManager.h"
 
-
 TYPDE_DEFINE_MARCO(cFAIFish);
+
 cFAIFish::cFAIFish()
 {
 	m_pFAIMachine = nullptr;
@@ -22,6 +22,10 @@ cFAIFish::cFAIFish(cFAIFish*e_pFAIFish):cFishBase(e_pFAIFish)
 
 cFAIFish*cFAIFish::GetMe(TiXmlElement*e_pElement)
 {
+	COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pElement, cFAIFish::TypeID)
+	{
+
+	}
 	return nullptr;
 }
 

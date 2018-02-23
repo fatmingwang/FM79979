@@ -28,9 +28,14 @@ private:
 	void						ProcessCollisionlData(TiXmlElement*e_pElement);
 	void						ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement);
 protected:
-	eFishBodyType				m_eFishBodyType;
-	cMPDI*						m_pMonsterAnimation[eFS_MAX];
-	c2DImageCollisionData*		m_pCollisionData;
+	eFishBodyType							m_eFishBodyType;
+	cMPDIList*								m_pAnimationMPDIList;
+	cMPDI*									m_pStatusAnimation[eFS_MAX];
+	//its possible has more than one PI in the animation
+	//key is PuzzleImage index of MPDIList(should as same as cMPDI)
+	std::map<int,c2DImageCollisionData*>	m_CollisionDataMap;
+	cbtShapeCollision*						m_pCurrentbtShapeCollision;//data from current status animation
+
 	cPIUnitAndPointsVector*		m_pPIUnitAndPointsVector;
 	//
 	static sMinMaxData<float>	m_StruggleTime;
@@ -43,8 +48,8 @@ protected:
 	virtual	void				InternalInit() = 0;
 	virtual	void				InternalUpdate(float e_fElpaseTime) = 0;
 	virtual void				StatusChange(eFishStatus e_eFishStatus) ;
-	virtual	void				SetTransform() = 0;
-	virtual	void				SetTransformCollision(cMatrix44 e_mat,int e_iPIUnitIndex);
+	virtual	void				SetTransform(Vector3 e_vPos,float e_fAngle,Vector3 e_vOffsetPos);
+	virtual	void				SetTransformCollision(cMatrix44 e_mat);
 public:
 	//
 	cFishBase();

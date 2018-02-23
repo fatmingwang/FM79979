@@ -19,10 +19,11 @@ eFishBodyType	GetFishBodyType(const wchar_t *e_str)
 
 cFishBase::cFishBase()
 {
-	m_pCollisionData = nullptr;
+	m_pCurrentbtShapeCollision = nullptr;
+	m_pAnimationMPDIList = nullptr;
 	m_eFishBodyType = eFBT_Total;
 	for (int i = 0; i < eFS_MAX; ++i)
-		m_pMonsterAnimation[i] = nullptr;;
+		m_pStatusAnimation[i] = nullptr;;
 	m_iID = -1;
 	m_fScale = 1.f;
 	m_fRadius = -1.f;
@@ -31,14 +32,24 @@ cFishBase::cFishBase()
 
 cFishBase::cFishBase(cFishBase*e_pFishBase)
 {
-	m_eFishBodyType = eFBT_Total;
-	m_pCollisionData = new c2DImageCollisionData(e_pFishBase->m_pCollisionData);
+	m_pCurrentbtShapeCollision = nullptr;
+	m_pAnimationMPDIList = e_pFishBase->m_pAnimationMPDIList;
+	m_eFishBodyType = e_pFishBase->m_eFishBodyType;
 	for (int i = 0; i < eFS_MAX; ++i)
 	{
-		if(e_pFishBase->m_pMonsterAnimation[i])
-			m_pMonsterAnimation[i] = new cMPDI(e_pFishBase->m_pMonsterAnimation[i]);
+		if (e_pFishBase->m_pStatusAnimation[i])
+		{
+			m_pStatusAnimation[i] = new cMPDI(e_pFishBase->m_pStatusAnimation[i]);
+			m_pStatusAnimation[i]->SetParent(this);
+		}
 		else
-			m_pMonsterAnimation[i] = nullptr;
+			m_pStatusAnimation[i] = nullptr;
+	}
+	//m_pAnimationMPDIList
+	for (auto l_Iterator = e_pFishBase->m_CollisionDataMap.begin(); l_Iterator != e_pFishBase->m_CollisionDataMap.end(); ++l_Iterator)
+	{
+		c2DImageCollisionData*l_pCollisionData = new c2DImageCollisionData(l_Iterator->second);
+		m_CollisionDataMap.insert(std::make_pair(l_Iterator->first, l_pCollisionData));
 	}
 	m_iID = e_pFishBase->m_iID;
 	m_fScale = e_pFishBase->m_fScale;
@@ -50,17 +61,41 @@ cFishBase::~cFishBase()
 {
 	for (int i = 0; i < eFS_MAX; ++i)
 	{
-		SAFE_DELETE(m_pMonsterAnimation[i]);
+		SAFE_DELETE(m_pStatusAnimation[i]);
 	}
-	SAFE_DELETE(m_pCollisionData);
+	DELETE_MAP(m_CollisionDataMap);
+	//SAFE_DELETE(m_pCollisionData);
 }
 
-void	cFishBase::SetTransformCollision(cMatrix44 e_mat, int e_iPIUnitIndex)
+void	cFishBase::SetTransform(Vector3 e_vPos, float e_fAngle, Vector3 e_vOffsetPos)
 {
-	if (m_pCollisionData)
+	cMatrix44 l_mat = cMatrix44::TranslationMatrix(e_vPos + e_vOffsetPos)*cMatrix44::ZAxisRotationMatrix(e_fAngle)*cMatrix44::ScaleMatrix(Vector3(this->m_fScale, this->m_fScale, 1.f));
+	this->SetLocalTransform(l_mat);
+	SetTransformCollision(l_mat);
+}
+
+void	cFishBase::SetTransformCollision(cMatrix44 e_mat)
+{
+	cMPDI*l_pMPDI = this->m_pStatusAnimation[this->m_eFishStatus];
+	if (l_pMPDI)
 	{
-		auto l_pObject = (*m_pCollisionData)[e_iPIUnitIndex];
-		l_pObject->SetTransform(e_mat);
+		cSubMPDI*l_pSubMPDI = l_pMPDI->GetObject(0);
+		if (l_pSubMPDI)
+		{
+			sTexBehaviorDataWithImageIndexData*l_pCurrentPointData = l_pSubMPDI->GetCurrentPointData();
+			if (m_pAnimationMPDIList)
+			{
+				int l_iIndex = l_pSubMPDI->GetPIList()->GetObjectIndexByPointer(l_pCurrentPointData->pPI);
+				assert(l_iIndex != -1&&"SetTransformCollision index is -1 !!??");
+				if (l_iIndex != -1)
+				{
+					assert(m_CollisionDataMap.find(l_iIndex) != m_CollisionDataMap.end() && " m_CollisionDataMap cannt find data!");
+					c2DImageCollisionData*l_2DImageCollisionData = m_CollisionDataMap[l_iIndex];
+					m_pCurrentbtShapeCollision = l_2DImageCollisionData->GetObject(l_pCurrentPointData->iImageIndex);
+					m_pCurrentbtShapeCollision->SetTransform(e_mat);
+				}
+			}
+		}
 	}
 }
 
@@ -70,10 +105,18 @@ void	cFishBase::ProcessCollisionlData(TiXmlElement*e_pElement)
 		COMPARE_NAME("CollisionFile")
 		{
 			std::string	l_strFileName = UT::WcharToChar(l_strValue);
-			m_pCollisionData = new c2DImageCollisionData();
-			if (!m_pCollisionData->Parse(l_strFileName.c_str()))
+			c2DImageCollisionData*l_pCollisionData = new c2DImageCollisionData();
+			if (!l_pCollisionData->Parse(l_strFileName.c_str()))
 			{
+				SAFE_DELETE(l_pCollisionData);
 				UT::ErrorMsg(l_strFileName.c_str(), "parse failed");
+			}
+			assert(m_pAnimationMPDIList&&"m_pAnimationMPDIList not exist!?");
+			if (l_pCollisionData )
+			{
+				int l_iPullzeImageIndex = m_pAnimationMPDIList->GetPIList()->GetObjectIndexByName(l_pCollisionData->GetName());
+				assert(m_CollisionDataMap.find(l_iPullzeImageIndex) == m_CollisionDataMap.end() && "collision file added!?");
+				m_CollisionDataMap.insert(std::make_pair(l_iPullzeImageIndex, l_pCollisionData));
 			}
 		}
 	PARSE_NAME_VALUE_END
@@ -92,6 +135,7 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 				UT::ErrorMsg(l_strValue, L"MPDIList not found");
 				return;
 			}
+			m_pAnimationMPDIList = l_pMPDIList;
 		}
 		else
 		COMPARE_NAME("Moving")
@@ -99,9 +143,9 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			cMPDI*l_pMPDI = l_pMPDIList->GetObject(l_strValue);
 			if (l_pMPDI)
 			{
-				m_pMonsterAnimation[eFS_MOVING] = new cMPDI(l_pMPDI);
-				m_pMonsterAnimation[eFS_MOVING]->SetDoPositionOffsetToCenter(true);
-				Vector2	l_vSize = m_pMonsterAnimation[eFS_MOVING]->GetDrawSize();
+				m_pStatusAnimation[eFS_MOVING] = new cMPDI(l_pMPDI);
+				m_pStatusAnimation[eFS_MOVING]->SetDoPositionOffsetToCenter(true);
+				Vector2	l_vSize = m_pStatusAnimation[eFS_MOVING]->GetDrawSize();
 				m_fRadius = l_vSize.x>l_vSize.y ? l_vSize.x : l_vSize.y;
 				m_fRadius /= 2.f;
 			}
@@ -116,8 +160,8 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			cMPDI*l_pMPDI = l_pMPDIList->GetObject(l_strValue);;
 			if (l_pMPDI)
 			{
-				m_pMonsterAnimation[eFS_DIED_SHOW] = new cMPDI(l_pMPDI);
-				m_pMonsterAnimation[eFS_DIED_SHOW]->SetDoPositionOffsetToCenter(true);
+				m_pStatusAnimation[eFS_DIED_SHOW] = new cMPDI(l_pMPDI);
+				m_pStatusAnimation[eFS_DIED_SHOW]->SetDoPositionOffsetToCenter(true);
 			}
 			else
 			{
@@ -130,8 +174,8 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			cMPDI*l_pMPDI = l_pMPDIList->GetObject(l_strValue);;
 			if (l_pMPDI)
 			{
-				m_pMonsterAnimation[eFS_STRUGGLE] = new cMPDI(l_pMPDI);
-				m_pMonsterAnimation[eFS_STRUGGLE]->SetDoPositionOffsetToCenter(true);
+				m_pStatusAnimation[eFS_STRUGGLE] = new cMPDI(l_pMPDI);
+				m_pStatusAnimation[eFS_STRUGGLE]->SetDoPositionOffsetToCenter(true);
 			}
 			else
 			{
@@ -146,9 +190,10 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 	PARSE_NAME_VALUE_END
 	for (int i = 0; i < eFS_MAX; ++i)
 	{
-		if (m_pMonsterAnimation[i])
+		if (m_pStatusAnimation[i])
 		{
-			m_pMonsterAnimation[i]->Init();
+			m_pStatusAnimation[i]->Init();
+			m_pStatusAnimation[i]->SetParent(this);
 		}
 	}
 }
@@ -157,15 +202,15 @@ void	cFishBase::Init()
 {
 	m_eFishStatus = eFS_NONE;
 	InternalInit();
-	if (m_pMonsterAnimation[eFS_DIED_SHOW])
+	if (m_pStatusAnimation[eFS_DIED_SHOW])
 	{
-		m_pMonsterAnimation[eFS_DIED_SHOW]->Init();
+		m_pStatusAnimation[eFS_DIED_SHOW]->Init();
 	}
 }
 
 void	cFishBase::Update(float e_fElpaseTime)
 {
-	if (!m_pMonsterAnimation[m_eFishStatus])
+	if (!m_pStatusAnimation[m_eFishStatus])
 	{
 		m_eFishStatus = eFS_MOVING;
 	}
@@ -177,13 +222,13 @@ void	cFishBase::Update(float e_fElpaseTime)
 			m_eFishStatus = eFS_MOVING;
 		}
 	}
-	if(m_pMonsterAnimation[m_eFishStatus])
-		m_pMonsterAnimation[m_eFishStatus]->Update(e_fElpaseTime);
+	if(m_pStatusAnimation[m_eFishStatus])
+		m_pStatusAnimation[m_eFishStatus]->Update(e_fElpaseTime);
 	if (m_eFishStatus == eFS_DIED_SHOW)
 	{
-		if (m_pMonsterAnimation[m_eFishStatus])
+		if (m_pStatusAnimation[m_eFishStatus])
 		{
-			if (m_pMonsterAnimation[m_eFishStatus]->IsAnimationDone())
+			if (m_pStatusAnimation[m_eFishStatus]->IsAnimationDone())
 				m_eFishStatus = eFS_WAITING_FOR_CLEAN;
 		}
 		else
@@ -196,8 +241,8 @@ void	cFishBase::Update(float e_fElpaseTime)
 
 void	cFishBase::Render()
 {
-	if (m_pMonsterAnimation[m_eFishStatus])
-		m_pMonsterAnimation[m_eFishStatus]->Render();
+	if (m_pStatusAnimation[m_eFishStatus])
+		m_pStatusAnimation[m_eFishStatus]->Render();
 }
 
 bool	cFishBase::IsVisible(Vector4 e_vWall)
@@ -216,7 +261,7 @@ bool	cFishBase::IsStatusAllowToDied()
 void	cFishBase::StatusChange(eFishStatus e_eFishStatus)
 {
 	m_eFishStatus = e_eFishStatus;
-	if (!m_pMonsterAnimation[e_eFishStatus])
+	if (!m_pStatusAnimation[e_eFishStatus])
 		return;
 	if (m_eFishStatus == eFS_STRUGGLE)
 	{
