@@ -103,10 +103,8 @@
     <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
-    <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
     <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp" />
-    <ClCompile Include="..\..\Core\Image\RenderNode.cpp" />
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Image\TextureManager.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
@@ -425,7 +423,6 @@
     <ClInclude Include="..\..\Core\Image\BaseUVImageData.h" />
     <ClInclude Include="..\..\Core\Image\BinaryToTexture.h" />
     <ClInclude Include="..\..\Core\Image\FMAnimationRule.h" />
-    <ClInclude Include="..\..\Core\Image\FMTimelineAnimationObject.h" />
     <ClInclude Include="..\..\Core\Image\FrameBuffer.h" />
     <ClInclude Include="..\..\Core\Image\GlyphFontRender.h" />
     <ClInclude Include="..\..\Core\Image\ImageParser.h" />
@@ -439,7 +436,6 @@
     <ClInclude Include="..\..\Core\Image\NumeralImage.h" />
     <ClInclude Include="..\..\Core\Image\png\pngLoader.h" />
     <ClInclude Include="..\..\Core\Image\PuzzleImage.h" />
-    <ClInclude Include="..\..\Core\Image\RenderNode.h" />
     <ClInclude Include="..\..\Core\Image\RenderObject.h" />
     <ClInclude Include="..\..\Core\Image\SimplePrimitive.h" />
     <ClInclude Include="..\..\Core\Image\SubMPDI.h" />

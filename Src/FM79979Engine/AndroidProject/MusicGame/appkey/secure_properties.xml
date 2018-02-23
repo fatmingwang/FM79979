@@ -1,6 +1,6 @@
 <project name="secure_properties">
-  <property name="key.store" value="C:\Users\leeyo\Desktop\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\Key" />
+  <property name="key.store" value="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\Key" />
   <property name="key.store.password" value="123456" />
-  <property name="key.alias" value="Fatming" />
+  <property name="key.alias" value="fatming" />
   <property name="key.alias.password" value="123456" />
 </project>

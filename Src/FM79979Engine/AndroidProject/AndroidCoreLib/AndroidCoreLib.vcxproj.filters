@@ -778,12 +778,6 @@
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp">
       <Filter>jni\GamePlayUT\CameraZoom</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp">
-      <Filter>jni\RenderObject\FManimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\RenderNode.cpp">
-      <Filter>jni\RenderObject\Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp">
       <Filter>jni\GamePlayUT\GameApp</Filter>
     </ClCompile>
@@ -1497,12 +1491,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h">
       <Filter>jni\GamePlayUT\CameraZoom</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\FMTimelineAnimationObject.h">
-      <Filter>jni\RenderObject\FManimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\RenderNode.h">
-      <Filter>jni\RenderObject\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\png\pngLoader.h">
       <Filter>jni\RenderObject\Texture\png</Filter>

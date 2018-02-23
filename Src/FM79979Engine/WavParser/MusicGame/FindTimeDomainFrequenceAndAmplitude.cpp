@@ -129,7 +129,7 @@ sFindTimeDomainFrequenceAndAmplitude::sFindTimeDomainFrequenceAndAmplitude()
 
 sFindTimeDomainFrequenceAndAmplitude::~sFindTimeDomainFrequenceAndAmplitude()
 {
-	DELETE_VECTOR_VECTORPOINTER(OneScondFrequenceAndAmplitudeAndTimeData,sFrequenceAndAmplitudeAndTime*);
+	DELETE_VECTOR_VECTORPOINTER(OneScondFrequenceAndAmplitudeAndTimeData);
 }
 
 

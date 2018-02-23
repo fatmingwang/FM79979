@@ -215,7 +215,7 @@ cFFTDecibelsAnalyzer::~cFFTDecibelsAnalyzer()
 void	cFFTDecibelsAnalyzer::Destroy()
 {
 	//SAFE_DELETE(m_pCurrentFFTFrequencyDecibels);
-	DELETE_VECTOR(m_FFTFrequencyDecibelsVector,cFFTFrequencyDecibels*);
+	DELETE_VECTOR(m_FFTFrequencyDecibelsVector);
 	m_pCurrentFFTFrequencyDecibels = nullptr;
 }
 

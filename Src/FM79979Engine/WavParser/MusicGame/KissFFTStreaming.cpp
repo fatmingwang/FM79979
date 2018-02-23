@@ -155,7 +155,7 @@ cPCMToFFTDataConvertr::~cPCMToFFTDataConvertr()
 }
 void	cPCMToFFTDataConvertr::Destroy()
 {
-	DELETE_VECTOR(m_TimeAndFFTDataVector,sTimeAndFFTData*);
+	DELETE_VECTOR(m_TimeAndFFTDataVector);
 	SAFE_DELETE(m_pfWindowFunctionConstantValue);
 	if( m_pkiss_fft_state )
 	{
@@ -248,7 +248,7 @@ void	cKissFFTStreamingConvert::Destroy()
 	SAFE_DELETE(m_pFUThreadPool);
 	m_PCMToFFTDataConvertr.Destroy();
 	SAFE_RELEASE(m_pOpanalOgg,this);
-	DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
+	DELETE_VECTOR(m_TimeAndPCMDataVector);
 }
 
 //1.find proper data by time
@@ -271,7 +271,7 @@ void	cKissFFTStreamingConvert::StreamingBuffer(int e_iCount,char*e_pData,size_t 
 		if( m_TimeAndPCMDataVector.size() >= PCM_SWAP_BUFFER_COUNT)
 		{
 			cFUSynchronizedHold	l_cFUSynchronizedHold(&m_FUSynchronizedForTimeAndPCMDataVector);
-			DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
+			DELETE_VECTOR(m_TimeAndPCMDataVector);
 #ifdef DEBUG
 			cGameApp::OutputDebugInfoString(L"StreamingBuffer is over size...fuck");
 #endif
@@ -518,7 +518,7 @@ void	cKissFFTStreamingConvert::GoToTime(float e_fTime)
 			delete m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector[1];
 			m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.erase(m_PCMToFFTDataConvertr.m_TimeAndFFTDataVector.begin()+1);
 		}
-		DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
+		DELETE_VECTOR(m_TimeAndPCMDataVector);
 		this->m_pOpanalOgg->GoTo(e_fTime);
 		this->m_fCurrentTime = e_fTime;
 		if(this->m_pFFTDataStore)

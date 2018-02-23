@@ -82,7 +82,7 @@ void	cSoundFFTCapture::Destroy()
 	}
 	m_PCMToFFTDataConvertr.Destroy();
 	SAFE_DELETE(m_piFFTData);
-	DELETE_VECTOR(m_TimeAndPCMDataVector,sTimeAndPCMData*);
+	DELETE_VECTOR(m_TimeAndPCMDataVector);
 	SAFE_DELETE(m_pFUThreadPool);
 	SAFE_DELETE(m_pQuickFFTDataFrequencyFinder);
 }

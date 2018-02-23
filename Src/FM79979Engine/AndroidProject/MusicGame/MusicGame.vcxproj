@@ -62,6 +62,7 @@
     </Link>
     <AntBuild>
       <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+      <SecurePropertiesLocation>C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
     </AntBuild>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -81,7 +82,7 @@
     </Link>
     <AntBuild>
       <AntBuildPath>$(ProjectDir)\</AntBuildPath>
-      <SecurePropertiesLocation>C:\Users\leeyo\Desktop\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
+      <SecurePropertiesLocation>C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
     </AntBuild>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
