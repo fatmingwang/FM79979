@@ -73,7 +73,9 @@ namespace UT
 			return rand((T)Min,(T)Max);
 		}
 	};
-
+	//sample
+	//sProbabilityVector<float>	m_ProbabilityValue;
+	//sProbabilityVector<int>	m_ProbabilityValue;
 	template <class PROBABILITY>struct	sProbabilityVector
 	{
 		std::vector<PROBABILITY>	ProbabilityVector;

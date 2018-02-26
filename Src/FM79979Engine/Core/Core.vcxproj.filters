@@ -150,9 +150,6 @@
     <Filter Include="GameplayUT\FMAnimationRuleEffect">
       <UniqueIdentifier>{f11df4bf-ccb9-4398-a819-8d71e9a05917}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\Binary">
-      <UniqueIdentifier>{f0db8b85-b130-47d1-a5bd-2a4b2ffaa948}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\ResourceStamp">
       <UniqueIdentifier>{d4b70f27-8124-41cb-9dc0-5736426ba26e}</UniqueIdentifier>
     </Filter>
@@ -263,6 +260,12 @@
     </Filter>
     <Filter Include="RenderObject\RenderQueue">
       <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\BinaryFile">
+      <UniqueIdentifier>{f0db8b85-b130-47d1-a5bd-2a4b2ffaa948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\BinaryFile\WriteFileWithThread">
+      <UniqueIdentifier>{83c68abb-9cc7-45b5-9af2-29ce930e71a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -516,7 +519,7 @@
       <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\BinaryFile.cpp">
-      <Filter>GameplayUT\Binary</Filter>
+      <Filter>GameplayUT\BinaryFile</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\ResourceStamp.cpp">
       <Filter>GameplayUT\ResourceStamp</Filter>
@@ -651,7 +654,7 @@
       <Filter>GameplayUT\GameApp</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\CustomBinaryData.cpp">
-      <Filter>GameplayUT\Binary</Filter>
+      <Filter>GameplayUT\BinaryFile</Filter>
     </ClCompile>
     <ClCompile Include="Image\png\pngLoader.cpp">
       <Filter>RenderObject\Texture\png</Filter>
@@ -724,6 +727,9 @@
     </ClCompile>
     <ClCompile Include="Synchronization\CPP11Thread.cpp">
       <Filter>Synchronization</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\WriteFile\WriteFileWithThread.cpp">
+      <Filter>GameplayUT\BinaryFile\WriteFileWithThread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1013,7 +1019,7 @@
       <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\BinaryFile.h">
-      <Filter>GameplayUT\Binary</Filter>
+      <Filter>GameplayUT\BinaryFile</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\ResourceStamp.h">
       <Filter>GameplayUT\ResourceStamp</Filter>
@@ -1181,7 +1187,7 @@
       <Filter>GameplayUT\EventSender</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\CustomBinaryData.h">
-      <Filter>GameplayUT\Binary</Filter>
+      <Filter>GameplayUT\BinaryFile</Filter>
     </ClInclude>
     <ClInclude Include="Image\png\pngLoader.h">
       <Filter>RenderObject\Texture\png</Filter>
@@ -1257,6 +1263,9 @@
     </ClInclude>
     <ClInclude Include="Synchronization\CPP11Thread.h">
       <Filter>Synchronization</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\WriteFile\WriteFileWithThread.h">
+      <Filter>GameplayUT\BinaryFile\WriteFileWithThread</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

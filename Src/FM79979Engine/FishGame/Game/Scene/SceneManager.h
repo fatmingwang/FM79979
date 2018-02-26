@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "../WriteFile/WriteFile.h"
+
 class cCameraShake;
 class cSceneChangeFishGroupManager;
 class cFishManager;
@@ -7,7 +7,7 @@ class cFishManager;
 //it contain BaseScene(s) which it should has a Fishgroup and a common scene(time up to turn to next scene).
 typedef cPhaseManager cPhaseManagerInPhaseManager;
 //cPhaseManager contain a cPhaseManager and it own SceneBase
-class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, public cWriteBinaryFile,public cMessageSender
+class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, public cWriteFileWithThread,public cMessageSender
 {
 	//this is the data write into file and control scene change
 	struct sSceneData

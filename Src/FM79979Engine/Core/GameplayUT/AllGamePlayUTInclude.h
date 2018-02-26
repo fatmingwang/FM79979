@@ -29,6 +29,7 @@
 #include "CameraZoomFunction.h"
 #include "ClickBehavior/ClickBehavior.h"
 #include "EventSender/MessageSender.h"
+#include "WriteFile\WriteFileWithThread.h"
 #ifdef WASM
 #include "Preload/PreloadResource.h"
 #endif

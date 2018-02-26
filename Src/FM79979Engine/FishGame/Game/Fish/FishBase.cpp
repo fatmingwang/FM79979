@@ -245,6 +245,23 @@ void	cFishBase::Render()
 		m_pStatusAnimation[m_eFishStatus]->Render();
 }
 
+void	cFishBase::DebugRender()
+{
+	if (m_pCurrentbtShapeCollision)
+	{
+		m_pCurrentbtShapeCollision->DebugRender();
+	}
+}
+
+bool	cFishBase::IsCollide(cbtShapeCollision*e_pbtShapeCollision)
+{
+	if (m_pCurrentbtShapeCollision)
+	{
+		return m_pCurrentbtShapeCollision->Collide(e_pbtShapeCollision);
+	}
+	return false;
+}
+
 bool	cFishBase::IsVisible(Vector4 e_vWall)
 {
 	Vector3 l_vPos = this->GetWorldPosition();

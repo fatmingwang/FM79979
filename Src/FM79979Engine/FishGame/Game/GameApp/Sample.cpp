@@ -4,7 +4,6 @@
 #include "../../../Core/GLSL/ToneMapping.h"
 #include "../../../Core/GLSL/TunnelEffect.h"
 #include "TestShader.h"
-#include "../WriteFile/WriteFile.h"
 
 cSampleForWriteBinaryFile*g_pSampleForWriteBinaryFile = nullptr;
 void	SampleForWriteBinaryFileTest()

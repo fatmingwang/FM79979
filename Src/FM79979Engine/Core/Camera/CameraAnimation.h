@@ -71,6 +71,8 @@ namespace FATMING_CORE
 		virtual	void	HandleElementData(TiXmlElement*e_pTiXmlElement);
 		void			ProcesscCameraAnimation(TiXmlElement*e_pTiXmlElement);
 	public:
+		cCameraAnimationManager();
+		virtual ~cCameraAnimationManager();
 		void	Export(char*e_strFileName);
 	};
 

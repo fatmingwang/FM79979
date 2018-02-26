@@ -61,7 +61,6 @@
     <ClCompile Include="..\Game\Weapon\FishGameWeaponManager.cpp" />
     <ClCompile Include="..\Game\Weapon\KeyPressBehavior.cpp" />
     <ClCompile Include="..\Game\Weapon\WeaponManagerParser.cpp" />
-    <ClCompile Include="..\Game\WriteFile\WriteFile.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">Create</PrecompiledHeader>
@@ -103,6 +102,7 @@
     <ClInclude Include="..\Game\Player\PlayerBehavior.h" />
     <ClInclude Include="..\Game\Player\PlayerManager.h" />
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h" />
+    <ClInclude Include="..\Game\Probability\FishShowPaobability.h" />
     <ClInclude Include="..\Game\Probability\ProbabilityMain.h" />
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h" />
     <ClInclude Include="..\Game\Scene\CameraShake.h" />
@@ -114,7 +114,6 @@
     <ClInclude Include="..\Game\Weapon\FishGameWeaponBase.h" />
     <ClInclude Include="..\Game\Weapon\FishGameWeaponManager.h" />
     <ClInclude Include="..\Game\Weapon\KeyPressBehavior.h" />
-    <ClInclude Include="..\Game\WriteFile\WriteFile.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>

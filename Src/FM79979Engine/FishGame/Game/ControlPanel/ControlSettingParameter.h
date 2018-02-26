@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../WriteFile/WriteFile.h"
 //the parameter here is write into file while data is changed
-struct sControlSettingParameter :public cWriteBinaryFile
+struct sControlSettingParameter :public cWriteFileWithThread
 {
 private:
-	static	cWriteBinaryFile::sRegister_Header_Struct		m_sRegister_Header_Struct;
+	static	cWriteFileWithThread::sRegister_Header_Struct		m_sRegister_Header_Struct;
 	virtual void	WriteFile()override;
 	virtual bool	OpenFileGetData(int e_iDataSizeWithOutFileExtension, char*e_pData, sRegister_Header_Struct*e_pRegister_Header_Struct)override;
 public:

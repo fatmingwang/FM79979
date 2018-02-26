@@ -293,6 +293,15 @@ namespace FATMING_CORE
 		m_pContainer->Clear();
 	}
 
+	cCameraAnimationManager::cCameraAnimationManager():cSmartObject(this)
+	{
+
+	}
+	cCameraAnimationManager::~cCameraAnimationManager()
+	{
+
+	}
+
 	void	cCameraAnimationManager::InternalParse()
 	{
 		this->Destroy();

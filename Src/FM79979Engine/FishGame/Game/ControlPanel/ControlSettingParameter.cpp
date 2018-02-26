@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ControlSettingParameter.h"
-#include "../WriteFile/WriteFile.h"
+
 
 sControlSettingParameter::sRegister_Header_Struct		m_sRegister_Header_Struct;// = { 'q','o','o','o',1.f };
 bool	sControlSettingParameter::m_sbTimeUpAutoShotOneBullet = false;

@@ -13,7 +13,7 @@ public:
 	cBulletManager();
 	~cBulletManager();
 	//
-	cBaseBullet*					Require( int e_iPlayerIndex, int e_iLevel, int e_iPayRate);
+	cBaseBullet*				Require( int e_iPlayerIndex, int e_iLevel, int e_iPayRate);
 	void						Init();
 	void						Update(float e_fElpaseTime);
 	void						Render();

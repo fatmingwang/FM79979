@@ -5,7 +5,7 @@
 #include "../GameDefine/FishGameEventMessageID.h"
 #include "../GameDefine/GameDefine.h"
 #include "../Fish/SceneChangeFishGroup.h"
-cSceneManager::cSceneManager(cFishManager*e_pFishManager):cWriteBinaryFile(false)
+cSceneManager::cSceneManager(cFishManager*e_pFishManager):cWriteFileWithThread(false)
 {
 	m_pFishManagerReference = e_pFishManager;
 	m_pCameraShake = nullptr;//cCameraShake

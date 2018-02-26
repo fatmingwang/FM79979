@@ -34,9 +34,6 @@
     <Filter Include="Game\Scene">
       <UniqueIdentifier>{6023873b-f18c-4e8f-99d9-bc98bb75411c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\WriteFile">
-      <UniqueIdentifier>{bce53fbe-a77a-4886-9f09-d694468f493e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{36529e92-de2f-47f0-919f-8fa180932f63}</UniqueIdentifier>
     </Filter>
@@ -71,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="..\Game\GameApp\TestShader.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\WriteFile\WriteFile.cpp">
-      <Filter>Game\WriteFile</Filter>
     </ClCompile>
     <ClCompile Include="..\Game\Bullet\Bullet.cpp">
       <Filter>Game\Bullet</Filter>
@@ -203,9 +197,6 @@
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h">
       <Filter>Game\RenderLayer</Filter>
     </ClInclude>
-    <ClInclude Include="..\Game\WriteFile\WriteFile.h">
-      <Filter>Game\WriteFile</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\Player\PlayerMessageBehavior.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
@@ -331,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="..\Game\Common\SingltonTemplate.h">
       <Filter>Game\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\Probability\FishShowPaobability.h">
+      <Filter>Game\Probability</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

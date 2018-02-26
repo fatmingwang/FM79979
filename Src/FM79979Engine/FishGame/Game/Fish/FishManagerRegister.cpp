@@ -7,5 +7,5 @@
 void	cFishManager::AddCloneRegisterFunction()
 {
 	REGISTER_CLONE_FUNCTION_TO_MANGER(cFAIFish);
-	REGISTER_CLONE_FUNCTION_TO_MANGER(cFixedPathFish);
+	//REGISTER_CLONE_FUNCTION_TO_MANGER(cFixedPathFish);
 }

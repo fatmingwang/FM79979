@@ -1,7 +1,7 @@
 #pragma once
 
 #include "PlayerMessageBehavior.h"
-#include "../WriteFile/WriteFile.h"
+
 class cWeaponManager;
 class	cPlayerBehavior : public Frame,public cPlayerMessageBehavior
 {

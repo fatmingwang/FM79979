@@ -22,11 +22,12 @@ cFAIFish::cFAIFish(cFAIFish*e_pFAIFish):cFishBase(e_pFAIFish)
 
 cFAIFish*cFAIFish::GetMe(TiXmlElement*e_pElement)
 {
-	COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pElement, cFAIFish::TypeID)
-	{
-
-	}
-	return nullptr;
+	FISH_LAZY_GET_ME_START(e_pElement, cFAIFish,
+		COMPARE_TARGET_ELEMENT_VALUE(e_pElement, "FAI")
+		{
+			l_pObject->ProcessFAIMachineData(e_pElement);
+		}
+	);
 }
 
 void	cFAIFish::ProcessFAIMachineData(TiXmlElement*e_pTiXmlElement)

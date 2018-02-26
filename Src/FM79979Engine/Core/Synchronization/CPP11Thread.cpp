@@ -10,7 +10,7 @@ namespace FATMING_CORE
 		m_bLeaveThread = false;
 		//https://stackoverflow.com/questions/10673585/start-thread-with-member-function
 		//call with std::function
-		//std::thread WriteFileThread(&cWriteFileManager::WriteFileThread,this);
+		//std::thread WriteFileThread(&cWriteFileWithThreadManager::WriteFileThread,this);
 		//call with lambda
 		//std::thread WriteFileThread([this]()
 		//{
