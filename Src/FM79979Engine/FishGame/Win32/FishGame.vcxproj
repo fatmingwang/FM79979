@@ -50,6 +50,7 @@
     <ClCompile Include="..\Game\Player\PlayerBehavior.cpp" />
     <ClCompile Include="..\Game\Player\PlayerManager.cpp" />
     <ClCompile Include="..\Game\Player\PlayerMessageBehavior.cpp" />
+    <ClCompile Include="..\Game\Probability\FishShowPaobability.cpp" />
     <ClCompile Include="..\Game\Probability\ProbabilityMain.cpp" />
     <ClCompile Include="..\Game\Scene\CameraShake.cpp" />
     <ClCompile Include="..\Game\Scene\BaseScene.cpp" />
@@ -76,7 +77,6 @@
     <ClInclude Include="..\Game\Bullet\BulletManager.h" />
     <ClInclude Include="..\Game\Bullet\AimMonsterBullet.h" />
     <ClInclude Include="..\Game\Common\CommonRegisterManager.h" />
-    <ClInclude Include="..\Game\Common\SingltonTemplate.h" />
     <ClInclude Include="..\Game\Common\WaitForFetchFunctionObjectList.h" />
     <ClInclude Include="..\Game\ControlPanel\ControlSettingParameter.h" />
     <ClInclude Include="..\Game\Fish\FishLockPoints.h" />

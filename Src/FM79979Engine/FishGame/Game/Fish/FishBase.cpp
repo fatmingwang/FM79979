@@ -286,3 +286,9 @@ void	cFishBase::StatusChange(eFishStatus e_eFishStatus)
 		m_StruggleTC.Start();
 	}
 }
+
+
+eFishStatus		cFishBase::GetFishStatus()
+{
+	return m_eFishStatus;
+}

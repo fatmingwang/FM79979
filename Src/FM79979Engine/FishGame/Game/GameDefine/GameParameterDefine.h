@@ -17,3 +17,6 @@
 #define	REFUND_MODE_COIN							0
 #define	REFUND_MODE_TICKER							1
 #define	REFUND_MODE_PRINT							2
+
+//IO only provide 10 players
+#define	MAX_PLAYER									10

@@ -19,4 +19,6 @@ public:
 	static  int     m_siCoinToScoreRate;
 	//this one is fucking stupid,who ask to add this!?
 	static  int		m_siAddScoreIOBehaviod;//1 for enable exchangein score button and toast coin,2 for disable  exchangein button,3for disable toast coin
+	static	int		m_siPlayerLayeoutIndex;//control panel change index
+	static	int		m_siPlayerCountByPlayerLayeoutIndex;
 };

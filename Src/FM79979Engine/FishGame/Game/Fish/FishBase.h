@@ -57,6 +57,7 @@ public:
 	virtual ~cFishBase();
 	//static GetMe(TiXmlElement*e_pElement);
 	eFishBodyType							GetFishBodyType();
+	eFishStatus								GetFishStatus();
 	float									GetRadius() { return m_fRadius; }
 	int										GetID() { return m_iID; }
 	void									Init();

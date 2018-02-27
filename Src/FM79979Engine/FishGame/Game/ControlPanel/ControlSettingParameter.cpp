@@ -10,6 +10,8 @@ int64	sControlSettingParameter::m_si64ButtonAddScoreLimit = 10000000;
 int		sControlSettingParameter::m_siIOMode = 1;
 int		sControlSettingParameter::m_siCoinToScoreRate = 1;
 int		sControlSettingParameter::m_siScoreToMoneyIOMode = 0;
+int		sControlSettingParameter::m_siPlayerLayeoutIndex = 0;//control panel change index
+int		sControlSettingParameter::m_siPlayerCountByPlayerLayeoutIndex = 8;
 
 int		sControlSettingParameter::m_siAddScoreIOBehaviod = 1;
 

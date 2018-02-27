@@ -189,6 +189,9 @@
     <ClCompile Include="..\Game\Fish\FAIFish.cpp">
       <Filter>Game\Fish</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\Probability\FishShowPaobability.cpp">
+      <Filter>Game\Probability</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Game\GameApp\TestShader.h">
@@ -319,9 +322,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\Fish\FAIFish.h">
       <Filter>Game\Fish</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\Common\SingltonTemplate.h">
-      <Filter>Game\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\Probability\FishShowPaobability.h">
       <Filter>Game\Probability</Filter>

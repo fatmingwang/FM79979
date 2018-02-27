@@ -1,15 +1,16 @@
 #pragma once
 
 #include "FishBase.h"
-#include "../Common/SingltonTemplate.h"
-class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, public cFishGameCommonRegisterManager,public cSingltonTemplate<cFishManager>
+
+class cFishShowProbability;
+
+class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, public cFishGameCommonRegisterManager<cFishBase>,public cSingltonTemplate<cFishManager>
 {
 	virtual void																AddCloneRegisterFunction() override;
 	//
 	virtual	bool																MyParse(TiXmlElement*e_pRoot) override;
-	cFishBase*																	ProcessMonster(TiXmlElement*e_pTiXmlElement,const WCHAR*l_strTypeID);
-	void																		ProcessFishBodyTypeAmount(TiXmlElement* e_pTiXmlElement);
 	//
+	cFishShowProbability*														m_pFishShowProbability;
 	cFishBase**																	m_ppWorkingMonster;
 	int																			m_iWorkingMonsterSize;
 	std::list< cWaitForFetchFunctionObjectList<cFishBase>* >					m_AllFish;
