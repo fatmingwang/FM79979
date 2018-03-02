@@ -2,7 +2,7 @@
 
 #include <list>
 template< class TYPE >
-class cWaitForFetchFunctionObjectList :public std::list<TYPE*>
+class cWaitForFetchFunctionObjectList :public std::list<TYPE*>,public NamedTypedObject
 {
 public:
 	std::list<TYPE*>	m_WorkingList;

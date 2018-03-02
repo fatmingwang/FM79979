@@ -9,7 +9,7 @@ class cFishGameCommonRegisterManager
 {
 protected:
 	std::list<std::function<TYPE*(TiXmlElement*)>>				m_RegisterList;
-	virtual TYPE*									GetObject(TiXmlElement*e_pTiXmlElement);
+	virtual TYPE*									GetObjectByParseXmlElement(TiXmlElement*e_pTiXmlElement);
 public:
 	cFishGameCommonRegisterManager(){}
 	virtual ~cFishGameCommonRegisterManager(){}
@@ -20,7 +20,7 @@ public:
 	//}
 };
 template<class TYPE>
-TYPE*cFishGameCommonRegisterManager<TYPE>::GetObject(TiXmlElement*e_pTiXmlElement)
+TYPE*cFishGameCommonRegisterManager<TYPE>::GetObjectByParseXmlElement(TiXmlElement*e_pTiXmlElement)
 {
 	TYPE*l_pNamedTypedObject = nullptr;
 	for (std::function<TYPE*(TiXmlElement*)> l_CloneFunctionRegister : m_RegisterList)

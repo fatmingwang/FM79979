@@ -77,6 +77,12 @@ cFAIMachine*	cFAIFish::GetAIMachine()
 {
 	return m_pFAIMachine;
 }
+
+void			cFAIFish::MonsterLeave()
+{
+
+}
+
 void			cFAIFish::SetAIMachine(cFAIMachine* e_pFAIMachine)
 {
 	SAFE_DELETE(m_pFAIMachine);

@@ -3,6 +3,7 @@
 // are changed infrequently
 #pragma once
 // TODO: reference additional headers your program requires here
+#define  _CRT_SECURE_NO_WARNINGS
 #include "windows.h"
 #include "../../Core/AllCoreInclude.h"
 #include "../../Core/Particle/AllParticleInclude.h"

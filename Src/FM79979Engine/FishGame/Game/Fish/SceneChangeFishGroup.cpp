@@ -26,7 +26,9 @@ cSceneChangeFishGroup::cSceneChangeFishGroup(cMPDI*e_pMPDI,cFishManager*e_pFishM
 			auto l_pPIUnit = l_pTexBehaviorDataWithImageIndexData->GetPuzzleImageUnit();
 			if (l_pPIUnit)
 			{
-				int l_iID = e_pFishManager->GetFishIDByName(l_pPIUnit->GetName());
+				auto l_pFish = e_pFishManager->GetObject(l_pPIUnit->GetName());
+				assert(l_pFish&&"no fish!?");
+				int l_iID = l_pFish->GetID();
 				float l_fStartTime = l_pObject->GetStartTime();
 				assert(l_iID != -1 && "FishName wrong!cSceneChangeFishGroup::cSceneChangeFishGroup");
 				m_OriginalTimeAndFishIDPairVector.push_back(std::pair<float, int>(l_fStartTime, l_iID));

@@ -2,7 +2,7 @@
 
 #include "FishGameWeaponBase.h"
 
-class cWeaponManager:public cRenderObject,public cFishGameCommonRegisterManager,public cNodeISAX
+class cWeaponManager:public cRenderObject,public cFishGameCommonRegisterManager<cFishGameWeaponBase>,public cNodeISAX
 {
 	virtual	bool									MyParse(TiXmlElement*e_pRoot)override;
 	virtual void									AddCloneRegisterFunction()override;

@@ -9,13 +9,17 @@ class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, p
 	virtual void																AddCloneRegisterFunction() override;
 	//
 	virtual	bool																MyParse(TiXmlElement*e_pRoot) override;
+	void																		GenerateReservedFishAndRenderOrder();
 	//
 	cFishShowProbability*														m_pFishShowProbability;
-	cFishBase**																	m_ppWorkingMonster;
-	int																			m_iWorkingMonsterSize;
-	std::list< cWaitForFetchFunctionObjectList<cFishBase>* >					m_AllFish;
+	cTempContainer<cFishBase>													m_WorkingMonster;
+	std::vector<cTempContainer<cFishBase>*>										m_RenderWorkingMonsterVector;//sort by render Order,(get local position.z)
+	//for quick find index of vector(cNamedTypedObjectVector<cFishBase>) by fish ID
+	std::map<int, int>															m_FishIDAndIndexOfVector;
+	std::map<int, int>															m_FishIDAndRenderOrderIndex;
+	std::vector< std::vector<cFishBase*>* >										m_AllFish;
 	cFAIBehaviorParser*															m_pFAIBehaviorParser;
-	//std::map<std::wstring, int>													m_FishNameAndIDMap;
+	cFishBase*																	GetWaitForFetchFishFromVector(std::vector<cFishBase*>*e_pFishVector);
 public:
 	cFishManager();
 	~cFishManager();
@@ -25,13 +29,10 @@ public:
 	void				Render();
 	void				RenderMonsterDiedShow();
 	void				DebugRender();
-	void				Destroy();
-	cFishBase*			FishRequire(int e_iFishIndex,cFAIMachine* e_pAI = NULL);
+	cFishBase*			RequireWaitForFetchFish(int e_iFishID);
 	//Fish Group must has fish
-	cFishBase*			ForceFishRequire(int e_iFishIndex, cFAIMachine* e_pAI = NULL);
-	cFishBase*			GetMonsterByID(int e_iID);
-	int					GetFishIDByName(const wchar_t* e_pString);
-	eFishBodyType		GetFishSizeByID(int e_iFishIdx);
-	eFishBodyType		GetFishSizeByName(const wchar_t* e_pString);
+	cFishBase*			ForceFishRequire(int e_iFishID);
+	//a reference to get info
+	const cFishBase*	GetFishByID(int e_iID);
 	cFAIBehaviorParser*	GetFAIBehaviorParser() { return m_pFAIBehaviorParser; }
 };

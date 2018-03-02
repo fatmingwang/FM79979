@@ -16,7 +16,9 @@ public:
 	virtual ~cFAIFish();
 	static cFAIFish*GetMe(TiXmlElement*e_pElement);
 	DEFINE_TYPE_INFO();
+	CLONE_MYSELF(cFAIFish);
 	cFAIMachine*			GetAIMachine();
 	void					SetAIMachine(cFAIMachine* e_pFAIMachine);
 	virtual	void			DebugRender()override;
+	virtual	void			MonsterLeave()override;
 };

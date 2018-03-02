@@ -22,7 +22,7 @@ public:
 	bool			IsGameEffectDone(){return m_bGameEffectDone;}
 };
 
-class cGameEffectManager:public cNamedTypedObjectVector<cGameEffectBase>,public cNodeISAX,public cFishGameCommonRegisterManager
+class cGameEffectManager:public cNamedTypedObjectVector<cGameEffectBase>,public cNodeISAX,public cFishGameCommonRegisterManager<cGameEffectBase>
 {
 	virtual	bool	MyParse(TiXmlElement*e_pRoot);
 	bool	ProcessGameEffect(TiXmlElement*e_pRoot);

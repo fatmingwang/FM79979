@@ -2,7 +2,7 @@
 //
 enum	eFishStatus
 {
-	eFS_NONE = 0,				//not on the scene
+	eFS_WAIT_FOR_FETCH = 0,		//not on the scene
 	eFS_MOVING,					//on the scene,do AIMachine
 	eFS_STRUGGLE,				//while fish is hitted it will has a fake probability to play this,make speed slower
 	eFS_DIED_SHOW,				//
@@ -47,7 +47,7 @@ protected:
 	//internal 
 	virtual	void							InternalInit() = 0;
 	virtual	void							InternalUpdate(float e_fElpaseTime) = 0;
-	virtual void							StatusChange(eFishStatus e_eFishStatus) ;
+	virtual void							StatusChange(eFishStatus e_eFishStatus);
 	virtual	void							SetTransform(Vector3 e_vPos,float e_fAngle,Vector3 e_vOffsetPos);
 	virtual	void							SetTransformCollision(cMatrix44 e_mat);
 public:
@@ -56,8 +56,10 @@ public:
 	cFishBase(cFishBase*e_pFishBase);
 	virtual ~cFishBase();
 	//static GetMe(TiXmlElement*e_pElement);
-	eFishBodyType							GetFishBodyType();
+	eFishBodyType							GetFishBodyType() {return m_eFishBodyType;}
 	eFishStatus								GetFishStatus();
+	//only while fish was died call this to wait for fetch again.
+	void									SetFishStatusToWaitForFetch();
 	float									GetRadius() { return m_fRadius; }
 	int										GetID() { return m_iID; }
 	void									Init();
@@ -69,6 +71,7 @@ public:
 	//while monster status is wait for clear or control by mini game cannot be died
 	virtual bool							IsStatusAllowToDied();
 	float									GetScale() { return m_fScale; }
+	virtual	void							MonsterLeave() = 0;
 };
 
 

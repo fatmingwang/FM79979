@@ -72,7 +72,7 @@ void	cFishShowProbability::Update(float e_fElpaseTime)
 		m_CurrentFishBodyTypeFishCount.iGenerateFishIDVector.clear();
 		for (int i = 0; i < eFBT_Total; ++i)
 		{
-			int l_iDiff = m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[i] - m_CurrentFishBodyTypeFishCount.iCurrentFishBodyTypeFishCount[i];
+			int l_iDiff = m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[i] - m_CurrentFishBodyTypeFishCount.iFishCountByFishBodyType[i];
 			if(l_iDiff > 0 )
 			{
 				for (int j = 0; j < l_iDiff; ++j)
@@ -89,10 +89,15 @@ void	cFishShowProbability::Update(float e_fElpaseTime)
 
 void	cFishShowProbability::FishDired(eFishBodyType e_eFishBodyType)
 {
-	--m_CurrentFishBodyTypeFishCount.iCurrentFishBodyTypeFishCount[e_eFishBodyType];
+	--m_CurrentFishBodyTypeFishCount.iFishCountByFishBodyType[e_eFishBodyType];
 }
 
 cFishShowProbability::sCurrentFishBodyTypeFishCount*	cFishShowProbability::GetCurrentFishBodyTypeFishCount()
 {
 	return &m_CurrentFishBodyTypeFishCount;
+}
+
+const int*	cFishShowProbability::GetFishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup()
+{
+	return m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup;
 }

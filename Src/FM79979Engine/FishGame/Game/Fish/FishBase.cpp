@@ -27,7 +27,7 @@ cFishBase::cFishBase()
 	m_iID = -1;
 	m_fScale = 1.f;
 	m_fRadius = -1.f;
-	m_eFishStatus = eFS_NONE;
+	m_eFishStatus = eFS_WAIT_FOR_FETCH;
 }
 
 cFishBase::cFishBase(cFishBase*e_pFishBase)
@@ -54,7 +54,7 @@ cFishBase::cFishBase(cFishBase*e_pFishBase)
 	m_iID = e_pFishBase->m_iID;
 	m_fScale = e_pFishBase->m_fScale;
 	m_fRadius = e_pFishBase->m_fRadius;
-	m_eFishStatus = eFS_NONE;
+	m_eFishStatus = eFS_WAIT_FOR_FETCH;
 }
 
 cFishBase::~cFishBase()
@@ -122,7 +122,7 @@ void	cFishBase::ProcessCollisionlData(TiXmlElement*e_pElement)
 	PARSE_NAME_VALUE_END
 
 }
-
+//<StatusAnimation MPDIList="" Moving="" DiedShow="" Struggle="" Scale="" RenderOrder="1" />
 void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 {
 	cMPDIList*l_pMPDIList = nullptr;
@@ -187,6 +187,11 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 		{
 			m_fScale = VALUE_TO_FLOAT;
 		}
+		else
+		COMPARE_NAME("RenderOrder")
+		{
+			this->SetLocalPosition(Vector3(0,0, VALUE_TO_FLOAT));
+		}
 	PARSE_NAME_VALUE_END
 	for (int i = 0; i < eFS_MAX; ++i)
 	{
@@ -200,7 +205,7 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 
 void	cFishBase::Init()
 {
-	m_eFishStatus = eFS_NONE;
+	m_eFishStatus = eFS_MOVING;
 	InternalInit();
 	if (m_pStatusAnimation[eFS_DIED_SHOW])
 	{
@@ -287,6 +292,12 @@ void	cFishBase::StatusChange(eFishStatus e_eFishStatus)
 	}
 }
 
+
+void	cFishBase::SetFishStatusToWaitForFetch()
+{
+	assert(eFS_WAITING_FOR_CLEAN == this->m_eFishStatus&&"only fish manager can call this while fish was died");
+	m_eFishStatus = eFS_WAIT_FOR_FETCH;
+}
 
 eFishStatus		cFishBase::GetFishStatus()
 {

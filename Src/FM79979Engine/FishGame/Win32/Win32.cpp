@@ -2,6 +2,8 @@
 #include "../Game/GameApp/FishGameApp.h"
 #include "Windowsx.h"
 #include "../../AllLibInclude.h"
+#include <stdio.h>
+#include <io.h>
 // test.cpp : Defines the entry point for the application.
 
 
@@ -18,6 +20,78 @@
 
 #define MAX_LOADSTRING 100
 
+//
+////#include "multimon.h"
+//
+//#define MONITOR_CENTER     0x0001        // center rect to monitor 
+//#define MONITOR_CLIP     0x0000        // clip rect to monitor 
+//#define MONITOR_WORKAREA 0x0002        // use monitor work area 
+//#define MONITOR_AREA     0x0000        // use monitor entire area 
+//
+//// 
+////  ClipOrCenterRectToMonitor 
+//// 
+////  The most common problem apps have when running on a 
+////  multimonitor system is that they "clip" or "pin" windows 
+////  based on the SM_CXSCREEN and SM_CYSCREEN system metrics. 
+////  Because of app compatibility reasons these system metrics 
+////  return the size of the primary monitor. 
+//// 
+////  This shows how you use the multi-monitor functions 
+////  to do the same thing. 
+//// 
+//void ClipOrCenterRectToMonitor(LPRECT prc, UINT flags)
+//{
+//	HMONITOR hMonitor;
+//	MONITORINFO mi;
+//	RECT        rc;
+//	int         w = prc->right - prc->left;
+//	int         h = prc->bottom - prc->top;
+//
+//	// 
+//	// get the nearest monitor to the passed rect. 
+//	// 
+//	hMonitor = MonitorFromRect(prc, MONITOR_DEFAULTTONEAREST);
+//
+//	// 
+//	// get the work area or entire monitor rect. 
+//	// 
+//	mi.cbSize = sizeof(mi);
+//	GetMonitorInfo(hMonitor, &mi);
+//
+//	if (flags & MONITOR_WORKAREA)
+//		rc = mi.rcWork;
+//	else
+//		rc = mi.rcMonitor;
+//
+//	// 
+//	// center or clip the passed rect to the monitor rect 
+//	// 
+//	if (flags & MONITOR_CENTER)
+//	{
+//		prc->left = rc.left + (rc.right - rc.left - w) / 2;
+//		prc->top = rc.top + (rc.bottom - rc.top - h) / 2;
+//		prc->right = prc->left + w;
+//		prc->bottom = prc->top + h;
+//	}
+//	else
+//	{
+//		prc->left = max(rc.left, min(rc.right - w, prc->left));
+//		prc->top = max(rc.top, min(rc.bottom - h, prc->top));
+//		prc->right = prc->left + w;
+//		prc->bottom = prc->top + h;
+//	}
+//}
+//
+//void ClipOrCenterWindowToMonitor(HWND hwnd, UINT flags)
+//{
+//	RECT rc;
+//	GetWindowRect(hwnd, &rc);
+//	ClipOrCenterRectToMonitor(&rc, flags);
+//	SetWindowPos(hwnd, NULL, rc.left, rc.top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE);
+//}
+//ClipOrCenterWindowToMonitor(g_hWnd, MONITOR_CENTER);
+void MonitorReSynch();
 // Global Variables:
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
@@ -37,6 +111,34 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	//console mode
+	//https://docs.microsoft.com/en-us/windows/console/setconsolemode
+#ifndef  RETAILER
+//	FILE*l_pConsoleStream;
+	AllocConsole();
+	AttachConsole(GetCurrentProcessId());
+	bool l_bOpenOkay = false;
+	//https://stackoverflow.com/questions/9020790/using-stdin-with-an-allocconsole
+	freopen("CONIN$", "r", stdin);
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+	//if (::AllocConsole())
+	//{
+	//	int hCrt = ::_open_osfhandle((intptr_t) ::GetStdHandle(STD_OUTPUT_HANDLE), 0);
+	//	FILE *hf = ::_fdopen(hCrt, "w");
+	//	*stdout = *hf;
+	//	::setvbuf(stdout, NULL, _IONBF, 0);
+
+	//	hCrt = ::_open_osfhandle((intptr_t) ::GetStdHandle(STD_ERROR_HANDLE), 0);
+	//	hf = ::_fdopen(hCrt, "w");
+	//	*stderr = *hf;
+	//	::setvbuf(stderr, NULL, _IONBF, 0);
+	//}
+	//fclose(l_pConsoleStream);
+	//std::ios_base::sync_with_stdio();
+	printf("game start !\n");
+#endif
+	//MonitorReSynch();
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -54,6 +156,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	g_pGameApp = new cFishGameApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
 	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
+
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
 	while (GetMessage(&msg, NULL, 0, 0)&&!g_bLeave)
@@ -66,7 +169,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	NamedTypedObject::DumpUnReleaseInfo();
 	return (int) msg.wParam;
 }
-
+//https://msdn.microsoft.com/en-us/library/dd162826(v=vs.85).aspx
 //
 //  FUNCTION: MyRegisterClass()
 //
@@ -119,11 +222,17 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	cGameApp::m_svViewPortSize.x = 1024.;
 	cGameApp::m_svViewPortSize.y = 768.f;
 	cGameApp::ResoluctionParse("EngineTestSetup.xml");
-
+	//cGameApp::m_svViewPortSize.x = 3600;
+	//cGameApp::m_svViewPortSize.y = 1000;
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)
 		l_dwFlag = WS_VISIBLE | WS_POPUP |	WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
 	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), NULL, NULL, hInstance, NULL);
+
+	//dual screen
+	//https://www.intel.com/content/dam/www/public/us/en/documents/white-papers/creating-full-screen-applications-across-multiple-displays.pdf
+	//g_hWnd = CreateWindow(szWindowClass, szTitle, WS_POPUP, 0,0, 1920 * 2, 1080, NULL, NULL,hInstance, NULL);
+
 	if (!g_hWnd)
 	{
 	  return FALSE;
@@ -188,7 +297,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 			case VK_ESCAPE:
-				//g_bLeave = true;
+				g_bLeave = true;
 				break;
 			break;
 		}
@@ -244,4 +353,93 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	return 0;
+}
+
+
+
+void MonitorReSynch()
+{
+	// collect system and monitor information for future reference
+	DISPLAY_DEVICE l_DISPLAY_DEVICE;
+	vector<DISPLAY_DEVICE> detectedDisplays;
+	vector<DISPLAY_DEVICE>::iterator itDetDisp;
+
+	l_DISPLAY_DEVICE.cb = sizeof(l_DISPLAY_DEVICE);
+	DWORD l_iDeviceIndex = 0; // device index
+	int id = 1; // monitor number, as used by Display Properties > Settings
+	//std::auto_ptr<SActiveDisplay> ad;
+	detectedDisplays.clear();
+
+	// Loop over all display devices 
+	while (EnumDisplayDevices(0, l_iDeviceIndex, &l_DISPLAY_DEVICE, 0))
+	{
+		// ignore virtual mirror displays
+		if (!(l_DISPLAY_DEVICE.StateFlags & DISPLAY_DEVICE_MIRRORING_DRIVER))
+		{
+
+			// get information about the monitor attached to this display adapter. dualhead cards
+			// and laptop video cards can have multiple monitors attached
+
+			DISPLAY_DEVICE ddMon;
+			ZeroMemory(&ddMon, sizeof(ddMon));
+			ddMon.cb = sizeof(ddMon);
+			DWORD devMon = 0;
+
+			// please note that this enumeration may not return the correct monitor if multiple monitors
+			// are attached. this is because not all display drivers return the ACTIVE flag for the monitor
+			// that is actually active
+			while (EnumDisplayDevices(l_DISPLAY_DEVICE.DeviceName, devMon, &ddMon, 0))
+			{
+				if (ddMon.StateFlags & DISPLAY_DEVICE_ACTIVE)
+				{
+					detectedDisplays.push_back(ddMon);
+				}
+				ZeroMemory(&ddMon, sizeof(ddMon));
+				ddMon.cb = sizeof(ddMon);
+				devMon++;
+			}
+
+			if (detectedDisplays.size()>0)
+			{
+				itDetDisp = detectedDisplays.begin();
+				while (itDetDisp != detectedDisplays.end())
+				{
+					// get information about the display's position and the current display mode
+
+					DEVMODE dm;
+					ZeroMemory(&dm, sizeof(dm));
+					dm.dmSize = sizeof(dm);
+
+					if (EnumDisplaySettingsEx(itDetDisp->DeviceName, ENUM_CURRENT_SETTINGS, &dm, 0) == FALSE)
+						EnumDisplaySettingsEx(itDetDisp->DeviceName, ENUM_REGISTRY_SETTINGS, &dm, 0);
+
+					// get the monitor handle and workspace
+					HMONITOR hm = 0;
+					MONITORINFO mi;
+					ZeroMemory(&mi, sizeof(mi));
+					mi.cbSize = sizeof(mi);
+					if (itDetDisp->StateFlags & DISPLAY_DEVICE_ATTACHED_TO_DESKTOP)
+					{
+						// display is enabled. only enabled displays have a monitor handle
+						POINT pt = { dm.dmPosition.x, dm.dmPosition.y };
+						hm = MonitorFromPoint(pt, MONITOR_DEFAULTTONULL);
+						if (hm)
+							GetMonitorInfo(hm, &mi);
+
+						//ad.reset(new SActiveDisplay());
+//						memcpy(&ad->ddMon, &(*itDetDisp), sizeof(DISPLAY_DEVICE));
+	//					ad->hm = hm;
+		//				memcpy(&ad->mi, &mi, sizeof(MONITORINFO));
+			//			memcpy(&ad->dm, &dm, sizeof(DEVMODE));
+						//m_DisplayInformation.push_back(*(ad.get()));
+					}
+
+					itDetDisp++;
+				}
+				detectedDisplays.clear();
+			}
+			id++;
+		}
+		l_iDeviceIndex++;
+	}
 }
