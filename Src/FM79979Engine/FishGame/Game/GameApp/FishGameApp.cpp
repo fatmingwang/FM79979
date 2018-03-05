@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "FishGameApp.h"
-
+#include "../Scene/SceneManager.h"
+#include "../Fish/FishManager.h"
+#include "../Player/PlayerManager.h"
 extern void	LoadSample();
 extern void	DestorySampleObject();
 extern void	SampleUpdate(float e_fElpaseTime);
@@ -24,10 +26,14 @@ cFishGameApp::cFishGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cG
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
+	cSceneManager::GetInstance();
+	cFishManager::GetInstance();
 }
 
 cFishGameApp::~cFishGameApp()
 {
+	cSceneManager::DestroyInstance();
+	cFishManager::DestroyInstance();
 	DestorySampleObject();
 	Destroy();
 }

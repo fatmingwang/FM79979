@@ -2,11 +2,11 @@
 #include "FishShowPaobability.h"
 #include "../ControlPanel/ControlSettingParameter.h"
 #include "../Fish/FishBase.h"
-//<FishBodyTypeAmount PlayerAmount="4,6,8,10" >
+//<cFishShowProbability PlayerAmount="4,6,8,10" >
 	//<Small MaxAmount="45,55,65,65" >
 	//	<Fish ID="0"		ShowProbability="37" />
 	//</Small>													 
-	//<Medium MaxAmount = "6,8,12,14" >							 
+	//<Medium MaxAmount = "6,8,12,14" >
 	//	<Fish ID="1"		ShowProbability = "3 />
 	//</Medium>													 
 	//<Big MaxAmount = "2,2,2,2">								 
@@ -15,16 +15,16 @@
 	//<Enormous>
 	//	<Fish ID="3"		ShowProbability = "3 />
 	//</Enormous>
-//</FishBodyTypeAmount>
+//</cFishShowProbability>
 cFishShowProbability::cFishShowProbability(TiXmlElement*e_pTiXmlElement)
 {
 	m_GenerateFishTC.SetTargetTime(0.5f);
 	m_GenerateFishTC.SetLoop(true);
 	std::vector<int>	l_PlayerCountVector;
-	COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pTiXmlElement, L"FishBodyTypeAmount")
+	COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pTiXmlElement, L"cFishShowProbability")
 	{
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
-			eFishBodyType l_FishBodyType = GetFishBodyType(e_pTiXmlElement->Value());
+			eFishBodyType l_FishBodyType = GetFishBodyTypeByString(e_pTiXmlElement->Value());
 			assert(l_FishBodyType != eFBT_Total &&"Fish Body type Error!cFishShowProbability::cFishShowProbability");
 			auto l_strMaxAmount = e_pTiXmlElement->Attribute(L"MaxAmount");
 			if (l_strMaxAmount)

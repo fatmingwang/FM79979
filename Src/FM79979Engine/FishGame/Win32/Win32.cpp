@@ -221,7 +221,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	cNodeISAX	l_NodeISAX;
 	cGameApp::m_svViewPortSize.x = 1024.;
 	cGameApp::m_svViewPortSize.y = 768.f;
-	cGameApp::ResoluctionParse("EngineTestSetup.xml");
+	cGameApp::ResoluctionParse("FishGameSetup.xml");
 	//cGameApp::m_svViewPortSize.x = 3600;
 	//cGameApp::m_svViewPortSize.y = 1000;
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;

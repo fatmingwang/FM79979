@@ -1,8 +1,20 @@
 #include "stdafx.h"
 #include "BaseScene.h"
+#include "../GameDefine/GameParameterDefine.h"
 #include "../GameDefine/FishGameEventMessageID.h"
-
 TYPDE_DEFINE_MARCO(cBaseScene);
+
+//<cBaseScene SubSceneIndex = "0" SceneChangeFishGroupName = "SceneChangeFishGroup1">
+//	<StartMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "Start" />      </StartMPDI>
+//	<LoopMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "Loop" />      </LoopMPDI>
+//	<EndMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "End" />      </EndMPDI>
+//</cBaseScene>
+//<cBaseScene SubSceneIndex = "1" Time = "300" GenerateFishAfterStartMPDI = "">
+//	<StartMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "Start" />      </StartMPDI>
+//	<LoopMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "Loop" />      </LoopMPDI>
+//	<EndMPDI>        <cMPDI cMPDIList = "FishGame/Image/Turn/Turn.mpdi" cMPDI = "End" />      </EndMPDI>
+//</cBaseScene>
+
 cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 {
 	for (int i = 0; i < eSS_MAX; ++i)
@@ -12,36 +24,12 @@ cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 
 	if(m_pstrSceneChangeFishGroupName)
 		REG_EVENT(eFGEMI_FISH_GROUP_FINISH, &cBaseScene::FishGroupFinishEvent);
-	e_pTiXmlElement;
-	//<SceneContent Name="1A" NextSceneName="">
-	//	<cBaseScene MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300" SceneChangeFishGroupName="SFG1"/>
-	//	<cBaseScene MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300"/>
-	//</SceneContent>
 	cMPDIList*l_pMPDIList = nullptr;
 	PARSE_ELEMENT_START(e_pTiXmlElement)
 		COMPARE_NAME("MPDIFileName")
 		{
 			l_pMPDIList = cGameApp::GetMPDIListByFileName(l_strValue,true);
 		}
-		else
-		COMPARE_NAME("StartMPDI")
-		{
-			if (l_pMPDIList)
-				m_pBGMPDI[eSS_START] = l_pMPDIList->GetObject(l_strValue);
-		}
-		else
-		COMPARE_NAME("LoopMPDI")
-		{
-		if (l_pMPDIList)
-			m_pBGMPDI[eSS_LOOP] = l_pMPDIList->GetObject(l_strValue);
-		}
-		else
-		COMPARE_NAME("EndMPDI")
-		{
-		if (l_pMPDIList)
-			m_pBGMPDI[eSS_END] = l_pMPDIList->GetObject(l_strValue);
-		}
-		else
 		COMPARE_NAME("Time")
 		{
 			m_pToNextSceneTC = new sTimeCounter();
@@ -54,9 +42,27 @@ cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 			*m_pstrSceneChangeFishGroupName = l_strValue;
 		}
 	PARSE_NAME_VALUE_END
+	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
+		auto l_strStatusMPDI = e_pTiXmlElement->Value();
+		eSceneStatus l_eSceneStatus = eSS_MAX;
+		if(wcscmp(l_strStatusMPDI,L"StartMPDI")){ l_eSceneStatus = eSS_START;}else
+		if (wcscmp(l_strStatusMPDI, L"LoopMPDI")){l_eSceneStatus = eSS_LOOP;}else
+		if (wcscmp(l_strStatusMPDI, L"EndMPDI")){l_eSceneStatus = eSS_END;}
+		if (l_eSceneStatus != eSS_MAX)
+		{
+			m_pBGMPDI[l_eSceneStatus] = cMPDI::GetMe(e_pTiXmlElement);
+		}
+	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
 }
+
 cBaseScene::~cBaseScene()
 {
+	for (int i = 0; i < eSS_MAX; ++i)
+	{
+		SAFE_DELETE(m_pBGMPDI[i]);
+	}
+	SAFE_DELETE(m_pToNextSceneTC);
+	SAFE_DELETE(m_pstrSceneChangeFishGroupName);
 }
 
 bool	cBaseScene::FishGroupFinishEvent(void*e_pFishGroupName)
@@ -175,8 +181,41 @@ void	cBaseScene::Update(float e_fElpaseTime)
 
 void	cBaseScene::Render()
 {
-
+	if (m_pBGMPDI[m_eCurrentSceneStatus])
+	{
+		m_pBGMPDI[m_eCurrentSceneStatus]->Render();
+	}
 }
+
+void	cBaseScene::DebugRender()
+{
+	std::wstring l_str;
+	if(m_eCurrentSceneStatus == eSS_START)
+	{ 
+		l_str = L"eSS_START\n";
+	}
+	else
+	if(m_eCurrentSceneStatus == eSS_LOOP)
+	{
+		l_str = L"eSS_LOOP\n";
+	}
+	else
+	if(m_eCurrentSceneStatus == eSS_END)
+	{
+		l_str = L"eSS_STAReSS_END\n";
+	}
+	if (m_pstrSceneChangeFishGroupName)
+	{
+		l_str += *m_pstrSceneChangeFishGroupName;
+		l_str += L"\n";
+	}
+	if (m_pToNextSceneTC)
+	{
+		l_str += ValueToStringW(m_pToNextSceneTC->fRestTime);
+	}
+	cGameApp::RenderFont(SCENE_MANAGER_DEBUG_RENDER_POS, l_str.c_str());
+}
+
 //
 //cBossScene::cBossScene(TiXmlElement*e_pTiXmlElement):cBaseScene(e_pTiXmlElement)
 //{

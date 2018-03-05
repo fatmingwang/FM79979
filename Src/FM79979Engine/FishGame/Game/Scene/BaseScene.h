@@ -29,6 +29,7 @@ public:
 	virtual	void	Init() override;
 	virtual	void	Update(float e_fElpaseTime)override;
 	virtual	void	Render() override;
+	virtual	void	DebugRender() override;
 };
 
 

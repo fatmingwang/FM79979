@@ -7,7 +7,7 @@ class cFishManager;
 //it contain BaseScene(s) which it should has a Fishgroup and a common scene(time up to turn to next scene).
 typedef cPhaseManager cPhaseManagerInPhaseManager;
 //cPhaseManager contain a cPhaseManager and it own SceneBase
-class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, public cWriteFileWithThread,public cMessageSender
+class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, public cWriteFileWithThread,public cMessageSender, public cSingltonTemplate<cSceneManager>
 {
 	//this is the data write into file and control scene change
 	struct sSceneData
@@ -21,7 +21,7 @@ class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, publi
 	sSceneData						m_CurrentSceneData;
 	int								m_iFishGroupCount;
 	virtual bool					OpenFileGetData(int e_iDataSizeWithOutFileExtension, char*e_pData, sRegister_Header_Struct*e_pRegister_Header_Struct)override;
-	//
+	//event
 	bool							SceneChangeEvent(void*e_pFishGroupName);
 	bool							FishGroupGoEvent(void*e_pFishGroupName);
 	//
@@ -30,10 +30,11 @@ class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, publi
 	cFishManager*					m_pFishManagerReference;
 	virtual	bool					MyParse(TiXmlElement*e_pRoot)override;
 	void							ProcessSceneContent(TiXmlElement*e_pTiXmlElement);
-	void							ProcessFishGroup(TiXmlElement*e_pTiXmlElement);
+	void							ProcessSceneChangeFishGroupManager(TiXmlElement*e_pTiXmlElement);
 	virtual void					WriteFileUpdate(float e_fElpaseTime)override;
+	//
 public:	
-	cSceneManager(cFishManager*e_pFishManager);
+	cSceneManager();
 	~cSceneManager();
 	void	LastRender();
 	void	DebugRender();

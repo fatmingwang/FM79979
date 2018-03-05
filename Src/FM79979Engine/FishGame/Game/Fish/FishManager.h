@@ -20,6 +20,7 @@ class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, p
 	std::vector< std::vector<cFishBase*>* >										m_AllFish;
 	cFAIBehaviorParser*															m_pFAIBehaviorParser;
 	cFishBase*																	GetWaitForFetchFishFromVector(std::vector<cFishBase*>*e_pFishVector);
+	//
 public:
 	cFishManager();
 	~cFishManager();

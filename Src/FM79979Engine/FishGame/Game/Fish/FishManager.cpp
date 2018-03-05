@@ -25,7 +25,7 @@ cFishManager::~cFishManager()
 bool	cFishManager::MyParse(TiXmlElement*e_pRoot)
 {
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pRoot)
-		COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pRoot, L"FishBodyTypeAmount")
+		COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pRoot, L"cFishShowProbability")
 		{
 			m_pFishShowProbability = new cFishShowProbability(e_pRoot);
 		}

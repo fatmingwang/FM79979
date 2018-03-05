@@ -5,9 +5,11 @@
 #include "../GameDefine/FishGameEventMessageID.h"
 #include "../GameDefine/GameDefine.h"
 #include "../Fish/SceneChangeFishGroup.h"
-cSceneManager::cSceneManager(cFishManager*e_pFishManager):cWriteFileWithThread(false)
+#include "../Fish/FishManager.h"
+
+cSceneManager::cSceneManager():cWriteFileWithThread(false)
 {
-	m_pFishManagerReference = e_pFishManager;
+	m_pFishManagerReference = cFishManager::GetInstance();
 	m_pCameraShake = nullptr;//cCameraShake
 	m_iFishGroupCount = 0;
 	m_pSceneChangeFishGroupManager = new cSceneChangeFishGroupManager(m_pFishManagerReference);
@@ -28,29 +30,31 @@ cSceneManager::~cSceneManager()
 }
 //<!-- I am so lazy each  SceneChangeFishGroup must has same count data(FishGroup)-->
 //<Scene>
-//	<SceneChangeFishGroup MPDIFileName="SFG1" Name="">
+//	<SceneChangeFishGroup MPDIFileName="SFG1" Name="SceneChangeFishGroup1">
 //		<FishGroup MPDIName="Name1" />
 //		<FishGroup MPDIName="Name2" / >
-//		<FishGroup MPDIName="Name3" / >
-//		<FishGroup MPDIName="Name4" / >
+//	</SceneChangeFishGroup>
+//	<SceneChangeFishGroup MPDIFileName="SFG2" Name="SceneChangeFishGroup2">
+//		<FishGroup MPDIName="Name1" />
+//		<FishGroup MPDIName="Name2" / >
 //	</SceneChangeFishGroup>
 //<SceneContent Name="1A" NextSceneName="">
-//	<cBaseScene SubSceneIndex="0" MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300" SceneChangeFishGroupName="SFG1"/>
-//	<cBaseScene SubSceneIndex="1" MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300"/>
+//	<cBaseScene SubSceneIndex="0" MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  SceneChangeFishGroupName="SFG1"/>
+//	<cBaseScene SubSceneIndex="1" MPDIFileName="ooxx.mpdi" StartMPDI="Start" LoopMPDI="Loop" EndMPDI="End"  Time="300" GenerateFishAfterStartMPDI=""/>
 //</SceneContent>
 //<Scene>
 
 bool	cSceneManager::MyParse(TiXmlElement*e_pTiXmlElement)
 {
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
-		COMPARE_TARGET_ELEMENT_VALUE(e_pTiXmlElement,"SceneChangeFishGroup")
+		COMPARE_TARGET_ELEMENT_VALUE(e_pTiXmlElement,"SceneContent")
 		{
 			ProcessSceneContent(e_pTiXmlElement);
 		}
 		else
-		COMPARE_TARGET_ELEMENT_VALUE(e_pTiXmlElement, "SceneContent")
+		COMPARE_TARGET_ELEMENT_VALUE(e_pTiXmlElement, "cSceneChangeFishGroupManager")
 		{
-			ProcessFishGroup(e_pTiXmlElement);
+			ProcessSceneChangeFishGroupManager(e_pTiXmlElement);
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
 	return true;
@@ -80,14 +84,16 @@ void	cSceneManager::ProcessSceneContent(TiXmlElement*e_pTiXmlElement)
 		SAFE_DELETE(l_pPhaseManager);
 	}
 }
-void	cSceneManager::ProcessFishGroup(TiXmlElement*e_pTiXmlElement)
+void	cSceneManager::ProcessSceneChangeFishGroupManager(TiXmlElement*e_pTiXmlElement)
 {
 	if (m_pSceneChangeFishGroupManager)
 	{
-		int l_iCount = m_pSceneChangeFishGroupManager->ProcessSceneChangeFishGroup(e_pTiXmlElement);
-		if (m_iFishGroupCount == 0)
-			m_iFishGroupCount = l_iCount;
-		assert(l_iCount == m_iFishGroupCount&&"each scene must has same fish group");
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
+			int l_iCount = m_pSceneChangeFishGroupManager->ProcessSceneChangeFishGroup(e_pTiXmlElement);
+			if (m_iFishGroupCount == 0)
+				m_iFishGroupCount = l_iCount;
+			assert(l_iCount == m_iFishGroupCount&&"each scene must has same fish group");
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
 	}
 }
 
@@ -98,7 +104,9 @@ void	cSceneManager::LastRender()
 
 void	cSceneManager::DebugRender()
 {
-
+	cPhaseManager*l_pPhaseManager = (cPhaseManager*)this->GetObject(GetCurrentPhase());
+	auto l_pBaseScene = l_pPhaseManager->GetObject(GetCurrentPhase());
+	l_pBaseScene->DebugRender();
 }
 
 void	cSceneManager::Update(float e_fElpaseTime)

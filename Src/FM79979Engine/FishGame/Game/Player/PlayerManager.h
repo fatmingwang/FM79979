@@ -2,14 +2,15 @@
 
 #include "PlayerBehavior.h"
 
-class	cPlayerManager : public cNamedTypedObjectVector<cPlayerBehavior>
+class	cPlayerManager : public cNamedTypedObjectVector<cPlayerBehavior>, public cSingltonTemplate<cPlayerManager>
 {
 	std::map<int, std::vector<cMatrix44>>	m_IndexAndPlayerMatrixMap;
 	void				ProcessPlayerCountAndPlayerPosMap(TiXmlElement*e_pTiXmlElement);
-public:
+	//
+protected:
 	cPlayerManager();
+public:
 	~cPlayerManager();
-
 	void	ProcessSet(TiXmlElement* e_pElement);
 	//
 	void	Init();

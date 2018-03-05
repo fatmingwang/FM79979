@@ -20,3 +20,8 @@
 
 //IO only provide 10 players
 #define	MAX_PLAYER									10
+
+
+
+//for debug render
+#define	SCENE_MANAGER_DEBUG_RENDER_POS				Vector2(30,600)

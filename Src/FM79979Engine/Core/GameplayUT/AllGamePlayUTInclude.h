@@ -29,7 +29,9 @@
 #include "CameraZoomFunction.h"
 #include "ClickBehavior/ClickBehavior.h"
 #include "EventSender/MessageSender.h"
+#ifndef _M_CEE//manage code dont support thread
 #include "WriteFile\WriteFileWithThread.h"
+#endif
 #ifdef WASM
 #include "Preload/PreloadResource.h"
 #endif

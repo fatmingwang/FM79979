@@ -19,7 +19,7 @@ enum	eFishBodyType
 	eFBT_Total,
 };
 
-eFishBodyType	GetFishBodyType(const wchar_t *e_str);
+eFishBodyType	GetFishBodyTypeByString(const wchar_t *e_str);
 class cPIUnitAndPointsVector;
 
 class cFishBase : public cRenderObject
@@ -74,33 +74,42 @@ public:
 	virtual	void							MonsterLeave() = 0;
 };
 
+//<FishType Name = "Crab_0011175" ID="0">
+//	<StatusAnimation MPDIList="" Moving="" DiedShow="" Struggle="" Scale="" RenderOrder="1" />
+//	<Collision CollisionFile = "Fish\Image\Fish\Crab_0011\Crab_0011.collision" / >
+//	<AI File="Fish\MonsterData\AI\Crab_0011.fai" / >
+//</FishType>
 
 #define	FISH_LAZY_GET_ME_START(e_pElement,TYPE,DO_YOUR_THING)		\
-													TYPE*l_pObject = nullptr;												\
-													COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pElement, TYPE::TypeID)		\
-													{																		\
-														const wchar_t*l_strID = e_pElement->Attribute(L"ID");				\
-														if (l_strID)														\
-														{																	\
-															l_pObject = new TYPE();								\
-															l_pObject->m_iID = GetInt(l_strID);								\
-															FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pElement)			\
-															COMPARE_TARGET_ELEMENT_VALUE(e_pElement, "StatusAnimation")		\
-															{																\
-																l_pObject->ProcessStatusAnimationData(e_pElement);			\
-															}																\
-															else															\
-															COMPARE_TARGET_ELEMENT_VALUE(e_pElement, "Collision")			\
-															{																\
-																l_pObject->ProcessCollisionlData(e_pElement);				\
-															}																\
-															else															\
-															{DO_YOUR_THING}													\
-															FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pElement)				\
- 														}																	\
-													}																		\
-													else																	\
-													{																		\
-														UT::ErrorMsg(TYPE::TypeID, L"ID donest't exist!");					\
-													}																		\
+													TYPE*l_pObject = nullptr;														\
+													COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pElement, TYPE::TypeID)				\
+													{																				\
+														const wchar_t*l_strID = e_pElement->Attribute(L"ID");						\
+														const wchar_t*l_strName = e_pElement->Attribute(L"Name");					\
+														const wchar_t*l_strBodyType = e_pElement->Attribute(L"BodyType");			\
+														if (l_strID && l_strBodyType)												\
+														{																			\
+															l_pObject = new TYPE();													\
+															l_pObject->m_iID = GetInt(l_strID);										\
+															if(l_strName)l_pObject->SetName(l_strName);								\
+															l_pObject->m_eFishBodyType = GetFishBodyTypeByString(l_strBodyType);	\
+															FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pElement)					\
+															COMPARE_TARGET_ELEMENT_VALUE(e_pElement, "StatusAnimation")				\
+															{																		\
+																l_pObject->ProcessStatusAnimationData(e_pElement);					\
+															}																		\
+															else																	\
+															COMPARE_TARGET_ELEMENT_VALUE(e_pElement, "Collision")					\
+															{																		\
+																l_pObject->ProcessCollisionlData(e_pElement);						\
+															}																		\
+															else																	\
+															{DO_YOUR_THING}															\
+															FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pElement)						\
+ 														}																			\
+													}																				\
+													else																			\
+													{																				\
+														UT::ErrorMsg(TYPE::TypeID, L"ID donest't exist!");							\
+													}																				\
 													return l_pObject;
