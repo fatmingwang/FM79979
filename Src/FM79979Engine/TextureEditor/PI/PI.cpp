@@ -8,7 +8,12 @@
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
 #include "../../../include/vld.h"
+#include "EarClipping.h"
+#include "poly2tri\poly2tri.h"
+
+using namespace p2t;
 //#pragma comment(lib, "../../../lib/vld.lib")
+
 using namespace System::Drawing::Imaging;
 namespace PI
 {
@@ -992,6 +997,25 @@ void SaveRomFile()
 [STAThreadAttribute]
 int main(cli::array<System::String ^> ^args)
 {
+	//https://github.com/greenm01/poly2tri
+	vector<p2t::Point*>*polyline = new vector<p2t::Point*>;
+	polyline->push_back(new p2t::Point(0, 0));
+	polyline->push_back(new p2t::Point(10, 0));
+	polyline->push_back(new p2t::Point(0, 10));
+	polyline->push_back(new p2t::Point(10, 10));
+
+	CDT* cdt = new CDT(*polyline);
+	cdt->Triangulate();
+	//auto triangles = cdt->GetTriangles();
+	delete cdt;
+	DELETE_POINTER_VECTOR(polyline, p2t::Point*);
+	//std::vector<Vector2>l_InputVector;
+	//l_InputVector.push_back(Vector2(0, 0));
+	//l_InputVector.push_back(Vector2(10, 0));
+	//l_InputVector.push_back(Vector2(0, 10));
+	//l_InputVector.push_back(Vector2(10, 10));
+	//std::vector<size_t>l_Reult =  GetIndicesFromPolygon(l_InputVector);
+
 	//SaveRomFile();
 	ilInit();
 	alutInit (0,0);

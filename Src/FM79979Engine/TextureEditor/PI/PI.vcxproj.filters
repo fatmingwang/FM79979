@@ -19,6 +19,15 @@
     <Filter Include="EarClipping">
       <UniqueIdentifier>{1a58af3a-f99e-4b5a-8bcc-a1b53fa88f39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Poly2Tri">
+      <UniqueIdentifier>{0ec8e56c-7954-4ab3-8d18-8f91ca9f13bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Poly2Tri\common">
+      <UniqueIdentifier>{0c0657b7-021d-4b9d-b5dc-ff444a486cae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Poly2Tri\sweep">
+      <UniqueIdentifier>{3578fe5a-45d1-4d69-b316-97777e34f625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -35,6 +44,21 @@
     </ClCompile>
     <ClCompile Include="EarClipping.cpp">
       <Filter>EarClipping</Filter>
+    </ClCompile>
+    <ClCompile Include="poly2tri\common\shapes.cpp">
+      <Filter>Poly2Tri\common</Filter>
+    </ClCompile>
+    <ClCompile Include="poly2tri\sweep\advancing_front.cpp">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="poly2tri\sweep\cdt.cpp">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="poly2tri\sweep\sweep.cpp">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="poly2tri\sweep\sweep_context.cpp">
+      <Filter>Poly2Tri\sweep</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +82,27 @@
     </ClInclude>
     <ClInclude Include="EarClipping.h">
       <Filter>EarClipping</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\common\shapes.h">
+      <Filter>Poly2Tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\common\utils.h">
+      <Filter>Poly2Tri\common</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\sweep\advancing_front.h">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\sweep\cdt.h">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\sweep\sweep.h">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\sweep\sweep_context.h">
+      <Filter>Poly2Tri\sweep</Filter>
+    </ClInclude>
+    <ClInclude Include="poly2tri\poly2tri.h">
+      <Filter>Poly2Tri</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
