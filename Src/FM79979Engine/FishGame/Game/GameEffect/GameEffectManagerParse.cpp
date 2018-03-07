@@ -12,7 +12,8 @@ bool	cGameEffectManager::ProcessGameEffect(TiXmlElement*e_pRoot)
 	return true;
 }
 
-void	cGameEffectManager::AddCloneRegisterFunction()
-{
 
+void cFishGameCommonRegisterManager<cGameEffectBase>::AddCloneRegisterFunction()
+{
+	int a = 0;
 }

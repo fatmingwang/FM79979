@@ -33,6 +33,7 @@ cFishBase::cFishBase()
 
 cFishBase::cFishBase(cFishBase*e_pFishBase)
 {
+	this->SetLocalTransform(e_pFishBase->GetLocalTransform());
 	m_pCurrentbtShapeCollision = nullptr;
 	m_pAnimationMPDIList = e_pFishBase->m_pAnimationMPDIList;
 	m_eFishBodyType = e_pFishBase->m_eFishBodyType;

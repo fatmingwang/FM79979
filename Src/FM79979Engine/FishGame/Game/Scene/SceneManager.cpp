@@ -9,13 +9,14 @@
 
 cSceneManager::cSceneManager():cWriteFileWithThread(false)
 {
+	m_iCurrentPhase = 0;
 	m_pFishManagerReference = cFishManager::GetInstance();
 	m_pCameraShake = nullptr;//cCameraShake
 	m_iFishGroupCount = 0;
 	m_pSceneChangeFishGroupManager = new cSceneChangeFishGroupManager(m_pFishManagerReference);
 	REG_EVENT(eFGEMI_SCENE_CHANGE, &cSceneManager::SceneChangeEvent);
 	REG_EVENT(eFGEMI_FISH_GROUP_GO, &cSceneManager::FishGroupGoEvent);
-	std::string	l_strFileName = GetFishGameFileName(eFGFN_SCENE_MANAGER_FILE_NAME);
+	std::string	l_strFileName = GetFishGameFileName(eFGFN_SCENE_MANAGER_STATUS_SAVE_FILE_NAME);
 	sRegister_Header_Struct e_sRegister_Header_Struct;
 	e_sRegister_Header_Struct.chID[0] = 'S';
 	e_sRegister_Header_Struct.chID[1] = 'M';
@@ -25,8 +26,7 @@ cSceneManager::cSceneManager():cWriteFileWithThread(false)
 
 cSceneManager::~cSceneManager()
 {
-	SAFE_DELETE(m_pCameraShake);
-	SAFE_DELETE(m_pSceneChangeFishGroupManager);
+	Destroy();
 }
 //<!-- I am so lazy each  SceneChangeFishGroup must has same count data(FishGroup)-->
 //<Scene>
@@ -109,6 +109,18 @@ void	cSceneManager::DebugRender()
 	l_pBaseScene->DebugRender();
 }
 
+void	cSceneManager::Init()
+{
+	this->ParseWithMyParse(GetFishGameFileName(eFGFN_SCENE_MANAGER_FILE_NAME).c_str());
+	this->SetCurrentPhase(m_CurrentSceneData.iSceneIndex);
+	cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(m_CurrentSceneData.iSceneIndex);
+	if (l_pPhaseManager)
+	{
+		l_pPhaseManager->SetCurrentPhase(m_CurrentSceneData.iSubSceneIndex);
+	}
+	
+}
+
 void	cSceneManager::Update(float e_fElpaseTime)
 {
 	cPhaseManagerInPhaseManager::Update(e_fElpaseTime);
@@ -116,6 +128,17 @@ void	cSceneManager::Update(float e_fElpaseTime)
 	{
 		m_pSceneChangeFishGroupManager->Update(e_fElpaseTime);
 	}
+}
+
+void	cSceneManager::Render()
+{
+
+}
+
+void	cSceneManager::Destroy()
+{
+	SAFE_DELETE(m_pCameraShake);
+	SAFE_DELETE(m_pSceneChangeFishGroupManager);
 }
 
 bool	cSceneManager::SceneChangeEvent(void*e_pFishGroupName)
@@ -165,13 +188,14 @@ bool	cSceneManager::OpenFileGetData(int e_iDataSizeWithOutFileExtension, char*e_
 {
 	if (e_pRegister_Header_Struct->fVersion <= 1.f)
 	{
-		sSceneData*l_pSceneData = (sSceneData*)e_pData;
-		m_CurrentSceneData = *l_pSceneData;
-		this->SetCurrentPhase(m_CurrentSceneData.iSceneIndex);
-		cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(m_CurrentSceneData.iSceneIndex);
-		if (l_pPhaseManager)
+		if (e_iDataSizeWithOutFileExtension == 0)
 		{
-			l_pPhaseManager->SetCurrentPhase(m_CurrentSceneData.iSubSceneIndex);
+			WriteFileUpdate(0.f);
+		}
+		else
+		{
+			sSceneData*l_pSceneData = (sSceneData*)e_pData;
+			m_CurrentSceneData = *l_pSceneData;
 		}
 		return true;
 	}

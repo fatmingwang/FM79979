@@ -79,23 +79,23 @@ namespace UT
 	template <class NUMBER_TYPE>struct	sProbabilityVector
 	{
 		std::vector<NUMBER_TYPE>	ProbabilityVector;
-		NUMBER_TYPE					TotalProbabiliy;
+		NUMBER_TYPE					m_TotalProbabiliy;
 		void						CalculateTotalValue()
 		{
-			TotalProbabiliy = 0;
+			m_TotalProbabiliy = 0;
 			for (int i = 0; i<(int)ProbabilityVector.size(); ++i)
-				TotalProbabiliy += ProbabilityVector[i];
+				m_TotalProbabiliy += ProbabilityVector[i];
 		}
 		void						SetupProbabilityData(std::vector<NUMBER_TYPE> e_ProbabilityVector)
 		{
-			ProbabilityVector = e_ProbabilityVector; TotalProbabiliy = 0; for( int i=0;i<(int)ProbabilityVector.size();++i ) TotalProbabiliy += ProbabilityVector[i];
+			ProbabilityVector = e_ProbabilityVector; m_TotalProbabiliy = 0; for( int i=0;i<(int)ProbabilityVector.size();++i ) m_TotalProbabiliy += ProbabilityVector[i];
 		}
 		int							GetIndexByProbability()
 		{
 			int	l_iSize = (int)ProbabilityVector.size();
 			std::vector<int>l_RandomTable = GenerateRandomTable(l_iSize,l_iSize);
 			NUMBER_TYPE	l_ProbabilityValue = 0;
-			NUMBER_TYPE	l_RandProbabilityValue = rand((NUMBER_TYPE)0,(NUMBER_TYPE)TotalProbabiliy);
+			NUMBER_TYPE	l_RandProbabilityValue = rand((NUMBER_TYPE)0,(NUMBER_TYPE)m_TotalProbabiliy);
 			for( int i=0;i<l_iSize;++i )
 			{
 				l_ProbabilityValue += ProbabilityVector[l_RandomTable[i]];
@@ -104,7 +104,7 @@ namespace UT
 			}
 			return l_iSize-1;
 		}
-		void						Clear(){ ProbabilityVector.clear(); TotalProbabiliy = 0; }
+		void						Clear(){ ProbabilityVector.clear(); m_TotalProbabiliy = 0; }
 	};
 	//sample
 	//struct	sHoldTimeAndType
@@ -117,29 +117,29 @@ namespace UT
 	//sProbabilityWithValue<float,int>	m_ProbabilityValue;
 	template <class NUMBER_TYPE,class VALUE>struct	sProbabilityWithValue
 	{
-		sProbabilityWithValue(){ TotalProbabiliy = 0; }
+		sProbabilityWithValue(){ m_TotalProbabiliy = 0; }
 		~sProbabilityWithValue(){}
-		std::vector<VALUE>			ValueVector;
-		std::vector<NUMBER_TYPE>	ProbabilityVector;
-		NUMBER_TYPE					TotalProbabiliy;
+		std::vector<VALUE>			m_ValueVector;
+		std::vector<NUMBER_TYPE>	m_ProbabilityVector;
+		NUMBER_TYPE					m_TotalProbabiliy;
 		void						CalculateTotalValue()
 		{
-			TotalProbabiliy = 0; 
-			for (int i = 0; i<(int)ProbabilityVector.size(); ++i) 
-				TotalProbabiliy += ProbabilityVector[i];
+			m_TotalProbabiliy = 0;
+			for (int i = 0; i<(int)m_ProbabilityVector.size(); ++i)
+				m_TotalProbabiliy += m_ProbabilityVector[i];
 		}
-		void						SetupProbabilityData(std::vector<NUMBER_TYPE> e_ProbabilityVector) { ProbabilityVector = e_ProbabilityVector; CalculateTotalValue(); }
-		void						SetupValueData(std::vector<VALUE> e_ValueVector){ ValueVector = e_ValueVector; }
+		void						SetupProbabilityData(std::vector<NUMBER_TYPE> e_ProbabilityVector) { m_ProbabilityVector = e_ProbabilityVector; CalculateTotalValue(); }
+		void						SetupValueData(std::vector<VALUE> e_ValueVector){ m_ValueVector = e_ValueVector; }
 		void						SetupData(std::vector<NUMBER_TYPE> e_ProbabilityVector,std::vector<VALUE> e_ValueVector){SetupProbabilityData(e_ProbabilityVector);SetupValueData(e_ValueVector);}
 		int							GetIndexByProbability()
 		{
-			int	l_iSize = (int)ProbabilityVector.size();
+			int	l_iSize = (int)m_ProbabilityVector.size();
 			std::vector<int>l_RandomTable = GenerateRandomTable(l_iSize,l_iSize);
 			NUMBER_TYPE	l_ProbabilityValue = 0;
-			NUMBER_TYPE	l_RandProbabilityValue = rand((NUMBER_TYPE)0,(NUMBER_TYPE)TotalProbabiliy);
+			NUMBER_TYPE	l_RandProbabilityValue = rand((NUMBER_TYPE)0,(NUMBER_TYPE)m_TotalProbabiliy);
 			for( int i=0;i<l_iSize;++i )
 			{
-				l_ProbabilityValue += ProbabilityVector[l_RandomTable[i]];
+				l_ProbabilityValue += m_ProbabilityVector[l_RandomTable[i]];
 				if( l_ProbabilityValue > l_RandProbabilityValue )
 					return i;
 			}
@@ -150,11 +150,11 @@ namespace UT
 			int	l_iIndex = GetIndexByProbability();
 			if( l_iIndex != -1 )
 			{
-				return &ValueVector[l_iIndex];
+				return &m_ValueVector[l_iIndex];
 			}
 			return nullptr;
 		}
-		void						Clear(){ ProbabilityVector.clear(); TotalProbabiliy = 0; ValueVector.clear(); }
+		void						Clear(){ m_ProbabilityVector.clear(); m_TotalProbabiliy = 0; m_ValueVector.clear(); }
 	};
 //end namespace UT
 }

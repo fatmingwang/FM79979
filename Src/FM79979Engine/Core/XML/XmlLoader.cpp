@@ -201,9 +201,6 @@ namespace FATMING_CORE
 		}
 		bool	l_bErrorMsgStringExist = FATMING_CORE::cGameApp::m_spstrErrorMsgString?true:false;
 		int	l_iWhoErrorMsg = FATMING_CORE::cGameApp::m_siShowErrorType;
-#ifndef	DEBUG
-		FATMING_CORE::cGameApp::m_siShowErrorType = 2;
-#endif
 		if(!l_bErrorMsgStringExist)
 		{
 			FATMING_CORE::cGameApp::m_spstrErrorMsgString = new std::wstring();

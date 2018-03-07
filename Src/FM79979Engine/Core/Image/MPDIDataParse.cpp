@@ -674,6 +674,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 							else
 							{
 								//some people make a lazy way to fetch Image without PI ,this is totaly wrong,so I have to add this line to fix this -_-"
+								//07/03/2018 I forgot why add this...
 								if (wcslen(l_strValue) == 0 && abs(this->m_fMPDIVersion - 1.2)<0.01f)
 								{
 									const wchar_t* l_strImageName = m_pCurrentTiXmlElement->Attribute(L"ImageName");

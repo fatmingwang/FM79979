@@ -5,13 +5,13 @@
 #include "FishGameCommonWeapon.h"
 
 
-void	cWeaponManager::AddCloneRegisterFunction()
+
+void cFishGameCommonRegisterManager<cFishGameWeaponBase>::AddCloneRegisterFunction()
 {
 	REGISTER_CLONE_FUNCTION_TO_MANGER(cFishGameCommonWeapon);
 	REGISTER_CLONE_FUNCTION_TO_MANGER(cFishGameMiniGameWeapon);
 	REGISTER_CLONE_FUNCTION_TO_MANGER(cFishGameTraceFishWeapon);
 }
-
 
 bool	cWeaponManager::MyParse(TiXmlElement*e_pRoot)
 {

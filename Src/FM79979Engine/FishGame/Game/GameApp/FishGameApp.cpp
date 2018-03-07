@@ -42,6 +42,10 @@ void	cFishGameApp::Init()
 {
 	cGameApp::Init();
 	LoadSample();
+	auto l_pFishManager = cFishManager::GetInstance();
+	auto l_pSceneManager = cSceneManager::GetInstance();
+	l_pFishManager->Init();
+	l_pSceneManager->Init();
 	//let first update is not too big
 	this->m_sTimeAndFPS.Update();
 }
@@ -50,15 +54,28 @@ void	cFishGameApp::Update(float e_fElpaseTime)
 {
     cGameApp::Update(e_fElpaseTime);
 	SampleUpdate(e_fElpaseTime);
+	auto l_pFishManager = cFishManager::GetInstance();
+	auto l_pSceneManager = cSceneManager::GetInstance();
+	l_pFishManager->Update(e_fElpaseTime);
+	l_pSceneManager->Update(e_fElpaseTime);
+
+
+
 }
 
 void	cFishGameApp::Render()
 {
+	auto l_pFishManager = cFishManager::GetInstance();
+	auto l_pSceneManager = cSceneManager::GetInstance();
 	glEnable(GL_ALPHA_TEST);
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
-	SampleRender();
+	if (l_pSceneManager)
+		l_pSceneManager->Render();
+	if (l_pFishManager)
+		l_pFishManager->Render();
+	//SampleRender();
 	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);

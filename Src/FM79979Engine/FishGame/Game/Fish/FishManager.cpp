@@ -1,25 +1,18 @@
 #include "stdafx.h"
 #include "FishManager.h"
 #include "../Probability/FishShowPaobability.h"
-
+#include "../GameDefine/GameDefine.h"
 const int g_ciWorkingMonsterCount = 500;
 cFishManager::cFishManager()
 {
 	m_WorkingMonster.SetCount(g_ciWorkingMonsterCount);
 	m_pFishShowProbability = nullptr;
-	//	m_pFAIBehaviorParser = nullptr;
+	m_pFAIBehaviorParser = nullptr;
 }
 
 cFishManager::~cFishManager()
 {
-	SAFE_DELETE(m_pFishShowProbability);
-	size_t l_uiFishVectorSize = m_AllFish.size();
-	for(size_t i=0;i<l_uiFishVectorSize;++i)
-	{
-		DELETE_VECTOR((*m_AllFish[i]));
-	}
-	DELETE_VECTOR(m_AllFish);
-	DELETE_VECTOR(m_RenderWorkingMonsterVector);
+	Destroy();
 }
 
 bool	cFishManager::MyParse(TiXmlElement*e_pRoot)
@@ -40,7 +33,7 @@ bool	cFishManager::MyParse(TiXmlElement*e_pRoot)
 			}
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pRoot)
-		GenerateReservedFishAndRenderOrder();
+	GenerateReservedFishAndRenderOrder();
 	return false;
 }
 
@@ -58,19 +51,25 @@ void	cFishManager::GenerateReservedFishAndRenderOrder()
 			for (int i = 0; i < l_iCount; ++i)
 			{
 				auto l_pFish = (*this)[i];
-				int l_iCount = l_piFishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[l_pFish->GetFishBodyType()];
-				assert(l_iCount > 0 && "fish body type count is small than 0!?");
+				int l_iFishBodyReservedCount = l_piFishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[l_pFish->GetFishBodyType()];
+				assert(l_iFishBodyReservedCount> 0 && "fish body type count is small than 0!?");
+				//ex:small need 65 is too much it may need 65/2
+				l_iFishBodyReservedCount /= 2;
+				if (l_iFishBodyReservedCount < 5)
+					l_iFishBodyReservedCount = 5;
 				std::vector<cFishBase*>*l_pFishVector = new std::vector<cFishBase*>;
-				cFishBase*l_pFishBase = dynamic_cast<cFishBase*>(l_pFish->Clone());
-				l_pFishVector->push_back(l_pFishBase);
+				for (int j=0; j < l_iFishBodyReservedCount; ++j)
+				{
+					cFishBase*l_pFishBase = dynamic_cast<cFishBase*>(l_pFish->Clone());
+					l_pFishVector->push_back(l_pFishBase);
+				}
 				m_AllFish.push_back(l_pFishVector);
-				int l_iValue = (int)l_pFishBase->GetLocalPosition().x;
-				//avoid same render order index
-				if(IsVectorContainValue<int>(l_RenderVector, l_iValue) == -1)
-					l_RenderVector.push_back(l_iValue);
+				int l_iValue = (int)l_pFish->GetLocalPosition().z;
+				l_RenderVector.push_back(l_iValue);
 			}
 		}
 	}
+	assert((int)l_RenderVector.size() == this->Count()&&"fish count is not match render order!?");
 	l_OriginalRenderVector = l_RenderVector;
 	std::sort(l_RenderVector.begin(), l_RenderVector.begin());
 	int l_iOriginalRenderVectorSize = (int)l_OriginalRenderVector.size();
@@ -106,6 +105,8 @@ void	cFishManager::MonsterLeaveScene()
 
 void	cFishManager::Init()
 {
+	Destroy();
+	this->ParseWithMyParse(GetFishGameFileName(eFGFN_FISH_MANAGER_FILE_NAME).c_str());
 	if(m_pFishShowProbability)
 		m_pFishShowProbability->Init();
 }
@@ -140,6 +141,15 @@ void	cFishManager::Update(float e_fElpaseTime)
 	if (m_pFishShowProbability)
 	{
 		m_pFishShowProbability->Update(e_fElpaseTime);
+		
+		cFishShowProbability::sCurrentFishBodyTypeFishCount*l_pCurrentFishBodyTypeFishCount = m_pFishShowProbability->GetCurrentFishBodyTypeFishCount();
+		size_t l_uiSize = l_pCurrentFishBodyTypeFishCount->iGenerateFishIDVector.size();
+		for (size_t i = 0; i < l_uiSize; ++i)
+		{
+			int l_iFishID = l_pCurrentFishBodyTypeFishCount->iGenerateFishIDVector[i];
+			this->ForceFishRequire(l_iFishID);
+		}
+		l_pCurrentFishBodyTypeFishCount->iGenerateFishIDVector.clear();
 		//FishDired(eFishBodyType e_eFishBodyType);
 	}
 }
@@ -150,7 +160,7 @@ void	cFishManager::Render()
 	for (size_t i = 0; i < l_uiRenderWorkingMonsterVectorSize; ++i)
 	{
 		auto l_pData = m_RenderWorkingMonsterVector[i];
-		for (size_t j = 0; i < l_pData->m_iNumWorking; ++j)
+		for (size_t j = 0; j < l_pData->m_iNumWorking; ++j)
 		{
 			if (l_pData->m_ppObjects[j]->GetFishStatus() != eFishStatus::eFS_DIED_SHOW)
 				l_pData->m_ppObjects[j]->Render();
@@ -165,7 +175,7 @@ void	cFishManager::RenderMonsterDiedShow()
 	for (size_t i = 0; i < l_uiRenderWorkingMonsterVectorSize; ++i)
 	{
 		auto l_pData = m_RenderWorkingMonsterVector[i];
-		for (size_t j = 0; i < l_pData->m_iNumWorking; ++j)
+		for (size_t j = 0; j < l_pData->m_iNumWorking; ++j)
 		{
 			if (l_pData->m_ppObjects[j]->GetFishStatus() == eFishStatus::eFS_DIED_SHOW)
 				l_pData->m_ppObjects[j]->Render();
@@ -183,6 +193,18 @@ void	cFishManager::DebugRender()
 			l_pFish->DebugRender();
 		}
 	}
+}
+
+void	cFishManager::Destroy()
+{
+	SAFE_DELETE(m_pFishShowProbability);
+	size_t l_uiFishVectorSize = m_AllFish.size();
+	for (size_t i = 0; i<l_uiFishVectorSize; ++i)
+	{
+		DELETE_VECTOR((*m_AllFish[i]));
+	}
+	DELETE_VECTOR(m_AllFish);
+	DELETE_VECTOR(m_RenderWorkingMonsterVector);
 }
 
 cFishBase*	cFishManager::RequireWaitForFetchFish(int e_iFishID)
@@ -220,6 +242,7 @@ cFishBase*	cFishManager::ForceFishRequire(int e_iFishID)
 	}
 	if (l_pFish)
 	{
+		l_pFish->Init();
 		m_WorkingMonster.Add(l_pFish);
 	}
 	assert(m_WorkingMonster.m_iNumWorking <= g_ciWorkingMonsterCount && "fish over 500!?");
@@ -228,5 +251,12 @@ cFishBase*	cFishManager::ForceFishRequire(int e_iFishID)
 
 const cFishBase*	cFishManager::GetFishByID(int e_iID)
 {
-	return (*m_AllFish[e_iID])[0];
+	int l_iCount = this->Count();
+	for (int i = 0; i < l_iCount; ++i)
+	{
+		auto l_pFish = (*this)[i];
+		if (l_pFish->GetID() == e_iID)
+			return l_pFish;
+	}
+	return nullptr;
 }

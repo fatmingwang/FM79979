@@ -81,11 +81,11 @@ namespace FATMING_AI
 		//m_ePriorBehaviodStatus = m_pCharacterStatus->GetFAICharacterBehaviorStatus();
 		//m_PriorCharacterStatus = *m_pCharacterStatus;
 		sHoldTimeAndType*	l_pHoldTimeAndType = 0;
-		for(int i=0;i<(int)m_ProbabilityValue.ValueVector.size();++i)
+		for(int i=0;i<(int)m_ProbabilityValue.m_ValueVector.size();++i)
 		{
-			if( m_eStartBehaviodStatus == m_ProbabilityValue.ValueVector[i].FAICharacterBehaviorStatus )
+			if( m_eStartBehaviodStatus == m_ProbabilityValue.m_ValueVector[i].FAICharacterBehaviorStatus )
 			{
-				l_pHoldTimeAndType = &m_ProbabilityValue.ValueVector[i];
+				l_pHoldTimeAndType = &m_ProbabilityValue.m_ValueVector[i];
 				break;
 			}
 		}

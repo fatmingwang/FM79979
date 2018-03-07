@@ -7,11 +7,12 @@ class cFishShowProbability
 {
 private:
 	int								m_FishBodyTypeAllowToShowCountByPlayerCount[MAX_PLAYER][eFBT_Total];
-	sProbabilityWithValue<int, int> m_FishShowProbabilityAndID[eFBT_Total];
+	sProbabilityWithValue<int,int>	m_FishShowProbabilityAndID[eFBT_Total];
 	//
 protected:
 	int								m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[eFBT_Total];
 	//this should in fish manager
+public:
 	struct sCurrentFishBodyTypeFishCount
 	{
 		int					iFishCountByFishBodyType[eFBT_Total];
@@ -22,6 +23,7 @@ protected:
 		}
 		~sCurrentFishBodyTypeFishCount(){}
 	};
+private:
 	UT::sTimeCounter				m_GenerateFishTC;//0.5 sceond
 	sCurrentFishBodyTypeFishCount	m_CurrentFishBodyTypeFishCount;
 public:

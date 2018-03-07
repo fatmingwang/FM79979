@@ -3,6 +3,10 @@
 enum eGameEffectType
 {
 	eGET_TEXT = 0,
+	eGET_TEXT1,
+	eGET_TEXT2,
+	eGET_TEXT3,
+	eGET_TEXT4,
 	eGET_MAX
 };
 
@@ -28,7 +32,6 @@ class cGameEffectManager:public cNamedTypedObjectVector<cGameEffectBase>,public 
 	bool	ProcessGameEffect(TiXmlElement*e_pRoot);
 	//
 	std::map<eGameEffectType, cWaitForFetchFunctionObjectList<cGameEffectBase>*>	m_AllGameEffecBaseMap;
-	virtual void	AddCloneRegisterFunction() override;
 public:
 	cGameEffectManager();
 	virtual ~cGameEffectManager();

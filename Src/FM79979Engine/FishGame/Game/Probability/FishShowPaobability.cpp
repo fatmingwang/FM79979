@@ -18,35 +18,47 @@
 //</cFishShowProbability>
 cFishShowProbability::cFishShowProbability(TiXmlElement*e_pTiXmlElement)
 {
+	memset(m_FishBodyTypeAllowToShowCountByPlayerCount,0,sizeof(m_FishBodyTypeAllowToShowCountByPlayerCount));
 	m_GenerateFishTC.SetTargetTime(0.5f);
 	m_GenerateFishTC.SetLoop(true);
 	std::vector<int>	l_PlayerCountVector;
 	COMPARE_TARGET_ELEMENT_VALUE_WITH_DEFINE(e_pTiXmlElement, L"cFishShowProbability")
 	{
+		auto l_strPlayerAmount = e_pTiXmlElement->Attribute(L"PlayerAmount");
+		l_PlayerCountVector = GetIntegerListByCommaDivide(l_strPlayerAmount,10);
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
 			eFishBodyType l_FishBodyType = GetFishBodyTypeByString(e_pTiXmlElement->Value());
 			assert(l_FishBodyType != eFBT_Total &&"Fish Body type Error!cFishShowProbability::cFishShowProbability");
 			auto l_strMaxAmount = e_pTiXmlElement->Attribute(L"MaxAmount");
 			if (l_strMaxAmount)
 			{
-				auto l_IntegerVector = GetIntegerListByCommaDivide(l_strMaxAmount,(int)l_PlayerCountVector.size());
+				auto l_IntegerVector = GetIntegerListByCommaDivide(l_strMaxAmount,10);
 				assert(l_IntegerVector.size() == l_PlayerCountVector.size()&&"player count is not match data count cFishShowProbability::cFishShowProbability");
 				for (size_t i = 0; i < l_PlayerCountVector.size(); ++i)
 				{
-					m_FishBodyTypeAllowToShowCountByPlayerCount[i][l_FishBodyType] = l_IntegerVector[i];
+					int l_iPlayerCount = l_PlayerCountVector[i] - 1;
+					assert(l_iPlayerCount<MAX_PLAYER &&"player count is over 10!?IO board ont support");
+					m_FishBodyTypeAllowToShowCountByPlayerCount[l_iPlayerCount][l_FishBodyType] = l_IntegerVector[i];
 				}
 			}
 			std::vector<int> l_iShowProbabilityVector;
 			std::vector<int> l_iFishIDVector;
-			TiXmlElement*l_pFirstChild = e_pTiXmlElement->FirstChildElement();
+			TiXmlElement*l_pFirstChild = e_pTiXmlElement;
+			sProbabilityWithValue<int, int> l_FishShowProbabilityAndID[eFBT_Total];
 			FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(l_pFirstChild)
 				auto l_strID = l_pFirstChild->Attribute(L"ID");
 				auto l_strShowProbability = l_pFirstChild->Attribute(L"ShowProbability");
-				l_iShowProbabilityVector.push_back(GetInt(l_strID));
+				l_iShowProbabilityVector.push_back(GetInt(l_strShowProbability));
 				l_iFishIDVector.push_back(GetInt(l_strID));
 			FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(l_pFirstChild)
 			m_FishShowProbabilityAndID[l_FishBodyType].SetupData(l_iShowProbabilityVector, l_iFishIDVector);
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
+	}
+	sCurrentFishBodyTypeFishCount	l_CurrentFishBodyTypeFishCount;
+	m_CurrentFishBodyTypeFishCount = l_CurrentFishBodyTypeFishCount;
+	for (int i = 0; i < eFBT_Total; ++i)
+	{
+		m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[i] = m_FishBodyTypeAllowToShowCountByPlayerCount[sControlSettingParameter::m_siPlayerCountByPlayerLayeoutIndex - 1][i];
 	}
 }
 
@@ -56,12 +68,7 @@ cFishShowProbability::~cFishShowProbability()
 
 void cFishShowProbability::Init()
 {
-	sCurrentFishBodyTypeFishCount	l_CurrentFishBodyTypeFishCount;
-	m_CurrentFishBodyTypeFishCount = l_CurrentFishBodyTypeFishCount;
-	for (int i = 0; i < eFBT_Total; ++i)
-	{
-		m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[i] = m_FishBodyTypeAllowToShowCountByPlayerCount[sControlSettingParameter::m_siPlayerCountByPlayerLayeoutIndex][i];
-	}
+
 }
 
 void	cFishShowProbability::Update(float e_fElpaseTime)
@@ -77,10 +84,13 @@ void	cFishShowProbability::Update(float e_fElpaseTime)
 			{
 				for (int j = 0; j < l_iDiff; ++j)
 				{
-					int l_iIndex = m_FishShowProbabilityAndID[i].GetIndexByProbability();
-					assert(l_iIndex != -1 && "m_FishShowProbabilityAndID[i].GetIndexByProbability()");
-					int l_iFishID = m_FishShowProbabilityAndID[i].ValueVector[l_iIndex];
-					m_CurrentFishBodyTypeFishCount.iGenerateFishIDVector.push_back(l_iFishID);
+					if (m_FishShowProbabilityAndID[i].m_TotalProbabiliy > 0)
+					{
+						int l_iIndex = m_FishShowProbabilityAndID[i].GetIndexByProbability();
+						assert(l_iIndex != -1 && "m_FishShowProbabilityAndID[i].GetIndexByProbability()");
+						int l_iFishID = m_FishShowProbabilityAndID[i].m_ValueVector[l_iIndex];
+						m_CurrentFishBodyTypeFishCount.iGenerateFishIDVector.push_back(l_iFishID);
+					}
 				}
 			}
 		}

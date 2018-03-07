@@ -7,10 +7,10 @@ class	cPlayerManager : public cNamedTypedObjectVector<cPlayerBehavior>, public c
 	std::map<int, std::vector<cMatrix44>>	m_IndexAndPlayerMatrixMap;
 	void				ProcessPlayerCountAndPlayerPosMap(TiXmlElement*e_pTiXmlElement);
 	//
-protected:
 	cPlayerManager();
+	virtual ~cPlayerManager();
 public:
-	~cPlayerManager();
+	SINGLETON_BASIC_FUNCTION(cPlayerManager);
 	void	ProcessSet(TiXmlElement* e_pElement);
 	//
 	void	Init();

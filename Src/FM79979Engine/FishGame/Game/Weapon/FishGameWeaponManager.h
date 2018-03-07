@@ -5,7 +5,6 @@
 class cWeaponManager:public cRenderObject,public cFishGameCommonRegisterManager<cFishGameWeaponBase>,public cNodeISAX
 {
 	virtual	bool									MyParse(TiXmlElement*e_pRoot)override;
-	virtual void									AddCloneRegisterFunction()override;
 	//
 	cNamedTypedObjectVector<cFishGameWeaponBase>	m_CommonWeaponVector;
 	cNamedTypedObjectVector<cFishGameWeaponBase>	m_MiniGameWeaponVector;

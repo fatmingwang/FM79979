@@ -39,7 +39,7 @@ namespace FATMING_CORE
 				l_pObject->WriteFileUpdate(e_fElpaseTime);
 			}
 		}
-		Sleep(10);
+		Sleep(1);
 	}
 
 

@@ -3,10 +3,10 @@
 #include "FishBase.h"
 
 class cFishShowProbability;
+//#define SINGLETON_BASIC_FUNCTION(TYPE)TYPE(TYPE const&) = delete;TYPE(TYPE*) = delete;
 
 class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, public cFishGameCommonRegisterManager<cFishBase>,public cSingltonTemplate<cFishManager>
 {
-	virtual void																AddCloneRegisterFunction() override;
 	//
 	virtual	bool																MyParse(TiXmlElement*e_pRoot) override;
 	void																		GenerateReservedFishAndRenderOrder();
@@ -21,15 +21,17 @@ class	cFishManager:public cNamedTypedObjectVector<cFishBase>,public cNodeISAX, p
 	cFAIBehaviorParser*															m_pFAIBehaviorParser;
 	cFishBase*																	GetWaitForFetchFishFromVector(std::vector<cFishBase*>*e_pFishVector);
 	//
-public:
 	cFishManager();
-	~cFishManager();
+	virtual ~cFishManager();
+public:
+	SINGLETON_BASIC_FUNCTION(cFishManager);
 	void				MonsterLeaveScene();
 	void				Init();
 	void				Update(float e_fElpaseTime);
 	void				Render();
 	void				RenderMonsterDiedShow();
 	void				DebugRender();
+	void				Destroy();
 	cFishBase*			RequireWaitForFetchFish(int e_iFishID);
 	//Fish Group must has fish
 	cFishBase*			ForceFishRequire(int e_iFishID);

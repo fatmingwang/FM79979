@@ -507,7 +507,24 @@ bool IntersectTriangleOrientedBox( Vector4 V0, Vector4 V1, Vector4 V2, const sOr
 
 bool IntersectSphereSphere( const sSphere* pVolumeA, const sSphere* pVolumeB )
 {
-	return true;
+	//ex:
+	//first object center 0,0,0 radius 5
+	//second object center 10,0,0 radius 5
+	//2 sphere dis(l_vDis) = 10,0,0
+	//lazy length = dis*dis = 100
+	//=========================================
+	//2 object Collision dis = radius+radius
+	//5+5 = 10
+	//lazy length = 10*10 = 100
+
+	//if(2 object radius lazy length >= 2object dis lazy length)return true;
+	Vector3 l_vDis = pVolumeA->vCenter - pVolumeB->vCenter;
+	float l_fSphereDis = l_vDis.x * l_vDis.x + l_vDis.y * l_vDis.y + l_vDis.z * l_vDis.z;
+	float l_fAdd2SphereRasius = pVolumeA->fRadius+pVolumeB->fRadius;
+	l_fAdd2SphereRasius *= l_fAdd2SphereRasius;
+	if(l_fAdd2SphereRasius >= l_fSphereDis )
+		return true;
+	return false;
 }
 
 bool IntersectSphereAxisAlignedBox( const sSphere* pVolumeA, const sAxisAlignedBox* pVolumeB )

@@ -11,9 +11,13 @@ protected:
 	std::list<std::function<TYPE*(TiXmlElement*)>>				m_RegisterList;
 	virtual TYPE*									GetObjectByParseXmlElement(TiXmlElement*e_pTiXmlElement);
 public:
-	cFishGameCommonRegisterManager(){}
+	cFishGameCommonRegisterManager(){ AddCloneRegisterFunction(); }
 	virtual ~cFishGameCommonRegisterManager(){}
-	virtual void	AddCloneRegisterFunction() = 0;
+	void			AddCloneRegisterFunction();
+	virtual void	AddRegisterFunction(std::function<TYPE*(TiXmlElement*)> e_Function)
+	{
+		m_RegisterList.push_back(e_Function);
+	}
 	//virtual void	AddCloneRegisterFunction() = 0;
 	//{
 	//	REGISTER_CLONE_FUNCTION_TO_MANGER(cTest);

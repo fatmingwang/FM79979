@@ -41,16 +41,22 @@ cBaseScene::cBaseScene(TiXmlElement*e_pTiXmlElement)
 			m_pstrSceneChangeFishGroupName = new std::wstring;
 			*m_pstrSceneChangeFishGroupName = l_strValue;
 		}
+		else//do nothing just for human vision
+		COMPARE_NAME("SubSceneIndex")
+		{
+		int a = 0;
+		}
+	
 	PARSE_NAME_VALUE_END
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pTiXmlElement)
 		auto l_strStatusMPDI = e_pTiXmlElement->Value();
 		eSceneStatus l_eSceneStatus = eSS_MAX;
-		if(wcscmp(l_strStatusMPDI,L"StartMPDI")){ l_eSceneStatus = eSS_START;}else
-		if (wcscmp(l_strStatusMPDI, L"LoopMPDI")){l_eSceneStatus = eSS_LOOP;}else
-		if (wcscmp(l_strStatusMPDI, L"EndMPDI")){l_eSceneStatus = eSS_END;}
-		if (l_eSceneStatus != eSS_MAX)
+		if(!wcscmp(l_strStatusMPDI,L"StartMPDI")){l_eSceneStatus = eSS_START;}else
+		if(!wcscmp(l_strStatusMPDI, L"LoopMPDI")){l_eSceneStatus = eSS_LOOP;}else
+		if(!wcscmp(l_strStatusMPDI, L"EndMPDI")) {l_eSceneStatus = eSS_END;}
+		if(l_eSceneStatus != eSS_MAX)
 		{
-			m_pBGMPDI[l_eSceneStatus] = cMPDI::GetMe(e_pTiXmlElement);
+			m_pBGMPDI[l_eSceneStatus] = cMPDI::GetMe(e_pTiXmlElement->FirstChildElement());
 		}
 	FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pTiXmlElement)
 }

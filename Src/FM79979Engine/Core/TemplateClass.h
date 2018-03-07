@@ -666,28 +666,20 @@ public:
 	//ensure memory control
 	void			SetObject(T*e_pData){ m_pObject = e_pData; }
 };
-
+//https://stackoverflow.com/questions/1008019/c-singleton-design-pattern/1008289#1008289
+#define SINGLETON_BASIC_FUNCTION(TYPE)	TYPE(TYPE const&) = delete;										\
+									TYPE(TYPE*) = delete;											\
+									static void DestroyInstance(){	SAFE_DELETE(m_pInstance);	}	\
+									static TYPE* GetInstance() { if (!m_pInstance) { m_pInstance = new TYPE(); }return m_pInstance; }
 template< class TYPE >
 class cSingltonTemplate
 {
+protected:
 	static TYPE*	m_pInstance;
 public:
 	cSingltonTemplate()
 	{
 		assert(m_pInstance == nullptr && "singlton only can have one instance");
-	}
-	~cSingltonTemplate() {}
-	static TYPE* GetInstance()
-	{
-		if (!m_pInstance)
-		{
-			m_pInstance = new TYPE();
-		}
-		return m_pInstance;
-	}
-	static void DestroyInstance()
-	{
-		SAFE_DELETE(m_pInstance);
 	}
 };
 

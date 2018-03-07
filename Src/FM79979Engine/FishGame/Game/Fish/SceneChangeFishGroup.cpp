@@ -23,11 +23,11 @@ cSceneChangeFishGroup::cSceneChangeFishGroup(cMPDI*e_pMPDI,cFishManager*e_pFishM
 		sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pObject->GetPointData(0);
 		if (l_pTexBehaviorDataWithImageIndexData)
 		{
-			auto l_pPIUnit = l_pTexBehaviorDataWithImageIndexData->GetPuzzleImageUnit();
-			if (l_pPIUnit)
+			auto l_pPuzzleImage = l_pTexBehaviorDataWithImageIndexData->pPI;
+			if (l_pPuzzleImage)
 			{
-				auto l_pFish = e_pFishManager->GetObject(l_pPIUnit->GetName());
-				assert(l_pFish&&"no fish!?");
+				auto l_pFish = e_pFishManager->GetObject(l_pPuzzleImage->GetName());
+				assert(l_pFish&&"no fish!?call before FishManager::Init!?");
 				int l_iID = l_pFish->GetID();
 				float l_fStartTime = l_pObject->GetStartTime();
 				assert(l_iID != -1 && "FishName wrong!cSceneChangeFishGroup::cSceneChangeFishGroup");

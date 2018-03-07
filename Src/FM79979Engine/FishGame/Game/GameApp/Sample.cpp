@@ -8,16 +8,19 @@
 cSampleForWriteBinaryFile*g_pSampleForWriteBinaryFile = nullptr;
 void	SampleForWriteBinaryFileTest()
 {
-	SAFE_DELETE(g_pSampleForWriteBinaryFile);
-	g_pSampleForWriteBinaryFile = new cSampleForWriteBinaryFile();
-	if (g_pSampleForWriteBinaryFile)
+	if (0)
 	{
-		cSampleForWriteBinaryFile::sRegister_Header_Struct l_sRegister_Header_Struct;
-		l_sRegister_Header_Struct.chID[0] = 'Q';
-		l_sRegister_Header_Struct.fVersion = 1.f;
-		g_pSampleForWriteBinaryFile->OpenFileWhatEverFileIsExitOrNotExit("79979.zzo", l_sRegister_Header_Struct, true);
+		SAFE_DELETE(g_pSampleForWriteBinaryFile);
+		g_pSampleForWriteBinaryFile = new cSampleForWriteBinaryFile();
+		if (g_pSampleForWriteBinaryFile)
+		{
+			cSampleForWriteBinaryFile::sRegister_Header_Struct l_sRegister_Header_Struct;
+			l_sRegister_Header_Struct.chID[0] = 'Q';
+			l_sRegister_Header_Struct.fVersion = 1.f;
+			g_pSampleForWriteBinaryFile->OpenFileWhatEverFileIsExitOrNotExit("79979.zzo", l_sRegister_Header_Struct, true);
+		}
+		cGameApp::SoundPlay(L"MyFMBook/FMBOOK_DEMO/1.wav", true);
 	}
-	cGameApp::SoundPlay(L"MyFMBook/FMBOOK_DEMO/1.wav",true);
 }
 void	LoadSample()
 {

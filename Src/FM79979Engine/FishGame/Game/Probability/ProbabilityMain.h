@@ -51,7 +51,7 @@ struct sHittedFishData
 };
 
 //
-class cFishProbability
+class cProbabilityMain
 {
 	bool											m_bLeaveThread;
 	bool											m_bThreadFinish;
@@ -60,8 +60,8 @@ class cFishProbability
 	std::vector<sFishDiedData>						m_WaitForFetchFishDiedData;//the data wait for fetch
 public:
 	//
-	cProbability();
-	~cProbability();
+	cProbabilityMain();
+	~cProbabilityMain();
 	void											Init();
 	void											Update( float e_fElpaseTime );
 	std::vector<sFishDiedData>						GetResult();

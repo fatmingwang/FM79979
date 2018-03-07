@@ -33,10 +33,14 @@ class cSceneManager : public cNodeISAX,public cPhaseManagerInPhaseManager, publi
 	void							ProcessSceneChangeFishGroupManager(TiXmlElement*e_pTiXmlElement);
 	virtual void					WriteFileUpdate(float e_fElpaseTime)override;
 	//
-public:	
 	cSceneManager();
-	~cSceneManager();
+	virtual ~cSceneManager();
+public:	
+	SINGLETON_BASIC_FUNCTION(cSceneManager);
 	void	LastRender();
 	void	DebugRender();
+	virtual void	Init()override;
 	virtual void	Update(float e_fElpaseTime)override;
+	virtual void	Render()override;
+	virtual void	Destroy()override;
 };
