@@ -9,6 +9,7 @@ private:
 	cFAIMachine*				m_pFAIMachine;
 	virtual	void				InternalInit() override;
 	virtual	void				InternalUpdate(float e_fElpaseTime)  override;
+	Vector3						GetRandomFishShowPos();
 public:
 	//
 	cFAIFish();

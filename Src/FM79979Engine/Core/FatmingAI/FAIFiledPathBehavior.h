@@ -25,6 +25,7 @@ namespace FATMING_AI
         cFAIFiledPathBehavior(cFAIFiledPathBehavior*e_pFAIPathBehavior);
 		CLONE_MYSELF(cFAIFiledPathBehavior);
         virtual ~cFAIFiledPathBehavior();
+		virtual void Render()override;
     };
 }
 

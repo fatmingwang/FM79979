@@ -24,6 +24,12 @@ public:
 	//if true game exit
 	bool	m_bLeave;
 };
-
-bool	InitOnceObject();
-bool	DeleteOnceObject();
+//
+bool				InitOnceObject();
+bool				DeleteOnceObject();
+//
+void				DebugInit();
+void				DebugUpdate(float e_fElpaseTime);
+void				DebugRender();
+void				DebugLastRender();
+void				DebugDestory();

@@ -97,6 +97,7 @@ namespace FATMING_AI
 
 	void    cFAIFiledPathBehavior::InternalInit()
 	{
+		//test code.
 		//m_CurveWithTime.Destroy();
 		//m_CurveWithTime.AddPoint(Vector3(0,320,0),0);
 		//m_CurveWithTime.AddPoint(Vector3(1280,320,0),30);
@@ -119,7 +120,7 @@ namespace FATMING_AI
 		Vector3	l_vLastPos;
 		float	l_fTargetTime = 0.f;
 		float	l_fSpeed = this->m_pSrcCharacter->GetSpeed();
-		int	l_iNextChangePoint = m_iDistanceChangePoint.Rand();
+		int		l_iNextChangePoint = m_iDistanceChangePoint.Rand();
 		float	l_fScaleX = m_fXDistance.Rand();
 		float	l_fScaleY = m_fYDistance.Rand();
 		float	l_fBound = 10.f;
@@ -219,4 +220,8 @@ namespace FATMING_AI
 		}
 	}
 
+	void cFAIFiledPathBehavior::Render()
+	{
+		m_CurveWithTime.Render(Vector4(1, 1, 1, 0.2f));
+	}
 }

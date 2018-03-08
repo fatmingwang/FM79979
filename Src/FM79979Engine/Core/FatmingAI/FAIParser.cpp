@@ -157,13 +157,11 @@ namespace FATMING_AI
         else
         COMPARE_NAME_WITH_DEFINE(cFAIMPDIAnimationMovingAIBehavior::TypeID)
         {
-        
             l_pBaseAIBehave = new cFAIMPDIAnimationMovingAIBehavior(e_pTiXmlElement);
         }
         else
         COMPARE_NAME_WITH_DEFINE(cFAIFiledPathBehavior::TypeID)
         {
-        
             l_pBaseAIBehave = new cFAIFiledPathBehavior(e_pTiXmlElement);
         }
         else

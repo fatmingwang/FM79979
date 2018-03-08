@@ -23,10 +23,10 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #endif
 
 //#define DELETE_VECTOR(List,T){for( size_t i = 0;i<List.size();++i){	T l_p = List[i];SAFE_DELETE(l_p);}List.clear();}
-#define DELETE_VECTOR(LIST){for( size_t i = 0;i<LIST.size();++i){	auto l_p = LIST[i];SAFE_DELETE(l_p);}LIST.clear();}
-#define DELETE_POINTER_VECTOR(List,T){for( UINT i = 0;i<List->size();++i){	T l_p = (*List)[i];SAFE_DELETE(l_p);}SAFE_DELETE(List);}
+#define DELETE_VECTOR(LIST){for( size_t l_uiDELETE_VECTORListSize = 0;l_uiDELETE_VECTORListSize<LIST.size();++l_uiDELETE_VECTORListSize){	auto l_p = LIST[l_uiDELETE_VECTORListSize];SAFE_DELETE(l_p);}LIST.clear();}
+#define DELETE_POINTER_VECTOR(List,T){for( size_t l_uiDELETE_POINTER_VECTORListSize = 0;l_uiDELETE_POINTER_VECTORListSize<List->size();++l_uiDELETE_POINTER_VECTORListSize){	T l_p = (*List)[l_uiDELETE_POINTER_VECTORListSize];SAFE_DELETE(l_p);}SAFE_DELETE(List);}
 //std::vector<std::vector<Dataooxx*>*>
-#define DELETE_VECTOR_VECTORPOINTER(List){for( size_t i = 0;i<List.size();++i){auto l_pDataVector = List[i];if( l_pDataVector ){DELETE_VECTOR((*l_pDataVector));SAFE_DELETE(l_pDataVector);}}List.clear();}
+#define DELETE_VECTOR_VECTORPOINTER(List){for( size_t l_uiDELETE_VECTOR_VECTORPOINTERSize = 0;l_uiDELETE_VECTOR_VECTORPOINTERSize<List.size();++l_uiDELETE_VECTOR_VECTORPOINTERSize){auto l_pDataVector = List[l_uiDELETE_VECTOR_VECTORPOINTERSize];if( l_pDataVector ){DELETE_VECTOR((*l_pDataVector));SAFE_DELETE(l_pDataVector);}}List.clear();}
 
 #define CLEAR_AND_DELETE_OBJECT_IN_LIST(LIST){auto l_pObject = LIST->back();delete l_pObject;LIST->pop_back();LIST->clear();}
 

@@ -112,7 +112,7 @@ void	cSceneManager::DebugRender()
 void	cSceneManager::Init()
 {
 	this->ParseWithMyParse(GetFishGameFileName(eFGFN_SCENE_MANAGER_FILE_NAME).c_str());
-	this->SetCurrentPhase(m_CurrentSceneData.iSceneIndex);
+	this->SetCurrentCurrentPhase(m_CurrentSceneData.iSceneIndex);
 	cPhaseManagerInPhaseManager*l_pPhaseManager = (cPhaseManagerInPhaseManager*)this->GetObject(m_CurrentSceneData.iSceneIndex);
 	if (l_pPhaseManager)
 	{
@@ -132,7 +132,11 @@ void	cSceneManager::Update(float e_fElpaseTime)
 
 void	cSceneManager::Render()
 {
-
+	cPhaseManagerInPhaseManager::Render();
+	//if (m_pSceneChangeFishGroupManager)
+	//{
+	//	m_pSceneChangeFishGroupManager->Render();
+	//}
 }
 
 void	cSceneManager::Destroy()

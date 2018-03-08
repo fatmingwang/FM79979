@@ -55,6 +55,9 @@
     <Filter Include="Game\IO\Comport">
       <UniqueIdentifier>{867def8f-5a89-410b-8c52-2147629a7add}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameApp">
+      <UniqueIdentifier>{9d6f3a8f-a199-4655-83a8-32a1e0e89717}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -62,12 +65,6 @@
     </ClCompile>
     <ClCompile Include="Win32.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\GameApp\Sample.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\GameApp\TestShader.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Game\Bullet\Bullet.cpp">
       <Filter>Game\Bullet</Filter>
@@ -89,12 +86,6 @@
     </ClCompile>
     <ClCompile Include="..\Game\GameDefine\GameDefine.cpp">
       <Filter>Game\GameDefine</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\GameApp\FishGameApp.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Game\GameApp\FishGameObject.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Game\GameEffect\GameEffectBase.cpp">
       <Filter>Game\GameEffect</Filter>
@@ -192,11 +183,23 @@
     <ClCompile Include="..\Game\Probability\FishShowPaobability.cpp">
       <Filter>Game\Probability</Filter>
     </ClCompile>
+    <ClCompile Include="..\Game\GameApp\FishGameApp.cpp">
+      <Filter>Game\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\FishGameObject.cpp">
+      <Filter>Game\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\Sample.cpp">
+      <Filter>Game\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\TestShader.cpp">
+      <Filter>Game\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Game\GameApp\FishGameUtility.cpp">
+      <Filter>Game\GameApp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Game\GameApp\TestShader.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\Game\RenderLayer\RenderLayerBase.h">
       <Filter>Game\RenderLayer</Filter>
     </ClInclude>
@@ -226,9 +229,6 @@
     </ClInclude>
     <ClInclude Include="..\Game\GameDefine\GameDefine.h">
       <Filter>Game\GameDefine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Game\GameApp\FishGameApp.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Game\GameEffect\GameEffectBase.h">
       <Filter>Game\GameEffect</Filter>
@@ -325,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="..\Game\Probability\FishShowPaobability.h">
       <Filter>Game\Probability</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameApp\FishGameApp.h">
+      <Filter>Game\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Game\GameApp\TestShader.h">
+      <Filter>Game\GameApp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

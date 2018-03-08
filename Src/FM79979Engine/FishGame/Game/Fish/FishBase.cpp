@@ -18,6 +18,19 @@ eFishBodyType	GetFishBodyTypeByString(const wchar_t *e_str)
 	return eFBT_Total;
 }
 
+const wchar_t*	FishBodyTypeToString(eFishBodyType e_eFishBodyType)
+{
+	if (e_eFishBodyType == eFBT_Small)
+		return L"Small";
+	if (e_eFishBodyType == eFBT_Medium)
+		return L"Medium";
+	if (e_eFishBodyType == eFBT_Big)
+		return L"Big";
+	if (e_eFishBodyType == eFBT_Enormous)
+		return L"Enormous";
+	return L"Total";
+}
+
 cFishBase::cFishBase()
 {
 	m_pCurrentbtShapeCollision = nullptr;
@@ -33,6 +46,7 @@ cFishBase::cFishBase()
 
 cFishBase::cFishBase(cFishBase*e_pFishBase)
 {
+	SetName(e_pFishBase->GetName());
 	this->SetLocalTransform(e_pFishBase->GetLocalTransform());
 	m_pCurrentbtShapeCollision = nullptr;
 	m_pAnimationMPDIList = e_pFishBase->m_pAnimationMPDIList;
@@ -42,6 +56,7 @@ cFishBase::cFishBase(cFishBase*e_pFishBase)
 		if (e_pFishBase->m_pStatusAnimation[i])
 		{
 			m_pStatusAnimation[i] = new cMPDI(e_pFishBase->m_pStatusAnimation[i]);
+			m_pStatusAnimation[i]->Init();
 			m_pStatusAnimation[i]->SetParent(this);
 		}
 		else
@@ -112,7 +127,6 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			if (l_pMPDI)
 			{
 				m_pStatusAnimation[eFS_MOVING] = new cMPDI(l_pMPDI);
-				m_pStatusAnimation[eFS_MOVING]->SetDoPositionOffsetToCenter(true);
 				Vector2	l_vSize = m_pStatusAnimation[eFS_MOVING]->GetDrawSize();
 				m_fRadius = l_vSize.x>l_vSize.y ? l_vSize.x : l_vSize.y;
 				m_fRadius /= 2.f;
@@ -129,7 +143,6 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			if (l_pMPDI)
 			{
 				m_pStatusAnimation[eFS_DIED_SHOW] = new cMPDI(l_pMPDI);
-				m_pStatusAnimation[eFS_DIED_SHOW]->SetDoPositionOffsetToCenter(true);
 			}
 			else
 			{
@@ -143,7 +156,6 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 			if (l_pMPDI)
 			{
 				m_pStatusAnimation[eFS_STRUGGLE] = new cMPDI(l_pMPDI);
-				m_pStatusAnimation[eFS_STRUGGLE]->SetDoPositionOffsetToCenter(true);
 			}
 			else
 			{
@@ -166,6 +178,7 @@ void	cFishBase::ProcessStatusAnimationData(TiXmlElement*e_pTiXmlElement)
 		if (m_pStatusAnimation[i])
 		{
 			m_pStatusAnimation[i]->Init();
+			m_pStatusAnimation[eFS_MOVING]->SetDoPositionOffsetToCenter(true);
 			m_pStatusAnimation[i]->SetParent(this);
 		}
 	}
@@ -190,6 +203,8 @@ void	cFishBase::SetTransform(Vector3 e_vPos, float e_fAngle, Vector3 e_vOffsetPo
 
 void	cFishBase::SetTransformCollision(cMatrix44 e_mat)
 {
+	if (m_eFishStatus == eFS_DIED_SHOW)
+		return;
 	cMPDI*l_pMPDI = this->m_pStatusAnimation[this->m_eFishStatus];
 	if (l_pMPDI)
 	{

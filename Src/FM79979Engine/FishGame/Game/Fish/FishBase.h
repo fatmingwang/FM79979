@@ -20,6 +20,7 @@ enum	eFishBodyType
 };
 
 eFishBodyType	GetFishBodyTypeByString(const wchar_t *e_str);
+const wchar_t*	FishBodyTypeToString(eFishBodyType e_eFishBodyType);
 class cPIUnitAndPointsVector;
 
 class cFishBase : public cRenderObject

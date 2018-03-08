@@ -17,7 +17,9 @@ cFAIFish::cFAIFish(cFAIFish*e_pFAIFish):cFishBase(e_pFAIFish)
 {
 	m_pFAIMachine = nullptr;
 	if (e_pFAIFish->m_pFAIMachine)
+	{
 		m_pFAIMachine = new cFAIMachine(e_pFAIFish->m_pFAIMachine);
+	}
 }
 
 cFAIFish*cFAIFish::GetMe(TiXmlElement*e_pElement)
@@ -46,6 +48,10 @@ void	cFAIFish::ProcessFAIMachineData(TiXmlElement*e_pTiXmlElement)
 			if (l_pFAIMachine)
 			{
 				this->m_pFAIMachine = dynamic_cast<cFAIMachine*>(l_pFAIMachine->Clone());
+				cFAICharacterInterface*l_pFAICharacterInterface = m_pFAIMachine->GetSrcCharacter();
+				sSphere l_sSphere(Vector3(0, 0, 0), this->m_fRadius);
+				cBound l_Bound(l_sSphere);
+				l_pFAICharacterInterface->SetLocalBound(&l_Bound);
 			}
 			else
 			{
@@ -56,10 +62,47 @@ void	cFAIFish::ProcessFAIMachineData(TiXmlElement*e_pTiXmlElement)
 }
 
 
+Vector3		cFAIFish::GetRandomFishShowPos()
+{
+	sMinMaxData<float>	l_fPosX;
+	sMinMaxData<float>	l_fPosY;
+	Vector2 l_vWallSize = cGameApp::m_svGameResolution;
+
+	l_fPosX.Max = l_vWallSize.x;		l_fPosX.Min = 0.f;
+	l_fPosY.Max = l_vWallSize.y;		l_fPosY.Min = 0.f;
+	int	l_iDirection = rand()%4;
+	Vector3	l_vPos;
+	switch (l_iDirection)
+	{
+	case 0://eD_LEFT
+		l_vPos.x = -m_fRadius;
+		l_vPos.y = l_fPosY.Rand();
+		break;
+	case 1://eD_UP
+		l_vPos.x = l_fPosX.Rand();
+		l_vPos.y = -m_fRadius;
+		break;
+	case 2://eD_RIGHT:
+		l_vPos.x = l_vWallSize.x + m_fRadius;
+		l_vPos.y = l_fPosY.Rand();
+		break;
+	case 3://eD_DOWN:
+		l_vPos.x = l_fPosX.Rand();
+		l_vPos.y = l_vWallSize.y + m_fRadius;
+		break;
+	}
+	l_vPos.z = 0.f;
+	return l_vPos;
+}
+
 void	cFAIFish::InternalInit()
 {
+	assert(m_pFAIMachine&&"cFAIFish not FAI?");
 	if (m_pFAIMachine)
 	{
+		Vector3 l_vFishPos = GetRandomFishShowPos();
+		cFAICharacterInterface*l_pFAICharacterInterface = m_pFAIMachine->GetSrcCharacter();
+		l_pFAICharacterInterface->SetLocalPosition(l_vFishPos);
 		m_pFAIMachine->Init();
 	}
 }
@@ -69,6 +112,23 @@ void	cFAIFish::InternalUpdate(float e_fElpaseTime)
 	if (m_pFAIMachine)
 	{
 		m_pFAIMachine->Update(e_fElpaseTime);
+		cFAICharacterInterface*l_pFAICharacterInterface = m_pFAIMachine->GetSrcCharacter();
+		cMatrix44 l_mat = l_pFAICharacterInterface->GetWorldTransform();
+		if (m_pFAIMachine->IsDone())
+		{
+			Vector4 l_vWall(0, 0, cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
+			if(SphereCollideRect(l_vWall, l_mat.GetTranslation(),m_fRadius))
+			{ 
+				MonsterLeave();
+			}
+			else
+			{//not in the scene 
+
+				this->m_eFishStatus = eFS_WAITING_FOR_CLEAN;
+			}
+		}
+		Vector3 l_vAngle = *l_pFAICharacterInterface->GetAngle();
+		this->SetTransform(l_mat.GetTranslation(), l_vAngle.z- D3DXToRadian(90),Vector3::Zero);
 	}
 }
 
@@ -80,7 +140,7 @@ cFAIMachine*	cFAIFish::GetAIMachine()
 
 void			cFAIFish::MonsterLeave()
 {
-
+	m_pFAIMachine->SetCurrentWorkingObject(L"Leave");
 }
 
 void			cFAIFish::SetAIMachine(cFAIMachine* e_pFAIMachine)
@@ -95,5 +155,6 @@ void	cFAIFish::DebugRender()
 	{
 		m_pFAIMachine->Render();
 		m_pFAIMachine->DebugRender();
+		cFishBase::DebugRender();
 	}
 }

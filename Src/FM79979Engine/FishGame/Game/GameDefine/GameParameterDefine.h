@@ -25,3 +25,4 @@
 
 //for debug render
 #define	SCENE_MANAGER_DEBUG_RENDER_POS				Vector2(30,600)
+#define	FISH_BODY_AMOUNT_DEBUG_RENDER_POS			Vector2(30,300)

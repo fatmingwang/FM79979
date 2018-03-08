@@ -34,6 +34,7 @@
     <ClCompile Include="..\Game\Fish\FAIFish.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameApp.cpp" />
     <ClCompile Include="..\Game\GameApp\FishGameObject.cpp" />
+    <ClCompile Include="..\Game\GameApp\FishGameUtility.cpp" />
     <ClCompile Include="..\Game\GameApp\Sample.cpp" />
     <ClCompile Include="..\Game\GameApp\TestShader.cpp" />
     <ClCompile Include="..\Game\GameDefine\GameDefine.cpp" />

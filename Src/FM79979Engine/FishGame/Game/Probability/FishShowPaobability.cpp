@@ -80,6 +80,9 @@ void	cFishShowProbability::Update(float e_fElpaseTime)
 		for (int i = 0; i < eFBT_Total; ++i)
 		{
 			int l_iDiff = m_FishBodyTypeAllowToShowCountWithCurrentPlayerCountSetup[i] - m_CurrentFishBodyTypeFishCount.iFishCountByFishBodyType[i];
+			const int l_ciOneTimeFishLimit = 5;
+			if (l_iDiff > l_ciOneTimeFishLimit)
+				l_iDiff = l_ciOneTimeFishLimit;
 			if(l_iDiff > 0 )
 			{
 				for (int j = 0; j < l_iDiff; ++j)
