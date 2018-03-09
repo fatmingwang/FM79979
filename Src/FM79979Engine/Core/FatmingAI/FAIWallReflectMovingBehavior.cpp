@@ -49,7 +49,7 @@ namespace FATMING_AI
 	void    cFAIWallReflectMovingBehavior::InternalInit()
 	{
 		float	l_fRadius = 10.f;
-		cBound*l_pBound = this->GetSrcCharacter()->GetBound();
+		const cBound*l_pBound = this->GetSrcCharacter()->GetWorldBound();
 		if( l_pBound )
 		{
 			if(l_pBound->GetType() == cBound::Sphere_Bound)
@@ -70,7 +70,7 @@ namespace FATMING_AI
 		if( m_CurrentWallHitTC.bTragetTimrReached )
 			this->m_bSatisfiedCondition = true;
 		float	l_fRadius = 10.f;
-		cBound*l_pBound = this->GetSrcCharacter()->GetBound();
+		const cBound*l_pBound = this->GetSrcCharacter()->GetWorldBound();
 		if( l_pBound )
 		{
 			if(l_pBound->GetType() == cBound::Sphere_Bound)

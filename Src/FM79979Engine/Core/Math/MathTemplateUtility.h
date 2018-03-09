@@ -98,10 +98,16 @@ namespace UT
 			NUMBER_TYPE	l_RandProbabilityValue = rand((NUMBER_TYPE)0,(NUMBER_TYPE)m_TotalProbabiliy);
 			for( int i=0;i<l_iSize;++i )
 			{
-				l_ProbabilityValue += ProbabilityVector[l_RandomTable[i]];
+				auto l_AddValue = ProbabilityVector[l_RandomTable[i]];
+				//probability is 0 dont need this.
+				if (l_AddValue == 0)
+					continue;
+				l_ProbabilityValue += l_AddValue;
 				if( l_ProbabilityValue >= l_RandProbabilityValue )
 					return i;
 			}
+			if (l_ProbabilityValue == 0)
+				return -1;
 			return l_iSize-1;
 		}
 		void						Clear(){ ProbabilityVector.clear(); m_TotalProbabiliy = 0; }

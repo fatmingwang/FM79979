@@ -49,7 +49,7 @@ namespace FATMING_AI
 	{
 		m_CurveWithTime.Destroy();
 		m_CurveWithTime.SetLOD(1);
-		cBound*l_pBound = this->m_pSrcCharacter->GetBound();
+		const cBound*l_pBound = this->m_pSrcCharacter->GetWorldBound();
 		if( l_pBound )
 		{
 			if(l_pBound->GetType() == cBound::Sphere_Bound)

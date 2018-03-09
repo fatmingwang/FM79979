@@ -5,15 +5,10 @@ namespace FATMING_AI
 {
 	const wchar_t*	cFAICharacterInterface::TypeID( L"cFAICharacterInterface" );
     //const wchar_t*cFAICharacterInterface::TypeID( L"cFAICharacterInterface" );
-	cFAICharacterInterface::cFAICharacterInterface(cFAICharacterInterface*e_pAICharacterInterface)
+	cFAICharacterInterface::cFAICharacterInterface(cFAICharacterInterface*e_pAICharacterInterface):Frame(e_pAICharacterInterface)
 	{
-		m_pBound = 0;
 		m_pAICharacterStatus = 0;
 		m_fAnimationSpeed = e_pAICharacterInterface->m_fAnimationSpeed;
-		if( e_pAICharacterInterface->m_pBound )
-		{
-			m_pBound = new cBound(*e_pAICharacterInterface->m_pBound);
-		}
 		m_v2DAngle = Vector3::Zero;
 		m_fSpeed = e_pAICharacterInterface->m_fSpeed;
 		m_fRunSpeed = e_pAICharacterInterface->m_fRunSpeed;
@@ -23,7 +18,6 @@ namespace FATMING_AI
 	//<cFAICharacterInterface Speed="" RunSpeed=""/>
     cFAICharacterInterface::cFAICharacterInterface(TiXmlElement*e_pElement)
     {
-		m_pBound = 0;
 		m_v2DAngle = Vector3::Zero;
 		m_fSpeed = 10.f;
 		m_fAnimationSpeed = 1.f;
@@ -33,7 +27,6 @@ namespace FATMING_AI
 
 	cFAICharacterInterface::cFAICharacterInterface()
 	{
-		m_pBound = 0;
 		m_v2DAngle = Vector3::Zero;
 		m_fSpeed = 10.f;
 		m_fAnimationSpeed = 1.f;
@@ -42,7 +35,6 @@ namespace FATMING_AI
 
 	cFAICharacterInterface::~cFAICharacterInterface()
 	{
-		SAFE_DELETE(m_pBound);
 		SAFE_DELETE(m_pAICharacterStatus);
 	}
 
@@ -84,16 +76,6 @@ namespace FATMING_AI
 		//		l_pbtConcaveShapeList->Render();
 		//	}
 		//}
-	}
-
-	void	 cFAICharacterInterface::SetBound(cBound*e_pData)
-	{
-		if(m_pBound)
-		{
-			*m_pBound = *e_pData;
-		}
-		else
-			m_pBound = new cBound(*e_pData);
 	}
 
 	bool	cFAICharacterInterface::IsCharacterBehaviorStatusLock()

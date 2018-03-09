@@ -60,14 +60,17 @@ Frame::Frame(Frame*e_pFrame)
 	m_bIgnoreChildrenUpdate = e_pFrame->m_bIgnoreChildrenUpdate;
 	m_pLocalBound = nullptr;
     m_pCachedWorldBound = nullptr;
+	m_pParent = nullptr;
+	m_pNextSibling = nullptr;
+	m_pFirstChild = nullptr;
 	m_bAutoUpdateBound = e_pFrame->m_bAutoUpdateBound;
 	if( e_pFrame->m_pLocalBound )
 	{
+#ifdef DEBUG
+		auto l_Sphere = e_pFrame->m_pLocalBound->GetSphere();
+#endif
 		this->SetLocalBound(e_pFrame->m_pLocalBound);
 	}
-    m_pParent = nullptr;
-    m_pNextSibling = nullptr;
-    m_pFirstChild = nullptr;
     m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;
 	m_bDestroyConnectionWhileDestroy =  true;
 	SetName(e_pFrame->GetName());

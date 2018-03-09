@@ -124,7 +124,7 @@ namespace FATMING_AI
 		float	l_fScaleX = m_fXDistance.Rand();
 		float	l_fScaleY = m_fYDistance.Rand();
 		float	l_fBound = 10.f;
-		cBound*l_pBound = this->GetSrcCharacter()->GetBound();
+		const cBound*l_pBound = this->GetSrcCharacter()->GetWorldBound();
 		if( l_pBound )
 		{
 			if(l_pBound->GetType() == cBound::Sphere_Bound)
@@ -177,7 +177,7 @@ namespace FATMING_AI
 				this->m_bSatisfiedCondition = true;
 			float	l_fBound = 10.f;
 			Vector3	l_vDirection = m_CurveWithTime.GetCurrentDirection();
-			cBound*l_pBound = this->GetSrcCharacter()->GetBound();
+			const cBound*l_pBound = this->GetSrcCharacter()->GetWorldBound();
 			if( l_pBound )
 			{
 				if(l_pBound->GetType() == cBound::Sphere_Bound)
