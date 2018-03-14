@@ -418,12 +418,17 @@ namespace UT
 		{
 			try
 			{
-				std::wstring	l_str = e_strErrMsg1;
-				std::wstring	l_str2 = e_strErrMsg2;
-				if(MessageBox(0,e_strErrMsg1,e_strErrMsg2,MB_YESNO)==6)
+				static bool l_bMessageBoxLeave = false;
+				if (!l_bMessageBoxLeave)
 				{
-					assert(0);
-					//exit(0);
+					std::wstring	l_str = e_strErrMsg1;
+					std::wstring	l_str2 = e_strErrMsg2;
+					if (MessageBox(0, e_strErrMsg1, e_strErrMsg2, MB_YESNO) == 6)
+					{
+						assert(0);
+						//exit(0);
+					}
+					l_bMessageBoxLeave = true;
 				}
 			}
 			catch(const std::exception& ex)
@@ -528,21 +533,33 @@ namespace UT
 	//here are some varargs3(5)
 	//hello, world
 	// 
+	//https://stackoverflow.com/questions/15836392/c-passing-variable-number-of-arguments-from-one-function-to-another
+	//void modifyAndPrintMessage(char* message, ...)
+	//{
+	//	// do somehthing custom
+
+	//	va_list args;
+	//	va_start(args, message);
+
+	//	vprintf(newMessage, args);
+
+	//	va_end(args);
+	//}
+	//variable arguments
 	void	ErrorMsgByFormat(const char*e_strErrMsg1,...)
 	{
+		std::string	l_str;
+		char str[2048];
 		va_list pArgList;
-		va_start( pArgList, e_strErrMsg1 );
-		DebugSpewV( e_strErrMsg1, pArgList );
-		va_end( pArgList );		
+		va_start(pArgList, e_strErrMsg1);
+		vsnprintf(str, sizeof(str), e_strErrMsg1, pArgList);
+		va_end(pArgList);
+		l_str = str;
+		UT::ErrorMsg(l_str.c_str(), "Error");
 	}
 
 	std::wstring			ComposeMsgByFormat(const wchar_t*e_strErrMsg1,...)
 	{
-//#ifdef ANDROID
-//		std::wstring	l_str;
-//		assert(0);
-//		return l_str;
-//#endif
 		std::wstring	l_str;
 		va_list pArgList;
 		va_start( pArgList, e_strErrMsg1 );
@@ -569,10 +586,18 @@ namespace UT
 	}
 	void					ErrorMsgByFormat(const wchar_t*e_strErrMsg1,...)
 	{
+		std::wstring	l_str;
 		va_list pArgList;
-		va_start( pArgList, e_strErrMsg1 );
-		DebugSpewV( e_strErrMsg1, pArgList );
-		va_end( pArgList );			
+		va_start(pArgList, e_strErrMsg1);
+		wchar_t str[2048];
+#ifdef _WIN32
+		_vsnwprintf(str, sizeof(str), e_strErrMsg1, pArgList);
+#else
+		vswprintf(str, sizeof(str), e_strErrMsg1, pArgList);
+#endif
+		va_end(pArgList);
+		l_str = str;
+		UT::ErrorMsg(l_str.c_str(), L"Error");
 	}
 //===============================
 //

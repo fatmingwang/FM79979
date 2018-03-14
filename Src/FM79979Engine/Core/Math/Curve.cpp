@@ -585,6 +585,30 @@ namespace FATMING_CORE
 	
 	}
 
+	cCurveWithTime cCurveWithTime::operator=(const cCurveWithTime&e_Other)
+	{
+		cCurveWithTime l_cCurveWithTime(e_Other);
+		return l_cCurveWithTime;
+	}
+
+	cCurveWithTime::cCurveWithTime(const cCurveWithTime&e_CurveWithTime) :cCurve(e_CurveWithTime), cFMTimeLineAnimationRule(e_CurveWithTime), Frame(e_CurveWithTime)
+	{
+		m_vMovedCoordinate = Vector3::Zero;
+		m_vCurrentDirection = e_CurveWithTime.m_vCurrentDirection;
+		m_OriginalTimeList = e_CurveWithTime.m_OriginalTimeList;
+		m_FinalTimeList = e_CurveWithTime.m_FinalTimeList;
+		m_vCurrentPosition = e_CurveWithTime.m_vCurrentPosition;
+		m_fPreviousPosToNextPointAngle = e_CurveWithTime.m_fPreviousPosToNextPointAngle;
+		m_fCurrentPosToNextPointAngle = e_CurveWithTime.m_fCurrentPosToNextPointAngle;
+		m_fCurrentTime = e_CurveWithTime.m_fCurrentTime;
+		m_iCurrentPointIndex = e_CurveWithTime.m_iCurrentPointIndex;
+		m_iPerviousPointIndex = e_CurveWithTime.m_iPerviousPointIndex;
+		//m_bCurveMoveDone = e_CurveWithTime.m_bCurveMoveDone;
+		m_bCurveLoop = e_CurveWithTime.m_bCurveLoop;
+		m_bCalculateAngle = e_CurveWithTime.m_bCalculateAngle;
+		m_fCurrentLERPTime = e_CurveWithTime.m_fCurrentLERPTime;
+	}
+
 	cCurveWithTime::~cCurveWithTime()
 	{
 
@@ -1087,6 +1111,8 @@ namespace FATMING_CORE
 	Vector3	cCurveWithTime::GetClosePoint()
 	{
 		assert(this->m_OriginalPointList.size()>0&&"no point!! how to get close point");
+		if (m_iCurrentPointIndex == -1)
+			return m_OriginalPointList[0];
 		int	l_iIndex = (int)(((float)m_iCurrentPointIndex/(float)this->m_FinallyPointList.size())*m_iCurrentPointIndex);
 		return m_OriginalPointList[l_iIndex];
 	}

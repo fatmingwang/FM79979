@@ -151,7 +151,20 @@ namespace FATMING_CORE
 		GET_SET_DEC(float,m_fCurrentLERPTime,GetCurrentLERPTime,SetCurrentLERPTime);
 		//
 		void		MovedDistanceCalculate(float e_fElpaseTime);
+
 	public:
+		//
+		DEFINE_TYPE_INFO()
+		//======================
+		cCurveWithTime();
+		cCurveWithTime(cCurveWithTime*e_pCurveWithTime);
+		//avoid same unique ID
+		cCurveWithTime(const cCurveWithTime&e_CurveWithTime);
+		cCurveWithTime operator=(const cCurveWithTime& e_Other);
+		cCurveWithTime(TiXmlElement*e_pTiXmlElement);
+		CLONE_MYSELF(cCurveWithTime);
+		virtual ~cCurveWithTime();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 		//inherit from cFMTimeLineAnimationRule
 		virtual	void	RearrangeTime(float e_fNewMaxTime)override;
 		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override;
@@ -161,14 +174,6 @@ namespace FATMING_CORE
 		virtual	float	GetEndTime()override;//float			GetLastTime();
 		virtual	void	Destroy()override;//void	Clear();
 		//
-		DEFINE_TYPE_INFO()
-		//======================
-		cCurveWithTime();
-		cCurveWithTime(cCurveWithTime*e_pCurveWithTime);
-		cCurveWithTime(TiXmlElement*e_pTiXmlElement);
-		CLONE_MYSELF(cCurveWithTime);
-		virtual ~cCurveWithTime();
-		virtual	TiXmlElement*		ToTiXmlElement()override;
 		//add point by speficif time and position
 		virtual	void	AddPoint(Vector3 e_vPos,float e_fTime);
 		virtual	void	DelPoint(int e_iIndex)override;

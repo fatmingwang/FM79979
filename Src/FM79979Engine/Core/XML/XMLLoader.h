@@ -123,7 +123,7 @@ namespace FATMING_CORE
 
 
 	#define	PARSE_FAILED_MESSAGE_BOX(p,FileName)	if(!p->Parse(FileName)){ UT::ErrorMsg(FileName,"parse failed"); }
-
+	#define	PARSEWITHMYPARSE_FAILED_MESSAGE_BOX(p,FileName)	if(!p->ParseWithMyParse(FileName)){ UT::ErrorMsg(FileName,"parse failed"); }
 	#define	ATTRIBUT_VALUE(Element,Name) Element->Attribute(L## Name)
 	#define	ATTRIBUT_VALUE_WITH_DEFINE(Element,Name) Element->Attribute(Name)
 
