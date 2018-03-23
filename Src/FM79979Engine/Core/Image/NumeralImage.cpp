@@ -173,6 +173,9 @@ namespace FATMING_CORE
 	cNumeralImage::~cNumeralImage()
 	{
 		SAFE_DELETE(m_pfTexCoordinate);
+		SAFE_DELETE(m_pvVertexBuffer);
+		SAFE_DELETE(m_pvTextureUVBuffer);
+		SAFE_DELETE(m_pvColorBuffer);
 	}
 
 	void	cNumeralImage::GenerateVertexBuffer(int e_iNumBuffer)
