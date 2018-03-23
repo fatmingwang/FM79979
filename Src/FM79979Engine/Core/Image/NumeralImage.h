@@ -27,7 +27,11 @@ namespace FATMING_CORE
 	//
 	class	cNumeralImage:public cBaseImage
 	{
-		bool	m_bImageFromesource;
+		int				m_iVertexBufferCount;
+		Vector2*		m_pvVertexBuffer;
+		Vector2*		m_pvTextureUVBuffer;
+		Vector4*		m_pvColorBuffer;
+		void			GenerateVertexBuffer(int e_iNumBuffer);
 		GET_SET_DEC(float*,m_pfTexCoordinate,GetTexCoordinate,SetCoordinate);
 		GET_SET_DEC(int,m_iNumIndex,GetNumIndex,SetNumIndex);
 		//single image width
@@ -38,6 +42,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(eDirection,m_eDirection,GetDirection,SetDirection);
 		void	Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
 		int64	m_i64Value;
+		bool	m_bValueChanged;
 		GET_SET_DEC(bool,m_bDrawOnCenter,GetDrawOnCenter,SetDrawOnCenter);
 	public:
 		DEFINE_TYPE_INFO()

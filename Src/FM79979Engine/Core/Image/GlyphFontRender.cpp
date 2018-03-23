@@ -135,8 +135,8 @@ namespace FATMING_CORE
 			int	l_iAliveIndex = 0;
 			for(int i=0;i<l_iLen;++i)
 			{
-				float*l_pfVertexData = (float*)&m_pvVertexBuffer[l_iAliveIndex*6];
-				float*l_pfTextData = (float*)&m_pvTextureUVBuffer[l_iAliveIndex*6];
+				float*l_pfVertexData = (float*)&m_pvVertexBuffer[l_iAliveIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+				float*l_pfTextData = (float*)&m_pvTextureUVBuffer[l_iAliveIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 				//unicode
 				if( e_pString[i] == 13 && ((i+1<l_iLen)&&e_pString[i+1] == 10) )
 				{
@@ -208,7 +208,7 @@ namespace FATMING_CORE
 			float	l_fHalfHeight = l_fMaxHeight;
 			for(int i=0;i<l_iAliveIndex;++i)
 			{
-				float*l_pfVertexData = (float*)&m_pvVertexBuffer[i*6];
+				float*l_pfVertexData = (float*)&m_pvVertexBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
 				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;
 				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;

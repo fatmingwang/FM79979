@@ -344,7 +344,7 @@ namespace GLRender
 	
 	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName)
 	{
-		UseShaderProgram(DEFAULT_SHADER);
+		UseShaderProgram(e_strShaderName);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		myGlVertexPointer(e_iPosStride, e_pfVertices);
 		myGlUVPointer(2, e_pfTextureUV);

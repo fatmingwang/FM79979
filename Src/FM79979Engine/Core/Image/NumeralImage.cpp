@@ -11,8 +11,15 @@ namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cNumeralImage);
 	TYPDE_DEFINE_MARCO(cTimeNumerialImage);
+	const int	g_iNumNumber = 20;
 	cNumeralImage::cNumeralImage(char*e_strImageName):cBaseImage(e_strImageName)
 	{
+		m_bValueChanged = true;
+		m_iVertexBufferCount = 0;
+		m_pvVertexBuffer = nullptr;
+		m_pvTextureUVBuffer = nullptr;
+		m_pvColorBuffer = nullptr;
+		GenerateVertexBuffer(g_iNumNumber);
 		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		this->m_iSingleImageHeight = m_iHeight;	
@@ -35,6 +42,12 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cBaseImage*e_pImage,float*e_pftexCoordinate):cBaseImage(e_pImage)
 	{
+		m_bValueChanged = true;
+		m_iVertexBufferCount = 0;
+		m_pvVertexBuffer = nullptr;
+		m_pvTextureUVBuffer = nullptr;
+		m_pvColorBuffer = nullptr;
+		GenerateVertexBuffer(g_iNumNumber);
 		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		m_eDirection = eD_LEFT;
@@ -56,6 +69,12 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cBaseImage*e_pImage0,cBaseImage*e_pImage9):cBaseImage(e_pImage0)
 	{
+		m_bValueChanged = true;
+		m_iVertexBufferCount = 0;
+		m_pvVertexBuffer = nullptr;
+		m_pvTextureUVBuffer = nullptr;
+		m_pvColorBuffer = nullptr;
+		GenerateVertexBuffer(g_iNumNumber);
 		m_bDrawOnCenter = false;
 		m_i64Value = 0;
 		m_eDirection = eD_LEFT;
@@ -82,6 +101,13 @@ namespace FATMING_CORE
 
 	cNumeralImage::cNumeralImage(cNumeralImage*e_pNumeralImage):cBaseImage(e_pNumeralImage)
 	{
+		m_bValueChanged = true;
+		m_iVertexBufferCount = e_pNumeralImage->m_iVertexBufferCount;
+		m_pvVertexBuffer = new Vector2[m_iVertexBufferCount * 4];
+		m_pvTextureUVBuffer = new Vector2[m_iVertexBufferCount * 4];
+		m_pvColorBuffer = new Vector4[m_iVertexBufferCount * 4];
+		for (int i = 0; i<m_iVertexBufferCount * 4; ++i)
+			m_pvColorBuffer[i] = Vector4::One;
 		m_bDrawOnCenter = e_pNumeralImage->m_bDrawOnCenter;
 		m_i64Value = 0;
 		m_eDirection = e_pNumeralImage->m_eDirection;
@@ -154,75 +180,101 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pfTexCoordinate);
 	}
 
+	void	cNumeralImage::GenerateVertexBuffer(int e_iNumBuffer)
+	{
+		m_iVertexBufferCount = e_iNumBuffer;
+		//draw by quad...!?
+		m_pvVertexBuffer = new Vector2[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+		m_pvTextureUVBuffer = new Vector2[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+		m_pvColorBuffer = new Vector4[m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+		for (int i = 0; i<m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+			m_pvColorBuffer[i] = Vector4::One;
+	}
+
 	void	cNumeralImage::Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
 		if( !m_bVisible )
 			return;
 		std::string	l_str = e_strData;
 		int	l_iNum = e_iCount;
-		if( l_iNum )
+		float	l_fHalfWidth = 0.f;
+		float	l_fHalfHeight = 0.f;
+		float	l_fOffsetPosX = 0.f;
+		float	l_fOffsetPosY = 0.f;
+		//from small to big
+		assert(l_iNum < m_iVertexBufferCount&&"cNumeralImage buffersize is not enough...");
+		if (l_iNum > m_iVertexBufferCount)
+			l_iNum = m_iVertexBufferCount;
+		switch (m_eDirection)
 		{
-			float	l_fHalfWidth = 0.f;
-			float	l_fHalfHeight = 0.f;
-			float	l_fOffsetPosX = 0.f;
-			float	l_fOffsetPosY = 0.f;
-			switch(m_eDirection)
-			{
-				case eD_LEFT:
-					l_fOffsetPosX = (float)m_iSingleImageWidth;
-					l_fHalfWidth = (m_iSingleImageWidth*l_iNum/2.f);
-					l_fHalfHeight = m_iSingleImageHeight/2.f;
-					break;
-				case eD_DOWN:
-					l_fOffsetPosY = (float)m_iSingleImageHeight;
-					l_fHalfWidth = m_iSingleImageWidth/2.f;
-					l_fHalfHeight = m_iSingleImageHeight*l_iNum/2.f;
-					break;
-				default:
-					assert(0 &&" lazy to implement cNumeralImage::Draw");
-					break;
-			}
-			float	l_fImageHalfWidth = m_iSingleImageWidth/2.f;
-			float	l_fImageHalfHeight = m_iSingleImageHeight/2.f;
-			float	l_fPosX = -l_fHalfWidth;
-			float	l_fPosY = -l_fHalfHeight;
-			//from small to big
-			for( int i=0;i<l_iNum;++i )
-			{
-				float	*l_pfVertices	=	&g_fGlobalTempBufferForRenderVertices[i*3*6];
-				float	*l_pfUV			=	&g_fGlobalTempBufferForRenderUV[i*2*6];
-				float	*l_pfColor		=	&g_fGlobalTempBufferForRenderColor[i*4*6];
+		case eD_LEFT:
+			l_fOffsetPosX = (float)m_iSingleImageWidth;
+			l_fHalfWidth = (m_iSingleImageWidth*l_iNum / 2.f);
+			l_fHalfHeight = m_iSingleImageHeight / 2.f;
+			break;
+		case eD_DOWN:
+			l_fOffsetPosY = (float)m_iSingleImageHeight;
+			l_fHalfWidth = m_iSingleImageWidth / 2.f;
+			l_fHalfHeight = m_iSingleImageHeight * l_iNum / 2.f;
+			break;
+		default:
+			assert(0 && " lazy to implement cNumeralImage::Draw");
+			break;
+		}
+		if (m_bValueChanged)
+		{
+			m_bValueChanged = false;
+			if (l_iNum)
+			{				
+				float	l_fImageHalfWidth = m_iSingleImageWidth / 2.f;
+				float	l_fImageHalfHeight = m_iSingleImageHeight / 2.f;
+				float	l_fPosX = -l_fHalfWidth;
+				float	l_fPosY = -l_fHalfHeight;
+				for (int i = 0; i < l_iNum; ++i)
+				{
+					float	*l_pfVertices = (float*)&m_pvVertexBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+					float	*l_pfUV = (float*)&m_pvTextureUVBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+					float	*l_pfColor = (float*)&m_pvColorBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 
-				AssignUVDataTo2Triangles(&m_pfTexCoordinate[(l_str[i]-'0')*4],l_pfUV,false);
-				for( int j=0;j<6;++j )
-					memcpy(&l_pfColor[j*4],&m_vColor,sizeof(Vector4));
-				Vector3	l_vPos[4];
-				l_vPos[0] = Vector3(l_fPosX						,l_fPosY,0.f);
-				l_vPos[1] = Vector3(l_fPosX+m_iSingleImageWidth	,l_fPosY,0.f);
-				l_vPos[2] = Vector3(l_fPosX						,l_fPosY+m_iSingleImageHeight,0.f);
-				l_vPos[3] = Vector3(l_fPosX+m_iSingleImageWidth	,l_fPosY+m_iSingleImageHeight,0.f);
-				Assign4VerticesDataTo2Triangles((float*)l_vPos,l_pfVertices,3);
-				l_fPosX += l_fOffsetPosX;
-				l_fPosY += l_fOffsetPosY;
-			}
-			UseShaderProgram(DEFAULT_SHADER);
-			this->ApplyImage();
-			cMatrix44 l_mat;
-			if( e_bCenter )
-			{
-				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0);
+					//float	*l_pfVertices = (float*)&m_pvVertexBuffer[i * l_i2TrianglesAre6Point];
+					//float	*l_pfUV = (float*)&m_pvTextureUVBuffer[i * l_i2TrianglesAre6Point];
+					//float	*l_pfColor = (float*)&m_pvColorBuffer[i * l_i2TrianglesAre6Point];
+
+					AssignUVDataTo2Triangles(&m_pfTexCoordinate[(l_str[i] - '0') * 4], l_pfUV, false);
+					for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
+						memcpy(&l_pfColor[j * 4], &m_vColor, sizeof(Vector4));
+					Vector2	l_vPos[4];
+					l_vPos[0] = Vector2(l_fPosX, l_fPosY);
+					l_vPos[1] = Vector2(l_fPosX + m_iSingleImageWidth, l_fPosY);
+					l_vPos[2] = Vector2(l_fPosX, l_fPosY + m_iSingleImageHeight);
+					l_vPos[3] = Vector2(l_fPosX + m_iSingleImageWidth, l_fPosY + m_iSingleImageHeight);
+					Assign4VerticesDataTo2Triangles((float*)l_vPos, l_pfVertices, 2);
+					l_fPosX += l_fOffsetPosX;
+					l_fPosY += l_fOffsetPosY;
+				}
 			}
 			else
 			{
-				int	l_iMinusCount = l_iNum-1;
-				l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0)*cMatrix44::TranslationMatrix(l_fHalfWidth-l_iMinusCount*m_iSingleImageWidth,l_fHalfHeight,0.f);
+				return;
 			}
-			if( e_pmat )
-			{
-				l_mat = l_mat*cMatrix44(e_pmat);
-			}
-			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, l_mat,3, l_iNum*ONE_QUAD_IS_TWO_TRIANGLES);
 		}
+		UseShaderProgram(DEFAULT_SHADER);
+		this->ApplyImage();
+		cMatrix44 l_mat;
+		if( e_bCenter )
+		{
+			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0);
+		}
+		else
+		{
+			int	l_iMinusCount = l_iNum-1;
+			l_mat = cMatrix44::TranslationMatrix((float)e_iPosX,(float)e_iPosY,0)*cMatrix44::TranslationMatrix(l_fHalfWidth-l_iMinusCount*m_iSingleImageWidth,l_fHalfHeight,0.f);
+		}
+		if( e_pmat )
+		{
+			l_mat = l_mat*cMatrix44(e_pmat);
+		}
+		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum*ONE_QUAD_IS_TWO_TRIANGLES);
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
@@ -262,6 +314,8 @@ namespace FATMING_CORE
 
 	void	cNumeralImage::SetValue(int64 e_i64Value)
 	{
+		if (m_i64Value != e_i64Value)
+			m_bValueChanged = true;
 		m_i64Value = e_i64Value;
 	}
 
