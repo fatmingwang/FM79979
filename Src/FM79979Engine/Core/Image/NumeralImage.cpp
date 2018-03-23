@@ -102,12 +102,7 @@ namespace FATMING_CORE
 	cNumeralImage::cNumeralImage(cNumeralImage*e_pNumeralImage):cBaseImage(e_pNumeralImage)
 	{
 		m_bValueChanged = true;
-		m_iVertexBufferCount = e_pNumeralImage->m_iVertexBufferCount;
-		m_pvVertexBuffer = new Vector2[m_iVertexBufferCount * 4];
-		m_pvTextureUVBuffer = new Vector2[m_iVertexBufferCount * 4];
-		m_pvColorBuffer = new Vector4[m_iVertexBufferCount * 4];
-		for (int i = 0; i<m_iVertexBufferCount * 4; ++i)
-			m_pvColorBuffer[i] = Vector4::One;
+		GenerateVertexBuffer(e_pNumeralImage->m_iVertexBufferCount);
 		m_bDrawOnCenter = e_pNumeralImage->m_bDrawOnCenter;
 		m_i64Value = 0;
 		m_eDirection = e_pNumeralImage->m_eDirection;
