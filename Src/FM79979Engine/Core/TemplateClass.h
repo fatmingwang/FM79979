@@ -680,6 +680,11 @@ public:
 	cSingltonTemplate()
 	{
 		assert(m_pInstance == nullptr && "singlton only can have one instance");
+		cGameApp::OutputDebugInfoString(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%s", TYPE::TypeID));
+	}
+	virtual ~cSingltonTemplate()
+	{
+		cGameApp::OutputDebugInfoString(ComposeMsgByFormat(L"cSingltonTemplate destructor called:%s", TYPE::TypeID));
 	}
 };
 
