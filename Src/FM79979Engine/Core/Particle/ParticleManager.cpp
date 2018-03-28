@@ -371,8 +371,8 @@ namespace FATMING_CORE
 					{
 #ifdef _WIN32
 #ifdef DEBUG
-						cGameApp::OutputDebugInfoString(l_strValue);
-						cGameApp::OutputDebugInfoString(L" already exist skip parse\n");
+						FMLog::LogWithFlag(l_strValue, CORE_LOG_FLAG);
+						FMLog::LogWithFlag(L" already exist skip parse\n", CORE_LOG_FLAG);
 #endif
 #endif
 						return;

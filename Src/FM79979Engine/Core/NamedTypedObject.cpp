@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NamedTypedObject.h"
 #include "GameplayUT/GameApp.h"
-
+#include "GameplayUT/Log/FMLog.h"
 uint64				g_ui64GlobalUniqueID = 0;
 uint64				g_ui64TimeStamp = 0;
 NamedTypedObject*	g_pLatestNamedTypedObject = 0;
@@ -62,7 +62,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 						NamedTypedObject*l_pNamedTypedObject = (NamedTypedObject*)(*i);
 						wchar_t	l_strData[MAX_PATH];
 						swprintf(l_strData,MAX_PATH,L"unreleaseData---Type:%ls,Name:%ls,UniqueID:%llu\n",l_pNamedTypedObject->Type(),l_pNamedTypedObject->GetName(),l_pNamedTypedObject->GetUniqueID());
-						cGameApp::OutputDebugInfoString(l_strData);
+						FMLog::Log(l_strData, true);
 					}
 				}
 				SAFE_DELETE(g_pNameIndexedCollection);
@@ -79,17 +79,11 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 NamedTypedObject::NamedTypedObject()
 {
 	SetupInternalData();
-	//OutputDebugString(L"ID:");
-	//OutputDebugString(ValueToStringW(this->m_uiUniqueID).c_str());
-	//OutputDebugString(L"\n");
 }
 
 NamedTypedObject::~NamedTypedObject()
 {
 #ifdef DEBUG
-	//OutputDebugString(L"ID:");
-	//OutputDebugString(ValueToStringW(this->m_uiUniqueID).c_str());
-	//OutputDebugString(L"\n");
 	DebugResourceDelete(this);
 #endif
 	//Destroy();

@@ -1,4 +1,5 @@
 #include "../stdafx.h"
+#include "../GameplayUT/Log/FMLog.h"
 /*
 www.sourceforge.net/projects/tinyxml
 Original code (2.0 and earlier )copyright (c) 2000-2002 Lee Thomason (www.grinninglizard.com)
@@ -570,12 +571,8 @@ void TiXmlDocument::SetError( int err, const wchar_t* pError, TiXmlParsingData* 
 	// The first error in a chain is more accurate - don't set again!
 	if ( error )
 		return;
-#ifdef WIN32
-#ifdef DEBUG	
-	OutputDebugString(L"TiXmlDocument::SetError:");
-	OutputDebugString(FATMING_CORE::ValueToStringW(err).c_str());
-#endif
-#endif
+	FMLog::LogWithFlag(L"TiXmlDocument::SetError:", CORE_LOG_FLAG);
+	FMLog::LogWithFlag(FATMING_CORE::ValueToStringW(err).c_str(), CORE_LOG_FLAG);
 	assert( err > 0 && err < TIXML_ERROR_STRING_COUNT );
 	error   = true;
 	errorId = err;

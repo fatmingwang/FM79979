@@ -194,7 +194,7 @@ return false;
 	{
 		unsigned short iSize = *(unsigned short*)e_pPacket->pData;
 		unsigned short iMessageID = *(((unsigned short*)(e_pPacket->pData)) + 1);
-		cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", iMessageID));
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", iMessageID).c_str(), CORE_LOG_FLAG);
 		if (e_pPacket == nullptr)
 		{//for test
 			auto l_Iterator = m_NetworkMessageFunctionAndObjectIDMap.find(e_usID);

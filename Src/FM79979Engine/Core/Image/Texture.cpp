@@ -41,7 +41,7 @@ namespace FATMING_CORE
 #ifdef DEBUG
 		std::wstring l_strFileName = e_strName;
 		l_strFileName += L" start to parse:Texture";
-		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+		FMLog::LogWithFlag(l_strFileName, CORE_LOG_FLAG);
 #endif
 		m_pstrFullFileName = nullptr;
 		m_pPixels = 0;
@@ -97,10 +97,10 @@ namespace FATMING_CORE
 		{
 			assert((l_iWidthPO2<=texSize||l_iHeightPO2<=texSize)&&"texture size is too big then card support");
 	#ifdef DEBUG
-			cGameApp::OutputDebugInfoString(e_strName);
-			cGameApp::OutputDebugInfoString(L"  image has not correct respond width and height,because none power of 2\n", true, true);
+			FMLog::LogWithFlag(e_strName, CORE_LOG_FLAG);
+			FMLog::LogWithFlag(L"  image has not correct respond width and height,because none power of 2\n", true);
 			if( m_iPixelFormat == GL_RGB )
-				cGameApp::OutputDebugInfoString(L"UV is changed,because image size is not to become power of 2", true, true);
+				FMLog::LogWithFlag(L"UV is changed,because image size is not to become power of 2", true);
 	#endif
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,m_iPixelFormat==GL_RGBA?true:false);
 			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, l_iWidthPO2,l_iHeightPO2, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,e_strName); // Texture specification.
@@ -126,11 +126,11 @@ namespace FATMING_CORE
 		{
 			std::wstring l_strFileName = ValueToStringW(e_strImageFileName);
 			l_strFileName += L" start to parse:Texture";
-			cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+			FMLog::LogWithFlag(l_strFileName, true);
 		}
 		else
 		{
-			cGameApp::OutputDebugInfoString("start to parse:Texture but Imahe FileNmae is nullptr", true, true);
+			FMLog::LogWithFlag("start to parse:Texture but Imahe FileNmae is nullptr", true);
 		}
 #endif
 		m_iChannel = 0;
@@ -150,7 +150,7 @@ namespace FATMING_CORE
 #ifdef DEBUG
 			std::string l_strFileName = e_strImageFileName;
 			l_strFileName += "parse:Texture failed!";
-			cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+			FMLog::LogWithFlag(l_strFileName, true);
 #endif
 		}
 		cTextureManager::GetInstance()->AddObjectWithDebugInfo(this);
@@ -215,7 +215,7 @@ namespace FATMING_CORE
 		//	if (err)
 		//	{
 		//		//NVLogError("NvCreateTextureFromDDSEx error", "");
-		//		cGameApp::OutputDebugInfoString(L"NvCreateTextureFromDDSEx error");
+		//		FMLog::LogWithFlag(L"NvCreateTextureFromDDSEx error");
 		//	}
 
 		//	NVHHDDSFree(img);

@@ -76,13 +76,13 @@ namespace FATMING_CORE
 					l_bPlaySequence  =true;
 				}
 				l_pFMARQueuePlayer->SetTotalPlayTime(l_pFMARQueuePlayer->GetEndTime()+l_pFMARQueuePlayer->GetStartTime(),l_pFMARQueuePlayer->GetStartTime());
-				cGameApp::OutputDebugInfoString(L"\t");
-				cGameApp::OutputDebugInfoString(l_pFMARQueuePlayer->m_pFMAnimationRule->GetName());
-				cGameApp::OutputDebugInfoString(L"___Start:");
-				cGameApp::OutputDebugInfoString(ValueToStringW(l_pFMARQueuePlayer->m_fStartTime).c_str());
-				cGameApp::OutputDebugInfoString(L"___Total:");
-				cGameApp::OutputDebugInfoString(ValueToStringW(l_pFMARQueuePlayer->m_fTotalPlayTime).c_str());
-				cGameApp::OutputDebugInfoString(L"\n");
+				//FMLog::LogWithFlag(L"\t");
+				//FMLog::LogWithFlag(l_pFMARQueuePlayer->m_pFMAnimationRule->GetName());
+				//FMLog::LogWithFlag(L"___Start:");
+				//FMLog::LogWithFlag(ValueToStringW(l_pFMARQueuePlayer->m_fStartTime).c_str());
+				//FMLog::LogWithFlag(L"___Total:");
+				//FMLog::LogWithFlag(ValueToStringW(l_pFMARQueuePlayer->m_fTotalPlayTime).c_str());
+				//FMLog::LogWithFlag(L"\n");
 				this->AddObjectNeglectExist(l_pFMARQueuePlayer);
 				float	l_fChildEndTime = l_pFMARQueuePlayer->GetEndTime();
 				if( l_bPlaySequence )
@@ -102,12 +102,12 @@ namespace FATMING_CORE
 			l_pElement = l_pElement->NextSiblingElement();
 		}
 		this->m_fTotalPlayTime = l_fEndTime;
-		cGameApp::OutputDebugInfoString(m_pFMAnimationRule->GetName());
-		cGameApp::OutputDebugInfoString(L"___Start:");
-		cGameApp::OutputDebugInfoString(ValueToStringW(this->m_fStartTime).c_str());
-		cGameApp::OutputDebugInfoString(L"___Total:");
-		cGameApp::OutputDebugInfoString(ValueToStringW(m_fTotalPlayTime).c_str());
-		cGameApp::OutputDebugInfoString(L"\n");
+		FMLog::LogWithFlag(m_pFMAnimationRule->GetName(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(L"___Start:", CORE_LOG_FLAG);
+		FMLog::LogWithFlag(ValueToStringW(this->m_fStartTime).c_str(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(L"___Total:", CORE_LOG_FLAG);
+		FMLog::LogWithFlag(ValueToStringW(m_fTotalPlayTime).c_str(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(L"\n", CORE_LOG_FLAG);
 	}
 
 	

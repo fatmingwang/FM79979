@@ -14,7 +14,7 @@
 #include "../GLSL/Shader.h"
 #include "../AllImageInclude.h"
 #include "../AllMathInclude.h"
-
+#include "Log/FMLog.h"
 
 
 class	cFUThreadPool;
@@ -158,7 +158,6 @@ namespace	FATMING_CORE
 		static	bool												m_sbEnableMouseSingnal;
 		static	bool												m_sbEnableKeyboardSingnal;
 		static	bool												m_sbAllowParseBinaryFile;
-		static	cBinaryFile*										m_spLogFile;
 		static	std::string*										m_psstrGameAppName;
 		//=================================================
 		static	void					ResoluctionParse(const char*e_strFileName);

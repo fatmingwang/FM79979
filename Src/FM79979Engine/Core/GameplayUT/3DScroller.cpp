@@ -563,7 +563,7 @@ namespace FATMING_CORE
 	//			cRenderObject*l_pItem = GetRenderObjectBehavior(l_pItemsTiXmlElement);
 	//			if(!l_pItem || !l_pScroller->AddObject((cBaseImage*)l_pItem))
 	//			{
-	//				cGameApp::OutputDebugInfoString(L"cScroller::GetMe(TiXmlElement*e_pTiXmlElement) GetRenderObjectBehavior failed");
+	//				FMLog::LogWithFlag(L"cScroller::GetMe(TiXmlElement*e_pTiXmlElement) GetRenderObjectBehavior failed");
 	//			}
 	//			l_pItemsTiXmlElement = l_pItemsTiXmlElement->NextSiblingElement();
 	//		}

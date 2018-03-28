@@ -196,7 +196,7 @@ GLuint NvCreateTextureFromDDSEx(const char* filename, NvBool flipVertical, NvBoo
         if (err)
 		{
             //NVLogError("NvCreateTextureFromDDSEx error", "");
-			cGameApp::OutputDebugInfoString(L"NvCreateTextureFromDDSEx error");
+			FMLog::LogWithFlag(L"NvCreateTextureFromDDSEx error", CORE_LOG_FLAG);
 		}
 
         NVHHDDSFree(img);
@@ -266,7 +266,7 @@ GLuint NvCreateTextureFromHHDDSImage(const NVHHDDSImage& image,
     if (err)
 	{
         //NVLogError("NvCreateTextureFromHHDDSImage error", "");
-		cGameApp::OutputDebugInfoString(L"NvCreateTextureFromHHDDSImage error");
+		FMLog::LogWithFlag(L"NvCreateTextureFromHHDDSImage error", CORE_LOG_FLAG);
 	}
 
     return tex;

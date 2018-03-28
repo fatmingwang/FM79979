@@ -442,10 +442,10 @@ namespace FATMING_CORE
 			assert((l_iWidthPO2<=texSize||l_iHeightPO2<=texSize)&&"texture size is too big then card support");
 	#ifdef WIN32
 	#ifdef DEBUG
-			cGameApp::OutputDebugInfoString(e_strName);
-			cGameApp::OutputDebugInfoString(L"  image has not correct respond width and height,because none power of 2\n");
+			FMLog::LogWithFlag(e_strName, CORE_LOG_FLAG);
+			FMLog::LogWithFlag(L"  image has not correct respond width and height,because none power of 2\n", CORE_LOG_FLAG);
 			if( e_iDataFormat == GL_RGB )
-				cGameApp::OutputDebugInfoString(L"UV is changed,because image size is not to become power of 2");
+				FMLog::LogWithFlag(L"UV is changed,because image size is not to become power of 2", CORE_LOG_FLAG);
 	#endif
 	#endif
 			bool e_balpah = false;

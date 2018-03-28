@@ -100,21 +100,21 @@ namespace	FATMING_CORE
 		float l_fVersion = GetFloat((char*)l_strGL_VERSION);
 		float l_f2 = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION);
 		cGameApp::m_sfOpenGLVersion = l_fVersion;
-		l_str = L"GL_VERSION:";					l_str += ValueToStringW((char*)l_strGL_VERSION);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		l_str = L"GL_SHADING_LANGUAGE_VERSION:";					l_str += ValueToStringW((char*)l_strGL_SHADING_LANGUAGE_VERSION);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
+		l_str = L"GL_VERSION:";					l_str += ValueToStringW((char*)l_strGL_VERSION);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		l_str = L"GL_SHADING_LANGUAGE_VERSION:";					l_str += ValueToStringW((char*)l_strGL_SHADING_LANGUAGE_VERSION);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 
 		GLint	l_iValue = 0;
-		MyGLGetIntegerv(GL_MAX_TEXTURE_SIZE,&l_iValue);					l_str = L"GL_MAX_TEXTURE_SIZE:";					l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		MyGLGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,&l_iValue);	l_str = L"GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		MyGLGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&l_iValue);			l_str = L"GL_MAX_TEXTURE_IMAGE_UNITS:";			l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
+		MyGLGetIntegerv(GL_MAX_TEXTURE_SIZE,&l_iValue);					l_str = L"GL_MAX_TEXTURE_SIZE:";					l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS,&l_iValue);	l_str = L"GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&l_iValue);			l_str = L"GL_MAX_TEXTURE_IMAGE_UNITS:";			l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 //#ifndef WIN32
-		MyGLGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS,&l_iValue);		l_str = L"GL_MAX_FRAGMENT_UNIFORM_VECTORS:";		l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		MyGLGetIntegerv(GL_MAX_VARYING_VECTORS,&l_iValue);				l_str = L"GL_MAX_VARYING_VECTORS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		MyGLGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS,&l_iValue);			l_str = L"GL_MAX_VERTEX_UNIFORM_VECTORS:";		l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
+		MyGLGetIntegerv(GL_MAX_FRAGMENT_UNIFORM_VECTORS,&l_iValue);		l_str = L"GL_MAX_FRAGMENT_UNIFORM_VECTORS:";		l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_VARYING_VECTORS,&l_iValue);				l_str = L"GL_MAX_VARYING_VECTORS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_VERTEX_UNIFORM_VECTORS,&l_iValue);			l_str = L"GL_MAX_VERTEX_UNIFORM_VECTORS:";		l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 //#endif
-		MyGLGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&l_iValue);					l_str = L"GL_MAX_VERTEX_ATTRIBS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,&l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
-		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	cGameApp::OutputDebugInfoString(l_str.c_str());
+		MyGLGetIntegerv(GL_MAX_VERTEX_ATTRIBS,&l_iValue);					l_str = L"GL_MAX_VERTEX_ATTRIBS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		MyGLGetIntegerv(GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS,&l_iValue);		l_str = L"GL_MAX_VERTEX_TEXTURE_IMAGE_UNITS:";	l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		//MyGLGetIntegerv(GL_MAX_VIEWPORT_DIMS,&l_iValue);					l_str = L"GL_MAX_VIEWPORT_DIMS:";				l_str += ValueToStringW(l_iValue);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #ifdef WIN32
 		MyGLGetIntegerv(GL_ARB_texture_non_power_of_two,&l_iValue);
 		g_bSupportNonPowerOfTwoTexture = l_iValue ? true : false;
@@ -139,7 +139,7 @@ namespace	FATMING_CORE
 			l_str += L",";
 		}
 		l_str += L"\n";
-		cGameApp::OutputDebugInfoString(l_str.c_str());
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		//
 		//glGetTexLevelParameterfv(GL_TEXTURE_2D,0, GL_TEXTURE_COMPRESSED,&l_fGL_TEXTURE_COMPRESSED);
 	}
@@ -367,13 +367,13 @@ namespace	FATMING_CORE
 			str = e_pThreadEnv->GetStringUTFChars((jstring)result, &isCopy);
 			cGameApp::m_spAPKPath = new std::string;
 			*cGameApp::m_spAPKPath = str;
-			cGameApp::OutputDebugInfoString(str);
-			cGameApp::OutputDebugInfoString(e_pActivity->internalDataPath);
+			FMLog::LogWithFlag(str, CORE_LOG_FLAG);
+			FMLog::LogWithFlag(e_pActivity->internalDataPath, CORE_LOG_FLAG);
 			cGameApp::m_spInternalDirectory = new std::string;
 			*cGameApp::m_spInternalDirectory = e_pActivity->internalDataPath;
 			if( e_pActivity->externalDataPath )
 			{
-				cGameApp::OutputDebugInfoString(e_pActivity->externalDataPath);
+				FMLog::LogWithFlag(e_pActivity->externalDataPath, CORE_LOG_FLAG);
 				cGameApp::m_spExternalDirectory = new std::string;
 				*cGameApp::m_spExternalDirectory = e_pActivity->externalDataPath;
 			}
@@ -383,7 +383,7 @@ namespace	FATMING_CORE
 			{
 				cGameApp::m_spExternalSDDirectory = new std::string();
 				*cGameApp::m_spExternalSDDirectory = l_Target;
-				cGameApp::OutputDebugInfoString(*cGameApp::m_spExternalSDDirectory);
+				FMLog::LogWithFlag(*cGameApp::m_spExternalSDDirectory, CORE_LOG_FLAG);
 			}
 		}
 	}

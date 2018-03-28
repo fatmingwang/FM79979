@@ -4,8 +4,8 @@ namespace	FATMING_CORE
 {
 	void Dump(float e_fValue)
 	{
-		//cGameApp::OutputDebugInfoString(ValueToStringW(e_fValue));
-		//cGameApp::OutputDebugInfoString(L",");
+		//FMLog::LogWithFlag(ValueToStringW(e_fValue));
+		//FMLog::LogWithFlag(L",");
 	}
 	void Dump(cSortObject*e_p)
 	{
@@ -14,14 +14,14 @@ namespace	FATMING_CORE
 		//while( l_pSmallest )
 		//{
 		//l_iTimes += l_pSmallest->m_iCompareTime;
-		//cGameApp::OutputDebugInfoString(ValueToStringW(l_pSmallest->m_fValue));
-		//cGameApp::OutputDebugInfoString(L",");
+		//FMLog::LogWithFlag(ValueToStringW(l_pSmallest->m_fValue));
+		//FMLog::LogWithFlag(L",");
 		//l_pSmallest = l_pSmallest->m_pBigger;
 		//}
-		//cGameApp::OutputDebugInfoString(L"\n");
-		//cGameApp::OutputDebugInfoString(L"compare time");
+		//FMLog::LogWithFlag(L"\n");
+		//FMLog::LogWithFlag(L"compare time");
 		//Dump(l_iTimes);
-		//cGameApp::OutputDebugInfoString(L"\n");
+		//FMLog::LogWithFlag(L"\n");
 	}
 
 	void cSortObject::DoBigger(cSortObject*e_pObject)

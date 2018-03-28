@@ -103,14 +103,13 @@ namespace FATMING_CORE
 		    SAFE_DELETE(m_pDoc);
 			m_strErrorMsg = L"load file error!utf8?!!!fuck\n";
 			std::string	l_str = UT::ComposeMsgByFormat("file %s open failed! uft8 or file is not exist!?",e_strFileName);
-			if( cGameApp::m_spLogFile )
-				cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(l_str.c_str());
+			cGameApp::WriteLog(l_str.c_str());
 #ifdef DEBUG
 			std::string	l_strErrorMsg = e_strFileName;
 			l_strErrorMsg += " encode error or file not exist or xml format error??\n";
-			cGameApp::OutputDebugInfoString(l_strErrorMsg);
+			FMLog::LogWithFlag(l_strErrorMsg.c_str(), CORE_LOG_FLAG);
 			std::string l_strContent = UT::GetTxtFileContent(e_strFileName);
-			cGameApp::OutputDebugInfoString(l_strContent);
+			FMLog::LogWithFlag(l_strContent.c_str(), CORE_LOG_FLAG);
 #endif
 				return 0;
 		}
@@ -134,8 +133,7 @@ namespace FATMING_CORE
 			sprintf(m_strCurrentDirectory,"%s\0",l_strDirectory.c_str());
 
 #ifdef DEBUG
-	cGameApp::OutputDebugInfoString(UT::CharToWchar(e_strFileName));
-	cGameApp::OutputDebugInfoString(L"	Parsing Start\n");
+	FMLog::LogWithFlag(ComposeMsgByFormat("%s Parsing Start", e_strFileName).c_str(), CORE_LOG_FLAG);
 #endif
 		InternalParse();
 		return itemElement;
@@ -275,13 +273,13 @@ namespace FATMING_CORE
 							l_strAttribute = l_pAttribute->Name();
 							if(l_Test)
 							{
-	                                cGameApp::OutputDebugInfoString(L">>");
-	                                cGameApp::OutputDebugInfoString((l_strAttribute));
+								std::wstring l_strTestInfo = L">>";
+								l_strTestInfo += l_strAttribute;
+								FMLog::LogWithFlag(l_strTestInfo.c_str(), CORE_LOG_FLAG);
 							}
 							l_pAttribute = l_pAttribute->Next();
 					}
 			}
-	        cGameApp::OutputDebugInfoString(L"\n");
 	#endif
 	}
 
@@ -298,12 +296,15 @@ namespace FATMING_CORE
 			g_pXmlDebugInfoTiXmlElement = e_pTiXmlElement;
 			if( g_bDumpXmlContent )
 			{
+				std::wstring l_strDumoDebugInfo;
 				while(g_pXmlDebugInfoTiXmlElement->Parent())
 				{
-						g_pXmlDebugInfoTiXmlElement = (TiXmlElement*)g_pXmlDebugInfoTiXmlElement->Parent();
-		                cGameApp::OutputDebugInfoString(L"    ");
+					l_strDumoDebugInfo += L"    ";
+					g_pXmlDebugInfoTiXmlElement = (TiXmlElement*)g_pXmlDebugInfoTiXmlElement->Parent();
+		                
 				}
-				cGameApp::OutputDebugInfoString(e_pTiXmlElement->Value());
+				l_strDumoDebugInfo += e_pTiXmlElement->Value();
+				FMLog::LogWithFlag(l_strDumoDebugInfo.c_str(), CORE_LOG_FLAG);
 				XMLHandleElementDataDebugInfo(e_pTiXmlElement);
 			}
 	#endif
@@ -327,14 +328,15 @@ namespace FATMING_CORE
 			g_pXmlDebugInfoTiXmlElement = e_pTiXmlElement;
 			if( g_bDumpXmlContent )
 			{
+				std::wstring l_strDumoDebugInfo;
 				while(g_pXmlDebugInfoTiXmlElement->Parent())
 				{
 					g_pXmlDebugInfoTiXmlElement = (TiXmlElement*)g_pXmlDebugInfoTiXmlElement->Parent();
-					cGameApp::OutputDebugInfoString(L"    ");
+					l_strDumoDebugInfo += L"    ";
 				}
-				cGameApp::OutputDebugInfoString(e_pTiXmlElement->Value());
-				cGameApp::OutputDebugInfoString(L"__End");
-				cGameApp::OutputDebugInfoString(L"\n");
+				l_strDumoDebugInfo += e_pTiXmlElement->Value();
+				l_strDumoDebugInfo += L"__End";
+				FMLog::LogWithFlag(l_strDumoDebugInfo, CORE_LOG_FLAG);
 			}
 	#endif
 	#endif
@@ -354,16 +356,16 @@ namespace FATMING_CORE
 	//{
 	//#ifdef	WIN32
 	//	for( int i=0;i<g_iLevel;++i )
-	//		cGameApp::OutputDebugInfoString(L"	");
-	//	cGameApp::OutputDebugInfoString(L"TagName:");
-	//	cGameApp::OutputDebugInfoString(UT::CharToWchar(e_XMLNode->strTagName));
-	//	cGameApp::OutputDebugInfoString(L">>");
+	//		FMLog::LogWithFlag(L"	", CORE_LOG_FLAG);
+	//	FMLog::LogWithFlag(L"TagName:", CORE_LOG_FLAG);
+	//	FMLog::LogWithFlag(UT::CharToWchar(e_XMLNode->strTagName), CORE_LOG_FLAG);
+	//	FMLog::LogWithFlag(L">>");
 	//	for( UINT i=0;i<e_XMLNode->AttributeList.size();++i )
 	//	{
-	//		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_XMLNode->AttributeList[i].strAttribute));
-	//		cGameApp::OutputDebugInfoString(L">>");
+	//		FMLog::LogWithFlag(UT::CharToWchar(e_XMLNode->AttributeList[i].strAttribute));
+	//		FMLog::LogWithFlag(L">>");
 	//	}
-	//	cGameApp::OutputDebugInfoString(L"\n");
+	//	FMLog::LogWithFlag(L"\n");
 	//	for( UINT i=0;i<e_XMLNode->ChildNodeList.size();++i )
 	//		ShowDebugInfo(e_XMLNode->ChildNodeList[i]);
 	//	for( UINT i=0;i<e_XMLNode->SiblingNodeList.size();++i )
@@ -375,7 +377,7 @@ namespace FATMING_CORE
 	//	{
 	//		printf(L"Attribute:");
 	//		printf(UT::CharToWchar(e_XMLNode.AttributeList[i].strAttribute.c_str()));
-	//		cGameApp::OutputDebugInfoString(L",");
+	//		FMLog::LogWithFlag(L",");
 	//	}
 	//	printf(L"\n");
 	//	for( UINT i=0;i<e_XMLNode.ChildNodeList.size();++i )

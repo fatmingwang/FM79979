@@ -316,7 +316,7 @@ namespace FATMING_CORE
 		{
 			std::wstring l_strDebugInfo = e_pRenderObject->GetName();
 			l_strDebugInfo += L" generate bound faild,the object dont override the GenerateBound";
-			cGameApp::OutputDebugInfoString(l_strDebugInfo);
+			FMLog::LogWithFlag(l_strDebugInfo.c_str(), CORE_LOG_FLAG);
 		}
 		l_pClickEvent->SetMouseFunction(nullptr,nullptr,nullptr,e_ClickFunction,e_ClickFunction,nullptr);
 		l_pClickEvent->SetName(e_pRenderObject->GetName());

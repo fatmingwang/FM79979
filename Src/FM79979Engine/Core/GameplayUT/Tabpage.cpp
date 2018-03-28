@@ -7,6 +7,7 @@
 #include "Scroller.h"
 #include "3DScroller.h"
 #include "ObjectXMLParser.h"
+#include "Log/FMLog.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cTabPage);
@@ -292,7 +293,7 @@ namespace FATMING_CORE
 
 				if(!l_pItem || !l_pScroller->AddObject((NamedTypedObject*)l_pItem,true))
 				{
-					cGameApp::OutputDebugInfoString(L"cScroller::GetMe(TiXmlElement*e_pTiXmlElement) GetRenderObjectBehavior failed");
+					FMLog::LogWithFlag(L"cScroller::GetMe(TiXmlElement*e_pTiXmlElement) GetRenderObjectBehavior failed", CORE_LOG_FLAG);
 				}
 				l_pItemsTiXmlElement = l_pItemsTiXmlElement->NextSiblingElement();
 			}

@@ -96,8 +96,8 @@ namespace FATMING_CORE
 		virtual	void			KeyUp(char e_cKey)override;
 		virtual	void			KeyDown(char e_cKey)override;
 		virtual	void			KeyPress(char e_cKey)override;
-		//
-		virtual	const   wchar_t*	GetNextPhaseName()override { return 0;}
+		//why add this here...?hav no idea-_-
+		//virtual	const   wchar_t*	GetNextPhaseName()override { return 0;}
 		virtual void			SingnalProcess(unsigned char e_usKey)override { cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(e_usKey); }
 		virtual void			SingnalProcess()override { cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(); }
 		virtual void			SetRelativePosition( Vector3 e_vPos )override {}

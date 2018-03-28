@@ -39,7 +39,7 @@ namespace FATMING_CORE
 									e_bTexture);
 		std::wstring l_str = e_strName;
 		l_str += L" shader created";
-		cGameApp::OutputDebugInfoString(l_str);
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
 	}
 
@@ -105,7 +105,7 @@ namespace FATMING_CORE
 	   // The error will happen at link time.
 	   if ( compilationResult == 0 )
 	   {
-		  cGameApp::OutputDebugInfoString(L"Failed to compile shader:\n");
+		  FMLog::LogWithFlag(L"Failed to compile shader:", CORE_LOG_FLAG);
 		  return false;
 	   }
 	   return true;
@@ -134,7 +134,7 @@ namespace FATMING_CORE
 	   // The error will happen at link time.
 	   if ( compilationResult == 0 )
 	   {
-		  cGameApp::OutputDebugInfoString(L"Failed to compile shader:\n");
+		  FMLog::LogWithFlag(L"Failed to compile shader:", CORE_LOG_FLAG);
 		  return false;
 	   }
 	   return true;
@@ -161,7 +161,7 @@ namespace FATMING_CORE
 		std::wstring l_strProgramInfo = this->GetName();;
 		l_strProgramInfo += L" program location:";
 		l_strProgramInfo += ValueToStringW((uint64)m_uiProgram);;
-		cGameApp::OutputDebugInfoString(l_strProgramInfo);
+		FMLog::LogWithFlag(l_strProgramInfo.c_str(), CORE_LOG_FLAG);
 		if( CreateVS(e_strVS) )
 		{
 			if( CreateFS(e_strPS) )
@@ -186,7 +186,7 @@ namespace FATMING_CORE
 							std::wstring l_str = this->GetName();;
 							l_str += L" tex location:";
 							l_str += ValueToStringW((uint64)m_uiTexLoacation);;
-							cGameApp::OutputDebugInfoString(l_str);
+							FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 							glUniform1i(m_uiTexLoacation, 0);
 							MyGlErrorTest("cBaseShader::CreateProgram glUniform1i(m_uiTexLoacation)");
 
@@ -424,7 +424,7 @@ namespace FATMING_CORE
 //			{
 //				std::wstring l_str = e_strName;
 //				l_str += L"  shader is not exists!";
-//				cGameApp::OutputDebugInfoString(l_str);
+//				FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
 //			}
 //#endif
 		}
@@ -538,8 +538,8 @@ namespace FATMING_CORE
 			glGetProgramiv(Object, GL_INFO_LOG_LENGTH, &InfoLogSize);
 			char* Buffer = new char[InfoLogSize];
 			glGetProgramInfoLog(Object, InfoLogSize, nullptr, Buffer);
-			cGameApp::OutputDebugInfoString(UT::CharToWchar(Buffer));
-			cGameApp::OutputDebugInfoString(e_strMessage);
+			FMLog::LogWithFlag(Buffer, CORE_LOG_FLAG);
+			FMLog::LogWithFlag(e_strMessage, CORE_LOG_FLAG);
 			assert(0);
 			delete[] Buffer;
 			return false;
@@ -566,8 +566,8 @@ namespace FATMING_CORE
 			}
 			else
 			{
-				cGameApp::OutputDebugInfoString(e_strMessage);
-				cGameApp::OutputDebugInfoString(UT::CharToWchar(Buffer));
+				FMLog::LogWithFlag(e_strMessage, CORE_LOG_FLAG);
+				FMLog::LogWithFlag(Buffer, CORE_LOG_FLAG);
 				UT::ErrorMsg(Buffer,WcharToChar(e_strMessage).c_str());
 				assert(0);			
 			}

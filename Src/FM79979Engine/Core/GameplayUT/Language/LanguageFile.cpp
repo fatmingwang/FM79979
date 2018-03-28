@@ -140,7 +140,7 @@ namespace FATMING_CORE
 		l_strInfo += e_strKey;
 		l_strInfo += L" in ";
 		l_strInfo += this->m_strCurrentLanguage;
-		cGameApp::OutputDebugInfoString(l_strInfo);
+		FMLog::LogWithFlag(l_strInfo, CORE_LOG_FLAG);
 		return nullptr;
 	}
 

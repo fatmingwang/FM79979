@@ -2,62 +2,11 @@
 #include "SimpleCamera.h"
 #include "../GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cFrameCamera);
 	TYPDE_DEFINE_MARCO(cCamera);
-
-	#define XMASSERT_LINE_STRING_SIZE 16
-
-	void XMAssert
-	(
-		const char* pExpression,
-		const char* pFileName,
-		UINT        LineNumber
-	)
-	{
-	#ifdef WIN32
-	#ifdef DEBUG
-		char        aLineString[XMASSERT_LINE_STRING_SIZE];
-		char*       pLineString;
-		UINT        Line;
-
-		aLineString[XMASSERT_LINE_STRING_SIZE - 2] = '0';
-		aLineString[XMASSERT_LINE_STRING_SIZE - 1] = '\0';
-		for (Line = LineNumber, pLineString = aLineString + XMASSERT_LINE_STRING_SIZE - 2;
-			 Line != 0 && pLineString >= aLineString;
-			 Line /= 10, pLineString--)
-		{
-			*pLineString = (CHAR)('0' + (Line % 10));
-		}
-
-	#ifndef NO_OUTPUT_DEBUG_STRING
-		cGameApp::OutputDebugInfoString("Assertion failed: ");
-		cGameApp::OutputDebugInfoString(pExpression);
-		cGameApp::OutputDebugInfoString(", file ");
-		cGameApp::OutputDebugInfoString(pFileName);
-		cGameApp::OutputDebugInfoString(", line ");
-		cGameApp::OutputDebugInfoString(pLineString + 1);
-		cGameApp::OutputDebugInfoString("\r\n");
-	#else
-		DbgPrint("Assertion failed: %s, file %s, line %d\r\n", pExpression, pFileName, LineNumber);
-	#endif
-
-		__debugbreak();
-	#endif
-	#endif
-	}
-
-
-	#ifdef WIN32
-	#ifdef DEBUG
-	#define XMASSERT(Expression) ((void)(Expression || (XMAssert(#Expression, __FILE__, __LINE__), 0)))
-	#else // !DEBUG
-	#define XMASSERT(Expression) ((void)0)
-	#endif // !DEBUG
-	#else
-	#define XMASSERT(Expression)  ((void)0)
-	#endif
 
 	bool XMScalarNearEqual
 	(

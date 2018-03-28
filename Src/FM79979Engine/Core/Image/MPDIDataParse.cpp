@@ -421,9 +421,8 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 	    #ifdef WIN32
 						    else
 						    {
-							    cGameApp::OutputDebugInfoString(L"using same texture ");
-							    cGameApp::OutputDebugInfoString(l_pPuzzleImage->GetName());
-							    cGameApp::OutputDebugInfoString(L"\n");
+								
+							    FMLog::LogWithFlag(ComposeMsgByFormat(L"using same texture %ls", l_pPuzzleImage->GetName()), CORE_LOG_FLAG);
 						    }
 	    #endif
 	    #endif

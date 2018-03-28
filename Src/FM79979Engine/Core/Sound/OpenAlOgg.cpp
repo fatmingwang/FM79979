@@ -123,7 +123,7 @@ namespace FATMING_CORE
 			}
 			if( m_uiIndex == -1 )
 			{
-				cGameApp::OutputDebugInfoString(L"over than 3 BG exists is not allow");
+				FMLog::LogWithFlag(L"over than 3 BG exists is not allow", CORE_LOG_FLAG);
 			}
 		}
 	}
@@ -192,7 +192,7 @@ namespace FATMING_CORE
 			{
 				std::string	l_str = "Could not open Ogg file.";
 				l_str += e_strileName;
-				cGameApp::OutputDebugInfoString(l_str);
+				FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 				return false;
 			}
 
@@ -202,7 +202,7 @@ namespace FATMING_CORE
 				Destroy();
 				std::string	l_str = "Could not open Ogg stream";
 				l_str += e_strileName;
-				cGameApp::OutputDebugInfoString(l_str);
+				FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 				return false;
 			}
 			//fetch by m_pOggFile
@@ -292,7 +292,7 @@ namespace FATMING_CORE
 			if(result < 0)
 			{
 				this->m_bPlayDone = true;
-				cGameApp::OutputDebugInfoString(ErrorString(result));
+				FMLog::LogWithFlag(ErrorString(result).c_str(), CORE_LOG_FLAG);
 			}
 			else
 			if(result == 0)

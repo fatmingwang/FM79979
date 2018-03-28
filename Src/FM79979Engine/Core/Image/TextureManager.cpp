@@ -101,7 +101,7 @@ namespace FATMING_CORE
 #ifdef DEBUG
 			std::wstring l_str = e_pTexture->GetName();
 			l_str += L" add into cTextureManager";
-			cGameApp::OutputDebugInfoString(l_str);
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #endif
 	}
 	void	cTextureManager::RemoveObjectWithDebugInfo(cTexture*e_pTexture)
@@ -112,7 +112,7 @@ namespace FATMING_CORE
 		std::wstring l_strFileName = this->GetName();
 		l_strFileName += L" destroy:Texture,Ate Ram:";
 		l_strFileName += ValueToStringW((int)g_iAteVideoMomory);
-		cGameApp::OutputDebugInfoString(l_strFileName, true, true);
+		FMLog::LogWithFlag(l_strFileName.c_str(), true);
 #endif
 		if (Count() == 0)
 		{
@@ -170,7 +170,7 @@ namespace FATMING_CORE
 				{
 					l_strInfo += L"call fatming!";
 				}
-				cGameApp::OutputDebugInfoString(l_strInfo);
+				FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG);
 			}
 		}
 	}
@@ -267,13 +267,10 @@ namespace FATMING_CORE
 		float	l_fMB = l_iAteVRamKB / 1024.f;
 		float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
 		std::wstring	l_str = UT::ComposeMsgByFormat(L"DeleteTexture-------------\n:%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n", e_pSimpleGLTexture->GetName(), l_fMB, l_fTotalMB, l_iAfterAlivableVRamKB / 1024.f);
-		//	if(cGameApp::m_spLogFile)
-		//{
-		//	cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(l_str.c_str());
-		//}
+		//	cGameApp::WriteLog(l_str.c_str());
 		//else
 		{
-			cGameApp::OutputDebugInfoString(l_str.c_str(), true, true);
+			FMLog::LogWithFlag(l_str.c_str(), true);
 		}
 	#endif
 	}
@@ -293,13 +290,10 @@ namespace FATMING_CORE
 		float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
 		MyGlErrorTest("MyTextureGenerate");
 		//std::wstring	l_str = UT::ComposeMsgByFormat(L"GenerateTexture-------------\n%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_strFileName,l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
-		//	if(cGameApp::m_spLogFile)
-		//{
-		//	cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(l_str.c_str());
-		//}
+		//	cGameApp::WriteLog(l_str.c_str());
 		//else
 		{
-			//cGameApp::OutputDebugInfoString(l_str.c_str());
+			//FMLog::LogWithFlag(l_str.c_str());
 		}
 	#endif
 	}
@@ -350,7 +344,7 @@ namespace FATMING_CORE
 			l_iChannel = 3;
 			break;
 		default:
-			cGameApp::OutputDebugInfoString(L"not support color format", true, true);
+			FMLog::LogWithFlag(L"not support color format", true);
 			break;
 		}
 		return l_iChannel;

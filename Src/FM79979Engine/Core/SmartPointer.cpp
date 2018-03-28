@@ -2,33 +2,31 @@
 #include "SmartPointer.h"
 #include "XML/StringToStructure.h"
 #include "GameplayUT/GameApp.h"
-
+#include "GameplayUT/Log/FMLog.h"
 //bool	g_bShowSmartPointerInfo = true;
 bool	g_bShowSmartPointerInfo = false;
 void	DumpInfo(const wchar_t*e_strDescription, cSmartObject*e_pSmartObject, NamedTypedObject*e_pTarget)
 {
 	if (g_bShowSmartPointerInfo)
 	{
-		cGameApp::OutputDebugInfoString(L"\n================================\n");
-		cGameApp::OutputDebugInfoString(e_strDescription);
-		cGameApp::OutputDebugInfoString(FATMING_CORE::ValueToStringW(e_pSmartObject->GetReferenceCount()));
-		cGameApp::OutputDebugInfoString(L"\n");
+		FMLog::Log(L"\n================================\n", true);
+		FMLog::Log(e_strDescription, true);
+		FMLog::Log(FATMING_CORE::ValueToStringW(e_pSmartObject->GetReferenceCount()).c_str(), true);
+		FMLog::Log(L"\n", true);
 		if (e_pTarget)
 		{
-			cGameApp::OutputDebugInfoString(L"MyName:");
-			cGameApp::OutputDebugInfoString(e_pSmartObject->GetSmartObjectName());
-			cGameApp::OutputDebugInfoString(L"\n");
-			//cGameApp::OutputDebugInfoString(L"\t\t\tType:");
-			//cGameApp::OutputDebugInfoString(e_pSmartObject->Type());
-			//cGameApp::OutputDebugInfoString(L"\n");
-			cGameApp::OutputDebugInfoString(L"TargetName:");
-			cGameApp::OutputDebugInfoString(e_pTarget->GetName());
-			cGameApp::OutputDebugInfoString(L"\n");
-			cGameApp::OutputDebugInfoString(L"\t\t\tType:");
-			cGameApp::OutputDebugInfoString(e_pTarget->Type());
-			cGameApp::OutputDebugInfoString(L",GUID:");
-			cGameApp::OutputDebugInfoString(FATMING_CORE::ValueToStringW(e_pTarget->GetUniqueID()));
-			cGameApp::OutputDebugInfoString(L"\n================================\n");
+			FMLog::Log(L"MyName:", true);
+			FMLog::Log(e_pSmartObject->GetSmartObjectName(), true);
+			//FMLog::Log(L"\t\t\tType:");
+			//FMLog::Log(e_pSmartObject->Type());
+			//FMLog::Log(L"\n");
+			FMLog::Log(L"TargetName:", true);
+			FMLog::Log(e_pTarget->GetName(), true);
+			FMLog::Log(L"\t\t\tType:", true);
+			FMLog::Log(e_pTarget->Type(), true);
+			FMLog::Log(L",GUID:", true);
+			FMLog::Log(FATMING_CORE::ValueToStringW(e_pTarget->GetUniqueID()).c_str(), true);
+			FMLog::Log(L"\n================================\n", true);
 			if (e_pTarget->GetUniqueID() == 156)
 			{
 				int a = 0;
@@ -76,7 +74,7 @@ void cSmartObject::AddRef(NamedTypedObject*e_pNamedTypedObject)
 		{
 			if (this->m_ReferenceList.GetObjectIndexByPointer(e_pNamedTypedObject) != -1)
 			{
-				cGameApp::OutputDebugInfoString(L"add ref twice with same object?why you want to do this!?");
+				FMLog::Log(L"add ref twice with same object?why you want to do this!?", true);
 			}
 			DumpInfo(L"AddRefCount:", this, e_pNamedTypedObject);
 		}

@@ -525,7 +525,7 @@ float g_fTest2 = 1.f;
 		{
 			std::wstring l_strInfo = L"vorbis_encode_init_vbr return ";
 			l_strInfo += ValueToStringW(ret);
-			cGameApp::OutputDebugInfoString(l_strInfo);
+			FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG);
 			return false;
 		}
 

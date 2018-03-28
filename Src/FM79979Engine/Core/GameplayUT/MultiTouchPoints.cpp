@@ -254,20 +254,20 @@ namespace FATMING_CORE
 						if( l_fMoveDis != 0.f )
 						{
 							std::wstring	l_str = UT::ComposeMsgByFormat(L"\nNew:%.2f,Last%.2f,Dif%.2f\n",fCurrentFrameDisToCenterPos,fLastFrameChangeToCenterPos,l_fMoveDis);
-							cGameApp::OutputDebugInfoString(l_str);
+							FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 							static int	l_siTest = 0;
 							l_siTest++;
 							if( l_fMoveDis < 0.f )
 							{
 								Gesture = eGestureEnum::eGE_ZOOM_OUT;
-								cGameApp::OutputDebugInfoString(ValueToStringW(l_siTest).c_str());
-								cGameApp::OutputDebugInfoString(L"zoom out\n");
+								FMLog::LogWithFlag(ValueToStringW(l_siTest).c_str(), CORE_LOG_FLAG);
+								FMLog::LogWithFlag(L"zoom out", CORE_LOG_FLAG);
 							}
 							else
 							{
 								Gesture = eGestureEnum::eGE_ZOOM_IN;
-								cGameApp::OutputDebugInfoString(ValueToStringW(l_siTest).c_str());
-								cGameApp::OutputDebugInfoString(L"zoom in\n");
+								FMLog::LogWithFlag(ValueToStringW(l_siTest).c_str(), CORE_LOG_FLAG);
+								FMLog::LogWithFlag(L"zoom in", CORE_LOG_FLAG);
 							}
 						}
 					}

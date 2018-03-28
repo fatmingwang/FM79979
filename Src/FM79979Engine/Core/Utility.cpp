@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Utility.h"
 #include "GameplayUT/GameApp.h"
+#include "GameplayUT/Log/FMLog.h"
 #include <errno.h>
 
 //#include <locale>
@@ -52,7 +53,7 @@ namespace UT
 			l_str += ValueToString(l_i);
 			l_str += ":";
 			l_str += e_strMessage;
-			cGameApp::OutputDebugInfoString(l_str.c_str());
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 			int a=0;
 			//GL_INVALID_ENUM 1280
 			//GL_INVALID_VALUE 1281
@@ -177,7 +178,7 @@ namespace UT
 		{
 			arbMultisampleSupported = true;
 			arbMultisampleFormat = pixelFormat;
-			cGameApp::OutputDebugInfoString("support 4 Multisample", true, true);
+			FMLog::LogWithFlag("support 4 Multisample", CORE_LOG_FLAG);
 			return arbMultisampleSupported;
 		}
 
@@ -252,7 +253,7 @@ namespace UT
 			{
 				if (!InitMultisample(e_HdcMV))
 				{
-					cGameApp::OutputDebugInfoString("not support Multisample", true, true);
+					FMLog::LogWithFlag("not support Multisample", CORE_LOG_FLAG);
 				}
 			}
 			GLenum	l_eErrorID = glewInit();
@@ -305,7 +306,7 @@ namespace UT
 		// rather than triggering an error.
 #ifndef IOS
 		vsnprintf( str, sizeof(str), strFormat, pArgList );
-		cGameApp::OutputDebugInfoString( str );
+		FMLog::LogWithFlag(str, CORE_LOG_FLAG);
 #endif
 	}
 	void DebugSpewV( const wchar_t* strFormat, const va_list pArgList )
@@ -319,8 +320,7 @@ namespace UT
 #elif defined(ANDROID)
 		vswprintf( str, sizeof(str), strFormat, pArgList );
 #endif
-
-		cGameApp::OutputDebugInfoString( str );
+		FMLog::LogWithFlag(str, CORE_LOG_FLAG);
 	}
 
 	void	ErrorMsg(const char*e_strErrMsg1, const char*e_strErrMsg2)
@@ -336,7 +336,7 @@ namespace UT
 		std::string	l_strMessage = e_strErrMsg1;
 		l_strMessage += "___";
 		l_strMessage += e_strErrMsg2;
-		cGameApp::OutputDebugInfoString(l_strMessage.c_str());
+		FMLog::LogWithFlag(l_strMessage.c_str(), CORE_LOG_FLAG);
 #endif
 	}
 	eDataType	GetDataType(const wchar_t*e_str)
@@ -443,7 +443,7 @@ namespace UT
 			l_str += e_strErrMsg1;
 			l_str += L" : ";
 			l_str += e_strErrMsg2;
-			cGameApp::OutputDebugInfoString(l_str);
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		}
 		else
 		if( FATMING_CORE::cGameApp::m_spstrErrorMsgString )
@@ -457,7 +457,7 @@ namespace UT
 #else
 		std::wstring	l_str = e_strErrMsg1;
 		l_str += e_strErrMsg2;
-		cGameApp::OutputDebugInfoString(l_str.c_str());
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #endif
 	}
 	void	SystemErrorCheck()
@@ -489,8 +489,7 @@ namespace UT
 				LocalSize(lpDisplayBuf),
 				TEXT("%s failed with error %d: %s"), 
 				L"Error", dw, lpMsgBuf);
-			cGameApp::OutputDebugInfoString((wchar_t*)lpDisplayBuf);
-			cGameApp::OutputDebugInfoString(L"\n");
+			FMLog::LogWithFlag((const wchar_t*)lpDisplayBuf, CORE_LOG_FLAG);
 			//MessageBox(nullptr, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK); 
 
 			LocalFree(lpMsgBuf);
@@ -1007,12 +1006,12 @@ namespace UT
 			if(!fp)
 			{
 				std::string	l_str = ll;l_str += " openfile failed! ";
-				cGameApp::OutputDebugInfoString(ll);
+				FMLog::LogWithFlag(ll, CORE_LOG_FLAG);
 			}
 			else
 			{
 				std::string	l_str = ll;l_str += " openfile ok !";
-				cGameApp::OutputDebugInfoString(l_str.c_str());			
+				FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 			}
 #endif
 		}
@@ -1035,7 +1034,7 @@ namespace UT
 			{
 				l_strFileName += " open okay";
 			}
-			cGameApp::OutputDebugInfoString(l_strFileName);
+			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}
 #else
 		if( l_bWrite )
@@ -1107,7 +1106,7 @@ namespace UT
 		{
 			std::string l_strInfo = e_strFileName;
 			l_strInfo += " remove file failed";
-			cGameApp::OutputDebugInfoString(l_strInfo);
+			FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG);
 		}
 		return l_iResult==0?true:false;
 	}

@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "GameApp.h"
+#include "Log/FMLog.h"
 #include "../Utility.h"
 #ifdef WIN32
 //#include "../../../include/IL/il.h"
@@ -90,7 +91,6 @@ namespace	FATMING_CORE
 	bool												cGameApp::m_sbDebugFunctionWorking = false;
 	bool												cGameApp::m_sbAllowParseBinaryFile = true;
 	std::string*										cGameApp::m_psstrGameAppName = 0;
-	cBinaryFile*										cGameApp::m_spLogFile = 0;
 	//#if defined(ANDROID) || defined(IOS) 
 	eDeviceDirection									cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
 	//eDeviceDirection									cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
@@ -118,7 +118,7 @@ namespace	FATMING_CORE
 		GetCurrentDirectory(nBufferLength, l_strDirectory);
 		std::wstring l_strDirectpryInfo = L"Working Directory:";
 		l_strDirectpryInfo += l_strDirectory;
-		cGameApp::OutputDebugInfoString(l_strDirectpryInfo);
+		FMLog::LogWithFlag(l_strDirectpryInfo.c_str(), CORE_LOG_FLAG);
 #endif
 		m_bDoScreenShot = false;
 		m_sbMouseClickStatus[0] = m_sbMouseClickStatus[1] = m_sbMouseClickStatus[2] = false;
@@ -137,30 +137,9 @@ namespace	FATMING_CORE
 		g_pMainThreadJNIUtilData = m_spJNIUtilData;
 		SetupAPKFilePath(e_pActivity, e_pThreadEnv);
 #endif
-		if (!m_spLogFile && this->m_sbDebugFunctionWorking)
+		if (this->m_sbDebugFunctionWorking)
 		{
-			OutputDebugInfoString(L"log file");
-			m_spLogFile = new cBinaryFile();
-#ifdef WIN32
-			int	l_iValue = _mkdir("Log");
-			//if(-1 != l_iValue)
-			{
-				std::wstring	l_strSystemTime = L"Log/log_";
-				l_strSystemTime += UT::GetSystemTimeForFile(true);
-				l_strSystemTime += L".txt";
-				std::string	l_strFileName = UT::WcharToChar(l_strSystemTime);
-				m_spLogFile->Writefile(l_strFileName.c_str(), false, false);
-			}
-#else
-			if (m_spLogFile)
-			{
-				m_spLogFile->Writefile("log.txt", false, false);
-				if (m_spLogFile->GetFile())
-					OutputDebugInfoString(L"create log.txt OK");
-				else
-					OutputDebugInfoString(L"create log.txt failed");
-			}
-#endif
+			FMLog::Init();
 		}
 		SystemErrorCheck();
 #if	defined(WIN32)
@@ -228,7 +207,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spJNIUtilData);
 #endif
 		SystemErrorCheck();
-		SAFE_DELETE(m_spLogFile);
+		FMLog::Destroy();
 		//SAFE_DELETE(m_spThreadPool);
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
 		NamedTypedObject::DumpUnReleaseInfo();
@@ -252,9 +231,8 @@ namespace	FATMING_CORE
 //#else
 //		glEnableClientState(GL_VERTEX_ARRAY);
 //#endif
-		if (m_spLogFile)
-			m_spLogFile->WriteToFileImmediatelyWithLine("init shader");
-		cGameApp::OutputDebugInfoString("start to create shader");
+		FMLog::WriteLog("init shader");
+		FMLog::LogWithFlag("start to create shader", CORE_LOG_FLAG);
 		//2d image shader
 		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
 		//for non texture shader
@@ -264,11 +242,9 @@ namespace	FATMING_CORE
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...
 		CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
-		if (m_spLogFile)
-			m_spLogFile->WriteToFileImmediatelyWithLine("init shader ok");
+		FMLog::WriteLog("init shader ok");
 		m_sTimeAndFPS.Update();
-		if (m_spLogFile)
-			m_spLogFile->WriteToFileImmediatelyWithLine("parse font data");
+		FMLog::WriteLog("parse font data");
 		if (!m_spGlyphFontRender)
 		{
 #ifdef WASM
@@ -285,13 +261,10 @@ namespace	FATMING_CORE
 				m_spGlyphFontRenderVector->AddObject(m_spGlyphFontRender);
 			}
 		}
-		if (m_spLogFile)
-		{
-			if (!m_spGlyphFontRender)
-				m_spLogFile->WriteToFileImmediatelyWithLine("parse font data failed");
-			else
-				m_spLogFile->WriteToFileImmediatelyWithLine("parse font data ok");
-		}
+		if (!m_spGlyphFontRender)
+			FMLog::WriteLog("parse font data failed");
+		else
+			FMLog::WriteLog("parse font data ok");
 		if (!m_spstrErrorMsgString)
 			m_spstrErrorMsgString = new std::wstring;
 		m_sTimeAndFPS.Update();
@@ -301,8 +274,7 @@ namespace	FATMING_CORE
 
 	void	cGameApp::Destroy()
 	{
-		if (m_spLogFile)
-			m_spLogFile->WriteToFileImmediatelyWithLine("Destroy start");
+		FMLog::WriteLog("Destroy start");
 		SystemErrorCheck();
 		SAFE_DELETE(m_spMessageSenderManager);
 		SAFE_DELETE(m_sp2DImageCollisionDataVector);
@@ -320,8 +292,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(cGameApp::m_piSupportCompressedFormatVector);
 		DeleteAllShader();
 		SystemErrorCheck();
-		if (m_spLogFile)
-			m_spLogFile->WriteToFileImmediatelyWithLine("all Destroy done");
+		FMLog::WriteLog("all Destroy done");
 	}
 
 	void	cGameApp::Update(float e_fElpaseTime)
@@ -659,41 +630,22 @@ namespace	FATMING_CORE
 
 	void		cGameApp::OutputDebugInfoString(const wchar_t*e_str, bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		//#ifdef DEBUG		
-#if defined(WIN32)
-		::OutputDebugString(e_str);
-		if (e_bWithNextLineSymbol)
-			::OutputDebugString(L"\n");
-#elif	defined(ANDROID)
-		std::string	l_str = "GameApp___ ";
-		l_str += UT::WcharToChar(e_str);
-		LOGI("%s", l_str.c_str());
-#elif	defined(IOS)
-
-#endif
-		printf(UT::WcharToChar(e_str).c_str());
-		if (e_bWithNextLineSymbol)
-			printf("\n");
-		if (e_bWriteLog)
-		{
-			cGameApp::WriteLog(ValueToString(e_str));
-		}
-		//#endif
+		FMLog::Log(e_str,e_bWriteLog);
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::string e_str, bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str), e_bWithNextLineSymbol, e_bWriteLog);
+		FMLog::Log(e_str.c_str(),e_bWriteLog);
 	}
 
 	void		cGameApp::OutputDebugInfoString(const char*e_str, bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(UT::CharToWchar(e_str), e_bWithNextLineSymbol, e_bWriteLog);
+		FMLog::Log(e_str,e_bWriteLog);
 	}
 
 	void		cGameApp::OutputDebugInfoString(std::wstring e_str, bool e_bWithNextLineSymbol, bool e_bWriteLog)
 	{
-		cGameApp::OutputDebugInfoString(e_str.c_str(), e_bWithNextLineSymbol, e_bWriteLog);
+		FMLog::Log(e_str.c_str(),e_bWriteLog);
 	}
 
 	void		cGameApp::ApplyViewPort()
@@ -724,16 +676,16 @@ namespace	FATMING_CORE
 
 	void		cGameApp::WriteLog(const wchar_t*e_strMessage)
 	{
-		if (cGameApp::m_spLogFile)cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(e_strMessage);
+		FMLog::WriteLog(e_strMessage);
 	}
 
 	void		cGameApp::WriteLog(const char*e_strMessage)
 	{
-		if (cGameApp::m_spLogFile)cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine(e_strMessage);
+		FMLog::WriteLog(e_strMessage);
 	}
 	void		cGameApp::WriteLog(std::string e_strMessage)
 	{
-		WriteLog(e_strMessage.c_str());
+		FMLog::WriteLog(e_strMessage);
 	}
 
 	void		cGameApp::CallExternalFunction(std::wstring e_strName, void*e_pData)
@@ -883,7 +835,7 @@ void PrintMemoryInfo(const wchar_t*e_strName)
 	//   // Print the process identifier.
 	wchar_t	l_str[MAX_PATH];
 	swprintf(l_str, L"\nProcess ID: %u\n", processID);
-	cGameApp::OutputDebugInfoString(l_str);
+	FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
 	// Print information about the memory usage of the process.
 
 	hProcess = OpenProcess(PROCESS_QUERY_INFORMATION |
@@ -905,11 +857,10 @@ void PrintMemoryInfo(const wchar_t*e_strName)
 		//                pmc.PeakWorkingSetSize );
 		//cGameApp::OutputDebugInfoString(l_str);
 		//      swprintf(l_str,L"\tYour app's CURRENT MEMORY CONSUMPTION: %d\n", pmc.WorkingSetSize );
-		cGameApp::OutputDebugInfoString(L"Memory Check Name:");
-		cGameApp::OutputDebugInfoString(e_strName);
-		cGameApp::OutputDebugInfoString(L"\n");
+		FMLog::LogWithFlag(L"Memory Check Name:", CORE_LOG_FLAG);
+		FMLog::LogWithFlag(e_strName, CORE_LOG_FLAG);
 		swprintf(l_str, L"Current Memory:%zu\n", pmc.WorkingSetSize);
-		cGameApp::OutputDebugInfoString(l_str);
+		FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
 		if (!l_sbFirstTimeIntoHere)
 		{
 			l_sbFirstTimeIntoHere = true;
@@ -921,7 +872,7 @@ void PrintMemoryInfo(const wchar_t*e_strName)
 			float	l_fMB = (float)l_uiMemoryChangeSize / 1024.f / 1024.f;
 			float	l_fKB = (float)l_uiMemoryChangeSize / 1024.f;
 			swprintf(l_str, L"Memory Change:In MB:%.2f,In KB:%.2f,In Byte:%zu\n", l_fMB, l_fKB, l_uiMemoryChangeSize);
-			cGameApp::OutputDebugInfoString(l_str);
+			FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
 			l_sMemoryUsed = pmc.WorkingSetSize;
 		}
 		//cGameApp::OutputDebugInfoString(l_str);

@@ -98,7 +98,7 @@ namespace FATMING_CORE
 	};
 	//sample
 	//how to find way to go.
-	//cGameApp::OutputDebugInfoString(L"=====================\n");
+	//FMLog::LogWithFlag(L"=====================\n");
 	//cNamedTypedObjectVector<cNamedTypedObjectVector<cLinkedNodes>> l_ResultPathes;
 	//cLinkedMapManager	l_LinkedMapManager(4,4,false,false);
 	//POINT	l_Point1 = {1,1};
@@ -111,25 +111,25 @@ namespace FATMING_CORE
 	//l_LinkedMapManager.SetBlock(l_Point4);
 	//cLinkedNodes*l_pLinkedNodes = l_LinkedMapManager.GetObject(0);
 	//l_pLinkedNodes->FindTargetNode(l_LinkedMapManager.GetObject(3),&l_ResultPathes);
-	//cGameApp::OutputDebugInfoString(L"ResultCount:");
-	//cGameApp::OutputDebugInfoString(ValueToStringW(l_ResultPathes.Count()));
-	//cGameApp::OutputDebugInfoString(L"\n");
+	//FMLog::LogWithFlag(L"ResultCount:");
+	//FMLog::LogWithFlag(ValueToStringW(l_ResultPathes.Count()));
+	//FMLog::LogWithFlag(L"\n");
 	//for(int	i = 0;i<l_ResultPathes.Count();++i)
 	//{
-	//	cGameApp::OutputDebugInfoString(L"Path");
-	//	cGameApp::OutputDebugInfoString(ValueToStringW(i));
-	//	cGameApp::OutputDebugInfoString(L":");
+	//	FMLog::LogWithFlag(L"Path");
+	//	FMLog::LogWithFlag(ValueToStringW(i));
+	//	FMLog::LogWithFlag(L":");
 	//	cNamedTypedObjectVector<cLinkedNodes>*l_pPath = l_ResultPathes.GetObject(i);
 	//	for(int	j = 0;j<l_pPath->Count();++j)
 	//	{
-	//		cGameApp::OutputDebugInfoString(l_pPath->GetObject(j)->GetName());
-	//		cGameApp::OutputDebugInfoString(L" __ ");
+	//		FMLog::LogWithFlag(l_pPath->GetObject(j)->GetName());
+	//		FMLog::LogWithFlag(L" __ ");
 	//	}
-	//	cGameApp::OutputDebugInfoString(L"\n");
+	//	FMLog::LogWithFlag(L"\n");
 	//}
 	//
 
 	//l_LinkedMapManager.Clear();
-	//cGameApp::OutputDebugInfoString(L"=====================\n");
+	//FMLog::LogWithFlag(L"=====================\n");
 }
 #endif

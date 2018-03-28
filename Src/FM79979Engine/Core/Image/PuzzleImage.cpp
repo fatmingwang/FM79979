@@ -114,7 +114,7 @@ namespace FATMING_CORE
 				{
 					std::wstring	l_strErrorMsg = L"PIUnit not exist:";
 					l_strErrorMsg += l_strValue;
-					cGameApp::OutputDebugInfoString(l_strErrorMsg);
+					FMLog::LogWithFlag(l_strErrorMsg.c_str(), CORE_LOG_FLAG);
 				}
 			}
 			else

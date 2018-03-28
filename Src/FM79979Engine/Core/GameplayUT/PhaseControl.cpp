@@ -82,13 +82,18 @@ namespace FATMING_CORE
 		int	l_i = e_iIndex;
 		if (l_i != -1)
 		{
+			int l_iCount = this->Count();
 			m_iCurrentPhase = l_i;
-			(*this)[l_i]->Init();
-			(*this)[l_i]->SetSatisfiedCondition(false);
 			this->m_pCurrentWorkingObject = this->GetObject(l_i);
-			return true;
+			if (m_pCurrentWorkingObject)
+			{
+				m_pCurrentWorkingObject->Init();
+				m_pCurrentWorkingObject->SetSatisfiedCondition(false);
+				return true;
+			}
+			return false;
 		}
-		m_pCurrentWorkingObject = 0;
+		m_pCurrentWorkingObject = nullptr;
 		return false;
 	}
 
@@ -132,7 +137,7 @@ namespace FATMING_CORE
 		if( l_iIndex == -1  )
 		{
 #ifdef WIN32
-			cGameApp::OutputDebugInfoString(L"error Phase or end phase?? ");
+			FMLog::LogWithFlag(L"error Phase or end phase?? ", CORE_LOG_FLAG);
 #endif
 		}
 		m_iCurrentPhase = l_iIndex;
@@ -157,7 +162,7 @@ namespace FATMING_CORE
 			//l_pTargetPhase->Update(0.00f);
 		}
 		this->m_pCurrentWorkingObject = l_pTargetPhase;
-		cGameApp::m_sTimeAndFPS.Update();	
+		//cGameApp::m_sTimeAndFPS.Update();
 	}
 
 	void	cPhaseManager::Update(float	e_fElpaseTime)
@@ -165,14 +170,14 @@ namespace FATMING_CORE
 		if(PopUpMessagerUpdate(e_fElpaseTime))
 		{
 			InternalUpdate(e_fElpaseTime);
-			if( this->m_iCurrentPhase != -1 )
+			this->m_pCurrentWorkingObject = (*this)[m_iCurrentPhase];
+			if (m_pCurrentWorkingObject)
 			{
-				cSimplePhase *l_pSimplePhase = m_ObjectList[m_iCurrentPhase];
-				l_pSimplePhase->Update(e_fElpaseTime);
-				if( l_pSimplePhase->IsSatisfiedCondition() )
+				m_pCurrentWorkingObject->Update(e_fElpaseTime);
+				if (m_pCurrentWorkingObject->IsSatisfiedCondition())
 				{
-					int	l_iIndex = GetObjectIndexByName(l_pSimplePhase->GetNextPhaseName());
-					SetNewWorkingPhase(l_iIndex,m_iCurrentPhase);
+					int	l_iIndex = GetObjectIndexByName(m_pCurrentWorkingObject->GetNextPhaseName());
+					SetNewWorkingPhase(l_iIndex, m_iCurrentPhase);
 				}
 			}
 		}
@@ -185,8 +190,8 @@ namespace FATMING_CORE
 
 	void	cPhaseManager::DebugRender()
 	{
-		if( this->m_iCurrentPhase != -1 )
-			m_ObjectList[m_iCurrentPhase]->DebugRender();
+		if(m_pCurrentWorkingObject)
+			m_pCurrentWorkingObject->DebugRender();
 	}
 
 	bool	cPhaseManager::PopUpMessagerRender()
@@ -204,8 +209,8 @@ namespace FATMING_CORE
 		//if(PopUpMessagerRender())
 		{
 			InternalRender();
-			if( this->m_iCurrentPhase != -1 )
-				m_ObjectList[m_iCurrentPhase]->Render();
+			if(m_pCurrentWorkingObject)
+				m_pCurrentWorkingObject->Render();
 		}
 		PopUpMessagerRender();
 	}

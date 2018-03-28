@@ -332,9 +332,8 @@ namespace FATMING_CORE
 		  if( fp.fail() ) 
 		  {
 	#ifdef WIN32
-			 cGameApp::OutputDebugInfoString(L"Failed to open shader file:");
-			 cGameApp::OutputDebugInfoString(UT::CharToWchar(e_strFileName));
-			 cGameApp::OutputDebugInfoString(L"\n");
+			 FMLog::LogWithFlag(L"Failed to open shader file:", CORE_LOG_FLAG);
+			 FMLog::LogWithFlag(UT::CharToWchar(e_strFileName), CORE_LOG_FLAG);
 	#endif
 			 assert(0);
 			 return false;
@@ -369,9 +368,8 @@ namespace FATMING_CORE
 	   if ( compilationResult == 0 )
 	   {
 	#ifdef WIN32
-		  cGameApp::OutputDebugInfoString(L"Failed to compile shader:");
-		  cGameApp::OutputDebugInfoString(UT::CharToWchar(e_strFileName));
-		  cGameApp::OutputDebugInfoString(L"\n");
+		  FMLog::LogWithFlag(L"Failed to compile shader:", CORE_LOG_FLAG);
+		  FMLog::LogWithFlag(UT::CharToWchar(e_strFileName), CORE_LOG_FLAG);
 	#endif
 		  return false;
 	   }

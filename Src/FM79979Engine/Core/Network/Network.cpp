@@ -89,12 +89,12 @@ namespace FATMING_CORE
 			{
 				goto FAILED;
 			}
-			//cGameApp::OutputDebugInfoString("listen\n");
+			//FMLog::LogWithFlag("listen\n");
 			l_iNumready = SDLNet_CheckSockets(l_pNetwork->m_pAllSocketToListenClientMessage, (UINT)1000);
 			if( l_iNumready == -1 )
 			{
 				goto FAILED;
-				//cGameApp::OutputDebugInfoString("SDLNet_CheckSockets: %s\n",SDL_GetError());
+				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s\n",SDL_GetError());
 			}
 			if( l_iNumready == 0 )
 				continue;
@@ -111,7 +111,7 @@ namespace FATMING_CORE
 					if( l_pNewClient )
 					{
 						l_pNetwork->AddClient(l_pNewClient);
-						cGameApp::OutputDebugInfoString("new client\n");
+						FMLog::LogWithFlag("new client\n", CORE_LOG_FLAG);
 						//continue;
 					}
 				}
@@ -140,7 +140,7 @@ namespace FATMING_CORE
 							{
 								if( l_bFraomTemplateData )
 									l_pNetwork->m_TempReceiveData.erase(l_pClient);
-								cGameApp::OutputDebugInfoString("recevied message\n");
+								FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
 								cFUSynchronizedHold hold(&l_pNetwork->m_ReceivedData);
 								l_pNetwork->m_ReceivedData.push_back(l_pPacket);
 								sReceivedPacket*l_pNextPacket = l_pPacket->NextPacket();
@@ -165,7 +165,7 @@ namespace FATMING_CORE
 								if( l_bFraomTemplateData )//should not happen
 									l_pNetwork->m_TempReceiveData.erase(l_pClient);
 								delete l_pPacket;
-								cGameApp::OutputDebugInfoString("client connection failed\n");
+								FMLog::LogWithFlag("client connection failed\n", CORE_LOG_FLAG);
 								if(!l_pNetwork->RemoveClient(l_pClient))
 								{
 									//assert(0&&"no this client");
@@ -228,7 +228,7 @@ namespace FATMING_CORE
 					//else
 					//{
 					//	goto FAILED;
-					//	//cGameApp::OutputDebugInfoString("SDLNet_CheckSockets: %s\n",SDL_GetError());
+					//	//FMLog::LogWithFlag("SDLNet_CheckSockets: %s\n",SDL_GetError());
 					//}
 				}
 			}
@@ -236,13 +236,13 @@ namespace FATMING_CORE
 		return;
 	FAILED:
 		l_pNetwork->m_bConnectionFailed = true;
-		//cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine("disconnect!",true);
+		//cGameApp::WriteLog("disconnect!");
 	}
 
 	void	NetworkListenThreadDone(size_t _workParameter, size_t _pUri)
 	{
-		//cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine("NetworkListenThreadDone thread done",true);
-		cGameApp::OutputDebugInfoString("NetworkListenThreadDone thread done");
+		//cGameApp::WriteLog("NetworkListenThreadDone thread done",true);
+		FMLog::LogWithFlag("NetworkListenThreadDone thread done", CORE_LOG_FLAG);
 	}
 
 	//void	NetworkSendData(size_t _workParameter, size_t _pUri)
@@ -272,7 +272,7 @@ namespace FATMING_CORE
 
 	cNetwork::~cNetwork()
 	{
-		//cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine("delete cNetwork",true);
+		//cGameApp::WriteLog("delete cNetwork",true);
 		this->Destroy();
 		SDLNet_Quit();
 	}
@@ -280,7 +280,7 @@ namespace FATMING_CORE
 	/* create a socket set that has the server socket and all the client sockets */
 	bool	cNetwork::CreateSocksetToListenData()
 	{
-		//cGameApp::OutputDebugInfoString("create socket\n");
+		//FMLog::LogWithFlag("create socket\n");
 		if( m_pAllSocketToListenClientMessage )
 			SDLNet_FreeSocketSet(m_pAllSocketToListenClientMessage);
 		int	l_iNumClient = 0;
@@ -292,7 +292,7 @@ namespace FATMING_CORE
 		m_pAllSocketToListenClientMessage = SDLNet_AllocSocketSet(l_iNumClient+1);
 		if(!m_pAllSocketToListenClientMessage)
 		{
-			//cGameApp::OutputDebugInfoString("SDLNet_AllocSocketSet: %s\n", SDL_GetError());
+			//FMLog::LogWithFlag("SDLNet_AllocSocketSet: %s\n", SDL_GetError());
 			//exit(1); /*most of the time this is a major error, but do what you want. */
 			return false;
 		}
@@ -390,7 +390,7 @@ namespace FATMING_CORE
 	{
 		if( e_pTCPsocket )
 		{
-			cGameApp::OutputDebugInfoString("send data\n");
+			FMLog::LogWithFlag("send data\n", CORE_LOG_FLAG);
 			int	l_iSendSize = (int)(sizeof(size_t)+e_pPacket->iSize);
 			char*l_pData = new char[l_iSendSize];
 			memcpy(l_pData,&e_pPacket->iSize,sizeof(size_t));
@@ -495,11 +495,11 @@ namespace FATMING_CORE
 		}
 		m_iPort = e_iPort;
 		//printf("port:%d\n",m_iPort);
-		cGameApp::OutputDebugInfoString("fetch IP \n");
+		FMLog::LogWithFlag("fetch IP \n", CORE_LOG_FLAG);
 		/* Resolve the argument into an IPaddress type */
 		if(SDLNet_ResolveHost(&m_IP,e_strIP,m_iPort)==-1)
 		{
-			cGameApp::OutputDebugInfoString("fetch IP failed\n");
+			FMLog::LogWithFlag("fetch IP failed\n", CORE_LOG_FLAG);
 			m_bConnectionFailed = true;
 			return false;
 		}
@@ -514,11 +514,11 @@ namespace FATMING_CORE
 
 		m_strHost = SDLNet_ResolveIP(&m_IP);
 		m_pSocket = SDLNet_TCP_Open(&m_IP);
-		cGameApp::OutputDebugInfoString("socket open\n");
+		FMLog::LogWithFlag("socket open\n", CORE_LOG_FLAG);
 		//if SDLNet_TCP_Open called server's SDLNet_TCP_Accept will be triggered
 		if( !m_pSocket )
 		{
-			cGameApp::OutputDebugInfoString("socket open failed\n");
+			FMLog::LogWithFlag("socket open failed\n", CORE_LOG_FLAG);
 			m_bConnectionFailed = true;
 			return false;
 		}
@@ -534,7 +534,7 @@ namespace FATMING_CORE
 
 	bool	cNetwork::CreateThread()
 	{
-		cGameApp::OutputDebugInfoString("create thread to listen\n");
+		FMLog::LogWithFlag("create thread to listen\n", CORE_LOG_FLAG);
 		FUStaticFunctor2<size_t, size_t, void>* workFunctor = new FUStaticFunctor2<size_t, size_t, void>(&NetworkListenThread);
 		FUStaticFunctor2<size_t, size_t, void>* doneFunctor = new FUStaticFunctor2<size_t, size_t, void>(&NetworkListenThreadDone);
 		this->m_pThreadPool->ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
@@ -543,7 +543,7 @@ namespace FATMING_CORE
 
 	void	cNetwork::Destroy()
 	{
-		//cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine("Destroy cNetwork",true);		
+		//cGameApp::WriteLog("Destroy cNetwork",true);		
 		CloseSocket();
 		if( m_pThreadPool )
 		{
@@ -558,7 +558,7 @@ namespace FATMING_CORE
 	{
 		if( m_pSocket )
 		{
-			//cGameApp::m_spLogFile->WriteToFileImmediatelyWithLine("Destroy socket",true);
+			//cGameApp::WriteLog("Destroy socket",true);
 			m_bLeaveThread = true;
 			Sleep(1001);
 			_TCPsocket*l_pSocket = m_pSocket;

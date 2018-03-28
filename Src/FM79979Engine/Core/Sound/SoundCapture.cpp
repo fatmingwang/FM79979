@@ -77,7 +77,7 @@ namespace	FATMING_CORE
 					alcCaptureSamples(l_pSoundCapture->m_pDevice,l_pBuffer,l_iSamplesIn);
 					l_pSoundCapture->AddFileSize(l_iSamplesIn*l_iOneSampleSize);
 					l_Timer.Update();
-					cGameApp::OutputDebugInfoString(l_Timer.GetFPS());
+					FMLog::LogWithFlag(l_Timer.GetFPS(), CORE_LOG_FLAG);
 					for( int i=0;i<l_iNumCount;++i )
 					{
 						(*l_CallbackObjectVector)[i]->CaptureSoundNewDataCallBack(l_iSamplesIn,(char*)l_pBuffer);

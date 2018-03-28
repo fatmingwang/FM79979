@@ -136,7 +136,7 @@ void	Frame::DestoryWithChildren(Frame*e_pFrame)
 		{
 			DestoryWithChildren(e_pFrame->GetFirstChild());
 		}
-		//cGameApp::OutputDebugInfoString(e_pFrame->GetName());
+		//FMLog::LogWithFlag(e_pFrame->GetName());
 		SAFE_DELETE(e_pFrame);
 	}
 }
@@ -578,13 +578,13 @@ void	Frame::DumpDebugInfo()
 	int	l_iLevel = 0;
 	while( l_pParentNode )
 	{
-		cGameApp::OutputDebugInfoString(L"-----",false,false);
+		FMLog::LogWithFlag(L"-----",false,false);
 		l_pParentNode = l_pParentNode->GetParent();
 		l_iLevel++;
 	}
 	WCHAR	l_str[MAX_PATH];
 	swprintf(l_str,MAX_PATH,L"Name:%ls\n",GetName());
-	cGameApp::OutputDebugInfoString(l_str);
+	FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
 	if( GetFirstChild() )
 	{
 		GetFirstChild()->DumpDebugInfo();

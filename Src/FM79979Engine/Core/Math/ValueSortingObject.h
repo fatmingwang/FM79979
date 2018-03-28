@@ -31,7 +31,7 @@ namespace	FATMING_CORE
 	////l_TestVector[0]->Sort(l_p);
 	//l_TestVector[(l_TestVector.size()-1)/2]->Sort(l_p);
 	//}
-	//cGameApp::OutputDebugInfoString(L"\n");
+	//FMLog::LogWithFlag(L"\n");
 	//Dump(l_TestVector[0]);
 
 //end namespace	FATMING_CORE

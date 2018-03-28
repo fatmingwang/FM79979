@@ -138,7 +138,7 @@ namespace FATMING_CORE
 		if (m_pCurrentPointData->iImageIndex == -1)
 		{
 			std::wstring	l_str = UT::ComposeMsgByFormat(L"cCueToStartCurveWithTime image error,Name:%s", this->GetName());
-			cGameApp::OutputDebugInfoString(l_str.c_str());
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 			//UT::ErrorMsg(this->GetName(),L"image error");
 		}
 #endif
@@ -552,7 +552,7 @@ namespace FATMING_CORE
 		{
 #ifdef DEBUG
 			std::wstring	l_str = UT::ComposeMsgByFormat(L"image error,Name:", this->GetName());
-			cGameApp::OutputDebugInfoString(l_str.c_str());
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #endif
 			return;
 		}
@@ -594,7 +594,7 @@ namespace FATMING_CORE
 #ifdef DEBUG
 			std::wstring	l_str = UT::ComposeMsgByFormat(L"image error,Name:", this->GetName());
 			UT::ErrorMsg(l_str.c_str(), L"Error RenderLastFrame");
-			//cGameApp::OutputDebugInfoString(l_str.c_str());
+			//FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 #endif
 			return;
 		}

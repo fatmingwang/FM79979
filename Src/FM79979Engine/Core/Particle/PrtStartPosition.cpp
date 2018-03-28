@@ -140,7 +140,7 @@ namespace FATMING_CORE
 				if( m_pFrame )
 				{
 					assert(0&&"current not support");
-					//cGameApp::OutputDebugInfoString(L"!!----I am lazy to write more flexible,support Frame-----!!\n");
+					//FMLog::LogWithFlag(L"!!----I am lazy to write more flexible,support Frame-----!!\n");
 					//if( m_pFrame->Type() == MESH::CDXUTMeshFrame::TypeID || 
 					//	m_pFrame->Type() == MESH::CDXUTMeshFile::TypeID )
 					//{

@@ -422,12 +422,12 @@ namespace FATMING_CORE
 						return;
 						break;
 				}
-				//cGameApp::OutputDebugInfoString(ValueToStringW(l_dbFinalValue));
-				//cGameApp::OutputDebugInfoString(L",");
+				//FMLog::LogWithFlag(ValueToStringW(l_dbFinalValue));
+				//FMLog::LogWithFlag(L",");
 				l_pDataAndCurve->AssignData(j,l_dbFinalValue);
 				l_pTargetData += l_iTotalSize;
 			}
-			//cGameApp::OutputDebugInfoString(L"\n");
+			//FMLog::LogWithFlag(L"\n");
 		}
 	}
 

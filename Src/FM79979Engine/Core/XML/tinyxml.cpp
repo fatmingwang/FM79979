@@ -135,22 +135,23 @@ void TiXmlBase::EncodeString( const TIXML_STRING& str, TIXML_STRING* outString )
 void	DumpInfo(TiXmlElement*e_pTiXmlElement)
 {
 #ifdef WIN32
+	std::wstring l_strDebugInfo;
 	for(TiXmlNode*l_pFirstNode = e_pTiXmlElement;l_pFirstNode;l_pFirstNode = l_pFirstNode->Parent())
 	{
-		cGameApp::OutputDebugInfoString(L"\t");
+		l_strDebugInfo += L"\t";
 	}
-	cGameApp::OutputDebugInfoString(e_pTiXmlElement->Value());
-	cGameApp::OutputDebugInfoString(L"__");
+	FMLog::LogWithFlag(l_strDebugInfo.c_str(), CORE_LOG_FLAG);
+	FMLog::LogWithFlag(e_pTiXmlElement->Value(), CORE_LOG_FLAG);
+	FMLog::LogWithFlag(L"__", CORE_LOG_FLAG);
 	for( TiXmlAttribute*l_pTiXmlAttribute = e_pTiXmlElement->FirstAttribute();l_pTiXmlAttribute;l_pTiXmlAttribute = l_pTiXmlAttribute->Next() )
 	{
-		cGameApp::OutputDebugInfoString(l_pTiXmlAttribute->Name());
-		cGameApp::OutputDebugInfoString(L":");
-		cGameApp::OutputDebugInfoString(l_pTiXmlAttribute->Value());
-		cGameApp::OutputDebugInfoString(L",");
+		FMLog::LogWithFlag(l_pTiXmlAttribute->Name(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(L":", CORE_LOG_FLAG);
+		FMLog::LogWithFlag(l_pTiXmlAttribute->Value(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(L",", CORE_LOG_FLAG);
 	}
 	for(TiXmlElement*l_pFirstNode = e_pTiXmlElement->FirstChildElement();l_pFirstNode;l_pFirstNode = l_pFirstNode->NextSiblingElement())
 	{
-		cGameApp::OutputDebugInfoString(L"\n");
 		DumpInfo(l_pFirstNode);
 	}
 #endif
@@ -1350,10 +1351,10 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	int	l_iLength = e_iLength;
 	if( l_iMagicID == HUFFMAN_MAGIC_ID )
 	{
-		cGameApp::OutputDebugInfoString("this is HUFFMAN file");
+		FMLog::LogWithFlag("this is HUFFMAN file", CORE_LOG_FLAG);
 		if( !cGameApp::m_sbAllowParseBinaryFile )
 		{
-			cGameApp::OutputDebugInfoString("not allow HUFFMAN file");
+			FMLog::LogWithFlag("not allow HUFFMAN file", CORE_LOG_FLAG);
 			return false;
 		}
 		l_iLength -= sizeof(int);
@@ -1385,7 +1386,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	if( l_strEncoding[0] != 0xff && l_strEncoding[1] != 0xfe )//this is ansii file,convert ansii file to unicode
 #endif
 	{
-		cGameApp::OutputDebugInfoString("anscii convert to wchar1");
+		//FMLog::LogWithFlag("anscii convert to wchar1", CORE_LOG_FLAG);
 		char*l_strAnsii = (char*)buf;
 		std::wstring l_strCharToWchar;
 		{
@@ -1410,7 +1411,7 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 		//it's utf 32...works for IOS and Android but windows,skip 8 byte to keept format correct
 		if( l_iLength%2 == 0 && (l_strEncoding[0] == 0xff && l_strEncoding[1] == 0xfe) )
 		{
-			cGameApp::OutputDebugInfoString("anscii convert to wchar2");
+			FMLog::LogWithFlag("anscii convert to wchar2", CORE_LOG_FLAG);
 			wchar_t* l_pNewBuffer = new wchar_t[ l_iLength/2+1 ];//assume all file is unicode
 			int	l_iIndex = 0;
 			for( int i=0;i<l_iLength;i+=2 )

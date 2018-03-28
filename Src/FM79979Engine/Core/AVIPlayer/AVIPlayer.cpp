@@ -86,7 +86,7 @@ cAVIPlayer::~cAVIPlayer()
 //	DrawDibClose(m_hdc);										// Closes The DrawDib Device Context
 	CloseFile();
 	//DrawDibClose(m_hdc);										// Closes The DrawDib Device Context
-	cGameApp::OutputDebugInfoString(L"FUCK I am lazy to debug this...why it occur crash DrawDibClose?");
+	FMLog::LogWithFlag(L"FUCK I am lazy to debug this...why it occur crash DrawDibClose?", CORE_LOG_FLAG);
 	m_hdc = 0;
 }
 

@@ -6,6 +6,7 @@
 #include "NamedTypedObject.h"
 #include "Utility.h"
 #include "TempContainer.h"
+#include "GameplayUT/Log/FMLog.h"
 using namespace std;
 ////====================
 ////if the object is not belong to the other,itself must to be delete object or release object
@@ -680,11 +681,11 @@ public:
 	cSingltonTemplate()
 	{
 		assert(m_pInstance == nullptr && "singlton only can have one instance");
-		cGameApp::OutputDebugInfoString(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%s", TYPE::TypeID));
+		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%s", TYPE::TypeID), CORE_LOG_FLAG);
 	}
 	virtual ~cSingltonTemplate()
 	{
-		cGameApp::OutputDebugInfoString(ComposeMsgByFormat(L"cSingltonTemplate destructor called:%s", TYPE::TypeID));
+		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate destructor called:%s", TYPE::TypeID), CORE_LOG_FLAG);
 	}
 };
 

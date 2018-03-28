@@ -139,6 +139,7 @@
     <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="GameplayUT\Language\LanguageFile.cpp" />
+    <ClCompile Include="GameplayUT\Log\FMLog.cpp" />
     <ClCompile Include="GameplayUT\Preload\PreloadResource.cpp" />
     <ClCompile Include="GameplayUT\WriteFile\WriteFileWithThread.cpp" />
     <ClCompile Include="GLSL\Blur.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="GameplayUT\CustomBinaryData.h" />
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h" />
     <ClInclude Include="GameplayUT\Language\LanguageFile.h" />
+    <ClInclude Include="GameplayUT\Log\FMLog.h" />
     <ClInclude Include="GameplayUT\Preload\PreloadResource.h" />
     <ClInclude Include="GameplayUT\WriteFile\WriteFileWithThread.h" />
     <ClInclude Include="GLSL\Blur.h" />

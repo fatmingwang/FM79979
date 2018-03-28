@@ -1,4 +1,5 @@
 #include "../../stdafx.h"
+#include "../GameplayUT/Log/FMLog.h"
 #ifdef WASM
 #include "PreloadResource.h"
 #include <emscripten/fetch.h>
@@ -22,20 +23,20 @@ namespace FATMING_CORE
 		{
 			//if (l_strFileName.find("xml") != std::string::npos)
 			//{
-			//	cGameApp::OutputDebugInfoString(fetch->data);
+			//	FMLog::LogWithFlag(fetch->data);
 			//}
 			l_cBinaryFile.WriteToFile(&fetch->data[0], fetch->numBytes);
-			cGameApp::OutputDebugInfoString("save file finish");
+			FMLog::LogWithFlag("save file finish", CORE_LOG_FLAG);
 		}
 		else
 		{
 			l_strFileName += " save file failed";
-			cGameApp::OutputDebugInfoString(l_strFileName);
+			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}
 		// The data is now available at fetch->data[0] through fetch->data[fetch->numBytes-1];
 		l_pPreLoadFromInternet->SetWaitForDownloadFromInternet(false);
 		emscripten_fetch_close(fetch); // Free data associated with the fetch.
-		cGameApp::OutputDebugInfoString("emscripten_fetch_close");
+		FMLog::LogWithFlag("emscripten_fetch_close", CORE_LOG_FLAG);
 	}
 
 	void downloadFailed(emscripten_fetch_t *fetch)
@@ -65,7 +66,7 @@ namespace FATMING_CORE
 		++m_iCurrentResourceIndex;
 		std::wstring l_str = L"Progress:";
 		l_str += ValueToStringW(GetProgress());
-		cGameApp::OutputDebugInfoString(l_str);
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 	}
 	void	cPreLoadFromInternet::AddDownloadFailedFileName(const char*e_strFileName)
 	{
@@ -83,7 +84,7 @@ namespace FATMING_CORE
 		m_fElpaseTime = 0.f;
 		if (this->ParseDataIntoXMLNode(e_strPreloadFileName))
 		{
-			cGameApp::OutputDebugInfoString("cPreLoadFromInternet start ok");
+			FMLog::LogWithFlag("cPreLoadFromInternet start ok", CORE_LOG_FLAG);
 			this->m_pCurrentTiXmlElement = this->m_pRootElement;
 			if (m_pCurrentTiXmlElement)
 			{
@@ -104,7 +105,7 @@ namespace FATMING_CORE
 			m_TimeElpaseTC.Update();
 			return true;
 		}
-		cGameApp::OutputDebugInfoString("cPreLoadFromInternet start failed");
+		FMLog::LogWithFlag("cPreLoadFromInternet start failed", CORE_LOG_FLAG);
 		return false;
 	}
 
@@ -141,15 +142,15 @@ namespace FATMING_CORE
 					attr.userData = this;
 					emscripten_fetch(&attr, l_strFileName.c_str());
 					
-					//cGameApp::OutputDebugInfoString("start to download");
-					//cGameApp::OutputDebugInfoString(l_strFileName.c_str());
-					cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("start to download %s", l_strFileName.c_str()).c_str());
+					//FMLog::LogWithFlag("start to download");
+					//FMLog::LogWithFlag(l_strFileName.c_str());
+					FMLog::LogWithFlag(UT::ComposeMsgByFormat("start to download %s", l_strFileName.c_str()).c_str(), CORE_LOG_FLAG);
 				}
 				//else
 				//{
-				//	//cGameApp::OutputDebugInfoString(l_strFileName.c_str());
-				//	//cGameApp::OutputDebugInfoString("exists skip download!");
-				//	cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("%s exists skip download!", l_strFileName.c_str()).c_str());
+				//	//FMLog::LogWithFlag(l_strFileName.c_str());
+				//	//FMLog::LogWithFlag("exists skip download!");
+				//	FMLog::LogWithFlag(UT::ComposeMsgByFormat("%s exists skip download!", l_strFileName.c_str()).c_str());
 				//}
 			}
 			m_pCurrentTiXmlElement = m_pCurrentTiXmlElement->NextSiblingElement();
