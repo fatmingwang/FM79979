@@ -64,7 +64,7 @@ const wchar_t*cSmartObject::GetSmartObjectName()
 }
 
 
-void cSmartObject::AddRef(NamedTypedObject*e_pNamedTypedObject)
+int cSmartObject::AddRef(NamedTypedObject*e_pNamedTypedObject)
 {
 	if (e_pNamedTypedObject)
 	{
@@ -82,12 +82,17 @@ void cSmartObject::AddRef(NamedTypedObject*e_pNamedTypedObject)
 		assert(m_ReferenceList.Count() == m_refCount);
 #endif
 	}
+	return m_refCount;
 }
 
 int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 {
 	if( e_pNamedTypedObject )
 	{
+		if (!wcscmp(e_pNamedTypedObject->GetName(), L"cPIUnitAndPointsVector"))
+		{
+			int a = 0;
+		}
 		m_refCount--;
 		int	l_refCount = m_refCount;
 #ifdef DEBUG

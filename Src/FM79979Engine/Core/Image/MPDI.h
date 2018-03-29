@@ -43,7 +43,9 @@ namespace FATMING_CORE
 		//
 		//call CheckRenderOptmize to change render mode,while AddObject is called,make sure CheckRenderOptmize is caled
 		bool	m_bRenderOptmize;
-		//MPDI's width and height
+		//real draw radius(without image offset position)
+		float	m_fDrawRadiusWithoutImageOffset;
+		//MPDI's width and height,not real image size,left up is the image position(contain offset position)
 		GET_SET_DEC(Vector2,m_vDrawSize,GetDrawSize,SetDrawSize);
 		GET_SET_DEC(Vector4,m_vDrawRect, GetDrawRect, SetDrawRect);
 		//for 2D O point(left up) is not center,but game may expect a 3D object transformation,so make position offset the object transformation will like 3D
@@ -129,6 +131,7 @@ namespace FATMING_CORE
 		bool			GetObjectPos(const wchar_t*e_strName,Vector3&e_vPos,bool e_bRemoveObject = false);
 		void			SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset);
 		void			SetRotationAnglePosOffsetWithDrawSize(bool e_bOn);
+		float			GetDrawRadiusWithoutImageOffset() {return m_fDrawRadiusWithoutImageOffset;}
 	};
 
 	typedef cMultiPathDynamicImage	cMPDI;

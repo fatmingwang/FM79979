@@ -128,14 +128,14 @@ public:
     public:
         iterator();      
 
-        NamedTypedObject*   operator*();
+        NamedTypedObject*		operator*();
         iterator&               operator++( int ); // only postfix defined 
         iterator&               operator=( const iterator& iRHS );
         bool                    operator==( const iterator& iRHS );
         bool                    operator!=( const iterator& iRHS );
     private:   
-        NameIndexedCollection*                  m_pCollection;
-        std::vector<NamedTypedObject*>::iterator  m_iter;        
+        NameIndexedCollection*						m_pCollection;
+        std::vector<NamedTypedObject*>::iterator	m_iter;
         int                                         m_iCurBucket;
     };
     friend class NameIndexedCollection::iterator;

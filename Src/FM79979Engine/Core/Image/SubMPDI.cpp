@@ -373,13 +373,13 @@ namespace FATMING_CORE
 				e_pOutVertices[6] = l_vDrawRect.z;  e_pOutVertices[7] = l_vDrawRect.w;
 			}
 			else
-				if (e_iStride == 3)
-				{
-					e_pOutVertices[0] = 0;				e_pOutVertices[1] = 0;				e_pOutVertices[2] = 0.f;
-					e_pOutVertices[3] = l_vImageSize.x;	e_pOutVertices[4] = 0;				e_pOutVertices[5] = 0.f;
-					e_pOutVertices[6] = 0;				e_pOutVertices[7] = l_vImageSize.y; e_pOutVertices[8] = 0.f;
-					e_pOutVertices[9] = l_vImageSize.x;	e_pOutVertices[10] = l_vImageSize.y; e_pOutVertices[11] = 0.f;
-				}
+			if (e_iStride == 3)
+			{
+				e_pOutVertices[0] = 0;				e_pOutVertices[1] = 0;				e_pOutVertices[2] = 0.f;
+				e_pOutVertices[3] = l_vImageSize.x;	e_pOutVertices[4] = 0;				e_pOutVertices[5] = 0.f;
+				e_pOutVertices[6] = 0;				e_pOutVertices[7] = l_vImageSize.y; e_pOutVertices[8] = 0.f;
+				e_pOutVertices[9] = l_vImageSize.x;	e_pOutVertices[10] = l_vImageSize.y; e_pOutVertices[11] = 0.f;
+			}
 		}
 		if (e_pOutTextureUV)
 			AssignUVDataToTriangleStrip(l_pPuzzleData->fUV, e_pOutTextureUV, e_pImageData->bMirror);

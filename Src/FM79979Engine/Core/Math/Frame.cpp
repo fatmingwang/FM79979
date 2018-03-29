@@ -64,6 +64,7 @@ Frame::Frame(Frame*e_pFrame)
 	m_pNextSibling = nullptr;
 	m_pFirstChild = nullptr;
 	m_bAutoUpdateBound = e_pFrame->m_bAutoUpdateBound;
+	m_LocalTransform = e_pFrame->m_LocalTransform;
 	if( e_pFrame->m_pLocalBound )
 	{
 #ifdef DEBUG

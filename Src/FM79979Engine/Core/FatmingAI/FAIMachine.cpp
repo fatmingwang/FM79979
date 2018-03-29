@@ -249,7 +249,11 @@ namespace FATMING_AI
 		if( m_pCurrentWorkingObject )
 		{
 			Vector3	l_vPos = GetSrcCharacter()->GetWorldPosition();
+			//cGameApp::m_spGlyphFontRender->SetScale(0.5f);
+			cGameApp::m_spGlyphFontRender->SetColor(Vector4::Red);
 			cGameApp::m_spGlyphFontRender->RenderFont(l_vPos.x,l_vPos.y-30,m_pCurrentWorkingObject->GetName());
+			//cGameApp::m_spGlyphFontRender->SetScale(1.f);
+			cGameApp::m_spGlyphFontRender->SetColor(Vector4::One);
 		}
 	}
 

@@ -50,7 +50,7 @@ public:
 	/*!
 	Increment this object's reference count
 	*/
-	void AddRef(NamedTypedObject*e_pNamedTypedObject);
+	int AddRef(NamedTypedObject*e_pNamedTypedObject);
 
 	/*!
 	Decrement this object's reference count

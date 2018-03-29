@@ -504,7 +504,10 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 	#endif
 				if(m_pCurrentMultiPathDynamicImage)
 				{
+					m_pCurrentMultiPathDynamicImage->Init();
+					m_pCurrentMultiPathDynamicImage->Update(0.0001f);
 					m_pCurrentMultiPathDynamicImage->RefreshData();
+					m_pCurrentMultiPathDynamicImage->SetAnimationDone(true);
 				}
 				m_pCurrentMultiPathDynamicImage = 0;
 			}

@@ -550,6 +550,7 @@ namespace FATMING_CORE
 
 	cCurveWithTime::cCurveWithTime()
 	{
+		m_vCurrentPosition = Vector3::Zero;
 		m_fPreviousPosToNextPointAngle = m_fCurrentPosToNextPointAngle = 0.f;
 		m_fCurrentTime = 0.f;
 		m_iCurrentPointIndex = -1;
@@ -582,7 +583,7 @@ namespace FATMING_CORE
 
 	cCurveWithTime::cCurveWithTime(TiXmlElement*e_pTiXmlElement)
 	{
-	
+		assert(0&&"not support yet!");
 	}
 
 	cCurveWithTime cCurveWithTime::operator=(const cCurveWithTime&e_Other)

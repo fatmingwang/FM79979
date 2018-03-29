@@ -37,11 +37,13 @@ namespace FATMING_CORE
 		m_bRenderOptmize = false;
 		m_vDrawSize = Vector2::Zero;
 		m_vDrawRect = Vector4::Zero;
+		m_fDrawRadiusWithoutImageOffset = 0.f;
 	}
 
 	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
 		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
+		m_fDrawRadiusWithoutImageOffset = e_pMultiPathDynamicImage->m_fDrawRadiusWithoutImageOffset;
 		m_pViewPort = nullptr;
 		m_bDoPositionOffsetToCenter = e_pMultiPathDynamicImage->m_bDoPositionOffsetToCenter;
 		if(  e_pMultiPathDynamicImage->m_pViewPort )
@@ -95,6 +97,7 @@ namespace FATMING_CORE
 		//find out draw rect
 		int	l_iCount = this->Count();
 		Vector4	l_vDrawRect(FLT_MAX,FLT_MAX,FLT_MIN,FLT_MIN);
+		Vector4	l_vDrawRectWithoutImageOffset(FLT_MAX, FLT_MAX, FLT_MIN, FLT_MIN);
 		POINT l_vOriginalSize;
 		for( int i=0;i<l_iCount;++i )
 		{
@@ -103,21 +106,39 @@ namespace FATMING_CORE
 			int	l_iSize = (int)l_vPointPos.size();
 			for( int i=0;i<l_iSize;++i )
 			{
-				Vector3	l_vPos = l_vPointPos[i];
-				if( l_vDrawRect.x >l_vPos.x )
-					l_vDrawRect.x = l_vPos.x;
-				if( l_vDrawRect.y >l_vPos.y )
-					l_vDrawRect.y = l_vPos.y;
-				sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(i);
-				if (!l_pTexBehaviorDataWithImageIndexData->pPI)
-					break;
-				cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
-				l_vOriginalSize = l_pPIUnit->GetOriginalSize();
-				Vector2	l_vRightDownPos(l_vPos.x+ l_vOriginalSize.x,l_vPos.y+ l_vOriginalSize.y);
-				if( l_vDrawRect.z <l_vRightDownPos.x )
-					l_vDrawRect.z = l_vRightDownPos.x;
-				if( l_vDrawRect.w <l_vRightDownPos.y )
-					l_vDrawRect.w = l_vRightDownPos.y;
+				float l_fTempBufferForRenderVertices[18];
+				if (l_pCueToStartCurveWithTime->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices, nullptr, nullptr, i))
+				{
+					bool l_bImageZRotate90ToSaveMemory = false;
+					//left up
+					if (l_vDrawRectWithoutImageOffset.x > l_fTempBufferForRenderVertices[6])
+						l_vDrawRectWithoutImageOffset.x = l_fTempBufferForRenderVertices[6];
+					if (l_vDrawRectWithoutImageOffset.y > l_fTempBufferForRenderVertices[7])
+						l_vDrawRectWithoutImageOffset.y = l_fTempBufferForRenderVertices[7];
+					//right down
+					if (l_vDrawRectWithoutImageOffset.z < l_fTempBufferForRenderVertices[12])
+						l_vDrawRectWithoutImageOffset.z = l_fTempBufferForRenderVertices[12];
+					if (l_vDrawRectWithoutImageOffset.w < l_fTempBufferForRenderVertices[13])
+						l_vDrawRectWithoutImageOffset.w = l_fTempBufferForRenderVertices[13];
+				}
+				//else
+				{
+					Vector3	l_vPos = l_vPointPos[i];
+					if (l_vDrawRect.x > l_vPos.x)
+						l_vDrawRect.x = l_vPos.x;
+					if (l_vDrawRect.y > l_vPos.y)
+						l_vDrawRect.y = l_vPos.y;
+					sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(i);
+					if (!l_pTexBehaviorDataWithImageIndexData->pPI)
+						break;
+					cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+					l_vOriginalSize = l_pPIUnit->GetOriginalSize();
+					Vector2	l_vRightDownPos(l_vPos.x + l_vOriginalSize.x, l_vPos.y + l_vOriginalSize.y);
+					if (l_vDrawRect.z < l_vRightDownPos.x)
+						l_vDrawRect.z = l_vRightDownPos.x;
+					if (l_vDrawRect.w < l_vRightDownPos.y)
+						l_vDrawRect.w = l_vRightDownPos.y;
+				}
 			}
 		}
 		m_vDrawRect = l_vDrawRect;
@@ -125,6 +146,11 @@ namespace FATMING_CORE
 		CheckRenderOptmize();
 		FindoutAllPointsCenter();
 		RefreshTotalPlayTime();
+
+		Vector2 l_vDrawSizeWithoutImageOffset(l_vDrawRectWithoutImageOffset.Width(), l_vDrawRectWithoutImageOffset.Height());
+		//m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.x>l_vDrawSizeWithoutImageOffset.y ? l_vDrawSizeWithoutImageOffset.x : l_vDrawSizeWithoutImageOffset.y;
+		//m_fDrawRadiusWithoutImageOffset /= 2.f;
+		m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.Length()/2;
 	}
 
 	void	cMultiPathDynamicImage::Merge(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
