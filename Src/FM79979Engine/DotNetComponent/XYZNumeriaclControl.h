@@ -101,7 +101,9 @@ namespace DotNetComponent {
 						}
 						catch (System::Exception^e)
 						{
-							WARNING_MSG("XYZNumeriaclControl AssignValueToUI value is bigger than max or small than min");
+							String^l_str = e->ToString();
+							l_str += "XYZNumeriaclControl AssignValueToUI value is bigger than max or small than min";
+							WARNING_MSG(l_str);
 						}
 					}
 				}

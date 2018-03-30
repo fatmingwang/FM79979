@@ -10,6 +10,10 @@ namespace MPDI
 //	MPDIEditor::MPDIEditor(GCFORM::TabControl^e_ptabControl,GCFORM::Form^e_pForm,String^e_strFileName)
 	MPDIEditor::MPDIEditor(String^e_strFileName)
 	{
+		if (System::IO::File::Exists("Setup.xml"))
+		{
+			g_bLanguageChinese = true;
+		}
 		InitializeComponent();
 		this->Dock = GCFORM::DockStyle::Fill;
 		m_pMPDIUI = gcnew MPDIUI();

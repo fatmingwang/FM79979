@@ -246,13 +246,13 @@ ImplementThreadRoutine(cFUThread::InternalFunc, paramPtr)
 	if (!params->object->terminate)
 	{
 		code = (size_t)(*(params->func))(params->parameter);
-		params->object->exitCode = code;
+		params->object->exitCode = (uint32)code;
 	}
 	SAFE_DELETE(params);
 #if defined(LINUX) || defined (IOS)|| defined(ANDROID) || defined(WASM)
 	return (void*)code;
 #else
-	return code;
+	return (uint32)code;
 #endif
 }
 

@@ -94,7 +94,7 @@ bool cFUThreadPool::WaitForIdle(uint32 maxWaitTime)
 		else
 		if (l_i64MaxWaitTime <= 10)
 		{
-			cFUThread::SleepCurrentThread(l_i64MaxWaitTime);
+			cFUThread::SleepCurrentThread((unsigned long)l_i64MaxWaitTime);
 			l_i64MaxWaitTime = 0;
 		}
 		else

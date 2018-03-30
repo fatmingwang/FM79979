@@ -414,7 +414,7 @@ void Connection::endheaders()
 	m_Buffer.clear();
 
 //	printf( "%s", msg.c_str() );
-	send( (const unsigned char*)msg.c_str(), msg.size() );
+	send( (const unsigned char*)msg.c_str(), (int)msg.size() );
 }
 
 
