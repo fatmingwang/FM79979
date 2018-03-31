@@ -125,7 +125,7 @@ namespace FATMING_CORE
 		const wchar_t*	l_strForElementName = e_pTiXmlElement->Value();
 		if( !wcslen(l_strForElementName) )
 			return;
-		if( !wcscmp(l_strForElementName,L"CurveData") )
+		if( !wcscmp(l_strForElementName,L"CurveData") || !wcscmp(l_strForElementName, cCurveWithTime::TypeID))
 			ProcessCurveData();
 		else
 		if( !wcscmp(l_strForElementName,L"CurvePoint") )

@@ -18,7 +18,8 @@ namespace FATMING_AI
 		sMinMaxData<int>	m_iDistanceChangePoint;//avoid m_fXDistance,m_fYDistance change too fast
 		virtual void    InternalInit();
 		virtual void    InternalUpdate(float e_fElpaseTime);
-		GETP_SET_DEC(cCurveWithTime,m_CurveWithTime,GetPath,SetPath);
+		//GETP_SET_DEC(cCurveWithTime,m_CurveWithTime,GetPath,SetPath);
+		cCurveWithTime		m_CurveWithTime;
     public:
         DEFINE_TYPE_INFO();
 		cFAIFiledPathBehavior(TiXmlElement*e_pTiXmlElement);
@@ -26,6 +27,8 @@ namespace FATMING_AI
 		CLONE_MYSELF(cFAIFiledPathBehavior);
         virtual ~cFAIFiledPathBehavior();
 		virtual void Render()override;
+		cCurveWithTime*		GetPath() { return &m_CurveWithTime; }
+		void				SetPath(cCurveWithTime*e_CurveWithTime) {m_CurveWithTime = *e_CurveWithTime;}
     };
 }
 

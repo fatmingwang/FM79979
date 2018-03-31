@@ -150,6 +150,15 @@ TiXmlElement*		NamedTypedObject::ToTiXmlElement()
 	return 0;
 }
 
+NamedTypedObject&			NamedTypedObject::operator=(const NamedTypedObject&e_Other)
+{
+	this->m_pWoner = nullptr;
+	m_sObjectName = e_Other.m_sObjectName;
+	m_i64TimeStamp = 0;
+	m_ui64PointerVaildMagicID = e_Other.m_ui64PointerVaildMagicID;
+	return *this;
+}
+
 
 //-----------------------------------------------------------------------------
 // Name: NameIndexedCollection::iterator::iterator()

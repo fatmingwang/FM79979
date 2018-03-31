@@ -7,7 +7,7 @@ namespace FATMING_AI
     class   cFAIPathBehavior:public cFAIBaseBehave
     {
 		cCurveManager*	m_pCurveManager;
-		GETP_SET_DEC(cCurveWithTime,m_CurveWithTime,GetPath,SetPath);
+		cCurveWithTime	m_CurveWithTime;
 		virtual void    InternalInit();
 		virtual void    InternalUpdate(float e_fElpaseTime);
     public:
@@ -16,6 +16,8 @@ namespace FATMING_AI
         cFAIPathBehavior(cFAIPathBehavior*e_pFAIPathBehavior);
 		CLONE_MYSELF(cFAIPathBehavior);
         virtual ~cFAIPathBehavior();
+		cCurveWithTime*		GetPath() { return &m_CurveWithTime; }
+		void				SetPath(cCurveWithTime*e_CurveWithTime) { m_CurveWithTime = *e_CurveWithTime; }
     };
 }
 

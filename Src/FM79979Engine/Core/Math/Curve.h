@@ -158,9 +158,6 @@ namespace FATMING_CORE
 		//======================
 		cCurveWithTime();
 		cCurveWithTime(cCurveWithTime*e_pCurveWithTime);
-		//avoid same unique ID
-		cCurveWithTime(const cCurveWithTime&e_CurveWithTime);
-		cCurveWithTime operator=(const cCurveWithTime& e_Other);
 		cCurveWithTime(TiXmlElement*e_pTiXmlElement);
 		CLONE_MYSELF(cCurveWithTime);
 		virtual ~cCurveWithTime();

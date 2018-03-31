@@ -46,10 +46,17 @@ namespace FATMING_AI
 	{
 		if( m_pCurveManager )
 		{
-			if( m_pCurveManager->Count() )
-				m_CurveWithTime = *m_pCurveManager->GetObject(rand()%m_pCurveManager->Count());
+			if (m_pCurveManager->Count())
+			{
+				auto l_pData = m_pCurveManager->GetObject(rand() % m_pCurveManager->Count());
+				m_CurveWithTime = *l_pData;
+			}
 			m_CurveWithTime.Init();
 			m_CurveWithTime.SetCalAngle(true);
+		}
+		else
+		{
+			this->m_bSatisfiedCondition = true;
 		}
 	}
 

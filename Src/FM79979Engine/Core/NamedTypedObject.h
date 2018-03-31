@@ -103,6 +103,7 @@ public:
 	//virtual	void				Render(){}
 	virtual	NamedTypedObject*	Clone();
 	virtual	TiXmlElement*		ToTiXmlElement();
+	NamedTypedObject&			operator=(const NamedTypedObject&e_Other);
 private:
 	StringID					m_sObjectName;
 #ifdef DEBUG
