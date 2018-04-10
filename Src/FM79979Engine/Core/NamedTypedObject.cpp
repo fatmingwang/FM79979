@@ -154,8 +154,10 @@ NamedTypedObject&			NamedTypedObject::operator=(const NamedTypedObject&e_Other)
 {
 	this->m_pWoner = nullptr;
 	m_sObjectName = e_Other.m_sObjectName;
+#ifdef DEBUG
 	m_i64TimeStamp = 0;
 	m_ui64PointerVaildMagicID = e_Other.m_ui64PointerVaildMagicID;
+#endif
 	return *this;
 }
 

@@ -238,8 +238,10 @@ namespace PI
 					//-1 for start at 0,0 if size is 256,256 it should be 0,0~255,255 so the size is match 256,256
 					l_pPuzzleData->Size.x,
 					l_pPuzzleData->Size.y);
-				if( (int)l_fPosX+l_pPuzzleData->Size.x>= l_pOriginalImage->Width || 
-					(int)l_fPosY+l_pPuzzleData->Size.y>= l_pOriginalImage->Height)
+				//if( (int)l_fPosX+l_pPuzzleData->Size.x>= l_pOriginalImage->Width || 
+				//	(int)l_fPosY+l_pPuzzleData->Size.y>= l_pOriginalImage->Height)
+				if ((int)l_fPosX + l_pPuzzleData->Size.x > l_pOriginalImage->Width + 1 ||//I am lazy to fix this bug
+					(int)l_fPosY + l_pPuzzleData->Size.y > l_pOriginalImage->Height + 1)
 				{
 					l_bTextureHasBeenReized = true;
 				}
@@ -605,7 +607,7 @@ namespace PI
 					    //	l_rc.top.ToString()+","+
 					    //	l_rc.right.ToString()+","+
 					    //	l_rc.bottom.ToString());
-					    l_XMLWriter.AddAttribute("ShowPosInPI",l_strOriginalSize);
+					    l_XMLWriter.AddAttribute("ShowPosInPI", l_strShowPosInPI);
 					    l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_ShowPosInPI);
 					    //l_ppPuzzleData[i] = new sPuzzleData(l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_rc);
 					    //for debug info

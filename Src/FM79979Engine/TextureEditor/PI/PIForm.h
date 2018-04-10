@@ -1557,7 +1557,7 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				}
 				//for final image size
 				POINT	l_Pos = {0,0};
-				RenderRectangle(l_Pos,(int)ImageWidth_numericUpDown->Value,(int)ImageHeight_numericUpDown->Value,Vector4(1.f,0.3f,0.3f,0.8f));
+				RenderRectangle(l_Pos,(int)ImageWidth_numericUpDown->Value,(int)ImageHeight_numericUpDown->Value,Vector4(1.f,0.3f,0.3f,0.3f));
 				if( m_pDebugFont )
 				{
 					UseShaderProgram();
