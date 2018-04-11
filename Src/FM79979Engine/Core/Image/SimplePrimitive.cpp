@@ -540,9 +540,9 @@ namespace GLRender
 			RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_pfMatrix);
 			if (e_bRenderPoints)
 				RenderPoints(&(*e_pPositionPoint)[0], (int)e_pPositionPoint->size(), 15, e_vColor, e_pfMatrix);
-			cMatrix44	l_mat(e_pfMatrix);
 			if (e_bRenderIndexFont)
 			{
+				cMatrix44	l_mat(e_pfMatrix);
 				size_t	l_uiSize = e_pPositionPoint->size();
 				for (size_t i = 0; i<l_uiSize; ++i)
 				{

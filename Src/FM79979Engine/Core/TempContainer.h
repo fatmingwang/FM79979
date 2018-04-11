@@ -45,6 +45,7 @@ public:
 	{
 		assert(m_iNumWorking > 0 && e_iIndex > -1 && e_iIndex<m_iNumWorking);
 		m_ppObjects[e_iIndex] = m_ppObjects[m_iNumWorking-1];
+		m_ppObjects[m_iNumWorking - 1] = nullptr;
 		--m_iNumWorking;
 	}
 	void	Add(T*e_pObject)
