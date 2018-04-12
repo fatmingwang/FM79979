@@ -1034,8 +1034,10 @@ int main(cli::array<System::String ^> ^args)
 	}
 	alutExit();
 	ilShutDown();
-	_CrtDumpMemoryLeaks();
 	NamedTypedObject::DumpUnReleaseInfo();
+#ifdef DEBUG
+	_CrtDumpMemoryLeaks();
+#endif
 	return 0;
 }
 

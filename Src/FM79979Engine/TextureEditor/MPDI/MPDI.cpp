@@ -10,9 +10,31 @@ namespace MPDI
 //	MPDIEditor::MPDIEditor(GCFORM::TabControl^e_ptabControl,GCFORM::Form^e_pForm,String^e_strFileName)
 	MPDIEditor::MPDIEditor(String^e_strFileName)
 	{
+		m_pvBGColor = new Vector4(0, 0, 0, 1);
 		if (System::IO::File::Exists("Setup.xml"))
 		{
 			g_bLanguageChinese = true;
+			cNodeISAX l_NodeISAX;
+			if (l_NodeISAX.ParseDataIntoXMLNode("Setup.xml"))
+			{
+				auto l_pRoot = l_NodeISAX.GetRootElement();
+				PARSE_ELEMENT_START(l_pRoot)
+					COMPARE_NAME("Chinese")
+					{
+						if (wcslen(l_strValue) == 4 || GetInt(l_strValue)>0)
+							g_bLanguageChinese = true;
+						else
+							g_bLanguageChinese = false;
+					}
+					else
+					COMPARE_NAME("BGColor")
+					{
+						*m_pvBGColor = GetVector4(l_strValue);
+						cGameApp::m_svBGColor = *m_pvBGColor;
+					}
+				PARSE_NAME_VALUE_END
+				//Chinese = "true" NonPowerOfTwoSupport = "true" BGColor = "0.5,0.5,0.5,1"
+			}
 		}
 		InitializeComponent();
 		this->Dock = GCFORM::DockStyle::Fill;
@@ -20,7 +42,6 @@ namespace MPDI
 		this->MPDIExtra_xmlNodeEditComponent = (gcnew XMLDataEditor::XMLForm());
 		m_bTimerInRun = false;
 		m_pvResolution = new Vector2(1920,1080);
-		m_pvBGColor = new Vector4(0,0,0,1);
 		m_pTimeAndFPS = new UT::sTimeAndFPS;
 		m_pOrthogonalCamera = new cOrthogonalCamera();
 		m_pTimeCounterForAutoSaveFile = new UT::sTimeCounter();
@@ -3384,6 +3405,8 @@ namespace MPDI
 
 	System::Void MPDIEditor::ColorChanged(System::Object^  sender, System::EventArgs^  e)
 	{
+		if (!this->timer1->Enabled)
+			return;
 		CoreWPF::Common::ColorPicker^l_pColorPicker = m_pBGColorPicker;
 		m_pvBGColor->x = l_pColorPicker->GetSelectedColor().ScR;
 		m_pvBGColor->y = l_pColorPicker->GetSelectedColor().ScG;

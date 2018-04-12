@@ -11,7 +11,9 @@
 	#include <windows.h>
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
+#ifdef DEBUG
 	#include <crtdbg.h>
+#endif
 #elif defined(ANDROID)
  //#include <cstdarg>
 #elif defined(IOS)

@@ -1,0 +1,36 @@
+just add project directory to addition include directory...-_-
+
+https://stackoverflow.com/questions/13982526/why-does-intellisense-and-code-suggestion-stop-working-when-visual-studio-is-ope?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+
+I should note that I haven't had the issue since upgrading my RAM. I can't confirm if it's related but the problem was prevalent when I had 2-4GB RAM. No problems since going to 8 and 16GB.
+
+If only one file/window appears to be affected, close and reopen that file. If that doesn't work, try below.
+
+In Visual Studio:
+
+Click Tools->Options->Text Editor->All Languages->General
+Uncheck "Auto list members"
+Uncheck "Parameter information"
+Check "Auto list members" (yes, the one you just unchecked)
+Check "Parameter information" (again, the one you just unchecked)
+Click OK
+If this doesn't work, here's a few more steps to try:
+
+Close all VS documents and reopen
+If still not working, close/reopen solution
+If still not working, restart VS.
+For C++ projects:
+MSDN has a few things to try: MSDN suggestions
+
+The corrupt .ncb file seems most likely.
+
+From MSDN:
+
+Close the solution.
+Delete the .ncb file.
+Reopen the solution. (This creates a new .ncb file.)
+Notes:
+
+Tested in VS 2013/2015

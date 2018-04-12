@@ -10,7 +10,9 @@
 #endif
 
 #if defined( WIN32 ) && defined( TUNE )
+#ifdef DEBUG
 	#include <crtdbg.h>
+#endif
 	_CrtMemState startMemState;
 	_CrtMemState endMemState;
 #endif

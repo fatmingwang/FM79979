@@ -45,6 +45,27 @@ namespace BulletDataEditor
 //			splitContainer1->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &ImageConvexHullEditor::MyKeyUp);
 //			splitContainer1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &ImageConvexHullEditor::MyKeyPress);
 //			splitContainer1->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &ImageConvexHullEditor::MyKeyDown);
+			m_pvBGColor = new Vector4(0.f, 0.f, 0.f, 1.f);
+			cNodeISAX l_NodeISAX;
+			if (l_NodeISAX.ParseDataIntoXMLNode("Setup.xml"))
+			{
+				auto l_pRoot = l_NodeISAX.GetRootElement();
+				PARSE_ELEMENT_START(l_pRoot)
+					COMPARE_NAME("Chinese")
+					{
+						if (wcslen(l_strValue) == 4 || GetInt(l_strValue)>0)
+							g_bLanguageChinese = true;
+						else
+							g_bLanguageChinese = false;
+					}
+					else
+					COMPARE_NAME("BGColor")
+					{
+						*m_pvBGColor = GetVector4(l_strValue);
+						cGameApp::m_svBGColor = *m_pvBGColor;
+					}
+				PARSE_NAME_VALUE_END
+			}
 			LanguageSwitch(this->Controls,"/",this->Handle);
 			LanguageSwitch(splitContainer1->Panel1->Controls,"/",this->Handle);
 			m_pDebugFont = 0;
@@ -61,7 +82,6 @@ namespace BulletDataEditor
 			m_p2DImageCollisionDataTestForConverxCollide = 0;
 			m_p2DImageCollisionData = new c2DImageCollisionDataForEditor();
 			m_pOrthogonalCamera = new cOrthogonalCamera;
-			m_pvBGColor = new Vector4(0.f,0.f,0.f,1.f);
 			m_pvResolution = new Vector2(1920,1080);
 			m_pTimeAndFPS = new UT::sTimeAndFPS;
 			InitBT();

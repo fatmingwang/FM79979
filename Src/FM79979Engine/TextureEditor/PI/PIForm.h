@@ -119,7 +119,27 @@ namespace PI
 			//now it only support power of two on windows,because I am lazy to fix cUIImage.
 			g_bSupportNonPowerOfTwoTexture = true;
 			this->menuStrip1->Visible = false;
-			m_pvBGColor = new Vector4(0,0,0,1);
+			m_pvBGColor = new Vector4(0, 0, 0, 1);
+			cNodeISAX l_NodeISAX;
+			if (l_NodeISAX.ParseDataIntoXMLNode("Setup.xml"))
+			{
+				auto l_pRoot = l_NodeISAX.GetRootElement();
+				PARSE_ELEMENT_START(l_pRoot)
+					COMPARE_NAME("Chinese")
+					{
+						if (wcslen(l_strValue) == 4 || GetInt(l_strValue)>0)
+							g_bLanguageChinese = true;
+						else
+							g_bLanguageChinese = false;
+					}
+					else
+					COMPARE_NAME("BGColor")
+					{
+						*m_pvBGColor = GetVector4(l_strValue);
+					}
+				PARSE_NAME_VALUE_END
+				//Chinese = "true" NonPowerOfTwoSupport = "true" BGColor = "0.5,0.5,0.5,1"
+			}
 			m_pTimeAndFPS = new UT::sTimeAndFPS;
 			m_pImageIndexOfAnimation = new cImageIndexOfAnimation(true);
 			m_pImageIndexOfAnimationList = new cNamedTypedObjectVector<cImageIndexOfAnimation>;

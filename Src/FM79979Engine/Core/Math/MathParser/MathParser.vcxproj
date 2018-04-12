@@ -117,6 +117,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <DebugInformationFormat />
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
