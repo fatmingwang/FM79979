@@ -365,6 +365,19 @@ namespace	FATMING_CORE
 //
 //=========================
 	template <class T>
+	cLinerDataProcessor<T>*cLinerDataProcessor<T>::GetMe(TiXmlElement*e_pElement)
+	{
+		if (wcscmp(cLinerDataProcessor<T>::TypeID, e_pElement->Value()))
+			return nullptr;
+		cLinerDataProcessor<T>*l_pLinerDataProcessor = new cLinerDataProcessor<T>(e_pElement);
+		return l_pLinerDataProcessor;
+		
+	}
+	//Vector2
+	//<cLinerDataProcessor2 Time="0,0.1,0.2,0.3,0.4,0.5" Data="0,0,1,0,2,0,3,0,4,0">
+	//	<cTimeAndDataLinerUpdateInterface LOD="1" Loop="0" DoLiner="1"/>
+	//</cLinerDataProcessor2>
+	template <class T>
 	cLinerDataProcessor<T>::cLinerDataProcessor(TiXmlElement*e_pElement)
 	{
 		m_CurrentData = m_CurrentData-m_CurrentData;

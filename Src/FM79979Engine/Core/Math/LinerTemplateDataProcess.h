@@ -111,6 +111,7 @@ namespace	FATMING_CORE
 		cLinerDataProcessor(cLinerDataProcessor*e_pLinerDataProcessor);
 		virtual ~cLinerDataProcessor();
 		cLinerDataProcessor(TiXmlElement*e_pElement);
+		static cLinerDataProcessor*GetMe(TiXmlElement*e_pElement);
 		virtual	cTimeAndDataLinerUpdateInterface*	Clone()override;
 		virtual	TiXmlElement*						ToTiXmlElement()override;
 		//
