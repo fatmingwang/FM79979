@@ -64,7 +64,7 @@ bool GlyphReader::LoadFile( const char* strFileName)
 
 bool	GlyphReader::IsLegalCharacter(wchar_t e_Character)
 {
-	if(e_Character >= this->m_cMaxGlyph)
+	if(e_Character > this->m_cMaxGlyph)
 		return false;
 	if( m_pTranslatorTable[e_Character]<m_dwNumGlyphs )
 	{
