@@ -28,6 +28,9 @@
     <Filter Include="Poly2Tri\sweep">
       <UniqueIdentifier>{3578fe5a-45d1-4d69-b316-97777e34f625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PIUnitTriangulator">
+      <UniqueIdentifier>{1d2d86fc-dc6c-43ba-a597-759d2b1281e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -59,6 +62,9 @@
     </ClCompile>
     <ClCompile Include="poly2tri\sweep\sweep_context.cpp">
       <Filter>Poly2Tri\sweep</Filter>
+    </ClCompile>
+    <ClCompile Include="PuzzleImageUnitTriangulator.cpp">
+      <Filter>PIUnitTriangulator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="poly2tri\poly2tri.h">
       <Filter>Poly2Tri</Filter>
+    </ClInclude>
+    <ClInclude Include="PuzzleImageUnitTriangulator.h">
+      <Filter>PIUnitTriangulator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

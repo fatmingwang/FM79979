@@ -999,18 +999,18 @@ void SaveRomFile()
 [STAThreadAttribute]
 int main(cli::array<System::String ^> ^args)
 {
-	//https://github.com/greenm01/poly2tri
-	vector<p2t::Point*>*polyline = new vector<p2t::Point*>;
-	polyline->push_back(new p2t::Point(0, 0));
-	polyline->push_back(new p2t::Point(10, 0));
-	polyline->push_back(new p2t::Point(0, 10));
-	polyline->push_back(new p2t::Point(10, 10));
+	////https://github.com/greenm01/poly2tri
+	//vector<p2t::Point*>*polyline = new vector<p2t::Point*>;
+	//polyline->push_back(new p2t::Point(0, 0));
+	//polyline->push_back(new p2t::Point(10, 0));
+	//polyline->push_back(new p2t::Point(0, 10));
+	//polyline->push_back(new p2t::Point(10, 10));
 
-	CDT* cdt = new CDT(*polyline);
-	cdt->Triangulate();
-	//auto triangles = cdt->GetTriangles();
-	delete cdt;
-	DELETE_POINTER_VECTOR(polyline, p2t::Point*);
+	//CDT* cdt = new CDT(*polyline);
+	//cdt->Triangulate();
+	////auto triangles = cdt->GetTriangles();
+	//delete cdt;
+	//DELETE_POINTER_VECTOR(polyline, p2t::Point*);
 	//std::vector<Vector2>l_InputVector;
 	//l_InputVector.push_back(Vector2(0, 0));
 	//l_InputVector.push_back(Vector2(10, 0));

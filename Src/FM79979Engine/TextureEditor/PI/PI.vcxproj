@@ -175,6 +175,7 @@
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="PuzzleImageUnitTriangulator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinPack.h" />
@@ -193,6 +194,7 @@
     <ClInclude Include="poly2tri\sweep\sweep_context.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="PuzzleImageUnitTriangulator.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />
