@@ -188,7 +188,7 @@ namespace	FATMING_CORE
 	float	cTimeAndDataLinerUpdateInterface::GetCurrentLerpValue()
 	{
 		float	l_fLastTime = GetEndTime();
-		if( l_fLastTime >= 0.f )
+		if( l_fLastTime > 0.f )
 		{
 			return m_fPastTime/l_fLastTime;
 		}
@@ -374,18 +374,26 @@ namespace	FATMING_CORE
 		
 	}
 	//Vector2
-	//<cLinerDataProcessor2 Time="0,0.1,0.2,0.3,0.4,0.5" Data="0,0,1,0,2,0,3,0,4,0">
+	//<cLinerDataProcessor2 Data="0,0,1,0,2,0,3,0,4,0">
+		//<Time Data="0,0.1,0.2,0.3,0.4,0.5"/>
+		//<Pos Data="0,0.1,0.2,0.3,0.4,0.5"/>
 	//	<cTimeAndDataLinerUpdateInterface LOD="1" Loop="0" DoLiner="1"/>
 	//</cLinerDataProcessor2>
 	template <class T>
 	cLinerDataProcessor<T>::cLinerDataProcessor(TiXmlElement*e_pElement)
 	{
+		m_pvValueForSmallestBiggestAndDis = nullptr;
 		m_CurrentData = m_CurrentData-m_CurrentData;
 		m_pCurrentLinerDataVector = &m_LinerDataVector;
 		m_pCurrentTimeVector = &m_TimeVector;
 		m_pLODDataVector = 0;
 		m_iLOD = 1;
-		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,L"cLinerDataProcessor");
+		ELEMENT_VALUE_ASSERT_CHECK(e_pElement, cLinerDataProcessor<T>::TypeID);
+		const wchar_t*l_strLOD = e_pElement->Attribute(L"LOD");
+		if (l_strLOD)
+		{
+			m_iLOD = GetInt(l_strLOD);
+		}
 		//l_pAttribute->Value(
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pElement)
 			const WCHAR*l_strValue = e_pElement->Value();
@@ -396,7 +404,7 @@ namespace	FATMING_CORE
 				this->m_TimeVector = GetValueListByCommaDivide<float>(l_strTimeData);
 			}
 			else
-			COMPARE_VALUE("Data")
+			COMPARE_VALUE("Value")
 			{
 				TiXmlAttribute*	l_pAttribute = e_pElement->FirstAttribute();
 				while(l_pAttribute)
@@ -416,6 +424,7 @@ namespace	FATMING_CORE
 				this->InternalElementParse(e_pElement);
 			}
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pElement)
+		assert(m_LinerDataVector.size() == m_TimeVector.size()&&"m_TimeVector and m_LinerDataVector size not match(cLinerDataProcessor::cLinerDataProcessor)");
 		if(this->m_iLOD >1)
 			this->DoLOD();
 	}
@@ -431,22 +440,21 @@ namespace	FATMING_CORE
 		TiXmlElement*	l_pLinerTemplateDataProcessElement = new TiXmlElement(L"cLinerDataProcessor");
 		l_pLinerTemplateDataProcessElement->SetAttribute(L"LOD",this->m_iLOD);
 		TiXmlElement*	l_pTime = new TiXmlElement(L"Time");
-		TiXmlElement*	l_pAnimationData = new TiXmlElement(L"Data");
+		TiXmlElement*	l_pAnimationData = new TiXmlElement(L"Value");
 		std::wstring	l_strTimeXmlElementData; 
-		std::wstring	l_strAnimationXmlElementData;
 		for( int i=0;i<l_iSize;++i )
 		{
 			l_strTimeXmlElementData += ValueToStringW(*GetTime(i));
-			l_strAnimationXmlElementData = ValueToStringW(*GetData(i));
-			std::wstring	l_strData = L"Data";
-			l_strData += ValueToStringW(i);
 			if( i != l_iSize-1 )
 			{
 				l_strTimeXmlElementData += L",";
 			}
-			l_pAnimationData->SetAttribute(l_strData,l_strAnimationXmlElementData);
+			std::wstring	l_strData = L"Data";
+			std::wstring	l_strAnimationXmlElementData = ValueToStringW(*GetData(i));
+			l_strData += ValueToStringW(i);
+			l_pAnimationData->SetAttribute(l_strData.c_str(), l_strAnimationXmlElementData);
 		}
-		l_pTime->SetAttribute(L"Time",l_strTimeXmlElementData.c_str());
+		l_pTime->SetAttribute(L"Data", l_strTimeXmlElementData.c_str());
 		l_pLinerTemplateDataProcessElement->LinkEndChild(l_pTime);
 		l_pLinerTemplateDataProcessElement->LinkEndChild(l_pAnimationData);
 		TiXmlElement*l_pInternalElement = cTimeAndDataLinerUpdateInterface::ToTiXmlElement();
@@ -515,6 +523,10 @@ namespace	FATMING_CORE
 			}
 			else
 			{
+				if (m_iCurrentWorkingIndex + 1 >= m_pCurrentLinerDataVector->size())
+				{
+					int a = 0;
+				}
 				m_CurrentData = ((*this->m_pCurrentLinerDataVector)[m_iCurrentWorkingIndex+1]-(*this->m_pCurrentLinerDataVector)[m_iCurrentWorkingIndex])*l_fCurrentStepLerpValue;
 				m_CurrentData += (*this->m_pCurrentLinerDataVector)[m_iCurrentWorkingIndex];
 			}
