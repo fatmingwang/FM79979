@@ -189,8 +189,14 @@ namespace FATMING_CORE
 		if(m_pFile)
 		{
 #ifdef WIN32
-			if( m_FileHandle )
-				FlushFileBuffers(m_FileHandle);
+			if (m_FileHandle)
+			{
+				bool l_bResult = FlushFileBuffers(m_FileHandle);
+				//don't remove the code or it wont write immediately...
+				//https://groups.google.com/forum/#!topic/microsoft.public.win32.programmer.kernel/WsbWN9RkN6E
+				long l_lCurrentPosition = NvFTell(m_pFile);
+				NvFSeek(m_pFile, l_lCurrentPosition, SEEK_SET);
+			}
 			else
 				NvFFlush(m_pFile);
 #else
@@ -206,10 +212,17 @@ namespace FATMING_CORE
 #ifdef WIN32
 		if( e_bForceToWrite )
 		{
-			int	l_iFlag = FILE_ATTRIBUTE_NORMAL;
-			if( e_bForceToWrite )
+			DWORD	l_iFlag = 0;// FILE_ATTRIBUTE_NORMAL;
+			if (e_bForceToWrite)
+			{
+				//https://stackoverflow.com/questions/317801/win32-write-to-file-without-buffering
+				//https://stackoverflow.com/questions/25899806/is-there-a-way-not-to-use-cache-in-c
 				l_iFlag |= (FILE_FLAG_WRITE_THROUGH);
-			m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
+				//l_iFlag |= (FILE_FLAG_NO_BUFFERING);
+//				l_iFlag |= (FILE_FLAG_SEQUENTIAL_SCAN);				
+			}
+			m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_READ | GENERIC_WRITE,0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
+			//m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
 			//m_FileHandle = CreateFile(UT::CharToWchar(e_str).c_str(), GENERIC_ALL, 0, nullptr, OPEN_ALWAYS, l_iFlag, nullptr);
 			if (m_FileHandle != INVALID_HANDLE_VALUE) 
 			{

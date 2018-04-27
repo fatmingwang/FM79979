@@ -58,7 +58,7 @@ namespace FATMING_CORE
 				g_pWriteFileWithThreadManager = new cWriteFileWithThreadManager();
 			}
 			cPP11MutexHolder l_cPP11MutexHolder(*g_pWriteFileWithThreadManager->GetMutex());
-			g_pWriteFileWithThreadManager->AddObject(this);
+			g_pWriteFileWithThreadManager->AddObjectNeglectExist(this);
 		}
 	}
 
