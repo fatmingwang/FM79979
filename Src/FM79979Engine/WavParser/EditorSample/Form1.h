@@ -1111,6 +1111,7 @@ private: System::Void MIDIToXml_button_Click(System::Object^  sender, System::Ev
 					auto l_gcstrFileName = l_pFileName[i];
 					std::string l_strFileName = DNCT::GcStringToChar(l_gcstrFileName);
 					//https://github.com/craigsapp/midifile/blob/462f55a906faa874a9b94fee18d4efd6945da7f8/src-programs/durations.cpp
+					//https://github.com/craigsapp/midifile/issues/42
 					MidiFile midifile;
 					midifile.read(l_strFileName.c_str());
 					int deltatick = 0;
