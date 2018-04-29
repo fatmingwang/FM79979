@@ -1,6 +1,7 @@
 #pragma once
 #include "pack.h"
 #include "BinPack.h"
+#include "PuzzleImageUnitTriangulator.h"
 namespace PI 
 {
 
@@ -140,6 +141,8 @@ namespace PI
 				PARSE_NAME_VALUE_END
 				//Chinese = "true" NonPowerOfTwoSupport = "true" BGColor = "0.5,0.5,0.5,1"
 			}
+			m_pPuzzleImageUnitTriangulatorManager = new cPuzzleImageUnitTriangulatorManager();
+			m_pCurrentSelectedPuzzleImageUnitTriangulator = nullptr;
 			m_pTimeAndFPS = new UT::sTimeAndFPS;
 			m_pImageIndexOfAnimation = new cImageIndexOfAnimation(true);
 			m_pImageIndexOfAnimationList = new cNamedTypedObjectVector<cImageIndexOfAnimation>;
@@ -219,6 +222,7 @@ namespace PI
 			SAFE_DELETE(m_pImageomposerIRM);
 			SAFE_DELETE(m_pTimeAndFPS);
 			SAFE_DELETE(m_pOrthogonalCamera);
+			SAFE_DELETE(m_pPuzzleImageUnitTriangulatorManager);
 		}
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::ComponentModel::IContainer^  components;
@@ -283,7 +287,22 @@ namespace PI
 	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  childToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem1;
+	private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
+	private: System::Windows::Forms::ToolStripMenuItem^  toolToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripMenuItem;
+	private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
+	private: System::Windows::Forms::SplitContainer^  splitContainer3;
+	private: System::Windows::Forms::TabControl^  tabControl1;
+	private: System::Windows::Forms::TabPage^  ImageAligment_tabPage;
+	private: System::Windows::Forms::TabPage^  ImageTriangulator_tabPage;
+	private: System::Windows::Forms::NumericUpDown^  ImageTriangulatorLOD_numericUpDown;
+	private: System::Windows::Forms::Label^  ImageTriangulatorLOD_label;
+	private: System::Windows::Forms::Label^  label13;
+	private: System::Windows::Forms::ComboBox^  TriangulatorMouseBehavior_comboBox;
+	private: System::Windows::Forms::TabPage^  SequenceAnimation_tabPage;
 	//my
+	private:cPuzzleImageUnitTriangulatorManager*m_pPuzzleImageUnitTriangulatorManager;
+	private:cPuzzleImageUnitTriangulator * m_pCurrentSelectedPuzzleImageUnitTriangulator;
 	private: GCFORM::Form^	m_pForm;
 	public:HWND				m_pParentHandle;
 	String^m_strParentProcessID;
@@ -300,12 +319,6 @@ namespace PI
 	Vector4	*m_pvBGColor;
 	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
 	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
-private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
-private: System::Windows::Forms::ToolStripMenuItem^  toolToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripMenuItem;
-private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
-private: System::Windows::Forms::Label^  MouseBehavior_label;
-private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -397,8 +410,15 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->AddAnimationImage_button = (gcnew System::Windows::Forms::Button());
 			this->AnimationData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->MouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
-			this->MouseBehavior_label = (gcnew System::Windows::Forms::Label());
+			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->ImageAligment_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->splitContainer3 = (gcnew System::Windows::Forms::SplitContainer());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
+			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->SequenceAnimation_tabPage = (gcnew System::Windows::Forms::TabPage());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -416,6 +436,15 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosY_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
+			this->tabControl1->SuspendLayout();
+			this->ImageAligment_tabPage->SuspendLayout();
+			this->ImageTriangulator_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
+			this->splitContainer3->Panel1->SuspendLayout();
+			this->splitContainer3->Panel2->SuspendLayout();
+			this->splitContainer3->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
+			this->SequenceAnimation_tabPage->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -430,9 +459,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->TotalPixel_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->TotalPixel_label->Location = System::Drawing::Point(381, 161);
+			this->TotalPixel_label->Location = System::Drawing::Point(6, 162);
 			this->TotalPixel_label->Name = L"TotalPixel_label";
-			this->TotalPixel_label->Size = System::Drawing::Size(91, 12);
+			this->TotalPixel_label->Size = System::Drawing::Size(92, 13);
 			this->TotalPixel_label->TabIndex = 46;
 			this->TotalPixel_label->Text = L"TotalPixel:640000";
 			// 
@@ -445,9 +474,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->AllShowBoundry_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->AllShowBoundry_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AllShowBoundry_checkBox->Location = System::Drawing::Point(193, 158);
+			this->AllShowBoundry_checkBox->Location = System::Drawing::Point(6, 46);
 			this->AllShowBoundry_checkBox->Name = L"AllShowBoundry_checkBox";
-			this->AllShowBoundry_checkBox->Size = System::Drawing::Size(198, 16);
+			this->AllShowBoundry_checkBox->Size = System::Drawing::Size(198, 17);
 			this->AllShowBoundry_checkBox->TabIndex = 45;
 			this->AllShowBoundry_checkBox->Text = L"AllShowBoundary/顯示所有圖片框";
 			this->AllShowBoundry_checkBox->UseVisualStyleBackColor = false;
@@ -458,9 +487,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageObjectDown_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageObjectDown_button->Location = System::Drawing::Point(287, 93);
+			this->ImageObjectDown_button->Location = System::Drawing::Point(298, 111);
 			this->ImageObjectDown_button->Name = L"ImageObjectDown_button";
-			this->ImageObjectDown_button->Size = System::Drawing::Size(21, 41);
+			this->ImageObjectDown_button->Size = System::Drawing::Size(21, 44);
 			this->ImageObjectDown_button->TabIndex = 42;
 			this->ImageObjectDown_button->Text = L"v\r\nv";
 			this->ImageObjectDown_button->UseVisualStyleBackColor = false;
@@ -472,9 +501,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageObjectUP_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageObjectUP_button->Location = System::Drawing::Point(287, 17);
+			this->ImageObjectUP_button->Location = System::Drawing::Point(298, 28);
 			this->ImageObjectUP_button->Name = L"ImageObjectUP_button";
-			this->ImageObjectUP_button->Size = System::Drawing::Size(21, 41);
+			this->ImageObjectUP_button->Size = System::Drawing::Size(21, 44);
 			this->ImageObjectUP_button->TabIndex = 41;
 			this->ImageObjectUP_button->Text = L"^\r\n^";
 			this->ImageObjectUP_button->UseVisualStyleBackColor = false;
@@ -487,9 +516,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ShowBoundary_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ShowBoundary_checkBox->Location = System::Drawing::Point(3, 158);
+			this->ShowBoundary_checkBox->Location = System::Drawing::Point(6, 18);
 			this->ShowBoundary_checkBox->Name = L"ShowBoundary_checkBox";
-			this->ShowBoundary_checkBox->Size = System::Drawing::Size(184, 16);
+			this->ShowBoundary_checkBox->Size = System::Drawing::Size(187, 17);
 			this->ShowBoundary_checkBox->TabIndex = 40;
 			this->ShowBoundary_checkBox->Text = L"ShowBoundary/顯示目前圖片框";
 			this->ShowBoundary_checkBox->UseVisualStyleBackColor = false;
@@ -498,14 +527,15 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// 
 			this->ImageDetail_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->ImageDetail_textBox->Dock = System::Windows::Forms::DockStyle::Bottom;
 			this->ImageDetail_textBox->Enabled = false;
 			this->ImageDetail_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
 				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->ImageDetail_textBox->Location = System::Drawing::Point(601, 52);
-			this->ImageDetail_textBox->MinimumSize = System::Drawing::Size(4, 29);
+			this->ImageDetail_textBox->Location = System::Drawing::Point(3, 190);
+			this->ImageDetail_textBox->MinimumSize = System::Drawing::Size(4, 31);
 			this->ImageDetail_textBox->Multiline = true;
 			this->ImageDetail_textBox->Name = L"ImageDetail_textBox";
-			this->ImageDetail_textBox->Size = System::Drawing::Size(140, 78);
+			this->ImageDetail_textBox->Size = System::Drawing::Size(1340, 31);
 			this->ImageDetail_textBox->TabIndex = 39;
 			this->ImageDetail_textBox->Text = L"79979";
 			// 
@@ -516,9 +546,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label4->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label4->Location = System::Drawing::Point(743, 53);
+			this->label4->Location = System::Drawing::Point(218, 74);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(99, 12);
+			this->label4->Size = System::Drawing::Size(103, 13);
 			this->label4->TabIndex = 38;
 			this->label4->Text = L"Height/產生圖片高";
 			// 
@@ -529,9 +559,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label5->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label5->Location = System::Drawing::Point(746, 5);
+			this->label5->Location = System::Drawing::Point(221, 22);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(97, 12);
+			this->label5->Size = System::Drawing::Size(100, 13);
 			this->label5->TabIndex = 37;
 			this->label5->Text = L"Width/產生圖片寬";
 			// 
@@ -541,10 +571,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageHeight_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageHeight_numericUpDown->Location = System::Drawing::Point(746, 67);
+			this->ImageHeight_numericUpDown->Location = System::Drawing::Point(221, 90);
 			this->ImageHeight_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImageHeight_numericUpDown->Name = L"ImageHeight_numericUpDown";
-			this->ImageHeight_numericUpDown->Size = System::Drawing::Size(62, 22);
+			this->ImageHeight_numericUpDown->Size = System::Drawing::Size(62, 20);
 			this->ImageHeight_numericUpDown->TabIndex = 36;
 			this->ImageHeight_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 512, 0, 0, 0 });
 			this->ImageHeight_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImageWidth_numericUpDown_ValueChanged);
@@ -555,10 +585,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageWidth_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageWidth_numericUpDown->Location = System::Drawing::Point(746, 23);
+			this->ImageWidth_numericUpDown->Location = System::Drawing::Point(221, 42);
 			this->ImageWidth_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImageWidth_numericUpDown->Name = L"ImageWidth_numericUpDown";
-			this->ImageWidth_numericUpDown->Size = System::Drawing::Size(62, 22);
+			this->ImageWidth_numericUpDown->Size = System::Drawing::Size(62, 20);
 			this->ImageWidth_numericUpDown->TabIndex = 35;
 			this->ImageWidth_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1024, 0, 0, 0 });
 			this->ImageWidth_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImageWidth_numericUpDown_ValueChanged);
@@ -569,9 +599,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AutoOrderPosition_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AutoOrderPosition_button->Location = System::Drawing::Point(601, 4);
+			this->AutoOrderPosition_button->Location = System::Drawing::Point(221, 119);
 			this->AutoOrderPosition_button->Name = L"AutoOrderPosition_button";
-			this->AutoOrderPosition_button->Size = System::Drawing::Size(139, 36);
+			this->AutoOrderPosition_button->Size = System::Drawing::Size(139, 39);
 			this->AutoOrderPosition_button->TabIndex = 34;
 			this->AutoOrderPosition_button->Text = L"ImagePositionAutoAssign/圖片自動校正位置";
 			this->AutoOrderPosition_button->UseVisualStyleBackColor = false;
@@ -583,9 +613,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->DeleteImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DeleteImage_button->Location = System::Drawing::Point(3, 45);
+			this->DeleteImage_button->Location = System::Drawing::Point(14, 59);
 			this->DeleteImage_button->Name = L"DeleteImage_button";
-			this->DeleteImage_button->Size = System::Drawing::Size(100, 25);
+			this->DeleteImage_button->Size = System::Drawing::Size(100, 27);
 			this->DeleteImage_button->TabIndex = 29;
 			this->DeleteImage_button->Text = L"DeleteImage/刪除圖片";
 			this->DeleteImage_button->UseVisualStyleBackColor = false;
@@ -597,9 +627,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AddImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddImage_button->Location = System::Drawing::Point(3, 14);
+			this->AddImage_button->Location = System::Drawing::Point(14, 25);
 			this->AddImage_button->Name = L"AddImage_button";
-			this->AddImage_button->Size = System::Drawing::Size(99, 28);
+			this->AddImage_button->Size = System::Drawing::Size(99, 30);
 			this->AddImage_button->TabIndex = 28;
 			this->AddImage_button->Text = L"AddImage/增加圖片";
 			this->AddImage_button->UseVisualStyleBackColor = false;
@@ -612,13 +642,12 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->AllImage_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AllImage_listBox->FormattingEnabled = true;
-			this->AllImage_listBox->ItemHeight = 12;
-			this->AllImage_listBox->Location = System::Drawing::Point(107, 4);
-			this->AllImage_listBox->MinimumSize = System::Drawing::Size(4, 81);
+			this->AllImage_listBox->Location = System::Drawing::Point(118, 14);
+			this->AllImage_listBox->MinimumSize = System::Drawing::Size(4, 87);
 			this->AllImage_listBox->Name = L"AllImage_listBox";
 			this->AllImage_listBox->ScrollAlwaysVisible = true;
 			this->AllImage_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
-			this->AllImage_listBox->Size = System::Drawing::Size(174, 148);
+			this->AllImage_listBox->Size = System::Drawing::Size(174, 160);
 			this->AllImage_listBox->TabIndex = 27;
 			this->AllImage_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::AllImage_listBox_SelectedIndexChanged);
 			this->AllImage_listBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &cPIEditor::AllImage_listBox_KeyUp_1);
@@ -639,7 +668,7 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->menuStrip1->MdiWindowListItem = this->fileToolStripMenuItem;
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->RenderMode = System::Windows::Forms::ToolStripRenderMode::Professional;
-			this->menuStrip1->Size = System::Drawing::Size(1264, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1687, 26);
 			this->menuStrip1->Stretch = false;
 			this->menuStrip1->TabIndex = 26;
 			this->menuStrip1->Text = L"menuStrip1";
@@ -651,42 +680,42 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 					this->saveToolStripMenuItem, this->invertPuzzleImageToolStripMenuItem, this->generatePowOf2ImageToolStripMenuItem, this->generateAllImageWithPowerOfTwoToolStripMenuItem
 			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(34, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(37, 22);
 			this->fileToolStripMenuItem->Text = L"File";
 			this->fileToolStripMenuItem->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &cPIEditor::fileToolStripMenuItem_MouseDown);
 			// 
 			// openXMLToolStripMenuItem
 			// 
 			this->openXMLToolStripMenuItem->Name = L"openXMLToolStripMenuItem";
-			this->openXMLToolStripMenuItem->Size = System::Drawing::Size(268, 22);
+			this->openXMLToolStripMenuItem->Size = System::Drawing::Size(292, 22);
 			this->openXMLToolStripMenuItem->Text = L"Open";
 			this->openXMLToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::openXMLToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-			this->saveToolStripMenuItem->Size = System::Drawing::Size(268, 22);
+			this->saveToolStripMenuItem->Size = System::Drawing::Size(292, 22);
 			this->saveToolStripMenuItem->Text = L"GeneratePuzzleImage/產生單張圖片";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::Test_button_Click);
 			// 
 			// invertPuzzleImageToolStripMenuItem
 			// 
 			this->invertPuzzleImageToolStripMenuItem->Name = L"invertPuzzleImageToolStripMenuItem";
-			this->invertPuzzleImageToolStripMenuItem->Size = System::Drawing::Size(268, 22);
+			this->invertPuzzleImageToolStripMenuItem->Size = System::Drawing::Size(292, 22);
 			this->invertPuzzleImageToolStripMenuItem->Text = L"InvertPuzzleImage/將資料反轉成張圖片";
 			this->invertPuzzleImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::InvertPuzzleImage_button_Click);
 			// 
 			// generatePowOf2ImageToolStripMenuItem
 			// 
 			this->generatePowOf2ImageToolStripMenuItem->Name = L"generatePowOf2ImageToolStripMenuItem";
-			this->generatePowOf2ImageToolStripMenuItem->Size = System::Drawing::Size(268, 22);
+			this->generatePowOf2ImageToolStripMenuItem->Size = System::Drawing::Size(292, 22);
 			this->generatePowOf2ImageToolStripMenuItem->Text = L"Generate All Image/產生所有圖片";
 			this->generatePowOf2ImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click);
 			// 
 			// generateAllImageWithPowerOfTwoToolStripMenuItem
 			// 
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Name = L"generateAllImageWithPowerOfTwoToolStripMenuItem";
-			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Size = System::Drawing::Size(268, 22);
+			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Size = System::Drawing::Size(292, 22);
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Text = L"Generate All Image With PowerOfTwo";
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click);
 			// 
@@ -697,27 +726,27 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 					this->childToolStripMenuItem
 			});
 			this->dockToolStripMenuItem->Name = L"dockToolStripMenuItem";
-			this->dockToolStripMenuItem->Size = System::Drawing::Size(42, 20);
+			this->dockToolStripMenuItem->Size = System::Drawing::Size(46, 22);
 			this->dockToolStripMenuItem->Text = L"Dock";
 			// 
 			// floatToolStripMenuItem
 			// 
 			this->floatToolStripMenuItem->Name = L"floatToolStripMenuItem";
-			this->floatToolStripMenuItem->Size = System::Drawing::Size(96, 22);
+			this->floatToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->floatToolStripMenuItem->Text = L"Float";
 			this->floatToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::floatToolStripMenuItem_Click);
 			// 
 			// childToolStripMenuItem
 			// 
 			this->childToolStripMenuItem->Name = L"childToolStripMenuItem";
-			this->childToolStripMenuItem->Size = System::Drawing::Size(96, 22);
+			this->childToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->childToolStripMenuItem->Text = L"Child";
 			this->childToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::floatToolStripMenuItem_Click);
 			// 
 			// floatToolStripMenuItem1
 			// 
 			this->floatToolStripMenuItem1->Name = L"floatToolStripMenuItem1";
-			this->floatToolStripMenuItem1->Size = System::Drawing::Size(40, 20);
+			this->floatToolStripMenuItem1->Size = System::Drawing::Size(45, 22);
 			this->floatToolStripMenuItem1->Text = L"Float";
 			this->floatToolStripMenuItem1->Click += gcnew System::EventHandler(this, &cPIEditor::floatToolStripMenuItem_Click);
 			// 
@@ -725,13 +754,13 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// 
 			this->toolToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->addImagesByFolderToolStripMenuItem });
 			this->toolToolStripMenuItem->Name = L"toolToolStripMenuItem";
-			this->toolToolStripMenuItem->Size = System::Drawing::Size(39, 20);
+			this->toolToolStripMenuItem->Size = System::Drawing::Size(42, 22);
 			this->toolToolStripMenuItem->Text = L"Tool";
 			// 
 			// addImagesByFolderToolStripMenuItem
 			// 
 			this->addImagesByFolderToolStripMenuItem->Name = L"addImagesByFolderToolStripMenuItem";
-			this->addImagesByFolderToolStripMenuItem->Size = System::Drawing::Size(176, 22);
+			this->addImagesByFolderToolStripMenuItem->Size = System::Drawing::Size(189, 22);
 			this->addImagesByFolderToolStripMenuItem->Text = L"Add Images By Folder";
 			this->addImagesByFolderToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::addImagesByFolderToolStripMenuItem_Click);
 			// 
@@ -739,7 +768,7 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// 
 			this->splitContainer1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->splitContainer1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->splitContainer1->Location = System::Drawing::Point(0, 24);
+			this->splitContainer1->Location = System::Drawing::Point(0, 26);
 			this->splitContainer1->Margin = System::Windows::Forms::Padding(2);
 			this->splitContainer1->Name = L"splitContainer1";
 			this->splitContainer1->Orientation = System::Windows::Forms::Orientation::Horizontal;
@@ -747,73 +776,22 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// splitContainer1.Panel1
 			// 
 			this->splitContainer1->Panel1->BackColor = System::Drawing::SystemColors::ControlDarkDark;
-			this->splitContainer1->Panel1->Controls->Add(this->MouseBehavior_label);
-			this->splitContainer1->Panel1->Controls->Add(this->MouseBehavior_comboBox);
-			this->splitContainer1->Panel1->Controls->Add(this->AutoAligment_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->BinaryExport_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageSaveAsDDS_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->label12);
-			this->splitContainer1->Panel1->Controls->Add(this->NewPIUnitName_textBox);
-			this->splitContainer1->Panel1->Controls->Add(this->AddNewPIUnitImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->NewPIUnitStartX_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->NewPIUnitEndY_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->NewPIUnitEndX_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->NewPIUnitStartY_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->label11);
-			this->splitContainer1->Panel1->Controls->Add(this->label10);
-			this->splitContainer1->Panel1->Controls->Add(this->label9);
-			this->splitContainer1->Panel1->Controls->Add(this->label8);
-			this->splitContainer1->Panel1->Controls->Add(this->label7);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageDistanceY_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->label6);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageDistanceX_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->DebugLine_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->ToOriginalImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->StripAlpha_button);
-			this->splitContainer1->Panel1->Controls->Add(this->ProperStripPixel_button);
-			this->splitContainer1->Panel1->Controls->Add(this->label3);
-			this->splitContainer1->Panel1->Controls->Add(this->ImagePosX_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->ImagePosY_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationDatDel_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationDatAdd_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationDataName_textBox);
-			this->splitContainer1->Panel1->Controls->Add(this->label2);
-			this->splitContainer1->Panel1->Controls->Add(this->label1);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationDataList_listBox);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationImageDown_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationImageUp_button);
-			this->splitContainer1->Panel1->Controls->Add(this->DelAnimationImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AddAnimationImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AnimationData_listBox);
-			this->splitContainer1->Panel1->Controls->Add(this->AllImage_listBox);
-			this->splitContainer1->Panel1->Controls->Add(this->TotalPixel_label);
-			this->splitContainer1->Panel1->Controls->Add(this->AddImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AllShowBoundry_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->DeleteImage_button);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageObjectDown_button);
-			this->splitContainer1->Panel1->Controls->Add(this->AutoOrderPosition_button);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageObjectUP_button);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageWidth_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->ShowBoundary_checkBox);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageHeight_numericUpDown);
-			this->splitContainer1->Panel1->Controls->Add(this->ImageDetail_textBox);
-			this->splitContainer1->Panel1->Controls->Add(this->label5);
-			this->splitContainer1->Panel1->Controls->Add(this->label4);
+			this->splitContainer1->Panel1->Controls->Add(this->splitContainer3);
 			// 
 			// splitContainer1.Panel2
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->splitContainer2);
-			this->splitContainer1->Size = System::Drawing::Size(1264, 948);
-			this->splitContainer1->SplitterDistance = 235;
+			this->splitContainer1->Size = System::Drawing::Size(1687, 1027);
+			this->splitContainer1->SplitterDistance = 254;
 			this->splitContainer1->SplitterWidth = 3;
 			this->splitContainer1->TabIndex = 49;
 			// 
 			// AutoAligment_checkBox
 			// 
 			this->AutoAligment_checkBox->AutoSize = true;
-			this->AutoAligment_checkBox->Location = System::Drawing::Point(772, 157);
+			this->AutoAligment_checkBox->Location = System::Drawing::Point(6, 71);
 			this->AutoAligment_checkBox->Name = L"AutoAligment_checkBox";
-			this->AutoAligment_checkBox->Size = System::Drawing::Size(141, 16);
+			this->AutoAligment_checkBox->Size = System::Drawing::Size(141, 17);
 			this->AutoAligment_checkBox->TabIndex = 85;
 			this->AutoAligment_checkBox->Text = L"AutoAligment/自動排列";
 			this->AutoAligment_checkBox->UseVisualStyleBackColor = true;
@@ -821,9 +799,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// BinaryExport_checkBox
 			// 
 			this->BinaryExport_checkBox->AutoSize = true;
-			this->BinaryExport_checkBox->Location = System::Drawing::Point(681, 157);
+			this->BinaryExport_checkBox->Location = System::Drawing::Point(6, 92);
 			this->BinaryExport_checkBox->Name = L"BinaryExport_checkBox";
-			this->BinaryExport_checkBox->Size = System::Drawing::Size(88, 16);
+			this->BinaryExport_checkBox->Size = System::Drawing::Size(85, 17);
 			this->BinaryExport_checkBox->TabIndex = 84;
 			this->BinaryExport_checkBox->Text = L"BinaryExport";
 			this->BinaryExport_checkBox->UseVisualStyleBackColor = true;
@@ -831,9 +809,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// ImageSaveAsDDS_checkBox
 			// 
 			this->ImageSaveAsDDS_checkBox->AutoSize = true;
-			this->ImageSaveAsDDS_checkBox->Location = System::Drawing::Point(550, 158);
+			this->ImageSaveAsDDS_checkBox->Location = System::Drawing::Point(6, 117);
 			this->ImageSaveAsDDS_checkBox->Name = L"ImageSaveAsDDS_checkBox";
-			this->ImageSaveAsDDS_checkBox->Size = System::Drawing::Size(109, 16);
+			this->ImageSaveAsDDS_checkBox->Size = System::Drawing::Size(115, 17);
 			this->ImageSaveAsDDS_checkBox->TabIndex = 83;
 			this->ImageSaveAsDDS_checkBox->Text = L"ImageSaveAsDDS";
 			this->ImageSaveAsDDS_checkBox->UseVisualStyleBackColor = true;
@@ -845,17 +823,17 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label12->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label12->Location = System::Drawing::Point(404, 86);
+			this->label12->Location = System::Drawing::Point(795, 6);
 			this->label12->Name = L"label12";
-			this->label12->Size = System::Drawing::Size(170, 12);
+			this->label12->Size = System::Drawing::Size(175, 13);
 			this->label12->TabIndex = 82;
 			this->label12->Text = L"NewPIUnitName/新圖片單元名稱";
 			// 
 			// NewPIUnitName_textBox
 			// 
-			this->NewPIUnitName_textBox->Location = System::Drawing::Point(406, 101);
+			this->NewPIUnitName_textBox->Location = System::Drawing::Point(794, 24);
 			this->NewPIUnitName_textBox->Name = L"NewPIUnitName_textBox";
-			this->NewPIUnitName_textBox->Size = System::Drawing::Size(97, 22);
+			this->NewPIUnitName_textBox->Size = System::Drawing::Size(97, 20);
 			this->NewPIUnitName_textBox->TabIndex = 81;
 			// 
 			// AddNewPIUnitImage_button
@@ -864,9 +842,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AddNewPIUnitImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddNewPIUnitImage_button->Location = System::Drawing::Point(406, 123);
+			this->AddNewPIUnitImage_button->Location = System::Drawing::Point(792, 137);
 			this->AddNewPIUnitImage_button->Name = L"AddNewPIUnitImage_button";
-			this->AddNewPIUnitImage_button->Size = System::Drawing::Size(99, 35);
+			this->AddNewPIUnitImage_button->Size = System::Drawing::Size(99, 38);
 			this->AddNewPIUnitImage_button->TabIndex = 80;
 			this->AddNewPIUnitImage_button->Text = L"AddNewPIUnitImage/增加新拼圖單元";
 			this->AddNewPIUnitImage_button->UseVisualStyleBackColor = false;
@@ -878,11 +856,11 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitStartX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitStartX_numericUpDown->Location = System::Drawing::Point(316, 17);
+			this->NewPIUnitStartX_numericUpDown->Location = System::Drawing::Point(584, 22);
 			this->NewPIUnitStartX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitStartX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, System::Int32::MinValue });
 			this->NewPIUnitStartX_numericUpDown->Name = L"NewPIUnitStartX_numericUpDown";
-			this->NewPIUnitStartX_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->NewPIUnitStartX_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->NewPIUnitStartX_numericUpDown->TabIndex = 79;
 			this->NewPIUnitStartX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::NewPIUnitStartX_numericUpDown_ValueChanged);
 			// 
@@ -892,10 +870,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitEndY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitEndY_numericUpDown->Location = System::Drawing::Point(314, 125);
+			this->NewPIUnitEndY_numericUpDown->Location = System::Drawing::Point(582, 150);
 			this->NewPIUnitEndY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitEndY_numericUpDown->Name = L"NewPIUnitEndY_numericUpDown";
-			this->NewPIUnitEndY_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->NewPIUnitEndY_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->NewPIUnitEndY_numericUpDown->TabIndex = 78;
 			this->NewPIUnitEndY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::NewPIUnitStartX_numericUpDown_ValueChanged);
 			// 
@@ -905,10 +883,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitEndX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitEndX_numericUpDown->Location = System::Drawing::Point(316, 86);
+			this->NewPIUnitEndX_numericUpDown->Location = System::Drawing::Point(584, 106);
 			this->NewPIUnitEndX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitEndX_numericUpDown->Name = L"NewPIUnitEndX_numericUpDown";
-			this->NewPIUnitEndX_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->NewPIUnitEndX_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->NewPIUnitEndX_numericUpDown->TabIndex = 77;
 			this->NewPIUnitEndX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::NewPIUnitStartX_numericUpDown_ValueChanged);
 			// 
@@ -918,11 +896,11 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitStartY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitStartY_numericUpDown->Location = System::Drawing::Point(316, 50);
+			this->NewPIUnitStartY_numericUpDown->Location = System::Drawing::Point(584, 66);
 			this->NewPIUnitStartY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitStartY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, System::Int32::MinValue });
 			this->NewPIUnitStartY_numericUpDown->Name = L"NewPIUnitStartY_numericUpDown";
-			this->NewPIUnitStartY_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->NewPIUnitStartY_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->NewPIUnitStartY_numericUpDown->TabIndex = 76;
 			this->NewPIUnitStartY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::NewPIUnitStartX_numericUpDown_ValueChanged);
 			// 
@@ -933,9 +911,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label11->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label11->Location = System::Drawing::Point(314, 111);
+			this->label11->Location = System::Drawing::Point(582, 132);
 			this->label11->Name = L"label11";
-			this->label11->Size = System::Drawing::Size(202, 12);
+			this->label11->Size = System::Drawing::Size(204, 13);
 			this->label11->TabIndex = 75;
 			this->label11->Text = L"NewPIUnitEndY/新拼圖單元結束位置Y";
 			// 
@@ -946,9 +924,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label10->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label10->Location = System::Drawing::Point(314, 75);
+			this->label10->Location = System::Drawing::Point(582, 89);
 			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(202, 12);
+			this->label10->Size = System::Drawing::Size(204, 13);
 			this->label10->TabIndex = 74;
 			this->label10->Text = L"NewPIUnitEndX/新拼圖單元結束位置X";
 			// 
@@ -959,9 +937,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label9->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label9->Location = System::Drawing::Point(314, 38);
+			this->label9->Location = System::Drawing::Point(582, 47);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(204, 12);
+			this->label9->Size = System::Drawing::Size(207, 13);
 			this->label9->TabIndex = 73;
 			this->label9->Text = L"NewPIUnitStartY/新拼圖單元開始位置Y";
 			// 
@@ -972,9 +950,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label8->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label8->Location = System::Drawing::Point(314, 3);
+			this->label8->Location = System::Drawing::Point(582, 6);
 			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(204, 12);
+			this->label8->Size = System::Drawing::Size(207, 13);
 			this->label8->TabIndex = 72;
 			this->label8->Text = L"NewPIUnitStartX/新拼圖單元開始位置X";
 			// 
@@ -985,19 +963,19 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label7->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label7->Location = System::Drawing::Point(509, 118);
+			this->label7->Location = System::Drawing::Point(377, 127);
 			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(140, 12);
+			this->label7->Size = System::Drawing::Size(145, 13);
 			this->label7->TabIndex = 71;
 			this->label7->Text = L"ImageDistanceY/圖片間距Y";
 			// 
 			// ImageDistanceY_numericUpDown
 			// 
-			this->ImageDistanceY_numericUpDown->Location = System::Drawing::Point(531, 133);
+			this->ImageDistanceY_numericUpDown->Location = System::Drawing::Point(378, 143);
 			this->ImageDistanceY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
 			this->ImageDistanceY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->ImageDistanceY_numericUpDown->Name = L"ImageDistanceY_numericUpDown";
-			this->ImageDistanceY_numericUpDown->Size = System::Drawing::Size(61, 22);
+			this->ImageDistanceY_numericUpDown->Size = System::Drawing::Size(61, 20);
 			this->ImageDistanceY_numericUpDown->TabIndex = 70;
 			this->ImageDistanceY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
@@ -1008,28 +986,28 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label6->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label6->Location = System::Drawing::Point(507, 76);
+			this->label6->Location = System::Drawing::Point(375, 85);
 			this->label6->Name = L"label6";
-			this->label6->Size = System::Drawing::Size(140, 12);
+			this->label6->Size = System::Drawing::Size(145, 13);
 			this->label6->TabIndex = 69;
 			this->label6->Text = L"ImageDistanceX/圖片間距X";
 			// 
 			// ImageDistanceX_numericUpDown
 			// 
-			this->ImageDistanceX_numericUpDown->Location = System::Drawing::Point(531, 90);
+			this->ImageDistanceX_numericUpDown->Location = System::Drawing::Point(380, 101);
 			this->ImageDistanceX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
 			this->ImageDistanceX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->ImageDistanceX_numericUpDown->Name = L"ImageDistanceX_numericUpDown";
-			this->ImageDistanceX_numericUpDown->Size = System::Drawing::Size(61, 22);
+			this->ImageDistanceX_numericUpDown->Size = System::Drawing::Size(61, 20);
 			this->ImageDistanceX_numericUpDown->TabIndex = 68;
 			this->ImageDistanceX_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// DebugLine_checkBox
 			// 
 			this->DebugLine_checkBox->AutoSize = true;
-			this->DebugLine_checkBox->Location = System::Drawing::Point(478, 157);
+			this->DebugLine_checkBox->Location = System::Drawing::Point(6, 143);
 			this->DebugLine_checkBox->Name = L"DebugLine_checkBox";
-			this->DebugLine_checkBox->Size = System::Drawing::Size(76, 16);
+			this->DebugLine_checkBox->Size = System::Drawing::Size(78, 17);
 			this->DebugLine_checkBox->TabIndex = 67;
 			this->DebugLine_checkBox->Text = L"DebugLine";
 			this->DebugLine_checkBox->UseVisualStyleBackColor = true;
@@ -1040,9 +1018,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ToOriginalImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ToOriginalImage_button->Location = System::Drawing::Point(3, 101);
+			this->ToOriginalImage_button->Location = System::Drawing::Point(14, 119);
 			this->ToOriginalImage_button->Name = L"ToOriginalImage_button";
-			this->ToOriginalImage_button->Size = System::Drawing::Size(100, 25);
+			this->ToOriginalImage_button->Size = System::Drawing::Size(100, 27);
 			this->ToOriginalImage_button->TabIndex = 66;
 			this->ToOriginalImage_button->Text = L"ToOriginalImag/回復原狀";
 			this->ToOriginalImage_button->UseVisualStyleBackColor = false;
@@ -1054,9 +1032,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->StripAlpha_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->StripAlpha_button->Location = System::Drawing::Point(3, 73);
+			this->StripAlpha_button->Location = System::Drawing::Point(14, 89);
 			this->StripAlpha_button->Name = L"StripAlpha_button";
-			this->StripAlpha_button->Size = System::Drawing::Size(100, 25);
+			this->StripAlpha_button->Size = System::Drawing::Size(100, 27);
 			this->StripAlpha_button->TabIndex = 65;
 			this->StripAlpha_button->Text = L"StripAlpha/砍掉alpha";
 			this->StripAlpha_button->UseVisualStyleBackColor = false;
@@ -1068,9 +1046,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ProperStripPixel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ProperStripPixel_button->Location = System::Drawing::Point(3, 129);
+			this->ProperStripPixel_button->Location = System::Drawing::Point(14, 150);
 			this->ProperStripPixel_button->Name = L"ProperStripPixel_button";
-			this->ProperStripPixel_button->Size = System::Drawing::Size(100, 25);
+			this->ProperStripPixel_button->Size = System::Drawing::Size(100, 27);
 			this->ProperStripPixel_button->TabIndex = 64;
 			this->ProperStripPixel_button->Text = L"ProperStripPixel/找出最大可用圖片";
 			this->ProperStripPixel_button->UseVisualStyleBackColor = false;
@@ -1083,9 +1061,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label3->Location = System::Drawing::Point(507, 8);
+			this->label3->Location = System::Drawing::Point(375, 6);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(24, 12);
+			this->label3->Size = System::Drawing::Size(28, 13);
 			this->label3->TabIndex = 62;
 			this->label3->Text = L"Pos:";
 			// 
@@ -1095,10 +1073,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImagePosX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImagePosX_numericUpDown->Location = System::Drawing::Point(509, 23);
+			this->ImagePosX_numericUpDown->Location = System::Drawing::Point(377, 28);
 			this->ImagePosX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImagePosX_numericUpDown->Name = L"ImagePosX_numericUpDown";
-			this->ImagePosX_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->ImagePosX_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->ImagePosX_numericUpDown->TabIndex = 60;
 			this->ImagePosX_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1024, 0, 0, 0 });
 			this->ImagePosX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImagePosX_numericUpDown_ValueChanged);
@@ -1109,10 +1087,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImagePosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(509, 51);
+			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(377, 58);
 			this->ImagePosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImagePosY_numericUpDown->Name = L"ImagePosY_numericUpDown";
-			this->ImagePosY_numericUpDown->Size = System::Drawing::Size(85, 22);
+			this->ImagePosY_numericUpDown->Size = System::Drawing::Size(85, 20);
 			this->ImagePosY_numericUpDown->TabIndex = 61;
 			this->ImagePosY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 512, 0, 0, 0 });
 			this->ImagePosY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImagePosX_numericUpDown_ValueChanged);
@@ -1123,10 +1101,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AnimationDatDel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDatDel_button->Location = System::Drawing::Point(1041, 108);
+			this->AnimationDatDel_button->Location = System::Drawing::Point(206, 129);
 			this->AnimationDatDel_button->Margin = System::Windows::Forms::Padding(2);
 			this->AnimationDatDel_button->Name = L"AnimationDatDel_button";
-			this->AnimationDatDel_button->Size = System::Drawing::Size(33, 20);
+			this->AnimationDatDel_button->Size = System::Drawing::Size(33, 22);
 			this->AnimationDatDel_button->TabIndex = 59;
 			this->AnimationDatDel_button->Text = L"Del";
 			this->AnimationDatDel_button->UseVisualStyleBackColor = false;
@@ -1138,10 +1116,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AnimationDatAdd_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDatAdd_button->Location = System::Drawing::Point(1041, 56);
+			this->AnimationDatAdd_button->Location = System::Drawing::Point(206, 73);
 			this->AnimationDatAdd_button->Margin = System::Windows::Forms::Padding(2);
 			this->AnimationDatAdd_button->Name = L"AnimationDatAdd_button";
-			this->AnimationDatAdd_button->Size = System::Drawing::Size(33, 25);
+			this->AnimationDatAdd_button->Size = System::Drawing::Size(33, 27);
 			this->AnimationDatAdd_button->TabIndex = 58;
 			this->AnimationDatAdd_button->Text = L"Add";
 			this->AnimationDatAdd_button->UseVisualStyleBackColor = false;
@@ -1153,10 +1131,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AnimationDataName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDataName_textBox->Location = System::Drawing::Point(1025, 26);
+			this->AnimationDataName_textBox->Location = System::Drawing::Point(190, 40);
 			this->AnimationDataName_textBox->Margin = System::Windows::Forms::Padding(2);
 			this->AnimationDataName_textBox->Name = L"AnimationDataName_textBox";
-			this->AnimationDataName_textBox->Size = System::Drawing::Size(76, 22);
+			this->AnimationDataName_textBox->Size = System::Drawing::Size(76, 20);
 			this->AnimationDataName_textBox->TabIndex = 57;
 			// 
 			// label2
@@ -1166,9 +1144,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label2->Location = System::Drawing::Point(1102, 8);
+			this->label2->Location = System::Drawing::Point(267, 21);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(88, 12);
+			this->label2->Size = System::Drawing::Size(89, 13);
 			this->label2->TabIndex = 56;
 			this->label2->Text = L"AnimationData:ist";
 			// 
@@ -1179,9 +1157,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label1->Location = System::Drawing::Point(886, 8);
+			this->label1->Location = System::Drawing::Point(51, 21);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(75, 12);
+			this->label1->Size = System::Drawing::Size(76, 13);
 			this->label1->TabIndex = 55;
 			this->label1->Text = L"AnimationData";
 			// 
@@ -1192,11 +1170,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->AnimationDataList_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AnimationDataList_listBox->FormattingEnabled = true;
-			this->AnimationDataList_listBox->ItemHeight = 12;
-			this->AnimationDataList_listBox->Location = System::Drawing::Point(1104, 23);
+			this->AnimationDataList_listBox->Location = System::Drawing::Point(269, 37);
 			this->AnimationDataList_listBox->Margin = System::Windows::Forms::Padding(2);
 			this->AnimationDataList_listBox->Name = L"AnimationDataList_listBox";
-			this->AnimationDataList_listBox->Size = System::Drawing::Size(152, 124);
+			this->AnimationDataList_listBox->Size = System::Drawing::Size(152, 134);
 			this->AnimationDataList_listBox->TabIndex = 54;
 			this->AnimationDataList_listBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &cPIEditor::AnimationData_listBox_KeyUp);
 			this->AnimationDataList_listBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &cPIEditor::AnimationData_listBox_MouseDoubleClick);
@@ -1207,9 +1184,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AnimationImageDown_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationImageDown_button->Location = System::Drawing::Point(848, 108);
+			this->AnimationImageDown_button->Location = System::Drawing::Point(13, 129);
 			this->AnimationImageDown_button->Name = L"AnimationImageDown_button";
-			this->AnimationImageDown_button->Size = System::Drawing::Size(32, 34);
+			this->AnimationImageDown_button->Size = System::Drawing::Size(32, 37);
 			this->AnimationImageDown_button->TabIndex = 53;
 			this->AnimationImageDown_button->Text = L"v\r\nv";
 			this->AnimationImageDown_button->UseVisualStyleBackColor = false;
@@ -1220,9 +1197,9 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AnimationImageUp_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationImageUp_button->Location = System::Drawing::Point(848, 66);
+			this->AnimationImageUp_button->Location = System::Drawing::Point(13, 84);
 			this->AnimationImageUp_button->Name = L"AnimationImageUp_button";
-			this->AnimationImageUp_button->Size = System::Drawing::Size(32, 36);
+			this->AnimationImageUp_button->Size = System::Drawing::Size(32, 39);
 			this->AnimationImageUp_button->TabIndex = 52;
 			this->AnimationImageUp_button->Text = L"^\r\n^";
 			this->AnimationImageUp_button->UseVisualStyleBackColor = false;
@@ -1233,10 +1210,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->DelAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DelAnimationImage_button->Location = System::Drawing::Point(848, 38);
+			this->DelAnimationImage_button->Location = System::Drawing::Point(13, 53);
 			this->DelAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
 			this->DelAnimationImage_button->Name = L"DelAnimationImage_button";
-			this->DelAnimationImage_button->Size = System::Drawing::Size(33, 20);
+			this->DelAnimationImage_button->Size = System::Drawing::Size(33, 22);
 			this->DelAnimationImage_button->TabIndex = 51;
 			this->DelAnimationImage_button->Text = L"Del";
 			this->DelAnimationImage_button->UseVisualStyleBackColor = false;
@@ -1248,10 +1225,10 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AddAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddAnimationImage_button->Location = System::Drawing::Point(848, 5);
+			this->AddAnimationImage_button->Location = System::Drawing::Point(13, 17);
 			this->AddAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
 			this->AddAnimationImage_button->Name = L"AddAnimationImage_button";
-			this->AddAnimationImage_button->Size = System::Drawing::Size(33, 25);
+			this->AddAnimationImage_button->Size = System::Drawing::Size(33, 27);
 			this->AddAnimationImage_button->TabIndex = 50;
 			this->AddAnimationImage_button->Text = L"Add";
 			this->AddAnimationImage_button->UseVisualStyleBackColor = false;
@@ -1264,12 +1241,11 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->AnimationData_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->AnimationData_listBox->FormattingEnabled = true;
-			this->AnimationData_listBox->ItemHeight = 12;
-			this->AnimationData_listBox->Location = System::Drawing::Point(888, 23);
+			this->AnimationData_listBox->Location = System::Drawing::Point(53, 37);
 			this->AnimationData_listBox->Margin = System::Windows::Forms::Padding(2);
 			this->AnimationData_listBox->Name = L"AnimationData_listBox";
 			this->AnimationData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
-			this->AnimationData_listBox->Size = System::Drawing::Size(134, 124);
+			this->AnimationData_listBox->Size = System::Drawing::Size(134, 134);
 			this->AnimationData_listBox->TabIndex = 49;
 			// 
 			// splitContainer2
@@ -1283,37 +1259,163 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			// 
 			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
 			this->splitContainer2->Panel2Collapsed = true;
-			this->splitContainer2->Size = System::Drawing::Size(1260, 706);
+			this->splitContainer2->Size = System::Drawing::Size(1683, 766);
 			this->splitContainer2->SplitterDistance = 356;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
 			// 
-			// MouseBehavior_comboBox
+			// tabControl1
 			// 
-			this->MouseBehavior_comboBox->FormattingEnabled = true;
-			this->MouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(4) {
-				L"MoveImage", L"AddImagePoint", L"MoveImagePoint",
-					L"DeleteImagePoint"
-			});
-			this->MouseBehavior_comboBox->Location = System::Drawing::Point(718, 133);
-			this->MouseBehavior_comboBox->Name = L"MouseBehavior_comboBox";
-			this->MouseBehavior_comboBox->Size = System::Drawing::Size(121, 20);
-			this->MouseBehavior_comboBox->TabIndex = 86;
+			this->tabControl1->Controls->Add(this->ImageAligment_tabPage);
+			this->tabControl1->Controls->Add(this->SequenceAnimation_tabPage);
+			this->tabControl1->Controls->Add(this->ImageTriangulator_tabPage);
+			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tabControl1->Location = System::Drawing::Point(0, 0);
+			this->tabControl1->Name = L"tabControl1";
+			this->tabControl1->SelectedIndex = 0;
+			this->tabControl1->Size = System::Drawing::Size(1354, 250);
+			this->tabControl1->TabIndex = 0;
 			// 
-			// MouseBehavior_label
+			// ImageAligment_tabPage
 			// 
-			this->MouseBehavior_label->AutoSize = true;
-			this->MouseBehavior_label->Location = System::Drawing::Point(633, 140);
-			this->MouseBehavior_label->Name = L"MouseBehavior_label";
-			this->MouseBehavior_label->Size = System::Drawing::Size(79, 12);
-			this->MouseBehavior_label->TabIndex = 87;
-			this->MouseBehavior_label->Text = L"MouseBehavior";
+			this->ImageAligment_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageAligment_tabPage->Controls->Add(this->label8);
+			this->ImageAligment_tabPage->Controls->Add(this->label4);
+			this->ImageAligment_tabPage->Controls->Add(this->AutoAligment_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->label5);
+			this->ImageAligment_tabPage->Controls->Add(this->BinaryExport_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDetail_textBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ShowBoundary_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageSaveAsDDS_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageHeight_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label12);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageWidth_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitName_textBox);
+			this->ImageAligment_tabPage->Controls->Add(this->AutoOrderPosition_button);
+			this->ImageAligment_tabPage->Controls->Add(this->AddNewPIUnitImage_button);
+			this->ImageAligment_tabPage->Controls->Add(this->AllShowBoundry_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->TotalPixel_label);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label11);
+			this->ImageAligment_tabPage->Controls->Add(this->label10);
+			this->ImageAligment_tabPage->Controls->Add(this->label9);
+			this->ImageAligment_tabPage->Controls->Add(this->label7);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label6);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->DebugLine_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImagePosY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->ImagePosX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label3);
+			this->ImageAligment_tabPage->Location = System::Drawing::Point(4, 22);
+			this->ImageAligment_tabPage->Name = L"ImageAligment_tabPage";
+			this->ImageAligment_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->ImageAligment_tabPage->Size = System::Drawing::Size(1346, 224);
+			this->ImageAligment_tabPage->TabIndex = 0;
+			this->ImageAligment_tabPage->Text = L"ImageAligment";
+			// 
+			// ImageTriangulator_tabPage
+			// 
+			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
+			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
+			this->ImageTriangulator_tabPage->Controls->Add(this->label13);
+			this->ImageTriangulator_tabPage->Controls->Add(this->TriangulatorMouseBehavior_comboBox);
+			this->ImageTriangulator_tabPage->Location = System::Drawing::Point(4, 22);
+			this->ImageTriangulator_tabPage->Name = L"ImageTriangulator_tabPage";
+			this->ImageTriangulator_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(1346, 224);
+			this->ImageTriangulator_tabPage->TabIndex = 1;
+			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
+			// 
+			// splitContainer3
+			// 
+			this->splitContainer3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->splitContainer3->Location = System::Drawing::Point(0, 0);
+			this->splitContainer3->Name = L"splitContainer3";
+			// 
+			// splitContainer3.Panel1
+			// 
+			this->splitContainer3->Panel1->Controls->Add(this->AllImage_listBox);
+			this->splitContainer3->Panel1->Controls->Add(this->AddImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ToOriginalImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->DeleteImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectUP_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ProperStripPixel_button);
+			this->splitContainer3->Panel1->Controls->Add(this->StripAlpha_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectDown_button);
+			// 
+			// splitContainer3.Panel2
+			// 
+			this->splitContainer3->Panel2->Controls->Add(this->tabControl1);
+			this->splitContainer3->Size = System::Drawing::Size(1683, 250);
+			this->splitContainer3->SplitterDistance = 325;
+			this->splitContainer3->TabIndex = 67;
+			// 
+			// label13
+			// 
+			this->label13->AutoSize = true;
+			this->label13->Location = System::Drawing::Point(6, 51);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(81, 13);
+			this->label13->TabIndex = 89;
+			this->label13->Text = L"MouseBehavior";
+			// 
+			// TriangulatorMouseBehavior_comboBox
+			// 
+			this->TriangulatorMouseBehavior_comboBox->FormattingEnabled = true;
+			this->TriangulatorMouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Add", L"Move", L"Delete" });
+			this->TriangulatorMouseBehavior_comboBox->Location = System::Drawing::Point(140, 51);
+			this->TriangulatorMouseBehavior_comboBox->Name = L"TriangulatorMouseBehavior_comboBox";
+			this->TriangulatorMouseBehavior_comboBox->Size = System::Drawing::Size(121, 21);
+			this->TriangulatorMouseBehavior_comboBox->TabIndex = 88;
+			// 
+			// ImageTriangulatorLOD_label
+			// 
+			this->ImageTriangulatorLOD_label->AutoSize = true;
+			this->ImageTriangulatorLOD_label->Location = System::Drawing::Point(6, 111);
+			this->ImageTriangulatorLOD_label->Name = L"ImageTriangulatorLOD_label";
+			this->ImageTriangulatorLOD_label->Size = System::Drawing::Size(114, 13);
+			this->ImageTriangulatorLOD_label->TabIndex = 90;
+			this->ImageTriangulatorLOD_label->Text = L"ImageTriangulatorLOD";
+			// 
+			// ImageTriangulatorLOD_numericUpDown
+			// 
+			this->ImageTriangulatorLOD_numericUpDown->Location = System::Drawing::Point(140, 109);
+			this->ImageTriangulatorLOD_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ImageTriangulatorLOD_numericUpDown->Name = L"ImageTriangulatorLOD_numericUpDown";
+			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
+			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// SequenceAnimation_tabPage
+			// 
+			this->SequenceAnimation_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationData_listBox);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDataList_listBox);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDatDel_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AddAnimationImage_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDatAdd_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->DelAnimationImage_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDataName_textBox);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationImageUp_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->label2);
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationImageDown_button);
+			this->SequenceAnimation_tabPage->Controls->Add(this->label1);
+			this->SequenceAnimation_tabPage->Location = System::Drawing::Point(4, 22);
+			this->SequenceAnimation_tabPage->Name = L"SequenceAnimation_tabPage";
+			this->SequenceAnimation_tabPage->Size = System::Drawing::Size(1346, 224);
+			this->SequenceAnimation_tabPage->TabIndex = 2;
+			this->SequenceAnimation_tabPage->Text = L"SequenceAnimation";
 			// 
 			// cPIEditor
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1264, 972);
+			this->ClientSize = System::Drawing::Size(1687, 1053);
 			this->Controls->Add(this->splitContainer1);
 			this->Controls->Add(this->menuStrip1);
 			this->Name = L"cPIEditor";
@@ -1322,7 +1424,6 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->splitContainer1->Panel1->ResumeLayout(false);
-			this->splitContainer1->Panel1->PerformLayout();
 			this->splitContainer1->Panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
@@ -1336,6 +1437,18 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosY_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
+			this->tabControl1->ResumeLayout(false);
+			this->ImageAligment_tabPage->ResumeLayout(false);
+			this->ImageAligment_tabPage->PerformLayout();
+			this->ImageTriangulator_tabPage->ResumeLayout(false);
+			this->ImageTriangulator_tabPage->PerformLayout();
+			this->splitContainer3->Panel1->ResumeLayout(false);
+			this->splitContainer3->Panel2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
+			this->splitContainer3->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
+			this->SequenceAnimation_tabPage->ResumeLayout(false);
+			this->SequenceAnimation_tabPage->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -1790,6 +1903,11 @@ private: System::Windows::Forms::ComboBox^  MouseBehavior_comboBox;
 				 {
 					m_iCurrentSelectedObjectIndex = AllImage_listBox->SelectedIndex;
 					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+					if (l_pUIImage && m_pPuzzleImageUnitTriangulatorManager)
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
+					}
+					m_pCurrentSelectedPuzzleImageUnitTriangulator;
 					NewPIUnitName_textBox->Text = DNCT::WcharToGcstring(l_pUIImage->GetName());
 					//+1 for offset start at 0,0
 					POINT	l_ImageSize = l_pUIImage->GetImageRealSize();

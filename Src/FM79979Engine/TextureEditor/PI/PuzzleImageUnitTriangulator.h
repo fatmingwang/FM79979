@@ -26,12 +26,22 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	std::vector<Vector2>		m_TriangleVector;
 
 	GET_SET_DEC(ePointsToTriangulatorType,m_ePointsToTriangulatorType,GetPointsToTriangulatorType,SetPointsToTriangulatorType);
-	GET_SET_DEC(cPuzzleImageUnit*,m_pTargetImage,GetTargetImage,SetTargetImage);
+	GET_SET_DEC(cUIImage*,m_pTargetImage,GetTargetImage,SetTargetImage);
 	int							GetClosestPoint(Vector2 e_vPos);
 	int							m_iFocusPoint;				//which one point is closest point
 	void						GenerateTriangle();
+	sMouseMoveData				m_MouseMoveData;
+	enum eMouseBehavior
+	{
+		eMB_DOWN = 0,
+		eMB_MOVE,
+		eMB_UP
+	};
+	void						PointsToTriangulatorAddMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
+	void						PointsToTriangulatorDeleteMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
+	void						PointsToTriangulatorMoveMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
 public:
-	cPuzzleImageUnitTriangulator(cPuzzleImageUnit*e_pTargetImage);
+	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
 	~cPuzzleImageUnitTriangulator();
 	void    		MouseDown(int e_iPosX, int e_iPosY);
@@ -43,7 +53,11 @@ public:
 
 class cPuzzleImageUnitTriangulatorManager:public cNamedTypedObjectVector<cPuzzleImageUnitTriangulator>
 {
+	using cNamedTypedObjectVector<cPuzzleImageUnitTriangulator>::GetObject;
+	using cNamedTypedObjectVector<cPuzzleImageUnitTriangulator>::RemoveObject;
 public:
 	cPuzzleImageUnitTriangulatorManager();
 	~cPuzzleImageUnitTriangulatorManager();
+	cPuzzleImageUnitTriangulator*			GetObject(cUIImage*e_pUIImage);
+	void									RemoveObject(cUIImage*e_pUIImage);
 };

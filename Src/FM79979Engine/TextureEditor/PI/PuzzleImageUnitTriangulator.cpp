@@ -2,11 +2,13 @@
 #include "PuzzleImageUnitTriangulator.h"
 #include "poly2tri\poly2tri.h"
 using namespace p2t;
-cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cPuzzleImageUnit*e_pTargetImage)
+cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
 	m_TriangleVector.reserve(500);
 	m_iFocusPoint = -1;
 	m_pTargetImage = e_pTargetImage;
+	if (m_pTargetImage)
+		this->SetName(m_pTargetImage->GetName());
 	auto l_pOffsetPos = e_pTargetImage->GetOffsetPos();
 	//left up,right up,left down,right down
 	Vector2 l_vPoints[4] = 
@@ -53,19 +55,66 @@ int	cPuzzleImageUnitTriangulator::GetClosestPoint(Vector2 e_vPos)
 
 void cPuzzleImageUnitTriangulator::MouseDown(int e_iPosX, int e_iPosY)
 {
+	m_MouseMoveData.MouseDown(e_iPosX,e_iPosY);
 	m_iFocusPoint = -1;
+	switch (m_ePointsToTriangulatorType)
+	{
+		case ePTPT_ADD:
+			PointsToTriangulatorAddMouseDown(e_iPosX, e_iPosY, eMB_DOWN);
+			break;
+		case ePTPT_DELETE:
+			PointsToTriangulatorDeleteMouseDown(e_iPosX, e_iPosY, eMB_DOWN);
+			break;
+		case ePTPT_MOVE:
+			PointsToTriangulatorMoveMouseDown(e_iPosX, e_iPosY, eMB_DOWN);
+			break;
+	}
 }
 
 void cPuzzleImageUnitTriangulator::MouseMove(int e_iPosX, int e_iPosY)
 {
+	m_MouseMoveData.MouseMove(e_iPosX, e_iPosY);
+	switch (m_ePointsToTriangulatorType)
+	{
+	case ePTPT_ADD:
+		PointsToTriangulatorAddMouseDown(e_iPosX, e_iPosY, eMB_MOVE);
+		break;
+	case ePTPT_DELETE:
+		PointsToTriangulatorDeleteMouseDown(e_iPosX, e_iPosY, eMB_MOVE);
+		break;
+	case ePTPT_MOVE:
+		PointsToTriangulatorMoveMouseDown(e_iPosX, e_iPosY, eMB_MOVE);
+		break;
+	}
 }
 
 void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 {
+	m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
+	switch (m_ePointsToTriangulatorType)
+	{
+	case ePTPT_ADD:
+		PointsToTriangulatorAddMouseDown(e_iPosX, e_iPosY, eMB_UP);
+		break;
+	case ePTPT_DELETE:
+		PointsToTriangulatorDeleteMouseDown(e_iPosX, e_iPosY, eMB_UP);
+		break;
+	case ePTPT_MOVE:
+		PointsToTriangulatorMoveMouseDown(e_iPosX, e_iPosY, eMB_UP);
+		break;
+	}
+	if (m_iFocusPoint != -1)
+	{
+		GenerateTriangle();
+	}
 }
 
 void cPuzzleImageUnitTriangulator::Render()
 {
+	if (m_TriangleVector.size() > 1)
+	{
+		GLRender::RenderLine(&m_TriangleVector, Vector4::Green);
+	}
 }
 
 void cPuzzleImageUnitTriangulator::GenerateTriangle()
@@ -95,4 +144,91 @@ void cPuzzleImageUnitTriangulator::GenerateTriangle()
 	}
 	delete cdt;
 	DELETE_POINTER_VECTOR(l_pPolyline, p2t::Point*);
+}
+
+void cPuzzleImageUnitTriangulator::PointsToTriangulatorAddMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior)
+{
+	switch (e_eMouseBehavior)
+	{
+	case eMB_DOWN:
+		
+		break;
+	case eMB_MOVE:
+		break;
+	case eMB_UP:
+		if(m_MouseMoveData.DownUpDistance()<=5.f)
+			m_PointVector.push_back(Vector2(e_iPosX, e_iPosY));
+		break;
+	}
+}
+
+void cPuzzleImageUnitTriangulator::PointsToTriangulatorDeleteMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior)
+{
+	switch (e_eMouseBehavior)
+	{
+	case eMB_DOWN:
+		m_iFocusPoint = GetClosestPoint(Vector2(e_iPosX, e_iPosY));
+		break;
+	case eMB_MOVE:
+		break;
+	case eMB_UP:
+		if (m_iFocusPoint == GetClosestPoint(Vector2(e_iPosX, e_iPosY)))
+		{//same point
+			m_PointVector.erase(m_PointVector.begin()+m_iFocusPoint);
+		}
+		break;
+	}
+}
+
+void cPuzzleImageUnitTriangulator::PointsToTriangulatorMoveMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior)
+{
+	switch (e_eMouseBehavior)
+	{
+	case eMB_DOWN:
+		m_iFocusPoint = GetClosestPoint(Vector2(e_iPosX, e_iPosY));
+		break;
+	case eMB_MOVE:
+		if (m_iFocusPoint != -1)
+		{
+			//this->m_MouseMoveData.DownMove();
+			m_PointVector[m_iFocusPoint] = Vector2(e_iPosX,e_iPosY);
+		}
+		break;
+	case eMB_UP:
+		break;
+	}
+}
+
+cPuzzleImageUnitTriangulatorManager::cPuzzleImageUnitTriangulatorManager()
+{
+}
+
+cPuzzleImageUnitTriangulatorManager::~cPuzzleImageUnitTriangulatorManager()
+{
+}
+
+cPuzzleImageUnitTriangulator * cPuzzleImageUnitTriangulatorManager::GetObject(cUIImage*e_pUIImage)
+{
+	int l_iCount = this->Count();
+	for (int i = 0; i < l_iCount; i++)
+	{
+		auto l_pObject = GetObject(i);
+		if (l_pObject->GetTargetImage() == e_pUIImage)
+		{
+			return l_pObject;
+		}
+	}
+	cPuzzleImageUnitTriangulator*l_pPuzzleImageUnitTriangulator = new cPuzzleImageUnitTriangulator(e_pUIImage);
+	this->AddObjectNeglectExist(l_pPuzzleImageUnitTriangulator);
+	return l_pPuzzleImageUnitTriangulator;
+}
+
+void cPuzzleImageUnitTriangulatorManager::RemoveObject(cUIImage * e_pUIImage)
+{
+	auto l_pObject = GetObject(e_pUIImage);
+	if (l_pObject)
+	{
+		int l_iIndex = this->GetObjectIndexByPointer(l_pObject);
+		this->RemoveObject(l_iIndex);
+	}
 }
