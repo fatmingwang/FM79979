@@ -139,6 +139,7 @@ namespace FATMING_CORE
 		virtual void			ButtonUp();
 		//for IO
 		virtual	void			SingnalProcess(unsigned char e_usKey);
+		virtual	void			SingnalProcess(bool e_bSingnalOn);
 		virtual	void			SingnalProcess();
         //it's possible we want to move the object
         virtual void    		SetRelativePosition( Vector3 e_vPos ){}

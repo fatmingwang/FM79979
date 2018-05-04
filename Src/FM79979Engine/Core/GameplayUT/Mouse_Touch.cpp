@@ -336,6 +336,28 @@ namespace FATMING_CORE
 			}
 		}
 
+		void			cClickMouseBehavior::SingnalProcess(bool e_bSingnalOn)
+		{
+			if (!m_bEnable)
+				return;
+			if (e_bSingnalOn)
+			{
+				if (!m_bKeyDown)
+				{
+					ButtonClick();
+				}
+				else
+				{
+					ButtonPressed();
+				}
+				return;
+			}
+			if (m_bKeyDown)
+			{
+				ButtonUp();
+			}
+		}
+
 		void	cClickMouseBehavior::SingnalProcess(unsigned char e_usKey)
 		{
 			if( !m_bEnable )
