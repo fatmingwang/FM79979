@@ -117,7 +117,8 @@ public:
 			TYPE*l_pObject = this->back();
 			//for better peformance
 			//l_pResult = new TYPE(l_pObject);
-			TYPE*l_pCloneObject = dynamic_cast<TYPE*>(l_pObject->Clone());
+			l_pResult = dynamic_cast<TYPE*>(l_pObject->Clone());
+			l_pResult->Init();
 			this->push_back(l_pResult);
 
 			if (m_WorkingList.m_iCount < (int)this->size())
