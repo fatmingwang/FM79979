@@ -81,6 +81,17 @@ public:
 	//std::list<TYPE*>		m_WorkingList;
 	//std::list<TYPE*>		m_WaitFetchList;
 public:
+	cWaitForFetchFunctionObjectList(cWaitForFetchFunctionObjectList*e_pWaitForFetchFunctionObjectList)
+	{
+		int l_iCount = (int)e_pWaitForFetchFunctionObjectList->size();
+		for (int i = 0; i < l_iCount; i++)
+		{
+			auto l_pObject = (*e_pWaitForFetchFunctionObjectList)[i];
+			TYPE*l_pTYPE = dynamic_cast<TYPE*>(l_pObject->Clone());
+			//TYPE*l_pTYPE = new TYPE(l_pObject);
+			this->push_back(l_pTYPE);
+		}
+	}
 	cWaitForFetchFunctionObjectList(int e_iWorkingCount = 200)
 	{
 		this->reserve(e_iWorkingCount);
@@ -142,6 +153,15 @@ public:
 	{
 		m_WaitFetchList.Add(m_WorkingList.m_ppObjects[e_iWorkingObjectIndex]);
 		m_WorkingList.Remove(e_iWorkingObjectIndex);
+	}
+	int	GetIndexOfWorkingObject(TYPE*e_pObject)
+	{
+		for (int i = 0; i < m_WorkingList.m_iNumWorking; i++)
+		{
+			if (e_pObject == m_WorkingList.m_ppObjects[i])
+				return i;
+		}
+		return -1;
 	}
 	cTempContainer<TYPE>*	GetWorkingList() { return &m_WorkingList; }
 };
