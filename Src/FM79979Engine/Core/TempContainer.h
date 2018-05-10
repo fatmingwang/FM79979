@@ -88,8 +88,13 @@ public:
 		{
 			auto l_pObject = (*e_pWaitForFetchFunctionObjectList)[i];
 			TYPE*l_pTYPE = dynamic_cast<TYPE*>(l_pObject->Clone());
-			//TYPE*l_pTYPE = new TYPE(l_pObject);
-			this->push_back(l_pTYPE);
+			if(l_pTYPE)
+				this->push_back(l_pTYPE);
+			else
+			{
+				assert(l_pTYPE&&"this Object not support clone!");
+				FMLog::LogWithFlag(UT::ComposeMsgByFormat(L"%:%s:not support clone", e_pWaitForFetchFunctionObjectList->GetName(), e_pWaitForFetchFunctionObjectList->TypeID), CORE_LOG_FLAG);
+			}
 		}
 	}
 	cWaitForFetchFunctionObjectList(int e_iWorkingCount = 200)
@@ -104,8 +109,8 @@ public:
 	{
 		int l_iSize = (int)this->size();
 		//for more capacity
-		m_WorkingList.SetCount(l_iSize * 2);
-		m_WaitFetchList.SetCount(l_iSize * 2);
+		m_WorkingList.SetCount(l_iSize);
+		m_WaitFetchList.SetCount(l_iSize);
 		for (int i = 0; i < l_iSize; i++)
 		{
 			auto l_pObject = (*this)[i];
