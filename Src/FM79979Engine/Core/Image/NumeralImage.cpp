@@ -178,6 +178,16 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pvColorBuffer);
 	}
 
+	void	cNumeralImage::SetColor(Vector4 e_vColor)
+	{
+		if (m_vColor != e_vColor)
+		{
+			m_vColor = e_vColor;
+			this->m_bValueChanged = true;
+		}
+	}
+
+
 	void	cNumeralImage::GenerateVertexBuffer(int e_iNumBuffer)
 	{
 		m_iVertexBufferCount = e_iNumBuffer;

@@ -53,6 +53,7 @@ namespace FATMING_CORE
 		static	cNumeralImage*	GetMe(TiXmlElement*e_pXmlelement);
 		CLONE_MYSELF(cNumeralImage)
 		virtual ~cNumeralImage();
+		virtual	void	SetColor(Vector4 e_vColor)override;
 		//this one is right to left,if e_pmat is null apply normal one or apply a matrix to it.
 		void	Draw(int	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
 		void	Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat = 0,bool e_bCenter = false);
