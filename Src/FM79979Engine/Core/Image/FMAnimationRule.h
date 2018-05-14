@@ -20,8 +20,8 @@ namespace FATMING_CORE
 	    float			m_fPastTime;
 	    //total time we are going to play
 	    float			m_fTotalPlayTime;
-		//not exactly need but for quick info
-		float			m_fCurrentProgress;
+		//0 to 1,while progress is i it's end.
+		GET_SET_DEC(float, m_fCurrentProgress, GetCurrentProgress, SetCurrentProgress);
 	    //cue time to start
 	    GET_SET_DEC(float,m_fStartTime,GetStartTime,SetStartTime);
 	    GET_SET_DEC(bool,m_bStart,IsStart,SetStart);						//while the time is over start time the real start is start,not just call start mean it start
@@ -91,8 +91,6 @@ namespace FATMING_CORE
 	    Vector3	m_vRotationCenter;
 	    //counting number buffer
 	    GET_SET_DEC(int,m_iCurrentPlayCount,GetCurrentPlayCount,SetGetCurrentPlayCount);
-	    //0 to 1,while progress is i it's end.
-	    GET_SET_DEC(float,m_fCurrentProgress,GetCurrentProgress,SetCurrentProgress);
     public:
 	    cFatmingGroupBehaviorList();
 	    //for clone
