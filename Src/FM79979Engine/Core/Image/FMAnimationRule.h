@@ -224,7 +224,7 @@ namespace FATMING_CORE
     template<class	TYPE>
     void	cFatmingGroupBehaviorList<TYPE>::InternalUpdate(float e_fElpaseTime)
     {
-	    if( m_iPlayCount != m_iCurrentPlayCount )
+	    if( m_iPlayCount != m_iCurrentPlayCount && m_fTotalPlayTime!=0.f)
 	    {
 		    m_fCurrentProgress = this->m_fPastTime/this->m_fTotalPlayTime;
 			size_t	l_iCount = this->m_ObjectList.size();
@@ -236,7 +236,6 @@ namespace FATMING_CORE
 			    if( m_iPlayCount == -1 ||//if loop
 				    m_iPlayCount > m_iCurrentPlayCount )
 			    {
-				    assert(m_fTotalPlayTime>0.f);
 				    if(m_fPastTime>=m_fTotalPlayTime)
 				    {
 					    m_fPastTime = GetFloatModulus(m_fPastTime,m_fTotalPlayTime);
