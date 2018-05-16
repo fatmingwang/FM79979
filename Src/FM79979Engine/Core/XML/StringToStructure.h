@@ -134,16 +134,23 @@ namespace FATMING_CORE
 	template<class T>std::vector<T>	GetValueListByCommaDivide(const wchar_t*e_str)
 	{
 		std::vector<T>	l_NumeralList;
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
-		while(l_str)
+		if (e_str)
 		{
-	#ifdef DEBUG
-			T	l_i = (T)_wtof(l_str);
-			l_NumeralList.push_back(l_i);
-	#else
-			l_NumeralList.push_back((T)_wtof(l_str));
-	#endif
-			l_str = wcstok(0,L", ");
+			size_t l_uiSize = wcslen(e_str);
+			wchar_t*l_strTemp = new wchar_t[l_uiSize +1];
+			l_strTemp[l_uiSize] = 0;
+			wchar_t*	l_str = wcstok(l_strTemp, L", ");
+			while (l_str)
+			{
+#ifdef DEBUG
+				T	l_i = (T)_wtof(l_str);
+				l_NumeralList.push_back(l_i);
+#else
+				l_NumeralList.push_back((T)_wtof(l_str));
+#endif
+				l_str = wcstok(0, L", ");
+			}
+			delete l_strTemp;
 		}
 		return l_NumeralList;
 	}
