@@ -138,7 +138,8 @@ namespace FATMING_CORE
 		{
 			size_t l_uiSize = wcslen(e_str);
 			wchar_t*l_strTemp = new wchar_t[l_uiSize +1];
-			l_strTemp[l_uiSize] = 0;
+			memcpy(l_strTemp, e_str, sizeof(wchar_t)*l_uiSize);
+ 			l_strTemp[l_uiSize] = 0;
 			wchar_t*	l_str = wcstok(l_strTemp, L", ");
 			while (l_str)
 			{
