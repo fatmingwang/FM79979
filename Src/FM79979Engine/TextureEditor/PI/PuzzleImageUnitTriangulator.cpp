@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PuzzleImageUnitTriangulator.h"
 #include "poly2tri\poly2tri.h"
+#include "EarClipping.h"
 using namespace p2t;
 cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
@@ -10,15 +11,19 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 	if (m_pTargetImage)
 		this->SetName(m_pTargetImage->GetName());
 	auto l_pOffsetPos = e_pTargetImage->GetOffsetPos();
-	//left up,right up,left down,right down
+	//left up,right up,right down,left down
+	//must be this order or get wrong
 	Vector2 l_vPoints[4] = 
+	//Vector2 l_vPoints[5] =
 	{
-		Vector2((float)l_pOffsetPos->x, (float)l_pOffsetPos->y),
-		Vector2((float)l_pOffsetPos->x + e_pTargetImage->GetWidth(), (float)l_pOffsetPos->y),
-		Vector2((float)l_pOffsetPos->x, (float)l_pOffsetPos->y+e_pTargetImage->GetHeight()),
-		Vector2((float)l_pOffsetPos->x + e_pTargetImage->GetWidth(), (float)l_pOffsetPos->y + e_pTargetImage->GetHeight())
+		Vector2(0,0),
+		Vector2(e_pTargetImage->GetWidth(),0),
+		Vector2(e_pTargetImage->GetWidth(),e_pTargetImage->GetHeight()),
+		Vector2(0,e_pTargetImage->GetHeight()),
+		//Vector2(e_pTargetImage->GetWidth()/2,e_pTargetImage->GetHeight()/2),
 	};
-	for(int i=0;i<4;++i)
+	for (int i = 0; i<4; ++i)
+	//for(int i=0;i<5;++i)
 		m_PointVector.push_back(l_vPoints[i]);
 	GenerateTriangle();
 }
@@ -111,6 +116,10 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 
 void cPuzzleImageUnitTriangulator::Render()
 {
+	Vector3 l_vPos = m_pTargetImage->GetLocalPosition();
+	m_pTargetImage->SetLocalPosition(Vector3::Zero);
+	this->m_pTargetImage->Render();
+	m_pTargetImage->SetLocalPosition(l_vPos);
 	if (m_TriangleVector.size() > 1)
 	{
 		GLRender::RenderLine(&m_TriangleVector, Vector4::Green);
@@ -122,14 +131,21 @@ void cPuzzleImageUnitTriangulator::GenerateTriangle()
 	m_TriangleVector.clear();
 	//https://github.com/greenm01/poly2tri
 	size_t l_uiSize = m_PointVector.size();
-	vector<p2t::Point*>*l_pPolyline = new vector<p2t::Point*>;
+	vector<p2t::Point*> l_Polyline;
+	//l_Polyline.push_back(new p2t::Point(0,0));
+	//l_Polyline.push_back(new p2t::Point(m_pTargetImage->GetWidth(),0));
+	//l_Polyline.push_back(new p2t::Point(m_pTargetImage->GetWidth(), m_pTargetImage->GetHeight()));
+	//l_Polyline.push_back(new p2t::Point(0, m_pTargetImage->GetHeight()));
 	for (size_t i = 0; i < l_uiSize; ++i)
 	{
 		Vector2 l_vPos = m_PointVector[i];
-		l_pPolyline->push_back(new p2t::Point(l_vPos.x, l_vPos.y));
+		l_Polyline.push_back(new p2t::Point(l_vPos.x, l_vPos.y));
 	}
-	CDT* cdt = new CDT(*l_pPolyline);
+	//cdt->AddHole(l_Polyline);
+	CDT* cdt = new CDT(l_Polyline);
 	cdt->Triangulate();
+	auto l_pMap = cdt->GetMap();
+	std::vector<size_t>l_Reult =  GetIndicesFromPolygon(m_PointVector);
 	std::vector<p2t::Triangle*>l_Triangles = cdt->GetTriangles();
 	l_uiSize = l_Triangles.size();
 	for (size_t i = 0; i < l_uiSize; ++i)
@@ -143,7 +159,6 @@ void cPuzzleImageUnitTriangulator::GenerateTriangle()
 		m_TriangleVector.push_back(Vector2(l_pP3->x, l_pP3->y));
 	}
 	delete cdt;
-	DELETE_POINTER_VECTOR(l_pPolyline, p2t::Point*);
 }
 
 void cPuzzleImageUnitTriangulator::PointsToTriangulatorAddMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior)
