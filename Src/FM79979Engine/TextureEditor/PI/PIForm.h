@@ -148,6 +148,7 @@ namespace PI
 			m_pImageIndexOfAnimationList = new cNamedTypedObjectVector<cImageIndexOfAnimation>;
 			m_pImageomposerIRM = new cImageParser(true);
 			m_pOrthogonalCamera = new cOrthogonalCamera();
+			m_pOrthogonalCameraForTrianhulatorPIUnit = new cOrthogonalCamera();
 			m_ImageTale = gcnew System::Collections::Hashtable;
 			m_pParentHandle = 0;
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
@@ -201,6 +202,7 @@ namespace PI
 				OpenPIFile(e_strFileName);
 			ToolStripMenuItem^l_pToolStripMenuItem = (ToolStripMenuItem^)this->menuStrip1->Items[0];
 			this->Dock = GCFORM::DockStyle::Fill;
+			TriangulatorMouseBehavior_comboBox->SelectedIndex = 0;
 			//WARNING_MSG(openXMLToolStripMenuItem->Size.ToString());
 			this->timer1->Enabled = true;
 		}
@@ -222,6 +224,7 @@ namespace PI
 			SAFE_DELETE(m_pImageomposerIRM);
 			SAFE_DELETE(m_pTimeAndFPS);
 			SAFE_DELETE(m_pOrthogonalCamera);
+			SAFE_DELETE(m_pOrthogonalCameraForTrianhulatorPIUnit);
 			SAFE_DELETE(m_pPuzzleImageUnitTriangulatorManager);
 		}
 	private: System::Windows::Forms::Timer^  timer1;
@@ -315,6 +318,7 @@ namespace PI
 	cImageIndexOfAnimation*						m_pImageIndexOfAnimation;
 	cNamedTypedObjectVector<cImageIndexOfAnimation>*	m_pImageIndexOfAnimationList;
 	cOrthogonalCamera*							m_pOrthogonalCamera;
+	cOrthogonalCamera*							m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*							m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
 	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
@@ -373,6 +377,13 @@ namespace PI
 			this->toolToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->addImagesByFolderToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
+			this->splitContainer3 = (gcnew System::Windows::Forms::SplitContainer());
+			this->ToOriginalImage_button = (gcnew System::Windows::Forms::Button());
+			this->ProperStripPixel_button = (gcnew System::Windows::Forms::Button());
+			this->StripAlpha_button = (gcnew System::Windows::Forms::Button());
+			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->ImageAligment_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->AutoAligment_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->BinaryExport_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->ImageSaveAsDDS_checkBox = (gcnew System::Windows::Forms::CheckBox());
@@ -386,39 +397,32 @@ namespace PI
 			this->label11 = (gcnew System::Windows::Forms::Label());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
-			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->ImageDistanceY_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->ImageDistanceX_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DebugLine_checkBox = (gcnew System::Windows::Forms::CheckBox());
-			this->ToOriginalImage_button = (gcnew System::Windows::Forms::Button());
-			this->StripAlpha_button = (gcnew System::Windows::Forms::Button());
-			this->ProperStripPixel_button = (gcnew System::Windows::Forms::Button());
-			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->ImagePosX_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ImagePosY_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
-			this->AnimationDatDel_button = (gcnew System::Windows::Forms::Button());
-			this->AnimationDatAdd_button = (gcnew System::Windows::Forms::Button());
-			this->AnimationDataName_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->label2 = (gcnew System::Windows::Forms::Label());
-			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->AnimationDataList_listBox = (gcnew System::Windows::Forms::ListBox());
-			this->AnimationImageDown_button = (gcnew System::Windows::Forms::Button());
-			this->AnimationImageUp_button = (gcnew System::Windows::Forms::Button());
-			this->DelAnimationImage_button = (gcnew System::Windows::Forms::Button());
-			this->AddAnimationImage_button = (gcnew System::Windows::Forms::Button());
+			this->ImagePosX_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->SequenceAnimation_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->AnimationData_listBox = (gcnew System::Windows::Forms::ListBox());
-			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
-			this->ImageAligment_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->AnimationDataList_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->AnimationDatDel_button = (gcnew System::Windows::Forms::Button());
+			this->AddAnimationImage_button = (gcnew System::Windows::Forms::Button());
+			this->AnimationDatAdd_button = (gcnew System::Windows::Forms::Button());
+			this->DelAnimationImage_button = (gcnew System::Windows::Forms::Button());
+			this->AnimationDataName_textBox = (gcnew System::Windows::Forms::TextBox());
+			this->AnimationImageUp_button = (gcnew System::Windows::Forms::Button());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->AnimationImageDown_button = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
-			this->splitContainer3 = (gcnew System::Windows::Forms::SplitContainer());
+			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
-			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
-			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
-			this->SequenceAnimation_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -426,25 +430,25 @@ namespace PI
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
+			this->splitContainer3->Panel1->SuspendLayout();
+			this->splitContainer3->Panel2->SuspendLayout();
+			this->splitContainer3->SuspendLayout();
+			this->tabControl1->SuspendLayout();
+			this->ImageAligment_tabPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitStartX_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitEndY_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitEndX_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitStartY_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDistanceY_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDistanceX_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->BeginInit();
+			this->SequenceAnimation_tabPage->SuspendLayout();
+			this->ImageTriangulator_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
-			this->tabControl1->SuspendLayout();
-			this->ImageAligment_tabPage->SuspendLayout();
-			this->ImageTriangulator_tabPage->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->BeginInit();
-			this->splitContainer3->Panel1->SuspendLayout();
-			this->splitContainer3->Panel2->SuspendLayout();
-			this->splitContainer3->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
-			this->SequenceAnimation_tabPage->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -786,6 +790,138 @@ namespace PI
 			this->splitContainer1->SplitterWidth = 3;
 			this->splitContainer1->TabIndex = 49;
 			// 
+			// splitContainer3
+			// 
+			this->splitContainer3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->splitContainer3->Location = System::Drawing::Point(0, 0);
+			this->splitContainer3->Name = L"splitContainer3";
+			// 
+			// splitContainer3.Panel1
+			// 
+			this->splitContainer3->Panel1->Controls->Add(this->AllImage_listBox);
+			this->splitContainer3->Panel1->Controls->Add(this->AddImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ToOriginalImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->DeleteImage_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectUP_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ProperStripPixel_button);
+			this->splitContainer3->Panel1->Controls->Add(this->StripAlpha_button);
+			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectDown_button);
+			// 
+			// splitContainer3.Panel2
+			// 
+			this->splitContainer3->Panel2->Controls->Add(this->tabControl1);
+			this->splitContainer3->Size = System::Drawing::Size(1683, 250);
+			this->splitContainer3->SplitterDistance = 325;
+			this->splitContainer3->TabIndex = 67;
+			// 
+			// ToOriginalImage_button
+			// 
+			this->ToOriginalImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->ToOriginalImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->ToOriginalImage_button->Location = System::Drawing::Point(14, 119);
+			this->ToOriginalImage_button->Name = L"ToOriginalImage_button";
+			this->ToOriginalImage_button->Size = System::Drawing::Size(100, 27);
+			this->ToOriginalImage_button->TabIndex = 66;
+			this->ToOriginalImage_button->Text = L"ToOriginalImag/回復原狀";
+			this->ToOriginalImage_button->UseVisualStyleBackColor = false;
+			this->ToOriginalImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
+			// 
+			// ProperStripPixel_button
+			// 
+			this->ProperStripPixel_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->ProperStripPixel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->ProperStripPixel_button->Location = System::Drawing::Point(14, 150);
+			this->ProperStripPixel_button->Name = L"ProperStripPixel_button";
+			this->ProperStripPixel_button->Size = System::Drawing::Size(100, 27);
+			this->ProperStripPixel_button->TabIndex = 64;
+			this->ProperStripPixel_button->Text = L"ProperStripPixel/找出最大可用圖片";
+			this->ProperStripPixel_button->UseVisualStyleBackColor = false;
+			this->ProperStripPixel_button->Click += gcnew System::EventHandler(this, &cPIEditor::ProperStripPixel_button_Click);
+			// 
+			// StripAlpha_button
+			// 
+			this->StripAlpha_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->StripAlpha_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->StripAlpha_button->Location = System::Drawing::Point(14, 89);
+			this->StripAlpha_button->Name = L"StripAlpha_button";
+			this->StripAlpha_button->Size = System::Drawing::Size(100, 27);
+			this->StripAlpha_button->TabIndex = 65;
+			this->StripAlpha_button->Text = L"StripAlpha/砍掉alpha";
+			this->StripAlpha_button->UseVisualStyleBackColor = false;
+			this->StripAlpha_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
+			// 
+			// tabControl1
+			// 
+			this->tabControl1->Controls->Add(this->ImageAligment_tabPage);
+			this->tabControl1->Controls->Add(this->SequenceAnimation_tabPage);
+			this->tabControl1->Controls->Add(this->ImageTriangulator_tabPage);
+			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tabControl1->Location = System::Drawing::Point(0, 0);
+			this->tabControl1->Name = L"tabControl1";
+			this->tabControl1->SelectedIndex = 0;
+			this->tabControl1->Size = System::Drawing::Size(1354, 250);
+			this->tabControl1->TabIndex = 0;
+			// 
+			// ImageAligment_tabPage
+			// 
+			this->ImageAligment_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageAligment_tabPage->Controls->Add(this->label8);
+			this->ImageAligment_tabPage->Controls->Add(this->label4);
+			this->ImageAligment_tabPage->Controls->Add(this->AutoAligment_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->label5);
+			this->ImageAligment_tabPage->Controls->Add(this->BinaryExport_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDetail_textBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ShowBoundary_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageSaveAsDDS_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageHeight_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label12);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageWidth_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitName_textBox);
+			this->ImageAligment_tabPage->Controls->Add(this->AutoOrderPosition_button);
+			this->ImageAligment_tabPage->Controls->Add(this->AddNewPIUnitImage_button);
+			this->ImageAligment_tabPage->Controls->Add(this->AllShowBoundry_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->TotalPixel_label);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label11);
+			this->ImageAligment_tabPage->Controls->Add(this->label10);
+			this->ImageAligment_tabPage->Controls->Add(this->label9);
+			this->ImageAligment_tabPage->Controls->Add(this->label7);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label6);
+			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->DebugLine_checkBox);
+			this->ImageAligment_tabPage->Controls->Add(this->ImagePosY_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->ImagePosX_numericUpDown);
+			this->ImageAligment_tabPage->Controls->Add(this->label3);
+			this->ImageAligment_tabPage->Location = System::Drawing::Point(4, 22);
+			this->ImageAligment_tabPage->Name = L"ImageAligment_tabPage";
+			this->ImageAligment_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->ImageAligment_tabPage->Size = System::Drawing::Size(1346, 224);
+			this->ImageAligment_tabPage->TabIndex = 0;
+			this->ImageAligment_tabPage->Text = L"ImageAligment";
+			// 
+			// label8
+			// 
+			this->label8->AutoSize = true;
+			this->label8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label8->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label8->Location = System::Drawing::Point(582, 6);
+			this->label8->Name = L"label8";
+			this->label8->Size = System::Drawing::Size(207, 13);
+			this->label8->TabIndex = 72;
+			this->label8->Text = L"NewPIUnitStartX/新拼圖單元開始位置X";
+			// 
 			// AutoAligment_checkBox
 			// 
 			this->AutoAligment_checkBox->AutoSize = true;
@@ -943,19 +1079,6 @@ namespace PI
 			this->label9->TabIndex = 73;
 			this->label9->Text = L"NewPIUnitStartY/新拼圖單元開始位置Y";
 			// 
-			// label8
-			// 
-			this->label8->AutoSize = true;
-			this->label8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label8->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label8->Location = System::Drawing::Point(582, 6);
-			this->label8->Name = L"label8";
-			this->label8->Size = System::Drawing::Size(207, 13);
-			this->label8->TabIndex = 72;
-			this->label8->Text = L"NewPIUnitStartX/新拼圖單元開始位置X";
-			// 
 			// label7
 			// 
 			this->label7->AutoSize = true;
@@ -1012,60 +1135,19 @@ namespace PI
 			this->DebugLine_checkBox->Text = L"DebugLine";
 			this->DebugLine_checkBox->UseVisualStyleBackColor = true;
 			// 
-			// ToOriginalImage_button
+			// ImagePosY_numericUpDown
 			// 
-			this->ToOriginalImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+			this->ImagePosY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->ToOriginalImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+			this->ImagePosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ToOriginalImage_button->Location = System::Drawing::Point(14, 119);
-			this->ToOriginalImage_button->Name = L"ToOriginalImage_button";
-			this->ToOriginalImage_button->Size = System::Drawing::Size(100, 27);
-			this->ToOriginalImage_button->TabIndex = 66;
-			this->ToOriginalImage_button->Text = L"ToOriginalImag/回復原狀";
-			this->ToOriginalImage_button->UseVisualStyleBackColor = false;
-			this->ToOriginalImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
-			// 
-			// StripAlpha_button
-			// 
-			this->StripAlpha_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->StripAlpha_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->StripAlpha_button->Location = System::Drawing::Point(14, 89);
-			this->StripAlpha_button->Name = L"StripAlpha_button";
-			this->StripAlpha_button->Size = System::Drawing::Size(100, 27);
-			this->StripAlpha_button->TabIndex = 65;
-			this->StripAlpha_button->Text = L"StripAlpha/砍掉alpha";
-			this->StripAlpha_button->UseVisualStyleBackColor = false;
-			this->StripAlpha_button->Click += gcnew System::EventHandler(this, &cPIEditor::StripAlpha_button_Click);
-			// 
-			// ProperStripPixel_button
-			// 
-			this->ProperStripPixel_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->ProperStripPixel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ProperStripPixel_button->Location = System::Drawing::Point(14, 150);
-			this->ProperStripPixel_button->Name = L"ProperStripPixel_button";
-			this->ProperStripPixel_button->Size = System::Drawing::Size(100, 27);
-			this->ProperStripPixel_button->TabIndex = 64;
-			this->ProperStripPixel_button->Text = L"ProperStripPixel/找出最大可用圖片";
-			this->ProperStripPixel_button->UseVisualStyleBackColor = false;
-			this->ProperStripPixel_button->Click += gcnew System::EventHandler(this, &cPIEditor::ProperStripPixel_button_Click);
-			// 
-			// label3
-			// 
-			this->label3->AutoSize = true;
-			this->label3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label3->Location = System::Drawing::Point(375, 6);
-			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(28, 13);
-			this->label3->TabIndex = 62;
-			this->label3->Text = L"Pos:";
+			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(377, 58);
+			this->ImagePosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
+			this->ImagePosY_numericUpDown->Name = L"ImagePosY_numericUpDown";
+			this->ImagePosY_numericUpDown->Size = System::Drawing::Size(85, 20);
+			this->ImagePosY_numericUpDown->TabIndex = 61;
+			this->ImagePosY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 512, 0, 0, 0 });
+			this->ImagePosY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImagePosX_numericUpDown_ValueChanged);
 			// 
 			// ImagePosX_numericUpDown
 			// 
@@ -1081,315 +1163,18 @@ namespace PI
 			this->ImagePosX_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1024, 0, 0, 0 });
 			this->ImagePosX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImagePosX_numericUpDown_ValueChanged);
 			// 
-			// ImagePosY_numericUpDown
+			// label3
 			// 
-			this->ImagePosY_numericUpDown->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->ImagePosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(377, 58);
-			this->ImagePosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-			this->ImagePosY_numericUpDown->Name = L"ImagePosY_numericUpDown";
-			this->ImagePosY_numericUpDown->Size = System::Drawing::Size(85, 20);
-			this->ImagePosY_numericUpDown->TabIndex = 61;
-			this->ImagePosY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 512, 0, 0, 0 });
-			this->ImagePosY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImagePosX_numericUpDown_ValueChanged);
-			// 
-			// AnimationDatDel_button
-			// 
-			this->AnimationDatDel_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationDatDel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDatDel_button->Location = System::Drawing::Point(206, 129);
-			this->AnimationDatDel_button->Margin = System::Windows::Forms::Padding(2);
-			this->AnimationDatDel_button->Name = L"AnimationDatDel_button";
-			this->AnimationDatDel_button->Size = System::Drawing::Size(33, 22);
-			this->AnimationDatDel_button->TabIndex = 59;
-			this->AnimationDatDel_button->Text = L"Del";
-			this->AnimationDatDel_button->UseVisualStyleBackColor = false;
-			this->AnimationDatDel_button->Click += gcnew System::EventHandler(this, &cPIEditor::AnimationDatAdd_button_Click);
-			// 
-			// AnimationDatAdd_button
-			// 
-			this->AnimationDatAdd_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationDatAdd_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDatAdd_button->Location = System::Drawing::Point(206, 73);
-			this->AnimationDatAdd_button->Margin = System::Windows::Forms::Padding(2);
-			this->AnimationDatAdd_button->Name = L"AnimationDatAdd_button";
-			this->AnimationDatAdd_button->Size = System::Drawing::Size(33, 27);
-			this->AnimationDatAdd_button->TabIndex = 58;
-			this->AnimationDatAdd_button->Text = L"Add";
-			this->AnimationDatAdd_button->UseVisualStyleBackColor = false;
-			this->AnimationDatAdd_button->Click += gcnew System::EventHandler(this, &cPIEditor::AnimationDatAdd_button_Click);
-			// 
-			// AnimationDataName_textBox
-			// 
-			this->AnimationDataName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationDataName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDataName_textBox->Location = System::Drawing::Point(190, 40);
-			this->AnimationDataName_textBox->Margin = System::Windows::Forms::Padding(2);
-			this->AnimationDataName_textBox->Name = L"AnimationDataName_textBox";
-			this->AnimationDataName_textBox->Size = System::Drawing::Size(76, 20);
-			this->AnimationDataName_textBox->TabIndex = 57;
-			// 
-			// label2
-			// 
-			this->label2->AutoSize = true;
-			this->label2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+			this->label3->AutoSize = true;
+			this->label3->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+			this->label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label2->Location = System::Drawing::Point(267, 21);
-			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(89, 13);
-			this->label2->TabIndex = 56;
-			this->label2->Text = L"AnimationData:ist";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->label1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label1->Location = System::Drawing::Point(51, 21);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(76, 13);
-			this->label1->TabIndex = 55;
-			this->label1->Text = L"AnimationData";
-			// 
-			// AnimationDataList_listBox
-			// 
-			this->AnimationDataList_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
-				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->AnimationDataList_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationDataList_listBox->FormattingEnabled = true;
-			this->AnimationDataList_listBox->Location = System::Drawing::Point(269, 37);
-			this->AnimationDataList_listBox->Margin = System::Windows::Forms::Padding(2);
-			this->AnimationDataList_listBox->Name = L"AnimationDataList_listBox";
-			this->AnimationDataList_listBox->Size = System::Drawing::Size(152, 134);
-			this->AnimationDataList_listBox->TabIndex = 54;
-			this->AnimationDataList_listBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &cPIEditor::AnimationData_listBox_KeyUp);
-			this->AnimationDataList_listBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &cPIEditor::AnimationData_listBox_MouseDoubleClick);
-			// 
-			// AnimationImageDown_button
-			// 
-			this->AnimationImageDown_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationImageDown_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationImageDown_button->Location = System::Drawing::Point(13, 129);
-			this->AnimationImageDown_button->Name = L"AnimationImageDown_button";
-			this->AnimationImageDown_button->Size = System::Drawing::Size(32, 37);
-			this->AnimationImageDown_button->TabIndex = 53;
-			this->AnimationImageDown_button->Text = L"v\r\nv";
-			this->AnimationImageDown_button->UseVisualStyleBackColor = false;
-			// 
-			// AnimationImageUp_button
-			// 
-			this->AnimationImageUp_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AnimationImageUp_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationImageUp_button->Location = System::Drawing::Point(13, 84);
-			this->AnimationImageUp_button->Name = L"AnimationImageUp_button";
-			this->AnimationImageUp_button->Size = System::Drawing::Size(32, 39);
-			this->AnimationImageUp_button->TabIndex = 52;
-			this->AnimationImageUp_button->Text = L"^\r\n^";
-			this->AnimationImageUp_button->UseVisualStyleBackColor = false;
-			// 
-			// DelAnimationImage_button
-			// 
-			this->DelAnimationImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->DelAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->DelAnimationImage_button->Location = System::Drawing::Point(13, 53);
-			this->DelAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
-			this->DelAnimationImage_button->Name = L"DelAnimationImage_button";
-			this->DelAnimationImage_button->Size = System::Drawing::Size(33, 22);
-			this->DelAnimationImage_button->TabIndex = 51;
-			this->DelAnimationImage_button->Text = L"Del";
-			this->DelAnimationImage_button->UseVisualStyleBackColor = false;
-			this->DelAnimationImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::AddAnimationImage_button_Click);
-			// 
-			// AddAnimationImage_button
-			// 
-			this->AddAnimationImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->AddAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddAnimationImage_button->Location = System::Drawing::Point(13, 17);
-			this->AddAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
-			this->AddAnimationImage_button->Name = L"AddAnimationImage_button";
-			this->AddAnimationImage_button->Size = System::Drawing::Size(33, 27);
-			this->AddAnimationImage_button->TabIndex = 50;
-			this->AddAnimationImage_button->Text = L"Add";
-			this->AddAnimationImage_button->UseVisualStyleBackColor = false;
-			this->AddAnimationImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::AddAnimationImage_button_Click);
-			// 
-			// AnimationData_listBox
-			// 
-			this->AnimationData_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
-				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->AnimationData_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AnimationData_listBox->FormattingEnabled = true;
-			this->AnimationData_listBox->Location = System::Drawing::Point(53, 37);
-			this->AnimationData_listBox->Margin = System::Windows::Forms::Padding(2);
-			this->AnimationData_listBox->Name = L"AnimationData_listBox";
-			this->AnimationData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
-			this->AnimationData_listBox->Size = System::Drawing::Size(134, 134);
-			this->AnimationData_listBox->TabIndex = 49;
-			// 
-			// splitContainer2
-			// 
-			this->splitContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->splitContainer2->Location = System::Drawing::Point(0, 0);
-			this->splitContainer2->Margin = System::Windows::Forms::Padding(2);
-			this->splitContainer2->Name = L"splitContainer2";
-			// 
-			// splitContainer2.Panel1
-			// 
-			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
-			this->splitContainer2->Panel2Collapsed = true;
-			this->splitContainer2->Size = System::Drawing::Size(1683, 766);
-			this->splitContainer2->SplitterDistance = 356;
-			this->splitContainer2->SplitterWidth = 3;
-			this->splitContainer2->TabIndex = 0;
-			// 
-			// tabControl1
-			// 
-			this->tabControl1->Controls->Add(this->ImageAligment_tabPage);
-			this->tabControl1->Controls->Add(this->SequenceAnimation_tabPage);
-			this->tabControl1->Controls->Add(this->ImageTriangulator_tabPage);
-			this->tabControl1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tabControl1->Location = System::Drawing::Point(0, 0);
-			this->tabControl1->Name = L"tabControl1";
-			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(1354, 250);
-			this->tabControl1->TabIndex = 0;
-			// 
-			// ImageAligment_tabPage
-			// 
-			this->ImageAligment_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->ImageAligment_tabPage->Controls->Add(this->label8);
-			this->ImageAligment_tabPage->Controls->Add(this->label4);
-			this->ImageAligment_tabPage->Controls->Add(this->AutoAligment_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->label5);
-			this->ImageAligment_tabPage->Controls->Add(this->BinaryExport_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageDetail_textBox);
-			this->ImageAligment_tabPage->Controls->Add(this->ShowBoundary_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageSaveAsDDS_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageHeight_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->label12);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageWidth_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitName_textBox);
-			this->ImageAligment_tabPage->Controls->Add(this->AutoOrderPosition_button);
-			this->ImageAligment_tabPage->Controls->Add(this->AddNewPIUnitImage_button);
-			this->ImageAligment_tabPage->Controls->Add(this->AllShowBoundry_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartX_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->TotalPixel_label);
-			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndY_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitEndX_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->NewPIUnitStartY_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->label11);
-			this->ImageAligment_tabPage->Controls->Add(this->label10);
-			this->ImageAligment_tabPage->Controls->Add(this->label9);
-			this->ImageAligment_tabPage->Controls->Add(this->label7);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceY_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->label6);
-			this->ImageAligment_tabPage->Controls->Add(this->ImageDistanceX_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->DebugLine_checkBox);
-			this->ImageAligment_tabPage->Controls->Add(this->ImagePosY_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->ImagePosX_numericUpDown);
-			this->ImageAligment_tabPage->Controls->Add(this->label3);
-			this->ImageAligment_tabPage->Location = System::Drawing::Point(4, 22);
-			this->ImageAligment_tabPage->Name = L"ImageAligment_tabPage";
-			this->ImageAligment_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->ImageAligment_tabPage->Size = System::Drawing::Size(1346, 224);
-			this->ImageAligment_tabPage->TabIndex = 0;
-			this->ImageAligment_tabPage->Text = L"ImageAligment";
-			// 
-			// ImageTriangulator_tabPage
-			// 
-			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
-			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
-			this->ImageTriangulator_tabPage->Controls->Add(this->label13);
-			this->ImageTriangulator_tabPage->Controls->Add(this->TriangulatorMouseBehavior_comboBox);
-			this->ImageTriangulator_tabPage->Location = System::Drawing::Point(4, 22);
-			this->ImageTriangulator_tabPage->Name = L"ImageTriangulator_tabPage";
-			this->ImageTriangulator_tabPage->Padding = System::Windows::Forms::Padding(3);
-			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(1346, 224);
-			this->ImageTriangulator_tabPage->TabIndex = 1;
-			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
-			// 
-			// splitContainer3
-			// 
-			this->splitContainer3->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->splitContainer3->Location = System::Drawing::Point(0, 0);
-			this->splitContainer3->Name = L"splitContainer3";
-			// 
-			// splitContainer3.Panel1
-			// 
-			this->splitContainer3->Panel1->Controls->Add(this->AllImage_listBox);
-			this->splitContainer3->Panel1->Controls->Add(this->AddImage_button);
-			this->splitContainer3->Panel1->Controls->Add(this->ToOriginalImage_button);
-			this->splitContainer3->Panel1->Controls->Add(this->DeleteImage_button);
-			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectUP_button);
-			this->splitContainer3->Panel1->Controls->Add(this->ProperStripPixel_button);
-			this->splitContainer3->Panel1->Controls->Add(this->StripAlpha_button);
-			this->splitContainer3->Panel1->Controls->Add(this->ImageObjectDown_button);
-			// 
-			// splitContainer3.Panel2
-			// 
-			this->splitContainer3->Panel2->Controls->Add(this->tabControl1);
-			this->splitContainer3->Size = System::Drawing::Size(1683, 250);
-			this->splitContainer3->SplitterDistance = 325;
-			this->splitContainer3->TabIndex = 67;
-			// 
-			// label13
-			// 
-			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(6, 51);
-			this->label13->Name = L"label13";
-			this->label13->Size = System::Drawing::Size(81, 13);
-			this->label13->TabIndex = 89;
-			this->label13->Text = L"MouseBehavior";
-			// 
-			// TriangulatorMouseBehavior_comboBox
-			// 
-			this->TriangulatorMouseBehavior_comboBox->FormattingEnabled = true;
-			this->TriangulatorMouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Add", L"Move", L"Delete" });
-			this->TriangulatorMouseBehavior_comboBox->Location = System::Drawing::Point(140, 51);
-			this->TriangulatorMouseBehavior_comboBox->Name = L"TriangulatorMouseBehavior_comboBox";
-			this->TriangulatorMouseBehavior_comboBox->Size = System::Drawing::Size(121, 21);
-			this->TriangulatorMouseBehavior_comboBox->TabIndex = 88;
-			// 
-			// ImageTriangulatorLOD_label
-			// 
-			this->ImageTriangulatorLOD_label->AutoSize = true;
-			this->ImageTriangulatorLOD_label->Location = System::Drawing::Point(6, 111);
-			this->ImageTriangulatorLOD_label->Name = L"ImageTriangulatorLOD_label";
-			this->ImageTriangulatorLOD_label->Size = System::Drawing::Size(114, 13);
-			this->ImageTriangulatorLOD_label->TabIndex = 90;
-			this->ImageTriangulatorLOD_label->Text = L"ImageTriangulatorLOD";
-			// 
-			// ImageTriangulatorLOD_numericUpDown
-			// 
-			this->ImageTriangulatorLOD_numericUpDown->Location = System::Drawing::Point(140, 109);
-			this->ImageTriangulatorLOD_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->ImageTriangulatorLOD_numericUpDown->Name = L"ImageTriangulatorLOD_numericUpDown";
-			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 20);
-			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
-			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->label3->Location = System::Drawing::Point(375, 6);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(28, 13);
+			this->label3->TabIndex = 62;
+			this->label3->Text = L"Pos:";
 			// 
 			// SequenceAnimation_tabPage
 			// 
@@ -1411,6 +1196,226 @@ namespace PI
 			this->SequenceAnimation_tabPage->TabIndex = 2;
 			this->SequenceAnimation_tabPage->Text = L"SequenceAnimation";
 			// 
+			// AnimationData_listBox
+			// 
+			this->AnimationData_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
+				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
+			this->AnimationData_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationData_listBox->FormattingEnabled = true;
+			this->AnimationData_listBox->Location = System::Drawing::Point(53, 37);
+			this->AnimationData_listBox->Margin = System::Windows::Forms::Padding(2);
+			this->AnimationData_listBox->Name = L"AnimationData_listBox";
+			this->AnimationData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
+			this->AnimationData_listBox->Size = System::Drawing::Size(134, 134);
+			this->AnimationData_listBox->TabIndex = 49;
+			// 
+			// AnimationDataList_listBox
+			// 
+			this->AnimationDataList_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
+				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
+			this->AnimationDataList_listBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationDataList_listBox->FormattingEnabled = true;
+			this->AnimationDataList_listBox->Location = System::Drawing::Point(269, 37);
+			this->AnimationDataList_listBox->Margin = System::Windows::Forms::Padding(2);
+			this->AnimationDataList_listBox->Name = L"AnimationDataList_listBox";
+			this->AnimationDataList_listBox->Size = System::Drawing::Size(152, 134);
+			this->AnimationDataList_listBox->TabIndex = 54;
+			this->AnimationDataList_listBox->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &cPIEditor::AnimationData_listBox_KeyUp);
+			this->AnimationDataList_listBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &cPIEditor::AnimationData_listBox_MouseDoubleClick);
+			// 
+			// AnimationDatDel_button
+			// 
+			this->AnimationDatDel_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AnimationDatDel_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationDatDel_button->Location = System::Drawing::Point(206, 129);
+			this->AnimationDatDel_button->Margin = System::Windows::Forms::Padding(2);
+			this->AnimationDatDel_button->Name = L"AnimationDatDel_button";
+			this->AnimationDatDel_button->Size = System::Drawing::Size(33, 22);
+			this->AnimationDatDel_button->TabIndex = 59;
+			this->AnimationDatDel_button->Text = L"Del";
+			this->AnimationDatDel_button->UseVisualStyleBackColor = false;
+			this->AnimationDatDel_button->Click += gcnew System::EventHandler(this, &cPIEditor::AnimationDatAdd_button_Click);
+			// 
+			// AddAnimationImage_button
+			// 
+			this->AddAnimationImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AddAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AddAnimationImage_button->Location = System::Drawing::Point(13, 17);
+			this->AddAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
+			this->AddAnimationImage_button->Name = L"AddAnimationImage_button";
+			this->AddAnimationImage_button->Size = System::Drawing::Size(33, 27);
+			this->AddAnimationImage_button->TabIndex = 50;
+			this->AddAnimationImage_button->Text = L"Add";
+			this->AddAnimationImage_button->UseVisualStyleBackColor = false;
+			this->AddAnimationImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::AddAnimationImage_button_Click);
+			// 
+			// AnimationDatAdd_button
+			// 
+			this->AnimationDatAdd_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AnimationDatAdd_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationDatAdd_button->Location = System::Drawing::Point(206, 73);
+			this->AnimationDatAdd_button->Margin = System::Windows::Forms::Padding(2);
+			this->AnimationDatAdd_button->Name = L"AnimationDatAdd_button";
+			this->AnimationDatAdd_button->Size = System::Drawing::Size(33, 27);
+			this->AnimationDatAdd_button->TabIndex = 58;
+			this->AnimationDatAdd_button->Text = L"Add";
+			this->AnimationDatAdd_button->UseVisualStyleBackColor = false;
+			this->AnimationDatAdd_button->Click += gcnew System::EventHandler(this, &cPIEditor::AnimationDatAdd_button_Click);
+			// 
+			// DelAnimationImage_button
+			// 
+			this->DelAnimationImage_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->DelAnimationImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->DelAnimationImage_button->Location = System::Drawing::Point(13, 53);
+			this->DelAnimationImage_button->Margin = System::Windows::Forms::Padding(2);
+			this->DelAnimationImage_button->Name = L"DelAnimationImage_button";
+			this->DelAnimationImage_button->Size = System::Drawing::Size(33, 22);
+			this->DelAnimationImage_button->TabIndex = 51;
+			this->DelAnimationImage_button->Text = L"Del";
+			this->DelAnimationImage_button->UseVisualStyleBackColor = false;
+			this->DelAnimationImage_button->Click += gcnew System::EventHandler(this, &cPIEditor::AddAnimationImage_button_Click);
+			// 
+			// AnimationDataName_textBox
+			// 
+			this->AnimationDataName_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AnimationDataName_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationDataName_textBox->Location = System::Drawing::Point(190, 40);
+			this->AnimationDataName_textBox->Margin = System::Windows::Forms::Padding(2);
+			this->AnimationDataName_textBox->Name = L"AnimationDataName_textBox";
+			this->AnimationDataName_textBox->Size = System::Drawing::Size(76, 20);
+			this->AnimationDataName_textBox->TabIndex = 57;
+			// 
+			// AnimationImageUp_button
+			// 
+			this->AnimationImageUp_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AnimationImageUp_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationImageUp_button->Location = System::Drawing::Point(13, 84);
+			this->AnimationImageUp_button->Name = L"AnimationImageUp_button";
+			this->AnimationImageUp_button->Size = System::Drawing::Size(32, 39);
+			this->AnimationImageUp_button->TabIndex = 52;
+			this->AnimationImageUp_button->Text = L"^\r\n^";
+			this->AnimationImageUp_button->UseVisualStyleBackColor = false;
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label2->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label2->Location = System::Drawing::Point(267, 21);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(89, 13);
+			this->label2->TabIndex = 56;
+			this->label2->Text = L"AnimationData:ist";
+			// 
+			// AnimationImageDown_button
+			// 
+			this->AnimationImageDown_button->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->AnimationImageDown_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->AnimationImageDown_button->Location = System::Drawing::Point(13, 129);
+			this->AnimationImageDown_button->Name = L"AnimationImageDown_button";
+			this->AnimationImageDown_button->Size = System::Drawing::Size(32, 37);
+			this->AnimationImageDown_button->TabIndex = 53;
+			this->AnimationImageDown_button->Text = L"v\r\nv";
+			this->AnimationImageDown_button->UseVisualStyleBackColor = false;
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->label1->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->label1->Location = System::Drawing::Point(51, 21);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(76, 13);
+			this->label1->TabIndex = 55;
+			this->label1->Text = L"AnimationData";
+			// 
+			// ImageTriangulator_tabPage
+			// 
+			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
+			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
+			this->ImageTriangulator_tabPage->Controls->Add(this->label13);
+			this->ImageTriangulator_tabPage->Controls->Add(this->TriangulatorMouseBehavior_comboBox);
+			this->ImageTriangulator_tabPage->Location = System::Drawing::Point(4, 22);
+			this->ImageTriangulator_tabPage->Name = L"ImageTriangulator_tabPage";
+			this->ImageTriangulator_tabPage->Padding = System::Windows::Forms::Padding(3);
+			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(1346, 224);
+			this->ImageTriangulator_tabPage->TabIndex = 1;
+			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
+			// 
+			// ImageTriangulatorLOD_numericUpDown
+			// 
+			this->ImageTriangulatorLOD_numericUpDown->Location = System::Drawing::Point(140, 109);
+			this->ImageTriangulatorLOD_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ImageTriangulatorLOD_numericUpDown->Name = L"ImageTriangulatorLOD_numericUpDown";
+			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
+			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			// 
+			// ImageTriangulatorLOD_label
+			// 
+			this->ImageTriangulatorLOD_label->AutoSize = true;
+			this->ImageTriangulatorLOD_label->Location = System::Drawing::Point(6, 111);
+			this->ImageTriangulatorLOD_label->Name = L"ImageTriangulatorLOD_label";
+			this->ImageTriangulatorLOD_label->Size = System::Drawing::Size(114, 13);
+			this->ImageTriangulatorLOD_label->TabIndex = 90;
+			this->ImageTriangulatorLOD_label->Text = L"ImageTriangulatorLOD";
+			// 
+			// label13
+			// 
+			this->label13->AutoSize = true;
+			this->label13->Location = System::Drawing::Point(6, 51);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(81, 13);
+			this->label13->TabIndex = 89;
+			this->label13->Text = L"MouseBehavior";
+			// 
+			// TriangulatorMouseBehavior_comboBox
+			// 
+			this->TriangulatorMouseBehavior_comboBox->FormattingEnabled = true;
+			this->TriangulatorMouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Add", L"Move", L"Delete" });
+			this->TriangulatorMouseBehavior_comboBox->Location = System::Drawing::Point(140, 51);
+			this->TriangulatorMouseBehavior_comboBox->Name = L"TriangulatorMouseBehavior_comboBox";
+			this->TriangulatorMouseBehavior_comboBox->Size = System::Drawing::Size(121, 21);
+			this->TriangulatorMouseBehavior_comboBox->TabIndex = 88;
+			this->TriangulatorMouseBehavior_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::TriangulatorMouseBehavior_comboBox_SelectedIndexChanged);
+			// 
+			// splitContainer2
+			// 
+			this->splitContainer2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->splitContainer2->Location = System::Drawing::Point(0, 0);
+			this->splitContainer2->Margin = System::Windows::Forms::Padding(2);
+			this->splitContainer2->Name = L"splitContainer2";
+			// 
+			// splitContainer2.Panel1
+			// 
+			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
+			this->splitContainer2->Panel2Collapsed = true;
+			this->splitContainer2->Size = System::Drawing::Size(1683, 766);
+			this->splitContainer2->SplitterDistance = 356;
+			this->splitContainer2->SplitterWidth = 3;
+			this->splitContainer2->TabIndex = 0;
+			// 
 			// cPIEditor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1427,28 +1432,28 @@ namespace PI
 			this->splitContainer1->Panel2->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
+			this->splitContainer3->Panel1->ResumeLayout(false);
+			this->splitContainer3->Panel2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
+			this->splitContainer3->ResumeLayout(false);
+			this->tabControl1->ResumeLayout(false);
+			this->ImageAligment_tabPage->ResumeLayout(false);
+			this->ImageAligment_tabPage->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitStartX_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitEndY_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitEndX_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->NewPIUnitStartY_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDistanceY_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageDistanceX_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosY_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
-			this->splitContainer2->ResumeLayout(false);
-			this->tabControl1->ResumeLayout(false);
-			this->ImageAligment_tabPage->ResumeLayout(false);
-			this->ImageAligment_tabPage->PerformLayout();
-			this->ImageTriangulator_tabPage->ResumeLayout(false);
-			this->ImageTriangulator_tabPage->PerformLayout();
-			this->splitContainer3->Panel1->ResumeLayout(false);
-			this->splitContainer3->Panel2->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer3))->EndInit();
-			this->splitContainer3->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->EndInit();
 			this->SequenceAnimation_tabPage->ResumeLayout(false);
 			this->SequenceAnimation_tabPage->PerformLayout();
+			this->ImageTriangulator_tabPage->ResumeLayout(false);
+			this->ImageTriangulator_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
+			this->splitContainer2->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -1615,92 +1620,104 @@ namespace PI
 				cGameApp::m_svViewPortSize.y = 0.f;
 				cGameApp::m_svViewPortSize.z = (float)splitContainer2->Panel1->Width;
 				cGameApp::m_svViewPortSize.w = (float)splitContainer2->Panel1->Height;
-				cGameApp::ApplyViewPort();
-				m_pOrthogonalCamera->Render();
-				m_pOrthogonalCamera->DrawGrid(0,0,Vector4(0.3f,0.7f,0.3f,0.7f));
-				glEnable(GL_ALPHA_TEST);
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
-				//glEnable(GL_TEXTURE_2D);
-				for( int i=0;i<m_pImageomposerIRM->Count();++i )
+				if (tabControl1->SelectedIndex == 2)
 				{
-					cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
-					if( !l_p->m_pEditorAttachParent )
-						l_p->Render();
+					m_pOrthogonalCameraForTrianhulatorPIUnit->Render();
+					m_pOrthogonalCameraForTrianhulatorPIUnit->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
+					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
+					}
 				}
-				glDisable(GL_TEXTURE_2D);
-				int	l_iRectWidth = 0;
-				int	l_iRectHeight = 0;
-				if( AllShowBoundry_checkBox->Checked )
+				else
 				{
-					int	l_iNum =m_pImageomposerIRM->Count();
-					for( int i=0;i<m_pImageomposerIRM->Count();++i )
+					cGameApp::ApplyViewPort();
+					m_pOrthogonalCamera->Render();
+					m_pOrthogonalCamera->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
+					glEnable(GL_ALPHA_TEST);
+					glEnable(GL_BLEND);
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					//glEnable(GL_TEXTURE_2D);
+					for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
 					{
 						cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
-						Vector4	l_vColor(0,0,0,1);
-						l_vColor.x = 1.f/((i%3)+1);
-						l_vColor.y = 0.5f;
-						l_vColor.z = 1.f/((l_iNum%(i+1))+1);
-						l_vColor.w = 1;
-						Vector3	l_vPos = l_p->GetPos();
-						//+1 for offset start at 0,0
-						l_iRectWidth = l_p->GetRightDownStripOffPos().x-l_p->GetOffsetPos()->x+1;
-						l_iRectHeight = l_p->GetRightDownStripOffPos().y-l_p->GetOffsetPos()->y+1;
-						l_vPos.x+=l_p->GetOffsetPos()->x;
-						l_vPos.y+=l_p->GetOffsetPos()->y;
-						POINT	l_Pos = { (int)l_vPos.x,(int)l_vPos.y };
-						//+1 for 0,0 start offset
-						RenderRectangle(l_Pos,l_iRectWidth,l_iRectHeight,l_vColor,0,1);
-						//l_p->DebugRender();
-					}
-				}
-				if( AllImage_listBox->Items->Count&&m_iCurrentSelectedObjectIndex!=-1 )
-				{
-					if( ShowBoundary_checkBox->Checked )
-					{
-						static Vector4 l_vColor(0,0,0,1);
-						l_vColor.x = l_sfTime;
-						l_vColor.y -= l_sfTime;
-						l_vColor.z = l_sfTime;
-						l_vColor.w = l_sfTime;
-						if( l_vColor.x >= 1.f )
-							l_vColor.x = 1.f;
-						if( l_vColor.y<= 0 )
-							l_vColor.y = 0;
-						if( m_iCurrentSelectedObjectIndex>=m_pImageomposerIRM->Count() )
-							m_iCurrentSelectedObjectIndex = m_pImageomposerIRM->Count()-1;
-						if(  m_pImageomposerIRM->Count()>-1 )
-						{
-							cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
-							Vector4	l_vOriginalColor = *l_p->GetColor();
-							l_p->SetColor(l_vColor);
+						if (!l_p->m_pEditorAttachParent)
 							l_p->Render();
-							l_p->SetColor(l_vOriginalColor);
+					}
+					glDisable(GL_TEXTURE_2D);
+					int	l_iRectWidth = 0;
+					int	l_iRectHeight = 0;
+					if (AllShowBoundry_checkBox->Checked)
+					{
+						int	l_iNum = m_pImageomposerIRM->Count();
+						for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
+						{
+							cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+							Vector4	l_vColor(0, 0, 0, 1);
+							l_vColor.x = 1.f / ((i % 3) + 1);
+							l_vColor.y = 0.5f;
+							l_vColor.z = 1.f / ((l_iNum % (i + 1)) + 1);
+							l_vColor.w = 1;
 							Vector3	l_vPos = l_p->GetPos();
 							//+1 for offset start at 0,0
-							l_iRectWidth = l_p->GetRightDownStripOffPos().x-l_p->GetOffsetPos()->x+1;
-							l_iRectHeight = l_p->GetRightDownStripOffPos().y-l_p->GetOffsetPos()->y+1;
-							l_vPos.x+=l_p->GetOffsetPos()->x;
-							l_vPos.y+=l_p->GetOffsetPos()->y;
-							POINT	l_Pos = {(int)l_vPos.x,(int)l_vPos.y};
+							l_iRectWidth = l_p->GetRightDownStripOffPos().x - l_p->GetOffsetPos()->x + 1;
+							l_iRectHeight = l_p->GetRightDownStripOffPos().y - l_p->GetOffsetPos()->y + 1;
+							l_vPos.x += l_p->GetOffsetPos()->x;
+							l_vPos.y += l_p->GetOffsetPos()->y;
+							POINT	l_Pos = { (int)l_vPos.x,(int)l_vPos.y };
 							//+1 for 0,0 start offset
-							RenderRectangle(l_Pos,l_iRectWidth,l_iRectHeight,l_vColor,0,1);
+							RenderRectangle(l_Pos, l_iRectWidth, l_iRectHeight, l_vColor, 0, 1);
+							//l_p->DebugRender();
 						}
 					}
+					if (AllImage_listBox->Items->Count&&m_iCurrentSelectedObjectIndex != -1)
+					{
+						if (ShowBoundary_checkBox->Checked)
+						{
+							static Vector4 l_vColor(0, 0, 0, 1);
+							l_vColor.x = l_sfTime;
+							l_vColor.y -= l_sfTime;
+							l_vColor.z = l_sfTime;
+							l_vColor.w = l_sfTime;
+							if (l_vColor.x >= 1.f)
+								l_vColor.x = 1.f;
+							if (l_vColor.y <= 0)
+								l_vColor.y = 0;
+							if (m_iCurrentSelectedObjectIndex >= m_pImageomposerIRM->Count())
+								m_iCurrentSelectedObjectIndex = m_pImageomposerIRM->Count() - 1;
+							if (m_pImageomposerIRM->Count() > -1)
+							{
+								cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+								Vector4	l_vOriginalColor = *l_p->GetColor();
+								l_p->SetColor(l_vColor);
+								l_p->Render();
+								l_p->SetColor(l_vOriginalColor);
+								Vector3	l_vPos = l_p->GetPos();
+								//+1 for offset start at 0,0
+								l_iRectWidth = l_p->GetRightDownStripOffPos().x - l_p->GetOffsetPos()->x + 1;
+								l_iRectHeight = l_p->GetRightDownStripOffPos().y - l_p->GetOffsetPos()->y + 1;
+								l_vPos.x += l_p->GetOffsetPos()->x;
+								l_vPos.y += l_p->GetOffsetPos()->y;
+								POINT	l_Pos = { (int)l_vPos.x,(int)l_vPos.y };
+								//+1 for 0,0 start offset
+								RenderRectangle(l_Pos, l_iRectWidth, l_iRectHeight, l_vColor, 0, 1);
+							}
+						}
+					}
+					//for final image size
+					POINT	l_Pos = { 0,0 };
+					RenderRectangle(l_Pos, (int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, Vector4(1.f, 0.3f, 0.3f, 0.3f));
+					if (m_pDebugFont)
+					{
+						UseShaderProgram();
+						glEnable2D(1280, 720);
+						POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+						std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString() + "," + ptCursor.y.ToString());
+						m_pDebugFont->RenderFont(0, 0, l_strMousePos.c_str());
+						glDisable(GL_TEXTURE_2D);
+					}
+					glDisable(GL_ALPHA_TEST);
 				}
-				//for final image size
-				POINT	l_Pos = {0,0};
-				RenderRectangle(l_Pos,(int)ImageWidth_numericUpDown->Value,(int)ImageHeight_numericUpDown->Value,Vector4(1.f,0.3f,0.3f,0.3f));
-				if( m_pDebugFont )
-				{
-					UseShaderProgram();
-					glEnable2D(1280, 720);
-					POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
-					std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
-					m_pDebugFont->RenderFont(0,0,l_strMousePos.c_str());
-					glDisable(GL_TEXTURE_2D);
-				}
-				glDisable(GL_ALPHA_TEST);
 				//GLRender::glDisable2D();
 				glFlush();
 				SwapBuffers (m_HdcMV);
@@ -1906,8 +1923,11 @@ namespace PI
 					if (l_pUIImage && m_pPuzzleImageUnitTriangulatorManager)
 					{
 						m_pCurrentSelectedPuzzleImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
+						if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
+						{
+							m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+						}
 					}
-					m_pCurrentSelectedPuzzleImageUnitTriangulator;
 					NewPIUnitName_textBox->Text = DNCT::WcharToGcstring(l_pUIImage->GetName());
 					//+1 for offset start at 0,0
 					POINT	l_ImageSize = l_pUIImage->GetImageRealSize();
@@ -2014,37 +2034,76 @@ namespace PI
 			 }
 	private: System::Void MyMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
-				POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
-				GCFORM::MouseButtons l_MouseButton = e->Button;
-				m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-					,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)splitContainer2->Panel1->Size.Width,(float)splitContainer2->Panel1->Size.Height));
-				if(!timer1->Enabled)
+				if (!timer1->Enabled)
 					return;
-				MouseCollideForPickUpObject(e,splitContainer2->Panel1);
-				ptCursor.x = e->X;ptCursor.y = e->Y;
-				HWND	l_Hwnd = WindowFromPoint(ptCursor);
-				//WCHAR*l_strName = WinGetTitle();
+				GCFORM::MouseButtons l_MouseButton = e->Button;
+				if (tabControl1->SelectedIndex == 2)
+				{
+					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
+					}
+				}
+				else
+				{
+					POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+					ptCursor.x = e->X; ptCursor.y = e->Y;
+					HWND	l_Hwnd = WindowFromPoint(ptCursor);
+					//WCHAR*l_strName = WinGetTitle();
+				}
 			 }
 	private: System::Void MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
+				if (!timer1->Enabled)
+					return;
 				splitContainer2->Panel1->Focus();
 				GCFORM::MouseButtons l_MouseButton = e->Button;
-				m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-					,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)splitContainer2->Panel1->Size.Width,(float)splitContainer2->Panel1->Size.Height));
-				if(!timer1->Enabled)
-					return;
-				if( this->Visible )
-					MouseCollideForPickUpObject(e,splitContainer2->Panel1);
+				if (tabControl1->SelectedIndex == 2)
+				{
+					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseDown(ptCursor.x, ptCursor.y);
+					}
+				}
+				else
+				{
+					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->Visible)
+						MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+				}
 			 }
 	private: System::Void MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 			 {
-				GCFORM::MouseButtons l_MouseButton = e->Button;
-				m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-					,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2((float)splitContainer2->Panel1->Size.Width,(float)splitContainer2->Panel1->Size.Height));
-				if(!timer1->Enabled)
+				if (!timer1->Enabled)
 					return;
-				if( this->Visible )
-					MouseCollideForPickUpObject(e,splitContainer2->Panel1);
+				GCFORM::MouseButtons l_MouseButton = e->Button;
+				if (tabControl1->SelectedIndex == 2)
+				{
+					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
+					}
+				}
+				else
+				{
+					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->Visible)
+						MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+				}
 			 }
 	private: System::Void MyMouseHover(System::Object^  sender, System::EventArgs^  e) {
 				if(!timer1->Enabled)
@@ -2578,7 +2637,7 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 				WARNING_MSG("data error");
 			 }
 		 }
-private: System::Void NewPIUnitStartX_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	private: System::Void NewPIUnitStartX_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 if( AllImage_listBox->SelectedIndex == -1 || m_bAvoidDataAssignForPIUintChild )
 			 {
@@ -2599,7 +2658,7 @@ private: System::Void NewPIUnitStartX_numericUpDown_ValueChanged(System::Object^
 			 l_RightDownStripOffPos.y += 1;
 			 l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
 		 }
-private: System::Void floatToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	private: System::Void floatToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
 			 static	bool	l_bDock = false;
 			 HWND	l_pHwnd = (HWND)this->Handle.ToPointer();
@@ -2641,14 +2700,22 @@ private: System::Void floatToolStripMenuItem_Click(System::Object^  sender, Syst
 				 WARNING_MSG("Float");
 			 }
 		 }
-private: System::Void fileToolStripMenuItem_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) 
-		 {
-				openXMLToolStripMenuItem->Owner->Show();
-		 }
-private: System::Void addImagesByFolderToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
-		 {
-			 addImagesByFolderToolStripMenuItem->Checked = !addImagesByFolderToolStripMenuItem->Checked;
-		 }
+	private: System::Void fileToolStripMenuItem_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e) 
+			 {
+					openXMLToolStripMenuItem->Owner->Show();
+			 }
+	private: System::Void addImagesByFolderToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e) 
+			 {
+				 addImagesByFolderToolStripMenuItem->Checked = !addImagesByFolderToolStripMenuItem->Checked;
+			 }
+	private: System::Void TriangulatorMouseBehavior_comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) 
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
+		{
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+		}
+	}
+
 };
 	static GCFORM::Form^CallForm(System::String^e_strFileName);
 //end namespace
