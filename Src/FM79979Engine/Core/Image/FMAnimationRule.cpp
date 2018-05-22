@@ -133,7 +133,7 @@ namespace FATMING_CORE
 				e_fElpaseTime = m_fPastTime;
 				this->Init();
 				m_iCurrentPlayCount = l_iCurrentPlayTime;
-				if(this->IsAnimationLoop())
+				//if(this->IsAnimationLoop())
 				{
 					m_fPastTime = this->m_fStartTime+0.0000001f;
 				}
