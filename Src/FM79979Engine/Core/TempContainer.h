@@ -18,8 +18,10 @@ public:
 	}
 	void	SetCount(int e_iCount)
 	{
-		Clear();
 		m_iNumWorking = 0;
+		if (m_iCount == e_iCount)
+			return;
+		Clear();
 		m_iCount = e_iCount;
 		m_ppObjects = new T*[e_iCount];
 		for (int i = 0; i < e_iCount; ++i)

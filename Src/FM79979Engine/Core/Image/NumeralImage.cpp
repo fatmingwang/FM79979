@@ -127,6 +127,7 @@ namespace FATMING_CORE
 		cBaseImage*l_pBG0 = 0;
 		cBaseImage*l_pBG9 = 0;
 		cPuzzleImage*l_pPI = 0;
+		bool l_bDrawCenter = false;
 		Vector3	l_vPos = Vector3::Zero;;
 		cNumeralImage*l_pNumeralImage = 0;
 		PARSE_ELEMENT_START(e_pXmlelement)
@@ -151,6 +152,11 @@ namespace FATMING_CORE
 			{
 				l_vPos = VALUE_TO_VECTOR3;
 			}
+			else
+			COMPARE_NAME("DrawCenter")
+			{
+				l_bDrawCenter = VALUE_TO_BOOLEAN;
+			}
 		PARSE_NAME_VALUE_END
 		if( l_pBG9 && l_pBG0 )
 		{
@@ -166,6 +172,8 @@ namespace FATMING_CORE
 				}
 			}
 			l_pNumeralImage->SetLocalPosition(l_vPos);
+			if (l_bDrawCenter)
+				l_pNumeralImage->SetDrawOnCenter(l_bDrawCenter);
 		}
 		return l_pNumeralImage;
 	}
