@@ -448,6 +448,8 @@ namespace FATMING_CORE
 	bool	cCueToStartCurveWithTime::GetTransformedVerticesByIndex(float*e_pfVertices, float*e_pfUV, float*e_pfColor, int e_iIndex)
 	{
 		sTexBehaviorDataWithImageIndexData*l_pData = this->GetPointData(e_iIndex);
+		if (!l_pData->pPI)
+			return false;
 		sPuzzleData*l_pPuzzleData = l_pData->pPI->GetPuzzleData()[l_pData->iImageIndex];
 		Vector3	l_Vertices[4];
 		GetRenderPuzzleDataAndMatrix(l_pData, 3, (float*)l_Vertices, e_pfUV, l_pPuzzleData);
