@@ -670,17 +670,18 @@ public:
 //https://stackoverflow.com/questions/1008019/c-singleton-design-pattern/1008289#1008289
 #define SINGLETON_BASIC_FUNCTION(TYPE)	TYPE(TYPE const&) = delete;										\
 									TYPE(TYPE*) = delete;											\
-									static void DestroyInstance(){	SAFE_DELETE(m_pInstance);	}	\
-									static TYPE* GetInstance() { if (!m_pInstance) { m_pInstance = new TYPE(); }return m_pInstance; }
+									static void DestroyInstance(){	SAFE_DELETE(m_spInstance);	}	\
+									static TYPE* GetInstance() { if (!m_spInstance) { m_spInstance = new TYPE(); }return m_spInstance; }
 template< class TYPE >
 class cSingltonTemplate
 {
 protected:
-	static TYPE*	m_pInstance;
+	static TYPE*	m_spInstance;
 public:
+	static bool		m_sbEnableSinglton;
 	cSingltonTemplate()
 	{
-		assert(m_pInstance == nullptr && "singlton only can have one instance");
+		assert(m_spInstance == nullptr && "singlton only can have one instance");
 		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%s", TYPE::TypeID), CORE_LOG_FLAG);
 	}
 	virtual ~cSingltonTemplate()
@@ -689,7 +690,8 @@ public:
 	}
 };
 
-template<class TYPE>TYPE* cSingltonTemplate<TYPE>::m_pInstance = nullptr;
+template<class TYPE>TYPE*	cSingltonTemplate<TYPE>::m_spInstance = nullptr;
+template<class TYPE>bool	cSingltonTemplate<TYPE>::m_sbEnableSinglton = true;
 
 
 //do not support pointer data
