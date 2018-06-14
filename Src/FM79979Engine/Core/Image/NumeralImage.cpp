@@ -288,7 +288,7 @@ namespace FATMING_CORE
 		}
 		if( e_pmat )
 		{
-			l_mat = l_mat*cMatrix44(e_pmat);
+			l_mat = cMatrix44(e_pmat)*l_mat;
 		}
 		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum*ONE_QUAD_IS_TWO_TRIANGLES);
 	}
