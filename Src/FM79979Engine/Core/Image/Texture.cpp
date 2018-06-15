@@ -257,28 +257,35 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pstrFullFileName);
 		m_pstrFullFileName = new std::string;
 		*m_pstrFullFileName = e_strImageFileName;
+#ifndef RETAILER//default load dds
+		std::string l_strDDSFileName = ChangeFileExtensionName(m_pstrFullFileName->c_str(), "dds");
+		if (UT::IsFileExists(l_strDDSFileName.c_str()))
+		{
+			*m_pstrFullFileName = l_strDDSFileName;
+		}
+#endif
 		std::vector<unsigned char> image;
 		unsigned char*l_pucPixelData = nullptr;
 		unsigned l_uWidth, l_uHeight;
-		std::string l_strExtensionName = UT::GetFileExtensionName(e_strImageFileName);
+		std::string l_strExtensionName = UT::GetFileExtensionName(m_pstrFullFileName->c_str());
 		if( l_strExtensionName.compare("dds") == 0 || l_strExtensionName.compare("DDS") == 0  )
 		{
 			//dds set all data(height,texture index...) so return ture
-			if(LoadDDS(e_strImageFileName))
+			if(LoadDDS(m_pstrFullFileName->c_str()))
 				return true;
 			return false;
 		}
 		else
 		if( l_strExtensionName.compare("png") == 0  )
 		{
-			unsigned error = lodepng::decode(image, l_uWidth, l_uHeight, e_strImageFileName);
+			unsigned error = lodepng::decode(image, l_uWidth, l_uHeight, m_pstrFullFileName->c_str());
 			m_iPixelFormat = GL_RGBA;
 			//now I am laze to do bitmpa and dds file so force maake it as 4 channel
 			m_iChannel = 4;
 			// If there's an error, display it.
 			if(error != 0)
 			{
-				UT::ErrorMsg(e_strImageFileName,lodepng_error_text(error));
+				UT::ErrorMsg(m_pstrFullFileName->c_str(),lodepng_error_text(error));
 				return false;
 			}
 			l_pucPixelData = &image[0];
@@ -289,7 +296,7 @@ namespace FATMING_CORE
 			int	l_iChannel = 0;
 			unsigned char*l_pImageData = nullptr;
 			//3 for rgb no alpha here
-			l_pImageData = jpgd::decompress_jpeg_image_from_file(e_strImageFileName,(int*)&l_uWidth,(int*)&l_uHeight,&l_iChannel,3);
+			l_pImageData = jpgd::decompress_jpeg_image_from_file(m_pstrFullFileName->c_str(),(int*)&l_uWidth,(int*)&l_uHeight,&l_iChannel,3);
 			if( l_pImageData == nullptr )
 				return false;
 			l_pucPixelData = l_pImageData;
@@ -328,7 +335,7 @@ namespace FATMING_CORE
 		//if loading failed show alert
 		if(!m_uiImageIndex)
 		{
-			ErrorMsg(L"opengl process Image Failed",UT::CharToWchar(e_strImageFileName));
+			ErrorMsg(L"opengl process Image Failed",UT::CharToWchar(m_pstrFullFileName->c_str()));
 			return false;
 		}
 		return true;
