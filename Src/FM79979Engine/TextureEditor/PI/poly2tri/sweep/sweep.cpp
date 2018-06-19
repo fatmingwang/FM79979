@@ -62,13 +62,17 @@ void Sweep::FinalizationPolygon(SweepContext& tcx)
 {
   // Get an Internal triangle to start with
   Triangle* t = tcx.front()->head()->next->triangle;
-  Point* p = tcx.front()->head()->next->point;
-  while (!t->GetConstrainedEdgeCW(*p)) {
-    t = t->NeighborCCW(*p);
-  }
+  if (t)
+  {
+	  Point* p = tcx.front()->head()->next->point;
+	  while (!t->GetConstrainedEdgeCW(*p))
+	  {
+		  t = t->NeighborCCW(*p);
+	  }
 
-  // Collect interior triangles constrained by edges
-  tcx.MeshClean(*t);
+	  // Collect interior triangles constrained by edges
+	  tcx.MeshClean(*t);
+  }
 }
 
 Node& Sweep::PointEvent(SweepContext& tcx, Point& point)
@@ -758,17 +762,23 @@ Triangle& Sweep::NextFlipTriangle(SweepContext& tcx, int o, Triangle& t, Triangl
 
 Point& Sweep::NextFlipPoint(Point& ep, Point& eq, Triangle& ot, Point& op)
 {
-  Orientation o2d = Orient2d(eq, op, ep);
-  if (o2d == CW) {
-    // Right
-    return *ot.PointCCW(op);
-  } else if (o2d == CCW) {
-    // Left
-    return *ot.PointCW(op);
-  } else{
-    //throw new RuntimeException("[Unsupported] Opposing point on constrained edge");
-    assert(0);
-  }
+	Orientation o2d = Orient2d(eq, op, ep);
+	if (o2d == CW) 
+	{
+		// Right
+		return *ot.PointCCW(op);
+	} 
+	else 
+	if (o2d == CCW) 
+	{
+		// Left
+		return *ot.PointCW(op);
+	}
+	else
+	{
+		//throw new RuntimeException("[Unsupported] Opposing point on constrained edge");
+		assert(0);
+	}
 }
 
 void Sweep::FlipScanEdgeEvent(SweepContext& tcx, Point& ep, Point& eq, Triangle& flip_triangle,

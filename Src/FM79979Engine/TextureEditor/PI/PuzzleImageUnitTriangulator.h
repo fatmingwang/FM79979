@@ -15,8 +15,8 @@
 enum ePointsToTriangulatorType
 {
 	ePTPT_ADD = 0,
-	ePTPT_DELETE,
 	ePTPT_MOVE,
+	ePTPT_DELETE,
 	ePTPT_MAX,
 };
 
