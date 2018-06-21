@@ -84,6 +84,8 @@ namespace UT
 	//============
 	//only support 4 characters
 	int						HexadecimalStringToDecimal(char*e_strValue);
+	int64					HexStringToInt64(const char*e_strValue);
+	std::string				DataToHexString(unsigned char*e_pData, int e_iInLength);
 	int						DecimalStringToHexadcimal(char*e_strValue);	
 	int						FindChacterIndexFromBackBuffer(const char*e_String,char e_char);
 	int						FindChacterIndexFromBackBuffer(const wchar_t*e_String,wchar_t e_char);

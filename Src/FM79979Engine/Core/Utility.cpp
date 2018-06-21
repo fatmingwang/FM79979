@@ -1339,6 +1339,36 @@ namespace UT
 		}
 		return l_iValue;
 	}
+
+	int64		HexStringToInt64(const char*e_strValue)
+	{
+		int	l_iNum = (int)strlen(e_strValue);
+		if (l_iNum <= 0)
+			return 0;
+		int64	l_i64Value = 0;
+		int64	l_i64HexValue = 16;
+		char	l_cOrder[16] = { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };//0x00000000 00000000
+		for (int i = 0; i<l_iNum; ++i)//set order from units start
+			l_cOrder[l_iNum - i - 1] = e_strValue[i];
+		l_i64Value += CharToHex(l_cOrder[0]);
+		for (int i = 1; i < l_iNum; ++i)
+		{
+			l_i64Value += CharToHex(l_cOrder[i])*l_i64HexValue;
+			l_i64HexValue *= 16;
+		}
+		return l_i64Value;
+	}
+	std::string DataToHexString(unsigned char*e_pData, int e_iInLength)
+	{
+		std::string l_strResult;
+		for (int i = 0; i < e_iInLength; i++)
+		{
+			char l_str[3];
+			sprintf(l_str, "%x", e_pData[i]);
+			l_strResult += l_str;
+		}
+		return l_strResult;
+	}
 	//hex copy to string
 	//char Address[100];
 	//unsigned int Add = 0x000CA;
