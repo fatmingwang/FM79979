@@ -187,7 +187,7 @@ namespace FATMING_CORE
 				return nullptr;
 			if (m_pDataList)
 			{
-				return &(*m_pDataList)[m_iSelectedIndex];
+				return (char*)&(*m_pDataList)[m_iSelectedIndex];
 			}
 			return nullptr;
 		}
