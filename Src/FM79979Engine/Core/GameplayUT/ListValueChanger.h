@@ -15,7 +15,7 @@ namespace FATMING_CORE
 		int					m_iSelectedIndex;
 		GET_SET_DEC(bool,m_bLoop,IsLoop,SetLoop);
 		eDataType			m_eDataType;
-		wchar_t*				m_strType;
+		wchar_t*			m_strType;
 	public:
 		cListValuChangerBase()
 		{
@@ -35,16 +35,18 @@ namespace FATMING_CORE
 			Clear();
 		}
 		virtual	cListValuChangerBase*	Clone(){ return 0; }
-		int					GetSelectedIndex(){ return m_iSelectedIndex; }
-		virtual	void		Next() = 0;
-		virtual	void		Prior() = 0;
-		virtual	void		SetSelectedValue(int e_iSelectedIndex) = 0;
-		virtual	void		SetSelectedValue(const wchar_t*e_str) = 0;
-		virtual	int			GetRandomValue() = 0;
+		int								GetSelectedIndex(){ return m_iSelectedIndex; }
+		virtual	void					Next() = 0;
+		virtual	void					Prior() = 0;
+		virtual	void					SetSelectedValue(int e_iSelectedIndex) = 0;
+		virtual	void					SetSelectedValue(const wchar_t*e_str) = 0;
+		virtual	int						GetRandomValue() = 0;
 		static cListValuChangerBase*	GetListValuChangerBaseByElement(TiXmlElement*e_pElement);
-		virtual	std::wstring		ConvertSelectedDataToString() = 0;
-		TiXmlElement*				ToTiXmlElement();
-		virtual	void				SetAttribute(TiXmlElement*e_pTiXmlElement) = 0;
+		virtual	std::wstring			ConvertSelectedDataToString() = 0;
+		TiXmlElement*					ToTiXmlElement();
+		virtual char*					GetSelectedDataPonter() = 0;
+		virtual	void					SetAttribute(TiXmlElement*e_pTiXmlElement) = 0;
+		eDataType						GetDataType() { return m_eDataType; }
 	};
 
 	template<class T>class	cListValueChanger:public cListValuChangerBase
@@ -81,7 +83,7 @@ namespace FATMING_CORE
 				*(std::vector<wstring>*)e_pData = l_DataList;
 			}
 		}
-		virtual	void		Clear(){ SAFE_DELETE(m_pDataList); }
+		virtual	void		Clear()override { SAFE_DELETE(m_pDataList); }
 		std::vector<T>		*m_pDataList;
 	public:
 		cListValueChanger(std::vector<T>e_DataList,bool e_bLoop = false)
@@ -128,13 +130,13 @@ namespace FATMING_CORE
 		{
 			this->Clear();
 		}
-		virtual	cListValuChangerBase*	Clone()
+		virtual	cListValuChangerBase*	Clone()override
 		{
 			cListValuChangerBase*l_pListValuChangerBase = new cListValueChanger(this);
 			return l_pListValuChangerBase;
 		}
 		std::vector<T>*		GetDataList(){return m_pDataList;}
-		virtual	void		Next()
+		virtual	void		Next()override
 		{
 			int	l_iNewIndex = m_iSelectedIndex+1;
 			int	l_iSzie = (int)m_pDataList->size();
@@ -147,7 +149,7 @@ namespace FATMING_CORE
 			}
 			m_iSelectedIndex = l_iNewIndex;
 		}
-		virtual	void		Prior()
+		virtual	void		Prior()override
 		{
 			int	l_iNewIndex = m_iSelectedIndex-1;
 			if( l_iNewIndex <= -1  )
@@ -161,23 +163,35 @@ namespace FATMING_CORE
 			}
 			m_iSelectedIndex = l_iNewIndex;		
 		}
-		virtual	void	SetSelectedValue(int e_iSelectedIndex)
+		virtual	void	SetSelectedValue(int e_iSelectedIndex)override
 		{
 			if(e_iSelectedIndex<(int)m_pDataList->size() && e_iSelectedIndex > -1)
 				m_iSelectedIndex = e_iSelectedIndex;
 			else
 				m_iSelectedIndex = -1;
 		}
-		virtual	void		SetSelectedValue(const wchar_t*e_str)
+		virtual	void		SetSelectedValue(const wchar_t*e_str)override
 		{
 			SetSelectedValue(FindIndexByValue(e_str));
 		}
-		virtual	int			GetRandomValue()
+		virtual	int			GetRandomValue()override
 		{
 			if( m_pDataList->size() == 0 )
 				return -1;
 			return rand()%m_pDataList->size();
 		}
+
+		virtual char*					GetSelectedDataPonter()override
+		{
+			if (this->m_iSelectedIndex == -1)
+				return nullptr;
+			if (m_pDataList)
+			{
+				return &(*m_pDataList)[m_iSelectedIndex];
+			}
+			return nullptr;
+		}
+
 		void				SetDataList(std::vector<T> e_pDataList)
 		{
 			*m_pDataList = e_pDataList;
@@ -193,7 +207,7 @@ namespace FATMING_CORE
 				return &(*m_pDataList)[m_iSelectedIndex];
 			return ;
 		}
-		virtual	std::wstring				ConvertSelectedDataToString()
+		virtual	std::wstring				ConvertSelectedDataToString()override
 		{
 			if( m_iSelectedIndex != -1 )
 			{
@@ -202,7 +216,6 @@ namespace FATMING_CORE
 			std::wstring l_strTemp;
 			return l_strTemp;
 		}
-		eDataType	GetDataType(){return m_eDataType;}
 		int			FindIndexByValue(const wchar_t*e_strValue)
 		{
 			size_t luiSize = m_pDataList->size();
@@ -262,7 +275,7 @@ namespace FATMING_CORE
 			return -1;
 		}
 //<cListValueChanger  DataType="wstring" Data=",AuditMenu_Revenue_4,AuditMenu_JPRecord_5" Loop="1" />
-		virtual	void	SetAttribute(TiXmlElement*e_pTiXmlElement)
+		virtual	void	SetAttribute(TiXmlElement*e_pTiXmlElement)override
 		{
 			if( m_pDataList )
 			{

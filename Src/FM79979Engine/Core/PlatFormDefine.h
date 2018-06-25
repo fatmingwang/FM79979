@@ -233,6 +233,17 @@
 
 #define	DATA_TYPE	L"DataType"
 
+//original name eUVDirection
+enum	eMoveDirection
+{
+	eMD_LEFT_TO_RIGHT = 0,
+	eMD_RIGHT_TO_LEFT,
+	eMD_UP_TO_DOWN,
+	eMD_DOWN_TO_UP,
+	eMD_STAY,
+	eMD_MAX,
+};
+
 enum	eDataType
 {
 	eDT_BYTE = 0,
@@ -253,31 +264,22 @@ enum	eDataType
 	eDT_MAX,
 };
 
-//original name eUVDirection
-enum	eMoveDirection
-{
-	eMD_LEFT_TO_RIGHT = 0,
-	eMD_RIGHT_TO_LEFT,
-	eMD_UP_TO_DOWN,
-	eMD_DOWN_TO_UP,
-	eMD_STAY,
-	eMD_MAX,
-};
-
 static int	g_iDataTypeSize[eDT_MAX] = {
-										sizeof(char),//byte
-										sizeof(float),//float
-										sizeof(double),//double
-										sizeof(int),//int
-										-1,//string
-										-1,//wstring
-										sizeof(float)*2,//vector2
-										sizeof(float)*3,//vector3
-										sizeof(float)*4,//vector4
-										sizeof(long)*2,//point
-										-1,//void
-										sizeof(int64),//int64
-										sizeof(uint64)//UINT64
-										};
+										sizeof(char),					//eDT_BYTE = 0,
+										sizeof(short),					//eDT_SHORT,
+										sizeof(float),					//eDT_FLOAT,
+										sizeof(double),					//eDT_DOUBLE,
+										sizeof(int),					//eDT_INT,
+										sizeof(unsigned int),			//eDT_UINT,
+										0,								//eDT_STRING,
+										0,								//eDT_WSTRING,
+										sizeof(float) * 2,				//eDT_VECTOR2,
+										sizeof(float) * 3,				//eDT_VECTOR3,
+										sizeof(float) * 4,				//eDT_VECTOR4,
+										sizeof(long) * 2,				//eDT_POINT,
+										0,								//eDT_VOID,
+										sizeof(int64),					//eDT_INT64,
+										sizeof(uint64)					//UINT64,
+};
 
 #endif
