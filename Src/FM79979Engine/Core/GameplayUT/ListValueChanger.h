@@ -38,8 +38,8 @@ namespace FATMING_CORE
 		int								GetSelectedIndex(){ return m_iSelectedIndex; }
 		virtual	void					Next() = 0;
 		virtual	void					Prior() = 0;
-		virtual	void					SetSelectedValue(int e_iSelectedIndex) = 0;
-		virtual	void					SetSelectedValue(const wchar_t*e_str) = 0;
+		virtual	void					SetSelectedIndex(int e_iSelectedIndex) = 0;
+		virtual	void					SetSelectedIndexByCompareDataString(const wchar_t*e_str) = 0;
 		virtual	int						GetRandomValue() = 0;
 		static cListValuChangerBase*	GetListValuChangerBaseByElement(TiXmlElement*e_pElement);
 		virtual	std::wstring			ConvertSelectedDataToString() = 0;
@@ -163,16 +163,16 @@ namespace FATMING_CORE
 			}
 			m_iSelectedIndex = l_iNewIndex;		
 		}
-		virtual	void	SetSelectedValue(int e_iSelectedIndex)override
+		virtual	void	SetSelectedIndex(int e_iSelectedIndex)override
 		{
 			if(e_iSelectedIndex<(int)m_pDataList->size() && e_iSelectedIndex > -1)
 				m_iSelectedIndex = e_iSelectedIndex;
 			else
 				m_iSelectedIndex = -1;
 		}
-		virtual	void		SetSelectedValue(const wchar_t*e_str)override
+		virtual	void		SetSelectedIndexByCompareDataString(const wchar_t*e_str)override
 		{
-			SetSelectedValue(FindIndexByValue(e_str));
+			SetSelectedIndex(FindIndexByValue(e_str));
 		}
 		virtual	int			GetRandomValue()override
 		{
@@ -283,7 +283,7 @@ namespace FATMING_CORE
 				std::wstring	l_str;
 				for( size_t i=0;i<l_uiSize;++i )
 				{
-					l_str += ValueToStringW((*m_pDataList)[i]);
+					l_str += ValueToStringW((T)(*m_pDataList)[i]);
 					if( i != l_uiSize-1 )
 					{
 						l_str += L",";

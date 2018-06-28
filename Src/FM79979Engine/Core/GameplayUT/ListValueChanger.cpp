@@ -21,11 +21,23 @@ namespace FATMING_CORE
 		eDataType	l_eDataType = UT::GetDataType(ATTRIBUT_VALUE_WITH_DEFINE(e_pElement,DATA_TYPE));
 		switch( l_eDataType )
 		{
-				case eDT_INT64:
-					l_pListValuChangerBase = new cListValueChanger<int64>(e_pElement);
+				case eDT_BYTE:
+					l_pListValuChangerBase = new cListValueChanger<char>(e_pElement);
+					break;
+				case eDT_SHORT:
+					l_pListValuChangerBase = new cListValueChanger<short>(e_pElement);
+					break;
+				case eDT_FLOAT:
+					l_pListValuChangerBase = new cListValueChanger<float>(e_pElement);
+					break;
+				case eDT_DOUBLE:
+					l_pListValuChangerBase = new cListValueChanger<double>(e_pElement);
 					break;
 				case eDT_INT:
 					l_pListValuChangerBase = new cListValueChanger<int>(e_pElement);
+					break;
+				case eDT_UINT:
+					l_pListValuChangerBase = new cListValueChanger<unsigned int>(e_pElement);
 					break;
 				case eDT_STRING:
 					l_pListValuChangerBase = new cListValueChanger<std::string>(e_pElement);
@@ -33,14 +45,23 @@ namespace FATMING_CORE
 				case eDT_WSTRING:
 					l_pListValuChangerBase = new cListValueChanger<std::wstring>(e_pElement);
 					break;
-				case eDT_BYTE:
-					l_pListValuChangerBase = new cListValueChanger<char>(e_pElement);
+				case eDT_VECTOR2:
+					l_pListValuChangerBase = new cListValueChanger<Vector2>(e_pElement);
 					break;
-				case eDT_DOUBLE:
-					l_pListValuChangerBase = new cListValueChanger<double>(e_pElement);
+				case eDT_VECTOR3:
+					l_pListValuChangerBase = new cListValueChanger<Vector3>(e_pElement);
 					break;
-				case eDT_FLOAT:
-					l_pListValuChangerBase = new cListValueChanger<float>(e_pElement);
+				case eDT_VECTOR4:
+					l_pListValuChangerBase = new cListValueChanger<Vector4>(e_pElement);
+					break;
+				case eDT_POINT:
+					l_pListValuChangerBase = new cListValueChanger<POINT>(e_pElement);
+					break;
+				case eDT_INT64:
+					l_pListValuChangerBase = new cListValueChanger<int64>(e_pElement);
+					break;
+				case eDT_UINT64:
+					l_pListValuChangerBase = new cListValueChanger<uint64>(e_pElement);
 					break;
 				default:
 					assert(0&&"not support cListValuChangerBase::GetListValuChangerBaseByElement");

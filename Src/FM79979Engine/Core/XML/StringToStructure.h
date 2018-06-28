@@ -168,6 +168,7 @@ namespace FATMING_CORE
 	std::wstring	ValueToStringW(char e_cValue);
 	std::wstring	ValueToStringW(const char*e_strValue);
 	std::wstring	ValueToStringW(int e_iValue);
+	std::wstring	ValueToStringW(unsigned int e_iValue);
 	std::wstring	ValueToStringW(float e_fValue);
 	std::wstring	ValueToStringW(double e_fValue);
 	std::wstring	ValueToStringW(Vector2 e_vValue);
@@ -186,6 +187,7 @@ namespace FATMING_CORE
 	std::string		ValueToString(const char*e_strValue);
 	std::string		ValueToString(const char e_cValue);
 	std::string		ValueToString(int	e_iValue);
+	std::string		ValueToString(unsigned int e_iValue);
 	std::string		ValueToString(float e_fValue);
 	std::string		ValueToString(double e_fValue);
 	std::string		ValueToString(Vector2 e_vValue);

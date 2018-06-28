@@ -594,6 +594,11 @@ namespace FATMING_CORE
 		return UT::CharToWchar(ValueToString(e_iValue));
 	}
 
+	std::wstring	ValueToStringW(unsigned int e_iValue)
+	{
+		return UT::CharToWchar(ValueToString(e_iValue));
+	}
+
 	std::wstring	ValueToStringW(size_t e_iValue)
 	{
 		return UT::CharToWchar(ValueToString(e_iValue));
@@ -671,6 +676,14 @@ namespace FATMING_CORE
 	{
 		char	l_temp[TEMP_SIZE];
 		sprintf(l_temp,"%d\0",e_iValue);
+		std::string	l_str = l_temp;
+		return l_str;
+	}
+	//http://www.cplusplus.com/reference/cstdio/printf/
+	std::string		ValueToString(unsigned int e_iValue)
+	{
+		char	l_temp[TEMP_SIZE];
+		sprintf(l_temp, "%u\0", e_iValue);
 		std::string	l_str = l_temp;
 		return l_str;
 	}
