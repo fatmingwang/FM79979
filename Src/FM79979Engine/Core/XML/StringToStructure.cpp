@@ -299,12 +299,6 @@ namespace FATMING_CORE
 	#endif
 			l_str = wcstok(0,L", ");
 		}
-#ifdef DEBUG
-		if( e_iSize )
-		{
-			assert(l_NumeralList.size()==e_iSize);
-		}
-#endif
 		return l_NumeralList;
 	}
 
