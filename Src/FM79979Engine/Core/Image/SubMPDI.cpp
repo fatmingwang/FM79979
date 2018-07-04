@@ -528,10 +528,10 @@ namespace FATMING_CORE
 	}
 	void	cCueToStartCurveWithTime::InternalUpdate(float e_fElpaseTime)
 	{
-		//if (this->m_bCurveMoveDone)
-			//return;
 		cCurveWithTime::InternalUpdate(e_fElpaseTime);
 		UpdateData();
+		if (!m_pCurrentPointData || !m_pCurrentPointData->pPI)
+			return;
 		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[this->m_pCurrentPointData->iImageIndex];
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, l_pPuzzleData);
 	}
