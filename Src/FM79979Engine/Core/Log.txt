@@ -174,3 +174,8 @@ while inherited 2 object which parent devired from same class,it need add virtua
 or the data would be wrong.
 virtual inheritance
 ex:cCPP11Thread
+
+4/July/2018
+fuck the release build auto link to msvcrtd.lib
+this make app contain debug infor and it link to VCRRUNTIME14D.dll->USERBASED.dll
+it spent me  hours...fuck
