@@ -140,15 +140,15 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 		{
 			l_iNumPoint = (int)e_pCueToStartCurvesWithTime->GetHintPointVector()->size();
 			sHintPoint*l_pHintVector = &(*e_pCueToStartCurvesWithTime->GetHintPointVector())[0];
-			e_pXMLWriter->StartElement("HintPointList");
-				for( int l=0;l<l_iNumPoint;++l )
-				{
-					sHintPoint*l_pHintPoint = &l_pHintVector[l];
-					e_pXMLWriter->AddAttribute("PointIndex",l_pHintPoint->iPointIndex);
-					e_pXMLWriter->AddAttribute("Event",(int)l_pHintPoint->AnimationEvent);
-					e_pXMLWriter->AddAttribute("EventName",l_pHintPoint->strEventName);
-				}
-			e_pXMLWriter->EndElement();//HintPointList
+			for (int l = 0; l<l_iNumPoint; ++l)
+			{
+				e_pXMLWriter->StartElement("HintPoint");
+				sHintPoint*l_pHintPoint = &l_pHintVector[l];
+				e_pXMLWriter->AddAttribute("PointIndex",l_pHintPoint->iPointIndex);
+				e_pXMLWriter->AddAttribute("Event",(int)l_pHintPoint->AnimationEvent);
+				e_pXMLWriter->AddAttribute("EventName",l_pHintPoint->strEventName);
+				e_pXMLWriter->EndElement();//HintPointList
+			}
 		}		
 	}
 #else
@@ -787,7 +787,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 			}
 		}
 		else
-		COMPARE_ELEMENT_VALUE("HintPointList")
+		COMPARE_ELEMENT_VALUE("HintPoint")
 		{
 			if(!this->m_pCurrentTiXmlElement->m_bDone)
 			{
@@ -816,7 +816,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 				{
 					std::string	l_strFileName = this->m_strCurrentDirectory;
 					l_strFileName += ValueToString(l_strEventName);
-					if(cGameApp::m_spSoundParser->AddStaticSound(m_pCurrentCueToStartCurvesWithTime,l_strFileName.c_str()))
+					if(cGameApp::m_spSoundParser->AddSound(m_pCurrentCueToStartCurvesWithTime,l_strFileName.c_str()))
 					{
 						
 					}
