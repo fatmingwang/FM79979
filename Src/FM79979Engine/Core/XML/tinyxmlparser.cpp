@@ -583,6 +583,14 @@ void TiXmlDocument::SetError( int err, const wchar_t* pError, TiXmlParsingData* 
 	{
 		data->Stamp( pError );
 		errorLocation = data->Cursor();
+		const int l_iHintStringLength = 20;
+		wchar_t l_strHintKey[l_iHintStringLength+1];
+		memset(l_strHintKey, 0, sizeof(wchar_t) * l_iHintStringLength+1);
+		int l_iHintKeyWord = (int)wcslen(pError);
+		if (l_iHintKeyWord > l_iHintStringLength)
+			l_iHintKeyWord = l_iHintStringLength;
+		memcpy(l_strHintKey, pError, l_iHintKeyWord*sizeof(wchar_t));
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat(L"TiXmlDocument::ErrorPos:row:%d,col:%d,%s", errorLocation.row, errorLocation.col, l_strHintKey).c_str(), CORE_LOG_FLAG);
 	}
 }
 
