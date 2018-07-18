@@ -458,7 +458,7 @@ namespace FATMING_CORE
 		m_pDoc->Parse(l_strText.c_str(), 0);
 		if( m_pDoc->Error() )
 		{
-			delete m_pDoc;
+			SAFE_DELETE(m_pDoc);
 			return false;
 		}
 		TiXmlNode* l_pFirstNode = m_pDoc->FirstChild();

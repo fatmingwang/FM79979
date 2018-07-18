@@ -27,6 +27,7 @@ namespace UT
 #endif
 #ifdef WIN32
 	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV,bool e_bEnableMultisample = false);
+	bool					SetOpenGLSwapInterval(bool e_bSwapInterval);
 	bool 					IsExtensionSupported( char* szTargetExtension );
 #endif
 	eDataType				GetDataType(const wchar_t*e_str);

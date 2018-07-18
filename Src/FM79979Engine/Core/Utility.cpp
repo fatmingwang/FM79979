@@ -264,6 +264,18 @@ namespace UT
 		return l_HGLRC;
 	}
 
+	bool				SetOpenGLSwapInterval(bool e_bSwapInterval)
+	{
+		typedef BOOL(WINAPI * PFNWGLSWAPINTERVALEXTPROC)(GLint);
+		static PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = reinterpret_cast<PFNWGLSWAPINTERVALEXTPROC>(wglGetProcAddress("wglSwapIntervalEXT"));
+		if (wglSwapIntervalEXT)
+		{
+			wglSwapIntervalEXT(e_bSwapInterval);
+			return true;
+		}
+		return false;
+	}
+
 	bool IsExtensionSupported( char* szTargetExtension )
 	{
 		const unsigned char *pszExtensions = nullptr;
