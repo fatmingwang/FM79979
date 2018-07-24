@@ -61,20 +61,21 @@ namespace UT
 		bool				IsActive(float e_fCurrentTime);
 	};
 #ifdef WIN32
-#if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
-  #define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
-#else
-  #define DELTA_EPOCH_IN_MICROSECS  11644473600000000ULL
-#endif
+	#if defined(_MSC_VER) || defined(_MSC_EXTENSIONS)
+		#define DELTA_EPOCH_IN_MICROSECS  11644473600000000Ui64
+	#else
+		#define DELTA_EPOCH_IN_MICROSECS  11644473600000000ULL
+	#endif
 	struct timezone 
 	{
 	  int  tz_minuteswest; /* minutes W of Greenwich */
 	  int  tz_dsttime;     /* type of dst correction */
 	};
-	int gettimeofday(struct timeval *tv, struct timezone *tz);
+	int					gettimeofday(struct timeval *tv, struct timezone *tz);
 #endif
-	long long	currentTimeInMilliseconds();
-	long long	timeval_diff(timeval *difference,timeval *end_time,timeval *start_time);
+	int64				currentTimeInMilliseconds();
+	long long			timeval_diff(timeval *difference,timeval *end_time,timeval *start_time);
+	std::wstring		TimeInMillisecondsToString(long long e_llTime);
 }
 //end namespace UT
 #endif

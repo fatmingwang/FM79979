@@ -18,6 +18,7 @@
 #include "jni.h"
 #include <sys/time.h>
 #endif
+#include "XML/StringToStructure.h"
 namespace UT
 {
 	sTimeAndFPS::sTimeAndFPS()
@@ -180,11 +181,9 @@ namespace UT
 		return 0;
 	}
 #endif
-	long long currentTimeInMilliseconds()
+	int64 currentTimeInMilliseconds()
 	{
-		struct timeval tv;
-		gettimeofday(&tv, nullptr);
-		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+		return time(0);
 	}
 
 	long long	timeval_diff(struct timeval *difference,struct timeval *end_time,struct timeval *start_time)
@@ -203,6 +202,19 @@ namespace UT
 		}
 
 		return 1000000LL*difference->tv_sec+difference->tv_usec;
+	}
+	std::wstring		TimeInMillisecondsToString(long long e_llTime)
+	{
+		struct tm *tm;
+		char buf[200];
+		time_t ltime = (time_t)e_llTime;
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		/* format time days.month.year hour:minute:seconds */
+		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S", tm);
+
+		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
+		return l_str;
 	}
 	//end namespace UT
 }
