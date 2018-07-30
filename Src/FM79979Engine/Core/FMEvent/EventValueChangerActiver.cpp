@@ -294,7 +294,7 @@ namespace FATMING_CORE
 		this->m_bSatisfiedCondition = true;
 		if( m_pEventVariable )
 		{
-			m_pListValuChangerBase->SetSelectedValue(m_pEventVariable->ConvertToString().c_str());
+			m_pListValuChangerBase->SetSelectedIndexByCompareDataString(m_pEventVariable->ConvertToString().c_str());
 		}
 		switch(m_eValueeChangeType)
 		{
@@ -305,10 +305,10 @@ namespace FATMING_CORE
 				m_pListValuChangerBase->Prior();
 				break;
 			case eCVT_TARGET_VALUE:
-				m_pListValuChangerBase->SetSelectedValue(m_pstrTargetValue->c_str());
+				m_pListValuChangerBase->SetSelectedIndexByCompareDataString(m_pstrTargetValue->c_str());
 				break;
 			case eCVT_RANDOM_VALUE:
-				m_pListValuChangerBase->SetSelectedValue(m_pListValuChangerBase->GetRandomValue());
+				m_pListValuChangerBase->SetSelectedIndex(m_pListValuChangerBase->GetRandomValue());
 				break;
 			default:
 				break;

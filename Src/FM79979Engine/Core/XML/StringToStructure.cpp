@@ -592,12 +592,12 @@ namespace FATMING_CORE
 	{
 		return UT::CharToWchar(ValueToString(e_iValue));
 	}
-
+#ifndef ANDROID
 	std::wstring	ValueToStringW(size_t e_iValue)
 	{
 		return UT::CharToWchar(ValueToString(e_iValue));
 	}
-
+#endif
 	std::wstring	ValueToStringW(float e_fValue)
 	{
 		return UT::CharToWchar(ValueToString(e_fValue));
@@ -681,7 +681,7 @@ namespace FATMING_CORE
 		std::string	l_str = l_temp;
 		return l_str;
 	}
-
+#ifndef ANDROID
 	std::string	ValueToString(size_t e_iValue)
 	{
 		char	l_temp[TEMP_SIZE];
@@ -689,7 +689,7 @@ namespace FATMING_CORE
 		std::string	l_str = l_temp;
 		return l_str;
 	}
-
+#endif
 	std::string	ValueToString(float e_fValue)
 	{
 		char	l_temp[TEMP_SIZE];

@@ -4,6 +4,14 @@
 #ifdef WIN32
 #include <direct.h>
 #endif
+#if defined(ANDROID)//openAL,android.c
+#include <android/log.h>
+//#include "../Android/nv_egl_util.h"
+//#include "../Android/JNIUtil.h"
+#define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG,"GameApp",__VA_ARGS__))
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO,"GameApp",__VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN,"GameApp",__VA_ARGS__))
+#endif
 namespace FMLog
 {
 	int64	g_i64LogFlag = 0xffffffffffffffff;
@@ -11,7 +19,7 @@ namespace FMLog
 	bool	LogFlagLevelCompare(int e_iLogFlagLevel)
 	{
 		int64 lll = 0xfffffffffffffff;
-		int64 l_i64Flag = 1i64 << e_iLogFlagLevel;
+		int64 l_i64Flag = ((int64)1) << e_iLogFlagLevel;
 		int64 l_i64TargetFlag = l_i64Flag & 0xffffffffffffffff;
 		if (!(l_i64TargetFlag&g_i64LogFlag))
 			return false;
@@ -39,9 +47,9 @@ namespace FMLog
 			{
 				g_pFMLogFile->Writefile("log.txt", false, false);
 				if (g_pFMLogFile->GetFile())
-					Log(L"create log.txt OK");
+					Log(L"create log.txt OK",true);
 				else
-					Log(L"create log.txt failed");
+					Log(L"create log.txt failed",true);
 			}
 #endif
 		}
@@ -138,7 +146,7 @@ namespace FMLog
 
 	void DoORForLogFlag(int e_iFlag)
 	{
-		int64 l_i64Flag = 1i64 << e_iFlag;
+		int64 l_i64Flag = ((int64)(1)) << e_iFlag;
 		g_i64LogFlag |= l_i64Flag;
 	}
 

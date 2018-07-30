@@ -45,7 +45,7 @@ cFishRodData::~cFishRodData()
 {
 	SAFE_DELETE(m_pImageElement);
 	SAFE_DELETE(m_pImage);
-	DELETE_VECTOR(m_LeaveDataVector,sLVData*);
+	DELETE_VECTOR(m_LeaveDataVector);
 }
 	//<LVData LV="1" Brake="" Time="" FishLeaveCost="">
 	//	<ImageData>
