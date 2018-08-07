@@ -256,6 +256,9 @@
     <Filter Include="jni\GamePlayUT\EventSender">
       <UniqueIdentifier>{99772d62-5721-4a8e-adb9-06ee89672151}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\GamePlayUT\Log">
+      <UniqueIdentifier>{ac6932a5-1ff4-4cc5-bf0e-182dfe9f07e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -907,6 +910,9 @@
     <ClCompile Include="..\..\Core\Image\TextureManager.cpp">
       <Filter>jni\RenderObject\Texture</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp">
+      <Filter>jni\GamePlayUT\Log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1061,9 +1067,6 @@
       <Filter>jni\AndroidJNI\Nvidia</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\CommonDefine.h">
-      <Filter>jni\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\PlafFormDefine.h">
       <Filter>jni\Common\Crossplatform</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\VS_TO_GNN.h">
@@ -1524,6 +1527,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\TextureManager.h">
       <Filter>jni\RenderObject\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Log\FMLog.h">
+      <Filter>jni\GamePlayUT\Log</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

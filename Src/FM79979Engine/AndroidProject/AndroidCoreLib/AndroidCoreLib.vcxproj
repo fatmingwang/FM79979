@@ -99,6 +99,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
     <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp" />
@@ -393,6 +394,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\ImageButton.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ImageWithSlider.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ListValueChanger.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Log\FMLog.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Mouse_Touch.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.h" />
     <ClInclude Include="..\..\Core\GameplayUT\MultiPage.h" />
@@ -488,7 +490,6 @@
     <ClInclude Include="..\..\Core\Particle\PrtVelocity.h" />
     <ClInclude Include="..\..\Core\Physic\2DImageCollisionData.h" />
     <ClInclude Include="..\..\Core\Physic\BulletShape.h" />
-    <ClInclude Include="..\..\Core\PlafFormDefine.h" />
     <ClInclude Include="..\..\Core\SmartPointer.h" />
     <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h" />
     <ClInclude Include="..\..\Core\Sound\BasicSound.h" />

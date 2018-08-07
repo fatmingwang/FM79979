@@ -36,6 +36,8 @@
 
 #ifndef ANDROID
 #include <memory.h>
+#else
+#include <string.h>
 #endif
 
 //================================================================================

@@ -16,12 +16,8 @@
 #include "EventSender/MessageSender.h"
 using namespace UT;
 #if defined(ANDROID)//openAL,android.c
-#include <android/log.h>
 #include "../Android/nv_egl_util.h"
 #include "../Android/JNIUtil.h"
-#define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG,"GameApp",__VA_ARGS__))
-#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO,"GameApp",__VA_ARGS__))
-#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN,"GameApp",__VA_ARGS__))
 #endif
 namespace	FATMING_CORE
 {

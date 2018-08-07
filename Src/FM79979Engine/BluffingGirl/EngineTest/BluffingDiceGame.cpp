@@ -181,7 +181,7 @@ void	cBluffingDiceGame::Destroy()
 	SAFE_DELETE(m_pDiceRule);
 	SAFE_DELETE(m_pPlayerDiceTable);
 	SAFE_DELETE(m_pSpecialDiceRule);
-	DELETE_VECTOR(m_AIDiceTableCallResultVector,cAIDiceTableCallResult*);
+	DELETE_VECTOR(m_AIDiceTableCallResultVector);
 	m_ResourceStamp.ReleaseNewResource();
 	cGameApp::m_spSoundParser->RemoveAllBGM();
 }
