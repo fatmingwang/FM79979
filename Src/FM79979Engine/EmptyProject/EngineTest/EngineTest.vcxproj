@@ -212,6 +212,7 @@
     <ClCompile Include="Trigonometric.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bluetooth.h" />
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>

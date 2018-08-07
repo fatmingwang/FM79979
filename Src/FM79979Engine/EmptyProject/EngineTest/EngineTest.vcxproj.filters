@@ -18,6 +18,9 @@
     <Filter Include="Game\Phase">
       <UniqueIdentifier>{1e7b10fa-7f59-49d2-894e-444f14dae5c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bluetooth">
+      <UniqueIdentifier>{824f6d74-2b46-4cdf-9054-2d78bbfdcbaa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -69,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="TestShader.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Bluetooth.h">
+      <Filter>Bluetooth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
@@ -12,10 +12,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet", "..\Core\Bullet\Bullet.vcxproj", "{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EmptyProject", "EngineTest\EngineTest.vcxproj", "{AB01A4B3-0845-4E11-B727-7F5CF67B5663}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DotNetCommon", "..\DotNetCommon\DotNetCommon.vcxproj", "{941833B3-FD87-4BB5-8225-6ECC1098A767}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\ogg.vcxproj", "{D07C6FC2-02D7-41AE-8498-35186CD57B5A}"
 EndProject
@@ -68,18 +64,6 @@ Global
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|Emscripten.Build.0 = Release|Emscripten
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|x64.ActiveCfg = Release|x64
 		{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}.Release|x64.Build.0 = Release|x64
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Debug|x64.ActiveCfg = Debug|x64
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Debug|x64.Build.0 = Debug|x64
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Release|Emscripten.ActiveCfg = Release|Emscripten
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Release|x64.ActiveCfg = Release|x64
-		{AB01A4B3-0845-4E11-B727-7F5CF67B5663}.Release|x64.Build.0 = Release|x64
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Debug|x64.ActiveCfg = Debug|x64
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Debug|x64.Build.0 = Debug|x64
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Release|Emscripten.ActiveCfg = Release|Emscripten
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Release|x64.ActiveCfg = Release|x64
-		{941833B3-FD87-4BB5-8225-6ECC1098A767}.Release|x64.Build.0 = Release|x64
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{D07C6FC2-02D7-41AE-8498-35186CD57B5A}.Debug|x64.ActiveCfg = Debug|x64
