@@ -195,6 +195,8 @@ void cBluetoothSinglton::Disconnect()
 	if (m_LocalSocket != INVALID_SOCKET)
 	{
 		this->m_bLeaveThread = true;
+		Sleep(10);
+		closesocket(m_LocalSocket);
 		CloseThreadAndWaitUntilFinish();
 		size_t l_uiSize = m_ConnectedSocketVector.size();
 		for (size_t i = 0; i < l_uiSize; i++)
@@ -204,7 +206,6 @@ void cBluetoothSinglton::Disconnect()
 				wprintf(L"=CRITICAL= | closesocket() call failed w/socket = [0x%I64X]. WSAGetLastError=[%d]\n", (ULONG64)m_LocalSocket, WSAGetLastError());
 			}
 		}
-		closesocket(m_LocalSocket);
 		m_LocalSocket = INVALID_SOCKET;
 	}
 	DELETE_VECTOR(m_BluetoothPacketVector);

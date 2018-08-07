@@ -87,7 +87,7 @@ int ChangeLocalBluetoothRadioName(const wchar_t*e_strBlueToothName)
 		return 1;
 	}
 
-	wchar_t* l_strInstanceIDModified = new wchar_t[l_strInstanceID.size()];
+	wchar_t l_strInstanceIDModified[TEMP_SIZE];
 	wcscpy(l_strInstanceIDModified, l_strInstanceID.c_str());
 	find_and_replace(l_strInstanceIDModified, _TEXT("\\"), _TEXT("#"));
 
@@ -96,7 +96,9 @@ int ChangeLocalBluetoothRadioName(const wchar_t*e_strBlueToothName)
 	wcscpy(fileName, _TEXT("\\\\.\\"));
 	wcscat(fileName, l_strInstanceIDModified);
 	wcscat(fileName, _TEXT("#{a5dcbf10-6530-11d2-901f-00c04fb951ed}"));
-	SAFE_DELETE(l_strInstanceIDModified);
+
+	//SAFE_DELETE(l_strInstanceIDModified);
+
 	hDevice = CreateFile(fileName, GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 
 	if (hDevice == INVALID_HANDLE_VALUE)
