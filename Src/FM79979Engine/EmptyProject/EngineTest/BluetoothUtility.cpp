@@ -21,8 +21,6 @@ using namespace std;
 
 typedef basic_string<TCHAR> tstring;
 
-
-
 std::wstring GetGenericBluetoothAdapterInstanceID()
 {
 	unsigned i;
