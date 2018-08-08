@@ -179,3 +179,8 @@ ex:cCPP11Thread
 fuck the release build auto link to msvcrtd.lib
 this make app contain debug infor and it link to VCRRUNTIME14D.dll->USERBASED.dll
 it spent me  hours...fuck
+
+8/Aug/2018
+failed to start with 0xc000007b
+please install openal!
+https://www.start64.com/index.php/64-bit-news/64bit-software-news/454-openal-installer-for-windows-32-and-64bit

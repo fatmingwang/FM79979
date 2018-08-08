@@ -10,7 +10,7 @@ struct sBluetoothPacket
 {
 	int			iSize;
 	char*		pData;
-	sBluetoothPacket();
+	sBluetoothPacket(int e_iSize,char*e_pData);
 	~sBluetoothPacket();
 };
 
@@ -46,4 +46,5 @@ public:
 	void	FindDevices();
 	void	SendDataToAllClient(int e_iLength,char*e_pData);
 	void	SendDataToServer(int e_iLength, char*e_pData);
+	void	DebugRender();
 };

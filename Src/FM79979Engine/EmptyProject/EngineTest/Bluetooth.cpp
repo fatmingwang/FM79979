@@ -79,10 +79,11 @@ int BluetoothSinglton_SDLNet_AddSocket(SDLNet_SocketSet set, SDLNet_Socket* sock
 }
 
 TYPDE_DEFINE_MARCO(cBluetoothSinglton)
-sBluetoothPacket::sBluetoothPacket()
+sBluetoothPacket::sBluetoothPacket(int e_iSize, char*e_pData)
 {
-	pData = nullptr;
-	iSize = 0;
+	pData = new char[e_iSize];
+	iSize = e_iSize;
+	memcpy(pData, e_pData, e_iSize);
 }
 
 sBluetoothPacket::~sBluetoothPacket()
@@ -244,13 +245,15 @@ bool cBluetoothSinglton::CreateAsClient(const wchar_t*e_strServerName)
 	if (m_LocalSocket.channel != INVALID_SOCKET)
 	{
 		SOCKADDR_BTH RemoteBthAddr = { 0 };
-		if (NameToBthAddr((const LPWSTR)e_strServerName, &RemoteBthAddr) == 0)
+		if (NameToBthAddr((const LPWSTR)e_strServerName, &RemoteBthAddr))
 		{
 			RemoteBthAddr.addressFamily = AF_BTH;
 			RemoteBthAddr.serviceClassId = GUID_DEVCLASS_BLUETOOTH;
 			RemoteBthAddr.port = 0;
 			if (connect(m_LocalSocket.channel,(struct sockaddr *) &RemoteBthAddr,sizeof(SOCKADDR_BTH)) != SOCKET_ERROR)
 			{
+				f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cBluetoothSinglton::ClientUpdate, this, std::placeholders::_1);
+				ThreadDetach(l_f_ThreadWorkingFunction);
 				return true;
 			}
 			//wprintf(L"=CRITICAL= | connect() call failed. WSAGetLastError=[%d]\n", WSAGetLastError());
@@ -278,6 +281,7 @@ void cBluetoothSinglton::Disconnect()
 		m_LocalSocket.channel = INVALID_SOCKET;
 	}
 	DELETE_VECTOR(m_BluetoothPacketVector);
+	DELETE_VECTOR(m_ConnectedSocketVector);
 }
 
 bool cBluetoothSinglton::SetDeviceName(const wchar_t * e_strName)
@@ -377,6 +381,7 @@ void cBluetoothSinglton::ServerUpdate(float e_fElpaseTime)
 				{
 					closesocket(l_pSocket->channel);
 					cPP11MutexHolder l_cPP11MutexHolder(m_BluetoothSocketVectorMutex);
+					delete l_pSocket;
 					m_ConnectedSocketVector.erase(m_ConnectedSocketVector.begin() + i);
 					--i;
 					--l_uiSize;
@@ -388,9 +393,7 @@ void cBluetoothSinglton::ServerUpdate(float e_fElpaseTime)
 					break;
 				default:
 				{
-					sBluetoothPacket*l_pBluetoothPacket = new sBluetoothPacket();
-					l_pBluetoothPacket->iSize = iLengthReceived;
-					memcpy(l_pBluetoothPacket->pData, pszDataBuffer, iLengthReceived);
+					sBluetoothPacket*l_pBluetoothPacket = new sBluetoothPacket(iLengthReceived, pszDataBuffer);
 					cPP11MutexHolder l_cPP11MutexHolder(m_BluetoothPacketVectorMutex);
 					m_BluetoothPacketVector.push_back(l_pBluetoothPacket);
 				}
@@ -401,6 +404,7 @@ void cBluetoothSinglton::ServerUpdate(float e_fElpaseTime)
 	}
 FAILED:
 	//
+	m_bLeaveThread = true;
 	size_t l_uiSize = m_ConnectedSocketVector.size();
 	for (size_t i = 0; i < l_uiSize; i++)
 	{
@@ -422,8 +426,7 @@ void cBluetoothSinglton::ClientUpdate(float e_fElpaseTime)
 	{
 		char pszDataBuffer[TEMP_SIZE];
 		memset(pszDataBuffer, 0, sizeof(pszDataBuffer));
-		UINT            iLengthReceived = 0;
-		iLengthReceived = recv(m_LocalSocket.channel, pszDataBuffer, TEMP_SIZE, 0);
+		UINT            iLengthReceived = recv(m_LocalSocket.channel, pszDataBuffer, TEMP_SIZE, 0);
 		switch (iLengthReceived)
 		{
 		case 0: // socket connection has been closed gracefully
@@ -433,9 +436,7 @@ void cBluetoothSinglton::ClientUpdate(float e_fElpaseTime)
 			break;
 		default:
 		{
-			sBluetoothPacket*l_pBluetoothPacket = new sBluetoothPacket();
-			l_pBluetoothPacket->iSize = iLengthReceived;
-			memcpy(l_pBluetoothPacket->pData, pszDataBuffer, iLengthReceived);
+			sBluetoothPacket*l_pBluetoothPacket = new sBluetoothPacket(iLengthReceived, pszDataBuffer);
 			cPP11MutexHolder l_cPP11MutexHolder(m_BluetoothPacketVectorMutex);
 			m_BluetoothPacketVector.push_back(l_pBluetoothPacket);
 		}
@@ -445,6 +446,7 @@ void cBluetoothSinglton::ClientUpdate(float e_fElpaseTime)
 FAILED:
 	closesocket(this->m_LocalSocket.channel);
 	m_LocalSocket.channel = INVALID_SOCKET;
+	m_bLeaveThread = true;
 }
 
 void cBluetoothSinglton::ConnectToServerUpdate(float e_fElpaseTime)
