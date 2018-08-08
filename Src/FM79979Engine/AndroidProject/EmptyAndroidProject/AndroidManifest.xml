@@ -12,6 +12,11 @@
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <!-- bluetooth -->
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  
   <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="14" />
     <application  android:icon="@drawable/icon" 
                   android:label="EmptyAndroidProject"
