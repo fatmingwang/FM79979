@@ -356,7 +356,7 @@ void cBluetoothSinglton::ServerUpdate(float e_fElpaseTime)
 		// Read data from the incoming stream
 		//
 		size_t l_uiSize = m_ConnectedSocketVector.size();
-		for (size_t i = 0; i < l_uiSize; i++)
+		for (int i = 0; i < l_uiSize; i++)
 		{
 			auto l_pSocket = m_ConnectedSocketVector[i];
 			if (l_pSocket->ready)
@@ -384,6 +384,7 @@ void cBluetoothSinglton::ServerUpdate(float e_fElpaseTime)
 					delete l_pSocket;
 					m_ConnectedSocketVector.erase(m_ConnectedSocketVector.begin() + i);
 					--i;
+					--l_uiSize;
 				}
 				break;
 				case SOCKET_ERROR:

@@ -189,8 +189,8 @@ ULONG NameToBthAddr(const LPWSTR pszRemoteName,PSOCKADDR_BTH pRemoteBtAddr)
 	//
 	if (iResult) 
 	{
-		#define CXN_MAX_INQUIRY_RETRY             3
-		#define CXN_DELAY_NEXT_INQUIRY            15
+		#define CXN_MAX_INQUIRY_RETRY             10
+		#define CXN_DELAY_NEXT_INQUIRY            2
 		for (INT iRetryCount = 0;!bRemoteDeviceFound && (iRetryCount < CXN_MAX_INQUIRY_RETRY);iRetryCount++) {
 			//
 			// WSALookupService is used for both service search and device inquiry
@@ -252,8 +252,11 @@ ULONG NameToBthAddr(const LPWSTR pszRemoteName,PSOCKADDR_BTH pRemoteBtAddr)
 			if ((NO_ERROR == iResult) && (NULL != hLookup)) {
 				bContinueLookup = TRUE;
 			}
-			else if (0 < iRetryCount) {
-				wprintf(L"=CRITICAL= | WSALookupServiceBegin() failed with error code %d, WSAGetLastError = %d\n", iResult, WSAGetLastError());
+			else
+			if (0 < iRetryCount) 
+			{
+				int l_iError = WSAGetLastError();
+				wprintf(L"=CRITICAL= | WSALookupServiceBegin() failed with error code %d, WSAGetLastError = %d\n", iResult, l_iError);
 				break;
 			}
 

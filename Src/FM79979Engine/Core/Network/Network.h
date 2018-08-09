@@ -1,6 +1,11 @@
 #ifndef	_NET_WORK_H_
 #define _NET_WORK_H_
 
+//if you want more client please define FD_SETSIZE or its default is 64
+//#ifndef FD_SETSIZE
+//#define FD_SETSIZE      64
+//#endif /* FD_SETSIZE */
+
 #include "SDL_net.h"
 #include "../Synchronization/AllFUThreadInclude.h"
 class	cFUThreadPool;
@@ -79,7 +84,7 @@ namespace FATMING_CORE
 		//own socket for server or client
 		_TCPsocket*							m_pSocket;
 		/* create a socket set that has the server socket and all the client sockets */
-		_SDLNet_SocketSet*					m_pAllSocketToListenClientMessage;		
+		_SDLNet_SocketSet*					m_pAllSocketToListenClientMessage;
 		bool								CreateSocksetToListenData();
 		cVectorDataSynchornized<_TCPsocket>	m_ClientSocketVector;
 		//if e_strIP is nullptr it's server
