@@ -123,10 +123,10 @@ int ChangeLocalBluetoothRadioName(const wchar_t*e_strBlueToothName)
 
 	ret = RegOpenKeyEx(HKEY_LOCAL_MACHINE, rmLocalNameKey,
 		0L, KEY_SET_VALUE, &hKey);
-
 	if (ret != ERROR_SUCCESS)
 	{
 		_tprintf(TEXT("Failed to open registry key. Error code: %d\n"), ret);
+		//regedit set permissionz!!
 		return EXIT_FAILURE;
 	}
 
