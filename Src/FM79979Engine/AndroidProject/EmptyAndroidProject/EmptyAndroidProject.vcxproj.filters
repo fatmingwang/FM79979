@@ -117,6 +117,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{c4bcfc4d-0f51-489e-905f-a70eac373391}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util\bluetooth">
+      <UniqueIdentifier>{8b707c38-155c-4c55-b113-b21b6d55898c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\engine.h">
@@ -361,6 +364,18 @@
     <JCompile Include="src\com\FM79979\EmptyAndroidProject\EmptyAndroidProject.java">
       <Filter>src\com\FM79979\EmptyAndroidProject</Filter>
     </JCompile>
+    <JCompile Include="src\util\bluetooth\BluetoothChatFragment.java">
+      <Filter>src\util\bluetooth</Filter>
+    </JCompile>
+    <JCompile Include="src\util\bluetooth\BluetoothChatService.java">
+      <Filter>src\util\bluetooth</Filter>
+    </JCompile>
+    <JCompile Include="src\util\bluetooth\Constants.java">
+      <Filter>src\util\bluetooth</Filter>
+    </JCompile>
+    <JCompile Include="src\util\bluetooth\DeviceListActivity.java">
+      <Filter>src\util\bluetooth</Filter>
+    </JCompile>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -383,6 +398,18 @@
       <Filter>res\layout</Filter>
     </None>
     <None Include="res\layout\test.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\activity_device_list.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\device_name.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\fragment_bluetooth_chat.xml">
+      <Filter>res\layout</Filter>
+    </None>
+    <None Include="res\layout\message.xml">
       <Filter>res\layout</Filter>
     </None>
   </ItemGroup>

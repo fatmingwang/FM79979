@@ -165,6 +165,10 @@
     <JCompile Include="src\util\AccelerometerListener.java" />
     <JCompile Include="src\util\AccelerometerManager.java" />
     <JCompile Include="src\util\AdMobUtility.java" />
+    <JCompile Include="src\util\bluetooth\BluetoothChatFragment.java" />
+    <JCompile Include="src\util\bluetooth\BluetoothChatService.java" />
+    <JCompile Include="src\util\bluetooth\Constants.java" />
+    <JCompile Include="src\util\bluetooth\DeviceListActivity.java" />
     <JCompile Include="src\util\Define.java" />
     <JCompile Include="src\util\ExternalStorage.java" />
     <JCompile Include="src\util\facebook\FBManager.java" />
@@ -201,7 +205,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\drawable\icon.png" />
+    <None Include="res\layout\activity_device_list.xml" />
+    <None Include="res\layout\device_name.xml" />
     <None Include="res\layout\fbmanagerlayout.xml" />
+    <None Include="res\layout\fragment_bluetooth_chat.xml" />
+    <None Include="res\layout\message.xml" />
     <None Include="res\layout\test.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
