@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundFile.cpp" />
     <ClCompile Include="..\..\Core\Sound\SoundManager.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp" />
     <ClCompile Include="..\..\Core\XML\XmlLoader.cpp" />
     <None Include="..\..\Core\FMEvent\Event.vcxproj.filters" />
     <ClCompile Include="..\..\Core\Android\JNIUtil.cpp" />
@@ -501,6 +502,7 @@
     <ClInclude Include="..\..\Core\stdafx.h" />
     <ClInclude Include="..\..\Core\StringID.h" />
     <ClInclude Include="..\..\Core\Synchronization\AllFUThreadInclude.h" />
+    <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h" />
     <ClInclude Include="..\..\Core\Synchronization\FUCriticalSection.h" />
     <ClInclude Include="..\..\Core\Synchronization\FUFunctor.h" />
     <ClInclude Include="..\..\Core\Synchronization\FUSemaphore.h" />

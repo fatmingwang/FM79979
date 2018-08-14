@@ -11,6 +11,16 @@ extern void	SampleMouseMove(int e_iPosX,int e_iPosY);
 extern void	SampleMouseUp(int e_iPosX,int e_iPosY);
 extern void	SampleKeyup(char e_cKey);
 
+bool		BTPost()
+{
+	jclass thisClass = cGameApp::m_spThreadEnv->GetObjectClass(*cGameApp::m_spAppThreadThis);
+	EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+	jmethodID l_FBPostMethod = cGameApp::m_spThreadEnv->GetMethodID(thisClass, "BluetoothStart", "()V");
+	EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+	cGameApp::m_spThreadEnv->CallVoidMethod(*cGameApp::m_spAppThreadThis, l_FBPostMethod);
+	return true;
+}
+
 #if defined(ANDROID)
 cEngineTestApp::cEngineTestApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
 #elif defined(WIN32)
@@ -93,6 +103,8 @@ void	cEngineTestApp::MouseUp(int e_iPosX,int e_iPosY)
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseUp(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	SampleMouseUp(e_iPosX,e_iPosY);
+
+	BTPost();
 }
 
 void	cEngineTestApp::KeyDown(char e_char)

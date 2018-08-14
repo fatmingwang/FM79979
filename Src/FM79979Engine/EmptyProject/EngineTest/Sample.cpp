@@ -3,6 +3,9 @@
 #include "../../Core/GLSL/ToneMapping.h"
 #include "../../Core/GLSL/TunnelEffect.h"
 #include "TestShader.h"
+
+//#include "Bluetooth.h"
+
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
 cFrameCamera	*g_pFrameCamera = 0;
@@ -56,6 +59,9 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
+	//cBluetoothSinglton::GetInstance()->Init();
+	//cBluetoothSinglton::GetInstance()->CreateAsServer(L"FMWin10");
+	//cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
@@ -203,6 +209,7 @@ void	DestorySampleObject()
 	SAFE_DELETE(g_pToneMappingShader);
 	SAFE_DELETE(g_pTunnelEffect);
 	SAFE_DELETE(g_pTestShader);
+	//cBluetoothSinglton::DestroyInstance();
 }
 
 void	SampleUpdate(float e_fElpaseTime)
@@ -454,6 +461,8 @@ void	SampleMouseUp(int e_iPosX,int e_iPosY)
 
 void	SampleKeyup(char e_cKey)
 {
+	//char l_cData[5] = {0,1,2,3,4};
+	//cBluetoothSinglton::GetInstance()->SendDataToServer(5, l_cData);
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->KeyUp(e_cKey);
@@ -468,11 +477,13 @@ void	SampleKeyup(char e_cKey)
 		if (g_pTestShader)
 		{
 			SAFE_DELETE(g_pTestShader);
-			g_pTestShader = cTestShader::CreateShader("shader/TunnelEffect.vs", "shader/TunnelEffect.ps", L"MyTunnelEffecr");
+//			g_pTestShader = cTestShader::CreateShader("shader/TunnelEffect.vs", "shader/TunnelEffect.ps", L"MyTunnelEffecr");
 		}
 		
 
 		if (g_pTestCurveWithTime)
 			g_pTestCurveWithTime->Init();
+
+
 	}
 }

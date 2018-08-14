@@ -33,7 +33,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Log;
 import android.view.View;
 import android.view.KeyEvent;
 import android.widget.ImageView;
@@ -76,9 +75,13 @@ import java.io.FileOutputStream;
 import util.Define;
 import util.ZipUtilActivity;
 
+import util.bluetooth.BluetoothChatFragment;
+
 import android.widget.Toast;
 
-import util.facebook.FBManager;
+
+
+//import util.facebook.FBManager;
 import net.lingala.zip4j.exception.ZipException;
 /**
  * This class loads the Java Native Interface (JNI)
@@ -90,22 +93,24 @@ import net.lingala.zip4j.exception.ZipException;
  * 
  * For more information on JNI, see: http://java.sun.com/docs/books/jni/
  */
-
+ //
+ //import android.support.annotation.Nullable;//https://stackoverflow.com/questions/36906095/error28-34-error-package-android-support-annotation-does-not-exist 
+ //
 public class EmptyAndroidProject extends NativeActivity implements AccelerometerListener
 {
-	public  void		OpenKeyBoard(){ Define.OpenKeyBoard(); }
-	public IABManager	m_IABManager;
+	public  void					OpenKeyBoard(){ Define.OpenKeyBoard(); }
+	public IABManager				m_IABManager;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		m_IABManager = new IABManager(true,this);
-		m_IABManager.Create();
+		//m_IABManager = new IABManager(true,this);
+		//m_IABManager.Create();
 		Define.m_TempContext = getApplicationContext();
 		NetworkUtil.m_TempContext = getApplicationContext();
-		NumericEditTextDialog.m_TempFragmentManager = getFragmentManager();		
+		NumericEditTextDialog.m_TempFragmentManager = getFragmentManager();
         super.onCreate(savedInstanceState);
-		AdMobUtility.m_LaunchNativeActivity = this;
+		//AdMobUtility.m_LaunchNativeActivity = this;
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
@@ -225,8 +230,8 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 	{
 		//NumericEditTextDialog	l_NumericEditTextDialog = new NumericEditTextDialog();
 		//l_NumericEditTextDialog.show(getFragmentManager(), "dialog");
-		Intent intent = new Intent(this, util.facebook.FBManager.class);
-        startActivity(intent);
+		//Intent intent = new Intent(this, util.facebook.FBManager.class);
+        //startActivity(intent);
 	}
 
 	//void		CloseAD()

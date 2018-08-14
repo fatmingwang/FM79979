@@ -206,6 +206,22 @@ namespace FATMING_CORE
 		l_strTemp[l_iLength] = 0;
 		return env->NewString(l_strTemp,l_iLength);
 	}
+
+	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len, sJNIUtilData*e_pJNIUtilData)
+	{
+		
+		jbyteArray array = e_pJNIUtilData->pJNIEnv->NewByteArray(len);
+		e_pJNIUtilData->pJNIEnv->SetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
+		return array;
+	}
+
+	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, sJNIUtilData*e_pJNIUtilData)
+	{
+		int len = e_pJNIUtilData->pJNIEnv->GetArrayLength(array);
+		unsigned char* buf = new unsigned char[len];
+		e_pJNIUtilData->pJNIEnv->GetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
+		return buf;
+	}
 	//from nvidia TADP sample
 	bool	OpenURL(const char*e_strURL,sJNIUtilData*e_pJNIUtilData)
 	{

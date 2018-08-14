@@ -175,7 +175,7 @@ public class DeviceListActivity extends Activity
      */
     private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() 
 	{
-        public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) 
+        public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3)
 		{
             // Cancel discovery because it's costly and we're about to connect
             mBtAdapter.cancelDiscovery();

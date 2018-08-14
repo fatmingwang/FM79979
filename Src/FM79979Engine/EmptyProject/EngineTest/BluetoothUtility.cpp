@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "Bluetooth.h"
+#ifdef WIN32
 #include "bluetoothapis.h"
 #include <windows.h>
 #include <Setupapi.h>
@@ -353,6 +354,7 @@ ULONG NameToBthAddr(const LPWSTR pszRemoteName,PSOCKADDR_BTH pRemoteBtAddr)
 	{
 		iResult = false;
 	}
-
 	return iResult;
 }
+//end WIN32
+#endif

@@ -3,9 +3,9 @@
 #include <mutex>
 
 #include "../../Core/Network/SDL_net.h"
-
+#ifdef WIN32
 DEFINE_GUID(GUID_DEVCLASS_BLUETOOTH, { 0xe0cbf06c, 0xcd8b, 0x4647,{ 0xbb, 0x8a, 0x26, 0x3b, 0x43, 0xf0, 0xf9, 0x74 } });
-
+#endif
 struct sBluetoothPacket
 {
 	int			iSize;
@@ -19,9 +19,10 @@ class cBluetoothSinglton:public cSingltonTemplate<cBluetoothSinglton>,public cCP
 	//for server
 	bool							CreateSocksetToListenData();
 	std::vector<sBluetoothPacket*>	m_BluetoothPacketVector;
-	_SDLNet_SocketSet*				m_pAllSocketToListenClientMessage;
 	std::mutex						m_BluetoothPacketVectorMutex;
 	std::mutex						m_BluetoothSocketVectorMutex;
+	//
+	_SDLNet_SocketSet*				m_pAllSocketToListenClientMessage;
 	std::vector<SDLNet_Socket*>		m_ConnectedSocketVector;
 	//
 	bool							m_bLostConnection;
@@ -47,4 +48,5 @@ public:
 	void	SendDataToAllClient(int e_iLength,char*e_pData);
 	void	SendDataToServer(int e_iLength, char*e_pData);
 	void	DebugRender();
+	void	Android_AddBluetoothPacket(int e_iSize,char*e_pData);
 };

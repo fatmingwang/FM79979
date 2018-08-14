@@ -42,7 +42,7 @@ cFishRodData::cFishRodData(TiXmlElement*e_pElement)
 }
 
 cFishRodData::~cFishRodData()
-{
+{ 
 	SAFE_DELETE(m_pImageElement);
 	SAFE_DELETE(m_pImage);
 	DELETE_VECTOR(m_LeaveDataVector);

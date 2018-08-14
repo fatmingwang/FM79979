@@ -29,24 +29,19 @@
       <meta-data android:name="com.google.android.gms.version" android:value="6111000" />
       <activity android:name="com.google.android.gms.ads.AdActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
                 android:theme="@android:style/Theme.Translucent"/>
-      <activity android:name="EmptyAndroidProject"
-                  android:label="EmptyAndroidProject"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
+      <activity android:name="EmptyAndroidProject" android:label="EmptyAndroidProject" android:configChanges="orientation|keyboardHidden|screenSize"
                   android:screenOrientation="portrait"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
-        
+                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen">        
             <meta-data android:name="android.app.lib_name"  android:value="EmptyAndroidProject" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-      <activity android:name="util.facebook.FBManager"
-                    android:label="EmptyAndroidProject_FB"
-                    android:windowSoftInputMode="adjustResize" />
-      <activity android:name="com.facebook.LoginActivity"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar"
-              android:label="EmptyAndroidProjectFBLogin" />
+      </activity>
+      <activity android:name="util.bluetooth.BluetoothChatFragment" android:label="EmptyAndroidProject_BluetoothChatFragment"/>
+      <activity android:name="util.bluetooth.DeviceListActivity" android:label="EmptyAndroidProject_DeviceListActivity"/>
+      <activity android:name="util.facebook.FBManager" android:label="EmptyAndroidProject_FB" android:windowSoftInputMode="adjustResize" />
+      <activity android:name="com.facebook.LoginActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar" android:label="EmptyAndroidProjectFBLogin" />
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
     </application>
 </manifest> 

@@ -913,6 +913,9 @@
     <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp">
       <Filter>jni\GamePlayUT\Log</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp">
+      <Filter>jni\Synchornization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1530,6 +1533,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\Log\FMLog.h">
       <Filter>jni\GamePlayUT\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h">
+      <Filter>jni\Synchornization</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

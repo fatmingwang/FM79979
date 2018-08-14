@@ -53,8 +53,27 @@ import android.widget.Toast;
 
  //https://github.com/googlesamples/android-BluetoothChat
  //sendMessage to send data
-public class BluetoothChatFragment extends Fragment
+public class BluetoothChatFragment extends FragmentActivity 
 {
+	public static void	BluetoothStart(Activity e_Activity)
+	{
+        Intent serverIntent = new Intent(e_Activity, BluetoothChatFragment.class);
+        e_Activity.startActivity(serverIntent);
+	}
+
+	public static void	BluetoothShutDown()
+	{
+		BluetoothChatFragment.ShutBluetoothService();
+	}
+
+	public static void	SendBuffer(byte[] buffer)
+	{
+		if(mChatService != null)
+		{
+			mChatService.write(buffer);
+		}
+	}
+
     private static final String TAG = "BluetoothChatFragment";
     // Intent request codes
     private static final int REQUEST_CONNECT_DEVICE_SECURE = 1;
@@ -73,22 +92,40 @@ public class BluetoothChatFragment extends Fragment
     /**
      * Member object for the chat services
      */
-    private BluetoothChatService mChatService = null;
+    private static BluetoothChatService mChatService = null;
+
+	private Button m_ScannDevicesButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
+		setContentView(R.layout.fragment_bluetooth_chat);
+		m_ScannDevicesButton = (Button) findViewById(R.id.scanningDevicesButton);
+        m_ScannDevicesButton.setOnClickListener
+		(
+			new View.OnClickListener() 
+			{
+				public void onClick(View view) 
+				{
+					Intent serverIntent = new Intent(BluetoothChatFragment.this, DeviceListActivity.class);
+					startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_INSECURE);
+				}
+			}
+		);
+
         // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         // If the adapter is null, then Bluetooth is not supported
         if (mBluetoothAdapter == null)
 		{
-            FragmentActivity activity = getActivity();
-            Toast.makeText(activity, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-            activity.finish();
+			Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+            finish();
         }
+		else
+		{
+			ensureDiscoverable();
+		}
     }
 
 
@@ -107,7 +144,7 @@ public class BluetoothChatFragment extends Fragment
 		else
 		if (mChatService == null)
 		{
-            setupChat();
+			mChatService = new BluetoothChatService(this, mHandler);
         }
     }
 
@@ -115,11 +152,16 @@ public class BluetoothChatFragment extends Fragment
     public void onDestroy() 
 	{
         super.onDestroy();
+    }
+
+	public static void ShutBluetoothService()
+	{
         if (mChatService != null) 
 		{
             mChatService.stop();
-        }
-    }
+			mChatService = null;
+        }	
+	}
 
     @Override
     public void onResume()
@@ -139,21 +181,11 @@ public class BluetoothChatFragment extends Fragment
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) 
-	{
-        return inflater.inflate(R.layout.fragment_bluetooth_chat, container, false);
-    }
-
-    /**
-     * Set up the UI and background operations for chat.
-     */
-    private void setupChat() 
-	{
-        //Log.d(TAG, "setupChat()");
-        // Initialize the BluetoothChatService to perform bluetooth connections
-        mChatService = new BluetoothChatService(getActivity(), mHandler);
-    }
+    //@Override
+    //public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) 
+	//{
+        //return inflater.inflate(R.layout.fragment_bluetooth_chat, container, false);
+    //}
 
     /**
      * Makes this device discoverable for 300 seconds (5 minutes).
@@ -178,7 +210,8 @@ public class BluetoothChatFragment extends Fragment
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) 
 		{
-            Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), R.string.not_connected, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -200,7 +233,8 @@ public class BluetoothChatFragment extends Fragment
         @Override
         public void handleMessage(Message msg) 
 		{
-            FragmentActivity activity = getActivity();
+            //FragmentActivity activity = getActivity();
+			FragmentActivity activity = BluetoothChatFragment.this;
             switch (msg.what) 
 			{
                 case Constants.MESSAGE_STATE_CHANGE:
@@ -252,14 +286,16 @@ public class BluetoothChatFragment extends Fragment
                 if (resultCode == Activity.RESULT_OK) 
 				{
                     // Bluetooth is now enabled, so set up a chat session
-                    setupChat();
+                    mChatService = new BluetoothChatService(this, mHandler);
                 }
 				else 
 				{
                     // User did not enable Bluetooth or an error occurred
                     //Log.d(TAG, "BT not enabled");
-                    Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,Toast.LENGTH_SHORT).show();
-                    getActivity().finish();
+                    //Toast.makeText(getActivity(), R.string.bt_not_enabled_leaving,Toast.LENGTH_SHORT).show();
+                    //getActivity().finish();
+					Toast.makeText(this, R.string.bt_not_enabled_leaving,Toast.LENGTH_SHORT).show();
+					finish();
                 }
         }
     }
@@ -282,11 +318,11 @@ public class BluetoothChatFragment extends Fragment
 
 	public void	ConnectTodevice(boolean e_bSecureConnection)
 	{
-		Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+		//Intent serverIntent = new Intent(getActivity(), DeviceListActivity.class);
+		Intent serverIntent = new Intent(this, DeviceListActivity.class);
 		if(e_bSecureConnection)
 			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_SECURE);
 		else
 			startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE_INSECURE);
 	}
-
 }
