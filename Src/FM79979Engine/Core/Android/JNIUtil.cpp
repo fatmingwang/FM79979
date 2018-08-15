@@ -207,19 +207,19 @@ namespace FATMING_CORE
 		return env->NewString(l_strTemp,l_iLength);
 	}
 
-	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len, sJNIUtilData*e_pJNIUtilData)
+	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len,JNIEnv*e_pJNIEnv)
 	{
 		
-		jbyteArray array = e_pJNIUtilData->pJNIEnv->NewByteArray(len);
-		e_pJNIUtilData->pJNIEnv->SetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
+		jbyteArray array = e_pJNIEnv->NewByteArray(len);
+		e_pJNIEnv->SetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
 		return array;
 	}
 
-	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, sJNIUtilData*e_pJNIUtilData)
+	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, JNIEnv*e_pJNIEnv)
 	{
-		int len = e_pJNIUtilData->pJNIEnv->GetArrayLength(array);
+		int len = e_pJNIEnv->GetArrayLength(array);
 		unsigned char* buf = new unsigned char[len];
-		e_pJNIUtilData->pJNIEnv->GetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
+		e_pJNIEnv->GetByteArrayRegion(array, 0, len, reinterpret_cast<jbyte*>(buf));
 		return buf;
 	}
 	//from nvidia TADP sample

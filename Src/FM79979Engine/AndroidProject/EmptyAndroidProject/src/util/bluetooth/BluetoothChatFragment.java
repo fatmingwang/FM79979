@@ -58,7 +58,8 @@ public class BluetoothChatFragment extends FragmentActivity
 	public static void	BluetoothStart(Activity e_Activity)
 	{
         Intent serverIntent = new Intent(e_Activity, BluetoothChatFragment.class);
-        e_Activity.startActivity(serverIntent);
+        //e_Activity.startActivityForResult(serverIntent,79979);
+		e_Activity.startActivity(serverIntent);
 	}
 
 	public static void	BluetoothShutDown()
@@ -66,7 +67,7 @@ public class BluetoothChatFragment extends FragmentActivity
 		BluetoothChatFragment.ShutBluetoothService();
 	}
 
-	public static void	SendBuffer(byte[] buffer)
+	public static void	BluetoothSendBuffer(byte[] buffer)
 	{
 		if(mChatService != null)
 		{
@@ -272,6 +273,7 @@ public class BluetoothChatFragment extends FragmentActivity
                 if (resultCode == Activity.RESULT_OK) 
 				{
                     connectDevice(data, true);
+					this.finish();
                 }
                 break;
             case REQUEST_CONNECT_DEVICE_INSECURE:
@@ -279,6 +281,7 @@ public class BluetoothChatFragment extends FragmentActivity
                 if (resultCode == Activity.RESULT_OK) 
 				{
                     connectDevice(data, false);
+					this.finish();
                 }
                 break;
             case REQUEST_ENABLE_BT:

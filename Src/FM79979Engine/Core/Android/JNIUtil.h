@@ -38,8 +38,8 @@ namespace FATMING_CORE
 	std::wstring JavaToWchar(JNIEnv *env, jstring string);
 	jstring WcharToJava(JNIEnv *env,const WCHAR*e_str);
 	//https://stackoverflow.com/questions/16667029/a-correct-way-to-convert-byte-in-java-to-unsigned-char-in-c-and-vice-versa
-	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len, sJNIUtilData*e_pJNIUtilData = g_pMainThreadJNIUtilData);
-	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, sJNIUtilData*e_pJNIUtilData = g_pMainThreadJNIUtilData);
+	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len,JNIEnv*e_pJNIEnv);
+	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, JNIEnv*e_pJNIEnv);
 
 
 	bool	OpenURL(const char*e_strURL,sJNIUtilData*e_pJNIUtilData = g_pMainThreadJNIUtilData);

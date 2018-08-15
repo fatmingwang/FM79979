@@ -325,7 +325,10 @@ void Engine::handleCommand(int cmd)
             if (mGameplayMode)
 				setGameplayMode(false);
             break;
-
+		case APP_CMD_START:
+			if (mGameplayMode)
+				setGameplayMode(true);
+			break;
 		// ICS does not appear to require this, but on GB phones,
 		// not having this causes rotation changes to be delayed or
 		// ignored when we're in a non-rendering mode like autopause.
@@ -408,5 +411,5 @@ bool Engine::launchURL(const char* url)
 void Engine::setGameplayMode(bool running)
 {
 	mGameplayMode = running;
-	cGameApp::m_sbGamePause = !running;
+	cGameApp::m_sbGamePause = !running;	
 }

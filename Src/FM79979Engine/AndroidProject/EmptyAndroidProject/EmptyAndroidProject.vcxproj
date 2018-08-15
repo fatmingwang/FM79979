@@ -189,7 +189,6 @@
     <JCompile Include="src\util\ZipUtilActivity.java" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\BluetoothUtility.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Android.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Win.cpp" />

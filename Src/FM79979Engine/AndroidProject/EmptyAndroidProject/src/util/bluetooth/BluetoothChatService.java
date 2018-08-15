@@ -70,8 +70,15 @@ public class BluetoothChatService
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
+	//for ni
+	public static final int eBTCS_NONE = 0;
+	public static final int eBTCS_CONNECTED = 1;
+	public static final int eBTCS_CONNECT_FAILED = 2;
+	public static final int eBTCS_LOST_CONNECTION = 3;
+	public static final int eBTCS_TRYING_TO_CONNECT = 4;
 
-	public  native void		ReceivedBuffer(int e_iSize,byte[] buffer);
+	public  native void		BluetoothReceivedBuffer(int e_iSize,byte[] buffer);	
+	public  native void		BluetoothConnectResult(int e_iResult);
     /**
      * Constructor. Prepares a new BluetoothChat session.
      *
@@ -138,6 +145,7 @@ public class BluetoothChatService
      */
     public synchronized void connect(BluetoothDevice device, boolean secure) 
 	{
+		BluetoothConnectResult(eBTCS_TRYING_TO_CONNECT);
         //Log.d(TAG, "connect to: " + device);
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) 
@@ -207,6 +215,7 @@ public class BluetoothChatService
         bundle.putString(Constants.DEVICE_NAME, device.getName());
         msg.setData(bundle);
         mHandler.sendMessage(msg);
+		BluetoothConnectResult(eBTCS_CONNECTED);
     }
 
     /**
@@ -268,6 +277,7 @@ public class BluetoothChatService
      */
     private void connectionFailed() 
 	{
+		BluetoothConnectResult(eBTCS_CONNECT_FAILED);
         // Send a failure message back to the Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
@@ -285,6 +295,7 @@ public class BluetoothChatService
      */
     private void connectionLost() 
 	{
+		BluetoothConnectResult(eBTCS_LOST_CONNECTION);
         // Send a failure message back to the Activity
         Message msg = mHandler.obtainMessage(Constants.MESSAGE_TOAST);
         Bundle bundle = new Bundle();
@@ -409,6 +420,7 @@ public class BluetoothChatService
 
         public ConnectThread(BluetoothDevice device, boolean secure) 
 		{
+			BluetoothConnectResult(eBTCS_TRYING_TO_CONNECT);
             mmDevice = device;
             BluetoothSocket tmp = null;
             mSocketType = secure ? "Secure" : "Insecure";
@@ -518,7 +530,7 @@ public class BluetoothChatService
             mState = STATE_CONNECTED;
         }
 
-        public void run() 
+        public void run()
 		{
             //Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
@@ -533,7 +545,7 @@ public class BluetoothChatService
                     bytes = mmInStream.read(buffer);
                     // Send the obtained bytes to the UI Activity
                     mHandler.obtainMessage(Constants.MESSAGE_READ, bytes, -1, buffer).sendToTarget();
-					ReceivedBuffer(bytes,buffer);
+					BluetoothReceivedBuffer(bytes,buffer);
                 }
 				catch (IOException e) 
 				{
@@ -563,7 +575,8 @@ public class BluetoothChatService
             }
         }
 
-        public void cancel() {
+        public void cancel() 
+		{
             try {
                 mmSocket.close();
             }

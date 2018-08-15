@@ -34,7 +34,6 @@
     <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Win.cpp">
       <Filter>Bluetooth</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="res">
