@@ -259,6 +259,9 @@
     <Filter Include="jni\GamePlayUT\Log">
       <UniqueIdentifier>{ac6932a5-1ff4-4cc5-bf0e-182dfe9f07e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\Bluetooth">
+      <UniqueIdentifier>{7954510f-f7c0-489c-a3fc-0a1292aa4292}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -916,6 +919,15 @@
     <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp">
       <Filter>jni\Synchornization</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Bluetooth\Bluetooth_Android.cpp">
+      <Filter>jni\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Bluetooth\Bluetooth_Win.cpp">
+      <Filter>jni\Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Bluetooth\BluetoothUtility.cpp">
+      <Filter>jni\Bluetooth</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1536,6 +1548,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h">
       <Filter>jni\Synchornization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Bluetooth\Bluetooth.h">
+      <Filter>jni\Bluetooth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

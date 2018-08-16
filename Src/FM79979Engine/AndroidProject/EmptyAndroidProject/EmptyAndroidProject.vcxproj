@@ -189,9 +189,6 @@
     <JCompile Include="src\util\ZipUtilActivity.java" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\BluetoothUtility.cpp" />
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Android.cpp" />
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Win.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\GameApp.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\Sample.cpp" />
     <ClCompile Include="..\..\EmptyProject\EngineTest\stdafx.cpp" />
@@ -202,7 +199,6 @@
     <ClCompile Include="jni\MyJni.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\EmptyProject\EngineTest\Bluetooth.h" />
     <ClInclude Include="..\..\EmptyProject\EngineTest\GameApp.h" />
     <ClInclude Include="..\..\FishingFun\Win32Test\stdafx.h" />
     <ClInclude Include="jni\engine.h" />

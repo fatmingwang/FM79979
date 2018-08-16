@@ -25,15 +25,6 @@
     <ClCompile Include="..\..\EmptyProject\EngineTest\TestPhase.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\BluetoothUtility.cpp">
-      <Filter>Bluetooth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Android.cpp">
-      <Filter>Bluetooth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\EmptyProject\EngineTest\Bluetooth_Win.cpp">
-      <Filter>Bluetooth</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="res">
@@ -129,9 +120,6 @@
     <Filter Include="src\util\bluetooth">
       <UniqueIdentifier>{8b707c38-155c-4c55-b113-b21b6d55898c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bluetooth">
-      <UniqueIdentifier>{3d867e29-94aa-4a8a-a56c-169f67063f71}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="jni\engine.h">
@@ -142,9 +130,6 @@
     </ClInclude>
     <ClInclude Include="..\..\EmptyProject\EngineTest\GameApp.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\EmptyProject\EngineTest\Bluetooth.h">
-      <Filter>Bluetooth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

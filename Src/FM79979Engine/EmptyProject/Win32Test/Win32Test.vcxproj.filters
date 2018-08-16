@@ -16,9 +16,6 @@
     <Filter Include="Game">
       <UniqueIdentifier>{be06e294-40fb-4091-a0a9-3506bd3ab915}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bluetooth">
-      <UniqueIdentifier>{dd0c60a8-bd95-4a3e-9c45-91c68996dc6b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -38,12 +35,6 @@
     </ClCompile>
     <ClCompile Include="..\EngineTest\TestShader.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineTest\Bluetooth.cpp">
-      <Filter>Bluetooth</Filter>
-    </ClCompile>
-    <ClCompile Include="..\EngineTest\BluetoothUtility.cpp">
-      <Filter>Bluetooth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +58,6 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\TestShader.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="..\EngineTest\Bluetooth.h">
-      <Filter>Bluetooth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

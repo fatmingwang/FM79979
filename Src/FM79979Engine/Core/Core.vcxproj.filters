@@ -270,6 +270,9 @@
     <Filter Include="GameplayUT\Log">
       <UniqueIdentifier>{3ef73dc6-8a47-4e37-a2cf-c55e4cd54a0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Bluetooth">
+      <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -736,6 +739,15 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\Log\FMLog.cpp">
       <Filter>GameplayUT\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Bluetooth\Bluetooth_Android.cpp">
+      <Filter>Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="Bluetooth\Bluetooth_Win.cpp">
+      <Filter>Bluetooth</Filter>
+    </ClCompile>
+    <ClCompile Include="Bluetooth\BluetoothUtility.cpp">
+      <Filter>Bluetooth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1275,6 +1287,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Log\FMLog.h">
       <Filter>GameplayUT\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Bluetooth\Bluetooth.h">
+      <Filter>Bluetooth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

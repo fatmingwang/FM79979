@@ -203,8 +203,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\EngineTest\Bluetooth.cpp" />
-    <ClCompile Include="..\EngineTest\BluetoothUtility.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -218,7 +216,6 @@
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\EngineTest\Bluetooth.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />

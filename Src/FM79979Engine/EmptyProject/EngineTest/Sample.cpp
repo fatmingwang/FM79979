@@ -4,7 +4,7 @@
 #include "../../Core/GLSL/TunnelEffect.h"
 #include "TestShader.h"
 
-//#include "Bluetooth.h"
+#include "../../Core/Bluetooth/Bluetooth.h"
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
@@ -61,7 +61,7 @@ void	LoadSample()
 {
 	//cBluetoothSinglton::GetInstance()->Init();
 	//cBluetoothSinglton::GetInstance()->CreateAsServer(L"FMWin10");
-	//cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
+	cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
@@ -214,6 +214,17 @@ void	DestorySampleObject()
 
 void	SampleUpdate(float e_fElpaseTime)
 {
+	cBluetoothSinglton::GetInstance()->Update(e_fElpaseTime);
+	std::vector<sBluetoothPacket*> l_DataVector;
+	cBluetoothSinglton::GetInstance()->GetReceivedData(&l_DataVector);
+	if (l_DataVector.size())
+	{
+		for (size_t i = 0; i < l_DataVector.size(); i++)
+		{
+			auto l_Data = l_DataVector[i];
+			delete l_Data;
+		}
+	}
 	MyGlErrorTest("SampleUpdate start");
 	if (cGameApp::m_spSoundParser)
 		cGameApp::m_spSoundParser->Update(0.016f);
@@ -432,6 +443,8 @@ void	SampleRender()
 		POINT l_SizePos = { (long)cGameApp::m_svGameResolution.x,(long)cGameApp::m_svGameResolution.y };
 		g_pFrameBuffer->DrawBuffer(l_Pos, l_SizePos);
 	}
+
+	cBluetoothSinglton::GetInstance()->Render(400, 400);
 }
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY)
@@ -457,6 +470,8 @@ void	SampleMouseUp(int e_iPosX,int e_iPosY)
 	{
 		g_pCameraZoomFunction->MouseUp(e_iPosX,e_iPosY);
 	}
+	char l_Data[5] = {5,4,3,2,1};
+	cBluetoothSinglton::GetInstance()->SendDataToServer(5, l_Data);
 }
 
 void	SampleKeyup(char e_cKey)

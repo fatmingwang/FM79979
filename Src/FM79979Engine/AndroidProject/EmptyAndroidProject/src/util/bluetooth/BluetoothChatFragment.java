@@ -182,12 +182,6 @@ public class BluetoothChatFragment extends FragmentActivity
         }
     }
 
-    //@Override
-    //public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) 
-	//{
-        //return inflater.inflate(R.layout.fragment_bluetooth_chat, container, false);
-    //}
-
     /**
      * Makes this device discoverable for 300 seconds (5 minutes).
      */
@@ -264,7 +258,7 @@ public class BluetoothChatFragment extends FragmentActivity
         }
     };
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) 
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
         switch (requestCode) 
 		{
@@ -309,7 +303,7 @@ public class BluetoothChatFragment extends FragmentActivity
      * @param data   An {@link Intent} with {@link DeviceListActivity#EXTRA_DEVICE_ADDRESS} extra.
      * @param secure Socket Security type - Secure (true) , Insecure (false)
      */
-    private void connectDevice(Intent data, boolean secure) 
+    private void connectDevice(Intent data, boolean secure)
 	{
         // Get the device MAC address
         String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);

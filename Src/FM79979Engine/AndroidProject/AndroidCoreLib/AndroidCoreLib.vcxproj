@@ -93,6 +93,9 @@
     </AntBuild>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Core\Bluetooth\BluetoothUtility.cpp" />
+    <ClCompile Include="..\..\Core\Bluetooth\Bluetooth_Android.cpp" />
+    <ClCompile Include="..\..\Core\Bluetooth\Bluetooth_Win.cpp" />
     <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp" />
@@ -336,6 +339,7 @@
     <ClInclude Include="..\..\Core\Android\nv_native_app_glue.h" />
     <ClInclude Include="..\..\Core\Android\nv_types.h" />
     <ClInclude Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.h" />
+    <ClInclude Include="..\..\Core\Bluetooth\Bluetooth.h" />
     <ClInclude Include="..\..\Core\Camera\CameraAnimation.h" />
     <ClInclude Include="..\..\Core\Camera\DrawSelectRectangleByMouse.h" />
     <ClInclude Include="..\..\Core\Camera\MouseCamera.h" />

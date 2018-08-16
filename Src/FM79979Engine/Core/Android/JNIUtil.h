@@ -2,7 +2,7 @@
 
 #ifndef _JNI_UTIL_H_
 #define _JNI_UTIL_H_
-
+#include "jni.h"
 namespace FATMING_CORE
 {
 	struct sJNIUtilData

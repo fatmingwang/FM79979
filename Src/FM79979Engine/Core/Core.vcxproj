@@ -132,6 +132,9 @@
     <Lib />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bluetooth\BluetoothUtility.cpp" />
+    <ClCompile Include="Bluetooth\Bluetooth_Android.cpp" />
+    <ClCompile Include="Bluetooth\Bluetooth_Win.cpp" />
     <ClCompile Include="Camera\OrthogonalCamera.cpp" />
     <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp" />
@@ -290,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h" />
+    <ClInclude Include="Bluetooth\Bluetooth.h" />
     <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
