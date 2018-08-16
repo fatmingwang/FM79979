@@ -25,7 +25,7 @@ namespace FATMING_CORE
 
 
 	TYPDE_DEFINE_MARCO(cBluetoothSinglton)
-		sBluetoothPacket::sBluetoothPacket(int e_iSize, char*e_pData)
+	sBluetoothPacket::sBluetoothPacket(int e_iSize, char*e_pData)
 	{
 		pData = new char[e_iSize];
 		iSize = e_iSize;

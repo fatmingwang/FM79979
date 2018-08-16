@@ -362,6 +362,8 @@ namespace FATMING_CORE
 					l_pSDLNet_Socket->channel = l_pClientSocket;
 					l_pSDLNet_Socket->ready = 0;
 					m_ConnectedSocketVector.push_back(l_pSDLNet_Socket);
+					if (m_ClientConnectionAddFunction)
+						m_ClientConnectionAddFunction(l_pSDLNet_Socket);
 				}
 			}
 			//
@@ -391,10 +393,14 @@ namespace FATMING_CORE
 					{
 					case 0: // socket connection has been closed gracefully
 					{
-						closesocket(l_pSocket->channel);
-						cPP11MutexHolder l_cPP11MutexHolder(m_BluetoothSocketVectorMutex);
-						delete l_pSocket;
-						m_ConnectedSocketVector.erase(m_ConnectedSocketVector.begin() + i);
+						{
+							cPP11MutexHolder l_cPP11MutexHolder(m_BluetoothSocketVectorMutex);
+							if (m_ClientConnectionLostFunction)
+								m_ClientConnectionLostFunction(l_pSocket);
+							closesocket(l_pSocket->channel);
+							delete l_pSocket;
+							m_ConnectedSocketVector.erase(m_ConnectedSocketVector.begin() + i);
+						}
 						--i;
 						--l_uiSize;
 					}
@@ -417,6 +423,8 @@ namespace FATMING_CORE
 	FAILED:
 		//
 		m_bLeaveThread = true;
+		if (m_ConnectionLostFunction)
+			m_ConnectionLostFunction(&m_LocalSocket);
 		size_t l_uiSize = m_ConnectedSocketVector.size();
 		for (size_t i = 0; i < l_uiSize; i++)
 		{
@@ -456,6 +464,8 @@ namespace FATMING_CORE
 			}
 		}
 	FAILED:
+		if (m_ConnectionLostFunction)
+			m_ConnectionLostFunction(&m_LocalSocket);
 		closesocket(this->m_LocalSocket.channel);
 		m_LocalSocket.channel = INVALID_SOCKET;
 		m_bLeaveThread = true;

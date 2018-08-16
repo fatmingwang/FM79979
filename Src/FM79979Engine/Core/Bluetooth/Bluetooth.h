@@ -9,6 +9,7 @@ DEFINE_GUID(GUID_DEVCLASS_BLUETOOTH, { 0xe0cbf06c, 0xcd8b, 0x4647,{ 0xbb, 0x8a, 
 #endif
 namespace FATMING_CORE
 {
+	typedef std::function<void(SDLNet_Socket*)>		f_SocketFunction;
 	enum eBluetoothConnectionStatus
 	{
 		eBTCS_NONE = 0,
@@ -57,24 +58,36 @@ namespace FATMING_CORE
 		//
 		cBluetoothSinglton();
 		~cBluetoothSinglton();
+		//only support windows for now,because I am lazy
+		f_SocketFunction				m_ClientConnectionLostFunction;
+		f_SocketFunction				m_ClientConnectionAddFunction;
+		f_SocketFunction				m_ConnectionLostFunction;
 	public:
 		SINGLETON_BASIC_FUNCTION(cBluetoothSinglton);
 		DEFINE_TYPE_INFO();
-		void	Init();
-		void	Update(float e_fElpaseTime);
-		void	Render(int e_iPosX, int e_iPosY);
+		void						Init();
+		void						Update(float e_fElpaseTime);
+		void						Render(int e_iPosX, int e_iPosY);
 		//
-		bool	CreateAsServer(const wchar_t*e_strServerName);
-		bool	CreateAsClient(const wchar_t*e_strServerName);
-		void	Disconnect();
-		void	GetReceivedData(std::vector<sBluetoothPacket*>*e_pDataVector);
-		void	FindDevices();
-		void	SendDataToAllClient(int e_iLength, char*e_pData);
-		void	SendDataToServer(int e_iLength, char*e_pData);
-		void	DebugRender();
-		void	SetBluetoothConnectionStatus(eBluetoothConnectionStatus e_eBluetoothConnectionStatus) { m_eBluetoothConnectionStatus = e_eBluetoothConnectionStatus; }
+		bool						CreateAsServer(const wchar_t*e_strServerName);
+		bool						CreateAsClient(const wchar_t*e_strServerName);
+		void						Disconnect();
+		void						GetReceivedData(std::vector<sBluetoothPacket*>*e_pDataVector);
+		void						FindDevices();
+		void						SendDataToAllClient(int e_iLength, char*e_pData);
+		void						SendDataToServer(int e_iLength, char*e_pData);
+		void						DebugRender();
+		void						SetBluetoothConnectionStatus(eBluetoothConnectionStatus e_eBluetoothConnectionStatus) { m_eBluetoothConnectionStatus = e_eBluetoothConnectionStatus; }
+		eBluetoothConnectionStatus	GetBluetoothConnectionStatus() {return m_eBluetoothConnectionStatus;}
+		//only support windows for now,because I am lazy
+		void						SetSocketFunction(f_SocketFunction e_fClientAdd, f_SocketFunction e_fClientLost, f_SocketFunction e_fConnectionLost)
+		{
+			m_ClientConnectionLostFunction = e_fClientLost;
+			m_ClientConnectionAddFunction = e_fClientAdd;
+			m_ConnectionLostFunction = e_fConnectionLost;
+		}
 #ifdef ANDROID
-		void	Android_AddBluetoothPacket(int e_iSize, char*e_pData);
+		void						Android_AddBluetoothPacket(int e_iSize, char*e_pData);
 #endif
 	};
 }
