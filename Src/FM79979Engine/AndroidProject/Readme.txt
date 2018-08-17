@@ -16,3 +16,7 @@ if cannt start ensure
 project name as same as below System.loadLibrary
 ex:
 System.loadLibrary("MusicGame");
+
+
+if cann found android-support-v4.jar
+please copy android-support-v4.jar under folder ProjectName/libs
