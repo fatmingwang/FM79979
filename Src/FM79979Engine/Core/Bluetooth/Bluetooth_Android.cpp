@@ -17,8 +17,37 @@ namespace FATMING_CORE
 	//0 for nothing,1 for connected,2 for connect failed,3 for lost connection.
 	void BluetoothConnectResult(JNIEnv *env, jobject obj, jint e_iResult)
 	{
+		//eBTCS_CONNECTED,
+		//eBTCS_CONNECT_FAILED,
+		//eBTCS_LOST_CONNECTION,
+		//eBTCS_TRYING_TO_CONNECT,
+		//eBTCS_SELECT_DEVICE,
 		cBluetoothSinglton*l_pBluetoothSinglton = cBluetoothSinglton::GetInstance();
-		l_pBluetoothSinglton->SetBluetoothConnectionStatus((eBluetoothConnectionStatus)e_iResult);
+		l_pBluetoothSinglton->m_eBluetoothConnectionStatus = (eBluetoothConnectionStatus)e_iResult;
+		if (l_pBluetoothSinglton->m_eBluetoothConnectionStatus == eBTCS_CONNECTED)
+		{
+			if (l_pBluetoothSinglton->m_ConnectionConnectedFunction)
+			{
+				l_pBluetoothSinglton->m_ConnectionConnectedFunction(nullptr);
+			}
+		}
+		else
+		if (l_pBluetoothSinglton->m_eBluetoothConnectionStatus == eBTCS_CONNECT_FAILED || 
+			l_pBluetoothSinglton->m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)
+		{
+			if (l_pBluetoothSinglton->m_ConnectionLostFunction)
+			{
+				l_pBluetoothSinglton->m_ConnectionLostFunction(nullptr);
+			}
+		}
+		//else
+		//if (l_pBluetoothSinglton->m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)
+		//{
+		//	if (l_pBluetoothSinglton->m_ConnectionLostFunction)
+		//	{
+		//		l_pBluetoothSinglton->m_ConnectionLostFunction(nullptr);
+		//	}
+		//}
 	}
 
 
@@ -39,6 +68,10 @@ namespace FATMING_CORE
 
 	cBluetoothSinglton::cBluetoothSinglton()
 	{
+		m_ClientConnectionLostFunction = nullptr;
+		m_ClientConnectionAddFunction = nullptr;//windows only
+		m_ConnectionLostFunction = nullptr;
+		m_ConnectionConnectedFunction = nullptr;
 		m_eBluetoothConnectionStatus = eBTCS_NONE;
 		m_pAllSocketToListenClientMessage = nullptr;
 		m_LocalSocket.channel = INVALID_SOCKET;

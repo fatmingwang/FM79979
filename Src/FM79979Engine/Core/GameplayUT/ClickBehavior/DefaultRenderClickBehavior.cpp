@@ -19,6 +19,20 @@ namespace FATMING_CORE
 	{
 		m_pRenderObject = e_pRenderObject;
 	}
+
+	void		cDefaultRenderClickBehavior::SetEnableAndImageStatus(bool e_bEnable, Vector4 e_vColor)
+	{
+		this->SetEnable(e_bEnable);
+		if(m_pRenderObject)
+		{
+			if (e_vColor.a == 0.f)
+				m_pRenderObject->SetVisible(false);
+			else
+				m_pRenderObject->SetVisible(true);
+			m_pRenderObject->SetColor(e_vColor);
+		}
+	}
+
     cClickBehavior*    cDefaultRenderClickBehavior::MouseDown(int e_iPosX,int e_iPosY)
 	{
 		auto l_Result = cClickBehavior::MouseDown(e_iPosX,e_iPosY);

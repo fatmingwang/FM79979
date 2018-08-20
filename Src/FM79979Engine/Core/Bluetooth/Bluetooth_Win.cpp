@@ -99,6 +99,10 @@ namespace FATMING_CORE
 
 	cBluetoothSinglton::cBluetoothSinglton()
 	{
+		m_ClientConnectionLostFunction = nullptr;
+		m_ClientConnectionAddFunction = nullptr;//windows only
+		m_ConnectionLostFunction = nullptr;
+		m_ConnectionConnectedFunction = nullptr;
 		m_pAllSocketToListenClientMessage = nullptr;
 		m_LocalSocket.channel = INVALID_SOCKET;
 		m_LocalSocket.ready = false;
@@ -264,6 +268,8 @@ namespace FATMING_CORE
 				RemoteBthAddr.port = 0;
 				if (connect(m_LocalSocket.channel, (struct sockaddr *) &RemoteBthAddr, sizeof(SOCKADDR_BTH)) != SOCKET_ERROR)
 				{
+					if(m_ConnectionConnectedFunction)
+						m_ConnectionConnectedFunction(&m_LocalSocket);
 					f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cBluetoothSinglton::ClientUpdate, this, std::placeholders::_1);
 					ThreadDetach(l_f_ThreadWorkingFunction);
 					return true;

@@ -7,6 +7,9 @@
 //https://code.msdn.microsoft.com/windowsdesktop/Bluetooth-Connection-e3263296
 DEFINE_GUID(GUID_DEVCLASS_BLUETOOTH, { 0xe0cbf06c, 0xcd8b, 0x4647,{ 0xbb, 0x8a, 0x26, 0x3b, 0x43, 0xf0, 0xf9, 0x74 } });
 #endif
+#ifdef ANDROID
+#include "../Android/JNIUtil.h"
+#endif
 namespace FATMING_CORE
 {
 	typedef std::function<void(SDLNet_Socket*)>		f_SocketFunction;
@@ -14,7 +17,7 @@ namespace FATMING_CORE
 	{
 		eBTCS_NONE = 0,
 		eBTCS_CONNECTED,
-		eBTCS_CONNECT_FAILED,
+		eBTCS_CONNECT_FAILED,//no bluetooth device
 		eBTCS_LOST_CONNECTION,
 		eBTCS_TRYING_TO_CONNECT,
 		eBTCS_SELECT_DEVICE,
@@ -58,10 +61,14 @@ namespace FATMING_CORE
 		//
 		cBluetoothSinglton();
 		~cBluetoothSinglton();
-		//only support windows for now,because I am lazy
-		f_SocketFunction				m_ClientConnectionLostFunction;
-		f_SocketFunction				m_ClientConnectionAddFunction;
-		f_SocketFunction				m_ConnectionLostFunction;
+		//
+		f_SocketFunction				m_ClientConnectionLostFunction;//windows only
+		f_SocketFunction				m_ClientConnectionAddFunction;//windows only
+		f_SocketFunction				m_ConnectionLostFunction;//disconnect from server
+		f_SocketFunction				m_ConnectionConnectedFunction;
+#ifdef ANDROID
+		friend void BluetoothConnectResult(JNIEnv *env, jobject obj, jint e_iResult);
+#endif
 	public:
 		SINGLETON_BASIC_FUNCTION(cBluetoothSinglton);
 		DEFINE_TYPE_INFO();
@@ -77,14 +84,14 @@ namespace FATMING_CORE
 		void						SendDataToAllClient(int e_iLength, char*e_pData);
 		void						SendDataToServer(int e_iLength, char*e_pData);
 		void						DebugRender();
-		void						SetBluetoothConnectionStatus(eBluetoothConnectionStatus e_eBluetoothConnectionStatus) { m_eBluetoothConnectionStatus = e_eBluetoothConnectionStatus; }
 		eBluetoothConnectionStatus	GetBluetoothConnectionStatus() {return m_eBluetoothConnectionStatus;}
 		//only support windows for now,because I am lazy
-		void						SetSocketFunction(f_SocketFunction e_fClientAdd, f_SocketFunction e_fClientLost, f_SocketFunction e_fConnectionLost)
+		void						SetSocketFunction(f_SocketFunction e_fClientAdd, f_SocketFunction e_fClientLost, f_SocketFunction e_fConnectionLost, f_SocketFunction e_ConnectionConnectedFunction)
 		{
 			m_ClientConnectionLostFunction = e_fClientLost;
 			m_ClientConnectionAddFunction = e_fClientAdd;
 			m_ConnectionLostFunction = e_fConnectionLost;
+			m_ConnectionConnectedFunction = e_ConnectionConnectedFunction;
 		}
 #ifdef ANDROID
 		void						Android_AddBluetoothPacket(int e_iSize, char*e_pData);

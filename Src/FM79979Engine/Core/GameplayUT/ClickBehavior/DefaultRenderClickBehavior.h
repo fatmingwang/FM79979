@@ -25,9 +25,10 @@ namespace FATMING_CORE
 		cDefaultRenderClickBehavior();
 		~cDefaultRenderClickBehavior();
 		DEFINE_TYPE_INFO()
-		virtual void			Update(float e_fElpaseTime)override;
-		cRenderObject*	GetRenderObject(){ return m_pRenderObject;}
-		void			SetRenderObject(cRenderObject*e_pRenderObject);
+		virtual void		Update(float e_fElpaseTime)override;
+		cRenderObject*		GetRenderObject(){ return m_pRenderObject;}
+		void				SetRenderObject(cRenderObject*e_pRenderObject);
+		void				SetEnableAndImageStatus(bool e_bEnable,Vector4 e_vColor);//if Color alpha is 0 set visible to false else to true
 	};
 //end namespace FATMING_CORE
 }
