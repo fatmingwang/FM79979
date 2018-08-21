@@ -176,7 +176,9 @@ namespace MPDI
 		m_pMPDIUI->GreenColor_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::AlphaColor_numericUpDown_ValueChanged);
 		m_pMPDIUI->AlphaColor_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::AlphaColor_numericUpDown_ValueChanged);
 		m_pMPDIUI->BlueColor_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::AlphaColor_numericUpDown_ValueChanged);
-		//m_pMPDIUI->StayAtLastFrame_checkBox->CheckedChanged += gcnew System::EventHandler(this, &MPDIEditor::Play_checkBox_CheckedChanged);
+		//don't need this.
+		//m_pMPDIUI->SubMPDI_StayAtLastFrame_checkBox->CheckedChanged += gcnew System::EventHandler(this, &MPDIEditor::Play_checkBox_CheckedChanged);
+		m_pMPDIUI->SubMPDI_StayAtLastFrame_checkBox->Visible = false;
 		m_pMPDIUI->InvertPath_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddPath_button_Click);
 		m_pMPDIUI->PathNodePosX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::AlphaColor_numericUpDown_ValueChanged);
 		m_pMPDIUI->PathNodePosY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &MPDIEditor::AlphaColor_numericUpDown_ValueChanged);

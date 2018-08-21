@@ -290,7 +290,6 @@ namespace MPDI
 				m_pMPDIUI->RotationPosOffset_xyzNumeriaclContro->SetValue(m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetRotationAnglePosOffset());
 			}
 			m_pMPDIUI->PathLOD_numericUpDown->Value = l_cCurveWithTime->GetLOD();
-			StayAtLastFrame_checkBox->Checked = m_pMultiPathDynamicImageAWP->IsStayAtLastFrame();
 			m_pMPDIUI->PathNode_listBox->Items->Clear();
 			int	l_iNum = (int)l_PointList.size();
 			for( int i=0;i<l_iNum;++i )
@@ -389,7 +388,6 @@ namespace MPDI
 			m_pMPDIUI->PathNodeTime_numericUpDown->Value = (int)l_Value;
 			m_pMPDIUI->StartTime_numericUpDown->Value = (int)(m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetStartTime()*1000);
 			m_pMPDIUI->BehaviorUpdateActive_checkBox->Checked = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->IsBehaviorUpdateActive();
-
 			if( sender == AddShowImageOnScreenObject_button )
 			{
 				for each( int l_iIndex in m_pMPDIUI->PathNode_listBox->SelectedIndices )
@@ -1733,6 +1731,8 @@ namespace MPDI
 						 m_pMPDIUI->TotalPlayTime_numericUpDown->Value = (int)((l_pMPDI->GetObject(0)->GetEndTime()-l_pMPDI->GetObject(0)->GetStartTime())*1000);
 					 }
 					 m_pMultiPathDynamicImageAWP = new cMPDIForEditor(m_pMPDIList->GetObject(WholeAnimationList_listBox->SelectedIndex));
+					 bool l_bStayAtLastFrame = m_pMultiPathDynamicImageAWP->IsStayAtLastFrame();
+					 StayAtLastFrame_checkBox->Checked = l_bStayAtLastFrame;
 					 Vector3 scale; Vector3 rotation; Vector3 translation; float inverted;
 					 CameraRotationX_numericUpDown->Value = (int)0;
 					 CameraRotationY_numericUpDown->Value = (int)0;
@@ -2495,7 +2495,7 @@ namespace MPDI
 			 }
 	System::Void MPDIEditor::BehaviorUpdateActive_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 			 {
-				 if( m_pMultiPathDynamicImageAWP->m_pCurrentCurve )
+				 if(m_pMultiPathDynamicImageAWP && m_pMultiPathDynamicImageAWP->m_pCurrentCurve )
 					m_pMultiPathDynamicImageAWP->m_pCurrentCurve->SetBehaviorUpdateActive( m_pMPDIUI->BehaviorUpdateActive_checkBox->Checked );
 			 }
 
