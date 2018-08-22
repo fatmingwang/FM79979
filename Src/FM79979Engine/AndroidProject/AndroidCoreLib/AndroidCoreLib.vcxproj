@@ -103,6 +103,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
     <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp" />
@@ -417,6 +418,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\Sliderbar.h" />
     <ClInclude Include="..\..\Core\GameplayUT\StringCompress.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Tabpage.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.h" />
     <ClInclude Include="..\..\Core\Glh.h" />
     <ClInclude Include="..\..\Core\GLSL\Blur.h" />
     <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h" />

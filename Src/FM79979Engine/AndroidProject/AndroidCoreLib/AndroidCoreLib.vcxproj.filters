@@ -262,6 +262,9 @@
     <Filter Include="jni\Bluetooth">
       <UniqueIdentifier>{7954510f-f7c0-489c-a3fc-0a1292aa4292}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\GamePlayUT\Binary\WriteFileWithThread">
+      <UniqueIdentifier>{ed19ac6e-243e-462d-b4eb-dfa184cd3071}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -928,6 +931,9 @@
     <ClCompile Include="..\..\Core\Bluetooth\BluetoothUtility.cpp">
       <Filter>jni\Bluetooth</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.cpp">
+      <Filter>jni\GamePlayUT\Binary\WriteFileWithThread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1551,6 +1557,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Bluetooth\Bluetooth.h">
       <Filter>jni\Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.h">
+      <Filter>jni\GamePlayUT\Binary\WriteFileWithThread</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
