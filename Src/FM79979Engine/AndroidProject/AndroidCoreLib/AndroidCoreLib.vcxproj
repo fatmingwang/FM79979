@@ -102,6 +102,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\Language\LanguageFile.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.cpp" />
     <ClCompile Include="..\..\Core\GLSL\Blur.cpp" />
@@ -399,6 +400,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\GameUTDefine.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ImageButton.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ImageWithSlider.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Language\LanguageFile.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ListValueChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Log\FMLog.h" />
     <ClInclude Include="..\..\Core\GameplayUT\Mouse_Touch.h" />

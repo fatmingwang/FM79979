@@ -350,7 +350,8 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 #if defined(ANDROID) || defined(WASM)
 						std::string	l_strTemp;
 					    char*l_strPIName = 0;
-					    char   l_strOriginalName[MAX_PATH];
+						//I did't expect someone put over 15 pi at same file...
+					    char   l_strOriginalName[TEMP_SIZE];
 						sprintf(l_strOriginalName,"%s",UT::WcharToChar(l_strValue).c_str());
 					    int l_iTotalLength = 0;
 					    if( l_iPICount > 1 )

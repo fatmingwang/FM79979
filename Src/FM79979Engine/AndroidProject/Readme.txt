@@ -20,3 +20,9 @@ System.loadLibrary("MusicGame");
 
 if cann found android-support-v4.jar
 please copy android-support-v4.jar under folder ProjectName/libs
+
+
+if something is fucking weired
+please check the project has predefined
+
+DEBUG
