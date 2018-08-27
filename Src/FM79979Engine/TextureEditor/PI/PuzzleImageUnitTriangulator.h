@@ -1,5 +1,4 @@
 #pragma once
-#include "poly2tri\poly2tri.h"
 //vector<p2t::Point*>*polyline = new vector<p2t::Point*>;
 //polyline->push_back(new p2t::Point(0, 0));
 //polyline->push_back(new p2t::Point(10, 0));
@@ -29,6 +28,7 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	GET_SET_DEC(cUIImage*,m_pTargetImage,GetTargetImage,SetTargetImage);
 	int							GetClosestPoint(Vector2 e_vPos);
 	int							m_iFocusPoint;				//which one point is closest point
+	bool						m_bWaitForGenerateTriangle;
 	void						GenerateTriangle();
 	sMouseMoveData				m_MouseMoveData;
 	enum eMouseBehavior

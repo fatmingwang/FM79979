@@ -8,10 +8,6 @@
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
 #include "../../../include/vld.h"
-#include "EarClipping.h"
-#include "poly2tri\poly2tri.h"
-
-using namespace p2t;
 //#pragma comment(lib, "../../../lib/vld.lib")
 
 using namespace System::Drawing::Imaging;

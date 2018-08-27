@@ -16,20 +16,11 @@
     <Filter Include="Pack">
       <UniqueIdentifier>{1f3e35be-646b-48c5-b4f8-86d6d6457dc3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="EarClipping">
-      <UniqueIdentifier>{1a58af3a-f99e-4b5a-8bcc-a1b53fa88f39}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Poly2Tri">
-      <UniqueIdentifier>{0ec8e56c-7954-4ab3-8d18-8f91ca9f13bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Poly2Tri\common">
-      <UniqueIdentifier>{0c0657b7-021d-4b9d-b5dc-ff444a486cae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Poly2Tri\sweep">
-      <UniqueIdentifier>{3578fe5a-45d1-4d69-b316-97777e34f625}</UniqueIdentifier>
-    </Filter>
     <Filter Include="PIUnitTriangulator">
       <UniqueIdentifier>{1d2d86fc-dc6c-43ba-a597-759d2b1281e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="delaunay_triangulation">
+      <UniqueIdentifier>{e9138440-6792-4c42-921b-9a349d6c995b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -44,24 +35,6 @@
     </ClCompile>
     <ClCompile Include="pack.cpp">
       <Filter>Pack</Filter>
-    </ClCompile>
-    <ClCompile Include="EarClipping.cpp">
-      <Filter>EarClipping</Filter>
-    </ClCompile>
-    <ClCompile Include="poly2tri\common\shapes.cpp">
-      <Filter>Poly2Tri\common</Filter>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\advancing_front.cpp">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\cdt.cpp">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\sweep.cpp">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\sweep_context.cpp">
-      <Filter>Poly2Tri\sweep</Filter>
     </ClCompile>
     <ClCompile Include="PuzzleImageUnitTriangulator.cpp">
       <Filter>PIUnitTriangulator</Filter>
@@ -83,35 +56,23 @@
     <ClInclude Include="BinPack.h">
       <Filter>Pack</Filter>
     </ClInclude>
-    <ClInclude Include="earcut.hpp">
-      <Filter>EarClipping</Filter>
-    </ClInclude>
-    <ClInclude Include="EarClipping.h">
-      <Filter>EarClipping</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\common\shapes.h">
-      <Filter>Poly2Tri\common</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\common\utils.h">
-      <Filter>Poly2Tri\common</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\sweep\advancing_front.h">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\sweep\cdt.h">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\sweep\sweep.h">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\sweep\sweep_context.h">
-      <Filter>Poly2Tri\sweep</Filter>
-    </ClInclude>
-    <ClInclude Include="poly2tri\poly2tri.h">
-      <Filter>Poly2Tri</Filter>
-    </ClInclude>
     <ClInclude Include="PuzzleImageUnitTriangulator.h">
       <Filter>PIUnitTriangulator</Filter>
+    </ClInclude>
+    <ClInclude Include="delaunay_triangulation\delaunay.h">
+      <Filter>delaunay_triangulation</Filter>
+    </ClInclude>
+    <ClInclude Include="delaunay_triangulation\DelaunayVector2.h">
+      <Filter>delaunay_triangulation</Filter>
+    </ClInclude>
+    <ClInclude Include="delaunay_triangulation\edge.h">
+      <Filter>delaunay_triangulation</Filter>
+    </ClInclude>
+    <ClInclude Include="delaunay_triangulation\triangle.h">
+      <Filter>delaunay_triangulation</Filter>
+    </ClInclude>
+    <ClInclude Include="delaunay_triangulation\numeric.h">
+      <Filter>delaunay_triangulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

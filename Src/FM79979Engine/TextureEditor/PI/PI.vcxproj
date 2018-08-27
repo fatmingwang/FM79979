@@ -148,27 +148,9 @@
     <ClCompile Include="AssemblyInfo.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
     </ClCompile>
-    <ClCompile Include="EarClipping.cpp" />
     <ClCompile Include="pack.cpp" />
     <ClCompile Include="PI.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
-    </ClCompile>
-    <ClCompile Include="poly2tri\common\shapes.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\advancing_front.cpp" />
-    <ClCompile Include="poly2tri\sweep\cdt.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\sweep.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="poly2tri\sweep\sweep_context.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -179,19 +161,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinPack.h" />
-    <ClInclude Include="EarClipping.h" />
-    <ClInclude Include="earcut.hpp" />
+    <ClInclude Include="delaunay_triangulation\delaunay.h" />
+    <ClInclude Include="delaunay_triangulation\DelaunayVector2.h" />
+    <ClInclude Include="delaunay_triangulation\edge.h" />
+    <ClInclude Include="delaunay_triangulation\numeric.h" />
+    <ClInclude Include="delaunay_triangulation\triangle.h" />
     <ClInclude Include="pack.h" />
     <ClInclude Include="PIForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="poly2tri\common\shapes.h" />
-    <ClInclude Include="poly2tri\common\utils.h" />
-    <ClInclude Include="poly2tri\poly2tri.h" />
-    <ClInclude Include="poly2tri\sweep\advancing_front.h" />
-    <ClInclude Include="poly2tri\sweep\cdt.h" />
-    <ClInclude Include="poly2tri\sweep\sweep.h" />
-    <ClInclude Include="poly2tri\sweep\sweep_context.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="PuzzleImageUnitTriangulator.h" />
