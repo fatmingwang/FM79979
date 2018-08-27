@@ -390,8 +390,8 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 						}
 #else
 					    wchar_t*l_strPIName = 0;
-					    wchar_t   l_strOriginalName[MAX_PATH];
-					    swprintf(l_strOriginalName,MAX_PATH,L"%ls\0",l_strValue);
+					    wchar_t   l_strOriginalName[TEMP_SIZE];
+					    swprintf(l_strOriginalName,TEMP_SIZE,L"%ls\0",l_strValue);
 					    int l_iTotalLength = 0;
 					    if( l_iPICount > 1 )
 					    {
