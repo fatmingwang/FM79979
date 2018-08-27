@@ -130,6 +130,7 @@ namespace FATMING_CORE
 		if (m_TimeToWriteFile.bTragetTimrReached)
 		{
 			WriteFile();
+			m_TimeToWriteFile.Start();
 		}
 	}
 
