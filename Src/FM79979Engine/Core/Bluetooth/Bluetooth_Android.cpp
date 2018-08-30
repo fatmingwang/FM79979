@@ -68,6 +68,7 @@ namespace FATMING_CORE
 
 	cBluetoothSinglton::cBluetoothSinglton()
 	{
+		BluetoothStatusMPDIResourceCreate();
 		m_ClientConnectionLostFunction = nullptr;
 		m_ClientConnectionAddFunction = nullptr;//windows only
 		m_ConnectionLostFunction = nullptr;
@@ -87,8 +88,36 @@ namespace FATMING_CORE
 
 	cBluetoothSinglton::~cBluetoothSinglton()
 	{
+		BluetoothStatusMPDIResourceDelete();
 		Disconnect();
 		CallStaticVoidMethod1("BluetoothChatFragment", "BluetoothShutdown", "()V");
+	}
+
+	void	cBluetoothSinglton::BluetoothStatusMPDIResourceCreate()
+	{
+		for (size_t i = 0; i < eBTCS_MAX; i++)
+		{
+			m_pBluetoothStatusMPDI[i] = nullptr;
+		}
+		auto l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Bluetooth/BluetoothStatus.mpdi");
+		if (l_pMPDIList)
+		{
+			for (size_t i = 0; i < eBTCS_MAX; i++)
+			{
+				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject(i);
+				if (m_pBluetoothStatusMPDI[i])
+					m_pBluetoothStatusMPDI[i]->Init();
+			}
+		}
+	}
+
+	void	cBluetoothSinglton::BluetoothStatusMPDIResourceDelete()
+	{
+		auto l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Bluetooth/BluetoothStatus.mpdi");
+		if (l_pMPDIList)
+		{
+			cGameApp::m_spAnimationParser->RemoveObject(l_pMPDIList);
+		}
 	}
 
 	void cBluetoothSinglton::Init()
@@ -99,7 +128,8 @@ namespace FATMING_CORE
 	void cBluetoothSinglton::Update(float e_fElpaseTime)
 	{
 		if (m_eBluetoothConnectionStatus == eBTCS_CONNECT_FAILED ||
-			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)
+			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)//||
+			//m_eBluetoothConnectionStatus == eBTCS_SELECT_DEVICE)
 		{
 			static float l_fWaitSecondToGo = 0.f;
 			l_fWaitSecondToGo += 0.16f;
@@ -109,12 +139,23 @@ namespace FATMING_CORE
 				CreateAsClient(L"");
 			}
 		}
+		if (m_pBluetoothStatusMPDI[m_eBluetoothConnectionStatus])
+		{
+			m_pBluetoothStatusMPDI[m_eBluetoothConnectionStatus]->Update(e_fElpaseTime);
+		}
 	}
 
 	void	cBluetoothSinglton::Render(int e_iPosX, int e_iPosY)
 	{
-		auto l_strDescription = g_strConnectionStatus[m_eBluetoothConnectionStatus];
-		cGameApp::RenderFont(Vector2(e_iPosX, e_iPosY), l_strDescription);
+		if (m_pBluetoothStatusMPDI[m_eBluetoothConnectionStatus])
+		{
+			m_pBluetoothStatusMPDI[m_eBluetoothConnectionStatus]->Render();
+		}
+		else
+		{
+			auto l_strDescription = g_strConnectionStatus[m_eBluetoothConnectionStatus];
+			cGameApp::RenderFont(Vector2(e_iPosX, e_iPosY), l_strDescription);
+		}
 	}
 
 

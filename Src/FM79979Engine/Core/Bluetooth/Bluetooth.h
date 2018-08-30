@@ -12,6 +12,7 @@ DEFINE_GUID(GUID_DEVCLASS_BLUETOOTH, { 0xe0cbf06c, 0xcd8b, 0x4647,{ 0xbb, 0x8a, 
 #endif
 namespace FATMING_CORE
 {
+	class cMultiPathDynamicImage;
 	typedef std::function<void(SDLNet_Socket*)>		f_SocketFunction;
 	enum eBluetoothConnectionStatus
 	{
@@ -43,6 +44,9 @@ namespace FATMING_CORE
 
 	class cBluetoothSinglton :public cSingltonTemplate<cBluetoothSinglton>, public cCPP11Thread, public NamedTypedObject
 	{
+		cMultiPathDynamicImage*			m_pBluetoothStatusMPDI[eBTCS_MAX];//default parse Bluetooth/BluetoothStatus.mpdi
+		void							BluetoothStatusMPDIResourceCreate();//only for client
+		void							BluetoothStatusMPDIResourceDelete();//only for client
 		eBluetoothConnectionStatus		m_eBluetoothConnectionStatus;
 		//for server
 		bool							CreateSocksetToListenData();

@@ -118,6 +118,34 @@ namespace FATMING_CORE
 		WSACleanup();
 	}
 
+	void	cBluetoothSinglton::BluetoothStatusMPDIResourceCreate()
+	{
+		for (size_t i = 0; i < eBTCS_MAX; i++)
+		{
+			m_pBluetoothStatusMPDI[i] = nullptr;
+		}
+		auto l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Bluetooth/BluetootStatus.mpdi");
+		if (l_pMPDIList)
+		{
+			for (size_t i = 0; i < eBTCS_MAX; i++)
+			{
+				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject(i);
+				if (m_pBluetoothStatusMPDI[i])
+					m_pBluetoothStatusMPDI[i]->Init();
+			}
+		}
+	}
+
+	void	cBluetoothSinglton::BluetoothStatusMPDIResourceDelete()
+	{
+		auto l_pMPDIList = cGameApp::GetMPDIListByFileName(L"Bluetooth/BluetootStatus.mpdi");
+		if (l_pMPDIList)
+		{
+			cGameApp::m_spAnimationParser->RemoveObject(l_pMPDIList);
+		}
+	}
+
+
 	void cBluetoothSinglton::Init()
 	{
 		Disconnect();
