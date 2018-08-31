@@ -128,8 +128,8 @@ namespace FATMING_CORE
 	void cBluetoothSinglton::Update(float e_fElpaseTime)
 	{
 		if (m_eBluetoothConnectionStatus == eBTCS_CONNECT_FAILED ||
-			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION||
-			m_eBluetoothConnectionStatus == eBTCS_SELECT_DEVICE)
+			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)//||
+			//m_eBluetoothConnectionStatus == eBTCS_SELECT_DEVICE)
 		{
 			static float l_fWaitSecondToGo = 0.f;
 			l_fWaitSecondToGo += 0.16f;
