@@ -104,7 +104,7 @@ namespace FATMING_CORE
 		{
 			for (size_t i = 0; i < eBTCS_MAX; i++)
 			{
-				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject(i);
+				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject((int)i);
 				if (m_pBluetoothStatusMPDI[i])
 					m_pBluetoothStatusMPDI[i]->Init();
 			}
@@ -128,8 +128,8 @@ namespace FATMING_CORE
 	void cBluetoothSinglton::Update(float e_fElpaseTime)
 	{
 		if (m_eBluetoothConnectionStatus == eBTCS_CONNECT_FAILED ||
-			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION)//||
-			//m_eBluetoothConnectionStatus == eBTCS_SELECT_DEVICE)
+			m_eBluetoothConnectionStatus == eBTCS_LOST_CONNECTION||
+			m_eBluetoothConnectionStatus == eBTCS_SELECT_DEVICE)
 		{
 			static float l_fWaitSecondToGo = 0.f;
 			l_fWaitSecondToGo += 0.16f;

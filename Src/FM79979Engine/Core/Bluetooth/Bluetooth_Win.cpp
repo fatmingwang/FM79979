@@ -129,7 +129,7 @@ namespace FATMING_CORE
 		{
 			for (size_t i = 0; i < eBTCS_MAX; i++)
 			{
-				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject(i);
+				m_pBluetoothStatusMPDI[i] = l_pMPDIList->GetObject((int)i);
 				if (m_pBluetoothStatusMPDI[i])
 					m_pBluetoothStatusMPDI[i]->Init();
 			}

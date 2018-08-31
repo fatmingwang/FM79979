@@ -127,6 +127,7 @@ namespace FATMING_CORE
 			}
 		}
 		assert(itemElement&&"empty element,check name for none numeral");
+		memset(m_strCurrentDirectory, 0, sizeof(m_strCurrentDirectory));
 //iphone does't need to translate it because all file have to translate by loader api...
 		std::string   l_strDirectory =  GetDirectoryWithoutFileName(e_strFileName);
 		if( l_strDirectory.length() )
