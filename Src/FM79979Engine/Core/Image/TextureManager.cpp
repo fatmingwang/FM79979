@@ -207,6 +207,8 @@ namespace FATMING_CORE
 	{
 		//const GLubyte*l_str1 = glGetString(GL_VERSION);//const GLubyte*l_str3 = glGetString(GL_RENDERER);
 		const GLubyte*l_str2 = glGetString(GL_VENDOR);
+		if (!l_str2)
+			return 0;
 	#define GL_GPU_MEM_INFO_TOTAL_AVAILABLE_MEM_NVX 0x9048
 	#define GL_GPU_MEM_INFO_CURRENT_AVAILABLE_MEM_NVX 0x9049
 		char str[] = "NVIDIA"; char * pch = strstr((char*)l_str2, str);
@@ -501,6 +503,8 @@ namespace FATMING_CORE
 	#ifndef IOS
 		int l_iNumChannel = 4;//3
 		GLenum l_Format = GL_RGBA;//GL_RGB
+		//int l_iNumChannel = 3;
+		//GLenum l_Format = GL_RGB;
 		int l_iWidth = (int)cGameApp::m_svDeviceViewPortSize.Width();
 		int l_iHeight = (int)cGameApp::m_svDeviceViewPortSize.Height();
 		unsigned char *l_pPixelData = new unsigned char[l_iWidth*l_iHeight*l_iNumChannel];
@@ -529,7 +533,7 @@ namespace FATMING_CORE
 	{
 		std::string l_strExtensionName = GetFileExtensionName(e_strFileName);
 	#ifndef IOS
-		if (l_strExtensionName.compare("png") || l_strExtensionName.compare("PNG"))
+		if (l_strExtensionName.compare("png") == 0 || l_strExtensionName.compare("PNG") == 0)
 		{
 			//8bit?
 			lodepng_encode_file(e_strFileName, e_pPixel, e_iWidth,e_iHeight, e_iChannel==3?LodePNGColorType::LCT_RGB: LodePNGColorType ::LCT_RGBA,8);
