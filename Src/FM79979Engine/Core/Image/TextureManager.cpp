@@ -17,6 +17,7 @@
 #import <UIKit/UIImagePickerController.h>
 #elif defined(ANDROID)
 #include "../Android/nv_images.h"
+#include "./Android/JNIUtil.h"
 #elif defined(LINUX)
 //#include "IL/il.h"//linux
 #endif
@@ -498,13 +499,12 @@ namespace FATMING_CORE
 	//1
 	//[self removeImage: @"myUIImageName"
 
-	void	SaveCurrentBufferToImage(const char*e_strFileName)
+	bool	SaveCurrentBufferToImage(const char*e_strFileName)
 	{
-	#ifndef IOS
-		int l_iNumChannel = 4;//3
+		bool l_bResult = true;
+#ifndef IOS
+		int l_iNumChannel = 4;//3 androd only support 4 channel...
 		GLenum l_Format = GL_RGBA;//GL_RGB
-		//int l_iNumChannel = 3;
-		//GLenum l_Format = GL_RGB;
 		int l_iWidth = (int)cGameApp::m_svDeviceViewPortSize.Width();
 		int l_iHeight = (int)cGameApp::m_svDeviceViewPortSize.Height();
 		unsigned char *l_pPixelData = new unsigned char[l_iWidth*l_iHeight*l_iNumChannel];
@@ -521,18 +521,41 @@ namespace FATMING_CORE
 			memcpy(&l_pPixelData[l_iIndex1], &l_pPixelData[l_iIndex2], sizeof(unsigned char)*l_iNumChannel*l_iWidth);
 			memcpy(&l_pPixelData[l_iIndex2], l_pPixelData2, sizeof(unsigned char)*l_iNumChannel*l_iWidth);
 		}
-		SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, l_pPixelData, l_iNumChannel);
+		l_bResult = SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, l_pPixelData, l_iNumChannel);
 		delete[] l_pPixelData;
 		delete[] l_pPixelData2;
-	#elif defined(IOS)//for iphone,save into album
+#elif defined(IOS)//for iphone,save into album
 		captureToPhotoAlbum();
-	#endif
+#endif
+		return l_bResult;
 	}
 
-	void	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel)
+	bool	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel)
 	{
 		std::string l_strExtensionName = GetFileExtensionName(e_strFileName);
-	#ifndef IOS
+		
+#if defined(ANDROID)
+		//I donno why sometimes android just cannt write file.(file size is 0)
+		int l_iTotalIntSize = e_iWidth*e_iHeight;//channel is 4.4 byte is 1 int
+		jstring l_strFileName = cGameApp::m_spThreadEnv->NewStringUTF(e_strFileName);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		jintArray l_Array = cGameApp::m_spThreadEnv->NewIntArray(l_iTotalIntSize);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		cGameApp::m_spThreadEnv->SetIntArrayRegion(l_Array, 0, l_iTotalIntSize, reinterpret_cast<jint*>(e_pPixel));
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		jstring strClassName = cGameApp::m_spThreadEnv->NewStringUTF("util/MyBitmap");
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		jclass l_ClassIWant = (jclass)cGameApp::m_spThreadEnv->CallObjectMethod(g_pMainThreadJNIUtilData->cls, g_pMainThreadJNIUtilData->findClass, strClassName);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		cGameApp::m_spThreadEnv->DeleteLocalRef(strClassName);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		jmethodID l_Method = cGameApp::m_spThreadEnv->GetStaticMethodID(l_ClassIWant, "JpegToFile", "([IIILjava/lang/String;)V");
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		cGameApp::m_spThreadEnv->CallStaticVoidMethod(l_ClassIWant, l_Method, l_Array, e_iWidth, e_iHeight, l_strFileName);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+		cGameApp::m_spThreadEnv->DeleteLocalRef(l_ClassIWant);
+		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
+#elif defined(WIN32)
 		if (l_strExtensionName.compare("png") == 0 || l_strExtensionName.compare("PNG") == 0)
 		{
 			//8bit?
@@ -540,9 +563,10 @@ namespace FATMING_CORE
 		}
 		else
 			jpge::compress_image_to_jpeg_file(e_strFileName, e_iWidth, e_iHeight, e_iChannel, e_pPixel);
-	#else
+#elif defined(IOS)
 		captureToPhotoAlbum();
-	#endif
+#endif
+		return true;
 	}
 //end namespace FATMING_CORE
 }

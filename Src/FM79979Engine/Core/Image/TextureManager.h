@@ -4,8 +4,8 @@
 
 namespace FATMING_CORE
 {
-	void	SaveCurrentBufferToImage(const char*e_strFileName);
-	void	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel);
+	bool	SaveCurrentBufferToImage(const char*e_strFileName);
+	bool	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel);
 	float*	UVToTriangleStrip(float*e_pfUV);
 	float*	UVToTwoTriangle(float*e_pfUV);
 	int		GetChannelByColorFormat(GLenum e_GLenum);

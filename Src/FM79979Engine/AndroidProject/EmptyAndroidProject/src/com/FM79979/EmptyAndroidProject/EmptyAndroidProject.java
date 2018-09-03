@@ -43,6 +43,7 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
+import android.widget.ShareActionProvider;
 import java.util.Map;
 
 import android.media.MediaPlayer;
@@ -254,6 +255,22 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 	{
 		m_IABManager.Create();
 	}
+
+	public void	ShareToFriend(String e_strFileName)
+	{
+		Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        //intent.putExtra(Intent.EXTRA_TEXT, e_strFileName);
+		final File photoFile = new File(e_strFileName);
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+        //intent.putExtra(Intent.EXTRA_STREAM, e_strFileName);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		ShareActionProvider shareActionProvider = new ShareActionProvider(getApplicationContext());
+        //shareActionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+        shareActionProvider.setShareIntent(intent);
+		startActivity(intent);
+	}
+
 	public void	AddSKUData(String e_strSKUID,String e_strName,int e_iType,boolean e_bConsumable)
 	{
 		m_IABManager.AddSKUData(e_strSKUID,e_strName,e_iType,e_bConsumable);
