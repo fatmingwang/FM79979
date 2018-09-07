@@ -151,6 +151,8 @@ namespace MPDI
 		m_pMPDIUI->EnableColorBlending_checkBox->CheckedChanged += gcnew System::EventHandler(this, &MPDIEditor::EnableColorBlending_checkBox_CheckedChanged);
 		m_pMPDIUI->SrcBlending_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &MPDIEditor::SrcBlending_comboBox_SelectedIndexChanged);
 		m_pMPDIUI->DestBlending_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &MPDIEditor::DestBlending_comboBox_SelectedIndexChanged);
+		m_pMPDIUI->SrcBlending_comboBox->DropDownStyle = ComboBoxStyle::DropDownList;
+		m_pMPDIUI->DestBlending_comboBox->DropDownStyle = ComboBoxStyle::DropDownList;
 		m_pMPDIUI->InsertPoint_button->Click += gcnew System::EventHandler(this, &MPDIEditor::DelPoint_button_Click);
 		m_pMPDIUI->InvertAllPath_button->Click += gcnew System::EventHandler(this, &MPDIEditor::AddPath_button_Click);
 		AllPlay_checkBox->CheckedChanged += gcnew System::EventHandler(this, &MPDIEditor::Play_checkBox_CheckedChanged);
