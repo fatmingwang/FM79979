@@ -997,7 +997,6 @@ namespace FATMING_CORE
 			case 8:
 				return GL_ONE_MINUS_DST_ALPHA;
 		}
-		FMLog::LogWithFlag("IndexToBlendingIndex is out of range", CORE_LOG_FLAG, true);
 		return e_iIndex;
 		//return 0;
 	}
@@ -1025,7 +1024,6 @@ namespace FATMING_CORE
 			case GL_ONE_MINUS_DST_ALPHA:
 				return 8;
 		}
-		FMLog::LogWithFlag("BlendingIndexToIndex is out of range", CORE_LOG_FLAG, true);
 		assert(0&&"combox has not follow rule");
 		return -1;
 	}

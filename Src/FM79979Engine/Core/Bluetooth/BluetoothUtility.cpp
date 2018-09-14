@@ -165,6 +165,88 @@ namespace FATMING_CORE
 		return EXIT_SUCCESS;
 	}
 
+	void	MakeBlueToothDiscoverable()
+	{//WSACleanup,WSAStartup
+		DWORD dwResult;
+		HANDLE hLookup = 0;
+		WSAQUERYSET lpRestrictions;
+		GUID guid = GUID_DEVCLASS_BLUETOOTH;
+
+		ZeroMemory(&lpRestrictions, sizeof(WSAQUERYSET));
+		lpRestrictions.dwSize = sizeof(WSAQUERYSET);
+		lpRestrictions.dwNameSpace = NS_BTH;
+		ULONG	ulFlags = LUP_CONTAINERS | LUP_RETURN_NAME | LUP_RETURN_ADDR| LUP_FLUSHCACHE;
+		//ulFlags |= LUP_RETURN_NAME;
+		//ulFlags |= LUP_RETURN_ADDR;
+		//	ulFlags |= LUP_FLUSHCACHE;
+		dwResult = WSALookupServiceBegin(&lpRestrictions, ulFlags, &hLookup);
+		if (dwResult != SOCKET_ERROR)
+		{
+			DWORD dwLength = 0;
+			WSAQUERYSET * pqs = NULL;
+			printf("WSALookupServiceBegin() is OK!\n");
+			// Picking an arbitrary value works fine
+			// COMMENT/UNCOMMENT below for success on Windows 2000, XP
+			pqs = (WSAQUERYSET *)malloc(sizeof(WSAQUERYSET) + 100);
+			dwLength = sizeof(WSAQUERYSET) + 100;
+			do
+			{
+				if (WSALookupServiceNext(hLookup, 0, &dwLength, pqs) != 0)
+				{
+					dwResult = WSAGetLastError();
+					if ((dwResult == WSA_E_NO_MORE) || (dwResult == WSAENOMORE))
+					{
+						printf("No more record found!\n");
+						break;
+					}
+					printf("WSALookupServiceNext() failed with error code %d\n", WSAGetLastError());
+				}
+				else
+				{
+					dwResult = 0;
+					printf("WSALookupServiceNext() looks fine!\n");
+				}
+				if (dwResult == WSAEFAULT)
+				{
+					if (pqs)
+					{
+						printf("Freeing pqs...\n");
+						free(pqs);
+					}
+					// Reallocate
+					pqs = (WSAQUERYSET *)malloc(dwLength);
+					if (!pqs)
+					{
+						printf("Could not allocate memory: %d\n", GetLastError());
+					}
+					else
+					{
+						printf("Memory allocated for pqs successfully!\n");
+						continue;
+					}
+				}
+				// Output it since we have it now
+				if ((dwResult == 0) && (pqs))
+				{
+					printf("  Service instance name: %S\n", pqs->lpszServiceInstanceName);
+					printf("  Name space num: %d\n", pqs->dwNameSpace);
+					printf("  Num of protocols: %d\n", pqs->dwNumberOfProtocols);
+					printf("  Version: %d\n", pqs->lpVersion);
+				}
+			} while ((dwResult != WSA_E_NO_MORE) && (dwResult != WSAENOMORE));
+			// clean-up
+			free(pqs);
+
+			if (WSALookupServiceEnd(hLookup) == 0)
+				printf("hLookup handle was released!\n");
+			else
+				printf("WSALookupServiceEnd(hLookup) failed with error code %d\n", WSAGetLastError());
+		}
+		else
+		{
+			printf("Error on WSALookupServiceBegin: %d\n", WSAGetLastError());
+		}
+	}
 	//
 	// NameToBthAddr converts a bluetooth device name to a bluetooth address,
 	// if required by performing inquiry with remote name requests.

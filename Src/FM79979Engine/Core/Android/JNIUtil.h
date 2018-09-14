@@ -47,7 +47,7 @@ namespace FATMING_CORE
 	bool	ShowAd(char*e_strADMobID,int e_iWidth,int e_iHeight,Vector2 e_vshowPos);
 	bool	ShowIntersitialAd(char*e_strADMobID);
 
-	bool	ShowDialog(const char* title, const char *contents, bool exitApp);
+	bool	AndroidShowDialog(const char* title, const char *contents);
 //end namespace FATMING_CORE
 }
 //end	_JNI_UTIL_H_

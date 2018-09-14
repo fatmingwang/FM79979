@@ -14,6 +14,7 @@
 namespace FATMING_CORE
 {
 
+	extern void	MakeBlueToothDiscoverable();
 	extern ULONG NameToBthAddr(const LPWSTR pszRemoteName, PSOCKADDR_BTH pRemoteBtAddr);
 	extern int ChangeLocalBluetoothRadioName(const wchar_t*e_strBlueToothName);
 
@@ -190,6 +191,7 @@ namespace FATMING_CORE
 				//
 				SockAddrBthLocal.addressFamily = AF_BTH;
 				SockAddrBthLocal.port = BT_PORT_ANY;
+				SockAddrBthLocal.serviceClassId = GUID_DEVCLASS_BLUETOOTH;
 				//
 				// bind() associates a local address and port combination
 				// with the socket just created. This is most useful when
@@ -371,11 +373,13 @@ namespace FATMING_CORE
 			{
 				goto FAILED;
 			}
-			if (l_iNumready == 0)
-				continue;
 			if (m_bLeaveThread)
 			{
 				goto FAILED;
+			}
+			if (l_iNumready == 0)
+			{
+				continue;
 			}
 			//
 			// accept() call indicates winsock2 to wait for any
