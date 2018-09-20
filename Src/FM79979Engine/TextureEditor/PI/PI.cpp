@@ -7,7 +7,7 @@
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
-#include "../../../include/vld.h"
+//#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")
 
 using namespace System::Drawing::Imaging;

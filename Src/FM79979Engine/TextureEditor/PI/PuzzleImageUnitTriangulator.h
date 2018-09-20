@@ -68,6 +68,7 @@ public:
 	void    		MouseUp(int e_iPosX, int e_iPosY);
 	void			Render();
 	void			RenderTriangleImage(Vector3 e_vPos);
+	std::vector<Vector2>*		GetPointsVector() { return &m_PointVector; }
 };
 
 
