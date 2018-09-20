@@ -332,22 +332,13 @@ namespace FATMING_CORE
 		return true;
 	}
 
-	bool	ShowDialog(const char* title, const char *contents, bool exitApp)
+	bool	AndroidShowDialog(const char* title, const char *contents)
 	{
 		jstring jniTitle = g_pMainThreadJNIUtilData->pJNIEnv->NewStringUTF(title);
 		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);
-
-		   jstring jniContents = g_pMainThreadJNIUtilData->pJNIEnv->NewStringUTF(contents);
+		jstring jniContents = g_pMainThreadJNIUtilData->pJNIEnv->NewStringUTF(contents);
 		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);
-
-		jclass thisClass = g_pMainThreadJNIUtilData->pJNIEnv->GetObjectClass(g_pMainThreadJNIUtilData->ThreadThis);
-		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);
-
-		jmethodID showToastAlert = g_pMainThreadJNIUtilData->pJNIEnv->GetMethodID(thisClass, "showAlert", "(Ljava/lang/String;Ljava/lang/String;Z)V");
-		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);
-
-		g_pMainThreadJNIUtilData->pJNIEnv->CallVoidMethod(g_pMainThreadJNIUtilData->ThreadThis, showToastAlert, jniTitle, jniContents, exitApp);
-		EXCEPTION_RETURN(g_pMainThreadJNIUtilData->pJNIEnv);	
+		CallStaticVoidMethod3("util/Define", "showToastAlert", "(Ljava/lang/String;Ljava/lang/String;)V", jniTitle, jniContents, g_pMainThreadJNIUtilData, true);
 		return true;
 	}
 }

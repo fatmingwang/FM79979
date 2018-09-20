@@ -293,6 +293,75 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 			return externalSdCard.getPath();
 			return null;
 	}
+
+	
+	public static String getPath( Context context, Uri uri ) 
+	{
+		String result = null;
+		String[] proj = { MediaStore.Images.Media.DATA };
+		Cursor cursor = context.getContentResolver( ).query( uri, proj, null, null, null );
+		if(cursor != null)
+		{
+			if ( cursor.moveToFirst( ) )
+			{
+				int column_index = cursor.getColumnIndexOrThrow( proj[0] );
+				result = cursor.getString( column_index );
+			}
+			cursor.close( );
+		}
+		if(result == null)
+		{
+			result = "Not found";
+		}
+		return result;
+	}
+
+	String	GetClipboardString()
+	{
+		CharSequence l_CharSequence = m_Clipboard.getText();
+		if( l_CharSequence != null)
+		{
+			String l_str = l_CharSequence.toString();
+			return l_str;
+		}
+		return "";
+	}
+
+	void	SetClipboardString(String e_strText)
+	{
+		//https://stackoverflow.com/questions/33207809/what-exactly-is-label-parameter-in-clipdata-in-android
+		ClipData clip = ClipData.newPlainText("test", e_strText);
+		m_Clipboard.setPrimaryClip(clip);
+	}
+
+	public void	PickUpPhotoByIntent()
+	{
+		Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+		getIntent.setType("image/*");
+
+		Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+		pickIntent.setType("image/*");
+
+		Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+		chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+
+		startActivityForResult(chooserIntent, PICK_PHOTO);
+	}
+
+	public void	ShareImageFileToFriend(String e_strFileName)
+	{
+		Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        //intent.putExtra(Intent.EXTRA_TEXT, e_strFileName);
+		final File photoFile = new File(e_strFileName);
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(photoFile));
+        //intent.putExtra(Intent.EXTRA_STREAM, e_strFileName);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+		ShareActionProvider shareActionProvider = new ShareActionProvider(getApplicationContext());
+        //shareActionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+        shareActionProvider.setShareIntent(intent);
+		startActivity(intent);
+	}
 	/* This is the static constructor used to load the
 	 * 'EmptyAndroidProject' library when the class is
 	 * loaded.

@@ -26,3 +26,9 @@ if something is fucking weired
 please check the project has predefined
 
 DEBUG
+
+-_- fuck qoo
+the newest google-play-services.jar need to download by android studio
+https://developer.android.com/studio/intro/update#sdk-manager
+
+https://developers.google.com/api-client-library/java/google-api-java-client/download

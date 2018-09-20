@@ -1,4 +1,5 @@
 #include "../stdafx.h"
+#include "../Android/JNIUtil.h"
 #include "Texture.h"
 #include "TextureManager.h"
 #include "SimplePrimitive.h"
@@ -10,7 +11,9 @@
 #include "dds/nv_images.h"
 #include "jpeg/jpgd.h"
 #include "jpeg/jpge.h"
-
+#ifdef ANDROID
+#include <android/bitmap.h>
+#endif
 //nv_images.cpp
 extern int LoadTextureFromDDSData(GLenum target, NvS32 startLevel, const NVHHDDSImage *pImage, NvBool useMipmaps);
 #ifdef IOS
@@ -242,13 +245,141 @@ namespace FATMING_CORE
 	//===============
 	//
 	//===============
-	bool	cTexture::LoadImage(const char*e_strImageFileName,bool e_bFetchPixelData)
+#ifdef ANDROID
+	std::string	GetFileFullPathInAndroid(const char* e_strFileName)
+	{
+		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
+		//http://androgeek.info/?p=275
+		//try external sd card first
+		NvFile*fp = nullptr;
+		if (cGameApp::m_spExternalSDDirectory)
+		{
+			std::string l_strFileName = *cGameApp::m_spExternalSDDirectory;
+			l_strFileName += *cGameApp::m_psstrGameAppName;
+			l_strFileName += "/";
+			l_strFileName += e_strFileName;
+			fp = NvFOpen(l_strFileName.c_str(), "r");
+			if (fp)
+			{
+				NvFClose(fp);
+				return l_strFileName;
+			}
+		}
+		//try write file into
+		std::string l_strFileName = "/sdcard/";
+		l_strFileName += *cGameApp::m_psstrGameAppName;
+		l_strFileName += "/";
+		l_strFileName += e_strFileName;
+		fp = NvFOpen(l_strFileName.c_str(), "r");
+		if (!fp)
+		{//write into internal memory
+			l_strFileName = cGameApp::m_spInternalDirectory->c_str();
+			l_strFileName += "/";
+			l_strFileName += *cGameApp::m_psstrGameAppName;
+			l_strFileName += "/";
+			l_strFileName += e_strFileName;
+			fp = NvFOpen(l_strFileName.c_str(), "r");
+		}
+		if (fp)
+			NvFClose(fp);
+		return l_strFileName;
+	}
+	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
 	{
 		assert(e_strImageFileName);
 		std::string	l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
-		std::wstring	l_strImageNameW =  CharToWchar(l_strImageName.c_str());
+		std::wstring	l_strImageNameW = CharToWchar(l_strImageName.c_str());
 		//is loading the same image again?
-		if( this->IsSameName(l_strImageNameW.c_str()) )
+		if (this->IsSameName(l_strImageNameW.c_str()))
+			return false;
+		//delete old one if existed
+		Destroy();
+		//asign new name
+		this->SetName(l_strImageNameW);
+		SAFE_DELETE(m_pstrFullFileName);
+		m_pstrFullFileName = new std::string;
+		*m_pstrFullFileName = e_strImageFileName;
+#ifndef RETAILER//default load dds
+		std::string l_strDDSFileName = ChangeFileExtensionName(m_pstrFullFileName->c_str(), "dds");
+		if (UT::IsFileExists(l_strDDSFileName.c_str()))
+		{
+			*m_pstrFullFileName = l_strDDSFileName;
+		}
+#endif
+		jobject l_BitMapObject = nullptr;
+		AndroidBitmapInfo l_AndroidBitmapInfo;
+		std::vector<unsigned char> image;
+		unsigned char*l_pucPixelData = nullptr;
+		std::string l_strExtensionName = UT::GetFileExtensionName(m_pstrFullFileName->c_str());
+		if (l_strExtensionName.compare("jpg") == 0 || l_strExtensionName.compare("png") == 0)
+		{
+			auto l_strandroidFileName = ValueToStringW(e_strImageFileName);
+			jstring l_jstrFileName = WcharToJava(g_pMainThreadJNIUtilData->pJNIEnv, l_strandroidFileName.c_str());
+			EXCEPTION_RETURN_NULL(g_pMainThreadJNIUtilData->pJNIEnv);
+			jclass	l_MyBitMapClass = GetCustomJavaClass("util/MyBitmap");
+			EXCEPTION_RETURN_NULL(g_pMainThreadJNIUtilData->pJNIEnv);
+			jmethodID l_LoadBitmapAndPassToTextureMethodID = g_pMainThreadJNIUtilData->pJNIEnv->GetStaticMethodID(l_MyBitMapClass, "LoadBitmapAndPassToTexture", "(Landroid/content/Context;Ljava/lang/String;)Landroid/graphics/Bitmap;");
+			EXCEPTION_RETURN_NULL(g_pMainThreadJNIUtilData->pJNIEnv);
+			l_BitMapObject = g_pMainThreadJNIUtilData->pJNIEnv->CallStaticObjectMethod(l_MyBitMapClass, l_LoadBitmapAndPassToTextureMethodID,cGameApp::m_spANativeActivity->clazz, l_jstrFileName);
+			EXCEPTION_RETURN_NULL(g_pMainThreadJNIUtilData->pJNIEnv);
+			void*l_pixels;
+			int l_iResult = AndroidBitmap_getInfo(g_pMainThreadJNIUtilData->pJNIEnv, l_BitMapObject, &l_AndroidBitmapInfo);
+			l_iResult = AndroidBitmap_lockPixels(g_pMainThreadJNIUtilData->pJNIEnv, l_BitMapObject, &l_pixels);
+			l_pucPixelData = (unsigned char*)l_pixels;
+			m_iPixelFormat = GL_RGBA;
+			m_iChannel = 4;
+			l_AndroidBitmapInfo.stride;
+			l_AndroidBitmapInfo.format;
+			l_AndroidBitmapInfo.flags;
+			this->m_iWidth = l_AndroidBitmapInfo.width;
+			this->m_iHeight = l_AndroidBitmapInfo.height;
+		}
+		else
+		if (l_strExtensionName.compare("dds") == 0 || l_strExtensionName.compare("DDS") == 0)
+		{
+			//dds set all data(height,texture index...) so return ture
+			if (LoadDDS(m_pstrFullFileName->c_str()))
+				return true;
+			return false;
+		}
+		else
+		{
+			return false;
+		}
+		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
+										   //		GLenum	l_GLenum = glGetError();
+										   //		assert(l_GLenum);
+										   //#ifdef 	OPENGLES_2_X
+		glActiveTexture(GL_TEXTURE0);
+		//#endif
+		m_suiLastUsingImageIndex = -1;
+		this->ApplyImage();
+		// Set the texture parameters to use a minifying filter and a linear filer (weighted average)
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, g_fMIN_FILTERValue);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, g_fMAG_FILTERValue); /* We will use linear  interpolation for magnification filter */
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		UpdatePixels((const GLvoid*)l_pucPixelData, e_bFetchPixelData);
+		//#endif
+		if (l_BitMapObject)
+		{
+			AndroidBitmap_unlockPixels(g_pMainThreadJNIUtilData->pJNIEnv, l_BitMapObject);
+		}
+		//if loading failed show alert
+		if (!m_uiImageIndex)
+		{
+			ErrorMsg(L"opengl process Image Failed", UT::CharToWchar(m_pstrFullFileName->c_str()));
+			return false;
+		}
+	}
+#else
+	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
+	{
+		assert(e_strImageFileName);
+		std::string	l_strImageName = UT::GetFileNameWithoutFullPath(e_strImageFileName);
+		std::wstring	l_strImageNameW = CharToWchar(l_strImageName.c_str());
+		//is loading the same image again?
+		if (this->IsSameName(l_strImageNameW.c_str()))
 			return false;
 		//delete old one if existed
 		Destroy();
@@ -266,19 +397,22 @@ namespace FATMING_CORE
 #endif
 		std::vector<unsigned char> image;
 		unsigned char*l_pucPixelData = nullptr;
-		unsigned l_uWidth, l_uHeight;
 		std::string l_strExtensionName = UT::GetFileExtensionName(m_pstrFullFileName->c_str());
-		if( l_strExtensionName.compare("dds") == 0 || l_strExtensionName.compare("DDS") == 0  )
+		if (l_strExtensionName.compare("dds") == 0 || l_strExtensionName.compare("DDS") == 0)
 		{
 			//dds set all data(height,texture index...) so return ture
-			if(LoadDDS(m_pstrFullFileName->c_str()))
+			if (LoadDDS(m_pstrFullFileName->c_str()))
 				return true;
 			return false;
 		}
 		else
 		if( l_strExtensionName.compare("png") == 0  )
 		{
-			unsigned error = lodepng::decode(image, l_uWidth, l_uHeight, m_pstrFullFileName->c_str());
+			unsigned l_uiWidth = 0;
+			unsigned l_uiHeight = 0;
+			unsigned error = lodepng::decode(image, l_uiWidth, l_uiHeight, m_pstrFullFileName->c_str());
+			m_iWidth = l_uiWidth;
+			m_iHeight = l_uiHeight;
 			m_iPixelFormat = GL_RGBA;
 			//now I am laze to do bitmpa and dds file so force maake it as 4 channel
 			m_iChannel = 4;
@@ -296,13 +430,10 @@ namespace FATMING_CORE
 			int	l_iChannel = 0;
 			unsigned char*l_pImageData = nullptr;
 			//3 for rgb no alpha here
-			l_pImageData = jpgd::decompress_jpeg_image_from_file(m_pstrFullFileName->c_str(),(int*)&l_uWidth,(int*)&l_uHeight,&l_iChannel,3);
+			l_pImageData = jpgd::decompress_jpeg_image_from_file(m_pstrFullFileName->c_str(),(int*)&m_iWidth,(int*)&m_iHeight,&l_iChannel,3);
 			if( l_pImageData == nullptr )
 				return false;
 			l_pucPixelData = l_pImageData;
-			//int	l_iImageSize = 3*l_uWidth*l_uHeight;
-			//image.resize(l_iImageSize);
-			//memcpy(&image[0],l_pImageData,l_iImageSize);
 			m_iPixelFormat = GL_RGB;
 			//now I am laze to do bitmpa and dds file so force maake it as 4 channel
 			m_iChannel = 3;
@@ -311,9 +442,8 @@ namespace FATMING_CORE
 		{
 			return false;
 		}
-		m_iWidth = l_uWidth;
-		m_iHeight = l_uHeight;
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
+		MyGlErrorTest("cTexture::LoadImage glGenTextures");
 		//		GLenum	l_GLenum = glGetError();
 		//		assert(l_GLenum);
 //#ifdef 	OPENGLES_2_X
@@ -340,7 +470,7 @@ namespace FATMING_CORE
 		}
 		return true;
 	}
-
+#endif
 	bool	cTexture::ApplyImage(GLuint e_TextureID)
 	{
 	    if( m_suiLastUsingImageIndex != e_TextureID )
