@@ -21,9 +21,28 @@ enum ePointsToTriangulatorType
 
 class cPuzzleImageUnitTriangulator:public NamedTypedObject
 {
+	struct s2DVertex
+	{
+		struct s3PosPoints
+		{
+			Vector3 vPos[3];
+		};
+		struct s3UVPoints
+		{
+			Vector2 vUV[3];
+		};
+		struct s3ColorPoints
+		{
+			Vector4 vColor[3];
+		};
+		std::vector<s3PosPoints>	vPosVector;
+		std::vector<s3UVPoints>		vUVVector;
+		std::vector<s3ColorPoints>	vColorVector;
+	};
+	s2DVertex					m_s2DVertex;
 	std::vector<Vector2>		m_PointVector;
 	std::vector<Vector2>		m_TriangleVector;
-
+	bool						GetImageBoard(Vector2*e_p4VectorPointer);
 	GET_SET_DEC(ePointsToTriangulatorType,m_ePointsToTriangulatorType,GetPointsToTriangulatorType,SetPointsToTriangulatorType);
 	GET_SET_DEC(cUIImage*,m_pTargetImage,GetTargetImage,SetTargetImage);
 	int							GetClosestPoint(Vector2 e_vPos);
@@ -48,6 +67,7 @@ public:
 	void    		MouseMove(int e_iPosX, int e_iPosY);
 	void    		MouseUp(int e_iPosX, int e_iPosY);
 	void			Render();
+	void			RenderTriangleImage(Vector3 e_vPos);
 };
 
 

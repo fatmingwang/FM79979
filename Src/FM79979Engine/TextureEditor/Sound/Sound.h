@@ -54,19 +54,23 @@ namespace Sound
 	private: System::Windows::Forms::ToolStripMenuItem^  openToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  SaveToolStripMenuItem;
 
-	private: System::Windows::Forms::Button^  AddSound_button;
-	private: System::Windows::Forms::Button^  DelSound_button;
+
+
 	private: System::Windows::Forms::Button^  PlaySound_button;
-	private: System::Windows::Forms::CheckBox^  SoundLoop_checkBox;
+
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::Windows::Forms::Button^  StopSound_button;
 	private: System::ComponentModel::IContainer^  components;
 	//my
 	private: System::Windows::Forms::Form^	m_pForm;
 	private: System::Windows::Forms::TabPage^m_pTabPage;
-	private: System::Windows::Forms::NumericUpDown^  Piority_numericUpDown;
+
 	private: System::Windows::Forms::Label^  label1;
 	cGameApp*m_pGameApp;
+	private: System::Windows::Forms::Button^  AddSound_button;
+	private: System::Windows::Forms::Button^  DelSound_button;
+	private: System::Windows::Forms::CheckBox^  SoundLoop_checkBox;
+	private: System::Windows::Forms::NumericUpDown^  Piority_numericUpDown;
 			 cSoundParser*m_pSoundParser;
 	private:
 		/// <summary>
@@ -87,16 +91,16 @@ namespace Sound
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->openToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->SaveToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->AddSound_button = (gcnew System::Windows::Forms::Button());
-			this->DelSound_button = (gcnew System::Windows::Forms::Button());
 			this->PlaySound_button = (gcnew System::Windows::Forms::Button());
-			this->SoundLoop_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->StopSound_button = (gcnew System::Windows::Forms::Button());
-			this->Piority_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->AddSound_button = (gcnew System::Windows::Forms::Button());
+			this->DelSound_button = (gcnew System::Windows::Forms::Button());
+			this->SoundLoop_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->Piority_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->menuStrip1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Piority_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Piority_numericUpDown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// Sound_listBox
@@ -106,60 +110,42 @@ namespace Sound
 			this->Sound_listBox->ItemHeight = 12;
 			this->Sound_listBox->Location = System::Drawing::Point(16, 47);
 			this->Sound_listBox->Name = L"Sound_listBox";
-			this->Sound_listBox->Size = System::Drawing::Size(194, 100);
+			this->Sound_listBox->Size = System::Drawing::Size(194, 388);
 			this->Sound_listBox->TabIndex = 0;
 			this->Sound_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &SoundObject::Sound_listBox_SelectedIndexChanged);
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) {this->fileToolStripMenuItem});
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->fileToolStripMenuItem });
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(356, 24);
+			this->menuStrip1->Size = System::Drawing::Size(587, 24);
 			this->menuStrip1->TabIndex = 1;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
-			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->openToolStripMenuItem, 
-				this->SaveToolStripMenuItem});
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->openToolStripMenuItem,
+					this->SaveToolStripMenuItem
+			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(39, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(34, 20);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
 			// openToolStripMenuItem
 			// 
 			this->openToolStripMenuItem->Name = L"openToolStripMenuItem";
-			this->openToolStripMenuItem->Size = System::Drawing::Size(108, 22);
+			this->openToolStripMenuItem->Size = System::Drawing::Size(95, 22);
 			this->openToolStripMenuItem->Text = L"Open";
 			this->openToolStripMenuItem->Click += gcnew System::EventHandler(this, &SoundObject::openToolStripMenuItem_Click);
 			// 
 			// SaveToolStripMenuItem
 			// 
 			this->SaveToolStripMenuItem->Name = L"SaveToolStripMenuItem";
-			this->SaveToolStripMenuItem->Size = System::Drawing::Size(108, 22);
+			this->SaveToolStripMenuItem->Size = System::Drawing::Size(95, 22);
 			this->SaveToolStripMenuItem->Text = L"Save";
 			this->SaveToolStripMenuItem->Click += gcnew System::EventHandler(this, &SoundObject::openToolStripMenuItem_Click);
-			// 
-			// AddSound_button
-			// 
-			this->AddSound_button->Location = System::Drawing::Point(16, 160);
-			this->AddSound_button->Name = L"AddSound_button";
-			this->AddSound_button->Size = System::Drawing::Size(61, 24);
-			this->AddSound_button->TabIndex = 2;
-			this->AddSound_button->Text = L"AddSound";
-			this->AddSound_button->UseVisualStyleBackColor = true;
-			this->AddSound_button->Click += gcnew System::EventHandler(this, &SoundObject::AddSound_button_Click);
-			// 
-			// DelSound_button
-			// 
-			this->DelSound_button->Location = System::Drawing::Point(83, 160);
-			this->DelSound_button->Name = L"DelSound_button";
-			this->DelSound_button->Size = System::Drawing::Size(61, 24);
-			this->DelSound_button->TabIndex = 3;
-			this->DelSound_button->Text = L"DelSound";
-			this->DelSound_button->UseVisualStyleBackColor = true;
-			this->DelSound_button->Click += gcnew System::EventHandler(this, &SoundObject::AddSound_button_Click);
 			// 
 			// PlaySound_button
 			// 
@@ -170,17 +156,6 @@ namespace Sound
 			this->PlaySound_button->Text = L"Play";
 			this->PlaySound_button->UseVisualStyleBackColor = true;
 			this->PlaySound_button->Click += gcnew System::EventHandler(this, &SoundObject::PlaySound_button_Click);
-			// 
-			// SoundLoop_checkBox
-			// 
-			this->SoundLoop_checkBox->AutoSize = true;
-			this->SoundLoop_checkBox->Location = System::Drawing::Point(161, 168);
-			this->SoundLoop_checkBox->Name = L"SoundLoop_checkBox";
-			this->SoundLoop_checkBox->Size = System::Drawing::Size(49, 16);
-			this->SoundLoop_checkBox->TabIndex = 5;
-			this->SoundLoop_checkBox->Text = L"Loop";
-			this->SoundLoop_checkBox->UseVisualStyleBackColor = true;
-			this->SoundLoop_checkBox->CheckedChanged += gcnew System::EventHandler(this, &SoundObject::SoundLoop_checkBox_CheckedChanged);
 			// 
 			// timer1
 			// 
@@ -198,30 +173,61 @@ namespace Sound
 			this->StopSound_button->UseVisualStyleBackColor = true;
 			this->StopSound_button->Click += gcnew System::EventHandler(this, &SoundObject::PlaySound_button_Click);
 			// 
-			// Piority_numericUpDown
-			// 
-			this->Piority_numericUpDown->Location = System::Drawing::Point(231, 168);
-			this->Piority_numericUpDown->Margin = System::Windows::Forms::Padding(2);
-			this->Piority_numericUpDown->Name = L"Piority_numericUpDown";
-			this->Piority_numericUpDown->Size = System::Drawing::Size(90, 22);
-			this->Piority_numericUpDown->TabIndex = 7;
-			this->Piority_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &SoundObject::Piority_numericUpDown_ValueChanged);
-			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(229, 154);
+			this->label1->Location = System::Drawing::Point(220, 437);
 			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(36, 12);
 			this->label1->TabIndex = 8;
 			this->label1->Text = L"Piority";
 			// 
+			// AddSound_button
+			// 
+			this->AddSound_button->Location = System::Drawing::Point(7, 443);
+			this->AddSound_button->Name = L"AddSound_button";
+			this->AddSound_button->Size = System::Drawing::Size(61, 24);
+			this->AddSound_button->TabIndex = 2;
+			this->AddSound_button->Text = L"AddSound";
+			this->AddSound_button->UseVisualStyleBackColor = true;
+			this->AddSound_button->Click += gcnew System::EventHandler(this, &SoundObject::AddSound_button_Click);
+			// 
+			// DelSound_button
+			// 
+			this->DelSound_button->Location = System::Drawing::Point(74, 443);
+			this->DelSound_button->Name = L"DelSound_button";
+			this->DelSound_button->Size = System::Drawing::Size(61, 24);
+			this->DelSound_button->TabIndex = 3;
+			this->DelSound_button->Text = L"DelSound";
+			this->DelSound_button->UseVisualStyleBackColor = true;
+			this->DelSound_button->Click += gcnew System::EventHandler(this, &SoundObject::AddSound_button_Click);
+			// 
+			// SoundLoop_checkBox
+			// 
+			this->SoundLoop_checkBox->AutoSize = true;
+			this->SoundLoop_checkBox->Location = System::Drawing::Point(152, 451);
+			this->SoundLoop_checkBox->Name = L"SoundLoop_checkBox";
+			this->SoundLoop_checkBox->Size = System::Drawing::Size(49, 16);
+			this->SoundLoop_checkBox->TabIndex = 5;
+			this->SoundLoop_checkBox->Text = L"Loop";
+			this->SoundLoop_checkBox->UseVisualStyleBackColor = true;
+			this->SoundLoop_checkBox->CheckedChanged += gcnew System::EventHandler(this, &SoundObject::SoundLoop_checkBox_CheckedChanged);
+			// 
+			// Piority_numericUpDown
+			// 
+			this->Piority_numericUpDown->Location = System::Drawing::Point(222, 451);
+			this->Piority_numericUpDown->Margin = System::Windows::Forms::Padding(2);
+			this->Piority_numericUpDown->Name = L"Piority_numericUpDown";
+			this->Piority_numericUpDown->Size = System::Drawing::Size(90, 22);
+			this->Piority_numericUpDown->TabIndex = 7;
+			this->Piority_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &SoundObject::Piority_numericUpDown_ValueChanged);
+			// 
 			// SoundObject
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(356, 210);
+			this->ClientSize = System::Drawing::Size(587, 484);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->Piority_numericUpDown);
 			this->Controls->Add(this->StopSound_button);
@@ -234,7 +240,7 @@ namespace Sound
 			this->Name = L"SoundObject";
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->Piority_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Piority_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

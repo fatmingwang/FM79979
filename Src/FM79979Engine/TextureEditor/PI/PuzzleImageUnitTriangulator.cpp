@@ -16,19 +16,14 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 	auto l_pOffsetPos = e_pTargetImage->GetOffsetPos();
 	//left up,right up,right down,left down
 	//must be this order or get wrong
-	Vector2 l_vPoints[4] = 
-	//Vector2 l_vPoints[5] =
+	Vector2 l_vPoints[4];
+	if(GetImageBoard(l_vPoints))
 	{
-		Vector2(e_pTargetImage->GetOffsetPos()->x,e_pTargetImage->GetOffsetPos()->y),
-		Vector2((float)e_pTargetImage->GetRightDownStripOffPos().x,(float)e_pTargetImage->GetOffsetPos()->y),
-		Vector2((float)e_pTargetImage->GetRightDownStripOffPos().x,(float)e_pTargetImage->GetRightDownStripOffPos().y),
-		Vector2((float)e_pTargetImage->GetOffsetPos()->x,(float)e_pTargetImage->GetRightDownStripOffPos().y),
-		//Vector2(e_pTargetImage->GetWidth()/2,e_pTargetImage->GetHeight()/2),
-	};
-	for (int i = 0; i<4; ++i)
-	//for(int i=0;i<5;++i)
-		m_PointVector.push_back(l_vPoints[i]);
-	GenerateTriangle();
+		for (int i = 0; i < 4; ++i)
+			//for(int i=0;i<5;++i)
+			m_PointVector.push_back(l_vPoints[i]);
+		GenerateTriangle();
+	}
 }
 
 //cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(TiXmlElement * e_pTiXmlElement)
@@ -39,6 +34,17 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 
 cPuzzleImageUnitTriangulator::~cPuzzleImageUnitTriangulator()
 {
+}
+
+bool cPuzzleImageUnitTriangulator::GetImageBoard(Vector2 * e_p4VectorPointer)
+{
+	if (!m_pTargetImage)
+		return false;
+	e_p4VectorPointer[1] = Vector2(m_pTargetImage->GetOffsetPos()->x, m_pTargetImage->GetOffsetPos()->y);
+	e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetOffsetPos()->y);
+	e_p4VectorPointer[3] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
+	e_p4VectorPointer[4] = Vector2((float)m_pTargetImage->GetOffsetPos()->x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
+	return true;
 }
 
 int	cPuzzleImageUnitTriangulator::GetClosestPoint(Vector2 e_vPos)
@@ -154,10 +160,23 @@ void cPuzzleImageUnitTriangulator::Render()
 			GLRender::RenderLine(&l_vPos, l_vColor);
 		}
 	}
+	RenderTriangleImage(Vector3(500,500,0));
+}
+
+void	cPuzzleImageUnitTriangulator::RenderTriangleImage(Vector3 e_vPos)
+{
+	int l_iNumTriangles = (int)m_s2DVertex.vPosVector.size();
+	
+	RenderTrianglesWithMatrix((float*)&m_s2DVertex.vPosVector, (float*)&m_s2DVertex.vUVVector, (float*)&m_s2DVertex.vColorVector, cMatrix44::TranslationMatrix(e_vPos), 3, l_iNumTriangles * ONE_QUAD_IS_TWO_TRIANGLES);
 }
 
 void cPuzzleImageUnitTriangulator::GenerateTriangle()
 {
+	Vector2 l_vPoints[4];
+	GetImageBoard(l_vPoints);
+	m_s2DVertex.vPosVector.clear();
+	m_s2DVertex.vUVVector.clear();
+	m_s2DVertex.vColorVector.clear();
 	m_bWaitForGenerateTriangle = true;
 	m_TriangleVector.clear();
 	//https://github.com/greenm01/poly2tri
@@ -169,9 +188,19 @@ void cPuzzleImageUnitTriangulator::GenerateTriangle()
 		size_t l_uiSize = l_Triangles.size();
 		for (size_t i = 0; i < l_uiSize; i++)
 		{
-			m_TriangleVector.push_back(*(Vector2*)(&l_Triangles[i].p1));
-			m_TriangleVector.push_back(*(Vector2*)(&l_Triangles[i].p2));
-			m_TriangleVector.push_back(*(Vector2*)(&l_Triangles[i].p3));
+			s2DVertex::s3PosPoints l_v3Pos = {	*(Vector2*)(&l_Triangles[i].p1),
+									*(Vector2*)(&l_Triangles[i].p2),
+									*(Vector2*)(&l_Triangles[i].p3) };
+			s2DVertex::s3UVPoints l_v3UV = {	Vector2(l_v3Pos.vPos[0].x / l_vPoints[2].x,l_v3Pos.vPos[0].y / l_vPoints[3].y),
+												Vector2(l_v3Pos.vPos[1].x / l_vPoints[2].x,l_v3Pos.vPos[1].y / l_vPoints[3].y),
+												Vector2(l_v3Pos.vPos[2].x / l_vPoints[2].x,l_v3Pos.vPos[2].y / l_vPoints[3].y) };
+			s2DVertex::s3ColorPoints l_v3Color = {Vector4::One,Vector4::One ,Vector4::One };
+			m_s2DVertex.vPosVector.push_back(l_v3Pos);
+			m_s2DVertex.vUVVector.push_back(l_v3UV);
+			m_s2DVertex.vColorVector.push_back(l_v3Color);
+			m_TriangleVector.push_back(Vector2(l_v3Pos.vPos[0].x, l_v3Pos.vPos[0].y));
+			m_TriangleVector.push_back(Vector2(l_v3Pos.vPos[1].x, l_v3Pos.vPos[1].y));
+			m_TriangleVector.push_back(Vector2(l_v3Pos.vPos[2].x, l_v3Pos.vPos[2].y));
 		}
 	}
 	m_bWaitForGenerateTriangle = false;
