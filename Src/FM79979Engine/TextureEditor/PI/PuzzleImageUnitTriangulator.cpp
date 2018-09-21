@@ -203,6 +203,19 @@ void	cPuzzleImageUnitTriangulator::RenderTriangleImage(Vector3 e_vPos)
 	}
 }
 
+void	cPuzzleImageUnitTriangulator::SetTriangulatorPointsVector(std::vector<Vector2>*e_pVector)
+{
+
+}
+
+TiXmlElement* cPuzzleImageUnitTriangulator::ToTiXmlElement()
+{
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"PIUnitTriangulator");
+	auto l_strPoints = ValueToStringW(m_PointVector);
+	l_pTiXmlElement->SetAttribute(L"Points", l_strPoints);
+	return nullptr;
+}
+
 void cPuzzleImageUnitTriangulator::GenerateTriangle()
 {
 	Vector2 l_vPoints[4];

@@ -56,19 +56,21 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 		eMB_MOVE,
 		eMB_UP
 	};
-	void						PointsToTriangulatorAddMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
-	void						PointsToTriangulatorDeleteMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
-	void						PointsToTriangulatorMoveMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
+	void							PointsToTriangulatorAddMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
+	void							PointsToTriangulatorDeleteMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
+	void							PointsToTriangulatorMoveMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
 public:
 	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
 	~cPuzzleImageUnitTriangulator();
-	void    		MouseDown(int e_iPosX, int e_iPosY);
-	void    		MouseMove(int e_iPosX, int e_iPosY);
-	void    		MouseUp(int e_iPosX, int e_iPosY);
-	void			Render();
-	void			RenderTriangleImage(Vector3 e_vPos);
-	std::vector<Vector2>*		GetPointsVector() { return &m_PointVector; }
+	void    						MouseDown(int e_iPosX, int e_iPosY);
+	void    						MouseMove(int e_iPosX, int e_iPosY);
+	void    						MouseUp(int e_iPosX, int e_iPosY);
+	void							Render();
+	void							RenderTriangleImage(Vector3 e_vPos);
+	std::vector<Vector2>*			GetTriangulatorPointsVector() { return &m_TriangleVector; }
+	void							SetTriangulatorPointsVector(std::vector<Vector2>*e_pVector);
+	virtual	TiXmlElement*			ToTiXmlElement();
 };
 
 

@@ -40,7 +40,17 @@ Bitmap^ GetSelectedArea(Image^ source,Color bg_color, List<System::Drawing::Poin
 		// Make a brush out of the original image.
 		Brush^ br = gcnew TextureBrush(source);
 		// Fill the selected area with the brush.
-		gr->FillPolygon(br,points->ToArray());
+		int l_iNumPolygon = points->Count/3;
+		for (int i = 0; i < l_iNumPolygon; ++i)
+		{
+			List<System::Drawing::Point>^l_pTrianglePoints = gcnew List<System::Drawing::Point>();
+			for (int j = 0; j < 3; ++j)
+			{
+				int l_iIndex = i * 3 + j;
+				l_pTrianglePoints->Add(points[l_iIndex]);
+			}
+			gr->FillPolygon(br, l_pTrianglePoints->ToArray());
+		}
 
 		// Find the bounds of the selected area.
 		System::Drawing::Rectangle source_rect = GetPointListBounds(points);

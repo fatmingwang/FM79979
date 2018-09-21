@@ -155,6 +155,8 @@ namespace PI
 			m_pParentHandle = 0;
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
 			m_HGLRCMV = UT::InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
+			pictureBox2->AutoSize = true;
+			pictureBox1->AutoSize = true;
 #ifdef USER_CONTROL_ENABLE
 			m_pForm = e_pForm;
 			if( m_pForm )
@@ -325,7 +327,9 @@ namespace PI
 	Vector4	*m_pvBGColor;
 	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
 	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
-private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  pictureBox2;
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -421,12 +425,14 @@ private: System::Windows::Forms::Button^  button1;
 			this->AnimationImageDown_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -450,6 +456,8 @@ private: System::Windows::Forms::Button^  button1;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->BeginInit();
 			this->SequenceAnimation_tabPage->SuspendLayout();
 			this->ImageTriangulator_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
@@ -1197,7 +1205,7 @@ private: System::Windows::Forms::Button^  button1;
 			this->SequenceAnimation_tabPage->Controls->Add(this->label1);
 			this->SequenceAnimation_tabPage->Location = System::Drawing::Point(4, 22);
 			this->SequenceAnimation_tabPage->Name = L"SequenceAnimation_tabPage";
-			this->SequenceAnimation_tabPage->Size = System::Drawing::Size(1346, 205);
+			this->SequenceAnimation_tabPage->Size = System::Drawing::Size(1346, 204);
 			this->SequenceAnimation_tabPage->TabIndex = 2;
 			this->SequenceAnimation_tabPage->Text = L"SequenceAnimation";
 			// 
@@ -1359,6 +1367,8 @@ private: System::Windows::Forms::Button^  button1;
 			// ImageTriangulator_tabPage
 			// 
 			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox2);
+			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->button1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
@@ -1370,6 +1380,32 @@ private: System::Windows::Forms::Button^  button1;
 			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(1346, 204);
 			this->ImageTriangulator_tabPage->TabIndex = 1;
 			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
+			// 
+			// pictureBox2
+			// 
+			this->pictureBox2->Location = System::Drawing::Point(1077, 21);
+			this->pictureBox2->Name = L"pictureBox2";
+			this->pictureBox2->Size = System::Drawing::Size(234, 152);
+			this->pictureBox2->TabIndex = 94;
+			this->pictureBox2->TabStop = false;
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Location = System::Drawing::Point(777, 21);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(234, 152);
+			this->pictureBox1->TabIndex = 93;
+			this->pictureBox1->TabStop = false;
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(674, 91);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 92;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click_1);
 			// 
 			// ImageTriangulatorLOD_numericUpDown
 			// 
@@ -1424,16 +1460,6 @@ private: System::Windows::Forms::Button^  button1;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
 			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(551, 90);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 92;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click_1);
-			// 
 			// cPIEditor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
@@ -1469,6 +1495,8 @@ private: System::Windows::Forms::Button^  button1;
 			this->SequenceAnimation_tabPage->PerformLayout();
 			this->ImageTriangulator_tabPage->ResumeLayout(false);
 			this->ImageTriangulator_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
@@ -1937,6 +1965,7 @@ private: System::Windows::Forms::Button^  button1;
 				 if( AllImage_listBox->SelectedIndex != -1 )
 				 {
 					m_iCurrentSelectedObjectIndex = AllImage_listBox->SelectedIndex;
+					pictureBox2->Image = (Image^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
 					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
 					if (l_pUIImage && m_pPuzzleImageUnitTriangulatorManager)
 					{
@@ -2738,14 +2767,18 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 	{
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
-			std::vector<Vector2>*l_pVector = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetPointsVector();
+			std::vector<Vector2>*l_pVector = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetTriangulatorPointsVector();
 			if (l_pVector->size() > 3)
 			{
 				System::Drawing::Bitmap^l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
 				List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(l_pVector);
 				Image^l_pImage = (Image^)l_pBitMap;
 				Bitmap^l_pFinalImage = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList);
-				l_pFinalImage->Save("test.png");
+				Bitmap^l_pOriginalImage = (Bitmap^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
+				//pictureBox1->Image = l_pFinalImage;
+				//pictureBox2->Image = (Image^)l_pOriginalImage;
+				//l_pFinalImage->Save("New.png");
+				//l_pOriginalImage->Save("Original.png");
 			}
 		}
 	}
