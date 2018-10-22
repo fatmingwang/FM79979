@@ -4,16 +4,17 @@
 #include "delaunay_triangulation/DelaunayVector2.h"
 #include "delaunay_triangulation/triangle.h"
 #include "delaunay_triangulation/delaunay.h"
-
+extern cGlyphFontRender*g_pDebugFont;
 cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
 	m_bWaitForGenerateTriangle = false;
 	m_TriangleVector.reserve(500);
 	m_iFocusPoint = -1;
-	m_pTargetImage = e_pTargetImage;
-	if (m_pTargetImage)
-		this->SetName(m_pTargetImage->GetName());
-	auto l_pOffsetPos = e_pTargetImage->GetOffsetPos();
+	m_pTargetImage = new cUIImage(e_pTargetImage);
+	POINT l_OffsetPos = { 0,0 };
+	POINT l_OffsetRightDownPos = { m_pTargetImage->GetWidth(),m_pTargetImage->GetHeight() };
+	m_pTargetImage->SetOffsetPos(l_OffsetPos);
+	m_pTargetImage->SetRightDownStripOffPos(l_OffsetRightDownPos);
 	//left up,right up,right down,left down
 	//must be this order or get wrong
 	Vector2 l_vPoints[4];
@@ -34,16 +35,33 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 
 cPuzzleImageUnitTriangulator::~cPuzzleImageUnitTriangulator()
 {
+	SAFE_DELETE(m_pTargetImage);
 }
 
 bool cPuzzleImageUnitTriangulator::GetImageBoard(Vector2 * e_p4VectorPointer)
 {
 	if (!m_pTargetImage)
 		return false;
-	e_p4VectorPointer[1] = Vector2(m_pTargetImage->GetOffsetPos()->x, m_pTargetImage->GetOffsetPos()->y);
-	e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetOffsetPos()->y);
-	e_p4VectorPointer[3] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
-	e_p4VectorPointer[4] = Vector2((float)m_pTargetImage->GetOffsetPos()->x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
+	//bool l_bStrip = false;
+	//if (m_pTargetImage->GetOffsetPos()->x || m_pTargetImage->GetOffsetPos()->y)
+	//	l_bStrip = true;
+	//if(m_pTargetImage->GetRightDownStripOffPos().x!= m_pTargetImage->GetWidth() ||
+	//	m_pTargetImage->GetRightDownStripOffPos().y != m_pTargetImage->GetWidth())
+	//	l_bStrip = true;
+	//if (e_bStripSize)
+	//{
+	//	e_p4VectorPointer[0] = Vector2(m_pTargetImage->GetOffsetPos()->x, m_pTargetImage->GetOffsetPos()->y);
+	//	e_p4VectorPointer[1] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetOffsetPos()->y);
+	//	e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetRightDownStripOffPos().x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
+	//	e_p4VectorPointer[3] = Vector2((float)m_pTargetImage->GetOffsetPos()->x, (float)m_pTargetImage->GetRightDownStripOffPos().y);
+	//}
+	//else
+	{
+		e_p4VectorPointer[0] = Vector2(0, 0);
+		e_p4VectorPointer[1] = Vector2((float)m_pTargetImage->GetWidth(),0);
+		e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetWidth(), (float)m_pTargetImage->GetHeight());
+		e_p4VectorPointer[3] = Vector2(0, (float)m_pTargetImage->GetHeight());
+	}
 	return true;
 }
 
@@ -127,6 +145,7 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 	{
 		GenerateTriangle();
 	}
+	m_iFocusPoint = -1;
 }
 
 void cPuzzleImageUnitTriangulator::Render()
@@ -160,14 +179,41 @@ void cPuzzleImageUnitTriangulator::Render()
 			GLRender::RenderLine(&l_vPos, l_vColor);
 		}
 	}
-	RenderTriangleImage(Vector3(500,500,0));
+	if (g_pDebugFont)
+	{
+		g_pDebugFont->SetLocalTransform(cMatrix44::TranslationMatrix(-18.f,-24.f,0.f)*cMatrix44::ScaleMatrix(Vector3(0.3f, 0.3f, 1)));
+		for (size_t i = 0; i < m_PointVector.size(); ++i)
+		{
+			auto l_vPos = m_PointVector[i];
+			g_pDebugFont->RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(i).c_str());
+		}
+		g_pDebugFont->SetLocalTransform(cMatrix44::ScaleMatrix(Vector3(1, 1, 1)));
+	}
+	RenderTriangleImage(Vector3((float)m_pTargetImage->GetWidth(), (float)m_pTargetImage->GetHeight(),0));
+	GLRender::RenderRectangle(1000,1000,cMatrix44::Identity,Vector4::Red);
 }
 
 void	cPuzzleImageUnitTriangulator::RenderTriangleImage(Vector3 e_vPos)
 {
-	int l_iNumTriangles = (int)m_s2DVertex.vPosVector.size();
-	
-	RenderTrianglesWithMatrix((float*)&m_s2DVertex.vPosVector, (float*)&m_s2DVertex.vUVVector, (float*)&m_s2DVertex.vColorVector, cMatrix44::TranslationMatrix(e_vPos), 3, l_iNumTriangles * ONE_QUAD_IS_TWO_TRIANGLES);
+	if (m_pTargetImage)
+	{
+		m_pTargetImage->ApplyImage();
+		int l_iNumTriangles = (int)m_s2DVertex.vPosVector.size();
+		RenderTrianglesWithMatrix((float*)&m_s2DVertex.vPosVector[0], (float*)&m_s2DVertex.vUVVector[0], (float*)&m_s2DVertex.vColorVector[0], cMatrix44::TranslationMatrix(e_vPos), 3, l_iNumTriangles);
+	}
+}
+
+void	cPuzzleImageUnitTriangulator::SetTriangulatorPointsVector(std::vector<Vector2>*e_pVector)
+{
+
+}
+
+TiXmlElement* cPuzzleImageUnitTriangulator::ToTiXmlElement()
+{
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"PIUnitTriangulator");
+	auto l_strPoints = ValueToStringW(m_PointVector);
+	l_pTiXmlElement->SetAttribute(L"Points", l_strPoints);
+	return nullptr;
 }
 
 void cPuzzleImageUnitTriangulator::GenerateTriangle()
@@ -191,9 +237,9 @@ void cPuzzleImageUnitTriangulator::GenerateTriangle()
 			s2DVertex::s3PosPoints l_v3Pos = {	*(Vector2*)(&l_Triangles[i].p1),
 									*(Vector2*)(&l_Triangles[i].p2),
 									*(Vector2*)(&l_Triangles[i].p3) };
-			s2DVertex::s3UVPoints l_v3UV = {	Vector2(l_v3Pos.vPos[0].x / l_vPoints[2].x,l_v3Pos.vPos[0].y / l_vPoints[3].y),
-												Vector2(l_v3Pos.vPos[1].x / l_vPoints[2].x,l_v3Pos.vPos[1].y / l_vPoints[3].y),
-												Vector2(l_v3Pos.vPos[2].x / l_vPoints[2].x,l_v3Pos.vPos[2].y / l_vPoints[3].y) };
+			s2DVertex::s3UVPoints l_v3UV = {	Vector2(l_v3Pos.vPos[0].x / l_vPoints[2].x,l_v3Pos.vPos[0].y / l_vPoints[2].y),
+												Vector2(l_v3Pos.vPos[1].x / l_vPoints[2].x,l_v3Pos.vPos[1].y / l_vPoints[2].y),
+												Vector2(l_v3Pos.vPos[2].x / l_vPoints[2].x,l_v3Pos.vPos[2].y / l_vPoints[2].y) };
 			s2DVertex::s3ColorPoints l_v3Color = {Vector4::One,Vector4::One ,Vector4::One };
 			m_s2DVertex.vPosVector.push_back(l_v3Pos);
 			m_s2DVertex.vUVVector.push_back(l_v3UV);
@@ -278,7 +324,7 @@ cPuzzleImageUnitTriangulator * cPuzzleImageUnitTriangulatorManager::GetObject(cU
 	for (int i = 0; i < l_iCount; i++)
 	{
 		auto l_pObject = GetObject(i);
-		if (l_pObject->GetTargetImage() == e_pUIImage)
+		if (l_pObject->GetTargetImage()->IsSameName(e_pUIImage))
 		{
 			return l_pObject;
 		}

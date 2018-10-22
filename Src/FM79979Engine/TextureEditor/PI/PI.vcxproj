@@ -170,6 +170,7 @@
     <ClInclude Include="PIForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="PIUtility.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="PuzzleImageUnitTriangulator.h" />
