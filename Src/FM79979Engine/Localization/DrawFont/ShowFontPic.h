@@ -196,119 +196,120 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->PicFormat_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->FontColor_button = (gcnew System::Windows::Forms::Button());
 			this->Outline_checkBox = (gcnew System::Windows::Forms::CheckBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FontDis_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FontSize_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontDis_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontSize_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TextureSizeY_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TextureSizeX_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TextureSizeY_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TextureSizeX_numericUpDown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(0, 189);
-			this->pictureBox1->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->pictureBox1->Location = System::Drawing::Point(0, 151);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(44, 31);
+			this->pictureBox1->Size = System::Drawing::Size(33, 25);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 			// 
 			// FontDis_numericUpDown
 			// 
-			this->FontDis_numericUpDown->Location = System::Drawing::Point(121, 104);
-			this->FontDis_numericUpDown->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->FontDis_numericUpDown->Location = System::Drawing::Point(91, 83);
+			this->FontDis_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100, 0, 0, System::Int32::MinValue });
 			this->FontDis_numericUpDown->Name = L"FontDis_numericUpDown";
-			this->FontDis_numericUpDown->Size = System::Drawing::Size(111, 25);
+			this->FontDis_numericUpDown->Size = System::Drawing::Size(83, 22);
 			this->FontDis_numericUpDown->TabIndex = 2;
 			// 
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(16, 112);
-			this->label1->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label1->Location = System::Drawing::Point(12, 90);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(85, 15);
+			this->label1->Size = System::Drawing::Size(68, 12);
 			this->label1->TabIndex = 3;
 			this->label1->Text = L"Font Distance";
 			// 
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(16, 142);
-			this->label2->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label2->Location = System::Drawing::Point(12, 114);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(61, 15);
+			this->label2->Size = System::Drawing::Size(48, 12);
 			this->label2->TabIndex = 5;
 			this->label2->Text = L"Font Size";
 			// 
 			// FontSize_numericUpDown
 			// 
-			this->FontSize_numericUpDown->Location = System::Drawing::Point(121, 135);
-			this->FontSize_numericUpDown->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->FontSize_numericUpDown->Location = System::Drawing::Point(91, 108);
 			this->FontSize_numericUpDown->Name = L"FontSize_numericUpDown";
-			this->FontSize_numericUpDown->Size = System::Drawing::Size(111, 25);
+			this->FontSize_numericUpDown->Size = System::Drawing::Size(83, 22);
 			this->FontSize_numericUpDown->TabIndex = 4;
 			this->FontSize_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &ShowFontPic::FontSize_numericUpDown_ValueChanged);
 			// 
 			// menuStrip1
 			// 
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->fileToolStripMenuItem, 
-				this->checkOutputFileToolStripMenuItem});
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->fileToolStripMenuItem,
+					this->checkOutputFileToolStripMenuItem
+			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Padding = System::Windows::Forms::Padding(8, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(623, 24);
+			this->menuStrip1->Size = System::Drawing::Size(467, 24);
 			this->menuStrip1->TabIndex = 7;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
 			// fileToolStripMenuItem
 			// 
-			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {this->openFileToolStripMenuItem, 
-				this->saveToolStripMenuItem, this->savePicToolStripMenuItem});
+			this->fileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->openFileToolStripMenuItem,
+					this->saveToolStripMenuItem, this->savePicToolStripMenuItem
+			});
 			this->fileToolStripMenuItem->Name = L"fileToolStripMenuItem";
-			this->fileToolStripMenuItem->Size = System::Drawing::Size(41, 20);
+			this->fileToolStripMenuItem->Size = System::Drawing::Size(39, 20);
 			this->fileToolStripMenuItem->Text = L"File";
 			// 
 			// openFileToolStripMenuItem
 			// 
 			this->openFileToolStripMenuItem->Name = L"openFileToolStripMenuItem";
-			this->openFileToolStripMenuItem->Size = System::Drawing::Size(126, 22);
+			this->openFileToolStripMenuItem->Size = System::Drawing::Size(127, 22);
 			this->openFileToolStripMenuItem->Text = L"OpenFile";
 			this->openFileToolStripMenuItem->Click += gcnew System::EventHandler(this, &ShowFontPic::openFileToolStripMenuItem_Click);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this->saveToolStripMenuItem->Name = L"saveToolStripMenuItem";
-			this->saveToolStripMenuItem->Size = System::Drawing::Size(126, 22);
+			this->saveToolStripMenuItem->Size = System::Drawing::Size(127, 22);
 			this->saveToolStripMenuItem->Text = L"SaveFile";
 			this->saveToolStripMenuItem->Click += gcnew System::EventHandler(this, &ShowFontPic::openFileToolStripMenuItem_Click);
 			// 
 			// savePicToolStripMenuItem
 			// 
 			this->savePicToolStripMenuItem->Name = L"savePicToolStripMenuItem";
-			this->savePicToolStripMenuItem->Size = System::Drawing::Size(126, 22);
+			this->savePicToolStripMenuItem->Size = System::Drawing::Size(127, 22);
 			this->savePicToolStripMenuItem->Text = L"SavePic";
 			this->savePicToolStripMenuItem->Click += gcnew System::EventHandler(this, &ShowFontPic::saveToolStripMenuItem_Click);
 			// 
 			// checkOutputFileToolStripMenuItem
 			// 
-			this->checkOutputFileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {this->winToolStripMenuItem, 
-				this->xboxToolStripMenuItem});
+			this->checkOutputFileToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->winToolStripMenuItem,
+					this->xboxToolStripMenuItem
+			});
 			this->checkOutputFileToolStripMenuItem->Name = L"checkOutputFileToolStripMenuItem";
-			this->checkOutputFileToolStripMenuItem->Size = System::Drawing::Size(115, 20);
+			this->checkOutputFileToolStripMenuItem->Size = System::Drawing::Size(113, 20);
 			this->checkOutputFileToolStripMenuItem->Text = L"CheckOutputFile";
 			// 
 			// winToolStripMenuItem
 			// 
 			this->winToolStripMenuItem->Name = L"winToolStripMenuItem";
-			this->winToolStripMenuItem->Size = System::Drawing::Size(105, 22);
+			this->winToolStripMenuItem->Size = System::Drawing::Size(106, 22);
 			this->winToolStripMenuItem->Text = L"Win";
 			this->winToolStripMenuItem->Click += gcnew System::EventHandler(this, &ShowFontPic::winToolStripMenuItem_Click);
 			// 
 			// xboxToolStripMenuItem
 			// 
 			this->xboxToolStripMenuItem->Name = L"xboxToolStripMenuItem";
-			this->xboxToolStripMenuItem->Size = System::Drawing::Size(105, 22);
+			this->xboxToolStripMenuItem->Size = System::Drawing::Size(106, 22);
 			this->xboxToolStripMenuItem->Text = L"Xbox";
 			this->xboxToolStripMenuItem->Click += gcnew System::EventHandler(this, &ShowFontPic::winToolStripMenuItem_Click);
 			// 
@@ -316,10 +317,9 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// 
 			this->ReFreshPic_button->DialogResult = System::Windows::Forms::DialogResult::Cancel;
 			this->ReFreshPic_button->Enabled = false;
-			this->ReFreshPic_button->Location = System::Drawing::Point(237, 135);
-			this->ReFreshPic_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->ReFreshPic_button->Location = System::Drawing::Point(178, 108);
 			this->ReFreshPic_button->Name = L"ReFreshPic_button";
-			this->ReFreshPic_button->Size = System::Drawing::Size(104, 24);
+			this->ReFreshPic_button->Size = System::Drawing::Size(78, 19);
 			this->ReFreshPic_button->TabIndex = 8;
 			this->ReFreshPic_button->Text = L"ReFreshPic";
 			this->ReFreshPic_button->UseVisualStyleBackColor = true;
@@ -328,52 +328,47 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(16, 71);
-			this->label3->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label3->Location = System::Drawing::Point(12, 57);
 			this->label3->Name = L"label3";
-			this->label3->Size = System::Drawing::Size(85, 15);
+			this->label3->Size = System::Drawing::Size(68, 12);
 			this->label3->TabIndex = 12;
 			this->label3->Text = L"TextureSizeY";
 			// 
 			// TextureSizeY_numericUpDown
 			// 
-			this->TextureSizeY_numericUpDown->Location = System::Drawing::Point(121, 64);
-			this->TextureSizeY_numericUpDown->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
-			this->TextureSizeY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000000, 0, 0, 0});
+			this->TextureSizeY_numericUpDown->Location = System::Drawing::Point(91, 51);
+			this->TextureSizeY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000000, 0, 0, 0 });
 			this->TextureSizeY_numericUpDown->Name = L"TextureSizeY_numericUpDown";
-			this->TextureSizeY_numericUpDown->Size = System::Drawing::Size(111, 25);
+			this->TextureSizeY_numericUpDown->Size = System::Drawing::Size(83, 22);
 			this->TextureSizeY_numericUpDown->TabIndex = 11;
-			this->TextureSizeY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {600, 0, 0, 0});
+			this->TextureSizeY_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 600, 0, 0, 0 });
 			this->TextureSizeY_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &ShowFontPic::TextureSizeX_numericUpDown_ValueChanged);
 			// 
 			// label4
 			// 
 			this->label4->AutoSize = true;
-			this->label4->Location = System::Drawing::Point(16, 40);
-			this->label4->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label4->Location = System::Drawing::Point(12, 32);
 			this->label4->Name = L"label4";
-			this->label4->Size = System::Drawing::Size(85, 15);
+			this->label4->Size = System::Drawing::Size(68, 12);
 			this->label4->TabIndex = 10;
 			this->label4->Text = L"TextureSizeX";
 			// 
 			// TextureSizeX_numericUpDown
 			// 
-			this->TextureSizeX_numericUpDown->Location = System::Drawing::Point(121, 32);
-			this->TextureSizeX_numericUpDown->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
-			this->TextureSizeX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000000, 0, 0, 0});
+			this->TextureSizeX_numericUpDown->Location = System::Drawing::Point(91, 26);
+			this->TextureSizeX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 10000000, 0, 0, 0 });
 			this->TextureSizeX_numericUpDown->Name = L"TextureSizeX_numericUpDown";
-			this->TextureSizeX_numericUpDown->Size = System::Drawing::Size(111, 25);
+			this->TextureSizeX_numericUpDown->Size = System::Drawing::Size(83, 22);
 			this->TextureSizeX_numericUpDown->TabIndex = 9;
-			this->TextureSizeX_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {800, 0, 0, 0});
+			this->TextureSizeX_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 800, 0, 0, 0 });
 			this->TextureSizeX_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &ShowFontPic::TextureSizeX_numericUpDown_ValueChanged);
 			// 
 			// label5
 			// 
 			this->label5->AutoSize = true;
-			this->label5->Location = System::Drawing::Point(241, 40);
-			this->label5->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
+			this->label5->Location = System::Drawing::Point(181, 32);
 			this->label5->Name = L"label5";
-			this->label5->Size = System::Drawing::Size(0, 15);
+			this->label5->Size = System::Drawing::Size(0, 12);
 			this->label5->TabIndex = 13;
 			// 
 			// SequenceCharacter_checkBox
@@ -381,10 +376,9 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->SequenceCharacter_checkBox->AutoSize = true;
 			this->SequenceCharacter_checkBox->Checked = true;
 			this->SequenceCharacter_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->SequenceCharacter_checkBox->Location = System::Drawing::Point(16, 162);
-			this->SequenceCharacter_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->SequenceCharacter_checkBox->Location = System::Drawing::Point(12, 130);
 			this->SequenceCharacter_checkBox->Name = L"SequenceCharacter_checkBox";
-			this->SequenceCharacter_checkBox->Size = System::Drawing::Size(133, 19);
+			this->SequenceCharacter_checkBox->Size = System::Drawing::Size(113, 16);
 			this->SequenceCharacter_checkBox->TabIndex = 14;
 			this->SequenceCharacter_checkBox->Text = L"SequenceCharacter";
 			this->SequenceCharacter_checkBox->UseVisualStyleBackColor = true;
@@ -392,21 +386,19 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// AllFont_listBox
 			// 
 			this->AllFont_listBox->FormattingEnabled = true;
-			this->AllFont_listBox->ItemHeight = 15;
-			this->AllFont_listBox->Location = System::Drawing::Point(412, 88);
-			this->AllFont_listBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->AllFont_listBox->ItemHeight = 12;
+			this->AllFont_listBox->Location = System::Drawing::Point(309, 70);
 			this->AllFont_listBox->Name = L"AllFont_listBox";
-			this->AllFont_listBox->Size = System::Drawing::Size(201, 94);
+			this->AllFont_listBox->Size = System::Drawing::Size(152, 76);
 			this->AllFont_listBox->TabIndex = 15;
 			this->AllFont_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &ShowFontPic::AllFont_listBox_SelectedIndexChanged);
 			// 
 			// DelPic_button
 			// 
 			this->DelPic_button->Enabled = false;
-			this->DelPic_button->Location = System::Drawing::Point(497, 58);
-			this->DelPic_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->DelPic_button->Location = System::Drawing::Point(373, 46);
 			this->DelPic_button->Name = L"DelPic_button";
-			this->DelPic_button->Size = System::Drawing::Size(117, 22);
+			this->DelPic_button->Size = System::Drawing::Size(88, 18);
 			this->DelPic_button->TabIndex = 16;
 			this->DelPic_button->Text = L"Del";
 			this->DelPic_button->UseVisualStyleBackColor = true;
@@ -414,10 +406,9 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(497, 30);
-			this->button2->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->button2->Location = System::Drawing::Point(373, 24);
 			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(116, 22);
+			this->button2->Size = System::Drawing::Size(87, 18);
 			this->button2->TabIndex = 17;
 			this->button2->Text = L"AddFontToList";
 			this->button2->UseVisualStyleBackColor = true;
@@ -425,10 +416,9 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// 
 			// Color_button
 			// 
-			this->Color_button->Location = System::Drawing::Point(236, 100);
-			this->Color_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->Color_button->Location = System::Drawing::Point(177, 80);
 			this->Color_button->Name = L"Color_button";
-			this->Color_button->Size = System::Drawing::Size(84, 29);
+			this->Color_button->Size = System::Drawing::Size(63, 23);
 			this->Color_button->TabIndex = 18;
 			this->Color_button->Text = L"BK Color";
 			this->Color_button->UseVisualStyleBackColor = true;
@@ -439,10 +429,9 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->AntiAlias_checkBox->AutoSize = true;
 			this->AntiAlias_checkBox->Checked = true;
 			this->AntiAlias_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->AntiAlias_checkBox->Location = System::Drawing::Point(185, 162);
-			this->AntiAlias_checkBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->AntiAlias_checkBox->Location = System::Drawing::Point(139, 130);
 			this->AntiAlias_checkBox->Name = L"AntiAlias_checkBox";
-			this->AntiAlias_checkBox->Size = System::Drawing::Size(80, 19);
+			this->AntiAlias_checkBox->Size = System::Drawing::Size(67, 16);
 			this->AntiAlias_checkBox->TabIndex = 19;
 			this->AntiAlias_checkBox->Text = L"AntiAlias";
 			this->AntiAlias_checkBox->UseVisualStyleBackColor = true;
@@ -450,19 +439,17 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// PicFormat_comboBox
 			// 
 			this->PicFormat_comboBox->FormattingEnabled = true;
-			this->PicFormat_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(5) {L"bmp", L"gif", L"jpeg", L"png", L"tiff"});
-			this->PicFormat_comboBox->Location = System::Drawing::Point(395, 31);
-			this->PicFormat_comboBox->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->PicFormat_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(5) { L"bmp", L"gif", L"jpeg", L"png", L"tiff" });
+			this->PicFormat_comboBox->Location = System::Drawing::Point(296, 25);
 			this->PicFormat_comboBox->Name = L"PicFormat_comboBox";
-			this->PicFormat_comboBox->Size = System::Drawing::Size(96, 23);
+			this->PicFormat_comboBox->Size = System::Drawing::Size(73, 20);
 			this->PicFormat_comboBox->TabIndex = 20;
 			// 
 			// FontColor_button
 			// 
-			this->FontColor_button->Location = System::Drawing::Point(323, 99);
-			this->FontColor_button->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
+			this->FontColor_button->Location = System::Drawing::Point(242, 79);
 			this->FontColor_button->Name = L"FontColor_button";
-			this->FontColor_button->Size = System::Drawing::Size(88, 31);
+			this->FontColor_button->Size = System::Drawing::Size(66, 25);
 			this->FontColor_button->TabIndex = 21;
 			this->FontColor_button->Text = L"FontColor";
 			this->FontColor_button->UseVisualStyleBackColor = true;
@@ -471,20 +458,19 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// Outline_checkBox
 			// 
 			this->Outline_checkBox->AutoSize = true;
-			this->Outline_checkBox->Location = System::Drawing::Point(271, 161);
-			this->Outline_checkBox->Margin = System::Windows::Forms::Padding(4);
+			this->Outline_checkBox->Location = System::Drawing::Point(203, 129);
 			this->Outline_checkBox->Name = L"Outline_checkBox";
-			this->Outline_checkBox->Size = System::Drawing::Size(68, 19);
+			this->Outline_checkBox->Size = System::Drawing::Size(58, 16);
 			this->Outline_checkBox->TabIndex = 22;
 			this->Outline_checkBox->Text = L"Outline";
 			this->Outline_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// ShowFontPic
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoScroll = true;
-			this->ClientSize = System::Drawing::Size(623, 340);
+			this->ClientSize = System::Drawing::Size(467, 272);
 			this->Controls->Add(this->Outline_checkBox);
 			this->Controls->Add(this->FontColor_button);
 			this->Controls->Add(this->PicFormat_comboBox);
@@ -507,16 +493,15 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->Controls->Add(this->FontDis_numericUpDown);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->Margin = System::Windows::Forms::Padding(4, 4, 4, 4);
 			this->Name = L"ShowFontPic";
 			this->Text = L"ShowFontPic";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FontDis_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FontSize_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontDis_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontSize_numericUpDown))->EndInit();
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TextureSizeY_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->TextureSizeX_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TextureSizeY_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->TextureSizeX_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
