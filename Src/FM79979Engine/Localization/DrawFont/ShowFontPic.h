@@ -78,6 +78,7 @@ namespace DrawFont {
 			g_MaskColor = System::Drawing::Color::Black;
 			g_FontColor = System::Drawing::Color::White;
 			PicFormat_comboBox->SelectedIndex = 0;
+			AntiAlias_comboBox->SelectedIndex = 2;
 		}
 
 	protected:
@@ -119,13 +120,15 @@ namespace DrawFont {
 
 	private: System::Windows::Forms::Button^  button2;
 	private: System::Windows::Forms::Button^  Color_button;
-	private: System::Windows::Forms::CheckBox^  AntiAlias_checkBox;
+
 	private: System::Windows::Forms::ToolStripMenuItem^  checkOutputFileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  winToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  xboxToolStripMenuItem;
 	private: System::Windows::Forms::ComboBox^  PicFormat_comboBox;
 	private: System::Windows::Forms::Button^  FontColor_button;
 private: System::Windows::Forms::CheckBox^  Outline_checkBox;
+private: System::Windows::Forms::ComboBox^  AntiAlias_comboBox;
+private: System::Windows::Forms::Label^  label6;
 
 
 
@@ -192,10 +195,11 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->DelPic_button = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->Color_button = (gcnew System::Windows::Forms::Button());
-			this->AntiAlias_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->PicFormat_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->FontColor_button = (gcnew System::Windows::Forms::Button());
 			this->Outline_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->AntiAlias_comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontDis_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FontSize_numericUpDown))->BeginInit();
@@ -424,18 +428,6 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->Color_button->UseVisualStyleBackColor = true;
 			this->Color_button->Click += gcnew System::EventHandler(this, &ShowFontPic::Color_button_Click);
 			// 
-			// AntiAlias_checkBox
-			// 
-			this->AntiAlias_checkBox->AutoSize = true;
-			this->AntiAlias_checkBox->Checked = true;
-			this->AntiAlias_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
-			this->AntiAlias_checkBox->Location = System::Drawing::Point(139, 130);
-			this->AntiAlias_checkBox->Name = L"AntiAlias_checkBox";
-			this->AntiAlias_checkBox->Size = System::Drawing::Size(67, 16);
-			this->AntiAlias_checkBox->TabIndex = 19;
-			this->AntiAlias_checkBox->Text = L"AntiAlias";
-			this->AntiAlias_checkBox->UseVisualStyleBackColor = true;
-			// 
 			// PicFormat_comboBox
 			// 
 			this->PicFormat_comboBox->FormattingEnabled = true;
@@ -458,12 +450,33 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			// Outline_checkBox
 			// 
 			this->Outline_checkBox->AutoSize = true;
-			this->Outline_checkBox->Location = System::Drawing::Point(203, 129);
+			this->Outline_checkBox->Location = System::Drawing::Point(198, 8);
 			this->Outline_checkBox->Name = L"Outline_checkBox";
 			this->Outline_checkBox->Size = System::Drawing::Size(58, 16);
 			this->Outline_checkBox->TabIndex = 22;
 			this->Outline_checkBox->Text = L"Outline";
 			this->Outline_checkBox->UseVisualStyleBackColor = true;
+			// 
+			// AntiAlias_comboBox
+			// 
+			this->AntiAlias_comboBox->FormattingEnabled = true;
+			this->AntiAlias_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(6) {
+				L"AntiAlias", L"AntiAliasGridFit", L"ClearTypeGridFit",
+					L"SingleBitPerPixel", L"SingleBitPerPixelGridFit", L"SystemDefault"
+			});
+			this->AntiAlias_comboBox->Location = System::Drawing::Point(182, 130);
+			this->AntiAlias_comboBox->Name = L"AntiAlias_comboBox";
+			this->AntiAlias_comboBox->Size = System::Drawing::Size(121, 20);
+			this->AntiAlias_comboBox->TabIndex = 23;
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(128, 134);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(48, 12);
+			this->label6->TabIndex = 24;
+			this->label6->Text = L"AntiAlias";
 			// 
 			// ShowFontPic
 			// 
@@ -471,10 +484,11 @@ private: System::Windows::Forms::CheckBox^  Outline_checkBox;
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->AutoScroll = true;
 			this->ClientSize = System::Drawing::Size(467, 272);
+			this->Controls->Add(this->label6);
+			this->Controls->Add(this->AntiAlias_comboBox);
 			this->Controls->Add(this->Outline_checkBox);
 			this->Controls->Add(this->FontColor_button);
 			this->Controls->Add(this->PicFormat_comboBox);
-			this->Controls->Add(this->AntiAlias_checkBox);
 			this->Controls->Add(this->Color_button);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button2);

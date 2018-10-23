@@ -228,7 +228,10 @@ namespace DrawFont {
 			 System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap( l_Size.Width,l_Size.Height);
 			 System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(l_pBitMap);
 			 l_pGr->FillRectangle(l_pDrawBrush,0,0,l_pBitMap->Width,l_pBitMap->Height);
-			 l_pGr->DrawString(e_pString,e_pFont,Brushes::Black,0,0);
+			 StringFormat^l_pStringFormat = gcnew StringFormat();
+			 l_pStringFormat->Alignment = StringAlignment::Near;
+			 //l_pStringFormat->
+			 l_pGr->DrawString(e_pString,e_pFont,Brushes::Black,0,0, l_pStringFormat);
 			 label5->Text = "";
 			 return l_pBitMap;
 		 }
@@ -243,8 +246,32 @@ namespace DrawFont {
 
 		 System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap( e_iWidth,e_iHeight );
 		 System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(l_pBitMap);
-		 if( AntiAlias_checkBox->Checked )
-			l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::AntiAliasGridFit;//:AntiAlias;
+		 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::ClearTypeGridFit;//:AntiAlias;
+//				L"AntiAlias", L"AntiAliasGridFit", L"ClearTypeGridFit",L"SingleBitPerPixel", L"SingleBitPerPixelGridFit", L"SystemDefault"
+		 switch (AntiAlias_comboBox->SelectedIndex)
+		 {
+			 case 0:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::AntiAlias;
+				 break;
+			 case 1:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::AntiAliasGridFit;
+				 break;
+			 case 2:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::ClearTypeGridFit;
+				 break;
+			 case 3:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::SingleBitPerPixel;
+				 break;
+			 case 4:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::SingleBitPerPixelGridFit;
+				 break;
+			 case 5:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::SystemDefault;
+				 break;
+			 default:
+				 l_pGr->TextRenderingHint = System::Drawing::Text::TextRenderingHint::SingleBitPerPixelGridFit;
+				 break;
+		 }
 		 l_pGr->FillRectangle(l_pDrawBrush,0,0,l_pBitMap->Width,l_pBitMap->Height);
 		 int	l_iCurrentCharHeight = e_pFont->Height;
 		 int	l_iCurrentCharWidth = 0;
