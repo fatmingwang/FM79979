@@ -77,8 +77,8 @@ namespace DrawFont {
 			m_pFontInfoList = gcnew System::Collections::Hashtable;
 			g_MaskColor = System::Drawing::Color::Black;
 			g_FontColor = System::Drawing::Color::White;
-			PicFormat_comboBox->SelectedIndex = 0;
-			AntiAlias_comboBox->SelectedIndex = 2;
+			PicFormat_comboBox->SelectedIndex = 3;
+			AntiAlias_comboBox->SelectedIndex = 4;
 		}
 
 	protected:
@@ -588,6 +588,7 @@ private: System::Void fontAddToolStripMenuItem_Click(System::Object^  sender, Sy
 				 else
 					 l_pStringForNoSapce+=l_pStringForFontName[i];
 			 }
+			 l_pStringForNoSapce += AntiAlias_comboBox->SelectedIndex.ToString();
 			 l_pStringForFontName = l_pStringForNoSapce;
 			 if( !m_pFontInfoList->ContainsKey(l_pStringForFontName) )
 			 {
