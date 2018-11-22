@@ -29,6 +29,7 @@ namespace FATMING_CORE
 	}
 	void	cCPP11Thread::ThreadDetach(f_ThreadWorkingFunction e_WorkingFunction)
 	{
+		m_bLeaveThread = false;
 		m_ThreadWorkingFunction = e_WorkingFunction;
 		std::thread l_Thread = std::thread([=] {cCPP11Thread::WorkingThread(); });
 		l_Thread.detach();
