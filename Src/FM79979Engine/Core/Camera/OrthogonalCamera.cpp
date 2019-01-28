@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "OrthogonalCamera.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "SimpleCamera.h"
 #include "../Image/SimplePrimitive.h"
 namespace FATMING_CORE

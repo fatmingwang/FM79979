@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "2DImageCollisionData.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 
 #include "../Bullet/LinearMath/btQuaternion.h"
 #include "LinearMath/btTransform.h"

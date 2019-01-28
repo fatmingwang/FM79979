@@ -15,7 +15,7 @@ namespace FATMING_CORE
 	//2,1,4,1
 	//size,angle,color(RGBA),imageIndex
 	//<PointData P1="0,0,0,0,0,0,0,0" P2="0,0,0,0,0,0,0,0" P3="0,0,0,0,0,0,0,0">
-	sTexBehaviorDataWithImageIndexData*	GetTexBehaviorDataWithImageIndexData(const wchar_t*e_str,sPuzzleData**e_ppPuzzleData,int e_iNumData,wchar_t*e_pstrNotExistImageName,Vector3*e_pPosOffset)
+	sTexBehaviorDataWithImageIndexData*	GetTexBehaviorDataWithImageIndexData(const wchar_t*e_str,sPuzzleData*e_pAllPuzzleData,int e_iNumData,wchar_t*e_pstrNotExistImageName,Vector3*e_pPosOffset)
 	{
 		sPuzzleData*l_pPuzzleData = 0;
 		char	l_strData[TEMP_SIZE];
@@ -44,10 +44,10 @@ namespace FATMING_CORE
 		std::wstring l_strForImageName = UT::CharToWchar(l_str);
 		for( int i=0;i<e_iNumData;++i )
 		{
-			if(!wcscmp(e_ppPuzzleData[i]->strFileName.c_str(),l_strForImageName.c_str()))
+			if(!wcscmp(e_pAllPuzzleData[i].strFileName.c_str(),l_strForImageName.c_str()))
 			{
 				l_pData->iImageIndex = i;
-				l_pPuzzleData = e_ppPuzzleData[i];
+				l_pPuzzleData = &e_pAllPuzzleData[i];
 				break;
 			}
 		}
@@ -120,9 +120,9 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 				{
 				    e_pXMLWriter->AddAttribute("PIName",l_pTexBehaviorDataWithImageIndexData->pPI->GetName());
 					if( l_pTexBehaviorDataWithImageIndexData->iImageIndex == -1 )
-						e_pXMLWriter->AddAttribute("ImageName",UT::WcharToChar(l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[0]->strFileName));
+						e_pXMLWriter->AddAttribute("ImageName",UT::WcharToChar(l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(0)->strFileName));
 					else
-						e_pXMLWriter->AddAttribute("ImageName",UT::WcharToChar(l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex]->strFileName));
+						e_pXMLWriter->AddAttribute("ImageName",UT::WcharToChar(l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex)->strFileName));
 				}
 				else
 				{
@@ -409,14 +409,12 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 							l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList.GetObject(UT::GetFileNameWithoutFullPath(UT::CharToWchar(l_strFileName.c_str()))));
 						    if(!l_pPuzzleImage)
 						    {
-							    bool l_b = m_AllBaseImageList.Parse(l_strFileName);
-							    if( !l_b )
+								l_pPuzzleImage = m_AllBaseImageList.GetPuzzleImageByFileName(l_strFileName.c_str());
+							    if( !l_pPuzzleImage)
 							    {
 								    this->m_strErrorMsg += UT::CharToWchar(l_strFileName);
 								    this->m_strErrorMsg += L" parse failed,format is utf-8!?\n";
 							    }
-								else
-									l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList[m_AllBaseImageList.Count()-1]);
 						    }
 	    #ifdef DEBUG
 	    #ifdef WIN32
@@ -701,7 +699,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 								l_sTexBehaviorDataWithImageIndexData.iImageIndex = l_pPuzzleImage->GetObjectIndexByName(l_strValue);
 								if( l_sTexBehaviorDataWithImageIndexData.iImageIndex != -1 )
 								{
-									l_pPuzzleData = l_pPuzzleImage->GetPuzzleData()[l_sTexBehaviorDataWithImageIndexData.iImageIndex];
+									l_pPuzzleData = l_pPuzzleImage->GetPuzzleData(l_sTexBehaviorDataWithImageIndexData.iImageIndex);
 								}
 							}
 							else
@@ -766,7 +764,7 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					int	l_iIndex = 0;
 					PARSE_CURRENT_ELEMENT_START
 						Vector3	l_vOriginalPos = m_pCurrentCueToStartCurvesWithTime->GetOriginalPointList()[l_iIndex];
-					    sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = GetTexBehaviorDataWithImageIndexData(l_strValue,this->m_pCurrentcMPDIList->GetPuzzleData(),m_pCurrentcMPDIList->GetNumImage(),l_strNotExistImageName,&l_vOriginalPos);
+					    sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = GetTexBehaviorDataWithImageIndexData(l_strValue,this->m_pCurrentcMPDIList->GetAllPuzzleData(),m_pCurrentcMPDIList->GetNumImage(),l_strNotExistImageName,&l_vOriginalPos);
 						l_pTexBehaviorDataWithImageIndexData->pPI = m_pCurrentcMPDIList->GetPuzzleImage();
 						l_pPointDataList->push_back(l_pTexBehaviorDataWithImageIndexData);
 						if( wcslen(l_strNotExistImageName) )

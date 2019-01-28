@@ -62,12 +62,12 @@
 #include <string>
 #include <assert.h>
 #include "GameplayUT/GameUTDefine.h"
-#include "CommonDefine.h"
-#include "NamedTypedObject.h"
-#include "TemplateClass.h"
+#include "Common/CommonDefine.h"
+#include "Common/NamedTypedObject.h"
+#include "Common/Template/TemplateClass.h"
 #include "XML/StringToStructure.h"
 #include "AllMathInclude.h"
-#include "Utility.h"
+#include "Common/Utility.h"
 //#include "Sound/SoundManager.h"
 //#if defined(WIN32)
 //	typedef std::basic_string<unsigned char> MyStringForMVSC;

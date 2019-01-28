@@ -159,7 +159,7 @@ namespace FATMING_CORE
 		{
 			if( !m_bStart )
 			{
-				if(m_fPastTime>m_fStartTime)
+				if(m_fPastTime>=m_fStartTime)
 				{
 					m_bStart = true;
 					InternalUpdate(m_fPastTime-m_fStartTime);

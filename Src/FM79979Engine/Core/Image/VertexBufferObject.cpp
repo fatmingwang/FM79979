@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "VertexBufferObject.h"
 #include "../Image/SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 
 #if defined(IOS)
 #include <OpenGLES/ES2/gl.h>

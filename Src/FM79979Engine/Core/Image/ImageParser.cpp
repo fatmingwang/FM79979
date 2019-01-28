@@ -1,5 +1,5 @@
 #include "../stdafx.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 #include "NumeralImage.h"
 #include "ImageParser.h"
 #include "../XML/AtgXmlWriter.h"
@@ -7,17 +7,11 @@
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cImageParser);
-	const char*				cImageParser::ExtensionNameID( ".pi" );
-    bool					g_bImageLoaderForFetchPixelData	= false;
+    //bool					g_bImageLoaderForFetchPixelData	= false;
 	//sometimes we only need to PI data but no pixels data
-	bool    g_bSkipImageLoad = false;
-	cImageParser::cImageParser(bool e_bSortPIFileAsOriginal):ISAXCallback(true)
+	//bool    g_bSkipImageLoad = false;
+	cImageParser::cImageParser()
 	{
-		this->m_bShowErrorMsg = false;
-		m_bSortPIFileAsOriginal = e_bSortPIFileAsOriginal;
-		m_eImageType = eIT_MAX;
-		m_pCurrentImageIndexOfAnimationList = 0;
-		m_bFileExist = false;
 	}
 	//===============
 	//
@@ -26,17 +20,6 @@ namespace FATMING_CORE
 	{
 
 	}
-
-	void	cImageParser::RemoveResourceObject(NamedTypedObject*e_pObject)
-	{
-	}
-	
-    void	cImageParser::InternalParse()
-    {
-        m_pCurrentImageIndexOfAnimationList = 0;
-		m_bFileExist = false;
-        //g_bImageLoaderForFetchPixelData = false;
-    }
 
 	cUIImage*	cImageParser::GetUIImage(int e_iIndex)
 	{
@@ -51,6 +34,13 @@ namespace FATMING_CORE
 	cBaseImage*	cImageParser::GetBaseImage(const wchar_t*e_strName)
 	{
 		return dynamic_cast<cBaseImage*>(GetObject(e_strName));
+	}
+
+
+	cPuzzleImage*	cImageParser::GetPuzzleImageByFileName(const char*e_strName)
+	{
+		std::wstring	l_strName = UT::CharToWchar(e_strName);
+		return GetPuzzleImage(e_strName, l_strName.c_str());
 	}
 
 	cPuzzleImage*	cImageParser::GetPuzzleImageByFileName(const wchar_t*e_strName)
@@ -75,420 +65,16 @@ namespace FATMING_CORE
 		cPuzzleImage*l_pPI = GetPuzzleImage(e_strPIName);
 		if( !l_pPI )
 		{
-			this->m_strErrorMsg.clear();
-			int	l_iCount = this->Count();
-			bool	l_b = this->Parse(e_strFileName);
-			if( !l_b )
+			cPuzzleImage*l_pPI = new cPuzzleImage();
+			if (!l_pPI->ParseWithMyParse(e_strFileName))
 			{
 				UT::ErrorMsg("parse file eailed",e_strFileName);
 				return 0;
 			}
-			if( l_iCount +1 != this->Count() )
-			{
-				UT::ErrorMsg("parse file eailed",e_strFileName);
-				return 0;
-			}
-			return this->GetPuzzleImage(this->Count()-1);
+			this->AddObjectNeglectExist(l_pPI);
+			return l_pPI;
 		}
 		return l_pPI;
-	}
-
-	void	cImageParser::HandleElementData(TiXmlElement *e_pTiXmlElement)
-	{
-		const wchar_t*	l_strName = e_pTiXmlElement->Value();
-		if( !wcslen(l_strName) )
-			return;
-		COMPARE_NAME("Common")
-			m_eImageType = eIT_COMMON;
-		else
-		COMPARE_NAME("UI")
-			m_eImageType = eIT_UI;
-		else
-		COMPARE_NAME("Numeral")
-			m_eImageType = eIT_NUMERAL;
-		else
-		COMPARE_NAME("PuzzleImage")
-		{
-			m_eImageType = eIT_PUZZLE_IMAGE;
-			const wchar_t*l_strImageName = this->m_pCurrentTiXmlElement->Attribute(L"ImageName");
-			if( l_strImageName )
-			{
-				if(this->GetObject(UT::GetFileNameWithoutFullPath(l_strImageName)))
-				{
-					m_bFileExist = true;
-				}
-			}
-		}
-		DistributeElementToLoaders();
-	}
-	//===============
-	//
-	//===============
-	void	cImageParser::DistributeElementToLoaders()
-	{
-		if( m_bFileExist )
-			return;
-		switch(m_eImageType)
-		{
-			case eIT_COMMON:
-				ProcessCommonTexture();
-				break;
-			case eIT_UI:
-				ProcessUITexture();
-				break;
-			case eIT_NUMERAL:
-				ProcessNumeralTexture();
-				break;
-			case eIT_PUZZLE_IMAGE:
-				ProcessPuzzleImageTexture();
-				break;
-			default:
-				break;
-		}
-	}
-	//<Common Name="BackGround/BKImage.png" UV="0,0,1,1" />
-	void	cImageParser::ProcessCommonTexture()
-	{
-		UT::ErrorMsg("no more support","error");
-		//if(!this->m_pCurrentTiXmlElement->m_bDone)
-		//{
-		//	bool	l_bSkipUV = false;
-		//	cBaseImage*l_p = 0;
-		//	PARSE_CURRENT_ELEMENT_START
-		//		COMPARE_NAME("Name")
-		//		{
-		//			char*	l_strFileName = StringAddDirectory(UT::WcharToChar(l_strValue));
-		//			l_p = new cBaseImage(l_strFileName,g_bImageLoaderForFetchPixelData);
-		//			bool	l_bSame = this->AddObject(l_p);
-		//			if( !l_bSame )
-		//			{
-		//				this->m_strErrorMsg += UT::CharToWchar(l_strFileName);
-		//				this->m_strErrorMsg += L"loading same image error occur\n";
-		//			}
-		//			//none power of two texture,we have already adjust UV while loading so do not adjust it again,
-		//			//or we have make this image as a power of 2 image,and we need to assign the UV data not automaticly,
-		//			//because generate power of 2 image while loading will waste time,or it just good because it's just 
-		//			//a power of 2 image so we do not to care it ,too.
-		//			if( l_p->GetUV()[2] == 1&& l_p->GetUV()[3] == 1 )
-		//				l_bSkipUV = true;
-		//		}
-		//		else
-		//		COMPARE_NAME("UV")
-		//		{
-		//			if( l_bSkipUV )
-		//			{
-		//				l_pAttribute = l_pAttribute->Next();
-		//				continue;
-		//			}
-		//			if( l_p )
-		//			{
-		//				assert(*l_p->GetHeight()==UT::power_of_two(*l_p->GetHeight()));
-		//				float	l_fUV[4];
-		//				GetUV(l_strValue,l_fUV);
-		//				l_p->SetUV(l_fUV);
-		//				l_p->SetImageSize((int)(l_p->GetWidth()*(l_fUV[2]-l_fUV[0])),(int)(l_p->GetHeight()*(l_fUV[3]-l_fUV[0])));
-		//			}
-		//		}
-		//	PARSE_NAME_VALUE_END
-		//}
-	}
-	//<UI Name="388.png" Position="0,0" UV="0,0,1,1" />
-	void	cImageParser::ProcessUITexture()
-	{
-		if(!this->m_pCurrentTiXmlElement->m_bDone)
-		{
-			POINT	l_Point;
-			cUIImage*	l_pUIImage = 0;
-			PARSE_CURRENT_ELEMENT_START
-				COMPARE_NAME("Name")
-				{
-
-					l_pUIImage = new cUIImage(
-						(char*)StringAddDirectory(
-						UT::WcharToChar(l_pAttribute->Value())
-						).c_str()
-						);
-				}
-				else
-				COMPARE_NAME("Position")
-				{
-					l_Point = GetPoint(l_strValue);
-				}
-				else
-				COMPARE_NAME("UV")
-				{
-					float	l_fUV[4];
-					GetUV(l_strValue,l_fUV);
-					if( l_pUIImage )
-						l_pUIImage->SetUV(l_fUV);
-				}
-			PARSE_NAME_VALUE_END
-			assert(l_pUIImage&&"failed to load image");
-			l_pUIImage->SetPos(l_Point);
-			//assert(l_Point.x&&"Position x is nagtive");
-			//assert(l_Point.y&&"Position y is nagtive");
-			bool	l_b = this->AddObject(l_pUIImage);
-			if( !l_b )
-			{
-				this->m_strErrorMsg += l_pUIImage->GetName();
-				this->m_strErrorMsg += L"already Existed\n";
-			}
-		}
-	}
-	//	<Numeral Name="NumeralImage/CardNI.png" />
-	void	cImageParser::ProcessNumeralTexture()
-	{
-		if(!this->m_pCurrentTiXmlElement->m_bDone)
-		{
-			PARSE_CURRENT_ELEMENT_START
-				COMPARE_NAME("Name")
-				{
-					const char*l_strFileName = this->StringAddDirectory(UT::WcharToChar(l_strValue)).c_str();
-					//l_strValue = StringAddDirectory(l_pAttribute->Value());
-					//l_Value = StringAddRootDirectory(l_Value);
-					cNumeralImage*l_p = new cNumeralImage((char*)l_strFileName);
-					bool	l_bSame = this->AddObject(l_p);
-					if( !l_bSame )
-					{
-						this->m_strErrorMsg += l_strValue;
-						this->m_strErrorMsg += L"loading Numeral texture failed\n";
-					}
-				}
-			PARSE_NAME_VALUE_END
-		}
-	}
-
-	//<PuzzleImage Name="79979" Count="6" >
-	//    <PuzzleUnit Name="ST2StonePart" UV="0,0,0.32875,0.1275," OffsetPos="9,9," />
-	//    <PuzzleUnit Name="ST3StonePart" UV="0.33,0,0.81875,0.11625," OffsetPos="4,4," />
-	//    <PuzzleUnit Name="ST4StonePart" UV="0,0.12875,0.3575,0.2525," OffsetPos="11,11," />
-	//    <PuzzleUnit Name="ST5StonePart" UV="0.35875,0.12875,0.885,0.25375," OffsetPos="52,52," />
-	//    <PuzzleUnit Name="ST6StonePart" UV="0,0.255,0.33375,0.39125," OffsetPos="30,30," />
-	//    <PuzzleUnit Name="ST7StonePart" UV="0.335,0.255,0.665,0.38375," OffsetPos="5,5," />
-	//</PuzzleImage>
-	void	cImageParser::ProcessPuzzleImageTexture()
-	{
-		static	std::vector<sPuzzleData>	*l_pPuzzleDataList = 0;
-		COMPARE_ELEMENT_VALUE("PuzzleImage")
-		{
-			if( this->m_pCurrentTiXmlElement->m_bDone )
-			{
-				cPuzzleImage*l_pPuzzleImage = 0;
-				PARSE_CURRENT_ELEMENT_START
-					COMPARE_NAME("ImageName")
-					{
-						if( !g_bSkipImageLoad )
-							l_pPuzzleImage = new cPuzzleImage((char*)StringAddDirectory(UT::WcharToChar(l_strValue)).c_str(),l_pPuzzleDataList,false,g_bImageLoaderForFetchPixelData);
-						else
-						{
-							l_pPuzzleImage = new cPuzzleImage(0,l_pPuzzleDataList,false,g_bImageLoaderForFetchPixelData);
-						}
-						l_pPuzzleImage->SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
-						if(!g_bSupportNonPowerOfTwoTexture)
-						{
-							if (l_pPuzzleImage->GetWidth() != power_of_two(l_pPuzzleImage->GetWidth()) || l_pPuzzleImage->GetHeight() != power_of_two(l_pPuzzleImage->GetHeight()))
-							{
-								float	l_fWidthScale = l_pPuzzleImage->GetUV()[2] / 1.f;
-								float	l_fHeightScale = l_pPuzzleImage->GetUV()[3] / 1.f;
-								for (int i = 0; i < l_pPuzzleImage->GetNumImage(); ++i)
-								{
-									float*	l_pfUV = l_pPuzzleImage->GetPuzzleData()[i]->fUV;
-									l_pfUV[0] *= l_fWidthScale;
-									l_pfUV[2] *= l_fWidthScale;
-									l_pfUV[1] *= l_fHeightScale;
-									l_pfUV[3] *= l_fHeightScale;
-								}
-							}
-						}
-
-						l_pPuzzleImage->GenerateAllPuzzleImageUnit();
-						bool	l_b = AddObject(l_pPuzzleImage);
-						if( m_pCurrentImageIndexOfAnimationList )
-						{
-						    l_pPuzzleImage->SetImageIndexOfAnimationList(m_pCurrentImageIndexOfAnimationList);
-						    for( int i=0;i<m_pCurrentImageIndexOfAnimationList->Count();++i )
-						    {
-						        (*m_pCurrentImageIndexOfAnimationList)[i]->GenerateImageIndexByPI(l_pPuzzleImage,(*m_pCurrentImageIndexOfAnimationList)[i]->m_pNameList);
-#ifndef DEBUG
-                                SAFE_DELETE((*m_pCurrentImageIndexOfAnimationList)[i]->m_pNameList);
-#endif
-						    }
-						    m_pCurrentImageIndexOfAnimationList = 0;
-						}
-						if( !l_b )
-						{
-							this->m_strErrorMsg += l_pPuzzleImage->GetName();
-							this->m_strErrorMsg += L"such object already existed\n";
-						}
-					}
-					else
-					COMPARE_NAME("Count")
-					{
-#ifdef DEBUG
-						if(l_pPuzzleDataList->size() != _wtoi(l_strValue))						
-							assert(0&&"ProcessPuzzleImageTexture() count is not correct");
-#endif
-					}
-					else
-					COMPARE_NAME("GeneratePuzzleimageUnit")
-					{
-						//bool	l_bGeneratePuzzleimageUnit = atoi(l_str)?true:false;
-					}
-					//only for editor most time we don't expect sort it back again.
-					else
-					COMPARE_NAME("OriginalNameSort")
-					{//ther only should work at editor!.
-						if( m_bSortPIFileAsOriginal )
-						{
-						    size_t l_iOriginalSize = l_pPuzzleDataList->size();
-							wchar_t*l_ImageName = wcstok((wchar_t*)l_strValue,L",");
-							std::vector<sPuzzleData>	l_PuzzleDataList;
-							while(l_ImageName)
-							{
-								for( size_t i=0;i<l_pPuzzleDataList->size();++i )
-								{
-									if(!wcscmp((*l_pPuzzleDataList)[i].strFileName.c_str(),l_ImageName))
-									{
-										l_PuzzleDataList.push_back((*l_pPuzzleDataList)[i]);
-										(*l_pPuzzleDataList).erase(l_pPuzzleDataList->begin()+i);
-										break;
-									}
-								}
-								l_ImageName = wcstok(0,L",");
-							}
-							if( l_iOriginalSize != l_PuzzleDataList.size() )
-							    UT::ErrorMsg( L"the file OriginalNameSort is not match pi's image list data",L"WARNINGMSG");
-							*l_pPuzzleDataList = l_PuzzleDataList;
-						}
-					}
-				PARSE_NAME_VALUE_END
-				SAFE_DELETE(l_pPuzzleDataList);
-			}
-			else
-			{
-				assert(!l_pPuzzleDataList);
-				std::vector<sPuzzleData>*l_pNewData = new std::vector<sPuzzleData>;
-				l_pPuzzleDataList = l_pNewData;
-			}		
-		}
-		else
-		COMPARE_ELEMENT_VALUE("PuzzleUnit")
-		{
-			if(!this->m_pCurrentTiXmlElement->m_bDone )
-			{
-				//float	fUV[2];			//texture uv.
-				//POINT	OffsetPos;		//offset position,via this we coul add alpha part to the detination texture while create texture.
-				//POINT	Size;			//width height.
-				//wchar_t	strFileName[TEMP_SIZE];
-
-				sPuzzleData	l_sPuzzleData;
-				PARSE_CURRENT_ELEMENT_START
-					COMPARE_NAME("Name")
-					{
-						l_sPuzzleData.strFileName = l_strValue;
-					}
-					else
-					COMPARE_NAME("UV")
-					{
-						GetUV((wchar_t*)l_strValue,l_sPuzzleData.fUV);
-					}
-					else
-					COMPARE_NAME("OffsetPos")
-					{
-						l_sPuzzleData.OffsetPos = GetPoint(l_strValue);
-					}
-					else
-					COMPARE_NAME("Size")
-					{
-						l_sPuzzleData.Size = GetPoint(l_strValue);
-					}
-					else
-					COMPARE_NAME("OriginalSize")
-					{
-						l_sPuzzleData.OriginalSize = GetPoint(l_strValue);
-					}
-					else
-					COMPARE_NAME("ShowPosInPI")
-					{
-						l_sPuzzleData.ShowPosInPI = GetPoint(l_strValue);
-						//float	l_fUV[4] = {l_sPuzzleData.ShowPosInPI.x/1024.f,
-						//	l_sPuzzleData.ShowPosInPI.y/1024.f,
-						//	(l_sPuzzleData.ShowPosInPI.x+l_sPuzzleData.Size.x)/1024.f,
-						//	(l_sPuzzleData.ShowPosInPI.y+l_sPuzzleData.Size.y)/1024.f
-						//};
-						//int a=0;
-
-					}
-				PARSE_NAME_VALUE_END
-				l_pPuzzleDataList->push_back(l_sPuzzleData);
-			}
-		}
-		else
-		COMPARE_ELEMENT_VALUE("AnimationData")
-		{
-		    if(!this->m_pCurrentTiXmlElement->m_bDone )
-		    {
-		        assert( m_pCurrentImageIndexOfAnimationList == 0 );
-		        cNamedTypedObjectVector<cImageIndexOfAnimation>*l_pImageIndexOfAnimationList = new cNamedTypedObjectVector<cImageIndexOfAnimation>;
-		        m_pCurrentImageIndexOfAnimationList = l_pImageIndexOfAnimationList;
-			}
-			else
-			{
-#ifdef DEBUG
-                PARSE_CURRENT_ELEMENT_START
-				    COMPARE_NAME("Count")
-				    {
-                        assert(m_pCurrentImageIndexOfAnimationList->Count() == VALUE_TO_INT );
-				    }
-			    PARSE_NAME_VALUE_END
-#endif
-			}
-		}
-		else
-		COMPARE_ELEMENT_VALUE("AnimationDataUnit")
-		{
-		    if(!this->m_pCurrentTiXmlElement->m_bDone )
-		    {
-		        cImageIndexOfAnimation*l_pImageIndexOfAnimation = 0;
-		        int l_iCount = 0;
-                PARSE_CURRENT_ELEMENT_START
-				    COMPARE_NAME("Name")
-				    {
-				        l_pImageIndexOfAnimation = new cImageIndexOfAnimation(true);
-                        l_pImageIndexOfAnimation->SetName(l_strValue);
-                        bool    l_b = m_pCurrentImageIndexOfAnimationList->AddObject(l_pImageIndexOfAnimation);
-                        assert(l_b&&"this animation data has been added!");
-				    }
-				    else
-				    COMPARE_NAME("Count")
-				    {
-                        l_iCount = VALUE_TO_INT;
-				    }
-				    else
-				    COMPARE_NAME("ImageList")
-				    {
-				        wchar_t*l_strImageName = wcstok((wchar_t*)l_strValue,L",");
-				        for( int i=0;i<l_iCount;++i )
-				        {
-				            l_pImageIndexOfAnimation->AddNameObject(l_strImageName,-1,0.1f);
-				            l_strImageName = wcstok(0,L",");
-				        }
-				        assert(!l_strImageName);
-				    }
-					else
-					COMPARE_NAME("TimeList")
-					{
-				        wchar_t*l_strImageName = wcstok((wchar_t*)l_strValue,L",");
-				        for( int i=0;i<l_iCount;++i )
-				        {
-							l_pImageIndexOfAnimation->m_ImageAnimationDataList[i].fTimeGap = VALUE_TO_FLOAT;
-							l_strImageName = wcstok(0,L",");
-				        }
-				        assert(!l_strImageName);
-					}
-			    PARSE_NAME_VALUE_END
-			}
-		}
 	}
 
 	void	cImageParser::Export(char*e_strFileName)
@@ -605,7 +191,7 @@ namespace FATMING_CORE
 								{
 									for(int k=0;k<(int)l_pImageIndexOfAnimation->m_ImageAnimationDataList.size();++k)
 									{
-										l_strImageNameList += l_pPuzzleImage->GetPuzzleData()[l_pImageIndexOfAnimation->m_ImageAnimationDataList[k].iIndex]->strFileName;
+										l_strImageNameList += l_pPuzzleImage->GetPuzzleData(l_pImageIndexOfAnimation->m_ImageAnimationDataList[k].iIndex)->strFileName;
 										l_strImageNameList += L",";
 										l_strImageTimeGapList += ValueToString(l_pImageIndexOfAnimation->m_ImageAnimationDataList[k].fTimeGap);
 										l_strImageTimeGapList += ",";

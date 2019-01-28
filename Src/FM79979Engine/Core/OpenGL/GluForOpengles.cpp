@@ -1,5 +1,5 @@
-#include "stdafx.h"
-#include "Utility.h"
+#include "../stdafx.h"
+#include "../Common/Utility.h"
 namespace UT
 {
 //	void gluLookAt(GLfloat eyex, GLfloat eyey, GLfloat eyez,

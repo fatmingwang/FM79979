@@ -1,7 +1,7 @@
 ﻿#include "../stdafx.h"
 #include "FrameBuffer.h"
 #include "SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {

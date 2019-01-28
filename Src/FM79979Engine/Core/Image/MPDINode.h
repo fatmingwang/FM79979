@@ -2,7 +2,7 @@
 //#include <map>
 #include "../Math/Frame.h"
 #include "../XML/XMLLoader.h"
-#include "../TemplateClass.h"
+#include "../Common/Template/TemplateClass.h"
 #include "BaseUVImageData.h"
 #include "SubMPDIRenderPointData.h"
 

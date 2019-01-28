@@ -5,16 +5,19 @@
 namespace FATMING_CORE
 {
 	struct sReceivedPacket;
+	struct sNetworkReceivedPacket;
 
-#define WAIT_EMIT_EVENT_DATA_SIZE	2048
-	typedef std::function<bool(FATMING_CORE::sReceivedPacket*)>		NetworkMessageFunction;
-	typedef std::function<bool(void*)>								EventFunction;
+	#define WAIT_EMIT_EVENT_DATA_SIZE	2048
+	typedef std::function<bool(FATMING_CORE::sNetworkReceivedPacket*)>		NetworkMessageFunction;
+	typedef std::function<bool(void*)>										EventFunction;
 
 
 	//REG_NET_MESSAGE_FUNCTION(MSG_GS2CL_CHANGE_ROUTE_RESPONSE,&cTradeRouteDataFromServer::Received_MSG_GS2CL_CHANGE_ROUTE_RESPONSE);
-#define REG_NET_MESSAGE_FUNCTION(proto,Function)RegNetworkMessageFunction<proto>(_##proto,std::bind(Function,this,std::placeholders::_1));
+	//#define REG_NET_MESSAGE_FUNCTION(proto,Function)RegNetworkMessageFunction<proto>(_##proto,std::bind(Function,this,std::placeholders::_1));
+	//#define REG_NET_MESSAGE_FUNCTION(MESSAGE_ID,Function)
+	#define REG_NET_MESSAGE_FUNCTION(MESSAGE_ID,Function)RegNetworkMessageFunction(MESSAGE_ID,std::bind(Function,this,std::placeholders::_1));
 	//REG_EVENT(eOPEM_CLOSE_TRADE_ROUTE_UI_LAYOUT,&cRegionMapChange::OnCloseLayout);
-#define	REG_EVENT(EventID,Function)RegEvent(EventID,std::bind(Function,this,std::placeholders::_1));
+	#define	REG_EVENT(EventID,Function)RegEvent(EventID,std::bind(Function,this,std::placeholders::_1));
 
 
 
@@ -39,6 +42,7 @@ namespace FATMING_CORE
 		bool					RegEvent(unsigned int e_usID, EventFunction e_MessageFunction);
 		//see REG_NET_MESSAGE_FUNCTION
 		template <class T>bool	RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction);
+		bool					RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction);
 		//
 		bool					UnregNetworkMessageFunction(unsigned int e_usID);
 		bool					UnregEvent(unsigned int e_usID);
@@ -56,7 +60,6 @@ namespace FATMING_CORE
 		{
 			size_t uiAddress;
 			NetworkMessageFunction			f_NetworkMessageFunction;
-			FATMING_CORE::sReceivedPacket*	pConvertType;
 			sNetworkMessageFunctionAndObjectID();
 			~sNetworkMessageFunctionAndObjectID();
 		};
@@ -89,7 +92,7 @@ namespace FATMING_CORE
 	public:
 		cMessageSenderManager();
 		~cMessageSenderManager();
-		bool NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sReceivedPacket* e_pPacket);
+		bool NetworkMessageShot(unsigned int e_usID,sNetworkReceivedPacket*e_pNetworkReceivedPacket);
 		bool EventMessageShot(unsigned int e_usID, void*e_pData);
 		//ensure size is small than WAIT_EMIT_EVENT_DATA_SIZE
 		bool EventMessageShot(unsigned int e_usID, char*e_pData, int e_iSize);
@@ -106,7 +109,6 @@ namespace FATMING_CORE
 		m_NetworkMessageFunctionMap[e_usID] = e_MessageFunction;
 
 		cMessageSenderManager::sNetworkMessageFunctionAndObjectID	l_sMessageFunctionAndType;
-		l_sMessageFunctionAndType.pConvertType = nullptr;
 		l_sMessageFunctionAndType.f_NetworkMessageFunction = e_MessageFunction;
 		l_sMessageFunctionAndType.uiAddress = (size_t)this;
 		m_NetworkMessageFunctionMap[e_usID] = e_MessageFunction;
@@ -122,7 +124,6 @@ namespace FATMING_CORE
 			l_pVector = &m_pParent->m_NetworkMessageFunctionAndObjectIDMap[e_usID];
 			cMessageSenderManager::sNetworkMessageFunctionAndObjectID*l_pEventFunction = new cMessageSenderManager::sNetworkMessageFunctionAndObjectID;
 			l_pEventFunction->f_NetworkMessageFunction = e_MessageFunction;
-			l_pEventFunction->pConvertType = new T();
 			l_pEventFunction->uiAddress = (size_t)this;
 			l_pVector->push_back(l_pEventFunction);
 			return true;

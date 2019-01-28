@@ -9,54 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="RenderObject">
-      <UniqueIdentifier>{57cdd01f-9d01-4f32-ae9a-4569fb6fe0e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Parser">
-      <UniqueIdentifier>{fd023b63-e95c-46d5-811a-0d7df0f9ec7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Parser\Animation">
-      <UniqueIdentifier>{03018fa4-f8d9-4855-8aa3-80ce4b4f238d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Parser\BinaryToTexture">
-      <UniqueIdentifier>{f0d6a13d-0749-493c-b85b-92bbb5ffd62c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Parser\Image">
-      <UniqueIdentifier>{833643c2-2311-4622-ac81-30ef659bc5ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Font">
-      <UniqueIdentifier>{9c6bdef8-3e1b-4570-9dac-fa24c16dbe53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Font\Glyph">
-      <UniqueIdentifier>{67d3278d-424d-422c-a8ff-04f6041d8d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Common">
-      <UniqueIdentifier>{32003496-15aa-42c9-92f3-cd2d1d196861}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\FMAnimationRule">
-      <UniqueIdentifier>{10284212-1bad-460d-ac0e-9790c2093675}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\GLSL">
-      <UniqueIdentifier>{3b51ccc0-cfce-4bff-baec-ab46ca9a33bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Texture">
-      <UniqueIdentifier>{7ca2fac7-9243-4b99-ab44-d08162ddefc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Texture\png">
-      <UniqueIdentifier>{adb09a7d-7ea1-430c-ae26-3b7cd62f5bd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\Texture\jpeg">
-      <UniqueIdentifier>{b7231435-727b-4e98-b033-73c70ec480c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\PuzzleImage">
-      <UniqueIdentifier>{c2f3d0ae-fec1-4cce-b3fa-ecf5c79bb15e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\BufferObject">
-      <UniqueIdentifier>{008ba834-09b8-4201-b573-1521acf30e06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\MPDI">
-      <UniqueIdentifier>{dd0a844e-fc9e-4302-af75-f757efbc24e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="XML">
       <UniqueIdentifier>{fe0e57d2-4a74-4bf4-a340-b4ce35ae0457}</UniqueIdentifier>
     </Filter>
@@ -174,15 +126,6 @@
     <Filter Include="Common\Template">
       <UniqueIdentifier>{4175d9fa-2cd2-4df3-ab1e-6fbf5ddd1564}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Crossplatform">
-      <UniqueIdentifier>{5ffa4c1a-5911-4f59-a7d8-473b368e21e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\Crossplatform\OpenGL">
-      <UniqueIdentifier>{74120417-a826-4455-80ab-18a71ec7c78f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Common\String">
-      <UniqueIdentifier>{48de5c96-d8cc-4e26-bb6c-3f9ca7c7f3c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Particle">
       <UniqueIdentifier>{8fbed550-77e0-4461-aa91-b8381c46397e}</UniqueIdentifier>
     </Filter>
@@ -237,14 +180,8 @@
     <Filter Include="GameplayUT\EventSender">
       <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="RenderObject\Texture\DDS">
-      <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math\LinearData">
       <UniqueIdentifier>{1ce25ea6-a609-4a00-9f95-bba52ecbad9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\GLSL\PostEffect">
-      <UniqueIdentifier>{8bdd0f24-4d89-4a09-b76b-c461438964bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameplayUT\UI\Button\ClickBehavior">
       <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
@@ -254,12 +191,6 @@
     </Filter>
     <Filter Include="GameplayUT\Preload">
       <UniqueIdentifier>{deb9534d-4217-451f-9603-00d8ad437de2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\OpenGLCommand">
-      <UniqueIdentifier>{b7d8cef5-82b4-4528-baee-3eac8aa3b638}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="RenderObject\RenderQueue">
-      <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameplayUT\BinaryFile">
       <UniqueIdentifier>{f0db8b85-b130-47d1-a5bd-2a4b2ffaa948}</UniqueIdentifier>
@@ -273,82 +204,142 @@
     <Filter Include="Bluetooth">
       <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{57cdd01f-9d01-4f32-ae9a-4569fb6fe0e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Parser">
+      <UniqueIdentifier>{fd023b63-e95c-46d5-811a-0d7df0f9ec7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Parser\Animation">
+      <UniqueIdentifier>{03018fa4-f8d9-4855-8aa3-80ce4b4f238d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Parser\BinaryToTexture">
+      <UniqueIdentifier>{f0d6a13d-0749-493c-b85b-92bbb5ffd62c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Parser\Image">
+      <UniqueIdentifier>{833643c2-2311-4622-ac81-30ef659bc5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Font">
+      <UniqueIdentifier>{9c6bdef8-3e1b-4570-9dac-fa24c16dbe53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Font\Glyph">
+      <UniqueIdentifier>{67d3278d-424d-422c-a8ff-04f6041d8d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Common">
+      <UniqueIdentifier>{32003496-15aa-42c9-92f3-cd2d1d196861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\FMAnimationRule">
+      <UniqueIdentifier>{10284212-1bad-460d-ac0e-9790c2093675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Texture">
+      <UniqueIdentifier>{7ca2fac7-9243-4b99-ab44-d08162ddefc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Texture\png">
+      <UniqueIdentifier>{adb09a7d-7ea1-430c-ae26-3b7cd62f5bd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Texture\jpeg">
+      <UniqueIdentifier>{b7231435-727b-4e98-b033-73c70ec480c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Texture\DDS">
+      <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\PuzzleImage">
+      <UniqueIdentifier>{c2f3d0ae-fec1-4cce-b3fa-ecf5c79bb15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\BufferObject">
+      <UniqueIdentifier>{008ba834-09b8-4201-b573-1521acf30e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\MPDI">
+      <UniqueIdentifier>{dd0a844e-fc9e-4302-af75-f757efbc24e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGLCommand">
+      <UniqueIdentifier>{b7d8cef5-82b4-4528-baee-3eac8aa3b638}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\RenderQueue">
+      <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL">
+      <UniqueIdentifier>{c1a0e796-7247-463a-87e3-452d37229b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL\Crossplatform">
+      <UniqueIdentifier>{5ffa4c1a-5911-4f59-a7d8-473b368e21e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL\Crossplatform\OpenGL">
+      <UniqueIdentifier>{74120417-a826-4455-80ab-18a71ec7c78f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL\GLSL">
+      <UniqueIdentifier>{3b51ccc0-cfce-4bff-baec-ab46ca9a33bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\OpenGL\GLSL\PostEffect">
+      <UniqueIdentifier>{8bdd0f24-4d89-4a09-b76b-c461438964bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Image\AnimationParser.cpp">
-      <Filter>RenderObject\Parser\Animation</Filter>
+      <Filter>Render\Parser\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Image\MPDIDataParse.cpp">
-      <Filter>RenderObject\Parser\Animation</Filter>
+      <Filter>Render\Parser\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Image\BinaryToTexture.cpp">
-      <Filter>RenderObject\Parser\BinaryToTexture</Filter>
+      <Filter>Render\Parser\BinaryToTexture</Filter>
     </ClCompile>
     <ClCompile Include="Image\ImageParser.cpp">
-      <Filter>RenderObject\Parser\Image</Filter>
+      <Filter>Render\Parser\Image</Filter>
     </ClCompile>
     <ClCompile Include="Image\GlyphFontRender.cpp">
-      <Filter>RenderObject\Font</Filter>
+      <Filter>Render\Font</Filter>
     </ClCompile>
     <ClCompile Include="Glyph\GlyphWriter.cpp">
-      <Filter>RenderObject\Font\Glyph</Filter>
+      <Filter>Render\Font\Glyph</Filter>
     </ClCompile>
     <ClCompile Include="Image\BaseImage.cpp">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Image\NumeralImage.cpp">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Image\RenderObject.cpp">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Image\UVAnimationImage.cpp">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Image\FMAnimationRule.cpp">
-      <Filter>RenderObject\FMAnimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL\CommnoShader.cpp">
-      <Filter>RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL\GLSLUiniform.cpp">
-      <Filter>RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL\Shader.cpp">
-      <Filter>RenderObject\GLSL</Filter>
+      <Filter>Render\FMAnimationRule</Filter>
     </ClCompile>
     <ClCompile Include="Image\jpeg\jpgd.cpp">
-      <Filter>RenderObject\Texture\jpeg</Filter>
+      <Filter>Render\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="Image\jpeg\jpge.cpp">
-      <Filter>RenderObject\Texture\jpeg</Filter>
+      <Filter>Render\Texture\jpeg</Filter>
     </ClCompile>
     <ClCompile Include="Image\PuzzleImage.cpp">
-      <Filter>RenderObject\PuzzleImage</Filter>
+      <Filter>Render\PuzzleImage</Filter>
     </ClCompile>
     <ClCompile Include="Image\FrameBuffer.cpp">
-      <Filter>RenderObject\BufferObject</Filter>
+      <Filter>Render\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="Image\VertexBufferObject.cpp">
-      <Filter>RenderObject\BufferObject</Filter>
+      <Filter>Render\BufferObject</Filter>
     </ClCompile>
     <ClCompile Include="Image\MPDI.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="Image\MPDIForEditor.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="Image\SubMPDI.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="Image\SubMPDIRenderPointData.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="Image\VideoSubMPDI.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="XML\StringToStructure.cpp">
       <Filter>XML</Filter>
@@ -539,21 +530,6 @@
     <ClCompile Include="Physic\2DImageCollisionData.cpp">
       <Filter>Physic\2DImageCollideData</Filter>
     </ClCompile>
-    <ClCompile Include="SmartPointer.cpp">
-      <Filter>Common\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="NamedTypedObject.cpp">
-      <Filter>Common\NamedTypedObject</Filter>
-    </ClCompile>
-    <ClCompile Include="StringID.cpp">
-      <Filter>Common\NamedTypedObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Glh.cpp">
-      <Filter>Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="GluForOpengles.cpp">
-      <Filter>Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Particle\ParticleManager.cpp">
       <Filter>Particle</Filter>
     </ClCompile>
@@ -623,29 +599,23 @@
     <ClCompile Include="Camera\OrthogonalCamera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="TimeUT.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
     <ClCompile Include="XML\XmlLoader.cpp">
       <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="Image\SimplePrimitive.cpp">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Sound\SoundManager.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="Glyph\GlyphReader.cpp">
-      <Filter>RenderObject\Font\Glyph</Filter>
+      <Filter>Render\Font\Glyph</Filter>
     </ClCompile>
     <ClCompile Include="Image\Texture.cpp">
-      <Filter>RenderObject\Texture</Filter>
+      <Filter>Render\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Image\MPDINode.cpp">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClCompile>
     <ClCompile Include="Math\MathFormulaXML.cpp">
       <Filter>Math\MUParserXML</Filter>
@@ -663,16 +633,16 @@
       <Filter>GameplayUT\BinaryFile</Filter>
     </ClCompile>
     <ClCompile Include="Image\png\pngLoader.cpp">
-      <Filter>RenderObject\Texture\png</Filter>
+      <Filter>Render\Texture\png</Filter>
     </ClCompile>
     <ClCompile Include="Image\dds\nv_hhdds.cpp">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClCompile>
     <ClCompile Include="Image\dds\nv_images.cpp">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClCompile>
     <ClCompile Include="Image\dds\nv_log.cpp">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClCompile>
     <ClCompile Include="Network\Network.cpp">
       <Filter>NetWork</Filter>
@@ -686,17 +656,8 @@
     <ClCompile Include="Sound\SoundCapture.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="GLSL\Blur.cpp">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL\ToneMapping.cpp">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\SoundFile.cpp">
       <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="GLSL\TunnelEffect.cpp">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="XML\LazyXmlParser.cpp">
       <Filter>XML</Filter>
@@ -726,10 +687,10 @@
       <Filter>NetWork</Filter>
     </ClCompile>
     <ClCompile Include="Image\TextureManager.cpp">
-      <Filter>RenderObject\Texture</Filter>
+      <Filter>Render\Texture</Filter>
     </ClCompile>
     <ClCompile Include="Image\RenderQueue\RenderCommand.cpp">
-      <Filter>RenderObject\RenderQueue</Filter>
+      <Filter>Render\RenderQueue</Filter>
     </ClCompile>
     <ClCompile Include="Synchronization\CPP11Thread.cpp">
       <Filter>Synchronization</Filter>
@@ -749,6 +710,48 @@
     <ClCompile Include="Bluetooth\BluetoothUtility.cpp">
       <Filter>Bluetooth</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\GameAppGetObject.cpp">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\Glh.cpp">
+      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\TimeUT.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Utility.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\SmartPointer.cpp">
+      <Filter>Common\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\NamedTypedObject.cpp">
+      <Filter>Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\StringID.cpp">
+      <Filter>Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\Blur.cpp">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\ToneMapping.cpp">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\TunnelEffect.cpp">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\CommnoShader.cpp">
+      <Filter>Render\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\GLSLUiniform.cpp">
+      <Filter>Render\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GLSL\Shader.cpp">
+      <Filter>Render\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\GluForOpengles.cpp">
+      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -758,88 +761,82 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AllImageInclude.h">
-      <Filter>RenderObject</Filter>
+      <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Image\AnimationParser.h">
-      <Filter>RenderObject\Parser\Animation</Filter>
+      <Filter>Render\Parser\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Image\MPDIDataParse.h">
-      <Filter>RenderObject\Parser\Animation</Filter>
+      <Filter>Render\Parser\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Image\BinaryToTexture.h">
-      <Filter>RenderObject\Parser\BinaryToTexture</Filter>
+      <Filter>Render\Parser\BinaryToTexture</Filter>
     </ClInclude>
     <ClInclude Include="Image\ImageParser.h">
-      <Filter>RenderObject\Parser\Image</Filter>
+      <Filter>Render\Parser\Image</Filter>
     </ClInclude>
     <ClInclude Include="Image\GlyphFontRender.h">
-      <Filter>RenderObject\Font</Filter>
+      <Filter>Render\Font</Filter>
     </ClInclude>
     <ClInclude Include="Glyph\GlyphReader.h">
-      <Filter>RenderObject\Font\Glyph</Filter>
+      <Filter>Render\Font\Glyph</Filter>
     </ClInclude>
     <ClInclude Include="Glyph\GlyphWriter.h">
-      <Filter>RenderObject\Font\Glyph</Filter>
+      <Filter>Render\Font\Glyph</Filter>
     </ClInclude>
     <ClInclude Include="Image\BaseImage.h">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClInclude>
     <ClInclude Include="Image\NumeralImage.h">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClInclude>
     <ClInclude Include="Image\RenderObject.h">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClInclude>
     <ClInclude Include="Image\SimplePrimitive.h">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClInclude>
     <ClInclude Include="Image\UVAnimationImage.h">
-      <Filter>RenderObject\Common</Filter>
+      <Filter>Render\Common</Filter>
     </ClInclude>
     <ClInclude Include="Image\FMAnimationRule.h">
-      <Filter>RenderObject\FMAnimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL\GLSLUiniform.h">
-      <Filter>RenderObject\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL\Shader.h">
-      <Filter>RenderObject\GLSL</Filter>
+      <Filter>Render\FMAnimationRule</Filter>
     </ClInclude>
     <ClInclude Include="Image\Texture.h">
-      <Filter>RenderObject\Texture</Filter>
+      <Filter>Render\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Image\jpeg\jpgd.h">
-      <Filter>RenderObject\Texture\jpeg</Filter>
+      <Filter>Render\Texture\jpeg</Filter>
     </ClInclude>
     <ClInclude Include="Image\jpeg\jpge.h">
-      <Filter>RenderObject\Texture\jpeg</Filter>
+      <Filter>Render\Texture\jpeg</Filter>
     </ClInclude>
     <ClInclude Include="Image\BaseUVImageData.h">
-      <Filter>RenderObject\PuzzleImage</Filter>
+      <Filter>Render\PuzzleImage</Filter>
     </ClInclude>
     <ClInclude Include="Image\PuzzleImage.h">
-      <Filter>RenderObject\PuzzleImage</Filter>
+      <Filter>Render\PuzzleImage</Filter>
     </ClInclude>
     <ClInclude Include="Image\FrameBuffer.h">
-      <Filter>RenderObject\BufferObject</Filter>
+      <Filter>Render\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="Image\VertexBufferObject.h">
-      <Filter>RenderObject\BufferObject</Filter>
+      <Filter>Render\BufferObject</Filter>
     </ClInclude>
     <ClInclude Include="Image\MPDI.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="Image\MPDIForEditor.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="Image\SubMPDI.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="Image\SubMPDIRenderPointData.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="Image\VideoSubMPDI.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="XML\StringToStructure.h">
       <Filter>XML</Filter>
@@ -1054,45 +1051,6 @@
     <ClInclude Include="Physic\2DImageCollisionData.h">
       <Filter>Physic\2DImageCollideData</Filter>
     </ClInclude>
-    <ClInclude Include="TimeUT.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="SmartPointer.h">
-      <Filter>Common\SmartPointer</Filter>
-    </ClInclude>
-    <ClInclude Include="NamedTypedObject.h">
-      <Filter>Common\NamedTypedObject</Filter>
-    </ClInclude>
-    <ClInclude Include="StringID.h">
-      <Filter>Common\NamedTypedObject</Filter>
-    </ClInclude>
-    <ClInclude Include="MapCellDataContainer.h">
-      <Filter>Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="TempContainer.h">
-      <Filter>Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="TemplateClass.h">
-      <Filter>Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="TwoDimensionDataContainer.h">
-      <Filter>Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="CommonDefine.h">
-      <Filter>Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="VS_TO_GNN.h">
-      <Filter>Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="Glh.h">
-      <Filter>Common\Crossplatform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="MyString.h">
-      <Filter>Common\String</Filter>
-    </ClInclude>
     <ClInclude Include="Particle\AllParticleInclude.h">
       <Filter>Particle</Filter>
     </ClInclude>
@@ -1193,7 +1151,7 @@
       <Filter>Terrain</Filter>
     </ClInclude>
     <ClInclude Include="Image\MPDINode.h">
-      <Filter>RenderObject\MPDI</Filter>
+      <Filter>Render\MPDI</Filter>
     </ClInclude>
     <ClInclude Include="Math\MathFormulaXML.h">
       <Filter>Math\MUParserXML</Filter>
@@ -1208,25 +1166,25 @@
       <Filter>GameplayUT\BinaryFile</Filter>
     </ClInclude>
     <ClInclude Include="Image\png\pngLoader.h">
-      <Filter>RenderObject\Texture\png</Filter>
+      <Filter>Render\Texture\png</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_global.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_hhdds.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_hhdds_internal.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_images.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_types.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Image\dds\nv_log.h">
-      <Filter>RenderObject\Texture\DDS</Filter>
+      <Filter>Render\Texture\DDS</Filter>
     </ClInclude>
     <ClInclude Include="Math\LinerTemplateDataProcess.h">
       <Filter>Math\LinearData</Filter>
@@ -1237,20 +1195,11 @@
     <ClInclude Include="Sound\SoundCapture.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="GLSL\Blur.h">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL\ToneMapping.h">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
     <ClInclude Include="Sound\AllSoundInclude.h">
       <Filter>Sound</Filter>
     </ClInclude>
     <ClInclude Include="Sound\SoundFile.h">
       <Filter>Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="GLSL\TunnelEffect.h">
-      <Filter>RenderObject\GLSL\PostEffect</Filter>
     </ClInclude>
     <ClInclude Include="XML\LazyXmlParser.h">
       <Filter>XML</Filter>
@@ -1268,16 +1217,16 @@
       <Filter>GameplayUT\Preload</Filter>
     </ClInclude>
     <ClInclude Include="Image\TextureManager.h">
-      <Filter>RenderObject\Texture</Filter>
+      <Filter>Render\Texture</Filter>
     </ClInclude>
     <ClInclude Include="Image\RenderQueue\RenderQueue.h">
-      <Filter>RenderObject\RenderQueue</Filter>
+      <Filter>Render\RenderQueue</Filter>
     </ClInclude>
     <ClInclude Include="Image\RenderQueue\RenderCommand.h">
-      <Filter>RenderObject\RenderQueue</Filter>
+      <Filter>Render\RenderQueue</Filter>
     </ClInclude>
     <ClInclude Include="Image\RenderQueue\RenderQueueManager.h">
-      <Filter>RenderObject\RenderQueue</Filter>
+      <Filter>Render\RenderQueue</Filter>
     </ClInclude>
     <ClInclude Include="Synchronization\CPP11Thread.h">
       <Filter>Synchronization</Filter>
@@ -1290,6 +1239,57 @@
     </ClInclude>
     <ClInclude Include="Bluetooth\Bluetooth.h">
       <Filter>Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\VS_TO_GNN.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\CommonDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\Glh.h">
+      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\TimeUT.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Utility.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Template\MapCellDataContainer.h">
+      <Filter>Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Template\TempContainer.h">
+      <Filter>Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Template\TemplateClass.h">
+      <Filter>Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Template\TwoDimensionDataContainer.h">
+      <Filter>Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\SmartPointer.h">
+      <Filter>Common\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\NamedTypedObject.h">
+      <Filter>Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StringID.h">
+      <Filter>Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\GLSL\Blur.h">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\GLSL\ToneMapping.h">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\GLSL\TunnelEffect.h">
+      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\GLSL\GLSLUiniform.h">
+      <Filter>Render\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\GLSL\Shader.h">
+      <Filter>Render\OpenGL\GLSL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

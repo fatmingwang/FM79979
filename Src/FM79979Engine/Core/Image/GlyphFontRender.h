@@ -44,6 +44,7 @@ namespace FATMING_CORE
 		Vector2			GetRenderSize(const wchar_t*e_strText);
 		std::wstring	GetText();
 		void			SetText(const wchar_t*e_strText);
+		float			m_fLazyMinusCharacterWidth = 1.0f;
 	};
 
 //end namespace FATMING_CORE

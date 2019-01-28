@@ -38,7 +38,7 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 #endif /*LODEPNG_COMPILE_CPP*/
 
 #define VERSION_STRING "20130415"
-#include "../../Utility.h"
+#include "../../Common/Utility.h"
 #include "../../GameplayUT/StringCompress.h"
 #include "../../GameplayUT/GameApp.h"
 

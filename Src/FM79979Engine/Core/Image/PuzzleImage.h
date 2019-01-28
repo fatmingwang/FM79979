@@ -61,9 +61,8 @@ namespace FATMING_CORE
 	{
 		GET_SET_DEC(cPuzzleImageUnit*,m_pNext,GetNext,SetNext);
 		GET_SET_DEC(cPuzzleImageUnit*,m_pPrior,GetPrior,SetPrior);
-		sPuzzleData*m_pPuzzleData;
-		//do we need this one?
-		//GET_SET_DEC(std::vector<Vector2>*,m_pHintPointVectorFromPIEditor,GetHintPointVectorFromPIEditor,SetHintPointVectorFromPIEditor);
+		sPuzzleData*					m_pPuzzleData;
+		std::vector<Vector2>*			m_pImageShapePointVector;
 	public:
 		DEFINE_TYPE_INFO()
 		cPuzzleImageUnit(sPuzzleData*e_pPuzzleData,cPuzzleImage*e_pPuzzleImageParent);
@@ -172,45 +171,64 @@ namespace FATMING_CORE
 	//do not add any object into list,or it could be occur error,
 	//we have just GenerateAllPuzzleImageUnit while parse data
 	//==========================
-	class cPuzzleImage:virtual	public cBaseImage,virtual	public cNamedTypedObjectVector<cPuzzleImageUnit>
+	class cPuzzleImage:virtual	public cBaseImage,virtual	public cNamedTypedObjectVector<cPuzzleImageUnit>,public cNodeISAX
 	{
+		virtual	bool	MyParse(TiXmlElement*e_pRoot);
+		void			ProcessAnimationData(TiXmlElement*e_pElement);
+		void			ProcessPuzzleUnit(TiXmlElement*e_pElement,int e_iIndex);
+		void			ProcessDataCheck(TiXmlElement*e_pElement);
+		//
 	    //for animation in the pi image
 		GET_SET_DEC(cNamedTypedObjectVector<cImageIndexOfAnimation>*,m_pImageIndexOfAnimation,GetImageIndexOfAnimationList,SetImageIndexOfAnimationList);
+		//for particle
 	    //for quickly to share all children's UV data,if only works while call GenerateAllUVToTriangleStrip
 	    float*  m_pfAllChildrenTriangleStripUV;
 	    //for quickly to share all children's UV data,if only works while call GenerateAllfUVToTwoTriangle
 	    float*  m_pfAllChildrenTwoTriangleUV;
 		//as how manay m_pPuzzleData
-		GET_SET_DEC(int,m_iNumImage,GetNumImage,SetNumImage);
+		int				m_iNumImage;
 		//image data uv offset pos and name....
-		GET_SET_DEC(sPuzzleData**,m_ppPuzzleData,GetPuzzleData,SetPuzzleData);
+		sPuzzleData*m_pAllPuzzleData;
+
+		std::vector<std::vector<Vector2>*>*	m_pImageShapePointVectorVector;
+		std::vector<int>*					m_pImageShapePointLODVector;
 
 		//internal using,generate all image unit while parse data is done
 		void	GenerateAllPuzzleImageUnit();
 	public:
 		DEFINE_TYPE_INFO()
+		cPuzzleImage();
 		cPuzzleImage(cPuzzleImage*e_pPuzzleImage);
-		cPuzzleImage(char*e_strName,std::vector<sPuzzleData> *e_pPuzzleDataList,bool e_bGenerateAllUnit = false,bool e_bFetchPixels = false);
+		//cPuzzleImage(char*e_strName,std::vector<sPuzzleData> *e_pPuzzleDataList,bool e_bGenerateAllUnit = false,bool e_bFetchPixels = false);
 		CLONE_MYSELF(cPuzzleImage);
 		virtual ~cPuzzleImage();
-		virtual	void	Render()override { cBaseImage::Render(); }
-		void	Render(int e_iIndex);
+		//for editor
+		static bool							m_sbSortPIFileAsOriginal;
+
+		virtual	void						Render()override { cBaseImage::Render(); }
+		void								Render(int e_iIndex);
 		//dump data into destination,so we could delete the source puzzleImage.
 		//void	DumpIntoPuzzleImage(cPuzzleImage*e_pPuzzleImage);
 		//the count as many as GetNum,or instead call (*GetPuzzleDataList())[iIndex]
-		sPuzzleData*	GetPuzzleData(int e_iIndex){ return m_ppPuzzleData[e_iIndex]; }
-		sPuzzleData**	GetAllPuzzleData(){ return m_ppPuzzleData; }
+		sPuzzleData*						GetAllPuzzleData() { return m_pAllPuzzleData; }
+		sPuzzleData*						GetPuzzleData(int e_iIndex){ return &m_pAllPuzzleData[e_iIndex]; }
+		int									GetNumImage() { return m_iNumImage; }
+
+		std::vector<std::vector<Vector2>*>*	GetImageShapePointVectorVector();
+		std::vector<Vector2>*				GetImageShapePointVector(int e_iIndex);
+		int									GetImageShapePointLOD(int e_iIndex);
 
 		//make sure the Numeral image all have same size,
 		//and it's sequence,and remember delete it after use it,
 		//ensure u have no release puzzle image before delete Numeral image
-		cNumeralImage*	GetNumeralImageByName(const wchar_t*e_strNumerImageName);
-		cNumeralImage*	GetNumeralImageByName(const wchar_t*e_str0ImaneName,const wchar_t*e_str9ImaneName);
-		float*   GetAllChildrenTriangleStripUV();
-		float*   GetAllChildrenTwoTriangleUV();
+		cNumeralImage*						GetNumeralImageByName(const wchar_t*e_strNumerImageName);
+		cNumeralImage*						GetNumeralImageByName(const wchar_t*e_str0ImaneName,const wchar_t*e_str9ImaneName);
+		//for particle
+		float*								GetAllChildrenTriangleStripUV();
+		float*								GetAllChildrenTwoTriangleUV();
 		//
-		static	std::string			GetFileName(const wchar_t*e_strObjectName);
-		static	std::string			GetFileName(const char*e_strObjectName);
+		static	std::string					GetFileName(const wchar_t*e_strObjectName);
+		static	std::string					GetFileName(const char*e_strObjectName);
 		//static	cPuzzleImage*		GetMe(TiXmlElement*e_pElement);
 	};
 }

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "CommonDefine.h"
-#include "GameplayUT/Log/FMLog.h"
+#include "../CommonDefine.h"
+#include "../../GameplayUT/Log/FMLog.h"
 
 template <class	T>class	cTempContainer
 {

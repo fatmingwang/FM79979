@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "SimplePrimitive.h"
 #include "BaseImage.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 //for opengl es1 compatibility,so we need color vertex buffer
 void ASSIGN_2D_QUAD_COLOR(Vector4 Color)

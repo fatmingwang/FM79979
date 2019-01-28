@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "SimpleCamera.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 #include "../GameplayUT/Log/FMLog.h"
 namespace FATMING_CORE

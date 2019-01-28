@@ -3,7 +3,7 @@
 #include "Texture.h"
 #include "TextureManager.h"
 #include "SimplePrimitive.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 #include "BinaryToTexture.h"
 #include "../GameplayUT/GameApp.h"
 #include "../GameplayUT/BinaryFile.h"

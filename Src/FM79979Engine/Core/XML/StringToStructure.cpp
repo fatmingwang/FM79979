@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "StringToStructure.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 
 #ifdef WIN32
 #pragma warning( disable : 4996 )

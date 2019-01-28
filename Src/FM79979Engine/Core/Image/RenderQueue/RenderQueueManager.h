@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../NamedTypedObject.h"
+#include "../../Common/NamedTypedObject.h"
 #include <map>
 namespace FATMING_CORE
 {

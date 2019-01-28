@@ -1,8 +1,8 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "SmartPointer.h"
-#include "XML/StringToStructure.h"
-#include "GameplayUT/GameApp.h"
-#include "GameplayUT/Log/FMLog.h"
+#include "../XML/StringToStructure.h"
+//#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 //bool	g_bShowSmartPointerInfo = true;
 bool	g_bShowSmartPointerInfo = false;
 void	DumpInfo(const wchar_t*e_strDescription, cSmartObject*e_pSmartObject, NamedTypedObject*e_pTarget)
@@ -89,13 +89,13 @@ int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 {
 	if( e_pNamedTypedObject )
 	{
+		m_refCount--;
+		int	l_refCount = m_refCount;
+#ifdef DEBUG
 		if (!wcscmp(e_pNamedTypedObject->GetName(), L"cPIUnitAndPointsVector"))
 		{
 			int a = 0;
 		}
-		m_refCount--;
-		int	l_refCount = m_refCount;
-#ifdef DEBUG
 		DumpInfo(L"Release:", this, e_pNamedTypedObject);
 		int	l_iIndex = this->m_ReferenceList.GetObjectIndexByPointer(e_pNamedTypedObject);
 		if( l_iIndex != -1 )

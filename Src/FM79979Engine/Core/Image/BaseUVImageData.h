@@ -46,7 +46,7 @@ namespace FATMING_CORE
 			m_pPIList->AddListToMe(e_pMulti_PI_Image->m_pPIList);
 		}
 		int				GetNumImage(){return m_pPuzzleImage->GetNumImage();}
-		sPuzzleData**	GetPuzzleData(){return m_pPuzzleImage?m_pPuzzleImage->GetPuzzleData():0;}
+		sPuzzleData*	GetAllPuzzleData(){return m_pPuzzleImage?m_pPuzzleImage->GetAllPuzzleData():0;}
 		cPuzzleImage*	GetPuzzleImage(){return m_pPuzzleImage;}
 		cPuzzleImage*	GetPuzzleImage(const wchar_t*e_strPIName){ return m_pPIList->GetObject(e_strPIName); }
 		cPuzzleImage*	GetPuzzleImage(int e_iIndex){ return m_pPIList->GetObject(e_iIndex); }

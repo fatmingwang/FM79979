@@ -1,10 +1,9 @@
 #include "../stdafx.h"
-#include "../CommonDefine.h"
-#include "../CommonDefine.h"
+#include "../Common/CommonDefine.h"
 #include "../GameplayUT/StringCompress.h"
 #include "StringToStructure.h"
 #include "../GameplayUT/GameApp.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 using namespace FATMING_CORE;
 /*
 www.sourceforge.net/projects/tinyxml
@@ -38,7 +37,7 @@ distribution.
 #endif
 
 #include "tinyxml.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 
 bool TiXmlBase::condenseWhiteSpace = true;
 // Microsoft compiler security

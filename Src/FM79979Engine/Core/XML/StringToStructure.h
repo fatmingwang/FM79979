@@ -3,7 +3,7 @@
 
 #include "../Math/Vector3.h"
 #include "../Math/Matrix44.h"
-#include "../VS_TO_GNN.h"
+#include "../Common/VS_TO_GNN.h"
 class	TiXmlElement;
 namespace FATMING_CORE
 {

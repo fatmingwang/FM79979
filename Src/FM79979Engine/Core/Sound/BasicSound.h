@@ -1,8 +1,4 @@
-#ifndef SOUND_SHELL_H
-#define SOUND_SHELL_H
-
-
-
+#pragma once
 
 #if defined(WIN32)
 #include "../../../Include/AL/alut.h"
@@ -18,7 +14,7 @@
 //#include "alut.h"
 #endif
 
-#include "../SmartPointer.h"
+#include "../Common/SmartPointer.h"
 namespace FATMING_CORE
 {
 	//========================
@@ -82,8 +78,3 @@ namespace FATMING_CORE
 	};
 	std::string    GetFileNameWithExtension(cBasicSound*e_pBasicSound);
 }
-
-
-
-
-#endif

@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "GlyphFontRender.h"
 #include "SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
@@ -86,6 +86,7 @@ namespace FATMING_CORE
 			m_pvColorBuffer[i] = Vector4::One;
 		m_fDepth = 0.f;
 		m_fScale = 1.f;
+        m_fLazyMinusCharacterWidth = e_pGlyphFontRender->m_fLazyMinusCharacterWidth;
 	}
 
 	cGlyphFontRender::~cGlyphFontRender()
@@ -180,7 +181,7 @@ namespace FATMING_CORE
 					*l_pfTextData = l_FILE_GLYPH_ATTR.fRight;				++l_pfTextData;
 					*l_pfTextData = l_FILE_GLYPH_ATTR.fBottom;
 				
-					l_fXOffset += l_fCharacterWidth;
+					l_fXOffset += (l_fCharacterWidth*m_fLazyMinusCharacterWidth);
 					if( l_fMaxWidth<l_fXOffset )
 						l_fMaxWidth = l_fXOffset;
 					++l_iAliveIndex;
@@ -258,7 +259,7 @@ namespace FATMING_CORE
 				FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_strText[i]);
 				float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
 				float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
-				l_fXOffset += l_fCharacterWidth;
+				l_fXOffset += (l_fCharacterWidth*m_fLazyMinusCharacterWidth);
 				if( l_fMaxWidth<l_fXOffset )
 					l_fMaxWidth = l_fXOffset;
 			}

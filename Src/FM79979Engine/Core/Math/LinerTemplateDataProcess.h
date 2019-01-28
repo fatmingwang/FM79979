@@ -3,7 +3,7 @@
 #include <vector>
 #include "../XML/tinyxml.h"
 #include "../XML/StringToStructure.h"
-#include "../NamedTypedObject.h"
+#include "../Common/NamedTypedObject.h"
 
 namespace UT
 {

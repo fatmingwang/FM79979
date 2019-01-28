@@ -5,6 +5,36 @@
 #include <functional>
 
 typedef std::lock_guard<std::mutex> cPP11MutexHolder;
+class cPP11MutexHolderDebug
+{
+	std::mutex& m_Mutex;
+	std::wstring l_strDebugInfo;
+public:
+	cPP11MutexHolderDebug(std::mutex& e_mutex) :m_Mutex(e_mutex)
+	{
+		m_Mutex.lock();
+	}
+	cPP11MutexHolderDebug(std::mutex& e_mutex,const wchar_t*e_strDebugInfo):m_Mutex(e_mutex)
+	{
+		m_Mutex.lock();
+		if (e_strDebugInfo)
+		{
+			l_strDebugInfo = e_strDebugInfo;
+			//OutputDebugString(e_strDebugInfo);
+			//OutputDebugString(L" in\n");
+		}
+	}
+	~cPP11MutexHolderDebug()
+	{
+		m_Mutex.unlock();
+		if (l_strDebugInfo.length())
+		{
+			//OutputDebugString(l_strDebugInfo.c_str());
+			//OutputDebugString(L" out\n");
+		}
+	}
+};
+
 typedef std::function<void(float)>  f_ThreadWorkingFunction;
 namespace FATMING_CORE
 {

@@ -2,11 +2,11 @@
 #define _TEMPLATE_CLASS_H_
 #include <vector>
 #include <assert.h>
-#include "CommonDefine.h"
-#include "NamedTypedObject.h"
-#include "Utility.h"
+#include "../CommonDefine.h"
+#include "../NamedTypedObject.h"
+#include "../Utility.h"
 #include "TempContainer.h"
-#include "GameplayUT/Log/FMLog.h"
+#include "../../GameplayUT/Log/FMLog.h"
 using namespace std;
 ////====================
 ////if the object is not belong to the other,itself must to be delete object or release object

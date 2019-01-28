@@ -2,7 +2,7 @@
 #include "NumeralImage.h"
 #include "SimplePrimitive.h"
 
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "PuzzleImage.h"
 #include "../GameplayUT/GameApp.h"
 #include "../XML/XMLLoader.h"

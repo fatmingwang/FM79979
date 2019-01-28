@@ -2,7 +2,7 @@
 #ifdef USE_MU_PARSER
 #include "../XML/XMLLoader.h"
 #include "../NamedTypedObject.h"
-#include "../TemplateClass.h"
+#include "../Common/Template/TemplateClass.h"
 namespace mu
 {
 	class Parser;

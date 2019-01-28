@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "Utility.h"
-#include "GameplayUT/GameApp.h"
-#include "GameplayUT/Log/FMLog.h"
+#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 #include <errno.h>
 
 //#include <locale>

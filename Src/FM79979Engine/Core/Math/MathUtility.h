@@ -3,11 +3,11 @@
 
 #include <map>
 #include "Collision.h"
-#include "../Glh.h"
+#include "../OpenGL/Glh.h"
 #ifdef WIN32
 #pragma warning( disable : 4996 )
 #endif
-#include "../VS_TO_GNN.h"
+#include "../Common/VS_TO_GNN.h"
 #include "MathTemplateUtility.h"
 #include "LinerTemplateDataProcess.h"
 namespace UT

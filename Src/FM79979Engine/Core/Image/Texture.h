@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../SmartPointer.h"
+#include "../Common/SmartPointer.h"
 namespace FATMING_CORE
 {
 	class cTextureManager;

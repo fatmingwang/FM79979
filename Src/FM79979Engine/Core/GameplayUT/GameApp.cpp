@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "GameApp.h"
 #include "Log/FMLog.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 #ifdef WIN32
 //#include "../../../include/IL/il.h"
 #include <direct.h>
@@ -508,41 +508,6 @@ namespace	FATMING_CORE
 			m_spGlyphFontRender->SetScale(1.f);
 		}
 	}
-
-	cPuzzleImage*	cGameApp::GetPuzzleImage(const wchar_t*e_strName) { return dynamic_cast<cPuzzleImage*>(m_spImageParser->GetObject(e_strName)); }
-	cBaseImage*		cGameApp::GetBaseImage(const wchar_t*e_strName) { return dynamic_cast<cBaseImage*>(m_spImageParser->GetObject(e_strName)); }
-	cPuzzleImage*	cGameApp::GetPuzzleImageByFileName(std::wstring e_strFileName) { return GetPuzzleImageByFileName(e_strFileName.c_str()); }
-	cPuzzleImage*	cGameApp::GetPuzzleImageByFileName(const wchar_t*e_strFileName) { return m_spImageParser->GetPuzzleImageByFileName(e_strFileName); }
-	cMPDIList*		cGameApp::GetMPDIList(const wchar_t*e_strName) { return m_spAnimationParser->GetMPDIList(e_strName); }
-	cMPDIList*		cGameApp::GetMPDIListByFileName(const wchar_t*e_strFileName, bool e_bShowErrorMsg) { return m_spAnimationParser->GetMPDIListByFileName(e_strFileName, e_bShowErrorMsg); }
-	cMPDIList*		cGameApp::GetMPDIList(const char*e_strFileName, const wchar_t*e_strName) { return m_spAnimationParser->GetMPDIList(e_strFileName, e_strName); }
-	cMPDIList*		cGameApp::GetMPDIList(int e_iIndex) { return m_spAnimationParser->GetMPDIList(e_iIndex); }
-
-	cCurveManager*	cGameApp::GetCurveManagerByFileName(const wchar_t*e_strFileName)
-	{
-		std::wstring	l_strName = UT::GetFileNameWithoutFullPath(e_strFileName);
-		cCurveManager*l_pCurveManager = m_spPathFileList->GetObject(l_strName.c_str());
-		if (l_pCurveManager)
-			return l_pCurveManager;
-		l_pCurveManager = new cCurveManager();
-		if (l_pCurveManager->Parse(UT::WcharToChar(e_strFileName).c_str()))
-		{
-			l_pCurveManager->SetName(l_strName);
-			m_spPathFileList->AddObjectNeglectExist(l_pCurveManager);
-			l_pCurveManager->DoScale(cGameApp::m_svGameScale);
-			return l_pCurveManager;
-		}
-		delete l_pCurveManager;
-		return 0;
-	}
-
-	cParticleEmitterGroup*cGameApp::GetPRTG(const wchar_t*e_strFileName, const wchar_t*e_strName) { return GetPRTG(UT::WcharToChar(e_strFileName).c_str(), e_strName); }
-	cParticleEmitterGroup*cGameApp::GetPRTG(const char*e_strFileName, const wchar_t*e_strName) { return m_spBehaviorPaticleManager->GetPRTG(e_strFileName, e_strName); }
-	cParticleEmitterGroup*cGameApp::GetPRTG(const wchar_t*e_strName) { return m_spBehaviorPaticleManager->GetPRTG(e_strName); }
-
-	cPrtEmitter*cGameApp::GetPrtEmitter(const char*e_strFileName, const wchar_t*e_strName) { return m_spBehaviorPaticleManager->GetPaticleManager()->GetEmitter(e_strFileName, e_strName); }
-	cPrtEmitter*cGameApp::GetPrtEmitter(const wchar_t*e_strFileName, const wchar_t*e_strName) { return GetPrtEmitter(UT::WcharToChar(e_strFileName).c_str(), e_strName); }
-	cPrtEmitter*cGameApp::GetPrtEmitter(const wchar_t*e_strName) { return m_spBehaviorPaticleManager->GetPaticleManager()->GetObject(e_strName); }
 
 	void	cGameApp::RenderFont(float e_fPosX, float e_fPosY, const wchar_t*e_strInfo)
 	{

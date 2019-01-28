@@ -75,6 +75,7 @@ namespace FATMING_CORE
 	protected:
 		cTexture*m_pTexture;
 		Vector4			m_vColor;
+		void			ParseTexture(const char*e_strFileName, bool e_bFetchPixels);
 		//GETP_SET_DEC(Vector3,m_vPos,GetPos,SetPos);								//render position
 		//GETP_SET_DEC(float,m_fAngle,GetAngle,SetAngle);							//angle
 

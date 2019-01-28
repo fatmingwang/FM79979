@@ -2,8 +2,9 @@
 #include "BaseImage.h"
 #include "SimplePrimitive.h"
 #include "BinaryToTexture.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cBaseImage);
@@ -16,7 +17,18 @@ namespace FATMING_CORE
 		m_pTexture = nullptr;
 		m_iWidth = 0;
 		m_iHeight = 0;
-		if( e_strImageName )
+		ParseTexture(e_strImageName, e_bFetchPixels);
+	}
+
+	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage),Frame(e_pBaseImage)
+	{
+		m_pTexture = nullptr;
+		SetTexBehaviorData(e_pBaseImage);
+	}
+
+	void	cBaseImage::ParseTexture(const char*e_strImageName, bool e_bFetchPixels)
+	{
+		if (e_strImageName)
 		{
 			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
 			m_pTexture = cTextureManager::GetInstance()->GetObject(this, e_strImageName, e_bFetchPixels);
@@ -41,12 +53,7 @@ namespace FATMING_CORE
 		m_OffsetPos.x = m_OffsetPos.y = 0;
 		m_OriginalSize.x = m_iWidth;
 		m_OriginalSize.y = m_iHeight;
-	}
 
-	cBaseImage::cBaseImage(cBaseImage*e_pBaseImage):cRenderObject(e_pBaseImage),Frame(e_pBaseImage)
-	{
-		m_pTexture = nullptr;
-		SetTexBehaviorData(e_pBaseImage);
 	}
 
 	//<cBaseImage ImageName="" Pos="" Color="" Width="" Height="" FetchPixel="0" />

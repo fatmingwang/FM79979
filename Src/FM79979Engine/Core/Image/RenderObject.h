@@ -2,7 +2,7 @@
 #define _RENDER_OBJECT_BEHAVIOR_H
 
 #include "../Math/Frame.h"
-//#include "../SmartPointer.h"
+//#include "../Common/SmartPointer.h"
 
 #include <functional>
 namespace FATMING_CORE

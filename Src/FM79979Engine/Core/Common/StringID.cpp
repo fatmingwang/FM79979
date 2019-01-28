@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "StringID.h"
 
 const wchar_t*				StringID::s_EmptyString = L"";

@@ -3,7 +3,7 @@
 #include "../stdafx.h"
 #include "AVIPlayer.h"
 #include "../Image/SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../Sound/BasicSound.h"
 #include "../Image/Texture.h"
 #include "../GameplayUT/GameApp.h"

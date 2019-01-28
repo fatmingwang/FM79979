@@ -100,6 +100,7 @@ namespace FATMING_CORE
 
 	cBluetoothSinglton::cBluetoothSinglton()
 	{
+		m_eBluetoothConnectionStatus = eBTCS_NONE;
 		m_ClientConnectionLostFunction = nullptr;
 		m_ClientConnectionAddFunction = nullptr;//windows only
 		m_ConnectionLostFunction = nullptr;

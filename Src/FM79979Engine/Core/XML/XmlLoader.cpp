@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "XMLLoader.h"
-#include "../Utility.h"
+#include "../Common/Utility.h"
 #include "../Image/GlyphFontRender.h"
 #include "../GameplayUT/GameApp.h"
 #include "../GameplayUT/BinaryFile.h"

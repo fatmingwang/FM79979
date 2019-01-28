@@ -2,7 +2,7 @@
 #include "SimplePrimitive.h"
 //#include "AnimationParser.h"
 #include "MPDI.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 #include "../Sound/SoundManager.h"
 //#include "../Sound/BasicSound.h"

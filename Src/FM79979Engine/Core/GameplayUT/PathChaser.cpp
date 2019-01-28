@@ -2,7 +2,7 @@
 #include "../Math/Curve.h"
 #include "PathChaser.h"
 #include "../Image/SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 namespace FATMING_CORE
 {
 

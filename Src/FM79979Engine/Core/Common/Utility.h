@@ -3,10 +3,10 @@
 
 #include "NamedTypedObject.h"
 #include <map>
-#include "Math/Collision.h"
-#include "Glh.h"
+#include "../Math/Collision.h"
+#include "../OpenGL/Glh.h"
 #include "TimeUT.h"
-#include "Android/nv_file.h"
+#include "../Android/nv_file.h"
 #include "TimeUT.h"
 #if defined(WIN32)
 	#pragma warning( disable : 4996 )

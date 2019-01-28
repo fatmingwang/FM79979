@@ -12,9 +12,8 @@ An Interface for the Smart Object.
 #ifndef __SMART_OBJECT_H__
 #define __SMART_OBJECT_H__
 
-#include "Synchronization/AllFUThreadInclude.h"
 #include "NamedTypedObject.h"
-#include "TemplateClass.h"
+//#include "./Template/TemplateClass.h"
 /*! 
 @class cSmartObject cSmartObject.h
 @brief This is a base class for Smart Object Classes  

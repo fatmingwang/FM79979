@@ -8,11 +8,11 @@ namespace FATMING_CORE
 
 	cMessageSenderManager::sNetworkMessageFunctionAndObjectID::sNetworkMessageFunctionAndObjectID()
 	{
-		pConvertType = nullptr;
+		//pConvertType = nullptr;
 	}
 	cMessageSenderManager::sNetworkMessageFunctionAndObjectID::~sNetworkMessageFunctionAndObjectID()
 	{
-		SAFE_DELETE(pConvertType);
+		//SAFE_DELETE(pConvertType);
 	}
 
 	cMessageSender::cMessageSender()
@@ -83,6 +83,11 @@ namespace FATMING_CORE
 			return true;
 		}
 return false;
+	}
+
+	bool	cMessageSender::RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction)
+	{
+		return RegNetworkMessageFunction<void>(e_usID, e_MessageFunction);
 	}
 
 	bool	cMessageSender::UnregNetworkMessageFunction(unsigned int e_usID)
@@ -190,11 +195,9 @@ return false;
 		}
 	}
 
-	bool cMessageSenderManager::NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sReceivedPacket* e_pPacket)
+	bool cMessageSenderManager::NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sNetworkReceivedPacket* e_pPacket)
 	{
-		unsigned short iSize = *(unsigned short*)e_pPacket->pData;
-		unsigned short iMessageID = *(((unsigned short*)(e_pPacket->pData)) + 1);
-		FMLog::LogWithFlag(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", iMessageID).c_str(), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", e_usID).c_str(), CORE_LOG_FLAG);
 		if (e_pPacket == nullptr)
 		{//for test
 			auto l_Iterator = m_NetworkMessageFunctionAndObjectIDMap.find(e_usID);
@@ -218,11 +221,7 @@ return false;
 			{
 				if (1)//do packet data check
 				{
-					FATMING_CORE::sReceivedPacket*l_pPhotoBuffer = (*l_pVector)[i]->pConvertType;
-#ifdef _DEBUG
-
-#endif
-					(*l_pVector)[i]->f_NetworkMessageFunction(l_pPhotoBuffer);
+					(*l_pVector)[i]->f_NetworkMessageFunction(e_pPacket);
 				}
 				else
 				{
@@ -232,7 +231,7 @@ return false;
 		}
 		else
 		{
-			printf("fuck no one process this message %d\n", iMessageID);
+			FMLog::LogWithFlag(UT::ComposeMsgByFormat("fuck no one process this message %d\n", e_usID).c_str(), CORE_LOG_FLAG);
 		}
 		return false;
 	}

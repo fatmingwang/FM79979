@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "DrawSelectRectangleByMouse.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../Image/SimplePrimitive.h"
 namespace FATMING_CORE
 {

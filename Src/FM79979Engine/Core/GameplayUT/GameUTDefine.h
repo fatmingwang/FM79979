@@ -1,7 +1,7 @@
 #ifndef	_GAME_UT_DEFINE_H_
 #define	_GAME_UT_DEFINE_H_
 
-#include "../CommonDefine.h"
+#include "../Common/CommonDefine.h"
 
 #define	ONE_QUAD_IS_TWO_TRIANGLES					2
 #define	TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT			6           //two triangle could be a quad,one triangle is 3 two triangle is 6

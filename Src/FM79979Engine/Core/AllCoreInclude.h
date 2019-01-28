@@ -43,16 +43,16 @@
 //<string.h> is for c, <string> is for c++
 #include <string>
 #include <vector>
-#include "CommonDefine.h"
+#include "Common/CommonDefine.h"
 #include "GameplayUT/GameUTDefine.h"
-#include "NamedTypedObject.h"
-#include "TemplateClass.h"
-#include "SmartPointer.h"
-#include "TwoDimensionDataContainer.h"
-#include "MapCellDataContainer.h"
+#include "Common/NamedTypedObject.h"
+#include "Common/Template/TemplateClass.h"
+#include "Common/SmartPointer.h"
+#include "Common/Template/TwoDimensionDataContainer.h"
+#include "Common/Template/MapCellDataContainer.h"
 #include "AllMathInclude.h"
 #include "XML/StringToStructure.h"
-#include "Utility.h"
+#include "Common/Utility.h"
 #include "Math/MathUtility.h"
 #include "XML/XMLLoader.h"
 #include "AllCameraInclude.h"
@@ -65,13 +65,10 @@
 //#include "AVIPlayer/AVIPlayer.h"
 //#endif
 //
-#ifdef  WIN32
-#include "GLSL/GLSLUiniform.h"
-#endif
 
-#include "GLSL/GLSLUiniform.h"
+#include "OpenGL/GLSL/GLSLUiniform.h"
 
-#include "GLSL/Shader.h"
+#include "OpenGL/GLSL/Shader.h"
 
 #include "GameplayUT/AllGamePlayUTInclude.h"
 #include "AllPhysicInclude.h"

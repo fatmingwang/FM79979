@@ -11,7 +11,7 @@
 //#include "PhaseControl.h"
 #include "MultiTouchPoints.h"
 #include "GameUTDefine.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../AllImageInclude.h"
 #include "../AllMathInclude.h"
 #include "Log/FMLog.h"

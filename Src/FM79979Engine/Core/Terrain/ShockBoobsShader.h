@@ -1,7 +1,7 @@
 #ifndef	_Shock_BOOBS_SHADER_H_
 #define	_Shock_BOOBS_SHADER_H_
 
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 namespace FATMING_CORE
 {
 	class	cShockBoobsShader:public cBaseShader

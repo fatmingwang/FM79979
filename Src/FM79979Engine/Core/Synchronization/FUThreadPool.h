@@ -7,7 +7,7 @@
 #define _FU_THREAD_POOL_H_
 
 #ifndef _FU_THREAD_H_
-#include "cFUThread.h"
+#include "FUThread.h"
 #endif // _FU_THREAD_H_
 
 #include "FUFunctor.h"

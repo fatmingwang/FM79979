@@ -1,7 +1,7 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "NamedTypedObject.h"
-#include "GameplayUT/GameApp.h"
-#include "GameplayUT/Log/FMLog.h"
+#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 uint64				g_ui64GlobalUniqueID = 0;
 uint64				g_ui64TimeStamp = 0;
 NamedTypedObject*	g_pLatestNamedTypedObject = 0;

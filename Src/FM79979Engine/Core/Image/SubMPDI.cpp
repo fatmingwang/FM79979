@@ -3,7 +3,7 @@
 //#include "AnimationParser.h"
 #include "SubMPDI.h"
 #include "MPDI.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../GameplayUT/GameApp.h"
 #include "../Sound/SoundManager.h"
 namespace FATMING_CORE
@@ -450,7 +450,7 @@ namespace FATMING_CORE
 		sTexBehaviorDataWithImageIndexData*l_pData = this->GetPointData(e_iIndex);
 		if (!l_pData->pPI)
 			return false;
-		sPuzzleData*l_pPuzzleData = l_pData->pPI->GetPuzzleData()[l_pData->iImageIndex];
+		sPuzzleData*l_pPuzzleData = l_pData->pPI->GetPuzzleData(l_pData->iImageIndex);
 		Vector3	l_Vertices[4];
 		GetRenderPuzzleDataAndMatrix(l_pData, 3, (float*)l_Vertices, e_pfUV, l_pPuzzleData);
 		return AssignColorAndTransformToVertices(l_pData->vColor, e_pfVertices, e_pfColor);
@@ -472,7 +472,7 @@ namespace FATMING_CORE
 		if (!m_bStart || m_pCurrentPointData->vColor.a == 0)
 			return false;
 
-		sPuzzleData*l_pPuzzleData = this->m_pCurrentPointData->pPI->GetPuzzleData()[this->m_pCurrentPointData->iImageIndex];
+		sPuzzleData*l_pPuzzleData = this->m_pCurrentPointData->pPI->GetPuzzleData(this->m_pCurrentPointData->iImageIndex);
 		if (e_pfUV)
 			AssignUVDataTo2Triangles(l_pPuzzleData->fUV, e_pfUV, m_pCurrentPointData->bMirror);
 		AssignColorAndTransformToVertices(m_pCurrentPointData->vColor, e_pfVertices, e_pfColor);
@@ -532,7 +532,7 @@ namespace FATMING_CORE
 		UpdateData();
 		if (!m_pCurrentPointData || !m_pCurrentPointData->pPI)
 			return;
-		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[this->m_pCurrentPointData->iImageIndex];
+		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(this->m_pCurrentPointData->iImageIndex);
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, l_pPuzzleData);
 	}
 
@@ -600,7 +600,7 @@ namespace FATMING_CORE
 #endif
 			return;
 		}
-		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[l_iLastFrameImageIndex];
+		sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(l_iLastFrameImageIndex);
 		m_pCurrentPointData->pPI->ApplyImage();
 		RenderPuzzleData(l_pPuzzleData);
 	}
@@ -647,7 +647,7 @@ namespace FATMING_CORE
 			if (m_pCurrentPointData->pPI)
 			{
 				m_pCurrentPointData->pPI->ApplyImage();
-				sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[m_pCurrentPointData->iImageIndex];
+				sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(m_pCurrentPointData->iImageIndex);
 				RenderPuzzleData(l_pPuzzleData);
 			}
 		}
@@ -809,7 +809,7 @@ namespace FATMING_CORE
 				m_pCurrentPointData->vColor = e_vColor;
 			m_pCurrentPointData->pPI->ApplyImage();
 			//sPuzzleData*l_pPuzzleData = this->m_ppPuzzleData[this->GetCurrentImageIndex()];
-			sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData()[l_iLastImageIndex];
+			sPuzzleData*l_pPuzzleData = m_pCurrentPointData->pPI->GetPuzzleData(l_iLastImageIndex);
 			RenderPuzzleData(l_pPuzzleData);
 			if (e_bBlending)
 				m_pCurrentPointData->vColor = l_vOriginalColor;

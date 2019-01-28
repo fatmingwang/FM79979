@@ -1,7 +1,7 @@
 #ifndef SimplePrimitive_H
 #define SimplePrimitive_H
 #include "Texture.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 using namespace FATMING_CORE;
 namespace FATMING_CORE
 {

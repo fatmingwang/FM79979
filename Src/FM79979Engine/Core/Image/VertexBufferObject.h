@@ -1,7 +1,7 @@
 #ifndef VERTEX_OBJECT_BUFFER
 #define VERTEX_OBJECT_BUFFER
 
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 namespace FATMING_CORE
 {
 	//==================================

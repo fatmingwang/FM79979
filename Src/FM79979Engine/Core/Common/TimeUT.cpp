@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../stdafx.h"
 #include "TimeUT.h"
 #include <time.h>
 #ifdef WIN32
@@ -18,7 +18,7 @@
 #include "jni.h"
 #include <sys/time.h>
 #endif
-#include "XML/StringToStructure.h"
+#include "../XML/StringToStructure.h"
 namespace UT
 {
 	sTimeAndFPS::sTimeAndFPS()

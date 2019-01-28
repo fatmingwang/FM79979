@@ -3,7 +3,7 @@
 #include "../XML/XMLLoader.h"
 #include "Curve.h"
 #include "../Image/GlyphFontRender.h"
-#include "../TemplateClass.h"
+#include "../Common/Template/TemplateClass.h"
 namespace FATMING_CORE
 {
 	//<Curve count ="3" />

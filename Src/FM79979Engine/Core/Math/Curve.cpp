@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "Curve.h"
 #include "../Image/GlyphFontRender.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 #include "../Image/SimplePrimitive.h"
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE

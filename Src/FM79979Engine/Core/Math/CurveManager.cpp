@@ -4,7 +4,7 @@
 #include "../XML/AtgXmlWriter.h"
 #endif
 #include "../Image/SimplePrimitive.h"
-#include "../GLSL/Shader.h"
+#include "../OpenGL/GLSL/Shader.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cCurveManager);

@@ -149,7 +149,7 @@ namespace FATMING_CORE
 #define	ELEMENT_VALUE_ASSERT_CHECK(Element,Value)
 #endif
 
-	//#include "../Utility.h"
+	//#include "../Common/Utility.h"
 	#ifdef WIN32
 	//#include "../../../Include/iconv/iconv.h"
 	#else
