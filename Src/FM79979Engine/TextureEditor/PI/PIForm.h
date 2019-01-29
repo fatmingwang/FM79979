@@ -148,7 +148,8 @@ namespace PI
 			m_pTimeAndFPS = new UT::sTimeAndFPS;
 			m_pImageIndexOfAnimation = new cImageIndexOfAnimation(true);
 			m_pImageIndexOfAnimationList = new cNamedTypedObjectVector<cImageIndexOfAnimation>;
-			m_pImageomposerIRM = new cImageParser(true);
+			m_pImageomposerIRM = new cImageParser();
+			cPuzzleImage::m_sbSortPIFileAsOriginal = true;
 			m_pOrthogonalCamera = new cOrthogonalCamera();
 			m_pOrthogonalCameraForTrianhulatorPIUnit = new cOrthogonalCamera();
 			m_ImageTale = gcnew System::Collections::Hashtable;
@@ -330,6 +331,8 @@ namespace PI
 	private: System::Windows::Forms::Button^  button1;
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	private: System::Windows::Forms::PictureBox^  pictureBox2;
+private: System::Windows::Forms::CheckBox^  ShowTriangulaotrPoints_checkBox;
+private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -390,6 +393,7 @@ namespace PI
 			this->StripAlpha_button = (gcnew System::Windows::Forms::Button());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->ImageAligment_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->ShowTriangulaotrPoints_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->AutoAligment_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->BinaryExport_checkBox = (gcnew System::Windows::Forms::CheckBox());
@@ -413,6 +417,7 @@ namespace PI
 			this->ImagePosX_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->SequenceAnimation_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->AnimationTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->AnimationData_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->AnimationDataList_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->AnimationDatDel_button = (gcnew System::Windows::Forms::Button());
@@ -455,6 +460,7 @@ namespace PI
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosY_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->BeginInit();
 			this->SequenceAnimation_tabPage->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->BeginInit();
 			this->ImageTriangulator_tabPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
@@ -562,7 +568,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label4->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label4->Location = System::Drawing::Point(218, 68);
+			this->label4->Location = System::Drawing::Point(261, 68);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(99, 12);
 			this->label4->TabIndex = 38;
@@ -575,7 +581,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label5->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label5->Location = System::Drawing::Point(221, 20);
+			this->label5->Location = System::Drawing::Point(264, 20);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(97, 12);
 			this->label5->TabIndex = 37;
@@ -587,7 +593,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageHeight_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageHeight_numericUpDown->Location = System::Drawing::Point(221, 83);
+			this->ImageHeight_numericUpDown->Location = System::Drawing::Point(264, 83);
 			this->ImageHeight_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImageHeight_numericUpDown->Name = L"ImageHeight_numericUpDown";
 			this->ImageHeight_numericUpDown->Size = System::Drawing::Size(62, 22);
@@ -601,7 +607,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImageWidth_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageWidth_numericUpDown->Location = System::Drawing::Point(221, 39);
+			this->ImageWidth_numericUpDown->Location = System::Drawing::Point(264, 39);
 			this->ImageWidth_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImageWidth_numericUpDown->Name = L"ImageWidth_numericUpDown";
 			this->ImageWidth_numericUpDown->Size = System::Drawing::Size(62, 22);
@@ -615,7 +621,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AutoOrderPosition_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AutoOrderPosition_button->Location = System::Drawing::Point(221, 110);
+			this->AutoOrderPosition_button->Location = System::Drawing::Point(264, 110);
 			this->AutoOrderPosition_button->Name = L"AutoOrderPosition_button";
 			this->AutoOrderPosition_button->Size = System::Drawing::Size(139, 36);
 			this->AutoOrderPosition_button->TabIndex = 34;
@@ -884,6 +890,7 @@ namespace PI
 			// ImageAligment_tabPage
 			// 
 			this->ImageAligment_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageAligment_tabPage->Controls->Add(this->ShowTriangulaotrPoints_checkBox);
 			this->ImageAligment_tabPage->Controls->Add(this->label8);
 			this->ImageAligment_tabPage->Controls->Add(this->label4);
 			this->ImageAligment_tabPage->Controls->Add(this->AutoAligment_checkBox);
@@ -921,6 +928,16 @@ namespace PI
 			this->ImageAligment_tabPage->Size = System::Drawing::Size(1346, 204);
 			this->ImageAligment_tabPage->TabIndex = 0;
 			this->ImageAligment_tabPage->Text = L"ImageAligment";
+			// 
+			// ShowTriangulaotrPoints_checkBox
+			// 
+			this->ShowTriangulaotrPoints_checkBox->AutoSize = true;
+			this->ShowTriangulaotrPoints_checkBox->Location = System::Drawing::Point(106, 132);
+			this->ShowTriangulaotrPoints_checkBox->Name = L"ShowTriangulaotrPoints_checkBox";
+			this->ShowTriangulaotrPoints_checkBox->Size = System::Drawing::Size(136, 16);
+			this->ShowTriangulaotrPoints_checkBox->TabIndex = 86;
+			this->ShowTriangulaotrPoints_checkBox->Text = L"ShowTriangulaotrPoints";
+			this->ShowTriangulaotrPoints_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// label8
 			// 
@@ -980,7 +997,7 @@ namespace PI
 			// 
 			// NewPIUnitName_textBox
 			// 
-			this->NewPIUnitName_textBox->Location = System::Drawing::Point(794, 22);
+			this->NewPIUnitName_textBox->Location = System::Drawing::Point(837, 22);
 			this->NewPIUnitName_textBox->Name = L"NewPIUnitName_textBox";
 			this->NewPIUnitName_textBox->Size = System::Drawing::Size(97, 22);
 			this->NewPIUnitName_textBox->TabIndex = 81;
@@ -991,7 +1008,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->AddNewPIUnitImage_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->AddNewPIUnitImage_button->Location = System::Drawing::Point(792, 126);
+			this->AddNewPIUnitImage_button->Location = System::Drawing::Point(835, 126);
 			this->AddNewPIUnitImage_button->Name = L"AddNewPIUnitImage_button";
 			this->AddNewPIUnitImage_button->Size = System::Drawing::Size(99, 35);
 			this->AddNewPIUnitImage_button->TabIndex = 80;
@@ -1005,7 +1022,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitStartX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitStartX_numericUpDown->Location = System::Drawing::Point(584, 20);
+			this->NewPIUnitStartX_numericUpDown->Location = System::Drawing::Point(627, 20);
 			this->NewPIUnitStartX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitStartX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, System::Int32::MinValue });
 			this->NewPIUnitStartX_numericUpDown->Name = L"NewPIUnitStartX_numericUpDown";
@@ -1019,7 +1036,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitEndY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitEndY_numericUpDown->Location = System::Drawing::Point(582, 138);
+			this->NewPIUnitEndY_numericUpDown->Location = System::Drawing::Point(625, 138);
 			this->NewPIUnitEndY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitEndY_numericUpDown->Name = L"NewPIUnitEndY_numericUpDown";
 			this->NewPIUnitEndY_numericUpDown->Size = System::Drawing::Size(85, 22);
@@ -1032,7 +1049,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitEndX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitEndX_numericUpDown->Location = System::Drawing::Point(584, 98);
+			this->NewPIUnitEndX_numericUpDown->Location = System::Drawing::Point(627, 98);
 			this->NewPIUnitEndX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitEndX_numericUpDown->Name = L"NewPIUnitEndX_numericUpDown";
 			this->NewPIUnitEndX_numericUpDown->Size = System::Drawing::Size(85, 22);
@@ -1045,7 +1062,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->NewPIUnitStartY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->NewPIUnitStartY_numericUpDown->Location = System::Drawing::Point(584, 61);
+			this->NewPIUnitStartY_numericUpDown->Location = System::Drawing::Point(627, 61);
 			this->NewPIUnitStartY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->NewPIUnitStartY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 100000, 0, 0, System::Int32::MinValue });
 			this->NewPIUnitStartY_numericUpDown->Name = L"NewPIUnitStartY_numericUpDown";
@@ -1060,7 +1077,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label11->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label11->Location = System::Drawing::Point(582, 122);
+			this->label11->Location = System::Drawing::Point(625, 122);
 			this->label11->Name = L"label11";
 			this->label11->Size = System::Drawing::Size(202, 12);
 			this->label11->TabIndex = 75;
@@ -1073,7 +1090,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label10->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label10->Location = System::Drawing::Point(582, 82);
+			this->label10->Location = System::Drawing::Point(625, 82);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(202, 12);
 			this->label10->TabIndex = 74;
@@ -1086,7 +1103,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label9->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label9->Location = System::Drawing::Point(582, 43);
+			this->label9->Location = System::Drawing::Point(625, 43);
 			this->label9->Name = L"label9";
 			this->label9->Size = System::Drawing::Size(204, 12);
 			this->label9->TabIndex = 73;
@@ -1099,7 +1116,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label7->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label7->Location = System::Drawing::Point(377, 117);
+			this->label7->Location = System::Drawing::Point(420, 117);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(140, 12);
 			this->label7->TabIndex = 71;
@@ -1107,7 +1124,7 @@ namespace PI
 			// 
 			// ImageDistanceY_numericUpDown
 			// 
-			this->ImageDistanceY_numericUpDown->Location = System::Drawing::Point(378, 132);
+			this->ImageDistanceY_numericUpDown->Location = System::Drawing::Point(421, 132);
 			this->ImageDistanceY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
 			this->ImageDistanceY_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->ImageDistanceY_numericUpDown->Name = L"ImageDistanceY_numericUpDown";
@@ -1122,7 +1139,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label6->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label6->Location = System::Drawing::Point(375, 78);
+			this->label6->Location = System::Drawing::Point(418, 78);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(140, 12);
 			this->label6->TabIndex = 69;
@@ -1130,7 +1147,7 @@ namespace PI
 			// 
 			// ImageDistanceX_numericUpDown
 			// 
-			this->ImageDistanceX_numericUpDown->Location = System::Drawing::Point(380, 93);
+			this->ImageDistanceX_numericUpDown->Location = System::Drawing::Point(423, 93);
 			this->ImageDistanceX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, 0 });
 			this->ImageDistanceX_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 79979, 0, 0, System::Int32::MinValue });
 			this->ImageDistanceX_numericUpDown->Name = L"ImageDistanceX_numericUpDown";
@@ -1154,7 +1171,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImagePosY_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(377, 54);
+			this->ImagePosY_numericUpDown->Location = System::Drawing::Point(420, 54);
 			this->ImagePosY_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImagePosY_numericUpDown->Name = L"ImagePosY_numericUpDown";
 			this->ImagePosY_numericUpDown->Size = System::Drawing::Size(85, 22);
@@ -1168,7 +1185,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->ImagePosX_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImagePosX_numericUpDown->Location = System::Drawing::Point(377, 26);
+			this->ImagePosX_numericUpDown->Location = System::Drawing::Point(420, 26);
 			this->ImagePosX_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->ImagePosX_numericUpDown->Name = L"ImagePosX_numericUpDown";
 			this->ImagePosX_numericUpDown->Size = System::Drawing::Size(85, 22);
@@ -1183,7 +1200,7 @@ namespace PI
 				static_cast<System::Int32>(static_cast<System::Byte>(64)));
 			this->label3->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->label3->Location = System::Drawing::Point(375, 6);
+			this->label3->Location = System::Drawing::Point(421, 4);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(24, 12);
 			this->label3->TabIndex = 62;
@@ -1192,6 +1209,7 @@ namespace PI
 			// SequenceAnimation_tabPage
 			// 
 			this->SequenceAnimation_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationTime_numericUpDown);
 			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationData_listBox);
 			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDataList_listBox);
 			this->SequenceAnimation_tabPage->Controls->Add(this->AnimationDatDel_button);
@@ -1209,6 +1227,14 @@ namespace PI
 			this->SequenceAnimation_tabPage->TabIndex = 2;
 			this->SequenceAnimation_tabPage->Text = L"SequenceAnimation";
 			// 
+			// AnimationTime_numericUpDown
+			// 
+			this->AnimationTime_numericUpDown->DecimalPlaces = 3;
+			this->AnimationTime_numericUpDown->Location = System::Drawing::Point(53, 163);
+			this->AnimationTime_numericUpDown->Name = L"AnimationTime_numericUpDown";
+			this->AnimationTime_numericUpDown->Size = System::Drawing::Size(120, 22);
+			this->AnimationTime_numericUpDown->TabIndex = 60;
+			// 
 			// AnimationData_listBox
 			// 
 			this->AnimationData_listBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
@@ -1223,6 +1249,7 @@ namespace PI
 			this->AnimationData_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiExtended;
 			this->AnimationData_listBox->Size = System::Drawing::Size(134, 124);
 			this->AnimationData_listBox->TabIndex = 49;
+			this->AnimationData_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::AnimationData_listBox_SelectedIndexChanged);
 			// 
 			// AnimationDataList_listBox
 			// 
@@ -1415,6 +1442,7 @@ namespace PI
 			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 22);
 			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
 			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ImageTriangulatorLOD_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImageTriangulatorLOD_numericUpDown_ValueChanged);
 			// 
 			// ImageTriangulatorLOD_label
 			// 
@@ -1493,6 +1521,7 @@ namespace PI
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImagePosX_numericUpDown))->EndInit();
 			this->SequenceAnimation_tabPage->ResumeLayout(false);
 			this->SequenceAnimation_tabPage->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->EndInit();
 			this->ImageTriangulator_tabPage->ResumeLayout(false);
 			this->ImageTriangulator_tabPage->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
@@ -1550,6 +1579,8 @@ namespace PI
 								--i;
 							}
 						}
+						if (m_pPuzzleImageUnitTriangulatorManager)
+							m_pPuzzleImageUnitTriangulatorManager->RemoveObject(dynamic_cast<cUIImage*>(l_pNamedTypedObject));
 						m_pImageomposerIRM->RemoveObject(DNCT::GcStringToWchar(l_pObject->ToString()));
 					 }
 					 if( m_pImageomposerIRM->Count() != AllImage_listBox->Items->Count )
@@ -1699,11 +1730,13 @@ namespace PI
 						for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
 						{
 							cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
-							Vector4	l_vColor(0, 0, 0, 1);
-							l_vColor.x = 1.f / ((i % 3) + 1);
-							l_vColor.y = 0.5f;
-							l_vColor.z = 1.f / ((l_iNum % (i + 1)) + 1);
-							l_vColor.w = 1;
+							//Vector4	l_vColor(0.5, 0.5, 0.5, 1.0);
+							Vector4	l_vColor(1.5, 1.5, 1.5, 1.0);
+							//Vector4	l_vColor(0, 0, 0, 1);
+							//l_vColor.x = 1.f / ((i % 3) + 1);
+							//l_vColor.y = 0.5f;
+							//l_vColor.z = 1.f / ((l_iNum % (i + 1)) + 1);
+							//l_vColor.w = 1;
 							Vector3	l_vPos = l_p->GetPos();
 							//+1 for offset start at 0,0
 							l_iRectWidth = l_p->GetRightDownStripOffPos().x - l_p->GetOffsetPos()->x + 1;
@@ -1715,6 +1748,10 @@ namespace PI
 							RenderRectangle(l_Pos, l_iRectWidth, l_iRectHeight, l_vColor, 0, 1);
 							//l_p->DebugRender();
 						}
+					}
+					if (ShowTriangulaotrPoints_checkBox->Checked && m_pPuzzleImageUnitTriangulatorManager)
+					{
+						this->m_pPuzzleImageUnitTriangulatorManager->RenderPointsShapeLine();
 					}
 					if (AllImage_listBox->Items->Count&&m_iCurrentSelectedObjectIndex != -1)
 					{
@@ -1750,9 +1787,12 @@ namespace PI
 							}
 						}
 					}
-					//for final image size
-					POINT	l_Pos = { 0,0 };
-					RenderRectangle(l_Pos, (int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, Vector4(1.f, 0.3f, 0.3f, 0.3f));
+					if (tabControl1->SelectedIndex != 2)
+					{
+						//for final image size
+						POINT	l_Pos = { 0,0 };
+						RenderRectangle(l_Pos, (int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, Vector4(1.f, 0.3f, 0.3f, 0.3f));
+					}
 					if (m_pDebugFont)
 					{
 						UseShaderProgram();
@@ -1973,6 +2013,7 @@ namespace PI
 						if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
 						{
 							m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+							ImageTriangulatorLOD_numericUpDown->Value = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD();
 						}
 					}
 					NewPIUnitName_textBox->Text = DNCT::WcharToGcstring(l_pUIImage->GetName());
@@ -2101,8 +2142,11 @@ namespace PI
 						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 					MouseCollideForPickUpObject(e, splitContainer2->Panel1);
 					ptCursor.x = e->X; ptCursor.y = e->Y;
-					HWND	l_Hwnd = WindowFromPoint(ptCursor);
-					//WCHAR*l_strName = WinGetTitle();
+					//HWND	l_Hwnd = WindowFromPoint(ptCursor);
+					if (this->m_pPuzzleImageUnitTriangulatorManager)
+					{
+						m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+					}
 				}
 			 }
 	private: System::Void MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
@@ -2418,7 +2462,8 @@ private: System::Void AddAnimationImage_button_Click(System::Object^  sender, Sy
 				 while(AllImage_listBox->SelectedIndices->Count != 0 )
 				 {
 					int	l_iIndex = AllImage_listBox->SelectedIndices[0];
-					m_pImageIndexOfAnimation->AddNameObject(DNCT::GcStringToWchar(AllImage_listBox->SelectedItems[0]->ToString()).c_str(),AllImage_listBox->SelectedIndices[0],0.1f);
+					float l_fTime = (float)AnimationTime_numericUpDown->Value;
+					m_pImageIndexOfAnimation->AddNameObject(DNCT::GcStringToWchar(AllImage_listBox->SelectedItems[0]->ToString()).c_str(),AllImage_listBox->SelectedIndices[0], l_fTime);
 					AnimationData_listBox->Items->Add(AllImage_listBox->SelectedItems[0]->ToString());
 					AllImage_listBox->SelectedItems->Remove(AllImage_listBox->SelectedItems[0]);
 				 }
@@ -2763,13 +2808,15 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 		}
 	}
 
-	private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e) 
+	private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e)
 	{
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
 			std::vector<Vector2>*l_pVector = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetTriangulatorPointsVector();
 			if (l_pVector->size() > 3)
 			{
+				
+				cUIImage*l_pUIImage = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetTargetImage();
 				System::Drawing::Bitmap^l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
 				List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(l_pVector);
 				Image^l_pImage = (Image^)l_pBitMap;
@@ -2780,6 +2827,21 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 				//l_pFinalImage->Save("New.png");
 				//l_pOriginalImage->Save("Original.png");
 			}
+		}
+	}
+	private: System::Void ImageTriangulatorLOD_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e) 
+	{
+		if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			if(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD() != (int)ImageTriangulatorLOD_numericUpDown->Value)
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->SetLOD((int)ImageTriangulatorLOD_numericUpDown->Value, false);
+		}
+	}
+	private: System::Void AnimationData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (AnimationData_listBox->SelectedIndex != -1 && m_pImageIndexOfAnimation)
+		{
+			AnimationTime_numericUpDown->Value = (System::Decimal)m_pImageIndexOfAnimation->m_ImageAnimationDataList[AnimationData_listBox->SelectedIndex].fTimeGap;
 		}
 	}
 };

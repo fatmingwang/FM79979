@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreweViewTimeline", "TreweViewTimeline\TreweViewTimeline.csproj", "{D1183EAB-4980-4822-95DE-F4E5CBC8394B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{81DCB1EF-86EA-43EA-91BA-CA72A2BCBEF1} = {81DCB1EF-86EA-43EA-91BA-CA72A2BCBEF1}
@@ -61,18 +63,21 @@ Global
 		{CD6557A2-5A9A-40E0-BDFB-04D547644FF2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{465DD0FB-BE46-4E00-A957-816464E15056}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{465DD0FB-BE46-4E00-A957-816464E15056}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.ActiveCfg = RamDiskDebug|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.Build.0 = RamDiskDebug|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamdiskDebugFixedPipeline|Any CPU.ActiveCfg = RamdiskDebugFixedPipeline|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamdiskDebugFixedPipeline|Any CPU.Build.0 = RamdiskDebugFixedPipeline|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskFixedPipelineRelease|Any CPU.ActiveCfg = RamDiskFixedPipelineRelease|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskFixedPipelineRelease|Any CPU.Build.0 = RamDiskFixedPipelineRelease|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.ActiveCfg = RamDiskRelease|Any CPU
-		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.Build.0 = RamDiskRelease|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskDebug|Any CPU.Build.0 = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamdiskDebugFixedPipeline|Any CPU.ActiveCfg = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamdiskDebugFixedPipeline|Any CPU.Build.0 = Debug|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskFixedPipelineRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskFixedPipelineRelease|Any CPU.Build.0 = Release|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{465DD0FB-BE46-4E00-A957-816464E15056}.RamDiskRelease|Any CPU.Build.0 = Release|Any CPU
 		{465DD0FB-BE46-4E00-A957-816464E15056}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{465DD0FB-BE46-4E00-A957-816464E15056}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C586C549-BBAC-4BC4-BFC5-807E794DE53F}
 	EndGlobalSection
 EndGlobal

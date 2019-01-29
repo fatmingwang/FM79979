@@ -7,56 +7,69 @@
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/GameplayUT/StringCompress.h"
+
 //#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")
 
 using namespace System::Drawing::Imaging;
 namespace PI
 {
+
+	System::Drawing::Bitmap^	ImageWithTrianulator(System::Drawing::Bitmap^e_pSrc, std::vector<Vector2>*e_pVector)
+	{
+		if (e_pVector)
+		{
+			List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(e_pVector);
+			Image^l_pImage = (Image^)e_pSrc;
+			Bitmap^l_pFinalImage = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList);
+			return l_pFinalImage;
+		}
+		return nullptr;
+	}
+
 	//e_SrcPosition for Src's memory to change
 	//e_DestPosition for Dest data for copy.
 	//it will add 1 for e_SrcPosition,e_DestPosition
-	void	CopyImageToImageBySpecificData(System::Drawing::Bitmap^e_pSrc,System::Drawing::Bitmap^e_pDest,
-		RECT e_SrcPosition,RECT e_DestPosition)
+	void	CopyImageToImageBySpecificData(System::Drawing::Bitmap^e_pSrc,System::Drawing::Bitmap^e_pDest,RECT e_SrcPosition,RECT e_DestPosition)
 	{
 		e_DestPosition.right += 1;
 		e_DestPosition.bottom +=1;
 		e_SrcPosition.right += 1;
 		e_SrcPosition.bottom += 1;
 		int	l_iSrcChannel = e_pSrc->PixelFormat == PixelFormat::Format32bppArgb?4:3;
-		if( e_pSrc->PixelFormat == e_pDest->PixelFormat && e_pDest->Width>=e_pSrc->Width && e_pDest->Height>=e_pSrc->Height )
-		{
-			int	bufferSizeInPixels = e_pSrc->Width*e_pSrc->Height;
-			BitmapData^l_pData  = e_pSrc->LockBits(System::Drawing::Rectangle(0, 0,e_pSrc->Width,e_pSrc->Height),ImageLockMode::ReadOnly,e_pSrc->PixelFormat);
-			char*l_pbuff = (char*)l_pData->Scan0.ToPointer();
-			BitmapData^l_pData2 = e_pDest->LockBits(System::Drawing::Rectangle(0,0,e_pDest->Width,e_pDest->Height),ImageLockMode::WriteOnly,e_pDest->PixelFormat);
-			char*l_strScrData = (char*)l_pData2->Scan0.ToPointer();
-			int	l_iSrcRenderStartPosX = e_SrcPosition.left;
-			int	l_iSrcRenderStartPosY = e_SrcPosition.top;
-			int	l_iSrcRenderEndPosX = e_SrcPosition.right;
-			int	l_iSrcRenderEndPosY = e_SrcPosition.bottom;
-			int	l_iDestRenderPosX = e_DestPosition.left;
-			int	l_iDestRenderPosY = e_DestPosition.top;
-			//src's pixels for copy
-			int	l_iWorkPixelX = e_SrcPosition.right-e_SrcPosition.left;
-			int	l_iWorkPixelY = e_SrcPosition.bottom-e_SrcPosition.top;
-			int	l_iIndex = 0;
-			for( int l_iStartPixelY=l_iSrcRenderStartPosY;l_iStartPixelY<l_iSrcRenderEndPosY;++l_iStartPixelY )
-			{
-				int	l_iYIndex = ((l_iDestRenderPosY+l_iIndex)*l_iSrcChannel*e_pDest->Width);
-				int	l_iXIndex = l_iSrcChannel*l_iDestRenderPosX;
-				int	l_iStartCopyIndex = l_iXIndex+l_iYIndex;
-				int	l_iCopyIntoIndex = (l_iStartPixelY*l_iSrcChannel*e_pSrc->Width)+(l_iSrcChannel*l_iSrcRenderStartPosX);
-				memcpy(&l_strScrData[l_iStartCopyIndex],&l_pbuff[l_iCopyIntoIndex],l_iWorkPixelX*l_iSrcChannel);
-				++l_iIndex;
-			}
-			e_pSrc->UnlockBits(l_pData);
-			e_pDest->UnlockBits(l_pData2);
-		}
-		else
+		//if( e_pSrc->PixelFormat == e_pDest->PixelFormat && e_pDest->Width>=e_pSrc->Width && e_pDest->Height>=e_pSrc->Height )
+		//{
+		//	int	bufferSizeInPixels = e_pSrc->Width*e_pSrc->Height;
+		//	BitmapData^l_pData  = e_pSrc->LockBits(System::Drawing::Rectangle(0, 0,e_pSrc->Width,e_pSrc->Height),ImageLockMode::ReadOnly,e_pSrc->PixelFormat);
+		//	char*l_pbuff = (char*)l_pData->Scan0.ToPointer();
+		//	BitmapData^l_pData2 = e_pDest->LockBits(System::Drawing::Rectangle(0,0,e_pDest->Width,e_pDest->Height),ImageLockMode::WriteOnly,e_pDest->PixelFormat);
+		//	char*l_strScrData = (char*)l_pData2->Scan0.ToPointer();
+		//	int	l_iSrcRenderStartPosX = e_SrcPosition.left;
+		//	int	l_iSrcRenderStartPosY = e_SrcPosition.top;
+		//	int	l_iSrcRenderEndPosX = e_SrcPosition.right;
+		//	int	l_iSrcRenderEndPosY = e_SrcPosition.bottom;
+		//	int	l_iDestRenderPosX = e_DestPosition.left;
+		//	int	l_iDestRenderPosY = e_DestPosition.top;
+		//	//src's pixels for copy
+		//	int	l_iWorkPixelX = e_SrcPosition.right-e_SrcPosition.left;
+		//	int	l_iWorkPixelY = e_SrcPosition.bottom-e_SrcPosition.top;
+		//	int	l_iIndex = 0;
+		//	for( int l_iStartPixelY=l_iSrcRenderStartPosY;l_iStartPixelY<l_iSrcRenderEndPosY;++l_iStartPixelY )
+		//	{
+		//		int	l_iYIndex = ((l_iDestRenderPosY+l_iIndex)*l_iSrcChannel*e_pDest->Width);
+		//		int	l_iXIndex = l_iSrcChannel*l_iDestRenderPosX;
+		//		int	l_iStartCopyIndex = l_iXIndex+l_iYIndex;
+		//		int	l_iCopyIntoIndex = (l_iStartPixelY*l_iSrcChannel*e_pSrc->Width)+(l_iSrcChannel*l_iSrcRenderStartPosX);
+		//		memcpy(&l_strScrData[l_iStartCopyIndex],&l_pbuff[l_iCopyIntoIndex],l_iWorkPixelX*l_iSrcChannel);
+		//		++l_iIndex;
+		//	}
+		//	e_pSrc->UnlockBits(l_pData);
+		//	e_pDest->UnlockBits(l_pData2);
+		//}
+		//else
 		{
 			System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(e_pDest);
-			l_pGr->CompositingMode = System::Drawing::Drawing2D::CompositingMode::SourceCopy;
+			l_pGr->CompositingMode = System::Drawing::Drawing2D::CompositingMode::SourceOver;
 			l_pGr->DrawImage(e_pSrc,
 				System::Drawing::Rectangle(e_DestPosition.left,e_DestPosition.top,e_DestPosition.right-e_DestPosition.left,e_DestPosition.bottom-e_DestPosition.top)
 				,System::Drawing::Rectangle(e_SrcPosition.left,e_SrcPosition.top,e_SrcPosition.right-e_SrcPosition.left,e_SrcPosition.bottom-e_SrcPosition.top)
@@ -158,7 +171,7 @@ namespace PI
 		std::wstring	m_strAttachParentName;
 		Vector3			m_vRelativePos;
 	};
-
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	bool	cPIEditor::ParsePuzzleImage(cPuzzleImage*e_pPuzzleImage,String^e_strFileName)
 	{
 		cNamedTypedObjectVector<cPuzzleUnitChild>	l_PIUnitChildVector;
@@ -223,7 +236,7 @@ namespace PI
 			 bool l_bTextureHasBeenReized = false;
 			 for( int i=0;i<l_iNumImage;++i )
 			 {
-				 sPuzzleData*l_pPuzzleData = e_pPuzzleImage->GetPuzzleData()[i];
+				 sPuzzleData*l_pPuzzleData = e_pPuzzleImage->GetPuzzleData(i);
 				 String^l_strFileName = DNCT::WcharToGcstring(l_pPuzzleData->strFileName)+".png";
 				 float l_fPosX = l_pPuzzleData->fUV[0]*l_OriginalImageWidth;
 				 float l_fPosY = l_pPuzzleData->fUV[1]*l_OriginalImageHeight;
@@ -281,7 +294,21 @@ namespace PI
 					{
 						WARNING_MSG(l_strCurrenDirectory+" not exists"+DNCT::GetChanglineString()+l_pExp->ToString());
 					}
-					cUIImage*l_pUIImage = GetNewUIImageByBitMap(l_pBitMap,l_pPuzzleData->strFileName.c_str());
+
+					if (m_pPuzzleImageUnitTriangulatorManager)
+					{
+						std::vector<Vector2>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(i);
+						if (l_pPointsVector)
+						{
+							std::vector<Vector2>l_TriangulatorVector = Triangulator(l_pPointsVector);
+							auto l_pTriangulatorBitmap = ImageWithTrianulator(l_pBitMap, &l_TriangulatorVector);
+
+							l_pTriangulatorBitmap->Save(DNCT::WcharToGcstring(l_pPuzzleData->strFileName) + ".png");
+							l_pBitMap = l_pTriangulatorBitmap;
+							m_ImageTale[gcnew String(DNCT::WcharToGcstring(l_pPuzzleData->strFileName))] = l_pBitMap;
+						}
+					}
+					cUIImage*l_pUIImage = GetNewUIImageByBitMap(l_pBitMap, l_pPuzzleData->strFileName.c_str());
 					 //cUIImage*l_pUIImage = new cUIImage(DNCT::GcStringToChar(l_strCurrenDirectory+l_strFileName));
 					l_pUIImage->SetOffsetPos(l_pPuzzleData->OffsetPos);
 					POINT	l_RightDown = l_pPuzzleData->OffsetPos+l_pPuzzleData->Size;
@@ -293,7 +320,8 @@ namespace PI
 					l_pUIImage->SetOriginalImageSize(l_OriginalSize);
 					m_pImageomposerIRM->AddObject(l_pUIImage);
 					l_pUIImage->SetPos(Vector3(l_fPosX,l_fPosY,0.f));
-					if(l_pPuzzleData->ShowPosInPI.x!=0||l_pPuzzleData->ShowPosInPI.y!=0)
+					this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
+					//if(l_pPuzzleData->ShowPosInPI.x!=0||l_pPuzzleData->ShowPosInPI.y!=0)
 					{
 						 l_pUIImage->SetPos(Vector3((float)l_pPuzzleData->ShowPosInPI.x-l_pUIImage->GetOffsetPos()->x,
 								(float)l_pPuzzleData->ShowPosInPI.y-l_pUIImage->GetOffsetPos()->y,0.f));
@@ -358,6 +386,7 @@ namespace PI
 		 m_pImageIndexOfAnimationList->Destroy();
 		 m_pImageomposerIRM->Destroy();
 		 AllImage_listBox->Items->Clear();
+		 m_pPuzzleImageUnitTriangulatorManager->Destroy();
 		 String^l_strFileName = e_strFileName;
 		 if( l_strFileName )
 		 {
@@ -401,8 +430,7 @@ namespace PI
 	cPuzzleImage*	cPIEditor::OpenPuzzleFile(String^e_strFileName)
 	{
 		 std::string l_strFileName = DNCT::GcStringToChar(e_strFileName);
-		 bool	l_b = m_pImageomposerIRM->Parse(l_strFileName.c_str());
-		 cPuzzleImage*l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_pImageomposerIRM->GetObject(DNCT::GcStringToWchar(DNCT::GetFileNameWithoutFullPath(e_strFileName,true))));
+		 cPuzzleImage*l_pPuzzleImage = m_pImageomposerIRM->GetPuzzleImageByFileName(l_strFileName.c_str());
 		 if( l_pPuzzleImage )
 		 {
 			 if( m_pImageomposerIRM->GetObject(0)->Type() == cPuzzleImage::TypeID )
@@ -423,6 +451,8 @@ namespace PI
 	System::Void	cPIEditor::SavePuzzleFile(String^e_strFileName,bool e_bBinary)
 	{
 		ImageDetail_textBox->Text = "Saving file...";
+		auto l_strPIName = DNCT::GcStringToWchar(e_strFileName);
+		l_strPIName = UT::GetFileNameWithoutFullPath(l_strPIName.c_str());
 		for( int i=0;i<m_pImageomposerIRM->Count();++i )
 		{
 			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
@@ -437,8 +467,19 @@ namespace PI
 			}
 			if( l_pUIImage->GetImageRealSize().x%2 || l_pUIImage->GetImageRealSize().y%2 )
 			{
-				
 				ImageDetail_textBox->Text += DNCT::WcharToGcstring(l_pUIImage->GetName())+"image width or height is not even"+DNCT::GetChanglineString();
+			}
+			if (l_pUIImage->IsSameName(l_strPIName.c_str()))
+			{
+				WARNING_MSG("PIUnit and file name can't be same:"+DNCT::WcharToGcstring(l_strPIName));
+				return;
+			}
+		}
+		if (this->m_pPuzzleImageUnitTriangulatorManager)
+		{
+			if (m_pPuzzleImageUnitTriangulatorManager->IsObjectOverlap())
+			{
+				WARNING_MSG("object is overlap are you sure you want to save file!?");
 			}
 		}
 		 String^l_FileName = e_strFileName;
@@ -533,8 +574,10 @@ namespace PI
 					if( !e_bBinary )
 					{
 						System::Drawing::Bitmap^l_pBitmapForSave = nullptr;
-						if( !l_pUIImage->m_pEditorAttachParent )
+						if (!l_pUIImage->m_pEditorAttachParent)
+						{
 							l_pBitmapForSave = (System::Drawing::Bitmap^)m_ImageTale[l_pImageListBox->Items[i]->ToString()];
+						}
 						//System::Drawing::Rectangle	l_UIIMageRealPixelRect(
 						//    l_pUIImage->GetOffsetPos()->x,
 						   // l_pUIImage->GetOffsetPos()->y,
@@ -558,8 +601,10 @@ namespace PI
 											StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos().y+l_pUIImage->GetOffsetPos()->y),
 											l_rcDrc.left+l_rcSrc.right-l_rcSrc.left,
 											l_rcDrc.top+l_rcSrc.bottom-l_rcSrc.top};
-						if( l_pBitmapForSave )
-							CopyImageToImageBySpecificData(l_pBitmapForSave,l_pBitMap,l_rcSrc,l_rcDrc);
+						if (l_pBitmapForSave)
+						{
+							CopyImageToImageBySpecificData(l_pBitmapForSave, l_pBitMap, l_rcSrc, l_rcDrc);
+						}
 					}
 				    //write xml	data
 				    //UV,LTRB
@@ -600,10 +645,28 @@ namespace PI
 						    l_rc.top.ToString());
 					    //char*	l_strShowPosInPI = DNCT::GcStringToChar(
 					    //	l_rc.left.ToString()+","+
+
 					    //	l_rc.top.ToString()+","+
 					    //	l_rc.right.ToString()+","+
 					    //	l_rc.bottom.ToString());
 					    l_XMLWriter.AddAttribute("ShowPosInPI", l_strShowPosInPI);
+
+						if (m_pPuzzleImageUnitTriangulatorManager && m_pPuzzleImageUnitTriangulatorManager->IsTriangulatorEdited(l_pUIImage))
+						{
+							auto l_pImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
+							if (l_pImageUnitTriangulator->isEdited())
+							{
+								auto l_pPoints = l_pImageUnitTriangulator->GetPointsVector();
+								if (l_pPoints->size())
+								{
+									l_XMLWriter.AddAttribute("TriangulatorPoints", ValueToString(*l_pPoints));
+									int l_iLOD = l_pImageUnitTriangulator->GetLOD();
+									if(l_iLOD > 1)
+										l_XMLWriter.AddAttribute("TriangulatorPointsLOD",l_iLOD);
+								}
+							}
+						}
+
 					    l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_ShowPosInPI);
 					    //l_ppPuzzleData[i] = new sPuzzleData(l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_rc);
 					    //for debug info
@@ -877,117 +940,6 @@ namespace PI
 		return l_pForm;
 	}
 //end namespace
-}
-
-void SaveFile(const char*e_strFileName,unsigned char*e_pData,size_t e_uiFileSize)
-{
-	int l_iWidth = 0;
-	int l_iHeight = 0;
-	memcpy(&l_iWidth, e_pData, sizeof(int)); e_pData += sizeof(int);
-	memcpy(&l_iHeight, e_pData, sizeof(int)); e_pData += sizeof(int);
-	/*memcpy(&width, RomBuf, sizeof(int));*/ e_pData += sizeof(int);
-	/*memcpy(&height, RomBuf, sizeof(int));*/ e_pData += sizeof(int);
-	SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, e_pData, 4);
-}
-
-void LoadROMData(const char * chFileName)
-{
-	GLubyte ID[9], ID2[9], ID3[9], bDataReserve;
-	DWORD	length;
-	char TempFileName[128];
-	FILE *file;
-	unsigned char *buffer;
-	int  size;
-	sprintf(TempFileName, "%s", chFileName);
-	file = fopen(TempFileName, "rb");
-	fseek(file, 0, SEEK_END);
-	size = ftell(file);
-	fseek(file, 0, SEEK_SET);
-	buffer = (unsigned char *)malloc(size);
-	if ((buffer != nullptr) && (size != 0))
-	{
-		fread(buffer, size, 1, file);
-	}
-	fclose(file);
-	auto RomData = buffer;
-	auto RomBuf = RomData;
-	ID[8] = '\0';
-	ID2[8] = '\0';
-	ID3[8] = '\0';
-	// 檢查檔案識別碼		
-	memcpy(ID, RomBuf, 8); RomBuf += 8;
-	memcpy(&length, RomBuf, 4); RomBuf += 4;
-	if (memcmp(ID, "ACT_CC2D", 8) && memcmp(ID, "ACT_ZL3D", 8))
-	{
-		assert(0);
-	}
-	int TotalDDS = 0;
-	int TotalETC = 0;
-	int TotalImage = 0;
-	int TotalAction = 0;
-	int TotalFontImage = 0;
-	int l_iIndex = 0;
-	std::string l_strDirectory = UT::GetFileNameWithoutFullPath(chFileName);
-	do
-	{
-		std::string l_strFileName = l_strDirectory;
-		l_strFileName += "/File";
-		l_strFileName += ValueToString(l_iIndex);
-		memcpy(ID, RomBuf, 8); RomBuf += 8;
-		memcpy(&length, RomBuf, 4); RomBuf += 4;
-		++l_iIndex;
-		if (!memcmp(ID, "TGA_OPGL", 8))
-		{ // TGA 圖形 for OpenGL
-
-			memcpy(&bDataReserve, RomBuf, 1); RomBuf += 1;
-			l_strFileName += ".png";
-			SaveFile(l_strFileName.c_str(), RomBuf, length);
-			RomBuf += (length - 1);
-			TotalImage++;
-		}
-		else if (!memcmp(ID, "DDS_OPGL", 8))
-		{ // DDS 圖形
-			l_strFileName += ".dds";
-			SaveFile(l_strFileName.c_str(), RomBuf, length);
-			RomBuf += length;
-			TotalDDS++;
-			TotalImage++;
-		}
-		else if (!memcmp(ID, "ETC_OPGL", 8))
-		{ // DDS 圖形 
-			l_strFileName += ".etc";
-			OutputDebugString(L"etc file:");
-			OutputDebugString(UT::CharToWchar(l_strFileName).c_str());
-			OutputDebugString(L"\n");
-//			SaveFile(l_strFileName.c_str(), RomBuf, length);
-			RomBuf += length;
-			TotalETC++;
-			TotalImage++;
-		}
-		else if (!memcmp(ID, "ACT_DATA", 8))
-		{ // action data                        
-			RomBuf += length;
-		}
-		else if (!memcmp(ID, "FILE_END", 8)) break;// 結束
-		else
-		{
-			RomBuf += length;
-		}
-	} while (1);
-
-	free(buffer);
-}
-void SaveRomFile()
-{
-	auto l_strFileNames = DNCT::OpenFileAndGetNames();
-	if (l_strFileNames)
-	{
-		for each (auto l_strFileName in l_strFileNames)
-		{
-			std::string l_strFinalName = ::GcStringToChar(l_strFileName);
-			LoadROMData(l_strFinalName.c_str());
-		}
-	}
 }
 
 #ifndef USER_CONTROL_ENABLE

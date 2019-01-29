@@ -614,3 +614,9 @@ void	cNetWorkConnectPhase::DoPlayerDisconnect()
 		m_bDoPlayerDisconnect = false;
 	}
 }
+
+void Thread()
+{
+	OpenSocket();
+	Status = TryToConnect;
+}

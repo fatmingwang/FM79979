@@ -165,74 +165,70 @@ namespace BulletDataEditor
 	Vector2*						m_pvResolution;
 	void	OpenPIFile(const char*e_strFileName,bool e_bErasePathData)
 	{
-		cImageParser	l_ImageParser;
-		l_ImageParser.SetFromResource(true);
-		if(l_ImageParser.Parse(e_strFileName))
+		cPuzzleImage*l_pPuzzleImage = new cPuzzleImage();
+		if(l_pPuzzleImage->ParseWithMyParse(e_strFileName))
 		{
+			SAFE_DELETE(m_pPuzzleImage);
+			m_pPuzzleImage = l_pPuzzleImage;
 			this->Text = String(e_strFileName).ToString();
-			if( l_ImageParser.Count() )
+			QuickApply_listBox->Items->Clear();
+			PuzzleImageUnit_listBox->Items->Clear();
+			m_pPuzzleImageUnit = nullptr;
+			if( e_bErasePathData )
 			{
-				SAFE_DELETE(m_pPuzzleImage);
-				QuickApply_listBox->Items->Clear();
-				PuzzleImageUnit_listBox->Items->Clear();
-				m_pPuzzleImage = dynamic_cast<cPuzzleImage*>(l_ImageParser[0]);
-				m_pPuzzleImageUnit = 0;
-				if( e_bErasePathData )
+				m_p2DImageCollisionData->ClearImageCollisionDataVector();
+				for( int i=0;i<m_pPuzzleImage->Count();++i )
 				{
-					m_p2DImageCollisionData->ClearImageCollisionDataVector();
-					for( int i=0;i<m_pPuzzleImage->Count();++i )
+					PuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
+					QuickApply_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
+					c2DImageCollisionDataForEditor::sImageCollisionData*l_pImageCollisionData = new c2DImageCollisionDataForEditor::sImageCollisionData();
+					m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_pImageCollisionData);
+				}
+			}
+			else
+			{
+				if( m_p2DImageCollisionData->m_ImageCollisionDataVector.size() != m_pPuzzleImage->Count() )
+				{
+					WARNING_MSG("PI image count not match auto generate data!");
+					std::vector<c2DImageCollisionDataForEditor::sImageCollisionData*>	l_Temp;
+					l_Temp.resize(m_pPuzzleImage->Count());
+					for(int i=0;i<(int)l_Temp.size();++i)
 					{
-						PuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
-						QuickApply_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
-						c2DImageCollisionDataForEditor::sImageCollisionData*l_pImageCollisionData = new c2DImageCollisionDataForEditor::sImageCollisionData();
-						m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_pImageCollisionData);
+						l_Temp[i] = 0;
+					}
+					for( int i = 0;i< (int)m_p2DImageCollisionData->m_ImageCollisionDataVector.size();++i )
+					{
+						int	l_iIndex = m_pPuzzleImage->GetObjectIndexByName(m_p2DImageCollisionData->m_ImageCollisionDataVector[i]->strName.c_str());
+						if( l_iIndex != -1 )
+						{
+							l_Temp[ l_iIndex ] = m_p2DImageCollisionData->m_ImageCollisionDataVector[i];
+						}
+						else
+						{
+							c2DImageCollisionDataForEditor::sImageCollisionData*l_pData = m_p2DImageCollisionData->m_ImageCollisionDataVector[i];
+							SAFE_DELETE(l_pData);
+						}
+					}
+					m_p2DImageCollisionData->m_ImageCollisionDataVector.clear();
+					for( int i = 0;i< (int)l_Temp.size();++i )
+					{
+						if( l_Temp[i] == 0 )
+						{
+							c2DImageCollisionDataForEditor::sImageCollisionData*l_pImageCollisionData = new c2DImageCollisionDataForEditor::sImageCollisionData();
+							m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_pImageCollisionData);
+						}
+						else
+						{
+							m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_Temp[i]);
+						}
 					}
 				}
-				else
+				for( int i=0;i<m_pPuzzleImage->Count();++i )
 				{
-					if( m_p2DImageCollisionData->m_ImageCollisionDataVector.size() != m_pPuzzleImage->Count() )
-					{
-						WARNING_MSG("PI image count not match auto generate data!");
-						std::vector<c2DImageCollisionDataForEditor::sImageCollisionData*>	l_Temp;
-						l_Temp.resize(m_pPuzzleImage->Count());
-						for(int i=0;i<(int)l_Temp.size();++i)
-						{
-							l_Temp[i] = 0;
-						}
-						for( int i = 0;i< (int)m_p2DImageCollisionData->m_ImageCollisionDataVector.size();++i )
-						{
-							int	l_iIndex = m_pPuzzleImage->GetObjectIndexByName(m_p2DImageCollisionData->m_ImageCollisionDataVector[i]->strName.c_str());
-							if( l_iIndex != -1 )
-							{
-								l_Temp[ l_iIndex ] = m_p2DImageCollisionData->m_ImageCollisionDataVector[i];
-							}
-							else
-							{
-								c2DImageCollisionDataForEditor::sImageCollisionData*l_pData = m_p2DImageCollisionData->m_ImageCollisionDataVector[i];
-								SAFE_DELETE(l_pData);
-							}
-						}
-						m_p2DImageCollisionData->m_ImageCollisionDataVector.clear();
-						for( int i = 0;i< (int)l_Temp.size();++i )
-						{
-							if( l_Temp[i] == 0 )
-							{
-								c2DImageCollisionDataForEditor::sImageCollisionData*l_pImageCollisionData = new c2DImageCollisionDataForEditor::sImageCollisionData();
-								m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_pImageCollisionData);
-							}
-							else
-							{
-								m_p2DImageCollisionData->m_ImageCollisionDataVector.push_back(l_Temp[i]);
-							}
-						}
-					}
-					for( int i=0;i<m_pPuzzleImage->Count();++i )
-					{
-						PuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
-						QuickApply_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
-						//if(!m_pCurveManager->GetObject((*m_pPuzzleImage)[i]->GetName()))
-						//	WARNING_MSG("pi File is not match");
-					}
+					PuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
+					QuickApply_listBox->Items->Add(DNCT::WcharToGcstring((*m_pPuzzleImage)[i]->GetName()));
+					//if(!m_pCurveManager->GetObject((*m_pPuzzleImage)[i]->GetName()))
+					//	WARNING_MSG("pi File is not match");
 				}
 			}
 		}

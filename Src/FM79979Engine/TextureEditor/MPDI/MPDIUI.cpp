@@ -108,7 +108,7 @@ namespace MPDI
 					{
 						l_pPI = l_pTexBehaviorDataWithImageIndexData->pPI;
 					}
-					e_pObject->Render(l_pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex]);
+					e_pObject->Render(l_pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex));
 				}
 				if( e_bShowBorder )
 				{

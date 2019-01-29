@@ -303,14 +303,14 @@ namespace MPDI
 					int	l_iIndex = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[i]->iImageIndex;
 					if( l_iIndex != -1 )
 					{
-					    sPuzzleData**l_ppsPuzzleData = 0;
+					    sPuzzleData*l_pAllPuzzleData = 0;
 					    if( (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[i]->pPI )
 					    {
-					        l_ppsPuzzleData = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[i]->pPI->GetPuzzleData();
+							l_pAllPuzzleData = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[i]->pPI->GetAllPuzzleData();
 					    }
 					    else
-					        l_ppsPuzzleData = m_pMPDIList->GetPuzzleData();
-						m_pMPDIUI->PathNode_listBox->Items->Add( i.ToString()+":"+DNCT::WcharToGcstring( l_ppsPuzzleData[l_iIndex]->strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[i].ToString() );
+							l_pAllPuzzleData = m_pMPDIList->GetAllPuzzleData();
+						m_pMPDIUI->PathNode_listBox->Items->Add( i.ToString()+":"+DNCT::WcharToGcstring(l_pAllPuzzleData[l_iIndex].strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[i].ToString() );
 					}
 				}
 			}
@@ -849,8 +849,8 @@ namespace MPDI
 				{
 					glEnable(GL_TEXTURE_2D);
 					glEnable(GL_ALPHA_TEST);
-					sPuzzleData**l_ppPuzzleData = this->m_pCurrentWorkingPI->GetPuzzleData();
-					sPuzzleData*l_pPuzzleData = l_ppPuzzleData[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex];
+					sPuzzleData*l_pMainPuzzleData = this->m_pCurrentWorkingPI->GetAllPuzzleData();
+					sPuzzleData*l_pPuzzleData = &l_pMainPuzzleData[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex];
 					POINT	l_OriginalSize = l_pPuzzleData->OriginalSize;
 					POINT	l_ShowPos = {l_CameraMousePos.x,l_CameraMousePos.y};
 					//POINT	l_OffsetPos = l_pPuzzleData->OffsetPos;
@@ -924,7 +924,7 @@ namespace MPDI
 			{
 				int	l_iSelectedIndex = m_pMPDIUI->PathNode_listBox->SelectedIndices[i];
 				sTexBehaviorDataWithImageIndexData	*l_pTexBehaviorDataWithImageIndexData = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[l_iSelectedIndex];
-				sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+				sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex);
 //				float	l_fVertices[8];
 				//float	l_fUV[8];
 				m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPositionByTime(m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetOriginalTimeList()[l_iSelectedIndex]);
@@ -1198,7 +1198,7 @@ namespace MPDI
 				}
 				if( sender == m_pMPDIUI->SizeScale_numericUpDown )
 				{
-					sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+					sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex);
 					if( l_bAeverageAssign )
 					{
 						
@@ -1426,8 +1426,8 @@ namespace MPDI
 		 {
 			 if(m_pMPDIUI->WholePath_listBox->SelectedIndex!=-1&&m_pMPDIUI->PathNode_listBox->SelectedIndex!=-1)
 			 {
-				 sPuzzleData**l_ppPuzzleData = this->m_pCurrentWorkingPI->GetPuzzleData();
-				 sPuzzleData*l_pPuzzleData = l_ppPuzzleData[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex];
+				 sPuzzleData*l_pAllPuzzleData = this->m_pCurrentWorkingPI->GetAllPuzzleData();
+				 sPuzzleData*l_pPuzzleData = &l_pAllPuzzleData[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex];
 				 int	l_iStartIndex = m_pMPDIUI->PathNode_listBox->Items->Count;
 				 int	l_iEndIndex = 0;
 				 int	l_iStartImageIndex = 0;
@@ -1468,8 +1468,8 @@ namespace MPDI
 						sTexBehaviorDataWithImageIndexData	*l_pData = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[l_iIndex];
 						l_pData->iImageIndex = l_iCurrentImageIndex;
 						l_pData->pPI = m_pCurrentWorkingPI;
-						l_pData->Size = Vector2((float)l_ppPuzzleData[l_iCurrentImageIndex]->Size.x,(float)l_ppPuzzleData[l_iCurrentImageIndex]->Size.y);
-						m_pMPDIUI->PathNode_listBox->Items[l_iIndex] = ( l_iIndex.ToString()+":"+DNCT::WcharToGcstring( l_ppPuzzleData[l_iCurrentImageIndex]->strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[l_iIndex].ToString() );
+						l_pData->Size = Vector2((float)l_pAllPuzzleData[l_iCurrentImageIndex].Size.x,(float)l_pAllPuzzleData[l_iCurrentImageIndex].Size.y);
+						m_pMPDIUI->PathNode_listBox->Items[l_iIndex] = ( l_iIndex.ToString()+":"+DNCT::WcharToGcstring(l_pAllPuzzleData[l_iCurrentImageIndex].strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[l_iIndex].ToString() );
 						l_iCurrentImageIndex++;
 						if( l_iCurrentImageIndex > l_iEndImageIndex )
 							l_iCurrentImageIndex = l_iStartImageIndex;
@@ -1493,8 +1493,8 @@ namespace MPDI
 						sTexBehaviorDataWithImageIndexData	*l_pData = (*m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList())[l_iIndex];
 						l_pData->pPI = m_pCurrentWorkingPI;
 						l_pData->iImageIndex = l_iCurrentImageIndex;
-						l_pData->Size = Vector2((float)l_ppPuzzleData[l_iCurrentImageIndex]->Size.x,(float)l_ppPuzzleData[l_iCurrentImageIndex]->Size.y);
-						m_pMPDIUI->PathNode_listBox->Items[l_iIndex] = ( l_iIndex.ToString()+":"+DNCT::WcharToGcstring( l_ppPuzzleData[l_iCurrentImageIndex]->strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[l_iIndex].ToString() );
+						l_pData->Size = Vector2((float)l_pAllPuzzleData[l_iCurrentImageIndex].Size.x,(float)l_pAllPuzzleData[l_iCurrentImageIndex].Size.y);
+						m_pMPDIUI->PathNode_listBox->Items[l_iIndex] = ( l_iIndex.ToString()+":"+DNCT::WcharToGcstring(l_pAllPuzzleData[l_iCurrentImageIndex].strFileName )+":X="+((int)l_v2.x).ToString()+",y="+((int)l_v2.y).ToString()+",z="+((int)l_v2.z).ToString()+",Time="+l_TimeList[l_iIndex].ToString() );
 					}
 				 }
 				 int	l_iLastIndex = m_pMPDIUI->PathNode_listBox->SelectedIndex;
@@ -1569,7 +1569,7 @@ namespace MPDI
 				int	l_iSelectedIndex = 0;
 				if( m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex != -1 )
 					l_iSelectedIndex = l_pPI->GetObjectIndexByName(DNCT::GcStringToWchar(m_pMPDIUI->WholePuzzleImageUnit_listBox->Items[m_pMPDIUI->WholePuzzleImageUnit_listBox->SelectedIndex]->ToString()).c_str());
-				POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->Size;
+				POINT	l_Size = l_pPI->GetPuzzleData(l_iSelectedIndex)->Size;
 				//POINT	l_Size = l_pPI->GetPuzzleData()[l_iSelectedIndex]->OriginalSize;
 				size_t	l_uiNumPoint = m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size();
 				if( m_pMultiPathDynamicImageAWP->m_pCurrentCurve->GetPointDataList()->size() == 0 )
@@ -1844,7 +1844,7 @@ namespace MPDI
 					l_pDestCurvesWithTime->SetLOD(l_pCurvesWithTime->GetLOD());
 					l_pDestCurvesWithTime->SetCurveLoop(l_pCurvesWithTime->IsCurveLoop());
 
-					POINT	l_Size = m_pMultiPathDynamicImageAWP->GetPuzzleData()[0]->Size;
+					POINT	l_Size = m_pMultiPathDynamicImageAWP->GetAllPuzzleData()[0].Size;
 					size_t	l_iuNumPoint = l_pDestCurvesWithTime->GetOriginalPointList().size();
 					cPuzzleImage*l_pPI = m_pInterlUseForShowImagePos->GetPuzzleImage(DNCT::GcStringToWchar(m_pMPDIUI->AllPI_listBox->SelectedItem->ToString()).c_str());
 					for(size_t i=0;i<l_iuNumPoint;++i)
@@ -2012,10 +2012,9 @@ namespace MPDI
 			WARNING_MSG("this pi's name has already added!");
 			return;
 		}
-		bool	l_b = m_pImageResourceManagerAWP->Parse(DNCT::GcStringToChar(e_strFileName));
-		if( l_b )
+		cPuzzleImage*l_pPuzzleImageAWP = m_pImageResourceManagerAWP->GetPuzzleImageByFileName(DNCT::GcStringToChar(e_strFileName).c_str());
+		if( l_pPuzzleImageAWP)
 		{
-			cPuzzleImage*l_pPuzzleImageAWP = dynamic_cast<cPuzzleImage*>(m_pImageResourceManagerAWP->GetObject(m_pImageResourceManagerAWP->Count()-1));
 			m_pMPDIList->SetPuzzleImage(l_pPuzzleImageAWP);
 			m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring(l_pPuzzleImageAWP->GetName()));
 		}
@@ -2064,18 +2063,12 @@ namespace MPDI
 		m_pMPDIUI->AddPath_button->Enabled = false;
 		m_pImagePlayManagerAWP = new cAnimationParser();
 		m_pImageResourceManagerAWP = m_pImagePlayManagerAWP->GetAllBaseImageList();
-		bool	l_b = m_pImageResourceManagerAWP->Parse(DNCT::GcStringToChar(e_strFileName));
-		if( l_b )
+		cPuzzleImage*l_pPuzzleImageAWP = m_pImageResourceManagerAWP->GetPuzzleImageByFileName(DNCT::GcStringToChar(e_strFileName).c_str());
+		if(l_pPuzzleImageAWP)
 		{
-			if( !m_pImageResourceManagerAWP->Count() )
-			{
-				return;
-			}
-			cPuzzleImage*l_pPuzzleImageAWP = 0;
 			m_pMPDIList = new cMPDIList();
 			m_pInterlUseForShowImagePos = new cCueToStartCurveWithTime(m_pMPDIList);
 			m_pImagePlayManagerAWP->AddObject(m_pMPDIList);
-			l_pPuzzleImageAWP = dynamic_cast<cPuzzleImage*>(m_pImageResourceManagerAWP->GetObject(0));
 			l_pPuzzleImageAWP->GenerateAllPuzzleImageUnit();
 
 			m_pMPDIList->SetPuzzleImage(l_pPuzzleImageAWP);
@@ -2223,12 +2216,12 @@ namespace MPDI
 				m_pMPDIUI->AllPI_listBox->Items->Add(DNCT::WcharToGcstring((*m_pMPDIList->GetPIList())[i]->GetName()));			
 			if(m_pMPDIUI->AllPI_listBox->Items->Count>0)
 				m_pMPDIUI->AllPI_listBox->SelectedIndex = 0;
-			sPuzzleData**l_ppPuzzleData = m_pMPDIList->GetPuzzleData();
-			if( l_ppPuzzleData )
+			sPuzzleData*l_pAllPuzzleData = m_pMPDIList->GetAllPuzzleData();
+			if(l_pAllPuzzleData)
 			{
 				for( int i=0;i<m_pMPDIList->GetNumImage();++i )
 				{
-					m_pMPDIUI->WholePuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring(l_ppPuzzleData[i]->strFileName));
+					m_pMPDIUI->WholePuzzleImageUnit_listBox->Items->Add(DNCT::WcharToGcstring(l_pAllPuzzleData[i].strFileName));
 				}
 			}
 			m_pMPDIUI->AddPath_button->Enabled = true;
@@ -2921,7 +2914,7 @@ namespace MPDI
 							{
 								//change size
 								sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = (*l_pCueToStartCurveWithTime->GetPointDataList())[k];
-								sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+								sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex);
 								if( l_pPuzzleData->Size.x != l_pPuzzleData->OriginalSize.x ||
 									l_pPuzzleData->Size.y != l_pPuzzleData->OriginalSize.y)
 								{
@@ -3040,7 +3033,7 @@ namespace MPDI
 						{
 							//change size
 							sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = (*l_pCueToStartCurveWithTime->GetPointDataList())[k];
-							sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData()[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
+							sPuzzleData*l_pPuzzleData = l_pTexBehaviorDataWithImageIndexData->pPI->GetPuzzleData(l_pTexBehaviorDataWithImageIndexData->iImageIndex);
 							if( l_pPuzzleData->Size.x != l_pPuzzleData->OriginalSize.x ||
 								l_pPuzzleData->Size.y != l_pPuzzleData->OriginalSize.y)
 							{
@@ -3114,13 +3107,13 @@ namespace MPDI
 							if( l_pPIUnit )
 							{
 								int	l_iImageIndex = m_pCurrentWorkingPI->GetObjectIndexByPointer(l_pPIUnit);
-								POINT	l_Size = m_pCurrentWorkingPI->GetPuzzleData()[l_iImageIndex]->Size;
+								POINT	l_Size = m_pCurrentWorkingPI->GetPuzzleData(l_iImageIndex)->Size;
 								l_pCueToStartCurveWithTime->AddPoint(Vector3::Zero,0,Vector2((float)l_Size.x,(float)l_Size.y),0,Vector4::One,l_iImageIndex,false,m_pCurrentWorkingPI);
 								l_pCueToStartCurveWithTime->AddPoint(Vector3::Zero,1.f,Vector2((float)l_Size.x,(float)l_Size.y),0,Vector4::One,l_iImageIndex,false,m_pCurrentWorkingPI);
 							}
 							else
 							{
-								POINT	l_Size = m_pCurrentWorkingPI->GetPuzzleData()[0]->Size;
+								POINT	l_Size = m_pCurrentWorkingPI->GetPuzzleData(0)->Size;
 								l_pCueToStartCurveWithTime->AddPoint(Vector3::Zero,0,Vector2((float)l_Size.x,(float)l_Size.y),0,Vector4::One,0,false,m_pCurrentWorkingPI);
 								l_pCueToStartCurveWithTime->AddPoint(Vector3::Zero,1.f,Vector2((float)l_Size.x,(float)l_Size.y),0,Vector4::One,0,false,m_pCurrentWorkingPI);						
 							}

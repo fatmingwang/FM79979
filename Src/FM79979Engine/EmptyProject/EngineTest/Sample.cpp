@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameApp.h"
-#include "../../Core/GLSL/ToneMapping.h"
-#include "../../Core/GLSL/TunnelEffect.h"
+#include "../../Core/OpenGL/GLSL/ToneMapping.h"
+#include "../../Core/OpenGL/GLSL/TunnelEffect.h"
 #include "TestShader.h"
 
 #include "../../Core/Bluetooth/Bluetooth.h"
@@ -209,6 +209,7 @@ void	DestorySampleObject()
 	SAFE_DELETE(g_pToneMappingShader);
 	SAFE_DELETE(g_pTunnelEffect);
 	SAFE_DELETE(g_pTestShader);
+	cBluetoothSinglton::GetInstance()->DestroyInstance();
 	//cBluetoothSinglton::DestroyInstance();
 }
 
