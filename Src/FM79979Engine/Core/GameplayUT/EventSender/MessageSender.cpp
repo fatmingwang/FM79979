@@ -1,6 +1,6 @@
 #include "../../stdafx.h"
 #include "MessageSender.h"
-#include "../../Network/Network.h"
+//#include "../../Network/Network.h"
 #include "../GameApp.h"
 namespace FATMING_CORE
 {

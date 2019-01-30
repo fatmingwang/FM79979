@@ -164,6 +164,7 @@
     <ClCompile Include="Image\TextureManager.cpp" />
     <ClCompile Include="Math\LinerDataMouseChanger.cpp" />
     <ClCompile Include="Math\MathFormulaXML.cpp" />
+    <ClCompile Include="Network\GameNetWork.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Network\SDLnet.cpp" />
     <ClCompile Include="OpenGL\Glh.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
+    <ClInclude Include="GameplayUT\CommonRegister\CommonRegisterManager.h" />
     <ClInclude Include="GameplayUT\CustomBinaryData.h" />
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h" />
     <ClInclude Include="GameplayUT\Language\LanguageFile.h" />
@@ -329,6 +331,7 @@
     <ClInclude Include="Image\TextureManager.h" />
     <ClInclude Include="Math\LinerDataMouseChanger.h" />
     <ClInclude Include="Math\MathFormulaXML.h" />
+    <ClInclude Include="Network\GameNetWork.h" />
     <ClInclude Include="OpenGL\Glh.h" />
     <ClInclude Include="OpenGL\GLSL\Blur.h" />
     <ClInclude Include="OpenGL\GLSL\GLSLUiniform.h" />

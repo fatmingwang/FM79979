@@ -3,6 +3,32 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
+	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex) :m_Mutex(e_mutex)
+	{
+		m_Mutex.lock();
+	}
+	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex, const wchar_t*e_strDebugInfo) :m_Mutex(e_mutex)
+	{
+		m_Mutex.lock();
+		if (e_strDebugInfo)
+		{
+			l_strDebugInfo = e_strDebugInfo;
+			//OutputDebugString(e_strDebugInfo);
+			//OutputDebugString(L" in\n");
+		}
+	}
+	cPP11MutexHolderDebug::~cPP11MutexHolderDebug()
+	{
+		m_Mutex.unlock();
+		if (l_strDebugInfo.length())
+		{
+			//OutputDebugString(l_strDebugInfo.c_str());
+			//OutputDebugString(L" out\n");
+		}
+	}	
+
+
+
 	cCPP11Thread::cCPP11Thread()
 	{
 		m_ThreadWorkingFunction = nullptr;

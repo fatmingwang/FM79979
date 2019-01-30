@@ -111,7 +111,8 @@ namespace	FATMING_CORE
 #ifdef WIN32
 		DWORD  nBufferLength = 0;
 		wchar_t l_strDirectory[MAX_PATH];
-		GetCurrentDirectory(nBufferLength, l_strDirectory);
+		//GetCurrentDirectory(nBufferLength, l_strDirectory);
+		GetModuleFileName(NULL, l_strDirectory, MAX_PATH);
 		std::wstring l_strDirectpryInfo = L"Working Directory:";
 		l_strDirectpryInfo += l_strDirectory;
 		FMLog::LogWithFlag(l_strDirectpryInfo.c_str(), CORE_LOG_FLAG);

@@ -3,7 +3,17 @@
 #include <vector>
 #include "../CommonDefine.h"
 #include "../../GameplayUT/Log/FMLog.h"
-
+//m_TempContainer.SetCount(100);
+//m_TempContainer.Add(l_pObject);
+//for (int i = 0; i < m_TempContainer.m_iNumWorking; ++i)
+//{
+//	if (m_TempContainer.m_ppObjects[i]->GetStatus() == eS_LEAVE)
+//	{
+//		m_TempContainer.m_ppObjects[i]->Init();
+//		m_TempContainer.Remove(i);
+//		--i;
+//	}
+//}
 template <class	T>class	cTempContainer
 {
 public:
@@ -74,6 +84,27 @@ public:
 };
 
 //https://baptiste-wicht.com/posts/2012/12/cpp-benchmark-vector-list-deque.html
+//1.declare define
+//cWaitForFetchFunctionObjectList<cMPDI>*		m_pVector;
+//m_pVector = new cWaitForFetchFunctionObjectList<cMPDI>();
+//2.push objects
+//m_pVector->push_back(l_pCloneMPDI);
+//3.to wait fetch list
+//m_pVector->PushToWaitFetchList();
+//require a object,if object is not enough it will new a instance with a warning message
+//auto l_pMPDI = m_pVector->RequireAvaliableObject();
+//4.do objects thing while object finish make it Finish
+//for (int i = 0; i < m_pVector->m_WorkingList.m_iNumWorking; i++)
+//{
+//	auto l_pObject = m_pVector->m_WorkingList.m_ppObjects[i];
+//	l_pObject->Update(e_fElpaseTime);
+//	if (l_pObject->IsAnimationDone())
+//	{
+//		m_pVector->WorkObjectFinish(i);
+//		--i;
+//	}
+//}
+//
 template< class TYPE >
 class cWaitForFetchFunctionObjectList :public std::vector<TYPE*>, public NamedTypedObject
 {

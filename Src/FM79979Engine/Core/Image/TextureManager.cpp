@@ -116,7 +116,18 @@ namespace FATMING_CORE
 #ifdef DEBUG
 		std::wstring l_strFileName = e_pTexture->GetName();
 		l_strFileName += L" destroy:Texture,Ate Ram:";
-		l_strFileName += ValueToStringW((int)g_iAteVideoMomory);
+		int l_iMB = g_iAteVideoMomory / 1024;
+		int l_iKB = g_iAteVideoMomory % 1024;
+		if (l_iMB > 0)
+		{
+			l_strFileName += ValueToStringW(l_iMB);
+			l_strFileName += L"M";
+		}
+		if (l_iKB > 0)
+		{
+			l_strFileName += ValueToStringW(l_iKB);
+			l_strFileName += L"K";
+		}
 		FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 #endif
 		if (Count() == 0)
@@ -269,16 +280,11 @@ namespace FATMING_CORE
 		int	l_iDiffErentKB = l_iBeforeAlivableVRamKB - l_iAfterAlivableVRamKB;
 		int	l_iAteVRamKB = e_pSimpleGLTexture->GetWidth()*e_pSimpleGLTexture->GetHeight()*(e_pSimpleGLTexture->GetPixelFormat() == GL_RGBA ? 4 : 3) / 1024;
 		g_iAteVideoMomory -= l_iAteVRamKB;
-
 		//g_iAteVideoMomory += l_iValue;
 		float	l_fMB = l_iAteVRamKB / 1024.f;
 		float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
-		std::wstring	l_str = UT::ComposeMsgByFormat(L"DeleteTexture-------------\n:%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n", e_pSimpleGLTexture->GetName(), l_fMB, l_fTotalMB, l_iAfterAlivableVRamKB / 1024.f);
-		//	cGameApp::WriteLog(l_str.c_str());
-		//else
-		{
-			FMLog::LogWithFlag(l_str.c_str(), true);
-		}
+		std::wstring	l_str = UT::ComposeMsgByFormat(L"-------------DeleteTexture-------------\nTextureName:%ls:\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n", e_pSimpleGLTexture->GetName(), l_fMB, l_fTotalMB, l_iAfterAlivableVRamKB / 1024.f);
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 	#endif
 	}
 	void OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName)
@@ -296,12 +302,8 @@ namespace FATMING_CORE
 		float	l_fMB = l_iAteVRamKB / 1024.f;
 		float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
 		MyGlErrorTest("MyTextureGenerate");
-		//std::wstring	l_str = UT::ComposeMsgByFormat(L"GenerateTexture-------------\n%ls:\t\t\t\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_strFileName,l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
-		//	cGameApp::WriteLog(l_str.c_str());
-		//else
-		{
-			//FMLog::LogWithFlag(l_str.c_str());
-		}
+		std::wstring	l_str = UT::ComposeMsgByFormat(L"-------------GenerateTexture-------------\nTextureName:%ls:\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_strFileName,l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 	#endif
 	}
 	float*	UVToTriangleStrip(float*e_pfUV)

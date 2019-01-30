@@ -73,6 +73,7 @@
 #include "GameplayUT/AllGamePlayUTInclude.h"
 #include "AllPhysicInclude.h"
 #include "Particle/AllParticleInclude.h"
+#include "Synchronization/AllFUThreadInclude.h"
 #ifdef ANDROID
 #include "Android/JNIUtil.h"
 #endif

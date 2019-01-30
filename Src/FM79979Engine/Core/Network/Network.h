@@ -27,16 +27,6 @@ namespace FATMING_CORE
 			SAFE_DELETE(pData);
 		}
 	};
-	struct sNetworkReceivedPacket
-	{
-		int			iSize;
-		char*		pData;
-		_TCPsocket*	pReceivedSocket;
-		sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
-		~sNetworkReceivedPacket() { SAFE_DELETE(pData); }
-		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
-		int	ReceiveData(_TCPsocket*e_pTCPsocket);
-	};
 
 	struct	sReceivedPacket
 	{

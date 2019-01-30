@@ -30,6 +30,7 @@
 #include "ClickBehavior/ClickBehavior.h"
 #include "EventSender/MessageSender.h"
 #include "Log/FMLog.h"
+#include "CommonRegister/CommonRegisterManager.h"
 #ifndef _M_CEE//manage code dont support thread
 #include "WriteFile\WriteFileWithThread.h"
 #endif
