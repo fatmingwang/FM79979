@@ -8,7 +8,8 @@
 bool	IsNetworkAlive()
 {
 	DWORD dw;
-	return !IsNetworkAlive(&dw);
+	bool l_bResult = IsNetworkAlive(&dw);
+	return l_bResult;
 }
 #else
 bool	IsNetworkAlive()
@@ -45,6 +46,11 @@ namespace FATMING_CORE
 		m_ConnectionLostCallbackFunction = e_Function;
 	}
 
+	void	cGameNetwork::SetClientLostConnectionCallback(std::function<void(_TCPsocket*)> e_Function)
+	{
+		m_ClientLostConnectionCallback = e_Function;
+	}
+
 	std::vector<sNetworkReceivedPacket*>		cGameNetwork::GetReceivedDataPleaseDeleteAfterUseIt()
 	{
 		std::vector<sNetworkReceivedPacket*> l_Vector;
@@ -74,7 +80,6 @@ namespace FATMING_CORE
 	cGameNetwork::~cGameNetwork()
 	{
 		this->Destroy();
-		SAFE_DELETE(m_pReconnectFunction);
 		SDLNet_Quit();
 	}
 	bool cGameNetwork::GetIP()
@@ -131,6 +136,7 @@ namespace FATMING_CORE
 	}
 	void cGameNetwork::Destroy()
 	{
+		SAFE_DELETE(m_pReconnectFunction);
 		this->CloseThreadAndWaitUntilFinish();
 		CloseSocket();
 	}
@@ -306,6 +312,8 @@ namespace FATMING_CORE
 		{
 			if (m_ClientSocketVector[i] == e__pTCPsocket)
 			{
+				if(m_ClientLostConnectionCallback)
+					m_ClientLostConnectionCallback(e__pTCPsocket);
 				SDLNet_TCP_Close(e__pTCPsocket);
 				m_ClientSocketVector.erase(m_ClientSocketVector.begin() + i);
 				return true;

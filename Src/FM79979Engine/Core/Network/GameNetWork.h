@@ -72,12 +72,14 @@ namespace FATMING_CORE
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
 		void								RemoveAllClient();
-		//no mutex
-		bool								RemoveClientWhileClientLostConnection(_TCPsocket*e__pTCPsocket);
+		//no mutex inside of this function,because mutex called before this function
+		virtual bool						RemoveClientWhileClientLostConnection(_TCPsocket*e__pTCPsocket);
 		/* create a socket set that has the server socket and all the client sockets */
 		_SDLNet_SocketSet*					m_pAllSocketToListenClientMessage;
 		bool								CreateSocksetToListenData();
 		std::function<void()>				m_ConnectionLostCallbackFunction;
+		//only for server,it under m_ClientSocketMutex
+		std::function<void(_TCPsocket*)>	m_ClientLostConnectionCallback;
 	protected:
 		sIPData								m_IPData;
 		//own socket for server or client
@@ -92,6 +94,7 @@ namespace FATMING_CORE
 		cGameNetwork();
 		virtual ~cGameNetwork();
 		void								SetConnectionLostCallbackFunction(std::function<void()> e_Function);
+		void								SetClientLostConnectionCallback(std::function<void(_TCPsocket*)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
 

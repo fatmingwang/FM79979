@@ -208,6 +208,7 @@ namespace	FATMING_CORE
 		static	void					ShowInfo();
 		//GAME_PAUSE_EVENT_ID	-123456789 is game pause
 		static	bool					EventMessageShot(unsigned int e_usID, void*e_pData);
+		static	bool					EventMessageShot(unsigned int e_usID, void*e_pData,int e_iDataSize);
 		//e_iKeyBoardType = 0 as default,e_iKeyBoardType = 1 as Numeric pad,
 		//in android if e_iKeyBoardType is one u have to setup
 		//FinishInput(String e_strValue);,Chancel();take a look at cpp

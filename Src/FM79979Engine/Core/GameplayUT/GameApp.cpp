@@ -745,6 +745,13 @@ namespace	FATMING_CORE
 		return false;
 	}
 
+	bool	cGameApp::EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize)
+	{
+		if (m_spMessageSenderManager)
+			return m_spMessageSenderManager->EventMessageShot(e_usID,(char*)e_pData, e_iDataSize);
+		return false;
+	}
+
 	std::wstring	cGameApp::GetDIDOrInstallationRandomID()
 	{
 		std::wstring	l_str;
