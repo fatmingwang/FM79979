@@ -575,7 +575,7 @@ namespace FATMING_CORE
 
 	std::wstring	ValueToStringW(const char*e_strValue)
 	{
-		return ValueToStringW(UT::CharToWchar(e_strValue));
+		return UT::CharToWchar(e_strValue);
 	}
 
 	std::wstring	ValueToStringW(char e_cValue)

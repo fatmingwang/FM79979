@@ -1,6 +1,7 @@
 #include "../../stdafx.h"
 #include "FMLog.h"
 #include "../BinaryFile.h"
+#include "../../XML/StringToStructure.h"
 #ifdef WIN32
 #include <direct.h>
 #endif
@@ -62,7 +63,25 @@ namespace FMLog
 
 	void					Log(const char*e_str, bool e_bWriteLog)
 	{
-		Log(UT::CharToWchar(e_str).c_str(), e_bWriteLog);
+		//Log(UT::CharToWchar(e_str).c_str(), e_bWriteLog);
+		//#ifdef DEBUG
+#if defined(WIN32)
+		std::wstring l_str = FATMING_CORE::ValueToStringW(e_str);
+		printf(e_str);
+		OutputDebugString(l_str.c_str());;
+		OutputDebugString(L"\n");
+#elif	defined(ANDROID)
+		std::string	l_str = "GameApp___ ";
+		l_str += UT::WcharToChar(e_str);
+		LOGI("%s", l_str.c_str());
+#elif	defined(IOS)
+		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
+		printf(l_str.c_str());
+#endif
+		if (e_bWriteLog)
+		{
+			WriteLog(e_str);
+		}
 	}
 	void					Log(const wchar_t*e_str, bool e_bWriteLog)
 	{
@@ -110,7 +129,8 @@ namespace FMLog
 		{
 			return;
 		}
-		Log(UT::CharToWchar(e_str).c_str(),  e_bWriteLog);
+		//Log(UT::CharToWchar(e_str).c_str(),  e_bWriteLog);
+		Log(e_str.c_str(), e_bWriteLog);
 	}
 
 	void LogWithFlag(const char * e_str, int e_iLogFlagLevel, bool e_bWriteLog)
@@ -119,7 +139,8 @@ namespace FMLog
 		{
 			return;
 		}
-		Log(UT::CharToWchar(e_str).c_str(),  e_bWriteLog);
+		//Log(UT::CharToWchar(e_str).c_str(),  e_bWriteLog);
+		Log(e_str, e_bWriteLog);
 	}
 
 	void WriteLog(const wchar_t * e_strMessage)

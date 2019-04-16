@@ -19,6 +19,11 @@
 #elif defined(WIN32)
 #include "strsafe.h"
 #include <time.h>
+//========for WcharToChar(const wchar_t* e_strString) and CharToWchar
+//#include <locale>
+//#include <utility>
+//#include <codecvt>
+//========
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
 #include "../../Include/wglext.h"
@@ -1528,8 +1533,24 @@ namespace UT
 //#endif
 // Convert a wide Unicode string to an UTF8 string
 //https://stackoverflow.com/questions/215963/how-do-you-properly-use-widechartomultibyte
+	//inline std::string STDWStringToString(std::wstring e_String)
+	//{
+	//	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//	std::string narrow = converter.to_bytes(e_String);
+	//	return narrow;
+	//}
+	//inline std::wstring STDStringToWString(std::string e_String)
+	//{
+	//	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	//	std::wstring wide = converter.from_bytes(e_String);
+	//	return wide;
+	//}
+
 	std::string WcharToChar(const wchar_t* e_strString)
 	{
+		//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		//std::string narrow = converter.to_bytes(e_strString);
+		//return narrow;
 		int l_iSize = (int)wcslen(e_strString);
 		if (!e_strString || l_iSize == 0) return std::string();
 		//int size_needed = WideCharToMultiByte(CP_UTF8, 0, e_strString, l_iSize, NULL, 0, NULL, NULL);
@@ -1548,6 +1569,9 @@ namespace UT
 		std::wstring wstrTo(size_needed, 0);
 		MultiByteToWideChar(CP_ACP, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
 		return wstrTo;
+		//std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		//std::wstring wide = converter.from_bytes(e_strString);
+		//return wide;
 	}
 //#elif defined(ANDROID) 
 //	std::string	WcharToChar(const wchar_t *e_strWchar)

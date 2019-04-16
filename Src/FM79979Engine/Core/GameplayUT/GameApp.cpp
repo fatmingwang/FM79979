@@ -108,6 +108,10 @@ namespace	FATMING_CORE
 	cGameApp::cGameApp(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 #endif
 	{
+		if (this->m_sbDebugFunctionWorking)
+		{
+			FMLog::Init();
+		}
 #ifdef WIN32
 		DWORD  nBufferLength = 0;
 		wchar_t l_strDirectory[MAX_PATH];
@@ -134,10 +138,6 @@ namespace	FATMING_CORE
 		g_pMainThreadJNIUtilData = m_spJNIUtilData;
 		SetupAPKFilePath(e_pActivity, e_pThreadEnv);
 #endif
-		if (this->m_sbDebugFunctionWorking)
-		{
-			FMLog::Init();
-		}
 		SystemErrorCheck();
 #if	defined(WIN32)
 		PrintMemoryInfo();
