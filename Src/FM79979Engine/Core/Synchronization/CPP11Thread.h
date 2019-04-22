@@ -6,6 +6,7 @@
 
 typedef std::lock_guard<std::mutex> cPP11MutexHolder;
 typedef std::function<void(float)>  f_ThreadWorkingFunction;
+#define	MUTEX_PLACE_HOLDER(MUTEX) cPP11MutexHolder l_PP11MutexHolder(MUTEX);
 namespace FATMING_CORE
 {
 	class cPP11MutexHolderDebug

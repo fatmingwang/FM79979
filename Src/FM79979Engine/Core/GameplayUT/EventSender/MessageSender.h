@@ -7,7 +7,7 @@ namespace FATMING_CORE
 	struct sReceivedPacket;
 	struct sNetworkReceivedPacket;
 
-	#define WAIT_EMIT_EVENT_DATA_SIZE	2048
+	#define WAIT_EMIT_EVENT_DATA_SIZE	4096
 	typedef std::function<bool(FATMING_CORE::sNetworkReceivedPacket*)>		NetworkMessageFunction;
 	typedef std::function<bool(void*)>										EventFunction;
 
