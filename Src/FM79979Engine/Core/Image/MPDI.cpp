@@ -104,10 +104,10 @@ namespace FATMING_CORE
 			cCueToStartCurveWithTime*l_pCueToStartCurveWithTime = GetObject(i);
 			std::vector<Vector3>l_vPointPos = l_pCueToStartCurveWithTime->GetOriginalPointList();
 			int	l_iSize = (int)l_vPointPos.size();
-			for( int i=0;i<l_iSize;++i )
+			for( int j=0;j<l_iSize;++j )
 			{
 				float l_fTempBufferForRenderVertices[18];
-				if (l_pCueToStartCurveWithTime->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices, nullptr, nullptr, i))
+				if (l_pCueToStartCurveWithTime->IsStart() && l_pCueToStartCurveWithTime->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices, nullptr, nullptr, j))
 				{
 					bool l_bImageZRotate90ToSaveMemory = false;
 					//left up
@@ -123,12 +123,12 @@ namespace FATMING_CORE
 				}
 				//else
 				{
-					Vector3	l_vPos = l_vPointPos[i];
+					Vector3	l_vPos = l_vPointPos[j];
 					if (l_vDrawRect.x > l_vPos.x)
 						l_vDrawRect.x = l_vPos.x;
 					if (l_vDrawRect.y > l_vPos.y)
 						l_vDrawRect.y = l_vPos.y;
-					sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(i);
+					sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(j);
 					if (!l_pTexBehaviorDataWithImageIndexData->pPI)
 						break;
 					cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
@@ -151,6 +151,10 @@ namespace FATMING_CORE
 		//m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.x>l_vDrawSizeWithoutImageOffset.y ? l_vDrawSizeWithoutImageOffset.x : l_vDrawSizeWithoutImageOffset.y;
 		//m_fDrawRadiusWithoutImageOffset /= 2.f;
 		m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.Length()/2;
+		if (m_fDrawRadiusWithoutImageOffset >= 2000)
+		{
+			int a = 0;
+		}
 	}
 
 	void	cMultiPathDynamicImage::Merge(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
