@@ -144,7 +144,6 @@ namespace FATMING_CORE
 	{
 		if (e_pTCPsocket)
 		{
-			FMLog::LogWithFlag("send data\n", CORE_LOG_FLAG);
 			int	l_iSendSize = (int)(sizeof(int) + e_pPacket->iSize);
 			char*l_pData = new char[l_iSendSize];
 			memcpy(l_pData, &e_pPacket->iSize, sizeof(int));
