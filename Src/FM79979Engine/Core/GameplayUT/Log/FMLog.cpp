@@ -2,6 +2,7 @@
 #include "FMLog.h"
 #include "../BinaryFile.h"
 #include "../../XML/StringToStructure.h"
+#include "../../Image/GlyphFontRender.h"
 #ifdef WIN32
 #include <direct.h>
 #endif
@@ -16,7 +17,9 @@
 namespace FMLog
 {
 	int64	g_i64LogFlag = 0xffffffffffffffff;
-	FATMING_CORE::cBinaryFile*g_pFMLogFile = nullptr;
+	FATMING_CORE::cBinaryFile*	g_pFMLogFile = nullptr;
+	std::list<std::wstring>*	g_pLatestLog = nullptr;
+	int							g_iKeepLogCount = 0;
 	bool	LogFlagLevelCompare(int e_iLogFlagLevel)
 	{
 		int64 lll = 0xfffffffffffffff;
@@ -56,9 +59,20 @@ namespace FMLog
 		}
 	}
 
+	void					EnableKeepLatestLog(int e_iKeepLatestLogCount)
+	{
+		if (e_iKeepLatestLogCount > 0)
+		{
+			g_iKeepLogCount = e_iKeepLatestLogCount;
+			SAFE_DELETE(g_pLatestLog);
+			g_pLatestLog = new std::list<std::wstring>;
+		}
+	}
+
 	void					Destroy()
 	{
 		SAFE_DELETE(g_pFMLogFile);
+		SAFE_DELETE(g_pLatestLog);
 	}
 
 	void					Log(const char*e_str, bool e_bWriteLog)
@@ -78,6 +92,14 @@ namespace FMLog
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
 		printf(l_str.c_str());
 #endif
+		if (g_pLatestLog)
+		{
+			if (g_pLatestLog->size() + 1 >= g_iKeepLogCount)
+			{
+				g_pLatestLog->pop_back();
+			}
+			g_pLatestLog->push_front(UT::CharToWchar(e_str));
+		}
 		if (e_bWriteLog)
 		{
 			WriteLog(e_str);
@@ -99,6 +121,14 @@ namespace FMLog
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
 		printf(l_str.c_str());
 #endif
+		if (g_pLatestLog)
+		{
+			if (g_pLatestLog->size() + 1 >= g_iKeepLogCount)
+			{
+				g_pLatestLog->pop_back();
+			}
+			g_pLatestLog->push_front(e_str);
+		}
 		if (e_bWriteLog)
 		{
 			WriteLog(e_str);
@@ -163,6 +193,19 @@ namespace FMLog
 	void WriteLog(std::string e_strMessage)
 	{
 		WriteLog(e_strMessage.c_str());
+	}
+
+	void Render(int e_iPosX, int e_iPosY,FATMING_CORE::cGlyphFontRender*e_pGlyphFontRender, int e_iYGap)
+	{
+		int l_iPosY = e_iPosY;
+		if (g_pLatestLog && e_pGlyphFontRender)
+		{
+			for (auto l_str : *g_pLatestLog)
+			{
+				e_pGlyphFontRender->RenderFont(e_iPosX, l_iPosY, l_str);
+				l_iPosY += e_iYGap;
+			}
+		}
 	}
 
 	void DoORForLogFlag(int e_iFlag)

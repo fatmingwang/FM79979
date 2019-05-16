@@ -11,12 +11,18 @@ void XMAssert(const char* pExpression, const char* pFileName, unsigned int LineN
 #define XMASSERT(Expression)  ((void)0)
 #endif
 
+namespace FATMING_CORE
+{
+	class cGlyphFontRender;
+}
 
 //please d onot use 60 as flag setting or core log wiil be ignore?
 #define	CORE_LOG_FLAG		60
 namespace FMLog
 {
+	//0 means won't keep any log data.
 	void					Init();
+	void					EnableKeepLatestLog(int e_iKeepLatestLogCount);
 	void					Destroy();
 	//1-64
 	void					DoORForLogFlag(int e_iFlag);
@@ -34,4 +40,6 @@ namespace FMLog
 	void					WriteLog(std::wstring e_strMessage);
 	void					WriteLog(const char*e_strMessage);
 	void					WriteLog(std::string e_strMessage);
+
+	void					Render(int e_iPosX,int e_iPosY, FATMING_CORE::cGlyphFontRender*e_pGlyphFontRender, int e_iYGap = 30);
 }
