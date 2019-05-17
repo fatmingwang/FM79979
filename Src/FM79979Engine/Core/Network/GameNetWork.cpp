@@ -32,13 +32,21 @@ namespace FATMING_CORE
 		{
 			return -1;
 		}
+		//default TCP/IP packet size restriction is 64k
+		if (iSize >= 64 * 1024)
+			return -1;
 		pData = new char[iSize];
 		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, pData, iSize);
-		assert(iSize == l_iLength && "network data size not correct!?");
+		//assert(iSize == l_iLength && "network data size not correct!?");
+#ifdef DEBUG
+		FMLog::LogWithFlag("network data size not correct!?ignore this packet\n", CORE_LOG_FLAG);
+#endif
 		if (iSize == l_iLength)
 			return iSize;
 		//size not correct!?
-		return l_iLength - iSize;
+		//return l_iLength - iSize;
+		//now I dont wannt support streamming so fuck you please reduce packet size.
+		return -1;
 	}
 
 	void	cGameNetwork::SetConnectionLostCallbackFunction(std::function<void()> e_Function)
@@ -459,7 +467,7 @@ namespace FATMING_CORE
 					//cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex,L"m_pSocket->iServerFlag");
 					cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex);
 					int	l_iNumClients = (int)m_ClientSocketVector.size();
-					for (int i = 0; l_iNumready && i < l_iNumClients; i++)
+					for (int i = 0; i < l_iNumClients; i++)
 					{
 						_TCPsocket*l_pClient = m_ClientSocketVector[i];
 						if (SDLNet_SocketReady(l_pClient))
@@ -485,6 +493,7 @@ namespace FATMING_CORE
 								}
 								else
 								{
+									--l_iNumClients;
 									--i;
 								}
 							}
