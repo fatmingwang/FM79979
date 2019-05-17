@@ -42,7 +42,10 @@ namespace FATMING_CORE
 		FMLog::LogWithFlag("network data size not correct!?ignore this packet\n", CORE_LOG_FLAG);
 #endif
 		if (iSize == l_iLength)
+		{
+			SAFE_DELETE_ARRAY(pData);
 			return iSize;
+		}
 		//size not correct!?
 		//return l_iLength - iSize;
 		//now I dont wannt support streamming so fuck you please reduce packet size.

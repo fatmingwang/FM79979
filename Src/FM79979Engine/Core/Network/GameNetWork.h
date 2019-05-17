@@ -33,7 +33,7 @@ namespace FATMING_CORE
 		char*		pData;
 		_TCPsocket*	pReceivedSocket;
 		sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
-		~sNetworkReceivedPacket() { SAFE_DELETE(pData); }
+		~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
 		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
 		int	ReceiveData(_TCPsocket*e_pTCPsocket);
 	};
@@ -50,6 +50,7 @@ namespace FATMING_CORE
 
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread
 	{
+	protected:
 		struct sReconnectFunction
 		{
 			UT::sTimeCounter	m_ReConnectTime;
@@ -65,13 +66,13 @@ namespace FATMING_CORE
 		};
 		friend struct sReconnectFunction;
 		sReconnectFunction*					m_pReconnectFunction;
-		void								AddClient(_TCPsocket*e__pTCPsocket);
+		virtual void						AddClient(_TCPsocket*e__pTCPsocket);
 		void								ServerListenDataThread(float e_ElpaseTime);
 		void								ClientListenDataThread(float e_ElpaseTime);
 		//if e_strIP is nullptr it's server
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
-		void								RemoveAllClient();
+		virtual void						RemoveAllClient();
 		//no mutex inside of this function,because mutex called before this function
 		virtual bool						RemoveClientWhileClientLostConnection(_TCPsocket*e__pTCPsocket);
 		/* create a socket set that has the server socket and all the client sockets */
@@ -89,7 +90,7 @@ namespace FATMING_CORE
 		std::mutex							m_ReceivedDataMutex;
 		std::mutex							m_ClientSocketMutex;
 		eNetWorkStatus						m_eNetWorkStatus;
-		bool								RemoveClient(_TCPsocket*e__pTCPsocket);
+		virtual bool						RemoveClient(_TCPsocket*e__pTCPsocket);
 	public:
 		cGameNetwork();
 		virtual ~cGameNetwork();
