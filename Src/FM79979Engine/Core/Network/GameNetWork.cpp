@@ -483,6 +483,10 @@ namespace FATMING_CORE
 								{
 									//assert(0&&"no this client");
 								}
+								else
+								{
+									--i;
+								}
 							}
 						}
 					}
