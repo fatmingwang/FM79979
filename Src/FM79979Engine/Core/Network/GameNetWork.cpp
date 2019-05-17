@@ -43,9 +43,9 @@ namespace FATMING_CORE
 #endif
 		if (iSize == l_iLength)
 		{
-			SAFE_DELETE_ARRAY(pData);
 			return iSize;
 		}
+		SAFE_DELETE_ARRAY(pData);
 		//size not correct!?
 		//return l_iLength - iSize;
 		//now I dont wannt support streamming so fuck you please reduce packet size.
