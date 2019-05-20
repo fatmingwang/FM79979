@@ -33,7 +33,7 @@ namespace FATMING_CORE
 			return -1;
 		}
 		//default TCP/IP packet size restriction is 64k
-		if (iSize >= 64 * 1024)
+		if (iSize >= 64 * 1024 || iSize < 1)
 			return -1;
 		pData = new char[iSize];
 		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, pData, iSize);
