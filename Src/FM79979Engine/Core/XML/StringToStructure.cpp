@@ -422,7 +422,7 @@ namespace FATMING_CORE
 			l_List.push_back(l_str);
 			l_str = wcstok(0,L", ");
 		}
-		delete l_pStart;
+		delete[] l_pStart;
 		return l_List;	
 	}
 
@@ -440,7 +440,7 @@ namespace FATMING_CORE
 			l_List.push_back(UT::WcharToChar(l_str));
 			l_str = wcstok(0,L", ");
 		}
-		delete l_pStart;
+		delete[] l_pStart;
 		return l_List;
 	}
 

@@ -151,7 +151,7 @@ namespace FATMING_CORE
 #endif
 				l_str = wcstok(0, L", ");
 			}
-			delete l_strTemp;
+			delete[] l_strTemp;
 		}
 		return l_NumeralList;
 	}
