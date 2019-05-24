@@ -617,6 +617,6 @@ void	cNetWorkConnectPhase::DoPlayerDisconnect()
 
 void Thread()
 {
-	OpenSocket();
-	Status = TryToConnect;
+	//OpenSocket();
+	//Status = TryToConnect;
 }

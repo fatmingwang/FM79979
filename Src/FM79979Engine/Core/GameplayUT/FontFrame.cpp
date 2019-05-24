@@ -225,7 +225,7 @@ namespace FATMING_CORE
 
 	void	cTextButton::SetScale(float e_fScale)
 	{
-		assert(0&&"not support fuck,instead to call SetTransform and ensure Collision Range");
+		//assert(0&&"not support fuck,instead to call SetTransform and ensure Collision Range");
 		//m_vCollisionRange = Vector4(0,0,m_vRenderSize.x*e_fScale,m_vRenderSize.y*e_fScale);
 	}
 

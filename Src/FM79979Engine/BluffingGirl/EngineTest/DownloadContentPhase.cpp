@@ -17,6 +17,9 @@ cDownloadContentPhase::cDownloadContentPhase(TiXmlElement*e_pPhasePopUpMessagerE
 	m_strDownloadFontName = UT::CharToWchar(l_strDownloadFileName);
 	cGlyphFontRender*l_pDownloadFont = new cGlyphFontRender(l_strDownloadFileName);
 	cGameApp::m_spGlyphFontRenderVector->AddObject(l_pDownloadFont);
+	//because name will strip folder name
+	l_strDownloadFileName = "DownloadFont";
+	m_strDownloadFontName = UT::CharToWchar(l_strDownloadFileName);
 }
 
 cDownloadContentPhase::~cDownloadContentPhase()
@@ -111,7 +114,7 @@ void	cDownloadContentPhase::Update(float e_fElpaseTime)
 		}
 		if( m_pTextButton )
 		{
-			m_pTextButton->SetScale(2.f);
+			//m_pTextButton->SetScale(2.f);
 		}
 	}
 	else
