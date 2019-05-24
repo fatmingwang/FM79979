@@ -371,14 +371,12 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 							l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList.GetObject(UT::GetFileNameWithoutFullPath(UT::CharToWchar(l_strFileName.c_str()))));
 						    if(!l_pPuzzleImage)
 						    {
-								bool l_b = m_AllBaseImageList.Parse(l_strFileName.c_str());
-							    if( !l_b )
-							    {
-									this->m_strErrorMsg += UT::CharToWchar(l_strFileName.c_str());
-								    this->m_strErrorMsg += L" parse failed,format is utf-8!?\n";
-							    }
-								else
-									l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList[m_AllBaseImageList.Count()-1]);
+								l_pPuzzleImage = m_AllBaseImageList.GetPuzzleImageByFileName(l_strFileName.c_str());
+								if (!l_pPuzzleImage)
+								{
+									this->m_strErrorMsg += UT::CharToWchar(l_strFileName);
+									this->m_strErrorMsg += L" parse failed,format is utf-8!?\n";
+								}
 						    }
 						    l_pCurrentcMPDIList->SetPuzzleImage(l_pPuzzleImage);
 							if( l_iPICount != 1 && l_iPICount!= i+1 )

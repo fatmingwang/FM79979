@@ -42,9 +42,8 @@ namespace   FATMING_CORE
 			        //bool    l_b = cGameApp::m_spImageParser->Parse(l_strFullfileName);
 			        std::string l_str = *g_pCurrentEventManager->m_pstrWorkingDirectory;
 			        l_str += l_strPIName;
-			        bool    l_b = cGameApp::m_spImageParser->Parse((char*)l_str.c_str());
-			        assert(l_b);
-			        l_pPI = dynamic_cast<cPuzzleImage*>(cGameApp::m_spImageParser->GetObject(l_strValue));
+					l_pPI = cGameApp::m_spImageParser->GetPuzzleImageByFileName((char*)l_str.c_str());
+			        assert(l_pPI&&"get PI failed!");
 			    }
 			}
 			else

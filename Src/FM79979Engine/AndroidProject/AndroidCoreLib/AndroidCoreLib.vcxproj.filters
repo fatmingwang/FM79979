@@ -58,12 +58,6 @@
     <Filter Include="jni\FMEvent">
       <UniqueIdentifier>{cced9602-46f9-4c35-9487-77ab9582b294}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\Common\Crossplatform">
-      <UniqueIdentifier>{e2ec89ab-3339-40ba-bf72-ef243f550563}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="jni\Common\Crossplatform\OpenGL">
-      <UniqueIdentifier>{90c9a630-f64b-4284-b1d6-10c54683b04e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\Common\NamedTypedObject">
       <UniqueIdentifier>{67884432-5e9d-4527-b37b-6f7926c3552e}</UniqueIdentifier>
     </Filter>
@@ -187,9 +181,6 @@
     <Filter Include="jni\RenderObject\Font">
       <UniqueIdentifier>{486d4ce0-edee-4001-911e-9f3123f04806}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\RenderObject\GLSL">
-      <UniqueIdentifier>{8b1e018b-8307-44ae-8f46-3e71caa24585}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\RenderObject\MPDI">
       <UniqueIdentifier>{5f544c55-b5a0-4f0e-9945-bc982985d6d4}</UniqueIdentifier>
     </Filter>
@@ -247,9 +238,6 @@
     <Filter Include="jni\GamePlayUT\CameraZoom">
       <UniqueIdentifier>{e0bf38c8-b0d0-4608-b929-88618d5a52e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\RenderObject\GLSL\PostEffect">
-      <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\GamePlayUT\UI\Button\ClickBehavior">
       <UniqueIdentifier>{c902f3c5-9f1d-4ffa-8c9d-ae897f36bf26}</UniqueIdentifier>
     </Filter>
@@ -267,6 +255,21 @@
     </Filter>
     <Filter Include="jni\GamePlayUT\Language">
       <UniqueIdentifier>{9aed1fd4-ade6-4e42-b41c-2d88b627d7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\OpenGL">
+      <UniqueIdentifier>{cfcee87c-f798-4748-bba3-be44c41860e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\OpenGL\GLSL">
+      <UniqueIdentifier>{8b1e018b-8307-44ae-8f46-3e71caa24585}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\OpenGL\GLSL\PostEffect">
+      <UniqueIdentifier>{468db817-1c4d-47bb-8394-241e844173e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\OpenGL\Crossplatform">
+      <UniqueIdentifier>{8219dbca-afd2-4435-9291-6fc19ded840b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\OpenGL\Crossplatform\OpenGL">
+      <UniqueIdentifier>{ead8132c-2fca-4c13-90e8-622367bd5b2c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -394,12 +397,6 @@
     <ClCompile Include="..\..\Core\Camera\DrawSelectRectangleByMouse.cpp">
       <Filter>jni\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Glh.cpp">
-      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GluForOpengles.cpp">
-      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Particle\ParticleManager.cpp">
       <Filter>jni\Particle</Filter>
     </ClCompile>
@@ -423,12 +420,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Android\nv_native_app_glue.c">
       <Filter>jni\AndroidJNI\Nvidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\NamedTypedObject.cpp">
-      <Filter>jni\Common\NamedTypedObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\SmartPointer.cpp">
-      <Filter>jni\Common\SmartPointer</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\BinaryFile.cpp">
       <Filter>jni\GamePlayUT\Binary</Filter>
@@ -622,15 +613,6 @@
     <ClCompile Include="..\..\Core\Image\GlyphFontRender.cpp">
       <Filter>jni\RenderObject\Font</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp">
-      <Filter>jni\RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\Shader.cpp">
-      <Filter>jni\RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\GLSLUiniform.cpp">
-      <Filter>jni\RenderObject\GLSL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Image\MPDI.cpp">
       <Filter>jni\RenderObject\MPDI</Filter>
     </ClCompile>
@@ -703,9 +685,6 @@
     <ClCompile Include="..\..\Core\XML\StringToStructure.cpp">
       <Filter>jni\XML</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\StringID.cpp">
-      <Filter>jni\Common\NamedTypedObject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\PhasePopupMessager.cpp">
       <Filter>jni\GamePlayUT\Phase</Filter>
     </ClCompile>
@@ -754,12 +733,6 @@
     <ClCompile Include="..\..\Core\Image\RenderObject.cpp">
       <Filter>jni\RenderObject\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\TimeUT.cpp">
-      <Filter>jni\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Utility.cpp">
-      <Filter>jni\Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Image\Texture.cpp">
       <Filter>jni\RenderObject\Texture</Filter>
     </ClCompile>
@@ -801,15 +774,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Sound\SoundFile.cpp">
       <Filter>jni\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\Blur.cpp">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp">
       <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
@@ -940,6 +904,42 @@
     <ClCompile Include="..\..\Core\GameplayUT\Language\LanguageFile.cpp">
       <Filter>jni\GamePlayUT\Language</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\Glh.cpp">
+      <Filter>jni\RenderObject\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GluForOpengles.cpp">
+      <Filter>jni\RenderObject\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\Blur.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\ToneMapping.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\TunnelEffect.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\GLSLUiniform.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\Shader.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\OpenGL\GLSL\CommnoShader.cpp">
+      <Filter>jni\RenderObject\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\NamedTypedObject.cpp">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\StringID.cpp">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\SmartPointer.cpp">
+      <Filter>jni\Common\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameAppGetObject.cpp">
+      <Filter>jni\GamePlayUT\GameApp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1057,9 +1057,6 @@
     <ClInclude Include="..\..\Core\Camera\DrawSelectRectangleByMouse.h">
       <Filter>jni\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\Glh.h">
-      <Filter>jni\Common\Crossplatform\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\Particle\ParticleManager.h">
       <Filter>jni\Particle</Filter>
     </ClInclude>
@@ -1092,36 +1089,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Android\nv_types.h">
       <Filter>jni\AndroidJNI\Nvidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\CommonDefine.h">
-      <Filter>jni\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\VS_TO_GNN.h">
-      <Filter>jni\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\NamedTypedObject.h">
-      <Filter>jni\Common\NamedTypedObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\SmartPointer.h">
-      <Filter>jni\Common\SmartPointer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\MapCellDataContainer.h">
-      <Filter>jni\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TemplateClass.h">
-      <Filter>jni\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TempContainer.h">
-      <Filter>jni\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TwoDimensionDataContainer.h">
-      <Filter>jni\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TimeUT.h">
-      <Filter>jni\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Utility.h">
-      <Filter>jni\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h">
       <Filter>jni\GamePlayUT\Binary</Filter>
@@ -1366,12 +1333,6 @@
     <ClInclude Include="..\..\Core\Image\GlyphFontRender.h">
       <Filter>jni\RenderObject\Font</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\Shader.h">
-      <Filter>jni\RenderObject\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h">
-      <Filter>jni\RenderObject\GLSL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\Image\MPDI.h">
       <Filter>jni\RenderObject\MPDI</Filter>
     </ClInclude>
@@ -1459,9 +1420,6 @@
     <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h">
       <Filter>jni\FMEvent</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\StringID.h">
-      <Filter>jni\Common\NamedTypedObject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\PhasePopupMessager.h">
       <Filter>jni\GamePlayUT\Phase</Filter>
     </ClInclude>
@@ -1534,15 +1492,6 @@
     <ClInclude Include="..\..\Core\Sound\SoundFile.h">
       <Filter>jni\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\Blur.h">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\ToneMapping.h">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\TunnelEffect.h">
-      <Filter>jni\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.h">
       <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
     </ClInclude>
@@ -1569,6 +1518,45 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\Language\LanguageFile.h">
       <Filter>jni\GamePlayUT\Language</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\Glh.h">
+      <Filter>jni\RenderObject\OpenGL\Crossplatform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\GLSL\Blur.h">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\GLSL\ToneMapping.h">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\GLSL\TunnelEffect.h">
+      <Filter>jni\RenderObject\OpenGL\GLSL\PostEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\GLSL\GLSLUiniform.h">
+      <Filter>jni\RenderObject\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\OpenGL\GLSL\Shader.h">
+      <Filter>jni\RenderObject\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\NamedTypedObject.h">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\StringID.h">
+      <Filter>jni\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\SmartPointer.h">
+      <Filter>jni\Common\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\MapCellDataContainer.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TempContainer.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TemplateClass.h">
+      <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h">
+      <Filter>jni\Common\Template</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,7 @@
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO,"GameApp",__VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN,"GameApp",__VA_ARGS__))
 #endif
+using namespace FATMING_CORE;
 namespace FMLog
 {
 	int64	g_i64LogFlag = 0xffffffffffffffff;
@@ -86,10 +87,10 @@ namespace FMLog
 		OutputDebugString(L"\n");
 #elif	defined(ANDROID)
 		std::string	l_str = "GameApp___ ";
-		l_str += UT::WcharToChar(e_str);
+		l_str += ValueToString(e_str);
 		LOGI("%s", l_str.c_str());
 #elif	defined(IOS)
-		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
+		std::string l_str = ValueToString(e_str);		l_str += "\n";
 		printf(l_str.c_str());
 #endif
 		if (g_pLatestLog)
