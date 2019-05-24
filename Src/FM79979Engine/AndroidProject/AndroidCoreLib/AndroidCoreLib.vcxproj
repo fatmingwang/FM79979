@@ -26,11 +26,16 @@
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidMinAPI>android-15</AndroidMinAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidMinAPI>android-15</AndroidMinAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
@@ -42,15 +47,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
-      <AdditionalOptions>--rtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
@@ -65,7 +70,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
@@ -100,6 +105,8 @@
     <ClCompile Include="..\..\Core\Common\NamedTypedObject.cpp" />
     <ClCompile Include="..\..\Core\Common\SmartPointer.cpp" />
     <ClCompile Include="..\..\Core\Common\StringID.cpp" />
+    <ClCompile Include="..\..\Core\Common\TimeUT.cpp" />
+    <ClCompile Include="..\..\Core\Common\Utility.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
@@ -354,6 +361,9 @@
     <ClInclude Include="..\..\Core\Common\Template\TempContainer.h" />
     <ClInclude Include="..\..\Core\Common\Template\TemplateClass.h" />
     <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h" />
+    <ClInclude Include="..\..\Core\Common\TimeUT.h" />
+    <ClInclude Include="..\..\Core\Common\Utility.h" />
+    <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h" />
     <ClInclude Include="..\..\Core\FMEvent\AllEventInclude.h" />
     <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h" />
     <ClInclude Include="..\..\Core\FMEvent\EventActiverParser.h" />

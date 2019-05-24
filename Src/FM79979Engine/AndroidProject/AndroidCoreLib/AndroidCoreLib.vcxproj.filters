@@ -940,6 +940,12 @@
     <ClCompile Include="..\..\Core\GameplayUT\GameAppGetObject.cpp">
       <Filter>jni\GamePlayUT\GameApp</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Common\TimeUT.cpp">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\Utility.cpp">
+      <Filter>jni\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1557,6 +1563,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h">
       <Filter>jni\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\TimeUT.h">
+      <Filter>jni\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Utility.h">
+      <Filter>jni\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h">
+      <Filter>jni\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

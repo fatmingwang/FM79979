@@ -54,6 +54,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-frtti %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
@@ -62,6 +63,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL</PreprocessorDefinitions>
+      <AdditionalOptions>-frtti %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>

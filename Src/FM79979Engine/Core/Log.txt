@@ -184,3 +184,8 @@ it spent me  hours...fuck
 failed to start with 0xc000007b
 please install openal!
 https://www.start64.com/index.php/64-bit-news/64bit-software-news/454-openal-installer-for-windows-32-and-64bit
+
+24/May/2019
+Android build
+--rtti to -frtti
+https://developer.android.com/ndk/guides/cpp-support
