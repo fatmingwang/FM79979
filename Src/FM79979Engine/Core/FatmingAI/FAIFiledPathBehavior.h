@@ -16,8 +16,8 @@ namespace FATMING_AI
 		sMinMaxData<float>	m_fYDistance;
 		float				m_fLeaveAwayProbability;
 		sMinMaxData<int>	m_iDistanceChangePoint;//avoid m_fXDistance,m_fYDistance change too fast
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
 		//GETP_SET_DEC(cCurveWithTime,m_CurveWithTime,GetPath,SetPath);
 		cCurveWithTime		m_CurveWithTime;
     public:

@@ -29,6 +29,7 @@
     <AndroidStlType>gnustl_static</AndroidStlType>
     <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
     <AndroidMinAPI>android-15</AndroidMinAPI>
+    <AndroidArch>armv7-a</AndroidArch>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-15</AndroidTargetAPI>

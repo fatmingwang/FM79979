@@ -27,15 +27,17 @@
     <AndroidStlType>gnustl_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidMinAPI>android-9</AndroidMinAPI>
+    <AndroidMinAPI>android-19</AndroidMinAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidStlType>gnustl_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidMinAPI>android-14</AndroidMinAPI>
+    <AndroidTargetAPI>android-19</AndroidTargetAPI>
+    <AndroidMinAPI>android-19</AndroidMinAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <AndroidStlType>gnustl_static</AndroidStlType>
@@ -48,10 +50,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <NdkToolchainVersion>Default</NdkToolchainVersion>
+    <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <NdkToolchainVersion>Default</NdkToolchainVersion>
+    <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <NdkToolchainVersion>Default</NdkToolchainVersion>
@@ -72,7 +74,7 @@
     </AntBuild>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\opencv;..\..\..\include\opencv\opencv;..\..\cppnetlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;DEBUG;ANDROID</PreprocessorDefinitions>
       <CLanguageStandard>
       </CLanguageStandard>
@@ -95,7 +97,7 @@
       <AdditionalOptions>-verbose %(AdditionalOptions)</AdditionalOptions>
       <AntBuildType>Release</AntBuildType>
       <SigningType>None</SigningType>
-      <SecurePropertiesLocation>C:\Users\wh-n1\Desktop\BluffingGirl\secure_properties.xml</SecurePropertiesLocation>
+      <SecurePropertiesLocation>C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
       <NativeLibDirectories>
       </NativeLibDirectories>
       <NativeLibDependencies>
@@ -103,7 +105,7 @@
     </AntBuild>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\Androidffmpeg_2.1.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>

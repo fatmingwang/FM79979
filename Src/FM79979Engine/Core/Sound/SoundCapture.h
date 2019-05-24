@@ -129,15 +129,15 @@ namespace	FATMING_CORE
 		std::string				m_strSaveFileName;
 		int						m_iOggWriteChannel;
 		cSoundFile*				m_pSoundFile;
-		virtual void			CaptureSoundStartCallBack();
-		virtual void			CaptureSoundEndCallBack();
+		virtual void			CaptureSoundStartCallBack()override;
+		virtual void			CaptureSoundEndCallBack()override;
 		void					Destory();
 	public:
 		DEFINE_TYPE_INFO()
 		//e_iOggWriteChannel only for ogg
 		cSounRecordToFileCallBackObject(std::string e_strFileName,eCaptureSoundFileFormat	e_eCaptureSoundFileFormat = eCSFF_OGG,int e_iOggWriteChannel = 2);
 		~cSounRecordToFileCallBackObject();
-		virtual void			CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData);
+		virtual void			CaptureSoundNewDataCallBack(ALCint e_iSamplesIn,char*e_pData)override;
 		void					SetSaveFileName(const char*e_strFileName);
 		const char*				GetSaveFileName();
 		const cSoundFile*		GetSoundfile();

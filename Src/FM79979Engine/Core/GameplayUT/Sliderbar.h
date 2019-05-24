@@ -23,9 +23,9 @@ namespace FATMING_CORE
 		//the value where slider indicator
 		float	m_fCurrentBarValue;
 		//=======================================
-        virtual void    InternalMouseMove(int e_iPosX,int e_iPosY);
-        virtual void    InternalMouseDown(int e_iPosX,int e_iPosY);
-        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
+        virtual void    InternalMouseMove(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalMouseDown(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY)override;
 	public:
 		DEFINE_TYPE_INFO()
 		cSliderBar(Vector3	e_vPos,cBaseImage*e_pBar,cBaseImage*e_pSlider,eOrientation e_eOrientation = eO_HORIZONTAL);
@@ -33,9 +33,9 @@ namespace FATMING_CORE
 		cSliderBar(cBaseImage*e_pBar,cBaseImage*e_pSlider);
 		virtual ~cSliderBar();
 		void			SetPos(Vector3 e_vPos);
-		virtual	void	Update(float e_fElpaseTime);
-		virtual	void	Render();
-		virtual	void	DebugRender();
+		virtual	void	Update(float e_fElpaseTime)override;
+		virtual	void	Render()override;
+		virtual	void	DebugRender()override;
 		float*	GetValue(){return &m_fCurrentValue;}
 		void	SetValue(float e_fValue);
 		static  cSliderBar*		GetMe(TiXmlElement*e_pElement);

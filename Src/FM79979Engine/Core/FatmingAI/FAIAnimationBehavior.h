@@ -16,16 +16,16 @@ namespace FATMING_AI
 		//but ensure resource control
         GET_SET_DEC(cFAIAnimationCharacter*,m_pFMAnimationChanger,GetFMAnimationChanger,SetFMAnimationChanger);
 		std::wstring	m_strTargetAnimation;
-	    virtual void    InternalInit();
-	    virtual void    InternalUpdate(float e_fElpaseTime);
+	    virtual void    InternalInit()override;
+	    virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cFAIMPDIAnimationChangeAIBehavior(TiXmlElement*e_pTiXmlElement);
         cFAIMPDIAnimationChangeAIBehavior(cFAIMPDIAnimationChangeAIBehavior*e_pMPDIAnimationChangeAIBehavior);
 		CLONE_MYSELF(cFAIMPDIAnimationChangeAIBehavior);
         virtual ~cFAIMPDIAnimationChangeAIBehavior();
-        virtual void    Render();
-		virtual void	SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface);
+        virtual void    Render()override;
+		virtual void	SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface)override;
     };
     //===============
     //a destination and a safe distance to avoid animation move over
@@ -37,8 +37,8 @@ namespace FATMING_AI
         //
         GET_SET_DEC(Vector3,m_vDestPos,GetDestPos,SetDestPos);
         GET_SET_DEC(float,m_fSafeDistance,GetSafeDistance,SetSafeDistance);
-	    virtual void    InternalInit();
-	    virtual void    InternalUpdate(float e_fElpaseTime);        
+	    virtual void    InternalInit()override;
+	    virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
         cFAIMPDIAnimationMovingAIBehavior(TiXmlElement*e_pTiXmlElement);

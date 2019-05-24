@@ -35,7 +35,7 @@ void	ShowLogoBGM(size_t _workParameter, size_t _pUri)
 		l_TC.Update();
 		if(!cGameApp::m_sbGamePause)
 			g_pLogoMusic->Update(l_TC.fElpaseTime);
-		Sleep(160);
+		Sleep(10);
 	}
 	g_bThreadFinish = true;
 }
@@ -50,7 +50,7 @@ void	cShowLogoPhase::Init()
 	g_bWaitThreadFinish = true;
 	m_ResourceStamp.StampResource1();
 	SAFE_DELETE(m_pUnpackExpansionPack);
-	m_pUnpackExpansionPack = new cUnpackExpansionPack();
+	//m_pUnpackExpansionPack = new cUnpackExpansionPack();
 	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() 4!");
 	m_bGotoMainPhase = false;
 	cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Title.mpdi");
@@ -81,7 +81,6 @@ void	cShowLogoPhase::Init()
 		//l_ShowLogoBGMThread.join();
 //#endif
 	}
-	m_pUnpackExpansionPack->IsInUnpackProgress();
 	m_ResourceStamp.StampResource2();
 	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() Finish!");
 }
@@ -110,7 +109,9 @@ void	cShowLogoPhase::Update(float e_fElpaseTime)
 		{
 			if( m_bGotoMainPhase )
 			{
-				if( m_pUnpackExpansionPack->IsInUnpackProgress() )
+				//some show main thread can't wait java thread in NDK 16c version
+				//I am lazy to fix this.
+				if(m_pUnpackExpansionPack && m_pUnpackExpansionPack->IsInUnpackProgress() )
 				{
 					m_pUnpackExpansionPack->Update(e_fElpaseTime);
 				}
@@ -143,7 +144,7 @@ void	cShowLogoPhase::Render()
 	if( m_pBGMPDI )
 	{
 		m_pBGMPDI->Render();
-		if( m_pUnpackExpansionPack->IsInUnpackProgress() )
+		if(m_pUnpackExpansionPack && m_pUnpackExpansionPack->IsInUnpackProgress() )
 		{
 			m_pUnpackExpansionPack->Render();
 		}

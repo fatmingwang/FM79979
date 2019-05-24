@@ -10,8 +10,8 @@ namespace FATMING_AI
         GET_SET_DEC(Vector3,m_vDestPos,GetDestPos,SetDestPos);
         //
         GET_SET_DEC(float,m_fCharacterSpeed,GetCharacterSpeed,SetCharacterSpeed);
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cFAIWalkToDestinationAIBehavior(TiXmlElement*e_pTiXmlElement);
@@ -23,11 +23,11 @@ namespace FATMING_AI
     class   cFAIIdleAIBehavior:public cFAIBaseBehave
     {
         sTimeCounter    m_IdleTimeCounter;
-		virtual void    InternalInit()
+		virtual void    InternalInit()override
 		{
 		    m_IdleTimeCounter.Start();
 		}
-		virtual void    InternalUpdate(float e_fElpaseTime)
+		virtual void    InternalUpdate(float e_fElpaseTime)override
 		{
 		    m_IdleTimeCounter.Update(e_fElpaseTime);
 		    if(m_IdleTimeCounter.bTragetTimrReached)

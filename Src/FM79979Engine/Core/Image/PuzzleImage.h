@@ -173,7 +173,7 @@ namespace FATMING_CORE
 	//==========================
 	class cPuzzleImage:virtual	public cBaseImage,virtual	public cNamedTypedObjectVector<cPuzzleImageUnit>,public cNodeISAX
 	{
-		virtual	bool	MyParse(TiXmlElement*e_pRoot);
+		virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
 		void			ProcessAnimationData(TiXmlElement*e_pElement);
 		void			ProcessPuzzleUnit(TiXmlElement*e_pElement,int e_iIndex);
 		void			ProcessDataCheck(TiXmlElement*e_pElement);

@@ -27,10 +27,14 @@
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <AndroidTargetAPI>android-14</AndroidTargetAPI>
+    <AndroidTargetAPI>android-19</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidMinAPI>android-19</AndroidMinAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>
@@ -54,7 +58,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID;DEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
@@ -72,12 +76,12 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-frtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;jnigraphics;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Tegra-Android\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>

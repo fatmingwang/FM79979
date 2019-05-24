@@ -185,7 +185,8 @@ namespace FATMING_CORE
 	void	cPhasePopUpMessager::ProcessYesNoDialogData(TiXmlElement*e_pTiXmlElement)
 	{
 		cButtonDialog*l_pYesNoDialog = cButtonDialog::GetMe(e_pTiXmlElement);
-		ProcessYesNoDialogData(l_pYesNoDialog);
+		if(l_pYesNoDialog)
+			ProcessYesNoDialogData(l_pYesNoDialog);
 		SAFE_DELETE(l_pYesNoDialog);
 	}
 

@@ -18,11 +18,11 @@ namespace FATMING_AI
 		cFAIAnimationCharacter(cFAIAnimationCharacter*e_pFAIAnimationStatus);
 		virtual ~cFAIAnimationCharacter();
 		CLONE_MYSELF(cFAIAnimationCharacter);
-		virtual	bool	IsCharacterBehaviorStatusLock();
-		virtual void*   GetAnimationData();
-		virtual	void	Init();
-		virtual	void	Update(float e_fElpaseTime);
-		virtual	void	Render();
+		virtual	bool	IsCharacterBehaviorStatusLock()override;
+		virtual void*   GetAnimationData()override;
+		virtual	void	Init()override;
+		virtual	void	Update(float e_fElpaseTime)override;
+		virtual	void	Render()override;
 	};
 }
 

@@ -19,17 +19,17 @@ namespace FATMING_AI
         //seprate data,because the data might not we expected,so override this function to convert data and input it to expeted
         //data is a vector,std::vector<void*>
         //or override what u want.
-	    virtual void    InternalInit();
-	    virtual void    InternalUpdate(float e_fElpaseTime);    
+	    virtual void    InternalInit()override;
+	    virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cFAIMultiAITaskBehavior(TiXmlElement*e_pTiXmlElement);
         cFAIMultiAITaskBehavior(cFAIMultiAITaskBehavior*e_pMultiAITaskBehavior);
         virtual ~cFAIMultiAITaskBehavior();
 		CLONE_MYSELF(cFAIMultiAITaskBehavior);
-	    virtual void    SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface);
-		inline  virtual	void    Update(float e_fElpaseTime){ cFAIBaseBehave::Update(e_fElpaseTime);}
-	    virtual inline  void    Render()
+	    virtual void    SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface)override;
+		inline  virtual	void    Update(float e_fElpaseTime)override { cFAIBaseBehave::Update(e_fElpaseTime);}
+	    virtual inline  void    Render()override
 	    {
 	        int l_iCount = this->Count();
 	        for( int i=0;i<l_iCount;++i )

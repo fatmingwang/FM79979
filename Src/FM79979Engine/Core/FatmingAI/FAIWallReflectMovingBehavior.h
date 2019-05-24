@@ -13,8 +13,8 @@ namespace FATMING_AI
 		int						m_iNumWallHit;
 		UT::sTimeCounter		m_CurrentWallHitTC;
 
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
 		GET_SET_DEC(DoButtonGoal_Callback,m_pHittWallCallback,GetHittWallCallback,SetHittWallCallback);
     public:
         DEFINE_TYPE_INFO();

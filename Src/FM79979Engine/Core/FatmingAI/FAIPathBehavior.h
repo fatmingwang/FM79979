@@ -8,8 +8,8 @@ namespace FATMING_AI
     {
 		cCurveManager*	m_pCurveManager;
 		cCurveWithTime	m_CurveWithTime;
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cFAIPathBehavior(TiXmlElement*e_pTiXmlElement);

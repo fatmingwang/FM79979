@@ -51,8 +51,8 @@ namespace FATMING_AI
         //its possible be killed whild AI is done
         cFAIBaseBehave* m_pLastConditionDoneBehavior;
         //input index to active AI,behavior.
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
         //{
         //  if( e_pTargetAIBehavior->Type() == XXXX::TypeID )
         //  {
@@ -70,14 +70,14 @@ namespace FATMING_AI
         //AI_CLONE_AND_CONVERT_TYPE(cFAIBaseBehave,cFAIMachine)
 		CLONE_MYSELF(cFAIMachine);
         //not necessary,it might helpful for debug mode
-        virtual void    Render();
+        virtual void    Render()override;
 		virtual void    DebugRender();
         //after add all Object call this one will set probability and some data.
         virtual void    InitProbability();
-		virtual	void    Destroy(){}
-		virtual	void    Init();
-		virtual	void    Update(float e_fElpaseTime){ cFAIBaseBehave::Update(e_fElpaseTime); }
-		virtual void	SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface);
+		virtual	void    Destroy()override {}
+		virtual	void    Init()override;
+		virtual	void    Update(float e_fElpaseTime)override { cFAIBaseBehave::Update(e_fElpaseTime); }
+		virtual void	SetSrcCharacter(cFAICharacterInterface*e_pAICharacterInterface)override;
 		bool			IsDone();
 		bool			IsBehaviorChanged();
     };

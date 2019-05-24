@@ -183,9 +183,14 @@ it spent me  hours...fuck
 8/Aug/2018
 failed to start with 0xc000007b
 please install openal!
+and make sure VS redistribution has installed(2017) as well
 https://www.start64.com/index.php/64-bit-news/64bit-software-news/454-openal-installer-for-windows-32-and-64bit
 
 24/May/2019
 Android build
+Nvidia Code Works update to R7
 --rtti to -frtti
+please use NDK 16b instead 15c for Texture.cpp(bool	cTexture::LoadImage)
 https://developer.android.com/ndk/guides/cpp-support
+
+

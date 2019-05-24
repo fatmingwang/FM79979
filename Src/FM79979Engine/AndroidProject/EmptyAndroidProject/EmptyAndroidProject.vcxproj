@@ -26,6 +26,7 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidArch>multiple</AndroidArch>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>

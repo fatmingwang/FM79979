@@ -245,7 +245,10 @@ namespace FATMING_CORE
 	//===============
 	//
 	//===============
-#ifdef ANDROID
+#ifndef DEBUG
+#define	USE_HW_DECODE_BITMAP
+#endif
+#if defined(ANDROID) && defined(USE_HW_DECODE_BITMAP)
 	std::string	GetFileFullPathInAndroid(const char* e_strFileName)
 	{
 		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
@@ -328,9 +331,6 @@ namespace FATMING_CORE
 			l_pucPixelData = (unsigned char*)l_pixels;
 			m_iPixelFormat = GL_RGBA;
 			m_iChannel = 4;
-			l_AndroidBitmapInfo.stride;
-			l_AndroidBitmapInfo.format;
-			l_AndroidBitmapInfo.flags;
 			this->m_iWidth = l_AndroidBitmapInfo.width;
 			this->m_iHeight = l_AndroidBitmapInfo.height;
 		}

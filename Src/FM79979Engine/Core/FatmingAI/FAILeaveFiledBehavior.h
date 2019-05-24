@@ -11,8 +11,8 @@ namespace FATMING_AI
 		//for move out of screen safely
 		float				m_fRadius;
 		float				m_fSpeed;
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
 		GETP_SET_DEC(cCurveWithTime,m_CurveWithTime,GetPath,SetPath);
     public:
         DEFINE_TYPE_INFO();
