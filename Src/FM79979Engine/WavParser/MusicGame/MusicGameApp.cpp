@@ -97,12 +97,12 @@ void	cMusicGameApp::Update(float e_fElpaseTime)
 			SoundRecognitionTest(false);
 		}
 		else
-		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 5)
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 1)
 		{
 			this->m_sbDebugFunctionWorking = false;
 		}
 		else
-		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 6)
+		if(m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 2)
 		{
 			this->m_sbDebugFunctionWorking = true;
 		}

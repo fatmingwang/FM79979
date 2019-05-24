@@ -246,7 +246,7 @@ namespace FATMING_CORE
 	//
 	//===============
 #ifndef DEBUG
-#define	USE_HW_DECODE_BITMAP
+//#define	USE_HW_DECODE_BITMAP
 #endif
 #if defined(ANDROID) && defined(USE_HW_DECODE_BITMAP)
 	std::string	GetFileFullPathInAndroid(const char* e_strFileName)
@@ -368,7 +368,7 @@ namespace FATMING_CORE
 		//if loading failed show alert
 		if (!m_uiImageIndex)
 		{
-			ErrorMsg(L"opengl process Image Failed", UT::CharToWchar(m_pstrFullFileName->c_str()));
+			ErrorMsg(L"opengl process Image Failed ", UT::CharToWchar(m_pstrFullFileName->c_str()));
 			return false;
 		}
 	}
@@ -465,7 +465,7 @@ namespace FATMING_CORE
 		//if loading failed show alert
 		if(!m_uiImageIndex)
 		{
-			ErrorMsg(L"opengl process Image Failed",UT::CharToWchar(m_pstrFullFileName->c_str()));
+			ErrorMsg(L"opengl process Image Failed ",UT::CharToWchar(m_pstrFullFileName->c_str()));
 			return false;
 		}
 		return true;
