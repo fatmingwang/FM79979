@@ -95,12 +95,13 @@ cBluffingGirlApp::cBluffingGirlApp(Vector2 e_vGameResolution,Vector2 e_vViewport
 	g_pBluffingGirlApp = this;
 	m_bLeave = false;
 	m_pPhaseManager = 0;
-	//m_pIABSetup = new cIABSetup("BluffingGirl/IAB/IABSetup.xml");
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
 	g_pStageClearFile = new cStageClearFile();
+#ifndef WASM
 	m_spGameNetwork = new cGameNetwork();
+#endif
 }
 
 cBluffingGirlApp::~cBluffingGirlApp()
@@ -117,7 +118,10 @@ cBluffingGirlApp::~cBluffingGirlApp()
 
 void	cBluffingGirlApp::Init()
 {
+	FMLog::LogWithFlag("cBluffingGirlApp::Init start \n", CORE_LOG_FLAG);
+#ifndef WASM
 	cGameApp::Init();
+#endif
 	//SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
 	////for sound volume
 	m_pPhaseManager = new cBluffingGirlPhaseManager();
@@ -154,6 +158,7 @@ void	cBluffingGirlApp::Init()
 	//
 	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase");
 	cChoiceGirlPhase*l_pChoiceGirlPhase = new cChoiceGirlPhase("BluffingGirl/PhaseData/ChoiceGirlPhase.xml");
+	cGameApp::OutputDebugInfoString(L"after new cChoiceGirlPhase");
 	this->m_pPhaseManager->AddObjectNeglectExist(l_pChoiceGirlPhase);
 	///
 	cGameApp::OutputDebugInfoString(L"new cBluffingDiceGame");
@@ -236,6 +241,7 @@ void	cBluffingGirlApp::Init()
 	g_pLoadingProgressCallBack = BGLoading;
 	g_pShowLogoPhase->m_bGotoMainPhase = true;
 	this->m_sTimeAndFPS.Update();
+	FMLog::LogWithFlag("cBluffingGirlApp::Init end \n", CORE_LOG_FLAG);
 }
 bool	g_bTest = false;
 void	cBluffingGirlApp::Update(float e_fElpaseTime)

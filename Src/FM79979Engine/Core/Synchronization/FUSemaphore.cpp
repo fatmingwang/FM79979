@@ -68,8 +68,11 @@ bool cFUSemaphore::Down(uint32 blockTime)
 		clock_gettime(CLOCK_REALTIME, &deadline);
 		
 		deadline.tv_nsec += (blockTime * 1000);
-		
+	#ifndef WASM
 		return sem_timedwait(&semaphoreHandle, &deadline) == 0;
+	#else
+		return true;
+	#endif
 #endif
 	}
 #endif

@@ -1034,22 +1034,36 @@ namespace UT
 		}
 #elif defined(WASM)
 		{
-			std::string l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
+			std::string l_strWASMFile = e_strFileName;
 			fp = fopen(l_strWASMFile.c_str(), e_strMode);
-			if (!fp)
-			{
-				fp = fopen(e_strFileName, e_strMode);
-			}
 			std::string l_strFileName = e_strFileName;
-			l_strFileName += "  :";
+			l_strFileName += ":";
 			l_strFileName += l_strWASMFile;
 			if (!fp)
 			{
-				l_strFileName += " open failed";
+				l_strWASMFile = "assets/" + l_strWASMFile;
+				fp = fopen(l_strWASMFile.c_str(), e_strMode);
+				if (!fp)
+				{
+					l_strFileName = e_strFileName;
+					l_strFileName += ":";
+					l_strFileName += l_strWASMFile;
+				}
+				if (!fp)
+				{
+					l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
+					fp = fopen(l_strWASMFile.c_str(), e_strMode);
+				}
+			}
+			if (fp)
+			{
+				l_strFileName += " open okay";
 			}
 			else
 			{
-				l_strFileName += " open okay";
+				l_strFileName += ":";
+				l_strFileName += l_strWASMFile;
+				l_strFileName += "  :both file open failed";
 			}
 			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}

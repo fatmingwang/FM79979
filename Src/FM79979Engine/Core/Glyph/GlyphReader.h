@@ -25,7 +25,7 @@ public:
 	unsigned char*	m_pFontData;
     wchar_t			m_cMaxGlyph;
     WORD*			m_pTranslatorTable;
-	unsigned long			m_dwNumGlyphs;
+	unsigned long	m_dwNumGlyphs;
 	FILE_GLYPH_ATTR* m_pGlyphs;
 
 

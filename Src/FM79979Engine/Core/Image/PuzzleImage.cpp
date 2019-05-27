@@ -425,6 +425,7 @@ namespace FATMING_CORE
 		for( int i=0;i<this->m_iNumImage;++i )
 		{
 #ifndef RETAILER
+#ifndef WASM//accuatlly in game it doesn't matter
 			if (this->m_pTexture&&m_pTexture->IsSameName(m_pAllPuzzleData[i].strFileName.c_str()))
 			{
 				std::wstring l_strSame = m_pAllPuzzleData[i].strFileName.c_str();
@@ -432,6 +433,7 @@ namespace FATMING_CORE
 				UT::ErrorMsgByFormat(L"PIUnit and PI cannt be same name(%ls),now change name to %ls _Copy", m_pAllPuzzleData[i].strFileName.c_str(), m_pAllPuzzleData[i].strFileName.c_str());
 				m_pAllPuzzleData[i].strFileName = l_strSame;
 			}
+#endif
 #endif
 			cPuzzleImageUnit*l_pUnit = new cPuzzleImageUnit(&m_pAllPuzzleData[i],this);
 			l_pUnit->SetName(m_pAllPuzzleData[i].strFileName);

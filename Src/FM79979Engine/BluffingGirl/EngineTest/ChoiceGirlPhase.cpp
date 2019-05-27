@@ -12,19 +12,15 @@
 //</ChoiceGirlPhase>
 cChoiceGirlPhase::cChoiceGirlPhase(const char*e_strFileName)
 {
-	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase 1");
 	this->SetName(CHOICE_GIRL_PHASE_NAME);
 	m_pCheckFileXmlElement = 0;
 	m_pDownloadPopupMessageXmlElement = 0;
 	m_pDownloadContentPhase = 0;
 	m_pBGMPDI = 0;
-	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase 2");
 	this->m_strFileName = e_strFileName;
 	Vector4	l_vCollideRange(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
-	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase 3");
 	m_pScroller = 0;
 	m_strNextPhaseName = CHOICE_GIRL_STAGE_PHASE_NAME;
-	cGameApp::OutputDebugInfoString(L"new cChoiceGirlPhase 4");
 	//m_pBackButton = new cImageButton(l_pCommonMPDIList->GetObject(L"Back"));
 }
 

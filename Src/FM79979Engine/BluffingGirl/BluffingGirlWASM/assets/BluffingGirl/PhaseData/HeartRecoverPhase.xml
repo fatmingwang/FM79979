@@ -1,0 +1,46 @@
+<cHeartRecoverPhase ShockAddValue="30" ReduceStrgethValue="2" TargetValue="100" Time="60">
+	<BackButton>
+		<cImageButton Name="ChancelButton" cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Return_Button"/>
+	</BackButton>
+	<HeartRecover>
+		<cMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="Fill_Heart" />
+	</HeartRecover>
+	<cNumeralImage PI="BluffingGirl/Image/mmshake.pi" Image0="CountDown_000" Image9="CountDown_000" Pos="121,1123">
+		<NumeralPos>
+			<cSubMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="ReadyToShake" cSubMPDI="CountDown_000" />
+		</NumeralPos>
+	</cNumeralImage>
+	<ShowMPDI>
+		<cMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="AfterSelectGirl" />
+	</ShowMPDI>
+
+
+	<cPhasePopUpMessager Name="Success" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog NoButton="Alert_Board_No_S" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="GainAheart"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Alert_Board_No_S" />
+	</cPhasePopUpMessager>
+
+	<cPhasePopUpMessager Name="Failed" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog NoButton="Alert_Board_No_S" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="Challenge_Fail"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Alert_Board_No_S" />
+	</cPhasePopUpMessager>
+
+	<cPhasePopUpMessager Name="FinishTraning" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog NoButton="Alert_Board_No_S" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="After_Training"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Alert_Board_No_S" />
+	</cPhasePopUpMessager>
+
+
+	<StartButton>
+		<cAssembleImageButton Name="aabb">
+			<cImageButton cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="AfterSelectGirl" cSubMPDI="MmShake_Red_Board" />
+			<cImageButton cMPDIList="BluffingGirl/Image/Shake_Heart.mpdi" cMPDI="AfterSelectGirl" cSubMPDI="How_To_Shake" />
+		</cAssembleImageButton>
+	</StartButton>
+</cHeartRecoverPhase>

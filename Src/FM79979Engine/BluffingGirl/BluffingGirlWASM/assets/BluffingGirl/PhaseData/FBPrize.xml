@@ -1,0 +1,8 @@
+<Root>
+	<cPhasePopUpMessager Name="FBPrize" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog YesButton="Give_Heart"StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Give_Heart"/>
+		</cButtonDialog>
+		<Messenger ButtonName="Give_Heart" />
+	</cPhasePopUpMessager>
+</Root>

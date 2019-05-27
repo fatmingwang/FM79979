@@ -1,0 +1,47 @@
+<Root>
+	<PlayRound TotalRound="3" WinCount="2" />
+	<SpecialDiceRule MPDIList="BluffingGirl/Image/GamePlay.mpdi" MPDI="GamePlay" SpecialValue="0" WorkingSubMPDI="OneNotCall" NoWorkingSubMPDI="Talk_Already" />
+	<DiceRule Min="1" Max="6" PercentForSpecialNumeral1="0.2" NumDice="5" AllDiceCount="10" />
+	<AIData WinCallPercentage="0.7" SkipStep="1,7" ExtraVisibleDice="1,5" SafeToCall="0.5,1" CallByAmount="0.5,0.8" CheatToWin="0.5,0.7" />
+	<DiceTableData FileName="BluffingGirl/PhaseData/GirlStage/DiceData/DiceTable.xml"/>
+	<ImageData>
+		<CatchResult MPDIList="BluffingGirl/Image/GamePlay.mpdi" WinMPDI="Win" LoseMPDI="Bird" />
+		<cImageButton Name="Call" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GamePlay" cSubMPDI="Talk" />
+		<cImageButton Name="Catch" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GamePlay" cSubMPDI="Catch"/>
+		<cImageButton Name="ShowRule" cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GamePlay" cSubMPDI="Help"/>
+		<ShowMPDI>
+			<UseClairvoyant>
+				<cMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="OpenCup" />
+			</UseClairvoyant>
+			<NoUseClairvoyant>
+				<cMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="OpenCup_CantSee" />
+			</NoUseClairvoyant>
+		</ShowMPDI>
+		<ResultMPDI>
+			<UseClairvoyant>
+				<cMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="FinalCheck" />
+			</UseClairvoyant>
+			<NoUseClairvoyant>
+				<cMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="FinalCheck_CantSee" />
+			</NoUseClairvoyant>
+		</ResultMPDI>
+		<FailedMenu>
+			<cClickMouseBehaviorVector Name="FailedMenu">
+				<cImageButton cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GameOver" cSubMPDI="Go_Shop" 	Name="GoToStore"/>
+				<cImageButton cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GameOver" cSubMPDI="Back_To_Main" 	Name="BackToSelectStage"/>
+				<cImageButton cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="GameOver" cSubMPDI="Continue" 	Name="Restart"/>
+			</cClickMouseBehaviorVector>
+		</FailedMenu>
+		<BG>
+			<cMPDI cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main_Nobutton_Noblack" />
+		</BG>
+	</ImageData>
+	<SoundData CallLegalSound="BluffingGirl/Sound/CallClick.wav" CallInlegalSound="BluffingGirl/Sound/CallClickInlegal.wav" />
+	<cPhasePopUpMessager Name="BuyGirl" RenderLastPhase="1" UpdateLastPhase="1">
+		<cButtonDialog YesButton="MaruMaru" NoButton="BatsuBatsu" StripButtonForBG="1">
+			<cMPDI cMPDIList="BluffingGirl/Image/GamePlay.mpdi" cMPDI="Item_Use_Yes"/>
+		</cButtonDialog>
+		<Messenger ButtonName="MaruMaru" />
+		<Messenger ButtonName="BatsuBatsu" />
+	</cPhasePopUpMessager>
+</Root>

@@ -168,10 +168,10 @@ namespace FATMING_CORE
 			l_strInfo += L":";
 			l_strInfo += ValueToStringW(m_ParseTC.fElpaseTime);
 			if (m_ParseTC.fElpaseTime >= 0.5f)
-				cGameApp::WriteLog("*********start*****************");
+				FMLog::LogWithFlag("*********start*****************", CORE_LOG_FLAG);
 			cGameApp::WriteLog(ValueToString(l_strInfo));
 			if (m_ParseTC.fElpaseTime >= 0.5f)
-				cGameApp::WriteLog("*********  end   **************");
+				FMLog::LogWithFlag("*********  end   **************", CORE_LOG_FLAG);
 		}
 	}
 	void	cPreLoadFromInternet::Render()
@@ -183,10 +183,12 @@ namespace FATMING_CORE
 		l_vPos.y += 100;
 		l_strInfo = L"CurrentParsingObject:";
 		l_strInfo += UT::GetFileNameWithoutFullPath(m_strCurrentObjectInfo.c_str(), false);
-		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
+		if(m_strCurrentObjectInfo.length())
+			cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
 		l_vPos.y += 100;
 		l_strInfo = UT::GetFileNameWithoutFullPath(m_strLastObject.c_str(), false);
-		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
+		if(m_strLastObject.length())
+			cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
 		l_vPos.y += 50;
 		l_strInfo = L"Time:";
 		l_strInfo += ValueToStringW(m_ParseTC.fElpaseTime);
@@ -195,12 +197,11 @@ namespace FATMING_CORE
 		l_strInfo = L"TotalTime:";
 		l_strInfo += ValueToStringW(m_fElpaseTime);
 		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
-
 	}
 
 	float	cPreLoadFromInternet::GetProgress()
 	{
-		if (!m_pCurrentTiXmlElement && !this->m_bWaitForDownloadFromInternet)
+		if ((!m_pCurrentTiXmlElement && !this->m_bWaitForDownloadFromInternet) || m_iResourceCount == 0)
 		{
 			return 1.f;
 		}

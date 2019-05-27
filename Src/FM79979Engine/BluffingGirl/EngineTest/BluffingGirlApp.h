@@ -9,8 +9,6 @@
 	class	cBluffingGirlApp:public cGameApp
 	{
 		cBluffingGirlPhaseManager*	m_pPhaseManager;
-		//cIABSetup*		m_pIABSetup;
-		//cStorePhase*		m_pIABMenu;
 	protected:
 		void	Update(float e_fElpaseTime);
 		void	Render();

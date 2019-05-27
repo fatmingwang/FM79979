@@ -8,15 +8,15 @@ namespace FATMING_CORE
 	//<cEventValueCheck KeyData="S">
 	class	cEventKeyUpDectect:public cEventBase
 	{
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventKeyUpDectect(TiXmlElement*e_pTiXmlElement);
 		cEventKeyUpDectect(cEventKeyUpDectect*e_pEventKeyUpDectect);
 		EVENT_CLONE_DEFINE(cEventKeyUpDectect);
 		virtual ~cEventKeyUpDectect();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 
 	class	cEventVariable;
@@ -32,9 +32,9 @@ namespace FATMING_CORE
 		//eDataType		m_eDataType;
 		cEventVariable*	m_pCheckTargetData;
 		cEventVariable*	m_pCompareEventVariable;
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
-		virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
+		virtual	void	InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventValueCheck(TiXmlElement*e_pTiXmlElement);
@@ -42,7 +42,7 @@ namespace FATMING_CORE
 		cEventValueCheck(cEventValueCheck*e_pEventValueCheck);
 		EVENT_CLONE_DEFINE(cEventValueCheck);
 		virtual ~cEventValueCheck();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end namespace FATMING_CORE
 }

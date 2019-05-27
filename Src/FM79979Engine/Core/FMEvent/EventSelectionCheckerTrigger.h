@@ -27,8 +27,8 @@ namespace FATMING_CORE
 		bool				m_bKeepDoingUntilSameResult;
 		bool				m_bShowHint;
 		Vector2				m_vHintPos;
-		virtual	void		InternalUpdate(float e_fElpasedTime);
-		virtual	void		InternalRender();
+		virtual	void		InternalUpdate(float e_fElpasedTime)override;
+		virtual	void		InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventSelectionCheckerTrigger(TiXmlElement*e_pTiXmlElement);
@@ -36,7 +36,7 @@ namespace FATMING_CORE
 		cEventSelectionCheckerTrigger(cEventSelectionCheckerTrigger*e_pEventSelectionCheckerTrigger);
 		EVENT_CLONE_DEFINE(cEventSelectionCheckerTrigger);
 		virtual ~cEventSelectionCheckerTrigger();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 }
 //end namespace FATMING_CORE

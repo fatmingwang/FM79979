@@ -21,6 +21,7 @@ extern int LoadTextureFromDDSData(GLenum target, NvS32 startLevel, const NVHHDDS
 extern UIImage*	glToUIImage();
 extern void		captureToPhotoAlbum();
 #endif 
+//#define	ENABLE_FORCE_TRY_TO_PARSE_DDS
 namespace FATMING_CORE
 {
 	//if graphic card does not support non power of two,set as false
@@ -302,7 +303,7 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pstrFullFileName);
 		m_pstrFullFileName = new std::string;
 		*m_pstrFullFileName = e_strImageFileName;
-#ifndef RETAILER//default load dds
+#ifdef ENABLE_FORCE_TRY_TO_PARSE_DDS	//default load dds
 		std::string l_strDDSFileName = ChangeFileExtensionName(m_pstrFullFileName->c_str(), "dds");
 		if (UT::IsFileExists(l_strDDSFileName.c_str()))
 		{
@@ -388,7 +389,7 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pstrFullFileName);
 		m_pstrFullFileName = new std::string;
 		*m_pstrFullFileName = e_strImageFileName;
-#ifndef RETAILER//default load dds
+#ifdef ENABLE_FORCE_TRY_TO_PARSE_DDS	//default load dds
 		std::string l_strDDSFileName = ChangeFileExtensionName(m_pstrFullFileName->c_str(), "dds");
 		if (UT::IsFileExists(l_strDDSFileName.c_str()))
 		{

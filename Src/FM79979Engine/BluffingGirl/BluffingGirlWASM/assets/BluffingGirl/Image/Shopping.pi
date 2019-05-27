@@ -1,0 +1,10 @@
+<!-- Author:scrr,Time:2014/9/11 ¤W¤È 11:18:06 -->
+<PuzzleImage OriginalNameSort="Buy_Heart,Shop_Rightnow,Buy_Glass,Buy_First_Gift,Buy_Glass_10,Buy_Glass_25,Buy_Glass_50" ImageName="Shopping.png" Count="7" GeneratePuzzleimageUnit="0">
+    <PuzzleUnit Name="Buy_First_Gift" UV="0.001953125,0.1542969,0.6201172,0.3046875" OffsetPos="4,1" Size="633,154" OriginalSize="640,157" ShowPosInPI="2,158" />
+    <PuzzleUnit Name="Buy_Glass" UV="0.001953125,0.3066406,0.6191406,0.4570313" OffsetPos="5,1" Size="632,154" OriginalSize="640,157" ShowPosInPI="2,314" />
+    <PuzzleUnit Name="Buy_Glass_10" UV="0.002929688,0.5263672,0.6201172,0.6767578" OffsetPos="5,1" Size="632,154" OriginalSize="640,157" ShowPosInPI="3,539" />
+    <PuzzleUnit Name="Buy_Glass_25" UV="0.001953125,0.6777344,0.6191406,0.828125" OffsetPos="5,1" Size="632,154" OriginalSize="640,157" ShowPosInPI="2,694" />
+    <PuzzleUnit Name="Buy_Glass_50" UV="0.001953125,0.8310547,0.6191406,0.9814453" OffsetPos="5,1" Size="632,154" OriginalSize="640,157" ShowPosInPI="2,851" />
+    <PuzzleUnit Name="Buy_Heart" UV="0.001953125,0.001953125,0.6201172,0.1523438" OffsetPos="5,3" Size="633,154" OriginalSize="640,161" ShowPosInPI="2,2" />
+    <PuzzleUnit Name="Shop_Rightnow" UV="0.7226563,0.015625,0.8886719,0.06835938" OffsetPos="0,0" Size="170,54" OriginalSize="170,54" ShowPosInPI="740,16" />
+</PuzzleImage>

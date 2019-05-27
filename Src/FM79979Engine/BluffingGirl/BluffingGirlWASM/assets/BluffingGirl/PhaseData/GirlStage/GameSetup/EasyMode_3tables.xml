@@ -1,0 +1,28 @@
+<Root>
+	<SpecialDiceRule MPDIList="Image/Dice/Dice.mpdi" SpecialValue="0" WorkingSubMPDI="OneNotCall" NoWorkingSubMPDI="OneCalled" />
+	<DiceRule Min="1" Max="6" PercentForSpecialNumeral1="0.2" NumDice="5" AllDiceCount="15" />
+	<AIData WinCallPercentage="0.7" SkipStep="1,7" ExtraVisibleDice="0,5" SafeToCall="0.5,1" CallByAmount="0.3,0.8" CheatToWin="0.2,0.7" />
+	<DiceTableData FileName="PhaseData/GirlStage/DiceData/DiceTable.xml"/>
+	<ImageData>
+		<DiceResult PI="Image/Dice/Dice.pi" CallDicePointImagePos="200,450,0" CallDicePointImagePrefixName="Probability board_point" CallDiceCountImagePos="200,500,0" CallDiceCountImagePrefixName="congratulation_"/>
+		<CallHint MPDIList="Image/Dice/Dice.mpdi" MPDI="Call" PlayerCall="PlayerCall" AICall="AICall" />
+		<CatchHint MPDIList="Image/Dice/Dice.mpdi" MPDI="Catch" PlayerCatch="PlayerCatch" AICatch="AICatch" />
+		<CatchResult MPDIList="Image/Dice/Dice.mpdi" WinMPDI="Win" LoseMPDI="Lose" />
+		<cImageButton Name="Call" PI="Image/Dice/Dice.pi" Image="Call" Pos="500,500" />
+		<cImageButton Name="Open" PI="Image/Dice/Dice.pi" Image="Open" Pos="500,550" />
+		<FailedMenu>
+			<cClickMouseBehaviorVector Name="FailedMenu">
+				<cAssembleImageButton Name="GoToStore">
+					<cMPDI MPDIList="Image/Dice/Dice.mpdi" MPDI="GoToStore"/>
+				</cAssembleImageButton>
+				<cAssembleImageButton Name="BackToSelectStage">
+					<cMPDI MPDIList="Image/Dice/Dice.mpdi" MPDI="BackToSelectStage"/>
+				</cAssembleImageButton>
+				<cAssembleImageButton Name="Restart">
+					<cMPDI MPDIList="Image/Dice/Dice.mpdi" MPDI="Restart"/>
+				</cAssembleImageButton>
+			</cClickMouseBehaviorVector>
+		</FailedMenu>
+	</ImageData>
+	<SoundData CallLegalSound="Sound/CallClick.wav" CallInlegalSound="Sound/CallClickInlegal.wav" />
+</Root>

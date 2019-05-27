@@ -18,8 +18,8 @@ namespace FATMING_CORE
 		std::wstring			m_strEventObjectInstanceName;
 		std::wstring*			m_pstrStatusName;
 		//
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
 	public:
 		DEFINE_TYPE_INFO();
 		//cEventObjectStatusCheckerTrigger();
@@ -27,7 +27,7 @@ namespace FATMING_CORE
 		cEventObjectStatusCheckerTrigger(cEventObjectStatusCheckerTrigger*e_pEventObjectStatusCheckerTrigger);
 		EVENT_CLONE_DEFINE(cEventObjectStatusCheckerTrigger);
 		virtual ~cEventObjectStatusCheckerTrigger();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 
 	};
 //end namespace

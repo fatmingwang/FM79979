@@ -65,8 +65,8 @@ void	cShowLogoPhase::Init()
 			m_pBGMPDI->Update(0.5f);
 		}
 	}
+#ifndef WASM
 	g_pLogoMusic = new cOpanalOgg(this,"BluffingGirl/Sound/Opening.ogg",true);
-	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() 6!");
 	if(g_pLogoMusic)
 	{
 		g_pLogoMusic->Play(true);
@@ -81,6 +81,11 @@ void	cShowLogoPhase::Init()
 		//l_ShowLogoBGMThread.join();
 //#endif
 	}
+#else
+	//g_pLogoMusic = new cOpanalOgg(this, "BluffingGirl/Sound/Opening.ogg", false);
+	//if (g_pLogoMusic)
+	//	g_pLogoMusic->Play(true);
+#endif
 	m_ResourceStamp.StampResource2();
 	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() Finish!");
 }

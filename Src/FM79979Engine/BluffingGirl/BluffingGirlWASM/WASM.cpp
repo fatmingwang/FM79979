@@ -6,6 +6,10 @@
 #include <SDL/SDL.h>
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
+#define TEST_RUN
+cMPDI*g_pMPDITest = nullptr;
+cBasicSound*g_pSound = nullptr;
+
 void handle_key_up(SDL_keysym* keysym)
 {
 	switch (keysym->sym)
@@ -69,6 +73,14 @@ void Loop()
 {
 	if (g_pGameApp)
 		g_pGameApp->Run();
+	if (g_pMPDITest)
+	{
+		g_pMPDITest->Update(0.016f);
+		g_pMPDITest->Render();
+	}
+	if (g_pSound)
+		g_pSound->Update(0.016f);
+#ifndef TEST_RUN
 	if (g_pPreLoadFromInternet)
 	{
 		g_pPreLoadFromInternet->Run();
@@ -83,6 +95,7 @@ void Loop()
 		}
 	}
 	else
+#endif
 	{
 		process_events();
 	}
@@ -151,11 +164,6 @@ int main()
 	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
 	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
 	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
-	printf("SDLNet_Init\n");
-	SDLNet_Init();
-	printf("SDLNet_Quit\n");
-	SDLNet_Quit();
-	printf("SDL_Init\n");
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
@@ -163,24 +171,37 @@ int main()
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
-	printf("SDL_SetVideoMode \n");
+	FMLog::Log("SDL_SetVideoMode \n", false);
 	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
 	{
 		return -1;
 	}
 	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
-	printf("new cPreLoadFromInternet\n");
+	FMLog::Log("new cPreLoadFromInternet\n", false);
 	//please copy Media/BluffingGirl folder into your server repository
 	g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadFile.xml");
 	if (l_pSurf_Display)
 	{
+		FMLog::Log("SDL surface exists start create our game\n", false);
 		//cGameApp::m_sbDebugFunctionWorking = true;
 		cGameApp::m_svGameResolution.x = 720;
 		cGameApp::m_svGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
-		//cMPDIList*l_pMPDIList = cGameApp::GetMPDIListByFileName(L"assets/Title.mpdi");
+		FMLog::Log("start to emscripten_set_main_loop\n", false);
+#ifdef TEST_RUN
+		cMPDIList*l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
+		if(l_pMPDILIst)
+		{ 
+			g_pMPDITest = l_pMPDILIst->GetObject(L"Main_Bg_Animation");
+		}
+		g_pSound = new cOpanalOgg(nullptr, "BluffingGirl/Sound/MainBG.ogg", true);
+		if (g_pSound)
+		{
+			g_pSound->Play(true);
+		}
+#endif
 		emscripten_set_main_loop(&Loop, 0, 1);
 	}
 	return 0;

@@ -217,7 +217,7 @@ namespace FATMING_CORE
 				m_iFormat = AL_FORMAT_STEREO16;
 			else
 			{
-				UT::ErrorMsg(L"sorry there is too much channel data",ValueToStringW(m_pVorbisInfo->channels).c_str());
+				UT::ErrorMsg(L"sorry there is too much channel data ",ValueToStringW(m_pVorbisInfo->channels).c_str());
 			}
 			cBasicSound::SetChannelByFormat(m_iFormat);
 			alGenBuffers(2, m_uiStreamBuffers);

@@ -228,8 +228,7 @@ namespace	FATMING_CORE
 //#else
 //		glEnableClientState(GL_VERTEX_ARRAY);
 //#endif
-		FMLog::WriteLog("init shader");
-		FMLog::LogWithFlag("start to create shader", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("init shader start", CORE_LOG_FLAG,true);
 		//2d image shader
 		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
 		//for non texture shader
@@ -239,9 +238,9 @@ namespace	FATMING_CORE
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...
 		CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
-		FMLog::WriteLog("init shader ok");
+		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
 		m_sTimeAndFPS.Update();
-		FMLog::WriteLog("parse font data");
+		FMLog::LogWithFlag("parse font data", CORE_LOG_FLAG, true);
 		if (!m_spGlyphFontRender)
 		{
 #ifdef WASM
@@ -249,6 +248,7 @@ namespace	FATMING_CORE
 #else
 			m_spGlyphFontRender = new cGlyphFontRender("Font", 3000);
 #endif
+			FMLog::LogWithFlag("check font image", CORE_LOG_FLAG, true);
 			if (!m_spGlyphFontRender->GetFontImage())
 			{
 				SAFE_DELETE(m_spGlyphFontRender);
@@ -259,9 +259,9 @@ namespace	FATMING_CORE
 			}
 		}
 		if (!m_spGlyphFontRender)
-			FMLog::WriteLog("parse font data failed");
+			FMLog::LogWithFlag("font create failed", CORE_LOG_FLAG, true);
 		else
-			FMLog::WriteLog("parse font data ok");
+			FMLog::LogWithFlag("font create ok", CORE_LOG_FLAG, true);
 		if (!m_spstrErrorMsgString)
 			m_spstrErrorMsgString = new std::wstring;
 		m_sTimeAndFPS.Update();

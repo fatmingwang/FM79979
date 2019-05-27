@@ -1,0 +1,168 @@
+<MPDIList Name="Title_mpdi" Count="7" MPDIVersion="1.3" PICount="4" ImageName="Title.pi,Online_Title.pi,Heading.pi,Title_Bg.pi">
+    <MultiPathDynamicImage Name="Push_Start" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="4.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Start" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="173.00,592.00,0.00" Time="0.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,0.80,0.80,0.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="1" Position="173.00,592.00,0.00" Time="1.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,0.80,0.80,1.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="2" Position="173.00,592.00,0.00" Time="2.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="3" Position="173.00,592.00,0.00" Time="3.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,0.80,0.80,1.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="4" Position="173.00,592.00,0.00" Time="4.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_Start" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Push_Start_In" PathCount="2" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="4.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Start" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="6" LOD="1">
+            <PointDataList Index="0" Position="173.00,592.00,0.00" Time="0.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,0.80,0.80,1.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="1" Position="173.00,592.00,0.00" Time="1.000000" Size="453.60,82.80" Scale="1.20,1.20" Color="1.00,0.80,0.80,1.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="2" Position="173.00,592.00,0.00" Time="1.300000" Size="650.16,347.07" Scale="1.72,5.03" Color="1.00,0.80,0.80,1.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="3" Position="173.00,592.00,0.00" Time="1.400000" Size="650.16,347.07" Scale="1.72,5.03" Color="1.00,0.80,0.80,0.50" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="4" Position="173.00,592.00,0.00" Time="1.500000" Size="801.36,478.86" Scale="2.12,6.94" Color="1.00,0.80,0.80,0.00" PIName="Title" ImageName="Title_Start" />
+            <PointDataList Index="5" Position="173.00,592.00,0.00" Time="1.800000" Size="650.16,0.00" Scale="1.72,0.00" Color="1.00,0.80,0.80,0.00" PIName="Title" ImageName="Title_Start" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Join_Players" PathCount="5" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.40,0.40,0.40,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="5.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.40,0.40,0.40,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Check_Players" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="132.00,259.00,0.00" Time="0.000000" Size="448.00,66.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Check_Players" />
+            <PointDataList Index="1" Position="132.00,259.00,0.00" Time="5.000000" Size="448.00,66.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Check_Players" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Players_2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="150.00,410.00,0.00" Time="0.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_2" />
+            <PointDataList Index="1" Position="150.00,410.00,0.00" Time="5.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Players_3" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="150.00,620.00,0.00" Time="0.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_3" />
+            <PointDataList Index="1" Position="150.00,620.00,0.00" Time="5.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Players_4" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="150.00,830.00,0.00" Time="0.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_4" />
+            <PointDataList Index="1" Position="150.00,830.00,0.00" Time="5.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Players_4" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Wait_Connect" PathCount="6" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="6.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.80,0.80,0.80,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="6.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.80,0.80,0.80,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Server_Ip" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="117.00,411.00,0.00" Time="0.000000" Size="490.00,183.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Server_Ip" />
+            <PointDataList Index="1" Position="117.00,411.00,0.00" Time="6.000000" Size="490.00,183.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Server_Ip" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Total_Players" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="126.00,656.00,0.00" Time="0.000000" Size="284.00,60.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Total_Players" />
+            <PointDataList Index="1" Position="126.00,656.00,0.00" Time="6.000000" Size="284.00,60.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Total_Players" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Total_Joint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="124.00,780.00,0.00" Time="0.000000" Size="284.00,68.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Total_Joint" />
+            <PointDataList Index="1" Position="124.00,780.00,0.00" Time="6.000000" Size="284.00,68.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Total_Joint" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Wait_Connect" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="127.00,212.00,0.00" Time="0.000000" Size="460.00,119.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Wait_Connect" />
+            <PointDataList Index="1" Position="127.00,212.00,0.00" Time="6.000000" Size="460.00,119.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Wait_Connect" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Dot_001" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="427.00,252.00,0.00" Time="0.000000" Size="173.00,57.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Dot_001" />
+            <PointDataList Index="1" Position="427.00,252.00,0.00" Time="0.500000" Size="173.00,57.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Dot_002" />
+            <PointDataList Index="2" Position="427.00,252.00,0.00" Time="1.000000" Size="173.00,57.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Dot_003" />
+            <PointDataList Index="3" Position="427.00,252.00,0.00" Time="1.500000" Size="173.00,57.00" Scale="1.00,1.00" PIName="Title_Bg" ImageName="Dot_004" />
+            <PointDataList Index="4" Position="427.00,252.00,0.00" Time="2.000000" Size="173.00,57.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Title_Bg" ImageName="Dot_001" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Open_Game" PathCount="4" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.40,0.40,0.40,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="5.000000" Size="721.92,1283.10" Scale="1.41,1.41" Color="0.40,0.40,0.40,1.00" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Online_Rule" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="53.00,81.00,0.00" Time="0.000000" Size="559.00,305.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Online_Rule" />
+            <PointDataList Index="1" Position="53.00,81.00,0.00" Time="5.000000" Size="559.00,305.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Online_Rule" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Open_Game" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="154.00,583.00,0.00" Time="0.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Open_Game" />
+            <PointDataList Index="1" Position="154.00,583.00,0.00" Time="5.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Open_Game" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Join_Game" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="154.00,811.00,0.00" Time="0.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Join_Game" />
+            <PointDataList Index="1" Position="154.00,811.00,0.00" Time="5.000000" Size="424.00,156.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Join_Game" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Title" PathCount="3" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="7.000000">
+        <CueToStartCurvesWithTime Name="Title_Blackbg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="325.00,602.00,0.00" Time="0.000000" Size="750.08,1299.84" Scale="11.72,20.31" Color="1.00,1.00,0.00,1.00" PIName="Title" ImageName="Title_Blackbg" />
+            <PointDataList Index="1" Position="325.00,602.00,0.00" Time="7.000000" Size="750.08,1299.84" Scale="11.72,20.31" Color="1.00,1.00,0.00,1.00" PIName="Title" ImageName="Title_Blackbg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_WH" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="350.00,542.00,0.00" Time="0.000000" Size="1122.00,768.00" Scale="6.00,6.00" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_WH" />
+            <PointDataList Index="1" Position="350.00,542.00,0.00" Time="0.500000" Size="1122.00,768.00" Scale="6.00,6.00" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_WH" />
+            <PointDataList Index="2" Position="178.00,542.00,0.00" Time="0.800000" Size="187.00,128.00" Scale="1.00,1.00" PIName="Title" ImageName="Title_WH" />
+            <PointDataList Index="3" Position="178.00,542.00,0.00" Time="7.000000" Size="187.00,128.00" Scale="1.00,1.00" PIName="Title" ImageName="Title_WH" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Horse" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="140.00,311.00,0.00" Time="0.000000" Size="455.00,376.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_Horse" />
+            <PointDataList Index="1" Position="140.00,311.00,0.00" Time="1.500000" Size="455.00,376.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Title" ImageName="Title_Horse" />
+            <PointDataList Index="2" Position="140.00,311.00,0.00" Time="3.000000" Size="455.00,376.00" Scale="1.00,1.00" PIName="Title" ImageName="Title_Horse" />
+            <PointDataList Index="3" Position="140.00,311.00,0.00" Time="5.000000" Size="455.00,376.00" Scale="1.00,1.00" PIName="Title" ImageName="Title_Horse" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Select_Mode" PathCount="8" PlayCount="1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="Multi_Bg" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="106.00,186.00,0.00" Time="0.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+            <PointDataList Index="1" Position="106.00,186.00,0.00" Time="2.000000" Size="721.92,1283.10" Scale="1.41,1.41" PIName="Title_Bg" ImageName="Multi_Bg" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Heading" StartTime="0.000000" AnchorType="CenterDown" Count="4" LOD="1">
+            <PointDataList Index="0" Position="143.00,-487.00,0.00" Time="0.000000" Size="569.00,314.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading" />
+            <PointDataList Index="1" Position="143.00,-487.00,0.00" Time="0.200000" Size="569.00,314.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading" />
+            <PointDataList Index="2" Position="143.00,-18.00,0.00" Time="0.400000" Size="569.00,314.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading" />
+            <PointDataList Index="3" Position="143.00,-18.00,0.00" Time="2.000000" Size="569.00,314.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Heading_Dicecup" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterDown" Count="8" LOD="1">
+            <PointDataList Index="0" Position="-291.00,148.00,0.00" Time="0.000000" Size="170.00,209.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="1" Position="-291.00,148.00,0.00" Time="0.400000" Size="170.00,209.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="2" Position="71.00,148.00,0.00" Time="0.700000" Size="170.00,209.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="3" Position="-12.00,150.00,0.00" Time="0.800000" Size="170.00,209.00" Scale="1.00,1.00" Angles="0.00,0.00,30.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="4" Position="-39.00,150.00,0.00" Time="1.100000" Size="170.00,209.00" Scale="1.00,1.00" Angles="0.00,0.00,40.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="5" Position="-39.00,149.00,0.00" Time="1.200000" Size="170.00,209.00" Scale="1.00,1.00" Angles="0.00,0.00,40.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="6" Position="71.00,148.00,0.00" Time="1.300000" Size="170.00,209.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading_Dicecup" />
+            <PointDataList Index="7" Position="71.00,148.00,0.00" Time="2.000000" Size="170.00,209.00" Scale="1.00,1.00" PIName="Heading" ImageName="Heading_Dicecup" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Play" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="149.00,430.00,0.00" Time="0.000000" Size="404.00,99.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Play" />
+            <PointDataList Index="1" Position="150.00,430.00,0.00" Time="0.666667" Size="404.00,99.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Play" />
+            <PointDataList Index="2" Position="150.00,430.00,0.00" Time="1.333333" Size="404.00,99.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Play" />
+            <PointDataList Index="3" Position="150.00,430.00,0.00" Time="2.000000" Size="404.00,99.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Play" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Play_With" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="150.00,560.00,0.00" Time="0.000000" Size="404.00,102.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Play_With" />
+            <PointDataList Index="1" Position="150.00,560.00,0.00" Time="0.666667" Size="404.00,102.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Play_With" />
+            <PointDataList Index="2" Position="150.00,560.00,0.00" Time="1.333333" Size="404.00,102.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Play_With" />
+            <PointDataList Index="3" Position="150.00,560.00,0.00" Time="2.000000" Size="404.00,102.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Play_With" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Title_Teach" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="150.00,694.00,0.00" Time="0.000000" Size="404.00,102.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Teach" />
+            <PointDataList Index="1" Position="150.00,694.00,0.00" Time="0.666667" Size="404.00,102.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Title_Teach" />
+            <PointDataList Index="2" Position="150.00,694.00,0.00" Time="1.333333" Size="404.00,102.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Teach" />
+            <PointDataList Index="3" Position="150.00,694.00,0.00" Time="2.000000" Size="404.00,102.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Title_Teach" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Teach_Movie" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="149.00,825.00,0.00" Time="0.000000" Size="404.00,103.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Teach_Movie" />
+            <PointDataList Index="1" Position="149.00,825.00,0.00" Time="0.666667" Size="404.00,103.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Teach_Movie" />
+            <PointDataList Index="2" Position="149.00,825.00,0.00" Time="1.333333" Size="404.00,103.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Teach_Movie" />
+            <PointDataList Index="3" Position="149.00,825.00,0.00" Time="2.000000" Size="404.00,103.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Teach_Movie" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Fb_Fanclub" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="149.00,963.00,0.00" Time="0.000000" Size="404.00,103.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Fb_Fanclub" />
+            <PointDataList Index="1" Position="149.00,963.00,0.00" Time="0.666667" Size="404.00,103.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="Online_Title" ImageName="Fb_Fanclub" />
+            <PointDataList Index="2" Position="149.00,963.00,0.00" Time="1.333333" Size="404.00,103.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Fb_Fanclub" />
+            <PointDataList Index="3" Position="149.00,963.00,0.00" Time="2.000000" Size="404.00,103.00" Scale="1.00,1.00" PIName="Online_Title" ImageName="Fb_Fanclub" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

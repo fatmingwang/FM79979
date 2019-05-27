@@ -3,6 +3,7 @@
 #include "../XML/XMLLoader.h"
 #include "../GameplayUT/StringCompress.h"
 #include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Log/FMLog.h"
 GlyphReader::GlyphReader():cSmartObject(this)
 {
 	m_pFontData = 0;
@@ -64,7 +65,7 @@ bool GlyphReader::LoadFile( const char* strFileName)
 
 bool	GlyphReader::IsLegalCharacter(wchar_t e_Character)
 {
-	if(e_Character > this->m_cMaxGlyph)
+	if(e_Character >= this->m_cMaxGlyph)
 		return false;
 	if( m_pTranslatorTable[e_Character]<m_dwNumGlyphs )
 	{
@@ -87,7 +88,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 		assert(0&&"open file failed");
 		return false;
 	}
-
+	FMLog::LogWithFlag("LoadFontDataFile start\n", CORE_LOG_FLAG);
 	BYTE*	l_pData = (BYTE*)m_pFontData;
     // Check version of file (to make sure it matches up with the FontMaker tool)
     unsigned int dwFileVersion = *((unsigned int*)(l_pData)); l_pData += sizeof(unsigned int);
@@ -111,8 +112,10 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
     }
     else
     {
+		FMLog::LogWithFlag("Font data Incorrect version number on font file!\n", CORE_LOG_FLAG);
         //ATG_PrintError( "Incorrect version number on font file!\n" );
         return false;
     }
+	FMLog::LogWithFlag("Font data parse finish\n", CORE_LOG_FLAG);
 	return true;
 }

@@ -89,7 +89,7 @@ namespace FMLog
 		std::string	l_str = "GameApp___ ";
 		l_str += ValueToString(e_str);
 		LOGI("%s", l_str.c_str());
-#elif	defined(IOS)
+#elif	defined(IOS) || defined(WASM)
 		std::string l_str = ValueToString(e_str);		l_str += "\n";
 		printf(l_str.c_str());
 #endif
@@ -118,7 +118,7 @@ namespace FMLog
 		std::string	l_str = "GameApp___ ";
 		l_str += UT::WcharToChar(e_str);
 		LOGI("%s", l_str.c_str());
-#elif	defined(IOS)
+#elif	defined(IOS)|| defined(WASM)
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
 		printf(l_str.c_str());
 #endif

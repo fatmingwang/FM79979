@@ -70,11 +70,11 @@ public:
 	//while bone and animation has been assigned,refresh time for skinning
 	void	RefreshAnimationData();
 	//for current time to add destination time
-	void	Update(float elapsedTime);
+	virtual void	Update(float elapsedTime)override;
 	void	JointUpdate(float elapsedTime);
 	//to specification time
 	void	SetCurrentAnimationTime(float e_fCurrentTime);
-	virtual	void	Render(WCHAR*e_strShaderName = SKINNING_MESH_SHADER);
+	virtual	void	Render(WCHAR*e_strShaderName = SKINNING_MESH_SHADER)override;
 	virtual	void	RenderSkeleton();
 	void			RenderSkeletonName(float*e_pfProjection,float*e_pfMatMV,int*e_piViewport);
 	//for debug
