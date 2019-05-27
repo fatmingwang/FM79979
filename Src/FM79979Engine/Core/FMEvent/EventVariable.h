@@ -77,7 +77,7 @@ namespace FATMING_CORE
 		int						GetDataSize();
 		std::wstring			ConvertToString();
 		virtual	void			Destroy();
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
 
     //<cEventVariableList Name="Player1Data" Type="void" Value="30" />
@@ -96,16 +96,16 @@ namespace FATMING_CORE
 		virtual ~cEventVariableList();
 		DEFINE_TYPE_INFO();
 		//
-		virtual	bool			RemoveObject(int e_iIndex);
-		virtual	bool			AddObjectNeglectExist(cEventVariable* e_pcEventVariable);
+		virtual	bool			RemoveObject(int e_iIndex)override;
+		virtual	bool			AddObjectNeglectExist(cEventVariable* e_pcEventVariable)override;
 		//after add or remove object call this
 		void					DataReorganize();
 		//
 		void					SetData(void*e_pData,int e_iSize);
 		void*					GetData();
 		int						DataSize();
-		virtual	void			Destroy();
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	void			Destroy()override;
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
     //<cEventVariableList Name="Player1Data" Type="void" Value="30" >
 	   // <cEventVariable Name="InMoney" Type="int" Value="6" />

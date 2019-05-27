@@ -40,9 +40,9 @@ namespace FATMING_CORE
 		cEventObjectStatus(cEventObjectStatus*e_pEventObjectStatus);
 		CLONE_MYSELF(cEventObjectStatus);
 		virtual ~cEventObjectStatus(){}
-		virtual	void	Update(float e_fElpaseTime);
+		virtual	void	Update(float e_fElpaseTime)override;
 		//cEventObjectStatus(cEventObjectStatus*e_pEventObjectStatus);
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
 
 	//=========================
@@ -60,7 +60,7 @@ namespace FATMING_CORE
 	//</cEventObjectInstance>
 	class   cEventObjectInstance:public cEventObjectStatus,public cClickMouseBehavior
 	{
-		virtual bool InternalCollide(int e_iPosX,int e_iPosY);
+		virtual bool InternalCollide(int e_iPosX,int e_iPosY)override;
 		cEventObject*m_pCurrentEventObjectStatusData;
 
 		GET_SET_DEC(cEventInstance*,m_pCurrentEventInstance,GetCurrentEventInstance,SetCurrentEventInstance);
@@ -78,14 +78,14 @@ namespace FATMING_CORE
 		cEventObjectInstance(cEventObjectInstance*e_pEventObjectStatus);
 		CLONE_MYSELF(cEventObjectInstance);
 		virtual ~cEventObjectInstance();
-		virtual	bool    SetCurrentWorkingObject(int e_iIndex,bool e_bRestart = true);
-		virtual void	MouseMove(int e_iPosX,int e_iPosY);
-        virtual void	MouseDown(int e_iPosX,int e_iPosY);
-        virtual void    MouseUp(int e_iPosX,int e_iPosY);
-		virtual	void	Init();
-		virtual	void	Update(float e_fElpaseTime);
-		virtual	void	Render();
-		virtual	void	Destroy();
+		virtual	bool    SetCurrentWorkingObject(int e_iIndex,bool e_bRestart = true)override;
+		virtual void	MouseMove(int e_iPosX,int e_iPosY)override;
+        virtual void	MouseDown(int e_iPosX,int e_iPosY)override;
+        virtual void    MouseUp(int e_iPosX,int e_iPosY)override;
+		virtual	void	Init()override;
+		virtual	void	Update(float e_fElpaseTime)override;
+		virtual	void	Render()override;
+		virtual	void	Destroy()override;
 		bool			IsAllStatusWorking(){return m_bAllStatusWorking;}
 		void			SetAllStatusWorking(bool e_bAllStatusWorking);
 
@@ -98,7 +98,7 @@ namespace FATMING_CORE
 		//if not clone ensure data maintain
 		void	AddEventInstance(cEventInstance*e_pEventInstance,bool e_bClone = true);
 		virtual	void	CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName);
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
 
 	////typedef cFMWorkingObjectChanger<cObjectAndName<cEventObject>>	cEventObjecttStatus;

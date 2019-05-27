@@ -18,19 +18,19 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO();
 		cEventBase();
 		virtual ~cEventBase();
-		virtual	void				Init();
-		virtual	void				Update(float e_fElpasedTime);
-		virtual	void				Render();
+		virtual	void				Init()override;
+		virtual	void				Update(float e_fElpasedTime)override;
+		virtual	void				Render()override;
 		//while m_bSatisfiedCondition is true render is skip but ForceRender call internal render
 		virtual	void				ForceRender();
 		//to get current info
-		virtual	void				DebugRender(){}
-		virtual	const WCHAR*		GetNextPhaseName(){ return 0; }
+		virtual	void				DebugRender()override {}
+		virtual	const WCHAR*		GetNextPhaseName()override { return 0; }
         //if resource is same return true or false
         bool						IsResourceSame(cEventBase*e_pEventBase);
 		virtual	void				CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName);
         virtual NamedTypedObject*   GetResourcePointer(){return 0;}
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 		TiXmlElement*				GetMyTiXmlElement();
 		virtual	void				FetchData(const WCHAR*e_strPhaseName,NamedTypedObject*e_pNamedTypedObject);
 	};

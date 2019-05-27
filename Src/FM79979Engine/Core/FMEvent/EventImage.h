@@ -7,7 +7,7 @@ namespace   FATMING_CORE
     {
         //==================================    
         cBaseImage*m_pImage;//it's possible could be PIUnit
-		virtual void    InternalRender();
+		virtual void    InternalRender()override;
     public:
         DEFINE_TYPE_INFO();
         cEventImage(Vector3 e_vPos,Vector2 e_vSize,cBaseImage*e_pImage);
@@ -16,8 +16,8 @@ namespace   FATMING_CORE
         virtual ~cEventImage(){}        
 		EVENT_CLONE_DEFINE(cEventImage);
         cBaseImage*					GetImage(){return m_pImage;}
-		virtual NamedTypedObject*   GetResourcePointer();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual NamedTypedObject*   GetResourcePointer()override;
+		virtual	TiXmlElement*		ToTiXmlElement()override;
     };
 }
 //end namespace

@@ -16,9 +16,9 @@ namespace FATMING_CORE
 		cEventVariable*			m_pStatusNameByVariable;
 		//
 		std::wstring*			m_pstrStatusName;
-		virtual	void			InternalInit();
-		virtual	void			InternalUpdate(float e_fElpasedTime);
-		virtual	void			InternalRender();
+		virtual	void			InternalInit()override;
+		virtual	void			InternalUpdate(float e_fElpasedTime)override;
+		virtual	void			InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventObjectInstanceStatusChangeActiver(TiXmlElement*e_pTiXmlElement);
@@ -26,7 +26,7 @@ namespace FATMING_CORE
 		cEventObjectInstanceStatusChangeActiver(cEventObjectInstanceStatusChangeActiver*e_pEventObjectInstanceStatusChangeActiver);
 		EVENT_CLONE_DEFINE(cEventObjectInstanceStatusChangeActiver);
 		virtual ~cEventObjectInstanceStatusChangeActiver();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end namespace FATMING_CORE
 }

@@ -9,22 +9,22 @@ namespace   FATMING_CORE
     class   cEventText:public cEventObject
     {
         std::wstring    m_strText;
-		virtual void    InternalRender();
-        virtual void	InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalRender()override;
+        virtual void	InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cEventText(Vector3 e_vPos,const WCHAR*e_strText,float e_fFontSize = 1.f,Vector4 e_vColor = Vector4::One);
         cEventText(cEventText*e_pEvent_Text);
 		cEventText(TiXmlElement*e_pElement);
         virtual ~cEventText(){}
-        virtual cEventObject*	Clone(){ return new cEventText(this); }
+        virtual cEventObject*	Clone()override { return new cEventText(this); }
         void					SetText(WCHAR*e_str){m_strText = e_str; }
         const WCHAR*			GetText(){return m_strText.c_str();}
         //virtual void    SetRelativePosition( Vector3 e_vPos ){}
 		float					GetFontSize(){ return m_vSize.x; }
 		void					SetFontSize(float e_fFontSize){ m_vSize.x = e_fFontSize; }
-		virtual	TiXmlElement*	ToTiXmlElement();
-		virtual NamedTypedObject*   GetResourcePointer(){return 0;}
+		virtual	TiXmlElement*	ToTiXmlElement()override;
+		virtual NamedTypedObject*   GetResourcePointer()override {return 0;}
     };
 
 	//render text by xml.
@@ -52,9 +52,9 @@ namespace   FATMING_CORE
 		Vector2			m_vRootElementAttributePos;
         cNodeISAX*		m_pNodeISAX;
 		std::string		m_strFileName;
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
-		virtual void    InternalRender();
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
+		virtual void    InternalRender()override;
 		void			ToLastPage();
     public:
         DEFINE_TYPE_INFO();
@@ -63,8 +63,8 @@ namespace   FATMING_CORE
         cEventXmlText(cEventXmlText*e_pEventXmlText);
         virtual ~cEventXmlText();
         EVENT_CLONE_DEFINE(cEventXmlText);
-		virtual	TiXmlElement*	ToTiXmlElement();
-		virtual NamedTypedObject*   GetResourcePointer(){return 0;}
+		virtual	TiXmlElement*	ToTiXmlElement()override;
+		virtual NamedTypedObject*   GetResourcePointer()override {return 0;}
 	};
 }
 //end namespace

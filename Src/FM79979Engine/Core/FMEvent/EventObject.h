@@ -34,9 +34,9 @@ namespace   FATMING_CORE
 		//glDisable(sisscor);
 		//Vector4*	m_pvViewPortSissor;
 		//
-		virtual	void	InternalInit(){}
-		virtual	void	InternalRender(){}
-		virtual void    InternalUpdate(float e_fElpaseTime){}
+		virtual	void	InternalInit()override {}
+		virtual	void	InternalRender()override {}
+		virtual void    InternalUpdate(float e_fElpaseTime)override {}
     public:
 		DEFINE_TYPE_INFO();
 		cEventObject(eEventObjectType e_eEventObjectType,Vector3 e_vPos = Vector3::Zero,Vector2 e_vSize = Vector2(1.f,1.f),Vector4 e_vColor = Vector4::One);
@@ -53,9 +53,9 @@ namespace   FATMING_CORE
 		virtual	bool	IsPlayDone(){ return true; }
 		//force to release resource ex:MPDI.Particle....else
 		//virtual	void	ForceReleaseResource() = 0;
-		virtual	TiXmlElement*	ToTiXmlElement(){ return 0; }
+		virtual	TiXmlElement*	ToTiXmlElement()override { return nullptr; }
 		//make sure momory leak is not exist
-		virtual NamedTypedObject*   GetResourcePointer() = 0;
+		virtual NamedTypedObject*   GetResourcePointer()override = 0;
     };
     
     enum    eFMBSlidePageDirection

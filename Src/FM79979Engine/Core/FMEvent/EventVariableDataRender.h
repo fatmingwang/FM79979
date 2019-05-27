@@ -10,8 +10,8 @@ namespace FATMING_CORE
 	class   cEventVariableDataRender:public cEventObject
 	{
 		std::wstring						m_strPrefixText;
-		virtual NamedTypedObject*           GetResourcePointer();
-		virtual void    InternalRender();
+		virtual NamedTypedObject*           GetResourcePointer()override;
+		virtual void    InternalRender()override;
 		cEventVariable*	m_pEventVariable;
 		eImageAnchorType	m_eImageAnchorType;
 	public:
@@ -21,7 +21,7 @@ namespace FATMING_CORE
 		cEventVariableDataRender(cEventVariableDataRender*e_pEventVariableDataRender);
 		virtual ~cEventVariableDataRender();
 		EVENT_CLONE_DEFINE(cEventVariableDataRender);
-		virtual	TiXmlElement*				ToTiXmlElement();
+		virtual	TiXmlElement*				ToTiXmlElement()override;
 		void								SetPrefixText(const WCHAR*e_str){ m_strPrefixText = e_str; }
 		void								SetEventVariable(cEventVariable*e_pEventVariable){ m_pEventVariable = e_pEventVariable; }
 	};

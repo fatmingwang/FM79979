@@ -16,22 +16,22 @@ namespace FATMING_CORE
 		//ex:horver or slide
 		//sTimeCounter	m_LeastTimeTC;
 		GET_SET_DEC(eGestureEnum,m_eGestureEnum,GetGestureEnum,SetGestureEnum);
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
-		virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
+		virtual	void	InternalRender()override;
 
-        virtual void	InternalMouseMove(int e_iPosX,int e_iPosY);
-        virtual void	InternalMouseDown(int e_iPosX,int e_iPosY);
-        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
-        virtual void    InternalMouseDoubleClickUp(int e_iPosX,int e_iPosY);
-		virtual bool    InternalCollide(int e_iPosX,int e_iPosY){ return true; }
+        virtual void	InternalMouseMove(int e_iPosX,int e_iPosY)override;
+        virtual void	InternalMouseDown(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalMouseDoubleClickUp(int e_iPosX,int e_iPosY)override;
+		virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override { return true; }
 	public:
 		DEFINE_TYPE_INFO();
 		cEventMouseTrigger(TiXmlElement*e_pTiXmlElement);
 		cEventMouseTrigger(cEventMouseTrigger*e_pEventTest);
 		EVENT_CLONE_DEFINE(cEventMouseTrigger);
 		virtual ~cEventMouseTrigger();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 
 
@@ -46,13 +46,13 @@ namespace FATMING_CORE
 		bool					m_bWaitForPlayDone;
 		bool					m_bEventObjectInstanceMouseUp;
 		//
-		virtual	void		InternalInit();
-		virtual	void		InternalUpdate(float e_fElpasedTime);
+		virtual	void		InternalInit()override;
+		virtual	void		InternalUpdate(float e_fElpasedTime)override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventObjectMouseUpDectet();
 		virtual ~cEventObjectMouseUpDectet();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 
 //end namespace FATMING_CORE

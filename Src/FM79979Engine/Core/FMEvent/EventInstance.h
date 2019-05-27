@@ -52,13 +52,13 @@ namespace FATMING_CORE
 	class	cEventInstance:public cEventBase
 	{
 		//I want to be activer forver so make always hit!.
-		virtual bool    InternalCollide(int e_iPosX,int e_iPosY){ return true; }
-		virtual	void	InternalMouseDown(int e_iX,int e_iY);
-		virtual	void	InternalMouseUp(int e_iX,int e_iY);
-		virtual	void	InternalMouseMove(int e_iX,int e_iY);
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
-		virtual	void	InternalRender();
+		virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override { return true; }
+		virtual	void	InternalMouseDown(int e_iX,int e_iY)override;
+		virtual	void	InternalMouseUp(int e_iX,int e_iY)override;
+		virtual	void	InternalMouseMove(int e_iX,int e_iY)override;
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
+		virtual	void	InternalRender()override;
 		bool	m_bTriggerAllDone;
 		bool	m_bActiveAllDone;
 		//trigger and activer all done init itself again
@@ -75,13 +75,13 @@ namespace FATMING_CORE
 		//if the event is from resource delete instance it won't delete event
 		cEventInstance();
 		cEventInstance(cEventInstance*e_pEventInstance);
-		cEventInstance*Clone();
+		cEventInstance*Clone()override;
 		virtual ~cEventInstance();
 		//to get current info
-		virtual	void	DebugRender();
+		virtual	void	DebugRender()override;
 		//now you could get all resource in m_TriggerEventList and m_ActiveEventList
-		virtual	void	CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName);
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	void	CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName)override;
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
  /*!
    *  A function

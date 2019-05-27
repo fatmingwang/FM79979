@@ -9,11 +9,11 @@ namespace   FATMING_CORE
         cMultiPathDynamicImage*m_pMPDI;
         GETP_SET_DEC(bool,m_bClickToPlay,IsClickToPlay,SetClickToPlay);
         bool    m_bMouseClicked;
-		virtual	void	InternalInit();
-        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
-        virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
-        virtual void    InternalUpdate(float e_fElpaseTime);
-        virtual void    InternalRender();
+		virtual	void	InternalInit()override;
+        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY)override;
+        virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalUpdate(float e_fElpaseTime)override;
+        virtual void    InternalRender()override;
     public:
         DEFINE_TYPE_INFO();
         cEventMPDI(Vector3 e_vPos,cMultiPathDynamicImage*e_pMPDI,bool e_bClickToPlay,float e_fScale = 1.f,bool e_bLoop = false);
@@ -23,10 +23,10 @@ namespace   FATMING_CORE
         virtual ~cEventMPDI();
         cMultiPathDynamicImage*		GetMPDI(){return m_pMPDI;}
 		//scale is not support....because I am lazy.
-		virtual void    			DebugRender();
-		virtual NamedTypedObject*   GetResourcePointer();
-		virtual	TiXmlElement*		ToTiXmlElement();
-		virtual	bool	IsPlayDone();
+		virtual void    			DebugRender()override;
+		virtual NamedTypedObject*   GetResourcePointer()override;
+		virtual	TiXmlElement*		ToTiXmlElement()override;
+		virtual	bool	IsPlayDone()override;
     };
 }
 //end namespace

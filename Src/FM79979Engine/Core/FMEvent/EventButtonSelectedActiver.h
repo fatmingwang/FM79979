@@ -16,16 +16,16 @@ namespace FATMING_CORE
 	{
 		GETP_SET_DEC(std::vector<std::wstring>,m_strResult,GetResult,SetResult);
 		GET_SET_DEC(cEventVariable*,m_pEventVariable,GetEventVariable,SetEventVariable);
-		virtual	void					InternalInit();
-		virtual	void					InternalUpdate(float e_fElpasedTime);
-		virtual	void					InternalRender();
+		virtual	void					InternalInit()override;
+		virtual	void					InternalUpdate(float e_fElpasedTime)override;
+		virtual	void					InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventButtonSelectedActiver(TiXmlElement*e_pTiXmlElement);
 		cEventButtonSelectedActiver(cEventButtonSelectedActiver*e_pEventMultiButtonSelectedActiver);
 		EVENT_CLONE_DEFINE(cEventButtonSelectedActiver);
 		virtual ~cEventButtonSelectedActiver();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 }
 

@@ -22,15 +22,15 @@ namespace FATMING_CORE
 		cBehaviorObjectList<cEventBase>	m_ButtonClickEvent;
 		//text or image
 		cClickMouseBehavior*	m_pButton;
-		virtual bool		InternalCollide(int e_iPosX,int e_iPosY);
-        virtual void		InternalMouseDown(int e_iPosX,int e_iPosY);
-		virtual void		InternalMouseLeave(int e_iPosX,int e_iPosY);
-        virtual void		InternalMouseUp(int e_iPosX,int e_iPosY);
-		virtual void		InternalMouseMove(int e_iPosX,int e_iPosY);
+		virtual bool		InternalCollide(int e_iPosX,int e_iPosY)override;
+        virtual void		InternalMouseDown(int e_iPosX,int e_iPosY)override;
+		virtual void		InternalMouseLeave(int e_iPosX,int e_iPosY)override;
+        virtual void		InternalMouseUp(int e_iPosX,int e_iPosY)override;
+		virtual void		InternalMouseMove(int e_iPosX,int e_iPosY)override;
 
-		virtual	void		InternalInit();
-		virtual	void		InternalUpdate(float e_fElpasedTime);
-		virtual	void		InternalRender();
+		virtual	void		InternalInit()override;
+		virtual	void		InternalUpdate(float e_fElpasedTime)override;
+		virtual	void		InternalRender()override;
 		//resource imagebutton for xml export
 		GET_SET_DEC(cRenderObject*,m_pReferenceImage,GetReferenceImage,SetReferenceImage);
 		//result,for EventButtonSelectedActiver,directly setup variable data.
@@ -54,8 +54,8 @@ namespace FATMING_CORE
 		void						SetColor(Vector4 e_vColor);
 		//if button is text or do nothing
 		void						SetBGColor(Vector4 e_vColor);
-		virtual NamedTypedObject*   GetResourcePointer();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual NamedTypedObject*   GetResourcePointer()override;
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 		const WCHAR*				GetResult(){ return m_strResult.c_str(); }
 		void						SetResult(const WCHAR*e_strResult){ m_strResult = e_strResult; }
 	};
@@ -96,10 +96,10 @@ namespace FATMING_CORE
 		cEventVariable*		m_pIndexVariable;
 		GET_SET_DEC(bool,m_bStayAtLastSelect,IsStayAtLastSelect,SetStayAtLastSelect);
 		GET_SET_DEC(eButtonSelectionType,m_eButtonSelectionType,GetButtonSelectionType,SetButtonSelectionType);
-		virtual bool		InternalCollide(int e_iPosX,int e_iPosY);
-		virtual	void		InternalInit();
-		virtual	void		InternalUpdate(float e_fElpasedTime);
-		virtual	void		InternalRender();
+		virtual bool		InternalCollide(int e_iPosX,int e_iPosY)override;
+		virtual	void		InternalInit()override;
+		virtual	void		InternalUpdate(float e_fElpasedTime)override;
+		virtual	void		InternalRender()override;
 		//only for children button's prifix hint,don't have update only for prifix or hint.
 		cClickMouseBehavior*m_pPrefixButton;
 		//=================================
@@ -119,24 +119,24 @@ namespace FATMING_CORE
 		EVENT_CLONE_DEFINE(cEventMultiButton);
 		virtual ~cEventMultiButton();
 		virtual	void			Start(float e_fElpaseTime);
-		virtual bool			IsSatisfiedCondition();
-		virtual void			SetSatisfiedCondition(bool e_b);
-		virtual	void			Init();
-		virtual	void			Destroy();
-		virtual	void			Update(float e_fElpastTime);
-		virtual	void			Render();
-		virtual	void			SingnalProcess(unsigned char e_usKey);
-		virtual	void			SingnalProcess();
-		virtual void			SetRelativePosition( Vector3 e_vPos );
-		virtual void			DebugRender();
-		void					MouseDown(int e_iPosX,int e_iPosY);
-		void					MouseMove(int e_iPosX,int e_iPosY);
-		void					MouseUp(int e_iPosX,int e_iPosY);
+		virtual bool			IsSatisfiedCondition()override;
+		virtual void			SetSatisfiedCondition(bool e_b)override;
+		virtual	void			Init()override;
+		virtual	void			Destroy()override;
+		virtual	void			Update(float e_fElpastTime)override;
+		virtual	void			Render()override;
+		virtual	void			SingnalProcess(unsigned char e_usKey)override;
+		virtual	void			SingnalProcess()override;
+		virtual void			SetRelativePosition( Vector3 e_vPos )override;
+		virtual void			DebugRender()override;
+		void					MouseDown(int e_iPosX,int e_iPosY)override;
+		void					MouseMove(int e_iPosX,int e_iPosY)override;
+		void					MouseUp(int e_iPosX,int e_iPosY)override;
 		//add button,cancel button if needed call SetCancelButton
 		void					AddData(Vector2 e_vPos,cGlyphFontRender*e_pGlyphFontRender,const WCHAR* e_strText,Vector4 e_vBGColor,cBaseImage*e_pConnectRadianImage = 0,cBaseImage*e_pLineImage = 0);
 		void					AddData(cPuzzleImageUnit*e_pImage,Vector3 e_vPos);
-		virtual	void			CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName);
-		virtual	TiXmlElement*	ToTiXmlElement();
+		virtual	void			CollectResourceList(cNamedTypedObjectVector<NamedTypedObject>*e_pObjectListByName)override;
+		virtual	TiXmlElement*	ToTiXmlElement()override;
 	};
 //end namespace FATMING_CORE
 }

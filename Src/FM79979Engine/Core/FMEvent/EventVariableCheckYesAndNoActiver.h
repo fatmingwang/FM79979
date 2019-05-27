@@ -33,16 +33,16 @@ namespace FATMING_CORE
 		std::wstring*	m_pstrResult;
 		cDoAllMouseBehaviorList<cEventBase>	m_YesEventList;
 		cDoAllMouseBehaviorList<cEventBase>	m_NoEventList;
-		virtual	void					InternalInit();
-		virtual	void					InternalUpdate(float e_fElpasedTime);
-		virtual	void					InternalRender();
+		virtual	void					InternalInit()override;
+		virtual	void					InternalUpdate(float e_fElpasedTime)override;
+		virtual	void					InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventVariableCheckYesAndNoActiver(TiXmlElement*e_pTiXmlElement);
 		cEventVariableCheckYesAndNoActiver(cEventVariableCheckYesAndNoActiver*e_pEventVariableCheckYesAndNoActiver);
 		EVENT_CLONE_DEFINE(cEventVariableCheckYesAndNoActiver);
 		virtual ~cEventVariableCheckYesAndNoActiver();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end namespace FATMING_CORE
 }

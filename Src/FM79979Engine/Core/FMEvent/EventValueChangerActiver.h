@@ -38,9 +38,9 @@ namespace FATMING_CORE
 		GET_SET_DEC(std::wstring*,m_pstrTargetString,GetTargetString,SetTargetString);
 		GET_SET_DEC(eValueeChangeType,m_eValueeChangeType,GeteValueeChangeType,SeteValueeChangeType);
 		GET_SET_DEC(cRestrictValueBase*,m_pRestrictValue,GetRestrictValue,SetRestrictValue);
-		virtual	void			InternalInit();
-		virtual	void			InternalUpdate(float e_fElpasedTime);
-		virtual	void			InternalRender();
+		virtual	void			InternalInit()override;
+		virtual	void			InternalUpdate(float e_fElpasedTime)override;
+		virtual	void			InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventValueChangeActiver(TiXmlElement*e_pTiXmlElement);
@@ -49,7 +49,7 @@ namespace FATMING_CORE
 		EVENT_CLONE_DEFINE(cEventValueChangeActiver);
 		virtual ~cEventValueChangeActiver();
 //		cRestrictValueBase*	GetRestrictValue(){return m_pRestrictValue;}
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 	//<cEventListValueSelectionActiver Name="Test" ValueChangeType="TargetValue" Variable="79979"  >
 	//<cEventListValueSelectionActiver Name="Test" ValueChangeType="Increase"  >
@@ -63,9 +63,9 @@ namespace FATMING_CORE
 		//data for event activer ro trigger
 		cListValuChangerBase*	m_pListValuChangerBase;
 		cEventVariable*			m_pEventVariable;
-		virtual	void	InternalInit();
-		virtual	void	InternalUpdate(float e_fElpasedTime);
-		virtual	void	InternalRender();
+		virtual	void	InternalInit()override;
+		virtual	void	InternalUpdate(float e_fElpasedTime)override;
+		virtual	void	InternalRender()override;
     public:
 		DEFINE_TYPE_INFO();
 		cEventListValueSelectionActiver(TiXmlElement*e_pTiXmlElement);
@@ -80,7 +80,7 @@ namespace FATMING_CORE
 		cFloatListValueChanger*		GetFloatListValueChanger();
 		cStringListValueChanger*	GetStringListValueChanger();
 		cWStringListValueChanger*	GetWStringListValueChanger();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end namespace FATMING_CORE
 }

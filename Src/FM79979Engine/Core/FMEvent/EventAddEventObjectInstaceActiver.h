@@ -11,15 +11,15 @@ namespace FATMING_CORE
 		std::wstring					m_strEventStatusName;
 		std::wstring					m_strEventVariableName;
 		bool							m_bAllEventObjectStatusWorking;
-		virtual	void					InternalInit();
-		virtual	void					InternalUpdate(float e_fElpasedTime);
+		virtual	void					InternalInit()override;
+		virtual	void					InternalUpdate(float e_fElpasedTime)override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventAddEventObjectInstaceActiver(TiXmlElement*e_pTiXmlElement);
 		cEventAddEventObjectInstaceActiver(cEventAddEventObjectInstaceActiver*e_pEventAddEventObjectInstace);
 		EVENT_CLONE_DEFINE(cEventAddEventObjectInstaceActiver);
 		virtual ~cEventAddEventObjectInstaceActiver();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end FATMING_CORE
 }

@@ -10,10 +10,10 @@ namespace   FATMING_CORE
 		//bool			m_bResourceKeep;
         //==================================    
         GET_SET_DEC(cBasicSound*,m_pBasicSound,GetBasicSound,SetBasicSound);
-        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY);
-        virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
-        virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+        virtual void    InternalMouseUp(int e_iPosX,int e_iPosY)override;
+        virtual bool    InternalCollide(int e_iPosX,int e_iPosY)override;
+        virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
 		//std::wstring	m_strSoundFileName;
 		bool			m_bPlayed;
     public:
@@ -23,9 +23,9 @@ namespace   FATMING_CORE
         cEventSound(cEventSound*e_pEventBook);
         virtual ~cEventSound();
 		EVENT_CLONE_DEFINE(cEventSound);
-        virtual void				Destroy();        
-		virtual NamedTypedObject*   GetResourcePointer();
-		virtual	TiXmlElement*		ToTiXmlElement();
+        virtual void				Destroy()override;
+		virtual NamedTypedObject*   GetResourcePointer()override;
+		virtual	TiXmlElement*		ToTiXmlElement()override;
     };
 }
 //end namespace

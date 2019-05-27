@@ -23,16 +23,16 @@ namespace FATMING_CORE
 		std::vector<sConditionAndNextEventInstance>		m_ConditionAndNextEventInstanceVector;
 		//Activer->EventInstance->EventObjectInstance
 		cEventObjectInstance*			m_pParentEventObjectInstance;
-		virtual	void					InternalInit();
-		virtual	void					InternalUpdate(float e_fElpasedTime);
-		virtual	void					InternalRender();
+		virtual	void					InternalInit()override;
+		virtual	void					InternalUpdate(float e_fElpasedTime)override;
+		virtual	void					InternalRender()override;
 	public:
 		DEFINE_TYPE_INFO();
 		cEventInstanceSwitcherActiver(TiXmlElement*e_pTiXmlElement);
 		cEventInstanceSwitcherActiver(cEventInstanceSwitcherActiver*e_pEventInstanceSwitcher);
 		EVENT_CLONE_DEFINE(cEventInstanceSwitcherActiver);
 		virtual ~cEventInstanceSwitcherActiver();
-		virtual	TiXmlElement*		ToTiXmlElement();
+		virtual	TiXmlElement*		ToTiXmlElement()override;
 	};
 //end namespace
 }
