@@ -8,6 +8,7 @@ using namespace DrawFont;
 [STAThreadAttribute]
 int main(array<System::String ^> ^args)
 {
+	int l_iSize = sizeof(long);
 	// Enabling Windows XP visual effects before any controls are created
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 

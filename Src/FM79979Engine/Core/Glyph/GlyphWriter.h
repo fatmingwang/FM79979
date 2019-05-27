@@ -9,8 +9,8 @@ class GlyphWriter
 	//m_TranslatorTable['s'] or m_TranslatorTable[L's'] or
 	//m_TranslatorTable[L'幹'] all can indicate correct font index
     WORD*			m_TranslatorTable;
-	unsigned long			m_dwNumGlyphs;
-	unsigned long			m_dwMask;//to alpha
+	unsigned int	m_dwNumGlyphs;
+	unsigned int	m_dwMask;//to alpha
 	//use with m_TranslatorTable[x] will indicate the correct FILE_GLYPH_ATTR
 	FILE_GLYPH_ATTR* m_pGlyphs;
 	HRESULT BuildTranslatorTable();

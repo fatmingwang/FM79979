@@ -203,7 +203,7 @@ namespace FMLog
 		{
 			for (auto l_str : *g_pLatestLog)
 			{
-				e_pGlyphFontRender->RenderFont(e_iPosX, l_iPosY, l_str);
+				e_pGlyphFontRender->RenderFont((float)e_iPosX, (float)l_iPosY, l_str);
 				l_iPosY += e_iYGap;
 			}
 		}

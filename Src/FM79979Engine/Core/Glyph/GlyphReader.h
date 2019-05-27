@@ -3,7 +3,7 @@
 
 #include "../Common/SmartPointer.h"
 
-const unsigned long FONTINFOFILEVERSION = 0x00000005; // Texture file properties
+const unsigned int FONTINFOFILEVERSION = 0x00000005; // Texture file properties
 //==========================================
 //reference from xbox360 FontMake tool
 //==========================================
@@ -24,8 +24,8 @@ class GlyphReader:public cSmartObject,public NamedTypedObject
 public:
 	unsigned char*	m_pFontData;
     wchar_t			m_cMaxGlyph;
-    WORD*			m_pTranslatorTable;
-	unsigned long	m_dwNumGlyphs;
+    short*			m_pTranslatorTable;
+	unsigned int	m_dwNumGlyphs;
 	FILE_GLYPH_ATTR* m_pGlyphs;
 
 
@@ -33,12 +33,12 @@ public:
 	virtual ~GlyphReader();
 
 	SHORT			m_wFontHeight;
-	unsigned long			m_dwMask;//to alpha
+	unsigned long	m_dwMask;//to alpha
 
 	bool	LoadFontDataFile(const char* e_pString);
 	inline	int	FindIndex( wchar_t e_dwChar )
 	{
-		assert(m_pTranslatorTable[e_dwChar]<m_dwNumGlyphs);
+		assert((unsigned int)m_pTranslatorTable[e_dwChar]<m_dwNumGlyphs);
 		return m_pTranslatorTable[e_dwChar]; 
 	}
 	bool	IsLegalCharacter(wchar_t e_Character);

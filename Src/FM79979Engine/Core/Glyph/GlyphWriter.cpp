@@ -34,7 +34,7 @@ void WriteToFile( FILE* file, FLOAT val )
 }
 
 
-void WriteToFile( FILE* file, unsigned long val )
+void WriteToFile( FILE* file, unsigned int val )
 {
     CHAR data[4] = { ((CHAR*)&val)[D0], ((CHAR*)&val)[D1],
                      ((CHAR*)&val)[D2], ((CHAR*)&val)[D3] };
@@ -300,7 +300,7 @@ HRESULT	GlyphWriter::SaveFile(char*strFileName,bool e_bPC)
 	//2
     WriteToFile( file, wFontHeight ); 
 	//mask color for alpha
-	unsigned long	l_dwMaskColor = m_dwMask;
+	auto	l_dwMaskColor = m_dwMask;
 	//3
     WriteToFile( file,l_dwMaskColor);
     // Write the translator table

@@ -312,6 +312,7 @@ void	cBluffingGirlApp::Render()
 	//	this->m_pPhaseManager->DebugRender();
 #endif
 	RenderPause();
+	cGameApp::ShowInfo();
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

@@ -19,7 +19,8 @@ GlyphReader::~GlyphReader()
 {
 	SAFE_DELETE(m_pFontData);
 #if defined(ANDROID) || defined(IOS)
-	SAFE_DELETE(m_pGlyphs);
+	SAFE_DELETE_ARRAY(m_pGlyphs);
+	SAFE_DELETE_ARRAY(m_pTranslatorTable);
 #endif
 }
 
@@ -31,8 +32,9 @@ bool GlyphReader::LoadFile( const char* strFileName)
 	long	l_lFileSize = GetFileSize(l_pFile);
 	//fuck malloc is not proper for iOS and Android!?
 	//it will crush if I fetch some data frome it...ex:m_pGlyphs
+	SAFE_DELETE(m_pFontData);
 	m_pFontData = new unsigned char[l_lFileSize];
-	if( nullptr == m_pFontData )
+	if(m_pFontData == nullptr )
 	{
 		NvFClose(l_pFile );
 		return false;
@@ -67,7 +69,7 @@ bool	GlyphReader::IsLegalCharacter(wchar_t e_Character)
 {
 	if(e_Character >= this->m_cMaxGlyph)
 		return false;
-	if( m_pTranslatorTable[e_Character]<m_dwNumGlyphs )
+	if( (unsigned int)m_pTranslatorTable[e_Character]<m_dwNumGlyphs )
 	{
 		return true;
 	}
@@ -75,7 +77,7 @@ bool	GlyphReader::IsLegalCharacter(wchar_t e_Character)
 }
 
 //1.Version			size:unsigned long*1
-//2.Height			size:SHORT*1
+//2.Height			size:short*1
 //3.MaskColor		size:unsigned long*1
 //4.MaxGlyph		size:WORD*1
 //5.TranslatorTable size:WORD*(MaxGlyph+1)
@@ -94,21 +96,36 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
     unsigned int dwFileVersion = *((unsigned int*)(l_pData)); l_pData += sizeof(unsigned int);
     if( dwFileVersion == 0x00000005 )
     {
-        // Parse the font data
-		this->m_wFontHeight	= *((SHORT*)l_pData); l_pData += sizeof(SHORT);
-		this->m_dwMask		= *((unsigned int*)l_pData); l_pData += sizeof(unsigned int);
-        // Point to the translator string
-        m_cMaxGlyph			= ((WORD*)l_pData)[0];   l_pData += sizeof(WORD);
-        m_pTranslatorTable	= (WORD*)l_pData;       l_pData += sizeof(WORD)*(m_cMaxGlyph+1);
-
-        // Read the glyph attributes from the file
-        m_dwNumGlyphs		= ((unsigned int*)l_pData)[0];  l_pData += sizeof(unsigned int);
+		FMLog::LogWithFlag("LoadFontDataFile start 1\n", CORE_LOG_FLAG);
+		unsigned short l_sHeight = 0;				memcpy(&l_sHeight, l_pData, sizeof(short));	l_pData += sizeof(unsigned short);
+		FMLog::LogWithFlag("LoadFontDataFile start 2\n", CORE_LOG_FLAG);
+		unsigned int l_uiMask = 0;		    memcpy(&l_uiMask, l_pData, sizeof(unsigned int));	l_pData += sizeof(unsigned int);
+		FMLog::LogWithFlag("LoadFontDataFile start 3\n", CORE_LOG_FLAG);
+		unsigned short	l_sMaxGlyph = 0;		    memcpy(&l_sMaxGlyph, l_pData, sizeof(unsigned short));	l_pData += sizeof(unsigned  short);
+		FMLog::LogWithFlag("LoadFontDataFile start 4\n", CORE_LOG_FLAG);
+		//http://opass.logdown.com/posts/743054-about-memory-alignment
+		//
+#if defined(ANDROID) || defined(IOS) || defined(WASM)
+		short*	l_psTranslatorTable = new short[l_sMaxGlyph + 1];	    memcpy(l_psTranslatorTable, l_pData, sizeof(short)*l_sMaxGlyph + 1);	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
+#else
+		short*	l_psTranslatorTable = (short*)l_pData;	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
+#endif
+		FMLog::LogWithFlag("LoadFontDataFile start 5\n", CORE_LOG_FLAG);
+		unsigned int l_uiNumGlyphs = 0;	    memcpy(&l_uiNumGlyphs, l_pData, sizeof(unsigned int));	l_pData += sizeof(unsigned int);
+		FMLog::LogWithFlag("LoadFontDataFile start 6\n", CORE_LOG_FLAG);
+		m_wFontHeight	= l_sHeight;
+		m_dwMask		= l_uiMask;
+        m_cMaxGlyph			= l_sMaxGlyph;
+        m_pTranslatorTable	= l_psTranslatorTable;
+        m_dwNumGlyphs		= l_uiNumGlyphs;
+		//FMLog::LogWithFlag(UT::ComposeMsgByFormat("font wierd new start:NumGlyphs%d\n)",(int)m_dwNumGlyphs), CORE_LOG_FLAG);
 #if defined(ANDROID) || defined(IOS) || defined(WASM)
 		m_pGlyphs = new FILE_GLYPH_ATTR[m_dwNumGlyphs];
 		memcpy(m_pGlyphs,l_pData,sizeof(FILE_GLYPH_ATTR)*m_dwNumGlyphs);
 #else
 		m_pGlyphs = (FILE_GLYPH_ATTR*)l_pData;
 #endif
+		FMLog::LogWithFlag("font wierd new end\n", CORE_LOG_FLAG);
     }
     else
     {

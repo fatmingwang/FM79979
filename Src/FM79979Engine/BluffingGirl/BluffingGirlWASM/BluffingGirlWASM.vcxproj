@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>-s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=1 --profiling</AdditionalOptions>
+      <AdditionalOptions>-s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=1 --profiling -s SAFE_HEAP=1 -g</AdditionalOptions>
       <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -106,7 +106,7 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1 -s WASM_MEM_MAX=1000Mb  -s FETCH=1 -s -s FULL_ES2=1</AdditionalOptions>
+      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s -s FULL_ES2=1</AdditionalOptions>
       <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>

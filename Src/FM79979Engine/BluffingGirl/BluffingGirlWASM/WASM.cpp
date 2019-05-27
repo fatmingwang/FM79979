@@ -6,7 +6,7 @@
 #include <SDL/SDL.h>
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
-#define TEST_RUN
+//#define TEST_RUN
 cMPDI*g_pMPDITest = nullptr;
 cBasicSound*g_pSound = nullptr;
 
@@ -179,8 +179,8 @@ int main()
 	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 	FMLog::Log("new cPreLoadFromInternet\n", false);
 	//please copy Media/BluffingGirl folder into your server repository
-	g_pPreLoadFromInternet = new cPreLoadFromInternet();
-	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadFile.xml");
+	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
+	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadFile.xml");
 	if (l_pSurf_Display)
 	{
 		FMLog::Log("SDL surface exists start create our game\n", false);
@@ -188,6 +188,8 @@ int main()
 		cGameApp::m_svGameResolution.x = 720;
 		cGameApp::m_svGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		if(g_pGameApp)
+			g_pGameApp->Init();
 		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 		FMLog::Log("start to emscripten_set_main_loop\n", false);
 #ifdef TEST_RUN

@@ -71,20 +71,14 @@ void	cShowLogoPhase::Init()
 	{
 		g_pLogoMusic->Play(true);
 		g_pLogoMusic->SetLoop(true);
-//#ifndef WASM
-		//FUStaticFunctor2<size_t, size_t, void>* workFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGM);
-		//FUStaticFunctor2<size_t, size_t, void>* doneFunctor = new FUStaticFunctor2<size_t, size_t, void>(&ShowLogoBGMDone);
-		//this->m_ThreadPool.ExecuteWork(workFunctor,doneFunctor,(size_t)this,0);
-//#else
 		std::thread l_ShowLogoBGMThread(ShowLogoBGM,(size_t)this, 0);
 		l_ShowLogoBGMThread.detach();
 		//l_ShowLogoBGMThread.join();
-//#endif
 	}
 #else
-	//g_pLogoMusic = new cOpanalOgg(this, "BluffingGirl/Sound/Opening.ogg", false);
-	//if (g_pLogoMusic)
-	//	g_pLogoMusic->Play(true);
+	g_pLogoMusic = new cOpanalOgg(this, "BluffingGirl/Sound/Opening.ogg", false);
+	if (g_pLogoMusic)
+		g_pLogoMusic->Play(true);
 #endif
 	m_ResourceStamp.StampResource2();
 	cGameApp::OutputDebugInfoString(L"cShowLogoPhase Init() Finish!");
