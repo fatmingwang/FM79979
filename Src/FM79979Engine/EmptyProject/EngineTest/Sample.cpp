@@ -6,6 +6,7 @@
 
 #include "../../Core/Bluetooth/Bluetooth.h"
 
+
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
 cFrameCamera	*g_pFrameCamera = 0;
@@ -43,6 +44,10 @@ cTunnelEffect*g_pTunnelEffect = nullptr;
 cTestShader*g_pTestShader = nullptr;
 //cMSAAFrameBuffer*g_pMSAAFrameBuffer = nullptr;
 cFrameBuffer*g_pFrameBuffer = nullptr;
+
+cFreetypeGlyphRender*g_pFreetypeGlyphRender = nullptr;
+cFreetypeGlyphRender*g_pFreetypeGlyphRender2 = nullptr;
+
 void	LoadSample();
 void	DestoryObject();
 void	SampleUpdate(float e_fElpaseTime);
@@ -59,9 +64,11 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
+	g_pFreetypeGlyphRender = new cFreetypeGlyphRender("kaiu.ttf", 124);
+	g_pFreetypeGlyphRender2 = new cFreetypeGlyphRender(g_pFreetypeGlyphRender);
 	//cBluetoothSinglton::GetInstance()->Init();
 	//cBluetoothSinglton::GetInstance()->CreateAsServer(L"FMWin10");
-	cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
+	//cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
@@ -190,6 +197,8 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
+	SAFE_DELETE(g_pFreetypeGlyphRender);
+	SAFE_DELETE(g_pFreetypeGlyphRender2);
 	//SAFE_DELETE(g_pMSAAFrameBuffer);
 	SAFE_DELETE(g_pFrameBuffer);
 	//do not delete g_pMultiPathDynamicImage,it come from g_pMPDIList
@@ -445,7 +454,17 @@ void	SampleRender()
 		g_pFrameBuffer->DrawBuffer(l_Pos, l_SizePos);
 	}
 
-	cBluetoothSinglton::GetInstance()->Render(400, 400);
+	//cBluetoothSinglton::GetInstance()->Render(400, 400);
+	if (g_pFreetypeGlyphRender)
+	{
+		g_pFreetypeGlyphRender->RenderFont(200, 200, L"中");
+		if (g_pFreetypeGlyphRender2)
+		{
+			g_pFreetypeGlyphRender2->SetColor(Vector4(0.5, 0.5, 1, 1));
+			std::wstring l_str = L"中口以嗎\n部口已\nQQ";
+			g_pFreetypeGlyphRender2->RenderFont(200, 400, l_str.c_str());
+		}
+	}
 }
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY)

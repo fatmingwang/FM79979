@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ogg", "..\Core\Sound\ogg\og
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WASM", "WASM\WASM.vcxproj", "{6D394C49-B2DD-4475-BFD3-12B01C1930D7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Freetype", "..\Freetype\Freetype.vcxproj", "{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Emscripten = Debug|Emscripten
@@ -80,6 +82,12 @@ Global
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|Emscripten.Build.0 = Release|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.ActiveCfg = Release|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.Build.0 = Release|x64
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|Emscripten.ActiveCfg = Debug|Win32
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|x64.ActiveCfg = Debug|x64
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|x64.Build.0 = Debug|x64
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|Emscripten.ActiveCfg = Release|Win32
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|x64.ActiveCfg = Release|x64
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
