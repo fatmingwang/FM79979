@@ -87,7 +87,11 @@ void	cTitlePhase::Update(float e_fElpaseTime)
 		if( m_pClickMouseBehaviorVector->IsSatisfiedCondition() )
 		{
 			int	l_iIndex = m_pClickMouseBehaviorVector->GetCurrentWorkingObjectIndex();
-			if( l_iIndex < 3 )
+#ifdef WASM//no thread for wasm now!?
+			if( l_iIndex == 0 )
+#else
+			if (l_iIndex < 3)
+#endif
 			{
 				this->m_strNextPhaseName = m_pClickMouseBehaviorVector->GetCurrentWorkingObjectName();
 				if(m_pClickMouseBehaviorVector->GetCurrentWorkingObjectIndex() != 2)

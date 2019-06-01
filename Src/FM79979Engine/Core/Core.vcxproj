@@ -80,7 +80,7 @@
     <ClCompile>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\Bullet;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;.\Bullet;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -94,7 +94,7 @@
     <ClCompile>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.\Bullet;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;.\Bullet;..\..\include\opencv;..\..\include\opencv\opencv;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -156,6 +156,7 @@
     <ClCompile Include="Image\dds\nv_hhdds.cpp" />
     <ClCompile Include="Image\dds\nv_images.cpp" />
     <ClCompile Include="Image\dds\nv_log.cpp" />
+    <ClCompile Include="Image\FreeTypeFont\FreetypeGlypth.cpp" />
     <ClCompile Include="Image\MPDINode.cpp" />
     <ClCompile Include="Image\png\pngLoader.cpp" />
     <ClCompile Include="Image\RenderQueue\RenderCommand.cpp" />
@@ -323,6 +324,7 @@
     <ClInclude Include="Image\dds\nv_images.h" />
     <ClInclude Include="Image\dds\nv_log.h" />
     <ClInclude Include="Image\dds\nv_types.h" />
+    <ClInclude Include="Image\FreeTypeFont\FreetypeGlypth.h" />
     <ClInclude Include="Image\MPDINode.h" />
     <ClInclude Include="Image\png\pngLoader.h" />
     <ClInclude Include="Image\RenderQueue\RenderCommand.h" />

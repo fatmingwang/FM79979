@@ -147,7 +147,7 @@ void	cBluffingDiceMultiPlayerGame::HandleElementData(TiXmlElement*e_pTiXmlElemen
 			l_pSubMPDI->ChangeAllImageByImageIndex(l_iIndex);
 			m_pWhoAmIMPDI->Init();
 			m_pWhoAmIMPDI->Update(0.016f);
-		}
+		}						 
 	}
 	else
 	COMPARE_VALUE("OrtherPlayerCallMPDI")

@@ -32,6 +32,7 @@
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
 	#pragma comment(lib, "../../../lib/Debug/Core.lib")
+	#pragma comment(lib, "../../../lib/Debug/Freetype.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
@@ -41,6 +42,7 @@
 #endif
 	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
 	#pragma comment(lib, "../../../lib/Release/Core.lib")
+	#pragma comment(lib, "../../../lib/Release/Freetype.lib")
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Release/ogg.lib")
 #endif

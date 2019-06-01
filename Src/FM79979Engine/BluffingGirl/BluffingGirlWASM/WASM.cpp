@@ -158,8 +158,8 @@ int main()
 	//	< / system.webServer>
 	//	< / configuration>
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
-#define	CANVANS_WIDTH	1024*0.7
-#define	CANVANS_HEIGHT	768*0.7
+#define	CANVANS_WIDTH	1280//*0.7
+#define	CANVANS_HEIGHT	720//*0.7
 	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
 	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
 	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
@@ -189,7 +189,7 @@ int main()
 		cGameApp::m_svGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		if(g_pGameApp)
-			g_pGameApp->Init();
+			g_pGameApp->Init();			
 		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 		FMLog::Log("start to emscripten_set_main_loop\n", false);
 #ifdef TEST_RUN

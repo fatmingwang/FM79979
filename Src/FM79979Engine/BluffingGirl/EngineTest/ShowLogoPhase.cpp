@@ -30,7 +30,7 @@ void	ShowLogoBGM(size_t _workParameter, size_t _pUri)
 {
 	UT::sTimeAndFPS	l_TC;
 	l_TC.Update();
-	while(g_bWaitThreadFinish)
+	while(g_bWaitThreadFinish && g_pLogoMusic)
 	{
 		l_TC.Update();
 		if(!cGameApp::m_sbGamePause)
@@ -76,7 +76,7 @@ void	cShowLogoPhase::Init()
 		//l_ShowLogoBGMThread.join();
 	}
 #else
-	g_pLogoMusic = new cOpanalOgg(this, "BluffingGirl/Sound/Opening.ogg", false);
+	//g_pLogoMusic = new cOpanalOgg(this, "BluffingGirl/Sound/Opening.ogg", false);
 	if (g_pLogoMusic)
 		g_pLogoMusic->Play(true);
 #endif
@@ -88,7 +88,7 @@ void	cShowLogoPhase::Destroy()
 	g_bWaitThreadFinish = false;
 	m_pBGMPDI = 0;
 	//m_ThreadPool.Clear();
-	while (!g_bThreadFinish)
+	while (!g_bThreadFinish && g_pLogoMusic)
 	{
 		Sleep(100);
 		cGameApp::OutputDebugInfoString(L"wait g_pLogoMusic thread finish");

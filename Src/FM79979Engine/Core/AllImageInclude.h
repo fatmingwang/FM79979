@@ -15,6 +15,7 @@
 #include "Image/MPDINode.h"
 #include "Image/VertexBufferObject.h"
 #include "Image/GlyphFontRender.h"
+#include "Image/FreeTypeFont/FreetypeGlypth.h"
 #include "Image/AnimationParser.h"
 
 #endif

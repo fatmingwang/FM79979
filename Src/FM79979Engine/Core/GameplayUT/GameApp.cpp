@@ -237,7 +237,7 @@ namespace	FATMING_CORE
 		CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...
-		CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
+		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
 		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
 		m_sTimeAndFPS.Update();
 		FMLog::LogWithFlag("parse font data", CORE_LOG_FLAG, true);
