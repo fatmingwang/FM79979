@@ -106,7 +106,7 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s -s FULL_ES2=1</AdditionalOptions>
+      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s -s FULL_ES2=1       -s SAFE_HEAP=1 -g</AdditionalOptions>
       <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
@@ -204,6 +204,9 @@
     </ProjectReference>
     <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
       <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
+      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -96,13 +96,9 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
     unsigned int dwFileVersion = *((unsigned int*)(l_pData)); l_pData += sizeof(unsigned int);
     if( dwFileVersion == 0x00000005 )
     {
-		FMLog::LogWithFlag("LoadFontDataFile start 1\n", CORE_LOG_FLAG);
 		unsigned short l_sHeight = 0;				memcpy(&l_sHeight, l_pData, sizeof(short));	l_pData += sizeof(unsigned short);
-		FMLog::LogWithFlag("LoadFontDataFile start 2\n", CORE_LOG_FLAG);
 		unsigned int l_uiMask = 0;		    memcpy(&l_uiMask, l_pData, sizeof(unsigned int));	l_pData += sizeof(unsigned int);
-		FMLog::LogWithFlag("LoadFontDataFile start 3\n", CORE_LOG_FLAG);
 		unsigned short	l_sMaxGlyph = 0;		    memcpy(&l_sMaxGlyph, l_pData, sizeof(unsigned short));	l_pData += sizeof(unsigned  short);
-		FMLog::LogWithFlag("LoadFontDataFile start 4\n", CORE_LOG_FLAG);
 		//http://opass.logdown.com/posts/743054-about-memory-alignment
 		//
 #if defined(ANDROID) || defined(IOS) || defined(WASM)
@@ -110,9 +106,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 #else
 		short*	l_psTranslatorTable = (short*)l_pData;	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
 #endif
-		FMLog::LogWithFlag("LoadFontDataFile start 5\n", CORE_LOG_FLAG);
 		unsigned int l_uiNumGlyphs = 0;	    memcpy(&l_uiNumGlyphs, l_pData, sizeof(unsigned int));	l_pData += sizeof(unsigned int);
-		FMLog::LogWithFlag("LoadFontDataFile start 6\n", CORE_LOG_FLAG);
 		m_wFontHeight	= l_sHeight;
 		m_dwMask		= l_uiMask;
         m_cMaxGlyph			= l_sMaxGlyph;
@@ -125,7 +119,6 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 #else
 		m_pGlyphs = (FILE_GLYPH_ATTR*)l_pData;
 #endif
-		FMLog::LogWithFlag("font wierd new end\n", CORE_LOG_FLAG);
     }
     else
     {

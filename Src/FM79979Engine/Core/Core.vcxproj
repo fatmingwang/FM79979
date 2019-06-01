@@ -113,7 +113,7 @@
       <CLanguageStandard>
       </CLanguageStandard>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
-      <AdditionalIncludeDirectories>./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Freetype/include;./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <EnableMicrosoftExtensions>
       </EnableMicrosoftExtensions>
@@ -125,7 +125,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Freetype/include;./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>

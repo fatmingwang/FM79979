@@ -271,6 +271,9 @@
     <Filter Include="jni\RenderObject\OpenGL\Crossplatform\OpenGL">
       <UniqueIdentifier>{ead8132c-2fca-4c13-90e8-622367bd5b2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="jni\RenderObject\Font\FreeTypeFont">
+      <UniqueIdentifier>{ee36940e-194c-4312-94c0-b2a8dc5b1392}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\values\strings.xml">
@@ -946,6 +949,9 @@
     <ClCompile Include="..\..\Core\Common\Utility.cpp">
       <Filter>jni\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.cpp">
+      <Filter>jni\RenderObject\Font\FreeTypeFont</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1572,6 +1578,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h">
       <Filter>jni\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.h">
+      <Filter>jni\RenderObject\Font\FreeTypeFont</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

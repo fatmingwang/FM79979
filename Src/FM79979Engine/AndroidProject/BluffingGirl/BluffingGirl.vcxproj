@@ -51,9 +51,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <NdkToolchainVersion>Default</NdkToolchainVersion>
@@ -82,7 +84,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\Tegra-Android\Debug;C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\lib\gnustl\armeabi;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;freetype;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ReportUndefinedSymbols>true</ReportUndefinedSymbols>
       <UseLinker>bfd</UseLinker>
@@ -110,7 +112,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>..\Tegra-Android\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;jnigraphics;Bullet;FreeType;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <ReportUndefinedSymbols>false</ReportUndefinedSymbols>
     </Link>

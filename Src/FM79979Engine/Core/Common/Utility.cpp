@@ -880,6 +880,26 @@ namespace UT
 		return bSuccess;
 	}
 #endif
+
+	char*					GetFileContent(const char* e_strFileName, int&e_iFileLength)
+	{
+		char*l_pTemp = nullptr;
+		NvFile*l_pFile = MyFileOpen(e_strFileName, "r");
+		if (!l_pFile)
+		{
+			return nullptr;
+		}
+		int	l_iFileSize = UT::GetFileSize(l_pFile);
+		if (l_iFileSize != 0)
+		{
+			e_iFileLength = l_iFileSize;
+			l_pTemp = new char[l_iFileSize + 1];//1 MB
+			size_t	l_iNumRead = NvFRead(l_pTemp, 1, l_iFileSize, l_pFile);
+			l_pTemp[l_iNumRead] = 0;
+		}
+		NvFClose(l_pFile);
+		return l_pTemp;
+	}
 	std::string				GetTxtFileContent(const char* e_strFileName)
 	{
 		std::string	l_strContent = e_strFileName;

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{5ada4f93-8b42-4a05-8095-846596be06f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\FT_MODULES">
+      <UniqueIdentifier>{52985ffc-2696-4f58-ac6b-7e80b399cb6f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

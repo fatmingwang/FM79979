@@ -82,10 +82,12 @@ Global
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|Emscripten.Build.0 = Release|Emscripten
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.ActiveCfg = Release|x64
 		{6D394C49-B2DD-4475-BFD3-12B01C1930D7}.Release|x64.Build.0 = Release|x64
-		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|Emscripten.ActiveCfg = Debug|Win32
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|Emscripten.Build.0 = Debug|Emscripten
 		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|x64.ActiveCfg = Debug|x64
 		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Debug|x64.Build.0 = Debug|x64
-		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|Emscripten.ActiveCfg = Release|Win32
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|Emscripten.Build.0 = Release|Emscripten
 		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|x64.ActiveCfg = Release|x64
 		{29840BD0-19C2-4DDD-BC75-2EC94B6C9EEC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection

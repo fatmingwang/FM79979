@@ -65,7 +65,7 @@ cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
 	g_pFreetypeGlyphRender = new cFreetypeGlyphRender("kaiu.ttf", 124);
-	g_pFreetypeGlyphRender2 = new cFreetypeGlyphRender(g_pFreetypeGlyphRender);
+	//g_pFreetypeGlyphRender2 = new cFreetypeGlyphRender(g_pFreetypeGlyphRender);
 	//cBluetoothSinglton::GetInstance()->Init();
 	//cBluetoothSinglton::GetInstance()->CreateAsServer(L"FMWin10");
 	//cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
@@ -457,13 +457,15 @@ void	SampleRender()
 	//cBluetoothSinglton::GetInstance()->Render(400, 400);
 	if (g_pFreetypeGlyphRender)
 	{
-		g_pFreetypeGlyphRender->RenderFont(200, 200, L"中");
-		if (g_pFreetypeGlyphRender2)
-		{
-			g_pFreetypeGlyphRender2->SetColor(Vector4(0.5, 0.5, 1, 1));
-			std::wstring l_str = L"中口以嗎\n部口已\nQQ";
-			g_pFreetypeGlyphRender2->RenderFont(200, 400, l_str.c_str());
-		}
+		wchar_t l_str[4] = { 24185,20320,23064,0 };
+		g_pFreetypeGlyphRender->RenderFont(Vector2(100, 100), l_str);
+		//g_pFreetypeGlyphRender->RenderFont(200, 200, L"中");
+		//if (g_pFreetypeGlyphRender2)
+		//{
+		//	g_pFreetypeGlyphRender2->SetColor(Vector4(0.5, 0.5, 1, 1));
+		//	std::wstring l_str = L"中口以嗎\n部口已\nQQ";
+		//	g_pFreetypeGlyphRender2->RenderFont(200, 400, l_str.c_str());
+		//}
 	}
 }
 

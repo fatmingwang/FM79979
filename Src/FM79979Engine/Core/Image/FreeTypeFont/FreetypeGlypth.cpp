@@ -8,7 +8,8 @@
 #include "../Texture.h"
 #include "../../OpenGL/GLSL/Shader.h"
 #include "../SimplePrimitive.h"
-
+#include "../../GameplayUT/Log/FMLog.h"
+#include "../../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
 	class cDynamicFontTexture :public cSmartObject, public NamedTypedObject
@@ -205,10 +206,12 @@ namespace FATMING_CORE
 			m_vHalfSize.y = l_fHalfHeight;
 		}
 		UseShaderProgram(DEFAULT_SHADER);
-		m_pDynamicFontTexture->ApplyImage();
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
-		l_mat *= this->GetWorldTransform();
-		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount*ONE_QUAD_IS_TWO_TRIANGLES);
+		if (m_pDynamicFontTexture->ApplyImage())
+		{
+			cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
+			l_mat *= this->GetWorldTransform();
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount*ONE_QUAD_IS_TWO_TRIANGLES);
+		}
 	}
 
 	void cFreetypeGlyphRender::Render()
@@ -220,7 +223,7 @@ namespace FATMING_CORE
 	{
 		if (this->m_pDynamicFontTexture)
 		{
-			m_pDynamicFontTexture->DebugRender(Vector2(0,0));
+			m_pDynamicFontTexture->DebugRender(Vector2(0,100));
 		}
 	}
 
@@ -278,22 +281,45 @@ namespace FATMING_CORE
 	cDynamicFontTexture::cDynamicFontTexture(const char*e_strFontName, cFreetypeGlyphRender*e_pcFreetypeGlyphRender, unsigned int e_uiFontSize, POINT e_DefaultTextureSize)
 		:cSmartObject(e_pcFreetypeGlyphRender)
 	{
+		this->m_iFontSize = e_uiFontSize;
+		std::wstring l_strName = ValueToStringW(e_strFontName);
+		m_TextureSize = e_DefaultTextureSize;
+		m_iLastCharacterPosX = 0;
+		m_iLastCharacterPosY = 0;
+		this->m_pTexture = nullptr;
+
+		FT_Error l_Err = FT_Init_FreeType(&m_FT_Library);
 		//freetype font init
-		if (FT_Init_FreeType(&m_FT_Library))
+		if (l_Err)
 		{
 			//std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
-			int a = 0;
+			FMLog::LogWithFlag("FT_Init_FreeType failed", CORE_LOG_FLAG, false);
+			return;
 		}
-
-		if (FT_New_Face(m_FT_Library, e_strFontName, 0, &m_Face))
+		const FT_F26Dot6 ptSize26Dot6 = e_uiFontSize;
+#ifdef WIN32
+		l_Err = FT_New_Face(m_FT_Library, e_strFontName, 0, &m_Face);
+		if(l_Err)
 		{
+			FMLog::LogWithFlag(UT::ComposeMsgByFormat("FT_New_Face failed:%s", e_strFontName), CORE_LOG_FLAG, false);
 			//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-			int a = 0;
+			return;
 		}
+#else
+		int32_t font_memory_image_length = 0;
+		char *font_memory_image = GetFileContent(e_strFontName, font_memory_image_length);
+		if (font_memory_image)
+		{
+			const FT_Byte *ft2_font_memory_image = reinterpret_cast<FT_Byte*>(font_memory_image);
+			assert(font_memory_image);
+			l_Err = FT_New_Memory_Face(m_FT_Library, ft2_font_memory_image, font_memory_image_length, 0, &m_Face);
+			assert(!l_Err);
+		}
+#endif
+		//l_Err = FT_Set_Char_Size(m_Face, 0, ptSize26Dot6, cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
 		FT_Set_Pixel_Sizes(m_Face, 0, e_uiFontSize);
 		this->m_iFontSize = e_uiFontSize;
 
-		std::wstring l_strName = ValueToStringW(e_strFontName);
 		m_TextureSize = e_DefaultTextureSize;
 		m_iLastCharacterPosX = 0;
 		m_iLastCharacterPosY = 0;
@@ -317,9 +343,12 @@ namespace FATMING_CORE
 	//http://nehe.gamedev.net/tutorial/freetype_fonts_in_opengl/24001/
 	bool cDynamicFontTexture::AddNewCharacterToTexture(wchar_t e_Wchar)
 	{
+		if (!this->m_pTexture)
+			return false;
 		// Load The Glyph For Our Character.
 		if (FT_Load_Glyph(m_Face, FT_Get_Char_Index(m_Face, e_Wchar), FT_LOAD_DEFAULT))
 		{
+			FMLog::LogWithFlag("FT_Load_Glyph failed", CORE_LOG_FLAG, false);
 			//throw std::runtime_error("FT_Load_Glyph failed");
 			return false;
 		}
@@ -327,6 +356,7 @@ namespace FATMING_CORE
 		FT_Glyph l_Glyph;
 		if (FT_Get_Glyph(m_Face->glyph, &l_Glyph))
 		{
+			FMLog::LogWithFlag("FT_Get_Glyph failed", CORE_LOG_FLAG, false);
 			return false;
 			//throw std::runtime_error("FT_Get_Glyph failed");
 		}
@@ -343,6 +373,7 @@ namespace FATMING_CORE
 		}
 		if (m_iLastCharacterPosY + (int)l_Bitmap.rows >= (int)this->m_TextureSize.y)
 		{
+			FMLog::LogWithFlag("cDynamicFontTexture:texture is too small", CORE_LOG_FLAG, false);
 			//increase texture size!
 			return false;
 		}
@@ -374,9 +405,9 @@ namespace FATMING_CORE
 					l_ucColor;
 			}
 		}
+		m_pTexture->ApplyImage();
 		glPixelStorei(GL_PACK_ALIGNMENT, 1);
-		//glCopyTexSubImage2D()
-		glTextureSubImage2D(m_pTexture->GetImageIndex(), 0, m_iLastCharacterPosX, m_iLastCharacterPosY, l_Bitmap.width, l_Bitmap.rows, GL_RGBA, GL_UNSIGNED_BYTE, l_pExpanded_data);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, m_iLastCharacterPosX, m_iLastCharacterPosY, l_Bitmap.width, l_Bitmap.rows, GL_RGBA, GL_UNSIGNED_BYTE, l_pExpanded_data);
 		sGlyphInfo l_sGlyphInfo;
 		l_sGlyphInfo.Size.x = l_Bitmap.width;
 		l_sGlyphInfo.Size.y = l_Bitmap.rows;
@@ -396,6 +427,8 @@ namespace FATMING_CORE
 
 	cDynamicFontTexture::sGlyphInfo* cDynamicFontTexture::GetGlyphInfo(wchar_t e_Wchar)
 	{
+		if (!this->m_pTexture)
+			return nullptr;
 		sGlyphInfo*l_pGlyphInfo = nullptr;
 		auto l_Iterator = m_CharacterAndGlyphInfo.find(e_Wchar);
 		if (l_Iterator == m_CharacterAndGlyphInfo.end())

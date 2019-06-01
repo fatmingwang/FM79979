@@ -26,7 +26,10 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidArch>multiple</AndroidArch>
+    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidMinAPI>android-19</AndroidMinAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>
@@ -54,11 +57,13 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;ANDROID;DEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--rtti -fexceptions %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-fexceptions %(AdditionalOptions)</AdditionalOptions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CLanguageStandard />
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;freetype;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Tegra-Android\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>

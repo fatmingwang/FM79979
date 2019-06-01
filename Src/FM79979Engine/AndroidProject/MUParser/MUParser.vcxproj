@@ -78,7 +78,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
-      <CppLanguageStandard>gnu++11</CppLanguageStandard>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
       <GccExceptionHandling>true</GccExceptionHandling>
       <PreprocessorDefinitions>_LIB;DEBUG;_UNICODE</PreprocessorDefinitions>
     </ClCompile>

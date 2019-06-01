@@ -57,7 +57,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
       <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
@@ -72,7 +72,7 @@
     <ClCompile>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
       <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
@@ -118,6 +118,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\Log\FMLog.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\WriteFile\WriteFileWithThread.cpp" />
     <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp" />
+    <ClCompile Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
     <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp" />
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
@@ -445,6 +446,7 @@
     <ClInclude Include="..\..\Core\Image\BinaryToTexture.h" />
     <ClInclude Include="..\..\Core\Image\FMAnimationRule.h" />
     <ClInclude Include="..\..\Core\Image\FrameBuffer.h" />
+    <ClInclude Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.h" />
     <ClInclude Include="..\..\Core\Image\GlyphFontRender.h" />
     <ClInclude Include="..\..\Core\Image\ImageParser.h" />
     <ClInclude Include="..\..\Core\Image\jpeg\jpgd.h" />

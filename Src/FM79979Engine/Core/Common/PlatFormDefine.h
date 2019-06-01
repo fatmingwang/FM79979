@@ -91,78 +91,79 @@
 #endif
 //===============================================
 #if defined WIN32
-#ifndef GL_COLOR_ATTACHMENT0
-#define GL_COLOR_ATTACHMENT0                            GL_COLOR_ATTACHMENT0_EXT
-#endif
-#ifndef GL_DEPTH_ATTACHMENT
-#define GL_DEPTH_ATTACHMENT                             GL_DEPTH_ATTACHMENT_EXT
-#endif
-#ifndef GL_FRAMEBUFFER_COMPLETE
-#define GL_FRAMEBUFFER_COMPLETE                         GL_FRAMEBUFFER_COMPLETE_EXT
-#endif
-#ifndef GL_FRAMEBUFFER_UNSUPPORTED
-#define GL_FRAMEBUFFER_UNSUPPORTED                      GL_FRAMEBUFFER_UNSUPPORTED_EXT
-#endif
-#ifndef GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
-#define GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT    GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT
-#endif
-#ifndef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT
-#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT            GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT
-#endif
-#ifndef GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS
-#define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS            GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT
-#endif
-#ifndef GL_FRAMEBUFFER
-#define GL_FRAMEBUFFER                                  GL_FRAMEBUFFER_EXT
-#endif
-#ifndef GL_RENDERBUFFER
-#define GL_RENDERBUFFER                                 GL_RENDERBUFFER_EXT
-#endif
-#ifndef glGenFramebuffers
-#define glGenFramebuffers                               glGenFramebuffersEXT
-#endif
-#ifndef glBindFramebuffer
-#define glBindFramebuffer                               glBindFramebufferEXT
-#endif
-#ifndef glBindRenderbuffer
-#define glBindRenderbuffer                              glBindRenderbufferEXT
-#endif
-#ifndef glCheckFramebufferStatus
-#define glCheckFramebufferStatus                        glCheckFramebufferStatusEXT
-#endif
-#ifndef glFramebufferRenderbuffer
-#define glFramebufferRenderbuffer                       glFramebufferRenderbufferEXT
-#endif
-#ifndef glFramebufferTexture2D
-#define glFramebufferTexture2D                          glFramebufferTexture2DEXT
-#endif
-#ifndef glGenRenderbuffers
-#define glGenRenderbuffers                              glGenRenderbuffersEXT
-#endif
-#ifndef glRenderbufferStorage
-#define glRenderbufferStorage                           glRenderbufferStorageEXT
-#endif
-#ifndef glDeleteFramebuffers
-#define glDeleteFramebuffers                            glDeleteFramebuffersEXT
-#endif
-#ifndef glDeleteRenderbuffers
-#define glDeleteRenderbuffers                           glDeleteRenderbuffersEXT
-#endif
-#ifndef glClearDepthf
-#define glClearDepthf                                   glClearDepth
-#endif
-#ifndef GL_RGBA32F
-#define GL_RGBA32F										GL_RGBA32F_ARB
-#endif
-#ifndef GL_RGB32F
-#define GL_RGB32F										GL_RGB32F_ARB
-#endif
-#ifndef GL_RGBA16F
-#define GL_RGBA16F										GL_RGBA16F_ARB
-#endif
-#ifndef GL_RGB16F
-#define GL_RGB16F										GL_RGB16F_ARB
-#endif
+	#ifndef GL_COLOR_ATTACHMENT0
+	#define GL_COLOR_ATTACHMENT0                            GL_COLOR_ATTACHMENT0_EXT
+	#endif
+	#ifndef GL_DEPTH_ATTACHMENT
+	#define GL_DEPTH_ATTACHMENT                             GL_DEPTH_ATTACHMENT_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER_COMPLETE
+	#define GL_FRAMEBUFFER_COMPLETE                         GL_FRAMEBUFFER_COMPLETE_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER_UNSUPPORTED
+	#define GL_FRAMEBUFFER_UNSUPPORTED                      GL_FRAMEBUFFER_UNSUPPORTED_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT
+	#define GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT    GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT
+	#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT            GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS
+	#define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS            GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT
+	#endif
+	#ifndef GL_FRAMEBUFFER
+	#define GL_FRAMEBUFFER                                  GL_FRAMEBUFFER_EXT
+	#endif
+	#ifndef GL_RENDERBUFFER
+	#define GL_RENDERBUFFER                                 GL_RENDERBUFFER_EXT
+	#endif
+	#ifndef glGenFramebuffers
+	#define glGenFramebuffers                               glGenFramebuffersEXT
+	#endif
+	#ifndef glBindFramebuffer
+	#define glBindFramebuffer                               glBindFramebufferEXT
+	#endif
+	#ifndef glBindRenderbuffer
+	#define glBindRenderbuffer                              glBindRenderbufferEXT
+	#endif
+	#ifndef glCheckFramebufferStatus
+	#define glCheckFramebufferStatus                        glCheckFramebufferStatusEXT
+	#endif
+	#ifndef glFramebufferRenderbuffer
+	#define glFramebufferRenderbuffer                       glFramebufferRenderbufferEXT
+	#endif
+	#ifndef glFramebufferTexture2D
+	#define glFramebufferTexture2D                          glFramebufferTexture2DEXT
+	#endif
+	#ifndef glGenRenderbuffers
+	#define glGenRenderbuffers                              glGenRenderbuffersEXT
+	#endif
+	#ifndef glRenderbufferStorage
+	#define glRenderbufferStorage                           glRenderbufferStorageEXT
+	#endif
+	#ifndef glDeleteFramebuffers
+	#define glDeleteFramebuffers                            glDeleteFramebuffersEXT
+	#endif
+	#ifndef glDeleteRenderbuffers
+	#define glDeleteRenderbuffers                           glDeleteRenderbuffersEXT
+	#endif
+	#ifndef glClearDepthf
+	#define glClearDepthf                                   glClearDepth
+	#endif
+	#ifndef GL_RGBA32F
+	#define GL_RGBA32F										GL_RGBA32F_ARB
+	#endif
+	#ifndef GL_RGB32F
+	#define GL_RGB32F										GL_RGB32F_ARB
+	#endif
+	#ifndef GL_RGBA16F
+	#define GL_RGBA16F										GL_RGBA16F_ARB
+	#endif
+	#ifndef GL_RGB16F
+	#define GL_RGB16F										GL_RGB16F_ARB
+	#endif
+
 #endif
 
 #ifndef GL_BLEND_SRC
@@ -173,36 +174,36 @@
 #endif
 //===============================================
 #ifdef WIN32
-#pragma warning(disable:4702)
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-#include <stdio.h>
-#include <wchar.h>
+	#pragma warning(disable:4702)
+	#define WIN32_LEAN_AND_MEAN
+	#include <windows.h>
+	#include <stdio.h>
+	#include <wchar.h>
 #else
 #ifdef IOS
-#include <ctype.h>
-#include <wctype.h>
-#include <unistd.h>
-#include <string>
-#include <wchar.h>
-#include <stdint.h>
+	#include <ctype.h>
+	#include <wctype.h>
+	#include <unistd.h>
+	#include <string>
+	#include <wchar.h>
+	#include <stdint.h>
 #else // IOS
 #if defined(LINUX) || defined(__PPU__)
-#include <ctype.h>
-#include <wctype.h>
-#include <unistd.h>
-#include <string>
-#include <wchar.h>
-#include <stdarg.h>
-#include <malloc.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdint.h>
+	#include <ctype.h>
+	#include <wctype.h>
+	#include <unistd.h>
+	#include <string>
+	#include <wchar.h>
+	#include <stdarg.h>
+	#include <malloc.h>
+	#include <stdlib.h>
+	#include <stdio.h>
+	#include <stdint.h>
 //#else // OTHER...                 only for linux and windows!!
 //#error "Unsupported platform."
 #else
 #if defined(ANDROID)	
-#include "unistd.h"
+	#include "unistd.h"
 #endif //ANDROID
 #endif // LINUX || __PPU__
 #endif // IOS

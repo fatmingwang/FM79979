@@ -9,7 +9,6 @@ cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //#define TEST_RUN
 cMPDI*g_pMPDITest = nullptr;
 cBasicSound*g_pSound = nullptr;
-
 void handle_key_up(SDL_keysym* keysym)
 {
 	switch (keysym->sym)
@@ -189,7 +188,8 @@ int main()
 		cGameApp::m_svGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		if(g_pGameApp)
-			g_pGameApp->Init();			
+			g_pGameApp->Init();
+		
 		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
 		FMLog::Log("start to emscripten_set_main_loop\n", false);
 #ifdef TEST_RUN
