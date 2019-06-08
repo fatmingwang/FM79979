@@ -102,7 +102,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 		//http://opass.logdown.com/posts/743054-about-memory-alignment
 		//
 #if defined(ANDROID) || defined(IOS) || defined(WASM)
-		short*	l_psTranslatorTable = new short[l_sMaxGlyph + 1];	    memcpy(l_psTranslatorTable, l_pData, sizeof(short)*l_sMaxGlyph + 1);	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
+		short*	l_psTranslatorTable = new short[l_sMaxGlyph + 1];	    memcpy(l_psTranslatorTable, l_pData, sizeof(short)*(l_sMaxGlyph + 1));	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
 #else
 		short*	l_psTranslatorTable = (short*)l_pData;	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
 #endif

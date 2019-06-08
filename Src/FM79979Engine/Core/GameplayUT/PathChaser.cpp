@@ -77,6 +77,41 @@ namespace FATMING_CORE
 		m_bTouchProgressSuccess = true;
 	}
 
+	void	cPathChaser::MouseMove(int e_iPosX, int e_iPosY)
+	{
+		if (!m_bTouchProgressSuccess)
+			return;
+		Vector2	l_vGoalPos = Vector2(this->m_OriginalPointList[m_iNextGoalIndex].x, this->m_OriginalPointList[m_iNextGoalIndex].y);
+		Vector2	l_vCurrentPos = Vector2((float)e_iPosX, (float)e_iPosY);
+		m_vCurrentTouchedPosition = Vector2((float)e_iPosX, (float)e_iPosY);
+		float	l_fCurrentDistanceToGoalPoint = (l_vGoalPos - l_vCurrentPos).Length();
+		float	l_fToGoalDistanceChangedValue = l_fCurrentDistanceToGoalPoint - m_fLastLengthToGoalPoint;
+		if (l_fToGoalDistanceChangedValue > 0)//it go far.....
+		{
+			m_fCurrentErrorDistance += l_fToGoalDistanceChangedValue;
+			if (m_fCurrentErrorDistance >= this->m_fTolerationErrorDistance)
+			{
+				this->m_bTouchProgressSuccess = false;
+				return;
+			}
+			this->m_fTotalErrorDistance += l_fToGoalDistanceChangedValue;
+		}
+		else//it's closer,check if is it time to next point?
+		{
+			if (this->m_fReachedLength >= l_fCurrentDistanceToGoalPoint)//reached goal point
+			{
+				if (m_iNextGoalIndex < (int)this->m_OriginalPointList.size() - 1)
+				{
+					++m_iNextGoalIndex;
+					m_fCurrentErrorDistance = 0;
+					m_fLastLengthToGoalPoint = (this->m_OriginalPointList[m_iNextGoalIndex] - this->m_vCurrentTouchedPosition).Length();
+					return;
+				}
+			}
+		}
+		m_fLastLengthToGoalPoint = l_fCurrentDistanceToGoalPoint;
+	}
+
 	void	cPathChaser::MouseUp(int e_iPosX,int e_iPosY)
 	{
 		m_bTouched = false;
@@ -93,48 +128,13 @@ namespace FATMING_CORE
 		m_iNextGoalIndex = 0;
 	}
 
-	void	cPathChaser::MouseMove(int e_iPosX,int e_iPosY)
-	{
-		if(!m_bTouchProgressSuccess)
-			return;
-		Vector2	l_vGoalPos = Vector2(this->m_OriginalPointList[m_iNextGoalIndex].x,this->m_OriginalPointList[m_iNextGoalIndex].y);
-		Vector2	l_vCurrentPos = Vector2((float)e_iPosX,(float)e_iPosY);
-		m_vCurrentTouchedPosition = Vector2((float)e_iPosX,(float)e_iPosY);
-		float	l_fCurrentDistanceToGoalPoint = (l_vGoalPos-l_vCurrentPos).Length();
-		float	l_fToGoalDistanceChangedValue = l_fCurrentDistanceToGoalPoint-m_fLastLengthToGoalPoint;
-		if( l_fToGoalDistanceChangedValue>0 )//it go far.....
-		{
-			m_fCurrentErrorDistance+=l_fToGoalDistanceChangedValue;
-			if( m_fCurrentErrorDistance>=this->m_fTolerationErrorDistance )
-			{
-				this->m_bTouchProgressSuccess = false;
-				return;
-			}
-			this->m_fTotalErrorDistance+=l_fToGoalDistanceChangedValue;
-		}
-		else//it's closer,check if is it time to next point?
-		{
-			if(this->m_fReachedLength>=l_fCurrentDistanceToGoalPoint)//reached goal point
-			{
-				if( m_iNextGoalIndex<(int)this->m_OriginalPointList.size()-1 )
-				{
-					++m_iNextGoalIndex;
-					m_fCurrentErrorDistance = 0;
-					m_fLastLengthToGoalPoint = (this->m_OriginalPointList[m_iNextGoalIndex]-this->m_vCurrentTouchedPosition).Length();
-					return;
-				}
-			}
-		}
-		m_fLastLengthToGoalPoint = l_fCurrentDistanceToGoalPoint;
-	}
-
 	//void	cPathChaser::Update(float e_fElpaseTime)
 	//{
 	//	cCurveWithTime::Update(e_fElpaseTime);
 	//}
 	void	cPathChaser::RenderCurve(Vector4 e_vColor)
 	{
-		cCurveWithTime::RenderCurve(e_vColor);
+		cCurveWithTime::RenderCurve(Vector4(1,0,1,1));
 		if( m_OriginalPointList.size() < 1 )
 			return;
 		int	l_iSize = m_iCurrentPointIndex+1;

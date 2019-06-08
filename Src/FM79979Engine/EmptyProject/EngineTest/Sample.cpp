@@ -48,6 +48,97 @@ cFrameBuffer*g_pFrameBuffer = nullptr;
 cFreetypeGlyphRender*g_pFreetypeGlyphRender = nullptr;
 cFreetypeGlyphRender*g_pFreetypeGlyphRender2 = nullptr;
 
+cPathChaser*g_pPathChaser = nullptr;
+
+cCurveWithTime g_CurveWithTime;
+cCurveWithTime g_CurveWithTime2;
+
+#ifdef WASM
+//https://stackoverflow.com/questions/51343425/not-able-to-bind-function-in-emscripten
+#include <emscripten/bind.h>
+using namespace emscripten;
+class cWASMBindingTest*g_pWASMBindingTest = nullptr;
+class cWASMBindingTest 
+{
+public:
+	cWASMBindingTest(const char*e_strText)
+	{
+		g_pWASMBindingTest = this;
+		y = e_strText;
+		printf("-----------------------cWASMBindingTest------------------call ed");
+	}
+	cWASMBindingTest(int x, std::string y)
+		: x(x)
+		, y(y)
+	{}
+
+	void incrementX() {
+		++x;
+	}
+
+	int getX() const { return x; }
+	void setX(int x_) { x = x_; }
+
+	static std::string getStringFromInstance(const cWASMBindingTest& instance) {
+		return instance.y;
+	}
+	void	Render()
+	{
+		cGameApp::RenderFont(Vector2(600.f,600.f), ValueToStringW(y).c_str());
+	}
+private:
+	int x;
+	std::string y;
+};
+
+void JSBinding(std::string e_str)
+{
+	if (!g_pWASMBindingTest)
+	{
+		g_pWASMBindingTest = new cWASMBindingTest(e_str.c_str());
+	}
+}
+int g_iMPDIIndex = 0;
+void	MPDIIndex(int e_iIndex)
+{
+	g_iMPDIIndex = e_iIndex;
+}
+//
+
+EMSCRIPTEN_BINDINGS(my_module)
+{
+	emscripten::function("JSBinding", &JSBinding);
+	emscripten::function("MPDIIndex", &MPDIIndex);
+	
+}
+//EMSCRIPTEN_BINDINGS(my_class_example) 
+//{
+	//class_<cWASMBindingTest>("cWASMBindingTest")
+	//	.constructor<int, std::string>()
+	//	.constructor<const char*>()
+	//	.function("incrementX", &cWASMBindingTest::incrementX)
+	//	.property("x", &cWASMBindingTest::getX, &cWASMBindingTest::setX)
+	//	.class_function("getStringFromInstance", &cWASMBindingTest::getStringFromInstance)
+		//;
+//}
+
+    //<script>
+    //    console.log("-----------------------");
+    //    //Module.JSBinding();
+    //    Module['onRuntimeInitialized'] = () =>
+    //    {
+    //        Module.JSBinding();
+    //    }
+    //    console.log("========================");
+        //Module.ready().then
+        //    (
+        //        var l_Instance = new Module.cWASMBindingTest("Hi");
+        //   )
+        //console.log("========================");
+    //</script>
+
+#endif
+
 void	LoadSample();
 void	DestoryObject();
 void	SampleUpdate(float e_fElpaseTime);
@@ -64,7 +155,43 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
-	g_pFreetypeGlyphRender = new cFreetypeGlyphRender("kaiu.ttf", 124);
+	int l_iYBase = 900;
+	g_CurveWithTime.AddPoint(Vector3(100, 100, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(100, l_iYBase, 0), 0);
+
+
+	g_CurveWithTime.AddPoint(Vector3(200, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(300, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(400, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(500, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(600, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(700, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(800, l_iYBase, 0), 0);
+	g_CurveWithTime.AddPoint(Vector3(900, l_iYBase, 0), 0);
+
+	g_CurveWithTime2.AddPoint(Vector3(100, l_iYBase, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(200, l_iYBase-30, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(300, l_iYBase-80, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(400, l_iYBase-190, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(500, l_iYBase-260, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(600, l_iYBase-320, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(700, l_iYBase-340, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(800, l_iYBase-360, 0), 0);
+	g_CurveWithTime2.AddPoint(Vector3(900, l_iYBase-380, 0), 0);
+
+	g_pPathChaser = new cPathChaser(100.f, 100.f);
+	if (g_pPathChaser)
+	{
+		cCurveWithTime l_cCurveWithTime;
+		l_cCurveWithTime.AddPoint(Vector3(100, 100, 0),0);
+		l_cCurveWithTime.AddPoint(Vector3(500, 100, 0),1);
+		l_cCurveWithTime.AddPoint(Vector3(300, 100, 0),2);
+		l_cCurveWithTime.AddPoint(Vector3(100, 500, 0),3);
+		l_cCurveWithTime.AddPoint(Vector3(300, 300, 0),4);
+		l_cCurveWithTime.AddPoint(Vector3(500, 500, 0),5);
+		g_pPathChaser->AssignPathData(&l_cCurveWithTime);
+	}
+	//g_pFreetypeGlyphRender = new cFreetypeGlyphRender("kaiu.ttf", 124);
 	//g_pFreetypeGlyphRender2 = new cFreetypeGlyphRender(g_pFreetypeGlyphRender);
 	//cBluetoothSinglton::GetInstance()->Init();
 	//cBluetoothSinglton::GetInstance()->CreateAsServer(L"FMWin10");
@@ -72,7 +199,8 @@ void	LoadSample()
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
-	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("MainBG.ogg");
+	cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
+	//cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Media/MainBG.ogg");
 #else
 	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
 #endif
@@ -119,16 +247,20 @@ void	LoadSample()
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
 #ifdef WASM
-	std::wstring l_strMPDIResultFileName = L"bgrounda01.mpdi";
+	std::wstring l_strMPDIResultFileName = L"Media/MPDI/bgrounda01.mpdi";
 #else
 	
 	std::wstring l_strMPDIResultFileName = L"BluffingGirl/Image/GamePlay.mpdi";
 #endif
-	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
+	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
 	{
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
+#ifdef WASM
+		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(g_iMPDIIndex);
+#else
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(0);
+#endif
 		//ensure u have call start
 		g_pMultiPathDynamicImage->Init();
 		//g_pMultiPathDynamicImage->SetPos(Vector3(350, 500, 0));
@@ -218,23 +350,25 @@ void	DestorySampleObject()
 	SAFE_DELETE(g_pToneMappingShader);
 	SAFE_DELETE(g_pTunnelEffect);
 	SAFE_DELETE(g_pTestShader);
-	cBluetoothSinglton::GetInstance()->DestroyInstance();
+	//cBluetoothSinglton::GetInstance()->DestroyInstance();
 	//cBluetoothSinglton::DestroyInstance();
 }
 
 void	SampleUpdate(float e_fElpaseTime)
 {
-	cBluetoothSinglton::GetInstance()->Update(e_fElpaseTime);
-	std::vector<sBluetoothPacket*> l_DataVector;
-	cBluetoothSinglton::GetInstance()->GetReceivedData(&l_DataVector);
-	if (l_DataVector.size())
-	{
-		for (size_t i = 0; i < l_DataVector.size(); i++)
-		{
-			auto l_Data = l_DataVector[i];
-			delete l_Data;
-		}
-	}
+	if (g_pPathChaser)
+		g_pPathChaser->Update(e_fElpaseTime);
+	//cBluetoothSinglton::GetInstance()->Update(e_fElpaseTime);
+	//std::vector<sBluetoothPacket*> l_DataVector;
+	//cBluetoothSinglton::GetInstance()->GetReceivedData(&l_DataVector);
+	//if (l_DataVector.size())
+	//{
+	//	for (size_t i = 0; i < l_DataVector.size(); i++)
+	//	{
+	//		auto l_Data = l_DataVector[i];
+	//		delete l_Data;
+	//	}
+	//}
 	MyGlErrorTest("SampleUpdate start");
 	if (cGameApp::m_spSoundParser)
 		cGameApp::m_spSoundParser->Update(0.016f);
@@ -336,6 +470,12 @@ void	KeyboardDataRender()
 		}
 	}
 }
+bool	g_bWSMCall = false;
+
+void	WASMBindingFunctionTest(bool e_bWSMCall)
+{
+	g_bWSMCall = e_bWSMCall;
+}
 
 void	SampleRender()
 {
@@ -398,7 +538,7 @@ void	SampleRender()
 		//g_pOrthogonalCamera->Render();
 		//g_pOrthogonalCamera->DrawGrid();
 	}
-	GLRender::RenderRectangle(1440, 900, cMatrix44::Identity, Vector4::One);
+	//GLRender::RenderRectangle(1440, 900, cMatrix44::Identity, Vector4::One);
 	if (g_pMultiPathDynamicImage)
 	{
 		g_pMultiPathDynamicImage->Render();
@@ -443,7 +583,7 @@ void	SampleRender()
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
 		}
 	}
-	RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
+	//RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->EndDraw();
 	if (g_pFrameBuffer)
@@ -467,6 +607,43 @@ void	SampleRender()
 		//	g_pFreetypeGlyphRender2->RenderFont(200, 400, l_str.c_str());
 		//}
 	}
+	//if (g_pPathChaser)
+	//{
+	//	g_pPathChaser->RenderCurve(Vector4(1,1,0,1));
+	//}
+	if (g_bWSMCall)
+	{
+		g_CurveWithTime2.RenderCurve();
+		g_CurveWithTime.RenderCurve();
+		auto l_List = g_CurveWithTime2.GetPointList();
+		int l_iValueData[] = {
+			3,
+			8,
+			19,
+			26,
+			32,
+			34,
+			36,
+			38 };
+
+		for (int i = 0; i < l_List.size(); ++i)
+		{
+			if (i > 0)
+			{
+				l_List[i].y -= 50;
+				l_List[i].x -= 20;
+				cGameApp::RenderFont(l_List[i].x, l_List[i].y, ValueToStringW(l_iValueData[i - 1]));
+				cGameApp::RenderFont(l_List[i].x, 950.f, ValueToStringW(i));
+			}
+		}
+		cGameApp::RenderFont(20, 100, L"80");
+	}
+#ifdef WASM
+	if (g_pWASMBindingTest)
+	{
+		g_pWASMBindingTest->Render();
+	}
+#endif
 }
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY)
@@ -474,6 +651,10 @@ void	SampleMouseDown(int e_iPosX,int e_iPosY)
 	if( g_pCameraZoomFunction )
 	{
 		g_pCameraZoomFunction->MouseDown(e_iPosX,e_iPosY);
+	}
+	if (g_pPathChaser)
+	{
+		g_pPathChaser->MouseDown(e_iPosX, e_iPosY);
 	}
 }
 
@@ -483,7 +664,10 @@ void	SampleMouseMove(int e_iPosX,int e_iPosY)
 	{
 		g_pCameraZoomFunction->MouseMove(e_iPosX,e_iPosY);
 	}
-
+	if (g_pPathChaser)
+	{
+		g_pPathChaser->MouseMove(e_iPosX, e_iPosY);
+	}
 }
 
 void	SampleMouseUp(int e_iPosX,int e_iPosY)
@@ -492,8 +676,12 @@ void	SampleMouseUp(int e_iPosX,int e_iPosY)
 	{
 		g_pCameraZoomFunction->MouseUp(e_iPosX,e_iPosY);
 	}
-	char l_Data[5] = {5,4,3,2,1};
-	cBluetoothSinglton::GetInstance()->SendDataToServer(5, l_Data);
+	//char l_Data[5] = {5,4,3,2,1};
+	//cBluetoothSinglton::GetInstance()->SendDataToServer(5, l_Data);
+	if (g_pPathChaser)
+	{
+		g_pPathChaser->MouseUp(e_iPosX, e_iPosY);
+	}
 }
 
 void	SampleKeyup(char e_cKey)
