@@ -61,7 +61,7 @@ class cWASMBindingTest*g_pWASMBindingTest = nullptr;
 class cWASMBindingTest 
 {
 public:
-	cWASMBindingTest(const char*e_strText)
+	cWASMBindingTest(std::string e_strText)
 	{
 		g_pWASMBindingTest = this;
 		y = e_strText;
@@ -78,6 +78,8 @@ public:
 
 	int getX() const { return x; }
 	void setX(int x_) { x = x_; }
+	std::string getY() const { return y; }
+	void setY(std::string e_str) { y = e_str; }
 
 	static std::string getStringFromInstance(const cWASMBindingTest& instance) {
 		return instance.y;
@@ -107,9 +109,16 @@ void	MPDIIndex(int e_iIndex)
 
 EMSCRIPTEN_BINDINGS(my_module)
 {
+	class_<cWASMBindingTest>("cWASMBindingTest")
+		.constructor<int, std::string>()
+		.constructor<std::string>()
+		.function("incrementX", &cWASMBindingTest::incrementX)
+		.property("x", &cWASMBindingTest::getX, &cWASMBindingTest::setX)
+		.property("y", &cWASMBindingTest::getY, &cWASMBindingTest::setY)
+		.class_function("getStringFromInstance", &cWASMBindingTest::getStringFromInstance)
+	;
 	emscripten::function("JSBinding", &JSBinding);
-	emscripten::function("MPDIIndex", &MPDIIndex);
-	
+	emscripten::function("MPDIIndex", &MPDIIndex);	
 }
 //EMSCRIPTEN_BINDINGS(my_class_example) 
 //{
@@ -132,7 +141,8 @@ EMSCRIPTEN_BINDINGS(my_module)
     //    console.log("========================");
         //Module.ready().then
         //    (
-        //        var l_Instance = new Module.cWASMBindingTest("Hi");
+				//var l_Instance = new Module.cWASMBindingTest("Hi");
+				//l_Instance.y = "hello world";
         //   )
         //console.log("========================");
     //</script>
