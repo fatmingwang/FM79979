@@ -104,7 +104,7 @@ namespace UT
 					continue;
 				l_ProbabilityValue += l_AddValue;
 				if( l_ProbabilityValue >= l_RandProbabilityValue )
-					return i;
+					return l_RandomTable[i];
 			}
 			if (l_ProbabilityValue == 0)
 				return -1;
