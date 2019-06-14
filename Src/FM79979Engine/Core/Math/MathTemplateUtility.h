@@ -99,7 +99,7 @@ namespace UT
 			for( int i=0;i<l_iSize;++i )
 			{
 				auto l_AddValue = ProbabilityVector[l_RandomTable[i]];
-				//probability is 0 dont need this.
+				//probability is 0 don't need this.
 				if (l_AddValue == 0)
 					continue;
 				l_ProbabilityValue += l_AddValue;
