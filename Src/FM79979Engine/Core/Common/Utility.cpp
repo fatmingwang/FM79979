@@ -1670,7 +1670,9 @@ namespace UT
 		if( e_iIndex < 0 )
 		{
 			int	l_iIndex = e_iIndex%e_iTotalCount;
-			return (e_iTotalCount-1)+l_iIndex;
+			if (l_iIndex == 0)
+				return 0;
+			return e_iTotalCount+l_iIndex;
 		}
 		if( e_iIndex >= e_iTotalCount )
 		{
