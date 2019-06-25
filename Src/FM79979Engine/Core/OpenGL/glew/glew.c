@@ -31,7 +31,7 @@
 */
 
 #ifndef GLEW_INCLUDE
-#include "../../../Include/glew.h"
+#include "../../../../Include/glew.h"
 #else
 #include GLEW_INCLUDE
 #endif
@@ -50,7 +50,7 @@
 #  if defined(NOGDI)
 #    undef NOGDI
 #  endif
-#include "../../../Include/wglew.h"
+#include "../../../../Include/wglew.h"
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
 #  include <GL/glxew.h>
 #endif
