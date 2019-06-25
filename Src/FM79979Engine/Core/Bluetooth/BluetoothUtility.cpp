@@ -20,7 +20,6 @@
 
 #pragma comment(lib, "Advapi32.lib")
 
-
 using namespace std;
 
 #define WIN32_LEAN_AND_MEAN
