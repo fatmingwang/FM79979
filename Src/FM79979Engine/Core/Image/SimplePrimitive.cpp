@@ -394,18 +394,27 @@ namespace GLRender
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
 		glLineWidth(radius);
-		float angle = atan2(D.y, D.x);
-		float	l_fLength = D.Length();
+		float	l_fDegree = 360.f-UT::GetAngleBy2Point(P,D);
+		float	l_fRadian = D3DXToRadian(l_fDegree);
+		float	l_fLength = (D-P).Length();
 		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(P.x, P.y, 0.0f));
-		l_mat *= cMatrix44::ScaleMatrix(Vector3(l_fLength,l_fLength, 1.0f));
-		l_mat *= cMatrix44::ZAxisRotationMatrix(D3DXToRadian(angle));
+		l_mat *= cMatrix44::ZAxisRotationMatrix(l_fRadian);
+		//l_mat *= cMatrix44::ScaleMatrix(Vector3(l_fLength, l_fLength, 1.0f));
+		//float	l_fAllVertices[] = { 0.f,0.f,
+		//							 1.f,0.f,
+		//							 1.f,0.f,
+		//							 0.9f,-0.05f,
+		//							 1.f,0.f,
+		//							 0.9f,0.05f
+		//							 };
+		//Y up is 0 degree
 		float	l_fAllVertices[] = { 0.f,0.f,
-									 1.f,0.f,
-									 1.f,0.f,
-									 0.9f,-0.05f,
-									 1.f,0.f,
-									 0.9f,0.05f
-									 };
+									 0.f,l_fLength,
+									 0.f,l_fLength,
+									 -0.05f*l_fLength,0.9f*l_fLength,
+									 0.f,l_fLength,
+									 0.05f*l_fLength,0.9f*l_fLength
+		};
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(2,l_fAllVertices);
 		FATMING_CORE::SetupShaderWorldMatrix(l_mat);
