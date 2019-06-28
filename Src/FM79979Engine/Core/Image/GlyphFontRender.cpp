@@ -280,7 +280,10 @@ namespace FATMING_CORE
 
 	void	cGlyphFontRender::SetText(const wchar_t*e_strText)
 	{
-		m_bTextChanged = true;
-		this->m_strText = e_strText;
+		if (m_strText.compare(e_strText))
+		{
+			m_bTextChanged = true;
+			this->m_strText = e_strText;
+		}
 	}
 }

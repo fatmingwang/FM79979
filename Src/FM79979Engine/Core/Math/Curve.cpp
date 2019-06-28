@@ -592,6 +592,9 @@ namespace FATMING_CORE
 	}
 	//haha hte data is not same with cCurveManager::ExportData,so ensure the data type is correct.
 	//because I am lazy to fix this right now.
+	//<cCurveWithTime Name="" Count="" LOD="">
+	//	<Data Pos="0,0,0,1,0,0" Time="0,1"/>
+	//</cCurveWithTime>
 	TiXmlElement*		cCurveWithTime::ToTiXmlElement()
 	{
 		TiXmlElement*l_pTiXmlElement = new TiXmlElement(cCurveWithTime::TypeID);
@@ -615,6 +618,41 @@ namespace FATMING_CORE
 			l_pCurvePointElement->SetAttribute(L"Time",l_CurveTimes.c_str());
 		}
 		return l_pTiXmlElement;
+	}
+	//<cCurveWithTime Name="" Count="" LOD="">
+	//	<Data Pos="0,0,0,1,0,0" Time="0,1"/>
+	//</cCurveWithTime>
+	bool cCurveWithTime::ProcessTiXmlElement(TiXmlElement * e_pTiXmlElement)
+	{
+		this->Destroy();
+		bool l_bDataValid = true;
+		auto l_strName = e_pTiXmlElement->Attribute(L"Name");
+		auto l_strLOD = e_pTiXmlElement->Attribute(L"LOD");
+		if (l_strName)
+		{
+			this->SetName(l_strName);
+		}
+		if (l_strLOD)
+		{
+			this->SetLOD(GetInt(l_strLOD));
+		}
+		auto l_pDataElement = e_pTiXmlElement->FirstChildElement();
+		if (l_pDataElement)
+		{
+			auto l_strPos = l_pDataElement->Attribute(L"Pos");
+			auto l_strTime = l_pDataElement->Attribute(L"Time");
+			if (!l_strPos || !l_strTime)
+			{
+				l_bDataValid = false;
+			}
+			std::vector<Vector3>l_PosVector = StringToVector3Vector(l_strPos);
+			std::vector<float>l_fTimeVector = GetValueListByCommaDivide<float>(l_strTime);
+			this->SetOriginalPointList(l_PosVector);
+			this->SetOriginalTimeList(l_fTimeVector);
+			this->DoLOD();
+
+		}
+		return l_bDataValid;
 	}
 
 	void	cCurveWithTime::SetOriginalToFinal()

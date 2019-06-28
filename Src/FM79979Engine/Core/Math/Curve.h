@@ -162,6 +162,7 @@ namespace FATMING_CORE
 		CLONE_MYSELF(cCurveWithTime);
 		virtual ~cCurveWithTime();
 		virtual	TiXmlElement*		ToTiXmlElement()override;
+		virtual bool				ProcessTiXmlElement(TiXmlElement*e_pTiXmlElement);
 		//inherit from cFMTimeLineAnimationRule
 		virtual	void	RearrangeTime(float e_fNewMaxTime)override;
 		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override;
