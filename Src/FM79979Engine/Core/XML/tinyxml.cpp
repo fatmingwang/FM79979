@@ -1024,7 +1024,7 @@ void TiXmlUnknown::Print( FILE* cfile, int depth ) const
 {
 	for ( int i=0; i<depth; i++ )
 		fwprintf( cfile, L"    " );
-	fwprintf( cfile, L"<%s>", value.c_str() );
+	fwprintf( cfile, L"<%ls>", value.c_str() );
 }
 
 
@@ -1036,7 +1036,7 @@ void TiXmlDeclaration::Print( FILE* cfile, int /*depth*/, TIXML_STRING* str ) co
 	if ( !version.empty() )
 	{
 		if ( cfile )
-		    fwprintf (cfile, L"version=\"%s\" ", version.c_str ());
+		    fwprintf (cfile, L"version=\"%ls\" ", version.c_str ());
 		if ( str )
 		{
 		    (*str) += L"version=\"";
@@ -1047,7 +1047,7 @@ void TiXmlDeclaration::Print( FILE* cfile, int /*depth*/, TIXML_STRING* str ) co
 	if ( !encoding.empty() )
 	{
 		if ( cfile )
-		    fwprintf (cfile, L"encoding=\"%s\" ", encoding.c_str ());
+		    fwprintf (cfile, L"encoding=\"%ls\" ", encoding.c_str ());
 		if ( str )
 		{
 		    (*str) += L"encoding=\"";
@@ -1057,7 +1057,7 @@ void TiXmlDeclaration::Print( FILE* cfile, int /*depth*/, TIXML_STRING* str ) co
 	if ( !standalone.empty() )
 	{
 		if ( cfile ) 
-		    fwprintf (cfile, L"standalone=\"%s\" ", standalone.c_str ());
+		    fwprintf (cfile, L"standalone=\"%ls\" ", standalone.c_str ());
 		if ( str )
 		{
 		    (*str) += L"standalone=\"";
@@ -1082,13 +1082,13 @@ void TiXmlText::Print( FILE* cfile, int depth ) const
 		for ( i=0; i<depth; i++ ) {
 			fwprintf( cfile, L"    " );
 		}
-		fwprintf( cfile, L"<![CDATA[%s]]>\n", value.c_str() );	// unformatted output
+		fwprintf( cfile, L"<![CDATA[%ls]]>\n", value.c_str() );	// unformatted output
 	}
 	else
 	{
 		TIXML_STRING buffer;
 		EncodeString( value, &buffer );
-		fwprintf( cfile, L"%s", buffer.c_str() );
+		fwprintf( cfile, L"%ls", buffer.c_str() );
 	}
 }
 
@@ -1099,7 +1099,7 @@ void TiXmlComment::Print( FILE* cfile, int depth ) const
 	{
 		fwprintf( cfile,  L"    " );
 	}
-	fwprintf( cfile, L"<!--%s-->", value.c_str() );
+	fwprintf( cfile, L"<!--%ls-->", value.c_str() );
 }
 
 
@@ -1112,7 +1112,7 @@ void TiXmlAttribute::Print( FILE* cfile, int /*depth*/, TIXML_STRING* str ) cons
 
 	if (value.find ('\"') == TIXML_STRING::npos) {
 		if ( cfile ) {
-		fwprintf (cfile, L"%s=\"%s\"", n.c_str(), v.c_str() );
+		fwprintf (cfile, L"%ls=\"%ls\"", n.c_str(), v.c_str() );
 		}
 		if ( str ) {
 			(*str) += n; (*str) += L"=\""; (*str) += v; (*str) += L"\"";
@@ -1120,7 +1120,7 @@ void TiXmlAttribute::Print( FILE* cfile, int /*depth*/, TIXML_STRING* str ) cons
 	}
 	else {
 		if ( cfile ) {
-		fwprintf (cfile, L"%s='%s'", n.c_str(), v.c_str() );
+		fwprintf (cfile, L"%ls='%ls'", n.c_str(), v.c_str() );
 		}
 		if ( str ) {
 			(*str) += n; (*str) += L"='"; (*str) += v; (*str) += L"'";
@@ -1147,7 +1147,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 		fwprintf( cfile, L"    " );
 	}
 
-	fwprintf( cfile, L"<%s", value.c_str() );
+	fwprintf( cfile, L"<%ls", value.c_str() );
 
 	const TiXmlAttribute* attrib;
 	for ( attrib = attributeSet.First(); attrib; attrib = attrib->Next() )
@@ -1169,7 +1169,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 	{
 		fwprintf( cfile, L">" );
 		firstChild->Print( cfile, depth + 1 );
-		fwprintf( cfile, L"</%s>", value.c_str() );
+		fwprintf( cfile, L"</%ls>", value.c_str() );
 	}
 	else
 	{
@@ -1187,7 +1187,7 @@ void TiXmlElement::Print( FILE* cfile, int depth ) const
 		for( i=0; i<depth; ++i ) {
 			fwprintf( cfile, L"    " );
 		}
-		fwprintf( cfile, L"</%s>", value.c_str() );
+		fwprintf( cfile, L"</%ls>", value.c_str() );
 	}
 }
 #endif
