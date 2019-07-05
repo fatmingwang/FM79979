@@ -70,6 +70,17 @@ namespace FMLog
 		}
 	}
 
+	std::list<std::wstring>	GetLatestLog()
+	{
+		std::list<std::wstring>l_strLog;
+		if (g_pLatestLog)
+		{
+			l_strLog = *g_pLatestLog;
+			g_pLatestLog->clear();
+		}
+		return l_strLog;
+	}
+
 	void					Destroy()
 	{
 		SAFE_DELETE(g_pFMLogFile);

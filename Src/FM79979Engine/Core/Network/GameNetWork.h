@@ -67,8 +67,8 @@ namespace FATMING_CORE
 		friend struct sReconnectFunction;
 		sReconnectFunction*					m_pReconnectFunction;
 		virtual void						AddClient(_TCPsocket*e__pTCPsocket);
-		void								ServerListenDataThread(float e_ElpaseTime);
-		void								ClientListenDataThread(float e_ElpaseTime);
+		virtual void						ServerListenDataThread(float e_ElpaseTime);
+		virtual void						ClientListenDataThread(float e_ElpaseTime);
 		//if e_strIP is nullptr it's server
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
@@ -98,10 +98,10 @@ namespace FATMING_CORE
 		void								SetClientLostConnectionCallback(std::function<void(_TCPsocket*)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
-
-		bool								SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket);
+		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
+		virtual bool						SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket);
+		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket);
 		bool								SendDataToServer(sNetworkSendPacket*e_pPacket);
-		bool								SendDataToAllClient(sNetworkSendPacket*e_pPacket);
 
 		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction);
 		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction);

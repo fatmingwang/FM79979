@@ -153,6 +153,7 @@ namespace FATMING_CORE
 	}
 	bool cGameNetwork::SendData(_TCPsocket * e_pTCPsocket, sNetworkSendPacket * e_pPacket)
 	{
+		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
 		if (e_pTCPsocket)
 		{
 			int	l_iSendSize = (int)(sizeof(int) + e_pPacket->iSize);
@@ -177,21 +178,28 @@ namespace FATMING_CORE
 	{
 		if (!e_pPacket)
 			return false;
+		bool l_bSendDataResult = false;
 		//cPP11MutexHolder hold(m_ClientSocketMutex, L"SendDataToAllClient");
 		cPP11MutexHolder hold(m_ClientSocketMutex);
 		int	l_iSize = (int)m_ClientSocketVector.size();
 		for (int i = 0; i < l_iSize; ++i)
 		{
-			/* putMsg is in tcputil.h, it sends a buffer over a socket */
-			/* with error checking */
-			if (!SendData(m_ClientSocketVector[i], e_pPacket))
+			int	l_iSendSize = (int)(sizeof(int) + e_pPacket->iSize);
+			char*l_pData = new char[l_iSendSize];
+			memcpy(l_pData, &e_pPacket->iSize, sizeof(int));
+			memcpy(&l_pData[sizeof(int)], e_pPacket->pData, e_pPacket->iSize);
+			int*l_pDebugData = (int*)l_pData;
+			int*l_pDebugData2 = (int*)e_pPacket->pData;
+			if (m_ClientSocketVector[i])
 			{
-				assert(0&&"empty client!?");
-				//this->RemoveClient(m_ClientSocketVector[i]);
-				//--i;
+				bool	l_bSent = SDLNet_TCP_Send(m_ClientSocketVector[i], l_pData, l_iSendSize) == 0 ? false : true;
+				assert(l_bSent && "cGameNetwork::SendDataToAllClient-send data failed!?!?");
+				if (!l_bSent)
+					l_bSendDataResult = false;
 			}
+			delete[] l_pData;
 		}
-		return true;
+		return l_bSendDataResult;
 	}
 
 	bool cGameNetwork::CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction)

@@ -23,6 +23,8 @@ namespace FMLog
 	//0 means won't keep any log data.
 	void					Init();
 	void					EnableKeepLatestLog(int e_iKeepLatestLogCount);
+	//ensure thread safe,please fetch this in same thread.you have to call EnableKeepLatestLog(true).
+	std::list<std::wstring>	GetLatestLog();
 	void					Destroy();
 	//1-64
 	void					DoORForLogFlag(int e_iFlag);
