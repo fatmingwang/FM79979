@@ -116,7 +116,9 @@ public:
         int l_iCount = e_pObjectListByName->Count();
         for( int i=0;i<l_iCount;++i )
         {
-            T*l_p = dynamic_cast<T*>(e_pObjectListByName->GetObject(i)->Clone());
+			auto l_pObject = e_pObjectListByName->GetObject(i);
+            T*l_p = dynamic_cast<T*>(l_pObject->Clone());
+			l_p->SetName(l_pObject->GetName());
 			assert(l_p);
             this->AddObjectNeglectExist(l_p);
         }
