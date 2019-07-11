@@ -19,6 +19,9 @@ using namespace UT;
 #include "../Android/nv_egl_util.h"
 #include "../Android/JNIUtil.h"
 #endif
+#ifdef WASM
+#include "locale.h"
+#endif
 namespace	FATMING_CORE
 {
 	extern POINT	ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
@@ -177,7 +180,7 @@ namespace	FATMING_CORE
 			//cNamedTypedObjectVector<cColladaParser>*l_pColladaParserVector = new cNamedTypedObjectVector<cColladaParser>();
 			//m_spColladaParserVector = (cNamedTypedObjectVector<NamedTypedObject>*)l_pColladaParserVector;
 		}
-#if defined WIN32 || defined LINUX
+#if defined WIN32 || defined LINUX || defined WASM
 		char *locale;
 		locale = setlocale(LC_ALL, "");
 #endif
