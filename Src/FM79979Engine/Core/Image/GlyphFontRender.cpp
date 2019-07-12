@@ -286,4 +286,16 @@ namespace FATMING_CORE
 			this->m_strText = e_strText;
 		}
 	}
+	float cGlyphFontRender::GetScale()
+	{
+		return m_fScale;
+	}
+	void cGlyphFontRender::SetScale(float e_fScale)
+	{
+		if (m_fScale != e_fScale)
+		{
+			m_fScale = e_fScale;
+			this->m_bTextChanged = true;
+		}
+	}
 }

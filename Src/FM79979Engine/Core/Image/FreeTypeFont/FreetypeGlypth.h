@@ -18,7 +18,7 @@ namespace FATMING_CORE
 		int							m_iBufferLength;
 		std::wstring				m_strText;
 		bool						m_bTextChanged;
-		GET_SET_DEC(float, m_fScale, GetScale, SetScale);
+		float						m_fScale;
 	public:
 		DEFINE_TYPE_INFO();
 		cFreetypeGlyphRender(const char* e_strFontName, int e_iFontSize, int e_iVertexBufferSize = 300, POINT e_DefaultFontTextureSize = {512,512});
@@ -36,6 +36,8 @@ namespace FATMING_CORE
 		virtual	void	SetColor(Vector4 e_vColor)override { SetFontColor(e_vColor); }
 		void			SetFontColor(Vector4 e_vColor);
 		Vector2			GetRenderSize(const wchar_t*e_strText);
+		float			GetScale();
+		void			SetScale(float e_fScale);
 		std::wstring	GetText();
 		void			SetText(const wchar_t*e_strText);
 

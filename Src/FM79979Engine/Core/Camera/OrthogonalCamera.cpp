@@ -180,7 +180,7 @@ namespace FATMING_CORE
 		CameraUpdateByMouse(false,false,0,0,0,Vector2((float)e_iViewportWidth,(float)e_iViewportHeight));
 	}
 
-	void	cOrthogonalCamera::CameraUpdateByMouse(bool e_bLeftButton,bool e_bRightButton,int e_iWheelDelta,int e_iMouseX,int e_iMouseY,Vector2 e_vViewport)
+	void	cOrthogonalCamera::CameraUpdateByMouse(bool e_bLeftButton,bool e_bRightButton,int e_iWheelDelta,int e_iMouseX,int e_iMouseY,Vector2 e_vViewport, float e_fMoveSpeed)
 	{
 		 sMouseState	l_sMouseState;
 		 memset(&l_sMouseState,0,sizeof(sMouseState));
@@ -191,7 +191,7 @@ namespace FATMING_CORE
 		 if(e_iWheelDelta != 0 )
 		 //if(e->Button == System::Windows::Forms::MouseButtons::Middle)
 		 {
-			 l_sMouseState.iMoveZ = e_iWheelDelta/120;
+			 l_sMouseState.iMoveZ = (int)(e_iWheelDelta/120* e_fMoveSpeed);
 			 l_sMouseState.bMidButton = true;
 		 }
 		 else
@@ -210,15 +210,15 @@ namespace FATMING_CORE
 		if(this->m_MouseBehave.GetMouseState().bMidButton)//go ahead with camera direction
 		{
 			l_PerviousWorldMousePosition = m_MouseWorldPosition;
-			m_fScale+=(m_MouseBehave.GetMouseState().iMoveZ/100.f);
+			m_fScale += (m_MouseBehave.GetMouseState().iMoveZ/100.f);
 			l_fOldWidth = m_vViewRect.z-m_vViewRect.x;
 			l_fOldHeight = m_vViewRect.w-m_vViewRect.y;
 		}
 		else
 		if(this->m_MouseBehave.GetMouseState().bRigButton)
 		{		
-			m_CameraPos.x += m_MouseBehave.GetMouseState().iMoveX;
-			m_CameraPos.y += m_MouseBehave.GetMouseState().iMoveY;
+			m_CameraPos.x += (m_MouseBehave.GetMouseState().iMoveX*e_fMoveSpeed);
+			m_CameraPos.y += (m_MouseBehave.GetMouseState().iMoveY*e_fMoveSpeed);
 		}
 		float	l_fNewWidth = m_vResolution.x*m_fScale;
 		float	l_fNewHeight = m_vResolution.y*m_fScale;

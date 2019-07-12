@@ -612,7 +612,12 @@ namespace FATMING_CORE
 				Vector3	l_v = m_OriginalPointList[j];
 				l_CurvePoins += ValueToStringW(l_v);
 				float	l_fTime = m_OriginalTimeList[j];
-				l_CurveTimes += ValueToStringW(l_v);
+				l_CurveTimes += ValueToStringW(l_fTime);
+				if (j != l_iCount - 1)
+				{
+					l_CurvePoins += L",";
+					l_CurveTimes += L",";
+				}
 			}
 			l_pCurvePointElement->SetAttribute(L"Pos",l_CurvePoins.c_str());
 			l_pCurvePointElement->SetAttribute(L"Time",l_CurveTimes.c_str());

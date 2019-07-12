@@ -280,6 +280,19 @@ namespace FATMING_CORE
 		}
 	}
 
+	float cFreetypeGlyphRender::GetScale()
+	{
+		return m_fScale;
+	}
+	void cFreetypeGlyphRender::SetScale(float e_fScale)
+	{
+		if (m_fScale != e_fScale)
+		{
+			m_fScale = e_fScale;
+			this->m_bTextChanged = true;
+		}
+	}
+
 
 	cDynamicFontTexture::cDynamicFontTexture(const char*e_strFontName, cFreetypeGlyphRender*e_pcFreetypeGlyphRender, unsigned int e_uiFontSize, POINT e_DefaultTextureSize)
 		:cSmartObject(e_pcFreetypeGlyphRender)

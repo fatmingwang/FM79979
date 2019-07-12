@@ -13,7 +13,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(GlyphReader*,m_pGlyphReader,GetGlyphReader,SetGlyphReader);
 		GET_SET_DEC(float,m_fDepth,GetDepth,SetDepth);
 		cBaseImage*		m_pFontImage;
-		GET_SET_DEC(float,m_fScale,GetScale,SetScale);
+		float			m_fScale;
 		Vector2	*		m_pvVertexBuffer;
 		Vector2	*		m_pvTextureUVBuffer;
 		Vector4	*		m_pvColorBuffer;
@@ -44,6 +44,8 @@ namespace FATMING_CORE
 		Vector2			GetRenderSize(const wchar_t*e_strText);
 		std::wstring	GetText();
 		void			SetText(const wchar_t*e_strText);
+		float			GetScale();
+		void			SetScale(float e_fScale);
 		float			m_fLazyMinusCharacterWidth = 1.0f;
 	};
 
