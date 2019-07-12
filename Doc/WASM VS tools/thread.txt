@@ -1,0 +1,6 @@
+https://stackoverflow.com/questions/27473959/thread-using-emscripten
+
+USE_PTHREADS
+
+
+https://segmentfault.com/a/1190000002655852
