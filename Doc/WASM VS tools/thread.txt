@@ -4,3 +4,10 @@ USE_PTHREADS
 
 
 https://segmentfault.com/a/1190000002655852
+
+https://developers.google.com/web/updates/2018/10/wasm-threads
+
+Compile for thread support
+First, you should have the emscripten SDK installed, preferably version 1.38.11 or later. To build our example code with threads enabled for running in the browser, we need to pass a couple of extra flags to the emscripten emcc compiler. Our command line looks like this:
+
+emcc -O2 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=2 -o test.js test.c
