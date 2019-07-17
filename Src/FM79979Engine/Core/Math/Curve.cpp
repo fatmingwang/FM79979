@@ -129,7 +129,7 @@ namespace FATMING_CORE
 	//	SetLOD(1);
 	//}
 
-	void	cCurve::RenderCurve(Vector4 e_vColor,cMatrix44 e_mat)
+	void	cCurve::RenderCurve(Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth)
 	{
 		if( m_FinallyPointList.size() < 2 )
 		{
@@ -146,7 +146,7 @@ namespace FATMING_CORE
 			l_CurvePointVector[i*2] = m_FinallyPointList[i];
 			l_CurvePointVector[i*2+1] = m_FinallyPointList[i+1];
 		}
-		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_mat);
+		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_mat, e_fLineWidth);
 		RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
 	}
 
@@ -487,10 +487,13 @@ namespace FATMING_CORE
 	float	cCurve::GetTotalDistance()
 	{
 		float	l_fDis = 0;
-		int	l_iSize = (int)this->m_OriginalPointList.size()-1;
+		std::vector<Vector3>*l_pDataVector = &m_FinallyPointList;
+		if (l_pDataVector->size() == 0)
+			l_pDataVector = &m_OriginalPointList;
+		int	l_iSize = (int)l_pDataVector->size()-1;
 		for( int i=0;i<l_iSize;++i )
 		{
-			Vector3	l_vDistance = m_OriginalPointList[i+1]-m_OriginalPointList[i];
+			Vector3	l_vDistance = (*l_pDataVector)[i+1]- (*l_pDataVector)[i];
 			l_fDis += l_vDistance.Length();
 		}
 		return l_fDis;
