@@ -11,6 +11,8 @@
 #include "../Synchronization/CPP11Thread.h"
 namespace FATMING_CORE
 {
+	//sNetworkSendPacket and sNetworkReceivedPacket has a header for description packet size
+	#define	PACKET_HEADER_SIZE (int)sizeof(int)
 	enum eNetWorkStatus
 	{
 		eNWS_NONE = 0,
@@ -101,6 +103,9 @@ namespace FATMING_CORE
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
 		virtual bool						SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket);
 		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket);
+		template<class TYPE>bool			SendDataToClient(_TCPsocket*e_pTCPsocket,TYPE*e_pData);
+		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData);
+		template<class TYPE>bool			SendDataToServer(TYPE * e_pData);
 		bool								SendDataToServer(sNetworkSendPacket*e_pPacket);
 
 		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction);
@@ -113,6 +118,39 @@ namespace FATMING_CORE
 		virtual	void						Update(float e_fElpaseTime);
 		virtual	void						Destroy();
 	};
+	template<class TYPE>
+	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData)
+	{
+		bool l_bSendResult = false;
+		sNetworkSendPacket l_NetworkSendPacket;
+		l_NetworkSendPacket.iSize = sizeof(TYPE);
+		l_NetworkSendPacket.pData = (char*)e_pData;
+		l_bSendResult = SendData(e_pTCPsocket,&l_NetworkSendPacket);
+		l_NetworkSendPacket.pData = nullptr;
+		return l_bSendResult;
+	}
+	template<class TYPE>
+	inline bool	cGameNetwork::SendDataToAllClient(TYPE*e_pData)
+	{
+		bool l_bSendDataResult = false;
+		sNetworkSendPacket l_NetworkSendPacket;
+		l_NetworkSendPacket.iSize = sizeof(TYPE);
+		l_NetworkSendPacket.pData = (char*)e_pData;
+		l_bSendDataResult = SendDataToAllClient(&l_NetworkSendPacket);
+		l_NetworkSendPacket.pData = nullptr;
+		return l_bSendDataResult;
+	}
+	template<class TYPE>
+	inline bool cGameNetwork::SendDataToServer(TYPE * e_pData)
+	{
+		bool l_bSendResult = false;
+		sNetworkSendPacket l_NetworkSendPacket;
+		l_NetworkSendPacket.iSize = sizeof(TYPE);
+		l_NetworkSendPacket.pData = e_pData;
+		l_bSendResult = SendDataToServer(&l_NetworkSendPacket);
+		l_NetworkSendPacket.pData = nullptr;
+		return l_bSendResult;
+	}
 	//end namespace
 }
 //_M_CEE

@@ -8,7 +8,7 @@ namespace FATMING_CORE
 	class	cFontWithFrame:public cRenderObject
 	{
 	protected:
-		GET_SET_DEC(cGlyphFontRender*,m_pGlyphFontRender,GetGlyphFontRender,SetGlyphFontRender);
+		cGlyphFontRender*		m_pGlyphFontRender;
 		cBaseImage*				m_pConnectRadianImage;
 		cBaseImage*				m_pLineImage;
 		Vector4					m_vFrameRange;
@@ -36,6 +36,7 @@ namespace FATMING_CORE
 		void					SetTextBGColor(Vector4 e_vColor);
 		cBaseImage*				GetConnectRadianImage(){return m_pConnectRadianImage;}
 		cBaseImage*				GetLineImage(){return m_pLineImage;}
+		cGlyphFontRender*		GetGlyphFontRender() { return m_pGlyphFontRender; }
 		static cFontWithFrame*	GetMe(TiXmlElement*e_pTiXmlElement);
 	};
 

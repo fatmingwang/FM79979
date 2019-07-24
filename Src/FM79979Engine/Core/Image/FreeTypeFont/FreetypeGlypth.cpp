@@ -229,8 +229,11 @@ namespace FATMING_CORE
 
 	void cFreetypeGlyphRender::SetFontColor(Vector4 e_vColor)
 	{
-		for (int i = 0; i < m_iBufferLength * 4; ++i)
-			m_pvColorBuffer[i] = e_vColor;
+		if (m_pvColorBuffer[0] != e_vColor)
+		{
+			for (int i = 0; i < m_iBufferLength * 4; ++i)
+				m_pvColorBuffer[i] = e_vColor;
+		}
 	}
 
 	Vector2 cFreetypeGlyphRender::GetRenderSize(const wchar_t * e_strText)

@@ -27,8 +27,9 @@ namespace FATMING_CORE
 		if (!SDLNet_SocketReady(e_pTCPsocket))
 			return false;
 		//sNetworkSendPacket,first is size,second is data structure
-		int	l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, &iSize, sizeof(int));
-		if (l_iLength != sizeof(int))
+		int l_iHeaderSize = PACKET_HEADER_SIZE;
+		int	l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, &iSize, l_iHeaderSize);
+		if (l_iLength != l_iHeaderSize)
 		{
 			return -1;
 		}
@@ -156,12 +157,11 @@ namespace FATMING_CORE
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
 		if (e_pTCPsocket)
 		{
-			int	l_iSendSize = (int)(sizeof(int) + e_pPacket->iSize);
+			int l_iHeaderSize = PACKET_HEADER_SIZE;
+			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
 			char*l_pData = new char[l_iSendSize];
-			memcpy(l_pData, &e_pPacket->iSize, sizeof(int));
-			memcpy(&l_pData[sizeof(int)], e_pPacket->pData, e_pPacket->iSize);
-			int*l_pDebugData = (int*)l_pData;
-			int*l_pDebugData2 = (int*)e_pPacket->pData;
+			memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+			memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
 			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
 			delete[] l_pData;
 			return l_bSent;
@@ -178,16 +178,17 @@ namespace FATMING_CORE
 	{
 		if (!e_pPacket)
 			return false;
+		int l_iHeaderSize = PACKET_HEADER_SIZE;
 		bool l_bSendDataResult = false;
+		int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
+		char*l_pData = new char[l_iSendSize];
+		memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+		memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
 		//cPP11MutexHolder hold(m_ClientSocketMutex, L"SendDataToAllClient");
 		cPP11MutexHolder hold(m_ClientSocketMutex);
 		int	l_iSize = (int)m_ClientSocketVector.size();
 		for (int i = 0; i < l_iSize; ++i)
 		{
-			int	l_iSendSize = (int)(sizeof(int) + e_pPacket->iSize);
-			char*l_pData = new char[l_iSendSize];
-			memcpy(l_pData, &e_pPacket->iSize, sizeof(int));
-			memcpy(&l_pData[sizeof(int)], e_pPacket->pData, e_pPacket->iSize);
 			int*l_pDebugData = (int*)l_pData;
 			int*l_pDebugData2 = (int*)e_pPacket->pData;
 			if (m_ClientSocketVector[i])
@@ -197,8 +198,8 @@ namespace FATMING_CORE
 				if (!l_bSent)
 					l_bSendDataResult = false;
 			}
-			delete[] l_pData;
 		}
+		delete[] l_pData;
 		return l_bSendDataResult;
 	}
 
