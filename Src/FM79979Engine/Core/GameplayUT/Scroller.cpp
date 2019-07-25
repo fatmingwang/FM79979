@@ -112,6 +112,7 @@ namespace FATMING_CORE
             {
                 l_pClickMouseBehavior = GetObject(i);
 				l_pClickMouseBehavior->SetLocalPosition(l_vPos);
+				l_pClickMouseBehavior->Init();
                 if( m_eOrientation == eO_HORIZONTAL )
 				{
 					m_fTotalLength += l_pClickMouseBehavior->GetCollisionRange().Width();

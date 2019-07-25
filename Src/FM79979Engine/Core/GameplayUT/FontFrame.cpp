@@ -170,7 +170,7 @@ namespace FATMING_CORE
 		}
 		else
 		{
-			float	l_fScale = 1.f;
+			//float	l_fScale = 1.f;
 			RenderFilledRectangle(Vector2((float)e_iX,(float)e_iY),m_vRenderSize.x,m_vRenderSize.y,*m_pvTextBGColor,0.f);
 		}
 		if( m_pGlyphFontRender  && m_pstrCurrentText )
@@ -210,6 +210,15 @@ namespace FATMING_CORE
 	cTextButton::~cTextButton()
 	{
 	
+	}
+
+	void cTextButton::SetText(const wchar_t * e_strText)
+	{
+		cFontWithFrame::SetText(e_strText);
+		this->m_vCollisionRange.x = 0;
+		this->m_vCollisionRange.y = 0;
+		this->m_vCollisionRange.z = m_vRenderSize.x;
+		this->m_vCollisionRange.w = m_vRenderSize.y;
 	}
 
 	void	cTextButton::Destroy()
@@ -280,6 +289,8 @@ namespace FATMING_CORE
 		InternalMouseUp(0,0);
 		if( l_eObjectMouseBehavior == eOMB_HORVER )
 			m_eObjectMouseBehavior = eOMB_HORVER;
+		if (m_pGlyphFontRender)
+			SetText(m_strText.c_str());
 	}
 
 	void    cTextButton::InitRepeat()

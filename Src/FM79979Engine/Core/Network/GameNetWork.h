@@ -146,7 +146,7 @@ namespace FATMING_CORE
 		bool l_bSendResult = false;
 		sNetworkSendPacket l_NetworkSendPacket;
 		l_NetworkSendPacket.iSize = sizeof(TYPE);
-		l_NetworkSendPacket.pData = e_pData;
+		l_NetworkSendPacket.pData = (char*)e_pData;
 		l_bSendResult = SendDataToServer(&l_NetworkSendPacket);
 		l_NetworkSendPacket.pData = nullptr;
 		return l_bSendResult;

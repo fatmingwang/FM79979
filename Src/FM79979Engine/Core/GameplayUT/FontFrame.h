@@ -24,7 +24,7 @@ namespace FATMING_CORE
 		CLONE_MYSELF(cFontWithFrame);
 		virtual ~cFontWithFrame();
 		const wchar_t*			GetTxt(){ return m_strText.c_str(); }
-		void					SetText(const wchar_t*e_strText);
+		virtual void			SetText(const wchar_t*e_strText);
 		void					SetPressedText(const wchar_t*e_strText);
 		void					Render(int e_iX,int e_iY);
 		virtual void			Init()override {}
@@ -66,6 +66,7 @@ namespace FATMING_CORE
 		cTextButton(cTextButton*e_pTextButton);
 		CLONE_MYSELF(cTextButton);
 		virtual ~cTextButton();
+		virtual void			SetText(const wchar_t*e_strText)override;
 		virtual bool			IsSatisfiedCondition()override;
 		virtual void			Init()override;
 		virtual void			InitRepeat();
