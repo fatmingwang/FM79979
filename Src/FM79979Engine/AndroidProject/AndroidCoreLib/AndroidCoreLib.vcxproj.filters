@@ -952,6 +952,9 @@
     <ClCompile Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.cpp">
       <Filter>jni\RenderObject\Font\FreeTypeFont</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\Network\GameNetWork.cpp">
+      <Filter>jni\NetWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Core\TemplateNode.h" />
@@ -1581,6 +1584,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.h">
       <Filter>jni\RenderObject\Font\FreeTypeFont</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\GameNetWork.h">
+      <Filter>jni\NetWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

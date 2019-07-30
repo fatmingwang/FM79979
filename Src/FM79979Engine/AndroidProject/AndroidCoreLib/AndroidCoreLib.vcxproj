@@ -124,6 +124,7 @@
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Image\TextureManager.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
+    <ClCompile Include="..\..\Core\Network\GameNetWork.cpp" />
     <ClCompile Include="..\..\Core\Network\Network.cpp" />
     <ClCompile Include="..\..\Core\Network\SDLnet.cpp" />
     <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp" />
@@ -488,6 +489,7 @@
     <ClInclude Include="..\..\Core\Math\Vector3.h" />
     <ClInclude Include="..\..\Core\Math\Vector4.h" />
     <ClInclude Include="..\..\Core\Network\begin_code.h" />
+    <ClInclude Include="..\..\Core\Network\GameNetWork.h" />
     <ClInclude Include="..\..\Core\Network\happyhttp.h" />
     <ClInclude Include="..\..\Core\Network\Network.h" />
     <ClInclude Include="..\..\Core\Network\SDL_endian.h" />
