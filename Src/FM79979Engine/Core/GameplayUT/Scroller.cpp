@@ -115,17 +115,70 @@ namespace FATMING_CORE
 				l_pClickMouseBehavior->Init();
                 if( m_eOrientation == eO_HORIZONTAL )
 				{
-					m_fTotalLength += l_pClickMouseBehavior->GetCollisionRange().Width();
-					l_vPos.x += l_pClickMouseBehavior->GetCollisionRange().Width()+m_fObjectGap;
+					m_fTotalLength += l_pClickMouseBehavior->GetCollisionRange().Width() + m_fObjectGap;
+					l_vPos.x += l_pClickMouseBehavior->GetCollisionRange().Width() + m_fObjectGap;
 				}
                 else
 				{
-					m_fTotalLength += l_pClickMouseBehavior->GetCollisionRange().Height();
+					m_fTotalLength += l_pClickMouseBehavior->GetCollisionRange().Height() + m_fObjectGap;
 					l_vPos.y += l_pClickMouseBehavior->GetCollisionRange().Height()+m_fObjectGap;
 				}
             }
         }
     }
+
+	void cScroller::ArrangeObjectInitWithMultiLines(Vector2 e_vStartOffsetPos, Vector2 e_vObjectGap)
+	{
+		cClickMouseBehavior*l_pClickMouseBehavior = this->GetObject(0);
+		Vector4	l_vOriginalViewRect = this->m_vCollisionRange;
+		//this one will auto rest so set it back
+		cMouse_TouchWithCancelButton::Init();
+		m_vCollisionRange = l_vOriginalViewRect;
+		m_bRollBack = false;
+		m_fTotalLength = 0.f;
+		if (this->m_pBG)
+			m_pBG->Init();
+		int l_iCOunt = this->Count();
+		if (l_iCOunt == 0)
+			return;
+		//POINT   l_Size = {*l_pClickMouseBehavior->GetWidth(),*l_pClickMouseBehavior->GetHeight()};
+		POINT   l_Size = { (int)l_pClickMouseBehavior->GetCollisionRange().Width(),(int)l_pClickMouseBehavior->GetCollisionRange().Height() };
+		Vector3 l_vPos = Vector3(m_vCollisionRange.x+ e_vStartOffsetPos.x, m_vCollisionRange.y+ e_vStartOffsetPos.y, 0.f);
+		int l_iCount = Count();
+		if (l_iCount)
+		{
+			for (int i = 0; i < l_iCount; ++i)
+			{
+				l_pClickMouseBehavior = GetObject(i);
+				l_pClickMouseBehavior->SetLocalPosition(l_vPos);
+				l_pClickMouseBehavior->Init();
+				if (m_eOrientation == eO_HORIZONTAL)
+				{
+					float l_fObjectHeight = l_pClickMouseBehavior->GetCollisionRange().Height();
+					l_vPos.y += (l_fObjectHeight + e_vObjectGap.y);
+					if (l_vPos.y + l_fObjectHeight >= m_vCollisionRange.w)
+					{
+						l_vPos.y = m_vCollisionRange.y;
+						float l_fObjectWidthAndGap = l_pClickMouseBehavior->GetCollisionRange().Width()+ e_vObjectGap.x;
+						l_vPos.x += l_fObjectWidthAndGap;
+						m_fTotalLength += l_fObjectWidthAndGap;
+					}
+				}
+				else
+				{
+					float l_fObjectWidth = l_pClickMouseBehavior->GetCollisionRange().Width();
+					l_vPos.x += l_fObjectWidth + e_vObjectGap.x;
+					if (l_vPos.x + l_fObjectWidth >= m_vCollisionRange.z)
+					{
+						l_vPos.x = m_vCollisionRange.x;
+						float l_fObjectHeightAndGap = l_pClickMouseBehavior->GetCollisionRange().Height() + e_vObjectGap.y;
+						l_vPos.y += l_fObjectHeightAndGap;
+						m_fTotalLength += l_fObjectHeightAndGap;
+					}
+				}
+			}
+		}
+	}
 
 	bool	cScroller::IsScrollable()
 	{
