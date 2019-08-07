@@ -327,11 +327,14 @@ namespace FATMING_CORE
 
 	std::tuple<cClickBehavior*,cRenderObject*>		cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound)
 	{
-		auto l_pImage = e_pSubMPDI->PointDataToBaseImage(0);
+		//auto l_pImage = e_pSubMPDI->PointDataToBaseImage(0);
 		cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(e_pSubMPDI->GetOwner());
-		l_pMPDI->RemoveObject(e_pSubMPDI);
-		auto l_pData = AddDefaultRenderClickBehaviorButton(l_pImage,e_ClickFunction,e_pBasicSound);
-		return std::make_tuple(l_pData,l_pImage);
+		l_pMPDI->RemoveObjectWithoutDelete(e_pSubMPDI);
+		e_pSubMPDI->SetLocalTransform(l_pMPDI->GetWorldTransform());
+		e_pSubMPDI->Init();
+		e_pSubMPDI->Update(0.00001f);
+		auto l_pData = AddDefaultRenderClickBehaviorButton((cRenderObject*)e_pSubMPDI,e_ClickFunction,e_pBasicSound);
+		return std::make_tuple(l_pData,e_pSubMPDI);
 	}
 	//bool	cClickBehaviorGroup::AddButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pClickSound)
 	//{
