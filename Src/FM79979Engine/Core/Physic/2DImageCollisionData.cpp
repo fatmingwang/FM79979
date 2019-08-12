@@ -3,20 +3,20 @@
 #include "../OpenGL/GLSL/Shader.h"
 
 #include "../Bullet/LinearMath/btQuaternion.h"
-#include "LinearMath/btTransform.h"
+#include "../Bullet/LinearMath/btTransform.h"
 
-#include "BulletCollision/CollisionShapes/btCompoundShape.h"
-#include "BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h"
-#include "BulletCollision/CollisionShapes/btConvexHullShape.h"
-#include "BulletCollision/CollisionShapes/btCylinderShape.h"
-#include "BulletCollision/CollisionShapes/btSphereShape.h"
+#include "../Bullet/BulletCollision/CollisionShapes/btCompoundShape.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h"
+#include "../Bullet/BulletCollision/CollisionShapes/btConvexHullShape.h"
+#include "../Bullet/BulletCollision/CollisionShapes/btCylinderShape.h"
+#include "../Bullet/BulletCollision/CollisionShapes/btSphereShape.h"
 
-#include "BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h"
-#include "BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h"
-#include "BulletCollision/NarrowPhaseCollision/btPointCollector.h"
-#include "BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h"
-#include "BulletCollision/NarrowPhaseCollision/btConvexPenetrationDepthSolver.h"
-#include "BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btGjkEpaPenetrationDepthSolver.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btPointCollector.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btVoronoiSimplexSolver.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btConvexPenetrationDepthSolver.h"
+#include "../Bullet/BulletCollision/NarrowPhaseCollision/btGjkPairDetector.h"
 
 
 #include "../XML/XMLLoader.h"

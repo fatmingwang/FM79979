@@ -22,7 +22,7 @@ namespace UT
 	GLint 				gluProject(GLfloat objx, GLfloat  objy, GLfloat  objz,const GLfloat  model[16], const GLfloat  proj[16],const GLint viewport[4],GLfloat  * winx, GLfloat  * winy, GLfloat  * winz);
 //#endif
 	//Modulus should change to remainder.
-	inline	float		GetFloatModulus(float e_fValue,float e_fDivision){int	l_iModulus = (int)(e_fValue/e_fDivision);return e_fValue-(l_iModulus*e_fDivision);}
+	inline	float		GetFloatModulus(float e_fValue,float e_fDivision){int	l_iModulus = (int)(e_fValue/e_fDivision);return e_fValue-((float)l_iModulus*e_fDivision);}
 	inline	int			ValueDivideAddOneIfModulusIsNotZero(int e_iValue,int e_iDividValue)
 	{
 		int l_iResult = e_iValue/e_iDividValue;

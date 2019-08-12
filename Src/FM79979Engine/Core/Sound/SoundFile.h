@@ -8,7 +8,7 @@
 #ifdef IOS
 #include "ogg/ogg/ogg.h"
 #include "ogg/vorbis/vorbisfile.h"
-#elif defined(ANDROID) || defined(WASM)
+#elif defined(ANDROID) || defined(WASM)  || defined(LINUX)
 #include "ogg/ogg/ogg.h"
 #include "ogg/vorbis/vorbisfile.h"
 #elif defined(WIN32)

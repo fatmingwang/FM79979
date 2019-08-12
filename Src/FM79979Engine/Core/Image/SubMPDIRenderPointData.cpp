@@ -7,7 +7,7 @@ namespace FATMING_CORE
 	Vector2 sTexBehaviorDataWithImageIndexData::GetScale()
 	{
         sPuzzleData*l_pPIData = pPI->GetPuzzleData(iImageIndex);
-        return Vector2(Size.x/l_pPIData->Size.x,Size.y/l_pPIData->Size.y);
+        return Vector2(Size.x/ (float)l_pPIData->Size.x,Size.y/ (float)l_pPIData->Size.y);
 	}
 	sTexBehaviorDataWithImageIndexData::sTexBehaviorDataWithImageIndexData()
 	{	

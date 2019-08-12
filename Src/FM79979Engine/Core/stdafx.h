@@ -48,8 +48,12 @@
 	//#include <GLES3/gl3.h>
 	//#include <GLES3/gl3ext.h>
 #elif defined(LINUX)
-	#include <EGL/egl.h>
-	#include <EGL/eglext.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
+	//#include <SDL2/SDL.h>
+	//#include <SDL2/SDL_image.h>
+	//#include <EGL/egl.h>
+	//#include <EGL/eglext.h>
 	//opengles
 	//#include <GLES2/gl2.h>
 	//#include "glew.h"

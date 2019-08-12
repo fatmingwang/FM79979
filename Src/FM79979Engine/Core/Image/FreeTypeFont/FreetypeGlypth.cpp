@@ -1,9 +1,11 @@
 #include "../../stdafx.h"
+
 #include <ft2build.h>
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
 #include <freetype/ftoutln.h>
 #include <freetype/fttrigon.h>
+
 #include "FreetypeGlypth.h"
 #include "../Texture.h"
 #include "../../OpenGL/GLSL/Shader.h"

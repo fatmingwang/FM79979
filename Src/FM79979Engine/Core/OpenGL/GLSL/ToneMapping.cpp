@@ -1,7 +1,7 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "ToneMapping.h"
-#include "../Image/FrameBuffer.h"
-#include "../GameplayUT/GameApp.h"
+#include "../../Image/FrameBuffer.h"
+#include "../../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
 		static	const char*m_sVS;//vertical

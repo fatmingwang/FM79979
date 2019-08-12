@@ -1,7 +1,7 @@
 #ifndef PARTICLE_EMITER_H
 #define PARTICLE_EMITER_H
 
-#if defined(IOS) || defined(ANDROID) || defined(WASM)
+#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)
 #define GL_QUADS 0x0007
 #endif
 #include "../AllImageInclude.h"

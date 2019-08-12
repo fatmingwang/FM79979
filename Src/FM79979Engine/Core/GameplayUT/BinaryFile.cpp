@@ -360,7 +360,7 @@ namespace FATMING_CORE
 		//and call as win32
 			unsigned short*l_pData = (unsigned short*)GetDataFile(e_uiStart);
 			wchar_t*l_Transto2Wchar = (wchar_t*)e_pDestData;        
-			for(int i=0;i<e_uiSLength/2;++i )
+			for(int i=0;i<(int)e_uiSLength/2;++i )
 			{
 				l_Transto2Wchar[i] = l_pData[i];
 			}
@@ -446,7 +446,7 @@ namespace FATMING_CORE
 			return 0;
 		int	l_iFileLength = GetDataFileSize();
 		char*l_pOutputData = (char*)l_pData;
-		if( l_iFileLength < sizeof(m_iMagicNumberID) )
+		if( l_iFileLength < (int)sizeof(m_iMagicNumberID) )
 		{//not cSkipHeaderBinaryFile file.
 			return 0;
 		}

@@ -166,8 +166,8 @@ namespace FATMING_CORE
 				for( size_t i=0;i<l_iSize;++i )
 				{
 					int	l_iIndex = TouchPointWorkingIndex[i];
-					vCenterPos.x += TouchPointData[l_iIndex].Pos.x;
-					vCenterPos.y += TouchPointData[l_iIndex].Pos.y;
+					vCenterPos.x += (float)TouchPointData[l_iIndex].Pos.x;
+					vCenterPos.y += (float)TouchPointData[l_iIndex].Pos.y;
 					TouchPointData[l_iIndex].DoFirstMultiTouchPos = TouchPointData[l_iIndex].Pos;
 				}
 				vCenterPos /= (float)l_iSize;
@@ -210,9 +210,9 @@ namespace FATMING_CORE
 				{
 					int	l_iIndex = TouchPointWorkingIndex[i];
 					sTouchPointData*l_pTouchPointData = &TouchPointData[l_iIndex];
-					Vector2	l_vStartPos(vCenterPos.x-l_pTouchPointData->DoFirstMultiTouchPos.x,vCenterPos.y-l_pTouchPointData->DoFirstMultiTouchPos.y);
-					Vector2	l_vNewPos(vCenterPos.x-l_pTouchPointData->Pos.x,vCenterPos.y-l_pTouchPointData->Pos.y);
-					Vector2	l_vPreviousPos(vCenterPos.x-l_pTouchPointData->PreviousPos.x,vCenterPos.y-l_pTouchPointData->PreviousPos.y);
+					Vector2	l_vStartPos(vCenterPos.x- (float)l_pTouchPointData->DoFirstMultiTouchPos.x,vCenterPos.y- (float)l_pTouchPointData->DoFirstMultiTouchPos.y);
+					Vector2	l_vNewPos(vCenterPos.x-(float)l_pTouchPointData->Pos.x,vCenterPos.y- (float)l_pTouchPointData->Pos.y);
+					Vector2	l_vPreviousPos(vCenterPos.x- (float)l_pTouchPointData->PreviousPos.x,vCenterPos.y- (float)l_pTouchPointData->PreviousPos.y);
 					l_pTouchPointData->PreviousPos = l_pTouchPointData->Pos;
 					Vector2	l_v1 = l_vNewPos-l_vPreviousPos;
 					Vector2	l_v2 = l_vNewPos-l_vStartPos;
@@ -223,12 +223,12 @@ namespace FATMING_CORE
 				}
 				vPanDistance = l_vTotalDis/(float)l_iSize;
 				vFrameChangePanDistance = l_vStepDis/(float)l_iSize;
-				fAllFrameDisToCenterPos = l_fAllFrameDisToCenterPos/l_iSize;
-				fCurrentFrameDisToCenterPos = l_fCurrentFrameDisToCenterPos/l_iSize;
+				fAllFrameDisToCenterPos = l_fAllFrameDisToCenterPos/ (float)l_iSize;
+				fCurrentFrameDisToCenterPos = l_fCurrentFrameDisToCenterPos/ (float)l_iSize;
 				if( l_bMouseUp )
 				{//do pan
-					if( l_vTotalDis.x*l_iSize >= fMinSlideDistanceForGesture || 
-						l_vTotalDis.y*l_iSize >= fMinSlideDistanceForGesture)
+					if( l_vTotalDis.x*(float)l_iSize >= fMinSlideDistanceForGesture ||
+						l_vTotalDis.y*(float)l_iSize >= fMinSlideDistanceForGesture)
 					{
 						if(l_vTotalDis.x > l_vTotalDis.y)
 						{//horizontal

@@ -109,8 +109,8 @@ namespace FATMING_CORE
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,m_iPixelFormat==GL_RGBA?true:false);
 			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, m_iChannel==4?GL_RGBA:GL_RGB, l_iWidthPO2,l_iHeightPO2, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,e_strName); // Texture specification.
 			//assign new UV
-			m_fUV[2] = (float)m_iWidth/l_iWidthPO2;
-			m_fUV[3] =  (float)m_iHeight/l_iHeightPO2;
+			m_fUV[2] = (float)m_iWidth/ (float)l_iWidthPO2;
+			m_fUV[3] =  (float)m_iHeight/ (float)l_iHeightPO2;
 			delete l_pNewPixelData;
 		}
 		else

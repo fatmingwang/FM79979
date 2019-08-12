@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 //#include "../XML/XMLLoader.h"
 #include "GLSLUiniform.h"
 
@@ -8,7 +8,7 @@
 #include <sstream>
 #include <string>
 #include <assert.h>
-#include "../GameplayUT/GameApp.h"
+#include "../../GameplayUT/GameApp.h"
 using namespace std;
 namespace FATMING_CORE
 {

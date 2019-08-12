@@ -28,8 +28,8 @@ namespace FATMING_CORE
 		//it might occur visual error
 		inline	Vector2	GetCenterOffsetxWithRenderSize( Vector2 e_vRenderSize )
 		{
-		    Vector2 l_vScalr( ((float)e_vRenderSize.x/Size.x),((float)e_vRenderSize.y/Size.y) );
-		    Vector2 l_vCenterOffset( OriginalSize.x/2.f-OffsetPos.x,OriginalSize.y/2.f-OffsetPos.y );
+		    Vector2 l_vScalr( ((float)e_vRenderSize.x/(float)Size.x),((float)e_vRenderSize.y/ (float)Size.y) );
+		    Vector2 l_vCenterOffset((float)OriginalSize.x/2.f- (float)OffsetPos.x, (float)OriginalSize.y/2.f- (float)OffsetPos.y );
 		    l_vCenterOffset.x*=l_vScalr.x;
 		    l_vCenterOffset.y*=l_vScalr.y;
 		    return l_vCenterOffset;
@@ -102,10 +102,12 @@ namespace FATMING_CORE
 	    std::vector<sImageIndexAndTimeGap>          m_ImageAnimationDataList;
 		cImageIndexOfAnimation(bool e_bNewNameList)
 		{
-		    m_pNameList = 0;
-		    if(e_bNewNameList)
-		        m_pNameList = new std::vector<std::wstring>;
-			m_pfEndTime = 0;
+		    m_pNameList = nullptr;
+			if (e_bNewNameList)
+			{
+				m_pNameList = new std::vector<std::wstring>;
+			}
+			m_pfEndTime = nullptr;
 		}
 		//not a pointer reference it will new the data,but it's very rare to be called(ex:in the editor)
 		cImageIndexOfAnimation(cImageIndexOfAnimation*e_pImageIndexOfAnimation);
@@ -120,8 +122,10 @@ namespace FATMING_CORE
 		int     GetImageIndex(int e_iIndex,cPuzzleImage*e_pPI);
 		void    Clear()
 		{
-		    if( m_pNameList )
-		        m_pNameList->clear();
+			if (m_pNameList)
+			{
+				m_pNameList->clear();
+			}
 			m_ImageAnimationDataList.clear();
 		}
 		void    AddNameObject(const wchar_t*e_strName,int e_iIndex,float e_fTimeGap)

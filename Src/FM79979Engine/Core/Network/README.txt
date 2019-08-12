@@ -1,4 +1,4 @@
-SDL_net 1.2
+SDL_net 1.2 
 
 The latest version of this library is available from:
 http://www.libsdl.org/projects/SDL_net/

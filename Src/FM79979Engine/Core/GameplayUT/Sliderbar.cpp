@@ -203,7 +203,7 @@ namespace FATMING_CORE
 		Vector4	l_vNewCollisionRange(m_vCollisionRange);
 		if( this->m_pSlider )
 		{
-			l_vNewCollisionRange.z -= m_pSlider->GetWidth();
+			l_vNewCollisionRange.z -= (float)m_pSlider->GetWidth();
 		}
 		GLRender::RenderRectangle(Vector2(m_vCollisionRange.x,m_vCollisionRange.y),m_vCollisionRange.Width(),m_vCollisionRange.Height(),Vector4::One);
 		//if( m_pSlider )
@@ -232,7 +232,7 @@ namespace FATMING_CORE
 		Vector4	l_vNewCollisionRange(m_vCollisionRange);
 		if( this->m_pSlider )
 		{
-			l_vNewCollisionRange.z -= m_pSlider->GetWidth();
+			l_vNewCollisionRange.z -= (float)m_pSlider->GetWidth();
 		}
 		if(e_fValue>this->m_fMaxValue)
 		{
@@ -269,17 +269,17 @@ namespace FATMING_CORE
 		Vector4	l_vNewCollisionRange(m_vCollisionRange);
 		if( this->m_pSlider )
 		{
-			l_vNewCollisionRange.z -= m_pSlider->GetWidth();
+			l_vNewCollisionRange.z -= (float)m_pSlider->GetWidth();
 		}
 		e_iPosX = l_vNewCollisionRange.ClampWidth(e_iPosX);
 		e_iPosY = l_vNewCollisionRange.ClampHeight(e_iPosY);
 		if( this->m_eOrientation == eO_HORIZONTAL )
 		{
-			this->m_fCurrentBarValue = l_vNewCollisionRange.z-e_iPosX;
+			this->m_fCurrentBarValue = l_vNewCollisionRange.z- (float)e_iPosX;
 		}
 		else
 		{
-			this->m_fCurrentBarValue = l_vNewCollisionRange.w-e_iPosY;
+			this->m_fCurrentBarValue = l_vNewCollisionRange.w- (float)e_iPosY;
 		}
 		float	l_fPercentage;
 		if( this->m_eOrientation == eO_HORIZONTAL )
@@ -319,9 +319,9 @@ namespace FATMING_CORE
 			Vector3	l_vOffsetPos = *m_pBar->GetLocalPositionPointer()-*m_pSlider->GetLocalPositionPointer();
 			this->m_pBar->SetPos(e_vPos);
 			if(this->m_eOrientation == eO_HORIZONTAL)
-				l_vOffsetPos.y-=(m_pBar->GetHeight())/2.f;
+				l_vOffsetPos.y-=((float)m_pBar->GetHeight())/2.f;
 			else
-				l_vOffsetPos.x-=(m_pBar->GetWidth())/2.f;
+				l_vOffsetPos.x-=((float)m_pBar->GetWidth())/2.f;
 			this->m_pSlider->SetPos(l_vOffsetPos+e_vPos);
 		}
 		this->m_vCollisionRange.x+= e_vPos.x;

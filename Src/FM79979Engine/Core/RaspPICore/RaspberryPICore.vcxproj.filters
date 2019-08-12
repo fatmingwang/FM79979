@@ -238,6 +238,18 @@
     <Filter Include="XML\Writer">
       <UniqueIdentifier>{b3f21a82-255e-4301-b11e-e716f097f5c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Android">
+      <UniqueIdentifier>{98f2cd2d-85c5-4993-8a16-d4626061ba61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Physic\Bullet">
+      <UniqueIdentifier>{c2c42e0a-64aa-43ef-99ee-16bf8405f0ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound\ogg">
+      <UniqueIdentifier>{6586c23b-f8d7-4bf6-b65a-49d37607ab04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\Font\FreeType\Lib">
+      <UniqueIdentifier>{5bc1a0f3-7e0a-41a6-9635-ac1e044a3231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Camera\CameraAnimation.cpp">
@@ -707,6 +719,9 @@
     </ClCompile>
     <ClCompile Include="..\XML\AtgXmlWriter.cpp">
       <Filter>XML\Writer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Image\RenderNode.cpp">
+      <Filter>Render\FMAnimationRule</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1240,6 +1255,945 @@
     </ClInclude>
     <ClInclude Include="..\XML\AtgXmlWriter.h">
       <Filter>XML\Writer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Android\JNIUtil.h">
+      <Filter>Android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Android\nv_file.h">
+      <Filter>Android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AllCameraInclude.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\AllMathInclude.h">
+      <Filter>HeaderFiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Image\RenderNode.h">
+      <Filter>Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btAxisSweep3.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btBroadphaseInterface.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btBroadphaseProxy.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btDbvt.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btDbvtBroadphase.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btDispatcher.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btMultiSapBroadphase.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btOverlappingPairCache.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btOverlappingPairCallback.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btQuantizedBvh.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\BroadphaseCollision\btSimpleBroadphase.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btActivatingCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btBox2dBox2dCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btBoxBoxCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btBoxBoxDetector.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCollisionConfiguration.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCollisionCreateFunc.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCollisionDispatcher.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCollisionObject.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCollisionWorld.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btCompoundCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btConvex2dConvex2dAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btConvexConcaveCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btConvexConvexAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btConvexPlaneCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btDefaultCollisionConfiguration.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btEmptyCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btGhostObject.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btInternalEdgeUtility.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btManifoldResult.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btSimulationIslandManager.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btSphereBoxCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btSphereSphereCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btSphereTriangleCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\btUnionFind.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionDispatch\SphereTriangleDetector.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btBox2dShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btBoxShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btBvhTriangleMeshShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btCapsuleShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btCollisionMargin.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btCollisionShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btCompoundShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConcaveShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConeShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvex2dShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvexHullShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvexInternalShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvexPointCloudShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvexShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btConvexTriangleMeshShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btCylinderShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btEmptyShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btHeightfieldTerrainShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btMaterial.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btMinkowskiSumShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btMultimaterialTriangleMeshShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btMultiSphereShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btOptimizedBvh.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btPolyhedralConvexShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btScaledBvhTriangleMeshShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btShapeHull.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btSphereShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btStaticPlaneShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btStridingMeshInterface.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTetrahedronShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleBuffer.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleCallback.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleIndexVertexArray.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleIndexVertexMaterialArray.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleInfoMap.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleMesh.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleMeshShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btTriangleShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\CollisionShapes\btUniformScalingShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btBoxCollision.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btClipPolygon.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btContactProcessing.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGenericPoolAllocator.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGeometryOperations.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGImpactBvh.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGImpactCollisionAlgorithm.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGImpactMassUtil.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGImpactQuantizedBvh.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btGImpactShape.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btQuantization.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\btTriangleShapeEx.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_array.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_basic_geometry_operations.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_bitset.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_box_collision.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_box_set.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_clip_polygon.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_contact.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_geom_types.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_geometry.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_hash_table.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_linear_math.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_math.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_memory.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_radixsort.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\Gimpact\gim_tri_collision.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btContinuousConvexCollision.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btConvexCast.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btConvexPenetrationDepthSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btDiscreteCollisionDetectorInterface.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btGjkConvexCast.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btGjkEpa2.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btGjkEpaPenetrationDepthSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btGjkPairDetector.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btManifoldPoint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btMinkowskiPenetrationDepthSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btPersistentManifold.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btPointCollector.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btRaycastCallback.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btSimplexSolverInterface.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btSubSimplexConvexCast.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletCollision\NarrowPhaseCollision\btVoronoiSimplexSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btAabbUtil2.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btAlignedAllocator.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btAlignedObjectArray.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btConvexHull.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btDefaultMotionState.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btGeometryUtil.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btHashMap.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btIDebugDraw.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btList.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btMatrix3x3.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btMinMax.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btMotionState.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btPoolAllocator.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btQuadWord.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btQuaternion.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btQuickprof.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btRandom.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btScalar.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btSerializer.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btStackAlloc.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btTransform.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btTransformUtil.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\LinearMath\btVector3.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btConeTwistConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btConstraintSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btContactConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btContactSolverInfo.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btGeneric6DofConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btGeneric6DofSpringConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btHinge2Constraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btHingeConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btJacobianEntry.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btPoint2PointConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btSequentialImpulseConstraintSolver.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btSliderConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btSolve2LinearConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btSolverBody.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btSolverConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btTypedConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\ConstraintSolver\btUniversalConstraint.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btActionInterface.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btContinuousDynamicsWorld.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btDiscreteDynamicsWorld.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btDynamicsWorld.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btRigidBody.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Dynamics\btSimpleDynamicsWorld.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Vehicle\btRaycastVehicle.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Vehicle\btVehicleRaycaster.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Bullet\BulletDynamics\Vehicle\btWheelInfo.h">
+      <Filter>Physic\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\books\coupled\res_books_51.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\books\coupled\res_books_stereo.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\books\floor\floor_books.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\books\uncoupled\res_books_uncoupled.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\floor_all.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\psych_8.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\psych_11.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\psych_16.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\psych_44.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\residue_8.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\residue_16.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\residue_44.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\residue_44p51.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\residue_44u.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_8.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_11.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_16.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_22.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_32.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_44.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_44p51.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_44u.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\modes\setup_X.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\ogg\ogg.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\ogg\os_types.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\vorbis\codec.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\vorbis\vorbisenc.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\vorbis\vorbisfile.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\vorbis\vorbisfile_windows.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\window.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\smallft.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\scales.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\registry.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\psy.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\os.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\misc.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\mdct.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\masking.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\lsp.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\lpc.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\lookup_data.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\lookup.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\highlevel.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\envelope.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\codec_internal.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\codebook.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\bitrate.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Sound\ogg\backends.h">
+      <Filter>Sound\ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\autohint.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\cffotypes.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\cfftypes.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\freetype.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\ft2build.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftadvanc.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftbbox.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftbdf.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftbitmap.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftbzip2.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftcache.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftcalc.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftchapters.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftcid.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\config\ftconfig.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftdebug.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftdriver.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftdrv.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\fterrdef.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\fterrors.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftfntfmt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftgasp.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftgloadr.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftglyph.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftgxval.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftgzip.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\fthash.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\config\ftheader.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftimage.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftincrem.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftlcdfil.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftlist.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftlzw.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftmac.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftmemory.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftmm.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftmodapi.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftmoderr.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\config\ftmodule.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftobjs.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\config\ftoption.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftotval.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftoutln.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftparams.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftpfr.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftpic.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftpsprop.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftrender.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftrfork.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftserv.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftsizes.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftsnames.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\config\ftstdlib.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftstream.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftstroke.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftsynth.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftsystem.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\fttrace.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\fttrigon.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\fttypes.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\ftvalid.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ftwinfnt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\internal.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\psaux.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\pshints.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\sfnt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svbdf.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svcfftl.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svcid.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svfntfmt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svgldict.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svgxval.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svkern.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svmetric.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svmm.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svotval.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svpfr.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svpostnm.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svprop.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svpscmap.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svpsinfo.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svsfnt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svttcmap.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svtteng.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svttglyf.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\services\svwinfnt.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\t1tables.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\t1types.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\ttnameid.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\tttables.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\tttags.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Freetype\include\freetype\internal\tttypes.h">
+      <Filter>Render\Font\FreeType\Lib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

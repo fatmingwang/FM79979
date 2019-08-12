@@ -8,7 +8,7 @@ namespace FATMING_CORE
 	//==========================
 	//if there is no framebuffer exist...
 	//==========================
-#if defined(WIN32) || defined(LINUX)
+#if defined(WIN32)// || defined(LINUX) now linux use opengl es
 	class	cScreenCapture :public Frame
 	{
 		char*m_pPixelBuffer;
@@ -49,7 +49,7 @@ namespace FATMING_CORE
 		GLuint	GetTextureID() { return m_uiTextureID; }
 		GLuint	GetFramebufferID() { return m_uiFramebufferID; }
 	};
-#ifndef ANDROID//require opengl es3
+#if !defined(ANDROID) && !defined(LINUX)//require opengl es3
 	//after I test this one useless for 2D...
 	class cBaseShader;
 	class	cMSAAFrameBuffer :public Frame

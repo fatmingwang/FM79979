@@ -70,17 +70,17 @@ namespace FATMING_CORE
 		bool	l_bCollided = false;
 		if( m_eOrientation == eO_HORIZONTAL )
 		{
-			if(e_iPosX>e_pClickMouseBehavior->GetLocalPositionPointer()->x)
+			if((float)e_iPosX>e_pClickMouseBehavior->GetLocalPositionPointer()->x)
 			{
-				if( e_iPosX<e_pClickMouseBehavior->GetLocalPositionPointer()->x+e_pClickMouseBehavior->GetCollisionRange().Width() )
+				if((float)e_iPosX<e_pClickMouseBehavior->GetLocalPositionPointer()->x+ e_pClickMouseBehavior->GetCollisionRange().Width() )
 					l_bCollided = true;
 			}
 		}
 		else
 		{
-			if(e_iPosY>e_pClickMouseBehavior->GetLocalPositionPointer()->y)
+			if((float)e_iPosY>e_pClickMouseBehavior->GetLocalPositionPointer()->y)
 			{
-				if( e_iPosY<e_pClickMouseBehavior->GetLocalPositionPointer()->y+e_pClickMouseBehavior->GetCollisionRange().Height() )
+				if((float)e_iPosY<e_pClickMouseBehavior->GetLocalPositionPointer()->y+e_pClickMouseBehavior->GetCollisionRange().Height() )
 					l_bCollided = true;
 			}					
 		}
@@ -265,9 +265,9 @@ namespace FATMING_CORE
 				l_pClickMouseBehavior = this->m_ObjectList[i];
 				l_vPos = *l_pClickMouseBehavior->GetLocalPositionPointer();
 				if( m_eOrientation == eO_HORIZONTAL )
-					l_vPos.x += this->m_MouseMoveData.FrameMovePos.x;
+					l_vPos.x += (float)this->m_MouseMoveData.FrameMovePos.x;
 				else
-					l_vPos.y += this->m_MouseMoveData.FrameMovePos.y;
+					l_vPos.y += (float)this->m_MouseMoveData.FrameMovePos.y;
 				l_pClickMouseBehavior->SetLocalPosition(l_vPos);
 			}
 		}

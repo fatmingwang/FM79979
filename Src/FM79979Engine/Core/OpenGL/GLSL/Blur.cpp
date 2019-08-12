@@ -1,6 +1,6 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "Blur.h"
-#include "../Image/FrameBuffer.h"
+#include "../../Image/FrameBuffer.h"
 
 
 namespace FATMING_CORE

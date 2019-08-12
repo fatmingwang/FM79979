@@ -1,8 +1,7 @@
 #include "../stdafx.h"
-#include "../AVIPlayer/AVIPlayer.h"
 #include "VideoSubMPDI.h"
 #ifdef WIN32
-
+#include "../AVIPlayer/AVIPlayer.h"
 namespace FATMING_CORE
 {
 	cVideoSubMPDI::cVideoSubMPDI()

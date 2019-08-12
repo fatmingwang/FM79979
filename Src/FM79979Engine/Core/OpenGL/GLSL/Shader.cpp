@@ -1,7 +1,7 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "GLSLUiniform.h"
 #include "Shader.h"
-#include "../GameplayUT/GameApp.h"
+#include "../../GameplayUT/GameApp.h"
 GLenum	g_iDrawindiceType = 
 
 #if defined(WIN32) || defined(LINUX)

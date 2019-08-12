@@ -1,5 +1,5 @@
 #include "../../stdafx.h"
-#include "../Synchronization/CPP11Thread.h"
+#include "../../Synchronization/CPP11Thread.h"
 #include "WriteFileWithThread.h"
 
 namespace FATMING_CORE

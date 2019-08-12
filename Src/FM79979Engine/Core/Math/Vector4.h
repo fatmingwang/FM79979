@@ -179,7 +179,7 @@ public:
 	inline	void	Move(Vector2 e_vPos){ x += e_vPos.x; y += e_vPos.y; z += e_vPos.x; w += e_vPos.y; }
 	inline	void	Move(Vector3 e_vPos){ x += e_vPos.x; y += e_vPos.y; z += e_vPos.x; w += e_vPos.y; }
 	inline	void	Move(float e_fX,float e_fY){ x += e_fX; y += e_fY; z += e_fX; w += e_fY; }
-	inline	void	Move(int e_iX,int e_iY){ x += e_iX; y += e_iY; z += e_iX; w += e_iY; }
+	inline	void	Move(int e_iX,int e_iY){ x += (float)e_iX; y += (float)e_iY; z += (float)e_iX; w += (float)e_iY; }
 	//while touch points is at any point on the sctreen,smoothly to move center by new position
 	inline	Vector4	ScaleToNewPos(Vector2 e_vCenterPos,float e_fScale)
 	{
@@ -207,14 +207,14 @@ public:
 	}
 	inline	bool	CollidePoint(int e_iPosX,int e_iPosY)
 	{
-		if(this->x<=e_iPosX&&this->z>=e_iPosX&&this->y<=e_iPosY&&this->w>=e_iPosY)
+		if(this->x<= (float)e_iPosX&&this->z>= (float)e_iPosX&&this->y<= (float)e_iPosY&&this->w>= (float)e_iPosY)
 			return true;
 		return false;		
 	}
 	inline	float		ClampWidth(float e_fValue){if(e_fValue>z)return z;if(e_fValue<x)return x;return e_fValue;}
 	inline	float		ClampHeight(float e_fValue){if(e_fValue>w)return w;if(e_fValue<y)return y;return e_fValue;}
-	inline	int			ClampWidth(int e_iValue){if(e_iValue>z)return (int)z;if(e_iValue<x)return (int)x;return e_iValue;}
-	inline	int			ClampHeight(int e_iValue){if(e_iValue>w)return (int)w;if(e_iValue<y)return (int)y;return e_iValue;}
+	inline	int			ClampWidth(int e_iValue){if((float)e_iValue>z)return (int)z;if((float)e_iValue<x)return (int)x;return e_iValue;}
+	inline	int			ClampHeight(int e_iValue){if((float)e_iValue>w)return (int)w;if((float)e_iValue<y)return (int)y;return e_iValue;}
 
 	inline	void		Clamp(Vector4 e_vRestrictRange)
 	{

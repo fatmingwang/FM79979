@@ -62,7 +62,7 @@ void	cAssembleImageButton::Init()
 			cBaseImage*l_pBaseImage = (cBaseImage*)GetObject(i);
 			Vector3	l_vPos = l_pBaseImage->GetWorldPosition();
 			POINT	l_OriginalSize = l_pBaseImage->GetOriginalSize();
-			Vector4	l_vRect(l_vPos.x,l_vPos.y,l_vPos.x+l_OriginalSize.x,l_vPos.y+l_OriginalSize.y);
+			Vector4	l_vRect(l_vPos.x,l_vPos.y,l_vPos.x+ (float)l_OriginalSize.x,l_vPos.y+ (float)l_OriginalSize.y);
 			l_vDrawRect = GetBiggerRect(l_vDrawRect,l_vRect);
 		}
 		else
@@ -93,7 +93,7 @@ void	cAssembleImageButton::Init()
 				cPuzzleImageUnit*l_pPIUnit = l_pPI->GetObject(l_pSubMPDI->GetPointData(0)->iImageIndex);
 				POINT l_Size = l_pPIUnit->GetOriginalSize();
 				Vector3	l_vPos = l_pSubMPDI->GetOriginalPointList()[0];
-				Vector4	l_vRect(l_vPos.x,l_vPos.y,l_vPos.x+l_Size.x,l_vPos.y+l_Size.y);
+				Vector4	l_vRect(l_vPos.x,l_vPos.y,l_vPos.x+ (float)l_Size.x,l_vPos.y+ (float)l_Size.y);
 				l_vDrawRect = GetBiggerRect(l_vDrawRect,l_vRect);
 			}
 		}
@@ -137,7 +137,7 @@ void	cAssembleImageButton::Render()
 
 void	cAssembleImageButton::DebugRender()
 {
-	Vector3	l_vPos = this->GetWorldPosition();
+	//Vector3	l_vPos = this->GetWorldPosition();
 	Vector4	l_vCollideRect = this->m_vCollisionRange;
 	//l_vCollideRect.Move(l_vPos);
 	GLRender::RenderRectangle(Vector2(l_vCollideRect.x,l_vCollideRect.y),(float)this->m_iWidth,(float)this->m_iHeight,Vector4::Red,this->GetRotation());

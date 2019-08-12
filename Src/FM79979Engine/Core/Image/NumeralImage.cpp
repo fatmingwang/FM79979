@@ -32,9 +32,9 @@ namespace FATMING_CORE
 		float	l_fStep = this->m_fUV[2]/(float)m_iNumIndex;
 		for( int i=0;i<m_iNumIndex;++i )
 		{
-			m_pfTexCoordinate[i*4  ] = i*l_fStep;
+			m_pfTexCoordinate[i*4  ] = (float)i*l_fStep;
 			m_pfTexCoordinate[i*4+1] = m_fUV[1];
-			m_pfTexCoordinate[i*4+2] = i*l_fStep+l_fStep;
+			m_pfTexCoordinate[i*4+2] = (float)i*l_fStep+l_fStep;
 			m_pfTexCoordinate[i*4+3] = m_fUV[3];
 		}
 		m_eDirection = eD_LEFT;
@@ -58,9 +58,9 @@ namespace FATMING_CORE
 		float	l_fStep = (m_fUV[2]-m_fUV[0])/(float)m_iNumIndex;
 		for( int i=0;i<m_iNumIndex;++i )
 		{
-			m_pfTexCoordinate[i*4  ] = i*l_fStep+m_fUV[0];
+			m_pfTexCoordinate[i*4  ] = (float)i*l_fStep+m_fUV[0];
 			m_pfTexCoordinate[i*4+1] = m_fUV[1];
-			m_pfTexCoordinate[i*4+2] = i*l_fStep+l_fStep+m_fUV[0];
+			m_pfTexCoordinate[i*4+2] = (float)i*l_fStep+l_fStep+m_fUV[0];
 			m_pfTexCoordinate[i*4+3] = m_fUV[3];
 		}		
 		m_iSingleImageHeight = m_iHeight;
@@ -261,9 +261,9 @@ namespace FATMING_CORE
 						memcpy(&l_pfColor[j * 4], &m_vColor, sizeof(Vector4));
 					Vector2	l_vPos[4];
 					l_vPos[0] = Vector2(l_fPosX, l_fPosY);
-					l_vPos[1] = Vector2(l_fPosX + m_iSingleImageWidth, l_fPosY);
-					l_vPos[2] = Vector2(l_fPosX, l_fPosY + m_iSingleImageHeight);
-					l_vPos[3] = Vector2(l_fPosX + m_iSingleImageWidth, l_fPosY + m_iSingleImageHeight);
+					l_vPos[1] = Vector2(l_fPosX + (float)m_iSingleImageWidth, l_fPosY);
+					l_vPos[2] = Vector2(l_fPosX, l_fPosY + (float)m_iSingleImageHeight);
+					l_vPos[3] = Vector2(l_fPosX + (float)m_iSingleImageWidth, l_fPosY + (float)m_iSingleImageHeight);
 					Assign4VerticesDataTo2Triangles((float*)l_vPos, l_pfVertices, 2);
 					l_fPosX += l_fOffsetPosX;
 					l_fPosY += l_fOffsetPosY;
@@ -384,7 +384,7 @@ namespace FATMING_CORE
 		else
 		{
 			m_vHourPos = m_vMinPos;
-			m_vHourPos.x -= l_iImageWidth*2;
+			m_vHourPos.x -= (float)l_iImageWidth*2.f;
 			m_bEnableHour = false;
 		}
 	}
@@ -485,11 +485,11 @@ namespace FATMING_CORE
 				memcpy(&l_pfColor[i*4],&e_vColor,sizeof(Vector4));
 			Vector3	l_vPos[4];
 			l_vPos[0] = Vector3(l_fPosX						,l_fPosY,0.f);
-			l_vPos[1] = Vector3(l_fPosX+e_iImageWidth	,l_fPosY,0.f);
-			l_vPos[2] = Vector3(l_fPosX						,l_fPosY+e_iImageHeight,0.f);
-			l_vPos[3] = Vector3(l_fPosX+e_iImageWidth	,l_fPosY+e_iImageHeight,0.f);
+			l_vPos[1] = Vector3(l_fPosX+ (float)e_iImageWidth	,l_fPosY,0.f);
+			l_vPos[2] = Vector3(l_fPosX						,l_fPosY+ (float)e_iImageHeight,0.f);
+			l_vPos[3] = Vector3(l_fPosX+ (float)e_iImageWidth	,l_fPosY+ (float)e_iImageHeight,0.f);
 			Assign4VerticesDataTo2Triangles((float*)l_vPos,l_pfVertices,3);
-			l_fPosX -= e_iImageWidth;
+			l_fPosX -= (float)e_iImageWidth;
 			++*e_piIndex;
 		}
 		return l_iNum;

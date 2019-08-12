@@ -128,7 +128,7 @@ namespace FATMING_CORE
 			{
 				if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]))
 					continue;
-				FILE_GLYPH_ATTR	l_FILE_GLYPH_ATTR = m_pGlyphReader->GetCharInfo(e_pString[i]);
+				//FILE_GLYPH_ATTR	l_FILE_GLYPH_ATTR = m_pGlyphReader->GetCharInfo(e_pString[i]);
 				l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_pString[i]).fHeight*m_fScale;
 			}
 			float	l_fMaxWidth = 0.f;

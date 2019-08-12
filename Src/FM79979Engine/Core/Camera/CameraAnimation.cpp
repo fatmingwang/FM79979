@@ -39,7 +39,7 @@ namespace FATMING_CORE
 	{
 		ELEMENT_VALUE_ASSERT_CHECK(e_pTiXmlElement,cCameraAnimation::TypeID);
 		const wchar_t*l_strName = e_pTiXmlElement->Attribute(L"Name");
-		if( l_strName )
+		if(l_strName)
 			this->SetName(l_strName);
 		e_pTiXmlElement = e_pTiXmlElement->FirstChildElement();
 		while( e_pTiXmlElement )

@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include "../../stdafx.h"
 #include "Shader.h"
 //https://en.wikipedia.org/wiki/OpenGL_Shading_Language
 

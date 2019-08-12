@@ -5,7 +5,7 @@
 #include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
-#if defined(WIN32) || defined(LINUX)
+#if defined(WIN32)// || defined(LINUX)
 	cScreenCapture::cScreenCapture()
 	{
 		m_pPixelBuffer = 0;
@@ -103,7 +103,7 @@ namespace FATMING_CORE
 		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
 			if (!silent) printf("Framebuffer incomplete, attached images must have same dimensions\n");
 			return false;
-#if defined(WIN32) || defined(LINUX)
+#if defined(WIN32)// || defined(LINUX)
 		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
 			if (!silent) printf("Framebuffer incomplete, attached images must have same format\n");
 			return false;
@@ -251,7 +251,7 @@ namespace FATMING_CORE
 		float	l_fTextureCoordinate[] = { 0,1,1,0 };
 		RenderQuadWithTextureAndColorAndCoordinate((float)e_Pos.x, (float)e_Pos.y, 0.f, (float)e_Size.x, (float)e_Size.y, Vector4::One, l_fTextureCoordinate, Vector3::Zero, e_strShaderName);
 	}
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(LINUX)//require opengl es3
 	const wchar_t*g_pstrMultiSamlingShader = L"MultiSamlingShader";
 	extern cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList;
 	cMSAAFrameBuffer::cMSAAFrameBuffer(int e_iWidth, int e_iHeight, GLenum e_eImageType, int e_iNumSamples)

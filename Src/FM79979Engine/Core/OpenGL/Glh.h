@@ -1,9 +1,12 @@
 #ifndef _GLH_H_
 #define _GLH_H_
 
-#if defined(WASM)
+#if defined(WASM) || defined(LINUX)
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
+//#elif defined(LINUX)
+//#include <SDL2/SDL.h>
+//#include <SDL2/SDL_image.h>
 #endif
 //=======================
 //the old function for setup matrix is glMultMatrixf

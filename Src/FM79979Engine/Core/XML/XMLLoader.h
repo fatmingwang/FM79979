@@ -87,8 +87,8 @@ namespace FATMING_CORE
 										l_strName = l_pAttribute->Name();
 
 	#define PARSE_ELEMENT_START(p)	TiXmlAttribute*	l_pAttribute = p->FirstAttribute();	\
-									const wchar_t*	l_strValue = 0;												\
-									const wchar_t*	l_strName = 0;												\
+									const wchar_t*	l_strValue = nullptr;												\
+									const wchar_t*	l_strName = nullptr;												\
 									while(l_pAttribute)															\
 									{																			\
 										l_strValue = l_pAttribute->Value();										\

@@ -279,7 +279,7 @@ namespace FATMING_CORE
 
 	void	cPhasePopUpMessager::Init()
 	{
-		assert(m_MessageDataVector.size() == this->Count());
+		assert((int)m_MessageDataVector.size() == this->Count());
 		m_pBG->Init();
 		cClickMouseBehaviorVector<cImageButton>::Init();
 		//m_strWakePhaseName = L"";

@@ -304,9 +304,9 @@ namespace FATMING_CORE
 		}
 		if( m_pWorkingpImage != nullptr )
 		{
-			Vector2	l_vScale(m_vWorkingSize.x/m_pWorkingpImage->GetWidth(),m_vWorkingSize.y/m_pWorkingpImage->GetHeight());
+			Vector2	l_vScale(m_vWorkingSize.x/(float)m_pWorkingpImage->GetWidth(),m_vWorkingSize.y/ (float)m_pWorkingpImage->GetHeight());
 			Vector2	l_vImageSize(m_vWorkingSize.x,m_vWorkingSize.y);
-			Vector2	l_vImageHalfSize = l_vImageSize/2.f;		
+			//Vector2	l_vImageHalfSize = l_vImageSize/2.f;		
 			Vector2	l_vOffsetPos((float)m_pWorkingpImage->GetOffsetPos()->x,(float)m_pWorkingpImage->GetOffsetPos()->y);
 			Vector2	l_vOriginalSize((float)m_pWorkingpImage->GetOriginalSize().x,(float)m_pWorkingpImage->GetOriginalSize().y);
 			Vector2	l_vHalfOriginalSize = l_vOriginalSize/2.f;

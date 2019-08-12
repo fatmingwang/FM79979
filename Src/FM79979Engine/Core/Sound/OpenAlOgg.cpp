@@ -3,14 +3,10 @@
 #include "SoundManager.h"
 #include "../GameplayUT/GameApp.h"
 
-
-
-#define _OGG_
-
 #ifdef IOS
 #include "ogg/ogg/ogg.h"
 #include "ogg/vorbis/vorbisfile.h"
-#elif defined(ANDROID) || defined(WASM)
+#elif defined(ANDROID) || defined(WASM)  || defined(LINUX)
 #include "ogg/ogg/ogg.h"
 #include "ogg/vorbis/vorbisfile.h"
 #elif defined(WIN32)
@@ -25,7 +21,7 @@ namespace FATMING_CORE
 {
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime)
 	{
-#ifdef _OGG_
+
 		int endian = 0;                         // 0 for Little-Endian, 1 for Big-Endian
 		int bitStream;
 		long bytes;
@@ -87,7 +83,6 @@ namespace FATMING_CORE
 	//#else
 	//	assert(0&&"apple ogg file........Z_Z");
 	return true;
-#endif
 	}
 
 	TYPDE_DEFINE_MARCO(cOpanalOgg);

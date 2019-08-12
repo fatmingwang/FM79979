@@ -704,11 +704,11 @@ namespace FATMING_CORE
 				cPuzzleImageUnit*l_pPIUnuit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
 				if (l_pPIUnuit)
 				{
-					float	l_fScaleX = l_pTexBehaviorDataWithImageIndexData->Size.x / (l_pPIUnuit->GetHeight());
-					float	l_fScaleY = l_pTexBehaviorDataWithImageIndexData->Size.y / (l_pPIUnuit->GetHeight());
+					float	l_fScaleX = l_pTexBehaviorDataWithImageIndexData->Size.x / ((float)l_pPIUnuit->GetHeight());
+					float	l_fScaleY = l_pTexBehaviorDataWithImageIndexData->Size.y / ((float)l_pPIUnuit->GetHeight());
 					l_pPIUnuit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[e_iIndex];
-					m_PointDataList[i]->Size.x = l_pPIUnuit->GetWidth()*l_fScaleX;
-					m_PointDataList[i]->Size.y = l_pPIUnuit->GetHeight()*l_fScaleY;
+					m_PointDataList[i]->Size.x = (float)l_pPIUnuit->GetWidth()*l_fScaleX;
+					m_PointDataList[i]->Size.y = (float)l_pPIUnuit->GetHeight()*l_fScaleY;
 				}
 			}
 			m_PointDataList[i]->iImageIndex = e_iIndex;

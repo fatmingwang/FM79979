@@ -181,8 +181,7 @@ namespace	FATMING_CORE
 			//m_spColladaParserVector = (cNamedTypedObjectVector<NamedTypedObject>*)l_pColladaParserVector;
 		}
 #if defined WIN32 || defined LINUX || defined WASM
-		char *locale;
-		locale = setlocale(LC_ALL, "");
+		char *locale = setlocale(LC_ALL, "");
 #endif
 		//std::wstring l_str111 = GetDIDOrInstallationRandomID();
 		//std::string l_str222 = UT::WcharToChar(l_str111);

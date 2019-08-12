@@ -13,7 +13,7 @@
 #pragma warning( disable : 4995 )
 #include "../../Include/wglext.h"
 #elif defined(LINUX)
-#include "SDL.h"
+#include <SDL2/SDL.h>
 #elif defined(ANDROID)
 #include "jni.h"
 #include <sys/time.h>
@@ -50,7 +50,7 @@ namespace UT
 		fTimeFor1Sec += fElpaseTime;
 		if(fTimeFor1Sec>=1.f)
 		{
-			fTimeFor1Sec-=(int)fTimeFor1Sec;
+			fTimeFor1Sec -=(int)fTimeFor1Sec;
 			sprintf(strFrameRate,"%i fps",uiNumFrame);
 			uiNumFrame = 0;
 		}

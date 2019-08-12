@@ -86,7 +86,7 @@ namespace FATMING_CORE
 	{
 		int		l_iWidth = e_ViewPort.x;
 		int		l_iHeight = e_ViewPort.y;
-		Vector3	l_vOriginalPos = Vector3::Zero;//m_FrameCamera.GetWorldPosition();
+		//Vector3	l_vOriginalPos = Vector3::Zero;//m_FrameCamera.GetWorldPosition();
 		//opengl glViewport left lower corrner is 0,0,right upper is max wisth max height
 		cFrameCamera	*l_pFrameCamera = 0;
 		cOrthogonalCamera*l_pOrthogonalCamera = 0;
@@ -188,7 +188,7 @@ namespace FATMING_CORE
 		else
 		{
 			Vector2	l_vSplitPanelSize(e_vViewport.x/2.f,e_vViewport.y/2.f);
-			if( e_iMouseX>l_vSplitPanelSize.x )//1,3
+			if( e_iMouseX>(int)l_vSplitPanelSize.x )//1,3
 			{
 				if( e_iMouseY>l_vSplitPanelSize.y )
 					return 3;
@@ -196,7 +196,7 @@ namespace FATMING_CORE
 			}
 			else
 			{
-				if( e_iMouseY>l_vSplitPanelSize.y )
+				if( e_iMouseY> (int)l_vSplitPanelSize.y )
 					return 2;
 				return 0;				
 			}

@@ -156,8 +156,8 @@ namespace FATMING_CORE
 			float	l_fHeightPart = l_vSize.y/9;
 			int	l_iDivide = e_ucKey -'0';
 			Vector2	l_vOffsetPos;
-			l_vOffsetPos.x = l_iDivide*l_fWidthPart;
-			l_vOffsetPos.y = l_iDivide*l_fHeightPart;
+			l_vOffsetPos.x = (float)l_iDivide*l_fWidthPart;
+			l_vOffsetPos.y = (float)l_iDivide*l_fHeightPart;
 			g_vSecondTouchPoint.x = (int)l_vOffsetPos.x;
 			g_vSecondTouchPoint.y = (int)l_vOffsetPos.y;
 		}

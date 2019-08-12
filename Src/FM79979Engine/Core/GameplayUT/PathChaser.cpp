@@ -117,7 +117,7 @@ namespace FATMING_CORE
 		m_bTouched = false;
 		if(!m_bTouchProgressSuccess)
 			return;
-		if( m_iNextGoalIndex == this->m_OriginalPointList.size()-1 )
+		if( m_iNextGoalIndex == (int)this->m_OriginalPointList.size()-1 )
 		{
 			if( m_fLastLengthToGoalPoint <= this->m_fTolerationErrorDistance )
 			{

@@ -40,6 +40,8 @@ int		arbMultisampleFormat	= 0;
 #include <stdarg.h>
 #include <sys/stat.h>
 #include <locale>
+#elif defined(LINUX)
+#include <sys/stat.h>
 #endif
 
 namespace FATMING_CORE
@@ -1351,17 +1353,17 @@ namespace UT
 		char	l_cValue = -1;
 		if( e_c >='0' && e_c<= '9' )
 		{
-			l_cValue = e_c-'0';
+			l_cValue = (char)(e_c-'0');
 		}
 		else
 		if( e_c >='a' && e_c<= 'f' )
 		{
-			l_cValue = e_c-'a'+10;
+			l_cValue = (char)(e_c-'a'+10);
 		}
 		else
 		if( e_c >='A' && e_c<= 'F' )
 		{
-			l_cValue = e_c-'A'+10;
+			l_cValue = (char)(e_c-'A'+10);
 		}
 		else
 		{

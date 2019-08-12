@@ -35,16 +35,16 @@ namespace FATMING_CORE
 
 		if(this->m_MouseBehave.GetMouseState().bLefButton)//Rotate camera
 		{
-			Vector3	l_cameraPos = m_pCamera->GetLocalPosition();
+			//Vector3	l_cameraPos = m_pCamera->GetLocalPosition();
 			float	l_fRotateX = 0,l_fRotateY = 0;
 			if( m_MouseBehave.GetMouseState().iMoveX >2 || m_MouseBehave.GetMouseState().iMoveX <-2 )
 			{
-				l_fRotateY = -m_MouseBehave.GetMouseState().iMoveX/100.0f;
+				l_fRotateY = (float)-m_MouseBehave.GetMouseState().iMoveX/100.0f;
 				m_fAngelY += l_fRotateY;
 			}
 			if( m_MouseBehave.GetMouseState().iMoveY >2 || m_MouseBehave.GetMouseState().iMoveY <-2 )
 			{
-				l_fRotateX = -m_MouseBehave.GetMouseState().iMoveY/100.0f;
+				l_fRotateX = (float)-m_MouseBehave.GetMouseState().iMoveY/100.0f;
 				m_fAngelX += l_fRotateX;
 			}
 			fabs(l_fRotateX)>=fabs(l_fRotateY)?l_fRotateY = 0:l_fRotateX=0;

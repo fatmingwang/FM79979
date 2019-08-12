@@ -205,7 +205,7 @@ namespace FATMING_CORE
 		{
 			if( m_iSelectedIndex != -1 )
 				return &(*m_pDataList)[m_iSelectedIndex];
-			return ;
+			return nullptr;
 		}
 		virtual	std::wstring				ConvertSelectedDataToString()override
 		{

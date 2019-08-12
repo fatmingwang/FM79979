@@ -130,16 +130,16 @@ namespace FATMING_CORE
 	}
 	void	cBaseImage::SetPosByImageCenter(Vector3 e_vPos)
 	{
-		m_pvPos->x = e_vPos.x-this->m_OriginalSize.x /2.f;
-		m_pvPos->y = e_vPos.y- m_OriginalSize.y /2.f;
+		m_pvPos->x = e_vPos.x-(float)this->m_OriginalSize.x /2.f;
+		m_pvPos->y = e_vPos.y- (float)m_OriginalSize.y /2.f;
 		this->SetCachedWorldTransformDirty();
 		//Frame::SetLocalPosition(*m_pvPos);
 	}
 
     bool    cBaseImage::CollideTexture(int e_iX,int e_iY,bool e_bTestAlphaChannel,Vector4*e_pvCollidedColor)
 	{
-		e_iY = (int)(e_iY-this->m_pvPos->y);
-        e_iX = (int)(e_iX-this->m_pvPos->x);
+		e_iY = (int)(e_iY-(int)this->m_pvPos->y);
+        e_iX = (int)(e_iX- (int)this->m_pvPos->x);
 		if( e_iX<m_OffsetPos.x||e_iY<m_OffsetPos.y||m_OffsetPos.x+m_iWidth<e_iX||m_OffsetPos.y+m_iHeight<e_iY )
 			return false;
 		if( !e_bTestAlphaChannel || !this->m_pTexture->GetPixels() )
@@ -169,14 +169,14 @@ namespace FATMING_CORE
     bool    cBaseImage::CollideTextureWithTransform(int e_iX,int e_iY,bool e_bTestAlphaChannel)
     {
 		//fuck result is wrong.
-        int l_iLocalY = (int)(e_iY-this->m_pvPos->y);
-        int l_iLocalX = (int)(e_iX-this->m_pvPos->x);
+        int l_iLocalY = (int)(e_iY- (int)this->m_pvPos->y);
+        int l_iLocalX = (int)(e_iX- (int)this->m_pvPos->x);
 		cMatrix44	l_matrix = cMatrix44::Identity;
-		Vector3 l_vPos = Vector3(l_iLocalX-m_pTexture->GetWidth()/2.f,l_iLocalY-m_pTexture->GetHeight()/2.f,0);
+		Vector3 l_vPos = Vector3((float)l_iLocalX-m_pTexture->GetWidth()/2.f, (float)l_iLocalY-m_pTexture->GetHeight()/2.f,0);
 		l_matrix = l_matrix.ZAxisRotationMatrix(this->GetRotation().z);
 		Vector3 l_vFinalPos = l_matrix.TransformVector(l_vPos);
-		l_iLocalY = (int)l_vFinalPos.y+this->m_pTexture->GetHeight()/2;
-		l_iLocalX = (int)l_vFinalPos.x+this->m_pTexture->GetWidth()/2;
+		l_iLocalY = (int)l_vFinalPos.y+ (float)this->m_pTexture->GetHeight()/2;
+		l_iLocalX = (int)l_vFinalPos.x+ (float)this->m_pTexture->GetWidth()/2;
 		if( l_iLocalX<0||l_iLocalY<0 )
 			return false;
 		if( l_iLocalX>this->m_iWidth||l_iLocalY>this->m_iHeight )
@@ -333,14 +333,22 @@ namespace FATMING_CORE
     void	cBaseImage::Render(cMatrix44 e_Mat)
     {
 		if( !m_bVisible )
-			return;    
+			return;
         m_pTexture->ApplyImage();
-		float l_fWidth = m_iWidth/2.f;
-		float l_fHeight = m_iHeight/2.f;
-		float	l_Vertices[] = { -l_fWidth+this->m_OffsetPos.x,-l_fHeight + this->m_OffsetPos.y,
-								 l_fWidth + this->m_OffsetPos.x, -l_fHeight + this->m_OffsetPos.y,
-								 -l_fWidth + this->m_OffsetPos.x, l_fHeight + this->m_OffsetPos.y,
-								 l_fWidth + this->m_OffsetPos.x,l_fHeight + this->m_OffsetPos.y };
+		POINT l_vOffsetPos = m_OffsetPos;
+		if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
+		{
+			float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth()*(m_fUV[2] - m_fUV[0]));
+			float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight()*(m_fUV[3] - m_fUV[1]));
+			l_vOffsetPos.x = (long)(l_fScaleX*m_OffsetPos.x);
+			l_vOffsetPos.y = (long)(l_fScaleY*m_OffsetPos.y);
+		}
+		float l_fWidth = (float)m_iWidth/2.f;
+		float l_fHeight = (float)m_iHeight/2.f;
+		float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,
+								  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,
+								 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,
+								  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y };
 
 		float	l_fTexPointer[] = {  m_fUV[0],m_fUV[1],
 								   m_fUV[2],m_fUV[1],
@@ -460,7 +468,7 @@ namespace FATMING_CORE
 			if( e_iDataFormat == GL_RGBA )//android not support GL_BGRA?or just nvidia ignore it?
 #else
 			if( e_iDataFormat == GL_RGBA 
-#if !defined(WASM)//https://www.opengl.org/discussion_boards/showthread.php/185197-Why-OpenGLES-2-spec-doesn-t-support-BGRA-texture-format
+#if !defined(WASM) && !defined(LINUX)//https://www.opengl.org/discussion_boards/showthread.php/185197-Why-OpenGLES-2-spec-doesn-t-support-BGRA-texture-format
 				|| e_iDataFormat == GL_BGRA 
 #endif
 				)
@@ -471,8 +479,8 @@ namespace FATMING_CORE
 			this->m_iWidth = l_iWidthPO2; this->m_iHeight = l_iHeightPO2;
 			m_pTexture = new cTexture(this,l_pNewPixelData,l_iWidthPO2,l_iHeightPO2,e_strName,true,false,e_iDataFormat);
 			//assign new UV
-			m_fUV[2] = (float)m_iWidth/l_iWidthPO2;
-			m_fUV[3] =  (float)m_iHeight/l_iHeightPO2;
+			m_fUV[2] = (float)m_iWidth/ (float)l_iWidthPO2;
+			m_fUV[3] =  (float)m_iHeight/ (float)l_iHeightPO2;
 		}
 		else
 		{
@@ -539,7 +547,7 @@ namespace FATMING_CORE
 			return false;
 		}
 		cMatrix44	l_matrix;
-		Vector3 l_vPos = Vector3(m_pTexture->GetHeight()/2.f-e_iLocalY,e_iLocalX-m_pTexture->GetWidth()/2.f,0);
+		Vector3 l_vPos = Vector3((float)m_pTexture->GetHeight()/2.f-e_iLocalY,e_iLocalX- (float)m_pTexture->GetWidth()/2.f,0);
 		l_matrix = l_matrix.Identity;
 		l_matrix = l_matrix.ZAxisRotationMatrix(MyMath::DegToRad(360-this->GetRotation().z));
 		Vector3 l_vFinalPos = l_matrix.TransformVector(l_vPos);

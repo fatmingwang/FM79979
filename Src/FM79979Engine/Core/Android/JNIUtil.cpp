@@ -1,3 +1,4 @@
+#ifdef ANDROID
 #include "../stdafx.h"
 #include "jni.h"
 #include "JNIUtil.h"
@@ -342,3 +343,5 @@ namespace FATMING_CORE
 		return true;
 	}
 }
+//end #ifdef ANDROID
+#endif

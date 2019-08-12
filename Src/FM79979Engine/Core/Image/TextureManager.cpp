@@ -344,7 +344,7 @@ namespace FATMING_CORE
 		switch (e_GLenum)
 		{
 		case GL_RGBA:
-	#if !defined(ANDROID) && !defined(WASM)
+	#if !defined(ANDROID) && !defined(WASM) && !defined(LINUX)
 		case GL_BGRA:
 	#endif
 			l_iChannel = 4;

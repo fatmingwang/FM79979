@@ -5,7 +5,7 @@
 #elif defined(IOS)
 #include <OpenAL/al.h>
 #include <OpenAL/alc.h>
-#elif defined(ANDROID) || defined(WASM)//set project path to \Sound\OpenAL_Android\ALSoft
+#elif defined(ANDROID) || defined(WASM) || defined(LINUX)//set project path to \Sound\OpenAL_Android\ALSoft
 #include "AL/al.h"
 #include "AL/alc.h"
 //#include "al.h"

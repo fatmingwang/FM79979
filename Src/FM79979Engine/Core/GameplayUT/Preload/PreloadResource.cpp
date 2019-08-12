@@ -1,5 +1,5 @@
 #include "../../stdafx.h"
-#include "../GameplayUT/Log/FMLog.h"
+#include "../Log/FMLog.h"
 #ifdef WASM
 #include "PreloadResource.h"
 #include <emscripten/fetch.h>

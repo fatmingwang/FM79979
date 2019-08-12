@@ -210,15 +210,15 @@ namespace FATMING_CORE
 		if(this->m_MouseBehave.GetMouseState().bMidButton)//go ahead with camera direction
 		{
 			l_PerviousWorldMousePosition = m_MouseWorldPosition;
-			m_fScale += (m_MouseBehave.GetMouseState().iMoveZ/100.f);
+			m_fScale += ((float)m_MouseBehave.GetMouseState().iMoveZ/100.f);
 			l_fOldWidth = m_vViewRect.z-m_vViewRect.x;
 			l_fOldHeight = m_vViewRect.w-m_vViewRect.y;
 		}
 		else
 		if(this->m_MouseBehave.GetMouseState().bRigButton)
 		{		
-			m_CameraPos.x += (m_MouseBehave.GetMouseState().iMoveX*e_fMoveSpeed);
-			m_CameraPos.y += (m_MouseBehave.GetMouseState().iMoveY*e_fMoveSpeed);
+			m_CameraPos.x += ((float)m_MouseBehave.GetMouseState().iMoveX*e_fMoveSpeed);
+			m_CameraPos.y += ((float)m_MouseBehave.GetMouseState().iMoveY*e_fMoveSpeed);
 		}
 		float	l_fNewWidth = m_vResolution.x*m_fScale;
 		float	l_fNewHeight = m_vResolution.y*m_fScale;

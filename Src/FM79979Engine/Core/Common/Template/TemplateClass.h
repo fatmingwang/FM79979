@@ -163,7 +163,7 @@ public:
 		auto l_pObject = this->GetObject(e_i);
 		if (!l_pObject)
 		{
-			UT::ErrorMsg(this->GetName(), "index not in range");
+			UT::ErrorMsg(this->GetName(), L"index not in range");
 		}
 		return l_pObject;
 	}

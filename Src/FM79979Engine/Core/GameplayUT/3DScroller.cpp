@@ -135,15 +135,15 @@ namespace FATMING_CORE
         cBaseImage*l_pBaseImage = dynamic_cast<cBaseImage*>(GetObject(0));
         POINT   l_Size = {l_pBaseImage->GetWidth(),l_pBaseImage->GetHeight()};
         if( m_bDirectionIsHorizontal )
-            this->m_fEachImageDistance = l_Size.x/2.f;
+            this->m_fEachImageDistance = (float)l_Size.x/2.f;
         else
-            this->m_fEachImageDistance = l_Size.y/2.f;
-		Vector3 l_vPos = Vector3((this->m_vCollisionRange.z-m_vCollisionRange.x)/2.f-l_Size.x/2.f,(m_vCollisionRange.w-m_vCollisionRange.y)/2.f-l_Size.y/2.f,0.f);
+            this->m_fEachImageDistance = (float)l_Size.y/2.f;
+		Vector3 l_vPos = Vector3((this->m_vCollisionRange.z-m_vCollisionRange.x)/2.f-(float)l_Size.x/2.f,(m_vCollisionRange.w-m_vCollisionRange.y)/2.f- (float)l_Size.y/2.f,0.f);
 		//Vector3 l_vPos = Vector3::Zero;
         Vector4 l_vFocusRange(l_vPos.x,
                               l_vPos.y,
-                              l_vPos.x+l_Size.x,
-                              l_vPos.y+l_Size.y);
+                              l_vPos.x+ (float)l_Size.x,
+                              l_vPos.y+ (float)l_Size.y);
         if( l_iCount )
         {
             for( int i=0;i<l_iCount;++i )
@@ -208,9 +208,9 @@ namespace FATMING_CORE
             cBaseImage*l_pBaseImage = dynamic_cast<cBaseImage*>(this->m_ObjectList[i]);
 			l_vPos = *l_pBaseImage->GetLocalPositionPointer();
             if(this->m_bDirectionIsHorizontal)
-				l_vPos.x += this->m_MouseMoveData.FrameMovePos.x;
+				l_vPos.x += (float)this->m_MouseMoveData.FrameMovePos.x;
             else
-                l_vPos.y += this->m_MouseMoveData.FrameMovePos.y;
+                l_vPos.y += (float)this->m_MouseMoveData.FrameMovePos.y;
             l_pBaseImage->SetPos(l_vPos);
         }        
     }
@@ -241,15 +241,17 @@ namespace FATMING_CORE
         int l_iCount = this->Count();
         if( l_iCount )
         {
-            if( e_iPosY<m_vCollisionRange.y||e_iPosY>m_vCollisionRange.w )
-                return;
+			if ((float)e_iPosY<m_vCollisionRange.y || (float)e_iPosY>m_vCollisionRange.w)
+			{
+				return;
+			}
             //how many ite shoudl be left or right side.
             int l_iSideCount = (this->m_iViewAbleCount-1)/2;
             cBaseImage*l_pImage = dynamic_cast<cBaseImage*>(this->GetObject(0));
             //collide for center image
-            if( e_iPosX>=this->m_KeepObjectPositionAtCenter.vRect.x&&e_iPosY>=this->m_KeepObjectPositionAtCenter.vRect.y )
+            if((float)e_iPosX>=this->m_KeepObjectPositionAtCenter.vRect.x&& (float)e_iPosY>=this->m_KeepObjectPositionAtCenter.vRect.y )
             {
-                if( e_iPosX<=this->m_KeepObjectPositionAtCenter.vRect.z&&e_iPosY<=this->m_KeepObjectPositionAtCenter.vRect.w )
+                if((float)e_iPosX<=this->m_KeepObjectPositionAtCenter.vRect.z&& (float)e_iPosY<=this->m_KeepObjectPositionAtCenter.vRect.w )
                 {
 					this->m_pCurrentWorkingObject = this->GetObject(m_iCurrentFocusIndex);
 					m_bClickMouseBehaviorSatisfied = true;
@@ -278,15 +280,17 @@ namespace FATMING_CORE
             {
                 l_pImage = dynamic_cast<cBaseImage*>(this->GetObject(i));
                 l_vCurrentImagePos = Vector2(l_pImage->GetLocalPositionPointer()->x,l_pImage->GetLocalPositionPointer()->y);
-                if( e_iPosX>=l_vCurrentImagePos.x&&e_iPosY>=l_vCurrentImagePos.y )
-                if( e_iPosX<=l_vPreviousImagePos.x&&e_iPosY<=l_vPreviousImagePos.y )
-                {
-                    m_iNewFocusIndex = i;
-                    this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
-                    return;
-                }
+				if ((float)e_iPosX >= l_vCurrentImagePos.x&& (float)e_iPosY >= l_vCurrentImagePos.y)
+				{
+					if ((float)e_iPosX <= l_vPreviousImagePos.x&& (float)e_iPosY <= l_vPreviousImagePos.y)
+					{
+						m_iNewFocusIndex = i;
+						this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
+						return;
+					}
+				}
                 l_vPreviousImagePos.x = this->m_bDirectionIsHorizontal?l_vCurrentImagePos.x:l_vPreviousImagePos.x;
-                l_vPreviousImagePos.y = m_bDirectionIsHorizontal?l_vCurrentImagePos.y+l_pImage->GetHeight():l_vCurrentImagePos.y;
+                l_vPreviousImagePos.y = m_bDirectionIsHorizontal?l_vCurrentImagePos.y+ (float)l_pImage->GetHeight():l_vCurrentImagePos.y;
             }
             //focus to right,down
             if( m_bDirectionIsHorizontal )
@@ -296,14 +300,16 @@ namespace FATMING_CORE
                 {
                     l_pImage = dynamic_cast<cBaseImage*>(this->GetObject(i));
                     //get last image's end position
-                    l_vCurrentImagePos = Vector2(l_pImage->GetLocalPositionPointer()->x+l_pImage->GetWidth(),l_pImage->GetLocalPositionPointer()->y+l_pImage->GetHeight());
-                    if( e_iPosX>=l_vPreviousImagePos.x&&e_iPosY>=l_vPreviousImagePos.y )
-                    if( e_iPosX<=l_vCurrentImagePos.x&&e_iPosY<=l_vCurrentImagePos.y )
-                    {
-                        m_iNewFocusIndex = i;
-                        this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
-                        return;
-                    }
+                    l_vCurrentImagePos = Vector2(l_pImage->GetLocalPositionPointer()->x+ (float)l_pImage->GetWidth(),l_pImage->GetLocalPositionPointer()->y+ (float)l_pImage->GetHeight());
+					if ((float)e_iPosX >= l_vPreviousImagePos.x&& (float)e_iPosY >= l_vPreviousImagePos.y)
+					{
+						if ((float)e_iPosX <= l_vCurrentImagePos.x&& (float)e_iPosY <= l_vCurrentImagePos.y)
+						{
+							m_iNewFocusIndex = i;
+							this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
+							return;
+						}
+					}
                     l_vPreviousImagePos.x = l_pImage->GetLocalPositionPointer()->x;
                     l_vPreviousImagePos.y = l_pImage->GetLocalPositionPointer()->y;
                 }
@@ -315,14 +321,16 @@ namespace FATMING_CORE
                 {
                     l_pImage = dynamic_cast<cBaseImage*>(this->GetObject(i));
                     //get last image's end position
-                    l_vCurrentImagePos = Vector2(l_pImage->GetLocalPositionPointer()->x+l_pImage->GetWidth(),l_pImage->GetLocalPositionPointer()->y+l_pImage->GetHeight());
-                    if( e_iPosX>=l_vPreviousImagePos.x&&e_iPosY>=l_vPreviousImagePos.y )
-                    if( e_iPosX<=l_vCurrentImagePos.x&&e_iPosY<=l_vCurrentImagePos.y )
-                    {
-                        m_iNewFocusIndex = i;
-                        this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
-                        return;
-                    }
+                    l_vCurrentImagePos = Vector2(l_pImage->GetLocalPositionPointer()->x+ (float)l_pImage->GetWidth(),l_pImage->GetLocalPositionPointer()->y+ (float)l_pImage->GetHeight());
+					if ((float)e_iPosX >= l_vPreviousImagePos.x&& (float)e_iPosY >= l_vPreviousImagePos.y)
+					{
+						if ((float)e_iPosX <= l_vCurrentImagePos.x&& (float)e_iPosY <= l_vCurrentImagePos.y)
+						{
+							m_iNewFocusIndex = i;
+							this->m_KeepObjectPositionAtCenter.SetPosMoveToCenter(this->GetObject(i)->GetLocalPositionPointer());
+							return;
+						}
+					}
                     l_vPreviousImagePos.x = l_pImage->GetLocalPositionPointer()->x;
                     l_vPreviousImagePos.y = l_vCurrentImagePos.y;
                 }
@@ -334,10 +342,10 @@ namespace FATMING_CORE
     {
         if( this->m_eObjectMouseBehavior == eOMB_NONE|| this->m_eObjectMouseBehavior == eOMB_UP )
         {
-            if(this->m_vCollisionRange.x<=e_iPosX&&
-                this->m_vCollisionRange.y<=e_iPosY&&
-                this->m_vCollisionRange.z>=e_iPosX&&
-                this->m_vCollisionRange.w>=e_iPosY)
+            if(this->m_vCollisionRange.x<= (float)e_iPosX&&
+                this->m_vCollisionRange.y<= (float)e_iPosY&&
+                this->m_vCollisionRange.z>= (float)e_iPosX&&
+                this->m_vCollisionRange.w>= (float)e_iPosY)
                 return true;
              else
                 return false;
@@ -418,8 +426,8 @@ namespace FATMING_CORE
             l_pImageButton = dynamic_cast<cImageButton*>(this->m_ObjectList[i]);
 			cMatrix44	l_Originalmat = l_pImageButton->GetLocalTransform();
 			l_vPos = l_pImageButton->GetWorldPosition();
-            l_vPos.x -= l_pImageButton->GetWidth()/l_fSplidValue;
-            l_vPos.y += l_pImageButton->GetHeight()/l_fSplidValue;
+            l_vPos.x -= (float)l_pImageButton->GetWidth()/l_fSplidValue;
+            l_vPos.y += (float)l_pImageButton->GetHeight()/l_fSplidValue;
 			cMatrix44	l_mat = cMatrix44::ScaleMatrix(Vector3(l_fXScale,l_fYScale,0.8f))*cMatrix44::TranslationMatrix(l_vPos);
 			l_pImageButton->SetLocalTransform(l_mat);
 			l_pImageButton->Render();
@@ -440,8 +448,8 @@ namespace FATMING_CORE
             l_pImageButton = dynamic_cast<cImageButton*>(this->m_ObjectList[i]);
 			cMatrix44	l_Originalmat = l_pImageButton->GetLocalTransform();
 			l_vPos = l_pImageButton->GetWorldPosition();
-            l_vPos.x += l_pImageButton->GetWidth()/l_fSplidValue;
-            l_vPos.y += l_pImageButton->GetHeight()/l_fSplidValue;
+            l_vPos.x += (float)l_pImageButton->GetWidth()/l_fSplidValue;
+            l_vPos.y += (float)l_pImageButton->GetHeight()/l_fSplidValue;
 			cMatrix44	l_mat = cMatrix44::ScaleMatrix(Vector3(l_fXScale,l_fYScale,0.8f))*cMatrix44::TranslationMatrix(l_vPos);
 			l_pImageButton->SetLocalTransform(l_mat);
 			l_pImageButton->Render();
@@ -461,20 +469,20 @@ namespace FATMING_CORE
             cBaseImage*l_pBaseImage =  dynamic_cast<cBaseImage*>(GetObject(0));
             Vector2 l_vLinePos[4];
             POINT   l_Size = {l_pBaseImage->GetWidth(),l_pBaseImage->GetHeight()};
-            Vector3 l_vPos((m_vCollisionRange.z-m_vCollisionRange.x)/2.f-l_Size.x/2.f,(m_vCollisionRange.w-m_vCollisionRange.y)/2.f-l_Size.y/2.f,0.f);
+            Vector3 l_vPos((m_vCollisionRange.z-m_vCollisionRange.x)/2.f- (float)l_Size.x/2.f,(m_vCollisionRange.w-m_vCollisionRange.y)/2.f- (float)l_Size.y/2.f,0.f);
             if(this->m_bDirectionIsHorizontal)
             {
                 l_vLinePos[0] = Vector2(l_vPos.x,0.f);
                 l_vLinePos[1] = Vector2(l_vPos.x,m_vCollisionRange.w);
-                l_vLinePos[2] = Vector2(l_vPos.x+l_Size.x,0.f);
-                l_vLinePos[3] = Vector2(l_vPos.x+l_Size.x,m_vCollisionRange.w);
+                l_vLinePos[2] = Vector2(l_vPos.x+ (float)l_Size.x,0.f);
+                l_vLinePos[3] = Vector2(l_vPos.x+ (float)l_Size.x,m_vCollisionRange.w);
             }
             else
             {
                 l_vLinePos[0] = Vector2(0.f,l_vPos.y);
                 l_vLinePos[1] = Vector2(m_vCollisionRange.z,l_vPos.y);
-                l_vLinePos[2] = Vector2(0.f,l_vPos.y+l_Size.y);
-                l_vLinePos[3] = Vector2(m_vCollisionRange.z,l_vPos.y+l_Size.y);
+                l_vLinePos[2] = Vector2(0.f,l_vPos.y+ (float)l_Size.y);
+                l_vLinePos[3] = Vector2(m_vCollisionRange.z,l_vPos.y+ (float)l_Size.y);
             }
             GLRender::RenderLine((float*)l_vLinePos,4,Vector4(1,1,0,1),2);
             GLRender::RenderLine((float*)l_vLinePos[2],4,Vector4(1,1,0,1),2);
