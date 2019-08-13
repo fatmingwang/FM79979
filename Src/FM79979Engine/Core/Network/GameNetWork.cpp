@@ -2,6 +2,9 @@
 #ifndef _M_CEE//manage code dont support cCPP11Thread
 
 #include "GameNetWork.h"
+#ifdef LINUX
+#include <alloca.h>
+#endif
 #ifdef WIN32
 #include "sensapi.h"
 #pragma comment(lib, "Sensapi.lib")
@@ -31,17 +34,22 @@ namespace FATMING_CORE
 		int	l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, &iSize, l_iHeaderSize);
 		if (l_iLength != l_iHeaderSize)
 		{
+#ifdef DEBUG
+			FMLog::LogWithFlag("network fetch header size failed(not enough 4 bytes)!?ignore this packet\n", CORE_LOG_FLAG);
+#endif
 			return -1;
 		}
 		//default TCP/IP packet size restriction is 64k
 		if (iSize >= 64 * 1024 || iSize < 1)
+		{
+#ifdef DEBUG
+			FMLog::LogWithFlag("network data size not correct!?ignore this packet\n", CORE_LOG_FLAG);
+#endif
 			return -1;
+		}
 		pData = new char[iSize];
 		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, pData, iSize);
 		//assert(iSize == l_iLength && "network data size not correct!?");
-#ifdef DEBUG
-		FMLog::LogWithFlag("network data size not correct!?ignore this packet\n", CORE_LOG_FLAG);
-#endif
 		if (iSize == l_iLength)
 		{
 			return iSize;
@@ -137,10 +145,10 @@ namespace FATMING_CORE
 	}
 	void cGameNetwork::Update(float e_fElpaseTime)
 	{
-		if (!m_pSocket->iServerFlag)
-		{
+		//if (!m_pSocket->iServerFlag)
+		//{
 
-		}
+		//}
 		if (this->m_pReconnectFunction)
 		{
 			m_pReconnectFunction->DoReconnectWhileLostConnection(e_fElpaseTime);
@@ -159,11 +167,11 @@ namespace FATMING_CORE
 		{
 			int l_iHeaderSize = PACKET_HEADER_SIZE;
 			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
-			char*l_pData = new char[l_iSendSize];
+			char*l_pData = (char*)alloca(l_iSendSize);
 			memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
 			memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
 			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
-			delete[] l_pData;
+			//delete[] l_pData;
 			return l_bSent;
 		}
 		return false;
@@ -381,11 +389,13 @@ namespace FATMING_CORE
 		{
 			if (!IsNetworkAlive())
 			{
+				FMLog::LogWithFlag("Network not aviable\n", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 			int l_iNumready = 0;
 			if (!CreateSocksetToListenData())
 			{
+				FMLog::LogWithFlag("CreateSocksetToListenData failed\n", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 			//FMLog::LogWithFlag("listen\n");
@@ -393,6 +403,7 @@ namespace FATMING_CORE
 			if (l_iNumready == -1)
 			{
 				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s\n",SDL_GetError());
+				FMLog::LogWithFlag("SDLNet_CheckSockets failed\n", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 			if (l_iNumready == 0)
@@ -404,6 +415,7 @@ namespace FATMING_CORE
 				int l_iReceivedSize = l_pPacket->ReceiveData(m_pSocket);
 				if (l_iReceivedSize <= 0)
 				{//wrong data ignore it
+					FMLog::LogWithFlag("l_pPacket->ReceiveData failed\n", CORE_LOG_FLAG);
 					bool	l_bConnectionFailed = false;
 					delete l_pPacket;
 					goto FAILED;

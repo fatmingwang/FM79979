@@ -17,9 +17,9 @@
 #include "XML/AtgXmlWriter.h"
 #include "../../Include/glew.h"
 #include "../../Include/glext.h"
-#elif defined(LINUX)
-#include "glew.h"
-#include "glext.h"
+//#elif defined(LINUX)
+//#include "glew.h"
+//#include "glext.h"
 #elif defined(ANDROID)
 #include <GLES/gl.h>
 #include <GLES/glext.h>

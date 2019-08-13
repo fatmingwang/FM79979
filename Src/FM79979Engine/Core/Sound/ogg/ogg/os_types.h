@@ -127,5 +127,7 @@
 	typedef int64_t ogg_int64_t;
 
 #endif
-
+#ifdef LINUX
+#include <alloca.h>
+#endif
 #endif  /* _OS_TYPES_H */

@@ -7,7 +7,9 @@
 #include "OpenAlOgg.h"
 #include "../XML/XMLLoader.h"
 #include "SoundManager.h"
+#ifndef LINUX
 #include "SoundFile.h"
+#endif
 #if defined(USE_SOUND_CAPTURE)
 #include "SoundCapture.h"
 #endif
