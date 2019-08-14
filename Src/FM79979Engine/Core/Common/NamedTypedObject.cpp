@@ -22,7 +22,7 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 
 	bool	g_bDumpUsing = true;
 	//0,1,2 no use
-#ifdef WASM
+#if defined(WASM) || defined(LINUX)
 	int		g_iDumpUsing = 1;
 #else
 	int		g_iDumpUsing = 0;
