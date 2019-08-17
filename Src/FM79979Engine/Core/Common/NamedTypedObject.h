@@ -6,7 +6,8 @@
 
 #include <list>
 #include <string.h>
-#include "StringID.h"
+//#include "StringID.h"
+#include <mutex>
 //-----------------------------------------------------------------------------
 // Name: DEFINE_TYPE_INFO
 // Desc: Creates a type based on the NamedTypedObject class.  Use this in any
@@ -78,9 +79,9 @@ public:
 
 public:
     //const wchar_t*	            GetName() const { return m_sObjectName; };
-	const wchar_t*				GetName(){ return m_sObjectName; };
+	const wchar_t*				GetName(){ return m_sObjectName.c_str(); };
 	std::string					GetCharName();
-	bool						IsSameName(const wchar_t*e_strName){ return wcscmp(e_strName,m_sObjectName)==0?true:false; }
+	bool						IsSameName(const wchar_t*e_strName){ return wcscmp(e_strName,m_sObjectName.c_str())==0?true:false; }
 	bool						IsSameName(NamedTypedObject*e_pNamedTypedObject){ return IsSameName(e_pNamedTypedObject->GetName()); }
 
 	bool						IsSameType( NamedTypedObject*e_pNamedTypedObject ){ if(e_pNamedTypedObject->Type() == this->Type())return true;return false; }
@@ -105,7 +106,7 @@ public:
 	virtual	TiXmlElement*		ToTiXmlElement();
 	NamedTypedObject&			operator=(const NamedTypedObject&e_Other);
 private:
-	StringID					m_sObjectName;
+	std::wstring				m_sObjectName;
 #ifdef DEBUG
 public:
 	uint64						m_i64TimeStamp;
@@ -140,18 +141,20 @@ public:
         int                                         m_iCurBucket;
     };
     friend class NameIndexedCollection::iterator;
-        
+	NameIndexedCollection();
+	~NameIndexedCollection();
     void    Add( NamedTypedObject *pObjectToAdd );        // Add a NamedTypedObject to the collection        
     void    Remove( NamedTypedObject *pObjectToRemove );  // Remove a NamedTypedObject from the collection        
     //NamedTypedObject* Find( const wchar_t* strName );       // Find a NamedTypedObject in the collection
 	NamedTypedObject* Find( NamedTypedObject*e_pNamedTypedObject );
-    NamedTypedObject* FindTyped( const wchar_t* strName, const StringID TypeID );       // Find a NamedTypedObject of a certain type in the collection
+    NamedTypedObject* FindTyped( const wchar_t* strName, const wchar_t* TypeID );       // Find a NamedTypedObject of a certain type in the collection
     unsigned long   Size();
        
     iterator        begin();
     iterator        end();
 private:
     std::vector<NamedTypedObject *> s_Lists[ DEFAULT_COLLECTION_HASHSIZE ];     
+	std::mutex m_Mutex;
 };
 
 uint64	GetTimeStampID();

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\ogg\analysis.c" />
+    <ClCompile Include="..\ogg\barkmel.c" />
+    <ClCompile Include="..\ogg\bitrate.c" />
+    <ClCompile Include="..\ogg\bitwise.c" />
+    <ClCompile Include="..\ogg\block.c" />
+    <ClCompile Include="..\ogg\codebook.c" />
+    <ClCompile Include="..\ogg\envelope.c" />
+    <ClCompile Include="..\ogg\floor0.c" />
+    <ClCompile Include="..\ogg\floor1.c" />
+    <ClCompile Include="..\ogg\framing.c" />
+    <ClCompile Include="..\ogg\info.c" />
+    <ClCompile Include="..\ogg\lookup.c" />
+    <ClCompile Include="..\ogg\lpc.c" />
+    <ClCompile Include="..\ogg\lsp.c" />
+    <ClCompile Include="..\ogg\mapping0.c" />
+    <ClCompile Include="..\ogg\mdct.c" />
+    <ClCompile Include="..\ogg\psy.c" />
+    <ClCompile Include="..\ogg\registry.c" />
+    <ClCompile Include="..\ogg\res0.c" />
+    <ClCompile Include="..\ogg\sharedbook.c" />
+    <ClCompile Include="..\ogg\smallft.c" />
+    <ClCompile Include="..\ogg\synthesis.c" />
+    <ClCompile Include="..\ogg\vorbisenc.c" />
+    <ClCompile Include="..\ogg\vorbisfile.c" />
+    <ClCompile Include="..\ogg\window.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="books">
+      <UniqueIdentifier>{24bf4b00-da1d-4d0b-a465-1951d5e4fbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="modes">
+      <UniqueIdentifier>{b8cfe193-1609-4051-bafc-dd0195b5ee43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ogg">
+      <UniqueIdentifier>{5e44dc13-d627-43e6-9587-790b19fc56ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vorbis">
+      <UniqueIdentifier>{d1e8dc05-2fc4-47e8-a720-8098432dfcbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\coupled">
+      <UniqueIdentifier>{5dadaa7a-16a8-4910-b34d-473169f4bc9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\floor">
+      <UniqueIdentifier>{2337104f-2fd4-4993-866b-206fd68464d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="books\uncoupled">
+      <UniqueIdentifier>{d329d283-0a8a-48d5-b32d-b866e540f16b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\ogg\books\coupled\res_books_51.h">
+      <Filter>books\coupled</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\books\coupled\res_books_stereo.h">
+      <Filter>books\coupled</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\books\floor\floor_books.h">
+      <Filter>books\floor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\books\uncoupled\res_books_uncoupled.h">
+      <Filter>books\uncoupled</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\floor_all.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\psych_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\psych_11.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\psych_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\psych_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\residue_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\residue_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\residue_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\residue_44p51.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\residue_44u.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_8.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_11.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_16.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_22.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_32.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_44.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_44p51.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_44u.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\modes\setup_X.h">
+      <Filter>modes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\ogg\ogg.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\ogg\os_types.h">
+      <Filter>ogg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\vorbis\codec.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\vorbis\vorbisenc.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\vorbis\vorbisfile.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\vorbis\vorbisfile_windows.h">
+      <Filter>vorbis</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ogg\backends.h" />
+    <ClInclude Include="..\ogg\bitrate.h" />
+    <ClInclude Include="..\ogg\codebook.h" />
+    <ClInclude Include="..\ogg\codec_internal.h" />
+    <ClInclude Include="..\ogg\envelope.h" />
+    <ClInclude Include="..\ogg\highlevel.h" />
+    <ClInclude Include="..\ogg\lookup.h" />
+    <ClInclude Include="..\ogg\lookup_data.h" />
+    <ClInclude Include="..\ogg\lpc.h" />
+    <ClInclude Include="..\ogg\lsp.h" />
+    <ClInclude Include="..\ogg\masking.h" />
+    <ClInclude Include="..\ogg\mdct.h" />
+    <ClInclude Include="..\ogg\misc.h" />
+    <ClInclude Include="..\ogg\os.h" />
+    <ClInclude Include="..\ogg\psy.h" />
+    <ClInclude Include="..\ogg\registry.h" />
+    <ClInclude Include="..\ogg\scales.h" />
+    <ClInclude Include="..\ogg\smallft.h" />
+    <ClInclude Include="..\ogg\window.h" />
+    <ClInclude Include="..\..\Android\nv_file.h" />
+  </ItemGroup>
+</Project>

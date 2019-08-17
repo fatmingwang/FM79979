@@ -266,11 +266,11 @@ namespace FATMING_CORE
 			m_ObjectList[m_iCurrentPhase]->KeyDown(e_cKey);
 	}
 
-	void	cPhaseManager::KeyPress(char e_cKey)
-	{
-		if( this->m_iCurrentPhase != -1 )
-			m_ObjectList[m_iCurrentPhase]->KeyPress(e_cKey);
-	}
+	//void	cPhaseManager::KeyPress(char e_cKey)
+	//{
+	//	if( this->m_iCurrentPhase != -1 )
+	//		m_ObjectList[m_iCurrentPhase]->KeyPress(e_cKey);
+	//}
 
 	bool	cPhaseManager::WakePopupMessenger(const wchar_t*e_strName,const wchar_t*e_strPhaseNameName)
 	{

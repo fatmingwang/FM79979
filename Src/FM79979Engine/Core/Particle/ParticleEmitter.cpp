@@ -221,7 +221,7 @@ namespace FATMING_CORE
 	void	cPrtEmitter::SetEmitDirection(Vector3 e_vDirection)
 	{
 		Vector3	l_vDir = e_vDirection.Normalize();
-		cMatrix44	l_mat = cMatrix44::Identity;
+		//cMatrix44	l_mat = cMatrix44::Identity;
 		//l_mat = l_mat.XAxisRotationMatrix(l_vDir.x)*l_mat.YAxisRotationMatrix(l_vDir.x)*l_mat.ZAxisRotationMatrix(l_vDir.x);
 		if(m_pVelocityInit->Type() == cPrtVelocityInitSetVelocity::TypeID)
 		{
@@ -474,10 +474,10 @@ namespace FATMING_CORE
 		for(int i=0;i<this->m_iCurrentWorkingParticles;)
 		{
 			sParticleData*l_pParticleData = &this->m_pParticleData[i];
-			if( e_rc.left  < l_pParticleData->vPos.x&&
-				e_rc.right > l_pParticleData->vPos.x&&
-				e_rc.top   < l_pParticleData->vPos.y&&
-				e_rc.bottom> l_pParticleData->vPos.y)
+			if( e_rc.left  < (long)l_pParticleData->vPos.x&&
+				e_rc.right >(long)l_pParticleData->vPos.x&&
+				e_rc.top   < (long)l_pParticleData->vPos.y&&
+				e_rc.bottom>(long)l_pParticleData->vPos.y)
 			{
 				i++;
 			}

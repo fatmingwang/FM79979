@@ -1,11 +1,17 @@
 #include "../../stdafx.h"
-
-#include <ft2build.h>
-#include <freetype/freetype.h>
-#include <freetype/ftglyph.h>
-#include <freetype/ftoutln.h>
-#include <freetype/fttrigon.h>
-
+#ifdef LINUX
+#include <freetype2/ft2build.h>
+#include <freetype2/freetype/freetype.h>
+#include <freetype2/freetype/ftglyph.h>
+#include <freetype2/freetype/ftoutln.h>
+#include <freetype2/freetype/fttrigon.h>
+#else
+#include "../../../Freetype/include/ft2build.h"
+#include "../../../Freetype/include/freetype/freetype.h"
+#include "../../../Freetype/include/freetype/ftglyph.h"
+#include "../../../Freetype/include/freetype/ftoutln.h"
+#include "../../../Freetype/include/freetype/fttrigon.h"
+#endif
 #include "FreetypeGlypth.h"
 #include "../Texture.h"
 #include "../../OpenGL/GLSL/Shader.h"

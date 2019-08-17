@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Texture.h"
+#include "../Common/Template/TemplateClass.h"
 
 namespace FATMING_CORE
 {

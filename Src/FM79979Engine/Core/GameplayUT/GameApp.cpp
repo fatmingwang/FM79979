@@ -428,12 +428,12 @@ namespace	FATMING_CORE
 		m_sucKeyData[(unsigned char)e_char] = true;
 	}
 
-	void	cGameApp::KeyPress(char e_char)
-	{
-		if (!m_sbEnableKeyboardSingnal)
-			return;
-		//m_sucKeyData[(unsigned char)e_char] = true;
-	}
+	//void	cGameApp::KeyPress(char e_char)
+	//{
+	//	if (!m_sbEnableKeyboardSingnal)
+	//		return;
+	//	//m_sucKeyData[(unsigned char)e_char] = true;
+	//}
 
 	void	cGameApp::KeyUp(char e_char)
 	{

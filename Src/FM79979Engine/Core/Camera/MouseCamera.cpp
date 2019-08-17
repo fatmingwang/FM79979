@@ -12,9 +12,9 @@ namespace FATMING_CORE
 		{
 			CameraUpDateByMouse(cGameApp::m_sbMouseClickStatus[0],
 				cGameApp::m_sbMouseClickStatus[1],
-				cGameApp::m_sbMouseClickStatus[2]?cGameApp::m_sMouseWhellDelta:0,
-				cGameApp::m_sMousePosition.x,
-				cGameApp::m_sMousePosition.y,
+				cGameApp::m_sbMouseClickStatus[2]?(int)cGameApp::m_sMouseWhellDelta:0,
+				(int)cGameApp::m_sMousePosition.x,
+				(int)cGameApp::m_sMousePosition.y,
 				e_fElpaseTime);
 		}
 		if(this->m_MouseBehave.GetMouseState().bMidButton)//go ahead with camera direction

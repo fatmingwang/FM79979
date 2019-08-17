@@ -181,7 +181,7 @@ namespace FATMING_CORE
 					if( e_bTexture )
 					{//there are 
 						m_uiTexLoacation = GetUniFormLocationByName("texSample" );
-						if (m_uiTexLoacation != -1)
+						if (m_uiTexLoacation != (unsigned int)-1)
 						{
 							std::wstring l_str = this->GetName();;
 							l_str += L" tex location:";
@@ -251,7 +251,7 @@ namespace FATMING_CORE
 		int	l_iIndex = 0;
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
-			if( m_uiAttribArray[i] == -1 )
+			if( m_uiAttribArray[i] == (unsigned int)-1 )
 			{
 				glDisableVertexAttribArray( l_iIndex );
 				MyGlErrorTest("cBaseShader::Use after glDisableVertexAttribArray");
@@ -260,7 +260,7 @@ namespace FATMING_CORE
 		}
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
-			if (m_uiAttribArray[i] != -1)
+			if (m_uiAttribArray[i] != (unsigned int)-1)
 			{
 				glEnableVertexAttribArray(m_uiAttribArray[i]);
 				MyGlErrorTest("cBaseShader::Use after glEnableVertexAttribArray");
@@ -268,7 +268,7 @@ namespace FATMING_CORE
 			//else
 				//glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
-		if( m_uiTexLoacation != -1 )
+		if( m_uiTexLoacation != (unsigned int)-1 )
 		{
 			//order is uniform,active,bind.
 			glUniform1i( m_uiTexLoacation, 0 );
@@ -279,7 +279,7 @@ namespace FATMING_CORE
 		g_iMatrixWLoacation = m_uiMatrixWLoacation;
 		g_iColorLoacation =	m_uiColorLoacation;
 		g_iBonesMatrixoacation =	m_uiBonesLocation;
-		if( g_iColorLoacation != -1 )
+		if( g_iColorLoacation != (unsigned int)-1 )
 			SetupShaderColor(Vector4::One);
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;
 //#endif
@@ -294,7 +294,7 @@ namespace FATMING_CORE
 //#ifdef OPENGLES_2_X
 		for( int i=0;i<TOTAL_FVF;++i )
 		{
-			if( m_uiAttribArray[i] != -1 )
+			if( m_uiAttribArray[i] != (unsigned int)-1 )
 				glDisableVertexAttribArray( m_uiAttribArray[i] );
 		}
 		glUseProgram( 0 );

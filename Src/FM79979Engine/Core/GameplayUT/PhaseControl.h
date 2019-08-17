@@ -41,7 +41,7 @@ namespace FATMING_CORE
 		virtual	void	DebugRender(){}
 		virtual	void	KeyUp(char e_cKey){};
 		virtual	void	KeyDown(char e_cKey){};
-		virtual	void	KeyPress(char e_cKey){};
+		//virtual	void	KeyPress(char e_cKey){};
 		//not necessary,some times we need to read data by multithread to prevent screen empty
 		//must call after SetCondition via SetCondition we could know what the data is needed
 		virtual	void	ReadDataByMultiThread(){};
@@ -95,7 +95,7 @@ namespace FATMING_CORE
 		virtual	void			MouseMove(int e_iX,int e_iY)override;
 		virtual	void			KeyUp(char e_cKey)override;
 		virtual	void			KeyDown(char e_cKey)override;
-		virtual	void			KeyPress(char e_cKey)override;
+		//virtual	void			KeyPress(char e_cKey)override;
 		//why add this here...?hav no idea-_-
 		//virtual	const   wchar_t*	GetNextPhaseName()override { return 0;}
 		virtual void			SingnalProcess(unsigned char e_usKey)override { cClickMouseBehaviorVector<cSimplePhase>::SingnalProcess(e_usKey); }

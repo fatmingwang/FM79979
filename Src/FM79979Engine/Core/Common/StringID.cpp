@@ -1,9 +1,10 @@
-#include "../stdafx.h"
 #include "StringID.h"
-
+#include <stdio.h>
+#include <string.h>
+#include <wchar.h>
 const wchar_t*				StringID::s_EmptyString = L"";
-std::list<const wchar_t *>*	StringID::m_spStringLists = 0;
-UINT64	g_ui64NumObjectInUsing = 0;
+std::list<const wchar_t *>*	StringID::m_spStringLists = nullptr;
+unsigned long long	g_ui64NumObjectInUsing = 0;
 
 StringID::StringID()                          
 {
@@ -38,6 +39,7 @@ std::list<const wchar_t *>* StringID::GetStringTable()
 	if(!StringID::m_spStringLists)
 	{
 		StringID::m_spStringLists = new std::list<const wchar_t *>[StringID_HASHSIZE];
+		printf("StringID::m_spStringLists = new std::list<const wchar_t *>[StringID_HASHSIZE];");
 	}
     return StringID::m_spStringLists;
 }
@@ -58,7 +60,14 @@ void	StringID::DestoryStringTable()
 		}
 		CurrentList.clear();
 	}
-	SAFE_DELETE_ARRAY(m_spStringLists);
+#ifdef DEBUG
+	printf("SAFE_DELETE_ARRAY(m_spStringLists)");
+#endif
+	if (m_spStringLists)
+	{
+		delete[]  m_spStringLists;
+		m_spStringLists = nullptr;
+	}
 }
 //-----------------------------------------------------------------------------
 // Name: StringID::operator==
@@ -69,12 +78,12 @@ bool StringID::operator== ( const wchar_t* strRHS ) const
     if( strRHS == nullptr )
     {
         if( m_strString == s_EmptyString )
-            return TRUE;
-        return FALSE;
+            return true;
+        return false;
     }
 
     if( m_strString == strRHS )
-        return TRUE;
+        return true;
 
     return ( wcscmp( m_strString, strRHS ) == 0 );
 }
@@ -91,10 +100,11 @@ const wchar_t* StringID::AddString( const wchar_t* strString )
         return s_EmptyString;
 
     int uBucketIndex = HashString( strString ) % StringID_HASHSIZE;
-    std::list<const wchar_t*>& CurrentList = GetStringTable()[ uBucketIndex ];
+	auto l_pTable = GetStringTable();
+    std::list<const wchar_t*>* CurrentList = &l_pTable[ uBucketIndex ];
 
-    std::list<const wchar_t*>::iterator iter = CurrentList.begin();
-    std::list<const wchar_t*>::iterator end = CurrentList.end();
+    std::list<const wchar_t*>::iterator iter = CurrentList->begin();
+    std::list<const wchar_t*>::iterator end = CurrentList->end();
 
     while( iter != end )
     {
@@ -109,7 +119,7 @@ const wchar_t* StringID::AddString( const wchar_t* strString )
     wchar_t* strCopy = new wchar_t[ bufferLength ];
 	wcscpy(strCopy, strString);
     //wcscpy_s( strCopy, bufferLength, strString );
-    CurrentList.push_back( strCopy );
+    CurrentList->push_back( strCopy );
     return strCopy;
 }
 

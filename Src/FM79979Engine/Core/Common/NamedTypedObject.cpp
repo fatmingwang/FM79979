@@ -2,6 +2,7 @@
 #include "NamedTypedObject.h"
 #include "../GameplayUT/GameApp.h"
 #include "../GameplayUT/Log/FMLog.h"
+#include "StringID.h"
 uint64				g_ui64GlobalUniqueID = 0;
 uint64				g_ui64TimeStamp = 0;
 NamedTypedObject*	g_pLatestNamedTypedObject = 0;
@@ -22,12 +23,12 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 
 	bool	g_bDumpUsing = true;
 	//0,1,2 no use
-#if defined(WASM) || defined(LINUX)
+#if defined(WASM)// || defined(LINUX)
 	int		g_iDumpUsing = 1;
 #else
 	int		g_iDumpUsing = 0;
 #endif
-	NameIndexedCollection*g_pNameIndexedCollection = 0;
+	NameIndexedCollection*g_pNameIndexedCollection = nullptr;
 	void	DebugResourceInfoAdd(NamedTypedObject*e_pNamedTypedObject)
 	{
 		if( g_iDumpUsing == 0 )
@@ -251,6 +252,18 @@ NameIndexedCollection::iterator::operator++( int )
 }
 
 
+NameIndexedCollection::NameIndexedCollection()
+{
+	for (size_t i = 0; i < DEFAULT_COLLECTION_HASHSIZE; i++)
+	{
+		s_Lists[i].reserve(100);
+	}
+}
+
+NameIndexedCollection::~NameIndexedCollection()
+{
+}
+
 //-----------------------------------------------------------------------------
 // Name: NameIndexedCollection::Add()
 //-----------------------------------------------------------------------------
@@ -262,11 +275,16 @@ void NameIndexedCollection::Add( NamedTypedObject *pObjectToAdd )
 	//int iBucket = StringID::HashString( pObjectToAdd->Type() ) % DEFAULT_COLLECTION_HASHSIZE;    
 	size_t iBucket = ((size_t)pObjectToAdd)%DEFAULT_COLLECTION_HASHSIZE;
     // $OPTIMIZE: use a fixed size allocator here
+#ifdef DEBUG
 	if( pObjectToAdd->GetUniqueID() == 617 )
 	{
 		int a=0;
 	}
-    s_Lists[ iBucket ].push_back( pObjectToAdd );
+#endif
+	{
+		std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
+		s_Lists[iBucket].push_back(pObjectToAdd);
+	}
 }
 
 
@@ -277,24 +295,28 @@ void NameIndexedCollection::Remove( NamedTypedObject *pObjectToRemove )
 {
     assert( pObjectToRemove );
 	size_t iBucket = ((size_t)pObjectToRemove)%DEFAULT_COLLECTION_HASHSIZE;
-	std::vector<NamedTypedObject *>*l_pList = &s_Lists[ iBucket ];
-	int	l_iSize = (int)l_pList->size();
-	//if here crush check g_pNameIndexedCollection is null and void	NamedTypedObject::DumpUnReleaseInfo() not call before all object is delete
-	//uint64	l_ui46ID = pObjectToRemove->GetUniqueID();
-	for( int i=l_iSize-1;i>-1;--i )
 	{
-		if( (*l_pList)[i] == pObjectToRemove )
+		std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
+		std::vector<NamedTypedObject *>*l_pList = &s_Lists[ iBucket ];
+		int	l_iSize = (int)l_pList->size();
+		//if here crush check g_pNameIndexedCollection is null and void	NamedTypedObject::DumpUnReleaseInfo() not call before all object is delete
+		//uint64	l_ui46ID = pObjectToRemove->GetUniqueID();
+		for (int i = l_iSize - 1; i > -1; --i)
 		{
-			s_Lists[ iBucket ].erase( l_pList->begin()+i );
-			return;
+			if ((*l_pList)[i] == pObjectToRemove)
+			{
+				s_Lists[iBucket].erase(l_pList->begin() + i);
+				return;
+			}
 		}
 	}
+#ifdef DEBUG
 	NamedTypedObject*l_pp = Find( pObjectToRemove );
 	if( l_pp )
 	{
 		l_pp->GetName();
 	}
-
+#endif
 }
 
 NamedTypedObject* NameIndexedCollection::Find( NamedTypedObject*e_pNamedTypedObject )
@@ -340,7 +362,7 @@ NamedTypedObject* NameIndexedCollection::Find( NamedTypedObject*e_pNamedTypedObj
 //-----------------------------------------------------------------------------
 // Name: NameIndexedCollection::FindTyped()
 //-----------------------------------------------------------------------------
-NamedTypedObject* NameIndexedCollection::FindTyped( const wchar_t* strName, const StringID TypeID )
+NamedTypedObject* NameIndexedCollection::FindTyped( const wchar_t* strName, const wchar_t* TypeID )
 {
     std::vector<NamedTypedObject *>::iterator i;
 

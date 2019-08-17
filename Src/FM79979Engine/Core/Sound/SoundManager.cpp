@@ -6,12 +6,12 @@ namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSoundParser);
 
-	ALuint*	cSoundParser::m_psuiSourceID = 0;//whole source ID
-	ALuint*	cSoundParser::m_psuiSourceUsingIDIndex = 0;	//as many as m_siNumSoundManager
+	ALuint*	cSoundParser::m_psuiSourceID = nullptr;//whole source ID
+	ALuint*	cSoundParser::m_psuiSourceUsingIDIndex = nullptr;	//as many as m_siNumSoundManager
 	int		cSoundParser::m_siNumSourceID = 0;
 	int		cSoundParser::m_siNumSoundManager = 0;
 	int		cSoundParser::m_siReserveBGSourceCount = 3;
-	bool*	cSoundParser::m_spbUsedBGSourceData = 0;
+	bool*	cSoundParser::m_spbUsedBGSourceData = nullptr;
 	void    cSoundParser::ActiveOpenAL()
 	{
 #ifdef WIN32
@@ -60,6 +60,11 @@ namespace FATMING_CORE
 			}
 		}
 		UINT	l_uiNum = (UINT)AllSourceID.size();
+		if (l_uiNum == 0)
+		{
+			FMLog::LogWithFlag(L"OpenAL not actived", CORE_LOG_FLAG,false);
+			return;
+		}
 		m_psuiSourceID = new ALuint[l_uiNum];
 		m_psuiSourceUsingIDIndex = new ALuint[l_uiNum];
 		m_siNumSourceID = l_uiNum;

@@ -97,6 +97,11 @@ namespace	FATMING_CORE
 		//const GLubyte*l_strGL_GL_MAJOR_VERSION = glGetString(GL_MAJOR_VERSION);
 		//too much things...I am lazy to parse this
 		//const GLubyte*l_strGL_GL_EXTENSIONS = glGetString(GL_EXTENSIONS);
+		if (!l_strGL_VERSION)
+		{
+			FMLog::LogWithFlag(L"openGL not actived", CORE_LOG_FLAG);
+			return;
+		}
 		float l_fVersion = GetFloat((char*)l_strGL_VERSION);
 		float l_f2 = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION);
 		cGameApp::m_sfOpenGLVersion = l_fVersion;

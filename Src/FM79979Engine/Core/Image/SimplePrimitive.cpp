@@ -526,7 +526,7 @@ namespace GLRender
 			{
 				Vector3	l_vPos((*e_pPositionPoint)[i]);
 				l_vPos = l_mat.TransformCoordinate(l_vPos);
-				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
+				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW((int)i).c_str());
 			}
 		}
 	}
@@ -557,7 +557,7 @@ namespace GLRender
 				{
 					Vector3	l_vPos((*e_pPositionPoint)[i]);
 					l_vPos = l_mat.TransformCoordinate(l_vPos);
-					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(i).c_str());
+					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW((int)i).c_str());
 				}
 			}
 		}
@@ -590,7 +590,7 @@ namespace GLRender
 				{
 					Vector3	l_vPos((*e_pPositionPoint)[i]);
 					l_vPos = l_mat.TransformCoordinate(l_vPos);
-					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW(i).c_str());
+					cGameApp::RenderFont(l_vPos.x, l_vPos.y, ValueToStringW((int)i).c_str());
 				}
 			}
 		}

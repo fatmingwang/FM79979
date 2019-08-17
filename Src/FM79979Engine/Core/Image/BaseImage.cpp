@@ -12,7 +12,7 @@ namespace FATMING_CORE
 	//====================
 	//
 	//====================
-	cBaseImage::cBaseImage(const char*e_strImageName,bool e_bFetchPixels):cRenderObject()
+	cBaseImage::cBaseImage(const char*e_strImageName,bool e_bFetchPixels)
 	{
 		m_pTexture = nullptr;
 		m_iWidth = 0;
@@ -30,7 +30,9 @@ namespace FATMING_CORE
 	{
 		if (e_strImageName)
 		{
-			this->SetName(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strImageName)));
+			auto l_strFileName = UT::GetFileNameWithoutFullPath(e_strImageName);
+			auto l_wstrFileName = UT::CharToWchar(l_strFileName);
+			this->SetName(l_wstrFileName);
 			m_pTexture = cTextureManager::GetInstance()->GetObject(this, e_strImageName, e_bFetchPixels);
 			if (m_pTexture)
 			{

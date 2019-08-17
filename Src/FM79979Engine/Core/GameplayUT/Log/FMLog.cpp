@@ -17,12 +17,15 @@
 using namespace FATMING_CORE;
 namespace FMLog
 {
+	bool	g_bFMLogEnable = false;
 	int64	g_i64LogFlag = 0xffffffffffffffff;
 	FATMING_CORE::cBinaryFile*	g_pFMLogFile = nullptr;
 	std::list<std::wstring>*	g_pLatestLog = nullptr;
 	int							g_iKeepLogCount = 0;
 	bool	LogFlagLevelCompare(int e_iLogFlagLevel)
 	{
+		if (!g_bFMLogEnable)
+			return false;
 		int64 lll = 0xfffffffffffffff;
 		int64 l_i64Flag = ((int64)1) << e_iLogFlagLevel;
 		int64 l_i64TargetFlag = l_i64Flag & 0xffffffffffffffff;
@@ -33,6 +36,7 @@ namespace FMLog
 
 	void					Init()
 	{
+		g_bFMLogEnable = true;
 		if (!g_pFMLogFile)
 		{
 			Log(L"log file",true);
@@ -62,7 +66,7 @@ namespace FMLog
 
 	void					EnableKeepLatestLog(int e_iKeepLatestLogCount)
 	{
-		if (e_iKeepLatestLogCount > 0)
+		if (e_iKeepLatestLogCount > 0 && g_bFMLogEnable)
 		{
 			g_iKeepLogCount = e_iKeepLatestLogCount;
 			SAFE_DELETE(g_pLatestLog);
@@ -85,10 +89,13 @@ namespace FMLog
 	{
 		SAFE_DELETE(g_pFMLogFile);
 		SAFE_DELETE(g_pLatestLog);
+		g_bFMLogEnable = false;
 	}
 
 	void					Log(const char*e_str, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		//Log(UT::CharToWchar(e_str).c_str(), e_bWriteLog);
 		//#ifdef DEBUG
 #if defined(WIN32)
@@ -119,6 +126,8 @@ namespace FMLog
 	}
 	void					Log(const wchar_t*e_str, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		//#ifdef DEBUG
 #if defined(WIN32)
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
@@ -149,6 +158,8 @@ namespace FMLog
 
 	void LogWithFlag(const wchar_t * e_str,int e_iLogFlagLevel, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		if (!LogFlagLevelCompare(e_iLogFlagLevel))
 		{
 			return;
@@ -158,6 +169,8 @@ namespace FMLog
 
 	void LogWithFlag(std::wstring e_str, int e_iLogFlagLevel, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		if (!LogFlagLevelCompare(e_iLogFlagLevel))
 		{
 			return;
@@ -167,6 +180,8 @@ namespace FMLog
 
 	void LogWithFlag(std::string e_str, int e_iLogFlagLevel, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		if (!LogFlagLevelCompare(e_iLogFlagLevel))
 		{
 			return;
@@ -177,6 +192,8 @@ namespace FMLog
 
 	void LogWithFlag(const char * e_str, int e_iLogFlagLevel, bool e_bWriteLog)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		if (!LogFlagLevelCompare(e_iLogFlagLevel))
 		{
 			return;
@@ -187,7 +204,7 @@ namespace FMLog
 
 	void WriteLog(const wchar_t * e_strMessage)
 	{
-		if(g_pFMLogFile)
+		if(g_pFMLogFile && g_bFMLogEnable)
 			g_pFMLogFile->WriteToFileImmediatelyWithLine(e_strMessage);
 	}
 
@@ -198,7 +215,7 @@ namespace FMLog
 
 	void WriteLog(const char * e_strMessage)
 	{
-		if (g_pFMLogFile)
+		if (g_pFMLogFile && g_bFMLogEnable)
 			g_pFMLogFile->WriteToFileImmediatelyWithLine(e_strMessage);
 	}
 
@@ -209,6 +226,8 @@ namespace FMLog
 
 	void Render(int e_iPosX, int e_iPosY,FATMING_CORE::cGlyphFontRender*e_pGlyphFontRender, int e_iYGap)
 	{
+		if (!g_bFMLogEnable)
+			return;
 		int l_iPosY = e_iPosY;
 		if (g_pLatestLog && e_pGlyphFontRender)
 		{

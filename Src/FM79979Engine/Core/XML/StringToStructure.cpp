@@ -410,12 +410,12 @@ namespace FATMING_CORE
 
 	std::vector<std::wstring>	GetWStringListByCommaDivide(const wchar_t*e_str)
 	{
+		std::vector<std::wstring>	l_List;
 		size_t	l_iLength = wcslen(e_str);
 		wchar_t*l_TempData = new wchar_t[l_iLength+1];
 		wchar_t*l_pStart = l_TempData;
 		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		l_TempData[l_iLength] = 0;
-		std::vector<std::wstring>	l_List;
 		wchar_t*	l_str = wcstok(l_TempData,L", ");
 		while(l_str)
 		{

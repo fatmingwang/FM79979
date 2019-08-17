@@ -40,8 +40,8 @@ namespace FATMING_CORE
 		m_fDrawRadiusWithoutImageOffset = 0.f;
 	}
 
-	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage)
-		:cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),cMulti_PI_Image(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
+	cMultiPathDynamicImage::cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage):cMulti_PI_Image(e_pMultiPathDynamicImage),
+		cFatmingGroupBehaviorList<cCueToStartCurveWithTime>(e_pMultiPathDynamicImage),Frame(e_pMultiPathDynamicImage)
 	{
 		m_fDrawRadiusWithoutImageOffset = e_pMultiPathDynamicImage->m_fDrawRadiusWithoutImageOffset;
 		m_pViewPort = nullptr;
@@ -133,7 +133,7 @@ namespace FATMING_CORE
 						break;
 					cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
 					l_vOriginalSize = l_pPIUnit->GetOriginalSize();
-					Vector2	l_vRightDownPos(l_vPos.x + l_vOriginalSize.x, l_vPos.y + l_vOriginalSize.y);
+					Vector2	l_vRightDownPos(l_vPos.x + (float)l_vOriginalSize.x, l_vPos.y + (float)l_vOriginalSize.y);
 					if (l_vDrawRect.z < l_vRightDownPos.x)
 						l_vDrawRect.z = l_vRightDownPos.x;
 					if (l_vDrawRect.w < l_vRightDownPos.y)
@@ -620,7 +620,7 @@ EXIT:
 							*e_pInUsingDataInfo += L",";
 							*e_pInUsingDataInfo += l_pCueToStartCurveWithTime->GetName();
 							*e_pInUsingDataInfo += L",PointIndex:";
-							*e_pInUsingDataInfo += ValueToStringW(k);
+							*e_pInUsingDataInfo += ValueToStringW((int)k);
 							*e_pInUsingDataInfo += L"\n";
 						}
 	                    l_bInUse = true;

@@ -684,11 +684,11 @@ public:
 	cSingltonTemplate()
 	{
 		assert(m_spInstance == nullptr && "singlton only can have one instance");
-		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%s", TYPE::TypeID), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate constructor called:%ls", TYPE::TypeID), CORE_LOG_FLAG);
 	}
 	virtual ~cSingltonTemplate()
 	{
-		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate destructor called:%s", TYPE::TypeID), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(ComposeMsgByFormat(L"cSingltonTemplate destructor called:%ls", TYPE::TypeID), CORE_LOG_FLAG);
 	}
 };
 

@@ -167,9 +167,9 @@ namespace FATMING_CORE
 		gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));\
 	}";
 
-	//void main()													\
-	//{															\
-	//	gl_FragColor = texture2D(texSample, PSTexcoord) + (PSColor - vec4(1, 1, 1, 1)); \
+	//void main()
+	//{
+	//	gl_FragColor = texture2D(texSample, PSTexcoord) + (PSColor - vec4(1, 1, 1, 1));
 	//}";
 
 #endif

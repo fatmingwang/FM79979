@@ -90,12 +90,12 @@ namespace FATMING_CORE
 		NvFWrite( data, sizeof(data), 1, m_pFile ); 
 	}
 
-
+#ifndef LINUX
 	void cBinaryFile::WriteToFile(long val )
 	{
 		NvFWrite( &val, sizeof(val), 1, m_pFile );
 	}
-
+#endif
 	void cBinaryFile::WriteToFileImmediatelyWithLine(const char* val ,bool e_bTimeStamp)
 	{
 		if( !m_pFile )

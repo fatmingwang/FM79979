@@ -197,7 +197,7 @@ return false;
 
 	bool cMessageSenderManager::NetworkMessageShot(unsigned int e_usID, FATMING_CORE::sNetworkReceivedPacket* e_pPacket)
 	{
-		FMLog::LogWithFlag(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", e_usID).c_str(), CORE_LOG_FLAG);
+		//FMLog::LogWithFlag(UT::ComposeMsgByFormat("MessageIDInProcess:%d\n", e_usID).c_str(), CORE_LOG_FLAG);
 		if (e_pPacket == nullptr)
 		{//for test
 			auto l_Iterator = m_NetworkMessageFunctionAndObjectIDMap.find(e_usID);
@@ -240,6 +240,7 @@ return false;
 	{
 		sWaitEmitEvent*l_pWaitEmitEvent = new sWaitEmitEvent();
 		l_pWaitEmitEvent->usID = e_usID;
+		assert(e_iSize< WAIT_EMIT_EVENT_DATA_SIZE&&L"cMessageSenderManager::EventMessageShot data size over 4096(WAIT_EMIT_EVENT_DATA_SIZE)");
 		memcpy(l_pWaitEmitEvent->cData, e_pData, e_iSize);
 		m_WaitForEmitEvent.push_back(l_pWaitEmitEvent);
 		return true;

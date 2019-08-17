@@ -631,28 +631,31 @@ namespace UT
 	std::wstring	GetFileNameWithoutFullPath(const wchar_t*e_pString,bool e_bStripExtensionFileName)
 	{
 		wchar_t	l_temp[TEMP_SIZE];
-		memset(l_temp,0,sizeof(l_temp));
-		int l_iForStripExtensionFileName = 0;
-		int	l_iStringLen = (int)wcslen(e_pString);
-		for(int i=l_iStringLen-1;i!=0;--i)
+		memset(l_temp, 0, sizeof(l_temp));
+		if (e_pString)
 		{
-			if( e_bStripExtensionFileName )
+			int l_iForStripExtensionFileName = 0;
+			int	l_iStringLen = (int)wcslen(e_pString);
+			for (int i = l_iStringLen - 1; i != 0; --i)
 			{
-				if( e_pString[i] == L'.' )
-					l_iForStripExtensionFileName = l_iStringLen-i;
-			}
+				if (e_bStripExtensionFileName)
+				{
+					if (e_pString[i] == L'.')
+						l_iForStripExtensionFileName = l_iStringLen - i;
+				}
 
-			if( e_pString[i] == L'\\' || e_pString[i] == L'/' )
-			{
-				int l_iNameLEngth = l_iStringLen-i-1-l_iForStripExtensionFileName;
-				memcpy(l_temp,e_pString+i+1,sizeof(wchar_t)*l_iNameLEngth);
-				l_temp[l_iNameLEngth] = L'\0';
-				return l_temp;
+				if (e_pString[i] == L'\\' || e_pString[i] == L'/')
+				{
+					int l_iNameLEngth = l_iStringLen - i - 1 - l_iForStripExtensionFileName;
+					memcpy(l_temp, &e_pString[i + 1], sizeof(wchar_t)*l_iNameLEngth);
+					l_temp[l_iNameLEngth] = L'\0';
+					return l_temp;
+				}
 			}
+			int l_iNameLEngth = l_iStringLen - l_iForStripExtensionFileName;
+			memcpy(l_temp, e_pString, sizeof(wchar_t)*l_iNameLEngth);
+			l_temp[l_iNameLEngth] = L'\0';
 		}
-		int l_iNameLEngth = l_iStringLen-l_iForStripExtensionFileName;
-		memcpy(l_temp,e_pString,sizeof(wchar_t)*l_iNameLEngth);
-		l_temp[l_iNameLEngth] = L'\0';
 		std::wstring	l_strResult = l_temp;
 				
 		return l_strResult;
@@ -703,30 +706,35 @@ namespace UT
 
 	std::string	GetFileNameWithoutFullPath(const char*e_pString,bool e_bStripExtensionFileName)
 	{
+		std::string	l_strResult;
 		char	l_temp[TEMP_SIZE];
 		memset(l_temp,0,sizeof(l_temp));
-		int l_iForStripExtensionFileName = 0;
-		int	l_iStringLen = (int)strlen(e_pString);
-		for(int i=l_iStringLen-1;i!=0;--i)
+		if (e_pString)
 		{
-			if( e_bStripExtensionFileName )
+			int l_iForStripExtensionFileName = 0;
+			int	l_iStringLen = (int)strlen(e_pString);
+			for (int i = l_iStringLen - 1; i != 0; --i)
 			{
-				if( e_pString[i] == '.' &&l_iForStripExtensionFileName==0)
-					l_iForStripExtensionFileName = l_iStringLen-i;
-			}
+				if (e_bStripExtensionFileName)
+				{
+					if (e_pString[i] == '.' &&l_iForStripExtensionFileName == 0)
+						l_iForStripExtensionFileName = l_iStringLen - i;
+				}
 
-			if( e_pString[i] == '\\' || e_pString[i] == '/' )
-			{
-				int l_iNameLEngth = l_iStringLen-i-1-l_iForStripExtensionFileName;
-				memcpy(l_temp,e_pString+i+1,sizeof(char)*l_iNameLEngth);
-				l_temp[l_iNameLEngth] = '\0';
-				return l_temp;
+				if (e_pString[i] == '\\' || e_pString[i] == '/')
+				{
+					int l_iNameLEngth = l_iStringLen - i - 1 - l_iForStripExtensionFileName;
+					memcpy(l_temp, &e_pString[i + 1], sizeof(char)*l_iNameLEngth);
+					l_temp[l_iNameLEngth] = '\0';
+					l_strResult = l_temp;
+					return l_strResult;
+				}
 			}
+			int l_iNameLEngth = l_iStringLen - l_iForStripExtensionFileName;
+			memcpy(l_temp, e_pString, sizeof(char)*l_iNameLEngth);
+			l_temp[l_iNameLEngth] = '\0';
 		}
-		int l_iNameLEngth = l_iStringLen-l_iForStripExtensionFileName;
-		memcpy(l_temp,e_pString,sizeof(char)*l_iNameLEngth);
-		l_temp[l_iNameLEngth] ='\0';
-		std::string	l_strResult = l_temp;
+		l_strResult = l_temp;
 		return l_strResult;
 	}
 
@@ -1637,9 +1645,12 @@ namespace UT
 	std::string	WcharToChar(const wchar_t *e_strWchar)
 	{
 		size_t l_uiSize = wcslen(e_strWchar);
-		std::string	l_strResult(l_uiSize, 0);
-		wcstombs(&l_strResult[0], e_strWchar, l_uiSize);
-		return l_strResult;
+		char * dBuf = new char[l_uiSize+1];
+		dBuf[l_uiSize] = 0;
+		wcstombs(dBuf, e_strWchar, l_uiSize);
+		std::string wstrTo = dBuf;
+		delete dBuf;
+		return wstrTo;
 	}
 
 
@@ -1649,20 +1660,25 @@ namespace UT
 	{
 		size_t l_uiSize = (int)strlen(e_strString);
 		if (!e_strString || l_uiSize == 0) return std::wstring();
-		std::wstring wstrTo(l_uiSize, 0);
-		mbstowcs(&wstrTo[0], e_strString, l_uiSize);
+		wchar_t * dBuf = new wchar_t[l_uiSize+1];
+		dBuf[l_uiSize] = 0;
+		mbstowcs(dBuf, e_strString, l_uiSize);
+		std::wstring wstrTo = dBuf;
+		delete dBuf;
 		return wstrTo;
 	}
 #endif
 
 	std::string	WcharToChar(std::wstring e_strWchar)
 	{
-		return WcharToChar(e_strWchar.c_str());
+		auto l_str = e_strWchar.c_str();
+		return WcharToChar(l_str);
 	}
 
 	std::wstring	CharToWchar(std::string	e_strChar)
 	{
-		return CharToWchar(e_strChar.c_str());
+		auto l_str = e_strChar.c_str();
+		return CharToWchar(l_str);
 	}
 
 	int		GetLoopIndex(int e_iIndex,int e_iTotalCount)

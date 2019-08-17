@@ -172,7 +172,7 @@
             }
             double  l_dbValue = 0.f;
             int     l_dotStart = -1;
-            int l_iLength = wcslen(e_str);
+            int l_iLength = (int)wcslen(e_str);
             for( int i=0;i<l_iLength;++i )
             {
                 if( e_str[i] == L'.' )
@@ -222,12 +222,12 @@
 */
 	inline int _wtoi( wchar_t* str )
 	{
-		return _wtol(str);
+		return (int)_wtol(str);
 	}
 
 	inline int _wtoi( const wchar_t* str )
 	{
-		return _wtol((wchar_t*)str);
+		return (int)_wtol((wchar_t*)str);
 	}
 
 	inline	void	_itow(int val,wchar_t*e_strBuffer,int base)

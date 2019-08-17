@@ -96,9 +96,9 @@ namespace FATMING_CORE
 
 	void	cParticleEmiterWithShowPosition::InternalUpdate(float e_fElpaseTime)
 	{
-	    if(this->m_fPastTime<this->m_fStartTime)
+	    if( this->m_fPastTime < this->m_fStartTime )
 	        return;
-		if( this->IsAnimationLoop() )
+		if(this->IsAnimationLoop() )
 		{
 			PathUpdate(e_fElpaseTime);
 		}

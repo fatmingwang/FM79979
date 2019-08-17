@@ -30,11 +30,11 @@ namespace FATMING_CORE
 	cBlurShader::cBlurShader(const char*e_strVS,const char*e_strPS,POINT e_Resolution, const wchar_t*e_strName)
 	:cBaseShader(e_strVS,e_strPS,e_strName,true)
 	{
-		m_pFrameBuffer = new cFrameBuffer(e_Resolution.x,e_Resolution.y);
+		m_pFrameBuffer = new cFrameBuffer((int)e_Resolution.x, (int)e_Resolution.y);
 		m_uiResolutionLocation = GetUniFormLocationByName("BlurOffset");
 		m_uiPixelOffsetLocation = GetUniFormLocationByName("PixelOffset");
-		m_vResolutionOffset.x = 1.f/e_Resolution.x;
-		m_vResolutionOffset.y = 1.f/e_Resolution.y;
+		m_vResolutionOffset.x = 1.f/(float)e_Resolution.x;
+		m_vResolutionOffset.y = 1.f/ (float)e_Resolution.y;
 		//g_pAll2DShaderList->AddObjectNeglectExist(this);
 	}
 	cBlurShader::~cBlurShader()

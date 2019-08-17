@@ -77,7 +77,7 @@ namespace	FATMING_CORE
 		//make m_b2Touched is set to false.
 		virtual void				TouchSignalProcess(int e_iPosX, int e_iPosY, bool e_bTouch);
 		//virtual void    TouchTwoProcess(int e_iPosX,int e_iPosY,int e_iPos2X,int e_iPos2Y,bool e_bTouch1,bool e_bTouch2);
-		virtual	void				KeyPress(char e_char);
+		//virtual	void				KeyPress(char e_char);
 		virtual	void				KeyDown(char e_char);
 		virtual	void				KeyUp(char e_char);
 		static void					SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);

@@ -18,10 +18,10 @@ namespace FATMING_CORE
 	:cBaseShader(e_strVS,e_strPS,e_strShaderName,true)
 	{
 		MyGlErrorTest("cDownSampleBrightShader::cDownSampleBrightShader");
-		m_pFrameBuffer = new cFrameBuffer(e_DownSampleResolution.x,e_DownSampleResolution.y,false);
+		m_pFrameBuffer = new cFrameBuffer((int)e_DownSampleResolution.x, (int)e_DownSampleResolution.y,false);
 		m_uiPixelOffsetLocation = GetUniFormLocationByName("PixelOffset");
-		m_vResolutionOffset.x = 1.f/e_DownSampleResolution.x;
-		m_vResolutionOffset.y = 1.f/e_DownSampleResolution.y;
+		m_vResolutionOffset.x = 1.f/(float)e_DownSampleResolution.x;
+		m_vResolutionOffset.y = 1.f/ (float)e_DownSampleResolution.y;
 	}
 	cDownSampleBrightShader::~cDownSampleBrightShader()
 	{

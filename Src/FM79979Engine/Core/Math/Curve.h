@@ -81,7 +81,7 @@ namespace FATMING_CORE
 		//it could be add a offset to all points
 		void				AddOffsetToAllPoint(Vector3 e_vOffset);
 		//
-		void				Destroy();
+		virtual void		Destroy();
 		//if the distance of tje closest point is bigger than e_fOffsetDis,it will return -1
 		int					GetClosestPointIndex(Vector3 e_vPos,float e_fOffsetDis = 20.f);
 		//if points data is zero return vector::zero

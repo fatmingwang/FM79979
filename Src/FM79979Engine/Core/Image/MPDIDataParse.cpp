@@ -31,13 +31,13 @@ namespace FATMING_CORE
 		l_pData->vAngle.z = (float)atof(l_str);
 		l_str = strtok(0,",:");
 		//color
-		l_pData->vColor.x = atoi(l_str)/255.f;
+		l_pData->vColor.x = (float)atoi(l_str)/255.f;
 		l_str = strtok(0,",:");
-		l_pData->vColor.y = atoi(l_str)/255.f;
+		l_pData->vColor.y = (float)atoi(l_str)/255.f;
 		l_str = strtok(0,",:");
-		l_pData->vColor.z = atoi(l_str)/255.f;
+		l_pData->vColor.z = (float)atoi(l_str)/255.f;
 		l_str = strtok(0,",:");
-		l_pData->vColor.w = atoi(l_str)/255.f;
+		l_pData->vColor.w = (float)atoi(l_str)/255.f;
 		l_str = strtok(0,",:");
 		//image index
 		l_pData->iImageIndex = -1;
@@ -74,8 +74,8 @@ namespace FATMING_CORE
 		}
 		if( l_pPuzzleData )
 		{
-			e_pPosOffset->x -= l_pPuzzleData->OriginalSize.x/2.f;
-			e_pPosOffset->y -= l_pPuzzleData->OriginalSize.y/2.f;
+			e_pPosOffset->x -= (float)l_pPuzzleData->OriginalSize.x/2.f;
+			e_pPosOffset->y -= (float)l_pPuzzleData->OriginalSize.y/2.f;
 		}
 		return l_pData;
 	}
@@ -732,22 +732,22 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 						//Vector2 l_vScale( (l_sTexBehaviorDataWithImageIndexData.Size.x/l_pPuzzleData->Size.x),(l_sTexBehaviorDataWithImageIndexData.Size.y/l_pPuzzleData->Size.y) );
 						if( l_pPuzzleData )
 						{
-							l_vPos.x -= l_pPuzzleData->OriginalSize.x/2.f;
-							l_vPos.y -= l_pPuzzleData->OriginalSize.y/2.f;
+							l_vPos.x -= (float)l_pPuzzleData->OriginalSize.x/2.f;
+							l_vPos.y -= (float)l_pPuzzleData->OriginalSize.y/2.f;
 						}
 					}
 					if( l_vScale.x != -1 && l_pPuzzleImage  )
 					{
 						cPuzzleImageUnit*l_pPZUnit = l_pPuzzleImage->GetObject(l_sTexBehaviorDataWithImageIndexData.iImageIndex);
 						POINT	l_vCheckSize = l_pPZUnit->GetPuzzleData()->Size;
-						Vector2	l_vCompareScale(l_sTexBehaviorDataWithImageIndexData.Size.x/l_vCheckSize.x,l_sTexBehaviorDataWithImageIndexData.Size.y/l_vCheckSize.y);
+						Vector2	l_vCompareScale(l_sTexBehaviorDataWithImageIndexData.Size.x/ (float)l_vCheckSize.x,l_sTexBehaviorDataWithImageIndexData.Size.y/ (float)l_vCheckSize.y);
 						if( fabs(l_vScale.x - l_vCompareScale.x) > EPSIONAL )
 						{
-							l_sTexBehaviorDataWithImageIndexData.Size.x = l_vScale.x*l_vCheckSize.x;
+							l_sTexBehaviorDataWithImageIndexData.Size.x = l_vScale.x*(float)l_vCheckSize.x;
 						}
 						if( fabs(l_vScale.y - l_vCompareScale.y) > EPSIONAL )
 						{
-							l_sTexBehaviorDataWithImageIndexData.Size.y = l_vScale.y*l_vCheckSize.y;
+							l_sTexBehaviorDataWithImageIndexData.Size.y = l_vScale.y*(float)l_vCheckSize.y;
 						}
 					}
 					m_pCurrentCueToStartCurvesWithTime->AddPoint(l_vPos,l_fTime,l_sTexBehaviorDataWithImageIndexData.Size,l_sTexBehaviorDataWithImageIndexData.vAngle,l_sTexBehaviorDataWithImageIndexData.vColor,l_sTexBehaviorDataWithImageIndexData.iImageIndex,l_sTexBehaviorDataWithImageIndexData.bMirror,l_pPuzzleImage,false);

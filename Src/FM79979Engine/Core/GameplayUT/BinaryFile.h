@@ -63,7 +63,9 @@ namespace FATMING_CORE
 		void 				WriteToFile(unsigned long val );
 		//void 				WriteToFile(wchar_t val );
 		void 				WriteToFile(short val );
+#ifndef LINUX
 		void 				WriteToFile(long val );
+#endif
 		void 				WriteToFile(const char* val );
 		bool				WriteToFile(const wchar_t* val );
 		bool 				WriteToFile(const char*e_pData,size_t e_iLength);
