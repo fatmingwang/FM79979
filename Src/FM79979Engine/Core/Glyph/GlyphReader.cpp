@@ -101,7 +101,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
 		unsigned short	l_sMaxGlyph = 0;		    memcpy(&l_sMaxGlyph, l_pData, sizeof(unsigned short));	l_pData += sizeof(unsigned  short);
 		//http://opass.logdown.com/posts/743054-about-memory-alignment
 		//
-#if defined(ANDROID) || defined(IOS) || defined(WASM)
+#if defined(ANDROID) || defined(IOS) || defined(WASM) || defined(LINUX)
 		short*	l_psTranslatorTable = new short[l_sMaxGlyph + 1];	    memcpy(l_psTranslatorTable, l_pData, sizeof(short)*(l_sMaxGlyph + 1));	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
 #else
 		short*	l_psTranslatorTable = (short*)l_pData;	l_pData += (sizeof(short)*(l_sMaxGlyph + 1));
@@ -113,7 +113,7 @@ bool	GlyphReader::LoadFontDataFile(const char* strFileName)
         m_pTranslatorTable	= l_psTranslatorTable;
         m_dwNumGlyphs		= l_uiNumGlyphs;
 		//FMLog::LogWithFlag(UT::ComposeMsgByFormat("font wierd new start:NumGlyphs%d\n)",(int)m_dwNumGlyphs), CORE_LOG_FLAG);
-#if defined(ANDROID) || defined(IOS) || defined(WASM)
+#if defined(ANDROID) || defined(IOS) || defined(WASM) ||defined (LINUX)
 		m_pGlyphs = new FILE_GLYPH_ATTR[m_dwNumGlyphs];
 		memcpy(m_pGlyphs,l_pData,sizeof(FILE_GLYPH_ATTR)*m_dwNumGlyphs);
 #else

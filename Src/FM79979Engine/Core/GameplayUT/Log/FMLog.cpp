@@ -43,6 +43,7 @@ namespace FMLog
 			g_pFMLogFile = new FATMING_CORE::cBinaryFile();
 #ifdef WIN32
 			int	l_iValue = _mkdir("Log");
+#endif
 			//if(-1 != l_iValue)
 			{
 				std::wstring	l_strSystemTime = L"Log/log_";
@@ -51,16 +52,16 @@ namespace FMLog
 				std::string	l_strFileName = UT::WcharToChar(l_strSystemTime);
 				g_pFMLogFile->Writefile(l_strFileName.c_str(), false, false);
 			}
-#else
-			if (g_pFMLogFile)
-			{
-				g_pFMLogFile->Writefile("log.txt", false, false);
-				if (g_pFMLogFile->GetFile())
-					Log(L"create log.txt OK",true);
-				else
-					Log(L"create log.txt failed",true);
-			}
-#endif
+//#else
+//			if (g_pFMLogFile)
+//			{
+//				g_pFMLogFile->Writefile("log.txt", false, false);
+//				if (g_pFMLogFile->GetFile())
+//					Log(L"create log.txt OK",true);
+//				else
+//					Log(L"create log.txt failed",true);
+//			}
+//#endif
 		}
 	}
 

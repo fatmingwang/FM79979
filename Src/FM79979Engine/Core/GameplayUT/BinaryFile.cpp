@@ -2,8 +2,8 @@
 #include "BinaryFile.h"
 #ifdef _WIN32
 #include <io.h>
-#include <time.h>
 #endif
+#include <time.h>
 #include "../Android/nv_file.h"
 //p4 test
 namespace FATMING_CORE
@@ -371,14 +371,19 @@ namespace FATMING_CORE
 
 	void	cBinaryFile::CreateTimestamp()
 	{
-	#ifdef WIN32
+	//#ifdef WIN32
 			char buffer[32];
 			time_t ltime; time(&ltime);
+#ifdef WIN32
 			struct tm now; _localtime64_s(&now, &ltime);
 			strftime(buffer, 32, "[%H:%M:%S] ", &now);
+#else
+			auto now = localtime(&ltime);
+			strftime(buffer, 32, "[%H:%M:%S] ", now);
+#endif
 			int	l_iLength = (int)strlen(buffer);
 			NvFWrite( buffer, sizeof(char),l_iLength, m_pFile );
-	#endif //WIN32
+	//#endif //WIN32
 	}
 
 	bool	cBinaryFile::SetFilePos(int e_iPos)

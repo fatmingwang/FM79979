@@ -45,6 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
     <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfStl>libstdc++_static</UseOfStl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -94,6 +95,7 @@
     <ClCompile>
       <PreprocessorDefinitions>LINUX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>
@@ -783,6 +785,7 @@
     <ClCompile>
       <PreprocessorDefinitions>LINUX;DEBUG</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>

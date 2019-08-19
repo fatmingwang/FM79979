@@ -13,7 +13,8 @@
 #pragma warning( disable : 4995 )
 #include "../../Include/wglext.h"
 #elif defined(LINUX)
-#include <SDL2/SDL.h>
+//#include <SDL2/SDL.h>
+#include <sys/time.h>
 #elif defined(ANDROID)
 #include "jni.h"
 #include <sys/time.h>
