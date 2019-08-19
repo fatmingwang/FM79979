@@ -23,11 +23,11 @@ TYPDE_DEFINE_MARCO(NamedTypedObject);
 
 	bool	g_bDumpUsing = true;
 	//0,1,2 no use
-#if defined(WASM)// || defined(LINUX)
-	int		g_iDumpUsing = 1;
-#else
+//#if defined(WASM)// || defined(LINUX)
+//	int		g_iDumpUsing = 1;
+//#else
 	int		g_iDumpUsing = 0;
-#endif
+//#endif
 	NameIndexedCollection*g_pNameIndexedCollection = nullptr;
 	void	DebugResourceInfoAdd(NamedTypedObject*e_pNamedTypedObject)
 	{

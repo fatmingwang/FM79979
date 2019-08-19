@@ -1649,7 +1649,7 @@ namespace UT
 		dBuf[l_uiSize] = 0;
 		wcstombs(dBuf, e_strWchar, l_uiSize);
 		std::string wstrTo = dBuf;
-		delete dBuf;
+		delete[] dBuf;
 		return wstrTo;
 	}
 
@@ -1664,7 +1664,7 @@ namespace UT
 		dBuf[l_uiSize] = 0;
 		mbstowcs(dBuf, e_strString, l_uiSize);
 		std::wstring wstrTo = dBuf;
-		delete dBuf;
+		delete[] dBuf;
 		return wstrTo;
 	}
 #endif
