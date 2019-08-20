@@ -282,7 +282,7 @@ void NameIndexedCollection::Add( NamedTypedObject *pObjectToAdd )
 	}
 #endif
 	{
-		std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
+		//std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
 		s_Lists[iBucket].push_back(pObjectToAdd);
 	}
 }
@@ -296,7 +296,7 @@ void NameIndexedCollection::Remove( NamedTypedObject *pObjectToRemove )
     assert( pObjectToRemove );
 	size_t iBucket = ((size_t)pObjectToRemove)%DEFAULT_COLLECTION_HASHSIZE;
 	{
-		std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
+		//std::lock_guard<std::mutex> l_MultexHold(this->m_Mutex);
 		std::vector<NamedTypedObject *>*l_pList = &s_Lists[ iBucket ];
 		int	l_iSize = (int)l_pList->size();
 		//if here crush check g_pNameIndexedCollection is null and void	NamedTypedObject::DumpUnReleaseInfo() not call before all object is delete

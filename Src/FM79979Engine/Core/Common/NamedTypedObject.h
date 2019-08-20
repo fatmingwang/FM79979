@@ -7,7 +7,7 @@
 #include <list>
 #include <string.h>
 //#include "StringID.h"
-#include <mutex>
+//#include <mutex>
 //-----------------------------------------------------------------------------
 // Name: DEFINE_TYPE_INFO
 // Desc: Creates a type based on the NamedTypedObject class.  Use this in any
@@ -154,7 +154,7 @@ public:
     iterator        end();
 private:
     std::vector<NamedTypedObject *> s_Lists[ DEFAULT_COLLECTION_HASHSIZE ];     
-	std::mutex m_Mutex;
+	//std::mutex m_Mutex;
 };
 
 uint64	GetTimeStampID();
