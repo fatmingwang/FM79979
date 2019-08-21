@@ -138,18 +138,12 @@ namespace MPDI
 	private: System::Windows::Forms::ToolStripMenuItem^  x720ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  x480ToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  x1280ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x1024ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x1334ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x2208ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x2048ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x2732ToolStripMenuItem;
-private: System::Windows::Forms::ToolStripMenuItem^  x900ToolStripMenuItem;
-private:
-
-	//my
-	CoreWPF::Common::ColorPicker^m_pBGColorPicker;
-	private: System::Void ColorChanged(System::Object^  sender, System::EventArgs^  e);
-	MPDIUI^m_pMPDIUI;
+	private: System::Windows::Forms::ToolStripMenuItem^  x1024ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  x1334ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  x2208ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  x2048ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  x2732ToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  x900ToolStripMenuItem;
 	private: XMLDataEditor::XMLForm^  MPDIExtra_xmlNodeEditComponent;
 	private: System::Windows::Forms::FlowLayoutPanel^  flowLayoutPanel3;
 	private: System::Windows::Forms::TrackBar^  CurrentProgress_trackBar;
@@ -159,7 +153,13 @@ private:
 	public: System::Windows::Forms::CheckBox^  AllPlay_checkBox;
 	public: System::Windows::Forms::CheckBox^  AllCurveLoop_checkBox;
 	private: System::Windows::Forms::Panel^  BGColor_panel;
-		 cDotNEtMPDICamera^m_pMPDICamera;
+private:
+
+	//my
+	CoreWPF::Common::ColorPicker^m_pBGColorPicker;
+	private: System::Void ColorChanged(System::Object^  sender, System::EventArgs^  e);
+	MPDIUI^m_pMPDIUI;
+	cDotNEtMPDICamera^m_pMPDICamera;
 	public: void	Active(){wglMakeCurrent( m_HdcMV,m_HGLRCMV ); this->timer1->Enabled = true; }
 	//main form text
 	public: GCFORM::Form^	m_pForm;

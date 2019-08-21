@@ -3,13 +3,18 @@
 //#include "../../../Include/IL/il.h"
 #include "../../Core/GameplayUT/StringCompress.h"
 #include "DotMPDICamera.h"
-
+namespace FATMING_CORE
+{
+	extern bool	g_bSupportNonPowerOfTwoTexture;
+}
 namespace MPDI
 {
 
 //	MPDIEditor::MPDIEditor(GCFORM::TabControl^e_ptabControl,GCFORM::Form^e_pForm,String^e_strFileName)
 	MPDIEditor::MPDIEditor(String^e_strFileName)
 	{
+		g_bSupportNonPowerOfTwoTexture = true;
+		FMLog::Init();
 		m_pvBGColor = new Vector4(0, 0, 0, 1);
 		if (System::IO::File::Exists("Setup.xml"))
 		{
@@ -172,6 +177,7 @@ namespace MPDI
 		delete m_pMPDIUI;
 		if( m_pMPDIThread )
 			delete m_pMPDIThread;
+		FMLog::Destroy();
 	}
 
 
