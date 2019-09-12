@@ -148,6 +148,7 @@ namespace FATMING_CORE
 			m_TCForMouseUp.Update(e_fElpaseTime);
 			if( m_TCForMouseUp.bTragetTimrReached )
 			{
+				m_bEnable = true;
 				//make a time offset
 				if(m_eObjectMouseBehavior == eOMB_DOUBLU_CLICK_UP)
 				{
@@ -160,7 +161,6 @@ namespace FATMING_CORE
 				if( m_pClickSound )
 					m_pClickSound->Play(true);
 				this->Init();
-				m_bEnable = true;
 			}
 		}
 	}
