@@ -51,9 +51,9 @@ namespace XMLDataEditor
 			m_fFirstSgateTime = 0.f;
 			Main_tabControl->SelectedIndex = 3;
 			m_pGemPriceToProbability = new cGemPriceToProbability[Probability_tabControl->TabPages->Count];
-			array<GCFORM::ListBox^>^l_pListBox = { BadItemProbability_listBox,GoodItemProbability_listBox };
-			array<GCFORM::TextBox^>^l_pTextBox = { BadItemProbability_textBox,GoodItemProbability_textBox };
-			array<GCFORM::NumericUpDown^>^l_pNumericUpDown = { BadItemScore_numericUpDown,GoodItemScore_numericUpDown};
+			cli::array<GCFORM::ListBox^>^l_pListBox = { BadItemProbability_listBox,GoodItemProbability_listBox };
+			cli::array<GCFORM::TextBox^>^l_pTextBox = { BadItemProbability_textBox,GoodItemProbability_textBox };
+			cli::array<GCFORM::NumericUpDown^>^l_pNumericUpDown = { BadItemScore_numericUpDown,GoodItemScore_numericUpDown};
 			m_pDrawListBoxArray = l_pListBox;
 			m_pDrawTextBoxArray = l_pTextBox;
 			m_pDrawNumericUpDownArray = l_pNumericUpDown;
@@ -87,9 +87,9 @@ namespace XMLDataEditor
 		cOrthogonalCamera*	m_pOrthogonalCamera;
 		cLinerDataProcessor<Vector3>*m_pLinerData;
 		cGemPriceToProbability *m_pGemPriceToProbability;
-		array<GCFORM::ListBox^>^m_pDrawListBoxArray;
-		array<GCFORM::TextBox^>^m_pDrawTextBoxArray;
-		array<GCFORM::NumericUpDown^>^m_pDrawNumericUpDownArray;
+		cli::array<GCFORM::ListBox^>^m_pDrawListBoxArray;
+		cli::array<GCFORM::TextBox^>^m_pDrawTextBoxArray;
+		cli::array<GCFORM::NumericUpDown^>^m_pDrawNumericUpDownArray;
 		bool				m_bWaitParseFile;
 		int					m_iFirstStageMonsterCount;
 		int					m_iFirstStageHurdleAndBreakableCount;
@@ -1468,7 +1468,7 @@ private:System::Void DumpStatic()
 						 WARNING_MSG("file not exists!");
 						return;
 					 }
-					 if(m_pStageParser->ParseWithMyParse(DNCT::GcStringToChar(l_strTempFileName)))
+					 if(m_pStageParser->ParseWithMyParse(DNCT::GcStringToChar(l_strTempFileName).c_str()))
 					 {
 						 for(size_t i=0;i<m_pStageParser->m_GamePlayVector.size();++i)
 						 {
@@ -1898,7 +1898,7 @@ private: System::Void DoTimeToMoney_button_Click(System::Object^  sender, System
 			 TimeToGems_textBox->Text = "";
 			 String^l_strSource = TimeToMoneyList__textBox->Text;
 			 //String^l_strKey = DNCT::GetChanglineString();
-			 array<String^>^l_strArray = l_strSource->Split(L'\n');
+			 cli::array<String^>^l_strArray = l_strSource->Split(L'\n');
 			 String^l_strPrefix = MoneyXMLPrefix_textBox->Text;
 			 for each(String^l_str in l_strArray  )
 			 {

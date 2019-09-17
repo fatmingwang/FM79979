@@ -46,7 +46,7 @@ cChartWithName::cChartWithName()
 }
 cChartWithName::~cChartWithName()
 {
-	DELETE_VECTOR(m_LineDataVector,cChartWithName::sNameAndData*);
+	DELETE_VECTOR(m_LineDataVector);
 }
 
 void	cChartWithName::AddData(sNameAndData* e_pNameAndData)

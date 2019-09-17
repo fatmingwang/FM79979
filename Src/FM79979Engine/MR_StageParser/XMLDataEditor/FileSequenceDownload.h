@@ -226,7 +226,7 @@ namespace XMLDataEditor {
 					l_strDirectory = L"";
 				 }
 				 String^l_str79979;// = "cangjian,cangyun,change,chunyang,gaibang,mingjiao,qixiu,shaolin,tangmen,tiance,wanhua,kudu,wudu";
-				 array<String^>^l_strArray;
+				 cli::array<String^>^l_strArray;
 				 if( !l_str79979 )
 					 l_strArray = FolderName_textBox->Text->Split(L'\n');
 				 else

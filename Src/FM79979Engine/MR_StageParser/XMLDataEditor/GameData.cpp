@@ -383,14 +383,14 @@ sGameData::~sGameData()
 {
 	g_pGameData = nullptr;
 	SAFE_DELETE(m_pCampaign);
-	DELETE_VECTOR(m_MonsterInfoVector,sMonsterInfo*);
+	DELETE_VECTOR(m_MonsterInfoVector);
 	for(auto l_pData :m_MonsterShopDataMap)
 	{
 		auto l_pVector = l_pData.second;
-		DELETE_VECTOR((*l_pVector),sMonsterShop*);
+		DELETE_VECTOR((*l_pVector));
 		SAFE_DELETE(l_pVector);
 	}
-	DELETE_VECTOR(m_EnemyStatusVector,sEnemyStatus*);
+	DELETE_VECTOR(m_EnemyStatusVector);
 }
 
 bool	sGameData::IsEnemy(int e_iID)
@@ -456,7 +456,7 @@ sGameData::sCampaign::sCampaign()
 }
 sGameData::sCampaign::~sCampaign()
 {
-	DELETE_VECTOR(m_ChapterVector,sChapter*);
+	DELETE_VECTOR(m_ChapterVector);
 	m_AllRenderData.ClearLineDataVector();
 }
 void	sGameData::sCampaign::SetRenderData()

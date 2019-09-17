@@ -74,7 +74,7 @@ struct sStageOBXML
 	std::vector<sXmlNode*>				m_TriggerVector;
 	sStageOBXML(){}
 	~sStageOBXML(){ Clear(); }
-	void	Clear(){	DELETE_VECTOR(m_TriggerVector,const sXmlNode*);}
+	void	Clear(){	DELETE_VECTOR(m_TriggerVector);}
 };
 
 struct sGameNode:public sTrigger

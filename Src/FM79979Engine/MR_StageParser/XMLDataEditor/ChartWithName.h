@@ -107,7 +107,7 @@ public:
 	};
 	std::vector<int>					m_RenderIndex;
 	std::vector<sNameAndData*>			m_LineDataVector;
-	void								ClearLineDataVector(){ DELETE_VECTOR(m_LineDataVector,sNameAndData*); }
+	void								ClearLineDataVector(){ DELETE_VECTOR(m_LineDataVector); }
 	void								AddData(sNameAndData* e_pNameAndData);
 	void								Render();
 	Vector2								GetMaxValue(int e_iIndex);
