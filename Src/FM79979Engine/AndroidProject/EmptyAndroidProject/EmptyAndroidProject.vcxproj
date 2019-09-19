@@ -34,6 +34,7 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <AndroidTargetAPI>android-14</AndroidTargetAPI>

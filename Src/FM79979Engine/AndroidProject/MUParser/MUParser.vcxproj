@@ -57,6 +57,7 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Shipping|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>

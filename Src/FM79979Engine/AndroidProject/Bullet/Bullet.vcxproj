@@ -33,6 +33,7 @@
     <AndroidTargetAPI>android-19</AndroidTargetAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
     <AndroidMinAPI>android-19</AndroidMinAPI>
+    <AndroidStlType>gnustl_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
