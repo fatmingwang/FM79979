@@ -1638,6 +1638,52 @@ namespace UT
 //		MultiByteToWideChar(CP_UTF8, 0, e_strString, l_iSize, &wstrTo[0], size_needed);
 //		return wstrTo;
 //	}
+#elif defined(ANDROID)
+	//#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}
+	//#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
+	std::string	WcharToChar(const wchar_t *e_strWchar)
+	{
+		//fuck because old NDK has serious problem with wcstombs so copy char one by one
+		std::string l_strResult;
+		auto l_iSize = wcslen(e_strWchar);
+		l_strResult.resize(l_iSize);
+		for (auto i = 0; i < l_iSize; ++i)
+		{
+			l_strResult[i] = (char)e_strWchar[i];
+		}
+		return l_strResult;
+		//size_t l_uiSize = wcslen(e_strWchar);
+		//char * dBuf = new char[l_uiSize+1];
+		//dBuf[l_uiSize] = 0;
+		//wcstombs(dBuf, e_strWchar, l_uiSize);
+		//std::string wstrTo = dBuf;
+		//delete[] dBuf;
+		//return wstrTo;
+	}
+
+
+	//#define CHAR_TO_WCHAR(char_,wchar_t_){ mbstowcs(wchar_t_,char_,TEMP_SIZE);}
+	// Convert an UTF8 string to a wide Unicode String
+	std::wstring CharToWchar(const char* e_strString)
+	{
+		//fuck because old NDK has serious problem with wcstombs so copy char one by one
+		std::wstring l_strResult;
+		auto l_iSize = strlen(e_strString);
+		l_strResult.resize(l_iSize);
+		for (auto i = 0; i < l_iSize; ++i)
+		{
+			l_strResult[i] = e_strString[i];
+		}
+		return l_strResult;
+		//size_t l_uiSize = (int)strlen(e_strString);
+		//if (!e_strString || l_uiSize == 0) return std::wstring();
+		//wchar_t * dBuf = new wchar_t[l_uiSize+1];
+		//dBuf[l_uiSize] = 0;
+		//mbstowcs(dBuf, e_strString, l_uiSize);
+		//std::wstring wstrTo = dBuf;
+		//delete[] dBuf;
+		//return wstrTo;
+	}
 #else
 
 	//#define WCHAR_TO_CHAR(wchar_t_,char_){wcstombs(char_,wchar_t_,TEMP_SIZE);}

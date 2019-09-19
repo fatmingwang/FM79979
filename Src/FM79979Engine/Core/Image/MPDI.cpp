@@ -788,19 +788,16 @@ EXIT:
 //#else
 	std::wstring cMPDIList::FileToMPDIListName(const char*e_strFileName)
 	{
-		std::wstring	l_str;
-		wchar_t l_strTemp[TEMP_SIZE];
-		swprintf(l_strTemp,MAX_PATH,L"%ls_mpdi\0",UT::GetFileNameWithoutFullPath(UT::CharToWchar(e_strFileName).c_str()).c_str());
-		l_str = l_strTemp;
-        return l_str;
+		std::wstring l_wstr = UT::CharToWchar(e_strFileName);
+		std::wstring l_strFileName = UT::GetFileNameWithoutFullPath(l_wstr);
+		l_strFileName += L"_mpdi";
+        return l_strFileName;
 	}
     std::wstring cMPDIList::FileToMPDIListName(const wchar_t*e_strObjectName)
     {
-		std::wstring	l_str;
-		wchar_t l_strTemp[TEMP_SIZE];
-		swprintf(l_strTemp,MAX_PATH,L"%ls_mpdi\0",UT::GetFileNameWithoutFullPath((wchar_t*)e_strObjectName).c_str());
-		l_str = l_strTemp;
-        return l_str;
+		std::wstring l_wstr = UT::GetFileNameWithoutFullPath(e_strObjectName);
+		l_wstr += L"_mpdi";
+        return l_wstr;
     }
 //#endif
 //end namespace FATMING_CORE
