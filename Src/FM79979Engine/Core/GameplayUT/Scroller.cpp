@@ -158,7 +158,7 @@ namespace FATMING_CORE
 					l_vPos.y += (l_fObjectHeight + e_vObjectGap.y);
 					if (l_vPos.y + l_fObjectHeight >= m_vCollisionRange.w)
 					{
-						l_vPos.y = m_vCollisionRange.y;
+						l_vPos.y = m_vCollisionRange.y+ e_vStartOffsetPos.y;
 						float l_fObjectWidthAndGap = l_pClickMouseBehavior->GetCollisionRange().Width()+ e_vObjectGap.x;
 						l_vPos.x += l_fObjectWidthAndGap;
 						m_fTotalLength += l_fObjectWidthAndGap;
@@ -170,7 +170,7 @@ namespace FATMING_CORE
 					l_vPos.x += l_fObjectWidth + e_vObjectGap.x;
 					if (l_vPos.x + l_fObjectWidth >= m_vCollisionRange.z)
 					{
-						l_vPos.x = m_vCollisionRange.x;
+						l_vPos.x = m_vCollisionRange.x+ e_vStartOffsetPos.x;
 						float l_fObjectHeightAndGap = l_pClickMouseBehavior->GetCollisionRange().Height() + e_vObjectGap.y;
 						l_vPos.y += l_fObjectHeightAndGap;
 						m_fTotalLength += l_fObjectHeightAndGap;

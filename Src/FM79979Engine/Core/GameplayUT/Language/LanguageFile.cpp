@@ -48,6 +48,10 @@ namespace FATMING_CORE
 				if (m_KeyAndFileNameMap.find(l_strKey) != m_KeyAndFileNameMap.end())
 				{
 					UT::ErrorMsg(L"Error Key exists!", l_strName);
+					auto l_pValue = m_KeyAndFileNameMap[l_strKey];
+					SAFE_DELETE(l_pValue);
+					m_KeyAndFileNameMap.erase(l_strKey);
+					this->RemoveObject(l_strKey);
 				}
 				m_KeyAndFileNameMap.insert(std::make_pair(l_strKey, l_pstrFileName));
 			}
@@ -63,6 +67,27 @@ namespace FATMING_CORE
 		if (l_Iterator != m_KeyAndFileNameMap.end())
 			return l_Iterator->second->c_str();
 		return nullptr;
+	}
+
+	bool cXMLFileList::ParseKeyAndValueXMLFile()
+	{
+		bool l_bParseResult = true;
+		for(auto l_Iterator : m_KeyAndFileNameMap)
+		{
+			cKeyAndValueXML*l_pKeyAndValueXML = new cKeyAndValueXML();
+			if (!l_pKeyAndValueXML->ParseWithMyParse(l_Iterator.second->c_str()))
+			{
+				FMLog::Log(UT::ComposeMsgByFormat(L"file:%ls not exists", l_Iterator.second->c_str()).c_str(), true);
+				SAFE_DELETE(l_pKeyAndValueXML);
+				l_bParseResult = false;
+			}
+			else
+			{
+				l_pKeyAndValueXML->SetName(l_Iterator.first.c_str());
+				this->AddObjectNeglectExist(l_pKeyAndValueXML);
+			}
+		}
+		return l_bParseResult;
 	}
 
 
@@ -144,5 +169,47 @@ namespace FATMING_CORE
 		return nullptr;
 	}
 
-//end namespace FATMING_CORE
+	cXMLFileList * cLanguageFile::GetCurrentLanguageXMLFileList()
+	{
+		return this->GetObject(m_strCurrentLanguage.c_str());
+	}
+
+	bool cKeyAndValueXML::MyParse(TiXmlElement * e_pRoot)
+	{
+		DELETE_MAP(m_KeyAndValueMap);
+		//auto l_strXMLName = e_pRoot->Value(L"Name");
+		//if (l_strXMLName)
+		//	this->SetName(l_strXMLName);
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pRoot)
+			PARSE_ELEMENT_START(e_pRoot)
+#ifdef DEBUG
+			if (m_KeyAndValueMap.find(l_strName) != m_KeyAndValueMap.end())
+			{
+				UT::ErrorMsgByFormat(L"Name:%ls exists!", l_strName);
+			}
+#endif
+			m_KeyAndValueMap[l_strName] = new std::wstring(l_strValue);
+			TO_NEXT_VALUE
+		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(e_pRoot)
+		return true;
+	}
+
+	cKeyAndValueXML::cKeyAndValueXML()
+	{
+	}
+
+	cKeyAndValueXML::~cKeyAndValueXML()
+	{
+		DELETE_MAP(m_KeyAndValueMap);
+	}
+
+	const wchar_t * cKeyAndValueXML::GetValueByKey(const wchar_t * e_strKey)
+	{
+		auto l_Iterator = m_KeyAndValueMap.find(e_strKey);
+		if (l_Iterator != m_KeyAndValueMap.end())
+			return l_Iterator->second->c_str();
+		return nullptr;
+	}
+
+	//end namespace FATMING_CORE
 }

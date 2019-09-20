@@ -28,6 +28,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize)
 	{
+		m_iDrawCount = 0;
 		m_bTextChanged = true;
 		m_iVertexBufferCount = e_iVertexBufferSize;
 		m_pvVertexBuffer = 0;

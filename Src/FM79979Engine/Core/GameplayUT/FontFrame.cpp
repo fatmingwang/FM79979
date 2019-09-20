@@ -331,7 +331,7 @@ namespace FATMING_CORE
 			if( this->m_bCollided )
 				this->m_pGlyphFontRender->SetFontColor(m_vPressedColor);
 			else
-				m_pGlyphFontRender->SetFontColor(Vector4::One);
+				m_pGlyphFontRender->SetFontColor(m_vFontColor);
 		}
 		Vector3	l_vPos = this->GetWorldPosition();
 		//Vector2	l_vRenderSize = this->m_vRenderSize;
