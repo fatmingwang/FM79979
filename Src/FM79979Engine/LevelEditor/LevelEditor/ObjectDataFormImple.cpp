@@ -585,7 +585,7 @@ namespace LevelEditor
 							continue;
 						}
 						
-						if(cGameApp::m_spImageParser->Parse(DNCT::GcStringToChar(l_strName)))
+						if(cGameApp::m_spImageParser->GetPuzzleImageByFileName(DNCT::GcStringToWchar(l_strName).c_str()))
 						{
 							ImageList_treeView->Nodes->Add(DNCT::PIToTreeNode(dynamic_cast<cPuzzleImage*>(cGameApp::m_spImageParser->GetLastObject())));
 						}
