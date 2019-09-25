@@ -367,6 +367,11 @@ namespace FATMING_CORE
 #endif
 			}
 			else
+			COMPARE_NAME("ImageDistance")
+			{
+			//bool	l_bGeneratePuzzleimageUnit = atoi(l_str)?true:false;
+			}
+			else
 			COMPARE_NAME("GeneratePuzzleimageUnit")
 			{
 				//bool	l_bGeneratePuzzleimageUnit = atoi(l_str)?true:false;

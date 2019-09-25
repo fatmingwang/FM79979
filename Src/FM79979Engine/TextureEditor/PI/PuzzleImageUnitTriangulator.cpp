@@ -193,7 +193,7 @@ void cPuzzleImageUnitTriangulator::Render()
 {
 	if (m_bWaitForGenerateTriangle)
 		return;
-	if (!m_pTargetImage)
+	if (!m_pTargetImage ||!m_pReferenceImage)
 		return;
 
 	Vector4 l_vBorder(0,0, (float)m_pReferenceImage->GetWidth(), (float)m_pReferenceImage->GetHeight());
@@ -517,6 +517,8 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 	for (int i = 0; i < l_iCount; i++)
 	{
 		cPuzzleImageUnitTriangulator*l_pPuzzleImageUnitTriangulator = this->GetObject(i);
+		if (!l_pPuzzleImageUnitTriangulator->m_pReferenceImage)
+			continue;
 		auto l_mat = l_pPuzzleImageUnitTriangulator->m_pReferenceImage->GetWorldTransform();
 		//auto l_OffsetPos = l_pPuzzleImageUnitTriangulator->m_pReferenceImage->GetOffsetPos();
 		//Vector3 l_vPos = l_mat.GetTranslation();
@@ -532,6 +534,8 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 		for (int j = i+1; j < l_iCount; j++)
 		{
 			cPuzzleImageUnitTriangulator*l_pPuzzleImageUnitTriangulator2 = this->GetObject(j);
+			if (!l_pPuzzleImageUnitTriangulator2->m_pReferenceImage)
+				continue;
 			if (l_pPuzzleImageUnitTriangulator->IsCollided(l_pPuzzleImageUnitTriangulator2->m_pbtConvexHullShape))
 			{
 				l_pPuzzleImageUnitTriangulator->m_bCollided = true;

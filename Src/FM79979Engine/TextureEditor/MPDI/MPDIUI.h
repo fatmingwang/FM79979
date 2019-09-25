@@ -12,12 +12,6 @@ using namespace System::Windows::Forms::Integration;
 
 namespace MPDI 
 {
-	String^CueToStartCurveWithTimeDataCheck(cCueToStartCurveWithTime*e_pCueToStartCurveWithTime);
-	String^MultiPathDynamicImageDataCheck(cMultiPathDynamicImage*e_pMultiPathDynamicImage);
-	String^MPDIListDataCheck(cMPDIList*e_pMPDIList);
-	eAnimationEvent	IntToAnimationEvent(int e_iIndex);
-	char*	eAnimationEventToAnimationEventString(eAnimationEvent e_eAnimationEvent);
-	void	RenderHintPoint(cCueToStartCurveWithTime*e_pObject,bool e_bShowBorder);
 	public ref class MPDIUI : public System::Windows::Forms::UserControl
 	{
 	public:
@@ -1701,4 +1695,11 @@ public: System::Void PathNode_listBox_KeyUp(System::Object^  sender, System::Win
 			 }
 		}
 };
+//end namespace 
+String^CueToStartCurveWithTimeDataCheck(cCueToStartCurveWithTime*e_pCueToStartCurveWithTime);
+String^MultiPathDynamicImageDataCheck(cMultiPathDynamicImage*e_pMultiPathDynamicImage);
+String^MPDIListDataCheck(cMPDIList*e_pMPDIList);
+eAnimationEvent	IntToAnimationEvent(int e_iIndex);
+char*	eAnimationEventToAnimationEventString(eAnimationEvent e_eAnimationEvent);
+void	RenderHintPoint(cCueToStartCurveWithTime*e_pObject, bool e_bShowBorder);
 }

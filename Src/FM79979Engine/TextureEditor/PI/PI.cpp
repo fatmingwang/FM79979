@@ -318,9 +318,18 @@ namespace PI
 					l_pUIImage->SetRightDownStripOffPos(l_RightDown);
 					POINT	l_OriginalSize = {l_pBitMap->Width,l_pBitMap->Height};
 					l_pUIImage->SetOriginalImageSize(l_OriginalSize);
-					m_pImageomposerIRM->AddObject(l_pUIImage);
+					bool l_bAddResult = m_pImageomposerIRM->AddObject(l_pUIImage);
+					assert(l_bAddResult&&"same name!?");
 					l_pUIImage->SetPos(Vector3(l_fPosX,l_fPosY,0.f));
-					this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
+					//fuck
+					if (l_PIUnitChildVector.GetObjectIndexByName(l_pUIImage->GetName()) == -1)
+					{
+						this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
+					}
+					else
+					{
+						int a = 0;
+					}
 					//if(l_pPuzzleData->ShowPosInPI.x!=0||l_pPuzzleData->ShowPosInPI.y!=0)
 					{
 						 l_pUIImage->SetPos(Vector3((float)l_pPuzzleData->ShowPosInPI.x-l_pUIImage->GetOffsetPos()->x,
@@ -349,7 +358,6 @@ namespace PI
 		 }
 		 ImageWidth_numericUpDown->Value = e_pPuzzleImage->GetWidth();
 		 ImageHeight_numericUpDown->Value = e_pPuzzleImage->GetHeight();
-		 SAFE_DELETE(e_pPuzzleImage);
 		 
 		 for(int i=0;i<l_PIUnitChildVector.Count();++i)
 		 {
@@ -372,8 +380,10 @@ namespace PI
 			 std::vector<NamedTypedObject*>*l_pList = m_pImageomposerIRM->GetList();
 			 int	l_iIndex = m_pImageomposerIRM->GetObjectIndexByPointer(l_pUIImage);
 			 (*l_pList)[l_iIndex] = l_pNewUIImage;
+			 this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pNewUIImage);
 			 delete l_pUIImage;
 		 }
+		 SAFE_DELETE(e_pPuzzleImage);
 		 return true;
 	}
 
@@ -442,6 +452,21 @@ namespace PI
 			 }
 			 else
 				m_pImageomposerIRM->RemoveObjectWithoutDelete(l_pPuzzleImage->GetName());
+		 }
+		 if (l_pPuzzleImage)
+		 {
+			 cNodeISAX	l_XMLParserOnlyForImagDistance;
+			 if (l_XMLParserOnlyForImagDistance.ParseDataIntoXMLNode(l_strFileName.c_str()))
+			 {
+				 auto l_pRoot = l_XMLParserOnlyForImagDistance.GetRootElement();
+				 auto l_strImageDistance = l_pRoot->Attribute(L"ImageDistance");
+				 if (l_strImageDistance)
+				 {
+					 auto l_Dis = GetPoint(l_strImageDistance);
+					 ImageDistanceX_numericUpDown->Value = l_Dis.x;
+					 ImageDistanceY_numericUpDown->Value = l_Dis.y;
+				 }
+			 }
 		 }
 		 return l_pPuzzleImage;
 	}
@@ -559,6 +584,8 @@ namespace PI
 				}
 			    l_XMLWriter.AddAttribute("Count",m_pImageomposerIRM->Count());
 			    l_XMLWriter.AddAttribute("GeneratePuzzleimageUnit","0");
+				POINT	l_ImageDis = { (int)ImageDistanceX_numericUpDown->Value,(int)ImageDistanceY_numericUpDown->Value };
+				l_XMLWriter.AddAttribute("ImageDistance", ValueToString(l_ImageDis));
 			    //current only support png file
 			    for( int i=0;i<AllImage_listBox->Items->Count;++i )
 			    {

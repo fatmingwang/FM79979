@@ -157,7 +157,7 @@ namespace FATMING_CORE
 		const WCHAR*l_strValue = e_pTiXmlElement->Attribute(L"FileName");
 		std::string	l_strFullName = this->m_strCurrentDirectory;
 		l_strFullName += UT::WcharToChar(l_strValue);
-		if(!cGameApp::m_spImageParser->Parse(l_strFullName.c_str()))
+		if(!cGameApp::m_spImageParser->GetPuzzleImageByFileName(l_strFullName.c_str()))
 		{
 			UT::ErrorMsg(l_strFullName.c_str(),"file parse failed!");
 		}
