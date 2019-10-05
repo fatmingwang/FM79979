@@ -206,10 +206,10 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spJNIUtilData);
 #endif
 		SystemErrorCheck();
-		FMLog::Destroy();
 		//SAFE_DELETE(m_spThreadPool);
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
 		NamedTypedObject::DumpUnReleaseInfo();
+		FMLog::Destroy();
 	}
 
 	void	cGameApp::Init()

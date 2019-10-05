@@ -41,6 +41,7 @@ namespace FMLog
 		{
 			Log(L"log file",true);
 			g_pFMLogFile = new FATMING_CORE::cBinaryFile();
+			g_pFMLogFile->SetName(L"FMLogFile");
 #ifdef WIN32
 			int	l_iValue = _mkdir("Log");
 #endif
