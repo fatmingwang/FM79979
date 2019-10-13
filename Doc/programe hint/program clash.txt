@@ -1,2 +1,16 @@
 if clash happen in the STL(vector or map...)
 check common runtime support is NO
+
+
+
+
+
+
+if .net program crash no reason
+try go to exception settings 
+check common runtime and make
+
+
+continue when unhamdled in user code.
+
+this step will download a lot symbo from MS,it takes some time
