@@ -53,6 +53,7 @@ namespace FATMING_CORE
 		const wchar_t*		GetFileName(const wchar_t*e_strKey);
 		//
 		cXMLFileList*		GetCurrentLanguageXMLFileList();
+		cKeyAndValueXML*	GetCurrentLanguageXMLFileListKeyAndValueXMLByName(const wchar_t*e_strFileName);
 	};
 
 	//cLanguageFile l_LanguageFile("Language/Language.xml");

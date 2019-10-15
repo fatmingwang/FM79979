@@ -174,6 +174,16 @@ namespace FATMING_CORE
 		return this->GetObject(m_strCurrentLanguage.c_str());
 	}
 
+	cKeyAndValueXML * cLanguageFile::GetCurrentLanguageXMLFileListKeyAndValueXMLByName(const wchar_t * e_strFileName)
+	{
+		auto l_pCurrentLanguageXMLFileList = GetCurrentLanguageXMLFileList();
+		if (l_pCurrentLanguageXMLFileList)
+		{
+			return l_pCurrentLanguageXMLFileList->GetObject(e_strFileName);
+		}
+		return nullptr;
+	}
+
 	bool cKeyAndValueXML::MyParse(TiXmlElement * e_pRoot)
 	{
 		DELETE_MAP(m_KeyAndValueMap);
