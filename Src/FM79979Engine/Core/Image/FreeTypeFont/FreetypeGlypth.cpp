@@ -120,8 +120,9 @@ namespace FATMING_CORE
 			{
 				l_iLen = m_iBufferLength;
 			}
-			float	l_fXOffset = 0.f;
-			float	l_fYOffset = 0.f;
+			auto	l_pFirstGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_pString[0]);
+			float	l_fXOffset = 0;
+			float	l_fYOffset = -l_pFirstGlyph->Offset.y;
 			float	l_fDrawWidth = 0.f;
 			float	l_fDrawHeight = (float)m_pDynamicFontTexture->m_iFontSize;
 			int	l_iAliveIndex = 0;
@@ -142,21 +143,26 @@ namespace FATMING_CORE
 						continue;
 					float   l_fCharacterWidth = l_pGlyph->Size.x*m_fScale;
 					float   l_fCharacterHeight = l_pGlyph->Size.y*m_fScale;
-					l_fXOffset += l_pGlyph->Offset.x;
+					float	l_fGlyphYOffset = 0.f;
+					//if (i != 0)
+					{
+						l_fXOffset += l_pGlyph->Offset.x;
+						l_fGlyphYOffset = l_pGlyph->Offset.y;
+					}
 					//pos
-					*l_pfVertexData = l_fXOffset;												++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_pGlyph->Offset.y;							++l_pfVertexData;
-					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;							++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_pGlyph->Offset.y;							++l_pfVertexData;
-					*l_pfVertexData = l_fXOffset;												++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_pGlyph->Offset.y;		++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset;											++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fGlyphYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;						++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fGlyphYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset;											++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_fGlyphYOffset;	++l_pfVertexData;
 
-					*l_pfVertexData = l_fXOffset;												++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_pGlyph->Offset.y;		++l_pfVertexData;
-					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;							++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_pGlyph->Offset.y;							++l_pfVertexData;
-					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;							++l_pfVertexData;
-					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_pGlyph->Offset.y;
+					*l_pfVertexData = l_fXOffset;											++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_fGlyphYOffset;	++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;						++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fGlyphYOffset;							++l_pfVertexData;
+					*l_pfVertexData = l_fXOffset + l_fCharacterWidth;						++l_pfVertexData;
+					*l_pfVertexData = l_fYOffset + l_fCharacterHeight + l_fGlyphYOffset;
 
 					//UV
 					*l_pfTextData = l_pGlyph->vUV.x;						++l_pfTextData;
