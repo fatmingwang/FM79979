@@ -161,7 +161,8 @@ namespace FATMING_CORE
 			[e_fElpaseTime](Frame*e_pFrame)
 			{
 				//cRenderObject*l_pRenderObject = e_pFrame;
-				e_pFrame->Update(e_fElpaseTime);
+				if(!e_pFrame->IsIgnoreChildrenUpdate())
+					e_pFrame->Update(e_fElpaseTime);
 			}
 			,this);
 		//fuck
@@ -181,7 +182,8 @@ namespace FATMING_CORE
 		RenderObjectGoThoughAllFrameFromaFirstToEnd(
 			[](Frame*e_pFrame)
 			{
-				e_pFrame->Render(); 
+				if(e_pFrame->IsVisible())
+					e_pFrame->Render(); 
 			}
 			,this);
 	}
