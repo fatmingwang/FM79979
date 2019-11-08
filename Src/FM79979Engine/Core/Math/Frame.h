@@ -86,6 +86,9 @@ public:
 
 	virtual	void				Update(float e_fElpaseTime){}
 	virtual	void				Render(){}
+	//for scissor viewport end or post effect or something else...
+	//take a look at cRenderObject::RenderNodes
+	virtual	void				EndRender() {}
 	//virtual	void				AllUpdate(float e_fElpaseTime);
 	//virtual	void				AllRender();
 

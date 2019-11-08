@@ -779,14 +779,17 @@ namespace FATMING_CORE
 
 	bool    cCueToStartCurveWithTime::Collide(int e_iPosX, int e_iPosY)
 	{
-		int l_iTargetIndex = CalculateCurrentPointIndex();
-		Vector2 l_vSize = this->m_PointDataList[l_iTargetIndex]->Size;
-		Vector3	l_vPos = GetPos();
-		return CollideRectWithTransform(e_iPosX, e_iPosY,
-			(int)(l_vPos.x),
-			(int)(l_vPos.y),
-			this->m_PointDataList[l_iTargetIndex]->vAngle,
-			(int)l_vSize.x, (int)l_vSize.y);
+		auto l_pWorldBound = this->GetWorldBound();
+		if(l_pWorldBound)
+			return l_pWorldBound->Collide(e_iPosX, e_iPosY);
+		else
+		if (m_pCurrentPointData)
+		{
+			Vector2 l_vSize = m_pCurrentPointData->Size;
+			Vector3	l_vPos = GetPos();
+			return CollideRectWithTransform(e_iPosX, e_iPosY,(int)(l_vPos.x),(int)(l_vPos.y),m_pCurrentPointData->vAngle,(int)l_vSize.x, (int)l_vSize.y);
+		}
+		return false;
 	}
 
 	bool	cCueToStartCurveWithTime::Collide(Vector4 e_vViewRect)

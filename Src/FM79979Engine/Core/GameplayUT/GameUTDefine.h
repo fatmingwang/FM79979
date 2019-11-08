@@ -17,6 +17,7 @@ enum    eOrientation
 {
     eO_HORIZONTAL = 0,//x
     eO_VERTICAL,//y
+	eO_BOTH,//x,y
     eO_NONE,
 };
 

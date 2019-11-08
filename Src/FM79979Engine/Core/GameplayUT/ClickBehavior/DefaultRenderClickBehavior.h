@@ -6,7 +6,9 @@ namespace FATMING_CORE
 {
 	class cRenderObject;
 
-
+	//5/Nov/2019 deprecated
+	//please use cMPDIToGameObject instead of this
+	//because this one keep render object and  cClickBehavior for 2 things
 	class cDefaultRenderClickBehavior:public cClickBehavior
 	{
 		virtual	void	MouseLeave();
@@ -30,5 +32,5 @@ namespace FATMING_CORE
 		void				SetRenderObject(cRenderObject*e_pRenderObject);
 		void				SetEnableAndImageStatus(bool e_bEnable,Vector4 e_vColor);//if Color alpha is 0 set visible to false else to true
 	};
-//end namespace FATMING_CORE
+	//end namespace FATMING_CORE
 }

@@ -152,6 +152,8 @@ namespace FATMING_CORE
 			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
 			}
+			if (e_pFrame->IsVisible())
+				e_pFrame->EndRender();
 		}
 	}
 
@@ -161,7 +163,7 @@ namespace FATMING_CORE
 			[e_fElpaseTime](Frame*e_pFrame)
 			{
 				//cRenderObject*l_pRenderObject = e_pFrame;
-				if(!e_pFrame->IsIgnoreChildrenUpdate())
+				//if(!e_pFrame->IsIgnoreChildrenUpdate())
 					e_pFrame->Update(e_fElpaseTime);
 			}
 			,this);
@@ -219,6 +221,16 @@ namespace FATMING_CORE
 		//cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
 		//if(l_pFirstChild)
 		//	l_pFirstChild->ForAllNodesDebugRender();
+	}
+
+	bool	cRenderObject::	Collide(int e_iPosX, int e_iPosY)
+	{
+		auto l_pBound = GenerateBound();
+		if (l_pBound)
+		{
+			return l_pBound->Collide(e_iPosX,e_iPosY);
+		}
+		return false;
 	}
 
 }

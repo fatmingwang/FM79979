@@ -506,7 +506,7 @@ namespace UT
 				(lstrlen((LPCTSTR)lpMsgBuf)+lstrlen((LPCTSTR)L"Error")+40)*sizeof(TCHAR)); 
 			StringCchPrintf((LPTSTR)lpDisplayBuf, 
 				LocalSize(lpDisplayBuf),
-				TEXT("%s failed with error %d: %s"), 
+				TEXT("%ls failed with error %d: %ls"), 
 				L"Error", dw, lpMsgBuf);
 			FMLog::LogWithFlag((const wchar_t*)lpDisplayBuf, CORE_LOG_FLAG);
 			//MessageBox(nullptr, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK); 
