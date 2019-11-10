@@ -54,7 +54,8 @@ namespace FATMING_CORE
 		//
 		virtual	void	Destroy(){}
 		virtual	void	SetColor(Vector4 e_vColor){}
-		virtual const cBound*	GenerateBound(){ return nullptr; }
+		virtual const	cBound*	GenerateBound(){ return nullptr; }
+		virtual bool	Collide(int e_iPosX, int e_iPosY);
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;
 		//virtual	int		GetHeight() = 0;
