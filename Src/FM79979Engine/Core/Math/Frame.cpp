@@ -133,6 +133,7 @@ void	Frame::DestoryWithChildren(Frame*e_pFrame)
 	{
 		e_pFrame->m_bDestroyConnectionWhileDestroy = false;
 		DestoryWithChildren(e_pFrame->GetNextSibling());
+		//??why,because MPDI...MPDI will kill child by itself.
 		if( !e_pFrame->IsIgnoreChildrenUpdate() )
 		{
 			DestoryWithChildren(e_pFrame->GetFirstChild());
@@ -577,18 +578,25 @@ void	Frame::DumpDebugInfo()
 {
 	Frame*l_pParentNode = GetParent();
 	int	l_iLevel = 0;
+	std::wstring l_strDebugInfo;
 	while( l_pParentNode )
 	{
-		FMLog::LogWithFlag(L"-----",false,false);
+		l_strDebugInfo += L"-----";
+		//FMLog::LogWithFlag(L"-----",false,false);
 		l_pParentNode = l_pParentNode->GetParent();
 		l_iLevel++;
 	}
-	WCHAR	l_str[MAX_PATH];
-	swprintf(l_str,MAX_PATH,L"Name:%ls\n",GetName());
-	FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
-	if( GetFirstChild() )
+	//WCHAR	l_str[MAX_PATH];
+	//swprintf(l_str,MAX_PATH,L"Name:%ls\n",GetName());
+	//if (this->m_bVisible)
 	{
-		GetFirstChild()->DumpDebugInfo();
+		l_strDebugInfo += GetName();
+		//FMLog::LogWithFlag(l_str, CORE_LOG_FLAG);
+		FMLog::Log(l_strDebugInfo.c_str(), false);
+		if (GetFirstChild())
+		{
+			GetFirstChild()->DumpDebugInfo();
+		}
 	}
 
 	if( GetNextSibling() )

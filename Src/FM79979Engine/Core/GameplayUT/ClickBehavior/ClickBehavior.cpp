@@ -67,6 +67,8 @@ namespace FATMING_CORE
 
 	bool	cClickBehavior::Collide(int e_iPosX,int e_iPosY)
 	{
+		if (!this->m_bEnable)
+			return false;
 		if( m_bAllowDrag && m_bCollided )
 			return true;
 		m_bCollided = false;
@@ -299,10 +301,14 @@ namespace FATMING_CORE
 
     void    cClickBehaviorGroup::Update(float e_fElpaseTime)
 	{
-		int	l_uiSize = Count();
-		for( int i=0;i<l_uiSize;++i )
+		cClickBehavior::Update(e_fElpaseTime);
+		if (m_eObjectMouseBehavior == eOMB_NONE)
 		{
-			(*this)[i]->Update(e_fElpaseTime);
+			int	l_uiSize = Count();
+			for (int i = 0; i < l_uiSize; ++i)
+			{
+				(*this)[i]->Update(e_fElpaseTime);
+			}
 		}
 	}
 

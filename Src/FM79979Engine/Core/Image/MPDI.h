@@ -78,20 +78,6 @@ namespace FATMING_CORE
 		//
 		virtual	void	Merge(cMultiPathDynamicImage*e_pMultiPathDynamicImage);
 		//
-		//Vector3			GetPos(){return m_vPos;}
-		//Vector3			GetPosByImageCenter();
-		//the animation is possible not in the original position(0,0),so we minus the start position(m_vOffsetPos),let it show at the position as we expected.
-		//this one is set image render by left up of image,if u would like to render by image center call SetPosByImageCenter.
-		//virtual	void	SetPos(Vector3 e_vPos);
-		//virtual	void	SetTransform(cMatrix44 e_mat);
-		//virtual	void	SetTransformByImageCenter(cMatrix44 e_mat);
-		//cMatrix44		GetTransform();
-		//cMatrix44		GetTransformByImageCenter();
-		////a scale value to change size at the game
-		////to effect children's size
-		//float			GetScale(){ return m_fScale; }
-		//
-		//cMatrix44		GetMatrix();
 		virtual void    SetColor(Vector4 e_vColor)override;
 		void            SetColorScale(Vector4 e_vColor);
 		void            SetCurrentColor(Vector4 e_vColor);
@@ -132,6 +118,7 @@ namespace FATMING_CORE
 		void			SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset);
 		void			SetRotationAnglePosOffsetWithDrawSize(bool e_bOn);
 		float			GetDrawRadiusWithoutImageOffset() {return m_fDrawRadiusWithoutImageOffset;}
+		virtual POINT	GetSize()override;
 	};
 
 	typedef cMultiPathDynamicImage	cMPDI;

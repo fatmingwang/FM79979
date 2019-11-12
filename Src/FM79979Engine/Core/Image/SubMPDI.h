@@ -137,6 +137,7 @@ namespace FATMING_CORE
 		//for editor if this PI is not in using return false
 		bool					IsUsingPuzzleImage(cPuzzleImage*e_pPI);
 		virtual const cBound*	GenerateBound()override;
+		virtual POINT			GetSize()override;
 		//
 		//cMatrix44				GetRenderMatrix(){return m_matRenderMatrix;}
 		static					cCueToStartCurveWithTime*		GetMe(TiXmlElement*e_pElement,bool e_bClone = true);

@@ -122,7 +122,7 @@ namespace FATMING_CORE
 			}
 			auto	l_pFirstGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_pString[0]);
 			float	l_fXOffset = 0;
-			float	l_fYOffset = -l_pFirstGlyph->Offset.y;
+			float	l_fYOffset = (float)-l_pFirstGlyph->Offset.y;
 			float	l_fDrawWidth = 0.f;
 			float	l_fDrawHeight = (float)m_pDynamicFontTexture->m_iFontSize;
 			int	l_iAliveIndex = 0;
@@ -147,7 +147,7 @@ namespace FATMING_CORE
 					//if (i != 0)
 					{
 						l_fXOffset += l_pGlyph->Offset.x;
-						l_fGlyphYOffset = l_pGlyph->Offset.y;
+						l_fGlyphYOffset = (float)l_pGlyph->Offset.y;
 					}
 					//pos
 					*l_pfVertexData = l_fXOffset;											++l_pfVertexData;

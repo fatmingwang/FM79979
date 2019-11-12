@@ -16,6 +16,7 @@ namespace FATMING_CORE
 		//if warning is appear override as below
 		//virtual	void	SetTransformInternalData(){ cRenderObject::SetTransformInternalData(); }
 		void	RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		void	UpdateObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame*e_pFrame);
 		void	DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 		//void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 	protected:
@@ -39,6 +40,7 @@ namespace FATMING_CORE
 		float			GetDegreeAngle();
 		//radian not degree.
 		Vector3			GetRotation(){ return m_vRotation; }
+		virtual POINT	GetSize(){POINT l_Size = { 0,0 };return l_Size;}
 		void			SetAngle(float e_fAngle);
 		void			SetAngle(Vector3 e_vAngle);
 		virtual	void	Init(){}

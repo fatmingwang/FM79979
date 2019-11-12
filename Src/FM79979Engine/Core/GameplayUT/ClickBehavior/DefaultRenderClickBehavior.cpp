@@ -105,11 +105,17 @@ namespace FATMING_CORE
 			auto l_pBond = m_pRenderObject->GetWorldBound();
 			if( l_pBond )
 			{
-				m_bCollided = l_pBond->Collide(e_iPosX,e_iPosY);
-				return m_bCollided;
+				m_bCollided = l_pBond->Collide(e_iPosX, e_iPosY);
 			}
+			else
+			{
+				m_bCollided = m_pRenderObject->Collide(e_iPosX,e_iPosY);
+			}
+			if(m_bCollided)
+				return m_bCollided;
 		}
-		return cClickBehavior::Collide(e_iPosX,e_iPosY);
+		m_bCollided = cClickBehavior::Collide(e_iPosX, e_iPosY);
+		return m_bCollided;
 	}
 
 	void	cDefaultRenderClickBehavior::Update(float e_fElpaseTime)

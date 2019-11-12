@@ -532,6 +532,12 @@ EXIT:
 
 	}
 
+	POINT cMultiPathDynamicImage::GetSize()
+	{
+		POINT l_Size = { (long)this->m_vDrawSize.x,(long)this->m_vDrawSize.y };
+		return l_Size;
+	}
+
 	void	cMultiPathDynamicImage::SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset)
 	{
 		int l_iCount = this->Count();
