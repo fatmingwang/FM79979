@@ -74,7 +74,6 @@ namespace FATMING_CORE
 		m_pvVertexBuffer = new Vector2[4 * e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
 		m_pvTextureUVBuffer = new Vector2[4 * e_iVertexBufferSize];
 		m_pvColorBuffer = new Vector4[4 * e_iVertexBufferSize];
-		m_iBufferLength = e_iVertexBufferSize;
 		for (int i = 0; i < e_iVertexBufferSize * 4; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
@@ -89,7 +88,6 @@ namespace FATMING_CORE
 		m_pvVertexBuffer = new Vector2[4 * m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
 		m_pvTextureUVBuffer = new Vector2[4 * m_iVertexBufferCount];
 		m_pvColorBuffer = new Vector4[4 * m_iVertexBufferCount];
-		m_iBufferLength = m_iVertexBufferCount;
 		for (int i = 0; i < m_iVertexBufferCount * 4; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
@@ -116,9 +114,9 @@ namespace FATMING_CORE
 		{
 			m_bTextChanged = false;
 			m_strText = e_pString;
-			if (l_iLen > m_iBufferLength)
+			if (l_iLen >= m_iVertexBufferCount)
 			{
-				l_iLen = m_iBufferLength;
+				l_iLen = m_iVertexBufferCount;
 			}
 			auto	l_pFirstGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_pString[0]);
 			float	l_fXOffset = 0;
@@ -245,7 +243,7 @@ namespace FATMING_CORE
 	{
 		if (m_pvColorBuffer[0] != e_vColor)
 		{
-			for (int i = 0; i < m_iBufferLength * 4; ++i)
+			for (int i = 0; i < m_iVertexBufferCount * 4; ++i)
 				m_pvColorBuffer[i] = e_vColor;
 		}
 	}

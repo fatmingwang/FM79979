@@ -13,9 +13,8 @@ namespace FATMING_CORE
 		Vector4	*					m_pvColorBuffer;
 		Vector2						m_vHalfSize;
 		int							m_iDrawCount;
+		//for how many character
 		int							m_iVertexBufferCount;
-		//for how many words
-		int							m_iBufferLength;
 		std::wstring				m_strText;
 		bool						m_bTextChanged;
 		float						m_fScale;
