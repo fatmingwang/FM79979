@@ -26,7 +26,9 @@ WASM build tools
 pleae take look at 
 Doc\WASM VS tools
 if compile failed make sure /MP and setting(commandline) is suite for emscripten
-
+Android game to emscripten demo
+https://fmwasmtest.000webhostapp.com/BluffingGirlWASM.html
+https://github.com/fatmingwang/FM79979/tree/master/Src/FM79979Engine/BluffingGirl
 
 more ermscripten example
 https://github.com/reklatsmasters/webassembly-examples
