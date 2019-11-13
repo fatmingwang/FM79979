@@ -94,7 +94,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
-
+	cGameApp::m_sbDebugFunctionWorking = true;
 	g_pGameApp = new cBluffingGirlApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	if( g_pGameApp )
 		g_pGameApp->Init();
