@@ -37,10 +37,11 @@ Frame*	GoThoughAllFrameFromaFirstToEndWithClone(Frame*e_pSrcFrame, Frame*e_pDest
 
 void Frame::DestoryWithChildren()
 {
+	Frame*l_pMe = this;
 	GoThoughAllFrameFromaLastToFirst(
-		[this](void*e_pData,Frame*e_pFrame)
+		[l_pMe](void*e_pData,Frame*e_pFrame)
 		{
-			if (e_pFrame != this)
+			if (e_pFrame != l_pMe)
 			{
 				delete e_pFrame;
 			}

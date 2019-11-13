@@ -14,6 +14,7 @@ class Frame :virtual  public NamedTypedObject
 {
 	//while set transform is called we might need some data update.ex:rotation
 	virtual	void				SetTransformInternalData(){}
+protected:
 	void						DestoryWithChildren();
 public:
 	//please do not use = directly,because the parent and child will copy

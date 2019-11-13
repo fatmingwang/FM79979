@@ -87,7 +87,8 @@ void	cFMBookApp::Update(float e_fElpaseTime)
 
 void	cFMBookApp::Render()
 {
-	glViewport(0,0,(int)this->m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
+	cGameApp::Render();
+	//glViewport(0,0,(int)this->m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 	m_pCurrentMode->Render();
 }
 

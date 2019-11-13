@@ -81,8 +81,8 @@ namespace   FATMING_CORE
 		}
 		m_pBasicSound->Play(false);
 		m_pBasicSound->Release(this);
-		cGameApp::OutputDebugInfoString(m_pBasicSound->GetName());
-		cGameApp::OutputDebugInfoString(L"   Release\n");
+		//cGameApp::OutputDebugInfoString(m_pBasicSound->GetName());
+		//cGameApp::OutputDebugInfoString(L"   Release\n");
 	}
 
     void    cEventSound::InternalMouseUp(int e_iPosX,int e_iPosY)

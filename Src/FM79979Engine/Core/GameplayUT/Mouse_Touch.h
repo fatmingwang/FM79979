@@ -200,7 +200,11 @@ namespace FATMING_CORE
 			this->m_bClickMouseBehaviorSatisfied = false;
 		}
 		CLONE_MYSELF(cClickMouseBehaviorVector);
-		virtual ~cClickMouseBehaviorVector() { this->m_ObjectList.clear(); }
+		virtual ~cClickMouseBehaviorVector() 
+		{
+			//Frame wiil deal with children
+			this->m_ObjectList.clear(); 
+		}
 		void					SetReleaseCurrentWorkingObjectWhileReclickable(bool e_b){m_bReleaseCurrentWorkingObjectWhileReclickable = e_b;}
 		bool					IsReleaseCurrentWorkingObjectWhileReclickable(){return m_bReleaseCurrentWorkingObjectWhileReclickable;}
 
