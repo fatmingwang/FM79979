@@ -24,8 +24,8 @@ namespace FMBookEditor
 		}
 		if( m_pEventObjectStatusList->m_EventObjectStatusName_textBox->Text->Length == 0)
 			return;
-		WCHAR*l_strName = DNCT::GcStringToWchar(m_pEventObjectStatusList->m_EventObjectStatusName_textBox->Text);
-		cEventObjectStatus*l_pEventObjectStatus = g_pEditorMode->m_spEventManager->m_pEventObjectStatusList->GetObject(l_strName);
+		auto l_strName = DNCT::GcStringToWchar(m_pEventObjectStatusList->m_EventObjectStatusName_textBox->Text);
+		cEventObjectStatus*l_pEventObjectStatus = g_pEditorMode->m_spEventManager->m_pEventObjectStatusList->GetObject(l_strName.c_str());
 		if( l_pEventObjectStatus )
 		{
 			WARNING_MSG("status already exist!");
@@ -33,7 +33,7 @@ namespace FMBookEditor
 		}
 		else
 		{
-			m_pEditorEventObjectStatus->m_pEditorEventObjectStatu->SetName(l_strName);
+			m_pEditorEventObjectStatus->m_pEditorEventObjectStatu->SetName(l_strName.c_str());
 			g_pEditorMode->m_spEventManager->m_pEventObjectStatusList->AddObject(m_pEditorEventObjectStatus->m_pEditorEventObjectStatu);
 			m_pEditorEventObjectStatus->m_pEditorEventObjectStatu = 0;
 			SAFE_DELETE(g_pEditorEventObject);
@@ -64,7 +64,7 @@ namespace FMBookEditor
 			l_pTiXmlElement = l_pTiXmlElement->FirstChildElement();
 			while(l_pTiXmlElement)
 			{
-				const WCHAR*l_strName = l_pTiXmlElement->Attribute(L"Name");
+				const wchar_t*l_strName = l_pTiXmlElement->Attribute(L"Name");
 				m_pEventObjectStatusList->m_EventObjectStatusList_listBox->Items->Add(DNCT::WcharToGcstring(l_strName));
 				l_pTiXmlElement = l_pTiXmlElement->NextSiblingElement();
 			}

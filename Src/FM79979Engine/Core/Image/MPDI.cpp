@@ -63,6 +63,8 @@ namespace FATMING_CORE
 	cMultiPathDynamicImage::~cMultiPathDynamicImage()
 	{
 		SAFE_DELETE(m_pViewPort);
+		//because Frame destructor will automaticly delete its child
+		this->m_ObjectList.clear();
 	}
 
 	void	cMultiPathDynamicImage::FindoutAllPointsCenter()

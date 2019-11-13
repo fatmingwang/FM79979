@@ -16,7 +16,7 @@ enum	eMagicTowerMainRoleStatus
 	eMTMRS_MAX
 };
 
-extern WCHAR*g_strMainRoleStatusName[];
+extern const wchar_t*g_strMainRoleStatusName[];
 
 
 class	cMainRoleData:public cCharacterBase

@@ -5,7 +5,7 @@
 #include "../OpenGL/GLSL/Shader.h"
 namespace FATMING_CORE
 {
-
+	TYPDE_DEFINE_MARCO(cPathChaser);
 	cPathChaser::cPathChaser(float e_fTolerationErrorDistance,float e_fReachedLength)
 	{
 		m_bTouched = false;

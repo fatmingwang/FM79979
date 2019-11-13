@@ -81,7 +81,7 @@ namespace FMBookEditor
             WARNING_MSG("SetImageParser........");
             return;
         }
-	    array<String^>^l_strFileNames = OpenFileAndGetNames("pi files (*.pi)|*.pi|All files (*.*)|*.*");
+	    cli::array<String^>^l_strFileNames = OpenFileAndGetNames("pi files (*.pi)|*.pi|All files (*.*)|*.*");
 		if( l_strFileNames )
 		{
 			for each(String^l_strFileName in l_strFileNames)
@@ -89,7 +89,7 @@ namespace FMBookEditor
 				String^l_strPIName = System::IO::Path::GetFileNameWithoutExtension(l_strFileName);
 				if(!PIList_listBox->Items->Contains(l_strPIName))
 				{
-					bool    l_b = m_pImageParser->Parse(DNCT::GcStringToChar(l_strFileName));
+					bool    l_b = m_pImageParser->GetPuzzleImageByFileName(DNCT::GcStringToChar(l_strFileName).c_str());
 					m_pPuzzleImageList->AddObject(dynamic_cast<cPuzzleImage*>(m_pImageParser->GetObject(m_pImageParser->Count()-1)));
 					PIList_listBox->Items->Add(l_strPIName);
 				}
@@ -101,18 +101,18 @@ namespace FMBookEditor
         while(PIList_listBox->SelectedItems->Count)
         {
             int l_iIndex  = PIList_listBox->Items->IndexOf(PIList_listBox->SelectedItems[0]);
-            WCHAR*l_strName = DNCT::GcStringToWchar(PIList_listBox->Items[l_iIndex]->ToString());
+            auto l_strName = DNCT::GcStringToWchar(PIList_listBox->Items[l_iIndex]->ToString());
             PIList_listBox->SelectedItems->Remove(l_iIndex );
             if( m_pPuzzleImageFileIsUsing  )
             {
-                if( m_pPuzzleImageFileIsUsing(m_pPuzzleImageList->GetObject(l_strName)) )
+                if( m_pPuzzleImageFileIsUsing(m_pPuzzleImageList->GetObject(l_strName.c_str())) )
                 {
                     WARNING_MSG("this file is using");
                     continue;
                 }
             }        
             PIList_listBox->Items->RemoveAt(l_iIndex );
-            m_pPuzzleImageList->RemoveObjectWithoutDelete(l_strName);
+            m_pPuzzleImageList->RemoveObjectWithoutDelete(l_strName.c_str());
             m_pImageParser->RemoveObject(l_strName);
         }
         PIList_listBox->SelectedIndex = -1;

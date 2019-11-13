@@ -421,7 +421,7 @@ namespace FATMING_CORE
 					goto FAILED;
 				}
 				{
-					FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
+					//FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
 					//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex, L"recevied message");
 					cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 					this->m_ReceivedDataVector.push_back(l_pPacket);
@@ -501,7 +501,7 @@ namespace FATMING_CORE
 							int l_iResult = l_pPacket->ReceiveData(l_pClient);
 							if(l_iResult > 0)
 							{
-								FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
+								//FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
 								//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex,L"recevied message");
 								cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 								m_ReceivedDataVector.push_back(l_pPacket);

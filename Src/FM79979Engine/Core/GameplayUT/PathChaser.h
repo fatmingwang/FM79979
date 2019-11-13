@@ -37,6 +37,7 @@ namespace FATMING_CORE
 		//if render is not coorectly it's possible SetLod is called
 		Vector2*					m_pvAllLinePositionInfo;
 	public:
+		DEFINE_TYPE_INFO();
 		cPathChaser(float e_fTolerationErrorDistance = 20.f,float e_fReachedLength = 20.f);
 		virtual ~cPathChaser();
 		void					AssignPathData(cCurveWithTime *e_pCurvesWithTime);

@@ -94,7 +94,7 @@ void	sFMBookEditorData::AddEventPackage(cEventPackage*e_pEventPackage)
 }
 
 
-void	sFMBookEditorData::DelEventPackage(WCHAR*e_strName)
+void	sFMBookEditorData::DelEventPackage(const wchar_t*e_strName)
 {
 	TiXmlElement*l_pRootTiXmlElement = g_pEditorMode->m_spEventManager->GetRootElement();
 	if( !l_pRootTiXmlElement )
@@ -122,7 +122,7 @@ void	ReplaceDocumentwithNewElement(cNodeISAX*e_pOriginalNodeISAX,TiXmlElement*e_
 	e_pOriginalNodeISAX->SetDoc(l_pDoc);
 }
 
-void	sFMBookEditorData::SaveFile(char*e_strName)
+void	sFMBookEditorData::SaveFile(const char*e_strName)
 {
 	std::string	l_strDirectory = UT::GetDirectoryWithoutFileName(e_strName);
 	TiXmlElement*l_pRootTiXmlElement = g_pEditorMode->m_spEventManager->GetRootElement();
@@ -241,7 +241,7 @@ void	ConvertXMLDataToListAndCleanXmlData()
 	//variable xml do not need to assign from xml to m_pEventVariableManager
 }
 
-bool	sFMBookEditorData::OpenFile(char*e_strName)
+bool	sFMBookEditorData::OpenFile(const char*e_strName)
 {
 	 g_pEditorMode->Destroy();
 	 if(g_pEditorMode->m_spEventManager->ParseDataIntoXMLNode(e_strName))

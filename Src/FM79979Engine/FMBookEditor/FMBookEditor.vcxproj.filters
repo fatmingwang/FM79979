@@ -120,6 +120,9 @@
     <ClCompile Include="..\DotNetCommon\WPFCommonTools.cpp">
       <Filter>DNCT</Filter>
     </ClCompile>
+    <ClCompile Include="..\DotNetCommon\DotNetCommonTools.cpp">
+      <Filter>DNCT</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -204,6 +207,15 @@
       <Filter>FMBookEditorUIImplement\FatmingUtilities</Filter>
     </ClInclude>
     <ClInclude Include="..\DotNetCommon\WPFCommonTools.h">
+      <Filter>DNCT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DotNetCommon\DotNetCommonTools.h">
+      <Filter>DNCT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DotNetCommon\DotNetDefine.h">
+      <Filter>DNCT</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DotNetCommon\DotNetXMLTools.h">
       <Filter>DNCT</Filter>
     </ClInclude>
   </ItemGroup>

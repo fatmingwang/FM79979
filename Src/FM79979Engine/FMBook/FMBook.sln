@@ -1,26 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.852
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMBook", "FMBook.vcxproj", "{F8354792-3C42-4818-B132-5B23C40C0A6E}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Win32 = Debug|Win32
-		Release|Win32 = Release|Win32
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Debug|Win32.ActiveCfg = Debug|Win32
-		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Debug|Win32.Build.0 = Debug|Win32
-		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Release|Win32.ActiveCfg = Release|Win32
-		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Release|Win32.Build.0 = Release|Win32
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Win32.Build.0 = Debug|Win32
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.ActiveCfg = Release|Win32
-		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Win32.Build.0 = Release|Win32
+		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Debug|x64.ActiveCfg = Debug|x64
+		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Debug|x64.Build.0 = Debug|x64
+		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Release|x64.ActiveCfg = Release|x64
+		{F8354792-3C42-4818-B132-5B23C40C0A6E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D541146D-24CC-4ABB-86C4-748CB085DABD}
 	EndGlobalSection
 EndGlobal

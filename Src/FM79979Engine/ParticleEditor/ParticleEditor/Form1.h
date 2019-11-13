@@ -1864,7 +1864,7 @@ private: System::Void AddTexture_button_Click(System::Object^  sender, System::E
 				if( l_strExtensionName->Equals(".pi") )
 				{
 					int	l_iCount = g_pPaticleManager->GetImageParser()->Count();
-					bool	l_b = g_pPaticleManager->GetImageParser()->Parse(DNCT::GcStringToChar(l_strFileName));
+					bool	l_b = g_pPaticleManager->GetImageParser()->GetPuzzleImageByFileName(DNCT::GcStringToChar(l_strFileName).c_str());
 					if( !l_b || g_pPaticleManager->GetImageParser()->Count() == l_iCount )
 					{
 						WARNING_MSG(l_strFileName+" open failed!!?");

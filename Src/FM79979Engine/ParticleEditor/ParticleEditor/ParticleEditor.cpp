@@ -19,7 +19,6 @@ int main(cli::array<System::String ^> ^args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 
-
 	Application::Run(gcnew Form1());
 	NamedTypedObject::DumpUnReleaseInfo();
 	_CrtDumpMemoryLeaks();

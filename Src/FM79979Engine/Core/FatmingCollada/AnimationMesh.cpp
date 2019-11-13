@@ -20,7 +20,6 @@ cBone::cBone(const WCHAR*e_strName)
 	m_fMinKeyTime = 0;
 	m_fMaxKeyTime = 0;
 	m_bAnimation = false;
-	m_bDestroyConnectionWhileDestroy = false;
 }
 //========================================================
 //
@@ -34,7 +33,6 @@ cBone::cBone(cBone*e_pBone)
 	m_fMaxKeyTime = e_pBone->m_fMaxKeyTime;
 	m_FormKeyFrames = e_pBone->m_FormKeyFrames;
 	m_matInvBindPose = e_pBone->m_matInvBindPose;
-	m_bDestroyConnectionWhileDestroy = e_pBone->m_bDestroyConnectionWhileDestroy;
 	this->SetLocalTransform(this->GetLocalTransform());
 }
 //========================================================
@@ -287,6 +285,15 @@ cAnimationMesh::cAnimationMesh(cAnimationMesh*e_pAnimationMesh):cMesh(e_pAnimati
 cAnimationMesh::~cAnimationMesh()
 {
 	m_SkinningBoneVector.SetFromResource(true);
+	int l_iCount = m_AllBoneVector.Count();
+	for (int i = 0; i < l_iCount; i++)
+	{
+		auto l_pData = m_AllBoneVector[i];
+		if (l_pData)
+		{
+			l_pData->SetParent(nullptr);
+		}
+	}
 	m_AllBoneVector.Destroy();
 	SAFE_DELETE(m_pAllBonesMatrixForSkinned);
 	if( !m_AllBoneVector.IsFromResource() )

@@ -123,7 +123,7 @@ private: System::Void AddPrtGroup_button_Click(System::Object^  sender, System::
             String^l_strFileName = DNCT::OpenFileAndGetName("prtg files (*.prtg)|*.prtg");
             if( l_strFileName )
             {
-                WCHAR*l_strObjectName = DNCT::GcStringToWchar(System::IO::Path::GetFileNameWithoutExtension(l_strFileName));
+                auto l_strObjectName = DNCT::GcStringToWchar(System::IO::Path::GetFileNameWithoutExtension(l_strFileName));
 				String^l_strExtension = System::IO::Path::GetExtension(l_strFileName);
 				if(!m_pPrtGList->GetObject(l_strObjectName))
 				{

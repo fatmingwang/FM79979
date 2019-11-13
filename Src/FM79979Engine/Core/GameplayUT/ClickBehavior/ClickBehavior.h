@@ -6,6 +6,9 @@
 //		for click event.
 //		May/26/2017
 //		add cClickBehaviorButtonRenderStatus
+//https://github.com/fatmingwang/FM79979/blob/master/Src/FM79979Engine/WavParser/MusicGame/PerformMusicPhaseUI.cpp
+//bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBehaviorDispatcher)
+//cPerformMusicPhaseUI::cLazyClickBehaviorAndRenderObject*	m_pScoreButton;
 #include <functional>
 
 class Frame;

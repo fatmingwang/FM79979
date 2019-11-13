@@ -14,6 +14,7 @@ class Frame :virtual  public NamedTypedObject
 {
 	//while set transform is called we might need some data update.ex:rotation
 	virtual	void				SetTransformInternalData(){}
+	void						DestoryWithChildren();
 public:
 	//please do not use = directly,because the parent and child will copy
 	//inline	Frame operator =(Frame e_Frame){	Frame	l_Frame;	l_Frame.SetLocalTransform(e_Frame.GetLocalTransform());	return l_Frame;}
@@ -74,7 +75,7 @@ public:
     const cBound*				GetLocalBound() const { return m_pLocalBound; }
     const cBound*				GetWorldBound() { UpdateCachedWorldTransformIfNeeded(); return m_pCachedWorldBound; }
 
-	void						SetDestroyConnectionWhileDestoruction(bool e_bDestroyConnectionWhileDestroy);
+	//void						SetDestroyConnectionWhileDestoruction(bool e_bDestroyConnectionWhileDestroy);
 	bool						IsAutoUpdateBound();
 	void						SetAutoUpdateBound(bool e_bAutoUpdateBound);
 	
@@ -108,7 +109,7 @@ protected:
     Frame*                      m_pParent;
     Frame*                      m_pNextSibling;
     Frame*                      m_pFirstChild;
-	bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
+	//bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
 	bool						m_bIgnoreChildrenUpdate;//some object dont want update children,the child has relationship with parent
 	bool						m_bAutoUpdateBound;//button dont need this
 };

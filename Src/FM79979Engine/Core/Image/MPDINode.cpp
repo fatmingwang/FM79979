@@ -209,15 +209,6 @@ namespace FATMING_CORE
 		m_pColorLinerDataProcessor = 0;
 		m_pSizeLinerDataProcessor = 0;
 		m_pRotationLinerDataProcessor = 0;
-		SetDestroyConnectionWhileDestoruction(false);
-		Frame*l_pFirstChild = this->GetFirstChild();
-		while( l_pFirstChild )
-		{
-			l_pFirstChild->SetDestroyConnectionWhileDestoruction(false);
-			Frame*l_pDeleteObject = l_pFirstChild;
-			l_pFirstChild = l_pFirstChild->GetNextSibling();
-			SAFE_DELETE(l_pDeleteObject);
-		}
 	}
 	extern const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 	void	cMPDINode::UpdateCachedWorldTransformIfNeeded()

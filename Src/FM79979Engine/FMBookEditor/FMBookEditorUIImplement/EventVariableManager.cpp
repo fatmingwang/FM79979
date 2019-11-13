@@ -19,10 +19,10 @@ namespace FMBookEditor
 					return;
 			}
 			if( l_pEventVariable )
-				l_pEventVariable->SetDataByString((WCHAR*)DNCT::GcStringToWchar(l_strValue));
+				l_pEventVariable->SetDataByString(DNCT::GcStringToWchar(l_strValue).c_str());
 			else
 			{
-				l_pEventVariable = new cEventVariable((WCHAR*)l_strVariableName.c_str(),(eDataType)l_iSelectedIndex,(WCHAR*)DNCT::GcStringToWchar(l_strValue));
+				l_pEventVariable = new cEventVariable(l_strVariableName.c_str(),(eDataType)l_iSelectedIndex,DNCT::GcStringToWchar(l_strValue).c_str());
 				g_pEditorMode->m_spEventManager->m_pEventVariableManager->AddObject(l_pEventVariable);
 				m_pEventVariableManager->m_EventVariable_listBox->Items->Add(l_strName);
 			}

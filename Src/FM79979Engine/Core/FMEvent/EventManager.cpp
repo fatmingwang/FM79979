@@ -262,7 +262,7 @@ namespace FATMING_CORE
 		return 0;
 	}
 
-	bool	cEventManager::Export(char*e_strFileName)
+	bool	cEventManager::Export(const char*e_strFileName)
 	{
 		if(!this->m_pDoc)
 		{

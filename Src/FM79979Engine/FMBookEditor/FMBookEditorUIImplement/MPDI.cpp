@@ -38,12 +38,12 @@ namespace FMBookEditor
             //WARNING_MSG("SetAnimationParser!!!");
             return;
         }
-	    array<String^>^l_strFileNames = OpenFileAndGetNames("mpdi files (*.mpdi)|*.mpdi|All files (*.*)|*.*");
+	    cli::array<String^>^l_strFileNames = OpenFileAndGetNames("mpdi files (*.mpdi)|*.mpdi|All files (*.*)|*.*");
 	    if( l_strFileNames )
 	    for each(String^l_strFileName in l_strFileNames)
 	    {
 	        String^l_strMPDIName = System::IO::Path::GetFileNameWithoutExtension(l_strFileName);
-			if(cGameApp::GetMPDIListByFileName(DNCT::GcStringToWchar(l_strFileName)))
+			if(cGameApp::GetMPDIListByFileName(DNCT::GcStringToWchar(l_strFileName).c_str()))
 	        //if(!MPDIList_listBox->Items->Contains(l_strMPDIName))
 	        {
                 //bool    l_b = m_pAnimationParser->Parse(DNCT::GcStringToChar(l_strFileName));
@@ -62,18 +62,18 @@ namespace FMBookEditor
 		while(MPDIList_listBox->SelectedItems->Count)
         {
             int l_iIndex  = MPDIList_listBox->Items->IndexOf(MPDIList_listBox->SelectedItems[0]);
-            WCHAR*l_strName = DNCT::GcStringToWchar(MPDIList_listBox->Items[l_iIndex]->ToString());
+            auto l_strName = DNCT::GcStringToWchar(MPDIList_listBox->Items[l_iIndex]->ToString());
             MPDIList_listBox->SelectedItems->Remove(l_iIndex );
             if( m_pMPDIListFileIsUsing  )
             {
-                if( m_pMPDIListFileIsUsing(m_pMPDIListList->GetObject(l_strName)) )
+                if( m_pMPDIListFileIsUsing(m_pMPDIListList->GetObject(l_strName.c_str())) )
                 {
                     WARNING_MSG("this file is using");
                     continue;
                 }
             }
             MPDIList_listBox->Items->RemoveAt(l_iIndex);
-            m_pMPDIListList->RemoveObjectWithoutDelete(l_strName);
+            m_pMPDIListList->RemoveObjectWithoutDelete(l_strName.c_str());
             m_pAnimationParser->RemoveObject(l_strName);
         }
         m_pCurrentMPDI = 0;

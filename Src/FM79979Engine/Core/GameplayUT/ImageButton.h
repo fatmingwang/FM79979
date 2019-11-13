@@ -44,6 +44,7 @@ namespace FATMING_CORE
 		//fetch first SubMPDI
 		cImageButton(cMPDI*e_pMPDI);
 		cImageButton(cImageButton*e_pImageButton);
+		virtual bool				Collide(int e_iPosX, int e_iPosY)override { return cClickMouseBehavior::Collide(e_iPosX,e_iPosY); }
 		static	cImageButton*		GetMe(TiXmlElement*e_pElement);
 		CLONE_MYSELF(cImageButton);
 		virtual ~cImageButton();

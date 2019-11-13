@@ -348,7 +348,6 @@ void		cFishBehavior::SetStatus(eFishBehavior e_eFishBehavior,Frame*e_pTarget,flo
 		l_mat = l_matOffset*cMatrix44::YAxisRotationMatrix(D3DXToRadian(l_fFaceAngle))*cMatrix44::XAxisRotationMatrix(D3DXToRadian(m_fHookedAngle))*cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180))*cMatrix44::TranslationMatrix(0,0,l_vRect.Width()/2);
 		m_pAnimationMesh->SetParent(e_pTarget);
 		m_pAnimationMesh->SetLocalTransform(l_mat);
-		m_pAnimationMesh->SetDestroyConnectionWhileDestoruction(false);
 		m_UnhookTC.SetTargetTime(e_fRestTimeToLeave);
 		m_eFishBehavior = eFB_HOOKED;
 	}

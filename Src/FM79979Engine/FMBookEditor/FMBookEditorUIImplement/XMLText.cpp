@@ -5,7 +5,7 @@ namespace FMBookEditor
 {
 	System::Void XMLText::AddText_button_Click(System::Object^  sender, System::EventArgs^  e)
     {
-		array<String^>^l_strFileNames = OpenFileAndGetNames("xml files (*.xml)|*.xml|All files (*.*)|*.*");
+		cli::array<String^>^l_strFileNames = OpenFileAndGetNames("xml files (*.xml)|*.xml|All files (*.*)|*.*");
 		for each(String^ l_strFileName in l_strFileNames)
 		{
 			String^l_strFileName2 = System::IO::Path::GetFileName(l_strFileName);

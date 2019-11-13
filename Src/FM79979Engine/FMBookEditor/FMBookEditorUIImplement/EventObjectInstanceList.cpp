@@ -58,7 +58,7 @@ namespace FMBookEditor
 			cEventInstance*l_pEventInstance = 0;
 			if(m_pEventObjectStatusName->Text->Length)
 			{
-				WCHAR*l_strName = DNCT::GcStringToWchar(m_pEventObjectStatusName->Text);
+				auto l_strName = DNCT::GcStringToWchar(m_pEventObjectStatusName->Text);
 				l_pEventObjectStatus = g_pEditorMode->m_spEventManager->m_pEventObjectStatusList->GetObject(l_strName);
 				if( !l_pEventObjectStatus )
 				{
@@ -69,9 +69,9 @@ namespace FMBookEditor
 
 			if(m_pEventInstanceName->Text->Length)
 			{
-				WCHAR*l_strEventInstance = DNCT::GcStringToWchar(m_pEventInstanceName->Text);
-				l_pEventInstance = g_pEditorMode->m_spEventManager->GetEventInstance(l_strEventInstance);
-				if( !l_pEventInstance )
+				auto l_strEventInstance = DNCT::GcStringToWchar(m_pEventInstanceName->Text);
+				l_pEventInstance = g_pEditorMode->m_spEventManager->GetEventInstance(l_strEventInstance.c_str());
+				if( l_pEventInstance)
 				{
 					WARNING_MSG("there is no "+m_pEventInstanceName->Text+" cEventInstance");
 					return;

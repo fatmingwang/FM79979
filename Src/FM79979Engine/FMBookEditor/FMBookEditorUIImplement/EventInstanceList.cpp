@@ -26,7 +26,7 @@ namespace FMBookEditor
 			String^l_strName = m_pEventInstanceList->m_EventList_listBox->SelectedName();
 			if( l_strName )
 			{
-				cEventInstance*l_pEventInstance = g_pEditorMode->m_spEventManager->GetEventInstance(DNCT::GcStringToWchar(l_strName));
+				cEventInstance*l_pEventInstance = g_pEditorMode->m_spEventManager->GetEventInstance(DNCT::GcStringToWchar(l_strName).c_str());
 				if( !l_pEventInstance )
 				{
 					WARNING_MSG(l_strName+ " not exist!");

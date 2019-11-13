@@ -33,7 +33,7 @@ namespace FMBookEditor
         if( m_pImageParser )
         {
             m_pCurrentImage = 0;
-            array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("image files (*.png)|*.png|All files (*.*)|*.*");
+            cli::array<String^>^l_strFileNames = DNCT::OpenFileAndGetNames("image files (*.png)|*.png|All files (*.*)|*.*");
             for each(String^ l_strFileName in l_strFileNames )
             {
                 String^l_strFile = System::IO::Path::GetFileNameWithoutExtension(l_strFileName);
@@ -42,7 +42,7 @@ namespace FMBookEditor
                     WARNING_MSG(l_strFile+" exists");
                     continue;
                 }
-                cBaseImage*l_pBaseImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName));
+                cBaseImage*l_pBaseImage = new cBaseImage(DNCT::GcStringToChar(l_strFileName).c_str());
                 m_pImageParser->AddObjectNeglectExist(l_pBaseImage);
             }
 			RefreshImageList();
@@ -54,8 +54,8 @@ namespace FMBookEditor
         if( m_pImageParser && ImageList_listBox->SelectedIndex != -1 )
         {
             m_pCurrentImage = 0;
-            WCHAR*l_strName = DNCT::GcStringToWchar(ImageList_listBox->SelectedItem->ToString());
-            m_pImageParser->RemoveObject(l_strName);
+            auto l_strName = DNCT::GcStringToWchar(ImageList_listBox->SelectedItem->ToString());
+            m_pImageParser->RemoveObject(l_strName.c_str());
             RefreshImageList();
         }	
 	}
@@ -64,8 +64,8 @@ namespace FMBookEditor
 	{
         if( m_pImageParser && ImageList_listBox->SelectedIndex != -1 )
         {
-            WCHAR*l_strName = DNCT::GcStringToWchar(ImageList_listBox->SelectedItem->ToString());
-            m_pCurrentImage = dynamic_cast<cBaseImage*>(m_pImageParser->GetObject(l_strName));
+            auto l_strName = DNCT::GcStringToWchar(ImageList_listBox->SelectedItem->ToString());
+            m_pCurrentImage = dynamic_cast<cBaseImage*>(m_pImageParser->GetObject(l_strName.c_str()));
         }	
 	}
 

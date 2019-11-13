@@ -175,10 +175,10 @@ void	cMusicGameApp::MouseUp(int e_iPosX,int e_iPosY)
 
 void	cMusicGameApp::KeyPress(char e_char)
 {
-	cGameApp::KeyPress(e_char);
+	//cGameApp::KeyPress(e_char);
 	if( m_pPhaseManager )
 	{
-		m_pPhaseManager->KeyPress(e_char);
+		//m_pPhaseManager->KeyPress(e_char);
 	}
 }
 

@@ -16,7 +16,8 @@ namespace FATMING_CORE
 
 	cRenderObjectVector::~cRenderObjectVector()
 	{
-	
+		//Frame will delete its all children
+		this->m_ObjectList.clear();
 	}
 
 	cRenderObjectVector::cRenderObjectVector(cRenderObjectVector*e_pFontFrameVector):cBehaviorObjectList<cRenderObject>(e_pFontFrameVector)

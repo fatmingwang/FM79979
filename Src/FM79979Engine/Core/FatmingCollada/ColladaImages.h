@@ -27,6 +27,7 @@ struct	sLibraryImages
 
 class cLibraryImages :public NamedTypedObject
 {
+	bool	m_bImageListFromGameApp;
 	char	m_strDirectory[MAX_PATH];
 //
 	void	Parseimage(TiXmlElement*e_pTiXmlElement);

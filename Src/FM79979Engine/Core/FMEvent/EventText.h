@@ -18,7 +18,7 @@ namespace   FATMING_CORE
 		cEventText(TiXmlElement*e_pElement);
         virtual ~cEventText(){}
         virtual cEventObject*	Clone()override { return new cEventText(this); }
-        void					SetText(WCHAR*e_str){m_strText = e_str; }
+        void					SetText(const wchar_t*e_str){m_strText = e_str; }
         const WCHAR*			GetText(){return m_strText.c_str();}
         //virtual void    SetRelativePosition( Vector3 e_vPos ){}
 		float					GetFontSize(){ return m_vSize.x; }
