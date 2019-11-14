@@ -71,10 +71,10 @@ namespace FATMING_CORE
 		else
 			l_strForDirectory[0] = '\0';
 		SetName(UT::CharToWchar(l_strForStripExtensionName));
-		m_pvVertexBuffer = new Vector2[4 * e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[4 * e_iVertexBufferSize];
-		m_pvColorBuffer = new Vector4[4 * e_iVertexBufferSize];
-		for (int i = 0; i < e_iVertexBufferSize * 4; ++i)
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];
+		for (int i = 0; i < e_iVertexBufferSize * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
 
@@ -85,10 +85,10 @@ namespace FATMING_CORE
 		m_bTextChanged = true;
 		m_fScale = e_pGlyphFontRender->m_fScale;
 		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;
-		m_pvVertexBuffer = new Vector2[4 * m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[4 * m_iVertexBufferCount];
-		m_pvColorBuffer = new Vector4[4 * m_iVertexBufferCount];
-		for (int i = 0; i < m_iVertexBufferCount * 4; ++i)
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];
+		for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
 
@@ -243,7 +243,7 @@ namespace FATMING_CORE
 	{
 		if (m_pvColorBuffer[0] != e_vColor)
 		{
-			for (int i = 0; i < m_iVertexBufferCount * 4; ++i)
+			for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 				m_pvColorBuffer[i] = e_vColor;
 		}
 	}
@@ -355,7 +355,7 @@ namespace FATMING_CORE
 		m_iLastCharacterPosX = 0;
 		m_iLastCharacterPosY = 0;
 
-		unsigned int l_uiPixelCount = m_TextureSize.x*m_TextureSize.y * 4;
+		unsigned int l_uiPixelCount = m_TextureSize.x*m_TextureSize.y * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
 		char*l_pPixel = new char[l_uiPixelCount];
 		memset(l_pPixel, 1, sizeof(char)*l_uiPixelCount);
 		this->m_pTexture = new cTexture(this, l_pPixel, m_TextureSize.x, m_TextureSize.y, l_strName.c_str(), false, false);
