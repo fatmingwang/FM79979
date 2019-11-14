@@ -136,14 +136,15 @@ namespace FATMING_CORE
 		{
 			if(e_pFrame->IsVisible())
 				e_Function(e_pFrame);
-			if (!e_pFrame->IsVisible())
-				return;
-			auto l_pFrame = e_pFrame->GetFirstChild();
-			if (l_pFrame)
+			if (e_pFrame->IsVisible())
 			{
-				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+				auto l_pFrame = e_pFrame->GetFirstChild();
+				if (l_pFrame)
+				{
+					RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+				}
 			}
-			l_pFrame = e_pFrame->GetNextSibling();
+			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame  )
 			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
