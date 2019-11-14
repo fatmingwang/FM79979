@@ -12,14 +12,18 @@ cLibraryImages::cLibraryImages()
 	if( cGameApp::m_spImageParser )
 	{
 		m_pImageList = cGameApp::m_spImageParser;
+		m_bImageListFromGameApp = true;
 	}
 	else
+	{
 		m_pImageList = new cImageParser();
+		m_bImageListFromGameApp = false;
+	}
 }
 cLibraryImages::~cLibraryImages()
 {
 	DELETE_VECTOR(AllLibraryImages);
-	if( m_pImageList != cGameApp::m_spImageParser )
+	if(!m_bImageListFromGameApp)
 	{
 		SAFE_DELETE(m_pImageList);
 	}

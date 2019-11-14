@@ -177,8 +177,8 @@ namespace FATMING_CORE
 		Vector3 l_vPos = Vector3((float)l_iLocalX-m_pTexture->GetWidth()/2.f, (float)l_iLocalY-m_pTexture->GetHeight()/2.f,0);
 		l_matrix = l_matrix.ZAxisRotationMatrix(this->GetRotation().z);
 		Vector3 l_vFinalPos = l_matrix.TransformVector(l_vPos);
-		l_iLocalY = (int)l_vFinalPos.y+ (float)this->m_pTexture->GetHeight()/2;
-		l_iLocalX = (int)l_vFinalPos.x+ (float)this->m_pTexture->GetWidth()/2;
+		l_iLocalY = (int)(l_vFinalPos.y+ (float)this->m_pTexture->GetHeight()/2);
+		l_iLocalX = (int)(l_vFinalPos.x+ (float)this->m_pTexture->GetWidth()/2);
 		if( l_iLocalX<0||l_iLocalY<0 )
 			return false;
 		if( l_iLocalX>this->m_iWidth||l_iLocalY>this->m_iHeight )

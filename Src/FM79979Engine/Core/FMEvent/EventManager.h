@@ -98,7 +98,7 @@ namespace FATMING_CORE
 		//quickly to get current eventpackage's data
 		cEventObjectInstance*							GetEventObjectInstanceFromCurrentEventPackage(const WCHAR*e_strName);
 		//
-		bool											Export(char*e_strFileName);
+		bool											Export(const char*e_strFileName);
     };
 	//do not use this directly,and there are multithread which contain 2 or more eventmanager.
 	//because g_pCurrentEventManager will use internally.

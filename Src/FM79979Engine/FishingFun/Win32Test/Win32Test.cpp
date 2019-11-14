@@ -44,6 +44,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
+	cGameApp::m_sbDebugFunctionWorking = true;
 	g_pGameApp = new cFishingFunApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
 	g_pGameApp->Init();
 	SetTimer (g_hWnd, 0, 0, NULL) ;
@@ -63,8 +64,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 	//UnhookWindowsHookEx(MouseHook);
 	SAFE_DELETE(g_pGameApp);
-	_CrtDumpMemoryLeaks();
 	NamedTypedObject::DumpUnReleaseInfo();
+	_CrtDumpMemoryLeaks();
 	return (int) msg.wParam;
 }
 
@@ -122,6 +123,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	cGameApp::m_svViewPortSize.x = 1024.;
 	cGameApp::m_svViewPortSize.y = 768.f;
 	cGameApp::ResoluctionParse("EngineTestSetup.xml");
+	cGameApp::m_svGameResolution.x = 720.f;
+	cGameApp::m_svGameResolution.y = 1280.f;
 
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)

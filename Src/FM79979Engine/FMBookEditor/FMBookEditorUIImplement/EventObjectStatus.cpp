@@ -17,7 +17,7 @@ namespace FMBookEditor
 			if( g_pEditorEventObject->Type() == cEventText::TypeID )
 			{
 				cEventText*l_pEventText = (cEventText*)g_pEditorEventObject;
-				l_pEventText->SetText(DNCT::GcStringToWchar(this->m_pEventObjectStatus->m_TextText->Text));
+				l_pEventText->SetText(DNCT::GcStringToWchar(this->m_pEventObjectStatus->m_TextText->Text).c_str());
 			}
 		}
 	}
@@ -72,8 +72,8 @@ namespace FMBookEditor
 		if( g_pEditorEventObject->Type() == cEventVariableDataRender::TypeID)
 		{
 			cEventVariableDataRender*l_pEventVariableDataRender = dynamic_cast<cEventVariableDataRender*>(e_pEventObject);
-			l_pEventVariableDataRender->SetPrefixText(DNCT::GcStringToWchar(m_pEventObjectStatus->m_VariableRenderPrefixText->Text));
-			cEventVariable*l_pEventVariable = g_pEditorMode->m_spEventManager->GetEventVariable(DNCT::GcStringToWchar(m_pEventObjectStatus->m_VariableRenderEventVariableName->Text));
+			l_pEventVariableDataRender->SetPrefixText(DNCT::GcStringToWchar(m_pEventObjectStatus->m_VariableRenderPrefixText->Text).c_str());
+			cEventVariable*l_pEventVariable = g_pEditorMode->m_spEventManager->GetEventVariable(DNCT::GcStringToWchar(m_pEventObjectStatus->m_VariableRenderEventVariableName->Text).c_str());
 			l_pEventVariableDataRender->SetEventVariable(l_pEventVariable);
 			m_pEventObjectStatus->m_VariableRenderPosNumeric->SetValue((float*)l_pEventVariableDataRender->GetLocalPositionPointer());
 		}
@@ -229,7 +229,7 @@ namespace FMBookEditor
 				//m_pFatmingUtilitiesData->m_pText->m_pstrCurrentText
 				if( this->m_pEventObjectStatus->m_TextText->Text->Length )
 				{
-					g_pEditorEventObject = new cEventText(Vector3(0,0,0),DNCT::GcStringToWchar(this->m_pEventObjectStatus->m_TextText->Text));
+					g_pEditorEventObject = new cEventText(Vector3(0,0,0),DNCT::GcStringToWchar(this->m_pEventObjectStatus->m_TextText->Text).c_str());
 				}
 				break;
 			case eEOT_IMAGE:
@@ -292,8 +292,8 @@ namespace FMBookEditor
 		{
 			m_pEditorEventObjectStatu = new cEventObjectStatus();
 		}
-		WCHAR*l_strStatusName = DNCT::GcStringToWchar(m_pStatusNameTextBox->Text);
-		cObjectAndName<cEventObject>*l_pNewObject = m_pEditorEventObjectStatu->GetObject(l_strStatusName);
+		auto l_strStatusName = DNCT::GcStringToWchar(m_pStatusNameTextBox->Text);
+		cObjectAndName<cEventObject>*l_pNewObject = m_pEditorEventObjectStatu->GetObject(l_strStatusName.c_str());
 		if( !l_pNewObject )
 		{
 			if( !g_pEditorEventObject )
@@ -301,7 +301,7 @@ namespace FMBookEditor
 				WARNING_MSG("please select a animation first!");
 				return ;
 			}
-			l_pNewObject = new cObjectAndName<cEventObject>(l_strStatusName);
+			l_pNewObject = new cObjectAndName<cEventObject>(l_strStatusName.c_str());
 			cEventObject*l_pObject = dynamic_cast<cEventObject*>(g_pEditorEventObject->Clone());
 			l_pNewObject->SetObject(l_pObject);
 			m_pEditorEventObjectStatu->AddObject(l_pNewObject);

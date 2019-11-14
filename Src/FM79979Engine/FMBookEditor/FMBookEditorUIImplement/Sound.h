@@ -87,12 +87,12 @@ private: System::Void AddSound_button_Click(System::Object^  sender, System::Eve
         {
             if( m_pSoundParser )
             {
-                array<String^>^l_strFiles = DNCT::OpenFileAndGetNames("Sound Files(*.wav;*.ogg)|*.wav;*.ogg;|All files (*.*)|*.*");
+                cli::array<String^>^l_strFiles = DNCT::OpenFileAndGetNames("Sound Files(*.wav;*.ogg)|*.wav;*.ogg;|All files (*.*)|*.*");
                 if( l_strFiles )
                 {
                     for each( String^l_strFileName in l_strFiles )
                     {
-                        m_pSoundParser->AddStaticSound(m_pSoundParser,DNCT::GcStringToChar(l_strFileName));
+                        m_pSoundParser->AddStaticSound(m_pSoundParser,DNCT::GcStringToChar(l_strFileName).c_str());
                     }
                     ReflashSoundList();
                 }
@@ -143,7 +143,7 @@ private: System::Void SaveSound_button_Click(System::Object^  sender, System::Ev
                 String^l_strFileName = DNCT::SaveFileAndGetName("XML	Files(.xml;)|;*.xml;|All files (*.*)|*.*");
                 if( l_strFileName )
                 {
-                    m_pSoundParser->Export(DNCT::GcStringToChar(l_strFileName));
+                    m_pSoundParser->Export(DNCT::GcStringToChar(l_strFileName).c_str());
                 }
             }
         }

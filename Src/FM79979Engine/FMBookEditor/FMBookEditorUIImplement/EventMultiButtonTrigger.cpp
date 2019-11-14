@@ -75,12 +75,12 @@ namespace FMBookEditor
 			{
 				//m_pCurrentEventButtonTrigger_Editor->m_pButton
 				//m_pEventMultiButton->AddObject();
-				WCHAR*l_strEventName = DNCT::GcStringToWchar(m_pEventMultiButtonTrigger->m_ButtonName->Text);
-				if(this->m_pEventMultiButton->GetObject(l_strEventName))
+				auto l_strEventName = DNCT::GcStringToWchar(m_pEventMultiButtonTrigger->m_ButtonName->Text);
+				if(this->m_pEventMultiButton->GetObject(l_strEventName.c_str()))
 				{
 					WARING_YES_NO_TO_NO(m_pEventMultiButtonTrigger->m_ButtonName->Text+"this name exits")
 						return;
-					int	l_iIndex = m_pEventMultiButton->GetObjectIndexByName(l_strEventName);
+					int	l_iIndex = m_pEventMultiButton->GetObjectIndexByName(l_strEventName.c_str());
 					m_pEventMultiButton->RemoveObject(l_strEventName);
 					m_pEventMultiButtonTrigger->m_ButtonList->Items->RemoveAt(l_iIndex);
 				}

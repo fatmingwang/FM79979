@@ -48,8 +48,8 @@ namespace FMBookEditor
 		cEventManager*l_pEventManager = g_pEditorMode->m_spEventManager;
 		if(m_pEventButtonSelectedActiverUI->m_EventVariableName->Text->Length)
 		{
-			WCHAR*l_strName = DNCT::GcStringToWchar(m_pEventButtonSelectedActiverUI->m_EventVariableName->Text);
-			m_pEventButtonSelectedActiver->SetEventVariable(l_pEventManager->m_pEventVariableManager->GetObject(l_strName));
+			auto l_strName = DNCT::GcStringToWchar(m_pEventButtonSelectedActiverUI->m_EventVariableName->Text);
+			m_pEventButtonSelectedActiver->SetEventVariable(l_pEventManager->m_pEventVariableManager->GetObject(l_strName.c_str()));
 		}
 	}
 	System::String^ EventButtonSelectedActiver_Editor::IsLegal()
@@ -62,8 +62,8 @@ namespace FMBookEditor
 		}
 		else
 		{
-			WCHAR*l_strEventVariableName = DNCT::GcStringToWchar(m_pEventButtonSelectedActiverUI->m_EventVariableName->Text);
-			cEventVariable*l_pEventVariable = g_pEditorMode->m_spEventManager->m_pEventVariableManager->GetObject(l_strEventVariableName);
+			auto l_strEventVariableName = DNCT::GcStringToWchar(m_pEventButtonSelectedActiverUI->m_EventVariableName->Text);
+			cEventVariable*l_pEventVariable = g_pEditorMode->m_spEventManager->m_pEventVariableManager->GetObject(l_strEventVariableName.c_str());
 			if( !l_pEventVariable )
 			{
 				l_strError += m_pEventButtonSelectedActiverUI->m_EventVariableName->Text;

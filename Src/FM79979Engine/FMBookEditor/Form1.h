@@ -118,7 +118,7 @@ private: System::Void FileOpen_button_Click(System::Object^  sender, System::Eve
 			 String^l_strFileName = DNCT::OpenFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
 			 if( l_strFileName )
 			 {
-				 if(sFMBookEditorData::OpenFile(DNCT::GcStringToChar(l_strFileName)))
+				 if(sFMBookEditorData::OpenFile(DNCT::GcStringToChar(l_strFileName).c_str()))
 				 {
 					 this->Text = l_strFileName;
 				 }
@@ -142,7 +142,7 @@ private: System::Void FileSave_button_Click(System::Object^  sender, System::Eve
 			 String^l_strFileName = DNCT::SaveFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
 			 if( l_strFileName )
 			 {
-				sFMBookEditorData::SaveFile(DNCT::GcStringToChar(l_strFileName));
+				sFMBookEditorData::SaveFile(DNCT::GcStringToChar(l_strFileName).c_str());
 			 }
 			 this->timer1->Enabled = true;		 
 		 }

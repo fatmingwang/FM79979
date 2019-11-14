@@ -27,6 +27,7 @@ void	cBookMode::Init()
 	m_BookDataVector.clear();
 	SAFE_DELETE(m_pScroller);
 	m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(50,50,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y),0,false);		
+	m_pScroller->SetName(L"BookModeScroller");
 	cNodeISAX	l_cNodeISAX;
 	if(l_cNodeISAX.ParseDataIntoXMLNode("BookList.xml"))
 	{
@@ -67,6 +68,7 @@ void	cBookMode::Init()
 				m_BookDataVector.push_back(l_sBookData);
 				l_pElement = l_pElement->NextSiblingElement();
 				cTextButton*l_pTextButton = new cTextButton(l_vStartPos,cGameApp::m_spGlyphFontRender,Vector4(0.5,0.5,0.5,1),l_strName);
+				l_pTextButton->SetName(l_strName);
 				m_pScroller->AddObject(l_pTextButton);
 				l_vStartPos.y += l_fHeightGap;
 			}

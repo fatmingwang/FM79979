@@ -15,10 +15,14 @@
 //#pragma comment(lib, "gdi32.lib")
 //#pragma comment(lib, "Vfw32.lib")
 #include "../../AllLibInclude.h"
+#ifdef DEBUG
+#pragma comment(lib, "../../../lib/Debug/FatmingAI.lib")
+#else
+#endif
 using namespace MagicTower;
 
 [STAThreadAttribute]
-int main(array<System::String ^> ^args)
+int main(cli::array<System::String ^> ^args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false); 

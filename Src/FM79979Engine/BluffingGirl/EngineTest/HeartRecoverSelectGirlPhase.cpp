@@ -81,7 +81,7 @@ void	cHeartRecoverSelectGirlPhase::HandleElementData(TiXmlElement*e_pTiXmlElemen
 					cRenderObject*l_pClone = dynamic_cast<cRenderObject*>(l_pImage->Clone());
 					l_pClone->Init();
 					l_pClone->SetParent(m_pScroller->GetObject(i),false);
-					m_GirlUnlokImageVector.AddObjectNeglectExist(l_pClone);
+					//m_GirlUnlokImageVector.AddObjectNeglectExist(l_pClone);
 				}
 			}
 			SAFE_DELETE(l_pImage);
@@ -326,9 +326,9 @@ const WCHAR*	cHeartRecoverSelectGirlPhase::CurrentSelectGirlName()
 
 void	cHeartRecoverSelectGirlPhase::RecheckUnLockGirl()
 {
-	if( m_GirlUnlokImageVector.Count() )
+	if( m_pScroller->Count())
 	{
-		cRenderObject*l_pImage = dynamic_cast<cRenderObject*>(m_GirlUnlokImageVector[0]->Clone());
+		cRenderObject*l_pImage = dynamic_cast<cRenderObject*>(m_pScroller->GetObject(0)->Clone());
 		m_GirlUnlokImageVector.Destroy();
 		if( l_pImage )
 		{
@@ -339,7 +339,7 @@ void	cHeartRecoverSelectGirlPhase::RecheckUnLockGirl()
 					cRenderObject*l_pClone = dynamic_cast<cRenderObject*>(l_pImage->Clone());
 					l_pClone->Init();
 					l_pClone->SetParent(m_pScroller->GetObject(i),false);
-					m_GirlUnlokImageVector.AddObjectNeglectExist(l_pClone);
+					//m_GirlUnlokImageVector.AddObjectNeglectExist(l_pClone);
 				}
 			}
 			SAFE_DELETE(l_pImage);

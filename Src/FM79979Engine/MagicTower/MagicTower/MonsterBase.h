@@ -12,7 +12,7 @@ enum	eMagicTowerMonsterStatus
 	eMTMS_MAX
 };
 
-extern WCHAR*g_strMonsterStatusName[];
+extern const wchar_t*g_strMonsterStatusName[];
 
 	class	cGridBehavior;
 	class	cMonsterBase:public cCharacterBase

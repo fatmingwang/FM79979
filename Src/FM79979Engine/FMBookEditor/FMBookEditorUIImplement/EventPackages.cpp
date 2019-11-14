@@ -21,8 +21,8 @@ namespace FMBookEditor
 		if( this->m_pEventPackages->m_Packages_listBox->SelectedIndex != -1)
 		{
 			String^l_strName = (String^)this->m_pEventPackages->m_Packages_listBox->SelectedItem;
-			WCHAR*l_strDeleteName = DNCT::GcStringToWchar(l_strName);
-			sFMBookEditorData::DelEventPackage(l_strDeleteName);
+			auto l_strDeleteName = DNCT::GcStringToWchar(l_strName);
+			sFMBookEditorData::DelEventPackage(l_strDeleteName.c_str());
 			this->m_pEventPackages->m_Packages_listBox->Items->RemoveAt(this->m_pEventPackages->m_Packages_listBox->SelectedIndex);
 		}	
 	}
@@ -33,8 +33,8 @@ namespace FMBookEditor
 		{
 			//m_pFMBookUI->m_EventObjectInstanceList->m_EventObjectInstance_listBox->m_ListBox->Items->Clear();
 			m_pFMBookUI->m_EventObjectInstanceList->m_EventObjectInstance_listBox->Items->Clear();
-			WCHAR*	l_strPackageName = DNCT::GcStringToWchar(m_pEventPackages->m_Packages_listBox->SelectedItem->ToString());
-			cEventPackage*l_pEventPackage = g_pEditorMode->m_spEventManager->GetEventPackage(l_strPackageName);
+			auto	l_strPackageName = DNCT::GcStringToWchar(m_pEventPackages->m_Packages_listBox->SelectedItem->ToString());
+			cEventPackage*l_pEventPackage = g_pEditorMode->m_spEventManager->GetEventPackage(l_strPackageName.c_str());
 			cEventObjectInstance*l_pEventObjectInstance = 0;
 			if(l_pEventPackage)
 			{

@@ -47,7 +47,7 @@ eMagicTowerGridType		NameToMagicTowerGridType(const WCHAR*e_strName)
 	}
 
 	WCHAR*l_strMonsterName = L"Monster";
-	int	l_iLength = wcslen(l_strMonsterName);
+	int	l_iLength = (int)wcslen(l_strMonsterName);
 	bool	l_bSame = true;
 	for( int i=0;i<l_iLength;++i )
 	{

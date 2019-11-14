@@ -121,7 +121,6 @@ cBone*	sVisualSceneLibrary::sSkeletonNode::AddChildBone(sNode*e_pMeshNode,cBone*
 	if( l_strName == 0 )
 		l_strName = L"NoName!?";
 	cBone*l_pBone = new cBone(l_strName);
-	l_pBone->SetDestroyConnectionWhileDestoruction(false);			
 	//e_pParentBone->AddChild(l_pBone);//should set sibling is faster,not only add child add parent
 	l_pBone->SetParent(e_pParentBone);
 	l_pBone->SetLocalTransform(e_pMeshNode->mat);
@@ -144,7 +143,6 @@ cBone*	sVisualSceneLibrary::sSkeletonNode::AddSiblingBone(sNode*e_pMeshNode,cBon
 	cBone*l_pBone = new cBone(l_strName);
 	e_pPreviousBone->SetNextSibling(l_pBone);
 	l_pBone->SetLocalTransform(e_pMeshNode->mat);
-	l_pBone->SetDestroyConnectionWhileDestoruction(false);
 	m_AllBoneData.AddObjectNeglectExist(l_pBone);
 	AllNodesOfSkeletonNodeVector.push_back(e_pMeshNode);
 #ifdef DEBUG

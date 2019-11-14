@@ -45,6 +45,7 @@ namespace UT
 		void					SetLoop(bool e_bLoop);
 		//0 to 1.
 		float					GetLERP();
+		float					GetLERPAttenuation();
 	};
 	//
 	//=============

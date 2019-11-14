@@ -116,6 +116,7 @@ namespace FATMING_CORE
 			COMPARE_VALUE("cFontWithFrame")
 			{
 				m_pText = cFontWithFrame::GetMe(e_pTiXmlElement);
+				this->AddChild(m_pText);
 			}
 			e_pTiXmlElement = e_pTiXmlElement->NextSiblingElement();
 		}
@@ -137,8 +138,7 @@ namespace FATMING_CORE
 	cPhasePopUpMessager::~cPhasePopUpMessager()
 	{
 		SAFE_DELETE(m_pBG);
-		SAFE_DELETE(m_pText);
-		SAFE_DELETE(m_pBG);
+		//SAFE_DELETE(m_pText);
 	}
 
 	void	cPhasePopUpMessager::ProcessYesNoDialogData(cButtonDialog*e_pYesNoDialog)

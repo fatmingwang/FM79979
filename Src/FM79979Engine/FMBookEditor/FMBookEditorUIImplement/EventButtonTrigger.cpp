@@ -72,7 +72,7 @@ namespace FMBookEditor
 			cClickMouseBehavior*l_pButton = m_pButton->GetButton();
 			if(this->m_pEventButton->m_Result->Text->Length>0)
 			{
-				m_pButton->SetResult(DNCT::GcStringToWchar(this->m_pEventButton->m_Result->Text));
+				m_pButton->SetResult(DNCT::GcStringToWchar(this->m_pEventButton->m_Result->Text).c_str());
 			}
 			else
 			{
@@ -82,10 +82,10 @@ namespace FMBookEditor
 			//base image
 			if(m_pEventButton->m_ButtonTypeListbox->SelectedIndex == 0 )
 			{
-				WCHAR*l_strImageName = DNCT::GcStringToWchar(m_pEventButton->m_ImageName->Text);
-				if(l_strImageName)
+				auto l_strImageName = DNCT::GcStringToWchar(m_pEventButton->m_ImageName->Text);
+				if(l_strImageName.length())
 				{
-					cBaseImage*l_pImage = cGameApp::GetBaseImage(l_strImageName);
+					cBaseImage*l_pImage = cGameApp::GetBaseImage(l_strImageName.c_str());
 					if( l_pImage )
 					{
 						l_pButton = new cImageButton(l_pImage,*m_pvButtonPos);
@@ -96,12 +96,12 @@ namespace FMBookEditor
 			else//PIUnit
 			if(m_pEventButton->m_ButtonTypeListbox->SelectedIndex == 1 )
 			{
-				WCHAR*l_strPIName = DNCT::GcStringToWchar(m_pEventButton->m_PIName->Text);
-				if(l_strPIName)
+				auto l_strPIName = DNCT::GcStringToWchar(m_pEventButton->m_PIName->Text);
+				if(l_strPIName.length())
 				{
-					cPuzzleImage*l_pPI = cGameApp::GetPuzzleImage(l_strPIName);
-					WCHAR*l_strPIunitName = DNCT::GcStringToWchar(m_pEventButton->m_PIUnitName->Text);
-					if( l_strPIunitName )
+					cPuzzleImage*l_pPI = cGameApp::GetPuzzleImage(l_strPIName.c_str());
+					auto l_strPIunitName = DNCT::GcStringToWchar(m_pEventButton->m_PIUnitName->Text);
+					if( l_strPIunitName.length() )
 					{
 						cPuzzleImageUnit*l_pPIUnit = l_pPI->GetObject(l_strPIunitName);
 						if( l_pPIUnit )
@@ -121,13 +121,13 @@ namespace FMBookEditor
 				{
 					if(m_pEventButton->m_Text->Text->Length>0)
 					{
-						WCHAR*l_strText = DNCT::GcStringToWchar(m_pEventButton->m_Text->Text);
+						auto l_strText = DNCT::GcStringToWchar(m_pEventButton->m_Text->Text);
 						Vector4	l_vColor(-1,-1,-1,-1);
 						l_vColor[0] = l_Color[0]/255.f;
 						l_vColor[2] = l_Color[1]/255.f;
 						l_vColor[3] = l_Color[2]/255.f;
 						l_vColor[4] = l_Color[3]/255.f;
-						l_pButton = new cTextButton(Vector2(m_pvButtonPos->x,m_pvButtonPos->y),g_pCurrentEventManager->m_pEventFont,l_vColor,l_strText,0,0);
+						l_pButton = new cTextButton(Vector2(m_pvButtonPos->x,m_pvButtonPos->y),g_pCurrentEventManager->m_pEventFont,l_vColor,l_strText.c_str(),0,0);
 						m_pButton->SetButton(l_pButton,0);
 					}
 				}

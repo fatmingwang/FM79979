@@ -20,9 +20,9 @@ struct	sFMBookEditorData
 	//for editor current object
 	static cEventPackage*							m_spEventPackage;
 	static	void									AddEventPackage(cEventPackage*e_pEventPackage);
-	static	void									DelEventPackage(WCHAR*e_strName);
-	static	void									SaveFile(char*e_strName);
-	static	bool									OpenFile(char*e_strName);
+	static	void									DelEventPackage(const wchar_t*e_strName);
+	static	void									SaveFile(const char*e_strName);
+	static	bool									OpenFile(const char*e_strName);
 	sFMBookEditorData();
 	~sFMBookEditorData();
 	static	void									SetupResource();

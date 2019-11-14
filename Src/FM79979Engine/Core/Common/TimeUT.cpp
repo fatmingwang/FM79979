@@ -94,6 +94,12 @@ namespace UT
 		float	l_fLERP = (1-fRestTime/fTargetTime);
 		return l_fLERP>1?1:l_fLERP;
 	}
+	float	sTimeCounter::GetLERPAttenuation()
+	{
+		float l_fValue = fRestTime / fTargetTime;
+		l_fValue *= l_fValue;
+		return 1.f-l_fValue;
+	}
 
 	void	sTimeCounter::SetLoop(bool e_bLoop)
 	{
@@ -120,6 +126,7 @@ namespace UT
 		fRestTime -= e_fElpaseTime;
 		if( fRestTime<=0.f )
 		{
+			fRestTime = 0.f;
 			bTragetTimrReached = true;
 			if( bLoop )
 			{

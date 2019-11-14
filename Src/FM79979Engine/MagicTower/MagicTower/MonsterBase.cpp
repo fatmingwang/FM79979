@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MonsterBase.h"
 #include "LevelData.h"
-extern WCHAR*g_strMonsterStatusName[] = {L"Idle",L"Attack"L"Hurt"L"Died"};
+extern const wchar_t*g_strMonsterStatusName[] = {L"Idle",L"Attack",L"Hurt",L"Died"};
 
 cMonsterBase::cMonsterBase(cGridBehavior*e_pGridBehavior):cCharacterBase(e_pGridBehavior->GetLevelLayerGridData()->GetTemplateDataNode()->GetDataNode())
 {

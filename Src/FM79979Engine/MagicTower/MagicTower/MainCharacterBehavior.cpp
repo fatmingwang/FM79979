@@ -2,7 +2,7 @@
 #include "MainCharacterBehavior.h"
 
 char*MAIN_ROLE_SETUP_DATA = "MagicTower/Battle/MainRole/MainRole.xml";
-WCHAR*g_strMainRoleStatusName[] = {L"Idle",L"Attack",L"AttackFailed",L"Hurt"L"Died"};
+const wchar_t*g_strMainRoleStatusName[] = {L"Idle",L"Attack",L"AttackFailed",L"Hurt",L"Died"};
 //<Battle Pos="710,200,0"/>
 
 cMainRoleData::cMainRoleData(TiXmlElement*e_pTiXmlElement):cCharacterBase(e_pTiXmlElement)

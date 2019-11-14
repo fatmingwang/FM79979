@@ -271,15 +271,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
-      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -50,8 +50,8 @@ cFreetypeGlyphRender*g_pFreetypeGlyphRender2 = nullptr;
 
 cPathChaser*g_pPathChaser = nullptr;
 
-cCurveWithTime g_CurveWithTime;
-cCurveWithTime g_CurveWithTime2;
+cCurveWithTime* g_pCurveWithTime = nullptr;
+cCurveWithTime* g_pCurveWithTime2 = nullptr;
 
 #ifdef WASM
 //https://stackoverflow.com/questions/51343425/not-able-to-bind-function-in-emscripten
@@ -166,30 +166,37 @@ cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
 	int l_iYBase = 900;
-	g_CurveWithTime.AddPoint(Vector3(100, 100, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(100, l_iYBase, 0), 0);
+	g_pCurveWithTime = new cCurveWithTime();
+	g_pCurveWithTime2 = new cCurveWithTime();
+	if (g_pCurveWithTime)
+	{
+		g_pCurveWithTime->AddPoint(Vector3(100, 100, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(100, l_iYBase, 0), 0);
 
 
-	g_CurveWithTime.AddPoint(Vector3(200, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(300, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(400, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(500, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(600, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(700, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(800, l_iYBase, 0), 0);
-	g_CurveWithTime.AddPoint(Vector3(900, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(200, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(300, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(400, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(500, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(600, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(700, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(800, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(900, l_iYBase, 0), 0);
+	}
+	if (g_pCurveWithTime2)
+	{
+		g_pCurveWithTime2->AddPoint(Vector3(100, l_iYBase, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(200, l_iYBase - 30, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(300, l_iYBase - 80, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(400, l_iYBase - 190, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(500, l_iYBase - 260, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(600, l_iYBase - 320, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(700, l_iYBase - 340, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(800, l_iYBase - 360, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(900, l_iYBase - 380, 0), 0);
+	}
 
-	g_CurveWithTime2.AddPoint(Vector3(100, l_iYBase, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(200, l_iYBase-30, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(300, l_iYBase-80, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(400, l_iYBase-190, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(500, l_iYBase-260, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(600, l_iYBase-320, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(700, l_iYBase-340, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(800, l_iYBase-360, 0), 0);
-	g_CurveWithTime2.AddPoint(Vector3(900, l_iYBase-380, 0), 0);
-
-	g_pPathChaser = new cPathChaser(100.f, 100.f);
+	//g_pPathChaser = new cPathChaser(100.f, 100.f);
 	if (g_pPathChaser)
 	{
 		cCurveWithTime l_cCurveWithTime;
@@ -339,6 +346,9 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
+	SAFE_DELETE(g_pCurveWithTime);
+	SAFE_DELETE(g_pCurveWithTime2);
+	SAFE_DELETE(g_pPathChaser);
 	SAFE_DELETE(g_pFreetypeGlyphRender);
 	SAFE_DELETE(g_pFreetypeGlyphRender2);
 	//SAFE_DELETE(g_pMSAAFrameBuffer);
@@ -623,30 +633,33 @@ void	SampleRender()
 	//}
 	if (g_bWSMCall)
 	{
-		g_CurveWithTime2.RenderCurve();
-		g_CurveWithTime.RenderCurve();
-		auto l_List = g_CurveWithTime2.GetPointList();
-		int l_iValueData[] = {
-			3,
-			8,
-			19,
-			26,
-			32,
-			34,
-			36,
-			38 };
-
-		for (int i = 0; i < l_List.size(); ++i)
+		if (g_pCurveWithTime2)
 		{
-			if (i > 0)
+			g_pCurveWithTime2->RenderCurve();
+			g_pCurveWithTime2->RenderCurve();
+			auto l_List = g_pCurveWithTime2->GetPointList();
+			int l_iValueData[] = {
+				3,
+				8,
+				19,
+				26,
+				32,
+				34,
+				36,
+				38 };
+
+			for (int i = 0; i < l_List.size(); ++i)
 			{
-				l_List[i].y -= 50;
-				l_List[i].x -= 20;
-				cGameApp::RenderFont(l_List[i].x, l_List[i].y, ValueToStringW(l_iValueData[i - 1]));
-				cGameApp::RenderFont(l_List[i].x, 950.f, ValueToStringW(i));
+				if (i > 0)
+				{
+					l_List[i].y -= 50;
+					l_List[i].x -= 20;
+					cGameApp::RenderFont(l_List[i].x, l_List[i].y, ValueToStringW(l_iValueData[i - 1]));
+					cGameApp::RenderFont(l_List[i].x, 950.f, ValueToStringW(i));
+				}
 			}
+			cGameApp::RenderFont(20, 100, L"80");
 		}
-		cGameApp::RenderFont(20, 100, L"80");
 	}
 #ifdef WASM
 	if (g_pWASMBindingTest)

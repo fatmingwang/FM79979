@@ -512,6 +512,17 @@ namespace FATMING_CORE
 		return nullptr;
 	}
 
+	POINT cCueToStartCurveWithTime::GetSize()
+	{
+		POINT l_Size = { 0,0 };
+		if (this->m_PointDataList.size())
+		{
+			l_Size.x = (long)m_PointDataList[0]->Size.x;
+			l_Size.y = (long)m_PointDataList[0]->Size.y;
+		}
+		return l_Size;
+	}
+
 	void cCueToStartCurveWithTime::Render(sPuzzleData*e_pPuzzleData)
 	{
 		if (!this->IsAnimationDone())

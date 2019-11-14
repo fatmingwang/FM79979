@@ -63,6 +63,8 @@ namespace FATMING_CORE
 	cMultiPathDynamicImage::~cMultiPathDynamicImage()
 	{
 		SAFE_DELETE(m_pViewPort);
+		//because Frame destructor will automaticly delete its child
+		this->m_ObjectList.clear();
 	}
 
 	void	cMultiPathDynamicImage::FindoutAllPointsCenter()
@@ -530,6 +532,12 @@ EXIT:
 			this->GetObject(i)->SetRotationAnglePosOffset(-l_vOffseetPos);
 		}
 
+	}
+
+	POINT cMultiPathDynamicImage::GetSize()
+	{
+		POINT l_Size = { (long)this->m_vDrawSize.x,(long)this->m_vDrawSize.y };
+		return l_Size;
 	}
 
 	void	cMultiPathDynamicImage::SetRotationAnglePosOffset(Vector3 e_vRotationAnglePosOffset)

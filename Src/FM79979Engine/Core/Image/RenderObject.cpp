@@ -122,8 +122,6 @@ namespace FATMING_CORE
 			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame )
 				DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(e_Function,l_pFrame);
-			if( e_pFrame->IsIgnoreChildrenUpdate()  )
-				return;
 			l_pFrame = e_pFrame->GetFirstChild();
 			if( l_pFrame )
 			{
@@ -134,20 +132,19 @@ namespace FATMING_CORE
 
 	void	cRenderObject::RenderObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function,Frame*e_pFrame)
 	{
-		//OutputDebugString(e_pFrame->GetName());
-		//OutputDebugString(L"\n");
 		if( e_pFrame )
 		{
 			if(e_pFrame->IsVisible())
 				e_Function(e_pFrame);
-			auto l_pFrame = e_pFrame->GetNextSibling();
-			if( l_pFrame  )
+			if (e_pFrame->IsVisible())
 			{
-				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
+				auto l_pFrame = e_pFrame->GetFirstChild();
+				if (l_pFrame)
+				{
+					RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+				}
 			}
-			if( e_pFrame->IsIgnoreChildrenUpdate() || !e_pFrame->IsVisible() )
-				return;
-			l_pFrame = e_pFrame->GetFirstChild();
+			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame  )
 			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
@@ -157,14 +154,33 @@ namespace FATMING_CORE
 		}
 	}
 
+	void cRenderObject::UpdateObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame * e_pFrame)
+	{
+		if (e_pFrame)
+		{
+			if (e_pFrame->IsVisible())
+				e_Function(e_pFrame);
+			auto l_pFrame = e_pFrame->GetNextSibling();
+			if (l_pFrame)
+			{
+				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+			}
+			if (e_pFrame->IsIgnoreChildrenUpdate())
+				return;
+			l_pFrame = e_pFrame->GetFirstChild();
+			if (l_pFrame)
+			{
+				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+			}
+		}
+	}
+
 	void	cRenderObject::UpdateNodes(float e_fElpaseTime)
 	{
-		RenderObjectGoThoughAllFrameFromaFirstToEnd(
+		UpdateObjectGoThoughAllFrameFromaFirstToEnd(
 			[e_fElpaseTime](Frame*e_pFrame)
 			{
-				//cRenderObject*l_pRenderObject = e_pFrame;
-				//if(!e_pFrame->IsIgnoreChildrenUpdate())
-					e_pFrame->Update(e_fElpaseTime);
+				e_pFrame->Update(e_fElpaseTime);
 			}
 			,this);
 		//fuck
@@ -184,8 +200,7 @@ namespace FATMING_CORE
 		RenderObjectGoThoughAllFrameFromaFirstToEnd(
 			[](Frame*e_pFrame)
 			{
-				if(e_pFrame->IsVisible())
-					e_pFrame->Render(); 
+				e_pFrame->Render(); 
 			}
 			,this);
 	}
