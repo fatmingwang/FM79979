@@ -39,6 +39,7 @@ void	BGLoading()
 
 int	g_iSpeed = 1;
 cShowLogoPhase*g_pShowLogoPhase = 0;
+cFreetypeGlyphRender*g_pFreetypeGlyphRender = nullptr;
 void	WTLoading()
 {
 	cGameApp::m_sTimeAndFPS.Update();
@@ -89,6 +90,7 @@ cBluffingGirlApp::cBluffingGirlApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2
 cBluffingGirlApp::cBluffingGirlApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
 	m_sfVersion = 1.f;
 	*m_psstrGameAppName = "BluffingGirlEN";
 	g_pLoadingProgressCallBack = WTLoading;
@@ -112,6 +114,7 @@ cBluffingGirlApp::~cBluffingGirlApp()
 	SAFE_DELETE(g_pStageClearFile);
 	SAFE_DELETE(m_spGameNetwork);
 	SAFE_DELETE(g_pFBFunction);
+	SAFE_DELETE(g_pFreetypeGlyphRender);
 	Destroy();
 	g_pBluffingGirlApp = 0;
 }
@@ -132,7 +135,6 @@ void	cBluffingGirlApp::Init()
 	g_pShowLogoPhase = new cShowLogoPhase();
 	m_pPhaseManager->AddObjectNeglectExist(g_pShowLogoPhase);
 	m_pPhaseManager->SetCurrentCurrentPhase(g_pShowLogoPhase->GetName());
-	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
 	cGameApp::GetPuzzleImageByFileName(L"BluffingGirl/Image/Mm_Photo_001.pi");
 	//common file parse
 	cMPDIList*l_pCommonMPDIList = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
@@ -211,37 +213,12 @@ void	cBluffingGirlApp::Init()
 	//m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/WarningMessengerPopupMessenger.xml");
 	m_pPhaseManager->RegisterPopupMessenger("BluffingGirl/PhaseData/BuyGirlPopupMessenger.xml");
 	g_pFBFunction = new cFBFunction();
-
-	//float	l_fWidthAceptRation = cGameApp::m_svViewPortSize.Width()/cGameApp::m_svViewPortSize.Height();
-	//float	l_fTargetAceptRation = 720/1280.f;
-	//if(l_fWidthAceptRation != l_fTargetAceptRation)
-	//{
-	//	Vector4	l_vOriginalSize = cGameApp::m_svViewPortSize;
-	//	int		l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
-	//	int		l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
-	//	float	l_fNewW =  cGameApp::m_svViewPortSize.Width()/80;
-	//	float	l_fNewH = cGameApp::m_svViewPortSize.Height()/80;
-	//	if( l_fNewW > l_fNewH )
-	//	{
-	//		int	l_iGap = l_iHeight/9;
-	//		l_iGap = (l_iWidth-(l_iGap*16))/2;
-	//		cGameApp::m_svViewPortSize.y = (float)l_iGap;
-	//		cGameApp::m_svViewPortSize.w = l_vOriginalSize.w-l_iGap;
-	//	}
-	//	else
-	//	{
-	//		int	l_iGap = l_iHeight/16;
-	//		l_iGap = (l_iWidth-(l_iGap*9))/2;
-	//		cGameApp::m_svViewPortSize.x = (float)l_iGap;
-	//		cGameApp::m_svViewPortSize.z = l_vOriginalSize.z-l_iGap;
-	//	}
-	//}
-	//SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
-	//SetAcceptRation(9,16,80);
 	g_pLoadingProgressCallBack = BGLoading;
 	g_pShowLogoPhase->m_bGotoMainPhase = true;
 	this->m_sTimeAndFPS.Update();
 	FMLog::LogWithFlag("cBluffingGirlApp::Init end \n", CORE_LOG_FLAG);
+
+	//g_pFreetypeGlyphRender = new cFreetypeGlyphRender("fireflysung.ttf",64);
 }
 bool	g_bTest = false;
 void	cBluffingGirlApp::Update(float e_fElpaseTime)
@@ -256,7 +233,18 @@ void	cBluffingGirlApp::Update(float e_fElpaseTime)
 	if( cGameApp::m_spSoundParser )
 		cGameApp::m_spSoundParser->Update(e_fElpaseTime);
 }
-
+#ifdef WASM
+//void	JSCallRender();
+cMPDI*	GetMPDI(const char*e_strFileName,int e_iIndex)
+{
+	auto l_pMPDIList = cGameApp::GetMPDIListByFileName(ValueToStringW(e_strFileName).c_str());
+	if (l_pMPDIList)
+	{
+		return l_pMPDIList->GetObject(e_iIndex);
+	}
+	return nullptr;
+}
+#endif
 void	cBluffingGirlApp::Render()
 {
 	//glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
@@ -310,9 +298,17 @@ void	cBluffingGirlApp::Render()
 	}
 	//if( m_pPhaseManager )
 	//	this->m_pPhaseManager->DebugRender();
+	if (g_pFreetypeGlyphRender)
+	{
+		wchar_t l_str[4] = { 24185,20320,23064,0 };
+		g_pFreetypeGlyphRender->RenderFont(Vector2(100, 100), l_str);
+	}
 #endif
 	RenderPause();
 	cGameApp::ShowInfo();
+#ifdef WASM
+	//JSCallRender();
+#endif
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_sHdc);
 #endif

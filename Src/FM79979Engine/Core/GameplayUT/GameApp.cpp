@@ -14,6 +14,7 @@
 #include "../Physic/2DImageCollisionData.h"
 
 #include "EventSender/MessageSender.h"
+#include "locale.h"
 using namespace UT;
 #if defined(ANDROID)//openAL,android.c
 #include "../Android/nv_egl_util.h"
