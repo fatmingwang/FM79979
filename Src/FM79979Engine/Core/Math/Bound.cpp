@@ -220,6 +220,8 @@ bool cBound::Collide( const cBound& Other ) const
             return Collide( Other.GetObb() );
         case cBound::AABB_Bound:
             return Collide( Other.GetAabb() );
+		case cBound::RECT2D_BOUND:
+			return Collide(Other.GetRect());
         case cBound::No_Bound:
             return true;
 		default:

@@ -637,3 +637,16 @@ void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*,Frame*)> e_Functio
 			GoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame,e_pData);
 	}
 }
+
+void GoThoughFirstChildLevel(std::function<void(void*, Frame*)> e_Function, Frame * e_pFrame, void * e_pData)
+{
+	if (e_pFrame)
+	{
+		auto l_pChild = e_pFrame->GetFirstChild();
+		while (l_pChild)
+		{
+			e_Function(e_pData, l_pChild);
+			l_pChild = l_pChild->GetNextSibling();
+		}
+	}
+}
