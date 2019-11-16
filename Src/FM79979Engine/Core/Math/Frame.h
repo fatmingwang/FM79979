@@ -117,4 +117,6 @@ protected:
 //sibling child then pop up back
 void	GoThoughAllFrameFromaLastToFirst(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
 void	GoThoughAllFrameFromaFirstToEnd(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
+//only for first child and its sibling
+void	GoThoughFirstChildLevel(std::function<void(void*, Frame*)> e_Function, Frame*e_pFrame, void*e_pData);
 #endif // ATG_FRAME_H
