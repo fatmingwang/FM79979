@@ -10,6 +10,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(int e_iVertexBufferSize)
 	{
+		m_vHalfSize = Vector2::Zero;
 		m_bTextChanged = true;
 		m_iVertexBufferCount = e_iVertexBufferSize;
 		m_vHalfSize = Vector2::Zero;
@@ -27,6 +28,7 @@ namespace FATMING_CORE
 
 	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize)
 	{
+		m_vHalfSize = Vector2::Zero;
 		m_iDrawCount = 0;
 		m_bTextChanged = true;
 		m_iVertexBufferCount = e_iVertexBufferSize;
@@ -219,6 +221,11 @@ namespace FATMING_CORE
 			}
 			m_vHalfSize.x = l_fHalfWidth;
 			m_vHalfSize.y = l_fHalfHeight;
+			auto l_pLocalBound = GetLocalBound();
+			if (l_pLocalBound)
+			{
+				GenerateBound();
+			}
 		}
 		UseShaderProgram(DEFAULT_SHADER);
 		m_pFontImage->ApplyImage();
@@ -299,5 +306,21 @@ namespace FATMING_CORE
 			m_fScale = e_fScale;
 			this->m_bTextChanged = true;
 		}
+	}
+	POINT cGlyphFontRender::GetSize()
+	{
+		if (this->m_bTextChanged)
+		{
+			m_vHalfSize = this->GetRenderSize(this->m_strText.c_str());
+		}
+		POINT l_Size = {(long)this->m_vHalfSize.x,(long)this->m_vHalfSize.y};
+		return l_Size;
+	}
+	const cBound * cGlyphFontRender::GenerateBound()
+	{
+		RECT l_DrawSize = { 0,0,(long)m_vHalfSize.x,(long)m_vHalfSize.y };
+		cBound l_Bound(l_DrawSize);
+		this->SetLocalBound(&l_Bound);
+		return this->GetLocalBound();
 	}
 }

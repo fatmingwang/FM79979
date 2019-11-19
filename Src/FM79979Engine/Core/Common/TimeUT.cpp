@@ -98,7 +98,7 @@ namespace UT
 	{
 		float l_fValue = fRestTime / fTargetTime;
 		l_fValue *= l_fValue;
-		return 1.f-l_fValue;
+		return l_fValue;
 	}
 
 	void	sTimeCounter::SetLoop(bool e_bLoop)

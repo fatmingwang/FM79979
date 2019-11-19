@@ -96,6 +96,7 @@ public:
 
 	void						DumpDebugInfo();
 	GET_SET(bool,m_bIgnoreChildrenUpdate,IsIgnoreChildrenUpdate,SetIgnoreChildrenUpdate);
+	GET_SET(bool,m_bIgnoreChildrenRender,IsIgnoreChildrenRender,SetIgnoreChildrenRender);
 	GET_SET_DEC(bool,m_bVisible,IsVisible,SetVisible);
 protected:
     virtual	void                UpdateCachedWorldTransformIfNeeded();
@@ -112,6 +113,7 @@ protected:
     Frame*                      m_pFirstChild;
 	//bool						m_bDestroyConnectionWhileDestroy;//when destruction is called,SetParent may not call as ue expected
 	bool						m_bIgnoreChildrenUpdate;//some object dont want update children,the child has relationship with parent
+	bool						m_bIgnoreChildrenRender;
 	bool						m_bAutoUpdateBound;//button dont need this
 };
 //sibling child then pop up back

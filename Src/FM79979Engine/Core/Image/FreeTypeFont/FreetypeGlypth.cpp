@@ -54,6 +54,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cFreetypeGlyphRender);
 	cFreetypeGlyphRender::cFreetypeGlyphRender(const char * e_strFontName, int e_iFontSize, int e_iVertexBufferSize, POINT e_DefaultFontTextureSize)
 	{
+		m_vHalfSize = Vector2::Zero;
 		m_pDynamicFontTexture = new cDynamicFontTexture(e_strFontName, this, e_iFontSize, e_DefaultFontTextureSize);
 		m_pDynamicFontTexture->AddRef(this);
 		m_fScale = 1.f;
@@ -80,6 +81,7 @@ namespace FATMING_CORE
 
 	cFreetypeGlyphRender::cFreetypeGlyphRender(cFreetypeGlyphRender * e_pGlyphFontRender)
 	{
+		m_vHalfSize = Vector2::Zero;
 		m_pDynamicFontTexture = e_pGlyphFontRender->m_pDynamicFontTexture;
 		m_pDynamicFontTexture->AddRef(this);
 		m_bTextChanged = true;
@@ -216,6 +218,11 @@ namespace FATMING_CORE
 			}
 			m_vHalfSize.x = l_fHalfWidth;
 			m_vHalfSize.y = l_fHalfHeight;
+			auto l_pLocalBound = GetLocalBound();
+			if (l_pLocalBound)
+			{
+				GenerateBound();
+			}
 		}
 		UseShaderProgram(DEFAULT_SHADER);
 		if (m_pDynamicFontTexture->ApplyImage())
@@ -293,6 +300,24 @@ namespace FATMING_CORE
 			m_bTextChanged = true;
 			this->m_strText = e_strText;
 		}
+	}
+
+	const cBound * cFreetypeGlyphRender::GenerateBound()
+	{
+		RECT l_DrawSize = { 0,0,(long)m_vHalfSize.x,(long)m_vHalfSize.y };
+		cBound l_Bound(l_DrawSize);
+		this->SetLocalBound(&l_Bound);
+		return this->GetLocalBound();
+	}
+
+	POINT cFreetypeGlyphRender::GetSize()
+	{
+		if (this->m_bTextChanged)
+		{
+			m_vHalfSize = this->GetRenderSize(this->m_strText.c_str());
+		}
+		POINT l_Size = { (long)this->m_vHalfSize.x,(long)this->m_vHalfSize.y };
+		return l_Size;
 	}
 
 	float cFreetypeGlyphRender::GetScale()

@@ -61,7 +61,7 @@ namespace FATMING_CORE
 		GET_SET(bool,m_bAllowDrag,IsAllowDrag,SetAllowDrag);
 		//
 		//static cClickBehavior*				LazyCreate(cRenderObject*e_pRenderObject,bool e_bUseDefaultClickEffect = true);
-		void							Init();
+		virtual void					Init();
         virtual void    				Update(float e_fElpaseTime);
 		//void							SetRepeatTime(float e_fRepeatTime);
 		bool							IsCollided(){ return m_bCollided; }
@@ -75,6 +75,7 @@ namespace FATMING_CORE
 														ClickFunction		e_MouseUpFunction,
 														ClickFunction		e_MouseDoubleClickFunction,
 														ClickFunction		e_MouseLeaveFunction);
+		void							SetMouseUpFunction(ClickFunction		e_MouseUpFunction);
 		//I am a mask to avoid click other buttons.
 		void							CreateFullScreenCollide();
 	};
@@ -93,7 +94,7 @@ namespace FATMING_CORE
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();
 		DEFINE_TYPE_INFO()
-		void													Init();
+		virtual void											Init()override;
         virtual void    										Update(float e_fElpaseTime)override;
 		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
 		std::tuple<cClickBehavior*,cRenderObject*>				AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);

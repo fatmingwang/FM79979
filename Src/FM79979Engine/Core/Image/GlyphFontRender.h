@@ -45,6 +45,8 @@ namespace FATMING_CORE
 		void			SetText(const wchar_t*e_strText);
 		float			GetScale();
 		void			SetScale(float e_fScale);
+		virtual POINT	GetSize()override;
+		virtual const	cBound*	GenerateBound()override;
 		float			m_fLazyMinusCharacterWidth = 1.0f;
 	};
 

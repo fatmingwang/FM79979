@@ -134,23 +134,25 @@ namespace FATMING_CORE
 	{
 		if( e_pFrame )
 		{
-			if(e_pFrame->IsVisible())
-				e_Function(e_pFrame);
 			if (e_pFrame->IsVisible())
 			{
-				auto l_pFrame = e_pFrame->GetFirstChild();
-				if (l_pFrame)
+				e_Function(e_pFrame);
+				if (!e_pFrame->IsIgnoreChildrenRender())
 				{
-					RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+					auto l_pFrame = e_pFrame->GetFirstChild();
+					if (l_pFrame)
+					{
+						RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+					}
 				}
+				if (e_pFrame->IsVisible())
+					e_pFrame->EndRender();
 			}
 			auto l_pFrame = e_pFrame->GetNextSibling();
 			if( l_pFrame  )
 			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function,l_pFrame);
 			}
-			if (e_pFrame->IsVisible())
-				e_pFrame->EndRender();
 		}
 	}
 
@@ -165,12 +167,13 @@ namespace FATMING_CORE
 			{
 				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
 			}
-			if (e_pFrame->IsIgnoreChildrenUpdate())
-				return;
-			l_pFrame = e_pFrame->GetFirstChild();
-			if (l_pFrame)
+			if (!e_pFrame->IsIgnoreChildrenUpdate())
 			{
-				RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+				l_pFrame = e_pFrame->GetFirstChild();
+				if (l_pFrame)
+				{
+					RenderObjectGoThoughAllFrameFromaFirstToEnd(e_Function, l_pFrame);
+				}
 			}
 		}
 	}
@@ -200,7 +203,7 @@ namespace FATMING_CORE
 		RenderObjectGoThoughAllFrameFromaFirstToEnd(
 			[](Frame*e_pFrame)
 			{
-				e_pFrame->Render(); 
+ 				e_pFrame->Render(); 
 			}
 			,this);
 	}

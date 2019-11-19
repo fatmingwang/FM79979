@@ -197,6 +197,10 @@ namespace FATMING_CORE
 		m_MouseLeaveFunction		   = e_MouseLeaveFunction;
 	}
 
+	void cClickBehavior::SetMouseUpFunction(ClickFunction e_MouseUpFunction)
+	{
+		m_MouseUpFunction = e_MouseUpFunction;
+	}
 
 	void	cClickBehavior::CreateFullScreenCollide()
 	{

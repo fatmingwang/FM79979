@@ -144,6 +144,7 @@ namespace FATMING_CORE
     template<class	TYPE>
     cFatmingGroupBehaviorList<TYPE>::cFatmingGroupBehaviorList()
     {
+		m_bIgnoreChildrenRender = true;
 		m_bIgnoreChildrenUpdate = true;
 	    m_iPlayCount = 1;
 	    m_fTotalPlayTime = 0.f;
@@ -162,6 +163,7 @@ namespace FATMING_CORE
 	//:cNamedTypedObjectVector<TYPE>(e_pFatmingGroupBehaviorList),cFMTimeLineAnimationRule(e_pFatmingGroupBehaviorList),the reason why not calling cNamedTypedObjectVector<TYPE>(e_pFatmingGroupBehaviorList) is because AddObjectNotification
     {
 		this->CloneFromList(e_pFatmingGroupBehaviorList);
+		m_bIgnoreChildrenRender = e_pFatmingGroupBehaviorList->m_bIgnoreChildrenRender;
 		m_bIgnoreChildrenUpdate = e_pFatmingGroupBehaviorList->m_bIgnoreChildrenUpdate;
 		SetName(e_pFatmingGroupBehaviorList->GetName());
 	    m_iPlayCount = e_pFatmingGroupBehaviorList->GetPlayCount();

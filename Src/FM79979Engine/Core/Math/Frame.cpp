@@ -55,6 +55,7 @@ void Frame::DestoryWithChildren()
 Frame::Frame()
 {
 	m_bVisible = true;
+	m_bIgnoreChildrenRender = false;
 	m_bIgnoreChildrenUpdate = false;
     m_pParent = nullptr;
     m_pNextSibling = nullptr;
@@ -71,6 +72,7 @@ Frame::Frame()
 Frame::Frame(Frame*e_pFrame)
 {
 	m_bVisible = e_pFrame->m_bVisible;
+	m_bIgnoreChildrenRender = e_pFrame->m_bIgnoreChildrenRender;
 	m_bIgnoreChildrenUpdate = e_pFrame->m_bIgnoreChildrenUpdate;
 	m_pLocalBound = nullptr;
     m_pCachedWorldBound = nullptr;
