@@ -19,7 +19,6 @@ import android.app.Activity;
 import android.widget.TextView;
 import android.os.Bundle;
 import android.app.NativeActivity;
-//
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -37,48 +36,42 @@ import android.view.View;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.os.Environment;
+import android.widget.ShareActionProvider;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.graphics.PixelFormat;
+import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 import java.util.HashMap;
-import android.widget.ShareActionProvider;
 import java.util.Map;
-
-import android.media.MediaPlayer;
 
 import com.android.vending.billing.IInAppBillingService;
 import org.json.JSONException;
 
+
 import util.iab.IABManager;
 import util.AccelerometerManager;
 import util.AccelerometerListener;
-
 import util.Define;
 import util.AdMobUtility;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
-
 import util.NumericEditTextDialog;
 import util.ExternalStorage;
 import util.NetworkUtil;
+import util.Define;
+import util.ZipUtilActivity;
+import util.bluetooth.BluetoothChatFragment;
 
-
-import android.net.Uri;
-import android.graphics.PixelFormat;
-
-import android.graphics.Bitmap;
 import java.io.File;
 import java.io.IOException;
 import java.io.FileOutputStream;
 
-import util.Define;
-import util.ZipUtilActivity;
-
-import util.bluetooth.BluetoothChatFragment;
-
-import android.widget.Toast;
 
 
 
