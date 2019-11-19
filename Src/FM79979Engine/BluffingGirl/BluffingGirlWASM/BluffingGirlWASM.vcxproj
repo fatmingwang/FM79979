@@ -89,12 +89,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <ClCompile>
       <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WASM;DEBUG</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>-s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=1 --profiling -s SAFE_HEAP=1 -g</AdditionalOptions>
+      <AdditionalOptions>-s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=2 --profiling -s DEMANGLE_SUPPORT=1 -g4</AdditionalOptions>
       <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
