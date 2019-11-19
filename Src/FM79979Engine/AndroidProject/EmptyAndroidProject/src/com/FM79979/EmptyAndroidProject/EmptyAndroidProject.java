@@ -291,40 +291,20 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 	public static String getPath( Context context, Uri uri ) 
 	{
 		String result = null;
-		String[] proj = { MediaStore.Images.Media.DATA };
-		Cursor cursor = context.getContentResolver( ).query( uri, proj, null, null, null );
-		if(cursor != null)
-		{
-			if ( cursor.moveToFirst( ) )
-			{
-				int column_index = cursor.getColumnIndexOrThrow( proj[0] );
-				result = cursor.getString( column_index );
-			}
-			cursor.close( );
-		}
-		if(result == null)
-		{
-			result = "Not found";
-		}
+
 		return result;
 	}
 
 	String	GetClipboardString()
 	{
-		CharSequence l_CharSequence = m_Clipboard.getText();
-		if( l_CharSequence != null)
-		{
-			String l_str = l_CharSequence.toString();
-			return l_str;
-		}
+
 		return "";
 	}
 
 	void	SetClipboardString(String e_strText)
 	{
 		//https://stackoverflow.com/questions/33207809/what-exactly-is-label-parameter-in-clipdata-in-android
-		ClipData clip = ClipData.newPlainText("test", e_strText);
-		m_Clipboard.setPrimaryClip(clip);
+
 	}
 
 	public void	PickUpPhotoByIntent()
@@ -338,7 +318,7 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 		Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
 		chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
 
-		startActivityForResult(chooserIntent, PICK_PHOTO);
+		//startActivityForResult(chooserIntent, PICK_PHOTO);
 	}
 
 	public void	ShareImageFileToFriend(String e_strFileName)
