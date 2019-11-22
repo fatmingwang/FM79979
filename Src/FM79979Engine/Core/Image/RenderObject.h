@@ -7,6 +7,9 @@
 #include <functional>
 namespace FATMING_CORE
 {
+	typedef	std::function<void()>								f_RenderFunction;
+	typedef	std::function<void(float)>							f_UpdateFunction;
+
 	class	cRenderObject:public virtual Frame//,virtual public cSmartObject
 	{
 	protected:
@@ -19,6 +22,8 @@ namespace FATMING_CORE
 		void	UpdateObjectGoThoughAllFrameFromaFirstToEnd(std::function<void(Frame*)> e_Function, Frame*e_pFrame);
 		void	DoRenderObjectGoThoughAllFrameFromaFirstToEndForgetVisible(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
 		//void	RenderObjectGoThoughAllFrameFromaEndToFirst(std::function<void(Frame*)> e_Function,Frame*e_pFrame);
+		f_RenderFunction	m_RenderFunction;
+		f_UpdateFunction	m_UpdateFunction;
 	protected:
 		virtual	void	SetTransformInternalData();
 		GET_SET_DEC(bool,m_bUpdateRotation,IsUpdateRotation,SetUpdateRotation);
@@ -44,8 +49,8 @@ namespace FATMING_CORE
 		void			SetAngle(float e_fAngle);
 		void			SetAngle(Vector3 e_vAngle);
 		virtual	void	Init(){}
-		virtual	void	Update(float e_fElpaseTime){}
-		virtual	void	Render(){}
+		virtual	void	Update(float e_fElpaseTime){ if (m_UpdateFunction)m_UpdateFunction(e_fElpaseTime); }
+		virtual	void	Render() { if (m_RenderFunction)m_RenderFunction(); }
 		virtual	void	DoRenderCommand() { assert(0 &&"not support"); }
 		virtual	void	DebugRender(){}
 		//
@@ -58,6 +63,8 @@ namespace FATMING_CORE
 		virtual	void	SetColor(Vector4 e_vColor){}
 		virtual const	cBound*	GenerateBound(){ return nullptr; }
 		virtual bool	Collide(int e_iPosX, int e_iPosY);
+		void			SetRenderFunction(f_RenderFunction e_f_RenderFunction) { m_RenderFunction = e_f_RenderFunction; }
+		void			SetUpdateFunction(f_UpdateFunction e_f_UpdateFunction) { m_UpdateFunction = e_f_UpdateFunction; }
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;
 		//virtual	int		GetHeight() = 0;

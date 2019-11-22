@@ -96,8 +96,8 @@ namespace FATMING_CORE
 		DEFINE_TYPE_INFO()
 		virtual void											Init()override;
         virtual void    										Update(float e_fElpaseTime)override;
-		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
-		std::tuple<cClickBehavior*,cRenderObject*>				AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound);
+		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound,bool e_bEnableClickScale = true);
+		std::tuple<cClickBehavior*,cRenderObject*>				AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound, bool e_bEnableClickScale = true);
 		virtual	NamedTypedObject*	Clone()override { return nullptr; }
 	};
 	//its higher than cClickBehaviorGroup,because it has top menu and always need to work click event vector

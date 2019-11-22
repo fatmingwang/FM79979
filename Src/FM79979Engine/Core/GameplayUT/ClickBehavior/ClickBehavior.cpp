@@ -316,7 +316,7 @@ namespace FATMING_CORE
 		}
 	}
 
-	cClickBehavior*	cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound)
+	cClickBehavior*	cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound, bool e_bEnableClickScale)
 	{
 		if( !e_pRenderObject )
 			return nullptr;
@@ -331,11 +331,12 @@ namespace FATMING_CORE
 		l_pClickEvent->SetMouseFunction(nullptr,nullptr,nullptr,e_ClickFunction,e_ClickFunction,nullptr);
 		l_pClickEvent->SetName(e_pRenderObject->GetName());
 		l_pClickEvent->SetClickSound(e_pBasicSound);
+		l_pClickEvent->SetEnableClickScale(e_bEnableClickScale);
 		this->AddObjectNeglectExist(l_pClickEvent);
 		return l_pClickEvent;
 	}
 
-	std::tuple<cClickBehavior*,cRenderObject*>		cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound)
+	std::tuple<cClickBehavior*,cRenderObject*>		cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound, bool e_bEnableClickScale)
 	{
 		//auto l_pImage = e_pSubMPDI->PointDataToBaseImage(0);
 		cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(e_pSubMPDI->GetOwner());
@@ -343,7 +344,7 @@ namespace FATMING_CORE
 		e_pSubMPDI->SetLocalTransform(l_pMPDI->GetWorldTransform());
 		e_pSubMPDI->Init();
 		e_pSubMPDI->Update(0.00001f);
-		auto l_pData = AddDefaultRenderClickBehaviorButton((cRenderObject*)e_pSubMPDI,e_ClickFunction,e_pBasicSound);
+		auto l_pData = AddDefaultRenderClickBehaviorButton((cRenderObject*)e_pSubMPDI,e_ClickFunction,e_pBasicSound, e_bEnableClickScale);
 		return std::make_tuple(l_pData,e_pSubMPDI);
 	}
 	//bool	cClickBehaviorGroup::AddButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pClickSound)

@@ -7,6 +7,7 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(cDefaultRenderClickBehavior);
 	cDefaultRenderClickBehavior::cDefaultRenderClickBehavior()
 	{
+		m_bEnableClickScale = true;
 		m_bIsOnClick = false;
 		m_pRenderObject = nullptr;
 	}
@@ -41,13 +42,16 @@ namespace FATMING_CORE
 			if( m_pRenderObject == nullptr )
 				return l_Result;
 			m_bIsOnClick = true;
-			m_OnClickMatrix = m_pRenderObject->GetLocalTransform();
-			m_OnHorverMatrix = m_OnClickMatrix*cMatrix44::ScaleMatrix(Vector3(MOUSE_DOWN_SCALE_VALUE,MOUSE_DOWN_SCALE_VALUE,MOUSE_DOWN_SCALE_VALUE));
-			if( m_pRenderObject )
+			if (m_bEnableClickScale)
 			{
-				m_pRenderObject->SetLocalTransform(m_OnHorverMatrix);
-				m_pRenderObject->SetAutoUpdateBound(false);
-			}		
+				m_OnClickMatrix = m_pRenderObject->GetLocalTransform();
+				m_OnHorverMatrix = m_OnClickMatrix * cMatrix44::ScaleMatrix(Vector3(MOUSE_DOWN_SCALE_VALUE, MOUSE_DOWN_SCALE_VALUE, MOUSE_DOWN_SCALE_VALUE));
+				if (m_pRenderObject)
+				{
+					m_pRenderObject->SetLocalTransform(m_OnHorverMatrix);
+					m_pRenderObject->SetAutoUpdateBound(false);
+				}
+			}
 		}
 		return l_Result;
 	}
@@ -63,7 +67,7 @@ namespace FATMING_CORE
 				if( !m_bIsOnClick )
 				{
 					m_bIsOnClick = true;
-					if( m_pRenderObject  )
+					if( m_pRenderObject && m_bEnableClickScale)
 					{
 						m_pRenderObject->SetLocalTransform(m_OnHorverMatrix);
 					}
@@ -86,10 +90,13 @@ namespace FATMING_CORE
 		if( m_bIsOnClick )
 		{
 			m_bIsOnClick = false;
-			if( m_pRenderObject )
+			if (m_bEnableClickScale)
 			{
-				m_pRenderObject->SetLocalTransform(m_OnClickMatrix);
-				m_pRenderObject->SetAutoUpdateBound(true);
+				if (m_pRenderObject)
+				{
+					m_pRenderObject->SetLocalTransform(m_OnClickMatrix);
+					m_pRenderObject->SetAutoUpdateBound(true);
+				}
 			}
 		}
 	}
