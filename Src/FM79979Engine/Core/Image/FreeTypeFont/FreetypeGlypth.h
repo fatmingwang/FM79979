@@ -34,6 +34,7 @@ namespace FATMING_CORE
 		virtual	void	DebugRender()override;
 		virtual	void	SetColor(Vector4 e_vColor)override { SetFontColor(e_vColor); }
 		void			SetFontColor(Vector4 e_vColor);
+		void			AppendTextAndSetFontColor(const wchar_t*e_strText,Vector4 e_vColor);
 		Vector2			GetRenderSize(const wchar_t*e_strText);
 		float			GetScale();
 		void			SetScale(float e_fScale);

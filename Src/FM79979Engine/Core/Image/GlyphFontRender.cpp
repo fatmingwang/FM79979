@@ -149,6 +149,17 @@ namespace FATMING_CORE
 				{
 					if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]))
 						continue;
+					//if (e_pString[i] == L' ')
+					//{
+					//	l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2;
+					//	continue;
+					//}
+					//else
+					//if (e_pString[i] == L'\t')
+					//{
+					//	l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2*3;
+					//	continue;
+					//}
 					FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_pString[i]);
 					float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
 					float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
@@ -240,6 +251,52 @@ namespace FATMING_CORE
 		{
 			for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 				m_pvColorBuffer[i] = e_vColor;
+		}
+	}
+
+	void cGlyphFontRender::AppendTextAndSetFontColor(const wchar_t * e_strText, Vector4 e_vColor)
+	{
+		//first find skip character
+		int l_iSkipCount = 0;
+		auto l_iLen = (int)this->m_strText.length();
+		for (size_t i = 0; i < l_iLen; ++i)
+		{
+			auto l_wchar_t = m_strText[i];
+			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+				++l_iSkipCount;
+			else
+			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+				++l_iSkipCount;
+			else
+			{
+				if (!m_pGlyphReader->IsLegalCharacter(l_wchar_t))
+				{
+					++l_iSkipCount;
+				}
+			}
+		}
+		int l_iIndex = l_iLen - l_iSkipCount;
+		m_strText += e_strText;
+		int l_iEndndex = (int)this->m_strText.length();
+		// n t space
+		for (int i = l_iIndex; i < l_iEndndex ; ++i)
+		{
+			auto l_wchar_t = m_strText[i];
+			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+				continue;
+			else
+			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+				continue;
+			else
+			{
+				if (!m_pGlyphReader->IsLegalCharacter(l_wchar_t))
+				{
+					continue;
+				}
+			}
+			for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
+				m_pvColorBuffer[l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT+j] = e_vColor;
+			++l_iIndex;
 		}
 	}
 

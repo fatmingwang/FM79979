@@ -140,7 +140,20 @@ namespace FATMING_CORE
 				{
 					auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_pString[i]);
 					if (!l_pGlyph)
+					{
 						continue;
+					}
+					if (e_pString[i] == L' ')
+					{
+						l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2;
+						continue;
+					}
+					else
+					if (e_pString[i] == L'\t')
+					{
+						l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2*3;
+						continue;
+					}
 					float   l_fCharacterWidth = l_pGlyph->Size.x*m_fScale;
 					float   l_fCharacterHeight = l_pGlyph->Size.y*m_fScale;
 					float	l_fGlyphYOffset = 0.f;
@@ -186,8 +199,6 @@ namespace FATMING_CORE
 				}
 				else
 				{
-					//memset(l_pfVertexData,0,sizeof(float)*8);
-					//memset(l_pfTextData,0,sizeof(float)*8);
 					l_fXOffset = 0;
 					l_fYOffset += m_pDynamicFontTexture->m_iFontSize;
 					l_fDrawHeight += m_pDynamicFontTexture->m_iFontSize;
@@ -255,6 +266,54 @@ namespace FATMING_CORE
 		}
 	}
 
+	void cFreetypeGlyphRender::AppendTextAndSetFontColor(const wchar_t * e_strText, Vector4 e_vColor)
+	{
+		//first find skip character
+		int l_iSkipCount = 0;
+		auto l_iLen = (int)this->m_strText.length();
+		for (size_t i = 0; i < l_iLen; ++i)
+		{
+			auto l_wchar_t = m_strText[i];
+			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+				++l_iSkipCount;
+			else
+			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+				++l_iSkipCount;
+			else
+			{
+				auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(l_wchar_t);
+				if (!l_pGlyph)
+				{
+					++l_iSkipCount;
+				}
+			}
+		}
+		int l_iIndex = l_iLen - l_iSkipCount;
+		m_strText += e_strText;
+		int l_iEndndex = (int)this->m_strText.length();
+		// n t space
+		for (int i = l_iIndex; i < l_iEndndex ; ++i)
+		{
+			auto l_wchar_t = m_strText[i];
+			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+				continue;
+			else
+			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+				continue;
+			else
+			{
+				auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(l_wchar_t);
+				if (!l_pGlyph)
+				{
+					continue;
+				}
+			}
+			for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
+				m_pvColorBuffer[l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT+j] = e_vColor;
+			++l_iIndex;
+		}
+	}
+
 	Vector2 cFreetypeGlyphRender::GetRenderSize(const wchar_t * e_strText)
 	{
 		int	l_iLen = (int)wcslen(e_strText);
@@ -272,8 +331,20 @@ namespace FATMING_CORE
 				auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_strText[i]);
 				if (!l_pGlyph)
 					continue;
+				if (e_strText[i] == L' ')
+				{
+					l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2;
+					continue;
+				}
+				else
+				if (e_strText[i] == L'\t')
+				{
+					l_fXOffset += m_pDynamicFontTexture->m_iFontSize/2*3;
+					continue;
+				}
 				float   l_fCharacterWidth = l_pGlyph->Size.x*m_fScale;
 				float   l_fCharacterHeight = l_pGlyph->Size.y*m_fScale;
+				l_fFontHeight = l_fCharacterHeight;
 				l_fXOffset += (l_fCharacterWidth);
 				if (l_fDrawWidth < l_fXOffset)
 					l_fDrawWidth = l_fXOffset;
