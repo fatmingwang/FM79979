@@ -83,9 +83,6 @@ Frame::Frame(Frame*e_pFrame)
 	m_LocalTransform = e_pFrame->m_LocalTransform;
 	if( e_pFrame->m_pLocalBound )
 	{
-#ifdef DEBUG
-		auto l_Sphere = e_pFrame->m_pLocalBound->GetSphere();
-#endif
 		this->SetLocalBound(e_pFrame->m_pLocalBound);
 	}
     m_CachedWorldTransform._11 = FRAME_DIRTY_WORLD_CACHE;

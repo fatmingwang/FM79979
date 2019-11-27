@@ -93,6 +93,7 @@ namespace FATMING_CORE
 				return this;
 			}
 		}
+		eObjectMouseBehavior l_eObjectMouseBehavior = m_eObjectMouseBehavior;
 		m_eObjectMouseBehavior = eOMB_NONE;
 		return nullptr;
 	}

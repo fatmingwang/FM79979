@@ -84,16 +84,16 @@ namespace FATMING_CORE
 	{
 		friend	class 				cClickBehaviorDispatcher;
 	protected:
-        //first time into
-        virtual cClickBehavior*		MouseDown(int e_iPosX,int e_iPosY)override;
-        //horver and move
-        virtual cClickBehavior*   	MouseMove(int e_iPosX,int e_iPosY)override;
-        //
-        virtual cClickBehavior*    	MouseUp(int e_iPosX,int e_iPosY)override;
 	public:
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();
 		DEFINE_TYPE_INFO()
+		//first time into
+		virtual cClickBehavior*		MouseDown(int e_iPosX, int e_iPosY)override;
+		//horver and move
+		virtual cClickBehavior*   	MouseMove(int e_iPosX, int e_iPosY)override;
+		//
+		virtual cClickBehavior*    	MouseUp(int e_iPosX, int e_iPosY)override;
 		virtual void											Init()override;
         virtual void    										Update(float e_fElpaseTime)override;
 		cClickBehavior*											AddDefaultRenderClickBehaviorButton(cRenderObject*e_pRenderObject,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound,bool e_bEnableClickScale = true);
@@ -110,6 +110,7 @@ namespace FATMING_CORE
 		cClickBehaviorDispatcher();
 		~cClickBehaviorDispatcher();
 		DEFINE_TYPE_INFO()
+		//don't call it or something wrong...or you know what you want to do.
 		virtual void    			Update(float e_fElpaseTime)override;
         virtual cClickBehavior*    	MouseDown(int e_iPosX,int e_iPosY)override;
         virtual cClickBehavior*    	MouseMove(int e_iPosX,int e_iPosY)override;
