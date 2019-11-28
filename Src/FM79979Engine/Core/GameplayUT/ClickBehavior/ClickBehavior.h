@@ -103,6 +103,7 @@ namespace FATMING_CORE
 	//its higher than cClickBehaviorGroup,because it has top menu and always need to work click event vector
 	class cClickBehaviorDispatcher:public cClickBehaviorGroup
 	{
+	protected:
 		//while this exists m_ClickEventVector won't work.
 		cClickBehavior*				m_pCurrentWorkingEvent;
 		cClickBehaviorGroup			m_AlwaysNeedToWorkClickEventGroup;

@@ -17,5 +17,6 @@
 #include "Image/GlyphFontRender.h"
 #include "Image/FreeTypeFont/FreetypeGlypth.h"
 #include "Image/AnimationParser.h"
+#include "Image/RenderNodeEffect/RenderObjectEffect.h"
 
 #endif

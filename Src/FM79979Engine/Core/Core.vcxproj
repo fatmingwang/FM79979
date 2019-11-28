@@ -144,6 +144,9 @@
     <ClCompile Include="GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp" />
     <ClCompile Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
+    <ClCompile Include="GameplayUT\ClickBehavior\MPDIToGameObject.cpp" />
+    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBar.cpp" />
+    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBox.cpp" />
     <ClCompile Include="GameplayUT\CustomBinaryData.cpp" />
     <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="GameplayUT\GameAppUtil.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="Image\FreeTypeFont\FreetypeGlypth.cpp" />
     <ClCompile Include="Image\MPDINode.cpp" />
     <ClCompile Include="Image\png\pngLoader.cpp" />
+    <ClCompile Include="Image\RenderNodeEffect\RenderObjectEffect.cpp" />
     <ClCompile Include="Image\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="Image\SimplePrimitive.cpp" />
     <ClCompile Include="Image\Texture.cpp" />
@@ -311,6 +315,9 @@
     <ClInclude Include="GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h" />
     <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
+    <ClInclude Include="GameplayUT\ClickBehavior\MPDIToGameObject.h" />
+    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBar.h" />
+    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBox.h" />
     <ClInclude Include="GameplayUT\CommonRegister\CommonRegisterManager.h" />
     <ClInclude Include="GameplayUT\CustomBinaryData.h" />
     <ClInclude Include="GameplayUT\EventSender\MessageSender.h" />
@@ -327,6 +334,7 @@
     <ClInclude Include="Image\FreeTypeFont\FreetypeGlypth.h" />
     <ClInclude Include="Image\MPDINode.h" />
     <ClInclude Include="Image\png\pngLoader.h" />
+    <ClInclude Include="Image\RenderNodeEffect\RenderObjectEffect.h" />
     <ClInclude Include="Image\RenderQueue\RenderCommand.h" />
     <ClInclude Include="Image\RenderQueue\RenderQueue.h" />
     <ClInclude Include="Image\RenderQueue\RenderQueueManager.h" />

@@ -183,9 +183,6 @@
     <Filter Include="Math\LinearData">
       <UniqueIdentifier>{1ce25ea6-a609-4a00-9f95-bba52ecbad9d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\UI\Button\ClickBehavior">
-      <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\Language">
       <UniqueIdentifier>{0de65bcd-c97f-4e40-b53d-e893fe9e3dcd}</UniqueIdentifier>
     </Filter>
@@ -278,6 +275,12 @@
     </Filter>
     <Filter Include="Render\Font\FreeTypeFont">
       <UniqueIdentifier>{428aeac7-2dea-4742-abf3-5f80592779c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\UI\ClickBehavior">
+      <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\RenderNodeEffect">
+      <UniqueIdentifier>{d4359132-9685-40f6-845b-42c38c3b7723}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -669,10 +672,10 @@
       <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Language\LanguageFile.cpp">
       <Filter>GameplayUT\Language</Filter>
@@ -763,6 +766,18 @@
     </ClCompile>
     <ClCompile Include="Image\FreeTypeFont\FreetypeGlypth.cpp">
       <Filter>Render\Font\FreeTypeFont</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ClickBehavior\MPDIToGameObject.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBar.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBox.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Image\RenderNodeEffect\RenderObjectEffect.cpp">
+      <Filter>Render\RenderNodeEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1217,10 +1232,10 @@
       <Filter>XML</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Language\LanguageFile.h">
       <Filter>GameplayUT\Language</Filter>
@@ -1311,6 +1326,18 @@
     </ClInclude>
     <ClInclude Include="Image\FreeTypeFont\FreetypeGlypth.h">
       <Filter>Render\Font\FreeTypeFont</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ClickBehavior\MPDIToGameObject.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBar.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBox.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="Image\RenderNodeEffect\RenderObjectEffect.h">
+      <Filter>Render\RenderNodeEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
