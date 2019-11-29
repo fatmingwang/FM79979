@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAICharacterInterface.h"
 #include "FAIMultiTaskBehavior.h"
 #include "FAITranslationBehavior.h"

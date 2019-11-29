@@ -238,9 +238,6 @@
     <Filter Include="jni\GamePlayUT\CameraZoom">
       <UniqueIdentifier>{e0bf38c8-b0d0-4608-b929-88618d5a52e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="jni\GamePlayUT\UI\Button\ClickBehavior">
-      <UniqueIdentifier>{c902f3c5-9f1d-4ffa-8c9d-ae897f36bf26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\GamePlayUT\EventSender">
       <UniqueIdentifier>{99772d62-5721-4a8e-adb9-06ee89672151}</UniqueIdentifier>
     </Filter>
@@ -273,6 +270,12 @@
     </Filter>
     <Filter Include="jni\RenderObject\Font\FreeTypeFont">
       <UniqueIdentifier>{ee36940e-194c-4312-94c0-b2a8dc5b1392}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\GamePlayUT\UI\ClickBehavior">
+      <UniqueIdentifier>{c902f3c5-9f1d-4ffa-8c9d-ae897f36bf26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="jni\RenderObject\RenderNodeEffect">
+      <UniqueIdentifier>{2ac8c5c4-2360-4a7c-8f41-4f6e640a7060}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -779,10 +782,10 @@
       <Filter>jni\Sound</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp">
-      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp">
-      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc\backends\android.c">
       <Filter>jni\Sound\AndroidOpenAL</Filter>
@@ -954,6 +957,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Network\GameNetWork.cpp">
       <Filter>jni\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\MPDIToGameObject.cpp">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBar.cpp">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBox.cpp">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Image\RenderNodeEffect\RenderObjectEffect.cpp">
+      <Filter>jni\RenderObject\RenderNodeEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1508,10 +1523,10 @@
       <Filter>jni\Sound</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.h">
-      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
-      <Filter>jni\GamePlayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\EventSender\MessageSender.h">
       <Filter>jni\GamePlayUT\EventSender</Filter>
@@ -1587,6 +1602,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Network\GameNetWork.h">
       <Filter>jni\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\MPDIToGameObject.h">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBar.h">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBox.h">
+      <Filter>jni\GamePlayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Image\RenderNodeEffect\RenderObjectEffect.h">
+      <Filter>jni\RenderObject\RenderNodeEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

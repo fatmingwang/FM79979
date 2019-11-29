@@ -312,6 +312,7 @@ namespace FATMING_CORE
 				m_pvColorBuffer[l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT+j] = e_vColor;
 			++l_iIndex;
 		}
+		this->m_bTextChanged = true;
 	}
 
 	Vector2 cFreetypeGlyphRender::GetRenderSize(const wchar_t * e_strText)

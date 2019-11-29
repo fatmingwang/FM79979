@@ -107,7 +107,7 @@ namespace FATMING_CORE
 		//index for index of cCueToStartCurveWithTime
 		bool			Collide(int e_iPosX,int e_iPosY,int e_iIndex);
 		//Collide All
-		virtual	bool    Collide(int e_iPosX,int e_iPosY);
+		virtual	bool    Collide(int e_iPosX,int e_iPosY)override;
 		bool			Collide(cMultiPathDynamicImage*e_pMPDI);
 		Vector4*		GetViewPort(){return m_pViewPort;};
 		void			SetViewPort(Vector4 e_vViewPort);

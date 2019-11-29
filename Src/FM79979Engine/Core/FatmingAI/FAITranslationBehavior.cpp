@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAITranslationBehavior.h"
 #include "FAIMachine.h"
 namespace FATMING_AI

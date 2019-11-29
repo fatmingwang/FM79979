@@ -166,7 +166,7 @@ namespace FATMING_CORE
 		//virtual	void	RenderWithOffset();
 		//this collide include rotation data(Angle around Z axis).
 		//not same as cTextureWithcTexData and cTexData
-		virtual bool	Collide(int e_iLocalX,int e_iLocalY);//input local space coordinate or it does't collide,RECT(0,0,right,buttom).
+		virtual bool	Collide(int e_iLocalX,int e_iLocalY)override;//input local space coordinate or it does't collide,RECT(0,0,right,buttom).
 		bool	CollideWithOutAlphaTest(int e_iLocalX,int e_iLocalY);
 		//the real pixels exit size is,right down poisition minus left top position
 		POINT	GetImageRealSize()

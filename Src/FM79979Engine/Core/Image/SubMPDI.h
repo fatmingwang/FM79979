@@ -122,7 +122,7 @@ namespace FATMING_CORE
 		void					ImageRelativeRotation(Vector3 e_vAngle);
 		//to collide current data,usually all the data is same.
 		//only support non scale collide,because I am lazy to do this.
-		virtual	bool			Collide(int e_iPosX,int e_iPosY);
+		virtual	bool			Collide(int e_iPosX,int e_iPosY)override;
 		virtual	bool			Collide(Vector4 e_vViewRect);
 		//for collide debug
 		void					RenderCollide();

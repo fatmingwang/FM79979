@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAICharacterInterface.h"
 #include "../AllPhysicInclude.h"
 namespace FATMING_AI

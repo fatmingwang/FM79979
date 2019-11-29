@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "Stdafx.h"
 #include "FAIAnimationCharacter.h"
 #include "../AllPhysicInclude.h"
 //from Frame

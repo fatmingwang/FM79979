@@ -111,6 +111,9 @@
     <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\MPDIToGameObject.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBar.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBox.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\EventSender\MessageSender.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppGetObject.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp" />
@@ -121,6 +124,7 @@
     <ClCompile Include="..\..\Core\Image\FreeTypeFont\FreetypeGlypth.cpp" />
     <ClCompile Include="..\..\Core\Image\MPDINode.cpp" />
     <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp" />
+    <ClCompile Include="..\..\Core\Image\RenderNodeEffect\RenderObjectEffect.cpp" />
     <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp" />
     <ClCompile Include="..\..\Core\Image\TextureManager.cpp" />
     <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
@@ -408,6 +412,9 @@
     <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ClickBehavior.h" />
     <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\MPDIToGameObject.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBar.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\ClickBehavior\ScrollBox.h" />
     <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h" />
     <ClInclude Include="..\..\Core\GameplayUT\EventSender\MessageSender.h" />
@@ -460,6 +467,7 @@
     <ClInclude Include="..\..\Core\Image\NumeralImage.h" />
     <ClInclude Include="..\..\Core\Image\png\pngLoader.h" />
     <ClInclude Include="..\..\Core\Image\PuzzleImage.h" />
+    <ClInclude Include="..\..\Core\Image\RenderNodeEffect\RenderObjectEffect.h" />
     <ClInclude Include="..\..\Core\Image\RenderObject.h" />
     <ClInclude Include="..\..\Core\Image\SimplePrimitive.h" />
     <ClInclude Include="..\..\Core\Image\SubMPDI.h" />

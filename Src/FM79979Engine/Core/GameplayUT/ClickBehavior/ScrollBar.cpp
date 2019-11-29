@@ -49,7 +49,7 @@ namespace FATMING_CORE
 			!l_pButtonNext ||
 			!l_pScrollBarBG ||
 			!l_pSlider)
-			return false;
+			return nullptr;
 		auto l_pCloneButtonPrevious = new cBaseImage(l_pButtonPrevious);
 		auto l_pCloneButtonNext = new cBaseImage(l_pButtonNext);
 		auto l_pCloneScrollBarBG = new cBaseImage(l_pScrollBarBG);
