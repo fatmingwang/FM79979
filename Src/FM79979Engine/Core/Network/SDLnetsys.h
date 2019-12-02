@@ -38,6 +38,7 @@
 //#include <ws2tcpip.h>
 #include <windows.h>
 typedef int socklen_t;
+#include <winsock.h>
 #else
 #include <winsock.h>
 /* NOTE: windows socklen_t is signed

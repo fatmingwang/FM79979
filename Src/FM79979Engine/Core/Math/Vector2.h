@@ -13,7 +13,7 @@
 #include "string.h"
 using namespace std;
 
-#ifdef WIN32
+#if defined(WIN32) || defined(UWP)
 //#pragma warning(disable:4324) // Don't bother me about forcing the padding of aligned structure.
 /** Alignment macro for classes and structures.
 	Only supported in MSVS 2005 for now.

@@ -111,7 +111,7 @@ private:
 public:
 	uint64						m_i64TimeStamp;
 	//please don not chang this value.
-	UINT64						m_ui64PointerVaildMagicID;
+	uint64						m_ui64PointerVaildMagicID;
 	bool						IsMagicIDMatch();//if not match pointer might delete at somewhere
 #endif
 	virtual	void				UpdateTimeStamp(){}

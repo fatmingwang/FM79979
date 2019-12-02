@@ -108,7 +108,7 @@ namespace FATMING_CORE
 		}
 		e_pBG->SetWidth((int)(l_fScaleX*l_vBGSize.x));
 		e_pBG->SetHeight(((int)l_fScaleY*l_vBGSize.y));
-		auto l_pBGClickBehavior = this->AddDefaultRenderClickBehaviorButton(e_pBG, nullptr, nullptr, nullptr);
+		auto l_pBGClickBehavior = this->AddDefaultRenderClickBehaviorButton(e_pBG, nullptr, nullptr,false);
 		this->AddDefaultRenderClickBehaviorButton(e_pPreviousButton,
 			std::bind(&cScrollBar::ButtonPreviousClick, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3), nullptr);
 		this->AddDefaultRenderClickBehaviorButton(e_pNextButton,

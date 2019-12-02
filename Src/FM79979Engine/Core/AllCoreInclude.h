@@ -15,11 +15,10 @@
 #include "windows.h"
 #include <math.h>
 #include "XML/AtgXmlWriter.h"
+#ifndef UWP
 #include "../../Include/glew.h"
 #include "../../Include/glext.h"
-//#elif defined(LINUX)
-//#include "glew.h"
-//#include "glext.h"
+#endif
 #elif defined(ANDROID)
 #include <GLES/gl.h>
 #include <GLES/glext.h>

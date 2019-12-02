@@ -9,6 +9,7 @@
 	#pragma warning( disable : 4996 )
 	#define WIN32_LEAN_AND_MEAN
 	#include <windows.h>
+	#include <winsock.h>
 	#define _CRTDBG_MAP_ALLOC
 	#include <stdlib.h>
 #ifdef DEBUG
@@ -27,7 +28,11 @@
 
 #include <math.h>
 #include <wchar.h>
-#if defined(WIN32)
+#if defined(UWP)
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+#include <GLES2/gl2platform.h>
+#elif defined(WIN32)
 	#include "../../Include/glew.h"
 	#include "../../Include/glext.h"
 #elif defined(IOS)
@@ -50,14 +55,6 @@
 #elif defined(LINUX)
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
-	//#include <SDL2/SDL.h>
-	//#include <SDL2/SDL_image.h>
-	//#include <EGL/egl.h>
-	//#include <EGL/eglext.h>
-	//opengles
-	//#include <GLES2/gl2.h>
-	//#include "glew.h"
-	//#include "glext.h"
 #elif defined(WASM)
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
@@ -76,6 +73,8 @@
 #include "XML/StringToStructure.h"
 #include "AllMathInclude.h"
 #include "Common/Utility.h"
+
+#include "AllCoreInclude.h"
 //#include "Sound/SoundManager.h"
 //#if defined(WIN32)
 //	typedef std::basic_string<unsigned char> MyStringForMVSC;

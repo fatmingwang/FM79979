@@ -8,7 +8,6 @@
 #include "../GameplayUT/EventSender/MessageSender.h"
 //use another thread to record sound
 class cFUThreadPool;
-class cSoundFile;
 #ifdef ANDROID
 	// (requires the RECORD_AUDIO permission)
 	extern void CreateAndroidAudioEngine();
@@ -125,13 +124,13 @@ namespace	FATMING_CORE
 	class cSounRecordToFileCallBackObject:public cSounRecordCallBackObject
 	{
 		//
-		eCaptureSoundFileFormat	m_eCaptureSoundFileFormat;
-		std::string				m_strSaveFileName;
-		int						m_iOggWriteChannel;
-		cSoundFile*				m_pSoundFile;
-		virtual void			CaptureSoundStartCallBack()override;
-		virtual void			CaptureSoundEndCallBack()override;
-		void					Destory();
+		eCaptureSoundFileFormat				m_eCaptureSoundFileFormat;
+		std::string							m_strSaveFileName;
+		int									m_iOggWriteChannel;
+		class cSoundFile*					m_pSoundFile;
+		virtual void						CaptureSoundStartCallBack()override;
+		virtual void						CaptureSoundEndCallBack()override;
+		void								Destory();
 	public:
 		DEFINE_TYPE_INFO()
 		//e_iOggWriteChannel only for ogg

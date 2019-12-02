@@ -2,15 +2,13 @@
 #define	_TIME_UT_H_
 #ifndef WIN32
 #include <sys/time.h>
-#else
-#include <WinSock.h>
 #endif
-
+struct timeval;
 namespace UT
 {
 	struct sTimeAndFPS
 	{
-		timeval					TimevalStamp;
+		struct timeval*			pTimevalStamp;
 		//calculate	elpase time
 		UINT					uiPreviousTime;		//previously frame time ticks
 		UINT					uiCurrentTime;		//current frame time ticks
@@ -23,6 +21,7 @@ namespace UT
 		char					strFrameRate[16];
 
 		sTimeAndFPS();
+		~sTimeAndFPS();
 		void					Update();
 		char* 					GetFPS();
 		char* 					GetDynamicFPS();

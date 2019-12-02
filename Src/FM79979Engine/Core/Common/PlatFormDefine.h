@@ -7,7 +7,7 @@
 #endif
 //===============================================
 // Cross-platform type definitions
-#ifdef WIN32
+#if defined(WIN32) || defined(UWP)
     typedef signed char int8;
     typedef short int16;
     typedef long int32;

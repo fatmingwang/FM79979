@@ -26,7 +26,9 @@
 //========
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
+#ifndef UWP
 #include "../../Include/wglext.h"
+#endif
 //#include "../../Include/glExt.h"
 //#define WGL_SAMPLE_BUFFERS_ARB	0x2041
 //#define WGL_SAMPLES_ARB		0x2042
@@ -93,7 +95,7 @@ namespace UT
 	}
 
 #endif
-#ifdef WIN32
+#if defined(WIN32)
 	bool WGLisExtensionSupported(const char *extension)
 	{
 		const size_t extlen = strlen(extension);

@@ -9,6 +9,7 @@
 #include <sys/time.h>
 #elif defined(WIN32)
 #include "strsafe.h"
+#include "winsock.h"
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
 #include "../../Include/wglext.h"
@@ -24,6 +25,7 @@ namespace UT
 {
 	sTimeAndFPS::sTimeAndFPS()
 	{
+		pTimevalStamp = new timeval();
 		uiElpaseTime = 0;
 		uiPreviousTime = 0;
 		uiCurrentTime = 0;
@@ -33,9 +35,13 @@ namespace UT
 		memset(strFrameRate,0,sizeof(strFrameRate));
 		sprintf(strFrameRate,"%s fps","0");
 	}
+	sTimeAndFPS::~sTimeAndFPS()
+	{
+		SAFE_DELETE(pTimevalStamp);
+	}
 	void	sTimeAndFPS::Update()//total game running time
 	{
-		gettimeofday(&TimevalStamp,0);
+		gettimeofday(pTimevalStamp,0);
 		uiPreviousTime = uiCurrentTime;
 #if defined(WIN32)
 		uiCurrentTime = GetTickCount();
@@ -67,7 +73,7 @@ namespace UT
 	float	sTimeAndFPS::GetSecondDiff(timeval e_timeval)
 	{
 		timeval	l_Result;
-		timeval_diff(&l_Result,&TimevalStamp,&e_timeval);
+		timeval_diff(&l_Result,pTimevalStamp,&e_timeval);
 		return l_Result.tv_sec+l_Result.tv_usec/1000000.f;
 	}
 
