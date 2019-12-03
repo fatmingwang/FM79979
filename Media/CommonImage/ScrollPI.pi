@@ -1,0 +1,11 @@
+<!-- Author:design24,Time:11/26/2019 2:17:22 PM -->
+<PuzzleImage OriginalNameSort="ButtonDown,ButtonLeft,ButtonRight,ButtonUp,HorizontalScrollBarBG,HorizontalSlider,VerticalScrollBarBG,VerticleSlider" ImageName="ScrollPI.png" Count="8" GeneratePuzzleimageUnit="0" ImageDistance="3,3">
+    <PuzzleUnit Name="ButtonDown" UV="0,0,0.25,0.25" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="ButtonLeft" UV="0.265625,0,0.515625,0.25" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="34,0" />
+    <PuzzleUnit Name="ButtonRight" UV="0,0.265625,0.25,0.515625" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="0,34" />
+    <PuzzleUnit Name="ButtonUp" UV="0.265625,0.265625,0.515625,0.515625" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="34,34" />
+    <PuzzleUnit Name="HorizontalScrollBarBG" UV="0.53125,0,0.78125,0.25" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="68,0" />
+    <PuzzleUnit Name="HorizontalSlider" UV="0.53125,0.265625,0.65625,0.515625" OffsetPos="0,0" Size="16,32" OriginalSize="16,32" ShowPosInPI="68,34" />
+    <PuzzleUnit Name="VerticalScrollBarBG" UV="0,0.53125,0.25,0.78125" OffsetPos="0,0" Size="32,32" OriginalSize="32,32" ShowPosInPI="0,68" />
+    <PuzzleUnit Name="VerticalSlider" UV="0.265625,0.53125,0.515625,0.65625" OffsetPos="0,0" Size="32,16" OriginalSize="32,16" ShowPosInPI="34,68" />
+</PuzzleImage>
