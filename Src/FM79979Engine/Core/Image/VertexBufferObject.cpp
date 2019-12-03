@@ -7,12 +7,10 @@
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 //iphone 3g only support to 1.1!!
-//#include <OpenGLES/ES1/gl.h>
-//#include <OpenGLES/ES1/glext.h>
 #elif defined(ANDROID)
-	//#include <GLES/gl.h>
-	//#include <GLES/glext.h>
-	//#include <GLES/glplatform.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
+	#include <GLES2/gl2platform.h>
 #endif
 
 namespace FATMING_CORE

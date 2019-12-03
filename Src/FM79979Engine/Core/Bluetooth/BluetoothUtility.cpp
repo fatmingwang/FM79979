@@ -234,7 +234,7 @@ namespace FATMING_CORE
 					printf("  Service instance name: %S\n", pqs->lpszServiceInstanceName);
 					printf("  Name space num: %d\n", pqs->dwNameSpace);
 					printf("  Num of protocols: %d\n", pqs->dwNumberOfProtocols);
-					printf("  Version: %d\n", (int)pqs->lpVersion);
+					printf("  Version: %d\n", (int)pqs->lpVersion->dwVersion);
 				}
 			} while ((dwResult != WSA_E_NO_MORE) && (dwResult != WSAENOMORE));
 			// clean-up

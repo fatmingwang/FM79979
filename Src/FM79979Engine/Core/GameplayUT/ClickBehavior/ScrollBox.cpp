@@ -84,7 +84,7 @@ namespace FATMING_CORE
 		m_bRollBackToProperPosition = false;
 		m_bDoSmoothSlide = false;
 		m_RollBackTC.SetTargetTime(m_sfRollbackTC);
-		m_vLocalViewRect = m_vWorldViewRect = cGameApp::m_svViewPortSize;
+		m_vLocalViewRect = cGameApp::m_svViewPortSize;
 		m_vScrollerSizeOfAllObject = Vector2(0.f, 0.f);
 		m_iColumnCountForMultiArrange = 0;
 	}
@@ -207,7 +207,8 @@ namespace FATMING_CORE
 		{
 			int l_iIndex = 0;
 			this->m_iLeftTopObjectIndex = -1;
-			RECT l_Rect = { (long)m_DataForScrollBox.m_vWorldViewRect.x, (long)m_DataForScrollBox.m_vWorldViewRect.y, (long)m_DataForScrollBox.m_vWorldViewRect.z, (long)m_DataForScrollBox.m_vWorldViewRect.w };
+			auto l_vRect = m_pScissorRenderObject->GetWorldPosScissorRect();
+			RECT l_Rect = { (long)l_vRect.x, (long)l_vRect.y, (long)l_vRect.z, (long)l_vRect.w };
 			GoThoughFirstChildLevel(
 				[this, l_Rect](void*e_pData, Frame*e_pFrame)
 			{
@@ -290,6 +291,7 @@ namespace FATMING_CORE
 	bool cScrollBox::IsHitBoundary(eOrientation e_eOrientation, Vector3 e_vPos, Vector3 &e_vOverdDistance)
 	{
 		bool l_bRollBackToProperPosition = false;
+		auto l_vSissorRect = m_pScissorRenderObject->GetWorldPosScissorRect();
 		if (e_eOrientation == eOrientation::eO_HORIZONTAL)
 		{
 			if (e_vPos.x > 0.f)
@@ -297,7 +299,7 @@ namespace FATMING_CORE
 				l_bRollBackToProperPosition = true;
 				e_vOverdDistance.x = -e_vPos.x;
 			}
-			float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.x - m_DataForScrollBox.m_vWorldViewRect.Width() / 2.f;
+			float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.x - l_vSissorRect.Width() / 2.f;
 			if (e_vPos.x < -l_fValue)
 			{
 				l_bRollBackToProperPosition = true;
@@ -312,7 +314,7 @@ namespace FATMING_CORE
 					l_bRollBackToProperPosition = true;
 					e_vOverdDistance.y = -e_vPos.y;
 				}
-				float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.y - m_DataForScrollBox.m_vWorldViewRect.Height() / 2.f;
+				float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.y - l_vSissorRect.Height() / 2.f;
 				if (e_vPos.y < -l_fValue)
 				{
 					l_bRollBackToProperPosition = true;
@@ -320,16 +322,17 @@ namespace FATMING_CORE
 				}
 			}
 			else
-				if (e_eOrientation == eOrientation::eO_BOTH)
-				{
-					l_bRollBackToProperPosition = IsHitBoundary(eOrientation::eO_HORIZONTAL, e_vPos, e_vOverdDistance) | IsHitBoundary(eOrientation::eO_VERTICAL, e_vPos, e_vOverdDistance);
-				}
+			if (e_eOrientation == eOrientation::eO_BOTH)
+			{
+				l_bRollBackToProperPosition = IsHitBoundary(eOrientation::eO_HORIZONTAL, e_vPos, e_vOverdDistance) | IsHitBoundary(eOrientation::eO_VERTICAL, e_vPos, e_vOverdDistance);
+			}
 		return l_bRollBackToProperPosition;
 	}
 
 	void cScrollBox::ArrangeObjectPos(Vector2 e_vStartOffsetPos, Vector2 e_vObjectGap, bool e_bMultiLines)
 	{
 		Vector3 l_vPos = e_vStartOffsetPos;
+		auto l_vSissorRect = m_pScissorRenderObject->GetWorldPosScissorRect();
 		if (this->m_pObjectsMovingRoot)
 		{
 			//assert(m_eOrientation != eOrientation::eO_BOTH &&"ArrangeObjectPos with eOrientation::eO_BOTH !?.");
@@ -347,7 +350,7 @@ namespace FATMING_CORE
 				m_DataForScrollBox.m_iColumnCountForMultiArrange = l_iBothDirectionWithMiltiLineRoot;
 			}
 			auto l_pChild = m_pObjectsMovingRoot->GetFirstChild();
-			Vector2 l_ViewRectSize(m_DataForScrollBox.m_vWorldViewRect.Width(), m_DataForScrollBox.m_vWorldViewRect.Height());
+			Vector2 l_ViewRectSize(l_vSissorRect.Width(), l_vSissorRect.Height());
 			int l_iMultiLinesCount = 0;
 			while (l_pChild)
 			{
@@ -479,7 +482,6 @@ namespace FATMING_CORE
 		{
 			m_pRenderObject->SetLocalPosition(e_vPos);
 			m_pScissorRenderObject->SetScissorRect(e_vLocalViewRect);
-			m_DataForScrollBox.m_vWorldViewRect = m_pScissorRenderObject->GetWorldPosScissorRect();
 			m_DataForScrollBox.m_vLocalViewRect = e_vLocalViewRect;
 			m_CollideFunction = std::bind(&cScissorRenderObject::Collide, m_pScissorRenderObject, std::placeholders::_1, std::placeholders::_2);
 		}
@@ -646,7 +648,7 @@ namespace FATMING_CORE
 	{
 		if (!this->m_bEnable)
 			return nullptr;
-		if (m_DataForScrollBox.m_vWorldViewRect.CollidePoint(e_iPosX, e_iPosY))
+		if (m_pScissorRenderObject->Collide(e_iPosX, e_iPosY))
 		{
 			if (!m_DataForScrollBox.m_bDoSmoothSlide)
 				m_DataForScrollBox.m_pSelectedObject = cClickBehaviorGroup::MouseDown(e_iPosX, e_iPosY);
@@ -677,7 +679,7 @@ namespace FATMING_CORE
 	{
 		if (!this->m_bEnable || m_DataForScrollBox.m_bRollBackToProperPosition)
 			return nullptr;
-		if (this->m_DataForScrollBox.m_vWorldViewRect.CollidePoint(e_iPosX, e_iPosY))
+		if (m_pScissorRenderObject->Collide(e_iPosX, e_iPosY))
 		{
 			Vector3 l_vMovedPos((float)e_iPosX - m_DataForScrollBox.m_MouseMovePosition.x, (float)e_iPosY - m_DataForScrollBox.m_MouseMovePosition.y, 0.f);
 			m_DataForScrollBox.m_MouseMovePosition.x = e_iPosX;
@@ -689,15 +691,15 @@ namespace FATMING_CORE
 					l_vMovedPos.y = 0.f;
 				}
 				else
-					if (m_eOrientation == eOrientation::eO_VERTICAL)
-					{
-						l_vMovedPos.x = 0.f;
-					}
-					else
-						if (m_eOrientation == eOrientation::eO_BOTH)
-						{
+				if (m_eOrientation == eOrientation::eO_VERTICAL)
+				{
+					l_vMovedPos.x = 0.f;
+				}
+				else
+				if (m_eOrientation == eOrientation::eO_BOTH)
+				{
 
-						}
+				}
 				Vector3 l_vRenderPos = m_pObjectsMovingRoot->GetLocalPosition();
 				m_pObjectsMovingRoot->SetLocalPosition(l_vRenderPos + l_vMovedPos);
 			}

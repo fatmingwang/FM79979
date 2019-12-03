@@ -1,13 +1,9 @@
-#ifndef	GLSL_UINIFORM
-#define	GLSL_UINIFORM
+#pragma once
 //#ifndef WIN32
 #if defined(IOS)
 	#include <OpenGLES/ES2/gl.h>
 	#include <OpenGLES/ES2/glext.h>
 #elif defined(ANDROID)
-	#include <GLES/gl.h>
-	#include <GLES/glext.h>
-	#include <GLES/glplatform.h>
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
 	#include <GLES2/gl2platform.h>
@@ -138,5 +134,3 @@ namespace FATMING_CORE
 		virtual ~cUniformManager();
 	};
 }
-
-#endif

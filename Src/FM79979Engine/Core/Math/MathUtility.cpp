@@ -1,5 +1,6 @@
 #include "../stdafx.h"
 #include "MathUtility.h"
+#include "../OpenGL/Glh.h"
 namespace UT
 {
 	std::vector<int>	GenerateRandomTable(int e_iCount,int e_iMaxValue)

@@ -1,7 +1,7 @@
 #include "../stdafx.h"
 #include "Glh.h"
 
-inline void MultiplyMatrices4by4OpenGL_FLOAT(float *result, float *matrix1, float *matrix2)
+void MultiplyMatrices4by4OpenGL_FLOAT(float *result, float *matrix1, float *matrix2)
 {
 	result[0]=matrix1[0]*matrix2[0]+
 		matrix1[4]*matrix2[1]+
@@ -110,9 +110,9 @@ void glhPerspectivef2(float *matrix, float fovyInDegrees, float aspectRatio,
 	glhFrustumf2(matrix, -xmax, xmax, -ymax, ymax, znear, zfar);
 }
 
-void glhOrthof2(GLfloat *matrix, GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat znear, GLfloat zfar)
+void glhOrthof2(float *matrix, float left, float right, float bottom, float top, float znear, float zfar)
 {
-	GLfloat temp2, temp3, temp4;//, resultMatrix[16];
+	float temp2, temp3, temp4;//, resultMatrix[16];
 	temp2=right-left;
 	temp3=top-bottom;
 	temp4=zfar-znear;
@@ -133,3 +133,47 @@ void glhOrthof2(GLfloat *matrix, GLfloat left, GLfloat right, GLfloat bottom, GL
 	matrix[14]=(-zfar-znear)/temp4;
 	matrix[15]=1.0;
 }
+
+#ifdef DEBUG
+void	MyGlErrorTest(const char*e_strMessage)
+{
+	int	l_i = glGetError();
+	if (l_i != 0)
+	{
+		std::string l_str = "glGetError:";
+		l_str += ValueToString(l_i);
+		l_str += ":";
+		l_str += e_strMessage;
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		int a = 0;
+		//GL_INVALID_ENUM 1280
+		//GL_INVALID_VALUE 1281
+		//GL_INVALID_OPERATION 1282
+	}
+}
+
+void					MyGLEnable(GLenum e_GLenum)
+{
+	glEnable(e_GLenum);
+	std::string l_strInfo = "MyGLEnable:";
+	l_strInfo += ValueToString((uint64)e_GLenum);
+	MyGlErrorTest(l_strInfo.c_str());
+}
+
+void					MyGLDisable(GLenum e_GLenum)
+{
+	glDisable(e_GLenum);
+	std::string l_strInfo = "MyGLDisable:";
+	l_strInfo += ValueToString((uint64)e_GLenum);
+	MyGlErrorTest(l_strInfo.c_str());
+}
+
+void		MyGLGetIntegerv(GLenum e_GLenum, GLint *params)
+{
+	glGetIntegerv(e_GLenum, params);
+	std::string l_strInfo = "MyGLGetIntegerv:";
+	l_strInfo += ValueToString((uint64)e_GLenum);
+	MyGlErrorTest(l_strInfo.c_str());
+}
+
+#endif

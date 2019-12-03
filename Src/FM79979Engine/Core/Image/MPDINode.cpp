@@ -210,9 +210,9 @@ namespace FATMING_CORE
 		m_pSizeLinerDataProcessor = 0;
 		m_pRotationLinerDataProcessor = 0;
 	}
-	extern const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 	void	cMPDINode::UpdateCachedWorldTransformIfNeeded()
 	{
+		//extern const FLOAT    FRAME_DIRTY_WORLD_CACHE;
 		Frame::UpdateCachedWorldTransformIfNeeded();
 		m_CachedWorldTransform = m_CachedWorldTransform*this->m_matAnimationMatrix;
 	}

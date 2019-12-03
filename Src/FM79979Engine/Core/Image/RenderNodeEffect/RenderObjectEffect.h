@@ -17,6 +17,7 @@ namespace FATMING_CORE
 		//
 		GET_SET_DEC(bool, m_bRenderScissor, IsRenderScissor, SetRenderScissor);
 		GET_SET_DEC(Vector4, m_vScissorRectColor, GetScissorRectColor, SetScissorRectColor);
+		virtual	void    UpdateCachedWorldTransformIfNeeded()override;
 	public:
 		cScissorRenderObject();
 		virtual ~cScissorRenderObject();

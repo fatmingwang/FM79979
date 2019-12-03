@@ -1,6 +1,6 @@
 #ifndef __ALL_IMAGE_INCLUDE_H
 #define __ALL_IMAGE_INCLUDE_H
-
+#include "OpenGL/Glh.h"
 #include "Image/SimplePrimitive.h"
 #include "Image/Texture.h"
 #include "Image/TextureManager.h"

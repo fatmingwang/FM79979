@@ -15,36 +15,21 @@
 #ifdef DEBUG
 	#include <crtdbg.h>
 #endif
-#elif defined(ANDROID)
- //#include <cstdarg>
+#elif defined(ANDROID) 
 #elif defined(IOS)
-
-//#ifndef IOS
-//#define	IOS
-//#endif
-
 #endif
-
 
 #include <math.h>
 #include <wchar.h>
-#if defined(UWP)
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#include <GLES2/gl2platform.h>
-#elif defined(WIN32)
+
+#if defined(WIN32)
 	#include "../../Include/glew.h"
 	#include "../../Include/glext.h"
 #elif defined(IOS)
 	#include <OpenGLES/ES2/gl.h>
 	#include <OpenGLES/ES2/glext.h>
-	#include <OpenGLES/ES1/gl.h>
-	#include <OpenGLES/ES1/glext.h>
 #elif defined(ANDROID)
 //https://developer.android.com/ndk/guides/stable_apis.html
-	//#include <GLES/gl.h>
-	//#include <GLES/glext.h>
-	//#include <GLES/glplatform.h>
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
 	#include <GLES2/gl2platform.h>
@@ -73,7 +58,7 @@
 #include "XML/StringToStructure.h"
 #include "AllMathInclude.h"
 #include "Common/Utility.h"
-
+#include "OpenGL/Glh.h"
 #include "AllCoreInclude.h"
 //#include "Sound/SoundManager.h"
 //#if defined(WIN32)

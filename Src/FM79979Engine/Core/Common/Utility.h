@@ -4,7 +4,6 @@
 #include "NamedTypedObject.h"
 #include <map>
 #include "../Math/Collision.h"
-#include "../OpenGL/Glh.h"
 #include "TimeUT.h"
 #include "../Android/nv_file.h"
 #include "TimeUT.h"
@@ -14,22 +13,6 @@
 
 namespace UT
 {
-#ifdef DEBUG
-	void					MyGlErrorTest(const char*e_strMessage);
-	void					MyGLEnable(GLenum e_GLenum);
-	void					MyGLDisable(GLenum e_GLenum);
-	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);
-#else
-	#define	MyGlErrorTest(q)
-	#define	MyGLEnable(p)			glEnable(p)
-	#define	MyGLDisable(p)			glDisable(p)
-	#define	MyGLGetIntegerv(p,q)	glGetIntegerv(p,q)
-#endif
-#ifdef WIN32
-	HGLRC					InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit,HDC e_HdcMV,bool e_bEnableMultisample = false);
-	bool					SetOpenGLSwapInterval(bool e_bSwapInterval);
-	bool 					IsExtensionSupported( char* szTargetExtension );
-#endif
 	eDataType				GetDataType(const wchar_t*e_str);
 	eDataType				GetDataType(const char*e_str);
 	//inline char*			ConstCharToChar(const char* e_str){ static char l_strTemp[TEMP_SIZE]; sprintf(l_strTemp,"%s\0",e_str);return l_strTemp; }

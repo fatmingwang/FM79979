@@ -15,20 +15,15 @@
 #include "windows.h"
 #include <math.h>
 #include "XML/AtgXmlWriter.h"
-#ifndef UWP
 #include "../../Include/glew.h"
 #include "../../Include/glext.h"
-#endif
 #elif defined(ANDROID)
-#include <GLES/gl.h>
-#include <GLES/glext.h>
-#include <GLES/glplatform.h>
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include <GLES2/gl2platform.h>
 #elif defined(IOS)
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
+#include <OpenGLES/ES2/gl.h>
+#include <OpenGLES/ES2/glext.h>
 //add gles2 here?
 #elif defined(WASM)
 //#include <GLES/gl.h>

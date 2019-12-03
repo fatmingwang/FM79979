@@ -282,6 +282,9 @@
     <Filter Include="Render\RenderNodeEffect">
       <UniqueIdentifier>{d4359132-9685-40f6-845b-42c38c3b7723}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render\OpenGL\Windows">
+      <UniqueIdentifier>{b9261fd7-01fa-4cd6-9204-590f5f945fb2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -778,6 +781,9 @@
     </ClCompile>
     <ClCompile Include="Image\RenderNodeEffect\RenderObjectEffect.cpp">
       <Filter>Render\RenderNodeEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGL\WindowsOpenGL.cpp">
+      <Filter>Render\OpenGL\Windows</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1338,6 +1344,9 @@
     </ClInclude>
     <ClInclude Include="Image\RenderNodeEffect\RenderObjectEffect.h">
       <Filter>Render\RenderNodeEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGL\WindowsOpenGL.h">
+      <Filter>Render\OpenGL\Windows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,12 +1,10 @@
-#ifndef _GLH_H_
-#define _GLH_H_
+#pragma once
 
-#if defined(WASM) || defined(LINUX)
+#ifdef WIN32
+#include "../../../include/glew.h"
+#else
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
-//#elif defined(LINUX)
-//#include <SDL2/SDL.h>
-//#include <SDL2/SDL_image.h>
 #endif
 //=======================
 //the old function for setup matrix is glMultMatrixf
@@ -20,6 +18,16 @@
 	void glhPerspectivef2(float *matrix, float fovyInDegrees, float aspectRatio,
 						  float znear, float zfar);
 
-	void glhOrthof2(GLfloat *matrix, GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat znear, GLfloat zfar);
+	void glhOrthof2(float *matrix, float left, float right, float bottom, float top, float znear, float zfar);
 
+#ifdef DEBUG
+	void					MyGlErrorTest(const char*e_strMessage);
+	void					MyGLEnable(GLenum e_GLenum);
+	void					MyGLDisable(GLenum e_GLenum);
+	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);
+#else
+#define	MyGlErrorTest(q)
+#define	MyGLEnable(p)			glEnable(p)
+#define	MyGLDisable(p)			glDisable(p)
+#define	MyGLGetIntegerv(p,q)	glGetIntegerv(p,q)
 #endif

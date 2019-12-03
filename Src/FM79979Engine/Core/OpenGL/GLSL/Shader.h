@@ -1,5 +1,4 @@
-#ifndef _SHADER_H_
-#define _SHADER_H_
+#pragma once
 
 //Flexible Vertex Format Constants, or FVF codes,
 //are used to describe the contents of vertices interleaved in a single data
@@ -140,5 +139,3 @@ namespace FATMING_CORE
 	//
 	void	SetGlobalScaleColor(Vector4 e_vColor);	
 }
-
-#endif//end _2DSHADER_H

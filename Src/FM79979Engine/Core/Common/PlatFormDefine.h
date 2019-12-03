@@ -163,7 +163,10 @@
 	#ifndef GL_RGB16F
 	#define GL_RGB16F										GL_RGB16F_ARB
 	#endif
-
+#else
+#ifndef glClearDepth
+#define glClearDepth                                   glClearDepthf
+#endif
 #endif
 
 #ifndef GL_BLEND_SRC

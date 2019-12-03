@@ -3,7 +3,6 @@
 
 #include <map>
 #include "Collision.h"
-#include "../OpenGL/Glh.h"
 #ifdef WIN32
 #pragma warning( disable : 4996 )
 #endif
@@ -71,7 +70,6 @@ namespace UT
 	//it should be look like this.
 	//int	l_iViewPort[4] = {0,0,ResolutionWidth,ResolutionHeight};
 	Vector3				WorldToScreen(float objX,float objY,float objZ,float*e_pmatProjection,float*e_pmatMV,int *e_piViewPort);
-
 	//e_matVP  =	ProjectionTransform*ViewTransform();
 	//e_vScreenPos.z is betwnne 0 to 1
 	Vector3				ScreenToWorld(Vector3 e_vScreenPos,cMatrix44 e_matVP,Vector2 e_vViewPortSize);

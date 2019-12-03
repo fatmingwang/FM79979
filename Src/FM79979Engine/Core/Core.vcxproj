@@ -180,6 +180,7 @@
     <ClCompile Include="OpenGL\GLSL\ToneMapping.cpp" />
     <ClCompile Include="OpenGL\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="OpenGL\GluForOpengles.cpp" />
+    <ClCompile Include="OpenGL\WindowsOpenGL.cpp" />
     <ClCompile Include="Sound\SoundCapture.cpp" />
     <ClCompile Include="Sound\SoundFile.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
@@ -348,6 +349,7 @@
     <ClInclude Include="OpenGL\GLSL\Shader.h" />
     <ClInclude Include="OpenGL\GLSL\ToneMapping.h" />
     <ClInclude Include="OpenGL\GLSL\TunnelEffect.h" />
+    <ClInclude Include="OpenGL\WindowsOpenGL.h" />
     <ClInclude Include="Sound\AllSoundInclude.h" />
     <ClInclude Include="Sound\SoundCapture.h" />
     <ClInclude Include="Sound\SoundFile.h" />

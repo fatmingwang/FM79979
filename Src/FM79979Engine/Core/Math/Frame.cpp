@@ -4,8 +4,6 @@
 #include "../GameplayUT/GameApp.h"
 
 
-const FLOAT    FRAME_DIRTY_WORLD_CACHE = 1e10f;
-
 // int e_iType:0 for next sibling,1 for first child
 Frame*	GoThoughAllFrameFromaFirstToEndWithClone(Frame*e_pSrcFrame, Frame*e_pDestFrame, int e_iType)
 {

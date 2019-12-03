@@ -9,6 +9,7 @@
 // Desc: An named typed object with a frame of reference and a bound
 //       Note: X is Right, Y is Up, and Z is back
 //-----------------------------------------------------------------------------
+const float    FRAME_DIRTY_WORLD_CACHE = 1e10f;
 class cBound;
 class Frame :virtual  public NamedTypedObject
 {

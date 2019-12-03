@@ -127,9 +127,6 @@
     <Filter Include="GameplayUT\UI\TabPage">
       <UniqueIdentifier>{a3353430-b8a5-4143-8f23-250de7f4dfe3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\UI\Button\ClickBehavior">
-      <UniqueIdentifier>{4502c539-dbec-4c39-b734-ac5e905243d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\UI\SliderBar">
       <UniqueIdentifier>{22ef58d7-3322-49ba-a688-b0f190d4b936}</UniqueIdentifier>
     </Filter>
@@ -250,6 +247,12 @@
     <Filter Include="Render\Font\FreeType\Lib">
       <UniqueIdentifier>{5bc1a0f3-7e0a-41a6-9635-ac1e044a3231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\UI\ClickBehavior">
+      <UniqueIdentifier>{4502c539-dbec-4c39-b734-ac5e905243d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\RenderNodeEffect">
+      <UniqueIdentifier>{5af22f83-3d5a-4351-b15b-5a2127cf91fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Camera\CameraAnimation.cpp">
@@ -346,10 +349,10 @@
       <Filter>GameplayUT\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\GameplayUT\ClickBehavior\ClickBehavior.cpp">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="..\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="..\GameplayUT\AssembleImageButton.cpp">
       <Filter>GameplayUT\UI\Button</Filter>
@@ -723,6 +726,18 @@
     <ClCompile Include="..\Image\RenderNode.cpp">
       <Filter>Render\FMAnimationRule</Filter>
     </ClCompile>
+    <ClCompile Include="..\GameplayUT\ClickBehavior\MPDIToGameObject.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\ClickBehavior\ScrollBar.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\ClickBehavior\ScrollBox.cpp">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Image\RenderNodeEffect\RenderObjectEffect.cpp">
+      <Filter>Render\RenderNodeEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Camera\CameraAnimation.h">
@@ -846,10 +861,10 @@
       <Filter>GameplayUT\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\GameplayUT\ClickBehavior\ClickBehavior.h">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="..\GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
-      <Filter>GameplayUT\UI\Button\ClickBehavior</Filter>
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClInclude>
     <ClInclude Include="..\GameplayUT\AssembleImageButton.h">
       <Filter>GameplayUT\UI\Button</Filter>
@@ -2194,6 +2209,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Freetype\include\freetype\internal\tttypes.h">
       <Filter>Render\Font\FreeType\Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\ClickBehavior\MPDIToGameObject.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\ClickBehavior\ScrollBar.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\ClickBehavior\ScrollBox.h">
+      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Image\RenderNodeEffect\RenderObjectEffect.h">
+      <Filter>Render\RenderNodeEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

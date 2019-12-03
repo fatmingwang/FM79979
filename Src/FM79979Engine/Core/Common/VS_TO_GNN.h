@@ -21,7 +21,6 @@
 *  No check is made for value overflow, only the lower 32 bits are assigned.
 *  If str is nullptr it crashes, as the native function does.
 */
-    #define glClearDepth    glClearDepthf
 	inline  long _wtol( wchar_t* str )
 	{
 		long RunningTotal = 0;

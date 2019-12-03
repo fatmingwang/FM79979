@@ -5,6 +5,7 @@
 #ifdef WIN32
 //#include "../../../include/IL/il.h"
 #include <direct.h>
+#include "../OpenGL/WindowsOpenGL.h"
 #endif
 #include "../Sound/SoundManager.h"
 #include "../Particle/AllParticleInclude.h"
@@ -12,7 +13,6 @@
 #include "../Synchronization/AllFUThreadInclude.h"
 #include "ImageButton.h"
 #include "../Physic/2DImageCollisionData.h"
-
 #include "EventSender/MessageSender.h"
 #include "locale.h"
 using namespace UT;
@@ -148,7 +148,7 @@ namespace	FATMING_CORE
 		if (e_Hwnd)
 		{
 			m_sHdc = GetDC(e_Hwnd);
-			m_sHGLRC = UT::InitOpenGL(e_Hwnd, true, m_sHdc, cGameApp::m_sbMultisample);
+			m_sHGLRC = InitOpenGL(e_Hwnd, true, m_sHdc, cGameApp::m_sbMultisample);
 			//m_sHdc = GetDC(e_Hwnd);
 			m_sHandle = e_Hwnd;
 		}

@@ -38,7 +38,6 @@ namespace FATMING_CORE
 			Vector3					m_vRollbackForProperPos;
 			//for all object's area
 			Vector2					m_vScrollerSizeOfAllObject;
-			Vector4					m_vWorldViewRect;
 			Vector4					m_vLocalViewRect;
 			//while image is over the total rect and mouse is up,make it roll back
 			bool					m_bRollBackToProperPosition;

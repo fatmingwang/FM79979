@@ -8,15 +8,6 @@
 #include "../Android/nv_egl_util.h"
 #endif
 
-//#include "PhaseControl.h"
-#include "MultiTouchPoints.h"
-#include "GameUTDefine.h"
-#include "../OpenGL/GLSL/Shader.h"
-#include "../AllImageInclude.h"
-#include "../AllMathInclude.h"
-#include "Log/FMLog.h"
-
-
 class	cFUThreadPool;
 //for android
 class	NvEGLUtil;
