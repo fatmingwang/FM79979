@@ -41,6 +41,7 @@ distribution.
 
 #include <assert.h>
 #include <string.h>
+#include <string>
 
 #define TiXmlString	std::wstring
 

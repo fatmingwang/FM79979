@@ -1,3 +1,4 @@
+#pragma once
 /*
 	Copyright (C) 2005-2007 Feeling Software Inc.
 	Portions of the code are:
@@ -10,9 +11,6 @@
 	@file Matrix44.h
 	The file containing the class and global functions for 4x4 matrices.
 */
-
-#ifndef _FM_cMatrix44_H_
-#define _FM_cMatrix44_H_
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -262,5 +260,3 @@ inline bool operator==(const cMatrix44& m1, const cMatrix44& m2) { return IsEqui
 inline cMatrix44& operator*=(cMatrix44& m1, const cMatrix44& m2) { return m1 = m1 * m2; }
 /** A dynamically-sized array of 4x4 matrices. */
 //typedef fm::vector<cMatrix44> cMatrix44List;
-
-#endif // _FM_cMatrix44_H_

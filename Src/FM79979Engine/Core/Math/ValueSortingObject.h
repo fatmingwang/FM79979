@@ -19,7 +19,7 @@ namespace	FATMING_CORE
 
 	};
 
-
+	//rand range is 0~65536.
 	//srand(222222);	
 	//std::vector<cSortObject*> l_TestVector;
 	//for( int i=0;i<100;++i )

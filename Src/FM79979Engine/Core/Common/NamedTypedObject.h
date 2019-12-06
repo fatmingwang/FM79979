@@ -6,6 +6,7 @@
 
 #include <list>
 #include <string.h>
+#include <vector>
 //#include "StringID.h"
 //#include <mutex>
 //-----------------------------------------------------------------------------

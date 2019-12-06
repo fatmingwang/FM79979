@@ -5,7 +5,7 @@
 
 
 #include "BasicSound.h"
-#include "../GameplayUT/EventSender/MessageSender.h"
+#include "../Common/EventSender/MessageSender.h"
 //use another thread to record sound
 class cFUThreadPool;
 #ifdef ANDROID

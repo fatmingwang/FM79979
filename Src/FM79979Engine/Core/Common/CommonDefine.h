@@ -97,7 +97,9 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #endif
 //the velocities dont need to be normalised. 
 //1.0E-6f means 1.0f * 10^-6, so 0.000001f. It's a tolerance that you need to avoid divides by 0.
+#ifndef EPSIONAL
 #define	EPSIONAL	0.00001f
+#endif
 
 #define	FM	FATMING_CORE
 

@@ -1,5 +1,4 @@
-#ifndef XMLLOADER_H
-#define XMLLOADER_H
+#pragma once
 #include <map>
 #ifdef TIXML_USE_STL
 	#include <iostream>
@@ -54,6 +53,8 @@
 //
 //
 #include "tinyxml.h"
+#include "../Common/Utility.h"
+#include "../Common/StringToStructure.h"
 namespace FATMING_CORE
 {
 	//here should using # instead
@@ -134,14 +135,7 @@ namespace FATMING_CORE
 	#define FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(Element) Element = Element->NextSiblingElement();}
 
 
-	inline	float	ElementToFloat(TiXmlElement*e_pElement,const WCHAR*e_strAttributeName)
-	{
-		const wchar_t*l_strAttribute = e_pElement->Attribute(e_strAttributeName);
-		if( l_strAttribute )return GetFloat(l_strAttribute);
-		UT::ErrorMsg(e_strAttributeName,L"this attribute is not exists!");
-		return -1.f;
-	}
-
+	inline	float	ElementToFloat(TiXmlElement*e_pElement, const wchar_t*e_strAttributeName);
 
 #ifdef DEBUG
 #define	ELEMENT_VALUE_ASSERT_CHECK(Element,CompareValue){const wchar_t*l_strValue__79979 = Element->Value();if( wcscmp(CompareValue,l_strValue__79979) )assert(0&&"element value is not match");}
@@ -305,4 +299,3 @@ namespace FATMING_CORE
 		//MessageBox(0,L"",l_str,MB_OK);
 		//libiconv_close(cd);
 }
-#endif

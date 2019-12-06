@@ -1,10 +1,12 @@
-#include "../stdafx.h"
 #include "../Common/CommonDefine.h"
-#include "../GameplayUT/StringCompress.h"
-#include "StringToStructure.h"
-#include "../GameplayUT/GameApp.h"
+#include "../Common/StringToStructure.h"
+#include "../Common/BinaryFile/StringCompress.h"
+#include "../Common/Log/FMLog.h"
+//#include "../GameplayUT/StringCompress.h"
+//#include "StringToStructure.h"
+//#include "../GameplayUT/GameApp.h"
 #include "../Common/Utility.h"
-using namespace FATMING_CORE;
+//using namespace FATMING_CORE;
 /*
 www.sourceforge.net/projects/tinyxml
 Original code (2.0 and earlier )copyright (c) 2000-2006 Lee Thomason (www.grinninglizard.com)
@@ -1351,11 +1353,6 @@ bool TiXmlDocument::LoadFile( char*e_strData,int e_iLength)
 	if( l_iMagicID == HUFFMAN_MAGIC_ID )
 	{
 		FMLog::LogWithFlag("this is HUFFMAN file", CORE_LOG_FLAG);
-		if( !cGameApp::m_sbAllowParseBinaryFile )
-		{
-			FMLog::LogWithFlag("not allow HUFFMAN file", CORE_LOG_FLAG);
-			return false;
-		}
 		l_iLength -= sizeof(int);
 		e_strData += sizeof(int);
 		l_bBinary = true;

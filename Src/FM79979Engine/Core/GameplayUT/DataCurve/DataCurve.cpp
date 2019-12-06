@@ -1,8 +1,12 @@
-#include "../../stdafx.h"
 #include "DataCurve.h"
-#include "../GameApp.h"
 #include <limits.h>
 #include <float.h>
+#include "assert.h"
+#include "../../Common/StringToStructure.h"
+#include "../../Common/BinaryFile/BinaryFile.h"
+#include "../../XML/XMLLoader.h"
+#include "../GameApp/GameApp.h"
+#include "../Render/CommonRender/SimplePrimitive.h"
 namespace FATMING_CORE
 {
 	#define	CURVE_EXTRA_SCALE	1.5
@@ -244,29 +248,29 @@ namespace FATMING_CORE
 		if( e_bDrawRect )
 		{
 			std::wstring	l_str = UT::ComposeMsgByFormat(L"%.2f",this->m_dbMaxValue);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x,e_vRenderRect.y,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x,e_vRenderRect.y,l_str.c_str());
 
 			//l_str = UT::ComposeMsgByFormat(L"Average%.2f",this->m_dbAeverageValue);
-			//cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x,e_vRenderRect.y+e_vRenderRect.Height()/2,l_str.c_str());
+			//cGameApp::RenderFont(e_vRenderRect.x,e_vRenderRect.y+e_vRenderRect.Height()/2,l_str.c_str());
 
 			l_str = UT::ComposeMsgByFormat(L"Result:%.2f",this->m_dbTotalValue);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x,60.f,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x,60.f,l_str.c_str());
 
 			l_str = UT::ComposeMsgByFormat(L"Start:%.2f",this->m_dbFirstPointValue);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
 
 			l_str = UT::ComposeMsgByFormat(L"Count:%d",l_pSrc->iOriginalCount);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x+e_vRenderRect.Width()-340,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x+e_vRenderRect.Width()-340,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
 
 			l_str = UT::ComposeMsgByFormat(L"Max%.2f,Min%.2f",this->m_dbMaxValueForRealData,this->m_dbMinValueForRealData);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x+e_vRenderRect.Width()/2-300,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x+e_vRenderRect.Width()/2-300,e_vRenderRect.y+e_vRenderRect.Height()-40,l_str.c_str());
 
 			l_str = UT::ComposeMsgByFormat(L"%.2f",l_dbStartValue);
-			cGameApp::m_spGlyphFontRender->RenderFont(e_vRenderRect.x+e_vRenderRect.Width()-340,e_vRenderRect.y+e_vRenderRect.Height()/2,l_str.c_str());
+			cGameApp::RenderFont(e_vRenderRect.x+e_vRenderRect.Width()-340,e_vRenderRect.y+e_vRenderRect.Height()/2,l_str.c_str());
 
 			if( m_strCurrentPointData.c_str() )
 			{
-				cGameApp::m_spGlyphFontRender->RenderFont(100,100,m_strCurrentPointData.c_str());
+				cGameApp::RenderFont(100,100,m_strCurrentPointData.c_str());
 				Vector4	l_vColor(1,1,1,1);
 				static	float	l_fScale = 1.f;
 				l_fScale += 0.016f;

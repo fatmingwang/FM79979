@@ -9,10 +9,10 @@
 An Interface for the Smart Object.
 
 */
-#ifndef __SMART_OBJECT_H__
-#define __SMART_OBJECT_H__
+#pragma once
 
 #include "NamedTypedObject.h"
+#include "Template/TemplateClass.h"
 //#include "./Template/TemplateClass.h"
 /*! 
 @class cSmartObject cSmartObject.h
@@ -67,5 +67,3 @@ public:
 //	aa():cSmartObject(this){ a = new int[50]; }
 //	~aa(){ delete a; }
 //};
-
-#endif

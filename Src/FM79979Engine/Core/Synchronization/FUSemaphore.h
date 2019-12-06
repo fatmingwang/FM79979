@@ -5,7 +5,7 @@
 
 #ifndef _FU_SEMAPHORE_H_
 #define _FU_SEMAPHORE_H_
-
+#include "../Common/CommonDefine.h"
 #if defined(FP_APPLE)
 #include <CoreServices/CoreServices.h>
 #elif defined(LINUX) || defined(IOS)|| defined(ANDROID)|| defined(WASM)

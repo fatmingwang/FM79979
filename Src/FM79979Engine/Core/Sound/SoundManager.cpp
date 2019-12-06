@@ -1,6 +1,7 @@
 #include "../stdafx.h"
 #include "SoundManager.h"
 #include "../XML/AtgXmlWriter.h"
+#include "../Common/StringToStructure.h"
 
 namespace FATMING_CORE
 {
@@ -12,6 +13,9 @@ namespace FATMING_CORE
 	int		cSoundParser::m_siNumSoundManager = 0;
 	int		cSoundParser::m_siReserveBGSourceCount = 3;
 	bool*	cSoundParser::m_spbUsedBGSourceData = nullptr;
+	float	cSoundParser::m_sfBGMVolume = 1.f;
+	float	cSoundParser::m_sfSoundEffectVolume = 1.f;
+	
 	void    cSoundParser::ActiveOpenAL()
 	{
 #ifdef WIN32
@@ -80,8 +84,6 @@ namespace FATMING_CORE
 	}
 	cSoundParser::cSoundParser()
 	{
-		m_fBGMVolume = 1.f;
-		m_fSoundEffectVolume = 1.f;
 		m_siNumSoundManager++;
 		m_fVolume = 1.f;
 	#if defined(ANDROID) || defined(IOS)

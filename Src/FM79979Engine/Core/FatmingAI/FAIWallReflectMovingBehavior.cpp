@@ -16,8 +16,8 @@ namespace FATMING_AI
 			COMPARE_NAME("Wall")
 			{
 				m_vWall = VALUE_TO_VECTOR4;
-				m_vWall.z *= cGameApp::m_svGameScale.x;
-				m_vWall.w *= cGameApp::m_svGameScale.y;
+				m_vWall.z *= cGameApp::m_spOpenGLRender->m_vGameScale.x;
+				m_vWall.w *= cGameApp::m_spOpenGLRender->m_vGameScale.y;
 			}
 			else
 			COMPARE_NAME("SpeedRestrict")

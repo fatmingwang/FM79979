@@ -1,12 +1,12 @@
-#include "../stdafx.h"
 #include "SoundFile.h"
 #include "SoundCapture.h"
 #if defined(USE_SOUND_CAPTURE)
-
-#include "../GameplayUT/BinaryFile.h"
+#include "../Common/Utility.h"
+#include "../Common/BinaryFile/BinaryFile.h"
+#include "../Common/CommonApp.h"
+#include "../Common/StringToStructure.h"
 //#include <thread>
 #include "../Synchronization/FUThreadPool.h"
-#include "../GameplayUT/GameApp.h"
 #include "SoundManager.h"
 #ifndef WIN32
 #include "unistd.h"
@@ -57,7 +57,7 @@ namespace	FATMING_CORE
 		while(!l_pSoundCapture->IsStop())
 		{
 			l_pSoundCapture->Update(l_Timer.fElpaseTime);
-			if(l_pSoundCapture->IsPause()||cGameApp::m_sbGamePause)
+			if(l_pSoundCapture->IsPause() || cCommonApp::m_sbGamePause)
 			{
 				Sleep(1);
 				continue;
@@ -143,7 +143,7 @@ namespace	FATMING_CORE
 			m_iWriteBitpersample = 8;
 		else
 		{
-			UT::ErrorMsg("not support format!",ValueToString(format).c_str());
+			UT::ErrorMsg("not support format!",FATMING_CORE::ValueToString(format).c_str());
 		}
 		if( format == AL_FORMAT_STEREO8 || format == AL_FORMAT_STEREO16 )
 			m_iWriteChannel = 2;
@@ -152,12 +152,7 @@ namespace	FATMING_CORE
 			m_iWriteChannel = 1;
 		else
 		{
-			UT::ErrorMsg("not support format!",ValueToString(format).c_str());
-		}
-		if(!cGameApp::m_spSoundParser)
-		{
-			UT::ErrorMsg("please init GameApp","Error!");
-			return;
+			UT::ErrorMsg("not support format!", FATMING_CORE::ValueToString(format).c_str());
 		}
 		if( g_pSoundCapture )
 		{
@@ -211,7 +206,6 @@ namespace	FATMING_CORE
 		StartAndroidRecording(this->m_iBufferSize);
 
 #else
-		//cGameApp::m_spSoundParser->IOSRecordContextSet(true);
 		if( !m_pDevice )
 		{
 			m_pDevice = alcCaptureOpenDevice(NULL, this->m_iFrequency, m_iFormat,this->m_iBufferSize*sizeof(short));
@@ -250,7 +244,7 @@ namespace	FATMING_CORE
 
 	bool	cSoundCapture::GamePauseEventFromGameApp(void*e_pData)
 	{
-		PauseRecord(cGameApp::m_sbGamePause);
+		PauseRecord(cCommonApp::m_sbGamePause);
 		return true;
 	}
 
@@ -289,7 +283,6 @@ namespace	FATMING_CORE
 #endif
 		this->m_bStop = false;
         this->m_bPause = false;
-		//cGameApp::m_spSoundParser->IOSRecordContextSet(false);
 	}
 
 

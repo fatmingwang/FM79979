@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "TimeUT.h"
 #include <time.h>
 #ifdef WIN32
@@ -12,7 +11,6 @@
 #include "winsock.h"
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
-#include "../../Include/wglext.h"
 #elif defined(LINUX)
 //#include <SDL2/SDL.h>
 #include <sys/time.h>
@@ -20,7 +18,7 @@
 #include "jni.h"
 #include <sys/time.h>
 #endif
-#include "../XML/StringToStructure.h"
+#include "StringToStructure.h"
 namespace UT
 {
 	sTimeAndFPS::sTimeAndFPS()

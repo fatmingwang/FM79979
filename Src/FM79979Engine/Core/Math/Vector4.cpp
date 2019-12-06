@@ -1,6 +1,6 @@
-#include "../stdafx.h"
 #include "Vector4.h"
-#include "../XML/StringToStructure.h"
+#include "../Common/StringToStructure.h"
+#include "../Common/Utility.h"
 
 
 const Vector4 Vector4::Zero(0.0f, 0.0f, 0.0f, 0.0f);

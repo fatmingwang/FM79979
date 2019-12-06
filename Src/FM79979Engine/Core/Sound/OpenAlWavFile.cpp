@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "OpenAlWavFile.h"
 
 #if defined _MSC_VER

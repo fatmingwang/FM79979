@@ -1,7 +1,8 @@
-#include "../stdafx.h"
 #include "OpenAlOgg.h"
 #include "SoundManager.h"
-#include "../GameplayUT/GameApp.h"
+#include "../Common/Utility.h"
+#include "../Common/StringToStructure.h"
+//#include "../GameplayUT/GameApp.h"
 
 #ifdef IOS
 #include "ogg/ogg/ogg.h"

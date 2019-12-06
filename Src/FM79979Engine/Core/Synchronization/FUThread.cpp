@@ -1,6 +1,5 @@
-#include "../stdafx.h"
 #include "FUThread.h"
-
+#include "assert.h"
 #if defined(WIN32)
 #	include <process.h>
 #	define cFUThread_INVALID nullptr

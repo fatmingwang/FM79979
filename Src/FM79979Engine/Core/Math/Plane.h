@@ -1,4 +1,6 @@
 //http://www.gamedev.net/community/forums/topic.asp?topic_id=341632
+#include "Vector4.h"
+#include "Matrix44.h"
 //
 //When a plane is expressed as:
 //

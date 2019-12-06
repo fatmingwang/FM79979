@@ -1,5 +1,4 @@
-#ifndef SOUND_MANAGER_H
-#define SOUND_MANAGER_H
+#pragma once
 
 #include "OpenAlWavFile.h"
 #include "OpenAlOgg.h"
@@ -39,6 +38,8 @@ namespace FATMING_CORE
 		static	ALuint*	m_psuiSourceID;				//whole source ID,as many as m_siNumSoundManager
 		static	ALuint*	m_psuiSourceUsingIDIndex;	//as many as m_siNumSoundManager
 		static	int		m_siNumSoundManager;
+		static float	m_sfBGMVolume;
+		static float	m_sfSoundEffectVolume;
 		//I have call alutInit (0,0); in the construction while sound manager is first time to create
 		cSoundParser();
 		virtual ~cSoundParser();
@@ -51,8 +52,6 @@ namespace FATMING_CORE
 		//for 0			to 1
 		void			SetVolume(float e_fVolume);
 		float			GetVolume(){ return m_fVolume; }
-		float			m_fBGMVolume;
-		float			m_fSoundEffectVolume;
 		void			Pause(bool e_bPause);	//all sound pause
 		void			Stop();					//all sound stop
 		void			SetSpeed(float e_fSpeed);
@@ -66,7 +65,6 @@ namespace FATMING_CORE
 		//void			IOSRecordContextSet(bool e_bStartToRecord);
 	};
 }
-#endif
 //
 //OpenAL gain means volume. So you have to change the AL_GAIN state to change the volume of a source (you can't change the volume of a buffer as far as I have seen, and it seems strange why you would).
 //

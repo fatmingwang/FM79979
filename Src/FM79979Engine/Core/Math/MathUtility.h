@@ -1,14 +1,18 @@
 #ifndef _MATH_UTILITY_H_
 #define _MATH_UTILITY_H_
 
-#include <map>
-#include "Collision.h"
 #ifdef WIN32
 #pragma warning( disable : 4996 )
 #endif
+
+#include <map>
+#include <vector>
 #include "../Common/VS_TO_GNN.h"
+#include "../Common/CommonDefine.h"
+#include "Vector4.h"
+#include "Matrix44.h"
 #include "MathTemplateUtility.h"
-#include "LinerTemplateDataProcess.h"
+//#include "LinerTemplateDataProcess.h"
 namespace UT
 {
 	//get a distance releste from now to start between a range.
@@ -17,8 +21,6 @@ namespace UT
 	//situation2.
 	//    Start		  CurrentPos  TargetPos	      End
 	inline	float		GetDistanceFromCurrentToStartOfLoop(float e_fPosStart,float e_fPosEnd,float e_fCurrentPos,float e_fTarget){if( e_fTarget>e_fCurrentPos ){return e_fTarget-e_fCurrentPos;}return (e_fPosEnd-e_fCurrentPos)+(e_fTarget-e_fPosStart);}
-	/* projection d	u point (objx,objy,obz) sur l'ecran (winx,winy,winz) */
-	GLint 				gluProject(GLfloat objx, GLfloat  objy, GLfloat  objz,const GLfloat  model[16], const GLfloat  proj[16],const GLint viewport[4],GLfloat  * winx, GLfloat  * winy, GLfloat  * winz);
 //#endif
 	//Modulus should change to remainder.
 	inline	float		GetFloatModulus(float e_fValue,float e_fDivision){int	l_iModulus = (int)(e_fValue/e_fDivision);return e_fValue-((float)l_iModulus*e_fDivision);}
@@ -64,15 +66,6 @@ namespace UT
 	inline	int64		BitMoveRight(int64 e_iValue,int ShiftCount){ShiftCount+=1;while(--ShiftCount){e_iValue /= 2;}return e_iValue;}
 
 	inline	int			power_of_two(int input){int value = 1;while ( value < input )	value <<= 1;return value;}
-	//inline Vector3	WorldToScreen(float objX,float objY,float objZ,float *e_pfProjectionMatrix = 0,float *e_pfModelViewMatrix = 0)
-	Vector3				WorldToScreen(float objX,float objY,float objZ,float *e_pfProjectionMatrix,float *e_pfModelViewMatrix);
-	//the view port here original start always be X=0,Y=0,however we have changed it,
-	//it should be look like this.
-	//int	l_iViewPort[4] = {0,0,ResolutionWidth,ResolutionHeight};
-	Vector3				WorldToScreen(float objX,float objY,float objZ,float*e_pmatProjection,float*e_pmatMV,int *e_piViewPort);
-	//e_matVP  =	ProjectionTransform*ViewTransform();
-	//e_vScreenPos.z is betwnne 0 to 1
-	Vector3				ScreenToWorld(Vector3 e_vScreenPos,cMatrix44 e_matVP,Vector2 e_vViewPortSize);
 
 	float				CalculateDifferenceBetweenRadius(float e_fSrc,float e_fTarget);
 

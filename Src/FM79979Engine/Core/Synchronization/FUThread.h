@@ -5,7 +5,7 @@
 
 #ifndef _FU_THREAD_H_
 #define _FU_THREAD_H_
-
+#include <string>
 #ifndef _FU_SEMAPHORE_H_
 #include "FUSemaphore.h"
 #endif // _FU_SEMAPHORE_H_

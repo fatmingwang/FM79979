@@ -4,6 +4,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix44.h"
+#include "../Common/CommonDefine.h"
 //#include "Bound.h"
 
 struct sAxisAlignedBox

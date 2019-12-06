@@ -1,8 +1,6 @@
-#include "../stdafx.h"
 #include "SmartPointer.h"
-#include "../XML/StringToStructure.h"
-//#include "../GameplayUT/GameApp.h"
-#include "../GameplayUT/Log/FMLog.h"
+#include "StringToStructure.h"
+#include "Log/FMLog.h"
 //bool	g_bShowSmartPointerInfo = true;
 bool	g_bShowSmartPointerInfo = false;
 void	DumpInfo(const wchar_t*e_strDescription, cSmartObject*e_pSmartObject, NamedTypedObject*e_pTarget)

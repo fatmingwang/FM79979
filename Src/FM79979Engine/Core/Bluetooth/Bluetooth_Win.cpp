@@ -3,9 +3,10 @@
 #include <ws2bth.h>
 #include <Bthsdpdef.h>
 #include <Setupapi.h>
-#include "../stdafx.h"
 #include "Bluetooth.h"
-#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/Render/MPDI/MPDI.h"
+#include "../GameplayUT/Render/Parser/AnimationParser.h"
+#include "../GameplayUT/GameApp/GameApp.h"
 #pragma comment(lib, "bthprops")
 #pragma comment(lib,"setupapi.lib")
 #pragma comment(lib, "user32")

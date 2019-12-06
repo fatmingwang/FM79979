@@ -1,4 +1,4 @@
-#include "../stdafx.h"
+#include "tinystr.h"
 /*
 www.sourceforge.net/projects/tinyxml
 Original file by Yves Berquin.

@@ -1,8 +1,7 @@
-#include "../stdafx.h"
 #include "SoundFile.h"
 
-#include "../GameplayUT/BinaryFile.h"
-#include "../GameplayUT/GameApp.h"
+#include "../Common/BinaryFile/BinaryFile.h"
+#include "../Common/StringToStructure.h"
 #include "OpenAlOgg.h"
 #ifndef WIN32
 #include "ogg/vorbis/vorbisenc.h"

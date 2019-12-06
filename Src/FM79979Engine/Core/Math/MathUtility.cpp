@@ -1,6 +1,5 @@
-#include "../stdafx.h"
 #include "MathUtility.h"
-#include "../OpenGL/Glh.h"
+#include "assert.h"
 namespace UT
 {
 	std::vector<int>	GenerateRandomTable(int e_iCount,int e_iMaxValue)
@@ -271,40 +270,6 @@ namespace UT
 		if( e_vOld.z < e_vNew.z )			e_vOld.z = e_vNew.z;
 		if( e_vOld.w < e_vNew.w )			e_vOld.w = e_vNew.w;
 		return e_vOld;
-	}
-
-	Vector3	WorldToScreen(float objX,float objY,float objZ,float *e_pfProjectionMatrix,float *e_pfModelViewMatrix)
-	{
-		GLint realy;
-		float win_x,win_y,win_z;
-		int viewport[4];
-		MyGLGetIntegerv(GL_VIEWPORT,viewport);
-        gluProject(objX,objY,objZ,e_pfModelViewMatrix,e_pfProjectionMatrix,viewport,&win_x,&win_y,&win_z);
-		realy = viewport[3]-(GLint)win_y -1;
-
-		Vector3 temp((float)win_x,(float)realy,(float)win_z);
-		return temp;
-	}
-
-	Vector3	WorldToScreen(float objX,float objY,float objZ,float*e_pmatProjection,float*e_pmatMV,int *e_piViewPort)
-	{
-		GLint realy;
-		float win_x,win_y,win_z;
-		gluProject(objX,objY,objZ,e_pmatMV,e_pmatProjection,e_piViewPort,&win_x,&win_y,&win_z);
-		realy = e_piViewPort[3]-(GLint)win_y -1;
-
-		Vector3 temp((float)win_x,(float)realy,(float)win_z);
-		return temp;
-	}
-
-	Vector3	ScreenToWorld(Vector3 e_vScreenPos,cMatrix44 e_matVP,Vector2 e_vViewPortSize)
-	{
-		//the z indicate how far will it be
-		Vector4	l_vWolrdPos = Vector4( (e_vScreenPos.x /e_vViewPortSize.x-0.5f)*2, (-e_vScreenPos.y /e_vViewPortSize.y+0.5f)*2,e_vScreenPos.z,1);
-		l_vWolrdPos = e_matVP.Inverted().TransformCoordinate(l_vWolrdPos);
-		float	l_iInverseW = 1 / l_vWolrdPos.w;
-		l_vWolrdPos = l_vWolrdPos *l_iInverseW;
-		return *(Vector3*)&l_vWolrdPos;
 	}
 
 	float	CalculateDifferenceBetweenRadius(float e_fSrc,float e_fTarget)

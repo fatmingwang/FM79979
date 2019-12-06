@@ -1,7 +1,8 @@
 #pragma once
+//#define USE_MU_PARSER
 #ifdef USE_MU_PARSER
 #include "../XML/XMLLoader.h"
-#include "../NamedTypedObject.h"
+#include "../Common//NamedTypedObject.h"
 #include "../Common/Template/TemplateClass.h"
 namespace mu
 {

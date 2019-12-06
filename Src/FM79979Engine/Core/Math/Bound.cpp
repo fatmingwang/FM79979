@@ -1,8 +1,8 @@
-#include "../stdafx.h"
 #include "Bound.h"
 #include "Quaternion.h"
-
-#include "../Image/SimplePrimitive.h"
+#include "assert.h"
+#include "Collision.h"
+//#include "../Image/SimplePrimitive.h"
 
 const EnumStringMap cBound::BoundType_StringMap[] =
 {
@@ -117,13 +117,13 @@ bool cBound::Collide( const sOrientedBox& Obb ) const
 
 bool	cBound::Collide( const int e_iPosX,const int e_iPosY ) const
 {
-	return RectCollidePoint(this->GetRect(),e_iPosX,e_iPosY);
+	return UT::RectCollidePoint(this->GetRect(),e_iPosX,e_iPosY);
 }
 
 bool	cBound::Collide( const RECT& e_rect ) const
 {
 	assert(this->m_Type == cBound::RECT2D_BOUND&& "sorry 2d only support 2d collide");
-	return RectCollideRectWithNewPosition(this->GetRect(),e_rect);
+	return UT::RectCollideRectWithNewPosition(this->GetRect(),e_rect);
 	
 }
 //-----------------------------------------------------------------------------
@@ -423,13 +423,13 @@ const	RECT&	cBound::GetRect() const
 
 void	cBound::DebugRender()
 {//I am lazy
-	if(BoundType::RECT2D_BOUND == this->m_Type)
-	{
-		const RECT l_Rect = this->GetRect();
-		Vector2 l_vPos(l_Rect.left,l_Rect.top);
-		Vector2 l_vSize(l_Rect.right-l_Rect.left,l_Rect.bottom-l_Rect.top);
-		GLRender::RenderRectangle(l_vPos,l_vSize.x,l_vSize.y,Vector4::One);
-	}
+	//if(BoundType::RECT2D_BOUND == this->m_Type)
+	//{
+	//	const RECT l_Rect = this->GetRect();
+	//	Vector2 l_vPos(l_Rect.left,l_Rect.top);
+	//	Vector2 l_vSize(l_Rect.right-l_Rect.left,l_Rect.bottom-l_Rect.top);
+	//	GLRender::RenderRectangle(l_vPos,l_vSize.x,l_vSize.y,Vector4::One);
+	//}
 }
 
 //-----------------------------------------------------------------------------

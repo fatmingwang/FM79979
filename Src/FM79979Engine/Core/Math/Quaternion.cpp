@@ -4,9 +4,9 @@
 	Distribution of this file or its content is strictly prohibited.
 */
 
-#include "../stdafx.h"
 #include "Quaternion.h"
 #include <float.h>
+#include "../Common/CommonDefine.h"
 //
 // Force templatization of inlines
 //

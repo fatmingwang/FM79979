@@ -1,7 +1,8 @@
-#include "../stdafx.h"
 #ifndef _M_CEE//manage code dont support cCPP11Thread
-
+#include "assert.h"
+#include "../Common/Utility.h"
 #include "GameNetWork.h"
+#include "../Common/Log/FMLog.h"
 #ifdef LINUX
 #include <alloca.h>
 #endif
@@ -35,7 +36,7 @@ namespace FATMING_CORE
 		if (l_iLength != l_iHeaderSize)
 		{
 #ifdef DEBUG
-			FMLog::LogWithFlag("network fetch header size failed(not enough 4 bytes)!?ignore this packet\n", CORE_LOG_FLAG);
+			FMLog::Log("network fetch header size failed(not enough 4 bytes)!?ignore this packet\n", false);
 #endif
 			return -1;
 		}
@@ -43,7 +44,7 @@ namespace FATMING_CORE
 		if (iSize >= 64 * 1024 || iSize < 1)
 		{
 #ifdef DEBUG
-			FMLog::LogWithFlag("network data size not correct!?ignore this packet\n", CORE_LOG_FLAG);
+			FMLog::Log("network data size not correct!?ignore this packet\n", false);
 #endif
 			return -1;
 		}

@@ -22,44 +22,19 @@
 #include <math.h>
 #include <wchar.h>
 
-#if defined(WIN32)
-	#include "../../Include/glew.h"
-	#include "../../Include/glext.h"
-#elif defined(IOS)
-	#include <OpenGLES/ES2/gl.h>
-	#include <OpenGLES/ES2/glext.h>
-#elif defined(ANDROID)
-//https://developer.android.com/ndk/guides/stable_apis.html
-	#include <GLES2/gl2.h>
-	#include <GLES2/gl2ext.h>
-	#include <GLES2/gl2platform.h>
-	//Android 4.3 (android-18)
-	//glShaderSource es 2 and es 3 is different...fuck-_-
-	//#include <GLES3/gl3.h>
-	//#include <GLES3/gl3ext.h>
-#elif defined(LINUX)
-	#include <GLES2/gl2.h>
-	#include <GLES2/gl2ext.h>
-#elif defined(WASM)
-	#include <GLES2/gl2.h>
-	#include <GLES2/gl2ext.h>
-	#include <GLES3/gl3.h>
-#endif
-
 #include <stdio.h>
 #include <map>
 #include <vector>
 #include <string>
 #include <assert.h>
-#include "GameplayUT/GameUTDefine.h"
+//#include "GameplayUT/GameUTDefine.h"
 #include "Common/CommonDefine.h"
 #include "Common/NamedTypedObject.h"
 #include "Common/Template/TemplateClass.h"
-#include "XML/StringToStructure.h"
+//#include "XML/StringToStructure.h"
 #include "AllMathInclude.h"
 #include "Common/Utility.h"
-#include "OpenGL/Glh.h"
-#include "AllCoreInclude.h"
+//#include "AllCoreInclude.h"
 //#include "Sound/SoundManager.h"
 //#if defined(WIN32)
 //	typedef std::basic_string<unsigned char> MyStringForMVSC;

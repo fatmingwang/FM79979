@@ -1,8 +1,8 @@
-#include "../stdafx.h"
-#include "NamedTypedObject.h"
-#include "../GameplayUT/GameApp.h"
-#include "../GameplayUT/Log/FMLog.h"
 #include "StringID.h"
+#include "assert.h"
+#include "NamedTypedObject.h"
+#include "Log/FMLog.h"
+#include "../Common/StringToStructure.h"
 uint64				g_ui64GlobalUniqueID = 0;
 uint64				g_ui64TimeStamp = 0;
 NamedTypedObject*	g_pLatestNamedTypedObject = 0;
@@ -126,13 +126,13 @@ void	NamedTypedObject::SetupInternalData()
 
 std::string	NamedTypedObject::GetCharName()
 {
-	std::string	l_str = ValueToString(m_sObjectName);
+	std::string	l_str = FATMING_CORE::ValueToString(m_sObjectName);
 	return l_str;
 }
 
 void NamedTypedObject::SetName( const char*e_pString )
 {
-	this->m_sObjectName = ValueToStringW(e_pString).c_str();
+	this->m_sObjectName = FATMING_CORE::ValueToStringW(e_pString).c_str();
 }
 
 

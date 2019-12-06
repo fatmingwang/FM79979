@@ -1,9 +1,8 @@
-#include "../stdafx.h"
 #include "BasicSound.h"
 #include "SoundManager.h"
 #include "OpenAlOgg.h"
 #include "OpenAlWavFile.h"
-#include "../GameplayUT/GameApp.h"
+#include "../Common/StringToStructure.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cBasicSound);
@@ -163,7 +162,7 @@ namespace FATMING_CORE
 			{
 				if(this->m_bStreaming)
 				{
-					float	l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fBGMVolume;
+					float	l_fVolume = this->m_fVolume*cSoundParser::m_sfBGMVolume;
 					alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);
 				}
 				alSourcePlay (m_uiSourceID);
@@ -196,7 +195,7 @@ namespace FATMING_CORE
 			{
 				alSourcei( m_uiSourceID, AL_LOOPING, m_bLoop?AL_TRUE:AL_FALSE );
 				alSourcei (m_uiSourceID, AL_BUFFER, m_uiBufferID);
-				float	l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fBGMVolume;
+				float	l_fVolume = this->m_fVolume*cSoundParser::m_sfBGMVolume;
 				alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);
 				alSourcePlay (m_uiSourceID);
 			}
@@ -220,7 +219,7 @@ namespace FATMING_CORE
 					m_uiSourceID = l_uiSourceID;								//store the source ID we are going to using
 					alSourcei( m_uiSourceID, AL_LOOPING, m_bLoop?AL_TRUE:AL_FALSE );
 					alSourcei (m_uiSourceID, AL_BUFFER, m_uiBufferID);
-					float	l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fSoundEffectVolume;
+					float	l_fVolume = this->m_fVolume*cSoundParser::m_sfSoundEffectVolume;
 					alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);
 					alSourcePlay (m_uiSourceID);
 					//debug check
@@ -270,9 +269,9 @@ namespace FATMING_CORE
 		{
 			float	l_fVolume = 1.f;
 			if( m_bStreaming )
-				l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fBGMVolume;
+				l_fVolume = this->m_fVolume*cSoundParser::m_sfBGMVolume;
 			else
-				l_fVolume = this->m_fVolume*cGameApp::m_spSoundParser->m_fSoundEffectVolume;
+				l_fVolume = this->m_fVolume*cSoundParser::m_sfSoundEffectVolume;
 			if( m_uiSourceID == 0 )
 				return;
 			alSourcef(m_uiSourceID, AL_GAIN, l_fVolume);

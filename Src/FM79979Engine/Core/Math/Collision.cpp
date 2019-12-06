@@ -1,5 +1,5 @@
-#include "../stdafx.h"
 #include "Collision.h"
+#include "assert.h"
 namespace UT
 {
 	//http://www.gamedev.net/community/forums/topic.asp?topic_id=501718

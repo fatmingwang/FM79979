@@ -1,9 +1,8 @@
-#ifndef UTILITY_H
-#define UTILITY_H
+#pragma once
 
-#include "NamedTypedObject.h"
 #include <map>
-#include "../Math/Collision.h"
+#include <vector>
+//#include "../Math/Collision.h"
 #include "TimeUT.h"
 #include "../Android/nv_file.h"
 #include "TimeUT.h"
@@ -61,11 +60,6 @@ namespace UT
 	bool					MyRemoveFile( const char* FileName );
 	bool					MyRemoveDirectory( const char* e_strDirectoryName );
 	bool					MyCreateDirectory( const char* e_strDirectoryName );
-	//ex:  view rang is 100,100,200,200
-	//                  4 factor represent x,y,x,y coordinate
-	Vector4					ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection);
-	//x,y showpos,zw width height
-	Vector4					ViewRectToOpenGLScissor(Vector4 e_v2DViewRange);
 	//============
 	//only support 4 characters
 	int						HexadecimalStringToDecimal(char*e_strValue);
@@ -115,4 +109,3 @@ namespace UT
 //end namespace Utility
 }
 using namespace UT;
-#endif

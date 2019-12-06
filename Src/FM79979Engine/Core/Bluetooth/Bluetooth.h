@@ -1,8 +1,9 @@
 #pragma once
 
 #include <mutex>
-#include "../../Core/Network/SDL_net.h"
+#include "../Network/SDL_net.h"
 #include "../Synchronization/CPP11Thread.h"
+#include "../Common/Template/TemplateClass.h"
 #ifdef WIN32
 //https://code.msdn.microsoft.com/windowsdesktop/Bluetooth-Connection-e3263296
 //DEFINE_GUID(GUID_DEVCLASS_BLUETOOTH, { 0xe0cbf06c, 0xcd8b, 0x4647,{ 0xbb, 0x8a, 0x26, 0x3b, 0x43, 0xf0, 0xf9, 0x74 } });

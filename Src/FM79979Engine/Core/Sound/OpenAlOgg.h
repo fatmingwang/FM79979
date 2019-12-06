@@ -1,8 +1,7 @@
-#ifndef _OPENAL_OGG_H_
-#define _OPENAL_OGG_H_
+#pragma once
 
 #include "BasicSound.h"
-
+#include <functional>
 struct OggVorbis_File;
 struct vorbis_info;
 struct vorbis_comment;
@@ -51,4 +50,3 @@ namespace FATMING_CORE
 	bool LoadOGG(const char *fileName, vector<char> &buffer, ALenum &format, ALsizei &freq,float&e_fTotalPlayTime);
 	#define OGG_STREAMING_SOUND_BUFFER_SIZE     32768//32 KB buffers
 }
-#endif

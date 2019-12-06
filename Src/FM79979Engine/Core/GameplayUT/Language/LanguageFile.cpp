@@ -1,6 +1,5 @@
 #include "../../stdafx.h"
 #include "LanguageFile.h"
-#include "../GameApp.h"
 namespace FATMING_CORE
 {
 	//<cXMLFileList Name="CH">

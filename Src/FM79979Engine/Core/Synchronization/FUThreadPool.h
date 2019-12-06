@@ -11,6 +11,7 @@
 #endif // _FU_THREAD_H_
 
 #include "FUFunctor.h"
+#include <vector>
 class cFUThread;
 class cFUCriticalSection;
 

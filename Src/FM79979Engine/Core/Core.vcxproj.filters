@@ -18,23 +18,8 @@
     <Filter Include="XML\TinyXml">
       <UniqueIdentifier>{d9d163c1-c0a0-4a45-b5e2-39f62be3cac5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camera">
-      <UniqueIdentifier>{0719d1b2-016e-4d0a-ada5-591abbd0cb26}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Sound">
       <UniqueIdentifier>{ee74a1da-b911-4512-831c-a8ad0d63bdc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VideoPlayer">
-      <UniqueIdentifier>{5545a3c3-49f4-4a45-ba01-5e7844374309}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VideoPlayer\ffmpeg">
-      <UniqueIdentifier>{03088eca-dc5d-44a4-a0cf-3fefed543d69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VideoPlayer\WindowsAVI">
-      <UniqueIdentifier>{a754ab94-9fde-469f-95f4-f0eed1359275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="VideoPlayer\MyJpeg">
-      <UniqueIdentifier>{e325870b-e93b-4c3e-bd62-a6a291967bb8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Math">
       <UniqueIdentifier>{1950818f-c9af-4451-b7ec-baada2918734}</UniqueIdentifier>
@@ -45,9 +30,6 @@
     <Filter Include="Math\Matrix">
       <UniqueIdentifier>{05d8f067-d6cc-4104-aee9-533500088bec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math\Curve">
-      <UniqueIdentifier>{a6f07ab0-70aa-4e48-9819-048e73b35b8a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math\Collidision">
       <UniqueIdentifier>{e08956da-1052-444f-9d09-d374fc1812a5}</UniqueIdentifier>
     </Filter>
@@ -56,9 +38,6 @@
     </Filter>
     <Filter Include="GameplayUT">
       <UniqueIdentifier>{8b27bfab-e5d9-43c1-9148-d3ade082472e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\Path">
-      <UniqueIdentifier>{f52839de-5b6a-4131-830d-c4a985a11c53}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameplayUT\Phase">
       <UniqueIdentifier>{2586bf4d-7de6-4c4e-ade4-b62668bbca21}</UniqueIdentifier>
@@ -69,50 +48,11 @@
     <Filter Include="GameplayUT\GamePad">
       <UniqueIdentifier>{e2b4df60-1e65-4fbe-a84f-13bcb1f25d8f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\UI">
-      <UniqueIdentifier>{8a37a4d8-7a07-4e69-8a76-c6bcb0aef370}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\MultiSelectOptionByMPDI">
-      <UniqueIdentifier>{ffa33b83-f5b5-4329-845d-4ee0fde0a3db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\MouseBehavior">
-      <UniqueIdentifier>{10e71241-d47d-4c72-a8b2-b4237c093f48}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\SliderBar">
-      <UniqueIdentifier>{3265b86e-992e-4028-bcc6-ea3be3ad360f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\Scroller">
-      <UniqueIdentifier>{7ed02032-22cc-4d29-8350-baadd100a936}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\Tabpage">
-      <UniqueIdentifier>{ad4b3b0c-8862-475e-bf46-51a58bfc3dfc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\UI\Button">
-      <UniqueIdentifier>{dc677ea8-d862-4107-a5a3-01f2d7d72cc8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\ValueChange">
-      <UniqueIdentifier>{0fd7ff5b-eee6-4fea-8fac-f2e0bba7dbde}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\DataCurve">
       <UniqueIdentifier>{0feda03d-740f-46b8-b221-524b5514cb5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\StringCompress">
-      <UniqueIdentifier>{eacd2b58-4b2f-4e71-b2ae-72bf95a8c032}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\FMAnimationRuleEffect">
-      <UniqueIdentifier>{f11df4bf-ccb9-4398-a819-8d71e9a05917}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\ResourceStamp">
-      <UniqueIdentifier>{d4b70f27-8124-41cb-9dc0-5736426ba26e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\ObjectXMLParser">
-      <UniqueIdentifier>{ddce45cc-782a-49ea-95b9-bcfff887cd80}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Physic">
       <UniqueIdentifier>{aca35592-1ac0-4e08-9d40-cdc5c7e0d086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physic\2DImageCollideData">
-      <UniqueIdentifier>{5add1047-3d31-4970-97c6-c992da27425e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{1cb39f13-5f15-4248-bc87-8a1183662d0b}</UniqueIdentifier>
@@ -126,39 +66,6 @@
     <Filter Include="Common\Template">
       <UniqueIdentifier>{4175d9fa-2cd2-4df3-ab1e-6fbf5ddd1564}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Particle">
-      <UniqueIdentifier>{8fbed550-77e0-4461-aa91-b8381c46397e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Emitter">
-      <UniqueIdentifier>{9b681698-e458-421c-880e-723098b5b697}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy">
-      <UniqueIdentifier>{cdc7cf59-8d45-4bb1-b4bc-ebbbb318f1b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Color">
-      <UniqueIdentifier>{8efb007e-b8ed-49aa-bb87-cedbfc5b75ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Life">
-      <UniqueIdentifier>{167df8c5-b3f2-4a0d-b69d-b84479ebbe34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Size">
-      <UniqueIdentifier>{978b2fc3-8d4a-4f3d-80c0-58c6ac0de426}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Velocity">
-      <UniqueIdentifier>{8b4ea592-2bee-4a1c-9528-bcb3ae747843}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\StartPosition">
-      <UniqueIdentifier>{e5f1e25e-c33c-42e7-90af-8c6e3da43ef5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Rotation">
-      <UniqueIdentifier>{6b7a74fa-e446-406c-ac88-89c5effe5bd7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\Policy\Texture">
-      <UniqueIdentifier>{7bc9d122-b298-46a5-8351-72d88c729ee9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\ParticleBase">
-      <UniqueIdentifier>{8fbf4ce4-bdca-445c-b811-4ab349fddab8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="NetWork">
       <UniqueIdentifier>{66a22d0f-9b5b-434a-a22e-29fe161bb86b}</UniqueIdentifier>
     </Filter>
@@ -168,20 +75,8 @@
     <Filter Include="AndroidJNI">
       <UniqueIdentifier>{08b28897-526b-43d5-8819-2c6569341173}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Terrain">
-      <UniqueIdentifier>{593bc827-63fa-40d0-ae6a-d43a14f85bdc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math\MUParserXML">
       <UniqueIdentifier>{9aca5337-acee-4d0d-8d61-21fd8123a03f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\CameraZoom">
-      <UniqueIdentifier>{da8a3baa-88c9-4c19-bae8-feca8ca8c97e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\EventSender">
-      <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\LinearData">
-      <UniqueIdentifier>{1ce25ea6-a609-4a00-9f95-bba52ecbad9d}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameplayUT\Language">
       <UniqueIdentifier>{0de65bcd-c97f-4e40-b53d-e893fe9e3dcd}</UniqueIdentifier>
@@ -189,172 +84,163 @@
     <Filter Include="GameplayUT\Preload">
       <UniqueIdentifier>{deb9534d-4217-451f-9603-00d8ad437de2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\BinaryFile">
-      <UniqueIdentifier>{f0db8b85-b130-47d1-a5bd-2a4b2ffaa948}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\BinaryFile\WriteFileWithThread">
-      <UniqueIdentifier>{83c68abb-9cc7-45b5-9af2-29ce930e71a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameplayUT\Log">
-      <UniqueIdentifier>{3ef73dc6-8a47-4e37-a2cf-c55e4cd54a0d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Bluetooth">
       <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render">
-      <UniqueIdentifier>{57cdd01f-9d01-4f32-ae9a-4569fb6fe0e7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Parser">
-      <UniqueIdentifier>{fd023b63-e95c-46d5-811a-0d7df0f9ec7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Parser\Animation">
-      <UniqueIdentifier>{03018fa4-f8d9-4855-8aa3-80ce4b4f238d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Parser\BinaryToTexture">
-      <UniqueIdentifier>{f0d6a13d-0749-493c-b85b-92bbb5ffd62c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Parser\Image">
-      <UniqueIdentifier>{833643c2-2311-4622-ac81-30ef659bc5ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Font">
-      <UniqueIdentifier>{9c6bdef8-3e1b-4570-9dac-fa24c16dbe53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Font\Glyph">
-      <UniqueIdentifier>{67d3278d-424d-422c-a8ff-04f6041d8d76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Common">
-      <UniqueIdentifier>{32003496-15aa-42c9-92f3-cd2d1d196861}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\FMAnimationRule">
-      <UniqueIdentifier>{10284212-1bad-460d-ac0e-9790c2093675}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Texture">
-      <UniqueIdentifier>{7ca2fac7-9243-4b99-ab44-d08162ddefc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Texture\png">
-      <UniqueIdentifier>{adb09a7d-7ea1-430c-ae26-3b7cd62f5bd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Texture\jpeg">
-      <UniqueIdentifier>{b7231435-727b-4e98-b033-73c70ec480c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\Texture\DDS">
-      <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\PuzzleImage">
-      <UniqueIdentifier>{c2f3d0ae-fec1-4cce-b3fa-ecf5c79bb15e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\BufferObject">
-      <UniqueIdentifier>{008ba834-09b8-4201-b573-1521acf30e06}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\MPDI">
-      <UniqueIdentifier>{dd0a844e-fc9e-4302-af75-f757efbc24e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGLCommand">
-      <UniqueIdentifier>{b7d8cef5-82b4-4528-baee-3eac8aa3b638}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\RenderQueue">
-      <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGL">
-      <UniqueIdentifier>{c1a0e796-7247-463a-87e3-452d37229b29}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGL\Crossplatform">
-      <UniqueIdentifier>{5ffa4c1a-5911-4f59-a7d8-473b368e21e9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGL\Crossplatform\OpenGL">
-      <UniqueIdentifier>{74120417-a826-4455-80ab-18a71ec7c78f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGL\GLSL">
-      <UniqueIdentifier>{3b51ccc0-cfce-4bff-baec-ab46ca9a33bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Render\OpenGL\GLSL\PostEffect">
-      <UniqueIdentifier>{8bdd0f24-4d89-4a09-b76b-c461438964bf}</UniqueIdentifier>
     </Filter>
     <Filter Include="GameplayUT\CommonRegister">
       <UniqueIdentifier>{b4471ef5-f1c0-4e94-b4e4-d694adb7462c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\Font\FreeTypeFont">
-      <UniqueIdentifier>{428aeac7-2dea-4742-abf3-5f80592779c8}</UniqueIdentifier>
+    <Filter Include="GameplayUT\Camera">
+      <UniqueIdentifier>{0719d1b2-016e-4d0a-ada5-591abbd0cb26}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\UI\ClickBehavior">
-      <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
+    <Filter Include="GameplayUT\PathAndCurve">
+      <UniqueIdentifier>{f52839de-5b6a-4131-830d-c4a985a11c53}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\RenderNodeEffect">
+    <Filter Include="GameplayUT\ResourceMaintaner">
+      <UniqueIdentifier>{ddce45cc-782a-49ea-95b9-bcfff887cd80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\TemplateValueChanger">
+      <UniqueIdentifier>{0fd7ff5b-eee6-4fea-8fac-f2e0bba7dbde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Log">
+      <UniqueIdentifier>{3ef73dc6-8a47-4e37-a2cf-c55e4cd54a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\BinaryFile">
+      <UniqueIdentifier>{f0db8b85-b130-47d1-a5bd-2a4b2ffaa948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render">
+      <UniqueIdentifier>{57cdd01f-9d01-4f32-ae9a-4569fb6fe0e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Parser">
+      <UniqueIdentifier>{fd023b63-e95c-46d5-811a-0d7df0f9ec7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Parser\Animation">
+      <UniqueIdentifier>{03018fa4-f8d9-4855-8aa3-80ce4b4f238d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Parser\Image">
+      <UniqueIdentifier>{833643c2-2311-4622-ac81-30ef659bc5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Font">
+      <UniqueIdentifier>{9c6bdef8-3e1b-4570-9dac-fa24c16dbe53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Font\Glyph">
+      <UniqueIdentifier>{67d3278d-424d-422c-a8ff-04f6041d8d76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\FMAnimationRule">
+      <UniqueIdentifier>{10284212-1bad-460d-ac0e-9790c2093675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Texture">
+      <UniqueIdentifier>{7ca2fac7-9243-4b99-ab44-d08162ddefc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Texture\png">
+      <UniqueIdentifier>{adb09a7d-7ea1-430c-ae26-3b7cd62f5bd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Texture\jpeg">
+      <UniqueIdentifier>{b7231435-727b-4e98-b033-73c70ec480c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Texture\dds">
+      <UniqueIdentifier>{420f1b07-2b5d-4c4c-bbb1-ca3d39265603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\PuzzleImage">
+      <UniqueIdentifier>{c2f3d0ae-fec1-4cce-b3fa-ecf5c79bb15e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\MPDI">
+      <UniqueIdentifier>{dd0a844e-fc9e-4302-af75-f757efbc24e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\RenderQueue">
+      <UniqueIdentifier>{83304415-d761-4ff1-bdc5-79419401092a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\RenderFrameEffect">
       <UniqueIdentifier>{d4359132-9685-40f6-845b-42c38c3b7723}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Render\OpenGL\Windows">
+    <Filter Include="GameplayUT\Render\Particle">
+      <UniqueIdentifier>{8fbed550-77e0-4461-aa91-b8381c46397e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Emitter">
+      <UniqueIdentifier>{9b681698-e458-421c-880e-723098b5b697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy">
+      <UniqueIdentifier>{cdc7cf59-8d45-4bb1-b4bc-ebbbb318f1b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Color">
+      <UniqueIdentifier>{8efb007e-b8ed-49aa-bb87-cedbfc5b75ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Life">
+      <UniqueIdentifier>{167df8c5-b3f2-4a0d-b69d-b84479ebbe34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Size">
+      <UniqueIdentifier>{978b2fc3-8d4a-4f3d-80c0-58c6ac0de426}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Velocity">
+      <UniqueIdentifier>{8b4ea592-2bee-4a1c-9528-bcb3ae747843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\StartPosition">
+      <UniqueIdentifier>{e5f1e25e-c33c-42e7-90af-8c6e3da43ef5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Rotation">
+      <UniqueIdentifier>{6b7a74fa-e446-406c-ac88-89c5effe5bd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\Policy\Texture">
+      <UniqueIdentifier>{7bc9d122-b298-46a5-8351-72d88c729ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Particle\ParticleBase">
+      <UniqueIdentifier>{8fbf4ce4-bdca-445c-b811-4ab349fddab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Terrain">
+      <UniqueIdentifier>{593bc827-63fa-40d0-ae6a-d43a14f85bdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\VideoPlayer">
+      <UniqueIdentifier>{5545a3c3-49f4-4a45-ba01-5e7844374309}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\VideoPlayer\ffmpeg">
+      <UniqueIdentifier>{03088eca-dc5d-44a4-a0cf-3fefed543d69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\VideoPlayer\WindowsAVI">
+      <UniqueIdentifier>{a754ab94-9fde-469f-95f4-f0eed1359275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\VideoPlayer\MyJpeg">
+      <UniqueIdentifier>{e325870b-e93b-4c3e-bd62-a6a291967bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\UI">
+      <UniqueIdentifier>{8a37a4d8-7a07-4e69-8a76-c6bcb0aef370}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\UI\ClickBehaviorUI">
+      <UniqueIdentifier>{f0f0d96a-909a-4659-b329-b9ed57ed4d0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\OpenGLObject">
+      <UniqueIdentifier>{008ba834-09b8-4201-b573-1521acf30e06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\OpenGL">
+      <UniqueIdentifier>{c1a0e796-7247-463a-87e3-452d37229b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\OpenGL\Crossplatform">
+      <UniqueIdentifier>{5ffa4c1a-5911-4f59-a7d8-473b368e21e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\OpenGL\GLSL">
+      <UniqueIdentifier>{3b51ccc0-cfce-4bff-baec-ab46ca9a33bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\OpenGL\Windows">
       <UniqueIdentifier>{b9261fd7-01fa-4cd6-9204-590f5f945fb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\Curve">
+      <UniqueIdentifier>{a6f07ab0-70aa-4e48-9819-048e73b35b8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\FMAnimationRuleEffect">
+      <UniqueIdentifier>{f11df4bf-ccb9-4398-a819-8d71e9a05917}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\CommonRender">
+      <UniqueIdentifier>{32003496-15aa-42c9-92f3-cd2d1d196861}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\MultiTouch">
+      <UniqueIdentifier>{97d5567a-a154-4430-9fa6-33798728e7d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\EventSender">
+      <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\AnimationParser.cpp">
-      <Filter>Render\Parser\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\MPDIDataParse.cpp">
-      <Filter>Render\Parser\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\BinaryToTexture.cpp">
-      <Filter>Render\Parser\BinaryToTexture</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\ImageParser.cpp">
-      <Filter>Render\Parser\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\GlyphFontRender.cpp">
-      <Filter>Render\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="Glyph\GlyphWriter.cpp">
-      <Filter>Render\Font\Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\BaseImage.cpp">
-      <Filter>Render\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\NumeralImage.cpp">
-      <Filter>Render\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\RenderObject.cpp">
-      <Filter>Render\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\UVAnimationImage.cpp">
-      <Filter>Render\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\FMAnimationRule.cpp">
-      <Filter>Render\FMAnimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\jpeg\jpgd.cpp">
-      <Filter>Render\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\jpeg\jpge.cpp">
-      <Filter>Render\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\PuzzleImage.cpp">
-      <Filter>Render\PuzzleImage</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\FrameBuffer.cpp">
-      <Filter>Render\BufferObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\VertexBufferObject.cpp">
-      <Filter>Render\BufferObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\MPDI.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\MPDIForEditor.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\SubMPDI.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\SubMPDIRenderPointData.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\VideoSubMPDI.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="XML\StringToStructure.cpp">
-      <Filter>XML</Filter>
     </ClCompile>
     <ClCompile Include="XML\AtgXmlWriter.cpp">
       <Filter>XML\Writer</Filter>
@@ -371,21 +257,6 @@
     <ClCompile Include="XML\tinyxmlparser.cpp">
       <Filter>XML\TinyXml</Filter>
     </ClCompile>
-    <ClCompile Include="Camera\CameraAnimation.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\DrawSelectRectangleByMouse.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\MouseCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\SimpleCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\SplitScreenCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Sound\BasicSound.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
@@ -394,18 +265,6 @@
     </ClCompile>
     <ClCompile Include="Sound\OpenAlWavFile.cpp">
       <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="AVIPlayer\avi_utils.cpp">
-      <Filter>VideoPlayer\WindowsAVI</Filter>
-    </ClCompile>
-    <ClCompile Include="AVIPlayer\AVIPlayer.cpp">
-      <Filter>VideoPlayer\WindowsAVI</Filter>
-    </ClCompile>
-    <ClCompile Include="AVIPlayer\AndroidVideoPlayer.cpp">
-      <Filter>VideoPlayer\MyJpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\Frame.cpp">
-      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="Math\Line.cpp">
       <Filter>Math</Filter>
@@ -431,12 +290,6 @@
     <ClCompile Include="Math\Quaternion.cpp">
       <Filter>Math\Matrix</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Curve.cpp">
-      <Filter>Math\Curve</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\CurveManager.cpp">
-      <Filter>Math\Curve</Filter>
-    </ClCompile>
     <ClCompile Include="Math\Bound.cpp">
       <Filter>Math\Collidision</Filter>
     </ClCompile>
@@ -446,140 +299,8 @@
     <ClCompile Include="Math\ValueSortingObject.cpp">
       <Filter>Math\Sorting</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\CurveChanger.cpp">
-      <Filter>GameplayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\PathChaser.cpp">
-      <Filter>GameplayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\PathFinder.cpp">
-      <Filter>GameplayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\PhaseControl.cpp">
-      <Filter>GameplayUT\Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\PhasePopupMessager.cpp">
-      <Filter>GameplayUT\Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\GameApp.cpp">
-      <Filter>GameplayUT\GameApp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\AtgInput.cpp">
-      <Filter>GameplayUT\GamePad</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\RenderObjectVector.cpp">
-      <Filter>GameplayUT\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\MultiSelectOptionByMPDI.cpp">
-      <Filter>GameplayUT\UI\MultiSelectOptionByMPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Mouse_Touch.cpp">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Mouse_TouchWithCancelButton.cpp">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\MultiTouchPoints.cpp">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Sliderbar.cpp">
-      <Filter>GameplayUT\UI\SliderBar</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\3DScroller.cpp">
-      <Filter>GameplayUT\UI\Scroller</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Scroller.cpp">
-      <Filter>GameplayUT\UI\Scroller</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ImageWithSlider.cpp">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\MultiPage.cpp">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Tabpage.cpp">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\AssembleImageButton.cpp">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\FontFrame.cpp">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ImageButton.cpp">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ListValueChanger.cpp">
-      <Filter>GameplayUT\ValueChange</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\RestrictValue.cpp">
-      <Filter>GameplayUT\ValueChange</Filter>
-    </ClCompile>
     <ClCompile Include="GameplayUT\DataCurve\DataCurve.cpp">
       <Filter>GameplayUT\DataCurve</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\StringCompress.cpp">
-      <Filter>GameplayUT\StringCompress</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffectManager.cpp">
-      <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffectQueuePlayer.cpp">
-      <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\BinaryFile.cpp">
-      <Filter>GameplayUT\BinaryFile</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ResourceStamp.cpp">
-      <Filter>GameplayUT\ResourceStamp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ObjectXMLParser.cpp">
-      <Filter>GameplayUT\ObjectXMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\BulletShape.cpp">
-      <Filter>Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="Physic\2DImageCollisionData.cpp">
-      <Filter>Physic\2DImageCollideData</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleManager.cpp">
-      <Filter>Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleEmitter.cpp">
-      <Filter>Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleEmitterBehavior.cpp">
-      <Filter>Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleEmitterGroup.cpp">
-      <Filter>Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\AllPolicyNameList.cpp">
-      <Filter>Particle\Policy</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtColor.cpp">
-      <Filter>Particle\Policy\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtLife.cpp">
-      <Filter>Particle\Policy\Life</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtSize.cpp">
-      <Filter>Particle\Policy\Size</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtVelocity.cpp">
-      <Filter>Particle\Policy\Velocity</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtStartPosition.cpp">
-      <Filter>Particle\Policy\StartPosition</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtRotate.cpp">
-      <Filter>Particle\Policy\Rotation</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\PrtTexture.cpp">
-      <Filter>Particle\Policy\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleBase.cpp">
-      <Filter>Particle\ParticleBase</Filter>
     </ClCompile>
     <ClCompile Include="Network\happyhttp.cpp">
       <Filter>NetWork</Filter>
@@ -599,86 +320,23 @@
     <ClCompile Include="Synchronization\FUThreadPool.cpp">
       <Filter>Synchronization</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain\ShockBoobsPainter.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain\ShockBoobsShader.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain\TerrianVertex.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\OrthogonalCamera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
     <ClCompile Include="XML\XmlLoader.cpp">
       <Filter>XML</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\SimplePrimitive.cpp">
-      <Filter>Render\Common</Filter>
     </ClCompile>
     <ClCompile Include="Sound\SoundManager.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
-    <ClCompile Include="Glyph\GlyphReader.cpp">
-      <Filter>Render\Font\Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\Texture.cpp">
-      <Filter>Render\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\MPDINode.cpp">
-      <Filter>Render\MPDI</Filter>
-    </ClCompile>
     <ClCompile Include="Math\MathFormulaXML.cpp">
       <Filter>Math\MUParserXML</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\CameraZoomFunction.cpp">
-      <Filter>GameplayUT\CameraZoom</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\EventSender\MessageSender.cpp">
-      <Filter>GameplayUT\EventSender</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\GameAppUtil.cpp">
-      <Filter>GameplayUT\GameApp</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\CustomBinaryData.cpp">
-      <Filter>GameplayUT\BinaryFile</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\png\pngLoader.cpp">
-      <Filter>Render\Texture\png</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\dds\nv_hhdds.cpp">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\dds\nv_images.cpp">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\dds\nv_log.cpp">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClCompile>
     <ClCompile Include="Network\Network.cpp">
       <Filter>NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\LinerTemplateDataProcess.cpp">
-      <Filter>Math\LinearData</Filter>
-    </ClCompile>
-    <ClCompile Include="Math\LinerDataMouseChanger.cpp">
-      <Filter>Math\LinearData</Filter>
     </ClCompile>
     <ClCompile Include="Sound\SoundCapture.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
     <ClCompile Include="Sound\SoundFile.cpp">
       <Filter>Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="XML\LazyXmlParser.cpp">
-      <Filter>XML</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.cpp">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\ClickBehavior\ClickBehavior.cpp">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Language\LanguageFile.cpp">
       <Filter>GameplayUT\Language</Filter>
@@ -698,20 +356,8 @@
     <ClCompile Include="Network\SDLnet.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Image\TextureManager.cpp">
-      <Filter>Render\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="Image\RenderQueue\RenderCommand.cpp">
-      <Filter>Render\RenderQueue</Filter>
-    </ClCompile>
     <ClCompile Include="Synchronization\CPP11Thread.cpp">
       <Filter>Synchronization</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\WriteFile\WriteFileWithThread.cpp">
-      <Filter>GameplayUT\BinaryFile\WriteFileWithThread</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\Log\FMLog.cpp">
-      <Filter>GameplayUT\Log</Filter>
     </ClCompile>
     <ClCompile Include="Bluetooth\Bluetooth_Android.cpp">
       <Filter>Bluetooth</Filter>
@@ -721,12 +367,6 @@
     </ClCompile>
     <ClCompile Include="Bluetooth\BluetoothUtility.cpp">
       <Filter>Bluetooth</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\GameAppGetObject.cpp">
-      <Filter>GameplayUT\GameApp</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\Glh.cpp">
-      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="Common\TimeUT.cpp">
       <Filter>Common</Filter>
@@ -743,47 +383,365 @@
     <ClCompile Include="Common\StringID.cpp">
       <Filter>Common\NamedTypedObject</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\Blur.cpp">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\ToneMapping.cpp">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\TunnelEffect.cpp">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\CommnoShader.cpp">
-      <Filter>Render\OpenGL\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\GLSLUiniform.cpp">
-      <Filter>Render\OpenGL\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GLSL\Shader.cpp">
-      <Filter>Render\OpenGL\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="OpenGL\GluForOpengles.cpp">
-      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="Network\GameNetWork.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="Image\FreeTypeFont\FreetypeGlypth.cpp">
-      <Filter>Render\Font\FreeTypeFont</Filter>
+    <ClCompile Include="GameplayUT\Camera\CameraAnimation.cpp">
+      <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\ClickBehavior\MPDIToGameObject.cpp">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClCompile Include="GameplayUT\Camera\CameraZoomFunction.cpp">
+      <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBar.cpp">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClCompile Include="GameplayUT\Camera\DrawSelectRectangleByMouse.cpp">
+      <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\ClickBehavior\ScrollBox.cpp">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClCompile Include="GameplayUT\Camera\MouseCamera.cpp">
+      <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Image\RenderNodeEffect\RenderObjectEffect.cpp">
-      <Filter>Render\RenderNodeEffect</Filter>
+    <ClCompile Include="GameplayUT\Camera\OrthogonalCamera.cpp">
+      <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="OpenGL\WindowsOpenGL.cpp">
-      <Filter>Render\OpenGL\Windows</Filter>
+    <ClCompile Include="GameplayUT\Camera\SimpleCamera.cpp">
+      <Filter>GameplayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Camera\SplitScreenCamera.cpp">
+      <Filter>GameplayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GameApp\GameApp.cpp">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GameApp\GameAppGetObject.cpp">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GameApp\GameAppUtil.cpp">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GamePad\AtgInput.cpp">
+      <Filter>GameplayUT\GamePad</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ResourceMaintaner\ObjectXMLParser.cpp">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ResourceMaintaner\ResourceStamp.cpp">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\TemplateValueChanger\ListValueChanger.cpp">
+      <Filter>GameplayUT\TemplateValueChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\TemplateValueChanger\RestrictValue.cpp">
+      <Filter>GameplayUT\TemplateValueChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\Log\FMLog.cpp">
+      <Filter>Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BinaryFile\BinaryFile.cpp">
+      <Filter>Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BinaryFile\CustomBinaryData.cpp">
+      <Filter>Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BinaryFile\StringCompress.cpp">
+      <Filter>Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\BinaryFile\WriteFileWithThread.cpp">
+      <Filter>Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\OpenGLObject\FrameBuffer.cpp">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\OpenGLObject\UVAnimationImage.cpp">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\BaseImage.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\Frame.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\NumeralImage.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\RenderNode.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\RenderObject.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\CommonRender\SimplePrimitive.cpp">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRule.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Font\Glyph\GlyphReader.cpp">
+      <Filter>GameplayUT\Render\Font\Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Font\Glyph\GlyphWriter.cpp">
+      <Filter>GameplayUT\Render\Font\Glyph</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Font\FreetypeGlypth.cpp">
+      <Filter>GameplayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Font\GlyphFontRender.cpp">
+      <Filter>GameplayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\MPDI.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\MPDIForEditor.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\MPDINode.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\SubMPDI.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\SubMPDIRenderPointData.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\VideoSubMPDI.cpp">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\Glh.cpp">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GluForOpengles.cpp">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\OpenGLCommon.cpp">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\Blur.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\CommnoShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\Shader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\ToneMapping.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\TunnelEffect.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\WindowsOpenGL.cpp">
+      <Filter>GameplayUT\OpenGL\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\StringToStructure.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Curve\Curve.cpp">
+      <Filter>GameplayUT\Render\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Curve\CurveManager.cpp">
+      <Filter>GameplayUT\Render\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\DataCurve\LinerTemplateDataProcess.cpp">
+      <Filter>GameplayUT\DataCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Physic\2DImageCollisionData.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Physic\BulletShape.cpp">
+      <Filter>Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\Texture.cpp">
+      <Filter>GameplayUT\Render\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\TextureManager.cpp">
+      <Filter>GameplayUT\Render\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\CommonApp.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\OpenGLRender.cpp">
+      <Filter>GameplayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\ParticleManager.cpp">
+      <Filter>GameplayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\ParticleBase.cpp">
+      <Filter>GameplayUT\Render\Particle\ParticleBase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\AllPolicyNameList.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\ParticleEmitter.cpp">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\ParticleEmitterBehavior.cpp">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\ParticleEmitterGroup.cpp">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtColor.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Color</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtLife.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Life</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtRotate.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtSize.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Size</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtStartPosition.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\StartPosition</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtTexture.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Particle\PrtVelocity.cpp">
+      <Filter>GameplayUT\Render\Particle\Policy\Velocity</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GamePhase\PhaseControl.cpp">
+      <Filter>GameplayUT\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\GamePhase\PhasePopupMessager.cpp">
+      <Filter>GameplayUT\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.cpp">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\DefaultRenderClickBehavior.cpp">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\MPDIToGameObject.cpp">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\ScrollBar.cpp">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\ScrollBox.cpp">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\3DScroller.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\AssembleImageButton.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\FontFrame.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ImageButton.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\ImageWithSlider.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\Mouse_Touch.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\Mouse_TouchWithCancelButton.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\MultiPage.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\MultiSelectOptionByMPDI.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\Scroller.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\Sliderbar.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\Tabpage.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Parser\AnimationParser.cpp">
+      <Filter>GameplayUT\Render\Parser\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Parser\ImageParser.cpp">
+      <Filter>GameplayUT\Render\Parser\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\MPDI\MPDIDataParse.cpp">
+      <Filter>GameplayUT\Render\Parser\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\PuzzleImage\PuzzleImage.cpp">
+      <Filter>GameplayUT\Render\PuzzleImage</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp">
+      <Filter>GameplayUT\Render\RenderFrameEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\RenderQueue\RenderCommand.cpp">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Terrain\ShockBoobsPainter.cpp">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Terrain\ShockBoobsShader.cpp">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Terrain\TerrianVertex.cpp">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\MultiTouch\MultiTouchPoints.cpp">
+      <Filter>GameplayUT\MultiTouch</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\MouseMoveData.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\dds\nv_hhdds.cpp">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\dds\nv_images.cpp">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\dds\nv_log.cpp">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\jpeg\jpgd.cpp">
+      <Filter>GameplayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\jpeg\jpge.cpp">
+      <Filter>GameplayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Texture\png\pngLoader.cpp">
+      <Filter>GameplayUT\Render\Texture\png</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\VideoPlayer\AndroidVideoPlayer.cpp">
+      <Filter>GameplayUT\Render\VideoPlayer\MyJpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\VideoPlayer\avi_utils.cpp">
+      <Filter>GameplayUT\Render\VideoPlayer\WindowsAVI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\VideoPlayer\AVIPlayer.cpp">
+      <Filter>GameplayUT\Render\VideoPlayer\WindowsAVI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\PathAndCurve\CurveChanger.cpp">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\PathAndCurve\PathChaser.cpp">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\PathAndCurve\PathFinder.cpp">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\EventSender\MessageSender.cpp">
+      <Filter>Common\EventSender</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -794,85 +752,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AllImageInclude.h">
-      <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\AnimationParser.h">
-      <Filter>Render\Parser\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\MPDIDataParse.h">
-      <Filter>Render\Parser\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\BinaryToTexture.h">
-      <Filter>Render\Parser\BinaryToTexture</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\ImageParser.h">
-      <Filter>Render\Parser\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\GlyphFontRender.h">
-      <Filter>Render\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="Glyph\GlyphReader.h">
-      <Filter>Render\Font\Glyph</Filter>
-    </ClInclude>
-    <ClInclude Include="Glyph\GlyphWriter.h">
-      <Filter>Render\Font\Glyph</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\BaseImage.h">
-      <Filter>Render\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\NumeralImage.h">
-      <Filter>Render\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\RenderObject.h">
-      <Filter>Render\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\SimplePrimitive.h">
-      <Filter>Render\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\UVAnimationImage.h">
-      <Filter>Render\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\FMAnimationRule.h">
-      <Filter>Render\FMAnimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\Texture.h">
-      <Filter>Render\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\jpeg\jpgd.h">
-      <Filter>Render\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\jpeg\jpge.h">
-      <Filter>Render\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\BaseUVImageData.h">
-      <Filter>Render\PuzzleImage</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\PuzzleImage.h">
-      <Filter>Render\PuzzleImage</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\FrameBuffer.h">
-      <Filter>Render\BufferObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\VertexBufferObject.h">
-      <Filter>Render\BufferObject</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\MPDI.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\MPDIForEditor.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\SubMPDI.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\SubMPDIRenderPointData.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\VideoSubMPDI.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="XML\StringToStructure.h">
-      <Filter>XML</Filter>
+      <Filter>GameplayUT\Render</Filter>
     </ClInclude>
     <ClInclude Include="XML\XMLLoader.h">
       <Filter>XML</Filter>
@@ -887,25 +767,7 @@
       <Filter>XML\TinyXml</Filter>
     </ClInclude>
     <ClInclude Include="AllCameraInclude.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\CameraAnimation.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\DrawSelectRectangleByMouse.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\MouseCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\OrthogonalCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\SimpleCamera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera\SplitScreenCamera.h">
-      <Filter>Camera</Filter>
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Sound\BasicSound.h">
       <Filter>Sound</Filter>
@@ -919,19 +781,7 @@
     <ClInclude Include="Sound\SoundManager.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="AVIPlayer\avi_utils.h">
-      <Filter>VideoPlayer\WindowsAVI</Filter>
-    </ClInclude>
-    <ClInclude Include="AVIPlayer\AVIPlayer.h">
-      <Filter>VideoPlayer\WindowsAVI</Filter>
-    </ClInclude>
-    <ClInclude Include="AVIPlayer\AndroidVideoPlayer.h">
-      <Filter>VideoPlayer\MyJpeg</Filter>
-    </ClInclude>
     <ClInclude Include="AllMathInclude.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Frame.h">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="Math\Line.h">
@@ -964,12 +814,6 @@
     <ClInclude Include="Math\Quaternion.h">
       <Filter>Math\Matrix</Filter>
     </ClInclude>
-    <ClInclude Include="Math\Curve.h">
-      <Filter>Math\Curve</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\CurveManager.h">
-      <Filter>Math\Curve</Filter>
-    </ClInclude>
     <ClInclude Include="Math\Bound.h">
       <Filter>Math\Collidision</Filter>
     </ClInclude>
@@ -982,152 +826,11 @@
     <ClInclude Include="GameplayUT\AllGamePlayUTInclude.h">
       <Filter>GameplayUT</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\GameUTDefine.h">
-      <Filter>GameplayUT</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\CurveChanger.h">
-      <Filter>GameplayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\PathChaser.h">
-      <Filter>GameplayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\PathFinder.h">
-      <Filter>GameplayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\PhaseControl.h">
-      <Filter>GameplayUT\Phase</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\PhasePopupMessager.h">
-      <Filter>GameplayUT\Phase</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\GameApp.h">
-      <Filter>GameplayUT\GameApp</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\AtgInput.h">
-      <Filter>GameplayUT\GamePad</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\RenderObjectVector.h">
-      <Filter>GameplayUT\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\MultiSelectOptionByMPDI.h">
-      <Filter>GameplayUT\UI\MultiSelectOptionByMPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Mouse_Touch.h">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Mouse_TouchWithCancelButton.h">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\MultiTouchPoints.h">
-      <Filter>GameplayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Sliderbar.h">
-      <Filter>GameplayUT\UI\SliderBar</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\3DScroller.h">
-      <Filter>GameplayUT\UI\Scroller</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Scroller.h">
-      <Filter>GameplayUT\UI\Scroller</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ImageWithSlider.h">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\MultiPage.h">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Tabpage.h">
-      <Filter>GameplayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\AssembleImageButton.h">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\FontFrame.h">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ImageButton.h">
-      <Filter>GameplayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ListValueChanger.h">
-      <Filter>GameplayUT\ValueChange</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\RestrictValue.h">
-      <Filter>GameplayUT\ValueChange</Filter>
-    </ClInclude>
     <ClInclude Include="GameplayUT\DataCurve\DataCurve.h">
       <Filter>GameplayUT\DataCurve</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\StringCompress.h">
-      <Filter>GameplayUT\StringCompress</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffectManager.h">
-      <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffectQueuePlayer.h">
-      <Filter>GameplayUT\FMAnimationRuleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\BinaryFile.h">
-      <Filter>GameplayUT\BinaryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ResourceStamp.h">
-      <Filter>GameplayUT\ResourceStamp</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ObjectXMLParser.h">
-      <Filter>GameplayUT\ObjectXMLParser</Filter>
-    </ClInclude>
     <ClInclude Include="AllPhysicInclude.h">
       <Filter>Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic\BulletShape.h">
-      <Filter>Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="Physic\2DImageCollisionData.h">
-      <Filter>Physic\2DImageCollideData</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\AllParticleInclude.h">
-      <Filter>Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleManager.h">
-      <Filter>Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleEmitter.h">
-      <Filter>Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleEmitterBehavior.h">
-      <Filter>Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleEmitterGroup.h">
-      <Filter>Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\AllPolicyNameList.h">
-      <Filter>Particle\Policy</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtColor.h">
-      <Filter>Particle\Policy\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtLife.h">
-      <Filter>Particle\Policy\Life</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtSize.h">
-      <Filter>Particle\Policy\Size</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtVelocity.h">
-      <Filter>Particle\Policy\Velocity</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtStartPosition.h">
-      <Filter>Particle\Policy\StartPosition</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtRotate.h">
-      <Filter>Particle\Policy\Rotation</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\PrtTexture.h">
-      <Filter>Particle\Policy\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleBase.h">
-      <Filter>Particle\ParticleBase</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleType.h">
-      <Filter>Particle\ParticleBase</Filter>
     </ClInclude>
     <ClInclude Include="Network\begin_code.h">
       <Filter>NetWork</Filter>
@@ -1174,56 +877,8 @@
     <ClInclude Include="Android\AndroidJNI.h">
       <Filter>AndroidJNI</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain\ShockBoobsPainter.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain\ShockBoobsShader.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain\TerrianVertex.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\MPDINode.h">
-      <Filter>Render\MPDI</Filter>
-    </ClInclude>
     <ClInclude Include="Math\MathFormulaXML.h">
       <Filter>Math\MUParserXML</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\CameraZoomFunction.h">
-      <Filter>GameplayUT\CameraZoom</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\EventSender\MessageSender.h">
-      <Filter>GameplayUT\EventSender</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\CustomBinaryData.h">
-      <Filter>GameplayUT\BinaryFile</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\png\pngLoader.h">
-      <Filter>Render\Texture\png</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_global.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_hhdds.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_hhdds_internal.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_images.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_types.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\dds\nv_log.h">
-      <Filter>Render\Texture\DDS</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\LinerTemplateDataProcess.h">
-      <Filter>Math\LinearData</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\LinerDataMouseChanger.h">
-      <Filter>Math\LinearData</Filter>
     </ClInclude>
     <ClInclude Include="Sound\SoundCapture.h">
       <Filter>Sound</Filter>
@@ -1234,41 +889,14 @@
     <ClInclude Include="Sound\SoundFile.h">
       <Filter>Sound</Filter>
     </ClInclude>
-    <ClInclude Include="XML\LazyXmlParser.h">
-      <Filter>XML</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ClickBehavior\DefaultRenderClickBehavior.h">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\ClickBehavior\ClickBehavior.h">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
-    </ClInclude>
     <ClInclude Include="GameplayUT\Language\LanguageFile.h">
       <Filter>GameplayUT\Language</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Preload\PreloadResource.h">
       <Filter>GameplayUT\Preload</Filter>
     </ClInclude>
-    <ClInclude Include="Image\TextureManager.h">
-      <Filter>Render\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\RenderQueue\RenderQueue.h">
-      <Filter>Render\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\RenderQueue\RenderCommand.h">
-      <Filter>Render\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="Image\RenderQueue\RenderQueueManager.h">
-      <Filter>Render\RenderQueue</Filter>
-    </ClInclude>
     <ClInclude Include="Synchronization\CPP11Thread.h">
       <Filter>Synchronization</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\WriteFile\WriteFileWithThread.h">
-      <Filter>GameplayUT\BinaryFile\WriteFileWithThread</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\Log\FMLog.h">
-      <Filter>GameplayUT\Log</Filter>
     </ClInclude>
     <ClInclude Include="Bluetooth\Bluetooth.h">
       <Filter>Bluetooth</Filter>
@@ -1278,9 +906,6 @@
     </ClInclude>
     <ClInclude Include="Common\CommonDefine.h">
       <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\Glh.h">
-      <Filter>Render\OpenGL\Crossplatform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="Common\TimeUT.h">
       <Filter>Common</Filter>
@@ -1309,44 +934,389 @@
     <ClInclude Include="Common\StringID.h">
       <Filter>Common\NamedTypedObject</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\GLSL\Blur.h">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\GLSL\ToneMapping.h">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\GLSL\TunnelEffect.h">
-      <Filter>Render\OpenGL\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\GLSL\GLSLUiniform.h">
-      <Filter>Render\OpenGL\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="OpenGL\GLSL\Shader.h">
-      <Filter>Render\OpenGL\GLSL</Filter>
-    </ClInclude>
     <ClInclude Include="GameplayUT\CommonRegister\CommonRegisterManager.h">
       <Filter>GameplayUT\CommonRegister</Filter>
     </ClInclude>
     <ClInclude Include="Network\GameNetWork.h">
       <Filter>NetWork</Filter>
     </ClInclude>
-    <ClInclude Include="Image\FreeTypeFont\FreetypeGlypth.h">
-      <Filter>Render\Font\FreeTypeFont</Filter>
+    <ClInclude Include="GameplayUT\Camera\CameraAnimation.h">
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\ClickBehavior\MPDIToGameObject.h">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClInclude Include="GameplayUT\Camera\CameraZoomFunction.h">
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBar.h">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClInclude Include="GameplayUT\Camera\DrawSelectRectangleByMouse.h">
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\ClickBehavior\ScrollBox.h">
-      <Filter>GameplayUT\UI\ClickBehavior</Filter>
+    <ClInclude Include="GameplayUT\Camera\MouseCamera.h">
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Image\RenderNodeEffect\RenderObjectEffect.h">
-      <Filter>Render\RenderNodeEffect</Filter>
+    <ClInclude Include="GameplayUT\Camera\OrthogonalCamera.h">
+      <Filter>GameplayUT\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="OpenGL\WindowsOpenGL.h">
-      <Filter>Render\OpenGL\Windows</Filter>
+    <ClInclude Include="GameplayUT\Camera\SimpleCamera.h">
+      <Filter>GameplayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Camera\SplitScreenCamera.h">
+      <Filter>GameplayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.h">
+      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.h">
+      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\GameApp\GameApp.h">
+      <Filter>GameplayUT\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\GamePad\AtgInput.h">
+      <Filter>GameplayUT\GamePad</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ResourceMaintaner\ObjectXMLParser.h">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ResourceMaintaner\ResourceStamp.h">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\TemplateValueChanger\ListValueChanger.h">
+      <Filter>GameplayUT\TemplateValueChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\TemplateValueChanger\RestrictValue.h">
+      <Filter>GameplayUT\TemplateValueChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Log\FMLog.h">
+      <Filter>Common\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BinaryFile\BinaryFile.h">
+      <Filter>Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BinaryFile\CustomBinaryData.h">
+      <Filter>Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BinaryFile\StringCompress.h">
+      <Filter>Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\BinaryFile\WriteFileWithThread.h">
+      <Filter>Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\OpenGLObject\FrameBuffer.h">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\OpenGLObject\UVAnimationImage.h">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\OpenGLObject\VertexBufferObject.h">
+      <Filter>GameplayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\BaseImage.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\Frame.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\NumeralImage.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\RenderNode.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\RenderObject.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\CommonRender\SimplePrimitive.h">
+      <Filter>GameplayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRule.h">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.h">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Font\Glyph\GlyphReader.h">
+      <Filter>GameplayUT\Render\Font\Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Font\Glyph\GlyphWriter.h">
+      <Filter>GameplayUT\Render\Font\Glyph</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Font\FreetypeGlypth.h">
+      <Filter>GameplayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Font\GlyphFontRender.h">
+      <Filter>GameplayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\MPDI.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\MPDIForEditor.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\MPDINode.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\SubMPDI.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\SubMPDIRenderPointData.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\VideoSubMPDI.h">
+      <Filter>GameplayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\Glh.h">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\OpenGLCommon.h">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\Blur.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\GLSLUiniform.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\Shader.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\ToneMapping.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\TunnelEffect.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\WindowsOpenGL.h">
+      <Filter>GameplayUT\OpenGL\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\StringToStructure.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Curve\Curve.h">
+      <Filter>GameplayUT\Render\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Curve\CurveManager.h">
+      <Filter>GameplayUT\Render\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\DataCurve\LinerTemplateDataProcess.h">
+      <Filter>GameplayUT\DataCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Physic\BulletShape.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Physic\2DImageCollisionData.h">
+      <Filter>Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\Texture.h">
+      <Filter>GameplayUT\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\TextureManager.h">
+      <Filter>GameplayUT\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\CommonApp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\OpenGLRender.h">
+      <Filter>GameplayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\AllParticleInclude.h">
+      <Filter>GameplayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleManager.h">
+      <Filter>GameplayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleBase.h">
+      <Filter>GameplayUT\Render\Particle\ParticleBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\AllPolicyNameList.h">
+      <Filter>GameplayUT\Render\Particle\Policy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleEmitter.h">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleEmitterGroup.h">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleEmitterBehavior.h">
+      <Filter>GameplayUT\Render\Particle\Emitter</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\ParticleType.h">
+      <Filter>GameplayUT\Render\Particle\ParticleBase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtColor.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Color</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtLife.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Life</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtRotate.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtSize.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Size</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtStartPosition.h">
+      <Filter>GameplayUT\Render\Particle\Policy\StartPosition</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtTexture.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Particle\PrtVelocity.h">
+      <Filter>GameplayUT\Render\Particle\Policy\Velocity</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\GamePhase\PhaseControl.h">
+      <Filter>GameplayUT\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\GamePhase\PhasePopupMessager.h">
+      <Filter>GameplayUT\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.h">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\DefaultRenderClickBehavior.h">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\MPDIToGameObject.h">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\ScrollBar.h">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\ScrollBox.h">
+      <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\3DScroller.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\AssembleImageButton.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\FontFrame.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ImageButton.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\ImageWithSlider.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\Mouse_Touch.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\Mouse_TouchWithCancelButton.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\MultiPage.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\MultiSelectOptionByMPDI.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\Scroller.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\Sliderbar.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\Tabpage.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\glesConvert.h">
+      <Filter>GameplayUT\OpenGL\Crossplatform</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\GameUTDefine.h">
+      <Filter>GameplayUT</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Parser\AnimationParser.h">
+      <Filter>GameplayUT\Render\Parser\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Parser\ImageParser.h">
+      <Filter>GameplayUT\Render\Parser\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\MPDI\MPDIDataParse.h">
+      <Filter>GameplayUT\Render\Parser\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\PuzzleImage\BaseUVImageData.h">
+      <Filter>GameplayUT\Render\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\PuzzleImage\PuzzleImage.h">
+      <Filter>GameplayUT\Render\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h">
+      <Filter>GameplayUT\Render\RenderFrameEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderQueue\RenderCommand.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderQueue\RenderQueue.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\RenderQueue\RenderQueueManager.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Terrain\ShockBoobsPainter.h">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Terrain\ShockBoobsShader.h">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Terrain\TerrianVertex.h">
+      <Filter>GameplayUT\Render\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\MultiTouch\MultiTouchPoints.h">
+      <Filter>GameplayUT\MultiTouch</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\MouseMoveData.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_global.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_hhdds.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_hhdds_internal.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_images.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_log.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\dds\nv_types.h">
+      <Filter>GameplayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\jpeg\jpgd.h">
+      <Filter>GameplayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\jpeg\jpge.h">
+      <Filter>GameplayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Texture\png\pngLoader.h">
+      <Filter>GameplayUT\Render\Texture\png</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\VideoPlayer\AndroidVideoPlayer.h">
+      <Filter>GameplayUT\Render\VideoPlayer\MyJpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\VideoPlayer\avi_utils.h">
+      <Filter>GameplayUT\Render\VideoPlayer\WindowsAVI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\VideoPlayer\AVIPlayer.h">
+      <Filter>GameplayUT\Render\VideoPlayer\WindowsAVI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\PathAndCurve\CurveChanger.h">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\PathAndCurve\PathChaser.h">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\PathAndCurve\PathFinder.h">
+      <Filter>GameplayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="AllCommonInclude.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\EventSender\MessageSender.h">
+      <Filter>Common\EventSender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

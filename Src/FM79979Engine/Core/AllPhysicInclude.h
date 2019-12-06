@@ -1,2 +1,3 @@
-#include "Physic/BulletShape.h"
-#include "Physic/2DImageCollisionData.h"
+#pragma once
+#include "GameplayUT/Physic/BulletShape.h"
+#include "GameplayUT/Physic/2DImageCollisionData.h"

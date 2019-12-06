@@ -1,3 +1,4 @@
+#pragma once
 /*
 	Copyright (C) 2005-2007 Feeling Software Inc.
 	Portions of the code are:
@@ -10,9 +11,6 @@
 	@file Matrix33.h
 	The file containing the class and global functions for 3x3 matrices.
 */
-
-#ifndef _FM_MATRIX33_H_
-#define _FM_MATRIX33_H_
 #include "Vector2.h"
 /**
 	A 3x3 matrix: use to represent 2D transformations.
@@ -158,5 +156,3 @@ public:
  * @return The cMatrix44 representation of the resulting matrix.
  */
 cMatrix33 operator*(const cMatrix33& m1, const cMatrix33& m2);
-
-#endif // _FM_MATRIX33_H_

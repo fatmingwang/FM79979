@@ -1,10 +1,10 @@
-#include "../stdafx.h"
 //#include "Float.h"
 
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
-#include "../XML/StringToStructure.h"
+#include "../Common/StringToStructure.h"
+#include "../Common/Utility.h"
 //
 //// Vector constants
 const Vector2 Vector2::Zero(0.0f, 0.0f);

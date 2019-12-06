@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "ValueSortingObject.h"
 namespace	FATMING_CORE
 {
@@ -29,23 +28,23 @@ namespace	FATMING_CORE
 		++m_iCompareTime;
 		if( e_pObject->m_fValue <= m_fValue )
 		{
-		if( m_pSmaller )
-		{
-		m_pSmaller->m_pBigger = e_pObject;
-		e_pObject->m_pSmaller = m_pSmaller;
-		}
-		m_pSmaller = e_pObject;
-		e_pObject->m_pBigger = this;
-		return;
+			if( m_pSmaller )
+			{
+				m_pSmaller->m_pBigger = e_pObject;
+				e_pObject->m_pSmaller = m_pSmaller;
+			}
+			m_pSmaller = e_pObject;
+			e_pObject->m_pBigger = this;
+			return;
 		}
 		if( !m_pBigger )
 		{
-		m_pBigger = e_pObject;
-		e_pObject->m_pSmaller = this;
-		return;
+			m_pBigger = e_pObject;
+			e_pObject->m_pSmaller = this;
+			return;
 		}
 		if( m_pBigger == e_pObject )
-		return;
+			return;
 		m_pBigger->DoBigger(e_pObject);
 	}
 	void cSortObject::DoSmaller(cSortObject*e_pObject)
@@ -66,7 +65,7 @@ namespace	FATMING_CORE
 		{
 			m_pSmaller = e_pObject;
 			e_pObject->m_pBigger = this;
-		return;
+			return;
 		}
 		if( m_pSmaller == e_pObject )
 			return;

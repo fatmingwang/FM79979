@@ -1,5 +1,6 @@
-#ifndef	_TIME_UT_H_
-#define	_TIME_UT_H_
+#pragma once
+#include "CommonDefine.h"
+#include <string>
 #ifndef WIN32
 #include <sys/time.h>
 #endif
@@ -78,4 +79,3 @@ namespace UT
 	std::wstring		TimeInMillisecondsToString(long long e_llTime);
 }
 //end namespace UT
-#endif

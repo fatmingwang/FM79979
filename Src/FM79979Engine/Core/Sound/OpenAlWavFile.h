@@ -1,5 +1,4 @@
-#ifndef OPENAL_WAV_FILE_H
-#define OPENAL_WAV_FILE_H
+#pragma once
 
 #include "BasicSound.h"
 
@@ -20,5 +19,3 @@ namespace FATMING_CORE
 		virtual bool	GoTo(float e_fTime)override;
 	};
 }
-
-#endif

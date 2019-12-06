@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "Plane.h"
 bool PlaneEqual
 (
@@ -93,7 +92,7 @@ float PlaneDotNormal(Vector4 P,Vector4 V)
 Vector4 PlaneNormalize(Vector4 P)
 {
 
-    FLOAT fLengthSq = sqrtf((P.x*P.x)+(P.y*P.y)+(P.z*P.z));
+    float fLengthSq = sqrtf((P.x*P.x)+(P.y*P.y)+(P.z*P.z));
     // Prevent divide by zero
     if (fLengthSq)
 	{

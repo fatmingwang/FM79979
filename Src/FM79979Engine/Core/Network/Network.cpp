@@ -1,7 +1,9 @@
-#include "../stdafx.h"
 #include "Network.h"
-#include "../GameplayUT/GameApp.h"
+//#include "../GameplayUT/GameApp.h"
 #include "SDLnetsys.h"
+#include "assert.h"
+#include "../Common/Log/FMLog.h"
+#include "../Common/Utility.h"
 #ifdef WIN32
 #include <urlmon.h>
 #endif

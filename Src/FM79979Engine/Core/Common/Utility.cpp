@@ -1,5 +1,7 @@
-#include "../stdafx.h"
+#include "StringToStructure.h"
+#include "assert.h"
 #include "Utility.h"
+#include "Log/FMLog.h"
 //#include "../GameplayUT/GameApp.h"
 //#include "../GameplayUT/Log/FMLog.h"
 #include <errno.h>
@@ -72,11 +74,11 @@ namespace UT
 
 	void	ErrorMsg(const char*e_strErrMsg1, const char*e_strErrMsg2)
 	{
-		cGameApp::WriteLog(e_strErrMsg1);
-		cGameApp::WriteLog(e_strErrMsg2);
+		FMLog::Log(e_strErrMsg1,true);
+		FMLog::Log(e_strErrMsg2, true);
 #if defined(WIN32)
-		std::wstring	l_temp1 = ValueToStringW(e_strErrMsg1);
-		std::wstring	l_temp2 = ValueToStringW(e_strErrMsg2);
+		std::wstring	l_temp1 = FATMING_CORE::ValueToStringW(e_strErrMsg1);
+		std::wstring	l_temp2 = FATMING_CORE::ValueToStringW(e_strErrMsg2);
 		ErrorMsg(l_temp1.c_str(),l_temp2.c_str());
 #else
 		//printf("%s, %s\n\0",e_strErrMsg1,e_strErrMsg2);
@@ -88,7 +90,7 @@ namespace UT
 	}
 	eDataType	GetDataType(const wchar_t*e_str)
 	{
-		return GetDataType(ValueToString(e_str).c_str());
+		return GetDataType(FATMING_CORE::ValueToString(e_str).c_str());
 		//if( !e_str )
 		//	return eDT_MAX;
 		//if( !wcscmp(e_str,L"int") )
@@ -161,7 +163,7 @@ namespace UT
 	void	ErrorMsg(const wchar_t*e_strErrMsg1,const wchar_t*e_strErrMsg2)
 	{
 #if defined(WIN32)
-		if( FATMING_CORE::cGameApp::m_siShowErrorType == 1)
+		if( FMLog::m_siShowErrorType == 1)
 		{
 			try
 			{
@@ -184,7 +186,7 @@ namespace UT
 				int a=0;
 			}
 		}
-		if (FATMING_CORE::cGameApp::m_siShowErrorType == 2)
+		if (FMLog::m_siShowErrorType == 2)
 		{
 			std::wstring	l_str = L"Error:";
 			l_str += e_strErrMsg1;
@@ -193,12 +195,12 @@ namespace UT
 			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		}
 		else
-		if( FATMING_CORE::cGameApp::m_spstrErrorMsgString )
+		if( FMLog::m_spstrErrorMsgString )
 		{
-			*FATMING_CORE::cGameApp::m_spstrErrorMsgString += e_strErrMsg1;
-			*FATMING_CORE::cGameApp::m_spstrErrorMsgString += L"  ";
-			*FATMING_CORE::cGameApp::m_spstrErrorMsgString += e_strErrMsg2;
-			*FATMING_CORE::cGameApp::m_spstrErrorMsgString += L"\n";
+			*FMLog::m_spstrErrorMsgString += e_strErrMsg1;
+			*FMLog::m_spstrErrorMsgString += L"  ";
+			*FMLog::m_spstrErrorMsgString += e_strErrMsg2;
+			*FMLog::m_spstrErrorMsgString += L"\n";
 			SystemErrorCheck();
 		}
 #else
@@ -997,88 +999,6 @@ namespace UT
 //#endif
 //		return false;
 	}
-
-	Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vector2 e_vGameResolution,eDeviceDirection e_eDeviceDirection)
-	{
-		Vector2 l_vViewSize(e_vViewPort.Width(),e_vViewPort.Height());
-		Vector2	l_vScale(1.f,1.f);
-		switch(e_eDeviceDirection)
-		{
-			case eDD_PORTRAIT:
-			case eDD_UPSIDE_DOWN:
-				l_vScale = Vector2(e_vGameResolution.x/l_vViewSize.x,e_vGameResolution.y/l_vViewSize.y);
-				break;
-			case eDD_LANDSCAPE_LEFT:
-			case eDD_LANDSCAPE_RIGHT:
-				l_vScale = Vector2(e_vGameResolution.x/l_vViewSize.y,e_vGameResolution.y/l_vViewSize.x);
-				break;
-			default:
-				break;
-		}
-		e_v2DViewRange.x /= l_vScale.x;
-		e_v2DViewRange.y /= l_vScale.y;
-		e_v2DViewRange.z /= l_vScale.x;
-		e_v2DViewRange.w /= l_vScale.y;
-		//add offset
-		if(cGameApp::m_svViewPortSize.x != 0)
-		{
-			e_v2DViewRange.x += cGameApp::m_svViewPortSize.x;
-			e_v2DViewRange.z += cGameApp::m_svViewPortSize.x;
-		}
-		//add offset
-		if(cGameApp::m_svViewPortSize.y != 0)
-		{
-			e_v2DViewRange.y -= cGameApp::m_svViewPortSize.y;
-			e_v2DViewRange.w -= cGameApp::m_svViewPortSize.y;
-		}
-		Vector4	l_vScissor;
-		float	l_fWidth = (e_v2DViewRange.z-e_v2DViewRange.x);
-		float	l_fHeight = (e_v2DViewRange.w-e_v2DViewRange.y);
-		switch(e_eDeviceDirection)
-		{
-			case eDD_PORTRAIT:
-				l_vScissor.x = e_v2DViewRange.x;
-				l_vScissor.y = l_vViewSize.y-e_v2DViewRange.y-l_fHeight;
-				break;
-			case eDD_UPSIDE_DOWN:
-				l_vScissor.x = l_vViewSize.x-(e_v2DViewRange.x+l_fWidth);
-				l_vScissor.y = e_v2DViewRange.y;
-				break;
-			case eDD_LANDSCAPE_LEFT:
-			{
-				l_vScissor.x = e_v2DViewRange.y;
-				l_vScissor.y = e_v2DViewRange.x;
-			}
-				break;
-			case eDD_LANDSCAPE_RIGHT:
-				l_vScissor.x = l_vViewSize.x-e_v2DViewRange.w;
-				l_vScissor.y = l_vViewSize.y-e_v2DViewRange.z;
-				break;
-			default:
-				break;
-		}
-		switch(e_eDeviceDirection)
-		{
-			case eDD_PORTRAIT:
-			case eDD_UPSIDE_DOWN:
-				l_vScissor.z = l_fWidth;
-				l_vScissor.w = l_fHeight;
-				break;
-			case eDD_LANDSCAPE_LEFT:
-			case eDD_LANDSCAPE_RIGHT:
-				l_vScissor.w = l_fWidth;
-				l_vScissor.z = l_fHeight;
-				break;
-			default:
-				break;
-		}
-		return l_vScissor;
-	}
-
-	Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange)
-	{
-		return ViewRectToOpenGLScissor(e_v2DViewRange,cGameApp::m_svViewPortSize,FATMING_CORE::cGameApp::m_svGameResolution,FATMING_CORE::cGameApp::m_seDeviceDirection);
-	}
 //==================math
 	//101~106	A~F
 	//48~57		0~9
@@ -1243,7 +1163,7 @@ namespace UT
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d_%m_%Y_%H_%M_%S",tm);
 
-		std::wstring	l_str = ValueToStringW(buf);
+		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
 		return l_str;
 //#ifdef WIN32
 //		SYSTEMTIME l_st;
@@ -1291,7 +1211,7 @@ namespace UT
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S",tm);
 
-		std::wstring	l_str = ValueToStringW(buf);
+		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
 		return l_str;
 	}
 #if defined(WIN32)
@@ -1511,7 +1431,7 @@ namespace UT
 			GetSystemMetrics(SM_CYSCREEN)};
 		return l_ScreenResolution;
 #else
-		POINT	l_ScreenResolution = {(int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y};
+		POINT	l_ScreenResolution = {(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y};
 		return l_ScreenResolution;
 #endif
 

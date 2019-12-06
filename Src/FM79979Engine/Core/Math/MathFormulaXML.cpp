@@ -1,8 +1,8 @@
-#include "../stdafx.h"
-#ifdef USE_MU_PARSER
 #include "MathFormulaXML.h"
-#include "../GameplayUT/GameApp.h"
+#ifdef USE_MU_PARSER
+//#include "../GameplayUT/GameApp.h"
 #include "./MathParser/muParser.h"
+#include "../Common/StringToStructure.h"
 //#include "muParser.h"
 namespace FATMING_CORE
 {
@@ -41,7 +41,7 @@ namespace FATMING_CORE
 	{
 		TiXmlElement*l_pTiXmlElement = new TiXmlElement(cVariable::TypeID);
 		l_pTiXmlElement->SetAttribute(L"Name",this->GetName());
-		l_pTiXmlElement->SetAttribute(L"DefaultValue",ValueToStringW(this->m_dbValue).c_str());
+		l_pTiXmlElement->SetAttribute(L"DefaultValue",ValueToStringW(this->m_dbValue));
 		return l_pTiXmlElement;
 	}
 

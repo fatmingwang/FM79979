@@ -5,7 +5,7 @@
 //#ifndef FD_SETSIZE
 //#define FD_SETSIZE      64
 //#endif /* FD_SETSIZE */
-
+#include <map>
 #include "SDL_net.h"
 #include "../Synchronization/AllFUThreadInclude.h"
 class	cFUThreadPool;
@@ -74,7 +74,7 @@ namespace FATMING_CORE
 		int									m_iPort;
 		IPaddress							m_IP;
 		unsigned char						m_MyIP[4];
-		string								m_strIP;
+		std::string							m_strIP;
 		std::string							m_strHost;
 		//
 		bool								m_bConnectionFailed;

@@ -1,6 +1,6 @@
 #ifndef _BOUND_H
 #define _BOUND_H
-
+#include "../Common/CommonDefine.h"
 #include "Collision.h"
 
 	struct EnumStringMap

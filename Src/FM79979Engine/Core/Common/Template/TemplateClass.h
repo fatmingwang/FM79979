@@ -6,7 +6,7 @@
 #include "../NamedTypedObject.h"
 #include "../Utility.h"
 #include "TempContainer.h"
-#include "../../GameplayUT/Log/FMLog.h"
+#include "../Log/FMLog.h"
 using namespace std;
 ////====================
 ////if the object is not belong to the other,itself must to be delete object or release object

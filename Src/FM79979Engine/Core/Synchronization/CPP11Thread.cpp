@@ -1,6 +1,5 @@
 #include "../stdafx.h"
 #include "CPP11Thread.h"
-#include "../GameplayUT/GameApp.h"
 namespace FATMING_CORE
 {
 	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex) :m_Mutex(e_mutex)

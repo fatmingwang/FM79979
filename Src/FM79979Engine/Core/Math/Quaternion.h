@@ -1,3 +1,4 @@
+#pragma once
 /*
 	Copyright (C) 2005-2009 Feeling Software Inc.
 	Available only to licensees.
@@ -9,9 +10,8 @@
 	The file containing the class for quaternions.
 */
 
-#ifndef _QUATERNION_H_
-#define _QUATERNION_H_
-
+#include "Vector4.h"
+#include "Matrix44.h"
 /**
 	A quaternion.
 	Used to represent rotations: quaternions have the sole advantage of reduced
@@ -190,5 +190,3 @@ public:
 	@param q A quaternion.
 	@return The rotated 3D vector. */
 Vector3 operator*(const Vector3& v, const Quaternion& q);
-
-#endif // _FM_QUATERNION_H_

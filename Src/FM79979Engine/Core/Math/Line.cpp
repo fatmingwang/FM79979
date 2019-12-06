@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "Line.h"
 
 namespace FATMING_CORE

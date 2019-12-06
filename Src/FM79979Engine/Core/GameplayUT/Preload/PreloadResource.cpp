@@ -1,10 +1,8 @@
-#include "../../stdafx.h"
-#include "../Log/FMLog.h"
-#ifdef WASM
 #include "PreloadResource.h"
+#ifdef WASM
 #include <emscripten/fetch.h>
-#include "../GameApp.h"
-#include "../BinaryFile.h"
+#include "../../Common/Log/FMLog.h"
+#include "../../Common/BinaryFile/BinaryFile.h"
 namespace FATMING_CORE
 {
 	void downloadSucceeded(emscripten_fetch_t *fetch)
@@ -176,7 +174,7 @@ namespace FATMING_CORE
 	}
 	void	cPreLoadFromInternet::Render()
 	{
-		Vector2 l_vPos(cGameApp::m_svGameResolution.x / 2 - 200, cGameApp::m_svGameResolution.y / 2 - 50);
+		Vector2 l_vPos(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 - 200, cGameApp::m_spOpenGLRender->m_vGameResolution.y / 2 - 50);
 		std::wstring l_strInfo = L"Progress:";
 		l_strInfo += ValueToStringW(GetProgress());
 		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());

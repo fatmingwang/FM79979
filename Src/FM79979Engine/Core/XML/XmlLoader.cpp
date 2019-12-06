@@ -1,63 +1,66 @@
-#include "../stdafx.h"
 #include "XMLLoader.h"
+#include "../Common/Log/FMLog.h"
 #include "../Common/Utility.h"
-#include "../Image/GlyphFontRender.h"
-#include "../GameplayUT/GameApp.h"
-#include "../GameplayUT/BinaryFile.h"
-#include "../Math/MathUtility.h"
-#include "../Sound/SoundManager.h"
+#include "../Common/StringToStructure.h"
 namespace FATMING_CORE
 {
 	bool	g_bDumpXmlContent = false;
 	const char*ISAXCallback::ExtensionNameID( "Fuck" );
 
 	LoadingProgress	g_pLoadingProgressCallBack = 0;
-	void	DefaultLoadingProgress()
+	float	ElementToFloat(TiXmlElement*e_pElement, const wchar_t*e_strAttributeName)
 	{
-		cGameApp::m_sTimeAndFPS.Update();
-		if(cGameApp::m_spSoundParser)
-			cGameApp::m_spSoundParser->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
-		static float	l_sfElpaseTime = 0.f;
-		l_sfElpaseTime += cGameApp::m_sTimeAndFPS.fElpaseTime;
-		if( l_sfElpaseTime >= 0.1f )
-		{
-			l_sfElpaseTime = 0.f;
-		}
-		else
-			return;
-		UseShaderProgram(DEFAULT_SHADER);
-		glViewport(0,0,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
-		//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
-		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
-		float	l_fPosX = cGameApp::m_svGameResolution.x/2-50;
-		float	l_fPosY = cGameApp::m_svGameResolution.x/2;
-		const wchar_t*l_strLoadingInfo = L"Loading";
-		int	l_iLength = (int)wcslen(l_strLoadingInfo);
-		int	l_iTemp[] = {0,0,0,0,0,0,0};
-		vector<int>	l_uiAllMagicIDVector1 = UT::GenerateRandomTable(l_iLength,l_iLength);
-		std::wstring	l_strInfo;
-		for( int i=0;i<l_iLength;++i )
-		{
-			for( int j=0;j<l_iLength;++j )
-			{
-				if( l_uiAllMagicIDVector1[j] == i)
-				{
-					l_strInfo += l_strLoadingInfo[j];
-				}
-				else
-					l_strInfo += L"    ";
-			}
-			l_strInfo += L"\n";
-		}
-		cGameApp::RenderFont(l_fPosX,l_fPosY,l_strInfo.c_str());
-#ifdef ANDROID
-		cGameApp::m_pNvEGLUtil->swap();
-#endif
-#ifdef WIN32
-		SwapBuffers(cGameApp::m_sHdc);
-#endif
+		const wchar_t*l_strAttribute = e_pElement->Attribute(e_strAttributeName);
+		if (l_strAttribute)return GetFloat(l_strAttribute);
+		UT::ErrorMsg(e_strAttributeName, L"this attribute is not exists!");
+		return -1.f;
 	}
+//	void	DefaultLoadingProgress()
+//	{
+//		cGameApp::m_sTimeAndFPS.Update();
+//		if(cGameApp::m_spSoundParser)
+//			cGameApp::m_spSoundParser->Update(cGameApp::m_sTimeAndFPS.fElpaseTime);
+//		static float	l_sfElpaseTime = 0.f;
+//		l_sfElpaseTime += cGameApp::m_sTimeAndFPS.fElpaseTime;
+//		if( l_sfElpaseTime >= 0.1f )
+//		{
+//			l_sfElpaseTime = 0.f;
+//		}
+//		else
+//			return;
+//		UseShaderProgram(DEFAULT_SHADER);
+//		glViewport(0,0,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+//		//glScissor(0,0,(int)m_spOpenGLRender->m_vViewPortSize.x,(int)m_spOpenGLRender->m_vViewPortSize.y);
+//		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
+//		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+//		float	l_fPosX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/2-50;
+//		float	l_fPosY = cGameApp::m_spOpenGLRender->m_vGameResolution.x/2;
+//		const wchar_t*l_strLoadingInfo = L"Loading";
+//		int	l_iLength = (int)wcslen(l_strLoadingInfo);
+//		int	l_iTemp[] = {0,0,0,0,0,0,0};
+//		vector<int>	l_uiAllMagicIDVector1 = UT::GenerateRandomTable(l_iLength,l_iLength);
+//		std::wstring	l_strInfo;
+//		for( int i=0;i<l_iLength;++i )
+//		{
+//			for( int j=0;j<l_iLength;++j )
+//			{
+//				if( l_uiAllMagicIDVector1[j] == i)
+//				{
+//					l_strInfo += l_strLoadingInfo[j];
+//				}
+//				else
+//					l_strInfo += L"    ";
+//			}
+//			l_strInfo += L"\n";
+//		}
+//		cGameApp::RenderFont(l_fPosX,l_fPosY,l_strInfo.c_str());
+//#ifdef ANDROID
+//		cGameApp::m_pNvEGLUtil->swap();
+//#endif
+//#ifdef WIN32
+//		SwapBuffers(cGameApp::m_sHdc);
+//#endif
+//	}
 	ISAXCallback::ISAXCallback(bool e_bSetRunBack)
 	{
 		m_pCurrentTiXmlElement = 0;
@@ -103,13 +106,13 @@ namespace FATMING_CORE
 		    SAFE_DELETE(m_pDoc);
 			m_strErrorMsg = L"load file error!utf8?!!!fuck\n";
 			std::string	l_str = UT::ComposeMsgByFormat("file %s open failed! uft8 or file is not exist!?",e_strFileName);
-			cGameApp::WriteLog(l_str.c_str());
+			FMLog::Log(l_str.c_str(),false);
 #ifdef DEBUG
 			std::string	l_strErrorMsg = e_strFileName;
 			l_strErrorMsg += " encode error or file not exist or xml format error??\n";
-			FMLog::LogWithFlag(l_strErrorMsg.c_str(), CORE_LOG_FLAG);
+			FMLog::Log(l_strErrorMsg.c_str(),false);
 			std::string l_strContent = UT::GetTxtFileContent(e_strFileName);
-			FMLog::LogWithFlag(l_strContent.c_str(), CORE_LOG_FLAG);
+			FMLog::Log(l_strContent.c_str(),false);
 #endif
 				return 0;
 		}
@@ -134,7 +137,7 @@ namespace FATMING_CORE
 			sprintf(m_strCurrentDirectory,"%s\0",l_strDirectory.c_str());
 
 #ifdef DEBUG
-	FMLog::LogWithFlag(ComposeMsgByFormat("%s Parsing Start", e_strFileName).c_str(), CORE_LOG_FLAG);
+		FMLog::Log(ComposeMsgByFormat("%s Parsing Start", e_strFileName).c_str(), false);
 #endif
 		InternalParse();
 		return itemElement;
@@ -190,19 +193,19 @@ namespace FATMING_CORE
 		{
 			return false;
 		}
-		if(cGameApp::m_spstrErrorMsgString)
+		if(FMLog::m_spstrErrorMsgString)
 		{
-			if(cGameApp::m_spstrErrorMsgString->length())
+			if(FMLog::m_spstrErrorMsgString->length())
 			{
-				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),L"before parse xml file there are error message not clear...");
+				UT::ErrorMsg(FMLog::m_spstrErrorMsgString->c_str(),L"before parse xml file there are error message not clear...");
 			}
-			cGameApp::m_spstrErrorMsgString->clear();
+			FMLog::m_spstrErrorMsgString->clear();
 		}
-		bool	l_bErrorMsgStringExist = FATMING_CORE::cGameApp::m_spstrErrorMsgString?true:false;
-		int	l_iWhoErrorMsg = FATMING_CORE::cGameApp::m_siShowErrorType;
+		bool	l_bErrorMsgStringExist = FMLog::m_spstrErrorMsgString?true:false;
+		int	l_iWhoErrorMsg = FMLog::m_siShowErrorType;
 		if(!l_bErrorMsgStringExist)
 		{
-			FATMING_CORE::cGameApp::m_spstrErrorMsgString = new std::wstring();
+			FMLog::m_spstrErrorMsgString = new std::wstring();
 		}
 		m_bShowLoadingState = e_bShowLoadingState;
 		//try
@@ -221,17 +224,17 @@ namespace FATMING_CORE
 			UT::ErrorMsg((wchar_t*)this->m_strErrorMsg.c_str(),L"Error message");
 		}
 		SAFE_DELETE(m_pDoc);
-		if( FATMING_CORE::cGameApp::m_spstrErrorMsgString->length() )
+		if( FMLog::m_spstrErrorMsgString->length() )
 		{
-			FATMING_CORE::cGameApp::m_siShowErrorType = 1;
-			UT::ErrorMsg((wchar_t*)FATMING_CORE::cGameApp::m_spstrErrorMsgString->c_str(),L"Error message");
-			FATMING_CORE::cGameApp::m_spstrErrorMsgString->clear();
+			FMLog::m_siShowErrorType = 1;
+			UT::ErrorMsg((wchar_t*)FMLog::m_spstrErrorMsgString->c_str(),L"Error message");
+			FMLog::m_spstrErrorMsgString->clear();
 		}
 		if(!l_bErrorMsgStringExist)
 		{
-			SAFE_DELETE(FATMING_CORE::cGameApp::m_spstrErrorMsgString);
+			SAFE_DELETE(FMLog::m_spstrErrorMsgString);
 		}
-		FATMING_CORE::cGameApp::m_siShowErrorType = l_iWhoErrorMsg;
+		FMLog::m_siShowErrorType = l_iWhoErrorMsg;
 		return true;
 	}
 
@@ -305,7 +308,7 @@ namespace FATMING_CORE
 		                
 				}
 				l_strDumoDebugInfo += e_pTiXmlElement->Value();
-				FMLog::LogWithFlag(l_strDumoDebugInfo.c_str(), CORE_LOG_FLAG);
+				FMLog::Log(l_strDumoDebugInfo.c_str(), false);
 				XMLHandleElementDataDebugInfo(e_pTiXmlElement);
 			}
 	#endif
@@ -337,7 +340,7 @@ namespace FATMING_CORE
 				}
 				l_strDumoDebugInfo += e_pTiXmlElement->Value();
 				l_strDumoDebugInfo += L"__End";
-				FMLog::LogWithFlag(l_strDumoDebugInfo, CORE_LOG_FLAG);
+				FMLog::Log(l_strDumoDebugInfo.c_str(), false);
 			}
 	#endif
 	#endif

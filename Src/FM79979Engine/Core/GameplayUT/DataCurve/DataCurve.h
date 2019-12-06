@@ -1,7 +1,10 @@
-#ifndef _PROBABILITY_RESULT_CURVE_H_
-#define _PROBABILITY_RESULT_CURVE_H_
-
-#include "../BinaryFile.h"
+#pragma once
+#include "../../Common/CommonDefine.h"
+#include "../../Common/NamedTypedObject.h"
+#include "../../Common/Template/TemplateClass.h"
+#include "../../Math/Vector3.h"
+#include "../../Math/Vector4.h"
+//#include "../Common/BinaryFile/BinaryFile.h"
 
 namespace FATMING_CORE
 {
@@ -81,7 +84,7 @@ namespace FATMING_CORE
 			//int				iSize;
 			eDataType		DataType;
 		};
-		cBinaryFile*m_pFile;
+		class		cBinaryFile*m_pFile;
 		void		ProcessRootData(TiXmlElement*e_pTiXmlElement);
 		sData		ProcessData(TiXmlElement*e_pTiXmlElement);
 		sData		m_Header;
@@ -99,4 +102,3 @@ namespace FATMING_CORE
 		void		CalMinMaxValue(std::vector<int>e_SelectIndices);
 	};
 }
-#endif
