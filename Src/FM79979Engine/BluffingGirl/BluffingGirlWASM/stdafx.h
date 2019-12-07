@@ -18,6 +18,5 @@
 
 
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"
 #include "AllPhaseDefine.h"

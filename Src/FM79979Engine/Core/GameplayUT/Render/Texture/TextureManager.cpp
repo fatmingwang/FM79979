@@ -3,7 +3,7 @@
 //#include "SimplePrimitive.h"
 //#include "../Common/Utility.h"
 //#include "BinaryToTexture.h"
-#include "../../GameplayUT/GameApp/GameApp.h"
+#include "../../GameApp/GameApp.h"
 //#include "../GameplayUT/BinaryFile.h"
 #include "png/pngLoader.h"
 #include "dds/nv_images.h"

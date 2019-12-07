@@ -259,7 +259,7 @@ void	cToneDataVector::Update(float e_fElpaseTime,cQuickFFTDataFrequencyFinder*e_
 
 void	cToneDataVector::Render()
 {	
-	Vector2 l_vShowPos(cGameApp::m_svGameResolution.x/2,20);
+	Vector2 l_vShowPos(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,20);
 	cGameApp::m_spGlyphFontRender->SetScale(2);
 	//if( !m_TempForMatchName.bTragetTimrReached )
 	{
@@ -273,7 +273,7 @@ void	cToneDataVector::Render()
 				cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::Red);
 			cGameApp::RenderFont(l_vShowPos,m_MatchName[i].c_str());
 			l_vShowPos.y += 70;
-			if( cGameApp::m_svGameResolution.y-100 <= l_vShowPos.y )
+			if(cGameApp::m_spOpenGLRender->m_vGameResolution.y-100 <= l_vShowPos.y )
 			{
 				l_vShowPos.y = 20.f;
 				l_vShowPos.x += 600.f;
@@ -286,7 +286,7 @@ void	cToneDataVector::Render()
 		}
 		if( l_iMaxIndex != -1 )
 		{
-			l_vShowPos = Vector2(cGameApp::m_svGameResolution.x/2+600,680);
+			l_vShowPos = Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2+600,680);
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 			cGameApp::RenderFont(l_vShowPos,m_MatchName[l_iMaxIndex].c_str());
 		}

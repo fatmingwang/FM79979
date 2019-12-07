@@ -6,7 +6,7 @@
 // Xbox Advanced Technology Group.
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //--------------------------------------------------------------------------------------
-#include "../stdafx.h"
+#include "AtgInput.h"
 #ifdef GAME_PAD
 //#include <xbdm.h>
 #include "AtgInput.h"

@@ -5,7 +5,7 @@
 #define VS_GO_GNN
 #include <stdio.h>
 #include <wchar.h>
-
+#include <ctype.h> 
 //inline wchar_t* WeiredWcstok(wchar_t*e_str1, const wchar_t*e_str2)
 //{
 //	wchar_t* l_pStringForWCSTOK = nullptr;

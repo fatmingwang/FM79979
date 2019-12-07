@@ -55,7 +55,7 @@ void	cPerformMusicPhase::GenerateResources()
 
 void	cPerformMusicPhase::Init()
 {
-	cGameApp::m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
+	cGameApp::m_spOpenGLRender->m_vBGColor = Vector4(18/255.f,0,35/255.f,1.f);
 	m_bPasue = false;
 	this->m_bSatisfiedCondition = false;
 	if( cMusicGameApp::m_pSoundCapture )

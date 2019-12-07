@@ -24,12 +24,12 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidMinAPI>android-19</AndroidMinAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidStlType>gnustl_static</AndroidStlType>

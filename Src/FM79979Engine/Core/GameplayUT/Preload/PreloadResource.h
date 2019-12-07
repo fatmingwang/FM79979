@@ -1,6 +1,7 @@
 #pragma once
 #ifdef WASM
 #include "../../XML/XMLLoader.h"
+#include "../Render/CommonRender/BaseImage.h"
 //if download data is not latest please clear cached...
 //I spent a lot time to deubg why data is not same...-_-
 namespace FATMING_CORE

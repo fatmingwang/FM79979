@@ -3,6 +3,7 @@
 #include <emscripten/fetch.h>
 #include "../../Common/Log/FMLog.h"
 #include "../../Common/BinaryFile/BinaryFile.h"
+#include "../GameApp/GameApp.h"
 namespace FATMING_CORE
 {
 	void downloadSucceeded(emscripten_fetch_t *fetch)

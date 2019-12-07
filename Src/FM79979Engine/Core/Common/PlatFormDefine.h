@@ -1,5 +1,6 @@
 #pragma once
 #include <wchar.h>
+#include <stdint.h>
 // If we cause an exception in JNI, we print the exception info to the log, we clear the exception to avoid a pending-exception crash, and we force the function to return.
 #ifdef ANDROID
 #define EXCEPTION_RETURN(env)if (env->ExceptionOccurred()) {env->ExceptionDescribe();env->ExceptionClear();return false;}

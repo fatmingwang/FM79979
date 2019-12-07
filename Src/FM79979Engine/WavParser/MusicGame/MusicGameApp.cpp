@@ -23,10 +23,10 @@ cMusicGameApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGam
 #endif
 {
 	m_pFFTStoreExporter = nullptr;
-	Vector4*l_pViewPort = &this->m_svViewPortSize;
+	Vector4*l_pViewPort = &this->m_spOpenGLRender->m_vViewPortSize;
 	*this->m_psstrGameAppName = "MusicGame";
 	m_pPhaseManager = nullptr;
-	m_svBGColor = Vector4(18/255.f,0,35/255.f,1.f);
+	m_spOpenGLRender->m_vBGColor = Vector4(18/255.f,0,35/255.f,1.f);
 #ifdef DEBUG
 	this->m_sbDebugFunctionWorking = true;
 #endif

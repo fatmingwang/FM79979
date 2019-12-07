@@ -51,7 +51,7 @@ bool	cSelectMusicPhase::MyParse(TiXmlElement*e_pRoot)
 
 void	cSelectMusicPhase::Init()
 {
-	cGameApp::m_svBGColor = Vector4(249/255.f,223/255.f,104/255.f,1.f);
+	cGameApp::m_spOpenGLRender->m_vBGColor = Vector4(249/255.f,223/255.f,104/255.f,1.f);
 	m_strSelectedMusicName = L"";
 	if(!this->ParseWithMyParse("MusicGame/Music/MusicList.xml"))
 	{

@@ -352,7 +352,7 @@ std::wstring	DecodeStringFromeValue(const wchar_t*e_strEncrypt, const wchar_t*e_
 		l_strResult = UT::CharToWchar((char*)l_strtemp);
 		delete pDes;
 	}
-	delete l_strWchar;
+	delete[] l_strWchar;
 	return l_strResult;
 }
 

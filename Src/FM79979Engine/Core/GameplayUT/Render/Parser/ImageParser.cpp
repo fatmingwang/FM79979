@@ -1,7 +1,8 @@
 #include "ImageParser.h"
 #include "../../../Common/Utility.h"
 #include "../CommonRender/NumeralImage.h"
-#include "../../XML/XMLLoader.h"
+#include "../../../XML/XMLLoader.h"
+#include "../../../XML/AtgXmlWriter.h"
 #include "../PuzzleImage/PuzzleImage.h"
 namespace FATMING_CORE
 {

@@ -113,7 +113,7 @@
       <CLanguageStandard>
       </CLanguageStandard>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
-      <AdditionalIncludeDirectories>../Freetype/include;./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <EnableMicrosoftExtensions>
       </EnableMicrosoftExtensions>
@@ -125,7 +125,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>../Freetype/include;./Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>

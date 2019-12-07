@@ -12,10 +12,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include "./../../../Android/nv_file.h"
+#include "./../../../Common/Utility.h"
 #ifndef IOS
 #include <malloc.h>
 #endif
-#include "../../stdafx.h"
 #ifdef WIN32
 #pragma warning(disable:4996) 
 #endif

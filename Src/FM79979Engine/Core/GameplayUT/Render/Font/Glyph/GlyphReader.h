@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "../../../Common/SmartPointer.h"
+#include "../../../../Common/SmartPointer.h"
 
 const unsigned int FONTINFOFILEVERSION = 0x00000005; // Texture file properties
 //==========================================

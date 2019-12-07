@@ -27,7 +27,7 @@
 
 
 
-#if defined(ANDROID)
+#if defined(ANDROID) || defined(WASM)
 #include <GLES2/gl2.h>
 #elif defined(IOS)
 #include <OpenGLES/ES2/gl.h>

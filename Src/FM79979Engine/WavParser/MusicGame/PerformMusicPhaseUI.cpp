@@ -107,7 +107,7 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 		//generate time control
 		{
 			cBaseImage*l_pMusicSheetIconImage = new cBaseImage("MusicGame/Image/MusicSheetIcon.png");
-			l_pMusicSheetIconImage->SetPos(Vector2(cGameApp::m_svGameResolution.x - l_pMusicSheetIconImage->GetWidth() - 20, 200));
+			l_pMusicSheetIconImage->SetPos(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x - l_pMusicSheetIconImage->GetWidth() - 20, 200));
 			this->AddChildToLast(l_pMusicSheetIconImage);
 			e_pClickBehaviorDispatcher->AddDefaultRenderClickBehaviorButton(l_pMusicSheetIconImage,
 				[this](int e_iPosX, int e_iPosY, cClickBehavior*ClickBehavior) {
@@ -119,7 +119,7 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 			if( l_pPauseImage )
 			{
 				this->AddChildToLast(l_pPauseImage);
-				l_pPauseImage->SetPos(Vector2(cGameApp::m_svGameResolution.x-l_pPauseImage->GetWidth()-20,20));
+				l_pPauseImage->SetPos(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x-l_pPauseImage->GetWidth()-20,20));
 				cClickBehavior*l_pTimeControlButton = nullptr;
 				if( this->m_pPerformMusicPhase->m_pTimeLineRangeChart )
 				{
@@ -165,11 +165,11 @@ bool	cPerformMusicPhaseUI::GenerateResources(cClickBehaviorDispatcher*e_pClickBe
 		{
 			m_pMusicSheetImage = new cBaseImage("MusicGame/Image/SheetMusic.png");
 			m_pMusicSheetImage->SetVisible(false);
-			float l_fScale = m_pMusicSheetImage->GetWidth()/cGameApp::m_svGameResolution.x;
+			float l_fScale = m_pMusicSheetImage->GetWidth()/ cGameApp::m_spOpenGLRender->m_vGameResolution.x;
 			m_pMusicSheetImage->SetWidth((int)(m_pMusicSheetImage->GetWidth()/l_fScale));
 			m_pMusicSheetImage->SetHeight((int)(m_pMusicSheetImage->GetHeight()/l_fScale));
 			m_pMusicSheetImage->SetColor(Vector4(0.5,0.5,0.5,0.5));
-			m_pMusicSheetImage->SetPos(Vector3(0.f, cGameApp::m_svGameResolution.y/5,0.f));
+			m_pMusicSheetImage->SetPos(Vector3(0.f, cGameApp::m_spOpenGLRender->m_vGameResolution.y/5,0.f));
 			this->AddChildToLast(m_pMusicSheetImage);
 		}
 	}
