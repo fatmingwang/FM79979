@@ -1,7 +1,7 @@
-#include "../stdafx.h"
 #include "FMAnimationRuleEffectQueuePlayer.h"
 #include "../Particle/AllParticleInclude.h"
-#include "GameApp.h"
+#include "../../GameApp/GameApp.h"
+#include "../MPDI/MPDI.h"
 
 namespace FATMING_CORE
 {

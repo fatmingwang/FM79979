@@ -17,8 +17,6 @@
 #endif
 
 #include "AllCommonInclude.h"
-#include "AllCameraInclude.h"
-#include "AllImageInclude.h"
 #include "AllMathInclude.h"
 //#ifndef IOS
 #include "Sound/AllSoundInclude.h"
@@ -26,9 +24,8 @@
 //#ifndef IOS
 //#include "AVIPlayer/AVIPlayer.h"
 //#endif
-
 #include "GameplayUT/AllGamePlayUTInclude.h"
-#include "AllPhysicInclude.h"
+
 #include "Synchronization/AllFUThreadInclude.h"
 #ifdef ANDROID
 #include "Android/JNIUtil.h"

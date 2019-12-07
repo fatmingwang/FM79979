@@ -1,7 +1,6 @@
 #ifndef BASE_EVENT_H
 #define BASE_EVENT_H
-
-#include "../GameplayUT/PhaseControl.h"
+#include "../AllCoreInclude.h"
 #include "EventHeaderDefine.h"
 namespace FATMING_CORE
 {

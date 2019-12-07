@@ -329,10 +329,11 @@ bool	IsCompressFile(NvFile*e_pFile,int e_iMagicID)
 	return false;
 }
 
-std::wstring	DecodeStringFromeValue(wchar_t*e_strEncrypt,wchar_t*e_strCharacterToSplit)
+std::wstring	DecodeStringFromeValue(const wchar_t*e_strEncrypt, const wchar_t*e_strCharacterToSplit)
 {
+	wchar_t*	l_strWchar = new wchar_t[wcslen(e_strEncrypt)];
 	unsigned char	l_strtemp[79979];
-	wchar_t*l_strStart = wcstok(e_strEncrypt,e_strCharacterToSplit);
+	wchar_t*l_strStart = wcstok(l_strWchar,e_strCharacterToSplit);
 	int	l_iCount = 0;
 	while( l_strStart )
 	{
@@ -351,10 +352,11 @@ std::wstring	DecodeStringFromeValue(wchar_t*e_strEncrypt,wchar_t*e_strCharacterT
 		l_strResult = UT::CharToWchar((char*)l_strtemp);
 		delete pDes;
 	}
+	delete l_strWchar;
 	return l_strResult;
 }
 
-std::wstring	EncodeStringToValue(wchar_t*e_strString,wchar_t*e_strCharacterToSplit)
+std::wstring	EncodeStringToValue(const wchar_t*e_strString, const wchar_t*e_strCharacterToSplit)
 {
 	std::wstring	l_strResult;
 

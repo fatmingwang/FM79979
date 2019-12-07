@@ -1,5 +1,4 @@
 #include "FMTimelineAnimationObject.h"
-#include "../../../Math/MathUtility.h"
 namespace FATMING_CORE
 {
 	cFMTimelineAnimationObject::cFMTimelineAnimationObject()

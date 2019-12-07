@@ -14,10 +14,10 @@
 
 cScrollableMapAndButton::cScrollableMapAndButton(TiXmlElement*e_pElement)
 {
-	m_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
+	m_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	m_pMapBGMPDI = 0;
 	m_pStagesButton = 0;
-	m_vViewableRect = cGameApp::m_svViewPortSize;
+	m_vViewableRect = cGameApp::m_spOpenGLRender->m_vViewPortSize;
 	const WCHAR*l_strAttribute = e_pElement->Attribute(L"ViewRect");
 	m_vViewableRect = GetVector4(l_strAttribute);
 	e_pElement = e_pElement->FirstChildElement();

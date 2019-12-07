@@ -9,8 +9,8 @@
 #include "../Physic/2DImageCollisionData.h"
 #if defined(ANDROID)//openAL,android.c
 #include <android/log.h>
-#include "../Android/nv_egl_util.h"
-#include "../Android/JNIUtil.h"
+#include "../../Android/nv_egl_util.h"
+#include "../../Android/JNIUtil.h"
 #endif
 
 //#include <wininet.h>
@@ -95,9 +95,18 @@ namespace	FATMING_CORE
 	//    env->ReleaseStringUTFChars(e_InputValue,l_str);
 	//}
 
+	void cGameApp::CreateDefaultOpenGLRender()
+	{
+		if (!m_spOpenGLRender)
+		{
+			m_spOpenGLRender = new cOpenGLRender(Vector2(1920, 1080), Vector2(1920, 1080));
+		}
+	}
+
 	//<root FullScreen="0" Resolution="960,640" ViewPort="960,640" DeviceOrietation="0" />
 	void	cGameApp::ResoluctionParse(const char*e_strFileName)
 	{
+		CreateDefaultOpenGLRender();
 		cNodeISAX	l_NodeISAX;
 		bool	l_bFullScreen = false;
 		bool	l_b = l_NodeISAX.ParseDataIntoXMLNode(e_strFileName);
@@ -149,8 +158,10 @@ namespace	FATMING_CORE
 			if( l_strDeviceOrietation )
 			{
 				int	l_iIndex = _wtoi(l_strDeviceOrietation);
-				if( l_iIndex <= eDD_LANDSCAPE_RIGHT )
-					cGameApp::m_seDeviceDirection = (eDeviceDirection)l_iIndex;
+				if (l_iIndex <= eDD_LANDSCAPE_RIGHT)
+				{
+					cGameApp::m_spOpenGLRender->m_eDeviceDirection = (eDeviceDirection)l_iIndex;
+				}
 			}
 			if( l_strHideMouseCursor )
 			{

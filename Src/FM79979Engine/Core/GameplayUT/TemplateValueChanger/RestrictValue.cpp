@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "RestrictValue.h"
 
 namespace FATMING_CORE

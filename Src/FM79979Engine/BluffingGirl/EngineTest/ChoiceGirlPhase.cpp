@@ -18,7 +18,7 @@ cChoiceGirlPhase::cChoiceGirlPhase(const char*e_strFileName)
 	m_pDownloadContentPhase = 0;
 	m_pBGMPDI = 0;
 	this->m_strFileName = e_strFileName;
-	Vector4	l_vCollideRange(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	Vector4	l_vCollideRange(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	m_pScroller = 0;
 	m_strNextPhaseName = CHOICE_GIRL_STAGE_PHASE_NAME;
 	//m_pBackButton = new cImageButton(l_pCommonMPDIList->GetObject(L"Back"));
@@ -242,7 +242,7 @@ void	cChoiceGirlPhase::Render()
 	m_MainfunctionButton.Render();
 	if(m_pDownloadContentPhase)
 	{
-		GLRender::RenderFilledRectangle(Vector2::Zero,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,Vector4(0.1f,0.1f,0.1f,0.7f),0);
+		GLRender::RenderFilledRectangle(Vector2::Zero,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,Vector4(0.1f,0.1f,0.1f,0.7f),0);
 		m_pDownloadContentPhase->Render();
 	}
 }

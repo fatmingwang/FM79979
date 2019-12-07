@@ -156,8 +156,6 @@
     <ClCompile Include="GameplayUT\Camera\SimpleCamera.cpp" />
     <ClCompile Include="GameplayUT\Camera\SplitScreenCamera.cpp" />
     <ClCompile Include="GameplayUT\DataCurve\LinerTemplateDataProcess.cpp" />
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.cpp" />
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.cpp" />
     <ClCompile Include="GameplayUT\GameApp\GameApp.cpp" />
     <ClCompile Include="GameplayUT\GameApp\GameAppGetObject.cpp" />
     <ClCompile Include="GameplayUT\GameApp\GameAppUtil.cpp" />
@@ -192,6 +190,8 @@
     <ClCompile Include="GameplayUT\Render\Curve\Curve.cpp" />
     <ClCompile Include="GameplayUT\Render\Curve\CurveManager.cpp" />
     <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRule.cpp" />
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.cpp" />
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.cpp" />
     <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.cpp" />
     <ClCompile Include="GameplayUT\Render\Font\FreetypeGlypth.cpp" />
     <ClCompile Include="GameplayUT\Render\Font\GlyphFontRender.cpp" />
@@ -251,6 +251,7 @@
     <ClCompile Include="GameplayUT\Render\UI\Mouse_TouchWithCancelButton.cpp" />
     <ClCompile Include="GameplayUT\Render\UI\MultiPage.cpp" />
     <ClCompile Include="GameplayUT\Render\UI\MultiSelectOptionByMPDI.cpp" />
+    <ClCompile Include="GameplayUT\Render\UI\RenderObjectVector.cpp" />
     <ClCompile Include="GameplayUT\Render\UI\Scroller.cpp" />
     <ClCompile Include="GameplayUT\Render\UI\Sliderbar.cpp" />
     <ClCompile Include="GameplayUT\Render\UI\Tabpage.cpp" />
@@ -333,8 +334,6 @@
     <ClInclude Include="GameplayUT\Camera\SplitScreenCamera.h" />
     <ClInclude Include="GameplayUT\CommonRegister\CommonRegisterManager.h" />
     <ClInclude Include="GameplayUT\DataCurve\LinerTemplateDataProcess.h" />
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.h" />
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.h" />
     <ClInclude Include="GameplayUT\GameApp\GameApp.h" />
     <ClInclude Include="GameplayUT\GamePad\AtgInput.h" />
     <ClInclude Include="GameplayUT\GamePhase\PhaseControl.h" />
@@ -358,6 +357,7 @@
     <ClInclude Include="GameplayUT\Physic\2DImageCollisionData.h" />
     <ClInclude Include="GameplayUT\Physic\BulletShape.h" />
     <ClInclude Include="GameplayUT\Preload\PreloadResource.h" />
+    <ClInclude Include="GameplayUT\Render\AllGamePlayUTRenderInclude.h" />
     <ClInclude Include="GameplayUT\Render\CommonRender\BaseImage.h" />
     <ClInclude Include="GameplayUT\Render\CommonRender\Frame.h" />
     <ClInclude Include="GameplayUT\Render\CommonRender\NumeralImage.h" />
@@ -367,6 +367,8 @@
     <ClInclude Include="GameplayUT\Render\Curve\Curve.h" />
     <ClInclude Include="GameplayUT\Render\Curve\CurveManager.h" />
     <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRule.h" />
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.h" />
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.h" />
     <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.h" />
     <ClInclude Include="GameplayUT\Render\Font\FreetypeGlypth.h" />
     <ClInclude Include="GameplayUT\Render\Font\GlyphFontRender.h" />
@@ -420,6 +422,7 @@
     <ClInclude Include="GameplayUT\Render\Texture\Texture.h" />
     <ClInclude Include="GameplayUT\Render\Texture\TextureManager.h" />
     <ClInclude Include="GameplayUT\Render\UI\3DScroller.h" />
+    <ClInclude Include="GameplayUT\Render\UI\AllUIInclude.h" />
     <ClInclude Include="GameplayUT\Render\UI\AssembleImageButton.h" />
     <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.h" />
     <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\DefaultRenderClickBehavior.h" />
@@ -434,6 +437,7 @@
     <ClInclude Include="GameplayUT\Render\UI\Mouse_TouchWithCancelButton.h" />
     <ClInclude Include="GameplayUT\Render\UI\MultiPage.h" />
     <ClInclude Include="GameplayUT\Render\UI\MultiSelectOptionByMPDI.h" />
+    <ClInclude Include="GameplayUT\Render\UI\RenderObjectVector.h" />
     <ClInclude Include="GameplayUT\Render\UI\Scroller.h" />
     <ClInclude Include="GameplayUT\Render\UI\Sliderbar.h" />
     <ClInclude Include="GameplayUT\Render\UI\Tabpage.h" />
@@ -450,7 +454,6 @@
     <ClInclude Include="Sound\SoundCapture.h" />
     <ClInclude Include="Sound\SoundFile.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="AllImageInclude.h" />
     <ClInclude Include="Synchronization\CPP11Thread.h" />
     <ClInclude Include="XML\XMLLoader.h" />
     <ClInclude Include="XML\AtgXmlWriter.h" />

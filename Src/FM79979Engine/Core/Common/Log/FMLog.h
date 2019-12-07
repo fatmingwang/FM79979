@@ -23,10 +23,10 @@ namespace FATMING_CORE
 #define	CORE_LOG_FLAG		60
 namespace FMLog
 {
-	//if windows messagebox will pop up or just a outputdebugstring,0 for do m_spstrErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,
+	//if windows messagebox will pop up or just a outputdebugstring,0 for do g_spstrLogErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,
 	//move code from GameApp
-	static	int				m_siShowErrorType = 1;
-	static	std::wstring*	m_spstrErrorMsgString = nullptr;
+	static	int				g_siLogShowErrorType = 1;
+	static	std::wstring*	g_spstrLogErrorMsgString = nullptr;
 	//0 means won't keep any log data.
 	void					Init();
 	void					EnableKeepLatestLog(int e_iKeepLatestLogCount);

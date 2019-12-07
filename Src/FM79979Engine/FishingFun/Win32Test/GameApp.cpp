@@ -104,7 +104,7 @@ void	cFishingFunApp::Render()
 #endif
 	float	l_fVP[16];
 	//UseShaderProgram();
-	//glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+	//glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 	glEnable(GL_ALPHA_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
@@ -112,7 +112,7 @@ void	cFishingFunApp::Render()
 	UseShaderProgram();
 	cGameApp::Render();
 	this->m_pPhaseManager->Render();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 	if( cGameApp::m_spGlyphFontRender )
 	{
 	    WCHAR   l_str[MAX_PATH];
@@ -134,7 +134,7 @@ void	cFishingFunApp::Render()
 #ifdef	ANDROID
 		//fuck here occur glerror and I am lazy to fix it.
 		UseShaderProgram();
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 		std::wstring	l_str = L"Xaxis:";
 		l_str += ValueToStringW(cGameApp::m_svAccelerometer.x);
 		l_str += L",Yaxis:";
@@ -145,7 +145,7 @@ void	cFishingFunApp::Render()
 	}
 	glDisable2D();
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 }
 

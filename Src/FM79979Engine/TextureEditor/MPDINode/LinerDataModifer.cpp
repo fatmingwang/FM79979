@@ -36,7 +36,7 @@ void	cLinerDataModifer::MouseDown(Vector3 e_vPos,MyMath::AXIS e_Axis,float*e_pvP
 
 			if( e_Axis == MyMath::W&&e_pvProjectionMatrix )//try screen space
 			{
-				Vector3	l_vp1 = UT::WorldToScreen(l_vPos.x,l_vPos.y,l_vPos.z,e_pvProjectionMatrix,e_pfViewMatrix,e_piViewPort);
+				Vector3	l_vp1 = WorldToScreen(l_vPos.x,l_vPos.y,l_vPos.z,e_pvProjectionMatrix,e_pfViewMatrix,e_piViewPort);
 				l_vp1.z = 0.f;
 				Vector3	l_vp2 = e_vPos;
 				float	l_fDis = (l_vp1-l_vp2).Length();

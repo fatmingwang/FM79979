@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../Core/GameplayUT/StringCompress.h"
-
+#include "../../Core/Common/BinaryFile/StringCompress.h"
+#include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 namespace BulletDataEditor 
 {
 	/// <summary>
@@ -19,8 +19,9 @@ namespace BulletDataEditor
 			//TODO: Add the constructor code here
 			//
 			this->Dock = GCFORM::DockStyle::Fill;
+			cGameApp::CreateDefaultOpenGLRender();
 			m_HdcMV = GetDC((HWND)this->splitContainer1->Panel2->Handle.ToPointer());
-			m_HGLRCMV = UT::InitOpenGL((HWND)this->splitContainer1->Panel2->Handle.ToPointer(),true,m_HdcMV);
+			m_HGLRCMV = InitOpenGL((HWND)this->splitContainer1->Panel2->Handle.ToPointer(),true,m_HdcMV);
 			wglMakeCurrent( m_HdcMV,m_HGLRCMV );
 			//if( e_ptabControl )
 			//{
@@ -62,7 +63,7 @@ namespace BulletDataEditor
 					COMPARE_NAME("BGColor")
 					{
 						*m_pvBGColor = GetVector4(l_strValue);
-						cGameApp::m_svBGColor = *m_pvBGColor;
+						cGameApp::m_spOpenGLRender->m_vBGColor = *m_pvBGColor;
 					}
 				PARSE_NAME_VALUE_END
 			}
@@ -102,6 +103,7 @@ namespace BulletDataEditor
 			{
 				delete components;
 			}
+			SAFE_DELETE(cGameApp::m_spOpenGLRender);
 			ExitBT();
 			DeleteShader(L"BTPathShader");
 			DeleteShader(L"BT_NoTextureShader");
@@ -713,10 +715,10 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			DEFAULT_SHADER = L"BTPathShader";
 			NO_TEXTURE_SHADER = L"BT_NoTextureShader";
 			UseShaderProgram();
-			cGameApp::m_svViewPortSize.x = 0.f;
-			cGameApp::m_svViewPortSize.y = 0.f;
-			cGameApp::m_svViewPortSize.z = (float)splitContainer1->Panel2->Width;
-			cGameApp::m_svViewPortSize.w = (float)splitContainer1->Panel2->Height;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer1->Panel2->Width;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer1->Panel2->Height;
 			cGameApp::ApplyViewPort();
 			m_pTimeAndFPS->Update();
 			glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);

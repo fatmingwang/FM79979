@@ -1,4 +1,14 @@
 //
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#ifdef _DEBUG
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
+// allocations to be of _CLIENT_BLOCK type
+#else
+#define DBG_NEW new
+#endif
 #include "stdafx.h"
 #include "test.h"
 #include "GameApp.h"
@@ -9,14 +19,14 @@
 
 
 
-#define VLD_DEBUG
-
-#ifdef VLD_DEBUG
-//https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
-#include "../../../include/vld.h"
-#pragma comment(lib, "../../../lib/vld.lib")
-//#pragma comment(lib, "C:/Program Files (x86)/Visual Leak Detector/lib/Win32/vld.lib")
-#endif
+//#define VLD_DEBUG
+//
+//#ifdef VLD_DEBUG
+////https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
+//#include "../../../include/vld.h"
+//#pragma comment(lib, "../../../lib/vld.lib")
+////#pragma comment(lib, "C:/Program Files (x86)/Visual Leak Detector/lib/Win32/vld.lib")
+//#endif
 
 #define MAX_LOADSTRING 100
 
@@ -33,19 +43,22 @@ HHOOK MouseHook;
 bool	g_bLeave = false;
 
 POINT g_WindowSize;
-cGameApp*g_pGameApp = 0;
+cGameApp*g_pGameApp = nullptr;
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+
+	_CrtMemState s1;
+	_CrtMemCheckpoint(&s1);
+
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-
  	// TODO: Place code here.
 	MSG msg;
 	//HACCEL hAccelTable;
-
+	cGameApp::CreateDefaultOpenGLRender();
 	// Initialize global strings
 	//LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	//LoadString(hInstance, IDC_TEST, szWindowClass, MAX_LOADSTRING);
@@ -58,19 +71,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
+
 	cGameApp::m_sbDebugFunctionWorking = true;
-	g_pGameApp = new cEngineTestApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
-	g_pGameApp->Init();
-	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
+	if (1)
+	{
+		g_pGameApp = new cEngineTestApp(g_hWnd, cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+		g_pGameApp->Init();
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x, (int)g_WindowSize.y, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+	}
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
 
     //MouseHook = SetWindowsHookEx(WH_MOUSE_LL,MouseHookProc,hInstance,0);
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0)&&!g_bLeave)
-	//while(1)
 	{
-		//g_pGameApp->Run();
 		//if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
 		{
 			TranslateMessage(&msg);
@@ -80,8 +95,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	//UnhookWindowsHookEx(MouseHook);
 	SAFE_DELETE(g_pGameApp);
+	//SAFE_DELETE(g_pGameApp->m_spOpenGLRender);
 	NamedTypedObject::DumpUnReleaseInfo();
-	_CrtDumpMemoryLeaks();
+
+	_CrtMemState s2;
+	_CrtMemCheckpoint(&s2);
+	_CrtMemState s3;
+	if (_CrtMemDifference(&s3, &s1, &s2))
+	{
+		_CrtMemDumpStatistics(&s3);
+		_CrtDumpMemoryLeaks();
+	}
 	return (int) msg.wParam;
 }
 
@@ -135,15 +159,21 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Store instance handle in our global variable
 	bool	l_bFullScreen = false;
-	cNodeISAX	l_NodeISAX;
-	cGameApp::m_svViewPortSize.x = 1024.;
-	cGameApp::m_svViewPortSize.y = 768.f;
-	cGameApp::ResoluctionParse("EngineTestSetup.xml");
-
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
-	if(cGameApp::m_sbFullScreen)
-		l_dwFlag = WS_VISIBLE | WS_POPUP |	WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
-	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), NULL, NULL, hInstance, NULL);
+	if (cGameApp::m_spOpenGLRender)
+	{
+		cNodeISAX	l_NodeISAX;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
+		cGameApp::ResoluctionParse("EngineTestSetup.xml");
+		if (cGameApp::m_sbFullScreen)
+			l_dwFlag = WS_VISIBLE | WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
+		g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height(), NULL, NULL, hInstance, NULL);
+	}
+	else
+	{
+		g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, 800, 600, NULL, NULL, hInstance, NULL);
+	}
 
 	if (!g_hWnd)
 	{
@@ -169,14 +199,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 POINT g_MousePosition;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	float   l_fScaleX = cGameApp::m_svGameResolution.x/cGameApp::m_svViewPortSize.x;
-	float   l_fScaleY = cGameApp::m_svGameResolution.y/cGameApp::m_svViewPortSize.y;	
+	float   l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/ cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+	float   l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/ cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
 	switch (message)
 	{
 	case  WM_SIZE:
 		g_WindowSize.x = (int)LOWORD(lParam);
 		g_WindowSize.y = (int)HIWORD(lParam);
-		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )
@@ -184,7 +214,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			g_pGameApp->Run();
 		}
 		else
+		{
 			SAFE_DELETE(g_pGameApp);
+		}
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -210,7 +242,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 			case VK_ESCAPE:
-				//g_bLeave = true;
+				g_bLeave = true;
 				break;
 			break;
 		}

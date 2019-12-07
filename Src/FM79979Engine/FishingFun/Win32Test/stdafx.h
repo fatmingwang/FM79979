@@ -25,10 +25,8 @@
 
 
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"
 #include "../../Core/FatmingAI/AllFatmingAIInclude.h"
-#include "../../Core/AllPhysicInclude.h"
 
 
 cbtShapeCollision*GetbtShapeCollision(TiXmlElement*e_pElement);

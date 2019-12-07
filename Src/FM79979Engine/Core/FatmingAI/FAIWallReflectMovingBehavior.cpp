@@ -10,7 +10,7 @@ namespace FATMING_AI
 		m_pHittWallCallback = 0;
 		m_fSpeedScale = 1.f;
 		m_fSpeedRestrict.Min = m_fSpeedRestrict.Max = 1.f;
-		m_vWall = Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		m_vWall = Vector4(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		m_CurrentWallHitTC.SetTargetTime(10.f);
 		AI_PARSE_NAME_VALUE_START
 			COMPARE_NAME("Wall")

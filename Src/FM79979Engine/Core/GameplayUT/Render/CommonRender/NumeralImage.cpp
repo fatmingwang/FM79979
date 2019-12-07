@@ -1,12 +1,10 @@
-#include "../stdafx.h"
 #include "NumeralImage.h"
 #include "SimplePrimitive.h"
 
-#include "../OpenGL/GLSL/Shader.h"
-#include "PuzzleImage.h"
-#include "../GameplayUT/GameApp.h"
-#include "../XML/XMLLoader.h"
-#include "../GameplayUT/ObjectXMLParser.h"
+#include "../PuzzleImage/PuzzleImage.h"
+#include "../../GameApp/GameApp.h"
+#include "../MPDI/MPDI.h"
+#include "../../ResourceMaintaner/ObjectXMLParser.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cNumeralImage);

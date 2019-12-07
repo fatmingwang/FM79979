@@ -55,8 +55,8 @@ void	cTitlePhase::Init()
 	if( m_pClickMouseBehaviorVector )
 		m_pClickMouseBehaviorVector->Init();
 	int	l_iADHeight = 50;
-	//ShowAd("ca-app-pub-5585058356130084/5814745857",(int)cGameApp::m_svViewPortSize.Width()-20,l_iADHeight,Vector2(0,cGameApp::m_svViewPortSize.w-l_iADHeight-30));
-	//ShowAd("ca-app-pub-5585058356130084/2063713857",320,50,Vector2(0,cGameApp::m_svViewPortSize.w-l_iADHeight-30));
+	//ShowAd("ca-app-pub-5585058356130084/5814745857",(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width()-20,l_iADHeight,Vector2(0,cGameApp::m_spOpenGLRender->m_vViewPortSize.w-l_iADHeight-30));
+	//ShowAd("ca-app-pub-5585058356130084/2063713857",320,50,Vector2(0,cGameApp::m_spOpenGLRender->m_vViewPortSize.w-l_iADHeight-30));
 #ifdef ANDROID
 	ShowIntersitialAd("ca-app-pub-5585058356130084/8796088253");
 #endif

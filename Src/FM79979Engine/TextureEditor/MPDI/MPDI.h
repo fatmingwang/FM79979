@@ -1,6 +1,6 @@
 #pragma once
-#include "../../Core/AVIPlayer/avi_utils.h"
-#include "../../Core/Image/MPDIForEditor.h"
+#include "../../Core/GameplayUT/Render/VideoPlayer/avi_utils.h"
+#include "../../Core/GameplayUT/Render/MPDI/MPDIForEditor.h"
 #include "MPDIThread.h"
 #include "DotMPDICamera.h"
 //#pragma comment(lib, "Vfw32.lib")

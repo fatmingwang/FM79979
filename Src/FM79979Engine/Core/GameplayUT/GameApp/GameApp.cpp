@@ -15,22 +15,18 @@
 #include "locale.h"
 using namespace UT;
 #if defined(ANDROID)//openAL,android.c
-#include "../Android/nv_egl_util.h"
-#include "../Android/JNIUtil.h"
+#include "../../Android/nv_egl_util.h"
+#include "../../Android/JNIUtil.h"
+#include "../../Android/nv_file.h"
 #endif
 #ifdef WASM
 #include "locale.h"
 #endif
 namespace	FATMING_CORE
 {
-	extern POINT	ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
 	extern void	DumpGraphicsInfo();
 
 #if defined(ANDROID)
-	std::string*										cGameApp::m_spAPKPath = 0;
-	std::string*										cGameApp::m_spInternalDirectory = 0;
-	std::string*										cGameApp::m_spExternalDirectory = 0;
-	std::string*										cGameApp::m_spExternalSDDirectory = 0;
 	JNIEnv*												cGameApp::m_spThreadEnv = 0;
 	ANativeActivity*									cGameApp::m_spANativeActivity = 0;
 	jobject*											cGameApp::m_spAppThreadThis = 0;
@@ -41,26 +37,28 @@ namespace	FATMING_CORE
 	double												cGameApp::m_dbGamePlayTime = 0;
 	float												cGameApp::m_sfGameSpeedValue = 1.f;
 	bool												cGameApp::m_sbSpeedControl = false;
-	cPaticleManager*									cGameApp::m_spPaticleManager = 0;
-	cBehaviorPaticleManager*							cGameApp::m_spBehaviorPaticleManager = 0;
-	cGlyphFontRender*									cGameApp::m_spGlyphFontRender = 0;
-	cNamedTypedObjectVector<cGlyphFontRender>*			cGameApp::m_spGlyphFontRenderVector = 0;
-	cNamedTypedObjectVector<cExternalFunction>*			cGameApp::m_spExternalFunctionVector = 0;
-	cNamedTypedObjectVector<c2DImageCollisionData>*		cGameApp::m_sp2DImageCollisionDataVector = 0;
-	cNamedTypedObjectVector<NamedTypedObject>*			cGameApp::m_spColladaParserVector = 0;
+	bool												cGameApp::m_sbFullScreen = false;
+	//
 	Vector3												cGameApp::m_svAccelerometer = Vector3::Zero;
 	float												cGameApp::m_sfForce = 0.f;
-	bool												cGameApp::m_sbFullScreen = false;
-	sMultiTouchPoints*									cGameApp::m_spMultiTouchPoints = 0;
+	//
+	sMultiTouchPoints*									cGameApp::m_spMultiTouchPoints = nullptr;
 	bool												cGameApp::m_sbDoMultiTouch = false;
 	bool												cGameApp::m_sbDoLockFPS = false;
-	cAnimationParser*									cGameApp::m_spAnimationParser = 0;
-	cImageParser*										cGameApp::m_spImageParser = 0;
-	cSoundParser*										cGameApp::m_spSoundParser = 0;
-	cNamedTypedObjectVector<cCurveManager>*				cGameApp::m_spPathFileList;
+	//
+	cPaticleManager*									cGameApp::m_spPaticleManager = nullptr;
+	cBehaviorPaticleManager*							cGameApp::m_spBehaviorPaticleManager = nullptr;
+	cGlyphFontRender*									cGameApp::m_spGlyphFontRender = nullptr;
+	cNamedTypedObjectVector<cGlyphFontRender>*			cGameApp::m_spGlyphFontRenderVector = nullptr;
+	cNamedTypedObjectVector<cExternalFunction>*			cGameApp::m_spExternalFunctionVector = nullptr;
+	cNamedTypedObjectVector<c2DImageCollisionData>*		cGameApp::m_sp2DImageCollisionDataVector = nullptr;
+	cNamedTypedObjectVector<NamedTypedObject>*			cGameApp::m_spColladaParserVector = nullptr;
+	cAnimationParser*									cGameApp::m_spAnimationParser = nullptr;
+	cImageParser*										cGameApp::m_spImageParser = nullptr;
+	cSoundParser*										cGameApp::m_spSoundParser = nullptr;
+	cNamedTypedObjectVector<cCurveManager>*				cGameApp::m_spPathFileList = nullptr;
 
 #if defined(ANDROID)
-#include "../Android/nv_file.h"
 	extern sJNIUtilData*g_pMainThreadJNIUtilData;
 	extern bool		GetExternalSDPath(std::string*e_pTarget);
 	extern void	SetupAPKFilePath(ANativeActivity* e_pActivity, JNIEnv*e_pThreadEnv);
@@ -102,11 +100,12 @@ namespace	FATMING_CORE
 		g_pMainThreadJNIUtilData = m_spJNIUtilData;
 		SetupAPKFilePath(e_pActivity, e_pThreadEnv);
 #endif
+		CreateDefaultOpenGLRender();
+		m_spOpenGLRender->m_vDeviceViewPortSize = m_spOpenGLRender->m_vViewPortSize = e_vViewportSize;
+		m_spOpenGLRender->m_vGameResolution = e_vGameResolution;
 #ifdef WIN32
-		m_spOpenGLRender = new cOpenGLRender(e_Hwnd, e_vGameResolution, e_vViewportSize);
+		m_spOpenGLRender->Init(e_Hwnd,true);
 		PrintMemoryInfo();
-#else
-		m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
 #endif
 		memset(m_sucKeyData, 0, sizeof(bool)*MAX_PATH);
 		m_bMouseHover = false;
@@ -155,6 +154,7 @@ namespace	FATMING_CORE
 #endif
 		SystemErrorCheck();
 		//SAFE_DELETE(m_spThreadPool);
+		SAFE_DELETE(m_spOpenGLRender);
 		SAFE_DELETE(cGameApp::m_psstrGameAppName);
 		NamedTypedObject::DumpUnReleaseInfo();
 		FMLog::Destroy();
@@ -172,15 +172,6 @@ namespace	FATMING_CORE
 		SystemErrorCheck();
 		//This hint can improve the speed of texturing when perspective- correct texture coordinate interpolation isn't needed, such as when using a glOrtho() projection.
 		//glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
-//#ifdef OPENGLES_2_X
-
-//#else
-//		glEnableClientState(GL_VERTEX_ARRAY);
-//#endif
-		if (m_spOpenGLRender)
-		{
-			m_spOpenGLRender->Init();
-		}
 		m_sTimeAndFPS.Update();
 		FMLog::LogWithFlag("parse font data", CORE_LOG_FLAG, true);
 		if (!m_spGlyphFontRender)
@@ -278,7 +269,7 @@ namespace	FATMING_CORE
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
 		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
 		m_sbTouched = true;
 	}
 
@@ -289,7 +280,7 @@ namespace	FATMING_CORE
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
 		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
 	}
 
 	void	cGameApp::MouseUp(int e_iPosX, int e_iPosY)
@@ -299,7 +290,7 @@ namespace	FATMING_CORE
 		//if( !m_sbEnableMouseSingnal )
 		//	return;
 		POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-		m_sMousePosition = ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+		m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
 		m_sbTouched = false;
 	}
 
@@ -325,7 +316,7 @@ namespace	FATMING_CORE
 		else
 		{
 			POINT	l_Viewport = { (int)m_spOpenGLRender->m_vViewPortSize.Width(),(int)m_spOpenGLRender->m_vViewPortSize.Height() };
-			m_sMousePosition = ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
+			m_sMousePosition = this->m_spOpenGLRender->ConvertCoordinate(e_iPosX, e_iPosY, l_Viewport);
 		}
 		if (m_bMouseHover)
 			MouseUp(e_iPosX, e_iPosY);
@@ -375,16 +366,16 @@ namespace	FATMING_CORE
 					m_sbGamePause = !m_sbGamePause;
 					break;
 				case 38://up
-					this->m_seDeviceDirection = eDD_PORTRAIT;
+					this->m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
 					break;
 				case 37://left
-					this->m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
+					this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
 					break;
 				case 39://right
-					this->m_seDeviceDirection = eDD_LANDSCAPE_RIGHT;
+					this->m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_RIGHT;
 					break;
 				case 40://down
-					this->m_seDeviceDirection = eDD_UPSIDE_DOWN;
+					this->m_spOpenGLRender->m_eDeviceDirection = eDD_UPSIDE_DOWN;
 					break;
 				case 44://PrtScr/SysRq
 					m_bDoScreenShot = true;
@@ -526,22 +517,6 @@ namespace	FATMING_CORE
 	void		cGameApp::ApplyViewPort()
 	{
 		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-	}
-
-	Vector2		cGameApp::GetViewPortAndGameResolutionScale()
-	{
-		switch (cGameApp::m_seDeviceDirection)
-		{
-		case eDD_PORTRAIT:
-		case eDD_UPSIDE_DOWN:
-			return Vector2(m_spOpenGLRender->m_vGameResolution.x / m_spOpenGLRender->m_vViewPortSize.Width(), m_spOpenGLRender->m_vGameResolution.y / m_spOpenGLRender->m_vViewPortSize.Height());
-		case eDD_LANDSCAPE_LEFT:
-		case eDD_LANDSCAPE_RIGHT:
-			return Vector2(m_spOpenGLRender->m_vGameResolution.x / m_spOpenGLRender->m_vViewPortSize.Height(), m_spOpenGLRender->m_vGameResolution.y / m_spOpenGLRender->m_vViewPortSize.Width());
-		default:
-			break;
-		}
-		return Vector2(1, 1);
 	}
 
 	void		cGameApp::WriteLog(std::wstring e_strMessage)
@@ -690,6 +665,17 @@ namespace	FATMING_CORE
 			}
 		}
 		return  l_str;
+	}
+	POINT GetScreenResolution()
+	{
+#ifdef WIN32
+		POINT	l_ScreenResolution = { GetSystemMetrics(SM_CXSCREEN),
+			GetSystemMetrics(SM_CYSCREEN) };
+		return l_ScreenResolution;
+#else
+		POINT	l_ScreenResolution = { (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y };
+		return l_ScreenResolution;
+#endif
 	}
 	//end namespace
 }

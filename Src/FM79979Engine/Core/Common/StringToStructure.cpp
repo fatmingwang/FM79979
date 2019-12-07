@@ -1,5 +1,4 @@
 #include "StringToStructure.h"
-#include "../Common/Utility.h"
 #include <assert.h>
 #ifdef WIN32
 #pragma warning( disable : 4996 )
@@ -837,7 +836,7 @@ namespace FATMING_CORE
 			if( i+1 != l_uiSize )
 				l_str+=",";
 		}
-		return l_str;	
+		return l_str;
 	}
 
 	std::vector<Vector2>	StringToVector2Vector(const wchar_t*e_str,int e_iSize)

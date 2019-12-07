@@ -67,6 +67,6 @@ void	cDownloadFile::Render()
 	std::wstring	l_str = l_str1;
 	l_str += ValueToStringW(m_iProgress);
 	cGameApp::m_spGlyphFontRender->SetScale(2.f);
-	cGameApp::RenderFont(cGameApp::m_svGameResolution.x/2-300,cGameApp::m_svGameResolution.y/2,l_str);
+	cGameApp::RenderFont(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2-300,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2,l_str);
 	cGameApp::m_spGlyphFontRender->SetScale(1.f);
 }

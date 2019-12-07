@@ -3,6 +3,7 @@
 #include "BinPack.h"
 #include "PuzzleImageUnitTriangulator.h"
 #include "PIUtility.h"
+#include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 cGlyphFontRender*g_pDebugFont = nullptr;
 namespace PI 
 {
@@ -119,6 +120,7 @@ namespace PI
 //#endif
 		{
 			InitializeComponent();
+			cGameApp::CreateDefaultOpenGLRender();
 			//now it only support power of two on windows,because I am lazy to fix cUIImage.
 			g_bSupportNonPowerOfTwoTexture = true;
 			this->menuStrip1->Visible = false;
@@ -155,7 +157,7 @@ namespace PI
 			m_ImageTale = gcnew System::Collections::Hashtable;
 			m_pParentHandle = 0;
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
-			m_HGLRCMV = UT::InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
+			m_HGLRCMV = InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
 			pictureBox2->AutoSize = true;
 			pictureBox1->AutoSize = true;
 #ifdef USER_CONTROL_ENABLE
@@ -219,6 +221,7 @@ namespace PI
 			{
 				delete components;
 			}
+			SAFE_DELETE(cGameApp::m_spOpenGLRender);
 			DeleteShader(L"ICPathShader");
 			DeleteShader(L"IC_NoTextureShader");
 			delete m_ImageTale;
@@ -308,15 +311,22 @@ namespace PI
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::ComboBox^  TriangulatorMouseBehavior_comboBox;
 	private: System::Windows::Forms::TabPage^  SequenceAnimation_tabPage;
+	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
+	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	private: System::Windows::Forms::PictureBox^  pictureBox2;
+	private: System::Windows::Forms::CheckBox^  ShowTriangulaotrPoints_checkBox;
+	private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
 	//my
 	private:cPuzzleImageUnitTriangulatorManager*m_pPuzzleImageUnitTriangulatorManager;
 	private:cPuzzleImageUnitTriangulator * m_pCurrentSelectedPuzzleImageUnitTriangulator;
 	private: GCFORM::Form^	m_pForm;
 	public:HWND				m_pParentHandle;
-	String^m_strParentProcessID;
-	bool	 m_bAvoidDataAssignForPIUintChild;
-	HGLRC	 m_HGLRCMV;
-	HDC		 m_HdcMV;
+	String^					m_strParentProcessID;
+	bool					m_bAvoidDataAssignForPIUintChild;
+	HGLRC					m_HGLRCMV;
+	HDC						m_HdcMV;
 	cGlyphFontRender*m_pDebugFont;
 	cImageParser*								m_pImageomposerIRM;
 	int											m_iCurrentSelectedObjectIndex;
@@ -326,13 +336,6 @@ namespace PI
 	cOrthogonalCamera*							m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*							m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
-	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
-	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
-	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::PictureBox^  pictureBox2;
-private: System::Windows::Forms::CheckBox^  ShowTriangulaotrPoints_checkBox;
-private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -1693,10 +1696,10 @@ private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
 				glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 				glClearColor( m_pvBGColor->x,m_pvBGColor->y,m_pvBGColor->z,m_pvBGColor->w );
 				glClearDepth(1.0f);									// Depth Buffer Setup
-				cGameApp::m_svViewPortSize.x = 0.f;
-				cGameApp::m_svViewPortSize.y = 0.f;
-				cGameApp::m_svViewPortSize.z = (float)splitContainer2->Panel1->Width;
-				cGameApp::m_svViewPortSize.w = (float)splitContainer2->Panel1->Height;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
 				if (tabControl1->SelectedIndex == 2)
 				{
 					m_pOrthogonalCameraForTrianhulatorPIUnit->Render();
@@ -2108,10 +2111,10 @@ private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
 				{
 					timer1->Enabled = true;
 					wglMakeCurrent( m_HdcMV,m_HGLRCMV );
-					cGameApp::m_svViewPortSize.x = 0.f;
-					cGameApp::m_svViewPortSize.y = 0.f;
-					cGameApp::m_svViewPortSize.z = (float)splitContainer2->Panel1->Width;
-					cGameApp::m_svViewPortSize.w = (float)splitContainer2->Panel1->Height;
+					cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+					cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+					cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
+					cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
 					cGameApp::ApplyViewPort();
 				}
 				else

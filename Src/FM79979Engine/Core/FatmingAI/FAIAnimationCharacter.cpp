@@ -1,6 +1,5 @@
 #include "Stdafx.h"
 #include "FAIAnimationCharacter.h"
-#include "../AllPhysicInclude.h"
 //from Frame
 //extern const FLOAT    FRAME_DIRTY_WORLD_CACHE;
 

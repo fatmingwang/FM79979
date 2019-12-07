@@ -14,16 +14,12 @@ namespace FATMING_CORE
 		HDC															m_Hdc;
 		HANDLE														m_Handle;
 		HGLRC														m_HGLRC;
-		cOpenGLRender(HWND e_Hwnd, Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f),bool e_bMultiSample = false);
+		cOpenGLRender();
+		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
 #else
 		cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize);
 #endif
 		~cOpenGLRender();
-		//init shader
-		void														Init();
-		static  std::vector<int>*									m_piSupportCompressedFormatVector;
-		static float												m_sfOpenGLVersion;
-		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		//while game resolution is change we want to re scale all data check this one
 		Vector2														m_vGameScale;
 		//viewport resolution or game resolution,both them could be same,but depend on the game type.
@@ -38,6 +34,14 @@ namespace FATMING_CORE
 		POINT														ConvertCoordinate(int e_iPosX, int e_iPosY, POINT e_ViewPort);
 		Vector2														GetViewPortAndGameResolutionScale();
 		void														SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);
-		static bool													IsCompressedFormatSupport(int e_iFormat);
+		//
+		static	std::vector<int>*									m_piSupportCompressedFormatVector;
+		static	float												m_sfOpenGLVersion;
+		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
+		//init shader
+#ifdef WIN32
+		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);
+#endif
+		static	bool												IsCompressedFormatSupport(int e_iFormat);
 	};
 }

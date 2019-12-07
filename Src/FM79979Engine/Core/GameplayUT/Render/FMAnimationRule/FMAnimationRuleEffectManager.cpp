@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "FMAnimationRuleEffectManager.h"
 #include "FMAnimationRuleEffectQueuePlayer.h"
 namespace FATMING_CORE

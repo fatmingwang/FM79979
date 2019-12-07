@@ -17,7 +17,7 @@
 #include <xstring>
 #include "assert.h"
 #include "../../Core/AllCoreInclude.h"
-#include "../../core/AVIPlayer/AVIPlayer.h"
+#include "../../Core/GameplayUT/Render/VideoPlayer/AVIPlayer.h"
 //#include "../../Core/AllPhysicInclude.h"
 using namespace System::Windows::Forms::Integration;
 #include "../../DotNetCommon/AllDNCTInclude.h"

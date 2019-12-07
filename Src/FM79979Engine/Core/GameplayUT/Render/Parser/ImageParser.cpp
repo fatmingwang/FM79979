@@ -1,9 +1,8 @@
-#include "../stdafx.h"
-#include "../Common/Utility.h"
-#include "NumeralImage.h"
 #include "ImageParser.h"
-#include "../XML/AtgXmlWriter.h"
-#include "PuzzleImage.h"
+#include "../../../Common/Utility.h"
+#include "../CommonRender/NumeralImage.h"
+#include "../../XML/XMLLoader.h"
+#include "../PuzzleImage/PuzzleImage.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cImageParser);

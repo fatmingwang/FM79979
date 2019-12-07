@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Core/Image/MPDIForEditor.h"
+#include "../../Core/GameplayUT/Render/MPDI/MPDIForEditor.h"
 #include "MPDIThread.h"
 using namespace System;
 using namespace System::ComponentModel;

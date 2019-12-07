@@ -28,7 +28,7 @@ bool GlyphReader::LoadFile( const char* strFileName)
 	if( !l_pFile )
 		return false;
 	long	l_lFileSize = GetFileSize(l_pFile);
-	//fuck malloc is not proper for iOS and Android!?
+	//fuck malloc is not proper for iOS and Android!?it's because memory alligment.
 	//it will crush if I fetch some data frome it...ex:m_pGlyphs
 	SAFE_DELETE(m_pFontData);
 	m_pFontData = new unsigned char[l_lFileSize];

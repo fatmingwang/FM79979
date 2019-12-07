@@ -1,5 +1,5 @@
 #include "Mouse_Touch.h"
-#include "../../../Common/CommonApp.h"
+#include "../../GameApp/GameApp.h"
 #include "../CommonRender/SimplePrimitive.h"
 namespace FATMING_CORE
 {
@@ -48,7 +48,7 @@ namespace FATMING_CORE
 
 		void	cClickMouseBehavior::CallExternalFunction(void*e_pData)
 		{
-			//cCommonApp::CallExternalFunction(m_strExternalFunctionName,e_pData);
+			cGameApp::CallExternalFunction(m_strExternalFunctionName,e_pData);
 		}
 
         //if touch point is collided return true or false.

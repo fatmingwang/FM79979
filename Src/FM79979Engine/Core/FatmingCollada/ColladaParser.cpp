@@ -35,14 +35,14 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 #endif
 	this->SetName(e_strFileName);
 	bool	l_bErrorMsgExists = true;
-	if( !cGameApp::m_spstrErrorMsgString )
+	if( !FMLog::g_spstrLogErrorMsgString )
 	{
 		l_bErrorMsgExists = false;
 		try
 		{
-			if( !cGameApp::m_spstrErrorMsgString )
-				cGameApp::m_spstrErrorMsgString = new std::wstring;
-			if( cGameApp::m_spstrErrorMsgString == nullptr )
+			if( !FMLog::g_spstrLogErrorMsgString )
+				FMLog::g_spstrLogErrorMsgString = new std::wstring;
+			if( FMLog::g_spstrLogErrorMsgString == nullptr )
 			{
 				int a=0;
 			}
@@ -53,8 +53,8 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 			int a=0;
 		}
 	}
-	int l_iShowErrorMsgBoxType = cGameApp::m_siShowErrorType == 1?true:false;
-	cGameApp::m_siShowErrorType = 0;
+	int l_iShowErrorMsgBoxType = FMLog::g_siLogShowErrorType == 1?true:false;
+	FMLog::g_siLogShowErrorType = 0;
 	if( e_bStroeInfo )
 		g_strParsingDataList = &this->m_strParsingDataList;
 	if(!cNodeISAX::ParseDataIntoXMLNode(e_strFileName))
@@ -136,17 +136,17 @@ bool	cColladaParser::ParseDataIntoXMLNode(const char*e_strFileName,bool e_bStroe
 			l_pColladaGeomatries->pGeometryMesh->AllMeshIndexList.clear();
 	}
 
-	cGameApp::m_siShowErrorType = l_iShowErrorMsgBoxType;
-	if(cGameApp::m_spstrErrorMsgString)
+	FMLog::g_siLogShowErrorType = l_iShowErrorMsgBoxType;
+	if(FMLog::g_spstrLogErrorMsgString)
 	{
-		if(cGameApp::m_spstrErrorMsgString->length())
+		if(FMLog::g_spstrLogErrorMsgString->length())
 		{
-			UT::ErrorMsg((WCHAR*)cGameApp::m_spstrErrorMsgString->c_str(),L"Error msg");
+			UT::ErrorMsg((WCHAR*)FMLog::g_spstrLogErrorMsgString->c_str(),L"Error msg");
 		}
 	}
 	if( !l_bErrorMsgExists )
 	{
-		SAFE_DELETE(cGameApp::m_spstrErrorMsgString);
+		SAFE_DELETE(FMLog::g_spstrLogErrorMsgString);
 	}
 	return true;
 }

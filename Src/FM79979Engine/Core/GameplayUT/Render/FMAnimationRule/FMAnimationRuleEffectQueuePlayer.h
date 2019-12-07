@@ -1,7 +1,6 @@
-#ifndef _FM_ANIMATION_RULE_QUEUE_PLAYER_H_
-#define _FM_ANIMATION_RULE_QUEUE_PLAYER_H_
+#pragma once
 //get any kind of effect(MPDI,particle) play on the screen
-#include "../Image/FMAnimationRule.h"
+#include "FMAnimationRule.h"
 namespace FATMING_CORE
 {
 	class	cFMARQueuePlayer:public cFatmingGroupBehaviorList<cFMTimeLineAnimationRule>
@@ -31,4 +30,3 @@ namespace FATMING_CORE
 	};
 //end namespace
 }
-#endif

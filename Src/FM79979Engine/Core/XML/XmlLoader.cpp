@@ -104,7 +104,7 @@ namespace FATMING_CORE
 		if(!loadOkay)
 		{
 		    SAFE_DELETE(m_pDoc);
-			m_strErrorMsg = L"load file error!utf8?!!!fuck\n";
+			m_strErrorMsg = L"load file error!utf8?!!!\n";
 			std::string	l_str = UT::ComposeMsgByFormat("file %s open failed! uft8 or file is not exist!?",e_strFileName);
 			FMLog::Log(l_str.c_str(),false);
 #ifdef DEBUG
@@ -193,19 +193,19 @@ namespace FATMING_CORE
 		{
 			return false;
 		}
-		if(FMLog::m_spstrErrorMsgString)
+		if(FMLog::g_spstrLogErrorMsgString)
 		{
-			if(FMLog::m_spstrErrorMsgString->length())
+			if(FMLog::g_spstrLogErrorMsgString->length())
 			{
-				UT::ErrorMsg(FMLog::m_spstrErrorMsgString->c_str(),L"before parse xml file there are error message not clear...");
+				UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(),L"before parse xml file there are error message not clear...");
 			}
-			FMLog::m_spstrErrorMsgString->clear();
+			FMLog::g_spstrLogErrorMsgString->clear();
 		}
-		bool	l_bErrorMsgStringExist = FMLog::m_spstrErrorMsgString?true:false;
-		int	l_iWhoErrorMsg = FMLog::m_siShowErrorType;
+		bool	l_bErrorMsgStringExist = FMLog::g_spstrLogErrorMsgString?true:false;
+		int	l_iWhoErrorMsg = FMLog::g_siLogShowErrorType;
 		if(!l_bErrorMsgStringExist)
 		{
-			FMLog::m_spstrErrorMsgString = new std::wstring();
+			FMLog::g_spstrLogErrorMsgString = new std::wstring();
 		}
 		m_bShowLoadingState = e_bShowLoadingState;
 		//try
@@ -224,17 +224,17 @@ namespace FATMING_CORE
 			UT::ErrorMsg((wchar_t*)this->m_strErrorMsg.c_str(),L"Error message");
 		}
 		SAFE_DELETE(m_pDoc);
-		if( FMLog::m_spstrErrorMsgString->length() )
+		if( FMLog::g_spstrLogErrorMsgString->length() )
 		{
-			FMLog::m_siShowErrorType = 1;
-			UT::ErrorMsg((wchar_t*)FMLog::m_spstrErrorMsgString->c_str(),L"Error message");
-			FMLog::m_spstrErrorMsgString->clear();
+			FMLog::g_siLogShowErrorType = 1;
+			UT::ErrorMsg((wchar_t*)FMLog::g_spstrLogErrorMsgString->c_str(),L"Error message");
+			FMLog::g_spstrLogErrorMsgString->clear();
 		}
 		if(!l_bErrorMsgStringExist)
 		{
-			SAFE_DELETE(FMLog::m_spstrErrorMsgString);
+			SAFE_DELETE(FMLog::g_spstrLogErrorMsgString);
 		}
-		FMLog::m_siShowErrorType = l_iWhoErrorMsg;
+		FMLog::g_siLogShowErrorType = l_iWhoErrorMsg;
 		return true;
 	}
 

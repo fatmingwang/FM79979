@@ -1,4 +1,10 @@
 //#ifdef USE_OPEN_CV
+#include "AndroidVideoPlayer.h"
+#include "../../OpenGL/Glh.h"
+#include "../../GameApp/GameApp.h"
+#include "../CommonRender/BaseImage.h"
+#include "../Texture/jpeg/jpge.h"
+#include "../Texture/jpeg/jpgd.h"
 #ifdef WIN32
 char*g_strCommonVideoFS = "													\
 						  uniform sampler2D texSample;								\
@@ -45,14 +51,6 @@ void main()																		\
 	gl_FragColor.xyzw = gl_FragColor.zyxw;										\
 }";
 #endif
-#include "../stdafx.h"
-#include "../GameplayUT/GameApp.h"
-#include "../zlib/zlib.h"
-#include "../Image/jpeg/jpge.h"
-#include "../Image/jpeg/jpgd.h"
-#include "../Sound/OpenAlOgg.h"
-#include "../Sound/SoundManager.h"
-#include "AndroidVideoPlayer.h"
 #ifdef ANDROID
 #include <unistd.h>
 #include <jni.h>
@@ -185,8 +183,8 @@ cVideoPlayer::cVideoPlayer()
 	m_pVideoImage = new FATMING_CORE::cBaseImage((const char*)0);
 	if( m_pVideoImage )
 	{
-		m_pVideoImage->SetWidth((int)cGameApp::m_svGameResolution.x);
-		m_pVideoImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+		m_pVideoImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
+		m_pVideoImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	m_iTotalFrame = 0;
 }
@@ -801,8 +799,8 @@ void    cFMVVideo::Render()
 			{
 				m_pVideoImage->SetupTexture(g_iVideoChannel,m_iVideoWidth,m_iVideoHeight,g_iVideoColorType,GL_UNSIGNED_BYTE,false,l_pData);
 			}
-			m_pVideoImage->SetWidth((int)cGameApp::m_svGameResolution.x);
-			m_pVideoImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+			m_pVideoImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
+			m_pVideoImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		}
 		cBaseShader*l_pVideoShader = GetShader(g_strVideoShaderName);
 		if( l_pVideoShader )

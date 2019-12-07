@@ -425,12 +425,12 @@ void	cStageData::Update(float e_fElpaseTime)
 void	cStageData::Render()
 {
 	UseShaderProgram(DEFAULT_SHADER);
-	glEnable2D(cGameApp::m_svGameResolution.x*2,cGameApp::m_svGameResolution.y*2);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x*2,cGameApp::m_spOpenGLRender->m_vGameResolution.y*2);
 
 		cMatrix44	l_matProjection;
-		//glhOrthof2((float*)l_matProjection.m, -cGameApp::m_svGameResolution.x/2, cGameApp::m_svGameResolution.x+cGameApp::m_svGameResolution.x/2, -cGameApp::m_svGameResolution.y/2, cGameApp::m_svGameResolution.y+cGameApp::m_svGameResolution.y/2, -10000, 10000);
+		//glhOrthof2((float*)l_matProjection.m, -cGameApp::m_spOpenGLRender->m_vGameResolution.x/2, cGameApp::m_spOpenGLRender->m_vGameResolution.x+cGameApp::m_spOpenGLRender->m_vGameResolution.x/2, -cGameApp::m_spOpenGLRender->m_vGameResolution.y/2, cGameApp::m_spOpenGLRender->m_vGameResolution.y+cGameApp::m_spOpenGLRender->m_vGameResolution.y/2, -10000, 10000);
 		//FATMING_CORE::SetupShaderViewProjectionMatrix(l_matProjection,true);
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 
 	if( m_pQuickLeaveButton )
 	{
@@ -469,7 +469,7 @@ void	cStageData::Render()
 	if(this->m_pBrakeImage)
 	{
 		UseShaderProgram();
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		m_pBrakeImage->Render();
 	}
 }
@@ -479,7 +479,7 @@ void	cStageData::DebugRender()
 	if(this->m_pFishBehaviorManager)
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		if( m_pUVAnimationImage )
 			m_pUVAnimationImage->DebugRender();
 		if( m_pFishingRodCamera )

@@ -1,7 +1,7 @@
-#ifndef _RESTRICT_VALUE_H_
-#define _RESTRICT_VALUE_H_
-
-#include "../XML/tinyxml.h"
+#pragma once
+#include "../../Common/Utility.h"
+#include "../../XML/XMLLoader.h"
+#include "../../Math/MathUtility.h"
 
 namespace FATMING_CORE
 {
@@ -248,4 +248,3 @@ namespace FATMING_CORE
 	};
 //end namespace FATMING_CORE
 }
-#endif

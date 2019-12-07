@@ -8,7 +8,7 @@ cHeartRecoverSelectGirlPhase::cHeartRecoverSelectGirlPhase(const char*e_strFileN
 	this->SetName(HEART_RECOVER_SELECTGIRL_PHASE_NAME);
 	m_iHeartLimit = 5;
 	this->m_strFileName = e_strFileName;
-	Vector4	l_vCollideRange(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	Vector4	l_vCollideRange(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	m_strNextPhaseName = HEART_RECOVER_PHASE_NAME;
 	m_pScroller = 0;
 	m_pBGMPDI = 0;
@@ -112,7 +112,7 @@ void	cHeartRecoverSelectGirlPhase::Init()
 	m_eUpdateType = eUT_SELECT_GIRL;
 	//
 	//cPuzzleImage*l_pPI = cGameApp::GetPuzzleImageByFileName(L"Image/Girl/ChoiceGirl.pi");
-//	m_pScroller = new c3DScroller(l_pPI,Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y));
+//	m_pScroller = new c3DScroller(l_pPI,Vector4(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y));
 	if(cBluffingGirlApp::m_spPlayerData->HeartCount() >= m_iHeartLimit)
 	{
 		cImageButton*l_pImageButton = (cImageButton*)m_pPraticeOrShakeSelection->GetObject(L"Shake");

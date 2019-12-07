@@ -1,7 +1,7 @@
 #include "stdAfx.h"
 #include "CoreDotNetTools.h"
 #include "../../Include/IL/il.h"
-#include "../Core/GameplayUT/StringCompress.h"
+#include "../Core/Common/BinaryFile/StringCompress.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 namespace DNCT
 {

@@ -3,7 +3,7 @@
 //#include "SimplePrimitive.h"
 //#include "../Common/Utility.h"
 //#include "BinaryToTexture.h"
-//#include "../GameplayUT/GameApp.h"
+#include "../../GameplayUT/GameApp/GameApp.h"
 //#include "../GameplayUT/BinaryFile.h"
 #include "png/pngLoader.h"
 #include "dds/nv_images.h"
@@ -15,8 +15,8 @@
 #import <UIKit/UIImage.h>
 #import <UIKit/UIImagePickerController.h>
 #elif defined(ANDROID)
-#include "../Android/nv_images.h"
-#include "./Android/JNIUtil.h"
+#include "../../../Android/nv_images.h"
+#include "../.././Android/JNIUtil.h"
 #elif defined(LINUX)
 //#include "IL/il.h"//linux
 #endif

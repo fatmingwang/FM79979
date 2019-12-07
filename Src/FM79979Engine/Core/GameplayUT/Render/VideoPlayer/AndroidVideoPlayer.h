@@ -1,9 +1,7 @@
-//#ifdef USE_OPEN_CV
-
-#ifndef	_ANDROID_VIDEO_PLAYER_H_
-#define	_ANDROID_VIDEO_PLAYER_H_
-#include "../Synchronization/FUSynchronized.h"
-#include "../Synchronization/FUThreadPool.h"
+#pragma once
+#include "../../../AllCommonInclude.h"
+#include "../../../Synchronization/FUSynchronized.h"
+#include "../../../Synchronization/FUThreadPool.h"
 	//from windows opencv
 	//#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
 	//#pragma comment(lib, "../../..//lib/opencv_core249.lib")
@@ -106,7 +104,4 @@
 		//delete it after use
 		cBaseImage*					GetLastFrameImage();
 	};
-//end	_ANDROID_VIDEO_PLAYER_H_
-#endif
 //USE_OPEN_CV
-//#endif

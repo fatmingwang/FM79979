@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MPDI.h"
 #include "../../../Include/IL/il.h"
-#include "../../Core/GameplayUT/StringCompress.h"
+#include "../../Core/Common/BinaryFile/StringCompress.h"
 #include "DotMPDICamera.h"
 namespace MPDI
 {
@@ -94,7 +94,7 @@ namespace MPDI
 			{
 				static int ll = 0;++ll;
 				String^l_strtt = ll.ToString()+"test.png";
-				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt).c_str());
+				SaveCurrentBufferToImage(DNCT::GcStringToChar(l_strtt).c_str(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 				l_pBitmap->Save(l_strtt);
 			}
 		}

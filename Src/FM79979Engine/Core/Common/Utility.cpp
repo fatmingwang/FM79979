@@ -2,6 +2,7 @@
 #include "assert.h"
 #include "Utility.h"
 #include "Log/FMLog.h"
+#include "../Common/CommonApp.h"
 //#include "../GameplayUT/GameApp.h"
 //#include "../GameplayUT/Log/FMLog.h"
 #include <errno.h>
@@ -163,7 +164,7 @@ namespace UT
 	void	ErrorMsg(const wchar_t*e_strErrMsg1,const wchar_t*e_strErrMsg2)
 	{
 #if defined(WIN32)
-		if( FMLog::m_siShowErrorType == 1)
+		if( FMLog::g_siLogShowErrorType == 1)
 		{
 			try
 			{
@@ -186,7 +187,7 @@ namespace UT
 				int a=0;
 			}
 		}
-		if (FMLog::m_siShowErrorType == 2)
+		if (FMLog::g_siLogShowErrorType == 2)
 		{
 			std::wstring	l_str = L"Error:";
 			l_str += e_strErrMsg1;
@@ -195,12 +196,12 @@ namespace UT
 			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		}
 		else
-		if( FMLog::m_spstrErrorMsgString )
+		if( FMLog::g_spstrLogErrorMsgString )
 		{
-			*FMLog::m_spstrErrorMsgString += e_strErrMsg1;
-			*FMLog::m_spstrErrorMsgString += L"  ";
-			*FMLog::m_spstrErrorMsgString += e_strErrMsg2;
-			*FMLog::m_spstrErrorMsgString += L"\n";
+			*FMLog::g_spstrLogErrorMsgString += e_strErrMsg1;
+			*FMLog::g_spstrLogErrorMsgString += L"  ";
+			*FMLog::g_spstrLogErrorMsgString += e_strErrMsg2;
+			*FMLog::g_spstrLogErrorMsgString += L"\n";
 			SystemErrorCheck();
 		}
 #else
@@ -746,10 +747,10 @@ namespace UT
 		if( !fp )
 		{
 			//try external sd card first
-			if(cGameApp::m_spExternalSDDirectory)
+			if(cCommonApp::m_spExternalSDDirectory)
 			{
-				std::string l_strFileName = *cGameApp::m_spExternalSDDirectory;
-				l_strFileName += *cGameApp::m_psstrGameAppName;
+				std::string l_strFileName = *cCommonApp::m_spExternalSDDirectory;
+				l_strFileName += *cCommonApp::m_psstrGameAppName;
 				l_strFileName += "/";
 				l_strFileName += e_strFileName;
 				if( l_bWrite )
@@ -760,7 +761,7 @@ namespace UT
 			}
 			//try write file into
 			std::string l_strFileName = "/sdcard/";
-			l_strFileName += *cGameApp::m_psstrGameAppName;
+			l_strFileName += *cCommonApp::m_psstrGameAppName;
 			l_strFileName += "/";
 			l_strFileName += e_strFileName;
 			//I am lazy to do recursive mkdir,so here may not working
@@ -769,9 +770,9 @@ namespace UT
 			fp = NvFOpen(l_strFileName.c_str(),e_strMode);
 			if( !fp )
 			{//write into internal memory
-				l_strFileName = cGameApp::m_spInternalDirectory->c_str();
+				l_strFileName = cCommonApp::m_spInternalDirectory->c_str();
 				l_strFileName += "/";	
-				l_strFileName += *cGameApp::m_psstrGameAppName;
+				l_strFileName += *cCommonApp::m_psstrGameAppName;
 				l_strFileName += "/";
 				l_strFileName += e_strFileName;
 				if( l_bWrite )
@@ -1163,8 +1164,7 @@ namespace UT
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d_%m_%Y_%H_%M_%S",tm);
 
-		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
-		return l_str;
+		return FATMING_CORE::ValueToStringW(buf);
 //#ifdef WIN32
 //		SYSTEMTIME l_st;
 ////		GetSystemTime(&l_st);
@@ -1211,8 +1211,7 @@ namespace UT
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S",tm);
 
-		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
-		return l_str;
+		return FATMING_CORE::ValueToStringW(buf);
 	}
 #if defined(WIN32)
 //#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }
@@ -1421,20 +1420,6 @@ namespace UT
 			e_strBuffer[0] = '0';
 			e_strBuffer[1] = '\0';
 		}
-	}
-
-
-	POINT			GetScreenResolution()
-	{
-#ifdef WIN32
-		POINT	l_ScreenResolution = {GetSystemMetrics(SM_CXSCREEN),
-			GetSystemMetrics(SM_CYSCREEN)};
-		return l_ScreenResolution;
-#else
-		POINT	l_ScreenResolution = {(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y};
-		return l_ScreenResolution;
-#endif
-
 	}
 
 //end namespace UT

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "../../Core/Terrain/ShockBoobsPainter.h"
 #include "HeartRecoverPhase.h"
 #include "AllPhaseDefine.h"
 #include "BluffingGirlApp.h"
@@ -233,7 +232,7 @@ void	cHeartRecoverPhase::Update(float e_fElpaseTime)
 							l_vNewDirection.NormalizeIt();
 							l_vNewDirection.x *= cGameApp::m_sfForce*30;
 							l_vNewDirection.y *= cGameApp::m_sfForce*30;
-							POINT	l_QuaterResolution = {(int)cGameApp::m_svGameResolution.x/4,(int)cGameApp::m_svGameResolution.y/4};
+							POINT	l_QuaterResolution = {(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/4,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/4};
 							POINT	l_OldPos = {(int)(l_QuaterResolution.x*m_vLastTimeDirection.x),(int)(l_QuaterResolution.y*m_vLastTimeDirection.y)};
 							POINT	l_NewPos = {(int)(l_vNewDirection.x*l_QuaterResolution.x),(int)(l_vNewDirection.y*l_QuaterResolution.y)};
 							DoShock(l_OldPos.x,l_OldPos.y,l_NewPos.x,l_NewPos.y);
@@ -420,7 +419,7 @@ void	cHeartRecoverPhase::DoShock(int e_iPointX1,int e_iPointY1,int e_iPointX2,in
 	POINT	l_TouchUpPos = {e_iPointX2-e_iPointX1,e_iPointY2-e_iPointY1};
 	Vector2	l_vNewDirection(e_iPointX2,e_iPointY2);
 	Vector2	l_vMoveDirection = l_vNewDirection-Vector2(e_iPointX1,e_iPointY1);
-	Vector2	l_vMaximum = cGameApp::m_svGameResolution;
+	Vector2	l_vMaximum = cGameApp::m_spOpenGLRender->m_vGameResolution;
 	float	l_fMoveLength = l_vMoveDirection.Length();
 #ifdef ANDROID
 	//if( l_fMoveLength > l_vMaximum.Length()/100.f)
@@ -434,12 +433,12 @@ void	cHeartRecoverPhase::DoShock(int e_iPointX1,int e_iPointY1,int e_iPointX2,in
 			else
 			if( m_pShockBoobsPainter->IsShockDone() )
 				m_fLastBigStregth = 0.f;
-			if( l_vMoveDirection.x > cGameApp::m_svGameResolution.x/2 )				l_vMoveDirection.x = cGameApp::m_svGameResolution.x/2;
-			if( l_vMoveDirection.x < -cGameApp::m_svGameResolution.x/2 )				l_vMoveDirection.x = -cGameApp::m_svGameResolution.x/2;
-			if( l_vMoveDirection.y > cGameApp::m_svGameResolution.y/2 )				l_vMoveDirection.y = cGameApp::m_svGameResolution.y/2;
-			if( l_vMoveDirection.y < -cGameApp::m_svGameResolution.y/2 )				l_vMoveDirection.y = -cGameApp::m_svGameResolution.y/2;
-			m_pShockBoobsPainter->MouseDown((int)cGameApp::m_svGameResolution.x/2,(int)cGameApp::m_svGameResolution.y/2);
-			m_pShockBoobsPainter->MouseUp((int)(cGameApp::m_svGameResolution.x/2+l_vMoveDirection.x*l_iMultiplyValue),(int)(cGameApp::m_svGameResolution.y/2+l_vMoveDirection.y*l_iMultiplyValue));
+			if( l_vMoveDirection.x > cGameApp::m_spOpenGLRender->m_vGameResolution.x/2 )				l_vMoveDirection.x = cGameApp::m_spOpenGLRender->m_vGameResolution.x/2;
+			if( l_vMoveDirection.x < -cGameApp::m_spOpenGLRender->m_vGameResolution.x/2 )				l_vMoveDirection.x = -cGameApp::m_spOpenGLRender->m_vGameResolution.x/2;
+			if( l_vMoveDirection.y > cGameApp::m_spOpenGLRender->m_vGameResolution.y/2 )				l_vMoveDirection.y = cGameApp::m_spOpenGLRender->m_vGameResolution.y/2;
+			if( l_vMoveDirection.y < -cGameApp::m_spOpenGLRender->m_vGameResolution.y/2 )				l_vMoveDirection.y = -cGameApp::m_spOpenGLRender->m_vGameResolution.y/2;
+			m_pShockBoobsPainter->MouseDown((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/2);
+			m_pShockBoobsPainter->MouseUp((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2+l_vMoveDirection.x*l_iMultiplyValue),(int)(cGameApp::m_spOpenGLRender->m_vGameResolution.y/2+l_vMoveDirection.y*l_iMultiplyValue));
 			m_NexShackTime.Start();
 			l_fMoveLength/=l_vMaximum.Length();
 			float	l_fAddValue = l_fMoveLength*m_fShockAddStrgeth;

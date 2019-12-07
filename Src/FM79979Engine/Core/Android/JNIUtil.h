@@ -1,8 +1,9 @@
 #ifdef ANDROID
 
-#ifndef _JNI_UTIL_H_
-#define _JNI_UTIL_H_
+#pragma once
 #include "jni.h"
+#include <string>
+#include "../Math/Vector4.h"
 namespace FATMING_CORE
 {
 	struct sJNIUtilData
@@ -36,7 +37,7 @@ namespace FATMING_CORE
 	//"util/Define","OpenKeyBoard","()V"
 	//"util/Define","CloseKeyBoard","()V"
 	std::wstring JavaToWchar(JNIEnv *env, jstring string);
-	jstring WcharToJava(JNIEnv *env,const WCHAR*e_str);
+	jstring WcharToJava(JNIEnv *env,const wchar_t*e_str);
 	//https://stackoverflow.com/questions/16667029/a-correct-way-to-convert-byte-in-java-to-unsigned-char-in-c-and-vice-versa
 	jbyteArray unsigned_array_to_jbyteArray(unsigned char* buf, int len,JNIEnv*e_pJNIEnv);
 	unsigned char* jbyteArray_to_unsigned_char_array(jbyteArray array, JNIEnv*e_pJNIEnv);
@@ -50,7 +51,5 @@ namespace FATMING_CORE
 	bool	AndroidShowDialog(const char* title, const char *contents);
 //end namespace FATMING_CORE
 }
-//end	_JNI_UTIL_H_
-#endif
 //end	ANDROID
 #endif

@@ -127,7 +127,7 @@ namespace FATMING_CORE
 	wchar_t*STATIC_MESH_SHADER = L"MeshShader";
 	//pos,normal,bone,weight,tex
 	wchar_t*SKINNING_MESH_SHADER = L"SkinningMeshShader";
-	//precision mediump is not support in the MACbook Air.....fuck
+	//precision medium is not support in the MACbook Air.....fuck
 	//and iphone shader should use lowp instead dsclare precision mediump ,
 	//because mesh shader occur crash......fuck.
 	//for opengl es1 compatibility,so we need color vertex buffer

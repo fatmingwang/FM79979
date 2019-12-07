@@ -6,7 +6,7 @@
 #include "../../../Include/IL/il.h"
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
-#include "../../Core/GameplayUT/StringCompress.h"
+#include "../../Core/Common/BinaryFile/StringCompress.h"
 
 //#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")

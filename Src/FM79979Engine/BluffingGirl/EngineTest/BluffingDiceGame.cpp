@@ -515,8 +515,8 @@ void	cBluffingDiceGame::GameRestartInit()
 	}
 	if( m_pBGImage )
 	{
-		m_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
-		m_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+		m_pBGImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
+		m_pBGImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	//
 	cGameApp::m_sTimeAndFPS.Update();
@@ -577,8 +577,8 @@ void	cBluffingDiceGame::Init()
 	m_pBGImage = new cBaseImage(UT::WcharToChar(m_strBGFileName).c_str());
 	if( m_pBGImage )
 	{
-		m_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
-		m_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+		m_pBGImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
+		m_pBGImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	}
 	//
 	//

@@ -126,8 +126,7 @@ void	NamedTypedObject::SetupInternalData()
 
 std::string	NamedTypedObject::GetCharName()
 {
-	std::string	l_str = FATMING_CORE::ValueToString(m_sObjectName);
-	return l_str;
+	return FATMING_CORE::ValueToString(m_sObjectName);
 }
 
 void NamedTypedObject::SetName( const char*e_pString )

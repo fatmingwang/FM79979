@@ -150,7 +150,7 @@ namespace XMLDataEditor {
 			 {
 				std::string	l_str = DNCT::GcStringToChar(InputData_textBox->Text);
 
-				std::wstring	lll = EncodeStringToValue(DNCT::GcStringToWchar(InputData_textBox->Text),L",");
+				std::wstring	lll = EncodeStringToValue(DNCT::GcStringToWchar(InputData_textBox->Text).c_str(),L",");
 				Result_textBox->Text = String(lll.c_str()).ToString();
 				return ;
 				unsigned char *pDes;
@@ -178,7 +178,7 @@ namespace XMLDataEditor {
 
 private: System::Void Decode_button_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 std::wstring	llll = DecodeStringFromeValue(DNCT::GcStringToWchar(InputData_textBox->Text),L",");
+			 std::wstring	llll = DecodeStringFromeValue(DNCT::GcStringToWchar(InputData_textBox->Text).c_str(),L",");
 			 Result_textBox->Text = String(llll.c_str()).ToString();
 			 return;
 			 

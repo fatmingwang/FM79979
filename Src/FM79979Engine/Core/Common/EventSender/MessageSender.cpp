@@ -233,7 +233,7 @@ return false;
 		}
 		else
 		{
-			FMLog::LogWithFlag(UT::ComposeMsgByFormat("fuck no one process this message %d\n", e_usID).c_str(), CORE_LOG_FLAG);
+			FMLog::LogWithFlag(UT::ComposeMsgByFormat("no one process this message %d\n", e_usID).c_str(), CORE_LOG_FLAG);
 		}
 		return false;
 	}

@@ -1,6 +1,6 @@
-#ifndef _LIST_VALUE_CHANGER_H_
-#define _LIST_VALUE_CHANGER_H_
-
+#pragma once
+#include "../../Common/Utility.h"
+#include "../../XML/XMLLoader.h"
 namespace FATMING_CORE
 {
 	//<cListValueChanger DataType="int" Data="0,1,2,3,4,5" />
@@ -301,4 +301,3 @@ namespace FATMING_CORE
 
 //end FATMING_CORE
 }
-#endif

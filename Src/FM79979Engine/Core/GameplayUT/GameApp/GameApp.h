@@ -3,11 +3,12 @@
 #if defined(ANDROID)
 #include <jni.h>
 #include <android/native_activity.h>
-#include "../Android/nv_native_app_glue.h"
-#include "../Android/nv_egl_util.h"
+#include "../../Android/nv_native_app_glue.h"
+#include "../../Android/nv_egl_util.h"
+#include "../../Android/JNIUtil.h"
 #endif
 #include "../../Common/CommonApp.h"
-#include "../../OpenGL/OpenGLRender.h"
+#include "../OpenGL/OpenGLRender.h"
 #include "../../Common/Template/TemplateClass.h"
 #include "../GameUTDefine.h"
 //for android
@@ -54,10 +55,6 @@ namespace	FATMING_CORE
 		void						RenderPause();
 		//static objects
 #if defined(ANDROID)
-		static	std::string*		m_spAPKPath;
-		static	std::string*		m_spInternalDirectory;//system
-		static	std::string*		m_spExternalDirectory;//internal sd
-		static	std::string*		m_spExternalSDDirectory;//external sd
 		static  JNIEnv*				m_spThreadEnv;
 		static  ANativeActivity*	m_spANativeActivity;
 		static	jobject*			m_spAppThreadThis;
@@ -85,14 +82,13 @@ namespace	FATMING_CORE
 		//0-40(or bigger depend on device)????what is this?
 		static  float												m_sfForce;
 		static	bool												m_sbFullScreen;
-		static	eDeviceDirection									m_seDeviceDirection;
 		//will be effect by key + and -,so keep - and + reserved
 		static	float												m_sfGameSpeedValue;
 		//if true it will control by key + and -
 		static	bool												m_sbSpeedControl;
 		//=================================================
+		static	void												CreateDefaultOpenGLRender();
 		static	void												ResoluctionParse(const char*e_strFileName);
-		static	Vector2												GetViewPortAndGameResolutionScale();
 		static	void												ApplyViewPort();
 		static	class cPuzzleImage*									GetPuzzleImage(const wchar_t*e_strName);
 		static	class cBaseImage*									GetBaseImage(const wchar_t*e_strName);
@@ -139,6 +135,7 @@ namespace	FATMING_CORE
 		static	std::wstring										GetDIDOrInstallationRandomID();
 	};
 	//end namespace
+	POINT					GetScreenResolution();
 }
 
 #ifdef WIN32

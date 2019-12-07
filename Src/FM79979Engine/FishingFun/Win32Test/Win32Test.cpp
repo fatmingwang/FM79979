@@ -33,7 +33,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
  	// TODO: Place code here.
 	MSG msg;
 	//HACCEL hAccelTable;
-
+	cGameApp::CreateDefaultOpenGLRender();
 	// Initialize global strings
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_TEST, szWindowClass, MAX_LOADSTRING);
@@ -45,7 +45,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		return FALSE;
 	}
 	cGameApp::m_sbDebugFunctionWorking = true;
-	g_pGameApp = new cFishingFunApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+	g_pGameApp = new cFishingFunApp(g_hWnd,cGameApp::m_spOpenGLRender->m_vGameResolution,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	g_pGameApp->Init();
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
@@ -120,16 +120,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 	bool	l_bFullScreen = false;
 	cNodeISAX	l_NodeISAX;
-	cGameApp::m_svViewPortSize.x = 1024.;
-	cGameApp::m_svViewPortSize.y = 768.f;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
 	cGameApp::ResoluctionParse("EngineTestSetup.xml");
-	cGameApp::m_svGameResolution.x = 720.f;
-	cGameApp::m_svGameResolution.y = 1280.f;
+	cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720.f;
+	cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280.f;
 
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)
 		l_dwFlag = WS_VISIBLE | WS_POPUP |	WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
-	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_svViewPortSize.Width(), (int)cGameApp::m_svViewPortSize.Height(), NULL, NULL, hInstance, NULL);
+	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height(), NULL, NULL, hInstance, NULL);
 
 	if (!g_hWnd)
 	{
@@ -155,15 +155,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 POINT g_MousePosition;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	float   l_fScaleX = cGameApp::m_svGameResolution.x/cGameApp::m_svViewPortSize.x;
-	float   l_fScaleY = cGameApp::m_svGameResolution.y/cGameApp::m_svViewPortSize.y;
+	float   l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+	float   l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
 	
 	bool	l_sbMouseTouched = (GetKeyState(VK_LBUTTON) & 0x100)?true:false;
 	switch (message)
 	{
 	case  WM_SIZE:
-		cGameApp::m_svViewPortSize.z = (float)LOWORD(lParam);
-		cGameApp::m_svViewPortSize.w = (float)HIWORD(lParam);
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)LOWORD(lParam);
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)HIWORD(lParam);
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )

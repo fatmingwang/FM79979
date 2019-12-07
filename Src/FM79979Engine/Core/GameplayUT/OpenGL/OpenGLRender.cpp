@@ -13,6 +13,8 @@ namespace FATMING_CORE
 {
 	extern cBaseShader*	g_pCurrentShader;
 	bool				cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
+	std::vector<int>*	cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
+	float				cOpenGLRender::m_sfOpenGLVersion = 0.f;
 #if defined(WIN32)
 	////#if defined(ANDROID) || defined(IOS) 
 	//eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_PORTRAIT;
@@ -22,20 +24,16 @@ namespace FATMING_CORE
 	////#else
 	////eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
 	////#endif
-	cOpenGLRender::cOpenGLRender(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize, bool e_bMultiSample)
+	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 	{
 		m_vGameScale = Vector2(1, 1);
 		m_vBGColor = Vector4(0.1f, 0.1f, 0.1f, 1.f);
 		m_vViewPortSize = e_vViewportSize;
 		m_vDeviceViewPortSize = e_vViewportSize;
 		m_eDeviceDirection = eDeviceDirection::eDD_PORTRAIT;
-		m_sMultisample = e_bMultiSample;
-		if (e_Hwnd)
-		{
-			m_Hdc = GetDC(e_Hwnd);
-			m_HGLRC = InitOpenGL(e_Hwnd, true, m_Hdc, e_bMultiSample);
-			m_Handle = e_Hwnd;
-		}
+		m_Hdc = nullptr;
+		m_HGLRC = nullptr;
+		m_Handle = nullptr;
 	}
 #else
 	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
@@ -50,26 +48,43 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_piSupportCompressedFormatVector);
 		DeleteAllShader();
 	}
+#ifdef WIN32
 	extern bool g_bVBOSupported;
-	void cOpenGLRender::Init()
+	void cOpenGLRender::Init(HWND e_Hwnd, bool e_bMultiSample)
 	{
-		g_bVBOSupported = true;
-		glUseProgram(0);
-		//#else
-		//		glEnableClientState(GL_VERTEX_ARRAY);
-		//#endif
-		FMLog::LogWithFlag("init shader start", CORE_LOG_FLAG, true);
-		//2d image shader
-		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
-		//for non texture shader
-		CreateShader(g_bCommonVSNoTextureClientState, NO_TEXTURE_SHADER);
+		m_sMultisample = e_bMultiSample;
+		if (e_Hwnd)
+		{
+			m_Hdc = GetDC(e_Hwnd);
+			FMLog::LogWithFlag("init openGL", CORE_LOG_FLAG, true);
+			m_HGLRC = InitOpenGL(e_Hwnd, true, m_Hdc, e_bMultiSample);
+			if(m_HGLRC)
+				FMLog::LogWithFlag("openGL Created.", CORE_LOG_FLAG, true);
+			else
+				FMLog::LogWithFlag("openGL create failed.", CORE_LOG_FLAG, true);
+			m_Handle = e_Hwnd;
+		}
+		if (m_HGLRC)
+		{
+			g_bVBOSupported = true;
+			glUseProgram(0);
+			//#else
+			//		glEnableClientState(GL_VERTEX_ARRAY);
+			//#endif
+			FMLog::LogWithFlag("init shader start", CORE_LOG_FLAG, true);
+			//2d image shader
+			CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
+			//for non texture shader
+			CreateShader(g_bCommonVSNoTextureClientState, NO_TEXTURE_SHADER);
 
-		CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
-		//if crush go to char*g_strMySkinningMeshVS = "
-		//fin matBones[32] and change its size...
-		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
-		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
-}
+			CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
+			//if crush go to char*g_strMySkinningMeshVS = "
+			//fin matBones[32] and change its size...
+			//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
+			FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
+		}
+	}
+#endif
 	void	DumpGraphicsInfo()
 	{
 		std::wstring	l_str;
@@ -191,7 +206,7 @@ namespace FATMING_CORE
 			l_Pos.y = e_ViewPort.x - e_iPosX;
 			break;
 		default:
-			assert(0 && "ConvertCoordinate fuck");
+			assert(0 && "cOpenGLRender::ConvertCoordinate switch not in range");
 			break;
 		}
 		l_Pos.x = (int)(l_Pos.x - m_vViewPortSize.x);
@@ -203,7 +218,18 @@ namespace FATMING_CORE
 
 	Vector2 cOpenGLRender::GetViewPortAndGameResolutionScale()
 	{
-		return Vector2();
+		switch (m_eDeviceDirection)
+		{
+		case eDD_PORTRAIT:
+		case eDD_UPSIDE_DOWN:
+			return Vector2(m_vGameResolution.x / m_vViewPortSize.Width(), m_vGameResolution.y / m_vViewPortSize.Height());
+		case eDD_LANDSCAPE_LEFT:
+		case eDD_LANDSCAPE_RIGHT:
+			return Vector2(m_vGameResolution.x / m_vViewPortSize.Height(),m_vGameResolution.y / m_vViewPortSize.Width());
+		default:
+			break;
+		}
+		return Vector2(1, 1);
 	}
 
 	bool cOpenGLRender::IsCompressedFormatSupport(int e_iFormat)

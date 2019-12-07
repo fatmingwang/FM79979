@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "ListValueChanger.h"
 namespace FATMING_CORE
 {

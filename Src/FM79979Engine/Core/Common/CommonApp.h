@@ -33,7 +33,15 @@ namespace	FATMING_CORE
 		static  float												m_sfVersion;
 		//if true game exit
 		static	bool												m_sbLeave;
-
+		//android
+#if defined(ANDROID)
+		static	std::string*		m_spAPKPath;
+		static	std::string*		m_spInternalDirectory;//system
+		static	std::string*		m_spExternalDirectory;//internal sd
+		static	std::string*		m_spExternalSDDirectory;//external sd
+#endif
+		cCommonApp();
+		~cCommonApp();
 		virtual	void												Update(float e_fElpaseTime);
 		//
 			//GAME_PAUSE_EVENT_ID	-123456789 is game pause
@@ -41,39 +49,3 @@ namespace	FATMING_CORE
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize);
 	};
 }
-
-//bool    											cGameApp::m_bMouseHover = false;;
-//bool												cGameApp::m_sbTouched = false;
-//bool												cGameApp::m_sbGamePause = false;
-//float												cGameApp::m_sfOpenGLVersion = 2.f;
-//POINT												cGameApp::m_sMousePosition = { 0,0 };
-//POINT												cGameApp::m_sScreenMousePosition = { 0,0 };
-//bool												cGameApp::m_sbMouseClickStatus[3] = { false,false,false };
-//short												cGameApp::m_sMouseWhellDelta = 0;
-//Vector4												cGameApp::m_spOpenGLRender->m_vViewPortSize(0.f, 0.f, 1920.f, 1080.f);
-//Vector4												cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize(0.f, 0.f, 1920.f, 1080.f);
-//float												cGameApp::m_sfVersion = 1.f;
-//bool												cGameApp::m_sbLeave = false;
-//UT::sTimeAndFPS										cGameApp::m_sTimeAndFPS;
-//std::vector<int>*									cGameApp::m_piSupportCompressedFormatVector = nullptr;;
-//cMessageSenderManager*								cGameApp::m_spMessageSenderManager = nullptr;
-//bool												cGameApp::m_sucKeyData[MAX_PATH];
-//bool												cGameApp::m_sbEnableMouseSingnal = true;
-//bool												cGameApp::m_sbEnableKeyboardSingnal = true;
-//bool												cGameApp::m_sbDebugFunctionWorking = false;
-//bool												cGameApp::m_sbAllowParseBinaryFile = true;
-//std::string*										cGameApp::m_psstrGameAppName = 0;
-
-//bool	cGameApp::EventMessageShot(unsigned int e_usID, void*e_pData)
-//{
-//	if (m_spMessageSenderManager)
-//		return m_spMessageSenderManager->EventMessageShot(e_usID, e_pData);
-//	return false;
-//}
-//
-//bool	cGameApp::EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize)
-//{
-//	if (m_spMessageSenderManager)
-//		return m_spMessageSenderManager->EventMessageShot(e_usID, (char*)e_pData, e_iDataSize);
-//	return false;
-//}

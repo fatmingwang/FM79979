@@ -8,13 +8,11 @@
 
 
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
-#include "../../Core/FatmingCollada/AllColladaInclude.h"
 #include "AllPhaseDefine.h"
 //#ifdef WIN32
 //#include "../../Core/AVIPlayer/ffmpegPreinclude.h"
 //#include "../../Core/AVIPlayer/FFMpegPlayer.h"
-#include "../../Core/AVIPlayer/AndroidVideoPlayer.h"
+#include "../../Core/GameplayUT/Render/VideoPlayer/AndroidVideoPlayer.h"
 #include "MainFunctionButton.h"
 #include "../../Core/Network/Network.h"
 //#endif

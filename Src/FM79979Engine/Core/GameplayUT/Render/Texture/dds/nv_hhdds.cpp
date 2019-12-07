@@ -19,7 +19,8 @@
 //
 //----------------------------------------------------------------------------------
 
-#include "../../stdafx.h"
+
+#include "../../../OpenGL/Glh.h"
 #include "nv_global.h"
 
 #include "nv_hhdds.h"

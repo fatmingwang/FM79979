@@ -19,7 +19,7 @@ cChoiceGirlStagePhase::cChoiceGirlStagePhase()
 	m_pIntoGamePhasePopUpMessager = 0;
 	m_iLatestGameCouldBePlay = -1;
 	m_eSelectStageTYpe = eSST_SELECT_STAGE;
-	Vector4	l_vCollideRange(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	Vector4	l_vCollideRange(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	m_pScroller = 0;
 	m_pChoiceGirlStagePI = 0;
 	m_strCurrentSelectedGirlNameAndStageName = L"";

@@ -29,14 +29,13 @@ namespace FATMING_CORE
 		//cCameraBehaveByMouseBehave*	m_pCameraBehaveByMouseBehave;//for perspective camera
 		struct	sAxisCamera
 		{
-			cFrameCamera			FrameCamera;
+			cFrameCamera				FrameCamera;
 			cCameraBehaveByMouseBehave*	pCameraBehaveByMouseBehave;
-			cOrthogonalCamera		OrthogonalCamera;
+			cOrthogonalCamera			OrthogonalCamera;
 			sAxisCamera(){ pCameraBehaveByMouseBehave = new cCameraBehaveByMouseBehave(&FrameCamera); }
 			~sAxisCamera(){ SAFE_DELETE(pCameraBehaveByMouseBehave); }
 		};
 		sAxisCamera					m_sAxisCamera[4];//xyz,original
-		//RenderCallback*			m_pRenderFunction;			   //fuck I am lazy do implement this
 		float						m_fDistanceToOriginalPoint;
 	public:
 		cSplitScreenCamera();

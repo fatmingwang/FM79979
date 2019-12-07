@@ -13,7 +13,7 @@ namespace FATMING_AI
 		m_fDirectionOffsetY = Vector2(-0.1f,0.1f);
 		m_fLeaveAwayProbability = 0.05f;
 		m_iDistanceChangePoint = Vector2(3,5);
-		m_vWall = Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		m_vWall = Vector4(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		m_CurveWithTime.SetCalAngle(true);
 		AI_PARSE_NAME_VALUE_START
 			COMPARE_NAME("Wall")

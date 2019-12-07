@@ -82,7 +82,7 @@ void	cPlayerData::Render()
 {
 	if( m_pNumeralImage )
 	{
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		m_pNumeralImage->Draw(this->m_i64Gold,(int)m_vGoldShowPos.x,(int)m_vGoldShowPos.y);
 		m_pNumeralImage->Draw(this->m_i64Money,(int)m_vMonetShowPos.x,(int)m_vMonetShowPos.y);
 		m_pNumeralImage->Draw(this->m_i64Reel,(int)m_vReelShowPos.x,(int)m_vReelShowPos.y);

@@ -155,7 +155,7 @@ void	cMainMenuPhase::Update(float e_fElpaseTime)
 //it would be called if the stage is changed.
 void	cMainMenuPhase::Render()
 {
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	if( m_pBGMPDI )
 		m_pBGMPDI->Render();
 	m_SelectionButton.Render();

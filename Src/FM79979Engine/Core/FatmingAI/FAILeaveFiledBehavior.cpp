@@ -11,7 +11,7 @@ namespace FATMING_AI
 		m_CurveWithTime.SetCalAngle(true);
 		int	l_iPathLOD = 3;
 		m_fSpeed = 1.f;
-		m_vWall = Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		m_vWall = Vector4(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		AI_PARSE_NAME_VALUE_START
 			COMPARE_NAME("Wall")
 			{

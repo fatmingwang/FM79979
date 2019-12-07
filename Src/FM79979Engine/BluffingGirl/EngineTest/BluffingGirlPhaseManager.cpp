@@ -32,6 +32,7 @@ void	cBluffingGirlPhaseManager::Update(float	e_fElpaseTime)
 					m_iCurrentPhase = GetObjectIndexByName(l_strLastPhaseName);
 					l_pSimplePhase = m_ObjectList[m_iCurrentPhase];
 					l_pSimplePhase->SetSatisfiedCondition(false);
+					m_pCurrentWorkingObject = l_pSimplePhase;
 					return;				
 				}
 				const WCHAR*l_strName = l_pSimplePhase->GetNextPhaseName();

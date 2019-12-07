@@ -85,7 +85,6 @@ namespace UT
 	//void					CharToWchar(char *e_strSrc,wchar_t*e_strDest);
 	std::wstring			CharToWchar(const char *e_strChar);
 	std::wstring			CharToWchar(std::string	e_strChar);
-	POINT					GetScreenResolution();
 	//a vector contain a bunch data,now input a index it is possible bigger than last index or smaller 0,
 	//so we have to find the proper one if we want it be loop
 	int						GetLoopIndex(int e_iIndex,int e_iTotalCount);

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameApp.h"
-#include "../../Core/OpenGL/GLSL/ToneMapping.h"
-#include "../../Core/OpenGL/GLSL/TunnelEffect.h"
+#include "../../Core/GameplayUT/OpenGL/GLSL/ToneMapping.h"
+#include "../../Core/GameplayUT/OpenGL/GLSL/TunnelEffect.h"
 #include "TestShader.h"
 
 #include "../../Core/Bluetooth/Bluetooth.h"
@@ -223,7 +223,7 @@ void	LoadSample()
 #endif
 	if (l_pSound)
 		l_pSound->Play(true);
-	POINT l_Size = { (int)cGameApp::m_svGameResolution.x/8,(int)cGameApp::m_svGameResolution.y/8 };
+	POINT l_Size = { (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/8,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/8 };
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
 	//	"shader/DownSample.vs","shader/DownSample.ps",
@@ -234,8 +234,8 @@ void	LoadSample()
 	//g_pTestShader = cTestShader::CreateShader("shader/test.vs", "shader/test.ps", L"MyTest");;
 	//g_pBGImage = new cBaseImage("DownloadFont.png");
 	//g_pBGImage = new cBaseImage("MyFMBook/iPhone_Monster/MPDI/Coveer_2.png");
-	//g_pBGImage->SetWidth((int)cGameApp::m_svGameResolution.x);
-	//g_pBGImage->SetHeight((int)cGameApp::m_svGameResolution.y);
+	//g_pBGImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
+	//g_pBGImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
 	//g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
@@ -325,7 +325,7 @@ void	LoadSample()
 			g_pCurve->Init();
 		}
 	}
-	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_svGameResolution);
+	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	//
 	//g_pTestCurveWithTime = new cCurveWithTime();
 	if (g_pTestCurveWithTime)
@@ -438,7 +438,7 @@ void	SampleUpdate(float e_fElpaseTime)
 		g_pPrtEmitter->Update(e_fElpaseTime);
 	if( g_pParticleEmitterGroup )
 		g_pParticleEmitterGroup->Update(e_fElpaseTime);
-	Vector2	l_vViewPort(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+	Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	if(g_pOrthogonalCamera)
 		g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
 	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
@@ -503,7 +503,7 @@ void	SampleRender()
 	{
 		g_pFrameBuffer->StartDraw();
 	}
-	//glEnable2D(cGameApp::m_svGameResolution.x, cGameApp::m_svGameResolution.y);
+	//glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//KeyboardDataRender();
 	if( g_pTunnelEffect )
 	{
@@ -517,27 +517,27 @@ void	SampleRender()
 	}	
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->StartDraw();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	if( g_pBGImage && g_pTunnelEffect )
 	{
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2*0.1f,0.f,0.f));
-		g_pBGImage->SetWidth((int)(cGameApp::m_svGameResolution.x/2*0.8));
-		g_pBGImage->SetHeight((int)(cGameApp::m_svGameResolution.y/2*0.8));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2*0.1f,0.f,0.f));
+		g_pBGImage->SetWidth((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2*0.8));
+		g_pBGImage->SetHeight((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.y/2*0.8));
 	//	g_pBGImage->Render();
 		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x/2+cGameApp::m_svGameResolution.x/2*0.1f,0,0));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2+cGameApp::m_spOpenGLRender->m_vGameResolution.x/2*0.1f,0,0));
 		g_pTunnelEffect->SetTime(-1);
 		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
 		//g_pBGImage->Render(cMatrix44::Identity);
 	}
 	if (g_pBGImage && g_pTestShader)
 	{
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x / 2 * 0.1f, 0.f, 0.f));
-		g_pBGImage->SetWidth((int)(cGameApp::m_svGameResolution.x / 2 * 0.8));
-		g_pBGImage->SetHeight((int)(cGameApp::m_svGameResolution.y / 2 * 0.8));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.1f, 0.f, 0.f));
+		g_pBGImage->SetWidth((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.8));
+		g_pBGImage->SetHeight((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.y / 2 * 0.8));
 		//	g_pBGImage->Render();
 		g_pBGImage->RenderWithShader(g_pTestShader->GetName());
-		g_pBGImage->SetPos(Vector3(cGameApp::m_svGameResolution.x / 2 + cGameApp::m_svGameResolution.x / 2 * 0.1f, 0, 0));
+		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 + cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.1f, 0, 0));
 		g_pBGImage->RenderWithShader(g_pTestShader->GetName());
 	}
 	if (g_pBGImage)
@@ -610,7 +610,7 @@ void	SampleRender()
 	{
 		g_pFrameBuffer->EndDraw();
 		POINT l_Pos = { 0,0 };
-		POINT l_SizePos = { (long)cGameApp::m_svGameResolution.x,(long)cGameApp::m_svGameResolution.y };
+		POINT l_SizePos = { (long)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(long)cGameApp::m_spOpenGLRender->m_vGameResolution.y };
 		g_pFrameBuffer->DrawBuffer(l_Pos, l_SizePos);
 	}
 

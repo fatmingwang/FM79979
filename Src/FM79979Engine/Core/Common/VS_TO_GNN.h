@@ -1,9 +1,22 @@
+#pragma once
 #ifndef WIN32
 
 #ifndef VS_GO_GNN
 #define VS_GO_GNN
 #include <stdio.h>
-//#include "wchar_t.h"
+#include <wchar.h>
+
+//inline wchar_t* WeiredWcstok(wchar_t*e_str1, const wchar_t*e_str2)
+//{
+//	wchar_t* l_pStringForWCSTOK = nullptr;
+//	return ::wcstok(e_str1, e_str2, &l_pStringForWCSTOK);
+//}
+
+inline wchar_t* wcstok(wchar_t*e_str1, const wchar_t*e_str2)
+{
+	wchar_t* l_pStringForWCSTOK = nullptr;
+	return ::wcstok(e_str1, e_str2, &l_pStringForWCSTOK);
+}
 //http://source.winehq.org/source/dlls/ntdll/wcstring.c
 /*********************************************************************
 *      _wtol    (NTDLL.@)

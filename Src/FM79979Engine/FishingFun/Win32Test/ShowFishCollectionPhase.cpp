@@ -45,7 +45,7 @@ void	cShowFishCollectionPhase::ProcessFishScrollerData(TiXmlElement*e_pTiXmlElem
 	Vector2	l_vGap;
 	int	l_iRow = 0;
 	int	l_iColumn = 0;
-	Vector4	l_vCollisionRange = cGameApp::m_svViewPortSize;
+	Vector4	l_vCollisionRange = cGameApp::m_spOpenGLRender->m_vViewPortSize;
 	PARSE_ELEMENT_START(e_pTiXmlElement)
 		COMPARE_NAME("StartPos")
 		{

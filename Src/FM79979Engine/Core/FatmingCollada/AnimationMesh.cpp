@@ -679,7 +679,7 @@ void cAnimationMesh::RenderSkeletonName(float*e_pfProjection,float*e_pfMatMV,int
 		cBone*l_pMe = l_ppBone[i];
 		const WCHAR*l_strName = l_pMe->GetName();
 		Vector3 l_vPos = (l_Root*l_pMe->GetWorldTransform()*this->m_matMeshBindShapePose).GetTranslation();
-		Vector3 l_vPos2 = UT::WorldToScreen(l_vPos.x,l_vPos.y,l_vPos.z,e_pfProjection,e_pfMatMV,e_piViewport);
+		Vector3 l_vPos2 = WorldToScreen(l_vPos.x,l_vPos.y,l_vPos.z,e_pfProjection,e_pfMatMV,e_piViewport);
 		if( cGameApp::m_spGlyphFontRender )
 		{
 			cGameApp::m_spGlyphFontRender->RenderFont(l_vPos2.x,l_vPos2.y,l_strName);

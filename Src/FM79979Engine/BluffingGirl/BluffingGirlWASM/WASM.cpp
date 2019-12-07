@@ -159,10 +159,10 @@ int main()
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
 #define	CANVANS_WIDTH	1280//*0.7
 #define	CANVANS_HEIGHT	720//*0.7
-	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
-	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
-	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
-	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
@@ -175,7 +175,7 @@ int main()
 	{
 		return -1;
 	}
-	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	FMLog::Log("new cPreLoadFromInternet\n", false);
 	//please copy Media/BluffingGirl folder into your server repository
 	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
@@ -184,13 +184,13 @@ int main()
 	{
 		FMLog::Log("SDL surface exists start create our game\n", false);
 		//cGameApp::m_sbDebugFunctionWorking = true;
-		cGameApp::m_svGameResolution.x = 720;
-		cGameApp::m_svGameResolution.y = 1280;
-		g_pGameApp = new cBluffingGirlApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280;
+		g_pGameApp = new cBluffingGirlApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		if(g_pGameApp)
 			g_pGameApp->Init();
 		
-		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+		cGameApp::SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		FMLog::Log("start to emscripten_set_main_loop\n", false);
 #ifdef TEST_RUN
 		cMPDIList*l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");

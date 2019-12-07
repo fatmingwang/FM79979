@@ -76,7 +76,7 @@ void	cDownloadContentPhase::Update(float e_fElpaseTime)
 #else
 				WCHAR	l_strDescription[] = L"Download failed!check connection status!";
 #endif
-				m_pTextButton = new cTextButton(Vector2(cGameApp::m_svGameResolution.x/2,cGameApp::m_svGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
+				m_pTextButton = new cTextButton(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
 			}
 			else
 			if(m_pDownloadFile->GetProgress() == 100)
@@ -97,7 +97,7 @@ void	cDownloadContentPhase::Update(float e_fElpaseTime)
 #else
 				WCHAR	l_strDescription[] = L"unzip failed!please download again!";
 #endif
-				m_pTextButton = new cTextButton(Vector2(cGameApp::m_svGameResolution.x/2,cGameApp::m_svGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
+				m_pTextButton = new cTextButton(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
 			}
 			else
 			if(m_pUnZip->GetProgress() == 100)
@@ -109,7 +109,7 @@ void	cDownloadContentPhase::Update(float e_fElpaseTime)
 				WCHAR	l_strDescription[] = {23433,L' ',35037,L' ',25104,L' ',21151};
 #endif
 				
-				m_pTextButton = new cTextButton(Vector2(cGameApp::m_svGameResolution.x/2,cGameApp::m_svGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
+				m_pTextButton = new cTextButton(Vector2(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2),cGameApp::GetGlyphFontRender(m_strDownloadFontName.c_str()),Vector4::HalfBright,l_strDescription);
 			}		
 		}
 		if( m_pTextButton )

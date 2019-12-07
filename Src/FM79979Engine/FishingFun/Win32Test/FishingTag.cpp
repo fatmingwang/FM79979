@@ -37,12 +37,12 @@ void	cFishTag::Update(float e_fElpaseTime)
 void	cFishTag::Render()
 {
 	UseShaderProgram();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	cGameItemInfoButton::Render();
 	if( m_pFishModel )
 	{
 		UseShaderProgram(SKINNING_MESH_SHADER);
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		Vector4	l_vRect = m_pFishModel->Get2DCollisionRect();
 		Vector3	l_vPos =Vector3::Zero;// m_vModelPos;
 		l_vPos.x += l_vRect.Width()/2;

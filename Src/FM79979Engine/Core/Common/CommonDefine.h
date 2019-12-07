@@ -1,5 +1,4 @@
-#ifndef CommonDefine_H
-#define CommonDefine_H
+#pragma once
 
 #include "PlatFormDefine.h"
 
@@ -118,6 +117,4 @@ typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 #define CORE_EXPORT __attribute__((visibility("default")))
 #endif
 #else
-#endif
-
 #endif

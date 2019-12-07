@@ -90,7 +90,7 @@ void	SampleUpdate(float e_fElpaseTime)
 		g_pPrtEmitter->Update(e_fElpaseTime);
 	if( g_pParticleEmitterGroup )
 		g_pParticleEmitterGroup->Update(e_fElpaseTime);
-	Vector2	l_vViewPort(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+	Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	if(g_pOrthogonalCamera)
 		g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
 }

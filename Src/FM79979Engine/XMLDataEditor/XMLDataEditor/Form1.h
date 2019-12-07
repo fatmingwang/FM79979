@@ -1709,9 +1709,9 @@ private: System::Void saveToBinaryToolStripMenuItem_Click(System::Object^  sende
 				DNCT::SaveTreeViewToFile(MainNode_treeView,l_strFileName);
 				if( System::IO::File::Exists(l_strFileName) )
 				{
-					const char*l_strTargetFile = DNCT::GcStringToChar(l_strFileName);
+					auto l_strTargetFile = DNCT::GcStringToChar(l_strFileName);
 					bool	l_b = forceIfFileIsInlegalToolStripMenuItem->Checked;
-					if(!FileCompressHuffman(l_strTargetFile,l_strTargetFile,this->m_iBinaryHeaderID,l_b))
+					if(!FileCompressHuffman(l_strTargetFile.c_str(),l_strTargetFile.c_str(),this->m_iBinaryHeaderID,l_b))
 					{
 						WARNING_MSG("save to binary failed");
 					}

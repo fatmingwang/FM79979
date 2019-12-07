@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MPDI.h"
 //#include "../../../Include/IL/il.h"
-#include "../../Core/GameplayUT/StringCompress.h"
+#include "../../Core/Common/BinaryFile/StringCompress.h"
 #include "DotMPDICamera.h"
 namespace FATMING_CORE
 {
@@ -14,13 +14,14 @@ namespace MPDI
 	MPDIEditor::MPDIEditor(String^e_strFileName)
 	{
 		g_bSupportNonPowerOfTwoTexture = true;
+		cGameApp::CreateDefaultOpenGLRender();
 		FMLog::Init();
 		m_pvBGColor = new Vector4(0, 0, 0, 1);
-		if (System::IO::File::Exists("Setup.xml"))
+		if (System::IO::File::Exists("MPDISetup.xml"))
 		{
 			g_bLanguageChinese = true;
 			cNodeISAX l_NodeISAX;
-			if (l_NodeISAX.ParseDataIntoXMLNode("Setup.xml"))
+			if (l_NodeISAX.ParseDataIntoXMLNode("MPDISetup.xml"))
 			{
 				auto l_pRoot = l_NodeISAX.GetRootElement();
 				PARSE_ELEMENT_START(l_pRoot)
@@ -35,7 +36,7 @@ namespace MPDI
 					COMPARE_NAME("BGColor")
 					{
 						*m_pvBGColor = GetVector4(l_strValue);
-						cGameApp::m_svBGColor = *m_pvBGColor;
+						cGameApp::m_spOpenGLRender->m_vBGColor = *m_pvBGColor;
 					}
 				PARSE_NAME_VALUE_END
 				//Chinese = "true" NonPowerOfTwoSupport = "true" BGColor = "0.5,0.5,0.5,1"
@@ -57,7 +58,7 @@ namespace MPDI
 		m_HdcMV = GetDC((HWND)this->splitContainer3->Panel1->Handle.ToPointer());
 		m_pGameApp = new cGameApp((HWND)this->splitContainer3->Panel1->Handle.ToPointer());
 		m_pGameApp->Init();
-		m_HGLRCMV = m_pGameApp->m_sHGLRC;
+		m_HGLRCMV = m_pGameApp->m_spOpenGLRender->m_HGLRC;
 		m_fAlpha = 0.f;
 		m_pMultiPathDynamicImageAWP = 0;
 		m_pImagePlayManagerAWP = 0;
@@ -810,7 +811,7 @@ namespace MPDI
 						POINT l_ViewportSize = { splitContainer3->Panel1->Width,splitContainer3->Panel1->Height };
 						Vector2	l_vViewPort((float)l_ViewportSize.x,(float)l_ViewportSize.y);
 						//fuck here do this for scissor
-						cGameApp::m_svGameResolution = m_pOrthogonalCamera->GetScreenViewPortSize();
+						cGameApp::m_spOpenGLRender->m_vGameResolution = m_pOrthogonalCamera->GetScreenViewPortSize();
 						if(m_pOrthogonalCamera->ViewportConvert(*l_pViewPort,l_vViewPort,&l_ResultViewPort))
 						{
 							glScissor((int)l_ResultViewPort.x,(int)l_ResultViewPort.y,(int)l_ResultViewPort.z,(int)l_ResultViewPort.w);
@@ -2308,10 +2309,10 @@ namespace MPDI
 				if( m_pMPDICamera )
 					m_pMPDICamera->m_bDoUpdate = CameraWorking_checkBox->Checked;
 				m_bTimerInRun = true;
-				cGameApp::m_svViewPortSize.x = 0.f;
-				cGameApp::m_svViewPortSize.y = 0.f;
-				cGameApp::m_svViewPortSize.z = (float)splitContainer3->Panel1->Width;
-				cGameApp::m_svViewPortSize.w = (float)splitContainer3->Panel1->Height;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer3->Panel1->Width;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer3->Panel1->Height;
 				wglMakeCurrent( m_HdcMV,m_HGLRCMV );
 				this->m_pGameApp->Run();
 				UseShaderProgram();
@@ -2969,7 +2970,7 @@ namespace MPDI
 				this->timer1->Enabled = false;
 				Sleep(10);
 				m_pOrthogonalCamera->Reset();
-				SaveCurrentBufferToImage("test.png");
+				SaveCurrentBufferToImage("test.png",(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 				Sleep(10);
 				System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap("test.png");
 				Sleep(10);
@@ -3418,7 +3419,7 @@ namespace MPDI
 		m_pvBGColor->y = l_pColorPicker->GetSelectedColor().ScG;
 		m_pvBGColor->z = l_pColorPicker->GetSelectedColor().ScB;
 		m_pvBGColor->w = l_pColorPicker->GetSelectedColor().ScA;
-		cGameApp::m_svBGColor = *m_pvBGColor;
+		cGameApp::m_spOpenGLRender->m_vBGColor = *m_pvBGColor;
 	}
 //end namespace
 }

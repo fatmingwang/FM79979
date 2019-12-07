@@ -12,7 +12,7 @@ namespace FATMING_CORE
 		m_fMoveDistance = 0.f;
 		m_eGestureEnum = eGestureEnum::eGE_MAX;
 		m_eCurrentGestureEnum = eGestureEnum::eGE_MAX;
-		m_vCollisionRange = Vector4(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		m_vCollisionRange = Vector4(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		if( !e_pTiXmlElement )
 			return;
 		ELEMENT_VALUE_ASSERT_CHECK(e_pTiXmlElement,cEventMouseTrigger::TypeID);

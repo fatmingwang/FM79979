@@ -1,8 +1,8 @@
 #ifndef _EVENT_VALUE_CHANGER_ACTIVER_H_
 #define _EVENT_VALUE_CHANGER_ACTIVER_H_
 
-#include "../GameplayUT/RestrictValue.h"
-#include "../GameplayUT//ListValueChanger.h"
+//#include "../GameplayUT/RestrictValue.h"
+//#include "../GameplayUT//ListValueChanger.h"
 #include "EventBase.h"
 namespace FATMING_CORE
 {

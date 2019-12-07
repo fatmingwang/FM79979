@@ -1,4 +1,5 @@
 #pragma once
+#include "../../../Common/Template/TemplateClass.h"
 #include "../CommonRender/BaseImage.h"
 #include "../../../XML/XMLLoader.h"
 namespace FATMING_CORE

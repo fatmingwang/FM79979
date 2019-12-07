@@ -1,7 +1,6 @@
 #include "../stdafx.h"
 #include "EventHeaderDefine.h"
 #include "../AllCoreInclude.h"
-#include "../Particle/AllParticleInclude.h"
 #include "EventManager.h"
 #include "EventPackageRunner.h"
 #ifdef ANDROID
@@ -79,7 +78,7 @@ namespace FATMING_CORE
 	{
 		*m_pstrChangePachageName = L"";
 		*m_pstrWorkingDirectory = "";
-		cGameApp::m_siShowErrorType = 0;
+		FMLog::g_siLogShowErrorType = 0;
 		m_pPrtGList->Destroy();
 		m_pExternalFunctionList->Destroy();
 		m_pEventInstanceList->Destroy();
@@ -141,15 +140,15 @@ namespace FATMING_CORE
 					m_pEventFont = new cGlyphFontRender(l_strFileName.c_str(),2000);
 				}
 			PARSE_NAME_VALUE_END
-			cGameApp::m_siShowErrorType = 1;
-			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
+			FMLog::g_siLogShowErrorType = 1;
+			if(wcslen(FMLog::g_spstrLogErrorMsgString->c_str()))
 			{
-				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),UT::CharToWchar(e_strFileName));
+				UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(),UT::CharToWchar(e_strFileName));
 			}
-			cGameApp::m_spstrErrorMsgString->clear();
+			FMLog::g_spstrLogErrorMsgString->clear();
 			return true;
 		}
-		cGameApp::m_siShowErrorType = 1;
+		FMLog::g_siLogShowErrorType = 1;
 		UT::ErrorMsg("Packages data error",e_strFileName);
 		return false;
 	}

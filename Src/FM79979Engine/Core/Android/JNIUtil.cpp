@@ -2,7 +2,7 @@
 #include "../stdafx.h"
 #include "jni.h"
 #include "JNIUtil.h"
-#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/GameApp/GameApp.h"
 namespace FATMING_CORE
 {
 	sJNIUtilData*g_pMainThreadJNIUtilData = 0;
@@ -194,7 +194,7 @@ namespace FATMING_CORE
 		return value;
 	}
 
-	jstring WcharToJava(JNIEnv *env,const WCHAR*e_str)
+	jstring WcharToJava(JNIEnv *env,const wchar_t*e_str)
 	{
 		jchar	l_strTemp[MAX_PATH];
 		int l_iLength = wcslen(e_str);

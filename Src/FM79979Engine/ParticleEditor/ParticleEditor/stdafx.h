@@ -1,6 +1,5 @@
 #pragma once
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
 //#include "../../FeelingLib/AllFeelingLibInclude.h"
 #include "../../DotNetCommon/DotNetCommonTools.h"
 //#include "../../DotNetCommon/FeelingDotNetTools.h"

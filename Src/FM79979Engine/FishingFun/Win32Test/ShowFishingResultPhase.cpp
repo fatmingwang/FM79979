@@ -48,8 +48,8 @@ void	cShowFishingResultPhase::Init()
 {
 	Destroy();
 	//
-	//m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(160,320,530,cGameApp::m_svGameResolution.y),0,0,false,0);
-	m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(200,300,cGameApp::m_svGameResolution.x,1080),0,0,false,0);
+	//m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(160,320,530,cGameApp::m_spOpenGLRender->m_vGameResolution.y),0,0,false,0);
+	m_pScroller = new cScroller((cPuzzleImage*)0,Vector4(200,300,cGameApp::m_spOpenGLRender->m_vGameResolution.x,1080),0,0,false,0);
 	//
 	PARSE_FAILED_MESSAGE_BOX(this,"Data/Phase/ShowFishingResult.xml");
 	cFishTag*l_pTemplate = new cFishTag(m_pTemplateElement,0,Vector3::Zero);

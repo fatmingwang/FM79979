@@ -2,7 +2,9 @@
 #include "Bluetooth.h"
 #ifdef ANDROID
 #include "../Android/JNIUtil.h"
-#include "../GameplayUT/GameApp.h"
+#include "../GameplayUT/GameApp/GameApp.h"
+#include "../GameplayUT/Render/MPDI/MPDI.h"
+#include "../GameplayUT/Render/Parser/AnimationParser.h"
 namespace FATMING_CORE
 {
 	bool	g_bRegBluetoothNativeFunction = false;

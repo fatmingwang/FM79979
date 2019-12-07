@@ -314,9 +314,9 @@ void		cFishBehavior::SetStatus(eFishBehavior e_eFishBehavior,Frame*e_pTarget,flo
 			//Vector3	l_vPos = m_pAnimationMesh->GetWorldPosition();
 			//float	l_fDistanceToLeave = 0.f;
 			//m_Path.Destroy();
-			//if( l_vPos.x >= cGameApp::m_svGameResolution.x / 2 )
+			//if( l_vPos.x >= cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 )
 			//{
-			//	l_fDistanceToLeave = cGameApp::m_svGameResolution.x-l_vPos.x;
+			//	l_fDistanceToLeave = cGameApp::m_spOpenGLRender->m_vGameResolution.x-l_vPos.x;
 			//	m_Path.AddPoint(l_vPos,0);
 			//	l_vPos.x += l_fDistanceToLeave;
 			//	float	l_fTime = l_fDistanceToLeave/this->m_fRunSpeed;
@@ -596,7 +596,7 @@ void	cFishBehaviorManager::DoRodCollide(cbtShapeCollision*e_pbtShapeCollision,Fr
 		if( l_pFish->m_eFishBehavior != cFishBehavior::eFB_STUNNING_TO_LEAVE )
 		{
 #ifdef	WIN32
-			Vector2	l_vTouchPos = e_pOrthogonalCamera->ConvertMousePositionToWorldPosition(Vector2(cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y),Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+			Vector2	l_vTouchPos = e_pOrthogonalCamera->ConvertMousePositionToWorldPosition(Vector2(cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y),Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 			l_vTouchPos += e_pOrthogonalCamera->GetCameraPos();
 			if(cGameApp::m_sbTouched && l_pFish->IsCollide(l_vTouchPos))
 			{
@@ -609,7 +609,7 @@ void	cFishBehaviorManager::DoRodCollide(cbtShapeCollision*e_pbtShapeCollision,Fr
 			for( size_t j=0;j<l_siSize;++j )
 			{
 				POINT	l_Pos = cGameApp::m_spMultiTouchPoints->TouchPointData[j].ScreenPos;
-				Vector2	l_vTouchPos = e_pOrthogonalCamera->ConvertMousePositionToWorldPosition(Vector2(l_Pos.x,l_Pos.y),Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+				Vector2	l_vTouchPos = e_pOrthogonalCamera->ConvertMousePositionToWorldPosition(Vector2(l_Pos.x,l_Pos.y),Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 				l_vTouchPos += e_pOrthogonalCamera->GetCameraPos();
 				if(cGameApp::m_sbTouched && l_pFish->IsCollide(l_vTouchPos))
 				{

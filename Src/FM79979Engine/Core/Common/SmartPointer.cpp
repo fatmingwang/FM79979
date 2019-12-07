@@ -100,7 +100,7 @@ int cSmartObject::Release(NamedTypedObject*e_pNamedTypedObject)
 		{
 			m_ReferenceList.GetList()->erase(m_ReferenceList.GetList()->begin()+l_iIndex);
 		}
-		assert(l_iIndex!=-1 &&"fuck no this pointer!!");
+		assert(l_iIndex!=-1 &&"no this pointer!!");
 		assert(m_ReferenceList.Count() == l_refCount);
 #endif
 		if( l_refCount <= 0 )

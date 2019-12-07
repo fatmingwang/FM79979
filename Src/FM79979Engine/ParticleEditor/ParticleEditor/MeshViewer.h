@@ -1,5 +1,5 @@
 #pragma once
-
+#include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 using namespace System;
 using namespace System::ComponentModel;
 using namespace System::Collections;
@@ -34,6 +34,7 @@ namespace ParticalEditor {
 		MeshViewer(System::Windows::Forms::TabControl^e_pTabControl )
 		{
 			InitializeComponent();
+			cGameApp::CreateDefaultOpenGLRender();
 			m_pTabControl = e_pTabControl;
 			this->Dock = GCFORM::DockStyle::Fill;
 			m_pTabPage = gcnew GCFORM::TabPage;
@@ -45,7 +46,7 @@ namespace ParticalEditor {
 			//TODO: 在此加入建構函式程式碼
 			//
 			m_HdcMV = GetDC((HWND)this->splitContainer1->Panel2->Handle.ToPointer());
-			m_pHGLRCMV = UT::InitOpenGL((HWND)this->splitContainer1->Panel2->Handle.ToPointer(),true,m_HdcMV);
+			m_pHGLRCMV = InitOpenGL((HWND)this->splitContainer1->Panel2->Handle.ToPointer(),true,m_HdcMV);
 			
 			m_pAllMesh = new cNamedTypedObjectVector<cMesh>;
 			Projection	l_ProjectionMV;
@@ -84,6 +85,7 @@ namespace ParticalEditor {
 			{
 				delete components;
 			}
+			SAFE_DELETE(cGameApp::m_spOpenGLRender);
 			STATIC_MESH_SHADER = L"StaticMeshShader";
 			SKINNING_MESH_SHADER = L"SkinningMeshShader";
 			DEFAULT_SHADER = L"MeshShader";

@@ -135,7 +135,7 @@ namespace FATMING_CORE
 	#define FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_END(Element) Element = Element->NextSiblingElement();}
 
 
-	inline	float	ElementToFloat(TiXmlElement*e_pElement, const wchar_t*e_strAttributeName);
+	float	ElementToFloat(TiXmlElement*e_pElement, const wchar_t*e_strAttributeName);
 
 #ifdef DEBUG
 #define	ELEMENT_VALUE_ASSERT_CHECK(Element,CompareValue){const wchar_t*l_strValue__79979 = Element->Value();if( wcscmp(CompareValue,l_strValue__79979) )assert(0&&"element value is not match");}

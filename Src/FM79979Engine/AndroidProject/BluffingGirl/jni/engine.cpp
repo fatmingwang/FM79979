@@ -81,7 +81,7 @@ bool Engine::initUI()
 		//MyGlErrorTest();
 		g_pAndroidTestApp->Init();
 		//MyGlErrorTest();
-		cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
+		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
 	}
 	m_uiInitialized = true;
 	return true;
@@ -136,16 +136,16 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 		switch( l_iOrientation )
 		{
 			case 0:
-				cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
+				cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
 				break;
 			case 1:
-				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
+				cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
 				break;
 			case 2:
-				cGameApp::m_seDeviceDirection = eDD_UPSIDE_DOWN;
+				cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_UPSIDE_DOWN;
 				break;
 			case 3:
-				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
+				cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
 				break;
 		}
 		//MyGlErrorTest();

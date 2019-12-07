@@ -3,6 +3,7 @@
 #include "EditState.h"
 #include "MeshViewer.h"
 #include "EmitterEditor.h"
+#include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 extern cPaticleManager*g_pPaticleManager;
 extern cPrtEmitter*g_pPrtEmitter;
 extern UT::sTimeAndFPS g_sTimeAndFPS;
@@ -71,7 +72,7 @@ namespace ParticalEditor
 			g_eEditState = eES_MOUSE;
 			m_pRenderPanel = RenderingPlaneAndPolicyPlane_splitContainer->Panel1;
 			m_Hdc = GetDC((HWND)m_pRenderPanel->Handle.ToPointer());
-			m_pHGLRC = UT::InitOpenGL((HWND)m_pRenderPanel->Handle.ToPointer(),true,m_Hdc);
+			m_pHGLRC = InitOpenGL((HWND)m_pRenderPanel->Handle.ToPointer(),true,m_Hdc);
 			m_pInitTabpageWithListBox = gcnew System::Collections::Hashtable;
 			m_pActTabpageWithListBox = gcnew System::Collections::Hashtable;
 			m_pActUserControlList = gcnew System::Collections::ArrayList;

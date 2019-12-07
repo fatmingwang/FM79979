@@ -1,11 +1,11 @@
-#ifndef _NAMED_TYPED_OBJECT_H_
-#define _NAMED_TYPED_OBJECT_H_
+#pragma once
 #include "CommonDefine.h"
 // C4127: conditional expression is constant
 // this shows up when using STL without exception handling
 
 #include <list>
 #include <string.h>
+#include <string>
 #include <vector>
 //#include "StringID.h"
 //#include <mutex>
@@ -31,9 +31,6 @@
 
 #define CHAR_TO_WCHAR_DEFINE(A)  CAT(L, A)
 
-
-
-//fuck only works for windows
 #define TYPDE_DEFINE_MARCO(TYPE) const wchar_t*         TYPE::TypeID( WSTRING(TYPE) );
 
 
@@ -160,5 +157,3 @@ private:
 
 uint64	GetTimeStampID();
 uint64	GetGlobalUniqueID();
-
-#endif // NamedTypedObject_H

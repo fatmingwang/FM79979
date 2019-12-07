@@ -184,16 +184,6 @@ namespace FATMING_CORE
 				e_pFrame->Update(e_fElpaseTime);
 			}
 			,this);
-		//fuck
-		//cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
-		//while( l_pNextSibling )
-		//{
-		//	l_pNextSibling->Update(e_fElpaseTime);
-		//	l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
-		//}
-		//cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
-		//if(l_pFirstChild)
-		//	l_pFirstChild->ForAllNodesUpdate(e_fElpaseTime);
 	}
 
 	void	cRenderObject::RenderNodes()
@@ -226,17 +216,6 @@ namespace FATMING_CORE
 				l_pRenderObject->DebugRender(); 
 			}
 			,this,nullptr);
-		//fuck
-		//DebugRender();
-		//cRenderObject*l_pNextSibling = dynamic_cast<cRenderObject*>(this->GetNextSibling());
-		//while( l_pNextSibling )
-		//{
-		//	l_pNextSibling->DebugRender();
-		//	l_pNextSibling = dynamic_cast<cRenderObject*>(l_pNextSibling->GetNextSibling());
-		//}
-		//cRenderObject*l_pFirstChild = dynamic_cast<cRenderObject*>(this->GetFirstChild());	
-		//if(l_pFirstChild)
-		//	l_pFirstChild->ForAllNodesDebugRender();
 	}
 
 	bool	cRenderObject::	Collide(int e_iPosX, int e_iPosY)

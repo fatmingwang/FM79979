@@ -37,8 +37,9 @@ cSetupPhase::cSetupPhase()
 		m_fOriginalEffectVolume = 1.f;
 		m_fOriginalBGMVolume = 1.f;
 	}
-	cGameApp::m_spSoundParser->m_fSoundEffectVolume = m_fOriginalEffectVolume;
-	cGameApp::m_spSoundParser->m_fBGMVolume = m_fOriginalBGMVolume;
+	
+	cSoundParser::m_sfSoundEffectVolume = m_fOriginalEffectVolume;
+	cSoundParser::m_sfBGMVolume = m_fOriginalBGMVolume;
 }
 
 cSetupPhase::~cSetupPhase()
@@ -203,8 +204,8 @@ void	cSetupPhase::Update(float e_fElpaseTime)
 		{
 			if(m_SoundVolumeFile.Writefile("Sound.xml",true,true))
 			{
-				m_SoundVolumeFile.WriteToFile(cGameApp::m_spSoundParser->m_fSoundEffectVolume);
-				m_SoundVolumeFile.WriteToFile(cGameApp::m_spSoundParser->m_fBGMVolume);
+				m_SoundVolumeFile.WriteToFile(cSoundParser::m_sfSoundEffectVolume);
+				m_SoundVolumeFile.WriteToFile(cSoundParser::m_sfBGMVolume);
 				m_SoundVolumeFile.CloseFile();
 			}
 			//write file
@@ -213,8 +214,8 @@ void	cSetupPhase::Update(float e_fElpaseTime)
 		else
 		if( m_AllButton.GetCurrentWorkingObject() == m_pChancelButton )
 		{
-			cGameApp::m_spSoundParser->m_fSoundEffectVolume = m_fOriginalEffectVolume;
-			cGameApp::m_spSoundParser->m_fBGMVolume = m_fOriginalBGMVolume;
+			cSoundParser::m_sfSoundEffectVolume = m_fOriginalEffectVolume;
+			cSoundParser::m_sfBGMVolume = m_fOriginalBGMVolume;
 			this->m_bSatisfiedCondition = true;
 		}
 		else
@@ -222,8 +223,8 @@ void	cSetupPhase::Update(float e_fElpaseTime)
 		{
 			m_pBGMVolumeSlider->SetValue(0);
 			m_pEffectVolumeSlider->SetValue(0);
-			cGameApp::m_spSoundParser->m_fSoundEffectVolume = 0.f;
-			cGameApp::m_spSoundParser->m_fBGMVolume = 0.f;
+			cSoundParser::m_sfSoundEffectVolume = 0.f;
+			cSoundParser::m_sfBGMVolume = 0.f;
 			if( m_pSoundEffect )
 			{
 				if( m_pSoundEffect->IsUsing() )
@@ -279,13 +280,13 @@ void	cSetupPhase::MouseUp(int e_iX,int e_iY)
 	{
 		m_pBGMVolumeSlider->MouseUp(e_iX,e_iY);
 		float	l_fValue = *m_pBGMVolumeSlider->GetValue()/100.f;
-		cGameApp::m_spSoundParser->m_fBGMVolume = l_fValue;
+		cSoundParser::m_sfBGMVolume = l_fValue;
 	}
 	if( m_pEffectVolumeSlider )
 	{
 		m_pEffectVolumeSlider->MouseUp(e_iX,e_iY);
 		float	l_fValue = *m_pEffectVolumeSlider->GetValue()/100.f;
-		cGameApp::m_spSoundParser->m_fSoundEffectVolume = l_fValue;
+		cSoundParser::m_sfSoundEffectVolume = l_fValue;
 	}
 	m_AllButton.MouseUp(e_iX,e_iY);
 	if( m_pSoundEffect )
@@ -302,7 +303,7 @@ void	cSetupPhase::MouseMove(int e_iX,int e_iY)
 			if(m_pBGMVolumeSlider->GetMouseBehavior() == eOMB_FIRST_TIME_INTO ||  m_pBGMVolumeSlider->GetMouseBehavior() == eOMB_HORVER)
 			{
 				float	l_fValue = *m_pBGMVolumeSlider->GetValue()/100.f;
-				cGameApp::m_spSoundParser->m_fBGMVolume = l_fValue;
+				cSoundParser::m_sfBGMVolume = l_fValue;
 				if( m_pSoundBGM )
 					m_pSoundBGM->SetVolume(1.f);
 			}
@@ -316,7 +317,7 @@ void	cSetupPhase::MouseMove(int e_iX,int e_iY)
 			if( m_pEffectVolumeSlider->GetMouseBehavior() == eOMB_FIRST_TIME_INTO ||  m_pEffectVolumeSlider->GetMouseBehavior() == eOMB_HORVER)
 			{
 				float	l_fValue = *m_pEffectVolumeSlider->GetValue()/100.f;
-				cGameApp::m_spSoundParser->m_fSoundEffectVolume = l_fValue;
+				cSoundParser::m_sfSoundEffectVolume = l_fValue;
 				if( m_pSoundEffect )
 					m_pSoundEffect->SetVolume(1.f,true);
 			}

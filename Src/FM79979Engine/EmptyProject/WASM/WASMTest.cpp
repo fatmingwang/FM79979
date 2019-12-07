@@ -204,10 +204,10 @@ int main()
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 #define	CANVANS_WIDTH	1024
 #define	CANVANS_HEIGHT	768
-	cGameApp::m_svViewPortSize.x = cGameApp::m_svDeviceViewPortSize.x = 0;
-	cGameApp::m_svViewPortSize.y = cGameApp::m_svDeviceViewPortSize.y = 0;
-	cGameApp::m_svViewPortSize.z = cGameApp::m_svDeviceViewPortSize.z = CANVANS_WIDTH;
-	cGameApp::m_svViewPortSize.w = cGameApp::m_svDeviceViewPortSize.w = CANVANS_HEIGHT;
+	cGameApp::m_svViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
+	cGameApp::m_svViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
+	cGameApp::m_svViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_svViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -219,15 +219,15 @@ int main()
 	{
 		return -1;
 	}
-	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_svGameResolution.x, (int)cGameApp::m_svGameResolution.y);
+	//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
 	if (l_pSurf_Display)
 	{
 		cGameApp::m_sbDebugFunctionWorking = true;
-		cGameApp::m_svGameResolution.x = 1920;
-		cGameApp::m_svGameResolution.y = 1080;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_svGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;
+		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;

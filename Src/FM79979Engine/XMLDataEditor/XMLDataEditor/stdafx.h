@@ -18,6 +18,6 @@
 #include <time.h>
 #include "../../DotNetCommon/DotNetCommonTools.h"
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/GamePlayUT/StringCompress.h"
+#include "../../Core/Common/BinaryFile/StringCompress.h"
 
 long				GetFileSize(FILE*e_pFile);

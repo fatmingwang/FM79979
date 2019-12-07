@@ -1,9 +1,10 @@
-#ifndef _PLATFORM_DEFINE_H_
-#define _PLATFORM_DEFINE_H_
+#pragma once
+#include <wchar.h>
 // If we cause an exception in JNI, we print the exception info to the log, we clear the exception to avoid a pending-exception crash, and we force the function to return.
 #ifdef ANDROID
 #define EXCEPTION_RETURN(env)if (env->ExceptionOccurred()) {env->ExceptionDescribe();env->ExceptionClear();return false;}
 #define EXCEPTION_RETURN_NULL(env)if (env->ExceptionOccurred()) {env->ExceptionDescribe();env->ExceptionClear();return 0;}
+#include "stdint.h"
 #endif
 //===============================================
 // Cross-platform type definitions
@@ -16,7 +17,6 @@
     typedef unsigned short uint16;
     typedef unsigned long uint32;
     typedef unsigned __int64 uint64;
-    //#define	MYWCSTOK(y,z)	wcstok(y,z);
 #else // For LINUX and IOS
 	#pragma GCC diagnostic ignored "-Wformat"
 	//#pragma GCC diagnostic ignored "-Wformat-contain-nul"
@@ -66,10 +66,6 @@
         LONG  y;
     } POINT;
 
-
-    static wchar_t* g_pStringForWCSTOK = 0;
-    //#define	MYWCSTOK(y,z)   wcstok(y,z,&g_pStringForWCSTOK)
-	#define	wcstok(y,z)   wcstok(y,z,&g_pStringForWCSTOK)
 	#define	_atoi64	atoll//for string to uint64
     #ifndef _CLIMITS_
     #include <climits>
@@ -200,5 +196,3 @@ static int	g_iDataTypeSize[eDT_MAX] = {
 										sizeof(int64),					//eDT_INT64,
 										sizeof(uint64)					//UINT64,
 };
-
-#endif

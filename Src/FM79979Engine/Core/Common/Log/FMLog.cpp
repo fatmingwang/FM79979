@@ -16,7 +16,7 @@
 using namespace FATMING_CORE;
 namespace FMLog
 {
-	//int		m_siShowErrorType = 1;
+	//int		g_siLogShowErrorType = 1;
 	bool	g_bFMLogEnable = false;
 	int64	g_i64LogFlag = 0xffffffffffffffff;
 	FATMING_CORE::cBinaryFile*	g_pFMLogFile = nullptr;
@@ -36,8 +36,8 @@ namespace FMLog
 
 	void					Init()
 	{
-		if (!m_spstrErrorMsgString)
-			m_spstrErrorMsgString = new std::wstring;
+		if (!g_spstrLogErrorMsgString)
+			g_spstrLogErrorMsgString = new std::wstring;
 		g_bFMLogEnable = true;
 		if (!g_pFMLogFile)
 		{
@@ -91,7 +91,7 @@ namespace FMLog
 
 	void					Destroy()
 	{
-		SAFE_DELETE(m_spstrErrorMsgString);
+		SAFE_DELETE(g_spstrLogErrorMsgString);
 		SAFE_DELETE(g_pFMLogFile);
 		SAFE_DELETE(g_pLatestLog);
 		g_bFMLogEnable = false;

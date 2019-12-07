@@ -2,7 +2,7 @@
 #define _EVENT_VARIABLE_H_
 
 #include "EventHeaderDefine.h"
-
+#include "../AllCoreInclude.h"
 namespace FATMING_CORE
 {
 	class	cEventVariableList;

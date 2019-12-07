@@ -1,6 +1,5 @@
 #include "Stdafx.h"
 #include "FAICharacterInterface.h"
-#include "../AllPhysicInclude.h"
 namespace FATMING_AI
 {
 	const wchar_t*	cFAICharacterInterface::TypeID( L"cFAICharacterInterface" );

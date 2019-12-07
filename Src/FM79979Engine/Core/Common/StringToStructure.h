@@ -1,14 +1,15 @@
-#ifndef STRING_TO_STRUCT_H
-#define STRING_TO_STRUCT_H
+#pragma once
 
+#include "CommonDefine.h"
+#include "Utility.h"
+#include "VS_TO_GNN.h"
+
+#include <vector>
+#include <string>
+#include <wchar.h>
 #include "../XML/tinyxml.h"
 #include "../Math/Vector4.h"
 #include "../Math/Matrix44.h"
-#include "../Common/VS_TO_GNN.h"
-#include "../Common/CommonDefine.h"
-#include <vector>
-#include <wchar.h>
-#include <string>
 class	TiXmlElement;
 namespace FATMING_CORE
 {
@@ -257,4 +258,3 @@ namespace FATMING_CORE
 	}
 }
 using namespace FATMING_CORE;
-#endif

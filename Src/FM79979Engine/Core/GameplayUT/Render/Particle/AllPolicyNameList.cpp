@@ -1,4 +1,3 @@
-#include "../stdafx.h"
 #include "AllPolicyNameList.h"
 #include "ParticleBase.h"
 #include "PrtColor.h"

@@ -114,5 +114,5 @@ Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange,Vector4 e_vViewPort,Vecto
 
 Vector4	ViewRectToOpenGLScissor(Vector4 e_v2DViewRange)
 {
-	return ViewRectToOpenGLScissor(e_v2DViewRange,cGameApp::m_spOpenGLRender->m_vViewPortSize,FATMING_CORE::cGameApp::m_spOpenGLRender->m_vGameResolution,FATMING_CORE::cGameApp::m_seDeviceDirection);
+	return ViewRectToOpenGLScissor(e_v2DViewRange,cGameApp::m_spOpenGLRender->m_vViewPortSize,FATMING_CORE::cGameApp::m_spOpenGLRender->m_vGameResolution,FATMING_CORE::cGameApp::m_spOpenGLRender->m_eDeviceDirection);
 }

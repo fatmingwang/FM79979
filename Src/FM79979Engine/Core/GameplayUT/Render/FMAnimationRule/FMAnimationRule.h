@@ -1,5 +1,4 @@
-#ifndef	_FATMING_ANIMATION_RULW
-#define	_FATMING_ANIMATION_RULW
+#pragma once
 #include "../CommonRender/RenderObject.h"
 #include "../../../Common/NamedTypedObject.h"
 #include "../../../Common/Template/TemplateClass.h"
@@ -413,4 +412,3 @@ namespace FATMING_CORE
 	    }
 	}
 }
-#endif

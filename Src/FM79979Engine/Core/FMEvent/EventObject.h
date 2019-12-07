@@ -1,8 +1,5 @@
 #ifndef _EVENT_PATGE_DATA_H_
 #define _EVENT_PATGE_DATA_H_
-
-#include "../AllCoreInclude.h"
-#include "../Particle/AllParticleInclude.h"
 #include "EventBase.h"
 
 namespace   FATMING_CORE

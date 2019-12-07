@@ -56,10 +56,10 @@ void	WTLoading()
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	UseShaderProgram(DEFAULT_SHADER);
-	Vector4 l_vViewPort = cGameApp::m_svViewPortSize;
-	glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
+	Vector4 l_vViewPort = cGameApp::m_spOpenGLRender->m_vViewPortSize;
+	glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	UseShaderProgram();
 	if( g_pShowLogoPhase )
 	{
@@ -70,7 +70,7 @@ void	WTLoading()
 	cGameApp::m_pNvEGLUtil->swap();
 #endif
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 }
 //#include "../../Core/AVIPlayer/FFMpegPlayer.h"
@@ -125,7 +125,7 @@ void	cBluffingGirlApp::Init()
 #ifndef WASM
 	cGameApp::Init();
 #endif
-	//SetAcceptRationWithGameresolution(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height());
+	//SetAcceptRationWithGameresolution(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	////for sound volume
 	m_pPhaseManager = new cBluffingGirlPhaseManager();
 
@@ -247,8 +247,8 @@ cMPDI*	GetMPDI(const char*e_strFileName,int e_iIndex)
 #endif
 void	cBluffingGirlApp::Render()
 {
-	//glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
-	glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.Width(),(int)cGameApp::m_svViewPortSize.Height());
+	//glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
+	glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
 	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
@@ -257,7 +257,7 @@ void	cBluffingGirlApp::Render()
 	float	l_fVP[16];
 
 	cGameApp::Render();
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 	cMatrix44	l_matProjection;
 	//glhOrthof2((float*)l_matProjection.m,-360, 720+360, 1280+640, -640, -10000, 10000);
 	//FATMING_CORE::SetupShaderViewProjectionMatrix(l_matProjection,true);
@@ -283,7 +283,7 @@ void	cBluffingGirlApp::Render()
 		}
 	}
 #ifdef DEBUG
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,l_fVP);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 
 	if( cGameApp::m_spGlyphFontRender )
 	{
@@ -310,7 +310,7 @@ void	cBluffingGirlApp::Render()
 	//JSCallRender();
 #endif
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 	glFlush();
 }

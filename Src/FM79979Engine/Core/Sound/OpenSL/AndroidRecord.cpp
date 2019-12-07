@@ -38,7 +38,7 @@
 
 #include <functional>
 #include "../SoundCapture.h"
-#include "../../GameplayUT/GameApp.h"
+#include "../../GameplayUT/GameApp/GameApp.h"
 // engine interfaces
 static SLObjectItf engineObject = NULL;
 static SLEngineItf engineEngine;

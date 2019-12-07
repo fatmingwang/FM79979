@@ -1,5 +1,5 @@
 #include "OpenAlWavFile.h"
-
+#include "stdlib.h"
 #if defined _MSC_VER
 	#pragma pack (push,1) 							/* Turn off alignment */
 #elif defined __GNUC__

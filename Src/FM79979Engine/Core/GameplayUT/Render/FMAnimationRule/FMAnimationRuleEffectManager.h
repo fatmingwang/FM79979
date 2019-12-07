@@ -1,8 +1,7 @@
-#ifndef _FM_ANIMATION_RULE_MANAGER_H_
-#define _FM_ANIMATION_RULE_MANAGER_H_
+#pragma once
 
-#include "../Image/FMAnimationRule.h"
-
+#include "FMAnimationRule.h"
+#include "../../../XML/XMLLoader.h"
 //=========================================
 //this is a FMAnimationRule parser
 //what ever it is,just require your data and it will auto update
@@ -39,5 +38,3 @@ namespace FATMING_CORE
 
 //end namespace FATMING_CORE
 }
-
-#endif

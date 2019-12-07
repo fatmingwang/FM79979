@@ -71,7 +71,7 @@ void	cEngineTestApp::Render()
 	this->m_pPhaseManager->DebugRender();
 
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 }
 

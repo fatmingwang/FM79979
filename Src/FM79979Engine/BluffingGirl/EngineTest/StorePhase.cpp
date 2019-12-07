@@ -45,7 +45,7 @@ cStorePhase::cStorePhase()
 	m_bWaitForRespond = false;
 	m_pIABSetup = 0;
 	m_pIABPI = 0;
-	Vector4	l_vCollideRange(0,0,cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	Vector4	l_vCollideRange(0,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	m_pScroller = new cScroller((cPuzzleImage*)0,l_vCollideRange,0,0,false,0);
 	m_pScroller->SetOutOfWorking(false);
 	this->SetName(STORE_PHASE_NAME);

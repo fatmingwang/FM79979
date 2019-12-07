@@ -67,22 +67,22 @@ namespace MPDINodeForm
 		if( m_pMPDINodeForm == nullptr )
 			return;
 		CameraAdjustPara();
-		m_pOrthgonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+		m_pOrthgonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	}
 	System::Void MPDINodeEditor::CameraAdjustPara()
 	{
-		cGameApp::m_svViewPortSize.z = (float)m_pMPDINodeForm->m_iOpenglRenderPanelWidth;
-		cGameApp::m_svViewPortSize.w = (float)m_pMPDINodeForm->m_iOpenglRenderPanelHeight;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_pMPDINodeForm->m_iOpenglRenderPanelWidth;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)m_pMPDINodeForm->m_iOpenglRenderPanelHeight;
 		Vector2	l_vCameraResolution;
 		if( !EditorCommonVariables::m_sbCameraFitViewport )
 		{
-			l_vCameraResolution.x = cGameApp::m_svGameResolution.x;
-			l_vCameraResolution.y = cGameApp::m_svGameResolution.y;
+			l_vCameraResolution.x = cGameApp::m_spOpenGLRender->m_vGameResolution.x;
+			l_vCameraResolution.y = cGameApp::m_spOpenGLRender->m_vGameResolution.y;
 		}
 		else
 		{
-			l_vCameraResolution.x = cGameApp::m_svViewPortSize.z;
-			l_vCameraResolution.y = cGameApp::m_svViewPortSize.w;
+			l_vCameraResolution.x = cGameApp::m_spOpenGLRender->m_vViewPortSize.z;
+			l_vCameraResolution.y = cGameApp::m_spOpenGLRender->m_vViewPortSize.w;
 		}
 		m_pOrthgonalCamera->SetResolution(l_vCameraResolution);
 	}
@@ -98,8 +98,8 @@ namespace MPDINodeForm
 	{
 		EditorCommonVariables::m_sbShowResolutionGrid = m_pMPDINodeForm->m_ShowResolutionGrid->IsChecked.Value;
 		EditorCommonVariables::m_sbShowGrid = m_pMPDINodeForm->m_ShowGrid->IsChecked.Value;
-		cGameApp::m_svGameResolution.x = (float)m_pMPDINodeForm->m_ResolutionWidth->Value.Value;
-		cGameApp::m_svGameResolution.y = (float)m_pMPDINodeForm->m_ResolutionHeight->Value.Value;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.x = (float)m_pMPDINodeForm->m_ResolutionWidth->Value.Value;
+		cGameApp::m_spOpenGLRender->m_vGameResolution.y = (float)m_pMPDINodeForm->m_ResolutionHeight->Value.Value;
 		EditorCommonVariables::m_sbShowPathPos = m_pMPDINodeForm->m_ShowPosPath->IsChecked.Value;
 		EditorCommonVariables::m_sbCameraFitViewport = m_pMPDINodeForm->m_CameraFit->IsChecked.Value;
 		System::Windows::Media::Color l_vColor = m_pMPDINodeForm->m_BGColor->GetSelectedColor();
@@ -108,7 +108,7 @@ namespace MPDINodeForm
 		EditorCommonVariables::m_sfBGColor[2] = l_vColor.B/255.f;
 		EditorCommonVariables::m_sbShowPIUnitClick = m_pMPDINodeForm->m_ShowPIUnit->IsChecked.Value;
 		CameraAdjustPara();
-		m_pOrthgonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+		m_pOrthgonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	}
 
 	System::Void MPDINodeEditor::KeyDown(System::Object^  sender, System::Windows::Input::KeyEventArgs^  e)
@@ -135,7 +135,7 @@ namespace MPDINodeForm
 			l_pPanel->Focus();
 		GCFORM::MouseButtons l_MouseButton = e->Button;
 		m_pOrthgonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		if(this->m_pMPDINodeData->m_pMPDINode == nullptr)
 			return;
 		Vector3	l_vPos(m_pOrthgonalCamera->GetMouseWorldPos());
@@ -156,7 +156,7 @@ namespace MPDINodeForm
 			return;
 		GCFORM::MouseButtons l_MouseButton = e->Button;
 		m_pOrthgonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		if(this->m_pMPDINodeData->m_pMPDINode == nullptr)
 			return;
 		Vector3	l_vPos(m_pOrthgonalCamera->GetMouseWorldPos());
@@ -176,7 +176,7 @@ namespace MPDINodeForm
 			return;
 		GCFORM::MouseButtons l_MouseButton = e->Button;
 		m_pOrthgonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+			,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		if(this->m_pMPDINodeData->m_pMPDINode == nullptr)
 			return;
 		Vector3	l_vPos(m_pOrthgonalCamera->GetMouseWorldPos());
@@ -258,8 +258,8 @@ namespace MPDINodeForm
 	System::Void MPDINodeEditor::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
 	{
 		CameraAdjustPara();
-		wglMakeCurrent(cGameApp::m_sHdc,cGameApp::m_sHGLRC);
-		glViewport((int)cGameApp::m_svViewPortSize.x,(int)cGameApp::m_svViewPortSize.y,(int)cGameApp::m_svViewPortSize.z,(int)cGameApp::m_svViewPortSize.w);
+		wglMakeCurrent(cGameApp::m_spOpenGLRender->m_Hdc, cGameApp::m_spOpenGLRender->m_HGLRC);
+		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
 		glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 		glClearColor(EditorCommonVariables::m_sfBGColor[0],EditorCommonVariables::m_sfBGColor[1],EditorCommonVariables::m_sfBGColor[2],1.f);
 		glClearDepth(1.0f);											// Depth Buffer Setup
@@ -277,7 +277,7 @@ namespace MPDINodeForm
 		}
 		if(EditorCommonVariables::m_sbShowResolutionGrid)
 		{
-			GLRender::RenderRectangle(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y,cMatrix44::Identity,Vector4::Red);
+			GLRender::RenderRectangle(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,cMatrix44::Identity,Vector4::Red);
 		}
 		if( m_pMPDINodeData )
 		{
@@ -289,7 +289,7 @@ namespace MPDINodeForm
 		POINT	ptCursor = {(int)m_pOrthgonalCamera->GetMouseWorldPos().x,(int)m_pOrthgonalCamera->GetMouseWorldPos().y};
 		std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString()+","+ptCursor.y.ToString());
 		cGameApp::RenderFont(0,0,l_strMousePos);
-		SwapBuffers(cGameApp::m_sHdc);
+		SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 	}
 //end namespace MPDINodeForm 
 }

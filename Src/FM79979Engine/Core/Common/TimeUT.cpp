@@ -225,8 +225,7 @@ namespace UT
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S", tm);
 
-		std::wstring	l_str = FATMING_CORE::ValueToStringW(buf);
-		return l_str;
+		return FATMING_CORE::ValueToStringW(buf);
 	}
 	//end namespace UT
 }

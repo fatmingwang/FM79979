@@ -16,8 +16,8 @@
 #include <xstring>
 #include "assert.h"
 #include "../../Core/AllCoreInclude.h"
-#include "../../core/AVIPlayer/AVIPlayer.h"
-#include "../../Core/AllPhysicInclude.h"
+//#include "../../core/AVIPlayer/AVIPlayer.h"
+//#include "../../Core/AllPhysicInclude.h"
 #include "../../DotNetCommon/AllDNCTInclude.h"
 //#include "GlobalDeclartion.h"
 //#include "../Edit_Element/InputNameDialog.h"

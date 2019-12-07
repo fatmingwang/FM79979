@@ -80,8 +80,8 @@ void	cUnpackExpansionPack::Render()
 
 	
 #ifdef ENGLISH
-	cGameApp::RenderFont(cGameApp::m_svGameResolution.x/2-300,cGameApp::m_svGameResolution.y/2+100,L"resource initialize(only for first time)");
+	cGameApp::RenderFont(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2-300,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2+100,L"resource initialize(only for first time)");
 #else
-	cGameApp::RenderFont(cGameApp::m_svGameResolution.x/2-300,cGameApp::m_svGameResolution.y/2,l_str);
+	cGameApp::RenderFont(cGameApp::m_spOpenGLRender->m_vGameResolution.x/2-300,cGameApp::m_spOpenGLRender->m_vGameResolution.y/2,l_str);
 #endif
 }

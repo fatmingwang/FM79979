@@ -1,6 +1,5 @@
 #include "../stdafx.h"
 #include "../AllCoreInclude.h"
-#include "../Particle/AllParticleInclude.h"
 #include "EventManager.h"
 #include "EventPackageRunner.h"
 
@@ -319,7 +318,7 @@ namespace   FATMING_CORE
 		}
 		if( l_pTiXmlElement || l_pCurrentEventPackage )
 		{
-			cGameApp::m_siShowErrorType = 0;
+			FMLog::g_siLogShowErrorType = 0;
 			//force to remove all partivle resource,because I am lazy to calculate relatived in use or not
 			this->m_pEventManager->m_pPrtGList->Destroy();
 			if( !l_pCurrentEventPackage )
@@ -335,12 +334,12 @@ namespace   FATMING_CORE
 			m_pCurrentEventPackage = l_pCurrentEventPackage;
 			if( m_pCurrentEventPackage )
 				m_pCurrentEventPackage->Init();
-			cGameApp::m_siShowErrorType = 1;
-			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
+			FMLog::g_siLogShowErrorType = 1;
+			if(wcslen(FMLog::g_spstrLogErrorMsgString->c_str()))
 			{
-				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),e_strPackageName);
+				UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(),e_strPackageName);
 			}
-			cGameApp::m_spstrErrorMsgString->clear();
+			FMLog::g_spstrLogErrorMsgString->clear();
 			const WCHAR*l_strChangePachageName = m_pEventManager->m_pstrChangePachageName->c_str();
 			cEventVariable*l_pNameAndData = m_pEventManager->m_pEventVariableManager->GetObject(l_strChangePachageName);
 			if( l_pNameAndData )
@@ -375,7 +374,7 @@ namespace   FATMING_CORE
 		TiXmlElement*l_pTiXmlElement = this->m_pEventManager->GetChildOfRootXmlElementByAttribueName(L"EventPackage",m_strNewPageName.c_str(),NAME);
 		if( l_pTiXmlElement )
 		{
-			cGameApp::m_siShowErrorType = 0;
+			FMLog::g_siLogShowErrorType = 0;
 			//force to remove all partivle resource,because I am lazy to calculate relatived in use or not
 			this->m_pEventManager->m_pPrtGList->Destroy();
 			cEventPackage*l_pCurrentEventPackage = this->m_pEventManager->GetEventPackage(l_pTiXmlElement);
@@ -387,12 +386,12 @@ namespace   FATMING_CORE
 			m_pCurrentEventPackage = l_pCurrentEventPackage;
 			if( m_pCurrentEventPackage )
 				m_pCurrentEventPackage->Init();
-			cGameApp::m_siShowErrorType = 1;
-			if(wcslen(cGameApp::m_spstrErrorMsgString->c_str()))
+			FMLog::g_siLogShowErrorType = 1;
+			if(wcslen(FMLog::g_spstrLogErrorMsgString->c_str()))
 			{
-				UT::ErrorMsg(cGameApp::m_spstrErrorMsgString->c_str(),m_strNewPageName.c_str());
+				UT::ErrorMsg(FMLog::g_spstrLogErrorMsgString->c_str(),m_strNewPageName.c_str());
 			}
-			cGameApp::m_spstrErrorMsgString->clear();
+			FMLog::g_spstrLogErrorMsgString->clear();
 			return true;
 		}
 		else

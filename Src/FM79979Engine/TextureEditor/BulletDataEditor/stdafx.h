@@ -4,8 +4,6 @@
 #pragma once
 
 // TODO: reference additional headers your program requires here
-#include "../../core/AVIPlayer/AVIPlayer.h"
 #include "../../DotNetCommon/CoreDotNetTools.h"
-#include "../../Core/AllPhysicInclude.h"
 //#include "GlobalDeclartion.h"
 //#include "InputNameDialog.h"

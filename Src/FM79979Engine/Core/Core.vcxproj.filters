@@ -407,12 +407,6 @@
     <ClCompile Include="GameplayUT\Camera\SplitScreenCamera.cpp">
       <Filter>GameplayUT\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.cpp">
-      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.cpp">
-      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
-    </ClCompile>
     <ClCompile Include="GameplayUT\GameApp\GameApp.cpp">
       <Filter>GameplayUT\GameApp</Filter>
     </ClCompile>
@@ -743,6 +737,15 @@
     <ClCompile Include="Common\EventSender\MessageSender.cpp">
       <Filter>Common\EventSender</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.cpp">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\UI\RenderObjectVector.cpp">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -750,9 +753,6 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AllImageInclude.h">
-      <Filter>GameplayUT\Render</Filter>
     </ClInclude>
     <ClInclude Include="XML\XMLLoader.h">
       <Filter>XML</Filter>
@@ -960,12 +960,6 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Camera\SplitScreenCamera.h">
       <Filter>GameplayUT\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectManager.h">
-      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="GameplayUT\FMAnimationRuleEffect\FMAnimationRuleEffectQueuePlayer.h">
-      <Filter>GameplayUT\Render\FMAnimationRuleEffect</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\GameApp\GameApp.h">
       <Filter>GameplayUT\GameApp</Filter>
@@ -1317,6 +1311,21 @@
     </ClInclude>
     <ClInclude Include="Common\EventSender\MessageSender.h">
       <Filter>Common\EventSender</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\AllGamePlayUTRenderInclude.h">
+      <Filter>GameplayUT\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\AllUIInclude.h">
+      <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.h">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.h">
+      <Filter>GameplayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\UI\RenderObjectVector.h">
+      <Filter>GameplayUT\Render\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

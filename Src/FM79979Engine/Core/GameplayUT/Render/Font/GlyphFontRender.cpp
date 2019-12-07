@@ -50,12 +50,12 @@ namespace FATMING_CORE
 		m_pFontImage = new cBaseImage(l_str);
 		if(m_pFontImage->GetTexture()->GetImageIndex() == 0 )
 		{
-			int l_iShowErrorMsgType = FMLog::m_siShowErrorType;
-			FMLog::m_siShowErrorType = 1;
+			int l_iShowErrorMsgType = FMLog::g_siLogShowErrorType;
+			FMLog::g_siLogShowErrorType = 1;
 			SAFE_DELETE(m_pFontImage);
 			m_pGlyphReader = 0;
 			UT::ErrorMsg(e_strFontName,"font image not exist");
-			FMLog::m_siShowErrorType = l_iShowErrorMsgType;
+			FMLog::g_siLogShowErrorType = l_iShowErrorMsgType;
 			return;
 		}
 		m_pGlyphReader = new GlyphReader();

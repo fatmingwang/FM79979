@@ -181,7 +181,7 @@ void	cStageSelectPhase::Render()
 	if(m_pScrollableMapAndButton)
 	{
 		m_pScrollableMapAndButton->Render();
-		glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+		glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		if(m_pScrollableMapAndButton->GetSelectStageName())
 		{
 			if( m_pStageInfoDialog )

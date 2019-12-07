@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 namespace PathEditor 
 {
 	using namespace System;
@@ -27,7 +27,6 @@ namespace PathEditor
 		{
 			m_bInitOk = false;
 			InitializeComponent();
-			m_bCtrlPressed = false;
 			//const WCHAR*l_str = cBaseImage::TypeID;
 			//this->Dock = GCFORM::DockStyle::Fill;
 			//
@@ -53,27 +52,29 @@ namespace PathEditor
 			splitContainer2->Panel1->MouseUp += gcnew System::Windows::Forms::MouseEventHandler(this, &EditPath::MyMouseUp);
 			splitContainer2->MouseWheel += gcnew System::Windows::Forms::MouseEventHandler(this, &EditPath::MyMouseUp);
 			//splitContainer2->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &EditPath::MyKeyUp);
-			PathMode_comboBox->SelectedIndex = 0;
+			//PathMode_comboBox->SelectedIndex = 0;
+
+			m_bCtrlPressed = false;
+			m_pOrthogonalCamera = new cOrthogonalCamera();
+			m_pBaseImageListEP = new cNamedTypedObjectVector<cBaseImage>;
+			m_pCurveManagerEP = new cCurveManager();
+			m_pTimeAndFPS = new sTimeAndFPS;
+			m_pvResolution = new Vector2(1920.f,1080.f);
+			m_pvBGColor = new Vector4(0.f,0.f,0.f,1.f);
 
 			m_pSplitScreenCamera = new cSplitScreenCamera();
-			if( m_pSplitScreenCamera && m_pSplitScreenCamera->m_sAxisCamera )
+			if (m_pSplitScreenCamera && m_pSplitScreenCamera->m_sAxisCamera)
 			{
 				int l_iCameraAxisIndex = m_pSplitScreenCamera->GetFocusPanelIndex();
 				auto l_pSplitScreenCamera = m_pSplitScreenCamera;
 				auto l_pAxisCamera2 = m_pSplitScreenCamera->m_sAxisCamera;
 				auto l_pAxisCamera = l_pAxisCamera2[0];
 			}
-			m_pOrthogonalCamera = new cOrthogonalCamera();
-			m_pBaseImageListEP = new cNamedTypedObjectVector<cBaseImage>;
-			m_pCurveManagerEP = new cCurveManager();
-			m_pTimeAndFPS = new UT::sTimeAndFPS;
-			m_pvResolution = new Vector2(1920.f,1080.f);
-			m_pvBGColor = new Vector4(0.f,0.f,0.f,1.f);
 
 			LanguageSwitch(splitContainer1->Panel1->Controls,"/",this->Handle);
 			LanguageSwitch(this->Controls,"/",this->Handle);
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
-			m_HGLRCMV = UT::InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
+			m_HGLRCMV = InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
 			//InitMultisample((HINSTANCE)System::Runtime::InteropServices::Marshal::GetHINSTANCE(splitContainer2->Panel1->GetType()->Module).ToPointer(),(HWND)this->splitContainer2->Panel1->Handle.ToPointer());
 			//m_HdcMV = GetDC((HWND)splitContainer2->Panel1->Handle.ToPointer());
 			wglMakeCurrent( m_HdcMV,m_HGLRCMV );
@@ -90,7 +91,7 @@ namespace PathEditor
 			CreateShader(g_bCommonVSNoTextureClientState,L"EditPath_NoTextureShader");
 			wglMakeCurrent( m_HdcMV,m_HGLRCMV );
 			m_bInitOk = true;
-			this->timer1->Enabled = true;
+			//this->timer1->Enabled = true;
 		}
 
 	protected:
@@ -898,10 +899,10 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 				//Vector3	l_vMousePos(m_pSplitScreenCamera->m_sAxisCamera[3].OrthogonalCamera.GetMouseWorldPos().x,
 				//m_pSplitScreenCamera->m_sAxisCamera[3].OrthogonalCamera.GetMouseWorldPos().y,
 				//m_pSplitScreenCamera->m_sAxisCamera[0].OrthogonalCamera.GetMouseWorldPos().x);
-				cGameApp::m_svViewPortSize.x = 0.f;
-				cGameApp::m_svViewPortSize.y = 0.f;
-				cGameApp::m_svViewPortSize.z = (float)splitContainer2->Panel1->Width;
-				cGameApp::m_svViewPortSize.w = (float)splitContainer2->Panel1->Height;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
 				cGameApp::ApplyViewPort();
 				POINT	l_VeiewPort = {splitContainer2->Panel1->Width,splitContainer2->Panel1->Height};
 				//glDepthMask(GL_FALSE);
@@ -987,7 +988,7 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 								l_vVeiewPort *= 0.5f;
 							//l_vMouseWorldPos.z = (l_vMouseWorldPos.y/l_vVeiewPort.y);
 							l_vMouseWorldPos.z = 1-(l_pFrameCamera->GetWorldPosition().Length()/l_pFrameCamera->GetProjection().GetZFar());
-							Vector3	l_vNewPos = UT::ScreenToWorld(l_vMouseWorldPos,l_pFrameCamera->GetProjection().GetMatrix()*l_pFrameCamera->GetWorldView(),l_vVeiewPort);
+							Vector3	l_vNewPos = ScreenToWorld(l_vMouseWorldPos,l_pFrameCamera->GetProjection().GetMatrix()*l_pFrameCamera->GetWorldView(),l_vVeiewPort);
 							//l_vNewPos -= l_pFrameCamera->GetWorldDirection()*l_pFrameCamera->GetWorldPosition().Length();
 							m_pCurveManagerEP->GetObject(WholePath_listBox->SelectedIndex)->AddPoint(l_vNewPos,0);
 							System::EventArgs^  e3;

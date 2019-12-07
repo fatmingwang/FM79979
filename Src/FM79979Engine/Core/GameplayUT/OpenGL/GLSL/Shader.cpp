@@ -454,7 +454,7 @@ namespace FATMING_CORE
 	{
 		if( e_bDoOrientation )
 		{
-			switch(cGameApp::m_seDeviceDirection)
+			switch(cGameApp::m_spOpenGLRender->m_eDeviceDirection)
 			{
 				case eDD_PORTRAIT:
 					memcpy(g_fViewProjectionMatrix,e_pfVPMatrix,sizeof(float)*16);

@@ -15,5 +15,5 @@ bool	FileDempressHuffman(const char*e_strTargetFile,const char*e_strOutputFileNa
 //use it only while after fopen and nothing done yet.
 bool	IsCompressFile(NvFile*e_pFile,int e_iMagicID = HUFFMAN_MAGIC_ID);
 //to value
-std::wstring	DecodeStringFromeValue(wchar_t*e_strEncrypt,wchar_t*e_strCharacterToSplit);
-std::wstring	EncodeStringToValue(wchar_t*e_strString,wchar_t*e_strCharacterToSplit);
+std::wstring	DecodeStringFromeValue(const wchar_t*e_strEncrypt, const wchar_t*e_strCharacterToSplit);
+std::wstring	EncodeStringToValue(const wchar_t*e_strString, const wchar_t*e_strCharacterToSplit);
