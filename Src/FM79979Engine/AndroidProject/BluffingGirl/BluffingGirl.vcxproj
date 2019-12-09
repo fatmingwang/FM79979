@@ -26,8 +26,7 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>
-    </AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
