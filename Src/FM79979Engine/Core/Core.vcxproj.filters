@@ -39,9 +39,6 @@
     <Filter Include="GameplayUT">
       <UniqueIdentifier>{8b27bfab-e5d9-43c1-9148-d3ade082472e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\Phase">
-      <UniqueIdentifier>{2586bf4d-7de6-4c4e-ade4-b62668bbca21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\GameApp">
       <UniqueIdentifier>{0a704896-9931-4e95-a5ad-03b749894759}</UniqueIdentifier>
     </Filter>
@@ -50,9 +47,6 @@
     </Filter>
     <Filter Include="GameplayUT\DataCurve">
       <UniqueIdentifier>{0feda03d-740f-46b8-b221-524b5514cb5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Physic">
-      <UniqueIdentifier>{aca35592-1ac0-4e08-9d40-cdc5c7e0d086}</UniqueIdentifier>
     </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{1cb39f13-5f15-4248-bc87-8a1183662d0b}</UniqueIdentifier>
@@ -225,9 +219,6 @@
     <Filter Include="GameplayUT\Render\Curve">
       <UniqueIdentifier>{a6f07ab0-70aa-4e48-9819-048e73b35b8a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\Render\FMAnimationRuleEffect">
-      <UniqueIdentifier>{f11df4bf-ccb9-4398-a819-8d71e9a05917}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\Render\CommonRender">
       <UniqueIdentifier>{32003496-15aa-42c9-92f3-cd2d1d196861}</UniqueIdentifier>
     </Filter>
@@ -236,6 +227,12 @@
     </Filter>
     <Filter Include="Common\EventSender">
       <UniqueIdentifier>{f158d4dc-a375-4fe5-8797-fb66b6184e26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Physic">
+      <UniqueIdentifier>{aca35592-1ac0-4e08-9d40-cdc5c7e0d086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\GamePhase">
+      <UniqueIdentifier>{2586bf4d-7de6-4c4e-ade4-b62668bbca21}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -552,10 +549,10 @@
       <Filter>GameplayUT\DataCurve</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Physic\2DImageCollisionData.cpp">
-      <Filter>Physic</Filter>
+      <Filter>GameplayUT\Physic</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Physic\BulletShape.cpp">
-      <Filter>Physic</Filter>
+      <Filter>GameplayUT\Physic</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Render\Texture\Texture.cpp">
       <Filter>GameplayUT\Render\Texture</Filter>
@@ -609,10 +606,10 @@
       <Filter>GameplayUT\Render\Particle\Policy\Velocity</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\GamePhase\PhaseControl.cpp">
-      <Filter>GameplayUT\Phase</Filter>
+      <Filter>GameplayUT\GamePhase</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\GamePhase\PhasePopupMessager.cpp">
-      <Filter>GameplayUT\Phase</Filter>
+      <Filter>GameplayUT\GamePhase</Filter>
     </ClCompile>
     <ClCompile Include="GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.cpp">
       <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>
@@ -828,9 +825,6 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\DataCurve\DataCurve.h">
       <Filter>GameplayUT\DataCurve</Filter>
-    </ClInclude>
-    <ClInclude Include="AllPhysicInclude.h">
-      <Filter>Physic</Filter>
     </ClInclude>
     <ClInclude Include="Network\begin_code.h">
       <Filter>NetWork</Filter>
@@ -1094,10 +1088,10 @@
       <Filter>GameplayUT\DataCurve</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Physic\BulletShape.h">
-      <Filter>Physic</Filter>
+      <Filter>GameplayUT\Physic</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Physic\2DImageCollisionData.h">
-      <Filter>Physic</Filter>
+      <Filter>GameplayUT\Physic</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Render\Texture\Texture.h">
       <Filter>GameplayUT\Render\Texture</Filter>
@@ -1157,10 +1151,10 @@
       <Filter>GameplayUT\Render\Particle\Policy\Velocity</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\GamePhase\PhaseControl.h">
-      <Filter>GameplayUT\Phase</Filter>
+      <Filter>GameplayUT\GamePhase</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\GamePhase\PhasePopupMessager.h">
-      <Filter>GameplayUT\Phase</Filter>
+      <Filter>GameplayUT\GamePhase</Filter>
     </ClInclude>
     <ClInclude Include="GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.h">
       <Filter>GameplayUT\Render\UI\ClickBehaviorUI</Filter>

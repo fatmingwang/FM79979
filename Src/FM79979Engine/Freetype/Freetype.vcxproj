@@ -47,7 +47,11 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidTargetAPI />
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -68,8 +72,11 @@
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidTargetAPI />
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>

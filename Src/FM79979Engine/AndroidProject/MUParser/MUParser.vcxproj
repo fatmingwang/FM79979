@@ -52,16 +52,17 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Shipping|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

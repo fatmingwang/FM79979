@@ -52,21 +52,18 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.android.vending.billing.IInAppBillingService;
 import org.json.JSONException;
 
 
-import util.iab.IABManager;
 import util.AccelerometerManager;
 import util.AccelerometerListener;
 import util.Define;
-import util.AdMobUtility;
+
 import util.NumericEditTextDialog;
 import util.ExternalStorage;
 import util.NetworkUtil;
 import util.Define;
-import util.ZipUtilActivity;
-import util.bluetooth.BluetoothChatFragment;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -93,13 +90,10 @@ import net.lingala.zip4j.exception.ZipException;
 public class EmptyAndroidProject extends NativeActivity implements AccelerometerListener
 {
 	public  void					OpenKeyBoard(){ Define.OpenKeyBoard(); }
-	public IABManager				m_IABManager;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		//m_IABManager = new IABManager(true,this);
-		//m_IABManager.Create();
 		Define.m_TempContext = getApplicationContext();
 		NetworkUtil.m_TempContext = getApplicationContext();
 		NumericEditTextDialog.m_TempFragmentManager = getFragmentManager();
@@ -120,14 +114,6 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
-		if( m_IABManager != null )
-		{
-			// Pass on the activity result to the helper for handling
-			if (m_IABManager.onActivityResult(requestCode, resultCode, data))
-			{
-				//
-			}
-		}
 		super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -146,15 +132,13 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
  //   };
  	@Override   public void onPause()
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.pause();
+
 		super.onPause();
 	}
     @Override
     protected void onResume()
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.resume();
+
 		//if( mMediaPlayer != null )
 			//mMediaPlayer.start();
 		super.onResume();             
@@ -181,8 +165,7 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 	@Override
     public void onDestroy() 
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.destroy();
+
         super.onDestroy();
         //Check device supported Accelerometer senssor or not
         if (AccelerometerManager.isListening())
@@ -200,25 +183,13 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 		//	@Override
 		//	public void run() 
 		//	{
-				try
-				{
-					//ZipUtilActivity.Unzip(e_strExtraceFileName,e_strDestDirectory,e_strPassword,false);
-					//true for delete file
-					ZipUtilActivity.Unzip(e_strExtraceFileName,e_strDestDirectory,e_strPassword,true);
-					//ZipUtilActivity.Unzip("/sdcard/Download/79979.zip","/sdcard/Download/AAA","",false);
-				}
-				catch(ZipException e)
-				{
-					e.printStackTrace();
-					ZipUtilActivity.UnzipProgress(-1);
-				}
 		//	}
 		//}).start();
 	}
 
 	public boolean	IsWaitingForRespond()
 	{
-		return m_IABManager.m_bWaitingForIABRespond;
+		return true;
 	}
 	public void	FBPost()
 	{
@@ -246,7 +217,6 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 	//}
 	public void	IABCreate()
 	{
-		m_IABManager.Create();
 	}
 
 	public void	ShareToFriend(String e_strFileName)
@@ -264,19 +234,7 @@ public class EmptyAndroidProject extends NativeActivity implements Accelerometer
 		startActivity(intent);
 	}
 
-	public void	AddSKUData(String e_strSKUID,String e_strName,int e_iType,boolean e_bConsumable)
-	{
-		m_IABManager.AddSKUData(e_strSKUID,e_strName,e_iType,e_bConsumable);
-	}
-	boolean	IsItemPurchased(String e_strSKUID,String e_strName,int e_iType)
-	{
-		return m_IABManager.IsItemPurchased(e_strSKUID,e_strName,e_iType);
-	}
-	public void	DoPurchaseProducts(int e_iProductsType,String e_strProductsID)
-	{
-		if( m_IABManager != null )
-			m_IABManager.DoPurchaseProducts(e_iProductsType,e_strProductsID);
-	}
+
 	public String	GetExternalSDCardPath()
 	{
 		Map<String, File> externalLocations = ExternalStorage.getAllStorageLocations();

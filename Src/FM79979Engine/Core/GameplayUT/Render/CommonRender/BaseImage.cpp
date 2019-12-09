@@ -3,10 +3,6 @@
 #include "../../../XML/XMLLoader.h"
 #include "BaseImage.h"
 #include "SimplePrimitive.h"
-//#include "BinaryToTexture.h"
-//#include "../OpenGL/GLSL/Shader.h"
-//#include "../GameplayUT/GameApp.h"
-//#include "../GameplayUT/Log/FMLog.h"
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cBaseImage);

@@ -3,7 +3,7 @@
 namespace FATMING_CORE
 {
 	extern cNamedTypedObjectVector<cBaseShader>*g_pAll2DShaderList;
-	cShockBoobsShader::cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth,bool e_bTexture,wchar_t*e_strName)
+	cShockBoobsShader::cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth,bool e_bTexture, const wchar_t*e_strName)
 	:cBaseShader(e_strVS,e_strPS,e_strName,e_bTexture)
 	{
 		m_bShockDone = true;

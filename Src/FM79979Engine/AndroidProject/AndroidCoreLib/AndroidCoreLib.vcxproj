@@ -23,26 +23,33 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
-    <AndroidMinAPI>android-22</AndroidMinAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidArch>armv7-a</AndroidArch>
     <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidMinAPI>android-15</AndroidMinAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">

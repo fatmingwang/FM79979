@@ -48,15 +48,12 @@ import java.util.Map;
 
 import android.media.MediaPlayer;
 
-import com.android.vending.billing.IInAppBillingService;
 import org.json.JSONException;
 
-import util.iab.IABManager;
 import util.AccelerometerManager;
 import util.AccelerometerListener;
 
 import util.Define;
-import util.AdMobUtility;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 
@@ -74,11 +71,9 @@ import java.io.IOException;
 import java.io.FileOutputStream;
 
 import util.Define;
-import util.ZipUtilActivity;
 
 import android.widget.Toast;
 
-import util.facebook.FBManager;
 import net.lingala.zip4j.exception.ZipException;
 /**
  * This class loads the Java Native Interface (JNI)
@@ -94,18 +89,14 @@ import net.lingala.zip4j.exception.ZipException;
 public class MusicGame extends NativeActivity implements AccelerometerListener
 {
 	public  void		OpenKeyBoard(){ Define.OpenKeyBoard(); }
-	public IABManager	m_IABManager;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		//m_IABManager = new IABManager(true,this);
-		//m_IABManager.Create();
 		Define.m_TempContext = getApplicationContext();
 		NetworkUtil.m_TempContext = getApplicationContext();
 		NumericEditTextDialog.m_TempFragmentManager = getFragmentManager();		
         super.onCreate(savedInstanceState);
-		AdMobUtility.m_LaunchNativeActivity = this;
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
@@ -121,14 +112,6 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
-		if( m_IABManager != null )
-		{
-			// Pass on the activity result to the helper for handling
-			if (m_IABManager.onActivityResult(requestCode, resultCode, data))
-			{
-				//
-			}
-		}
 		super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -147,15 +130,11 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
  //   };
  	@Override   public void onPause()
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.pause();
 		super.onPause();
 	}
     @Override
     protected void onResume()
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.resume();
 		//if( mMediaPlayer != null )
 			//mMediaPlayer.start();
 		super.onResume();             
@@ -164,7 +143,6 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
 		{//Start Accelerometer Listening
             AccelerometerManager.startListening(this);
         }
-		//util.facebook.FBManager.publishInstallAsync(getApplicationContext(),getString(R.string.app_id));
     }
 
 	@Override
@@ -182,8 +160,6 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
 	@Override
     public void onDestroy() 
 	{
-		if( AdMobUtility.m_AdView != null )
-			AdMobUtility.m_AdView.destroy();
         super.onDestroy();
         //Check device supported Accelerometer senssor or not
         if (AccelerometerManager.isListening())
@@ -201,34 +177,18 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
 		//	@Override
 		//	public void run() 
 		//	{
-				try
-				{
-					//ZipUtilActivity.Unzip(e_strExtraceFileName,e_strDestDirectory,e_strPassword,false);
-					//true for delete file
-					ZipUtilActivity.Unzip(e_strExtraceFileName,e_strDestDirectory,e_strPassword,true);
-					//ZipUtilActivity.Unzip("/sdcard/Download/79979.zip","/sdcard/Download/AAA","",false);
-				}
-				catch(ZipException e)
-				{
-					e.printStackTrace();
-					ZipUtilActivity.UnzipProgress(-1);
-				}
 		//	}
 		//}).start();
 	}
 
 	public boolean	IsWaitingForRespond()
 	{
-		if( m_IABManager != null )
-			return m_IABManager.m_bWaitingForIABRespond;
-			return false;
+		return false;
 	}
 	public void	FBPost()
 	{
 		//NumericEditTextDialog	l_NumericEditTextDialog = new NumericEditTextDialog();
 		//l_NumericEditTextDialog.show(getFragmentManager(), "dialog");
-		Intent intent = new Intent(this, util.facebook.FBManager.class);
-        startActivity(intent);
 	}
 
 	//void		CloseAD()
@@ -249,24 +209,16 @@ public class MusicGame extends NativeActivity implements AccelerometerListener
 	//}
 	public void	IABCreate()
 	{
-		if( m_IABManager != null )
-			m_IABManager.Create();
 	}
 	public void	AddSKUData(String e_strSKUID,String e_strName,int e_iType,boolean e_bConsumable)
 	{
-		if( m_IABManager != null )
-			m_IABManager.AddSKUData(e_strSKUID,e_strName,e_iType,e_bConsumable);
 	}
 	boolean	IsItemPurchased(String e_strSKUID,String e_strName,int e_iType)
 	{
-		if( m_IABManager != null )
-			return m_IABManager.IsItemPurchased(e_strSKUID,e_strName,e_iType);
 		return false;
 	}
 	public void	DoPurchaseProducts(int e_iProductsType,String e_strProductsID)
 	{
-		if( m_IABManager != null )
-			m_IABManager.DoPurchaseProducts(e_iProductsType,e_strProductsID);
 	}
 	public String	GetExternalSDCardPath()
 	{

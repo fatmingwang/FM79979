@@ -233,7 +233,7 @@ namespace FATMING_CORE
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = (float)m_iOriginalViewPortSize[1];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_iOriginalViewPortSize[2];
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)m_iOriginalViewPortSize[3];
-		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.z, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.w);
+		glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y, (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
 		if (m_bEnableScissor)
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else

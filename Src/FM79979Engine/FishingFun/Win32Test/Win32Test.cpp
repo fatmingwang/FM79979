@@ -120,8 +120,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 	bool	l_bFullScreen = false;
 	cNodeISAX	l_NodeISAX;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
 	cGameApp::ResoluctionParse("EngineTestSetup.xml");
 	cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720.f;
 	cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280.f;
@@ -162,8 +160,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case  WM_SIZE:
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)LOWORD(lParam);
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)HIWORD(lParam);
+		//cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)LOWORD(lParam);
+		//cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)HIWORD(lParam);
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(LOWORD(lParam), HIWORD(lParam), cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		break;
 	case WM_TIMER:
 		if( !g_bLeave && g_pGameApp )

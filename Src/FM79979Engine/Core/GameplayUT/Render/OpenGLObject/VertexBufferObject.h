@@ -34,6 +34,4 @@ namespace FATMING_CORE
 		UINT	GetIndicexCount(){ return m_uiIndicesCount; }
 		float*	GetData(int e_iDataLocation);
 	};
-	//check HGLRC	InitOpenGL(HWND e_pHwnd,bool e_bInitGlewInit)
-	extern bool g_bVBOSupported;
 }

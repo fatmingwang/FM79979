@@ -94,22 +94,8 @@ void	cFishingFunApp::Update(float e_fElpaseTime)
 
 void	cFishingFunApp::Render()
 {
-	//glViewport(0,0,(int)m_svViewPortSize.Width(),(int)m_svViewPortSize.Height());
-	//glScissor(0,0,(int)m_svViewPortSize.x,(int)m_svViewPortSize.y);
-	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
-	glClearColor( 0,0.5,0.5,1 );
-	glClearDepth(1.0f);	
-#ifndef ANDROID
-	glEnable(GL_TEXTURE_2D);
-#endif
 	float	l_fVP[16];
-	//UseShaderProgram();
-	//glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
-	glEnable(GL_ALPHA_TEST);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	//glAlphaFunc(GL_GREATER,0.001f);	
-	UseShaderProgram();
 	cGameApp::Render();
 	this->m_pPhaseManager->Render();
 	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
@@ -122,7 +108,6 @@ void	cFishingFunApp::Render()
 	}
 	cGameApp::RenderPause();
 	m_spPlayerData->Render();
-	glDisable(GL_TEXTURE_2D);
 	if( this->m_spMultiTouchPoints->TouchPointWorkingIndex.size() == 4 )
 		m_sbDebugFunctionWorking = true;
 	else

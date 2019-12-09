@@ -2,8 +2,6 @@
 
 namespace FATMING_CORE
 {
-	bool	g_bVBOSupported = false;
-
 	cVBOBuffer::cVBOBuffer()
 	{
 		m_iVertexStride = 0;
@@ -189,4 +187,5 @@ namespace FATMING_CORE
 		//unbind data so rest object could render on the screen or it will render last bind data.
 		glBindBuffer(GL_ARRAY_BUFFER,0);
 	}
+//end namespace FATMING_CORE
 }

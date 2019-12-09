@@ -11,11 +11,11 @@
 #endif
 namespace FATMING_CORE
 {
+	bool				cOpenGLRender::m_sbVBOSupported = true;
 	extern cBaseShader*	g_pCurrentShader;
 	bool				cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
 	std::vector<int>*	cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
 	float				cOpenGLRender::m_sfOpenGLVersion = 0.f;
-#if defined(WIN32)
 	////#if defined(ANDROID) || defined(IOS) 
 	//eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_PORTRAIT;
 	////eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
@@ -28,28 +28,25 @@ namespace FATMING_CORE
 	{
 		m_vGameScale = Vector2(1, 1);
 		m_vBGColor = Vector4(0.1f, 0.1f, 0.1f, 1.f);
-		m_vViewPortSize = e_vViewportSize;
-		m_vDeviceViewPortSize = e_vViewportSize;
+		this->m_vGameResolution = e_vGameResolution;
+		m_vViewPortSize.x = 0.f;
+		m_vViewPortSize.y = 0.f;
+		m_vViewPortSize.z = (float)e_vViewportSize.x;
+		m_vViewPortSize.w = (float)e_vViewportSize.y;
+		m_vDeviceViewPortSize = m_vViewPortSize;
 		m_eDeviceDirection = eDeviceDirection::eDD_PORTRAIT;
+#if defined(WIN32)
 		m_Hdc = nullptr;
 		m_HGLRC = nullptr;
 		m_Handle = nullptr;
-	}
-#else
-	cOpenGLRender::cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
-	{
-		m_vViewPortSize = e_vViewportSize;
-		m_vDeviceViewPortSize = e_vViewportSize;
-		m_eDeviceDirection = eDeviceDirection::eDD_PORTRAIT;
-	}
 #endif
+	}
 	cOpenGLRender::~cOpenGLRender()
 	{
 		SAFE_DELETE(m_piSupportCompressedFormatVector);
 		DeleteAllShader();
 	}
 #ifdef WIN32
-	extern bool g_bVBOSupported;
 	void cOpenGLRender::Init(HWND e_Hwnd, bool e_bMultiSample)
 	{
 		m_sMultisample = e_bMultiSample;
@@ -66,25 +63,33 @@ namespace FATMING_CORE
 		}
 		if (m_HGLRC)
 		{
-			g_bVBOSupported = true;
-			glUseProgram(0);
-			//#else
-			//		glEnableClientState(GL_VERTEX_ARRAY);
-			//#endif
-			FMLog::LogWithFlag("init shader start", CORE_LOG_FLAG, true);
-			//2d image shader
-			CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
-			//for non texture shader
-			CreateShader(g_bCommonVSNoTextureClientState, NO_TEXTURE_SHADER);
-
-			CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
-			//if crush go to char*g_strMySkinningMeshVS = "
-			//fin matBones[32] and change its size...
-			//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
-			FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
+			CreateDefaultShader();
 		}
 	}
+#else
+	void cOpenGLRender::Init()
+	{
+		CreateDefaultShader();
+	}
 #endif
+	void cOpenGLRender::CreateDefaultShader()
+	{
+		glUseProgram(0);
+		//#else
+		//		glEnableClientState(GL_VERTEX_ARRAY);
+		//#endif
+		FMLog::LogWithFlag("init shader start", CORE_LOG_FLAG, true);
+		//2d image shader
+		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
+		//for non texture shader
+		CreateShader(g_bCommonVSNoTextureClientState, NO_TEXTURE_SHADER);
+
+		CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
+		//if crush go to char*g_strMySkinningMeshVS = "
+		//fin matBones[32] and change its size...
+		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
+		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
+	}
 	void	DumpGraphicsInfo()
 	{
 		std::wstring	l_str;
@@ -155,10 +160,8 @@ namespace FATMING_CORE
 	void cOpenGLRender::Render()
 	{
 		g_pCurrentShader = nullptr;
-		//#ifndef OPENGLES_2_X
-		//		glEnableClientState(GL_VERTEX_ARRAY);
-		//#endif
-				//first for original resolution
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		MyGlErrorTest("before viewport");
 		glViewport(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		//need this one or screen flash...and I dont know why
@@ -167,12 +170,18 @@ namespace FATMING_CORE
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(m_vBGColor.x, m_vBGColor.y, m_vBGColor.z, m_vBGColor.w);
 		MyGlErrorTest("before viewport 1");
-		glViewport((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
-		MyGlErrorTest("after viewport 2");
-		MyGLEnable(GL_SCISSOR_TEST);
-		MyGlErrorTest("before scissor");
-		glScissor((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
-		MyGlErrorTest("after scissor");
+		if (m_vDeviceViewPortSize.x != m_vViewPortSize.x ||
+			m_vDeviceViewPortSize.y != m_vViewPortSize.y ||
+			m_vDeviceViewPortSize.z != m_vViewPortSize.z ||
+			m_vDeviceViewPortSize.w != m_vViewPortSize.w)
+		{
+			glViewport((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
+			MyGlErrorTest("after viewport 2");
+			MyGLEnable(GL_SCISSOR_TEST);
+			MyGlErrorTest("before scissor");
+			glScissor((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
+			MyGlErrorTest("after scissor");
+		}
 		SystemErrorCheck();
 		UseShaderProgram(DEFAULT_SHADER);
 		cTexture::m_suiLastUsingImageIndex = -1;
@@ -267,7 +276,7 @@ namespace FATMING_CORE
 		m_vViewPortSize.y = (e_iDeviceViewportHeight - l_fViewPortH) / 2;
 		m_vViewPortSize.z = m_vViewPortSize.x + l_fViewPortW;
 		m_vViewPortSize.w = m_vViewPortSize.y + l_fViewPortH;
-		//glViewport((int)cGameApp::m_vViewPortSize.x, (int)cGameApp::m_vViewPortSize.y, (int)cGameApp::m_vViewPortSize.Width(), (int)cGameApp::m_vViewPortSize.Height());
+		glViewport((int)m_vViewPortSize.x, (int)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
 #ifdef WIN32
 		m_vDeviceViewPortSize.x = 0;
 		m_vDeviceViewPortSize.y = 0;

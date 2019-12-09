@@ -21,7 +21,7 @@ namespace FATMING_CORE
 		Vector3				m_vCurrentShockDirectionValue;
 		bool				m_bShockDone;
 	public:
-		cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth = 30.f,bool e_bTexture = true,wchar_t*e_strName = L"cShockBoobsShader");
+		cShockBoobsShader(const char*e_strVS,const char*e_strPS,float e_fMaximumShockStregth = 30.f,bool e_bTexture = true,const wchar_t*e_strName = L"cShockBoobsShader");
 		virtual ~cShockBoobsShader();
 		virtual	void	Use(bool e_bUseLastWVPMatrix = true);
 		void			Update(float e_fElpaseTime);

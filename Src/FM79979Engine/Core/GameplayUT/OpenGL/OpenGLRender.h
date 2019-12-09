@@ -8,6 +8,7 @@ namespace FATMING_CORE
 {
 	class cOpenGLRender
 	{
+		void														CreateDefaultShader();
 	public:
 		bool														m_sMultisample;
 #if defined(WIN32)
@@ -15,10 +16,8 @@ namespace FATMING_CORE
 		HANDLE														m_Handle;
 		HGLRC														m_HGLRC;
 		cOpenGLRender();
-		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
-#else
-		cOpenGLRender(Vector2 e_vGameResolution, Vector2 e_vViewportSize);
 #endif
+		cOpenGLRender(Vector2 e_vGameResolution = Vector2(1920.f, 1080.f), Vector2 e_vViewportSize = Vector2(1920.f, 1080.f));
 		~cOpenGLRender();
 		//while game resolution is change we want to re scale all data check this one
 		Vector2														m_vGameScale;
@@ -38,9 +37,12 @@ namespace FATMING_CORE
 		static	std::vector<int>*									m_piSupportCompressedFormatVector;
 		static	float												m_sfOpenGLVersion;
 		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
+		static	bool												m_sbVBOSupported;
 		//init shader
 #ifdef WIN32
 		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);
+#else
+		void														Init();
 #endif
 		static	bool												IsCompressedFormatSupport(int e_iFormat);
 	};

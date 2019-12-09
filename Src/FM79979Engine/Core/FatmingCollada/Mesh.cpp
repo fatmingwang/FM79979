@@ -29,13 +29,13 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 	memset(m_bVerticesBuffer,0,sizeof(bool)*TOTAL_FVF);
 	m_uiVertexBufferCount = e_uiVertexBufferCount;
 	//fuck,because animation need position info
-	g_bVBOSupported = true;
-	//g_bVBOSupported = false;	
+	cOpenGLRender::m_sbVBOSupported = true;
+	//cOpenGLRender::m_sbVBOSupported = false;	
 	cGameApp::OutputDebugInfoString(L"FUCK!!!\n");
 	cGameApp::OutputDebugInfoString(L"glGet GL_ARRAY_BUFFER_BINDING,GL_ELEMENT_ARRAY_BUFFER_BINDING,before get buffer data u have to \
 					   glBindBuffer(GL_ARRAY_BUFFER, l_uiBufferID);");
-	if( g_bVBOSupported )
-		m_pVBOBuffer = new cVBOBuffer();
+	if(cOpenGLRender::m_sbVBOSupported)
+		m_pVBOBuffer = new FATMING_CORE::cVBOBuffer();
 	else
 		m_pVBOBuffer = 0;
 	for(int i=0;i<TOTAL_FVF;++i)
