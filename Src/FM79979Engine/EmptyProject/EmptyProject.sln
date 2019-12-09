@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet", "..\Core\GameplayU
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingAI", "..\Core\FatmingAI\FatmingAI.vcxproj", "{377C8B76-B1E4-4004-83E6-65C42799380E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FMEvent", "..\Core\FMEvent\Event.vcxproj", "{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -164,6 +166,20 @@ Global
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x64.ActiveCfg = Release|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x64.Build.0 = Release|x64
 		{377C8B76-B1E4-4004-83E6-65C42799380E}.Release|x86.ActiveCfg = Release|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|ARM.ActiveCfg = Debug|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|ARM64.ActiveCfg = Debug|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|Emscripten.Build.0 = Debug|Emscripten
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|x64.ActiveCfg = Debug|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|x64.Build.0 = Debug|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Debug|x86.ActiveCfg = Debug|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|ARM.ActiveCfg = Release|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|ARM64.ActiveCfg = Release|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|Emscripten.Build.0 = Release|Emscripten
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|x64.ActiveCfg = Release|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|x64.Build.0 = Release|x64
+		{CB79DCA3-5F7A-423F-BA3E-01DF441C06B1}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

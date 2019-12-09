@@ -1,5 +1,5 @@
 #ifndef _FAI_PARSER_H_
-#define _AI_PARSER_H_
+#define _FAI_PARSER_H_
 
 #include "FAICharacterInterface.h"
 #include "FAIMachine.h"

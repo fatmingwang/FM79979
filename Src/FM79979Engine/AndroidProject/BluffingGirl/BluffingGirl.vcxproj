@@ -26,24 +26,31 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
     <AndroidMinAPI>android-21</AndroidMinAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidMinAPI>android-19</AndroidMinAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -58,7 +65,7 @@
     <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <NdkToolchainVersion>Default</NdkToolchainVersion>
+    <NdkToolchainVersion>DefaultClang</NdkToolchainVersion>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <AntBuild>

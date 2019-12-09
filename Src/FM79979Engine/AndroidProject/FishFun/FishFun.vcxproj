@@ -24,21 +24,27 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
-    <AndroidMinAPI>android-19</AndroidMinAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <AndroidTargetAPI>android-14</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -46,13 +52,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <FastDeploy>false</FastDeploy>
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
@@ -62,7 +68,7 @@
       <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;jnigraphics;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;MUParser;OpenSLES;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Tegra-Android\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>
@@ -81,7 +87,7 @@
     </ClCompile>
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;jnigraphics;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>android;stdc++;c;m;log;dl;GLESv2;EGL;AndroidCoreLib;Ogg;Bullet;FatmingAI;FatmingCollada;jnigraphics;OpenSLES;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Tegra-Android\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <AntBuild>
@@ -171,22 +177,10 @@
     <JCompile Include="src\util\AdMobUtility.java" />
     <JCompile Include="src\util\Define.java" />
     <JCompile Include="src\util\ExternalStorage.java" />
-    <JCompile Include="src\util\facebook\FBManager.java" />
     <JCompile Include="src\util\NetworkUtil.java" />
-    <JCompile Include="src\util\iab\Base64.java" />
-    <JCompile Include="src\util\iab\Base64DecoderException.java" />
-    <JCompile Include="src\util\iab\IabException.java" />
-    <JCompile Include="src\util\iab\IabHelper.java" />
-    <JCompile Include="src\util\iab\IABManager.java" />
-    <JCompile Include="src\util\iab\IabResult.java" />
-    <JCompile Include="src\util\iab\Inventory.java" />
-    <JCompile Include="src\util\iab\Purchase.java" />
-    <JCompile Include="src\util\iab\Security.java" />
-    <JCompile Include="src\util\iab\SkuDetails.java" />
     <JCompile Include="src\util\MyBitmap.java" />
     <JCompile Include="src\util\NumericEditTextDialog.java" />
     <JCompile Include="src\util\RootUtil.java" />
-    <JCompile Include="src\util\ZipUtilActivity.java" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\FishingFun\Win32Test\FishBehavior.cpp" />
@@ -248,6 +242,14 @@
     <None Include="res\drawable\icon.png" />
     <None Include="res\layout\fbmanagerlayout.xml" />
     <None Include="res\layout\test.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
+      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\AndroidCoreLib\AndroidCoreLib.vcxproj">
+      <Project>{1c02af53-c465-47a4-a314-b3f1fbfc55e2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

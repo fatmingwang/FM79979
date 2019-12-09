@@ -24,21 +24,27 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidArch>armv7-a</AndroidArch>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
-    <AndroidMinAPI>android-19</AndroidMinAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
-    <AndroidTargetAPI>android-14</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
-    <AndroidTargetAPI>android-14</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -171,29 +177,12 @@
     <JCompile Include="src\net\lingala\zip4j\zip\ZipEngine.java" />
     <JCompile Include="src\util\AccelerometerListener.java" />
     <JCompile Include="src\util\AccelerometerManager.java" />
-    <JCompile Include="src\util\AdMobUtility.java" />
-    <JCompile Include="src\util\bluetooth\BluetoothChatFragment.java" />
-    <JCompile Include="src\util\bluetooth\BluetoothChatService.java" />
-    <JCompile Include="src\util\bluetooth\Constants.java" />
-    <JCompile Include="src\util\bluetooth\DeviceListActivity.java" />
     <JCompile Include="src\util\Define.java" />
     <JCompile Include="src\util\ExternalStorage.java" />
-    <JCompile Include="src\util\facebook\FBManager.java" />
     <JCompile Include="src\util\NetworkUtil.java" />
-    <JCompile Include="src\util\iab\Base64.java" />
-    <JCompile Include="src\util\iab\Base64DecoderException.java" />
-    <JCompile Include="src\util\iab\IabException.java" />
-    <JCompile Include="src\util\iab\IabHelper.java" />
-    <JCompile Include="src\util\iab\IABManager.java" />
-    <JCompile Include="src\util\iab\IabResult.java" />
-    <JCompile Include="src\util\iab\Inventory.java" />
-    <JCompile Include="src\util\iab\Purchase.java" />
-    <JCompile Include="src\util\iab\Security.java" />
-    <JCompile Include="src\util\iab\SkuDetails.java" />
     <JCompile Include="src\util\MyBitmap.java" />
     <JCompile Include="src\util\NumericEditTextDialog.java" />
     <JCompile Include="src\util\RootUtil.java" />
-    <JCompile Include="src\util\ZipUtilActivity.java" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\EmptyProject\EngineTest\GameApp.cpp" />

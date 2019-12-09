@@ -79,7 +79,7 @@ bool Engine::initUI()
 		g_pAndroidTestApp = new cEngineTestApp(mApp->activity,mApp->appThreadEnv,&mApp->appThreadThis,Vector2(720,1280),l_vViewport,&mEgl);
 		g_pAndroidTestApp->Init();
 		g_pAndroidTestApp->m_sbDoMultiTouch = true;
-		cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
+		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
 	}
 	m_uiInitialized = true;
 	return true;
@@ -130,21 +130,21 @@ bool Engine::renderFrame(bool allocateIfNeeded)
 	{
 		int	l_iOrientation = nv_app_get_display_rotation(mApp);
 		// (0=ROTATION_0, 1=ROTATION_90, 2=ROTATION_180, 3=ROTATION_180
-		switch( l_iOrientation )
-		{
-			case 0:
-				cGameApp::m_seDeviceDirection = eDD_PORTRAIT;
-				break;
-			case 1:
-				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
-				break;
-			case 2:
-				cGameApp::m_seDeviceDirection = eDD_UPSIDE_DOWN;
-				break;
-			case 3:
-				cGameApp::m_seDeviceDirection = eDD_LANDSCAPE_LEFT;
-				break;
-		}
+		//switch( l_iOrientation )
+		//{
+		//	case 0:
+		//		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_PORTRAIT;
+		//		break;
+		//	case 1:
+		//		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
+		//		break;
+		//	case 2:
+		//		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_UPSIDE_DOWN;
+		//		break;
+		//	case 3:
+		//		cGameApp::m_spOpenGLRender->m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
+		//		break;
+		//}
 		
 		if( g_bLostFocus )
 		{

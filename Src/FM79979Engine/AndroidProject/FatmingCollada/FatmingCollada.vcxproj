@@ -24,21 +24,30 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
-    <AndroidMinAPI>android-19</AndroidMinAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
-    <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
+    <AndroidTargetAPI>
+    </AndroidTargetAPI>
+    <AndroidNativeAPI>UseMin</AndroidNativeAPI>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
+    <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -126,6 +135,11 @@
     <ClCompile Include="..\..\Core\FatmingCollada\FUDaeEnum.cpp" />
     <ClCompile Include="..\..\Core\FatmingCollada\Mesh.cpp" />
     <ClCompile Include="..\..\Core\FatmingCollada\ProcessController.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AndroidCoreLib\AndroidCoreLib.vcxproj">
+      <Project>{1c02af53-c465-47a4-a314-b3f1fbfc55e2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

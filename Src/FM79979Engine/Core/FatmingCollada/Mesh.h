@@ -42,7 +42,7 @@ class	cMesh:public Frame,public cNamedTypedObjectVector<sTechniqueAndTexture>
 	GET_SET_DEC(bool,m_bShadowEffect,IsShadowEffect,SetShadowEffect);
 	//friend class cMesh;
 protected:
-	cVBOBuffer*m_pVBOBuffer;
+	FATMING_CORE::cVBOBuffer*m_pVBOBuffer;
 	//
 	UINT	m_uiFVF_Format;
 	//

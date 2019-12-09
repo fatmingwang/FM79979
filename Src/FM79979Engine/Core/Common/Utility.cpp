@@ -34,6 +34,7 @@
 #elif defined(ANDROID)
 #include "jni.h"
 #include <sys/stat.h>
+#include <time.h>
 //#include <locale>
 #elif defined(WASM)
 #include <stdarg.h>

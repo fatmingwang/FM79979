@@ -69,6 +69,21 @@ namespace	FATMING_CORE
 	cGameApp::cGameApp(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 #endif
 	{
+		if (!cGameApp::m_psstrGameAppName)
+		{
+			cGameApp::m_psstrGameAppName = new std::string;
+			*cGameApp::m_psstrGameAppName = "GameApp";
+		}
+#ifdef ANDROID
+		m_spThreadEnv = e_pThreadEnv;
+		m_spANativeActivity = e_pActivity;
+		m_spAppThreadThis = e_pAppThreadThis;
+		m_pNvEGLUtil = e_pNvEGLUtil;
+		m_spJNIUtilData = new sJNIUtilData(m_spThreadEnv);
+		m_spJNIUtilData->Init();
+		g_pMainThreadJNIUtilData = m_spJNIUtilData;
+		SetupAPKFilePath(e_pActivity, e_pThreadEnv);
+#endif
 		if (this->m_sbDebugFunctionWorking)
 		{
 			FMLog::Init();
@@ -85,27 +100,25 @@ namespace	FATMING_CORE
 		m_bDoScreenShot = false;
 		m_sbMouseClickStatus[0] = m_sbMouseClickStatus[1] = m_sbMouseClickStatus[2] = false;
 		cGameApp::m_sbGamePause = false;
-		cGameApp::m_psstrGameAppName = new std::string;
-		*cGameApp::m_psstrGameAppName = "GameApp";
 		OutputDebugInfoString(L"GameApp Start");
 		m_dbGamePlayTime = 0;
 		SystemErrorCheck();
-#ifdef ANDROID
-		m_spThreadEnv = e_pThreadEnv;
-		m_spANativeActivity = e_pActivity;
-		m_spAppThreadThis = e_pAppThreadThis;
-		m_pNvEGLUtil = e_pNvEGLUtil;
-		m_spJNIUtilData = new sJNIUtilData(m_spThreadEnv);
-		m_spJNIUtilData->Init();
-		g_pMainThreadJNIUtilData = m_spJNIUtilData;
-		SetupAPKFilePath(e_pActivity, e_pThreadEnv);
-#endif
-		CreateDefaultOpenGLRender();
-		m_spOpenGLRender->m_vDeviceViewPortSize = m_spOpenGLRender->m_vViewPortSize = e_vViewportSize;
-		m_spOpenGLRender->m_vGameResolution = e_vGameResolution;
+		if (!m_spOpenGLRender)
+			m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
+		else
+		{
+			m_spOpenGLRender->m_vGameResolution;
+			m_spOpenGLRender->m_vViewPortSize.x = 0;
+			m_spOpenGLRender->m_vViewPortSize.y = 0;
+			m_spOpenGLRender->m_vViewPortSize.z = e_vViewportSize.x;
+			m_spOpenGLRender->m_vViewPortSize.w = e_vViewportSize.y;
+			m_spOpenGLRender->m_vDeviceViewPortSize = m_spOpenGLRender->m_vViewPortSize;
+		}
 #ifdef WIN32
 		m_spOpenGLRender->Init(e_Hwnd,true);
 		PrintMemoryInfo();
+#else
+		m_spOpenGLRender->Init();
 #endif
 		memset(m_sucKeyData, 0, sizeof(bool)*MAX_PATH);
 		m_bMouseHover = false;

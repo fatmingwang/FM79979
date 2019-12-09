@@ -244,7 +244,7 @@ namespace FATMING_CORE
 	//
 	//===============
 #ifndef DEBUG
-//#define	USE_HW_DECODE_BITMAP
+#define	USE_HW_DECODE_BITMAP
 #endif
 #if defined(ANDROID) && defined(USE_HW_DECODE_BITMAP)
 	std::string	GetFileFullPathInAndroid(const char* e_strFileName)

@@ -724,9 +724,6 @@
     <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\UVAnimationImage.cpp">
       <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp">
-      <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleManager.cpp">
       <Filter>jni\GamePlayUT\Render\Particle</Filter>
     </ClCompile>
@@ -831,6 +828,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Tabpage.cpp">
       <Filter>jni\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp">
+      <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1291,9 +1291,6 @@
     <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\UVAnimationImage.h">
       <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.h">
-      <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\AllParticleInclude.h">
       <Filter>jni\GamePlayUT\Render\Particle</Filter>
     </ClInclude>
@@ -1407,6 +1404,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Tabpage.h">
       <Filter>jni\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.h">
+      <Filter>jni\GamePlayUT\Render\OpenGLObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

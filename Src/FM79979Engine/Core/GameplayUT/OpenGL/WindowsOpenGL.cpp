@@ -1,11 +1,8 @@
 #include "WindowsOpenGL.h"
 #if defined(WIN32)
 #include "Glh.h"
+#include "OpenGLRender.h"
 #include "assert.h"
-namespace FATMING_CORE
-{
-	extern bool g_bVBOSupported;
-}
 bool	g_bArbMultisampleSupported = false;
 int		g_bArbMultisampleFormat = 0;
 bool	WGLisExtensionSupported(const char *extension)
@@ -180,7 +177,7 @@ HGLRC	InitOpenGL(HWND e_pHwnd, bool e_bInitGlewInit, HDC e_HdcMV, bool e_bEnable
 		GLenum	l_eErrorID = glewInit();
 		assert(l_eErrorID == 0);
 	}
-	FATMING_CORE::g_bVBOSupported = IsExtensionSupported("GL_ARB_vertex_buffer_object");
+	cOpenGLRender::m_sbVBOSupported = IsExtensionSupported("GL_ARB_vertex_buffer_object");
 	MyGlErrorTest("HGLRC	InitOpenGL");
 	return l_HGLRC;
 }

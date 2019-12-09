@@ -26,7 +26,7 @@
 #include <android/asset_manager.h>
 #include <android/log.h>
 #include <stdio.h>
-
+#include <assert.h>
 // The header is the same as the other implementation, so we can support
 // both seamlessly
 #include "nv_apk_file.h"
@@ -40,6 +40,7 @@ void NvAPKInit(AAssetManager* assetManager)
 
 NvAPKFile* NvAPKOpen(char const* path)
 {
+	assert(s_manager&&"NvFInit NvAPKInit not been called!?");
     return (NvAPKFile *)AAssetManager_open(s_manager, path, AASSET_MODE_UNKNOWN);
 }
 
