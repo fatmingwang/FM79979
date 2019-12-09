@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\FMEvent\AllEventInclude.h" />
+    <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventBase.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonSelectedActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventButtonTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventHeaderDefine.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventImage.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventInstance.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventMouseTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventMPDI.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObject.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectInstance.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventParticle.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventSound.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventText.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerBase.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventValueChangerActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventValueCheckerTrigger.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariableDataRender.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventXMLNodeText.h" />
+    <ClInclude Include="..\..\Core\FMEvent\EventVariable.h">
+      <Filter>EventVariable</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventManager.h">
+      <Filter>EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventObjectParser.h">
+      <Filter>EventManager\EventParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventTriggerParser.h">
+      <Filter>EventManager\EventParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventActiverParser.h">
+      <Filter>EventManager\EventParser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\FMEvent\EventPackageRunner.h">
+      <Filter>EventManager\EventPackageRunner</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventBase.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonSelectedActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventButtonTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventImage.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventInstance.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventManagerParser.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventMouseTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventMPDI.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObject.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectInstance.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventParticle.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventSound.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventText.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerBase.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventValueChangerActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventValueCheckerTrigger.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariableDataRender.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventXMLNodeText.cpp" />
+    <ClCompile Include="..\..\Core\FMEvent\EventVariable.cpp">
+      <Filter>EventVariable</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventManager.cpp">
+      <Filter>EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventObjectParser.cpp">
+      <Filter>EventManager\EventParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventToTiXmlElement.cpp">
+      <Filter>EventManager\EventParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventTriggerParser.cpp">
+      <Filter>EventManager\EventParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventActiverParser.cpp">
+      <Filter>EventManager\EventParser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\FMEvent\EventPackageRunner.cpp">
+      <Filter>EventManager\EventPackageRunner</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Event">
+      <UniqueIdentifier>{92a2a6c3-404a-45fd-b801-a39de4413e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventManager">
+      <UniqueIdentifier>{162c7664-e9fd-4791-9cdf-67fd26f02836}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventVariable">
+      <UniqueIdentifier>{24a4562a-1da7-43fc-9032-c2b1fa91218f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventManager\EventParser">
+      <UniqueIdentifier>{0b27eb6b-a361-4a5f-83c5-3a4bfc9dea98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EventManager\EventPackageRunner">
+      <UniqueIdentifier>{44c0c6f0-1572-45b5-84c2-b0292a5a4b9d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
