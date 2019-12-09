@@ -480,7 +480,6 @@
     <ClInclude Include="Math\ValueSortingObject.h" />
     <ClInclude Include="GameplayUT\AllGamePlayUTInclude.h" />
     <ClInclude Include="GameplayUT\DataCurve\DataCurve.h" />
-    <ClInclude Include="AllPhysicInclude.h" />
     <ClInclude Include="Network\begin_code.h" />
     <ClInclude Include="Network\happyhttp.h" />
     <ClInclude Include="Network\Network.h" />

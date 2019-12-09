@@ -2,6 +2,7 @@
 
 //ClickBehaviorUI
 #include "ClickBehaviorUI/ClickBehavior.h"
+#include "ClickBehaviorUI/DefaultRenderClickBehavior.h"
 #include "ClickBehaviorUI/MPDIToGameObject.h"
 #include "ClickBehaviorUI/ScrollBox.h"
 #include "ClickBehaviorUI/ScrollBar.h"

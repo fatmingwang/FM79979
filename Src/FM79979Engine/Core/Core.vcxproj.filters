@@ -826,9 +826,6 @@
     <ClInclude Include="GameplayUT\DataCurve\DataCurve.h">
       <Filter>GameplayUT\DataCurve</Filter>
     </ClInclude>
-    <ClInclude Include="AllPhysicInclude.h">
-      <Filter>GameplayUT\Physic</Filter>
-    </ClInclude>
     <ClInclude Include="Network\begin_code.h">
       <Filter>NetWork</Filter>
     </ClInclude>
