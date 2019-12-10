@@ -1,6 +1,8 @@
 #pragma once
 #include "SubMPDI.h"
+#ifdef WIN32
 #include "../../../XML/AtgXmlWriter.h"
+#endif
 namespace FATMING_CORE
 {
 	//1.1 fix point to leftup not center.

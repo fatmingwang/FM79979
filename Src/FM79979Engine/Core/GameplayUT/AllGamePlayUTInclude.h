@@ -17,7 +17,9 @@
 //GameApp
 #include "GameApp/GameApp.h"
 //GamePad
+#ifdef WIN32
 #include "GamePad/AtgInput.h"
+#endif
 //GamePhase
 #include "GamePhase/PhaseControl.h"
 #include "GamePhase/PhasePopupMessager.h"

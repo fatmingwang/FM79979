@@ -55,19 +55,12 @@ namespace FATMING_CORE
 	void sSmoothSlide::Update(float e_fElpaseTime)
 	{
 		TC.Update(e_fElpaseTime);
-		try
-		{
-			float l_fLERP = TC.GetLERP();
-			if (l_fLERP < 0.f)
-				l_fLERP = 0.f;
-			auto l_fLERPValue = m_LazySmoothCurve.GetPositionByTime(l_fLERP).x / 100.f;
-			Vector3 l_vPos = l_fLERPValue * vGapDistance;
-			vCurrentPos = vStartPos + l_vPos;
-		}
-		catch (std::exception e)
-		{
-			printf(e.what());
-		}
+		float l_fLERP = TC.GetLERP();
+		if (l_fLERP < 0.f)
+			l_fLERP = 0.f;
+		auto l_fLERPValue = m_LazySmoothCurve.GetPositionByTime(l_fLERP).x / 100.f;
+		Vector3 l_vPos = l_fLERPValue * vGapDistance;
+		vCurrentPos = vStartPos + l_vPos;
 	}
 
 	bool sSmoothSlide::IsDone()
@@ -125,19 +118,19 @@ namespace FATMING_CORE
 		{
 			auto l_MouseMovePosition = m_DataForScrollBox.m_MouseMovePosition - m_DataForScrollBox.m_MouseDownPosition;
 			POINT l_ABSMouseMovePosition = { abs(l_MouseMovePosition.x),abs(l_MouseMovePosition.y) };
-			if (m_eOrientation == eOrientation::eO_HORIZONTAL && l_ABSMouseMovePosition.x >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
+			if (m_eOrientation == eOrientation::eO_HORIZONTAL && (float)l_ABSMouseMovePosition.x >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
 			{
 				m_DataForScrollBox.m_bDoSmoothSlide = true;
 			}
 			else
-			if (m_eOrientation == eOrientation::eO_VERTICAL && l_ABSMouseMovePosition.y >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
+			if (m_eOrientation == eOrientation::eO_VERTICAL && (float)l_ABSMouseMovePosition.y >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
 			{
 				m_DataForScrollBox.m_bDoSmoothSlide = true;
 			}
 			else
 			if (m_eOrientation == eOrientation::eO_BOTH)
 			{
-				if (l_ABSMouseMovePosition.x >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide || l_ABSMouseMovePosition.y >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
+				if ((float)l_ABSMouseMovePosition.x >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide || (float)l_ABSMouseMovePosition.y >= sSmoothSlide::m_sfMinimumDistanceToDoSmoothSlide)
 				{
 					m_DataForScrollBox.m_bDoSmoothSlide = true;
 				}
@@ -240,7 +233,7 @@ namespace FATMING_CORE
 	{
 		if (m_DataForScrollBox.m_pSelectedObject && m_DataForScrollBox.m_pSelectedObject != this)
 		{
-			Vector2 l_vMoveDis((float)e_iPosX - m_DataForScrollBox.m_MouseDownPosition.x, (float)e_iPosY - m_DataForScrollBox.m_MouseDownPosition.y);
+			Vector2 l_vMoveDis((float)e_iPosX - (float)m_DataForScrollBox.m_MouseDownPosition.x, (float)e_iPosY - (float)m_DataForScrollBox.m_MouseDownPosition.y);
 			if (l_vMoveDis.Length() >= 30.f)
 			{
 				m_DataForScrollBox.m_pSelectedObject->MouseMove(-79979, -79979);
@@ -355,7 +348,6 @@ namespace FATMING_CORE
 			while (l_pChild)
 			{
 				l_pChild->SetLocalPosition(l_vPos);
-				auto l_vWorldPos = l_pChild->GetWorldPosition();
 				cRenderObject*l_pRenderObject = dynamic_cast<cRenderObject*>(l_pChild);
 				POINT l_Size = l_pRenderObject->GetSize();
 				if (l_eOrientation == eOrientation::eO_HORIZONTAL)
@@ -363,7 +355,7 @@ namespace FATMING_CORE
 					if (e_bMultiLines)
 					{
 						++l_iMultiLinesCount;
-						l_vPos.y += e_vObjectGap.y + l_Size.y;
+						l_vPos.y += (e_vObjectGap.y + l_Size.y);
 						if (l_vPos.y + l_Size.y >= l_ViewRectSize.y)
 						{
 							if (m_DataForScrollBox.m_iColumnCountForMultiArrange == 0)
@@ -378,38 +370,38 @@ namespace FATMING_CORE
 					}
 				}
 				else
-					if (l_eOrientation == eOrientation::eO_VERTICAL)
+				if (l_eOrientation == eOrientation::eO_VERTICAL)
+				{
+					if (e_bMultiLines)
 					{
-						if (e_bMultiLines)
+						++l_iMultiLinesCount;
+						l_vPos.x += e_vObjectGap.x + l_Size.x;
+						if (l_vPos.x + l_Size.x >= l_ViewRectSize.x)
 						{
-							++l_iMultiLinesCount;
-							l_vPos.x += e_vObjectGap.x + l_Size.x;
-							if (l_vPos.x + l_Size.x >= l_ViewRectSize.x)
-							{
-								if (m_DataForScrollBox.m_iColumnCountForMultiArrange == 0)
-									m_DataForScrollBox.m_iColumnCountForMultiArrange = l_iMultiLinesCount;
-								l_vPos.x = e_vStartOffsetPos.x;
-								l_vPos.y += e_vObjectGap.y + l_Size.y;
-							}
-						}
-						else
-						{
+							if (m_DataForScrollBox.m_iColumnCountForMultiArrange == 0)
+								m_DataForScrollBox.m_iColumnCountForMultiArrange = l_iMultiLinesCount;
+							l_vPos.x = e_vStartOffsetPos.x;
 							l_vPos.y += e_vObjectGap.y + l_Size.y;
 						}
 					}
 					else
-						if (l_eOrientation == eOrientation::eO_BOTH)
-						{
-							++l_iCurrentCountForBothDirection;
-							l_vPos.x += e_vObjectGap.x + l_Size.x;
-							if (l_iCurrentCountForBothDirection == l_iBothDirectionWithMiltiLineRoot)
-							{
-								l_vPos.x = e_vStartOffsetPos.x;
-								l_vPos.y += e_vObjectGap.y + l_Size.y;
-								l_iCurrentCountForBothDirection = 0;
-							}
+					{
+						l_vPos.y += e_vObjectGap.y + l_Size.y;
+					}
+				}
+				else
+				if (l_eOrientation == eOrientation::eO_BOTH)
+				{
+					++l_iCurrentCountForBothDirection;
+					l_vPos.x += e_vObjectGap.x + l_Size.x;
+					if (l_iCurrentCountForBothDirection == l_iBothDirectionWithMiltiLineRoot)
+					{
+						l_vPos.x = e_vStartOffsetPos.x;
+						l_vPos.y += e_vObjectGap.y + l_Size.y;
+						l_iCurrentCountForBothDirection = 0;
+					}
 
-						}
+				}
 				Vector2 l_vDrawSize(l_vPos.x + l_Size.x, l_vPos.y + l_Size.y);
 				if (m_DataForScrollBox.m_vScrollerSizeOfAllObject.x < l_vDrawSize.x)
 					m_DataForScrollBox.m_vScrollerSizeOfAllObject.x = l_vDrawSize.x;

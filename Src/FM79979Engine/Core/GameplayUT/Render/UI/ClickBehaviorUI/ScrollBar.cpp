@@ -179,7 +179,7 @@ namespace FATMING_CORE
 		Vector4 l_vBGRect(l_vBGPos.x, l_vBGPos.y, l_vBGPos.x + m_pBGImage->GetWidth(), l_vBGPos.y + m_pBGImage->GetHeight());
 		if (m_eOrientation == eOrientation::eO_HORIZONTAL)
 		{
-			if (e_iPosX > l_vBGRect.x&&e_iPosX < l_vBGRect.z)
+			if (e_iPosX > (int)l_vBGRect.x&&e_iPosX < (int)l_vBGRect.z)
 			{
 				float l_fPercentage = (e_iPosX - l_vBGRect.x) / l_vBGRect.Width();
 				m_pScrollBox->MoveScrollByScrollBarPercent(l_fPercentage, 0.f);
@@ -194,7 +194,7 @@ namespace FATMING_CORE
 		else
 			if (m_eOrientation == eOrientation::eO_VERTICAL)
 			{
-				if (e_iPosY > l_vBGRect.y&&e_iPosY < l_vBGRect.w)
+				if (e_iPosY > (int)l_vBGRect.y && e_iPosY < (int)l_vBGRect.w)
 				{
 					float l_fPercentage = (e_iPosY - l_vBGRect.y) / l_vBGRect.Height();
 					m_pScrollBox->MoveScrollByScrollBarPercent(0.f, l_fPercentage);

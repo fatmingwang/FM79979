@@ -12,8 +12,8 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "./../../../Android/nv_file.h"
-#include "./../../../Common/Utility.h"
+#include "../../../../Android/nv_file.h"
+#include "../../../../Common/Utility.h"
 #ifndef IOS
 #include <malloc.h>
 #endif

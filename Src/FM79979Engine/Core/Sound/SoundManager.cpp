@@ -1,6 +1,8 @@
 #include "../stdafx.h"
 #include "SoundManager.h"
+#ifdef WIM32
 #include "../XML/AtgXmlWriter.h"
+#endif
 #include "../Common/StringToStructure.h"
 
 namespace FATMING_CORE
@@ -18,15 +20,14 @@ namespace FATMING_CORE
 	
 	void    cSoundParser::ActiveOpenAL()
 	{
+		int a = 0;
 #ifdef WIN32
 		ALboolean l_bAlutInitResult = alutInit (0,0);
 		if( !l_bAlutInitResult )
 		{
 			UT::ErrorMsg(L"openal create failed!",L"please install oalinst,https://www.openal.org/downloads/");
 		}
-#endif
-
-#if defined(ANDROID) || defined(IOS) || defined(WASM)
+#else
 		// Initialization
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160

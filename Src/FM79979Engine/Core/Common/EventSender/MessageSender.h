@@ -2,6 +2,7 @@
 #include <functional>
 #include <map>
 #include <vector>
+#include <string.h>
 namespace FATMING_CORE
 {
 

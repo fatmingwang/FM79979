@@ -4,18 +4,12 @@
 #include "../Common/StringToStructure.h"
 //#include "../GameplayUT/GameApp.h"
 
-#ifdef IOS
-#include "ogg/ogg/ogg.h"
-#include "ogg/vorbis/vorbisfile.h"
-#elif defined(ANDROID) || defined(WASM)  || defined(LINUX)
-#include "ogg/ogg/ogg.h"
-#include "ogg/vorbis/vorbisfile.h"
-#elif defined(WIN32)
+#ifdef WIN32
 #include "../../../Include/ogg/ogg.h"
 #include "../../../Include/vorbis/vorbisfile.h"
-#else//linux
-//#include "ogg.h"
-//#include "vorbisfile.h"
+#else
+#include "ogg/ogg/ogg.h"
+#include "ogg/vorbis/vorbisfile.h"
 #endif
 
 namespace FATMING_CORE

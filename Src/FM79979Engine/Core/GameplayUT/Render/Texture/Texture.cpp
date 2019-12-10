@@ -535,7 +535,7 @@ namespace FATMING_CORE
 			l_iPixelWidth = l_iWidthPO2;
 			l_iPixelHeight = l_iHeightPO2;
 		}
-		if( m_uiImageIndex == -1 )
+		if( m_uiImageIndex == (GLuint)-1 )
 		{
 			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */	
 //#ifndef OPENGLES_2_X

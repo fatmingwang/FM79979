@@ -4,7 +4,7 @@
 #include "../Render/MPDI/MPDI.h"
 #include "../Render/Parser/AnimationParser.h"
 #include "../Render/Particle/AllParticleInclude.h"
-#include "../../Physic/2DImageCollisionData.h"
+#include "../Physic/2DImageCollisionData.h"
 #include "../GameApp/GameApp.h"
 
 ///#include "GameApp.h"

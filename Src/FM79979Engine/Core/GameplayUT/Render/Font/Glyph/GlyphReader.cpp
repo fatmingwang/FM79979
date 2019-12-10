@@ -1,7 +1,7 @@
 ﻿#include "GlyphReader.h"
-#include "../../../XML/XMLLoader.h"
-#include "../../../Common/BinaryFile/StringCompress.h"
-#include "../../../Common/Log/FMLog.h"
+#include "../../../../XML/XMLLoader.h"
+#include "../../../../Common/BinaryFile/StringCompress.h"
+#include "../../../../Common/Log/FMLog.h"
 GlyphReader::GlyphReader():cSmartObject(this)
 {
 	m_pFontData = 0;

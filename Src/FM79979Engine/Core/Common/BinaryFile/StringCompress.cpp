@@ -105,8 +105,10 @@ bool CompressHuffman(unsigned char *pSrc, int nSrcLen, unsigned char *&pDes, int
 {
 	CHuffmanNode nodes[511];
 	// initialize nodes ascii
-	for(int nCount = 0; nCount < 256; nCount++)
-		nodes[nCount].byAscii = nCount;
+	for (int nCount = 0; nCount < 256; nCount++)
+	{
+		nodes[nCount].byAscii = (unsigned char)nCount;
+	}
 	// get ascii frequencies
 	int nCount;
 	for(nCount = 0; nCount < nSrcLen; nCount++)
@@ -125,7 +127,7 @@ bool CompressHuffman(unsigned char *pSrc, int nSrcLen, unsigned char *&pDes, int
 	*(unsigned long*)pDesPtr = nSrcLen;
 	pDesPtr += sizeof(unsigned long);
 	// save Huffman tree leaves count-1 (as it may be 256)
-	*pDesPtr = nNodeCount-1;
+	*pDesPtr = (unsigned char)(nNodeCount-1);
 	pDesPtr += sizeof(unsigned char);
 	// save Huffman tree used leaves nodes
 	for(nCount = 0; nCount < nNodeCount; nCount++)
@@ -309,7 +311,7 @@ bool	IsCompressFile(NvFile*e_pFile,int e_iMagicID)
 	if( !e_pFile )
 		return false;
 	int nFileLength = UT::GetFileSize(e_pFile);
-	if( nFileLength < sizeof(int) )
+	if( nFileLength < (int)sizeof(int) )
 		return false;
 	//store curent position
 	long l_lCurrentPosition = NvFTell( e_pFile );

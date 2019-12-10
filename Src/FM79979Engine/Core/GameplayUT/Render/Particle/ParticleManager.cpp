@@ -11,7 +11,9 @@
 #include "ParticleEmitterBehavior.h"
 #include "ParticleEmitterGroup.h"
 #include "../../GameApp/GameApp.h"
+#ifdef WIN32
 #include "../../../XML/AtgXmlWriter.h"
+#endif
 #define	PRTDATA_INIT_POLICY 	L"InitPolicy"
 #define	PRTDATA_ACT_POLICY 		L"ActPolicy"
 #define	PRTDATA_TEXTURE_LIST 	L"TextureList"

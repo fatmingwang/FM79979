@@ -1,5 +1,7 @@
 #include "AnimationParser.h"
+#ifdef WIN32
 #include "../../../XML/AtgXmlWriter.h"
+#endif
 #include "../MPDI/MPDI.h"
 #include "../MPDI/MPDIDataParse.h"
 

@@ -55,7 +55,7 @@ namespace UT
 		fTimeFor1Sec += fElpaseTime;
 		if(fTimeFor1Sec>=1.f)
 		{
-			fTimeFor1Sec -=(int)fTimeFor1Sec;
+			fTimeFor1Sec -= (int)fTimeFor1Sec;
 			sprintf(strFrameRate,"%i fps",uiNumFrame);
 			uiNumFrame = 0;
 		}

@@ -39,7 +39,7 @@ Rename this file to lodepng.cpp to use it for C++, or to lodepng.c to use it for
 #define VERSION_STRING "20130415"
 #include "../../../../Common/Utility.h"
 #include "../../../../Common/BinaryFile/StringCompress.h"
-#include "../../GameApp/GameApp.h"
+#include "../../../GameApp/GameApp.h"
 
 /*
 This source file is built up in the following large parts. The code sections

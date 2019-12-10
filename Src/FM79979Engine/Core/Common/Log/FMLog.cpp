@@ -149,7 +149,7 @@ namespace FMLog
 #endif
 		if (g_pLatestLog)
 		{
-			if (g_pLatestLog->size() + 1 >= g_iKeepLogCount)
+			if (g_pLatestLog->size() + 1 >= (std::size_t)g_iKeepLogCount)
 			{
 				g_pLatestLog->pop_back();
 			}

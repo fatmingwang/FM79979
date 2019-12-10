@@ -2,6 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <wchar.h>
+#ifdef WIN32
+#pragma warning( disable : 4996 )
+#endif
 const wchar_t*				StringID::s_EmptyString = L"";
 std::list<const wchar_t *>*	StringID::m_spStringLists = nullptr;
 unsigned long long	g_ui64NumObjectInUsing = 0;

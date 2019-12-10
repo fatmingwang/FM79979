@@ -2,7 +2,9 @@
 #include "../../../Common/Utility.h"
 #include "../CommonRender/NumeralImage.h"
 #include "../../../XML/XMLLoader.h"
+#ifdef WIN32
 #include "../../../XML/AtgXmlWriter.h"
+#endif
 #include "../PuzzleImage/PuzzleImage.h"
 namespace FATMING_CORE
 {
