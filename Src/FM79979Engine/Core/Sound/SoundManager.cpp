@@ -1,6 +1,6 @@
 #include "../stdafx.h"
 #include "SoundManager.h"
-#ifdef WIM32
+#ifdef WIN32
 #include "../XML/AtgXmlWriter.h"
 #endif
 #include "../Common/StringToStructure.h"
