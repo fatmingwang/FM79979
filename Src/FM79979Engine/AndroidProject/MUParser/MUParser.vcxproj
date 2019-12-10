@@ -51,8 +51,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-15</AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
+    <AndroidMinAPI>android-21</AndroidMinAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>

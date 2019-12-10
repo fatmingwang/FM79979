@@ -28,7 +28,7 @@
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <AndroidMinAPI>android-21</AndroidMinAPI>
-    <AndroidArch>armv7-a</AndroidArch>
+    <AndroidArch>multiple</AndroidArch>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
@@ -73,7 +73,7 @@
     </Link>
     <AntBuild>
       <AntBuildPath>$(ProjectDir)\</AntBuildPath>
-      <SecurePropertiesLocation>C:\Users\design24.HC\Desktop\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
+      <SecurePropertiesLocation>C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
     </AntBuild>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -245,6 +245,17 @@
     <None Include="res\drawable\icon.png" />
     <None Include="res\layout\fbmanagerlayout.xml" />
     <None Include="res\layout\test.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
+      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\AndroidCoreLib\AndroidCoreLib.vcxproj">
+      <Project>{1c02af53-c465-47a4-a314-b3f1fbfc55e2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\FMEvent\FMEvent.vcxproj">
+      <Project>{f80b6d73-ca42-4949-be7f-69520872c43a}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
