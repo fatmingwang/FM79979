@@ -3,13 +3,13 @@
 //#include "GameApp.h"
 //#include "PlayerData.h"
 
-cGameNetwork*g_pGameNetwork = 0;
+cMultiPlayerNetwork*g_pGameNetwork = 0;
 
 
 void	ConnectedThread(size_t _workParameter, size_t _pUri)
 {
 	cGameApp::OutputDebugInfoString("tring to connect start\n");
-	cGameNetwork*l_pGameNetwork = (cGameNetwork*)_workParameter;
+	cMultiPlayerNetwork*l_pGameNetwork = (cMultiPlayerNetwork*)_workParameter;
 	l_pGameNetwork->Connect();
 	if(l_pGameNetwork->IsConnected())
 	{
@@ -23,12 +23,12 @@ void	ConnectedThread(size_t _workParameter, size_t _pUri)
 
 void	ConnectedThreadDone(size_t _workParameter, size_t _pUri)
 {
-	//cGameNetwork*l_pGameNetwork = (cGameNetwork*)_workParameter;
+	//cMultiPlayerNetwork*l_pGameNetwork = (cMultiPlayerNetwork*)_workParameter;
 	//l_pGameNetwork->m_bDoConnection = true;
 	//cGameApp::OutputDebugInfoString("tring to connect end\n");
 }
 
-cGameNetwork::cGameNetwork()
+cMultiPlayerNetwork::cMultiPlayerNetwork()
 {
 	g_pGameNetwork = this;
 	m_bServer = false;
@@ -38,11 +38,11 @@ cGameNetwork::cGameNetwork()
 		m_PlayerList[i] = 0;
 }
 
-cGameNetwork::~cGameNetwork()
+cMultiPlayerNetwork::~cMultiPlayerNetwork()
 {
 }
 
-int		cGameNetwork::GetEmptyPlayerIndex()
+int		cMultiPlayerNetwork::GetEmptyPlayerIndex()
 {
 	for( int i=1;i<4;++i )
 	{
@@ -52,7 +52,7 @@ int		cGameNetwork::GetEmptyPlayerIndex()
 	return -1;
 }
 
-int		cGameNetwork::GetNumPlayerConnected()
+int		cMultiPlayerNetwork::GetNumPlayerConnected()
 {
 	int	l_iNum = 1;
 	for( int i=1;i<4;++i )
@@ -63,7 +63,7 @@ int		cGameNetwork::GetNumPlayerConnected()
 	return l_iNum;
 }
 
-void	cGameNetwork::Connect()
+void	cMultiPlayerNetwork::Connect()
 {
 	cGameApp::OutputDebugInfoString("connection test\n");
 	if(!this->m_pSocket)
@@ -88,7 +88,7 @@ void	cGameNetwork::Connect()
 }
 
 
-void	cGameNetwork::Init()
+void	cMultiPlayerNetwork::Init()
 {
 	cNetwork::Init();
 	m_bDoConnection = false;
@@ -97,7 +97,7 @@ void	cGameNetwork::Init()
 }
 
 
-void	cGameNetwork::MessageProcess(sReceivedPacket*e_pPacket)
+void	cMultiPlayerNetwork::MessageProcess(sReceivedPacket*e_pPacket)
 {
 	sGamePacket*l_pGamePacket = (sGamePacket*)e_pPacket->pData;
 	sGamePacket l_GamePacket;
@@ -121,7 +121,7 @@ void	cGameNetwork::MessageProcess(sReceivedPacket*e_pPacket)
 	l_Packet.pData = 0;
 }
 
-void	cGameNetwork::Update(float e_fElpaseTime)
+void	cMultiPlayerNetwork::Update(float e_fElpaseTime)
 {
 	//if(!cEngineTestApp::m_sbOpenNetWork)
 	//	return;
@@ -151,12 +151,12 @@ void	cGameNetwork::Update(float e_fElpaseTime)
 	//}
 }
 
-void	cGameNetwork::Render()
+void	cMultiPlayerNetwork::Render()
 {
 	
 }
 
-bool	cGameNetwork::SendDataToServer(sGamePacket*e_pGamePacket,int e_iSize)
+bool	cMultiPlayerNetwork::SendDataToServer(sGamePacket*e_pGamePacket,int e_iSize)
 {
 	sSendPacket l_Packet;
 	l_Packet.pData = (char*)e_pGamePacket;
@@ -166,7 +166,7 @@ bool	cGameNetwork::SendDataToServer(sGamePacket*e_pGamePacket,int e_iSize)
 	return true;
 }
 
-bool	cGameNetwork::SendDataToAllClient(sGamePacket*e_pGamePacket,int e_iSize)
+bool	cMultiPlayerNetwork::SendDataToAllClient(sGamePacket*e_pGamePacket,int e_iSize)
 {
 	sSendPacket l_Packet;
 	l_Packet.pData = (char*)e_pGamePacket;
@@ -176,7 +176,7 @@ bool	cGameNetwork::SendDataToAllClient(sGamePacket*e_pGamePacket,int e_iSize)
 	return true;
 }
 
-bool	cGameNetwork::SendDataToClient(_TCPsocket*e_TCPsocket,sGamePacket*e_pGamePacket)
+bool	cMultiPlayerNetwork::SendDataToClient(_TCPsocket*e_TCPsocket,sGamePacket*e_pGamePacket)
 {
 	sSendPacket l_Packet;
 	l_Packet.pData = (char*)e_pGamePacket;
@@ -195,7 +195,7 @@ bool	cGameNetwork::SendDataToClient(_TCPsocket*e_TCPsocket,sGamePacket*e_pGamePa
 	return true;
 }
 
-void	cGameNetwork::ConnectionCreated(bool e_bServer,const char*e_strServerIP)
+void	cMultiPlayerNetwork::ConnectionCreated(bool e_bServer,const char*e_strServerIP)
 {
 	m_bServer = e_bServer;
 	if( !e_bServer )
@@ -205,7 +205,7 @@ void	cGameNetwork::ConnectionCreated(bool e_bServer,const char*e_strServerIP)
 	m_bDoConnection = true;
 }
 
-int		cGameNetwork::GetPlayerIndex(_TCPsocket*e_p_TCPsocket)
+int		cMultiPlayerNetwork::GetPlayerIndex(_TCPsocket*e_p_TCPsocket)
 {
 	for( int i=1;i<4;++i )
 	{
@@ -215,7 +215,7 @@ int		cGameNetwork::GetPlayerIndex(_TCPsocket*e_p_TCPsocket)
 	return -1;
 }
 
-void	cGameNetwork::SetPlayerIDIndex(int e_iIndex,_TCPsocket*e_p_TCPsocket)
+void	cMultiPlayerNetwork::SetPlayerIDIndex(int e_iIndex,_TCPsocket*e_p_TCPsocket)
 {
 	m_PlayerList[e_iIndex] = e_p_TCPsocket;
 }

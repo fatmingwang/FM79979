@@ -15,11 +15,10 @@
 //	wchar_t* l_pStringForWCSTOK = nullptr;
 //	return ::wcstok(e_str1, e_str2, &l_pStringForWCSTOK);
 //}
-
+extern wchar_t* g_pStringForWCSTOK;
 inline wchar_t* wcstok(wchar_t*e_str1, const wchar_t*e_str2)
 {
-	wchar_t* l_pStringForWCSTOK = nullptr;
-	return ::wcstok(e_str1, e_str2, &l_pStringForWCSTOK);
+	return ::wcstok(e_str1, e_str2, &g_pStringForWCSTOK);
 }
 //http://source.winehq.org/source/dlls/ntdll/wcstring.c
 /*********************************************************************

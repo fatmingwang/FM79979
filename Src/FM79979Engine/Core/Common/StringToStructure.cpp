@@ -3,6 +3,7 @@
 #ifdef WIN32
 #pragma warning( disable : 4996 )
 #endif
+wchar_t* g_pStringForWCSTOK = nullptr;
 namespace FATMING_CORE
 {
 	POINT	GetPoint(const wchar_t* e_str)

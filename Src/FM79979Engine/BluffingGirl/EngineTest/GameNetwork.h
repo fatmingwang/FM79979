@@ -65,7 +65,7 @@ struct	sGamePacket
 //	int	iAdressp[4];
 //};
 
-class	cGameNetwork:public cNetwork
+class	cMultiPlayerNetwork:public cNetwork
 {
 	friend void					ConnectedThread(size_t _workParameter, size_t _pUri);
 	friend void					ConnectedThreadDone(size_t _workParameter, size_t _pUri);
@@ -77,8 +77,8 @@ class	cGameNetwork:public cNetwork
 	void						MessageProcess(sReceivedPacket*e_pPacket);
 	std::map<int,_TCPsocket*>	m_PlayerList;
 public:
-	cGameNetwork();
-	~cGameNetwork();
+	cMultiPlayerNetwork();
+	~cMultiPlayerNetwork();
 	int							GetEmptyPlayerIndex();
 	int							GetNumPlayerConnected();
 	//please call this at right time

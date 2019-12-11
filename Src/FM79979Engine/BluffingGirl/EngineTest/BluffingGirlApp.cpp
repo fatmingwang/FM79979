@@ -80,7 +80,7 @@ POINT	g_RealMousePos = {0,0};
 cUIImage*g_pCanvasImage = 0;
 cStageClearFile*g_pStageClearFile = 0;
 cFBFunction*g_pFBFunction = 0;
-cGameNetwork*		cBluffingGirlApp::m_spGameNetwork = 0;
+cMultiPlayerNetwork*		cBluffingGirlApp::m_spGameNetwork = 0;
 
 #if defined(ANDROID)
 cBluffingGirlApp::cBluffingGirlApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
@@ -102,7 +102,7 @@ cBluffingGirlApp::cBluffingGirlApp(Vector2 e_vGameResolution,Vector2 e_vViewport
 #endif
 	g_pStageClearFile = new cStageClearFile();
 #ifndef WASM
-	m_spGameNetwork = new cGameNetwork();
+	m_spGameNetwork = new cMultiPlayerNetwork();
 #endif
 }
 

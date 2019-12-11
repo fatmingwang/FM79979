@@ -25,17 +25,7 @@
 
 #include "nv_hhdds.h"
 
-
-
-#if defined(ANDROID) || defined(WASM)
-#include <GLES2/gl2.h>
-#elif defined(IOS)
-#include <OpenGLES/ES2/gl.h>
-//#include <OpemGLES/ES2/gl.h>
-#elif defined(WIN32)
-#include "../../../../../Include/glew.h"
-#include "../../../../../Include/glext.h"
-#endif
+#include "../../../OpenGL/Glh.h"
 
 GLuint NvCreateTextureFromDDSEx(const char* filename, NvBool flipVertical,
                                 NvBool useMipmaps, NvS32* width, NvS32* height, NvBool* alpha, NvBool *isCubeMap);

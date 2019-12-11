@@ -1,0 +1,79 @@
+buildscript {
+    repositories { jcenter() }
+
+    def propertyName = 'nsight_tegra_build_properties_file_path'
+    def propertyFileName = 'nsight_tegra_build_properties.gradle'
+    def propertyFilePath = ext.has(propertyName) ? ext[propertyName] ?: propertyFileName : propertyFileName
+    apply from: propertyFilePath
+
+    dependencies { classpath project.ext.nsight_tegra_androidBuildPlugin }
+}
+
+apply plugin: "com.android.application"
+
+archivesBaseName = nsight_tegra_project_name
+
+repositories {
+    google()
+    jcenter()
+    nsight_tegra_project_local_repositories.each {
+        def repositoryLocation = new File(it)
+        if (repositoryLocation.exists()) {
+            maven { url repositoryLocation }
+        }
+    }
+}
+
+dependencies {
+    nsight_tegra_project_jar_dependencies.each {
+        if (file(it).exists()) {
+            add('compile', files(it))
+        }
+    }
+    nsight_tegra_project_aar_dependencies.each { add('compile', it) }
+	compile 'com.android.support:support-v4:22.2.0'
+}
+
+android {
+    compileSdkVersion nsight_tegra_compile_sdk_version
+    buildToolsVersion nsight_tegra_build_tools_version
+
+    sourceSets.main {
+        setRoot nsight_tegra_msbuild_project_dir
+        if (project.hasProperty('nsight_tegra_package_manifest_path')
+            && file(nsight_tegra_package_manifest_path).exists()) {
+            manifest.srcFile nsight_tegra_package_manifest_path
+        }
+        jni.srcDirs = nsight_tegra_jni_src_dirs // This is required to disable Gradle's NDK build tasks
+        jniLibs.srcDirs = nsight_tegra_jni_libs_dirs
+        java.srcDirs = nsight_tegra_java_src_dirs
+        assets.srcDirs = nsight_tegra_asset_dirs
+    }
+
+    defaultConfig {
+        if (project.hasProperty('nsight_tegra_min_sdk_version')) {
+            minSdkVersion nsight_tegra_min_sdk_version
+        }
+        if (project.hasProperty('nsight_tegra_target_sdk_version')) {
+            targetSdkVersion nsight_tegra_target_sdk_version
+        }
+        if (project.hasProperty('nsight_tegra_max_sdk_version')) {
+            maxSdkVersion nsight_tegra_max_sdk_version
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    buildTypes {
+        debug {
+            // initWith debug
+            // initWith release
+            debuggable nsight_tegra_debuggable
+            jniDebuggable nsight_tegra_jni_debuggable
+            // signingConfigs.debug is used for the 'shipping' BuildType if the key storage parameters is not explicitly defined in MSBuild project properties
+            signingConfig signingConfigs.findByName(it.name) ?: signingConfigs.debug
+        }
+    }
+}

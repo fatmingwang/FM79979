@@ -51,10 +51,10 @@ import java.util.Map;
 
 import android.media.MediaPlayer;
 
-import com.android.vending.billing.IInAppBillingService;
+
 import org.json.JSONException;
 
-import util.iab.IABManager;
+
 import util.AccelerometerManager;
 import util.AccelerometerListener;
 
@@ -81,20 +81,16 @@ import util.ZipUtilActivity;
 
 import android.widget.Toast;
 
-import util.facebook.FBManager;
 import net.lingala.zip4j.exception.ZipException;
 
 public class BluffingGirlEN extends NativeActivity implements AccelerometerListener
 {
 	public  void		OpenKeyBoard(){ Define.OpenKeyBoard(); }
-	public IABManager	m_IABManager;
 	//
 	@Override
     protected void onCreate (Bundle savedInstanceState)
     {
 		//check unpack progress
-		m_IABManager = new IABManager(true,this);
-		m_IABManager.Create();
 		Define.m_TempContext = getApplicationContext();
 		NetworkUtil.m_TempContext = getApplicationContext();
 		NumericEditTextDialog.m_TempFragmentManager = getFragmentManager();		
@@ -115,14 +111,6 @@ public class BluffingGirlEN extends NativeActivity implements AccelerometerListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
-		if( m_IABManager != null )
-		{
-			// Pass on the activity result to the helper for handling
-			if (m_IABManager.onActivityResult(requestCode, resultCode, data))
-			{
-				//
-			}
-		}
 		super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -158,7 +146,6 @@ public class BluffingGirlEN extends NativeActivity implements AccelerometerListe
 		{//Start Accelerometer Listening
             AccelerometerManager.startListening(this);
         }
-		util.facebook.FBManager.publishInstallAsync(getApplicationContext(),getString(R.string.app_id));
     }
 
 	@Override
@@ -213,14 +200,12 @@ public class BluffingGirlEN extends NativeActivity implements AccelerometerListe
 
 	public boolean	IsWaitingForRespond()
 	{
-		return m_IABManager.m_bWaitingForIABRespond;
+		return false;
 	}
 	public void	FBPost()
 	{
 		//NumericEditTextDialog	l_NumericEditTextDialog = new NumericEditTextDialog();
 		//l_NumericEditTextDialog.show(getFragmentManager(), "dialog");
-		Intent intent = new Intent(this, util.facebook.FBManager.class);
-        startActivity(intent);
 	}
 
 	//void		CloseAD()
@@ -241,20 +226,18 @@ public class BluffingGirlEN extends NativeActivity implements AccelerometerListe
 	//}
 	public void	IABCreate()
 	{
-		m_IABManager.Create();
+
 	}
 	public void	AddSKUData(String e_strSKUID,String e_strName,int e_iType,boolean e_bConsumable)
 	{
-		m_IABManager.AddSKUData(e_strSKUID,e_strName,e_iType,e_bConsumable);
+
 	}
 	boolean	IsItemPurchased(String e_strSKUID,String e_strName,int e_iType)
 	{
-		return m_IABManager.IsItemPurchased(e_strSKUID,e_strName,e_iType);
+		return true;
 	}
 	public void	DoPurchaseProducts(int e_iProductsType,String e_strProductsID)
 	{
-		if( m_IABManager != null )
-			m_IABManager.DoPurchaseProducts(e_iProductsType,e_strProductsID);
 	}
 	public String	GetExternalSDCardPath()
 	{

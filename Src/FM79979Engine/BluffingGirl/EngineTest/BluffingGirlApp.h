@@ -5,7 +5,7 @@
 	//class	cStorePhase;
 	class	cBluffingGirlPhaseManager;
 	class	cPlayerData;
-	class	cGameNetwork;
+	class	cMultiPlayerNetwork;
 	class	cBluffingGirlApp:public cGameApp
 	{
 		cBluffingGirlPhaseManager*	m_pPhaseManager;
@@ -43,6 +43,6 @@
 		static cPlayerData*			m_spPlayerData;
 		static cSimplePhase*		GetPhase(const WCHAR*e_strPhaseName);
 		static cSimplePhase*		GetCurrentPhase();
-		static cGameNetwork*		m_spGameNetwork;
+		static cMultiPlayerNetwork*		m_spGameNetwork;
 	};
 #endif

@@ -198,9 +198,6 @@
     <Filter Include="src\net\lingala\zip4j\crypto\PBKDF2">
       <UniqueIdentifier>{0d42ba56-f89f-47c6-8b42-91e7dbfe40a5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\util\facebook">
-      <UniqueIdentifier>{ed74c330-7350-4119-8f84-71592b7ec662}</UniqueIdentifier>
-    </Filter>
     <Filter Include="jni\Game\Phase\Logo">
       <UniqueIdentifier>{a0898ad1-c8b1-4459-817f-718e52f0b8c7}</UniqueIdentifier>
     </Filter>
@@ -627,9 +624,6 @@
     </JCompile>
     <JCompile Include="src\net\lingala\zip4j\progress\ProgressMonitor.java">
       <Filter>src\net\lingala\zip4j\progress</Filter>
-    </JCompile>
-    <JCompile Include="src\util\facebook\FBManager.java">
-      <Filter>src\util\facebook</Filter>
     </JCompile>
     <JCompile Include="src\util\ExternalStorage.java">
       <Filter>src\util</Filter>

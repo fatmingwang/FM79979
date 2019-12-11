@@ -1,0 +1,43 @@
+1.
+https://devtalk.nvidia.com/default/topic/1031390/nsight-tegra-visual-studio-edition/nsight_tegra_build_overrides-gradle-are-deprecated-in-version-3-5/
+2.
+https://docs.nvidia.com/gameworks/index.html#developertools/mobile/nsight_tegra/3.6/nsight_tegra_properties.htm%3FTocPath%3DDeveloper%2520Tools%7CMobile%2520Developer%2520Tools%7CNsight%2520Tegra%252C%2520Visual%2520Studio%2520Edition%7CNsight%2520Tegra%25203.6%252C%2520Visual%2520Studio%2520Edition%7C_____5
+3.
+copy
+nsight_tegra_build.gradle from intermedia folder
+
+
+modify dependency
+
+
+file content
+
+copy
+{
+	from "$System.env.ANDROID_HOME/extras/google/play_billing/IInAppBillingService.aidl"
+	into "aidl/com/android/vending/billing"
+}
+
+
+
+android
+{
+	repositories
+	{
+		mavenCentral()
+	}
+
+	sourceSets.main
+	{
+		aidl.srcDirs += ['aidl']
+	}
+}
+
+def googlePlayVersion = '7.5.0'
+
+dependencies
+{
+	compile 'com.facebook.android:facebook-android-sdk:4.3.0'
+	compile 'com.google.android.gms:play-services-games:' + googlePlayVersion
+	compile 'com.google.android.gms:play-services-ads:' + googlePlayVersion
+}

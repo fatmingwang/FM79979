@@ -316,6 +316,9 @@
     <JCompile Include="src\com\FM79979\EmptyAndroidProject\EmptyAndroidProject.java">
       <Filter>src\com\FM79979\EmptyAndroidProject</Filter>
     </JCompile>
+    <JCompile Include="src\util\ZipUtilActivity.java">
+      <Filter>src\util</Filter>
+    </JCompile>
   </ItemGroup>
   <ItemGroup>
     <AndroidBuild Include="AndroidManifest.xml" />
@@ -352,5 +355,6 @@
     <None Include="res\layout\message.xml">
       <Filter>res\layout</Filter>
     </None>
+    <None Include="nsight_tegra_build.gradle" />
   </ItemGroup>
 </Project>

@@ -79,6 +79,9 @@
       </JarDirectories>
       <JarDependencies>
       </JarDependencies>
+      <GradleBuildScriptOverridePath>C:\Users\design24.HC\Desktop\FM79979\Src\FM79979Engine\AndroidProject\BluffingGirl\nsight_tegra_build.gradle</GradleBuildScriptOverridePath>
+      <EnableGradleBuildScriptOverride>true</EnableGradleBuildScriptOverride>
+      <RunAsDaemon>true</RunAsDaemon>
     </AntBuild>
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\Fatming\Desktop\gpg-cpp-sdk.v1.2\gpg-cpp-sdk\android\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\opencv;..\..\..\include\opencv\opencv;..\..\cppnetlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -289,7 +292,6 @@
     <JCompile Include="src\util\AdMobUtility.java" />
     <JCompile Include="src\util\Define.java" />
     <JCompile Include="src\util\ExternalStorage.java" />
-    <JCompile Include="src\util\facebook\FBManager.java" />
     <JCompile Include="src\util\NetworkUtil.java" />
     <JCompile Include="src\util\iab\Base64.java" />
     <JCompile Include="src\util\iab\Base64DecoderException.java" />

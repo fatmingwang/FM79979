@@ -75,6 +75,9 @@
     </Link>
     <AntBuild>
       <AntBuildPath>$(ProjectDir)\</AntBuildPath>
+      <GradleBuildScriptOverridePath>C:\Users\design24.HC\Desktop\FM79979\Src\FM79979Engine\AndroidProject\EmptyAndroidProject\nsight_tegra_build.gradle</GradleBuildScriptOverridePath>
+      <EnableGradleBuildScriptOverride>true</EnableGradleBuildScriptOverride>
+      <RunAsDaemon>true</RunAsDaemon>
     </AntBuild>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -183,6 +186,7 @@
     <JCompile Include="src\util\MyBitmap.java" />
     <JCompile Include="src\util\NumericEditTextDialog.java" />
     <JCompile Include="src\util\RootUtil.java" />
+    <JCompile Include="src\util\ZipUtilActivity.java" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\EmptyProject\EngineTest\GameApp.cpp" />
@@ -200,6 +204,7 @@
     <ClInclude Include="jni\engine.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="nsight_tegra_build.gradle" />
     <None Include="res\drawable\icon.png" />
     <None Include="res\layout\activity_device_list.xml" />
     <None Include="res\layout\device_name.xml" />
