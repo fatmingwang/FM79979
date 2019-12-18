@@ -3,7 +3,7 @@
 #include "TextureManager.h"
 #include "../CommonRender/SimplePrimitive.h"
 #include "../../../Common/Utility.h"
-//#include "../GameplayUT/BinaryFile.h"
+#include "../../GameApp/GameApp.h"
 #include "png/pngLoader.h"
 #include "dds/nv_images.h"
 #include "jpeg/jpgd.h"
@@ -369,6 +369,7 @@ namespace FATMING_CORE
 			ErrorMsg(L"opengl process Image Failed ", UT::CharToWchar(m_pstrFullFileName->c_str()));
 			return false;
 		}
+		return true;
 	}
 #else
 	bool	cTexture::LoadImage(const char*e_strImageFileName, bool e_bFetchPixelData)
