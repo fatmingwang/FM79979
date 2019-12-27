@@ -154,7 +154,7 @@ void	Frame::SetLocalRotation(Vector3 e_vRotation)
 }
 
 
-Frame*	Frame::FinFrameByName(wchar_t*e_strName)
+Frame*	Frame::FinFrameByName(const wchar_t*e_strName)
 {
 	if( !wcscmp(e_strName,GetName()) )
 		return this;

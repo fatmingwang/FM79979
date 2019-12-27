@@ -27,7 +27,7 @@ public:
 	//
 	//
 	static	void				DestoryWithChildren(Frame*e_pFrame);
-	Frame*						FinFrameByName(wchar_t*e_strName);
+	Frame*						FinFrameByName(const wchar_t*e_strName);
     // frame hierarchy
     virtual	void                AddChild( Frame* pChild ,bool e_bUpdateRelatedPosition = true);
 	virtual	void                AddChildToLast( Frame* pChild ,bool e_bUpdateRelatedPosition = true);
