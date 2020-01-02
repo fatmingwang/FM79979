@@ -33,8 +33,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>
-    </AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <AndroidMinAPI>android-21</AndroidMinAPI>
@@ -83,6 +82,13 @@
     <Link>
       <AdditionalOptions>-lGLESv1_CM %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+      <ThinArchive>false</ThinArchive>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">
     <ClCompile>
@@ -135,11 +141,6 @@
     <ClCompile Include="..\..\Core\FatmingCollada\FUDaeEnum.cpp" />
     <ClCompile Include="..\..\Core\FatmingCollada\Mesh.cpp" />
     <ClCompile Include="..\..\Core\FatmingCollada\ProcessController.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AndroidCoreLib\AndroidCoreLib.vcxproj">
-      <Project>{1c02af53-c465-47a4-a314-b3f1fbfc55e2}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

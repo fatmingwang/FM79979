@@ -183,6 +183,7 @@
     <JCompile Include="src\util\RootUtil.java" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp" />
     <ClCompile Include="..\..\FishingFun\Win32Test\FishBehavior.cpp" />
     <ClCompile Include="..\..\FishingFun\Win32Test\FishCollectionScroller.cpp" />
     <ClCompile Include="..\..\FishingFun\Win32Test\FishDetailWindow.cpp" />
@@ -213,6 +214,7 @@
     <ClCompile Include="jni\MyJni.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.h" />
     <ClInclude Include="..\..\FishingFun\Win32Test\FishBehavior.h" />
     <ClInclude Include="..\..\FishingFun\Win32Test\FishCollectionScroller.h" />
     <ClInclude Include="..\..\FishingFun\Win32Test\FishDetailWindow.h" />
@@ -242,14 +244,6 @@
     <None Include="res\drawable\icon.png" />
     <None Include="res\layout\fbmanagerlayout.xml" />
     <None Include="res\layout\test.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
-      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\AndroidCoreLib\AndroidCoreLib.vcxproj">
-      <Project>{1c02af53-c465-47a4-a314-b3f1fbfc55e2}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

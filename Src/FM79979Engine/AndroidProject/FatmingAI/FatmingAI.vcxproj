@@ -33,11 +33,10 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>
-    </AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
-    <AndroidBuildSystem>AntBuild</AndroidBuildSystem>
+    <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
     <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
