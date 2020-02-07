@@ -101,7 +101,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <AndroidTargetAPI>android-19</AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
     <AndroidStlType>llvm-libc++_static</AndroidStlType>

@@ -35,8 +35,7 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidTargetAPI>
-    </AndroidTargetAPI>
+    <AndroidTargetAPI>android-21</AndroidTargetAPI>
     <AndroidMinAPI>android-21</AndroidMinAPI>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidBuildSystem>GradleBuild</AndroidBuildSystem>
@@ -113,6 +112,8 @@
       </NativeLibDirectories>
       <NativeLibDependencies>
       </NativeLibDependencies>
+      <GradleBuildScriptOverridePath>..\Doc\nsight_tegra_build.gradle</GradleBuildScriptOverridePath>
+      <EnableGradleBuildScriptOverride>true</EnableGradleBuildScriptOverride>
     </AntBuild>
     <ClCompile>
       <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\..\include\Androidffmpeg_2.1.4;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

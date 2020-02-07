@@ -22,8 +22,8 @@ namespace FATMING_AI
 		eFAICharacterBehaviorStatus						m_eStartBehaviodStatus;
 		//cFAICharacterStatus								m_PriorCharacterStatus;
 		//eFAICharacterBehaviorStatus						m_ePriorBehaviodStatus;
-		virtual void    InternalInit();
-		virtual void    InternalUpdate(float e_fElpaseTime);
+		virtual void    InternalInit()override;
+		virtual void    InternalUpdate(float e_fElpaseTime)override;
     public:
         DEFINE_TYPE_INFO();
 		cFAIStatusChangeByProbability(TiXmlElement*e_pTiXmlElement);

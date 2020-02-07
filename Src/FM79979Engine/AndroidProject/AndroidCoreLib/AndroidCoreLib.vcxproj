@@ -40,7 +40,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <AndroidNativeAPI>UseMin</AndroidNativeAPI>
     <AndroidMinAPI>android-21</AndroidMinAPI>
-    <AndroidStlType>gnustl_static</AndroidStlType>
+    <AndroidStlType>llvm-libc++_static</AndroidStlType>
     <AndroidMaxAPI>android-21</AndroidMaxAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Profile|Tegra-Android'">

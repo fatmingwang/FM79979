@@ -85,6 +85,7 @@
     <ClCompile Include="..\..\FishingFun\Win32Test\StorePhase.cpp">
       <Filter>jni\Game\Phase\Store</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="res">
@@ -299,6 +300,7 @@
     <ClInclude Include="..\..\FishingFun\Win32Test\StorePhase.h">
       <Filter>jni\Game\Phase\Store</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.h" />
   </ItemGroup>
   <ItemGroup>
     <JCompile Include="src\util\Define.java">

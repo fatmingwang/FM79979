@@ -280,7 +280,7 @@ void	cPuzzleImageUnitTriangulator::RenderTriangleImage(Vector3 e_vPos)
 	{
 		m_pTargetImage->ApplyImage();
 		int l_iNumTriangles = (int)m_s2DVertex.vPosVector.size();
-		//if(l_iNumTriangles > 0)
+		if(l_iNumTriangles > 0)
 			RenderTrianglesWithMatrix((float*)&m_s2DVertex.vPosVector[0], (float*)&m_s2DVertex.vUVVector[0], (float*)&m_s2DVertex.vColorVector[0], cMatrix44::TranslationMatrix(e_vPos), 3, l_iNumTriangles);
 	}
 }
