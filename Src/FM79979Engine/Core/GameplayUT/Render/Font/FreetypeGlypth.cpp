@@ -1,4 +1,5 @@
 #include "FreetypeGlypth.h"
+
 #ifdef LINUX
 #include <freetype2/ft2build.h>
 #include <freetype2/freetype/freetype.h>
@@ -6,11 +7,17 @@
 #include <freetype2/freetype/ftoutln.h>
 #include <freetype2/freetype/fttrigon.h>
 #else
+	#if defined(UWP)
+	#define generic GenericFromFreeTypeLibrary
+	#endif
 #include "../../../../Freetype/include/ft2build.h"
 #include "../../../../Freetype/include/freetype/freetype.h"
 #include "../../../../Freetype/include/freetype/ftglyph.h"
 #include "../../../../Freetype/include/freetype/ftoutln.h"
 #include "../../../../Freetype/include/freetype/fttrigon.h"
+	#if defined(UWP)
+	#undef generic
+	#endif
 #endif
 #include "FreetypeGlypth.h"
 #include "../Texture/Texture.h"

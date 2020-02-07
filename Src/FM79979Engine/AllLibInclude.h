@@ -10,7 +10,7 @@
 #endif
 #pragma comment(lib, "../../../lib/OpenAL32.lib")
 #pragma comment(lib, "../../../lib/alut.lib")
-
+#ifndef UWP
 //#ifdef USE_OPEN_CV
 #pragma comment(lib, "../../../lib/opencv_core249.lib")
 #pragma comment(lib, "../../../lib/opencv_highgui249.lib")
@@ -26,12 +26,15 @@
 #pragma comment(lib, "wsock32.lib")
 #pragma comment(lib, "iphlpapi.lib")
 #pragma comment(lib, "Urlmon.lib")
+#endif
 #ifdef _DEBUG
 #ifdef USE_MU_PARSER
 	#pragma comment(lib, "../../../lib/Debug/MathParser.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Bullet.lib")
+#ifndef UWP
 	#pragma comment(lib, "../../../lib/Debug/Core.lib")
+#endif
 	#pragma comment(lib, "../../../lib/Debug/Freetype.lib")
 	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
@@ -41,8 +44,9 @@
 	#pragma comment(lib, "../../../lib/Release/MathParser.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Release/Bullet.lib")
+#ifndef UWP
 	#pragma comment(lib, "../../../lib/Release/Core.lib")
-	#pragma comment(lib, "../../../lib/Release/Freetype.lib")
+#endif
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Release/ogg.lib")
 #endif

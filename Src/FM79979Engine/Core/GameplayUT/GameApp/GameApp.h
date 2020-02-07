@@ -138,7 +138,7 @@ namespace	FATMING_CORE
 	POINT					GetScreenResolution();
 }
 
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 #include "Psapi.h"
 void PrintMemoryInfo(const wchar_t*e_strName = L"Memory");
 void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd);

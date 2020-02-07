@@ -4,8 +4,7 @@
 //#pragma comment(lib, "Vfw32.lib")
 #include <windows.h>
 #include "vfw.h"
-#include "../../../include/glew.h"
-#include <GL/gl.h>
+#include "../../OpenGL/Glh.h"
 #else
 #include "../CommonDefine.h"
 // OpenGL specific

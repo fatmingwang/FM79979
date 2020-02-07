@@ -145,7 +145,7 @@ namespace FATMING_CORE
 		PSTexcoord = VSTexcoord;							\
 		PSColor = VSColor;									\
 	}";
-#if defined(IOS) || defined(ANDROID) || defined (WASM) || defined(LINUX)
+#if defined(IOS) || defined(ANDROID) || defined (WASM) || defined(LINUX)||defined(UWP)
 	char*g_strCommonFS = "										\
 	uniform sampler2D texSample;								\
 	varying lowp vec2 PSTexcoord;								\
@@ -199,7 +199,7 @@ namespace FATMING_CORE
 		gl_Position = matVP*matW*vec4(VSPosition,1);		\
 		PSColor = Color;									\
 	}";
-#if defined(IOS) || defined(ANDROID)|| defined (WASM) || defined(LINUX)
+#if defined(IOS) || defined(ANDROID)|| defined (WASM) || defined(LINUX)||defined(UWP)
 	char*g_strCommonFSNoTexture = "							\
 	varying lowp vec4 PSColor;								\
 	void main()												\
@@ -250,7 +250,7 @@ namespace FATMING_CORE
 		PSColor = VSColor;									\
 	}";
 
-#if defined(WIN32)
+#if defined(WIN32) && !defined(UWP)
 	char*g_strMyMeshWithVertexColorFS = "						\
 	uniform sampler2D texSample;								\
 	uniform vec4 PSColor;										\
@@ -294,7 +294,7 @@ namespace FATMING_CORE
 #endif
 
 //matBones size will be different on different device...
-#if defined(WIN32)
+#if defined(WIN32) && !defined(UWP)
 	char*g_strMySkinningMeshWithVertexColorVS = "			\
 	attribute	vec3	VSPosition;							\
 	attribute	vec3	VSNormal;							\

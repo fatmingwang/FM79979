@@ -468,7 +468,7 @@ namespace FATMING_CORE
 			if( e_iDataFormat == GL_RGBA )//android not support GL_BGRA?or just nvidia ignore it?
 #else
 			if( e_iDataFormat == GL_RGBA 
-#if !defined(WASM) && !defined(LINUX)//https://www.opengl.org/discussion_boards/showthread.php/185197-Why-OpenGLES-2-spec-doesn-t-support-BGRA-texture-format
+#if !defined(WASM) && !defined(LINUX) && !defined(UWP)//https://www.opengl.org/discussion_boards/showthread.php/185197-Why-OpenGLES-2-spec-doesn-t-support-BGRA-texture-format
 				|| e_iDataFormat == GL_BGRA 
 #endif
 				)

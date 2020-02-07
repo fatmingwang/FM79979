@@ -282,7 +282,7 @@ namespace FATMING_CORE
 
 	void	cTerrianVertex::DebugRender(int e_iTextureID,const wchar_t*e_strShaderName)
 	{
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		// Turn on wireframe mode
 		glPolygonMode(GL_FRONT, GL_LINE);
 //		glPolygonMode(GL_BACK, GL_LINE);

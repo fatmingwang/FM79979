@@ -5,7 +5,7 @@
 //#include "../../GameplayUT/GameApp.h"
 GLenum	g_iDrawindiceType = 
 
-#if defined(WIN32) || defined(LINUX)
+#if defined(WIN32) && !defined(UWP)
 GL_UNSIGNED_INT;
 #else
 GL_UNSIGNED_SHORT;
@@ -237,7 +237,7 @@ namespace FATMING_CORE
 //			glDisableClientState(GL_COLOR_ARRAY);
 //#else
 		glUseProgram( m_uiProgram );
-#ifdef WASM
+#if defined(WASM) || defined(UWP)
 		m_uiTexLoacation = GetUniFormLocationByName("texSample");
 		m_uiColorLoacation = GetUniFormLocationByName("Color");
 		m_uiMatrixVPLoacation = GetUniFormLocationByName("matVP");

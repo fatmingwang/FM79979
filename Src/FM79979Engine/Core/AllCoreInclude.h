@@ -10,7 +10,9 @@
 
 #if defined(WIN32)
 #pragma warning( disable : 4996 )
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
 #include "windows.h"
 #include <math.h>
 #include "XML/AtgXmlWriter.h"

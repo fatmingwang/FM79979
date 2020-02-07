@@ -1,6 +1,6 @@
 #include "../stdafx.h"
-#include "../AllImageInclude.h"
-#include "Mouse_Touch.h"
+//#include "../AllImageInclude.h"
+#include "MultiTouch/Mouse_Touch.h"
 #include "FontFrame.h"
 #include "RenderObjectVector.h"
 #include "ObjectXMLParser.h"

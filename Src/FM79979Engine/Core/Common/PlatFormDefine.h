@@ -1,4 +1,8 @@
 #pragma once
+//#ifndef PLATFORM_DEFINE_H
+//#define PLATFORM_DEFINE_H
+
+
 #include <wchar.h>
 #include <stdint.h>
 // If we cause an exception in JNI, we print the exception info to the log, we clear the exception to avoid a pending-exception crash, and we force the function to return.
@@ -10,6 +14,7 @@
 //===============================================
 // Cross-platform type definitions
 #if defined(WIN32) || defined(UWP)
+	#pragma warning( disable : 4996 )
     typedef signed char int8;
     typedef short int16;
     typedef long int32;
@@ -90,7 +95,9 @@
 //===============================================
 #ifdef WIN32
 	#pragma warning(disable:4702)
+#ifndef UWP
 	#define WIN32_LEAN_AND_MEAN
+#endif
 	#include <windows.h>
 	#include <stdio.h>
 	#include <wchar.h>
@@ -197,3 +204,5 @@ static int	g_iDataTypeSize[eDT_MAX] = {
 										sizeof(int64),					//eDT_INT64,
 										sizeof(uint64)					//UINT64,
 };
+//end PLATFORM_DEFINE_H
+//#endif

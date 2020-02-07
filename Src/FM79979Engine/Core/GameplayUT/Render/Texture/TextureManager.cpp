@@ -185,10 +185,10 @@ namespace FATMING_CORE
 			}
 		}
 	}
-								  //intel chip,return MB
+	//intel chip,return MB
 	int GetVideoMemorySize()
 	{
-	#ifdef WIN32
+	#if defined(WIN32) && !defined(UWP)
 		unsigned long	i[5] = { 0, 0, 0x27, 0, 0 };
 		unsigned long	o[5] = { 0, 0, 0, 0, 0 };
 

@@ -5,7 +5,7 @@
 // Note: jpge.cpp/h and jpgd.cpp/h are completely standalone, i.e. they do not have any dependencies to each other.
 #include "jpge.h"
 #include "jpgd.h"
-#include "stb_image.c"
+#include "stb_image.h"
 #include "timer.h"
 #include <ctype.h>
 

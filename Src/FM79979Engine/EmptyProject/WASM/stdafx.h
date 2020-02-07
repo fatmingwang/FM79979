@@ -5,7 +5,7 @@
 
 #pragma once
 #ifdef WIN32
-#include "targetver.h"
+//#include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
@@ -24,5 +24,5 @@
 
 
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
+//#include "../../Core/Particle/AllParticleInclude.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"

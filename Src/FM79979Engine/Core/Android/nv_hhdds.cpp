@@ -19,7 +19,9 @@
 //
 //----------------------------------------------------------------------------------
 
-
+#ifdef WIN32
+#pragma warning( disable : 4996 )
+#endif
 #include "nv_global.h"
 
 #include "nv_hhdds.h"

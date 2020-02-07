@@ -194,3 +194,7 @@ please use NDK 16b instead 15c for Texture.cpp(bool	cTexture::LoadImage)
 https://developer.android.com/ndk/guides/cpp-support
 
 
+
+
+Error 4996
+add _CRT_SECURE_NO_WARNINGS to preprocessor

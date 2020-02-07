@@ -757,7 +757,7 @@ template<class T>	inline	int		IndexOfVector(T e_Object,std::vector<T>*e_pSrc)
 	for(size_t i=0;i<l_uiSize;++i  )
 	{
 		if((*e_pSrc)[i] == e_Object)
-			return i;
+			return (int)i;
 	}
 	return -1;
 }

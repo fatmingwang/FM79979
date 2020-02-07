@@ -372,7 +372,7 @@ namespace FATMING_CORE
 
 	void	cSoundParser::Export(const char*e_strFileName)
 	{
-	#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		int	l_iNum = Count();
 		ATG::XMLWriter	l_XMLWriter(e_strFileName);
 		l_XMLWriter.StartElement("SoundData");

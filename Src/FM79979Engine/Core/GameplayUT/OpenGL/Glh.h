@@ -1,6 +1,10 @@
 #pragma once
 
-#if defined(WIN32)
+#if defined(UWP)
+#include <EGL/egl.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+#elif defined(WIN32)
 	#include "../../../Include/glew.h"
 	#include "../../../Include/glext.h"
 	#include "../../../Include/wglew.h"

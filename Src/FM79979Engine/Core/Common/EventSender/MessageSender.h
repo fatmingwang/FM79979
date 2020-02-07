@@ -6,11 +6,23 @@
 namespace FATMING_CORE
 {
 
-	#define GAME_PAUSE_EVENT_ID	-123456789
-
+#ifdef UWP
+	struct	sNetworkSendPacket
+	{
+		int		iSize;
+		char*	pData;//first int must be unsigned int for messageID.
+	};
+	struct sNetworkReceivedPacket
+	{
+		int			iSize;
+		char*		pData;
+	};
+#else
 	struct sReceivedPacket;
 	struct sNetworkReceivedPacket;
+#endif
 
+	#define GAME_PAUSE_EVENT_ID	-123456789
 	#define WAIT_EMIT_EVENT_DATA_SIZE	4096
 	typedef std::function<bool(FATMING_CORE::sNetworkReceivedPacket*)>		NetworkMessageFunction;
 	typedef std::function<bool(void*)>										EventFunction;

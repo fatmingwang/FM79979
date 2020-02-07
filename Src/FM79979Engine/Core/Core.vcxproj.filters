@@ -78,9 +78,6 @@
     <Filter Include="GameplayUT\Preload">
       <UniqueIdentifier>{deb9534d-4217-451f-9603-00d8ad437de2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bluetooth">
-      <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\CommonRegister">
       <UniqueIdentifier>{b4471ef5-f1c0-4e94-b4e4-d694adb7462c}</UniqueIdentifier>
     </Filter>
@@ -233,6 +230,9 @@
     </Filter>
     <Filter Include="GameplayUT\GamePhase">
       <UniqueIdentifier>{2586bf4d-7de6-4c4e-ade4-b62668bbca21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bluetooth">
+      <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

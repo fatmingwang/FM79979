@@ -6,7 +6,7 @@ namespace FATMING_CORE
 	//==========================
 	//if there is no framebuffer exist...
 	//==========================
-#if defined(WIN32)// || defined(LINUX) now linux use opengl es
+#if defined(WIN32) && !defined(UWP)// || defined(LINUX) now linux use opengl es
 	class	cScreenCapture :public Frame
 	{
 		char*m_pPixelBuffer;

@@ -2,7 +2,6 @@
 #include "../../../Common/CommonDefine.h"
 #include "../../OpenGL/Glh.h"
 #include "../../OpenGL/OpenGLCommon.h"
-#include "../../OpenGL/Glh.h"
 #include "SimplePrimitive.h"
 #include "Frame.h"
 //#include "../Common/SmartPointer.h"

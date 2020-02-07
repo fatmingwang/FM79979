@@ -81,7 +81,7 @@ namespace FATMING_CORE
 
 	void	cImageParser::Export(char*e_strFileName)
 	{
-	#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		ATG::XMLWriter*     l_pXMLWriter = new ATG::XMLWriter(e_strFileName);
 		l_pXMLWriter->StartElement("Image");
 		for( int i=0;i<Count();++i )

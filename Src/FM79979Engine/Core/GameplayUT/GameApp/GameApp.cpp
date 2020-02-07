@@ -114,7 +114,7 @@ namespace	FATMING_CORE
 			m_spOpenGLRender->m_vViewPortSize.w = e_vViewportSize.y;
 			m_spOpenGLRender->m_vDeviceViewPortSize = m_spOpenGLRender->m_vViewPortSize;
 		}
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		m_spOpenGLRender->Init(e_Hwnd,true);
 		PrintMemoryInfo();
 #else
@@ -361,7 +361,7 @@ namespace	FATMING_CORE
 			{
 				switch (e_char)
 				{
-#ifdef WIN32
+#if defined(WIN32)&& !defined(UWP)
 				case 13:
 				{
 					cGameApp::m_sbFullScreen = !cGameApp::m_sbFullScreen;
@@ -681,9 +681,8 @@ namespace	FATMING_CORE
 	}
 	POINT GetScreenResolution()
 	{
-#ifdef WIN32
-		POINT	l_ScreenResolution = { GetSystemMetrics(SM_CXSCREEN),
-			GetSystemMetrics(SM_CYSCREEN) };
+#if defined(WIN32) && !defined(UWP)
+		POINT	l_ScreenResolution = { GetSystemMetrics(SM_CXSCREEN),GetSystemMetrics(SM_CYSCREEN) };
 		return l_ScreenResolution;
 #else
 		POINT	l_ScreenResolution = { (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y };
@@ -692,7 +691,7 @@ namespace	FATMING_CORE
 	}
 	//end namespace
 }
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 void PrintMemoryInfo(const wchar_t*e_strName)
 //void PrintMemoryInfo( unsigned long processID )
 {

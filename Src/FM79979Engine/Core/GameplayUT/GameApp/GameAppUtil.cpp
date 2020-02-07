@@ -41,7 +41,7 @@
 //    }
 //    return bWin7;
 //}
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 void ToggleFullScreen(bool e_bFullScreen, HWND e_hwnd)
 {
 	static DWORD savedExStyle;
@@ -165,7 +165,7 @@ namespace	FATMING_CORE
 			}
 			if( l_strHideMouseCursor )
 			{
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 				ShowCursor(_wtoi(l_strHideMouseCursor)==0?false:true);
 #endif
 			}

@@ -2,7 +2,7 @@
 #include "../../GameApp/GameApp.h"
 namespace FATMING_CORE
 {
-#if defined(WIN32)// || defined(LINUX)
+#if defined(WIN32) && !defined(UWP)
 	cScreenCapture::cScreenCapture()
 	{
 		m_pPixelBuffer = 0;
@@ -100,7 +100,7 @@ namespace FATMING_CORE
 		case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS:
 			if (!silent) printf("Framebuffer incomplete, attached images must have same dimensions\n");
 			return false;
-#if defined(WIN32)// || defined(LINUX)
+#if defined(WIN32)&& !defined(UWP)
 		case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT:
 			if (!silent) printf("Framebuffer incomplete, attached images must have same format\n");
 			return false;
@@ -273,7 +273,7 @@ namespace FATMING_CORE
 		//glTexParameteri(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		//glTexParameterf(GL_TEXTURE_2D_MULTISAMPLE, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-#ifdef WASM 
+#if defined WASM || defined(UWP)
 		assert(0 && "use glRenderbufferStorageMultisample instead glTexImage2DMultisample");
 #else
 		glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, m_iNumSamples, GL_RGB, e_iWidth, e_iHeight, 0);
@@ -369,19 +369,27 @@ namespace FATMING_CORE
 		if (m_pFrameBuffer)
 		{
 			m_pFrameBuffer->StartDraw();
+#if !defined WASM || defined(UWP)
+			//opengl es2 not support
+#else
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_pFrameBuffer->GetFramebufferID());
 			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
 			//glDrawBuffer(GL_BACK);
 			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+#endif
 			m_pFrameBuffer->EndDraw();
 			m_pFrameBuffer->DrawBuffer(e_Pos, e_Size);
 		}
 		else
 		{
+#if !defined WASM || defined(UWP)
+			//opengl es2 not support
+#else
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 			glBindFramebuffer(GL_READ_FRAMEBUFFER, m_uiFramebufferID);
 			//glDrawBuffer(GL_BACK);
 			glBlitFramebuffer(0, 0, this->m_uiWidth, m_uiHeight, 0, 0, m_uiWidth, m_uiHeight, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+#endif
 		}
 	}
 #endif

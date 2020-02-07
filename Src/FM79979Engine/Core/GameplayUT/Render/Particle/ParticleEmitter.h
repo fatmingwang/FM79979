@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)
+#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX) || defined(UWP)
 #define GL_QUADS 0x0007
 #endif
 #include "ParticleBase.h"

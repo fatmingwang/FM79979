@@ -165,7 +165,7 @@ namespace FATMING_CORE
 
 	void	cAnimationParser::Export(const char*e_strFileName,bool e_bBinary)
 	{
-	#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		ATG::XMLWriter	l_XMLWriter(e_strFileName);
 		//l_XMLWriter.StartElement("Version");
 		//l_XMLWriter.AddAttribute("MPDIVersion","1.0");

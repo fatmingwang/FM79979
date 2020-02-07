@@ -79,7 +79,7 @@ namespace FATMING_CORE
 		{
 			//cPrtStartPositionInitByFrame*l_pPrtStartPositionInitByFrame = (cPrtStartPositionInitByFrame*)e_pParticleBase;
 #ifdef	WIN32
-			MessageBox(0,L"not support for now",L"warning",MB_OK);
+			UT::ErrorMsg(L"not support for now",L"error");
 #else
 			printf("not support for now");
 #endif
@@ -105,7 +105,7 @@ namespace FATMING_CORE
 		{
 			//l_pParticleBase = new cPrtVelocityActBySatelliteAction();
 #ifdef	WIN32
-			MessageBox(0,L"not support for now",L"warning",MB_OK);
+			UT::ErrorMsg(L"not support for now",L"warning");
 #else
 			printf("not support for now");
 #endif
@@ -212,7 +212,7 @@ namespace FATMING_CORE
 	void	cPaticleManager::Export(const char*e_pString,char*e_strDataAndAuthor)
 	{
 		assert(e_pString);
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		ATG::XMLWriter*     l_pXMLWriter = new ATG::XMLWriter( e_pString );
 		//for time and user name
 		if( e_strDataAndAuthor )
@@ -757,7 +757,7 @@ namespace FATMING_CORE
 
 	void	cBehaviorPaticleManager::Export(const char*e_strFileName,char*e_strDataAndAuthor)
 	{
-	#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		if(!this->Count())
 			return;
 		std::string	l_strDirectory = UT::GetDirectoryWithoutFileName(e_strFileName);

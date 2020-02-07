@@ -18,6 +18,15 @@
 #include "jni.h"
 #include <sys/time.h>
 #endif
+
+#ifdef UWP
+struct timeval 
+{
+	long    tv_sec;         /* seconds */
+	long    tv_usec;        /* and microseconds */
+};
+#endif
+
 #include "StringToStructure.h"
 namespace UT
 {
@@ -183,7 +192,9 @@ namespace UT
 		{
 			if (!tzflag)
 			{
+#ifndef UWP
 				_tzset();
+#endif
 				tzflag++;
 			}
 			tz->tz_minuteswest = _timezone / 60;

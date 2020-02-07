@@ -183,7 +183,8 @@ namespace FATMING_CORE
 	bool 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
 	{
 		assert(m_pFile&&"file not open yet!?");
-		if(NvFWrite( e_pData, e_iLength, 1, m_pFile ) == e_iLength)
+		auto l_iWriteSize = NvFWrite(e_pData, e_iLength, 1, m_pFile);
+		if(l_iWriteSize == e_iLength)
 			return true;
 		return false;
 	}
@@ -213,7 +214,7 @@ namespace FATMING_CORE
 	bool	cBinaryFile::Writefile(const char*e_str,bool e_bBinary,bool e_bForceToWrite, const char*e_strFileMode)
 	{
 		CloseFile();
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		if( e_bForceToWrite )
 		{
 			DWORD	l_iFlag = 0;// FILE_ATTRIBUTE_NORMAL;

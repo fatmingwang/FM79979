@@ -43,6 +43,13 @@
 #elif defined(LINUX)
 #include <sys/stat.h>
 #endif
+
+#ifdef UWP
+
+	using namespace Windows::UI::Popups;
+
+#endif
+
 namespace UT
 {
 	//--------------------------------------------------------------------------------------
@@ -167,6 +174,7 @@ namespace UT
 #if defined(WIN32)
 		if( FMLog::g_siLogShowErrorType == 1)
 		{
+#ifndef UWP
 			try
 			{
 				static bool l_bMessageBoxLeave = false;
@@ -187,6 +195,32 @@ namespace UT
 				const char*l_str = ex.what();
 				int a=0;
 			}
+#else
+			// Create the message dialog and set its content
+			MessageDialog^ msg = ref new MessageDialog("No internet connection has been found.");
+
+			// Add commands and set their callbacks.
+			// Both commands use the same callback function instead of inline event handlers.
+			UICommand^ continueCommand = ref new UICommand(
+				"Try again",
+				ref new UICommandInvokedHandler([](Windows::UI::Popups::IUICommand^ command) {}));
+			UICommand^ upgradeCommand = ref new UICommand(
+				"Close",
+				ref new UICommandInvokedHandler([](Windows::UI::Popups::IUICommand^ command) {}));
+
+			// Add the commands to the dialog
+			msg->Commands->Append(continueCommand);
+			msg->Commands->Append(upgradeCommand);
+
+			// Set the command that will be invoked by default
+			msg->DefaultCommandIndex = 0;
+
+			// Set the command to be invoked when escape is pressed
+			msg->CancelCommandIndex = 1;
+
+			// Show the message dialog
+			msg->ShowAsync();
+#endif
 		}
 		if (FMLog::g_siLogShowErrorType == 2)
 		{
@@ -215,40 +249,39 @@ namespace UT
 	{
 #ifdef _WIN32
 #ifdef DEBUG
-		static	bool	l_b = false;
-		LPVOID lpMsgBuf;
-		LPVOID lpDisplayBuf;
-		unsigned long dw = GetLastError(); 
-		if( dw && !l_b )
-		{
-			l_b = true;
-			FormatMessage(
-				FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-				FORMAT_MESSAGE_FROM_SYSTEM |
-				FORMAT_MESSAGE_IGNORE_INSERTS,
-				nullptr,
-				dw,
-				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-				(LPTSTR) &lpMsgBuf,
-				0, nullptr );
+		//static	bool	l_b = false;
+		//LPVOID lpMsgBuf;
+		//LPVOID lpDisplayBuf;
+		//unsigned long dw = GetLastError(); 
+		//if( dw && !l_b )
+		//{
+		//	l_b = true;
+		//	FormatMessage(
+		//		FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+		//		FORMAT_MESSAGE_FROM_SYSTEM |
+		//		FORMAT_MESSAGE_IGNORE_INSERTS,
+		//		nullptr,
+		//		dw,
+		//		MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		//		(LPTSTR) &lpMsgBuf,
+		//		0, nullptr );
 
-			// Display the error message and exit the process
+		//	// Display the error message and exit the process
 
-			lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT, 
-				(lstrlen((LPCTSTR)lpMsgBuf)+lstrlen((LPCTSTR)L"Error")+40)*sizeof(TCHAR)); 
-			StringCchPrintf((LPTSTR)lpDisplayBuf, 
-				LocalSize(lpDisplayBuf),
-				TEXT("%ls failed with error %d: %ls"), 
-				L"Error", dw, lpMsgBuf);
-			FMLog::LogWithFlag((const wchar_t*)lpDisplayBuf, CORE_LOG_FLAG);
-			//MessageBox(nullptr, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK); 
+		//	lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT, 
+		//		(lstrlen((LPCTSTR)lpMsgBuf)+lstrlen((LPCTSTR)L"Error")+40)*sizeof(TCHAR)); 
+		//	StringCchPrintf((LPTSTR)lpDisplayBuf, 
+		//		LocalSize(lpDisplayBuf),
+		//		TEXT("%ls failed with error %d: %ls"), 
+		//		L"Error", dw, lpMsgBuf);
+		//	FMLog::LogWithFlag((const wchar_t*)lpDisplayBuf, CORE_LOG_FLAG);
+		//	//MessageBox(nullptr, (LPCTSTR)lpDisplayBuf, TEXT("Error"), MB_OK); 
 
-			LocalFree(lpMsgBuf);
-			LocalFree(lpDisplayBuf);
-		}
+		//	LocalFree(lpMsgBuf);
+		//	LocalFree(lpDisplayBuf);
+		//}
 #endif
 #endif
-		return;
 	}
 	//--------------------------------------------------------------------------------------
 	// Name: DebugSpew()

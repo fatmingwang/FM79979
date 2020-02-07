@@ -244,8 +244,9 @@ namespace FATMING_CORE
 	//
 	//===============
 #ifndef DEBUG
-#define	USE_HW_DECODE_BITMAP
+//#define	USE_HW_DECODE_BITMAP
 #endif
+//#define	USE_HW_DECODE_BITMAP
 #if defined(ANDROID) && defined(USE_HW_DECODE_BITMAP)
 	std::string	GetFileFullPathInAndroid(const char* e_strFileName)
 	{
@@ -753,7 +754,7 @@ namespace FATMING_CORE
 		switch (e_GLenum)
 		{
 		case GL_RGBA:
-#if !defined(ANDROID) && !defined(WASM) && !defined(LINUX)
+#if !defined(ANDROID) && !defined(WASM) && !defined(LINUX) && !defined(UWP)
 		case GL_BGRA:
 #endif
 			l_iChannel = 4;

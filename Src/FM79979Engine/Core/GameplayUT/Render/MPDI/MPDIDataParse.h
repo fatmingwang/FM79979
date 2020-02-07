@@ -1,4 +1,6 @@
 #pragma once
+#ifndef UWP
+
 #include "SubMPDI.h"
 #ifdef WIN32
 #include "../../../XML/AtgXmlWriter.h"
@@ -22,3 +24,6 @@ namespace FATMING_CORE
 //end WIN32
 #endif	
 }
+
+// end UWP
+#endif

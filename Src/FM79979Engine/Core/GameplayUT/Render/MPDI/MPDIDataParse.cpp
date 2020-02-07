@@ -1,6 +1,5 @@
 #include "MPDIDataParse.h"
 #include "MPDI.h"
-#include "MPDIDataParse.h"
 #include "assert.h"
 #include "../Parser/AnimationParser.h"
 #include "../../GameApp/GameApp.h"
@@ -79,7 +78,7 @@ namespace FATMING_CORE
 		}
 		return l_pData;
 	}
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 //for MPDI old version 
 #ifdef MPDI_VERSION_1_0
 inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWithTime*e_pCueToStartCurvesWithTime)

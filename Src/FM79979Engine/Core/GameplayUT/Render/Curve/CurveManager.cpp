@@ -628,7 +628,7 @@ namespace FATMING_CORE
 
 	void	cCurveManager::ExportData(const char*e_strFileName, const char*e_strForCollidedpiFile, const char*e_pstrAutorData)
 	{
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		ATG::XMLWriter*     l_pXMLWriter = new ATG::XMLWriter(e_strFileName);
 		char	l_temp[MAX_PATH];
 		if( e_pstrAutorData )

@@ -39,7 +39,7 @@ namespace FATMING_CORE
 		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		static	bool												m_sbVBOSupported;
 		//init shader
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);
 #else
 		void														Init();

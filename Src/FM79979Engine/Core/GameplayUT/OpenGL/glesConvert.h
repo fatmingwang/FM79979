@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined WIN32
+#if defined WIN32 && !defined(UWP)
 	#ifndef GL_COLOR_ATTACHMENT0
 	#define GL_COLOR_ATTACHMENT0                            GL_COLOR_ATTACHMENT0_EXT
 	#endif

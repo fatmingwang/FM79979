@@ -97,7 +97,7 @@
     <ClCompile>
       <PreprocessorDefinitions>LINUX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>
