@@ -1,0 +1,441 @@
+<MPDIList Name="UI_mpdi" Count="18" MPDIVersion="1.3" PICount="1" ImageName="UI.pi">
+    <MultiPathDynamicImage Name="ResultDialog" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="843.00,361.00,0.00" Time="0.000000" Size="800.00,399.96" Scale="4.00,3.96" PIName="UI" ImageName="Mm_Thinking" />
+            <PointDataList Index="1" Position="843.00,361.00,0.00" Time="1.000000" Size="800.00,399.96" Scale="4.00,3.96" PIName="UI" ImageName="Mm_Thinking" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="CarGoMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="703.00,248.00" Scale="1.00,1.00" PIName="UI" ImageName="cargo" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="703.00,248.00" Scale="1.00,1.00" PIName="UI" ImageName="cargo" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="SelectSeatMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="709.00,243.00" Scale="1.00,1.00" PIName="UI" ImageName="chooseseat" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="709.00,243.00" Scale="1.00,1.00" PIName="UI" ImageName="chooseseat" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="ServerErrorMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="716.00,250.00" Scale="1.00,1.00" PIName="UI" ImageName="servererror" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="716.00,250.00" Scale="1.00,1.00" PIName="UI" ImageName="servererror" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="WaitForServerResponeMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="707.00,248.00" Scale="1.00,1.00" PIName="UI" ImageName="waitreply" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="707.00,248.00" Scale="1.00,1.00" PIName="UI" ImageName="waitreply" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="NoCarMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="704.00,253.00" Scale="1.00,1.00" PIName="UI" ImageName="nocar" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="704.00,253.00" Scale="1.00,1.00" PIName="UI" ImageName="nocar" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="AskCarToGoFailed" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="704.00,253.00" Scale="1.00,1.00" PIName="UI" ImageName="nocar" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="704.00,253.00" Scale="1.00,1.00" PIName="UI" ImageName="nocar" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="BG" PathCount="5" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="BG" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="0.00,0.00,0.00" Time="0.000000" Size="204.00,274.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.90" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="0.00,0.00,0.00" Time="2.500000" Size="204.00,274.00" Scale="1.00,1.00" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="2" Position="0.00,0.00,0.00" Time="5.000000" Size="204.00,274.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.90" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Scroller" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="706.00,374.00,0.00" Time="0.000000" Size="1599.36,800.08" Scale="7.84,2.92" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="757.00,374.00,0.00" Time="2.500000" Size="1599.36,800.08" Scale="7.84,2.92" Color="1.20,1.30,1.40,0.50" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="2" Position="706.00,374.00,0.00" Time="5.000000" Size="1599.36,800.08" Scale="7.84,2.92" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="SelectDeliverPoint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="809.00,-31.00,0.00" Time="0.000000" Size="1016.00,268.00" Scale="2.00,2.00" PIName="UI" ImageName="SelectDeliverPoint" />
+            <PointDataList Index="1" Position="809.00,-31.00,0.00" Time="5.000000" Size="1016.00,268.00" Scale="2.00,2.00" PIName="UI" ImageName="SelectDeliverPoint" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Object" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="256.00,314.00,0.00" Time="0.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="256.00,314.00,0.00" Time="4.999000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ScrollerData" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="157.00,220.00,0.00" Time="4.999000" Size="1600.04,899.98" Scale="94.12,52.94" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="DemoPage" PathCount="8" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="background1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="573.00,323.00,0.00" Time="0.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="1" Position="573.00,323.00,0.00" Time="2.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Dice_Off_Cover" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="863.00,284.00,0.00" Time="0.000000" Size="599.85,149.96" Scale="6.45,1.63" Color="1.00,1.00,1.00,0.60" PIName="UI" ImageName="Dice_Off_Cover" />
+            <PointDataList Index="1" Position="863.00,284.00,0.00" Time="1.000000" Size="605.43,154.56" Scale="6.51,1.68" Color="1.00,1.00,1.00,0.65" PIName="UI" ImageName="Dice_Off_Cover" />
+            <PointDataList Index="2" Position="863.00,284.00,0.00" Time="2.000000" Size="599.85,149.96" Scale="6.45,1.63" Color="1.00,1.00,1.00,0.60" PIName="UI" ImageName="Dice_Off_Cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="EnmegencyStop" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="707.00,52.00,0.00" Time="0.000000" Size="467.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="EnmegencyStop" />
+            <PointDataList Index="1" Position="707.00,52.00,0.00" Time="2.000000" Size="467.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="EnmegencyStop" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,33.00,0.00" Time="0.000000" Size="283.00,151.00" Scale="1.00,1.00" PIName="UI" ImageName="back" />
+            <PointDataList Index="1" Position="38.00,33.00,0.00" Time="2.000000" Size="283.00,151.00" Scale="1.00,1.00" PIName="UI" ImageName="back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="EmptyTick" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="700.00,300.00,0.00" Time="0.000000" Size="100.00,100.00" Scale="1.00,1.00" Color="2.00,1.90,1.00,1.00" PIName="UI" ImageName="EmptyTick" />
+            <PointDataList Index="1" Position="700.00,300.00,0.00" Time="2.000000" Size="100.00,100.00" Scale="1.00,1.00" Color="2.00,1.90,1.00,1.00" PIName="UI" ImageName="EmptyTick" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Ticked" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="700.00,300.00,0.00" Time="0.000000" Size="100.00,100.00" Scale="1.00,1.00" Color="2.00,1.90,1.00,1.00" PIName="UI" ImageName="Ticked" />
+            <PointDataList Index="1" Position="700.00,300.00,0.00" Time="2.000000" Size="100.00,100.00" Scale="1.00,1.00" Color="2.00,1.90,1.00,1.00" PIName="UI" ImageName="Ticked" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="DemoMode" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="817.00,268.00,0.00" Time="0.000000" Size="313.00,165.00" Scale="1.00,1.00" PIName="UI" ImageName="CarGoButton" />
+            <PointDataList Index="1" Position="817.00,268.00,0.00" Time="2.000000" Size="313.00,165.00" Scale="1.00,1.00" PIName="UI" ImageName="CarGoButton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="TextPos" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="207.00,481.00,0.00" Time="0.000000" Size="64.00,64.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="60577" />
+            <PointDataList Index="1" Position="207.00,481.00,0.00" Time="2.000000" Size="64.00,64.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="60577" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="Troubleshooting_CarInfo" PathCount="5" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="BG" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="576.00,322.00,0.00" Time="0.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="1" Position="576.00,322.00,0.00" Time="2.500000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="2" Position="576.00,322.00,0.00" Time="5.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CarRemove" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="-42.00,284.00,0.00" Time="0.000000" Size="328.30,120.40" Scale="0.70,0.70" PIName="UI" ImageName="CarRemove" />
+            <PointDataList Index="1" Position="-42.00,284.00,0.00" Time="5.000000" Size="328.30,120.40" Scale="0.70,0.70" PIName="UI" ImageName="CarRemove" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ReJoin" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="362.00,284.00,0.00" Time="0.000000" Size="329.00,125.30" Scale="0.70,0.70" PIName="UI" ImageName="ReJoin" />
+            <PointDataList Index="1" Position="362.00,284.00,0.00" Time="5.000000" Size="329.00,125.30" Scale="0.70,0.70" PIName="UI" ImageName="ReJoin" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="GoHome" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="772.00,284.00,0.00" Time="0.000000" Size="221.20,121.10" Scale="0.70,0.70" PIName="UI" ImageName="GoHome" />
+            <PointDataList Index="1" Position="772.00,284.00,0.00" Time="5.000000" Size="221.20,121.10" Scale="0.70,0.70" PIName="UI" ImageName="GoHome" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CarContent" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="50.00,260.00,0.00" Time="0.000000" Size="45.00,52.00" Scale="1.00,1.00" Color="0.30,0.00,1.20,1.10" PIName="UI" ImageName="Color_Number_00" />
+            <PointDataList Index="1" Position="50.00,260.00,0.00" Time="5.000000" Size="45.00,52.00" Scale="1.00,1.00" Color="0.30,0.00,1.20,1.10" PIName="UI" ImageName="Color_Number_00" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="ErrorHappen" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="warning" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="7" LOD="1">
+            <PointDataList Index="0" Position="1579.00,466.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="0.50,0.50" Color="0.00,0.00,0.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="1" Position="1579.00,466.00,0.00" Time="0.833333" Size="256.00,256.00" Scale="1.00,1.00" Color="2.00,1.00,2.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="2" Position="1579.00,466.00,0.00" Time="1.666667" Size="128.00,128.00" Scale="0.50,0.50" Color="0.00,0.00,0.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="3" Position="1579.00,466.00,0.00" Time="2.500000" Size="256.00,256.00" Scale="1.00,1.00" Color="2.00,1.00,2.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="4" Position="1579.00,466.00,0.00" Time="3.333333" Size="128.00,128.00" Scale="0.50,0.50" Color="0.00,0.00,0.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="5" Position="1579.00,466.00,0.00" Time="4.166667" Size="256.00,256.00" Scale="1.00,1.00" Color="2.00,1.00,2.00,1.00" PIName="UI" ImageName="warning" />
+            <PointDataList Index="6" Position="1579.00,466.00,0.00" Time="5.000000" Size="128.00,128.00" Scale="0.50,0.50" Color="0.00,0.00,0.00,1.00" PIName="UI" ImageName="warning" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="WarningText" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="7" LOD="1">
+            <PointDataList Index="0" Position="1607.00,719.00,0.00" Time="0.000000" Size="240.00,130.00" Scale="1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="1" Position="1607.00,719.00,0.00" Time="0.833333" Size="480.00,260.00" Scale="2.00,2.00" Color="2.00,1.00,1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="2" Position="1607.00,719.00,0.00" Time="1.666667" Size="240.00,130.00" Scale="1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="3" Position="1607.00,719.00,0.00" Time="2.500000" Size="480.00,260.00" Scale="2.00,2.00" Color="2.00,1.00,1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="4" Position="1607.00,719.00,0.00" Time="3.333333" Size="240.00,130.00" Scale="1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="5" Position="1607.00,719.00,0.00" Time="4.166667" Size="480.00,260.00" Scale="2.00,2.00" Color="2.00,1.00,1.00,1.00" PIName="UI" ImageName="Untitled" />
+            <PointDataList Index="6" Position="1607.00,719.00,0.00" Time="5.000000" Size="240.00,130.00" Scale="1.00,1.00" PIName="UI" ImageName="Untitled" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="WaitForTrafficMessage" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="709.00,252.00" Scale="1.00,1.00" PIName="UI" ImageName="trafficcontrol" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="709.00,252.00" Scale="1.00,1.00" PIName="UI" ImageName="trafficcontrol" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="TroubleshootingMainButton" PathCount="6" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="2.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="574.00,325.00,0.00" Time="0.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="1" Position="574.00,325.00,0.00" Time="1.000000" Size="1920.00,1080.00" Scale="2.50,2.50" Color="1.00,1.00,1.00,0.90" PIName="UI" ImageName="background1" />
+            <PointDataList Index="2" Position="574.00,325.00,0.00" Time="2.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="EnmegencyStop" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="707.00,52.00,0.00" Time="0.000000" Size="467.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="EnmegencyStop" />
+            <PointDataList Index="1" Position="707.00,52.00,0.00" Time="2.000000" Size="467.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="EnmegencyStop" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="readme" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1015.00,749.00,0.00" Time="0.000000" Size="833.00,284.00" Scale="1.00,1.00" PIName="UI" ImageName="readme" />
+            <PointDataList Index="1" Position="1015.00,749.00,0.00" Time="2.000000" Size="833.00,284.00" Scale="1.00,1.00" PIName="UI" ImageName="readme" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Back" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="38.00,33.00,0.00" Time="0.000000" Size="283.00,151.00" Scale="1.00,1.00" PIName="UI" ImageName="back" />
+            <PointDataList Index="1" Position="38.00,33.00,0.00" Time="2.000000" Size="283.00,151.00" Scale="1.00,1.00" PIName="UI" ImageName="back" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="DemoModeButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1154.00,42.00,0.00" Time="0.000000" Size="464.94,174.00" Scale="0.81,0.87" PIName="UI" ImageName="SwitchButton" />
+            <PointDataList Index="1" Position="1154.00,42.00,0.00" Time="2.000000" Size="464.94,174.00" Scale="0.81,0.87" PIName="UI" ImageName="SwitchButton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Setting" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1749.00,75.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="1.00,1.00" PIName="UI" ImageName="Setting" />
+            <PointDataList Index="1" Position="1749.00,75.00,0.00" Time="2.000000" Size="128.00,128.00" Scale="1.00,1.00" PIName="UI" ImageName="Setting" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="ErrorCarGateOpen" PathCount="2" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="584.40,279.60" Scale="1.20,1.20" PIName="UI" ImageName="ErrorGateOpen" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="584.40,279.60" Scale="1.20,1.20" PIName="UI" ImageName="ErrorGateOpen" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="MealNotFetched" PathCount="6" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="609.00,438.00,0.00" Time="0.000000" Size="665.60,325.00" Scale="1.30,1.30" PIName="UI" ImageName="NotFetchFrame" />
+            <PointDataList Index="1" Position="609.00,438.00,0.00" Time="1.000000" Size="512.00,250.00" Scale="1.00,1.00" PIName="UI" ImageName="NotFetchFrame" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="TableID" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="752.00,530.00,0.00" Time="0.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="752.00,530.00,0.00" Time="1.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CarID" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="874.00,563.00,0.00" Time="0.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="874.00,563.00,0.00" Time="1.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="WaitSeconds" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="917.00,528.00,0.00" Time="0.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="917.00,528.00,0.00" Time="1.000000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ConfirmButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="833.00,638.00,0.00" Time="0.000000" Size="220.00,120.00" Scale="2.00,2.00" PIName="UI" ImageName="ConfirmButton" />
+            <PointDataList Index="1" Position="833.00,638.00,0.00" Time="1.000000" Size="220.00,120.00" Scale="2.00,2.00" PIName="UI" ImageName="ConfirmButton" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="SelectDeliverPointPage" PathCount="8" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="BG" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="574.00,323.00,0.00" Time="0.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="1" Position="574.00,323.00,0.00" Time="2.500000" Size="1920.00,1080.00" Scale="2.50,2.50" Color="1.00,1.00,1.00,0.90" PIName="UI" ImageName="background1" />
+            <PointDataList Index="2" Position="574.00,323.00,0.00" Time="5.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="586.00,408.00,0.00" Time="0.000000" Size="1313.60,830.40" Scale="1.60,1.60" PIName="UI" ImageName="BG" />
+            <PointDataList Index="1" Position="586.00,408.00,0.00" Time="5.000000" Size="1313.60,830.40" Scale="1.60,1.60" PIName="UI" ImageName="BG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Scroller" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="726.00,7.00,0.00" Time="0.000000" Size="1599.36,200.02" Scale="7.84,0.73" Color="1.00,1.00,1.00,0.50" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="726.00,7.00,0.00" Time="2.500000" Size="1599.36,200.02" Scale="7.84,0.73" Color="1.00,1.00,1.00,0.55" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="2" Position="726.00,7.00,0.00" Time="5.000000" Size="1599.36,200.02" Scale="7.84,0.73" Color="1.00,1.00,1.00,0.50" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="SelectDeliverPoint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="678.00,-5.00,0.00" Time="0.000000" Size="599.44,158.12" Scale="1.18,1.18" PIName="UI" ImageName="SelectDeliverPoint" />
+            <PointDataList Index="1" Position="678.00,-5.00,0.00" Time="5.000000" Size="599.44,158.12" Scale="1.18,1.18" PIName="UI" ImageName="SelectDeliverPoint" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Object" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="423.00,256.00,0.00" Time="0.000000" Size="199.92,99.96" Scale="11.76,5.88" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="423.00,256.00,0.00" Time="4.999000" Size="17.00,17.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ScrollerData" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="200.00,190.00,0.00" Time="4.999000" Size="1600.04,199.92" Scale="94.12,11.76" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="DP2_1" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1" Loop="1">
+            <PointDataList Index="0" Position="1436.00,959.00,0.00" Time="0.000000" Size="23.00,52.00" Scale="1.00,1.00" Color="0.30,0.00,1.20,1.00" PIName="UI" ImageName="Color_Number_01" />
+            <PointDataList Index="1" Position="1436.00,959.00,0.00" Time="1.250000" Size="23.00,52.00" Scale="1.00,1.00" Color="0.30,0.00,1.20,0.50" PIName="UI" ImageName="Color_Number_01" />
+            <PointDataList Index="2" Position="1436.00,959.00,0.00" Time="2.500000" Size="23.00,52.00" Scale="1.00,1.00" Color="0.30,0.00,1.20,1.00" PIName="UI" ImageName="Color_Number_01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="background2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1463.00,134.00,0.00" Time="0.000000" Size="210.00,180.60" Scale="0.70,0.70" PIName="UI" ImageName="background2" />
+            <PointDataList Index="1" Position="1463.00,134.00,0.00" Time="5.000000" Size="210.00,180.60" Scale="0.70,0.70" PIName="UI" ImageName="background2" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="CarGoConfirm" PathCount="6" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="1.000000">
+        <CueToStartCurvesWithTime Name="Black_Banner" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="706.00,273.00,0.00" Time="0.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="706.00,273.00,0.00" Time="1.000000" Size="1919.64,1079.56" Scale="9.41,3.94" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Mm_Thinking" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="710.00,329.00,0.00" Time="0.000000" Size="799.68,400.04" Scale="3.92,1.46" Color="1.40,1.40,1.00,1.00" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="710.00,329.00,0.00" Time="1.000000" Size="799.68,400.04" Scale="3.92,1.46" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChancelButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1093.00,692.00,0.00" Time="0.000000" Size="220.00,104.00" Scale="2.00,2.00" PIName="UI" ImageName="ChancelButton" />
+            <PointDataList Index="1" Position="1093.00,692.00,0.00" Time="1.000000" Size="220.00,104.00" Scale="2.00,2.00" PIName="UI" ImageName="ChancelButton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ConfirmButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="740.00,684.00,0.00" Time="0.000000" Size="220.00,120.00" Scale="2.00,2.00" PIName="UI" ImageName="ConfirmButton" />
+            <PointDataList Index="1" Position="740.00,684.00,0.00" Time="1.000000" Size="220.00,120.00" Scale="2.00,2.00" PIName="UI" ImageName="ConfirmButton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ToTable" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="803.00,494.00,0.00" Time="0.000000" Size="323.00,76.00" Scale="1.00,1.00" PIName="UI" ImageName="ToTable" />
+            <PointDataList Index="1" Position="803.00,494.00,0.00" Time="1.000000" Size="323.00,76.00" Scale="1.00,1.00" PIName="UI" ImageName="ToTable" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="TextPos" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="923.00,501.00,0.00" Time="0.000000" Size="45.00,52.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Color_Number_00" />
+            <PointDataList Index="1" Position="923.00,501.00,0.00" Time="1.000000" Size="45.00,52.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Color_Number_00" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="SelectCustomerPointPage" PathCount="32" PlayCount="-1" CameraView="1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000,0.00000,0.00000,0.00000,0.00000,1.00000" TotalPlayTime="5.000000">
+        <CueToStartCurvesWithTime Name="BG" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="577.00,325.00,0.00" Time="0.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+            <PointDataList Index="1" Position="577.00,325.00,0.00" Time="2.500000" Size="1920.00,1080.00" Scale="2.50,2.50" Color="1.00,1.00,1.00,0.90" PIName="UI" ImageName="background1" />
+            <PointDataList Index="2" Position="577.00,325.00,0.00" Time="5.000000" Size="1920.00,1080.00" Scale="2.50,2.50" PIName="UI" ImageName="background1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Scroller" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="514.00,427.00,0.00" Time="0.000000" Size="1499.40,750.76" Scale="7.35,2.74" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="514.00,427.00,0.00" Time="2.500000" Size="1499.40,750.76" Scale="7.35,2.74" Color="1.20,1.30,1.40,0.50" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="2" Position="514.00,427.00,0.00" Time="5.000000" Size="1499.40,750.76" Scale="7.35,2.74" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Object" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="90.00,334.00,0.00" Time="0.000000" Size="10.03,60.01" Scale="0.59,3.53" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="90.00,334.00,0.00" Time="4.999000" Size="10.03,60.01" Scale="0.59,3.53" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ScrollerData" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="70.00,315.00,0.00" Time="0.000000" Size="1500.08,800.02" Scale="88.24,47.06" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+            <PointDataList Index="1" Position="70.00,315.00,0.00" Time="5.000000" Size="1500.08,800.02" Scale="88.24,47.06" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Mm_Thinking_Dot" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="InfoFrame" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="1456.00,426.00,0.00" Time="0.000000" Size="350.88,750.76" Scale="1.72,2.74" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="1" Position="1456.00,426.00,0.00" Time="2.500000" Size="350.88,750.76" Scale="1.72,2.74" Color="1.20,1.30,1.40,0.50" PIName="UI" ImageName="Black_Banner" />
+            <PointDataList Index="2" Position="1456.00,426.00,0.00" Time="5.000000" Size="350.88,750.76" Scale="1.72,2.74" Color="1.20,1.30,1.40,0.45" PIName="UI" ImageName="Black_Banner" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="InfoPos" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1556.00,317.00,0.00" Time="0.000000" Size="93.00,92.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Dice_Off_Cover" />
+            <PointDataList Index="1" Position="1556.00,317.00,0.00" Time="4.999000" Size="93.00,92.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Dice_Off_Cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="AskCarToGoButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1116.00,146.00,0.00" Time="0.000000" Size="281.70,148.50" Scale="0.90,0.90" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="CarGoButton" />
+            <PointDataList Index="1" Position="1116.00,146.00,0.00" Time="5.000000" Size="281.70,148.50" Scale="0.90,0.90" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="CarGoButton" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ChangeDelivePointButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="13.00,137.00,0.00" Time="0.000000" Size="473.40,148.50" Scale="0.90,0.90" PIName="UI" ImageName="ChangeDeliverPoint" />
+            <PointDataList Index="1" Position="13.00,137.00,0.00" Time="5.000000" Size="473.40,148.50" Scale="0.90,0.90" PIName="UI" ImageName="ChangeDeliverPoint" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CarBrokenMessageButton" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1455.00,145.00,0.00" Time="0.000000" Size="421.20,154.80" Scale="0.90,0.90" PIName="UI" ImageName="CarBrokenMessage" />
+            <PointDataList Index="1" Position="1455.00,145.00,0.00" Time="4.999000" Size="421.20,154.80" Scale="0.90,0.90" PIName="UI" ImageName="CarBrokenMessage" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="YourDeliverNodeID" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="893.00,19.00,0.00" Time="0.000000" Size="93.00,92.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Dice_Off_Cover" />
+            <PointDataList Index="1" Position="893.00,19.00,0.00" Time="5.000000" Size="93.00,92.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="Dice_Off_Cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="NowDeliverPoint" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="544.00,22.00,0.00" Time="0.000000" Size="348.00,88.00" Scale="1.00,1.00" PIName="UI" ImageName="NowDeliverPoint" />
+            <PointDataList Index="1" Position="544.00,22.00,0.00" Time="5.000000" Size="348.00,88.00" Scale="1.00,1.00" PIName="UI" ImageName="NowDeliverPoint" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="DeliverPointInfoBG" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="741.00,159.00,0.00" Time="0.000000" Size="599.85,149.96" Scale="6.45,1.63" Color="1.00,1.00,1.00,0.60" PIName="UI" ImageName="Dice_Off_Cover" />
+            <PointDataList Index="1" Position="741.00,159.00,0.00" Time="5.000000" Size="599.85,149.96" Scale="6.45,1.63" Color="1.00,1.00,1.00,0.60" PIName="UI" ImageName="Dice_Off_Cover" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="CarID" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="566.00,190.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" PIName="UI" ImageName="CarID" />
+            <PointDataList Index="1" Position="566.00,190.00,0.00" Time="5.000000" Size="128.00,128.00" Scale="2.00,2.00" PIName="UI" ImageName="CarID" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="MealSettled" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="853.00,190.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="2.00,2.00" PIName="UI" ImageName="MealSettled" />
+            <PointDataList Index="1" Position="853.00,190.00,0.00" Time="5.000000" Size="128.00,128.00" Scale="2.00,2.00" PIName="UI" ImageName="MealSettled" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ShowCarIDPos" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="671.00,180.00,0.00" Time="0.000000" Size="64.00,64.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="CarID" />
+            <PointDataList Index="1" Position="669.00,177.00,0.00" Time="5.000000" Size="64.00,64.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="UI" ImageName="CarID" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ShowMealSettledPos" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="957.00,159.00,0.00" Time="0.000000" Size="128.00,128.00" Scale="1.00,1.00" PIName="UI" ImageName="meal" />
+            <PointDataList Index="1" Position="957.00,159.00,0.00" Time="5.000000" Size="128.00,128.00" Scale="1.00,1.00" PIName="UI" ImageName="meal" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="Map" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="543.00,435.00,0.00" Time="0.000000" Size="1921.14,794.07" Scale="2.34,1.53" Color="1.00,1.00,1.00,0.50" PIName="UI" ImageName="BG" />
+            <PointDataList Index="1" Position="543.00,435.00,0.00" Time="5.000000" Size="1921.14,794.07" Scale="2.34,1.53" Color="1.00,1.00,1.00,0.50" PIName="UI" ImageName="BG" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="1,2" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="73.00,946.00,0.00" Time="0.000000" Size="240.00,160.06" Scale="2.40,1.51" PIName="UI" ImageName="A1" />
+            <PointDataList Index="1" Position="73.00,946.00,0.00" Time="5.000000" Size="100.00,106.00" Scale="1.00,1.00" PIName="UI" ImageName="A1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="3,4" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="73.00,784.00,0.00" Time="0.000000" Size="240.00,165.36" Scale="2.40,1.56" PIName="UI" ImageName="A2" />
+            <PointDataList Index="1" Position="73.00,784.00,0.00" Time="5.000000" Size="100.00,165.36" Scale="1.00,1.56" PIName="UI" ImageName="A2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="5" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="68.00,641.00,0.00" Time="0.000000" Size="240.00,130.32" Scale="2.40,1.81" PIName="UI" ImageName="A3" />
+            <PointDataList Index="1" Position="68.00,641.00,0.00" Time="5.000000" Size="240.00,72.00" Scale="2.40,1.00" PIName="UI" ImageName="A3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="6" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="69.00,425.00,0.00" Time="0.000000" Size="239.58,169.52" Scale="2.42,1.63" PIName="UI" ImageName="A4" />
+            <PointDataList Index="1" Position="69.00,425.00,0.00" Time="5.000000" Size="239.58,169.52" Scale="2.42,1.63" PIName="UI" ImageName="A4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="8,9" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="418.00,524.00,0.00" Time="0.000000" Size="240.10,159.84" Scale="2.45,1.48" PIName="UI" ImageName="B3" />
+            <PointDataList Index="1" Position="418.00,524.00,0.00" Time="5.000000" Size="240.10,159.84" Scale="2.45,1.48" PIName="UI" ImageName="B3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="10,11" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="411.00,703.00,0.00" Time="0.000000" Size="240.10,160.50" Scale="2.45,1.50" PIName="UI" ImageName="B2" />
+            <PointDataList Index="1" Position="411.00,703.00,0.00" Time="5.000000" Size="240.10,160.50" Scale="2.45,1.50" PIName="UI" ImageName="B2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="12,13" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="415.00,875.00,0.00" Time="0.000000" Size="240.10,180.36" Scale="2.45,1.67" PIName="UI" ImageName="B1" />
+            <PointDataList Index="1" Position="415.00,875.00,0.00" Time="5.000000" Size="98.00,108.00" Scale="1.00,1.00" PIName="UI" ImageName="B1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="14,15" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="840.00,875.00,0.00" Time="0.000000" Size="240.10,155.40" Scale="2.45,1.48" PIName="UI" ImageName="C1" />
+            <PointDataList Index="1" Position="840.00,875.00,0.00" Time="5.000000" Size="240.10,155.40" Scale="2.45,1.48" PIName="UI" ImageName="C1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="16,17" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="839.00,692.00,0.00" Time="0.000000" Size="240.10,165.36" Scale="2.45,1.56" PIName="UI" ImageName="C2" />
+            <PointDataList Index="1" Position="839.00,692.00,0.00" Time="5.000000" Size="240.10,165.36" Scale="2.45,1.56" PIName="UI" ImageName="C2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="18,19" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="839.00,491.00,0.00" Time="0.000000" Size="240.10,161.12" Scale="2.45,1.52" PIName="UI" ImageName="C3" />
+            <PointDataList Index="1" Position="839.00,491.00,0.00" Time="5.000000" Size="240.10,161.12" Scale="2.45,1.52" PIName="UI" ImageName="C3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="20" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1178.00,921.00,0.00" Time="0.000000" Size="240.00,110.05" Scale="2.40,1.55" PIName="UI" ImageName="D1" />
+            <PointDataList Index="1" Position="1178.00,921.00,0.00" Time="5.000000" Size="240.00,110.05" Scale="2.40,1.55" PIName="UI" ImageName="D1" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="21" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1175.00,765.00,0.00" Time="0.000000" Size="240.00,110.16" Scale="2.40,1.53" PIName="UI" ImageName="D2" />
+            <PointDataList Index="1" Position="1175.00,765.00,0.00" Time="5.000000" Size="240.00,110.16" Scale="2.40,1.53" PIName="UI" ImageName="D2" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="22" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1180.00,611.00,0.00" Time="0.000000" Size="240.00,108.50" Scale="2.40,1.55" PIName="UI" ImageName="D3" />
+            <PointDataList Index="1" Position="1180.00,611.00,0.00" Time="5.000000" Size="240.00,108.50" Scale="2.40,1.55" PIName="UI" ImageName="D3" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="23" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1178.00,449.00,0.00" Time="0.000000" Size="240.00,109.90" Scale="2.40,1.57" PIName="UI" ImageName="D4" />
+            <PointDataList Index="1" Position="1178.00,449.00,0.00" Time="5.000000" Size="240.00,109.90" Scale="2.40,1.57" PIName="UI" ImageName="D4" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="GoHome" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="1107.00,132.00,0.00" Time="0.000000" Size="316.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="GoHome" />
+            <PointDataList Index="1" Position="1107.00,132.00,0.00" Time="5.000000" Size="316.00,173.00" Scale="1.00,1.00" PIName="UI" ImageName="GoHome" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>
