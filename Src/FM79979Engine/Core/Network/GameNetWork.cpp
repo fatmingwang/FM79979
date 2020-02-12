@@ -97,6 +97,7 @@ namespace FATMING_CORE
 		m_pSocket = nullptr;
 		m_eNetWorkStatus = eNWS_NONE;
 		m_ConnectionLostCallbackFunction = nullptr;
+		m_bDoDisconnect = false;
 	}
 	cGameNetwork::~cGameNetwork()
 	{
@@ -160,6 +161,14 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pReconnectFunction);
 		this->CloseThreadAndWaitUntilFinish();
 		CloseSocket();
+	}
+	void cGameNetwork::SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect)
+	{
+		m_bDoDisconnect = e_bDisConnect;
+		if (e_bDeleteReConnect)
+		{
+			SAFE_DELETE(this->m_pReconnectFunction);
+		}
 	}
 	bool cGameNetwork::SendData(_TCPsocket * e_pTCPsocket, sNetworkSendPacket * e_pPacket)
 	{
@@ -429,9 +438,11 @@ namespace FATMING_CORE
 				}
 			}
 		}
-		return;
+		if(!m_bDoDisconnect)
+			return;
 	FAILED:
 		FMLog::LogWithFlag("cGameNetwork::ClientListenDataThread::disconnect\n", CORE_LOG_FLAG);
+		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
 		if (m_ConnectionLostCallbackFunction)
@@ -449,7 +460,6 @@ namespace FATMING_CORE
 			}
 		}
 		m_eNetWorkStatus = eNWS_CONNECTED;
-		//if (!OpenSocket(e_iPort, e_strIP))
 		assert(m_pSocket->iServerFlag&&"server update thread require a server flag");
 		if(m_pSocket)
 		{
@@ -527,9 +537,11 @@ namespace FATMING_CORE
 				}
 			}
 		}
-		return;
+		if (!m_bDoDisconnect)
+			return;
 	FAILED:
 		FMLog::LogWithFlag("cGameNetwork::ServerListenDataThread::disconnect\n", CORE_LOG_FLAG);
+		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
 		if (m_ConnectionLostCallbackFunction)
@@ -541,10 +553,10 @@ namespace FATMING_CORE
 	{
 		if (m_pGameNetwork)
 		{
+			this->m_ReConnectTime.Update(e_fElpaseTime);
 			if (m_pGameNetwork->m_eNetWorkStatus != eNWS_CONNECTED &&
 				m_pGameNetwork->m_eNetWorkStatus != eNWS_TRY_TO_CONNECT)
 			{
-				this->m_ReConnectTime.Update(e_fElpaseTime);
 				if (m_ReConnectTime.bTragetTimrReached)
 				{
 					if (m_bServeFlag)

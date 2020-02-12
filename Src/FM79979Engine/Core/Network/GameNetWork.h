@@ -93,6 +93,8 @@ namespace FATMING_CORE
 		std::mutex							m_ClientSocketMutex;
 		eNetWorkStatus						m_eNetWorkStatus;
 		virtual bool						RemoveClient(_TCPsocket*e__pTCPsocket);
+		//
+		bool								m_bDoDisconnect;
 	public:
 		cGameNetwork();
 		virtual ~cGameNetwork();
@@ -116,7 +118,11 @@ namespace FATMING_CORE
 		bool								GetIP();
 		virtual	void						Init();
 		virtual	void						Update(float e_fElpaseTime);
+		//it's possible locked by thread
 		virtual	void						Destroy();
+		//
+		bool								IsDoDisconnect() { return m_bDoDisconnect; }
+		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
 	};
 	template<class TYPE>
 	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData)
