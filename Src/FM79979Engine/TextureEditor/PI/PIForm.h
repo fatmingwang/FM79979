@@ -1878,15 +1878,14 @@ namespace PI
 				}
 				else
 				{
-
 					int l_iImageCount = m_pImageomposerIRM->Count();
 					  // Create some 'content' to work on.
 					BinPack2D::ContentAccumulator<cUIImage*> inputContent;
-  
 					for(int i=0;i<l_iImageCount;i++)
 					{
 						auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
-
+						if (l_pUIImage->m_pEditorAttachParent)
+							continue;
 						//inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_pUIImage->GetWidth()+l_iPixelXGap,l_pUIImage->GetHeight()+l_iPixelYGap), false );
 						POINT l_LeftUpPos = *l_pUIImage->GetOffsetPos();
 						POINT l_RightDownPos = l_pUIImage->GetRightDownStripOffPos();

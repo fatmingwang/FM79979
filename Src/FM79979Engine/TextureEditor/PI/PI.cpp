@@ -376,6 +376,16 @@ namespace PI
 			 l_pNewUIImage->SetOffsetPos(*l_pUIImage->GetOffsetPos());
 			 l_pNewUIImage->SetRightDownStripOffPos(l_pUIImage->GetRightDownStripOffPos());
 			 l_pNewUIImage->SetOriginalImageSize(l_pUIImage->GetOriginalImageSize());
+			 float l_fUV[4] =
+			 {
+				(float)l_pPuzzleUnitChild->m_vRelativePos.x/ l_pAttachUIImage->GetImageRealSize().x,
+				(float)l_pPuzzleUnitChild->m_vRelativePos.y / l_pAttachUIImage->GetImageRealSize().y,
+				(l_pPuzzleUnitChild->m_vRelativePos.x + (float)l_pNewUIImage->GetImageRealSize().x) / l_pAttachUIImage->GetImageRealSize().x,
+				(l_pPuzzleUnitChild->m_vRelativePos.y + (float)l_pNewUIImage->GetImageRealSize().y) / l_pAttachUIImage->GetImageRealSize().y
+			 };
+			 l_pNewUIImage->SetUV(l_fUV);
+			 l_pNewUIImage->SetWidth(l_pUIImage->GetOriginalImageSize().x);
+			 l_pNewUIImage->SetHeight(l_pUIImage->GetOriginalImageSize().y);
 
 			 std::vector<NamedTypedObject*>*l_pList = m_pImageomposerIRM->GetList();
 			 int	l_iIndex = m_pImageomposerIRM->GetObjectIndexByPointer(l_pUIImage);
@@ -529,6 +539,10 @@ namespace PI
 				}
 			}
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
+			for (int i = 0; i < AllImage_listBox->Items->Count; ++i)
+			{
+				l_ppPuzzleData[i] = nullptr;
+			}
 			System::Drawing::Imaging::ImageFormat^ l_ImageFormat = System::Drawing::Imaging::ImageFormat::Png;
 			int	l_iWidth = (int)ImageWidth_numericUpDown->Value;
 			int	l_iHeight = (int)ImageHeight_numericUpDown->Value;
@@ -799,14 +813,14 @@ namespace PI
 				else
 				{
 					l_pBitMap->Save(l_FileName);
-					delete l_pBitMap;
+					//delete l_pBitMap;
 				}
 			}
 			if( l_ppPuzzleData )
 			{
-				for( int i=0;i<l_pImageListBox->Items->Count;++i )
-					SAFE_DELETE(l_ppPuzzleData[i]);
-				SAFE_DELETE_ARRAY(l_ppPuzzleData);
+				//for( int i=0;i<l_pImageListBox->Items->Count;++i )
+				//	SAFE_DELETE(l_ppPuzzleData[i]);
+				//SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
 		}	
 	}
