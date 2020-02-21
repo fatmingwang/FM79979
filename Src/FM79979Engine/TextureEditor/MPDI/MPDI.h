@@ -155,6 +155,15 @@ namespace MPDI
 	public: System::Windows::Forms::CheckBox^  AllCurveLoop_checkBox;
 	private: System::Windows::Forms::Panel^  BGColor_panel;
 private: System::Windows::Forms::ToolStripMenuItem^  toGifToolStripMenuItem;
+private: System::Windows::Forms::NumericUpDown^  GIFFPS_numericUpDown;
+
+private: System::Windows::Forms::Label^  GIFFPS_label;
+private: System::Windows::Forms::Label^  GIFFPSHundredths_label;
+private: System::Windows::Forms::NumericUpDown^  GIFFPSHundredths__numericUpDown;
+
+
+
+
 private:
 
 	//my
@@ -269,6 +278,7 @@ private:
 			this->saveAviFileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->saveImageToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->mergeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toGifToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->editModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->addPointModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->fixPointModeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -379,7 +389,10 @@ private:
 			this->EventPointName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DelEventPoint_button = (gcnew System::Windows::Forms::Button());
 			this->Video_groupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->toGifToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->GIFFPSHundredths_label = (gcnew System::Windows::Forms::Label());
+			this->GIFFPSHundredths__numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->GIFFPS_label = (gcnew System::Windows::Forms::Label());
+			this->GIFFPS_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
@@ -418,6 +431,9 @@ private:
 			this->Path_groupBox->SuspendLayout();
 			this->ImageHintPoint_groupBox->SuspendLayout();
 			this->HintPoint_groupBox->SuspendLayout();
+			this->Video_groupBox->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GIFFPSHundredths__numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GIFFPS_numericUpDown))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// FadeIn_toolStripMenuItem
@@ -553,6 +569,13 @@ private:
 			this->mergeToolStripMenuItem->Size = System::Drawing::Size(236, 22);
 			this->mergeToolStripMenuItem->Text = L"Merge";
 			this->mergeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::mergeToolStripMenuItem_Click);
+			// 
+			// toGifToolStripMenuItem
+			// 
+			this->toGifToolStripMenuItem->Name = L"toGifToolStripMenuItem";
+			this->toGifToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->toGifToolStripMenuItem->Text = L"ToGif";
+			this->toGifToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::saveGIFFileToolStripMenuItem_Click);
 			// 
 			// editModeToolStripMenuItem
 			// 
@@ -1862,6 +1885,10 @@ private:
 			// 
 			// Video_groupBox
 			// 
+			this->Video_groupBox->Controls->Add(this->GIFFPSHundredths_label);
+			this->Video_groupBox->Controls->Add(this->GIFFPSHundredths__numericUpDown);
+			this->Video_groupBox->Controls->Add(this->GIFFPS_label);
+			this->Video_groupBox->Controls->Add(this->GIFFPS_numericUpDown);
 			this->Video_groupBox->Location = System::Drawing::Point(3, 504);
 			this->Video_groupBox->Name = L"Video_groupBox";
 			this->Video_groupBox->Size = System::Drawing::Size(271, 303);
@@ -1869,12 +1896,41 @@ private:
 			this->Video_groupBox->TabStop = false;
 			this->Video_groupBox->Text = L"Video";
 			// 
-			// toGifToolStripMenuItem
+			// GIFFPSHundredths_label
 			// 
-			this->toGifToolStripMenuItem->Name = L"toGifToolStripMenuItem";
-			this->toGifToolStripMenuItem->Size = System::Drawing::Size(236, 22);
-			this->toGifToolStripMenuItem->Text = L"ToGif";
-			this->toGifToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::saveGIFFileToolStripMenuItem_Click);
+			this->GIFFPSHundredths_label->AutoSize = true;
+			this->GIFFPSHundredths_label->Location = System::Drawing::Point(23, 133);
+			this->GIFFPSHundredths_label->Name = L"GIFFPSHundredths_label";
+			this->GIFFPSHundredths_label->Size = System::Drawing::Size(95, 12);
+			this->GIFFPSHundredths_label->TabIndex = 3;
+			this->GIFFPSHundredths_label->Text = L"GIFFPSHundredths";
+			// 
+			// GIFFPSHundredths__numericUpDown
+			// 
+			this->GIFFPSHundredths__numericUpDown->Location = System::Drawing::Point(25, 148);
+			this->GIFFPSHundredths__numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->GIFFPSHundredths__numericUpDown->Name = L"GIFFPSHundredths__numericUpDown";
+			this->GIFFPSHundredths__numericUpDown->Size = System::Drawing::Size(120, 22);
+			this->GIFFPSHundredths__numericUpDown->TabIndex = 2;
+			this->GIFFPSHundredths__numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 4, 0, 0, 0 });
+			// 
+			// GIFFPS_label
+			// 
+			this->GIFFPS_label->AutoSize = true;
+			this->GIFFPS_label->Location = System::Drawing::Point(23, 86);
+			this->GIFFPS_label->Name = L"GIFFPS_label";
+			this->GIFFPS_label->Size = System::Drawing::Size(44, 12);
+			this->GIFFPS_label->TabIndex = 1;
+			this->GIFFPS_label->Text = L"GIF FPS";
+			// 
+			// GIFFPS_numericUpDown
+			// 
+			this->GIFFPS_numericUpDown->Location = System::Drawing::Point(25, 101);
+			this->GIFFPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->GIFFPS_numericUpDown->Name = L"GIFFPS_numericUpDown";
+			this->GIFFPS_numericUpDown->Size = System::Drawing::Size(120, 22);
+			this->GIFFPS_numericUpDown->TabIndex = 0;
+			this->GIFFPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 25, 0, 0, 0 });
 			// 
 			// MPDIEditor
 			// 
@@ -1933,6 +1989,10 @@ private:
 			this->ImageHintPoint_groupBox->PerformLayout();
 			this->HintPoint_groupBox->ResumeLayout(false);
 			this->HintPoint_groupBox->PerformLayout();
+			this->Video_groupBox->ResumeLayout(false);
+			this->Video_groupBox->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GIFFPSHundredths__numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GIFFPS_numericUpDown))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

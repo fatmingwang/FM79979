@@ -23,7 +23,9 @@ namespace MPDI
 		glBlendFunc(m_sfactor, m_dfactor);
 		glEnable(GL_TEXTURE_2D);
 		glEnable2D(m_pvResolution->x, m_pvResolution->y);
-		int l_iFPS = 30;
+		//video FPS 23 is enough
+		int l_iFPS = (int)GIFFPS_numericUpDown->Value;
+		int l_iGIFGundredths = (int)GIFFPSHundredths__numericUpDown->Value;
 		float	l_fElpasedTime = 1.f / l_iFPS;
 		int	l_iWidth = splitContainer3->Panel1->Width;
 		//set opengl aligment
@@ -55,7 +57,8 @@ namespace MPDI
 
 		std::string l_strFileName = DNCT::GcStringToChar(l_strAviName);
 		GifWriter g;
-		GifBegin(&g, l_strFileName.c_str(), l_iWidth, l_iHeight, l_iFPS/10);
+		GifBegin(&g, l_strFileName.c_str(), l_iWidth, l_iHeight, l_iGIFGundredths);
+		//GifBegin(&g, l_strFileName.c_str(), 800, 600, l_iFPS / 10);
 		while (!l_pMPDI->IsAnimationDone())
 		{
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -65,12 +68,12 @@ namespace MPDI
 			{
 				m_pBKImageAWP->Render();
 			}
-			l_pMPDI->Update(l_fElpasedTime*2);
+			l_pMPDI->Update(l_fElpasedTime);
 			l_pMPDI->Render();
 			SwapBuffers(m_HdcMV);
 			glPixelStorei(GL_PACK_ALIGNMENT, 1);
 			glReadPixels(0, 0, l_iWidth, l_iHeight, GL_RGBA, GL_UNSIGNED_BYTE, l_pPixelData);
-			GifWriteFrame(&g, l_pPixelData, l_iWidth, l_iHeight, l_iFPS/10);
+			GifWriteFrame(&g, l_pPixelData, l_iWidth, l_iHeight, l_iGIFGundredths);
 		}
 		//CloseAvi(avi);
 		delete l_pPixelData;
