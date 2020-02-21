@@ -813,14 +813,14 @@ namespace PI
 				else
 				{
 					l_pBitMap->Save(l_FileName);
-					//delete l_pBitMap;
+					delete l_pBitMap;
 				}
 			}
 			if( l_ppPuzzleData )
 			{
-				//for( int i=0;i<l_pImageListBox->Items->Count;++i )
-				//	SAFE_DELETE(l_ppPuzzleData[i]);
-				//SAFE_DELETE_ARRAY(l_ppPuzzleData);
+				for( int i=0;i<l_pImageListBox->Items->Count;++i )
+					SAFE_DELETE(l_ppPuzzleData[i]);
+				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
 		}	
 	}

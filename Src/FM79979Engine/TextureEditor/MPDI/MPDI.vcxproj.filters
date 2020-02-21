@@ -48,6 +48,9 @@
     <ClCompile Include="TimeWithVectorDataApply.cpp">
       <Filter>MPDICamera</Filter>
     </ClCompile>
+    <ClCompile Include="MPDIToGIF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MPDI.h">
@@ -73,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="TimeWithVectorDataApply.h">
       <Filter>MPDICamera</Filter>
+    </ClInclude>
+    <ClInclude Include="gif.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

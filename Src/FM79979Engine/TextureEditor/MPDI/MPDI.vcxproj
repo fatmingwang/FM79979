@@ -14,7 +14,7 @@
     <ProjectGuid>{3BC80092-9378-4FA4-960F-E745C6228FB8}</ProjectGuid>
     <RootNamespace>MPDI</RootNamespace>
     <Keyword>ManagedCProj</Keyword>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -180,6 +180,7 @@
     <ClCompile Include="MPDI.cpp" />
     <ClCompile Include="MPDIThread.cpp" />
     <ClCompile Include="MPDIToAvi.cpp" />
+    <ClCompile Include="MPDIToGIF.cpp" />
     <ClCompile Include="MPDIUI.cpp" />
     <ClCompile Include="MPDIVideo.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -190,6 +191,7 @@
     <ClCompile Include="TimeWithVectorDataApply.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gif.h" />
     <ClInclude Include="MPDI.h">
       <FileType>CppForm</FileType>
     </ClInclude>

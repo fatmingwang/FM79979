@@ -154,6 +154,7 @@ namespace MPDI
 	public: System::Windows::Forms::CheckBox^  AllPlay_checkBox;
 	public: System::Windows::Forms::CheckBox^  AllCurveLoop_checkBox;
 	private: System::Windows::Forms::Panel^  BGColor_panel;
+private: System::Windows::Forms::ToolStripMenuItem^  toGifToolStripMenuItem;
 private:
 
 	//my
@@ -302,6 +303,7 @@ private:
 			this->x2208ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x2048ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->x2732ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->x1920ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->Edit_tabControl = (gcnew System::Windows::Forms::TabControl());
 			this->Path_tabPage = (gcnew System::Windows::Forms::TabPage());
@@ -377,7 +379,7 @@ private:
 			this->EventPointName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DelEventPoint_button = (gcnew System::Windows::Forms::Button());
 			this->Video_groupBox = (gcnew System::Windows::Forms::GroupBox());
-			this->x1920ToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toGifToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
@@ -465,11 +467,11 @@ private:
 			// 
 			// backgroundImageToolStripMenuItem
 			// 
-			this->backgroundImageToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(11) {
+			this->backgroundImageToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(12) {
 				this->openToolStripMenuItem,
 					this->saveToolStripMenuItem, this->openImageFileToolStripMenuItemToolStripMenuItem, this->AddPI_toolStripMenuItem, this->toolStripMenuItem2,
 					this->openPathFileToolStripMenuItem, this->savePathFileToolStripMenuItem, this->saveGamePathToolStripMenuItem, this->saveAviFileToolStripMenuItem,
-					this->saveImageToolStripMenuItem, this->mergeToolStripMenuItem
+					this->saveImageToolStripMenuItem, this->mergeToolStripMenuItem, this->toGifToolStripMenuItem
 			});
 			this->backgroundImageToolStripMenuItem->Name = L"backgroundImageToolStripMenuItem";
 			this->backgroundImageToolStripMenuItem->Size = System::Drawing::Size(37, 20);
@@ -624,14 +626,14 @@ private:
 			// showImageBoderToolStripMenuItem
 			// 
 			this->showImageBoderToolStripMenuItem->Name = L"showImageBoderToolStripMenuItem";
-			this->showImageBoderToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showImageBoderToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showImageBoderToolStripMenuItem->Text = L"ShowImageBorder/顯示圖片邊框";
 			this->showImageBoderToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
 			// showSelectedImageToolStripMenuItem
 			// 
 			this->showSelectedImageToolStripMenuItem->Name = L"showSelectedImageToolStripMenuItem";
-			this->showSelectedImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showSelectedImageToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showSelectedImageToolStripMenuItem->Text = L"ShowSelectedImage/顯示選擇圖片";
 			this->showSelectedImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -640,7 +642,7 @@ private:
 			this->showPath_ToolStripMenuItem->Checked = true;
 			this->showPath_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPath_ToolStripMenuItem->Name = L"showPath_ToolStripMenuItem";
-			this->showPath_ToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPath_ToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showPath_ToolStripMenuItem->Text = L"ShowPath/顯示線段";
 			this->showPath_ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -649,13 +651,13 @@ private:
 			this->showErrorMsh_ToolStripMenuItem->Checked = true;
 			this->showErrorMsh_ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showErrorMsh_ToolStripMenuItem->Name = L"showErrorMsh_ToolStripMenuItem";
-			this->showErrorMsh_ToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showErrorMsh_ToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showErrorMsh_ToolStripMenuItem->Text = L"ShowErrorMsh/顯示錯誤訊息";
 			// 
 			// showPanelToolStripMenuItem
 			// 
 			this->showPanelToolStripMenuItem->Name = L"showPanelToolStripMenuItem";
-			this->showPanelToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPanelToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showPanelToolStripMenuItem->Text = L"ShowPanel/顯示面板";
 			this->showPanelToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -664,28 +666,28 @@ private:
 			this->showPIImageToolStripMenuItem->Checked = true;
 			this->showPIImageToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showPIImageToolStripMenuItem->Name = L"showPIImageToolStripMenuItem";
-			this->showPIImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showPIImageToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showPIImageToolStripMenuItem->Text = L"Show PI Image/顯示pi圖片";
 			this->showPIImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
 			// ScaleWithPIAlphaStripPixel_toolStripMenuItem
 			// 
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Name = L"ScaleWithPIAlphaStripPixel_toolStripMenuItem";
-			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Text = L"ScaleWithPIAlphaStripPixelProble/縮放pi檔案中去除的pizel問題";
 			this->ScaleWithPIAlphaStripPixel_toolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::ScaleWithPIAlphaStripPixel_toolStripMenuItem_Click);
 			// 
 			// renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem
 			// 
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Name = L"renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem";
-			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Text = L"RenewImageSize(ignore all animation with size)";
 			this->renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::renewImageSizeignoreAllAnimationWithSizeToolStripMenuItem_Click);
 			// 
 			// flashSelectedImageToolStripMenuItem
 			// 
 			this->flashSelectedImageToolStripMenuItem->Name = L"flashSelectedImageToolStripMenuItem";
-			this->flashSelectedImageToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->flashSelectedImageToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->flashSelectedImageToolStripMenuItem->Text = L"FlashSelectedImage";
 			this->flashSelectedImageToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -694,7 +696,7 @@ private:
 			this->cameraFitToolStripMenuItem->Checked = true;
 			this->cameraFitToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->cameraFitToolStripMenuItem->Name = L"cameraFitToolStripMenuItem";
-			this->cameraFitToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->cameraFitToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->cameraFitToolStripMenuItem->Text = L"CameraFit";
 			this->cameraFitToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showImageBoderToolStripMenuItem_Click);
 			// 
@@ -703,7 +705,7 @@ private:
 			this->showBGToolStripMenuItem->Checked = true;
 			this->showBGToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showBGToolStripMenuItem->Name = L"showBGToolStripMenuItem";
-			this->showBGToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showBGToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showBGToolStripMenuItem->Text = L"ShowBG/顯示背景圖片";
 			this->showBGToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -712,7 +714,7 @@ private:
 			this->showGridToolStripMenuItem->Checked = true;
 			this->showGridToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->showGridToolStripMenuItem->Name = L"showGridToolStripMenuItem";
-			this->showGridToolStripMenuItem->Size = System::Drawing::Size(418, 22);
+			this->showGridToolStripMenuItem->Size = System::Drawing::Size(419, 22);
 			this->showGridToolStripMenuItem->Text = L"ShowGrid";
 			this->showGridToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::showPath_ToolStripMenuItem_Click);
 			// 
@@ -755,7 +757,7 @@ private:
 			// x480ToolStripMenuItem
 			// 
 			this->x480ToolStripMenuItem->Name = L"x480ToolStripMenuItem";
-			this->x480ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x480ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x480ToolStripMenuItem->Text = L"640x480";
 			this->x480ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
@@ -764,65 +766,72 @@ private:
 			this->x1280ToolStripMenuItem->Checked = true;
 			this->x1280ToolStripMenuItem->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->x1280ToolStripMenuItem->Name = L"x1280ToolStripMenuItem";
-			this->x1280ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x1280ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x1280ToolStripMenuItem->Text = L"720x1280";
 			this->x1280ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x720ToolStripMenuItem
 			// 
 			this->x720ToolStripMenuItem->Name = L"x720ToolStripMenuItem";
-			this->x720ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x720ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x720ToolStripMenuItem->Text = L"1280x720";
 			this->x720ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x900ToolStripMenuItem
 			// 
 			this->x900ToolStripMenuItem->Name = L"x900ToolStripMenuItem";
-			this->x900ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x900ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x900ToolStripMenuItem->Text = L"1440x900";
 			this->x900ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x1334ToolStripMenuItem
 			// 
 			this->x1334ToolStripMenuItem->Name = L"x1334ToolStripMenuItem";
-			this->x1334ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x1334ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x1334ToolStripMenuItem->Text = L"1334x750";
 			this->x1334ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x1024ToolStripMenuItem
 			// 
 			this->x1024ToolStripMenuItem->Name = L"x1024ToolStripMenuItem";
-			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x1024ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x1024ToolStripMenuItem->Text = L"1600x1024";
 			this->x1024ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x1080ToolStripMenuItem
 			// 
 			this->x1080ToolStripMenuItem->Name = L"x1080ToolStripMenuItem";
-			this->x1080ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x1080ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x1080ToolStripMenuItem->Text = L"1920x1080";
 			this->x1080ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x2208ToolStripMenuItem
 			// 
 			this->x2208ToolStripMenuItem->Name = L"x2208ToolStripMenuItem";
-			this->x2208ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x2208ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x2208ToolStripMenuItem->Text = L"2208x1242";
 			this->x2208ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x2048ToolStripMenuItem
 			// 
 			this->x2048ToolStripMenuItem->Name = L"x2048ToolStripMenuItem";
-			this->x2048ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x2048ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x2048ToolStripMenuItem->Text = L"2048x1536";
 			this->x2048ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// x2732ToolStripMenuItem
 			// 
 			this->x2732ToolStripMenuItem->Name = L"x2732ToolStripMenuItem";
-			this->x2732ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->x2732ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			this->x2732ToolStripMenuItem->Text = L"2732x2048";
 			this->x2732ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			// 
+			// x1920ToolStripMenuItem
+			// 
+			this->x1920ToolStripMenuItem->Name = L"x1920ToolStripMenuItem";
+			this->x1920ToolStripMenuItem->Size = System::Drawing::Size(128, 22);
+			this->x1920ToolStripMenuItem->Text = L"1080x1920";
+			this->x1920ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
 			// 
 			// splitContainer1
 			// 
@@ -1860,12 +1869,12 @@ private:
 			this->Video_groupBox->TabStop = false;
 			this->Video_groupBox->Text = L"Video";
 			// 
-			// x1920ToolStripMenuItem
+			// toGifToolStripMenuItem
 			// 
-			this->x1920ToolStripMenuItem->Name = L"x1920ToolStripMenuItem";
-			this->x1920ToolStripMenuItem->Size = System::Drawing::Size(180, 22);
-			this->x1920ToolStripMenuItem->Text = L"1080x1920";
-			this->x1920ToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::x1080ToolStripMenuItem_Click);
+			this->toGifToolStripMenuItem->Name = L"toGifToolStripMenuItem";
+			this->toGifToolStripMenuItem->Size = System::Drawing::Size(236, 22);
+			this->toGifToolStripMenuItem->Text = L"ToGif";
+			this->toGifToolStripMenuItem->Click += gcnew System::EventHandler(this, &MPDIEditor::saveGIFFileToolStripMenuItem_Click);
 			// 
 			// MPDIEditor
 			// 
@@ -1966,6 +1975,7 @@ private: System::Void showImageBoderToolStripMenuItem_Click(System::Object^  sen
 private: System::Void MergeMPDIData_button_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void CurrentProgress_trackBar_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 private: System::Void saveAviFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
+private: System::Void saveGIFFileToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);		 
 private: System::Void showPath_ToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void DelPI_button_Click(System::Object^  sender, System::EventArgs^  e);
 private: System::Void AllPI_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
