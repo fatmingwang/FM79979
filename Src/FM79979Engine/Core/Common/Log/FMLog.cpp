@@ -34,7 +34,7 @@ namespace FMLog
 		return true;
 	}
 
-	void					Init()
+	void					Init(const char*e_strFileName)
 	{
 		if (!g_spstrLogErrorMsgString)
 			g_spstrLogErrorMsgString = new std::wstring;
@@ -50,6 +50,12 @@ namespace FMLog
 			//if(-1 != l_iValue)
 			{
 				std::wstring	l_strSystemTime = L"Log/log_";
+				if (e_strFileName && strlen(e_strFileName) > 0)
+				{
+					l_strSystemTime = L"Log/";
+					l_strSystemTime += ValueToStringW(e_strFileName);
+					l_strSystemTime += L"_log_";
+				}
 				l_strSystemTime += UT::GetSystemTimeForFile(true);
 				l_strSystemTime += L".txt";
 				std::string	l_strFileName = UT::WcharToChar(l_strSystemTime);
@@ -106,6 +112,7 @@ namespace FMLog
 #if defined(WIN32)
 		std::wstring l_str = FATMING_CORE::ValueToStringW(e_str);
 		printf(e_str);
+		printf("\n");
 		OutputDebugString(l_str.c_str());;
 		OutputDebugString(L"\n");
 #elif	defined(ANDROID)
@@ -137,6 +144,7 @@ namespace FMLog
 #if defined(WIN32)
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";
 		printf(l_str.c_str());
+		printf("\n");
 		OutputDebugString(e_str);;
 		OutputDebugString(L"\n");
 #elif	defined(ANDROID)

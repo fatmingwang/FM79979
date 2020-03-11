@@ -28,7 +28,7 @@ namespace FMLog
 	static	int				g_siLogShowErrorType = 1;
 	static	std::wstring*	g_spstrLogErrorMsgString = nullptr;
 	//0 means won't keep any log data.
-	void					Init();
+	void					Init(const char*e_strFileName = "");
 	void					EnableKeepLatestLog(int e_iKeepLatestLogCount);
 	//ensure thread safe,please fetch this in same thread.you have to call EnableKeepLatestLog(true).
 	std::list<std::wstring>	GetLatestLog();

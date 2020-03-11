@@ -86,7 +86,12 @@ namespace	FATMING_CORE
 #endif
 		if (this->m_sbDebugFunctionWorking)
 		{
-			FMLog::Init();
+			if(cGameApp::m_psstrGameAppName)
+				FMLog::Init(cGameApp::m_psstrGameAppName->c_str());
+			else
+			{
+				FMLog::Init();
+			}
 		}
 #ifdef WIN32
 		DWORD  nBufferLength = 0;
