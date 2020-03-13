@@ -91,7 +91,7 @@ namespace FATMING_CORE
 	{
 		auto l_pClickBehavior = AddDefaultRenderClickBehaviorButton(e_pRenderObject, nullptr, nullptr, e_bEnableClickScale);
 		if (m_pRenderObject)
-			m_pRenderObject->AddChild(e_pRenderObject);
+			m_pRenderObject->AddChildToLast(e_pRenderObject);
 		return l_pClickBehavior;
 	}
 

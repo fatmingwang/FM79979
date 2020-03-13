@@ -319,6 +319,8 @@ namespace FATMING_CORE
 	{
 		if( !e_pRenderObject )
 			return nullptr;
+		//add this one?
+		e_pRenderObject->Init();
 		cDefaultRenderClickBehavior*l_pClickEvent = new cDefaultRenderClickBehavior();
 		l_pClickEvent->SetRenderObject(e_pRenderObject);
 		if(!e_pRenderObject->GenerateBound())
