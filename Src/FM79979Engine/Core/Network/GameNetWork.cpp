@@ -386,6 +386,7 @@ namespace FATMING_CORE
 
 	void	cGameNetwork::ClientListenDataThread(float e_ElpaseTime)
 	{
+		eNetWorkStatus l_eNetWorkStatus = m_eNetWorkStatus;
 		if (!m_pSocket)
 		{
 			if (!OpenSocket(m_IPData.m_iPort, m_IPData.m_strServerIP.c_str()))
@@ -445,13 +446,17 @@ namespace FATMING_CORE
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
-		if (m_ConnectionLostCallbackFunction)
-			m_ConnectionLostCallbackFunction();
+		if (l_eNetWorkStatus == eNetWorkStatus::eNWS_CONNECTED)
+		{
+			if (m_ConnectionLostCallbackFunction)
+				m_ConnectionLostCallbackFunction();
+		}
 		this->m_bLeaveThread = true;
 	}
 
 	void cGameNetwork::ServerListenDataThread(float e_ElpaseTime)
 	{
+		eNetWorkStatus l_eNetWorkStatus = m_eNetWorkStatus;
 		if (!m_pSocket)
 		{
 			if(!OpenSocket(m_IPData.m_iPort,nullptr))
@@ -544,8 +549,11 @@ namespace FATMING_CORE
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
-		if (m_ConnectionLostCallbackFunction)
-			m_ConnectionLostCallbackFunction();
+		if (l_eNetWorkStatus == eNetWorkStatus::eNWS_CONNECTED)
+		{
+			if (m_ConnectionLostCallbackFunction)
+				m_ConnectionLostCallbackFunction();
+		}
 		this->m_bLeaveThread = true;
 	}
 
