@@ -205,6 +205,8 @@ namespace FATMING_CORE
 				}
 				else
 				{
+					if (l_fDrawWidth < l_fXOffset)
+						l_fDrawWidth = l_fXOffset;
 					l_fXOffset = 0;
 					l_fYOffset += m_pDynamicFontTexture->m_iFontSize;
 					l_fDrawHeight += m_pDynamicFontTexture->m_iFontSize;
@@ -358,6 +360,8 @@ namespace FATMING_CORE
 			}
 			else
 			{
+				if (l_fDrawWidth < l_fXOffset)
+					l_fDrawWidth = l_fXOffset;
 				l_fXOffset = 0;
 				l_fYOffset += l_fFontHeight;
 				l_fMaxHeight += l_fFontHeight;

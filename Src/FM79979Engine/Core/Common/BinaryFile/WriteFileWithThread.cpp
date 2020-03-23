@@ -80,7 +80,11 @@ namespace FATMING_CORE
 	bool	cWriteFileWithThread::OpenFileWhatEverFileIsExitOrNotExit(const char*e_strFileName, sRegister_Header_Struct e_sRegister_Header_Struct, bool e_bActiveWriteToFile, bool e_bRoolFilePositionToEnd)
 	{
 		bool	l_bResult = false;
-		if (cBinaryFile::Writefile(e_strFileName, true, true, "rb+"))
+		char*l_strFileOpenMode = "rb+";
+		//somehow linux file not exists must use wb+ or rb+,I donno why
+		if (!UT::IsFileExists(e_strFileName))
+			l_strFileOpenMode = "wb+";
+		if (cBinaryFile::Writefile(e_strFileName, true, true, l_strFileOpenMode))
 		{
 			int		l_iFileSize = GetDataFileSize();
 			if (l_iFileSize == 0)
@@ -88,8 +92,8 @@ namespace FATMING_CORE
 				if (m_pFile)
 				{
 					sRegister_Header_Struct l_Register_Header_Struct = e_sRegister_Header_Struct;
-					NvFWrite(&l_Register_Header_Struct, sizeof(sRegister_Header_Struct), 1, m_pFile);
-					this->Flush();
+					auto l_uiWritesize = NvFWrite(&l_Register_Header_Struct, 1, sizeof(sRegister_Header_Struct), m_pFile);
+					Flush();
 					l_bResult = true;
 				}
 			}

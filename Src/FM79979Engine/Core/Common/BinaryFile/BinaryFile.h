@@ -51,6 +51,8 @@ namespace FATMING_CORE
 		bool				m_bBigEndian;
 #ifdef WIN32
 		HANDLE				m_FileHandle;
+#endif
+#if defined(WIN32) || defined(LINUX)
 		int					m_iFileDescriptor;
 #endif
 	public:

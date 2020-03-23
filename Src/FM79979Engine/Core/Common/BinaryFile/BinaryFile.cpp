@@ -23,8 +23,10 @@ namespace FATMING_CORE
 		m_pData = nullptr;
 		m_pFile = nullptr;
 #ifdef WIN32
+		m_FileHandle = nullptr;
+#endif
+#if defined(WIN32) || defined(LINUX)
 		m_iFileDescriptor = -1;
-		m_FileHandle = 0;
 #endif
 	}
 
@@ -206,6 +208,12 @@ namespace FATMING_CORE
 				NvFFlush(m_pFile);
 #else
 			NvFFlush(m_pFile);
+#ifdef LINUX
+			//https://raspberrypi.stackexchange.com/questions/72993/file-content-disappears-when-raspberry-pi-is-unplugged
+			if(m_iFileDescriptor != -1)
+				fsync(m_iFileDescriptor);
+#endif
+
 #endif
 			return true;
 		}
@@ -269,10 +277,23 @@ namespace FATMING_CORE
 		}
 #else
 		std::string	l_strFileName = e_str;
-		if( e_bBinary )
-			this->m_pFile = MyFileOpen(l_strFileName.c_str(),"wb+" );
+		if (e_strFileMode == nullptr)
+		{
+			if (e_bBinary)
+				this->m_pFile = MyFileOpen(l_strFileName.c_str(), "wb+");
+			else
+				this->m_pFile = MyFileOpen(l_strFileName.c_str(), "w");
+		}
 		else
-			this->m_pFile = MyFileOpen(l_strFileName.c_str(),"w" );
+		{
+			this->m_pFile = MyFileOpen(l_strFileName.c_str(), e_strFileMode);
+		}
+#ifdef LINUX
+		if (e_bForceToWrite && m_pFile)
+		{
+			m_iFileDescriptor = fileno(m_pFile);
+		}
+#endif
 #endif
 		if(m_pFile)
 			return true;
