@@ -1,0 +1,48 @@
+<!-- Author:Fatming,Time:12/30/2019 10:28:50 PM -->
+<PuzzleImage OriginalNameSort="bird_a01,bird_a02,bird_a03,bird_a04,bird_a05,bird_a06,bird_a07,black_wc_a01,black_wc_a02,cloud_a01,cloud_a02,cloud_a03,cloud_a04,crystal_a01,crystal_a02,crystal_a03,crystal_a04,crystal_a05,far_leaf_a01,far_leaf_a02,far_leaf_a03,far_leaf_a04,far_leaf_a05,foliage_l_a01,foliage_l_a02,foliage_l_a03,foliage_r_a01,foliage_r_a02,foliage_r_a03,vine_a01,vine_a02,wood_in_a01,wood_l_a01,wood_l_a02,wood_l_a03,wood_l_a04,wood_r_a01,wood_r_a02,firefly_a02,wood_l_b01,wood_r_b01,wood_l_a05,wood_r_a03,light_a01,firefly_b01" ImageName="666.png" Count="45" GeneratePuzzleimageUnit="0" ImageDistance="1,1">
+    <PuzzleUnit Name="bird_a01" UV="0.7382813,0.4082031,0.8427734,0.4887695" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="1512,836" />
+    <PuzzleUnit Name="bird_a02" UV="0.8066406,0,0.9111328,0.08056641" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="1652,0" />
+    <PuzzleUnit Name="bird_a03" UV="0.7382813,0.3276367,0.8427734,0.4082031" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="1512,671" />
+    <PuzzleUnit Name="bird_a04" UV="0,0.8164063,0.1044922,0.8969727" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="0,1672" />
+    <PuzzleUnit Name="bird_a05" UV="0.390625,0.730957,0.4951172,0.8115234" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="800,1497" />
+    <PuzzleUnit Name="bird_a06" UV="0.7382813,0.4887695,0.8427734,0.5693359" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="1512,1001" />
+    <PuzzleUnit Name="bird_a07" UV="0.4951172,0.730957,0.5996094,0.8115234" OffsetPos="0,0" Size="214,165" OriginalSize="214,165" ShowPosInPI="1014,1497" />
+    <PuzzleUnit Name="black_wc_a01" UV="0,0,0.390625,0.3125" OffsetPos="0,0" Size="800,640" OriginalSize="800,640" ShowPosInPI="0,0" />
+    <PuzzleUnit Name="black_wc_a02" UV="0,0.3125,0.390625,0.565918" OffsetPos="0,0" Size="800,519" OriginalSize="800,519" ShowPosInPI="0,640" />
+    <PuzzleUnit Name="cloud_a01" UV="0.390625,0.5043945,0.5693359,0.5786133" OffsetPos="0,0" Size="366,152" OriginalSize="366,152" ShowPosInPI="800,1033" />
+    <PuzzleUnit Name="cloud_a02" UV="0,0.565918,0.2011719,0.644043" OffsetPos="0,0" Size="412,160" OriginalSize="412,160" ShowPosInPI="0,1159" />
+    <PuzzleUnit Name="cloud_a03" UV="0.390625,0.1850586,0.6269531,0.3276367" OffsetPos="0,0" Size="484,292" OriginalSize="484,292" ShowPosInPI="800,379" />
+    <PuzzleUnit Name="cloud_a04" UV="0.5976563,0.3276367,0.7382813,0.4594727" OffsetPos="0,0" Size="288,270" OriginalSize="288,270" ShowPosInPI="1224,671" />
+    <PuzzleUnit Name="crystal_a01" UV="0.8427734,0.3837891,0.8881836,0.4414063" OffsetPos="0,0" Size="93,118" OriginalSize="93,118" ShowPosInPI="1726,786" />
+    <PuzzleUnit Name="crystal_a02" UV="0.8867188,0.2402344,0.9335938,0.2993164" OffsetPos="0,0" Size="96,121" OriginalSize="96,121" ShowPosInPI="1816,492" />
+    <PuzzleUnit Name="crystal_a03" UV="0.3056641,0.8359375,0.362793,0.8969727" OffsetPos="0,0" Size="117,125" OriginalSize="117,125" ShowPosInPI="626,1712" />
+    <PuzzleUnit Name="crystal_a04" UV="0.53125,0.5786133,0.5922852,0.640625" OffsetPos="0,0" Size="125,127" OriginalSize="125,127" ShowPosInPI="1088,1185" />
+    <PuzzleUnit Name="crystal_a05" UV="0,0.8969727,0.1015625,0.987793" OffsetPos="0,0" Size="208,186" OriginalSize="208,186" ShowPosInPI="0,1837" />
+    <PuzzleUnit Name="far_leaf_a01" UV="0.6269531,0.1850586,0.777832,0.2924805" OffsetPos="0,0" Size="309,220" OriginalSize="309,220" ShowPosInPI="1284,379" />
+    <PuzzleUnit Name="far_leaf_a02" UV="0.6474609,0,0.8066406,0.1064453" OffsetPos="0,0" Size="326,218" OriginalSize="326,218" ShowPosInPI="1326,0" />
+    <PuzzleUnit Name="far_leaf_a03" UV="0.390625,0.5786133,0.53125,0.6577148" OffsetPos="0,0" Size="288,162" OriginalSize="288,162" ShowPosInPI="800,1185" />
+    <PuzzleUnit Name="far_leaf_a04" UV="0.7958984,0.1064453,0.9038086,0.175293" OffsetPos="0,0" Size="221,141" OriginalSize="221,141" ShowPosInPI="1630,218" />
+    <PuzzleUnit Name="far_leaf_a05" UV="0.777832,0.1850586,0.8867188,0.2792969" OffsetPos="0,0" Size="223,193" OriginalSize="223,193" ShowPosInPI="1593,379" />
+    <PuzzleUnit Name="firefly_a02" UV="0.1645508,0.644043,0.1816406,0.6611328" OffsetPos="0,0" Size="35,35" OriginalSize="35,35" ShowPosInPI="337,1319" />
+    <PuzzleUnit Name="firefly_b01" UV="0.3056641,0.777832,0.3637695,0.8359375" OffsetPos="0,0" Size="119,119" OriginalSize="119,119" ShowPosInPI="626,1593" />
+    <PuzzleUnit Name="foliage_l_a01" UV="0.1230469,0.7631836,0.2011719,0.8139648" OffsetPos="0,0" Size="160,104" OriginalSize="160,104" ShowPosInPI="252,1563" />
+    <PuzzleUnit Name="foliage_l_a02" UV="0.1044922,0.8164063,0.1933594,0.887207" OffsetPos="0,0" Size="182,145" OriginalSize="182,145" ShowPosInPI="214,1672" />
+    <PuzzleUnit Name="foliage_l_a03" UV="0.8867188,0.1850586,0.9384766,0.2402344" OffsetPos="0,0" Size="106,113" OriginalSize="106,113" ShowPosInPI="1816,379" />
+    <PuzzleUnit Name="foliage_r_a01" UV="0.777832,0.2792969,0.8193359,0.3232422" OffsetPos="0,0" Size="85,90" OriginalSize="85,90" ShowPosInPI="1593,572" />
+    <PuzzleUnit Name="foliage_r_a02" UV="0.8427734,0.3276367,0.9282227,0.3837891" OffsetPos="0,0" Size="175,115" OriginalSize="175,115" ShowPosInPI="1726,671" />
+    <PuzzleUnit Name="foliage_r_a03" UV="0.5087891,0.6577148,0.5952148,0.7197266" OffsetPos="0,0" Size="177,127" OriginalSize="177,127" ShowPosInPI="1042,1347" />
+    <PuzzleUnit Name="light_a01" UV="0,0.7631836,0.1230469,0.8164063" OffsetPos="0,0" Size="252,109" OriginalSize="252,109" ShowPosInPI="0,1563" />
+    <PuzzleUnit Name="vine_a01" UV="0.390625,0.08056641,0.6445313,0.1850586" OffsetPos="0,0" Size="520,214" OriginalSize="520,214" ShowPosInPI="800,165" />
+    <PuzzleUnit Name="vine_a02" UV="0.1044922,0.887207,0.1928711,0.9638672" OffsetPos="0,0" Size="181,157" OriginalSize="181,157" ShowPosInPI="214,1817" />
+    <PuzzleUnit Name="wood_in_a01" UV="0.390625,0,0.6474609,0.08056641" OffsetPos="0,0" Size="526,165" OriginalSize="526,165" ShowPosInPI="800,0" />
+    <PuzzleUnit Name="wood_l_a01" UV="0.5976563,0.4594727,0.7275391,0.684082" OffsetPos="0,0" Size="266,460" OriginalSize="266,460" ShowPosInPI="1224,941" />
+    <PuzzleUnit Name="wood_l_a02" UV="0.390625,0.4511719,0.5766602,0.5043945" OffsetPos="0,0" Size="381,109" OriginalSize="381,109" ShowPosInPI="800,924" />
+    <PuzzleUnit Name="wood_l_a03" UV="0.390625,0.8115234,0.487793,0.9604492" OffsetPos="0,0" Size="199,305" OriginalSize="199,305" ShowPosInPI="800,1662" />
+    <PuzzleUnit Name="wood_l_a04" UV="0,0.644043,0.1645508,0.7631836" OffsetPos="0,0" Size="337,244" OriginalSize="337,244" ShowPosInPI="0,1319" />
+    <PuzzleUnit Name="wood_l_a05" UV="0.6474609,0.1064453,0.7958984,0.1831055" OffsetPos="0,0" Size="304,157" OriginalSize="304,157" ShowPosInPI="1326,218" />
+    <PuzzleUnit Name="wood_l_b01" UV="0.2011719,0.777832,0.3056641,0.9887695" OffsetPos="0,0" Size="214,432" OriginalSize="214,432" ShowPosInPI="412,1593" />
+    <PuzzleUnit Name="wood_r_a01" UV="0.1967773,0.5688477,0.378418,0.7807617" OffsetPos="0,0" Size="372,434" OriginalSize="372,434" ShowPosInPI="403,1165" TriangulatorPoints="371.00,7.00,371.00,433.00,0.00,433.00" />
+    <PuzzleUnit Name="wood_r_a02" UV="0.390625,0.3276367,0.5976563,0.4511719" OffsetPos="0,0" Size="424,253" OriginalSize="424,253" ShowPosInPI="800,671" />
+    <PuzzleUnit Name="wood_r_a03" UV="0.390625,0.6577148,0.5087891,0.730957" OffsetPos="0,0" Size="242,150" OriginalSize="242,150" ShowPosInPI="800,1347" />
+    <PuzzleUnit Name="wood_r_b01" UV="0.9111328,0,0.9594727,0.1362305" OffsetPos="0,0" Size="99,279" OriginalSize="99,279" ShowPosInPI="1866,0" />
+</PuzzleImage>

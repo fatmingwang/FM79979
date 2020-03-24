@@ -222,8 +222,8 @@ bool	IsExtensionSupported(char* szTargetExtension)
 	return false;
 }
 #else
-bool					InitMultisample(HDC e_HdcMV) { return false; }
-HGLRC					InitOpenGL(HWND e_pHwnd, bool e_bInitGlewInit, HDC e_HdcMV, bool e_bEnableMultisample) { return nullptr; }
-bool					SetOpenGLSwapInterval(bool e_bSwapInterval){ return false; }
-bool 					IsExtensionSupported(char* szTargetExtension){ return false; }
+//bool					InitMultisample(HDC e_HdcMV) { return false; }
+//HGLRC					InitOpenGL(HWND e_pHwnd, bool e_bInitGlewInit, HDC e_HdcMV, bool e_bEnableMultisample) { return nullptr; }
+//bool					SetOpenGLSwapInterval(bool e_bSwapInterval){ return false; }
+//bool 					IsExtensionSupported(char* szTargetExtension){ return false; }
 #endif

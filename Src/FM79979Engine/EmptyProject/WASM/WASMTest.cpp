@@ -11,56 +11,56 @@ cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //https://segmentfault.com/a/1190000011229465
 #include <emscripten/bind.h>
 using namespace emscripten;
-class cWASMBindingTest*g_pWASMBindingTest = nullptr;
-class cWASMBindingTest
-{
-public:
-	cWASMBindingTest(std::string e_strText)
-	{
-		g_pWASMBindingTest = this;
-		y = e_strText;
-		printf("-----------------------cWASMBindingTest------------------call ed");
-	}
-	cWASMBindingTest(int x, std::string y)
-		: x(x)
-		, y(y)
-	{}
-
-	void incrementX() {
-		++x;
-	}
-
-	int getX() const { return x; }
-	void setX(int x_) { x = x_; }
-	std::string getY() const { return y; }
-	void setY(std::string e_str) { y = e_str; }
-
-	static std::string getStringFromInstance(const cWASMBindingTest& instance) 
-	{
-		return instance.y;
-	}
-	void	Render()
-	{
-		cGameApp::RenderFont(Vector2(600.f, 600.f), ValueToStringW(y).c_str());
-	}
-private:
-	int x;
-	std::string y;
-};
-
-void JSBinding(std::string e_str)
-{
-	if (!g_pWASMBindingTest)
-	{
-		g_pWASMBindingTest = new cWASMBindingTest(e_str.c_str());
-	}
-}
-
-extern int g_iMPDIIndex;
-void	MPDIIndex(int e_iIndex)
-{
-	g_iMPDIIndex = e_iIndex;
-}
+//class cWASMBindingTest*g_pWASMBindingTest = nullptr;
+//class cWASMBindingTest
+//{
+//public:
+//	cWASMBindingTest(std::string e_strText)
+//	{
+//		g_pWASMBindingTest = this;
+//		y = e_strText;
+//		printf("-----------------------cWASMBindingTest------------------call ed");
+//	}
+//	cWASMBindingTest(int x, std::string y)
+//		: x(x)
+//		, y(y)
+//	{}
+//
+//	void incrementX() {
+//		++x;
+//	}
+//
+//	int getX() const { return x; }
+//	void setX(int x_) { x = x_; }
+//	std::string getY() const { return y; }
+//	void setY(std::string e_str) { y = e_str; }
+//
+//	static std::string getStringFromInstance(const cWASMBindingTest& instance) 
+//	{
+//		return instance.y;
+//	}
+//	void	Render()
+//	{
+//		cGameApp::RenderFont(Vector2(600.f, 600.f), ValueToStringW(y).c_str());
+//	}
+//private:
+//	int x;
+//	std::string y;
+//};
+//
+//void JSBinding(std::string e_str)
+//{
+//	if (!g_pWASMBindingTest)
+//	{
+//		g_pWASMBindingTest = new cWASMBindingTest(e_str.c_str());
+//	}
+//}
+//
+//extern int g_iMPDIIndex;
+//void	MPDIIndex(int e_iIndex)
+//{
+//	g_iMPDIIndex = e_iIndex;
+//}
 //
 
 //EMSCRIPTEN_BINDINGS(my_module)
@@ -173,17 +173,17 @@ void Loop()
 			SAFE_DELETE(g_pPreLoadFromInternet);
 			cGameApp::OutputDebugInfoString("finish pre-download files");
 			g_pGameApp->Init();
-			g_pGameApp->m_svBGColor = Vector4::Red;
+			g_pGameApp->m_spOpenGLRender->m_vBGColor = Vector4::Red;
 		}
 	}
 	else
 	{
 		process_events();
 	}
-	if (g_pWASMBindingTest)
-	{
-		g_pWASMBindingTest->Render();
-	}
+	//if (g_pWASMBindingTest)
+	//{
+	//	g_pWASMBindingTest->Render();
+	//}
 	SDL_GL_SwapBuffers();
 }
 
@@ -204,10 +204,10 @@ int main()
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 #define	CANVANS_WIDTH	1024
 #define	CANVANS_HEIGHT	768
-	cGameApp::m_svViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
-	cGameApp::m_svViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-	cGameApp::m_svViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
-	cGameApp::m_svViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
+	cGameApp::cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -227,7 +227,7 @@ int main()
 		cGameApp::m_sbDebugFunctionWorking = true;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_svViewPortSize.Width(), cGameApp::m_svViewPortSize.Height()));
+		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;

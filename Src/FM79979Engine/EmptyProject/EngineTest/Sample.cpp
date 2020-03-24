@@ -55,6 +55,7 @@ cCurveWithTime* g_pCurveWithTime2 = nullptr;
 
 #ifdef WASM
 //https://stackoverflow.com/questions/51343425/not-able-to-bind-function-in-emscripten
+//please add --bind in linker command line!.
 #include <emscripten/bind.h>
 using namespace emscripten;
 class cWASMBindingTest*g_pWASMBindingTest = nullptr;
@@ -264,7 +265,7 @@ void	LoadSample()
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
 #ifdef WASM
-	std::wstring l_strMPDIResultFileName = L"Media/MPDI/bgrounda01.mpdi";
+	std::wstring l_strMPDIResultFileName = L"MPDI/bgrounda01.mpdi";
 #else
 	
 	std::wstring l_strMPDIResultFileName = L"BluffingGirl/Image/GamePlay.mpdi";
@@ -309,7 +310,7 @@ void	LoadSample()
 		g_pPrtEmitter->SetLoop(true);
 	}
 
-	//g_pColladaParser = new cColladaParser();
+	g_pColladaParser = new cColladaParser();
 	if( g_pColladaParser )
 	{
 		if(g_pColladaParser->ParseDataIntoXMLNode("3DFish_test/test.DAE"))
