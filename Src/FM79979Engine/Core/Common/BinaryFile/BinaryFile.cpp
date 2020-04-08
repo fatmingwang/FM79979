@@ -185,7 +185,7 @@ namespace FATMING_CORE
 	bool 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
 	{
 		assert(m_pFile&&"file not open yet!?");
-		auto l_iWriteSize = NvFWrite(e_pData, e_iLength, 1, m_pFile);
+		auto l_iWriteSize = NvFWrite(e_pData, 1, e_iLength*sizeof(char), m_pFile);
 		if(l_iWriteSize == e_iLength)
 			return true;
 		return false;
@@ -515,7 +515,7 @@ namespace FATMING_CORE
 			char*l_pRandData = new char[m_iSkpiHeaderSize];
 			for( int i=0;i<m_iSkpiHeaderSize;++i )
 				l_pRandData[i] = (char)rand()%255;
-			NvFWrite( l_pRandData, sizeof(char)*m_iSkpiHeaderSize, 1, m_pFile );
+			NvFWrite( l_pRandData, sizeof(char),m_iSkpiHeaderSize, m_pFile );
 			delete[] l_pRandData;
 		}
 		return true;	
@@ -545,7 +545,7 @@ namespace FATMING_CORE
 			char*l_pRandData = new char[l_iGrabageSize];
 			for( int i=0;i<l_iGrabageSize;++i )
 				l_pRandData[i] = (char)rand()%255;
-			NvFWrite( l_pRandData, sizeof(char)*l_iGrabageSize, 1, m_pFile );
+			NvFWrite( l_pRandData, sizeof(char),l_iGrabageSize, m_pFile );
 			delete[] l_pRandData;
 		}
 	}

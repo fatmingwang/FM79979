@@ -524,9 +524,9 @@
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <PreprocessorDefinitions>LINUX;DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LINUX;DEBUG;GL_GLEXT_PROTOTYPES</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/usr/include %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>
