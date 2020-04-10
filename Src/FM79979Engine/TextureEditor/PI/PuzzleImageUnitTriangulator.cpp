@@ -63,8 +63,12 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 	m_pTargetImage->SetPos(e_pTargetImage->GetPos());
 	//left up,right up,right down,left down
 	//must be this order or get wrong
+	if (!wcscmp(L"Dicecup_Black", m_pReferenceImage->GetName()))
+	{
+		int a = 0;
+	}
 	Vector2 l_vPoints[4];
-	if(GetImageBoard(l_vPoints))
+	if(GetImageBoard(l_vPoints,true))
 	{
 		for (int i = 0; i < 4; ++i)
 			//for(int i=0;i<5;++i)
@@ -89,18 +93,24 @@ bool	cPuzzleImageUnitTriangulator::IsCollided(cbtConvexHullShape*e_pbtConvexHull
 	return false;
 }
 
-bool cPuzzleImageUnitTriangulator::GetImageBoard(Vector2 * e_p4VectorPointer)
+bool cPuzzleImageUnitTriangulator::GetImageBoard(Vector2 * e_p4VectorPointer, bool e_bDoStrip)
 {
 	if (!m_pTargetImage || !m_pReferenceImage)
 		return false;
-	//e_p4VectorPointer[0] = Vector2(0, 0);
-	//e_p4VectorPointer[1] = Vector2((float)m_pTargetImage->GetWidth(),0);
-	//e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetWidth(), (float)m_pTargetImage->GetHeight());
-	//e_p4VectorPointer[3] = Vector2(0, (float)m_pTargetImage->GetHeight());
-	e_p4VectorPointer[0] = Vector2(this->m_pReferenceImage->GetOffsetPos()->x, m_pReferenceImage->GetOffsetPos()->y);
-	e_p4VectorPointer[1] = Vector2((float)m_pReferenceImage->GetRightDownStripOffPos().x, (float)m_pReferenceImage->GetOffsetPos()->y);
-	e_p4VectorPointer[2] = Vector2((float)m_pReferenceImage->GetRightDownStripOffPos().x, (float)m_pReferenceImage->GetRightDownStripOffPos().y);
-	e_p4VectorPointer[3] = Vector2((float)m_pReferenceImage->GetOffsetPos()->x, (float)m_pReferenceImage->GetRightDownStripOffPos().y);
+	if (!e_bDoStrip)
+	{
+		e_p4VectorPointer[0] = Vector2(0, 0);
+		e_p4VectorPointer[1] = Vector2((float)m_pTargetImage->GetWidth(),0);
+		e_p4VectorPointer[2] = Vector2((float)m_pTargetImage->GetWidth(), (float)m_pTargetImage->GetHeight());
+		e_p4VectorPointer[3] = Vector2(0, (float)m_pTargetImage->GetHeight());
+	}
+	else
+	{
+		e_p4VectorPointer[0] = Vector2(this->m_pReferenceImage->GetOffsetPos()->x, m_pReferenceImage->GetOffsetPos()->y);
+		e_p4VectorPointer[1] = Vector2((float)m_pReferenceImage->GetRightDownStripOffPos().x, (float)m_pReferenceImage->GetOffsetPos()->y);
+		e_p4VectorPointer[2] = Vector2((float)m_pReferenceImage->GetRightDownStripOffPos().x, (float)m_pReferenceImage->GetRightDownStripOffPos().y);
+		e_p4VectorPointer[3] = Vector2((float)m_pReferenceImage->GetOffsetPos()->x, (float)m_pReferenceImage->GetRightDownStripOffPos().y);
+	}
 	return true;
 }
 
@@ -314,6 +324,8 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 		m_LODPointVector = m_PointVector;
 		for(int i=1;i< m_iLOD;++i)
 			IncreaseLod(m_LODPointVector);
+		if(m_iLOD != 1)
+			m_LODPointVector.insert(m_LODPointVector.end(),m_PointVector.begin(), m_PointVector.end());
 		GenerateTriangle();
 		return true;
 	}
@@ -324,7 +336,7 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 void cPuzzleImageUnitTriangulator::GenerateTriangle()
 {
 	Vector2 l_vPoints[4];
-	GetImageBoard(l_vPoints);
+	GetImageBoard(l_vPoints,false);
 	m_s2DVertex.vPosVector.clear();
 	m_s2DVertex.vUVVector.clear();
 	m_s2DVertex.vColorVector.clear();

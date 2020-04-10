@@ -42,8 +42,9 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	cbtConvexHullShape*			m_pbtConvexHullShape;
 	bool						m_bCollided;
 	bool						IsCollided(cbtConvexHullShape*e_pbtConvexHullShape);
-	bool						GetImageBoard(Vector2*e_p4VectorPointer);
+	bool						GetImageBoard(Vector2*e_p4VectorPointer,bool e_bDoStrip);
 	GET_SET_DEC(ePointsToTriangulatorType,m_ePointsToTriangulatorType,GetPointsToTriangulatorType,SetPointsToTriangulatorType);
+	//m_pTargetImage own its exclusive texture not from PI.
 	GET_SET_DEC(cUIImage*,m_pTargetImage,GetTargetImage,SetTargetImage);
 	cUIImage*					m_pReferenceImage;
 	int							GetClosestPoint(Vector2 e_vPos);
