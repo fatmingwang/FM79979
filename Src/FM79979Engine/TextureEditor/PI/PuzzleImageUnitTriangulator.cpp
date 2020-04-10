@@ -324,8 +324,9 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 		m_LODPointVector = m_PointVector;
 		for(int i=1;i< m_iLOD;++i)
 			IncreaseLod(m_LODPointVector);
-		if(m_iLOD != 1)
-			m_LODPointVector.insert(m_LODPointVector.end(),m_PointVector.begin(), m_PointVector.end());
+		//find a way to make LOD perfect here...?
+		//if(m_iLOD != 1)
+		//	m_LODPointVector.insert(m_LODPointVector.end(),m_PointVector.begin(), m_PointVector.end());
 		GenerateTriangle();
 		return true;
 	}
