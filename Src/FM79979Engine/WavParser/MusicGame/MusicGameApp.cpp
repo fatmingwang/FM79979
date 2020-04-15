@@ -139,7 +139,7 @@ void	cMusicGameApp::Render()
 		cGameApp::ShowInfo();
 #endif
 #ifdef WIN32
-	SwapBuffers(cGameApp::m_sHdc);
+	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 #endif
 	//glFlush();
 }

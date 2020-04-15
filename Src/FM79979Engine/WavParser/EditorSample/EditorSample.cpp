@@ -5,8 +5,8 @@
 
 //#ifdef VLD_DEBUG
 //https://vld.codeplex.com/wikipage?title=Using%20Visual%20Leak%20Detector&referringTitle=Documentation
-#include "../../../include/vld.h"
-#pragma comment(lib, "../../../lib/vld.lib")
+//#include "../../../include/vld.h"
+//#pragma comment(lib, "../../../lib/vld.lib")
 //#endif
 #include "../../AllLibInclude.h"
 using namespace EditorSample;

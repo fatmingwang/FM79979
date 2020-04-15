@@ -160,6 +160,7 @@ namespace PI
 			m_HGLRCMV = InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
 			pictureBox2->AutoSize = true;
 			pictureBox1->AutoSize = true;
+			MouseControlMode_comboBox->SelectedIndex = 0;
 #ifdef USER_CONTROL_ENABLE
 			m_pForm = e_pForm;
 			if( m_pForm )
@@ -336,6 +337,10 @@ namespace PI
 	cOrthogonalCamera*							m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*							m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
+private: System::Windows::Forms::Label^  MouseControlMode_label;
+private: System::Windows::Forms::ComboBox^  MouseControlMode_comboBox;
+public:
+
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void	SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*	OpenPuzzleFile(String^e_strFileName);
@@ -344,6 +349,7 @@ namespace PI
 	private: System::Void	GeneratePowOf2Image(bool e_bPowerOfTwo);
 	private: System::Void	MouseCollideForPickUpObject( System::Windows::Forms::MouseEventArgs^  e,System::Windows::Forms::Panel^e_pPanel);
 	private: System::Void	AssignAnimationData();
+	private: int			GetMouseWheelDelta(System::Windows::Forms::MouseEventArgs^  e);
 	private: String^		GetTotalPixelExisted();	//all UIImage pixel size
 			 String^		m_strCurrentFileName;
 			 cUIImage*	GetNewUIImageByBitMap(System::Drawing::Bitmap^e_pBitMap,const WCHAR*e_strName);
@@ -441,6 +447,8 @@ namespace PI
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
+			this->MouseControlMode_comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->MouseControlMode_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -780,7 +788,7 @@ namespace PI
 			// 
 			this->toolToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->addImagesByFolderToolStripMenuItem });
 			this->toolToolStripMenuItem->Name = L"toolToolStripMenuItem";
-			this->toolToolStripMenuItem->Size = System::Drawing::Size(42, 20);
+			this->toolToolStripMenuItem->Size = System::Drawing::Size(41, 20);
 			this->toolToolStripMenuItem->Text = L"Tool";
 			// 
 			// addImagesByFolderToolStripMenuItem
@@ -893,6 +901,8 @@ namespace PI
 			// ImageAligment_tabPage
 			// 
 			this->ImageAligment_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageAligment_tabPage->Controls->Add(this->MouseControlMode_label);
+			this->ImageAligment_tabPage->Controls->Add(this->MouseControlMode_comboBox);
 			this->ImageAligment_tabPage->Controls->Add(this->ShowTriangulaotrPoints_checkBox);
 			this->ImageAligment_tabPage->Controls->Add(this->label8);
 			this->ImageAligment_tabPage->Controls->Add(this->label4);
@@ -1491,6 +1501,28 @@ namespace PI
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
 			// 
+			// MouseControlMode_comboBox
+			// 
+			this->MouseControlMode_comboBox->FormattingEnabled = true;
+			this->MouseControlMode_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"ObjectClick", L"SelectNewObject" });
+			this->MouseControlMode_comboBox->Location = System::Drawing::Point(837, 74);
+			this->MouseControlMode_comboBox->Name = L"MouseControlMode_comboBox";
+			this->MouseControlMode_comboBox->Size = System::Drawing::Size(121, 20);
+			this->MouseControlMode_comboBox->TabIndex = 87;
+			// 
+			// MouseControlMode_label
+			// 
+			this->MouseControlMode_label->AutoSize = true;
+			this->MouseControlMode_label->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->MouseControlMode_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->MouseControlMode_label->Location = System::Drawing::Point(833, 56);
+			this->MouseControlMode_label->Name = L"MouseControlMode_label";
+			this->MouseControlMode_label->Size = System::Drawing::Size(150, 12);
+			this->MouseControlMode_label->TabIndex = 88;
+			this->MouseControlMode_label->Text = L"MouseControlMode/¾Þ§@¼Ò¦¡";
+			// 
 			// cPIEditor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
@@ -1796,6 +1828,13 @@ namespace PI
 						POINT	l_Pos = { 0,0 };
 						RenderRectangle(l_Pos, (int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, Vector4(1.f, 0.3f, 0.3f, 0.3f));
 					}
+					if (this->MouseControlMode_comboBox->SelectedIndex == 1)
+					{
+						m_pOrthogonalCamera->SetDrawSelectFrame(true);
+						m_pOrthogonalCamera->DrawSelectFrame();
+					}
+					else
+						m_pOrthogonalCamera->SetDrawSelectFrame(true);
 					if (m_pDebugFont)
 					{
 						UseShaderProgram();
@@ -2127,11 +2166,12 @@ namespace PI
 				if (!timer1->Enabled)
 					return;
 				GCFORM::MouseButtons l_MouseButton = e->Button;
+				auto l_iDelte = GetMouseWheelDelta(e);
 				if (tabControl1->SelectedIndex == 2)
 				{
 					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 					{
 						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
@@ -2139,15 +2179,18 @@ namespace PI
 				}
 				else
 				{
-					POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
 					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
-					MouseCollideForPickUpObject(e, splitContainer2->Panel1);
-					ptCursor.x = e->X; ptCursor.y = e->Y;
-					//HWND	l_Hwnd = WindowFromPoint(ptCursor);
-					if (this->m_pPuzzleImageUnitTriangulatorManager)
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->MouseControlMode_comboBox->SelectedIndex == 0)
 					{
-						m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+						POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+						MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+						ptCursor.x = e->X; ptCursor.y = e->Y;
+						//HWND	l_Hwnd = WindowFromPoint(ptCursor);
+						if (this->m_pPuzzleImageUnitTriangulatorManager)
+						{
+							m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+						}
 					}
 				}
 			 }
@@ -2157,10 +2200,11 @@ namespace PI
 					return;
 				splitContainer2->Panel1->Focus();
 				GCFORM::MouseButtons l_MouseButton = e->Button;
+				auto l_iDelte = GetMouseWheelDelta(e);
 				if (tabControl1->SelectedIndex == 2)
 				{
 					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 					{
@@ -2170,9 +2214,12 @@ namespace PI
 				else
 				{
 					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
-					if (this->Visible)
-						MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->MouseControlMode_comboBox->SelectedIndex == 0)
+					{
+						if (this->Visible)
+							MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+					}
 				}
 			 }
 	private: System::Void MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
@@ -2180,10 +2227,11 @@ namespace PI
 				if (!timer1->Enabled)
 					return;
 				GCFORM::MouseButtons l_MouseButton = e->Button;
+				auto l_iDelte = GetMouseWheelDelta(e);
 				if (tabControl1->SelectedIndex == 2)
 				{
 					m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 					POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 					{
@@ -2193,9 +2241,12 @@ namespace PI
 				else
 				{
 					m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
-						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, e->Delta, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
-					if (this->Visible)
-						MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+						, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+					if (this->MouseControlMode_comboBox->SelectedIndex == 0)
+					{
+						if (this->Visible)
+							MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+					}
 				}
 			 }
 	private: System::Void MyMouseHover(System::Object^  sender, System::EventArgs^  e) {

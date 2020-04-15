@@ -969,6 +969,16 @@ namespace PI
 		}
 	}
 
+	int		cPIEditor::GetMouseWheelDelta(System::Windows::Forms::MouseEventArgs^  e)
+	{
+		auto l_iDelte = e->Delta;
+		if (GCFORM::Control::ModifierKeys == Keys::Control)
+		{
+			l_iDelte *= 10;
+		}
+		return l_iDelte;
+	}
+
 	GCFORM::Form^CallForm(String^e_strFileName)
 	{
 		GCFORM::Form^l_pForm = gcnew GCFORM::Form();

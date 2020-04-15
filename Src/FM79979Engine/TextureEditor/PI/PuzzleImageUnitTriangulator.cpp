@@ -219,15 +219,25 @@ void cPuzzleImageUnitTriangulator::Render()
 		Vector4 l_vColor = Vector4::Zero;
 		l_vColor.a = 0.7f;
 		l_vColor.g = 1.f;
-		std::vector<Vector2>l_vPos;
 		for (int i = 0; i < l_iCount; i++)
 		{
+			std::vector<Vector2>l_vPos;
 			l_vPos.push_back(m_TriangleVector[i*3]);
 			l_vPos.push_back(m_TriangleVector[i * 3+1]);
 			l_vPos.push_back(m_TriangleVector[i * 3+2]);
 			l_vPos.push_back(m_TriangleVector[i * 3]);
+			//if (i % 2)
+			//{
+			//	l_vColor.r = (1.f*i) / l_iCount;
+			//	l_vColor.b = 1 - l_vColor.r;
+			//}
+			//else
+			//{
+			//	l_vColor.b = (1.f*i) / l_iCount;
+			//	l_vColor.r = 1 - l_vColor.b;
+			//}
+			GLRender::RenderLine(&l_vPos, l_vColor);
 		}
-		GLRender::RenderLine(&l_vPos, l_vColor);
 	}
 	if (g_pDebugFont)
 	{
@@ -322,12 +332,37 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 		else
 			m_iLOD = e_iLODIndex;
 		m_LODPointVector = m_PointVector;
-		for(int i=1;i< m_iLOD;++i)
-			IncreaseLod(m_LODPointVector);
+		//for(int i=1;i< m_iLOD;++i)
+		//	IncreaseLod(m_LODPointVector);
 		//find a way to make LOD perfect here...?
 		//if(m_iLOD != 1)
 		//	m_LODPointVector.insert(m_LODPointVector.end(),m_PointVector.begin(), m_PointVector.end());
 		GenerateTriangle();
+		if (m_iLOD != 1)
+		{
+			for (int i = 1; i < m_iLOD; ++i)
+			{
+				std::vector<Vector2>		l_LODTriangleVector;
+				for (int i = 0; i < m_TriangleVector.size() / 3; ++i)
+				{
+					auto v1 = m_TriangleVector[i * 3];
+					auto v2 = m_TriangleVector[i * 3 +1];
+					auto v3 = m_TriangleVector[i * 3 +2];
+					auto l_vEdge1 = (v1 + v2) / 2;
+					auto l_vEdge2 = (v2 + v3) / 2;
+					auto l_vEdge3 = (v3 + v1) / 2;
+					l_LODTriangleVector.push_back(v1);
+					l_LODTriangleVector.push_back(l_vEdge1);
+					l_LODTriangleVector.push_back(v2);
+					l_LODTriangleVector.push_back(l_vEdge2);
+					l_LODTriangleVector.push_back(v3);
+					l_LODTriangleVector.push_back(l_vEdge3);
+				}
+				m_LODPointVector = l_LODTriangleVector;
+				GenerateTriangle();
+			}
+		}
+
 		return true;
 	}
 	return false;

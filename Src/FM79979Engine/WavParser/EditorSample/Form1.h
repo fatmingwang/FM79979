@@ -79,7 +79,7 @@ namespace EditorSample
 
 			//m_pSoundCapture->AddSoundRecord();
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
-			m_HGLRCMV = m_pGameApp->m_sHGLRC;
+			m_HGLRCMV = m_pGameApp->m_spOpenGLRender->m_HGLRC;
 			//
 			this->m_pWaveInfo = nullptr;
 			//this->m_pWavWaves = nullptr;
@@ -822,10 +822,10 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			RECT rcClient;
 			GetClientRect((HWND)m_pTargetControl->Handle.ToPointer(), &rcClient);
 			UseShaderProgram();
-			cGameApp::m_svViewPortSize.x = 0.f;
-			cGameApp::m_svViewPortSize.y = 0.f;
-			cGameApp::m_svViewPortSize.z = (float)m_pTargetControl->Width;
-			cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)m_pTargetControl->Width;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)rcClient.bottom;
 			this->m_pGameApp->EditorRun();
 			//if( m_pWavWaves )
 			{
@@ -852,7 +852,7 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 				if( l_fCurrentPercentage >= 1.f )
 					FFT_FPS_numericUpDown->Enabled = true;
 			}
-			SwapBuffers(cGameApp::m_sHdc);
+			SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
 			m_bTimerUpdateEnd = true;
 		}
 
