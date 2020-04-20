@@ -323,6 +323,18 @@ int		cPuzzleImageUnitTriangulator::GetLOD()
 	return m_iLOD;
 }
 
+int cPuzzleImageUnitTriangulator::GetNumTriangles()
+{
+	return (int)m_TriangleVector.size()/3;
+}
+
+std::string cPuzzleImageUnitTriangulator::GetInfo()
+{
+	std::string l_strInfo;
+	l_strInfo = UT::ComposeMsgByFormat("Points:%d,Triangles:%d,LOD:%d", (int)m_PointVector.size(),GetNumTriangles(),this->m_iLOD);
+	return l_strInfo;
+}
+
 bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 {
 	if (m_iLOD != e_iLODIndex || e_bForceUpdate)

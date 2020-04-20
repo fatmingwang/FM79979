@@ -159,6 +159,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PuzzleImageUnitTriangulator.cpp" />
+    <ClCompile Include="TrianglesToDrawIndicesBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinPack.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="PuzzleImageUnitTriangulator.h" />
+    <ClInclude Include="TrianglesToDrawIndicesBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico" />

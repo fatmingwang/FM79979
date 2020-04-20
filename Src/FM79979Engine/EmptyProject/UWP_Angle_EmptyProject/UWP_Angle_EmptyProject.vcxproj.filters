@@ -65,6 +65,9 @@
     <Filter Include="OpenGLES">
       <UniqueIdentifier>{ebfc7871-6029-4b77-aa4a-c017e59b5f17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TimeLine">
+      <UniqueIdentifier>{47dbd42c-08b0-4e4a-aac5-ecfb04bd1a16}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -72,7 +75,6 @@
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="UWP_Angle_EmptyProjectMain.cpp" />
-    <ClCompile Include="DirectXPage.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="OpenGLUserControl.xaml.cpp" />
     <ClCompile Include="OpenGLES.cpp">
@@ -82,7 +84,6 @@
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
     <ClInclude Include="UWP_Angle_EmptyProjectMain.h" />
-    <ClInclude Include="DirectXPage.xaml.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="OpenGLUserControl.xaml.h" />
     <ClInclude Include="OpenGLES.h">
@@ -103,5 +104,11 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="OpenGLUserControl.xaml" />
+    <Page Include="TimeLine\TimeLineControl.xaml">
+      <Filter>TimeLine</Filter>
+    </Page>
+    <Page Include="TimeLine\TimeLineData.xaml">
+      <Filter>TimeLine</Filter>
+    </Page>
   </ItemGroup>
 </Project>

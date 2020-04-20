@@ -80,6 +80,8 @@ public:
 	bool							SetLOD(int e_iLODIndex,bool e_bForceUpdate);
 	int								GetLOD();
 	bool							isEdited() { return m_bEdited; }
+	int								GetNumTriangles();
+	std::string						GetInfo();
 };
 
 

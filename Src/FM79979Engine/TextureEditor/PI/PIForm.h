@@ -339,6 +339,7 @@ namespace PI
 	Vector4	*m_pvBGColor;
 private: System::Windows::Forms::Label^  MouseControlMode_label;
 private: System::Windows::Forms::ComboBox^  MouseControlMode_comboBox;
+private: System::Windows::Forms::TextBox^  ImageTriangulator_textBox;
 public:
 
 	private: System::Collections::Hashtable^m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
@@ -402,6 +403,8 @@ public:
 			this->StripAlpha_button = (gcnew System::Windows::Forms::Button());
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->ImageAligment_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->MouseControlMode_label = (gcnew System::Windows::Forms::Label());
+			this->MouseControlMode_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->ShowTriangulaotrPoints_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
 			this->AutoAligment_checkBox = (gcnew System::Windows::Forms::CheckBox());
@@ -439,6 +442,7 @@ public:
 			this->AnimationImageDown_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
@@ -447,8 +451,6 @@ public:
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->MouseControlMode_comboBox = (gcnew System::Windows::Forms::ComboBox());
-			this->MouseControlMode_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -897,6 +899,7 @@ public:
 			this->tabControl1->SelectedIndex = 0;
 			this->tabControl1->Size = System::Drawing::Size(1354, 230);
 			this->tabControl1->TabIndex = 0;
+			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::tabControl1_SelectedIndexChanged);
 			// 
 			// ImageAligment_tabPage
 			// 
@@ -941,6 +944,28 @@ public:
 			this->ImageAligment_tabPage->Size = System::Drawing::Size(1346, 204);
 			this->ImageAligment_tabPage->TabIndex = 0;
 			this->ImageAligment_tabPage->Text = L"ImageAligment";
+			// 
+			// MouseControlMode_label
+			// 
+			this->MouseControlMode_label->AutoSize = true;
+			this->MouseControlMode_label->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
+				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
+			this->MouseControlMode_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->MouseControlMode_label->Location = System::Drawing::Point(833, 56);
+			this->MouseControlMode_label->Name = L"MouseControlMode_label";
+			this->MouseControlMode_label->Size = System::Drawing::Size(150, 12);
+			this->MouseControlMode_label->TabIndex = 88;
+			this->MouseControlMode_label->Text = L"MouseControlMode/操作模式";
+			// 
+			// MouseControlMode_comboBox
+			// 
+			this->MouseControlMode_comboBox->FormattingEnabled = true;
+			this->MouseControlMode_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"ObjectClick", L"SelectNewObject" });
+			this->MouseControlMode_comboBox->Location = System::Drawing::Point(837, 74);
+			this->MouseControlMode_comboBox->Name = L"MouseControlMode_comboBox";
+			this->MouseControlMode_comboBox->Size = System::Drawing::Size(121, 20);
+			this->MouseControlMode_comboBox->TabIndex = 87;
 			// 
 			// ShowTriangulaotrPoints_checkBox
 			// 
@@ -1407,6 +1432,7 @@ public:
 			// ImageTriangulator_tabPage
 			// 
 			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulator_textBox);
 			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox2);
 			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->button1);
@@ -1420,6 +1446,21 @@ public:
 			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(1346, 204);
 			this->ImageTriangulator_tabPage->TabIndex = 1;
 			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
+			// 
+			// ImageTriangulator_textBox
+			// 
+			this->ImageTriangulator_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->ImageTriangulator_textBox->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->ImageTriangulator_textBox->Enabled = false;
+			this->ImageTriangulator_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
+				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
+			this->ImageTriangulator_textBox->Location = System::Drawing::Point(3, 172);
+			this->ImageTriangulator_textBox->MinimumSize = System::Drawing::Size(4, 29);
+			this->ImageTriangulator_textBox->Multiline = true;
+			this->ImageTriangulator_textBox->Name = L"ImageTriangulator_textBox";
+			this->ImageTriangulator_textBox->Size = System::Drawing::Size(1340, 29);
+			this->ImageTriangulator_textBox->TabIndex = 95;
 			// 
 			// pictureBox2
 			// 
@@ -1500,28 +1541,6 @@ public:
 			this->splitContainer2->SplitterDistance = 356;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
-			// 
-			// MouseControlMode_comboBox
-			// 
-			this->MouseControlMode_comboBox->FormattingEnabled = true;
-			this->MouseControlMode_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"ObjectClick", L"SelectNewObject" });
-			this->MouseControlMode_comboBox->Location = System::Drawing::Point(837, 74);
-			this->MouseControlMode_comboBox->Name = L"MouseControlMode_comboBox";
-			this->MouseControlMode_comboBox->Size = System::Drawing::Size(121, 20);
-			this->MouseControlMode_comboBox->TabIndex = 87;
-			// 
-			// MouseControlMode_label
-			// 
-			this->MouseControlMode_label->AutoSize = true;
-			this->MouseControlMode_label->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(64)),
-				static_cast<System::Int32>(static_cast<System::Byte>(64)), static_cast<System::Int32>(static_cast<System::Byte>(64)));
-			this->MouseControlMode_label->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
-				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->MouseControlMode_label->Location = System::Drawing::Point(833, 56);
-			this->MouseControlMode_label->Name = L"MouseControlMode_label";
-			this->MouseControlMode_label->Size = System::Drawing::Size(150, 12);
-			this->MouseControlMode_label->TabIndex = 88;
-			this->MouseControlMode_label->Text = L"MouseControlMode/操作模式";
 			// 
 			// cPIEditor
 			// 
@@ -2220,6 +2239,12 @@ public:
 						if (this->Visible)
 							MouseCollideForPickUpObject(e, splitContainer2->Panel1);
 					}
+					else
+					{
+						POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+						NewPIUnitStartX_numericUpDown->Value = ptCursor.x;
+						NewPIUnitStartY_numericUpDown->Value = ptCursor.y;
+					}
 				}
 			 }
 	private: System::Void MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
@@ -2236,6 +2261,7 @@ public:
 					if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 					{
 						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
+						ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
 					}
 				}
 				else
@@ -2246,6 +2272,16 @@ public:
 					{
 						if (this->Visible)
 							MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+					}
+					else
+					{
+						POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+						if (ptCursor.x < 0)
+							ptCursor.x = 0;
+						if (ptCursor.y < 0)
+							ptCursor.y = 0;
+						NewPIUnitEndX_numericUpDown->Value = ptCursor.x;
+						NewPIUnitEndY_numericUpDown->Value = ptCursor.y;
 					}
 				}
 			 }
@@ -2753,11 +2789,27 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 					 l_pUIImage->m_vEditorAttachParentRelativePos = l_vPos-l_pAttachUIImage->GetPos();
 					 l_pUIImage->SetPos(l_vPos);
 					 l_pUIImage->SetName(DNCT::GcStringToWchar(NewPIUnitName_textBox->Text));
-					 l_pUIImage->SetOffsetPos(l_OffsetPos);
-					 l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
+					 l_pUIImage->SetHeight(l_rc.bottom- l_rc.top);
+					 l_pUIImage->SetWidth(l_rc.right- l_rc.left);
+					 auto l_AttachedParentOriginalSize = l_pAttachUIImage->GetOriginalImageSize();
+					 POINT	 l_OriginalSize = { l_pUIImage->GetWidth(),l_pUIImage->GetHeight() };
+					 Vector4 l_vUV(l_rc.left / (float)l_AttachedParentOriginalSize.x,
+						 l_rc.top / (float)l_AttachedParentOriginalSize.y,
+						 l_rc.right / (float)l_AttachedParentOriginalSize.x,
+						 l_rc.bottom / (float)l_AttachedParentOriginalSize.y);
+					 l_pUIImage->SetUV((float*)&l_vUV);
+					 //l_pUIImage->SetOffsetPos(l_OffsetPos);
+					 //l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
 					 l_RightDownStripOffPos.x += 1;
 					 l_RightDownStripOffPos.y += 1;
-					 l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
+					 //l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
+					 l_pUIImage->SetOriginalImageSize(l_OriginalSize);
+					 POINT l_OriginalSizeWith1Offset = { l_OriginalSize .x-1,l_OriginalSize.y-1};
+					 l_pUIImage->SetRightDownStripOffPos(l_OriginalSizeWith1Offset);
+					 POINT l_ZeroPoint = { 0,0 };
+					 l_pUIImage->SetOffsetPos(l_ZeroPoint);
+					 //it could be replaced,recheck index again
+					 l_iOriginalIndex = AllImage_listBox->Items->IndexOf(NewPIUnitName_textBox->Text);
 					 if( l_iOriginalIndex != -1 )
 					 {
 				        (*m_pImageomposerIRM->GetList())[l_iOriginalIndex] = l_pUIImage;
@@ -2784,24 +2836,24 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 		 }
 	private: System::Void NewPIUnitStartX_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 		 {
-			 if( AllImage_listBox->SelectedIndex == -1 || m_bAvoidDataAssignForPIUintChild )
-			 {
-				return;
-			 }
-			 cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(AllImage_listBox->SelectedIndex));
-			 if( !l_pUIImage->m_pEditorAttachParent )
-				 return;
-			 POINT	l_RightDownStripOffPos = l_pUIImage->GetRightDownStripOffPos();
-			 Vector3	l_vPos = l_pUIImage->GetPos();
-			 l_RightDownStripOffPos.x = (int)(NewPIUnitEndX_numericUpDown->Value-NewPIUnitStartX_numericUpDown->Value);	
-			 l_RightDownStripOffPos.y = (int)(NewPIUnitEndY_numericUpDown->Value-NewPIUnitStartY_numericUpDown->Value);
-			 l_vPos.x = (float)NewPIUnitStartX_numericUpDown->Value;
-			 l_vPos.y = (float)NewPIUnitStartY_numericUpDown->Value;
-			 l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
-			 l_pUIImage->SetPos(l_vPos);
-			 l_RightDownStripOffPos.x += 1;
-			 l_RightDownStripOffPos.y += 1;
-			 l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
+			 //if( AllImage_listBox->SelectedIndex == -1 || m_bAvoidDataAssignForPIUintChild )
+			 //{
+				//return;
+			 //}
+			 //cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(AllImage_listBox->SelectedIndex));
+			 //if( !l_pUIImage->m_pEditorAttachParent )
+				// return;
+			 //POINT	l_RightDownStripOffPos = l_pUIImage->GetRightDownStripOffPos();
+			 //Vector3	l_vPos = l_pUIImage->GetPos();
+			 //l_RightDownStripOffPos.x = (int)(NewPIUnitEndX_numericUpDown->Value-NewPIUnitStartX_numericUpDown->Value);	
+			 //l_RightDownStripOffPos.y = (int)(NewPIUnitEndY_numericUpDown->Value-NewPIUnitStartY_numericUpDown->Value);
+			 //l_vPos.x = (float)NewPIUnitStartX_numericUpDown->Value;
+			 //l_vPos.y = (float)NewPIUnitStartY_numericUpDown->Value;
+			 //l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
+			 //l_pUIImage->SetPos(l_vPos);
+			 //l_RightDownStripOffPos.x += 1;
+			 //l_RightDownStripOffPos.y += 1;
+			 //l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
 		 }
 	private: System::Void floatToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 		 {
@@ -2888,6 +2940,7 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 		{
 			if(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD() != (int)ImageTriangulatorLOD_numericUpDown->Value)
 				m_pCurrentSelectedPuzzleImageUnitTriangulator->SetLOD((int)ImageTriangulatorLOD_numericUpDown->Value, false);
+			ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
 		}
 	}
 	private: System::Void AnimationData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
@@ -2895,6 +2948,14 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 		if (AnimationData_listBox->SelectedIndex != -1 && m_pImageIndexOfAnimation)
 		{
 			AnimationTime_numericUpDown->Value = (System::Decimal)m_pImageIndexOfAnimation->m_ImageAnimationDataList[AnimationData_listBox->SelectedIndex].fTimeGap;
+		}
+	}
+	private: System::Void tabControl1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (tabControl1->SelectedIndex == 2)
+		{
+			if(m_pCurrentSelectedPuzzleImageUnitTriangulator)
+				ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
 		}
 	}
 };

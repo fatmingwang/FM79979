@@ -222,25 +222,30 @@ namespace FATMING_CORE
 		{
 			int l_iCount = l_Temp.Count();
 			cUIImage*l_pObject = dynamic_cast<cUIImage*>(l_Temp.GetObject(0));
-			for(int i=1;i<l_iCount;++i)
+			if (!l_pObject->m_pEditorAttachParent)
 			{
-				POINT l_POINT = *l_pObject->GetOffsetPos();
-				RECT l_rect;
-				l_rect.left = (long)(l_POINT.x+l_pObject->GetPos().x);
-				l_rect.top = (long)(l_POINT.y+l_pObject->GetPos().y);
-				POINT l_Size = {l_pObject->GetRightDownStripOffPos().x-l_pObject->GetOffsetPos()->x,l_pObject->GetRightDownStripOffPos().y-l_pObject->GetOffsetPos()->y};
-				l_rect.right = (long)l_rect.left+l_Size.x;
-				l_rect.bottom = (long)l_rect.top+l_Size.y;
-				cUIImage*l_pCompareObject = dynamic_cast<cUIImage*>(l_Temp.GetObject(i));
-				l_POINT = *l_pCompareObject->GetOffsetPos();
-				RECT l_rect2;
-				l_rect2.left = l_POINT.x+(long)l_pCompareObject->GetPos().x;
-				l_rect2.top = l_POINT.y+(long)l_pCompareObject->GetPos().y;
-				POINT l_Size2 = {l_pCompareObject->GetRightDownStripOffPos().x-l_pCompareObject->GetOffsetPos()->x,l_pCompareObject->GetRightDownStripOffPos().y-l_pCompareObject->GetOffsetPos()->y};
-				l_rect2.right = l_rect2.left+l_Size2.x;
-				l_rect2.bottom = l_rect2.top+l_Size2.y;
-				if(UT::RectCollideRect(l_rect2,l_rect))
-					return true;
+				for (int i = 1; i < l_iCount; ++i)
+				{
+					POINT l_POINT = *l_pObject->GetOffsetPos();
+					RECT l_rect;
+					l_rect.left = (long)(l_POINT.x + l_pObject->GetPos().x);
+					l_rect.top = (long)(l_POINT.y + l_pObject->GetPos().y);
+					POINT l_Size = { l_pObject->GetRightDownStripOffPos().x - l_pObject->GetOffsetPos()->x,l_pObject->GetRightDownStripOffPos().y - l_pObject->GetOffsetPos()->y };
+					l_rect.right = (long)l_rect.left + l_Size.x;
+					l_rect.bottom = (long)l_rect.top + l_Size.y;
+					cUIImage*l_pCompareObject = dynamic_cast<cUIImage*>(l_Temp.GetObject(i));
+					if (l_pCompareObject->m_pEditorAttachParent)
+						continue;
+					l_POINT = *l_pCompareObject->GetOffsetPos();
+					RECT l_rect2;
+					l_rect2.left = l_POINT.x + (long)l_pCompareObject->GetPos().x;
+					l_rect2.top = l_POINT.y + (long)l_pCompareObject->GetPos().y;
+					POINT l_Size2 = { l_pCompareObject->GetRightDownStripOffPos().x - l_pCompareObject->GetOffsetPos()->x,l_pCompareObject->GetRightDownStripOffPos().y - l_pCompareObject->GetOffsetPos()->y };
+					l_rect2.right = l_rect2.left + l_Size2.x;
+					l_rect2.bottom = l_rect2.top + l_Size2.y;
+					if (UT::RectCollideRect(l_rect2, l_rect))
+						return true;
+				}
 			}
 			l_Temp.RemoveObjectWithoutDelete(0);
 		}

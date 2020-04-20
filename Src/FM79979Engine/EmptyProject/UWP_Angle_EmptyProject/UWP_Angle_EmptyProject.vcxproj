@@ -268,6 +268,12 @@
     <ClInclude Include="OpenGLUserControl.xaml.h">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="TimeLine\TimeLineControl.xaml.h">
+      <DependentUpon>TimeLine\TimeLineControl.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="TimeLine\TimeLineData.xaml.h">
+      <DependentUpon>TimeLine\TimeLineData.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="UWP_Angle_EmptyProjectMain.h" />
     <ClInclude Include="Common\DirectXHelper.h" />
     <ClInclude Include="Common\StepTimer.h" />
@@ -284,6 +290,12 @@
     <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="OpenGLUserControl.xaml.cpp">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TimeLine\TimeLineControl.xaml.cpp">
+      <DependentUpon>TimeLine\TimeLineControl.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TimeLine\TimeLineData.xaml.cpp">
+      <DependentUpon>TimeLine\TimeLineData.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="UWP_Angle_EmptyProjectMain.cpp" />
     <ClCompile Include="Content\SampleFpsTextRenderer.cpp" />
@@ -319,6 +331,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="OpenGLUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TimeLine\TimeLineControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TimeLine\TimeLineData.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

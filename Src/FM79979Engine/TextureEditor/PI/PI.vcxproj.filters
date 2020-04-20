@@ -39,6 +39,9 @@
     <ClCompile Include="PuzzleImageUnitTriangulator.cpp">
       <Filter>PIUnitTriangulator</Filter>
     </ClCompile>
+    <ClCompile Include="TrianglesToDrawIndicesBuffer.cpp">
+      <Filter>PIUnitTriangulator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PIForm.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="PIUtility.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TrianglesToDrawIndicesBuffer.h">
+      <Filter>PIUnitTriangulator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

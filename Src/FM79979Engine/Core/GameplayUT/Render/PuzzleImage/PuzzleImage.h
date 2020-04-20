@@ -63,7 +63,7 @@ namespace FATMING_CORE
 		GET_SET_DEC(cPuzzleImageUnit*,m_pNext,GetNext,SetNext);
 		GET_SET_DEC(cPuzzleImageUnit*,m_pPrior,GetPrior,SetPrior);
 		sPuzzleData*					m_pPuzzleData;
-		std::vector<Vector2>*			m_pImageShapePointVector;
+		//std::vector<Vector2>*			m_pImageShapePointVector;
 	public:
 		DEFINE_TYPE_INFO()
 		cPuzzleImageUnit(sPuzzleData*e_pPuzzleData,cPuzzleImage*e_pPuzzleImageParent);
@@ -195,7 +195,7 @@ namespace FATMING_CORE
 		//image data uv offset pos and name....
 		sPuzzleData*m_pAllPuzzleData;
 
-		std::vector<std::vector<Vector2>*>*	m_pImageShapePointVectorVector;
+		std::vector<std::vector<Vector2>>*	m_pImageShapePointVectorVector;
 		std::vector<int>*					m_pImageShapePointLODVector;
 
 		//internal using,generate all image unit while parse data is done
@@ -219,7 +219,7 @@ namespace FATMING_CORE
 		sPuzzleData*						GetPuzzleData(int e_iIndex){ return &m_pAllPuzzleData[e_iIndex]; }
 		int									GetNumImage() { return m_iNumImage; }
 
-		std::vector<std::vector<Vector2>*>*	GetImageShapePointVectorVector();
+		std::vector<std::vector<Vector2>>*	GetImageShapePointVectorVector();
 		std::vector<Vector2>*				GetImageShapePointVector(int e_iIndex);
 		int									GetImageShapePointLOD(int e_iIndex);
 
