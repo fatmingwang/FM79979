@@ -27,7 +27,7 @@ System::Drawing::Rectangle GetPointListBounds(List<System::Drawing::Point>^point
 }
 
 // Copy the selected piece of the image into a new bitmap.
-Bitmap^ GetSelectedArea(Image^ source,Color bg_color,List<System::Drawing::Point>^points)
+Bitmap^ GetSelectedArea(Image^ source,Color bg_color,List<System::Drawing::Point>^points,bool e_bStripAlpha = false)
 {
 	// Make a new bitmap that has the background
 	// color except in the selected area.
@@ -57,11 +57,19 @@ Bitmap^ GetSelectedArea(Image^ source,Color bg_color,List<System::Drawing::Point
 
 		// Make a bitmap that only holds the selected area.
 		//Bitmap^result = gcnew Bitmap(source_rect.Width, source_rect.Height);
-		Bitmap^result = gcnew Bitmap(source->Width, source->Height);
+		Bitmap^result = nullptr;
+		if(e_bStripAlpha)
+			result = gcnew Bitmap(source_rect.Width, source_rect.Height);
+		else
+			result = gcnew Bitmap(source->Width, source->Height);
 		// Copy the selected area to the result bitmap.
 		Graphics^result_gr = Graphics::FromImage(result);
 
-		System::Drawing::Rectangle dest_rect = System::Drawing::Rectangle(source_rect.X, source_rect.Y,source_rect.Width, source_rect.Height);
+		System::Drawing::Rectangle dest_rect;
+		if (e_bStripAlpha)
+			dest_rect = System::Drawing::Rectangle(0, 0, source_rect.Width, source_rect.Height);
+		else
+			dest_rect = System::Drawing::Rectangle(source_rect.X, source_rect.Y, source_rect.Width, source_rect.Height);
 		result_gr->DrawImage(big_bm, dest_rect,source_rect, GraphicsUnit::Pixel);
 
 		// Return the result.
