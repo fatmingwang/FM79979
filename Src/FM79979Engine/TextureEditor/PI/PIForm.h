@@ -1823,6 +1823,7 @@ namespace PI
 				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
 				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
 				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
+				cGameApp::ApplyViewPort();
 				if (tabControl1->SelectedIndex == 2)
 				{
 					m_pOrthogonalCameraForTrianhulatorPIUnit->Render();
@@ -1834,7 +1835,6 @@ namespace PI
 				}
 				else
 				{
-					cGameApp::ApplyViewPort();
 					m_pOrthogonalCamera->Render();
 					m_pOrthogonalCamera->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
 					glEnable(GL_ALPHA_TEST);
@@ -2799,6 +2799,13 @@ private: System::Void splitContainer2_Panel1_Resize(System::Object^  sender, Sys
 			m_pOrthogonalCamera->SetResolution(Vector2((float)l_ViewportSize.x,(float)l_ViewportSize.y));
 			m_pOrthogonalCamera->SetCameraPos(l_vOriginalLeftUpPos+m_pOrthogonalCamera->GetResolution()/2.f);
 			m_pOrthogonalCamera->CameraUpdateByMouse(false,false,0,0,0,Vector2((float)splitContainer2->Panel1->Size.Width,(float)splitContainer2->Panel1->Size.Height));
+			if (!m_pOrthogonalCameraForTrianhulatorPIUnit)
+				return;
+			l_vOriginalResolution = m_pOrthogonalCameraForTrianhulatorPIUnit->GetResolution();
+			l_vOriginalLeftUpPos = m_pOrthogonalCameraForTrianhulatorPIUnit->GetCameraPos() - (l_vOriginalResolution / 2.f);
+			m_pOrthogonalCameraForTrianhulatorPIUnit->SetResolution(Vector2((float)l_ViewportSize.x, (float)l_ViewportSize.y));
+			m_pOrthogonalCameraForTrianhulatorPIUnit->SetCameraPos(l_vOriginalLeftUpPos + m_pOrthogonalCameraForTrianhulatorPIUnit->GetResolution() / 2.f);
+			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(false, false, 0, 0, 0, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 		 }
 
 private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, System::EventArgs^  e)

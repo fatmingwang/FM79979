@@ -80,7 +80,7 @@ namespace FATMING_CORE
 	bool	cWriteFileWithThread::OpenFileWhatEverFileIsExitOrNotExit(const char*e_strFileName, sRegister_Header_Struct e_sRegister_Header_Struct, bool e_bActiveWriteToFile, bool e_bRoolFilePositionToEnd)
 	{
 		bool	l_bResult = false;
-		char*l_strFileOpenMode = "rb+";
+		const char*l_strFileOpenMode = "rb+";
 		//somehow linux file not exists must use wb+ or rb+,I donno why
 		if (!UT::IsFileExists(e_strFileName))
 			l_strFileOpenMode = "wb+";

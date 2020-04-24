@@ -220,6 +220,8 @@ namespace FATMING_CORE
 		int									GetNumImage() { return m_iNumImage; }
 
 		std::vector<std::vector<Vector2>>*	GetImageShapePointVectorVector();
+		//ensure index is correct!!.if you not sure please call as
+		//auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
 		std::vector<Vector2>*				GetImageShapePointVector(int e_iIndex);
 		int									GetImageShapePointLOD(int e_iIndex);
 

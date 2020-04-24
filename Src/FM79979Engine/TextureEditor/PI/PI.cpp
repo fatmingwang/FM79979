@@ -174,6 +174,7 @@ namespace PI
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 	bool	cPIEditor::ParsePuzzleImage(cPuzzleImage*e_pPuzzleImage,String^e_strFileName)
 	{
+		m_ImageTale->Clear();
 		cNamedTypedObjectVector<cPuzzleUnitChild>	l_PIUnitChildVector;
 		cNodeISAX	l_cNodeISAX;
 		if(l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(e_strFileName).c_str()))
@@ -294,20 +295,6 @@ namespace PI
 					{
 						WARNING_MSG(l_strCurrenDirectory+" not exists"+DNCT::GetChanglineString()+l_pExp->ToString());
 					}
-
-					if (m_pPuzzleImageUnitTriangulatorManager)
-					{
-						std::vector<Vector2>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(i);
-						if (l_pPointsVector)
-						{
-							std::vector<Vector2>l_TriangulatorVector = Triangulator(l_pPointsVector);
-							auto l_pTriangulatorBitmap = ImageWithTrianulator(l_pBitMap, &l_TriangulatorVector);
-
-							l_pTriangulatorBitmap->Save(DNCT::WcharToGcstring(l_pPuzzleData->strFileName) + ".png");
-							l_pBitMap = l_pTriangulatorBitmap;
-							m_ImageTale[gcnew String(DNCT::WcharToGcstring(l_pPuzzleData->strFileName))] = l_pBitMap;
-						}
-					}
 					cUIImage*l_pUIImage = GetNewUIImageByBitMap(l_pBitMap, l_pPuzzleData->strFileName.c_str());
 					 //cUIImage*l_pUIImage = new cUIImage(DNCT::GcStringToChar(l_strCurrenDirectory+l_strFileName));
 					l_pUIImage->SetOffsetPos(l_pPuzzleData->OffsetPos);
@@ -321,14 +308,11 @@ namespace PI
 					bool l_bAddResult = m_pImageomposerIRM->AddObject(l_pUIImage);
 					assert(l_bAddResult&&"same name!?");
 					l_pUIImage->SetPos(Vector3(l_fPosX,l_fPosY,0.f));
-					//fuck
-					if (l_PIUnitChildVector.GetObjectIndexByName(l_pUIImage->GetName()) == -1)
+					auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
+					std::vector<Vector2>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(l_iUIImageIndex);
+					if (l_pPointsVector && l_pPointsVector->size())
 					{
-						this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
-					}
-					else
-					{
-						int a = 0;
+						m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
 					}
 					//if(l_pPuzzleData->ShowPosInPI.x!=0||l_pPuzzleData->ShowPosInPI.y!=0)
 					{
@@ -362,36 +346,10 @@ namespace PI
 		 for(int i=0;i<l_PIUnitChildVector.Count();++i)
 		 {
 			 cPuzzleUnitChild*l_pPuzzleUnitChild = l_PIUnitChildVector.GetObject(i);
-			 if( m_ImageTale->ContainsKey(DNCT::WcharToGcstring(l_pPuzzleUnitChild->GetName())) )
-				m_ImageTale->Remove(DNCT::WcharToGcstring(l_pPuzzleUnitChild->GetName()));
-
 			 cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_pPuzzleUnitChild->GetName()));
-
 			 cUIImage*l_pAttachUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_pPuzzleUnitChild->m_strAttachParentName.c_str()));
-			 cUIImage*l_pNewUIImage = new cUIImage(l_pAttachUIImage);
-			 l_pNewUIImage->m_pEditorAttachParent = l_pAttachUIImage;
-			 l_pNewUIImage->m_vEditorAttachParentRelativePos = l_pPuzzleUnitChild->m_vRelativePos;
-			 l_pNewUIImage->SetPos(l_pUIImage->GetPos());
-			 l_pNewUIImage->SetName(l_pUIImage->GetName());
-			 l_pNewUIImage->SetOffsetPos(*l_pUIImage->GetOffsetPos());
-			 l_pNewUIImage->SetRightDownStripOffPos(l_pUIImage->GetRightDownStripOffPos());
-			 l_pNewUIImage->SetOriginalImageSize(l_pUIImage->GetOriginalImageSize());
-			 float l_fUV[4] =
-			 {
-				(float)l_pPuzzleUnitChild->m_vRelativePos.x/ l_pAttachUIImage->GetImageRealSize().x,
-				(float)l_pPuzzleUnitChild->m_vRelativePos.y / l_pAttachUIImage->GetImageRealSize().y,
-				(l_pPuzzleUnitChild->m_vRelativePos.x + (float)l_pNewUIImage->GetImageRealSize().x) / l_pAttachUIImage->GetImageRealSize().x,
-				(l_pPuzzleUnitChild->m_vRelativePos.y + (float)l_pNewUIImage->GetImageRealSize().y) / l_pAttachUIImage->GetImageRealSize().y
-			 };
-			 l_pNewUIImage->SetUV(l_fUV);
-			 l_pNewUIImage->SetWidth(l_pUIImage->GetOriginalImageSize().x);
-			 l_pNewUIImage->SetHeight(l_pUIImage->GetOriginalImageSize().y);
-
-			 std::vector<NamedTypedObject*>*l_pList = m_pImageomposerIRM->GetList();
-			 int	l_iIndex = m_pImageomposerIRM->GetObjectIndexByPointer(l_pUIImage);
-			 (*l_pList)[l_iIndex] = l_pNewUIImage;
-			 this->m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pNewUIImage);
-			 delete l_pUIImage;
+			 l_pUIImage->m_pEditorAttachParent = l_pAttachUIImage;
+			 l_pUIImage->m_vEditorAttachParentRelativePos = l_pPuzzleUnitChild->m_vRelativePos;
 		 }
 		 SAFE_DELETE(e_pPuzzleImage);
 		 return true;
