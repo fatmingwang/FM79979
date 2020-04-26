@@ -1,10 +1,21 @@
 #include "stdafx.h"
 #include "TrianglesToDrawIndicesBuffer.h"
-
+#include "PuzzleImageUnitTriangulator.h"
 //sTrianglesToDrawIndicesBuffer::sTrianglesToDrawIndicesBuffer(Vector3 * e_pTriangleVertices, Vector2*e_vUVVector, int e_iNumPoints)
 //{
 //
 //}
+
+sTrianglesToDrawIndicesBuffer::sTrianglesToDrawIndicesBuffer(cPuzzleImageUnitTriangulator * e_pPuzzleImageUnitTriangulator)
+{
+	if (e_pPuzzleImageUnitTriangulator->m_s2DVertex.vPosVector.size())
+	{
+		std::vector<cPuzzleImageUnitTriangulator::s2DVertex::s3PosPoints>*	l_pPosVector	= &e_pPuzzleImageUnitTriangulator->m_s2DVertex.vPosVector;
+		std::vector<cPuzzleImageUnitTriangulator::s2DVertex::s3UVPoints>*	l_pvUVVector	= &e_pPuzzleImageUnitTriangulator->m_s2DVertex.vUVVector;
+		std::vector<cPuzzleImageUnitTriangulator::s2DVertex::s3ColorPoints>*l_pColorVector	= &e_pPuzzleImageUnitTriangulator->m_s2DVertex.vColorVector;
+		//ParseVertices(Vector3 * e_pTriangleVertices, Vector2 * e_vUVVector, int e_iNumPoints)
+	}
+}
 
 bool sTrianglesToDrawIndicesBuffer::ParseVertices(Vector3 * e_pTriangleVertices, Vector2 * e_vUVVector, int e_iNumPoints)
 {

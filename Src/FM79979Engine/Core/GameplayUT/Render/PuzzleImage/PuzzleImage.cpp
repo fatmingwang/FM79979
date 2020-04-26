@@ -12,7 +12,15 @@ namespace FATMING_CORE
 
 	TYPDE_DEFINE_MARCO(cPuzzleImage);
 	TYPDE_DEFINE_MARCO(cPuzzleImageUnit);
-
+	cImageIndexOfAnimation::cImageIndexOfAnimation(bool e_bNewNameList)
+	{
+		m_pNameList = nullptr;
+		if (e_bNewNameList)
+		{
+			m_pNameList = new std::vector<std::wstring>;
+		}
+		m_pfEndTime = nullptr;
+	}
 	cImageIndexOfAnimation::cImageIndexOfAnimation(cImageIndexOfAnimation*e_pImageIndexOfAnimation)
 	{
 		SetName(e_pImageIndexOfAnimation->GetName());
@@ -25,7 +33,11 @@ namespace FATMING_CORE
         }
         m_ImageAnimationDataList = e_pImageIndexOfAnimation->m_ImageAnimationDataList;
 	}
-	
+	cImageIndexOfAnimation::~cImageIndexOfAnimation()
+	{
+		SAFE_DELETE(m_pNameList);
+		SAFE_DELETE(m_pfEndTime);
+	}
 	void    cImageIndexOfAnimation::GenerateImageIndexByPI(cPuzzleImage*e_pPI,std::vector<std::wstring>   *e_pNameList)
 	{
 	    size_t  l_iSize = e_pNameList->size();
@@ -34,6 +46,40 @@ namespace FATMING_CORE
 	    {
 			m_ImageAnimationDataList[i].iIndex = e_pPI->GetObjectIndexByName((*e_pNameList)[i].c_str());
 	    }
+	}
+
+	void    cImageIndexOfAnimation::Clear()
+	{
+		if (m_pNameList)
+		{
+			m_pNameList->clear();
+		}
+		m_ImageAnimationDataList.clear();
+	}
+	void    cImageIndexOfAnimation::AddNameObject(const wchar_t*e_strName, int e_iIndex, float e_fTimeGap)
+	{
+		std::wstring    l_strName = e_strName;
+		m_pNameList->push_back(l_strName);
+		m_ImageAnimationDataList.push_back(sImageIndexAndTimeGap(e_iIndex, e_fTimeGap));
+	}
+	void    cImageIndexOfAnimation::RemoveNameObject(int e_iIndex)
+	{
+		m_pNameList->erase(m_pNameList->begin() + e_iIndex);
+		m_ImageAnimationDataList.erase(m_ImageAnimationDataList.begin() + e_iIndex);
+	}
+	float cImageIndexOfAnimation::GetEndTime()
+	{
+		if (!m_pfEndTime)
+		{
+			m_pfEndTime = new float;
+			*m_pfEndTime = 0.f;
+			size_t	l_iSize = m_ImageAnimationDataList.size();
+			for (size_t i = 0; i < l_iSize; ++i)
+			{
+				*m_pfEndTime += m_ImageAnimationDataList[i].fTimeGap;
+			}
+		}
+		return *m_pfEndTime;
 	}
 
 	int	cImageIndexOfAnimation::GetImageIndexByCurrentTime( float e_fTime )
@@ -474,9 +520,11 @@ namespace FATMING_CORE
 	    {
             assert(m_iNumImage);
             m_pfAllChildrenTriangleStripUV = new float[TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT*m_iNumImage];
-            for(int i=0;i<this->m_iNumImage;++i)
-                memcpy(&m_pfAllChildrenTriangleStripUV[TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT*i],
-                UVToTriangleStrip(this->GetObject(i)->GetUV()),sizeof(float)*TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT);	
+			for (int i = 0; i < this->m_iNumImage; ++i)
+			{
+				memcpy(&m_pfAllChildrenTriangleStripUV[TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT*i],
+					UVToTriangleStrip(this->GetObject(i)->GetUV()), sizeof(float)*TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT);
+			}
         }
         return m_pfAllChildrenTriangleStripUV;
 	}

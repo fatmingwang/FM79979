@@ -158,8 +158,6 @@ namespace PI
 			m_pParentHandle = 0;
 			m_HdcMV = GetDC((HWND)this->splitContainer2->Panel1->Handle.ToPointer());
 			m_HGLRCMV = InitOpenGL((HWND)this->splitContainer2->Panel1->Handle.ToPointer(),true,m_HdcMV);
-			pictureBox2->AutoSize = true;
-			pictureBox1->AutoSize = true;
 			MouseControlMode_comboBox->SelectedIndex = 0;
 #ifdef USER_CONTROL_ENABLE
 			m_pForm = e_pForm;
@@ -238,89 +236,86 @@ namespace PI
 		}
 	private: System::Windows::Forms::Timer^  timer1;
 	private: System::ComponentModel::IContainer^  components;
-	private: System::Windows::Forms::Label^  TotalPixel_label;
-	private: System::Windows::Forms::CheckBox^  AllShowBoundry_checkBox;
+	private: System::Windows::Forms::SplitContainer^  splitContainer1;
+	private: System::Windows::Forms::SplitContainer^  splitContainer2;
+	private: System::Windows::Forms::SplitContainer^  splitContainer3;
 	private: System::Windows::Forms::Button^  ImageObjectDown_button;
 	private: System::Windows::Forms::Button^  ImageObjectUP_button;
-	private: System::Windows::Forms::CheckBox^  ShowBoundary_checkBox;
-	private: System::Windows::Forms::TextBox^  ImageDetail_textBox;
-	private: System::Windows::Forms::Label^  label4;
-	private: System::Windows::Forms::Label^  label5;
-	private: System::Windows::Forms::NumericUpDown^  ImageHeight_numericUpDown;
-	private: System::Windows::Forms::NumericUpDown^  ImageWidth_numericUpDown;
 	private: System::Windows::Forms::Button^  AutoOrderPosition_button;
 	private: System::Windows::Forms::Button^  DeleteImage_button;
 	private: System::Windows::Forms::Button^  AddImage_button;
+	private: System::Windows::Forms::Button^  AnimationImageDown_button;
+	private: System::Windows::Forms::Button^  AnimationImageUp_button;
+	private: System::Windows::Forms::Button^  DelAnimationImage_button;
+	private: System::Windows::Forms::Button^  AddAnimationImage_button;
+	private: System::Windows::Forms::Button^  ProperStripPixel_button;
+	private: System::Windows::Forms::Button^  ToOriginalImage_button;
+	private: System::Windows::Forms::Button^  StripAlpha_button;
+	private: System::Windows::Forms::Button^  AddNewPIUnitImage_button;
+	private: System::Windows::Forms::Button^  AnimationDatDel_button;
+	private: System::Windows::Forms::Button^  AnimationDatAdd_button;
 	private: System::Windows::Forms::ListBox^  AllImage_listBox;
+	private: System::Windows::Forms::ListBox^  AnimationData_listBox;
+	private: System::Windows::Forms::ListBox^  AnimationDataList_listBox;
+	private: System::Windows::Forms::Label^  label2;
+	private: System::Windows::Forms::Label^  label1;
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::Label^  TotalPixel_label;
+	private: System::Windows::Forms::Label^  label3;
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Label^  label11;
+	private: System::Windows::Forms::Label^  label10;
+	private: System::Windows::Forms::Label^  label9;
+	private: System::Windows::Forms::Label^  label8;
+	private: System::Windows::Forms::Label^  ImageTriangulatorLOD_label;
+	private: System::Windows::Forms::Label^  label13;
+	private: System::Windows::Forms::Label^  MouseControlMode_label;
+	private: System::Windows::Forms::Label^  label12;
+	private: System::Windows::Forms::NumericUpDown^  ImagePosX_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImagePosY_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImageDistanceX_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImageDistanceY_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  NewPIUnitStartX_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  NewPIUnitEndY_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  NewPIUnitEndX_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  NewPIUnitStartY_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImageHeight_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImageWidth_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  ImageTriangulatorLOD_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
+	private: System::Windows::Forms::CheckBox^  ImageSaveAsDDS_checkBox;
+	private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
+	private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
+	private: System::Windows::Forms::CheckBox^  ShowTriangulaotrPoints_checkBox;
+	private: System::Windows::Forms::CheckBox^  AllShowBoundry_checkBox;
+	private: System::Windows::Forms::CheckBox^  ShowBoundary_checkBox;
+	private: System::Windows::Forms::CheckBox^  DebugLine_checkBox;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^  generateAllImageWithPowerOfTwoToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  dockToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  childToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem1;
+	private: System::Windows::Forms::ToolStripMenuItem^  toolToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^  generateTriangulatorImagesToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  fileToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  openXMLToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  saveToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  invertPuzzleImageToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  generatePowOf2ImageToolStripMenuItem;
-	private: System::Windows::Forms::SplitContainer^  splitContainer1;
-	private: System::Windows::Forms::Button^  AnimationImageDown_button;
-	private: System::Windows::Forms::Button^  AnimationImageUp_button;
-	private: System::Windows::Forms::Button^  DelAnimationImage_button;
-	private: System::Windows::Forms::Button^  AddAnimationImage_button;
-	private: System::Windows::Forms::ListBox^  AnimationData_listBox;
-	private: System::Windows::Forms::Label^  label1;
-	private: System::Windows::Forms::ListBox^  AnimationDataList_listBox;
-	private: System::Windows::Forms::Label^  label2;
-	private: System::Windows::Forms::Button^  AnimationDatDel_button;
-	private: System::Windows::Forms::Button^  AnimationDatAdd_button;
-	private: System::Windows::Forms::TextBox^  AnimationDataName_textBox;
-	private: System::Windows::Forms::SplitContainer^  splitContainer2;
-	private: System::Windows::Forms::ToolStripMenuItem^  generateAllImageWithPowerOfTwoToolStripMenuItem;
-	private: System::Windows::Forms::Label^  label3;
-	private: System::Windows::Forms::NumericUpDown^  ImagePosX_numericUpDown;
-	private: System::Windows::Forms::NumericUpDown^  ImagePosY_numericUpDown;
-    private: System::Windows::Forms::Button^  ProperStripPixel_button;
-    private: System::Windows::Forms::Button^  ToOriginalImage_button;
-    private: System::Windows::Forms::Button^  StripAlpha_button;
-    private: System::Windows::Forms::CheckBox^  DebugLine_checkBox;
-    private: System::Windows::Forms::NumericUpDown^  ImageDistanceX_numericUpDown;
-    private: System::Windows::Forms::Label^  label6;
-    private: System::Windows::Forms::Label^  label7;
-    private: System::Windows::Forms::NumericUpDown^  ImageDistanceY_numericUpDown;
-	private: System::Windows::Forms::Label^  label11;
-	private: System::Windows::Forms::Label^  label10;
-	private: System::Windows::Forms::Label^  label9;
-	private: System::Windows::Forms::Label^  label8;
-	private: System::Windows::Forms::NumericUpDown^  NewPIUnitStartX_numericUpDown;
-	private: System::Windows::Forms::NumericUpDown^  NewPIUnitEndY_numericUpDown;
-	private: System::Windows::Forms::NumericUpDown^  NewPIUnitEndX_numericUpDown;
-	private: System::Windows::Forms::NumericUpDown^  NewPIUnitStartY_numericUpDown;
-	private: System::Windows::Forms::Button^  AddNewPIUnitImage_button;
-	private: System::Windows::Forms::Label^  label12;
+	private: System::Windows::Forms::ComboBox^  TriangulatorMouseBehavior_comboBox;
+	private: System::Windows::Forms::ComboBox^  MouseControlMode_comboBox;
+	private: System::Windows::Forms::TextBox^  ImageTriangulator_textBox;
 	private: System::Windows::Forms::TextBox^  NewPIUnitName_textBox;
-	private: System::Windows::Forms::CheckBox^  ImageSaveAsDDS_checkBox;
-	private: System::Windows::Forms::ToolStripMenuItem^  dockToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  childToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  floatToolStripMenuItem1;
-	private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
-	private: System::Windows::Forms::ToolStripMenuItem^  toolToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^  addImagesByFolderToolStripMenuItem;
-	private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
-	private: System::Windows::Forms::SplitContainer^  splitContainer3;
+	private: System::Windows::Forms::TextBox^  AnimationDataName_textBox;
+	private: System::Windows::Forms::TextBox^  ImageDetail_textBox;
 	private: System::Windows::Forms::TabControl^  tabControl1;
 	private: System::Windows::Forms::TabPage^  ImageAligment_tabPage;
 	private: System::Windows::Forms::TabPage^  ImageTriangulator_tabPage;
-	private: System::Windows::Forms::NumericUpDown^  ImageTriangulatorLOD_numericUpDown;
-	private: System::Windows::Forms::Label^  ImageTriangulatorLOD_label;
-	private: System::Windows::Forms::Label^  label13;
-	private: System::Windows::Forms::ComboBox^  TriangulatorMouseBehavior_comboBox;
 	private: System::Windows::Forms::TabPage^  SequenceAnimation_tabPage;
-	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
-	private: System::Windows::Forms::PictureBox^  pictureBox2;
-	private: System::Windows::Forms::CheckBox^  ShowTriangulaotrPoints_checkBox;
-	private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
-	private: System::Windows::Forms::Label^  MouseControlMode_label;
-	private: System::Windows::Forms::ComboBox^  MouseControlMode_comboBox;
-	private: System::Windows::Forms::TextBox^  ImageTriangulator_textBox;
-	private: System::Windows::Forms::ToolStripMenuItem^  generateTriangulatorImagesToolStripMenuItem;
 	//my
 	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
 	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
@@ -341,6 +336,17 @@ namespace PI
 	cOrthogonalCamera*									m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*									m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
+private: System::Windows::Forms::Button^  AnimationPlay_button;
+public:
+private: System::Windows::Forms::Label^  label14;
+private: System::Windows::Forms::Label^  AnimationTime_label;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown2;
+private: System::Windows::Forms::Button^  DeleteTime_button;
+private: System::Windows::Forms::Button^  AddTime_button;
+private: System::Windows::Forms::NumericUpDown^  numericUpDown1;
+private: System::Windows::Forms::ListBox^  AnimationTime_listBox;
+private: System::Windows::Forms::TrackBar^  MorphingAnimation_trackBar;
+private: System::Windows::Forms::Button^  LODToPoints_button;
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void								SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*								OpenPuzzleFile(String^e_strFileName);
@@ -389,6 +395,7 @@ namespace PI
 			this->invertPuzzleImageToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->generatePowOf2ImageToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->generateTriangulatorImagesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->dockToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->floatToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->childToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -442,15 +449,21 @@ namespace PI
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
 			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
 			this->label13 = (gcnew System::Windows::Forms::Label());
 			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
-			this->generateTriangulatorImagesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->LODToPoints_button = (gcnew System::Windows::Forms::Button());
+			this->MorphingAnimation_trackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->AnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
+			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->AddTime_button = (gcnew System::Windows::Forms::Button());
+			this->DeleteTime_button = (gcnew System::Windows::Forms::Button());
+			this->numericUpDown2 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->AnimationTime_label = (gcnew System::Windows::Forms::Label());
+			this->label14 = (gcnew System::Windows::Forms::Label());
+			this->AnimationPlay_button = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -475,11 +488,12 @@ namespace PI
 			this->SequenceAnimation_tabPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->BeginInit();
 			this->ImageTriangulator_tabPage->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// timer1
@@ -772,6 +786,13 @@ namespace PI
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Text = L"Generate All Image With PowerOfTwo";
 			this->generateAllImageWithPowerOfTwoToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click);
 			// 
+			// generateTriangulatorImagesToolStripMenuItem
+			// 
+			this->generateTriangulatorImagesToolStripMenuItem->Name = L"generateTriangulatorImagesToolStripMenuItem";
+			this->generateTriangulatorImagesToolStripMenuItem->Size = System::Drawing::Size(543, 38);
+			this->generateTriangulatorImagesToolStripMenuItem->Text = L"Generate Triangulator Images";
+			this->generateTriangulatorImagesToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::generateTriangulatorImagesToolStripMenuItem_Click);
+			// 
 			// dockToolStripMenuItem
 			// 
 			this->dockToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
@@ -835,7 +856,7 @@ namespace PI
 			// 
 			this->splitContainer1->Panel2->Controls->Add(this->splitContainer2);
 			this->splitContainer1->Size = System::Drawing::Size(3374, 1975);
-			this->splitContainer1->SplitterDistance = 487;
+			this->splitContainer1->SplitterDistance = 664;
 			this->splitContainer1->SplitterWidth = 6;
 			this->splitContainer1->TabIndex = 49;
 			// 
@@ -860,7 +881,7 @@ namespace PI
 			// splitContainer3.Panel2
 			// 
 			this->splitContainer3->Panel2->Controls->Add(this->tabControl1);
-			this->splitContainer3->Size = System::Drawing::Size(3370, 483);
+			this->splitContainer3->Size = System::Drawing::Size(3370, 660);
 			this->splitContainer3->SplitterDistance = 650;
 			this->splitContainer3->SplitterWidth = 8;
 			this->splitContainer3->TabIndex = 67;
@@ -920,7 +941,7 @@ namespace PI
 			this->tabControl1->Margin = System::Windows::Forms::Padding(6);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(2712, 483);
+			this->tabControl1->Size = System::Drawing::Size(2712, 660);
 			this->tabControl1->TabIndex = 0;
 			this->tabControl1->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::tabControl1_SelectedIndexChanged);
 			// 
@@ -1487,10 +1508,17 @@ namespace PI
 			// ImageTriangulator_tabPage
 			// 
 			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationPlay_button);
+			this->ImageTriangulator_tabPage->Controls->Add(this->label14);
+			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationTime_label);
+			this->ImageTriangulator_tabPage->Controls->Add(this->numericUpDown2);
+			this->ImageTriangulator_tabPage->Controls->Add(this->DeleteTime_button);
+			this->ImageTriangulator_tabPage->Controls->Add(this->AddTime_button);
+			this->ImageTriangulator_tabPage->Controls->Add(this->numericUpDown1);
+			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationTime_listBox);
+			this->ImageTriangulator_tabPage->Controls->Add(this->MorphingAnimation_trackBar);
+			this->ImageTriangulator_tabPage->Controls->Add(this->LODToPoints_button);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulator_textBox);
-			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox2);
-			this->ImageTriangulator_tabPage->Controls->Add(this->pictureBox1);
-			this->ImageTriangulator_tabPage->Controls->Add(this->button1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
 			this->ImageTriangulator_tabPage->Controls->Add(this->label13);
@@ -1499,7 +1527,7 @@ namespace PI
 			this->ImageTriangulator_tabPage->Margin = System::Windows::Forms::Padding(6);
 			this->ImageTriangulator_tabPage->Name = L"ImageTriangulator_tabPage";
 			this->ImageTriangulator_tabPage->Padding = System::Windows::Forms::Padding(6);
-			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(2696, 436);
+			this->ImageTriangulator_tabPage->Size = System::Drawing::Size(2696, 613);
 			this->ImageTriangulator_tabPage->TabIndex = 1;
 			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
 			// 
@@ -1507,46 +1535,17 @@ namespace PI
 			// 
 			this->ImageTriangulator_textBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
-			this->ImageTriangulator_textBox->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->ImageTriangulator_textBox->Dock = System::Windows::Forms::DockStyle::Top;
 			this->ImageTriangulator_textBox->Enabled = false;
 			this->ImageTriangulator_textBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(85)),
 				static_cast<System::Int32>(static_cast<System::Byte>(85)), static_cast<System::Int32>(static_cast<System::Byte>(85)));
-			this->ImageTriangulator_textBox->Location = System::Drawing::Point(6, 374);
+			this->ImageTriangulator_textBox->Location = System::Drawing::Point(6, 6);
 			this->ImageTriangulator_textBox->Margin = System::Windows::Forms::Padding(6);
 			this->ImageTriangulator_textBox->MinimumSize = System::Drawing::Size(4, 56);
 			this->ImageTriangulator_textBox->Multiline = true;
 			this->ImageTriangulator_textBox->Name = L"ImageTriangulator_textBox";
 			this->ImageTriangulator_textBox->Size = System::Drawing::Size(2684, 56);
 			this->ImageTriangulator_textBox->TabIndex = 95;
-			// 
-			// pictureBox2
-			// 
-			this->pictureBox2->Location = System::Drawing::Point(1374, 31);
-			this->pictureBox2->Margin = System::Windows::Forms::Padding(6);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(468, 317);
-			this->pictureBox2->TabIndex = 94;
-			this->pictureBox2->TabStop = false;
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Location = System::Drawing::Point(774, 31);
-			this->pictureBox1->Margin = System::Windows::Forms::Padding(6);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(468, 317);
-			this->pictureBox1->TabIndex = 93;
-			this->pictureBox1->TabStop = false;
-			// 
-			// button1
-			// 
-			this->button1->Location = System::Drawing::Point(568, 177);
-			this->button1->Margin = System::Windows::Forms::Padding(6);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(150, 48);
-			this->button1->TabIndex = 92;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &cPIEditor::button1_Click_1);
 			// 
 			// ImageTriangulatorLOD_numericUpDown
 			// 
@@ -1601,17 +1600,97 @@ namespace PI
 			// 
 			this->splitContainer2->Panel1->Resize += gcnew System::EventHandler(this, &cPIEditor::splitContainer2_Panel1_Resize);
 			this->splitContainer2->Panel2Collapsed = true;
-			this->splitContainer2->Size = System::Drawing::Size(3370, 1478);
+			this->splitContainer2->Size = System::Drawing::Size(3370, 1301);
 			this->splitContainer2->SplitterDistance = 356;
 			this->splitContainer2->SplitterWidth = 6;
 			this->splitContainer2->TabIndex = 0;
 			// 
-			// generateTriangulatorImagesToolStripMenuItem
+			// LODToPoints_button
 			// 
-			this->generateTriangulatorImagesToolStripMenuItem->Name = L"generateTriangulatorImagesToolStripMenuItem";
-			this->generateTriangulatorImagesToolStripMenuItem->Size = System::Drawing::Size(543, 38);
-			this->generateTriangulatorImagesToolStripMenuItem->Text = L"Generate Triangulator Images";
-			this->generateTriangulatorImagesToolStripMenuItem->Click += gcnew System::EventHandler(this, &cPIEditor::generateTriangulatorImagesToolStripMenuItem_Click);
+			this->LODToPoints_button->Location = System::Drawing::Point(562, 98);
+			this->LODToPoints_button->Name = L"LODToPoints_button";
+			this->LODToPoints_button->Size = System::Drawing::Size(213, 143);
+			this->LODToPoints_button->TabIndex = 96;
+			this->LODToPoints_button->Text = L"LODToPoints";
+			this->LODToPoints_button->UseVisualStyleBackColor = true;
+			// 
+			// MorphingAnimation_trackBar
+			// 
+			this->MorphingAnimation_trackBar->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->MorphingAnimation_trackBar->Location = System::Drawing::Point(6, 517);
+			this->MorphingAnimation_trackBar->Name = L"MorphingAnimation_trackBar";
+			this->MorphingAnimation_trackBar->Size = System::Drawing::Size(2684, 90);
+			this->MorphingAnimation_trackBar->TabIndex = 97;
+			// 
+			// AnimationTime_listBox
+			// 
+			this->AnimationTime_listBox->FormattingEnabled = true;
+			this->AnimationTime_listBox->ItemHeight = 25;
+			this->AnimationTime_listBox->Location = System::Drawing::Point(1125, 98);
+			this->AnimationTime_listBox->Name = L"AnimationTime_listBox";
+			this->AnimationTime_listBox->Size = System::Drawing::Size(319, 354);
+			this->AnimationTime_listBox->TabIndex = 98;
+			// 
+			// numericUpDown1
+			// 
+			this->numericUpDown1->Location = System::Drawing::Point(1534, 100);
+			this->numericUpDown1->Name = L"numericUpDown1";
+			this->numericUpDown1->Size = System::Drawing::Size(183, 31);
+			this->numericUpDown1->TabIndex = 99;
+			// 
+			// AddTime_button
+			// 
+			this->AddTime_button->Location = System::Drawing::Point(1534, 212);
+			this->AddTime_button->Name = L"AddTime_button";
+			this->AddTime_button->Size = System::Drawing::Size(213, 56);
+			this->AddTime_button->TabIndex = 100;
+			this->AddTime_button->Text = L"AddTime";
+			this->AddTime_button->UseVisualStyleBackColor = true;
+			// 
+			// DeleteTime_button
+			// 
+			this->DeleteTime_button->Location = System::Drawing::Point(1534, 301);
+			this->DeleteTime_button->Name = L"DeleteTime_button";
+			this->DeleteTime_button->Size = System::Drawing::Size(213, 56);
+			this->DeleteTime_button->TabIndex = 101;
+			this->DeleteTime_button->Text = L"DeleteTime";
+			this->DeleteTime_button->UseVisualStyleBackColor = true;
+			// 
+			// numericUpDown2
+			// 
+			this->numericUpDown2->Location = System::Drawing::Point(1802, 100);
+			this->numericUpDown2->Name = L"numericUpDown2";
+			this->numericUpDown2->Size = System::Drawing::Size(183, 31);
+			this->numericUpDown2->TabIndex = 102;
+			// 
+			// AnimationTime_label
+			// 
+			this->AnimationTime_label->AutoSize = true;
+			this->AnimationTime_label->Location = System::Drawing::Point(1529, 72);
+			this->AnimationTime_label->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->AnimationTime_label->Name = L"AnimationTime_label";
+			this->AnimationTime_label->Size = System::Drawing::Size(154, 25);
+			this->AnimationTime_label->TabIndex = 103;
+			this->AnimationTime_label->Text = L"AnimationTime";
+			// 
+			// label14
+			// 
+			this->label14->AutoSize = true;
+			this->label14->Location = System::Drawing::Point(1797, 68);
+			this->label14->Margin = System::Windows::Forms::Padding(6, 0, 6, 0);
+			this->label14->Name = L"label14";
+			this->label14->Size = System::Drawing::Size(255, 25);
+			this->label14->TabIndex = 104;
+			this->label14->Text = L"RearrangeAnimationTime";
+			// 
+			// AnimationPlay_button
+			// 
+			this->AnimationPlay_button->Location = System::Drawing::Point(27, 418);
+			this->AnimationPlay_button->Name = L"AnimationPlay_button";
+			this->AnimationPlay_button->Size = System::Drawing::Size(97, 56);
+			this->AnimationPlay_button->TabIndex = 105;
+			this->AnimationPlay_button->Text = L"Play";
+			this->AnimationPlay_button->UseVisualStyleBackColor = true;
 			// 
 			// cPIEditor
 			// 
@@ -1650,11 +1729,12 @@ namespace PI
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->EndInit();
 			this->ImageTriangulator_tabPage->ResumeLayout(false);
 			this->ImageTriangulator_tabPage->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			this->ResumeLayout(false);
 
 		}
@@ -2137,7 +2217,6 @@ namespace PI
 				 if( AllImage_listBox->SelectedIndex != -1 )
 				 {
 					m_iCurrentSelectedObjectIndex = AllImage_listBox->SelectedIndex;
-					pictureBox2->Image = (Image^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
 					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
 					if (l_pUIImage && m_pPuzzleImageUnitTriangulatorManager)
 					{
@@ -2994,29 +3073,6 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 		}
 	}
 
-	private: System::Void button1_Click_1(System::Object^  sender, System::EventArgs^  e)
-	{
-		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
-		{
-			std::vector<Vector2>*l_pVector = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetTriangulatorPointsVector();
-			if (l_pVector->size() > 3)
-			{
-				
-				cUIImage*l_pUIImage = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetTargetImage();
-				System::Drawing::Bitmap^l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
-				if (!l_pBitMap)
-					return;
-				List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(l_pVector);
-				Image^l_pImage = (Image^)l_pBitMap;
-				Bitmap^l_pFinalImage = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList);
-				Bitmap^l_pOriginalImage = (Bitmap^)m_ImageTale[AllImage_listBox->Items[AllImage_listBox->SelectedIndex]->ToString()];
-				pictureBox1->Image = l_pFinalImage;
-				pictureBox2->Image = (Image^)l_pOriginalImage;
-				//l_pFinalImage->Save("New.png");
-				//l_pOriginalImage->Save("Original.png");
-			}
-		}
-	}
 	private: System::Void ImageTriangulatorLOD_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e) 
 	{
 		if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)

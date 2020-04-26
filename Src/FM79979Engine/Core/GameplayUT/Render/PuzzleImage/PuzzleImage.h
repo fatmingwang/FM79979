@@ -91,75 +91,26 @@ namespace FATMING_CORE
 			int		iIndex;
 			float	fTimeGap;
 			sImageIndexAndTimeGap(){ iIndex = -1;fTimeGap = -1.f;}
-			sImageIndexAndTimeGap(int e_iIndex,float e_fTimeGap)
-			{
-				iIndex = e_iIndex;
-				fTimeGap = e_fTimeGap;
-			}
+			sImageIndexAndTimeGap(int e_iIndex,float e_fTimeGap){iIndex = e_iIndex;fTimeGap = e_fTimeGap;}
 		};
 	    //while it is editor using this,in the game this one should delete or debug
 	    std::vector<wstring>					*m_pNameList;
 	    //while it's in the game using this
 	    std::vector<sImageIndexAndTimeGap>          m_ImageAnimationDataList;
-		cImageIndexOfAnimation(bool e_bNewNameList)
-		{
-		    m_pNameList = nullptr;
-			if (e_bNewNameList)
-			{
-				m_pNameList = new std::vector<std::wstring>;
-			}
-			m_pfEndTime = nullptr;
-		}
+		cImageIndexOfAnimation(bool e_bNewNameList);
 		//not a pointer reference it will new the data,but it's very rare to be called(ex:in the editor)
 		cImageIndexOfAnimation(cImageIndexOfAnimation*e_pImageIndexOfAnimation);
 		cImageIndexOfAnimation(cStaticAnimation*e_pStaticAnimation);
 		CLONE_MYSELF(cImageIndexOfAnimation);
-		virtual ~cImageIndexOfAnimation()
-		{
-	        SAFE_DELETE(m_pNameList);
-			SAFE_DELETE(m_pfEndTime);
-		}
+		virtual ~cImageIndexOfAnimation();
 		void    GenerateImageIndexByPI(cPuzzleImage*e_pPI,std::vector<std::wstring>   *e_pNameList);
 		int     GetImageIndex(int e_iIndex,cPuzzleImage*e_pPI);
-		void    Clear()
-		{
-			if (m_pNameList)
-			{
-				m_pNameList->clear();
-			}
-			m_ImageAnimationDataList.clear();
-		}
-		void    AddNameObject(const wchar_t*e_strName,int e_iIndex,float e_fTimeGap)
-		{
-		    std::wstring    l_strName = e_strName;
-		    m_pNameList->push_back(l_strName);
-			m_ImageAnimationDataList.push_back(sImageIndexAndTimeGap(e_iIndex,e_fTimeGap));
-		}
-		void    RemoveNameObject(int e_iIndex)
-		{
-		    m_pNameList->erase(m_pNameList->begin()+e_iIndex);
-			m_ImageAnimationDataList.erase(m_ImageAnimationDataList.begin()+e_iIndex);
-		}
-		int Count()
-		{
-		    return (int)m_ImageAnimationDataList.size();
-		}
-		inline	float GetEndTime()
-		{
-			if( !m_pfEndTime )
-			{
-				m_pfEndTime = new float;
-				*m_pfEndTime = 0.f;
-				size_t	l_iSize = m_ImageAnimationDataList.size();
-				for( size_t i = 0;i<l_iSize;++i )
-				{
-					*m_pfEndTime += m_ImageAnimationDataList[i].fTimeGap;
-				}
-			}
-			return *m_pfEndTime;
-		}
-
-		int	GetImageIndexByCurrentTime( float e_fTime );
+		void    Clear();
+		void    AddNameObject(const wchar_t*e_strName, int e_iIndex, float e_fTimeGap);
+		void    RemoveNameObject(int e_iIndex);
+		int		Count(){return (int)m_ImageAnimationDataList.size();}
+		float	GetEndTime();
+		int		GetImageIndexByCurrentTime( float e_fTime );
 	};
 	//if GeneratePuzzleimageUnit is 1,we will generate puzzleimageUnit,but it cost a tiny loading time.
 	//!!but currently I do not make this actived!!!

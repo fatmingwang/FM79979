@@ -23,6 +23,7 @@ class cPuzzleImageUnitTriangulatorManager;
 class cPuzzleImageUnitTriangulator:public NamedTypedObject
 {
 	friend class cPuzzleImageUnitTriangulatorManager;
+	friend struct sTrianglesToDrawIndicesBuffer;
 	bool	m_bEdited;
 	struct s2DVertex
 	{
