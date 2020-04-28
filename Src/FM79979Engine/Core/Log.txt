@@ -203,3 +203,11 @@ add _CRT_SECURE_NO_WARNINGS to preprocessor
 April/08/2020
 In Linux
 openGLES compile got error with API cant not be recognize try add to preprocessor GL_GLEXT_PROTOTYPES
+
+
+
+April/28/2020
+FUCK while under linx
+link order is necessary or unknow reference will occur...
+ex:
+link  -lCommonRASPICore before -lRaspberryPIOgg
