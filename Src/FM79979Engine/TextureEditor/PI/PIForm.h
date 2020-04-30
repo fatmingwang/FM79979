@@ -3109,7 +3109,7 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 				{
 					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
 					auto l_pObject = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
-					std::vector<Vector2>*l_pVector = l_pObject->GetTriangulatorPointsVector();
+					std::vector<Vector3>*l_pVector = l_pObject->GetTriangulatorPointsVector();
 					if (l_pVector->size() > 3)
 					{
 						cUIImage*l_pUIImage = l_pObject->GetTargetImage();
@@ -3124,7 +3124,7 @@ private: System::Void AddNewPIUnitImage_button_Click(System::Object^  sender, Sy
 						}
 						if (l_pBitMap)
 						{
-							List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(l_pVector);
+							List<System::Drawing::Point>^l_pPointList = Vector3ToListPoint(l_pVector);
 							Image^l_pImage = (Image^)l_pBitMap;
 							Bitmap^l_pFinalImage = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList);
 							String^l_strFileName = l_strDirectory;

@@ -178,7 +178,7 @@ namespace FATMING_CORE
 
 	cPuzzleImage::cPuzzleImage():cBaseImage(L"cPuzzleImage")
 	{
-		m_pImageShapePointVectorVector = new std::vector<std::vector<Vector2>>();
+		m_pImageShapePointVectorVector = new std::vector<std::vector<Vector3>>();
 		m_pImageShapePointLODVector = new std::vector<int>();
 		m_pImageIndexOfAnimation = nullptr;
 		m_iNumImage = 0;
@@ -328,7 +328,7 @@ namespace FATMING_CORE
 	void cPuzzleImage::ProcessPuzzleUnit(TiXmlElement* e_pElement, int e_iIndex)
 	{
 		int l_iTriangulatorPointsLOD = 1;
-		std::vector<Vector2> l_TriangulatorVector;
+		std::vector<Vector3> l_TriangulatorVector;
 		sPuzzleData*l_pPuzzleData = &m_pAllPuzzleData[e_iIndex];
 		PARSE_ELEMENT_START(e_pElement)
 			COMPARE_NAME("Name")
@@ -370,7 +370,7 @@ namespace FATMING_CORE
 			else
 			COMPARE_NAME("TriangulatorPoints")
 			{
-				l_TriangulatorVector = StringToVector2Vector(l_strValue);
+				l_TriangulatorVector = StringToVector3Vector(l_strValue);
 			}
 			else
 			COMPARE_NAME("TriangulatorPointsLOD")
@@ -427,7 +427,7 @@ namespace FATMING_CORE
 				{
 					wchar_t*l_ImageName = wcstok((wchar_t*)l_strValue,L",");
 					std::vector<cPuzzleImageUnit*>		l_PuzzleImageUnitVector;
-					std::vector<std::vector<Vector2>>	l_TriangulatorPointsVectorVector;
+					std::vector<std::vector<Vector3>>	l_TriangulatorPointsVectorVector;
 					std::vector<int>					l_iTriangulatorPointsLODVector;
 					while(l_ImageName)
 					{
@@ -554,12 +554,12 @@ namespace FATMING_CORE
 		return 0;	
 	}
 
-	std::vector<std::vector<Vector2>>* cPuzzleImage::GetImageShapePointVectorVector()
+	std::vector<std::vector<Vector3>>* cPuzzleImage::GetImageShapePointVectorVector()
 	{
 		return m_pImageShapePointVectorVector;
 	}
 
-	std::vector<Vector2>* cPuzzleImage::GetImageShapePointVector(int e_iIndex)
+	std::vector<Vector3>* cPuzzleImage::GetImageShapePointVector(int e_iIndex)
 	{
 		if (m_pImageShapePointVectorVector && m_pImageShapePointVectorVector->size() > e_iIndex)
 		{

@@ -309,7 +309,7 @@ namespace PI
 					assert(l_bAddResult&&"same name!?");
 					l_pUIImage->SetPos(Vector3(l_fPosX,l_fPosY,0.f));
 					auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
-					std::vector<Vector2>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(l_iUIImageIndex);
+					std::vector<Vector3>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(l_iUIImageIndex);
 					if (l_pPointsVector && l_pPointsVector->size())
 					{
 						m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);

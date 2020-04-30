@@ -165,6 +165,7 @@
     <ClInclude Include="BinPack.h" />
     <ClInclude Include="delaunay_triangulation\delaunay.h" />
     <ClInclude Include="delaunay_triangulation\DelaunayVector2.h" />
+    <ClInclude Include="delaunay_triangulation\DelaunayVector3.h" />
     <ClInclude Include="delaunay_triangulation\edge.h" />
     <ClInclude Include="delaunay_triangulation\numeric.h" />
     <ClInclude Include="delaunay_triangulation\triangle.h" />

@@ -146,7 +146,7 @@ namespace FATMING_CORE
 		//image data uv offset pos and name....
 		sPuzzleData*m_pAllPuzzleData;
 
-		std::vector<std::vector<Vector2>>*	m_pImageShapePointVectorVector;
+		std::vector<std::vector<Vector3>>*	m_pImageShapePointVectorVector;
 		std::vector<int>*					m_pImageShapePointLODVector;
 
 		//internal using,generate all image unit while parse data is done
@@ -170,10 +170,10 @@ namespace FATMING_CORE
 		sPuzzleData*						GetPuzzleData(int e_iIndex){ return &m_pAllPuzzleData[e_iIndex]; }
 		int									GetNumImage() { return m_iNumImage; }
 
-		std::vector<std::vector<Vector2>>*	GetImageShapePointVectorVector();
+		std::vector<std::vector<Vector3>>*	GetImageShapePointVectorVector();
 		//ensure index is correct!!.if you not sure please call as
 		//auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
-		std::vector<Vector2>*				GetImageShapePointVector(int e_iIndex);
+		std::vector<Vector3>*				GetImageShapePointVector(int e_iIndex);
 		int									GetImageShapePointLOD(int e_iIndex);
 
 		//make sure the Numeral image all have same size,

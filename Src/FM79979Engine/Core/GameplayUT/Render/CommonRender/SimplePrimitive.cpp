@@ -340,6 +340,20 @@ namespace GLRender
 	}
 
 	
+	void RenderVertexByIndexBuffer(cMatrix44 e_Mat,int e_iPosStride,float*e_pVertexBuffer, float*e_pUVBuffer, float*e_pColorBuffer,void*e_pIndexBuffer,int e_iIndexBufferCount, const wchar_t*e_strShaderName)
+	{
+		if (e_iIndexBufferCount)
+		{
+			UseShaderProgram(e_strShaderName);
+			FATMING_CORE::SetupShaderWorldMatrix(e_Mat);
+
+			myGlVertexPointer(e_iPosStride, e_pVertexBuffer);
+			myGlUVPointer(2, e_pUVBuffer);
+			myGlColorPointer(4, e_pColorBuffer);
+			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_iIndexBufferCount, g_iDrawindiceType, e_pIndexBuffer);
+		}
+	}
+
 	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName)
 	{
 		UseShaderProgram(e_strShaderName);

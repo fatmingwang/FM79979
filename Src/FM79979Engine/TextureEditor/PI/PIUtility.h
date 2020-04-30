@@ -77,6 +77,17 @@ Bitmap^ GetSelectedArea(Image^ source,Color bg_color,List<System::Drawing::Point
 	}
 }
 
+List<System::Drawing::Point>^	Vector3ToListPoint(std::vector<Vector3>*e_pVector)
+{
+	List<System::Drawing::Point>^l_pList = gcnew List<System::Drawing::Point>();
+	for (size_t i = 0; i < e_pVector->size(); ++i)
+	{
+		auto l_pData = (*e_pVector)[i];
+		l_pList->Add(System::Drawing::Point((int)l_pData.x, (int)l_pData.y));
+	}
+	return l_pList;
+}
+
 List<System::Drawing::Point>^	Vector2ToListPoint(std::vector<Vector2>*e_pVector)
 {
 	List<System::Drawing::Point>^l_pList = gcnew List<System::Drawing::Point>();

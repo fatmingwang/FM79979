@@ -59,6 +59,8 @@ namespace GLRender
 	void    RenderQuadWithMatrix(float*e_pfVertices,float*e_pfTextureUV,Vector4 e_vColor,float*e_pfMatrix,int e_iPosStride,int e_iNumQuad,const wchar_t*e_strShaderName = DEFAULT_SHADER);
 	void    RenderTrianglesWithMatrix(float*e_pfVertices, float*e_pfTextureUV, float*e_pvColor, float*e_pfMatrix, int e_iPosStride, int e_iNumTriangles, const wchar_t*e_strShaderName = DEFAULT_SHADER);
 	//
+	void	RenderVertexByIndexBuffer(cMatrix44 e_Mat, int e_iPosStride, float*e_pVertexBuffer, float*e_pUVBuffer, float*e_pColorBuffer, void*e_pIndexBuffer, int e_iIndexBufferCount, const wchar_t*e_strShaderName = DEFAULT_SHADER);
+	//
 	void    GetDrawQuadFVFDataByTriangleStrip(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat);
 	void    GetDrawQuadFVFDataByTwoTriangles(GLint e_iWidth,GLint e_iHeight,float *e_pfTexCoordinate,Vector4 e_vColor,float*e_pfVertices,float*e_pfUV,float*e_pColor,cMatrix44*e_pmat);
 	//2point,P for start position,D for destination,

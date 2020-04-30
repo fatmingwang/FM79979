@@ -83,6 +83,9 @@
     <ClInclude Include="TrianglesToDrawIndicesBuffer.h">
       <Filter>PIUnitTriangulator</Filter>
     </ClInclude>
+    <ClInclude Include="delaunay_triangulation\DelaunayVector3.h">
+      <Filter>delaunay_triangulation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="app.ico">

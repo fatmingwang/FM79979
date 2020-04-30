@@ -24,6 +24,7 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 {
 	friend class cPuzzleImageUnitTriangulatorManager;
 	friend struct sTrianglesToDrawIndicesBuffer;
+	sTrianglesToDrawIndicesBuffer*		m_pTrianglesToDrawIndicesBuffer;
 	bool	m_bEdited;
 	struct s2DVertex
 	{
@@ -35,11 +36,11 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 		std::vector<s3ColorPoints>	vColorVector;
 	};
 	s2DVertex					m_s2DVertex;
-	std::vector<Vector2>		m_PointVector;
-	std::vector<Vector2>		m_LODPointVector;
-	std::vector<Vector2>		m_TriangleVector;
+	std::vector<Vector3>		m_PointVector;
+	std::vector<Vector3>		m_LODPointVector;
+	std::vector<Vector3>		m_TriangleVector;
 	int							m_iLOD;
-	std::vector<Vector2>		m_RenderingTriangleVector;
+	std::vector<Vector3>		m_RenderingTriangleVector;
 	cbtConvexHullShape*			m_pbtConvexHullShape;
 	bool						m_bCollided;
 	bool						IsCollided(cbtConvexHullShape*e_pbtConvexHullShape);
@@ -74,9 +75,9 @@ public:
 	void							Render();
 	void							RenderPointsShapeLine();
 	void							RenderTriangleImage(Vector3 e_vPos);
-	std::vector<Vector2>*			GetTriangulatorPointsVector() { return &m_TriangleVector; }
-	void							SetPointsVector(std::vector<Vector2>*e_pVector);
-	std::vector<Vector2>*			GetPointsVector();
+	std::vector<Vector3>*			GetTriangulatorPointsVector() { return &m_TriangleVector; }
+	void							SetPointsVector(std::vector<Vector3>*e_pVector);
+	std::vector<Vector3>*			GetPointsVector();
 	//virtual	TiXmlElement*			ToTiXmlElement();
 	bool							SetLOD(int e_iLODIndex,bool e_bForceUpdate);
 	int								GetLOD();
