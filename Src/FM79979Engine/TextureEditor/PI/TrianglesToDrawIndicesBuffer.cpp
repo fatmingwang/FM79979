@@ -75,14 +75,23 @@ void sTrianglesToDrawIndicesBuffer::RenderInfo(cMatrix44 e_Mat)
 	}
 }
 
-TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vTextureSize, Vector2 e_vImagePos, char * e_pBinaryData)
+TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, char * e_pBinaryData)
 {
-	Vector2 l_vScale(e_vImagePos.x / e_vTextureSize.x, e_vImagePos.y / e_vTextureSize.y);
-	this->vUVVector.size();
+	Vector2 l_vStartUV(e_vImagePos.x / e_vPISize.x, e_vImagePos.y / e_vPISize.y);
+	Vector2 l_vEndUV((e_vImagePos.x+ e_vTextureSize.x) / e_vPISize.x, (e_vImagePos.y+ e_vTextureSize.y) / e_vPISize.y);
+	Vector2 l_vThisTextureUVRange = l_vEndUV - l_vStartUV;
+	auto l_uiSize = this->vUVVector.size();
+	std::vector<Vector2>l_ExportUVVector;
+	l_ExportUVVector.resize(l_uiSize);
+	for (size_t i = 0; i < l_uiSize; i++)
+	{
+		l_ExportUVVector[i].x = vUVVector[i].x*l_vThisTextureUVRange.x+ l_vStartUV.x;
+		l_ExportUVVector[i].y = vUVVector[i].y*l_vThisTextureUVRange.y+ l_vStartUV.y;
+	}
 	return nullptr;
 }
 
-TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vTextureSize, Vector2 e_vImagePos)
+TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos)
 {
 	return nullptr;
 }
