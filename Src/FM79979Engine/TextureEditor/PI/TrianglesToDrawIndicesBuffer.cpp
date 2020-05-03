@@ -75,25 +75,41 @@ void sTrianglesToDrawIndicesBuffer::RenderInfo(cMatrix44 e_Mat)
 	}
 }
 
-TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, char * e_pBinaryData)
+void sTrianglesToDrawIndicesBuffer::ConvertUVDataToPISpace(Vector2 e_vPISize,Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector2>& e_ExportUVVector)
 {
 	Vector2 l_vStartUV(e_vImagePos.x / e_vPISize.x, e_vImagePos.y / e_vPISize.y);
-	Vector2 l_vEndUV((e_vImagePos.x+ e_vTextureSize.x) / e_vPISize.x, (e_vImagePos.y+ e_vTextureSize.y) / e_vPISize.y);
+	Vector2 l_vEndUV((e_vImagePos.x + e_vTextureSize.x) / e_vPISize.x, (e_vImagePos.y + e_vTextureSize.y) / e_vPISize.y);
 	Vector2 l_vThisTextureUVRange = l_vEndUV - l_vStartUV;
 	auto l_uiSize = this->vUVVector.size();
-	std::vector<Vector2>l_ExportUVVector;
-	l_ExportUVVector.resize(l_uiSize);
+	e_ExportUVVector.resize(l_uiSize);
 	for (size_t i = 0; i < l_uiSize; i++)
 	{
-		l_ExportUVVector[i].x = vUVVector[i].x*l_vThisTextureUVRange.x+ l_vStartUV.x;
-		l_ExportUVVector[i].y = vUVVector[i].y*l_vThisTextureUVRange.y+ l_vStartUV.y;
+		e_ExportUVVector[i].x = vUVVector[i].x*l_vThisTextureUVRange.x + l_vStartUV.x;
+		e_ExportUVVector[i].y = vUVVector[i].y*l_vThisTextureUVRange.y + l_vStartUV.y;
 	}
-	return nullptr;
 }
 
 TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos)
 {
-	return nullptr;
+	TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"sTrianglesToDrawIndicesBuffer");
+	std::vector<Vector2>l_ExportUVVector;
+	ConvertUVDataToPISpace(e_vPISize, e_vTextureSize, e_vImagePos, l_ExportUVVector);
+	auto l_strPosVector = ValueToStringW(vPosVector);
+	auto l_strIndexVector = ValueToStringW(vIndexVector);
+	auto l_strUVVector = ValueToStringW(l_ExportUVVector);
+	l_pTiXmlElement->SetAttribute(L"IndexBuffer", l_strIndexVector.c_str());
+	l_pTiXmlElement->SetAttribute(L"UVBuffer", l_strUVVector.c_str());
+	l_pTiXmlElement->SetAttribute(L"PosBuffer", l_strPosVector.c_str());
+	return l_pTiXmlElement;
+}
+
+bool sTrianglesToDrawIndicesBuffer::GetBinaryData(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
+	std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector)
+{
+	ConvertUVDataToPISpace(e_vPISize, e_vTextureSize, e_vImagePos, e_UVVector);
+	e_PosVector = vPosVector;
+	e_iIndexBufferVector = vIndexVector;
+	return true;
 }
 
 int IsVectorContain(std::vector<Vector3>& e_vVector, Vector3 e_Value)
