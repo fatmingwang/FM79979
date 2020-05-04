@@ -103,6 +103,44 @@ TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, 
 	return l_pTiXmlElement;
 }
 
+TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
+{
+	if (GetBinaryData(e_vPISize, e_vTextureSize, e_vImagePos, e_PosVector, e_UVVector, e_iIndexBufferVector))
+	{
+		TiXmlElement*l_pTiXmlElement = new TiXmlElement(L"sTrianglesToDrawIndicesBuffer");
+		std::vector<Vector2>l_ExportUVVector;
+		auto l_strPosVector = ValueToStringW(vPosVector);
+		auto l_strIndexVector = ValueToStringW(vIndexVector);
+		auto l_strUVVector = ValueToStringW(l_ExportUVVector);
+		l_pTiXmlElement->SetAttribute(L"IndexBufferCount", (int)vIndexVector.size());
+		l_pTiXmlElement->SetAttribute(L"VertexBufferCount", (int)l_strPosVector.size());
+		l_pTiXmlElement->SetAttribute(L"PosBufferBinarySize", (int)(l_strPosVector.size()*sizeof(Vector3)));
+		l_pTiXmlElement->SetAttribute(L"UVBufferBinarySize", (int)(l_ExportUVVector.size() * sizeof(Vector2)));
+		return l_pTiXmlElement;
+	}
+	return nullptr;
+}
+
+bool sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(ATG::XMLWriter * e_pXMLWriter, Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
+{
+	if (GetBinaryData(e_vPISize, e_vTextureSize, e_vImagePos, e_PosVector, e_UVVector, e_iIndexBufferVector))
+	{
+		e_pXMLWriter->StartElement(L"sTrianglesToDrawIndicesBuffer");
+		std::vector<Vector2>l_ExportUVVector;
+		auto l_strPosVector = ValueToStringW(vPosVector);
+		auto l_strIndexVector = ValueToStringW(vIndexVector);
+		auto l_strUVVector = ValueToStringW(l_ExportUVVector);
+		e_pXMLWriter->AddAttribute("IndexBufferCount", (int)vIndexVector.size());
+		e_pXMLWriter->AddAttribute("IndexBufferBinarySize", (int)(e_iIndexBufferVector.size() * sizeof(int)));
+		e_pXMLWriter->AddAttribute("VertexBufferCount", (int)l_strPosVector.size());
+		e_pXMLWriter->AddAttribute("PosBufferBinarySize", (int)(l_strPosVector.size() * sizeof(Vector3)));
+		e_pXMLWriter->AddAttribute("UVBufferBinarySize", (int)(l_ExportUVVector.size() * sizeof(Vector2)));
+		e_pXMLWriter->EndElement();
+		return true;
+	}
+	return false;
+}
+
 bool sTrianglesToDrawIndicesBuffer::GetBinaryData(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
 	std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector)
 {

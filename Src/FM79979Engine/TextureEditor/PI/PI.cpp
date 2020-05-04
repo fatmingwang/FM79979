@@ -479,6 +479,7 @@ namespace PI
 		 if( e_bBinary )
 			 l_FileName += "b";
 		 String^l_strXMLFileName = l_FileName;
+		 cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
 		 if( l_FileName )
 		 {
 			if( !AllImage_listBox->Items->Count )
@@ -496,6 +497,9 @@ namespace PI
 					break;
 				}
 			}
+			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(System::IO::Directory::GetFiles(l_strXMLFileName)[0]);
+			l_strTrianglesBinaryFileName += "b";
+			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
 			for (int i = 0; i < AllImage_listBox->Items->Count; ++i)
 			{
@@ -552,7 +556,9 @@ namespace PI
 						l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".pngb"));
 					}
 					else
-						l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".png"));
+					{
+						l_XMLWriter.AddAttribute("ImageName", DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName, true) + ".png"));
+					}
 				}
 			    l_XMLWriter.AddAttribute("Count",m_pImageomposerIRM->Count());
 			    l_XMLWriter.AddAttribute("GeneratePuzzleimageUnit","0");
@@ -618,37 +624,38 @@ namespace PI
 				    //POINT	l_OriginaleSize = {l_pBitmapForSave->Width,l_pBitmapForSave->Height};
 				    //fwrite(l_pUIImage->GetPixels(),l_iPixelSize,1,l_pFopen);
 				    l_XMLWriter.StartElement("PuzzleUnit");
-					    //l_XMLWriter.AddAttribute("Size",l_iPixelSize);
-					    l_XMLWriter.AddAttribute("Name",l_pUIImage->GetName());
-					    std::string	l_strUVData = DNCT::GcStringToChar(
-						    l_fUV[0].ToString()+","+
-						    l_fUV[1].ToString()+","+
-						    l_fUV[2].ToString()+","+
-						    l_fUV[3].ToString());
-					    l_XMLWriter.AddAttribute("UV",l_strUVData.c_str());
-					    std::string	l_strOffsetPos = DNCT::GcStringToChar(
-						    l_Offset.x.ToString()+","+
-						    l_Offset.y.ToString());
-					    l_XMLWriter.AddAttribute("OffsetPos",l_strOffsetPos.c_str());
-					    //the result here may not as expect so I just set size as showImageSize???
-					    std::string	l_strSize = DNCT::GcStringToChar(l_ImageRealPixelSize.x.ToString()+","+l_ImageRealPixelSize.y.ToString());
-					    l_XMLWriter.AddAttribute("Size",l_strSize.c_str());
-					    std::string	l_strOriginalSize = DNCT::GcStringToChar(l_OriginaleSize.x.ToString()+","+l_OriginaleSize.y.ToString());
-					    l_XMLWriter.AddAttribute("OriginalSize",l_strOriginalSize.c_str());
-						assert(l_OriginaleSize.x>=l_ImageRealPixelSize.x &&"did u change the .pi file manually ?");
-						assert(l_OriginaleSize.y>=l_ImageRealPixelSize.y &&"did u change the .pi file manually ?");
-					    RECT	l_rc = {l_RenderPoint.x,l_RenderPoint.y,l_RenderPoint.x+l_ImageRealPixelSize.x,+l_RenderPoint.y+l_ImageRealPixelSize.y};
-					    POINT	l_ShowPosInPI = {l_RenderPoint.x,l_RenderPoint.y};
-					    std::string	l_strShowPosInPI = DNCT::GcStringToChar(
-						    l_rc.left.ToString()+","+
-						    l_rc.top.ToString());
-					    //char*	l_strShowPosInPI = DNCT::GcStringToChar(
-					    //	l_rc.left.ToString()+","+
+					{
+						//l_XMLWriter.AddAttribute("Size",l_iPixelSize);
+						l_XMLWriter.AddAttribute("Name", l_pUIImage->GetName());
+						std::string	l_strUVData = DNCT::GcStringToChar(
+							l_fUV[0].ToString() + "," +
+							l_fUV[1].ToString() + "," +
+							l_fUV[2].ToString() + "," +
+							l_fUV[3].ToString());
+						l_XMLWriter.AddAttribute("UV", l_strUVData.c_str());
+						std::string	l_strOffsetPos = DNCT::GcStringToChar(
+							l_Offset.x.ToString() + "," +
+							l_Offset.y.ToString());
+						l_XMLWriter.AddAttribute("OffsetPos", l_strOffsetPos.c_str());
+						//the result here may not as expect so I just set size as showImageSize???
+						std::string	l_strSize = DNCT::GcStringToChar(l_ImageRealPixelSize.x.ToString() + "," + l_ImageRealPixelSize.y.ToString());
+						l_XMLWriter.AddAttribute("Size", l_strSize.c_str());
+						std::string	l_strOriginalSize = DNCT::GcStringToChar(l_OriginaleSize.x.ToString() + "," + l_OriginaleSize.y.ToString());
+						l_XMLWriter.AddAttribute("OriginalSize", l_strOriginalSize.c_str());
+						assert(l_OriginaleSize.x >= l_ImageRealPixelSize.x &&"did u change the .pi file manually ?");
+						assert(l_OriginaleSize.y >= l_ImageRealPixelSize.y &&"did u change the .pi file manually ?");
+						RECT	l_rc = { l_RenderPoint.x,l_RenderPoint.y,l_RenderPoint.x + l_ImageRealPixelSize.x,+l_RenderPoint.y + l_ImageRealPixelSize.y };
+						POINT	l_ShowPosInPI = { l_RenderPoint.x,l_RenderPoint.y };
+						std::string	l_strShowPosInPI = DNCT::GcStringToChar(
+							l_rc.left.ToString() + "," +
+							l_rc.top.ToString());
+						//char*	l_strShowPosInPI = DNCT::GcStringToChar(
+						//	l_rc.left.ToString()+","+
 
-					    //	l_rc.top.ToString()+","+
-					    //	l_rc.right.ToString()+","+
-					    //	l_rc.bottom.ToString());
-					    l_XMLWriter.AddAttribute("ShowPosInPI", l_strShowPosInPI);
+						//	l_rc.top.ToString()+","+
+						//	l_rc.right.ToString()+","+
+						//	l_rc.bottom.ToString());
+						l_XMLWriter.AddAttribute("ShowPosInPI", l_strShowPosInPI);
 
 						if (m_pPuzzleImageUnitTriangulatorManager && m_pPuzzleImageUnitTriangulatorManager->IsTriangulatorEdited(l_pUIImage))
 						{
@@ -660,21 +667,35 @@ namespace PI
 								{
 									l_XMLWriter.AddAttribute("TriangulatorPoints", ValueToString(*l_pPoints));
 									int l_iLOD = l_pImageUnitTriangulator->GetLOD();
-									if(l_iLOD > 1)
-										l_XMLWriter.AddAttribute("TriangulatorPointsLOD",l_iLOD);
+									if (l_iLOD > 1)
+										l_XMLWriter.AddAttribute("TriangulatorPointsLOD", l_iLOD);
+								}
+								std::vector<Vector3>l_PosVector;
+								std::vector<Vector2>l_UVVector;
+								std::vector<int>l_iIndexBufferVector;
+								l_pImageUnitTriangulator->ToTixmlElementWithBinaryData(&l_XMLWriter, Vector2(l_iWidth, l_iHeight),
+									Vector2(l_RenderPoint.x, l_RenderPoint.y), Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y),
+									l_PosVector,l_UVVector,l_iIndexBufferVector);
+								if (l_pTrianglesBinaryData)
+								{
+									//index,pos,uv
+									l_pTrianglesBinaryData->WriteToFile((const char*)&l_iIndexBufferVector[0],sizeof(int)*l_iIndexBufferVector.size());
+									l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
+									l_pTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
 								}
 							}
 						}
 
-					    l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_ShowPosInPI);
-					    //l_ppPuzzleData[i] = new sPuzzleData(l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_rc);
-					    //for debug info
-				    //	l_strUVData = DNCT::GcStringToChar(
-				    //		(l_RenderPoint.x+l_pUIImage->GetOffsetPos()->x).ToString()+","+
-				    //		(l_RenderPoint.y+l_pUIImage->GetOffsetPos()->y).ToString()+","+
-				    //		(l_RenderPoint.x+l_pUIImage->GetRightDownStripOffPos().x+1).ToString()+","+
-				    //		(l_RenderPoint.y+l_pUIImage->GetRightDownStripOffPos().y+1).ToString()+","
-				    //		);
+						l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(), l_fUV, l_Offset, l_ImageRealPixelSize, l_OriginaleSize, l_ShowPosInPI);
+						//l_ppPuzzleData[i] = new sPuzzleData(l_pUIImage->GetName(),l_fUV,l_Offset,l_ImageRealPixelSize,l_OriginaleSize,l_rc);
+						//for debug info
+					//	l_strUVData = DNCT::GcStringToChar(
+					//		(l_RenderPoint.x+l_pUIImage->GetOffsetPos()->x).ToString()+","+
+					//		(l_RenderPoint.y+l_pUIImage->GetOffsetPos()->y).ToString()+","+
+					//		(l_RenderPoint.x+l_pUIImage->GetRightDownStripOffPos().x+1).ToString()+","+
+					//		(l_RenderPoint.y+l_pUIImage->GetRightDownStripOffPos().y+1).ToString()+","
+					//		);
+					}
 				    l_XMLWriter.EndElement();
 				    //l_XMLWriter.StartComment();
 				    //l_XMLWriter.WriteString(l_strUVData);

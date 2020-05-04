@@ -347,6 +347,13 @@ std::string cPuzzleImageUnitTriangulator::GetInfo()
 	return l_strInfo;
 }
 
+bool cPuzzleImageUnitTriangulator::ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
+{
+	if(!m_pTrianglesToDrawIndicesBuffer)
+		return false;
+	return m_pTrianglesToDrawIndicesBuffer->ToTixmlElementWithBinaryData(e_pXMLWriter,e_vPISize,e_vTextureSize,e_vImagePos,e_PosVector,e_UVVector,e_iIndexBufferVector);
+}
+
 bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 {
 	if (m_iLOD != e_iLODIndex || e_bForceUpdate)
@@ -636,6 +643,7 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 	}
 
 }
+
 
 std::vector<Vector2>	Triangulator(std::vector<Vector2>*e_pData)
 {
