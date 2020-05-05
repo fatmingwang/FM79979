@@ -84,6 +84,8 @@ public:
 	bool							isEdited() { return m_bEdited; }
 	int								GetNumTriangles();
 	std::string						GetInfo();
+	bool	ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
+		std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector);
 };
 
 
