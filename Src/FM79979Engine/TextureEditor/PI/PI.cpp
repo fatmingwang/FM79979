@@ -479,11 +479,11 @@ namespace PI
 		 if( e_bBinary )
 			 l_FileName += "b";
 		 String^l_strXMLFileName = l_FileName;
-		 cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
 		 if( l_FileName )
 		 {
 			if( !AllImage_listBox->Items->Count )
 				return;
+			cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
 			for(int i=l_FileName->Length-1;i!=-1;--i)
 			{
 				if( l_FileName[i] == L'.' )
@@ -497,7 +497,7 @@ namespace PI
 					break;
 				}
 			}
-			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(System::IO::Directory::GetFiles(l_strXMLFileName)[0]);
+			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
 			l_strTrianglesBinaryFileName += "b";
 			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
@@ -674,7 +674,7 @@ namespace PI
 								std::vector<Vector2>l_UVVector;
 								std::vector<int>l_iIndexBufferVector;
 								l_pImageUnitTriangulator->ToTixmlElementWithBinaryData(&l_XMLWriter, Vector2(l_iWidth, l_iHeight),
-									Vector2(l_RenderPoint.x, l_RenderPoint.y), Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y),
+									Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y), Vector2(l_RenderPoint.x, l_RenderPoint.y),
 									l_PosVector,l_UVVector,l_iIndexBufferVector);
 								if (l_pTrianglesBinaryData)
 								{
@@ -801,6 +801,7 @@ namespace PI
 					SAFE_DELETE(l_ppPuzzleData[i]);
 				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
+			SAFE_DELETE(l_pTrianglesBinaryData);
 		}	
 	}
 //=======================
