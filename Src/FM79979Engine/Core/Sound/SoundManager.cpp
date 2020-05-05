@@ -233,8 +233,9 @@ namespace FATMING_CORE
 	cBasicSound*	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
 		std::string	l_extensionName = UT::GetFileExtensionName(e_strFileName);
-		if(this->GetObject(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strFileName)).c_str()))
-		    return nullptr;
+		auto l_pSound = this->GetObject(UT::CharToWchar(UT::GetFileNameWithoutFullPath(e_strFileName)).c_str());
+		if(l_pSound)
+		    return l_pSound;
 		if( !memcmp(l_extensionName.c_str(),"wav",sizeof(char)*3) )
 		{
 			cOpanalWAV*	l_pOpanalWAV = new cOpanalWAV(e_pRef,e_strFileName,false);
