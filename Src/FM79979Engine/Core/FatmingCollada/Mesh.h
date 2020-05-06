@@ -46,7 +46,7 @@ protected:
 	//
 	UINT	m_uiFVF_Format;
 	//
-	int		m_iOneVertexStride;		//the vertex data stride,total vertex data size is m_iOneVertexStride*m_uiVertexBufferCount;
+	//int		m_iOneVertexStride;		//the vertex data stride,total vertex data size is m_iOneVertexStride*m_uiVertexBufferCount;
 	//float	*m_pfVertexBuffer;		//ensure the data size could be char or short int or float depen on FVF(basicly color is 4 char,skinning blending bone index is char)
 	float*	m_ppfVerticesBuffer[TOTAL_FVF];//the data for bone id usually is 4 unsigned byte to become 1 float.if the bone ID is bigger than 512,u have to ensure data swap problem
 	UINT	m_uiVertexBufferCount;

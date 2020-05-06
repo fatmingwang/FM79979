@@ -125,6 +125,10 @@ void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
 
 void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
 {
+	if (count > 65535 && type != GL_UNSIGNED_INT)
+	{
+		FMLog::Log(UT::ComposeMsgByFormat("MY_GLDRAW_ELEMENTS:draw indices count:%d,(try opengl es 3 with GL_UNSIGNED_INT!?)", count).c_str(), true);
+	}
 	glDrawElements(mode, count, type, indices);
 	//GL_NO_ERROR 0
 	//GL_INVALID_ENUM 0x0500

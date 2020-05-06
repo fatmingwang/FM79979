@@ -13,7 +13,7 @@ namespace FATMING_CORE
 		m_bStayAtLastFrame = false;
 		m_bInitCalled = false;
     }
-	cFMTimelineAnimationObject::cFMTimelineAnimationObject(cFMTimelineAnimationObject*e_pFatmingAnimationRule):cRenderNode(e_pFatmingAnimationRule)
+	cFMTimelineAnimationObject::cFMTimelineAnimationObject(cFMTimelineAnimationObject*e_pFatmingAnimationRule):cRenderObject(e_pFatmingAnimationRule)
     {
 		m_pUserData = 0;
 		m_fCurrentProgress = 0.f;
@@ -65,11 +65,11 @@ namespace FATMING_CORE
 	void	cFMTimelineAnimationObject::UpdateByGlobalTime(float e_fGlobalTime)
 	{
 		InternalUpdateByGlobalTime(e_fGlobalTime);
-		cFMTimelineAnimationObject*l_pFirstChild = (cFMTimelineAnimationObject*)this->GetFirstChild();
+		cFMTimelineAnimationObject*l_pFirstChild = dynamic_cast<cFMTimelineAnimationObject*>(this->GetFirstChild());
 		while( l_pFirstChild )
 		{
 			l_pFirstChild->UpdateByGlobalTime(e_fGlobalTime);
-			l_pFirstChild = (cFMTimelineAnimationObject*)l_pFirstChild->GetNextSibling();
+			l_pFirstChild = dynamic_cast<cFMTimelineAnimationObject*>(l_pFirstChild->GetNextSibling());
 		}
 	}
 
@@ -87,7 +87,7 @@ namespace FATMING_CORE
 		}
 		if( m_fTotalPlayTime == 0.f )
 			m_iCurrentPlayCount = 0;
-	    cRenderNode::Init();
+	    cRenderObject::Init();
     }
 
     void	cFMTimelineAnimationObject::Update(float e_fElpaseTime)
@@ -146,7 +146,6 @@ namespace FATMING_CORE
 				m_fCurrentProgress = 1.f;
 			}
 		}
-		DoChildUpdate(e_fElpaseTime);
     }
 
     void	cFMTimelineAnimationObject::Render()
@@ -156,7 +155,6 @@ namespace FATMING_CORE
 			if( !this->IsAnimationDone() || m_bStayAtLastFrame )
 				InternalRender();
 		}
-		DoChildRender();
     }
     bool	cFMTimelineAnimationObject::IsAnimationLoop(){ return m_iPlayCount == -1?true:false;}
 	bool	cFMTimelineAnimationObject::IsAnimationDone()

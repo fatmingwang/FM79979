@@ -4,20 +4,20 @@ namespace FATMING_CORE
 {
 	cRenderNode::cRenderNode()
 	{
-		m_vRotation = Vector3::Zero;
-		m_pvPos = Frame::GetLocalPositionPointer();
-		m_bUpdateRotation = false;
+		//m_vRotation = Vector3::Zero;
+		//m_pvPos = Frame::GetLocalPositionPointer();
+		//m_bUpdateRotation = false;
 		m_bAbleToDownThough = true;
 	}
 
 	cRenderNode::cRenderNode(cRenderNode*e_pRenderObjectBehavior):Frame(e_pRenderObjectBehavior)
 	{
 		this->SetName(e_pRenderObjectBehavior->GetName());
-		m_vRotation = e_pRenderObjectBehavior->m_vRotation;
+		//m_vRotation = e_pRenderObjectBehavior->m_vRotation;
 		m_bAbleToDownThough = e_pRenderObjectBehavior->m_bAbleToDownThough;
-		m_pvPos = this->GetLocalPositionPointer();
+		//m_pvPos = this->GetLocalPositionPointer();
 		this->SetLocalTransform(e_pRenderObjectBehavior->GetLocalTransform());
-		m_bUpdateRotation = e_pRenderObjectBehavior->m_bUpdateRotation;
+		//m_bUpdateRotation = e_pRenderObjectBehavior->m_bUpdateRotation;
 	}
 
 	cRenderNode::~cRenderNode()
@@ -26,11 +26,11 @@ namespace FATMING_CORE
 
 	void	cRenderNode::SetTransformInternalData()
 	{
-		if( !m_bUpdateRotation )
-			return;
-		Vector3	l_vScale,l_vTranslation;
-		float	l_fInvert;
-		this->GetLocalTransform().Decompose(l_vScale,m_vRotation,l_vTranslation,l_fInvert);
+		//if( !m_bUpdateRotation )
+			//return;
+		//Vector3	l_vScale,l_vTranslation;
+		//float	l_fInvert;
+		//this->GetLocalTransform().Decompose(l_vScale,m_vRotation,l_vTranslation,l_fInvert);
 	}
 
 	Vector3	cRenderNode::GetPos()
@@ -50,7 +50,8 @@ namespace FATMING_CORE
 
 	float	cRenderNode::GetAngle()
 	{
-		return this->GetRotation().z;
+		//return this->GetRotation().z;
+		return 0.f;
 	}
 
 	float	cRenderNode::GetDegreeAngle()
@@ -60,13 +61,13 @@ namespace FATMING_CORE
 
 	void	cRenderNode::SetAngle(float e_fAngle)
 	{
-		m_vRotation.x = e_fAngle;
+		//m_vRotation.x = e_fAngle;
 		SetLocalTransform(cMatrix44::RotationMatrix(Vector3(0.f,0.f,e_fAngle)));
 	}
 
 	void	cRenderNode::SetAngle(Vector3 e_vAngle)
 	{
-		m_vRotation = e_vAngle;
+		//m_vRotation = e_vAngle;
 		SetLocalTransform(cMatrix44::RotationMatrix(e_vAngle));
 	}
 

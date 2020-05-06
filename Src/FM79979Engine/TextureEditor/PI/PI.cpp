@@ -484,6 +484,7 @@ namespace PI
 			if( !AllImage_listBox->Items->Count )
 				return;
 			cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
+			//cBinaryFile*l_pGLESTrianglesBinaryData = new cBinaryFile();
 			for(int i=l_FileName->Length-1;i!=-1;--i)
 			{
 				if( l_FileName[i] == L'.' )
@@ -500,6 +501,8 @@ namespace PI
 			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
 			l_strTrianglesBinaryFileName += "b";
 			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
+			l_strTrianglesBinaryFileName += "gles";
+			//l_pGLESTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(), true, true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
 			for (int i = 0; i < AllImage_listBox->Items->Count; ++i)
 			{
@@ -583,11 +586,6 @@ namespace PI
 						{
 							l_pBitmapForSave = (System::Drawing::Bitmap^)m_ImageTale[l_pImageListBox->Items[i]->ToString()];
 						}
-						//System::Drawing::Rectangle	l_UIIMageRealPixelRect(
-						//    l_pUIImage->GetOffsetPos()->x,
-						   // l_pUIImage->GetOffsetPos()->y,
-						   // l_ImageRealPixelSize.x,
-						   // l_ImageRealPixelSize.y+1);
 						if( DebugLine_checkBox->Checked )
 						{
 							System::Drawing::Rectangle	l_DrawToFinalImageRect
@@ -657,7 +655,8 @@ namespace PI
 						//	l_rc.bottom.ToString());
 						l_XMLWriter.AddAttribute("ShowPosInPI", l_strShowPosInPI);
 
-						if (m_pPuzzleImageUnitTriangulatorManager && m_pPuzzleImageUnitTriangulatorManager->IsTriangulatorEdited(l_pUIImage))
+						//if (m_pPuzzleImageUnitTriangulatorManager && m_pPuzzleImageUnitTriangulatorManager->IsTriangulatorEdited(l_pUIImage))
+						if (m_pPuzzleImageUnitTriangulatorManager)
 						{
 							auto l_pImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
 							if (l_pImageUnitTriangulator->isEdited())
@@ -670,20 +669,39 @@ namespace PI
 									if (l_iLOD > 1)
 										l_XMLWriter.AddAttribute("TriangulatorPointsLOD", l_iLOD);
 								}
-								std::vector<Vector3>l_PosVector;
-								std::vector<Vector2>l_UVVector;
-								std::vector<int>l_iIndexBufferVector;
-								l_pImageUnitTriangulator->ToTixmlElementWithBinaryData(&l_XMLWriter, Vector2(l_iWidth, l_iHeight),
-									Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y), Vector2(l_RenderPoint.x, l_RenderPoint.y),
-									l_PosVector,l_UVVector,l_iIndexBufferVector);
-								if (l_pTrianglesBinaryData)
-								{
-									//index,pos,uv
-									l_pTrianglesBinaryData->WriteToFile((const char*)&l_iIndexBufferVector[0],sizeof(int)*l_iIndexBufferVector.size());
-									l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
-									l_pTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
-								}
 							}
+							std::vector<Vector3>l_PosVector;
+							std::vector<Vector2>l_UVVector;
+							std::vector<int>l_iIndexBufferVector;
+							l_pImageUnitTriangulator->ToTixmlElementWithBinaryData(&l_XMLWriter, Vector2(l_iWidth, l_iHeight),
+								Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y), Vector2(l_RenderPoint.x, l_RenderPoint.y),
+								l_PosVector, l_UVVector, l_iIndexBufferVector);
+							if (l_pTrianglesBinaryData)
+							{
+								//index,pos,uv
+								l_pTrianglesBinaryData->WriteToFile((const char*)&l_iIndexBufferVector[0], sizeof(int)*l_iIndexBufferVector.size());
+								l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
+								l_pTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
+							}
+							//if (l_pGLESTrianglesBinaryData)
+							//{
+							//	if (l_iIndexBufferVector.size() > 65535)
+							//	{
+							//		WARNING_MSG("draw index count over 65536!!! opengles 2 only unsigned short data type!");
+							//	}
+							//	std::vector<unsigned short>l_iUnshortIndexBufferVector;
+							//	l_iUnshortIndexBufferVector.resize(l_iIndexBufferVector.size());
+							//	int l_iUnsignedShortIndex = 0;
+							//	for (auto l_Index : l_iIndexBufferVector)
+							//	{
+							//		l_iUnshortIndexBufferVector[l_iUnsignedShortIndex] = l_Index;
+							//		++l_iUnsignedShortIndex;
+							//	}
+							//	//index,pos,uv
+							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_iUnshortIndexBufferVector[0], sizeof(unsigned short)*l_iUnshortIndexBufferVector.size());
+							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
+							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
+							//}
 						}
 
 						l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(), l_fUV, l_Offset, l_ImageRealPixelSize, l_OriginaleSize, l_ShowPosInPI);
@@ -802,6 +820,7 @@ namespace PI
 				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
 			SAFE_DELETE(l_pTrianglesBinaryData);
+			//SAFE_DELETE(l_pGLESTrianglesBinaryData);
 		}	
 	}
 //=======================

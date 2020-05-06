@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../CommonRender/RenderNode.h"
+#include "../CommonRender/RenderObject.h"
 namespace FATMING_CORE
 {
 	extern void		SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bDoOrientation);
@@ -12,7 +12,7 @@ namespace FATMING_CORE
     //three major funciton are internal start,render,update,u have to implement them.
     //some common function have to implement with timing base.
     //=====================
-    class	cFMTimelineAnimationObject:public cRenderNode
+    class	cFMTimelineAnimationObject:public cRenderObject
     {
 		bool			m_bInitCalled;
     protected:
@@ -31,6 +31,11 @@ namespace FATMING_CORE
 		int				m_iCurrentPlayCount;
 	    //===================================
 		char*			m_pUserData;
+		virtual	void	InternalInit() = 0;
+		//if m_bAnimationDone is false and start condition is actived,it will be actived.
+		virtual	void	InternalUpdate(float e_fElpaseTime) = 0;
+		//if m_bAnimationDone is false and start condition is actived,it will be actived.
+		virtual	void	InternalRender() = 0;
 		virtual	void	InternalUpdateByGlobalTime(float e_fGlobalTime) = 0;
     public:
 	    cFMTimelineAnimationObject();

@@ -44,6 +44,7 @@ extern char*	g_strShaderAttribution[TOTAL_FVF];
 extern int		g_iFVF_DataStride[TOTAL_FVF];
 extern GLenum	g_iFVF_DataType[TOTAL_FVF];
 extern int		g_iFVF_DataSize[TOTAL_FVF];
+//opengles 1,2 GL_UNSIGNED_SHORT,win opengles3 GL_UNSIGNED_INT
 extern GLenum	g_iDrawindiceType;
 int				GetStrideByFVF(int64 e_iFVF);
 

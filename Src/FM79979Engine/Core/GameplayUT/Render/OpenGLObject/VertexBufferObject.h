@@ -12,7 +12,7 @@ namespace FATMING_CORE
 		GLuint	m_uiAllBufferID[TOTAL_FVF];
 		int		m_iAllBufferStride[TOTAL_FVF];
 		GLuint	m_uiDrawIndicesBufferID;
-		UINT	m_uiIndicesCount;//for draw indices
+		uint32	m_uiIndicesCount;//for draw indices
 		int		m_iVertexStride;
 	public:
 		cVBOBuffer();

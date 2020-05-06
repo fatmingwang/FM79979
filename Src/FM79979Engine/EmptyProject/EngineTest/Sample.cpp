@@ -7,6 +7,37 @@
 #include "../../Core/Bluetooth/Bluetooth.h"
 
 
+class cTriangulatorPuzzleImage:public cNodeISAX
+{
+public:
+	cTriangulatorPuzzleImage();
+	~cTriangulatorPuzzleImage();
+};
+
+class c2DMeshObject :public cRenderObject
+{
+	struct sIndexBuffer
+	{
+
+	};
+public:
+	virtual	void	Render();
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
 cFrameCamera	*g_pFrameCamera = 0;
