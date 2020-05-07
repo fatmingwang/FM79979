@@ -499,9 +499,9 @@ namespace PI
 				}
 			}
 			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
-			l_strTrianglesBinaryFileName += "b";
+			l_strTrianglesBinaryFileName += "_tri";
 			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
-			l_strTrianglesBinaryFileName += "gles";
+			//l_strTrianglesBinaryFileName += "gles";
 			//l_pGLESTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(), true, true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
 			for (int i = 0; i < AllImage_listBox->Items->Count; ++i)
@@ -549,6 +549,9 @@ namespace PI
 				    l_pImageListBox->Items->Add(l_strImageName);
 			    }
 			    l_pImageListBox->Sorted = true;
+				std::string l_strPI_tri = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
+				l_strPI_tri += ".pi_tri";
+				l_XMLWriter.AddAttribute("PI_tri", l_strPI_tri.c_str());
 			    l_XMLWriter.AddAttribute("OriginalNameSort",l_OriginalImageNameOrder.c_str());
 				if(this->ImageSaveAsDDS_checkBox->Checked)
 					l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".dds"));

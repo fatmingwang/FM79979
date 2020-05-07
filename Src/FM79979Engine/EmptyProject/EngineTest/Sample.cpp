@@ -7,13 +7,6 @@
 #include "../../Core/Bluetooth/Bluetooth.h"
 
 
-class cTriangulatorPuzzleImage:public cNodeISAX
-{
-public:
-	cTriangulatorPuzzleImage();
-	~cTriangulatorPuzzleImage();
-};
-
 class c2DMeshObject :public cRenderObject
 {
 	struct sIndexBuffer
@@ -22,6 +15,20 @@ class c2DMeshObject :public cRenderObject
 	};
 public:
 	virtual	void	Render();
+};
+
+class c2DMeshObjectManager :public cNodeISAX,public cNamedTypedObjectVector<c2DMeshObject>,public cBaseImage
+{
+	cBinaryFile*	m_pPIBFile;
+	int				m_iCurrentFilePos;
+	//cTexture
+	virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
+	bool			ProcessPIUnitForTriangleData(TiXmlElement*e_pRoot);
+public:
+	c2DMeshObjectManager();
+	c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager);
+	~c2DMeshObjectManager();
+	CLONE_MYSELF(c2DMeshObjectManager)
 };
 
 
@@ -766,4 +773,47 @@ void	SampleKeyup(char e_cKey)
 
 
 	}
+}
+
+bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
+{
+	auto l_strImageName = e_pRoot->Attribute(L"ImageName");
+	auto l_strPI_tri = e_pRoot->Attribute(L"pi_tri");
+	if (l_strPI_tri)
+	{//parse binary data.
+
+	}
+	if (l_strImageName)
+	{
+		auto l_strName = ValueToString(l_strImageName);
+		if (ParseTexture(l_strName.c_str(), false))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+//sTrianglesToDrawIndicesBuffer
+//<sTrianglesToDrawIndicesBuffer IndexBufferCount="6" IndexBufferBinarySize="24" VertexBufferCount="4" PosBufferBinarySize="48" UVBufferBinarySize="32" />
+bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot)
+{
+	auto l_pElement = e_pRoot->FirstChildElement();
+	return false;
+}
+
+c2DMeshObjectManager::c2DMeshObjectManager() :cBaseImage(c2DMeshObjectManager::TypeID)
+{
+	m_iCurrentFilePos = 0;
+	m_pPIBFile = nullptr;
+}
+
+c2DMeshObjectManager::c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager) : cBaseImage(e_p2DMeshObjectManager)
+{
+	m_iCurrentFilePos = 0;
+	m_pPIBFile = nullptr;
+}
+
+c2DMeshObjectManager::~c2DMeshObjectManager()
+{
+	SAFE_DELETE(m_pPIBFile);
 }

@@ -24,7 +24,7 @@ namespace FATMING_CORE
 		SetTexBehaviorData(e_pBaseImage);
 	}
 
-	void	cBaseImage::ParseTexture(const char*e_strImageName, bool e_bFetchPixels)
+	bool	cBaseImage::ParseTexture(const char*e_strImageName, bool e_bFetchPixels)
 	{
 		if (e_strImageName)
 		{
@@ -53,7 +53,9 @@ namespace FATMING_CORE
 		m_OffsetPos.x = m_OffsetPos.y = 0;
 		m_OriginalSize.x = m_iWidth;
 		m_OriginalSize.y = m_iHeight;
-
+		if (m_pTexture)
+			return true;
+		return false;
 	}
 
 	//<cBaseImage ImageName="" Pos="" Color="" Width="" Height="" FetchPixel="0" />
