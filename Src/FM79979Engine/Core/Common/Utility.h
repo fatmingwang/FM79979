@@ -12,6 +12,18 @@
 
 namespace UT
 {
+	struct sDataContainer
+	{
+		char*			pData;		//
+		unsigned int	uiDataSize;	//sizeof(DataType)*uiDataCount
+		unsigned int	uiDataCount;//count of data 
+		eDataType		DataType;
+		sDataContainer();
+		~sDataContainer();
+		bool			CreateData(unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount);
+		bool			AssignData(char*e_pData, unsigned int e_uiDataSize, eDataType e_eDataType,int e_iDataCount);
+		bool			CopyData(char*e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount);
+	};
 	eDataType				GetDataType(const wchar_t*e_str);
 	eDataType				GetDataType(const char*e_str);
 	//inline char*			ConstCharToChar(const char* e_str){ static char l_strTemp[TEMP_SIZE]; sprintf(l_strTemp,"%s\0",e_str);return l_strTemp; }

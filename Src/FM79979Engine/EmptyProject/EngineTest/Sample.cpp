@@ -9,16 +9,24 @@
 
 class c2DMeshObject :public cRenderObject
 {
-	struct sIndexBuffer
-	{
-
-	};
 public:
+	struct sMeshBuffer
+	{
+		sDataContainer	IndexBuffer;
+		sDataContainer	PosBuffer;
+		sDataContainer	UVBuffer;
+	};
+protected:
+	sMeshBuffer*		m_pBufferReference;
+public:
+	c2DMeshObject(struct sMeshBuffer*e_pData);
+	c2DMeshObject(c2DMeshObject*e_p2DMeshObject);
 	virtual	void	Render();
 };
 
 class c2DMeshObjectManager :public cNodeISAX,public cNamedTypedObjectVector<c2DMeshObject>,public cBaseImage
 {
+	std::map<c2DMeshObject, c2DMeshObject::sMeshBuffer> m_BufferMap;
 	cBinaryFile*	m_pPIBFile;
 	int				m_iCurrentFilePos;
 	//cTexture

@@ -1456,5 +1456,59 @@ namespace UT
 		}
 	}
 
-//end namespace UT
+	sDataContainer::sDataContainer()
+	{
+		pData = nullptr;
+		uiDataSize = 0;
+		uiDataCount = 0;
+		DataType = eDataType::eDT_MAX;
+	}
+
+	sDataContainer::~sDataContainer()
+	{
+		SAFE_DELETE(pData);
+	}
+
+	bool	sDataContainer::CreateData(unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
+	{
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		{
+			SAFE_DELETE(pData);
+			pData = new char[e_uiDataSize];
+			DataType = e_eDataType;
+			return true;
+		}
+		return false;
+	}
+
+	bool	sDataContainer::CopyData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
+	{
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		{
+			SAFE_DELETE(pData);
+			pData = new char[e_uiDataSize];
+			memcpy(pData, e_pData, e_uiDataSize);
+			uiDataSize = e_uiDataSize;
+			uiDataCount = e_iDataCount;
+			DataType = e_eDataType;
+			return true;
+		}
+		return false;
+	}
+
+	bool	sDataContainer::AssignData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
+	{
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		{
+			SAFE_DELETE(pData);
+			pData = e_pData;
+			uiDataSize = e_uiDataSize;
+			uiDataCount = e_iDataCount;
+			DataType = e_eDataType;
+			return true;
+		}
+		return false;
+	}
+
+	//end namespace UT
 }
