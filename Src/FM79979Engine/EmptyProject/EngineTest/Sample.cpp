@@ -31,7 +31,7 @@ class c2DMeshObjectManager :public cNodeISAX,public cNamedTypedObjectVector<c2DM
 	int				m_iCurrentFilePos;
 	//cTexture
 	virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
-	bool			ProcessPIUnitForTriangleData(TiXmlElement*e_pRoot);
+	bool			ProcessPIUnitForTriangleData(TiXmlElement*e_pRoot,const wchar_t*e_strName);
 public:
 	c2DMeshObjectManager();
 	c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager);
@@ -785,11 +785,17 @@ void	SampleKeyup(char e_cKey)
 
 bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
 {
+	m_iCurrentFilePos = -1;
 	auto l_strImageName = e_pRoot->Attribute(L"ImageName");
 	auto l_strPI_tri = e_pRoot->Attribute(L"pi_tri");
 	if (l_strPI_tri)
 	{//parse binary data.
-
+		SAFE_DELETE(m_pPIBFile);
+		m_pPIBFile = new cBinaryFile();
+		if (m_pPIBFile->Openfile(ValueToString(l_strPI_tri).c_str()))
+		{
+			m_iCurrentFilePos = 0;
+		}
 	}
 	if (l_strImageName)
 	{
@@ -799,13 +805,54 @@ bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
 			return true;
 		}
 	}
+	e_pRoot = e_pRoot->FirstChildElement();
+	while (e_pRoot)
+	{
+		auto l_strValue = e_pRoot->Value();
+		if (!wcscmp(l_strValue, L"PuzzleUnit"))
+		{
+			auto l_pTriangleElement = e_pRoot->FirstChildElement();
+			if (l_pTriangleElement)
+			{
+				l_strValue = l_pTriangleElement->Value();
+				if (!wcscmp(l_strValue, L"sTrianglesToDrawIndicesBuffer"))
+				{
+					auto l_strPIUnitName = l_pTriangleElement->Attribute(L"Name");
+					ProcessPIUnitForTriangleData(l_pTriangleElement, l_strPIUnitName);
+				}
+			}
+		}
+	}
 	return false;
 }
 //sTrianglesToDrawIndicesBuffer
 //<sTrianglesToDrawIndicesBuffer IndexBufferCount="6" IndexBufferBinarySize="24" VertexBufferCount="4" PosBufferBinarySize="48" UVBufferBinarySize="32" />
-bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot)
+bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
 {
-	auto l_pElement = e_pRoot->FirstChildElement();
+	if (m_pPIBFile)
+	{
+		auto l_strIndexBufferCount = e_pRoot->Attribute(L"IndexBufferCount");
+		auto l_strIndexBufferBinarySize = e_pRoot->Attribute(L"IndexBufferBinarySize");
+		auto l_strVertexBufferCount = e_pRoot->Attribute(L"VertexBufferCount");
+		auto l_strPosBufferBinarySize = e_pRoot->Attribute(L"PosBufferBinarySize");
+		auto l_strUVBufferBinarySize = e_pRoot->Attribute(L"UVBufferBinarySize");
+		if (l_strIndexBufferCount &&
+			l_strIndexBufferBinarySize &&
+			l_strVertexBufferCount &&
+			l_strPosBufferBinarySize &&l_strUVBufferBinarySize)
+		{
+			int l_iIndexBufferCount =		GetInt(l_strIndexBufferCount);
+			int l_iIndexBufferBinarySize =	GetInt(l_strIndexBufferBinarySize);
+			int l_iVertexBufferCount =		GetInt(l_strVertexBufferCount);
+			int l_iPosBufferBinarySize =	GetInt(l_strPosBufferBinarySize);
+			int l_iUVBufferBinarySize =		GetInt(l_strUVBufferBinarySize);
+			c2DMeshObject::sMeshBuffer*l_p2DMeshObject = new c2DMeshObject::sMeshBuffer();
+			//l_p2DMeshObject->IndexBuffer.AssignData();
+			std::map<c2DMeshObject, c2DMeshObject::sMeshBuffer> m_BufferMap;;
+			auto l_pElement = e_pRoot->FirstChildElement();
+			return true;
+		}
+	}
 	return false;
 }
 
