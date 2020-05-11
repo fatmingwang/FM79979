@@ -523,6 +523,8 @@ sColladaGeomatries*cLibraryGeometries::GetColladaGeomatries(const WCHAR*e_strID)
 
 bool	sColladaGeomatries::GenerateSkinningTriangleBlendicesWeights(sController*e_pController)
 {
+	if (!strID)
+		return false;
 	if(!wcscmp(this->strID,&e_pController->Skin.strSource[1])||
 		!wcscmp(this->strName,&e_pController->Skin.strSource[1]))
 	{
@@ -726,8 +728,11 @@ sColladaGeomatries*	cLibraryGeometries::GetGeometryByID(const WCHAR*e_strID)
 {
 	for(UINT i=0;i<m_ColladaGeomatryList.size();++i)
 	{
-		if(!wcscmp(m_ColladaGeomatryList[i]->strID,e_strID))
-			return m_ColladaGeomatryList[i];
+		if (m_ColladaGeomatryList[i]->strID)
+		{
+			if (!wcscmp(m_ColladaGeomatryList[i]->strID, e_strID))
+				return m_ColladaGeomatryList[i];
+		}
 	}
 	return 0;
 }

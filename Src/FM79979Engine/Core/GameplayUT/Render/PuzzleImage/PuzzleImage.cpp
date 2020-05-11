@@ -394,6 +394,10 @@ namespace FATMING_CORE
 			{
 			}
 			else
+			COMPARE_NAME("PI_tri")
+			{
+			}
+			else
 			COMPARE_NAME("Count")
 			{
 #ifdef DEBUG

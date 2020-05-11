@@ -9,7 +9,6 @@ namespace FATMING_CORE
 		memset(m_iAllBufferStride,0,sizeof(int)*TOTAL_FVF);
 		m_uiDrawIndicesBufferID = 0;
 		m_uiIndicesCount = 0;
-		m_uiDrawIndicesBufferID = 0;
 	}
 
 	cVBOBuffer::~cVBOBuffer()
@@ -108,6 +107,7 @@ namespace FATMING_CORE
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, e_uiCount*sizeof(unsigned short), e_pfData, GL_STATIC_DRAW);
 #endif
 		m_uiIndicesCount = e_uiCount;
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
 	float*	cVBOBuffer::GetData(int e_iDataLocation)
@@ -186,6 +186,7 @@ namespace FATMING_CORE
 		}
 		//unbind data so rest object could render on the screen or it will render last bind data.
 		glBindBuffer(GL_ARRAY_BUFFER,0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 //end namespace FATMING_CORE
 }

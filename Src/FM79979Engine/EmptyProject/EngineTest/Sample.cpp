@@ -4,53 +4,10 @@
 #include "../../Core/GameplayUT/OpenGL/GLSL/TunnelEffect.h"
 #include "TestShader.h"
 
-#include "../../Core/Bluetooth/Bluetooth.h"
-
-
-class c2DMeshObject :public cRenderObject
-{
-public:
-	struct sMeshBuffer
-	{
-		sDataContainer	IndexBuffer;
-		sDataContainer	PosBuffer;
-		sDataContainer	UVBuffer;
-	};
-protected:
-	sMeshBuffer*		m_pBufferReference;
-public:
-	c2DMeshObject(struct sMeshBuffer*e_pData);
-	c2DMeshObject(c2DMeshObject*e_p2DMeshObject);
-	virtual	void	Render();
-};
-
-class c2DMeshObjectManager :public cNodeISAX,public cNamedTypedObjectVector<c2DMeshObject>,public cBaseImage
-{
-	std::map<c2DMeshObject, c2DMeshObject::sMeshBuffer> m_BufferMap;
-	cBinaryFile*	m_pPIBFile;
-	int				m_iCurrentFilePos;
-	//cTexture
-	virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
-	bool			ProcessPIUnitForTriangleData(TiXmlElement*e_pRoot,const wchar_t*e_strName);
-public:
-	c2DMeshObjectManager();
-	c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager);
-	~c2DMeshObjectManager();
-	CLONE_MYSELF(c2DMeshObjectManager)
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
+//#include "../../Core/Bluetooth/Bluetooth.h"
+#include "2DMesh.h"
+c2DMeshObjectManager*g_p2DMeshObjectManager = nullptr;
+c2DMeshObject*g_p2DMeshObject = nullptr;
 
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
@@ -212,6 +169,14 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
+	if (!g_p2DMeshObjectManager)
+	{
+		g_p2DMeshObjectManager = new c2DMeshObjectManager();
+		if (g_p2DMeshObjectManager->ParseWithMyParse("C:/Users/desig.DESIGN24-NB/Desktop/Work/CarDrivingNodes/Media/CarGoApp/ButtonTest3.pi"))
+		{
+			g_p2DMeshObject = g_p2DMeshObjectManager->GetObject(L"Button1");
+		}
+	}
 	int l_iYBase = 900;
 	g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
@@ -316,7 +281,7 @@ void	LoadSample()
 	
 	std::wstring l_strMPDIResultFileName = L"BluffingGirl/Image/GamePlay.mpdi";
 #endif
-	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
+	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
 	{
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
@@ -393,6 +358,7 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
+	SAFE_DELETE(g_p2DMeshObjectManager);
 	SAFE_DELETE(g_pCurveWithTime);
 	SAFE_DELETE(g_pCurveWithTime2);
 	SAFE_DELETE(g_pPathChaser);
@@ -650,6 +616,18 @@ void	SampleRender()
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
 		}
 	}
+
+	if (g_p2DMeshObject)
+	{
+		for (int i = 0; i < g_p2DMeshObjectManager->Count(); ++i)
+		{
+			g_p2DMeshObjectManager->GetObject(i)->SetWorldPosition(Vector3(300 + 200*i, 600, 0));
+			g_p2DMeshObjectManager->GetObject(i)->SetColor(Vector4(1.f/i,0,0,1));
+			//g_p2DMeshObject->SetWorldPosition(Vector3(900, 600, 0));
+			g_p2DMeshObjectManager->GetObject(i)->Render();
+		}
+	}
+
 	//RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->EndDraw();
@@ -781,94 +759,4 @@ void	SampleKeyup(char e_cKey)
 
 
 	}
-}
-
-bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
-{
-	m_iCurrentFilePos = -1;
-	auto l_strImageName = e_pRoot->Attribute(L"ImageName");
-	auto l_strPI_tri = e_pRoot->Attribute(L"pi_tri");
-	if (l_strPI_tri)
-	{//parse binary data.
-		SAFE_DELETE(m_pPIBFile);
-		m_pPIBFile = new cBinaryFile();
-		if (m_pPIBFile->Openfile(ValueToString(l_strPI_tri).c_str()))
-		{
-			m_iCurrentFilePos = 0;
-		}
-	}
-	if (l_strImageName)
-	{
-		auto l_strName = ValueToString(l_strImageName);
-		if (ParseTexture(l_strName.c_str(), false))
-		{
-			return true;
-		}
-	}
-	e_pRoot = e_pRoot->FirstChildElement();
-	while (e_pRoot)
-	{
-		auto l_strValue = e_pRoot->Value();
-		if (!wcscmp(l_strValue, L"PuzzleUnit"))
-		{
-			auto l_pTriangleElement = e_pRoot->FirstChildElement();
-			if (l_pTriangleElement)
-			{
-				l_strValue = l_pTriangleElement->Value();
-				if (!wcscmp(l_strValue, L"sTrianglesToDrawIndicesBuffer"))
-				{
-					auto l_strPIUnitName = l_pTriangleElement->Attribute(L"Name");
-					ProcessPIUnitForTriangleData(l_pTriangleElement, l_strPIUnitName);
-				}
-			}
-		}
-	}
-	return false;
-}
-//sTrianglesToDrawIndicesBuffer
-//<sTrianglesToDrawIndicesBuffer IndexBufferCount="6" IndexBufferBinarySize="24" VertexBufferCount="4" PosBufferBinarySize="48" UVBufferBinarySize="32" />
-bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
-{
-	if (m_pPIBFile)
-	{
-		auto l_strIndexBufferCount = e_pRoot->Attribute(L"IndexBufferCount");
-		auto l_strIndexBufferBinarySize = e_pRoot->Attribute(L"IndexBufferBinarySize");
-		auto l_strVertexBufferCount = e_pRoot->Attribute(L"VertexBufferCount");
-		auto l_strPosBufferBinarySize = e_pRoot->Attribute(L"PosBufferBinarySize");
-		auto l_strUVBufferBinarySize = e_pRoot->Attribute(L"UVBufferBinarySize");
-		if (l_strIndexBufferCount &&
-			l_strIndexBufferBinarySize &&
-			l_strVertexBufferCount &&
-			l_strPosBufferBinarySize &&l_strUVBufferBinarySize)
-		{
-			int l_iIndexBufferCount =		GetInt(l_strIndexBufferCount);
-			int l_iIndexBufferBinarySize =	GetInt(l_strIndexBufferBinarySize);
-			int l_iVertexBufferCount =		GetInt(l_strVertexBufferCount);
-			int l_iPosBufferBinarySize =	GetInt(l_strPosBufferBinarySize);
-			int l_iUVBufferBinarySize =		GetInt(l_strUVBufferBinarySize);
-			c2DMeshObject::sMeshBuffer*l_p2DMeshObject = new c2DMeshObject::sMeshBuffer();
-			//l_p2DMeshObject->IndexBuffer.AssignData();
-			std::map<c2DMeshObject, c2DMeshObject::sMeshBuffer> m_BufferMap;;
-			auto l_pElement = e_pRoot->FirstChildElement();
-			return true;
-		}
-	}
-	return false;
-}
-
-c2DMeshObjectManager::c2DMeshObjectManager() :cBaseImage(c2DMeshObjectManager::TypeID)
-{
-	m_iCurrentFilePos = 0;
-	m_pPIBFile = nullptr;
-}
-
-c2DMeshObjectManager::c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager) : cBaseImage(e_p2DMeshObjectManager)
-{
-	m_iCurrentFilePos = 0;
-	m_pPIBFile = nullptr;
-}
-
-c2DMeshObjectManager::~c2DMeshObjectManager()
-{
-	SAFE_DELETE(m_pPIBFile);
 }

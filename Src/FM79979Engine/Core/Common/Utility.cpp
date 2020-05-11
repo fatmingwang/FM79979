@@ -1476,6 +1476,8 @@ namespace UT
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
 			DataType = e_eDataType;
+			this->uiDataSize = e_uiDataSize;
+			this->uiDataCount = e_iDataCount;
 			return true;
 		}
 		return false;
@@ -1483,7 +1485,7 @@ namespace UT
 
 	bool	sDataContainer::CopyData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize && e_pData != nullptr)
 		{
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
