@@ -65,6 +65,16 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	void							PointsToTriangulatorDeleteMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
 	void							PointsToTriangulatorMoveMouseDown(int e_iPosX, int e_iPosY, eMouseBehavior e_eMouseBehavior);
 	void							MousePosAdjustToImageRectangle(int &e_iPosX, int &e_iPosY);
+	//for ePTPT_DELETE
+	//if user want to remove vertex,the time must be 0.
+	struct sPosAndVertexIndex
+	{
+		Vector3 vPos;
+		int		iVertexIndex;
+	};
+	//old and new index,for add or delete triangle vertices's effect
+	std::map<int, int>				m_BeforeAndAfterVertexIndexMap;
+	std::vector<sPosAndVertexIndex>	GetPosAndVertexIndexVector();
 public:
 	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
@@ -84,6 +94,10 @@ public:
 	bool							isEdited() { return m_bEdited; }
 	int								GetNumTriangles();
 	std::string						GetInfo();
+	//for add or delete vertex.
+	bool							IsVertexIndexChanged();
+	std::map<int, int>&				GetBeforeAndAfterVertexIndexMap() { return m_BeforeAndAfterVertexIndexMap; }
+	//
 	bool	ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
 		std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector);
 };

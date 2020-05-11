@@ -46,6 +46,22 @@ void IncreaseLod(std::vector<Vector2> &e_Vector)
 	e_Vector = NewPoints;
 }
 
+std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTriangulator::GetPosAndVertexIndexVector()
+{
+	std::vector<sPosAndVertexIndex> l_Vector;
+	if (m_pTrianglesToDrawIndicesBuffer)
+	{
+		for (size_t i = 0; i < m_pTrianglesToDrawIndicesBuffer->vPosVector.size(); ++i)
+		{
+			sPosAndVertexIndex l_sPosAndVertexIndex;
+			l_sPosAndVertexIndex.iVertexIndex = (int)i;
+			l_sPosAndVertexIndex.vPos = m_pTrianglesToDrawIndicesBuffer->vPosVector[i];
+			l_Vector.push_back(l_sPosAndVertexIndex);
+		}
+	}
+	return l_Vector;
+}
+
 cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
 	m_pTrianglesToDrawIndicesBuffer = new sTrianglesToDrawIndicesBuffer();
@@ -183,6 +199,7 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 {
 	if (m_bWaitForGenerateTriangle)
 		return;
+	int l_iBeforeDeleteVertexIndex = -1;
 	m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
 	switch (m_ePointsToTriangulatorType)
 	{
@@ -190,15 +207,38 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 		PointsToTriangulatorAddMouseDown(e_iPosX, e_iPosY, eMB_UP);
 		break;
 	case ePTPT_DELETE:
+		//process vertex index before change
+		if (m_pTrianglesToDrawIndicesBuffer)
+		{
+			l_iBeforeDeleteVertexIndex = m_pTrianglesToDrawIndicesBuffer->GetVertexIndexByPos(Vector3((float)e_iPosX, (float)e_iPosY, 0));
+		}
 		PointsToTriangulatorDeleteMouseDown(e_iPosX, e_iPosY, eMB_UP);
+		//process index after change
 		break;
 	case ePTPT_MOVE:
 		PointsToTriangulatorMoveMouseDown(e_iPosX, e_iPosY, eMB_UP);
 		break;
 	}
+	m_BeforeAndAfterVertexIndexMap.clear();
 	if (m_iFocusPoint != -1 || m_ePointsToTriangulatorType == ePTPT_ADD)
 	{
+		std::vector<sPosAndVertexIndex>	l_BeforeDeleteVertex_PosAndVertexIndexVector;
+		std::vector<sPosAndVertexIndex>	l_AfterDeleteVertex_PosAndVertexIndexVector;
+		if (m_ePointsToTriangulatorType != ePTPT_MOVE)
+		{//reassign morphing animation vertex index
+			l_BeforeDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
+		}
 		SetLOD(this->m_iLOD, true);
+
+		if (m_ePointsToTriangulatorType != ePTPT_MOVE)
+		{//reassign morphing animation vertex index
+			l_AfterDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
+			for (auto l_Data : l_BeforeDeleteVertex_PosAndVertexIndexVector)
+			{
+				int l_iNewIndex = IsVectorContain(m_pTrianglesToDrawIndicesBuffer->vPosVector, l_Data.vPos);
+				m_BeforeAndAfterVertexIndexMap[l_Data.iVertexIndex] = l_iNewIndex;
+			}
+		}
 		m_bEdited = true;
 	}
 	m_iFocusPoint = -1;
@@ -347,6 +387,11 @@ std::string cPuzzleImageUnitTriangulator::GetInfo()
 	return l_strInfo;
 }
 
+bool cPuzzleImageUnitTriangulator::IsVertexIndexChanged()
+{
+	return m_BeforeAndAfterVertexIndexMap.size()?true:false;
+}
+
 bool cPuzzleImageUnitTriangulator::ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
 {
 	if(!m_pTrianglesToDrawIndicesBuffer)
@@ -395,9 +440,6 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 		}
 		if (m_pTrianglesToDrawIndicesBuffer)
 		{
-			auto l_pv = (Vector3*)&m_s2DVertex.vPosVector[0];
-			auto l_vPos3 = l_pv[3];
-			auto l_vPos4 = l_pv[4];
 			m_pTrianglesToDrawIndicesBuffer->ParseVertices((Vector3*)&m_s2DVertex.vPosVector[0], (Vector2*)&m_s2DVertex.vUVVector[0], (int)m_s2DVertex.vPosVector.size());
 		}
 		return true;

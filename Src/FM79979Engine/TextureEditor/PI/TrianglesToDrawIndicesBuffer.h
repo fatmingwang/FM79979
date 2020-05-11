@@ -1,6 +1,7 @@
 #pragma once
 
 
+int	IsVectorContain(std::vector<Vector3>&e_vVector, Vector3 e_Value);
 
 struct sTrianglesToDrawIndicesBuffer
 {
@@ -8,6 +9,7 @@ struct sTrianglesToDrawIndicesBuffer
 	std::vector<Vector3>	vPosVector;
 	std::vector<Vector2>	vUVVector;
 	std::vector<int>		vIndexVector;
+	int						GetVertexIndexByPos(Vector3 e_vPos);
 	sTrianglesToDrawIndicesBuffer();
 	//sTrianglesToDrawIndicesBuffer(Vector3*e_pTriangleVertices,Vector2*e_vUVVector,int e_iNumPoints);
 	//~sTrianglesToDrawIndicesBuffer();
@@ -26,6 +28,23 @@ struct sTrianglesToDrawIndicesBuffer
 		std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector);
 
 };
-int	IsVectorContain(std::vector<Vector3>&e_vVector,Vector3 e_Value);
+
+
+
+class cMorphingAnimation:public NamedTypedObject
+{
+	sTrianglesToDrawIndicesBuffer*m_pTarget;
+	//
+	struct sMorphingData
+	{
+		int iVertexIndex;
+		Vector3 vPos;
+	};
+	std::map<float, std::vector<sMorphingData>>	m_TimeAndVertexPosVectorData;
+	//if user add or delete triangle vertices,the index could be changed,so here need to reassign vertex index again
+	void	ReassignVertexIndexData(int e_iOldVertexIndex, int e_iNewVertexIndex);
+	void	DeleteVertexIndexData(int e_iVertexIndex);
+};
+
 
 //do export all triangles and uv and index buffer.

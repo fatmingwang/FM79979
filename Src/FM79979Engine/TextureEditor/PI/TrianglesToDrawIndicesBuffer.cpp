@@ -7,6 +7,19 @@ extern cGlyphFontRender*g_pDebugFont;
 //
 //}
 
+int sTrianglesToDrawIndicesBuffer::GetVertexIndexByPos(Vector3 e_vPos)
+{
+	for (int i = 0; i < (int)vPosVector.size(); ++i)
+	{
+		auto l_vPos = vPosVector[i];
+		if (l_vPos.x == e_vPos.x &&l_vPos.y == e_vPos.y &&l_vPos.z == e_vPos.z)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 sTrianglesToDrawIndicesBuffer::sTrianglesToDrawIndicesBuffer()
 {
 	//if (e_pPuzzleImageUnitTriangulator->m_s2DVertex.vPosVector.size())
