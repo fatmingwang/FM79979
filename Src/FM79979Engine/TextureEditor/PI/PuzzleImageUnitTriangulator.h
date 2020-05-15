@@ -24,6 +24,7 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 {
 	friend class cPuzzleImageUnitTriangulatorManager;
 	friend struct sTrianglesToDrawIndicesBuffer;
+	class cEditor_MorphingAnimation*	m_pEditor_MorphingAnimation;
 	sTrianglesToDrawIndicesBuffer*		m_pTrianglesToDrawIndicesBuffer;
 	bool	m_bEdited;
 	struct s2DVertex
@@ -75,6 +76,8 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	//old and new index,for add or delete triangle vertices's effect
 	std::map<int, int>				m_BeforeAndAfterVertexIndexMap;
 	std::vector<sPosAndVertexIndex>	GetPosAndVertexIndexVector();
+	//
+	int								m_iAnimationEditSelectedVertexIndex;
 public:
 	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
@@ -82,6 +85,16 @@ public:
 	void    						MouseDown(int e_iPosX, int e_iPosY);
 	void    						MouseMove(int e_iPosX, int e_iPosY);
 	void    						MouseUp(int e_iPosX, int e_iPosY);
+	//
+	void							MorphingEditUpdateanimationByBlobalTime(float e_fTargetTime);
+	void    						MorphingEditMouseDown(int e_iPosX, int e_iPosY);
+	void    						MorphingEditMouseMove(int e_iPosX, int e_iPosY);
+	void    						MorphingEditMouseUp(int e_iPosX, int e_iPosY);
+	void							MorphingEditAddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
+	bool							MorphingEditDeleteData(int e_iVertexIndex, float   e_fTime);
+	bool							MorphingEditChangeData(int e_iVertexIndex, int e_iDataIndex, Vector3 e_vPos, float   e_fTime);
+	bool							MorphingEditApplyData();
+	//
 	void							Render();
 	void							RenderPointsShapeLine();
 	void							RenderTriangleImage(Vector3 e_vPos);

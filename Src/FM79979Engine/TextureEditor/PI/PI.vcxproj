@@ -149,6 +149,7 @@
     <ClCompile Include="AssemblyInfo.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
     </ClCompile>
+    <ClCompile Include="MorphingAnimation.cpp" />
     <ClCompile Include="pack.cpp" />
     <ClCompile Include="PI.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</CompileAsManaged>
@@ -169,6 +170,7 @@
     <ClInclude Include="delaunay_triangulation\edge.h" />
     <ClInclude Include="delaunay_triangulation\numeric.h" />
     <ClInclude Include="delaunay_triangulation\triangle.h" />
+    <ClInclude Include="MorphingAnimation.h" />
     <ClInclude Include="pack.h" />
     <ClInclude Include="PIForm.h">
       <FileType>CppForm</FileType>

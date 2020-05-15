@@ -981,6 +981,1446 @@ namespace PI
 		return l_iDelte;
 	}
 
+	System::Void cPIEditor::AllImage_listBox_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+		if (AllImage_listBox->SelectedIndex != -1)
+		{
+			if (e->KeyCode == Keys::Delete)
+			{
+				if (m_pImageomposerIRM->Count())
+				{
+					m_pImageomposerIRM->RemoveObject(AllImage_listBox->SelectedIndex);
+					m_ImageTale->Remove(AllImage_listBox->SelectedItem->ToString());
+					AllImage_listBox->Items->RemoveAt(AllImage_listBox->SelectedIndex);
+					ImageDetail_textBox->Text = GetTotalPixelExisted();
+				}
+			}
+		}
+	}
+	System::Void cPIEditor::DeleteImage_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (sender == DeleteImage_button)
+		{
+			this->timer1->Enabled = false;
+			std::list<int>	l_iErseIndexList;
+			System::Collections::ArrayList^	l_MyList = gcnew System::Collections::ArrayList;
+			l_MyList->AddRange(AllImage_listBox->SelectedItems);
+			for each (System::Object^l_pObject in l_MyList)
+				l_iErseIndexList.push_back(AllImage_listBox->Items->IndexOf(l_pObject));
+			if (l_MyList->Count)
+				m_iCurrentSelectedObjectIndex = -1;
+			for each (System::Object^l_pObject in l_MyList)
+			{
+				int	l_iIndex = AllImage_listBox->Items->IndexOf(l_pObject);
+				AllImage_listBox->Items->Remove(l_pObject);
+				NamedTypedObject*l_pNamedTypedObject = m_pImageomposerIRM->GetObject(DNCT::GcStringToWchar(l_pObject->ToString()));
+				if (l_pNamedTypedObject->GetOwner())
+					m_ImageTale->Remove(l_pObject->ToString());
+
+				for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
+				{
+					cUIImage*l_pUIImage2 = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+					if (l_pUIImage2->m_pEditorAttachParent == l_pNamedTypedObject)
+					{
+						int	l_iIndex = AllImage_listBox->Items->IndexOf(DNCT::WcharToGcstring(l_pUIImage2->GetName()));
+						AllImage_listBox->Items->RemoveAt(l_iIndex);
+						m_pImageomposerIRM->RemoveObject(l_pUIImage2->GetName());
+						--i;
+					}
+				}
+				if (m_pPuzzleImageUnitTriangulatorManager)
+					m_pPuzzleImageUnitTriangulatorManager->RemoveObject(dynamic_cast<cUIImage*>(l_pNamedTypedObject));
+				m_pImageomposerIRM->RemoveObject(DNCT::GcStringToWchar(l_pObject->ToString()));
+			}
+			if (m_pImageomposerIRM->Count() != AllImage_listBox->Items->Count)
+				UT::ErrorMsg(L"delete image error occur!!!", L"call fatming");
+			this->timer1->Enabled = true;
+		}
+		else
+		{
+			cli::array<String^>^l_pImageNameList;
+			if (addImagesByFolderToolStripMenuItem->Checked)
+			{
+				System::String^l_strDirectoryName = DNCT::SelectDirectory();
+				if (l_strDirectoryName)
+				{
+					System::Collections::ArrayList^l_pArrayList = gcnew System::Collections::ArrayList;
+					GetFilesNameByRecursivelyDirectory(l_strDirectoryName, l_pArrayList, ".png");
+					if (l_pArrayList->Count)
+					{
+						l_pImageNameList = gcnew cli::array<String^>(l_pArrayList->Count);
+						l_pArrayList->CopyTo(l_pImageNameList);
+					}
+				}
+			}
+			else
+			{
+				l_pImageNameList = DNCT::OpenFileAndGetNames("image Files(*.png;*.bmp;*.jpg;*.dds)|*.png;*.bmp;*.jpg;*.dds|All files (*.*)|*.*");
+			}
+			if (!l_pImageNameList)
+				return;
+			this->timer1->Enabled = false;
+			for each(String^l_strFileName in l_pImageNameList)
+			{
+				String^l_strFileNameWithoutDirectory = DNCT::GetFileNameWithoutFullPath(l_strFileName, true);
+				bool	l_bAlpha = false;
+				if (l_strFileName->Contains(".png") || l_strFileName->Contains(".PNG"))
+					l_bAlpha = true;
+				int l_iOriginalIndex = -1;
+				if (DNCT::CheckListContainStringAndAdd(AllImage_listBox, l_strFileNameWithoutDirectory))
+				{
+					WARING_YES_NO_TO_NO(l_strFileNameWithoutDirectory + "object name already exists,would u like to replace?" + DNCT::GetChanglineString() + "該物件名稱已存在,要覆蓋嗎?")
+						continue;
+					//remove old data
+					m_ImageTale->Remove(l_strFileNameWithoutDirectory);
+					l_iOriginalIndex = m_pImageomposerIRM->GetObjectIndexByName(DNCT::GcStringToWchar(l_strFileNameWithoutDirectory).c_str());
+					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(DNCT::GcStringToWchar(l_strFileNameWithoutDirectory)));
+					SAFE_DELETE(l_pUIImage);
+				}
+				try
+				{
+					//System::Diagnostics::Stopwatch^ sw = gcnew System::Diagnostics::Stopwatch();
+					//sw->Start();
+					System::Drawing::Bitmap^l_pImage;
+					cUIImage*l_pUIImage = 0;
+					bool	l_bUsingDDS = false;
+					if (l_bUsingDDS)
+					{
+						l_pImage = DNCT::OpenImageFile(l_strFileName, &l_pUIImage);
+					}
+					else
+					{
+						l_pImage = DNCT::OpenImageFile(l_strFileName);
+					}
+
+
+
+					m_ImageTale[l_strFileNameWithoutDirectory] = l_pImage;
+					std::wstring l_strWcharFileName = DNCT::GcStringToWchar(l_strFileName);
+					std::wstring l_strwstringFileName = UT::GetFileNameWithoutFullPath(l_strWcharFileName.c_str());
+					if (!l_pUIImage)
+						l_pUIImage = GetNewUIImageByBitMap(l_pImage, l_strwstringFileName.c_str());
+
+					//POINT	l_WidthHeight = { *l_pUIImage->GetWidth()-1,*l_pUIImage->GetHeight()-1 };
+					//l_pUIImage->SetRightDownStripOffPos(l_WidthHeight);
+					//sw->Stop();
+					if (l_iOriginalIndex != -1)
+						(*m_pImageomposerIRM->GetList())[l_iOriginalIndex] = l_pUIImage;
+					else
+						m_pImageomposerIRM->AddObject(l_pUIImage);
+				}
+				catch (System::Exception^l_pException)
+				{
+					WARNING_MSG("doesn't support such file" + l_strFileName + DNCT::GetChanglineString() + l_pException->ToString());
+					AllImage_listBox->Items->Remove(l_strFileNameWithoutDirectory);
+				}
+			}
+			this->timer1->Enabled = true;
+		}
+		ImageDetail_textBox->Text = GetTotalPixelExisted();
+	}
+	System::Void cPIEditor::timer1_Tick(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (this->menuStrip1->Visible == false)
+			this->menuStrip1->Visible = true;
+		if (!this->Visible)
+		{
+			::Threading::Thread::Sleep(100);
+		}
+		//wglMakeCurrent(nullptr,nullptr);
+		wglMakeCurrent(m_HdcMV, m_HGLRCMV);
+		static	float	l_sfTime = 0;
+		l_sfTime += 0.01f;
+		if (l_sfTime > 1.f)
+			l_sfTime = 0.f;
+		DEFAULT_SHADER = L"ICPathShader";
+		NO_TEXTURE_SHADER = L"IC_NoTextureShader";
+		UseShaderProgram();
+		m_pTimeAndFPS->Update();
+		float	l_fElpaseTime = m_pTimeAndFPS->fElpaseTime;
+		glViewport(0, 0, splitContainer2->Panel1->Width, splitContainer2->Panel1->Height);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(m_pvBGColor->x, m_pvBGColor->y, m_pvBGColor->z, m_pvBGColor->w);
+		glClearDepth(1.0f);									// Depth Buffer Setup
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
+		cGameApp::ApplyViewPort();
+		if (tabControl1->SelectedIndex == 2)
+		{
+			m_pOrthogonalCameraForTrianhulatorPIUnit->Render();
+			m_pOrthogonalCameraForTrianhulatorPIUnit->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
+			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
+			}
+		}
+		else
+		{
+			m_pOrthogonalCamera->Render();
+			m_pOrthogonalCamera->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
+			glEnable(GL_ALPHA_TEST);
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			//glEnable(GL_TEXTURE_2D);
+			for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
+			{
+				cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+				if (!l_p->m_pEditorAttachParent)
+					l_p->Render();
+			}
+			glDisable(GL_TEXTURE_2D);
+			int	l_iRectWidth = 0;
+			int	l_iRectHeight = 0;
+			if (AllShowBoundry_checkBox->Checked)
+			{
+				int	l_iNum = m_pImageomposerIRM->Count();
+				for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
+				{
+					cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+					//Vector4	l_vColor(0.5, 0.5, 0.5, 1.0);
+					Vector4	l_vColor(1.5, 1.5, 1.5, 1.0);
+					//Vector4	l_vColor(0, 0, 0, 1);
+					//l_vColor.x = 1.f / ((i % 3) + 1);
+					//l_vColor.y = 0.5f;
+					//l_vColor.z = 1.f / ((l_iNum % (i + 1)) + 1);
+					//l_vColor.w = 1;
+					Vector3	l_vPos = l_p->GetPos();
+					//+1 for offset start at 0,0
+					l_iRectWidth = l_p->GetRightDownStripOffPos().x - l_p->GetOffsetPos()->x + 1;
+					l_iRectHeight = l_p->GetRightDownStripOffPos().y - l_p->GetOffsetPos()->y + 1;
+					l_vPos.x += l_p->GetOffsetPos()->x;
+					l_vPos.y += l_p->GetOffsetPos()->y;
+					POINT	l_Pos = { (int)l_vPos.x,(int)l_vPos.y };
+					//+1 for 0,0 start offset
+					RenderRectangle(l_Pos, l_iRectWidth, l_iRectHeight, l_vColor, 0, 1);
+					//l_p->DebugRender();
+				}
+			}
+			if (ShowTriangulaotrPoints_checkBox->Checked && m_pPuzzleImageUnitTriangulatorManager)
+			{
+				this->m_pPuzzleImageUnitTriangulatorManager->RenderPointsShapeLine();
+			}
+			if (AllImage_listBox->Items->Count&&m_iCurrentSelectedObjectIndex != -1)
+			{
+				if (ShowBoundary_checkBox->Checked)
+				{
+					static Vector4 l_vColor(0, 0, 0, 1);
+					l_vColor.x = l_sfTime;
+					l_vColor.y -= l_sfTime;
+					l_vColor.z = l_sfTime;
+					l_vColor.w = l_sfTime;
+					if (l_vColor.x >= 1.f)
+						l_vColor.x = 1.f;
+					if (l_vColor.y <= 0)
+						l_vColor.y = 0;
+					if (m_iCurrentSelectedObjectIndex >= m_pImageomposerIRM->Count())
+						m_iCurrentSelectedObjectIndex = m_pImageomposerIRM->Count() - 1;
+					if (m_pImageomposerIRM->Count() > -1)
+					{
+						cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+						Vector4	l_vOriginalColor = *l_p->GetColor();
+						l_p->SetColor(l_vColor);
+						l_p->Render();
+						l_p->SetColor(l_vOriginalColor);
+						Vector3	l_vPos = l_p->GetPos();
+						//+1 for offset start at 0,0
+						l_iRectWidth = l_p->GetRightDownStripOffPos().x - l_p->GetOffsetPos()->x + 1;
+						l_iRectHeight = l_p->GetRightDownStripOffPos().y - l_p->GetOffsetPos()->y + 1;
+						l_vPos.x += l_p->GetOffsetPos()->x;
+						l_vPos.y += l_p->GetOffsetPos()->y;
+						POINT	l_Pos = { (int)l_vPos.x,(int)l_vPos.y };
+						//+1 for 0,0 start offset
+						RenderRectangle(l_Pos, l_iRectWidth, l_iRectHeight, l_vColor, 0, 1);
+					}
+				}
+			}
+			if (tabControl1->SelectedIndex != 2)
+			{
+				//for final image size
+				POINT	l_Pos = { 0,0 };
+				RenderRectangle(l_Pos, (int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, Vector4(1.f, 0.3f, 0.3f, 0.3f));
+			}
+			if (this->MouseControlMode_comboBox->SelectedIndex == 1)
+			{
+				m_pOrthogonalCamera->SetDrawSelectFrame(true);
+				m_pOrthogonalCamera->DrawSelectFrame();
+			}
+			else
+				m_pOrthogonalCamera->SetDrawSelectFrame(true);
+			if (m_pDebugFont)
+			{
+				UseShaderProgram();
+				glEnable2D(1280, 720);
+				POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+				std::wstring l_strMousePos = DNCT::GcStringToWchar(ptCursor.x.ToString() + "," + ptCursor.y.ToString());
+				m_pDebugFont->RenderFont(0, 0, l_strMousePos.c_str());
+				glDisable(GL_TEXTURE_2D);
+			}
+			glDisable(GL_ALPHA_TEST);
+		}
+		//GLRender::glDisable2D();
+		glFlush();
+		SwapBuffers(m_HdcMV);
+	}
+	System::Void cPIEditor::AutoOrderPosition_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		int	l_iPixelXGap = (int)ImageDistanceX_numericUpDown->Value;
+		int	l_iPixelYGap = (int)ImageDistanceY_numericUpDown->Value;
+		if (!AutoAligment_checkBox->Checked)
+		{
+			//old method
+			int	l_iCurrentX = 0;
+			int	l_iCurrentY = 0;
+			int	l_iMaxX = (int)ImageWidth_numericUpDown->Value;
+			//the max height in current row
+			int	l_iYLastBigPos = 0;
+			if (!m_pImageomposerIRM->Count())
+				return;
+			//so to fix UV problem,1 pixle problem
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(0));
+			POINT	l_Pos = { -l_pUIImage->GetOffsetPos()->x,-l_pUIImage->GetOffsetPos()->y };
+			l_pUIImage->SetPos(l_Pos);
+			//+1 for start offset(0,0)
+			l_iCurrentX = l_pUIImage->GetRightDownStripOffPos().x - l_pUIImage->GetOffsetPos()->x + 1;
+			l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y - l_pUIImage->GetOffsetPos()->y + 1;
+			//if(OnePixelDistance_checkBox->Checked)
+			{
+				l_iYLastBigPos += l_iPixelYGap;
+				l_iCurrentX += l_iPixelXGap;
+			}
+			for (int i = 1; i < m_pImageomposerIRM->Count(); ++i)
+			{
+				l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+				if (l_pUIImage->m_pEditorAttachParent)
+					continue;
+				//this length has pixels,offset+width-rightdown pos,add 1 for avoid same image at same pixel
+				//+1 for offset start at 0,0
+				int	l_iXLengthForPixels = l_pUIImage->GetRightDownStripOffPos().x - l_pUIImage->GetOffsetPos()->x + 1;
+				//if(OnePixelDistance_checkBox->Checked)
+				l_iXLengthForPixels += l_iPixelXGap;
+				l_iCurrentX += (l_iXLengthForPixels);
+				//the y pixel we do not need
+				//+1 for offset start at 0,0
+				int	l_iGarbagePixelY = l_pUIImage->GetRightDownStripOffPos().y - l_pUIImage->GetOffsetPos()->y + 1;
+				l_iGarbagePixelY += l_iPixelXGap;
+				if (l_iCurrentX > l_iMaxX)
+				{
+					//for next start not object position
+					l_iCurrentX = l_iXLengthForPixels;//-l_pUIImage->GetOffsetPos()->x;
+					l_iCurrentY += l_iYLastBigPos;
+					//+1 for offset start at 0,0
+					l_iYLastBigPos = l_pUIImage->GetRightDownStripOffPos().y - l_pUIImage->GetOffsetPos()->y + 1;
+					//if(OnePixelDistance_checkBox->Checked)
+					l_iYLastBigPos += l_iPixelYGap;
+					//set object position x to offset pos,because it's changing to next line
+					//
+					l_Pos.x = -l_pUIImage->GetOffsetPos()->x;
+					l_Pos.y = l_iCurrentY - l_pUIImage->GetOffsetPos()->y;
+					l_pUIImage->SetPos(l_Pos);
+					continue;
+				}
+				if (l_iYLastBigPos < l_iGarbagePixelY)
+					l_iYLastBigPos = l_iGarbagePixelY;
+				//although we know the position we wanted,we still have to minus the offset position to position
+				l_Pos.x = l_iCurrentX - (l_iXLengthForPixels)-l_pUIImage->GetOffsetPos()->x;
+				l_Pos.y = l_iCurrentY - l_pUIImage->GetOffsetPos()->y;
+				l_pUIImage->SetPos(l_Pos);
+			}
+		}
+		else
+		{
+			int l_iImageCount = m_pImageomposerIRM->Count();
+			// Create some 'content' to work on.
+			BinPack2D::ContentAccumulator<cUIImage*> inputContent;
+			for (int i = 0; i < l_iImageCount; i++)
+			{
+				auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+				if (l_pUIImage->m_pEditorAttachParent)
+					continue;
+				//inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_pUIImage->GetWidth()+l_iPixelXGap,l_pUIImage->GetHeight()+l_iPixelYGap), false );
+				POINT l_LeftUpPos = *l_pUIImage->GetOffsetPos();
+				POINT l_RightDownPos = l_pUIImage->GetRightDownStripOffPos();
+				POINT l_Size = { l_RightDownPos.x - l_LeftUpPos.x,l_RightDownPos.y - l_LeftUpPos.y };
+				inputContent += BinPack2D::Content<cUIImage*>(l_pUIImage, BinPack2D::Coord(), BinPack2D::Size(l_Size.x + l_iPixelXGap, l_Size.y + l_iPixelYGap), false);
+			}
+
+			// Sort the input content by size... usually packs better.
+			inputContent.Sort();
+
+			// Create some bins! ( 2 bins, 128x128 in this example )
+			BinPack2D::CanvasArray<cUIImage*> canvasArray = BinPack2D::UniformCanvasArrayBuilder<cUIImage*>((int)ImageWidth_numericUpDown->Value, (int)ImageHeight_numericUpDown->Value, 2).Build();
+
+			// A place to store content that didnt fit into the canvas array.
+			BinPack2D::ContentAccumulator<cUIImage*> remainder;
+
+			// try to pack content into the bins.
+			bool success = canvasArray.Place(inputContent, remainder);
+
+			// A place to store packed content.
+			BinPack2D::ContentAccumulator<cUIImage*> outputContent;
+
+			// Read all placed content.
+			canvasArray.CollectContent(outputContent);
+
+			// parse output.
+			typedef BinPack2D::Content<cUIImage*>::Vector::iterator binpack2d_iterator;
+			//printf("PLACED:\n");
+			if (remainder.Get().size() == 0)
+			{
+				for (binpack2d_iterator itor = outputContent.Get().begin(); itor != outputContent.Get().end(); itor++)
+				{
+
+					const BinPack2D::Content<cUIImage*> &content = *itor;
+					// retreive your data.
+					auto myContent = content.content;
+					myContent->SetPos(Vector3((float)content.coord.x - myContent->GetOffsetPos()->x, (float)content.coord.y - myContent->GetOffsetPos()->y, 0));
+
+					//printf("\t%9s of size %3dx%3d at position %3d,%3d,%2d rotated=%s\n",
+					//   myContent.str.c_str(), 
+					//   content.size.w, 
+					//   content.size.h, 
+					//   content.coord.x, 
+					//   content.coord.y, 
+					//   content.coord.z, 
+					//   (content.rotated ? "yes":" no"));
+				}
+				if (IsObjectOverlap(m_pImageomposerIRM))
+				{
+					WARNING_MSG("texture is too small");
+				}
+			}
+			else
+			{
+				WARNING_MSG("texture is too small");
+				return;
+			}
+			// printf("NOT PLACED:\n");
+			// for( binpack2d_iterator itor = remainder.Get().begin(); itor != remainder.Get().end(); itor++ ) {
+
+			   //const BinPack2D::Content<NamedTypedObject*> &content = *itor;
+
+			   //const NamedTypedObject* &myContent = content.content;
+
+			   //printf("\t%9s of size %3dx%3d\n",
+			   //   myContent.str.c_str(), 
+			   //   content.size.w, 
+			   //   content.size.h);
+			// }
+
+
+		   //if( !m_pImageomposerIRM->Count() )
+		   //	return;
+		   //rect_xywhf* l_pRects = new rect_xywhf[m_pImageomposerIRM->Count()];
+		   //if( m_pImageomposerIRM->Count() >= 1000 )
+		   //{
+		   //	WARNING_MSG("too many images,please call fatming to make image over 10000");
+		   //	return;
+		   //}
+		   //rect_xywhf *l_ptr_rects[1000];
+		   //for(int i = 0; i < m_pImageomposerIRM->Count(); ++i) {
+		   //	auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+		   //	l_pRects[i] = rect_xywhf(0, 0, l_pUIImage->GetWidth()+l_iPixelXGap,l_pUIImage->GetHeight()+l_iPixelYGap,i);
+		   //	l_ptr_rects[i] = l_pRects+i;
+		   //}
+
+		   //vector<bin> bins;
+		   //int l_MaxSize = max((int)ImageHeight_numericUpDown->Value,(int)ImageWidth_numericUpDown->Value);
+		   //for(int i=0;i<100;++i)
+		   //{
+		   //	int l_iMax = 100*i;
+		   //	if(pack(l_ptr_rects, m_pImageomposerIRM->Count(), l_iMax, bins))
+		   //	{
+		   //		if( bins.size() == 1 )
+		   //		{
+		   //			for( int j=0;j<(int)bins[0].rects.size();++j )
+		   //			{
+		   //				int l_iIndex = bins[0].rects[j]->iImageIndex;
+		   //				auto l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iIndex));
+		   //				l_pUIImage->SetPos(Vector3(bins[0].rects[j]->x-l_pUIImage->GetOffsetPos()->x,bins[0].rects[j]->y-l_pUIImage->GetOffsetPos()->y,0));
+		   //				cGameApp::OutputDebugInfoString(UT::ComposeMsgByFormat("%d:firsy:%d,%d,second:",l_iIndex,bins[0].rects[j]->w,bins[0].rects[j]->h,l_pUIImage->GetWidth(),l_pUIImage->GetHeight()));
+		   //				int a=0;
+		   //			}
+		   //			break;
+		   //		}
+		   //		else
+		   //		{
+		   //			bins.clear();
+		   //			//WARNING_MSG("please adjust texture size");
+		   //		}
+		   //	}
+		   //}
+		   //SAFE_DELETE(l_pRects);
+		}
+		AttachObjectPosAdjust();
+	}
+	System::Void cPIEditor::AllImage_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (AllImage_listBox->SelectedIndex != -1)
+		{
+			m_iCurrentSelectedObjectIndex = AllImage_listBox->SelectedIndex;
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+			if (l_pUIImage && m_pPuzzleImageUnitTriangulatorManager)
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
+				if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
+				{
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+					ImageTriangulatorLOD_numericUpDown->Value = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD();
+				}
+			}
+			NewPIUnitName_textBox->Text = DNCT::WcharToGcstring(l_pUIImage->GetName());
+			//+1 for offset start at 0,0
+			POINT	l_ImageSize = l_pUIImage->GetImageRealSize();
+			ImageDetail_textBox->Text = "X:" + l_pUIImage->GetPos().x.ToString() + "Y:" + l_pUIImage->GetPos().y.ToString() + DNCT::GetChanglineString() +
+				"Size:" + l_ImageSize.x.ToString() + "," + l_ImageSize.y.ToString() + DNCT::GetChanglineString() +
+				"OffsetPos:" + l_pUIImage->GetOffsetPos()->x.ToString() + "," + l_pUIImage->GetOffsetPos()->y.ToString() +
+				GetTotalPixelExisted();
+			if (l_pUIImage->m_pEditorAttachParent)
+			{
+				ImageDetail_textBox->Text += DNCT::GetChanglineString() + "AttachedPIUnit!!!";
+				m_bAvoidDataAssignForPIUintChild = true;
+				NewPIUnitStartX_numericUpDown->Value = (System::Decimal)l_pUIImage->GetPos().x;
+				NewPIUnitStartY_numericUpDown->Value = (System::Decimal)l_pUIImage->GetPos().y;
+				NewPIUnitEndX_numericUpDown->Value = (System::Decimal)(l_pUIImage->GetPos().x + l_pUIImage->GetRightDownStripOffPos().x);
+				NewPIUnitEndY_numericUpDown->Value = (System::Decimal)(l_pUIImage->GetPos().y + l_pUIImage->GetRightDownStripOffPos().y);
+				m_bAvoidDataAssignForPIUintChild = false;
+			}
+		}
+	}
+	System::Void cPIEditor::button2_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		int	l_iSelectIndex = AllImage_listBox->SelectedIndex;
+		if (l_iSelectIndex == -1)
+			return;
+		std::list<int>	l_iAllSelectedIndex;
+		bool	l_bContainTop = false;
+		bool	l_bContainDown = false;
+		for each(int l_iIndex in AllImage_listBox->SelectedIndices)
+			l_iAllSelectedIndex.push_back(l_iIndex);
+		l_iAllSelectedIndex.sort();
+		AllImage_listBox->SelectedIndices->Clear();
+		if (sender == ImageObjectDown_button)
+		{
+			while (l_iAllSelectedIndex.size())
+			{
+				int	l_iIndex = l_iAllSelectedIndex.back();
+				l_iAllSelectedIndex.pop_back();
+				//it's bottom
+				if (l_iIndex >= AllImage_listBox->Items->Count - 1)
+				{
+					WARNING_MSG("buttom one can't be down any more");
+					goto ADJUST_IMAG_POS;
+				}
+				cUIImage*	l_pUIImage = m_pImageomposerIRM->GetUIImage(l_iIndex);
+				m_pImageomposerIRM->RemoveObjectWithoutDelete(l_iIndex);
+				m_pImageomposerIRM->GetList()->insert(m_pImageomposerIRM->GetList()->begin() + (l_iIndex + 1), l_pUIImage);
+				DNCT::SwapListBoxValue(l_iIndex, l_iIndex + 1, AllImage_listBox);
+				AllImage_listBox->SelectedIndices->Add(l_iIndex + 1);
+			}
+		}
+		else
+		{
+			//it's top
+			while (l_iAllSelectedIndex.size())
+			{
+				int	l_iIndex = l_iAllSelectedIndex.front();
+				l_iAllSelectedIndex.pop_front();
+				//it's top
+				if (l_iIndex == 0)
+				{
+					WARNING_MSG("top one can't be up any more");
+					goto ADJUST_IMAG_POS;
+				}
+				cUIImage*	l_pUIImage = m_pImageomposerIRM->GetUIImage(l_iIndex);
+				m_pImageomposerIRM->RemoveObjectWithoutDelete(l_iIndex);
+				m_pImageomposerIRM->GetList()->insert(m_pImageomposerIRM->GetList()->begin() + (l_iIndex - 1), l_pUIImage);
+				DNCT::SwapListBoxValue(l_iIndex, l_iIndex - 1, AllImage_listBox);
+				AllImage_listBox->SelectedIndices->Add(l_iIndex - 1);
+			}
+		}
+	ADJUST_IMAG_POS:
+		AutoOrderPosition_button_Click(sender, e);
+		if (AllImage_listBox->SelectedIndex != -1)
+		{
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(AllImage_listBox->SelectedIndex));
+			POINT	l_ImageSize = { l_pUIImage->GetRightDownStripOffPos().x - l_pUIImage->GetOffsetPos()->x + 1,
+				l_pUIImage->GetRightDownStripOffPos().y - l_pUIImage->GetOffsetPos()->y + 1 };
+			Vector3	l_vImagePos = l_pUIImage->GetPos();
+			POINT	l_ImagePos = { (int)l_vImagePos.x,(int)l_vImagePos.y };
+			ImageDetail_textBox->Text = "X:" + l_ImagePos.x.ToString() + "Y:" + l_ImagePos.y.ToString() + DNCT::GetChanglineString() +
+				"Size:" + l_ImageSize.x.ToString() + "," + l_ImageSize.y.ToString() + DNCT::GetChanglineString() +
+				"OffsetPos:" + l_pUIImage->GetOffsetPos()->x.ToString() + "," + l_pUIImage->GetOffsetPos()->y.ToString() +
+				GetTotalPixelExisted();
+		}
+	}
+			 //unform
+	System::Void cPIEditor::tabControl_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (this->Visible)
+		{
+			timer1->Enabled = true;
+			wglMakeCurrent(m_HdcMV, m_HGLRCMV);
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)splitContainer2->Panel1->Width;
+			cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)splitContainer2->Panel1->Height;
+			cGameApp::ApplyViewPort();
+		}
+		else
+		{
+			timer1->Enabled = false;
+
+		}
+	}
+	System::Void cPIEditor::MyMouseMove(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		if (!timer1->Enabled)
+			return;
+		GCFORM::MouseButtons l_MouseButton = e->Button;
+		auto l_iDelte = GetMouseWheelDelta(e);
+		if (tabControl1->SelectedIndex == 2)
+		{
+			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
+			}
+		}
+		else
+		{
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			if (this->MouseControlMode_comboBox->SelectedIndex == 0)
+			{
+				POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+				MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+				ptCursor.x = e->X; ptCursor.y = e->Y;
+				//HWND	l_Hwnd = WindowFromPoint(ptCursor);
+				if (this->m_pPuzzleImageUnitTriangulatorManager)
+				{
+					m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+				}
+			}
+		}
+	}
+	System::Void cPIEditor::MyMouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		if (!timer1->Enabled)
+			return;
+		splitContainer2->Panel1->Focus();
+		GCFORM::MouseButtons l_MouseButton = e->Button;
+		auto l_iDelte = GetMouseWheelDelta(e);
+		if (tabControl1->SelectedIndex == 2)
+		{
+			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseDown(ptCursor.x, ptCursor.y);
+			}
+		}
+		else
+		{
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			if (this->MouseControlMode_comboBox->SelectedIndex == 0)
+			{
+				if (this->Visible)
+					MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+			}
+			else
+			{
+				POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+				NewPIUnitStartX_numericUpDown->Value = ptCursor.x;
+				NewPIUnitStartY_numericUpDown->Value = ptCursor.y;
+			}
+		}
+	}
+	System::Void cPIEditor::MyMouseUp(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		if (!timer1->Enabled)
+			return;
+		GCFORM::MouseButtons l_MouseButton = e->Button;
+		auto l_iDelte = GetMouseWheelDelta(e);
+		if (tabControl1->SelectedIndex == 2)
+		{
+			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
+			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
+				ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+			}
+		}
+		else
+		{
+			m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
+				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			if (this->MouseControlMode_comboBox->SelectedIndex == 0)
+			{
+				if (this->Visible)
+					MouseCollideForPickUpObject(e, splitContainer2->Panel1);
+			}
+			else
+			{
+				POINT	ptCursor = { (int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y };
+				if (ptCursor.x < 0)
+					ptCursor.x = 0;
+				if (ptCursor.y < 0)
+					ptCursor.y = 0;
+				NewPIUnitEndX_numericUpDown->Value = ptCursor.x;
+				NewPIUnitEndY_numericUpDown->Value = ptCursor.y;
+			}
+		}
+	}
+	System::Void cPIEditor::MyMouseHover(System::Object^  sender, System::EventArgs^  e) {
+		if (!timer1->Enabled)
+			return;
+	}
+	System::Void cPIEditor::MyKeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+		if (!timer1->Enabled)
+			return;
+	}
+	System::Void cPIEditor::MyKeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+		if (e->KeyCode == Keys::Add)
+		{
+			m_pOrthogonalCamera->SetScale(m_pOrthogonalCamera->GetScale() - 0.1f);
+		}
+		else
+			if (e->KeyCode == Keys::Subtract)
+			{
+				m_pOrthogonalCamera->SetScale(m_pOrthogonalCamera->GetScale() + 0.1f);
+			}
+		if (m_iCurrentSelectedObjectIndex != -1)
+		{
+			cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+			Vector3	l_Pos = l_p->GetPos();
+			if (e->KeyCode == Keys::Right)
+				l_Pos.x += 1;
+			if (e->KeyCode == Keys::Left)
+				l_Pos.x -= 1;
+			if (e->KeyCode == Keys::Up)
+				l_Pos.y -= 1;
+			if (e->KeyCode == Keys::Down)
+				l_Pos.y += 1;
+			l_p->SetPos(l_Pos);
+			AttachObjectPosAdjust();
+		}
+		//if(!timer1->Enabled)
+		//	return;
+	}
+	System::Void cPIEditor::MyKeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+		if (e->KeyCode == Keys::R)
+			m_pOrthogonalCamera->Reset();
+		//if(e->KeyCode == Keys::C)
+		//{
+		//	char l_strFileName[2048];
+		//   SYSTEMTIME l_SYSTEMTIME;
+		//   GetSystemTime(&l_SYSTEMTIME);
+		//   sprintf(l_strFileName,"%d%d%d%d%d%d.bmp",l_SYSTEMTIME.wYear,l_SYSTEMTIME.wMonth,l_SYSTEMTIME.wDay,l_SYSTEMTIME.wHour,l_SYSTEMTIME.wMinute,l_SYSTEMTIME.wSecond);
+		//   SaveCurrentBufferToImage(l_strFileName,(int)DRAW_PANEL_RESOLUTION_WIDTH,(int)DRAW_PANEL_RESOLUTION_HEIGHT);
+		//}
+		if (!timer1->Enabled)
+			return;
+		if (m_iCurrentSelectedObjectIndex != -1)
+		{
+			cUIImage*l_p = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(m_iCurrentSelectedObjectIndex));
+			Vector3	l_Pos = l_p->GetPos();
+			if (e->KeyCode == Keys::Right)
+				l_Pos.x += 1;
+			if (e->KeyCode == Keys::Left)
+				l_Pos.x -= 1;
+			if (e->KeyCode == Keys::Up)
+				l_Pos.y -= 1;
+			if (e->KeyCode == Keys::Down)
+				l_Pos.y += 1;
+			l_p->SetPos(l_Pos);
+		}
+	}
+	System::Void cPIEditor::Test_button_Click(System::Object^  sender, System::EventArgs^  e)
+{
+	String^l_FileName = DNCT::SaveFileAndGetName("(*.pi)|*.pi");
+	if (l_FileName)
+	{
+		SavePuzzleFile(l_FileName, false);
+		if (BinaryExport_checkBox->Checked)
+		{
+			SavePuzzleFile(l_FileName, true);
+		}
+	}
+}
+	System::Void cPIEditor::button1_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		GeneratePowOf2Image(sender == generateAllImageWithPowerOfTwoToolStripMenuItem ? true : false);
+	}
+	System::Void cPIEditor::ImageWidth_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e) 
+	{
+		TotalPixel_label->Text = (ImageHeight_numericUpDown->Value*ImageWidth_numericUpDown->Value).ToString();
+	}
+	System::Void cPIEditor::InvertPuzzleImage_button_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
+	cli::array< String^ >^l_pNameList = DNCT::OpenFileAndGetNames("pi files (*.pi)|*.pi|All files (*.*)|*.*");
+	if (!l_pNameList)
+		return;
+	String^l_strDirectory = DNCT::SelectDirectory();
+	if (!l_strDirectory)
+		return;
+	if (l_pNameList)
+		for each (String ^l_fileName in l_pNameList)
+		{
+			cNodeISAX	l_cNodeISAX;
+			TiXmlElement*l_pRootTiXmlElement = 0;
+			bool	l_b = l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(l_fileName).c_str());
+			if (l_b)
+			{
+				const WCHAR*	l_strFileName = 0;
+				//find the tag we needed
+				l_pRootTiXmlElement = l_cNodeISAX.GetXmlElementByNameFromRoot(L"PuzzleImage");
+				while (l_pRootTiXmlElement)
+				{
+					l_strFileName = l_pRootTiXmlElement->Attribute(L"ImageName");
+					System::Drawing::Bitmap^l_pBitmapSource;
+					String^l_strPGileName = DNCT::GetDirectoryWithoutFileName(l_fileName) + String(l_strFileName).ToString();
+					try
+					{
+						l_pBitmapSource = gcnew System::Drawing::Bitmap(l_strPGileName);
+					}
+					catch (System::Exception^l_pExecption)
+					{
+						l_pExecption->ToString();
+						WARNING_MSG(l_strPGileName + " not existed");
+						continue;
+					}
+					int	l_iCount = _wtoi(l_pRootTiXmlElement->Attribute(L"Count"));
+					TiXmlElement*l_pPuzzleImageUintTiXmlElement = l_pRootTiXmlElement->FirstChildElement();
+					while (l_pPuzzleImageUintTiXmlElement)
+					{
+						TiXmlElement*l_pCurrentElement = l_pPuzzleImageUintTiXmlElement;
+						TiXmlAttribute*l_pTiXmlAttribute = l_pCurrentElement->FirstAttribute();
+						float	l_fUV[4];
+						POINT	l_Size;
+						POINT	l_OffsetPos;
+						POINT	l_ShowPosInPI;
+						POINT	l_OriginalSize;
+						//new attribute so make sure the data has this
+						bool	l_bContainShowPosInPI = false;
+						const WCHAR*	l_strPuzzleImageName = 0;
+						while (l_pTiXmlAttribute)
+						{
+							if (!wcscmp(l_pTiXmlAttribute->Name(), L"UV"))
+							{
+								GetUV(l_pTiXmlAttribute->Value(), l_fUV);
+							}
+							else
+								if (!wcscmp(l_pTiXmlAttribute->Name(), L"Size"))
+								{
+									l_Size = GetPoint(l_pTiXmlAttribute->Value());
+								}
+								else
+									if (!wcscmp(l_pTiXmlAttribute->Name(), L"OffsetPos"))
+									{
+										l_OffsetPos = GetPoint(l_pTiXmlAttribute->Value());
+									}
+									else
+										if (!wcscmp(l_pTiXmlAttribute->Name(), L"Name"))
+										{
+											l_strPuzzleImageName = l_pTiXmlAttribute->Value();
+										}
+										else
+											if (!wcscmp(l_pTiXmlAttribute->Name(), L"ShowPosInPI"))
+											{
+												l_bContainShowPosInPI = true;
+												l_ShowPosInPI = GetPoint(l_pTiXmlAttribute->Value());
+											}
+											else
+												if (!wcscmp(l_pTiXmlAttribute->Name(), L"OriginalSize"))
+												{
+													l_OriginalSize = GetPoint(l_pTiXmlAttribute->Value());
+												}
+												else
+												{
+													assert(0);
+												}
+							l_pTiXmlAttribute = l_pTiXmlAttribute->Next();
+						}
+						//fill all alpha
+						System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap(l_OriginalSize.x, l_OriginalSize.y);
+						System::Drawing::Color l_NewColor = System::Drawing::Color::Transparent;
+						System::Drawing::SolidBrush^ l_pDrawBrush = gcnew System::Drawing::SolidBrush(l_NewColor);
+						System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(l_pBitMap);
+						l_pGr->FillRectangle(l_pDrawBrush, 0, 0, l_pBitMap->Width, l_pBitMap->Height);
+						System::Drawing::Rectangle	l_rect = System::Drawing::Rectangle((int)(l_fUV[0] * l_pBitmapSource->Width), (int)(l_fUV[1] * l_pBitmapSource->Height), l_Size.x, l_Size.y);
+						if (l_bContainShowPosInPI)
+						{
+							l_rect = System::Drawing::Rectangle(l_ShowPosInPI.x, l_ShowPosInPI.y, l_Size.x, l_Size.y);
+						}
+						if (0)
+						{
+							////copy Src
+							//int	bufferSizeInPixels = l_pBitMap->Width*l_pBitMap->Height;
+							//char*l_pbuff = new char[bufferSizeInPixels*l_iSrcChannel];
+							//BitmapData^l_pData =
+							//l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),
+							//ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
+							//memcpy(l_pbuff,l_pData->Scan0.ToPointer(),bufferSizeInPixels*l_iSrcChannel);
+							//l_pBitmapForSave->UnlockBits(l_pData);
+							////past to dest
+							//l_pData = l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
+							//char*l_strScrData = (char*)l_pData->Scan0.ToPointer();
+
+							//int	l_iSrcRenderStartPosX = l_pUIImage->GetOffsetPos()->x;
+							//int	l_iSrcRenderStartPosY = l_pUIImage->GetOffsetPos()->y;
+							//+1 for offset start at 0,0
+							//int	l_iSrcRenderEndPosX = l_pUIImage->GetRightDownStripOffPos().x+1;
+							//int	l_iSrcRenderEndPosY = l_pUIImage->GetRightDownStripOffPos().y+1;
+							//int	l_iDestRenderPosX = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->x+l_pUIImage->GetOffsetPos()->x);
+							//int	l_iDestRenderPosY = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->y+l_pUIImage->GetOffsetPos()->y);
+							//int	l_iWorkPixelX = l_iSrcRenderEndPosX-l_iSrcRenderStartPosX;
+							//int	l_iWorkPixelY = l_iSrcRenderEndPosY-l_iSrcRenderStartPosY;
+							//int	l_iIndex = 0;
+							//for( int l_iStartPixelY=l_iSrcRenderStartPosY;l_iStartPixelY<l_iSrcRenderEndPosY;++l_iStartPixelY )
+							//{
+							//	int	l_iYIndex = ((l_iDestRenderPosY+l_iIndex)*l_iSrcChannel*l_pBitMap->Width);
+							//	int	l_iXIndex = l_iSrcChannel*l_iDestRenderPosX;
+							//	int	l_iStartCopyIndex = l_iXIndex+l_iYIndex;
+							//	int	l_iCopyIntoIndex = (l_iStartPixelY*l_iSrcChannel*l_pBitmapForSave->Width)+(l_iSrcChannel*l_iSrcRenderStartPosX);
+							//	memcpy(&l_strScrData[l_iStartCopyIndex],&l_pbuff[l_iCopyIntoIndex],l_iWorkPixelX*l_iSrcChannel);
+							//	++l_iIndex;
+							//}
+							//l_pBitMap->UnlockBits(l_pData);
+							//delete l_pbuff;
+						}
+						else
+							l_pGr->DrawImage(l_pBitmapSource, l_OffsetPos.x, l_OffsetPos.y, l_rect, System::Drawing::GraphicsUnit::Pixel);
+						l_pBitMap->Save(l_strDirectory + String(l_strPuzzleImageName).ToString() + ".png");
+						l_pPuzzleImageUintTiXmlElement = l_pPuzzleImageUintTiXmlElement->NextSiblingElement();
+					}
+					if (l_pRootTiXmlElement->NextSibling())
+						l_pRootTiXmlElement = GetXmlElementByNameFromElement(L"PuzzleImage", l_pRootTiXmlElement->NextSiblingElement());
+					else
+						l_pRootTiXmlElement = 0;
+				}
+			}
+		}
+	}
+	System::Void cPIEditor::TO96PdiPngFile_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		String^l_strDirectory = DNCT::SelectDirectory();
+		if (!l_strDirectory)
+			return;
+		cli::array<String^>^l_AllFileName = DNCT::OpenFileAndGetNames();
+		for each(String^l_strName in l_AllFileName)
+		{
+			System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap(l_strName);
+			l_pBitMap->Save(l_strDirectory + DNCT::GetFileNameWithoutFullPath(l_strName));
+		}
+		//System::Drawing::SolidBrush^ l_pDrawBrush = gcnew System::Drawing::SolidBrush( System::Drawing::Color::Transparent );
+		//for( int i=0;i<m_pImageomposerIRM->Count();++i )
+		//{
+		//	cUIImage*l_pUIImage = (cUIImage*)((*m_pImageomposerIRM)[i]);
+		//	System::Drawing::Bitmap^l_pBitmapForSave = (System::Drawing::Bitmap^)m_ImageTale[DNCT::WcharToGcstring((*m_pImageomposerIRM)[i]->GetName())];
+		//	l_pBitMap->Save(l_strDirectory+DNCT::WcharToGcstring(l_pUIImage->GetName())+".png");
+		//}
+	}
+	System::Void cPIEditor::openXMLToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		String^l_strFileName = DNCT::OpenFileAndGetName("PuzzleImage(*.pi;*.pib)|*.pi;*.pib");
+		//String^l_strFileName = DNCT::OpenFileAndGetName("txt files (*.txt)|*.txt|All files (*.*)|*.*");
+		if (l_strFileName)
+		{
+			OpenPIFile(l_strFileName);
+		}
+	}
+	System::Void cPIEditor::AddAnimationImage_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (sender == AddAnimationImage_button)
+		{
+			if (AllImage_listBox->SelectedIndices->Count == 0)
+				return;
+			while (AllImage_listBox->SelectedIndices->Count != 0)
+			{
+				int	l_iIndex = AllImage_listBox->SelectedIndices[0];
+				float l_fTime = (float)AnimationTime_numericUpDown->Value;
+				m_pImageIndexOfAnimation->AddNameObject(DNCT::GcStringToWchar(AllImage_listBox->SelectedItems[0]->ToString()).c_str(), AllImage_listBox->SelectedIndices[0], l_fTime);
+				AnimationData_listBox->Items->Add(AllImage_listBox->SelectedItems[0]->ToString());
+				AllImage_listBox->SelectedItems->Remove(AllImage_listBox->SelectedItems[0]);
+			}
+		}
+		else
+			if (sender == DelAnimationImage_button)
+			{
+				if (AnimationData_listBox->SelectedIndices->Count == 0)
+					return;
+				while (this->AnimationData_listBox->SelectedIndices->Count)
+				{
+					int	l_iIndex = AnimationData_listBox->SelectedIndices[0];
+					m_pImageIndexOfAnimation->RemoveNameObject(l_iIndex);
+					AnimationData_listBox->Items->RemoveAt(l_iIndex);
+				}
+			}
+	}
+	System::Void cPIEditor::AnimationDatAdd_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (sender == AnimationDatAdd_button)
+		{
+			if (AnimationDataName_textBox->Text->Length)
+			{
+				if (m_pImageIndexOfAnimation->Count())
+				{
+					if (!AnimationDataList_listBox->Items->Contains(AnimationDataName_textBox->Text))
+					{
+						AnimationDataList_listBox->Items->Add(AnimationDataName_textBox->Text);
+						AnimationData_listBox->Items->Clear();
+						cImageIndexOfAnimation*l_pImageIndexOfAnimation = new cImageIndexOfAnimation(m_pImageIndexOfAnimation);
+						m_pImageIndexOfAnimation->Clear();
+						l_pImageIndexOfAnimation->SetName(DNCT::GcStringToWchar(AnimationDataName_textBox->Text));
+						m_pImageIndexOfAnimationList->AddObject(l_pImageIndexOfAnimation);
+					}
+				}
+			}
+		}
+		else
+			if (sender == AnimationDatDel_button)
+			{
+				while (AnimationDataList_listBox->SelectedItems->Count)
+				{
+					m_pImageIndexOfAnimationList->RemoveObject(DNCT::GcStringToWchar(AnimationDataList_listBox->SelectedItems[0]->ToString()));
+					AnimationDataList_listBox->Items->Remove(AnimationDataList_listBox->SelectedItems[0]);
+				}
+			}
+	}
+
+	System::Void cPIEditor::ImagePosX_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		int	l_iSelectedIndex = AllImage_listBox->SelectedIndex;
+		if (l_iSelectedIndex != -1)
+		{
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>((*m_pImageomposerIRM)[l_iSelectedIndex]);
+			l_pUIImage->SetPos(Vector3((float)ImagePosX_numericUpDown->Value, (float)ImagePosY_numericUpDown->Value, 0.f));
+		}
+	}
+	System::Void cPIEditor::AllImage_listBox_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		if (AllImage_listBox->SelectedIndex != -1)
+		{
+			label3->Text = "Pos:" + AllImage_listBox->Text;
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>((*m_pImageomposerIRM)[AllImage_listBox->SelectedIndex]);
+			Vector3	l_vPos = l_pUIImage->GetPos();
+			ImagePosX_numericUpDown->Value = (int)l_vPos.x;
+			ImagePosY_numericUpDown->Value = (int)l_vPos.y;
+		}
+	}
+	System::Void cPIEditor::AllImage_listBox_KeyUp_1(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
+	{
+		if (e->KeyCode == Keys::Enter)
+		{
+			System::Windows::Forms::MouseEventArgs^  e2;
+			AllImage_listBox_MouseDoubleClick(sender, e2);
+		}
+	}
+	System::Void cPIEditor::AnimationData_listBox_MouseDoubleClick(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		AssignAnimationData();
+	}
+	System::Void cPIEditor::AnimationData_listBox_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e)
+	{
+		if (e->KeyCode == GCFORM::Keys::Enter)
+			AssignAnimationData();
+	}
+	System::Void cPIEditor::ProperStripPixel_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		POINT	l_MinOffset = { 79979,79979 };
+		POINT	l_MaxRightDown = { 0,0 };
+		POINT	l_OffsetPos;
+		POINT	l_RightDown;
+		for each(int l_iSelectedIndex in AllImage_listBox->SelectedIndices)
+		{
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iSelectedIndex));
+			l_OffsetPos = *l_pUIImage->GetOffsetPos();
+			l_RightDown = l_pUIImage->GetRightDownStripOffPos();
+			//+1 for offset start at 0,0
+			l_RightDown.x += 1;
+			l_RightDown.y += 1;
+
+			l_MinOffset.x = min(l_MinOffset.x, l_OffsetPos.x);
+			l_MinOffset.y = min(l_MinOffset.y, l_OffsetPos.y);
+			l_MaxRightDown.x = max(l_MaxRightDown.x, l_RightDown.x);
+			l_MaxRightDown.y = max(l_MaxRightDown.y, l_RightDown.y);
+		}
+		for each(int l_iSelectedIndex in AllImage_listBox->SelectedIndices)
+		{
+			cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iSelectedIndex));
+			l_pUIImage->SetOffsetPos(l_MinOffset);
+			l_pUIImage->SetRightDownStripOffPos(l_MaxRightDown);
+		}
+	}
+	System::Void cPIEditor::StripAlpha_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (ToOriginalImage_button == sender)
+		{
+			for each(int l_iSelectedIndex in AllImage_listBox->SelectedIndices)
+			{
+				cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iSelectedIndex));
+				POINT	l_WidthHeight = { l_pUIImage->GetWidth() - 1,l_pUIImage->GetHeight() - 1 };
+				POINT	l_Offset = { 0,0 };
+				l_pUIImage->SetRightDownStripOffPos(l_WidthHeight);
+				l_pUIImage->SetOffsetPos(l_Offset);
+			}
+			AllImage_listBox_SelectedIndexChanged(sender, e);
+		}
+		else
+			if (StripAlpha_button == sender)
+			{
+				for each(int l_iSelectedIndex in AllImage_listBox->SelectedIndices)
+				{
+					System::Drawing::Bitmap^l_pImage = (System::Drawing::Bitmap^)m_ImageTale[AllImage_listBox->Items[l_iSelectedIndex]->ToString()];
+					if (!l_pImage)
+						continue;
+					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iSelectedIndex));
+					l_pUIImage->SetOffsetPos(DNCT::ImageGetAlphaOffsetPosLeftTop(l_pImage));
+					l_pUIImage->SetRightDownStripOffPos(DNCT::ImageGetAlphaOffsetPosRightDown(l_pImage));
+					POINT	l_ImageRealSize = l_pUIImage->GetImageRealSize();
+					POINT	l_RightDownStripOffPos = l_pUIImage->GetRightDownStripOffPos();
+					POINT	l_OffsetPos = *l_pUIImage->GetOffsetPos();
+					//because MPDI is setposition by center
+					//if( l_ImageRealSize.x%2 )
+					//{
+					//	if( l_RightDownStripOffPos.x+1 < l_pUIImage->GetOriginalImageSize().x )
+					//		l_RightDownStripOffPos.x += 1;
+					//	else
+					//	if( l_OffsetPos.x != 0 )
+					//		l_OffsetPos.x -= 1;
+					//}
+					//if( l_ImageRealSize.y%2)
+					//{
+					//	if( l_RightDownStripOffPos.y+1 < l_pUIImage->GetOriginalImageSize().y )
+					//		l_RightDownStripOffPos.y += 1;
+					//	else
+					//	if( l_OffsetPos.y != 0 )
+					//		l_OffsetPos.y -= 1;
+					//}
+					l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
+					l_pUIImage->SetOffsetPos(l_OffsetPos);
+				}
+				AllImage_listBox_SelectedIndexChanged(sender, e);
+			}
+	}
+
+	System::Void cPIEditor::splitContainer2_Panel1_Resize(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (!m_pOrthogonalCamera)
+			return;
+		POINT l_ViewportSize = { splitContainer2->Panel1->Width,splitContainer2->Panel1->Height };
+		Vector2	l_vOriginalResolution = m_pOrthogonalCamera->GetResolution();
+		Vector2	l_vOriginalLeftUpPos = m_pOrthogonalCamera->GetCameraPos() - (l_vOriginalResolution / 2.f);
+		m_pOrthogonalCamera->SetResolution(Vector2((float)l_ViewportSize.x, (float)l_ViewportSize.y));
+		m_pOrthogonalCamera->SetCameraPos(l_vOriginalLeftUpPos + m_pOrthogonalCamera->GetResolution() / 2.f);
+		m_pOrthogonalCamera->CameraUpdateByMouse(false, false, 0, 0, 0, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+		if (!m_pOrthogonalCameraForTrianhulatorPIUnit)
+			return;
+		l_vOriginalResolution = m_pOrthogonalCameraForTrianhulatorPIUnit->GetResolution();
+		l_vOriginalLeftUpPos = m_pOrthogonalCameraForTrianhulatorPIUnit->GetCameraPos() - (l_vOriginalResolution / 2.f);
+		m_pOrthogonalCameraForTrianhulatorPIUnit->SetResolution(Vector2((float)l_ViewportSize.x, (float)l_ViewportSize.y));
+		m_pOrthogonalCameraForTrianhulatorPIUnit->SetCameraPos(l_vOriginalLeftUpPos + m_pOrthogonalCameraForTrianhulatorPIUnit->GetResolution() / 2.f);
+		m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(false, false, 0, 0, 0, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+	}
+
+	System::Void cPIEditor::AddNewPIUnitImage_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (NewPIUnitStartX_numericUpDown->Value != NewPIUnitEndX_numericUpDown->Value &&
+			NewPIUnitStartY_numericUpDown->Value != NewPIUnitEndY_numericUpDown->Value &&
+			NewPIUnitEndX_numericUpDown->Value > NewPIUnitStartX_numericUpDown->Value &&
+			NewPIUnitEndY_numericUpDown->Value > NewPIUnitStartY_numericUpDown->Value)
+		{
+			if (NewPIUnitName_textBox->Text->Length)
+			{
+				this->timer1->Enabled = false;
+				int	l_iOriginalIndex = -1;
+				POINT	l_OffsetPos = { 0,0 };
+				POINT	l_RightDownStripOffPos = { (int)NewPIUnitEndX_numericUpDown->Value - (int)NewPIUnitStartX_numericUpDown->Value,(int)NewPIUnitEndY_numericUpDown->Value - (int)NewPIUnitStartY_numericUpDown->Value };
+				Vector3	l_vPos((float)NewPIUnitStartX_numericUpDown->Value, (float)NewPIUnitStartY_numericUpDown->Value, 0.f);
+				RECT	l_rc = { (int)l_vPos.x,(int)l_vPos.y,(int)l_vPos.x + l_RightDownStripOffPos.x,(int)l_vPos.y + l_RightDownStripOffPos.y };
+				int	l_iCollideIndex = -1;
+				for (int i = 0; i < m_pImageomposerIRM->Count(); ++i)
+				{
+					cUIImage*l_pUIImage2 = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+					Vector3	l_vPos2 = l_pUIImage2->GetPos();
+					POINT	l_RightDownStripOffPos2 = l_pUIImage2->GetRightDownStripOffPos();
+					RECT	l_rc2 = { (int)l_vPos2.x + l_pUIImage2->GetOffsetPos()->x,(int)l_vPos2.y + l_pUIImage2->GetOffsetPos()->y,
+						(int)l_vPos2.x + l_RightDownStripOffPos2.x,(int)l_vPos2.y + l_RightDownStripOffPos2.y };
+					if (UT::RectCollideRect(l_rc2, l_rc))
+					{
+						FMLog::Log(l_pUIImage2->GetName(), false);
+						if (l_iCollideIndex != -1)
+						{
+							if (!l_pUIImage2->m_pEditorAttachParent)
+							{
+								WARING_YES_NO_TO_NO("over 2 image would u like to do this anyway?")
+								{
+									goto LEAVE;
+								}
+								break;
+							}
+						}
+						//ensure it is not a piunit child
+						if (!l_pUIImage2->m_pEditorAttachParent)
+							l_iCollideIndex = i;
+					}
+				}
+				if (l_iCollideIndex == -1)
+				{
+					WARNING_MSG("no parent,please reset pos");
+					goto LEAVE;
+				}
+				if (AllImage_listBox->Items->Contains(NewPIUnitName_textBox->Text))
+				{
+					WARING_YES_NO_TO_NO("replace exist object?")
+					{
+						goto LEAVE;
+					}
+					l_iOriginalIndex = AllImage_listBox->Items->IndexOf(NewPIUnitName_textBox->Text);
+					AllImage_listBox->SelectedIndex = l_iOriginalIndex;
+					DeleteImage_button_Click(DeleteImage_button, e);
+				}
+				cUIImage*l_pAttachUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(l_iCollideIndex));
+				cUIImage*l_pUIImage = nullptr;
+				System::Drawing::Bitmap^l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[gcnew String(l_pAttachUIImage->GetName())];
+				//if (l_pBitMap)
+				{
+					auto l_vParentPos = l_pAttachUIImage->GetPos();
+					std::vector<Vector2> l_Vector =
+					{
+						Vector2((int)NewPIUnitStartX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitStartY_numericUpDown->Value - l_vParentPos.y),
+						Vector2((int)NewPIUnitEndX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitStartY_numericUpDown->Value - l_vParentPos.y),
+						Vector2((int)NewPIUnitStartX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitEndY_numericUpDown->Value - l_vParentPos.y),
+						Vector2((int)NewPIUnitStartX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitEndY_numericUpDown->Value - l_vParentPos.y),
+						Vector2((int)NewPIUnitEndX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitStartY_numericUpDown->Value - l_vParentPos.y),
+						Vector2((int)NewPIUnitEndX_numericUpDown->Value - l_vParentPos.x,(int)NewPIUnitEndY_numericUpDown->Value - l_vParentPos.y)
+					};
+					List<System::Drawing::Point>^l_pPointList = Vector2ToListPoint(&l_Vector);
+					Image^l_pImage = (Image^)l_pBitMap;
+					Bitmap^l_pNew = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList, true);
+					l_pUIImage = cPIEditor::GetNewUIImageByBitMap(l_pNew, DNCT::GcStringToWchar(NewPIUnitName_textBox->Text).c_str());
+					m_ImageTale[NewPIUnitName_textBox->Text] = l_pNew;
+				}
+				l_pUIImage->m_vEditorAttachParentRelativePos = l_vPos - l_pAttachUIImage->GetPos();
+				l_pUIImage->m_pEditorAttachParent = l_pAttachUIImage;
+				l_pUIImage->SetPos(l_vPos);
+				////it could be replaced,recheck index again
+				l_iOriginalIndex = AllImage_listBox->Items->IndexOf(NewPIUnitName_textBox->Text);
+				if (l_iOriginalIndex != -1)
+				{
+					(*m_pImageomposerIRM->GetList())[l_iOriginalIndex] = l_pUIImage;
+					AllImage_listBox->Items[l_iOriginalIndex] = NewPIUnitName_textBox->Text;
+				}
+				else
+				{
+					m_pImageomposerIRM->AddObject(l_pUIImage);
+					AllImage_listBox->Items->Add(NewPIUnitName_textBox->Text);
+				}
+			LEAVE:
+				this->timer1->Enabled = true;
+			}
+			else
+			{
+				WARNING_MSG("please input new PI unit name");
+			}
+
+		}
+		else
+		{
+			WARNING_MSG("data error");
+		}
+	}
+	System::Void cPIEditor::NewPIUnitStartX_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		//if( AllImage_listBox->SelectedIndex == -1 || m_bAvoidDataAssignForPIUintChild )
+		//{
+		   //return;
+		//}
+		//cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(AllImage_listBox->SelectedIndex));
+		//if( !l_pUIImage->m_pEditorAttachParent )
+		   // return;
+		//POINT	l_RightDownStripOffPos = l_pUIImage->GetRightDownStripOffPos();
+		//Vector3	l_vPos = l_pUIImage->GetPos();
+		//l_RightDownStripOffPos.x = (int)(NewPIUnitEndX_numericUpDown->Value-NewPIUnitStartX_numericUpDown->Value);	
+		//l_RightDownStripOffPos.y = (int)(NewPIUnitEndY_numericUpDown->Value-NewPIUnitStartY_numericUpDown->Value);
+		//l_vPos.x = (float)NewPIUnitStartX_numericUpDown->Value;
+		//l_vPos.y = (float)NewPIUnitStartY_numericUpDown->Value;
+		//l_pUIImage->SetRightDownStripOffPos(l_RightDownStripOffPos);
+		//l_pUIImage->SetPos(l_vPos);
+		//l_RightDownStripOffPos.x += 1;
+		//l_RightDownStripOffPos.y += 1;
+		//l_pUIImage->SetOriginalImageSize(l_RightDownStripOffPos);
+	}
+	System::Void cPIEditor::floatToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		static	bool	l_bDock = false;
+		HWND	l_pHwnd = (HWND)this->Handle.ToPointer();
+		//HWND	l_pHwnd = FindMyTopMostWindow();
+		if (!this->m_pParentHandle)
+		{
+			//HWND	l_pThisHwnd = GetConsoleHwnd();
+			//m_pParentHandle = GetParent(l_pThisHwnd);
+			//DWORD pid = GetCurrentProcessId();
+			//HANDLE hProcess2 = OpenProcess(0, FALSE, pid);
+			//HANDLE hProcess2 = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+			//m_pParentHandle = GetParent((HWND)hProcess2);
+			//m_pParentHandle = GetParent((HWND)GetCurrentProcess());
+			//m_pParentHandle = (HWND)this->Parent->Handle.ToPointer();
+			//HWND	l_Hwnd2 = FindMyTopMostWindow();
+			//m_pParentHandle = GetParent(l_Hwnd2);
+
+			//m_pParentHandle = FindMyWindowByID(System::Int32::Parse(this->m_strParentProcessID));
+			//EnumWindows(EnumWindowProc, 0);
+			//m_pParentHandle = hwndMain;
+			m_pParentHandle = GetParent(l_pHwnd);
+			if (m_pParentHandle)
+			{
+				WARNING_MSG("find");
+			}
+			else
+				WARNING_MSG("not find");
+		}
+		if (l_bDock)
+		{
+			SetParent(l_pHwnd, m_pParentHandle);
+			l_bDock = false;
+			WARNING_MSG("Dock");
+		}
+		else
+		{
+			SetParent(l_pHwnd, 0);
+			l_bDock = true;
+			WARNING_MSG("Float");
+		}
+	}
+	System::Void cPIEditor::fileToolStripMenuItem_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		openXMLToolStripMenuItem->Owner->Show();
+	}
+	System::Void cPIEditor::addImagesByFolderToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		addImagesByFolderToolStripMenuItem->Checked = !addImagesByFolderToolStripMenuItem->Checked;
+	}
+	System::Void cPIEditor::TriangulatorMouseBehavior_comboBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
+		{
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+		}
+	}
+
+	System::Void cPIEditor::ImageTriangulatorLOD_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			if (m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD() != (int)ImageTriangulatorLOD_numericUpDown->Value)
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->SetLOD((int)ImageTriangulatorLOD_numericUpDown->Value, false);
+			ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+		}
+	}
+	System::Void cPIEditor::AnimationData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (AnimationData_listBox->SelectedIndex != -1 && m_pImageIndexOfAnimation)
+		{
+			AnimationTime_numericUpDown->Value = (System::Decimal)m_pImageIndexOfAnimation->m_ImageAnimationDataList[AnimationData_listBox->SelectedIndex].fTimeGap;
+		}
+	}
+	System::Void cPIEditor::tabControl1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (tabControl1->SelectedIndex == 2)
+		{
+			if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+				ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+		}
+	}
+	System::Void cPIEditor::generateTriangulatorImagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		auto l_strDirectory = DNCT::SelectDirectory();
+		if (l_strDirectory)
+		{
+			if (m_pPuzzleImageUnitTriangulatorManager)
+			{
+				int l_iCount = AllImage_listBox->Items->Count;
+				for (int i = 0; i < l_iCount; ++i)
+				{
+					cUIImage*l_pUIImage = dynamic_cast<cUIImage*>(m_pImageomposerIRM->GetObject(i));
+					auto l_pObject = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
+					std::vector<Vector3>*l_pVector = l_pObject->GetTriangulatorPointsVector();
+					if (l_pVector->size() > 3)
+					{
+						cUIImage*l_pUIImage = l_pObject->GetTargetImage();
+						System::Drawing::Bitmap^l_pBitMap = nullptr;
+						//if (l_pUIImage->m_pEditorAttachParent)
+						//{
+						//	l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[gcnew String(l_pUIImage->m_pEditorAttachParent->GetName())];
+						//}
+						//else
+						{
+							l_pBitMap = (System::Drawing::Bitmap^)m_ImageTale[AllImage_listBox->Items[i]->ToString()];
+						}
+						if (l_pBitMap)
+						{
+							List<System::Drawing::Point>^l_pPointList = Vector3ToListPoint(l_pVector);
+							Image^l_pImage = (Image^)l_pBitMap;
+							Bitmap^l_pFinalImage = GetSelectedArea(l_pImage, Color::Transparent, l_pPointList);
+							String^l_strFileName = l_strDirectory;
+							l_strFileName += gcnew String(l_pUIImage->GetName());
+							l_strFileName += ".png";
+							l_pFinalImage->Save(l_strFileName);
+						}
+						else
+						{
+							int a = 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	System::Void cPIEditor::AnimationPlay_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (AnimationPlay_button->Text == ">>")
+		{
+			AnimationPlay_button->Text == "||";
+		}
+		else
+		{
+			AnimationPlay_button->Text == ">>";
+		}
+	}
+
+
+	System::Void cPIEditor::AnimationTime_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+
+	}
+	System::Void cPIEditor::AddTime_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+
+	}
+	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+	}
+	System::Void cPIEditor::numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+	}
+
+	System::Void cPIEditor::EditAnimation_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (EditAnimation_checkBox->Checked && m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyData();
+		}
+	}
+
+
 	GCFORM::Form^CallForm(String^e_strFileName)
 	{
 		GCFORM::Form^l_pForm = gcnew GCFORM::Form();

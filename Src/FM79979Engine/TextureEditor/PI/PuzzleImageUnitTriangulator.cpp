@@ -7,6 +7,7 @@
 
 
 #include "TrianglesToDrawIndicesBuffer.h"
+#include "MorphingAnimation.h"
 extern cGlyphFontRender*g_pDebugFont;
 
 
@@ -62,9 +63,10 @@ std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTr
 	return l_Vector;
 }
 
-cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
+cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage) 
 {
 	m_pTrianglesToDrawIndicesBuffer = new sTrianglesToDrawIndicesBuffer();
+	m_pEditor_MorphingAnimation = new cEditor_MorphingAnimation(m_pTrianglesToDrawIndicesBuffer);
 	m_bCollided = false;
 	m_pbtConvexHullShape = nullptr;
 	m_iLOD = 1;
@@ -100,6 +102,7 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 
 cPuzzleImageUnitTriangulator::~cPuzzleImageUnitTriangulator()
 {
+	SAFE_DELETE(m_pEditor_MorphingAnimation);
 	SAFE_DELETE(m_pTrianglesToDrawIndicesBuffer);
 	SAFE_DELETE(m_pTargetImage);
 	SAFE_DELETE(m_pbtConvexHullShape);
@@ -244,6 +247,75 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 	m_iFocusPoint = -1;
 }
 
+void cPuzzleImageUnitTriangulator::MorphingEditUpdateanimationByBlobalTime(float e_fTargetTime)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		m_pEditor_MorphingAnimation->UpdateAnimationByGlobalTime(e_fTargetTime);
+	}
+}
+
+void cPuzzleImageUnitTriangulator::MorphingEditMouseDown(int e_iPosX, int e_iPosY)
+{
+	m_iAnimationEditSelectedVertexIndex = -1;
+	if (m_pTrianglesToDrawIndicesBuffer)
+	{
+		Vector3 l_vPos((float)e_iPosX, (float)e_iPosY,0.f);
+		m_iAnimationEditSelectedVertexIndex = m_pTrianglesToDrawIndicesBuffer->FinClosestVertexIndex(l_vPos);
+	}
+}
+
+void cPuzzleImageUnitTriangulator::MorphingEditMouseMove(int e_iPosX, int e_iPosY)
+{
+	if (m_iAnimationEditSelectedVertexIndex != -1)
+	{
+
+	}
+}
+
+void cPuzzleImageUnitTriangulator::MorphingEditMouseUp(int e_iPosX, int e_iPosY)
+{
+	if (m_iAnimationEditSelectedVertexIndex != -1)
+	{
+
+	}
+}
+
+void cPuzzleImageUnitTriangulator::MorphingEditAddData(int e_iVertexIndex, Vector3 e_vPos, float e_fTime)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		m_pEditor_MorphingAnimation->AddData(e_iVertexIndex, e_vPos, e_fTime);
+	}
+}
+
+bool cPuzzleImageUnitTriangulator::MorphingEditDeleteData(int e_iVertexIndex, float e_fTime)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->DeleteData(e_iVertexIndex, e_fTime);
+	}
+	return false;
+}
+
+bool cPuzzleImageUnitTriangulator::MorphingEditChangeData(int e_iVertexIndex, int e_iDataIndex, Vector3 e_vPos, float e_fTime)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->ChangeData(e_iVertexIndex, e_iDataIndex, e_vPos, e_fTime);
+	}
+	return false;
+}
+
+bool cPuzzleImageUnitTriangulator::MorphingEditApplyData()
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->ApplyData();
+	}
+	return false;
+}
+
 void cPuzzleImageUnitTriangulator::Render()
 {
 	if (m_bWaitForGenerateTriangle)
@@ -301,15 +373,16 @@ void cPuzzleImageUnitTriangulator::Render()
 		}
 		g_pDebugFont->SetLocalTransform(cMatrix44::ScaleMatrix(Vector3(1, 1, 1)));
 	}
-	RenderTriangleImage(Vector3((float)m_pTargetImage->GetWidth()+100, 0,0));
+	//RenderTriangleImage(Vector3((float)m_pTargetImage->GetWidth()+100, 0,0));
 	if (m_pReferenceImage)
 	{
 		Vector4 l_vColor = Vector4::One;
 		l_vColor.a = 0.3f;
-		GLRender::RenderRectangle((float)m_pReferenceImage->GetWidth(), (float)m_pReferenceImage->GetHeight(), cMatrix44::Identity, l_vColor);
-		GLRender::RenderRectangle(l_vOffsetBorder.Width(), l_vOffsetBorder.Height(), cMatrix44::TranslationMatrix(Vector3(l_vOffsetBorder.x, l_vOffsetBorder.y,0.f)), l_vColor);
+		//GLRender::RenderRectangle((float)m_pReferenceImage->GetWidth(), (float)m_pReferenceImage->GetHeight(), cMatrix44::Identity, l_vColor);
+		//GLRender::RenderRectangle(l_vOffsetBorder.Width(), l_vOffsetBorder.Height(), cMatrix44::TranslationMatrix(Vector3(l_vOffsetBorder.x, l_vOffsetBorder.y,0.f)), l_vColor);
 		if (m_pTrianglesToDrawIndicesBuffer)
 		{
+			m_pReferenceImage->ApplyImage();
 			cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(0, (float)m_pReferenceImage->GetHeight()+100.f,0));
 			m_pTrianglesToDrawIndicesBuffer->Render(l_mat);
 			l_mat = cMatrix44::TranslationMatrix(Vector3(0.f,(float)m_pReferenceImage->GetHeight()*2 + 100.f, 0));

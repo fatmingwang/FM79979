@@ -10,6 +10,7 @@ struct sTrianglesToDrawIndicesBuffer
 	std::vector<Vector2>	vUVVector;
 	std::vector<int>		vIndexVector;
 	int						GetVertexIndexByPos(Vector3 e_vPos);
+	int						FinClosestVertexIndex(Vector3 e_vPos);
 	sTrianglesToDrawIndicesBuffer();
 	//sTrianglesToDrawIndicesBuffer(Vector3*e_pTriangleVertices,Vector2*e_vUVVector,int e_iNumPoints);
 	//~sTrianglesToDrawIndicesBuffer();
@@ -28,39 +29,3 @@ struct sTrianglesToDrawIndicesBuffer
 		std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector);
 
 };
-
-
-
-class cEditor_MorphingAnimation:public NamedTypedObject
-{
-	sTrianglesToDrawIndicesBuffer*	m_pTarget;
-	//
-	struct sVertexIndexAndPositionAndTimeVector
-	{
-		sVertexIndexAndPositionAndTimeVector();
-		typedef std::map<float, Vector3> FloatTocVector3Map;
-		//relasted to vMorphingPosVector
-		Vector3*			pPos;
-		int					iVertexIndex;
-		//time and 
-		FloatTocVector3Map m_FormKeyFrames;
-		Vector3	UpdateAnimationByGlobalTime(float e_fGlobalTime);
-		void	AssignPositionPointer(Vector3*e_pAnimationPositionTarget,int e_iVertexIndex);
-		void	AddData(Vector3 e_vPos,float   e_fTime);
-		bool	DeleteData(float   e_fTime);
-		bool	ChangeData(int e_iDataIndex,Vector3 e_vPos, float   e_fTime);
-	};
-	//
-	//from sTrianglesToDrawIndicesBuffer::vPosVector
-	std::vector<Vector3>			vMorphingPosVector;
-	////count and order should be same as sTrianglesToDrawIndicesBuffer::vPosVector
-	std::vector<sVertexIndexAndPositionAndTimeVector>	m_VertexAnimationVector;
-	//std::map<float, std::vector<sMorphingData>>	m_TimeAndVertexPosVectorData;
-	//if user add or delete triangle vertices,the index could be changed,so here need to reassign vertex index again
-	void	ReassignVertexIndexData(std::vector<int> e_iOldVertexIndexVector, std::vector<int> e_iNewVertexIndexVector);
-	void	DeleteVertexIndexData(int e_iVertexIndex);
-	void	VertexMove(int e_iVertexIndex, Vector3 e_vPos);
-};
-
-
-//do export all triangles and uv and index buffer.

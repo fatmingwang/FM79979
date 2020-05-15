@@ -20,6 +20,11 @@ int sTrianglesToDrawIndicesBuffer::GetVertexIndexByPos(Vector3 e_vPos)
 	return -1;
 }
 
+int sTrianglesToDrawIndicesBuffer::FinClosestVertexIndex(Vector3 e_vPos)
+{
+	return GetClosestPointIndex(e_vPos,&vPosVector);
+}
+
 sTrianglesToDrawIndicesBuffer::sTrianglesToDrawIndicesBuffer()
 {
 	//if (e_pPuzzleImageUnitTriangulator->m_s2DVertex.vPosVector.size())
@@ -171,93 +176,4 @@ int IsVectorContain(std::vector<Vector3>& e_vVector, Vector3 e_Value)
 			return i;
 	}
 	return -1;
-}
-
-cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::sVertexIndexAndPositionAndTimeVector()
-{
-	pPos = nullptr;
-	iVertexIndex = -1;
-}
-
-Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateAnimationByGlobalTime(float e_fGlobalTime)
-{
-	//find keyframe before and after and do linear interpolation between them
-	FloatTocVector3Map::iterator prevKey(m_FormKeyFrames.lower_bound(e_fGlobalTime));
-	FloatTocVector3Map::iterator nextKey(prevKey);
-	if ((prevKey == m_FormKeyFrames.end()) ||((prevKey != m_FormKeyFrames.begin()) && (prevKey->first > e_fGlobalTime)))
-		--prevKey;
-	// because m_FormKeyFrames.size() != 0 prevKey should be a valid iterator here
-	assert(prevKey != m_FormKeyFrames.end());
-
-	if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
-	{
-		*pPos = prevKey->second;
-		return prevKey->second;
-	}
-
-	float time0 = prevKey->first;
-	float time1 = nextKey->first;
-	float timeRange = time1 - time0;
-	float l_fTimeDis = (e_fGlobalTime - time0) / timeRange;
-
-	const Vector3& m0 = prevKey->second;
-	const Vector3& m1 = nextKey->second;
-	auto l_vPos = (m1 - m0)*l_fTimeDis + m0;
-	*pPos = l_vPos;
-	return l_vPos;
-}
-
-void cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AssignPositionPointer(Vector3 * e_pAnimationPositionTarget, int e_iVertexIndex)
-{
-	pPos = e_pAnimationPositionTarget;
-	iVertexIndex = e_iVertexIndex;
-}
-
-void cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddData(Vector3 e_vPos, float e_fTime)
-{
-	m_FormKeyFrames[e_fTime] = e_vPos;
-}
-
-bool	cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::DeleteData(float e_fTime)
-{
-	auto l_Iterator = m_FormKeyFrames.find(e_fTime);
-	if (l_Iterator != m_FormKeyFrames.end())
-	{
-		m_FormKeyFrames.erase(l_Iterator);
-		return true;
-	}
-	return false;
-}
-
-bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ChangeData(int e_iDataIndex, Vector3 e_vPos, float e_fTime)
-{
-	int l_iSize = (int)m_FormKeyFrames.size();
-	auto l_Iterator = m_FormKeyFrames.begin();
-	for (int i = 0; i < l_iSize; ++i)
-	{
-		if (i == e_iDataIndex)
-		{
-			if (m_FormKeyFrames.find(e_fTime) == m_FormKeyFrames.end())
-			{
-				m_FormKeyFrames.erase(l_Iterator);
-				m_FormKeyFrames[e_fTime] = e_vPos;
-				return true;
-			}
-			break;
-		}
-		++l_Iterator;
-	}
-	return false;
-}
-
-void cEditor_MorphingAnimation::ReassignVertexIndexData(std::vector<int> e_iOldVertexIndexVector, std::vector<int> e_iNewVertexIndexVector)
-{
-}
-
-void cEditor_MorphingAnimation::DeleteVertexIndexData(int e_iVertexIndex)
-{
-}
-
-void cEditor_MorphingAnimation::VertexMove(int e_iVertexIndex, Vector3 e_vPos)
-{
 }
