@@ -254,9 +254,18 @@ namespace PI
 	private: System::Windows::Forms::Button^  AddNewPIUnitImage_button;
 	private: System::Windows::Forms::Button^  AnimationDatDel_button;
 	private: System::Windows::Forms::Button^  AnimationDatAdd_button;
+
+	private: System::Windows::Forms::Button^  DeleteTime_button;
+	private: System::Windows::Forms::Button^  AddTime_button;
+	private: System::Windows::Forms::Button^  LODToPoints_button;
 	private: System::Windows::Forms::ListBox^  AllImage_listBox;
 	private: System::Windows::Forms::ListBox^  AnimationData_listBox;
 	private: System::Windows::Forms::ListBox^  AnimationDataList_listBox;
+private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
+
+	private: System::Windows::Forms::Label^  label14;
+	private: System::Windows::Forms::Label^  AnimationTime_label;
+	private: System::Windows::Forms::Label^  MorphintTime_label;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  label4;
@@ -285,6 +294,8 @@ namespace PI
 	private: System::Windows::Forms::NumericUpDown^  ImageWidth_numericUpDown;
 	private: System::Windows::Forms::NumericUpDown^  ImageTriangulatorLOD_numericUpDown;
 	private: System::Windows::Forms::NumericUpDown^  AnimationTime_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  RearrangeMorphingAnimationTime_numericUpDown;
+	private: System::Windows::Forms::NumericUpDown^  MorphingAnimationTime_numericUpDown;
 	private: System::Windows::Forms::CheckBox^  ImageSaveAsDDS_checkBox;
 	private: System::Windows::Forms::CheckBox^  AutoAligment_checkBox;
 	private: System::Windows::Forms::CheckBox^  BinaryExport_checkBox;
@@ -316,6 +327,10 @@ namespace PI
 	private: System::Windows::Forms::TabPage^  ImageAligment_tabPage;
 	private: System::Windows::Forms::TabPage^  ImageTriangulator_tabPage;
 	private: System::Windows::Forms::TabPage^  SequenceAnimation_tabPage;
+	private: System::Windows::Forms::TrackBar^  MorphingAnimation_trackBar;
+	private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::FlowLayoutPanel^  flowLayoutPanel1;
 	//my
 	private: GCFORM::TabPage^m_pTabPage;					//for attach from.
 	private: GCFORM::TabControl^m_pTabControl;				//to determin is tabpage clicked.
@@ -336,20 +351,6 @@ namespace PI
 	cOrthogonalCamera*									m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*									m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
-private: System::Windows::Forms::Button^  AnimationPlay_button;
-public:
-private: System::Windows::Forms::Label^  label14;
-private: System::Windows::Forms::Label^  AnimationTime_label;
-private: System::Windows::Forms::NumericUpDown^  RearrangeMorphingAnimationTime_numericUpDown;
-
-private: System::Windows::Forms::Button^  DeleteTime_button;
-private: System::Windows::Forms::Button^  AddTime_button;
-private: System::Windows::Forms::NumericUpDown^  MorphingAnimationTime_numericUpDown;
-
-private: System::Windows::Forms::ListBox^  AnimationTime_listBox;
-private: System::Windows::Forms::TrackBar^  MorphingAnimation_trackBar;
-private: System::Windows::Forms::Button^  LODToPoints_button;
-private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void								SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*								OpenPuzzleFile(String^e_strFileName);
@@ -451,22 +452,24 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			this->AnimationImageDown_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->ImageTriangulator_tabPage = (gcnew System::Windows::Forms::TabPage());
+			this->flowLayoutPanel1 = (gcnew System::Windows::Forms::FlowLayoutPanel());
 			this->EditAnimation_checkBox = (gcnew System::Windows::Forms::CheckBox());
-			this->AnimationPlay_button = (gcnew System::Windows::Forms::Button());
+			this->MorphintTime_label = (gcnew System::Windows::Forms::Label());
+			this->MorphingAnimation_trackBar = (gcnew System::Windows::Forms::TrackBar());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
+			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
+			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
+			this->LODToPoints_button = (gcnew System::Windows::Forms::Button());
 			this->label14 = (gcnew System::Windows::Forms::Label());
 			this->AnimationTime_label = (gcnew System::Windows::Forms::Label());
 			this->RearrangeMorphingAnimationTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->DeleteTime_button = (gcnew System::Windows::Forms::Button());
 			this->AddTime_button = (gcnew System::Windows::Forms::Button());
 			this->MorphingAnimationTime_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
-			this->AnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
-			this->MorphingAnimation_trackBar = (gcnew System::Windows::Forms::TrackBar());
-			this->LODToPoints_button = (gcnew System::Windows::Forms::Button());
+			this->MorphingAnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->ImageTriangulatorLOD_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
-			this->ImageTriangulatorLOD_label = (gcnew System::Windows::Forms::Label());
-			this->label13 = (gcnew System::Windows::Forms::Label());
-			this->TriangulatorMouseBehavior_comboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
@@ -492,10 +495,12 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			this->SequenceAnimation_tabPage->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->BeginInit();
 			this->ImageTriangulator_tabPage->SuspendLayout();
+			this->flowLayoutPanel1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->BeginInit();
+			this->groupBox1->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeMorphingAnimationTime_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->BeginInit();
 			this->splitContainer2->SuspendLayout();
 			this->SuspendLayout();
@@ -1020,6 +1025,8 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			// AutoAligment_checkBox
 			// 
 			this->AutoAligment_checkBox->AutoSize = true;
+			this->AutoAligment_checkBox->Checked = true;
+			this->AutoAligment_checkBox->CheckState = System::Windows::Forms::CheckState::Checked;
 			this->AutoAligment_checkBox->Location = System::Drawing::Point(6, 66);
 			this->AutoAligment_checkBox->Name = L"AutoAligment_checkBox";
 			this->AutoAligment_checkBox->Size = System::Drawing::Size(141, 16);
@@ -1459,22 +1466,16 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			// ImageTriangulator_tabPage
 			// 
 			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
-			this->ImageTriangulator_tabPage->Controls->Add(this->EditAnimation_checkBox);
-			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationPlay_button);
+			this->ImageTriangulator_tabPage->Controls->Add(this->flowLayoutPanel1);
+			this->ImageTriangulator_tabPage->Controls->Add(this->groupBox1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->label14);
 			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationTime_label);
 			this->ImageTriangulator_tabPage->Controls->Add(this->RearrangeMorphingAnimationTime_numericUpDown);
 			this->ImageTriangulator_tabPage->Controls->Add(this->DeleteTime_button);
 			this->ImageTriangulator_tabPage->Controls->Add(this->AddTime_button);
 			this->ImageTriangulator_tabPage->Controls->Add(this->MorphingAnimationTime_numericUpDown);
-			this->ImageTriangulator_tabPage->Controls->Add(this->AnimationTime_listBox);
-			this->ImageTriangulator_tabPage->Controls->Add(this->MorphingAnimation_trackBar);
-			this->ImageTriangulator_tabPage->Controls->Add(this->LODToPoints_button);
+			this->ImageTriangulator_tabPage->Controls->Add(this->MorphingAnimationTime_listBox);
 			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulator_textBox);
-			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
-			this->ImageTriangulator_tabPage->Controls->Add(this->ImageTriangulatorLOD_label);
-			this->ImageTriangulator_tabPage->Controls->Add(this->label13);
-			this->ImageTriangulator_tabPage->Controls->Add(this->TriangulatorMouseBehavior_comboBox);
 			this->ImageTriangulator_tabPage->Location = System::Drawing::Point(4, 22);
 			this->ImageTriangulator_tabPage->Name = L"ImageTriangulator_tabPage";
 			this->ImageTriangulator_tabPage->Padding = System::Windows::Forms::Padding(3);
@@ -1482,10 +1483,21 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			this->ImageTriangulator_tabPage->TabIndex = 1;
 			this->ImageTriangulator_tabPage->Text = L"ImageTriangulator";
 			// 
+			// flowLayoutPanel1
+			// 
+			this->flowLayoutPanel1->Controls->Add(this->EditAnimation_checkBox);
+			this->flowLayoutPanel1->Controls->Add(this->MorphintTime_label);
+			this->flowLayoutPanel1->Controls->Add(this->MorphingAnimation_trackBar);
+			this->flowLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Bottom;
+			this->flowLayoutPanel1->Location = System::Drawing::Point(3, 240);
+			this->flowLayoutPanel1->Name = L"flowLayoutPanel1";
+			this->flowLayoutPanel1->Size = System::Drawing::Size(1341, 22);
+			this->flowLayoutPanel1->TabIndex = 108;
+			// 
 			// EditAnimation_checkBox
 			// 
 			this->EditAnimation_checkBox->AutoSize = true;
-			this->EditAnimation_checkBox->Location = System::Drawing::Point(8, 130);
+			this->EditAnimation_checkBox->Location = System::Drawing::Point(3, 3);
 			this->EditAnimation_checkBox->Name = L"EditAnimation_checkBox";
 			this->EditAnimation_checkBox->Size = System::Drawing::Size(92, 16);
 			this->EditAnimation_checkBox->TabIndex = 106;
@@ -1493,16 +1505,88 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			this->EditAnimation_checkBox->UseVisualStyleBackColor = true;
 			this->EditAnimation_checkBox->CheckedChanged += gcnew System::EventHandler(this, &cPIEditor::EditAnimation_checkBox_CheckedChanged);
 			// 
-			// AnimationPlay_button
+			// MorphintTime_label
 			// 
-			this->AnimationPlay_button->Location = System::Drawing::Point(8, 169);
-			this->AnimationPlay_button->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
-			this->AnimationPlay_button->Name = L"AnimationPlay_button";
-			this->AnimationPlay_button->Size = System::Drawing::Size(48, 27);
-			this->AnimationPlay_button->TabIndex = 105;
-			this->AnimationPlay_button->Text = L">";
-			this->AnimationPlay_button->UseVisualStyleBackColor = true;
-			this->AnimationPlay_button->Click += gcnew System::EventHandler(this, &cPIEditor::AnimationPlay_button_Click);
+			this->MorphintTime_label->AutoSize = true;
+			this->MorphintTime_label->Location = System::Drawing::Point(101, 0);
+			this->MorphintTime_label->Name = L"MorphintTime_label";
+			this->MorphintTime_label->Size = System::Drawing::Size(11, 12);
+			this->MorphintTime_label->TabIndex = 97;
+			this->MorphintTime_label->Text = L"0";
+			// 
+			// MorphingAnimation_trackBar
+			// 
+			this->MorphingAnimation_trackBar->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->MorphingAnimation_trackBar->Location = System::Drawing::Point(117, 1);
+			this->MorphingAnimation_trackBar->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
+			this->MorphingAnimation_trackBar->Name = L"MorphingAnimation_trackBar";
+			this->MorphingAnimation_trackBar->Size = System::Drawing::Size(1204, 20);
+			this->MorphingAnimation_trackBar->TabIndex = 97;
+			this->MorphingAnimation_trackBar->Scroll += gcnew System::EventHandler(this, &cPIEditor::MorphingAnimation_trackBar_Scroll);
+			this->MorphingAnimation_trackBar->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &cPIEditor::MorphingAnimation_trackBar_MouseDown);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->label13);
+			this->groupBox1->Controls->Add(this->TriangulatorMouseBehavior_comboBox);
+			this->groupBox1->Controls->Add(this->ImageTriangulatorLOD_label);
+			this->groupBox1->Controls->Add(this->ImageTriangulatorLOD_numericUpDown);
+			this->groupBox1->Controls->Add(this->LODToPoints_button);
+			this->groupBox1->Location = System::Drawing::Point(8, 32);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(440, 129);
+			this->groupBox1->TabIndex = 107;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"groupBox1";
+			// 
+			// label13
+			// 
+			this->label13->AutoSize = true;
+			this->label13->Location = System::Drawing::Point(6, 23);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(79, 12);
+			this->label13->TabIndex = 89;
+			this->label13->Text = L"MouseBehavior";
+			// 
+			// TriangulatorMouseBehavior_comboBox
+			// 
+			this->TriangulatorMouseBehavior_comboBox->FormattingEnabled = true;
+			this->TriangulatorMouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Add", L"Move", L"Delete" });
+			this->TriangulatorMouseBehavior_comboBox->Location = System::Drawing::Point(140, 23);
+			this->TriangulatorMouseBehavior_comboBox->Name = L"TriangulatorMouseBehavior_comboBox";
+			this->TriangulatorMouseBehavior_comboBox->Size = System::Drawing::Size(121, 20);
+			this->TriangulatorMouseBehavior_comboBox->TabIndex = 88;
+			this->TriangulatorMouseBehavior_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::TriangulatorMouseBehavior_comboBox_SelectedIndexChanged);
+			// 
+			// ImageTriangulatorLOD_label
+			// 
+			this->ImageTriangulatorLOD_label->AutoSize = true;
+			this->ImageTriangulatorLOD_label->Location = System::Drawing::Point(6, 78);
+			this->ImageTriangulatorLOD_label->Name = L"ImageTriangulatorLOD_label";
+			this->ImageTriangulatorLOD_label->Size = System::Drawing::Size(115, 12);
+			this->ImageTriangulatorLOD_label->TabIndex = 90;
+			this->ImageTriangulatorLOD_label->Text = L"ImageTriangulatorLOD";
+			// 
+			// ImageTriangulatorLOD_numericUpDown
+			// 
+			this->ImageTriangulatorLOD_numericUpDown->Location = System::Drawing::Point(140, 77);
+			this->ImageTriangulatorLOD_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ImageTriangulatorLOD_numericUpDown->Name = L"ImageTriangulatorLOD_numericUpDown";
+			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 22);
+			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
+			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
+			this->ImageTriangulatorLOD_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImageTriangulatorLOD_numericUpDown_ValueChanged);
+			// 
+			// LODToPoints_button
+			// 
+			this->LODToPoints_button->Location = System::Drawing::Point(281, 23);
+			this->LODToPoints_button->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
+			this->LODToPoints_button->Name = L"LODToPoints_button";
+			this->LODToPoints_button->Size = System::Drawing::Size(106, 69);
+			this->LODToPoints_button->TabIndex = 96;
+			this->LODToPoints_button->Text = L"LODToPoints";
+			this->LODToPoints_button->UseVisualStyleBackColor = true;
+			this->LODToPoints_button->Click += gcnew System::EventHandler(this, &cPIEditor::LODToPoints_button_Click);
 			// 
 			// label14
 			// 
@@ -1524,16 +1608,21 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			// 
 			// RearrangeMorphingAnimationTime_numericUpDown
 			// 
+			this->RearrangeMorphingAnimationTime_numericUpDown->DecimalPlaces = 3;
 			this->RearrangeMorphingAnimationTime_numericUpDown->Location = System::Drawing::Point(798, 65);
 			this->RearrangeMorphingAnimationTime_numericUpDown->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
+			this->RearrangeMorphingAnimationTime_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {
+				99999,
+					0, 0, 0
+			});
 			this->RearrangeMorphingAnimationTime_numericUpDown->Name = L"RearrangeMorphingAnimationTime_numericUpDown";
 			this->RearrangeMorphingAnimationTime_numericUpDown->Size = System::Drawing::Size(92, 22);
 			this->RearrangeMorphingAnimationTime_numericUpDown->TabIndex = 102;
-			this->RearrangeMorphingAnimationTime_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::numericUpDown2_ValueChanged);
+			this->RearrangeMorphingAnimationTime_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::RearrangeMorphingAnimationTime_numericUpDown_ValueChanged);
 			// 
 			// DeleteTime_button
 			// 
-			this->DeleteTime_button->Location = System::Drawing::Point(664, 161);
+			this->DeleteTime_button->Location = System::Drawing::Point(663, 179);
 			this->DeleteTime_button->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
 			this->DeleteTime_button->Name = L"DeleteTime_button";
 			this->DeleteTime_button->Size = System::Drawing::Size(106, 27);
@@ -1544,7 +1633,7 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			// 
 			// AddTime_button
 			// 
-			this->AddTime_button->Location = System::Drawing::Point(664, 119);
+			this->AddTime_button->Location = System::Drawing::Point(663, 104);
 			this->AddTime_button->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
 			this->AddTime_button->Name = L"AddTime_button";
 			this->AddTime_button->Size = System::Drawing::Size(106, 27);
@@ -1555,41 +1644,24 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			// 
 			// MorphingAnimationTime_numericUpDown
 			// 
+			this->MorphingAnimationTime_numericUpDown->DecimalPlaces = 3;
 			this->MorphingAnimationTime_numericUpDown->Location = System::Drawing::Point(664, 65);
 			this->MorphingAnimationTime_numericUpDown->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
+			this->MorphingAnimationTime_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 99999, 0, 0, 0 });
 			this->MorphingAnimationTime_numericUpDown->Name = L"MorphingAnimationTime_numericUpDown";
 			this->MorphingAnimationTime_numericUpDown->Size = System::Drawing::Size(92, 22);
 			this->MorphingAnimationTime_numericUpDown->TabIndex = 99;
 			// 
-			// AnimationTime_listBox
+			// MorphingAnimationTime_listBox
 			// 
-			this->AnimationTime_listBox->FormattingEnabled = true;
-			this->AnimationTime_listBox->ItemHeight = 12;
-			this->AnimationTime_listBox->Location = System::Drawing::Point(466, 48);
-			this->AnimationTime_listBox->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
-			this->AnimationTime_listBox->Name = L"AnimationTime_listBox";
-			this->AnimationTime_listBox->Size = System::Drawing::Size(162, 172);
-			this->AnimationTime_listBox->TabIndex = 98;
-			this->AnimationTime_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::AnimationTime_listBox_SelectedIndexChanged);
-			// 
-			// MorphingAnimation_trackBar
-			// 
-			this->MorphingAnimation_trackBar->Dock = System::Windows::Forms::DockStyle::Bottom;
-			this->MorphingAnimation_trackBar->Location = System::Drawing::Point(3, 217);
-			this->MorphingAnimation_trackBar->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
-			this->MorphingAnimation_trackBar->Name = L"MorphingAnimation_trackBar";
-			this->MorphingAnimation_trackBar->Size = System::Drawing::Size(1341, 45);
-			this->MorphingAnimation_trackBar->TabIndex = 97;
-			// 
-			// LODToPoints_button
-			// 
-			this->LODToPoints_button->Location = System::Drawing::Point(281, 47);
-			this->LODToPoints_button->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
-			this->LODToPoints_button->Name = L"LODToPoints_button";
-			this->LODToPoints_button->Size = System::Drawing::Size(106, 69);
-			this->LODToPoints_button->TabIndex = 96;
-			this->LODToPoints_button->Text = L"LODToPoints";
-			this->LODToPoints_button->UseVisualStyleBackColor = true;
+			this->MorphingAnimationTime_listBox->FormattingEnabled = true;
+			this->MorphingAnimationTime_listBox->ItemHeight = 12;
+			this->MorphingAnimationTime_listBox->Location = System::Drawing::Point(466, 48);
+			this->MorphingAnimationTime_listBox->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
+			this->MorphingAnimationTime_listBox->Name = L"MorphingAnimationTime_listBox";
+			this->MorphingAnimationTime_listBox->Size = System::Drawing::Size(162, 172);
+			this->MorphingAnimationTime_listBox->TabIndex = 98;
+			this->MorphingAnimationTime_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::MorphingAnimationTime_listBox_SelectedIndexChanged);
 			// 
 			// ImageTriangulator_textBox
 			// 
@@ -1605,44 +1677,6 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			this->ImageTriangulator_textBox->Name = L"ImageTriangulator_textBox";
 			this->ImageTriangulator_textBox->Size = System::Drawing::Size(1341, 29);
 			this->ImageTriangulator_textBox->TabIndex = 95;
-			// 
-			// ImageTriangulatorLOD_numericUpDown
-			// 
-			this->ImageTriangulatorLOD_numericUpDown->Location = System::Drawing::Point(140, 101);
-			this->ImageTriangulatorLOD_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->ImageTriangulatorLOD_numericUpDown->Name = L"ImageTriangulatorLOD_numericUpDown";
-			this->ImageTriangulatorLOD_numericUpDown->Size = System::Drawing::Size(120, 22);
-			this->ImageTriangulatorLOD_numericUpDown->TabIndex = 91;
-			this->ImageTriangulatorLOD_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
-			this->ImageTriangulatorLOD_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &cPIEditor::ImageTriangulatorLOD_numericUpDown_ValueChanged);
-			// 
-			// ImageTriangulatorLOD_label
-			// 
-			this->ImageTriangulatorLOD_label->AutoSize = true;
-			this->ImageTriangulatorLOD_label->Location = System::Drawing::Point(6, 102);
-			this->ImageTriangulatorLOD_label->Name = L"ImageTriangulatorLOD_label";
-			this->ImageTriangulatorLOD_label->Size = System::Drawing::Size(115, 12);
-			this->ImageTriangulatorLOD_label->TabIndex = 90;
-			this->ImageTriangulatorLOD_label->Text = L"ImageTriangulatorLOD";
-			// 
-			// label13
-			// 
-			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(6, 47);
-			this->label13->Name = L"label13";
-			this->label13->Size = System::Drawing::Size(79, 12);
-			this->label13->TabIndex = 89;
-			this->label13->Text = L"MouseBehavior";
-			// 
-			// TriangulatorMouseBehavior_comboBox
-			// 
-			this->TriangulatorMouseBehavior_comboBox->FormattingEnabled = true;
-			this->TriangulatorMouseBehavior_comboBox->Items->AddRange(gcnew cli::array< System::Object^  >(3) { L"Add", L"Move", L"Delete" });
-			this->TriangulatorMouseBehavior_comboBox->Location = System::Drawing::Point(140, 47);
-			this->TriangulatorMouseBehavior_comboBox->Name = L"TriangulatorMouseBehavior_comboBox";
-			this->TriangulatorMouseBehavior_comboBox->Size = System::Drawing::Size(121, 20);
-			this->TriangulatorMouseBehavior_comboBox->TabIndex = 88;
-			this->TriangulatorMouseBehavior_comboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::TriangulatorMouseBehavior_comboBox_SelectedIndexChanged);
 			// 
 			// splitContainer2
 			// 
@@ -1696,10 +1730,14 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->AnimationTime_numericUpDown))->EndInit();
 			this->ImageTriangulator_tabPage->ResumeLayout(false);
 			this->ImageTriangulator_tabPage->PerformLayout();
+			this->flowLayoutPanel1->ResumeLayout(false);
+			this->flowLayoutPanel1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->EndInit();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->RearrangeMorphingAnimationTime_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimationTime_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->MorphingAnimation_trackBar))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageTriangulatorLOD_numericUpDown))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer2))->EndInit();
 			this->splitContainer2->ResumeLayout(false);
 			this->ResumeLayout(false);
@@ -1747,12 +1785,14 @@ private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 	private: System::Void AnimationData_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void tabControl1_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void generateTriangulatorImagesToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void AnimationPlay_button_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void AnimationTime_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void MorphingAnimationTime_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void AddTime_button_Click(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e);
-	private: System::Void numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void RearrangeMorphingAnimationTime_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e);
 	private: System::Void EditAnimation_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void LODToPoints_button_Click(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void MorphingAnimation_trackBar_Scroll(System::Object^  sender, System::EventArgs^  e);
+	private: System::Void MorphingAnimation_trackBar_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e);
 };
 	static GCFORM::Form^CallForm(System::String^e_strFileName);
 //end namespace

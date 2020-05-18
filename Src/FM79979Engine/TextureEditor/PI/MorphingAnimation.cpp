@@ -57,29 +57,46 @@ bool	cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::DeleteData
 	return false;
 }
 
-bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ChangeData(int e_iDataIndex, Vector3 e_vPos, float e_fTime)
+bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ChangeData(Vector3 e_vPos, float e_fTime)
 {
-	int l_iSize = (int)m_FormKeyFrames.size();
-	auto l_Iterator = m_FormKeyFrames.begin();
-	for (int i = 0; i < l_iSize; ++i)
+	if (m_FormKeyFrames.find(e_fTime) == m_FormKeyFrames.end())
+		return false;
+	m_FormKeyFrames[e_fTime] = e_vPos;
+	return true;
+}
+
+bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::IsTimeAvaliable(float e_fTime)
+{
+	if (m_FormKeyFrames.find(e_fTime) == m_FormKeyFrames.end())
+		return false;
+	return true;
+}
+
+void cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::RearrangeTime(float e_fScale)
+{
+	FloatTocVector3Map l_NewFormKeyFrames;
+	for (auto l_Data : m_FormKeyFrames)
 	{
-		if (i == e_iDataIndex)
-		{
-			if (m_FormKeyFrames.find(e_fTime) == m_FormKeyFrames.end())
-			{
-				m_FormKeyFrames.erase(l_Iterator);
-				m_FormKeyFrames[e_fTime] = e_vPos;
-				return true;
-			}
-			break;
-		}
-		++l_Iterator;
+		l_NewFormKeyFrames[l_Data.first*e_fScale] = l_Data.second;
 	}
-	return false;
+	m_FormKeyFrames = l_NewFormKeyFrames;
+}
+
+void cEditor_MorphingAnimation::RearrangeTimeByScale(float e_fScale)
+{
+	for (int i = 0; i < (int)m_fListboxTimeVector.size(); ++i)
+	{
+		m_fListboxTimeVector[i] = e_fScale * m_fListboxTimeVector[i];
+	}
+	for (auto l_Data : m_VertexAnimationVector)
+	{
+		l_Data.RearrangeTime(e_fScale);
+	}
 }
 
 cEditor_MorphingAnimation::cEditor_MorphingAnimation(sTrianglesToDrawIndicesBuffer * e_pTarget)
 {
+	m_fCurrentMorphingAnimationTime = -1.f;
 	m_pTarget = e_pTarget;
 }
 
@@ -104,7 +121,7 @@ void cEditor_MorphingAnimation::VertexMove(int e_iVertexIndex, Vector3 e_vPos)
 	vMorphingPosVector[e_iVertexIndex] = e_vPos;
 	if (m_VertexAnimationVector[e_iVertexIndex].m_FormKeyFrames.size())
 	{
-		m_VertexAnimationVector[e_iVertexIndex].ChangeData(0, e_vPos,0.f);
+		m_VertexAnimationVector[e_iVertexIndex].ChangeData(e_vPos,0.f);
 	}
 }
 
@@ -115,12 +132,25 @@ void cEditor_MorphingAnimation::AddData(int e_iVertexIndex, Vector3 e_vPos, floa
 
 bool cEditor_MorphingAnimation::DeleteData(int e_iVertexIndex, float e_fTime)
 {
+	if (e_fTime < 0.f)
+		return false;
 	return m_VertexAnimationVector[e_iVertexIndex].DeleteData(e_fTime);
 }
 
-bool cEditor_MorphingAnimation::ChangeData(int e_iVertexIndex, int e_iDataIndex, Vector3 e_vPos, float e_fTime)
+bool cEditor_MorphingAnimation::ChangeData(int e_iVertexIndex, Vector3 e_vPos, float e_fTime)
 {
-	return m_VertexAnimationVector[e_iVertexIndex].ChangeData(e_iDataIndex,e_vPos,e_fTime);
+	if (e_fTime < 0.f)
+		return false;
+	if(m_VertexAnimationVector.size() > e_iVertexIndex)
+		return m_VertexAnimationVector[e_iVertexIndex].ChangeData(e_vPos,e_fTime);
+	return false;
+}
+
+bool cEditor_MorphingAnimation::IsTimeAvaliable(int e_iVertexIndex, float e_fTime)
+{
+	if (m_VertexAnimationVector.size() > e_iVertexIndex)
+		return m_VertexAnimationVector[e_iVertexIndex].IsTimeAvaliable(e_fTime);
+	return false;
 }
 
 bool cEditor_MorphingAnimation::ApplyData()
@@ -149,4 +179,64 @@ void cEditor_MorphingAnimation::Render(cMatrix44 e_Mat, cBaseImage * e_pImage)
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
 		RenderVertexByIndexBuffer(e_Mat, 3, (float*)&vRenderPosVector[0], (float*)&this->m_pTarget->vUVVector[0], (float*)&this->m_pTarget->vColorVector[0], (float*)&this->m_pTarget->vIndexVector[0], (int)l_iSize);
 	}
+}
+
+void cEditor_MorphingAnimation::RearrangeTime(float e_fTargetTime)
+{
+	if (m_fListboxTimeVector.size())
+	{
+		float l_fEndTime = m_fListboxTimeVector.back();
+		float l_fScale = e_fTargetTime/l_fEndTime;
+		RearrangeTimeByScale(l_fScale);
+	}
+}
+
+bool cEditor_MorphingAnimation::AddListboxTime(float e_fTime)
+{
+	if (m_fListboxTimeVector.size())
+	{
+		if (e_fTime <= m_fListboxTimeVector[m_fListboxTimeVector.size() - 1])
+			return false;
+	}
+	m_fListboxTimeVector.push_back(e_fTime);
+	return true;
+}
+
+bool cEditor_MorphingAnimation::DeleteListboxTime(int e_iIndex)
+{
+	if (m_fListboxTimeVector.size() > e_iIndex)
+	{
+		m_fListboxTimeVector.erase(m_fListboxTimeVector.begin() + e_iIndex);
+		return true;
+	}
+	return false;
+}
+
+bool cEditor_MorphingAnimation::ChangeListboxTime(int e_iIndex, float e_fTime)
+{
+	if (m_fListboxTimeVector.size() > e_iIndex)
+	{
+		m_fListboxTimeVector[e_iIndex] = e_fTime;
+		return true;
+	}
+	return false;
+}
+
+bool cEditor_MorphingAnimation::SetCurrentListboxTime(int e_iIndex)
+{
+	if (m_fListboxTimeVector.size()> e_iIndex)
+	{
+		m_fCurrentMorphingAnimationTime = m_fListboxTimeVector[e_iIndex];
+		return false;
+	}
+	return false;
+}
+
+float cEditor_MorphingAnimation::GetEndTime()
+{
+	if (m_fListboxTimeVector.size())
+	{
+		return m_fListboxTimeVector.back();
+	}
+	return 0.0f;
 }

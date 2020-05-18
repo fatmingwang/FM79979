@@ -1153,6 +1153,25 @@ namespace PI
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
 				m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
+				if (EditAnimation_checkBox->Checked)
+				{
+					int l_iNextStep = (int)(l_fElpaseTime * 1000);
+					if (MorphingAnimation_trackBar->Value == MorphingAnimation_trackBar->Maximum)
+					{
+						MorphingAnimation_trackBar->Value = 0;
+					}
+					if (l_iNextStep + MorphingAnimation_trackBar->Value > MorphingAnimation_trackBar->Maximum)
+					{
+						MorphingAnimation_trackBar->Value = MorphingAnimation_trackBar->Maximum;
+					}
+					else
+					{
+						MorphingAnimation_trackBar->Value += l_iNextStep;
+					}
+					int l_iValue = this->MorphingAnimation_trackBar->Value;
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditUpdateanimationByBlobalTime(l_iValue / 1000.f);
+					MorphintTime_label->Text = MorphingAnimation_trackBar->Value.ToString() + "/" + MorphingAnimation_trackBar->Maximum.ToString();
+				}
 			}
 		}
 		else
@@ -1581,12 +1600,16 @@ namespace PI
 		auto l_iDelte = GetMouseWheelDelta(e);
 		if (tabControl1->SelectedIndex == 2)
 		{
+
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
 				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
-				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
+				if(EditAnimation_checkBox->Checked)
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseMove(ptCursor.x, ptCursor.y);
+				else
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
 			}
 		}
 		else
@@ -1620,7 +1643,10 @@ namespace PI
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
-				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseDown(ptCursor.x, ptCursor.y);
+				if (EditAnimation_checkBox->Checked)
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseDown(ptCursor.x, ptCursor.y);
+				else
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseDown(ptCursor.x, ptCursor.y);
 			}
 		}
 		else
@@ -1653,8 +1679,13 @@ namespace PI
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
-				m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
-				ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+				if (EditAnimation_checkBox->Checked)
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseUp(ptCursor.x, ptCursor.y);
+				else
+				{
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
+					ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+				}
 			}
 		}
 		else
@@ -2384,32 +2415,50 @@ namespace PI
 			}
 		}
 	}
-	System::Void cPIEditor::AnimationPlay_button_Click(System::Object^  sender, System::EventArgs^  e)
+
+	System::Void cPIEditor::MorphingAnimationTime_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (AnimationPlay_button->Text == ">>")
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
-			AnimationPlay_button->Text == "||";
-		}
-		else
-		{
-			AnimationPlay_button->Text == ">>";
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditSetCurrentListboxTime(MorphingAnimationTime_listBox->SelectedIndex);
 		}
 	}
 
-
-	System::Void cPIEditor::AnimationTime_listBox_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e)
-	{
-
-	}
 	System::Void cPIEditor::AddTime_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
-
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value/1000;
+			if (!m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddListboxTime(l_fTime))
+			{
+				WARNING_MSG("add time failed");
+			}
+			else
+			{
+				this->MorphingAnimationTime_listBox->Items->Add(l_fTime.ToString());
+				int l_iMax = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
+				MorphingAnimation_trackBar->Maximum = l_iMax;
+			}
+		}
 	}
 	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
+		if (MorphingAnimationTime_listBox->SelectedIndex != -1)
+		{
+			this->MorphingAnimationTime_listBox->Items->RemoveAt(MorphingAnimationTime_listBox->SelectedIndex);
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditDeleteListboxTime(MorphingAnimationTime_listBox->SelectedIndex);
+		}
 	}
-	System::Void cPIEditor::numericUpDown2_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+	System::Void cPIEditor::RearrangeMorphingAnimationTime_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
 	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			float l_fTime = (float)RearrangeMorphingAnimationTime_numericUpDown->Value;
+			if (!m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditRearrangeTime(l_fTime))
+			{
+				WARNING_MSG("Rearrange Time Failed");
+			}
+		}
 	}
 
 	System::Void cPIEditor::EditAnimation_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
@@ -2418,6 +2467,25 @@ namespace PI
 		{
 			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyData();
 		}
+	}
+
+	System::Void cPIEditor::LODToPoints_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->LODToPoints();
+			ImageTriangulatorLOD_numericUpDown->Value = 1;
+		}
+	}
+
+	System::Void cPIEditor::MorphingAnimation_trackBar_Scroll(System::Object^  sender, System::EventArgs^  e)
+	{
+		MorphintTime_label->Text = MorphingAnimation_trackBar->Value.ToString()+"/"+ MorphingAnimation_trackBar->Maximum.ToString();
+	}
+
+	System::Void cPIEditor::MorphingAnimation_trackBar_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
+	{
+		this->EditAnimation_checkBox->Checked = false;
 	}
 
 

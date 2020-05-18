@@ -92,8 +92,14 @@ public:
 	void    						MorphingEditMouseUp(int e_iPosX, int e_iPosY);
 	void							MorphingEditAddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
 	bool							MorphingEditDeleteData(int e_iVertexIndex, float   e_fTime);
-	bool							MorphingEditChangeData(int e_iVertexIndex, int e_iDataIndex, Vector3 e_vPos, float   e_fTime);
+	bool							MorphingEditChangeData(int e_iVertexIndex,Vector3 e_vPos, float   e_fTime);
 	bool							MorphingEditApplyData();
+	bool							MorphingEditAddListboxTime(float e_fTime);
+	bool							MorphingEditDeleteListboxTime(int e_iIndex);
+	bool							MorphingEditChangeListboxTime(int e_iIndex, float e_fTime);
+	bool							MorphingEditSetCurrentListboxTime(int e_iIndex);
+	bool							MorphingEditRearrangeTime(float e_fTime);
+	bool							MorphingEditGetEndTime();
 	//
 	void							Render();
 	void							RenderPointsShapeLine();
@@ -104,6 +110,7 @@ public:
 	//virtual	TiXmlElement*			ToTiXmlElement();
 	bool							SetLOD(int e_iLODIndex,bool e_bForceUpdate);
 	int								GetLOD();
+	bool							LODToPoints();
 	bool							isEdited() { return m_bEdited; }
 	int								GetNumTriangles();
 	std::string						GetInfo();
