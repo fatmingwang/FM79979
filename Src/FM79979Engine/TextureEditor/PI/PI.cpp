@@ -1182,12 +1182,19 @@ namespace PI
 					}
 					else
 					{
-						std::vector<int>	l_iTimeVector;
-						for (int i = 0; i < this->MorphingAnimationTime_listBox->SelectedIndices->Count; ++i)
+						if (MorphingAnimationTime_listBox->SelectedIndex == -1)
 						{
-							l_iTimeVector.push_back(MorphingAnimationTime_listBox->SelectedIndices[i]);
+							m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
 						}
-						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditRenderByTimeVectorIndex(l_iTimeVector);
+						else
+						{
+							std::vector<int>	l_iTimeVector;
+							for (int i = 0; i < this->MorphingAnimationTime_listBox->SelectedIndices->Count; ++i)
+							{
+								l_iTimeVector.push_back(MorphingAnimationTime_listBox->SelectedIndices[i]);
+							}
+							m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditRenderByTimeVectorIndex(l_iTimeVector);
+						}
 					}
 				}
 			}

@@ -174,6 +174,7 @@ void cEditor_MorphingAnimation::Render(cMatrix44 e_Mat, cBaseImage * e_pImage)
 {
 	if (this->m_pTarget)
 	{
+		e_pImage->ApplyImage();
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
 		if (l_iSize)
 		{
@@ -186,19 +187,23 @@ void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4
 {
 	if (this->m_pTarget)
 	{
+		//https://learnopengl-cn.readthedocs.io/zh/latest/04%20Advanced%20OpenGL/08%20Advanced%20GLSL/
+		GLRender::RenderPoints(&vRenderPosVector[0], vRenderPosVector.size(),30);
+		e_pImage->ApplyImage();
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
 		if (l_iSize)
 		{
+			int l_iColorSize = (int)m_pTarget->vColorVector.size();
 			for (auto l_Data : m_VertexAnimationVector)
 			{
 				l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
 			}
-			for (size_t i = 0; i < l_iSize; ++i)
+			for (size_t i = 0; i < l_iColorSize; ++i)
 			{
 				m_pTarget->vColorVector[i] = e_vColor;
 			}
 			RenderVertexByIndexBuffer(e_Mat, 3, (float*)&vRenderPosVector[0], (float*)&this->m_pTarget->vUVVector[0], (float*)&this->m_pTarget->vColorVector[0], (float*)&this->m_pTarget->vIndexVector[0], (int)l_iSize);
-			for (size_t i = 0; i < l_iSize; ++i)
+			for (size_t i = 0; i < l_iColorSize; ++i)
 			{
 				m_pTarget->vColorVector[i] = Vector4::One;
 			}
