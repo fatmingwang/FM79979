@@ -59,8 +59,6 @@ bool	cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::DeleteData
 
 bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ChangeData(Vector3 e_vPos, float e_fTime)
 {
-	if (m_FormKeyFrames.find(e_fTime) == m_FormKeyFrames.end())
-		return false;
 	m_FormKeyFrames[e_fTime] = e_vPos;
 	return true;
 }
@@ -177,7 +175,34 @@ void cEditor_MorphingAnimation::Render(cMatrix44 e_Mat, cBaseImage * e_pImage)
 	if (this->m_pTarget)
 	{
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
-		RenderVertexByIndexBuffer(e_Mat, 3, (float*)&vRenderPosVector[0], (float*)&this->m_pTarget->vUVVector[0], (float*)&this->m_pTarget->vColorVector[0], (float*)&this->m_pTarget->vIndexVector[0], (int)l_iSize);
+		if (l_iSize)
+		{
+			RenderVertexByIndexBuffer(e_Mat, 3, (float*)&vRenderPosVector[0], (float*)&this->m_pTarget->vUVVector[0], (float*)&this->m_pTarget->vColorVector[0], (float*)&this->m_pTarget->vIndexVector[0], (int)l_iSize);
+		}
+	}
+}
+
+void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage * e_pImage)
+{
+	if (this->m_pTarget)
+	{
+		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
+		if (l_iSize)
+		{
+			for (auto l_Data : m_VertexAnimationVector)
+			{
+				l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
+			}
+			for (size_t i = 0; i < l_iSize; ++i)
+			{
+				m_pTarget->vColorVector[i] = e_vColor;
+			}
+			RenderVertexByIndexBuffer(e_Mat, 3, (float*)&vRenderPosVector[0], (float*)&this->m_pTarget->vUVVector[0], (float*)&this->m_pTarget->vColorVector[0], (float*)&this->m_pTarget->vIndexVector[0], (int)l_iSize);
+			for (size_t i = 0; i < l_iSize; ++i)
+			{
+				m_pTarget->vColorVector[i] = Vector4::One;
+			}
+		}
 	}
 }
 

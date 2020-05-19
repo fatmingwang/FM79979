@@ -367,6 +367,30 @@ bool cPuzzleImageUnitTriangulator::MorphingEditRearrangeTime(float e_fTime)
 	return false;
 }
 
+void cPuzzleImageUnitTriangulator::MorphingEditRender()
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		m_pEditor_MorphingAnimation->Render(cMatrix44::Identity,(cBaseImage*)this->m_pReferenceImage);
+	}
+}
+
+void cPuzzleImageUnitTriangulator::MorphingEditRenderByTimeVectorIndex(std::vector<int> e_TimeVector)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		Vector4 l_vColor = Vector4::One;
+		for (auto l_iIndex: e_TimeVector)
+		{
+			auto l_fTime = m_pEditor_MorphingAnimation->m_fListboxTimeVector[l_iIndex];
+			l_vColor.x = 1.f / (l_iIndex + 1);
+			l_vColor.y = 1.f / (l_iIndex + 1);
+			l_vColor.z = 1.f / (l_iIndex + 1);
+			m_pEditor_MorphingAnimation->RenderByTimeForHint(l_fTime, l_vColor,cMatrix44::Identity, (cBaseImage*)this->m_pReferenceImage);
+		}
+	}
+}
+
 bool cPuzzleImageUnitTriangulator::MorphingEditGetEndTime()
 {
 	if (m_pEditor_MorphingAnimation)

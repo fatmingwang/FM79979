@@ -5,6 +5,7 @@
 
 class cEditor_MorphingAnimation :public NamedTypedObject
 {
+	friend class cPuzzleImageUnitTriangulator;
 	sTrianglesToDrawIndicesBuffer*	m_pTarget;
 	//
 	struct sVertexIndexAndPositionAndTimeVector
@@ -51,6 +52,7 @@ public:
 	bool	ApplyData();
 	void	UpdateAnimationByGlobalTime(float e_fElpaseTime);
 	void	Render(cMatrix44 e_Mat,cBaseImage*e_pImage);
+	void	RenderByTimeForHint(float e_fElpaseTime,Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage*e_pImage);
 	void	RearrangeTime(float e_fTargetTime);
 
 	bool	AddListboxTime(float e_fTime);

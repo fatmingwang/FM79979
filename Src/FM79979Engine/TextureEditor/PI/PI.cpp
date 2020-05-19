@@ -372,6 +372,8 @@ namespace PI
 				static	WCHAR	l_strPuzzleImageName[MAX_PATH];
 				if( l_pPuzzleImage )
 				{
+					auto l_strCharFileName = DNCT::GcStringToChar(l_strFileName);
+					UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), l_strCharFileName.length());
 					this->Text = e_strFileName;
 				    cNamedTypedObjectVector<cImageIndexOfAnimation>*l_pImageIndexOfAnimationList =l_pPuzzleImage->GetImageIndexOfAnimationList();
 				    if( l_pImageIndexOfAnimationList )
@@ -1152,25 +1154,41 @@ namespace PI
 			m_pOrthogonalCameraForTrianhulatorPIUnit->DrawGrid(0, 0, Vector4(0.3f, 0.7f, 0.3f, 0.7f));
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
-				m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
-				if (EditAnimation_checkBox->Checked)
+				if(!EditAnimation_checkBox->Checked)
 				{
-					int l_iNextStep = (int)(l_fElpaseTime * 1000);
-					if (MorphingAnimation_trackBar->Value == MorphingAnimation_trackBar->Maximum)
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->Render();
+				}
+				else
+				{
+					if (PlayMorphingAnimation_checkBox->Checked)
 					{
-						MorphingAnimation_trackBar->Value = 0;
-					}
-					if (l_iNextStep + MorphingAnimation_trackBar->Value > MorphingAnimation_trackBar->Maximum)
-					{
-						MorphingAnimation_trackBar->Value = MorphingAnimation_trackBar->Maximum;
+						int l_iNextStep = (int)(l_fElpaseTime * 1000);
+						if (MorphingAnimation_trackBar->Value == MorphingAnimation_trackBar->Maximum)
+						{
+							MorphingAnimation_trackBar->Value = 0;
+						}
+						if (l_iNextStep + MorphingAnimation_trackBar->Value > MorphingAnimation_trackBar->Maximum)
+						{
+							MorphingAnimation_trackBar->Value = MorphingAnimation_trackBar->Maximum;
+						}
+						else
+						{
+							MorphingAnimation_trackBar->Value += l_iNextStep;
+						}
+						int l_iValue = this->MorphingAnimation_trackBar->Value;
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditUpdateanimationByBlobalTime(l_iValue / 1000.f);
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditRender();
+						MorphintTime_label->Text = MorphingAnimation_trackBar->Value.ToString() + "/" + MorphingAnimation_trackBar->Maximum.ToString();
 					}
 					else
 					{
-						MorphingAnimation_trackBar->Value += l_iNextStep;
+						std::vector<int>	l_iTimeVector;
+						for (int i = 0; i < this->MorphingAnimationTime_listBox->SelectedIndices->Count; ++i)
+						{
+							l_iTimeVector.push_back(MorphingAnimationTime_listBox->SelectedIndices[i]);
+						}
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditRenderByTimeVectorIndex(l_iTimeVector);
 					}
-					int l_iValue = this->MorphingAnimation_trackBar->Value;
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditUpdateanimationByBlobalTime(l_iValue / 1000.f);
-					MorphintTime_label->Text = MorphingAnimation_trackBar->Value.ToString() + "/" + MorphingAnimation_trackBar->Maximum.ToString();
 				}
 			}
 		}
@@ -1485,6 +1503,7 @@ namespace PI
 				if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
 				{
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyData();
 					ImageTriangulatorLOD_numericUpDown->Value = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD();
 				}
 			}
@@ -1958,6 +1977,7 @@ namespace PI
 		//	l_pBitMap->Save(l_strDirectory+DNCT::WcharToGcstring(l_pUIImage->GetName())+".png");
 		//}
 	}
+
 	System::Void cPIEditor::openXMLToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
 	{
 		String^l_strFileName = DNCT::OpenFileAndGetName("PuzzleImage(*.pi;*.pib)|*.pi;*.pib");
@@ -1965,6 +1985,8 @@ namespace PI
 		if (l_strFileName)
 		{
 			OpenPIFile(l_strFileName);
+			auto l_strCharFileName = DNCT::GcStringToChar(l_strFileName);
+			UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), l_strCharFileName.length());
 		}
 	}
 	System::Void cPIEditor::AddAnimationImage_button_Click(System::Object^  sender, System::EventArgs^  e)
@@ -2485,7 +2507,7 @@ namespace PI
 
 	System::Void cPIEditor::MorphingAnimation_trackBar_MouseDown(System::Object^  sender, System::Windows::Forms::MouseEventArgs^  e)
 	{
-		this->EditAnimation_checkBox->Checked = false;
+		this->PlayMorphingAnimation_checkBox->Checked = false;
 	}
 
 

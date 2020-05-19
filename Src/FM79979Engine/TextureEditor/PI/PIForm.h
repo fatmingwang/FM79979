@@ -5,6 +5,7 @@
 #include "PIUtility.h"
 #include "../../Core/GameplayUT/OpenGL/WindowsOpenGL.h"
 cGlyphFontRender*g_pDebugFont = nullptr;
+#define	LAST_USE_PI_FILE_NAME	"_lastpifile.txt"
 namespace PI 
 {
 
@@ -210,6 +211,15 @@ namespace PI
 			this->Dock = GCFORM::DockStyle::Fill;
 			TriangulatorMouseBehavior_comboBox->SelectedIndex = 0;
 			//WARNING_MSG(openXMLToolStripMenuItem->Size.ToString());
+			if(System::IO::File::Exists(LAST_USE_PI_FILE_NAME))
+			{
+				int l_iFileLength = 0;
+				auto l_pFileContent = UT::GetFileContent(LAST_USE_PI_FILE_NAME, l_iFileLength);
+				if (l_pFileContent)
+				{
+					OpenPIFile(gcnew String(l_pFileContent));
+				}
+			}
 			this->timer1->Enabled = true;
 		}
 
@@ -254,15 +264,13 @@ namespace PI
 	private: System::Windows::Forms::Button^  AddNewPIUnitImage_button;
 	private: System::Windows::Forms::Button^  AnimationDatDel_button;
 	private: System::Windows::Forms::Button^  AnimationDatAdd_button;
-
 	private: System::Windows::Forms::Button^  DeleteTime_button;
 	private: System::Windows::Forms::Button^  AddTime_button;
 	private: System::Windows::Forms::Button^  LODToPoints_button;
 	private: System::Windows::Forms::ListBox^  AllImage_listBox;
 	private: System::Windows::Forms::ListBox^  AnimationData_listBox;
 	private: System::Windows::Forms::ListBox^  AnimationDataList_listBox;
-private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
-
+	private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 	private: System::Windows::Forms::Label^  label14;
 	private: System::Windows::Forms::Label^  AnimationTime_label;
 	private: System::Windows::Forms::Label^  MorphintTime_label;
@@ -303,6 +311,8 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 	private: System::Windows::Forms::CheckBox^  AllShowBoundry_checkBox;
 	private: System::Windows::Forms::CheckBox^  ShowBoundary_checkBox;
 	private: System::Windows::Forms::CheckBox^  DebugLine_checkBox;
+	private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
+	private: System::Windows::Forms::CheckBox^  PlayMorphingAnimation_checkBox;
 	private: System::Windows::Forms::MenuStrip^  menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^  generateAllImageWithPowerOfTwoToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^  dockToolStripMenuItem;
@@ -328,7 +338,6 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 	private: System::Windows::Forms::TabPage^  ImageTriangulator_tabPage;
 	private: System::Windows::Forms::TabPage^  SequenceAnimation_tabPage;
 	private: System::Windows::Forms::TrackBar^  MorphingAnimation_trackBar;
-	private: System::Windows::Forms::CheckBox^  EditAnimation_checkBox;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::FlowLayoutPanel^  flowLayoutPanel1;
 	//my
@@ -351,6 +360,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 	cOrthogonalCamera*									m_pOrthogonalCameraForTrianhulatorPIUnit;
 	UT::sTimeAndFPS*									m_pTimeAndFPS;
 	Vector4	*m_pvBGColor;
+public:
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void								SavePuzzleFile(String^e_strFileName,bool e_bBinary);
 	private: cPuzzleImage*								OpenPuzzleFile(String^e_strFileName);
@@ -471,6 +481,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			this->MorphingAnimationTime_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->ImageTriangulator_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->splitContainer2 = (gcnew System::Windows::Forms::SplitContainer());
+			this->PlayMorphingAnimation_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageHeight_numericUpDown))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ImageWidth_numericUpDown))->BeginInit();
 			this->menuStrip1->SuspendLayout();
@@ -1466,6 +1477,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			// ImageTriangulator_tabPage
 			// 
 			this->ImageTriangulator_tabPage->BackColor = System::Drawing::SystemColors::ControlDark;
+			this->ImageTriangulator_tabPage->Controls->Add(this->EditAnimation_checkBox);
 			this->ImageTriangulator_tabPage->Controls->Add(this->flowLayoutPanel1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->groupBox1);
 			this->ImageTriangulator_tabPage->Controls->Add(this->label14);
@@ -1485,7 +1497,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			// 
 			// flowLayoutPanel1
 			// 
-			this->flowLayoutPanel1->Controls->Add(this->EditAnimation_checkBox);
+			this->flowLayoutPanel1->Controls->Add(this->PlayMorphingAnimation_checkBox);
 			this->flowLayoutPanel1->Controls->Add(this->MorphintTime_label);
 			this->flowLayoutPanel1->Controls->Add(this->MorphingAnimation_trackBar);
 			this->flowLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Bottom;
@@ -1497,7 +1509,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			// EditAnimation_checkBox
 			// 
 			this->EditAnimation_checkBox->AutoSize = true;
-			this->EditAnimation_checkBox->Location = System::Drawing::Point(3, 3);
+			this->EditAnimation_checkBox->Location = System::Drawing::Point(16, 167);
 			this->EditAnimation_checkBox->Name = L"EditAnimation_checkBox";
 			this->EditAnimation_checkBox->Size = System::Drawing::Size(92, 16);
 			this->EditAnimation_checkBox->TabIndex = 106;
@@ -1508,7 +1520,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			// MorphintTime_label
 			// 
 			this->MorphintTime_label->AutoSize = true;
-			this->MorphintTime_label->Location = System::Drawing::Point(101, 0);
+			this->MorphintTime_label->Location = System::Drawing::Point(53, 0);
 			this->MorphintTime_label->Name = L"MorphintTime_label";
 			this->MorphintTime_label->Size = System::Drawing::Size(11, 12);
 			this->MorphintTime_label->TabIndex = 97;
@@ -1517,7 +1529,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			// MorphingAnimation_trackBar
 			// 
 			this->MorphingAnimation_trackBar->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->MorphingAnimation_trackBar->Location = System::Drawing::Point(117, 1);
+			this->MorphingAnimation_trackBar->Location = System::Drawing::Point(69, 1);
 			this->MorphingAnimation_trackBar->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
 			this->MorphingAnimation_trackBar->Name = L"MorphingAnimation_trackBar";
 			this->MorphingAnimation_trackBar->Size = System::Drawing::Size(1204, 20);
@@ -1659,6 +1671,7 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			this->MorphingAnimationTime_listBox->Location = System::Drawing::Point(466, 48);
 			this->MorphingAnimationTime_listBox->Margin = System::Windows::Forms::Padding(2, 1, 2, 1);
 			this->MorphingAnimationTime_listBox->Name = L"MorphingAnimationTime_listBox";
+			this->MorphingAnimationTime_listBox->SelectionMode = System::Windows::Forms::SelectionMode::MultiSimple;
 			this->MorphingAnimationTime_listBox->Size = System::Drawing::Size(162, 172);
 			this->MorphingAnimationTime_listBox->TabIndex = 98;
 			this->MorphingAnimationTime_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &cPIEditor::MorphingAnimationTime_listBox_SelectedIndexChanged);
@@ -1693,6 +1706,16 @@ private: System::Windows::Forms::ListBox^  MorphingAnimationTime_listBox;
 			this->splitContainer2->SplitterDistance = 356;
 			this->splitContainer2->SplitterWidth = 3;
 			this->splitContainer2->TabIndex = 0;
+			// 
+			// PlayMorphingAnimation_checkBox
+			// 
+			this->PlayMorphingAnimation_checkBox->AutoSize = true;
+			this->PlayMorphingAnimation_checkBox->Location = System::Drawing::Point(3, 3);
+			this->PlayMorphingAnimation_checkBox->Name = L"PlayMorphingAnimation_checkBox";
+			this->PlayMorphingAnimation_checkBox->Size = System::Drawing::Size(44, 16);
+			this->PlayMorphingAnimation_checkBox->TabIndex = 107;
+			this->PlayMorphingAnimation_checkBox->Text = L"Play";
+			this->PlayMorphingAnimation_checkBox->UseVisualStyleBackColor = true;
 			// 
 			// cPIEditor
 			// 

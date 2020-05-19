@@ -99,6 +99,8 @@ public:
 	bool							MorphingEditChangeListboxTime(int e_iIndex, float e_fTime);
 	bool							MorphingEditSetCurrentListboxTime(int e_iIndex);
 	bool							MorphingEditRearrangeTime(float e_fTime);
+	void							MorphingEditRender();
+	void							MorphingEditRenderByTimeVectorIndex(std::vector<int>e_TimeVector);
 	bool							MorphingEditGetEndTime();
 	//
 	void							Render();
