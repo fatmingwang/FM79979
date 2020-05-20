@@ -315,6 +315,7 @@ public:
 	static const Vector4 Red;
 	static const Vector4 Green;
 	static const Vector4 Blue;
+	static const Vector4 Yellow;
 	static const Vector4 HalfDark;
 	static const Vector4 HalfBright;
 	static const Vector4 HalfBrightWithHalfAlpha;

@@ -27,9 +27,6 @@
 //vec4 texture2D(sampler2D, vec2 coord);		vec4 texture(sampler{ 2,3 }D sampler, vec2 coord);
 //vec4 textureCube(samplerCube, vec3 coord;	vec4 texture(samplerCube sampler, vec3 coord);
 
-
-
-
 //gl_Color
 //gl_FrontColor
 //gl_BackColor
@@ -57,7 +54,8 @@ GLenum	g_iFVF_DataType[TOTAL_FVF] = {
 									GL_FLOAT,			//UV1
 									GL_FLOAT};			//UV2
 
-char*g_strShaderAttribution[TOTAL_FVF] = {"VSPosition",		//0
+char*g_strShaderAttribution[TOTAL_FVF] = {
+											"VSPosition",			//0
 											"VSNormal",				//1
 											"VSColor",				//2
 											"VSTangent",			//3
@@ -127,352 +125,114 @@ namespace FATMING_CORE
 	wchar_t*STATIC_MESH_SHADER = L"MeshShader";
 	//pos,normal,bone,weight,tex
 	wchar_t*SKINNING_MESH_SHADER = L"SkinningMeshShader";
+	//pos only
+	wchar_t*DRAW_POINTS_SHADER = L"DrawPointsShader";
+	
 	//precision medium is not support in the MACbook Air.....fuck
 	//and iphone shader should use lowp instead dsclare precision mediump ,
 	//because mesh shader occur crash......fuck.
 	//for opengl es1 compatibility,so we need color vertex buffer
-	char*g_strCommonVS = "									\
-	attribute vec3 VSPosition;								\
-	attribute vec4 VSColor;									\
-	attribute vec2 VSTexcoord;								\
-	uniform mat4 matVP;										\
-	uniform mat4 matW;										\
-	varying vec2 PSTexcoord;								\
-	varying vec4 PSColor;									\
-	void main()												\
-	{														\
-		gl_Position = matVP*matW*vec4(VSPosition,1);		\
-		PSTexcoord = VSTexcoord;							\
-		PSColor = VSColor;									\
-	}";
-#if defined(IOS) || defined(ANDROID) || defined (WASM) || defined(LINUX)||defined(UWP)
-	char*g_strCommonFS = "										\
-	uniform sampler2D texSample;								\
-	varying lowp vec2 PSTexcoord;								\
-	varying lowp vec4 PSColor;									\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));\
-	}";
-#else
-	char*g_strCommonFS = "										\
-	uniform sampler2D texSample;								\
-	varying vec2 PSTexcoord;									\
-	varying vec4 PSColor;										\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));\
-	}";
-
-	//void main()
-	//{
-	//	gl_FragColor = texture2D(texSample, PSTexcoord) + (PSColor - vec4(1, 1, 1, 1));
-	//}";
-
-#endif
-
-	char*g_strColorFulFS = "													\
-	uniform sampler2D texSample;												\
-	varying vec2 PSTexcoord;													\
-	varying vec4 PSColor;														\
-	uniform vec4 MyColor;														\
-																				\
-	void main()																	\
-	{																			\
-		gl_FragColor = texture2D(texSample, PSTexcoord);						\
-		gl_FragColor.xyz = gl_FragColor.xyz+(PSColor.xyz-vec3(0.5,0.5,0.5));	\
-	}";
+	const char*g_strCommonVS = 
+	R"(
+		attribute vec3 VSPosition;
+		attribute vec4 VSColor;
+		attribute vec2 VSTexcoord;
+		uniform mat4 matVP;
+		uniform mat4 matW;
+		varying vec2 PSTexcoord;
+		varying vec4 PSColor;
+		void main()
+		{
+			gl_Position = matVP*matW*vec4(VSPosition,1);
+			PSTexcoord = VSTexcoord;
+			PSColor = VSColor;
+		}
+	)";
+	const char*g_strColorFulFS = 
+	R"(
+		uniform sampler2D texSample;
+		varying vec2 PSTexcoord;
+		varying vec4 PSColor;
+		uniform vec4 MyColor;
+		void main()
+		{
+			gl_FragColor = texture2D(texSample, PSTexcoord);
+			gl_FragColor.xyz = gl_FragColor.xyz+(PSColor.xyz-vec3(0.5,0.5,0.5));
+		}
+	)";
 //=======================
 //
 //=======================
-	char*g_strCommonVSNoTexture = "							\
-	attribute vec3 VSPosition;								\
-	attribute vec2 VSTexcoord;								\
-	uniform mat4 matVP;										\
-	uniform mat4 matW;										\
-	uniform vec4 Color;										\
-	varying vec4 PSColor;									\
-	void main()												\
-	{														\
-		gl_Position = matVP*matW*vec4(VSPosition,1);		\
-		PSColor = Color;									\
-	}";
-#if defined(IOS) || defined(ANDROID)|| defined (WASM) || defined(LINUX)||defined(UWP)
-	char*g_strCommonFSNoTexture = "							\
-	varying lowp vec4 PSColor;								\
-	void main()												\
-	{														\
-		gl_FragColor = PSColor;								\
-	}";
-#else
-	char*g_strCommonFSNoTexture = "							\
-	varying vec4 PSColor;									\
-	void main()												\
-	{														\
-		gl_FragColor = PSColor;								\
-	}";
-#endif
-//=======================
-//for mesh
-//=======================
-	char*g_strMyMeshVS = "									\
-	attribute vec3 VSPosition;								\
-	attribute vec3 VSNormal;								\
-	attribute vec2 VSTexcoord;								\
-	uniform mat4 matVP;										\
-	uniform mat4 matW;										\
-	varying vec2 PSTexcoord;								\
-	varying vec3 PSNormal;									\
-	void main()												\
-	{														\
-		gl_Position = matVP*matW*vec4(VSPosition,1);		\
-		PSTexcoord = VSTexcoord;							\
-		PSNormal = VSNormal;								\
-	}";
+	const char*g_strCommonVSNoTexture = 
+	R"(
+			attribute vec3 VSPosition;
+			attribute vec2 VSTexcoord;
+			uniform mat4 matVP;
+			uniform mat4 matW;
+			uniform vec4 Color;
+			varying vec4 PSColor;
+			void main()
+			{
+				gl_Position = matVP*matW*vec4(VSPosition,1);
+				PSColor = Color;
+			}
+	)";
 
-	char*g_strMyMeshWithVertexColorVS = "					\
-	attribute vec3 VSPosition;								\
-	attribute vec3 VSNormal;								\
-	attribute vec4 VSColor;									\
-	attribute vec2 VSTexcoord;								\
-	uniform mat4 matVP;										\
-	uniform mat4 matW;										\
-	varying vec2 PSTexcoord;								\
-	varying vec3 PSNormal;									\
-	varying vec4 PSColor;									\
-	void main()												\
-	{														\
-		gl_Position = matVP*matW*vec4(VSPosition,1);		\
-		PSTexcoord = VSTexcoord;							\
-		PSNormal = VSNormal;								\
-		PSColor = VSColor;									\
-	}";
+	const char*g_strDrawPointsVS =
+	R"(
+			attribute vec3 VSPosition;
+			uniform float PointSize;
+			uniform mat4 matVP;
+			uniform mat4 matW;
+			uniform vec4 Color;
+			varying vec4 PSColor;
+			void main()
+			{
+				gl_Position = matVP*matW*vec4(VSPosition,1);
+				gl_PointSize = PointSize;
+				PSColor = Color;
+			}
+	)";
+
 
 #if defined(WIN32) && !defined(UWP)
-	char*g_strMyMeshWithVertexColorFS = "						\
-	uniform sampler2D texSample;								\
-	uniform vec4 PSColor;										\
-	varying vec2 PSTexcoord;									\
-	varying vec3 PSNormal;										\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));\
-	}";
-	char*g_strMyMeshFS = "										\
-	uniform sampler2D texSample;								\
-	varying vec2 PSTexcoord;									\
-	varying vec3 PSNormal;										\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord);			\
-	}";
+	const char*g_strCommonFS =
+	R"(
+		uniform sampler2D texSample;
+		varying vec2 PSTexcoord;
+		varying vec4 PSColor;
+		void main()
+		{
+			gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));
+		}
+	)";
+	const char*g_strCommonFSNoTexture =
+	R"(
+		varying vec4 PSColor;
+		void main()
+		{
+			gl_FragColor = PSColor;
+		}
+	)";
 #else
-	char*g_strMyMeshWithVertexColorFS = "						\
-	uniform sampler2D texSample;								\
-	varying lowp vec4 PSColor;									\
-	varying lowp vec2 PSTexcoord;								\
-	varying lowp vec3 PSNormal;									\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)*PSColor;\
-	}";
-
-	char*g_strMyMeshFS = "										\
-	uniform sampler2D texSample;								\
-	varying lowp vec2 PSTexcoord;								\
-	varying lowp vec3 PSNormal;									\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord);		\
-	}";
-#endif
-
-//matBones size will be different on different device...
-#if defined(WIN32) && !defined(UWP)
-	char*g_strMySkinningMeshWithVertexColorVS = "			\
-	attribute	vec3	VSPosition;							\
-	attribute	vec3	VSNormal;							\
-	attribute	vec4	VSColor;							\
-	attribute	vec2	VSTexcoord;							\
-    attribute	vec4	VSWeights;							\
-    attribute	vec4	VSInflunceBoneIndices;				\
-	uniform		mat4	matVP;								\
-	uniform		mat4	matW;								\
-	uniform		mat4	matBones[200];						\
-	varying		vec2	PSTexcoord;							\
-	varying		vec3	PSNormal;							\
-	varying		vec4	PSColor;							\
-	void main()												\
-	{																						\
-		gl_Position = vec4(0,0,0,0);														\
-		PSNormal = vec3(0,0,0);																\
-		vec4 curIndex = VSInflunceBoneIndices;												\
-		vec4 curWeight = VSWeights;															\
-		for( int i=0;i<4;i++ )																\
-		{																					\
-				mat4 m44 = matBones[int(curIndex.x)];										\
-				gl_Position += m44 * vec4(VSPosition,1) * curWeight.x;						\
-				mat3 m33 = mat3(m44[0].xyz,													\
-								m44[1].xyz,													\
-								m44[2].xyz);												\
-				PSNormal += m33 * VSNormal * curWeight.x;									\
-				curIndex = curIndex.yzwx;													\
-				curWeight = curWeight.yzwx;													\
-		}																					\
-		gl_Position = matVP *matW* gl_Position;												\
-		PSTexcoord = VSTexcoord;															\
-		PSNormal = VSNormal;																\
-		PSColor = VSColor;																	\
-	}";
-	char*g_strMySkinningMeshWithVertexColorFS = "								\
-	uniform sampler2D texSample;								\
-	uniform vec4 PSColor;										\
-	varying vec2 PSTexcoord;									\
-	varying vec3 PSNormal;										\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));\
-	}";
-	char*g_strMySkinningMeshVS = "			\
-	attribute	vec3	VSPosition;							\
-	attribute	vec3	VSNormal;							\
-	attribute	vec2	VSTexcoord;							\
-    attribute	vec4	VSWeights;							\
-    attribute	vec4	VSInflunceBoneIndices;				\
-	uniform		mat4	matVP;								\
-	uniform		mat4	matW;								\
-	uniform		mat4	matBones[200];						\
-	varying		vec2	PSTexcoord;							\
-	varying		vec3	PSNormal;							\
-	void main()												\
-	{																						\
-		gl_Position = vec4(0,0,0,0);														\
-		PSNormal = vec3(0,0,0);																\
-		vec4 curIndex = VSInflunceBoneIndices;												\
-		vec4 curWeight = VSWeights;															\
-		for( int i=0;i<4;i++ )																\
-		{																					\
-				mat4 m44 = matBones[int(curIndex.x)];										\
-				gl_Position += m44 * vec4(VSPosition,1) * curWeight.x;						\
-				mat3 m33 = mat3(m44[0].xyz,													\
-								m44[1].xyz,													\
-								m44[2].xyz);												\
-				PSNormal += m33 * VSNormal * curWeight.x;									\
-				curIndex = curIndex.yzwx;													\
-				curWeight = curWeight.yzwx;													\
-		}																					\
-		gl_Position = matVP *matW* gl_Position;												\
-		PSTexcoord = VSTexcoord;															\
-		PSNormal = VSNormal;																\
-	}";
-	char*g_strMySkinningMeshFS = "								\
-	uniform sampler2D texSample;								\
-	varying vec2 PSTexcoord;									\
-	varying vec3 PSNormal;										\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord);		\
-	}";
-
-#else
-//because some device bufferis not enough so 32 is a safe range
-	char*g_strMySkinningMeshVS = "							\
-	attribute	vec3	VSPosition;							\
-	attribute	vec3	VSNormal;							\
-	attribute	vec2	VSTexcoord;							\
-    attribute	vec4	VSWeights;							\
-    attribute	vec4	VSInflunceBoneIndices;				\
-	uniform		mat4	matVP;								\
-	uniform		mat4	matW;								\
-	uniform		mat4	matBones[32];						\
-	varying		vec2	PSTexcoord;							\
-	varying		vec3	PSNormal;							\
-	void main()												\
-	{																						\
-		gl_Position = vec4(0,0,0,0);														\
-		PSNormal = vec3(0,0,0);																\
-		vec4 curIndex = VSInflunceBoneIndices;												\
-		vec4 curWeight = VSWeights;															\
-		for( int i=0;i<4;i++ )																\
-		{																					\
-				mat4 m44 = matBones[int(curIndex.x)];										\
-				gl_Position += m44 * vec4(VSPosition,1) * curWeight.x;						\
-				mat3 m33 = mat3(m44[0].xyz,													\
-								m44[1].xyz,													\
-								m44[2].xyz);												\
-				PSNormal += m33 * VSNormal * curWeight.x;									\
-				curIndex = curIndex.yzwx;													\
-				curWeight = curWeight.yzwx;													\
-		}																					\
-		gl_Position = matVP *matW* gl_Position;												\
-		PSTexcoord = VSTexcoord;															\
-		PSNormal = VSNormal;																\
-	}";
-
-	char*g_strMySkinningMeshFS = "								\
-	uniform sampler2D texSample;								\
-	varying lowp vec2 PSTexcoord;								\
-	varying lowp vec3 PSNormal;									\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord);		\
-	}";
-//because some device bufferis not enough so 32 is a safe range
-	char*g_strMySkinningMeshWithVertexColorVS = "			\
-	attribute	vec3	VSPosition;							\
-	attribute	vec3	VSNormal;							\
-	attribute	vec4	VSColor;							\
-	attribute	vec2	VSTexcoord;							\
-    attribute	vec4	VSWeights;							\
-    attribute	vec4	VSInflunceBoneIndices;				\
-	uniform		mat4	matVP;								\
-	uniform		mat4	matW;								\
-	uniform		mat4	matBones[32];						\
-	varying		vec2	PSTexcoord;							\
-	varying		vec3	PSNormal;							\
-	varying		vec4	PSColor;							\
-	void main()												\
-	{																						\
-		gl_Position = vec4(0,0,0,0);														\
-		PSNormal = vec3(0,0,0);																\
-		vec4 curIndex = VSInflunceBoneIndices;												\
-		vec4 curWeight = VSWeights;															\
-		for( int i=0;i<4;i++ )																\
-		{																					\
-				mat4 m44 = matBones[int(curIndex.x)];										\
-				gl_Position += m44 * vec4(VSPosition,1) * curWeight.x;						\
-				mat3 m33 = mat3(m44[0].xyz,													\
-								m44[1].xyz,													\
-								m44[2].xyz);												\
-				PSNormal += m33 * VSNormal * curWeight.x;									\
-				curIndex = curIndex.yzwx;													\
-				curWeight = curWeight.yzwx;													\
-		}																					\
-		gl_Position = matVP *matW* gl_Position;												\
-		PSTexcoord = VSTexcoord;															\
-		PSNormal = VSNormal;																\
-		PSColor = VSColor;																	\
-	}";
-	char*g_strMySkinningMeshWithVertexColorFS = "				\
-	uniform sampler2D texSample;								\
-	varying lowp vec4 PSColor;									\
-	varying lowp vec2 PSTexcoord;								\
-	varying lowp vec3 PSNormal;									\
-																\
-	void main()													\
-	{															\
-		gl_FragColor = texture2D(texSample, PSTexcoord)*PSColor;\
-	}";
-
+	const char*g_strCommonFS =
+	R"(
+		uniform sampler2D texSample;
+		varying lowp vec2 PSTexcoord;
+		varying lowp vec4 PSColor;
+		void main()
+		{
+			gl_FragColor = texture2D(texSample, PSTexcoord)+(PSColor-vec4(1,1,1,1));
+		}
+	)";
+	const char*g_strCommonFSNoTexture =
+	R"(
+		varying lowp vec4 PSColor;
+		void main()
+		{
+			gl_FragColor = PSColor;
+		}
+	)";
 #endif
 //end namespace FATMING_CORE
 }

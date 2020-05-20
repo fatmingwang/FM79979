@@ -1136,6 +1136,7 @@ namespace PI
 			l_sfTime = 0.f;
 		DEFAULT_SHADER = L"ICPathShader";
 		NO_TEXTURE_SHADER = L"IC_NoTextureShader";
+		DRAW_POINTS_SHADER = L"IC_DrawPointsShader";
 		UseShaderProgram();
 		m_pTimeAndFPS->Update();
 		float	l_fElpaseTime = m_pTimeAndFPS->fElpaseTime;

@@ -55,19 +55,23 @@ namespace FATMING_CORE
 	extern bool	g_bCommonVSNoTextureClientState[TOTAL_FVF];
 	extern bool	g_bMyMeshVSClientState[TOTAL_FVF];
 	extern bool	g_bMySkinningMeshVSClientState[TOTAL_FVF];
-	extern char*g_strCommonVS;
-	extern char*g_strCommonFS;
-	extern char*g_strCommonVSNoTexture;
-	extern char*g_strCommonFSNoTexture;
-	extern char*g_strMyMeshVS;
-	extern char*g_strMyMeshFS;
-	extern char*g_strMySkinningMeshVS;
-	extern char*g_strMySkinningMeshFS;
 
-	extern wchar_t*DEFAULT_SHADER;
-	extern wchar_t*NO_TEXTURE_SHADER;
-	extern wchar_t*STATIC_MESH_SHADER;
-	extern wchar_t*SKINNING_MESH_SHADER;
+	extern const char*	g_strCommonVS;
+	extern const char*	g_strCommonFS;
+	extern const char*	g_strCommonVSNoTexture;
+	extern const char*	g_strCommonFSNoTexture;
+	extern const char*	g_strDrawPointsVS;
+	//extern const char*	g_strDrawPointsFS;//use this g_strCommonFSNoTexture
+	extern const char*	g_strMyMeshVS;
+	extern const char*	g_strMyMeshFS;
+	extern const char*	g_strMySkinningMeshVS;
+	extern const char*	g_strMySkinningMeshFS;
+
+	extern wchar_t*	DEFAULT_SHADER;
+	extern wchar_t*	NO_TEXTURE_SHADER;
+	extern wchar_t*	STATIC_MESH_SHADER;
+	extern wchar_t*	SKINNING_MESH_SHADER;
+	extern wchar_t*	DRAW_POINTS_SHADER;
 
 	class	cBaseShader:public NamedTypedObject
 	{
@@ -92,6 +96,8 @@ namespace FATMING_CORE
 		GLuint	m_uiColorLoacation;
 		//for skinning
 		GLuint	m_uiBonesLocation;
+		//for Point Size
+		GLuint	m_uiPointSize;
 		//if e_bTexture is true it texture coordinate attribute and texture UV will be assign.
 		cBaseShader(const wchar_t*e_strName,bool e_bTexture = true);
 		cBaseShader(const char*e_strVS,const char*e_strPS,const wchar_t*e_strName,bool e_bTexture = true);
@@ -130,6 +136,8 @@ namespace FATMING_CORE
 	//while shader is applied,not set value by camera,ignore rotation,because it has beenn rotated
 	void	SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bOrientation, eDeviceDirection e_eDeviceDirection = eDD_MAX);
 	float*	GetCurrentViewProjectionMatrix();
+	//use DRAW_POINTS_SHADER
+	void	SetShaderPointSize(float e_fSize);
 	//void	SetupPojectionMatrix(float*e_pfPMatrix);
 	//void	SetupViewMatrix(float*e_pfVMatrix);
 	void	SetupShaderWorldMatrix(float*e_pfWMatrix);

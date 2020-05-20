@@ -445,9 +445,10 @@ namespace GLRender
 	//} 
 	void	RenderPoint(Vector2	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(DRAW_POINTS_SHADER);
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
+		FATMING_CORE::SetShaderPointSize(e_fSize);
 		myGlVertexPointer(2,e_vPos);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 1);
@@ -455,9 +456,10 @@ namespace GLRender
 
 	void	RenderPoint(Vector3	e_vPos,float e_fSize,Vector4 e_vColor)
 	{
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(DRAW_POINTS_SHADER);
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
+		FATMING_CORE::SetShaderPointSize(e_fSize);
 		myGlVertexPointer(3,e_vPos);
 		FATMING_CORE::SetupShaderWorldMatrix(cMatrix44::Identity);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, 1);
@@ -466,9 +468,10 @@ namespace GLRender
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(DRAW_POINTS_SHADER);
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
+		FATMING_CORE::SetShaderPointSize(e_fSize);
 		myGlVertexPointer(3,e_pvPos);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
@@ -478,9 +481,10 @@ namespace GLRender
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(DRAW_POINTS_SHADER);
 		//set gl_PointSize value at shader code.
 		FATMING_CORE::SetupShaderColor(e_vColor);
+		FATMING_CORE::SetShaderPointSize(e_fSize);
 		myGlVertexPointer(2,e_pvPos);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);
 		MY_GLDRAW_ARRAYS(GL_POINTS, 0, e_iNumPoints);
@@ -491,7 +495,7 @@ namespace GLRender
 	{
 		if( e_iNumPoints < 1 )
 			return;
-		UseShaderProgram(NO_TEXTURE_SHADER);
+		UseShaderProgram(DRAW_POINTS_SHADER);
 		std::vector<Vector3>	l_TempVector;
 		l_TempVector.resize(e_iNumPoints);
 		for( int i=0;i<e_iNumPoints;++i )
@@ -499,6 +503,7 @@ namespace GLRender
 			l_TempVector[i] = Vector3(e_vPos[i]);
 		}
 		//set gl_PointSize value at shader code.
+		FATMING_CORE::SetShaderPointSize(e_fSize);
 		FATMING_CORE::SetupShaderColor(e_vColor);
 		myGlVertexPointer(3,&l_TempVector[0]);
 		FATMING_CORE::SetupShaderWorldMatrix(e_pfMatrix);

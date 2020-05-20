@@ -18,6 +18,7 @@ namespace FATMING_CORE
 	GLuint	g_iBonesMatrixoacation;
 
 	GLuint	g_iColorLoacation;
+	GLuint	g_iPointSizeLoacation;
 	GLuint	g_uiAttribArray[TOTAL_FVF];
 
 	float	g_fViewProjectionMatrix[16];
@@ -31,9 +32,14 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
+		m_uiPointSize = -1;
+		m_uiBonesLocation = -1;
+		m_uiColorLoacation = -1;
+		m_uiTexLoacation = -1;
+		m_uiMatrixWLoacation = -1;
+		m_uiMatrixVPLoacation = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
-		m_uiTexLoacation = m_uiColorLoacation = m_uiMatrixVPLoacation = m_uiMatrixWLoacation = -1;
 		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
 		bool	l_b = CreateProgram(e_bTexture?g_strCommonVS:g_strCommonVSNoTexture,
 									e_bTexture?g_strCommonFS:g_strCommonFSNoTexture,
@@ -49,9 +55,14 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
+		m_uiPointSize = -1;
+		m_uiBonesLocation = -1;
+		m_uiColorLoacation = -1;
+		m_uiTexLoacation = -1;
+		m_uiMatrixWLoacation = -1;
+		m_uiMatrixVPLoacation = -1;
 		this->SetName(e_strName);
 		m_bTexture = e_bTexture;
-		m_uiTexLoacation = m_uiColorLoacation = m_uiMatrixVPLoacation = m_uiMatrixWLoacation = -1;
 		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
 		bool	l_b = CreateProgram(e_strVS,e_strPS,e_bTexture);
 		assert(g_bShowErrorMessageBoxIfShaderIsWrong?l_b:true);
@@ -198,6 +209,7 @@ namespace FATMING_CORE
 					m_uiMatrixVPLoacation = GetUniFormLocationByName("matVP");
 					m_uiMatrixWLoacation = GetUniFormLocationByName("matW" );
 					m_uiBonesLocation = GetUniFormLocationByName("matBones" );
+					m_uiPointSize = GetUniFormLocationByName("PointSize");
 
 					for(int i=0;i<TOTAL_FVF;++i)
 						m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
@@ -243,6 +255,7 @@ namespace FATMING_CORE
 		m_uiMatrixVPLoacation = GetUniFormLocationByName("matVP");
 		m_uiMatrixWLoacation = GetUniFormLocationByName("matW");
 		m_uiBonesLocation = GetUniFormLocationByName("matBones");
+		m_uiPointSize = GetUniFormLocationByName("PointSize");
 		MyGlErrorTest("cBaseShader::Use get new iniform location");
 		for (int i = 0; i<TOTAL_FVF; ++i)
 			m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
@@ -280,6 +293,11 @@ namespace FATMING_CORE
 		g_iMatrixWLoacation = m_uiMatrixWLoacation;
 		g_iColorLoacation =	m_uiColorLoacation;
 		g_iBonesMatrixoacation =	m_uiBonesLocation;
+		g_iPointSizeLoacation = m_uiPointSize;
+		if(g_iPointSizeLoacation != -1)
+			MyGLEnable(GL_PROGRAM_POINT_SIZE);
+		else
+			MyGLDisable(GL_PROGRAM_POINT_SIZE);
 		if( g_iColorLoacation != (unsigned int)-1 )
 			SetupShaderColor(Vector4::One);
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;
@@ -450,6 +468,15 @@ namespace FATMING_CORE
 	{
 		return g_fViewProjectionMatrix;
 	}
+
+	void SetShaderPointSize(float e_fSize)
+	{
+		MyGlErrorTest("SetShaderPointSize");
+		if(g_iPointSizeLoacation != -1)
+			glUniform1f(g_iPointSizeLoacation, e_fSize);
+		MyGlErrorTest("after SetShaderPointSize");
+	}
+
 	void	SetupShaderViewProjectionMatrix(float*e_pfVPMatrix,bool e_bDoOrientation, eDeviceDirection e_eDeviceDirection)
 	{
 		if( e_bDoOrientation )

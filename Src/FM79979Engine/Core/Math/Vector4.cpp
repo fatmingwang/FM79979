@@ -12,6 +12,8 @@ const Vector4 Vector4::Blue(0.f,0.f,1.f,1.f);
 const Vector4 Vector4::HalfDark(0.5f,0.5f,0.5f,1.f);
 const Vector4 Vector4::HalfBright(1.5f,1.5f,1.5f,1.f);
 const Vector4 Vector4::HalfBrightWithHalfAlpha(0.5f,0.5f,0.5f,0.5f);
+const Vector4 Vector4::Yellow(1.f, 1.f, 0.f, 1.f);
+
 
 
 Vector4::Vector4(int e_Color)

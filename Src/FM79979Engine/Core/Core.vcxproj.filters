@@ -743,6 +743,9 @@
     <ClCompile Include="GameplayUT\Render\UI\RenderObjectVector.cpp">
       <Filter>GameplayUT\Render\UI</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\MeshShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">

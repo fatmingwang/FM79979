@@ -83,7 +83,9 @@ namespace FATMING_CORE
 		CreateShader(g_bCommonVSClientState, DEFAULT_SHADER);
 		//for non texture shader
 		CreateShader(g_bCommonVSNoTextureClientState, NO_TEXTURE_SHADER);
-
+		//
+		CreateShader(g_bCommonVSNoTextureClientState, g_strDrawPointsVS, g_strCommonFSNoTexture, DRAW_POINTS_SHADER);
+		//
 		CreateShader(g_bMyMeshVSClientState, g_strMyMeshVS, g_strMyMeshFS, STATIC_MESH_SHADER);
 		//if crush go to char*g_strMySkinningMeshVS = "
 		//fin matBones[32] and change its size...

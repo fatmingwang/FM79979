@@ -188,7 +188,7 @@ void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4
 	if (this->m_pTarget)
 	{
 		//https://learnopengl-cn.readthedocs.io/zh/latest/04%20Advanced%20OpenGL/08%20Advanced%20GLSL/
-		GLRender::RenderPoints(&vRenderPosVector[0], vRenderPosVector.size(),30);
+		GLRender::RenderPoints(&vRenderPosVector[0], vRenderPosVector.size(),8,Vector4::Red);
 		e_pImage->ApplyImage();
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
 		if (l_iSize)

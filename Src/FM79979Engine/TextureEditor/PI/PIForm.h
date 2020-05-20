@@ -204,6 +204,7 @@ namespace PI
 			g_pDebugFont = m_pDebugFont;
 			CreateShader(g_bCommonVSClientState,L"ICPathShader");
 			CreateShader(g_bCommonVSNoTextureClientState,L"IC_NoTextureShader");
+			CreateShader(g_bCommonVSNoTextureClientState, g_strDrawPointsVS, g_strCommonFSNoTexture, L"IC_DrawPointsShader");
 			m_bAvoidDataAssignForPIUintChild = false;
 			if( e_strFileName && e_strFileName->Length )
 				OpenPIFile(e_strFileName);
@@ -233,6 +234,7 @@ namespace PI
 			SAFE_DELETE(cGameApp::m_spOpenGLRender);
 			DeleteShader(L"ICPathShader");
 			DeleteShader(L"IC_NoTextureShader");
+			DeleteShader(L"IC_DrawPointsShader");
 			delete m_ImageTale;
 			SAFE_DELETE(m_pvBGColor);
 			SAFE_DELETE(m_pDebugFont);
