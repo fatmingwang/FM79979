@@ -9,6 +9,8 @@ cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::sVertexIndexAnd
 
 Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateAnimationByGlobalTime(float e_fGlobalTime)
 {
+	if (m_FormKeyFrames.size() == 0 || !pPos)
+		return Vector3::Zero;
 	//find keyframe before and after and do linear interpolation between them
 	FloatTocVector3Map::iterator prevKey(m_FormKeyFrames.lower_bound(e_fGlobalTime));
 	FloatTocVector3Map::iterator nextKey(prevKey);
@@ -157,6 +159,15 @@ bool cEditor_MorphingAnimation::ApplyData()
 	{
 		bool l_bSameData = false;
 		vRenderPosVector = vMorphingPosVector = m_pTarget->vPosVector;
+		if (m_VertexAnimationVector.size() == 0)
+		{
+			for (size_t i = 0; i < vRenderPosVector.size(); ++i)
+			{
+				sVertexIndexAndPositionAndTimeVector l_Data;
+				l_Data.pPos = &vRenderPosVector[i];
+				m_VertexAnimationVector.push_back(l_Data);
+			}
+		}
 		return true;
 	}
 	return false;
@@ -166,7 +177,8 @@ void cEditor_MorphingAnimation::UpdateAnimationByGlobalTime(float e_fElpaseTime)
 {
 	for (auto l_Data : m_VertexAnimationVector)
 	{
-		l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
+		if(l_Data.m_FormKeyFrames.size())
+			l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
 	}
 }
 
@@ -187,8 +199,6 @@ void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4
 {
 	if (this->m_pTarget)
 	{
-		//https://learnopengl-cn.readthedocs.io/zh/latest/04%20Advanced%20OpenGL/08%20Advanced%20GLSL/
-		GLRender::RenderPoints(&vRenderPosVector[0], vRenderPosVector.size(),8,Vector4::Red);
 		e_pImage->ApplyImage();
 		auto l_iSize = (GLsizei)m_pTarget->vIndexVector.size();
 		if (l_iSize)
@@ -196,7 +206,8 @@ void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4
 			int l_iColorSize = (int)m_pTarget->vColorVector.size();
 			for (auto l_Data : m_VertexAnimationVector)
 			{
-				l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
+				if(l_Data.m_FormKeyFrames.size())
+					l_Data.UpdateAnimationByGlobalTime(e_fElpaseTime);
 			}
 			for (size_t i = 0; i < l_iColorSize; ++i)
 			{
@@ -207,6 +218,8 @@ void cEditor_MorphingAnimation::RenderByTimeForHint(float e_fElpaseTime, Vector4
 			{
 				m_pTarget->vColorVector[i] = Vector4::One;
 			}
+			//https://learnopengl-cn.readthedocs.io/zh/latest/04%20Advanced%20OpenGL/08%20Advanced%20GLSL/
+			GLRender::RenderPoints(&vRenderPosVector[0], (int)vRenderPosVector.size(), 8, Vector4::Red);
 		}
 	}
 }

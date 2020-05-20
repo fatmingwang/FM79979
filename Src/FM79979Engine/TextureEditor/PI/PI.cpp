@@ -1532,6 +1532,16 @@ namespace PI
 				NewPIUnitEndY_numericUpDown->Value = (System::Decimal)(l_pUIImage->GetPos().y + l_pUIImage->GetRightDownStripOffPos().y);
 				m_bAvoidDataAssignForPIUintChild = false;
 			}
+			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			{
+				MorphingAnimationTime_listBox->Items->Clear();
+				auto l_pData = m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetListboxTimeVector();
+				if (l_pData)
+				{
+					for (auto l_fTime : *l_pData)
+						MorphingAnimationTime_listBox->Items->Add(l_fTime.ToString());
+				}
+			}
 		}
 	}
 	System::Void cPIEditor::button2_Click(System::Object^  sender, System::EventArgs^  e)

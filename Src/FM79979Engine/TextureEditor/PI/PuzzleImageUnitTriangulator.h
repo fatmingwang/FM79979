@@ -78,6 +78,7 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	std::vector<sPosAndVertexIndex>	GetPosAndVertexIndexVector();
 	//
 	int								m_iAnimationEditSelectedVertexIndex;
+	int								m_iMouseMoveHittedHintVertexIndex;
 public:
 	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
@@ -102,6 +103,7 @@ public:
 	void							MorphingEditRender();
 	void							MorphingEditRenderByTimeVectorIndex(std::vector<int>e_TimeVector);
 	bool							MorphingEditGetEndTime();
+	std::vector<float>*				MorphingEditGetListboxTimeVector();
 	//
 	void							Render();
 	void							RenderPointsShapeLine();

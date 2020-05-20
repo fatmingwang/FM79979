@@ -40,27 +40,28 @@ public:
 	cEditor_MorphingAnimation(sTrianglesToDrawIndicesBuffer*e_pTarget);
 	//std::map<float, std::vector<sMorphingData>>	m_TimeAndVertexPosVectorData;
 	//if user add or delete triangle vertices,the index could be changed,so here need to reassign vertex index again
-	void	ReassignVertexIndexData(std::map<int, int>&e_ChangedIndexMap);
-	void	DeleteVertexIndexData(int e_iVertexIndex);
+	void					ReassignVertexIndexData(std::map<int, int>&e_ChangedIndexMap);
+	void					DeleteVertexIndexData(int e_iVertexIndex);
 	//move time 0.
-	void	VertexMove(int e_iVertexIndex, Vector3 e_vPos);
-	void	AddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
-	bool	DeleteData(int e_iVertexIndex, float   e_fTime);
-	bool	ChangeData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
-	bool	IsTimeAvaliable(int e_iVertexIndex, float   e_fTime);
+	void					VertexMove(int e_iVertexIndex, Vector3 e_vPos);
+	void					AddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
+	bool					DeleteData(int e_iVertexIndex, float   e_fTime);
+	bool					ChangeData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
+	bool					IsTimeAvaliable(int e_iVertexIndex, float   e_fTime);
 	//generate from sTrianglesToDrawIndicesBuffer,while morphing animation edit is active
-	bool	ApplyData();
-	void	UpdateAnimationByGlobalTime(float e_fElpaseTime);
-	void	Render(cMatrix44 e_Mat,cBaseImage*e_pImage);
-	void	RenderByTimeForHint(float e_fElpaseTime,Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage*e_pImage);
-	void	RearrangeTime(float e_fTargetTime);
+	bool					ApplyData();
+	void					UpdateAnimationByGlobalTime(float e_fElpaseTime);
+	void					Render(cMatrix44 e_Mat,cBaseImage*e_pImage);
+	void					RenderByTimeForHint(float e_fElpaseTime,Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage*e_pImage);
+	void					RearrangeTime(float e_fTargetTime);
 
-	bool	AddListboxTime(float e_fTime);
-	bool	DeleteListboxTime(int e_iIndex);
-	bool	ChangeListboxTime(int e_iIndex, float e_fTime);
-	bool	SetCurrentListboxTime(int e_iIndex);
-	float	GetCurrentListboxTime() { return m_fCurrentMorphingAnimationTime; }
-	float	GetEndTime();
+	bool					AddListboxTime(float e_fTime);
+	bool					DeleteListboxTime(int e_iIndex);
+	bool					ChangeListboxTime(int e_iIndex, float e_fTime);
+	bool					SetCurrentListboxTime(int e_iIndex);
+	float					GetCurrentListboxTime() { return m_fCurrentMorphingAnimationTime; }
+	float					GetEndTime();
+	std::vector<float>*		GetListboxTimeVector() { return &m_fListboxTimeVector; }
 };
 
 

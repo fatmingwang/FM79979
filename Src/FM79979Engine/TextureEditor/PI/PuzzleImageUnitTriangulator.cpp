@@ -71,7 +71,7 @@ cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetIma
 	m_pbtConvexHullShape = nullptr;
 	m_iLOD = 1;
 	m_pReferenceImage = e_pTargetImage;
-	m_iMouseClosestPointIndex = -1;
+	m_iAnimationEditSelectedVertexIndex = m_iMouseMoveHittedHintVertexIndex = m_iMouseClosestPointIndex = -1;
 	m_bEdited = false;
 	m_bWaitForGenerateTriangle = false;
 	m_TriangleVector.reserve(500);
@@ -262,21 +262,25 @@ void cPuzzleImageUnitTriangulator::MorphingEditMouseDown(int e_iPosX, int e_iPos
 	{
 		Vector3 l_vPos((float)e_iPosX, (float)e_iPosY,0.f);
 		m_iAnimationEditSelectedVertexIndex = m_pTrianglesToDrawIndicesBuffer->FinClosestVertexIndex(l_vPos);
-		float l_fCurrentListboxTime = m_pEditor_MorphingAnimation->GetCurrentListboxTime();
-		if (!m_pEditor_MorphingAnimation->IsTimeAvaliable(m_iAnimationEditSelectedVertexIndex, l_fCurrentListboxTime))
-		{
-			m_iAnimationEditSelectedVertexIndex = -1;
-		}
+		//float l_fCurrentListboxTime = m_pEditor_MorphingAnimation->GetCurrentListboxTime();
+		//if (!m_pEditor_MorphingAnimation->IsTimeAvaliable(m_iAnimationEditSelectedVertexIndex, l_fCurrentListboxTime))
+		//{
+		//	m_iAnimationEditSelectedVertexIndex = -1;
+		//}
 	}
 }
 
 void cPuzzleImageUnitTriangulator::MorphingEditMouseMove(int e_iPosX, int e_iPosY)
 {
+	Vector3 l_vPos((float)e_iPosX, (float)e_iPosY, 0.f);
 	if (m_iAnimationEditSelectedVertexIndex != -1)
 	{
-		Vector3 l_vPos((float)e_iPosX, (float)e_iPosY, 0.f);
 		float l_fCurrentListboxTime = m_pEditor_MorphingAnimation->GetCurrentListboxTime();
 		m_pEditor_MorphingAnimation->ChangeData(m_iAnimationEditSelectedVertexIndex, l_vPos, l_fCurrentListboxTime);
+	}
+	else
+	{
+		m_iMouseMoveHittedHintVertexIndex = m_pTrianglesToDrawIndicesBuffer->FinClosestVertexIndex(l_vPos);
 	}
 }
 
@@ -287,6 +291,7 @@ void cPuzzleImageUnitTriangulator::MorphingEditMouseUp(int e_iPosX, int e_iPosY)
 		Vector3 l_vPos((float)e_iPosX, (float)e_iPosY, 0.f);
 		float l_fCurrentListboxTime = m_pEditor_MorphingAnimation->GetCurrentListboxTime();
 		m_pEditor_MorphingAnimation->ChangeData(m_iAnimationEditSelectedVertexIndex, l_vPos, l_fCurrentListboxTime);
+		m_iAnimationEditSelectedVertexIndex = -1;
 	}
 }
 
@@ -354,6 +359,10 @@ bool cPuzzleImageUnitTriangulator::MorphingEditChangeListboxTime(int e_iIndex, f
 
 bool cPuzzleImageUnitTriangulator::MorphingEditSetCurrentListboxTime(int e_iIndex)
 {
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->SetCurrentListboxTime(e_iIndex);
+	}
 	return false;
 }
 
@@ -372,6 +381,8 @@ void cPuzzleImageUnitTriangulator::MorphingEditRender()
 	if (m_pEditor_MorphingAnimation)
 	{
 		m_pEditor_MorphingAnimation->Render(cMatrix44::Identity,(cBaseImage*)this->m_pReferenceImage);
+		if(m_iMouseMoveHittedHintVertexIndex != -1)
+			GLRender::RenderPoint(m_pTrianglesToDrawIndicesBuffer->vPosVector[m_iMouseMoveHittedHintVertexIndex], 8, Vector4::Red);
 	}
 }
 
@@ -379,16 +390,21 @@ void cPuzzleImageUnitTriangulator::MorphingEditRenderByTimeVectorIndex(std::vect
 {
 	if (m_pEditor_MorphingAnimation)
 	{
-		Vector4 l_vColor = Vector4::One;
-		for (auto l_iIndex: e_TimeVector)
+		if (m_pEditor_MorphingAnimation->m_fListboxTimeVector.size() >= e_TimeVector.size())
 		{
-			auto l_fTime = m_pEditor_MorphingAnimation->m_fListboxTimeVector[l_iIndex];
-			l_vColor.x = 1.f / (l_iIndex + 1);
-			l_vColor.y = 1.f / (l_iIndex + 1);
-			l_vColor.z = 1.f / (l_iIndex + 1);
-			m_pEditor_MorphingAnimation->RenderByTimeForHint(l_fTime, l_vColor,cMatrix44::Identity, (cBaseImage*)this->m_pReferenceImage);
+			Vector4 l_vColor = Vector4::One;
+			for (auto l_iIndex : e_TimeVector)
+			{
+				auto l_fTime = m_pEditor_MorphingAnimation->m_fListboxTimeVector[l_iIndex];
+				l_vColor.x = 1.f / (l_iIndex + 1);
+				l_vColor.y = 1.f / (l_iIndex + 1);
+				l_vColor.z = 1.f / (l_iIndex + 1);
+				m_pEditor_MorphingAnimation->RenderByTimeForHint(l_fTime, l_vColor, cMatrix44::Identity, (cBaseImage*)this->m_pReferenceImage);
+			}
 		}
 	}
+	if (m_iMouseMoveHittedHintVertexIndex != -1)
+		GLRender::RenderPoint(m_pTrianglesToDrawIndicesBuffer->vPosVector[m_iMouseMoveHittedHintVertexIndex], 8, Vector4::Red);
 }
 
 bool cPuzzleImageUnitTriangulator::MorphingEditGetEndTime()
@@ -399,6 +415,15 @@ bool cPuzzleImageUnitTriangulator::MorphingEditGetEndTime()
 		return true;
 	}
 	return false;
+}
+
+std::vector<float>*cPuzzleImageUnitTriangulator::MorphingEditGetListboxTimeVector()
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->GetListboxTimeVector();
+	}
+	return nullptr;
 }
 
 void cPuzzleImageUnitTriangulator::Render()
@@ -474,6 +499,8 @@ void cPuzzleImageUnitTriangulator::Render()
 			m_pTrianglesToDrawIndicesBuffer->RenderInfo(l_mat);
 		}
 	}
+	if (m_iMouseMoveHittedHintVertexIndex != -1)
+		GLRender::RenderPoint(m_pTrianglesToDrawIndicesBuffer->vPosVector[m_iMouseMoveHittedHintVertexIndex], 8, Vector4::Red);
 }
 
 
