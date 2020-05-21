@@ -91,10 +91,10 @@ public:
 	void    						MorphingEditMouseDown(int e_iPosX, int e_iPosY);
 	void    						MorphingEditMouseMove(int e_iPosX, int e_iPosY);
 	void    						MorphingEditMouseUp(int e_iPosX, int e_iPosY);
-	void							MorphingEditAddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
-	bool							MorphingEditDeleteData(int e_iVertexIndex, float   e_fTime);
+	void							MorphingEditAddKey(float   e_fTime);
+	bool							MorphingEditDeleteKey(int e_iTimeKeyIndex);
 	bool							MorphingEditChangeData(int e_iVertexIndex,Vector3 e_vPos, float   e_fTime);
-	bool							MorphingEditApplyData();
+	bool							MorphingEditApplyEmptyAnimationData();
 	bool							MorphingEditAddListboxTime(float e_fTime);
 	bool							MorphingEditDeleteListboxTime(int e_iIndex);
 	bool							MorphingEditChangeListboxTime(int e_iIndex, float e_fTime);
@@ -104,6 +104,7 @@ public:
 	void							MorphingEditRenderByTimeVectorIndex(std::vector<int>e_TimeVector);
 	bool							MorphingEditGetEndTime();
 	std::vector<float>*				MorphingEditGetListboxTimeVector();
+	void							MorphingEditDataCleanUp();
 	//
 	void							Render();
 	void							RenderPointsShapeLine();

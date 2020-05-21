@@ -373,7 +373,7 @@ namespace PI
 				if( l_pPuzzleImage )
 				{
 					auto l_strCharFileName = DNCT::GcStringToChar(l_strFileName);
-					UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), l_strCharFileName.length());
+					UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), (int)l_strCharFileName.length());
 					this->Text = e_strFileName;
 				    cNamedTypedObjectVector<cImageIndexOfAnimation>*l_pImageIndexOfAnimationList =l_pPuzzleImage->GetImageIndexOfAnimationList();
 				    if( l_pImageIndexOfAnimationList )
@@ -1511,7 +1511,7 @@ namespace PI
 				if (m_pCurrentSelectedPuzzleImageUnitTriangulator && TriangulatorMouseBehavior_comboBox->SelectedIndex != -1)
 				{
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyData();
+					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyEmptyAnimationData();
 					ImageTriangulatorLOD_numericUpDown->Value = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD();
 				}
 			}
@@ -2004,7 +2004,7 @@ namespace PI
 		{
 			OpenPIFile(l_strFileName);
 			auto l_strCharFileName = DNCT::GcStringToChar(l_strFileName);
-			UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), l_strCharFileName.length());
+			UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), (int)l_strCharFileName.length());
 		}
 	}
 	System::Void cPIEditor::AddAnimationImage_button_Click(System::Object^  sender, System::EventArgs^  e)
@@ -2505,7 +2505,9 @@ namespace PI
 	{
 		if (EditAnimation_checkBox->Checked && m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
-			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyData();
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyEmptyAnimationData();
+			LODToPoints_button->Enabled = !EditAnimation_checkBox->Checked;
+			ImageTriangulatorLOD_numericUpDown->Enabled = !EditAnimation_checkBox->Checked;
 		}
 	}
 
@@ -2513,8 +2515,13 @@ namespace PI
 	{
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
-			m_pCurrentSelectedPuzzleImageUnitTriangulator->LODToPoints();
-			ImageTriangulatorLOD_numericUpDown->Value = 1;
+			WARING_YES_NO_TO_YES("this object animation will be erase!Are you SURE?")
+			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->LODToPoints();
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditDataCleanUp();
+				MorphingAnimationTime_listBox->Items->Clear();
+				ImageTriangulatorLOD_numericUpDown->Value = 1;
+			}
 		}
 	}
 

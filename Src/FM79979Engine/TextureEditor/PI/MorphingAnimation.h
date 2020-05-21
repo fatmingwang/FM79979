@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TrianglesToDrawIndicesBuffer.h"
-
+#define	HINT_VERTEX_POINT_SIZE	8
 
 class cEditor_MorphingAnimation :public NamedTypedObject
 {
@@ -14,16 +14,19 @@ class cEditor_MorphingAnimation :public NamedTypedObject
 		typedef std::map<float, Vector3> FloatTocVector3Map;
 		//relasted to vRenderPosVector
 		Vector3*			pPos;
-		int					iVertexIndex;
 		//time and 
 		FloatTocVector3Map m_FormKeyFrames;
 		Vector3	UpdateAnimationByGlobalTime(float e_fGlobalTime);
-		void	AssignPositionPointer(Vector3*e_pAnimationPositionTarget, int e_iVertexIndex);
-		void	AddData(Vector3 e_vPos, float   e_fTime);
-		bool	DeleteData(float   e_fTime);
+		//find previous key time position.
+		bool	AddKey(float   e_fTime);
+		bool	AssignKeyVector(std::vector<float>&e_fTimeVector);
+		bool	DeleteKey(float   e_fTime);
 		bool	ChangeData(Vector3 e_vPos, float   e_fTime);
+		bool	KeyTime0PositionChange(Vector3 e_vPos);
 		bool	IsTimeAvaliable(float e_fTime);
 		void	RearrangeTime(float e_fScale);
+		void	RenderPointByTime(float e_fTime,Vector4 e_vColor,float e_fPointSize);
+		TiXmlElement*ToTiXmlElement(bool e_bOptimizeTime);
 	};
 	//
 	//from sTrianglesToDrawIndicesBuffer::vPosVector
@@ -36,20 +39,23 @@ class cEditor_MorphingAnimation :public NamedTypedObject
 	std::vector<float>									m_fListboxTimeVector;
 	float												m_fCurrentMorphingAnimationTime;
 	void												RearrangeTimeByScale(float e_fScale);
+	void												AddKeyTime(float e_fTime);
+	void												RemoveKeyTime(float e_fTime);
+	void												ReassignRenderPosVectorAfterVertexIndexChange();
 public:
 	cEditor_MorphingAnimation(sTrianglesToDrawIndicesBuffer*e_pTarget);
 	//std::map<float, std::vector<sMorphingData>>	m_TimeAndVertexPosVectorData;
 	//if user add or delete triangle vertices,the index could be changed,so here need to reassign vertex index again
-	void					ReassignVertexIndexData(std::map<int, int>&e_ChangedIndexMap);
+	void					ApplyVertexIndexChangeForMorphingAnimation(std::map<int, int>&e_ChangedIndexMap);
 	void					DeleteVertexIndexData(int e_iVertexIndex);
 	//move time 0.
 	void					VertexMove(int e_iVertexIndex, Vector3 e_vPos);
-	void					AddData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
-	bool					DeleteData(int e_iVertexIndex, float   e_fTime);
 	bool					ChangeData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
+	//also move position offset for key time data.
+	bool					ChangeKeyTime0Data(int e_iVertexIndex, Vector3 e_vPos);
 	bool					IsTimeAvaliable(int e_iVertexIndex, float   e_fTime);
 	//generate from sTrianglesToDrawIndicesBuffer,while morphing animation edit is active
-	bool					ApplyData();
+	bool					ApplyEmptyAnimationData();
 	void					UpdateAnimationByGlobalTime(float e_fElpaseTime);
 	void					Render(cMatrix44 e_Mat,cBaseImage*e_pImage);
 	void					RenderByTimeForHint(float e_fElpaseTime,Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage*e_pImage);
@@ -62,6 +68,9 @@ public:
 	float					GetCurrentListboxTime() { return m_fCurrentMorphingAnimationTime; }
 	float					GetEndTime();
 	std::vector<float>*		GetListboxTimeVector() { return &m_fListboxTimeVector; }
+	int						FinClosestVertexIndex(Vector3 e_vPos);
+	void					RenderVertexPointByVertexIndex(int e_iVertexIndex, Vector4 e_vColor, float e_fPointSize);
+	void					DataCleanUp();
 };
 
 
