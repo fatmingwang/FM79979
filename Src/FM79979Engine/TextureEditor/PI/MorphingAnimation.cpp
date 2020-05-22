@@ -12,7 +12,7 @@ cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::FloatTocVector3
 	FloatTocVector3Map l_FormKeyFrames;
 	Vector3 l_vPrePos(-79979, -79979, -9777);
 	//only need different position data.
-	for (auto l_Iterator : l_FormKeyFrames)
+	for (auto l_Iterator : this->m_FormKeyFrames)
 	{
 		if (l_vPrePos.x != l_Iterator.second.x ||
 			l_vPrePos.y != l_Iterator.second.y ||
