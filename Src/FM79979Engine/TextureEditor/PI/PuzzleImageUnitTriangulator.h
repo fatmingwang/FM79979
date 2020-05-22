@@ -83,6 +83,7 @@ public:
 	cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage);
 	//cPuzzleImageUnitTriangulator(TiXmlElement*e_pTiXmlElement);
 	~cPuzzleImageUnitTriangulator();
+	void							ParseMorphAnimationElement(TiXmlElement*e_pMorphAnimationElement, cBinaryFile*e_pTrianglesBinaryData);
 	void    						MouseDown(int e_iPosX, int e_iPosY);
 	void    						MouseMove(int e_iPosX, int e_iPosY);
 	void    						MouseUp(int e_iPosX, int e_iPosY);
@@ -123,8 +124,9 @@ public:
 	bool							IsVertexIndexChanged();
 	std::map<int, int>&				GetBeforeAndAfterVertexIndexMap() { return m_BeforeAndAfterVertexIndexMap; }
 	//
-	bool	ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
+	bool							ToTixmlElementWithBinaryData(ATG::XMLWriter*e_pXMLWriter,Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos,
 		std::vector<Vector3>&e_PosVector, std::vector<Vector2>&e_UVVector, std::vector<int>&e_iIndexBufferVector);
+	TiXmlElement*					MorphingAnimationToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData);
 };
 
 
@@ -144,6 +146,8 @@ public:
 	void									RenderPointsShapeLine();
 	void									MouseMove(int e_iPosX, int e_iPosY);
 	bool									IsObjectOverlap() { return m_bObjectOverlap; }
+	bool									ExportMorphingAnimation(const char*e_strFileName, cBinaryFile*e_pTrianglesBinaryData);
+	bool									ParseMorphingAnimation(const char*e_strFileName,int e_iFileStartPos, cBinaryFile*e_pTrianglesBinaryData);
 };
 
 std::vector<Vector2>	Triangulator(std::vector<Vector2>*e_pData);

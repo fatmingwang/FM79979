@@ -440,6 +440,15 @@ namespace PI
 		 }
 		 return l_pPuzzleImage;
 	}
+
+	System::Void	cPIEditor::SaveMorphingAnimationFile(const char*e_strFileName)
+	{
+		cBinaryFile*l_pMorphingAnimationBinaryData = new cBinaryFile();
+		std::string l_strBinaryDataFileName = UT::GetFileNameWithoutFullPath(e_strFileName);
+		l_strBinaryDataFileName += ".morphing";
+		l_pMorphingAnimationBinaryData->Writefile(l_strBinaryDataFileName.c_str(), true, true);
+		this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(e_strFileName, l_pMorphingAnimationBinaryData);
+	}
 //=======================
 //
 //=======================
@@ -553,7 +562,10 @@ namespace PI
 			    l_pImageListBox->Sorted = true;
 				std::string l_strPI_tri = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
 				l_strPI_tri += ".pi_tri";
+				std::string l_strPI_morphing = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
+				l_strPI_morphing += "_morphing.xml";
 				l_XMLWriter.AddAttribute("PI_tri", l_strPI_tri.c_str());
+				l_XMLWriter.AddAttribute("PI_morphing", l_strPI_morphing.c_str());
 			    l_XMLWriter.AddAttribute("OriginalNameSort",l_OriginalImageNameOrder.c_str());
 				if(this->ImageSaveAsDDS_checkBox->Checked)
 					l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".dds"));
@@ -824,6 +836,7 @@ namespace PI
 					SAFE_DELETE(l_ppPuzzleData[i]);
 				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
+			SaveMorphingAnimationFile(l_strPI_morphing.c_str());
 			SAFE_DELETE(l_pTrianglesBinaryData);
 			//SAFE_DELETE(l_pGLESTrianglesBinaryData);
 		}	
@@ -1641,12 +1654,15 @@ namespace PI
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
 				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
-			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+			if (l_MouseButton == System::Windows::Forms::MouseButtons::Left)
 			{
-				if(EditAnimation_checkBox->Checked)
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseMove(ptCursor.x, ptCursor.y);
-				else
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
+				if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
+				{
+					if (EditAnimation_checkBox->Checked)
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseMove(ptCursor.x, ptCursor.y);
+					else
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseMove(ptCursor.x, ptCursor.y);
+				}
 			}
 		}
 		else
@@ -1677,6 +1693,8 @@ namespace PI
 		{
 			m_pOrthogonalCameraForTrianhulatorPIUnit->CameraUpdateByMouse(l_MouseButton == System::Windows::Forms::MouseButtons::Left ? true : false
 				, l_MouseButton == System::Windows::Forms::MouseButtons::Right ? true : false, l_iDelte, e->X, e->Y, Vector2((float)splitContainer2->Panel1->Size.Width, (float)splitContainer2->Panel1->Size.Height));
+			if(l_MouseButton == System::Windows::Forms::MouseButtons::Left)
+			{
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
@@ -1684,6 +1702,7 @@ namespace PI
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseDown(ptCursor.x, ptCursor.y);
 				else
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseDown(ptCursor.x, ptCursor.y);
+			}
 			}
 		}
 		else
@@ -1716,12 +1735,15 @@ namespace PI
 			POINT	ptCursor = { (int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().x,(int)m_pOrthogonalCameraForTrianhulatorPIUnit->GetMouseWorldPos().y };
 			if (this->m_pCurrentSelectedPuzzleImageUnitTriangulator)
 			{
-				if (EditAnimation_checkBox->Checked)
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseUp(ptCursor.x, ptCursor.y);
-				else
+				if (l_MouseButton == System::Windows::Forms::MouseButtons::Left)
 				{
-					m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
-					ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+					if (EditAnimation_checkBox->Checked)
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditMouseUp(ptCursor.x, ptCursor.y);
+					else
+					{
+						m_pCurrentSelectedPuzzleImageUnitTriangulator->MouseUp(ptCursor.x, ptCursor.y);
+						ImageTriangulator_textBox->Text = gcnew String(m_pCurrentSelectedPuzzleImageUnitTriangulator->GetInfo().c_str());
+					}
 				}
 			}
 		}
@@ -2475,6 +2497,7 @@ namespace PI
 			}
 			else
 			{
+				m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddKey(l_fTime);
 				this->MorphingAnimationTime_listBox->Items->Add(l_fTime.ToString());
 				int l_iMax = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
 				MorphingAnimation_trackBar->Maximum = l_iMax;

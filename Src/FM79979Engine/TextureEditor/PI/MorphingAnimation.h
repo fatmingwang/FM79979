@@ -3,6 +3,33 @@
 #include "TrianglesToDrawIndicesBuffer.h"
 #define	HINT_VERTEX_POINT_SIZE	8
 
+
+#define	MORPHING_ANIMATION_VERSION		20200522
+#define	MORPHING_ANIMATION_ROOT_NAME	L"MorphingAnimationRoot"
+#define	MORPHING_ANIMATION_OBJECT_NAME	L"MorphingAnimation"
+#define	MORPHING_ANIMATION_VERTEX_DATA	L"VertexData"
+
+template<class FIRST, class SECOND>std::vector<FIRST>	GetFirstVectorFromMap(std::map<FIRST, SECOND>&e_Map)
+{
+	std::vector<FIRST> l_Vector;
+	for (auto l_Iterator = e_Map.begin(); l_Iterator != e_Map.end(); ++l_Iterator)
+	{
+		l_Vector.push_back(l_Iterator->first);
+	}
+	return l_Vector;
+}
+
+template<class FIRST, class SECOND>std::vector<FIRST>	GetSecondVectorFromMap(std::map<FIRST, SECOND>&e_Map)
+{
+	std::vector<SECOND> l_Vector;
+	for (auto l_Iterator = e_Map.begin(); l_Iterator != e_Map.end(); ++l_Iterator)
+	{
+		l_Vector.push_back(l_Iterator->second);
+	}
+	return l_Vector;
+}
+
+
 class cEditor_MorphingAnimation :public NamedTypedObject
 {
 	friend class cPuzzleImageUnitTriangulator;
@@ -13,24 +40,28 @@ class cEditor_MorphingAnimation :public NamedTypedObject
 		sVertexIndexAndPositionAndTimeVector();
 		typedef std::map<float, Vector3> FloatTocVector3Map;
 		//relasted to vRenderPosVector
-		Vector3*			pPos;
+		Vector3*			pRenderPos;
+		Vector3*			pTime0VertexPos;
 		//time and 
-		FloatTocVector3Map m_FormKeyFrames;
-		Vector3	UpdateAnimationByGlobalTime(float e_fGlobalTime);
+		FloatTocVector3Map	m_FormKeyFrames;
+		Vector3				UpdateAnimationByGlobalTime(float e_fGlobalTime);
 		//find previous key time position.
-		bool	AddKey(float   e_fTime);
-		bool	AssignKeyVector(std::vector<float>&e_fTimeVector);
-		bool	DeleteKey(float   e_fTime);
-		bool	ChangeData(Vector3 e_vPos, float   e_fTime);
-		bool	KeyTime0PositionChange(Vector3 e_vPos);
-		bool	IsTimeAvaliable(float e_fTime);
-		void	RearrangeTime(float e_fScale);
-		void	RenderPointByTime(float e_fTime,Vector4 e_vColor,float e_fPointSize);
-		TiXmlElement*ToTiXmlElement(bool e_bOptimizeTime);
+		bool				AddKey(float   e_fTime);
+		bool				AssignKeyVector(std::vector<float>&e_fTimeVector);
+		bool				DeleteKey(float   e_fTime);
+		bool				ChangeData(Vector3 e_vPos, float   e_fTime);
+		//bool	KeyTime0PositionChange(Vector3 e_vPos);
+		bool				IsTimeAvaliable(float e_fTime);
+		void				RearrangeTime(float e_fScale);
+		void				RenderPointByTime(float e_fTime,Vector4 e_vColor,float e_fPointSize);
+		void				SetTime0VertexPos(Vector3*e_pvPos);
+		TiXmlElement*		ToTiXmlElement(bool e_bOptimizeTime);
+		void				AssignDataFromElement(TiXmlElement*e_pTiXmlElement);
+		FloatTocVector3Map	GetOptimizeDataSize();
 	};
 	//
 	//from sTrianglesToDrawIndicesBuffer::vPosVector
-	std::vector<Vector3>								vMorphingPosVector;
+	//std::vector<Vector3>								vVertexTime0PosVector;
 	//
 	std::vector<Vector3>								vRenderPosVector;
 	////count and order should be same as sTrianglesToDrawIndicesBuffer::vPosVector
@@ -49,10 +80,10 @@ public:
 	void					ApplyVertexIndexChangeForMorphingAnimation(std::map<int, int>&e_ChangedIndexMap);
 	void					DeleteVertexIndexData(int e_iVertexIndex);
 	//move time 0.
-	void					VertexMove(int e_iVertexIndex, Vector3 e_vPos);
+	//void					VertexMove(int e_iVertexIndex, Vector3 e_vPos);
 	bool					ChangeData(int e_iVertexIndex, Vector3 e_vPos, float   e_fTime);
 	//also move position offset for key time data.
-	bool					ChangeKeyTime0Data(int e_iVertexIndex, Vector3 e_vPos);
+	//bool					ChangeKeyTime0Data(int e_iVertexIndex, Vector3 e_vPos);
 	bool					IsTimeAvaliable(int e_iVertexIndex, float   e_fTime);
 	//generate from sTrianglesToDrawIndicesBuffer,while morphing animation edit is active
 	bool					ApplyEmptyAnimationData();
@@ -71,6 +102,7 @@ public:
 	int						FinClosestVertexIndex(Vector3 e_vPos);
 	void					RenderVertexPointByVertexIndex(int e_iVertexIndex, Vector4 e_vColor, float e_fPointSize);
 	void					DataCleanUp();
+	TiXmlElement*			ToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData);
 };
 
 

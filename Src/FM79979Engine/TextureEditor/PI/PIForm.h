@@ -365,6 +365,7 @@ namespace PI
 public:
 	private: System::Collections::Hashtable^			m_ImageTale;	//key:string,value:System::Drawing::Bitmap.,if m_pImageomposerIRM's child(UIImage) has owner,then m_ImageTale do not has its data
 	private: System::Void								SavePuzzleFile(String^e_strFileName,bool e_bBinary);
+	private: System::Void								SaveMorphingAnimationFile(const char*e_strFileName);
 	private: cPuzzleImage*								OpenPuzzleFile(String^e_strFileName);
 	public:  void										OpenPIFile(String^e_strFileName);
 	private: bool										ParsePuzzleImage(cPuzzleImage*e_pPuzzleImage,String^e_strFileName);

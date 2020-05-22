@@ -10,43 +10,6 @@
 #include "MorphingAnimation.h"
 extern cGlyphFontRender*g_pDebugFont;
 
-
-void IncreaseLod(std::vector<Vector2> &e_Vector)
-{
-	std::vector<Vector2> NewPoints;
-
-	// keep the first point
-	NewPoints.push_back(e_Vector[0]);
-	for (unsigned int i = 0; i < (e_Vector.size() - 1); ++i) 
-	{
-		// get 2 original points
-		const Vector2& p0 = e_Vector[i];
-		const Vector2& p1 = e_Vector[i + 1];
-		Vector2 Q;
-		Vector2 R;
-
-		// average the 2 original points to create 2 new points. For each
-		// CV, another 2 verts are created.
-		Q.x = 0.75f*p0.x + 0.25f*p1.x;
-		Q.y = 0.75f*p0.y + 0.25f*p1.y;
-		//Q.z = 0.75f*p0.z + 0.25f*p1.z;
-		//Q.z = 0.75f*p0.z + 0.25f*p1.z;
-
-		R.x = 0.25f*p0.x + 0.75f*p1.x;
-		R.y = 0.25f*p0.y + 0.75f*p1.y;
-		//R.z = 0.25f*p0.z + 0.75f*p1.z;
-		//R.z = 0.25f*p0.z + 0.75f*p1.z;
-
-		NewPoints.push_back(Q);
-		NewPoints.push_back(R);
-	}
-	// keep the last point
-	NewPoints.push_back(e_Vector[e_Vector.size() - 1]);
-
-	// update the points array
-	e_Vector = NewPoints;
-}
-
 std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTriangulator::GetPosAndVertexIndexVector()
 {
 	std::vector<sPosAndVertexIndex> l_Vector;
@@ -63,10 +26,12 @@ std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTr
 	return l_Vector;
 }
 
-cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage) 
+cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
+	this->SetName(e_pTargetImage->GetName());
 	m_pTrianglesToDrawIndicesBuffer = new sTrianglesToDrawIndicesBuffer();
 	m_pEditor_MorphingAnimation = new cEditor_MorphingAnimation(m_pTrianglesToDrawIndicesBuffer);
+	m_pEditor_MorphingAnimation->SetName(e_pTargetImage->GetName());
 	m_bCollided = false;
 	m_pbtConvexHullShape = nullptr;
 	m_iLOD = 1;
@@ -108,6 +73,10 @@ cPuzzleImageUnitTriangulator::~cPuzzleImageUnitTriangulator()
 	SAFE_DELETE(m_pbtConvexHullShape);
 }
 
+void cPuzzleImageUnitTriangulator::ParseMorphAnimationElement(TiXmlElement * e_pMorphAnimationElement, cBinaryFile*e_pTrianglesBinaryData)
+{
+}
+
 bool	cPuzzleImageUnitTriangulator::IsCollided(cbtConvexHullShape*e_pbtConvexHullShape)
 {
 	if (this->m_pbtConvexHullShape && e_pbtConvexHullShape)
@@ -140,7 +109,8 @@ bool cPuzzleImageUnitTriangulator::GetImageBoard(Vector2 * e_p4VectorPointer, bo
 
 int	cPuzzleImageUnitTriangulator::GetClosestPoint(Vector2 e_vPos)
 {
-	size_t l_uiSize = m_PointVector.size();
+	return GetClosestPointIndex(e_vPos, &m_PointVector);
+	/*size_t l_uiSize = m_PointVector.size();
 	float l_fMinLength = 999999.f;
 	int  l_iIndex = -1;
 	for (int i = 0; i < (int)l_uiSize; ++i)
@@ -155,7 +125,7 @@ int	cPuzzleImageUnitTriangulator::GetClosestPoint(Vector2 e_vPos)
 	}
 	if(l_fMinLength<=30)
 		return l_iIndex;
-	return -1;
+	return -1;*/
 }
 
 void cPuzzleImageUnitTriangulator::MouseDown(int e_iPosX, int e_iPosY)
@@ -205,6 +175,15 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 	Vector3 l_vPos((float)e_iPosX, (float)e_iPosY, 0);
 	int l_iBeforeDeleteVertexIndex = -1;
 	m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
+	//for morphing data
+	std::vector<sPosAndVertexIndex>	l_BeforeDeleteVertex_PosAndVertexIndexVector;
+	std::vector<sPosAndVertexIndex>	l_AfterDeleteVertex_PosAndVertexIndexVector;
+	std::vector<Vector3>			l_OldVertexPosVector;
+	//if (m_ePointsToTriangulatorType != ePTPT_MOVE)
+	{//reassign morphing animation vertex index
+		l_BeforeDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
+		l_OldVertexPosVector = m_pTrianglesToDrawIndicesBuffer->vPosVector;
+	}
 	switch (m_ePointsToTriangulatorType)
 	{
 	case ePTPT_ADD:
@@ -223,42 +202,64 @@ void cPuzzleImageUnitTriangulator::MouseUp(int e_iPosX, int e_iPosY)
 		PointsToTriangulatorMoveMouseDown(e_iPosX, e_iPosY, eMB_UP);
 		break;
 	}
-	m_BeforeAndAfterVertexIndexMap.clear();
-	if (m_iFocusPoint != -1 || m_ePointsToTriangulatorType == ePTPT_ADD)
+	l_AfterDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
+	for (auto l_NewIndexData : l_AfterDeleteVertex_PosAndVertexIndexVector)
 	{
-		std::vector<sPosAndVertexIndex>	l_BeforeDeleteVertex_PosAndVertexIndexVector;
-		std::vector<sPosAndVertexIndex>	l_AfterDeleteVertex_PosAndVertexIndexVector;
-		if (m_ePointsToTriangulatorType != ePTPT_MOVE)
-		{//reassign morphing animation vertex index
-			l_BeforeDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
-		}
-		SetLOD(this->m_iLOD, true);
-
-		if (m_ePointsToTriangulatorType != ePTPT_MOVE)
-		{//reassign morphing animation vertex index
-			l_AfterDeleteVertex_PosAndVertexIndexVector = GetPosAndVertexIndexVector();
-			for (auto l_Data : l_BeforeDeleteVertex_PosAndVertexIndexVector)
-			{
-				int l_iNewIndex = IsVectorContain(m_pTrianglesToDrawIndicesBuffer->vPosVector, l_Data.vPos);
-				if (l_iNewIndex == -1)
-				{
-					int a = 0;
-				}
-				m_BeforeAndAfterVertexIndexMap[l_Data.iVertexIndex] = l_iNewIndex;
-			}
-			if (m_pEditor_MorphingAnimation)
-			{
-				m_pEditor_MorphingAnimation->ApplyVertexIndexChangeForMorphingAnimation(m_BeforeAndAfterVertexIndexMap);
-			}
-		}
-		else
+		//l_BeforeDeleteVertex_PosAndVertexIndexVector
+		int l_iOldIndex = IsVectorContain(l_OldVertexPosVector, l_NewIndexData.vPos);
+		if (l_NewIndexData.iVertexIndex == -1)
 		{
-			if (m_pEditor_MorphingAnimation)
-				m_pEditor_MorphingAnimation->ChangeKeyTime0Data(m_iFocusPoint, l_vPos);
-			
+			int a = 0;
+		}
+		m_BeforeAndAfterVertexIndexMap[l_iOldIndex] = l_NewIndexData.iVertexIndex;
+	}
+	bool l_bIndexChanged = false;
+	int l_iNotMatchedIndex = -79979;
+	for (auto l_Iterator : m_BeforeAndAfterVertexIndexMap)
+	{
+		if (l_Iterator.first != l_Iterator.second)
+		{
+			l_bIndexChanged = true;
+			l_iNotMatchedIndex = l_Iterator.first;
+			break;
+		}
+	}
+	if (l_bIndexChanged)
+	{
+		if (m_ePointsToTriangulatorType == ePTPT_MOVE)
+		{//should be only 1 vertex not match
+			std::vector<int> l_iVector1;
+			for (size_t i = 0; i < m_BeforeAndAfterVertexIndexMap.size(); ++i)
+				l_iVector1.push_back((int)i);
+			for (auto l_Iterator : m_BeforeAndAfterVertexIndexMap)
+			{
+				auto l_iIndex = IndexOfVector<int>(l_Iterator.first, &l_iVector1);
+				if(l_iIndex != -1)
+				{
+					l_iVector1.erase(l_iVector1.begin()+l_iIndex);
+				}
+			}
+			int l_iNdexIndex = m_BeforeAndAfterVertexIndexMap[l_iNotMatchedIndex];
+			int l_iOldIndex = l_iVector1[0];
+			m_BeforeAndAfterVertexIndexMap[l_iOldIndex] = l_iNdexIndex;
+			m_BeforeAndAfterVertexIndexMap.erase(l_iNotMatchedIndex);
+		}
+		//reassign morphing animation vertex index
+		if (m_pEditor_MorphingAnimation)
+		{
+			m_pEditor_MorphingAnimation->ApplyVertexIndexChangeForMorphingAnimation(m_BeforeAndAfterVertexIndexMap);
 		}
 		m_bEdited = true;
 	}
+	//if(m_ePointsToTriangulatorType == ePTPT_MOVE)
+	//{
+	//	if (m_pEditor_MorphingAnimation && !l_bIndexChanged)
+	//	{
+	//		int l_iFocusPoint = GetClosestPointIndex(l_vPos, &m_pTrianglesToDrawIndicesBuffer->vPosVector);
+	//		m_pEditor_MorphingAnimation->ChangeKeyTime0Data(l_iFocusPoint, l_vPos);
+	//	}
+	//}
+	m_BeforeAndAfterVertexIndexMap.clear();
 	m_iFocusPoint = -1;
 }
 
@@ -618,6 +619,15 @@ bool cPuzzleImageUnitTriangulator::ToTixmlElementWithBinaryData(ATG::XMLWriter*e
 	return m_pTrianglesToDrawIndicesBuffer->ToTixmlElementWithBinaryData(e_pXMLWriter,e_vPISize,e_vTextureSize,e_vImagePos,e_PosVector,e_UVVector,e_iIndexBufferVector);
 }
 
+TiXmlElement * cPuzzleImageUnitTriangulator::MorphingAnimationToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData)
+{
+	if (this->m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->ToTiXmlElement(e_pTrianglesBinaryData);
+	}
+	return nullptr;
+}
+
 bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 {
 	if (m_iLOD != e_iLODIndex || e_bForceUpdate)
@@ -627,8 +637,6 @@ bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
 		else
 			m_iLOD = e_iLODIndex;
 		m_LODPointVector = m_PointVector;
-		//for(int i=1;i< m_iLOD;++i)
-		//	IncreaseLod(m_LODPointVector);
 		//find a way to make LOD perfect here...?
 		//if(m_iLOD != 1)
 		//	m_LODPointVector.insert(m_LODPointVector.end(),m_PointVector.begin(), m_PointVector.end());
@@ -751,6 +759,7 @@ void cPuzzleImageUnitTriangulator::PointsToTriangulatorDeleteMouseDown(int e_iPo
 		if (m_iFocusPoint != -1 &&m_iFocusPoint == GetClosestPoint(Vector2(e_iPosX, e_iPosY)))
 		{//same point
 			m_PointVector.erase(m_PointVector.begin()+m_iFocusPoint);
+			SetLOD(this->m_iLOD, true);
 		}
 		break;
 	}
@@ -772,6 +781,10 @@ void cPuzzleImageUnitTriangulator::PointsToTriangulatorMoveMouseDown(int e_iPosX
 		}
 		break;
 	case eMB_UP:
+		if (m_iFocusPoint != -1)
+		{
+			m_PointVector[m_iFocusPoint] = Vector3((float)e_iPosX, (float)e_iPosY, 0.f);
+		}
 		m_iFocusPoint = -1;
 		SetLOD(this->m_iLOD, true);
 		break;
@@ -903,6 +916,60 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 		}
 	}
 
+}
+
+bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName, cBinaryFile*e_pTrianglesBinaryData)
+{
+	TiXmlDocument l_Doc(UT::CharToWchar(e_strFileName).c_str());
+	TiXmlElement*l_pMorphingAnimationElement = new TiXmlElement(MORPHING_ANIMATION_ROOT_NAME);
+	l_pMorphingAnimationElement->SetAttribute(L"Version", MORPHING_ANIMATION_VERSION);
+	l_Doc.LinkEndChild(l_pMorphingAnimationElement);
+	auto l_iCount = this->Count();
+	for (int i = 0; i < l_iCount; ++i)
+	{
+		auto*l_pObject = this->GetObject(i);
+		auto l_pElement = l_pObject->MorphingAnimationToTiXmlElement(e_pTrianglesBinaryData);
+		l_pMorphingAnimationElement->LinkEndChild(l_pElement);
+	}
+	l_Doc.SaveFile(e_strFileName);
+	return false;
+}
+
+bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_strFileName, int e_iFileStartPos, cBinaryFile*e_pTrianglesBinaryData)
+{
+	cNodeISAX l_Parser;
+	if (l_Parser.ParseDataIntoXMLNode(e_strFileName))
+	{
+		auto l_pRoot = l_Parser.GetRootElement();
+		if (!wcscmp(l_pRoot->Value(), MORPHING_ANIMATION_ROOT_NAME))
+		{
+			auto l_strVersion = l_pRoot->Attribute(L"Version");
+			if (l_strVersion)
+			{
+				if (GetInt(l_strVersion) != MORPHING_ANIMATION_VERSION)
+				{
+					std::string l_strInfo = e_strFileName;
+					l_strInfo += " version not matched";
+					WARNING_MSG(gcnew String(l_strInfo.c_str()));
+					return false;
+				}
+			}
+			l_pRoot = l_pRoot->FirstChildElement();
+			while (l_pRoot)
+			{
+				//cMorphingAnimation
+				auto l_iCount = this->Count();
+				for (int i = 0; i < l_iCount; ++i)
+				{
+					auto l_pObject = this->GetObject(i);
+					l_pObject->ParseMorphAnimationElement(l_pRoot, e_pTrianglesBinaryData);
+				}
+				l_pRoot = l_pRoot->NextSiblingElement();
+			}
+			return true;
+		}
+	}
+	return false;
 }
 
 

@@ -1,14 +1,39 @@
 #include "stdafx.h"
 #include "MorphingAnimation.h"
 
+TiXmlElement*cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ToTiXmlElement(bool e_bOptimizeTime)
+{
+	TiXmlElement*l_pData = nullptr;
+	return l_pData;
+}
+
+cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::FloatTocVector3Map cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::GetOptimizeDataSize()
+{
+	FloatTocVector3Map l_FormKeyFrames;
+	Vector3 l_vPrePos(-79979, -79979, -9777);
+	//only need different position data.
+	for (auto l_Iterator : l_FormKeyFrames)
+	{
+		if (l_vPrePos.x != l_Iterator.second.x ||
+			l_vPrePos.y != l_Iterator.second.y ||
+			l_vPrePos.z != l_Iterator.second.z)
+		{
+			l_FormKeyFrames[l_Iterator.first] = l_Iterator.second;
+			l_vPrePos = l_Iterator.second;
+		}
+	}
+	return l_FormKeyFrames;
+}
+
 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::sVertexIndexAndPositionAndTimeVector()
 {
-	pPos = nullptr;
+	pRenderPos = nullptr;
+	pTime0VertexPos = nullptr;
 }
 
 Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateAnimationByGlobalTime(float e_fGlobalTime)
 {
-	if (m_FormKeyFrames.size() == 0 || !pPos)
+	if (m_FormKeyFrames.size() == 0 || !pRenderPos || !pTime0VertexPos)
 		return Vector3::Zero;
 	//find keyframe before and after and do linear interpolation between them
 	FloatTocVector3Map::iterator prevKey(m_FormKeyFrames.lower_bound(e_fGlobalTime));
@@ -20,7 +45,7 @@ Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateA
 
 	if ((prevKey == nextKey) || (nextKey == m_FormKeyFrames.end()))
 	{
-		*pPos = prevKey->second;
+		*pRenderPos = prevKey->second;
 		return prevKey->second;
 	}
 
@@ -32,13 +57,13 @@ Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateA
 	const Vector3& m0 = prevKey->second;
 	const Vector3& m1 = nextKey->second;
 	auto l_vPos = (m1 - m0)*l_fTimeDis + m0;
-	*pPos = l_vPos;
+	*pRenderPos = l_vPos;
 	return l_vPos;
 }
 
 bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(float e_fTime)
 {
-	if (!pPos)
+	if (!pRenderPos||!pTime0VertexPos)
 		return false;
 	auto l_Iterator = m_FormKeyFrames.find(e_fTime);
 	if (l_Iterator != m_FormKeyFrames.end())
@@ -48,7 +73,7 @@ bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(flo
 	l_Iterator = m_FormKeyFrames.lower_bound(e_fTime);
 	if (l_Iterator == m_FormKeyFrames.end())
 	{
-		m_FormKeyFrames[e_fTime] = *pPos;
+		m_FormKeyFrames[e_fTime] = *pTime0VertexPos;
 	}
 	else
 	{
@@ -59,12 +84,12 @@ bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(flo
 
 bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AssignKeyVector(std::vector<float>& e_fTimeVector)
 {
-	if (!pPos)
+	if (!pTime0VertexPos)
 		return false;
 	m_FormKeyFrames.clear();
 	for (auto l_fTime : e_fTimeVector)
 	{
-		m_FormKeyFrames[l_fTime] = *this->pPos;
+		m_FormKeyFrames[l_fTime] = *this->pTime0VertexPos;
 	}
 	return true;
 }
@@ -86,22 +111,25 @@ bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ChangeData
 	return true;
 }
 
-bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::KeyTime0PositionChange(Vector3 e_vPos)
-{
-	//find position offset.
-	auto l_Iterator = this->m_FormKeyFrames.find(0);
-	if (l_Iterator != m_FormKeyFrames.end())
-	{
-		auto l_vPos = m_FormKeyFrames[0];
-		Vector3 l_vOffset = e_vPos-l_vPos;
-		for (auto l_ForIterator : m_FormKeyFrames)
-		{
-			l_ForIterator.second += l_vOffset;
-		}
-		return true;
-	}
-	return false;
-}
+//bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::KeyTime0PositionChange(Vector3 e_vPos)
+//{
+//	return true;
+//	if (!pTime0VertexPos)
+//		return false;
+//	//find position offset.
+//	auto l_Iterator = this->m_FormKeyFrames.find(0);
+//	if (l_Iterator != m_FormKeyFrames.end())
+//	{
+//		auto l_vPos = l_Iterator->second;
+//		Vector3 l_vOffset = e_vPos-l_vPos;
+//		for (auto l_ForIterator : m_FormKeyFrames)
+//		{
+//			l_ForIterator.second += l_vOffset;
+//		}
+//		return true;
+//	}
+//	return false;
+//}
 
 bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::IsTimeAvaliable(float e_fTime)
 {
@@ -129,6 +157,25 @@ void cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::RenderPoin
 	}
 }
 
+void cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::SetTime0VertexPos(Vector3 * e_pvPos)
+{
+	this->pTime0VertexPos = e_pvPos;
+	if (this->m_FormKeyFrames.size())
+	{
+		auto l_Iterator = m_FormKeyFrames.find(0);
+		if (pTime0VertexPos->x != l_Iterator->second.x ||
+			pTime0VertexPos->y != l_Iterator->second.y ||
+			pTime0VertexPos->z != l_Iterator->second.z)
+		{
+			Vector3 l_vOffsert = *pTime0VertexPos - l_Iterator->second;
+			for (auto l_ForIterator = m_FormKeyFrames.begin(); l_ForIterator != m_FormKeyFrames.end();++l_ForIterator)
+			{
+				l_ForIterator->second += l_vOffsert;
+			}
+		}
+	}
+}
+
 void cEditor_MorphingAnimation::RearrangeTimeByScale(float e_fScale)
 {
 	for (int i = 0; i < (int)m_fListboxTimeVector.size(); ++i)
@@ -149,7 +196,8 @@ cEditor_MorphingAnimation::cEditor_MorphingAnimation(sTrianglesToDrawIndicesBuff
 
 void cEditor_MorphingAnimation::ApplyVertexIndexChangeForMorphingAnimation(std::map<int, int>&e_ChangedIndexMap)
 {
-	vMorphingPosVector = this->vRenderPosVector = this->m_pTarget->vPosVector;
+	//vVertexTime0PosVector = this->vRenderPosVector = this->m_pTarget->vPosVector;
+	vRenderPosVector = this->m_pTarget->vPosVector;
 	//assert(m_pTarget->vPosVector.size() == e_ChangedIndexMap.size()&&"vertex count shoudl be same!");
 	std::vector<sVertexIndexAndPositionAndTimeVector>	l_NewVertexAnimationVector;
 	l_NewVertexAnimationVector.resize(e_ChangedIndexMap.size());
@@ -158,15 +206,16 @@ void cEditor_MorphingAnimation::ApplyVertexIndexChangeForMorphingAnimation(std::
 	for(int i=0;i< l_iSizeDiff;++i)
 	{
 		sVertexIndexAndPositionAndTimeVector l_sVertexIndexAndPositionAndTimeVector;
-		l_sVertexIndexAndPositionAndTimeVector.pPos = &this->m_pTarget->vPosVector[m_VertexAnimationVector.size()];
+		l_sVertexIndexAndPositionAndTimeVector.pTime0VertexPos = &this->m_pTarget->vPosVector[m_VertexAnimationVector.size()];
+		l_sVertexIndexAndPositionAndTimeVector.pRenderPos = &vRenderPosVector[m_VertexAnimationVector.size()];
 		l_sVertexIndexAndPositionAndTimeVector.AssignKeyVector(this->m_fListboxTimeVector);
 		m_VertexAnimationVector.push_back(l_sVertexIndexAndPositionAndTimeVector);
 	}
 	for (auto l_Iterator : e_ChangedIndexMap)
 	{
-		if (l_Iterator.second == -1)
+		if (l_Iterator.first == -1)
 		{//deleted vertex
-
+			l_NewVertexAnimationVector[l_Iterator.second] = m_VertexAnimationVector[l_Iterator.second];
 		}
 		else
 		{
@@ -182,14 +231,14 @@ void cEditor_MorphingAnimation::DeleteVertexIndexData(int e_iVertexIndex)
 	m_VertexAnimationVector.erase(m_VertexAnimationVector.begin() + e_iVertexIndex);
 }
 
-void cEditor_MorphingAnimation::VertexMove(int e_iVertexIndex, Vector3 e_vPos)
-{
-	vMorphingPosVector[e_iVertexIndex] = e_vPos;
-	if (m_VertexAnimationVector[e_iVertexIndex].m_FormKeyFrames.size())
-	{
-		m_VertexAnimationVector[e_iVertexIndex].ChangeData(e_vPos,0.f);
-	}
-}
+//void cEditor_MorphingAnimation::VertexMove(int e_iVertexIndex, Vector3 e_vPos)
+//{
+//	vVertexTime0PosVector[e_iVertexIndex] = e_vPos;
+//	if (m_VertexAnimationVector[e_iVertexIndex].m_FormKeyFrames.size())
+//	{
+//		m_VertexAnimationVector[e_iVertexIndex].ChangeData(e_vPos,0.f);
+//	}
+//}
 
 
 bool cEditor_MorphingAnimation::ChangeData(int e_iVertexIndex, Vector3 e_vPos, float e_fTime)
@@ -201,14 +250,14 @@ bool cEditor_MorphingAnimation::ChangeData(int e_iVertexIndex, Vector3 e_vPos, f
 	return false;
 }
 
-bool cEditor_MorphingAnimation::ChangeKeyTime0Data(int e_iVertexIndex, Vector3 e_vPos)
-{
-	if (m_VertexAnimationVector.size() > e_iVertexIndex && e_iVertexIndex > 0)
-	{
-		return m_VertexAnimationVector[e_iVertexIndex].KeyTime0PositionChange(e_vPos);
-	}
-	return false;
-}
+//bool cEditor_MorphingAnimation::ChangeKeyTime0Data(int e_iVertexIndex, Vector3 e_vPos)
+//{
+//	if (m_VertexAnimationVector.size() > e_iVertexIndex && e_iVertexIndex > 0)
+//	{
+//		return m_VertexAnimationVector[e_iVertexIndex].KeyTime0PositionChange(e_vPos);
+//	}
+//	return false;
+//}
 
 bool cEditor_MorphingAnimation::IsTimeAvaliable(int e_iVertexIndex, float e_fTime)
 {
@@ -222,14 +271,16 @@ bool cEditor_MorphingAnimation::ApplyEmptyAnimationData()
 	if (this->m_pTarget)
 	{
 		bool l_bSameData = false;
-		vRenderPosVector = vMorphingPosVector = m_pTarget->vPosVector;
+		//vRenderPosVector = vVertexTime0PosVector = m_pTarget->vPosVector;
+		vRenderPosVector = m_pTarget->vPosVector;
 		if (m_VertexAnimationVector.size() != m_pTarget->vPosVector.size())
 		{
 			m_VertexAnimationVector.clear();
 			for (size_t i = 0; i < vRenderPosVector.size(); ++i)
 			{
 				sVertexIndexAndPositionAndTimeVector l_Data;
-				l_Data.pPos = &vRenderPosVector[i];
+				l_Data.pRenderPos = &vRenderPosVector[i];
+				l_Data.pTime0VertexPos = &this->m_pTarget->vPosVector[i];
 				for (auto l_fTime : m_fListboxTimeVector)
 				{
 					l_Data.AddKey(l_fTime);
@@ -239,7 +290,8 @@ bool cEditor_MorphingAnimation::ApplyEmptyAnimationData()
 		}
 		for(size_t i=0;i< vRenderPosVector.size();++i)
 		{
-			m_VertexAnimationVector[i].pPos = &vRenderPosVector[i];
+			m_VertexAnimationVector[i].pRenderPos = &vRenderPosVector[i];
+			m_VertexAnimationVector[i].pTime0VertexPos = &this->m_pTarget->vPosVector[i];
 		}
 		return true;
 	}
@@ -384,7 +436,9 @@ void cEditor_MorphingAnimation::ReassignRenderPosVectorAfterVertexIndexChange()
 {
 	for (size_t i = 0; i < vRenderPosVector.size(); ++i)
 	{
-		m_VertexAnimationVector[i].pPos = &vRenderPosVector[i];
+		m_VertexAnimationVector[i].pRenderPos = &vRenderPosVector[i];
+		m_VertexAnimationVector[i].SetTime0VertexPos(&this->m_pTarget->vPosVector[i]);
+
 	}
 }
 
@@ -423,8 +477,50 @@ void cEditor_MorphingAnimation::RenderVertexPointByVertexIndex(int e_iVertexInde
 
 void cEditor_MorphingAnimation::DataCleanUp()
 {
-	vMorphingPosVector.clear();
+	//vVertexTime0PosVector.clear();
 	vRenderPosVector.clear();
 	m_VertexAnimationVector.clear();
 	m_fListboxTimeVector.clear();;
+}
+
+TiXmlElement * cEditor_MorphingAnimation::ToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData)
+{
+	TiXmlElement*l_pElement = new TiXmlElement(MORPHING_ANIMATION_OBJECT_NAME);
+	l_pElement->SetAttribute(L"Name",this->GetName());
+	auto l_strTimeList = ValueToStringW(this->m_fListboxTimeVector);
+	int l_iVertexCount = (int)m_VertexAnimationVector.size();
+	l_pElement->SetAttribute(L"TimeList", l_strTimeList.c_str());
+	l_pElement->SetAttribute(L"VertexCount", l_iVertexCount);
+	for (int i=0;i< l_iVertexCount;++i)
+	{
+		sVertexIndexAndPositionAndTimeVector*l_pVertexIndexAndPositionAndTimeVector = &m_VertexAnimationVector[i];
+		if (l_pVertexIndexAndPositionAndTimeVector)
+		{
+			TiXmlElement*l_pVertexDataElement = new TiXmlElement(MORPHING_ANIMATION_VERTEX_DATA);
+			assert(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size() == m_fListboxTimeVector.size()&&"cEditor_MorphingAnimation::ToTiXmlElement() data not match!");
+			int l_iPosVectorDataSize = (int)(sizeof(Vector3)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
+			int l_iTimeVectorDataSize = (int)(sizeof(float)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
+			auto l_OpitimizeData = l_pVertexIndexAndPositionAndTimeVector->GetOptimizeDataSize();
+			int l_iOptimizeTimeVectorDataSize = (int)(sizeof(float)*l_OpitimizeData.size());
+			int l_iOptimizePosVectorDataSize = (int)(sizeof(Vector3)*l_OpitimizeData.size());
+			l_pVertexDataElement->SetAttribute(L"Index",i);
+			l_pVertexDataElement->SetAttribute(L"TimeVectorDataSize", l_iTimeVectorDataSize);
+			l_pVertexDataElement->SetAttribute(L"PosVectorDataSize", l_iPosVectorDataSize);
+			l_pVertexDataElement->SetAttribute(L"OptimizeTimeVectorDataSize", l_iOptimizeTimeVectorDataSize);
+			l_pVertexDataElement->SetAttribute(L"OptimizePosVectorDataSize", l_iOptimizePosVectorDataSize);
+			l_pElement->LinkEndChild(l_pVertexDataElement);
+			if (e_pTrianglesBinaryData)
+			{
+				auto l_fTimeVector = GetFirstVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
+				auto l_vPosVector = GetFirstVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
+				auto l_fOptimizeTimeVector = GetFirstVectorFromMap<float, Vector3>(l_OpitimizeData);
+				auto l_vOptimizePosVector = GetFirstVectorFromMap<float, Vector3>(l_OpitimizeData);
+				e_pTrianglesBinaryData->WriteToFile((char*)&l_fTimeVector[0], l_iTimeVectorDataSize);
+				e_pTrianglesBinaryData->WriteToFile((char*)&l_vPosVector[0], l_iPosVectorDataSize);
+				e_pTrianglesBinaryData->WriteToFile((char*)&l_fOptimizeTimeVector[0], l_iOptimizeTimeVectorDataSize);
+				e_pTrianglesBinaryData->WriteToFile((char*)&l_vOptimizePosVector[0], l_iOptimizePosVectorDataSize);
+			}
+		}
+	}
+	return l_pElement;
 }
