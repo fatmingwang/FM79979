@@ -61,7 +61,7 @@ Vector3 cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::UpdateA
 	return l_vPos;
 }
 
-bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(float e_fTime)
+bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(float e_fTime, bool e_bUsePreKeyData)
 {
 	if (!pRenderPos||!pTime0VertexPos)
 		return false;
@@ -71,6 +71,14 @@ bool cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::AddKey(flo
 		return false;
 	}
 	l_Iterator = m_FormKeyFrames.lower_bound(e_fTime);
+	if (e_bUsePreKeyData)
+	{
+		if (m_FormKeyFrames.size())
+		{
+			if ((l_Iterator == m_FormKeyFrames.end()) || ((l_Iterator != m_FormKeyFrames.begin()) && (l_Iterator->first > e_fTime)))
+				--l_Iterator;
+		}
+	}
 	if (l_Iterator == m_FormKeyFrames.end())
 	{
 		m_FormKeyFrames[e_fTime] = *pTime0VertexPos;
@@ -182,10 +190,11 @@ void cEditor_MorphingAnimation::RearrangeTimeByScale(float e_fScale)
 	{
 		m_fListboxTimeVector[i] = e_fScale * m_fListboxTimeVector[i];
 	}
-	for (auto l_Data : m_VertexAnimationVector)
+	for (auto i = 0; i < m_VertexAnimationVector.size(); ++i)
 	{
-		l_Data.RearrangeTime(e_fScale);
-	}
+		sVertexIndexAndPositionAndTimeVector*l_pData = &m_VertexAnimationVector[i];
+		l_pData->RearrangeTime(e_fScale);
+	}	
 }
 
 cEditor_MorphingAnimation::cEditor_MorphingAnimation(sTrianglesToDrawIndicesBuffer * e_pTarget)
@@ -283,7 +292,7 @@ bool cEditor_MorphingAnimation::ApplyEmptyAnimationData()
 				l_Data.pTime0VertexPos = &this->m_pTarget->vPosVector[i];
 				for (auto l_fTime : m_fListboxTimeVector)
 				{
-					l_Data.AddKey(l_fTime);
+					l_Data.AddKey(l_fTime,true);
 				}
 				m_VertexAnimationVector.push_back(l_Data);
 			}
@@ -368,7 +377,7 @@ void cEditor_MorphingAnimation::RearrangeTime(float e_fTargetTime)
 	}
 }
 
-bool cEditor_MorphingAnimation::AddListboxTime(float e_fTime)
+bool cEditor_MorphingAnimation::AddListboxTime(float e_fTime, bool e_bUsePreKeyData)
 {
 	if (m_fListboxTimeVector.size())
 	{
@@ -376,7 +385,7 @@ bool cEditor_MorphingAnimation::AddListboxTime(float e_fTime)
 			return false;
 	}
 	m_fListboxTimeVector.push_back(e_fTime);
-	AddKeyTime(e_fTime);
+	AddKeyTime(e_fTime, e_bUsePreKeyData);
 	return true;
 }
 
@@ -394,9 +403,63 @@ bool cEditor_MorphingAnimation::DeleteListboxTime(int e_iIndex)
 
 bool cEditor_MorphingAnimation::ChangeListboxTime(int e_iIndex, float e_fTime)
 {
-	if (m_fListboxTimeVector.size() > e_iIndex)
+	if (m_fListboxTimeVector.size() > e_iIndex && e_iIndex != -1)
 	{
+		//check next time is bigger
+		if (e_iIndex + 1 < m_fListboxTimeVector.size())
+		{
+			if (e_fTime >= m_fListboxTimeVector[e_iIndex + 1])
+				return false;
+		}
+		//check presious one
+		if (e_iIndex >= 0)
+		{
+			if (e_fTime <= m_fListboxTimeVector[e_iIndex - 1])
+				return false;
+		}
+		float l_fOldTime = m_fListboxTimeVector[e_iIndex];
 		m_fListboxTimeVector[e_iIndex] = e_fTime;
+		int l_iVertexCount = (int)m_VertexAnimationVector.size();
+		for (int i = 0; i < l_iVertexCount; ++i)
+		{
+			sVertexIndexAndPositionAndTimeVector*l_pVertexIndexAndPositionAndTimeVector = &m_VertexAnimationVector[i];
+			auto l_Iterator = l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.find(l_fOldTime);
+			if (l_Iterator != l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.end())
+			{
+				auto l_vPos = l_Iterator->second;
+				l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.erase(l_Iterator);
+				l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames[e_fTime] = l_vPos;
+			}
+		}
+		return true;
+	}
+	return false;
+}
+
+bool cEditor_MorphingAnimation::InsertListboxTime(int e_iIndex, float e_fTime, bool e_bUsePreKeyData)
+{
+	if (m_fListboxTimeVector.size() > e_iIndex && e_iIndex != -1)
+	{
+		//check next time is bigger
+		if (e_iIndex + 1 < m_fListboxTimeVector.size())
+		{
+			if (e_fTime >= m_fListboxTimeVector[e_iIndex + 1])
+				return false;
+		}
+		//check presious one
+		if (e_iIndex >= 0)
+		{
+			if (e_fTime <= m_fListboxTimeVector[e_iIndex-1])
+				return false;
+		}
+		m_fListboxTimeVector.insert(m_fListboxTimeVector.begin()+ e_iIndex, e_fTime);
+		float l_fOldTime = m_fListboxTimeVector[e_iIndex-1];
+		int l_iVertexCount = (int)m_VertexAnimationVector.size();
+		for (int i = 0; i < l_iVertexCount; ++i)
+		{
+			sVertexIndexAndPositionAndTimeVector*l_pVertexIndexAndPositionAndTimeVector = &m_VertexAnimationVector[i];
+			l_pVertexIndexAndPositionAndTimeVector->AddKey(e_fTime,e_bUsePreKeyData);
+		}
 		return true;
 	}
 	return false;
@@ -412,11 +475,11 @@ bool cEditor_MorphingAnimation::SetCurrentListboxTime(int e_iIndex)
 	return false;
 }
 
-void cEditor_MorphingAnimation::AddKeyTime(float e_fTime)
+void cEditor_MorphingAnimation::AddKeyTime(float e_fTime, bool e_bUsePreKeyData)
 {
 	for (sVertexIndexAndPositionAndTimeVector&l_Data : m_VertexAnimationVector)
 	{
-		l_Data.AddKey(e_fTime);
+		l_Data.AddKey(e_fTime, e_bUsePreKeyData);
 	}
 }
 
@@ -442,7 +505,8 @@ float cEditor_MorphingAnimation::GetEndTime()
 {
 	if (m_fListboxTimeVector.size())
 	{
-		return m_fListboxTimeVector.back();
+		auto l_fTime = m_fListboxTimeVector.back();
+		return l_fTime;
 	}
 	return 0.0f;
 }
@@ -552,11 +616,11 @@ int	cEditor_MorphingAnimation::ParseMorphAnimationElement(TiXmlElement*e_pMorphA
 		{
 			auto l_uiTimeDataSize = l_uiTimeVectorSize * sizeof(float);
 			e_pBinaryData += l_uiTimeDataSize;
-			int l_iBinaryStep = l_uiTimeDataSize;
+			int l_iBinaryStep = (int)l_uiTimeDataSize;
 			//template<class FIRST, class SECOND>std::vector<FIRST>	AssignDataToMap(std::map<FIRST, SECOND>&e_Map, std::vector<FIRST>e_FirstDataVector, std::vector<SECOND>e_SecondDataVector)
 			for (int i = 0; i < l_iVertexCount; ++i)
 			{
-				int l_iPosSize = sizeof(Vector3)*l_uiTimeVectorSize;
+				int l_iPosSize = (int)(sizeof(Vector3)*l_uiTimeVectorSize);
 				std::vector<Vector3>l_fPosVector;
 				l_fPosVector.resize(l_uiTimeVectorSize);
 				memcpy(&l_fPosVector[0], e_pBinaryData, l_iPosSize);

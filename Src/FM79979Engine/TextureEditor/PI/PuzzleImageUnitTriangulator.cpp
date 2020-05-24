@@ -310,11 +310,11 @@ void cPuzzleImageUnitTriangulator::MorphingEditMouseUp(int e_iPosX, int e_iPosY)
 	}
 }
 
-void cPuzzleImageUnitTriangulator::MorphingEditAddKey(float e_fTime)
+void cPuzzleImageUnitTriangulator::MorphingEditAddKey(float e_fTime, bool e_bUsePreKeyData)
 {
 	if (m_pEditor_MorphingAnimation)
 	{
-		m_pEditor_MorphingAnimation->AddKeyTime(e_fTime);
+		m_pEditor_MorphingAnimation->AddKeyTime(e_fTime, e_bUsePreKeyData);
 	}
 }
 
@@ -327,11 +327,20 @@ bool cPuzzleImageUnitTriangulator::MorphingEditDeleteKey(int e_iTimeKeyIndex)
 	return false;
 }
 
-bool cPuzzleImageUnitTriangulator::MorphingEditChangeData(int e_iVertexIndex, Vector3 e_vPos, float e_fTime)
+bool cPuzzleImageUnitTriangulator::MorphingEditChangeTime(int e_iTimeListBoxSelectedIndex, float e_fNewTime)
 {
 	if (m_pEditor_MorphingAnimation)
 	{
-		return m_pEditor_MorphingAnimation->ChangeData(e_iVertexIndex, e_vPos, e_fTime);
+		return m_pEditor_MorphingAnimation->ChangeListboxTime(e_iTimeListBoxSelectedIndex, e_fNewTime);
+	}
+	return false;
+}
+
+bool cPuzzleImageUnitTriangulator::MorphingEditInsertTime(int e_iTimeListBoxSelectedIndex, float e_fNewTime, bool e_bUsePreKeyData)
+{
+	if (m_pEditor_MorphingAnimation)
+	{
+		return m_pEditor_MorphingAnimation->InsertListboxTime(e_iTimeListBoxSelectedIndex, e_fNewTime, e_bUsePreKeyData);
 	}
 	return false;
 }
@@ -345,11 +354,11 @@ bool cPuzzleImageUnitTriangulator::MorphingEditApplyEmptyAnimationData()
 	return false;
 }
 
-bool cPuzzleImageUnitTriangulator::MorphingEditAddListboxTime(float e_fTime)
+bool cPuzzleImageUnitTriangulator::MorphingEditAddListboxTime(float e_fTime, bool e_bUsePreKeyData)
 {
 	if (m_pEditor_MorphingAnimation)
 	{
-		return m_pEditor_MorphingAnimation->AddListboxTime(e_fTime);
+		return m_pEditor_MorphingAnimation->AddListboxTime(e_fTime, e_bUsePreKeyData);
 	}
 	return false;
 }
@@ -426,12 +435,11 @@ void cPuzzleImageUnitTriangulator::MorphingEditRenderByTimeVectorIndex(std::vect
 	}
 }
 
-bool cPuzzleImageUnitTriangulator::MorphingEditGetEndTime()
+float cPuzzleImageUnitTriangulator::MorphingEditGetEndTime()
 {
 	if (m_pEditor_MorphingAnimation)
 	{
-		m_pEditor_MorphingAnimation->GetEndTime();
-		return true;
+		return m_pEditor_MorphingAnimation->GetEndTime();
 	}
 	return false;
 }

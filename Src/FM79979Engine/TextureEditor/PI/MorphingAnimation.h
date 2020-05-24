@@ -56,7 +56,7 @@ class cEditor_MorphingAnimation :public NamedTypedObject
 		FloatTocVector3Map	m_FormKeyFrames;
 		Vector3				UpdateAnimationByGlobalTime(float e_fGlobalTime);
 		//find previous key time position.
-		bool				AddKey(float   e_fTime);
+		bool				AddKey(float   e_fTime, bool e_bUsePreKeyData);
 		bool				AssignKeyVector(std::vector<float>&e_fTimeVector);
 		bool				DeleteKey(float   e_fTime);
 		bool				ChangeData(Vector3 e_vPos, float   e_fTime);
@@ -80,7 +80,7 @@ class cEditor_MorphingAnimation :public NamedTypedObject
 	std::vector<float>									m_fListboxTimeVector;
 	float												m_fCurrentMorphingAnimationTime;
 	void												RearrangeTimeByScale(float e_fScale);
-	void												AddKeyTime(float e_fTime);
+	void												AddKeyTime(float e_fTime, bool e_bUsePreKeyData);
 	void												RemoveKeyTime(float e_fTime);
 	void												ReassignRenderPosVectorAfterVertexIndexChange();
 public:
@@ -102,9 +102,10 @@ public:
 	void					RenderByTimeForHint(float e_fElpaseTime,Vector4 e_vColor,cMatrix44 e_Mat, cBaseImage*e_pImage);
 	void					RearrangeTime(float e_fTargetTime);
 
-	bool					AddListboxTime(float e_fTime);
+	bool					AddListboxTime(float e_fTime,bool e_bUsePreKeyData);
 	bool					DeleteListboxTime(int e_iIndex);
 	bool					ChangeListboxTime(int e_iIndex, float e_fTime);
+	bool					InsertListboxTime(int e_iIndex, float e_fTime, bool e_bUsePreKeyData);
 	bool					SetCurrentListboxTime(int e_iIndex);
 	float					GetCurrentListboxTime() { return m_fCurrentMorphingAnimationTime; }
 	float					GetEndTime();

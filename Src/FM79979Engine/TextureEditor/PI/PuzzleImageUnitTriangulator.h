@@ -93,18 +93,19 @@ public:
 	void    						MorphingEditMouseDown(int e_iPosX, int e_iPosY);
 	void    						MorphingEditMouseMove(int e_iPosX, int e_iPosY);
 	void    						MorphingEditMouseUp(int e_iPosX, int e_iPosY);
-	void							MorphingEditAddKey(float   e_fTime);
+	void							MorphingEditAddKey(float   e_fTime,bool e_bUsePreKeyData);
 	bool							MorphingEditDeleteKey(int e_iTimeKeyIndex);
-	bool							MorphingEditChangeData(int e_iVertexIndex,Vector3 e_vPos, float   e_fTime);
+	bool							MorphingEditChangeTime(int e_iTimeListBoxSelectedIndex,float e_fNewTime);
+	bool							MorphingEditInsertTime(int e_iTimeListBoxSelectedIndex, float e_fNewTime, bool e_bUsePreKeyData);
 	bool							MorphingEditApplyEmptyAnimationData();
-	bool							MorphingEditAddListboxTime(float e_fTime);
+	bool							MorphingEditAddListboxTime(float e_fTime,bool e_bUsePreKeyData);
 	bool							MorphingEditDeleteListboxTime(int e_iIndex);
 	bool							MorphingEditChangeListboxTime(int e_iIndex, float e_fTime);
 	bool							MorphingEditSetCurrentListboxTime(int e_iIndex);
 	bool							MorphingEditRearrangeTime(float e_fTime);
 	void							MorphingEditRender();
 	void							MorphingEditRenderByTimeVectorIndex(std::vector<int>e_TimeVector);
-	bool							MorphingEditGetEndTime();
+	float							MorphingEditGetEndTime();
 	std::vector<float>*				MorphingEditGetListboxTimeVector();
 	void							MorphingEditDataCleanUp();
 	//

@@ -2494,28 +2494,20 @@ namespace PI
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
 			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value;
-			if (!m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddListboxTime(l_fTime))
+			if (!m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddListboxTime(l_fTime, MorphingAddKeyTimeUsePreKeyData_checkBox->Checked))
 			{
 				WARNING_MSG("add time failed");
 			}
 			else
 			{
-				m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddKey(l_fTime);
 				this->MorphingAnimationTime_listBox->Items->Add(l_fTime.ToString());
 				int l_iMax = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
 				MorphingAnimation_trackBar->Maximum = l_iMax;
 			}
 		}
 	}
-	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
-	{
-		if (MorphingAnimationTime_listBox->SelectedIndex != -1)
-		{
-			this->MorphingAnimationTime_listBox->Items->RemoveAt(MorphingAnimationTime_listBox->SelectedIndex);
-			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditDeleteListboxTime(MorphingAnimationTime_listBox->SelectedIndex);
-		}
-	}
-	System::Void cPIEditor::RearrangeMorphingAnimationTime_numericUpDown_ValueChanged(System::Object^  sender, System::EventArgs^  e)
+
+	System::Void cPIEditor::RearrangeMorphingTime_button_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
@@ -2524,16 +2516,78 @@ namespace PI
 			{
 				WARNING_MSG("Rearrange Time Failed");
 			}
+			else
+			{
+				auto l_pTimeVector = m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetListboxTimeVector();
+				for (int i = 0; i < MorphingAnimationTime_listBox->Items->Count; ++i)
+				{
+					MorphingAnimationTime_listBox->Items[i] = (*l_pTimeVector)[i].ToString();
+				}
+				this->MorphingAnimation_trackBar->Maximum = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
+			}
+		}
+	}
+	System::Void cPIEditor::ChangeMorphingTime_button_Click(System::Object^  sender, System::EventArgs^  e) 
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator && MorphingAnimationTime_listBox->SelectedIndex != -1)
+		{
+			this->timer1->Enabled = false;
+			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value;
+			if (m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditChangeListboxTime(MorphingAnimationTime_listBox->SelectedIndex, l_fTime))
+			{
+				this->MorphingAnimationTime_listBox->Items[MorphingAnimationTime_listBox->SelectedIndex] = l_fTime.ToString();
+				this->MorphingAnimation_trackBar->Maximum = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
+			}
+			else
+			{
+				WARNING_MSG("time must smaller than next and bigger than prevoius one");
+			}
+			this->timer1->Enabled = true;
+		}
+	}
+
+	System::Void cPIEditor::InsertMorphingTime_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator && MorphingAnimationTime_listBox->SelectedIndex != -1)
+		{
+			this->timer1->Enabled = false;
+			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value;
+			if (m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditInsertTime(MorphingAnimationTime_listBox->SelectedIndex+1, l_fTime,this->MorphingAddKeyTimeUsePreKeyData_checkBox->Checked))
+			{
+				this->MorphingAnimationTime_listBox->Items->Insert(MorphingAnimationTime_listBox->SelectedIndex+1,l_fTime.ToString());
+				this->MorphingAnimation_trackBar->Maximum = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
+			}
+			else
+			{
+				WARNING_MSG("time must smaller than next and bigger than prevoius one");
+			}
+			this->timer1->Enabled = true;
+		}
+	}
+
+	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
+	{
+		if (MorphingAnimationTime_listBox->SelectedIndex != -1)
+		{
+			this->timer1->Enabled = false;
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditDeleteListboxTime(MorphingAnimationTime_listBox->SelectedIndex);
+			this->MorphingAnimationTime_listBox->Items->RemoveAt(MorphingAnimationTime_listBox->SelectedIndex);
+			this->timer1->Enabled = true;
 		}
 	}
 
 	System::Void cPIEditor::EditAnimation_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 	{
-		if (EditAnimation_checkBox->Checked && m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
 			m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyEmptyAnimationData();
 			LODToPoints_button->Enabled = !EditAnimation_checkBox->Checked;
 			ImageTriangulatorLOD_numericUpDown->Enabled = !EditAnimation_checkBox->Checked;
+			PlayMorphingAnimation_checkBox->Enabled = EditAnimation_checkBox->Checked;
+			if (!PlayMorphingAnimation_checkBox->Enabled)
+			{
+				PlayMorphingAnimation_checkBox->Checked = false;
+			}
 		}
 	}
 
