@@ -19,7 +19,7 @@ template<class FIRST, class SECOND>std::vector<FIRST>	GetFirstVectorFromMap(std:
 	return l_Vector;
 }
 
-template<class FIRST, class SECOND>std::vector<FIRST>	GetSecondVectorFromMap(std::map<FIRST, SECOND>&e_Map)
+template<class FIRST, class SECOND>std::vector<SECOND>	GetSecondVectorFromMap(std::map<FIRST, SECOND>&e_Map)
 {
 	std::vector<SECOND> l_Vector;
 	for (auto l_Iterator = e_Map.begin(); l_Iterator != e_Map.end(); ++l_Iterator)
@@ -27,6 +27,16 @@ template<class FIRST, class SECOND>std::vector<FIRST>	GetSecondVectorFromMap(std
 		l_Vector.push_back(l_Iterator->second);
 	}
 	return l_Vector;
+}
+
+template<class FIRST, class SECOND>void	AssignDataToMap(std::map<FIRST, SECOND>&e_Map, std::vector<FIRST>&e_FirstDataVector, std::vector<SECOND>&e_SecondDataVector)
+{
+	assert(e_FirstDataVector.size() == e_SecondDataVector.size());
+	auto l_uiSize = e_FirstDataVector.size();
+	for (auto i = 0; i < l_uiSize; ++i)
+	{
+		e_Map[e_FirstDataVector[i]] = e_SecondDataVector[i];
+	}
 }
 
 
@@ -102,7 +112,9 @@ public:
 	int						FinClosestVertexIndex(Vector3 e_vPos);
 	void					RenderVertexPointByVertexIndex(int e_iVertexIndex, Vector4 e_vColor, float e_fPointSize);
 	void					DataCleanUp();
-	TiXmlElement*			ToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData);
+	TiXmlElement*			ToTiXmlElement(cBinaryFile*e_pMorphingData, cBinaryFile*e_pOptmizeMorphingData);
+	//return binray step
+	int						ParseMorphAnimationElement(TiXmlElement*e_pMorphAnimationElement, char*e_pBinaryData);
 };
 
 

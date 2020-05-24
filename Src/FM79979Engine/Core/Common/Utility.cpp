@@ -605,6 +605,16 @@ namespace UT
 #endif
 		return l_strResult;
 	}
+	std::string AddExtenStringForFileName(const char * e_str, const char * e_strExtendString)
+	{
+		auto l_strExtensionFileName = GetFileExtensionName(e_str);
+		auto l_strFileName = GetDirectoryWithoutFileName(e_str);
+		l_strFileName += GetFileNameWithoutFullPath(e_str);
+		l_strFileName += e_strExtendString;
+		l_strFileName += ".";
+		l_strFileName += l_strExtensionFileName;
+		return l_strFileName;
+	}
 #ifndef IOS
 	bool mkpath( std::string path )
 	{

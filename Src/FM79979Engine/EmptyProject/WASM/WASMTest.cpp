@@ -3,6 +3,21 @@
 #include "GameApp.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
+
+
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <assert.h>
+
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 
@@ -187,8 +202,48 @@ void Loop()
 	SDL_GL_SwapBuffers();
 }
 
+int sockfd = -1;
+void finish(int result) {
+	close(sockfd);
+#ifdef __EMSCRIPTEN__
+	//REPORT_RESULT(result);
+	emscripten_force_exit(result);
+#else
+	exit(result);
+#endif
+}
+
+
 int main()
 {
+
+	//struct sockaddr_in addr;
+	//int res;
+	//sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
+	//if (sockfd == -1) 
+	//{
+	//	printf("cannot create socket\n");
+	//	exit(EXIT_FAILURE);
+	//}
+	//printf("socket created\n");
+	//fcntl(sockfd, F_SETFL, O_NONBLOCK);
+
+	//memset(&addr, 0, sizeof(addr));
+	//addr.sin_family = AF_INET;
+	//addr.sin_port = 2978;
+	//if (inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr) != 1) 
+	//{
+	//	printf("inet_pton failed\n");
+	//	finish(EXIT_FAILURE);
+	//}
+	//printf("inet_pton ok\n");
+	//res = connect(sockfd, (struct sockaddr *)&addr, sizeof(addr));
+	//if (res == -1 && errno != EINPROGRESS) 
+	//{
+	//	printf("connect failed");
+	//	finish(EXIT_FAILURE);
+	//}
+	//printf("connected\n");
 	//linker command line for openglES2
 	//building without any flags gives ability to target WebGL 1.0 support via GLES2 headers.No emulation.This is practically core GLES2.
 	//building with - s LEGACY_GL_EMULATION = 1 gives(a very limited set of) desktop GL emulation

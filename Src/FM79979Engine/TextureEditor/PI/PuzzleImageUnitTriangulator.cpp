@@ -73,9 +73,6 @@ cPuzzleImageUnitTriangulator::~cPuzzleImageUnitTriangulator()
 	SAFE_DELETE(m_pbtConvexHullShape);
 }
 
-void cPuzzleImageUnitTriangulator::ParseMorphAnimationElement(TiXmlElement * e_pMorphAnimationElement, cBinaryFile*e_pTrianglesBinaryData)
-{
-}
 
 bool	cPuzzleImageUnitTriangulator::IsCollided(cbtConvexHullShape*e_pbtConvexHullShape)
 {
@@ -619,11 +616,11 @@ bool cPuzzleImageUnitTriangulator::ToTixmlElementWithBinaryData(ATG::XMLWriter*e
 	return m_pTrianglesToDrawIndicesBuffer->ToTixmlElementWithBinaryData(e_pXMLWriter,e_vPISize,e_vTextureSize,e_vImagePos,e_PosVector,e_UVVector,e_iIndexBufferVector);
 }
 
-TiXmlElement * cPuzzleImageUnitTriangulator::MorphingAnimationToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData)
+TiXmlElement * cPuzzleImageUnitTriangulator::MorphingAnimationToTiXmlElement(cBinaryFile*e_pMorphingData, cBinaryFile*e_pOptmizeMorphingData)
 {
 	if (this->m_pEditor_MorphingAnimation)
 	{
-		return m_pEditor_MorphingAnimation->ToTiXmlElement(e_pTrianglesBinaryData);
+		return m_pEditor_MorphingAnimation->ToTiXmlElement(e_pMorphingData,e_pOptmizeMorphingData);
 	}
 	return nullptr;
 }
@@ -918,8 +915,18 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 
 }
 
-bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName, cBinaryFile*e_pTrianglesBinaryData)
+bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName)
 {
+	cBinaryFile l_MorphingData;
+	cBinaryFile l_MorphingOptimizeData;
+	std::string l_strBinaryDataFileName = UT::GetDirectoryWithoutFileName(e_strFileName)+UT::GetFileNameWithoutFullPath(e_strFileName);
+	std::string l_strEditorFileName = l_strBinaryDataFileName;
+	std::string l_strOptimizeFileName = l_strBinaryDataFileName;
+	l_strEditorFileName += ".";
+	l_strEditorFileName += EDITOR_MORPHING_EXTENSION_FILENAME;
+	l_MorphingData.Writefile(l_strEditorFileName.c_str(), true, false, "w+");
+	l_strOptimizeFileName += ".morphing";
+	l_MorphingOptimizeData.Writefile(l_strOptimizeFileName.c_str(), true, false, "w+");
 	TiXmlDocument l_Doc(UT::CharToWchar(e_strFileName).c_str());
 	TiXmlElement*l_pMorphingAnimationElement = new TiXmlElement(MORPHING_ANIMATION_ROOT_NAME);
 	l_pMorphingAnimationElement->SetAttribute(L"Version", MORPHING_ANIMATION_VERSION);
@@ -928,18 +935,22 @@ bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e
 	for (int i = 0; i < l_iCount; ++i)
 	{
 		auto*l_pObject = this->GetObject(i);
-		auto l_pElement = l_pObject->MorphingAnimationToTiXmlElement(e_pTrianglesBinaryData);
+		auto l_pElement = l_pObject->MorphingAnimationToTiXmlElement(&l_MorphingData, &l_MorphingOptimizeData);
 		l_pMorphingAnimationElement->LinkEndChild(l_pElement);
 	}
 	l_Doc.SaveFile(e_strFileName);
 	return false;
 }
 
-bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_strFileName, int e_iFileStartPos, cBinaryFile*e_pTrianglesBinaryData)
+bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_strFileName)
 {
 	cNodeISAX l_Parser;
 	if (l_Parser.ParseDataIntoXMLNode(e_strFileName))
 	{
+		auto l_strBinaryFileName = UT::ChangeFileExtensionName(e_strFileName, EDITOR_MORPHING_EXTENSION_FILENAME);
+		cBinaryFile l_TrianglesBinaryData;
+		l_TrianglesBinaryData.Openfile(l_strBinaryFileName.c_str());
+		char*l_pBinaryData = (char*)l_TrianglesBinaryData.GetDataFile(0);
 		auto l_pRoot = l_Parser.GetRootElement();
 		if (!wcscmp(l_pRoot->Value(), MORPHING_ANIMATION_ROOT_NAME))
 		{
@@ -962,7 +973,12 @@ bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_
 				for (int i = 0; i < l_iCount; ++i)
 				{
 					auto l_pObject = this->GetObject(i);
-					l_pObject->ParseMorphAnimationElement(l_pRoot, e_pTrianglesBinaryData);
+					//l_pObject->ParseMorphAnimationElement(l_pRoot, l_pBinaryData);
+					if (l_pObject->m_pEditor_MorphingAnimation)
+					{
+						auto l_iBinaryStep = l_pObject->m_pEditor_MorphingAnimation->ParseMorphAnimationElement(l_pRoot, l_pBinaryData);
+						l_pBinaryData += l_iBinaryStep;
+					}
 				}
 				l_pRoot = l_pRoot->NextSiblingElement();
 			}

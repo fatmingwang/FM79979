@@ -310,7 +310,7 @@ namespace PI
 					l_pUIImage->SetPos(Vector3(l_fPosX,l_fPosY,0.f));
 					auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
 					std::vector<Vector3>*l_pPointsVector = e_pPuzzleImage->GetImageShapePointVector(l_iUIImageIndex);
-					if (l_pPointsVector && l_pPointsVector->size())
+					//if (l_pPointsVector && l_pPointsVector->size())
 					{
 						m_pPuzzleImageUnitTriangulatorManager->AssignDataFromPuzzleImage(e_pPuzzleImage, l_pUIImage);
 					}
@@ -395,6 +395,12 @@ namespace PI
 					else
 					{
 						m_strCurrentFileName = DNCT::WcharToGcstring(l_strPuzzleImageName);
+						auto l_strMorphingFileName = DNCT::GcStringToChar(l_strFileName);
+						l_strMorphingFileName = AddExtenStringForFileName(l_strMorphingFileName.c_str(), "_morphing");
+						l_strMorphingFileName = ChangeFileExtensionName(l_strMorphingFileName.c_str(),"xml");
+						if (m_pPuzzleImageUnitTriangulatorManager->ParseMorphingAnimation(l_strMorphingFileName.c_str()))
+						{
+						}
 					}
 				}
 				else
@@ -439,15 +445,6 @@ namespace PI
 			 }
 		 }
 		 return l_pPuzzleImage;
-	}
-
-	System::Void	cPIEditor::SaveMorphingAnimationFile(const char*e_strFileName)
-	{
-		cBinaryFile*l_pMorphingAnimationBinaryData = new cBinaryFile();
-		std::string l_strBinaryDataFileName = UT::GetFileNameWithoutFullPath(e_strFileName);
-		l_strBinaryDataFileName += ".morphing";
-		l_pMorphingAnimationBinaryData->Writefile(l_strBinaryDataFileName.c_str(), true, true);
-		this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(e_strFileName, l_pMorphingAnimationBinaryData);
 	}
 //=======================
 //
@@ -533,8 +530,8 @@ namespace PI
 				l_pGr->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::NearestNeighbor;
 				l_pGr->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::None;
 			}
-			std::string	l_str = DNCT::GcStringToChar(l_FileName);
-			char*	l_ExtensionName = &l_str[strlen(l_str.c_str())-3];
+			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_FileName);
+			char*	l_ExtensionName = &l_strPIXMLFileName[strlen(l_strPIXMLFileName.c_str())-3];
 			sprintf(l_ExtensionName,"Image");
 			//FILE*l_pFopen = fopen(l_str,"w");
 			float	l_fUV[4];
@@ -543,8 +540,8 @@ namespace PI
 			else
 				sprintf(l_ExtensionName,"pi");
 			String^l_strUserNameAndData = GetUseerNameAndTime();
-			std::string	l_strXmlFileName = l_str;
-			ATG::XMLWriter	l_XMLWriter(l_str.c_str());
+			std::string	l_strXmlFileName = l_strPIXMLFileName;
+			ATG::XMLWriter	l_XMLWriter(l_strPIXMLFileName.c_str());
 			l_XMLWriter.StartComment();
 			l_XMLWriter.WriteString(DNCT::GcStringToChar(l_strUserNameAndData).c_str());
 			l_XMLWriter.EndComment();
@@ -559,11 +556,12 @@ namespace PI
 					    l_OriginalImageNameOrder += ",";
 				    l_pImageListBox->Items->Add(l_strImageName);
 			    }
+				const char*l_strMorphingExtendFileName = "_morphing.xml";
 			    l_pImageListBox->Sorted = true;
 				std::string l_strPI_tri = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
 				l_strPI_tri += ".pi_tri";
 				std::string l_strPI_morphing = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
-				l_strPI_morphing += "_morphing.xml";
+				l_strPI_morphing += l_strMorphingExtendFileName;
 				l_XMLWriter.AddAttribute("PI_tri", l_strPI_tri.c_str());
 				l_XMLWriter.AddAttribute("PI_morphing", l_strPI_morphing.c_str());
 			    l_XMLWriter.AddAttribute("OriginalNameSort",l_OriginalImageNameOrder.c_str());
@@ -836,7 +834,10 @@ namespace PI
 					SAFE_DELETE(l_ppPuzzleData[i]);
 				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
-			SaveMorphingAnimationFile(l_strPI_morphing.c_str());
+			auto l_strMorpginhXMLFileNameTest = AddExtenStringForFileName(l_strPIXMLFileName.c_str(), "_morphing");
+			l_strMorpginhXMLFileNameTest = ChangeFileExtensionName(l_strMorpginhXMLFileNameTest.c_str(),"xml");
+			if(m_pPuzzleImageUnitTriangulatorManager)
+				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str());
 			SAFE_DELETE(l_pTrianglesBinaryData);
 			//SAFE_DELETE(l_pGLESTrianglesBinaryData);
 		}	
@@ -1553,6 +1554,8 @@ namespace PI
 				{
 					for (auto l_fTime : *l_pData)
 						MorphingAnimationTime_listBox->Items->Add(l_fTime.ToString());
+					int l_iMax = (int)(m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditGetEndTime() * 1000);
+					MorphingAnimation_trackBar->Maximum = l_iMax;
 				}
 			}
 		}
@@ -2490,7 +2493,7 @@ namespace PI
 	{
 		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
 		{
-			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value/1000;
+			float l_fTime = (float)MorphingAnimationTime_numericUpDown->Value;
 			if (!m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditAddListboxTime(l_fTime))
 			{
 				WARNING_MSG("add time failed");

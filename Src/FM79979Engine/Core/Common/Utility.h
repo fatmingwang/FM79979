@@ -50,6 +50,7 @@ namespace UT
 	std::string				GetFileExtensionName(const char*e_pString);
 	std::string				ChangeFileExtensionName(const char*e_pFileNameString,const char*e_strNewExtensionName);
 	std::string				GetDirectoryWithoutFileName(const char*e_str);
+	std::string				AddExtenStringForFileName(const char*e_str, const char*e_strExtendString);
 	//
 	bool					IsStringContain(const char*e_strSource,const char*e_strCompare);
 	bool					IsStringContain(const wchar_t*e_strSource,const wchar_t*e_strCompare);

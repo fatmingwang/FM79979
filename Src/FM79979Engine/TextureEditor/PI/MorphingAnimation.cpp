@@ -288,11 +288,7 @@ bool cEditor_MorphingAnimation::ApplyEmptyAnimationData()
 				m_VertexAnimationVector.push_back(l_Data);
 			}
 		}
-		for(size_t i=0;i< vRenderPosVector.size();++i)
-		{
-			m_VertexAnimationVector[i].pRenderPos = &vRenderPosVector[i];
-			m_VertexAnimationVector[i].pTime0VertexPos = &this->m_pTarget->vPosVector[i];
-		}
+		ReassignRenderPosVectorAfterVertexIndexChange();
 		return true;
 	}
 	return false;
@@ -483,44 +479,96 @@ void cEditor_MorphingAnimation::DataCleanUp()
 	m_fListboxTimeVector.clear();;
 }
 
-TiXmlElement * cEditor_MorphingAnimation::ToTiXmlElement(cBinaryFile*e_pTrianglesBinaryData)
+TiXmlElement * cEditor_MorphingAnimation::ToTiXmlElement(cBinaryFile*e_pMorphingData, cBinaryFile*e_pOptmizeMorphingData)
 {
 	TiXmlElement*l_pElement = new TiXmlElement(MORPHING_ANIMATION_OBJECT_NAME);
 	l_pElement->SetAttribute(L"Name",this->GetName());
 	auto l_strTimeList = ValueToStringW(this->m_fListboxTimeVector);
 	int l_iVertexCount = (int)m_VertexAnimationVector.size();
-	l_pElement->SetAttribute(L"TimeList", l_strTimeList.c_str());
-	l_pElement->SetAttribute(L"VertexCount", l_iVertexCount);
-	for (int i=0;i< l_iVertexCount;++i)
+	if (l_iVertexCount)
 	{
-		sVertexIndexAndPositionAndTimeVector*l_pVertexIndexAndPositionAndTimeVector = &m_VertexAnimationVector[i];
-		if (l_pVertexIndexAndPositionAndTimeVector)
+		l_pElement->SetAttribute(L"TimeList", l_strTimeList.c_str());
+		l_pElement->SetAttribute(L"VertexCount", l_iVertexCount);
+		if (m_fListboxTimeVector.size())
 		{
-			TiXmlElement*l_pVertexDataElement = new TiXmlElement(MORPHING_ANIMATION_VERTEX_DATA);
-			assert(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size() == m_fListboxTimeVector.size()&&"cEditor_MorphingAnimation::ToTiXmlElement() data not match!");
-			int l_iPosVectorDataSize = (int)(sizeof(Vector3)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
-			int l_iTimeVectorDataSize = (int)(sizeof(float)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
-			auto l_OpitimizeData = l_pVertexIndexAndPositionAndTimeVector->GetOptimizeDataSize();
-			int l_iOptimizeTimeVectorDataSize = (int)(sizeof(float)*l_OpitimizeData.size());
-			int l_iOptimizePosVectorDataSize = (int)(sizeof(Vector3)*l_OpitimizeData.size());
-			l_pVertexDataElement->SetAttribute(L"Index",i);
-			l_pVertexDataElement->SetAttribute(L"TimeVectorDataSize", l_iTimeVectorDataSize);
-			l_pVertexDataElement->SetAttribute(L"PosVectorDataSize", l_iPosVectorDataSize);
-			l_pVertexDataElement->SetAttribute(L"OptimizeTimeVectorDataSize", l_iOptimizeTimeVectorDataSize);
-			l_pVertexDataElement->SetAttribute(L"OptimizePosVectorDataSize", l_iOptimizePosVectorDataSize);
-			l_pElement->LinkEndChild(l_pVertexDataElement);
-			if (e_pTrianglesBinaryData)
+			int l_iTimeVectorDataSize = (int)(sizeof(float)*m_fListboxTimeVector.size());
+			e_pMorphingData->WriteToFile((char*)&m_fListboxTimeVector[0], l_iTimeVectorDataSize);
+		}
+		for (int i = 0; i < l_iVertexCount; ++i)
+		{
+			sVertexIndexAndPositionAndTimeVector*l_pVertexIndexAndPositionAndTimeVector = &m_VertexAnimationVector[i];
+			if (l_pVertexIndexAndPositionAndTimeVector)
 			{
-				auto l_fTimeVector = GetFirstVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
-				auto l_vPosVector = GetFirstVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
-				auto l_fOptimizeTimeVector = GetFirstVectorFromMap<float, Vector3>(l_OpitimizeData);
-				auto l_vOptimizePosVector = GetFirstVectorFromMap<float, Vector3>(l_OpitimizeData);
-				e_pTrianglesBinaryData->WriteToFile((char*)&l_fTimeVector[0], l_iTimeVectorDataSize);
-				e_pTrianglesBinaryData->WriteToFile((char*)&l_vPosVector[0], l_iPosVectorDataSize);
-				e_pTrianglesBinaryData->WriteToFile((char*)&l_fOptimizeTimeVector[0], l_iOptimizeTimeVectorDataSize);
-				e_pTrianglesBinaryData->WriteToFile((char*)&l_vOptimizePosVector[0], l_iOptimizePosVectorDataSize);
+				TiXmlElement*l_pVertexDataElement = new TiXmlElement(MORPHING_ANIMATION_VERTEX_DATA);
+				assert(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size() == m_fListboxTimeVector.size() && "cEditor_MorphingAnimation::ToTiXmlElement() data not match!");
+				int l_iPosVectorDataSize = (int)(sizeof(Vector3)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
+				int l_iTimeVectorDataSize = (int)(sizeof(float)*l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames.size());
+				auto l_OpitimizeData = l_pVertexIndexAndPositionAndTimeVector->GetOptimizeDataSize();
+				int l_iOptimizeTimeVectorDataSize = (int)(sizeof(float)*l_OpitimizeData.size());
+				int l_iOptimizePosVectorDataSize = (int)(sizeof(Vector3)*l_OpitimizeData.size());
+				l_pVertexDataElement->SetAttribute(L"Index", i);
+				//in editor same as l_strTimeList
+				//l_pVertexDataElement->SetAttribute(L"TimeVectorDataSize", l_iTimeVectorDataSize);
+				l_pVertexDataElement->SetAttribute(L"PosVectorDataSize", l_iPosVectorDataSize);
+				l_pVertexDataElement->SetAttribute(L"OptimizeTimeVectorDataSize", l_iOptimizeTimeVectorDataSize);
+				l_pVertexDataElement->SetAttribute(L"OptimizePosVectorDataSize", l_iOptimizePosVectorDataSize);
+				l_pElement->LinkEndChild(l_pVertexDataElement);
+				if (e_pMorphingData)
+				{
+					auto l_fTimeVector = GetFirstVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
+					auto l_vPosVector = GetSecondVectorFromMap<float, Vector3>(l_pVertexIndexAndPositionAndTimeVector->m_FormKeyFrames);
+					//if (l_fTimeVector.size())
+					//	e_pMorphingData->WriteToFile((char*)&l_fTimeVector[0], l_iTimeVectorDataSize);
+					if (l_vPosVector.size())
+						e_pMorphingData->WriteToFile((char*)&l_vPosVector[0], l_iPosVectorDataSize);
+				}
+				if (e_pOptmizeMorphingData)
+				{
+					auto l_fOptimizeTimeVector = GetFirstVectorFromMap<float, Vector3>(l_OpitimizeData);
+					auto l_vOptimizePosVector = GetSecondVectorFromMap<float, Vector3>(l_OpitimizeData);
+					if (l_fOptimizeTimeVector.size())
+						e_pOptmizeMorphingData->WriteToFile((char*)&l_fOptimizeTimeVector[0], l_iOptimizeTimeVectorDataSize);
+					if (l_vOptimizePosVector.size())
+						e_pOptmizeMorphingData->WriteToFile((char*)&l_vOptimizePosVector[0], l_iOptimizePosVectorDataSize);
+				}
 			}
 		}
 	}
 	return l_pElement;
+}
+
+int	cEditor_MorphingAnimation::ParseMorphAnimationElement(TiXmlElement*e_pMorphAnimationElement, char*e_pBinaryData)
+{
+	auto l_strName = e_pMorphAnimationElement->Attribute(L"Name");
+	auto l_strTimeList = e_pMorphAnimationElement->Attribute(L"TimeList");
+	auto l_strVertexCount = e_pMorphAnimationElement->Attribute(L"VertexCount");
+	if (l_strVertexCount)
+	{
+		this->DataCleanUp();
+		int l_iVertexCount = GetInt(l_strVertexCount);
+		m_fListboxTimeVector = GetValueListByCommaDivide<float>(l_strTimeList);
+		auto l_uiTimeVectorSize = m_fListboxTimeVector.size();
+		if (l_iVertexCount > 0 && m_fListboxTimeVector.size())
+		{
+			auto l_uiTimeDataSize = l_uiTimeVectorSize * sizeof(float);
+			e_pBinaryData += l_uiTimeDataSize;
+			int l_iBinaryStep = l_uiTimeDataSize;
+			//template<class FIRST, class SECOND>std::vector<FIRST>	AssignDataToMap(std::map<FIRST, SECOND>&e_Map, std::vector<FIRST>e_FirstDataVector, std::vector<SECOND>e_SecondDataVector)
+			for (int i = 0; i < l_iVertexCount; ++i)
+			{
+				int l_iPosSize = sizeof(Vector3)*l_uiTimeVectorSize;
+				std::vector<Vector3>l_fPosVector;
+				l_fPosVector.resize(l_uiTimeVectorSize);
+				memcpy(&l_fPosVector[0], e_pBinaryData, l_iPosSize);
+				e_pBinaryData += l_iPosSize;
+				l_iBinaryStep += l_iPosSize;
+				sVertexIndexAndPositionAndTimeVector l_VertexIndexAndPositionAndTimeVector;
+				AssignDataToMap(l_VertexIndexAndPositionAndTimeVector.m_FormKeyFrames, m_fListboxTimeVector, l_fPosVector);
+				this->m_VertexAnimationVector.push_back(l_VertexIndexAndPositionAndTimeVector);
+			}
+			ReassignRenderPosVectorAfterVertexIndexChange();
+			return l_iBinaryStep;
+		}
+	}
+	return 0;
 }
