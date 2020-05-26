@@ -585,6 +585,9 @@
     <ClCompile Include="..\..\Sound\SoundManager.cpp">
       <Filter>Sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\MeshShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\BinaryFile\CustomBinaryData.h">
