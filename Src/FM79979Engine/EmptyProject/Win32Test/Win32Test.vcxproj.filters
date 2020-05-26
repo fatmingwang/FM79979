@@ -39,6 +39,9 @@
     <ClCompile Include="..\EngineTest\2DMesh.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\MorphingAnimation.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -63,6 +66,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\EngineTest\2DMesh.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\MorphingAnimation.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

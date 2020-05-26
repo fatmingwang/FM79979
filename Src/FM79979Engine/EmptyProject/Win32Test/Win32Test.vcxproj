@@ -204,6 +204,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\EngineTest\2DMesh.cpp" />
+    <ClCompile Include="..\EngineTest\MorphingAnimation.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -218,6 +219,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\2DMesh.h" />
+    <ClInclude Include="..\EngineTest\MorphingAnimation.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
