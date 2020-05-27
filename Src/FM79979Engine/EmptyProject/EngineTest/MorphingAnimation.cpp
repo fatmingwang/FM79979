@@ -2,6 +2,8 @@
 #include "MorphingAnimation.h"
 namespace FATMING_CORE
 {
+	TYPDE_DEFINE_MARCO(cFMMorphingAnimation);
+	TYPDE_DEFINE_MARCO(cFMMorphingAnimationManager);
 	Vector3 cFMMorphingAnimation::sTimeAndPosAnimationData::UpdateAnimationByGlobalTime(float e_fGlobalTime)
 	{
 		return Vector3();
@@ -50,6 +52,10 @@ namespace FATMING_CORE
 	}
 
 	void cFMMorphingAnimation::RearrangeTimeByPercent(float e_fPercenttage)
+	{
+	}
+
+	void cFMMorphingAnimation::InvertOrder()
 	{
 	}
 

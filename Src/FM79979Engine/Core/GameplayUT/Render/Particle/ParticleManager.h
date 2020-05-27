@@ -49,6 +49,7 @@ namespace FATMING_CORE
 		cPaticleManager();
 		virtual ~cPaticleManager();
 		cPrtEmitter*		GetEmitter(const char*e_strFileName,const wchar_t*e_strName);
+		virtual				NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 		//if texture is used by emitters,input cPulleImage or cPullaImageUnit or cBaseImage.
 		bool	TextureIsInUsing(NamedTypedObject*e_pNamedTypedObject,cPrtEmitter*e_Src);
 		void	Export(const char*,char*e_strDataAndAuthor = 0);
@@ -92,6 +93,7 @@ namespace FATMING_CORE
 		cParticleEmitterGroup*  GetPRTG(int e_iIndex);
 		cParticleEmitterGroup*  GetPRTG(const wchar_t*e_strName);
 		cParticleEmitterGroup*  GetPRTG(const char*e_strFileName,const wchar_t*e_strName);
+		virtual					NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 	};
 	
 	typedef cNamedTypedObjectVector<cBehaviorPaticleManager>  cPrtGList;

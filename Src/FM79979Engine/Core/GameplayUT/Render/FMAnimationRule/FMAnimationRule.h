@@ -81,8 +81,8 @@ namespace FATMING_CORE
     class	cFatmingGroupBehaviorList:public cNamedTypedObjectVector<TYPE>,public cFMTimeLineAnimationRule
     {
 		cNamedTypedObjectVector<TYPE>*	m_pStayAtLastFrameOrLoopChildrenVector;//some children is stay at last frame or loop so make it keep going
-		virtual	void	AddObjectNotification(TYPE* e_t){ if(e_t)this->AddChild(e_t); }
-		virtual	void	RemoveObjectNotification(TYPE* e_t){ if(e_t)e_t->SetParent(0); }
+		virtual	void	AddObjectNotification(TYPE* e_t)override{ if(e_t)this->AddChild(e_t); }
+		virtual	void	RemoveObjectNotification(TYPE* e_t)override { if(e_t)e_t->SetParent(0); }
     protected:
 	    //sometimes the time is up,but the performance is still going,we expected it finished,and stop update
 	    //depend what kind performance is it going

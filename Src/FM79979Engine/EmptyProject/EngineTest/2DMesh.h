@@ -46,6 +46,7 @@ namespace FATMING_CORE
 		~c2DMeshObjectManager();
 		CLONE_MYSELF(c2DMeshObjectManager);
 		DEFINE_TYPE_INFO();
+		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override { return nullptr; }
 	};
 //namespace FATMING_CORE
 }

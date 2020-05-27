@@ -55,5 +55,6 @@ namespace FATMING_CORE
 		cFMMorphingAnimationManager();
 		~cFMMorphingAnimationManager();
 		DEFINE_TYPE_INFO();
+		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override { return nullptr; }
 	};
 }

@@ -175,6 +175,13 @@ namespace FATMING_CORE
 		return l_pEmitter;
 	}
 
+	NamedTypedObject* cPaticleManager::GetObjectByFileName(const char*e_strFileName)
+	{
+		auto l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
+		auto l_strWFileName = ValueToStringW(l_strObjectName.c_str());
+		return GetEmitter(e_strFileName, l_strWFileName.c_str());
+	}
+
 
 	void	cPaticleManager::RemoveResourceObject(NamedTypedObject*e_pObject)
 	{
@@ -728,7 +735,12 @@ namespace FATMING_CORE
 		
 		}
 	}
-	
+	NamedTypedObject* cBehaviorPaticleManager::GetObjectByFileName(const char*e_strFileName)
+	{
+		auto l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
+		auto l_strWFileName = ValueToStringW(l_strObjectName.c_str());
+		return GetPRTG(e_strFileName, l_strWFileName.c_str());
+	}
 	cParticleEmitterGroup*  cBehaviorPaticleManager::GetPRTG(int e_iIndex){ return dynamic_cast<cParticleEmitterGroup*>(this->m_ObjectList[e_iIndex]); }
 	cParticleEmitterGroup*  cBehaviorPaticleManager::GetPRTG(const wchar_t*e_strName){ return dynamic_cast<cParticleEmitterGroup*>(this->GetObject(e_strName)); }
 	cParticleEmitterGroup*  cBehaviorPaticleManager::GetPRTG(const char*e_strFileName,const wchar_t*e_strName)

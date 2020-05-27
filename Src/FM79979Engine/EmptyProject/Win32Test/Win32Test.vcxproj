@@ -204,6 +204,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\EngineTest\2DMesh.cpp" />
+    <ClCompile Include="..\EngineTest\GameResourceManager.cpp" />
     <ClCompile Include="..\EngineTest\MorphingAnimation.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -219,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\2DMesh.h" />
+    <ClInclude Include="..\EngineTest\GameResourceManager.h" />
     <ClInclude Include="..\EngineTest\MorphingAnimation.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="Resource.h" />

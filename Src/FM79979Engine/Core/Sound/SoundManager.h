@@ -48,6 +48,7 @@ namespace FATMING_CORE
 		cBasicSound*	AddStreamingSound(NamedTypedObject*e_pRef,const char*e_strFileName);
 		cBasicSound*	AddSound(NamedTypedObject*e_pRef,const char*e_strFileName);
 		cBasicSound*	AddSound(const char*e_strFileName);
+		virtual			NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 		void			Export(const char*e_strFileName);
 		//for 0			to 1
 		void			SetVolume(float e_fVolume);

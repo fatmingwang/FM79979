@@ -23,12 +23,13 @@ namespace FATMING_CORE
 
 		cBaseImage*	GetBaseImage(const wchar_t*e_strName);
 
-		cPuzzleImage*	GetPuzzleImageByFileName(const wchar_t*e_strName);
-		cPuzzleImage*	GetPuzzleImageByFileName(const char*e_strName);
+		cPuzzleImage*	GetPuzzleImageByFileName(const wchar_t*e_strFileName);
+		cPuzzleImage*	GetPuzzleImageByFileName(const char*e_strFileName);
 		cPuzzleImage*	GetPuzzleImage(const wchar_t*e_strName);
 		cPuzzleImage*	GetPuzzleImage(int e_iIndex);
 		cPuzzleImage*	GetPuzzleImage(const char*e_strFileName,const wchar_t*e_strPIName);
-		void	Export(char*e_strFileName);
+		virtual			NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
+		void			Export(char*e_strFileName);
 	};
 	//only support PI editor(cUIImage)
 	bool	IsObjectOverlap(cImageParser*e_pObject);

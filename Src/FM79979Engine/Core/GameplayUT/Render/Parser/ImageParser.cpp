@@ -214,6 +214,11 @@ namespace FATMING_CORE
 	#endif
 	}
 
+	NamedTypedObject* cImageParser::GetObjectByFileName(const char*e_strFileName)
+	{
+		return GetPuzzleImageByFileName(e_strFileName);
+	}
+
 	bool	IsObjectOverlap(cImageParser*e_pObject)
 	{
 		cImageParser l_Temp;

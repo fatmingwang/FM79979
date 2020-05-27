@@ -86,6 +86,7 @@ namespace FATMING_CORE
 		cMPDIList*GetMPDIList(const wchar_t*e_strName){ return dynamic_cast<cMPDIList*>(GetObject(e_strName)); }
 		cMPDIList*GetMPDIListByFileName(const wchar_t*e_strFileName,bool e_bShowErrorMessage = false);
 		cMPDIList*GetMPDIListByFileName(const char*e_strFileName,bool e_bShowErrorMessage = false);
+		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override { return GetMPDIListByFileName(e_strFileName); }
 		cMPDIList*GetMPDIList(const char*e_strFileName,const wchar_t*e_strName,bool e_bShowErrorMessage = false);
 		cMPDIList*GetMPDIList(int e_iIndex){ return dynamic_cast<cMPDIList*>(GetObject(e_iIndex)); }
 	};

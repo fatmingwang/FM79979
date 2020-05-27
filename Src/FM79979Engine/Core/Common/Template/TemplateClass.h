@@ -157,7 +157,7 @@ public:
 	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
 	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
-
+	virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName) { return nullptr; }
 	inline T*	GetObjectWithWarningMessage(int e_i)
 	{
 		auto l_pObject = this->GetObject(e_i);

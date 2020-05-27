@@ -229,6 +229,10 @@ namespace FATMING_CORE
 	{
 		return this->AddSound(this,e_strFileName);
 	}
+	NamedTypedObject* cSoundParser::GetObjectByFileName(const char*e_strFileName)
+	{
+		return AddSound(e_strFileName);
+	}
 
 	cBasicSound*	cSoundParser::AddSound(NamedTypedObject*e_pRef,const char*e_strFileName)
 	{
