@@ -60,6 +60,7 @@
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\Blur.cpp" />
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\CommnoShader.cpp" />
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
+    <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\MeshShader.cpp" />
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\Shader.cpp" />
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp" />
