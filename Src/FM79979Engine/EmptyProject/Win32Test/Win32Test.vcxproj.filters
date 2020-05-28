@@ -45,6 +45,9 @@
     <ClCompile Include="..\EngineTest\GameResourceManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\FontManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -75,6 +78,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\EngineTest\GameResourceManager.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\FontManager.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

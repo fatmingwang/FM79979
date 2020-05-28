@@ -19,7 +19,7 @@ cGameResourceManager::~cGameResourceManager()
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_ImageParser, eGameObjectType::eGBT_IMAGE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_PaticleManager, eGameObjectType::eGBT_PARTICLE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_BehaviorPaticleManager, eGameObjectType::eGBT_BEHAVIOR_PARTICLE);
-
+	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_FontManager, eGameObjectType::eGBT_FONT);
 	//auto l_pData = GetObjectByFileName<cMPDI>("79979", eGameObjectType::eGBT_MPDILIST);
 	//auto l_pData2 = GetObject<cMPDI>(L"6699", eGameObjectType::eGBT_MPDILIST);
 	//auto l_pp = GetParser<cNamedTypedObjectVector<cAnimationParser>>(eGameObjectType::eGBT_MPDILIST);

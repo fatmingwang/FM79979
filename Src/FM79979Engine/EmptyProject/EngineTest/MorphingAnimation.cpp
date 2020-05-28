@@ -63,7 +63,7 @@ namespace FATMING_CORE
 	{
 		return 0.0f;
 	}
-	cFMMorphingAnimationManager::cFMMorphingAnimationManager()
+	cFMMorphingAnimationManager::cFMMorphingAnimationManager(c2DMeshObjectManager*e_p2DMeshObjectManager)
 	{
 		m_pAnimationDataMap = new cAnimationDataMap(this);
 	}
@@ -71,6 +71,11 @@ namespace FATMING_CORE
 	cFMMorphingAnimationManager::~cFMMorphingAnimationManager()
 	{
 		SAFE_RELEASE(m_pAnimationDataMap, this);
+	}
+
+	NamedTypedObject * cFMMorphingAnimationManager::GetObjectByFileName(const char * e_strFileName)
+	{
+		return nullptr;
 	}
 
 	cFMMorphingAnimationManager::cAnimationDataMap::cAnimationDataMap(NamedTypedObject * e_pObject)
@@ -81,8 +86,33 @@ namespace FATMING_CORE
 	cFMMorphingAnimationManager::cAnimationDataMap::~cAnimationDataMap()
 	{
 	}
-
+//<MorphingAnimationRoot Version="20200522">
+//    <MorphingAnimation Name="15686247788274" TimeList="0.00000,0.25000,0.50000,1.00000" VertexCount="56">
+//        <VertexData Index="0" PosVectorDataSize="48" OptimizeTimeVectorDataSize="4" OptimizePosVectorDataSize="12" />
+//        <VertexData Index="1" PosVectorDataSize="48" OptimizeTimeVectorDataSize="4" OptimizePosVectorDataSize="12" />
+//    </MorphingAnimation>
+//</MorphingAnimationRoot>
 	bool cFMMorphingAnimationManager::MyParse(TiXmlElement * e_pRoot)
+	{
+		auto l_strVersion = e_pRoot->Attribute(L"Version");
+		if(l_strVersion)
+		{
+			if (GetInt(l_strVersion) == FM_MORPHING_ANIMATION_VER)
+			{
+				e_pRoot = e_pRoot->FirstChildElement();
+				while (e_pRoot)
+				{
+					if (!wcscmp(e_pRoot->Value(), L"MorphingAnimation"))
+					{
+						Process_MorphingAnimationData(e_pRoot);
+					}
+					e_pRoot = e_pRoot->NextSiblingElement();
+				}
+			}
+		}
+		return false;
+	}
+	bool cFMMorphingAnimationManager::Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement)
 	{
 		return false;
 	}

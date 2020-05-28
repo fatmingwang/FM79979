@@ -14,13 +14,13 @@ namespace FATMING_CORE
 		Vector2						m_vHalfSize;
 		int							m_iDrawCount;
 		//for how many character
-		int							m_iVertexBufferCount;
+		int							m_iFontCount;
 		std::wstring				m_strText;
 		bool						m_bTextChanged;
 		float						m_fScale;
 	public:
 		DEFINE_TYPE_INFO();
-		cFreetypeGlyphRender(const char* e_strFontName, int e_iFontSize, int e_iVertexBufferSize = 300, POINT e_DefaultFontTextureSize = {512,512});
+		cFreetypeGlyphRender(const char* e_strFontName, int e_iFontSize, int e_iFontCount = 300, POINT e_DefaultFontTextureSize = {512,512});
 		cFreetypeGlyphRender(cFreetypeGlyphRender*e_pGlyphFontRender);
 		CLONE_MYSELF(cFreetypeGlyphRender);
 		virtual ~cFreetypeGlyphRender();

@@ -9,30 +9,30 @@ namespace FATMING_CORE
 
 	TYPDE_DEFINE_MARCO(cGlyphFontRender);
 
-	cGlyphFontRender::cGlyphFontRender(int e_iVertexBufferSize)
+	cGlyphFontRender::cGlyphFontRender(int e_iFontCount)
 	{
 		m_vHalfSize = Vector2::Zero;
 		m_bTextChanged = true;
-		m_iVertexBufferCount = e_iVertexBufferSize;
+		m_iFontCount = e_iFontCount;
 		m_vHalfSize = Vector2::Zero;
 		m_pFontImage = 0;
 		m_pGlyphReader = 0;
 		m_fDepth = 0.f;
 		m_fScale = 1.f;
 		m_iDrawCount = 0;
-		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];
-		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];
-		for( int i=0;i<e_iVertexBufferSize*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];
+		for( int i=0;i< e_iFontCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
 			m_pvColorBuffer[i] = Vector4::One;
 	}
 
-	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize)
+	cGlyphFontRender::cGlyphFontRender(const char* e_strFontName,int e_iFontCount)
 	{
 		m_vHalfSize = Vector2::Zero;
 		m_iDrawCount = 0;
 		m_bTextChanged = true;
-		m_iVertexBufferCount = e_iVertexBufferSize;
+		m_iFontCount = e_iFontCount;
 		m_pvVertexBuffer = 0;
 		m_pvTextureUVBuffer = 0;
 		m_pvColorBuffer = 0;
@@ -63,10 +63,10 @@ namespace FATMING_CORE
 		sprintf(l_str,"%s%s.FontInfo",l_strForDirectory,l_strForStripExtensionName);
 		if(!m_pGlyphReader->LoadFontDataFile(l_str))
 			UT::ErrorMsg("read font info failed",l_str);
-		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];
-		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iVertexBufferSize];
-		for( int i=0;i<e_iVertexBufferSize*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*e_iFontCount];
+		for( int i=0;i< e_iFontCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
 			m_pvColorBuffer[i] = Vector4::One;
 		m_fDepth = 0.f;
 		m_fScale = 1.f;
@@ -76,14 +76,14 @@ namespace FATMING_CORE
 	cGlyphFontRender::cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender):cRenderObject(e_pGlyphFontRender)
 	{
 		m_bTextChanged = true;
-		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;
+		m_iFontCount = e_pGlyphFontRender->m_iFontCount;
 		m_pFontImage = dynamic_cast<cBaseImage*>(e_pGlyphFontRender->m_pFontImage->Clone());
 		m_pGlyphReader = e_pGlyphFontRender->m_pGlyphReader;
 		m_pGlyphReader->AddRef(this);
-		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iVertexBufferCount];
-		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iVertexBufferCount];
-		for( int i=0;i<m_iVertexBufferCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iFontCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iFontCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT*m_iFontCount];
+		for( int i=0;i< m_iFontCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++i )
 			m_pvColorBuffer[i] = Vector4::One;
 		m_fDepth = 0.f;
 		m_fScale = 1.f;
@@ -118,9 +118,9 @@ namespace FATMING_CORE
 		{
 			m_bTextChanged = false;
 			m_strText = e_pString;
-			if( l_iLen >= m_iVertexBufferCount)
+			if( l_iLen >= m_iFontCount)
 			{
-				l_iLen = m_iVertexBufferCount;
+				l_iLen = m_iFontCount;
 			}
 			float	l_fXOffset = 0.f;
 			float	l_fYOffset = 0.f;
@@ -250,7 +250,7 @@ namespace FATMING_CORE
 	{
 		if (m_pvColorBuffer[0] != e_vColor)
 		{
-			for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+			for (int i = 0; i < m_iFontCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 				m_pvColorBuffer[i] = e_vColor;
 		}
 	}

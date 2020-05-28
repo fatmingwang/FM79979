@@ -7,7 +7,7 @@
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/Common/BinaryFile/StringCompress.h"
-
+#include "MorphingAnimation.h"
 //#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")
 
@@ -396,8 +396,7 @@ namespace PI
 					{
 						m_strCurrentFileName = DNCT::WcharToGcstring(l_strPuzzleImageName);
 						auto l_strMorphingFileName = DNCT::GcStringToChar(l_strFileName);
-						l_strMorphingFileName = AddExtenStringForFileName(l_strMorphingFileName.c_str(), "_morphing");
-						l_strMorphingFileName = ChangeFileExtensionName(l_strMorphingFileName.c_str(),"xml");
+						l_strMorphingFileName = ChangeFileExtensionName(l_strMorphingFileName.c_str(), FM_MORPHING_XML_FILE_EXTENSION_NAME);
 						if (m_pPuzzleImageUnitTriangulatorManager->ParseMorphingAnimation(l_strMorphingFileName.c_str()))
 						{
 						}
@@ -507,7 +506,7 @@ namespace PI
 				}
 			}
 			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
-			l_strTrianglesBinaryFileName += "_tri";
+			l_strTrianglesBinaryFileName = UT::ChangeFileExtensionName(l_strTrianglesBinaryFileName.c_str(), TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME);
 			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
 			//l_strTrianglesBinaryFileName += "gles";
 			//l_pGLESTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(), true, true);
@@ -556,14 +555,13 @@ namespace PI
 					    l_OriginalImageNameOrder += ",";
 				    l_pImageListBox->Items->Add(l_strImageName);
 			    }
-				const char*l_strMorphingExtendFileName = "_morphing.xml";
-			    l_pImageListBox->Sorted = true;
-				std::string l_strPI_tri = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
-				l_strPI_tri += ".pi_tri";
-				std::string l_strPI_morphing = GetFileNameWithoutFullPath(l_strTrianglesBinaryFileName, true);
-				l_strPI_morphing += l_strMorphingExtendFileName;
-				l_XMLWriter.AddAttribute("PI_tri", l_strPI_tri.c_str());
-				l_XMLWriter.AddAttribute("PI_morphing", l_strPI_morphing.c_str());
+				l_pImageListBox->Sorted = true;
+				std::string l_strPI_tri = UT::ChangeFileExtensionName(l_strTrianglesBinaryFileName.c_str(), TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME);
+				l_strPI_tri = UT::GetFileNameWithoutFullPath(l_strPI_tri, false);
+				std::string l_strPI_morphing = UT::ChangeFileExtensionName(l_strTrianglesBinaryFileName.c_str(), FM_MORPHING_XML_FILE_EXTENSION_NAME);
+				l_strPI_morphing = UT::GetFileNameWithoutFullPath(l_strPI_morphing, false);
+				l_XMLWriter.AddAttribute(TI_ELEMENT_NAME, l_strPI_tri.c_str());
+				l_XMLWriter.AddAttribute(MX_ELEMENT_NAME, l_strPI_morphing.c_str());
 			    l_XMLWriter.AddAttribute("OriginalNameSort",l_OriginalImageNameOrder.c_str());
 				if(this->ImageSaveAsDDS_checkBox->Checked)
 					l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".dds"));
@@ -834,10 +832,11 @@ namespace PI
 					SAFE_DELETE(l_ppPuzzleData[i]);
 				SAFE_DELETE_ARRAY(l_ppPuzzleData);
 			}
-			auto l_strMorpginhXMLFileNameTest = AddExtenStringForFileName(l_strPIXMLFileName.c_str(), "_morphing");
-			l_strMorpginhXMLFileNameTest = ChangeFileExtensionName(l_strMorpginhXMLFileNameTest.c_str(),"xml");
-			if(m_pPuzzleImageUnitTriangulatorManager)
-				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str());
+			auto l_strMorpginhXMLFileNameTest = ChangeFileExtensionName(l_strPIXMLFileName.c_str(), FM_MORPHING_XML_FILE_EXTENSION_NAME);
+			if (m_pPuzzleImageUnitTriangulatorManager)
+			{
+				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str(), l_strPI_tri.c_str());
+			}
 			SAFE_DELETE(l_pTrianglesBinaryData);
 			//SAFE_DELETE(l_pGLESTrianglesBinaryData);
 		}	

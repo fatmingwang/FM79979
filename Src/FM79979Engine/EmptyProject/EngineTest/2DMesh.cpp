@@ -52,18 +52,10 @@ namespace FATMING_CORE
 				(float*)m_pBufferReference->ColorBuffer.pData, m_pBufferReference->IndexBuffer.pData, m_pBufferReference->IndexBuffer.uiDataCount);
 		}
 	}
-
-	c2DMeshObjectManager::c2DMeshObjectManager() :cBaseImage(c2DMeshObjectManager::TypeID)
+	
+	c2DMeshObjectManager::c2DMeshObjectManager() :cBaseImage(c2DMeshObjectManager::TypeID),cSmartObject(nullptr)
 	{
 		m_pMeshBufferMap = new cMeshBufferMap(this);
-		m_pMeshBufferMap->AddRef(this);
-		m_pFileData = nullptr;
-		m_pPIBFile = nullptr;
-	}
-
-	c2DMeshObjectManager::c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager) : cBaseImage(e_p2DMeshObjectManager)
-	{
-		m_pMeshBufferMap = e_p2DMeshObjectManager->m_pMeshBufferMap;
 		m_pMeshBufferMap->AddRef(this);
 		m_pFileData = nullptr;
 		m_pPIBFile = nullptr;
@@ -73,6 +65,18 @@ namespace FATMING_CORE
 	{
 		SAFE_DELETE(m_pPIBFile);
 		SAFE_RELEASE(m_pMeshBufferMap,this);
+	}
+
+	NamedTypedObject* c2DMeshObjectManager::GetObjectByFileName(const char * e_strFileName)
+	{
+		NamedTypedObject*l_pObject = cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
+		if (l_pObject)
+			return l_pObject;
+		if (this->ParseWithMyParse(e_strFileName))
+		{
+			return cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
+		}
+		return nullptr;
 	}
 
 	bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)

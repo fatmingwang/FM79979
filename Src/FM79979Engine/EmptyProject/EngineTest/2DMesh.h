@@ -25,7 +25,7 @@ namespace FATMING_CORE
 		virtual	void	Render();
 	};
 
-	class c2DMeshObjectManager :public cNodeISAX, public cNamedTypedObjectVector<c2DMeshObject>, public cBaseImage
+	class c2DMeshObjectManager :public cNodeISAX, public cNamedTypedObjectVector<c2DMeshObject>, public cBaseImage , public cSmartObject
 	{
 		class cMeshBufferMap:public cSmartObject
 		{
@@ -42,11 +42,10 @@ namespace FATMING_CORE
 		bool			ProcessPIUnitForTriangleData(TiXmlElement*e_pRoot, const wchar_t*e_strName);
 	public:
 		c2DMeshObjectManager();
-		c2DMeshObjectManager(c2DMeshObjectManager*e_p2DMeshObjectManager);
 		~c2DMeshObjectManager();
-		CLONE_MYSELF(c2DMeshObjectManager);
+		CLONE_RETURN_NULLPTR();
 		DEFINE_TYPE_INFO();
-		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override { return nullptr; }
+		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 	};
 //namespace FATMING_CORE
 }

@@ -157,7 +157,11 @@ public:
 	inline T*	GetObject(int e_i){if( e_i<this->Count() && e_i>-1 )return m_ObjectList[e_i];	return 0;}
 	inline T*	GetObject(std::wstring e_pString){return this->GetObject(e_pString.c_str());	}
 	inline T*	GetObject(const wchar_t*e_pString){return this->GetObject(this->GetObjectIndexByName(e_pString));	}
-	virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName) { return nullptr; }
+	virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)
+	{
+		auto l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
+		return this->GetObject(l_strObjectName.c_str());
+	}
 	inline T*	GetObjectWithWarningMessage(int e_i)
 	{
 		auto l_pObject = this->GetObject(e_i);
@@ -176,11 +180,7 @@ public:
 		}
 		return l_pObject;
 	}
-	//inline T*	GetObject(char*e_pString)
-	//{
-	//	std::wstring	l_strName = UT::CharToWchar(e_pString);
-	//	return this->GetObject(l_strName.c_str());
-	//}
+
 	inline T*	GetObject(const char*e_pString)
 	{
 		if(!e_pString)return nullptr;

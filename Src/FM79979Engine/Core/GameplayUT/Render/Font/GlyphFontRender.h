@@ -19,13 +19,13 @@ namespace FATMING_CORE
 		Vector2			m_vHalfSize;
 		int				m_iDrawCount;
 		//for how many characters
-		int				m_iVertexBufferCount;
+		int				m_iFontCount;
 		std::wstring	m_strText;
 		bool			m_bTextChanged;
 	public:
 		DEFINE_TYPE_INFO()
-		cGlyphFontRender(const char* e_strFontName,int e_iVertexBufferSize = 300);
-		cGlyphFontRender(int e_iVertexBufferSize = 300);
+		cGlyphFontRender(const char* e_strFontName,int e_iFontCount = 300);
+		cGlyphFontRender(int e_iFontCount = 300);
 		cGlyphFontRender(cGlyphFontRender*e_pGlyphFontRender);
 		CLONE_MYSELF(cGlyphFontRender);
 		virtual ~cGlyphFontRender();

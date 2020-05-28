@@ -1,6 +1,7 @@
 #pragma once
 #include "2DMesh.h"
 #include "MorphingAnimation.h"
+#include "FontManager.h"
 namespace FATMING_CORE
 {
 	class cGameResourceManager
@@ -15,16 +16,18 @@ namespace FATMING_CORE
 			eGBT_IMAGE,
 			eGBT_PARTICLE,
 			eGBT_BEHAVIOR_PARTICLE,
+			eGBT_FONT,
 			eGBT_MAX
 		};
 	protected:
-		cNamedTypedObjectVector<c2DMeshObjectManager>			m_2DMeshObjectManagerVector;
-		cNamedTypedObjectVector<cFMMorphingAnimationManager>	m_FMMorphingAnimationManager;
-		cNamedTypedObjectVector<cAnimationParser>				m_MPDIListParser;
-		cNamedTypedObjectVector<cSoundParser>					m_SoundParser;
-		cNamedTypedObjectVector<cImageParser>					m_ImageParser;
-		cNamedTypedObjectVector<cPaticleManager>				m_PaticleManager;
-		cNamedTypedObjectVector<cBehaviorPaticleManager>		m_BehaviorPaticleManager;
+		c2DMeshObjectManager			m_2DMeshObjectManagerVector;
+		cFMMorphingAnimationManager		m_FMMorphingAnimationManager;
+		cAnimationParser				m_MPDIListParser;
+		cSoundParser					m_SoundParser;
+		cImageParser					m_ImageParser;
+		cPaticleManager					m_PaticleManager;
+		cBehaviorPaticleManager			m_BehaviorPaticleManager;
+		cFontManager					m_FontManager;
 		//
 		std::vector<cNamedTypedObjectVector<NamedTypedObject>* >m_GameObjectManagerVector;
 		void													AddGameObjectVector(cNamedTypedObjectVector<NamedTypedObject>*e_pObject, eGameObjectType e_eGameObjectType);

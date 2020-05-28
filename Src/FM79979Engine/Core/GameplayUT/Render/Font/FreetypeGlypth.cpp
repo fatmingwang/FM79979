@@ -58,14 +58,14 @@ namespace FATMING_CORE
 		void		DebugRender(Vector2 e_vPos);
 	};
 	TYPDE_DEFINE_MARCO(cFreetypeGlyphRender);
-	cFreetypeGlyphRender::cFreetypeGlyphRender(const char * e_strFontName, int e_iFontSize, int e_iVertexBufferSize, POINT e_DefaultFontTextureSize)
+	cFreetypeGlyphRender::cFreetypeGlyphRender(const char * e_strFontName, int e_iFontSize, int e_iFontCount, POINT e_DefaultFontTextureSize)
 	{
 		m_vHalfSize = Vector2::Zero;
 		m_pDynamicFontTexture = new cDynamicFontTexture(e_strFontName, this, e_iFontSize, e_DefaultFontTextureSize);
 		m_pDynamicFontTexture->AddRef(this);
 		m_fScale = 1.f;
 		m_bTextChanged = true;
-		m_iVertexBufferCount = e_iVertexBufferSize;
+		m_iFontCount = e_iFontCount;
 		m_pvVertexBuffer = 0;
 		m_pvTextureUVBuffer = 0;
 		m_pvColorBuffer = 0;
@@ -78,10 +78,10 @@ namespace FATMING_CORE
 		else
 			l_strForDirectory[0] = '\0';
 		SetName(UT::CharToWchar(l_strForStripExtensionName));
-		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];
-		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iVertexBufferSize];
-		for (int i = 0; i < e_iVertexBufferSize * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iFontCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iFontCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * e_iFontCount];
+		for (int i = 0; i < e_iFontCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
 
@@ -92,11 +92,11 @@ namespace FATMING_CORE
 		m_pDynamicFontTexture->AddRef(this);
 		m_bTextChanged = true;
 		m_fScale = e_pGlyphFontRender->m_fScale;
-		m_iVertexBufferCount = e_pGlyphFontRender->m_iVertexBufferCount;
-		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];//one quad four vertex,a vertex 2 data(x,y)
-		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];
-		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iVertexBufferCount];
-		for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+		m_iFontCount = e_pGlyphFontRender->m_iFontCount;
+		m_pvVertexBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iFontCount];//one quad four vertex,a vertex 2 data(x,y)
+		m_pvTextureUVBuffer = new Vector2[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iFontCount];
+		m_pvColorBuffer = new Vector4[TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT * m_iFontCount];
+		for (int i = 0; i < m_iFontCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 			m_pvColorBuffer[i] = Vector4::One;
 	}
 
@@ -122,9 +122,9 @@ namespace FATMING_CORE
 		{
 			m_bTextChanged = false;
 			m_strText = e_pString;
-			if (l_iLen >= m_iVertexBufferCount)
+			if (l_iLen >= m_iFontCount)
 			{
-				l_iLen = m_iVertexBufferCount;
+				l_iLen = m_iFontCount;
 			}
 			auto	l_pFirstGlyph = m_pDynamicFontTexture->GetGlyphInfo(e_pString[0]);
 			float	l_fXOffset = 0;
@@ -269,7 +269,7 @@ namespace FATMING_CORE
 	{
 		if (m_pvColorBuffer[0] != e_vColor)
 		{
-			for (int i = 0; i < m_iVertexBufferCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+			for (int i = 0; i < m_iFontCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
 				m_pvColorBuffer[i] = e_vColor;
 		}
 	}

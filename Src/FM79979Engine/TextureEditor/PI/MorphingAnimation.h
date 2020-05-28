@@ -9,6 +9,15 @@
 #define	MORPHING_ANIMATION_OBJECT_NAME	L"MorphingAnimation"
 #define	MORPHING_ANIMATION_VERTEX_DATA	L"VertexData"
 
+//morphing xml
+#define FM_MORPHING_XML_FILE_EXTENSION_NAME					"mx"
+
+#define	MX_ELEMENT_NAME										"PI_morphing"
+//morphing binary
+#define FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME			"mb"
+
+#define	FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME	"editor_mb"
+
 template<class FIRST, class SECOND>std::vector<FIRST>	GetFirstVectorFromMap(std::map<FIRST, SECOND>&e_Map)
 {
 	std::vector<FIRST> l_Vector;

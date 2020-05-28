@@ -1,7 +1,7 @@
 #pragma once
 
 #include "2DMesh.h"
-
+#define	FM_MORPHING_ANIMATION_VER	20200522
 namespace FATMING_CORE
 {
 	class cFMMorphingAnimation :public cFMTimeLineAnimationRule
@@ -50,11 +50,15 @@ namespace FATMING_CORE
 			std::map<cFMMorphingAnimation*, cFMMorphingAnimation::sTimeAndPosAnimationData*> m_BufferMap;
 		};
 		cAnimationDataMap*	m_pAnimationDataMap;
-		virtual	bool	MyParse(TiXmlElement*e_pRoot)override;
+		//
+		virtual	bool			MyParse(TiXmlElement*e_pRoot)override;
+		bool					Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement);
+		//
+		c2DMeshObjectManager*	m_p2DMeshObjectManager;
 	public:
-		cFMMorphingAnimationManager();
+		cFMMorphingAnimationManager(c2DMeshObjectManager*e_p2DMeshObjectManager = nullptr);
 		~cFMMorphingAnimationManager();
 		DEFINE_TYPE_INFO();
-		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override { return nullptr; }
+		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
 	};
 }

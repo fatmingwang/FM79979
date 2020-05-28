@@ -11,7 +11,8 @@
 //delete cdt;
 //DELETE_POINTER_VECTOR(polyline, p2t::Point*);
 
-#define	EDITOR_MORPHING_EXTENSION_FILENAME	"editor_morphing"
+#define	TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME	"ti"
+#define	TI_ELEMENT_NAME								"PI_tri"
 
 enum ePointsToTriangulatorType
 {
@@ -148,7 +149,7 @@ public:
 	void									RenderPointsShapeLine();
 	void									MouseMove(int e_iPosX, int e_iPosY);
 	bool									IsObjectOverlap() { return m_bObjectOverlap; }
-	bool									ExportMorphingAnimation(const char*e_strFileName);
+	bool									ExportMorphingAnimation(const char*e_strFileName,const char*e_str2DMeshFileName);
 	bool									ParseMorphingAnimation(const char*e_strFileName);
 };
 

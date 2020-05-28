@@ -923,21 +923,19 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 
 }
 
-bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName)
+bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName, const char*e_str2DMeshFileName)
 {
 	cBinaryFile l_MorphingData;
 	cBinaryFile l_MorphingOptimizeData;
-	std::string l_strBinaryDataFileName = UT::GetDirectoryWithoutFileName(e_strFileName)+UT::GetFileNameWithoutFullPath(e_strFileName);
-	std::string l_strEditorFileName = l_strBinaryDataFileName;
-	std::string l_strOptimizeFileName = l_strBinaryDataFileName;
-	l_strEditorFileName += ".";
-	l_strEditorFileName += EDITOR_MORPHING_EXTENSION_FILENAME;
+	std::string l_strEditorFileName = UT::ChangeFileExtensionName(e_strFileName, FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME);
+	std::string l_strOptimizeFileName = UT::ChangeFileExtensionName(e_strFileName, FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME);
 	l_MorphingData.Writefile(l_strEditorFileName.c_str(), true, false, "w+");
-	l_strOptimizeFileName += ".morphing";
 	l_MorphingOptimizeData.Writefile(l_strOptimizeFileName.c_str(), true, false, "w+");
 	TiXmlDocument l_Doc(UT::CharToWchar(e_strFileName).c_str());
 	TiXmlElement*l_pMorphingAnimationElement = new TiXmlElement(MORPHING_ANIMATION_ROOT_NAME);
 	l_pMorphingAnimationElement->SetAttribute(L"Version", MORPHING_ANIMATION_VERSION);
+	auto l_str2DMeshFileName = UT::GetFileNameWithoutFullPath(e_str2DMeshFileName, false);
+	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(TI_ELEMENT_NAME), ValueToStringW(l_str2DMeshFileName).c_str());
 	l_Doc.LinkEndChild(l_pMorphingAnimationElement);
 	auto l_iCount = this->Count();
 	for (int i = 0; i < l_iCount; ++i)
@@ -955,7 +953,7 @@ bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_
 	cNodeISAX l_Parser;
 	if (l_Parser.ParseDataIntoXMLNode(e_strFileName))
 	{
-		auto l_strBinaryFileName = UT::ChangeFileExtensionName(e_strFileName, EDITOR_MORPHING_EXTENSION_FILENAME);
+		auto l_strBinaryFileName = UT::ChangeFileExtensionName(e_strFileName, FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME);
 		cBinaryFile l_TrianglesBinaryData;
 		l_TrianglesBinaryData.Openfile(l_strBinaryFileName.c_str());
 		char*l_pBinaryData = (char*)l_TrianglesBinaryData.GetDataFile(0);
