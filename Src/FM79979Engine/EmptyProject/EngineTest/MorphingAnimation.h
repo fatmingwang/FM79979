@@ -2,6 +2,16 @@
 
 #include "2DMesh.h"
 #define	FM_MORPHING_ANIMATION_VER	20200522
+
+//morphing xml
+#define FM_MORPHING_XML_FILE_EXTENSION_NAME					"mx"
+
+#define	MX_ELEMENT_NAME										"PI_morphing"
+//morphing binary
+#define FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME			"mb"
+
+#define	FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME	"editor_mb"
+
 namespace FATMING_CORE
 {
 	class cFMMorphingAnimation :public cFMTimeLineAnimationRule
@@ -49,7 +59,7 @@ namespace FATMING_CORE
 			virtual ~cAnimationDataMap();
 			std::map<cFMMorphingAnimation*, cFMMorphingAnimation::sTimeAndPosAnimationData*> m_BufferMap;
 		};
-		cAnimationDataMap*	m_pAnimationDataMap;
+		cAnimationDataMap*		m_pAnimationDataMap;
 		//
 		virtual	bool			MyParse(TiXmlElement*e_pRoot)override;
 		bool					Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement);

@@ -1,5 +1,8 @@
 #pragma once
 
+#define	TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME	"ti"
+#define	TI_ELEMENT_NAME								"PI_tri"
+
 namespace FATMING_CORE
 {
 	class c2DMeshObject :public cRenderObject

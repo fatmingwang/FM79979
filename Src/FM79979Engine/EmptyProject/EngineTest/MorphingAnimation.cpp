@@ -95,6 +95,14 @@ namespace FATMING_CORE
 	bool cFMMorphingAnimationManager::MyParse(TiXmlElement * e_pRoot)
 	{
 		auto l_strVersion = e_pRoot->Attribute(L"Version");
+		auto l_strPI_morphing = e_pRoot->Attribute(CHAR_TO_WCHAR_DEFINE(MX_ELEMENT_NAME));
+		if (!l_strPI_morphing)
+		{
+			this->m_strErrorMsg += CHAR_TO_WCHAR_DEFINE(MX_ELEMENT_NAME);
+			this->m_strErrorMsg += L" attribute not exists!";
+			return false;
+		}
+		//<MorphingAnimationRoot Version = "20200522" PI_tri = "111.ti">
 		if(l_strVersion)
 		{
 			if (GetInt(l_strVersion) == FM_MORPHING_ANIMATION_VER)
@@ -112,6 +120,7 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
+
 	bool cFMMorphingAnimationManager::Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement)
 	{
 		return false;
