@@ -2,11 +2,20 @@
 #include "2DMesh.h"
 namespace FATMING_CORE
 {
-	TYPDE_DEFINE_MARCO(c2DMeshObjectManager);
+	TYPDE_DEFINE_MARCO(c2DMeshObjectVector);
 	TYPDE_DEFINE_MARCO(c2DMeshObject);
-
 	c2DMeshObject::c2DMeshObject(sMeshBuffer * e_pData, cTexture*e_pTexture)
 	{
+		//c2DMeshObject::*f_MyFunction = &c2DMeshObject::SetColor;
+		//https://stackoverflow.com/questions/1485983/calling-c-class-methods-via-a-function-pointer
+		c2DMeshObjectFunctionPointer l_FunctionPointer = &c2DMeshObject::SetColor;
+		c2DMeshObjectFunctionPointer l_FunctionPointer2 = &c2DMeshObject::SetColor;
+		c2DMeshObject l_Data(nullptr);
+		//l_Data.*f_MyFunction = &c2DMeshObject::SetColor;
+		(this->*f_MyFunction)(Vector4::One);
+		(l_Data.*l_FunctionPointer)(Vector4::One);
+		(l_Data.*l_FunctionPointer2)(Vector4::One);
+		//*Method(Vector4::One);
 		m_pBufferReference = e_pData;
 		if (e_pTexture)
 		{
@@ -52,8 +61,20 @@ namespace FATMING_CORE
 				(float*)m_pBufferReference->ColorBuffer.pData, m_pBufferReference->IndexBuffer.pData, m_pBufferReference->IndexBuffer.uiDataCount);
 		}
 	}
+
+	c2DMeshObject::sMeshBuffer * c2DMeshObject::GetMeshBuffer()
+	{
+		return m_pBufferReference;
+	}
 	
-	c2DMeshObjectManager::c2DMeshObjectManager() :cBaseImage(c2DMeshObjectManager::TypeID),cSmartObject(nullptr)
+	void c2DMeshObjectVector::Destroy()
+	{
+		cNamedTypedObjectVector::Destroy();
+		SAFE_DELETE(m_pPIBFile);
+		SAFE_RELEASE(m_pMeshBufferMap, this);
+	}
+
+	c2DMeshObjectVector::c2DMeshObjectVector() :cBaseImage(c2DMeshObjectVector::TypeID),cSmartObject(nullptr)
 	{
 		m_pMeshBufferMap = new cMeshBufferMap(this);
 		m_pMeshBufferMap->AddRef(this);
@@ -61,13 +82,12 @@ namespace FATMING_CORE
 		m_pPIBFile = nullptr;
 	}
 
-	c2DMeshObjectManager::~c2DMeshObjectManager()
+	c2DMeshObjectVector::~c2DMeshObjectVector()
 	{
-		SAFE_DELETE(m_pPIBFile);
-		SAFE_RELEASE(m_pMeshBufferMap,this);
+		Destroy();
 	}
 
-	NamedTypedObject* c2DMeshObjectManager::GetObjectByFileName(const char * e_strFileName)
+	NamedTypedObject* c2DMeshObjectVector::GetObjectByFileName(const char * e_strFileName)
 	{
 		NamedTypedObject*l_pObject = cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
 		if (l_pObject)
@@ -79,7 +99,7 @@ namespace FATMING_CORE
 		return nullptr;
 	}
 
-	bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
+	bool c2DMeshObjectVector::MyParse(TiXmlElement * e_pRoot)
 	{
 		m_pFileData = nullptr;
 		auto l_strImageName = e_pRoot->Attribute(L"ImageName");
@@ -136,7 +156,7 @@ namespace FATMING_CORE
 	}
 	//sTrianglesToDrawIndicesBuffer
 	//<sTrianglesToDrawIndicesBuffer IndexBufferCount="6" IndexBufferBinarySize="24" VertexBufferCount="4" PosBufferBinarySize="48" UVBufferBinarySize="32" />
-	bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
+	bool c2DMeshObjectVector::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
 	{
 		auto l_strIndexBufferCount = e_pRoot->Attribute(L"IndexBufferCount");
 		auto l_strIndexBufferBinarySize = e_pRoot->Attribute(L"IndexBufferBinarySize");
@@ -180,6 +200,7 @@ namespace FATMING_CORE
 			l_p2DMeshBuffer->UVBuffer.CopyData(m_pFileData, l_iUVBufferBinarySize, eDataType::eDT_VECTOR2, l_iVertexBufferCount);
 			m_pFileData += l_iUVBufferBinarySize;
 			l_p2DMeshBuffer->ColorBuffer.CreateData(sizeof(Vector4)*l_iVertexBufferCount, eDataType::eDT_VECTOR4, l_iVertexBufferCount);
+			l_p2DMeshBuffer->pTargetTexture = this->m_pTexture;
 			Vector4*l_pColor = (Vector4*)l_p2DMeshBuffer->ColorBuffer.pData;
 			for (int i = 0; i < l_iVertexBufferCount; ++i)
 				l_pColor[i] = Vector4::One;
@@ -190,10 +211,10 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
-	c2DMeshObjectManager::cMeshBufferMap::cMeshBufferMap(NamedTypedObject * e_pObject):cSmartObject(e_pObject)
+	c2DMeshObjectVector::cMeshBufferMap::cMeshBufferMap(NamedTypedObject * e_pObject):cSmartObject(e_pObject)
 	{
 	}
-	c2DMeshObjectManager::cMeshBufferMap::~cMeshBufferMap()
+	c2DMeshObjectVector::cMeshBufferMap::~cMeshBufferMap()
 	{
 		DELETE_MAP(m_BufferMap);
 	}

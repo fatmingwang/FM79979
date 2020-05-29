@@ -6,7 +6,7 @@
 
 //#include "../../Core/Bluetooth/Bluetooth.h"
 #include "2DMesh.h"
-c2DMeshObjectManager*g_p2DMeshObjectManager = nullptr;
+c2DMeshObjectVector*g_p2DMeshObjectManager = nullptr;
 c2DMeshObject*g_p2DMeshObject = nullptr;
 
 
@@ -169,9 +169,10 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
-	if (!g_p2DMeshObjectManager)
+	if(0)
+	//if (!g_p2DMeshObjectManager)
 	{
-		g_p2DMeshObjectManager = new c2DMeshObjectManager();
+		//g_p2DMeshObjectManager = new c2DMeshObjectVector();
 		if (g_p2DMeshObjectManager->ParseWithMyParse("C:/Users/desig.DESIGN24-NB/Desktop/Work/CarDrivingNodes/Media/CarGoApp/ButtonTest3.pi"))
 		{
 			g_p2DMeshObject = g_p2DMeshObjectManager->GetObject(L"Button1");
@@ -183,29 +184,29 @@ void	LoadSample()
 	if (g_pCurveWithTime)
 	{
 		g_pCurveWithTime->AddPoint(Vector3(100, 100, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(100, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(100.f, (float)l_iYBase, 0), 0);
 
 
-		g_pCurveWithTime->AddPoint(Vector3(200, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(300, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(400, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(500, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(600, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(700, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(800, l_iYBase, 0), 0);
-		g_pCurveWithTime->AddPoint(Vector3(900, l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(200, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(300, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(400, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(500, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(600, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(700, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(800, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime->AddPoint(Vector3(900, (float)l_iYBase, 0), 0);
 	}
 	if (g_pCurveWithTime2)
 	{
-		g_pCurveWithTime2->AddPoint(Vector3(100, l_iYBase, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(200, l_iYBase - 30, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(300, l_iYBase - 80, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(400, l_iYBase - 190, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(500, l_iYBase - 260, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(600, l_iYBase - 320, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(700, l_iYBase - 340, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(800, l_iYBase - 360, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(900, l_iYBase - 380, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(100, (float)l_iYBase, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(200, (float)l_iYBase - 30, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(300, (float)l_iYBase - 80, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(400, (float)l_iYBase - 190, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(500, (float)l_iYBase - 260, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(600, (float)l_iYBase - 320, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(700, (float)l_iYBase - 340, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(800, (float)l_iYBase - 360, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(900, (float)l_iYBase - 380, 0), 0);
 	}
 
 	//g_pPathChaser = new cPathChaser(100.f, 100.f);
@@ -358,7 +359,7 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
-	SAFE_DELETE(g_p2DMeshObjectManager);
+	//SAFE_DELETE(g_p2DMeshObjectManager);
 	SAFE_DELETE(g_pCurveWithTime);
 	SAFE_DELETE(g_pCurveWithTime2);
 	SAFE_DELETE(g_pPathChaser);
@@ -621,7 +622,7 @@ void	SampleRender()
 	{
 		for (int i = 0; i < g_p2DMeshObjectManager->Count(); ++i)
 		{
-			g_p2DMeshObjectManager->GetObject(i)->SetWorldPosition(Vector3(300 + 200*i, 600, 0));
+			g_p2DMeshObjectManager->GetObject(i)->SetWorldPosition(Vector3(300 + (float)200*i, 600, 0));
 			g_p2DMeshObjectManager->GetObject(i)->SetColor(Vector4(1.f/i,0,0,1));
 			//g_p2DMeshObject->SetWorldPosition(Vector3(900, 600, 0));
 			g_p2DMeshObjectManager->GetObject(i)->Render();

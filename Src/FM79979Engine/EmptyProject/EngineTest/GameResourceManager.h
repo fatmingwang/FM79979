@@ -20,14 +20,14 @@ namespace FATMING_CORE
 			eGBT_MAX
 		};
 	protected:
-		c2DMeshObjectManager			m_2DMeshObjectManagerVector;
-		cFMMorphingAnimationManager		m_FMMorphingAnimationManager;
-		cAnimationParser				m_MPDIListParser;
-		cSoundParser					m_SoundParser;
-		cImageParser					m_ImageParser;
-		cPaticleManager					m_PaticleManager;
-		cBehaviorPaticleManager			m_BehaviorPaticleManager;
-		cFontManager					m_FontManager;
+		cNamedTypedObjectVector<c2DMeshObjectVector>			m_2DMeshObjectManagerVector;
+		cNamedTypedObjectVector<cFMMorphingAnimationVector>		m_FMMorphingAnimationManager;
+		cPaticleManager											m_PaticleManager;
+		cBehaviorPaticleManager									m_BehaviorPaticleManager;
+		cSoundParser											m_SoundParser;
+		cAnimationParser										m_MPDIListParser;
+		cImageParser*											m_pImageParser;
+		cFontManager											m_FontManager;
 		//
 		std::vector<cNamedTypedObjectVector<NamedTypedObject>* >m_GameObjectManagerVector;
 		void													AddGameObjectVector(cNamedTypedObjectVector<NamedTypedObject>*e_pObject, eGameObjectType e_eGameObjectType);

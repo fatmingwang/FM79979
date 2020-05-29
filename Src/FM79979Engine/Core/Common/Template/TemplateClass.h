@@ -162,6 +162,11 @@ public:
 		auto l_strObjectName = UT::GetFileNameWithoutFullPath(e_strFileName);
 		return this->GetObject(l_strObjectName.c_str());
 	}
+	NamedTypedObject* GetObjectByFileNameW(const wchar_t*e_strFileName)
+	{
+		auto l_strFileName = UT::WcharToChar(e_strFileName);
+		return GetObjectByFileName(l_strFileName.c_str());
+	}
 	inline T*	GetObjectWithWarningMessage(int e_i)
 	{
 		auto l_pObject = this->GetObject(e_i);

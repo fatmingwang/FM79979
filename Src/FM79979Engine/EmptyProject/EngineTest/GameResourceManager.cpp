@@ -12,11 +12,12 @@ void FATMING_CORE::cGameResourceManager::AddGameObjectVector(cNamedTypedObjectVe
 cGameResourceManager::~cGameResourceManager()
 {
 	m_GameObjectManagerVector.resize(eGBT_MAX);
+	m_pImageParser = m_MPDIListParser.GetAllBaseImageList();
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_2DMeshObjectManagerVector, eGameObjectType::eGBT_2D_MESH_OBJECT);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_FMMorphingAnimationManager, eGameObjectType::eGBT_2D_MORPHING_ANIMATION);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_MPDIListParser, eGameObjectType::eGBT_MPDILIST);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_SoundParser, eGameObjectType::eGBT_SOUND);
-	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_ImageParser, eGameObjectType::eGBT_IMAGE);
+	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)m_pImageParser, eGameObjectType::eGBT_IMAGE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_PaticleManager, eGameObjectType::eGBT_PARTICLE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_BehaviorPaticleManager, eGameObjectType::eGBT_BEHAVIOR_PARTICLE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_FontManager, eGameObjectType::eGBT_FONT);

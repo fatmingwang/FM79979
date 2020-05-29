@@ -16,6 +16,7 @@ namespace FATMING_CORE
 {
 	class cFMMorphingAnimation :public cFMTimeLineAnimationRule
 	{
+		friend class cFMMorphingAnimationVector;
 		friend class cFMMorphingAnimationManager;
 		struct sTimeAndPosAnimationData
 		{
@@ -23,20 +24,22 @@ namespace FATMING_CORE
 			//time and 
 			FloatTocVector3Map	m_FormKeyFrames;
 			Vector3				UpdateAnimationByGlobalTime(float e_fGlobalTime);
-			void				RearrangeTime(float e_fScale);
-			void				RenderPointByTime(float e_fTime, Vector4 e_vColor, float e_fPointSize);
+			void				AssignData(int e_iCount, float*e_pfTimeArray, Vector3*e_pfPosArray);
 		};
-		std::vector<sTimeAndPosAnimationData>	m_TimeAndPosAnimationVector;
+		float									m_fEndTime;
+		std::vector<sTimeAndPosAnimationData>*	m_pTimeAndPosAnimationVector;
 		//for draw indices
 		c2DMeshObject::sMeshBuffer*				m_pMeshBuffer;
 		//final render pos,sTimeAndPosAnimationData::UpdateAnimationByGlobalTime
 		std::vector<Vector3>					m_RenderVertex;
+		float									m_fSpeed;
+		bool									m_bInvertOrder;
 		//
 		virtual	void	InternalInit()override;
 		virtual	void	InternalUpdate(float e_fElpaseTime)override;
 		virtual	void	InternalRender()override;
 	public:
-		cFMMorphingAnimation(c2DMeshObject::sMeshBuffer*e_pMeshBuffer);
+		cFMMorphingAnimation(c2DMeshObject::sMeshBuffer*e_pMeshBuffer,std::vector<sTimeAndPosAnimationData>*e_pTimeAndPosAnimationVector);
 		cFMMorphingAnimation(cFMMorphingAnimation*e_pFMMorphingAnimation);
 		~cFMMorphingAnimation();
 		DEFINE_TYPE_INFO();
@@ -50,25 +53,38 @@ namespace FATMING_CORE
 	};
 
 
-	class cFMMorphingAnimationManager :public cNamedTypedObjectVector<cFMMorphingAnimation>, public cNodeISAX
+	class cFMMorphingAnimationVector :public cNamedTypedObjectVector<cFMMorphingAnimation>, public cNodeISAX
 	{
+		friend class cFMMorphingAnimationManager;
 		class cAnimationDataMap :public cSmartObject
 		{
 		public:
 			cAnimationDataMap(NamedTypedObject*e_pObject);
 			virtual ~cAnimationDataMap();
-			std::map<cFMMorphingAnimation*, cFMMorphingAnimation::sTimeAndPosAnimationData*> m_BufferMap;
+			std::map<cFMMorphingAnimation*, std::vector<cFMMorphingAnimation::sTimeAndPosAnimationData>*> m_AnimationMap;
 		};
 		cAnimationDataMap*		m_pAnimationDataMap;
-		//
-		virtual	bool			MyParse(TiXmlElement*e_pRoot)override;
-		bool					Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement);
-		//
-		c2DMeshObjectManager*	m_p2DMeshObjectManager;
+		c2DMeshObjectVector		m_2DMeshObjectManager;
 	public:
-		cFMMorphingAnimationManager(c2DMeshObjectManager*e_p2DMeshObjectManager = nullptr);
-		~cFMMorphingAnimationManager();
+		cFMMorphingAnimationVector();
+		~cFMMorphingAnimationVector();
 		DEFINE_TYPE_INFO();
-		virtual NamedTypedObject* GetObjectByFileName(const char*e_strFileName)override;
+		c2DMeshObjectVector*		Get2DMeshObjectManager() { return &m_2DMeshObjectManager; }
+	};
+
+	class cFMMorphingAnimationManager:public cNamedTypedObjectVector<cFMMorphingAnimationVector>, public cNodeISAX
+	{
+		//morphing binary file
+		cBinaryFile*				m_pMBFile;
+		unsigned int				m_uiCurrentDataPos;
+		cFMMorphingAnimationVector*	m_pCurrentFMMorphingAnimationVector;
+		c2DMeshObjectVector*		m_pCurrent2DMeshObjectManager;
+		virtual	bool				MyParse(TiXmlElement*e_pRoot)override;
+		bool						Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement);
+		bool						Process_TRIANGLE_AND_DRAW_INDEX_ElementData(const wchar_t*e_strTIFileName);
+	public:
+		cFMMorphingAnimationManager();
+		~cFMMorphingAnimationManager();
+		virtual NamedTypedObject*	GetObjectByFileName(const char*e_strFileName)override;
 	};
 }
