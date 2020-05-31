@@ -18,6 +18,8 @@
 
 #define	FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME	"editor_mb"
 
+#define	MX_BINARY_FILE_ELEMENT_NAME							L"MXBinary"
+
 template<class FIRST, class SECOND>std::vector<FIRST>	GetFirstVectorFromMap(std::map<FIRST, SECOND>&e_Map)
 {
 	std::vector<FIRST> l_Vector;

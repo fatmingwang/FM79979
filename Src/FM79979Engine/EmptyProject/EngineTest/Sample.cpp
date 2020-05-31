@@ -6,9 +6,13 @@
 
 //#include "../../Core/Bluetooth/Bluetooth.h"
 #include "2DMesh.h"
+
+#include "MorphingAnimation.h"
+
 c2DMeshObjectVector*g_p2DMeshObjectManager = nullptr;
 c2DMeshObject*g_p2DMeshObject = nullptr;
-
+cFMMorphingAnimationManager*g_pFMMorphingAnimationManager = nullptr;
+cFMMorphingAnimationVector*g_pFMMorphingAnimationVector = nullptr;
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
 
@@ -169,6 +173,11 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
+	g_pFMMorphingAnimationManager = new cFMMorphingAnimationManager();
+	if (g_pFMMorphingAnimationManager)
+	{
+		g_pFMMorphingAnimationVector = dynamic_cast<cFMMorphingAnimationVector*>(g_pFMMorphingAnimationManager->GetObjectByFileName("C:/Users/Fatming/Desktop/666.mx"));
+	}
 	if(0)
 	//if (!g_p2DMeshObjectManager)
 	{
@@ -322,7 +331,7 @@ void	LoadSample()
 		g_pPrtEmitter->SetLoop(true);
 	}
 
-	g_pColladaParser = new cColladaParser();
+	//g_pColladaParser = new cColladaParser();
 	if( g_pColladaParser )
 	{
 		if(g_pColladaParser->ParseDataIntoXMLNode("3DFish_test/test.DAE"))
@@ -359,7 +368,7 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
-	//SAFE_DELETE(g_p2DMeshObjectManager);
+	SAFE_DELETE(g_pFMMorphingAnimationManager);
 	SAFE_DELETE(g_pCurveWithTime);
 	SAFE_DELETE(g_pCurveWithTime2);
 	SAFE_DELETE(g_pPathChaser);
@@ -618,6 +627,22 @@ void	SampleRender()
 		}
 	}
 
+	if (g_pFMMorphingAnimationVector)
+	{
+		auto l_pMAObject = g_pFMMorphingAnimationVector->GetObject(0);
+		if (l_pMAObject)
+		{
+			static float l_sfTime = 0.f;
+			l_sfTime += 0.016f;
+			float l_fEndTimeTime = l_pMAObject->GetEndTime();
+			if (l_sfTime >= 1.f)
+			{
+				l_sfTime = 0.f;
+			}
+			l_pMAObject->RenderByGlobalTime(l_sfTime);
+			l_pMAObject->SetWorldPosition(Vector3(600,000,0));
+		}
+	}
 	if (g_p2DMeshObject)
 	{
 		for (int i = 0; i < g_p2DMeshObjectManager->Count(); ++i)

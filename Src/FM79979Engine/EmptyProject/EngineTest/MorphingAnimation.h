@@ -7,6 +7,8 @@
 #define FM_MORPHING_XML_FILE_EXTENSION_NAME					"mx"
 
 #define	MX_ELEMENT_NAME										"PI_morphing"
+
+#define	MX_BINARY_FILE_ELEMENT_NAME							"MXBinary"
 //morphing binary
 #define FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME			"mb"
 
@@ -41,7 +43,7 @@ namespace FATMING_CORE
 	public:
 		cFMMorphingAnimation(c2DMeshObject::sMeshBuffer*e_pMeshBuffer,std::vector<sTimeAndPosAnimationData>*e_pTimeAndPosAnimationVector);
 		cFMMorphingAnimation(cFMMorphingAnimation*e_pFMMorphingAnimation);
-		~cFMMorphingAnimation();
+		virtual ~cFMMorphingAnimation();
 		DEFINE_TYPE_INFO();
 		CLONE_MYSELF(cFMMorphingAnimation);
 		virtual	void	UpdateByGlobalTime(float e_fGlobalTime)override;
@@ -64,12 +66,12 @@ namespace FATMING_CORE
 			std::map<cFMMorphingAnimation*, std::vector<cFMMorphingAnimation::sTimeAndPosAnimationData>*> m_AnimationMap;
 		};
 		cAnimationDataMap*		m_pAnimationDataMap;
-		c2DMeshObjectVector		m_2DMeshObjectManager;
+		c2DMeshObjectVector*	m_p2DMeshObjectManager;
 	public:
-		cFMMorphingAnimationVector();
-		~cFMMorphingAnimationVector();
+		cFMMorphingAnimationVector(c2DMeshObjectVector*e_p2DMeshObjectVector);
+		virtual ~cFMMorphingAnimationVector();
 		DEFINE_TYPE_INFO();
-		c2DMeshObjectVector*		Get2DMeshObjectManager() { return &m_2DMeshObjectManager; }
+		c2DMeshObjectVector*		Get2DMeshObjectManager() { return m_p2DMeshObjectManager; }
 	};
 
 	class cFMMorphingAnimationManager:public cNamedTypedObjectVector<cFMMorphingAnimationVector>, public cNodeISAX
@@ -78,13 +80,16 @@ namespace FATMING_CORE
 		cBinaryFile*				m_pMBFile;
 		unsigned int				m_uiCurrentDataPos;
 		cFMMorphingAnimationVector*	m_pCurrentFMMorphingAnimationVector;
-		c2DMeshObjectVector*		m_pCurrent2DMeshObjectManager;
+		c2DMeshObjectVector*		m_pCurrent2DMeshObjectVector;
 		virtual	bool				MyParse(TiXmlElement*e_pRoot)override;
 		bool						Process_MorphingAnimationData(TiXmlElement*e_pTiXmlElement);
 		bool						Process_TRIANGLE_AND_DRAW_INDEX_ElementData(const wchar_t*e_strTIFileName);
+		//
+		c2DMeshObjectManager		m_2DMeshObjectManager;
 	public:
 		cFMMorphingAnimationManager();
 		~cFMMorphingAnimationManager();
 		virtual NamedTypedObject*	GetObjectByFileName(const char*e_strFileName)override;
+		c2DMeshObjectManager*		Get2DMeshObjectManager() { return &m_2DMeshObjectManager; }
 	};
 }

@@ -6,6 +6,9 @@ namespace FATMING_CORE
 	TYPDE_DEFINE_MARCO(c2DMeshObject);
 	c2DMeshObject::c2DMeshObject(sMeshBuffer * e_pData, cTexture*e_pTexture)
 	{
+		m_pBufferReference = nullptr;
+		m_pTexture = nullptr;
+		m_pBufferReference = nullptr;
 		//c2DMeshObject::*f_MyFunction = &c2DMeshObject::SetColor;
 		//https://stackoverflow.com/questions/1485983/calling-c-class-methods-via-a-function-pointer
 		c2DMeshObjectFunctionPointer l_FunctionPointer = &c2DMeshObject::SetColor;
@@ -26,10 +29,21 @@ namespace FATMING_CORE
 
 	c2DMeshObject::c2DMeshObject(c2DMeshObject * e_p2DMeshObject)
 	{
-		m_pBufferReference = e_p2DMeshObject->m_pBufferReference;
-		m_pTexture = e_p2DMeshObject->m_pTexture;
-		if (m_pTexture)
-			m_pTexture->AddRef(this);
+		m_pBufferReference = nullptr;
+		m_pTexture = nullptr;
+		m_pBufferReference = nullptr;
+		if (e_p2DMeshObject)
+		{
+			m_pBufferReference = e_p2DMeshObject->m_pBufferReference;
+			m_pTexture = e_p2DMeshObject->m_pTexture;
+			if (m_pTexture)
+				m_pTexture->AddRef(this);
+		}
+	}
+
+	c2DMeshObject::~c2DMeshObject()
+	{
+		SAFE_RELEASE(m_pTexture, this);
 	}
 
 	void c2DMeshObject::SetColor(Vector4 e_vColor)
@@ -40,11 +54,6 @@ namespace FATMING_CORE
 			for (unsigned int i = 0; i < m_pBufferReference->ColorBuffer.uiDataCount; ++i)
 				l_pColor[i] = e_vColor;
 		}
-	}
-
-	c2DMeshObject::~c2DMeshObject()
-	{
-		SAFE_RELEASE(m_pTexture, this);
 	}
 
 	void c2DMeshObject::Render()
@@ -70,16 +79,13 @@ namespace FATMING_CORE
 	void c2DMeshObjectVector::Destroy()
 	{
 		cNamedTypedObjectVector::Destroy();
-		SAFE_DELETE(m_pPIBFile);
 		SAFE_RELEASE(m_pMeshBufferMap, this);
 	}
 
-	c2DMeshObjectVector::c2DMeshObjectVector() :cBaseImage(c2DMeshObjectVector::TypeID),cSmartObject(nullptr)
+	c2DMeshObjectVector::c2DMeshObjectVector(const char*e_strImageName) :cBaseImage(e_strImageName),cSmartObject(nullptr)
 	{
 		m_pMeshBufferMap = new cMeshBufferMap(this);
 		m_pMeshBufferMap->AddRef(this);
-		m_pFileData = nullptr;
-		m_pPIBFile = nullptr;
 	}
 
 	c2DMeshObjectVector::~c2DMeshObjectVector()
@@ -87,30 +93,38 @@ namespace FATMING_CORE
 		Destroy();
 	}
 
-	NamedTypedObject* c2DMeshObjectVector::GetObjectByFileName(const char * e_strFileName)
+	c2DMeshObjectVector::cMeshBufferMap::cMeshBufferMap(NamedTypedObject * e_pObject):cSmartObject(e_pObject)
 	{
-		NamedTypedObject*l_pObject = cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
-		if (l_pObject)
-			return l_pObject;
-		if (this->ParseWithMyParse(e_strFileName))
-		{
-			return cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
-		}
-		return nullptr;
 	}
-
-	bool c2DMeshObjectVector::MyParse(TiXmlElement * e_pRoot)
+	c2DMeshObjectVector::cMeshBufferMap::~cMeshBufferMap()
+	{
+		DELETE_MAP(m_BufferMap);
+	}
+	c2DMeshObjectManager::c2DMeshObjectManager()
 	{
 		m_pFileData = nullptr;
+		m_pPIBFile = nullptr;
+	}
+	c2DMeshObjectManager::~c2DMeshObjectManager()
+	{
+		SAFE_DELETE(m_pPIBFile);
+		Destroy();
+	}
+	bool c2DMeshObjectManager::MyParse(TiXmlElement * e_pRoot)
+	{
+		SAFE_DELETE(m_pPIBFile);
+		m_pFileData = nullptr;
+		m_pCurrent2DMeshObjectVector = nullptr;
+		m_pCurrentTexture = nullptr;
 		auto l_strImageName = e_pRoot->Attribute(L"ImageName");
-		auto l_strPI_tri = e_pRoot->Attribute(L"PI_tri");
+		auto l_strPI_tri = e_pRoot->Attribute(CHAR_TO_WCHAR_DEFINE(TI_ELEMENT_NAME));
 		if (l_strPI_tri)
 		{//parse binary data.
 			SAFE_DELETE(m_pPIBFile);
 			m_pPIBFile = new cBinaryFile();
 			std::string l_strPRIFileName = m_strCurrentDirectory;
 			l_strPRIFileName += ValueToString(l_strPI_tri);
-			if (m_pPIBFile->Openfile(l_strPRIFileName.c_str()))
+			if (m_pPIBFile->Openfile(l_strPRIFileName.c_str(),"rb"))
 			{
 				m_pFileData = (char*)m_pPIBFile->GetDataFile(0);
 			}
@@ -120,15 +134,24 @@ namespace FATMING_CORE
 			SAFE_DELETE(m_pPIBFile);
 			return false;
 		}
+		c2DMeshObjectVector*l_pCurrent2DMeshObjectVector = nullptr;
 		if (l_strImageName)
 		{
 			std::string l_strTextureFileName = m_strCurrentDirectory;
 			l_strTextureFileName += ValueToString(l_strImageName);
-			if (!ParseTexture(l_strTextureFileName.c_str(), false))
+			l_pCurrent2DMeshObjectVector = new c2DMeshObjectVector(l_strTextureFileName.c_str());
+			l_pCurrent2DMeshObjectVector->AddRef(this);
+			m_pCurrentTexture = l_pCurrent2DMeshObjectVector->GetTexture();
+			if(!m_pCurrentTexture || m_pCurrentTexture->GetImageIndex() == -1)
 			{
+				SAFE_DELETE(l_pCurrent2DMeshObjectVector);
 				return false;
 			}
 		}
+		this->AddObjectNeglectExist(l_pCurrent2DMeshObjectVector);
+		m_pCurrent2DMeshObjectVector = l_pCurrent2DMeshObjectVector;
+		//need this one?because texture has set name.
+		//l_pCurrent2DMeshObjectVector->SetName(UT::GetFileNameWithoutFullPath(this->m_strFileName).c_str());
 		e_pRoot = e_pRoot->FirstChildElement();
 		while (e_pRoot)
 		{
@@ -156,7 +179,7 @@ namespace FATMING_CORE
 	}
 	//sTrianglesToDrawIndicesBuffer
 	//<sTrianglesToDrawIndicesBuffer IndexBufferCount="6" IndexBufferBinarySize="24" VertexBufferCount="4" PosBufferBinarySize="48" UVBufferBinarySize="32" />
-	bool c2DMeshObjectVector::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
+	bool c2DMeshObjectManager::ProcessPIUnitForTriangleData(TiXmlElement * e_pRoot, const wchar_t*e_strName)
 	{
 		auto l_strIndexBufferCount = e_pRoot->Attribute(L"IndexBufferCount");
 		auto l_strIndexBufferBinarySize = e_pRoot->Attribute(L"IndexBufferBinarySize");
@@ -179,16 +202,16 @@ namespace FATMING_CORE
 			{
 				case sizeof(int) :
 					l_DataType = eDataType::eDT_INT;
-					break;
+				break;
 				case sizeof(char) :
 					l_DataType = eDataType::eDT_BYTE;
-					break;
+				break;
 				case sizeof(short) :
-						l_DataType = eDataType::eDT_SHORT;
-						break;
+					l_DataType = eDataType::eDT_SHORT;
+				break;
 				default:
-						l_DataType = eDataType::eDT_MAX;
-					break;
+					l_DataType = eDataType::eDT_MAX;
+				break;
 			}
 			if (l_DataType == eDataType::eDT_MAX)
 				return false;
@@ -198,25 +221,38 @@ namespace FATMING_CORE
 			l_p2DMeshBuffer->PosBuffer.CopyData(m_pFileData, l_iPosBufferBinarySize, eDataType::eDT_VECTOR3, l_iVertexBufferCount);
 			m_pFileData += l_iPosBufferBinarySize;
 			l_p2DMeshBuffer->UVBuffer.CopyData(m_pFileData, l_iUVBufferBinarySize, eDataType::eDT_VECTOR2, l_iVertexBufferCount);
-			m_pFileData += l_iUVBufferBinarySize;
 			l_p2DMeshBuffer->ColorBuffer.CreateData(sizeof(Vector4)*l_iVertexBufferCount, eDataType::eDT_VECTOR4, l_iVertexBufferCount);
-			l_p2DMeshBuffer->pTargetTexture = this->m_pTexture;
+			l_p2DMeshBuffer->pTargetTexture = this->m_pCurrentTexture;
 			Vector4*l_pColor = (Vector4*)l_p2DMeshBuffer->ColorBuffer.pData;
 			for (int i = 0; i < l_iVertexBufferCount; ++i)
 				l_pColor[i] = Vector4::One;
-			c2DMeshObject*l_p2DMeshObject = new c2DMeshObject(l_p2DMeshBuffer,this->GetTexture());
+			c2DMeshObject*l_p2DMeshObject = new c2DMeshObject(l_p2DMeshBuffer, m_pCurrentTexture);
 			l_p2DMeshObject->SetName(e_strName);
-			m_pMeshBufferMap->m_BufferMap.insert(std::make_pair(l_p2DMeshObject, l_p2DMeshBuffer));
-			return 	this->AddObjectNeglectExist(l_p2DMeshObject);;
+			m_pCurrent2DMeshObjectVector->m_pMeshBufferMap->m_BufferMap.insert(std::make_pair(l_p2DMeshObject, l_p2DMeshBuffer));
+			return 	m_pCurrent2DMeshObjectVector->AddObjectNeglectExist(l_p2DMeshObject);;
 		}
 		return false;
 	}
-	c2DMeshObjectVector::cMeshBufferMap::cMeshBufferMap(NamedTypedObject * e_pObject):cSmartObject(e_pObject)
+	void c2DMeshObjectManager::Destroy()
 	{
+		auto l_iCount = this->Count();
+		for (int i = 0; i < l_iCount; ++i)
+		{
+			auto l_pObject = this->m_ObjectList[i];
+			SAFE_RELEASE(l_pObject, this);
+		}
+		this->m_ObjectList.clear();
 	}
-	c2DMeshObjectVector::cMeshBufferMap::~cMeshBufferMap()
+	NamedTypedObject* c2DMeshObjectManager::GetObjectByFileName(const char * e_strFileName)
 	{
-		DELETE_MAP(m_BufferMap);
+		NamedTypedObject*l_pObject = cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
+		if (l_pObject)
+			return l_pObject;
+		if (this->ParseWithMyParse(e_strFileName))
+		{
+			return cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
+		}
+		return nullptr;
 	}
 	//namespace FATMING_CORE
 }

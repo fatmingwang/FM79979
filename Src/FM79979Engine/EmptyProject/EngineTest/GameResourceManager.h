@@ -20,8 +20,8 @@ namespace FATMING_CORE
 			eGBT_MAX
 		};
 	protected:
-		cNamedTypedObjectVector<c2DMeshObjectVector>			m_2DMeshObjectManagerVector;
-		cNamedTypedObjectVector<cFMMorphingAnimationVector>		m_FMMorphingAnimationManager;
+		c2DMeshObjectManager*									m_p2DMeshObjectManagerVector;
+		cFMMorphingAnimationManager								m_FMMorphingAnimationManager;
 		cPaticleManager											m_PaticleManager;
 		cBehaviorPaticleManager									m_BehaviorPaticleManager;
 		cSoundParser											m_SoundParser;

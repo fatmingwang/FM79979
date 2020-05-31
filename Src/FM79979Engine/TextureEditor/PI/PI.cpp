@@ -482,32 +482,32 @@ namespace PI
 				WARNING_MSG("object is overlap are you sure you want to save file!?");
 			}
 		}
-		 String^l_FileName = e_strFileName;
+		 String^l_ImageFileName = e_strFileName;
 		 if( e_bBinary )
-			 l_FileName += "b";
-		 String^l_strXMLFileName = l_FileName;
-		 if( l_FileName )
+			 l_ImageFileName += "b";
+		 String^l_strXMLFileName = l_ImageFileName;
+		 if(l_ImageFileName)
 		 {
 			if( !AllImage_listBox->Items->Count )
 				return;
 			cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
 			//cBinaryFile*l_pGLESTrianglesBinaryData = new cBinaryFile();
-			for(int i=l_FileName->Length-1;i!=-1;--i)
+			for(int i= l_ImageFileName->Length-1;i!=-1;--i)
 			{
-				if( l_FileName[i] == L'.' )
+				if(l_ImageFileName[i] == L'.' )
 				{
 					if(this->ImageSaveAsDDS_checkBox->Checked)
-						l_FileName = gcnew String(l_FileName->Substring(0,i+1)+"dds");
+						l_ImageFileName = gcnew String(l_ImageFileName->Substring(0,i+1)+"dds");
 					else
 					{
-						l_FileName = gcnew String(l_FileName->Substring(0,i+1)+"png");
+						l_ImageFileName = gcnew String(l_ImageFileName->Substring(0,i+1)+"png");
 					}
 					break;
 				}
 			}
 			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
 			l_strTrianglesBinaryFileName = UT::ChangeFileExtensionName(l_strTrianglesBinaryFileName.c_str(), TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME);
-			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),true,true);
+			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),false,false,"wb");
 			//l_strTrianglesBinaryFileName += "gles";
 			//l_pGLESTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(), true, true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
@@ -529,7 +529,7 @@ namespace PI
 				l_pGr->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::NearestNeighbor;
 				l_pGr->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::None;
 			}
-			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_FileName);
+			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_ImageFileName);
 			char*	l_ExtensionName = &l_strPIXMLFileName[strlen(l_strPIXMLFileName.c_str())-3];
 			sprintf(l_ExtensionName,"Image");
 			//FILE*l_pFopen = fopen(l_str,"w");
@@ -564,16 +564,16 @@ namespace PI
 				l_XMLWriter.AddAttribute(MX_ELEMENT_NAME, l_strPI_morphing.c_str());
 			    l_XMLWriter.AddAttribute("OriginalNameSort",l_OriginalImageNameOrder.c_str());
 				if(this->ImageSaveAsDDS_checkBox->Checked)
-					l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".dds"));
+					l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_ImageFileName,true)+".dds"));
 				else
 				{
 					if( e_bBinary )
 					{
-						l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName,true)+".pngb"));
+						l_XMLWriter.AddAttribute("ImageName",DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_ImageFileName,true)+".pngb"));
 					}
 					else
 					{
-						l_XMLWriter.AddAttribute("ImageName", DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_FileName, true) + ".png"));
+						l_XMLWriter.AddAttribute("ImageName", DNCT::GcStringToChar(DNCT::GetFileNameWithoutFullPath(l_ImageFileName, true) + ".png"));
 					}
 				}
 			    l_XMLWriter.AddAttribute("Count",m_pImageomposerIRM->Count());
@@ -683,9 +683,9 @@ namespace PI
 										l_XMLWriter.AddAttribute("TriangulatorPointsLOD", l_iLOD);
 								}
 							}
+							std::vector<int>l_iIndexBufferVector;
 							std::vector<Vector3>l_PosVector;
 							std::vector<Vector2>l_UVVector;
-							std::vector<int>l_iIndexBufferVector;
 							l_pImageUnitTriangulator->ToTixmlElementWithBinaryData(&l_XMLWriter, Vector2(l_iWidth, l_iHeight),
 								Vector2(l_ImageRealPixelSize.x, l_ImageRealPixelSize.y), Vector2(l_RenderPoint.x, l_RenderPoint.y),
 								l_PosVector, l_UVVector, l_iIndexBufferVector);
@@ -693,7 +693,7 @@ namespace PI
 							{
 								//index,pos,uv
 								l_pTrianglesBinaryData->WriteToFile((const char*)&l_iIndexBufferVector[0], sizeof(int)*l_iIndexBufferVector.size());
-								l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
+								l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());								
 								l_pTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
 							}
 							//if (l_pGLESTrianglesBinaryData)
@@ -792,7 +792,7 @@ namespace PI
 				ilTexImage( l_pBitMap->Width, l_pBitMap->Height, 1, 4, IL_RGBA, IL_UNSIGNED_BYTE, (void*)(l_pBd->Scan0));
 				ilSetInteger(IL_DXTC_FORMAT,  IL_DXT5);
 				ilEnable(IL_FILE_OVERWRITE);
-				if(!ilSaveImage( (WCHAR*)DNCT::GcStringToChar(l_FileName).c_str() ))
+				if(!ilSaveImage( (WCHAR*)DNCT::GcStringToChar(l_ImageFileName).c_str() ))
 				{
 					ILenum   l_ErrorIF = ilGetError();
 					int a=0;
@@ -806,8 +806,8 @@ namespace PI
 			{
 				if( e_bBinary )
 				{
-					//l_FileName = l_FileName->Substring(0,l_FileName->Length-1);
-					std::string	l_strTargetFileName = DNCT::GcStringToChar(l_FileName);
+					//l_ImageFileName = l_ImageFileName->Substring(0,l_ImageFileName->Length-1);
+					std::string	l_strTargetFileName = DNCT::GcStringToChar(l_ImageFileName);
 					FILE*l_pFile = fopen(l_strTargetFileName.c_str(),"rb");
 					int	l_iLength = UT::GetFileSize(l_pFile);
 					unsigned char*l_pData = new unsigned char[l_iLength];
@@ -822,7 +822,7 @@ namespace PI
 				}
 				else
 				{
-					l_pBitMap->Save(l_FileName);
+					l_pBitMap->Save(l_ImageFileName);
 					delete l_pBitMap;
 				}
 			}
@@ -835,7 +835,8 @@ namespace PI
 			auto l_strMorpginhXMLFileNameTest = ChangeFileExtensionName(l_strPIXMLFileName.c_str(), FM_MORPHING_XML_FILE_EXTENSION_NAME);
 			if (m_pPuzzleImageUnitTriangulatorManager)
 			{
-				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str(), l_strPI_tri.c_str());
+				
+				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str(), l_strPI_tri.c_str(), DNCT::GcStringToChar(l_ImageFileName).c_str());
 			}
 			SAFE_DELETE(l_pTrianglesBinaryData);
 			//SAFE_DELETE(l_pGLESTrianglesBinaryData);

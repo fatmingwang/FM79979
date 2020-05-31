@@ -13,6 +13,7 @@
 
 #define	TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME	"ti"
 #define	TI_ELEMENT_NAME								"PI_tri"
+#define	PI_FILE_ELEMENT_NAME						"PIFileName"
 
 enum ePointsToTriangulatorType
 {
@@ -149,7 +150,7 @@ public:
 	void									RenderPointsShapeLine();
 	void									MouseMove(int e_iPosX, int e_iPosY);
 	bool									IsObjectOverlap() { return m_bObjectOverlap; }
-	bool									ExportMorphingAnimation(const char*e_strFileName,const char*e_str2DMeshFileName);
+	bool									ExportMorphingAnimation(const char*e_strFileName,const char*e_str2DMeshFileName,const char*e_strImageName);
 	bool									ParseMorphingAnimation(const char*e_strFileName);
 };
 

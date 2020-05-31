@@ -923,19 +923,26 @@ void cPuzzleImageUnitTriangulatorManager::MouseMove(int e_iPosX, int e_iPosY)
 
 }
 
-bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName, const char*e_str2DMeshFileName)
+bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e_strFileName, const char*e_str2DMeshFileName, const char*e_strImageName)
 {
 	cBinaryFile l_MorphingData;
 	cBinaryFile l_MorphingOptimizeData;
 	std::string l_strEditorFileName = UT::ChangeFileExtensionName(e_strFileName, FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME);
 	std::string l_strOptimizeFileName = UT::ChangeFileExtensionName(e_strFileName, FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME);
+	std::string l_strPIFileName = UT::ChangeFileExtensionName(UT::GetFileNameWithoutFullPath(e_strFileName).c_str(), "pi");
+	std::string l_strMXBinaryFileName = UT::ChangeFileExtensionName(UT::GetFileNameWithoutFullPath(e_strFileName).c_str(), FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME);
 	l_MorphingData.Writefile(l_strEditorFileName.c_str(), true, false, "w+");
 	l_MorphingOptimizeData.Writefile(l_strOptimizeFileName.c_str(), true, false, "w+");
 	TiXmlDocument l_Doc(UT::CharToWchar(e_strFileName).c_str());
 	TiXmlElement*l_pMorphingAnimationElement = new TiXmlElement(MORPHING_ANIMATION_ROOT_NAME);
 	l_pMorphingAnimationElement->SetAttribute(L"Version", MORPHING_ANIMATION_VERSION);
+	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(PI_FILE_ELEMENT_NAME), ValueToStringW(l_strPIFileName.c_str()).c_str());
 	auto l_str2DMeshFileName = UT::GetFileNameWithoutFullPath(e_str2DMeshFileName, false);
 	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(TI_ELEMENT_NAME), ValueToStringW(l_str2DMeshFileName).c_str());
+	l_pMorphingAnimationElement->SetAttribute(L"ImageName", ValueToStringW(UT::GetFileNameWithoutFullPath(e_strImageName,false)).c_str());
+
+	l_pMorphingAnimationElement->SetAttribute(MX_BINARY_FILE_ELEMENT_NAME, ValueToStringW(l_strMXBinaryFileName).c_str());
+	
 	l_Doc.LinkEndChild(l_pMorphingAnimationElement);
 	auto l_iCount = this->Count();
 	for (int i = 0; i < l_iCount; ++i)

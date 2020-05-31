@@ -77,9 +77,9 @@ namespace FATMING_CORE
 		void 				WriteToFile(int64	  val );
 		//create file
 		//for cet to write for WIN32 to set flag
-		virtual	bool		Writefile(const char*,bool e_bBinary,bool e_bForceToWrite,const char*e_strFileMode = nullptr);
+		virtual	bool		Writefile(const char*,bool e_bBinary,bool e_bForceToWrite,const char*e_strFileMode = "wb");
 		//http://forum.codecall.net/topic/42319-what-mode-should-i-use-at-fopen-r-r-wb/
-		bool				Openfile(const char*, const char*e_strformat = "r+");
+		bool				Openfile(const char*, const char*e_strformat = "rb+");
 		bool				Flush();
 		//fclose
 		void				CloseFile();

@@ -2,6 +2,7 @@
 #include <stdlib.h>  
 #include "BinaryFile.h"
 #include "../Utility.h"
+#include "../Log/FMLog.h"
 #include "../../Math/MathUtility.h"
 #include "assert.h"
 #ifdef _WIN32
@@ -364,7 +365,14 @@ namespace FATMING_CORE
 			if( l_lFileSize == 0 )
 				return 0;
 			m_pData = new char[l_lFileSize];
-			NvFRead(m_pData,sizeof(char),l_lFileSize,m_pFile);
+			memset(m_pData, 0, l_lFileSize);
+			auto l_uiReadSize = NvFRead(m_pData,sizeof(char),l_lFileSize,m_pFile);
+			if (l_uiReadSize != l_lFileSize)
+			{
+				FMLog::Log("cBinaryFile::GetDataFile fread size not match!!file open mode wrong!?",true);
+				SAFE_DELETE(m_pData);
+				return nullptr;
+			}
 		}
 		char*l_pOutPutData = m_pData;
 		l_pOutPutData += e_uiStart;

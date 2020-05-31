@@ -13,7 +13,8 @@ cGameResourceManager::~cGameResourceManager()
 {
 	m_GameObjectManagerVector.resize(eGBT_MAX);
 	m_pImageParser = m_MPDIListParser.GetAllBaseImageList();
-	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_2DMeshObjectManagerVector, eGameObjectType::eGBT_2D_MESH_OBJECT);
+	m_p2DMeshObjectManagerVector = m_FMMorphingAnimationManager.Get2DMeshObjectManager();
+	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)m_p2DMeshObjectManagerVector, eGameObjectType::eGBT_2D_MESH_OBJECT);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_FMMorphingAnimationManager, eGameObjectType::eGBT_2D_MORPHING_ANIMATION);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_MPDIListParser, eGameObjectType::eGBT_MPDILIST);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_SoundParser, eGameObjectType::eGBT_SOUND);
