@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include "../../../stdafx.h"
+#include "../../../Common/BinaryFile/BinaryFile.h"
 #include "2DMesh.h"
 namespace FATMING_CORE
 {

@@ -57,6 +57,7 @@ namespace	FATMING_CORE
 	cImageParser*										cGameApp::m_spImageParser = nullptr;
 	cSoundParser*										cGameApp::m_spSoundParser = nullptr;
 	cNamedTypedObjectVector<cCurveManager>*				cGameApp::m_spPathFileList = nullptr;
+	cGameResourceManager*								cGameApp::m_spGameResourceManager = nullptr;
 
 #if defined(ANDROID)
 	extern sJNIUtilData*g_pMainThreadJNIUtilData;
@@ -141,6 +142,7 @@ namespace	FATMING_CORE
 			m_spGlyphFontRenderVector = new cNamedTypedObjectVector<cGlyphFontRender>();
 			m_spExternalFunctionVector = new cNamedTypedObjectVector<cExternalFunction>();
 			m_sp2DImageCollisionDataVector = new cNamedTypedObjectVector<c2DImageCollisionData>;
+			m_spGameResourceManager = new cGameResourceManager();
 			//please new in ur app
 			//cNamedTypedObjectVector<cColladaParser>*l_pColladaParserVector = new cNamedTypedObjectVector<cColladaParser>();
 			//m_spColladaParserVector = (cNamedTypedObjectVector<NamedTypedObject>*)l_pColladaParserVector;
@@ -231,7 +233,8 @@ namespace	FATMING_CORE
 		SAFE_DELETE(m_spAnimationParser);
 		SAFE_DELETE(m_spPathFileList);
 		SAFE_DELETE(m_spGlyphFontRenderVector);
-		m_spGlyphFontRender = 0;
+		SAFE_DELETE(m_spGameResourceManager);
+		m_spGlyphFontRender = nullptr;
 		SAFE_DELETE(m_spExternalFunctionVector);
 		SystemErrorCheck();
 		FMLog::WriteLog("all Destroy done");

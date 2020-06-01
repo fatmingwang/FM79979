@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../../stdafx.h"
 #include "GameResourceManager.h"
 
 void FATMING_CORE::cGameResourceManager::AddGameObjectVector(cNamedTypedObjectVector<NamedTypedObject>* e_pObject, eGameObjectType e_eGameObjectType)
@@ -9,7 +9,7 @@ void FATMING_CORE::cGameResourceManager::AddGameObjectVector(cNamedTypedObjectVe
 	m_GameObjectManagerVector[e_eGameObjectType] = e_pObject;
 }
 
-cGameResourceManager::~cGameResourceManager()
+cGameResourceManager::cGameResourceManager()
 {
 	m_GameObjectManagerVector.resize(eGBT_MAX);
 	m_pImageParser = m_MPDIListParser.GetAllBaseImageList();
@@ -26,6 +26,6 @@ cGameResourceManager::~cGameResourceManager()
 	//auto l_pData2 = GetObject<cMPDI>(L"6699", eGameObjectType::eGBT_MPDILIST);
 	//auto l_pp = GetParser<cNamedTypedObjectVector<cAnimationParser>>(eGameObjectType::eGBT_MPDILIST);
 }
-cGameResourceManager::cGameResourceManager()
+cGameResourceManager::~cGameResourceManager()
 {
 }

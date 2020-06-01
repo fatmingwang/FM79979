@@ -1,5 +1,7 @@
-#include "stdafx.h"
+#include "../../../stdafx.h"
 #include "FontManager.h"
+#include "GlyphFontRender.h"
+#include "FreetypeGlypth.h"
 
 namespace FATMING_CORE
 {

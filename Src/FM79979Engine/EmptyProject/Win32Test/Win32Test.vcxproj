@@ -203,10 +203,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\EngineTest\2DMesh.cpp" />
-    <ClCompile Include="..\EngineTest\FontManager.cpp" />
-    <ClCompile Include="..\EngineTest\GameResourceManager.cpp" />
-    <ClCompile Include="..\EngineTest\MorphingAnimation.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -220,10 +216,6 @@
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\EngineTest\2DMesh.h" />
-    <ClInclude Include="..\EngineTest\FontManager.h" />
-    <ClInclude Include="..\EngineTest\GameResourceManager.h" />
-    <ClInclude Include="..\EngineTest\MorphingAnimation.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
@@ -240,9 +232,6 @@
     <ResourceCompile Include="test.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
-      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

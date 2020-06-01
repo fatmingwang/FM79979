@@ -1,5 +1,4 @@
-#ifndef	ALL_POLICY_NAME_LIST_H
-#define ALL_POLICY_NAME_LIST_H
+#pragma once
 namespace FATMING_CORE
 {
 //for editor use
@@ -35,4 +34,3 @@ namespace FATMING_CORE
 	};
 //end namespace FATMING_CORE
 }
-#endif

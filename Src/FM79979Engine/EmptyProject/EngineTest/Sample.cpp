@@ -5,13 +5,7 @@
 #include "TestShader.h"
 
 //#include "../../Core/Bluetooth/Bluetooth.h"
-#include "2DMesh.h"
 
-#include "MorphingAnimation.h"
-
-c2DMeshObjectVector*g_p2DMeshObjectManager = nullptr;
-c2DMeshObject*g_p2DMeshObject = nullptr;
-cFMMorphingAnimationManager*g_pFMMorphingAnimationManager = nullptr;
 cFMMorphingAnimationVector*g_pFMMorphingAnimationVector = nullptr;
 
 cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
@@ -173,20 +167,8 @@ void	SampleKeyup(char e_cKey);
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
-	g_pFMMorphingAnimationManager = new cFMMorphingAnimationManager();
-	if (g_pFMMorphingAnimationManager)
-	{
-		g_pFMMorphingAnimationVector = dynamic_cast<cFMMorphingAnimationVector*>(g_pFMMorphingAnimationManager->GetObjectByFileName("C:/Users/Fatming/Desktop/666.mx"));
-	}
-	if(0)
-	//if (!g_p2DMeshObjectManager)
-	{
-		//g_p2DMeshObjectManager = new c2DMeshObjectVector();
-		if (g_p2DMeshObjectManager->ParseWithMyParse("C:/Users/desig.DESIGN24-NB/Desktop/Work/CarDrivingNodes/Media/CarGoApp/ButtonTest3.pi"))
-		{
-			g_p2DMeshObject = g_p2DMeshObjectManager->GetObject(L"Button1");
-		}
-	}
+	
+	g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx",eGBT_2D_MORPHING_ANIMATION);
 	int l_iYBase = 900;
 	g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
@@ -281,7 +263,7 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-
+	g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi", eGBT_MPDILIST);
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
@@ -368,7 +350,6 @@ void	LoadSample()
 
 void	DestorySampleObject()
 {
-	SAFE_DELETE(g_pFMMorphingAnimationManager);
 	SAFE_DELETE(g_pCurveWithTime);
 	SAFE_DELETE(g_pCurveWithTime2);
 	SAFE_DELETE(g_pPathChaser);
@@ -643,17 +624,6 @@ void	SampleRender()
 			l_pMAObject->SetWorldPosition(Vector3(600,000,0));
 		}
 	}
-	if (g_p2DMeshObject)
-	{
-		for (int i = 0; i < g_p2DMeshObjectManager->Count(); ++i)
-		{
-			g_p2DMeshObjectManager->GetObject(i)->SetWorldPosition(Vector3(300 + (float)200*i, 600, 0));
-			g_p2DMeshObjectManager->GetObject(i)->SetColor(Vector4(1.f/i,0,0,1));
-			//g_p2DMeshObject->SetWorldPosition(Vector3(900, 600, 0));
-			g_p2DMeshObjectManager->GetObject(i)->Render();
-		}
-	}
-
 	//RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->EndDraw();

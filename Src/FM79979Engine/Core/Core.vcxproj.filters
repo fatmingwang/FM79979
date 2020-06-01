@@ -234,6 +234,12 @@
     <Filter Include="Bluetooth">
       <UniqueIdentifier>{cae1a90a-3782-49f4-b719-fd6764978adb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\Render\Morphing">
+      <UniqueIdentifier>{7b5d2bb9-c274-48e1-aa36-d931a37ed1de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\2DMesh">
+      <UniqueIdentifier>{e4c3c387-919f-47f5-9f1c-5da0661ce0e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -745,6 +751,18 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\OpenGL\GLSL\MeshShader.cpp">
       <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Morphing\MorphingAnimation.cpp">
+      <Filter>GameplayUT\Render\Morphing</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\2DMesh\2DMesh.cpp">
+      <Filter>GameplayUT\Render\2DMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\ResourceMaintaner\GameResourceManager.cpp">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayUT\Render\Font\FontManager.cpp">
+      <Filter>GameplayUT\Render\Font</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1323,6 +1341,18 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Render\UI\RenderObjectVector.h">
       <Filter>GameplayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Morphing\MorphingAnimation.h">
+      <Filter>GameplayUT\Render\Morphing</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\2DMesh\2DMesh.h">
+      <Filter>GameplayUT\Render\2DMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\ResourceMaintaner\GameResourceManager.h">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\Render\Font\FontManager.h">
+      <Filter>GameplayUT\Render\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

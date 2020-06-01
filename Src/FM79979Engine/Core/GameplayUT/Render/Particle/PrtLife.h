@@ -1,4 +1,4 @@
-
+#pragma once
 namespace FATMING_CORE
 {
 	//===========================================

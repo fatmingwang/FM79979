@@ -11,6 +11,7 @@
 #include "../OpenGL/OpenGLRender.h"
 #include "../../Common/Template/TemplateClass.h"
 #include "../GameUTDefine.h"
+#include "../ResourceMaintaner/GameResourceManager.h"
 //for android
 class	NvEGLUtil;
 namespace	FATMING_CORE
@@ -76,6 +77,9 @@ namespace	FATMING_CORE
 		static	cNamedTypedObjectVector<class cCurveManager>*		m_spPathFileList;
 		static	cNamedTypedObjectVector<class c2DImageCollisionData>*m_sp2DImageCollisionDataVector;
 		static	cNamedTypedObjectVector<NamedTypedObject>*			m_spColladaParserVector;
+
+		static	cGameResourceManager*								m_spGameResourceManager;
+
 		static	struct sMultiTouchPoints*							m_spMultiTouchPoints;
 		//betwen -1,1,device direction
 		static  Vector3												m_svAccelerometer;
@@ -133,6 +137,25 @@ namespace	FATMING_CORE
 		//take a see at cpp
 		static  void												OpenKeyBoard(int e_iKeyBoardType, const wchar_t*e_strTitle = L"GameApp", const wchar_t*e_strMessage = L"please input data");
 		static	std::wstring										GetDIDOrInstallationRandomID();
+		//
+		template<class TYPE>static TYPE*										GetParser(eGameObjectType e_eGameObjectType)
+		{
+			if(m_spGameResourceManager)
+				return m_spGameResourceManager->GetParser<TYPE>(e_eGameObjectType);
+			return nullptr;
+		}
+		template<class TYPE>static TYPE*									GetObject(const wchar_t*e_strObjectName, eGameObjectType e_eGameObjectType)
+		{
+			if (m_spGameResourceManager)
+				return m_spGameResourceManager->GetObject<TYPE>(e_strObjectName,e_eGameObjectType);
+			return nullptr;
+		}
+		template<class TYPE>static TYPE*									GetObjectByFileName(const char*e_strObjectName, eGameObjectType e_eGameObjectType)
+		{
+			if (m_spGameResourceManager)
+				return m_spGameResourceManager->GetObjectByFileName<TYPE>(e_strObjectName, e_eGameObjectType);
+			return nullptr;
+		}
 	};
 	//end namespace
 	POINT					GetScreenResolution();

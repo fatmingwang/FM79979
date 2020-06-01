@@ -1,5 +1,9 @@
 #pragma once
 
+
+#include "../CommonRender/RenderObject.h"
+#include "../CommonRender/BaseImage.h"
+#include "../../../XML/XMLLoader.h"
 #define	TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME	"ti"
 #define	TI_ELEMENT_NAME								"PI_tri"
 #define	PI_FILE_ELEMENT_NAME						"PIFileName"
@@ -60,7 +64,7 @@ namespace FATMING_CORE
 
 	class c2DMeshObjectManager :public cNodeISAX, public cNamedTypedObjectVector<c2DMeshObjectVector>
 	{
-		cBinaryFile*				m_pPIBFile;
+		class cBinaryFile*			m_pPIBFile;
 		char*						m_pFileData;
 		c2DMeshObjectVector*		m_pCurrent2DMeshObjectVector;
 		cTexture*					m_pCurrentTexture;

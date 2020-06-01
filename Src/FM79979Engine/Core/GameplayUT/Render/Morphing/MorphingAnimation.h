@@ -1,6 +1,7 @@
 #pragma once
 
-#include "2DMesh.h"
+#include "../2DMesh/2DMesh.h"
+#include "../FMAnimationRule/FMAnimationRule.h"
 #define	FM_MORPHING_ANIMATION_VER	20200522
 
 //morphing xml
@@ -77,7 +78,7 @@ namespace FATMING_CORE
 	class cFMMorphingAnimationManager:public cNamedTypedObjectVector<cFMMorphingAnimationVector>, public cNodeISAX
 	{
 		//morphing binary file
-		cBinaryFile*				m_pMBFile;
+		class cBinaryFile*			m_pMBFile;
 		unsigned int				m_uiCurrentDataPos;
 		cFMMorphingAnimationVector*	m_pCurrentFMMorphingAnimationVector;
 		c2DMeshObjectVector*		m_pCurrent2DMeshObjectVector;

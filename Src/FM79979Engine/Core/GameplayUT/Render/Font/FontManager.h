@@ -1,4 +1,7 @@
 #pragma once
+#include "../CommonRender/RenderObject.h"
+#include "../../../XML/XMLLoader.h"
+
 namespace FATMING_CORE
 {
 	//<FontManager>
