@@ -27,6 +27,8 @@
 
 #include "happyhttp.h"
 #include "stdlib.h"
+#include "../Common/Log/FMLog.h"
+#include "../Common/Utility.h"
 #ifndef _WIN32
 //	#include <sys/types.h>
 	#include <sys/socket.h>
@@ -93,7 +95,8 @@ void BailOnSocketError( const char* context )
 #else
 	const char* msg = strerror( errno );
 #endif
-	throw Wobbly( "%s: %s", context, msg );
+	//throw Wobbly( "%s: %s", context, msg );
+	FMLog::Log(UT::ComposeMsgByFormat("HappyHttp:BailOnSocketError:%s: %s", context, msg).c_str(),true);
 }
 
 
@@ -189,7 +192,6 @@ struct in_addr *atoaddr( const char* address)
 {
 	struct hostent *host;
 	static struct in_addr saddr;
-
 	// First try nnn.nnn.nnn.nnn form
 	saddr.s_addr = inet_addr(address);
 	if (saddr.s_addr != -1)
@@ -263,26 +265,34 @@ void Connection::setcallbacks(
 }
 
 
-void Connection::connect()
+bool Connection::connect()
 {
 	in_addr* addr = atoaddr( m_Host.c_str() );
-	if( !addr )
-		throw Wobbly( "Invalid network address" );
+	if (!addr)
+	{
+		//throw Wobbly("Invalid network address");
+		FMLog::Log("HappyHttp:Invalid network address", true);
+		return false;
+	}
 
 	sockaddr_in address;
-	memset( (char*)&address, 0, sizeof(address) );
+	//memset( (char*)&address, 0, sizeof(address) );
 	address.sin_family = AF_INET;
 	address.sin_port = htons( m_Port );
 	address.sin_addr.s_addr = addr->s_addr;
 
 	m_Sock = socket( AF_INET, SOCK_STREAM, 0 );
-	if( m_Sock < 0 )
-		BailOnSocketError( "socket()" );
+	if (m_Sock < 0)
+	{
+		BailOnSocketError("socket()");
+		return false;
+	}
 
 //	printf("Connecting to %s on port %d.\n",inet_ntoa(*addr), port);
 
 	if( ::connect( m_Sock, (sockaddr const*)&address, sizeof(address) ) < 0 )
 		BailOnSocketError( "connect()" );
+	return true;
 }
 
 
@@ -364,8 +374,11 @@ void Connection::request( const char* method,
 
 void Connection::putrequest( const char* method, const char* url )
 {
-	if( m_State != IDLE )
-		throw Wobbly( "Request already issued" );
+	if (m_State != IDLE)
+	{
+		//throw Wobbly("Request already issued");
+		FMLog::Log("HappyHttp:Request already issued", true);
+	}
 
 	m_State = REQ_STARTED;
 
@@ -386,8 +399,11 @@ void Connection::putrequest( const char* method, const char* url )
 
 void Connection::putheader( const char* header, const char* value )
 {
-	if( m_State != REQ_STARTED )
-		throw Wobbly( "putheader() failed" );
+	if (m_State != REQ_STARTED)
+	{
+		//throw Wobbly("putheader() failed");
+		FMLog::Log("putheader() failed", true);
+	}
 	m_Buffer.push_back( string(header) + ": " + string( value ) );
 }
 
@@ -400,8 +416,12 @@ void Connection::putheader( const char* header, int numericvalue )
 
 void Connection::endheaders()
 {
-	if( m_State != REQ_STARTED )
-		throw Wobbly( "Cannot send header" );
+	if (m_State != REQ_STARTED)
+	{
+		//throw Wobbly("Cannot send header");
+		FMLog::Log("HappyHttp:Cannot send header", true);
+		return;
+	}
 	m_State = IDLE;
 
 	m_Buffer.push_back( "" );
@@ -423,8 +443,11 @@ void Connection::send( const unsigned char* buf, int numbytes )
 {
 //	fwrite( buf, 1,numbytes, stdout );
 	
-	if( m_Sock < 0 )
-		connect();
+	if (m_Sock < 0)
+	{
+		if (!connect())
+			return;
+	}
 
 	while( numbytes > 0 )
 	{
@@ -433,8 +456,10 @@ void Connection::send( const unsigned char* buf, int numbytes )
 #else
 		int n = ::send( m_Sock, buf, numbytes, 0 );
 #endif
-		if( n<0 )
-			BailOnSocketError( "send()" );
+		if (n < 0)
+		{
+			BailOnSocketError("send()");
+		}
 		numbytes -= n;
 		buf += n;
 	}
@@ -445,7 +470,11 @@ void Connection::pump()
 {
 	if( m_Outstanding.empty() )
 		return;		// no requests outstanding
-
+	if (m_Sock == -1)
+	{
+		m_Outstanding.clear();
+		return;
+	}
 	assert( m_Sock >0 );	// outstanding requests but no connection!
 
 	if( !datawaiting( m_Sock ) )
@@ -462,7 +491,7 @@ void Connection::pump()
 
 		Response* r = m_Outstanding.front();
 		r->notifyconnectionclosed();
-		assert( r->completed() );
+		//assert( r->completed() );
 		delete r;
 		m_Outstanding.pop_front();
 
@@ -570,7 +599,9 @@ void Response::notifyconnectionclosed()
 	}
 	else
 	{
-		throw Wobbly( "Connection closed unexpectedly" );
+		FMLog::Log("happyhttp:Connection closed unexpectedly", true);
+		return;
+		//throw Wobbly( "Connection closed unexpectedly" );
 	}
 }
 
@@ -754,8 +785,12 @@ void Response::ProcessStatusLine( std::string const& line )
 		m_Reason += *p++;
 
 	m_Status = atoi( status.c_str() );
-	if( m_Status < 100 || m_Status > 999 )
-		throw Wobbly( "BadStatusLine (%s)", line.c_str() );
+	if (m_Status < 100 || m_Status > 999)
+	{
+		//throw Wobbly("BadStatusLine (%s)", line.c_str());
+		FMLog::Log(UT::ComposeMsgByFormat("HappyHttp:BadStatusLine (%s)", line.c_str()).c_str(), true);
+		return;
+	}
 
 /*
 	printf( "version: '%s'\n", m_VersionString.c_str() );
@@ -768,7 +803,11 @@ void Response::ProcessStatusLine( std::string const& line )
 	else if( 0==m_VersionString.compare( 0,7,"HTTP/1." ) )
 		m_Version = 11;
 	else
-		throw Wobbly( "UnknownProtocol (%s)", m_VersionString.c_str() );
+	{
+		//throw Wobbly("UnknownProtocol (%s)", m_VersionString.c_str());
+		FMLog::Log(UT::ComposeMsgByFormat("UnknownProtocol (%s)", m_VersionString.c_str()).c_str(), true);
+		return;
+	}
 	// TODO: support for HTTP/0.9
 
 	

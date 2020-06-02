@@ -147,6 +147,7 @@ class Connection
 	friend class Response;
 public:
 	// doesn't connect immediately
+	//please call SDLNet_Init()//(WSAStartup),and after all please call SDLNet_Quit(WSACleanup)
 	Connection( const char* host, int port );
 	~Connection();
 
@@ -166,7 +167,7 @@ public:
 	// call it automatically if needed.
 	// But it could block (for name lookup etc), so you might prefer to
 	// call it in advance.
-	void connect();
+	bool connect();
 
 	// close connection, discarding any pending requests.
 	void close();
