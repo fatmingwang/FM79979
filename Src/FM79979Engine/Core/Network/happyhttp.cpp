@@ -459,6 +459,7 @@ void Connection::send( const unsigned char* buf, int numbytes )
 		if (n < 0)
 		{
 			BailOnSocketError("send()");
+			break;
 		}
 		numbytes -= n;
 		buf += n;
@@ -804,7 +805,7 @@ void Response::ProcessStatusLine( std::string const& line )
 		m_Version = 11;
 	else
 	{
-		//throw Wobbly("UnknownProtocol (%s)", m_VersionString.c_str());
+		throw Wobbly("UnknownProtocol (%s)", m_VersionString.c_str());
 		FMLog::Log(UT::ComposeMsgByFormat("UnknownProtocol (%s)", m_VersionString.c_str()).c_str(), true);
 		return;
 	}
