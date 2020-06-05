@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "MorphingAnimation.h"
+#include "MorphingAnimation_Editor.h"
 
 TiXmlElement*cEditor_MorphingAnimation::sVertexIndexAndPositionAndTimeVector::ToTiXmlElement(bool e_bOptimizeTime)
 {

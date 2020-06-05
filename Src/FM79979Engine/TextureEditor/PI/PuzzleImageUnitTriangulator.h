@@ -11,10 +11,6 @@
 //delete cdt;
 //DELETE_POINTER_VECTOR(polyline, p2t::Point*);
 
-#define	TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME	"ti"
-#define	TI_ELEMENT_NAME								"PI_tri"
-#define	PI_FILE_ELEMENT_NAME						"PIFileName"
-
 enum ePointsToTriangulatorType
 {
 	ePTPT_ADD = 0,

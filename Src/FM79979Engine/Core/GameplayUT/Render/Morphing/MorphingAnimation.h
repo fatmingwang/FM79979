@@ -2,18 +2,21 @@
 
 #include "../2DMesh/2DMesh.h"
 #include "../FMAnimationRule/FMAnimationRule.h"
-#define	FM_MORPHING_ANIMATION_VER	20200522
+#define	FM_MORPHING_ANIMATION_VER		20200522
+#define	MORPHING_ANIMATION_ROOT_NAME	L"MorphingAnimationRoot"
+#define	MORPHING_ANIMATION_OBJECT_NAME	L"MorphingAnimation"
+#define	MORPHING_ANIMATION_VERTEX_DATA	L"VertexData"
 
 //morphing xml
 #define FM_MORPHING_XML_FILE_EXTENSION_NAME					"mx"
 
 #define	MX_ELEMENT_NAME										"PI_morphing"
-
-#define	MX_BINARY_FILE_ELEMENT_NAME							"MXBinary"
 //morphing binary
 #define FM_MORPHING_FILE_BINARY_DATA_EXTENSION_NAME			"mb"
 
 #define	FM_MORPHING_EDITOR_FILE_BINARY_DATA_EXTENSION_NAME	"editor_mb"
+
+#define	MX_BINARY_FILE_ELEMENT_NAME							"MXBinary"
 
 namespace FATMING_CORE
 {

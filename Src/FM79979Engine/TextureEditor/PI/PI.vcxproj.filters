@@ -42,7 +42,7 @@
     <ClCompile Include="TrianglesToDrawIndicesBuffer.cpp">
       <Filter>PIUnitTriangulator</Filter>
     </ClCompile>
-    <ClCompile Include="MorphingAnimation.cpp">
+    <ClCompile Include="MorphingAnimation_Editor.cpp">
       <Filter>PIUnitTriangulator</Filter>
     </ClCompile>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClInclude Include="delaunay_triangulation\DelaunayVector3.h">
       <Filter>delaunay_triangulation</Filter>
     </ClInclude>
-    <ClInclude Include="MorphingAnimation.h">
+    <ClInclude Include="MorphingAnimation_Editor.h">
       <Filter>PIUnitTriangulator</Filter>
     </ClInclude>
   </ItemGroup>

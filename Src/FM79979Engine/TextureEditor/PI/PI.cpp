@@ -7,7 +7,7 @@
 #include "../../AllLibInclude.h"
 #pragma comment(lib, "../../../lib/Devil.lib")
 #include "../../Core/Common/BinaryFile/StringCompress.h"
-#include "MorphingAnimation.h"
+#include "MorphingAnimation_Editor.h"
 //#include "../../../include/vld.h"
 //#pragma comment(lib, "../../../lib/vld.lib")
 
@@ -491,7 +491,6 @@ namespace PI
 			if( !AllImage_listBox->Items->Count )
 				return;
 			cBinaryFile*l_pTrianglesBinaryData = new cBinaryFile();
-			//cBinaryFile*l_pGLESTrianglesBinaryData = new cBinaryFile();
 			for(int i= l_ImageFileName->Length-1;i!=-1;--i)
 			{
 				if(l_ImageFileName[i] == L'.' )
@@ -508,8 +507,6 @@ namespace PI
 			auto l_strTrianglesBinaryFileName = DNCT::GcStringToChar(l_strXMLFileName);
 			l_strTrianglesBinaryFileName = UT::ChangeFileExtensionName(l_strTrianglesBinaryFileName.c_str(), TRIANGLE_AND_DRAW_INDEX_EXTENSION_FILE_NAME);
 			l_pTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(),false,false,"wb");
-			//l_strTrianglesBinaryFileName += "gles";
-			//l_pGLESTrianglesBinaryData->Writefile(l_strTrianglesBinaryFileName.c_str(), true, true);
 			sPuzzleData**l_ppPuzzleData = new sPuzzleData*[AllImage_listBox->Items->Count];
 			for (int i = 0; i < AllImage_listBox->Items->Count; ++i)
 			{
@@ -529,15 +526,8 @@ namespace PI
 				l_pGr->InterpolationMode = System::Drawing::Drawing2D::InterpolationMode::NearestNeighbor;
 				l_pGr->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::None;
 			}
-			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_ImageFileName);
-			char*	l_ExtensionName = &l_strPIXMLFileName[strlen(l_strPIXMLFileName.c_str())-3];
-			sprintf(l_ExtensionName,"Image");
-			//FILE*l_pFopen = fopen(l_str,"w");
 			float	l_fUV[4];
-			if( e_bBinary )
-				sprintf(l_ExtensionName,"pib");
-			else
-				sprintf(l_ExtensionName,"pi");
+			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_ImageFileName);
 			String^l_strUserNameAndData = GetUseerNameAndTime();
 			std::string	l_strXmlFileName = l_strPIXMLFileName;
 			ATG::XMLWriter	l_XMLWriter(l_strPIXMLFileName.c_str());
@@ -633,7 +623,6 @@ namespace PI
 					
 					POINT	l_OriginaleSize = {l_pUIImage->GetOriginalImageSize().x,l_pUIImage->GetOriginalImageSize().y};
 				    //POINT	l_OriginaleSize = {l_pBitmapForSave->Width,l_pBitmapForSave->Height};
-				    //fwrite(l_pUIImage->GetPixels(),l_iPixelSize,1,l_pFopen);
 				    l_XMLWriter.StartElement("PuzzleUnit");
 					{
 						//l_XMLWriter.AddAttribute("Size",l_iPixelSize);
@@ -696,25 +685,6 @@ namespace PI
 								l_pTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());								
 								l_pTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
 							}
-							//if (l_pGLESTrianglesBinaryData)
-							//{
-							//	if (l_iIndexBufferVector.size() > 65535)
-							//	{
-							//		WARNING_MSG("draw index count over 65536!!! opengles 2 only unsigned short data type!");
-							//	}
-							//	std::vector<unsigned short>l_iUnshortIndexBufferVector;
-							//	l_iUnshortIndexBufferVector.resize(l_iIndexBufferVector.size());
-							//	int l_iUnsignedShortIndex = 0;
-							//	for (auto l_Index : l_iIndexBufferVector)
-							//	{
-							//		l_iUnshortIndexBufferVector[l_iUnsignedShortIndex] = l_Index;
-							//		++l_iUnsignedShortIndex;
-							//	}
-							//	//index,pos,uv
-							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_iUnshortIndexBufferVector[0], sizeof(unsigned short)*l_iUnshortIndexBufferVector.size());
-							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_PosVector[0], sizeof(Vector3)*l_PosVector.size());
-							//	l_pGLESTrianglesBinaryData->WriteToFile((const char*)&l_UVVector[0], sizeof(Vector2)*l_UVVector.size());
-							//}
 						}
 
 						l_ppPuzzleData[i] = new sPuzzleData((WCHAR*)l_pUIImage->GetName(), l_fUV, l_Offset, l_ImageRealPixelSize, l_OriginaleSize, l_ShowPosInPI);
@@ -834,12 +804,10 @@ namespace PI
 			}
 			auto l_strMorpginhXMLFileNameTest = ChangeFileExtensionName(l_strPIXMLFileName.c_str(), FM_MORPHING_XML_FILE_EXTENSION_NAME);
 			if (m_pPuzzleImageUnitTriangulatorManager)
-			{
-				
+			{				
 				this->m_pPuzzleImageUnitTriangulatorManager->ExportMorphingAnimation(l_strMorpginhXMLFileNameTest.c_str(), l_strPI_tri.c_str(), DNCT::GcStringToChar(l_ImageFileName).c_str());
 			}
 			SAFE_DELETE(l_pTrianglesBinaryData);
-			//SAFE_DELETE(l_pGLESTrianglesBinaryData);
 		}	
 	}
 //=======================

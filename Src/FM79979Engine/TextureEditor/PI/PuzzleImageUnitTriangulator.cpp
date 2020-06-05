@@ -7,7 +7,7 @@
 
 
 #include "TrianglesToDrawIndicesBuffer.h"
-#include "MorphingAnimation.h"
+#include "MorphingAnimation_Editor.h"
 extern cGlyphFontRender*g_pDebugFont;
 
 std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTriangulator::GetPosAndVertexIndexVector()
@@ -935,13 +935,13 @@ bool cPuzzleImageUnitTriangulatorManager::ExportMorphingAnimation(const char * e
 	l_MorphingOptimizeData.Writefile(l_strOptimizeFileName.c_str(), true, false, "w+");
 	TiXmlDocument l_Doc(UT::CharToWchar(e_strFileName).c_str());
 	TiXmlElement*l_pMorphingAnimationElement = new TiXmlElement(MORPHING_ANIMATION_ROOT_NAME);
-	l_pMorphingAnimationElement->SetAttribute(L"Version", MORPHING_ANIMATION_VERSION);
+	l_pMorphingAnimationElement->SetAttribute(L"Version", FM_MORPHING_ANIMATION_VER);
 	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(PI_FILE_ELEMENT_NAME), ValueToStringW(l_strPIFileName.c_str()).c_str());
 	auto l_str2DMeshFileName = UT::GetFileNameWithoutFullPath(e_str2DMeshFileName, false);
 	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(TI_ELEMENT_NAME), ValueToStringW(l_str2DMeshFileName).c_str());
 	l_pMorphingAnimationElement->SetAttribute(L"ImageName", ValueToStringW(UT::GetFileNameWithoutFullPath(e_strImageName,false)).c_str());
 
-	l_pMorphingAnimationElement->SetAttribute(MX_BINARY_FILE_ELEMENT_NAME, ValueToStringW(l_strMXBinaryFileName).c_str());
+	l_pMorphingAnimationElement->SetAttribute(CHAR_TO_WCHAR_DEFINE(MX_BINARY_FILE_ELEMENT_NAME), ValueToStringW(l_strMXBinaryFileName).c_str());
 	
 	l_Doc.LinkEndChild(l_pMorphingAnimationElement);
 	auto l_iCount = this->Count();
@@ -970,7 +970,7 @@ bool cPuzzleImageUnitTriangulatorManager::ParseMorphingAnimation(const char * e_
 			auto l_strVersion = l_pRoot->Attribute(L"Version");
 			if (l_strVersion)
 			{
-				if (GetInt(l_strVersion) != MORPHING_ANIMATION_VERSION)
+				if (GetInt(l_strVersion) != FM_MORPHING_ANIMATION_VER)
 				{
 					std::string l_strInfo = e_strFileName;
 					l_strInfo += " version not matched";
