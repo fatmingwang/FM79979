@@ -168,7 +168,7 @@ namespace FATMING_CORE
         {
             float   l_fScale = m_fRotationAngle/90.f;
 			cBaseImage*l_pBaseImage = dynamic_cast<cBaseImage*>(this->GetObject(0));
-            this->m_fEachImageDistance = l_pBaseImage->GetWidth()*l_fScale;
+            this->m_fEachImageDistance = (float)l_pBaseImage->GetWidth()*l_fScale;
         }
         
     }

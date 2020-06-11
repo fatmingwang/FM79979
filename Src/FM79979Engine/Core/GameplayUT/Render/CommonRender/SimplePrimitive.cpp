@@ -381,7 +381,7 @@ namespace GLRender
 	void	Render3DArrow(Vector3 P,Vector3 D,Vector4 e_vColor,float e_fWidth)
 	{
 		UseShaderProgram(NO_TEXTURE_SHADER);
-		float angle = atan2(D.y, D.x);
+		float angle = (float)atan2(D.y, D.x);
 		float	l_fLength = D.Length();
 		Vector3	l_vD10Percent = D*0.1f;
 		float	l_fAllVertices[] = { 0.f,0.f,0.f,
@@ -627,8 +627,8 @@ namespace GLRender
 		Vector2	l_vFirestPos = Vector2(sin(l_fStepAngle)*e_fRadius,cos(l_fStepAngle)*e_fRadius);
 		for( int i=0;i<l_iNum;++i )
 		{
-			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
-			float	l_fY = cos(l_fStepAngle*i)*e_fRadius;
+			float	l_fX = (float)sin(l_fStepAngle*i)*e_fRadius;
+			float	l_fY = (float)cos(l_fStepAngle*i)*e_fRadius;
 			Vector2	l_vPos = Vector2(l_fX,l_fY);
 			g_fGlobalTempBufferForRenderVertices[i*4] = l_vFirestPos.x;
 			g_fGlobalTempBufferForRenderVertices[i*4+1] = l_vFirestPos.y;
@@ -644,8 +644,8 @@ namespace GLRender
 		{
 			for( int i=0;i<l_iNum;++i )
 			{
-				g_fGlobalTempBufferForRenderVertices[i*2] = sin(l_fStepAngle*i)*e_fRadius;
-				g_fGlobalTempBufferForRenderVertices[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2] = (float)sin(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2+1] = (float)cos(l_fStepAngle*i)*e_fRadius;
 			}
 			myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);
@@ -663,8 +663,8 @@ namespace GLRender
 		cMatrix44 l_mat = cMatrix44::TranslationMatrix(Vector3(e_vPos.x,e_vPos.y, 0.0f));
 		for( int i=0;i<l_iNum;++i )
 		{
-			float	l_fX = sin(l_fStepAngle*i)*e_fRadius;
-			float	l_fY = cos(l_fStepAngle*i)*e_fRadius;
+			float	l_fX = (float)sin(l_fStepAngle*i)*e_fRadius;
+			float	l_fY = (float)cos(l_fStepAngle*i)*e_fRadius;
 			Vector2	l_vPos = Vector2(l_fX,l_fY);
 			g_fGlobalTempBufferForRenderVertices[i*4] = l_vFirestPos.x;
 			g_fGlobalTempBufferForRenderVertices[i*4+1] = l_vFirestPos.y;
@@ -680,8 +680,8 @@ namespace GLRender
 		{
 			for( int i=0;i<l_iNum;++i )
 			{
-				g_fGlobalTempBufferForRenderVertices[i*2] = sin(l_fStepAngle*i)*e_fRadius;
-				g_fGlobalTempBufferForRenderVertices[i*2+1] = cos(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2] = (float)sin(l_fStepAngle*i)*e_fRadius;
+				g_fGlobalTempBufferForRenderVertices[i*2+1] = (float)cos(l_fStepAngle*i)*e_fRadius;
 			}
 			myGlVertexPointer(2, g_fGlobalTempBufferForRenderVertices);
 			MY_GLDRAW_ARRAYS(GL_LINES, 0, l_iNum);

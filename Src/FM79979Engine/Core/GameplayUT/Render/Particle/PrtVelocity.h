@@ -243,7 +243,7 @@ namespace FATMING_CORE
 		  l_mat.r[1].y = m_vPivot.y;
 		  l_mat.r[2].z = m_vPivot.z;
 		  //set sphere position
-		  Vector3	l_vPos(e_pParticleData->vPos.x+sin(m_fRadius)*m_fTrackLength,e_pParticleData->vPos.y,e_pParticleData->vPos.z+cos(m_fRadius)*m_fTrackLength);
+		  Vector3	l_vPos(e_pParticleData->vPos.x+ (float)sin(m_fRadius)*m_fTrackLength,e_pParticleData->vPos.y,e_pParticleData->vPos.z+(float)cos(m_fRadius)*m_fTrackLength);
 		  //position transform for pivot
 		  l_vPos = l_mat.TransformVector(l_vPos);
 		  //apply position to particle position

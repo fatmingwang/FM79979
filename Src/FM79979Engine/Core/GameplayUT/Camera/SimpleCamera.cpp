@@ -237,8 +237,8 @@ namespace FATMING_CORE
 		m_fRotatedX += Angle;
 		
 		//Rotate viewdir around the right vector:
-		m_vViewDir = (m_vViewDir*cos(Angle*D3DX_PI/180.f)
-									+ m_vUpVector*sin(Angle*D3DX_PI/180.f));
+		m_vViewDir = (m_vViewDir* (float)cos(Angle*D3DX_PI/180.f)
+									+ m_vUpVector* (float)sin(Angle*D3DX_PI/180.f));
 		m_vViewDir.NormalizeIt();
 		//now compute the new UpVector (by cross product)
 		m_vUpVector = m_vViewDir^m_vRightVector;
@@ -252,8 +252,8 @@ namespace FATMING_CORE
 		m_fRotatedY += Angle;
 		
 		//Rotate viewdir around the up vector:
-		m_vViewDir = m_vViewDir*cos(Angle*D3DX_PI/180.f)
-									- m_vRightVector*sin(Angle*D3DX_PI/180.f);
+		m_vViewDir = m_vViewDir* (float)cos(Angle*D3DX_PI/180.f)
+									- m_vRightVector* (float)sin(Angle*D3DX_PI/180.f);
 		m_vViewDir.NormalizeIt();
 		//now compute the new RightVector (by cross product)
 		m_vRightVector = m_vViewDir^m_vUpVector;
@@ -264,8 +264,8 @@ namespace FATMING_CORE
 		m_fRotatedZ += Angle;
 		
 		//Rotate viewdir around the right vector:
-		m_vRightVector = m_vRightVector*cos(Angle*D3DX_PI/180.f)
-									+ m_vUpVector*sin(Angle*D3DX_PI/180.f);
+		m_vRightVector = m_vRightVector* (float)cos(Angle*D3DX_PI/180.f)
+									+ m_vUpVector* (float)sin(Angle*D3DX_PI/180.f);
 		m_vRightVector.NormalizeIt();
 		//now compute the new UpVector (by cross product)
 		m_vUpVector = m_vViewDir^m_vRightVector;

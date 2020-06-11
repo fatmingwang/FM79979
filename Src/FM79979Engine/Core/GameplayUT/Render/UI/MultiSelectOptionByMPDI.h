@@ -155,7 +155,7 @@ namespace FATMING_CORE
                     m_fDistanceToScrolling = -m_fDistanceToScrolling;
                 }
 
-                m_fRestDistanceToScrolling = fabs(m_fDistanceToScrolling);
+                m_fRestDistanceToScrolling = (float)fabs(m_fDistanceToScrolling);
                 m_bOnScrolling = true;
                 m_ScrollingTimeCounter.Start();
             }

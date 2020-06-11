@@ -10,9 +10,9 @@ GL_UNSIGNED_INT;
 #else
 GL_UNSIGNED_SHORT;
 #endif
-#ifndef GL_PROGRAM_POINT_SIZE
-#define GL_PROGRAM_POINT_SIZE 0x8642
-#endif
+//#ifndef GL_PROGRAM_POINT_SIZE
+//#define GL_PROGRAM_POINT_SIZE 0x8642
+//#endif
 namespace FATMING_CORE
 {
 	GLuint	g_iMatrixVPLoacation;
@@ -297,7 +297,7 @@ namespace FATMING_CORE
 		g_iColorLoacation =	m_uiColorLoacation;
 		g_iBonesMatrixoacation =	m_uiBonesLocation;
 		g_iPointSizeLoacation = m_uiPointSize;
-#ifndef UWP
+#ifdef WIN32
 		if(g_iPointSizeLoacation != -1)
 			MyGLEnable(GL_PROGRAM_POINT_SIZE);
 		else

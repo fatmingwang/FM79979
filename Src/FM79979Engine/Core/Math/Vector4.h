@@ -162,7 +162,7 @@ public:
 		value and that of the corresponding value of the given Vector4.
 		@param max The FMVector to take values from. */
 	inline void ComponentMaximum(const Vector4& max) { if (x < max.x) x = max.x; if (y < max.y) y = max.y; if (z < max.z) z = max.z; if (w < max.w) w = max.w;}
-	inline Vector4 Abs(){ return Vector4(fabs(x),fabs(y),fabs(z),fabs(w)); }
+	inline Vector4 Abs(){ return Vector4((float)fabs(x), (float)fabs(y), (float)fabs(z), (float)fabs(w)); }
 	inline	void    SetColor(unsigned char*e_pColor){	x = e_pColor[0]/255.f;	y = e_pColor[1]/255.f;	z = e_pColor[2]/255.f;	w = e_pColor[3]/255.f;}
 	inline	void    SetColor(unsigned char e_cR,char e_cG,char e_cB,char e_cA){	x = e_cR/255.f;	y = e_cG/255.f;	z = e_cB/255.f;	w = e_cA/255.f;}
 	//find center position,scale width and height then minus x,y,z,w by width or height's new length

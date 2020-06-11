@@ -160,7 +160,7 @@ public:
 		@return The component average. */
 	inline float ComponentAverage() const { return (fabsf(x) + fabsf(y) + fabsf(z)) / 3.0f; }
 
-	inline Vector3 Abs(){ return Vector3(fabs(x),fabs(y),fabs(z)); }
+	inline Vector3 Abs(){ return Vector3((float)fabs(x), (float)fabs(y), (float)fabs(z)); }
 
 public:
 	static const Vector3 XAxis; /**< The Vector3 representing the x axis */

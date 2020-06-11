@@ -26,10 +26,10 @@ namespace FATMING_CORE
 		cBaseImage*l_pButtonNext = nullptr;
 		cBaseImage*l_pScrollBarBG = nullptr;
 		cBaseImage*l_pSlider = nullptr;
-		const wchar_t*l_strName = nullptr;
+		//const wchar_t*l_strName = nullptr;
 		if (e_eOrientation == eOrientation::eO_HORIZONTAL)
 		{
-			l_strName = L"HScrollBar";
+			//l_strName = L"HScrollBar";
 			l_pButtonPrevious = l_pPI->GetObject(L"ButtonLeft");
 			l_pButtonNext = l_pPI->GetObject(L"ButtonRight");
 			l_pScrollBarBG = l_pPI->GetObject(L"HorizontalScrollBarBG");
@@ -38,7 +38,7 @@ namespace FATMING_CORE
 		else
 			if (e_eOrientation == eOrientation::eO_VERTICAL)
 			{
-				l_strName = L"VScrollBar";
+				//l_strName = L"VScrollBar";
 				l_pButtonPrevious = l_pPI->GetObject(L"ButtonUp");
 				l_pButtonNext = l_pPI->GetObject(L"ButtonDown");
 				l_pScrollBarBG = l_pPI->GetObject(L"VerticalScrollBarBG");
@@ -83,13 +83,13 @@ namespace FATMING_CORE
 			l_vShowPos = Vector3(l_vScrollLocalViewRect.x, l_vScrollLocalViewRect.w + l_fPosOffset, 0.f);
 			Vector3 l_vPos = l_vShowPos;
 			e_pPreviousButton->SetLocalPosition(l_vShowPos);
-			l_fScaleX = (l_vScrollAreaSize.x - l_ButtonSize.x * 2) / l_vBGSize.x;
-			l_fScaleY = (float)l_ButtonSize.x / l_vBGSize.y;
-			l_vPos.x += l_ButtonSize.x;
+			l_fScaleX = (l_vScrollAreaSize.x - (float)l_ButtonSize.x * 2) / (float)l_vBGSize.x;
+			l_fScaleY = (float)l_ButtonSize.x / (float)l_vBGSize.y;
+			l_vPos.x += (float)l_ButtonSize.x;
 			e_pSlider->SetLocalPosition(l_vPos);
-			l_vShowPos.x = l_vScrollLocalViewRect.z - l_ButtonSize.x;
+			l_vShowPos.x = l_vScrollLocalViewRect.z - (float)l_ButtonSize.x;
 			e_pNextButton->SetLocalPosition(l_vShowPos);
-			e_pBG->SetLocalPosition(Vector3(l_vScrollLocalViewRect.x + l_ButtonSize.x, l_vShowPos.y, 0.f));
+			e_pBG->SetLocalPosition(Vector3(l_vScrollLocalViewRect.x + (float)l_ButtonSize.x, l_vShowPos.y, 0.f));
 		}
 		else
 		if (m_eOrientation == eOrientation::eO_VERTICAL)
@@ -98,12 +98,12 @@ namespace FATMING_CORE
 			Vector3 l_vPos = l_vShowPos;
 			e_pPreviousButton->SetLocalPosition(l_vShowPos);
 			l_fScaleX = l_vBGSize.x / (float)l_ButtonSize.x;
-			l_fScaleY = (l_vScrollAreaSize.y - l_ButtonSize.y) / l_vBGSize.y;
-			l_vPos.y += l_ButtonSize.y;
+			l_fScaleY = (l_vScrollAreaSize.y - (float)l_ButtonSize.y) / l_vBGSize.y;
+			l_vPos.y += (float)l_ButtonSize.y;
 			e_pSlider->SetLocalPosition(l_vPos);
-			l_vShowPos.y = l_vScrollLocalViewRect.w - l_ButtonSize.y;
+			l_vShowPos.y = l_vScrollLocalViewRect.w - (float)l_ButtonSize.y;
 			e_pNextButton->SetLocalPosition(l_vShowPos);
-			e_pBG->SetLocalPosition(Vector3(l_vScrollLocalViewRect.z + l_fPosOffset, l_vScrollLocalViewRect.y + l_ButtonSize.y, 0.f));
+			e_pBG->SetLocalPosition(Vector3(l_vScrollLocalViewRect.z + l_fPosOffset, l_vScrollLocalViewRect.y + (float)l_ButtonSize.y, 0.f));
 		}
 		e_pBG->SetWidth((int)(l_fScaleX*l_vBGSize.x));
 		e_pBG->SetHeight(((int)l_fScaleY*l_vBGSize.y));
@@ -176,7 +176,7 @@ namespace FATMING_CORE
 		if (!m_pScrollBox)
 			return;
 		Vector3 l_vBGPos = m_pBGImage->GetWorldPosition();
-		Vector4 l_vBGRect(l_vBGPos.x, l_vBGPos.y, l_vBGPos.x + m_pBGImage->GetWidth(), l_vBGPos.y + m_pBGImage->GetHeight());
+		Vector4 l_vBGRect(l_vBGPos.x, l_vBGPos.y, l_vBGPos.x + (float)m_pBGImage->GetWidth(), l_vBGPos.y + (float)m_pBGImage->GetHeight());
 		if (m_eOrientation == eOrientation::eO_HORIZONTAL)
 		{
 			if (e_iPosX > (int)l_vBGRect.x&&e_iPosX < (int)l_vBGRect.z)

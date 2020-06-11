@@ -179,7 +179,7 @@ namespace FATMING_CORE
         {
             float   l_fMoveDistance = m_fDistanceToScrolling*e_fElpaseTime/m_ScrollingTimeCounter.fTargetTime;
             if(!m_ScrollingTimeCounter.bTragetTimrReached)
-                m_fRestDistanceToScrolling -= fabs(l_fMoveDistance);
+                m_fRestDistanceToScrolling -= (float)fabs(l_fMoveDistance);
             else
             {
                 if( l_fMoveDistance>0.f )

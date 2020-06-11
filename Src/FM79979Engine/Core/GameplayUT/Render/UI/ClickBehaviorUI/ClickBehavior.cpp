@@ -441,8 +441,8 @@ namespace FATMING_CORE
 		if( e_pRenderObject->GetLocalBound() )
 		{
 #ifdef DEBUG
-			RECT l_rect = e_pRenderObject->GetLocalBound()->GetRect();
-			int i=0;
+			//RECT l_rect = e_pRenderObject->GetLocalBound()->GetRect();
+			//int i=0;
 #endif
 		}
 		m_pRenderObject->AddChildToLast(e_pRenderObject);
