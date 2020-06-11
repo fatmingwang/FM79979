@@ -5,7 +5,8 @@
 
 #include "pch.h"
 #include "OpenGLUserControl.xaml.h"
-
+#include "NavPage.xaml.h"
+#include "strsafe.h"
 using namespace UWP_Angle_EmptyProject;
 
 using namespace Platform;
@@ -25,6 +26,7 @@ using namespace Concurrency;
 
 cMPDI*g_pMPDI = nullptr;
 cGameApp*g_pGameApp = nullptr;
+cOrthogonalCamera* g_pOrthogonalCamera = nullptr;
 namespace UWP_Angle_EmptyProject
 {
 	OpenGLUserControl::OpenGLUserControl()
@@ -32,8 +34,14 @@ namespace UWP_Angle_EmptyProject
 		InitializeComponent();
 		m_pOpenGLES = nullptr;
 		m_pOpenGLES = new OpenGLES();
+		g_pOrthogonalCamera = new cOrthogonalCamera();
 		//this->InitGL();
 		this->Loaded += ref new Windows::UI::Xaml::RoutedEventHandler(this, &OpenGLUserControl::OnPageLoaded);
+		auto l_pCoreWindow = Window::Current->CoreWindow;
+		l_pCoreWindow->GetForCurrentThread()->KeyDown += ref new Windows::Foundation::TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &OpenGLUserControl::MyKeyDown);
+		l_pCoreWindow->GetForCurrentThread()->KeyUp += ref new Windows::Foundation::TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &OpenGLUserControl::MyKeyUp);
+		//Windows::ApplicationModel::Core::CoreApplication::MainView->CoreWindow->CharacterReceived += ref new
+//			Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow^, Windows::UI::Core::CharacterReceivedEventArgs^>(this, &UWP_Angle_EmptyProject::OpenGLUserControl::OnCharacterReceived);
 	}
 
 	OpenGLUserControl::~OpenGLUserControl()
@@ -158,21 +166,31 @@ namespace UWP_Angle_EmptyProject
 				EGLint panelWidth = 0;
 				EGLint panelHeight = 0;
 				if (m_pOpenGLES)
+				{
 					m_pOpenGLES->GetSurfaceDimensions(m_RenderSurface, &panelWidth, &panelHeight);
+				}
 				l_Error = glGetError();
 				if (g_pGameApp)
 				{
-					g_pGameApp->Run();
-					glViewport(0, 0, panelWidth, panelHeight);
+					//glViewport(0, 0, panelWidth, panelHeight);
 					glEnable(GL_BLEND);
 					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					glClearColor(1, 0, 0, 1);
+					glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+					g_pGameApp->Run();
+					//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(panelWidth, panelHeight, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+					cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = Vector4(0.f, 0.f, (float)panelWidth, (float)panelHeight);
 				}
-				glEnable2D(1920, 1080);
+				//glEnable2D(panelWidth, panelHeight);
+				if (g_pOrthogonalCamera)
+				{
+					g_pOrthogonalCamera->SetResolution(Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+					g_pOrthogonalCamera->Render();
+					g_pOrthogonalCamera->DrawGrid();
+				}
 				if (g_pMPDI)
 				{
-					g_pMPDI->Update(0.016f);
+					g_pMPDI->Update(g_pGameApp->m_sTimeAndFPS.fElpaseTime);
 					g_pMPDI->Render();
 					g_pGameApp->ShowInfo();
 				}
@@ -250,4 +268,139 @@ namespace UWP_Angle_EmptyProject
 
 		return surface;
 	}
+}
+//https://docs.microsoft.com/en-us/uwp/api/windows.ui.input.pointerpoint?view=winrt-19041
+void UWP_Angle_EmptyProject::OpenGLUserControl::swapChainPanel_PointerMoved(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+{
+	if (!g_pGameApp)
+		return;
+	Windows::UI::Xaml::Input::Pointer^ ptr = e->Pointer;
+	// Multiple, simultaneous mouse button inputs are processed here.
+	// Mouse input is associated with a single pointer assigned when 
+	// mouse input is first detected. 
+	// Clicking additional mouse buttons (left, wheel, or right) during 
+	// the interaction creates secondary associations between those buttons 
+	// and the pointer through the pointer pressed event. 
+	// The pointer released event is fired only when the last mouse button 
+	// associated with the interaction (not necessarily the initial button) 
+	// is released. 
+	// Because of this exclusive association, other mouse button clicks are 
+	// routed through the pointer move event.          
+	//if (ptr->PointerDeviceType == Windows::Devices::Input::PointerDeviceType::Mouse)
+	{
+		// To get mouse state, we need extended pointer details.
+		// We get the pointer info through the getCurrentPoint method
+		// of the event argument. 
+		if (f_MouseEvent != nullptr)
+		{
+			f_MouseEvent(this, e);
+		}
+		//String^ l_str = "";
+		Windows::UI::Input::PointerPoint^ ptrPt = e->GetCurrentPoint(swapChainPanel);
+		//Windows::Devices::Input::PointerDeviceType::Mouse;
+		//e->Pointer->PointerDeviceType;
+		bool l_bLeft = false;
+		bool l_bRight = false;
+		int	 l_iWheel = ptrPt->Properties->MouseWheelDelta;
+		if (ptrPt->Properties->IsLeftButtonPressed)
+		{
+			//eventLog.Text += "\nLeft button: " + ptrPt.PointerId;
+			//l_str = "\nLeft button: " + ptrPt->PointerId;
+			g_pGameApp->MouseDown((int)ptrPt->Position.X, (int)ptrPt->Position.Y);
+			l_bLeft = true;
+		}
+		else
+		if (ptrPt->Properties->IsMiddleButtonPressed)
+		{
+			//eventLog.Text += "\nWheel button: " + ptrPt.PointerId;
+			//l_str = "\nWheel button: " + ptrPt->PointerId;
+		}
+		else
+		if (ptrPt->Properties->IsRightButtonPressed)
+		{
+			//eventLog.Text += "\nRight button: " + ptrPt.PointerId;
+			//l_str = "\nRight button: " + ptrPt->PointerId;
+			l_bRight = true;
+		}
+		else
+		{
+			g_pGameApp->MouseMove((int)ptrPt->Position.X, (int)ptrPt->Position.Y);
+		}
+		if(Window::Current->CoreWindow->GetKeyState(Windows::System::VirtualKey::Control) == Windows::UI::Core::CoreVirtualKeyStates::Down)
+		{
+			l_iWheel *= 10;
+		}
+
+		g_pOrthogonalCamera->CameraUpdateByMouse(l_bLeft, l_bRight, l_iWheel,(int)ptrPt->Position.X, (int)ptrPt->Position.Y,
+			Vector2(cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.Height()),1.f);
+		auto l_vMousePos = g_pOrthogonalCamera->GetMouseWorldPos();
+		cGameApp::m_sMousePosition.x = (long)l_vMousePos.x;
+		cGameApp::m_sMousePosition.y = (long)l_vMousePos.y;
+	}
+
+	// Prevent most handlers along the event route from handling the same event again.
+	e->Handled = true;
+	//swapChainPanel->Focus(FocusState::Programmatic);
+	//swapChainPanel->FocusVisualMargin()
+	// Display pointer details.
+	//updateInfoPop(e);
+}
+
+
+void UWP_Angle_EmptyProject::OpenGLUserControl::swapChainPanel_PointerReleased(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e)
+{
+	Windows::UI::Input::PointerPoint^ ptrPt = e->GetCurrentPoint(swapChainPanel);
+	if (g_pGameApp)
+	{
+		g_pGameApp->MouseUp((int)ptrPt->Position.X, (int)ptrPt->Position.Y);
+	}
+}
+
+
+//void UWP_Angle_EmptyProject::OpenGLUserControl::SwapChainPanel_KeyDown(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e)
+//{
+//	if (g_pGameApp)
+//	{
+//		g_pGameApp->KeyDown((char)e->Key);
+//	}
+//}
+//
+//
+//void UWP_Angle_EmptyProject::OpenGLUserControl::SwapChainPanel_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e)
+//{
+//	if (g_pGameApp)
+//	{
+//		g_pGameApp->KeyUp((char)e->Key);
+//	}
+//}
+
+//void UWP_Angle_EmptyProject::OpenGLUserControl::OnCharacterReceived(Windows::UI::Core::CoreWindow^ sender, Windows::UI::Core::CharacterReceivedEventArgs^ args)
+//{
+//	bool iskey = false;
+//	int keycode = args->KeyCode;
+//	auto l_ScanCode = args->KeyStatus.ScanCode;
+//	TCHAR buf[1024];
+//	size_t cbDest = 1024 * sizeof(TCHAR);
+//	StringCbPrintf(buf, cbDest, TEXT("frequency = %d"), l_ScanCode);
+//	OutputDebugString(buf);
+//	if (args->KeyStatus.IsKeyReleased)
+//	{
+//		g_pGameApp->KeyUp((char)keycode);
+//	}
+//	else
+//	if(args->KeyStatus.WasKeyDown)
+//	{
+//		g_pGameApp->KeyDown((char)keycode);
+//	}
+//}
+
+void UWP_Angle_EmptyProject::OpenGLUserControl::MyKeyDown(CoreWindow^sender, KeyEventArgs^e)
+{
+	g_pGameApp->KeyDown((char)e->VirtualKey);
+	
+}
+void UWP_Angle_EmptyProject::OpenGLUserControl::MyKeyUp(CoreWindow^ sender, KeyEventArgs^ e)
+{
+	g_pGameApp->KeyUp((char)e->VirtualKey);
+
 }

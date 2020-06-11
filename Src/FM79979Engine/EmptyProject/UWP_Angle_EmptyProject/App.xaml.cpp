@@ -49,9 +49,9 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 		DebugSettings->EnableFrameRateCounter = true;
 	}
 #endif
-	if (m_OpenGLUserControl == nullptr)
+	if (m_pNavPage == nullptr)
 	{
-		m_OpenGLUserControl = ref new OpenGLUserControl();
+		m_pNavPage = ref new NavPage();
 	}
 	//if (e->PreviousExecutionState == ApplicationExecutionState::Terminated)
 	//{
@@ -94,9 +94,9 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 		// Ensure the current window is active
 		Window::Current->Activate();
 	}
-	if (m_OpenGLUserControl)
+	if (m_pNavPage)
 	{
-		Windows::UI::Xaml::Window::Current->Content = m_OpenGLUserControl;
+		Windows::UI::Xaml::Window::Current->Content = m_pNavPage;
 		Windows::UI::Xaml::Window::Current->Activate();
 	}
 }

@@ -3,5 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:UWP_Angle_EmptyProject">
-
+    <!--<Application.Resources>
+        <StaticResource x:Key="TabViewButtonBackground"                  ResourceKey="SystemControlTransparentBrush" />
+    </Application.Resources>-->
 </Application>

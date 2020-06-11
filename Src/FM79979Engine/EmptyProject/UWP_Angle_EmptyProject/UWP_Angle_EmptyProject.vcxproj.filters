@@ -1,49 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Common">
-      <UniqueIdentifier>1959d007-4dcf-462e-89e9-3356b36eb2f4</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets">
       <UniqueIdentifier>50787949-7d07-46e1-af41-446e19f9314c</UniqueIdentifier>
       <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
     </Filter>
-    <Filter Include="Content">
-      <UniqueIdentifier>adfeb513-5d2c-455a-8e7b-395dfbac323b</UniqueIdentifier>
-    </Filter>
-    <ClInclude Include="Common\DirectXHelper.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\StepTimer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Common\DeviceResources.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClCompile Include="Common\DeviceResources.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClInclude Include="Content\Sample3DSceneRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\SampleFpsTextRenderer.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClInclude Include="Content\ShaderStructures.h">
-      <Filter>Content</Filter>
-    </ClInclude>
-    <ClCompile Include="Content\Sample3DSceneRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <ClCompile Include="Content\SampleFpsTextRenderer.cpp">
-      <Filter>Content</Filter>
-    </ClCompile>
-    <FxCompile Include="Content\SamplePixelShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
-    <FxCompile Include="Content\SampleVertexShader.hlsl">
-      <Filter>Content</Filter>
-    </FxCompile>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
@@ -68,27 +29,32 @@
     <Filter Include="TimeLine">
       <UniqueIdentifier>{47dbd42c-08b0-4e4a-aac5-ecfb04bd1a16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{aa5f7816-83ec-4aef-ad43-5d8ab78fada6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.xaml.cpp" />
-    <ClCompile Include="UWP_Angle_EmptyProjectMain.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="OpenGLUserControl.xaml.cpp" />
     <ClCompile Include="OpenGLES.cpp">
       <Filter>OpenGLES</Filter>
     </ClCompile>
+    <ClCompile Include="TimeLine\TimeLineControl.xaml.cpp" />
+    <ClCompile Include="TimeLine\TimeLineData.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.xaml.h" />
-    <ClInclude Include="UWP_Angle_EmptyProjectMain.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="OpenGLUserControl.xaml.h" />
     <ClInclude Include="OpenGLES.h">
       <Filter>OpenGLES</Filter>
     </ClInclude>
+    <ClInclude Include="TimeLine\TimeLineControl.xaml.h" />
+    <ClInclude Include="TimeLine\TimeLineData.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -109,6 +75,9 @@
     </Page>
     <Page Include="TimeLine\TimeLineData.xaml">
       <Filter>TimeLine</Filter>
+    </Page>
+    <Page Include="NavPage.xaml">
+      <Filter>UI</Filter>
     </Page>
   </ItemGroup>
 </Project>

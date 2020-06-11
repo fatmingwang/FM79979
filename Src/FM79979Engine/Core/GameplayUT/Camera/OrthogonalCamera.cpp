@@ -202,35 +202,48 @@ namespace FATMING_CORE
 		 m_MouseBehave.Update(l_sMouseState);
 		 //POINT l_ViewportSize = { (int)e_vViewport.x,(int)e_vViewport.y };
 		//if scale is active we have to know old position and caompare to new mouse position.
-		Vector2	l_PerviousWorldMousePosition;
 		//to get old width and height,so we know the percentage
-		float	l_fOldWidth;
-		float	l_fOldHeight;
+		//float	l_fOldWidth;
+		//float	l_fOldHeight;
 		if(this->m_MouseBehave.GetMouseState().bMidButton)//go ahead with camera direction
 		{
-			l_PerviousWorldMousePosition = m_MouseWorldPosition;
-			m_fScale += ((float)m_MouseBehave.GetMouseState().iMoveZ/100.f);
-			l_fOldWidth = m_vViewRect.z-m_vViewRect.x;
-			l_fOldHeight = m_vViewRect.w-m_vViewRect.y;
+			Vector2	l_PerviousWorldMousePosition = m_MouseWorldPosition;
+			float l_fNewScale = ((float)m_MouseBehave.GetMouseState().iMoveZ / 100.f);
+			m_fScale += l_fNewScale;
+			float	l_fNewWidth = m_vResolution.x * m_fScale;
+			float	l_fNewHeight = m_vResolution.y * m_fScale;
+			Vector2 l_vMousePosScale(e_iMouseX / e_vViewport.x, e_iMouseY / e_vViewport.y);
+			m_vViewRect.x = m_MouseWorldPosition.x-(l_vMousePosScale.x* l_fNewWidth);
+			m_vViewRect.z = m_vViewRect.x + l_fNewWidth;
+			m_vViewRect.y = m_MouseWorldPosition.y - (l_vMousePosScale.y * l_fNewHeight);
+			m_vViewRect.w = m_vViewRect.y + l_fNewHeight;
+			m_CameraPos.x = (m_vViewRect.z - m_vViewRect.x) / 2+ m_vViewRect.x;
+			m_CameraPos.y = (m_vViewRect.w - m_vViewRect.y) / 2+ m_vViewRect.y;
 		}
 		else
 		if(this->m_MouseBehave.GetMouseState().bRigButton)
 		{		
 			m_CameraPos.x += ((float)m_MouseBehave.GetMouseState().iMoveX*e_fMoveSpeed);
 			m_CameraPos.y += ((float)m_MouseBehave.GetMouseState().iMoveY*e_fMoveSpeed);
+			float	l_fNewWidth = m_vResolution.x * m_fScale;
+			float	l_fNewHeight = m_vResolution.y * m_fScale;
+			m_vViewRect.x = m_CameraPos.x - (l_fNewWidth / 2.f);
+			m_vViewRect.z = m_vViewRect.x + l_fNewWidth;
+			m_vViewRect.y = m_CameraPos.y - (l_fNewHeight / 2.f);
+			m_vViewRect.w = m_vViewRect.y + l_fNewHeight;
 		}
-		float	l_fNewWidth = m_vResolution.x*m_fScale;
-		float	l_fNewHeight = m_vResolution.y*m_fScale;
-		m_vViewRect.x = m_CameraPos.x-(l_fNewWidth/2.f);
-		m_vViewRect.z = m_vViewRect.x+l_fNewWidth;
-		m_vViewRect.y = m_CameraPos.y-(l_fNewHeight/2.f);
-		m_vViewRect.w = m_vViewRect.y+l_fNewHeight;
-		m_MouseWorldPosition = ConvertMousePositionToWorldPosition(Vector2((float)m_MouseBehave.GetMouseState().iCurrentX,(float)m_MouseBehave.GetMouseState().iCurrentY),Vector2((float)e_vViewport.x,(float)e_vViewport.y));
-		if(this->m_MouseBehave.GetMouseState().bMidButton)
+		else
 		{
-			m_CameraPos.x -= ((m_MouseWorldPosition.x-l_PerviousWorldMousePosition.x))*(l_fOldWidth/l_fNewWidth);//old postion minus new position and plus the rate we have changed
-			m_CameraPos.y -= ((m_MouseWorldPosition.y-l_PerviousWorldMousePosition.y))*(l_fOldHeight/l_fNewHeight);
+			float	l_fNewWidth = m_vResolution.x * m_fScale;
+			float	l_fNewHeight = m_vResolution.y * m_fScale;
+			m_vViewRect.x = m_CameraPos.x - (l_fNewWidth / 2.f);
+			m_vViewRect.z = m_vViewRect.x + l_fNewWidth;
+			m_vViewRect.y = m_CameraPos.y - (l_fNewHeight / 2.f);
+			m_vViewRect.w = m_vViewRect.y + l_fNewHeight;
+			m_CameraPos.x = (m_vViewRect.z - m_vViewRect.x) / 2 + m_vViewRect.x;
+			m_CameraPos.y = (m_vViewRect.w - m_vViewRect.y) / 2 + m_vViewRect.y;
 		}
+		m_MouseWorldPosition = ConvertMousePositionToWorldPosition(Vector2((float)m_MouseBehave.GetMouseState().iCurrentX, (float)m_MouseBehave.GetMouseState().iCurrentY), Vector2((float)e_vViewport.x, (float)e_vViewport.y));
 		//below is not necessary,but it's helpful while we want to draw rectange to show position info on the screen
 		POINT	l_MouseWorldPosition = {(int)m_MouseWorldPosition.x,(int)m_MouseWorldPosition.y};
 		m_DrawSelectRectangleByMouse.Update(this->m_MouseBehave.GetMouseState().bLefButton,l_MouseWorldPosition);

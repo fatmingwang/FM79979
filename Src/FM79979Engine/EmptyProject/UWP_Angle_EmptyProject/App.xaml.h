@@ -6,7 +6,7 @@
 #pragma once
 
 #include "App.g.h"
-#include "OpenGLUserControl.xaml.h"
+#include "NavPage.xaml.h"
 namespace UWP_Angle_EmptyProject
 {
 		/// <summary>
@@ -22,6 +22,6 @@ namespace UWP_Angle_EmptyProject
 		void OnSuspending(Platform::Object^ sender, Windows::ApplicationModel::SuspendingEventArgs^ e);
 		void OnResuming(Platform::Object ^sender, Platform::Object ^args);
 		void OnNavigationFailed(Platform::Object ^sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs ^e);
-		OpenGLUserControl^m_OpenGLUserControl;
+		NavPage^ m_pNavPage;
 	};
 }

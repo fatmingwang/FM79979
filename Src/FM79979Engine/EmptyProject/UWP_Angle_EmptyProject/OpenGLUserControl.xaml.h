@@ -27,6 +27,8 @@ namespace UWP_Angle_EmptyProject
 		OpenGLUserControl();
 		virtual ~OpenGLUserControl();
 		//void	ScheduleRendering();
+		//Platforms::
+		property EventHandler<Platform::Object^>^ f_MouseEvent;
 	private:
 
 		void OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
@@ -37,9 +39,18 @@ namespace UWP_Angle_EmptyProject
 		void StartRenderLoop();
 		void StopRenderLoop();
 
-		OpenGLES*	m_pOpenGLES;
-		EGLSurface	m_RenderSurface;     // This surface is associated with a swapChainPanel on the page
+		OpenGLES*			m_pOpenGLES;
+		EGLSurface			m_RenderSurface;     // This surface is associated with a swapChainPanel on the page
+
 		Concurrency::critical_section m_RenderSurfaceCriticalSection;
 		Windows::Foundation::IAsyncAction^ m_pRenderLoopWorker;
+		void swapChainPanel_PointerMoved(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		void swapChainPanel_PointerReleased(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		//void SwapChainPanel_KeyDown(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
+		//void SwapChainPanel_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
+
+		void MyKeyDown(CoreWindow^,KeyEventArgs^);
+		void MyKeyUp(CoreWindow^, KeyEventArgs^);
+
 	};
 }

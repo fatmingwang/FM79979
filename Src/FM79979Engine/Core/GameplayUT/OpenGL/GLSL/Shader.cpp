@@ -297,10 +297,12 @@ namespace FATMING_CORE
 		g_iColorLoacation =	m_uiColorLoacation;
 		g_iBonesMatrixoacation =	m_uiBonesLocation;
 		g_iPointSizeLoacation = m_uiPointSize;
+#ifndef UWP
 		if(g_iPointSizeLoacation != -1)
 			MyGLEnable(GL_PROGRAM_POINT_SIZE);
 		else
 			MyGLDisable(GL_PROGRAM_POINT_SIZE);
+#endif
 		if( g_iColorLoacation != (unsigned int)-1 )
 			SetupShaderColor(Vector4::One);
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;

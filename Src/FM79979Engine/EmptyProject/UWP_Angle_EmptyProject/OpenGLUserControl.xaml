@@ -5,23 +5,13 @@
     xmlns:local="using:UWP_Angle_EmptyProject"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
+    xmlns:myui="using:UWP_Angle_EmptyProject"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <SwapChainPanel x:Name="swapChainPanel" Grid.Row="0" Width="Auto" Height="Auto" >
-            <TextBlock Text="Hello from XAML!"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Top"
-                   FontSize="30" />
+        <SwapChainPanel x:Name="swapChainPanel"  Width="Auto" Height="Auto" PointerMoved="swapChainPanel_PointerMoved" PointerPressed="swapChainPanel_PointerMoved" PointerReleased="swapChainPanel_PointerReleased" PointerWheelChanged="swapChainPanel_PointerMoved" >
         </SwapChainPanel>
-        <ListView Grid.Row="1" HorizontalAlignment="Stretch">
-            <ListViewItem Content="1"/>
-            <ListViewItem Content="2"/>
-        </ListView>
     </Grid>
 </Page>
