@@ -395,6 +395,7 @@
     </RemotePostBuildEvent>
     <ClCompile>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -412,7 +413,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <AdditionalIncludeDirectories>.\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

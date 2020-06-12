@@ -19,3 +19,4 @@
 #include "XML/XMLLoader.h"
 #include "AllMathInclude.h"
 #include "Network/GameNetWork.h"
+#include "Network/happyhttp.h"

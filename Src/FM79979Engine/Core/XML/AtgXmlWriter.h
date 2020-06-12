@@ -81,6 +81,7 @@
 #define ATGXMLWRITER_H
 
 #include <vector>
+#include <string>
 #ifdef _XBOX360
 #include <xtl.h>
 #endif
