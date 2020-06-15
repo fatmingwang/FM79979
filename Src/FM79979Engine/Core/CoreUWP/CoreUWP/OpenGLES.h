@@ -9,6 +9,8 @@
 #include <EGL/eglext.h>
 #include <EGL/eglplatform.h>
 
+#include <angle_windowsstore.h>
+
 class OpenGLES
 {
 public:

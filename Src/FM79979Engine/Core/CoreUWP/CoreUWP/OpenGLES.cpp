@@ -1,6 +1,4 @@
-#include "pch.h"
 #include "OpenGLES.h"
-
 using namespace Platform;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::Foundation;

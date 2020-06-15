@@ -266,7 +266,6 @@
     <ClInclude Include="NavPage.xaml.h">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="OpenGLES.h" />
     <ClInclude Include="OpenGLUserControl.xaml.h">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
     </ClInclude>
@@ -285,7 +284,6 @@
     <ClCompile Include="NavPage.xaml.cpp">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="OpenGLES.cpp" />
     <ClCompile Include="OpenGLUserControl.xaml.cpp">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
     </ClCompile>

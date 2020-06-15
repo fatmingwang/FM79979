@@ -182,6 +182,7 @@
     <ClCompile Include="..\..\XML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\XML\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\XML\XmlLoader.cpp" />
+    <ClCompile Include="OpenGLES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\BinaryFile\BinaryFile.h" />
@@ -352,6 +353,7 @@
     <ClInclude Include="..\..\XML\tinyxml.h" />
     <ClInclude Include="..\..\XML\tinyxml2.h" />
     <ClInclude Include="..\..\XML\XMLLoader.h" />
+    <ClInclude Include="OpenGLES.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3c63e603-3b30-4510-9435-f73137af75d4}</ProjectGuid>

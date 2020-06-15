@@ -6,8 +6,8 @@
 #pragma once
 
 #include "OpenGLUserControl.g.h"
-#include "OpenGLES.h"
 #include <angle_windowsstore.h>
+#include "../../Core/CoreUWP/CoreUWP/OpenGLES.h"
 
 using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml;
