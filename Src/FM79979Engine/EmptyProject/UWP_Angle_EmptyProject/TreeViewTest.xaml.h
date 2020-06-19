@@ -1,0 +1,31 @@
+﻿//
+// TreeViewTest.xaml.h
+// Declaration of the TreeViewTest class
+//
+
+#pragma once
+
+#include "TreeViewTest.g.h"
+#define MUX Microsoft::UI::Xaml::Controls
+namespace UWP_Angle_EmptyProject
+{
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	[Windows::Foundation::Metadata::WebHostHidden]
+	public ref class TreeViewTest sealed
+	{
+		MUX::TreeViewNode^ m_pSelectedNode;
+		MUX::TreeViewNode^ m_pSelectedNodeOriginalParent;
+	public:
+		TreeViewTest();
+	private:
+		void m_TreeView_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
+		void m_TreeView_PointerEntered(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		void m_ContentDialog_PrimaryButtonClick(Windows::UI::Xaml::Controls::ContentDialog^ sender, Windows::UI::Xaml::Controls::ContentDialogButtonClickEventArgs^ args);
+		void m_TreeView_DragItemsCompleted(Microsoft::UI::Xaml::Controls::TreeView^ sender, Microsoft::UI::Xaml::Controls::TreeViewDragItemsCompletedEventArgs^ args);
+		void m_TreeView_DragItemsStarting(Microsoft::UI::Xaml::Controls::TreeView^ sender, Microsoft::UI::Xaml::Controls::TreeViewDragItemsStartingEventArgs^ args);
+		void m_TreeView_PointerReleased(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
+		void AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+	};
+}

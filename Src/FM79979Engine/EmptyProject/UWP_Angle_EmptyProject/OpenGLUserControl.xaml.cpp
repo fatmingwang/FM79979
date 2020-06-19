@@ -35,7 +35,6 @@ namespace UWP_Angle_EmptyProject
 		m_pOpenGLES = nullptr;
 		m_pOpenGLES = new OpenGLES();
 		g_pOrthogonalCamera = new cOrthogonalCamera();
-		//this->InitGL();
 		this->Loaded += ref new Windows::UI::Xaml::RoutedEventHandler(this, &OpenGLUserControl::OnPageLoaded);
 		auto l_pCoreWindow = Window::Current->CoreWindow;
 		l_pCoreWindow->GetForCurrentThread()->KeyDown += ref new Windows::Foundation::TypedEventHandler<CoreWindow^, KeyEventArgs^>(this, &OpenGLUserControl::MyKeyDown);
@@ -47,6 +46,7 @@ namespace UWP_Angle_EmptyProject
 	OpenGLUserControl::~OpenGLUserControl()
 	{
 		StopRenderLoop();
+		SAFE_DELETE(g_pGameApp);
 		DestroyRenderSurface();
 		if (m_pOpenGLES)
 			delete m_pOpenGLES;
@@ -86,21 +86,6 @@ namespace UWP_Angle_EmptyProject
 			{
 				m_pOpenGLES->Initialize();
 				m_RenderSurface = m_pOpenGLES->CreateSurface(swapChainPanel, nullptr, nullptr);
-				if (!g_pGameApp)
-				{
-					if (m_pOpenGLES)
-						m_pOpenGLES->MakeCurrent(m_RenderSurface);
-					g_pGameApp = new cGameApp(nullptr);
-					g_pGameApp->Init();
-					auto l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"MPDI/bgrounda01.mpdi");
-					if (l_pMPDILIst)
-					{
-						//g_pMPDI = l_pMPDILIst->GetObject(L"SelectCustomerPointPage");
-						g_pMPDI = l_pMPDILIst->GetObject(0);
-						if (g_pMPDI)
-							g_pMPDI->Init();
-					}
-				}
 			}
 
 			// You can configure the SwapChainPanel to render at a lower resolution and be scaled up to
@@ -170,7 +155,23 @@ namespace UWP_Angle_EmptyProject
 					m_pOpenGLES->GetSurfaceDimensions(m_RenderSurface, &panelWidth, &panelHeight);
 				}
 				l_Error = glGetError();
-				if (g_pGameApp)
+				//some network things need to do after all UI created or show no internet conneciton found
+				if (!g_pGameApp)
+				{
+					if (m_pOpenGLES)
+						m_pOpenGLES->MakeCurrent(m_RenderSurface);
+					g_pGameApp = new cGameApp(nullptr);
+					g_pGameApp->Init();
+					auto l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"MPDI/bgrounda01.mpdi");
+					if (l_pMPDILIst)
+					{
+						//g_pMPDI = l_pMPDILIst->GetObject(L"SelectCustomerPointPage");
+						g_pMPDI = l_pMPDILIst->GetObject(0);
+						if (g_pMPDI)
+							g_pMPDI->Init();
+					}
+				}
+				else
 				{
 					//glViewport(0, 0, panelWidth, panelHeight);
 					glEnable(GL_BLEND);
@@ -396,11 +397,13 @@ void UWP_Angle_EmptyProject::OpenGLUserControl::swapChainPanel_PointerReleased(P
 
 void UWP_Angle_EmptyProject::OpenGLUserControl::MyKeyDown(CoreWindow^sender, KeyEventArgs^e)
 {
-	g_pGameApp->KeyDown((char)e->VirtualKey);
+	if(g_pGameApp)
+		g_pGameApp->KeyDown((char)e->VirtualKey);
 	
 }
 void UWP_Angle_EmptyProject::OpenGLUserControl::MyKeyUp(CoreWindow^ sender, KeyEventArgs^ e)
 {
-	g_pGameApp->KeyUp((char)e->VirtualKey);
+	if (g_pGameApp)
+		g_pGameApp->KeyUp((char)e->VirtualKey);
 
 }

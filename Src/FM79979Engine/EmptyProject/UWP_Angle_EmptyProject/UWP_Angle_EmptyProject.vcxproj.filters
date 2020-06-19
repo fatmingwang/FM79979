@@ -70,5 +70,11 @@
     <Page Include="NavPage.xaml">
       <Filter>UI</Filter>
     </Page>
+    <Page Include="TreeViewTest.xaml">
+      <Filter>UI</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>
