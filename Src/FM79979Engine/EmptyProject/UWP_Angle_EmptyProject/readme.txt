@@ -18,3 +18,12 @@ then do as below
 checknetisolation LoopbackExempt -is -n=YourAppName
 checknetisolation LoopbackExempt -is -n=com.fm_r7ytfjdgrj97w
 https://docs.microsoft.com/en-us/windows/uwp/communication/interprocess-communication
+
+
+
+
+
+
+
+custom delegete 
+https://docs.microsoft.com/en-us/cpp/cppcx/delegates-c-cx?view=vs-2019

@@ -11,18 +11,21 @@
     <Page.Resources>
         <muxc:CommandBarFlyout Placement="Right" x:Name="CommandBarFlyout1">
             <muxc:CommandBarFlyout.SecondaryCommands>
-                <AppBarButton Label="Rename" Icon="Rename" ToolTipService.ToolTip="Rename" Click="AppBarButton_Click"/>
-                <AppBarButton Label="Copy" Icon="Copy" ToolTipService.ToolTip="Copy" Click="AppBarButton_Click"/>
-                <AppBarButton Label="Save" Icon="Cut" ToolTipService.ToolTip="Cut" Click="AppBarButton_Click"/>
-                <AppBarButton Label="Delete" Icon="Paste" ToolTipService.ToolTip="Paste" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_RenameButton" Label="Rename" Icon="Rename" ToolTipService.ToolTip="Rename" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_NewButton" Label="New" Icon="NewFolder" ToolTipService.ToolTip="New" Click="AppBarButton_Click" />
+                <AppBarButton x:Name="m_CopyButton" Label="Copy" Icon="Copy" ToolTipService.ToolTip="Copy" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_CutButton" Label="Cut" Icon="Cut" ToolTipService.ToolTip="Cut" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_PasteButton" Label="Paste" Icon="Paste" ToolTipService.ToolTip="Paste" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_DeleteButton" Label="Delete" Icon="Delete" ToolTipService.ToolTip="Delete" Click="AppBarButton_Click"/>
             </muxc:CommandBarFlyout.SecondaryCommands>
         </muxc:CommandBarFlyout>
     </Page.Resources>
     <Grid>
-        <muxc:TreeView  x:Name="m_TreeView" CanDragItems="True" AllowDrop="True" PreviewKeyUp="m_TreeView_KeyUp" 
-                        PointerReleased="m_TreeView_PointerReleased" PointerEntered="m_TreeView_PointerEntered"  
+        <!--PointerReleased="m_TreeView_PointerReleased" PointerEntered="m_TreeView_PointerEntered" PreviewKeyUp="m_TreeView_KeyUp" -->
+        <muxc:TreeView  x:Name="m_TreeView" CanDragItems="True" AllowDrop="True" 
                         DragItemsCompleted="m_TreeView_DragItemsCompleted" 
                         DragItemsStarting="m_TreeView_DragItemsStarting" 
+                        SelectionMode="Multiple"
                         ContextFlyout="{x:Bind CommandBarFlyout1}"/>
         <ContentDialog x:Name="m_ContentDialog"
             Title="NodeName"
@@ -32,5 +35,13 @@
             PrimaryButtonClick="m_ContentDialog_PrimaryButtonClick">
             <TextBox x:Name="m_TextBox" Text="Name"/>
         </ContentDialog>
+        <muxc:TeachingTip x:Name="RootNodeNotAllowRename_TeachingTip"
+	            Title="Root Node not allow rename"
+	            Subtitle="Warning"
+	            PreferredPlacement="Auto"
+	            PlacementMargin="0"
+	            IsLightDismissEnabled="True"
+	            CloseButtonContent="Ok">
+        </muxc:TeachingTip>
     </Grid>
 </Page>

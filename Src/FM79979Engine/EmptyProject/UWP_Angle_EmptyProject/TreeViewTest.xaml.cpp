@@ -35,6 +35,22 @@ TreeViewTest::TreeViewTest()
     l_Child2->Content = "Child2";
     workFolder->Children->Append(l_Child1);
     workFolder->Children->Append(l_Child2);
+
+    auto l_Child21 = ref new MUX::TreeViewNode();
+    auto l_Child22 = ref new MUX::TreeViewNode();
+    auto l_Child23 = ref new MUX::TreeViewNode();
+    auto l_Child24 = ref new MUX::TreeViewNode();
+    auto l_Child25 = ref new MUX::TreeViewNode();
+    l_Child21->Content = "21";
+    l_Child22->Content = "22";
+    l_Child23->Content = "23";
+    l_Child24->Content = "24";
+    l_Child25->Content = "25";
+    l_Child2->Children->Append(l_Child21);
+    l_Child2->Children->Append(l_Child22);
+    l_Child2->Children->Append(l_Child23);
+    l_Child2->Children->Append(l_Child24);
+    l_Child2->Children->Append(l_Child25);
     //workFolder->ChildrenAdd(new mux.TreeViewNode() { Content = "Feature Schedule" });
     //workFolder.Children.Add(new mux.TreeViewNode() { Content = "Overall Project Plan" });
     //workFolder.Children.Add(new mux.TreeViewNode() { Content = "Feature Resources Allocation" });
@@ -62,9 +78,15 @@ TreeViewTest::TreeViewTest()
 }
 
 
-void UWP_Angle_EmptyProject::TreeViewTest::m_TreeView_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e)
+void UWP_Angle_EmptyProject::TreeViewTest::ShowRenameDialog()
 {
     auto l_SelectedNode = m_TreeView->SelectedNode;
+    auto l_Root = m_TreeView->RootNodes->GetAt(0);
+    if (l_SelectedNode == l_Root)
+    {
+        RootNodeNotAllowRename_TeachingTip->IsOpen = true;
+        return;
+    }
     if (l_SelectedNode)
     {
         m_pSelectedNode = l_SelectedNode;
@@ -84,7 +106,19 @@ void UWP_Angle_EmptyProject::TreeViewTest::m_ContentDialog_PrimaryButtonClick(Wi
 {
     if (m_pSelectedNode)
     {
-        m_pSelectedNode->Content = m_TextBox->Text;
+        auto l_Root = m_TreeView->RootNodes->GetAt(0);
+        if (l_Root == m_pSelectedNode)
+        {
+
+        }
+        else
+        {
+            m_pSelectedNode->Content = m_TextBox->Text;
+            m_TreeView->Collapse(m_TreeView->RootNodes->GetAt(0));
+            m_TreeView->SelectedNode = m_pSelectedNode;
+            m_TreeView->Expand(m_TreeView->RootNodes->GetAt(0));
+            m_pSelectedNode = nullptr;
+        }
     }
 }
 
@@ -152,5 +186,35 @@ void UWP_Angle_EmptyProject::TreeViewTest::m_TreeView_PointerReleased(Platform::
 
 void UWP_Angle_EmptyProject::TreeViewTest::AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+    AppBarButton^ l_pSender = (AppBarButton^)sender;
+    auto l_strSenderName = l_pSender->Name;
+    if (l_pSender->Name == this->m_RenameButton->Name)
+    {
+        ShowRenameDialog();
+    }
+    else
+    if (l_strSenderName == this->m_CopyButton->Name)
+    {
+    }
+    else
+    if(l_strSenderName == this->m_CutButton->Name)
+    {
+    }
+    else
+    if (l_strSenderName == this->m_DeleteButton->Name)
+    {
+    }
+    else
+    if (l_strSenderName == this->m_PasteButton->Name)
+    {
+    }
+    else
+    if (l_strSenderName == this->m_NewButton->Name)
+    {
+        //m_ContentDialog->PrimaryButtonClick->removeAll();
+        //m_ContentDialog->
+        //m_TextBox->Text = l_SelectedNode->Content->ToString();
+        //m_ContentDialog->ShowAsync();
+        //ContentDialogResult result = await noWifiDialog.ShowAsync();
+    }
 }

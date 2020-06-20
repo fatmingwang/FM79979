@@ -7,6 +7,7 @@
 
 #include "TreeViewTest.g.h"
 #define MUX Microsoft::UI::Xaml::Controls
+//https://xamlbrewer.wordpress.com/2018/06/08/using-a-treeview-control-for-navigation-in-uwp/
 namespace UWP_Angle_EmptyProject
 {
 	/// <summary>
@@ -20,7 +21,7 @@ namespace UWP_Angle_EmptyProject
 	public:
 		TreeViewTest();
 	private:
-		void m_TreeView_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
+		void ShowRenameDialog();
 		void m_TreeView_PointerEntered(Platform::Object^ sender, Windows::UI::Xaml::Input::PointerRoutedEventArgs^ e);
 		void m_ContentDialog_PrimaryButtonClick(Windows::UI::Xaml::Controls::ContentDialog^ sender, Windows::UI::Xaml::Controls::ContentDialogButtonClickEventArgs^ args);
 		void m_TreeView_DragItemsCompleted(Microsoft::UI::Xaml::Controls::TreeView^ sender, Microsoft::UI::Xaml::Controls::TreeViewDragItemsCompletedEventArgs^ args);
