@@ -144,68 +144,72 @@ namespace UWP_Angle_EmptyProject
 
 			while (action->Status == Windows::Foundation::AsyncStatus::Started)
 			{
-				auto l_Error = glGetError();
-				if (m_pOpenGLES)
-					m_pOpenGLES->MakeCurrent(m_RenderSurface);
-				l_Error = glGetError();
-				EGLint panelWidth = 0;
-				EGLint panelHeight = 0;
-				if (m_pOpenGLES)
+				if (0)
 				{
-					m_pOpenGLES->GetSurfaceDimensions(m_RenderSurface, &panelWidth, &panelHeight);
-				}
-				l_Error = glGetError();
-				//some network things need to do after all UI created or show no internet conneciton found
-				if (!g_pGameApp)
-				{
+					auto l_Error = glGetError();
 					if (m_pOpenGLES)
 						m_pOpenGLES->MakeCurrent(m_RenderSurface);
-					g_pGameApp = new cGameApp(nullptr);
-					g_pGameApp->Init();
-					auto l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"MPDI/bgrounda01.mpdi");
-					if (l_pMPDILIst)
+					l_Error = glGetError();
+					EGLint panelWidth = 0;
+					EGLint panelHeight = 0;
+					if (m_pOpenGLES)
 					{
-						//g_pMPDI = l_pMPDILIst->GetObject(L"SelectCustomerPointPage");
-						g_pMPDI = l_pMPDILIst->GetObject(0);
-						if (g_pMPDI)
-							g_pMPDI->Init();
+						m_pOpenGLES->GetSurfaceDimensions(m_RenderSurface, &panelWidth, &panelHeight);
 					}
-				}
-				else
-				{
-					//glViewport(0, 0, panelWidth, panelHeight);
-					glEnable(GL_BLEND);
-					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					glClearColor(0.1f, 0.1f, 0.1f, 1.f);
-					g_pGameApp->Run();
-					//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(panelWidth, panelHeight, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-					cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = Vector4(0.f, 0.f, (float)panelWidth, (float)panelHeight);
-				}
-				//glEnable2D(panelWidth, panelHeight);
-				if (g_pOrthogonalCamera)
-				{
-					g_pOrthogonalCamera->SetResolution(Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-					g_pOrthogonalCamera->Render();
-					g_pOrthogonalCamera->DrawGrid();
-				}
-				if (g_pMPDI)
-				{
-					g_pMPDI->Update(g_pGameApp->m_sTimeAndFPS.fElpaseTime);
-					g_pMPDI->Render();
-					g_pGameApp->ShowInfo();
-				}
-				// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
-				// If the call fails, then we must reinitialize EGL and the GL resources.
-				if (m_pOpenGLES && m_pOpenGLES->SwapBuffers(m_RenderSurface) != GL_TRUE)
-				{
-					// XAML objects like the SwapChainPanel must only be manipulated on the UI thread.
-					swapChainPanel->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::High, ref new Windows::UI::Core::DispatchedHandler([=]()
+					l_Error = glGetError();
+					//some network things need to do after all UI created or show no internet conneciton found
+					if (!g_pGameApp)
 					{
-						RecoverFromLostDevice();
-					}, CallbackContext::Any));
+						if (m_pOpenGLES)
+							m_pOpenGLES->MakeCurrent(m_RenderSurface);
+						g_pGameApp = new cGameApp(nullptr);
+						g_pGameApp->Init();
+						auto l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"MPDI/bgrounda01.mpdi");
+						if (l_pMPDILIst)
+						{
+							//g_pMPDI = l_pMPDILIst->GetObject(L"SelectCustomerPointPage");
+							g_pMPDI = l_pMPDILIst->GetObject(0);
+							if (g_pMPDI)
+								g_pMPDI->Init();
+						}
+					}
+					else
+					{
+						//glViewport(0, 0, panelWidth, panelHeight);
+						glEnable(GL_BLEND);
+						glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+						glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+						glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+						g_pGameApp->Run();
+						//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(panelWidth, panelHeight, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+						cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = Vector4(0.f, 0.f, (float)panelWidth, (float)panelHeight);
+					}
 
-					return;
+					//glEnable2D(panelWidth, panelHeight);
+					if (g_pOrthogonalCamera)
+					{
+						g_pOrthogonalCamera->SetResolution(Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+						g_pOrthogonalCamera->Render();
+						g_pOrthogonalCamera->DrawGrid();
+					}
+					if (g_pMPDI)
+					{
+						g_pMPDI->Update(g_pGameApp->m_sTimeAndFPS.fElpaseTime);
+						g_pMPDI->Render();
+						g_pGameApp->ShowInfo();
+					}
+					// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
+					// If the call fails, then we must reinitialize EGL and the GL resources.
+					if (m_pOpenGLES && m_pOpenGLES->SwapBuffers(m_RenderSurface) != GL_TRUE)
+					{
+						// XAML objects like the SwapChainPanel must only be manipulated on the UI thread.
+						swapChainPanel->Dispatcher->RunAsync(Windows::UI::Core::CoreDispatcherPriority::High, ref new Windows::UI::Core::DispatchedHandler([=]()
+							{
+								RecoverFromLostDevice();
+							}, CallbackContext::Any));
+
+						return;
+					}
 				}
 			}
 		});
