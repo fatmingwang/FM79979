@@ -335,12 +335,12 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<int>	GetIntegerListByCommaDivide(char*e_str,int e_iSize)
+	std::vector<int>	GetIntegerListByCommaDivide(const char*e_str,int e_iSize)
 	{
 		std::vector<int>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str,", ");
+		char*	l_str = strtok((char*)e_str,", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -354,12 +354,12 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<double>	GetDoubleListByCommaDivide(char*e_str,int e_iSize)
+	std::vector<double>	GetDoubleListByCommaDivide(const char*e_str,int e_iSize)
 	{
 		std::vector<double>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str,", ");
+		char*	l_str = strtok((char*)e_str,", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -373,12 +373,12 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<int64>	GetInt64ListByCommaDivide(char*e_str, int e_iSize)
+	std::vector<int64>	GetInt64ListByCommaDivide(const char*e_str, int e_iSize)
 	{
 		std::vector<int64>	l_NumeralList;
 		if (e_iSize)
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str, ", ");
+		char*	l_str = strtok((char*)e_str, ", ");
 		while (l_str)
 		{
 			int64 l_i64 = GetInt64(l_str);
@@ -388,12 +388,12 @@ namespace FATMING_CORE
 		return l_NumeralList;
 	}
 
-	std::vector<float>	GetFloatListByCommaDivide(char*e_str,int e_iSize)
+	std::vector<float>	GetFloatListByCommaDivide(const char*e_str,int e_iSize)
 	{
 		std::vector<float>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(e_str,", ");
+		char*	l_str = strtok((char*)e_str,", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
