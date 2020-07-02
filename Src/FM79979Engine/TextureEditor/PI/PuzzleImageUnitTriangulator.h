@@ -56,6 +56,7 @@ class cPuzzleImageUnitTriangulator:public NamedTypedObject
 	bool						m_bWaitForGenerateTriangle;
 	void						GenerateTriangle();
 	sMouseMoveData				m_MouseMoveData;
+	GET_SET_DEC(Vector2,m_vCenterOffset,GetCenterOffset,SetCenterOffset);
 	enum eMouseBehavior
 	{
 		eMB_DOWN = 0,
@@ -117,9 +118,10 @@ public:
 	bool							SetLOD(int e_iLODIndex,bool e_bForceUpdate);
 	int								GetLOD();
 	bool							LODToPoints();
-	bool							isEdited() { return m_bEdited; }
+	bool							IsEdited() { return m_bEdited; }
 	int								GetNumTriangles();
 	std::string						GetInfo();
+	Vector2							CalculateCenter();
 	//for add or delete vertex.
 	bool							IsVertexIndexChanged();
 	std::map<int, int>&				GetBeforeAndAfterVertexIndexMap() { return m_BeforeAndAfterVertexIndexMap; }

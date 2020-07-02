@@ -21,6 +21,9 @@ namespace FATMING_CORE
 			sDataContainer	PosBuffer;
 			sDataContainer	UVBuffer;
 			sDataContainer	ColorBuffer;
+			Vector3			vPosCenter;
+			void			CalculatePosCenter();
+			void			SetOriginalPointAtVertexCenter();
 		};
 	protected:
 		sMeshBuffer*		m_pBufferReference;
@@ -34,6 +37,7 @@ namespace FATMING_CORE
 		virtual	void		SetColor(Vector4 e_vColor);
 		virtual	void		Render();
 		sMeshBuffer*		GetMeshBuffer();
+		Vector3				GetCenter();
 	};
 	////https://stackoverflow.com/questions/1485983/calling-c-class-methods-via-a-function-pointer
 	using c2DMeshObjectFunctionPointer = void(c2DMeshObject::*)(Vector4);

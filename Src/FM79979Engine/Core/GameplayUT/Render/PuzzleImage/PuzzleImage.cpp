@@ -180,6 +180,7 @@ namespace FATMING_CORE
 	{
 		m_pImageShapePointVectorVector = new std::vector<std::vector<Vector3>>();
 		m_pImageShapePointLODVector = new std::vector<int>();
+		m_pImageShapePointCentetOffsetVector = new std::vector<Vector2>();
 		m_pImageIndexOfAnimation = nullptr;
 		m_iNumImage = 0;
 		m_pAllPuzzleData = nullptr;
@@ -191,6 +192,7 @@ namespace FATMING_CORE
 	{
 		m_pImageShapePointVectorVector = e_pPuzzleImage->m_pImageShapePointVectorVector;
 		m_pImageShapePointLODVector = e_pPuzzleImage->m_pImageShapePointLODVector;
+		m_pImageShapePointCentetOffsetVector = e_pPuzzleImage->m_pImageShapePointCentetOffsetVector;
 		m_pImageIndexOfAnimation = e_pPuzzleImage->m_pImageIndexOfAnimation;
 		m_iNumImage = e_pPuzzleImage->GetNumImage();
 		m_pAllPuzzleData = e_pPuzzleImage->m_pAllPuzzleData;
@@ -210,6 +212,7 @@ namespace FATMING_CORE
 		    SAFE_DELETE(m_pImageIndexOfAnimation);
 			SAFE_DELETE(m_pImageShapePointVectorVector);
 			SAFE_DELETE(m_pImageShapePointLODVector);
+			SAFE_DELETE(m_pImageShapePointCentetOffsetVector);
 		    SAFE_DELETE(m_pfAllChildrenTriangleStripUV);
 		    SAFE_DELETE(m_pfAllChildrenTwoTriangleUV);
 			SAFE_DELETE_ARRAY(m_pAllPuzzleData);
@@ -328,6 +331,7 @@ namespace FATMING_CORE
 	void cPuzzleImage::ProcessPuzzleUnit(TiXmlElement* e_pElement, int e_iIndex)
 	{
 		int l_iTriangulatorPointsLOD = 1;
+		Vector2 l_vTriangulatorPointsCenterOffset = Vector2(0,0);
 		std::vector<Vector3> l_TriangulatorVector;
 		sPuzzleData*l_pPuzzleData = &m_pAllPuzzleData[e_iIndex];
 		PARSE_ELEMENT_START(e_pElement)
@@ -377,11 +381,17 @@ namespace FATMING_CORE
 			{
 				l_iTriangulatorPointsLOD = VALUE_TO_INT;
 			}
+			else
+			COMPARE_NAME("TriangulatorPointsCenterOffset")
+			{
+				l_vTriangulatorPointsCenterOffset = VALUE_TO_VECTOR2;
+			}
 		PARSE_NAME_VALUE_END
 		if (m_pImageShapePointVectorVector)
 		{
 			m_pImageShapePointVectorVector->push_back(l_TriangulatorVector);
 			m_pImageShapePointLODVector->push_back(l_iTriangulatorPointsLOD);
+			m_pImageShapePointCentetOffsetVector->push_back(l_vTriangulatorPointsCenterOffset);
 		}
 	}
 	//<PuzzleImage OriginalNameSort="background_0001,BG_01_Plant_00000,BG_01_Plant_00001,BG_01_Plant_00002,BG_01_Plant_00003,BG_01_Darker" ImageName="BG_01.png" Count="6" GeneratePuzzleimageUnit="0">
@@ -581,6 +591,11 @@ namespace FATMING_CORE
 	int	cPuzzleImage::GetImageShapePointLOD(int e_iIndex)
 	{
 		return (*m_pImageShapePointLODVector)[e_iIndex];
+	}
+
+	Vector2 cPuzzleImage::GetImageShapePointCenterOffsetPos(int e_iIndex)
+	{
+		return (*m_pImageShapePointCentetOffsetVector)[e_iIndex];
 	}
 
 	cNumeralImage*	cPuzzleImage::GetNumeralImageByName(const wchar_t*e_strNumerImageName)
