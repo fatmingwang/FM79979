@@ -99,6 +99,9 @@ namespace FATMING_CORE
 	class	cMPDINodeImageData:public cTimeAndDataLinerUpdateInterface
 	{
 		friend class cMPDINode;
+		//
+		//struct c2DMeshObject::sMeshBuffer*m_pMeshBuffer;
+		//fuck should use m_pMeshBuffer not m_RenderObjectVector.
 		std::vector<cBaseImage*>	m_RenderObjectVector;
 		cBaseImage*					m_pCurrentRenderObject;
 		virtual	void				InternalInit();

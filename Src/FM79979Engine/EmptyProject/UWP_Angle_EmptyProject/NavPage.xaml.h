@@ -18,5 +18,7 @@ namespace UWP_Angle_EmptyProject
 		OpenGLUserControl^ m_OpenGLUserControl;
 	public:
 		NavPage();
+	private:
+		void NavView_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
 	};
 }

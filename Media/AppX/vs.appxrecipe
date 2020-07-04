@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>DESIGN24-NB</Machine>
-    <WindowsUser>desig</WindowsUser>
+    <Machine>FMPC</Machine>
+    <WindowsUser>Fatming</WindowsUser>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetOsVersion>10.0</TargetOsVersion>
     <TargetOsDescription>Windows 10.0</TargetOsDescription>
@@ -10,15 +10,15 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>291236dc-d14a-4eb1-9c66-d3abe512cb0d</PackageIdentityName>
     <PackageIdentityPublisher>CN=desig</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Intermedia\Debug\UWP_Angle_EmptyProject\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\Fatming\Desktop\Work\FM79979\Intermedia\Debug\UWP_Angle_EmptyProject\</IntermediateOutputPath>
     <RemoteDeploymentType>CopyToDevice</RemoteDeploymentType>
     <PackageRegistrationPath>
     </PackageRegistrationPath>
     <RemoveNonLayoutFiles>false</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\AppX</LayoutDir>
-    <RegisteredManifestChecksum>447150726E3BD68B6B671C304069E8502B9C46560112A68935E47A0340260374</RegisteredManifestChecksum>
+    <LayoutDir>C:\Users\Fatming\Desktop\Work\FM79979\Media\AppX</LayoutDir>
+    <RegisteredManifestChecksum>A96B6E5A067BB7BB2EEA33A7765CC37C343BD3E42CC3CB4EC7FABBB2DB263E25</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>291236dc-d14a-4eb1-9c66-d3abe512cb0d_1.0.0.0_x64__r7ytfjdgrj97w</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>291236dc-d14a-4eb1-9c66-d3abe512cb0d_r7ytfjdgrj97w!App</RegisteredUserModeAppID>
     <RegisteredPackageID>291236dc-d14a-4eb1-9c66-d3abe512cb0d</RegisteredPackageID>
@@ -26,121 +26,125 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-02-07T06:11:26.301</Modified>
+      <Modified>2020-06-13T09:02:22.302</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\packages\ANGLE.WindowsStore.2.1.13\build\native\..\..\bin\UAP\x64\libEGL.dll">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\packages\ANGLE.WindowsStore.2.1.13\build\native\..\..\bin\UAP\x64\libEGL.dll">
       <PackagePath>libEGL.dll</PackagePath>
-      <Modified>2016-12-28T05:10:50.000</Modified>
+      <Modified>2020-02-04T13:19:57.705</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\packages\ANGLE.WindowsStore.2.1.13\build\native\..\..\bin\UAP\x64\libGLESv2.dll">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\packages\ANGLE.WindowsStore.2.1.13\build\native\..\..\bin\UAP\x64\libGLESv2.dll">
       <PackagePath>libGLESv2.dll</PackagePath>
-      <Modified>2016-12-28T05:10:50.000</Modified>
+      <Modified>2020-02-04T13:19:57.721</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\..\..\..\..\Media\UWP_Angle_EmptyProject.exe">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\..\..\..\..\Media\UWP_Angle_EmptyProject.exe">
       <PackagePath>UWP_Angle_EmptyProject.exe</PackagePath>
-      <Modified>2020-02-07T07:54:18.841</Modified>
+      <Modified>2020-06-13T09:24:57.081</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\UWP_Angle_EmptyProject.winmd">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\UWP_Angle_EmptyProject.winmd">
       <PackagePath>UWP_Angle_EmptyProject.winmd</PackagePath>
-      <Modified>2020-02-07T06:11:23.370</Modified>
+      <Modified>2020-06-13T09:02:17.426</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.645</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.645</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.646</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.646</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.646</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.647</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\EmptyProject\UWP_Angle_EmptyProject\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2020-01-20T08:09:20.382</Modified>
+      <Modified>2020-02-07T14:09:48.647</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\SamplePixelShader.cso">
-      <PackagePath>SamplePixelShader.cso</PackagePath>
-      <Modified>2020-02-07T06:10:47.295</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\SampleVertexShader.cso">
-      <PackagePath>SampleVertexShader.cso</PackagePath>
-      <Modified>2020-02-07T06:10:47.379</Modified>
-    </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\App.xbf">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2020-02-07T07:54:18.477</Modified>
+      <Modified>2020-06-13T09:24:55.537</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\OpenGLUserControl.xbf">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\NavPage.xbf">
+      <PackagePath>NavPage.xbf</PackagePath>
+      <Modified>2020-06-13T09:24:55.537</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\OpenGLUserControl.xbf">
       <PackagePath>OpenGLUserControl.xbf</PackagePath>
-      <Modified>2020-02-07T07:54:18.477</Modified>
+      <Modified>2020-06-13T09:24:55.537</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.17763.0\\redist\Debug\X64\ucrtbased.dll">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\TimeLine\TimeLineControl.xbf">
+      <PackagePath>TimeLine\TimeLineControl.xbf</PackagePath>
+      <Modified>2020-06-13T09:24:55.538</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\TimeLine\TimeLineData.xbf">
+      <PackagePath>TimeLine\TimeLineData.xbf</PackagePath>
+      <Modified>2020-06-13T09:24:55.538</Modified>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.UniversalCRT.Debug\10.0.18362.0\\redist\Debug\X64\ucrtbased.dll">
       <PackagePath>ucrtbased.dll</PackagePath>
-      <Modified>2018-10-22T18:10:46.000</Modified>
+      <Modified>2019-03-18T11:50:32.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\desig.DESIGN24-NB\Desktop\FM79979\Media\resources.pri">
+    <AppxPackagedFile Include="C:\Users\Fatming\Desktop\Work\FM79979\Media\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2020-02-07T06:11:26.250</Modified>
+      <Modified>2020-06-13T09:24:57.391</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
     <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
       <Name>Microsoft.VCLibs.140.00.Debug</Name>
-      <Version>14.0.27323.0</Version>
+      <Version>14.0.27810.0</Version>
       <Architecture>ARM</Architecture>
-      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27323.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27810.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
       <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Debug\ARM\Microsoft.VCLibs.ARM.Debug.14.00.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
     <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
       <Name>Microsoft.VCLibs.140.00.Debug</Name>
-      <Version>14.0.27323.0</Version>
+      <Version>14.0.27810.0</Version>
       <Architecture>ARM64</Architecture>
-      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27323.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27810.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
       <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Debug\ARM64\Microsoft.VCLibs.ARM64.Debug.14.00.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
     <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
       <Name>Microsoft.VCLibs.140.00.Debug</Name>
-      <Version>14.0.27323.0</Version>
+      <Version>14.0.27810.0</Version>
       <Architecture>x64</Architecture>
-      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27323.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27810.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
       <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Debug\x64\Microsoft.VCLibs.x64.Debug.14.00.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>
     </ResolvedSDKReference>
     <ResolvedSDKReference Include="C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\">
       <Name>Microsoft.VCLibs.140.00.Debug</Name>
-      <Version>14.0.27323.0</Version>
+      <Version>14.0.27810.0</Version>
       <Architecture>x86</Architecture>
-      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27323.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
+      <FrameworkIdentity>Name = Microsoft.VCLibs.140.00.Debug, MinVersion = 14.0.27810.0, Publisher = %27CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US%27</FrameworkIdentity>
       <AppxLocation>C:\Program Files %28x86%29\Microsoft SDKs\Windows Kits\10\ExtensionSDKs\Microsoft.VCLibs\14.0\.\AppX\Debug\x86\Microsoft.VCLibs.x86.Debug.14.00.appx</AppxLocation>
       <MoreInfo>
       </MoreInfo>

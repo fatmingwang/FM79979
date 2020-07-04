@@ -5,22 +5,24 @@
     xmlns:local="using:UWP_Angle_EmptyProject"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"    
     mc:Ignorable="d">
 
     <Grid>
-        <NavigationView x:Name="NavView"  >
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
-                    <NavigationViewItem.Icon>
+        <muxc:NavigationView x:Name="NavView"  KeyUp="NavView_KeyUp" PreviewKeyUp="NavView_KeyUp" KeyDown="NavView_KeyUp" PreviewKeyDown="NavView_KeyUp">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItem x:Uid="HomeNavItem" Content="Home" Tag="home">
+                    <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE10F;"/>
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
-                <NavigationViewItemSeparator/>
-                <NavigationViewItemHeader Content="Main pages"/>
-                <NavigationViewItem x:Uid="AppsNavItem" Icon="AllApps" Content="Apps" Tag="apps"/>
-                <NavigationViewItem x:Uid="GamesNavItem" Icon="Video" Content="Games" Tag="games"/>
-                <NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
-            </NavigationView.MenuItems>
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemSeparator/>
+                <muxc:NavigationViewItemHeader Content="Main pages"/>
+                <muxc:NavigationViewItem x:Uid="AppsNavItem" Icon="AllApps" Content="Apps" Tag="apps"/>
+                <muxc:NavigationViewItem x:Uid="GamesNavItem" Icon="Video" Content="Games" Tag="games"/>
+                <muxc:NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>
+                <local:TreeViewTest />
+            </muxc:NavigationView.MenuItems>
 
             <Frame x:Name="ContentFrame" Margin="24">
                 <Frame.ContentTransitions>
@@ -29,6 +31,6 @@
                     </TransitionCollection>
                 </Frame.ContentTransitions>
             </Frame>
-        </NavigationView>
+        </muxc:NavigationView>
     </Grid>
 </Page>

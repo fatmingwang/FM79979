@@ -39,7 +39,7 @@
 	#include <unistd.h>
 #else
 	#pragma warning(disable:4996) 
-	#include <WinSock2.h>
+	#include <WinSock.h>
 	#define vsnprintf _vsnprintf
 #endif
 

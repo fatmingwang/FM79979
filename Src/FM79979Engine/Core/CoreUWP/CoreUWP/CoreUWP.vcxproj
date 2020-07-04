@@ -176,12 +176,14 @@
     <ClCompile Include="..\..\Sound\SoundCapture.cpp" />
     <ClCompile Include="..\..\Sound\SoundFile.cpp" />
     <ClCompile Include="..\..\Sound\SoundManager.cpp" />
+    <ClCompile Include="..\..\Synchronization\CPP11Thread.cpp" />
     <ClCompile Include="..\..\XML\tinystr.cpp" />
     <ClCompile Include="..\..\XML\tinyxml.cpp" />
     <ClCompile Include="..\..\XML\tinyxml2.cpp" />
     <ClCompile Include="..\..\XML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\XML\tinyxmlparser.cpp" />
     <ClCompile Include="..\..\XML\XmlLoader.cpp" />
+    <ClCompile Include="OpenGLES.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Common\BinaryFile\BinaryFile.h" />
@@ -348,10 +350,12 @@
     <ClInclude Include="..\..\Sound\SoundCapture.h" />
     <ClInclude Include="..\..\Sound\SoundFile.h" />
     <ClInclude Include="..\..\Sound\SoundManager.h" />
+    <ClInclude Include="..\..\Synchronization\CPP11Thread.h" />
     <ClInclude Include="..\..\XML\tinystr.h" />
     <ClInclude Include="..\..\XML\tinyxml.h" />
     <ClInclude Include="..\..\XML\tinyxml2.h" />
     <ClInclude Include="..\..\XML\XMLLoader.h" />
+    <ClInclude Include="OpenGLES.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3c63e603-3b30-4510-9435-f73137af75d4}</ProjectGuid>
@@ -499,7 +503,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <CompileAsWinRT>true</CompileAsWinRT>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;UWP;WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;UWP;WIN32;DEBUG;WIN32_LEAN_AND_MEAN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\..\include;..\..\GameplayUT\Physic\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

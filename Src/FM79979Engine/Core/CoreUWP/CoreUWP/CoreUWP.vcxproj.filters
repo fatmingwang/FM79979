@@ -139,6 +139,12 @@
     <Filter Include="GameplayUT\Render\Morphing">
       <UniqueIdentifier>{ac948170-16f1-4418-b819-5abff672f1de}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AngleOpenGL">
+      <UniqueIdentifier>{d24bcdde-bc44-4c58-8a43-ab4ca4f81fb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Synchronization">
+      <UniqueIdentifier>{6b1d12c8-ff6e-46e4-b1b8-0d42fda1f869}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Common\BinaryFile\CustomBinaryData.cpp">
@@ -605,6 +611,12 @@
     </ClCompile>
     <ClCompile Include="..\..\GameplayUT\Render\Font\FontManager.cpp">
       <Filter>GameplayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenGLES.cpp">
+      <Filter>AngleOpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Synchronization\CPP11Thread.cpp">
+      <Filter>Synchronization</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1111,6 +1123,12 @@
     </ClInclude>
     <ClInclude Include="..\..\GameplayUT\Render\Font\FontManager.h">
       <Filter>GameplayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenGLES.h">
+      <Filter>AngleOpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Synchronization\CPP11Thread.h">
+      <Filter>Synchronization</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

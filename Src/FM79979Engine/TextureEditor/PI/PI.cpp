@@ -527,7 +527,7 @@ namespace PI
 				l_pGr->SmoothingMode = System::Drawing::Drawing2D::SmoothingMode::None;
 			}
 			float	l_fUV[4];
-			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_ImageFileName);
+			std::string	l_strPIXMLFileName = DNCT::GcStringToChar(l_strXMLFileName);
 			String^l_strUserNameAndData = GetUseerNameAndTime();
 			std::string	l_strXmlFileName = l_strPIXMLFileName;
 			ATG::XMLWriter	l_XMLWriter(l_strPIXMLFileName.c_str());
@@ -661,7 +661,7 @@ namespace PI
 						if (m_pPuzzleImageUnitTriangulatorManager)
 						{
 							auto l_pImageUnitTriangulator = m_pPuzzleImageUnitTriangulatorManager->GetObject(l_pUIImage);
-							if (l_pImageUnitTriangulator->isEdited())
+							//if (l_pImageUnitTriangulator->IsEdited())
 							{
 								auto l_pPoints = l_pImageUnitTriangulator->GetPointsVector();
 								if (l_pPoints->size())
@@ -670,6 +670,9 @@ namespace PI
 									int l_iLOD = l_pImageUnitTriangulator->GetLOD();
 									if (l_iLOD > 1)
 										l_XMLWriter.AddAttribute("TriangulatorPointsLOD", l_iLOD);
+									auto l_vCenterOffset = l_pImageUnitTriangulator->GetCenterOffset();
+									if(l_vCenterOffset.x != 0.f || l_vCenterOffset.y != 0.f)
+										l_XMLWriter.AddAttribute("TriangulatorPointsCenterOffset", ValueToString(l_vCenterOffset).c_str());
 								}
 							}
 							std::vector<int>l_iIndexBufferVector;
@@ -1495,6 +1498,9 @@ namespace PI
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->SetPointsToTriangulatorType((ePointsToTriangulatorType)TriangulatorMouseBehavior_comboBox->SelectedIndex);
 					m_pCurrentSelectedPuzzleImageUnitTriangulator->MorphingEditApplyEmptyAnimationData();
 					ImageTriangulatorLOD_numericUpDown->Value = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetLOD();
+					auto l_vCenterPos = m_pCurrentSelectedPuzzleImageUnitTriangulator->GetCenterOffset();
+					CenterOffsetPosX_numericUpDown->Value = (int)l_vCenterPos.x;
+					CenterOffsetPosY_numericUpDown->Value = (int)l_vCenterPos.y;
 				}
 			}
 			NewPIUnitName_textBox->Text = DNCT::WcharToGcstring(l_pUIImage->GetName());
@@ -2532,6 +2538,26 @@ namespace PI
 			this->timer1->Enabled = true;
 		}
 	}
+
+	System::Void cPIEditor::CenterOffsetPosX_numericUpDown_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			Vector2 l_vCenterOffset((float)CenterOffsetPosX_numericUpDown->Value, (float)CenterOffsetPosY_numericUpDown->Value);
+			m_pCurrentSelectedPuzzleImageUnitTriangulator->SetCenterOffset(l_vCenterOffset);
+		}
+	}
+
+	System::Void cPIEditor::OffsetCenter_button_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		if (m_pCurrentSelectedPuzzleImageUnitTriangulator)
+		{
+			auto l_vCenter = m_pCurrentSelectedPuzzleImageUnitTriangulator->CalculateCenter();
+			CenterOffsetPosX_numericUpDown->Value = (int)l_vCenter.x;
+			CenterOffsetPosY_numericUpDown->Value = (int)l_vCenter.y;
+		}
+	}
+	
 
 	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{

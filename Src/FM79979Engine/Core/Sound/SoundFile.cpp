@@ -529,7 +529,9 @@ float g_fTest2 = 1.f;
 		}
 
 		vorbis_comment_init (&vc);
-		vorbis_comment_add_tag (&vc,"ENCODER","SoundFile.cpp");
+		const char*l_strEncoder = "ENCODER";
+		const char*l_strContents = "SoundFile.cpp";
+		vorbis_comment_add_tag (&vc, (char*)l_strEncoder, (char*)l_strContents);
 		/* set up the analysis state and auxiliary encoding storage */
 		vorbis_analysis_init (&vd,&vi);
 		vorbis_block_init (&vd,&vb);

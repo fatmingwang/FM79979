@@ -148,6 +148,7 @@ namespace FATMING_CORE
 
 		std::vector<std::vector<Vector3>>*	m_pImageShapePointVectorVector;
 		std::vector<int>*					m_pImageShapePointLODVector;
+		std::vector<Vector2>*				m_pImageShapePointCentetOffsetVector;
 
 		//internal using,generate all image unit while parse data is done
 		void	GenerateAllPuzzleImageUnit();
@@ -175,6 +176,7 @@ namespace FATMING_CORE
 		//auto l_iUIImageIndex = e_pPuzzleImage->GetObjectIndexByName(l_pUIImage->GetName());
 		std::vector<Vector3>*				GetImageShapePointVector(int e_iIndex);
 		int									GetImageShapePointLOD(int e_iIndex);
+		Vector2								GetImageShapePointCenterOffsetPos(int e_iIndex);
 
 		//make sure the Numeral image all have same size,
 		//and it's sequence,and remember delete it after use it,

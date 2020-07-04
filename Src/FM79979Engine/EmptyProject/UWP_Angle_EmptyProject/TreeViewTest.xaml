@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="UWP_Angle_EmptyProject.TreeViewTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWP_Angle_EmptyProject"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"    
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <muxc:CommandBarFlyout Placement="Right" x:Name="CommandBarFlyout1">
+            <muxc:CommandBarFlyout.SecondaryCommands>
+                <AppBarButton x:Name="m_RenameButton" Label="Rename" Icon="Rename" ToolTipService.ToolTip="Rename" Click="AppBarButton_Click">
+                    <!--<Button.Flyout>
+                        <Flyout>
+                            <local:CarMoving x:Name="m_CarMovingUI"/>
+                        </Flyout>
+                    </Button.Flyout>-->
+                </AppBarButton>
+                <AppBarButton x:Name="m_NewButton" Label="New" Icon="NewFolder" ToolTipService.ToolTip="New" Click="AppBarButton_Click" />
+                <AppBarButton x:Name="m_CopyButton" Label="Copy" Icon="Copy" ToolTipService.ToolTip="Copy" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_CutButton" Label="Cut" Icon="Cut" ToolTipService.ToolTip="Cut" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_PasteButton" Label="Paste" Icon="Paste" ToolTipService.ToolTip="Paste" Click="AppBarButton_Click"/>
+                <AppBarButton x:Name="m_DeleteButton" Label="Delete" Icon="Delete" ToolTipService.ToolTip="Delete" Click="AppBarButton_Click"/>
+            </muxc:CommandBarFlyout.SecondaryCommands>
+        </muxc:CommandBarFlyout>
+    </Page.Resources>
+    <Grid>
+        <!--PointerReleased="m_TreeView_PointerReleased" PointerEntered="m_TreeView_PointerEntered" PreviewKeyUp="m_TreeView_KeyUp" -->
+        <!--ItemInvoked="m_TreeView_ItemInvoked" SelectionMode="Multiple"-->
+        <muxc:TreeView  x:Name="m_TreeView" CanDragItems="True" AllowDrop="True" 
+                        DragItemsCompleted="m_TreeView_DragItemsCompleted" 
+                        DragItemsStarting="m_TreeView_DragItemsStarting"
+                        PointerPressed="m_TreeView_PointerMoved"
+                        PointerMoved="m_TreeView_PointerMoved"
+                        ItemInvoked="m_TreeView_ItemInvoked"
+                        ContextFlyout="{x:Bind CommandBarFlyout1}">
+            <muxc:TreeView.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Checked="CheckBox_Checked" IsChecked="True" Unchecked="CheckBox_Checked" Content="{Binding Path=Content}">
+                        <!--<TextBlock Text="{Binding Path=Content}"/>-->
+                    </CheckBox>
+                </DataTemplate>
+            </muxc:TreeView.ItemTemplate>
+        </muxc:TreeView>
+        <ContentDialog x:Name="m_ContentDialog"
+            Title="NodeName"
+            PrimaryButtonText="Save"
+            SecondaryButtonText="Don't Save"
+            DefaultButton="Primary"
+            PrimaryButtonClick="m_ContentDialog_PrimaryButtonClick">
+            <TextBox x:Name="m_TextBox" Text="Name"/>
+        </ContentDialog>
+        <muxc:TeachingTip x:Name="RootNodeNotAllowRename_TeachingTip"
+	            Title="Root Node not allow rename"
+	            Subtitle="Warning"
+	            PreferredPlacement="Auto"
+	            PlacementMargin="0"
+	            IsLightDismissEnabled="True"
+	            CloseButtonContent="Ok">
+        </muxc:TeachingTip>
+    </Grid>
+</Page>

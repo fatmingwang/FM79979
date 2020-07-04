@@ -132,7 +132,7 @@ namespace FATMING_CORE
 			int error = alGetError();
 			if(error != AL_NO_ERROR)
 			{
-				wchar_t*l_sterrorCode = 0;
+				const wchar_t*l_sterrorCode = 0;
 				if( 0xA001 == error )
 					l_sterrorCode = L"AL_INVALID_NAME";
 				else

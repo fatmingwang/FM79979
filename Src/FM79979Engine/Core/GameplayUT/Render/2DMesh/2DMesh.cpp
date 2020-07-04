@@ -76,6 +76,13 @@ namespace FATMING_CORE
 	{
 		return m_pBufferReference;
 	}
+
+	Vector3 c2DMeshObject::GetCenter()
+	{
+		if (m_pBufferReference)
+			return m_pBufferReference->vPosCenter;
+		return Vector3(0,0,0);
+	}
 	
 	void c2DMeshObjectVector::Destroy()
 	{
@@ -220,6 +227,7 @@ namespace FATMING_CORE
 			l_p2DMeshBuffer->IndexBuffer.CopyData(m_pFileData, l_iIndexBufferBinarySize, l_DataType, l_iIndexBufferCount);
 			m_pFileData += l_iIndexBufferBinarySize;
 			l_p2DMeshBuffer->PosBuffer.CopyData(m_pFileData, l_iPosBufferBinarySize, eDataType::eDT_VECTOR3, l_iVertexBufferCount);
+			l_p2DMeshBuffer->CalculatePosCenter();
 			m_pFileData += l_iPosBufferBinarySize;
 			l_p2DMeshBuffer->UVBuffer.CopyData(m_pFileData, l_iUVBufferBinarySize, eDataType::eDT_VECTOR2, l_iVertexBufferCount);
 			l_p2DMeshBuffer->ColorBuffer.CreateData(sizeof(Vector4)*l_iVertexBufferCount, eDataType::eDT_VECTOR4, l_iVertexBufferCount);
@@ -254,6 +262,32 @@ namespace FATMING_CORE
 			return cNamedTypedObjectVector::GetObjectByFileName(e_strFileName);
 		}
 		return nullptr;
+	}
+	void c2DMeshObject::sMeshBuffer::CalculatePosCenter()
+	{
+		vPosCenter = Vector3::Zero;
+		Vector3 l_vTotalPos = Vector3::Zero;
+		Vector3* l_pvPos = (Vector3*)PosBuffer.pData;
+		for (unsigned int i = 0; i < PosBuffer.uiDataCount; ++i)
+		{
+			l_vTotalPos += l_pvPos[i];
+		}
+		vPosCenter.x = l_vTotalPos.x / PosBuffer.uiDataCount;
+		vPosCenter.y = l_vTotalPos.y / PosBuffer.uiDataCount;
+		vPosCenter.z = l_vTotalPos.z / PosBuffer.uiDataCount;
+	}
+	void c2DMeshObject::sMeshBuffer::SetOriginalPointAtVertexCenter()
+	{
+		if (vPosCenter.x != 0 ||
+			vPosCenter.y != 0 ||
+			vPosCenter.z != 0)
+		{
+			Vector3* l_pvPos = (Vector3*)PosBuffer.pData;
+			for (unsigned int i = 0; i < PosBuffer.uiDataCount; ++i)
+			{
+				l_pvPos[i] -= vPosCenter;
+			}
+		}
 	}
 	//namespace FATMING_CORE
 }

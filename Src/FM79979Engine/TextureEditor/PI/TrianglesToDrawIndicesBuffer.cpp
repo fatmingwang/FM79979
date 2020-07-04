@@ -121,7 +121,7 @@ TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElement(Vector2 e_vPISize, 
 	return l_pTiXmlElement;
 }
 
-TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
+TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector, Vector2 e_vCenterOffset)
 {
 	if (GetBinaryData(e_vPISize, e_vTextureSize, e_vImagePos, e_PosVector, e_UVVector, e_iIndexBufferVector))
 	{
@@ -130,6 +130,8 @@ TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(Vecto
 		auto l_strPosVector = ValueToStringW(vPosVector);
 		auto l_strIndexVector = ValueToStringW(vIndexVector);
 		auto l_strUVVector = ValueToStringW(l_ExportUVVector);
+		if (e_vCenterOffset.x != 0.f || e_vCenterOffset.y != 0.f)
+			l_pTiXmlElement->SetAttribute(L"CenterOffset", ValueToStringW(e_vCenterOffset));
 		l_pTiXmlElement->SetAttribute(L"IndexBufferCount", (int)vIndexVector.size());
 		l_pTiXmlElement->SetAttribute(L"VertexBufferCount", (int)l_strPosVector.size());
 		l_pTiXmlElement->SetAttribute(L"PosBufferBinarySize", (int)(l_strPosVector.size()*sizeof(Vector3)));
@@ -139,11 +141,13 @@ TiXmlElement * sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(Vecto
 	return nullptr;
 }
 
-bool sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(ATG::XMLWriter * e_pXMLWriter, Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector)
+bool sTrianglesToDrawIndicesBuffer::ToTixmlElementWithBinaryData(ATG::XMLWriter * e_pXMLWriter, Vector2 e_vPISize, Vector2 e_vTextureSize, Vector2 e_vImagePos, std::vector<Vector3>& e_PosVector, std::vector<Vector2>& e_UVVector, std::vector<int>& e_iIndexBufferVector,Vector2 e_vCenterOffset)
 {
 	if (GetBinaryData(e_vPISize, e_vTextureSize, e_vImagePos, e_PosVector, e_UVVector, e_iIndexBufferVector))
 	{
 		e_pXMLWriter->StartElement(L"sTrianglesToDrawIndicesBuffer");
+		if(e_vCenterOffset.x != 0.f || e_vCenterOffset.y != 0.f)
+			e_pXMLWriter->AddAttribute("CenterOffset",ValueToStringW(e_vCenterOffset));
 		e_pXMLWriter->AddAttribute("IndexBufferCount", (int)vIndexVector.size());
 		e_pXMLWriter->AddAttribute("IndexBufferBinarySize", (int)(e_iIndexBufferVector.size() * sizeof(int)));
 		e_pXMLWriter->AddAttribute("VertexBufferCount", (int)e_PosVector.size());

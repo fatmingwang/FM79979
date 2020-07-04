@@ -30,3 +30,9 @@ NavPage::NavPage()
 	//Button^ l_pButton = ref new Button();
 	//l_NavigationView->Content = l_pButton;
 }
+
+
+void UWP_Angle_EmptyProject::NavPage::NavView_KeyUp(Platform::Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e)
+{
+	e->Handled = false;
+}

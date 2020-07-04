@@ -23,9 +23,6 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
-    <Filter Include="OpenGLES">
-      <UniqueIdentifier>{ebfc7871-6029-4b77-aa4a-c017e59b5f17}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TimeLine">
       <UniqueIdentifier>{47dbd42c-08b0-4e4a-aac5-ecfb04bd1a16}</UniqueIdentifier>
     </Filter>
@@ -40,9 +37,6 @@
     <ClCompile Include="App.xaml.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="OpenGLUserControl.xaml.cpp" />
-    <ClCompile Include="OpenGLES.cpp">
-      <Filter>OpenGLES</Filter>
-    </ClCompile>
     <ClCompile Include="TimeLine\TimeLineControl.xaml.cpp" />
     <ClCompile Include="TimeLine\TimeLineData.xaml.cpp" />
   </ItemGroup>
@@ -50,9 +44,6 @@
     <ClInclude Include="App.xaml.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="OpenGLUserControl.xaml.h" />
-    <ClInclude Include="OpenGLES.h">
-      <Filter>OpenGLES</Filter>
-    </ClInclude>
     <ClInclude Include="TimeLine\TimeLineControl.xaml.h" />
     <ClInclude Include="TimeLine\TimeLineData.xaml.h" />
   </ItemGroup>
@@ -79,5 +70,11 @@
     <Page Include="NavPage.xaml">
       <Filter>UI</Filter>
     </Page>
+    <Page Include="TreeViewTest.xaml">
+      <Filter>UI</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
   </ItemGroup>
 </Project>

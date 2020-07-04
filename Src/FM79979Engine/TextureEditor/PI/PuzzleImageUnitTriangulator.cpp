@@ -29,6 +29,7 @@ std::vector<cPuzzleImageUnitTriangulator::sPosAndVertexIndex> cPuzzleImageUnitTr
 cPuzzleImageUnitTriangulator::cPuzzleImageUnitTriangulator(cUIImage*e_pTargetImage)
 {
 	this->SetName(e_pTargetImage->GetName());
+	m_vCenterOffset = Vector2::Zero;
 	m_pTrianglesToDrawIndicesBuffer = new sTrianglesToDrawIndicesBuffer();
 	m_pEditor_MorphingAnimation = new cEditor_MorphingAnimation(m_pTrianglesToDrawIndicesBuffer);
 	m_pEditor_MorphingAnimation->SetName(e_pTargetImage->GetName());
@@ -621,7 +622,7 @@ bool cPuzzleImageUnitTriangulator::ToTixmlElementWithBinaryData(ATG::XMLWriter*e
 {
 	if(!m_pTrianglesToDrawIndicesBuffer)
 		return false;
-	return m_pTrianglesToDrawIndicesBuffer->ToTixmlElementWithBinaryData(e_pXMLWriter,e_vPISize,e_vTextureSize,e_vImagePos,e_PosVector,e_UVVector,e_iIndexBufferVector);
+	return m_pTrianglesToDrawIndicesBuffer->ToTixmlElementWithBinaryData(e_pXMLWriter,e_vPISize,e_vTextureSize,e_vImagePos,e_PosVector,e_UVVector,e_iIndexBufferVector,this->m_vCenterOffset);
 }
 
 TiXmlElement * cPuzzleImageUnitTriangulator::MorphingAnimationToTiXmlElement(cBinaryFile*e_pMorphingData, cBinaryFile*e_pOptmizeMorphingData)
@@ -631,6 +632,25 @@ TiXmlElement * cPuzzleImageUnitTriangulator::MorphingAnimationToTiXmlElement(cBi
 		return m_pEditor_MorphingAnimation->ToTiXmlElement(e_pMorphingData,e_pOptmizeMorphingData);
 	}
 	return nullptr;
+}
+
+Vector2 cPuzzleImageUnitTriangulator::CalculateCenter()
+{
+	auto l_vPosCenter = Vector3::Zero;
+	Vector3 l_vTotalPos = Vector3::Zero;
+	size_t l_uiSize = m_s2DVertex.vPosVector.size();
+	for (size_t i = 0; i < l_uiSize; ++i)
+	{
+		l_vTotalPos += m_s2DVertex.vPosVector[i].vPos[0];
+		l_vTotalPos += m_s2DVertex.vPosVector[i].vPos[1];
+		l_vTotalPos += m_s2DVertex.vPosVector[i].vPos[2];
+	}
+	l_uiSize *= 3;
+	l_vPosCenter.x = l_vTotalPos.x / l_uiSize;
+	l_vPosCenter.y = l_vTotalPos.y / l_uiSize;
+	l_vPosCenter.z = l_vTotalPos.z / l_uiSize;
+	
+	return Vector2(l_vPosCenter.x, l_vPosCenter.y);
 }
 
 bool	cPuzzleImageUnitTriangulator::SetLOD(int e_iLODIndex, bool e_bForceUpdate)
@@ -828,10 +848,12 @@ void	cPuzzleImageUnitTriangulatorManager::AssignDataFromPuzzleImage(cPuzzleImage
 		cPuzzleImageUnitTriangulator*l_pPuzzleImageUnitTriangulator = GetObject(e_pUIImage);
 		std::vector<Vector3>*l_pPointsVector = e_pPI->GetImageShapePointVector(l_iIndex);
 		int	l_iLOD = e_pPI->GetImageShapePointLOD(l_iIndex);
+		auto l_vCenterPos = e_pPI->GetImageShapePointCenterOffsetPos(l_iIndex);
 		if (l_pPointsVector)
 		{
 			l_pPuzzleImageUnitTriangulator->SetLOD(l_iLOD, false);
 			l_pPuzzleImageUnitTriangulator->SetPointsVector(l_pPointsVector);
+			l_pPuzzleImageUnitTriangulator->SetCenterOffset(l_vCenterPos);
 		}
 	}
 }

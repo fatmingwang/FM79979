@@ -9,6 +9,8 @@ ooxx\FM79979\Media\Emscripten
 
 in terminal type
 python -m http.server 8000 --bind 127.0.0.1
+or 
+python -m SimpleHTTPServer 8000
 
 
 open browser type

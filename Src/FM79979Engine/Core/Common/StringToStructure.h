@@ -79,10 +79,10 @@ namespace FATMING_CORE
 
 
 	//input size if u know it,it will reserve the size for vector faster
-	std::vector<int>	GetIntegerListByCommaDivide(char*,int e_iSize);
-	std::vector<float>	GetFloatListByCommaDivide(char*,int e_iSize);
-	std::vector<double>	GetDoubleListByCommaDivide(char*,int e_iSize);
-	std::vector<int64>	GetInt64ListByCommaDivide(char*, int e_iSize);
+	std::vector<int>	GetIntegerListByCommaDivide(const char*,int e_iSize);
+	std::vector<float>	GetFloatListByCommaDivide(const char*,int e_iSize);
+	std::vector<double>	GetDoubleListByCommaDivide(const char*,int e_iSize);
+	std::vector<int64>	GetInt64ListByCommaDivide(const char*, int e_iSize);
 
 	std::vector<int>	GetIntegerListByCommaDivide(const wchar_t*,int e_iSize);
 	std::vector<float>	GetFloatListByCommaDivide(const wchar_t*,int e_iSize);
