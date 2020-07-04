@@ -297,7 +297,7 @@ namespace FATMING_CORE
 		g_iColorLoacation =	m_uiColorLoacation;
 		g_iBonesMatrixoacation =	m_uiBonesLocation;
 		g_iPointSizeLoacation = m_uiPointSize;
-#ifdef WIN32
+#if defined(WIN32) && !defined(UWP)
 		if(g_iPointSizeLoacation != -1)
 			MyGLEnable(GL_PROGRAM_POINT_SIZE);
 		else
