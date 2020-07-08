@@ -175,6 +175,12 @@
     <Filter Include="GameplayUT\Render\Texture\jpeg">
       <UniqueIdentifier>{7f4fddad-0ba2-48e9-bef9-709f56d2aa9d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\Render\Morphing">
+      <UniqueIdentifier>{9819adb8-1d5d-4e8c-85f0-2aad1c5a0737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\Render\2DMesh">
+      <UniqueIdentifier>{f2fe708f-f3c7-4313-8a9c-02f4553306da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\TimeUT.cpp">
@@ -656,6 +662,21 @@
     </ClCompile>
     <ClCompile Include="..\GameplayUT\Render\Particle\PrtVelocity.cpp">
       <Filter>GameplayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\ResourceMaintaner\GameResourceManager.cpp">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\Render\Morphing\MorphingAnimation.cpp">
+      <Filter>GameplayUT\Render\Morphing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\Render\2DMesh\2DMesh.cpp">
+      <Filter>GameplayUT\Render\2DMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\Render\Font\FontManager.cpp">
+      <Filter>GameplayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\OpenGL\GLSL\MeshShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1360,6 +1381,18 @@
     </ClInclude>
     <ClInclude Include="..\GameplayUT\Render\AllGamePlayUTRenderInclude.h">
       <Filter>GameplayUT\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\ResourceMaintaner\GameResourceManager.h">
+      <Filter>GameplayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\Render\Morphing\MorphingAnimation.h">
+      <Filter>GameplayUT\Render\Morphing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\Render\2DMesh\2DMesh.h">
+      <Filter>GameplayUT\Render\2DMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\Render\Font\FontManager.h">
+      <Filter>GameplayUT\Render\Font</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

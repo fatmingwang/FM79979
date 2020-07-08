@@ -7,7 +7,10 @@
 
 #if defined(WIN32)
 	#pragma warning( disable : 4996 )
-	#define WIN32_LEAN_AND_MEAN
+	#ifndef WIN32_LEAN_AND_MEAN
+		#define WIN32_LEAN_AND_MEAN
+	#endif
+	#include <winsock2.h>
 	#include <windows.h>
 	#include <winsock.h>
 	#define _CRTDBG_MAP_ALLOC

@@ -8,7 +8,7 @@
 #include <sys/time.h>
 #elif defined(WIN32)
 #include "strsafe.h"
-#include "winsock.h"
+
 #pragma warning( disable : 4793 )
 #pragma warning( disable : 4995 )
 #elif defined(LINUX)
@@ -19,13 +19,13 @@
 #include <sys/time.h>
 #endif
 
-#ifdef UWP
-struct timeval 
-{
-	long    tv_sec;         /* seconds */
-	long    tv_usec;        /* and microseconds */
-};
-#endif
+//#ifdef UWP
+//struct timeval 
+//{
+//	long    tv_sec;         /* seconds */
+//	long    tv_usec;        /* and microseconds */
+//};
+//#endif
 
 #include "StringToStructure.h"
 namespace UT

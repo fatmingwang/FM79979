@@ -97,7 +97,7 @@
     <ClCompile>
       <PreprocessorDefinitions>LINUX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>
@@ -155,6 +155,7 @@
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\Blur.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\CommnoShader.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
+    <ClCompile Include="..\GameplayUT\OpenGL\GLSL\MeshShader.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\Shader.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\GameplayUT\Physic\2DImageCollisionData.cpp" />
     <ClCompile Include="..\GameplayUT\Physic\BulletShape.cpp" />
     <ClCompile Include="..\GameplayUT\Preload\PreloadResource.cpp" />
+    <ClCompile Include="..\GameplayUT\Render\2DMesh\2DMesh.cpp" />
     <ClCompile Include="..\GameplayUT\Render\CommonRender\BaseImage.cpp" />
     <ClCompile Include="..\GameplayUT\Render\CommonRender\Frame.cpp" />
     <ClCompile Include="..\GameplayUT\Render\CommonRender\NumeralImage.cpp" />
@@ -179,10 +181,12 @@
     <ClCompile Include="..\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.cpp" />
     <ClCompile Include="..\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.cpp" />
     <ClCompile Include="..\GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.cpp" />
+    <ClCompile Include="..\GameplayUT\Render\Font\FontManager.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Font\FreetypeGlypth.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Font\GlyphFontRender.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Font\Glyph\GlyphReader.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Font\Glyph\GlyphWriter.cpp" />
+    <ClCompile Include="..\GameplayUT\Render\Morphing\MorphingAnimation.cpp" />
     <ClCompile Include="..\GameplayUT\Render\MPDI\MPDI.cpp" />
     <ClCompile Include="..\GameplayUT\Render\MPDI\MPDIDataParse.cpp" />
     <ClCompile Include="..\GameplayUT\Render\MPDI\MPDIForEditor.cpp" />
@@ -241,6 +245,7 @@
     <ClCompile Include="..\GameplayUT\Render\UI\Scroller.cpp" />
     <ClCompile Include="..\GameplayUT\Render\UI\Sliderbar.cpp" />
     <ClCompile Include="..\GameplayUT\Render\UI\Tabpage.cpp" />
+    <ClCompile Include="..\GameplayUT\ResourceMaintaner\GameResourceManager.cpp" />
     <ClCompile Include="..\GameplayUT\ResourceMaintaner\ObjectXMLParser.cpp" />
     <ClCompile Include="..\GameplayUT\ResourceMaintaner\ResourceStamp.cpp" />
     <ClCompile Include="..\GameplayUT\TemplateValueChanger\ListValueChanger.cpp" />
@@ -341,6 +346,7 @@
     <ClInclude Include="..\GameplayUT\Physic\2DImageCollisionData.h" />
     <ClInclude Include="..\GameplayUT\Physic\BulletShape.h" />
     <ClInclude Include="..\GameplayUT\Preload\PreloadResource.h" />
+    <ClInclude Include="..\GameplayUT\Render\2DMesh\2DMesh.h" />
     <ClInclude Include="..\GameplayUT\Render\AllGamePlayUTRenderInclude.h" />
     <ClInclude Include="..\GameplayUT\Render\CommonRender\BaseImage.h" />
     <ClInclude Include="..\GameplayUT\Render\CommonRender\Frame.h" />
@@ -354,10 +360,12 @@
     <ClInclude Include="..\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.h" />
     <ClInclude Include="..\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.h" />
     <ClInclude Include="..\GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.h" />
+    <ClInclude Include="..\GameplayUT\Render\Font\FontManager.h" />
     <ClInclude Include="..\GameplayUT\Render\Font\FreetypeGlypth.h" />
     <ClInclude Include="..\GameplayUT\Render\Font\GlyphFontRender.h" />
     <ClInclude Include="..\GameplayUT\Render\Font\Glyph\GlyphReader.h" />
     <ClInclude Include="..\GameplayUT\Render\Font\Glyph\GlyphWriter.h" />
+    <ClInclude Include="..\GameplayUT\Render\Morphing\MorphingAnimation.h" />
     <ClInclude Include="..\GameplayUT\Render\MPDI\MPDI.h" />
     <ClInclude Include="..\GameplayUT\Render\MPDI\MPDIDataParse.h" />
     <ClInclude Include="..\GameplayUT\Render\MPDI\MPDIForEditor.h" />
@@ -425,6 +433,7 @@
     <ClInclude Include="..\GameplayUT\Render\UI\Scroller.h" />
     <ClInclude Include="..\GameplayUT\Render\UI\Sliderbar.h" />
     <ClInclude Include="..\GameplayUT\Render\UI\Tabpage.h" />
+    <ClInclude Include="..\GameplayUT\ResourceMaintaner\GameResourceManager.h" />
     <ClInclude Include="..\GameplayUT\ResourceMaintaner\ObjectXMLParser.h" />
     <ClInclude Include="..\GameplayUT\ResourceMaintaner\ResourceStamp.h" />
     <ClInclude Include="..\GameplayUT\TemplateValueChanger\ListValueChanger.h" />
@@ -526,7 +535,7 @@
     <ClCompile>
       <PreprocessorDefinitions>LINUX;DEBUG;GL_GLEXT_PROTOTYPES</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/usr/include %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/usr/include -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>

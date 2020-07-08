@@ -26,16 +26,16 @@ namespace FATMING_CORE
 	{
 		int		iSize;
 		char*	pData;//first int must be unsigned int for messageID.
-		sNetworkSendPacket(){pData = nullptr;iSize = 0;}
-		~sNetworkSendPacket(){SAFE_DELETE(pData);}
+		sNetworkSendPacket();
+		~sNetworkSendPacket();
 	};
 	struct sNetworkReceivedPacket
 	{
 		int			iSize;
 		char*		pData;
 		_TCPsocket*	pReceivedSocket;
-		sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
-		~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
+		sNetworkReceivedPacket();
+		~sNetworkReceivedPacket();
 		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
 		int	ReceiveData(_TCPsocket*e_pTCPsocket);
 	};

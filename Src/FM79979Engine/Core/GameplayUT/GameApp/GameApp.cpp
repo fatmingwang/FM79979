@@ -113,7 +113,6 @@ namespace	FATMING_CORE
 			m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
 		else
 		{
-			m_spOpenGLRender->m_vGameResolution;
 			m_spOpenGLRender->m_vViewPortSize.x = 0;
 			m_spOpenGLRender->m_vViewPortSize.y = 0;
 			m_spOpenGLRender->m_vViewPortSize.z = e_vViewportSize.x;
