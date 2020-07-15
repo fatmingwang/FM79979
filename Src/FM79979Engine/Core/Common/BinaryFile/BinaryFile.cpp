@@ -103,10 +103,19 @@ namespace FATMING_CORE
 		NvFWrite( &val, sizeof(val), 1, m_pFile );
 	}
 #endif
+	void TTT(const char*e_str)
+	{
+#ifdef DEBUG
+		static int l_si = 0;
+		++l_si;
+		printf("%s:%d\n", e_str, l_si);
+#endif
+	}
 	void cBinaryFile::WriteToFileImmediatelyWithLine(const char* val ,bool e_bTimeStamp)
 	{
 		if( !m_pFile )
 			return;
+		MUTEX_PLACE_HOLDER(m_LogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)strlen(val);
@@ -114,11 +123,11 @@ namespace FATMING_CORE
 		NvFWrite( "\n", sizeof(char),1, m_pFile );
 		Flush();
 	}
-
 	void cBinaryFile::WriteToFileImmediatelyWithLine(const wchar_t* val,bool e_bTimeStamp)
 	{
 		if( !m_pFile )
 			return;
+		MUTEX_PLACE_HOLDER(m_LogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)wcslen(val);

@@ -211,3 +211,14 @@ FUCK while under linx
 link order is necessary or unknow reference will occur...
 ex:
 link  -lCommonRASPICore before -lRaspberryPIOgg
+
+
+
+
+
+July/15/2020
+somehow the app keeps crush under linux environment
+crush result keeps showing malloc or size different things..
+now it got 6 threads...even GDB can't help me :(
+anyway I have made FMLog with mutex and fix mkpath bug...
+it seems works now...fuck

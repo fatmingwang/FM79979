@@ -873,8 +873,10 @@ namespace UT
 			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}
 #else
-		if( l_bWrite )
-			mkpath( std::string(e_strFileName) );
+		if (l_bWrite)
+		{
+			mkpath(std::string(UT::GetDirectoryWithoutFileName(e_strFileName).c_str()));
+		}
 		fp = fopen( e_strFileName, e_strMode );
 #endif
 		return fp;

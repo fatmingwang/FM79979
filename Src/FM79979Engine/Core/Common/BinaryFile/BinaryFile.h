@@ -2,6 +2,7 @@
 #define _BINARY_FILE_H_
 #include "../../Common/NamedTypedObject.h"
 #include "../../Android/nv_file.h"
+#include "../../Synchronization/CPP11Thread.h"
 namespace FATMING_CORE
 {
 	//=======================================
@@ -38,6 +39,7 @@ namespace FATMING_CORE
 	//=======================================
 	class	cBinaryFile:public NamedTypedObject
 	{
+		std::mutex			m_LogMutex;
 	protected:
 		NvFile*				m_pFile;
 		//for big endian and little endian
