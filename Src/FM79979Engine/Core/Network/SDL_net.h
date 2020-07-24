@@ -201,6 +201,21 @@ void  SDLNet_TCP_Close(TCPsocket sock);
 /* The maximum addresses bound to a single UDP socket channel */
 #define SDLNET_MAX_UDPADDRESSES 4
 
+struct UDP_channel {
+	int numbound;
+	IPaddress address[SDLNET_MAX_UDPADDRESSES];
+};
+
+struct _UDPsocket {
+	int ready;
+	SOCKET channel;
+	IPaddress address;
+
+	struct UDP_channel binding[SDLNET_MAX_UDPCHANNELS];
+
+	/* For debugging purposes */
+	int packetloss;
+};
 typedef struct _UDPsocket *UDPsocket;
 typedef struct {
     int channel;        /* The src/dst channel of the packet */

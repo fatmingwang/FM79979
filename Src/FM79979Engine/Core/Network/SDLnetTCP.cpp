@@ -241,6 +241,8 @@ int SDLNet_TCP_Send(TCPsocket sock, const void *datap, int len)
     sent = 0;
     SDLNet_SetLastError(0);
     do {
+        if (sock->ready != 0 && sock->ready != 1)
+            break;
         len = send(sock->channel, (const char *) data, left, 0);
         if ( len > 0 ) {
             sent += len;

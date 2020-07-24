@@ -34,8 +34,8 @@ namespace FATMING_CORE
 		virtual ~c2DMeshObject();
 		CLONE_MYSELF(c2DMeshObject);
 		DEFINE_TYPE_INFO();
-		virtual	void		SetColor(Vector4 e_vColor);
-		virtual	void		Render();
+		virtual	void		SetColor(Vector4 e_vColor)override;
+		virtual	void		Render()override;
 		sMeshBuffer*		GetMeshBuffer();
 		Vector3				GetCenter();
 	};

@@ -47,5 +47,8 @@ namespace	FATMING_CORE
 			//GAME_PAUSE_EVENT_ID	-123456789 is game pause
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData);
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize);
+		//lazy to keep point data so shot immediately,
+		//ensure not call recursively,event call evnet infinty
+		static	bool												EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
 	};
 }

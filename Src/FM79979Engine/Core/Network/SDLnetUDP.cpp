@@ -29,22 +29,6 @@
 #define random  rand
 #endif
 
-struct UDP_channel {
-    int numbound;
-    IPaddress address[SDLNET_MAX_UDPADDRESSES];
-};
-
-struct _UDPsocket {
-    int ready;
-    SOCKET channel;
-    IPaddress address;
-
-    struct UDP_channel binding[SDLNET_MAX_UDPCHANNELS];
-
-    /* For debugging purposes */
-    int packetloss;
-};
-
 /* Allocate/free a single UDP packet 'size' bytes long.
    The new packet is returned, or NULL if the function ran out of memory.
  */

@@ -9,47 +9,9 @@
 
 #include "SDL_net.h"
 #include "../Synchronization/CPP11Thread.h"
+#include "NetworkData.h"
 namespace FATMING_CORE
 {
-	//sNetworkSendPacket and sNetworkReceivedPacket has a header for description packet size
-	#define	PACKET_HEADER_SIZE (int)sizeof(int)
-	enum eNetWorkStatus
-	{
-		eNWS_NONE = 0,
-		eNWS_TRY_TO_CONNECT,
-		eNWS_CONNECTED,
-		eNWS_CONNECTION_NOT_EXISTS,
-		eNWS_LOST_CONNECTION,
-		eNWS_NO_INTERNET,
-	};
-	struct	sNetworkSendPacket
-	{
-		int		iSize;
-		char*	pData;//first int must be unsigned int for messageID.
-		sNetworkSendPacket();
-		~sNetworkSendPacket();
-	};
-	struct sNetworkReceivedPacket
-	{
-		int			iSize;
-		char*		pData;
-		_TCPsocket*	pReceivedSocket;
-		sNetworkReceivedPacket();
-		~sNetworkReceivedPacket();
-		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
-		int	ReceiveData(_TCPsocket*e_pTCPsocket);
-	};
-
-	struct sIPData
-	{
-		int									m_iPort;
-		IPaddress							m_IP;
-		unsigned char						m_MyIP[4];
-		std::string							m_strIP;
-		std::string							m_strServerIP;
-		std::string							m_strHost;
-	};
-
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread
 	{
 	protected:

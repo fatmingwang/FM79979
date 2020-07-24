@@ -1354,6 +1354,9 @@
     <ClInclude Include="GameplayUT\Render\Font\FontManager.h">
       <Filter>GameplayUT\Render\Font</Filter>
     </ClInclude>
+    <ClInclude Include="Network\NetworkData.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="GetMe Usage.txt">

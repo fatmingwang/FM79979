@@ -6,23 +6,23 @@
 #ifdef LINUX
 #include <alloca.h>
 #endif
+namespace FATMING_CORE
+{
 #ifdef WIN32
 #include "sensapi.h"
 #pragma comment(lib, "Sensapi.lib")
-bool	IsNetworkAlive()
-{
-	DWORD dw;
-	bool l_bResult = IsNetworkAlive(&dw);
-	return l_bResult;
-}
+	bool	IsNetworkAlive()
+	{
+		DWORD dw;
+		bool l_bResult = IsNetworkAlive(&dw);
+		return l_bResult;
+	}
 #else
-bool	IsNetworkAlive()
-{
-	return true;
-}
+	bool	IsNetworkAlive()
+	{
+		return true;
+	}
 #endif
-namespace FATMING_CORE
-{
 	sNetworkSendPacket::sNetworkSendPacket() { pData = nullptr; iSize = 0; }
 	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE(pData); }
 	sNetworkReceivedPacket::sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
@@ -82,6 +82,41 @@ namespace FATMING_CORE
 		//return l_iLength - iSize;
 		//now I dont wannt support streamming so fuck you please reduce packet size.
 		return -1;
+	}
+
+	//int sNetworkReceivedPacket::ReceiveData(_UDPsocket*e_pSocket, UDPpacket *e_pPackets)
+	//{
+	//	auto l_iReceivedBytes = SDLNet_UDP_Recv(e_pSocket, e_pPackets);
+	//	if (l_iReceivedBytes != -1)
+	//	{
+	//		UDPAddress = e_pPackets->address;
+	//		if (e_pPackets->len < PACKET_HEADER_SIZE)
+	//		{
+	//			return -1;
+	//		}
+	//		this->iSize = *(int*)e_pPackets->data;
+	//		int l_iTotalSize = iSize + PACKET_HEADER_SIZE;
+	//		if (l_iTotalSize != e_pPackets->len)
+	//		{
+	//			FMLog::Log("UDP network data size not match!??", false);
+	//			return -1;
+	//		}
+	//		pData = new char[iSize];
+	//		memcpy(pData, &e_pPackets->data[PACKET_HEADER_SIZE], iSize);
+	//		return iSize;
+	//	}
+	//	return l_iReceivedBytes;
+	//}
+
+	int sNetworkReceivedPacket::UDPReceiveDataWithoutHeaderSize(IPaddress e_UDPIPaddress,int e_iDataLen, char * e_pData)
+	{
+		UDPIPaddress = e_UDPIPaddress;
+		if (e_iDataLen <= 0)
+			return -1;
+		this->iSize = e_iDataLen;
+		pData = new char[iSize];
+		memcpy(pData, e_pData, iSize);
+		return iSize;
 	}
 
 	void	cGameNetwork::SetConnectionLostCallbackFunction(std::function<void()> e_Function)

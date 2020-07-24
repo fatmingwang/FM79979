@@ -59,4 +59,10 @@ namespace	FATMING_CORE
 			return m_spMessageSenderManager->EventMessageShot(e_usID, (char*)e_pData, e_iDataSize);
 		return false;
 	}
+	bool cCommonApp::EventMessageShotImmediately(unsigned int e_usID, void * e_pData)
+	{
+		if (m_spMessageSenderManager)
+			return m_spMessageSenderManager->EventMessageShotImmediately(e_usID, (char*)e_pData);
+		return false;
+	}
 }

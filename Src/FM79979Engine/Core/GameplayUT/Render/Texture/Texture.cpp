@@ -22,8 +22,11 @@ extern void		captureToPhotoAlbum();
 namespace FATMING_CORE
 {
 	//if graphic card does not support non power of two,set as false
-	//bool	g_bSupportNonPowerOfTwoTexture = true;
+#ifdef WIN32
+	bool	g_bSupportNonPowerOfTwoTexture = true;
+#else
 	bool	g_bSupportNonPowerOfTwoTexture = false;
+#endif
 	//https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/discard.php
 	//http://jerome.jouvie.free.fr/opengl-tutorials/Tutorial6.php
 	//GLfloat	g_fMAG_FILTERValue = GL_NEAREST;
@@ -551,12 +554,12 @@ namespace FATMING_CORE
 		}
 	}
 
-	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels)
+	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels)
 	{
 		SetupTexture(e_iChannel,e_iWidth,e_iHeight,e_Format,e_Type);
 		if( e_pPixels )
 		{
-			UpdatePixels(e_pPixels,e_bGeneratePixels);
+			UpdatePixels(e_pPixels, e_bFetchPixels);
 		}
 	}
 

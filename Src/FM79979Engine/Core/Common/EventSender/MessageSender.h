@@ -50,9 +50,9 @@ namespace FATMING_CORE
 		//
 		cMessageSenderManager*m_pParent;
 		//
-		void												Setparent();
+		void												SetParent(cMessageSenderManager*e_pParent = nullptr);
 	public:
-		cMessageSender();
+		cMessageSender(cMessageSenderManager*e_pParent = nullptr);
 		virtual ~cMessageSender();
 		//please keep e_pData,or it will be a wild pointer.
 		bool					RegEvent(unsigned int e_usID, EventFunction e_MessageFunction);
@@ -108,10 +108,12 @@ namespace FATMING_CORE
 	public:
 		cMessageSenderManager();
 		~cMessageSenderManager();
-		bool NetworkMessageShot(unsigned int e_usID,sNetworkReceivedPacket*e_pNetworkReceivedPacket);
-		bool EventMessageShot(unsigned int e_usID, void*e_pData);
+		bool	NetworkMessageShot(unsigned int e_usID,sNetworkReceivedPacket*e_pNetworkReceivedPacket);
+		bool	EventMessageShot(unsigned int e_usID, void*e_pData);
 		//ensure size is small than WAIT_EMIT_EVENT_DATA_SIZE
-		bool EventMessageShot(unsigned int e_usID, char*e_pData, int e_iSize);
+		bool	EventMessageShot(unsigned int e_usID, char*e_pData, int e_iSize);
+		//ensure not call recursively,event call evnet infinty
+		bool	EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
 		//for emit event for frame
 		void	Update(float e_fElpaseTime);
 	};
@@ -119,7 +121,7 @@ namespace FATMING_CORE
 
 	template <class T>bool	cMessageSender::RegNetworkMessageFunction(unsigned int e_usID, NetworkMessageFunction e_MessageFunction)
 	{
-		Setparent();
+		SetParent();
 		if (this->m_NetworkMessageFunctionMap.find(e_usID) != m_NetworkMessageFunctionMap.end())
 			return false;
 		m_NetworkMessageFunctionMap[e_usID] = e_MessageFunction;

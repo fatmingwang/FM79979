@@ -17,9 +17,10 @@ namespace FATMING_CORE
 		//SAFE_DELETE(pConvertType);
 	}
 
-	cMessageSender::cMessageSender()
+	cMessageSender::cMessageSender(cMessageSenderManager*e_pParent)
 	{
 		m_pParent = nullptr;
+		this->SetParent(e_pParent);
 	}
 
 	cMessageSender::~cMessageSender()
@@ -52,19 +53,27 @@ namespace FATMING_CORE
 		}
 	}
 
-	void	cMessageSender::Setparent()
+	void	cMessageSender::SetParent(cMessageSenderManager* e_pParent)
 	{
 		if (m_pParent == nullptr)
 		{
-			assert(g_pMessageSenderManager&&"please create cMessageSenderManager first");
-			g_pMessageSenderManager->AddMessageSender((size_t)this, this);
-			m_pParent = g_pMessageSenderManager;
+			if (e_pParent == nullptr)
+			{
+				assert(g_pMessageSenderManager && "please create cMessageSenderManager first");
+				g_pMessageSenderManager->AddMessageSender((size_t)this, this);
+				m_pParent = g_pMessageSenderManager;
+			}
+			else
+			{
+				m_pParent = e_pParent;
+				e_pParent->AddMessageSender((size_t)this, this);
+			}
 		}
 	}
 
 	bool	cMessageSender::RegEvent(unsigned int e_usID, EventFunction e_MessageFunction)
 	{
-		Setparent();
+		SetParent(g_pMessageSenderManager);
 		if (this->m_EventFunctionMap.find(e_usID) != m_EventFunctionMap.end())
 			return false;
 		m_EventFunctionMap[e_usID] = e_MessageFunction;
@@ -163,7 +172,8 @@ return false;
 
 	cMessageSenderManager::cMessageSenderManager()
 	{
-		assert(g_pMessageSenderManager == nullptr&&"only could have one MessageSenderManager");
+		//assert(g_pMessageSenderManager == nullptr&&"only could have one MessageSenderManager");
+		if(!g_pMessageSenderManager)
 		g_pMessageSenderManager = this;
 	}
 	cMessageSenderManager::~cMessageSenderManager()
@@ -248,6 +258,23 @@ return false;
 		return true;
 	}
 
+	bool cMessageSenderManager::EventMessageShotImmediately(unsigned int e_usID, void * e_pData)
+	{
+		auto l_Iterator = m_EventFunctionAndTypeMap.find(e_usID);
+		if (l_Iterator != m_EventFunctionAndTypeMap.end())
+		{
+			std::vector<sEventFunctionAndType*>*l_pVector = &l_Iterator->second;
+			for (int i = 0; i < (int)l_pVector->size(); i++)
+			{
+				if ((*l_pVector)[i]->f_EventFunction != nullptr)
+				{
+					(*l_pVector)[i]->f_EventFunction(e_pData);
+				}
+			}
+		}
+		return true;
+	}
+
 	bool cMessageSenderManager::EventMessageShot(unsigned int e_usID, void*e_pData)
 	{
 		sWaitEmitEvent*l_pWaitEmitEvent = new sWaitEmitEvent();
@@ -277,8 +304,8 @@ return false;
 					}
 				}
 			}
-			delete m_WaitForEmitEvent[0];
 			m_WaitForEmitEvent.erase(m_WaitForEmitEvent.begin());
+			delete l_pWaitEmitEvent;
 		}
 	}
 	//end namespace FATMING_CORE

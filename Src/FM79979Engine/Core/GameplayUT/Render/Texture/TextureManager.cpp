@@ -448,41 +448,64 @@ namespace FATMING_CORE
 	//1
 	//[self removeImage: @"myUIImageName"
 
-	bool	SaveCurrentBufferToImage(const char*e_strFileName, int e_iViewPortWidth, int e_iViewPortHeight)
+unsigned char * GetScreenPixels(int e_iViewPortWidth, int e_iViewPortHeight)
+{
+	int l_iNumChannel = 4;//3 androd only support 4 channel...
+	GLenum l_Format = GL_RGBA;//GL_RGB
+	int l_iWidth = e_iViewPortWidth;
+	int l_iHeight = e_iViewPortHeight;
+	unsigned char *l_pPixelData = new unsigned char[l_iWidth*l_iHeight*l_iNumChannel];
+	unsigned char *l_pPixelData2 = new unsigned char[l_iWidth*l_iNumChannel];
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glPixelStorei(GL_PACK_ALIGNMENT, 1);
+	glReadPixels(0, 0, l_iWidth, (GLsizei)l_iHeight, l_Format, GL_UNSIGNED_BYTE, l_pPixelData);
+	int l_iHalfHeight = l_iHeight / 2;
+	for (int i = 0; i < l_iHalfHeight; ++i)
+	{
+		int l_iIndex1 = l_iNumChannel * l_iWidth*(l_iHeight - i - 1);
+		int l_iIndex2 = l_iNumChannel * l_iWidth*i;
+		memcpy(l_pPixelData2, &l_pPixelData[l_iIndex1], sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+		memcpy(&l_pPixelData[l_iIndex1], &l_pPixelData[l_iIndex2], sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+		memcpy(&l_pPixelData[l_iIndex2], l_pPixelData2, sizeof(unsigned char)*l_iNumChannel*l_iWidth);
+	}
+	delete[] l_pPixelData2;
+	return l_pPixelData;
+}
+
+bool	SaveCurrentBufferToImage(const char*e_strFileName, int e_iViewPortWidth, int e_iViewPortHeight)
 	{
 		bool l_bResult = true;
 #ifndef IOS
-		int l_iNumChannel = 4;//3 androd only support 4 channel...
-		GLenum l_Format = GL_RGBA;//GL_RGB
+		unsigned char *l_pPixelData = GetScreenPixels(e_iViewPortWidth, e_iViewPortHeight);
 		int l_iWidth = e_iViewPortWidth;
 		int l_iHeight = e_iViewPortHeight;
-		unsigned char *l_pPixelData = new unsigned char[l_iWidth*l_iHeight*l_iNumChannel];
-		unsigned char *l_pPixelData2 = new unsigned char[l_iWidth*l_iNumChannel];
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glPixelStorei(GL_PACK_ALIGNMENT, 1);
-		glReadPixels(0, 0, l_iWidth, (GLsizei)l_iHeight, l_Format, GL_UNSIGNED_BYTE, l_pPixelData);
-		int l_iHalfHeight = l_iHeight / 2;
-		for (int i = 0; i<l_iHalfHeight; ++i)
-		{
-			int l_iIndex1 = l_iNumChannel * l_iWidth*(l_iHeight - i - 1);
-			int l_iIndex2 = l_iNumChannel * l_iWidth*i;
-			memcpy(l_pPixelData2, &l_pPixelData[l_iIndex1], sizeof(unsigned char)*l_iNumChannel*l_iWidth);
-			memcpy(&l_pPixelData[l_iIndex1], &l_pPixelData[l_iIndex2], sizeof(unsigned char)*l_iNumChannel*l_iWidth);
-			memcpy(&l_pPixelData[l_iIndex2], l_pPixelData2, sizeof(unsigned char)*l_iNumChannel*l_iWidth);
-		}
-		l_bResult = SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, l_pPixelData, l_iNumChannel);
+		//GetScreenPixels is 4 channels...
+		l_bResult = SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight, l_pPixelData, 4);
 		delete[] l_pPixelData;
-		delete[] l_pPixelData2;
 #elif defined(IOS)//for iphone,save into album
 		captureToPhotoAlbum();
 #endif
 		return l_bResult;
 	}
 
-	bool	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel)
+	bool	SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel, bool e_bDoYCoordianteInvert)
 	{
-		std::string l_strExtensionName = GetFileExtensionName(e_strFileName);
-		
+		std::string l_strExtensionName = GetFileExtensionName(e_strFileName);		
+		auto l_pFinalPixels = e_pPixel;
+		if (e_bDoYCoordianteInvert)
+		{
+			int l_iTotalPixels = e_iChannel * e_iWidth*e_iHeight;
+			unsigned char*l_pYInvertPixels = new unsigned char[l_iTotalPixels];
+			//memcpy(l_pYInvertPixels, e_pPixel, l_iTotalPixels*sizeof(unsigned char));
+			int l_iRowDataSize = e_iWidth * e_iChannel*sizeof(unsigned char);
+			for (int i = 0; i < e_iHeight; ++i)
+			{
+				int l_iStartIndex = i*e_iWidth*e_iChannel;
+				int l_iInvertYIndex = (e_iHeight-i-1)*e_iWidth*e_iChannel;
+				memcpy(&l_pYInvertPixels[l_iStartIndex], &e_pPixel[l_iInvertYIndex], l_iRowDataSize);
+			}
+			l_pFinalPixels = l_pYInvertPixels;
+		}
 #if defined(ANDROID)
 		//I donno why sometimes android just cannt write file.(file size is 0)
 		int l_iTotalIntSize = e_iWidth*e_iHeight;//channel is 4.4 byte is 1 int
@@ -490,7 +513,7 @@ namespace FATMING_CORE
 		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
 		jintArray l_Array = cGameApp::m_spThreadEnv->NewIntArray(l_iTotalIntSize);
 		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
-		cGameApp::m_spThreadEnv->SetIntArrayRegion(l_Array, 0, l_iTotalIntSize, reinterpret_cast<jint*>(e_pPixel));
+		cGameApp::m_spThreadEnv->SetIntArrayRegion(l_Array, 0, l_iTotalIntSize, reinterpret_cast<jint*>(l_pFinalPixels));
 		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
 		jstring strClassName = cGameApp::m_spThreadEnv->NewStringUTF("util/MyBitmap");
 		EXCEPTION_RETURN(cGameApp::m_spThreadEnv);
@@ -508,13 +531,17 @@ namespace FATMING_CORE
 		if (l_strExtensionName.compare("png") == 0 || l_strExtensionName.compare("PNG") == 0)
 		{
 			//8bit?
-			lodepng_encode_file(e_strFileName, e_pPixel, e_iWidth,e_iHeight, e_iChannel==3?LodePNGColorType::LCT_RGB: LodePNGColorType ::LCT_RGBA,8);
+			lodepng_encode_file(e_strFileName, l_pFinalPixels, e_iWidth,e_iHeight, e_iChannel==3?LodePNGColorType::LCT_RGB: LodePNGColorType ::LCT_RGBA,8);
 		}
 		else
-			jpge::compress_image_to_jpeg_file(e_strFileName, e_iWidth, e_iHeight, e_iChannel, e_pPixel);
+			jpge::compress_image_to_jpeg_file(e_strFileName, e_iWidth, e_iHeight, e_iChannel, l_pFinalPixels);
 #elif defined(IOS)
 		captureToPhotoAlbum();
 #endif
+		if (e_bDoYCoordianteInvert)
+		{
+			SAFE_DELETE(l_pFinalPixels);
+		}
 		return true;
 	}
 //end namespace FATMING_CORE
