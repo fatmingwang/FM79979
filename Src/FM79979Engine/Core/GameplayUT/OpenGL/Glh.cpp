@@ -231,4 +231,12 @@ void		MyGLGetIntegerv(GLenum e_GLenum, GLint *params)
 	MyGlErrorTest(l_strInfo.c_str());
 }
 
+void MyglGetBooleanv(GLenum e_GLenum, GLboolean* data)
+{
+	glGetBooleanv(e_GLenum, data);
+	std::string l_strInfo = "MyglGetBooleanv:";
+	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
+	MyGlErrorTest(l_strInfo.c_str());
+}
+
 #endif

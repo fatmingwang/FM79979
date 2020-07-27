@@ -7,8 +7,11 @@ namespace FATMING_CORE
 	{
 		m_pBaseImage = nullptr;
 		m_pPixelBuffer = nullptr;
-		m_pPixelBuffer = new unsigned char[e_iViewPortWidth*e_iViewPortHeight* 3];
-		m_pFrameBuffer = new cFrameBuffer(e_iViewPortWidth,e_iViewPortHeight);
+		//opengl es require RGBA so it's 4 channel.
+		m_iNumChannel = 4;
+		m_pPixelBuffer = new unsigned char[e_iViewPortWidth*e_iViewPortHeight* m_iNumChannel];
+		//opengl es require RGBA,I have no idea why
+		m_pFrameBuffer = new cFrameBuffer(e_iViewPortWidth,e_iViewPortHeight,false, GL_RGBA);
 	}
 	cScreenCapture::~cScreenCapture()
 	{
@@ -24,13 +27,15 @@ namespace FATMING_CORE
 	{
 		if (m_pFrameBuffer)
 		{
-			GLenum l_PixelType = GL_RGB;
+			GLenum l_PixelType = GL_RGBA;
 #if defined(WIN32) && !defined(UWP)
 			l_PixelType = GL_BGR;
 #endif
 			int l_iWidth = m_pFrameBuffer->GetWidth();
 			int l_iHeight = m_pFrameBuffer->GetHeight();
+			MyGlErrorTest("before glReadPixels");
 			glReadPixels(0, 0, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE, m_pPixelBuffer);
+			MyGlErrorTest("After glReadPixels");
 			m_pFrameBuffer->EndDraw();
 			if (!m_pBaseImage)
 			{
@@ -38,10 +43,11 @@ namespace FATMING_CORE
 				l_strName += ValueToString(this->GetUniqueID());
 				m_pBaseImage = new cBaseImage(l_strName.c_str());
 				m_pBaseImage->SetMirror(true);
-				float l_fUV[4] = {0,1,1,0};
-				m_pBaseImage->SetUV(l_fUV);
 			}
-			m_pBaseImage->GetTexture()->SetupTexture(3, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE,false,m_pPixelBuffer);
+			m_pBaseImage->SetupTexture(m_iNumChannel, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE,false,m_pPixelBuffer,false);
+			//for Y down not Y up
+			float l_fUV[4] = { 0,1,1,0 };
+			m_pBaseImage->SetUV(l_fUV);
 		}
 	}
 //	void	cScreenCapture::Capture(int*e_piViewport)
@@ -199,7 +205,7 @@ namespace FATMING_CORE
 		// you need to attach either a color texture or a color renderbuffer to GL_COLOR_ATTACHMENT0,
 		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
 		//here I need do it as a texture to scale so glTexImage2D is suit for me.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_eImageType, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
 		MyGlErrorTest("cFrameBuffer::cFrameBuffer glTexImage2D");
 		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -232,7 +238,7 @@ namespace FATMING_CORE
 	{
 		//for depth
 		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		MyglGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
 			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
@@ -276,7 +282,9 @@ namespace FATMING_CORE
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else
 		{
+#ifndef UWP
 			MyGLDisable(GL_SCISSOR_TEST);
+#endif
 		}
 	}
 
@@ -353,7 +361,7 @@ namespace FATMING_CORE
 	{
 		//for depth
 		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		MyglGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
 			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;

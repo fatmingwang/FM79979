@@ -255,7 +255,7 @@ namespace FATMING_CORE
 		{
 			Vector4 l_ResultViewPort = ViewRectToOpenGLScissor(*m_pViewPort);
 			MyGLEnable(GL_SCISSOR_TEST);
-			glGetBooleanv(GL_SCISSOR_TEST, &l_bSissorTest);
+			MyglGetBooleanv(GL_SCISSOR_TEST, &l_bSissorTest);
 			if (l_bSissorTest)
 				MyGLGetIntegerv(GL_SCISSOR_BOX, l_vScissorBox);
 			glScissor((int)l_ResultViewPort.x, (int)l_ResultViewPort.y, (int)l_ResultViewPort.z, (int)l_ResultViewPort.w);

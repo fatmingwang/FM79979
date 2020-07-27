@@ -554,12 +554,12 @@ namespace FATMING_CORE
 		}
 	}
 
-	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels)
+	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels, bool e_bShowLog)
 	{
 		SetupTexture(e_iChannel,e_iWidth,e_iHeight,e_Format,e_Type);
 		if( e_pPixels )
 		{
-			UpdatePixels(e_pPixels, e_bFetchPixels);
+			UpdatePixels(e_pPixels, e_bFetchPixels, e_bShowLog);
 		}
 	}
 
@@ -578,7 +578,7 @@ namespace FATMING_CORE
 		glTexSubImage2D(GL_TEXTURE_2D,0,0,0,l_iPixelWidth,l_iPixelHeight,m_iPixelFormat,GL_UNSIGNED_BYTE,e_pPixels);
 	}
 
-	void	cTexture::UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData)
+	void	cTexture::UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData, bool e_bShowLog)
 	{
 		SAFE_DELETE(m_pPixels);
 		glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);

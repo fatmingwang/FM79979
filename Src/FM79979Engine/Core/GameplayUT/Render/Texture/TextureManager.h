@@ -11,7 +11,7 @@ namespace FATMING_CORE
 	bool			SaveCurrentBufferToImage(const char*e_strFileName,int e_iViewPortWidth, int e_iViewPortHeight);
 	//e_bDoYCoordianteInvert=>opengl Y up but my is Y down
 	bool			SaveBufferToImage(const char*e_strFileName, int e_iWidth, int e_iHeight, unsigned char*e_pPixel, int e_iChannel,bool e_bDoYCoordianteInvert = false);
-	void			OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName);
+	void			OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName, bool e_bShowLog = true);
 	void			OpenGLDeleteTexture(cTexture*e_pSimpleGLTexture);
 
 	class cTexture;

@@ -16,6 +16,7 @@ namespace FATMING_CORE
 		unsigned char*	m_pPixelBuffer;
 		class	cFrameBuffer*m_pFrameBuffer;
 		class	cBaseImage*m_pBaseImage;
+		int		m_iNumChannel;
 	public:
 		//basicly use opengl->viewport.
 		cScreenCapture(int e_iViewPortWidth = 1280, int e_iViewPortHeight = 720);

@@ -30,7 +30,7 @@ namespace FATMING_CORE
 		//texture ID.
 		GLuint	m_uiImageIndex;
 		//check power of two
-		void				UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData);
+		void				UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData,bool e_bShowLog = true);
 	public:
 		//last image index has been used
         static  GLuint  m_suiLastUsingImageIndex;
@@ -57,7 +57,7 @@ namespace FATMING_CORE
 		std::string*		m_pstrFullFileName;
 		//GLAPI void GLAPIENTRY glTexImage2D (GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels);
 		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_iWidth, m_iHeight, 0, GL_BGR, GL_UNSIGNED_BYTE, m_pDIBData);
-		void				SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels);
+		void				SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels, bool e_bShowLog = true);
 		void				SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type);
 		//ensure power of problem is done or it will be trobule
 		void				ForceUpdatePixels(const GLvoid *e_pPixels);

@@ -41,7 +41,7 @@ namespace FATMING_CORE
 		{
 			GLRender::RenderFilledRectangle(Vector2(m_vWorldPosScissorRect.x, m_vWorldPosScissorRect.y), m_vWorldPosScissorRect.Width(), m_vWorldPosScissorRect.Height(), m_vScissorRectColor, 0.f);
 		}
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bSissorTest);
+		MyglGetBooleanv(GL_SCISSOR_TEST, &m_bSissorTest);
 		if (!m_bSissorTest)
 			MyGLEnable(GL_SCISSOR_TEST);
 		else

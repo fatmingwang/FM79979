@@ -243,9 +243,9 @@ void    cVideoPlayer::Update(float e_fElpaseTime)
 		m_fRestTimeToNextFrame += m_fFPS;
 		IplImage*l_pFrame = cvQueryFrame(m_pCvCapture);
 #ifdef WIN32		
-		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_BGR,GL_UNSIGNED_BYTE,false,l_pFrame->imageData);
+		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_BGR,GL_UNSIGNED_BYTE,false,l_pFrame->imageData,false);
 #else
-		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_RGB,GL_UNSIGNED_BYTE,false,l_pFrame->imageData);
+		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_RGB,GL_UNSIGNED_BYTE,false,l_pFrame->imageData, false);
 #endif
 	}
 #endif

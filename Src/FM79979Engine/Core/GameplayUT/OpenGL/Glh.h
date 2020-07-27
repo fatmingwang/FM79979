@@ -60,6 +60,7 @@
 	void					MyGLEnable(GLenum e_GLenum);
 	void					MyGLDisable(GLenum e_GLenum);
 	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);
+	void					MyglGetBooleanv(GLenum e_GLenum, GLboolean* data);
 #else
 #define	MyGlErrorTest(q)
 #define	MyGLEnable(p)			glEnable(p)

@@ -280,7 +280,7 @@ namespace FATMING_CORE
 
 	void	cBaseImage::Render(Vector3 e_vPos)
 	{
-		if( !m_bVisible )
+		if( !m_bVisible || !m_pTexture)
 			return;
 		if(m_pTexture->ApplyImage())
 		{
@@ -383,9 +383,9 @@ namespace FATMING_CORE
 		RenderQuadWithMatrix(l_pVertices, l_pfTexPointer, m_vColor, cMatrix44::Identity, 2, 1);
 	}
 
-	void	cBaseImage::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels)
+	void	cBaseImage::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels, bool e_bShowLog)
 	{
-		this->m_pTexture->SetupTexture(e_iChannel,e_iWidth,e_iHeight,e_Format,e_Type,e_bGeneratePixels,e_pPixels);
+		this->m_pTexture->SetupTexture(e_iChannel,e_iWidth,e_iHeight,e_Format,e_Type,e_bGeneratePixels,e_pPixels, e_bShowLog);
 		memcpy(this->m_fUV,m_pTexture->GetUV(),sizeof(float)*4);
 		this->m_iWidth = m_pTexture->GetWidth();
 		this->m_iHeight = m_pTexture->GetHeight();

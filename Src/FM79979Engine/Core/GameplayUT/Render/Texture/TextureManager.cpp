@@ -282,23 +282,26 @@ namespace FATMING_CORE
 		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 	#endif
 	}
-	void OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName)
+	void OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName, bool e_bShowLog)
 	{
 	#ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 	#endif
 		glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 	#ifdef DEBUG
-		int	l_iAfterAlivableVRamKB = CheckRestVRam();
-		int	l_iDiffErentKB = l_iBeforeAlivableVRamKB - l_iAfterAlivableVRamKB;
-		int	l_iAteVRamKB = (width*height*(format == GL_RGBA ? 4 : 3)) / 1024;
-		g_iAteVideoMomory += l_iAteVRamKB;
-		//g_iAteVideoMomory += l_iValue;
-		float	l_fMB = l_iAteVRamKB / 1024.f;
-		float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
-		MyGlErrorTest("MyTextureGenerate");
-		std::wstring	l_str = UT::ComposeMsgByFormat(L"-------------GenerateTexture-------------\nTextureName:%ls:\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n",e_strFileName,l_fMB,l_fTotalMB,l_iAfterAlivableVRamKB/1024.f);
-		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		if (e_bShowLog)
+		{
+			int	l_iAfterAlivableVRamKB = CheckRestVRam();
+			int	l_iDiffErentKB = l_iBeforeAlivableVRamKB - l_iAfterAlivableVRamKB;
+			int	l_iAteVRamKB = (width * height * (format == GL_RGBA ? 4 : 3)) / 1024;
+			g_iAteVideoMomory += l_iAteVRamKB;
+			//g_iAteVideoMomory += l_iValue;
+			float	l_fMB = l_iAteVRamKB / 1024.f;
+			float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
+			MyGlErrorTest("MyTextureGenerate");
+			std::wstring	l_str = UT::ComposeMsgByFormat(L"-------------GenerateTexture-------------\nTextureName:%ls:\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n", e_strFileName, l_fMB, l_fTotalMB, l_iAfterAlivableVRamKB / 1024.f);
+			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
+		}
 	#endif
 	}
 	//here si the idea for store screen buffer to 4 block
