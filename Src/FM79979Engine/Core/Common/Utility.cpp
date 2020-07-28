@@ -472,6 +472,10 @@ namespace UT
 	std::string	GetFileNameWithoutFullPath(const char*e_pString,bool e_bStripExtensionFileName)
 	{
 		std::string	l_strResult;
+		if (!e_pString)
+		{
+			return l_strResult;
+		}
 		char	l_temp[TEMP_SIZE];
 		memset(l_temp,0,sizeof(l_temp));
 		if (e_pString)

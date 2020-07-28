@@ -587,7 +587,7 @@ namespace FATMING_CORE
 		if(  !g_bSupportNonPowerOfTwoTexture && (l_iWidthPO2!=m_iWidth||l_iHeightPO2!=m_iHeight) )//make it power of two
 		{
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,this->m_iChannel==4?true:false);
-			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iWidthPO2,l_iHeightPO2, 0,this->m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,this->GetName()); // Texture specification.
+			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iWidthPO2,l_iHeightPO2, 0,this->m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,this->GetName(), e_bShowLog); // Texture specification.
 			//assign new UV
 			m_fUV[2] = (float)m_iWidth/(float)l_iWidthPO2;
 			m_fUV[3] =  (float)m_iHeight/(float)l_iHeightPO2;
@@ -602,7 +602,7 @@ namespace FATMING_CORE
 		}
 		else
 		{
-			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,GetName()); // Texture specification.
+			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,GetName(), e_bShowLog); // Texture specification.
 			if( e_bFetchPuxelData )
 			{
 				int	l_iDataSize = m_iWidth*m_iHeight*4;
