@@ -1487,7 +1487,7 @@ namespace UT
 
 	bool	sDataContainer::CreateData(unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
@@ -1501,7 +1501,7 @@ namespace UT
 
 	bool	sDataContainer::CopyData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize && e_pData != nullptr)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize && e_pData != nullptr)
 		{
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
@@ -1516,7 +1516,7 @@ namespace UT
 
 	bool	sDataContainer::AssignData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
 			SAFE_DELETE(pData);
 			pData = e_pData;

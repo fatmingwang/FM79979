@@ -28,7 +28,7 @@ namespace FATMING_CORE
 		cFMMorphingAnimationManager								m_FMMorphingAnimationManager;
 		cPaticleManager											m_PaticleManager;
 		cBehaviorPaticleManager									m_BehaviorPaticleManager;
-		cSoundParser											m_SoundParser;
+		//cSoundParser*											m_pSoundParser;
 		cAnimationParser										m_MPDIListParser;
 		cImageParser*											m_pImageParser;
 		cFontManager											m_FontManager;

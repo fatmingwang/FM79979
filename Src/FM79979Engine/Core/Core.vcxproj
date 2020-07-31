@@ -271,6 +271,7 @@
     <ClCompile Include="Network\GameNetWork.cpp" />
     <ClCompile Include="Network\Network.cpp" />
     <ClCompile Include="Network\SDLnet.cpp" />
+    <ClCompile Include="Network\UDPNetwork.cpp" />
     <ClCompile Include="Sound\SoundCapture.cpp" />
     <ClCompile Include="Sound\SoundFile.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
@@ -460,6 +461,7 @@
     <ClInclude Include="Math\MathFormulaXML.h" />
     <ClInclude Include="Network\GameNetWork.h" />
     <ClInclude Include="Network\NetworkData.h" />
+    <ClInclude Include="Network\UDPNetwork.h" />
     <ClInclude Include="Sound\AllSoundInclude.h" />
     <ClInclude Include="Sound\SoundCapture.h" />
     <ClInclude Include="Sound\SoundFile.h" />

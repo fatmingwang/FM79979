@@ -81,7 +81,7 @@ namespace UT
 	{
 		timeval	l_Result;
 		timeval_diff(&l_Result,pTimevalStamp,&e_timeval);
-		return l_Result.tv_sec+l_Result.tv_usec/1000000.f;
+		return (float)(l_Result.tv_sec+l_Result.tv_usec/1000000.f);
 	}
 
 	char* sTimeAndFPS::GetFPS()

@@ -10,6 +10,7 @@
 #include "SDL_net.h"
 #include "../Synchronization/CPP11Thread.h"
 #include "NetworkData.h"
+#include "../Common/Utility.h"
 namespace FATMING_CORE
 {
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread

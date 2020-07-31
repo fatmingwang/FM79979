@@ -368,7 +368,7 @@ namespace FATMING_CORE
 			m_pData = new char[l_lFileSize];
 			memset(m_pData, 0, l_lFileSize);
 			auto l_uiReadSize = NvFRead(m_pData,sizeof(char),l_lFileSize,m_pFile);
-			if (l_uiReadSize != l_lFileSize)
+			if ((long)l_uiReadSize != l_lFileSize)
 			{
 				FMLog::Log("cBinaryFile::GetDataFile fread size not match!!file open mode wrong!?",true);
 				SAFE_DELETE(m_pData);
