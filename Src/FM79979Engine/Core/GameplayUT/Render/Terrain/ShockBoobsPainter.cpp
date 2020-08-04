@@ -566,7 +566,7 @@ namespace FATMING_CORE
 		m_pShockBoobsShader->SetShockDirection(m_pShockBoobsShader->GetShockDirection()*(e_fValue+1.f));
 	}
 
-	bool	cShockBoobsPainter::SaveFile(char*e_strFileName)
+	bool	cShockBoobsPainter::SaveFile(const char*e_strFileName)
 	{
 		std::string	l_strHeightFileName = UT::ChangeFileExtensionName(e_strFileName,"height").c_str();
 		NvFile*l_pHeightMapFile = UT::MyFileOpen(l_strHeightFileName.c_str(),"wb");
@@ -596,7 +596,7 @@ namespace FATMING_CORE
 		return doc.SaveFile( e_strFileName );
 	}
 
-	bool	cShockBoobsPainter::ChangePaintingImage(char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution)
+	bool	cShockBoobsPainter::ChangePaintingImage(const char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution)
 	{
 		SAFE_DELETE(m_pOriginalPaintImage);
 		m_pOriginalPaintImage = new cBaseImage(e_strFileName);

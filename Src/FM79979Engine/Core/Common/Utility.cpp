@@ -472,7 +472,7 @@ namespace UT
 	std::string	GetFileNameWithoutFullPath(const char*e_pString,bool e_bStripExtensionFileName)
 	{
 		std::string	l_strResult;
-		if (!e_pString)
+		if (!e_pString || strlen(e_pString) == 0)
 		{
 			return l_strResult;
 		}

@@ -7,7 +7,8 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-#include "../../Core/AVIPlayer/AndroidVideoPlayer.h"
+//#include "../../Core/AVIPlayer/AndroidVideoPlayer.h"
+#include "../../Core/GameplayUT/Render/VideoPlayer/AndroidVideoPlayer.h"
 
 namespace VertexAnimationEditor
 {
@@ -36,7 +37,7 @@ namespace VertexAnimationEditor
 			m_pGameApp->Init();
 
 			m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
-			m_HGLRCMV = m_pGameApp->m_sHGLRC;
+			m_HGLRCMV = m_pGameApp->m_spOpenGLRender->m_HGLRC;
 		}
 
 	protected:
@@ -235,7 +236,7 @@ namespace VertexAnimationEditor
 						m_pVideoConvert->m_iTargetHeight = (int)Height_numericUpDown->Value;
 						m_pVideoConvert->m_iTargetWidth = (int)Width_numericUpDown->Value;
 						m_pVideoConvert->m_iQuality = (int)Quality_numericUpDown->Value;
-						if( m_pVideoConvert->OpenFile(DNCT::GcStringToChar(m_strConvertVideoFileName)) )
+						if( m_pVideoConvert->OpenFile(DNCT::GcStringToChar(m_strConvertVideoFileName).c_str()) )
 						{
 							String^l_strDestFileName = DNCT::ChangeFileExtensionName(gcnew String(m_strConvertVideoFileName),"fmv");
 							std::string	l_strWriteFileName = DNCT::GcStringToChar(l_strDestFileName);
@@ -277,10 +278,10 @@ namespace VertexAnimationEditor
 				RECT rcClient;
 				GetClientRect((HWND)m_pTargetControl->Handle.ToPointer(), &rcClient);
 				UseShaderProgram();
-				cGameApp::m_svViewPortSize.x = 0.f;
-				cGameApp::m_svViewPortSize.y = 0.f;
-				cGameApp::m_svViewPortSize.z = (float)Width;
-				cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;//(float)Height-(Height-rcClient.bottom);
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)Width;
+				cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)rcClient.bottom;//(float)Height-(Height-rcClient.bottom);
 				//RECT	l_rc;
 				//GetWindowRect((HWND)this->Handle.ToPointer(),&l_rc);
 				//cGameApp::m_svViewPortSize.y = l_rc.top;
@@ -317,7 +318,7 @@ private: System::Void CompressVideoPlay_button_Click(System::Object^  sender, Sy
 				 SAFE_DELETE(m_pFMVVideo);
 				 m_pFMVVideo = new cFMVVideo();
 				 //m_pFMVVideo->m_bUsingMultiThread = false;
-				 if(m_pFMVVideo->OpenFile(DNCT::GcStringToChar(l_strFileName)))
+				 if(m_pFMVVideo->OpenFile(DNCT::GcStringToChar(l_strFileName).c_str()))
 				 {
 					timer2->Enabled = true;
 				 }

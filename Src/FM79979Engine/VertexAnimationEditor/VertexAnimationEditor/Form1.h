@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../Core/Terrain/ShockBoobsPainter.h"
+//#include "../../Core/Terrain/ShockBoobsPainter.h"
+#include "../../Core/GameplayUT/Render/Terrain/ShockBoobsPainter.h"
 #include "../../Core/FatmingCollada/AllColladaInclude.h"
 cMesh*g_pMesh = 0;
 cColladaParser*g_pColladaParser = 0;
@@ -524,10 +525,10 @@ namespace EditorSample
 				 RECT rcClient;
 				 GetClientRect((HWND)m_pTargetControl->Handle.ToPointer(), &rcClient);
 				 UseShaderProgram();
-				 cGameApp::m_svViewPortSize.x = 0.f;
-				 cGameApp::m_svViewPortSize.y = 0.f;
-				 cGameApp::m_svViewPortSize.z = (float)Width;
-				 cGameApp::m_svViewPortSize.w = (float)rcClient.bottom;//(float)Height-(Height-rcClient.bottom);
+				 cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
+				 cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 0.f;
+				 cGameApp::m_spOpenGLRender->m_vViewPortSize.z = (float)Width;
+				 cGameApp::m_spOpenGLRender->m_vViewPortSize.w = (float)rcClient.bottom;//(float)Height-(Height-rcClient.bottom);
 				 //RECT	l_rc;
 				 //GetWindowRect((HWND)this->Handle.ToPointer(),&l_rc);
 				 //cGameApp::m_svViewPortSize.y = l_rc.top;
@@ -574,7 +575,7 @@ namespace EditorSample
 				 Vector2	l_vMousePos = m_pOrthogonalCamera->GetMouseWorldPos();
 				 cGameApp::m_sMousePosition.x = (int)l_vMousePos.x;
 				 cGameApp::m_sMousePosition.y = (int)l_vMousePos.y;
-				 glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+				 glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 				 Vector3	l_vPos = m_pFrameCamera->GetWorldPosition();
 				 cGameApp::RenderFont(0,70,L"CameraPos");
 				 cGameApp::RenderFont(0,85,ValueToStringW(l_vPos).c_str());
@@ -603,7 +604,8 @@ namespace EditorSample
 				 else
 				 {
 					 m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,
+						 Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 					 Vector2	l_vMousePos = m_pOrthogonalCamera->GetMouseWorldPos();
 					 if( m_pMyBoobsPainter )
 					 {
@@ -632,7 +634,7 @@ namespace EditorSample
 				 {
 					 POINT	ptCursor = {(int)m_pOrthogonalCamera->GetMouseWorldPos().x,(int)m_pOrthogonalCamera->GetMouseWorldPos().y};
 					 m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 					 Vector2	l_vMousePos = m_pOrthogonalCamera->GetMouseWorldPos();
 					 //if( l_MouseButton == System::Windows::Forms::MouseButtons::Left )
 					 if( m_pMyBoobsPainter )
@@ -671,7 +673,7 @@ namespace EditorSample
 				 else
 				 {
 					 m_pOrthogonalCamera->CameraUpdateByMouse(l_MouseButton==System::Windows::Forms::MouseButtons::Left?true:false
-						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+						 ,l_MouseButton == System::Windows::Forms::MouseButtons::Right?true:false,e->Delta,e->X,e->Y, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 					 Vector2	l_vMousePos = m_pOrthogonalCamera->GetMouseWorldPos();
 					 if( m_pMyBoobsPainter )
 					 {
@@ -732,7 +734,7 @@ namespace EditorSample
 				 m_pGameApp->Init();
 
 				 m_HdcMV = GetDC((HWND)m_pTargetControl->Handle.ToPointer());
-				 m_HGLRCMV = m_pGameApp->m_sHGLRC;
+				 m_HGLRCMV = m_pGameApp->m_spOpenGLRender->m_HGLRC;
 				 //for mouse event
 				 m_pTargetControl->MouseMove += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseMove);
 				 m_pTargetControl->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Form1::MyMouseDown);
@@ -824,7 +826,7 @@ namespace EditorSample
 				 {
 					 if( m_pMyBoobsPainter )
 					 {
-						if(!m_pMyBoobsPainter->SaveFile(DNCT::GcStringToChar(l_strFileName)))
+						if(!m_pMyBoobsPainter->SaveFile(DNCT::GcStringToChar(l_strFileName).c_str()))
 						{
 							WARNING_MSG("save file failed");
 						}
@@ -850,7 +852,7 @@ private: System::Void patingImageToolStripMenuItem_Click(System::Object^  sender
 			 String^l_strFileName = DNCT::OpenFileAndGetName("png files (*.png)|*.png|All files (*.*)|*.*");
 			 if( l_strFileName )
 			 {
-				m_pMyBoobsPainter->ChangePaintingImage(DNCT::GcStringToChar(l_strFileName));
+				m_pMyBoobsPainter->ChangePaintingImage(DNCT::GcStringToChar(l_strFileName).c_str());
 			 }
 		 }
 };

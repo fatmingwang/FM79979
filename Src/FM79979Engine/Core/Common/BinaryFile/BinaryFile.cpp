@@ -1,5 +1,6 @@
 //#include "../stdafx.h"
 #include <stdlib.h>  
+#include <mutex>
 #include "BinaryFile.h"
 #include "../Utility.h"
 #include "../Log/FMLog.h"
@@ -16,6 +17,7 @@ namespace FATMING_CORE
 	cBinaryFile::cBinaryFile(bool e_bBigEndian)
 	{
 		this->SetName(L"cBinaryFile");
+		m_pLogMutex = new std::mutex;
 		m_bBigEndian = e_bBigEndian;
 		if( e_bBigEndian )
 			SwapToPc();
@@ -34,6 +36,7 @@ namespace FATMING_CORE
 	cBinaryFile::~cBinaryFile()
 	{
 		CloseFile();
+		SAFE_DELETE(m_pLogMutex);
 	};
 
 	void cBinaryFile::SwapToPc()
@@ -107,7 +110,7 @@ namespace FATMING_CORE
 	{
 		if( !m_pFile )
 			return;
-		MUTEX_PLACE_HOLDER(m_LogMutex);
+		std::lock_guard<std::mutex> l_PP11MutexHolder(*m_pLogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)strlen(val);
@@ -119,7 +122,7 @@ namespace FATMING_CORE
 	{
 		if( !m_pFile )
 			return;
-		MUTEX_PLACE_HOLDER(m_LogMutex);
+		std::lock_guard<std::mutex> l_PP11MutexHolder(*m_pLogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)wcslen(val);

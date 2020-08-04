@@ -1,4 +1,4 @@
-//#ifdef USE_OPEN_CV
+//#ifdef USE_OLD_OPENCV
 #include "AndroidVideoPlayer.h"
 #include "../../OpenGL/Glh.h"
 #include "../../GameApp/GameApp.h"
@@ -21,8 +21,6 @@ char*g_strCommonVideoFS = "													\
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
-#include "cv.h"
-#include "highgui.h"
 using namespace cv;
 
 //opencv_calib3d
@@ -175,7 +173,7 @@ cVideoPlayer::cVideoPlayer()
 	m_fTotalPlayTime = 56.f;
 	m_fCurrentPlayTime = 0.f;
 #ifndef ANDROID
-	m_pCvCapture = 0;
+	m_pCvCapture = new cv::VideoCapture();
 #endif
 	m_fRestTimeToNextFrame = 0.f;
 	m_fFPS = 1/24.f;
@@ -192,8 +190,7 @@ cVideoPlayer::cVideoPlayer()
 cVideoPlayer::~cVideoPlayer()
 {
 #ifdef WIN32
-	if( m_pCvCapture )
-		cvReleaseCapture(&m_pCvCapture);
+	SAFE_DELETE(m_pCvCapture);
 #endif
 	SAFE_DELETE(m_pVideoImage);
 }
@@ -216,17 +213,17 @@ bool	cVideoPlayer::OpenFile(const char*e_strFileName)
 	try
 	{
 		//if return null please find opencv_ffmpeg249.dll.
-		m_pCvCapture = cvCreateFileCapture(e_strFileName);
+		m_pCvCapture->open(e_strFileName);
 	}
 	catch( cv::Exception& e )
 	{
 	    const char* err_msg = e.what();
 		UT::ErrorMsg(err_msg,"error!");
 	}
-	if( m_pCvCapture )
+	if( m_pCvCapture && m_pCvCapture->isOpened())
 	{
-		m_iTotalFrame = (int) cvGetCaptureProperty( m_pCvCapture , CV_CAP_PROP_FRAME_COUNT );
-		m_fFPS = (float) cvGetCaptureProperty( m_pCvCapture , CV_CAP_PROP_FPS );
+		m_iTotalFrame = (int)m_pCvCapture->get(cv::CAP_PROP_FRAME_COUNT);
+		m_fFPS = (float)m_pCvCapture->get(cv::CAP_PROP_FPS);
 		m_fTotalPlayTime = m_iTotalFrame/m_fFPS;
 		return true;
 	}
@@ -241,12 +238,17 @@ void    cVideoPlayer::Update(float e_fElpaseTime)
 	if( m_fRestTimeToNextFrame < 0 )
 	{
 		m_fRestTimeToNextFrame += m_fFPS;
-		IplImage*l_pFrame = cvQueryFrame(m_pCvCapture);
-#ifdef WIN32		
-		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_BGR,GL_UNSIGNED_BYTE,false,l_pFrame->imageData,false);
-#else
-		m_pVideoImage->GetTexture()->SetupTexture(3,l_pFrame->width,l_pFrame->height,GL_RGB,GL_UNSIGNED_BYTE,false,l_pFrame->imageData, false);
+		cv::Mat l_Frame;
+		if (m_pCvCapture->read(l_Frame))
+		{
+			
+			auto l_ColorType = GL_RGB;
+#ifdef WIN32	
+			l_ColorType = GL_BGR;
 #endif
+			m_pVideoImage->GetTexture()->SetupTexture(3, l_Frame.rows, l_Frame.cols, GL_BGR, GL_UNSIGNED_BYTE, false,
+				l_Frame.data, false);
+		}
 	}
 #endif
 	return;
@@ -285,16 +287,21 @@ bool	cVideoConvert::SaveFrameToFile(int e_iFrame,void*e_pIplImage,NvFile*e_pFile
 #ifdef WIN32
 	if( !e_pIplImage || !e_pFile )
 		return false;
-	IplImage*l_pIplImage = (IplImage*)e_pIplImage;
-	IplImage *l_pScaleImage = 0;
+	cv::Mat*l_pImageFrame = nullptr;
+	cv::Mat*l_pIplImage = (cv::Mat*)e_pIplImage;
+	cv::Mat l_ScaleImage;
 	if( m_iTargetHeight != -1 && m_iTargetWidth != -1 )
 	{
-		l_pScaleImage = cvCreateImage ( cvSize(m_iTargetWidth,m_iTargetHeight),l_pIplImage->depth,l_pIplImage->nChannels);
-		cvResize(l_pIplImage, l_pScaleImage);
+		cv::resize(*l_pIplImage,l_ScaleImage, cv::Size(m_iTargetWidth, m_iTargetHeight), 0, 0, cv::INTER_AREA);
+		l_pImageFrame = &l_ScaleImage;
 	}
-	if( l_pScaleImage )
-		l_pIplImage = l_pScaleImage;
-	int	l_iLength = l_pIplImage->imageSize;
+	else
+	{
+		l_pImageFrame = l_pIplImage;
+	}
+	cv::Size s = l_pImageFrame->size();
+	//3 channel
+	int	l_iLength = s.height*s.width*3;
 	if( m_iMaximumTampFileLength < l_iLength )
 	{
 		SAFE_DELETE(m_pTempData);
@@ -304,19 +311,15 @@ bool	cVideoConvert::SaveFrameToFile(int e_iFrame,void*e_pIplImage,NvFile*e_pFile
 	char*l_strBuffer = m_pTempData;
 	jpge::params	l_Par;
 	l_Par.m_quality = m_iQuality;
-	if(jpge::compress_image_to_jpeg_file_in_memory(l_strBuffer,l_iLength,l_pIplImage->width,l_pIplImage->height,3,(const jpge::uint8*)l_pIplImage->imageData,l_Par))
+	if(jpge::compress_image_to_jpeg_file_in_memory(l_strBuffer,l_iLength,l_pIplImage->rows,l_pIplImage->cols,3,(const jpge::uint8*)l_pIplImage->data,l_Par))
 	//if(jpge::compress_image_to_jpeg_file_in_memory(l_strBuffer,l_iLength,l_pIplImage->width,l_pIplImage->height,3,(const jpge::uint8*)l_pIplImage->imageData))
 	{
 		m_puiFrameFilePosVector[e_iFrame] = m_uiCurrentFilePos;
 		m_puiFrameSizeVector[e_iFrame] = l_iLength;
 		NvFWrite(l_strBuffer,sizeof(char),l_iLength,e_pFile);
 		m_uiCurrentFilePos += l_iLength;
-		if( l_pScaleImage )
-			cvReleaseImage(&l_pScaleImage);
 		return true;
 	}
-	if( l_pScaleImage )
-		cvReleaseImage(&l_pScaleImage);
 #endif
 	return false;
 }
@@ -334,8 +337,8 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 	SAFE_DELETE(m_puiFrameSizeVector);
 	//
 #ifdef WIN32
-	IplImage*l_pFrame = cvQueryFrame(m_pCvCapture);
-	if( l_pFrame )
+	cv::Mat l_Frame;
+	if (m_pCvCapture->read(l_Frame))
 	{
 		//start hint caption is FM79979Video
 		//lazy to do this now just give a 100 frame
@@ -362,15 +365,15 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 		}
 		else
 		{
-			NvFWrite((void*)&l_pFrame->width,sizeof(int),1,e_pFile);
+			NvFWrite((void*)&l_Frame.rows,sizeof(int),1,e_pFile);
 			m_uiCurrentFilePos += sizeof(int);
-			NvFWrite((void*)&l_pFrame->height,sizeof(int),1,e_pFile);
+			NvFWrite((void*)&l_Frame.cols,sizeof(int),1,e_pFile);
 			m_uiCurrentFilePos += sizeof(int);
 		}
 		m_puiFrameFilePosVector = new UINT[m_iTotalFrame];
 		m_puiFrameSizeVector = new UINT[m_iTotalFrame];
 
-		return SaveFrameToFile(0,l_pFrame,e_pFile);
+		return SaveFrameToFile(0,&l_Frame,e_pFile);
 	}
 #endif
 	return false;
@@ -380,11 +383,11 @@ bool	cVideoConvert::FirstConvertToFile(NvFile*e_pFile)
 bool	cVideoConvert::ConvertToFile(int e_iFrame,NvFile*e_pFile)
 {
 #ifdef WIN32
-	IplImage*l_pFrame = cvQueryFrame(m_pCvCapture);
-	if( !l_pFrame )
+	cv::Mat l_Frame;
+	if (!m_pCvCapture->read(l_Frame))
 		return false;
 	int	l_iCompressLength = 0;
-	if(SaveFrameToFile(e_iFrame,l_pFrame,e_pFile))
+	if(SaveFrameToFile(e_iFrame,&l_Frame,e_pFile))
 	{
 		return true;
 	}
@@ -813,5 +816,5 @@ bool	cFMVVideo::IsPlayDone()
 {
 	return m_iTotalFrame <= this->m_iCurrentFrame;
 }
-//end USE_OPEN_CV
+//end USE_OLD_OPENCV
 //#endif

@@ -64,6 +64,9 @@
     <Filter Include="Game\UIInfo">
       <UniqueIdentifier>{67ea54ea-c262-4a86-ae0a-ec56898c305d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\MazeGenerator">
+      <UniqueIdentifier>{b60f95b6-dc8c-4a01-aef1-a122e6866f97}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -140,6 +143,9 @@
     </ClCompile>
     <ClCompile Include="UIInfo.cpp">
       <Filter>Game\UIInfo</Filter>
+    </ClCompile>
+    <ClCompile Include="MazeGenerator.cpp">
+      <Filter>Game\MazeGenerator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +229,9 @@
     </ClInclude>
     <ClInclude Include="UIInfo.h">
       <Filter>Game\UIInfo</Filter>
+    </ClInclude>
+    <ClInclude Include="MazeGenerator.h">
+      <Filter>Game\MazeGenerator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

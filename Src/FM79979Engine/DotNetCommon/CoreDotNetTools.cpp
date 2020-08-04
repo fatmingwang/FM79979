@@ -249,7 +249,7 @@ namespace DNCT
 			System::Drawing::Rectangle l_Rect; l_Rect.X = 0; l_Rect.Y = 0; l_Rect.Width = l_pUIImage->GetWidth(); l_Rect.Height = l_pUIImage->GetHeight();
 			System::Drawing::Imaging::BitmapData^ l_pBd = l_pImage->LockBits(l_Rect,System::Drawing::Imaging::ImageLockMode::WriteOnly,l_PizelFormat);
 			void* pScan0 = (void*)(l_pBd->Scan0);
-			memcpy(pScan0,l_pUIImage->GetTexture()->GetPixels(),sizeof(byte)*l_Rect.Width*l_Rect.Height*l_iChannel);
+			memcpy(pScan0,l_pUIImage->GetTexture()->GetPixels(),sizeof(char)*l_Rect.Width*l_Rect.Height*l_iChannel);
 			if( l_iChannel == 4 )
 			{
 				//conver to dot net color
