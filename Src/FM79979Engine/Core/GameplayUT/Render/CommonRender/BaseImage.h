@@ -131,7 +131,7 @@ namespace FATMING_CORE
 		virtual	void	Init()override {}
 		virtual	void	Update(float e_fElpaseTime)override {}
 		virtual	void	Destroy()override {}
-		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels);
+		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels,bool e_bShowLog = true);
 		virtual POINT	GetSize()override;
 		virtual const cBound*	GenerateBound()override;
 	};

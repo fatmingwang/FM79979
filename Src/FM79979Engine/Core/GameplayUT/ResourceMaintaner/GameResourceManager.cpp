@@ -17,7 +17,7 @@ cGameResourceManager::cGameResourceManager()
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)m_p2DMeshObjectManagerVector, eGameObjectType::eGBT_2D_MESH_OBJECT);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_FMMorphingAnimationManager, eGameObjectType::eGBT_2D_MORPHING_ANIMATION);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_MPDIListParser, eGameObjectType::eGBT_MPDILIST);
-	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_SoundParser, eGameObjectType::eGBT_SOUND);
+	//AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_SoundParser, eGameObjectType::eGBT_SOUND);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)m_pImageParser, eGameObjectType::eGBT_IMAGE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_PaticleManager, eGameObjectType::eGBT_PARTICLE);
 	AddGameObjectVector((cNamedTypedObjectVector<NamedTypedObject>*)&m_BehaviorPaticleManager, eGameObjectType::eGBT_BEHAVIOR_PARTICLE);

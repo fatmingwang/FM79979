@@ -1,5 +1,6 @@
 //#include "../stdafx.h"
 #include <stdlib.h>  
+#include <mutex>
 #include "BinaryFile.h"
 #include "../Utility.h"
 #include "../Log/FMLog.h"
@@ -16,6 +17,7 @@ namespace FATMING_CORE
 	cBinaryFile::cBinaryFile(bool e_bBigEndian)
 	{
 		this->SetName(L"cBinaryFile");
+		m_pLogMutex = new std::mutex;
 		m_bBigEndian = e_bBigEndian;
 		if( e_bBigEndian )
 			SwapToPc();
@@ -34,6 +36,7 @@ namespace FATMING_CORE
 	cBinaryFile::~cBinaryFile()
 	{
 		CloseFile();
+		SAFE_DELETE(m_pLogMutex);
 	};
 
 	void cBinaryFile::SwapToPc()
@@ -107,6 +110,7 @@ namespace FATMING_CORE
 	{
 		if( !m_pFile )
 			return;
+		std::lock_guard<std::mutex> l_PP11MutexHolder(*m_pLogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)strlen(val);
@@ -114,11 +118,11 @@ namespace FATMING_CORE
 		NvFWrite( "\n", sizeof(char),1, m_pFile );
 		Flush();
 	}
-
 	void cBinaryFile::WriteToFileImmediatelyWithLine(const wchar_t* val,bool e_bTimeStamp)
 	{
 		if( !m_pFile )
 			return;
+		std::lock_guard<std::mutex> l_PP11MutexHolder(*m_pLogMutex);
 		if( e_bTimeStamp )
 			CreateTimestamp();
 		int	l_iLength = (int)wcslen(val);
@@ -367,7 +371,7 @@ namespace FATMING_CORE
 			m_pData = new char[l_lFileSize];
 			memset(m_pData, 0, l_lFileSize);
 			auto l_uiReadSize = NvFRead(m_pData,sizeof(char),l_lFileSize,m_pFile);
-			if (l_uiReadSize != l_lFileSize)
+			if ((long)l_uiReadSize != l_lFileSize)
 			{
 				FMLog::Log("cBinaryFile::GetDataFile fread size not match!!file open mode wrong!?",true);
 				SAFE_DELETE(m_pData);

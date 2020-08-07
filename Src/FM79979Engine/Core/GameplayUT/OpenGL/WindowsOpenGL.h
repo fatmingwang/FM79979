@@ -1,6 +1,6 @@
 #pragma once
 #ifdef WIN32
-#include "windows.h"
+#include "../../Common/CommonDefine.h"
 
 bool					InitMultisample(HDC e_HdcMV);
 HGLRC					InitOpenGL(HWND e_pHwnd, bool e_bInitGlewInit, HDC e_HdcMV, bool e_bEnableMultisample = false);

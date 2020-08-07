@@ -5,16 +5,16 @@
 
 // TODO: reference additional headers your program requires here
 //#include "../../include/glew.h"
-#include <windows.h>
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <map>
-#include <vector>
-#include <list>
-#include <xstring>
-#include "assert.h"
+#include "../Core/AllCoreInclude.h"
+//#include <stdlib.h>
+//#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <xstring>
+//#include "assert.h"
 //#include "../../DotNetCommon/CoreDotNetTools.h"
 //#include "../Core/AllCoreInclude.h"
 //#include "../core/AVIPlayer/AVIPlayer.h"

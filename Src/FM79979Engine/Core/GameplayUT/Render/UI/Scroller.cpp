@@ -500,7 +500,7 @@ namespace FATMING_CORE
 		}
 		GLboolean	l_vSissorTest = false;
 		int	l_SicissorRange[4];
-		glGetBooleanv(GL_SCISSOR_TEST,&l_vSissorTest);
+		MyglGetBooleanv(GL_SCISSOR_TEST,&l_vSissorTest);
 		if( !l_vSissorTest )
 			MyGLEnable(GL_SCISSOR_TEST);
 		else

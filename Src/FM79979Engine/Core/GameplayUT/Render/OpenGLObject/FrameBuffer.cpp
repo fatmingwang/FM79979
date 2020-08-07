@@ -1,67 +1,111 @@
 ﻿#include "FrameBuffer.h"
 #include "../../GameApp/GameApp.h"
+#include "../Texture/TextureManager.h"
 namespace FATMING_CORE
 {
-#if defined(WIN32) && !defined(UWP)
-	cScreenCapture::cScreenCapture()
+	cScreenCapture::cScreenCapture(int e_iViewPortWidth, int e_iViewPortHeight)
 	{
-		m_pPixelBuffer = 0;
-		m_uiWidth = -1;
-		m_uiHeight = -1;
-		glGenTextures(1, &m_uiTextureID);
-		//give a super big size
-		m_pPixelBuffer = new char[1920 * 1080 * 3];
+		m_pBaseImage = nullptr;
+		m_pPixelBuffer = nullptr;
+		//opengl es require RGBA so it's 4 channel.
+		m_iNumChannel = 4;
+		m_pPixelBuffer = new unsigned char[e_iViewPortWidth*e_iViewPortHeight* m_iNumChannel];
+		//opengl es require RGBA,I have no idea why
+		m_pFrameBuffer = new cFrameBuffer(e_iViewPortWidth,e_iViewPortHeight,false, GL_RGBA);
 	}
 	cScreenCapture::~cScreenCapture()
 	{
-		glDeleteTextures(1, &m_uiTextureID);
+		SAFE_DELETE(m_pBaseImage);
 		SAFE_DELETE(m_pPixelBuffer);
 	}
-	void	cScreenCapture::Capture(int*e_piViewport)
+	void cScreenCapture::StartDraw(bool e_bClearScreen)
 	{
-		if (m_pPixelBuffer == 0 || m_uiWidth != e_piViewport[2] || m_uiHeight != e_piViewport[3])
-		{
-			m_uiWidth = e_piViewport[2];
-			m_uiHeight = e_piViewport[3];
-			if (!g_bSupportNonPowerOfTwoTexture)
-			{
-				m_uiWidth = UT::power_of_two(m_uiWidth);
-				m_uiHeight = UT::power_of_two(m_uiHeight);
-			}
-			//SAFE_DELETE(m_pPixelBuffer);
-			//m_pPixelBuffer = new char[m_uiHeight*m_uiWidth*3];
-		}
-		glPixelStorei(GL_PACK_ALIGNMENT, 1);
-		glReadBuffer(GL_BACK);
-		glReadPixels(e_piViewport[0], e_piViewport[1], m_uiWidth, m_uiHeight, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
-		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	// Set Texture Max Filter
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// Set Texture Min Filter
-		glTexImage2D(GL_TEXTURE_2D, 0, 3, m_uiWidth, m_uiHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
+		if (m_pFrameBuffer)
+			m_pFrameBuffer->StartDraw(e_bClearScreen);
 	}
+	void cScreenCapture::EndDraw()
+	{
+		if (m_pFrameBuffer)
+		{
+			GLenum l_PixelType = GL_RGBA;
+#if defined(WIN32) && !defined(UWP)
+			l_PixelType = GL_BGR;
+#endif
+			int l_iWidth = m_pFrameBuffer->GetWidth();
+			int l_iHeight = m_pFrameBuffer->GetHeight();
+			MyGlErrorTest("before glReadPixels");
+			glReadPixels(0, 0, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE, m_pPixelBuffer);
+			MyGlErrorTest("After glReadPixels");
+			m_pFrameBuffer->EndDraw();
+			if (!m_pBaseImage)
+			{
+				std::string l_strName = "cScreenCapture";
+				l_strName += ValueToString(this->GetUniqueID());
+				m_pBaseImage = new cBaseImage(l_strName.c_str());
+				m_pBaseImage->SetMirror(true);
+			}
+			m_pBaseImage->SetupTexture(m_iNumChannel, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE,false,m_pPixelBuffer,false);
+			//for Y down not Y up
+			float l_fUV[4] = { 0,1,1,0 };
+			m_pBaseImage->SetUV(l_fUV);
+		}
+	}
+//	void	cScreenCapture::Capture(int*e_piViewport)
+//	{
+//		if (m_pPixelBuffer == 0 || m_uiWidth != e_piViewport[2] || m_uiHeight != e_piViewport[3])
+//		{
+//			m_uiWidth = e_piViewport[2];
+//			m_uiHeight = e_piViewport[3];
+//			if (!g_bSupportNonPowerOfTwoTexture)
+//			{
+//				m_uiWidth = UT::power_of_two(m_uiWidth);
+//				m_uiHeight = UT::power_of_two(m_uiHeight);
+//			}
+//			//SAFE_DELETE(m_pPixelBuffer);
+//			//m_pPixelBuffer = new char[m_uiHeight*m_uiWidth*3];
+//		}
+//		glPixelStorei(GL_PACK_ALIGNMENT, 1);
+//#if defined(WIN32) && !defined(UWP)
+//		//glReadBuffer(GL_BACK);
+//#endif
+//		glReadPixels(e_piViewport[0], e_piViewport[1], m_uiWidth, m_uiHeight, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
+//		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);	// Set Texture Max Filter
+//		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);	// Set Texture Min Filter
+//		glTexImage2D(GL_TEXTURE_2D, 0, 3, m_uiWidth, m_uiHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, m_pPixelBuffer);
+//	}
 
 	void	cScreenCapture::Render(Vector3 e_vPos, int e_iWidth, int e_iHeight)
 	{
-		if (m_uiWidth == -1)
+		if (!m_pBaseImage)
 			return;
-		glBindTexture(GL_TEXTURE_2D, m_uiTextureID);
-		e_iWidth /= 2;
-		e_iHeight /= 2;
+		m_pBaseImage->SetPos(e_vPos);
+		m_pBaseImage->SetWidth(e_iWidth);
+		m_pBaseImage->SetHeight(e_iHeight);		
+		//m_pBaseImage->SetLocalTransform(cMatrix44::ZAxisRotationMatrix(D3DXToRadian(180))*cMatrix44::TranslationMatrix(e_vPos));
+		m_pBaseImage->Render();
+		//e_iWidth /= 2;
+		//e_iHeight /= 2;
+		//float	l_fTexPointer[] = { 0,1,
+		//	1,1,
+		//	0,0,
+		//	1,0 };
 
-		float	l_fTexPointer[] = { 0,1,
-			1,1,
-			0,0,
-			1,0 };
+		//float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,
+		//	(float)e_iWidth, (float)-e_iHeight,
+		//	(float)-e_iWidth, (float)e_iHeight,
+		//	(float)e_iWidth,(float)e_iHeight };
 
-		float	l_Vertices[] = { (float)-e_iWidth,(float)-e_iHeight,
-			(float)e_iWidth, (float)-e_iHeight,
-			(float)-e_iWidth, (float)e_iHeight,
-			(float)e_iWidth,(float)e_iHeight };
-
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z))*GetWorldTransform();
-		RenderQuadWithMatrix(l_Vertices, l_fTexPointer, Vector4::One, l_mat,3,1);
+		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z))*GetWorldTransform();
+		//RenderQuadWithMatrix(l_Vertices, l_fTexPointer, Vector4::One, l_mat,3,1);
 	}
-#endif	
+	void cScreenCapture::SaveToFile(const char * e_strFileName)
+	{
+		int l_iWidth = m_pFrameBuffer->GetWidth();
+		int l_iHeight = m_pFrameBuffer->GetHeight();
+		//convert opengl Y up coordinate to Y down
+		SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight,m_pPixelBuffer,3,true);
+	}
 	//CHECK_FRAMEBUFFER_STATUS() 
 	//{ 
 	//	printf("Checking framebuffer status.\n");
@@ -161,7 +205,7 @@ namespace FATMING_CORE
 		// you need to attach either a color texture or a color renderbuffer to GL_COLOR_ATTACHMENT0,
 		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
 		//here I need do it as a texture to scale so glTexImage2D is suit for me.
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, m_eImageType, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
 		MyGlErrorTest("cFrameBuffer::cFrameBuffer glTexImage2D");
 		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -194,7 +238,7 @@ namespace FATMING_CORE
 	{
 		//for depth
 		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		MyglGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
 			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;
@@ -238,7 +282,9 @@ namespace FATMING_CORE
 			glScissor(m_iOriginalScissortSize[0], m_iOriginalScissortSize[1], m_iOriginalScissortSize[2], m_iOriginalScissortSize[3]);
 		else
 		{
+#ifndef UWP
 			MyGLDisable(GL_SCISSOR_TEST);
+#endif
 		}
 	}
 
@@ -315,7 +361,7 @@ namespace FATMING_CORE
 	{
 		//for depth
 		MyGLGetIntegerv(GL_VIEWPORT, m_iOriginalViewPortSize);
-		glGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
+		MyglGetBooleanv(GL_SCISSOR_TEST, &m_bEnableScissor);
 		if (m_bEnableScissor)
 			MyGLGetIntegerv(GL_SCISSOR_BOX, m_iOriginalScissortSize);
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 0.f;

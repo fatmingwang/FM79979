@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="SDL_Net">
+      <UniqueIdentifier>{a00a840b-36e1-4b39-970f-1e146dd59c9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{cd645099-bd06-47a1-a66f-be1e3b709e91}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameNetWork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\happyhttp.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\NetworkData.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UDPNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL_endian.h">
+      <Filter>SDL_Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDL_net.h">
+      <Filter>SDL_Net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SDLnetsys.h">
+      <Filter>SDL_Net</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameNetWork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\happyhttp.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Network.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UDPNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDLnetUDP.cpp">
+      <Filter>SDL_Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDLnet.cpp">
+      <Filter>SDL_Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDLnetselect.cpp">
+      <Filter>SDL_Net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDLnetTCP.cpp">
+      <Filter>SDL_Net</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\README.txt">
+      <Filter>Network</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

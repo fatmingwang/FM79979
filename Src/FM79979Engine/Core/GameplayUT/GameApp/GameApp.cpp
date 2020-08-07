@@ -113,7 +113,6 @@ namespace	FATMING_CORE
 			m_spOpenGLRender = new cOpenGLRender(e_vGameResolution, e_vViewportSize);
 		else
 		{
-			m_spOpenGLRender->m_vGameResolution;
 			m_spOpenGLRender->m_vViewPortSize.x = 0;
 			m_spOpenGLRender->m_vViewPortSize.y = 0;
 			m_spOpenGLRender->m_vViewPortSize.z = e_vViewportSize.x;
@@ -197,18 +196,23 @@ namespace	FATMING_CORE
 		if (!m_spGlyphFontRender)
 		{
 #ifdef WASM
-			m_spGlyphFontRender = new cGlyphFontRender("assets/Font", 3000);
+			if (IsFileExists("assets/Font.png"))
+				m_spGlyphFontRender = new cGlyphFontRender("assets/Font", 3000);
 #else
-			m_spGlyphFontRender = new cGlyphFontRender("Font", 3000);
+			if (IsFileExists("Font.png"))
+				m_spGlyphFontRender = new cGlyphFontRender("Font", 3000);
 #endif
 			FMLog::LogWithFlag("check font image", CORE_LOG_FLAG, true);
-			if (!m_spGlyphFontRender->GetFontImage())
+			if (m_spGlyphFontRender)
 			{
-				SAFE_DELETE(m_spGlyphFontRender);
-			}
-			else
-			{
-				m_spGlyphFontRenderVector->AddObject(m_spGlyphFontRender);
+				if (!m_spGlyphFontRender->GetFontImage())
+				{
+					SAFE_DELETE(m_spGlyphFontRender);
+				}
+				else
+				{
+					m_spGlyphFontRenderVector->AddObject(m_spGlyphFontRender);
+				}
 			}
 		}
 		if (!m_spGlyphFontRender)

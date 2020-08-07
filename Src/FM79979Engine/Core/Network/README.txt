@@ -1,3 +1,9 @@
+I have already change to SDL_Net 2.0.1
+
+
+
+
+
 SDL_net 1.2 
 
 The latest version of this library is available from:

@@ -1,6 +1,6 @@
 #pragma once
-#include "../CommonRender/RenderObject.h"
 #include "../../../Common/NamedTypedObject.h"
+#include "../CommonRender/RenderObject.h"
 #include "../../../Common/Template/TemplateClass.h"
 namespace FATMING_CORE
 {
@@ -43,9 +43,9 @@ namespace FATMING_CORE
 	    cFMTimeLineAnimationRule(cFMTimeLineAnimationRule*e_pFatmingAnimationRule);
 	    virtual	~cFMTimeLineAnimationRule();
 		float*			GetStartTimePointer();
-	    virtual void	Init();
-	    virtual void	Update(float e_fElpaseTime);
-	    virtual void	Render();
+	    virtual void	Init()override;
+	    virtual void	Update(float e_fElpaseTime)override;
+	    virtual void	Render()override;
 	    bool			IsAnimationLoop();
 	    virtual bool	IsAnimationDone();
 		//
@@ -65,7 +65,7 @@ namespace FATMING_CORE
 	    virtual	void	InvertOrder() = 0;
 	    //start and last time.if end timeis -1 mean always update
 	    virtual	float	GetEndTime() = 0;
-		virtual	void	Destroy(){}
+		virtual	void	Destroy()override{}
 		//for extra data
 		virtual	void	SetData(void*e_pData,bool e_bForceReplace = true);
 
@@ -96,22 +96,22 @@ namespace FATMING_CORE
 	    //for clone
 	    cFatmingGroupBehaviorList(cFatmingGroupBehaviorList*e_pFatmingGroupBehaviorList);
 	    virtual~cFatmingGroupBehaviorList();
-		virtual	NamedTypedObject*	Clone(){ return NamedTypedObject::Clone(); }
-		virtual	void				Destroy(){ cNamedTypedObjectVector<TYPE>::Destroy(); }
-	    virtual	void				InternalInit();
-		virtual void				Update(float e_fElpaseTime);
-	    virtual	void				InternalUpdate(float e_fElpaseTime);
+		virtual	NamedTypedObject*	Clone()override{ return nullptr; }
+		virtual	void				Destroy()override{ cNamedTypedObjectVector<TYPE>::Destroy(); }
+	    virtual	void				InternalInit()override;
+		virtual void				Update(float e_fElpaseTime)override;
+	    virtual	void				InternalUpdate(float e_fElpaseTime)override;
 	    //using global time to update,true while done
-	    virtual	void				UpdateByGlobalTime(float e_fGlobalTime);
+	    virtual	void				UpdateByGlobalTime(float e_fGlobalTime)override;
 	    //if u like to change position call SetPosition
-		virtual void				Render();
-	    virtual	void				InternalRender();
+		virtual void				Render()override;
+	    virtual	void				InternalRender()override;
 	    virtual	void				RenderByGlobalTime();
-		virtual	void				RenderByGlobalTime(float e_fTime){ UpdateByGlobalTime(e_fTime);RenderByGlobalTime(); }
+		virtual	void				RenderByGlobalTime(float e_fTime)override{ UpdateByGlobalTime(e_fTime);RenderByGlobalTime(); }
 	    //we should call it after AddObject or merge
 	    virtual	void				RefreshTotalPlayTime();
 	    //start and last time.
-		virtual	float				GetEndTime(){ return m_fTotalPlayTime; }
+		virtual	float				GetEndTime()override{ return m_fTotalPlayTime; }
 		//do not call this function ,unless you know what are you doing!
 		void				SetTotalPlayTime(float e_fEndTime,float e_fStartTime)
 		{
@@ -119,12 +119,12 @@ namespace FATMING_CORE
 			m_fTotalPlayTime = e_fEndTime; 
 		}
 
-	    virtual	void				RearrangeTime(float e_fNewTime);
-		virtual	void				RearrangeTimeByPercent(float e_fPercenttage);
+	    virtual	void				RearrangeTime(float e_fNewTime)override;
+		virtual	void				RearrangeTimeByPercent(float e_fPercenttage)override;
 	    //2 group combine together
 	    virtual	void				Merge(cFatmingGroupBehaviorList<TYPE>*e_pTYPEVector);
 	    //set point between start time  and last time invert.
-	    virtual	void				InvertOrder();
+	    virtual	void				InvertOrder()override;
 	    //
 	    Vector3						GetRotationCenter(){return m_vRotationCenter;}
 		int							GetPlayCount();

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="UDPOpenCV">
+      <UniqueIdentifier>{f0098eaf-d317-4223-ae0a-5bf8b61fb2a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="QRCodeDector">
+      <UniqueIdentifier>{d5fea674-58b6-415f-9d7b-2d379f749105}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{485c803e-9804-49ab-9fc0-204cc0c69378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{0925a01c-e3bb-4a42-bbce-454c42cc701a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCodeDector.h">
+      <Filter>QRCodeDector</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPOpenCVApp.h">
+      <Filter>App</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPServerCamera.h">
+      <Filter>UDPOpenCV</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPStreamingProtocol.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="UDPClient.h">
+      <Filter>UDPOpenCV</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QRCodeDector.cpp">
+      <Filter>QRCodeDector</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPOpenCVApp.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPServerCamera.cpp">
+      <Filter>UDPOpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="UDPClient.cpp">
+      <Filter>UDPOpenCV</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

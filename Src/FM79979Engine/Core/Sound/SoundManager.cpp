@@ -4,7 +4,6 @@
 #include "../XML/AtgXmlWriter.h"
 #endif
 #include "../Common/StringToStructure.h"
-
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSoundParser);
@@ -18,21 +17,23 @@ namespace FATMING_CORE
 	float	cSoundParser::m_sfBGMVolume = 1.f;
 	float	cSoundParser::m_sfSoundEffectVolume = 1.f;
 	
-	void    cSoundParser::ActiveOpenAL()
+	bool    cSoundParser::ActiveOpenAL()
 	{
 		int a = 0;
-#ifdef WIN32
+#if defined(WIN32) || defined(LINUX)
 		ALboolean l_bAlutInitResult = alutInit (0,0);
 		if( !l_bAlutInitResult )
 		{
 			UT::ErrorMsg(L"openal create failed!",L"please install oalinst,https://www.openal.org/downloads/");
+			return false;
 		}
 #else
 		// Initialization
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
 		m_pDevice = alcOpenDevice(0); // select the "preferred device"
-
+		if (!m_pDevice)
+			return false;
 		assert(m_pDevice);
 		//for android?
 		const ALint context_attribs[] = { ALC_FREQUENCY, 22050, 0 };
@@ -42,7 +43,10 @@ namespace FATMING_CORE
 			m_pContext = alcCreateContext( m_pDevice,nullptr);
 			//m_pContext = alcCreateContext( m_pDevice,context_attribs);
 			// set my context to the currently active one
-			alcMakeContextCurrent(m_pContext);
+			if (m_pContext)
+				alcMakeContextCurrent(m_pContext);
+			else
+				return false;
 		}
 #endif
 		std::vector<ALuint>	AllSourceID;
@@ -59,7 +63,7 @@ namespace FATMING_CORE
 			{
 				AllSourceID.push_back(l_SourceID);
 			}
-			if( AllSourceID.size()>128 )//assume maxiuma sound source is 128(depend on hardware)
+			if( AllSourceID.size() > 64 )//assume maxiuma sound source is 128(depend on hardware)
 			{
 				l_bGo = false;
 			}
@@ -68,7 +72,7 @@ namespace FATMING_CORE
 		if (l_uiNum == 0)
 		{
 			FMLog::LogWithFlag(L"OpenAL not actived", CORE_LOG_FLAG,false);
-			return;
+			return false;
 		}
 		m_psuiSourceID = new ALuint[l_uiNum];
 		m_psuiSourceUsingIDIndex = new ALuint[l_uiNum];
@@ -82,18 +86,25 @@ namespace FATMING_CORE
 		for( int i=0;i<cSoundParser::m_siReserveBGSourceCount;++i )
 			m_spbUsedBGSourceData[i] = false;
 		alGetError();
+		return true;
 	}
 	cSoundParser::cSoundParser()
 	{
 		m_siNumSoundManager++;
 		m_fVolume = 1.f;
+#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)
+		m_pDevice = nullptr;
+		m_pContext = nullptr;
+#endif
 	#if defined(ANDROID) || defined(IOS)
 		assert(!m_psuiSourceID&&"iPhone openal just need one sound manager,because I am lazy to do more");
 	#endif
 		if( !m_psuiSourceID )
 		{
-            ActiveOpenAL();
-			this->SetVolume(1.f);
+			if (ActiveOpenAL())
+			{
+				this->SetVolume(1.f);
+			}
 		}
 	}
 
@@ -150,11 +161,13 @@ namespace FATMING_CORE
 				this->m_strErrorMsg += l_sterrorCode;
 			}
 	#endif
-	#if defined(IOS) || defined(ANDROID)
+	#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)
 			// destroy the context
-			alcDestroyContext(m_pContext);
+			if(m_pContext)
+				alcDestroyContext(m_pContext);
 			// close the device
-			alcCloseDevice(m_pDevice);
+			if(m_pDevice)
+				alcCloseDevice(m_pDevice);
 	#elif defined(WIN32)			
 			alutExit();
 	#endif

@@ -472,6 +472,10 @@ namespace UT
 	std::string	GetFileNameWithoutFullPath(const char*e_pString,bool e_bStripExtensionFileName)
 	{
 		std::string	l_strResult;
+		if (!e_pString || strlen(e_pString) == 0)
+		{
+			return l_strResult;
+		}
 		char	l_temp[TEMP_SIZE];
 		memset(l_temp,0,sizeof(l_temp));
 		if (e_pString)
@@ -872,9 +876,41 @@ namespace UT
 			}
 			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}
+#elif defined(UWP)
+		std::string l_strUWPFullpath;
+		if (l_bWrite && cCommonApp::m_spUWPAppDataLocalDirectory)
+		{
+			l_strUWPFullpath = *cCommonApp::m_spUWPAppDataLocalDirectory;
+		}
+		else
+		if (cCommonApp::m_spUWPAssetsDirectory)
+		{
+			l_strUWPFullpath = *cCommonApp::m_spUWPAssetsDirectory;
+		}
+		bool l_bSkipDotSlash = false;
+		if (strlen(e_strFileName) >= 2)
+		{
+			if (e_strFileName[0] == '.' && e_strFileName[1] == '/')
+			{
+				l_bSkipDotSlash = true;
+			}
+		}
+		if (l_bSkipDotSlash)
+		{
+			l_strUWPFullpath += std::string(&e_strFileName[2]);
+		}
+		else
+		{
+			l_strUWPFullpath += e_strFileName;
+		}
+		if (l_bWrite)
+			mkpath(std::string(UT::GetDirectoryWithoutFileName(l_strUWPFullpath.c_str()).c_str()));
+		fp = fopen(l_strUWPFullpath.c_str(), e_strMode);
 #else
-		if( l_bWrite )
-			mkpath( std::string(e_strFileName) );
+		if (l_bWrite)
+		{
+			mkpath(std::string(UT::GetDirectoryWithoutFileName(e_strFileName).c_str()));
+		}
 		fp = fopen( e_strFileName, e_strMode );
 #endif
 		return fp;
@@ -1481,7 +1517,7 @@ namespace UT
 
 	bool	sDataContainer::CreateData(unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
@@ -1495,7 +1531,7 @@ namespace UT
 
 	bool	sDataContainer::CopyData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize && e_pData != nullptr)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize && e_pData != nullptr)
 		{
 			SAFE_DELETE(pData);
 			pData = new char[e_uiDataSize];
@@ -1510,7 +1546,7 @@ namespace UT
 
 	bool	sDataContainer::AssignData(char * e_pData, unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
-		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == e_uiDataSize)
+		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
 			SAFE_DELETE(pData);
 			pData = e_pData;

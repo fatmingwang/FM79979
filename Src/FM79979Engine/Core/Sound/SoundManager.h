@@ -16,7 +16,7 @@ namespace FATMING_CORE
 {
 	class	cSoundParser:public cNamedTypedObjectVector<cBasicSound>,public ISAXCallback
 	{
-	    void    ActiveOpenAL();
+	    bool    ActiveOpenAL();
 	#if defined(IOS) || defined(ANDROID) || defined(WASM) || defined(LINUX)
 		ALCdevice*	m_pDevice;
 		ALCcontext*	m_pContext;	

@@ -12,9 +12,11 @@
 #pragma comment(lib, "../../../lib/alut.lib")
 #ifndef UWP
 //#ifdef USE_OPEN_CV
-#pragma comment(lib, "../../../lib/opencv_core249.lib")
-#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
-#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
+#ifdef DEBUG
+#pragma comment(lib, "../../../lib/opencv_world440d")
+#else
+#pragma comment(lib, "../../../lib/opencv_world440")
+#endif
 //#endif
 #pragma comment(lib, "../../../lib/glew.lib")
 #pragma comment(lib, "opengl32.lib")

@@ -38,9 +38,6 @@ extern int MyTest();
 //  }
 //  return 0;
 //}
-#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
-#pragma comment(lib, "../../..//lib/opencv_core249.lib")
-#pragma comment(lib, "../../..//lib/opencv_imgproc249.lib")
 #define MAX_LOADSTRING 100
 
 // Global Variables:

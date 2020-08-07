@@ -22,8 +22,11 @@ extern void		captureToPhotoAlbum();
 namespace FATMING_CORE
 {
 	//if graphic card does not support non power of two,set as false
-	//bool	g_bSupportNonPowerOfTwoTexture = true;
+#ifdef WIN32
+	bool	g_bSupportNonPowerOfTwoTexture = true;
+#else
 	bool	g_bSupportNonPowerOfTwoTexture = false;
+#endif
 	//https://www.opengl.org/sdk/docs/tutorials/ClockworkCoders/discard.php
 	//http://jerome.jouvie.free.fr/opengl-tutorials/Tutorial6.php
 	//GLfloat	g_fMAG_FILTERValue = GL_NEAREST;
@@ -537,6 +540,7 @@ namespace FATMING_CORE
 			l_iPixelWidth = l_iWidthPO2;
 			l_iPixelHeight = l_iHeightPO2;
 		}
+		MyGlErrorTest("cTexture::SetupTexture 1");
 		if( m_uiImageIndex == (GLuint)-1 )
 		{
 			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */	
@@ -549,14 +553,15 @@ namespace FATMING_CORE
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
 			
 		}
+		MyGlErrorTest("cTexture::SetupTexture 2");
 	}
 
-	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels)
+	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels, bool e_bShowLog)
 	{
 		SetupTexture(e_iChannel,e_iWidth,e_iHeight,e_Format,e_Type);
 		if( e_pPixels )
 		{
-			UpdatePixels(e_pPixels,e_bGeneratePixels);
+			UpdatePixels(e_pPixels, e_bFetchPixels, e_bShowLog);
 		}
 	}
 
@@ -575,8 +580,9 @@ namespace FATMING_CORE
 		glTexSubImage2D(GL_TEXTURE_2D,0,0,0,l_iPixelWidth,l_iPixelHeight,m_iPixelFormat,GL_UNSIGNED_BYTE,e_pPixels);
 	}
 
-	void	cTexture::UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData)
+	void	cTexture::UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData, bool e_bShowLog)
 	{
+		MyGlErrorTest("cTexture::UpdatePixels 1");
 		SAFE_DELETE(m_pPixels);
 		glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
@@ -584,7 +590,7 @@ namespace FATMING_CORE
 		if(  !g_bSupportNonPowerOfTwoTexture && (l_iWidthPO2!=m_iWidth||l_iHeightPO2!=m_iHeight) )//make it power of two
 		{
 			char*l_pNewPixelData = TextureToPowOfTwo((char*)e_pPixels,m_iWidth,m_iHeight,this->m_iChannel==4?true:false);
-			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iWidthPO2,l_iHeightPO2, 0,this->m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,this->GetName()); // Texture specification.
+			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iWidthPO2,l_iHeightPO2, 0,this->m_iPixelFormat, GL_UNSIGNED_BYTE,l_pNewPixelData,this->GetName(), e_bShowLog); // Texture specification.
 			//assign new UV
 			m_fUV[2] = (float)m_iWidth/(float)l_iWidthPO2;
 			m_fUV[3] =  (float)m_iHeight/(float)l_iHeightPO2;
@@ -599,7 +605,7 @@ namespace FATMING_CORE
 		}
 		else
 		{
-			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,GetName()); // Texture specification.
+			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,GetName(), e_bShowLog); // Texture specification.
 			if( e_bFetchPuxelData )
 			{
 				int	l_iDataSize = m_iWidth*m_iHeight*4;
@@ -607,6 +613,7 @@ namespace FATMING_CORE
 				memcpy(m_pPixels,e_pPixels,sizeof(char)*l_iDataSize);
 			}		
 		}
+		MyGlErrorTest("cTexture::UpdatePixels 2");
 	}
 
 	char*		cTexture::GeneratePowerOfTwoPixelData(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,const GLvoid *e_pPixels)

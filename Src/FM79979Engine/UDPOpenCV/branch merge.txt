@@ -1,0 +1,12 @@
+https://stackoverflow.com/questions/38206196/merge-one-local-branch-into-another-local-branch
+
+First, checkout to your Branch3:
+
+git checkout Branch3
+Then merge the Branch1:
+
+git merge Branch1
+And if you want the updated commits of Branch1 on Branch2, you are probaly looking for git rebase
+
+git checkout Branch2
+git rebase Branch1

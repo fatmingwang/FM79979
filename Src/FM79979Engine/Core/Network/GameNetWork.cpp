@@ -6,23 +6,27 @@
 #ifdef LINUX
 #include <alloca.h>
 #endif
+namespace FATMING_CORE
+{
 #ifdef WIN32
 #include "sensapi.h"
 #pragma comment(lib, "Sensapi.lib")
-bool	IsNetworkAlive()
-{
-	DWORD dw;
-	bool l_bResult = IsNetworkAlive(&dw);
-	return l_bResult;
-}
+	bool	IsNetworkAlive()
+	{
+		DWORD dw;
+		bool l_bResult = IsNetworkAlive(&dw);
+		return l_bResult;
+	}
 #else
-bool	IsNetworkAlive()
-{
-	return true;
-}
+	bool	IsNetworkAlive()
+	{
+		return true;
+	}
 #endif
-namespace FATMING_CORE
-{
+	sNetworkSendPacket::sNetworkSendPacket() { pData = nullptr; iSize = 0; }
+	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE(pData); }
+	sNetworkReceivedPacket::sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
+	sNetworkReceivedPacket::~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
 	int	sNetworkReceivedPacket::ReceiveData(_TCPsocket*e_pTCPsocket)
 	{
 		assert(iSize == 0);
@@ -33,10 +37,14 @@ namespace FATMING_CORE
 		//sNetworkSendPacket,first is size,second is data structure
 		int l_iHeaderSize = PACKET_HEADER_SIZE;
 		int	l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, &iSize, l_iHeaderSize);
+		//l_iLength = SDL_SwapBE32(l_iLength);
 		if (l_iLength != l_iHeaderSize)
 		{
 #ifdef DEBUG
-			FMLog::Log("network fetch header size failed(not enough 4 bytes)!?ignore this packet\n", false);
+			if(l_iLength == 0)
+				FMLog::Log("Connection lost", false);
+			else
+				FMLog::Log("network fetch header size failed(not enough 4 bytes)!?ignore this packet", false);
 #endif
 			return -1;
 		}
@@ -44,9 +52,15 @@ namespace FATMING_CORE
 		if (iSize >= 64 * 1024 || iSize < 1)
 		{
 #ifdef DEBUG
-			FMLog::Log("network data size not correct!?ignore this packet\n", false);
+			FMLog::Log("network data size not correct!?ignore this packet", false);
 #endif
 			return -1;
+		}
+		if (iSize == 0)
+		{
+#ifdef DEBUG
+			FMLog::Log("network data size 0!??", false);
+#endif
 		}
 		pData = new char[iSize];
 		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, pData, iSize);
@@ -55,11 +69,54 @@ namespace FATMING_CORE
 		{
 			return iSize;
 		}
+		//try again
+		int l_iNotEnoughSize = iSize - l_iLength;
+		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket, &pData[l_iLength], l_iNotEnoughSize);
+		if (l_iLength == l_iNotEnoughSize)
+		{
+			return iSize;
+		}
 		SAFE_DELETE_ARRAY(pData);
+		FMLog::Log(UT::ComposeMsgByFormat("network data size not match:Desire%d,RealRecv:%d", iSize, l_iLength).c_str(), false);
 		//size not correct!?
 		//return l_iLength - iSize;
 		//now I dont wannt support streamming so fuck you please reduce packet size.
 		return -1;
+	}
+
+	//int sNetworkReceivedPacket::ReceiveData(_UDPsocket*e_pSocket, UDPpacket *e_pPackets)
+	//{
+	//	auto l_iReceivedBytes = SDLNet_UDP_Recv(e_pSocket, e_pPackets);
+	//	if (l_iReceivedBytes != -1)
+	//	{
+	//		UDPAddress = e_pPackets->address;
+	//		if (e_pPackets->len < PACKET_HEADER_SIZE)
+	//		{
+	//			return -1;
+	//		}
+	//		this->iSize = *(int*)e_pPackets->data;
+	//		int l_iTotalSize = iSize + PACKET_HEADER_SIZE;
+	//		if (l_iTotalSize != e_pPackets->len)
+	//		{
+	//			FMLog::Log("UDP network data size not match!??", false);
+	//			return -1;
+	//		}
+	//		pData = new char[iSize];
+	//		memcpy(pData, &e_pPackets->data[PACKET_HEADER_SIZE], iSize);
+	//		return iSize;
+	//	}
+	//	return l_iReceivedBytes;
+	//}
+
+	int sNetworkReceivedPacket::UDPReceiveDataWithoutHeaderSize(IPaddress e_UDPIPaddress,int e_iDataLen, char * e_pData)
+	{
+		UDPIPaddress = e_UDPIPaddress;
+		if (e_iDataLen <= 0)
+			return -1;
+		this->iSize = e_iDataLen;
+		pData = new char[iSize];
+		memcpy(pData, e_pData, iSize);
+		return iSize;
 	}
 
 	void	cGameNetwork::SetConnectionLostCallbackFunction(std::function<void()> e_Function)
@@ -138,7 +195,7 @@ namespace FATMING_CORE
 			l_str = strtok(0, ".");
 			++l_iIndex;
 		}
-		//printf("IP:%s\n",l_str);
+		//printf("IP:%s",l_str);
 		return true;
 	}
 	void cGameNetwork::Init()
@@ -264,32 +321,32 @@ namespace FATMING_CORE
 		}
 		m_eNetWorkStatus = eNWS_TRY_TO_CONNECT;
 		m_IPData.m_iPort = e_iPort;
-		FMLog::LogWithFlag(UT::ComposeMsgByFormat("fetch IP :Port: %d\n", m_IPData.m_iPort), CORE_LOG_FLAG);
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat("fetch IP :Port: %d", m_IPData.m_iPort), CORE_LOG_FLAG);
 		/* Resolve the argument into an IPaddress type */
 		if (SDLNet_ResolveHost(&m_IPData.m_IP, e_strIP, m_IPData.m_iPort) == -1)
 		{
-			FMLog::LogWithFlag("fetch IP failed\n", CORE_LOG_FLAG);
+			FMLog::LogWithFlag("fetch IP failed", CORE_LOG_FLAG);
 			this->m_eNetWorkStatus = eNWS_NO_INTERNET;
 			return false;
 		}
 		UINT l_uiAddr = SDL_SwapBE32(m_IPData.m_IP.host);
-		FMLog::LogWithFlag(UT::ComposeMsgByFormat("IP Address : %d.%d.%d.%d\n",
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat("IP Address : %d.%d.%d.%d",
 			l_uiAddr >> 24,(l_uiAddr >> 16) & 0xff,(l_uiAddr >> 8) & 0xff,l_uiAddr & 0xff), CORE_LOG_FLAG);
 		m_IPData.m_strHost = SDLNet_ResolveIP(&m_IPData.m_IP);
 		m_pSocket = SDLNet_TCP_Open(&m_IPData.m_IP);
 		//if SDLNet_TCP_Open called server's SDLNet_TCP_Accept will be triggered
 		if (!m_pSocket)
 		{
-			FMLog::LogWithFlag("socket open failed\n", CORE_LOG_FLAG);
+			FMLog::LogWithFlag("socket open failed", CORE_LOG_FLAG);
 			this->m_eNetWorkStatus = eNWS_CONNECTION_NOT_EXISTS;
 			return false;
 		}
-		FMLog::LogWithFlag("socket open\n", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("socket open", CORE_LOG_FLAG);
 		return true;
 	}
 	void cGameNetwork::CloseSocket()
 	{
-		FMLog::LogWithFlag("cGameNetwork::CloseSocket\n", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("cGameNetwork::CloseSocket", CORE_LOG_FLAG);
 		if (m_pSocket)
 		{
 			_TCPsocket*l_pSocket = m_pSocket;
@@ -317,6 +374,19 @@ namespace FATMING_CORE
 	}
 	void cGameNetwork::AddClient(_TCPsocket * e__pTCPsocket)
 	{
+		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(e__pTCPsocket);
+		if (l_pIPaddress)
+		{
+			auto l_ipaddr = SDL_SwapBE32(l_pIPaddress->host);
+			auto l_strInfo = UT::ComposeMsgByFormat("Accepted a connection from %d.%d.%d.%d port %hu",
+				l_ipaddr >> 24,
+				(l_ipaddr >> 16) & 0xff,
+				(l_ipaddr >> 8) & 0xff,
+				l_ipaddr & 0xff,
+				l_pIPaddress->port);
+			FMLog::Log(l_strInfo.c_str(), false);
+		}
+		
 		//cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex, L"AddClient");
 		cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex);
 #ifdef DEBUG
@@ -360,7 +430,7 @@ namespace FATMING_CORE
 	}
 	bool cGameNetwork::CreateSocksetToListenData()
 	{
-		//FMLog::LogWithFlag("create socket\n");
+		//FMLog::LogWithFlag("create socket");
 		if (m_pAllSocketToListenClientMessage)
 			SDLNet_FreeSocketSet(m_pAllSocketToListenClientMessage);
 		int	l_iNumClient = 0;
@@ -373,7 +443,7 @@ namespace FATMING_CORE
 		m_pAllSocketToListenClientMessage = SDLNet_AllocSocketSet(l_iNumClient + 1);
 		if (!m_pAllSocketToListenClientMessage)
 		{
-			//FMLog::LogWithFlag("SDLNet_AllocSocketSet: %s\n", SDL_GetError());
+			//FMLog::LogWithFlag("SDLNet_AllocSocketSet: %s", SDL_GetError());
 			//exit(1); /*most of the time this is a major error, but do what you want. */
 			return false;
 		}
@@ -400,21 +470,21 @@ namespace FATMING_CORE
 		{
 			if (!IsNetworkAlive())
 			{
-				FMLog::LogWithFlag("Network not aviable\n", CORE_LOG_FLAG);
+				FMLog::LogWithFlag("Network not aviable", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 			int l_iNumready = 0;
 			if (!CreateSocksetToListenData())
 			{
-				FMLog::LogWithFlag("CreateSocksetToListenData failed\n", CORE_LOG_FLAG);
+				FMLog::LogWithFlag("CreateSocksetToListenData failed", CORE_LOG_FLAG);
 				goto FAILED;
 			}
-			//FMLog::LogWithFlag("listen\n");
+			//FMLog::LogWithFlag("listen");
 			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)1000);
 			if (l_iNumready == -1)
 			{
-				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s\n",SDL_GetError());
-				FMLog::LogWithFlag("SDLNet_CheckSockets failed\n", CORE_LOG_FLAG);
+				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s",SDL_GetError());
+				FMLog::LogWithFlag("SDLNet_CheckSockets failed", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 			if (l_iNumready == 0)
@@ -426,13 +496,13 @@ namespace FATMING_CORE
 				int l_iReceivedSize = l_pPacket->ReceiveData(m_pSocket);
 				if (l_iReceivedSize <= 0)
 				{//wrong data ignore it
-					FMLog::LogWithFlag("l_pPacket->ReceiveData failed\n", CORE_LOG_FLAG);
+					FMLog::LogWithFlag("l_pPacket->ReceiveData failed", CORE_LOG_FLAG);
 					bool	l_bConnectionFailed = false;
 					delete l_pPacket;
 					goto FAILED;
 				}
 				{
-					//FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
+					//FMLog::LogWithFlag("recevied message", CORE_LOG_FLAG);
 					//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex, L"recevied message");
 					cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 					this->m_ReceivedDataVector.push_back(l_pPacket);
@@ -442,7 +512,7 @@ namespace FATMING_CORE
 		if(!m_bDoDisconnect)
 			return;
 	FAILED:
-		FMLog::LogWithFlag("cGameNetwork::ClientListenDataThread::disconnect\n", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("cGameNetwork::ClientListenDataThread::disconnect", CORE_LOG_FLAG);
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
@@ -477,11 +547,11 @@ namespace FATMING_CORE
 			{
 				goto FAILED;
 			}
-			//FMLog::LogWithFlag("listen\n");
+			//FMLog::LogWithFlag("listen");
 			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)1000);
 			if (l_iNumready == -1)
 			{
-				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s\n",SDL_GetError());
+				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s",SDL_GetError());
 				goto FAILED;
 			}
 			if (l_iNumready == 0)
@@ -495,7 +565,7 @@ namespace FATMING_CORE
 					if (l_pNewClient)
 					{
 						AddClient(l_pNewClient);
-						FMLog::LogWithFlag("new client\n", CORE_LOG_FLAG);
+						FMLog::LogWithFlag("new client", CORE_LOG_FLAG);
 						//continue;
 					}
 				}
@@ -517,7 +587,7 @@ namespace FATMING_CORE
 							int l_iResult = l_pPacket->ReceiveData(l_pClient);
 							if(l_iResult > 0)
 							{
-								//FMLog::LogWithFlag("recevied message\n", CORE_LOG_FLAG);
+								//FMLog::LogWithFlag("recevied message", CORE_LOG_FLAG);
 								//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex,L"recevied message");
 								cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 								m_ReceivedDataVector.push_back(l_pPacket);
@@ -526,7 +596,7 @@ namespace FATMING_CORE
 							else
 							{//wrong data ignore it
 								delete l_pPacket;
-								FMLog::LogWithFlag("client connection failed\n", CORE_LOG_FLAG);
+								FMLog::LogWithFlag("client connection failed", CORE_LOG_FLAG);
 								if (!RemoveClientWhileClientLostConnection(l_pClient))
 								{
 									//assert(0&&"no this client");
@@ -545,7 +615,7 @@ namespace FATMING_CORE
 		if (!m_bDoDisconnect)
 			return;
 	FAILED:
-		FMLog::LogWithFlag("cGameNetwork::ServerListenDataThread::disconnect\n", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("cGameNetwork::ServerListenDataThread::disconnect", CORE_LOG_FLAG);
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;

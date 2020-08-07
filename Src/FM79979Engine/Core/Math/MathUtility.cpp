@@ -14,7 +14,7 @@ namespace UT
 			{
 				l_uiAllValueVector.push_back(i);
 			}
-			while( l_uiAllMagicIDVector.size() != e_iCount )
+			while( (int)l_uiAllMagicIDVector.size() != e_iCount )
 			{
 				int	l_iIndex = rand(0,(int)l_uiAllValueVector.size()-1);
 				l_uiAllMagicIDVector.push_back(l_uiAllValueVector[l_iIndex]);
@@ -23,7 +23,7 @@ namespace UT
 		}
 		else
 		{
-			while( l_uiAllMagicIDVector.size() != e_iCount )
+			while((int)l_uiAllMagicIDVector.size() != e_iCount )
 			{
 				int	l_iMagicID = ::rand()%(e_iMaxValue);
 				bool	l_bSameMagicID = false;
@@ -46,7 +46,7 @@ namespace UT
 	{
 		vector<int>	l_uiAllMagicIDVector;
 		l_uiAllMagicIDVector.reserve(e_iCount);
-		while( l_uiAllMagicIDVector.size() != e_iCount )
+		while((int)l_uiAllMagicIDVector.size() != e_iCount )
 		{
 			int	l_iMagicID = ::rand()%(e_iMaxValue);
 			l_uiAllMagicIDVector.push_back(l_iMagicID);

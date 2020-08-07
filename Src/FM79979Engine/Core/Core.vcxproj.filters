@@ -764,6 +764,9 @@
     <ClCompile Include="GameplayUT\Render\Font\FontManager.cpp">
       <Filter>GameplayUT\Render\Font</Filter>
     </ClCompile>
+    <ClCompile Include="Network\UDPNetwork.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1353,6 +1356,12 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\Render\Font\FontManager.h">
       <Filter>GameplayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\NetworkData.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\UDPNetwork.h">
+      <Filter>NetWork</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

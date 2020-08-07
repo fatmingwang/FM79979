@@ -8,6 +8,11 @@
 #elif defined(ANDROID) || defined(WASM) || defined(LINUX)//set project path to \Sound\OpenAL_Android\ALSoft
 #include "AL/al.h"
 #include "AL/alc.h"
+#ifdef LINUX
+//sudo apt - get install libopenal - dev
+//sudo apt - get install libalut0 libalut - dev
+#include <AL/alut.h>
+#endif
 #endif
 
 #include "../Common/SmartPointer.h"

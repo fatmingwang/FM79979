@@ -39,6 +39,9 @@ namespace	FATMING_CORE
 		static	std::string*		m_spInternalDirectory;//system
 		static	std::string*		m_spExternalDirectory;//internal sd
 		static	std::string*		m_spExternalSDDirectory;//external sd
+#elif defined(UWP)
+		static	std::string*		m_spUWPAssetsDirectory;//external sd
+		static	std::string*		m_spUWPAppDataLocalDirectory;//external sd
 #endif
 		cCommonApp();
 		~cCommonApp();
@@ -47,5 +50,8 @@ namespace	FATMING_CORE
 			//GAME_PAUSE_EVENT_ID	-123456789 is game pause
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData);
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize);
+		//lazy to keep point data so shot immediately,
+		//ensure not call recursively,event call evnet infinty
+		static	bool												EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
 	};
 }

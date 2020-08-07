@@ -76,8 +76,8 @@ namespace FATMING_CORE
 		void		AddCurrentStrgeth(float e_fValue);
 		//
 		bool		IsShockDone(){ return m_pShockBoobsShader->IsShockDone(); }
-		bool		ChangePaintingImage(char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution = true);
-		bool		SaveFile(char*e_strFileName);
+		bool		ChangePaintingImage(const char*e_strFileName,bool e_bAutoResizeTerrianToGameResoution = true);
+		bool		SaveFile(const char*e_strFileName);
 		bool		OpenFile(char*e_strFileName);
 		cShockBoobsShader*						GetShader(){return m_pShockBoobsShader;}
 	};

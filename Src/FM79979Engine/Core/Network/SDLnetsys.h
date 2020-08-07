@@ -1,6 +1,6 @@
 /*
   SDL_net:  An example cross-platform network library for use with SDL
-  Copyright (C) 1997-2012 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -22,9 +22,11 @@
 /* $Id$ */
 
 /* Include normal system headers */
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #ifndef _WIN32_WCE
 #include <errno.h>
@@ -33,12 +35,10 @@
 /* Include system network headers */
 #if defined(__WIN32__) || defined(WIN32)
 #define __USE_W32_SOCKETS
+#define _WINSOCK_DEPRECATED_NO_WARNINGS
 #ifdef _WIN64
-//#include <winsock2.h>
-//#include <ws2tcpip.h>
-#include <windows.h>
-#include <winsock.h>
-typedef int socklen_t;
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #else
 #include <winsock.h>
 /* NOTE: windows socklen_t is signed
@@ -59,9 +59,7 @@ typedef int socklen_t;
 #ifndef __BEOS__
 #include <arpa/inet.h>
 #endif
-#ifdef linux /* FIXME: what other platforms have this? */
 #include <netinet/tcp.h>
-#endif
 #include <sys/socket.h>
 #include <net/if.h>
 #include <netdb.h>
@@ -69,7 +67,7 @@ typedef int socklen_t;
 
 /* FIXME: What platforms need this? */
 #if 0
-typedef unsigned int socklen_t;
+typedef Uint32 socklen_t;
 #endif
 
 /* System-dependent definitions */
@@ -77,11 +75,11 @@ typedef unsigned int socklen_t;
 #ifdef __OS2__
 #define closesocket     soclose
 #else  /* !__OS2__ */
-#define closesocket	close
+#define closesocket close
 #endif /* __OS2__ */
-#define SOCKET	int
-#define INVALID_SOCKET	-1
-#define SOCKET_ERROR	-1
+#define SOCKET  int
+#define INVALID_SOCKET  -1
+#define SOCKET_ERROR    -1
 #endif /* __USE_W32_SOCKETS */
 
 #ifdef __USE_W32_SOCKETS
@@ -91,7 +89,7 @@ typedef unsigned int socklen_t;
 #define EINTR WSAEINTR
 #endif
 #else
-int SDLNet_GetLastError();
+int SDLNet_GetLastError(void);
 void SDLNet_SetLastError(int err);
 #endif
 

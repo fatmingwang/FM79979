@@ -2,11 +2,11 @@
 #pragma once
 #ifdef WIN32
 //#pragma comment(lib, "Vfw32.lib")
-#include <windows.h>
+#include "../../../Common/CommonDefine.h"
 #include "vfw.h"
 #include "../../OpenGL/Glh.h"
 #else
-#include "../CommonDefine.h"
+#include "../../../Common/CommonDefine.h"
 // OpenGL specific
 #include <GL/gl.h>
 #include <GL/glu.h>

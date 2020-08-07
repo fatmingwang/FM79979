@@ -96,8 +96,11 @@
 #ifdef WIN32
 	#pragma warning(disable:4702)
 #ifndef UWP
+	#ifndef WIN32_LEAN_AND_MEAN
 	#define WIN32_LEAN_AND_MEAN
+	#endif
 #endif
+	#include <winsock2.h>
 	#include <windows.h>
 	#include <stdio.h>
 	#include <wchar.h>

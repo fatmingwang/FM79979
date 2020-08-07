@@ -4,9 +4,9 @@
 #include "Form1.h"
 #include "MyAVIConvert.h"
 #include "../../AllLibInclude.h"
-#pragma comment(lib, "../../../lib/opencv_core249.lib")
-#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
-#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
+//#pragma comment(lib, "../../../lib/opencv_core249.lib")
+//#pragma comment(lib, "../../../lib/opencv_highgui249.lib")
+//#pragma comment(lib, "../../../lib/opencv_imgproc249.lib")
 
 
 using namespace EditorSample;
