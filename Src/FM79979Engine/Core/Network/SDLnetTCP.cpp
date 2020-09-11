@@ -23,7 +23,8 @@
 
 #include "SDLnetsys.h"
 #include "SDL_net.h"
-
+#include <exception>
+#include "../Common/Log/FMLog.h"
 /* The network API for TCP sockets */
 
 /* Since the UNIX/Win32/BeOS code is so different from MacOS,
@@ -48,7 +49,12 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
     }
 
     /* Open the socket */
-    sock->channel = socket(AF_INET, SOCK_STREAM, 0);
+#ifdef WASM
+	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+#else
+	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
+#endif
+
     if ( sock->channel == INVALID_SOCKET ) {
         SDLNet_SetError("Couldn't create socket");
         goto error_return;
@@ -243,7 +249,20 @@ int SDLNet_TCP_Send(TCPsocket sock, const void *datap, int len)
     do {
         if (sock->ready != 0 && sock->ready != 1)
             break;
-        len = send(sock->channel, (const char *) data, left, 0);
+#ifdef DEBUG
+        try
+        {
+#endif
+            len = send(sock->channel, (const char*)data, left, 0);
+#ifdef DEBUG
+        }
+        catch (std::exception e)
+        {
+            std::string l_str = "Error:SDLNet_TCP_Send:";
+            l_str += e.what();
+            FMLog::Log(l_str.c_str(),true);
+        }
+#endif
         if ( len > 0 ) {
             sent += len;
             left -= len;

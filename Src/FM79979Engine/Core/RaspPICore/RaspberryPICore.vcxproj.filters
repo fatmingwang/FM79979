@@ -678,6 +678,9 @@
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\MeshShader.cpp">
       <Filter>GameplayUT\OpenGL\GLSL</Filter>
     </ClCompile>
+    <ClCompile Include="..\Network\UDPNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\CommonDefine.h">
@@ -781,9 +784,6 @@
     </ClInclude>
     <ClInclude Include="..\Math\Vector4.h">
       <Filter>Math\Vector</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Network\begin_code.h">
-      <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="..\Network\GameNetWork.h">
       <Filter>Network</Filter>
@@ -1393,6 +1393,12 @@
     </ClInclude>
     <ClInclude Include="..\GameplayUT\Render\Font\FontManager.h">
       <Filter>GameplayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network\NetworkData.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Network\UDPNetwork.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

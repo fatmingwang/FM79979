@@ -13,7 +13,7 @@
 #include "../Common/Utility.h"
 namespace FATMING_CORE
 {
-	class	cGameNetwork:public FATMING_CORE::cCPP11Thread
+	class	cGameNetwork:public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
 	protected:
 		struct sReconnectFunction
@@ -61,6 +61,7 @@ namespace FATMING_CORE
 	public:
 		cGameNetwork();
 		virtual ~cGameNetwork();
+		DEFINE_TYPE_INFO();
 		void								SetConnectionLostCallbackFunction(std::function<void()> e_Function);
 		void								SetClientLostConnectionCallback(std::function<void(_TCPsocket*)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }

@@ -595,7 +595,7 @@ namespace FATMING_CORE
 		if(Success == GL_FALSE)
 		{
 	#ifdef DEBUG
-			int InfoLogSize;
+			int InfoLogSize = 0;
 			glGetShaderiv(Object, GL_INFO_LOG_LENGTH, &InfoLogSize);
 			char* Buffer = new char[InfoLogSize];
 			glGetShaderInfoLog(Object, InfoLogSize, nullptr, Buffer);

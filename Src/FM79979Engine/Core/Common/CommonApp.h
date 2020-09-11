@@ -3,7 +3,7 @@
 #include "CommonDefine.h"
 #include "Utility.h"
 #include "../Math/Vector4.h"
-
+#define	MAX_PERFORMANCE_TC_COUNT	11
 namespace	FATMING_CORE
 {
 	class cCommonApp
@@ -11,6 +11,7 @@ namespace	FATMING_CORE
 	public:
 		static bool m_sbGamePause;
 		static	UT::sTimeAndFPS										m_sTimeAndFPS;	//
+		static	UT::sTimeAndFPS										m_sPerformanceFPSChecker[MAX_PERFORMANCE_TC_COUNT];	//
 		//
 		static	class cMessageSenderManager*						m_spMessageSenderManager;
 		static	bool												m_sbDebugFunctionWorking;
@@ -53,5 +54,6 @@ namespace	FATMING_CORE
 		//lazy to keep point data so shot immediately,
 		//ensure not call recursively,event call evnet infinty
 		static	bool												EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
+		static  float												DumpLogWhileElpaseTimeIsTooMuch(const char*e_strName, float e_fAllownedElpaseTime = 0.1f, bool e_bWriteToFile = true,int e_iTCIndex = 0);
 	};
 }

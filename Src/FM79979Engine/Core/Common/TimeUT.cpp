@@ -238,5 +238,31 @@ namespace UT
 
 		return FATMING_CORE::ValueToStringW(buf);
 	}
+	std::wstring SecondsToTimeW(double e_dbSeconds, bool e_bWithFormatString)
+	{
+		int	 l_iSeconds = (int)e_dbSeconds;
+		auto l_iMin = l_iSeconds / 60;
+		auto l_iHour = l_iMin / 60;
+		auto l_iDay = l_iHour / 24;
+		l_iSeconds %= 60;
+		l_iMin %= 60;
+		l_iHour %= 24;
+		if(e_bWithFormatString)
+			return UT::ComposeMsgByFormat(L"%dD%dH%dM%dS", l_iDay, l_iHour, l_iMin, l_iSeconds);
+		return UT::ComposeMsgByFormat(L"%d,%2d,%2d,%2d", l_iDay, l_iHour, l_iMin, l_iSeconds);
+	}
+	std::string SecondsToTime(double e_dbSeconds, bool e_bWithFormatString)
+	{
+		int	 l_iSeconds = (int)e_dbSeconds;
+		auto l_iMin = l_iSeconds / 60;
+		auto l_iHour = l_iMin / 60;
+		auto l_iDay = l_iHour / 24;
+		l_iSeconds %= 60;
+		l_iMin %= 60;
+		l_iHour %= 24;
+		if(e_bWithFormatString)
+			return UT::ComposeMsgByFormat("%dD%dH%dM%dS", l_iDay, l_iHour, l_iMin, l_iSeconds);
+		return UT::ComposeMsgByFormat("%d,%2d,%2d,%2d", l_iDay, l_iHour, l_iMin, l_iSeconds);
+	}
 	//end namespace UT
 }

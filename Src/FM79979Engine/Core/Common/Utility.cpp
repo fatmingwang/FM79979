@@ -767,7 +767,7 @@ namespace UT
 		WCHAR l_dwCurrenctDirectory[MAX_PATH];
 		GetCurrentDirectory(MAX_PATH, l_dwCurrenctDirectory);
 #endif
-		NvFile* fp = nullptr;
+		NvFile* l_pFile = nullptr;
 		bool	l_bWrite = false;
 		for(size_t i=0;i<strlen(e_strMode);++i)
 		{
@@ -780,19 +780,19 @@ namespace UT
 #if defined(IOS)
 		char	l_strFileName[MAX_PATH];
 		GetAppleBundelResourcePathByObjectPath(e_strFileName,l_strFileName);
-		fp = fopen( l_strFileName, e_strMode );
-		if( !fp )
+		l_pFile = fopen( l_strFileName, e_strMode );
+		if( !l_pFile)
 		{
 			GetIphoneAppFilePath(e_strFileName,l_strFileName);
-			fp = fopen( l_strFileName, e_strMode );
+			l_pFile = fopen( l_strFileName, e_strMode );
 		}
 #elif defined (ANDROID)
 		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
 		//http://androgeek.info/?p=275
 		if( l_bWrite )
 			mkpath( std::string(e_strFileName) );
-		fp = NvFOpen(e_strFileName,e_strMode);
-		if( !fp )
+		l_pFile = NvFOpen(e_strFileName,e_strMode);
+		if( !l_pFile)
 		{
 			//try external sd card first
 			if(cCommonApp::m_spExternalSDDirectory)
@@ -803,9 +803,9 @@ namespace UT
 				l_strFileName += e_strFileName;
 				if( l_bWrite )
 					mkpath( l_strFileName );
-				fp = NvFOpen(l_strFileName.c_str(),e_strMode);
-				if( fp )
-					return fp;
+				l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
+				if(l_pFile)
+					return l_pFile;
 			}
 			//try write file into
 			std::string l_strFileName = "/sdcard/";
@@ -815,8 +815,8 @@ namespace UT
 			//I am lazy to do recursive mkdir,so here may not working
 			if( l_bWrite )
 				mkpath(l_strFileName);
-			fp = NvFOpen(l_strFileName.c_str(),e_strMode);
-			if( !fp )
+			l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
+			if( !l_pFile)
 			{//write into internal memory
 				l_strFileName = cCommonApp::m_spInternalDirectory->c_str();
 				l_strFileName += "/";	
@@ -825,11 +825,11 @@ namespace UT
 				l_strFileName += e_strFileName;
 				if( l_bWrite )
 					mkpath(l_strFileName);
-				fp = NvFOpen(l_strFileName.c_str(),e_strMode);
+				l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
 			}
 #ifdef DEBUG
 			const char*ll = l_strFileName.c_str();
-			if(!fp)
+			if(!l_pFile)
 			{
 				std::string	l_str = ll;l_str += " openfile failed! ";
 				FMLog::LogWithFlag(ll, CORE_LOG_FLAG);
@@ -844,27 +844,27 @@ namespace UT
 #elif defined(WASM)
 		{
 			std::string l_strWASMFile = e_strFileName;
-			fp = fopen(l_strWASMFile.c_str(), e_strMode);
+			l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 			std::string l_strFileName = e_strFileName;
 			l_strFileName += ":";
 			l_strFileName += l_strWASMFile;
-			if (!fp)
+			if (!l_pFile)
 			{
 				l_strWASMFile = "assets/" + l_strWASMFile;
-				fp = fopen(l_strWASMFile.c_str(), e_strMode);
-				if (!fp)
+				l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
+				if (!l_pFile)
 				{
 					l_strFileName = e_strFileName;
 					l_strFileName += ":";
 					l_strFileName += l_strWASMFile;
 				}
-				if (!fp)
+				if (!l_pFile)
 				{
 					l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
-					fp = fopen(l_strWASMFile.c_str(), e_strMode);
+					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 				}
 			}
-			if (fp)
+			if (l_pFile)
 			{
 				l_strFileName += " open okay";
 			}
@@ -878,42 +878,46 @@ namespace UT
 		}
 #elif defined(UWP)
 		std::string l_strUWPFullpath;
-		if (l_bWrite && cCommonApp::m_spUWPAppDataLocalDirectory)
+		std::string* l_PathArray[] = { cCommonApp::m_spUWPAssetsDirectory ,cCommonApp::m_spUWPAppDataLocalDirectory };
+		for (int i = 0; i < 2; ++i)
 		{
-			l_strUWPFullpath = *cCommonApp::m_spUWPAppDataLocalDirectory;
-		}
-		else
-		if (cCommonApp::m_spUWPAssetsDirectory)
-		{
-			l_strUWPFullpath = *cCommonApp::m_spUWPAssetsDirectory;
-		}
-		bool l_bSkipDotSlash = false;
-		if (strlen(e_strFileName) >= 2)
-		{
-			if (e_strFileName[0] == '.' && e_strFileName[1] == '/')
+			if (!l_PathArray[i])
+				continue;
+			l_strUWPFullpath = *l_PathArray[i];
+			bool l_bSkipDotSlash = false;
+			if (strlen(e_strFileName) >= 2)
 			{
-				l_bSkipDotSlash = true;
+				if (e_strFileName[0] == '.' && e_strFileName[1] == '/')
+				{
+					l_bSkipDotSlash = true;
+				}
 			}
+			if (l_bSkipDotSlash)
+			{
+				l_strUWPFullpath += std::string(&e_strFileName[2]);
+			}
+			else
+			{
+				l_strUWPFullpath += e_strFileName;
+			}
+			if (l_bWrite)
+				mkpath(std::string(UT::GetDirectoryWithoutFileName(l_strUWPFullpath.c_str()).c_str()));
+			l_pFile = fopen(l_strUWPFullpath.c_str(), e_strMode);
+			if (l_pFile)
+				break;
 		}
-		if (l_bSkipDotSlash)
+		if (!l_pFile)
 		{
-			l_strUWPFullpath += std::string(&e_strFileName[2]);
+			int a = 0;
 		}
-		else
-		{
-			l_strUWPFullpath += e_strFileName;
-		}
-		if (l_bWrite)
-			mkpath(std::string(UT::GetDirectoryWithoutFileName(l_strUWPFullpath.c_str()).c_str()));
-		fp = fopen(l_strUWPFullpath.c_str(), e_strMode);
 #else
 		if (l_bWrite)
 		{
 			mkpath(std::string(UT::GetDirectoryWithoutFileName(e_strFileName).c_str()));
 		}
-		fp = fopen( e_strFileName, e_strMode );
+		l_pFile = fopen( e_strFileName, e_strMode );
 #endif
-		return fp;
+		return l_pFile;
 	}
 
 

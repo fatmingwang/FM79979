@@ -1,5 +1,5 @@
 #include "FreetypeGlypth.h"
-
+#include "../../../Common/CommonApp.h"
 #ifdef LINUX
 #include <freetype2/ft2build.h>
 #include <freetype2/freetype/freetype.h>
@@ -435,14 +435,34 @@ namespace FATMING_CORE
 			return;
 		}
 		const FT_F26Dot6 ptSize26Dot6 = e_uiFontSize;
-#ifdef WIN32
-		l_Err = FT_New_Face(m_FT_Library, e_strFontName, 0, &m_Face);
-		if(l_Err)
-		{
-			FMLog::LogWithFlag(UT::ComposeMsgByFormat("FT_New_Face failed:%s", e_strFontName), CORE_LOG_FLAG, false);
-			//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
-			return;
-		}
+#if defined(WIN32)
+		#if defined(UWP)
+			std::string* l_PathArray[] = { cCommonApp::m_spUWPAssetsDirectory ,cCommonApp::m_spUWPAppDataLocalDirectory };
+			std::string l_strFontName;
+			for (int i = 0; i < 2; ++i)
+			{
+				if (l_PathArray[i])
+					l_strFontName = *l_PathArray[i];
+				l_strFontName += e_strFontName;
+				l_Err = FT_New_Face(m_FT_Library, l_strFontName.c_str(), 0, &m_Face);
+				if (l_Err == 0)
+					break;
+			}
+			if(l_Err)
+			{
+				FMLog::LogWithFlag(UT::ComposeMsgByFormat("FT_New_Face failed:%s", e_strFontName), CORE_LOG_FLAG, false);
+				//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+				return;
+			}
+		#else
+			l_Err = FT_New_Face(m_FT_Library, e_strFontName, 0, &m_Face);
+			if (l_Err)
+			{
+				FMLog::LogWithFlag(UT::ComposeMsgByFormat("FT_New_Face failed:%s", e_strFontName), CORE_LOG_FLAG, false);
+				//std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+				return;
+			}
+		#endif
 #else
 		int32_t font_memory_image_length = 0;
 		char *font_memory_image = GetFileContent(e_strFontName, font_memory_image_length);

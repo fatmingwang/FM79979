@@ -16,10 +16,9 @@ namespace FATMING_CORE
 	bool*	cSoundParser::m_spbUsedBGSourceData = nullptr;
 	float	cSoundParser::m_sfBGMVolume = 1.f;
 	float	cSoundParser::m_sfSoundEffectVolume = 1.f;
-	
+
 	bool    cSoundParser::ActiveOpenAL()
 	{
-		int a = 0;
 #if defined(WIN32) || defined(LINUX)
 		ALboolean l_bAlutInitResult = alutInit (0,0);
 		if( !l_bAlutInitResult )

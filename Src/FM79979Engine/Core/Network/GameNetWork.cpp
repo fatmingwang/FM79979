@@ -8,6 +8,7 @@
 #endif
 namespace FATMING_CORE
 {
+	TYPDE_DEFINE_MARCO(cGameNetwork)
 #ifdef WIN32
 #include "sensapi.h"
 #pragma comment(lib, "Sensapi.lib")
@@ -118,7 +119,6 @@ namespace FATMING_CORE
 		memcpy(pData, e_pData, iSize);
 		return iSize;
 	}
-
 	void	cGameNetwork::SetConnectionLostCallbackFunction(std::function<void()> e_Function)
 	{
 		m_ConnectionLostCallbackFunction = e_Function;
@@ -133,11 +133,11 @@ namespace FATMING_CORE
 	{
 		std::vector<sNetworkReceivedPacket*> l_Vector;
 		{
+			cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
+			//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex, L"GetReceivedDataPleaseDeleteAfterUseIt");
 			if (m_ReceivedDataVector.size())
 			{
-				//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex, L"GetReceivedDataPleaseDeleteAfterUseIt");
-				cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
-				for (auto l_pData : m_ReceivedDataVector)
+				for (sNetworkReceivedPacket*l_pData : m_ReceivedDataVector)
 				{
 					l_Vector.push_back(l_pData);
 				}
@@ -146,7 +146,7 @@ namespace FATMING_CORE
 		}
 		return l_Vector;
 	}
-	cGameNetwork::cGameNetwork()
+	cGameNetwork::cGameNetwork() :cCPP11Thread(this)
 	{
 		SDLNet_Init();
 		m_pReconnectFunction = nullptr;
@@ -234,11 +234,23 @@ namespace FATMING_CORE
 		{
 			int l_iHeaderSize = PACKET_HEADER_SIZE;
 			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
-			char*l_pData = (char*)alloca(l_iSendSize);
-			memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-			memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-			bool	l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
-			//delete[] l_pData;
+			bool	l_bSent = false;
+			bool l_bUsealloca = false;
+			if (l_bUsealloca)
+			{
+				char*l_pData = (char*)alloca(l_iSendSize);
+				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
+			}
+			else
+			{
+				char*l_pData = new char[l_iSendSize];
+				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
+				delete[] l_pData;
+			}
 			return l_bSent;
 		}
 		return false;
@@ -284,7 +296,7 @@ namespace FATMING_CORE
 		if(1)
 		{
 			f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cGameNetwork::ServerListenDataThread, this, std::placeholders::_1);
-			this->ThreadDetach(l_f_ThreadWorkingFunction);
+			this->ThreadDetach(l_f_ThreadWorkingFunction,"cGameNetwork::CreateAsServer");
 			if (!this->m_pReconnectFunction && e_bCreateReconnectFunction)
 			{
 				m_pReconnectFunction = new sReconnectFunction(this,true);
@@ -300,7 +312,7 @@ namespace FATMING_CORE
 		if(1)
 		{
 			f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cGameNetwork::ClientListenDataThread, this, std::placeholders::_1);
-			this->ThreadDetach(l_f_ThreadWorkingFunction);
+			this->ThreadDetach(l_f_ThreadWorkingFunction,"cGameNetwork::CreateAsClient");
 			if (!this->m_pReconnectFunction && e_bCreateReconnectFunction)
 			{
 				m_pReconnectFunction = new sReconnectFunction(this, false);
@@ -591,6 +603,13 @@ namespace FATMING_CORE
 								//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex,L"recevied message");
 								cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 								m_ReceivedDataVector.push_back(l_pPacket);
+								if(0)
+								{
+									static UT::sTimeAndFPS l_siPacketReceivedFPS;
+									l_siPacketReceivedFPS.Update();
+									if (l_siPacketReceivedFPS.fElpaseTime > 1.f)
+										FMLog::Log(UT::ComposeMsgByFormat("PacketReceived:%.3f", l_siPacketReceivedFPS.fElpaseTime).c_str(), false);
+								}
 							
 							}
 							else

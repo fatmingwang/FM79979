@@ -18,7 +18,7 @@ namespace FATMING_CORE
 	{
 		cPP11MutexHolder l_cPP11MutexHolder(m_Mutex);
 		f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cWriteFileWithThreadManager::WriteFileThread, this, std::placeholders::_1);
-		ThreadDetach(l_f_ThreadWorkingFunction);
+		ThreadDetach(l_f_ThreadWorkingFunction,"cWriteFileWithThreadManager");
 	}
 
 	cWriteFileWithThreadManager::~cWriteFileWithThreadManager()
@@ -35,7 +35,22 @@ namespace FATMING_CORE
 			for (int i = 0; i < l_iSize; ++i)
 			{
 				auto l_pObject = GetObject(i);
-				l_pObject->WriteFileUpdate(e_fElpaseTime);
+#ifdef DEBUG
+				try
+				{
+#endif
+					l_pObject->WriteFileUpdate(e_fElpaseTime);
+#ifdef DEBUG
+				}
+				catch (std::exception e)
+				{
+					std::string l_strInfo = "Error:cWriteFileWithThreadManager::WriteFileThread occur exception:";
+					l_strInfo += l_pObject->GetCharName();
+					l_strInfo += ",";
+					l_strInfo += e.what();
+					FMLog::Log(l_strInfo.c_str(), true);
+				}
+#endif
 			}
 		}
 		Sleep(1);

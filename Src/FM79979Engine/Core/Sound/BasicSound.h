@@ -9,8 +9,8 @@
 #include "AL/al.h"
 #include "AL/alc.h"
 #ifdef LINUX
-//sudo apt - get install libopenal - dev
-//sudo apt - get install libalut0 libalut - dev
+//sudo apt-getinstall libopenal-dev
+//sudo apt-get install libalut0 libalut-dev
 #include <AL/alut.h>
 #endif
 #endif

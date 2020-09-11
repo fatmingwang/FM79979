@@ -7,7 +7,7 @@
 #include "../Common/EventSender/MessageSender.h"
 namespace FATMING_CORE
 {
-	class cUDPNetwork :public FATMING_CORE::cCPP11Thread
+	class cUDPNetwork :public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
 		sIPData					m_IPData;
 		_UDPsocket*				m_pSocket;
@@ -32,6 +32,7 @@ namespace FATMING_CORE
 	public:
 		cUDPNetwork();
 		~cUDPNetwork();
+		DEFINE_TYPE_INFO();
 		virtual bool						CreateAsClient(const char*e_strServerIP, int e_iPort);
 		virtual bool						CreateAsServer(int e_iPort);
 		virtual void						Update(float e_fElpaseTime) = 0;
@@ -62,8 +63,8 @@ namespace FATMING_CORE
 	};
 
 	//the UDP need quickly to send data so need another cMessageSenderManager for send message
-	class cSimpleUDPClientNetwork :public cUDPNetwork, public cSingltonTemplate<cSimpleUDPClientNetwork>
-		, public NamedTypedObject, public cMessageSenderManager
+	class cSimpleUDPClientNetwork :public cUDPNetwork, public cSingltonTemplate<cSimpleUDPClientNetwork>,
+		public cMessageSenderManager
 	{
 		cSimpleUDPClientNetwork(){}
 		virtual ~cSimpleUDPClientNetwork(){}

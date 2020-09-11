@@ -1,5 +1,7 @@
 #include "CommonApp.h"
 #include "EventSender/MessageSender.h"
+#include "Log/FMLog.h"
+#include "StringToStructure.h"
 #ifdef UWP
 extern "C" IMAGE_DOS_HEADER __ImageBase;
 
@@ -50,6 +52,7 @@ std::wstring GetExecutableDirectory()
 namespace	FATMING_CORE
 {
 	UT::sTimeAndFPS										cCommonApp::m_sTimeAndFPS;	
+	UT::sTimeAndFPS										cCommonApp::m_sPerformanceFPSChecker[MAX_PERFORMANCE_TC_COUNT];
 	class cMessageSenderManager*						cCommonApp::m_spMessageSenderManager = nullptr;
 #ifdef DEBUG
 	bool												cCommonApp::m_sbDebugFunctionWorking = true;
@@ -85,8 +88,11 @@ namespace	FATMING_CORE
 	cCommonApp::cCommonApp()
 	{
 		m_spMessageSenderManager = new cMessageSenderManager();
+		for (int i = 0; i < MAX_PERFORMANCE_TC_COUNT; ++i)
+		{
+			m_sPerformanceFPSChecker[i].Update();
+		}
 #ifdef UWP
-
 		m_spUWPAssetsDirectory = new std::string;
 		m_spUWPAppDataLocalDirectory = new std::string;
 		//https://stackoverflow.com/questions/54759816/uwp-how-to-access-local-data-directory
@@ -144,5 +150,25 @@ namespace	FATMING_CORE
 		if (m_spMessageSenderManager)
 			return m_spMessageSenderManager->EventMessageShotImmediately(e_usID, (char*)e_pData);
 		return false;
+	}
+
+	float	cCommonApp::DumpLogWhileElpaseTimeIsTooMuch(const char* e_strName, float e_fAllownedElpaseTime, bool e_bWriteToFile, int e_iTCIndex)
+	{
+		if (e_iTCIndex >= MAX_PERFORMANCE_TC_COUNT)
+			return -1.f;
+		m_sPerformanceFPSChecker[e_iTCIndex].Update();
+		auto l_fElpaseTime = m_sPerformanceFPSChecker[e_iTCIndex].fElpaseTime;
+		if (l_fElpaseTime >= e_fAllownedElpaseTime)
+		{
+			if (e_bWriteToFile)
+			{
+				std::string l_strInfo = "Error:";
+				l_strInfo += e_strName;
+				l_strInfo += " ElpaseTime:";
+				l_strInfo += ValueToString(l_fElpaseTime);
+				FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG,e_bWriteToFile);
+			}
+		}
+		return l_fElpaseTime;
 	}
 }

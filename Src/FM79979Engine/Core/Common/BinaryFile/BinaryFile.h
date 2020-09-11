@@ -2,10 +2,14 @@
 #define _BINARY_FILE_H_
 #include "../../Common/NamedTypedObject.h"
 #include "../../Android/nv_file.h"
+#ifdef ANDROID
+#include <mutex>
+#else
 namespace std
 {
 	class mutex;
 }
+#endif
 namespace FATMING_CORE
 {
 	//=======================================

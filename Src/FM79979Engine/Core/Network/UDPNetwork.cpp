@@ -5,7 +5,9 @@
 namespace FATMING_CORE
 {
 	TYPDE_DEFINE_MARCO(cSimpleUDPClientNetwork)
-	cUDPNetwork::cUDPNetwork()
+	TYPDE_DEFINE_MARCO(cUDPNetwork)
+
+	cUDPNetwork::cUDPNetwork() :cCPP11Thread(this)
 	{
 		m_bDoDisconnect = false;
 		m_pInPacket = nullptr;
@@ -133,7 +135,7 @@ namespace FATMING_CORE
 		}
 		if (!m_bDoDisconnect)
 			return;
-		FMLog::LogWithFlag("cGameNetwork::ServerListenDataThread::disconnect", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("cUDPNetwork::ServerListenDataThread::disconnect", CORE_LOG_FLAG);
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
@@ -191,7 +193,7 @@ namespace FATMING_CORE
 		}
 		if (!m_bDoDisconnect)
 			return;
-		FMLog::LogWithFlag("cGameNetwork::ServerListenDataThread::disconnect", CORE_LOG_FLAG);
+		FMLog::LogWithFlag("cUDPNetwork::ServerListenDataThread::disconnect", CORE_LOG_FLAG);
 		m_bDoDisconnect = false;
 		CloseSocket();
 		m_eNetWorkStatus = eNWS_LOST_CONNECTION;
@@ -210,7 +212,7 @@ namespace FATMING_CORE
 		this->m_IPData.m_strServerIP = e_strServerIP;
 		this->m_IPData.m_iPort = e_iPort;
 		f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cUDPNetwork::ClientListenDataThread, this, std::placeholders::_1);
-		this->ThreadDetach(l_f_ThreadWorkingFunction);
+		this->ThreadDetach(l_f_ThreadWorkingFunction,"cUDPNetwork::CreateAsClient");
 		return true;
 	}
 
@@ -220,7 +222,7 @@ namespace FATMING_CORE
 		m_bServer = true;
 		this->m_IPData.m_iPort = e_iPort;
 		f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cUDPNetwork::ServerListenDataThread, this, std::placeholders::_1);
-		this->ThreadDetach(l_f_ThreadWorkingFunction);
+		this->ThreadDetach(l_f_ThreadWorkingFunction, "cUDPNetwork::CreateAsServer");
 		return true;
 	}
 

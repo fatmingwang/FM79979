@@ -269,6 +269,7 @@
     <ClCompile Include="..\Network\SDLnetselect.cpp" />
     <ClCompile Include="..\Network\SDLnetTCP.cpp" />
     <ClCompile Include="..\Network\SDLnetUDP.cpp" />
+    <ClCompile Include="..\Network\UDPNetwork.cpp" />
     <ClCompile Include="..\Sound\BasicSound.cpp" />
     <ClCompile Include="..\Sound\OpenAlOgg.cpp" />
     <ClCompile Include="..\Sound\OpenAlWavFile.cpp" />
@@ -452,13 +453,14 @@
     <ClInclude Include="..\Math\Vector2.h" />
     <ClInclude Include="..\Math\Vector3.h" />
     <ClInclude Include="..\Math\Vector4.h" />
-    <ClInclude Include="..\Network\begin_code.h" />
     <ClInclude Include="..\Network\GameNetWork.h" />
     <ClInclude Include="..\Network\happyhttp.h" />
     <ClInclude Include="..\Network\Network.h" />
+    <ClInclude Include="..\Network\NetworkData.h" />
     <ClInclude Include="..\Network\SDLnetsys.h" />
     <ClInclude Include="..\Network\SDL_endian.h" />
     <ClInclude Include="..\Network\SDL_net.h" />
+    <ClInclude Include="..\Network\UDPNetwork.h" />
     <ClInclude Include="..\Sound\AllSoundInclude.h" />
     <ClInclude Include="..\Sound\BasicSound.h" />
     <ClInclude Include="..\Sound\ogg\backends.h" />

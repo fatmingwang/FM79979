@@ -444,23 +444,27 @@ inline Uint32 _SDLNet_Read32(const void *areap)
 inline void _SDLNet_Write16(Uint16 value, void *areap)
 {
     Uint8 *area = (Uint8*)areap;
-    area[0] = (value >>  8) & 0xFF;
-    area[1] =  value        & 0xFF;
+    area[0] = (Uint8)((value >>  8) & 0xFF);
+    area[1] = (Uint8)(value        & 0xFF);
 }
 
 inline void _SDLNet_Write32(Uint32 value, void *areap)
 {
     Uint8 *area = (Uint8*)areap;
-    area[0] = (value >> 24) & 0xFF;
-    area[1] = (value >> 16) & 0xFF;
-    area[2] = (value >>  8) & 0xFF;
-    area[3] =  value        & 0xFF;
+    area[0] = (Uint8)((value >> 24) & 0xFF);
+    area[1] = (Uint8)((value >> 16) & 0xFF);
+    area[2] = (Uint8)((value >>  8) & 0xFF);
+    area[3] = (Uint8)(value        & 0xFF);
 }
 
 inline Uint16 _SDLNet_Read16(void *areap)
 {
     Uint8 *area = (Uint8*)areap;
-    return ((Uint16)area[0]) << 8 | ((Uint16)area[1]);
+	//return ((Uint16)area[0]) << 8 | ((Uint16)area[1]);
+	Uint16 l_ui16Area0 = (Uint16)area[0];
+	Uint16 l_ui16Area1 = (Uint16)area[1];
+	return (Uint16)(((int)l_ui16Area0) << 8 | ((int)l_ui16Area1));
+    
 }
 
 inline Uint32 _SDLNet_Read32(const void *areap)
