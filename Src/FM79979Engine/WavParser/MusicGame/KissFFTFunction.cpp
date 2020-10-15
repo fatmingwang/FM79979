@@ -28,8 +28,8 @@
 //    }
 inline float AmplitudeTodB(float e_fAmplitude,int e_iNUMFFTBin)
 {
-	double l_dbNormBinMag = 2*e_fAmplitude/e_iNUMFFTBin;
-	double l_dbAmplitude = 20.*log10(l_dbNormBinMag);
+	double l_dbNormBinMag = 2 * e_fAmplitude / e_iNUMFFTBin;
+	double l_dbAmplitude = 20. * log10(l_dbNormBinMag);
 	if( l_dbAmplitude <0 )
 		l_dbAmplitude = 0;
 	return (float)l_dbAmplitude;
@@ -43,7 +43,6 @@ inline float dBToAmplitude(float e_fDecebiles)
 
 template<class T>void	PCMBufferToOneChannel(int e_iNumChannel,int e_iCPMBufferCount,T*e_pInPCMBuffer)
 {
-	//return;
 	if( e_iNumChannel == 1 )
 		return;
 	for( int l_iPCMBufferIndex=0;l_iPCMBufferIndex<e_iCPMBufferCount;++l_iPCMBufferIndex )
@@ -76,14 +75,38 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 		//Apply window function on the sample,Hann window
 		float l_fMultiplier = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex];
 		T l_fValue = l_pucSoundData[l_iSampleIndex];
+		//l_pKiss_FFT_In[l_iSampleIndex].r = l_fMultiplier * l_fValue;
 		l_pKiss_FFT_In[l_iSampleIndex].r = l_fMultiplier * l_fValue;
-		l_pKiss_FFT_In[l_iSampleIndex].i = 0;  //stores N samples
+		//l_pKiss_FFT_In[l_iSampleIndex].r = cos(2 * l_iSampleIndex * 2 * D3DX_PI / l_iNumPCMBuffer);
+		l_pKiss_FFT_In[l_iSampleIndex].i = 0;
 	}
+	//for (int l_iSampleIndex = 0; l_iSampleIndex < l_iNumPCMBuffer / 2; l_iSampleIndex += 2)
+	//{
+	//	//Apply window function on the sample,Hann window
+	//	float l_fMultiplier1 = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex];
+	//	float l_fMultiplier2 = e_pfPreCompiledWindowFunctionValue[l_iSampleIndex + 1];
+	//	T l_fValue1 = l_pucSoundData[l_iSampleIndex];
+	//	T l_fValue2 = l_pucSoundData[l_iSampleIndex + 1];
+	//	l_pKiss_FFT_In[l_iSampleIndex].r = l_fMultiplier1 * l_fValue1;
+	//	l_pKiss_FFT_In[l_iSampleIndex].i = l_fMultiplier2 * l_fValue2;  //stores N samples
+	//}
 	kiss_fft(l_pkiss_fft_state, l_pKiss_FFT_In, l_pKiss_FFT_Out);
+	float l_fScale = 1. / ((float)(l_iDidgitalWindownFunctionCount / 2 + 1));
 	for(int i = 0; i < l_iDidgitalWindownFunctionCount; i++ )
 	{
-		float l_Amplitude = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
-		e_piFFTOutData[i] = (int)AmplitudeTodB(l_Amplitude,l_iNumPCMBuffer);
+		if (1)
+		{
+			float l_Amplitude = sqrt((l_pKiss_FFT_Out[i].r * l_pKiss_FFT_Out[i].r) + (l_pKiss_FFT_Out[i].i * l_pKiss_FFT_Out[i].i));
+			auto l_Result1 = AmplitudeTodB(l_Amplitude, l_iNumPCMBuffer);;
+			e_piFFTOutData[i] = (int)l_Result1;
+		}
+		else
+		{
+			//from GLMViz-master\src\FFT.cpp
+			//void FFT::magnitudes(const size_t w_size){
+			auto l_Result = 20 * std::log10(std::hypot(l_pKiss_FFT_Out[i].r, l_pKiss_FFT_Out[i].i) * l_fScale);
+			e_piFFTOutData[i] = l_Result;
+		}
 	}
 	return false;
 }
@@ -93,21 +116,21 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 {
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_SHORT )
 	{
-		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(short),(short*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<short>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount,(short*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<short>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData);
 	}
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_FLOAT )
 	{
-		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(float),(float*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<float>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount,(float*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<float>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData);
 	}
 	else
 	if( e_pTimeAndPCMData->eBitPerSameplType == eDataType::eDT_INT )
 	{
-		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount/sizeof(int),(int*)e_pTimeAndPCMData->pPCMData);
+		PCMBufferToOneChannel<int>(e_pTimeAndPCMData->iNumChannel,e_pTimeAndPCMData->iPCMDataSampleCount,(int*)e_pTimeAndPCMData->pPCMData);
 		ProcessFFTWithType<int>(e_pTimeAndPCMData,e_pkiss_fft_state,e_pkiss_fft_In,e_pkiss_fft_Out,
 					   e_pfPreCompiledWindowFunctionValue,e_piFFTOutData);
 	}
@@ -115,11 +138,33 @@ void	ProcessFFT(sTimeAndPCMData*e_pTimeAndPCMData,kiss_fft_state*e_pkiss_fft_sta
 
 float*	GenerateWindowsFunctionValue(int e_iFFTBinCoutn)
 {
+	/* Hann window */
+	bool l_bHannWindow = true;
+	if (l_bHannWindow)
+	{
+		float*l_pfWindowFunctionConstantValue = new float[e_iFFTBinCoutn];
+		int l_iConstantValue = e_iFFTBinCoutn-1;
+		for( int l_iCount = 0;l_iCount <e_iFFTBinCoutn;++l_iCount)
+		{
+			double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/l_iConstantValue));
+			l_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
+		}
+		return l_pfWindowFunctionConstantValue;
+	}
+	//https://github.com/hannesha/GLMViz/blob/master/src/FFT.cpp
+	//from GLMViz-master\src\FFT.cpp
+	//void FFT::calculate_window(const size_t w_size){
+//#ifndef M_PI
+//#  define M_PI (3.1415926536f)
+//#endif
 	float*l_pfWindowFunctionConstantValue = new float[e_iFFTBinCoutn];
-	int l_iConstantValue = e_iFFTBinCoutn-1;
+	float N_1 = 1.0 / (float)(e_iFFTBinCoutn - 1);
+	// compensated Blackman window constants
+	const float a1 = 4620.0 / 3969.0;
+	const float a2 = 715.0 / 3969.0;
 	for( int l_iCount = 0;l_iCount <e_iFFTBinCoutn;++l_iCount)
 	{
-		double multiplier = 0.5 * (1 - cos(2*D3DX_PI*l_iCount/l_iConstantValue));
+		double multiplier = 1.0 - a1 * cos(2 * 3.1415926536f * l_iCount * N_1) + a2 * cos(4 * 3.1415926536f * l_iCount * N_1);
 		l_pfWindowFunctionConstantValue[l_iCount] = (float)multiplier;
 	}
 	return l_pfWindowFunctionConstantValue;

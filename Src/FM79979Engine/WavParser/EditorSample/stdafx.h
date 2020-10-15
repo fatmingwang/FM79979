@@ -5,19 +5,19 @@
 
 // TODO: reference additional headers your program requires here
 #pragma warning( disable : 4945 )
-#ifdef WIN32
-#include "windows.h"
-#include "../../../include/glew.h"
-#endif
-#include <stdlib.h>
-//#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <map>
-#include <vector>
-#include <list>
-#include <xstring>
-#include "assert.h"
+//#ifdef WIN32
+//#include "windows.h"
+//#include "../../../include/glew.h"
+//#endif
+//#include <stdlib.h>
+////#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <xstring>
+//#include "assert.h"
 #include "../../Core/AllCoreInclude.h"
 #include "../../Core/GameplayUT/Render/VideoPlayer/AVIPlayer.h"
 //#include "../../Core/AllPhysicInclude.h"

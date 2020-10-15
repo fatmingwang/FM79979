@@ -119,6 +119,7 @@ bool	cFFTDecibelsAnalyzer::cFFTFrequencyDecibels::CopyAverageValue(cFFTFrequency
 	if( m_piAverageDecibleValue && this->m_iFFTCount )
 	{
 		memcpy(e_pFFTFrequencyDecibels->m_piTotalDecibleValue,m_piAverageDecibleValue,sizeof(int)*m_iFFTCount);
+		//why?
 		e_pFFTFrequencyDecibels->m_iUpdateCount = 5;
 		for( int i=0;i<e_iFFTCount;++i )
 		{
