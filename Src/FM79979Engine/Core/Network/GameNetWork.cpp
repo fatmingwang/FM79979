@@ -25,6 +25,12 @@ namespace FATMING_CORE
 	}
 #endif
 	sNetworkSendPacket::sNetworkSendPacket() { pData = nullptr; iSize = 0; }
+	sNetworkSendPacket::sNetworkSendPacket(sNetworkSendPacket * e_pNetworkSendPacket)
+	{
+		this->iSize = e_pNetworkSendPacket->iSize;
+		this->pData = new char[iSize];
+		memcpy(pData,e_pNetworkSendPacket->pData, iSize);
+	}
 	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE(pData); }
 	sNetworkReceivedPacket::sNetworkReceivedPacket() { pReceivedSocket = nullptr; pData = nullptr; iSize = 0; }
 	sNetworkReceivedPacket::~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
@@ -227,41 +233,41 @@ namespace FATMING_CORE
 			SAFE_DELETE(this->m_pReconnectFunction);
 		}
 	}
-	bool cGameNetwork::SendData(_TCPsocket * e_pTCPsocket, sNetworkSendPacket * e_pPacket)
+
+	bool cGameNetwork::SendData(_TCPsocket * e_pTCPsocket, sNetworkSendPacket * e_pPacket, bool e_bSnedByNetworkThread)
 	{
+		//cPP11MutexHolder l_PP11MutexHolder(m_SendDataMutex);
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
-		if (e_pTCPsocket)
+		if (e_pTCPsocket && this->m_pSocket)
 		{
-			int l_iHeaderSize = PACKET_HEADER_SIZE;
-			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
-			bool	l_bSent = false;
-			bool l_bUsealloca = false;
-			if (l_bUsealloca)
+			if (e_bSnedByNetworkThread)
 			{
-				char*l_pData = (char*)alloca(l_iSendSize);
-				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
+				cPP11MutexHolder l_PP11MutexHolder(m_SendDataMutex);
+				std::vector<sNetworkSendPacket*>* l_pNetworkSendPacketVector = nullptr;
+				if (m_WaitToSendPacketVector.find(e_pTCPsocket) == m_WaitToSendPacketVector.end())
+				{
+					m_WaitToSendPacketVector.insert(std::make_pair(e_pTCPsocket, std::vector<sNetworkSendPacket*>()));
+				}
+				l_pNetworkSendPacketVector = &m_WaitToSendPacketVector[e_pTCPsocket];
+				l_pNetworkSendPacketVector->push_back(e_pPacket);
 			}
 			else
 			{
-				char*l_pData = new char[l_iSendSize];
-				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
-				delete[] l_pData;
+				InternalSendData(e_pTCPsocket,e_pPacket);
 			}
-			return l_bSent;
+			return true;
 		}
 		return false;
 	}
-	bool cGameNetwork::SendDataToServer(sNetworkSendPacket * e_pPacket)
+	bool cGameNetwork::SendDataToServer(sNetworkSendPacket * e_pPacket, bool e_bSnedByNetworkThread)
 	{
 		if (m_pSocket)
-			return SendData(this->m_pSocket, e_pPacket);
+		{
+			return SendData(this->m_pSocket, e_pPacket, e_bSnedByNetworkThread);
+		}
 		return false;
 	}
-	bool cGameNetwork::SendDataToAllClient(sNetworkSendPacket * e_pPacket)
+	bool cGameNetwork::SendDataToAllClient(sNetworkSendPacket * e_pPacket, bool e_bSnedByNetworkThread)
 	{
 		if (!e_pPacket)
 			return false;
@@ -271,26 +277,39 @@ namespace FATMING_CORE
 		char*l_pData = new char[l_iSendSize];
 		memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
 		memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+		sNetworkSendPacket l_NetworkSendPacket;
+		l_NetworkSendPacket.iSize = l_iSendSize;
+		l_NetworkSendPacket.pData = l_pData;
 		//cPP11MutexHolder hold(m_ClientSocketMutex, L"SendDataToAllClient");
-		cPP11MutexHolder hold(m_ClientSocketMutex);
-		int	l_iSize = (int)m_ClientSocketVector.size();
-		for (int i = 0; i < l_iSize; ++i)
 		{
-			int*l_pDebugData = (int*)l_pData;
-			int*l_pDebugData2 = (int*)e_pPacket->pData;
-			if (m_ClientSocketVector[i])
+			cPP11MutexHolder hold(m_ClientSocketMutex);
+			int	l_iSize = (int)m_ClientSocketVector.size();
+			for (int i = 0; i < l_iSize; ++i)
 			{
-				bool	l_bSent = SDLNet_TCP_Send(m_ClientSocketVector[i], l_pData, l_iSendSize) == 0 ? false : true;
-				assert(l_bSent && "cGameNetwork::SendDataToAllClient-send data failed!?!?");
-				if (!l_bSent)
-					l_bSendDataResult = false;
+				int* l_pDebugData = (int*)l_pData;
+				int* l_pDebugData2 = (int*)e_pPacket->pData;
+				if (m_ClientSocketVector[i])
+				{
+					bool	l_bSent = false;
+					if (e_bSnedByNetworkThread)
+					{
+						l_bSent = SendData(m_ClientSocketVector[i],&l_NetworkSendPacket,e_bSnedByNetworkThread);
+					}
+					else
+					{
+						l_bSent = SDLNet_TCP_Send(m_ClientSocketVector[i], l_pData, l_iSendSize) == 0 ? false : true;
+					}
+					if (!l_bSent)
+						l_bSendDataResult = false;
+				}
 			}
 		}
+		l_NetworkSendPacket.pData = nullptr;
 		delete[] l_pData;
 		return l_bSendDataResult;
 	}
 
-	bool cGameNetwork::CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction)
+	bool cGameNetwork::CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap)
 	{
 		m_IPData.m_iPort = e_iPort;
 		if(1)
@@ -299,13 +318,13 @@ namespace FATMING_CORE
 			this->ThreadDetach(l_f_ThreadWorkingFunction,"cGameNetwork::CreateAsServer");
 			if (!this->m_pReconnectFunction && e_bCreateReconnectFunction)
 			{
-				m_pReconnectFunction = new sReconnectFunction(this,true);
+				m_pReconnectFunction = new sReconnectFunction(this,true, e_fReconnectionTimeGap);
 			}
 			return true;
 		}
 		return false;
 	}
-	bool cGameNetwork::CreateAsClient(int e_iPort, const char * e_strIP, bool e_bCreateReconnectFunction)
+	bool cGameNetwork::CreateAsClient(int e_iPort, const char * e_strIP, bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap)
 	{
 		m_IPData.m_iPort = e_iPort;
 		m_IPData.m_strServerIP = e_strIP;
@@ -315,7 +334,7 @@ namespace FATMING_CORE
 			this->ThreadDetach(l_f_ThreadWorkingFunction,"cGameNetwork::CreateAsClient");
 			if (!this->m_pReconnectFunction && e_bCreateReconnectFunction)
 			{
-				m_pReconnectFunction = new sReconnectFunction(this, false);
+				m_pReconnectFunction = new sReconnectFunction(this, false, e_fReconnectionTimeGap);
 			}
 			return true;
 		}
@@ -384,6 +403,59 @@ namespace FATMING_CORE
 			m_ClientSocketVector.erase(m_ClientSocketVector.begin());
 		}
 	}
+
+	bool cGameNetwork::ThreadProcessWaitSendDataVector()
+	{
+		std::map<_TCPsocket*, std::vector<sNetworkSendPacket*> > l_WaitToSendPacketVector;
+		{
+			cPP11MutexHolder l_PP11MutexHolder(m_SendDataMutex);
+			if (m_WaitToSendPacketVector.size() == 0)
+				return true;
+			l_WaitToSendPacketVector = m_WaitToSendPacketVector;
+			m_WaitToSendPacketVector.clear();
+		}
+		for (auto l_It = l_WaitToSendPacketVector.begin(); l_It != l_WaitToSendPacketVector.end(); ++l_It)
+		{
+			for (auto l_DataIT = l_It->second.begin(); l_DataIT != l_It->second.end(); ++l_DataIT)
+			{
+				if (!InternalSendData(l_It->first, *l_DataIT))
+				{//dump log.
+
+				}
+			}
+			DELETE_VECTOR(l_It->second);
+		}
+		return false;
+	}
+
+	bool cGameNetwork::InternalSendData(_TCPsocket * e_pTCPsocket, sNetworkSendPacket * e_pPacket)
+	{
+		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
+		if (e_pTCPsocket)
+		{
+			int l_iHeaderSize = PACKET_HEADER_SIZE;
+			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
+			bool	l_bSent = false;
+			bool l_bUsealloca = true;//for better memory management
+			if (l_bUsealloca)
+			{
+				char* l_pData = (char*)alloca(l_iSendSize);
+				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
+			}
+			else
+			{
+				char* l_pData = new char[l_iSendSize];
+				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
+				delete[] l_pData;
+			}
+			return l_bSent;
+		}
+		return false;
+	}
 	void cGameNetwork::AddClient(_TCPsocket * e__pTCPsocket)
 	{
 		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(e__pTCPsocket);
@@ -431,7 +503,16 @@ namespace FATMING_CORE
 		{
 			if (m_ClientSocketVector[i] == e__pTCPsocket)
 			{
-				if(m_ClientLostConnectionCallback)
+				{
+					cPP11MutexHolder l_PP11MutexHolder(m_SendDataMutex);
+					auto l_IT = m_WaitToSendPacketVector.find(e__pTCPsocket);
+					if (l_IT != m_WaitToSendPacketVector.end())
+					{
+						DELETE_VECTOR(l_IT->second);
+						m_WaitToSendPacketVector.erase(l_IT);
+					}
+				}
+				if (m_ClientLostConnectionCallback)
 					m_ClientLostConnectionCallback(e__pTCPsocket);
 				SDLNet_TCP_Close(e__pTCPsocket);
 				m_ClientSocketVector.erase(m_ClientSocketVector.begin() + i);
@@ -440,6 +521,7 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
+
 	bool cGameNetwork::CreateSocksetToListenData()
 	{
 		//FMLog::LogWithFlag("create socket");
@@ -485,6 +567,7 @@ namespace FATMING_CORE
 				FMLog::LogWithFlag("Network not aviable", CORE_LOG_FLAG);
 				goto FAILED;
 			}
+			ThreadProcessWaitSendDataVector();
 			int l_iNumready = 0;
 			if (!CreateSocksetToListenData())
 			{
@@ -554,6 +637,7 @@ namespace FATMING_CORE
 			{
 				goto FAILED;
 			}
+			ThreadProcessWaitSendDataVector();
 			int l_iNumready = 0;
 			if (!CreateSocksetToListenData())
 			{

@@ -9,7 +9,7 @@ namespace FATMING_CORE
 		eNWS_NONE = 0,
 		eNWS_TRY_TO_CONNECT,
 		eNWS_CONNECTED,
-		eNWS_CONNECTION_NOT_EXISTS,
+		eNWS_CONNECTION_NOT_EXISTS, 
 		eNWS_LOST_CONNECTION,
 		eNWS_NO_INTERNET,
 	};
@@ -18,6 +18,7 @@ namespace FATMING_CORE
 		int		iSize;
 		char*	pData;//first int must be unsigned int for messageID.
 		sNetworkSendPacket();
+		sNetworkSendPacket(sNetworkSendPacket*e_pNetworkSendPacket);
 		~sNetworkSendPacket();
 	};
 	struct sNetworkReceivedPacket

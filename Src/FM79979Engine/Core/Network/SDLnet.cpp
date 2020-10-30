@@ -98,6 +98,8 @@ int  SDLNet_Init(void)
 #else
         /* SIGPIPE is generated when a remote socket is closed */
         void (*handler)(int);
+        //https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/430366/
+        //ignore socket close signal to avoid thread close.
         handler = signal(SIGPIPE, SIG_IGN);
         if ( handler != SIG_DFL ) {
             signal(SIGPIPE, handler);

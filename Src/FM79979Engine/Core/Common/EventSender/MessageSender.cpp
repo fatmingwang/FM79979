@@ -308,5 +308,15 @@ return false;
 			delete l_pWaitEmitEvent;
 		}
 	}
+
+	void cMessageSenderManager::ClearEvent()
+	{
+		while (m_WaitForEmitEvent.size())
+		{
+			sWaitEmitEvent* l_pWaitEmitEvent = m_WaitForEmitEvent[0];
+			m_WaitForEmitEvent.erase(m_WaitForEmitEvent.begin());
+			delete l_pWaitEmitEvent;
+		}
+	}
 	//end namespace FATMING_CORE
 }

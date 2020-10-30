@@ -8,7 +8,7 @@
 	#include "../../../Include/glew.h"
 	#include "../../../Include/glext.h"
 	#include "../../../Include/wglew.h"
-#include "../../../Include/wglext.h"
+	#include "../../../Include/wglext.h"
 	#include "windows.h"
 #elif defined(IOS)
 	#include <OpenGLES/ES2/gl.h>

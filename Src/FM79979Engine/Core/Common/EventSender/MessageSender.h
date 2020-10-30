@@ -90,7 +90,7 @@ namespace FATMING_CORE
 		//fix memory leak problem
 		std::map< unsigned int, std::vector<sEventFunctionAndType*> >				m_EventFunctionAndTypeMap;
 		//
-		std::vector<sWaitEmitEvent*>									m_WaitForEmitEvent;
+		std::vector<sWaitEmitEvent*>												m_WaitForEmitEvent;
 	public:
 		cMessageSenderManager();
 		~cMessageSenderManager();
@@ -102,6 +102,7 @@ namespace FATMING_CORE
 		bool	EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
 		//for emit event for frame
 		void	Update(float e_fElpaseTime);
+		void	ClearEvent();
 	};
 
 

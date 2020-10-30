@@ -161,6 +161,10 @@ namespace FATMING_CORE
 
 	void cOpenGLRender::Render()
 	{
+#ifdef WIN32
+		if (!this->m_Handle)
+			return;
+#endif
 		g_pCurrentShader = nullptr;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -64,7 +64,7 @@ namespace FATMING_CORE
 		//virtual	void	ReplacePointsByCount(int e_iNumPoint);
 		//do not recommand call this at all,because I have not optmize it at all,it do reallocate memory often,so it sux :(
 		//u have to apply matrix by your onw!if u want to show it at the position u want!
-		void				RenderCurve(Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity,float e_fLineWidth = 2.f);
+		void				RenderCurve(Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity,float e_fLineWidth = 2.f,bool e_bRenderPoints = true);
 		//
 		void				RenderPoint(float e_fSize = 5,int e_iColorR = 255,int e_iColorG = 255,int e_iColorB = 255);
 		//only for debug or edit mode

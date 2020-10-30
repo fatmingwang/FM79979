@@ -34,11 +34,13 @@ namespace FATMING_CORE
 	std::mutex*							cCPP11Thread::m_spMapMutex = nullptr;
 	cCPP11Thread::cCPP11Thread(NamedTypedObject*e_pOwner)
 	{
+#ifdef DEBUG
 		if (!m_spui64PIDAndNamedObject)
 		{
 			m_spui64PIDAndNamedObject = new std::map<uint64, cCPP11Thread*>;
 			m_spMapMutex = new std::mutex;
 		}
+#endif
 		m_i64PID = 0;
 		m_pThreadOwner = e_pOwner;
 		m_ThreadWorkingFunction = nullptr;
@@ -64,10 +66,15 @@ namespace FATMING_CORE
 		}
 		if (m_spMapMutex)
 		{
-			MUTEX_PLACE_HOLDER(*m_spMapMutex)
-			if (m_spui64PIDAndNamedObject && m_spui64PIDAndNamedObject->size() == 0)
 			{
-				SAFE_DELETE(m_spui64PIDAndNamedObject);
+				MUTEX_PLACE_HOLDER(*m_spMapMutex)
+				if (m_spui64PIDAndNamedObject && m_spui64PIDAndNamedObject->size() == 0)
+				{
+					SAFE_DELETE(m_spui64PIDAndNamedObject);
+				}
+			}
+			if (m_spui64PIDAndNamedObject == nullptr)
+			{
 				SAFE_DELETE(m_spMapMutex);
 			}
 		}
@@ -168,7 +175,7 @@ namespace FATMING_CORE
 
 	void	cCPP11Thread::WorkingThread()
 	{
-		if (m_i64PID == 0)
+		if (m_i64PID == 0 && m_spui64PIDAndNamedObject)
 		{
 			//https://stackoverflow.com/questions/7432100/how-to-get-integer-thread-id-in-c11
 			std::stringstream l_ss;

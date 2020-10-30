@@ -126,7 +126,7 @@ namespace FATMING_CORE
 	//	SetLOD(1);
 	//}
 
-	void	cCurve::RenderCurve(Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth)
+	void	cCurve::RenderCurve(Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth, bool e_bRenderPoints)
 	{
 		if( m_FinallyPointList.size() < 2 )
 		{
@@ -144,7 +144,8 @@ namespace FATMING_CORE
 			l_CurvePointVector[i*2+1] = m_FinallyPointList[i+1];
 		}
 		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_mat, e_fLineWidth);
-		RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
+		if(e_bRenderPoints)
+			RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
 	}
 
 	//------------------------------------------------------------	IncreaseLod()

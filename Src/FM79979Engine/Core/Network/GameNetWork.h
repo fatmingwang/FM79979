@@ -11,10 +11,14 @@
 #include "../Synchronization/CPP11Thread.h"
 #include "NetworkData.h"
 #include "../Common/Utility.h"
+
 namespace FATMING_CORE
 {
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
+		std::mutex				m_SendDataMutex;
+		std::map<_TCPsocket*, std::vector<sNetworkSendPacket*> > m_WaitToSendPacketVector;
+		bool					ThreadProcessWaitSendDataVector();
 	protected:
 		struct sReconnectFunction
 		{
@@ -34,6 +38,7 @@ namespace FATMING_CORE
 		virtual void						AddClient(_TCPsocket*e__pTCPsocket);
 		virtual void						ServerListenDataThread(float e_ElpaseTime);
 		virtual void						ClientListenDataThread(float e_ElpaseTime);
+		virtual bool						InternalSendData(_TCPsocket* e_pTCPsocket, sNetworkSendPacket* e_pPacket);
 		//if e_strIP is nullptr it's server
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
@@ -67,15 +72,15 @@ namespace FATMING_CORE
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
-		virtual bool						SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket);
-		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket);
-		template<class TYPE>bool			SendDataToClient(_TCPsocket*e_pTCPsocket,TYPE*e_pData);
-		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData);
-		template<class TYPE>bool			SendDataToServer(TYPE * e_pData);
-		bool								SendDataToServer(sNetworkSendPacket*e_pPacket);
+		virtual bool						SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
+		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
+		template<class TYPE>bool			SendDataToClient(_TCPsocket*e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = false);
+		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = false);
+		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = false);
+		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
 
-		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction);
-		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction);
+		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap = 1.f);
+		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction,float e_fReconnectionTimeGap = 1.f);
 
 		size_t								ClientCount() { return m_ClientSocketVector.size(); }
 		sIPData*							GetIPData(){ return &m_IPData; }
@@ -89,35 +94,35 @@ namespace FATMING_CORE
 		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
 	};
 	template<class TYPE>
-	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData)
+	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)
 	{
 		bool l_bSendResult = false;
 		sNetworkSendPacket l_NetworkSendPacket;
 		l_NetworkSendPacket.iSize = sizeof(TYPE);
 		l_NetworkSendPacket.pData = (char*)e_pData;
-		l_bSendResult = SendData(e_pTCPsocket,&l_NetworkSendPacket);
+		l_bSendResult = SendData(e_pTCPsocket,&l_NetworkSendPacket, e_bSnedByNetworkThread);
 		l_NetworkSendPacket.pData = nullptr;
 		return l_bSendResult;
 	}
 	template<class TYPE>
-	inline bool	cGameNetwork::SendDataToAllClient(TYPE*e_pData)
+	inline bool	cGameNetwork::SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread)
 	{
 		bool l_bSendDataResult = false;
 		sNetworkSendPacket l_NetworkSendPacket;
 		l_NetworkSendPacket.iSize = sizeof(TYPE);
 		l_NetworkSendPacket.pData = (char*)e_pData;
-		l_bSendDataResult = SendDataToAllClient(&l_NetworkSendPacket);
+		l_bSendDataResult = SendDataToAllClient(&l_NetworkSendPacket, e_bSnedByNetworkThread);
 		l_NetworkSendPacket.pData = nullptr;
 		return l_bSendDataResult;
 	}
 	template<class TYPE>
-	inline bool cGameNetwork::SendDataToServer(TYPE * e_pData)
+	inline bool cGameNetwork::SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread)
 	{
 		bool l_bSendResult = false;
 		sNetworkSendPacket l_NetworkSendPacket;
 		l_NetworkSendPacket.iSize = sizeof(TYPE);
 		l_NetworkSendPacket.pData = (char*)e_pData;
-		l_bSendResult = SendDataToServer(&l_NetworkSendPacket);
+		l_bSendResult = SendDataToServer(&l_NetworkSendPacket, e_bSnedByNetworkThread);
 		l_NetworkSendPacket.pData = nullptr;
 		return l_bSendResult;
 	}
