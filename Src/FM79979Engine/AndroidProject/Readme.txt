@@ -32,3 +32,25 @@ the newest google-play-services.jar need to download by android studio
 https://developer.android.com/studio/intro/update#sdk-manager
 
 https://developers.google.com/api-client-library/java/google-api-java-client/download
+
+
+
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+clang++.exe : error : no such file or directory
+
+YOU may install vcpkg by yourself(me,YES,for mongoDB c++ driver)
+THIS will occur some environment problem,
+1.select project mouse right click properties
+2.Vcpkg  Use Vcpkg to No
+
+
+
+
+
+
+

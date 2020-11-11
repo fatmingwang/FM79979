@@ -273,16 +273,16 @@ namespace	FATMING_CORE
 		if (m_bDoScreenShot)
 		{
 			m_bDoScreenShot = false;
-			std::wstring l_strFileName;
+			std::string l_strFileName;
 			if (m_psstrGameAppName)
 			{
-				l_strFileName += ValueToStringW(this->m_psstrGameAppName->c_str());
-				l_strFileName += L"_";
+				l_strFileName += this->m_psstrGameAppName->c_str();
+				l_strFileName += "_";
 			}
-			l_strFileName += L"ScreenShot_";
-			l_strFileName += GetSystemTimeForFile(false);
-			l_strFileName += L".jpeg";
-			SaveCurrentBufferToImage(ValueToString(l_strFileName).c_str(), (int)this->m_spOpenGLRender->m_vDeviceViewPortSize.Width(), (int)this->m_spOpenGLRender->m_vDeviceViewPortSize.Height());
+			l_strFileName += "ScreenShot_";
+			l_strFileName += GetSystemTimeForFile();
+			l_strFileName += ".jpeg";
+			SaveCurrentBufferToImage(l_strFileName.c_str(), (int)this->m_spOpenGLRender->m_vDeviceViewPortSize.Width(), (int)this->m_spOpenGLRender->m_vDeviceViewPortSize.Height());
 		}
 		cGameApp::m_sMouseWhellDelta = 0;
 	}

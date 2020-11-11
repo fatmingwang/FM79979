@@ -104,7 +104,7 @@ template <class T>bool	ProcessFFTWithType(sTimeAndPCMData*e_pTimeAndPCMData,kiss
 		{
 			//from GLMViz-master\src\FFT.cpp
 			//void FFT::magnitudes(const size_t w_size){
-			auto l_Result = 20 * std::log10(std::hypot(l_pKiss_FFT_Out[i].r, l_pKiss_FFT_Out[i].i) * l_fScale);
+			auto l_Result =  std::log10(std::hypot(l_pKiss_FFT_Out[i].r, l_pKiss_FFT_Out[i].i) * l_fScale);
 			e_piFFTOutData[i] = l_Result;
 		}
 	}

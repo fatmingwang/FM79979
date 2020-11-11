@@ -46,7 +46,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
  	// TODO: Place code here.
 	MSG msg;
 	//HACCEL hAccelTable;
-
+	cGameApp::CreateDefaultOpenGLRender();
 	// Initialize global strings
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_TEST, szWindowClass, MAX_LOADSTRING);
@@ -59,9 +59,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	}
 	//cGameApp::m_svGameResolution.x = 2208;
 	//cGameApp::m_svGameResolution.y = 1242;
-	g_pGameApp = new cMusicGameApp(g_hWnd,cGameApp::m_svGameResolution,Vector2(cGameApp::m_svViewPortSize.Width(),cGameApp::m_svViewPortSize.Height()));
+	g_pGameApp = new cMusicGameApp(g_hWnd,cGameApp::m_spOpenGLRender->m_vGameResolution,Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	g_pGameApp->Init();
-	cGameApp::SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
+	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)g_WindowSize.x,(int)g_WindowSize.y,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	SetTimer (g_hWnd, 0, 0, NULL) ;
 
 
@@ -136,16 +136,16 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // Store instance handle in our global variable
 	bool	l_bFullScreen = false;
 	cNodeISAX	l_NodeISAX;
-	cGameApp::m_svViewPortSize.x = 1024.;
-	cGameApp::m_svViewPortSize.y = 768.f;
-	cGameApp::m_svGameResolution = Vector2(2208, 1242);
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = 1024.;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = 768.f;
+	cGameApp::m_spOpenGLRender->m_vGameResolution = Vector2(2208, 1242);
 	cGameApp::ResoluctionParse("MusicGame.xml");
 
 	DWORD	l_dwFlag = WS_OVERLAPPEDWINDOW;
 	if(cGameApp::m_sbFullScreen)
 		l_dwFlag = WS_VISIBLE | WS_POPUP |	WS_CLIPSIBLINGS | WS_CLIPCHILDREN;
-	int l_iWidth = (int)cGameApp::m_svViewPortSize.Width();
-	int l_iHeight = (int)cGameApp::m_svViewPortSize.Height();
+	int l_iWidth = (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+	int l_iHeight = (int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
 	g_hWnd = CreateWindow(szWindowClass, szTitle, l_dwFlag, 0, 0, l_iWidth,l_iHeight, NULL, NULL, hInstance, NULL);
 	if (!g_hWnd)
 	{
@@ -171,14 +171,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 POINT g_MousePosition;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	float   l_fScaleX = cGameApp::m_svGameResolution.x/cGameApp::m_svViewPortSize.x;
-	float   l_fScaleY = cGameApp::m_svGameResolution.y/cGameApp::m_svViewPortSize.y;
+	float   l_fScaleX = cGameApp::m_spOpenGLRender->m_vGameResolution.x/cGameApp::m_spOpenGLRender->m_vViewPortSize.x;
+	float   l_fScaleY = cGameApp::m_spOpenGLRender->m_vGameResolution.y/cGameApp::m_spOpenGLRender->m_vViewPortSize.y;
 	switch (message)
 	{
 	case  WM_SIZE:
 		g_WindowSize.x = (int)LOWORD(lParam);
 		g_WindowSize.y = (int)HIWORD(lParam);
-		cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.x,(int)cGameApp::m_svGameResolution.y);
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		//cGameApp::SetAcceptRationWithGameresolution((int)LOWORD(lParam),(int)HIWORD(lParam),(int)cGameApp::m_svGameResolution.y,(int)cGameApp::m_svGameResolution.x);
 		break;
 	case WM_TIMER:

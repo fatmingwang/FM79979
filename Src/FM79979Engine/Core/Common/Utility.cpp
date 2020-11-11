@@ -1240,15 +1240,7 @@ namespace UT
 
 	std::wstring			GetSystemTimeForFile(bool e_bCN)
 	{
-		struct tm *tm;
-		char buf[200];
-		time_t ltime; time(&ltime);
-		/* convert time_t to broken-down time representation */
-		tm = localtime(&ltime);
-		/* format time days.month.year hour:minute:seconds */
-		strftime(buf, sizeof(buf), "%d_%m_%Y_%H_%M_%S",tm);
-
-		return FATMING_CORE::ValueToStringW(buf);
+		return FATMING_CORE::ValueToStringW(GetSystemTimeForFile());
 //#ifdef WIN32
 //		SYSTEMTIME l_st;
 ////		GetSystemTime(&l_st);
@@ -1287,15 +1279,31 @@ namespace UT
 
 	std::wstring			GetSystemTime(bool e_bCN)
 	{
-		struct tm *tm;
+		return FATMING_CORE::ValueToStringW(GetSystemTime());
+	}
+	std::string GetSystemTimeForFile()
+	{
+		struct tm* tm;
 		char buf[200];
 		time_t ltime; time(&ltime);
 		/* convert time_t to broken-down time representation */
 		tm = localtime(&ltime);
 		/* format time days.month.year hour:minute:seconds */
-		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S",tm);
+		strftime(buf, sizeof(buf), "%d_%m_%Y_%H_%M_%S", tm);
 
-		return FATMING_CORE::ValueToStringW(buf);
+		return std::string(buf);
+	}
+	std::string GetSystemTime()
+	{
+		struct tm* tm;
+		char buf[200];
+		time_t ltime; time(&ltime);
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		/* format time days.month.year hour:minute:seconds */
+		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S", tm);
+		
+		return std::string(buf);
 	}
 #if defined(WIN32)
 //#define	WCHAR_TO_WCHAR( p,q ){ int l_iLength = wcslen(p);memcpy(q,p,sizeof(wchar_t)*l_iLength);q[l_iLength] = L'\0';  }

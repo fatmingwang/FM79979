@@ -74,6 +74,8 @@
     <AntBuild>
       <AntBuildPath>$(ProjectDir)\</AntBuildPath>
       <SecurePropertiesLocation>C:\Users\Fatming\Desktop\Work\FM79979\Src\FM79979Engine\AndroidProject\MusicGame\appkey\secure_properties.xml</SecurePropertiesLocation>
+      <GradleBuildScriptOverridePath>./nsight_tegra_build.gradle</GradleBuildScriptOverridePath>
+      <EnableGradleBuildScriptOverride>true</EnableGradleBuildScriptOverride>
     </AntBuild>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
@@ -242,6 +244,7 @@
     <ClInclude Include="jni\engine.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="nsight_tegra_build.gradle" />
     <None Include="res\drawable\icon.png" />
     <None Include="res\layout\fbmanagerlayout.xml" />
     <None Include="res\layout\test.xml" />

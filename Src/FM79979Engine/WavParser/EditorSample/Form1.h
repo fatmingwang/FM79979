@@ -228,7 +228,7 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Form1::typeid));
 			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->WavFileName_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->OPENGL_panel = (gcnew System::Windows::Forms::Panel());
@@ -253,10 +253,10 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->FFT_FPS_label = (gcnew System::Windows::Forms::Label());
 			this->FFT_FPS_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ChartScale_label = (gcnew System::Windows::Forms::Label());
+			this->FFTStoreExport_button = (gcnew System::Windows::Forms::Button());
 			this->FFTChartScale_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
 			this->ForwardStep_button = (gcnew System::Windows::Forms::Button());
 			this->BackStep_button = (gcnew System::Windows::Forms::Button());
-			this->FFTStoreExport_button = (gcnew System::Windows::Forms::Button());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->Filter_groupBox = (gcnew System::Windows::Forms::GroupBox());
 			this->FFTStoreAmplitude_numericUpDown = (gcnew System::Windows::Forms::NumericUpDown());
@@ -270,23 +270,23 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->MIDIToXml_button = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SoundCapture_groupBox = (gcnew System::Windows::Forms::GroupBox());
+			this->SoundCaptureHint_label = (gcnew System::Windows::Forms::Label());
 			this->CpatureSound_button = (gcnew System::Windows::Forms::Button());
 			this->CurrentRecordName_label = (gcnew System::Windows::Forms::Label());
 			this->CurrentRecordName_textBox = (gcnew System::Windows::Forms::TextBox());
-			this->SoundCaptureHint_label = (gcnew System::Windows::Forms::Label());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentTime_trackBar))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GoToTime_trackBar))->BeginInit();
 			this->SoundFileConvert_groupBox->SuspendLayout();
 			this->FFT_groupBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFT_FPS_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTChartScale_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
 			this->splitContainer1->SuspendLayout();
 			this->Filter_groupBox->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTStoreAmplitude_numericUpDown))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTStoreGittedCountThreshold_numericUpDown))->BeginInit();
 			this->FFTPrint_groupBox->SuspendLayout();
 			this->SoundCapture_groupBox->SuspendLayout();
 			this->SuspendLayout();
@@ -299,11 +299,11 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// WavFileName_textBox
 			// 
 			this->WavFileName_textBox->AllowDrop = true;
-			this->WavFileName_textBox->Location = System::Drawing::Point(309, 36);
+			this->WavFileName_textBox->Location = System::Drawing::Point(309, 33);
 			this->WavFileName_textBox->Name = L"WavFileName_textBox";
-			this->WavFileName_textBox->Size = System::Drawing::Size(178, 20);
+			this->WavFileName_textBox->Size = System::Drawing::Size(178, 22);
 			this->WavFileName_textBox->TabIndex = 1;
-			this->WavFileName_textBox->Text = L"Sound/2owl.wav";
+			this->WavFileName_textBox->Text = L"freq.wav";
 			this->WavFileName_textBox->DragDrop += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::WavFileName_textBox_DragDrop);
 			this->WavFileName_textBox->DragEnter += gcnew System::Windows::Forms::DragEventHandler(this, &Form1::WavFileName_textBox_DragEnter);
 			// 
@@ -312,12 +312,12 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->OPENGL_panel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->OPENGL_panel->Location = System::Drawing::Point(0, 0);
 			this->OPENGL_panel->Name = L"OPENGL_panel";
-			this->OPENGL_panel->Size = System::Drawing::Size(1884, 604);
+			this->OPENGL_panel->Size = System::Drawing::Size(1884, 557);
 			this->OPENGL_panel->TabIndex = 3;
 			// 
 			// CurrentTime_trackBar
 			// 
-			this->CurrentTime_trackBar->Location = System::Drawing::Point(5, 124);
+			this->CurrentTime_trackBar->Location = System::Drawing::Point(5, 114);
 			this->CurrentTime_trackBar->Name = L"CurrentTime_trackBar";
 			this->CurrentTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->CurrentTime_trackBar->TabIndex = 5;
@@ -326,17 +326,17 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// CurrentTime_label
 			// 
 			this->CurrentTime_label->AutoSize = true;
-			this->CurrentTime_label->Location = System::Drawing::Point(6, 97);
+			this->CurrentTime_label->Location = System::Drawing::Point(6, 90);
 			this->CurrentTime_label->Name = L"CurrentTime_label";
-			this->CurrentTime_label->Size = System::Drawing::Size(64, 13);
+			this->CurrentTime_label->Size = System::Drawing::Size(65, 12);
 			this->CurrentTime_label->TabIndex = 6;
 			this->CurrentTime_label->Text = L"CurrentTime";
 			// 
 			// RecordSound_button
 			// 
-			this->RecordSound_button->Location = System::Drawing::Point(4, 28);
+			this->RecordSound_button->Location = System::Drawing::Point(4, 26);
 			this->RecordSound_button->Name = L"RecordSound_button";
-			this->RecordSound_button->Size = System::Drawing::Size(111, 34);
+			this->RecordSound_button->Size = System::Drawing::Size(111, 31);
 			this->RecordSound_button->TabIndex = 15;
 			this->RecordSound_button->Text = L"RecordSound";
 			this->RecordSound_button->UseVisualStyleBackColor = true;
@@ -344,9 +344,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// RecordSoundPause_button
 			// 
-			this->RecordSoundPause_button->Location = System::Drawing::Point(4, 69);
+			this->RecordSoundPause_button->Location = System::Drawing::Point(4, 64);
 			this->RecordSoundPause_button->Name = L"RecordSoundPause_button";
-			this->RecordSoundPause_button->Size = System::Drawing::Size(111, 33);
+			this->RecordSoundPause_button->Size = System::Drawing::Size(111, 30);
 			this->RecordSoundPause_button->TabIndex = 16;
 			this->RecordSoundPause_button->Text = L"RecordSoundPause";
 			this->RecordSoundPause_button->UseVisualStyleBackColor = true;
@@ -354,17 +354,17 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// RecordSoundFileName_textBox
 			// 
-			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(9, 32);
+			this->RecordSoundFileName_textBox->Location = System::Drawing::Point(9, 30);
 			this->RecordSoundFileName_textBox->Name = L"RecordSoundFileName_textBox";
-			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(162, 20);
+			this->RecordSoundFileName_textBox->Size = System::Drawing::Size(162, 22);
 			this->RecordSoundFileName_textBox->TabIndex = 17;
 			this->RecordSoundFileName_textBox->Text = L"Sound\\21.wav";
 			// 
 			// FFTTest_button
 			// 
-			this->FFTTest_button->Location = System::Drawing::Point(312, 78);
+			this->FFTTest_button->Location = System::Drawing::Point(312, 72);
 			this->FFTTest_button->Name = L"FFTTest_button";
-			this->FFTTest_button->Size = System::Drawing::Size(75, 23);
+			this->FFTTest_button->Size = System::Drawing::Size(75, 21);
 			this->FFTTest_button->TabIndex = 18;
 			this->FFTTest_button->Text = L"Play FFT";
 			this->FFTTest_button->UseVisualStyleBackColor = true;
@@ -372,9 +372,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// ConvertToWav_button
 			// 
-			this->ConvertToWav_button->Location = System::Drawing::Point(83, 92);
+			this->ConvertToWav_button->Location = System::Drawing::Point(83, 85);
 			this->ConvertToWav_button->Name = L"ConvertToWav_button";
-			this->ConvertToWav_button->Size = System::Drawing::Size(59, 26);
+			this->ConvertToWav_button->Size = System::Drawing::Size(59, 24);
 			this->ConvertToWav_button->TabIndex = 19;
 			this->ConvertToWav_button->Text = L"ToWav";
 			this->ConvertToWav_button->UseVisualStyleBackColor = true;
@@ -382,9 +382,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// ToOgg_button
 			// 
-			this->ToOgg_button->Location = System::Drawing::Point(9, 89);
+			this->ToOgg_button->Location = System::Drawing::Point(9, 82);
 			this->ToOgg_button->Name = L"ToOgg_button";
-			this->ToOgg_button->Size = System::Drawing::Size(59, 26);
+			this->ToOgg_button->Size = System::Drawing::Size(59, 24);
 			this->ToOgg_button->TabIndex = 20;
 			this->ToOgg_button->Text = L"ToOgg";
 			this->ToOgg_button->UseVisualStyleBackColor = true;
@@ -392,9 +392,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// PlayOgg_button
 			// 
-			this->PlayOgg_button->Location = System::Drawing::Point(1285, 644);
+			this->PlayOgg_button->Location = System::Drawing::Point(1285, 594);
 			this->PlayOgg_button->Name = L"PlayOgg_button";
-			this->PlayOgg_button->Size = System::Drawing::Size(85, 34);
+			this->PlayOgg_button->Size = System::Drawing::Size(85, 31);
 			this->PlayOgg_button->TabIndex = 21;
 			this->PlayOgg_button->Text = L"play ogg ";
 			this->PlayOgg_button->UseVisualStyleBackColor = true;
@@ -402,9 +402,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// PlayWav_button
 			// 
-			this->PlayWav_button->Location = System::Drawing::Point(1285, 684);
+			this->PlayWav_button->Location = System::Drawing::Point(1285, 631);
 			this->PlayWav_button->Name = L"PlayWav_button";
-			this->PlayWav_button->Size = System::Drawing::Size(75, 32);
+			this->PlayWav_button->Size = System::Drawing::Size(75, 30);
 			this->PlayWav_button->TabIndex = 22;
 			this->PlayWav_button->Text = L"PlayWav";
 			this->PlayWav_button->UseVisualStyleBackColor = true;
@@ -413,9 +413,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// FFTTestPause_checkBox
 			// 
 			this->FFTTestPause_checkBox->AutoSize = true;
-			this->FFTTestPause_checkBox->Location = System::Drawing::Point(312, 120);
+			this->FFTTestPause_checkBox->Location = System::Drawing::Point(312, 111);
 			this->FFTTestPause_checkBox->Name = L"FFTTestPause_checkBox";
-			this->FFTTestPause_checkBox->Size = System::Drawing::Size(56, 17);
+			this->FFTTestPause_checkBox->Size = System::Drawing::Size(50, 16);
 			this->FFTTestPause_checkBox->TabIndex = 25;
 			this->FFTTestPause_checkBox->Text = L"Pause";
 			this->FFTTestPause_checkBox->UseVisualStyleBackColor = true;
@@ -423,9 +423,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// WavToOggOnlyOneChannel
 			// 
-			this->WavToOggOnlyOneChannel->Location = System::Drawing::Point(9, 66);
+			this->WavToOggOnlyOneChannel->Location = System::Drawing::Point(9, 61);
 			this->WavToOggOnlyOneChannel->Name = L"WavToOggOnlyOneChannel";
-			this->WavToOggOnlyOneChannel->Size = System::Drawing::Size(162, 26);
+			this->WavToOggOnlyOneChannel->Size = System::Drawing::Size(162, 24);
 			this->WavToOggOnlyOneChannel->TabIndex = 26;
 			this->WavToOggOnlyOneChannel->Text = L"WavToOggOnlyOneChannel";
 			this->WavToOggOnlyOneChannel->UseVisualStyleBackColor = true;
@@ -433,7 +433,7 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// GoToTime_trackBar
 			// 
-			this->GoToTime_trackBar->Location = System::Drawing::Point(9, 206);
+			this->GoToTime_trackBar->Location = System::Drawing::Point(9, 190);
 			this->GoToTime_trackBar->Name = L"GoToTime_trackBar";
 			this->GoToTime_trackBar->Size = System::Drawing::Size(274, 45);
 			this->GoToTime_trackBar->TabIndex = 27;
@@ -443,27 +443,27 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// JumpToTime_label
 			// 
 			this->JumpToTime_label->AutoSize = true;
-			this->JumpToTime_label->Location = System::Drawing::Point(6, 177);
+			this->JumpToTime_label->Location = System::Drawing::Point(6, 163);
 			this->JumpToTime_label->Name = L"JumpToTime_label";
-			this->JumpToTime_label->Size = System::Drawing::Size(68, 13);
+			this->JumpToTime_label->Size = System::Drawing::Size(67, 12);
 			this->JumpToTime_label->TabIndex = 29;
 			this->JumpToTime_label->Text = L"JumpToTime";
 			// 
 			// SourceName_label
 			// 
 			this->SourceName_label->AutoSize = true;
-			this->SourceName_label->Location = System::Drawing::Point(306, 9);
+			this->SourceName_label->Location = System::Drawing::Point(306, 8);
 			this->SourceName_label->Name = L"SourceName_label";
-			this->SourceName_label->Size = System::Drawing::Size(159, 13);
+			this->SourceName_label->Size = System::Drawing::Size(155, 12);
 			this->SourceName_label->TabIndex = 30;
 			this->SourceName_label->Text = L"SoundSourceName(ogg or wav)";
 			// 
 			// ConvertToName_label
 			// 
 			this->ConvertToName_label->AutoSize = true;
-			this->ConvertToName_label->Location = System::Drawing::Point(6, 16);
+			this->ConvertToName_label->Location = System::Drawing::Point(6, 15);
 			this->ConvertToName_label->Name = L"ConvertToName_label";
-			this->ConvertToName_label->Size = System::Drawing::Size(85, 13);
+			this->ConvertToName_label->Size = System::Drawing::Size(83, 12);
 			this->ConvertToName_label->TabIndex = 31;
 			this->ConvertToName_label->Text = L"ConvertToName";
 			// 
@@ -474,9 +474,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->SoundFileConvert_groupBox->Controls->Add(this->ToOgg_button);
 			this->SoundFileConvert_groupBox->Controls->Add(this->WavToOggOnlyOneChannel);
 			this->SoundFileConvert_groupBox->Controls->Add(this->ConvertToWav_button);
-			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(908, 16);
+			this->SoundFileConvert_groupBox->Location = System::Drawing::Point(908, 15);
 			this->SoundFileConvert_groupBox->Name = L"SoundFileConvert_groupBox";
-			this->SoundFileConvert_groupBox->Size = System::Drawing::Size(175, 120);
+			this->SoundFileConvert_groupBox->Size = System::Drawing::Size(175, 111);
 			this->SoundFileConvert_groupBox->TabIndex = 33;
 			this->SoundFileConvert_groupBox->TabStop = false;
 			this->SoundFileConvert_groupBox->Text = L"SoundFileConvert";
@@ -499,9 +499,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->FFT_groupBox->Controls->Add(this->GoToTime_trackBar);
 			this->FFT_groupBox->Controls->Add(this->BackStep_button);
 			this->FFT_groupBox->Controls->Add(this->FFTTestPause_checkBox);
-			this->FFT_groupBox->Location = System::Drawing::Point(3, 7);
+			this->FFT_groupBox->Location = System::Drawing::Point(3, 6);
 			this->FFT_groupBox->Name = L"FFT_groupBox";
-			this->FFT_groupBox->Size = System::Drawing::Size(490, 285);
+			this->FFT_groupBox->Size = System::Drawing::Size(490, 263);
 			this->FFT_groupBox->TabIndex = 34;
 			this->FFT_groupBox->TabStop = false;
 			this->FFT_groupBox->Text = L"FFT";
@@ -509,50 +509,61 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// FFT_FPS_label
 			// 
 			this->FFT_FPS_label->AutoSize = true;
-			this->FFT_FPS_label->Location = System::Drawing::Point(9, 24);
+			this->FFT_FPS_label->Location = System::Drawing::Point(9, 22);
 			this->FFT_FPS_label->Name = L"FFT_FPS_label";
-			this->FFT_FPS_label->Size = System::Drawing::Size(52, 13);
+			this->FFT_FPS_label->Size = System::Drawing::Size(48, 12);
 			this->FFT_FPS_label->TabIndex = 39;
 			this->FFT_FPS_label->Text = L"FFT_FPS";
 			// 
 			// FFT_FPS_numericUpDown
 			// 
-			this->FFT_FPS_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
-			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(10, 43);
-			this->FFT_FPS_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {60, 0, 0, 0});
-			this->FFT_FPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {7, 0, 0, 0});
+			this->FFT_FPS_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			this->FFT_FPS_numericUpDown->Location = System::Drawing::Point(10, 40);
+			this->FFT_FPS_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 60, 0, 0, 0 });
+			this->FFT_FPS_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 7, 0, 0, 0 });
 			this->FFT_FPS_numericUpDown->Name = L"FFT_FPS_numericUpDown";
-			this->FFT_FPS_numericUpDown->Size = System::Drawing::Size(94, 20);
+			this->FFT_FPS_numericUpDown->Size = System::Drawing::Size(94, 22);
 			this->FFT_FPS_numericUpDown->TabIndex = 38;
-			this->FFT_FPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {22, 0, 0, 0});
+			this->FFT_FPS_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 22, 0, 0, 0 });
 			this->FFT_FPS_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFT_FPS_numericUpDown_ValueChanged);
 			// 
 			// ChartScale_label
 			// 
 			this->ChartScale_label->AutoSize = true;
-			this->ChartScale_label->Location = System::Drawing::Point(309, 156);
+			this->ChartScale_label->Location = System::Drawing::Point(309, 144);
 			this->ChartScale_label->Name = L"ChartScale_label";
-			this->ChartScale_label->Size = System::Drawing::Size(59, 13);
+			this->ChartScale_label->Size = System::Drawing::Size(55, 12);
 			this->ChartScale_label->TabIndex = 35;
 			this->ChartScale_label->Text = L"ChartScale";
+			// 
+			// FFTStoreExport_button
+			// 
+			this->FFTStoreExport_button->Location = System::Drawing::Point(312, 190);
+			this->FFTStoreExport_button->Name = L"FFTStoreExport_button";
+			this->FFTStoreExport_button->Size = System::Drawing::Size(91, 18);
+			this->FFTStoreExport_button->TabIndex = 2;
+			this->FFTStoreExport_button->Text = L"FFTStoreExport";
+			this->FFTStoreExport_button->UseVisualStyleBackColor = true;
+			this->FFTStoreExport_button->Visible = false;
+			this->FFTStoreExport_button->Click += gcnew System::EventHandler(this, &Form1::FFTStoreExport_button_Click);
 			// 
 			// FFTChartScale_numericUpDown
 			// 
 			this->FFTChartScale_numericUpDown->DecimalPlaces = 2;
-			this->FFTChartScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
-			this->FFTChartScale_numericUpDown->Location = System::Drawing::Point(312, 175);
-			this->FFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 65536});
+			this->FFTChartScale_numericUpDown->Increment = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
+			this->FFTChartScale_numericUpDown->Location = System::Drawing::Point(312, 162);
+			this->FFTChartScale_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 65536 });
 			this->FFTChartScale_numericUpDown->Name = L"FFTChartScale_numericUpDown";
-			this->FFTChartScale_numericUpDown->Size = System::Drawing::Size(120, 20);
+			this->FFTChartScale_numericUpDown->Size = System::Drawing::Size(120, 22);
 			this->FFTChartScale_numericUpDown->TabIndex = 34;
-			this->FFTChartScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
+			this->FFTChartScale_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->FFTChartScale_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTChartScale_numericUpDown_ValueChanged);
 			// 
 			// ForwardStep_button
 			// 
-			this->ForwardStep_button->Location = System::Drawing::Point(195, 248);
+			this->ForwardStep_button->Location = System::Drawing::Point(195, 229);
 			this->ForwardStep_button->Name = L"ForwardStep_button";
-			this->ForwardStep_button->Size = System::Drawing::Size(75, 23);
+			this->ForwardStep_button->Size = System::Drawing::Size(75, 21);
 			this->ForwardStep_button->TabIndex = 10;
 			this->ForwardStep_button->Text = L">>";
 			this->ForwardStep_button->UseVisualStyleBackColor = true;
@@ -561,25 +572,14 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// BackStep_button
 			// 
-			this->BackStep_button->Location = System::Drawing::Point(9, 248);
+			this->BackStep_button->Location = System::Drawing::Point(9, 229);
 			this->BackStep_button->Name = L"BackStep_button";
-			this->BackStep_button->Size = System::Drawing::Size(75, 23);
+			this->BackStep_button->Size = System::Drawing::Size(75, 21);
 			this->BackStep_button->TabIndex = 12;
 			this->BackStep_button->Text = L"<<";
 			this->BackStep_button->UseVisualStyleBackColor = true;
 			this->BackStep_button->Visible = false;
 			this->BackStep_button->Click += gcnew System::EventHandler(this, &Form1::BackStep_button_Click);
-			// 
-			// FFTStoreExport_button
-			// 
-			this->FFTStoreExport_button->Location = System::Drawing::Point(312, 206);
-			this->FFTStoreExport_button->Name = L"FFTStoreExport_button";
-			this->FFTStoreExport_button->Size = System::Drawing::Size(91, 20);
-			this->FFTStoreExport_button->TabIndex = 2;
-			this->FFTStoreExport_button->Text = L"FFTStoreExport";
-			this->FFTStoreExport_button->UseVisualStyleBackColor = true;
-			this->FFTStoreExport_button->Visible = false;
-			this->FFTStoreExport_button->Click += gcnew System::EventHandler(this, &Form1::FFTStoreExport_button_Click);
 			// 
 			// splitContainer1
 			// 
@@ -601,8 +601,8 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->splitContainer1->Panel2->Controls->Add(this->SoundCapture_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->FFT_groupBox);
 			this->splitContainer1->Panel2->Controls->Add(this->SoundFileConvert_groupBox);
-			this->splitContainer1->Size = System::Drawing::Size(1884, 961);
-			this->splitContainer1->SplitterDistance = 604;
+			this->splitContainer1->Size = System::Drawing::Size(1884, 887);
+			this->splitContainer1->SplitterDistance = 557;
 			this->splitContainer1->TabIndex = 35;
 			// 
 			// Filter_groupBox
@@ -611,9 +611,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->Filter_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_label);
 			this->Filter_groupBox->Controls->Add(this->FFTStoreAmplitude_label);
 			this->Filter_groupBox->Controls->Add(this->FFTStoreGittedCountThreshold_numericUpDown);
-			this->Filter_groupBox->Location = System::Drawing::Point(499, 16);
+			this->Filter_groupBox->Location = System::Drawing::Point(499, 15);
 			this->Filter_groupBox->Name = L"Filter_groupBox";
-			this->Filter_groupBox->Size = System::Drawing::Size(206, 134);
+			this->Filter_groupBox->Size = System::Drawing::Size(206, 124);
 			this->Filter_groupBox->TabIndex = 53;
 			this->Filter_groupBox->TabStop = false;
 			this->Filter_groupBox->Text = L"Decibels Value";
@@ -621,42 +621,46 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// FFTStoreAmplitude_numericUpDown
 			// 
-			this->FFTStoreAmplitude_numericUpDown->Location = System::Drawing::Point(9, 42);
-			this->FFTStoreAmplitude_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 0, 0});
+			this->FFTStoreAmplitude_numericUpDown->Location = System::Drawing::Point(9, 39);
+			this->FFTStoreAmplitude_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 9999, 0, 0, 0 });
 			this->FFTStoreAmplitude_numericUpDown->Name = L"FFTStoreAmplitude_numericUpDown";
-			this->FFTStoreAmplitude_numericUpDown->Size = System::Drawing::Size(101, 20);
+			this->FFTStoreAmplitude_numericUpDown->Size = System::Drawing::Size(101, 22);
 			this->FFTStoreAmplitude_numericUpDown->TabIndex = 3;
-			this->FFTStoreAmplitude_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {15, 0, 0, 0});
+			this->FFTStoreAmplitude_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 15, 0, 0, 0 });
 			this->FFTStoreAmplitude_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
 			// 
 			// FFTStoreGittedCountThreshold_label
 			// 
 			this->FFTStoreGittedCountThreshold_label->AutoSize = true;
-			this->FFTStoreGittedCountThreshold_label->Location = System::Drawing::Point(6, 69);
+			this->FFTStoreGittedCountThreshold_label->Location = System::Drawing::Point(6, 64);
 			this->FFTStoreGittedCountThreshold_label->Name = L"FFTStoreGittedCountThreshold_label";
-			this->FFTStoreGittedCountThreshold_label->Size = System::Drawing::Size(113, 13);
+			this->FFTStoreGittedCountThreshold_label->Size = System::Drawing::Size(108, 12);
 			this->FFTStoreGittedCountThreshold_label->TabIndex = 48;
 			this->FFTStoreGittedCountThreshold_label->Text = L"FFT Average Decibels";
 			// 
 			// FFTStoreAmplitude_label
 			// 
 			this->FFTStoreAmplitude_label->AutoSize = true;
-			this->FFTStoreAmplitude_label->Location = System::Drawing::Point(6, 26);
+			this->FFTStoreAmplitude_label->Location = System::Drawing::Point(6, 24);
 			this->FFTStoreAmplitude_label->Name = L"FFTStoreAmplitude_label";
-			this->FFTStoreAmplitude_label->Size = System::Drawing::Size(70, 13);
+			this->FFTStoreAmplitude_label->Size = System::Drawing::Size(66, 12);
 			this->FFTStoreAmplitude_label->TabIndex = 49;
 			this->FFTStoreAmplitude_label->Text = L"FFT Decibels";
 			// 
 			// FFTStoreGittedCountThreshold_numericUpDown
 			// 
-			this->FFTStoreGittedCountThreshold_numericUpDown->Location = System::Drawing::Point(8, 85);
-			this->FFTStoreGittedCountThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {9999, 0, 
-				0, 0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->Location = System::Drawing::Point(8, 78);
+			this->FFTStoreGittedCountThreshold_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {
+				9999, 0,
+					0, 0
+			});
 			this->FFTStoreGittedCountThreshold_numericUpDown->Name = L"FFTStoreGittedCountThreshold_numericUpDown";
-			this->FFTStoreGittedCountThreshold_numericUpDown->Size = System::Drawing::Size(101, 20);
+			this->FFTStoreGittedCountThreshold_numericUpDown->Size = System::Drawing::Size(101, 22);
 			this->FFTStoreGittedCountThreshold_numericUpDown->TabIndex = 4;
-			this->FFTStoreGittedCountThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {10, 0, 0, 
-				0});
+			this->FFTStoreGittedCountThreshold_numericUpDown->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) {
+				10, 0, 0,
+					0
+			});
 			this->FFTStoreGittedCountThreshold_numericUpDown->ValueChanged += gcnew System::EventHandler(this, &Form1::FFTStoreAmplitude_numericUpDown_ValueChanged);
 			// 
 			// FFTPrint_groupBox
@@ -664,9 +668,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->FFTPrint_groupBox->Controls->Add(this->FFTStore_checkBox);
 			this->FFTPrint_groupBox->Controls->Add(this->FFTStore_listBox);
 			this->FFTPrint_groupBox->Controls->Add(this->OpenFileForFFTStore_button);
-			this->FFTPrint_groupBox->Location = System::Drawing::Point(1089, 23);
+			this->FFTPrint_groupBox->Location = System::Drawing::Point(1089, 21);
 			this->FFTPrint_groupBox->Name = L"FFTPrint_groupBox";
-			this->FFTPrint_groupBox->Size = System::Drawing::Size(166, 323);
+			this->FFTPrint_groupBox->Size = System::Drawing::Size(166, 298);
 			this->FFTPrint_groupBox->TabIndex = 41;
 			this->FFTPrint_groupBox->TabStop = false;
 			this->FFTPrint_groupBox->Text = L"FFTPrint";
@@ -675,9 +679,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// FFTStore_checkBox
 			// 
 			this->FFTStore_checkBox->AutoSize = true;
-			this->FFTStore_checkBox->Location = System::Drawing::Point(6, 61);
+			this->FFTStore_checkBox->Location = System::Drawing::Point(6, 56);
 			this->FFTStore_checkBox->Name = L"FFTStore_checkBox";
-			this->FFTStore_checkBox->Size = System::Drawing::Size(105, 17);
+			this->FFTStore_checkBox->Size = System::Drawing::Size(101, 16);
 			this->FFTStore_checkBox->TabIndex = 50;
 			this->FFTStore_checkBox->Text = L"FFTStoreRender";
 			this->FFTStore_checkBox->UseVisualStyleBackColor = true;
@@ -686,17 +690,18 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// FFTStore_listBox
 			// 
 			this->FFTStore_listBox->FormattingEnabled = true;
-			this->FFTStore_listBox->Location = System::Drawing::Point(6, 102);
+			this->FFTStore_listBox->ItemHeight = 12;
+			this->FFTStore_listBox->Location = System::Drawing::Point(6, 94);
 			this->FFTStore_listBox->Name = L"FFTStore_listBox";
-			this->FFTStore_listBox->Size = System::Drawing::Size(129, 212);
+			this->FFTStore_listBox->Size = System::Drawing::Size(129, 196);
 			this->FFTStore_listBox->TabIndex = 1;
 			this->FFTStore_listBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Form1::FFTStore_listBox_SelectedIndexChanged);
 			// 
 			// OpenFileForFFTStore_button
 			// 
-			this->OpenFileForFFTStore_button->Location = System::Drawing::Point(6, 18);
+			this->OpenFileForFFTStore_button->Location = System::Drawing::Point(6, 17);
 			this->OpenFileForFFTStore_button->Name = L"OpenFileForFFTStore_button";
-			this->OpenFileForFFTStore_button->Size = System::Drawing::Size(129, 23);
+			this->OpenFileForFFTStore_button->Size = System::Drawing::Size(129, 21);
 			this->OpenFileForFFTStore_button->TabIndex = 0;
 			this->OpenFileForFFTStore_button->Text = L"OpenFileForFFTStore";
 			this->OpenFileForFFTStore_button->UseVisualStyleBackColor = true;
@@ -704,9 +709,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// 
 			// MIDIToXml_button
 			// 
-			this->MIDIToXml_button->Location = System::Drawing::Point(917, 158);
+			this->MIDIToXml_button->Location = System::Drawing::Point(917, 146);
 			this->MIDIToXml_button->Name = L"MIDIToXml_button";
-			this->MIDIToXml_button->Size = System::Drawing::Size(116, 44);
+			this->MIDIToXml_button->Size = System::Drawing::Size(116, 41);
 			this->MIDIToXml_button->TabIndex = 40;
 			this->MIDIToXml_button->Text = L"MIDIToXml";
 			this->MIDIToXml_button->UseVisualStyleBackColor = true;
@@ -716,9 +721,9 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(1408, 8);
+			this->label1->Location = System::Drawing::Point(1408, 7);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(464, 390);
+			this->label1->Size = System::Drawing::Size(465, 360);
 			this->label1->TabIndex = 38;
 			this->label1->Text = resources->GetString(L"label1.Text");
 			this->label1->Visible = false;
@@ -733,16 +738,25 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->SoundCapture_groupBox->Controls->Add(this->RecordSoundPause_button);
 			this->SoundCapture_groupBox->Location = System::Drawing::Point(740, 3);
 			this->SoundCapture_groupBox->Name = L"SoundCapture_groupBox";
-			this->SoundCapture_groupBox->Size = System::Drawing::Size(125, 302);
+			this->SoundCapture_groupBox->Size = System::Drawing::Size(125, 279);
 			this->SoundCapture_groupBox->TabIndex = 36;
 			this->SoundCapture_groupBox->TabStop = false;
 			this->SoundCapture_groupBox->Text = L"SoundCapture";
 			// 
+			// SoundCaptureHint_label
+			// 
+			this->SoundCaptureHint_label->AutoSize = true;
+			this->SoundCaptureHint_label->Location = System::Drawing::Point(6, 206);
+			this->SoundCaptureHint_label->Name = L"SoundCaptureHint_label";
+			this->SoundCaptureHint_label->Size = System::Drawing::Size(93, 48);
+			this->SoundCaptureHint_label->TabIndex = 40;
+			this->SoundCaptureHint_label->Text = L"Z zoom in\r\nX zoom in\r\nC chart move left\r\nV chart move right";
+			// 
 			// CpatureSound_button
 			// 
-			this->CpatureSound_button->Location = System::Drawing::Point(7, 111);
+			this->CpatureSound_button->Location = System::Drawing::Point(7, 102);
 			this->CpatureSound_button->Name = L"CpatureSound_button";
-			this->CpatureSound_button->Size = System::Drawing::Size(108, 36);
+			this->CpatureSound_button->Size = System::Drawing::Size(108, 33);
 			this->CpatureSound_button->TabIndex = 51;
 			this->CpatureSound_button->Text = L"Export selected decibles index";
 			this->CpatureSound_button->UseVisualStyleBackColor = true;
@@ -751,35 +765,26 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			// CurrentRecordName_label
 			// 
 			this->CurrentRecordName_label->AutoSize = true;
-			this->CurrentRecordName_label->Location = System::Drawing::Point(4, 171);
+			this->CurrentRecordName_label->Location = System::Drawing::Point(4, 158);
 			this->CurrentRecordName_label->Name = L"CurrentRecordName_label";
-			this->CurrentRecordName_label->Size = System::Drawing::Size(81, 13);
+			this->CurrentRecordName_label->Size = System::Drawing::Size(81, 12);
 			this->CurrentRecordName_label->TabIndex = 41;
 			this->CurrentRecordName_label->Text = L"ExportFileName";
 			// 
 			// CurrentRecordName_textBox
 			// 
 			this->CurrentRecordName_textBox->AllowDrop = true;
-			this->CurrentRecordName_textBox->Location = System::Drawing::Point(7, 194);
+			this->CurrentRecordName_textBox->Location = System::Drawing::Point(7, 179);
 			this->CurrentRecordName_textBox->Name = L"CurrentRecordName_textBox";
-			this->CurrentRecordName_textBox->Size = System::Drawing::Size(108, 20);
+			this->CurrentRecordName_textBox->Size = System::Drawing::Size(108, 22);
 			this->CurrentRecordName_textBox->TabIndex = 40;
 			this->CurrentRecordName_textBox->Text = L"qoo.wav";
 			// 
-			// SoundCaptureHint_label
-			// 
-			this->SoundCaptureHint_label->AutoSize = true;
-			this->SoundCaptureHint_label->Location = System::Drawing::Point(6, 223);
-			this->SoundCaptureHint_label->Name = L"SoundCaptureHint_label";
-			this->SoundCaptureHint_label->Size = System::Drawing::Size(93, 52);
-			this->SoundCaptureHint_label->TabIndex = 40;
-			this->SoundCaptureHint_label->Text = L"Z zoom in\r\nX zoom in\r\nC chart move left\r\nV chart move right";
-			// 
 			// Form1
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1884, 961);
+			this->ClientSize = System::Drawing::Size(1884, 887);
 			this->Controls->Add(this->splitContainer1);
 			this->Controls->Add(this->PlayWav_button);
 			this->Controls->Add(this->PlayOgg_button);
@@ -790,23 +795,23 @@ private: System::Windows::Forms::Label^  SoundCaptureHint_label;
 			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::Form1_KeyPress);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			this->Resize += gcnew System::EventHandler(this, &Form1::Form1_Resize);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->CurrentTime_trackBar))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->GoToTime_trackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->CurrentTime_trackBar))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->GoToTime_trackBar))->EndInit();
 			this->SoundFileConvert_groupBox->ResumeLayout(false);
 			this->SoundFileConvert_groupBox->PerformLayout();
 			this->FFT_groupBox->ResumeLayout(false);
 			this->FFT_groupBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFT_FPS_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTChartScale_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFT_FPS_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTChartScale_numericUpDown))->EndInit();
 			this->splitContainer1->Panel1->ResumeLayout(false);
 			this->splitContainer1->Panel2->ResumeLayout(false);
 			this->splitContainer1->Panel2->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->splitContainer1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->EndInit();
 			this->splitContainer1->ResumeLayout(false);
 			this->Filter_groupBox->ResumeLayout(false);
 			this->Filter_groupBox->PerformLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreAmplitude_numericUpDown))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->FFTStoreGittedCountThreshold_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTStoreAmplitude_numericUpDown))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FFTStoreGittedCountThreshold_numericUpDown))->EndInit();
 			this->FFTPrint_groupBox->ResumeLayout(false);
 			this->FFTPrint_groupBox->PerformLayout();
 			this->SoundCapture_groupBox->ResumeLayout(false);

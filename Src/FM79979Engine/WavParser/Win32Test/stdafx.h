@@ -23,7 +23,7 @@
 
 
 #include "../../Core/AllCoreInclude.h"
-#include "../../Core/Particle/AllParticleInclude.h"
-#include "../../Core/FatmingCollada/AllColladaInclude.h"
+//#include "../../Core/Particle/AllParticleInclude.h"
+//#include "../../Core/FatmingCollada/AllColladaInclude.h"
 //#include "../MusicGame/stdafx.h"
 #define PARSE_TEST_SOUND

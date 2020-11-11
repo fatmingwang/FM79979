@@ -193,33 +193,37 @@ void	cKissFFTConvert::RenderDecibels(int e_iNumSampleCount,float*e_pfDeciblesDat
 		RenderLine((float*)&l_vIAMLazyVector,e_iNumSampleCount*2,Vector4::Green,2);
 		e_vShowPos = l_vShowPos;
 		e_vShowPos.x -= l_fXGap;
-		int l_iNumAccept = 0;
-		int l_bHittedHigest = false;
-		int l_iRestCount = cKissFFTConvert::GetNumFFTGraphByDuration(0.3f);
-		int l_iRestCount2 = cKissFFTConvert::GetNumFFTGraphByDuration(0.5);
-		for( int i=0;i<e_iNumSampleCount;++i )
+		bool l_bRenderHighDecubal = false;
+		if (l_bRenderHighDecubal)
 		{
-			e_vShowPos.x += l_fXGap;
-			if( !l_bHittedHigest )
+			int l_iNumAccept = 0;
+			int l_bHittedHigest = false;
+			int l_iRestCount = cKissFFTConvert::GetNumFFTGraphByDuration(0.3f);
+			int l_iRestCount2 = cKissFFTConvert::GetNumFFTGraphByDuration(0.5);
+			for (int i = 0; i < e_iNumSampleCount; ++i)
 			{
-				if( e_pfDeciblesData[i]+0.1f >= 1.f  )
-					l_bHittedHigest = true;
+				e_vShowPos.x += l_fXGap;
+				if (!l_bHittedHigest)
+				{
+					if (e_pfDeciblesData[i] + 0.1f >= 1.f)
+						l_bHittedHigest = true;
+					else
+						continue;
+				}
+				if (e_pfDeciblesData[i] >= 0.1f)
+				{
+					++l_iNumAccept;
+				}
 				else
 					continue;
+				int l_iIndex = l_iNumAccept - 1;
+				l_vIAMLazyVector[l_iIndex * 2].x = e_vShowPos.x;
+				l_vIAMLazyVector[l_iIndex * 2 + 1].x = e_vShowPos.x;
+				l_vIAMLazyVector[l_iIndex * 2].y = e_vShowPos.y;
+				l_vIAMLazyVector[l_iIndex * 2 + 1].y = (e_pfDeciblesData[i] * 200) + e_vShowPos.y;
 			}
-			if( e_pfDeciblesData[i] >= 0.1f  )
-			{
-				++l_iNumAccept;
-			}
-			else
-				continue;
-			int l_iIndex = l_iNumAccept-1;
-			l_vIAMLazyVector[l_iIndex*2].x = e_vShowPos.x;
-			l_vIAMLazyVector[l_iIndex*2+1].x = e_vShowPos.x;
-			l_vIAMLazyVector[l_iIndex*2].y = e_vShowPos.y;
-			l_vIAMLazyVector[l_iIndex*2+1].y = (e_pfDeciblesData[i]*200)+e_vShowPos.y;
+			RenderLine((float*)&l_vIAMLazyVector, l_iNumAccept * 2, Vector4::Blue, 2);
 		}
-		RenderLine((float*)&l_vIAMLazyVector,l_iNumAccept*2,Vector4::Blue,2);
 
 		Vector2 l_vCurrentTimeIndicator[2];
 		float l_fCurrentPos = this->m_fCurrentTime/this->m_pSoundFile->m_fTime*e_vResolution.x+l_vShowPos.x;
@@ -677,7 +681,8 @@ void	cKissFFTConvert::Render()
 		cGameApp::m_spGlyphFontRender->SetFontColor(Vector4::One);
 		cGameApp::m_spGlyphFontRender->SetScale(1.f);
 		RenderMaxAmplitudeAndFrequencyInfo(1000,200);
-		RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
+		//render debug amplitude line for value compare.
+		//RenderDebugAmplitudeLine((float)cSoundCompareParameter::m_siDebugAmplitudeValue);
 		Vector2 l_vPos = m_vShowPos;
 		l_vPos.y += 100;
 		RenderDecibels(m_iNumFFTGraph,this->m_pfEachFFTDataDecibles,l_vPos,this->m_vResolution);

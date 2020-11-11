@@ -86,6 +86,8 @@ namespace UT
 	//if e_bCN is true return chinese format or return western format
 	std::wstring			GetSystemTimeForFile(bool e_bCN);
 	std::wstring			GetSystemTime(bool e_bCN);
+	std::string				GetSystemTimeForFile();
+	std::string				GetSystemTime();
 	//====================
 	//this is good for immediately to get pointer,but becareful!
 	//because here using static variable

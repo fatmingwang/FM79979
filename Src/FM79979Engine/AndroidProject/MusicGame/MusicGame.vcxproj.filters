@@ -490,5 +490,6 @@
     <None Include="res\layout\test.xml">
       <Filter>res\layout</Filter>
     </None>
+    <None Include="nsight_tegra_build.gradle" />
   </ItemGroup>
 </Project>

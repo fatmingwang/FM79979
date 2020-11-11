@@ -3,11 +3,37 @@
 #include "../Common/Utility.h"
 #include "GameNetWork.h"
 #include "../Common/Log/FMLog.h"
+#include "../Common/StringToStructure.h"
 #ifdef LINUX
 #include <alloca.h>
 #endif
 namespace FATMING_CORE
 {
+	bool	g_bDumpsNetworkReceivedPacketReceiveData = false;
+	void	DumpPacketData(_TCPsocket* e_pTCPsocket, int e_iPacketSize, char* e_pData, const char* e_strInfo)
+	{
+		if (g_bDumpsNetworkReceivedPacketReceiveData)
+		{
+			//e_pTCPsocket->localAddress
+			std::string l_strPacketData = "";
+			char* l_pTempPointer = (char*)&e_iPacketSize;
+			//first 4 byte is packet size
+			for (int i = 0; i < PACKET_HEADER_SIZE; ++i)
+			{
+				l_strPacketData += ValueToString(l_pTempPointer[i]);
+				l_strPacketData += " ";
+			}
+			l_pTempPointer = e_pData;
+			for (int i = 0; i < e_iPacketSize; ++i)
+			{
+				l_strPacketData += ValueToString(l_pTempPointer[i]);
+				l_strPacketData += " ";
+			}
+			DumpIPInfo(e_pTCPsocket, UT::ComposeMsgByFormat("%s %s", e_strInfo,l_strPacketData.c_str()).c_str());
+		}
+	}
+
+
 	TYPDE_DEFINE_MARCO(cGameNetwork)
 #ifdef WIN32
 #include "sensapi.h"
@@ -74,6 +100,7 @@ namespace FATMING_CORE
 		//assert(iSize == l_iLength && "network data size not correct!?");
 		if (iSize == l_iLength)
 		{
+			DumpPacketData(e_pTCPsocket, iSize, pData, "ReceiveData");
 			return iSize;
 		}
 		//try again
@@ -452,28 +479,17 @@ namespace FATMING_CORE
 				l_bSent = SDLNet_TCP_Send(e_pTCPsocket, l_pData, l_iSendSize) == 0 ? false : true;
 				delete[] l_pData;
 			}
+			DumpPacketData(e_pTCPsocket, e_pPacket->iSize, e_pPacket->pData, "send data");
 			return l_bSent;
 		}
 		return false;
 	}
 	void cGameNetwork::AddClient(_TCPsocket * e__pTCPsocket)
 	{
-		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(e__pTCPsocket);
-		if (l_pIPaddress)
-		{
-			auto l_ipaddr = SDL_SwapBE32(l_pIPaddress->host);
-			auto l_strInfo = UT::ComposeMsgByFormat("Accepted a connection from %d.%d.%d.%d port %hu",
-				l_ipaddr >> 24,
-				(l_ipaddr >> 16) & 0xff,
-				(l_ipaddr >> 8) & 0xff,
-				l_ipaddr & 0xff,
-				l_pIPaddress->port);
-			FMLog::Log(l_strInfo.c_str(), false);
-		}
-		
 		//cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex, L"AddClient");
 		cPP11MutexHolder l_PP11MutexHolder(m_ClientSocketMutex);
 #ifdef DEBUG
+		DumpIPInfo(e__pTCPsocket, " new connection");
 		int	l_iSize = (int)m_ClientSocketVector.size();
 		for (int i = 0; i < l_iSize; ++i)
 		{
@@ -751,6 +767,24 @@ namespace FATMING_CORE
 					m_ReConnectTime.Start();
 				}
 			}
+		}
+	}
+
+	void DumpIPInfo(_TCPsocket* e__pTCPsocket, const char* e_strInfo)
+	{
+		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(e__pTCPsocket);
+		if (l_pIPaddress)
+		{
+			auto l_ipaddr = SDL_SwapBE32(l_pIPaddress->host);
+			auto l_strInfo = UT::ComposeMsgByFormat("%s IP %d.%d.%d.%d Port:%hu %s",
+				GetSystemTime().c_str(),
+				l_ipaddr >> 24,
+				(l_ipaddr >> 16) & 0xff,
+				(l_ipaddr >> 8) & 0xff,
+				l_ipaddr & 0xff,
+				l_pIPaddress->port,
+				e_strInfo);
+			FMLog::Log(l_strInfo.c_str(), false);
 		}
 	}
 }

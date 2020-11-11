@@ -53,17 +53,16 @@ namespace FMLog
 #endif
 			//if(-1 != l_iValue)
 			{
-				std::wstring	l_strSystemTime = L"Log/log_";
+				std::string	l_strSystemTime = "Log/log_";
 				if (e_strFileName && strlen(e_strFileName) > 0)
 				{
-					l_strSystemTime = L"Log/";
-					l_strSystemTime += ValueToStringW(e_strFileName);
-					l_strSystemTime += L"_log_";
+					l_strSystemTime = "Log/";
+					l_strSystemTime += ValueToString(e_strFileName);
+					l_strSystemTime += "_log_";
 				}
-				l_strSystemTime += UT::GetSystemTimeForFile(true);
-				l_strSystemTime += L".txt";
-				std::string	l_strFileName = UT::WcharToChar(l_strSystemTime);
-				g_pFMLogFile->Writefile(l_strFileName.c_str(), false, false);
+				l_strSystemTime += UT::GetSystemTimeForFile();
+				l_strSystemTime += ".txt";
+				g_pFMLogFile->Writefile(l_strSystemTime.c_str(), false, false);
 			}
 //#else
 //			if (g_pFMLogFile)

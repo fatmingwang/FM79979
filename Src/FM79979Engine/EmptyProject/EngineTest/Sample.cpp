@@ -303,7 +303,7 @@ void	LoadSample()
 #endif
 	//TestGET();
 	//Test2();
-	TestGET3();
+	//TestGET3();
 	g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx",eGBT_2D_MORPHING_ANIMATION);
 	int l_iYBase = 900;
 	g_pCurveWithTime = new cCurveWithTime();
@@ -827,6 +827,14 @@ void	SampleRender()
 		g_pWASMBindingTest->Render();
 	}
 #endif
+	static bool l_bTest = false;
+	if (!l_bTest)
+	{
+		auto l_iWidth = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
+		auto l_iHeight = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
+		SaveCurrentBufferToImage("99.jpg", l_iWidth, l_iHeight);
+		l_bTest = true;
+	}
 }
 
 void	SampleMouseDown(int e_iPosX,int e_iPosY)

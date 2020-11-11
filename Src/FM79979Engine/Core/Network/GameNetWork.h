@@ -93,6 +93,7 @@ namespace FATMING_CORE
 		bool								IsDoDisconnect() { return m_bDoDisconnect; }
 		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
 	};
+	void									DumpIPInfo(_TCPsocket* e__pTCPsocket, const char* e_strInfo);
 	template<class TYPE>
 	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)
 	{

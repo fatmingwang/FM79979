@@ -52,7 +52,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <FastDeploy>false</FastDeploy>
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>

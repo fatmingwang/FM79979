@@ -158,9 +158,6 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
-      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
     </ProjectReference>

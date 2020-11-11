@@ -16,6 +16,7 @@ namespace FATMING_CORE
 		cKeyAndValueXML();
 		~cKeyAndValueXML();
 		const wchar_t*		GetValueByKey(const wchar_t*e_strKey);
+		std::map<std::wstring, std::wstring*>* GetKeyAndValueMap() { return &m_KeyAndValueMap; }
 	};
 	//if DoParseFileByValue=1 it will parse file and generate cKeyAndValueXML.
 	//then you can have multi file,get your file then get your text
