@@ -16,6 +16,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{be06e294-40fb-4091-a0a9-3506bd3ab915}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\JPEG">
+      <UniqueIdentifier>{e8c52de0-802b-4b29-a9b0-6de3cd1ac80d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\EngineTest\TestShader.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp">
+      <Filter>Game\JPEG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\TestShader.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\JPEGCodingTest.h">
+      <Filter>Game\JPEG</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

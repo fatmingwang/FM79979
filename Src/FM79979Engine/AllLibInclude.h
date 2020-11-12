@@ -51,6 +51,7 @@
 #endif
 	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Release/ogg.lib")
+	#pragma comment(lib, "../../../lib/Release/Freetype.lib")
 #endif
 //end win32
 #endif

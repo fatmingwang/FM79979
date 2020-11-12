@@ -9,6 +9,8 @@
 //#pragma comment(lib, "../../../lib/vld.lib")
 //#endif
 #include "../../AllLibInclude.h"
+#pragma comment(lib, "Vfw32.lib")
+
 using namespace EditorSample;
 
 
