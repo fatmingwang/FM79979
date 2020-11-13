@@ -34,6 +34,11 @@ namespace FATMING_CORE
 	float	GetFloat(std::string e_str){ return GetFloat(e_str.c_str()); }
 	float	GetFloat(std::wstring e_str){ return GetFloat(e_str.c_str()); }
 
+	float	GetDouble(const char* e_str) { return atof(e_str); }
+	float	GetDouble(const wchar_t* e_str) { return GetDouble(UT::WcharToChar(e_str).c_str()); }
+	float	GetDouble(std::string e_str) { return GetDouble(e_str.c_str()); }
+	float	GetDouble(std::wstring e_str) { return GetDouble(e_str.c_str()); }
+
 	bool	GetBoolean(const char* e_str){ return atoi(e_str)>0?true:false; }
 	bool	GetBoolean(const wchar_t* e_str){ return GetBoolean(UT::WcharToChar(e_str).c_str()); }
 	bool	GetBoolean(std::wstring e_str){ return GetBoolean(e_str.c_str()); }

@@ -136,7 +136,26 @@ namespace FATMING_CORE
 
 
 	float	ElementToFloat(TiXmlElement*e_pElement, const wchar_t*e_strAttributeName);
+	//cNodeISAX l_NodeISAX;
+	//if (l_NodeISAX.ParseDataIntoXMLNode(e_strFileName))
+	//{
+	//	auto l_pRoot = l_NodeISAX.GetRootElement();
+	//	if (l_pRoot)
+	//	{
+	//		std::map<std::wstring, std::wstring> l_KeyAndValueMap;
+	//		GetAllAttributeFromXMLElement(l_pRoot, l_KeyAndValueMap);
+	//		if (l_KeyAndValueMap.size())
+	//		{
+	//			for (auto l_Iterator : l_KeyAndValueMap)
+	//			{
+	//				ParseParameter(l_Iterator.first.c_str(), l_Iterator.second.c_str());
 
+	//			}
+	//			return true;
+	//		}
+	//	}
+	//}
+	void	GetAllAttributeFromXMLElement(TiXmlElement* e_pTiXmlElement, std::map<std::wstring, std::wstring>& e_KeyAndValueMap);
 #ifdef DEBUG
 #define	ELEMENT_VALUE_ASSERT_CHECK(Element,CompareValue){const wchar_t*l_strValue__79979 = Element->Value();if( wcscmp(CompareValue,l_strValue__79979) )assert(0&&"element value is not match");}
 #else

@@ -15,6 +15,24 @@ namespace FATMING_CORE
 		UT::ErrorMsg(e_strAttributeName, L"this attribute is not exists!");
 		return -1.f;
 	}
+	void	GetAllAttributeFromXMLElement(TiXmlElement* e_pTiXmlElement, std::map<std::wstring, std::wstring>& e_KeyAndValueMap)
+	{
+		while (e_pTiXmlElement)
+		{
+			auto l_pChildElement = e_pTiXmlElement->FirstChildElement();
+			if (l_pChildElement)
+			{
+				GetAllAttributeFromXMLElement(l_pChildElement, e_KeyAndValueMap);
+			}
+			auto l_pAttribute = e_pTiXmlElement->FirstAttribute();
+			while (l_pAttribute)
+			{
+				e_KeyAndValueMap[l_pAttribute->Name()] = l_pAttribute->Value();
+				l_pAttribute = l_pAttribute->Next();
+			}
+			e_pTiXmlElement = e_pTiXmlElement->NextSiblingElement();
+		}
+	}
 //	void	DefaultLoadingProgress()
 //	{
 //		cGameApp::m_sTimeAndFPS.Update();
