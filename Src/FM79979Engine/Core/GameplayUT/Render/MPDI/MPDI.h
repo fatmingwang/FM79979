@@ -66,7 +66,6 @@ namespace FATMING_CORE
 		cMultiPathDynamicImage(cMultiPathDynamicImage*e_pMultiPathDynamicImage);
 		static			cMultiPathDynamicImage*		GetMe(TiXmlElement*e_pElement,bool e_bClone = true);
 		virtual ~cMultiPathDynamicImage();
-
 		//after add object or remove object call this
 		void			RefreshData();
 		//here we should write a shader code for optmize for different pi texture,but I am lazy to do it now.

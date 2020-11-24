@@ -36,8 +36,8 @@ namespace FATMING_CORE
 		std::vector<cNamedTypedObjectVector<NamedTypedObject>* >m_GameObjectManagerVector;
 		void													AddGameObjectVector(cNamedTypedObjectVector<NamedTypedObject>*e_pObject, eGameObjectType e_eGameObjectType);
 	public:
-		~cGameResourceManager();
 		cGameResourceManager();
+		virtual ~cGameResourceManager();
 		template<class TYPE>TYPE*										GetParser(eGameObjectType e_eGameObjectType)
 		{
 			return dynamic_cast< TYPE* >(m_GameObjectManagerVector[e_eGameObjectType]);

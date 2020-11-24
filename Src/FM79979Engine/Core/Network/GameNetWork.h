@@ -7,7 +7,6 @@
 //#define FD_SETSIZE      64
 //#endif /* FD_SETSIZE */
 
-#include "SDL_net.h"
 #include "../Synchronization/CPP11Thread.h"
 #include "NetworkData.h"
 #include "../Common/Utility.h"
@@ -17,8 +16,8 @@ namespace FATMING_CORE
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
 		std::mutex				m_SendDataMutex;
-		std::map<_TCPsocket*, std::vector<sNetworkSendPacket*> > m_WaitToSendPacketVector;
 		bool					ThreadProcessWaitSendDataVector();
+		std::map<SDLNetSocket, std::vector<sNetworkSendPacket*> > m_WaitToSendPacketVector;
 	protected:
 		struct sReconnectFunction
 		{
@@ -35,32 +34,32 @@ namespace FATMING_CORE
 		};
 		friend struct sReconnectFunction;
 		sReconnectFunction*					m_pReconnectFunction;
-		virtual void						AddClient(_TCPsocket*e__pTCPsocket);
+		virtual void						AddClient(SDLNetSocket e__pTCPsocket);
 		virtual void						ServerListenDataThread(float e_ElpaseTime);
 		virtual void						ClientListenDataThread(float e_ElpaseTime);
-		virtual bool						InternalSendData(_TCPsocket* e_pTCPsocket, sNetworkSendPacket* e_pPacket);
+		virtual bool						InternalSendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket* e_pPacket);
 		//if e_strIP is nullptr it's server
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
 		virtual void						RemoveAllClient();
 		//no mutex inside of this function,because mutex called before this function
-		virtual bool						RemoveClientWhileClientLostConnection(_TCPsocket*e__pTCPsocket);
+		virtual bool						RemoveClientWhileClientLostConnection(SDLNetSocket e__pTCPsocket);
 		/* create a socket set that has the server socket and all the client sockets */
 		_SDLNet_SocketSet*					m_pAllSocketToListenClientMessage;
 		bool								CreateSocksetToListenData();
 		std::function<void()>				m_ConnectionLostCallbackFunction;
 		//only for server,it under m_ClientSocketMutex
-		std::function<void(_TCPsocket*)>	m_ClientLostConnectionCallback;
+		std::function<void(SDLNetSocket)>	m_ClientLostConnectionCallback;
 	protected:
 		sIPData								m_IPData;
 		//own socket for server or client
-		_TCPsocket*							m_pSocket;
-		std::vector<_TCPsocket*>			m_ClientSocketVector;
+		SDLNetSocket						m_pSocket;
+		std::vector<SDLNetSocket>			m_ClientSocketVector;
 		std::vector<sNetworkReceivedPacket*>m_ReceivedDataVector;
 		std::mutex							m_ReceivedDataMutex;
 		std::mutex							m_ClientSocketMutex;
 		eNetWorkStatus						m_eNetWorkStatus;
-		virtual bool						RemoveClient(_TCPsocket*e__pTCPsocket);
+		virtual bool						RemoveClient(SDLNetSocket e__pTCPsocket);
 		//
 		bool								m_bDoDisconnect;
 	public:
@@ -68,13 +67,13 @@ namespace FATMING_CORE
 		virtual ~cGameNetwork();
 		DEFINE_TYPE_INFO();
 		void								SetConnectionLostCallbackFunction(std::function<void()> e_Function);
-		void								SetClientLostConnectionCallback(std::function<void(_TCPsocket*)> e_Function);
+		void								SetClientLostConnectionCallback(std::function<void(SDLNetSocket)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
-		virtual bool						SendData(_TCPsocket*e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
+		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
 		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
-		template<class TYPE>bool			SendDataToClient(_TCPsocket*e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = false);
+		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = false);
 		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = false);
 		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = false);
 		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
@@ -93,9 +92,8 @@ namespace FATMING_CORE
 		bool								IsDoDisconnect() { return m_bDoDisconnect; }
 		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
 	};
-	void									DumpIPInfo(_TCPsocket* e__pTCPsocket, const char* e_strInfo);
 	template<class TYPE>
-	inline bool cGameNetwork::SendDataToClient(_TCPsocket*e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)
+	inline bool cGameNetwork::SendDataToClient(SDLNetSocket e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)
 	{
 		bool l_bSendResult = false;
 		sNetworkSendPacket l_NetworkSendPacket;

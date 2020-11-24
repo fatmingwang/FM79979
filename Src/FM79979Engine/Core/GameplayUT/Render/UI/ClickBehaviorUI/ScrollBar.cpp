@@ -159,10 +159,10 @@ namespace FATMING_CORE
 					m_pScrollBox->MiltilineScrollMove(0, -1, false);
 				}
 				else
-					if (m_eOrientation == eOrientation::eO_VERTICAL)
-					{
-						m_pScrollBox->MiltilineScrollMove(-1, 0, false);
-					}
+				if (m_eOrientation == eOrientation::eO_VERTICAL)
+				{
+					m_pScrollBox->MiltilineScrollMove(-1, 0, false);
+				}
 			}
 			else
 			{
@@ -192,20 +192,20 @@ namespace FATMING_CORE
 			}
 		}
 		else
-			if (m_eOrientation == eOrientation::eO_VERTICAL)
+		if (m_eOrientation == eOrientation::eO_VERTICAL)
+		{
+			if (e_iPosY > (int)l_vBGRect.y && e_iPosY < (int)l_vBGRect.w)
 			{
-				if (e_iPosY > (int)l_vBGRect.y && e_iPosY < (int)l_vBGRect.w)
+				float l_fPercentage = (e_iPosY - l_vBGRect.y) / l_vBGRect.Height();
+				m_pScrollBox->MoveScrollByScrollBarPercent(0.f, l_fPercentage);
+				if (m_pSliderImage)
 				{
-					float l_fPercentage = (e_iPosY - l_vBGRect.y) / l_vBGRect.Height();
-					m_pScrollBox->MoveScrollByScrollBarPercent(0.f, l_fPercentage);
-					if (m_pSliderImage)
-					{
-						auto l_vPos = m_pSliderImage->GetWorldPosition();
-						l_vPos.y = (float)e_iPosY;
-						m_pSliderImage->SetWorldPosition(l_vPos);
-					}
+					auto l_vPos = m_pSliderImage->GetWorldPosition();
+					l_vPos.y = (float)e_iPosY;
+					m_pSliderImage->SetWorldPosition(l_vPos);
 				}
 			}
+		}
 	}
 
 	void cScrollBar::BGClick(int e_iPosX, int e_iPosY, cClickBehavior * e_pObject)

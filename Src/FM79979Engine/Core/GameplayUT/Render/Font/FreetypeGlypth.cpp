@@ -130,7 +130,7 @@ namespace FATMING_CORE
 			float	l_fXOffset = 0;
 			float	l_fYOffset = (float)-l_pFirstGlyph->Offset.y;
 			float	l_fDrawWidth = 0.f;
-			float	l_fDrawHeight = (float)m_pDynamicFontTexture->m_iFontSize;
+			float	l_fDrawHeight = (float)m_pDynamicFontTexture->m_iFontSize* m_fScale;
 			int	l_iAliveIndex = 0;
 			for (int i = 0; i < l_iLen; ++i)
 			{
@@ -165,7 +165,7 @@ namespace FATMING_CORE
 					float	l_fGlyphYOffset = 0.f;
 					//if (i != 0)
 					{
-						l_fXOffset += l_pGlyph->Offset.x;
+						l_fXOffset += l_pGlyph->Offset.x * m_fScale;
 						l_fGlyphYOffset = (float)l_pGlyph->Offset.y;
 					}
 					//pos
@@ -208,8 +208,8 @@ namespace FATMING_CORE
 					if (l_fDrawWidth < l_fXOffset)
 						l_fDrawWidth = l_fXOffset;
 					l_fXOffset = 0;
-					l_fYOffset += m_pDynamicFontTexture->m_iFontSize;
-					l_fDrawHeight += m_pDynamicFontTexture->m_iFontSize;
+					l_fYOffset += m_pDynamicFontTexture->m_iFontSize* m_fScale;
+					l_fDrawHeight += m_pDynamicFontTexture->m_iFontSize* m_fScale;
 				}
 			}
 			if (l_iAliveIndex == 0)
@@ -386,7 +386,7 @@ namespace FATMING_CORE
 
 	const cBound * cFreetypeGlyphRender::GenerateBound()
 	{
-		RECT l_DrawSize = { 0,0,(long)m_vHalfSize.x,(long)m_vHalfSize.y };
+		RECT l_DrawSize = { 0,0,(long)m_vHalfSize.x*2,(long)m_vHalfSize.y*2};
 		cBound l_Bound(l_DrawSize);
 		this->SetLocalBound(&l_Bound);
 		return this->GetLocalBound();

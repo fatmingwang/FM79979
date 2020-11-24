@@ -22,6 +22,8 @@ namespace FATMING_CORE
 
 	typedef	std::function<void(int,int,cClickBehavior*)>		ClickFunction;
 	typedef	std::function<bool(int,int)>						CollideFunction;
+	#define	BIND_CLICK_FUNCTION(FUN,SRC)						std::bind(FUN, SRC,std::placeholders::_1, std::placeholders::_2, std::placeholders::_3)
+
 	inline	bool	FullscreenCollide(int e_iPodX,int e_iPodY){ return true; }
 
 	class cClickBehavior:public virtual NamedTypedObject
@@ -83,6 +85,7 @@ namespace FATMING_CORE
 	{
 		friend	class 				cClickBehaviorDispatcher;
 	protected:
+		virtual cClickBehavior* ChildrenMouseDown(int e_iPosX, int e_iPosY);
 	public:
 		cClickBehaviorGroup();
 		~cClickBehaviorGroup();

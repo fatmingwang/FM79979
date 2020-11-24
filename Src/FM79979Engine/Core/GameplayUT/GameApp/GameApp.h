@@ -156,6 +156,15 @@ namespace	FATMING_CORE
 				return m_spGameResourceManager->GetObjectByFileName<TYPE>(e_strObjectName, e_eGameObjectType);
 			return nullptr;
 		}
+		template<class TYPE>static TYPE* GetObjectByFileName(const wchar_t* e_strObjectName, eGameObjectType e_eGameObjectType)
+		{
+			if (m_spGameResourceManager)
+			{
+				std::string l_strFileName = ValueToString(e_strObjectName);
+				return m_spGameResourceManager->GetObjectByFileName<TYPE>(l_strFileName.c_str(), e_eGameObjectType);
+			}
+			return nullptr;
+		}
 	};
 	//end namespace
 	POINT					GetScreenResolution();

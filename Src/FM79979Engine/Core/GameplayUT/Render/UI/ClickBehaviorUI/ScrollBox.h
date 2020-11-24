@@ -75,7 +75,7 @@ namespace FATMING_CORE
 		bool						GetObjectPosByBisibleIndex(int e_iIndex, Vector3&e_vPos);
 	public:
 		DEFINE_TYPE_INFO()
-			cScrollBox();
+		cScrollBox();
 		virtual ~cScrollBox();
 		//set data to correct
 		virtual void				Init()override;

@@ -367,7 +367,7 @@ namespace	FATMING_CORE
 		if (!m_sbEnableKeyboardSingnal)
 			return;
 		//alter
-		if (m_sucKeyData[17])
+		if (m_sucKeyData[17] || m_sucKeyData[229])//ctrl is 229 with windows10 visual studio 2019
 		{
 			if (m_sbDebugFunctionWorking)
 			{

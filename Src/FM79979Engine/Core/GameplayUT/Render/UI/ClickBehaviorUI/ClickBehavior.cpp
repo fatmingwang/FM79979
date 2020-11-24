@@ -85,6 +85,7 @@ namespace FATMING_CORE
 		{
 			if(Collide(e_iPosX,e_iPosY))
 			{
+				FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehavior::MouseDown---%ls---:%ls",GetName(),Type()).c_str(), false);
 				m_pMouseMoveData->MouseDown(e_iPosX,e_iPosY);
 				m_eObjectMouseBehavior = eOMB_FIRST_TIME_INTO;
 				LAZY_MOUSE_FUNCTION(m_MouseDownFunction,e_iPosX,e_iPosY);
@@ -206,6 +207,27 @@ namespace FATMING_CORE
 		this->m_CollideFunction = FullscreenCollide;
 	}
 
+	cClickBehavior* cClickBehaviorGroup::ChildrenMouseDown(int e_iPosX, int e_iPosY)
+	{
+		int	l_uiSize = Count();
+		if (l_uiSize != 0)
+		{
+			for (int i = 0; i < l_uiSize; ++i)
+			{
+				//because we will try to hit from last to first
+				int	l_iTargtIndexFromBackToFront = l_uiSize - 1 - i;
+				cClickBehavior* l_pClickEvent = this->GetObject(l_iTargtIndexFromBackToFront);
+				cClickBehavior* l_pResult = l_pClickEvent->MouseDown(e_iPosX, e_iPosY);
+				if (l_pResult && l_pResult->IsSwallowedTouch())
+				{
+					FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehaviorGroup::MouseDown---Child:%d %ls---%ls", i, l_pResult->GetName(), l_pResult->Type()).c_str(), false);
+					return l_pResult;
+				}
+			}
+		}
+		return nullptr;
+	}
+
 	cClickBehaviorGroup::cClickBehaviorGroup()
 	{
 
@@ -221,25 +243,14 @@ namespace FATMING_CORE
 	{
 		if(!this->IsEnable())
 			return nullptr;		
-		int	l_uiSize = Count();
-		if( l_uiSize != 0 )
-		{
-			for( int i=0;i<l_uiSize;++i )
-			{
-				//because we will try to hit from last to first
-				int	l_iTargtIndexFromBackToFront = l_uiSize-1-i;
-				cClickBehavior*l_pClickEvent = this->GetObject(l_iTargtIndexFromBackToFront);
-				cClickBehavior*l_pResult = l_pClickEvent->MouseDown(e_iPosX,e_iPosY);
-				if( l_pResult && l_pResult->IsSwallowedTouch())
-				{
-					return l_pResult;
-				}
-			}
-		}
+		auto l_pObject = ChildrenMouseDown(e_iPosX, e_iPosY);
+		if (l_pObject)
+			return l_pObject;
 		if(cClickBehavior::MouseDown(e_iPosX,e_iPosY))
 		{
 			if( this->IsSwallowedTouch() )
 			{
+				FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehaviorGroup::MouseDown---%ls---%ls",GetName(), Type()).c_str(), false);
 				return this;
 			}
 		}
@@ -340,9 +351,16 @@ namespace FATMING_CORE
 	std::tuple<cClickBehavior*,cRenderObject*>		cClickBehaviorGroup::AddDefaultRenderClickBehaviorButton(cCueToStartCurveWithTime*e_pSubMPDI,ClickFunction e_ClickFunction,cBasicSound*e_pBasicSound, bool e_bEnableClickScale)
 	{
 		//auto l_pImage = e_pSubMPDI->PointDataToBaseImage(0);
-		cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(e_pSubMPDI->GetOwner());
-		l_pMPDI->RemoveObjectWithoutDelete(e_pSubMPDI);
-		e_pSubMPDI->SetLocalTransform(l_pMPDI->GetWorldTransform());
+		cMPDI*l_pMPDI = dynamic_cast<cMPDI*>(e_pSubMPDI->GetParent());
+		if (l_pMPDI)
+		{
+			l_pMPDI->RemoveObjectWithoutDelete(e_pSubMPDI);
+			e_pSubMPDI->SetLocalTransform(l_pMPDI->GetWorldTransform());
+		}
+		else
+		{
+			FMLog::Log("Error!!you have called cMPDI::Init before call cClickBehaviorGroup::AddDefaultRenderClickBehaviorButtonfunction!?",true);
+		}
 		e_pSubMPDI->Init();
 		e_pSubMPDI->Update(0.00001f);
 		auto l_pData = AddDefaultRenderClickBehaviorButton((cRenderObject*)e_pSubMPDI,e_ClickFunction,e_pBasicSound, e_bEnableClickScale);

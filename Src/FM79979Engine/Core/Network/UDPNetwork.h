@@ -5,6 +5,7 @@
 #include "GameNetWork.h"
 #include "../Common/Template/TemplateClass.h"
 #include "../Common/EventSender/MessageSender.h"
+
 namespace FATMING_CORE
 {
 	class cUDPNetwork :public FATMING_CORE::cCPP11Thread,public NamedTypedObject

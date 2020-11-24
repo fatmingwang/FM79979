@@ -167,6 +167,7 @@ namespace FATMING_CORE
 			if (m_SmoothSlide.IsDone())
 			{
 				m_DataForScrollBox.m_bDoSmoothSlide = false;
+				m_eObjectMouseBehavior = eOMB_NONE;
 			}
 			ObjectUpdateVisible();
 			for (auto l_CallbackFunction : m_ScorllMovingCallbackVecor)
@@ -187,6 +188,7 @@ namespace FATMING_CORE
 				if (m_DataForScrollBox.m_RollBackTC.bTragetTimrReached)
 				{
 					m_DataForScrollBox.m_bRollBackToProperPosition = false;
+					m_eObjectMouseBehavior = eOMB_NONE;
 				}
 			}
 			for (auto l_CallbackFunction : m_ScorllMovingCallbackVecor)
@@ -440,16 +442,16 @@ namespace FATMING_CORE
 	void cScrollBox::Update(float e_fElpaseTime)
 	{
 		m_DataForScrollBox.m_fMouseDownUpCounter += e_fElpaseTime;
-		cMPDIToGameObject::Update(e_fElpaseTime);
 		DoRollBackToProperPositionUpdate(e_fElpaseTime);
 		DoSmoothSlideUpdate(e_fElpaseTime);
 		if (m_DataForScrollBox.m_bDoSmoothSlide || m_DataForScrollBox.m_bRollBackToProperPosition)
 			ObjectUpdateVisible();
 		else
-			if (m_DataForScrollBox.m_pSelectedObject && m_DataForScrollBox.m_pSelectedObject != this)
-			{
-				m_DataForScrollBox.m_pSelectedObject->Update(e_fElpaseTime);
-			}
+		if (m_DataForScrollBox.m_pSelectedObject && m_DataForScrollBox.m_pSelectedObject != this)
+		{
+			m_DataForScrollBox.m_pSelectedObject->Update(e_fElpaseTime);
+		}
+		cMPDIToGameObject::Update(e_fElpaseTime);
 	}
 
 	bool cScrollBox::AddBG(cMPDI * e_pBGMPDI)
@@ -642,8 +644,9 @@ namespace FATMING_CORE
 			return nullptr;
 		if (m_pScissorRenderObject->Collide(e_iPosX, e_iPosY))
 		{
+			this->m_eObjectMouseBehavior = eObjectMouseBehavior::eOMB_FIRST_TIME_INTO;
 			if (!m_DataForScrollBox.m_bDoSmoothSlide)
-				m_DataForScrollBox.m_pSelectedObject = cClickBehaviorGroup::MouseDown(e_iPosX, e_iPosY);
+				m_DataForScrollBox.m_pSelectedObject = this->ChildrenMouseDown(e_iPosX, e_iPosY);
 			m_DataForScrollBox.m_bDoSmoothSlide = false;
 			m_DataForScrollBox.m_fMouseDownUpCounter = 0.f;
 			m_DataForScrollBox.m_MouseDownPosition.x = e_iPosX;
@@ -673,6 +676,7 @@ namespace FATMING_CORE
 			return nullptr;
 		if (m_pScissorRenderObject->Collide(e_iPosX, e_iPosY))
 		{
+			this->m_eObjectMouseBehavior = eObjectMouseBehavior::eOMB_HORVER;
 			Vector3 l_vMovedPos((float)e_iPosX - m_DataForScrollBox.m_MouseMovePosition.x, (float)e_iPosY - m_DataForScrollBox.m_MouseMovePosition.y, 0.f);
 			m_DataForScrollBox.m_MouseMovePosition.x = e_iPosX;
 			m_DataForScrollBox.m_MouseMovePosition.y = e_iPosY;
@@ -710,6 +714,7 @@ namespace FATMING_CORE
 			return nullptr;
 		//if (m_DataForScrollBox.m_vWorldViewRect.CollidePoint(e_iPosX, e_iPosY))
 		{
+			this->m_eObjectMouseBehavior = eObjectMouseBehavior::eOMB_UP;
 			m_DataForScrollBox.m_vMouseUpRenderObjectPos = this->m_pObjectsMovingRoot->GetLocalPosition();
 			DoSmoothSlideCheck();
 			m_DataForScrollBox.m_vRollbackForProperPos = Vector3(0.f, 0.f, 0.f);

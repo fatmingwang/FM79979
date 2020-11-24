@@ -234,3 +234,15 @@ Fuck part2...
 I have no idea how to fix this fucking problem...
 I move the variable to main function and new then assign it back
 anyway it seems work now...but why...
+
+
+Nov/17/2020
+Win32 app run with console
+https://stackoverflow.com/questions/13989262/mfc-console-mode-application
+add below code to pch.h(stdafx.h)
+#ifdef _UNICODE
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
+

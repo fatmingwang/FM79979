@@ -52,7 +52,7 @@ namespace FATMING_CORE
 				m_pBGMPDI->SetIgnoreChildrenUpdate(true);
 				m_pRenderObject->AddChild(m_pClonedMPDI);
 			}
-			m_pRenderObject->DumpDebugInfo();
+			//m_pRenderObject->DumpDebugInfo();
 			return true;
 		}
 		return false;

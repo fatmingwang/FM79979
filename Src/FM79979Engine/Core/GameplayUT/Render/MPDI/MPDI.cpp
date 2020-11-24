@@ -47,6 +47,19 @@ namespace FATMING_CORE
 		m_vDrawSize = e_pMultiPathDynamicImage->GetDrawSize();
 		m_vDrawRect = e_pMultiPathDynamicImage->m_vDrawRect;
 		//this->SetPos(e_pMultiPathDynamicImage->m_vPos);
+		//after call Init children's parent get wrong...so weired...
+		//the code below for set children's parent as cMPDI
+		//recommand GetParent instead GetObject...
+		//this->Init();
+		//auto l_TempVector = this->m_ObjectList;
+		//for (auto l_Data :l_TempVector)
+		//{
+		//	this->RemoveObjectWithoutDelete(l_Data);
+		//}
+		//for (auto l_Data : l_TempVector)
+		//{
+		//	this->AddObjectNeglectExist(l_Data);
+		//}
 	}
 
 	cMultiPathDynamicImage::~cMultiPathDynamicImage()

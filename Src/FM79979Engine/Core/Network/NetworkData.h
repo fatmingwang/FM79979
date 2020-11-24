@@ -1,7 +1,16 @@
 #pragma once
-
+#include "SDL_net.h"
 namespace FATMING_CORE
 {
+	struct sSDLNetTCPSocket
+	{
+		_TCPsocket* pSocket;
+		sSDLNetTCPSocket(_TCPsocket* e_pSocket);
+		~sSDLNetTCPSocket();
+	};
+	typedef  std::shared_ptr<sSDLNetTCPSocket>	SDLNetSocket;
+	SDLNetSocket	GetSDLNetSocket(_TCPsocket*);
+
 	//sNetworkSendPacket and sNetworkReceivedPacket has a header for description packet size
 #define	PACKET_HEADER_SIZE (int)sizeof(int)
 	enum eNetWorkStatus
@@ -23,14 +32,14 @@ namespace FATMING_CORE
 	};
 	struct sNetworkReceivedPacket
 	{
-		int			iSize;
-		char*		pData;
-		_TCPsocket*	pReceivedSocket;
-		IPaddress   UDPIPaddress;
+		int				iSize;
+		char*			pData;
+		SDLNetSocket	pReceivedSocket;
+		IPaddress		UDPIPaddress;
 		sNetworkReceivedPacket();
 		~sNetworkReceivedPacket();
 		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
-		int	ReceiveData(_TCPsocket*e_pTCPsocket);
+		int	ReceiveData(SDLNetSocket e_pTCPsocket);
 		//int	ReceiveData(_UDPsocket*e_pSocket, UDPpacket *e_pPackets);
 		int	UDPReceiveDataWithoutHeaderSize(IPaddress e_UDPIPaddress,int e_iDataLen,char*e_pData);
 	};
