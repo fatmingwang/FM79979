@@ -175,7 +175,7 @@ namespace FATMING_CORE
 
     void	cFMTimeLineAnimationRule::Render()
     {
-		if( !m_bStart )
+		if( !m_bStart || !this->m_bVisible)
 			return;
 		if( !this->IsAnimationDone() || m_bStayAtLastFrame )
 			InternalRender();
