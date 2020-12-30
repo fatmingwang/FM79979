@@ -125,6 +125,25 @@ namespace FATMING_CORE
 		l_NetworkSendPacket.pData = nullptr;
 		return l_bSendResult;
 	}
+
+#define	NETWORK_LAZY_SEND_TO_SERVER(NETWORK_SINGLTON,DATA)														\
+	{																											\
+		sNetworkSendPacket l_TempNetworkSendPacket123;															\
+		l_TempNetworkSendPacket123.iSize = DATA.iSize;															\
+		l_TempNetworkSendPacket123.pData = (char*)&DATA;														\
+		bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToServer(&l_TempNetworkSendPacket123);	\
+		l_TempNetworkSendPacket123.pData = nullptr;																\
+	}
+
+#define	NETWORK_LAZY_SEND_TO_CLIENT(NETWORK_SINGLTON,SOCKET,DATA)												  \
+	{																											  \
+		sNetworkSendPacket l_TempNetworkSendPacket123;															  \
+		l_TempNetworkSendPacket123.iSize = DATA.iSize;															  \
+		l_TempNetworkSendPacket123.pData = (char*)&DATA;														  \
+		bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendData(SOCKET, &l_TempNetworkSendPacket123);	  \
+		l_TempNetworkSendPacket123.pData = nullptr;																  \
+	}
+
 	//end namespace
 }
 //_M_CEE
