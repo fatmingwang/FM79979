@@ -1,0 +1,18 @@
+import time
+timestr = time.strftime("%Y%m%d-%H%M%S")
+
+
+git_headR = open("Server_gitHeadVersion.txt", "r") 
+git_headW = open("VerIinfo.h", "w") 
+
+
+gitVerString  =  'static const char* g_strGitVer="'
+gitVerString +=  git_headR.read().split('\n',1)[0]
+gitVerString +=  '";\n'
+
+gitVerString +=  'static const char* g_strCompileTime="'
+gitVerString +=  timestr
+gitVerString +=  '";'
+
+
+git_headW.write(gitVerString)

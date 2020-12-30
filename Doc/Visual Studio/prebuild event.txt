@@ -1,0 +1,13 @@
+
+
+
+git rev-parse HEAD > Server_gitHeadVersion.txt
+xcopy /y $(ProjectDir)Server_gitHeadVersion.txt  $(ProjectDir)$(OutDir)
+
+python time.python
+xcopy /y $(ProjectDir)time.txt  $(ProjectDir)$(OutDir)
+
+
+
+python ../CarDrivingServerLib/verInfo.python
+xcopy /y $(ProjectDir)VerIinfo.h  $(ProjectDir)..\CarDrivingServerLib\
