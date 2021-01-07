@@ -71,12 +71,12 @@ namespace FATMING_CORE
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
-		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
-		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
-		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = false);
-		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = false);
-		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = false);
-		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = false);
+		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
+		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
+		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = true);
+		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = true);
+		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = true);
+		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
 
 		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap = 1.f);
 		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction,float e_fReconnectionTimeGap = 1.f);
@@ -126,26 +126,37 @@ namespace FATMING_CORE
 		return l_bSendResult;
 	}
 
-#define	NETWORK_LAZY_SEND_TO_SERVER(NETWORK_SINGLTON,DATA)														\
-	{																											\
-		sNetworkSendPacket l_TempNetworkSendPacket123;															\
-		l_TempNetworkSendPacket123.iSize = DATA.iSize;															\
-		l_TempNetworkSendPacket123.pData = (char*)&DATA;														\
-		bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToServer(&l_TempNetworkSendPacket123);	\
-		l_TempNetworkSendPacket123.pData = nullptr;																\
-	}
-
-#define	NETWORK_LAZY_SEND_TO_CLIENT(NETWORK_SINGLTON,SOCKET,DATA)												  \
-	{																											  \
-		sNetworkSendPacket l_TempNetworkSendPacket123;															  \
-		l_TempNetworkSendPacket123.iSize = DATA.iSize;															  \
-		l_TempNetworkSendPacket123.pData = (char*)&DATA;														  \
-		bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendData(SOCKET, &l_TempNetworkSendPacket123);	  \
-		l_TempNetworkSendPacket123.pData = nullptr;																  \
-	}
-
-	//end namespace
+#define	NETWORK_LAZY_SEND_TO_SERVER(NETWORK_SINGLTON,DATA)													\
+{																											\
+	sNetworkSendPacket l_TempNetworkSendPacket123;															\
+	l_TempNetworkSendPacket123.iSize = DATA.iSize;															\
+	l_TempNetworkSendPacket123.pData = (char*)&DATA;														\
+	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToServer(&l_TempNetworkSendPacket123);	\
+	l_TempNetworkSendPacket123.pData = nullptr;																\
 }
+
+#define	NETWORK_LAZY_SEND_TO_CLIENT(NETWORK_SINGLTON,SOCKET,DATA)											  \
+{																											  \
+	sNetworkSendPacket l_TempNetworkSendPacket123;															  \
+	l_TempNetworkSendPacket123.iSize = DATA.iSize;															  \
+	l_TempNetworkSendPacket123.pData = (char*)&DATA;														  \
+	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendData(SOCKET, &l_TempNetworkSendPacket123);	  \
+	l_TempNetworkSendPacket123.pData = nullptr;																  \
+}
+
+#define	LAZY_SEND_NETWORK_MESSAGE(SOCKET,DATA)																  \
+{																											  \
+	sNetworkSendPacket l_TempNetworkSendPacket123;															  \
+	l_TempNetworkSendPacket123.iSize = DATA.iSize;															  \
+	l_TempNetworkSendPacket123.pData = (char*)&DATA;														  \
+	bool l_bSendResult123 = this->SendData(SOCKET, &l_TempNetworkSendPacket123);							  \
+	l_TempNetworkSendPacket123.pData = nullptr;																  \
+}
+
+//end namespace
+}
+
+
 //_M_CEE
 #endif
 //
