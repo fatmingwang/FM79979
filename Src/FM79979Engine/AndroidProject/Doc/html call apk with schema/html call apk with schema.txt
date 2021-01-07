@@ -1,0 +1,29 @@
+take a look at
+
+AndroidManifest.xml
+1.html
+
+
+<a href="hccar://CarGoApp">OpenCarGoApp</a>
+
+
+          <intent-filter >
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE"/>
+            <data android:scheme="hccar"/>
+            <data android:host="CarGoApp"/>
+            <!--<data android:scheme="https"/>
+            <data android:scheme="http"/>
+            <data android:host="google.com"/>
+            <data android:host="www.google.com"/>
+
+            <data android:scheme="customscheme"/>
+            <data android:host="customHost"/>
+
+            <data android:pathPattern=".*"/>-->
+
+            <action android:name="android.intent.action.VIEW"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <category android:name="android.intent.category.BROWSABLE"/>
+          </intent-filter>
