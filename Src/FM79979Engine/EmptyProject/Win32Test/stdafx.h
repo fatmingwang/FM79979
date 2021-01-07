@@ -4,6 +4,11 @@
 //
 
 #pragma once
+#ifdef _UNICODE
+#pragma comment(linker, "/entry:wWinMainCRTStartup /subsystem:console") 
+#else
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
+#endif
 #ifdef WIN32
 #include "targetver.h"
 #include <winsock2.h>

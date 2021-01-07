@@ -147,6 +147,7 @@
       <EntryPointSymbol>
       </EntryPointSymbol>
       <AdditionalLibraryDirectories>C:\Users\USER\Desktop\FM79979_Project_Nov_28_2014\Src\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <TerminalServerAware>true</TerminalServerAware>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

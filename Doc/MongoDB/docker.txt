@@ -1,0 +1,38 @@
+https://medium.com/@anuradhs/how-to-start-a-mongo-database-with-authentication-using-docker-container-8ce63da47a71
+
+
+MyMongoDB is container name
+
+
+1.docker container run --name MyMongoDB --publish 27017:27017 -d mongo --auth
+
+2.docker exec -i MyMongoDB mongo admin
+
+3.db.createUser({user:"admin",pwd:"1234",roles:[{role:"userAdminAnyDatabase",db:"admin"}]})
+
+4.leave MyMongo DB container  ctrl+z and restart MyMongoDB container(docker container restart MyMongoDB),or stop.
+
+5.docker exec -it MyMongoDB mongo admin -u admin -p 1234
+
+6.db.createUser({user:"Test",pwd:"1234",roles:[{role:"readWrite",db:"Test"}]})
+
+
+if container is stop you can wake container wake up
+docker container start MyMongoDB
+
+login db as admin
+docker exec -it MyMongoDB mongo admin -u admi -p 1234
+
+
+
+in mongo compass login as
+
+mongodb://Test:1234@127.0.0.1:27017/?authSource=admin
+
+
+update user for new db
+https://docs.mongodb.com/manual/reference/method/db.updateUser/
+db.updateUser(user:"Test",{roles:[{role:"readWrite",db:"Test"},{role:"readWrite",db:"UserData"}],{role:"readWrite",db:"Car"}})
+
+
+

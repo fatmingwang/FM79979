@@ -792,4 +792,53 @@ template<class T>	inline	int	NumVectorContain(T e_Object,std::vector<T>*e_pSrc)
 #define	cStatusObjectChanger(T)	cFMWorkingObjectChanger<cObjectAndName<T > >
 //typedef cFMWorkingObjectChanger<cObjectAndName<T>>	cStatusObjectChanger;
 
+//https://thispointer.com/how-to-search-by-value-in-a-map-c/
+//std::map<std::string, int> wordMap = {{ "is", 6 },{ "the", 5 },{ "hat", 9 },{ "at", 6 }};
+//// Create a vector of string
+//std::vector<std::string> vec;
+//int value = 6;
+//// Find all the keys with value 6
+//bool result = findByValue(vec, wordMap, value);
+//
+//
+//std::map<int,int>					m_UserIDAndDeliverNodeIDMap = {{1,1,},{2,2}};
+//int l_iUserID = -1;
+//FindKeyByValueInMap<int, int>(m_UserIDAndDeliverNodeIDMap, 1, l_iUserID);
+//
+template<typename K, typename V>
+bool FindKeyByValueInMap(std::vector<K>& vec, std::map<K, V> mapOfElemen, V value)
+{
+	bool bResult = false;
+	auto it = mapOfElemen.begin();
+	// Iterate through the map
+	while (it != mapOfElemen.end())
+	{
+		// Check if value of this entry matches with given value
+		if (it->second == value)
+		{
+			// Yes found
+			bResult = true;
+			// Push the key in given map
+			vec.push_back(it->first);
+		}
+		// Go to next entry in map
+		it++;
+	}
+	return bResult;
+}
+
+template<typename K, typename V>
+bool FindKeyByValueInMap(std::map<K, V>& e_MapOfElemen, V value, K& e_Key)
+{
+	for (auto l_Iterator = e_MapOfElemen.begin(); l_Iterator != e_MapOfElemen.end(); l_Iterator++)
+	{
+		if (l_Iterator->second == value)
+		{
+			e_Key = l_Iterator->first;
+			return true;
+		}
+	}
+	return false;
+}
+
 #endif

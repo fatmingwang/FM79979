@@ -1,3 +1,4 @@
+
 //
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -16,7 +17,8 @@
 #include "../../AllLibInclude.h"
 #include "Windowsx.h"
 // test.cpp : Defines the entry point for the application.
-
+#include <corecrt_io.h>
+#include <fcntl.h>
 
 
 //#define VLD_DEBUG
@@ -49,7 +51,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
-
 	_CrtMemState s1;
 	_CrtMemCheckpoint(&s1);
 

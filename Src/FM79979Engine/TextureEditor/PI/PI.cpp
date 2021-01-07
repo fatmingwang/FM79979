@@ -479,7 +479,7 @@ namespace PI
 		{
 			if (m_pPuzzleImageUnitTriangulatorManager->IsObjectOverlap())
 			{
-				WARNING_MSG("object is overlap are you sure you want to save file!?");
+				WARNING_MSG("objects are overlap are you sure you want to save file!?");
 			}
 		}
 		 String^l_ImageFileName = e_strFileName;
