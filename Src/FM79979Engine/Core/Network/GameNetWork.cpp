@@ -310,7 +310,7 @@ namespace FATMING_CORE
 					m_WaitToSendPacketVector.insert(std::make_pair(e_pTCPsocket, std::vector<sNetworkSendPacket*>()));
 				}
 				l_pNetworkSendPacketVector = &m_WaitToSendPacketVector[e_pTCPsocket];
-				l_pNetworkSendPacketVector->push_back(e_pPacket);
+				l_pNetworkSendPacketVector->push_back(new sNetworkSendPacket(e_pPacket));
 			}
 			else
 			{
