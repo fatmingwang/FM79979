@@ -238,6 +238,29 @@ namespace UT
 
 		return FATMING_CORE::ValueToStringW(buf);
 	}
+	std::string EpochTimeToString(int64 e_llTime)
+	{
+		struct tm* tm;
+		char buf[200];
+		time_t ltime = (time_t)e_llTime;
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		if (!tm)
+		{
+			return "get localtime failed";
+		}
+		//tm->tm_year;
+		//tm->tm_mon;
+		//tm->tm_mday;
+		//tm->tm_hour;
+		//tm->tm_min;
+		//tm->tm_sec;
+		/* format time days.month.year hour:minute:seconds */
+		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S", tm);
+
+		return FATMING_CORE::ValueToString(buf);
+	}
+
 	std::wstring SecondsToTimeW(double e_dbSeconds, bool e_bWithFormatString)
 	{
 		int	 l_iSeconds = (int)e_dbSeconds;
