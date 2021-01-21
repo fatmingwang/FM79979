@@ -622,7 +622,7 @@ namespace FATMING_CORE
 				goto FAILED;
 			}
 			//FMLog::LogWithFlag("listen");
-			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)1000);
+			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)10);
 			if (l_iNumready == -1)
 			{
 				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s",SDL_GetError());
@@ -691,7 +691,7 @@ namespace FATMING_CORE
 				goto FAILED;
 			}
 			//FMLog::LogWithFlag("listen");
-			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)1000);
+			l_iNumready = SDLNet_CheckSockets(m_pAllSocketToListenClientMessage, (UINT)10);
 			if (l_iNumready == -1)
 			{
 				//FMLog::LogWithFlag("SDLNet_CheckSockets: %s",SDL_GetError());

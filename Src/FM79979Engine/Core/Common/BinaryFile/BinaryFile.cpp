@@ -414,10 +414,10 @@ namespace FATMING_CORE
 			time_t ltime; time(&ltime);
 #ifdef WIN32
 			struct tm now; _localtime64_s(&now, &ltime);
-			strftime(buffer, 32, "[%H:%M:%S] ", &now);
+			strftime(buffer, 32, "[%d-%H:%M:%S] ", &now);
 #else
 			auto now = localtime(&ltime);
-			strftime(buffer, 32, "[%H:%M:%S] ", now);
+			strftime(buffer, 32, "[%d-%H:%M:%S] ", now);
 #endif
 			int	l_iLength = (int)strlen(buffer);
 			NvFWrite( buffer, sizeof(char),l_iLength, m_pFile );

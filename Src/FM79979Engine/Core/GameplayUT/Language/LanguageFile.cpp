@@ -106,6 +106,10 @@ namespace FATMING_CORE
 	//</cLanguageFile>
 	bool	cLanguageFile::MyParse(TiXmlElement*e_pRoot)
 	{
+		if (!e_pRoot)
+		{
+			return false;
+		}
 		this->Destroy();
 		auto l_strDefault = e_pRoot->Attribute(L"Default");
 		if (l_strDefault)

@@ -908,7 +908,7 @@ namespace UT
 		}
 		if (!l_pFile)
 		{
-			int a = 0;
+			l_pFile = fopen(e_strFileName, e_strMode);
 		}
 #else
 		if (l_bWrite)

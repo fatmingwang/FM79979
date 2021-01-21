@@ -473,7 +473,6 @@ namespace FATMING_CORE
 	bool	cNodeISAX::ParseTextIntoXMLNode(const char*e_strText)
 	{
 		SystemErrorCheck();
-		m_strErrorMsg.c_str();
 		SAFE_DELETE(m_pDoc);
 		std::wstring l_strText = UT::CharToWchar(e_strText);
 		m_pDoc = new TiXmlDocument( );
@@ -484,19 +483,17 @@ namespace FATMING_CORE
 			return false;
 		}
 		TiXmlNode* l_pFirstNode = m_pDoc->FirstChild();
-		TiXmlElement* itemElement = 0;
-		itemElement = l_pFirstNode->ToElement();
-		while( !itemElement )
+		TiXmlElement* itemElement = m_pDoc->FirstChildElement();
+		if (!itemElement && l_pFirstNode)
 		{
-			itemElement = l_pFirstNode->NextSibling()->ToElement();
-			l_pFirstNode = l_pFirstNode->NextSibling();
-			if( !l_pFirstNode )
+			itemElement = l_pFirstNode->ToElement();
+			if (!itemElement)
 			{
 				m_strErrorMsg += L"there is no FirstNode\n";
 				return 0;
 			}
+			assert(itemElement && "empty element,check name for none numeral");
 		}
-		assert(itemElement&&"empty element,check name for none numeral");
 		InternalParse();
 		if(!itemElement)
 			return false;
@@ -567,7 +564,6 @@ namespace FATMING_CORE
 
 	bool	cNodeISAX::ParseWithMyParse(const char*e_strFileName,bool e_bDeleteXLDocument)
 	{
-		m_strErrorMsg.c_str();
 	    SAFE_DELETE(m_pDoc);
 		TiXmlElement*l_pRootElement = ISAXCallback::LoadingXML(e_strFileName);
 		this->m_pRootElement = l_pRootElement;
