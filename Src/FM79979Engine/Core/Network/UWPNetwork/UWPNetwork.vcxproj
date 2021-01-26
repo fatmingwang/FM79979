@@ -158,7 +158,6 @@
   <ItemGroup>
     <ClInclude Include="..\GameNetWork.h" />
     <ClInclude Include="..\happyhttp.h" />
-    <ClInclude Include="..\Network.h" />
     <ClInclude Include="..\NetworkData.h" />
     <ClInclude Include="..\SDLnetsys.h" />
     <ClInclude Include="..\SDL_endian.h" />
@@ -169,7 +168,6 @@
   <ItemGroup>
     <ClCompile Include="..\GameNetWork.cpp" />
     <ClCompile Include="..\happyhttp.cpp" />
-    <ClCompile Include="..\Network.cpp" />
     <ClCompile Include="..\SDLnet.cpp" />
     <ClCompile Include="..\SDLnetselect.cpp" />
     <ClCompile Include="..\SDLnetTCP.cpp" />

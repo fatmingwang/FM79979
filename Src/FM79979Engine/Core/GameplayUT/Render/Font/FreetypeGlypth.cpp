@@ -70,11 +70,11 @@ namespace FATMING_CORE
 		m_pvTextureUVBuffer = 0;
 		m_pvColorBuffer = 0;
 		char	l_strForStripExtensionName[TEMP_SIZE];
-		sprintf(l_strForStripExtensionName, "%s\0", UT::GetFileNameWithoutFullPath(e_strFontName, false).c_str());
+		sprintf(l_strForStripExtensionName, "%s", UT::GetFileNameWithoutFullPath(e_strFontName, false).c_str());
 		char	l_strForDirectory[TEMP_SIZE];
 		std::string	l_strFoneName = UT::GetDirectoryWithoutFileName(e_strFontName);
 		if (l_strFoneName.length())
-			sprintf(l_strForDirectory, "%s\0", l_strFoneName.c_str());
+			sprintf(l_strForDirectory, "%s", l_strFoneName.c_str());
 		else
 			l_strForDirectory[0] = '\0';
 		SetName(UT::CharToWchar(l_strForStripExtensionName));

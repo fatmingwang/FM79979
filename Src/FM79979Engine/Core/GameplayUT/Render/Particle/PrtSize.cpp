@@ -45,8 +45,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtSizeInitSetSize::SetDataByDataString(char*e_pString)
 	{
-		char *Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		x = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		y = (float)atof(l_pString);
@@ -82,8 +83,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtSizeActBlending::SetDataByDataString(char*e_pString)
 	{
-		char *Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		x = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		y = (float)atof(l_pString);

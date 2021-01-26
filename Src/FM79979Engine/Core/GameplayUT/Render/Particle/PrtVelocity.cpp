@@ -62,8 +62,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityInitSetVelocity::SetDataByDataString(char*e_pString)
 	{
-		char *Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		m_vVeolcity.x = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		m_vVeolcity.y = (float)atof(l_pString);
@@ -141,8 +142,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActAcceleration::SetDataByDataString(char*e_pString)
 	{
-		char *Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		m_fAccelerationSpeed = (float)atof(l_pString);
 		if( strtok(0,",") )
 			return false;
@@ -187,8 +189,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActDircctionChange::SetDataByDataString(char*e_pString)
 	{
-		char *Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		m_vStopTime.x = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		m_vStopTime.y = (float)atof(l_pString);
@@ -222,8 +225,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActBySatelliteAction::SetDataByDataString(char*e_pString)
 	{
-		char*Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_fRadius = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_fSpeed = (float)atof(l_pString);

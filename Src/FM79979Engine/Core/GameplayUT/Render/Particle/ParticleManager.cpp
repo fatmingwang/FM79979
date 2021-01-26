@@ -336,7 +336,7 @@ namespace FATMING_CORE
 			if( !l_pSimpleGLTexture )
 			{
 				char	l_strFullPath[MAX_PATH];
-				sprintf(l_strFullPath,"%s%s\0",m_strCurrentDirectory,UT::WcharToChar(l_strValue).c_str());
+				sprintf(l_strFullPath,"%s%s",m_strCurrentDirectory,UT::WcharToChar(l_strValue).c_str());
 				std::wstring	l_strExtensionaName = UT::GetFileExtensionName((wchar_t*)l_strValue).c_str();
 				if( !wcscmp(l_strExtensionaName.c_str(),L"pi") )
 				{

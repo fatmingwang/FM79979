@@ -77,7 +77,6 @@ namespace UT
 	int64				currentTimeInMilliseconds();
 	long long			timeval_diff(timeval *difference,timeval *end_time,timeval *start_time);
 	std::wstring		TimeInMillisecondsToString(long long e_llTime);
-	std::string			EpochTimeToString(int64 e_llTime);
 
 	std::string			SecondsToTime(double e_dbSeconds, bool e_bWithFormatString = false);
 	std::wstring		SecondsToTimeW(double e_dbSeconds, bool e_bWithFormatString = false);

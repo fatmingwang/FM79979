@@ -341,8 +341,8 @@ namespace FATMING_CORE
 		PARSE_CURRENT_ELEMENT_START
 			COMPARE_NAME("Root")
 			{
-				sprintf(this->m_strDestDirectory,"%s\0",UT::WcharToChar(l_strValue).c_str());
-				//sprintf(this->m_strCurrentDirectory,"%s\0",l_strValue);
+				sprintf(this->m_strDestDirectory,"%s",UT::WcharToChar(l_strValue).c_str());
+				//sprintf(this->m_strCurrentDirectory,"%s",l_strValue);
 			}
 		PARSE_NAME_VALUE_END
 	}
@@ -356,7 +356,7 @@ namespace FATMING_CORE
 		PARSE_CURRENT_ELEMENT_START
 			COMPARE_NAME("Name")
 			{
-				sprintf(l_strSoundName,"%s%s\0",this->m_strDestDirectory,UT::WcharToChar(l_strValue).c_str());
+				sprintf(l_strSoundName,"%s%s",this->m_strDestDirectory,UT::WcharToChar(l_strValue).c_str());
 			}
 			else
 			COMPARE_NAME("Loop")

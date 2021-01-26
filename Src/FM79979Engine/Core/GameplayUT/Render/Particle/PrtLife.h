@@ -96,7 +96,7 @@ namespace FATMING_CORE
 	//	int	GetCount(){ return m_iCount; }
 	//	void	SetCount(int e_iCount){ m_iCount = m_iCountCompaer = e_iCount; }
 	//	wchar_t*	GetParticleName(){ return m_sParticleName; }
-	//	void	SetParticleName(wchar_t*e_pName){ swprintf_s(m_sParticleName,MAX_PATH,L"%s\0",e_pName); }
+	//	void	SetParticleName(wchar_t*e_pName){ swprintf_s(m_sParticleName,MAX_PATH,L"%s",e_pName); }
 	//	DEFINE_TYPE_INFO()
 	//	virtual inline void	operator()(sParticleData*e_pParticleData,float e_fElpaseTime)
 	//	{//if need to shot still by count value bigger 0,and deadlinetime

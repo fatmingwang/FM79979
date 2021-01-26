@@ -164,7 +164,7 @@ namespace FATMING_CORE
 	//
 	char*	cPrtEmitter::GetDataInfo()
 	{
-		sprintf(g_strTempStringForOutput,"%.3f,%d,%d,%d,%d,%d,%d,%s\0",
+		sprintf(g_strTempStringForOutput,"%.3f,%d,%d,%d,%d,%d,%d,%s",
 			m_fGapTimeToShot,
 			m_iParticleEmitCount,
 			m_iEmitParticleAmount,
@@ -178,7 +178,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtEmitter::SetDataByDataString(char*e_pString)
 	{
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue,",");
 		m_fGapTimeToShot = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		m_iParticleEmitCount = atoi(l_pString);

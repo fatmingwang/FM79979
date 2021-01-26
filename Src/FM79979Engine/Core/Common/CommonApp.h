@@ -4,10 +4,12 @@
 #include "Utility.h"
 #include "../Math/Vector4.h"
 #define	MAX_PERFORMANCE_TC_COUNT	11
+
 namespace	FATMING_CORE
 {
 	class cCommonApp
 	{
+		std::map<int,UT::sTimeAndFPS>								m_LazyTimeElpaseMap;
 	public:
 		static bool m_sbGamePause;
 		static	UT::sTimeAndFPS										m_sTimeAndFPS;	//
@@ -48,12 +50,16 @@ namespace	FATMING_CORE
 		~cCommonApp();
 		virtual	void												Update(float e_fElpaseTime);
 		//
-			//GAME_PAUSE_EVENT_ID	-123456789 is game pause
+		//GAME_PAUSE_EVENT_ID	-123456789 is game pause
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData);
 		static	bool												EventMessageShot(unsigned int e_usID, void*e_pData, int e_iDataSize);
 		//lazy to keep point data so shot immediately,
 		//ensure not call recursively,event call evnet infinty
 		static	bool												EventMessageShotImmediately(unsigned int e_usID, void*e_pData);
 		static  float												DumpLogWhileElpaseTimeIsTooMuch(const char*e_strName, float e_fAllownedElpaseTime = 0.1f, bool e_bWriteToFile = true,int e_iTCIndex = 0);
+
+		float														GetElpaseTimeByID(int e_iID);
+		//e_iID == -1 clear all data
+		void														ClearElpaseTimeByID(int e_iID);
 	};
 }

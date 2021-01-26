@@ -81,7 +81,7 @@ namespace FATMING_CORE
 			{
 				int	l_iLength = (int)wcslen(l_strValue);
 				m_pCurrentUniformData->m_strName = new char [l_iLength+1];
-				sprintf(m_pCurrentUniformData->m_strName,"%s\0",UT::WcharToChar(l_strValue).c_str());
+				sprintf(m_pCurrentUniformData->m_strName,"%s",UT::WcharToChar(l_strValue).c_str());
 				m_pCurrentGLSLProgram->SetName(UT::CharToWchar(m_pCurrentUniformData->m_strName));
 			}
 			else
@@ -116,7 +116,7 @@ namespace FATMING_CORE
 	//		{
 	//			int	l_iLength = (int)wcslen(l_strValue);
 	//			m_pCurrentUniformData->m_strName = new char [l_iLength+1];
-	//			sprintf(m_pCurrentUniformData->m_strName,"%s\0",UT::WcharToChar(l_strValue).c_str());
+	//			sprintf(m_pCurrentUniformData->m_strName,"%s",UT::WcharToChar(l_strValue).c_str());
 	//		}
 	//		else
 	//		COMPARE_NAME("SamplerDimesion")//1D,2D,3D
@@ -168,7 +168,7 @@ namespace FATMING_CORE
 			{
 				int	l_iLength = (int)wcslen(l_strValue);
 				m_pCurrentUniformData->m_strName = new char [l_iLength+1];
-				sprintf(m_pCurrentUniformData->m_strName,"%s\0",UT::WcharToChar(l_strValue).c_str());
+				sprintf(m_pCurrentUniformData->m_strName,"%s",UT::WcharToChar(l_strValue).c_str());
 				this->m_pCurrentUniformData->m_iLocation = glGetUniformLocation( m_uiRecentProgramHandle, UT::WcharToChar(l_strValue).c_str() );
 				//http://www.gamedev.net/community/forums/topic.asp?topic_id=516840
 				//Because half of your shader doesn't do anything, and is optimized

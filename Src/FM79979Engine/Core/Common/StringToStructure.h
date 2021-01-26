@@ -100,9 +100,10 @@ namespace FATMING_CORE
 	//although it could add a callback function make it better but slow.
 	template<class T>T*	ParseDataToGenerateIntPointer(const char*e_strData,int e_iSize)
 	{
-		char*l_pTemp = (char*)e_strData;
 		T	*l_pData = new	T[e_iSize];
-		char*	l_str = strtok(l_pTemp,", ");
+		char*   l_strValue = (char*)alloca(strlen(e_strData));
+		sprintf(l_strValue, "%s", e_strData);
+		char*	l_str = strtok(l_strValue, ", ");
 		int	l_iStep = 0;
 		while(l_str)
 		{

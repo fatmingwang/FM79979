@@ -1,5 +1,8 @@
 #include "StringToStructure.h"
 #include <assert.h>
+#ifdef LINUX
+#include <alloca.h>
+#endif
 #ifdef WIN32
 #pragma warning( disable : 4996 )
 #endif
@@ -15,7 +18,7 @@ namespace FATMING_CORE
 	POINT	GetPoint(const char* e_str)
 	{
 		char	l_temp[TEMP_SIZE];
-		sprintf(l_temp, "%s\0", e_str);
+		sprintf(l_temp, "%s", e_str);
 		POINT	l_Point;
 		char*	l_str = strtok(l_temp, ",: ");
 		assert(l_str&&"parse POINT data error 1");
@@ -113,7 +116,7 @@ namespace FATMING_CORE
 	Vector4	GetVector4(const char*e_strValue)
 	{
 	    char    l_strValue[TEMP_SIZE];
-	    sprintf(l_strValue,"%s\0",e_strValue);
+	    sprintf(l_strValue,"%s",e_strValue);
 		Vector4	l_Vector4;
 		char*	l_str = strtok(l_strValue,",: ");
 		assert(l_str&&"parse Vector4 data error");
@@ -133,7 +136,7 @@ namespace FATMING_CORE
 	Vector3	GetVector3(const char*e_str)
 	{
 	    char    l_strValue[TEMP_SIZE];
-	    sprintf(l_strValue,"%s\0",e_str);
+	    sprintf(l_strValue,"%s",e_str);
 		Vector3	l_Vector3(0.f,0.f,0.f);
 		char*	l_str = strtok(l_strValue,",: ");
 		assert(l_str&&"parse Vector3 data error");
@@ -153,7 +156,7 @@ namespace FATMING_CORE
 	Vector2	GetVector2(const char*e_strValue)
 	{
 	    char    l_strValue[TEMP_SIZE];
-	    sprintf(l_strValue,"%s\0",e_strValue);
+	    sprintf(l_strValue,"%s",e_strValue);
 		Vector2	l_Vector2;
 		char*	l_str = strtok(l_strValue,",: ");
 		assert(l_str&&"parse Vector2 data error");
@@ -198,7 +201,7 @@ namespace FATMING_CORE
 	cMatrix44	GetMatrix(const char*e_str,bool e_bTranspose)
 	{
 	    char    l_strValue[TEMP_SIZE];
-	    sprintf(l_strValue,"%s\0",e_str);	
+	    sprintf(l_strValue,"%s",e_str);	
 		cMatrix44	l_mat;
 		char*	l_str = strtok((char*)l_strValue,",: ");
 		for( int i=0;i<4;++i )
@@ -229,8 +232,10 @@ namespace FATMING_CORE
     //this might lost data if parse string again!
 	cMatrix44	*GetMatrcies(const char*e_str,int e_iSize,bool e_bTranspose)
 	{
+		char    l_strValue[TEMP_SIZE];
+		sprintf(l_strValue, "%s", e_str);
 		cMatrix44*l_pMat = new cMatrix44[e_iSize];
-		char*	l_str = strtok((char*)e_str,",: ");
+		char*	l_str = strtok(l_strValue,",: ");
 		for( int i=0;i<e_iSize;++i )
 		{
 			for( int j=0;j<4;++j )
@@ -253,7 +258,7 @@ namespace FATMING_CORE
 	void	GetUV(char*e_pData,float*e_pUVBuffer)
 	{
 		char	l_temp[TEMP_SIZE];
-		sprintf(l_temp,"%s\0",e_pData);
+		sprintf(l_temp,"%s",e_pData);
 		char*	l_str = strtok(l_temp,",: ");
 		for( int i=0;i<4;++i )
 		{
@@ -342,10 +347,12 @@ namespace FATMING_CORE
 
 	std::vector<int>	GetIntegerListByCommaDivide(const char*e_str,int e_iSize)
 	{
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
 		std::vector<int>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok((char*)e_str,", ");
+		char*	l_str = strtok(l_strValue,", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -364,7 +371,9 @@ namespace FATMING_CORE
 		std::vector<double>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok((char*)e_str,", ");
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok(l_strValue,", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -383,7 +392,9 @@ namespace FATMING_CORE
 		std::vector<int64>	l_NumeralList;
 		if (e_iSize)
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok((char*)e_str, ", ");
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok(l_strValue, ", ");
 		while (l_str)
 		{
 			int64 l_i64 = GetInt64(l_str);
@@ -398,7 +409,9 @@ namespace FATMING_CORE
 		std::vector<float>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok((char*)e_str,", ");
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok(l_strValue, ", ");
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -890,8 +903,9 @@ namespace FATMING_CORE
 		std::vector<Vector2>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*l_strConvertString = (char*)e_str;
-		char*	l_str = strtok(l_strConvertString,", ");
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok(l_strValue, ", ");
 		while(l_str)
 		{
 			Vector2	l_v;
@@ -909,8 +923,9 @@ namespace FATMING_CORE
 		std::vector<Vector3>	l_NumeralList;
 		if( e_iSize )
 			l_NumeralList.reserve(e_iSize);
-		char*l_strConvertString = (char*)e_str;
-		char*	l_str = strtok(l_strConvertString,", ");
+		char*   l_strValue = (char*)alloca(strlen(e_str));
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok(l_strValue, ", ");
 		while(l_str)
 		{
 			Vector3	l_v;

@@ -72,7 +72,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorInitrSetColor::SetDataByDataString(char*e_pString)
 	{
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue,",");
 		this->m_vColor.r = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_vColor.g = (float)atof(l_pString);
@@ -107,7 +109,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorInitrSetRandomColor::SetDataByDataString(char*e_pString)
 	{
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_vColor.r = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_vColor.g = (float)atof(l_pString);
@@ -152,7 +156,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorActBlending::SetDataByDataString(char*e_pString)
 	{
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_vColor.r = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_vColor.g = (float)atof(l_pString);
@@ -192,7 +198,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorActBlendingBy2Color::SetDataByDataString(char*e_pString)
 	{
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_vColor1.r = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_vColor1.g = (float)atof(l_pString);

@@ -1338,6 +1338,7 @@ bool TiXmlDocument::LoadFile( const char* _filename)
 	else
 	{
 		SetError( TIXML_ERROR_OPENING_FILE, 0, 0 );
+		FMLog::LogWithFlag(UT::ComposeMsgByFormat("file %s not exists!.", _filename).c_str(), CORE_LOG_FLAG);
 		return false;
 	}
 }

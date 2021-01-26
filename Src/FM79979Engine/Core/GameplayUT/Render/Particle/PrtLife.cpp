@@ -38,7 +38,7 @@ namespace FATMING_CORE
 	char*	cPrtLifeInitrSetLife::GetDataInfo()
 	{
 
-		sprintf(m_sTemp,"LifeMin:=%.2f\nLifeRange:%.2f\nRandom:%s\0",m_fLifeMin,m_fLifeRange,m_bRandom?"true":"false");
+		sprintf(m_sTemp,"LifeMin:=%.2f\nLifeRange:%.2f\nRandom:%s",m_fLifeMin,m_fLifeRange,m_bRandom?"true":"false");
 		return m_sTemp;
 	}
 	//this one for output data value by "," to separate value
@@ -51,7 +51,9 @@ namespace FATMING_CORE
 	bool	cPrtLifeInitrSetLife::SetDataByDataString(char*e_pString)
 	{
 		char*Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_fLifeMin = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_fLifeRange = (float)atof(l_pString);

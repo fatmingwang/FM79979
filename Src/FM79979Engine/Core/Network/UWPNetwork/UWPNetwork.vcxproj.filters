@@ -30,9 +30,6 @@
     <ClInclude Include="..\happyhttp.h">
       <Filter>Network</Filter>
     </ClInclude>
-    <ClInclude Include="..\Network.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="..\NetworkData.h">
       <Filter>Network</Filter>
     </ClInclude>
@@ -57,9 +54,6 @@
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="..\happyhttp.cpp">
-      <Filter>Network</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Network.cpp">
       <Filter>Network</Filter>
     </ClCompile>
     <ClCompile Include="..\UDPNetwork.cpp">

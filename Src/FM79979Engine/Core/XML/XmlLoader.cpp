@@ -107,7 +107,7 @@ namespace FATMING_CORE
 	std::string	ISAXCallback::StringAddDirectory(char*e_strValue)
 	{
 		char	l_strValue[TEMP_SIZE];
-		sprintf(l_strValue,"%s%s\0",m_strCurrentDirectory,e_strValue);
+		sprintf(l_strValue,"%s%s",m_strCurrentDirectory,e_strValue);
 		std::string	l_str = l_strValue;
 		return l_str;
 	}
@@ -116,7 +116,7 @@ namespace FATMING_CORE
 	{
 	    SAFE_DELETE(m_pDoc);
 		m_strErrorMsg.clear();
-		sprintf(m_strFileName,"%s\0",e_strFileName);
+		sprintf(m_strFileName,"%s",e_strFileName);
 		m_pDoc = new TiXmlDocument( UT::CharToWchar(e_strFileName).c_str() );
 		bool loadOkay = m_pDoc->LoadFile();
 		if(!loadOkay)
@@ -152,7 +152,7 @@ namespace FATMING_CORE
 //iphone does't need to translate it because all file have to translate by loader api...
 		std::string   l_strDirectory =  GetDirectoryWithoutFileName(e_strFileName);
 		if( l_strDirectory.length() )
-			sprintf(m_strCurrentDirectory,"%s\0",l_strDirectory.c_str());
+			sprintf(m_strCurrentDirectory,"%s",l_strDirectory.c_str());
 
 #ifdef DEBUG
 		FMLog::Log(ComposeMsgByFormat("%s Parsing Start", e_strFileName).c_str(), false);
@@ -472,12 +472,17 @@ namespace FATMING_CORE
 
 	bool	cNodeISAX::ParseTextIntoXMLNode(const char*e_strText)
 	{
+		std::wstring l_strText = ValueToStringW(e_strText);
+		return ParseTextIntoXMLNode(l_strText.c_str());
+	}
+	bool cNodeISAX::ParseTextIntoXMLNode(const wchar_t* e_str)
+	{
 		SystemErrorCheck();
 		SAFE_DELETE(m_pDoc);
-		std::wstring l_strText = UT::CharToWchar(e_strText);
-		m_pDoc = new TiXmlDocument( );
+		std::wstring l_strText = e_str;
+		m_pDoc = new TiXmlDocument();
 		m_pDoc->Parse(l_strText.c_str(), 0);
-		if( m_pDoc->Error() )
+		if (m_pDoc->Error())
 		{
 			SAFE_DELETE(m_pDoc);
 			return false;
@@ -495,14 +500,14 @@ namespace FATMING_CORE
 			assert(itemElement && "empty element,check name for none numeral");
 		}
 		InternalParse();
-		if(!itemElement)
+		if (!itemElement)
 			return false;
 		m_pRootElement = itemElement;
-		if( !m_pRootElement )
+		if (!m_pRootElement)
 			m_pRootElement = m_pDoc->FirstChild()->NextSibling()->ToElement();
-		assert(m_pRootElement&&"empty element,check name for none numeral");
+		assert(m_pRootElement && "empty element,check name for none numeral");
 		SystemErrorCheck();
-		return true;	
+		return true;
 	}
 	bool	cNodeISAX::ParseDataIntoXMLNode(const wchar_t*e_strText)
 	{

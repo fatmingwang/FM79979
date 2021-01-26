@@ -39,8 +39,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtStartPositionInitBySquareRange::SetDataByDataString(char*e_pString)
 	{
-		char*Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		this->m_fWidth = (float)atof(l_pString);
 		l_pString = strtok(0,",");
 		this->m_fHeight = (float)atof(l_pString);
@@ -106,8 +107,9 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtStartPositionInitByFrame::SetDataByDataString(char*e_pString)
 	{
-		char*Nexttoken = 0;
-		char* l_pString = strtok(e_pString,",");
+		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		sprintf(l_strValue, "%s", e_pString);
+		char* l_pString = strtok(l_strValue, ",");
 		m_eAttachFrameType = (eAttachFrameType)atoi(l_pString);
 
 		l_pString = strtok(0,",");

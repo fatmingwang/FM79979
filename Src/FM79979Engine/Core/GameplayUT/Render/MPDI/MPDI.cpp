@@ -759,7 +759,7 @@ EXIT:
     std::string  cMPDIList::GetFileName(const wchar_t*e_strObjectName)
     {
 		char l_strForMPDIString[MAX_PATH];
-		sprintf(l_strForMPDIString,"%s\0",UT::WcharToChar(e_strObjectName).c_str());
+		sprintf(l_strForMPDIString,"%s",UT::WcharToChar(e_strObjectName).c_str());
         int l_iIndex = UT::FindChacterIndexFromBackBuffer(e_strObjectName,L'_');
 		if( l_iIndex == -1 )
 		{

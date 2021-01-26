@@ -171,4 +171,35 @@ namespace	FATMING_CORE
 		}
 		return l_fElpaseTime;
 	}
+	float cCommonApp::GetElpaseTimeByID(int e_iID)
+	{
+		auto l_IT = m_LazyTimeElpaseMap.find(e_iID);
+		if (l_IT != m_LazyTimeElpaseMap.end())
+		{
+			l_IT->second.Update();
+			return l_IT->second.fElpaseTime;
+		}
+		else
+		{
+			UT::sTimeAndFPS l_FPS;
+			l_FPS.Update();
+			m_LazyTimeElpaseMap[e_iID] = l_FPS;
+		}
+		return 0.f;
+	}
+	void cCommonApp::ClearElpaseTimeByID(int e_iID)
+	{
+		if (e_iID == -1)
+		{
+			m_LazyTimeElpaseMap.clear();
+		}
+		else
+		{
+			auto l_IT = m_LazyTimeElpaseMap.find(e_iID);
+			if(l_IT != m_LazyTimeElpaseMap.end())
+			{
+				l_IT->second.Update();
+			}
+		}
+	}
 }
