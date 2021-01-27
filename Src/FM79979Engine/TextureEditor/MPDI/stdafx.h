@@ -5,16 +5,6 @@
 
 // TODO: reference additional headers your program requires here
 #pragma warning( disable : 4945 )
-#include "windows.h"
-#include "../../../include/glew.h"
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <map>
-#include <vector>
-#include <list>
-#include <xstring>
 #include "assert.h"
 #include "../../Core/AllCoreInclude.h"
 #include "../../Core/GameplayUT/Render/VideoPlayer/AVIPlayer.h"

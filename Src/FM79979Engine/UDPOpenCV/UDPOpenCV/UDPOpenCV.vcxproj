@@ -311,12 +311,12 @@
     <Xml Include="Assets\Font.FontInfo">
       <FileType>Document</FileType>
     </Xml>
-    <Media Include="Assets\opencv_world440.dll">
-      <FileType>Document</FileType>
-    </Media>
-    <Media Include="Assets\opencv_world440d.dll">
-      <FileType>Document</FileType>
-    </Media>
+    <None Include="opencv_world440.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </None>
+    <None Include="opencv_world440d.dll">
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+    </None>
     <None Include="packages.config" />
     <None Include="UDPOpenCV_TemporaryKey.pfx" />
   </ItemGroup>
@@ -343,6 +343,9 @@
     <ProjectReference Include="..\..\Core\CoreUWP\CoreUWP\CoreUWP.vcxproj">
       <Project>{3c63e603-3b30-4510-9435-f73137af75d4}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -95,6 +95,8 @@
   <ItemGroup>
     <None Include="UDPOpenCV_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="opencv_world440.dll" />
+    <None Include="opencv_world440d.dll" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="NavPage.xaml">
@@ -105,10 +107,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Assets\Font.FontInfo" />
+    <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\opencv_world440.dll" />
-    <Media Include="Assets\opencv_world440d.dll" />
+    <Xml Include="Assets\Font.FontInfo">
+      <Filter>Assets</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

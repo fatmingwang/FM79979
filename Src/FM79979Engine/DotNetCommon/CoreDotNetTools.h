@@ -1,6 +1,6 @@
 #ifndef _CORE_DOTNET_TOOLS_H_
 #define _CORE_DOTNET_TOOLS_H_
-#include "../Core/AllCommonInclude.h"
+#include "../Core/AllCoreInclude.h"
 #include "DotNetCommonTools.h"
 //ensure u have include AllFeelingLihInclude.h
 //and it under common runtime environment

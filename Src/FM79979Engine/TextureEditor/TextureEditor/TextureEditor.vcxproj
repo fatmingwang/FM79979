@@ -68,7 +68,7 @@
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
     </ProjectReference>
     <Link>
-      <AdditionalDependencies>OpenGL32.lib;odbc32.lib;odbccp32.lib;User32.lib;gdi32.lib;Glu32.lib;Bullet.lib;ogg.lib;opencv_core249.lib;opencv_highgui249.lib;opencv_imgproc249.lib</AdditionalDependencies>
+      <AdditionalDependencies>OpenGL32.lib;odbc32.lib;odbccp32.lib;User32.lib;gdi32.lib;Glu32.lib;Bullet.lib;ogg.lib</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <SubSystem>Windows</SubSystem>
