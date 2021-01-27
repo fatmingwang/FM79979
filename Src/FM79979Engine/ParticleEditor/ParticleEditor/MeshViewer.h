@@ -17,10 +17,10 @@ extern bool	g_bCameraResetClick;
 void	DrawAxisArrow(cFrameCamera*	e_pFrameCamera);
 namespace FATMING_CORE
 {
-	extern char*g_strMyMeshVS;
-	extern char*g_strMyMeshFS;
-	extern char*g_strMySkinningMeshVS;
-	extern char*g_strMySkinningMeshFS;
+	extern const char*g_strMyMeshVS;
+	extern const char*g_strMyMeshFS;
+	extern const char*g_strMySkinningMeshVS;
+	extern const char*g_strMySkinningMeshFS;
 }
 
 namespace ParticalEditor {

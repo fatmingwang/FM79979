@@ -399,10 +399,10 @@ namespace ParticalEditor
 		if( l_str )
 		{
 			cParticleBase*l_pParticleBase = NameGetParticleType(DNCT::GcStringToWchar(l_str).c_str());
-			l_pParticleBase->SetOwner(g_pPrtEmitter);
 			AutoCollpaseUnit^l_pAutoCollpaseUnit;
 			if( l_pParticleBase )
 			{
+				l_pParticleBase->SetOwner(g_pPrtEmitter);
 				l_pAutoCollpaseUnit = GetPolicyFormByParticleBase(l_pParticleBase);
 				if( l_pAutoCollpaseUnit )
 				{
