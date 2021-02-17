@@ -18,6 +18,46 @@
 #include <sys/ioctl.h>
 #include <assert.h>
 
+#include <emscripten/emscripten.h>
+#include <emscripten/websocket.h>
+
+
+EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) {
+	puts("onopen");
+
+	EMSCRIPTEN_RESULT result;
+	result = emscripten_websocket_send_utf8_text(websocketEvent->socket, "hoge");
+	if (result) {
+		printf("Failed to emscripten_websocket_send_utf8_text(): %d\n", result);
+	}
+	return EM_TRUE;
+}
+EM_BOOL onerror(int eventType, const EmscriptenWebSocketErrorEvent *websocketEvent, void *userData) {
+	puts("onerror");
+
+	return EM_TRUE;
+}
+EM_BOOL onclose(int eventType, const EmscriptenWebSocketCloseEvent *websocketEvent, void *userData) {
+	puts("onclose");
+
+	return EM_TRUE;
+}
+EM_BOOL onmessage(int eventType, const EmscriptenWebSocketMessageEvent *websocketEvent, void *userData) {
+	puts("onmessage");
+	if (websocketEvent->isText) {
+		// For only ascii chars.
+		printf("message: %s\n", websocketEvent->data);
+	}
+
+	EMSCRIPTEN_RESULT result;
+	result = emscripten_websocket_close(websocketEvent->socket, 1000, "no reason");
+	if (result) {
+		printf("Failed to emscripten_websocket_close(): %d\n", result);
+	}
+	return EM_TRUE;
+}
+
+
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 
@@ -270,15 +310,38 @@ int main()
 	//https://www.libsdl.org/release/SDL-1.2.15/docs/html/guidevideoopengl.html
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
+	printf("do SDL_SetVideoMode\n");
 	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
 	{
+		printf("do SDL_SetVideoMode failed\n");
 		return -1;
 	}
+	printf("do SDL_SetVideoMode okay\n");
 	//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	g_pPreLoadFromInternet = new cPreLoadFromInternet();
 	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
+	EMSCRIPTEN_WEBSOCKET_T ws;
 	if (l_pSurf_Display)
 	{
+		//if (emscripten_websocket_is_supported()) 
+		//{
+		//	printf("emscripten_websocket_is_supported okay\n");
+		//	EmscriptenWebSocketCreateAttributes ws_attrs = 
+		//	{
+		//		"127.0.0.1:2978",
+		//		NULL,
+		//		EM_TRUE
+		//	};
+		//	ws = emscripten_websocket_new(&ws_attrs);
+		//	emscripten_websocket_set_onopen_callback(ws, NULL, onopen);
+		//	emscripten_websocket_set_onerror_callback(ws, NULL, onerror);
+		//	emscripten_websocket_set_onclose_callback(ws, NULL, onclose);
+		//	emscripten_websocket_set_onmessage_callback(ws, NULL, onmessage);
+		//}
+		//else
+		//{
+		//	printf("emscripten_websocket_is_supported failed\n");
+		//}
 		cGameApp::m_sbDebugFunctionWorking = true;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;

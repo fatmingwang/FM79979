@@ -1,0 +1,2 @@
+asio version 1.12.2
+Released Sunday, 09 December 2018.

@@ -3,9 +3,12 @@
 #include "../../Core/GameplayUT/OpenGL/GLSL/ToneMapping.h"
 #include "../../Core/GameplayUT/OpenGL/GLSL/TunnelEffect.h"
 #include "../../Core/Network/happyhttp.h"
+#include "NetworkSample.h"
 #include "TestShader.h"
-
+#include "WebsocketServer.h"
 //#include "../../Core/Bluetooth/Bluetooth.h"
+
+cNetworkSample*g_pNetworkSample = nullptr;
 
 cFMMorphingAnimationVector*g_pFMMorphingAnimationVector = nullptr;
 
@@ -55,103 +58,6 @@ cPathChaser*g_pPathChaser = nullptr;
 cCurveWithTime* g_pCurveWithTime = nullptr;
 cCurveWithTime* g_pCurveWithTime2 = nullptr;
 
-#ifdef WASM
-//https://stackoverflow.com/questions/51343425/not-able-to-bind-function-in-emscripten
-//please add --bind in linker command line!.
-#include <emscripten/bind.h>
-using namespace emscripten;
-class cWASMBindingTest*g_pWASMBindingTest = nullptr;
-class cWASMBindingTest 
-{
-public:
-	cWASMBindingTest(std::string e_strText)
-	{
-		g_pWASMBindingTest = this;
-		y = e_strText;
-		printf("-----------------------cWASMBindingTest------------------call ed");
-	}
-	cWASMBindingTest(int x, std::string y)
-		: x(x)
-		, y(y)
-	{}
-
-	void incrementX() {
-		++x;
-	}
-
-	int getX() const { return x; }
-	void setX(int x_) { x = x_; }
-	std::string getY() const { return y; }
-	void setY(std::string e_str) { y = e_str; }
-
-	static std::string getStringFromInstance(const cWASMBindingTest& instance) {
-		return instance.y;
-	}
-	void	Render()
-	{
-		cGameApp::RenderFont(Vector2(600.f,600.f), ValueToStringW(y).c_str());
-	}
-private:
-	int x;
-	std::string y;
-};
-
-void JSBinding(std::string e_str)
-{
-	if (!g_pWASMBindingTest)
-	{
-		g_pWASMBindingTest = new cWASMBindingTest(e_str.c_str());
-	}
-}
-int g_iMPDIIndex = 0;
-void	MPDIIndex(int e_iIndex)
-{
-	g_iMPDIIndex = e_iIndex;
-}
-//
-
-EMSCRIPTEN_BINDINGS(my_module)
-{
-	class_<cWASMBindingTest>("cWASMBindingTest")
-		.constructor<int, std::string>()
-		.constructor<std::string>()
-		.function("incrementX", &cWASMBindingTest::incrementX)
-		.property("x", &cWASMBindingTest::getX, &cWASMBindingTest::setX)
-		.property("y", &cWASMBindingTest::getY, &cWASMBindingTest::setY)
-		.class_function("getStringFromInstance", &cWASMBindingTest::getStringFromInstance)
-	;
-	emscripten::function("JSBinding", &JSBinding);
-	emscripten::function("MPDIIndex", &MPDIIndex);	
-}
-//EMSCRIPTEN_BINDINGS(my_class_example) 
-//{
-	//class_<cWASMBindingTest>("cWASMBindingTest")
-	//	.constructor<int, std::string>()
-	//	.constructor<const char*>()
-	//	.function("incrementX", &cWASMBindingTest::incrementX)
-	//	.property("x", &cWASMBindingTest::getX, &cWASMBindingTest::setX)
-	//	.class_function("getStringFromInstance", &cWASMBindingTest::getStringFromInstance)
-		//;
-//}
-
-    //<script>
-    //    console.log("-----------------------");
-    //    //Module.JSBinding();
-    //    Module['onRuntimeInitialized'] = () =>
-    //    {
-    //        Module.JSBinding();
-    //    }
-    //    console.log("========================");
-        //Module.ready().then
-        //    (
-				//var l_Instance = new Module.cWASMBindingTest("Hi");
-				//l_Instance.y = "hello world";
-        //   )
-        //console.log("========================");
-    //</script>
-
-#endif
-
 void	LoadSample();
 void	DestoryObject();
 void	SampleUpdate(float e_fElpaseTime);
@@ -165,135 +71,47 @@ void	SampleMouseMove(int e_iPosX,int e_iPosY);
 void	SampleMouseUp(int e_iPosX,int e_iPosY);
 void	SampleKeyup(char e_cKey);
 
+#ifdef WASM
+extern int g_iWASMMPDIIndex;
+extern void JSBindingRender();
+#endif
 
-int g_iCount = 0;
-std::string g_strHappyHttpTest;
-// invoked when response headers have been received
-void OnBegin(const happyhttp::Response* r, void* userdata)
+
+cBasicSound*g_pBG = nullptr;
+
+void	SoundBGThread()
 {
-	printf("BEGIN (%d %s)\n", r->getstatus(), r->getreason());
-	g_strHappyHttpTest += "OnBegine:";
-	g_strHappyHttpTest += ValueToString(r->getstatus());
-	g_strHappyHttpTest += ",";
-	g_strHappyHttpTest += ValueToString(r->getreason());
-	g_strHappyHttpTest += "\n";
-	g_iCount = 0;
-}
-
-// invoked to process response body data (may be called multiple times)
-void OnData(const happyhttp::Response* r, void* userdata, const unsigned char* data, int n)
-{
-	//fwrite(data, 1, n, stdout);
-	g_strHappyHttpTest += "OnData:";
-	g_strHappyHttpTest += ValueToString((char*)data);
-	g_iCount += n;
-}
-
-// invoked when response is complete
-void OnComplete(const happyhttp::Response* r, void* userdata)
-{
-	printf("COMPLETE (%d bytes)\n", g_iCount);
-	g_strHappyHttpTest += "OnComplete:";
-	g_strHappyHttpTest += ValueToString(g_iCount);
-}
-
-
-void TestGET()
-{
-	happyhttp::Connection conn("www.scumways.com", 80);
-	//happyhttp::Connection conn("www.google.com", 80);
-	conn.setcallbacks(OnBegin, OnData, OnComplete, 0);
-
-	//conn.request("GET", "/happyhttp/test.php");
-	conn.request("GET", "/");
-
-	while (conn.outstanding())
-		conn.pump();
-	if (g_strHappyHttpTest.length())
+	FMLog::Log("SoundBGThread start", false);
+	if (g_pBG)
 	{
-		//UT::ErrorMsg(g_strHappyHttpTest.c_str(), "qoo");
+		g_pBG->SetLoop(true);
+		g_pBG->Play(true);
 	}
-}
-
-void Test2()
-{
-	g_strHappyHttpTest = "";
-	printf("-----------------Test2------------------------\n");
-	// POST using high-level request interface
-
-	const char* headers[] =
+	while (g_pBG)
 	{
-		"Connection", "close",
-		"Content-type", "application/x-www-form-urlencoded",
-		"Accept", "text/plain",
-		0
-	};
-
-	const char* body = "answer=42&name=Bubba";
-
-	happyhttp::Connection conn("www.scumways.com", 80);
-	conn.setcallbacks(OnBegin, OnData, OnComplete, 0);
-	conn.request("POST",
-		"/happyhttp/test.php",
-		headers,
-		(const unsigned char*)body,
-		(int)strlen(body));
-
-	while (conn.outstanding())
-		conn.pump();
-	if (g_strHappyHttpTest.length())
-	{
-		//UT::ErrorMsg(g_strHappyHttpTest.c_str(), "qoo");
-	}
-}
-
-void TestGET3()
-{
-	happyhttp::Connection conn("192.168.1.101", 80);
-	//happyhttp::Connection conn("www.google.com", 80);
-	conn.setcallbacks(OnBegin, OnData, OnComplete, 0);
-	{
-		//conn.request("GET", "/");
-		//while (conn.outstanding())
-		//	conn.pump();
-		//if (g_strHappyHttpTest.length())
-		//{
-
-		//}
-		//int a = 0;
-	}
-	{
-		const char* headers[] =
+		if (g_pBG)
 		{
-			"Connection", "close",
-			"Content-type", "application/x-www-form-urlencoded",
-			"Accept", "text/plain",
-			0
-		};
-		//http://192.168.1.101/charge?cTime=5000
-		const char* body = "?cTime=5000";
-		//conn.request("GET", "/charge", headers, (const unsigned char*)body, strlen(body));
-		//conn.request("GET", "/charge", 0, (const unsigned char*)body, strlen(body));
-		conn.request("GET", "/charge?cTime=5000", 0,0,0);
-		//conn.request("GET", "/charge", headers,0,0);
-		while (conn.outstanding())
-			conn.pump();
-		if (g_strHappyHttpTest.length())
-		{
-
+			g_pBG->Update(0.016f);
+			Sleep(16);
+			//FMLog::Log("SoundBGThread 2", false);
 		}
-		int a = 0;
+#ifdef WASM
+		if (g_pNetworkSample)
+		{
+			g_pNetworkSample->Update(0.016f);
+		}
+#endif
 	}
-
-
-
+	FMLog::Log("SoundBGThread end", false);
 }
+
 
 
 cBaseShader*g_pMSAAShader = nullptr;
 void	LoadSample()
 {
 #ifdef WIN32
+	WebSocketInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)
@@ -304,7 +122,8 @@ void	LoadSample()
 	//TestGET();
 	//Test2();
 	//TestGET3();
-	g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx",eGBT_2D_MORPHING_ANIMATION);
+	if(0)
+		g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx",eGBT_2D_MORPHING_ANIMATION);
 	int l_iYBase = 900;
 	g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
@@ -356,14 +175,35 @@ void	LoadSample()
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
 #ifdef WASM
-	cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
-	//cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Media/MainBG.ogg");
+	//cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
+	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
+	g_pBG = l_pSound;
+	{
+		cBasicSound*l_pSound2 = cGameApp::m_spSoundParser->AddSound("Sound/win.wav");
+		if (l_pSound2)
+		{
+			l_pSound2->Play(true);
+		}
+	}
 #else
 	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
 #endif
 	if (l_pSound)
+	{
+		FMLog::Log("try to play sound",false);
 		l_pSound->Play(true);
+	}
+
 	POINT l_Size = { (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/8,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/8 };
+	bool l_bMultiThreadTest = true;
+	if (l_bMultiThreadTest)
+	{
+		FMLog::Log("try to do thread detach", false);
+		std::thread l_Thread = std::thread([=] {SoundBGThread();});
+		l_Thread.detach();
+		FMLog::Log("thread detached", false);
+	}
+
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
 	//	"shader/DownSample.vs","shader/DownSample.ps",
@@ -399,7 +239,8 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi", eGBT_MPDILIST);
+	if(0)
+		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi", eGBT_MPDILIST);
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
@@ -414,7 +255,7 @@ void	LoadSample()
 	{
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
 #ifdef WASM
-		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(g_iMPDIIndex);
+		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(g_iWASMMPDIIndex);
 #else
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(0);
 #endif
@@ -479,6 +320,14 @@ void	LoadSample()
 		g_pTestCurveWithTime->SetLOD(3);
 		g_pTestCurveWithTime->Init();
 	}
+#ifdef WASM
+	if (!g_pNetworkSample)
+	{
+		g_pNetworkSample = new cNetworkSample();
+		g_pNetworkSample->Init();
+
+	}
+#endif
 	//g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
 	//g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
 	cGameApp::OutputDebugInfoString("LoadSample() finish");
@@ -519,6 +368,9 @@ void	DestorySampleObject()
 
 void	SampleUpdate(float e_fElpaseTime)
 {
+#if defined(WIN32)
+	WebSocketUpdate();
+#endif
 	if (g_pPathChaser)
 		g_pPathChaser->Update(e_fElpaseTime);
 	//cBluetoothSinglton::GetInstance()->Update(e_fElpaseTime);
@@ -763,7 +615,7 @@ void	SampleRender()
 			l_pMAObject->SetWorldPosition(Vector3(600,000,0));
 		}
 	}
-	//RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(1.f, 0.3f, 0.3f, 0.8f), 0);
+	//RenderFilledRectangle(Vector2(0, 0), 1920, 1080, Vector4(0.f, 0.3f, 0.3f, 0.8f), 0);
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->EndDraw();
 	if (g_pFrameBuffer)
@@ -822,17 +674,14 @@ void	SampleRender()
 		}
 	}
 #ifdef WASM
-	if (g_pWASMBindingTest)
-	{
-		g_pWASMBindingTest->Render();
-	}
+	JSBindingRender();
 #endif
 	static bool l_bTest = false;
 	if (!l_bTest)
 	{
 		auto l_iWidth = cGameApp::m_spOpenGLRender->m_vViewPortSize.Width();
 		auto l_iHeight = cGameApp::m_spOpenGLRender->m_vViewPortSize.Height();
-		SaveCurrentBufferToImage("99.jpg", l_iWidth, l_iHeight);
+		//SaveCurrentBufferToImage("99.jpg", l_iWidth, l_iHeight);
 		l_bTest = true;
 	}
 }

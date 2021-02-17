@@ -2,7 +2,7 @@
 #define _BINARY_FILE_H_
 #include "../../Common/NamedTypedObject.h"
 #include "../../Android/nv_file.h"
-#ifdef ANDROID
+#if defined(ANDROID) || defined(WASM)
 #include <mutex>
 #else
 namespace std

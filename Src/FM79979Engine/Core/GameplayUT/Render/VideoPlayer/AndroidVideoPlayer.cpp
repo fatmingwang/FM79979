@@ -172,7 +172,7 @@ cVideoPlayer::cVideoPlayer()
 {
 	m_fTotalPlayTime = 56.f;
 	m_fCurrentPlayTime = 0.f;
-#ifndef ANDROID
+#if !defined(ANDROID) && !defined(WASM)
 	m_pCvCapture = new cv::VideoCapture();
 #endif
 	m_fRestTimeToNextFrame = 0.f;

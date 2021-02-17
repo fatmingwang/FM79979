@@ -2,5 +2,7 @@
   <File FileName="Media/MPDI/bgrounda01.mpdi" />
   <File FileName="Media/MPDI/bground_a01.png" />
   <File FileName="Media/MPDI/bground_a01.pi" />
-  <File FileName="Media/MainBG.ogg" />
+  <File FileName="Sound/MainBG.ogg" />
+  <File FileName="Sound/win.wav" />
+
 </Root>
