@@ -76,6 +76,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <IntDir>..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <AdditionalOptions>/MP /FS %(AdditionalOptions)</AdditionalOptions>
@@ -118,6 +121,7 @@
       <EnableMicrosoftExtensions>
       </EnableMicrosoftExtensions>
     </ClCompile>
+    <Lib />
     <Lib />
     <Lib />
   </ItemDefinitionGroup>

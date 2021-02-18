@@ -624,7 +624,7 @@ public:
 //for level editor cMapLayer
 template <class T> class cNamedTypedObjectVectorWithData:public cNamedTypedObjectVector<T>
 {
-	GET_SET_DEC(void*,m_pData,GetData,SetData);
+	GET_SET_DEC(char*,m_pData,GetData,SetData);
 public:
 	cNamedTypedObjectVectorWithData():cNamedTypedObjectVector<T>()
 	{

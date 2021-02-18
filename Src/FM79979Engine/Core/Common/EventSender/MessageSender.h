@@ -77,7 +77,7 @@ namespace FATMING_CORE
 			unsigned int	usID;
 			void*			pData;
 			char			cData[WAIT_EMIT_EVENT_DATA_SIZE];
-			sWaitEmitEvent() { pData = nullptr; memset(cData, sizeof(char), WAIT_EMIT_EVENT_DATA_SIZE); }
+			sWaitEmitEvent() { pData = nullptr; memset(cData, 0, WAIT_EMIT_EVENT_DATA_SIZE* sizeof(char)); }
 			~sWaitEmitEvent() {}
 		};
 		void				AddMessageSender(size_t e_uiAddress,cMessageSender*e_pMessageSender);

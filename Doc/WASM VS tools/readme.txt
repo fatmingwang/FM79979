@@ -27,6 +27,16 @@ vs-toolsets
 
 https://github.com/crosire/vs-toolsets
 
+
+it also works fine in VS2019
+copy file(vs-toolsets) into
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160
+
+but you have to install indiviual compenents 
+MSVC v140 - VS 2015 c++ build tools(v14.00)
+
+
+
 3.
 open Src\FM79979Engine\EmptyProject\EmptyProject.sln
 

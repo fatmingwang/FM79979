@@ -110,6 +110,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -190,7 +196,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <ClCompile>
-      <PreprocessorDefinitions>WASM;DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -204,7 +210,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalOptions>-s TOTAL_MEMORY=134217728 -s FULL_ES2=1  -s FETCH=1 -s USE_PTHREADS=1 -s PTHREAD_POOL_SIZE=1 --std=c++11 --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>--profiling -s PTHREAD_POOL_SIZE=1 -s USE_PTHREADS=1 -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>
@@ -218,7 +224,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
-      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>--bind %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -251,26 +257,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
-      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\GameplayUT\Physic\Bullet\Bullet.vcxproj">
-      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Math\MathParser\MathParser.vcxproj">
-      <Project>{5c1f4bc1-20c6-40d1-b0b8-bec8f333dc99}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
-      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
-      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
