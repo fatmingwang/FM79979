@@ -602,6 +602,7 @@ namespace FATMING_CORE
 		{
 			if (!OpenSocket(m_IPData.m_iPort, m_IPData.m_strServerIP.c_str()))
 			{
+				FMLog::LogWithFlag("open socket failed", CORE_LOG_FLAG);
 				goto FAILED;
 			}
 		}

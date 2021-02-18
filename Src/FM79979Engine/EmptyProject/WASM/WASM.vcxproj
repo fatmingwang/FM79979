@@ -105,10 +105,10 @@
     <IntDir>..\..\..\..\Intermedia\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
-    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)</IntDir>
+    <IntDir>..\..\..\..\Intermedia\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -223,11 +223,16 @@
       <AdditionalOptions>--bind %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>--profiling -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s PTHREAD_POOL_SIZE=1 -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
+      <JsLibrary>%(JsLibrary)</JsLibrary>
+      <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
+    <ClCompile Include="..\EngineTest\JSBinding.cpp" />
+    <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -241,22 +246,21 @@
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Bullet\Bullet.vcxproj">
-      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
       <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\GameplayUT\Physic\Bullet\Bullet.vcxproj">
+      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Math\MathParser\MathParser.vcxproj">
       <Project>{5c1f4bc1-20c6-40d1-b0b8-bec8f333dc99}</Project>

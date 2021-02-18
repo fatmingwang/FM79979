@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="websocketpp-mtk_repack_init">
+  <PropertyGroup Label="Default initializers for properties">
+    <Linkage-websocketpp-mtk_repack Condition="'$(Linkage-websocketpp-mtk_repack)' == ''">dynamic</Linkage-websocketpp-mtk_repack>
+    <CallingConvention-websocketpp-mtk_repack Condition="'$(CallingConvention-websocketpp-mtk_repack)' == ''">cdecl</CallingConvention-websocketpp-mtk_repack>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)../..//build/native/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)\default-propertiesui.xml" />
+  </ItemGroup>
+  <UsingTask TaskName="websocketpp-mtk_repack_Contains" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
+    <ParameterGroup>
+      <Text Output="false" ParameterType="System.String" />
+      <Library Output="false" Required="true" ParameterType="System.String" />
+      <Value Output="false" Required="true" ParameterType="System.String" />
+      <Result Output="true" ParameterType="System.String" />
+    </ParameterGroup>
+    <Task>
+      <Code>Result = ((Text ?? "").Split(';').Contains(Library) ) ? Value : String.Empty;</Code>
+    </Task>
+  </UsingTask>
+  <Target Name="websocketpp-mtk_repack_init">
+    <websocketpp-mtk_repack_Contains Text="Linkage-dynamic" Library="websocketpp-mtk_repack" Value="dynamic" Condition="'$(Linkage-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="Linkage-static" Library="websocketpp-mtk_repack" Value="static" Condition="'$(Linkage-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="Linkage-ltcg" Library="websocketpp-mtk_repack" Value="ltcg" Condition="'$(Linkage-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="Linkage-sxs" Library="websocketpp-mtk_repack" Value="sxs" Condition="'$(Linkage-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="Linkage-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="CallingConvention-cdecl" Library="websocketpp-mtk_repack" Value="cdecl" Condition="'$(CallingConvention-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="CallingConvention-stdcall" Library="websocketpp-mtk_repack" Value="stdcall" Condition="'$(CallingConvention-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="CallingConvention-fastcall" Library="websocketpp-mtk_repack" Value="fastcall" Condition="'$(CallingConvention-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="CallingConvention-thiscall" Library="websocketpp-mtk_repack" Value="thiscall" Condition="'$(CallingConvention-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+    <websocketpp-mtk_repack_Contains Text="CallingConvention-clrcall" Library="websocketpp-mtk_repack" Value="clrcall" Condition="'$(CallingConvention-websocketpp-mtk_repack)'==''">
+      <Output TaskParameter="Result" PropertyName="CallingConvention-websocketpp-mtk_repack" />
+    </websocketpp-mtk_repack_Contains>
+  </Target>
+</Project>

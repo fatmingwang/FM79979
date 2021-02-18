@@ -19,6 +19,12 @@
     <Filter Include="Game\JPEG">
       <UniqueIdentifier>{e8c52de0-802b-4b29-a9b0-6de3cd1ac80d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Network">
+      <UniqueIdentifier>{bb88d0be-2bc3-4054-9b57-0c2c3cb1221e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WebsocketServer">
+      <UniqueIdentifier>{7b74a366-2351-466c-bf35-a41fb4ab1c9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -41,6 +47,18 @@
     </ClCompile>
     <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp">
       <Filter>Game\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\JSBinding.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\NetworkSample.cpp">
+      <Filter>Game\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\WebsocketServer.cpp">
+      <Filter>WebsocketServer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +86,12 @@
     <ClInclude Include="..\EngineTest\JPEGCodingTest.h">
       <Filter>Game\JPEG</Filter>
     </ClInclude>
+    <ClInclude Include="..\EngineTest\NetworkSample.h">
+      <Filter>Game\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\WebsocketServer.h">
+      <Filter>WebsocketServer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">
@@ -81,5 +105,8 @@
     <ResourceCompile Include="test.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

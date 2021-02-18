@@ -204,8 +204,12 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp" />
+    <ClCompile Include="..\EngineTest\JSBinding.cpp" />
+    <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
+    <ClCompile Include="..\EngineTest\WebsocketServer.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -219,7 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\JPEGCodingTest.h" />
+    <ClInclude Include="..\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
+    <ClInclude Include="..\EngineTest\WebsocketServer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -250,7 +256,19 @@
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets" Condition="Exists('..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets')" />
+    <Import Project="..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets" Condition="Exists('..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\websocketpp-mtk.repack.0.7.0-mtk19\build\native\websocketpp-mtk.repack.targets'))" />
+    <Error Condition="!Exists('..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\asio-cppp-latest.1.12.2\build\native\asio-cppp-latest.targets'))" />
+  </Target>
 </Project>

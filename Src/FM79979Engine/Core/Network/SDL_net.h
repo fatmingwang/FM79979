@@ -88,10 +88,13 @@ void  SDLNet_Quit(void);
 /***********************************************************************/
 /* IPv4 hostname resolution API                                        */
 /***********************************************************************/
-#define Uint32 unsigned int
-#define Uint16 unsigned short
-#define Uint8  signed char
-
+//#ifndef Uint32
+//#define Uint32 unsigned int
+//#endif
+//#define Uint16 unsigned short
+//#ifndef Uint8
+//#define Uint8  signed char
+//#endif
 typedef struct {
     Uint32 host;            /* 32-bit IPv4 host address */
     Uint16 port;            /* 16-bit protocol port */
