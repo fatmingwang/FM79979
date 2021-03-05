@@ -24,7 +24,7 @@ namespace FATMING_CORE
 			UT::sTimeCounter	m_ReConnectTime;
 			bool				m_bServeFlag;
 			cGameNetwork*		m_pGameNetwork;
-			sReconnectFunction(cGameNetwork*e_pGameNetwork,bool e_bServeFlag,float e_fReconnectTime = 10.f)
+			sReconnectFunction(cGameNetwork*e_pGameNetwork,bool e_bServeFlag,float e_fReconnectTime = 5.f)
 			{
 				m_pGameNetwork = e_pGameNetwork;
 				m_ReConnectTime.SetTargetTime(e_fReconnectTime);

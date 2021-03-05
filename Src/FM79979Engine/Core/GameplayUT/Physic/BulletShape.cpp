@@ -1,5 +1,6 @@
 //#if defined USING_BULLET_PHYSICAL_ENGINE || defined(WIN32)//or iPhone??
 #include "BulletShape.h"
+#ifndef NO_BULLET_
 #include "2DImageCollisionData.h"
 #define USE_GJK
 
@@ -488,3 +489,5 @@ namespace FATMING_CORE
 	}
 //end namespace
 }
+//end NO_BULLET_
+#endif

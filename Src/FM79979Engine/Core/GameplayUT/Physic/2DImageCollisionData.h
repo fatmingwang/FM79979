@@ -1,5 +1,6 @@
 #pragma once
 
+#ifndef NO_BULLET_
 #include "BulletShape.h"
 #include "../../Common/NamedTypedObject.h"
 #include "../../Common/Template/TemplateClass.h"
@@ -118,3 +119,5 @@ namespace FATMING_CORE
 
 //end namespace FATMING_CORE
 }
+//end #ifndef NO_BULLET_
+#endif

@@ -66,6 +66,10 @@
   <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <RemotePostBuildEventUseInBuild>false</RemotePostBuildEventUseInBuild>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Link>
       <LibraryDependencies>wiringPi</LibraryDependencies>
@@ -91,11 +95,13 @@
       <LibraryDependencies>wiringPi</LibraryDependencies>
     </Link>
     <RemotePostBuildEvent>
-      <Command>gpio export 17 out</Command>
-      <Message>export pin 17 using the gpio utility so that we can execute the blink program without sudo</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </RemotePostBuildEvent>
     <ClCompile>
-      <PreprocessorDefinitions>LINUX;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;LINUX;NDEBUG;NO_BULLET_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -535,7 +541,7 @@
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
-      <PreprocessorDefinitions>LINUX;DEBUG;GL_GLEXT_PROTOTYPES</PreprocessorDefinitions>
+      <PreprocessorDefinitions>LINUX;DEBUG;GL_GLEXT_PROTOTYPES;NO_BULLET_</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/usr/include -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

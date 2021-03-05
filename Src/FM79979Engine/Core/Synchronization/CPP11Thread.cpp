@@ -107,7 +107,7 @@ namespace FATMING_CORE
 				std::string l_strInfo = "Error:cCPP11Thread::CloseThreadAndWaitUntilFinish wait over 3 seconds force break:";
 				if(m_pThreadOwner)
 					l_strInfo += this->m_pThreadOwner->GetCharName();
-				FMLog::Log(l_strInfo.c_str(),true);
+				FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG);
 				break;
 			}
 		}
@@ -130,7 +130,7 @@ namespace FATMING_CORE
 			l_str += "\n";
 			l_str += e_strExtraInfo;
 		}
-		FMLog::Log(l_str.c_str(), true);
+		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 	}
 
 	void cCPP11Thread::DumpThreadMapInfo()
@@ -205,7 +205,7 @@ namespace FATMING_CORE
 					std::string l_strInfo = this->m_strInfo;
 					l_strInfo += " occur exception:";
 					l_strInfo += e.what();
-					FMLog::Log(l_strInfo.c_str(),true);
+					FMLog::LogWithFlag(l_strInfo.c_str(), CORE_LOG_FLAG);
 				}
 #endif
 			}

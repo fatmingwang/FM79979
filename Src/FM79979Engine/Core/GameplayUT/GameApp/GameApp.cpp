@@ -51,7 +51,9 @@ namespace	FATMING_CORE
 	cGlyphFontRender*									cGameApp::m_spGlyphFontRender = nullptr;
 	cNamedTypedObjectVector<cGlyphFontRender>*			cGameApp::m_spGlyphFontRenderVector = nullptr;
 	cNamedTypedObjectVector<cExternalFunction>*			cGameApp::m_spExternalFunctionVector = nullptr;
+#ifndef NO_BULLET_
 	cNamedTypedObjectVector<c2DImageCollisionData>*		cGameApp::m_sp2DImageCollisionDataVector = nullptr;
+#endif
 	cNamedTypedObjectVector<NamedTypedObject>*			cGameApp::m_spColladaParserVector = nullptr;
 	cAnimationParser*									cGameApp::m_spAnimationParser = nullptr;
 	cImageParser*										cGameApp::m_spImageParser = nullptr;
@@ -140,7 +142,9 @@ namespace	FATMING_CORE
 			m_spPathFileList = new cNamedTypedObjectVector<cCurveManager>;
 			m_spGlyphFontRenderVector = new cNamedTypedObjectVector<cGlyphFontRender>();
 			m_spExternalFunctionVector = new cNamedTypedObjectVector<cExternalFunction>();
+#ifndef NO_BULLET_
 			m_sp2DImageCollisionDataVector = new cNamedTypedObjectVector<c2DImageCollisionData>;
+#endif
 			m_spGameResourceManager = new cGameResourceManager();
 			//please new in ur app
 			//cNamedTypedObjectVector<cColladaParser>*l_pColladaParserVector = new cNamedTypedObjectVector<cColladaParser>();
@@ -228,7 +232,9 @@ namespace	FATMING_CORE
 	{
 		FMLog::WriteLog("Destroy start");
 		SystemErrorCheck();
+#ifndef NO_BULLET_
 		SAFE_DELETE(m_sp2DImageCollisionDataVector);
+#endif
 		SAFE_DELETE(m_spColladaParserVector);
 		SAFE_DELETE(m_spMultiTouchPoints);
 		SAFE_DELETE(m_spSoundParser);

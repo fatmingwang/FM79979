@@ -75,7 +75,9 @@ namespace	FATMING_CORE
 		static	cNamedTypedObjectVector<class cGlyphFontRender>*	m_spGlyphFontRenderVector;
 		static	cNamedTypedObjectVector<class cExternalFunction>*	m_spExternalFunctionVector;
 		static	cNamedTypedObjectVector<class cCurveManager>*		m_spPathFileList;
+#ifndef NO_BULLET_
 		static	cNamedTypedObjectVector<class c2DImageCollisionData>*m_sp2DImageCollisionDataVector;
+#endif
 		static	cNamedTypedObjectVector<NamedTypedObject>*			m_spColladaParserVector;
 
 		static	cGameResourceManager*								m_spGameResourceManager;

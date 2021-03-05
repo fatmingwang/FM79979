@@ -199,6 +199,7 @@
       <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--profiling  -s USE_PTHREADS -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -DCMAKE_VERBOSE_MAKEFILE=ON %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -210,7 +211,7 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalOptions>--profiling -s PTHREAD_POOL_SIZE=1 -s USE_PTHREADS=1 -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>--profiling  -s USE_PTHREADS -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -DCMAKE_VERBOSE_MAKEFILE=ON %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>

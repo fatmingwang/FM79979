@@ -1,4 +1,5 @@
 #pragma once
+#ifndef NO_BULLET_
 //#if defined USING_BULLET_PHYSICAL_ENGINE || defined( WIN32 )//or iPhone??
 //==============
 //if u wanna intergrated bullet engine with dot net u have to use below ddeclare
@@ -107,3 +108,5 @@ namespace FATMING_CORE
 }
 //end #if defined USING_BULLET_PHYSICAL_ENGINE || defined( WIN32 )//or iPhone??
 //#endif
+//end #ifndef NO_BULLET_
+#endif

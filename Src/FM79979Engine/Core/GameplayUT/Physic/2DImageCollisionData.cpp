@@ -1,4 +1,5 @@
 #include "2DImageCollisionData.h"
+#ifndef NO_BULLET_
 #include "../OpenGL/GLSL/Shader.h"
 
 #include "Bullet/LinearMath/btQuaternion.h"
@@ -670,3 +671,5 @@ namespace FATMING_CORE
 
 //end namespace FATMING_CORE
 }
+//end #ifndef NO_BULLET_
+#endif

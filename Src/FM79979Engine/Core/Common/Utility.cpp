@@ -878,7 +878,7 @@ namespace UT
 		}
 #elif defined(UWP)
 		std::string l_strUWPFullpath;
-		std::string* l_PathArray[] = { cCommonApp::m_spUWPAssetsDirectory ,cCommonApp::m_spUWPAppDataLocalDirectory };
+		std::string* l_PathArray[] = { cCommonApp::m_spUWPAppDataLocalDirectory,cCommonApp::m_spUWPAssetsDirectory };
 		for (int i = 0; i < 2; ++i)
 		{
 			if (!l_PathArray[i])

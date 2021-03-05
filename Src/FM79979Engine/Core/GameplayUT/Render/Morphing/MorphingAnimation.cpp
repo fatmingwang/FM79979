@@ -93,7 +93,7 @@ namespace FATMING_CORE
 		m_pTimeAndPosAnimationVector = e_pFMMorphingAnimation->m_pTimeAndPosAnimationVector;
 		m_pMeshBuffer = e_pFMMorphingAnimation->m_pMeshBuffer;
 		m_RenderVertex = e_pFMMorphingAnimation->m_RenderVertex;
-		m_bInvertOrder = m_bInvertOrder;
+		m_bInvertOrder = e_pFMMorphingAnimation->m_bInvertOrder;
 	}
 
 	cFMMorphingAnimation::~cFMMorphingAnimation()

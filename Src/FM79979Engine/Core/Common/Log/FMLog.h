@@ -25,6 +25,7 @@ namespace FMLog
 {
 	//if windows messagebox will pop up or just a outputdebugstring,0 for do g_spstrLogErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,
 	//move code from GameApp
+	static	bool			g_sbLogInfoWriteIntoFile = false;
 	static	int				g_siLogShowErrorType = 1;
 	static	std::wstring*	g_spstrLogErrorMsgString = nullptr;
 	//0 means won't keep any log data.
@@ -40,10 +41,10 @@ namespace FMLog
 	void					Log(const char*e_str   , bool e_bWriteLog);
 	void					Log(const wchar_t*e_str, bool e_bWriteLog);
 	//
-	void					LogWithFlag(const wchar_t*e_str,int e_iLogFlagLevel, bool e_bWriteLog = false);
-	void					LogWithFlag(std::wstring e_str ,int e_iLogFlagLevel, bool e_bWriteLog = false);
-	void					LogWithFlag(std::string e_str  ,int e_iLogFlagLevel, bool e_bWriteLog = false);
-	void					LogWithFlag(const char*e_str   ,int e_iLogFlagLevel, bool e_bWriteLog = false);
+	void					LogWithFlag(const wchar_t*e_str,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);
+	void					LogWithFlag(std::wstring e_str ,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);
+	void					LogWithFlag(std::string e_str  ,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);
+	void					LogWithFlag(const char*e_str   ,int e_iLogFlagLevel, bool e_bWriteLog = g_sbLogInfoWriteIntoFile);
 	//Init called
 	void					WriteLog(const wchar_t*e_strMessage);
 	void					WriteLog(std::wstring e_strMessage);

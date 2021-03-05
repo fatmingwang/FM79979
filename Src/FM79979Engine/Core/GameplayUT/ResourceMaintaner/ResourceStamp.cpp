@@ -59,7 +59,9 @@ namespace FATMING_CORE
 		e_pStampVectorData->m_GlyphFontRenderVector.CopyListPointer((cNamedTypedObjectVector<NamedTypedObject>*)cGameApp::m_spGlyphFontRenderVector);
 		if( cGameApp::m_spColladaParserVector )
 			e_pStampVectorData->m_ColladaParserVector.CopyListPointer((cNamedTypedObjectVector<NamedTypedObject>*)cGameApp::m_spColladaParserVector);
+#ifndef NO_BULLET_
 		e_pStampVectorData->m_2DImageCollisionDataVector.CopyListPointer((cNamedTypedObjectVector<NamedTypedObject>*)cGameApp::m_sp2DImageCollisionDataVector);
+#endif
 	}
 
 	void	cResourceStamp::StampResource1()
@@ -97,8 +99,10 @@ namespace FATMING_CORE
 			cGameApp::m_spGlyphFontRenderVector->RemoveObject(m_Stamp3Data.m_GlyphFontRenderVector[i]);
 		for(int i=0;i<m_Stamp3Data.m_ColladaParserVector.Count();++i)
 			cGameApp::m_spColladaParserVector->RemoveObject(m_Stamp3Data.m_ColladaParserVector[i]);
+#ifndef NO_BULLET_
 		for(int i=0;i<m_Stamp3Data.m_2DImageCollisionDataVector.Count();++i)
 			cGameApp::m_sp2DImageCollisionDataVector->RemoveObject(m_Stamp3Data.m_2DImageCollisionDataVector[i]);
+#endif
 		Clear();
 	}
 	void	cResourceStamp::Clear()
