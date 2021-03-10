@@ -163,7 +163,11 @@ namespace FATMING_CORE
 	{
 #ifdef WIN32
 		if (!this->m_Handle)
+		{
+#ifndef UWP
 			return;
+#endif
+		}
 #endif
 		g_pCurrentShader = nullptr;
 		glEnable(GL_BLEND);
