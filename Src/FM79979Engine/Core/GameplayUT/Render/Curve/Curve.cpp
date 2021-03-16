@@ -732,6 +732,31 @@ namespace FATMING_CORE
 		cCurve::AddPoint(e_vPos);
 		DoLOD();
 	}
+	bool	cCurveWithTime::Expand(cCurveWithTime& e_CurveWithTime, float e_fLastPointConnectTime)
+	{
+		auto l_uiSize = e_CurveWithTime.m_OriginalPointList.size();
+		if (l_uiSize != e_CurveWithTime.m_OriginalTimeList.size())
+		{
+			return false;
+		}
+		float l_fLastTime = 0.f;
+		size_t l_uiOriginalSize = m_OriginalTimeList.size();
+		if (l_uiOriginalSize > 1)
+		{
+			l_fLastTime = m_OriginalTimeList[l_uiOriginalSize - 1] - m_OriginalTimeList[l_uiOriginalSize - 2] ;
+		}
+		e_fLastPointConnectTime += l_fLastTime;
+		for (size_t i=0;i< l_uiSize;++i)
+		{
+			this->AddPoint(e_CurveWithTime.m_OriginalPointList[i], e_fLastPointConnectTime);
+			if (i + 1 < l_uiSize)
+			{
+				e_fLastPointConnectTime += (e_CurveWithTime.m_OriginalTimeList[i + 1] - e_CurveWithTime.m_OriginalTimeList[i]);
+			}
+		}
+		this->DoLOD();
+		return true;
+	}
 	//
 	void	cCurveWithTime::DelPoint(int e_iIndex)
 	{

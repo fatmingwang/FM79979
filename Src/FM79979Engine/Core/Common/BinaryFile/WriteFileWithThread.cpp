@@ -150,6 +150,7 @@ namespace FATMING_CORE
 			WriteFile();
 			m_TimeToWriteFile.Start();
 		}
+		Sleep(1);
 	}
 
 	cSampleForWriteBinaryFile::cSampleForWriteBinaryFile()

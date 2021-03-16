@@ -175,6 +175,7 @@ namespace FATMING_CORE
 		//
 		//add point by speficif time and position
 		virtual	void	AddPoint(Vector3 e_vPos,float e_fTime);
+		virtual	bool	Expand(cCurveWithTime&e_CurveWithTime,float e_fLastPointConnectTime);
 		virtual	void	DelPoint(int e_iIndex)override;
 		void			InsertPoint(Vector3 e_vPos,float e_fTime,int e_iIndex);
 		//erase old point replace new one

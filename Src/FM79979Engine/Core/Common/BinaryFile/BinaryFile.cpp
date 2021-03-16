@@ -407,8 +407,9 @@ namespace FATMING_CORE
 	#endif
 	}
 
-	void	cBinaryFile::CreateTimestamp()
+	void	cBinaryFile::CreateTimestamp(std::string* e_pOut)
 	{
+			std::string l_strTimeStamp;
 	//#ifdef WIN32
 			char buffer[32];
 			time_t ltime; time(&ltime);
@@ -421,7 +422,27 @@ namespace FATMING_CORE
 #endif
 			int	l_iLength = (int)strlen(buffer);
 			NvFWrite( buffer, sizeof(char),l_iLength, m_pFile );
+			if (e_pOut)
+			{
+				*e_pOut = buffer;
+			}
 	//#endif //WIN32
+	}
+
+	std::string cBinaryFile::GetTimestamp()
+	{
+		std::string l_strTimeStamp;
+		//#ifdef WIN32
+		char buffer[32];
+		time_t ltime; time(&ltime);
+#ifdef WIN32
+		struct tm now; _localtime64_s(&now, &ltime);
+		strftime(buffer, 32, "[%d-%H:%M:%S] ", &now);
+#else
+		auto now = localtime(&ltime);
+		strftime(buffer, 32, "[%d-%H:%M:%S] ", now);
+#endif
+		return std::string(buffer);
 	}
 
 	bool	cBinaryFile::SetFilePos(int e_iPos)

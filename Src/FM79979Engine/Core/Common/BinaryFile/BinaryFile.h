@@ -101,7 +101,8 @@ namespace FATMING_CORE
 		//below for log file
 		void 				WriteToFileImmediatelyWithLine(const char* val,bool e_bTimeStamp = true);
 		void 				WriteToFileImmediatelyWithLine(const wchar_t* val,bool e_bTimeStamp = true);
-		void				CreateTimestamp();
+		void				CreateTimestamp(std::string*e_pOut = nullptr);
+		static std::string	GetTimestamp();
 		NvFile*				GetFile(){return m_pFile;}
 		//pos for byte
 		bool				SetFilePos(int e_iPos);
