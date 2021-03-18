@@ -3,7 +3,7 @@
 #include "CommonDefine.h"
 #include "Utility.h"
 #include "../Math/Vector4.h"
-#define	MAX_PERFORMANCE_TC_COUNT	11
+#define	MAX_PERFORMANCE_TC_COUNT	100
 
 namespace	FATMING_CORE
 {
