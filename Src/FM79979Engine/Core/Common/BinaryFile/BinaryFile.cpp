@@ -180,6 +180,10 @@ namespace FATMING_CORE
 
 	bool 	cBinaryFile::WriteToFile(const char*e_pData, size_t e_iLength, int e_iPos)
 	{
+		if (!m_pFile)
+		{
+			return false;
+		}
 		if (NvFSeek(this->m_pFile,e_iPos, SEEK_SET) == 0)
 		{
 			return WriteToFile(e_pData, e_iLength);
@@ -189,10 +193,16 @@ namespace FATMING_CORE
 
 	bool 	cBinaryFile::WriteToFile(const char*e_pData,size_t e_iLength )
 	{
+		if (!m_pFile)
+		{
+			return false;
+		}
 		assert(m_pFile&&"file not open yet!?");
 		auto l_iWriteSize = NvFWrite(e_pData, 1, e_iLength*sizeof(char), m_pFile);
-		if(l_iWriteSize == e_iLength)
+		if (l_iWriteSize == e_iLength)
+		{
 			return true;
+		}
 		return false;
 	}
 
@@ -250,9 +260,13 @@ namespace FATMING_CORE
 					if (e_strFileMode == nullptr)
 					{
 						if (e_bBinary)
+						{
 							m_pFile = _fdopen(m_iFileDescriptor, "wb+");//b for windows only
+						}
 						else
+						{
 							this->m_pFile = _fdopen(m_iFileDescriptor, "w");
+						}
 					}
 					else
 					{
@@ -270,14 +284,20 @@ namespace FATMING_CORE
 		}
 		else
 		{
-			if(e_strFileMode)
+			if (e_strFileMode)
+			{
 				this->m_pFile = MyFileOpen(e_str, e_strFileMode);
+			}
 			else
 			{
 				if (e_bBinary)
+				{
 					this->m_pFile = MyFileOpen(e_str, "wb+");
+				}
 				else
+				{
 					this->m_pFile = MyFileOpen(e_str, "w");
+				}
 			}
 		}
 #else
@@ -285,9 +305,13 @@ namespace FATMING_CORE
 		if (e_strFileMode == nullptr)
 		{
 			if (e_bBinary)
+			{
 				this->m_pFile = MyFileOpen(l_strFileName.c_str(), "wb+");
+			}
 			else
+			{
 				this->m_pFile = MyFileOpen(l_strFileName.c_str(), "w");
+			}
 		}
 		else
 		{
@@ -300,8 +324,10 @@ namespace FATMING_CORE
 		}
 #endif
 #endif
-		if(m_pFile)
+		if (m_pFile)
+		{
 			return true;
+		}
 		return false;
 	}
 

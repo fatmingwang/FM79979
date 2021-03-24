@@ -392,7 +392,7 @@ namespace FATMING_CORE
 
 	Vector4	cCueToStartCurveWithTime::GetCollideRectByIndex(int e_iIndex)
 	{
-		if (GetTransformedVerticesByIndex(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, 0))
+		if (GetTransformedVerticesByIndex(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, e_iIndex))
 		{
 			Vector4	l_vRect(g_fGlobalTempBufferForRenderVertices[6], g_fGlobalTempBufferForRenderVertices[7], g_fGlobalTempBufferForRenderVertices[12], g_fGlobalTempBufferForRenderVertices[13]);
 			return l_vRect;
