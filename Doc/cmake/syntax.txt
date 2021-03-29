@@ -1,3 +1,6 @@
+https://cmake.org/cmake/help/latest/manual/cmake-language.7.html
+
+
 ===============================================================
 # set the project name and version
 project(Tutorial VERSION 1.0)
@@ -9,6 +12,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 
 ===============================================================
+#https://cmake.org/cmake/help/latest/command/configure_file.html
+#Copy a file to another location and modify its contents.
 # configure a header file to pass some of the CMake settings
 # to the source code
 # put TutorialConfig.h.in file at same folder with CMakeLists.txt,cmake will generate a TutorialConfig.h file
@@ -31,6 +36,12 @@ here is the content
 add_executable(Tutorial tutorial.cxx)
 
 ===============================================================
+https://stackoverflow.com/questions/31969547/what-is-the-difference-between-include-directories-and-target-include-directorie
+include_directories(x/y) 
+	affects directory scope. All targets in this CMakeList, as well as those in all subdirectories added after the point of its call, will 	have the path x/y added to their include path.(all CMakeLists file will be effected)
+target_include_directories(t x/y) 
+	has target scope—it adds x/y to the include path for target.(only target CMakeLists file will be effected)
+
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
 # if excutable file(cmake-3.20.0-rc1\Help\guide\tutorial\Step2\tutorial.cxx) include TutorialConfig.h,
