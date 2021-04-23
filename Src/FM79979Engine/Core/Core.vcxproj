@@ -120,11 +120,24 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <EnableMicrosoftExtensions>
       </EnableMicrosoftExtensions>
-      <AdditionalOptions>--profiling  -s USE_PTHREADS  -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -DCMAKE_VERBOSE_MAKEFILE=ON %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib />
     <Lib />
     <Lib />
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>-r</Command>
+    </CustomBuildStep>
+    <Lib>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>

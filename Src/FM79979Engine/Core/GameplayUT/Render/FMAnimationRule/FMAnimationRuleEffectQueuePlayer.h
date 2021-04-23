@@ -26,7 +26,7 @@ namespace FATMING_CORE
 		virtual	void	RenderByGlobalTime(float e_fTime)override;
 		virtual	void	InvertOrder()override;
 		//
-		virtual	void	SetData(void*e_pData)override;
+		virtual	void	SetData(void*e_pData);
 	};
 //end namespace
 }

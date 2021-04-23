@@ -199,7 +199,7 @@
       <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--profiling  -s USE_PTHREADS -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -DCMAKE_VERBOSE_MAKEFILE=ON %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-pthread %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -211,7 +211,8 @@
     </PostBuildEvent>
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
-      <AdditionalOptions>--profiling  -s USE_PTHREADS -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -DCMAKE_VERBOSE_MAKEFILE=ON %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>-s WASM=1 -s PTHREAD_POOL_SIZE=2 -s FETCH=1 -s FULL_ES2=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s WASM=1 --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>
@@ -227,10 +228,9 @@
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>--bind %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>--profiling -s TOTAL_MEMORY=134217728 -s FETCH=1 -s FULL_ES2=1       -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s PTHREAD_POOL_SIZE=1 -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s USE_PTHREADS=1 --profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s FULL_ES2=1  -s SAFE_HEAP=1 -g  -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
@@ -258,6 +258,17 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.vcxproj">
+      <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
+      <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
+      <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

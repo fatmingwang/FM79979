@@ -65,7 +65,7 @@ cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //https://stackoverflow.com/questions/51343425/not-able-to-bind-function-in-emscripten
 //https://segmentfault.com/a/1190000011229465
 #include <emscripten/bind.h>
-using namespace emscripten;
+//using namespace emscripten;
 //class cWASMBindingTest*g_pWASMBindingTest = nullptr;
 //class cWASMBindingTest
 //{
@@ -219,6 +219,10 @@ void process_events(void)
 
 void Loop()
 {
+	if (!g_pGameApp)
+	{
+		return;
+	}
 	g_pGameApp->Run();
 	if (g_pPreLoadFromInternet)
 	{
@@ -256,7 +260,6 @@ void finish(int result) {
 
 int main()
 {
-
 	//struct sockaddr_in addr;
 	//int res;
 	//sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -299,10 +302,6 @@ int main()
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 #define	CANVANS_WIDTH	1024
 #define	CANVANS_HEIGHT	768
-	cGameApp::cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -343,9 +342,13 @@ int main()
 		//	printf("emscripten_websocket_is_supported failed\n");
 		//}
 		cGameApp::m_sbDebugFunctionWorking = true;
+		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;

@@ -100,6 +100,9 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
     </ClCompile>
+    <Lib>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>

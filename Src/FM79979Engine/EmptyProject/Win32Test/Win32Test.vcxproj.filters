@@ -25,6 +25,9 @@
     <Filter Include="WebsocketServer">
       <UniqueIdentifier>{7b74a366-2351-466c-bf35-a41fb4ab1c9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ComputerShader">
+      <UniqueIdentifier>{9ac9a495-e817-4296-b42c-96cbcfc5e050}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="..\EngineTest\WebsocketServer.cpp">
       <Filter>WebsocketServer</Filter>
     </ClCompile>
+    <ClCompile Include="ComputerShader.cpp">
+      <Filter>Game\ComputerShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -91,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\WebsocketServer.h">
       <Filter>WebsocketServer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\ComputerShader.h">
+      <Filter>Game\ComputerShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

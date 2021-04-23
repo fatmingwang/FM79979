@@ -108,16 +108,18 @@ void	SoundBGThread()
 
 
 cBaseShader*g_pMSAAShader = nullptr;
+extern void ComputerShaderInit();
 void	LoadSample()
 {
+	ComputerShaderInit();
 #ifdef WIN32
-	WebSocketInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)
 	{
 		printf("Error %d in WSAStartup, result will fail\n", error);
 	}
+	WebSocketInit();
 #endif
 	//TestGET();
 	//Test2();
@@ -198,10 +200,10 @@ void	LoadSample()
 	bool l_bMultiThreadTest = true;
 	if (l_bMultiThreadTest)
 	{
-		FMLog::Log("try to do thread detach", false);
-		std::thread l_Thread = std::thread([=] {SoundBGThread();});
-		l_Thread.detach();
-		FMLog::Log("thread detached", false);
+		//FMLog::Log("try to do thread detach", false);
+		//std::thread l_Thread = std::thread([=] {SoundBGThread();});
+		//l_Thread.detach();
+		//FMLog::Log("thread detached", false);
 	}
 
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(

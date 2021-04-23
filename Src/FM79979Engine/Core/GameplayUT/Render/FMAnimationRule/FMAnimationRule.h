@@ -129,7 +129,7 @@ namespace FATMING_CORE
 	    Vector3						GetRotationCenter(){return m_vRotationCenter;}
 		int							GetPlayCount();
 		//
-		virtual	void				SetData(void*e_pData);
+		virtual	void				SetData(void*e_pData, bool e_bForceReplace = true)override;
 
 	    //if u wanna set done is true,is it done(play done)?
 	    //virtual	bool				IsDone(){ return m_fCurrentProgress>=1?true:false; }instead IsAnimationDone
@@ -402,7 +402,7 @@ namespace FATMING_CORE
     }
 
 	template<class	TYPE>
-    void	cFatmingGroupBehaviorList<TYPE>::SetData(void*e_pData)
+    void	cFatmingGroupBehaviorList<TYPE>::SetData(void*e_pData, bool e_bForceReplace)
 	{
 	    int	l_iNum = this->Count();
 	    for( int i=0;i<l_iNum;++i )
