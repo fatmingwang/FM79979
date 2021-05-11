@@ -153,7 +153,7 @@ namespace FATMING_CORE
 			{
 				l_strAttributeName = l_strValue;
 				l_iIndex = glGetUniformLocation( m_uiRecentProgramHandle,UT::WcharToChar(l_strValue).c_str());
-				MyGlErrorTest("cUniformManager::ProcessAttributeData  Name");
+				CHECK_GL_ERROR("cUniformManager::ProcessAttributeData  Name");
 			}
 		PARSE_NAME_VALUE_END
 		assert(l_iIndex!=-1);

@@ -3,6 +3,7 @@
 #include "../Glh.h"
 #include "../../../Common/NamedTypedObject.h"
 #include "../../../Common/Template/TemplateClass.h"
+#include <functional>
 //Flexible Vertex Format Constants, or FVF codes,
 //are used to describe the contents of vertices interleaved in a single data
 //stream that will be processed by the fixed-function pipeline.
@@ -73,6 +74,20 @@ namespace FATMING_CORE
 	extern wchar_t*	SKINNING_MESH_SHADER;
 	extern wchar_t*	DRAW_POINTS_SHADER;
 
+	typedef	std::function<void(class cBaseShader*)>	f_BindGLDataFunction;
+	//https://www.khronos.org/opengl/wiki/Built-in_Variable_(GLSL)
+	//built in variables.
+	//https://github.com/mattdesl/lwjgl-basics/wiki/GLSL-Versions
+	//check GLSL version to call different unfirom data assign function.
+	//OpenGL ES Version	GLSL ES Version
+	//2.0	100
+	//3.0	300
+	enum eGLSLVersion
+	{
+		eGLSL_V100 = 0,
+		eGLSL_V300,
+		eGLSL_MAX,
+	};
 	class	cBaseShader:public NamedTypedObject
 	{
 		public:
@@ -87,6 +102,7 @@ namespace FATMING_CORE
 		bool	CreateFS(const char*e_strPS);
 		bool	CreateProgram(const char*e_strVS,const char*e_strPS,bool e_bTexture);
 		bool	m_bTexture;
+		eGLSLVersion	m_eGLSLVersion = eGLSL_V100;
 	public:
 		GLuint	m_uiMatrixVPLoacation;
 		GLuint	m_uiMatrixWLoacation;
@@ -107,11 +123,13 @@ namespace FATMING_CORE
 		virtual	NamedTypedObject*	Clone(){ return 0; }
 		virtual ~cBaseShader();
 		virtual	void				Use(bool e_bUseLastWVPMatrix = true);
+		void						Unuse();
 		//do something if shader need to do in each frame update.
 		virtual	void				Update(float e_fElpaseTime){ m_bDataUpdated = false; }
 		void						Disable();
 		GLuint						GetUniFormLocationByName(const char*e_strName);
 		virtual	void				DebugRender();
+		eGLSLVersion				GetGLSLVersion() { return m_eGLSLVersion; }
 	};
 
 	//e_pbClientState to setup opengl es client state
@@ -122,7 +140,7 @@ namespace FATMING_CORE
 	cBaseShader*	GetCurrentShader();
 	//
 	//
-	void	ShaderUpdate(float e_fElpaseTime);
+	//void	ShaderUpdate(float e_fElpaseTime);
 	//
 	void	DeleteAllShader();
 	bool	DeleteShader(wchar_t*e_strName = DEFAULT_SHADER);
@@ -138,8 +156,6 @@ namespace FATMING_CORE
 	float*	GetCurrentViewProjectionMatrix();
 	//use DRAW_POINTS_SHADER
 	void	SetShaderPointSize(float e_fSize);
-	//void	SetupPojectionMatrix(float*e_pfPMatrix);
-	//void	SetupViewMatrix(float*e_pfVMatrix);
 	void	SetupShaderWorldMatrix(float*e_pfWMatrix);
 	//ensure current program is not support texture
 	void	SetupShaderColor(Vector4 e_vcolor);

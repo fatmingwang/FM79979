@@ -47,7 +47,7 @@ void	ASSIGN_2D_QUAD_UV(float*UV)
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_QUAD_UV");
+	CHECK_GL_ERROR("ASSIGN_2D_QUAD_UV");
 }
 
 void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV)
@@ -58,73 +58,78 @@ void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV)
 //#else
 //	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
 //#endif
-	MyGlErrorTest("ASSIGN_2D_QUAD_MIRROR_UV");
+	CHECK_GL_ERROR("ASSIGN_2D_QUAD_MIRROR_UV");
 }
 #ifdef DEBUG
 //#ifdef OPENGLES_2_X
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_POS], Stride, GL_FLOAT, 0, 0, pData);
-	MyGlErrorTest("myGlVertexPointer");
+	CHECK_GL_ERROR("myGlVertexPointer");
 }
 void	myGlUVPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_TEX0], Stride, GL_FLOAT, 0, 0, pData);
-	MyGlErrorTest("myGlUVPointer");
+	CHECK_GL_ERROR("myGlUVPointer");
 }
 void	myGlColorPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_DIFFUSE], Stride, GL_FLOAT, 0, 0, pData);
-	MyGlErrorTest("myGlColorPointer");
+	CHECK_GL_ERROR("myGlColorPointer");
 }
 void	myGlNormalPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_NORMAL], Stride, GL_FLOAT, 0, 0, pData);
-	MyGlErrorTest("myGlNormalPointer");
+	CHECK_GL_ERROR("myGlNormalPointer");
 }
 
 void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* pointer)
 {
 	glVertexAttribPointer(index, size, type, normalized,stride,pointer);
-	MyGlErrorTest("myVertexAttribPointer");
+	CHECK_GL_ERROR("myVertexAttribPointer");
 }
 #endif
 //#else
 //void	myGlVertexPointer(int Stride, const GLvoid*pData)
 //{
 //	glVertexPointer(Stride, GL_FLOAT, 0, pData);
-//	MyGlErrorTest("myGlVertexPointer");
+//	CHECK_GL_ERROR("myGlVertexPointer");
 //}
 //void	myGlUVPointer(int Stride, const GLvoid*pData)
 //{
 //	glTexCoordPointer(Stride, GL_FLOAT, 0, pData);
-//	MyGlErrorTest("myGlUVPointer");
+//	CHECK_GL_ERROR("myGlUVPointer");
 //}
 //void	myGlColorPointer(int Stride, const GLvoid*pData)
 //{
 //	glColorPointer(Stride, GL_FLOAT, 0, pData);
-//	MyGlErrorTest("myGlColorPointer");
+//	CHECK_GL_ERROR("myGlColorPointer");
 //}
 //void	myGlNormalPointer(int Stride, const GLvoid*pData)
 //{
 //	glNormalPointer(GL_FLOAT, Stride, pData);
-//	MyGlErrorTest("myGlNormalPointer");
+//	CHECK_GL_ERROR("myGlNormalPointer");
 //}
 //#endif
+//glDrawArrays submits the vertices in linear order, as they are stored in the vertex arrays.
+//With glDrawElements you have to supply an index buffer.
+//Indices allow you to submit the vertices in any order, and to reuse vertices that are shared between triangles.
 #ifdef DEBUG
 void	MY_GLDRAW_ARRAYS(GLenum mode, GLint first, GLsizei count)
 {
 #ifdef DEBUG
-	MyGlErrorTest("MY_GLDRAW_ARRAYS");
+	CHECK_GL_ERROR("MY_GLDRAW_ARRAYS");
 #endif
 	glDrawArrays(mode, first, count);
 #ifdef DEBUG
-	MyGlErrorTest("MY_GLDRAW_ARRAYS after glDrawArrays");
+	CHECK_GL_ERROR("MY_GLDRAW_ARRAYS after glDrawArrays");
 #endif
 }
 
 void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices)
 {
+	//gles3 allow unsigned int
+	//http://docs.gl/gl3/glDrawElements
 	if (count > 65535 && type != GL_UNSIGNED_INT)
 	{
 		FMLog::Log(UT::ComposeMsgByFormat("MY_GLDRAW_ELEMENTS:draw indices count:%d,(try opengl es 3 with GL_UNSIGNED_INT!?)", count).c_str(), true);

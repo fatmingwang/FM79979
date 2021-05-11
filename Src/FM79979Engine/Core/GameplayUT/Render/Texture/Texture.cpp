@@ -446,7 +446,7 @@ namespace FATMING_CORE
 			return false;
 		}
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
-		MyGlErrorTest("cTexture::LoadImage glGenTextures");
+		CHECK_GL_ERROR("cTexture::LoadImage glGenTextures");
 		//		GLenum	l_GLenum = glGetError();
 		//		assert(l_GLenum);
 //#ifdef 	OPENGLES_2_X
@@ -540,7 +540,7 @@ namespace FATMING_CORE
 			l_iPixelWidth = l_iWidthPO2;
 			l_iPixelHeight = l_iHeightPO2;
 		}
-		MyGlErrorTest("cTexture::SetupTexture 1");
+		CHECK_GL_ERROR("cTexture::SetupTexture 1");
 		if( m_uiImageIndex == (GLuint)-1 )
 		{
 			glGenTextures(1, &m_uiImageIndex); /* Texture name generation */	
@@ -553,7 +553,7 @@ namespace FATMING_CORE
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
 			
 		}
-		MyGlErrorTest("cTexture::SetupTexture 2");
+		CHECK_GL_ERROR("cTexture::SetupTexture 2");
 	}
 
 	void	cTexture::SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bFetchPixels,const GLvoid *e_pPixels, bool e_bShowLog)
@@ -582,7 +582,7 @@ namespace FATMING_CORE
 
 	void	cTexture::UpdatePixels(const GLvoid *e_pPixels,bool e_bFetchPuxelData, bool e_bShowLog)
 	{
-		MyGlErrorTest("cTexture::UpdatePixels 1");
+		CHECK_GL_ERROR("cTexture::UpdatePixels 1");
 		SAFE_DELETE(m_pPixels);
 		glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);
 		int	l_iWidthPO2 = power_of_two(m_iWidth);
@@ -613,7 +613,7 @@ namespace FATMING_CORE
 				memcpy(m_pPixels,e_pPixels,sizeof(char)*l_iDataSize);
 			}		
 		}
-		MyGlErrorTest("cTexture::UpdatePixels 2");
+		CHECK_GL_ERROR("cTexture::UpdatePixels 2");
 	}
 
 	char*		cTexture::GeneratePowerOfTwoPixelData(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,const GLvoid *e_pPixels)

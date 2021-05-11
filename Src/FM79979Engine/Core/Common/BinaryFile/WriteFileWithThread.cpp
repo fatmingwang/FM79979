@@ -16,7 +16,7 @@ namespace FATMING_CORE
 
 	cWriteFileWithThreadManager::cWriteFileWithThreadManager()
 	{
-		cPP11MutexHolder l_cPP11MutexHolder(m_Mutex);
+		MUTEX_PLACE_HOLDER(m_Mutex,"cWriteFileWithThreadManager constructor");
 		f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cWriteFileWithThreadManager::WriteFileThread, this, std::placeholders::_1);
 		ThreadDetach(l_f_ThreadWorkingFunction,"cWriteFileWithThreadManager");
 	}

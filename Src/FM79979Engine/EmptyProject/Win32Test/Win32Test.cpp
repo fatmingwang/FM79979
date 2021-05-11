@@ -51,6 +51,21 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+	for (int i = 0; i < 100; ++i)
+	{
+		int gl_VertexID = i;
+		int particleID = gl_VertexID >> 2; // 4 vertices per particle
+		//vec4 particlePos = pos[particleID];
+
+		//Out.color = vec4(0.5, 0.2, 0.1, 1.0);
+
+		//map vertex ID to quad vertex
+		POINT quadPos = { (((gl_VertexID - 1) & 2), (gl_VertexID & 2)) };
+		quadPos.x = quadPos.x >> 1;
+		quadPos.y = quadPos.y >> 1;
+		int a = 0;
+
+	}
 	_CrtMemState s1;
 	_CrtMemCheckpoint(&s1);
 

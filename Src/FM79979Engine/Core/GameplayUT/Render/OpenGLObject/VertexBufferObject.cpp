@@ -181,6 +181,8 @@ namespace FATMING_CORE
 //#endif
 		if( m_uiIndicesCount != 0 )
 		{
+			//https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindBuffer.xhtml
+			//GL_ELEMENT_ARRAY_BUFFER = Vertex array indices
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiDrawIndicesBufferID);
 			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, m_uiIndicesCount, g_iDrawindiceType, 0);
 		}

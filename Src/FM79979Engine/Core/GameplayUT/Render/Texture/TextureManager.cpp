@@ -284,13 +284,13 @@ namespace FATMING_CORE
 	}
 	void OpenGLTextureGenerate(GLenum target, GLint level, GLint internalformat, GLsizei width, GLsizei height, GLint border, GLenum format, GLenum type, const GLvoid *pixels, const wchar_t*e_strFileName, bool e_bShowLog)
 	{
-		MyGlErrorTest("OpenGLTextureGenerate 1");
+		CHECK_GL_ERROR("OpenGLTextureGenerate 1");
 	#ifdef DEBUG
 		int	l_iBeforeAlivableVRamKB = CheckRestVRam();
 	#endif
 		glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 	#ifdef DEBUG
-		MyGlErrorTest("OpenGLTextureGenerate 2");
+		CHECK_GL_ERROR("OpenGLTextureGenerate 2");
 		if (e_bShowLog)
 		{
 			int	l_iAfterAlivableVRamKB = CheckRestVRam();
@@ -300,7 +300,7 @@ namespace FATMING_CORE
 			//g_iAteVideoMomory += l_iValue;
 			float	l_fMB = l_iAteVRamKB / 1024.f;
 			float	l_fTotalMB = g_iAteVideoMomory / 1024.f;
-			MyGlErrorTest("MyTextureGenerate");
+			CHECK_GL_ERROR("MyTextureGenerate");
 			std::wstring	l_str = UT::ComposeMsgByFormat(L"-------------GenerateTexture-------------\nTextureName:%ls:\t\t\t%.2fMB,\nVideoMomory Use:%.2fMB\nRestVRam:%.2f\n-------------\n", e_strFileName, l_fMB, l_fTotalMB, l_iAfterAlivableVRamKB / 1024.f);
 			FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		}

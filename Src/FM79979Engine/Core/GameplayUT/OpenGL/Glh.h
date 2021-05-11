@@ -30,6 +30,12 @@
 	#include <GLES2/gl2ext.h>
 	#include <GLES3/gl3.h>
 #endif
+//from Nvidia GameWorks_Samples NvPlatformGL.h
+#ifdef DEBUG
+	#define	CHECK_GL_ERROR(p) MyGlErrorTest(p,__FILE__, __LINE__)
+#else
+	#define	CHECK_GL_ERROR(p) MyGlErrorTest(p)
+#endif
 //lazy include
 #include "glesConvert.h"
 #include "../../AllMathInclude.h"
@@ -55,8 +61,8 @@
 	GLint 	gluProject(GLfloat objx, GLfloat  objy, GLfloat  objz, const GLfloat  model[16], const GLfloat  proj[16], const GLint viewport[4], GLfloat  * winx, GLfloat  * winy, GLfloat  * winz);
 	GLenum	IndexToBlendingIndex(int e_iIndex);
 	int		BlendingIndexToIndex(GLenum e_eBlendingIndex);
-#ifdef DEBUG
-	void					MyGlErrorTest(const char*e_strMessage);
+#ifdef DEBUG	
+	void					MyGlErrorTest(const char*e_strMessage, const char* e_strFileName = nullptr, int32_t e_iCodeLine = -1);
 	void					MyGLEnable(GLenum e_GLenum);
 	void					MyGLDisable(GLenum e_GLenum);
 	void					MyGLGetIntegerv(GLenum e_GLenum, GLint *params);

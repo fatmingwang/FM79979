@@ -5,27 +5,33 @@
 #include "../Common/NamedTypedObject.h"
 namespace FATMING_CORE
 {
-	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex) :m_Mutex(e_mutex)
+	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex, const char* e_strFileName, int32_t e_iCodeLine) :m_Mutex(e_mutex)
 	{
 		m_Mutex.lock();
+		m_TimeAndFPS.Update();
+		m_strDebugInfo = GET_FILENAME_AND_LINE(e_strFileName, e_iCodeLine);
 	}
-	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex, const wchar_t*e_strDebugInfo) :m_Mutex(e_mutex)
+	cPP11MutexHolderDebug::cPP11MutexHolderDebug(std::mutex& e_mutex, const char*e_strDebugInfo, const char* e_strFileName, int32_t e_iCodeLine) :m_Mutex(e_mutex)
 	{
 		m_Mutex.lock();
+		m_TimeAndFPS.Update();
 		if (e_strDebugInfo)
 		{
-			l_strDebugInfo = e_strDebugInfo;
-			//OutputDebugString(e_strDebugInfo);
-			//OutputDebugString(L" in\n");
+			m_strDebugInfo = e_strDebugInfo;
+			m_strDebugInfo += " ";
 		}
+		m_strDebugInfo += GET_FILENAME_AND_LINE(e_strFileName, e_iCodeLine);
 	}
 	cPP11MutexHolderDebug::~cPP11MutexHolderDebug()
 	{
 		m_Mutex.unlock();
-		if (l_strDebugInfo.length())
+		m_TimeAndFPS.Update();
+		if (m_TimeAndFPS.fElpaseTime > 0.1f)
 		{
-			//OutputDebugString(l_strDebugInfo.c_str());
-			//OutputDebugString(L" out\n");
+			auto l_strInfo = UT::ComposeMsgByFormat("cPP11MutexHolderDebug:elpase:%.3f", m_TimeAndFPS.fElpaseTime);
+			l_strInfo += " ";
+			l_strInfo += m_strDebugInfo;
+			FMLog::Log(l_strInfo.c_str(), false);
 		}
 	}	
 
@@ -67,7 +73,7 @@ namespace FATMING_CORE
 		if (m_spMapMutex)
 		{
 			{
-				MUTEX_PLACE_HOLDER(*m_spMapMutex)
+				MUTEX_PLACE_HOLDER(*m_spMapMutex, "cCPP11Thread::~cCPP11Thread");
 				if (m_spui64PIDAndNamedObject && m_spui64PIDAndNamedObject->size() == 0)
 				{
 					SAFE_DELETE(m_spui64PIDAndNamedObject);
@@ -137,7 +143,7 @@ namespace FATMING_CORE
 	{
 		if (m_spMapMutex)
 		{
-			MUTEX_PLACE_HOLDER(*m_spMapMutex);
+			MUTEX_PLACE_HOLDER(*m_spMapMutex,"cCPP11Thread::DumpThreadMapInfo");
 			if (m_spui64PIDAndNamedObject)
 			{
 				for (auto l_BeginIterator = m_spui64PIDAndNamedObject->begin();
@@ -153,7 +159,7 @@ namespace FATMING_CORE
 	{
 		if (m_spMapMutex)
 		{
-			MUTEX_PLACE_HOLDER(*m_spMapMutex);
+			MUTEX_PLACE_HOLDER(*m_spMapMutex,"cCPP11Thread::AllThreadStopAndDumpInfo");
 			if (m_spui64PIDAndNamedObject)
 			{
 				std::vector<cCPP11Thread*>l_ThreadVector;
@@ -213,7 +219,7 @@ namespace FATMING_CORE
 		m_bThreadWorking = false;
 		if (m_spMapMutex)
 		{
-			MUTEX_PLACE_HOLDER(*m_spMapMutex)
+			MUTEX_PLACE_HOLDER(*m_spMapMutex,"cCPP11Thread::WorkingThread() leave")
 			(*m_spui64PIDAndNamedObject).erase(m_i64PID);
 			DumpThreadInfo("thread left as expecting!!");
 		}

@@ -190,20 +190,25 @@ int BlendingIndexToIndex(GLenum e_eBlendingIndex)
 }
 
 #ifdef DEBUG
-void	MyGlErrorTest(const char*e_strMessage)
+void	MyGlErrorTest(const char*e_strMessage, const char* e_strFileName, int32_t e_iCodeLine)
 {
-	int	l_i = glGetError();
-	if (l_i != 0)
+	int	l_iError = glGetError();
+	if (l_iError != 0)
 	{
-		std::string l_str = "glGetError:";
-		l_str += FATMING_CORE::ValueToString(l_i);
-		l_str += ":";
-		l_str += e_strMessage;
+		std::string l_str = GET_FILENAME_AND_LINE(e_strFileName,e_iCodeLine);
+		l_str += " glGetError:";
+		const char* errorString = 0;
+		switch (l_iError)
+		{
+			case GL_INVALID_ENUM: l_str += "GL_INVALID_ENUM"; break;
+			case GL_INVALID_FRAMEBUFFER_OPERATION: l_str += "GL_INVALID_FRAMEBUFFER_OPERATION"; break;
+			case GL_INVALID_VALUE: l_str += "GL_INVALID_VALUE"; break;
+			case GL_INVALID_OPERATION: l_str += "GL_INVALID_OPERATION"; break;
+			case GL_OUT_OF_MEMORY: l_str += "GL_OUT_OF_MEMORY"; break;
+			default: l_str += FATMING_CORE::ValueToString(l_iError); break;
+		}
 		FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		int a = 0;
-		//GL_INVALID_ENUM 1280
-		//GL_INVALID_VALUE 1281
-		//GL_INVALID_OPERATION 1282
 	}
 }
 
@@ -212,7 +217,7 @@ void					MyGLEnable(GLenum e_GLenum)
 	glEnable(e_GLenum);
 	std::string l_strInfo = "MyGLEnable:";
 	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
-	MyGlErrorTest(l_strInfo.c_str());
+	CHECK_GL_ERROR(l_strInfo.c_str());
 }
 
 void					MyGLDisable(GLenum e_GLenum)
@@ -220,7 +225,7 @@ void					MyGLDisable(GLenum e_GLenum)
 	glDisable(e_GLenum);
 	std::string l_strInfo = "MyGLDisable:";
 	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
-	MyGlErrorTest(l_strInfo.c_str());
+	CHECK_GL_ERROR(l_strInfo.c_str());
 }
 
 void		MyGLGetIntegerv(GLenum e_GLenum, GLint *params)
@@ -228,7 +233,7 @@ void		MyGLGetIntegerv(GLenum e_GLenum, GLint *params)
 	glGetIntegerv(e_GLenum, params);
 	std::string l_strInfo = "MyGLGetIntegerv:";
 	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
-	MyGlErrorTest(l_strInfo.c_str());
+	CHECK_GL_ERROR(l_strInfo.c_str());
 }
 
 void MyglGetBooleanv(GLenum e_GLenum, GLboolean* data)
@@ -236,7 +241,7 @@ void MyglGetBooleanv(GLenum e_GLenum, GLboolean* data)
 	glGetBooleanv(e_GLenum, data);
 	std::string l_strInfo = "MyglGetBooleanv:";
 	l_strInfo += FATMING_CORE::ValueToString((uint64)e_GLenum);
-	MyGlErrorTest(l_strInfo.c_str());
+	CHECK_GL_ERROR(l_strInfo.c_str());
 }
 
 #endif

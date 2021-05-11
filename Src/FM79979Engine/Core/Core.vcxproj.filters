@@ -767,6 +767,9 @@
     <ClCompile Include="Network\UDPNetwork.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AllCoreInclude.h">
@@ -1359,6 +1362,9 @@
     </ClInclude>
     <ClInclude Include="Network\UDPNetwork.h">
       <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h">
+      <Filter>GameplayUT\OpenGL\GLSL</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -111,7 +111,7 @@ namespace FMLog
 	{
 		if (!g_bFMLogEnable)
 			return;
-		MUTEX_PLACE_HOLDER(*g_pLogMutex);
+		MUTEX_PLACE_HOLDER(*g_pLogMutex,"FMLog::Log");
 		//#ifdef DEBUG
 #if defined(WIN32)
 		std::wstring l_str = FATMING_CORE::ValueToStringW(e_str);
@@ -144,7 +144,7 @@ namespace FMLog
 	{
 		if (!g_bFMLogEnable)
 			return;
-		MUTEX_PLACE_HOLDER(*g_pLogMutex);
+		MUTEX_PLACE_HOLDER(*g_pLogMutex,"FMLog::Log");
 		//#ifdef DEBUG
 #if defined(WIN32)
 		std::string l_str = UT::WcharToChar(e_str);		l_str += "\n";

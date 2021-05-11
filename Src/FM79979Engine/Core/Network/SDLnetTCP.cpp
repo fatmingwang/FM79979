@@ -49,11 +49,11 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
     }
 
     /* Open the socket */
-#ifdef WASM
-	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-#else
+//#ifdef WASM
+//	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+//#else
 	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
-#endif
+//#endif
 
     if ( sock->channel == INVALID_SOCKET ) {
         SDLNet_SetError("Couldn't create socket");

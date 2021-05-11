@@ -6,6 +6,8 @@
 #include "NetworkSample.h"
 #include "TestShader.h"
 #include "WebsocketServer.h"
+//multithread
+//https://stackoverflow.com/questions/59550963/multithreading-in-webassembly
 //#include "../../Core/Bluetooth/Bluetooth.h"
 
 cNetworkSample*g_pNetworkSample = nullptr;
@@ -108,11 +110,13 @@ void	SoundBGThread()
 
 
 cBaseShader*g_pMSAAShader = nullptr;
+#ifdef WIN32
 extern void ComputerShaderInit();
+#endif
 void	LoadSample()
 {
-	ComputerShaderInit();
 #ifdef WIN32
+	ComputerShaderInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)

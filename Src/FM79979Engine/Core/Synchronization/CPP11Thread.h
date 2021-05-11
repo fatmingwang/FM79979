@@ -5,19 +5,26 @@
 #include <map>
 #include <functional>
 #include "../Common/NamedTypedObject.h"
+#include "../Common/TimeUT.h"
 
 typedef std::lock_guard<std::mutex> cPP11MutexHolder;
 typedef std::function<void(float)>  f_ThreadWorkingFunction;
-#define	MUTEX_PLACE_HOLDER(MUTEX) cPP11MutexHolder l_PP11MutexHolder(MUTEX);
+#ifdef DEBUG
+#define MUTEX_PLACE_HOLDER(MUTEX,INFO)	cPP11MutexHolderDebug l_PP11MutexHolderDebugTemp123456789(MUTEX,INFO,__FILE__, __LINE__);
+#else
+#define MUTEX_PLACE_HOLDER(MUTEX,INFO)	cPP11MutexHolder l_PP11MutexHolderTemp123456789(MUTEX);
+#endif
+
 namespace FATMING_CORE
 {
 	class cPP11MutexHolderDebug
 	{
-		std::mutex& m_Mutex;
-		std::wstring l_strDebugInfo;
+		UT::sTimeAndFPS m_TimeAndFPS;
+		std::mutex&		m_Mutex;
+		std::string		m_strDebugInfo;
 	public:
-		cPP11MutexHolderDebug(std::mutex& e_mutex);
-		cPP11MutexHolderDebug(std::mutex& e_mutex, const wchar_t*e_strDebugInfo);
+		cPP11MutexHolderDebug(std::mutex& e_mutex, const char*e_strFileName, int32_t e_iCodeLine);
+		cPP11MutexHolderDebug(std::mutex& e_mutex, const char*e_strDebugInfo, const char* e_strFileName, int32_t e_iCodeLine);
 		virtual ~cPP11MutexHolderDebug();
 	};
 	class cCPP11Thread

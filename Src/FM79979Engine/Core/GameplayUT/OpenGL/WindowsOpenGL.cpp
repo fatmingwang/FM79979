@@ -178,7 +178,7 @@ HGLRC	InitOpenGL(HWND e_pHwnd, bool e_bInitGlewInit, HDC e_HdcMV, bool e_bEnable
 		assert(l_eErrorID == 0);
 	}
 	cOpenGLRender::m_sbVBOSupported = IsExtensionSupported("GL_ARB_vertex_buffer_object");
-	MyGlErrorTest("HGLRC	InitOpenGL");
+	CHECK_GL_ERROR("HGLRC	InitOpenGL");
 	return l_HGLRC;
 }
 bool	SetOpenGLSwapInterval(bool e_bSwapInterval)

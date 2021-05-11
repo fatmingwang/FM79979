@@ -204,13 +204,13 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\EngineTest\ComputerShader.cpp" />
     <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp" />
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="..\EngineTest\WebsocketServer.cpp" />
-    <ClCompile Include="ComputerShader.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -224,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\ComputerShader.h" />
+    <ClInclude Include="..\EngineTest\ComputerShaderUniform.h" />
     <ClInclude Include="..\EngineTest\JPEGCodingTest.h" />
     <ClInclude Include="..\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />

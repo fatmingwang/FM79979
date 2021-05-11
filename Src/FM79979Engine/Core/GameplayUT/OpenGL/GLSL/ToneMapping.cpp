@@ -18,7 +18,7 @@ namespace FATMING_CORE
 	cDownSampleBrightShader::cDownSampleBrightShader(const char*e_strVS,const char*e_strPS,POINT e_DownSampleResolution,const WCHAR*e_strShaderName)
 	:cBaseShader(e_strVS,e_strPS,e_strShaderName,true)
 	{
-		MyGlErrorTest("cDownSampleBrightShader::cDownSampleBrightShader");
+		CHECK_GL_ERROR("cDownSampleBrightShader::cDownSampleBrightShader");
 		m_pFrameBuffer = new cFrameBuffer((int)e_DownSampleResolution.x, (int)e_DownSampleResolution.y,false);
 		m_uiPixelOffsetLocation = GetUniFormLocationByName("PixelOffset");
 		m_vResolutionOffset.x = 1.f/(float)e_DownSampleResolution.x;
@@ -58,7 +58,7 @@ namespace FATMING_CORE
 		POINT e_DownSampleResolution,const WCHAR*e_strShaderName)
 	:cBaseShader(e_strVS,e_strPS,e_strShaderName,true)
 	{
-		MyGlErrorTest("cToneMappingShader::cToneMappingShader");
+		CHECK_GL_ERROR("cToneMappingShader::cToneMappingShader");
 		m_pHoricontalBlur = nullptr;
 		m_pVerticalBlur = nullptr;
 		m_pDownSampleBrightShader = cDownSampleBrightShader::CreateShader(e_strDownSampleVSFileName,e_strDownSamplePSFileName,e_DownSampleResolution);

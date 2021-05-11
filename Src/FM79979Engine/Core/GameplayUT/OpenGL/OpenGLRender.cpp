@@ -172,25 +172,25 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		MyGlErrorTest("before viewport");
+		CHECK_GL_ERROR("before viewport");
 		glViewport(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		//need this one or screen flash...and I dont know why
 		glScissor(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
-		MyGlErrorTest("after viewport");
+		CHECK_GL_ERROR("after viewport");
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(m_vBGColor.x, m_vBGColor.y, m_vBGColor.z, m_vBGColor.w);
-		MyGlErrorTest("before viewport 1");
+		CHECK_GL_ERROR("before viewport 1");
 		if (m_vDeviceViewPortSize.x != m_vViewPortSize.x ||
 			m_vDeviceViewPortSize.y != m_vViewPortSize.y ||
 			m_vDeviceViewPortSize.z != m_vViewPortSize.z ||
 			m_vDeviceViewPortSize.w != m_vViewPortSize.w)
 		{
 			glViewport((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
-			MyGlErrorTest("after viewport 2");
+			CHECK_GL_ERROR("after viewport 2");
 			MyGLEnable(GL_SCISSOR_TEST);
-			MyGlErrorTest("before scissor");
+			CHECK_GL_ERROR("before scissor");
 			glScissor((GLint)m_vViewPortSize.x, (GLint)m_vViewPortSize.y, (int)m_vViewPortSize.Width(), (int)m_vViewPortSize.Height());
-			MyGlErrorTest("after scissor");
+			CHECK_GL_ERROR("after scissor");
 		}
 		SystemErrorCheck();
 		UseShaderProgram(DEFAULT_SHADER);

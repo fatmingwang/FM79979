@@ -144,6 +144,16 @@ namespace FATMING_CORE
 	l_TempNetworkSendPacket123.pData = nullptr;																  \
 }
 
+#define	NETWORK_LAZY_SEND_TO_ALL_CLIENT(NETWORK_SINGLTON,SOCKET,DATA)											\
+{																												\
+	sNetworkSendPacket l_TempNetworkSendPacket123;																\
+	l_TempNetworkSendPacket123.iSize = DATA.iSize;																\
+	l_TempNetworkSendPacket123.pData = (char*)&DATA;															\
+	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToAllClient(&l_TempNetworkSendPacket123);	\
+	l_TempNetworkSendPacket123.pData = nullptr;																	\
+}
+
+
 #define	LAZY_SEND_NETWORK_MESSAGE(SOCKET,DATA)																  \
 {																											  \
 	sNetworkSendPacket l_TempNetworkSendPacket123;															  \

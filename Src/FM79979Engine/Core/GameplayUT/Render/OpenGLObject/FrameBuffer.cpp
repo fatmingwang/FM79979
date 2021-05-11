@@ -33,9 +33,9 @@ namespace FATMING_CORE
 #endif
 			int l_iWidth = m_pFrameBuffer->GetWidth();
 			int l_iHeight = m_pFrameBuffer->GetHeight();
-			MyGlErrorTest("before glReadPixels");
+			CHECK_GL_ERROR("before glReadPixels");
 			glReadPixels(0, 0, l_iWidth, l_iHeight, l_PixelType, GL_UNSIGNED_BYTE, m_pPixelBuffer);
-			MyGlErrorTest("After glReadPixels");
+			CHECK_GL_ERROR("After glReadPixels");
 			m_pFrameBuffer->EndDraw();
 			if (!m_pBaseImage)
 			{
@@ -206,7 +206,7 @@ namespace FATMING_CORE
 		//by calling glFramebufferTexture2D() or glFramebufferRenderbuffer()
 		//here I need do it as a texture to scale so glTexImage2D is suit for me.
 		glTexImage2D(GL_TEXTURE_2D, 0, m_eImageType, e_iWidth, e_iHeight, 0, m_eImageType, m_eRGBDataType, nullptr);
-		MyGlErrorTest("cFrameBuffer::cFrameBuffer glTexImage2D");
+		CHECK_GL_ERROR("cFrameBuffer::cFrameBuffer glTexImage2D");
 		//  The following 3 lines enable mipmap filtering and generate the mipmap data so rendering works
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);

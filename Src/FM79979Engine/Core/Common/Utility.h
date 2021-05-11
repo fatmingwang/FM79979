@@ -10,6 +10,8 @@
 	#pragma warning( disable : 4996 )
 #endif
 
+#define	GET_FILENAME_AND_LINE(FILENAME,LINE)FILENAME?UT::ComposeMsgByFormat("%s line:%d",FILENAME,LINE):"";
+
 namespace UT
 {
 	struct sDataContainer

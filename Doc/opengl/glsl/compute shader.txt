@@ -1,0 +1,29 @@
+https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
+
+
+compute dispatch N work group
+
+each work group has its own shared memory and threads
+
+
+
+
+https://stackoverflow.com/questions/38172696/should-i-ever-use-a-vec3-inside-of-a-uniform-buffer-or-shader-storage-buffer-o/38172697#38172697
+
+https://community.khronos.org/t/help-how-to-lay-out-ssbo-data-in-shader-program/74325
+glsl data aligment
+
+
+                      C   GLSL
+
+vec3 center;          0    0
+float radius;         3    3
+float radius2;        4    4
+vec3 ambient;         5    8
+vec3 diffuse;         8   12
+vec3 specular;       11   16
+float shininess;     14   19
+float reflectivity;  15   20
+                     16   24
+
+

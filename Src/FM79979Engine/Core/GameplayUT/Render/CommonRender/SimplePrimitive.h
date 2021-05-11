@@ -21,7 +21,8 @@ static float		g_fGlobalTempBufferForRenderVertices[640*2*TWO_TRIANGLE_VERTICES_T
 static float		g_fGlobalTempBufferForRenderUV[640*2*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];//7.5k
 static float		g_fGlobalTempBufferForRenderColor[640*4*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];//15k
 
-
+//below function should input shader's info to find out glsl version
+//then use glBindBufferBase or old style glSomethingPointer
 void	ASSIGN_2D_QUAD_COLOR(Vector4 Color);
 void	ASSIGN_2D_QUAD_VerticesBySize(float Width,float Height,float Depth);
 void	ASSIGN_2D_QUAD_UV(float*UV);

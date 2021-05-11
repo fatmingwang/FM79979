@@ -212,7 +212,7 @@
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>-s WASM=1 -s PTHREAD_POOL_SIZE=2 -s FETCH=1 -s FULL_ES2=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s WASM=1 --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s WASM=1 -s USE_PTHREADS=1  -s PTHREAD_POOL_SIZE=4 -s FETCH=1 -s FULL_ES2=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s WASM=1 --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>

@@ -63,7 +63,7 @@
     <ClCompile Include="..\EngineTest\WebsocketServer.cpp">
       <Filter>WebsocketServer</Filter>
     </ClCompile>
-    <ClCompile Include="ComputerShader.cpp">
+    <ClCompile Include="..\EngineTest\ComputerShader.cpp">
       <Filter>Game\ComputerShader</Filter>
     </ClCompile>
   </ItemGroup>
@@ -99,6 +99,9 @@
       <Filter>WebsocketServer</Filter>
     </ClInclude>
     <ClInclude Include="..\EngineTest\ComputerShader.h">
+      <Filter>Game\ComputerShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\ComputerShaderUniform.h">
       <Filter>Game\ComputerShader</Filter>
     </ClInclude>
   </ItemGroup>
