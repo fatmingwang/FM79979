@@ -492,15 +492,14 @@ namespace FATMING_CORE
 		Vector3 l_vPos[6];//0 left down,1 right dwon,2 left top
 		if (this->GetTransformedVerticesByIndex((float*)l_vPos, nullptr, nullptr, 0))
 		{
-			RECT l_Rect;
-			l_Rect.left = (long)l_vPos[0].x;
-			l_Rect.top = (long)l_vPos[2].y;
-			l_Rect.right = (long)l_vPos[1].x;
-			l_Rect.bottom = (long)l_vPos[0].y;
+
+			auto l_Width = abs(l_vPos[0].x- l_vPos[1].x);
+			auto l_Height = abs(l_vPos[0].y - l_vPos[2].y);
+			RECT l_Rect = { 0,0,(long)l_Width ,(long)l_Height };
 			cBound l_Bound(l_Rect);
 			this->SetLocalBound(&l_Bound);
 #ifdef DEBUG
-			auto l_pp = this->GetLocalBound();
+			auto l_pp = this->GetWorldBound();
 			auto l_Rect2 = l_pp->GetRect();
 			l_pp->Collide(0, 0);
 #endif
