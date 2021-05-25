@@ -4,21 +4,22 @@
 #pragma once
 
 // TODO: 在此參考您的程式所需要的其他標頭
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <tchar.h>
-#include <map>
-#include <vector>
-#include <list>
-#include <xstring>
-#include "windows.h"
-#include "assert.h"
-#include <time.h>
-#include "../../DotNetCommon/DotNetCommonTools.h"
+//#include <stdlib.h>
+//#include <malloc.h>
+//#include <memory.h>
+//#include <tchar.h>
+//#include <map>
+//#include <vector>
+//#include <list>
+//#include <xstring>
+////#include "windows.h"
+//#include "assert.h"
+//#include <time.h>
 #include "../../Core/AllCoreInclude.h"
+#include "../../DotNetCommon/DotNetCommonTools.h"
+
 #include "../../Core/Network/Network.h"
-#include "../../Core/GamePlayUT/StringCompress.h"
+//#include "../../Core/GamePlayUT/StringCompress.h"
 
 
 long				GetFileSize(FILE*e_pFile);
