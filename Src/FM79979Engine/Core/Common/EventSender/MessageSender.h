@@ -173,18 +173,18 @@ namespace FATMING_CORE
 		m_NetworkMessageDelegateMap[e_usID] = e_MessageFunction;
 		if (m_pParent)
 		{
-			std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>*>* l_pVector = nullptr;
+			std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>>* l_pVector = nullptr;
 			auto l_Iterator = m_pParent->m_NetworkMessageDelegateAndObjectIDMap.find(e_usID);
 			if (l_Iterator == m_pParent->m_NetworkMessageDelegateAndObjectIDMap.end())
 			{
-				std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>*>	l_Temp;
+				std::vector<cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>>	l_Temp;
 				m_pParent->m_NetworkMessageDelegateAndObjectIDMap[e_usID] = l_Temp;
 			}
 			l_pVector = &m_pParent->m_NetworkMessageDelegateAndObjectIDMap[e_usID];
-			cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>* l_pEventFunction = new cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate>;
-			l_pEventFunction->f_NetworkMessageFunction = e_MessageFunction;
-			l_pEventFunction->uiAddress = (size_t)this;
-			l_pVector->push_back(l_pEventFunction);
+			cMessageSenderManager::sNetworkMessageFunctionAndObjectID<NetworkMessageDelegate> l_EventFunction;
+			l_EventFunction.f_NetworkMessageFunction = e_MessageFunction;
+			l_EventFunction.uiAddress = (size_t)this;
+			l_pVector->push_back(l_EventFunction);
 			return true;
 		}
 		return false;
