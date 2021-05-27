@@ -204,10 +204,7 @@ namespace FATMING_CORE
 			//cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex, L"GetReceivedDataPleaseDeleteAfterUseIt");
 			if (m_ReceivedDataVector.size())
 			{
-				for (sNetworkReceivedPacket*l_pData : m_ReceivedDataVector)
-				{
-					l_Vector.push_back(l_pData);
-				}
+				l_Vector = m_ReceivedDataVector;
 				m_ReceivedDataVector.clear();
 			}
 		}

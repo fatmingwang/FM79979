@@ -789,9 +789,10 @@ namespace UT
 #elif defined (ANDROID)
 		//http://blog.sephiroth.it/2010/10/24/reading-resource-files-from-native-code/
 		//http://androgeek.info/?p=275
-		if( l_bWrite )
+ 		if( l_bWrite )
 			mkpath( std::string(e_strFileName) );
-		l_pFile = NvFOpen(e_strFileName,e_strMode);
+		//now make original file read at last,because we want to read new file first.?
+		//l_pFile = NvFOpen(e_strFileName, e_strMode);
 		if( !l_pFile)
 		{
 			//try external sd card first
@@ -823,9 +824,15 @@ namespace UT
 				l_strFileName += *cCommonApp::m_psstrGameAppName;
 				l_strFileName += "/";
 				l_strFileName += e_strFileName;
-				if( l_bWrite )
+				if (l_bWrite)
+				{
 					mkpath(l_strFileName);
+				}
 				l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
+				if (!l_pFile)
+				{
+					l_pFile = NvFOpen(e_strFileName, e_strMode);
+				}
 			}
 #ifdef DEBUG
 			const char*ll = l_strFileName.c_str();
