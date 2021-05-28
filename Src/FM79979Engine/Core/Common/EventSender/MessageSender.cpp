@@ -468,6 +468,7 @@ namespace FATMING_CORE
 		{
 			MUTEX_PLACE_HOLDER(m_WaitForEmitEventMutex,"cMessageSenderManager::Update");
 			l_WaitForEmitEvent = m_WaitForEmitEvent;
+			m_WaitForEmitEvent.clear();
 		}
 		for(auto l_WaitEmitEvent: l_WaitForEmitEvent)
 		{
