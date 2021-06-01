@@ -34,7 +34,7 @@ namespace FATMING_CORE
 		UT::sTimeCounter				m_TCForMouseUp;
 		cBasicSound*					m_pClickSound;
         bool							m_bCollided;
-		sMouseMoveData*					m_pMouseMoveData;
+		sMouseMoveData					m_MouseMoveData;
 		//if false mouse won't work,because its possible game set this object click event will open later.
 		GET_SET_DEC(bool,m_bEnable,IsEnable,SetEnable);
 		//if true, the touch will be eat
@@ -57,7 +57,7 @@ namespace FATMING_CORE
 		ClickFunction					m_MouseLeaveFunction;
 	public:
 		cClickBehavior();
-		~cClickBehavior();
+		virtual ~cClickBehavior();
 		DEFINE_TYPE_INFO()
 		GET_SET(bool,m_bAllowDrag,IsAllowDrag,SetAllowDrag);
 		//
@@ -66,7 +66,7 @@ namespace FATMING_CORE
         virtual void    				Update(float e_fElpaseTime);
 		//void							SetRepeatTime(float e_fRepeatTime);
 		bool							IsCollided(){ return m_bCollided; }
-		sMouseMoveData*					GetMouseMoveData(){return m_pMouseMoveData;}
+		sMouseMoveData*					GetMouseMoveData(){return &m_MouseMoveData;}
 		cBasicSound*					GetClickSound();
 		void							SetClickSound(cBasicSound*e_pBasicSound);
 		eObjectMouseBehavior			GetObjectMouseBehavior(){return m_eObjectMouseBehavior;}
@@ -88,7 +88,7 @@ namespace FATMING_CORE
 		virtual cClickBehavior* ChildrenMouseDown(int e_iPosX, int e_iPosY);
 	public:
 		cClickBehaviorGroup();
-		~cClickBehaviorGroup();
+		virtual ~cClickBehaviorGroup();
 		DEFINE_TYPE_INFO()
 		//first time into
 		virtual cClickBehavior*		MouseDown(int e_iPosX, int e_iPosY)override;

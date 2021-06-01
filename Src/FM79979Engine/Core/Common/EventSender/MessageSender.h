@@ -109,7 +109,9 @@ namespace FATMING_CORE
 		std::map< unsigned int, std::vector<sEventFunctionAndType<EventDelegate>> >							m_EventDelegateAndTypeMap;
 		//
 		std::vector<sWaitEmitEvent>																			m_WaitForEmitEvent;
+#ifndef _M_CEE//manage code dont support thread
 		std::mutex																							m_WaitForEmitEventMutex;
+#endif
 	public:
 		cMessageSenderManager();
 		~cMessageSenderManager();

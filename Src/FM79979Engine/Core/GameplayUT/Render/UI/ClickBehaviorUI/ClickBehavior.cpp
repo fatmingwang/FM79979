@@ -19,7 +19,6 @@ namespace FATMING_CORE
 		m_TCForMouseUp.SetTargetTime(MOUSE_UP_IDLE_TIME);
 		m_bEnable = true;
 		m_eObjectMouseBehavior = eOMB_NONE;
-		m_pMouseMoveData = new sMouseMoveData();
 		m_pClickSound = nullptr;
 		m_CollideFunction = nullptr;
 		m_MouseDownFunction = nullptr;
@@ -33,7 +32,6 @@ namespace FATMING_CORE
 
 	cClickBehavior::~cClickBehavior()
 	{
-		SAFE_DELETE(m_pMouseMoveData);
 		SAFE_RELEASE(m_pClickSound,this);	
 	}
 
@@ -49,7 +47,7 @@ namespace FATMING_CORE
 	{
 		m_TCForMouseUp.Start();
 		m_eObjectMouseBehavior = eOMB_NONE;
-		m_pMouseMoveData->Init();
+		m_MouseMoveData.Init();
 		m_bCollided = false;
 	}
 
@@ -86,7 +84,7 @@ namespace FATMING_CORE
 			if(Collide(e_iPosX,e_iPosY))
 			{
 				FMLog::Log(UT::ComposeMsgByFormat(L"cClickBehavior::MouseDown---%ls---:%ls",GetName(),Type()).c_str(), false);
-				m_pMouseMoveData->MouseDown(e_iPosX,e_iPosY);
+				m_MouseMoveData.MouseDown(e_iPosX,e_iPosY);
 				m_eObjectMouseBehavior = eOMB_FIRST_TIME_INTO;
 				LAZY_MOUSE_FUNCTION(m_MouseDownFunction,e_iPosX,e_iPosY);
 				return this;
@@ -105,7 +103,7 @@ namespace FATMING_CORE
 			m_eObjectMouseBehavior == eOMB_FIRST_TIME_INTO ||
 			m_eObjectMouseBehavior == eOMB_LEAVE)
 		{
-			m_pMouseMoveData->MouseMove(e_iPosX,e_iPosY);
+			m_MouseMoveData.MouseMove(e_iPosX,e_iPosY);
 			if(Collide(e_iPosX,e_iPosY))
 			{
 				m_eObjectMouseBehavior = eOMB_HORVER;
@@ -128,7 +126,7 @@ namespace FATMING_CORE
 		if(this->Collide(e_iPosX,e_iPosY))
 		{
 			m_bEnable = false;
-			bool l_bDoubleClick = m_pMouseMoveData->MouseUp(e_iPosX,e_iPosY);
+			bool l_bDoubleClick = m_MouseMoveData.MouseUp(e_iPosX,e_iPosY);
 			if( !l_bDoubleClick )
 				m_eObjectMouseBehavior = eOMB_UP;
 			else
@@ -154,11 +152,11 @@ namespace FATMING_CORE
 				//make a time offset
 				if(m_eObjectMouseBehavior == eOMB_DOUBLU_CLICK_UP)
 				{
-					LAZY_MOUSE_FUNCTION(m_MouseDoubleClickFunction,this->m_pMouseMoveData->UpPos.x,this->m_pMouseMoveData->UpPos.y);
+					LAZY_MOUSE_FUNCTION(m_MouseDoubleClickFunction,this->m_MouseMoveData.UpPos.x,this->m_MouseMoveData.UpPos.y);
 				}
 				else
 				{
-					LAZY_MOUSE_FUNCTION(m_MouseUpFunction,this->m_pMouseMoveData->UpPos.x,this->m_pMouseMoveData->UpPos.y);
+					LAZY_MOUSE_FUNCTION(m_MouseUpFunction,this->m_MouseMoveData.UpPos.x,this->m_MouseMoveData.UpPos.y);
 				}
 				if( m_pClickSound )
 					m_pClickSound->Play(true);
