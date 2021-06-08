@@ -127,6 +127,7 @@ namespace FATMING_CORE
 		cPuzzleImage*l_pPI = 0;
 		bool l_bDrawCenter = false;
 		Vector3	l_vPos = Vector3::Zero;;
+		POINT	l_Size = { 0,0 };
 		cNumeralImage*l_pNumeralImage = 0;
 		PARSE_ELEMENT_START(e_pXmlelement)
 			COMPARE_NAME("Image0")
@@ -155,10 +156,20 @@ namespace FATMING_CORE
 			{
 				l_bDrawCenter = VALUE_TO_BOOLEAN;
 			}
+			else
+			COMPARE_NAME("Size")
+			{
+				l_Size = VALUE_TO_POINT;
+			}
 		PARSE_NAME_VALUE_END
 		if( l_pBG9 && l_pBG0 )
 		{
 			l_pNumeralImage = new cNumeralImage(l_pBG0,l_pBG9);
+			if (l_Size.x != 0 || l_Size.y != 0)
+			{
+				l_pNumeralImage->SetSingleImageWidth(l_Size.x);
+				l_pNumeralImage->SetSingleImageHeight(l_Size.y);
+			}
 			e_pXmlelement = e_pXmlelement->FirstChildElement();
 			if( e_pXmlelement )
 			{
