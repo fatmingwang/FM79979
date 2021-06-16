@@ -82,6 +82,8 @@ namespace FATMING_CORE
 		virtual cClickBehavior*		AddRenderObjectandGenerateClickBehavior(cRenderObject * e_pRenderObject, bool e_bEnableClickScale = true)override;
 		virtual void				ArrangeObjectPos(Vector2 e_vStartOffsetPos, Vector2 e_vObjectGap, bool e_bMultiLines);
 		virtual	void				Update(float e_fElpaseTime)override;
+		virtual void				Destroy() override;
+		virtual bool				CreateRenderObject()override;
 		//please input clone one,because e_pBGMPDI will be delete.
 		bool						AddBG(cMPDI*e_pBGMPDI);
 		//also bind collide function

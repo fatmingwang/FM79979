@@ -45,6 +45,10 @@ namespace FATMING_CORE
 		while (l_fTimeLength > 10.f)
 			l_fTimeLength /= 10.f;
 		l_fTimeLength *= l_fTimeForSmoothSlide;
+		if (l_fTimeLength == 0.f)
+		{
+			l_fTimeLength = EPSIONAL;
+		}
 		TC.SetTargetTime(l_fTimeLength);
 		vTargetPos = e_vStartPos + e_vMoveDistance;
 		vStartPos = vCurrentPos = e_vStartPos;
@@ -92,14 +96,7 @@ namespace FATMING_CORE
 	{
 		//m_pHorizontalScrollBar = nullptr;
 		//m_pVerticalScrollBar = nullptr;;
-		this->m_pRenderObject = new cRenderObject();
-		m_pScissorRenderObject = new cScissorRenderObject();
-		m_pObjectsMovingRoot = new cRenderObject();
-		m_pRenderObject->SetName(L"cScrollBoxRenderObject");
-		m_pScissorRenderObject->SetName(L"ScrollBoxScissorRenderObject");
-		m_pObjectsMovingRoot->SetName(L"ScrollBoxMovingRoot");
-		m_pRenderObject->AddChild(m_pScissorRenderObject);
-		m_pScissorRenderObject->AddChild(m_pObjectsMovingRoot);
+		this->CreateRenderObject();
 		m_eOrientation = eOrientation::eO_HORIZONTAL;
 		m_bArrangeWithMultiLine = false;
 		m_vNextObjectGap = Vector2(5.f, 5.f);
@@ -209,13 +206,8 @@ namespace FATMING_CORE
 			{
 				int*l_piIndex = (int*)e_pData;
 				cClickBehavior*l_pOwner = dynamic_cast<cClickBehavior*>(e_pFrame->GetOwner());
-				if (!e_pFrame->GetWorldBound()->Collide(l_Rect))
-				{
-					e_pFrame->SetVisible(false);
-					if (l_pOwner)
-						l_pOwner->SetEnable(false);
-				}
-				else
+				auto l_pBound = e_pFrame->GetWorldBound();
+				if(!l_pBound || l_pBound->Collide(l_Rect))
 				{
 					e_pFrame->SetVisible(true);
 					if (l_pOwner)
@@ -224,6 +216,12 @@ namespace FATMING_CORE
 					{
 						m_iLeftTopObjectIndex = *l_piIndex;
 					}
+				}
+				else
+				{
+					e_pFrame->SetVisible(false);
+					if (l_pOwner)
+						l_pOwner->SetEnable(false);
 				}
 				++(*l_piIndex);
 			}
@@ -454,6 +452,30 @@ namespace FATMING_CORE
 		cMPDIToGameObject::Update(e_fElpaseTime);
 	}
 
+	void cScrollBox::Destroy()
+	{
+		cMPDIToGameObject::Destroy();
+		m_pScissorRenderObject = nullptr;
+		m_pObjectsMovingRoot = nullptr;
+	}
+
+	bool cScrollBox::CreateRenderObject()
+	{
+		if (!m_pRenderObject)
+		{
+			this->m_pRenderObject = new cRenderObject();
+			m_pScissorRenderObject = new cScissorRenderObject();
+			m_pObjectsMovingRoot = new cRenderObject();
+			m_pRenderObject->SetName(L"cScrollBoxRenderObject");
+			m_pScissorRenderObject->SetName(L"ScrollBoxScissorRenderObject");
+			m_pObjectsMovingRoot->SetName(L"ScrollBoxMovingRoot");
+			m_pRenderObject->AddChild(m_pScissorRenderObject);
+			m_pScissorRenderObject->AddChild(m_pObjectsMovingRoot);
+			return true;
+		}
+		return false;
+	}
+
 	bool cScrollBox::AddBG(cMPDI * e_pBGMPDI)
 	{
 		if (m_pBGMPDI)
@@ -474,7 +496,11 @@ namespace FATMING_CORE
 	{
 		if (this->m_pScissorRenderObject)
 		{
-			m_pRenderObject->SetLocalPosition(e_vPos);
+			assert(m_pRenderObject&&"cScrollBox::SetScrollerPositionAndViewRect is nullptr");
+			if (m_pRenderObject)
+			{
+				m_pRenderObject->SetLocalPosition(e_vPos);
+			}
 			m_pScissorRenderObject->SetScissorRect(e_vLocalViewRect);
 			m_DataForScrollBox.m_vLocalViewRect = e_vLocalViewRect;
 			m_CollideFunction = std::bind(&cScissorRenderObject::Collide, m_pScissorRenderObject, std::placeholders::_1, std::placeholders::_2);
@@ -489,8 +515,14 @@ namespace FATMING_CORE
 	bool cScrollBox::ScrollMoveToTargetItemIndex(int e_iTargetIndex, bool e_bDoSmooth)
 	{
 		int l_iCount = this->Count();
-		if (e_iTargetIndex >= l_iCount || l_iCount < 1)
-			return false;
+		if (e_iTargetIndex < 0)
+		{
+			e_iTargetIndex = 0;
+		}
+		if (e_iTargetIndex >= l_iCount)
+		{
+			e_iTargetIndex = l_iCount - 1;
+		}
 		if (this->m_pObjectsMovingRoot)
 		{
 			if (m_iLeftTopObjectIndex == -1)
@@ -499,11 +531,15 @@ namespace FATMING_CORE
 				if (m_iLeftTopObjectIndex == -1)
 					return false;
 			}
-			if (this->m_iLeftTopObjectIndex == e_iTargetIndex)
-				return true;
+			int l_iLeftTopObjectIndex = m_iLeftTopObjectIndex;
 			Vector3 l_vCurrentPos;
 			Vector3 l_vTargetPos;
-			if (GetObjectPosByBisibleIndex(m_iLeftTopObjectIndex, l_vCurrentPos) &&
+			if (l_iLeftTopObjectIndex <= 0 && e_iTargetIndex <= 0)
+			{
+				m_pObjectsMovingRoot->SetLocalPosition(Vector3::Zero);
+			}
+			else
+			if (GetObjectPosByBisibleIndex(l_iLeftTopObjectIndex, l_vCurrentPos) &&
 				GetObjectPosByBisibleIndex(e_iTargetIndex, l_vTargetPos))
 			{
 				Vector3 l_vMoveDistance = l_vCurrentPos - l_vTargetPos;

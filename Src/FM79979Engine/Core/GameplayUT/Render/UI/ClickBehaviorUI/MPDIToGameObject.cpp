@@ -66,8 +66,12 @@ namespace FATMING_CORE
 
 	void cMPDIToGameObject::AddRenderObject(cRenderObject*e_pRenderObject)
 	{
-		if (m_pRenderObject)
+		if (e_pRenderObject)
 		{
+			if (!m_pRenderObject)
+			{
+				m_pRenderObject = new cRenderObject();
+			}
 			m_pRenderObject->AddChildToLast(e_pRenderObject);
 			e_pRenderObject->InitNodes();
 		}
@@ -75,8 +79,14 @@ namespace FATMING_CORE
 
 	void cMPDIToGameObject::AddObject(cMPDIToGameObject * e_pcMPDIToGameObject)
 	{
-		AddClickObject(e_pcMPDIToGameObject);
-		AddRenderObject(e_pcMPDIToGameObject->m_pRenderObject);
+		if (e_pcMPDIToGameObject)
+		{
+			AddClickObject(e_pcMPDIToGameObject);
+			if (e_pcMPDIToGameObject->m_pRenderObject)
+			{
+				AddRenderObject(e_pcMPDIToGameObject->m_pRenderObject);
+			}
+		}
 	}
 
 	bool cMPDIToGameObject::CreateRenderObject()
@@ -102,17 +112,17 @@ namespace FATMING_CORE
 			CreateFullScreenCollide();
 		}
 		else
-			if (m_pBGMPDI && m_pBGMPDI->Count() > 0)
+		if (m_pBGMPDI && m_pBGMPDI->Count() > 0)
+		{
+			m_CollideFunction = [this](int e_iPosX, int e_iPosY)
 			{
-				m_CollideFunction = [this](int e_iPosX, int e_iPosY)
-				{
-					return this->m_pBGMPDI->Collide(e_iPosX, e_iPosY);
-				};
-			}
-			else
-			{
-				return false;
-			}
+				return this->m_pBGMPDI->Collide(e_iPosX, e_iPosY);
+			};
+		}
+		else
+		{
+			return false;
+		}
 		return true;
 	}
 

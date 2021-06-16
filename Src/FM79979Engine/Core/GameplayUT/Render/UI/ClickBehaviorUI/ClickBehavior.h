@@ -81,6 +81,12 @@ namespace FATMING_CORE
 		void							CreateFullScreenCollide();
 	};
 	//for a single touch group,a current working object to save performance
+	//==============================================================================================
+	//when you mix click and render object together,it's very easy to get delete order crush...(please delete ClickObject then RenderObject)
+	//And I have no idea to fix this
+	//so highly recommand to use cMPDIToGameObject instead use a cRenderObject and a cClickBehaviorGroup to avoid crush.
+	//==============================================================================================
+
 	class cClickBehaviorGroup:public cClickBehavior,public cNamedTypedObjectVector<cClickBehavior>
 	{
 		friend	class 				cClickBehaviorDispatcher;

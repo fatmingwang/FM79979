@@ -273,6 +273,11 @@ public:
 		RemoveObjectWithoutDelete(e_iIndex);
 		if( l_p )
 		{
+#ifdef DEBUG
+			std::wstring l_strName = l_p->GetName();
+			std::wstring l_strType = l_p->Type();
+			auto l_uniqueID = l_p->GetUniqueID();
+#endif
 			RemoveResourceObject(l_p);
 			delete l_p;
 			return true;
