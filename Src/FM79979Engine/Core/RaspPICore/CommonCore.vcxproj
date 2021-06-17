@@ -176,6 +176,7 @@
     <ClInclude Include="..\..\Core\XML\tinystr.h" />
     <ClInclude Include="..\..\Core\XML\tinyxml.h" />
     <ClInclude Include="..\..\Core\XML\XMLLoader.h" />
+    <ClInclude Include="..\XML\XMLCommonDefine.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>

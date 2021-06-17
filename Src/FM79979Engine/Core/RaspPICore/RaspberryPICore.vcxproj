@@ -534,6 +534,7 @@
     <ClInclude Include="..\Synchronization\FUThreadRef.h" />
     <ClInclude Include="..\XML\tinystr.h" />
     <ClInclude Include="..\XML\tinyxml.h" />
+    <ClInclude Include="..\XML\XMLCommonDefine.h" />
     <ClInclude Include="..\XML\XMLLoader.h" />
   </ItemGroup>
   <ItemGroup>
