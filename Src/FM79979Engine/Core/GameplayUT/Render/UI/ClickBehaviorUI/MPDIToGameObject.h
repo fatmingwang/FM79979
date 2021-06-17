@@ -22,7 +22,9 @@ namespace FATMING_CORE
 		cMPDIToGameObject();
 		cMPDIToGameObject(cMPDI*e_pMPDI, std::vector<std::wstring>e_strButtonName, bool e_bKeepMPDIAsBG);
 		virtual ~cMPDIToGameObject();
+		//
 		virtual bool	SetupMPDIAndButtonNameVector(cMPDI*e_pMPDI, std::vector<std::wstring>e_strButtonName, bool e_bKeepMPDIAsBG);
+		//cScrollBox
 		virtual void	AddObject(cMPDIToGameObject*e_pcMPDIToGameObject);
 		virtual bool	CreateRenderObject();
 		virtual cClickBehavior*	AddRenderObjectandGenerateClickBehavior(cRenderObject*e_pRenderObject, bool e_bEnableClickScale = true);
@@ -36,7 +38,9 @@ namespace FATMING_CORE
 		virtual void	Update(float e_fElpaseTime) override;
 		virtual void	Destroy() override;
 		cRenderObject*	GetRenderObject() { return m_pRenderObject; }
-		bool	AssignButtonClickFunction(const wchar_t*e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound);
+		//for visible update(ScrollerBox)
+		bool			GenerateRectBoundForRenderObject(Vector4 e_vDrawRect);
+		bool			AssignButtonClickFunction(const wchar_t*e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound);
 
 		//change position of parent
 		//void	InscreasePirority(int e_iPiority);

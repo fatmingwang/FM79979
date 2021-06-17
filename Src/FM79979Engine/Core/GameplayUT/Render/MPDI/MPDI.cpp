@@ -101,49 +101,37 @@ namespace FATMING_CORE
 		//find out draw rect
 		int	l_iCount = this->Count();
 		Vector4	l_vDrawRect(FLT_MAX,FLT_MAX,FLT_MIN,FLT_MIN);
-		Vector4	l_vDrawRectWithoutImageOffset(FLT_MAX, FLT_MAX, FLT_MIN, FLT_MIN);
-		POINT l_vOriginalSize;
 		for( int i=0;i<l_iCount;++i )
 		{
 			cCueToStartCurveWithTime*l_pCueToStartCurveWithTime = GetObject(i);
+			l_pCueToStartCurveWithTime->Init();
 			std::vector<Vector3>l_vPointPos = l_pCueToStartCurveWithTime->GetOriginalPointList();
 			int	l_iSize = (int)l_vPointPos.size();
+			float l_fElpase = 0.f;
+			auto l_TimeList = l_pCueToStartCurveWithTime->GetOriginalTimeList();
 			for( int j=0;j<l_iSize;++j )
 			{
+				float l_fOldTime = l_fElpase;
+				l_fElpase = l_TimeList[j];
+				float l_fUpdateTime = l_fElpase- l_fOldTime;
+				l_pCueToStartCurveWithTime->Update(l_fUpdateTime);
 				float l_fTempBufferForRenderVertices[18];
 				if (l_pCueToStartCurveWithTime->IsStart() && l_pCueToStartCurveWithTime->GetTransformedVerticesByIndex(l_fTempBufferForRenderVertices, nullptr, nullptr, j))
 				{
 					bool l_bImageZRotate90ToSaveMemory = false;
 					//left up
-					if (l_vDrawRectWithoutImageOffset.x > l_fTempBufferForRenderVertices[6])
-						l_vDrawRectWithoutImageOffset.x = l_fTempBufferForRenderVertices[6];
-					if (l_vDrawRectWithoutImageOffset.y > l_fTempBufferForRenderVertices[7])
-						l_vDrawRectWithoutImageOffset.y = l_fTempBufferForRenderVertices[7];
+					if (l_vDrawRect.x > l_fTempBufferForRenderVertices[6])
+						l_vDrawRect.x = l_fTempBufferForRenderVertices[6];
+					if (l_vDrawRect.y > l_fTempBufferForRenderVertices[7])
+						l_vDrawRect.y = l_fTempBufferForRenderVertices[7];
 					//right down
-					if (l_vDrawRectWithoutImageOffset.z < l_fTempBufferForRenderVertices[12])
-						l_vDrawRectWithoutImageOffset.z = l_fTempBufferForRenderVertices[12];
-					if (l_vDrawRectWithoutImageOffset.w < l_fTempBufferForRenderVertices[13])
-						l_vDrawRectWithoutImageOffset.w = l_fTempBufferForRenderVertices[13];
-				}
-				//else
-				{
-					Vector3	l_vPos = l_vPointPos[j];
-					if (l_vDrawRect.x > l_vPos.x)
-						l_vDrawRect.x = l_vPos.x;
-					if (l_vDrawRect.y > l_vPos.y)
-						l_vDrawRect.y = l_vPos.y;
-					sTexBehaviorDataWithImageIndexData*l_pTexBehaviorDataWithImageIndexData = l_pCueToStartCurveWithTime->GetPointData(j);
-					if (!l_pTexBehaviorDataWithImageIndexData->pPI)
-						break;
-					cPuzzleImageUnit*l_pPIUnit = (*l_pTexBehaviorDataWithImageIndexData->pPI)[l_pTexBehaviorDataWithImageIndexData->iImageIndex];
-					l_vOriginalSize = l_pPIUnit->GetOriginalSize();
-					Vector2	l_vRightDownPos(l_vPos.x + (float)l_vOriginalSize.x, l_vPos.y + (float)l_vOriginalSize.y);
-					if (l_vDrawRect.z < l_vRightDownPos.x)
-						l_vDrawRect.z = l_vRightDownPos.x;
-					if (l_vDrawRect.w < l_vRightDownPos.y)
-						l_vDrawRect.w = l_vRightDownPos.y;
+					if (l_vDrawRect.z < l_fTempBufferForRenderVertices[12])
+						l_vDrawRect.z = l_fTempBufferForRenderVertices[12];
+					if (l_vDrawRect.w < l_fTempBufferForRenderVertices[13])
+						l_vDrawRect.w = l_fTempBufferForRenderVertices[13];
 				}
 			}
+			l_pCueToStartCurveWithTime->SetStart(false);
 		}
 		m_vDrawRect = l_vDrawRect;
 		SetDrawSize(Vector2(l_vDrawRect.Width(),l_vDrawRect.Height()));	
@@ -151,7 +139,7 @@ namespace FATMING_CORE
 		FindoutAllPointsCenter();
 		RefreshTotalPlayTime();
 
-		Vector2 l_vDrawSizeWithoutImageOffset(l_vDrawRectWithoutImageOffset.Width(), l_vDrawRectWithoutImageOffset.Height());
+		Vector2 l_vDrawSizeWithoutImageOffset(l_vDrawRect.Width(), l_vDrawRect.Height());
 		//m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.x>l_vDrawSizeWithoutImageOffset.y ? l_vDrawSizeWithoutImageOffset.x : l_vDrawSizeWithoutImageOffset.y;
 		//m_fDrawRadiusWithoutImageOffset /= 2.f;
 		m_fDrawRadiusWithoutImageOffset = l_vDrawSizeWithoutImageOffset.Length()/2;

@@ -196,6 +196,18 @@ namespace FATMING_CORE
 		}
 	}
 
+	bool	cMPDIToGameObject::GenerateRectBoundForRenderObject(Vector4 e_vDrawRect)
+	{
+		if (this->m_pRenderObject)
+		{
+			RECT l_Rect = { (long)e_vDrawRect.x,(long)e_vDrawRect.y,(long)e_vDrawRect.z,(long)e_vDrawRect.w };
+			cBound l_Bound(l_Rect);
+			m_pRenderObject->SetLocalBound(&l_Bound);
+			return true;
+		}
+		return false;
+	}
+
 	bool cMPDIToGameObject::AssignButtonClickFunction(const wchar_t * e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound)
 	{
 		auto l_pObject = GetObject(e_strButtonName);
