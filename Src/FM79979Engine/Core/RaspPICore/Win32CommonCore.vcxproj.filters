@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{d375ad4f-2fa7-482f-8c2f-a94d8a6246ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{d978fd66-f6dc-4863-b368-59d45a269fe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XML">
+      <UniqueIdentifier>{8c567042-aa69-45cb-8552-b555d150e76d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sync">
+      <UniqueIdentifier>{355b6d0e-198f-41f7-89a0-5e9347df5429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound">
+      <UniqueIdentifier>{61514438-81d0-431c-996d-4464aeaff891}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\Common\CommonApp.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\CommonDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\NamedTypedObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\PlatFormDefine.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\SmartPointer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\StringID.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\StringToStructure.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\TimeUT.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Utility.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\BinaryFile.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\CustomBinaryData.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\StringCompress.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\EventSender\MessageSender.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Log\FMLog.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\MapCellDataContainer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TempContainer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TemplateClass.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Bound.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Collision.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Float.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Line.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathFormulaXML.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\MathUtility.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Matrix33.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Matrix44.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Plane.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Quaternion.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\ValueSortingObject.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Math\Vector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\begin_code.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\GameNetWork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDL_endian.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDL_net.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\SDLnetsys.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\AtgXmlWriter.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\tinystr.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\tinyxml.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\tinyxml2.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\XML\XMLLoader.h">
+      <Filter>XML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h">
+      <Filter>Sync</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\BasicSound.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\OpenAlWavFile.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundCapture.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundFile.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Sound\SoundManager.h">
+      <Filter>Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\UDPNetwork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Common\CommonApp.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\NamedTypedObject.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\SmartPointer.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\StringID.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\StringToStructure.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\TimeUT.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\Utility.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\BinaryFile.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\CustomBinaryData.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\StringCompress.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\EventSender\MessageSender.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\Log\FMLog.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Bound.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Collision.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Line.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\MathUtility.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Matrix33.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Matrix44.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Plane.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Quaternion.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\ValueSortingObject.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Vector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Math\Vector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\GameNetWork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnet.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\AtgXmlWriter.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinystr.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxml.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxml2.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxmlerror.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\tinyxmlparser.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\XML\XmlLoader.cpp">
+      <Filter>XML</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp">
+      <Filter>Sync</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\BasicSound.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundFile.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Sound\SoundManager.cpp">
+      <Filter>Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\UDPNetwork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

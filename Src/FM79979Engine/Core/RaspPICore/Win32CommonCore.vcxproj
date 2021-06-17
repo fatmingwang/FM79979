@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\BinaryFile.h" />
+    <ClInclude Include="..\..\Core\Common\BinaryFile\CustomBinaryData.h" />
+    <ClInclude Include="..\..\Core\Common\BinaryFile\StringCompress.h" />
+    <ClInclude Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.h" />
+    <ClInclude Include="..\..\Core\Common\CommonApp.h" />
+    <ClInclude Include="..\..\Core\Common\CommonDefine.h" />
+    <ClInclude Include="..\..\Core\Common\EventSender\MessageSender.h" />
+    <ClInclude Include="..\..\Core\Common\Log\FMLog.h" />
+    <ClInclude Include="..\..\Core\Common\NamedTypedObject.h" />
+    <ClInclude Include="..\..\Core\Common\PlatFormDefine.h" />
+    <ClInclude Include="..\..\Core\Common\SmartPointer.h" />
+    <ClInclude Include="..\..\Core\Common\StringID.h" />
+    <ClInclude Include="..\..\Core\Common\StringToStructure.h" />
+    <ClInclude Include="..\..\Core\Common\Template\MapCellDataContainer.h" />
+    <ClInclude Include="..\..\Core\Common\Template\TempContainer.h" />
+    <ClInclude Include="..\..\Core\Common\Template\TemplateClass.h" />
+    <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h" />
+    <ClInclude Include="..\..\Core\Common\TimeUT.h" />
+    <ClInclude Include="..\..\Core\Common\Utility.h" />
+    <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h" />
+    <ClInclude Include="..\..\Core\Math\Bound.h" />
+    <ClInclude Include="..\..\Core\Math\Collision.h" />
+    <ClInclude Include="..\..\Core\Math\Float.h" />
+    <ClInclude Include="..\..\Core\Math\Line.h" />
+    <ClInclude Include="..\..\Core\Math\MathFormulaXML.h" />
+    <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h" />
+    <ClInclude Include="..\..\Core\Math\MathUtility.h" />
+    <ClInclude Include="..\..\Core\Math\Matrix33.h" />
+    <ClInclude Include="..\..\Core\Math\Matrix44.h" />
+    <ClInclude Include="..\..\Core\Math\Plane.h" />
+    <ClInclude Include="..\..\Core\Math\Quaternion.h" />
+    <ClInclude Include="..\..\Core\Math\ValueSortingObject.h" />
+    <ClInclude Include="..\..\Core\Math\Vector2.h" />
+    <ClInclude Include="..\..\Core\Math\Vector3.h" />
+    <ClInclude Include="..\..\Core\Math\Vector4.h" />
+    <ClInclude Include="..\..\Core\Network\begin_code.h" />
+    <ClInclude Include="..\..\Core\Network\GameNetWork.h" />
+    <ClInclude Include="..\..\Core\Network\SDLnetsys.h" />
+    <ClInclude Include="..\..\Core\Network\SDL_endian.h" />
+    <ClInclude Include="..\..\Core\Network\SDL_net.h" />
+    <ClInclude Include="..\..\Core\Network\UDPNetwork.h" />
+    <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h" />
+    <ClInclude Include="..\..\Core\Sound\BasicSound.h" />
+    <ClInclude Include="..\..\Core\Sound\OpenAlOgg.h" />
+    <ClInclude Include="..\..\Core\Sound\OpenAlWavFile.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundCapture.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundFile.h" />
+    <ClInclude Include="..\..\Core\Sound\SoundManager.h" />
+    <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h" />
+    <ClInclude Include="..\..\Core\XML\AtgXmlWriter.h" />
+    <ClInclude Include="..\..\Core\XML\tinystr.h" />
+    <ClInclude Include="..\..\Core\XML\tinyxml.h" />
+    <ClInclude Include="..\..\Core\XML\tinyxml2.h" />
+    <ClInclude Include="..\..\Core\XML\XMLLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\BinaryFile.cpp" />
+    <ClCompile Include="..\..\Core\Common\BinaryFile\CustomBinaryData.cpp" />
+    <ClCompile Include="..\..\Core\Common\BinaryFile\StringCompress.cpp" />
+    <ClCompile Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.cpp" />
+    <ClCompile Include="..\..\Core\Common\CommonApp.cpp" />
+    <ClCompile Include="..\..\Core\Common\EventSender\MessageSender.cpp" />
+    <ClCompile Include="..\..\Core\Common\Log\FMLog.cpp" />
+    <ClCompile Include="..\..\Core\Common\NamedTypedObject.cpp" />
+    <ClCompile Include="..\..\Core\Common\SmartPointer.cpp" />
+    <ClCompile Include="..\..\Core\Common\StringID.cpp" />
+    <ClCompile Include="..\..\Core\Common\StringToStructure.cpp" />
+    <ClCompile Include="..\..\Core\Common\TimeUT.cpp" />
+    <ClCompile Include="..\..\Core\Common\Utility.cpp" />
+    <ClCompile Include="..\..\Core\Math\Bound.cpp" />
+    <ClCompile Include="..\..\Core\Math\Collision.cpp" />
+    <ClCompile Include="..\..\Core\Math\Line.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathFormulaXML.cpp" />
+    <ClCompile Include="..\..\Core\Math\MathUtility.cpp" />
+    <ClCompile Include="..\..\Core\Math\Matrix33.cpp" />
+    <ClCompile Include="..\..\Core\Math\Matrix44.cpp" />
+    <ClCompile Include="..\..\Core\Math\Plane.cpp" />
+    <ClCompile Include="..\..\Core\Math\Quaternion.cpp" />
+    <ClCompile Include="..\..\Core\Math\ValueSortingObject.cpp" />
+    <ClCompile Include="..\..\Core\Math\Vector3.cpp" />
+    <ClCompile Include="..\..\Core\Math\Vector4.cpp" />
+    <ClCompile Include="..\..\Core\Network\GameNetWork.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnet.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.cpp" />
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp" />
+    <ClCompile Include="..\..\Core\Network\UDPNetwork.cpp" />
+    <ClCompile Include="..\..\Core\Sound\BasicSound.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAlOgg.cpp" />
+    <ClCompile Include="..\..\Core\Sound\OpenAlWavFile.cpp" />
+    <ClCompile Include="..\..\Core\Sound\SoundCapture.cpp" />
+    <ClCompile Include="..\..\Core\Sound\SoundFile.cpp" />
+    <ClCompile Include="..\..\Core\Sound\SoundManager.cpp" />
+    <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp" />
+    <ClCompile Include="..\..\Core\XML\AtgXmlWriter.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinystr.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxml.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxml2.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\Core\XML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\Core\XML\XmlLoader.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{2C47AEDB-F2FA-46AF-863D-6643F7E34CD4}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Win32CommonCore</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4436</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>DEBUG;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
