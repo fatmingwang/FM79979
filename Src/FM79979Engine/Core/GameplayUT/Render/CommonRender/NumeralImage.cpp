@@ -129,6 +129,7 @@ namespace FATMING_CORE
 		Vector3	l_vPos = Vector3::Zero;;
 		POINT	l_Size = { 0,0 };
 		cNumeralImage*l_pNumeralImage = 0;
+		std::wstring l_strNumeralImageName;
 		PARSE_ELEMENT_START(e_pXmlelement)
 			COMPARE_NAME("Image0")
 			{
@@ -161,10 +162,19 @@ namespace FATMING_CORE
 			{
 				l_Size = VALUE_TO_POINT;
 			}
+			else
+			COMPARE_NAME("Name")
+			{
+				l_strNumeralImageName = l_strValue;
+			}
 		PARSE_NAME_VALUE_END
 		if( l_pBG9 && l_pBG0 )
 		{
 			l_pNumeralImage = new cNumeralImage(l_pBG0,l_pBG9);
+			if (l_strNumeralImageName.length())
+			{
+				l_pNumeralImage->SetName(l_strNumeralImageName.c_str());
+			}
 			if (l_Size.x != 0 || l_Size.y != 0)
 			{
 				l_pNumeralImage->SetSingleImageWidth(l_Size.x);
