@@ -27,6 +27,7 @@ namespace FATMING_CORE
 		//cScrollBox
 		virtual void	AddObject(cMPDIToGameObject*e_pcMPDIToGameObject);
 		virtual bool	CreateRenderObject();
+		//ensure e_pRenderObject can be deleted or AddChild will occur unexpected problem.
 		virtual cClickBehavior*	AddRenderObjectandGenerateClickBehavior(cRenderObject*e_pRenderObject, bool e_bEnableClickScale = true);
 		bool	EnableBGCollide(bool e_bFullScreen);
 		//need parent to call init!?

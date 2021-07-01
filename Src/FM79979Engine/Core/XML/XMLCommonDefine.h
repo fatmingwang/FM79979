@@ -1,6 +1,7 @@
 #pragma once
-
-
+#include "tinyxml.h"
+#include <map>
+#include <functional>
 //here should using # instead
 #define	COMPARE_VALUE_WITH_DEFINE(x)							if( !wcscmp(l_strValue, x) )
 #define	COMPARE_NAME_WITH_DEFINE(x)								if( !wcscmp(l_strName, x) )
@@ -85,3 +86,27 @@
 #define	VERY_LAZY_TO_VECTOR2(Element,Name){auto l_strTemp = Element->Attribute(WSTRING(Name));m_##Name = GetVector2(l_strTemp);}
 #define	VERY_LAZY_TO_POINT(Element,Name){auto l_strTemp = Element->Attribute(WSTRING(Name));m_##Name = GetPoint(l_strTemp);}
 #define	VERY_LAZY_TO_INT(Element,Name){auto l_strTemp = Element->Attribute(WSTRING(Name));m_##Name = GetInt(l_strTemp);}
+
+
+typedef	std::function<bool(TiXmlElement*)>		TiXmlParseFunction;
+//auto l_pChildElement = e_pElement->FirstChildElement();
+//std::map<std::wstring, TiXmlParseFunction> l_NameAndFunctionMap =
+//{
+//	{L"cNumeralImage",[this](TiXmlElement* e_pElement) {m_pNumeralImage = cNumeralImage::GetMe(e_pElement); return true; }},
+//	{L"cPuzzleImageUnit",[this](TiXmlElement* e_pElement) {m_pButtonImage = cPuzzleImageUnit::GetMe(e_pElement); return true; }},
+//};
+//AssignTiXmlElementAndFunction(l_pChildElement, l_NameAndFunctionMap);
+inline bool	AssignTiXmlElementAndFunction(TiXmlElement * e_pElement, std::map<std::wstring, TiXmlParseFunction>&e_NameAndFunctionMap)
+{
+	while (e_pElement)
+	{
+		auto l_strValue = e_pElement->Value();
+		auto l_IT = e_NameAndFunctionMap.find(l_strValue);
+		if (l_IT != e_NameAndFunctionMap.end())
+		{
+			l_IT->second(e_pElement);
+		}
+		e_pElement = e_pElement->NextSiblingElement();
+	}
+	return true;
+}
