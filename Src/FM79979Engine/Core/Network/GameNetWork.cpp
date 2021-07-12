@@ -329,41 +329,32 @@ namespace FATMING_CORE
 	{
 		if (!e_pPacket)
 			return false;
-		int l_iHeaderSize = PACKET_HEADER_SIZE;
 		bool l_bSendDataResult = false;
-		int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
-		char*l_pData = new char[l_iSendSize];
-		memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-		memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-		sNetworkSendPacket l_NetworkSendPacket;
-		l_NetworkSendPacket.iSize = l_iSendSize;
-		l_NetworkSendPacket.pData = l_pData;
 		//cPP11MutexHolder hold(m_ClientSocketMutex, L"SendDataToAllClient");
 		{
 			cPP11MutexHolder hold(m_ClientSocketMutex);
 			int	l_iSize = (int)m_ClientSocketVector.size();
 			for (int i = 0; i < l_iSize; ++i)
 			{
-				int* l_pDebugData = (int*)l_pData;
 				int* l_pDebugData2 = (int*)e_pPacket->pData;
 				if (m_ClientSocketVector[i])
 				{
 					bool	l_bSent = false;
 					if (e_bSnedByNetworkThread)
 					{
-						l_bSent = SendData(m_ClientSocketVector[i],&l_NetworkSendPacket,e_bSnedByNetworkThread);
+						l_bSent = SendData(m_ClientSocketVector[i], e_pPacket,e_bSnedByNetworkThread);
 					}
 					else
 					{
-						l_bSent = SDLNet_TCP_Send(m_ClientSocketVector[i]->pSocket, l_pData, l_iSendSize) == 0 ? false : true;
+						this->InternalSendData(m_ClientSocketVector[i], e_pPacket);
 					}
 					if (!l_bSent)
+					{
 						l_bSendDataResult = false;
+					}
 				}
 			}
 		}
-		l_NetworkSendPacket.pData = nullptr;
-		delete[] l_pData;
 		return l_bSendDataResult;
 	}
 
