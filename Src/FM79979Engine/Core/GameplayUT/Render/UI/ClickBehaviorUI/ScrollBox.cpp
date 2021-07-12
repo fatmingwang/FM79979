@@ -136,7 +136,7 @@ namespace FATMING_CORE
 			{
 				float l_fTimeOffset = m_DataForScrollBox.m_fMouseDownUpCounter;
 				Vector3 l_vSmoothMoveDistance((float)l_MouseMovePosition.x, (float)l_MouseMovePosition.y, 0.f);
-				l_vSmoothMoveDistance *= 1.f / l_fTimeOffset;
+				l_vSmoothMoveDistance *= 1.f / (l_fTimeOffset+0.2f);
 				//check boundry
 				Vector3 l_vBoundry = Vector3::Zero;
 				if (IsHitBoundary(this->m_eOrientation, this->m_pObjectsMovingRoot->GetLocalPosition() + l_vSmoothMoveDistance, l_vBoundry))
@@ -179,7 +179,8 @@ namespace FATMING_CORE
 			if (!m_DataForScrollBox.m_RollBackTC.bTragetTimrReached)
 			{
 				m_DataForScrollBox.m_RollBackTC.Update(e_fElpaseTime);
-				auto l_vMovePos = (m_DataForScrollBox.m_RollBackTC.GetLERP()*m_DataForScrollBox.m_vRollbackForProperPos) + m_DataForScrollBox.m_vMouseUpRenderObjectPos;
+				float l_fLERP = m_DataForScrollBox.m_RollBackTC.GetLERP();
+				auto l_vMovePos = (l_fLERP *m_DataForScrollBox.m_vRollbackForProperPos) + m_DataForScrollBox.m_vMouseUpRenderObjectPos;
 				this->m_pObjectsMovingRoot->SetLocalPosition(l_vMovePos);
 				ObjectUpdateVisible();
 				if (m_DataForScrollBox.m_RollBackTC.bTragetTimrReached)
@@ -280,11 +281,12 @@ namespace FATMING_CORE
 			e_pRenderObject->InitNodes();
 		}
 	}
-
+#define	IGNORE_OBJECT_SIZE_ONLY_DETECT_NEXT_OBJECT_GAP
 	bool cScrollBox::IsHitBoundary(eOrientation e_eOrientation, Vector3 e_vPos, Vector3 &e_vOverdDistance)
 	{
 		bool l_bRollBackToProperPosition = false;
 		auto l_vSissorRect = m_pScissorRenderObject->GetWorldPosScissorRect();
+		int l_iNumObject = this->Count();
 		if (e_eOrientation == eOrientation::eO_HORIZONTAL)
 		{
 			if (e_vPos.x > 0.f)
@@ -293,32 +295,55 @@ namespace FATMING_CORE
 				e_vOverdDistance.x = -e_vPos.x;
 			}
 			float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.x - l_vSissorRect.Width() / 2.f;
-			if (e_vPos.x < -l_fValue)
+			if (e_vPos.x != 0.f && e_vPos.x < -l_fValue)
 			{
+#ifdef IGNORE_OBJECT_SIZE_ONLY_DETECT_NEXT_OBJECT_GAP
+				if (m_DataForScrollBox.m_vScrollerSizeOfAllObject.y * l_iNumObject > l_vSissorRect.Height())
+				{
+					e_vOverdDistance.x = -(l_fValue + e_vPos.x);
+				}
+				else
+#endif
+				{
+					e_vOverdDistance.x = -e_vPos.x;
+				}
 				l_bRollBackToProperPosition = true;
-				e_vOverdDistance.x = -(l_fValue + e_vPos.x);
+
 			}
 		}
 		else
-			if (e_eOrientation == eOrientation::eO_VERTICAL)
+		if (e_eOrientation == eOrientation::eO_VERTICAL)
+		{
+			if (e_vPos.y > 0.f)
 			{
-				if (e_vPos.y > 0.f)
-				{
-					l_bRollBackToProperPosition = true;
-					e_vOverdDistance.y = -e_vPos.y;
-				}
-				float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.y - l_vSissorRect.Height() / 2.f;
-				if (e_vPos.y < -l_fValue)
-				{
-					l_bRollBackToProperPosition = true;
-					e_vOverdDistance.y = -(l_fValue + e_vPos.y);
-				}
+				l_bRollBackToProperPosition = true;
+				e_vOverdDistance.y = -e_vPos.y;
 			}
 			else
-			if (e_eOrientation == eOrientation::eO_BOTH)
 			{
-				l_bRollBackToProperPosition = IsHitBoundary(eOrientation::eO_HORIZONTAL, e_vPos, e_vOverdDistance) | IsHitBoundary(eOrientation::eO_VERTICAL, e_vPos, e_vOverdDistance);
+				float l_fValue = m_DataForScrollBox.m_vScrollerSizeOfAllObject.y - l_vSissorRect.Height() / 2.f;
+				if (e_vPos.y != 0.f && e_vPos.y < -l_fValue)
+				{
+#ifdef IGNORE_OBJECT_SIZE_ONLY_DETECT_NEXT_OBJECT_GAP
+					if (m_DataForScrollBox.m_vScrollerSizeOfAllObject.y * l_iNumObject > l_vSissorRect.Height())
+					{
+						e_vOverdDistance.y = -(l_fValue + e_vPos.y);
+					}
+					else
+#endif
+					{
+						e_vOverdDistance.y = -e_vPos.y;
+					}
+					l_bRollBackToProperPosition = true;
+
+				}
 			}
+		}
+		else
+		if (e_eOrientation == eOrientation::eO_BOTH)
+		{
+			l_bRollBackToProperPosition = IsHitBoundary(eOrientation::eO_HORIZONTAL, e_vPos, e_vOverdDistance) | IsHitBoundary(eOrientation::eO_VERTICAL, e_vPos, e_vOverdDistance);
+		}
 		return l_bRollBackToProperPosition;
 	}
 
