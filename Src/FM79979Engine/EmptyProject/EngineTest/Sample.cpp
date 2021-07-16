@@ -78,7 +78,6 @@ extern int g_iWASMMPDIIndex;
 extern void JSBindingRender();
 #endif
 
-
 cBasicSound*g_pBG = nullptr;
 
 void	SoundBGThread()
@@ -97,12 +96,6 @@ void	SoundBGThread()
 			Sleep(16);
 			//FMLog::Log("SoundBGThread 2", false);
 		}
-#ifdef WASM
-		if (g_pNetworkSample)
-		{
-			g_pNetworkSample->Update(0.016f);
-		}
-#endif
 	}
 	FMLog::Log("SoundBGThread end", false);
 }
@@ -113,8 +106,35 @@ cBaseShader*g_pMSAAShader = nullptr;
 #ifdef WIN32
 extern void ComputerShaderInit();
 #endif
+
+void   ThreadLoadTest()
+{
+#ifdef WASM
+	//cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
+	cBasicSound* l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
+	g_pBG = l_pSound;
+	bool l_bMultiThreadTest = false;
+	if (l_bMultiThreadTest)
+	{
+		FMLog::Log("try to do thread detach", false);
+		std::thread l_Thread = std::thread([=] {SoundBGThread(); });
+		l_Thread.detach();
+		FMLog::Log("thread detached", false);
+	}
+#endif
+#ifdef WASM
+	if (!g_pNetworkSample)
+	{
+		g_pNetworkSample = new cNetworkSample();
+		g_pNetworkSample->Init();
+
+	}
+#endif
+}
+
 void	LoadSample()
 {
+	FMLog::Log("LoadSample start", false);
 #ifdef WIN32
 	ComputerShaderInit();
 	WSADATA wsaData;
@@ -128,8 +148,10 @@ void	LoadSample()
 	//TestGET();
 	//Test2();
 	//TestGET3();
-	if(0)
-		g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx",eGBT_2D_MORPHING_ANIMATION);
+	if (0)
+	{
+		g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx", eGBT_2D_MORPHING_ANIMATION);
+	}
 	int l_iYBase = 900;
 	g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
@@ -180,36 +202,6 @@ void	LoadSample()
 	//cBluetoothSinglton::GetInstance()->CreateAsClient(L"FMWin7");
 //	g_pMSAAShader = CreateShader(g_bCommonVSClientState, g_strGL3CommonVS, g_strGL3MSAA_FS,L"MSAA");
 	//here should do mu;ti thread but I am lazy.
-#ifdef WASM
-	//cOpanalOgg*l_pSound = nullptr;//new cOpanalOgg(g_pPathChaser,"Media/MainBG.ogg",false);
-	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
-	g_pBG = l_pSound;
-	{
-		cBasicSound*l_pSound2 = cGameApp::m_spSoundParser->AddSound("Sound/win.wav");
-		if (l_pSound2)
-		{
-			l_pSound2->Play(true);
-		}
-	}
-#else
-	cBasicSound*l_pSound = cGameApp::m_spSoundParser->AddSound("Sound/MainBG.ogg");
-#endif
-	if (l_pSound)
-	{
-		FMLog::Log("try to play sound",false);
-		l_pSound->Play(true);
-	}
-
-	POINT l_Size = { (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x/8,(int)cGameApp::m_spOpenGLRender->m_vGameResolution.y/8 };
-	bool l_bMultiThreadTest = true;
-	if (l_bMultiThreadTest)
-	{
-		//FMLog::Log("try to do thread detach", false);
-		//std::thread l_Thread = std::thread([=] {SoundBGThread();});
-		//l_Thread.detach();
-		//FMLog::Log("thread detached", false);
-	}
-
 	//g_pToneMappingShader = cToneMappingShader::CreateShader(
 	//	"shader/ToneMapping.vs","shader/ToneMapping.ps",
 	//	"shader/DownSample.vs","shader/DownSample.ps",
@@ -245,8 +237,10 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	if(0)
+	if (0)
+	{
 		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi", eGBT_MPDILIST);
+	}
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
 	std::wstring l_strPrefixName;// = L"C:/Users/fatming/Desktop/Work/Resource/trunk/CN005/Fish-¯«Às¤EÀs¯]/Fish/Image/Fish/BlackFish_0001/BlackFish_0001";
@@ -326,17 +320,10 @@ void	LoadSample()
 		g_pTestCurveWithTime->SetLOD(3);
 		g_pTestCurveWithTime->Init();
 	}
-#ifdef WASM
-	if (!g_pNetworkSample)
-	{
-		g_pNetworkSample = new cNetworkSample();
-		g_pNetworkSample->Init();
-
-	}
-#endif
+	ThreadLoadTest();
 	//g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
 	//g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
-	cGameApp::OutputDebugInfoString("LoadSample() finish");
+	cGameApp::OutputDebugInfoString("LoadSample() finish2");
 }
 
 void	DestorySampleObject()
@@ -376,6 +363,14 @@ void	SampleUpdate(float e_fElpaseTime)
 {
 #if defined(WIN32)
 	WebSocketUpdate();
+#endif
+
+
+#ifdef WASM
+	if (g_pNetworkSample)
+	{
+		g_pNetworkSample->Update(0.016f);
+	}
 #endif
 	if (g_pPathChaser)
 		g_pPathChaser->Update(e_fElpaseTime);

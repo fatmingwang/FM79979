@@ -69,19 +69,7 @@ enum eCarDrivingNetworkMessage
 
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
-	int				iCarID;
-	int64	i64RFID;//can replace by nodeID but I am lazy.
-	int				i1Status;//eCarSendingStatus
-	int				iBattery;
-	int				iLidStatus;//eLidStatus
-	int				iWIFISignalStrength;
-	int				iMotorMovedDistance[2];
-	int				iMotorLoading[2];
-	int				iMotorSpeed[2];
-	int				iMotorExceptionCode;
-	int				iCPUTemperature;
-	int				iMotorEncoderTemperature[2];
-	sCarRunningData	CarRunningData;
+	char	strText[260];
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(pop)
 
@@ -120,11 +108,12 @@ UT::sTimeCounter g_cTC;
 void cNetworkSample::Init()
 {
 	cGameNetwork::Init();
-	FMLog::Log("CreateAsClient",false);
+	FMLog::Log("CreateAsClient start",false);
 	//ws://echo.websocket.org
-	this->CreateAsClient(1000, "192.168.31.242", false);
+	this->CreateAsClient(9991, "127.0.0.1", false);
+	FMLog::Log("CreateAsClient finish", false);
 	//test
-	g_cTC.SetTargetTime(20.f);
+	g_cTC.SetTargetTime(5.f);
 }
 
 
@@ -135,26 +124,38 @@ void cNetworkSample::Update(float e_fElpaseTime)
 	size_t l_uiSize = l_DataVector.size();
 	for (sNetworkReceivedPacket*l_pData : l_DataVector)
 	{
-		FMLog::Log("receive new message",false);
+		sBaseNetworkMessage*l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
+		auto l_Info = UT::ComposeMsgByFormat("new message ID:%d,Size:%d\n", l_pBaseNetworkMessage->iMessage, l_pData->iSize);
+		FMLog::Log(l_Info.c_str(),false);
 		unsigned int l_uiID = *(unsigned int*)l_pData->pData;
+		if (l_pBaseNetworkMessage->iMessage == 2)
+		{
+			sNetwork_eCDNM_C2S_CAR_STATUS*l_pNetwork_eCDNM_C2S_CAR_STATUS = (sNetwork_eCDNM_C2S_CAR_STATUS*)l_pData->pData;
+			printf(l_pNetwork_eCDNM_C2S_CAR_STATUS->strText);
+			printf("\nqoo\n");
+		}
 		cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_uiID, l_pData);
 	}
 	DELETE_VECTOR(l_DataVector);
 	//test code
-	if (this->m_pSocket)
+	g_cTC.Update(e_fElpaseTime);
+	if (g_cTC.bTragetTimrReached)
 	{
-		g_cTC.Update(e_fElpaseTime);
-		if (g_cTC.bTragetTimrReached)
+		g_cTC.Start();
+		if (this->m_pSocket)
 		{
-			g_cTC.Start();
 			sNetwork_eCDNM_C2S_CAR_STATUS l_Data;
+			sprintf(l_Data.strText, "1234567890");
 			sNetworkSendPacket l_NetworkSendPacket;
 			l_NetworkSendPacket.iSize = sizeof(l_Data);
-			printf(UT::ComposeMsgByFormat("packet size:%d", l_Data.iSize).c_str());
 			FMLog::Log(UT::ComposeMsgByFormat("packet size:%d", l_Data.iSize).c_str(), false);
 			l_NetworkSendPacket.pData = (char*)&l_Data;
 			this->SendDataToServer(&l_NetworkSendPacket);
 			l_NetworkSendPacket.pData = nullptr;
+		}
+		else
+		{
+			FMLog::Log("websocket not connected.", false);
 		}
 	}
 }

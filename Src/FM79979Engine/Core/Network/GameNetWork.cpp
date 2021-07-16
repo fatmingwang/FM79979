@@ -137,6 +137,7 @@ namespace FATMING_CORE
 			DumpPacketData(*e_pTCPsocket->pSocket, iSize, pData, "ReceiveData");
 			return iSize;
 		}
+		FMLog::Log(UT::ComposeMsgByFormat("network data size1 not match:Desire%d,RealRecv:%d", iSize, l_iLength).c_str(), false);
 		//try again
 		int l_iNotEnoughSize = iSize - l_iLength;
 		l_iLength = SDLNet_TCP_Recv(e_pTCPsocket->pSocket, &pData[l_iLength], l_iNotEnoughSize);
@@ -145,7 +146,7 @@ namespace FATMING_CORE
 			return iSize;
 		}
 		SAFE_DELETE_ARRAY(pData);
-		FMLog::Log(UT::ComposeMsgByFormat("network data size not match:Desire%d,RealRecv:%d", iSize, l_iLength).c_str(), false);
+		FMLog::Log(UT::ComposeMsgByFormat("network data size2 not match:Desire%d,RealRecv:%d", iSize, l_iLength).c_str(), false);
 		//size not correct!?
 		//return l_iLength - iSize;
 		//now I dont wannt support streamming so fuck you please reduce packet size.

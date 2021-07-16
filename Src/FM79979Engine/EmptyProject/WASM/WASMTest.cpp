@@ -300,6 +300,7 @@ int main()
 	//https://kripken.github.io/emscripten-site/docs/porting/files/packaging_files.html
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
+	printf("do SDL_Init(SDL_INIT_EVERYTHING)\n");
 #define	CANVANS_WIDTH	1024
 #define	CANVANS_HEIGHT	768
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 

@@ -148,6 +148,9 @@
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Lib />
+    <Lib>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bluetooth\BluetoothUtility.cpp" />

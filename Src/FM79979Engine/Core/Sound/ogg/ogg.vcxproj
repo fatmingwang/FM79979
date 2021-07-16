@@ -108,6 +108,9 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
     </ClCompile>
+    <Lib>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="books\coupled\res_books_stereo.h" />

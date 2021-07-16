@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30128.74
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Win32Test", "Win32Test\Win32Test.vcxproj", "{77E00846-770C-45AA-99A1-EF295FB97B74}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FatmingCollada", "..\Core\FatmingCollada\FatmingCollada.vcxproj", "{27C4A269-2E08-4644-B3C9-F5090703FA1D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MathParser", "..\Core\Math\MathParser\MathParser.vcxproj", "{5C1F4BC1-20C6-40D1-B0B8-BEC8F333DC99}"
@@ -55,21 +53,6 @@ Global
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.ActiveCfg = Release|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.Build.0 = Release|x64
 		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x86.ActiveCfg = Release|x64
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|ARM.ActiveCfg = Debug|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|ARM64.ActiveCfg = Debug|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|Emscripten.Build.0 = Debug|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x64.ActiveCfg = Debug|x64
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x64.Build.0 = Debug|x64
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x86.ActiveCfg = Debug|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Debug|x86.Build.0 = Debug|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|ARM.ActiveCfg = Release|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|ARM64.ActiveCfg = Release|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|Emscripten.ActiveCfg = Release|Emscripten
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x64.ActiveCfg = Release|x64
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x64.Build.0 = Release|x64
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x86.ActiveCfg = Release|Win32
-		{77E00846-770C-45AA-99A1-EF295FB97B74}.Release|x86.Build.0 = Release|Win32
 		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|ARM.ActiveCfg = Debug|x64
 		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|ARM64.ActiveCfg = Debug|x64
 		{27C4A269-2E08-4644-B3C9-F5090703FA1D}.Debug|Emscripten.ActiveCfg = Debug|Emscripten

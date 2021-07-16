@@ -1,0 +1,8 @@
+https://emscripten.org/docs/tools_reference/emcc.html
+
+https://emsettings.surma.technology/#PTHREAD_POOL_SIZE_STRICT
+
+
+USE_PTHREADS (source)
+If true, enables support for pthreads.
+This setting is equivalent to `-pthread`, which should be preferred.

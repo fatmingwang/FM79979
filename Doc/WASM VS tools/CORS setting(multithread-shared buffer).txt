@@ -1,0 +1,48 @@
+https://web.dev/webassembly-threads/
+
+Cross-Origin-Embedder-Policy: require-corp
+Cross-Origin-Opener-Policy: same-origin
+
+
+
+for IIS 10
+http://dotnetqueries.com/Article/208/enable-cors-in-iis-10
+
+
+1. Open IIS Manager (Administrator)
+
+2. Select target site, and click "Feature View" tab shown at bottom on right side.
+
+3. Click on Directory Browsing option from IIS section.
+
+4. Click on "Enable" link on right side in actions window.
+
+5. Refresh site once.
+
+6. At site's physical path,  you will find "web.config" generated for you.
+
+7. In that, add below code to enable CORS.
+
+<system.webServer>
+        <directoryBrowse enabled="true" />
+         <httpProtocol>
+      <customHeaders>
+        <clear />
+        <add name="Access-Control-Allow-Origin" value="*" />         
+      </customHeaders>
+    </httpProtocol>
+    </system.webServer>
+8. Now, refresh and check if CORS working or not.
+
+
+you have to enable file extension request enable
+
+extension:  .*
+MIME type:  application/octet-stream
+
+https://stackoverflow.com/questions/6731645/iis-7-5-how-to-let-him-serve-by-default-all-file-extensions-without-manually-a/24118185
+
+
+
+
+

@@ -68,6 +68,9 @@ void  SDLNet_SetError(const char *fmt, ...)
     va_start(argp, fmt);
     vsnprintf(errorbuf, sizeof(errorbuf), fmt, argp);
     va_end(argp);
+    printf("SDLNet_SetError:");
+    printf(errorbuf);
+    printf("\n");
 #ifndef WITHOUT_SDL
     SDL_SetError("%s", errorbuf);
 #endif
@@ -178,10 +181,10 @@ const char *SDLNet_ResolveIP(const IPaddress *ip)
     struct in_addr in;
 
     hp = gethostbyaddr((const char *)&ip->host, sizeof(ip->host), AF_INET);
-    if ( hp != NULL ) {
+    if ( hp != NULL ) 
+    {
         return hp->h_name;
     }
-
     in.s_addr = ip->host;
     return inet_ntoa(in);
 }

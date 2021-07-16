@@ -49,19 +49,23 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
     }
 
     /* Open the socket */
-//#ifdef WASM
+#ifdef WASM
+    //https://blog.squareys.de/emscripten-sockets/
 //	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-//#else
+    sock->channel = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);// 
+    fcntl(sock->channel, F_SETFL, O_NONBLOCK);
+#else
 	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
-//#endif
+#endif
 
-    if ( sock->channel == INVALID_SOCKET ) {
+    if ( sock->channel == INVALID_SOCKET ) 
+    {
         SDLNet_SetError("Couldn't create socket");
         goto error_return;
     }
-
     /* Connect to remote, or bind locally, as appropriate */
-    if ( (ip->host != INADDR_NONE) && (ip->host != INADDR_ANY) ) {
+    if ( (ip->host != INADDR_NONE) && (ip->host != INADDR_ANY) ) 
+    {
 
     // #########  Connecting to remote
 
@@ -69,12 +73,36 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
         sock_addr.sin_family = AF_INET;
         sock_addr.sin_addr.s_addr = ip->host;
         sock_addr.sin_port = ip->port;
-
-        /* Connect to the remote host */
-        if ( connect(sock->channel, (struct sockaddr *)&sock_addr,
-                sizeof(sock_addr)) == SOCKET_ERROR ) {
-            SDLNet_SetError("Couldn't connect to remote host");
+#ifdef WASM
+        if (inet_pton(AF_INET, "127.0.0.1", &sock_addr.sin_addr) != 1) 
+        {
+            SDLNet_SetError("Socket::connect(): inet_pton failed");
             goto error_return;
+        }
+#endif
+        /* Connect to the remote host */
+        if ( connect(sock->channel, (struct sockaddr *)&sock_addr,sizeof(sock_addr)) == SOCKET_ERROR ) 
+        {
+            SDLNet_SetError("try SDLTCP connect");
+            if (errno == EINPROGRESS)
+            {
+
+                /* Wait for connection to complete */
+                fd_set sockets;
+                FD_ZERO(&sockets);
+                FD_SET(sock->channel, &sockets);
+
+                /* You should probably do other work instead of busy waiting on this...
+                   or set a timeout or something */
+                SDLNet_SetError("wait select");
+                while (select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr) <= 0) {}
+                SDLNet_SetError("select finish");
+            }
+            else
+            {
+                SDLNet_SetError("Couldn't connect to remote host");
+                goto error_return;
+            }
         }
         sock->iServerFlag = 0;
     } else {
@@ -97,7 +125,6 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
             setsockopt(sock->channel, SOL_SOCKET, SO_REUSEADDR, (char*)&yes, sizeof(yes));
         }
 #endif
-
         /* Bind the socket for listening */
         if ( bind(sock->channel, (struct sockaddr *)&sock_addr,
                 sizeof(sock_addr)) == SOCKET_ERROR ) {
@@ -154,6 +181,7 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
     return(sock);
 
 error_return:
+    SDLNet_SetError("SDLNet_TCP_Open open failed call close");
     SDLNet_TCP_Close(sock);
     return(NULL);
 }

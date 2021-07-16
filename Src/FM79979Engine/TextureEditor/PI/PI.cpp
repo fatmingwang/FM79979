@@ -479,7 +479,7 @@ namespace PI
 		{
 			if (m_pPuzzleImageUnitTriangulatorManager->IsObjectOverlap())
 			{
-				WARNING_MSG("objects are overlap are you sure you want to save file!?");
+				WARNING_MSG("PuzzleImageUnitTriangulatorManager:objects are overlap are you sure you want to save file!?");
 			}
 		}
 		 String^l_ImageFileName = e_strFileName;
@@ -1652,9 +1652,12 @@ namespace PI
 				MouseCollideForPickUpObject(e, splitContainer2->Panel1);
 				ptCursor.x = e->X; ptCursor.y = e->Y;
 				//HWND	l_Hwnd = WindowFromPoint(ptCursor);
-				if (this->m_pPuzzleImageUnitTriangulatorManager)
+				if (tabControl1->SelectedIndex == 2)
 				{
-					m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+					if (this->m_pPuzzleImageUnitTriangulatorManager)
+					{
+						m_pPuzzleImageUnitTriangulatorManager->MouseMove(ptCursor.x, ptCursor.y);
+					}
 				}
 			}
 		}
