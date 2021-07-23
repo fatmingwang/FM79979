@@ -1363,6 +1363,9 @@
     <ClInclude Include="Network\UDPNetwork.h">
       <Filter>NetWork</Filter>
     </ClInclude>
+    <ClInclude Include="XML\XMLCommonDefine.h">
+      <Filter>XML</Filter>
+    </ClInclude>    
     <ClInclude Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h">
       <Filter>GameplayUT\OpenGL\GLSL</Filter>
     </ClInclude>

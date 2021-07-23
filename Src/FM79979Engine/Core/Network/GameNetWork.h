@@ -73,6 +73,8 @@ namespace FATMING_CORE
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
 		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
 		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
+		bool								SendDataToClient(SDLNetSocket e_pTCPsocket, char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = true);
+		bool								SendDataToAllClient(char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = true);
 		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = true);
 		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = true);
 		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = true);
@@ -152,7 +154,6 @@ namespace FATMING_CORE
 	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToAllClient(&l_TempNetworkSendPacket123);	\
 	l_TempNetworkSendPacket123.pData = nullptr;																	\
 }
-
 
 #define	LAZY_SEND_NETWORK_MESSAGE(SOCKET,DATA)																  \
 {																											  \

@@ -490,6 +490,7 @@
     <ClInclude Include="Sound\SoundFile.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Synchronization\CPP11Thread.h" />
+    <ClInclude Include="XML\XMLCommonDefine.h" />
     <ClInclude Include="XML\XMLLoader.h" />
     <ClInclude Include="XML\AtgXmlWriter.h" />
     <ClInclude Include="XML\tinystr.h" />

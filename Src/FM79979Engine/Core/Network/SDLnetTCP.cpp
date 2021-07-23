@@ -74,16 +74,21 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
         sock_addr.sin_addr.s_addr = ip->host;
         sock_addr.sin_port = ip->port;
 #ifdef WASM
-        if (inet_pton(AF_INET, "127.0.0.1", &sock_addr.sin_addr) != 1) 
+        auto l_strHost = SDLNet_ResolveIP(ip);
+        printf("do SDLNet_ResolveIP get ");
+        printf(l_strHost);
+        printf("\n");
+        if (inet_pton(AF_INET, l_strHost, &sock_addr.sin_addr) != 1)
         {
             SDLNet_SetError("Socket::connect(): inet_pton failed");
             goto error_return;
         }
 #endif
         /* Connect to the remote host */
+        SDLNet_SetError("try SDLTCP connect 1");
         if ( connect(sock->channel, (struct sockaddr *)&sock_addr,sizeof(sock_addr)) == SOCKET_ERROR ) 
         {
-            SDLNet_SetError("try SDLTCP connect");
+            //SDLNet_SetError("try SDLTCP connect 2");
             if (errno == EINPROGRESS)
             {
 
@@ -92,11 +97,13 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
                 FD_ZERO(&sockets);
                 FD_SET(sock->channel, &sockets);
 
-                /* You should probably do other work instead of busy waiting on this...
-                   or set a timeout or something */
+            //    /* You should probably do other work instead of busy waiting on this...
+            //       or set a timeout or something */
                 SDLNet_SetError("wait select");
-                while (select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr) <= 0) {}
+            //    while (select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr) <= 0) {}
+                select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr);// 
                 SDLNet_SetError("select finish");
+                Sleep(100);
             }
             else
             {
@@ -105,8 +112,9 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
             }
         }
         sock->iServerFlag = 0;
-    } else {
-
+    }
+    else 
+    {
     // ##########  Binding locally
 
         memset(&sock_addr, 0, sizeof(sock_addr));

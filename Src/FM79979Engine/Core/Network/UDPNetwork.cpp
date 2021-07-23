@@ -117,8 +117,8 @@ namespace FATMING_CORE
 				auto l_iReceivedBytes = SDLNet_UDP_Recv(this->m_pSocket, this->m_pInPacket);
 				if (l_iReceivedBytes > 0)
 				{
-					sNetworkReceivedPacket*l_pPacket = new sNetworkReceivedPacket();
-					l_pPacket->UDPReceiveDataWithoutHeaderSize(m_pInPacket->address, m_pInPacket->len, (char*)m_pInPacket->data);
+					sNetworkReceivedPacket*l_pPacket = new sNetworkReceivedPacket();					
+					l_pPacket->UDPReceiveDataWithoutHeaderSize(GetSDLNetSocket(m_pInPacket->address), m_pInPacket->len, (char*)m_pInPacket->data);
 					{
 						cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 						m_ReceivedDataVector.push_back(l_pPacket);
@@ -175,8 +175,8 @@ namespace FATMING_CORE
 				auto l_iReceivedBytes = SDLNet_UDP_Recv(this->m_pSocket, this->m_pInPacket);
 				if (l_iReceivedBytes > 0)
 				{
-					sNetworkReceivedPacket* l_pPacket = new sNetworkReceivedPacket();
-					l_pPacket->UDPReceiveDataWithoutHeaderSize(m_pInPacket->address, m_pInPacket->len, (char*)m_pInPacket->data);
+					sNetworkReceivedPacket* l_pPacket = new sNetworkReceivedPacket();	
+					l_pPacket->UDPReceiveDataWithoutHeaderSize(GetSDLNetSocket(m_pInPacket->address), m_pInPacket->len, (char*)m_pInPacket->data);
 					{
 						cPP11MutexHolder l_PP11MutexHolder(m_ReceivedDataMutex);
 						m_ReceivedDataVector.push_back(l_pPacket);

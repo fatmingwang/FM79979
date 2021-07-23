@@ -69,7 +69,9 @@ enum eCarDrivingNetworkMessage
 
 #pragma pack(push,1)
 LAZY_MESSAGE_HEADER_STAR(eCDNM_C2S_CAR_STATUS)
+	int     a;
 	char	strText[260];
+	int     b;
 LAZY_MESSAGE_HEADER_END(eCDNM_C2S_CAR_STATUS)
 #pragma pack(pop)
 
@@ -119,6 +121,7 @@ void cNetworkSample::Init()
 
 void cNetworkSample::Update(float e_fElpaseTime)
 {
+	int16 a = 0;
 	cGameNetwork::Update(e_fElpaseTime);
 	std::vector<sNetworkReceivedPacket*>l_DataVector = GetReceivedDataPleaseDeleteAfterUseIt();
 	size_t l_uiSize = l_DataVector.size();
@@ -146,6 +149,8 @@ void cNetworkSample::Update(float e_fElpaseTime)
 		{
 			sNetwork_eCDNM_C2S_CAR_STATUS l_Data;
 			sprintf(l_Data.strText, "1234567890");
+			l_Data.a = 0;
+			l_Data.b = 0;
 			sNetworkSendPacket l_NetworkSendPacket;
 			l_NetworkSendPacket.iSize = sizeof(l_Data);
 			FMLog::Log(UT::ComposeMsgByFormat("packet size:%d", l_Data.iSize).c_str(), false);
