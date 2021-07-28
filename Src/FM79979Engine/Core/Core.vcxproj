@@ -146,6 +146,7 @@
       <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib />
     <Lib>

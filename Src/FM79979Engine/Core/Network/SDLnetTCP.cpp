@@ -43,7 +43,8 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
 
     /* Allocate a TCP socket structure */
     sock = (TCPsocket)malloc(sizeof(*sock));
-    if ( sock == NULL ) {
+    if ( sock == NULL ) 
+    {
         SDLNet_SetError("Out of memory");
         goto error_return;
     }
@@ -52,8 +53,11 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
 #ifdef WASM
     //https://blog.squareys.de/emscripten-sockets/
 //	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    sock->channel = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);// 
-    fcntl(sock->channel, F_SETFL, O_NONBLOCK);
+    //sock->channel = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);// 
+    printf("call socket start");
+    sock->channel = socket(AF_INET, SOCK_STREAM, 0);
+    printf("call socket finish");
+    //fcntl(sock->channel, F_SETFL, O_NONBLOCK);
 #else
 	sock->channel = socket(AF_INET, SOCK_STREAM, 0);
 #endif
@@ -74,15 +78,16 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
         sock_addr.sin_addr.s_addr = ip->host;
         sock_addr.sin_port = ip->port;
 #ifdef WASM
-        auto l_strHost = SDLNet_ResolveIP(ip);
-        printf("do SDLNet_ResolveIP get ");
-        printf(l_strHost);
-        printf("\n");
-        if (inet_pton(AF_INET, l_strHost, &sock_addr.sin_addr) != 1)
-        {
-            SDLNet_SetError("Socket::connect(): inet_pton failed");
-            goto error_return;
-        }
+        printf("call connect start");
+        //auto l_strHost = SDLNet_ResolveIP(ip);
+        //printf("do SDLNet_ResolveIP get ");
+        //printf(l_strHost);
+        //printf("\n");
+        //if (inet_pton(AF_INET, l_strHost, &sock_addr.sin_addr) != 1)
+        //{
+        //    SDLNet_SetError("Socket::connect(): inet_pton failed");
+        //    goto error_return;
+        //}
 #endif
         /* Connect to the remote host */
         SDLNet_SetError("try SDLTCP connect 1");
@@ -128,6 +133,7 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
  *   --ryan.
  */
 #ifndef WIN32
+        printf("call connect finish");
         /* allow local address reuse */
         { int yes = 1;
             setsockopt(sock->channel, SOL_SOCKET, SO_REUSEADDR, (char*)&yes, sizeof(yes));

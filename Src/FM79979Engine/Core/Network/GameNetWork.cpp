@@ -11,15 +11,79 @@
 
 #ifdef WASM
 //emsdk\upstream\emscripten\tests\websocket\tcp_echo_client.cpp
+//#define DO_WEBSOCKET_INIT
+	#ifdef DO_WEBSOCKET_INIT
+// -lwebsocket.js -s PROXY_POSIX_SOCKETS=1 
 #include <emscripten.h>
 #include <emscripten/websocket.h>
 #include <emscripten/threading.h>
-//extern "C" 
-//{
-//	EMSCRIPTEN_WEBSOCKET_T emscripten_init_websocket_to_posix_socket_bridge(const char* bridgeUrl);
-//}
+#include <emscripten/posix_socket.h>
+		#define	EMSCRIPTEN_WEBSOCKET_INIT(ADDRESS)	emscripten_init_websocket_to_posix_socket_bridge(ADDRESS)
+		#define	EMSCRIPTEN_WEBSOCKET_READY(P1,P2)	emscripten_websocket_get_ready_state(P1,P2)
+		int		g_iBridgeSocket = -1;
+		bool	g_bDoinit_websocket = true;
+	#else
+		#define	EMSCRIPTEN_WEBSOCKET_INIT(ADDRESS)1;
+		#define	EMSCRIPTEN_WEBSOCKET_READY(P1,P2)1;
+		int		g_iBridgeSocket = 1;
+		bool	g_bDoinit_websocket = false;
+	#endif
 #endif
 
+void	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
+{
+#ifdef WASM
+	if (g_iBridgeSocket == -1 && g_bDoinit_websocket)
+	{
+		//-s WEBSOCKET_SUBPROTOCOL=null 
+		//// -lwebsocket.js -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1
+		//// -s PROXY_POSIX_SOCKETS=1 
+		////  -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1 -s LLD_REPORT_UNDEFINED 
+		//https://githubmemory.com/repo/emscripten-core/emscripten/issues/14492
+		//"wss://localhost:8080"
+		bool l_bDoSSL = true;
+		std::string l_strWebSocketInfo;
+		if (l_bDoSSL)
+		{
+			l_strWebSocketInfo = UT::ComposeMsgByFormat("wss://%s:%d", e_strIP, e_iPort);
+		}
+		else
+		{
+			l_strWebSocketInfo = UT::ComposeMsgByFormat("ws://%s:%d", e_strIP, e_iPort);
+		}
+		printf("call emscripten_init_websocket_to_posix_socket_bridge:WebSocket address is ");
+		printf(l_strWebSocketInfo.c_str());
+		printf("\n");
+		g_iBridgeSocket = EMSCRIPTEN_WEBSOCKET_INIT(l_strWebSocketInfo.c_str());
+		printf("BridgeSocket:%d\n", g_iBridgeSocket);
+		// Synchronously wait until connection has been established.
+		//unsigned short readyState = 0;
+		//if (1)
+		//{
+		//	for (int i = 0; i < 1; ++i)
+		//	{
+		//		emscripten_websocket_get_ready_state(g_iBridgeSocket, &readyState);
+		//		if (readyState != 0)
+		//		{
+		//			printf("emscripten_websocket_get_ready_state ok\n");
+		//			break;
+		//		}
+		//		emscripten_thread_sleep(100);
+		//		printf("emscripten_websocket_get_ready_state try again...\n");
+		//	}
+		//}
+		//else
+		//{
+		//	do 
+		//	{
+		//		emscripten_websocket_get_ready_state(g_iBridgeSocket, &readyState);
+		//		emscripten_thread_sleep(100);
+		//	} 
+		//	while (readyState == 0);
+		//}
+	}
+#endif
+}
 namespace FATMING_CORE
 {
 	sSDLNetTCPSocket::sSDLNetTCPSocket(_TCPsocket* e_pSocket)
@@ -483,6 +547,7 @@ namespace FATMING_CORE
 	{
 		m_IPData.m_iPort = e_iPort;
 		m_IPData.m_strServerIP = e_strIP;
+		WASMPOSIXWakeup(m_IPData.m_iPort, m_IPData.m_strServerIP.c_str());
 		if(1)
 		{
 			f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cGameNetwork::ClientListenDataThread, this, std::placeholders::_1);
@@ -507,31 +572,21 @@ namespace FATMING_CORE
 		}
 		m_eNetWorkStatus = eNWS_TRY_TO_CONNECT;
 		m_IPData.m_iPort = e_iPort;
+		if (e_strIP)
+		{
+			m_IPData.m_strHost = e_strIP;
+		}
 #ifdef WASM
-		////https://githubmemory.com/repo/emscripten-core/emscripten/issues/14492
-		////"wss://localhost:8080"
-		//std::string l_strWebSocketInfo = UT::ComposeMsgByFormat("wss://%s:%d", e_strIP, e_iPort);
-		//printf("call emscripten_init_websocket_to_posix_socket_bridge:WebSocket address is ");
-		//printf(l_strWebSocketInfo.c_str());
-		//printf("\n");
-		//auto l_iBridgeSocket = emscripten_init_websocket_to_posix_socket_bridge(l_strWebSocketInfo.c_str());
-		//// Synchronously wait until connection has been established.
-		//unsigned short readyState = 0;
-		////for (int i = 0; i < 5; ++i)
-		//{
-		//	emscripten_websocket_get_ready_state(l_iBridgeSocket, &readyState);
-		//	if (readyState != 0)
-		//	{
-		//		printf("emscripten_websocket_get_ready_state ok\n");
-		//		//break;
-		//	}
-		//	emscripten_thread_sleep(1000);
-		//	printf("emscripten_websocket_get_ready_state try again...\n");
-		//}
-		//if (readyState == 0)
-		//{
-		//	//return false;
-		//}
+		if (g_bDoinit_websocket)
+		{
+			unsigned short readyState = 0;
+			Sleep(10);
+			EMSCRIPTEN_WEBSOCKET_READY(g_iBridgeSocket, &readyState);
+			if (readyState == 0)
+			{
+				return false;
+			}
+		}
 #endif
 		FMLog::LogWithFlag(UT::ComposeMsgByFormat("fetch IP :Port: %d", m_IPData.m_iPort), CORE_LOG_FLAG);
 		/* Resolve the argument into an IPaddress type */
@@ -544,7 +599,6 @@ namespace FATMING_CORE
 		UINT l_uiAddr = SDL_SwapBE32(m_IPData.m_IP.host);
 		FMLog::LogWithFlag(UT::ComposeMsgByFormat("IP Address : %d.%d.%d.%d",
 			l_uiAddr >> 24,(l_uiAddr >> 16) & 0xff,(l_uiAddr >> 8) & 0xff,l_uiAddr & 0xff), CORE_LOG_FLAG);
-		m_IPData.m_strHost = SDLNet_ResolveIP((IPaddress*)&m_IPData.m_IP);
 		auto l_pSDLTCPSocket = SDLNet_TCP_Open((IPaddress*)&m_IPData.m_IP);
 		//if SDLNet_TCP_Open called server's SDLNet_TCP_Accept will be triggered
 		if (!l_pSDLTCPSocket)
@@ -904,7 +958,11 @@ namespace FATMING_CORE
 				!m_pGameNetwork->IsThreadWorking())
 			{
 				if (m_ReConnectTime.bTragetTimrReached)
-				{
+				{//make sure its client
+					if (m_pGameNetwork->m_IPData.m_strServerIP.length())
+					{
+						WASMPOSIXWakeup(m_pGameNetwork->m_IPData.m_iPort, m_pGameNetwork->m_IPData.m_strServerIP.c_str());
+					}
 					if (m_bServeFlag)
 					{
 						m_pGameNetwork->CreateAsServer(m_pGameNetwork->m_IPData.m_iPort, false);

@@ -69,7 +69,7 @@ void  SDLNet_SetError(const char *fmt, ...)
     vsnprintf(errorbuf, sizeof(errorbuf), fmt, argp);
     va_end(argp);
 #ifdef WASM
-    printf(errorbuf);
+    printf("%s",errorbuf);
     printf("\n");
 #endif
 #ifndef WITHOUT_SDL
@@ -115,14 +115,18 @@ int  SDLNet_Init(void)
 }
 void SDLNet_Quit(void)
 {
-    if ( SDLNet_started == 0 ) {
+    if ( SDLNet_started == 0 ) 
+    {
         return;
     }
-    if ( --SDLNet_started == 0 ) {
+    if ( --SDLNet_started == 0 ) 
+    {
 #ifdef __USE_W32_SOCKETS
         /* Clean up windows networking */
-        if ( WSACleanup() == SOCKET_ERROR ) {
-            if ( WSAGetLastError() == WSAEINPROGRESS ) {
+        if ( WSACleanup() == SOCKET_ERROR ) 
+        {
+            if ( WSAGetLastError() == WSAEINPROGRESS ) 
+            {
 #ifndef _WIN32_WCE
                 WSACancelBlockingCall();
 #endif
@@ -133,7 +137,8 @@ void SDLNet_Quit(void)
         /* Restore the SIGPIPE handler */
         void (*handler)(int);
         handler = signal(SIGPIPE, SIG_DFL);
-        if ( handler != SIG_IGN ) {
+        if ( handler != SIG_IGN ) 
+        {
             signal(SIGPIPE, handler);
         }
 #endif
@@ -143,28 +148,44 @@ void SDLNet_Quit(void)
 /* Resolve a host name and port to an IP address in network form */
 int SDLNet_ResolveHost(IPaddress *address, const char *host, Uint16 port)
 {
+#ifdef WASM
+    address->host = inet_addr(host);
+    if (address->host == INADDR_NONE)
+    {
+        SDLNet_SetError("inet_addr get error");
+        return -1;
+    }
+    address->port = SDLNet_Read16(&port);
+    return 0;
+#else
     int retval = 0;
-
     /* Perform the actual host resolution */
-    if ( host == NULL ) {
+    if (host == NULL)
+    {
         address->host = INADDR_ANY;
-    } else {
+    }
+    else
+    {
         address->host = inet_addr(host);
-        if ( address->host == INADDR_NONE ) {
-            struct hostent *hp;
+        if (address->host == INADDR_NONE)
+        {
+            struct hostent* hp;
 
             hp = gethostbyname(host);
-            if ( hp ) {
-                memcpy(&address->host,hp->h_addr,hp->h_length);
-            } else {
+            if (hp)
+            {
+                memcpy(&address->host, hp->h_addr, hp->h_length);
+            }
+            else
+            {
                 retval = -1;
             }
         }
     }
     address->port = SDLNet_Read16(&port);
-
     /* Return the status */
     return(retval);
+#endif
 }
 
 /* Resolve an ip address to a host name in canonical form.
@@ -178,6 +199,48 @@ int SDLNet_ResolveHost(IPaddress *address, const char *host, Uint16 port)
  */
 const char *SDLNet_ResolveIP(const IPaddress *ip)
 {
+#ifdef WASM
+    //struct addrinfo hints, * res;
+    //int errcode;
+    //static char addrstr[100];
+    //void* ptr;
+    //printf("call SDLNet_ResolveHost2 \n");
+    //memset(&hints, 0, sizeof(hints));
+    //hints.ai_family = PF_UNSPEC;
+    //hints.ai_socktype = SOCK_STREAM;
+    //printf("call SDLNet_ResolveHost3 \n");
+    //hints.ai_flags |= AI_CANONNAME;
+    //printf("try to get getaddrinfo");
+    //errcode = getaddrinfo(host, NULL, &hints, &res);
+    //if (errcode != 0)
+    //{
+    //    printf("getaddrinfo failed!\n");
+    //    return nullptr;
+    //}
+
+    //printf("Host: %s\n", host);
+    //while (res)
+    //{
+    //    inet_ntop(res->ai_family, res->ai_addr->sa_data, addrstr, 100);
+
+    //    switch (res->ai_family)
+    //    {
+    //    case AF_INET:
+    //        ptr = &((struct sockaddr_in*)res->ai_addr)->sin_addr;
+
+    //        return addrstr;
+    //        break;
+    //    case AF_INET6:
+    //        ptr = &((struct sockaddr_in6*)res->ai_addr)->sin6_addr;
+    //        break;
+    //    }
+    //    inet_ntop(res->ai_family, ptr, addrstr, 100);
+    //    printf("IPv%d address: %s (%s)\n", res->ai_family == PF_INET6 ? 6 : 4, addrstr, res->ai_canonname);
+    //    res = res->ai_next;
+    //}
+    //printf("IPv%d address: %s (%s)\n", res->ai_family == PF_INET6 ? 6 : 4, addrstr, res->ai_canonname);
+    return nullptr;
+#else
     struct hostent *hp;
     struct in_addr in;
 
@@ -188,6 +251,7 @@ const char *SDLNet_ResolveIP(const IPaddress *ip)
 
     in.s_addr = ip->host;
     return inet_ntoa(in);
+#endif
 }
 
 int SDLNet_GetLocalAddresses(IPaddress *addresses, int maxcount)
