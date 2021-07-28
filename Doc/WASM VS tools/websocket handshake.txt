@@ -1,0 +1,5 @@
+set 
+-s WEBSOCKET_SUBPROTOCOL=null
+
+
+for no handshake?

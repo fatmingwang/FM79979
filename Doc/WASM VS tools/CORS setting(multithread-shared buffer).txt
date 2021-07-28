@@ -1,3 +1,36 @@
+https://docs.microsoft.com/en-us/iis/extensions/cors-module/cors-module-configuration-reference
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <system.webServer>
+        <cors enabled="true" failUnlistedOrigins="true">
+            <add origin="*" />
+            <add origin="https://*.microsoft.com"
+                 allowCredentials="true"
+                 maxAge="120"> 
+                <allowHeaders allowAllRequestedHeaders="true">
+                    <add header="header1" />
+                    <add header="header2" />
+                </allowHeaders>
+                <allowMethods>
+                     <add method="DELETE" />
+                </allowMethods>
+                <exposeHeaders>
+                    <add header="header1" />
+                    <add header="header2" />
+                </exposeHeaders>
+            </add>
+            <add origin="http://*" allowed="false" />
+        </cors>
+    </system.webServer>
+</configuration>
+
+
+
+
+
+
 https://web.dev/webassembly-threads/
 
 Cross-Origin-Embedder-Policy: require-corp
