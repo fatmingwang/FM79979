@@ -13,13 +13,7 @@
     <ClInclude Include="..\..\Core\Android\nv_global.h">
       <Filter>Core\AndroidJNI\Nvidia</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\Android\nv_hhdds.h">
-      <Filter>Core\AndroidJNI\Nvidia</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\Android\nv_hhdds_internal.h">
-      <Filter>Core\AndroidJNI\Nvidia</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Android\nv_images.h">
       <Filter>Core\AndroidJNI\Nvidia</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Android\nv_log.h">
@@ -37,254 +31,8 @@
     <ClInclude Include="..\..\Core\Android\JNIUtil.h">
       <Filter>Core\AndroidJNI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\CameraAnimation.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\DrawSelectRectangleByMouse.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\MouseCamera.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\OrthogonalCamera.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\SimpleCamera.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Camera\SplitScreenCamera.h">
-      <Filter>Core\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Glh.h">
-      <Filter>Core\Common\Crossplatform\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\CommonDefine.h">
-      <Filter>Core\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\PlatFormDefine.h">
-      <Filter>Core\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\VS_TO_GNN.h">
-      <Filter>Core\Common\Crossplatform</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\NamedTypedObject.h">
-      <Filter>Core\Common\NamedTypedObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\StringID.h">
-      <Filter>Core\Common\NamedTypedObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\SmartPointer.h">
-      <Filter>Core\Common\SmartPointer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\MapCellDataContainer.h">
-      <Filter>Core\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TempContainer.h">
-      <Filter>Core\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TemplateClass.h">
-      <Filter>Core\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TwoDimensionDataContainer.h">
-      <Filter>Core\Common\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\TimeUT.h">
-      <Filter>Core\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Utility.h">
-      <Filter>Core\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\AllEventInclude.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\AllEventTypeInclude.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventActiverParser.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventBase.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventButtonSelectedActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventButtonTrigger.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventHeaderDefine.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventImage.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventInstance.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventManager.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventMouseTrigger.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventMPDI.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventObject.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventObjectInstance.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventObjectParser.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventPackageRunner.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventParticle.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventSound.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventText.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventTriggerBase.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventTriggerParser.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventValueChangerActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventValueCheckerTrigger.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventVariable.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventVariableDataRender.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\FMEvent\EventXMLNodeText.h">
-      <Filter>Core\FMEvent</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\BinaryFile.h">
-      <Filter>Core\GamePlayUT\Binary</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\CameraZoomFunction.h">
-      <Filter>Core\GamePlayUT\CameraZoom</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\DataCurve\DataCurve.h">
       <Filter>Core\GamePlayUT\DataCurve</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.h">
-      <Filter>Core\GamePlayUT\FMAnimationRuleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.h">
-      <Filter>Core\GamePlayUT\FMAnimationRuleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\GameApp.h">
-      <Filter>Core\GamePlayUT\GameApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\AtgInput.h">
-      <Filter>Core\GamePlayUT\GamePad</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\ObjectXMLParser.h">
-      <Filter>Core\GamePlayUT\ObjectXMLParser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\CurveChanger.h">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\PathChaser.h">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\PathFinder.h">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\PhaseControl.h">
-      <Filter>Core\GamePlayUT\Phase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\PhasePopupMessager.h">
-      <Filter>Core\GamePlayUT\Phase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\ResourceStamp.h">
-      <Filter>Core\GamePlayUT\ResourceStamp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\StringCompress.h">
-      <Filter>Core\GamePlayUT\StringCompress</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\ListValueChanger.h">
-      <Filter>Core\GamePlayUT\ValueChange</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\RestrictValue.h">
-      <Filter>Core\GamePlayUT\ValueChange</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\RenderObjectVector.h">
-      <Filter>Core\GamePlayUT\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\AssembleImageButton.h">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\FontFrame.h">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\ImageButton.h">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.h">
-      <Filter>Core\GamePlayUT\UI\MultiSelectOptionByMPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Mouse_Touch.h">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.h">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\MultiTouchPoints.h">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\ImageWithSlider.h">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\MultiPage.h">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Tabpage.h">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\3DScroller.h">
-      <Filter>Core\GamePlayUT\UI\Scroller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Scroller.h">
-      <Filter>Core\GamePlayUT\UI\Scroller</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\Sliderbar.h">
-      <Filter>Core\GamePlayUT\UI\SliderBar</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\AllGamePlayUTInclude.h">
       <Filter>Core\GamePlayUT</Filter>
@@ -303,12 +51,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Math\Collision.h">
       <Filter>Core\Math\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Math\Curve.h">
-      <Filter>Core\Math\Curve</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Math\CurveManager.h">
-      <Filter>Core\Math\Curve</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Math\Matrix33.h">
       <Filter>Core\Math\Matrix</Filter>
@@ -334,16 +76,7 @@
     <ClInclude Include="..\..\Core\Math\Vector4.h">
       <Filter>Core\Math\Vector</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\Math\Float.h">
-      <Filter>Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Math\Frame.h">
-      <Filter>Core\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\Math\Line.h">
-      <Filter>Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Math\LinerTemplateDataProcess.h">
       <Filter>Core\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Math\MathTemplateUtility.h">
@@ -354,9 +87,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Math\Plane.h">
       <Filter>Core\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Network\begin_code.h">
-      <Filter>Core\NetWork</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Network\happyhttp.h">
       <Filter>Core\NetWork</Filter>
@@ -372,168 +102,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\Network\SDLnetsys.h">
       <Filter>Core\NetWork</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleEmitter.h">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleEmitterBehavior.h">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleEmitterGroup.h">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleBase.h">
-      <Filter>Core\Particle\ParticleBase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleType.h">
-      <Filter>Core\Particle\ParticleBase</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtColor.h">
-      <Filter>Core\Particle\Policy\Color</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtLife.h">
-      <Filter>Core\Particle\Policy\Life</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtVelocity.h">
-      <Filter>Core\Particle\Policy\Velocity</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtTexture.h">
-      <Filter>Core\Particle\Policy\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtStartPosition.h">
-      <Filter>Core\Particle\Policy\StartPosition</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtRotate.h">
-      <Filter>Core\Particle\Policy\Rotation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\PrtSize.h">
-      <Filter>Core\Particle\Policy\Size</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\AllPolicyNameList.h">
-      <Filter>Core\Particle\Policy</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\AllParticleInclude.h">
-      <Filter>Core\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Particle\ParticleManager.h">
-      <Filter>Core\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Physic\2DImageCollisionData.h">
-      <Filter>Core\Physic\2DImageCollisionData</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Physic\BulletShape.h">
-      <Filter>Core\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\AllPhysicInclude.h">
-      <Filter>Core\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\FrameBuffer.h">
-      <Filter>Core\RenderObject\BufferObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\VertexBufferObject.h">
-      <Filter>Core\RenderObject\BufferObject</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\BaseImage.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\NumeralImage.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\RenderNode.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\RenderObject.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\SimplePrimitive.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\UVAnimationImage.h">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\FMAnimationRule.h">
-      <Filter>Core\RenderObject\FManimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\FMTimelineAnimationObject.h">
-      <Filter>Core\RenderObject\FManimationRule</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Glyph\GlyphWriter.h">
-      <Filter>Core\RenderObject\Font\Glyph</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Glyph\GlyphReader.h">
-      <Filter>Core\RenderObject\Font\Glyph</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\GlyphFontRender.h">
-      <Filter>Core\RenderObject\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\GLSLUiniform.h">
-      <Filter>Core\RenderObject\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\Shader.h">
-      <Filter>Core\RenderObject\GLSL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\ToneMapping.h">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\TunnelEffect.h">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GLSL\Blur.h">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\MPDI.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\MPDIForEditor.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\MPDINode.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\SubMPDI.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\SubMPDIRenderPointData.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\VideoSubMPDI.h">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\AnimationParser.h">
-      <Filter>Core\RenderObject\Parser\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\MPDIDataParse.h">
-      <Filter>Core\RenderObject\Parser\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\BinaryToTexture.h">
-      <Filter>Core\RenderObject\Parser\BinaryToTexture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\ImageParser.h">
-      <Filter>Core\RenderObject\Parser\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\BaseUVImageData.h">
-      <Filter>Core\RenderObject\PuzzleImage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\PuzzleImage.h">
-      <Filter>Core\RenderObject\PuzzleImage</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\jpeg\jpgd.h">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\jpeg\jpge.h">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\jpeg\timer.h">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\png\pngLoader.h">
-      <Filter>Core\RenderObject\Texture\png</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Image\Texture.h">
-      <Filter>Core\RenderObject\Texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\AllImageInclude.h">
-      <Filter>Core\RenderObject</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Sound\AllSoundInclude.h">
       <Filter>Core\Sound</Filter>
@@ -565,23 +133,8 @@
     <ClInclude Include="..\..\Core\XML\AtgXmlWriter.h">
       <Filter>Core\XML\Writer</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\XML\StringToStructure.h">
-      <Filter>Core\XML</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\XML\XMLLoader.h">
       <Filter>Core\XML</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.h">
-      <Filter>Core\VideoPlayer\MyJpeg</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Terrain\ShockBoobsPainter.h">
-      <Filter>Core\Terrian</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Terrain\ShockBoobsShader.h">
-      <Filter>Core\Terrian</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\Terrain\TerrianVertex.h">
-      <Filter>Core\Terrian</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\Synchronization\AllFUThreadInclude.h">
       <Filter>Core\Synchronization</Filter>
@@ -608,6 +161,423 @@
       <Filter>Core\Synchronization</Filter>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\CameraAnimation.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\CameraZoomFunction.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\DrawSelectRectangleByMouse.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\MouseCamera.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\OrthogonalCamera.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\SimpleCamera.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Camera\SplitScreenCamera.h">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\BinaryFile.h">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\CustomBinaryData.h">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\StringCompress.h">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.h">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Synchronization\CPP11Thread.h">
+      <Filter>Core\Synchronization</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\GameNetWork.h">
+      <Filter>Core\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\NetworkData.h">
+      <Filter>Core\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Network\UDPNetwork.h">
+      <Filter>Core\NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\DataCurve\LinerTemplateDataProcess.h">
+      <Filter>Core\GamePlayUT\DataCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\CommonRegister\CommonRegisterManager.h">
+      <Filter>Core\GamePlayUT\CommonRegister</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\GameApp\GameApp.h">
+      <Filter>Core\GamePlayUT\GameApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Language\LanguageFile.h">
+      <Filter>Core\GamePlayUT\Language</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.h">
+      <Filter>Core\GamePlayUT\MultiTouch</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\glesConvert.h">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\Glh.h">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.h">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.h">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.h">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\PathChaser.h">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\PathFinder.h">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Physic\2DImageCollisionData.h">
+      <Filter>Core\GamePlayUT\Physic\2DImageCollisionData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Physic\BulletShape.h">
+      <Filter>Core\GamePlayUT\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ResourceMaintaner\GameResourceManager.h">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ResourceMaintaner\ObjectXMLParser.h">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\ResourceMaintaner\ResourceStamp.h">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\2DMesh\2DMesh.h">
+      <Filter>Core\GamePlayUT\Render\2DMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\BaseImage.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\Frame.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\NumeralImage.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\RenderNode.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\RenderObject.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\CommonRender\SimplePrimitive.h">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Curve\Curve.h">
+      <Filter>Core\GamePlayUT\Render\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Curve\CurveManager.h">
+      <Filter>Core\GamePlayUT\Render\Curve</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRule.h">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.h">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.h">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.h">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\AllParticleInclude.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\AllPolicyNameList.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleBase.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitter.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitterBehavior.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitterGroup.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleManager.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\ParticleType.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtColor.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtLife.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtRotate.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtSize.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtStartPosition.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtTexture.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Particle\PrtVelocity.h">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Font\FontManager.h">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Font\FreetypeGlypth.h">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Font\GlyphFontRender.h">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Font\Glyph\GlyphReader.h">
+      <Filter>Core\GamePlayUT\Render\Font\Glypth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Font\Glyph\GlyphWriter.h">
+      <Filter>Core\GamePlayUT\Render\Font\Glypth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Morphing\MorphingAnimation.h">
+      <Filter>Core\GamePlayUT\Render\Morphing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\MPDI.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\MPDIDataParse.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\MPDIForEditor.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\MPDINode.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\SubMPDI.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\SubMPDIRenderPointData.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\MPDI\VideoSubMPDI.h">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\FrameBuffer.h">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\UVAnimationImage.h">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.h">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Parser\AnimationParser.h">
+      <Filter>Core\GamePlayUT\Render\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Parser\ImageParser.h">
+      <Filter>Core\GamePlayUT\Render\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\PuzzleImage\BaseUVImageData.h">
+      <Filter>Core\GamePlayUT\Render\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\PuzzleImage\PuzzleImage.h">
+      <Filter>Core\GamePlayUT\Render\PuzzleImage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h">
+      <Filter>Core\GamePlayUT\Render\RenderEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderCommand.h">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderQueue.h">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderQueueManager.h">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsPainter.h">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsShader.h">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Terrain\TerrianVertex.h">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\Texture.h">
+      <Filter>Core\GamePlayUT\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\TextureManager.h">
+      <Filter>Core\GamePlayUT\Render\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_hhdds.h">
+      <Filter>Core\GamePlayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_hhdds_internal.h">
+      <Filter>Core\GamePlayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_images.h">
+      <Filter>Core\GamePlayUT\Render\Texture\dds</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpgd.h">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.h">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\stb_image.h">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.h">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.h">
+      <Filter>Core\GamePlayUT\Render\Texture\png</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\VideoPlayer\AndroidVideoPlayer.h">
+      <Filter>Core\GamePlayUT\Render\VideoPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.h">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\DefaultRenderClickBehavior.h">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\MPDIToGameObject.h">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ScrollBar.h">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ScrollBox.h">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\3DScroller.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\AllUIInclude.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\AssembleImageButton.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\FontFrame.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ImageButton.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\ImageWithSlider.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Mouse_Touch.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Mouse_TouchWithCancelButton.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\MouseMoveData.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\MultiPage.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\MultiSelectOptionByMPDI.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\RenderObjectVector.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Scroller.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Sliderbar.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\Render\UI\Tabpage.h">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\CommonDefine.h">
+      <Filter>Core\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\NamedTypedObject.h">
+      <Filter>Core\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\StringID.h">
+      <Filter>Core\Common\NamedTypedObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Log\FMLog.h">
+      <Filter>Core\Common\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\EventSender\MessageSender.h">
+      <Filter>Core\Common\EventSender</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\SmartPointer.h">
+      <Filter>Core\Common\SmartPointer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\MapCellDataContainer.h">
+      <Filter>Core\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TempContainer.h">
+      <Filter>Core\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TemplateClass.h">
+      <Filter>Core\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Template\TwoDimensionDataContainer.h">
+      <Filter>Core\Common\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\CommonApp.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\PlatFormDefine.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\StringToStructure.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\TimeUT.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\Utility.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\Common\VS_TO_GNN.h">
+      <Filter>Core\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\TemplateValueChanger\ListValueChanger.h">
+      <Filter>Core\GamePlayUT\TemplateValueChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\TemplateValueChanger\RestrictValue.h">
+      <Filter>Core\GamePlayUT\TemplateValueChanger</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\GamePhase\PhaseControl.h">
+      <Filter>Core\GamePlayUT\GamePhase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\GamePhase\PhasePopupMessager.h">
+      <Filter>Core\GamePlayUT\GamePhase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -616,14 +586,8 @@
     <Filter Include="Core\AndroidJNI">
       <UniqueIdentifier>{4fa5fff0-0733-45ae-a6ad-14c56b3d7c46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Camera">
-      <UniqueIdentifier>{a53fc109-d388-46f6-832c-d256389c3dc9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Common">
       <UniqueIdentifier>{b37ca970-53d7-4f27-85d3-764ca5dc3664}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\FMEvent">
-      <UniqueIdentifier>{639e76c9-32f5-4f6c-b6ee-43e995301d1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\GamePlayUT">
       <UniqueIdentifier>{170dab68-e3ad-4bd4-8fa0-46178536b07b}</UniqueIdentifier>
@@ -637,15 +601,6 @@
     <Filter Include="Core\NetWork">
       <UniqueIdentifier>{c73bdde1-11d9-4f3b-b19d-19cb063386d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Particle">
-      <UniqueIdentifier>{50869dff-278e-49af-af71-3bcda685cea9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Physic">
-      <UniqueIdentifier>{10e8a8d6-e928-4000-bed1-d80d330fe4de}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject">
-      <UniqueIdentifier>{ea626762-e5a2-4849-bbfb-3e04c62cf5c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Sound">
       <UniqueIdentifier>{aa840a84-7db6-4e90-adbf-f23f430797e7}</UniqueIdentifier>
     </Filter>
@@ -655,20 +610,11 @@
     <Filter Include="Core\Synchronization">
       <UniqueIdentifier>{5e07dee7-97c4-4083-a524-7aeb28ed689b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Terrian">
-      <UniqueIdentifier>{f6ee24eb-cbc1-4705-bdff-5a7d17f8bd5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\VideoPlayer">
-      <UniqueIdentifier>{b05b97ee-1ba5-4350-ad31-3416c6a81681}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\XML">
       <UniqueIdentifier>{66e75283-ad74-414c-aed0-8207f748b280}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\AndroidJNI\Nvidia">
       <UniqueIdentifier>{69a2a00f-676f-4ab6-973d-d4d437d8b4bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Common\Crossplatform">
-      <UniqueIdentifier>{d255ba13-d639-4365-8d6a-f2e5b66d4a48}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Common\NamedTypedObject">
       <UniqueIdentifier>{5b666b0f-7fff-4ca1-bebc-38e03017d2bb}</UniqueIdentifier>
@@ -679,71 +625,14 @@
     <Filter Include="Core\Common\Template">
       <UniqueIdentifier>{039455e1-eb86-405c-bebd-d98a8f930a5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Common\Crossplatform\OpenGL">
-      <UniqueIdentifier>{092d6265-17ac-4aaa-ab18-1639b17c0e5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\Binary">
-      <UniqueIdentifier>{3f574a0a-c0c7-46f2-b9f4-94aa42e1e6b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\CameraZoom">
-      <UniqueIdentifier>{11ffc077-1f40-4805-8b18-5f81c6f20ed9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\GamePlayUT\DataCurve">
       <UniqueIdentifier>{d06ccd4e-2276-4fcf-bee4-375a00e66858}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\FMAnimationRuleEffect">
-      <UniqueIdentifier>{aa19d236-077c-4cdc-a736-82f8f457dc28}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\GamePlayUT\GameApp">
       <UniqueIdentifier>{e93a8c98-1cbf-427f-bfd1-25d8aebfc986}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\GamePlayUT\GamePad">
-      <UniqueIdentifier>{ad8900d1-99c7-44da-8a54-59202c451f31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\ObjectXMLParser">
-      <UniqueIdentifier>{c2918ccd-1131-49a5-8980-9117ea8da4d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\Path">
-      <UniqueIdentifier>{4d45cadf-1008-473b-a787-0197acc896d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\Phase">
-      <UniqueIdentifier>{0a3dd66e-c0b4-4e4a-9fa7-e6fd3e4e2ac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\ResourceStamp">
-      <UniqueIdentifier>{9bd7d544-1b0e-4336-a158-e5819891c93e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\StringCompress">
-      <UniqueIdentifier>{198ac9cb-6c50-4996-9a2a-24ea3e7b5f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI">
-      <UniqueIdentifier>{9b7fb8c4-5854-47c8-9295-dac6fbdd5893}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\ValueChange">
-      <UniqueIdentifier>{6409c575-3078-4a2b-b5bf-6d49fed08853}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\Button">
-      <UniqueIdentifier>{343d890a-9b8e-4ec7-99f5-0700f3a6ff43}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\MultiSelectOptionByMPDI">
-      <UniqueIdentifier>{7fcb3c1c-4f0b-456e-a6df-dffb14e862d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\MouseBehavior">
-      <UniqueIdentifier>{3a401cc0-a05e-4a0e-9015-6caa0b9b5428}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\Scroller">
-      <UniqueIdentifier>{69dfa4ce-5184-403e-ad90-c02ca7823d2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\SliderBar">
-      <UniqueIdentifier>{8a164efd-e8ea-4281-b079-11b10ee482fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\GamePlayUT\UI\Tabpage">
-      <UniqueIdentifier>{640c9052-c9ee-4851-b6b2-d9e92c6a2870}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Math\Collision">
       <UniqueIdentifier>{38e16201-d3db-4e4e-8e1e-aee2063f846e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Math\Curve">
-      <UniqueIdentifier>{50c744e6-9d6a-4b0d-918b-1379d4769cdd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Math\Matrix">
       <UniqueIdentifier>{9c01c419-0f75-46d8-af44-47daf58c2aaf}</UniqueIdentifier>
@@ -757,87 +646,6 @@
     <Filter Include="Core\Math\Vector">
       <UniqueIdentifier>{65f1eee1-fd1d-4ac0-a17e-c611688ad53b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Particle\Emitter">
-      <UniqueIdentifier>{4c335689-5c8a-4300-ac19-2009f96d538a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\ParticleBase">
-      <UniqueIdentifier>{5638a4ff-394f-4dbe-a092-0b0657d14849}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy">
-      <UniqueIdentifier>{3fa32478-8ac6-41b4-be08-84e27f487003}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Color">
-      <UniqueIdentifier>{738fface-c481-474a-a9f2-36d2b90700ec}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Life">
-      <UniqueIdentifier>{3325654f-48f0-4bcb-90c4-67c8714cb29f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Velocity">
-      <UniqueIdentifier>{d2b856b9-feca-4d02-a2fd-ecfff31e8369}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Texture">
-      <UniqueIdentifier>{3f91384d-18cf-4087-955e-a381c43efaab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\StartPosition">
-      <UniqueIdentifier>{62084578-cf45-4747-ac30-c489ad4968e0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Size">
-      <UniqueIdentifier>{bd825a2f-f74a-48a8-b340-5a31aac15eb5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Particle\Policy\Rotation">
-      <UniqueIdentifier>{94a50a88-9852-42ba-b9f3-1f7117b7fae1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Physic\2DImageCollisionData">
-      <UniqueIdentifier>{5d6b4c13-7122-4e97-9234-0cefcbef662c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\BufferObject">
-      <UniqueIdentifier>{5d5cc9ae-4dfc-4836-b89a-51eb5763d039}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Common">
-      <UniqueIdentifier>{9bb3ed94-43b4-466e-8aa1-1f1c22a43249}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\FManimationRule">
-      <UniqueIdentifier>{3887da50-c131-458e-81e6-34f24e2703eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Font">
-      <UniqueIdentifier>{7de235cf-ed0d-4691-a4bc-14f9a2d58626}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\GLSL">
-      <UniqueIdentifier>{35c4ff5f-0ce9-4cd7-8b3f-237f1ace832e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\MPDI">
-      <UniqueIdentifier>{81bf7d6d-1d7a-4898-a787-d038922552d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Parser">
-      <UniqueIdentifier>{7a3fbce5-a4b0-4b36-9ad3-9168ff569bba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\PuzzleImage">
-      <UniqueIdentifier>{e077a1a0-a962-439d-9065-56ada271fa4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Texture">
-      <UniqueIdentifier>{38644721-2611-4965-b266-a78756c16a2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Font\Glyph">
-      <UniqueIdentifier>{0f508c6a-c18c-4784-a559-aaf0e8aaa16a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\GLSL\PostEffect">
-      <UniqueIdentifier>{441ae6a5-9ded-4742-affb-92e683b0b894}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Parser\Animation">
-      <UniqueIdentifier>{b19a5008-e71f-404d-adce-d55d82a316bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Parser\BinaryToTexture">
-      <UniqueIdentifier>{67ad362e-f453-4dc8-9031-b3979cbc1e50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Parser\Image">
-      <UniqueIdentifier>{efc68a56-b5b7-4db8-98c4-9ddec7d0e4bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Texture\jpeg">
-      <UniqueIdentifier>{487868f1-26a3-4a3a-9392-e2bc2c5a06c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\RenderObject\Texture\png">
-      <UniqueIdentifier>{16358a9b-c20b-4676-b5a9-ee293c2d0b15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Sound\AndroidOpenAL">
       <UniqueIdentifier>{47cda1dc-73dd-4dba-b973-b75e738ee212}</UniqueIdentifier>
     </Filter>
@@ -847,8 +655,116 @@
     <Filter Include="Core\XML\Writer">
       <UniqueIdentifier>{d8109b9b-93e5-4791-b387-3e01390af2de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\VideoPlayer\MyJpeg">
-      <UniqueIdentifier>{5af82848-2fbb-4ef2-aa46-d8187519d392}</UniqueIdentifier>
+    <Filter Include="Core\Common\BinaryFile">
+      <UniqueIdentifier>{acd53ad5-f276-4096-8d62-63476611e19e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Common\Log">
+      <UniqueIdentifier>{f66105c7-0537-4e28-a249-f65ab62e8d98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Camera">
+      <UniqueIdentifier>{a53fc109-d388-46f6-832c-d256389c3dc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\GamePhase">
+      <UniqueIdentifier>{0a3dd66e-c0b4-4e4a-9fa7-e6fd3e4e2ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Language">
+      <UniqueIdentifier>{a27e3e5a-532b-44b9-b86a-8dd68abd5004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\MultiTouch">
+      <UniqueIdentifier>{f66cdba8-7c63-4e72-b85e-76ca427487c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render">
+      <UniqueIdentifier>{d7014a4c-d7a5-4a4b-97af-947ba0df9d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\UI">
+      <UniqueIdentifier>{9b7fb8c4-5854-47c8-9295-dac6fbdd5893}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Particle">
+      <UniqueIdentifier>{50869dff-278e-49af-af71-3bcda685cea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Terrian">
+      <UniqueIdentifier>{f6ee24eb-cbc1-4705-bdff-5a7d17f8bd5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Physic">
+      <UniqueIdentifier>{10e8a8d6-e928-4000-bed1-d80d330fe4de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Physic\2DImageCollisionData">
+      <UniqueIdentifier>{5d6b4c13-7122-4e97-9234-0cefcbef662c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\CommonRegister">
+      <UniqueIdentifier>{55b8c950-ead1-4480-a1cc-920723ad64d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\OpenGL">
+      <UniqueIdentifier>{ec79e625-4720-4384-be8e-382cff104f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\PathAndCurve">
+      <UniqueIdentifier>{4d45cadf-1008-473b-a787-0197acc896d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\ResourceMaintaner">
+      <UniqueIdentifier>{3584fc56-f66c-4d4b-b508-eb3051db9483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\TemplateValueChanger">
+      <UniqueIdentifier>{6409c575-3078-4a2b-b5bf-6d49fed08853}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\2DMesh">
+      <UniqueIdentifier>{cd9fa8cb-49da-4437-8981-5e2a8fc26b2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\CommonRender">
+      <UniqueIdentifier>{a8cf1e5f-d87b-411b-a85e-796dace9b126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Curve">
+      <UniqueIdentifier>{cf4f9af6-40e1-455b-949b-7432ef595e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\FMAnimationRule">
+      <UniqueIdentifier>{47f793d0-55e8-489c-bf1e-2b5d98628cbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Font">
+      <UniqueIdentifier>{90e861a9-81ce-4884-937e-557f8a2e1b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Morphing">
+      <UniqueIdentifier>{4de38f07-aedd-4cee-8a18-693010ff0b10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\MPDI">
+      <UniqueIdentifier>{8553ac5b-3d61-45df-bc03-e68b362a574e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Font\Glypth">
+      <UniqueIdentifier>{0129c851-a04e-47e7-bd09-99c420a0ae72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\OpenGLObject">
+      <UniqueIdentifier>{1ad27664-e1c2-44d6-873c-6813aeb1dbcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Parser">
+      <UniqueIdentifier>{c312cee9-1038-4cd8-81f8-3df8d976d46b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\PuzzleImage">
+      <UniqueIdentifier>{26c87559-7c7f-4ca7-a78c-1c5773a6171a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\RenderEffect">
+      <UniqueIdentifier>{7f62f586-361b-4c97-a254-439f33452183}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\RenderQueue">
+      <UniqueIdentifier>{9bad299e-1db5-4fb4-ae12-71e6b2627c6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Texture">
+      <UniqueIdentifier>{70c56e1c-7091-4536-84c3-3d4297c12df5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Texture\dds">
+      <UniqueIdentifier>{b09a3cda-2beb-4f38-9052-7b932652f3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Texture\jpeg">
+      <UniqueIdentifier>{747afcfd-2b38-41b5-b655-a9d2e171baad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\Texture\png">
+      <UniqueIdentifier>{74575ee3-e8db-4c78-ba52-f54cf10cf163}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\VideoPlayer">
+      <UniqueIdentifier>{cd795618-3fc7-4838-a31b-62b8ce3eb181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\Render\UI\ClickBehaviorUI">
+      <UniqueIdentifier>{84126abd-0ed1-4d2e-afad-69128124b3e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Common\EventSender">
+      <UniqueIdentifier>{7131be6f-e43f-4698-bdb4-01fc7f6f645c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -861,12 +777,6 @@
     <ClCompile Include="..\..\Core\Android\nv_file.c">
       <Filter>Core\AndroidJNI\Nvidia</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Android\nv_hhdds.cpp">
-      <Filter>Core\AndroidJNI\Nvidia</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Android\nv_images.cpp">
-      <Filter>Core\AndroidJNI\Nvidia</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Android\nv_log.cpp">
       <Filter>Core\AndroidJNI\Nvidia</Filter>
     </ClCompile>
@@ -876,248 +786,14 @@
     <ClCompile Include="..\..\Core\Android\JNIUtil.cpp">
       <Filter>Core\AndroidJNI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\CameraAnimation.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\DrawSelectRectangleByMouse.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\MouseCamera.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\OrthogonalCamera.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\SimpleCamera.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Camera\SplitScreenCamera.cpp">
-      <Filter>Core\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Glh.cpp">
-      <Filter>Core\Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GluForOpengles.cpp">
-      <Filter>Core\Common\Crossplatform\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\NamedTypedObject.cpp">
-      <Filter>Core\Common\NamedTypedObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\StringID.cpp">
-      <Filter>Core\Common\NamedTypedObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\SmartPointer.cpp">
-      <Filter>Core\Common\SmartPointer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\TimeUT.cpp">
-      <Filter>Core\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Utility.cpp">
-      <Filter>Core\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventActiverParser.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventAddEventObjectInstaceActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventBase.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventButtonSelectedActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventButtonTrigger.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventExternalFunctionCallActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventImage.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventInstance.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventInstanceSwitcherActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventManager.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventManagerParser.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventMouseTrigger.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventMPDI.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventObjecInstanceStatusChangeActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventObject.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventObjectInstance.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventObjectParser.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventObjectStatusCheckrTrigger.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventPackageRunner.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventParticle.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventSelectionCheckerTrigger.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventSound.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventText.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventToTiXmlElement.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventTriggerBase.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventTriggerParser.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventValueChangerActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventValueCheckerTrigger.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventVariable.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventVariableCheckYesAndNoActiver.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventVariableDataRender.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\FMEvent\EventXMLNodeText.cpp">
-      <Filter>Core\FMEvent</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\BinaryFile.cpp">
-      <Filter>Core\GamePlayUT\Binary</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\CameraZoomFunction.cpp">
-      <Filter>Core\GamePlayUT\CameraZoom</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\DataCurve\DataCurve.cpp">
       <Filter>Core\GamePlayUT\DataCurve</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectManager.cpp">
-      <Filter>Core\GamePlayUT\FMAnimationRuleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\FMAnimationRuleEffectQueuePlayer.cpp">
-      <Filter>Core\GamePlayUT\FMAnimationRuleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\GameApp.cpp">
-      <Filter>Core\GamePlayUT\GameApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\GameAppUtil.cpp">
-      <Filter>Core\GamePlayUT\GameApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\AtgInput.cpp">
-      <Filter>Core\GamePlayUT\GamePad</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\ObjectXMLParser.cpp">
-      <Filter>Core\GamePlayUT\ObjectXMLParser</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\CurveChanger.cpp">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\PathChaser.cpp">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\PathFinder.cpp">
-      <Filter>Core\GamePlayUT\Path</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\PhaseControl.cpp">
-      <Filter>Core\GamePlayUT\Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\PhasePopupMessager.cpp">
-      <Filter>Core\GamePlayUT\Phase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\ResourceStamp.cpp">
-      <Filter>Core\GamePlayUT\ResourceStamp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\StringCompress.cpp">
-      <Filter>Core\GamePlayUT\StringCompress</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\ListValueChanger.cpp">
-      <Filter>Core\GamePlayUT\ValueChange</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\RestrictValue.cpp">
-      <Filter>Core\GamePlayUT\ValueChange</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\RenderObjectVector.cpp">
-      <Filter>Core\GamePlayUT\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\AssembleImageButton.cpp">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\FontFrame.cpp">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\ImageButton.cpp">
-      <Filter>Core\GamePlayUT\UI\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\MultiSelectOptionByMPDI.cpp">
-      <Filter>Core\GamePlayUT\UI\MultiSelectOptionByMPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Mouse_Touch.cpp">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Mouse_TouchWithCancelButton.cpp">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\MultiTouchPoints.cpp">
-      <Filter>Core\GamePlayUT\UI\MouseBehavior</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\ImageWithSlider.cpp">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\MultiPage.cpp">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Tabpage.cpp">
-      <Filter>Core\GamePlayUT\UI\Tabpage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\3DScroller.cpp">
-      <Filter>Core\GamePlayUT\UI\Scroller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Scroller.cpp">
-      <Filter>Core\GamePlayUT\UI\Scroller</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\Sliderbar.cpp">
-      <Filter>Core\GamePlayUT\UI\SliderBar</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Math\Bound.cpp">
       <Filter>Core\Math\Collision</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Math\Collision.cpp">
       <Filter>Core\Math\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Math\Curve.cpp">
-      <Filter>Core\Math\Curve</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Math\CurveManager.cpp">
-      <Filter>Core\Math\Curve</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Math\Matrix33.cpp">
       <Filter>Core\Math\Matrix</Filter>
@@ -1140,13 +816,7 @@
     <ClCompile Include="..\..\Core\Math\Vector4.cpp">
       <Filter>Core\Math\Vector</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\Math\Frame.cpp">
-      <Filter>Core\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\Math\Line.cpp">
-      <Filter>Core\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Math\LinerTemplateDataProcess.cpp">
       <Filter>Core\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Math\MathUtility.cpp">
@@ -1160,174 +830,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\Network\Network.cpp">
       <Filter>Core\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnet.c">
-      <Filter>Core\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetselect.c">
-      <Filter>Core\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetTCP.c">
-      <Filter>Core\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Network\SDLnetUDP.c">
-      <Filter>Core\NetWork</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\ParticleEmitter.cpp">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\ParticleEmitterBehavior.cpp">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\ParticleEmitterGroup.cpp">
-      <Filter>Core\Particle\Emitter</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\ParticleBase.cpp">
-      <Filter>Core\Particle\ParticleBase</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtColor.cpp">
-      <Filter>Core\Particle\Policy\Color</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtLife.cpp">
-      <Filter>Core\Particle\Policy\Life</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtVelocity.cpp">
-      <Filter>Core\Particle\Policy\Velocity</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtTexture.cpp">
-      <Filter>Core\Particle\Policy\Texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtStartPosition.cpp">
-      <Filter>Core\Particle\Policy\StartPosition</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtRotate.cpp">
-      <Filter>Core\Particle\Policy\Rotation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\PrtSize.cpp">
-      <Filter>Core\Particle\Policy\Size</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\AllPolicyNameList.cpp">
-      <Filter>Core\Particle\Policy</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Particle\ParticleManager.cpp">
-      <Filter>Core\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Physic\2DImageCollisionData.cpp">
-      <Filter>Core\Physic\2DImageCollisionData</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Physic\BulletShape.cpp">
-      <Filter>Core\Physic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\FrameBuffer.cpp">
-      <Filter>Core\RenderObject\BufferObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\VertexBufferObject.cpp">
-      <Filter>Core\RenderObject\BufferObject</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\BaseImage.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\NumeralImage.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\RenderNode.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\RenderObject.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\SimplePrimitive.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\UVAnimationImage.cpp">
-      <Filter>Core\RenderObject\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\FMAnimationRule.cpp">
-      <Filter>Core\RenderObject\FManimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\FMTimelineAnimationObject.cpp">
-      <Filter>Core\RenderObject\FManimationRule</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Glyph\GlyphReader.cpp">
-      <Filter>Core\RenderObject\Font\Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Glyph\GlyphWriter.cpp">
-      <Filter>Core\RenderObject\Font\Glyph</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\GlyphFontRender.cpp">
-      <Filter>Core\RenderObject\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\CommnoShader.cpp">
-      <Filter>Core\RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\GLSLUiniform.cpp">
-      <Filter>Core\RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\Shader.cpp">
-      <Filter>Core\RenderObject\GLSL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\ToneMapping.cpp">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\TunnelEffect.cpp">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GLSL\Blur.cpp">
-      <Filter>Core\RenderObject\GLSL\PostEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\MPDI.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\MPDIForEditor.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\MPDINode.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\SubMPDI.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\SubMPDIRenderPointData.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\VideoSubMPDI.cpp">
-      <Filter>Core\RenderObject\MPDI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\AnimationParser.cpp">
-      <Filter>Core\RenderObject\Parser\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\MPDIDataParse.cpp">
-      <Filter>Core\RenderObject\Parser\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\BinaryToTexture.cpp">
-      <Filter>Core\RenderObject\Parser\BinaryToTexture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\ImageParser.cpp">
-      <Filter>Core\RenderObject\Parser\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\PuzzleImage.cpp">
-      <Filter>Core\RenderObject\PuzzleImage</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\jpeg\jpgd.cpp">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\jpeg\jpge.cpp">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\jpeg\stb_image.c">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\jpeg\tga2jpg.cpp">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\jpeg\timer.cpp">
-      <Filter>Core\RenderObject\Texture\jpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\png\pngLoader.cpp">
-      <Filter>Core\RenderObject\Texture\png</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Image\Texture.cpp">
-      <Filter>Core\RenderObject\Texture</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\alAuxEffectSlot.c">
       <Filter>Core\Sound\AndroidOpenAL</Filter>
@@ -1443,23 +945,8 @@
     <ClCompile Include="..\..\Core\XML\AtgXmlWriter.cpp">
       <Filter>Core\XML\Writer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\XML\StringToStructure.cpp">
-      <Filter>Core\XML</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\XML\XmlLoader.cpp">
       <Filter>Core\XML</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\AVIPlayer\AndroidVideoPlayer.cpp">
-      <Filter>Core\VideoPlayer\MyJpeg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Terrain\ShockBoobsPainter.cpp">
-      <Filter>Core\Terrian</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Terrain\ShockBoobsShader.cpp">
-      <Filter>Core\Terrian</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\Terrain\TerrianVertex.cpp">
-      <Filter>Core\Terrian</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\Synchronization\FUCriticalSection.cpp">
       <Filter>Core\Synchronization</Filter>
@@ -1479,11 +966,395 @@
     <ClCompile Include="..\..\Core\stdafx.cpp">
       <Filter>Core\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\CameraAnimation.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\CameraZoomFunction.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\DrawSelectRectangleByMouse.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\MouseCamera.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\OrthogonalCamera.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\SimpleCamera.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Camera\SplitScreenCamera.cpp">
+      <Filter>Core\GamePlayUT\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\BinaryFile.cpp">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\CustomBinaryData.cpp">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\StringCompress.cpp">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\BinaryFile\WriteFileWithThread.cpp">
+      <Filter>Core\Common\BinaryFile</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Synchronization\CPP11Thread.cpp">
+      <Filter>Core\Synchronization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\GameNetWork.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnet.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetselect.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetTCP.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\SDLnetUDP.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Network\UDPNetwork.cpp">
+      <Filter>Core\NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\DataCurve\LinerTemplateDataProcess.cpp">
+      <Filter>Core\GamePlayUT\DataCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameApp\GameApp.cpp">
+      <Filter>Core\GamePlayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameApp\GameAppGetObject.cpp">
+      <Filter>Core\GamePlayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GameApp\GameAppUtil.cpp">
+      <Filter>Core\GamePlayUT\GameApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Language\LanguageFile.cpp">
+      <Filter>Core\GamePlayUT\Language</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.cpp">
+      <Filter>Core\GamePlayUT\MultiTouch</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\Glh.cpp">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GluForOpengles.cpp">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.cpp">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.cpp">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.cpp">
+      <Filter>Core\GamePlayUT\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.cpp">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\PathChaser.cpp">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\PathFinder.cpp">
+      <Filter>Core\GamePlayUT\PathAndCurve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Physic\2DImageCollisionData.cpp">
+      <Filter>Core\GamePlayUT\Physic\2DImageCollisionData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Physic\BulletShape.cpp">
+      <Filter>Core\GamePlayUT\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ResourceMaintaner\GameResourceManager.cpp">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ResourceMaintaner\ObjectXMLParser.cpp">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\ResourceMaintaner\ResourceStamp.cpp">
+      <Filter>Core\GamePlayUT\ResourceMaintaner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\2DMesh\2DMesh.cpp">
+      <Filter>Core\GamePlayUT\Render\2DMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\BaseImage.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\Frame.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\NumeralImage.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\RenderNode.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\RenderObject.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\CommonRender\SimplePrimitive.cpp">
+      <Filter>Core\GamePlayUT\Render\CommonRender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Curve\Curve.cpp">
+      <Filter>Core\GamePlayUT\Render\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Curve\CurveManager.cpp">
+      <Filter>Core\GamePlayUT\Render\Curve</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRule.cpp">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectManager.cpp">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMAnimationRuleEffectQueuePlayer.cpp">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\FMAnimationRule\FMTimelineAnimationObject.cpp">
+      <Filter>Core\GamePlayUT\Render\FMAnimationRule</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\AllPolicyNameList.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleBase.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitter.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitterBehavior.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleEmitterGroup.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\ParticleManager.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtColor.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtLife.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtRotate.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtSize.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtStartPosition.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtTexture.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Particle\PrtVelocity.cpp">
+      <Filter>Core\GamePlayUT\Render\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Font\FontManager.cpp">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Font\FreetypeGlypth.cpp">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Font\GlyphFontRender.cpp">
+      <Filter>Core\GamePlayUT\Render\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Font\Glyph\GlyphReader.cpp">
+      <Filter>Core\GamePlayUT\Render\Font\Glypth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Font\Glyph\GlyphWriter.cpp">
+      <Filter>Core\GamePlayUT\Render\Font\Glypth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Morphing\MorphingAnimation.cpp">
+      <Filter>Core\GamePlayUT\Render\Morphing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\MPDI.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\MPDIDataParse.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\MPDIForEditor.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\MPDINode.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\SubMPDI.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\SubMPDIRenderPointData.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\MPDI\VideoSubMPDI.cpp">
+      <Filter>Core\GamePlayUT\Render\MPDI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\FrameBuffer.cpp">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\UVAnimationImage.cpp">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\OpenGLObject\VertexBufferObject.cpp">
+      <Filter>Core\GamePlayUT\Render\OpenGLObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Parser\AnimationParser.cpp">
+      <Filter>Core\GamePlayUT\Render\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Parser\ImageParser.cpp">
+      <Filter>Core\GamePlayUT\Render\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\PuzzleImage\PuzzleImage.cpp">
+      <Filter>Core\GamePlayUT\Render\PuzzleImage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp">
+      <Filter>Core\GamePlayUT\Render\RenderEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\RenderQueue\RenderCommand.cpp">
+      <Filter>Core\GamePlayUT\Render\RenderQueue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsPainter.cpp">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Terrain\ShockBoobsShader.cpp">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Terrain\TerrianVertex.cpp">
+      <Filter>Core\GamePlayUT\Render\Terrian</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\Texture.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\TextureManager.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_hhdds.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\dds\nv_images.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\dds</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpgd.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\jpge.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\tga2jpg.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\jpeg\timer.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\jpeg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\Texture\png\pngLoader.cpp">
+      <Filter>Core\GamePlayUT\Render\Texture\png</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\VideoPlayer\AndroidVideoPlayer.cpp">
+      <Filter>Core\GamePlayUT\Render\VideoPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ClickBehavior.cpp">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\DefaultRenderClickBehavior.cpp">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\MPDIToGameObject.cpp">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ScrollBar.cpp">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ClickBehaviorUI\ScrollBox.cpp">
+      <Filter>Core\GamePlayUT\Render\UI\ClickBehaviorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\3DScroller.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\AssembleImageButton.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\FontFrame.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ImageButton.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\ImageWithSlider.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Mouse_Touch.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Mouse_TouchWithCancelButton.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\MouseMoveData.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\MultiPage.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\MultiSelectOptionByMPDI.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\RenderObjectVector.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Scroller.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Sliderbar.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\Render\UI\Tabpage.cpp">
+      <Filter>Core\GamePlayUT\Render\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\NamedTypedObject.cpp">
+      <Filter>Core\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\StringID.cpp">
+      <Filter>Core\Common\NamedTypedObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\Log\FMLog.cpp">
+      <Filter>Core\Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\EventSender\MessageSender.cpp">
+      <Filter>Core\Common\EventSender</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\SmartPointer.cpp">
+      <Filter>Core\Common\SmartPointer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\CommonApp.cpp">
+      <Filter>Core\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\StringToStructure.cpp">
+      <Filter>Core\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\TimeUT.cpp">
+      <Filter>Core\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\Common\Utility.cpp">
+      <Filter>Core\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\TemplateValueChanger\ListValueChanger.cpp">
+      <Filter>Core\GamePlayUT\TemplateValueChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\TemplateValueChanger\RestrictValue.cpp">
+      <Filter>Core\GamePlayUT\TemplateValueChanger</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GamePhase\PhaseControl.cpp">
+      <Filter>Core\GamePlayUT\GamePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\GamePhase\PhasePopupMessager.cpp">
+      <Filter>Core\GamePlayUT\GamePhase</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\Core\Android\readme.txt">
-      <Filter>Core\AndroidJNI\Nvidia</Filter>
-    </Text>
     <Text Include="..\..\Core\Log.txt">
       <Filter>Core\Header</Filter>
     </Text>

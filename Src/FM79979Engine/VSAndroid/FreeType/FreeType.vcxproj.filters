@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{8b68ddc0-70be-4277-9111-58d3bc9681ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FT_MODULES">
+      <UniqueIdentifier>{1161cfc9-e566-49c1-b6ca-2387f324abae}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Freetype\src\base\ftbbox.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftbdf.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftbitmap.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftcid.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftfntfmt.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftfstype.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftgasp.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftglyph.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftgxval.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftlcdfil.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftmm.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftotval.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftpatent.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftpfr.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftstroke.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftsynth.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\fttype1.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftwinfnt.c">
+      <Filter>Source Files\FT_MODULES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\autofit\autofit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\cache\ftcache.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftbase.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftinit.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftsystem.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\bdf\bdf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\cff\cff.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\cid\type1cid.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\gzip\ftgzip.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\lzw\ftlzw.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\pfr\pfr.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\pcf\pcf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\psaux\psaux.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\pshinter\pshinter.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\psnames\psmodule.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\raster\raster.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\sfnt\sfnt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\smooth\smooth.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\truetype\truetype.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\type1\type1.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\type42\type42.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\winfonts\winfnt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Freetype\src\base\ftdebug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
