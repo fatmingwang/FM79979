@@ -1,11 +1,12 @@
 
 package com.AndroidGrageleProject;
 
+import android.app.NativeActivity;
 import android.app.Activity;
 import android.widget.TextView;
 import android.os.Bundle;
 
-public class AndroidGrageleProject extends Activity
+public class AndroidGrageleProject extends NativeActivity//Activity//NativeActivity
 {
     /** Called when the activity is first created. */
     @Override
@@ -18,5 +19,5 @@ public class AndroidGrageleProject extends Activity
         tv.setText("Hello World!");
         setContentView(tv);
     }
-    static { System.loadLibrary("AndroidGameApp.NativeActivity"); }
+    static { System.loadLibrary("AndroidGameApp"); }
 }

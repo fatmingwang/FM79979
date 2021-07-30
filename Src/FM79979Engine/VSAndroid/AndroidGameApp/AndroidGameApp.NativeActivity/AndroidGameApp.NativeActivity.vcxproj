@@ -78,6 +78,8 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>Clang_5_0</PlatformToolset>
+    <UseOfStl>c++_static</UseOfStl>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -147,9 +149,16 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <CompileAs>CompileAsCpp</CompileAs>
+      <AdditionalIncludeDirectories>..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>ANDROID;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>c++11</CppLanguageStandard>
     </ClCompile>
     <Link>
-      <LibraryDependencies>%(LibraryDependencies);GLESv1_CM;EGL;</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv2;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -203,23 +212,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\GameApp.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\stdafx.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestPhase.h" />
+    <ClInclude Include="engine.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="android_native_app_glue.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="android_native_app_glue.c" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\GameApp.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Sample.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestPhase.cpp" />
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Bullet\Bullet.vcxproj">
-      <Project>{bff03a93-e0a2-439e-a402-ab285c35cef9}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Core.vcxproj">
-      <Project>{ba2b29c9-8213-4642-b5be-141013442cfb}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ogg\ogg.vcxproj">
-      <Project>{3c0cacd9-3ea2-4571-8a5a-ff138db4b243}</Project>
-    </ProjectReference>
+    <ClCompile Include="MyJni.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

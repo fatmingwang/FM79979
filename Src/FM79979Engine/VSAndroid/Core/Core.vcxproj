@@ -77,8 +77,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Clang_3_8</PlatformToolset>
-    <AndroidAPILevel>android-14</AndroidAPILevel>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -160,6 +160,7 @@
       <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\Core\GameplayUT\Physic\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG;ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Enabled</ExceptionHandling>
+      <AdditionalOptions>-fsigned-char %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
@@ -220,9 +221,14 @@
     <ClInclude Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\glesConvert.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\Glh.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Blur.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.h" />
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.h" />
     <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.h" />
     <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\PathChaser.h" />
     <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\PathFinder.h" />
@@ -401,10 +407,17 @@
     <ClCompile Include="..\..\Core\GameplayUT\Language\LanguageFile.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\Glh.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Blur.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\CommnoShader.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\MeshShader.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GluForOpengles.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.cpp" />
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\PathChaser.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\PathFinder.cpp" />

@@ -221,19 +221,7 @@
     <ClInclude Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.h">
       <Filter>Core\GamePlayUT\MultiTouch</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\glesConvert.h">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\Glh.h">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.h">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.h">
       <Filter>Core\GamePlayUT\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.h">
@@ -578,6 +566,33 @@
     <ClInclude Include="..\..\Core\GameplayUT\GamePhase\PhasePopupMessager.h">
       <Filter>Core\GamePlayUT\GamePhase</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Blur.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\glesConvert.h">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\Glh.h">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -765,6 +780,12 @@
     </Filter>
     <Filter Include="Core\Common\EventSender">
       <UniqueIdentifier>{7131be6f-e43f-4698-bdb4-01fc7f6f645c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\OpenGL\CrossPlatform">
+      <UniqueIdentifier>{fb914e05-bbf5-45cc-8a8f-709e9cd2115b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\OpenGL\GLSL">
+      <UniqueIdentifier>{b79c86eb-7aba-433d-a57c-15eab2ce7c6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1038,19 +1059,7 @@
     <ClCompile Include="..\..\Core\GameplayUT\MultiTouch\MultiTouchPoints.cpp">
       <Filter>Core\GamePlayUT\MultiTouch</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\Glh.cpp">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GluForOpengles.cpp">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.cpp">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLRender.cpp">
-      <Filter>Core\GamePlayUT\OpenGL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\WindowsOpenGL.cpp">
       <Filter>Core\GamePlayUT\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\PathAndCurve\CurveChanger.cpp">
@@ -1352,6 +1361,39 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\GamePhase\PhasePopupMessager.cpp">
       <Filter>Core\GamePlayUT\GamePhase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Blur.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\CommnoShader.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\MeshShader.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\Glh.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GluForOpengles.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

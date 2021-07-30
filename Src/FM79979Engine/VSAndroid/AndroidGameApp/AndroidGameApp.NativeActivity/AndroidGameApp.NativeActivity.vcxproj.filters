@@ -2,10 +2,32 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="android_native_app_glue.h" />
+    <ClInclude Include="engine.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestPhase.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="android_native_app_glue.c" />
+    <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MyJni.c" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestPhase.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\Sample.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7c545ac8-51bd-4448-abd5-be42663806bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
