@@ -855,7 +855,7 @@ namespace	FATMING_CORE
 			for( size_t i=0;i<l_uiSize;++i )
 			{
 				Vector3	l_vPos(m_LinerDataVector[i]);
-				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW(i).c_str());
+				cGameApp::RenderFont(l_vPos.x,l_vPos.y,ValueToStringW((int)i).c_str());
 			}
 		}
 		if( e_bRenderPoint )

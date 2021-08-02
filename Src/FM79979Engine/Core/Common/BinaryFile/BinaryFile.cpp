@@ -100,7 +100,7 @@ namespace FATMING_CORE
 		NvFWrite( data, sizeof(data), 1, m_pFile ); 
 	}
 
-#ifndef LINUX
+#if !defined(LINUX) && !defined(ANDROID)
 	void cBinaryFile::WriteToFile(long val )
 	{
 		NvFWrite( &val, sizeof(val), 1, m_pFile );

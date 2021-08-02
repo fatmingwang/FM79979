@@ -121,8 +121,6 @@ void   ThreadLoadTest()
 		l_Thread.detach();
 		FMLog::Log("thread detached", false);
 	}
-#endif
-#ifdef WASM
 	if (!g_pNetworkSample)
 	{
 		g_pNetworkSample = new cNetworkSample();
@@ -237,9 +235,9 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	if (0)
+	if (1)
 	{
-		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi", eGBT_MPDILIST);
+		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("bgrounda01.mpdi", eGBT_MPDILIST);
 	}
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 

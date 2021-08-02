@@ -76,7 +76,7 @@ namespace FATMING_CORE
 		void 				WriteToFile(unsigned long val );
 		//void 				WriteToFile(wchar_t val );
 		void 				WriteToFile(short val );
-#ifndef LINUX
+#if !defined(LINUX) && !defined(ANDROID)
 		void 				WriteToFile(long val );
 #endif
 		void 				WriteToFile(const char* val );

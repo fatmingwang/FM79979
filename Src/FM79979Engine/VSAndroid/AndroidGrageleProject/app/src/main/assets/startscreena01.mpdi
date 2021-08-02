@@ -1,0 +1,530 @@
+<MPDIList Name="startscreena01_mpdi" Count="2" MPDIVersion="1.2" PICount="1" ImageName="start_screen_a01.pi">
+    <MultiPathDynamicImage Name="start_screen_a02" PathCount="29" PlayCount="-1" TotalPlayTime="4.000000">
+        <CueToStartCurvesWithTime Name="start_dt_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="317.50,253.50,0.00" Time="4.000000" Size="1488.00,1160.00" Scale="2.31,2.24" PIName="start_screen_a01" ImageName="start_dt_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="start_do_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="580.50,487.50,0.00" Time="4.000000" Size="158.00,319.00" Scale="1.26,1.43" PIName="start_screen_a01" ImageName="start_do_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="954.50,566.00,0.00" Time="4.000000" Size="90.00,72.00" Scale="1.43,1.44" PIName="start_screen_a01" ImageName="gole_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a02" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="264.00,664.50,0.00" Time="4.000000" Size="129.00,133.00" Scale="1.43,1.43" PIName="start_screen_a01" ImageName="gole_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a07" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="727.00,807.00,0.00" Time="4.000000" Size="474.00,281.00" Scale="1.78,1.78" PIName="start_screen_a01" ImageName="grass_a07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a03" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1026.50,645.50,0.00" Time="4.000000" Size="365.00,305.00" Scale="2.06,1.78" PIName="start_screen_a01" ImageName="gole_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a02" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="931.00,749.50,0.00" Time="4.000000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1059.00,272.00,0.00" Time="4.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a06" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="1028.50,868.00,0.00" Time="4.000000" Size="289.00,243.00" Scale="2.08,1.69" PIName="start_screen_a01" ImageName="gole_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="939.00,834.00,0.00" Time="4.000000" Size="504.00,311.00" Scale="1.89,1.97" PIName="start_screen_a01" ImageName="grass_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a03" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="162.50,532.00,0.00" Time="4.000000" Size="355.00,333.00" Scale="1.78,1.79" PIName="start_screen_a01" ImageName="grass_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a04" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="420.00,804.50,0.00" Time="4.000000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a05" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="252.50,765.50,0.00" Time="4.000000" Size="389.00,384.00" Scale="2.36,2.36" PIName="start_screen_a01" ImageName="grass_a05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a02" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="39.00,276.00,0.00" Time="4.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a05" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="43.50,674.00,0.00" Time="4.000000" Size="279.00,289.00" Scale="2.01,2.01" Angles="0.00,0.00,27.00" PIName="start_screen_a01" ImageName="gole_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a04" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="36.00,291.00,0.00" Time="4.000000" Size="260.00,839.00" Scale="2.32,2.32" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="rock_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a03" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="38.00,282.00,0.00" Time="4.000000" Size="250.00,807.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a04" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="208.50,828.00,0.00" Time="4.000000" Size="299.00,264.00" Scale="2.15,2.20" PIName="start_screen_a01" ImageName="gole_a04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a06" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="1" LOD="1">
+            <PointDataList Index="0" Position="116.50,697.00,0.00" Time="4.000000" Size="538.00,517.00" Scale="2.46,2.46" PIName="start_screen_a01" ImageName="grass_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ligh_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="437.00,221.00,0.00" Time="0.000000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="1" Position="437.00,221.00,0.00" Time="1.000000" Size="1280.00,643.00" Scale="3.12,3.12" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="2" Position="437.00,221.00,0.00" Time="2.000000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="3" Position="437.00,221.00,0.00" Time="3.000000" Size="1280.00,643.00" Scale="3.12,3.12" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="4" Position="437.00,221.00,0.00" Time="4.000000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b01" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.500000" AnchorType="CenterCenter" Count="24" LOD="1">
+            <PointDataList Index="0" Position="325.50,687.50,0.00" Time="0.000000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="286.50,686.50,0.00" Time="0.128000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="251.50,615.50,0.00" Time="0.259000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="283.50,538.50,0.00" Time="0.391000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="344.50,514.50,0.00" Time="0.521000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="411.50,547.50,0.00" Time="0.652000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="457.50,629.50,0.00" Time="0.782609" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="469.50,702.50,0.00" Time="0.912000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="467.50,761.50,0.00" Time="1.042000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="434.50,815.50,0.00" Time="1.173000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="381.50,850.50,0.00" Time="1.304000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="271.50,855.50,0.00" Time="1.434000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="189.50,836.50,0.00" Time="1.565000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="139.50,817.50,0.00" Time="1.695000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="14" Position="83.50,780.50,0.00" Time="1.826000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="15" Position="40.50,730.50,0.00" Time="1.956522" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="16" Position="20.50,705.50,0.00" Time="2.086957" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="17" Position="1.50,655.50,0.00" Time="2.217391" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="18" Position="11.50,606.50,0.00" Time="2.347000" Size="70.00,70.00" Scale="0.59,0.59" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="19" Position="30.50,566.50,0.00" Time="2.477000" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="20" Position="35.50,526.50,0.00" Time="2.608000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="21" Position="18.50,495.50,0.00" Time="2.739000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="22" Position="-8.50,474.50,0.00" Time="2.869000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="23" Position="-168.50,411.50,0.00" Time="3.000000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_a01" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="24" LOD="1">
+            <PointDataList Index="0" Position="367.50,729.50,0.00" Time="0.000000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="1" Position="328.50,728.50,0.00" Time="0.128000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="2" Position="293.50,657.50,0.00" Time="0.259000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="3" Position="325.50,580.50,0.00" Time="0.391000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,39.00" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="4" Position="386.50,556.50,0.00" Time="0.521000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,81.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="5" Position="453.50,589.50,0.00" Time="0.652000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,129.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="6" Position="499.50,671.50,0.00" Time="0.782000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,138.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="7" Position="511.50,744.50,0.00" Time="0.912000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,168.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="8" Position="509.50,803.50,0.00" Time="1.042000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,203.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="9" Position="476.50,857.50,0.00" Time="1.172000" Size="60.00,60.00" Scale="1.71,1.71" Angles="0.00,0.00,237.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="10" Position="423.50,892.50,0.00" Time="1.304000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,258.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="11" Position="313.50,897.50,0.00" Time="1.434000" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,270.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="12" Position="231.50,878.50,0.00" Time="1.565000" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="13" Position="181.50,859.50,0.00" Time="1.695652" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="14" Position="125.50,822.50,0.00" Time="1.826087" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="15" Position="82.50,772.50,0.00" Time="1.956522" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="16" Position="62.50,747.50,0.00" Time="2.086957" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="17" Position="43.50,697.50,0.00" Time="2.217391" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="18" Position="53.50,648.50,0.00" Time="2.347826" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="19" Position="72.50,608.50,0.00" Time="2.478261" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="20" Position="77.50,568.50,0.00" Time="2.608000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,309.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="21" Position="60.50,537.50,0.00" Time="2.739000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="22" Position="33.50,516.50,0.00" Time="2.868000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,276.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="23" Position="-126.50,453.50,0.00" Time="3.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b02" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="1">
+            <PointDataList Index="0" Position="285.50,384.50,0.00" Time="0.000000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="366.50,360.50,0.00" Time="0.444000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="433.50,360.50,0.00" Time="0.888000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="505.50,386.50,0.00" Time="1.333333" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="604.50,391.50,0.00" Time="1.776000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="639.50,360.50,0.00" Time="2.222000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="679.50,351.50,0.00" Time="2.666667" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="761.50,367.50,0.00" Time="3.111111" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="851.50,377.50,0.00" Time="3.555000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="927.50,384.50,0.00" Time="4.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b03" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="14" LOD="1">
+            <PointDataList Index="0" Position="809.50,553.50,0.00" Time="0.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="771.50,546.50,0.00" Time="0.307692" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="734.50,537.50,0.00" Time="0.615000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="685.50,525.50,0.00" Time="0.923000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="645.50,534.50,0.00" Time="1.230000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="610.50,565.50,0.00" Time="1.537000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="561.50,567.50,0.00" Time="1.846000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="516.50,572.50,0.00" Time="2.153846" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="470.50,560.50,0.00" Time="2.461000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="425.50,548.50,0.00" Time="2.769000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="366.50,560.50,0.00" Time="3.076000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="326.50,569.50,0.00" Time="3.384000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="287.50,567.50,0.00" Time="3.691000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="243.50,558.50,0.00" Time="4.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b04" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="1">
+            <PointDataList Index="0" Position="804.50,642.50,0.00" Time="0.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="743.50,647.50,0.00" Time="0.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="698.50,626.50,0.00" Time="1.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="658.50,626.50,0.00" Time="1.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="629.50,633.50,0.00" Time="2.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="568.50,633.50,0.00" Time="2.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="550.50,647.50,0.00" Time="3.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="546.50,696.50,0.00" Time="3.500000" Size="20.00,20.00" Scale="0.17,0.17" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="569.50,720.50,0.00" Time="4.000000" Size="10.00,10.00" Scale="0.08,0.08" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b05" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="1">
+            <PointDataList Index="0" Position="277.50,-75.50,0.00" Time="0.000000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="319.50,-8.50,0.00" Time="0.444000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="374.50,31.50,0.00" Time="0.888000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="462.50,59.50,0.00" Time="1.333333" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="549.50,21.50,0.00" Time="1.776000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="600.50,3.50,0.00" Time="2.222000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="649.50,12.50,0.00" Time="2.666667" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="702.50,50.50,0.00" Time="3.111111" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="784.50,66.50,0.00" Time="3.555000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="845.50,35.50,0.00" Time="4.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b06" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="1">
+            <PointDataList Index="0" Position="300.50,700.50,0.00" Time="0.000000" Size="10.00,10.00" Scale="0.08,0.08" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="277.50,676.50,0.00" Time="0.500000" Size="20.00,20.00" Scale="0.17,0.17" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="281.50,627.50,0.00" Time="1.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="299.50,613.50,0.00" Time="1.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="360.50,613.50,0.00" Time="2.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="389.50,606.50,0.00" Time="2.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="429.50,606.50,0.00" Time="3.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="474.50,627.50,0.00" Time="3.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="535.50,622.50,0.00" Time="4.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b07" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.800000" AnchorType="CenterCenter" Count="29" LOD="1">
+            <PointDataList Index="0" Position="1274.50,270.50,0.00" Time="0.000000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="1161.50,315.50,0.00" Time="0.107143" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="1128.50,364.50,0.00" Time="0.214286" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="1093.50,379.50,0.00" Time="0.321429" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="1014.50,384.50,0.00" Time="0.428571" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="932.50,418.50,0.00" Time="0.535714" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="868.50,497.50,0.00" Time="0.642857" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="840.50,569.50,0.00" Time="0.750000" Size="80.00,80.00" Scale="0.67,0.67" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="855.50,635.50,0.00" Time="0.857143" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="857.50,696.50,0.00" Time="0.964286" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="840.50,792.50,0.00" Time="1.071429" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="862.50,837.50,0.00" Time="1.178571" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="938.50,848.50,0.00" Time="1.285714" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="978.50,841.50,0.00" Time="1.392857" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="14" Position="1046.50,778.50,0.00" Time="1.500000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="15" Position="1073.50,745.50,0.00" Time="1.607143" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="16" Position="1065.50,611.50,0.00" Time="1.714286" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="17" Position="1031.50,545.50,0.00" Time="1.821429" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="18" Position="985.50,463.50,0.00" Time="1.928571" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="19" Position="918.50,430.50,0.00" Time="2.035714" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="20" Position="842.50,428.50,0.00" Time="2.142857" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="21" Position="782.50,458.50,0.00" Time="2.250000" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="22" Position="730.50,505.50,0.00" Time="2.357143" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="23" Position="702.50,544.50,0.00" Time="2.464286" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="24" Position="674.50,569.50,0.00" Time="2.571429" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="25" Position="642.50,569.50,0.00" Time="2.678571" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="26" Position="614.50,578.50,0.00" Time="2.785714" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="27" Position="592.50,596.50,0.00" Time="2.892857" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="28" Position="577.50,596.50,0.00" Time="3.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_a07" BehaviorUpdate="1" StartTime="0.800000" AnchorType="CenterCenter" Count="29" LOD="1">
+            <PointDataList Index="0" Position="1316.50,312.50,0.00" Time="0.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-108.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="1" Position="1203.50,357.50,0.00" Time="0.107143" Size="55.00,55.00" Scale="1.57,1.57" Angles="0.00,0.00,-141.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="2" Position="1170.50,406.50,0.00" Time="0.214286" Size="45.00,45.00" Scale="1.29,1.29" Angles="0.00,0.00,-108.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="3" Position="1135.50,421.50,0.00" Time="0.321429" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-87.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="4" Position="1056.50,426.50,0.00" Time="0.428571" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-96.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="5" Position="974.50,460.50,0.00" Time="0.535714" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-147.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="6" Position="910.50,539.50,0.00" Time="0.642857" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-162.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="7" Position="882.50,611.50,0.00" Time="0.750000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-198.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="8" Position="897.50,677.50,0.00" Time="0.857143" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-195.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="9" Position="899.50,738.50,0.00" Time="0.964286" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-165.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="10" Position="882.50,834.50,0.00" Time="1.071429" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-216.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="11" Position="904.50,879.50,0.00" Time="1.178571" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-264.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="12" Position="980.50,890.50,0.00" Time="1.285714" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,-282.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="13" Position="1020.50,883.50,0.00" Time="1.392857" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,-318.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="14" Position="1088.50,820.50,0.00" Time="1.500000" Size="60.00,60.00" Scale="1.71,1.71" Angles="0.00,0.00,-324.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="15" Position="1115.50,787.50,0.00" Time="1.607143" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,-353.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="16" Position="1107.50,653.50,0.00" Time="1.714286" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-402.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="17" Position="1073.50,587.50,0.00" Time="1.821429" Size="45.00,45.00" Scale="1.29,1.29" Angles="0.00,0.00,-402.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="18" Position="1027.50,505.50,0.00" Time="1.928571" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,-432.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="19" Position="960.50,472.50,0.00" Time="2.035714" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-453.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="20" Position="884.50,470.50,0.00" Time="2.142857" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-486.00" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="21" Position="824.50,500.50,0.00" Time="2.250000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-525.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="22" Position="772.50,547.50,0.00" Time="2.357143" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-525.00" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="23" Position="744.50,586.50,0.00" Time="2.464286" Size="30.00,30.00" Scale="0.86,0.86" Angles="0.00,0.00,-498.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="24" Position="716.50,611.50,0.00" Time="2.571429" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-456.00" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="25" Position="684.50,611.50,0.00" Time="2.678571" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-465.00" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="26" Position="656.50,620.50,0.00" Time="2.785714" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="27" Position="634.50,638.50,0.00" Time="2.892857" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="28" Position="619.50,638.50,0.00" Time="3.000000" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+    <MultiPathDynamicImage Name="start_screen_a01" PathCount="31" PlayCount="-1" TotalPlayTime="5.001000">
+        <CueToStartCurvesWithTime Name="start_dt_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="317.50,253.50,0.00" Time="0.000000" Size="1280.00,1024.00" Scale="1.98,1.98" PIName="start_screen_a01" ImageName="start_dt_a01" />
+            <PointDataList Index="1" Position="317.50,253.50,0.00" Time="5.000000" Size="1488.00,1160.00" Scale="2.31,2.24" PIName="start_screen_a01" ImageName="start_dt_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="start_do_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="580.50,487.50,0.00" Time="0.000000" Size="140.00,282.00" Scale="1.12,1.26" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="start_do_a01" />
+            <PointDataList Index="1" Position="580.50,487.50,0.00" Time="5.000000" Size="158.00,319.00" Scale="1.26,1.43" PIName="start_screen_a01" ImageName="start_do_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a01" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="890.50,575.00,0.00" Time="0.000000" Size="90.00,72.00" Scale="1.43,1.44" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="gole_a01" />
+            <PointDataList Index="1" Position="891.50,543.00,0.00" Time="2.000000" Size="90.00,72.00" Scale="1.43,1.44" PIName="start_screen_a01" ImageName="gole_a01" />
+            <PointDataList Index="2" Position="954.50,566.00,0.00" Time="4.000000" Size="90.00,72.00" Scale="1.43,1.44" PIName="start_screen_a01" ImageName="gole_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a02" StartTime="0.200000" AnchorType="CenterCenter" Count="4" LOD="1">
+            <PointDataList Index="0" Position="265.00,675.50,0.00" Time="0.000000" Size="129.00,133.00" Scale="1.43,1.43" PIName="start_screen_a01" ImageName="gole_a02" />
+            <PointDataList Index="1" Position="300.00,615.50,0.00" Time="1.600000" Size="129.00,133.00" Scale="1.43,1.43" PIName="start_screen_a01" ImageName="gole_a02" />
+            <PointDataList Index="2" Position="282.00,609.50,0.00" Time="3.200000" Size="129.00,133.00" Scale="1.43,1.43" PIName="start_screen_a01" ImageName="gole_a02" />
+            <PointDataList Index="3" Position="264.00,664.50,0.00" Time="4.800000" Size="129.00,133.00" Scale="1.43,1.43" PIName="start_screen_a01" ImageName="gole_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a07" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="679.00,807.00,0.00" Time="0.000000" Size="474.00,281.00" Scale="1.78,1.78" PIName="start_screen_a01" ImageName="grass_a07" />
+            <PointDataList Index="1" Position="727.00,807.00,0.00" Time="5.000000" Size="474.00,281.00" Scale="1.78,1.78" PIName="start_screen_a01" ImageName="grass_a07" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a03" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="1147.50,769.50,0.00" Time="0.000000" Size="316.00,305.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="gole_a03" />
+            <PointDataList Index="1" Position="965.50,613.50,0.00" Time="2.250000" Size="346.00,335.00" Scale="1.95,1.96" PIName="start_screen_a01" ImageName="gole_a03" />
+            <PointDataList Index="2" Position="1026.50,645.50,0.00" Time="4.500000" Size="365.00,305.00" Scale="2.06,1.78" PIName="start_screen_a01" ImageName="gole_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a02" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="898.00,749.50,0.00" Time="0.000000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a02" />
+            <PointDataList Index="1" Position="931.00,749.50,0.00" Time="5.001000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="989.00,272.00,0.00" Time="0.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a01" />
+            <PointDataList Index="1" Position="1059.00,272.00,0.00" Time="5.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a06" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="1024.50,1027.00,0.00" Time="0.000000" Size="249.00,183.00" Scale="1.79,1.27" PIName="start_screen_a01" ImageName="gole_a06" />
+            <PointDataList Index="1" Position="981.50,898.00,0.00" Time="2.250000" Size="289.00,243.00" Scale="2.08,1.69" PIName="start_screen_a01" ImageName="gole_a06" />
+            <PointDataList Index="2" Position="1028.50,868.00,0.00" Time="4.500000" Size="289.00,243.00" Scale="2.08,1.69" PIName="start_screen_a01" ImageName="gole_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="912.00,807.00,0.00" Time="0.000000" Size="474.00,281.00" Scale="1.78,1.78" PIName="start_screen_a01" ImageName="grass_a01" />
+            <PointDataList Index="1" Position="939.00,834.00,0.00" Time="5.000000" Size="504.00,311.00" Scale="1.89,1.97" PIName="start_screen_a01" ImageName="grass_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a03" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="198.50,532.00,0.00" Time="0.000000" Size="355.00,333.00" Scale="1.78,1.79" PIName="start_screen_a01" ImageName="grass_a03" />
+            <PointDataList Index="1" Position="162.50,532.00,0.00" Time="5.000000" Size="355.00,333.00" Scale="1.78,1.79" PIName="start_screen_a01" ImageName="grass_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a04" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="447.00,804.50,0.00" Time="0.000000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a04" />
+            <PointDataList Index="1" Position="420.00,804.50,0.00" Time="5.000000" Size="369.00,280.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="grass_a04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a05" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="288.50,759.50,0.00" Time="0.000000" Size="369.00,364.00" Scale="2.24,2.23" PIName="start_screen_a01" ImageName="grass_a05" />
+            <PointDataList Index="1" Position="252.50,765.50,0.00" Time="5.000000" Size="389.00,384.00" Scale="2.36,2.36" PIName="start_screen_a01" ImageName="grass_a05" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a02" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="118.00,276.00,0.00" Time="0.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a02" />
+            <PointDataList Index="1" Position="39.00,276.00,0.00" Time="5.000000" Size="405.00,982.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a05" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="-3.50,919.00,0.00" Time="0.000000" Size="279.00,289.00" Scale="2.01,2.01" Angles="0.00,0.00,27.00" PIName="start_screen_a01" ImageName="gole_a06" />
+            <PointDataList Index="1" Position="76.50,695.00,0.00" Time="2.500000" Size="279.00,289.00" Scale="2.01,2.01" Angles="0.00,0.00,21.00" PIName="start_screen_a01" ImageName="gole_a06" />
+            <PointDataList Index="2" Position="43.50,674.00,0.00" Time="5.000000" Size="279.00,289.00" Scale="2.01,2.01" Angles="0.00,0.00,27.00" PIName="start_screen_a01" ImageName="gole_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a04" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="81.00,282.00,0.00" Time="0.000000" Size="260.00,839.00" Scale="2.32,2.32" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="rock_a03" />
+            <PointDataList Index="1" Position="36.00,291.00,0.00" Time="5.000000" Size="260.00,839.00" Scale="2.32,2.32" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="rock_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="rock_a03" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="71.00,282.00,0.00" Time="0.000000" Size="250.00,807.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a03" />
+            <PointDataList Index="1" Position="38.00,282.00,0.00" Time="5.000000" Size="250.00,807.00" Scale="2.23,2.23" PIName="start_screen_a01" ImageName="rock_a03" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="gole_a04" BehaviorUpdate="1" StartTime="0.699000" AnchorType="CenterCenter" Count="3" LOD="1">
+            <PointDataList Index="0" Position="190.50,1035.00,0.00" Time="0.000000" Size="249.00,214.00" Scale="1.79,1.78" PIName="start_screen_a01" ImageName="gole_a04" />
+            <PointDataList Index="1" Position="245.50,840.00,0.00" Time="2.150000" Size="299.00,264.00" Scale="2.15,2.20" PIName="start_screen_a01" ImageName="gole_a04" />
+            <PointDataList Index="2" Position="208.50,828.00,0.00" Time="4.300000" Size="299.00,264.00" Scale="2.15,2.20" PIName="start_screen_a01" ImageName="gole_a04" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="grass_a06" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="2" LOD="1">
+            <PointDataList Index="0" Position="137.50,685.00,0.00" Time="0.000000" Size="488.00,467.00" Scale="2.23,2.22" PIName="start_screen_a01" ImageName="grass_a06" />
+            <PointDataList Index="1" Position="116.50,697.00,0.00" Time="5.000000" Size="538.00,517.00" Scale="2.46,2.46" PIName="start_screen_a01" ImageName="grass_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="snake_a02" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="7" LOD="1">
+            <PointDataList Index="0" Position="1004.00,136.00,0.00" Time="0.000000" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a01" />
+            <PointDataList Index="1" Position="1009.00,136.00,0.00" Time="0.333333" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a02" />
+            <PointDataList Index="2" Position="1014.00,136.00,0.00" Time="0.666667" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a03" />
+            <PointDataList Index="3" Position="1019.00,136.00,0.00" Time="1.000000" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a04" />
+            <PointDataList Index="4" Position="1024.00,136.00,0.00" Time="1.333333" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a05" />
+            <PointDataList Index="5" Position="1029.00,136.00,0.00" Time="1.666667" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a06" />
+            <PointDataList Index="6" Position="1029.00,136.00,0.00" Time="2.000000" Size="365.00,222.00" Scale="1.64,1.79" Color="0.00,0.00,0.00,0.39" PIName="start_screen_a01" ImageName="snake_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="snake_a01" BehaviorUpdate="1" StartTime="1.000000" AnchorType="CenterCenter" Count="7" LOD="1">
+            <PointDataList Index="0" Position="1004.00,128.00,0.00" Time="0.000000" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a01" />
+            <PointDataList Index="1" Position="1009.00,128.00,0.00" Time="0.333333" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a02" />
+            <PointDataList Index="2" Position="1014.00,128.00,0.00" Time="0.666667" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a03" />
+            <PointDataList Index="3" Position="1019.00,128.00,0.00" Time="1.000000" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a04" />
+            <PointDataList Index="4" Position="1024.00,128.00,0.00" Time="1.333333" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a05" />
+            <PointDataList Index="5" Position="1029.00,128.00,0.00" Time="1.666667" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a06" />
+            <PointDataList Index="6" Position="1029.00,128.00,0.00" Time="2.000000" Size="365.00,222.00" Scale="1.64,1.79" PIName="start_screen_a01" ImageName="snake_a06" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="ligh_a01" BehaviorUpdate="1" StartTime="0.000000" AnchorType="CenterCenter" Count="5" LOD="1">
+            <PointDataList Index="0" Position="437.00,221.00,0.00" Time="0.000000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="1" Position="437.00,221.00,0.00" Time="1.250000" Size="1280.00,643.00" Scale="3.12,3.12" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="2" Position="437.00,221.00,0.00" Time="2.500000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="3" Position="437.00,221.00,0.00" Time="3.750000" Size="1280.00,643.00" Scale="3.12,3.12" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="ligh_a01" />
+            <PointDataList Index="4" Position="437.00,221.00,0.00" Time="5.000000" Size="1280.00,643.00" Scale="3.12,3.12" PIName="start_screen_a01" ImageName="ligh_a01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b01" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.500000" AnchorType="CenterCenter" Count="24" LOD="1">
+            <PointDataList Index="0" Position="325.50,687.50,0.00" Time="0.000000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="286.50,686.50,0.00" Time="0.128000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="251.50,615.50,0.00" Time="0.259000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="283.50,538.50,0.00" Time="0.391000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="344.50,514.50,0.00" Time="0.521000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="411.50,547.50,0.00" Time="0.652000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="457.50,629.50,0.00" Time="0.782609" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="469.50,702.50,0.00" Time="0.912000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="467.50,761.50,0.00" Time="1.042000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="434.50,815.50,0.00" Time="1.173000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="381.50,850.50,0.00" Time="1.304000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="271.50,855.50,0.00" Time="1.434000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="189.50,836.50,0.00" Time="1.565000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="139.50,817.50,0.00" Time="1.695000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="14" Position="83.50,780.50,0.00" Time="1.826000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="15" Position="40.50,730.50,0.00" Time="1.956522" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="16" Position="20.50,705.50,0.00" Time="2.086957" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="17" Position="1.50,655.50,0.00" Time="2.217391" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="18" Position="11.50,606.50,0.00" Time="2.347000" Size="70.00,70.00" Scale="0.59,0.59" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="19" Position="30.50,566.50,0.00" Time="2.477000" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="20" Position="35.50,526.50,0.00" Time="2.608000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="21" Position="18.50,495.50,0.00" Time="2.739000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="22" Position="-8.50,474.50,0.00" Time="2.869000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="23" Position="-168.50,411.50,0.00" Time="3.000000" Size="100.00,100.00" Scale="0.84,0.84" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_a01" BehaviorUpdate="1" StartTime="0.500000" AnchorType="CenterCenter" Count="24" LOD="1">
+            <PointDataList Index="0" Position="367.50,729.50,0.00" Time="0.000000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="1" Position="328.50,728.50,0.00" Time="0.128000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="2" Position="293.50,657.50,0.00" Time="0.259000" Size="35.00,35.00" Scale="1.00,1.00" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="3" Position="325.50,580.50,0.00" Time="0.391000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,39.00" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="4" Position="386.50,556.50,0.00" Time="0.521000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,81.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="5" Position="453.50,589.50,0.00" Time="0.652000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,129.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="6" Position="499.50,671.50,0.00" Time="0.782000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,138.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="7" Position="511.50,744.50,0.00" Time="0.912000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,168.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="8" Position="509.50,803.50,0.00" Time="1.042000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,203.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="9" Position="476.50,857.50,0.00" Time="1.172000" Size="60.00,60.00" Scale="1.71,1.71" Angles="0.00,0.00,237.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="10" Position="423.50,892.50,0.00" Time="1.304000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,258.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="11" Position="313.50,897.50,0.00" Time="1.434000" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,270.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="12" Position="231.50,878.50,0.00" Time="1.565000" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="13" Position="181.50,859.50,0.00" Time="1.695652" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="14" Position="125.50,822.50,0.00" Time="1.826087" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="15" Position="82.50,772.50,0.00" Time="1.956522" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="16" Position="62.50,747.50,0.00" Time="2.086957" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="17" Position="43.50,697.50,0.00" Time="2.217391" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="18" Position="53.50,648.50,0.00" Time="2.347826" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="19" Position="72.50,608.50,0.00" Time="2.478261" Size="35.00,35.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="20" Position="77.50,568.50,0.00" Time="2.608000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,309.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="21" Position="60.50,537.50,0.00" Time="2.739000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="22" Position="33.50,516.50,0.00" Time="2.868000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,276.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="23" Position="-126.50,453.50,0.00" Time="3.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,288.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b02" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="1">
+            <PointDataList Index="0" Position="285.50,384.50,0.00" Time="0.000000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="366.50,360.50,0.00" Time="0.444000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="433.50,360.50,0.00" Time="0.888000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="505.50,386.50,0.00" Time="1.333333" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="604.50,391.50,0.00" Time="1.776000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="639.50,360.50,0.00" Time="2.222000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="679.50,351.50,0.00" Time="2.666667" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="761.50,367.50,0.00" Time="3.111111" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="851.50,377.50,0.00" Time="3.555000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="927.50,384.50,0.00" Time="4.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b03" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="14" LOD="1">
+            <PointDataList Index="0" Position="809.50,553.50,0.00" Time="0.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="771.50,546.50,0.00" Time="0.307692" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="734.50,537.50,0.00" Time="0.615000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="685.50,525.50,0.00" Time="0.923000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="645.50,534.50,0.00" Time="1.230000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="610.50,565.50,0.00" Time="1.537000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="561.50,567.50,0.00" Time="1.846000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="516.50,572.50,0.00" Time="2.153846" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="470.50,560.50,0.00" Time="2.461000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="425.50,548.50,0.00" Time="2.769000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="366.50,560.50,0.00" Time="3.076000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="326.50,569.50,0.00" Time="3.384000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="287.50,567.50,0.00" Time="3.691000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="243.50,558.50,0.00" Time="4.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b04" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="1">
+            <PointDataList Index="0" Position="804.50,642.50,0.00" Time="0.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="743.50,647.50,0.00" Time="0.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="698.50,626.50,0.00" Time="1.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="658.50,626.50,0.00" Time="1.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="629.50,633.50,0.00" Time="2.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="568.50,633.50,0.00" Time="2.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="550.50,647.50,0.00" Time="3.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="546.50,696.50,0.00" Time="3.500000" Size="20.00,20.00" Scale="0.17,0.17" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="569.50,720.50,0.00" Time="4.000000" Size="10.00,10.00" Scale="0.08,0.08" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b05" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="10" LOD="1">
+            <PointDataList Index="0" Position="277.50,-75.50,0.00" Time="0.000000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="319.50,-8.50,0.00" Time="0.444000" Size="40.00,40.00" Scale="0.34,0.34" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="374.50,31.50,0.00" Time="0.888000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="462.50,59.50,0.00" Time="1.333333" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="549.50,21.50,0.00" Time="1.776000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="600.50,3.50,0.00" Time="2.222000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="649.50,12.50,0.00" Time="2.666667" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="702.50,50.50,0.00" Time="3.111111" Size="40.00,40.00" Scale="0.34,0.34" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="784.50,66.50,0.00" Time="3.555000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="845.50,35.50,0.00" Time="4.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b06" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.000000" AnchorType="CenterCenter" Count="9" LOD="1">
+            <PointDataList Index="0" Position="300.50,700.50,0.00" Time="0.000000" Size="10.00,10.00" Scale="0.08,0.08" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="277.50,676.50,0.00" Time="0.500000" Size="20.00,20.00" Scale="0.17,0.17" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="281.50,627.50,0.00" Time="1.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="299.50,613.50,0.00" Time="1.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="360.50,613.50,0.00" Time="2.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="389.50,606.50,0.00" Time="2.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="429.50,606.50,0.00" Time="3.000000" Size="30.00,30.00" Scale="0.25,0.25" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="474.50,627.50,0.00" Time="3.500000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="535.50,622.50,0.00" Time="4.000000" Size="30.00,30.00" Scale="0.25,0.25" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_b07" BehaviorUpdate="1" Blending="1" SrcBlendingData="770" DestBlendingData="772" StartTime="0.800000" AnchorType="CenterCenter" Count="29" LOD="1">
+            <PointDataList Index="0" Position="1274.50,270.50,0.00" Time="0.000000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="1" Position="1161.50,315.50,0.00" Time="0.142000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="2" Position="1128.50,364.50,0.00" Time="0.284000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="3" Position="1093.50,379.50,0.00" Time="0.428000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="4" Position="1014.50,384.50,0.00" Time="0.570000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="5" Position="932.50,418.50,0.00" Time="0.712000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="6" Position="868.50,497.50,0.00" Time="0.856000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="7" Position="840.50,569.50,0.00" Time="1.000000" Size="80.00,80.00" Scale="0.67,0.67" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="8" Position="855.50,635.50,0.00" Time="1.141000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="9" Position="857.50,696.50,0.00" Time="1.284000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="10" Position="840.50,792.50,0.00" Time="1.427000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="11" Position="862.50,837.50,0.00" Time="1.570000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="12" Position="938.50,848.50,0.00" Time="1.713000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="13" Position="978.50,841.50,0.00" Time="1.856000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="14" Position="1046.50,778.50,0.00" Time="2.000000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="15" Position="1073.50,745.50,0.00" Time="2.141000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="16" Position="1065.50,611.50,0.00" Time="2.285000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="17" Position="1031.50,545.50,0.00" Time="2.427000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="18" Position="985.50,463.50,0.00" Time="2.571000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="19" Position="918.50,430.50,0.00" Time="2.713000" Size="119.00,119.00" Scale="1.00,1.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="20" Position="842.50,428.50,0.00" Time="2.857000" Size="100.00,100.00" Scale="0.84,0.84" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="21" Position="782.50,458.50,0.00" Time="3.000000" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="22" Position="730.50,505.50,0.00" Time="3.141000" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="23" Position="702.50,544.50,0.00" Time="3.285000" Size="50.00,50.00" Scale="0.42,0.42" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="24" Position="674.50,569.50,0.00" Time="3.427000" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="25" Position="642.50,569.50,0.00" Time="3.571000" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="26" Position="614.50,578.50,0.00" Time="3.713000" Size="50.00,50.00" Scale="0.42,0.42" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="27" Position="592.50,596.50,0.00" Time="3.857000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+            <PointDataList Index="28" Position="577.50,596.50,0.00" Time="4.000000" Size="20.00,20.00" Scale="0.17,0.17" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_b01" />
+        </CueToStartCurvesWithTime>
+        <CueToStartCurvesWithTime Name="firefly_a07" BehaviorUpdate="1" StartTime="0.800000" AnchorType="CenterCenter" Count="29" LOD="1">
+            <PointDataList Index="0" Position="1316.50,312.50,0.00" Time="0.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-108.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="1" Position="1203.50,357.50,0.00" Time="0.142000" Size="55.00,55.00" Scale="1.57,1.57" Angles="0.00,0.00,-141.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="2" Position="1170.50,406.50,0.00" Time="0.285000" Size="45.00,45.00" Scale="1.29,1.29" Angles="0.00,0.00,-108.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="3" Position="1135.50,421.50,0.00" Time="0.428000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-87.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="4" Position="1056.50,426.50,0.00" Time="0.571000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-96.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="5" Position="974.50,460.50,0.00" Time="0.713000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-147.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="6" Position="910.50,539.50,0.00" Time="0.857000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-162.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="7" Position="882.50,611.50,0.00" Time="1.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-198.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="8" Position="897.50,677.50,0.00" Time="1.141000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-195.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="9" Position="899.50,738.50,0.00" Time="1.284000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-165.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="10" Position="882.50,834.50,0.00" Time="1.427000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-216.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="11" Position="904.50,879.50,0.00" Time="1.570000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-264.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="12" Position="980.50,890.50,0.00" Time="1.713000" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,-282.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="13" Position="1020.50,883.50,0.00" Time="1.855000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,-318.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="14" Position="1088.50,820.50,0.00" Time="2.000000" Size="60.00,60.00" Scale="1.71,1.71" Angles="0.00,0.00,-324.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="15" Position="1115.50,787.50,0.00" Time="2.141000" Size="50.00,50.00" Scale="1.43,1.43" Angles="0.00,0.00,-353.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="16" Position="1107.50,653.50,0.00" Time="2.285000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-402.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="17" Position="1073.50,587.50,0.00" Time="2.427000" Size="45.00,45.00" Scale="1.29,1.29" Angles="0.00,0.00,-402.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="18" Position="1027.50,505.50,0.00" Time="2.571000" Size="40.00,40.00" Scale="1.14,1.14" Angles="0.00,0.00,-432.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="19" Position="960.50,472.50,0.00" Time="2.713000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-453.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="20" Position="884.50,470.50,0.00" Time="2.857000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-486.00" Color="1.00,1.00,1.00,0.78" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="21" Position="824.50,500.50,0.00" Time="3.000000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-525.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="22" Position="772.50,547.50,0.00" Time="3.141000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-525.00" Color="1.00,1.00,1.00,0.20" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="23" Position="744.50,586.50,0.00" Time="3.285000" Size="30.00,30.00" Scale="0.86,0.86" Angles="0.00,0.00,-498.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="24" Position="716.50,611.50,0.00" Time="3.427000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-456.00" Color="1.00,1.00,1.00,0.39" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="25" Position="684.50,611.50,0.00" Time="3.571000" Size="35.00,35.00" Scale="1.00,1.00" Angles="0.00,0.00,-465.00" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="26" Position="656.50,620.50,0.00" Time="3.713000" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.04" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="27" Position="634.50,638.50,0.00" Time="3.857000" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+            <PointDataList Index="28" Position="619.50,638.50,0.00" Time="4.000000" Size="10.00,10.00" Scale="0.29,0.29" Color="1.00,1.00,1.00,0.00" PIName="start_screen_a01" ImageName="firefly_a02" />
+        </CueToStartCurvesWithTime>
+    </MultiPathDynamicImage>
+</MPDIList>

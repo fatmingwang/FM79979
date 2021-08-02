@@ -47,6 +47,7 @@
   <Import Project="$(AndroidTargetsPath)\Android.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -74,6 +75,8 @@
   <ItemDefinitionGroup>
     <GradlePackage>
       <ProjectDirectory>$(ProjectDir)app</ProjectDirectory>
+      <GradleVersion>6.1.1</GradleVersion>
+      <GradlePlugin>gradle:4.0.0</GradlePlugin>
     </GradlePackage>
   </ItemDefinitionGroup>
   <ImportGroup Label="ExtensionSettings" />

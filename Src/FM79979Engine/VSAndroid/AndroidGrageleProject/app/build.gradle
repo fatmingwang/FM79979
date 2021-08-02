@@ -1,46 +1,76 @@
-apply plugin: 'com.android.model.application'
+//https://developer.android.com/studio/build/index.html
+//https://github.com/android/ndk-samples/blob/main/hello-jni/app/build.gradle
 
-model {
-    android {
-        compileSdkVersion = 28
-        buildToolsVersion = "28.0.3"
+apply plugin: 'com.android.application'
 
-        defaultConfig.with {
-            applicationId = "com.AndroidGrageleProject"
-            minSdkVersion.apiLevel = 16
-            targetSdkVersion.apiLevel = 23
-        }
 
-        compileOptions.with {
-            sourceCompatibility=JavaVersion.VERSION_1_7
-            targetCompatibility=JavaVersion.VERSION_1_7
-        }
+android 
+{
+    compileSdkVersion = 28
+    buildToolsVersion = "30.0.2"
+
+    defaultConfig
+    {
+        applicationId = "com.AndroidGrageleProject"
+        minSdkVersion = 16
+        targetSdkVersion = 28
+        // Defines the version number of your app.
+        versionCode 1
+        // Defines a user-friendly version name for your app.
+        versionName "1.0"
     }
 
-    android.buildTypes {
-        release {
+    buildTypes 
+    {
+        debug
+        {
             minifyEnabled = false
             proguardFiles.add(file('proguard-rules.txt'))
-            ndk.debuggable = true
+            //ndk.debuggable = true
+            debuggable = true
+        }
+        release 
+        {
+            minifyEnabled = false
+            proguardFiles.add(file('proguard-rules.txt'))
+            //ndk.debuggable = true
             debuggable = true
         }
     }
 
-    android.productFlavors {
-        create("arm7") {
-            ndk.abiFilters.add("armeabi-v7a")
-        }
-        create("arm8") {
-            ndk.abiFilters.add("arm64-v8a")
-        }
-        create("x86") {
-            ndk.abiFilters.add("x86")
-        }
-        create("x86-64") {
-            ndk.abiFilters.add("x86_64")
-        }
-        create("all")
+    compileOptions.with 
+    {
+        sourceCompatibility=JavaVersion.VERSION_1_7
+        targetCompatibility=JavaVersion.VERSION_1_7
     }
+
+    flavorDimensions 'cpuArch'
+    productFlavors 
+    {
+        arm8 
+        {
+            dimension 'cpuArch'
+            ndk 
+            {
+                abiFilters 'arm64-v8a', 'armeabi-v7a'
+            }
+        }
+        x86_64 
+        {
+            dimension 'cpuArch'
+            ndk 
+            {
+                abiFilters 'x86_64', 'x86'
+            }
+        }
+        universal 
+        {
+            dimension 'cpuArch'
+            // include all default ABIs. with NDK-r16,  it is:
+            //   armeabi-v7a, arm64-v8a, x86, x86_64
+        }
+    }
+
 }
 
 repositories {
