@@ -79,6 +79,8 @@ namespace	FATMING_CORE
 	std::string*										cCommonApp::m_spInternalDirectory = nullptr;
 	std::string*										cCommonApp::m_spExternalDirectory = nullptr;
 	std::string*										cCommonApp::m_spExternalSDDirectory = nullptr;
+	std::string*										cCommonApp::m_spobbPath = nullptr;
+	
 #elif defined(UWP)
 	std::string*										cCommonApp::m_spUWPAssetsDirectory = nullptr;
 	std::string*										cCommonApp::m_spUWPAppDataLocalDirectory = nullptr;
@@ -124,6 +126,7 @@ namespace	FATMING_CORE
 		SAFE_DELETE(cCommonApp::m_spInternalDirectory);
 		SAFE_DELETE(cCommonApp::m_spExternalDirectory);
 		SAFE_DELETE(cCommonApp::m_spExternalSDDirectory);
+		SAFE_DELETE(cCommonApp::m_spobbPath);
 #endif
 	}
 

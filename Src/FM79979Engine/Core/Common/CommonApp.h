@@ -42,6 +42,8 @@ namespace	FATMING_CORE
 		static	std::string*		m_spInternalDirectory;//system
 		static	std::string*		m_spExternalDirectory;//internal sd
 		static	std::string*		m_spExternalSDDirectory;//external sd
+		static	std::string*		m_spobbPath;//external sd
+		
 #elif defined(UWP)
 		static	std::string*		m_spUWPAssetsDirectory;//external sd
 		static	std::string*		m_spUWPAppDataLocalDirectory;//external sd

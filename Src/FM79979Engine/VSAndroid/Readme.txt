@@ -17,3 +17,13 @@ static {
 Add the following in your gradle:
 
 jniLibs.srcDirs = ['libs']
+
+
+
+
+
+
+STL use 
+LLVM libc++ shared library (c++_shared)
+
+or you will lost some so file while your app start.

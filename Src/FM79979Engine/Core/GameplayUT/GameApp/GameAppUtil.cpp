@@ -238,22 +238,54 @@ namespace	FATMING_CORE
 			*cGameApp::m_spAPKPath = str;
 			FMLog::LogWithFlag(str, CORE_LOG_FLAG);
 			FMLog::LogWithFlag(e_pActivity->internalDataPath, CORE_LOG_FLAG);
-			cGameApp::m_spInternalDirectory = new std::string;
-			*cGameApp::m_spInternalDirectory = e_pActivity->internalDataPath;
+			if (e_pActivity->internalDataPath)
+			{
+				cGameApp::m_spInternalDirectory = new std::string;
+				*cGameApp::m_spInternalDirectory = e_pActivity->internalDataPath;
+				std::string	l_strInternalDataPath = "GameApp___ ";
+				l_strInternalDataPath += ValueToString("Internal:");
+				l_strInternalDataPath += e_pActivity->internalDataPath;
+				l_strInternalDataPath += "\n";
+				__android_log_print(ANDROID_LOG_INFO, "GameApp", l_strInternalDataPath.c_str());
+			}
+			if (e_pActivity->obbPath)
+			{
+				cGameApp::m_spobbPath = new std::string;
+				*cGameApp::m_spobbPath = e_pActivity->obbPath;
+				std::string	l_strInternalDataPath = "GameApp___ ";
+				l_strInternalDataPath += ValueToString("obbPath:");
+				l_strInternalDataPath += e_pActivity->obbPath;
+				l_strInternalDataPath += "\n";
+				__android_log_print(ANDROID_LOG_INFO, "GameApp", l_strInternalDataPath.c_str());
+			}
 			if( e_pActivity->externalDataPath )
 			{
 				FMLog::LogWithFlag(e_pActivity->externalDataPath, CORE_LOG_FLAG);
 				cGameApp::m_spExternalDirectory = new std::string;
 				*cGameApp::m_spExternalDirectory = e_pActivity->externalDataPath;
+				std::string	l_strInternalDataPath = "GameApp___ ";
+				l_strInternalDataPath += ValueToString("externalDataPath:");
+				l_strInternalDataPath += e_pActivity->externalDataPath;
+				l_strInternalDataPath += "\n";
+				__android_log_print(ANDROID_LOG_INFO, "GameApp", l_strInternalDataPath.c_str());
 			}
 			NvFInit(e_pActivity->assetManager);
 			std::string l_Target;
+			std::string	l_str = "GameApp___ ";
 			if(GetExternalSDPath(&l_Target))
 			{
+				l_str += ValueToString("ExternalSDPath:");
+				l_str += ValueToString(l_Target);
+				l_str += "\n";
 				cGameApp::m_spExternalSDDirectory = new std::string();
 				*cGameApp::m_spExternalSDDirectory = l_Target;
 				FMLog::LogWithFlag(*cGameApp::m_spExternalSDDirectory, CORE_LOG_FLAG);
 			}
+			else
+			{
+				l_str += ValueToString("NoExternalSDPath\n");
+			}
+			__android_log_print(ANDROID_LOG_INFO, "GameApp", l_str.c_str());
 		}
 	}
 #endif

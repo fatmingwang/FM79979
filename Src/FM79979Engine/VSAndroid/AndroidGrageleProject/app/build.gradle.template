@@ -28,6 +28,10 @@ android
             proguardFiles.add(file('proguard-rules.txt'))
             //ndk.debuggable = true
             debuggable = true
+            //https://github.com/ezored/ezored/issues/23
+            gradle.ext.useLocalLibrary = false
+            gradle.ext.useRemoteLibrary = false
+            gradle.ext.isDebuggable = true
         }
         release 
         {

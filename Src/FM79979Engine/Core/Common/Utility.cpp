@@ -795,47 +795,46 @@ namespace UT
 		//l_pFile = NvFOpen(e_strFileName, e_strMode);
 		if( !l_pFile)
 		{
+			const int l_iNumDirectory = 5;
+			std::string l_strSDCard = "/sdcard/";
 			//try external sd card first
-			if(cCommonApp::m_spExternalSDDirectory)
+			std::string* l_strDirectory[l_iNumDirectory] =
 			{
-				std::string l_strFileName = *cCommonApp::m_spExternalSDDirectory;
-				l_strFileName += *cCommonApp::m_psstrGameAppName;
-				l_strFileName += "/";
-				l_strFileName += e_strFileName;
-				if( l_bWrite )
-					mkpath( l_strFileName );
-				l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
-				if(l_pFile)
-					return l_pFile;
+				cCommonApp::m_spExternalSDDirectory,
+				cCommonApp::m_spExternalDirectory,
+				& l_strSDCard,
+				cCommonApp::m_spobbPath,
+				cCommonApp::m_spInternalDirectory
+			};
+			for (int i = 0; i < l_iNumDirectory; ++i)
+			{
+				if (l_strDirectory[i])
+				{
+					std::string l_strFileName = *l_strDirectory[i];
+					if (l_strFileName[l_strFileName.length() - 1] != '/')
+					{
+						l_strFileName += "/";
+					}
+					//external add GameAppName for folder.
+					if (i < 3)
+					{
+						l_strFileName += *cCommonApp::m_psstrGameAppName;
+						l_strFileName += "/";
+					}
+					l_strFileName += e_strFileName;
+					if (l_bWrite)
+						mkpath(l_strFileName);
+					l_pFile = NvFOpen(l_strFileName.c_str(), e_strMode);
+					if (l_pFile)
+						return l_pFile;
+				}
 			}
-			//try write file into
-			std::string l_strFileName = "/sdcard/";
-			l_strFileName += *cCommonApp::m_psstrGameAppName;
-			l_strFileName += "/";
-			l_strFileName += e_strFileName;
-			//I am lazy to do recursive mkdir,so here may not working
-			if( l_bWrite )
-				mkpath(l_strFileName);
-			l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
-			if( !l_pFile)
-			{//write into internal memory
-				l_strFileName = cCommonApp::m_spInternalDirectory->c_str();
-				l_strFileName += "/";	
-				l_strFileName += *cCommonApp::m_psstrGameAppName;
-				l_strFileName += "/";
-				l_strFileName += e_strFileName;
-				if (l_bWrite)
-				{
-					mkpath(l_strFileName);
-				}
-				l_pFile = NvFOpen(l_strFileName.c_str(),e_strMode);
-				if (!l_pFile)
-				{
-					l_pFile = NvFOpen(e_strFileName, e_strMode);
-				}
+			if (!l_pFile)
+			{
+				l_pFile = NvFOpen(e_strFileName, e_strMode);
 			}
 #ifdef DEBUG
-			const char*ll = l_strFileName.c_str();
+			const char*ll = e_strFileName;
 			if(!l_pFile)
 			{
 				std::string	l_str = ll;l_str += " openfile failed! ";
