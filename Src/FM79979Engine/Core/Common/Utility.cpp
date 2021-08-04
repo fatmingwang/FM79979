@@ -818,8 +818,11 @@ namespace UT
 					//external add GameAppName for folder.
 					if (i < 3)
 					{
-						l_strFileName += *cCommonApp::m_psstrGameAppName;
-						l_strFileName += "/";
+						if (cCommonApp::m_psstrGameAppName)
+						{
+							l_strFileName += *cCommonApp::m_psstrGameAppName;
+							l_strFileName += "/";
+						}
 					}
 					l_strFileName += e_strFileName;
 					if (l_bWrite)
