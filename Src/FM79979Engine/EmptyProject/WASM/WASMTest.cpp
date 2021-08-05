@@ -1,8 +1,6 @@
-#include "stdafx.h"
-#include "../../AllLibInclude.h"
-#include "GameApp.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
+#include "stdafx.h"
 
 
 #include <errno.h>
@@ -20,6 +18,9 @@
 
 #include <emscripten/emscripten.h>
 #include <emscripten/websocket.h>
+
+#include "../../AllLibInclude.h"
+#include "GameApp.h"
 
 
 EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) {

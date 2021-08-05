@@ -1,3 +1,13 @@
+ensure you have take a look at out console window
+all the message you have readed.
+because the error messages it should be there.
+
+
+
+
+
+
+
 https://msdn.microsoft.com/en-us/library/dn707591.aspx
 
 
@@ -27,3 +37,14 @@ STL use
 LLVM libc++ shared library (c++_shared)
 
 or you will lost some so file while your app start.
+
+
+somehow crash and have no idea
+please check AndroidManifest.xml
+
+
+      <!-- must add this or your so won't be loaded. -->
+      <meta-data android:name="android.app.lib_name"
+              android:value="CarGoApp" />
+
+ensure you so file name is correct!
