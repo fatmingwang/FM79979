@@ -1,0 +1,57 @@
+1.
+https://onlinehelp.coveo.com/en/ces/7.0/administrator/enabling_ssl_in_iis.htm
+2.
+https://blog.lextudio.com/why-chrome-says-iis-express-https-is-not-secure-and-how-to-resolve-that-d906a183f0
+
+
+
+
+
+
+Enabling SSL in IIS
+
+
+
+
+On the IIS server, start the IIS Manager (on the Windows taskbar, select Start > Administrative Tools > Internet Information Services (IIS) Manager).
+
+The Internet Information Services (IIS) Manager appears.
+
+In the Connections panel on the left, under Sites, select the site for which you want to enable SSL.
+
+Example: Select Coveo .NET Front-End 12.
+
+In the Actions panel on the right, under Edit Site, select Bindings.
+
+In the Site Bindings dialog box:
+
+When an HTTPS binding is already defined, click Close.
+
+OR
+
+Click Add.
+
+In the Add Site Binding dialog box:
+
+In Type, select https.
+
+In SSL certificate, select an appropriate certificate from available choices.
+
+Note: It is recommended to use a valid certificate from a trusted authority.
+
+Click OK.
+
+Click Close.
+
+In the Connections panel on the left, under Sites, click the site again to display the <selected website> Home page.
+
+In the <selected website> Home page in the center panel, under IIS, double-click SSL Settings.
+
+In the SSL Settings page:
+
+Select the Require SSL check box.
+
+Under Client certificate, select Accept.
+
+
+In the Actions panel on the right, click Apply to save your changes.

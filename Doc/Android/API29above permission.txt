@@ -1,0 +1,44 @@
+Android11
+https://stackoverflow.com/questions/63364476/requestlegacyexternalstorage-is-not-working-in-android-11-api-30
+
+If you want to target to android 11, you should use the MANAGE_EXTERNAL_STORAGE permission.
+
+Visit this page for more details: https://developer.android.com/training/data-storage/manage-all-files
+
+
+comment
+This comes with a big caveat, the app must conform to the Google Play policy for this permission,
+ " the app’s usage of the permission must fall within permitted uses,
+ and must be directly tied to the core functionality of the app" - so unless your app is a File Manager or Virus scanning
+app etc.. I'd advise not to use this permission, otherwise you might find its rejected and have a load of 
+refactoring to do.
+
+
+
+
+
+Android10
+https://developer.android.com/about/versions/11/privacy/storage
+
+
+ Settings > Privacy > Permission manager > Files and media page,
+ each app that has the permission is listed under Allowed for all files. If your app targets Android 11,
+ keep in mind that this access to "all files" is read-only.
+
+
+
+
+
+Target any version
+The first dialog presents a link called Allow in settings
+Figure 1. Dialog shown when an app uses scoped storage and requests the READ_EXTERNAL_STORAGE permission.
+The following changes take effect in Android 11, regardless of your app's target SDK version:
+
+The Storage runtime permission is renamed to Files & Media.
+If your app hasn't opted out of scoped storage and requests the READ_EXTERNAL_STORAGE permission, users see a different dialog compared to Android 10. The dialog indicates that your app is requesting access to photos and media, as shown in Figure 1.
+
+Users can see which apps have the READ_EXTERNAL_STORAGE permission in system settings.
+ On the Settings > Privacy > Permission manager > Files and media page,
+ each app that has the permission is listed under Allowed for all files. If your app targets Android 11,
+ keep in mind that this access to "all files" is read-only.
+ To read and write to all files in shared storage using this app, you need to have the all files access permission.

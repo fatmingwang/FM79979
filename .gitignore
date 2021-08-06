@@ -14,5 +14,11 @@ x86/
 [Oo]bj/
 Tegra-Android
 .vs
+.workspace
+.gradle
+packages
+Generated Files
+build
+jniLibs
 ARM
 .DS_Store
