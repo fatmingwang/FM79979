@@ -4,6 +4,8 @@ FM79979 cross platform game engine
 
 please unzip Media/opencv_world440_dll.7z or all applucation can't work
 
+
+
 Android Project is via Nvidia's CodeWorks(https://developer.nvidia.com/android-m-support-now-available-new-nvidia-codeworks-android-1r4)
 
 the Src/EmptyProject is a quick start project
@@ -34,6 +36,3 @@ Emscripten game demo
 https://github.com/fatmingwang/FM79979/blob/master/Media/Emscripten/readme.txt
 code
 https://github.com/fatmingwang/FM79979/tree/master/Src/FM79979Engine/BluffingGirl
-
-more ermscripten example
-https://github.com/reklatsmasters/webassembly-examples

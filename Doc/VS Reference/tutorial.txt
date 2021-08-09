@@ -1,0 +1,2 @@
+more ermscripten example
+https://github.com/reklatsmasters/webassembly-examples
