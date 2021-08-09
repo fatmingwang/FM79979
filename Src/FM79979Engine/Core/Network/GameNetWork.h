@@ -15,6 +15,9 @@ namespace FATMING_CORE
 {
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
+#ifdef WASM
+		int						m_iBridgeSocket = -1;
+#endif
 		std::mutex				m_SendDataMutex;
 		bool					ThreadProcessWaitSendDataVector();
 		std::map<SDLNetSocket, std::vector<sNetworkSendPacket*> > m_WaitToSendPacketVector;

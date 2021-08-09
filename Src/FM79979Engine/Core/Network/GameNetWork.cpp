@@ -11,8 +11,13 @@
 
 #ifdef WASM
 //emsdk\upstream\emscripten\tests\websocket\tcp_echo_client.cpp
+	bool	g_bWASMDoSSL = false;
 //#define DO_WEBSOCKET_INIT
 	#ifdef DO_WEBSOCKET_INIT
+	//fuck!!!!!!!!
+	// 	if you have set flag for -s PROXY_POSIX_SOCKETS=1 
+	//  you hvae to define DO_WEBSOCKET_INIT or thread stuck,because it expected call emscripten websocket function
+	//fuck!!!!!!!!
 // -lwebsocket.js -s PROXY_POSIX_SOCKETS=1 
 #include <emscripten.h>
 #include <emscripten/websocket.h>
@@ -20,20 +25,19 @@
 #include <emscripten/posix_socket.h>
 		#define	EMSCRIPTEN_WEBSOCKET_INIT(ADDRESS)	emscripten_init_websocket_to_posix_socket_bridge(ADDRESS)
 		#define	EMSCRIPTEN_WEBSOCKET_READY(P1,P2)	emscripten_websocket_get_ready_state(P1,P2)
-		int		g_iBridgeSocket = -1;
 		bool	g_bDoinit_websocket = true;
 	#else
 		#define	EMSCRIPTEN_WEBSOCKET_INIT(ADDRESS)1;
 		#define	EMSCRIPTEN_WEBSOCKET_READY(P1,P2)1;
-		int		g_iBridgeSocket = 1;
 		bool	g_bDoinit_websocket = false;
 	#endif
 #endif
 
-void	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
+int	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 {
+	int l_iBridgeSocket = 1;
 #ifdef WASM
-	if (g_iBridgeSocket == -1 && g_bDoinit_websocket)
+	if (g_bDoinit_websocket)
 	{
 		//-s WEBSOCKET_SUBPROTOCOL=null 
 		//// -lwebsocket.js -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1
@@ -41,7 +45,7 @@ void	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 		////  -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1 -s LLD_REPORT_UNDEFINED 
 		//https://githubmemory.com/repo/emscripten-core/emscripten/issues/14492
 		//"wss://localhost:8080"
-		bool l_bDoSSL = true;
+		bool l_bDoSSL = g_bWASMDoSSL;
 		std::string l_strWebSocketInfo;
 		if (l_bDoSSL)
 		{
@@ -54,8 +58,8 @@ void	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 		printf("call emscripten_init_websocket_to_posix_socket_bridge:WebSocket address is ");
 		printf(l_strWebSocketInfo.c_str());
 		printf("\n");
-		g_iBridgeSocket = EMSCRIPTEN_WEBSOCKET_INIT(l_strWebSocketInfo.c_str());
-		printf("BridgeSocket:%d\n", g_iBridgeSocket);
+		l_iBridgeSocket = EMSCRIPTEN_WEBSOCKET_INIT(l_strWebSocketInfo.c_str());
+		printf("BridgeSocket:%d\n", l_iBridgeSocket);
 		// Synchronously wait until connection has been established.
 		//unsigned short readyState = 0;
 		//if (1)
@@ -83,6 +87,7 @@ void	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 		//}
 	}
 #endif
+	return l_iBridgeSocket;
 }
 namespace FATMING_CORE
 {
@@ -319,6 +324,9 @@ namespace FATMING_CORE
 	cGameNetwork::cGameNetwork() :cCPP11Thread(this)
 	{
 		SDLNet_Init();
+#ifdef WASM
+		m_iBridgeSocket = -1;
+#endif
 		m_pReconnectFunction = nullptr;
 		m_pAllSocketToListenClientMessage = nullptr;
 		m_pSocket = nullptr;
@@ -547,7 +555,12 @@ namespace FATMING_CORE
 	{
 		m_IPData.m_iPort = e_iPort;
 		m_IPData.m_strServerIP = e_strIP;
-		WASMPOSIXWakeup(m_IPData.m_iPort, m_IPData.m_strServerIP.c_str());
+#ifdef WASM
+		//if (m_iBridgeSocket == -1)
+		{
+			this->m_iBridgeSocket = WASMPOSIXWakeup(m_IPData.m_iPort, m_IPData.m_strServerIP.c_str());
+		}
+#endif
 		if(1)
 		{
 			f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cGameNetwork::ClientListenDataThread, this, std::placeholders::_1);
@@ -577,13 +590,14 @@ namespace FATMING_CORE
 			m_IPData.m_strHost = e_strIP;
 		}
 #ifdef WASM
-		if (g_bDoinit_websocket)
+		if (g_bDoinit_websocket && m_iBridgeSocket != -1)
 		{
 			unsigned short readyState = 0;
-			Sleep(10);
-			EMSCRIPTEN_WEBSOCKET_READY(g_iBridgeSocket, &readyState);
+			Sleep(2000);
+			EMSCRIPTEN_WEBSOCKET_READY(m_iBridgeSocket, &readyState);
 			if (readyState == 0)
 			{
+				FMLog::Log("WASM websocket not ready yet.", false);
 				return false;
 			}
 		}
@@ -959,10 +973,13 @@ namespace FATMING_CORE
 			{
 				if (m_ReConnectTime.bTragetTimrReached)
 				{//make sure its client
+
+#ifdef WASM
 					if (m_pGameNetwork->m_IPData.m_strServerIP.length())
 					{
-						WASMPOSIXWakeup(m_pGameNetwork->m_IPData.m_iPort, m_pGameNetwork->m_IPData.m_strServerIP.c_str());
+						m_pGameNetwork->m_iBridgeSocket = WASMPOSIXWakeup(m_pGameNetwork->m_IPData.m_iPort, m_pGameNetwork->m_IPData.m_strServerIP.c_str());
 					}
+#endif
 					if (m_bServeFlag)
 					{
 						m_pGameNetwork->CreateAsServer(m_pGameNetwork->m_IPData.m_iPort, false);
