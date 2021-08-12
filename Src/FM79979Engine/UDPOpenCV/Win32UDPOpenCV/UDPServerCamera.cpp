@@ -167,7 +167,7 @@ void cUDPServerCamera::CameraReadThread(float e_fElpaseTime)
 	}
 	sMatWithFlag*l_pCurrentMatWithFlag = nullptr;
 	{
-		MUTEX_PLACE_HOLDER(m_CameraReadMutex);
+		MUTEX_PLACE_HOLDER(m_CameraReadMutex,"cUDPServerCamera::CameraReadThread");
 		for (int i = 0; i < THREAD_FRAME_COUNT; ++i)
 		{
 			if (m_pFrame[i]->bWaitNewData)
@@ -193,7 +193,7 @@ void cUDPServerCamera::CompressDataThread(float e_fElpaseTime)
 {
 	sMatWithFlag*l_pCurrentMatWithFlag = nullptr;
 	{
-		MUTEX_PLACE_HOLDER(m_CameraReadMutex);
+		MUTEX_PLACE_HOLDER(m_CameraReadMutex,"cUDPServerCamera::CompressDataThread");
 		for (int i = 0; i < THREAD_FRAME_COUNT; ++i)
 		{
 			if (!m_pFrame[i]->bWaitNewData)
@@ -218,7 +218,7 @@ void cUDPServerCamera::UDPSendingDataThread(float e_fElpaseTime)
 {
 	sMatWithFlag*l_pCurrentMatWithFlag = nullptr;
 	{
-		MUTEX_PLACE_HOLDER(m_CameraReadMutex);
+		MUTEX_PLACE_HOLDER(m_CameraReadMutex,"cUDPServerCamera::UDPSendingDataThread 1");
 		for (int i = 0; i < THREAD_FRAME_COUNT; ++i)
 		{
 			if (!m_pFrame[i]->bWaitNewData)
@@ -248,7 +248,7 @@ void cUDPServerCamera::UDPSendingDataThread(float e_fElpaseTime)
 			{
 				SendStreamingDataToClient(l_pData, l_pCurrentMatWithFlag->EncodedVector, l_pCurrentMatWithFlag->pFrame->size().width, l_pCurrentMatWithFlag->pFrame->size().height);
 				{
-					MUTEX_PLACE_HOLDER(m_CameraReadMutex);
+					MUTEX_PLACE_HOLDER(m_CameraReadMutex,"cUDPServerCamera::UDPSendingDataThread 2");
 					l_pCurrentMatWithFlag->bWaitNewData = true;
 					l_pCurrentMatWithFlag->EncodedVector.clear();
 				}
@@ -291,7 +291,7 @@ bool cUDPServerCamera::SendStreamingDataToClient(sNetworkReceivedPacket * e_pDat
 		l_FirstPacket.iImageWidth = l_iWidth;
 		l_FirstPacket.iImageHeight = l_iHeight;
 		l_FirstPacket.iNumChannel = l_iChannel;
-		cSimpleUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET_START>(e_pData->UDPIPaddress, &l_FirstPacket);
+		cSimpleUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET_START>(*e_pData->pReceivedSocket->Socket.pUDPIPaddress, &l_FirstPacket);
 		sNetwork_eUDPML_S2C_IMAGE_PACKET l_SequencyPacket;
 		int l_iSentDataLen = 0;
 		int l_iDataIndex = 0;
@@ -307,7 +307,7 @@ bool cUDPServerCamera::SendStreamingDataToClient(sNetworkReceivedPacket * e_pDat
 			memcpy(l_SequencyPacket.PixelData, &e_EncodedVector[l_iDataIndex], l_iCurrentPacketSendingDataLen);
 			l_SequencyPacket.iPacketIndex = i;
 			l_iDataIndex += PIXELS_PACK_SIZE;
-			cSimpleUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET>(e_pData->UDPIPaddress, &l_SequencyPacket);
+			cSimpleUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET>(*e_pData->pReceivedSocket->Socket.pUDPIPaddress, &l_SequencyPacket);
 		}
 		e_EncodedVector.clear();
 	}

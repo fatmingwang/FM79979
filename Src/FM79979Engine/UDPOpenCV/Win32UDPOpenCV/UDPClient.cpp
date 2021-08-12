@@ -297,7 +297,7 @@ bool cUDPStreamingScreenCaptureServer::Process_eUDPML_C2S_REQUIRE_IMAGE(sNetwork
 			l_FirstPacket.iImageHeight = l_iHeight;
 			l_FirstPacket.iNumChannel = l_iChannel;
 			l_FPS.Update();
-			cCameraUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET_START>(e_pData->UDPIPaddress, &l_FirstPacket);
+			cCameraUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET_START>(*e_pData->pReceivedSocket->Socket.pUDPIPaddress, &l_FirstPacket);
 			sNetwork_eUDPML_S2C_IMAGE_PACKET l_SequencyPacket;
 			int l_iSentDataLen = 0;
 			int l_iDataIndex = 0;
@@ -313,7 +313,7 @@ bool cUDPStreamingScreenCaptureServer::Process_eUDPML_C2S_REQUIRE_IMAGE(sNetwork
 				memcpy(l_SequencyPacket.PixelData, &m_pTempData[l_iDataIndex], l_iCurrentPacketSendingDataLen);
 				l_SequencyPacket.iPacketIndex = i;
 				l_iDataIndex += PIXELS_PACK_SIZE;
-				cCameraUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET>(e_pData->UDPIPaddress, &l_SequencyPacket);
+				cCameraUDPClientNetwork::GetInstance()->SendDataToClient<sNetwork_eUDPML_S2C_IMAGE_PACKET>(*e_pData->pReceivedSocket->Socket.pUDPIPaddress, &l_SequencyPacket);
 			}
 			l_FPS.Update();
 			//measure elpse time.

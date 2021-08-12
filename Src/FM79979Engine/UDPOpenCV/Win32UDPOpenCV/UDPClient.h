@@ -10,7 +10,7 @@ namespace cv
 struct sNetwork_eUDPML_S2C_IMAGE_PACKET_START;
 //is here need a thread for quick send and receive data?
 class cCameraUDPClientNetwork:public cUDPNetwork,public cSingltonTemplate<cCameraUDPClientNetwork>
-	,public NamedTypedObject,public cMessageSenderManager
+	,public cMessageSenderManager
 {
 	cCameraUDPClientNetwork();
 	virtual ~cCameraUDPClientNetwork();
