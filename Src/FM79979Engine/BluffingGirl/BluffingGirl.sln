@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CoreUWP", "..\Core\CoreUWP\CoreUWP\CoreUWP.vcxproj", "{3C63E603-3B30-4510-9435-F73137AF75D4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BluffingGirlUWP", "BluffingGirlUWP\BluffingGirlUWP.vcxproj", "{097D7368-8807-4EDA-86C9-5325062C9F2D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bullet", "..\Core\GameplayUT\Physic\Bullet\Bullet.vcxproj", "{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,6 +174,20 @@ Global
 		{097D7368-8807-4EDA-86C9-5325062C9F2D}.Release|x86.ActiveCfg = Release|Win32
 		{097D7368-8807-4EDA-86C9-5325062C9F2D}.Release|x86.Build.0 = Release|Win32
 		{097D7368-8807-4EDA-86C9-5325062C9F2D}.Release|x86.Deploy.0 = Release|Win32
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|ARM.ActiveCfg = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|ARM64.ActiveCfg = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|Emscripten.Build.0 = Debug|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|x64.ActiveCfg = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|x64.Build.0 = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Debug|x86.ActiveCfg = Debug|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|ARM.ActiveCfg = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|ARM64.ActiveCfg = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|Emscripten.Build.0 = Release|Emscripten
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|x64.ActiveCfg = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|x64.Build.0 = Release|x64
+		{B97AEE71-62EC-40F0-ABD0-6EABF0787A3E}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

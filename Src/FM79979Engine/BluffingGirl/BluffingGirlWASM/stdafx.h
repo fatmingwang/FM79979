@@ -17,6 +17,6 @@
 
 
 
-#include "../../Core/AllCoreInclude.h"
-#include "../../Core/FatmingCollada/AllColladaInclude.h"
-#include "AllPhaseDefine.h"
+//#include "../../Core/AllCoreInclude.h"
+//#include "../../Core/FatmingCollada/AllColladaInclude.h"
+//#include "AllPhaseDefine.h"

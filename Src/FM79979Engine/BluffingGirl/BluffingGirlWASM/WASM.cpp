@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "../../AllLibInclude.h"
-#include "BluffingGirlApp.h"
-#include "../../Core/Network/SDL_net.h"
 #include <emscripten.h>
 #include <SDL/SDL.h>
+#include "../../Core/AllCoreInclude.h"
+#include "BluffingGirlApp.h"
+//#include "../../Core/Network/SDL_net.h"
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //#define TEST_RUN

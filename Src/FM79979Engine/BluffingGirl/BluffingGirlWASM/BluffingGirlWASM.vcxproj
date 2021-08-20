@@ -103,17 +103,20 @@
       <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
+      <AdditionalOptions>-pthread  -s --profiling  --bind  -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>--profiling -s ALLOW_MEMORY_GROWTH=1  -s FETCH=1 -s -s FULL_ES2=1       -s SAFE_HEAP=1 -g</AdditionalOptions>
+      <AdditionalOptions>-pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s PTHREAD_POOL_SIZE=8 -s FETCH=1 -s FULL_ES2=1</AdditionalOptions>
       <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <LinkLibraryDependencies>
+      </LinkLibraryDependencies>
     </ProjectReference>
     <ProjectReference>
-      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+      <UseLibraryDependencyInputs>
+      </UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -193,17 +196,8 @@
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\FMEvent\Event.vcxproj">
-      <Project>{cb79dca3-5f7a-423f-ba3e-01df441c06b1}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\GameplayUT\Physic\Bullet\Bullet.vcxproj">
-      <Project>{b97aee71-62ec-40f0-abd0-6eabf0787a3e}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\zlib\zlib.vcxproj">
-      <Project>{c2552b93-40e6-4118-ba99-2a8d500fc597}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Freetype\Freetype.vcxproj">
       <Project>{29840bd0-19c2-4ddd-bc75-2ec94b6c9eec}</Project>
