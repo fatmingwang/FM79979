@@ -330,6 +330,17 @@ void cUDPServerCamera::SingleThreadUpdate(float e_fElpaseTime)
 	//}
 	if (!m_pVideoCapture || !m_pFrame )
 		return;
+	//https://stackoverflow.com/questions/29099839/opencv-stream-from-a-camera-connected-to-a-remote-machine
+	//Where address is something like 
+	//rtsp://127.0.0.1:554 or 
+	//rtsp://username:password@127.0.0.1:554 if it is password protected.
+	//std::string address = "rtsp://<username:password>@<ip_address>:<port>";
+	//cv::VideoCapture cap;
+	//if (!cap.open(address))
+	//{
+	//	std::cout << "Error opening video stream: " << address << std::endl;
+	//	return -1;
+	//}
 	if (!m_pVideoCapture->isOpened()) 
 	{
 		m_pVideoCapture->open(0);

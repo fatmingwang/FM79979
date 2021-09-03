@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="OpenCVTest.h" />
     <ClInclude Include="UDPStreamingProtocol.h" />
     <ClInclude Include="UDPServerCamera.h" />
     <ClInclude Include="UDPClient.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="UDPOpenCVApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="OpenCVTest.cpp" />
     <ClCompile Include="UDPServerCamera.cpp" />
     <ClCompile Include="UDPClient.cpp" />
     <ClCompile Include="pch.cpp">
