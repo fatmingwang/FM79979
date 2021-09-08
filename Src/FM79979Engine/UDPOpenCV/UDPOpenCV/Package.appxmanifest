@@ -48,5 +48,7 @@
     <Capability Name="internetClientServer"/>
     <Capability Name="privateNetworkClientServer"/>
     <DeviceCapability Name="proximity"/>
+    <DeviceCapability Name="microphone"/>
+    <DeviceCapability Name="webcam"/>
   </Capabilities>
 </Package>

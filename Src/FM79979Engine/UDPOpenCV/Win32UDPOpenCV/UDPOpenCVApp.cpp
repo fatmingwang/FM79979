@@ -2,8 +2,10 @@
 #include "UDPOpenCVApp.h"
 #include "UDPClient.h"
 #include "UDPServerCamera.h"
+#include "OpenCVTest_FaceLandmark.h"
 
 bool g_bBeServer = false;
+cOpenCVTest_FaceLandmark* g_pOpenCVTest = nullptr;
 cUDPServerCamera* g_pUDPServerCamera = nullptr;
 #ifdef WIN32
 cUDPOpenCVApp::cUDPOpenCVApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) : cGameApp(e_Hwnd, e_vGameResolution, e_vViewportSize)
@@ -22,11 +24,13 @@ cUDPOpenCVApp::cUDPOpenCVApp(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 	{
 		UDPTestClientInit();
 	}
+	g_pOpenCVTest = new cOpenCVTest_FaceLandmark();
 }
 
 cUDPOpenCVApp::~cUDPOpenCVApp()
 {
 	SAFE_DELETE(m_pOrthogonalCamera);
+	SAFE_DELETE(g_pOpenCVTest);
 	Destroy();
 	if (g_bBeServer)
 	{
@@ -42,12 +46,30 @@ void	cUDPOpenCVApp::Init()
 {
 	cGameApp::Init();
 	this->m_sTimeAndFPS.Update();
+	if (g_pOpenCVTest)
+	{
+		bool l_bUseRemote = false;
+		if (l_bUseRemote)
+		{
+			g_pOpenCVTest->OpenCamera("rtsp://192.168.66.77:7788/h264_ulaw.sdp");
+		}
+		else
+		{
+			g_pOpenCVTest->OpenCamera();
+		}
+		//g_pOpenCVTest->OpenCamera("rtsp://170.93.143.139/rtplive/470011e600ef003a004ee33696235daa");
+		
+	}
 }
 
 
 void	cUDPOpenCVApp::Update(float e_fElpaseTime)
 {
 	cGameApp::Update(e_fElpaseTime);
+	if (g_pOpenCVTest)
+	{
+		g_pOpenCVTest->Update(e_fElpaseTime);
+	}
 	if (g_bBeServer)
 	{
 	}
@@ -75,6 +97,10 @@ void	cUDPOpenCVApp::Render()
 	else
 	{
 		UDPTestClientRender();
+	}
+	if (g_pOpenCVTest)
+	{
+		g_pOpenCVTest->Render();
 	}
 	MyGlErrorTest("test");
 #ifdef WIN32

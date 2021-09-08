@@ -25,6 +25,9 @@
     <Filter Include="Protocol">
       <UniqueIdentifier>{0925a01c-e3bb-4a42-bbce-454c42cc701a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OpenCVTest">
+      <UniqueIdentifier>{dc64f686-d174-48d1-b39e-1d3ce2daa141}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -45,6 +48,15 @@
     <ClInclude Include="UDPClient.h">
       <Filter>UDPOpenCV</Filter>
     </ClInclude>
+    <ClInclude Include="OpenCVTest_FaceLandmark.h">
+      <Filter>OpenCVTest</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVTest_OCR.h">
+      <Filter>OpenCVTest</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVTestBase.h">
+      <Filter>OpenCVTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -61,6 +73,12 @@
     </ClCompile>
     <ClCompile Include="UDPClient.cpp">
       <Filter>UDPOpenCV</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVTest_FaceLandmark.cpp">
+      <Filter>OpenCVTest</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVTest_OCR.cpp">
+      <Filter>OpenCVTest</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
