@@ -17,6 +17,43 @@ namespace FATMING_CORE
 	float	cSoundParser::m_sfBGMVolume = 1.f;
 	float	cSoundParser::m_sfSoundEffectVolume = 1.f;
 
+	static void list_audio_devices(const ALCchar* devices)
+	{
+		const ALCchar* device = devices, * next = devices + 1;
+		size_t len = 0;
+
+		fprintf(stdout, "Devices list:\n");
+		fprintf(stdout, "----------\n");
+		while (device && *device != '\0' && next && *next != '\0') {
+			fprintf(stdout, "%s\n", device);
+			len = strlen(device);
+			device += (len + 1);
+			next += (len + 2);
+		}
+		fprintf(stdout, "----------\n");
+	}
+	void		displayDevices(const char* type, const char* list)
+	{
+		ALCchar* ptr, * nptr;
+
+		ptr = (ALCchar*)list;
+		printf("list of all available %s devices:\n", type);
+		if (!list)
+		{
+			printf("none\n");
+		}
+		else
+		{
+			nptr = ptr;
+			while (*(nptr += strlen(ptr) + 1) != 0)
+			{
+				printf("  %s\n", ptr);
+				ptr = nptr;
+			}
+			printf("  %s\n", ptr);
+		}
+}
+
 	bool    cSoundParser::ActiveOpenAL()
 	{
 #if defined(WIN32) || defined(LINUX)
@@ -30,7 +67,31 @@ namespace FATMING_CORE
 		// Initialization
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
 		//http://pielot.org/2010/12/14/openal-on-android/#comment-1160
-		m_pDevice = alcOpenDevice(0); // select the "preferred device"
+		const ALCchar* s = nullptr;
+		//https://stackoverflow.com/questions/28960638/listing-all-devices-open-al-does-not-work
+		if(0)
+		{
+			if (alcIsExtensionPresent(NULL, "ALC_enumeration_EXT") == AL_TRUE)
+			{
+				//https://github.com/ffainelli/openal-example/blob/master/openal-example.c
+				list_audio_devices(alcGetString(NULL, ALC_DEVICE_SPECIFIER));
+
+				if (alcIsExtensionPresent(NULL, "ALC_enumerate_all_EXT") == AL_FALSE)
+					s = (char*)alcGetString(NULL, ALC_DEVICE_SPECIFIER);
+				else
+					s = (char*)alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
+				displayDevices("output", s);
+
+				s = (char*)alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
+				displayDevices("input", s);
+			}
+		}
+		//m_pDevice = alcOpenDevice("bcm2835 HDMI 1, bcm2835 HDMI 1 (CARD=b1,DEV=0)"); // select the "preferred device"
+		//m_pDevice = alcOpenDevice("bcm2835 Headphones, bcm2835 Headphones (CARD=Headphones,DEV=0)"); // select the "preferred device"		
+		//const char* defname = alcGetString(NULL, ALC_DEFAULT_DEVICE_SPECIFIER);// 
+		//m_pDevice = alcOpenDevice(defname); // select the "preferred device"
+		m_pDevice = alcOpenDevice(0);
+
 		if (!m_pDevice)
 			return false;
 		assert(m_pDevice);
