@@ -6,6 +6,10 @@
 //tarnnied model
 //https://github.com/tesseract-ocr/tessdata_best
 
+
+//new one?
+//https://www.twblogs.net/a/5c80e028bd9eee35fc136515
+
 class cOpenCVTest_OCR:public OpenCVTestBase
 {
 	std::string		m_strCameraURL;
@@ -13,15 +17,11 @@ class cOpenCVTest_OCR:public OpenCVTestBase
 	std::mutex		m_FrameMutex;
 	std::mutex		m_FaceRectMutex;
 	sMatWithFlag* m_pFrame;
-	FATMING_CORE::cBaseImage* m_pVideoImage;
-	class cv::VideoCapture* m_pVideoCapture;
-	//class cv::CascadeClassifier*	m_pCascadeClassifier;
-	//https://www.pyimagesearch.com/2018/02/26/face-detection-with-opencv-and-deep-learning/
-	//class cv::CascadeClassifier*	m_FaceCascade;
-	//class cv::CascadeClassifier*	m_EyesCascade;
-	class cv::CascadeClassifier* m_pCascadeClassifier;
+	FATMING_CORE::cBaseImage*		m_pVideoImage;
+	class cv::VideoCapture*			m_pVideoCapture;
+	class cv::CascadeClassifier*	m_pCascadeClassifier;
 	std::vector<cv::Rect>			m_FacesRect;
-	vector< vector<cv::Point2f> >		m_FacesPointsVector;
+	vector< vector<cv::Point2f> >	m_FacesPointsVector;
 	void	CameraReadThread(float e_fElpaseTime);
 public:
 	cOpenCVTest_OCR();

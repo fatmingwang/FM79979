@@ -80,5 +80,8 @@
     <ClCompile Include="OpenCVTest_OCR.cpp">
       <Filter>OpenCVTest</Filter>
     </ClCompile>
+    <ClCompile Include="OpenCVTestBase.cpp">
+      <Filter>OpenCVTest</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,6 +15,10 @@
 #pragma comment(lib, "../../../lib/opencv_world440.lib")
 #endif
 
+//#pragma comment(lib, "../../../lib/leptonica-1.78.0.lib")
+//#pragma comment(lib, "../../../lib/tesseract41.lib")
+
+
 cGameApp* g_pGameApp = 0;
 HWND g_hWnd = nullptr;
 bool	g_bLeave = false;

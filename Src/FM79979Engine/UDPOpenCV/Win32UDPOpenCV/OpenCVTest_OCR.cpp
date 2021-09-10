@@ -10,47 +10,25 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include "OpenCVTest_OCR.h"
+#include <opencv2/dnn.hpp>
 
-#include <opencv2/face.hpp>
 using namespace cv;
-using namespace cv::face;
-
-// (3) Global variables
-Ptr<cv::face::Facemark> g_Facemark;
+using namespace cv::dnn;
+void decodeBoundingBoxes(const Mat& scores, const Mat& geometry, float scoreThresh,
+	std::vector<RotatedRect>& detections, std::vector<float>& confidences);
+void fourPointsTransform(const Mat& frame, Point2f vertices[4], Mat& result);
+void decodeText(const Mat& scores, std::string& text);
 
 cOpenCVTest_OCR::cOpenCVTest_OCR()
 {
-	std::string l_strOpenCVInfo = "OpenCV version :";	l_strOpenCVInfo += CV_VERSION;
-	l_strOpenCVInfo += "\nMajor version : ";			l_strOpenCVInfo += ValueToString(CV_MAJOR_VERSION);
-	l_strOpenCVInfo += "\nMinor version : ";			l_strOpenCVInfo += ValueToString(CV_MINOR_VERSION);
-	l_strOpenCVInfo += "\nSubminor version : ";			l_strOpenCVInfo += ValueToString(CV_SUBMINOR_VERSION);
-	FMLog::Log(l_strOpenCVInfo.c_str(), false);
 	m_pVideoCapture = nullptr;
 	m_pVideoImage = nullptr;
 	m_pFrame = new sMatWithFlag();
-	g_Facemark = FacemarkLBF::create();
-	g_Facemark->loadModel("opencv/lbfmodel.yaml");
-	/*create the facemark instance*/
-	//FacemarkLBF::Params params;
-	////params.model_filename = "helen.model"; // the trained model will be saved using this filename
-	//params.model_filename = "opencv/lbfmodel.yaml"; // the trained model will be saved using this filename
-	//g_Facemark = FacemarkLBF::create(params);
-	//g_Facemark->loadModel(params.model_filename);
-	/*create the facemark instance*/
-	//m_pCascadeClassifier = new cv::CascadeClassifier("opencv/haarcascade_frontalface_default.xml");
 	m_pCascadeClassifier = new cv::CascadeClassifier();
 	if (!m_pCascadeClassifier->load("opencv/haarcascade_frontalface_alt2.xml"))
 	{
 		int a = 0;
 	}
-	// 
-	//class cv::CascadeClassifier* m_FaceCascade;
-	//class cv::CascadeClassifier* m_EyesCascade;// 
-	//faceDetector("haarcascade_frontalface_alt2.xml");
-	//Load Face Detector
-	//Ptr<Facemark> facemark = FacemarkLBF::create();
-	//// Load landmark detector
-	//facemark->loadModel("lbfmodel.yaml");
 }
 
 cOpenCVTest_OCR::~cOpenCVTest_OCR()
@@ -58,93 +36,116 @@ cOpenCVTest_OCR::~cOpenCVTest_OCR()
 	SAFE_DELETE(m_pVideoCapture);
 }
 
-void faceDetector(const Mat& image, std::vector<Rect>& faces, CascadeClassifier& face_cascade)
+//
+//const char* keys =
+//"{ help  h     | | Print help message. }"
+//"{ input i     | | Path to input image or video file. Skip this argument to capture frames from a camera.}"
+//"{ model m     | | Path to a binary .pb file contains trained detector network.}"
+//"{ ocr         | | Path to a binary .pb or .onnx file contains trained recognition network.}"
+//"{ width       | 320 | Preprocess input image by resizing to a specific width. It should be multiple by 32. }"
+//"{ height      | 320 | Preprocess input image by resizing to a specific height. It should be multiple by 32. }"
+//"{ thr         | 0.5 | Confidence threshold. }"
+//"{ nms         | 0.4 | Non-maximum suppression threshold. }";
+//
+int qoo(int argc, char** argv)
 {
-	Mat gray;
-	// The cascade classifier works best on grayscale images
-	if (image.channels() > 1)
-	{
-		cvtColor(image, gray, COLOR_BGR2GRAY);
-	}
-	else
-	{
-		gray = image.clone();
-	}
-	// Histogram equalization generally aids in face detection
-	equalizeHist(gray, gray);
-	faces.clear();
-	// Run the cascade classifier
-	//face_cascade.detectMultiScale(
-	//	gray,
-	//	faces,
-	//	1.4, // pyramid scale factor
-	//	3,   // lower thershold for neighbors count
-	//		 // here we hint the classifier to only look for one face
-	//	CASCADE_SCALE_IMAGE + CASCADE_FIND_BIGGEST_OBJECT);
-	face_cascade.detectMultiScale(gray, faces, 1.1, 3, 0, Size(30, 30));
+    // Parse command line arguments.
+    CommandLineParser parser(argc, argv, "");
+    parser.about("Use this script to run TensorFlow implementation (https://github.com/argman/EAST) of "
+        "EAST: An Efficient and Accurate Scene Text Detector (https://arxiv.org/abs/1704.03155v2)");
+    if (argc == 1 || parser.has("help"))
+    {
+        parser.printMessage();
+        return 0;
+    }
+    float confThreshold = 0.5f;
+    float nmsThreshold = 0.4f;
+    int inpWidth = 320;
+    int inpHeight = 320;
+    String modelDecoder = "opencv/frozen_east_text_detection.pb";
+    String modelRecognition = "opencv/frozen_east_text_detection.pb";
+
+    CV_Assert(!modelDecoder.empty());
+    // Load networks.
+    Net detector = readNet(modelDecoder);
+    Net recognizer;
+    if (!modelRecognition.empty())
+        recognizer = readNet(modelRecognition);
+    // Open a video file or an image file or a camera stream.
+    VideoCapture cap;
+    bool openSuccess = parser.has("input") ? cap.open(parser.get<String>("input")) : cap.open(0);
+    CV_Assert(openSuccess);
+    static const std::string kWinName = "EAST: An Efficient and Accurate Scene Text Detector";
+    namedWindow(kWinName, WINDOW_NORMAL);
+    std::vector<Mat> outs;
+    std::vector<String> outNames(2);
+    outNames[0] = "feature_fusion/Conv_7/Sigmoid";
+    outNames[1] = "feature_fusion/concat_3";
+    Mat frame, blob;
+    TickMeter tickMeter;
+    while (waitKey(1) < 0)
+    {
+        cap >> frame;
+        if (frame.empty())
+        {
+            waitKey();
+            break;
+        }
+        blobFromImage(frame, blob, 1.0, Size(inpWidth, inpHeight), Scalar(123.68, 116.78, 103.94), true, false);
+        detector.setInput(blob);
+        tickMeter.start();
+        detector.forward(outs, outNames);
+        tickMeter.stop();
+        Mat scores = outs[0];
+        Mat geometry = outs[1];
+        // Decode predicted bounding boxes.
+        std::vector<RotatedRect> boxes;
+        std::vector<float> confidences;
+        decodeBoundingBoxes(scores, geometry, confThreshold, boxes, confidences);
+        // Apply non-maximum suppression procedure.
+        std::vector<int> indices;
+        NMSBoxes(boxes, confidences, confThreshold, nmsThreshold, indices);
+        Point2f ratio((float)frame.cols / inpWidth, (float)frame.rows / inpHeight);
+        // Render text.
+        for (size_t i = 0; i < indices.size(); ++i)
+        {
+            RotatedRect& box = boxes[indices[i]];
+            Point2f vertices[4];
+            box.points(vertices);
+            for (int j = 0; j < 4; ++j)
+            {
+                vertices[j].x *= ratio.x;
+                vertices[j].y *= ratio.y;
+            }
+            if (!modelRecognition.empty())
+            {
+                Mat cropped;
+                fourPointsTransform(frame, vertices, cropped);
+                cvtColor(cropped, cropped, cv::COLOR_BGR2GRAY);
+                Mat blobCrop = blobFromImage(cropped, 1.0 / 127.5, Size(), Scalar::all(127.5));
+                recognizer.setInput(blobCrop);
+                tickMeter.start();
+                Mat result = recognizer.forward();
+                tickMeter.stop();
+                std::string wordRecognized = "";
+                decodeText(result, wordRecognized);
+                putText(frame, wordRecognized, vertices[1], FONT_HERSHEY_SIMPLEX, 1.5, Scalar(0, 0, 255));
+            }
+            for (int j = 0; j < 4; ++j)
+                line(frame, vertices[j], vertices[(j + 1) % 4], Scalar(0, 255, 0), 1);
+        }
+        // Put efficiency information.
+        std::string label = format("Inference time: %.2f ms", tickMeter.getTimeMilli());
+        putText(frame, label, Point(0, 15), FONT_HERSHEY_SIMPLEX, 0.5, Scalar(0, 255, 0));
+        imshow(kWinName, frame);
+        tickMeter.reset();
+    }
+    return 0;
 }
+
 
 void cOpenCVTest_OCR::CameraReadThread(float e_fElpaseTime)
 {
-	//30 fps
-	//Sleep(1000 / 30);
-	MUTEX_PLACE_HOLDER(m_CameraReadMutex, "cOpenCVTest_OCR::CameraReadThread");
-	if (!m_pVideoCapture)
-	{
-		//Sleep(100);
-		return;
-	}
-	if (!m_pVideoCapture->isOpened())
-	{
-		if (m_strCameraURL.length())
-		{
-			m_pVideoCapture->open(m_strCameraURL.c_str());
-			Sleep(1000);
-		}
-		else
-		{
-			auto l_b = m_pVideoCapture->open(0);
-			Sleep(100);
-		}
-		return;
-	}
-	{
-		{
-			MUTEX_PLACE_HOLDER(m_FrameMutex, "cOpenCVTest_OCR::CameraReadThread");
-			*m_pVideoCapture >> *m_pFrame->pFrame;
-			// ... obtain an image in img
-			std::vector<cv::Rect>			l_FacesRect;
-			faceDetector(*m_pFrame->pFrame, l_FacesRect, *m_pCascadeClassifier);
-			{
-				vector< vector<Point2f> > shapes;
-				if (g_Facemark->fit(*m_pFrame->pFrame, l_FacesRect, shapes))
-				{
-					//for (size_t i = 0; i < l_FacesRect.size(); i++)
-					//{
-					//	cv::rectangle(img, faces[i], Scalar(255, 0, 0));
-					//}
-					for (unsigned long i = 0; i < l_FacesRect.size(); i++)
-					{
-						for (unsigned long k = 0; k < shapes[i].size(); k++)
-						{
-							//cv::circle(img, shapes[i][k], 5, cv::Scalar(0, 0, 255), FILLED);
-						}
-					}
-				}
-				{
-					MUTEX_PLACE_HOLDER(m_FaceRectMutex, "m_FaceRectMutex");
-					m_FacesRect = l_FacesRect;
-					m_FacesPointsVector = shapes;
-				}
-			}
-			m_pFrame->bNewData = true;
-		}
-		// Check if any faces were detected or not
-		//if (m_pVideoCapture->read(*m_pFrame->pFrame))
-		//{
-		//	m_pFrame->bNewData = true;
-		//}
-	}
 }
 //https://www.itread01.com/content/1543374489.html
 void cOpenCVTest_OCR::OpenCamera(const char* e_strCameraURL)
@@ -193,24 +194,87 @@ void cOpenCVTest_OCR::Render()
 	{
 		m_pVideoImage->Render();
 
-		vector< vector<Point2f> >		l_Shapes;
-		std::vector<cv::Rect>			l_FacesRect;
-		{
-			MUTEX_PLACE_HOLDER(m_FaceRectMutex, "m_FaceRectMutex");
-			l_FacesRect = m_FacesRect;
-			l_Shapes = m_FacesPointsVector;
-		}
-		for (auto l_Rect : l_FacesRect)
-		{
-			GLRender::RenderRectangle(Vector2(l_Rect.x, l_Rect.y), (float)l_Rect.width, (float)l_Rect.height, Vector4::Red);
-		}
-
-		for (auto l_PointsVector : l_Shapes)
-		{
-			for (auto l_Point : l_PointsVector)
-			{
-				GLRender::RenderSphere(Vector2(l_Point.x, l_Point.y), 1);
-			}
-		}
 	}
+}
+
+
+void decodeBoundingBoxes(const Mat& scores, const Mat& geometry, float scoreThresh,
+    std::vector<RotatedRect>& detections, std::vector<float>& confidences)
+{
+    detections.clear();
+    CV_Assert(scores.dims == 4); CV_Assert(geometry.dims == 4); CV_Assert(scores.size[0] == 1);
+    CV_Assert(geometry.size[0] == 1); CV_Assert(scores.size[1] == 1); CV_Assert(geometry.size[1] == 5);
+    CV_Assert(scores.size[2] == geometry.size[2]); CV_Assert(scores.size[3] == geometry.size[3]);
+    const int height = scores.size[2];
+    const int width = scores.size[3];
+    for (int y = 0; y < height; ++y)
+    {
+        const float* scoresData = scores.ptr<float>(0, 0, y);
+        const float* x0_data = geometry.ptr<float>(0, 0, y);
+        const float* x1_data = geometry.ptr<float>(0, 1, y);
+        const float* x2_data = geometry.ptr<float>(0, 2, y);
+        const float* x3_data = geometry.ptr<float>(0, 3, y);
+        const float* anglesData = geometry.ptr<float>(0, 4, y);
+        for (int x = 0; x < width; ++x)
+        {
+            float score = scoresData[x];
+            if (score < scoreThresh)
+                continue;
+            // Decode a prediction.
+            // Multiple by 4 because feature maps are 4 time less than input image.
+            float offsetX = x * 4.0f, offsetY = y * 4.0f;
+            float angle = anglesData[x];
+            float cosA = std::cos(angle);
+            float sinA = std::sin(angle);
+            float h = x0_data[x] + x2_data[x];
+            float w = x1_data[x] + x3_data[x];
+            Point2f offset(offsetX + cosA * x1_data[x] + sinA * x2_data[x],
+                offsetY - sinA * x1_data[x] + cosA * x2_data[x]);
+            Point2f p1 = Point2f(-sinA * h, -cosA * h) + offset;
+            Point2f p3 = Point2f(-cosA * w, sinA * w) + offset;
+            RotatedRect r(0.5f * (p1 + p3), Size2f(w, h), -angle * 180.0f / (float)CV_PI);
+            detections.push_back(r);
+            confidences.push_back(score);
+        }
+    }
+}
+void fourPointsTransform(const Mat& frame, Point2f vertices[4], Mat& result)
+{
+    const Size outputSize = Size(100, 32);
+    Point2f targetVertices[4] = { Point(0, outputSize.height - 1),
+                                  Point(0, 0), Point(outputSize.width - 1, 0),
+                                  Point(outputSize.width - 1, outputSize.height - 1),
+    };
+    Mat rotationMatrix = getPerspectiveTransform(vertices, targetVertices);
+    warpPerspective(frame, result, rotationMatrix, outputSize);
+}
+void decodeText(const Mat& scores, std::string& text)
+{
+    static const std::string alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
+    Mat scoresMat = scores.reshape(1, scores.size[0]);
+    std::vector<char> elements;
+    elements.reserve(scores.size[0]);
+    for (int rowIndex = 0; rowIndex < scoresMat.rows; ++rowIndex)
+    {
+        Point p;
+        minMaxLoc(scoresMat.row(rowIndex), 0, 0, 0, &p);
+        if (p.x > 0 && static_cast<size_t>(p.x) <= alphabet.size())
+        {
+            elements.push_back(alphabet[p.x - 1]);
+        }
+        else
+        {
+            elements.push_back('-');
+        }
+    }
+    if (elements.size() > 0 && elements[0] != '-')
+        text += elements[0];
+    for (size_t elementIndex = 1; elementIndex < elements.size(); ++elementIndex)
+    {
+        if (elementIndex > 0 && elements[elementIndex] != '-' &&
+            elements[elementIndex - 1] != elements[elementIndex])
+        {
+            text += elements[elementIndex];
+        }
+    }
 }

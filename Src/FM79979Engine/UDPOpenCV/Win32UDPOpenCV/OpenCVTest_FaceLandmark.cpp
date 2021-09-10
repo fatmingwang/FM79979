@@ -20,6 +20,7 @@ Ptr<cv::face::Facemark> g_Facemark;
 
 cOpenCVTest_FaceLandmark::cOpenCVTest_FaceLandmark()
 {
+	m_bNewFaceDetectData = false;
 	std::string l_strOpenCVInfo = "OpenCV version :";	l_strOpenCVInfo += CV_VERSION;
 	l_strOpenCVInfo += "\nMajor version : ";			l_strOpenCVInfo += ValueToString(CV_MAJOR_VERSION);
 	l_strOpenCVInfo += "\nMinor version : ";			l_strOpenCVInfo += ValueToString(CV_MINOR_VERSION);
@@ -27,7 +28,10 @@ cOpenCVTest_FaceLandmark::cOpenCVTest_FaceLandmark()
 	FMLog::Log(l_strOpenCVInfo.c_str(),false);
 	m_pVideoCapture = nullptr;
 	m_pVideoImage = nullptr;
-	m_pFrame = new sMatWithFlag();
+	m_30FPSLimit.SetTargetTime(1 / 60.f);
+	m_30FPSLimit.SetLoop(true);
+	m_pOpenGLFrame = new sMatWithFlag();
+	m_pFaceDetectFrame = new sMatWithFlag();
 	g_Facemark = FacemarkLBF::create();
 	g_Facemark->loadModel("opencv/lbfmodel.yaml");
 	/*create the facemark instance*/
@@ -55,6 +59,8 @@ cOpenCVTest_FaceLandmark::cOpenCVTest_FaceLandmark()
 
 cOpenCVTest_FaceLandmark::~cOpenCVTest_FaceLandmark()
 {
+	this->CloseThreadAndWaitUntilFinish();
+	m_FaceDetectThread.CloseThreadAndWaitUntilFinish();
 	SAFE_DELETE(m_pVideoCapture);
 }
 
@@ -74,21 +80,23 @@ void faceDetector(const Mat& image,	std::vector<Rect>& faces,CascadeClassifier& 
 	equalizeHist(gray, gray);
 	faces.clear();
 	// Run the cascade classifier
-	//face_cascade.detectMultiScale(
-	//	gray,
-	//	faces,
-	//	1.4, // pyramid scale factor
-	//	3,   // lower thershold for neighbors count
-	//		 // here we hint the classifier to only look for one face
-	//	CASCADE_SCALE_IMAGE + CASCADE_FIND_BIGGEST_OBJECT);
-	face_cascade.detectMultiScale(gray, faces, 1.1, 3, 0, Size(30, 30));
+	face_cascade.detectMultiScale(
+		gray,
+		faces,
+		1.4, // pyramid scale factor
+		3,   // lower thershold for neighbors count
+			 // here we hint the classifier to only look for one face
+		CASCADE_SCALE_IMAGE + CASCADE_FIND_BIGGEST_OBJECT);
+	//face_cascade.detectMultiScale(gray, faces, 1.1, 3, 0, Size(30, 30));
 }
 
 void cOpenCVTest_FaceLandmark::CameraReadThread(float e_fElpaseTime)
 {
+	//UT::sTimeAndFPS	m_CameraFPS;
+	m_CameraFPS.Update();
 	//30 fps
 	//Sleep(1000 / 30);
-	MUTEX_PLACE_HOLDER(m_CameraReadMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");	
+	//Sleep(10);
 	if (!m_pVideoCapture)
 	{
 		//Sleep(100);
@@ -108,42 +116,60 @@ void cOpenCVTest_FaceLandmark::CameraReadThread(float e_fElpaseTime)
 		}
 		return;
 	}
+	Sleep(1);
+	cv::Mat l_Frame;
+	*m_pVideoCapture >> l_Frame;
 	{
+		MUTEX_PLACE_HOLDER(m_OpenGLFrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
+		l_Frame.copyTo(*m_pOpenGLFrame->pFrame);
+		m_pOpenGLFrame->bNewData = true;
+	}
+	{
+		MUTEX_PLACE_HOLDER(m_FaceDectedMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
+		l_Frame.copyTo(*m_pFaceDetectFrame->pFrame);
+		m_pFaceDetectFrame->bNewData = true;
+	}
+}
+
+void	cOpenCVTest_FaceLandmark::FaceDetectThread(float e_fElpaseTime)
+{
+	m_30FPSLimit.Update(e_fElpaseTime);
+	if (m_30FPSLimit.bTragetTimrReached)
+	{
+		//m_30FPSLimit.Start();
+	}
+	else
+	{
+		//Sleep(1);
+		//return;
+	}
+	m_FaceLandMarkFPS.Update();
+	cv::Mat l_Frame;
+	{
+		MUTEX_PLACE_HOLDER(m_FaceDectedMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
+		if (m_pFaceDetectFrame->bNewData)
 		{
-			MUTEX_PLACE_HOLDER(m_FrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
-			*m_pVideoCapture >> *m_pFrame->pFrame;
-			// ... obtain an image in img
-			std::vector<cv::Rect>			l_FacesRect;
-			faceDetector(*m_pFrame->pFrame, l_FacesRect, *m_pCascadeClassifier);
-			{
-				vector< vector<Point2f> > shapes;
-				if (g_Facemark->fit(*m_pFrame->pFrame, l_FacesRect, shapes))
-				{
-					//for (size_t i = 0; i < l_FacesRect.size(); i++)
-					//{
-					//	cv::rectangle(img, faces[i], Scalar(255, 0, 0));
-					//}
-					for (unsigned long i = 0; i < l_FacesRect.size(); i++)
-					{
-						for (unsigned long k = 0; k < shapes[i].size(); k++)
-						{
-							//cv::circle(img, shapes[i][k], 5, cv::Scalar(0, 0, 255), FILLED);
-						}
-					}
-				}
-				{
-					MUTEX_PLACE_HOLDER(m_FaceRectMutex, "m_FaceRectMutex");
-					m_FacesRect = l_FacesRect;
-					m_FacesPointsVector = shapes;
-				}
-			}
-			m_pFrame->bNewData = true;
+			m_pFaceDetectFrame->pFrame->copyTo(l_Frame);
+			m_pFaceDetectFrame->bNewData = false;
 		}
-		// Check if any faces were detected or not
-		//if (m_pVideoCapture->read(*m_pFrame->pFrame))
-		//{
-		//	m_pFrame->bNewData = true;
-		//}
+		else
+		{
+			return;
+		}
+		
+	}
+	// ... obtain an image in img
+	std::vector<cv::Rect>			l_FacesRect;
+	faceDetector(l_Frame, l_FacesRect, *m_pCascadeClassifier);
+	{
+		vector< vector<Point2f> > shapes;
+		if (g_Facemark->fit(l_Frame, l_FacesRect, shapes))
+		{
+			MUTEX_PLACE_HOLDER(m_FaceRectMutex, "m_FaceRectMutex");
+			m_FacesRect = l_FacesRect;
+			m_FacesPointsVector = shapes;
+			m_bNewFaceDetectData = true;
+		}
 	}
 }
 //https://www.itread01.com/content/1543374489.html
@@ -155,16 +181,18 @@ void cOpenCVTest_FaceLandmark::OpenCamera(const char* e_strCameraURL)
 	}
 	SAFE_DELETE(m_pVideoCapture);
 	m_pVideoCapture = new cv::VideoCapture("rkcamsrc io-mode=4 isp-mode=2A tuning-xml-path=/etc/cam_iq/IMX219.xml ! video/x-raw,format=NV12,width=640,height=360 ! videoconvert ! appsink");
+	f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cOpenCVTest_FaceLandmark::CameraReadThread, this, std::placeholders::_1);
+	this->ThreadDetach(l_f_ThreadWorkingFunction, "cGameNetwork::CreateAsServer");
+	f_ThreadWorkingFunction l_f_ThreadWorkingFunction2 = std::bind(&cOpenCVTest_FaceLandmark::FaceDetectThread, this, std::placeholders::_1);
+	m_FaceDetectThread.ThreadDetach(l_f_ThreadWorkingFunction2, "cGameNetwork::CreateAsServer");
 	//m_pVideoCapture = new cv::VideoCapture();
 	//m_pVideoCapture->open(e_strCameraURL);
 }
 //opencv-4.4.0-vc14_vc15\opencv\build\testdata\cv\face\face_landmark_model.dat
 void cOpenCVTest_FaceLandmark::Update(float e_fElpaseTime)
 {
-	CameraReadThread(e_fElpaseTime);
-	if(m_pFrame)
+	if(m_pOpenGLFrame)
 	{
-		//MUTEX_PLACE_HOLDER(m_FrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
 #ifdef WIN32
 		GLenum inputColourFormat = GL_BGR;
 #else
@@ -177,11 +205,11 @@ void cOpenCVTest_FaceLandmark::Update(float e_fElpaseTime)
 			m_pVideoImage->SetName(L"OpenCVToOpenGLTexture");
 		}
 		{
-			MUTEX_PLACE_HOLDER(m_FrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
-			if (m_pFrame->bNewData)
+			MUTEX_PLACE_HOLDER(m_OpenGLFrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
+			if (m_pOpenGLFrame->bNewData)
 			{
-				m_pVideoImage->SetupTexture(3, m_pFrame->pFrame->cols, m_pFrame->pFrame->rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pFrame->pFrame->data,false);
-				m_pFrame->bNewData = false;
+				m_pVideoImage->SetupTexture(3, m_pOpenGLFrame->pFrame->cols, m_pOpenGLFrame->pFrame->rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pOpenGLFrame->pFrame->data,false);
+				m_pOpenGLFrame->bNewData = false;
 			}
 		}
 	}
@@ -191,26 +219,97 @@ void cOpenCVTest_FaceLandmark::Render()
 {
 	if (m_pVideoImage)
 	{
+		float l_fScale = 1.f;
+		auto l_pTex = m_pVideoImage->GetTexture();
+		if (l_pTex)
+		{
+			if (l_pTex->GetWidth() <= 640)
+			{
+				l_fScale = 2.f;
+				m_pVideoImage->SetWidth(l_pTex->GetWidth() * l_fScale);
+				m_pVideoImage->SetHeight(l_pTex->GetHeight() * l_fScale);
+			}
+		}
 		m_pVideoImage->Render();
-
+		bool l_bNewFace = m_bNewFaceDetectData;
 		vector< vector<Point2f> >		l_Shapes;
 		std::vector<cv::Rect>			l_FacesRect;
 		{
 			MUTEX_PLACE_HOLDER(m_FaceRectMutex, "m_FaceRectMutex");
 			l_FacesRect = m_FacesRect;
 			l_Shapes = m_FacesPointsVector;
+			m_bNewFaceDetectData = false;
+		}
+		if (!l_bNewFace)
+		{
+			cGameApp::RenderFont(0, 500, l_bNewFace ? L"New" : L"Old");
 		}
 		for (auto l_Rect : l_FacesRect)
 		{
+			l_Rect.x *= l_fScale; l_Rect.y *= l_fScale;
+			l_Rect.width *= l_fScale; l_Rect.height *= l_fScale;
 			GLRender::RenderRectangle(Vector2(l_Rect.x, l_Rect.y), (float)l_Rect.width, (float)l_Rect.height, Vector4::Red);
 		}
-
+		//https://github.com/YuvalNirkin/find_face_landmarks/blob/master/sequence_face_landmarks/utilities.cpp
 		for (auto l_PointsVector : l_Shapes)
+		//if(l_Shapes.size())
 		{
-			for (auto l_Point : l_PointsVector)
+			//auto l_PointsVector = l_Shapes[0];
+			if (l_PointsVector.size() == 68)
 			{
-				GLRender::RenderSphere(Vector2(l_Point.x, l_Point.y), 1);
+				//chink,0~16
+				//left eyebow 17~21
+				//right eyebow 22~26
+				//left eye 36~41
+				//right eye 42~47
+				//nose 27~35
+				//outter lip 48~59
+				//inner  lip  60~67
+				struct sDrawLine
+				{
+					int iStart;
+					int iEnd;
+					Vector4 vColor;
+				};
+				const int l_iNum = 8;
+				sDrawLine l_DrawLine[l_iNum] =
+				{
+					{0,16,Vector4(1,0,0,1)},
+					{17,21,Vector4(0,1,0,1)},
+					{22,26,Vector4(0,0,1,1)},
+					{36,41,Vector4(1,1,0,1)},
+					{42,47,Vector4(0,1,1,1)},
+					{27,35,Vector4(1,0,1,1)},
+					{48,59,Vector4(0,0,0,1)},
+					{60,67,Vector4(0.5,0.5,0.5,1)},
+				};
+				for (int i = 0; i < l_iNum; ++i)
+				{
+					sDrawLine l_DrawLine2 = l_DrawLine[i];
+					std::vector<Vector2>l_vVector;
+					for (int j = l_DrawLine2.iStart; j <= l_DrawLine2.iEnd;++j)
+					{
+						auto l_Point = l_PointsVector[j];
+						l_vVector.push_back(Vector2(l_Point.x* l_fScale, l_Point.y* l_fScale));
+					}
+					GLRender::RenderLine(&l_vVector, l_DrawLine2.vColor);
+				}
+			}
+			else
+			{
+				for (auto l_Point : l_PointsVector)
+				{
+					GLRender::RenderSphere(Vector2(l_Point.x* l_fScale, l_Point.y* l_fScale), 1);
+				}
 			}
 		}
+		std::wstring l_str = L"CameraFPS:";
+		l_str += ValueToStringW(m_CameraFPS.GetFPS());
+		l_str += L"\n";
+		l_str += L"FaceDetecFPS:";
+		l_str += ValueToStringW(m_FaceLandMarkFPS.GetFPS());
+		l_str += L"\n";
+		cGameApp::RenderFont(700, 0, l_str.c_str());
+		
 	}
 }
