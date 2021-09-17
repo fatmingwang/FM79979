@@ -57,6 +57,9 @@
     <ClInclude Include="OpenCVTestBase.h">
       <Filter>OpenCVTest</Filter>
     </ClInclude>
+    <ClInclude Include="OpenCVTest_LineDetection.h">
+      <Filter>OpenCVTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -81,6 +84,9 @@
       <Filter>OpenCVTest</Filter>
     </ClCompile>
     <ClCompile Include="OpenCVTestBase.cpp">
+      <Filter>OpenCVTest</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVTest_LineDetection.cpp">
       <Filter>OpenCVTest</Filter>
     </ClCompile>
   </ItemGroup>

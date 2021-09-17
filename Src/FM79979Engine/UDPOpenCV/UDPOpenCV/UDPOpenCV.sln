@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "alut", "..\..\Core\Sound\al
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCVWin32App", "..\OpenCVWin32App\OpenCVWin32App.vcxproj", "{671BFD8A-C045-4433-8377-24BCB3EA22F6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "..\..\Core\Core.vcxproj", "{D5962A80-CFCF-437A-B224-01C03CF9FD1A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -171,6 +173,20 @@ Global
 		{671BFD8A-C045-4433-8377-24BCB3EA22F6}.Release|x64.Build.0 = Release|x64
 		{671BFD8A-C045-4433-8377-24BCB3EA22F6}.Release|x86.ActiveCfg = Release|Win32
 		{671BFD8A-C045-4433-8377-24BCB3EA22F6}.Release|x86.Build.0 = Release|Win32
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|ARM.ActiveCfg = Debug|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Emscripten.ActiveCfg = Debug|Emscripten
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Emscripten.Build.0 = Debug|Emscripten
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|Tegra-Android.ActiveCfg = Debug|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x64.ActiveCfg = Debug|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x64.Build.0 = Debug|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Debug|x86.ActiveCfg = Debug|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|ARM.ActiveCfg = Release|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Emscripten.ActiveCfg = Release|Emscripten
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Emscripten.Build.0 = Release|Emscripten
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|Tegra-Android.ActiveCfg = Release|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.ActiveCfg = Release|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x64.Build.0 = Release|x64
+		{D5962A80-CFCF-437A-B224-01C03CF9FD1A}.Release|x86.ActiveCfg = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,8 +24,9 @@ class cOpenCVTest_FaceLandmark:public OpenCVTestBase,public cCPP11Thread
 	std::vector<cv::Rect>			m_FacesRect;
 	vector< vector<cv::Point2f> >	m_FacesPointsVector;
 	bool							m_bNewFaceDetectData;
-	void	CameraReadThread(float e_fElpaseTime);
-	void	FaceDetectThread(float e_fElpaseTime);
+	//
+	void							CameraReadThread(float e_fElpaseTime);
+	void							FaceDetectThread(float e_fElpaseTime);
 public:
 	cOpenCVTest_FaceLandmark();
 	virtual ~cOpenCVTest_FaceLandmark();

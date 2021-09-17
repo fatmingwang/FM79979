@@ -21,11 +21,6 @@ Ptr<cv::face::Facemark> g_Facemark;
 cOpenCVTest_FaceLandmark::cOpenCVTest_FaceLandmark()
 {
 	m_bNewFaceDetectData = false;
-	std::string l_strOpenCVInfo = "OpenCV version :";	l_strOpenCVInfo += CV_VERSION;
-	l_strOpenCVInfo += "\nMajor version : ";			l_strOpenCVInfo += ValueToString(CV_MAJOR_VERSION);
-	l_strOpenCVInfo += "\nMinor version : ";			l_strOpenCVInfo += ValueToString(CV_MINOR_VERSION);
-	l_strOpenCVInfo += "\nSubminor version : ";			l_strOpenCVInfo +=  ValueToString(CV_SUBMINOR_VERSION);
-	FMLog::Log(l_strOpenCVInfo.c_str(),false);
 	m_pVideoCapture = nullptr;
 	m_pVideoImage = nullptr;
 	m_30FPSLimit.SetTargetTime(1 / 60.f);
@@ -34,14 +29,6 @@ cOpenCVTest_FaceLandmark::cOpenCVTest_FaceLandmark()
 	m_pFaceDetectFrame = new sMatWithFlag();
 	g_Facemark = FacemarkLBF::create();
 	g_Facemark->loadModel("opencv/lbfmodel.yaml");
-	/*create the facemark instance*/
-	//FacemarkLBF::Params params;
-	////params.model_filename = "helen.model"; // the trained model will be saved using this filename
-	//params.model_filename = "opencv/lbfmodel.yaml"; // the trained model will be saved using this filename
-	//g_Facemark = FacemarkLBF::create(params);
-	//g_Facemark->loadModel(params.model_filename);
-	/*create the facemark instance*/
-	//m_pCascadeClassifier = new cv::CascadeClassifier("opencv/haarcascade_frontalface_default.xml");
 	m_pCascadeClassifier = new cv::CascadeClassifier();
 	if (!m_pCascadeClassifier->load("opencv/haarcascade_frontalface_alt2.xml"))
 	{
@@ -62,6 +49,7 @@ cOpenCVTest_FaceLandmark::~cOpenCVTest_FaceLandmark()
 	this->CloseThreadAndWaitUntilFinish();
 	m_FaceDetectThread.CloseThreadAndWaitUntilFinish();
 	SAFE_DELETE(m_pVideoCapture);
+	g_Facemark.release();
 }
 
 void faceDetector(const Mat& image,	std::vector<Rect>& faces,CascadeClassifier& face_cascade)
@@ -121,12 +109,12 @@ void cOpenCVTest_FaceLandmark::CameraReadThread(float e_fElpaseTime)
 	*m_pVideoCapture >> l_Frame;
 	{
 		MUTEX_PLACE_HOLDER(m_OpenGLFrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
-		l_Frame.copyTo(*m_pOpenGLFrame->pFrame);
+		m_pOpenGLFrame->Frame = l_Frame.clone();
 		m_pOpenGLFrame->bNewData = true;
 	}
 	{
 		MUTEX_PLACE_HOLDER(m_FaceDectedMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
-		l_Frame.copyTo(*m_pFaceDetectFrame->pFrame);
+		m_pFaceDetectFrame->Frame = l_Frame.clone();
 		m_pFaceDetectFrame->bNewData = true;
 	}
 }
@@ -149,7 +137,7 @@ void	cOpenCVTest_FaceLandmark::FaceDetectThread(float e_fElpaseTime)
 		MUTEX_PLACE_HOLDER(m_FaceDectedMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
 		if (m_pFaceDetectFrame->bNewData)
 		{
-			m_pFaceDetectFrame->pFrame->copyTo(l_Frame);
+			l_Frame = m_pFaceDetectFrame->Frame.clone();
 			m_pFaceDetectFrame->bNewData = false;
 		}
 		else
@@ -172,6 +160,7 @@ void	cOpenCVTest_FaceLandmark::FaceDetectThread(float e_fElpaseTime)
 		}
 	}
 }
+
 //https://www.itread01.com/content/1543374489.html
 void cOpenCVTest_FaceLandmark::OpenCamera(const char* e_strCameraURL)
 {
@@ -208,7 +197,7 @@ void cOpenCVTest_FaceLandmark::Update(float e_fElpaseTime)
 			MUTEX_PLACE_HOLDER(m_OpenGLFrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
 			if (m_pOpenGLFrame->bNewData)
 			{
-				m_pVideoImage->SetupTexture(3, m_pOpenGLFrame->pFrame->cols, m_pOpenGLFrame->pFrame->rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pOpenGLFrame->pFrame->data,false);
+				m_pVideoImage->SetupTexture(3, m_pOpenGLFrame->Frame.cols, m_pOpenGLFrame->Frame.rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pOpenGLFrame->Frame.data,false);
 				m_pOpenGLFrame->bNewData = false;
 			}
 		}
@@ -226,8 +215,8 @@ void cOpenCVTest_FaceLandmark::Render()
 			if (l_pTex->GetWidth() <= 640)
 			{
 				l_fScale = 2.f;
-				m_pVideoImage->SetWidth(l_pTex->GetWidth() * l_fScale);
-				m_pVideoImage->SetHeight(l_pTex->GetHeight() * l_fScale);
+				m_pVideoImage->SetWidth((int)(l_pTex->GetWidth() * l_fScale));
+				m_pVideoImage->SetHeight((int)(l_pTex->GetHeight() * l_fScale));
 			}
 		}
 		m_pVideoImage->Render();
@@ -246,8 +235,10 @@ void cOpenCVTest_FaceLandmark::Render()
 		}
 		for (auto l_Rect : l_FacesRect)
 		{
-			l_Rect.x *= l_fScale; l_Rect.y *= l_fScale;
-			l_Rect.width *= l_fScale; l_Rect.height *= l_fScale;
+			l_Rect.x = (int)(l_Rect.x*l_fScale);
+			l_Rect.y = (int)(l_Rect.y*l_fScale);
+			l_Rect.width = (int)(l_Rect.width*l_fScale);
+			l_Rect.height = (int)(l_Rect.height*l_fScale);
 			GLRender::RenderRectangle(Vector2(l_Rect.x, l_Rect.y), (float)l_Rect.width, (float)l_Rect.height, Vector4::Red);
 		}
 		//https://github.com/YuvalNirkin/find_face_landmarks/blob/master/sequence_face_landmarks/utilities.cpp

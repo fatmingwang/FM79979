@@ -11,8 +11,24 @@
 
 #ifdef DEBUG
 #pragma comment(lib, "../../../lib/opencv_world440d.lib")
+#pragma comment(lib, "../../../lib/tess/Debug/leptonica-1.78.0d.lib")
+#pragma comment(lib, "../../../lib/tess/Debug/tesseract41d.lib")
+//#pragma comment(lib, "leptonica-1.78.0d.lib")
+//#pragma comment(lib, "tesseract41d.lib")
+//#pragma comment(lib, "jpeg.lib")
+//#pragma comment(lib, "gif.lib")
+//#pragma comment(lib, "libpng16.lib")
+//#pragma comment(lib, "webp.lib")
+//#pragma comment(lib, "tiff.lib")
+//#pragma comment(lib, "../../../lib/tess/jpeg.lib")
+//#pragma comment(lib, "../../../lib/tess/gif.lib")
+//#pragma comment(lib, "../../../lib/tess/libpng16.lib")
+//#pragma comment(lib, "../../../lib/tess/webp.lib")
+//#pragma comment(lib, "../../../lib/tess/tiff.lib")
 #else
 #pragma comment(lib, "../../../lib/opencv_world440.lib")
+#pragma comment(lib, "../../../lib/tess/Release/leptonica-1.78.0.lib")
+#pragma comment(lib, "../../../lib/tess/Release/tesseract41.lib")
 #endif
 
 //#pragma comment(lib, "../../../lib/leptonica-1.78.0.lib")
@@ -47,7 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
-
+    FMLog::Init("OpenCVTest");
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_OPENCVWIN32APP, szWindowClass, MAX_LOADSTRING);

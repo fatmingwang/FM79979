@@ -5,5 +5,9 @@
 // Do not add files here that you will be updating frequently as this negates the performance advantage.
 
 #pragma once
-
+//for tesseract
+//#include "../UDPOpenCV/packages/tesseract_vcpkg.0.0.6-beta/installed/x64-windows-static/include/tesseract/baseapi.h"
+//#include "../UDPOpenCV/packages/tesseract_vcpkg.0.0.6-beta/installed/x64-windows-static/include/leptonica/allheaders.h"
+#include <tesseract/baseapi.h>
+#include <leptonica/allheaders.h>
 #include "../../Core/AllCoreInclude.h"

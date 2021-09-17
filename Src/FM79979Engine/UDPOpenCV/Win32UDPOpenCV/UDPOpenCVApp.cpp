@@ -3,9 +3,11 @@
 #include "UDPClient.h"
 #include "UDPServerCamera.h"
 #include "OpenCVTest_FaceLandmark.h"
+#include "OpenCVTest_OCR.h"
+#include "OpenCVTest_LineDetection.h"
 
 bool g_bBeServer = false;
-cOpenCVTest_FaceLandmark* g_pOpenCVTest = nullptr;
+OpenCVTestBase* g_pOpenCVTest = nullptr;
 cUDPServerCamera* g_pUDPServerCamera = nullptr;
 #ifdef WIN32
 cUDPOpenCVApp::cUDPOpenCVApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize) : cGameApp(e_Hwnd, e_vGameResolution, e_vViewportSize)
@@ -24,7 +26,8 @@ cUDPOpenCVApp::cUDPOpenCVApp(Vector2 e_vGameResolution, Vector2 e_vViewportSize)
 	{
 		UDPTestClientInit();
 	}
-	g_pOpenCVTest = new cOpenCVTest_FaceLandmark();
+	g_pOpenCVTest = new cOpenCVTest_LineDetection();
+	//g_pOpenCVTest = new cOpenCVTest_OCR();
 }
 
 cUDPOpenCVApp::~cUDPOpenCVApp()
@@ -102,6 +105,7 @@ void	cUDPOpenCVApp::Render()
 	{
 		g_pOpenCVTest->Render();
 	}
+	cGameApp::ShowInfo();
 	MyGlErrorTest("test");
 #ifdef WIN32
 #endif
