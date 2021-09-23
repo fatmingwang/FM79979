@@ -92,15 +92,19 @@ void cOpenCVTest_LineDetection::RecognizerThread(float e_fElpaseTime)
     {
         m_RecognizerLineFPS.Update();
         cv::Mat l_BGR2GRAY,l_HSV,l_Mask;
+        cv::Mat l_TargetColor;
         {
             MUTEX_PLACE_HOLDER(m_LineFrameMutex, "m_LineFrameMutex");
-            cv::cvtColor(m_pLineDetectFrame->Frame, l_BGR2GRAY, cv::ColorConversionCodes::COLOR_BGR2GRAY);
-            int l_iOffset = 10;
-            cv::Scalar lower_val = (147 - l_iOffset, 112 - l_iOffset, 219 - l_iOffset);
-            cv::Scalar upper_val = (147 + l_iOffset, 112 + l_iOffset, 219 + l_iOffset);
-            //cv::Scalar lower_val = (10,254,254);
-            //cv::Scalar upper_val = (255,255,255);
-            //cv::inRange(m_pLineDetectFrame->Frame, lower_val, upper_val, l_BGR2GRAY);
+            //cv::cvtColor(m_pLineDetectFrame->Frame, l_BGR2GRAY, cv::ColorConversionCodes::COLOR_BGR2GRAY);
+            int l_iOffset = 40;
+            //int  l_iStartValue[3] = {40, 158, 16};
+            //cv::Scalar lower_val = (l_iStartValue[0] - l_iOffset, l_iStartValue[1] - l_iOffset, l_iStartValue[2] - l_iOffset);
+            //cv::Scalar upper_val = (l_iStartValue[0] + l_iOffset, l_iStartValue[1] + l_iOffset, l_iStartValue[2] + l_iOffset);
+            cv::Scalar lower_val = (0,118,0);
+            cv::Scalar upper_val = (80,198,56);
+            cv::inRange(m_pLineDetectFrame->Frame, lower_val, upper_val, l_Mask);
+            cv::bitwise_and(m_pLineDetectFrame->Frame, m_pLineDetectFrame->Frame, l_TargetColor,l_Mask);
+            cv::cvtColor(l_TargetColor, l_BGR2GRAY, cv::ColorConversionCodes::COLOR_BGR2GRAY);
             //cv::cvtColor(l_Mask, l_HSV, cv::ColorConversionCodes::COLOR_GRAY2BGR);
             //OpenCV are in BGR order
             //cv::cvtColor(l_HSV, l_BGR2GRAY, cv::ColorConversionCodes::COLOR_BGR2GRAY);
@@ -162,7 +166,8 @@ void cOpenCVTest_LineDetection::RecognizerThread(float e_fElpaseTime)
                 //cv::Scalar lower_val = (10,10,10);
                 //cv::Scalar upper_val = (255,255,255);
                 //auto l_iCan = m_pGrayFrame->Frame.channels();
-                m_pGrayFrame->Frame = l_BGR2GRAY;// m_pLineDetectFrame->Frame.clone();
+                m_pGrayFrame->Frame = l_TargetColor;// m_pLineDetectFrame->Frame.clone();
+                //m_pGrayFrame->Frame = l_BGR2GRAY;
                 m_pGrayFrame->bNewData = true;
             }
         }
@@ -189,17 +194,25 @@ void cOpenCVTest_LineDetection::Update(float e_fElpaseTime)
 {
     if (m_pOpenGLFrame)
     {
-#ifdef WIN32
-        GLenum inputColourFormat = GL_BGR;
-#else
-        GLenum inputColourFormat = GL_RGB;
-#endif
         {
             MUTEX_PLACE_HOLDER(m_OpenGLFrameMutex, "cOpenCVTest_FaceLandmark::CameraReadThread");
             if (m_pOpenGLFrame->bNewData)
             {
-                //
-                m_pVideoImage->SetupTexture(3, m_pOpenGLFrame->Frame.cols, m_pOpenGLFrame->Frame.rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pOpenGLFrame->Frame.data, false);
+                //BGR
+                cv::Scalar lower_val = cv::Scalar(0,0,0);
+                cv::Scalar upper_val = cv::Scalar(100,100,255);
+                cv::Mat l_Mask;
+                cv::Mat l_TargetColor;
+                cv::Mat l_Final;
+                cv::inRange(m_pOpenGLFrame->Frame, lower_val, upper_val,l_Mask);
+                cv::copyTo(m_pLineDetectFrame->Frame, l_Final, l_Mask);
+                //cv::cvtColor(l_TargetColor, l_Final, cv::ColorConversionCodes::COLOR_BGR2RGB);                
+                int l_iChannel = l_Final.channels();
+                int inputColourFormat = GL_BGR;
+                if (l_iChannel == 1)
+                    inputColourFormat = GL_LUMINANCE;
+                //m_pVideoImage->SetupTexture(3, m_pOpenGLFrame->Frame.cols, m_pOpenGLFrame->Frame.rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)m_pOpenGLFrame->Frame.data, false);
+                m_pVideoImage->SetupTexture(l_iChannel, l_Final.cols, l_Final.rows, inputColourFormat, GL_UNSIGNED_BYTE, false, (GLvoid*)l_Final.data, false);
                 m_pOpenGLFrame->bNewData = false;
             }
         }
