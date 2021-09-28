@@ -1,0 +1,15 @@
+https://github.com/meijieru/crnn.pytorch
+
+
+clone 
+
+then download pretrained model pth file
+
+https://www.dropbox.com/s/dboqjk20qjkpta3/crnn.pth?dl=0
+
+
+
+
+use convert_pthTo_onnx.txt to convert pth file to onnx file
+you have change file name and instal necessary package
+

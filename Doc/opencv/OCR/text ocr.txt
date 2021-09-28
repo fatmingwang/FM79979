@@ -1,0 +1,21 @@
+https://stackoverflow.com/questions/50658953/install-tesseract-for-c-on-windows-10/50662383#50662383
+
+
+https://github.com/tesseract-ocr
+
+first install tesseract via vcpkg
+
+install vcpkg ( MS packager to install windows based open source projects) and use powershell command like so 
+
+.\vcpkg install tesseract:x64-windows-static. 
+
+Dependency libraries like Leptonica will be auto installed for you.
+The tesseract can be auto integrated to your VS project using .\vcpkg integrate install.
+
+
+
+
+
+tesseract demo
+
+https://www.cnblogs.com/zx-admin/p/14204029.html

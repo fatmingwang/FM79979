@@ -1,0 +1,23 @@
+https://stackoverflow.com/questions/50658953/install-tesseract-for-c-on-windows-10
+
+
+
+first download vcpkg then install tesseract
+
+git clone https://github.com/microsoft/vcpkg
+
+cd vcpkg
+
+bootstrap-vcpkg.bat
+
+vcpkg install tesseract:x64-windows
+
+vcpkg integrate install
+
+
+https://github.com/tesseract-ocr/tessdata_best
+
+chi_sim.traineddata -> 簡體中文包
+chi_tra.traineddata ->繁體中文包
+
+

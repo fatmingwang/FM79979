@@ -1,0 +1,41 @@
+https://blog.csdn.net/LuohenYJ/article/details/107944236
+
+
+First make sure opencv and opencv_contrib same version
+
+after extrace opencv and opencv_contrib
+
+
+use cmake gui
+
+set source and set output build result into a folder(usually named build)
+
+input OPENCV_EXTRA_MODULES_PATH in search bar
+
+set opencv_contrib/modules folder
+
+click generate 
+
+OpenCV.sln solution should be created
+
+open OpenCV.sln build for all.
+
+
+copy lib and dll files
+
+
+
+static library
+Debug
+	opencv-4.4.0-vc14_vc15\opencv\build\lib\Debug\opencv_world440d.lib	
+Release
+	opencv-4.4.0-vc14_vc15\opencv\build\lib\Release\opencv_world440.lib
+
+
+dynamic link library
+Debug
+	opencv-4.4.0-vc14_vc15\opencv\build\bin\Debug\opencv_world440d.dll
+	opencv-4.4.0-vc14_vc15\opencv\build\bin\Debug\zlibd1.dll
+Release
+	opencv-4.4.0-vc14_vc15\opencv\build\bin\Release\opencv_world440.dll
+	opencv-4.4.0-vc14_vc15\opencv\build\bin\Release\zlib1.dll

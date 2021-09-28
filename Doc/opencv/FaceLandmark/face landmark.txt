@@ -1,0 +1,8 @@
+https://docs.opencv.org/4.4.0/d2/d42/tutorial_face_landmark_detection_in_an_image.html
+
+
+
+m_pCascadeClassifier = new cv::CascadeClassifier();
+if (!m_pCascadeClassifier->load("opencv/haarcascade_frontalface_alt2.xml"))
+
+g_Facemark->loadModel("opencv/lbfmodel.yaml");
