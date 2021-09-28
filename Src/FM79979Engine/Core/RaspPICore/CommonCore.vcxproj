@@ -181,7 +181,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
       <PreprocessorDefinitions>LINUX;DEBUG;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>/home/linaro/projects/RaspberryPIOgg/Sound/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>/home/linaro/projects/RaspberryPIOgg/Sound/;/home/pi/projects/RaspberryPIOgg/Sound/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

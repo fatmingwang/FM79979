@@ -106,6 +106,11 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
             //       or set a timeout or something */
                 SDLNet_SetError("wait select");
             //    while (select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr) <= 0) {}
+                timeval timeout_;
+#define SELECT_TIME_OUT 1000
+                timeout_.tv_sec = SELECT_TIME_OUT / 1000;
+                timeout_.tv_usec = (SELECT_TIME_OUT % 1000) * 1000;
+                //int selret = ::select(mSocket + 1, NULL, &writefs, &exceptfs, &timeout_);
                 select(sock->channel + 1, nullptr, &sockets, nullptr, nullptr);// 
                 SDLNet_SetError("select finish");
                 Sleep(100);

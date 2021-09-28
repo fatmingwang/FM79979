@@ -38,6 +38,20 @@ namespace FATMING_CORE
 	//===============
 	//
 	//===============
+
+	GLint	GetPixelFormatByChannel(int e_iChannel)
+	{
+		if (e_iChannel == 1)
+		{
+			return GL_LUMINANCE;
+		}
+		if (e_iChannel == 3)
+		{
+			return GL_RGB;
+		}
+		return GL_RGBA;
+	}
+
 	cTexture::cTexture(NamedTypedObject*e_pOwner,char*e_pPixels,int e_iWidth,int e_iHeight,const wchar_t*e_strName,bool e_bCopyPixels,bool e_bAllocateMemoryForPixelIfFetch,GLenum e_eImageType)
 	:cSmartObject(this)
 	{
@@ -61,23 +75,18 @@ namespace FATMING_CORE
 			if( e_bAllocateMemoryForPixelIfFetch )
 			{
 				int	l_iSize = m_iHeight*m_iWidth;
-				if( e_eImageType == GL_RGBA )
-				{
-					m_pPixels = new char[l_iSize*4];
-					memcpy(m_pPixels,e_pPixels,sizeof(unsigned char)*l_iSize*4);
-				}
-				else
-				if( e_eImageType == GL_RGB )
-				{
-					m_pPixels = new char[l_iSize*3];
-					memcpy(m_pPixels,e_pPixels,sizeof(unsigned char)*l_iSize*3);
-				}
+				m_pPixels = new char[l_iSize* m_iChannel];
+				memcpy(m_pPixels,e_pPixels,sizeof(unsigned char)*l_iSize* m_iChannel);
 			}
 			else
+			{
 				m_pPixels = e_pPixels;
+			}
 		}
 		else
-			m_pPixels = 0;
+		{
+			m_pPixels = nullptr;
+		}
 		m_iPixelFormat = e_eImageType;
 		glGenTextures(1, &m_uiImageIndex); /* Texture name generation */
 		assert(m_uiImageIndex!=(UINT)-1&&"opengl init???");
@@ -548,7 +557,8 @@ namespace FATMING_CORE
 //			MyGLEnable(GL_TEXTURE_2D);
 //#endif
 			glBindTexture( GL_TEXTURE_2D, m_uiImageIndex);
-			glTexImage2D(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, l_iPixelWidth,l_iPixelHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,0);
+			auto l_uiPixelFormat = GetPixelFormatByChannel(m_iChannel);
+			glTexImage2D(GL_TEXTURE_2D, 0, l_uiPixelFormat, l_iPixelWidth, l_iPixelHeight, 0, m_iPixelFormat, GL_UNSIGNED_BYTE, 0);
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);	// Set Texture Max Filter
 			glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);	// Set Texture Min Filter
 			
@@ -605,7 +615,8 @@ namespace FATMING_CORE
 		}
 		else
 		{
-			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, this->m_iChannel == 3?GL_RGB:GL_RGBA, m_iWidth,m_iHeight, 0,m_iPixelFormat, GL_UNSIGNED_BYTE,e_pPixels,GetName(), e_bShowLog); // Texture specification.
+			auto l_uiPixelFormat = GetPixelFormatByChannel(m_iChannel);
+			OpenGLTextureGenerate(GL_TEXTURE_2D, 0, l_uiPixelFormat, m_iWidth, m_iHeight, 0, m_iPixelFormat, GL_UNSIGNED_BYTE, e_pPixels, GetName(), e_bShowLog); // Texture specification.
 			if( e_bFetchPuxelData )
 			{
 				int	l_iDataSize = m_iWidth*m_iHeight*4;
@@ -768,6 +779,9 @@ namespace FATMING_CORE
 			break;
 		case GL_RGB:
 			l_iChannel = 3;
+			break;
+		case GL_LUMINANCE:
+			l_iChannel = 1;
 			break;
 		default:
 			FMLog::LogWithFlag(L"not support color format", true);

@@ -83,6 +83,7 @@ namespace FATMING_CORE
 	float*	UVToTriangleStrip(float*e_pfUV);
 	float*	UVToTwoTriangle(float*e_pfUV);
 	int		GetChannelByColorFormat(GLenum e_GLenum);
+	GLint	GetPixelFormatByChannel(int e_iChannel);
 }
 //get texture infomation
 ////https://www.opengl.org/discussion_boards/showthread.php/154674-Save-compressed-texture
