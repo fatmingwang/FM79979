@@ -21,7 +21,7 @@ Book Editor
 
 
 
-![Editor](https://github.com/fatmingwang/FM79979/tree/master/Doc/FM79979/FMBook/Old/1FMBook1.png?raw=true)
+![Editor](../master/Doc/FM79979/FMBook/Old/1FMBook1.png?raw=true)
 	FM79979\Src\FM79979Engine\FMBookEditor
 
 
