@@ -15,3 +15,19 @@ My method (which I swear I tried before but failed):
 2. Right click on project -> Add -> Existing Item..., and add the DLL file.
 3. Right click on the DLL file and select Properties. Change "Content" to "Yes".
 That's it!  No modifications to the manifest are required.
+
+
+
+fatal error LNK1104: cannot open file '../../../lib/tess/Debug/leptonica-1.78.0d.lib'
+
+or 
+
+miss leptonica-1.78.0d.dll
+
+take a look at
+
+FM79979\Doc\opencv\OCR
+
+use vcpkg to build tess
+
+copy the lib and dll to FM79979\Media
