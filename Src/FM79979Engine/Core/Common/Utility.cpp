@@ -1302,6 +1302,18 @@ namespace UT
 
 		return std::string(buf);
 	}
+
+	std::string	GetSystemTimeOnlyUnderHour()
+	{
+		struct tm* tm;
+		char buf[200];
+		time_t ltime; time(&ltime);
+		/* convert time_t to broken-down time representation */
+		tm = localtime(&ltime);
+		/* format time days.month.year hour:minute:seconds */
+		sprintf(buf, "%d:%d:%d", tm->tm_hour, tm->tm_min, tm->tm_sec);
+		return std::string(buf);
+	}
 	std::string GetSystemTime()
 	{
 		struct tm* tm;
@@ -1311,7 +1323,6 @@ namespace UT
 		tm = localtime(&ltime);
 		/* format time days.month.year hour:minute:seconds */
 		strftime(buf, sizeof(buf), "%d.%m.%Y %H:%M:%S", tm);
-		
 		return std::string(buf);
 	}
 #if defined(WIN32)

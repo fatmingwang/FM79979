@@ -90,6 +90,7 @@ namespace UT
 	std::wstring			GetSystemTime(bool e_bCN);
 	std::string				GetSystemTimeForFile();
 	std::string				GetSystemTime();
+	std::string				GetSystemTimeOnlyUnderHour();
 	//====================
 	//this is good for immediately to get pointer,but becareful!
 	//because here using static variable
