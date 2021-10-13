@@ -42,6 +42,7 @@ namespace FATMING_CORE
 		void			SetText(const wchar_t*e_strText);
 		virtual const	cBound*	GenerateBound()override;
 		virtual POINT	GetSize()override;
+		void			SetTextBuffer(int e_iLength);
 
 	};
 
