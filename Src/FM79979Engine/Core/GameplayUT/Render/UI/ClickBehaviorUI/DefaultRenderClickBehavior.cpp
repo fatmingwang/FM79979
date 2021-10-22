@@ -65,16 +65,29 @@ namespace FATMING_CORE
 		if( l_Result )
 		{
 			eObjectMouseBehavior l_ObjectMouseBehavior = m_eObjectMouseBehavior;
-			if( l_ObjectMouseBehavior == eOMB_HORVER )
+			if( l_ObjectMouseBehavior == eOMB_HORVER || l_ObjectMouseBehavior == eOMB_FIRST_TIME_INTO)
 			{
-				if( !m_bIsOnClick )
+				if (this->m_bAllowDrag)
 				{
 					m_bIsOnClick = true;
-					if( m_pRenderObject && m_bEnableClickScale)
+					m_OnHorverMatrix = cMatrix44::TranslationMatrix((float)e_iPosX, (float)e_iPosY,0.f)*cMatrix44::ScaleMatrix(Vector3(MOUSE_DOWN_SCALE_VALUE, MOUSE_DOWN_SCALE_VALUE, MOUSE_DOWN_SCALE_VALUE));
+					if (m_pRenderObject)
 					{
+						m_pRenderObject->SetAutoUpdateBound(true);
 						m_pRenderObject->SetLocalTransform(m_OnHorverMatrix);
 					}
-				}			
+				}
+				else
+				{
+					if (!m_bIsOnClick)
+					{
+						m_bIsOnClick = true;
+						if (m_pRenderObject && m_bEnableClickScale)
+						{
+							m_pRenderObject->SetLocalTransform(m_OnHorverMatrix);
+						}
+					}
+				}
 			}
 			else
 			if( l_ObjectMouseBehavior == eOMB_LEAVE)
@@ -85,6 +98,16 @@ namespace FATMING_CORE
 		return l_Result;
 	}
 
+	cClickBehavior* cDefaultRenderClickBehavior::MouseUp(int e_iPosX, int e_iPosY)
+	{
+		auto l_pResult = cClickBehavior::MouseUp(e_iPosX, e_iPosY);
+		if (!l_pResult)
+		{
+			MouseLeave();
+		}
+		return l_pResult;
+	}
+
 
 	void	cDefaultRenderClickBehavior::MouseLeave()
 	{
@@ -93,13 +116,20 @@ namespace FATMING_CORE
 		if( m_bIsOnClick )
 		{
 			m_bIsOnClick = false;
-			if (m_bEnableClickScale)
+			if (m_pRenderObject)
 			{
-				if (m_pRenderObject)
+				if (this->m_bAllowDrag)
 				{
-					m_pRenderObject->SetLocalTransform(m_OnClickMatrix);
-					m_pRenderObject->SetAutoUpdateBound(true);
+					m_pRenderObject->SetLocalTransform(cMatrix44::TranslationMatrix(m_OnHorverMatrix.GetTranslation()));
 				}
+				else
+				{
+					if (m_bEnableClickScale)
+					{
+						m_pRenderObject->SetLocalTransform(m_OnClickMatrix);
+					}
+				}
+				m_pRenderObject->SetAutoUpdateBound(true);
 			}
 		}
 	}

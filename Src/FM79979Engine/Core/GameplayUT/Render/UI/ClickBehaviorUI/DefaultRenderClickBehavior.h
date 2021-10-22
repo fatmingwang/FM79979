@@ -24,6 +24,8 @@ namespace FATMING_CORE
         //horver and move
         virtual cClickBehavior*			MouseMove(int e_iPosX,int e_iPosY)override;
 		//
+		virtual cClickBehavior*			MouseUp(int e_iPosX, int e_iPosY)override;
+		//
 		GET_SET_DEC(bool, m_bEnableClickScale, IsEnableClickScale, SetEnableClickScale);
 	public:
 		cDefaultRenderClickBehavior();

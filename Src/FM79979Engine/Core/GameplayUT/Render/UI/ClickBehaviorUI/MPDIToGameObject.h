@@ -41,7 +41,7 @@ namespace FATMING_CORE
 		cRenderObject*	GetRenderObject() { return m_pRenderObject; }
 		//for visible update(ScrollerBox)
 		bool			GenerateRectBoundForRenderObject(Vector4 e_vDrawRect);
-		bool			AssignButtonClickFunction(const wchar_t*e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound);
+		cClickBehavior*	AssignButtonClickFunction(const wchar_t*e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound);
 
 		//change position of parent
 		//void	InscreasePirority(int e_iPiority);

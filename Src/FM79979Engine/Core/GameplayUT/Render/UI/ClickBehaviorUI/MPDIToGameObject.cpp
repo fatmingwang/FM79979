@@ -208,16 +208,15 @@ namespace FATMING_CORE
 		return false;
 	}
 
-	bool cMPDIToGameObject::AssignButtonClickFunction(const wchar_t * e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound)
+	cClickBehavior* cMPDIToGameObject::AssignButtonClickFunction(const wchar_t * e_strButtonName, ClickFunction e_ClickFunction, cBasicSound*e_pSound)
 	{
 		auto l_pObject = GetObject(e_strButtonName);
 		if (l_pObject)
 		{
 			l_pObject->SetMouseFunction(nullptr, nullptr, nullptr, e_ClickFunction, nullptr, nullptr);
 			l_pObject->SetClickSound(e_pSound);
-			return true;
 		}
-		return false;
+		return l_pObject;
 	}
 	//void cMPDIToGameObject::InscreasePirority(int e_iPiority)
 	//{

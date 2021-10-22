@@ -32,8 +32,8 @@ namespace FATMING_CORE
 		virtual	bool				InternalCollide(int e_iPosX,int e_iPosY)override;
 		//virtual bool    InternalCollide(int e_iPosX,int e_iPosY);
 		//if mouse pressed render this image
-		cRenderObject*		m_pPressedImage;
-		cRenderObject*		m_pFinishImage;
+		cRenderObject*				m_pPressedImage;
+		cRenderObject*				m_pFinishImage;
 		bool						ProcessFinishAndPressedImage(TiXmlElement*e_pTiXmlelement);
 		GET_SET_DEC(Vector4,m_vOriginalColor,GetOriginalColor,SetOriginalColor);
 		GET_SET_DEC(Vector4,m_vPressedColor,GetPressedColor,SetPressedColor);

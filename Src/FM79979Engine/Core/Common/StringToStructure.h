@@ -25,10 +25,10 @@ namespace FATMING_CORE
 	float	GetFloat(std::wstring e_str);
 	float	GetFloat(std::string e_str);
 
-	float	GetDouble(const char* e_str);
-	float	GetDouble(const wchar_t* e_str);
-	float	GetDouble(std::wstring e_str);
-	float	GetDouble(std::string e_str);
+	double	GetDouble(const char* e_str);
+	double	GetDouble(const wchar_t* e_str);
+	double	GetDouble(std::wstring e_str);
+	double	GetDouble(std::string e_str);
 
 	bool	GetBoolean(const char* e_str);
 	bool	GetBoolean(const wchar_t* e_str);

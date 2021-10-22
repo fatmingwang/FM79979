@@ -2,7 +2,7 @@
 #include "../../../../Sound/SoundManager.h"
 #include "DefaultRenderClickBehavior.h"
 #include "../../MPDI/MPDI.h"
-#define MOUSE_UP_IDLE_TIME	0.1f
+#define MOUSE_UP_IDLE_TIME	0.05f
 
 namespace FATMING_CORE
 {
@@ -15,6 +15,7 @@ namespace FATMING_CORE
 
 	cClickBehavior::cClickBehavior()
 	{
+		m_bCollided = false;
 		m_bSwallowedTouch = true;
 		m_TCForMouseUp.SetTargetTime(MOUSE_UP_IDLE_TIME);
 		m_bEnable = true;
@@ -126,17 +127,30 @@ namespace FATMING_CORE
 		if(this->Collide(e_iPosX,e_iPosY))
 		{
 			m_bEnable = false;
-			bool l_bDoubleClick = m_MouseMoveData.MouseUp(e_iPosX,e_iPosY);
-			if( !l_bDoubleClick )
-				m_eObjectMouseBehavior = eOMB_UP;
+			if (this->m_bAllowDrag)
+			{
+				m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
+				if (m_MouseMoveData.IsDownUpDistanceSamePoint())
+				{
+					m_eObjectMouseBehavior = eOMB_UP;
+					return this;
+				}
+				this->Init();
+				m_bEnable = true;
+			}
 			else
-				m_eObjectMouseBehavior = eOMB_DOUBLU_CLICK_UP;
-			return this;
+			{
+				bool l_bDoubleClick = m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
+				if (!l_bDoubleClick)
+					m_eObjectMouseBehavior = eOMB_UP;
+				else
+					m_eObjectMouseBehavior = eOMB_DOUBLU_CLICK_UP;
+				return this;
+			}
 		}
 		else
 		{
-			m_eObjectMouseBehavior = eOMB_NONE;
-
+			this->Init();
 		}
 		return nullptr;
 	}
