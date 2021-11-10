@@ -25,7 +25,7 @@ namespace FATMING_CORE
 			//double for store big enough data
 			double*	pdbOriginalfData;
 			sDataAndCount(int e_iCount);
-			~sDataAndCount(){ iOriginalCount = 0;SAFE_DELETE(pdbOriginalfData);}
+			~sDataAndCount(){ iOriginalCount = 0; SAFE_DELETE_ARRAY(pdbOriginalfData);}
 		};
 	private:
 		//

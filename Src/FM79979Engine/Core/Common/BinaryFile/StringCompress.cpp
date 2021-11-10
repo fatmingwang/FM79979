@@ -224,7 +224,7 @@ bool	CompressHuffmanToFile(unsigned char *pSrc, int nSrcLen,const  char*e_strFil
 		//DecompressHuffmanToFile(pDes,nDesLen,"D:/Fish/FM79979/Media/Fish/Image/28825252.png",e_iMagicID)
 		//DecompressHuffmanToFile(pDes, nDesLen, "C:/Users/fatming/Desktop/28825252.txt");
 	}
-	SAFE_DELETE(pDes);
+	SAFE_DELETE_ARRAY(pDes);
 	return l_bResult;
 }
 
@@ -241,7 +241,7 @@ bool	DecompressHuffmanToFile(unsigned char *pSrc, int nSrcLen,const  char*e_strF
 	{
 		NvFWrite(pDes,sizeof(char),nDesLen,l_pFile);
 	}
-	SAFE_DELETE(pDes);
+	SAFE_DELETE_ARRAY(pDes);
 	NvFClose(l_pFile);
 	return l_bResult;
 }

@@ -215,7 +215,7 @@ namespace FATMING_CORE
 		this->pData = new char[iSize];
 		memcpy(pData, e_pData, iSize);
 	}
-	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE(pData); }
+	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE_ARRAY(pData); }
 	sNetworkReceivedPacket::sNetworkReceivedPacket() { pData = nullptr; iSize = 0; }
 	sNetworkReceivedPacket::~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
 	int	sNetworkReceivedPacket::ReceiveTCPData(SDLNetSocket e_pTCPsocket)

@@ -109,7 +109,7 @@ void	NamedTypedObject::SetupInternalData()
 	m_ui64PointerVaildMagicID = g_ui64MAGICID;
 	DebugResourceInfoAdd(this);
 	//if( m_uiUniqueID == 1 || m_uiUniqueID == 27|| m_uiUniqueID == 26 )
-	if( m_uiUniqueID == 26 || m_uiUniqueID == 25 )
+	if( m_uiUniqueID == 2168 || m_uiUniqueID == 74 )
 	{
 		int a=0;
 	}

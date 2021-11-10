@@ -333,7 +333,7 @@ namespace FATMING_CORE
 
 	void	cBinaryFile::CloseFile()
 	{
-		SAFE_DELETE(m_pData);
+		SAFE_DELETE_ARRAY(m_pData);
 #ifdef WIN32
 		if( m_FileHandle )
 		{
@@ -400,7 +400,7 @@ namespace FATMING_CORE
 			if ((long)l_uiReadSize != l_lFileSize)
 			{
 				FMLog::Log("cBinaryFile::GetDataFile fread size not match!!file open mode wrong!?",true);
-				SAFE_DELETE(m_pData);
+				SAFE_DELETE_ARRAY(m_pData);
 				return nullptr;
 			}
 		}

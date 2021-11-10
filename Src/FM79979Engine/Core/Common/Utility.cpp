@@ -826,10 +826,19 @@ namespace UT
 					}
 					l_strFileName += e_strFileName;
 					if (l_bWrite)
+					{
 						mkpath(l_strFileName);
+					}
 					l_pFile = NvFOpen(l_strFileName.c_str(), e_strMode);
 					if (l_pFile)
+					{
+//#ifdef DEBUG
+//						std::string l_strTempFileNameForShow = l_strFileName;
+//						l_strTempFileNameForShow += " opened";
+//						FMLog::Log(l_strTempFileNameForShow.c_str(),false);
+//#endif
 						return l_pFile;
+					}
 				}
 			}
 			if (!l_pFile)
@@ -1544,14 +1553,14 @@ namespace UT
 
 	sDataContainer::~sDataContainer()
 	{
-		SAFE_DELETE(pData);
+		SAFE_DELETE_ARRAY(pData);
 	}
 
 	bool	sDataContainer::CreateData(unsigned int e_uiDataSize, eDataType e_eDataType, int e_iDataCount)
 	{
 		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
-			SAFE_DELETE(pData);
+			SAFE_DELETE_ARRAY(pData);
 			pData = new char[e_uiDataSize];
 			DataType = e_eDataType;
 			this->uiDataSize = e_uiDataSize;
@@ -1565,7 +1574,7 @@ namespace UT
 	{
 		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize && e_pData != nullptr)
 		{
-			SAFE_DELETE(pData);
+			SAFE_DELETE_ARRAY(pData);
 			pData = new char[e_uiDataSize];
 			memcpy(pData, e_pData, e_uiDataSize);
 			uiDataSize = e_uiDataSize;
@@ -1580,7 +1589,7 @@ namespace UT
 	{
 		if (g_iDataTypeSize[e_eDataType] * e_iDataCount == (int)e_uiDataSize)
 		{
-			SAFE_DELETE(pData);
+			SAFE_DELETE_ARRAY(pData);
 			pData = e_pData;
 			uiDataSize = e_uiDataSize;
 			uiDataCount = e_iDataCount;

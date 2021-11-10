@@ -33,7 +33,7 @@ namespace FATMING_CORE
 
 	cOrthogonalCamera::~cOrthogonalCamera()
 	{
-		SAFE_DELETE(m_pDrawGridVertex);
+		SAFE_DELETE_ARRAY(m_pDrawGridVertex);
 	}
 
 	void	cOrthogonalCamera::SetViewRect(Vector4 e_vViewRect)
@@ -122,7 +122,7 @@ namespace FATMING_CORE
 		if( m_iTotalGridVertexSize != l_iTotalCount )
 		{
 			m_iTotalGridVertexSize = l_iTotalCount;
-			SAFE_DELETE(m_pDrawGridVertex);
+			SAFE_DELETE_ARRAY(m_pDrawGridVertex);
 			m_pDrawGridVertex = new Vector2[m_iTotalGridVertexSize];
 		}
 		Vector2*l_vAllVertices = m_pDrawGridVertex;

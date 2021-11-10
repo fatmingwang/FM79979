@@ -96,7 +96,7 @@ namespace FATMING_CORE
 
 	sBluetoothPacket::~sBluetoothPacket()
 	{
-		SAFE_DELETE(pData);
+		SAFE_DELETE_ARRAY(pData);
 	}
 
 	cBluetoothSinglton::cBluetoothSinglton()

@@ -12,7 +12,7 @@ namespace FATMING_CORE
 	}
 	cCustomBinaryData::sSizeAndData::~sSizeAndData()
 	{
-		SAFE_DELETE(pData);
+		SAFE_DELETE_ARRAY(pData);
 	}
 
 	cCustomBinaryData::sNameAndData::sNameAndData()
@@ -166,8 +166,8 @@ namespace FATMING_CORE
 			l_pDataAndPos->pData->pData->iSize = e_iDataLength;
 			m_DataAndPosVector.AddObjectNeglectExist(l_pDataAndPos);
 		}
-		SAFE_DELETE(l_pDataAndPos->pData->pData->pData);
-		SAFE_DELETE(l_pDataAndPos->pData->pName->pData);
+		SAFE_DELETE_ARRAY(l_pDataAndPos->pData->pData->pData);
+		SAFE_DELETE_ARRAY(l_pDataAndPos->pData->pName->pData);
 		l_pDataAndPos->pData->pName->iSize = -1;
 		l_pDataAndPos->pData->pData->pData = new char[e_iDataLength];
 		memcpy(l_pDataAndPos->pData->pData->pData,e_pData,sizeof(e_iDataLength));

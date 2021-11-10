@@ -262,7 +262,7 @@ namespace	FATMING_CORE
 	cLinerDataProcessor<T>::~cLinerDataProcessor()
 	{
 		SAFE_DELETE(m_pLODDataVector);
-		SAFE_DELETE(m_pvValueForSmallestBiggestAndDis);
+		SAFE_DELETE_ARRAY(m_pvValueForSmallestBiggestAndDis);
 	}
 //=========================
 //
@@ -287,7 +287,7 @@ namespace	FATMING_CORE
 	template <class T>
 	void	cLinerDataProcessor<T>::InitValueForSmallestBiggestAndDis()
 	{
-		SAFE_DELETE(m_pvValueForSmallestBiggestAndDis);		
+		SAFE_DELETE_ARRAY(m_pvValueForSmallestBiggestAndDis);
 		m_pvValueForSmallestBiggestAndDis = new T[3];
 		//#define FLT_MAX         3.402823466e+38F        /* max value */
 		//#define FLT_MIN         1.175494351e-38F        /* min positive value */

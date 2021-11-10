@@ -87,11 +87,18 @@ namespace FATMING_CORE
 
 	cFreetypeGlyphRender::cFreetypeGlyphRender(cFreetypeGlyphRender * e_pGlyphFontRender)
 	{
+		m_pvVertexBuffer = nullptr;
+		m_pvTextureUVBuffer = nullptr;
+		m_pvColorBuffer = nullptr;
 		m_vHalfSize = Vector2::Zero;
 		m_pDynamicFontTexture = e_pGlyphFontRender->m_pDynamicFontTexture;
 		m_pDynamicFontTexture->AddRef(this);
 		m_bTextChanged = true;
 		m_fScale = e_pGlyphFontRender->m_fScale;
+		m_iFontCount = e_pGlyphFontRender->m_iFontCount;
+		std::wstring l_strName = e_pGlyphFontRender->GetName();
+		l_strName += L"_Cloned";
+		this->SetName(l_strName);
 		SetTextBuffer(e_pGlyphFontRender->m_iFontCount);
 	}
 

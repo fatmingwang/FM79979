@@ -82,6 +82,7 @@ namespace FATMING_CORE
 			if (m_spui64PIDAndNamedObject == nullptr)
 			{
 				SAFE_DELETE(m_spMapMutex);
+				FMLog::Log(L"all thread closed",false);
 			}
 		}
 	}
