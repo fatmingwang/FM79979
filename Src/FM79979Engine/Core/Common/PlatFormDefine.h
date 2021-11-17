@@ -55,8 +55,12 @@
     typedef unsigned long long int uint64;
 	typedef uint64				UINT64;
     typedef uint8 byte;
+#ifndef TRUE
 	#define	 TRUE				1
+#endif
+#ifndef FALSE
 	#define	 FALSE				0
+#endif
 	//#define	 nullptr				0
 
     typedef struct tagRECT
