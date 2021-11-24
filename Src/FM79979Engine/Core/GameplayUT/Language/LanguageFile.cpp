@@ -121,26 +121,56 @@ namespace FATMING_CORE
 		{
 			std::wstring l_strLanguageName;
 			cXMLFileList*l_pXMLFileList = nullptr;
-			PARSE_ELEMENT_START(e_pRoot)
-				COMPARE_NAME("Name")
-				{
-					l_strLanguageName = l_strValue;
-				}
-				else
-				COMPARE_NAME("FileName")
-				{
-					l_pXMLFileList = new cXMLFileList();
-					if (!l_pXMLFileList->ParseWithMyParse(l_strValue))
-					{
-						UT::ErrorMsg(L"language parse failed!", l_strValue);
-					}
-				}
-			PARSE_NAME_VALUE_END
-			l_pXMLFileList->SetName(l_strLanguageName);
-			if (!this->AddObject(l_pXMLFileList))
+			//<FontData DefaultFont="Language/msjhl.ttc" />
+			//<Language Name="TCN" FileName="Language/TCN.xml"/>
+			auto l_strCurrentElementValue = e_pRoot->Value();
+			if(!wcscmp(l_strCurrentElementValue,L"Language"))
 			{
-				SAFE_DELETE(l_pXMLFileList);
-				UT::ErrorMsg(L"same language!", l_strLanguageName.c_str());
+				PARSE_ELEMENT_START(e_pRoot)
+					COMPARE_NAME("Name")
+					{
+						l_strLanguageName = l_strValue;
+					}
+					else
+					COMPARE_NAME("FileName")
+					{
+						l_pXMLFileList = new cXMLFileList();
+						if (!l_pXMLFileList->ParseWithMyParse(l_strValue))
+						{
+							UT::ErrorMsg(L"language parse failed!", l_strValue);
+						}
+					}
+				PARSE_NAME_VALUE_END
+				l_pXMLFileList->SetName(l_strLanguageName);
+				if (!this->AddObject(l_pXMLFileList))
+				{
+					SAFE_DELETE(l_pXMLFileList);
+					UT::ErrorMsg(L"same language!", l_strLanguageName.c_str());
+				}
+			}
+			else
+			if (!wcscmp(l_strCurrentElementValue, L"FontData"))
+			{
+				auto l_pAttribute = e_pRoot->FirstAttribute();
+				while (l_pAttribute)
+				{
+					sFontFileNameAndSize l_FontFileNameAndSize;
+					l_FontFileNameAndSize.iFontSize = 12;
+					
+					auto l_strVector = GetWStringListByCommaDivide(l_pAttribute->Value());
+					if (l_strVector.size() == 2)
+					{
+						l_FontFileNameAndSize.strFontFileName = l_strVector[0];
+						l_FontFileNameAndSize.iFontSize = GetInt(l_strVector[1]);
+					}
+					else
+					if (l_strVector.size() == 1)
+					{
+						l_FontFileNameAndSize.strFontFileName = l_strVector[0];
+					}
+					m_FontNameAndFontFileNameMap.insert(std::make_pair(l_pAttribute->Name(), l_FontFileNameAndSize));
+					l_pAttribute = l_pAttribute->Next();
+				}
 			}
 			e_pRoot = e_pRoot->NextSiblingElement();
 		}

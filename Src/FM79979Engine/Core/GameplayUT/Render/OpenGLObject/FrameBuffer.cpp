@@ -99,12 +99,12 @@ namespace FATMING_CORE
 		//cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3((float)(e_vPos.x + e_iWidth), (float)(e_vPos.y + e_iHeight), e_vPos.z))*GetWorldTransform();
 		//RenderQuadWithMatrix(l_Vertices, l_fTexPointer, Vector4::One, l_mat,3,1);
 	}
-	void cScreenCapture::SaveToFile(const char * e_strFileName)
+	bool cScreenCapture::SaveToFile(const char * e_strFileName)
 	{
 		int l_iWidth = m_pFrameBuffer->GetWidth();
 		int l_iHeight = m_pFrameBuffer->GetHeight();
 		//convert opengl Y up coordinate to Y down
-		SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight,m_pPixelBuffer,3,true);
+		return SaveBufferToImage(e_strFileName, l_iWidth, l_iHeight,m_pPixelBuffer,3,true);
 	}
 	//CHECK_FRAMEBUFFER_STATUS() 
 	//{ 

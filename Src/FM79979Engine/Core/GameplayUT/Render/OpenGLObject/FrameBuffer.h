@@ -25,7 +25,7 @@ namespace FATMING_CORE
 		void	StartDraw(bool e_bClearScreen = true);		//store original
 		void	EndDraw();			//restore original
 		void	Render(Vector3 e_vPos, int e_iWidth, int e_iHeight);
-		void	SaveToFile(const char*e_strFileName);
+		bool	SaveToFile(const char*e_strFileName);
 	};
 	//=====================
 	//

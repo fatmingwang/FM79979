@@ -42,19 +42,28 @@ namespace FATMING_CORE
 	//</cLanguageFile>
 	class cLanguageFile :public cNamedTypedObjectVector<cXMLFileList> , public cNodeISAX
 	{
-		std::wstring		m_strCurrentLanguage;
-		std::wstring		m_strDefaultLanguage;
-		virtual	bool		MyParse(TiXmlElement*e_pRoot);
+		std::wstring							m_strCurrentLanguage;
+		std::wstring							m_strDefaultLanguage;
+		virtual	bool							MyParse(TiXmlElement*e_pRoot);
+	public:
+		struct sFontFileNameAndSize
+		{
+			std::wstring	strFontFileName;
+			int				iFontSize;
+		};
+	protected:
+		std::map<std::wstring, sFontFileNameAndSize>	m_FontNameAndFontFileNameMap;
 	public:
 		cLanguageFile(const char*e_strSetupFile);
 		~cLanguageFile();
-		const std::wstring	GetCurrentLanguage() { return m_strCurrentLanguage; }
-		void				SetCurrentLanguage(const wchar_t*e_strCurrentLanguage) { m_strCurrentLanguage = e_strCurrentLanguage; }
+		const std::wstring								GetCurrentLanguage() { return m_strCurrentLanguage; }
+		void											SetCurrentLanguage(const wchar_t*e_strCurrentLanguage) { m_strCurrentLanguage = e_strCurrentLanguage; }
 		//for 1 file only
-		const wchar_t*		GetFileName(const wchar_t*e_strKey);
+		const wchar_t*									GetFileName(const wchar_t*e_strKey);
 		//
-		cXMLFileList*		GetCurrentLanguageXMLFileList();
-		cKeyAndValueXML*	GetCurrentLanguageXMLFileListKeyAndValueXMLByName(const wchar_t*e_strFileName);
+		cXMLFileList*									GetCurrentLanguageXMLFileList();
+		cKeyAndValueXML*								GetCurrentLanguageXMLFileListKeyAndValueXMLByName(const wchar_t*e_strFileName);
+		std::map<std::wstring, sFontFileNameAndSize>	GetFontNameAndFontFileNameMap() { return m_FontNameAndFontFileNameMap; }
 	};
 
 	//cLanguageFile l_LanguageFile("Language/Language.xml");
