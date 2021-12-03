@@ -319,8 +319,14 @@ namespace FATMING_CORE
 				}
 			}
 			for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
-				m_pvColorBuffer[l_iIndex*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT+j] = e_vColor;
+			{
+				m_pvColorBuffer[l_iIndex * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT + j] = e_vColor;
+			}
 			++l_iIndex;
+			if (l_iIndex >=m_iFontCount)
+			{
+				break;
+			}
 		}
 		this->m_bTextChanged = true;
 	}

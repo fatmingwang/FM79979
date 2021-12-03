@@ -53,6 +53,7 @@ namespace FATMING_CORE
 		std::function<void()>				m_ConnectionLostCallbackFunction;
 		//only for server,it under m_ClientSocketMutex
 		std::function<void(SDLNetSocket)>	m_ClientLostConnectionCallback;
+		std::function<void(SDLNetSocket)>	m_SocketOpenOkayCallback;
 	protected:
 		sIPData								m_IPData;
 		//own socket for server or client
@@ -70,6 +71,7 @@ namespace FATMING_CORE
 		virtual ~cGameNetwork();
 		DEFINE_TYPE_INFO();
 		void								SetConnectionLostCallbackFunction(std::function<void()> e_Function);
+		void								SetOpenSocketOkayCallback(std::function<void(SDLNetSocket)> e_Function);
 		void								SetClientLostConnectionCallback(std::function<void(SDLNetSocket)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
@@ -149,13 +151,9 @@ namespace FATMING_CORE
 	l_TempNetworkSendPacket123.pData = nullptr;																  \
 }
 
-#define	NETWORK_LAZY_SEND_TO_ALL_CLIENT(NETWORK_SINGLTON,SOCKET,DATA)											\
+#define	NETWORK_LAZY_SEND_TO_ALL_CLIENT(NETWORK_SINGLTON,DATA)													\
 {																												\
-	sNetworkSendPacket l_TempNetworkSendPacket123;																\
-	l_TempNetworkSendPacket123.iSize = DATA.iSize;																\
-	l_TempNetworkSendPacket123.pData = (char*)&DATA;															\
-	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToAllClient(&l_TempNetworkSendPacket123);	\
-	l_TempNetworkSendPacket123.pData = nullptr;																	\
+	bool l_bSendResult123 = NETWORK_SINGLTON::GetInstance()->SendDataToAllClient((char*)&DATA,DATA.iSize);		\
 }
 
 #define	LAZY_SEND_NETWORK_MESSAGE(SOCKET,DATA)																  \

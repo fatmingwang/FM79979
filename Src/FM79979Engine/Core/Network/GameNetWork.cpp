@@ -303,6 +303,11 @@ namespace FATMING_CORE
 		m_ConnectionLostCallbackFunction = e_Function;
 	}
 
+	void cGameNetwork::SetOpenSocketOkayCallback(std::function<void(SDLNetSocket)> e_Function)
+	{
+		m_SocketOpenOkayCallback = e_Function;
+	}
+
 	void	cGameNetwork::SetClientLostConnectionCallback(std::function<void(SDLNetSocket)> e_Function)
 	{
 		m_ClientLostConnectionCallback = e_Function;
@@ -623,6 +628,10 @@ namespace FATMING_CORE
 		}
 		m_pSocket = GetSDLNetSocket(l_pSDLTCPSocket);
 		FMLog::LogWithFlag("socket open", CORE_LOG_FLAG);
+		if (m_SocketOpenOkayCallback)
+		{
+			m_SocketOpenOkayCallback(m_pSocket);
+		}
 		return true;
 	}
 	void cGameNetwork::CloseSocket()
@@ -780,6 +789,57 @@ namespace FATMING_CORE
 		return true;
 	}
 
+	//typedef std::function<void()> f_PingFailedLostConnection;
+
+	//l_sfElpaseTime += e_ElpaseTime;
+	//if (l_sfElpaseTime >= l_sfTryToPingServerTC)
+	//{
+	//	UT::sTimeAndFPS l_TimeAndFPS;
+	//	l_TimeAndFPS.Update();
+	//	auto l_strTargetIP = UT::ComposeMsgByFormat("ping -c1 -s1 %s  > /dev/null 2>&1", m_IPData.m_strServerIP.c_str());
+	//	int x = system(l_strTargetIP.c_str());
+	//	l_TimeAndFPS.Update();
+	//	float l_fTime = l_TimeAndFPS.fElpaseTime;
+	//	if (x == 0)
+	//	{//cout << "success" << endl;
+	//	}
+	//	else
+	//	{
+	//		goto FAILED;
+	//	}
+	//	l_sfElpaseTime = 0.f;
+	//}
+
+	//void PingIP(const char*e_strIP, f_PingFailedLostConnection e_f_PingFailedLostConnection,bool e_bKeepThread)
+	//{
+	//	UT::sTimeCounter l_TC;
+	//	l_TC.SetTargetTime(5.f);
+	//	UT::sTimeAndFPS l_TimeAndFPS;
+	//	l_TimeAndFPS.Update();
+	//	while (e_bKeepThread)
+	//	{
+	//		Sleep(100);
+	//		l_TimeAndFPS.Update();
+	//		l_TC.Update(l_TimeAndFPS.fElpaseTime);
+	//		if (l_TC.bTragetTimrReached)
+	//		{
+	//			auto l_strTargetIP = UT::ComposeMsgByFormat("ping -c1 -s1 %s  > /dev/null 2>&1", e_strIP);
+	//			int x = system(l_strTargetIP.c_str());
+	//			l_TimeAndFPS.Update();
+	//			float l_fTime = l_TimeAndFPS.fElpaseTime;
+	//			if (x == 0)
+	//			{//cout << "success" << endl;
+
+	//			}
+	//			else
+	//			{
+	//				e_f_PingFailedLostConnection();
+	//			}
+	//			l_TC.Start();
+	//		}
+	//	}
+	//}
+
 	void	cGameNetwork::ClientListenDataThread(float e_ElpaseTime)
 	{
 		eNetWorkStatus l_eNetWorkStatus = m_eNetWorkStatus;
@@ -815,7 +875,9 @@ namespace FATMING_CORE
 				goto FAILED;
 			}
 			if (l_iNumready == 0)
+			{
 				return;
+			}
 			if (m_pSocket)
 			{
 				bool	l_bFraomTemplateData = false;
