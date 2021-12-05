@@ -2,7 +2,7 @@
 #include "../../../../Sound/SoundManager.h"
 #include "DefaultRenderClickBehavior.h"
 #include "../../MPDI/MPDI.h"
-#define MOUSE_UP_IDLE_TIME	0.05f
+#define MOUSE_UP_IDLE_TIME	0.0f
 
 namespace FATMING_CORE
 {
