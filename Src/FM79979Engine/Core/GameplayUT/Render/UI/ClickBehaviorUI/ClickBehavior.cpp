@@ -80,7 +80,9 @@ namespace FATMING_CORE
 	{
 		if( !m_bEnable )
 			return nullptr;
-		if( m_eObjectMouseBehavior == eOMB_NONE)
+		//because after mouse up update need MOUSE_UP_IDLE_TIME,the status still struck at mouse up
+		//it occur bug,so do not check status here.
+		//if( m_eObjectMouseBehavior == eOMB_NONE)
 		{
 			if(Collide(e_iPosX,e_iPosY))
 			{
