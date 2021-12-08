@@ -95,7 +95,7 @@ void	cBattlePhase::Update(float e_fElpaseTime)
 
 void	cBattlePhase::Render()
 {
-	glEnable2D(cGameApp::m_svGameResolution.x,cGameApp::m_svGameResolution.y);
+	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	if( m_pBattleAttack )
 		m_pBattleAttack->Render();
 	if( m_pBattleDefence )

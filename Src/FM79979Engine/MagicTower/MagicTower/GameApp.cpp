@@ -95,7 +95,7 @@ void	cMagicTowerApp::Render()
 		m_spSceneControl->DebugRender();
 	cGameApp::RenderFont(0,0,UT::ComposeMsgByFormat(L"Mouse:%d,%d",cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y).c_str());
 	GLRender::glDisable2D();
-	SwapBuffers (this->m_sHdc);
+	SwapBuffers (this->m_spOpenGLRender->m_Hdc);
 }
 
 //void	cMagicTowerApp::Run()

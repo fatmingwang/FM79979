@@ -80,7 +80,7 @@ cGridBehaviorListForLevelLayer::cGridBehaviorListForLevelLayer(cLevelLayerList*e
 		m_ppGridBehaviorGridsData[i] = 0;
 	}
 	cLayer*l_pLayer = e_pLevelLayerList->GetObject(e_iLayerIndex);
-	l_pLayer->SetData(this);
+	l_pLayer->SetData((char*)this);
 	this->SetOwner(e_pLevelLayerList);
 	this->SetOwner(l_pLayer);
 	int	l_iCount2 = l_pLayer->Count();

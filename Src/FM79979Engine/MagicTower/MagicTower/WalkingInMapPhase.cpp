@@ -60,7 +60,7 @@ void	cWalkingInMapPhase::Render()
 		Vector2	l_vDrawSize = l_pMPDI->GetDrawSize();
 		l_fStartPosX += l_vDrawSize.x;
 
-		Vector4	l_vViewRect(l_fStartPosX,0,cGameApp::m_svGameResolution.x-l_fStartPosX,cGameApp::m_svGameResolution.y);
+		Vector4	l_vViewRect(l_fStartPosX,0,cGameApp::m_spOpenGLRender->m_vGameResolution.x-l_fStartPosX, cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		l_vViewRect = ViewRectToOpenGLScissor(l_vViewRect);
 		glViewport((int)l_vViewRect.x,(int)l_vViewRect.y,(int)l_vViewRect.z,(int)l_vViewRect.w);
 		glScissor((int)l_vViewRect.x,(int)l_vViewRect.y,(int)l_vViewRect.z,(int)l_vViewRect.w);
