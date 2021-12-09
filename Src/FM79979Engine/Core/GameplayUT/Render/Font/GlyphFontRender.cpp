@@ -130,7 +130,7 @@ namespace FATMING_CORE
 				if(!m_pGlyphReader->IsLegalCharacter(e_pString[i]) )
 					continue;
 				//FILE_GLYPH_ATTR	l_FILE_GLYPH_ATTR = m_pGlyphReader->GetCharInfo(e_pString[i]);
-				l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_pString[i]).fHeight*m_fScale;
+				l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_pString[i]).fHeight;
 				break;
 			}
 			float	l_fMaxWidth = 0.f;
@@ -162,8 +162,8 @@ namespace FATMING_CORE
 					//	continue;
 					//}
 					FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_pString[i]);
-					float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
-					float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
+					float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth;
+					float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight;
 					//pos
 					*l_pfVertexData = l_fXOffset;							++l_pfVertexData;
 					*l_pfVertexData = l_fYOffset;							++l_pfVertexData;
@@ -231,8 +231,8 @@ namespace FATMING_CORE
 				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight; ++l_pfVertexData;			
 				*l_pfVertexData -= l_fHalfWidth;	++l_pfVertexData; *l_pfVertexData -= l_fHalfHeight;
 			}
-			m_vHalfSize.x = l_fHalfWidth;
-			m_vHalfSize.y = l_fHalfHeight;
+			m_vHalfSize.x = l_fHalfWidth * m_fScale;
+			m_vHalfSize.y = l_fHalfHeight * m_fScale;
 			auto l_pLocalBound = GetLocalBound();
 			if (l_pLocalBound)
 			{
@@ -240,10 +240,12 @@ namespace FATMING_CORE
 			}
 		}
 		UseShaderProgram(DEFAULT_SHADER);
-		m_pFontImage->ApplyImage();
-		cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX+m_vHalfSize.x,e_fY+m_vHalfSize.y,0.f));
-		l_mat *= this->GetWorldTransform();
-		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount*ONE_QUAD_IS_TWO_TRIANGLES);
+		if (m_pFontImage->ApplyImage())
+		{
+			cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
+			l_mat *= this->GetWorldTransform() * cMatrix44::ScaleMatrix(Vector3(m_fScale, m_fScale, m_fScale));
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount * ONE_QUAD_IS_TWO_TRIANGLES);
+		}
 	}
 
 	void	cGlyphFontRender::SetFontColor(Vector4 e_vColor)
@@ -313,7 +315,7 @@ namespace FATMING_CORE
 		{
 			if(!m_pGlyphReader->IsLegalCharacter(e_strText[i]))
 				continue;
-			l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_strText[i]).fHeight*m_fScale;
+			l_fFonyHeight =	m_pGlyphReader->GetCharInfo(e_strText[i]).fHeight;
 		}
 		float	l_fMaxWidth = 0.f;
 		float	l_fMaxHeight = l_fFonyHeight;
@@ -324,8 +326,8 @@ namespace FATMING_CORE
 				if(!m_pGlyphReader->IsLegalCharacter(e_strText[i]))
 					continue;
 				FILE_GLYPH_ATTR l_FILE_GLYPH_ATTR = this->m_pGlyphReader->GetCharInfo(e_strText[i]);
-				float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth*m_fScale;
-				float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight*m_fScale;
+				float   l_fCharacterWidth = l_FILE_GLYPH_ATTR.fWidth;
+				float   l_fCharacterHeight = l_FILE_GLYPH_ATTR.fHeight;
 				l_fXOffset += (l_fCharacterWidth*m_fLazyMinusCharacterWidth);
 				if( l_fMaxWidth<l_fXOffset )
 					l_fMaxWidth = l_fXOffset;

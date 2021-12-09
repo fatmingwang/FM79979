@@ -118,7 +118,7 @@ namespace FATMING_CORE
 		virtual	Vector4*GetColor(){return &m_vColor;}
 		virtual	void	SetColor(Vector4 e_vColor)override { m_vColor = e_vColor; }
 		void			SetTexBehaviorData(cBaseImage*e_pTexData);
-		void			ApplyImage();
+		bool			ApplyImage();
 		virtual	void	Render(Vector3 e_vPos);					//render by indicate position without offset position.
 		virtual	void	DebugRender()override;
 		//virtual	void	RenderWithoutOffset(int e_iX,int e_iY);	//render with offset position.

@@ -264,10 +264,13 @@ namespace FATMING_CORE
 		m_iHeight = e_pBaseImage->m_iHeight;
 	}
 
-	void	cBaseImage::ApplyImage()
+	bool	cBaseImage::ApplyImage()
 	{
-		//if( m_pTexture )
-			this->m_pTexture->ApplyImage();
+		if (m_pTexture)
+		{
+			return this->m_pTexture->ApplyImage();
+		}
+		return false;
 	}
 
 	void	cBaseImage::Render(int e_iX,int e_iY)

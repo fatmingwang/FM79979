@@ -67,6 +67,9 @@
     <Filter Include="Game\MazeGenerator">
       <UniqueIdentifier>{b60f95b6-dc8c-4a01-aef1-a122e6866f97}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameSystem">
+      <UniqueIdentifier>{ea75d120-26e1-4964-8305-2c3517bb425d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -146,6 +149,24 @@
     </ClCompile>
     <ClCompile Include="MazeGenerator.cpp">
       <Filter>Game\MazeGenerator</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\CharacterStatusSystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ItemInfoSystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\BattleAISystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\ResourceSystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\SoundSystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\TalkSystem.cpp">
+      <Filter>Game\GameSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +253,24 @@
     </ClInclude>
     <ClInclude Include="MazeGenerator.h">
       <Filter>Game\MazeGenerator</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\CharacterStatusSystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\ItemInfoSystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\BattleAISystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\ResourceSystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\SoundSystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\TalkSystem.h">
+      <Filter>Game\GameSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

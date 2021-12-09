@@ -69,7 +69,7 @@ namespace FATMING_CORE
 			char*l_pData = (char*)m_pData;
 			SAFE_DELETE(l_pData);
 		}
-		m_pData = 0;
+		m_pData = nullptr;
 	}
 
 	void	cEventVariable::SetData(void*e_pData,eDataType e_eDataType)

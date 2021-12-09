@@ -2,7 +2,8 @@
 #include "../../../../Sound/SoundManager.h"
 #include "DefaultRenderClickBehavior.h"
 #include "../../MPDI/MPDI.h"
-#define MOUSE_UP_IDLE_TIME	0.0f
+//fuck I am lazy to fix this.
+#define MOUSE_UP_IDLE_TIME	0.016f
 
 namespace FATMING_CORE
 {
@@ -128,7 +129,7 @@ namespace FATMING_CORE
 			return nullptr;
 		if(this->Collide(e_iPosX,e_iPosY))
 		{
-			m_bEnable = false;
+			//m_bEnable = false;
 			if (this->m_bAllowDrag)
 			{
 				m_MouseMoveData.MouseUp(e_iPosX, e_iPosY);
@@ -422,7 +423,7 @@ namespace FATMING_CORE
 
     cClickBehavior*    cClickBehaviorDispatcher::MouseDown(int e_iPosX,int e_iPosY)
 	{
-		if(!this->IsEnable())
+		if(!this->IsEnable() || m_pCurrentWorkingEvent)
 			return nullptr;
 		m_pCurrentWorkingEvent = cClickBehaviorGroup::MouseDown(e_iPosX,e_iPosY);
 		//m_AlwaysNeedToWorkClickEventGroup.MouseDown(e_iPosX,e_iPosY);
