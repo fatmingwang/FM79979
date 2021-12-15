@@ -367,21 +367,28 @@ namespace FATMING_CORE
 	//==========================================
 	void	cCurve::Scale(float e_fScale)
 	{
+		Scale(e_fScale, e_fScale, e_fScale);
+	}
+
+	void cCurve::Scale(float e_fXScale, float e_fYScale, float e_fZScale)
+	{
 		int	l_iNum = (int)m_OriginalPointList.size();
-		if( l_iNum)
+		if (l_iNum)
 		{
 			float	l_fLength = 0.f;
 			Vector3	l_vCenter = GetCurveCenter(&l_fLength);
-			for( int i=0;i<l_iNum;++i )
+			for (int i = 0; i < l_iNum; ++i)
 			{
 				//scale the point as vector length 1
-				Vector3	*l_pvPos = &m_OriginalPointList[i];
+				Vector3* l_pvPos = &m_OriginalPointList[i];
 				//point minus center
 				Vector3	l_vTargetVector = *l_pvPos - l_vCenter;
 				//set to proper position
-				l_vTargetVector *= e_fScale;
+				l_vTargetVector.x *= e_fXScale;
+				l_vTargetVector.y *= e_fYScale;
+				l_vTargetVector.z *= e_fZScale;
 				//final position we expect
-				*l_pvPos = l_vTargetVector+l_vCenter;
+				*l_pvPos = l_vTargetVector + l_vCenter;
 			}
 			this->DoLOD();
 		}

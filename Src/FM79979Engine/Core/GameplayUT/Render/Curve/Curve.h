@@ -89,6 +89,7 @@ namespace FATMING_CORE
 		Vector3				GetCurveCenter(float*e_pfRightDownToLeftUpperLength = 0);
 		//scale all curve as vector(length as 1),then resize curve
 		void				Scale(float e_fScale);
+		void				Scale(float e_fXScale, float e_fYScale, float e_fZScale);
 		//
 		void				ScaleByDistance(float e_fDistance);
 		//
