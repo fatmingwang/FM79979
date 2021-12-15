@@ -150,13 +150,13 @@
     <ClCompile Include="MazeGenerator.cpp">
       <Filter>Game\MazeGenerator</Filter>
     </ClCompile>
+    <ClCompile Include="GameSystem\BattleAISystem.cpp">
+      <Filter>Game\GameSystem</Filter>
+    </ClCompile>
     <ClCompile Include="GameSystem\CharacterStatusSystem.cpp">
       <Filter>Game\GameSystem</Filter>
     </ClCompile>
     <ClCompile Include="GameSystem\ItemInfoSystem.cpp">
-      <Filter>Game\GameSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSystem\BattleAISystem.cpp">
       <Filter>Game\GameSystem</Filter>
     </ClCompile>
     <ClCompile Include="GameSystem\ResourceSystem.cpp">
@@ -254,13 +254,13 @@
     <ClInclude Include="MazeGenerator.h">
       <Filter>Game\MazeGenerator</Filter>
     </ClInclude>
+    <ClInclude Include="GameSystem\BattleAISystem.h">
+      <Filter>Game\GameSystem</Filter>
+    </ClInclude>
     <ClInclude Include="GameSystem\CharacterStatusSystem.h">
       <Filter>Game\GameSystem</Filter>
     </ClInclude>
     <ClInclude Include="GameSystem\ItemInfoSystem.h">
-      <Filter>Game\GameSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSystem\BattleAISystem.h">
       <Filter>Game\GameSystem</Filter>
     </ClInclude>
     <ClInclude Include="GameSystem\ResourceSystem.h">

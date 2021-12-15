@@ -120,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
+    <ClCompile Include="GameSystem\BattleAISystem.cpp" />
+    <ClCompile Include="GameSystem\CharacterStatusSystem.cpp" />
+    <ClCompile Include="GameSystem\ItemInfoSystem.cpp" />
+    <ClCompile Include="GameSystem\ResourceSystem.cpp" />
+    <ClCompile Include="GameSystem\SoundSystem.cpp" />
+    <ClCompile Include="GameSystem\TalkSystem.cpp" />
     <ClCompile Include="MagicTower.cpp" />
     <ClCompile Include="MazeGenerator.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -153,6 +159,12 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="GameSystem\BattleAISystem.h" />
+    <ClInclude Include="GameSystem\CharacterStatusSystem.h" />
+    <ClInclude Include="GameSystem\ItemInfoSystem.h" />
+    <ClInclude Include="GameSystem\ResourceSystem.h" />
+    <ClInclude Include="GameSystem\SoundSystem.h" />
+    <ClInclude Include="GameSystem\TalkSystem.h" />
     <ClInclude Include="MazeGenerator.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
