@@ -71,6 +71,50 @@ namespace FATMING_CORE
 		RenderCurveByData(l_RenderDataVector, l_RenderDataVector,e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
 	}
 
+	void cCurve::RenderByRange(float e_fStartPercent, float e_fEndPercent, Vector4 e_vColor, cMatrix44 e_mat, float e_fLineWidth, bool e_bRenderPoints)
+	{
+		//fuck this is bad by I am lazy
+		float	l_fTotalDis = this->GetTotalDistance();
+		float	l_fStartTargetDis = l_fTotalDis * e_fStartPercent;
+		auto	l_fEndTargetDis = l_fTotalDis * e_fEndPercent;
+		//
+		float	l_fDis = 0;
+		std::vector<Vector3>* l_pDataVector = &m_FinallyPointList;
+		if (l_pDataVector->size() == 0)
+		{
+			return;
+		}
+		std::vector<Vector3> l_RenderDataVector;
+		int	l_iSize = (int)l_pDataVector->size() - 1;
+		int l_iStartIndex = -1;
+		for (int i = 0; i < l_iSize; ++i)
+		{
+			Vector3	l_vDistance = (*l_pDataVector)[i + 1] - (*l_pDataVector)[i];
+			auto l_f2PointsDis = l_vDistance.Length();
+			l_fDis += l_f2PointsDis;
+			if (l_iStartIndex == -1)
+			{
+				float l_fOffset = l_fStartTargetDis - l_fDis;
+				if (l_fOffset >= 0.f)
+				{
+					l_iStartIndex = i;
+					auto l_vStartPos = (*l_pDataVector)[i];
+					l_vStartPos += (l_vStartPos.Normalize() * l_fOffset);
+					l_RenderDataVector.push_back(l_vStartPos);
+				}
+			}
+			if (l_fDis >= l_fEndTargetDis)
+			{
+				l_RenderDataVector.insert(l_RenderDataVector.begin()+1, l_pDataVector->begin()+ l_iStartIndex, l_pDataVector->begin() + i - 1);
+				float l_fOverDis = l_fDis - l_fEndTargetDis;
+				auto l_LastPos = (*l_pDataVector)[i] - (l_vDistance.Normalize() * l_fOverDis);
+				l_RenderDataVector.push_back(l_LastPos);
+				break;
+			}
+		}
+		RenderCurveByData(l_RenderDataVector, l_RenderDataVector, e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
+	}
+
 	void	cCurve::RenderPointIndex()
 	{
 		if( !cGameApp::m_spGlyphFontRender )
