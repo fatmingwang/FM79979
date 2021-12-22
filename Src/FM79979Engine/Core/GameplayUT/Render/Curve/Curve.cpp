@@ -40,6 +40,37 @@ namespace FATMING_CORE
 		}
 	}
 
+	void cCurve::RenderByPercent(float e_fPercent, Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth,bool e_bRenderPoints)
+	{
+		//fuck this is bad by I am lazy
+		auto l_fTargetDis = this->GetTotalDistance()* e_fPercent;
+		//
+		float	l_fDis = 0;
+		std::vector<Vector3>* l_pDataVector = &m_FinallyPointList;
+		if (l_pDataVector->size() == 0)
+		{
+			return;
+		}
+		std::vector<Vector3> l_RenderDataVector;
+		int	l_iSize = (int)l_pDataVector->size() - 1;
+
+		for (int i = 0; i < l_iSize; ++i)
+		{
+			Vector3	l_vDistance = (*l_pDataVector)[i + 1] - (*l_pDataVector)[i];
+			auto l_f2PointsDis = l_vDistance.Length();
+			l_fDis += l_f2PointsDis;
+			if (l_fDis >= l_fTargetDis)
+			{
+				l_RenderDataVector.insert(l_RenderDataVector.begin(),l_pDataVector->begin(), l_pDataVector->begin()+i-1);
+				float l_fOverDis = l_fDis - l_fTargetDis;
+				auto l_LastPos = (*l_pDataVector)[i]-(l_vDistance.Normalize()* l_fOverDis);
+				l_RenderDataVector.push_back(l_LastPos);
+				break;
+			}
+		}
+		RenderCurveByData(l_RenderDataVector, l_RenderDataVector,e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
+	}
+
 	void	cCurve::RenderPointIndex()
 	{
 		if( !cGameApp::m_spGlyphFontRender )
@@ -128,24 +159,7 @@ namespace FATMING_CORE
 
 	void	cCurve::RenderCurve(Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth, bool e_bRenderPoints)
 	{
-		if( m_FinallyPointList.size() < 2 )
-		{
-			if( m_FinallyPointList.size() == 1 )
-				RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
-			return;
-		}
-		//draw line
-		std::vector<Vector3>	l_CurvePointVector;
-		int	l_iNumPoint = ((int)m_FinallyPointList.size()-1)*2;
-		l_CurvePointVector.resize(l_iNumPoint);
-		for( int i=0;i<l_iNumPoint/2;++i )
-		{
-			l_CurvePointVector[i*2] = m_FinallyPointList[i];
-			l_CurvePointVector[i*2+1] = m_FinallyPointList[i+1];
-		}
-		RenderLine((float*)&l_CurvePointVector[0],l_iNumPoint,e_vColor,3,e_mat, e_fLineWidth);
-		if(e_bRenderPoints)
-			RenderPoints(&m_OriginalPointList[0],(int)m_OriginalPointList.size(),10,e_vColor,e_mat);
+		RenderCurveByData(m_OriginalPointList, m_FinallyPointList,e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
 	}
 
 	//------------------------------------------------------------	IncreaseLod()
@@ -253,6 +267,27 @@ namespace FATMING_CORE
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseLod();
 //		assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
+	}
+	void cCurve::RenderCurveByData(std::vector<Vector3>& e_PosVector, std::vector<Vector3>& e_PosLODVector, Vector4 e_vColor, cMatrix44 e_mat, float e_fLineWidth, bool e_bRenderPoints)
+	{
+		if (e_PosLODVector.size() < 2)
+		{
+			if (e_PosLODVector.size() == 1)
+				RenderPoints(&e_PosVector[0], (int)e_PosVector.size(), 10, e_vColor, e_mat);
+			return;
+		}
+		//draw line
+		std::vector<Vector3>	l_CurvePointVector;
+		int	l_iNumPoint = ((int)e_PosLODVector.size() - 1) * 2;
+		l_CurvePointVector.resize(l_iNumPoint);
+		for (int i = 0; i < l_iNumPoint / 2; ++i)
+		{
+			l_CurvePointVector[i * 2] = e_PosLODVector[i];
+			l_CurvePointVector[i * 2 + 1] = e_PosLODVector[i + 1];
+		}
+		RenderLine((float*)&l_CurvePointVector[0], l_iNumPoint, e_vColor, 3, e_mat, e_fLineWidth);
+		if (e_bRenderPoints)
+			RenderPoints(&e_PosVector[0], (int)e_PosVector.size(), 10, e_vColor, e_mat);
 	}
 	//
 	void	cCurve::AddPoint(Vector3 e_vPos)

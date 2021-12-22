@@ -47,6 +47,8 @@ namespace FATMING_CORE
 		//rotate the object head to next point
 		//GET_SET_DEC(bool,m_bRotationObject,IsRotationObject,SetRotationObject);
 		virtual	void		DoLOD();//while point is changed call this
+		//
+		void				RenderCurveByData(std::vector<Vector3>& e_PosVector,std::vector<Vector3>& e_PosLODVector,Vector4 e_vColor = Vector4::One, cMatrix44 e_mat = cMatrix44::Identity, float e_fLineWidth = 2.f, bool e_bRenderPoints = true);
 	public:
 		virtual const wchar_t*        Type() const{ return TypeID; }
 		static const  wchar_t*        TypeID;
@@ -67,6 +69,8 @@ namespace FATMING_CORE
 		void				RenderCurve(Vector4 e_vColor = Vector4::One,cMatrix44 e_mat = cMatrix44::Identity,float e_fLineWidth = 2.f,bool e_bRenderPoints = true);
 		//
 		void				RenderPoint(float e_fSize = 5,int e_iColorR = 255,int e_iColorG = 255,int e_iColorB = 255);
+		//
+		void				RenderByPercent(float e_fPercent, Vector4 e_vColor = Vector4::One, cMatrix44 e_mat = cMatrix44::Identity, float e_fLineWidth = 2.f, bool e_bRenderPoints = true);
 		//only for debug or edit mode
 		void				RenderPointIndex();
 		//
