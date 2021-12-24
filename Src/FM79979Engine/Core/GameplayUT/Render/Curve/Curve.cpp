@@ -73,6 +73,16 @@ namespace FATMING_CORE
 
 	void cCurve::RenderByRange(float e_fStartPercent, float e_fEndPercent, Vector4 e_vColor, cMatrix44 e_mat, float e_fLineWidth, bool e_bRenderPoints)
 	{
+		if (e_fStartPercent > e_fEndPercent)
+		{
+			float l_fStart = e_fStartPercent;
+			e_fStartPercent = e_fEndPercent;
+			e_fEndPercent = l_fStart;
+		}
+		if (e_fStartPercent == e_fEndPercent)
+		{
+			return;
+		}
 		//fuck this is bad by I am lazy
 		float	l_fTotalDis = this->GetTotalDistance();
 		float	l_fStartTargetDis = l_fTotalDis * e_fStartPercent;
@@ -94,7 +104,7 @@ namespace FATMING_CORE
 			l_fDis += l_f2PointsDis;
 			if (l_iStartIndex == -1)
 			{
-				float l_fOffset = l_fStartTargetDis - l_fDis;
+				float l_fOffset = l_fDis-l_fStartTargetDis;
 				if (l_fOffset >= 0.f)
 				{
 					l_iStartIndex = i;
@@ -103,7 +113,7 @@ namespace FATMING_CORE
 					l_RenderDataVector.push_back(l_vStartPos);
 				}
 			}
-			if (l_fDis >= l_fEndTargetDis)
+			if (l_RenderDataVector.size() > 0 && l_iStartIndex != i && l_fDis >= l_fEndTargetDis )
 			{
 				l_RenderDataVector.insert(l_RenderDataVector.begin()+1, l_pDataVector->begin()+ l_iStartIndex, l_pDataVector->begin() + i - 1);
 				float l_fOverDis = l_fDis - l_fEndTargetDis;
