@@ -35,7 +35,8 @@ namespace FATMING_CORE
 {
 	class cCurve
 	{
-
+		bool				m_bDoRecalculateTotalDistance;
+		float				m_fTotalDistance;
 		void				IncreaseLod();
 		void				DecreaseLod();
 		//finally pointlist
@@ -70,7 +71,6 @@ namespace FATMING_CORE
 		//
 		void				RenderPoint(float e_fSize = 5,int e_iColorR = 255,int e_iColorG = 255,int e_iColorB = 255);
 		//
-		void				RenderByPercent(float e_fPercent, Vector4 e_vColor = Vector4::One, cMatrix44 e_mat = cMatrix44::Identity, float e_fLineWidth = 2.f, bool e_bRenderPoints = true);
 		void				RenderByRange(float e_fStartPercent,float e_fEndPercent, Vector4 e_vColor = Vector4::One, cMatrix44 e_mat = cMatrix44::Identity, float e_fLineWidth = 2.f, bool e_bRenderPoints = true);
 		//only for debug or edit mode
 		void				RenderPointIndex();

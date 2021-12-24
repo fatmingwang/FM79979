@@ -9,6 +9,8 @@ namespace FATMING_CORE
 	{
 		//m_bRotationObject = false;
 		m_iLOD = 1;
+		m_bDoRecalculateTotalDistance = true;
+		m_fTotalDistance = 0.f;
 	}
 
 	cCurve::cCurve(cCurve*e_pCurve)
@@ -16,6 +18,8 @@ namespace FATMING_CORE
 		m_iLOD = e_pCurve->m_iLOD;
 		m_FinallyPointList = e_pCurve->m_FinallyPointList;
 		m_OriginalPointList = e_pCurve->m_OriginalPointList;
+		m_bDoRecalculateTotalDistance = e_pCurve->m_bDoRecalculateTotalDistance;
+		m_fTotalDistance = e_pCurve->m_fTotalDistance;
 	}
 
 	cCurve::~cCurve()
@@ -40,37 +44,6 @@ namespace FATMING_CORE
 		}
 	}
 
-	void cCurve::RenderByPercent(float e_fPercent, Vector4 e_vColor,cMatrix44 e_mat,float e_fLineWidth,bool e_bRenderPoints)
-	{
-		//fuck this is bad by I am lazy
-		auto l_fTargetDis = this->GetTotalDistance()* e_fPercent;
-		//
-		float	l_fDis = 0;
-		std::vector<Vector3>* l_pDataVector = &m_FinallyPointList;
-		if (l_pDataVector->size() == 0)
-		{
-			return;
-		}
-		std::vector<Vector3> l_RenderDataVector;
-		int	l_iSize = (int)l_pDataVector->size() - 1;
-
-		for (int i = 0; i < l_iSize; ++i)
-		{
-			Vector3	l_vDistance = (*l_pDataVector)[i + 1] - (*l_pDataVector)[i];
-			auto l_f2PointsDis = l_vDistance.Length();
-			l_fDis += l_f2PointsDis;
-			if (l_fDis >= l_fTargetDis)
-			{
-				l_RenderDataVector.insert(l_RenderDataVector.begin(),l_pDataVector->begin(), l_pDataVector->begin()+i-1);
-				float l_fOverDis = l_fDis - l_fTargetDis;
-				auto l_LastPos = (*l_pDataVector)[i]-(l_vDistance.Normalize()* l_fOverDis);
-				l_RenderDataVector.push_back(l_LastPos);
-				break;
-			}
-		}
-		RenderCurveByData(l_RenderDataVector, l_RenderDataVector,e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
-	}
-
 	void cCurve::RenderByRange(float e_fStartPercent, float e_fEndPercent, Vector4 e_vColor, cMatrix44 e_mat, float e_fLineWidth, bool e_bRenderPoints)
 	{
 		if (e_fStartPercent > e_fEndPercent)
@@ -82,6 +55,10 @@ namespace FATMING_CORE
 		if (e_fStartPercent == e_fEndPercent)
 		{
 			return;
+		}
+		if(e_fEndPercent>1.f)
+		{ 
+			e_fEndPercent = 1.f;
 		}
 		//fuck this is bad by I am lazy
 		float	l_fTotalDis = this->GetTotalDistance();
@@ -108,21 +85,31 @@ namespace FATMING_CORE
 				if (l_fOffset >= 0.f)
 				{
 					l_iStartIndex = i;
-					auto l_vStartPos = (*l_pDataVector)[i];
-					l_vStartPos += (l_vStartPos.Normalize() * l_fOffset);
+					auto l_vStartPos = (*l_pDataVector)[i+1];
+					l_vStartPos -= (l_vDistance.Normalize() * l_fOffset);
 					l_RenderDataVector.push_back(l_vStartPos);
 				}
 			}
-			if (l_RenderDataVector.size() > 0 && l_iStartIndex != i && l_fDis >= l_fEndTargetDis )
+			if (l_RenderDataVector.size() > 0 && l_fDis >= l_fEndTargetDis )
 			{
-				l_RenderDataVector.insert(l_RenderDataVector.begin()+1, l_pDataVector->begin()+ l_iStartIndex, l_pDataVector->begin() + i - 1);
-				float l_fOverDis = l_fDis - l_fEndTargetDis;
-				auto l_LastPos = (*l_pDataVector)[i] - (l_vDistance.Normalize() * l_fOverDis);
+				if (i >= l_iStartIndex + 1)
+				{
+					l_RenderDataVector.insert(l_RenderDataVector.begin()+1,
+						l_pDataVector->begin() + l_iStartIndex + 1, l_pDataVector->begin() + i+1);
+				}
+				//for (int j = l_iStartIndex+1; j < i+1; j++)
+				//{
+				//	l_RenderDataVector.push_back((*l_pDataVector)[j]);
+				//}
+				float l_fOverDis = l_fDis-l_fEndTargetDis;
+				auto l_LastPos = (*l_pDataVector)[i+1] - (l_vDistance.Normalize() * l_fOverDis);
 				l_RenderDataVector.push_back(l_LastPos);
 				break;
 			}
 		}
 		RenderCurveByData(l_RenderDataVector, l_RenderDataVector, e_vColor, e_mat, e_fLineWidth, e_bRenderPoints);
+		Vector3 l_v2Points[2] = { l_RenderDataVector[0],l_RenderDataVector[l_RenderDataVector.size()-1] };
+		RenderPoints(l_v2Points,2, 10, e_vColor, e_mat);
 	}
 
 	void	cCurve::RenderPointIndex()
@@ -153,6 +140,7 @@ namespace FATMING_CORE
 		for( int i=0;i<this->m_iLOD-1;++i )
 			IncreaseLod();
 		//assert(m_iLOD>=2?m_OriginalPointList.size()*(1<<(m_iLOD-1)) == m_FinallyPointList.size():true);
+		m_bDoRecalculateTotalDistance = true;
 		return true;
 	}
 	//===============
@@ -352,8 +340,10 @@ namespace FATMING_CORE
 	//
 	void	cCurve::InsertPoint(Vector3 e_vPos,int e_iIndex)
 	{
-		if( e_iIndex >= (int)this->m_OriginalPointList.size() )
+		if (e_iIndex >= (int)this->m_OriginalPointList.size())
+		{
 			this->AddPoint(e_vPos);
+		}
 		else
 		{
 			this->m_OriginalPointList.insert(m_OriginalPointList.begin()+e_iIndex,e_vPos);
@@ -365,9 +355,14 @@ namespace FATMING_CORE
 	{
 		m_OriginalPointList.erase(m_OriginalPointList.begin()+e_iIndex);
 		m_FinallyPointList = m_OriginalPointList;
-		if( m_iLOD>=2 )
-		for( int i=0;i<this->m_iLOD-1;++i )
-			IncreaseLod();
+		m_bDoRecalculateTotalDistance = true;
+		if (m_iLOD >= 2)
+		{
+			for (int i = 0; i < this->m_iLOD - 1; ++i)
+			{
+				IncreaseLod();
+			}
+		}
 	}
 
 	void	cCurve::FixPoint(int e_iIndex,Vector3 e_vPos)
@@ -411,6 +406,7 @@ namespace FATMING_CORE
 	{
 		m_OriginalPointList.clear();
 		m_FinallyPointList.clear();
+		m_bDoRecalculateTotalDistance = true;
 	}
 
 	int		cCurve::GetClosestPointIndex(Vector3 e_vPos,float e_fOffsetDis)
@@ -502,7 +498,7 @@ namespace FATMING_CORE
 				*l_pvPos = l_vTargetVector+l_vCenter;
 			}
 			this->DoLOD();
-		}	
+		}
 	}
 
 	int	cCurve::FinalListIndexToOriginalIndex(int e_iFinalListIndex)
@@ -580,17 +576,22 @@ namespace FATMING_CORE
 
 	float	cCurve::GetTotalDistance()
 	{
-		float	l_fDis = 0;
-		std::vector<Vector3>*l_pDataVector = &m_FinallyPointList;
-		if (l_pDataVector->size() == 0)
-			l_pDataVector = &m_OriginalPointList;
-		int	l_iSize = (int)l_pDataVector->size()-1;
-		for( int i=0;i<l_iSize;++i )
+		if (m_bDoRecalculateTotalDistance)
 		{
-			Vector3	l_vDistance = (*l_pDataVector)[i+1]- (*l_pDataVector)[i];
-			l_fDis += l_vDistance.Length();
+			float	l_fDis = 0;
+			std::vector<Vector3>* l_pDataVector = &m_FinallyPointList;
+			if (l_pDataVector->size() == 0)
+				l_pDataVector = &m_OriginalPointList;
+			int	l_iSize = (int)l_pDataVector->size() - 1;
+			for (int i = 0; i < l_iSize; ++i)
+			{
+				Vector3	l_vDistance = (*l_pDataVector)[i + 1] - (*l_pDataVector)[i];
+				l_fDis += l_vDistance.Length();
+			}
+			m_fTotalDistance = l_fDis;
+			m_bDoRecalculateTotalDistance = false;
 		}
-		return l_fDis;
+		return m_fTotalDistance;
 	}
 
 	Vector3	cCurve::GetLastPoint()
@@ -633,9 +634,7 @@ namespace FATMING_CORE
 		Vector3	l_vC(e_vStart.x+l_fXLength/4,e_vStart.y+(l_fYLength/4*3),e_vStart.z);
 		cCurve	l_Curve;
 		l_Curve.AddPoint(e_vStart);
-
 		l_Curve.AddPoint(l_vC);
-
 		l_Curve.AddPoint(e_vEnd);
 		l_Curve.SetLOD(e_iLOD);
 		if( e_vResult )
