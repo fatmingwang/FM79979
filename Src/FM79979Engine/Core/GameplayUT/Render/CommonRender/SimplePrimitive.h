@@ -6,8 +6,8 @@ using namespace FATMING_CORE;
 namespace FATMING_CORE
 {
 	//from 2DShader.cpp
-	extern GLuint	g_uiAttribArray[9];//TOTAL_FVF
-	extern wchar_t*DEFAULT_SHADER;
+	extern GLuint	g_uiAttribArray[TOTAL_FVF];//TOTAL_FVF
+	extern wchar_t*	DEFAULT_SHADER;
 }
 
 //static float		g_f2DTextureOriginalCoordinateBuffer[8] = { 0,0,1,0,0,1,1,1 };//texture coordinate
@@ -111,8 +111,8 @@ namespace GLRender
 	void	AssignUVDataTo2Triangles(float*e_pSrc,float*e_pDest,bool e_bMirror);
 	//frome UV(left up right buttom) to  triangle strip vertex
 	void	AssignUVDataToTriangleStrip(float*e_pSrc,float*e_pDest,bool e_bMirror);
-	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStrip);
-	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStrip);
+	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStride);
+	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStride);
 
 
 	struct sBlendfunctionRestore

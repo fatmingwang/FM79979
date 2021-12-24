@@ -58,7 +58,7 @@ namespace FATMING_CORE
 			{
 				//speed by m_vShockDirection length
 				m_fCurrentShockStregth += m_fCurrentShockSpeed;
-				float	l_fValue = sin(m_fCurrentShockStregth/2);
+				float	l_fValue = (float)sin(m_fCurrentShockStregth/2);
 				Vector3	l_vShockDirection = m_vShockDirection;
 				if( m_fCurrentShockStregth > 30 )
 				{

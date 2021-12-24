@@ -3,7 +3,7 @@
 
 
 #include "../../../../../../CarDrivingNodeSharedProtocol/CarGoAppSharedProtocol.h"
-#include "../CarDrivingServerApp.h"
+//#include "../CarDrivingServerApp.h"
 #define ASIO_STANDALONE
 #define _WEBSOCKETPP_CPP11_TYPE_TRAITS_
 #include <set>

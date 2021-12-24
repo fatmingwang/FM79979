@@ -301,7 +301,7 @@ namespace FATMING_CORE
 				++l_iIndex;
 			}
 	    }
-		if( l_iIndex >0 )
+		if( l_iIndex > 0 )
 		{
 			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
 

@@ -21,6 +21,9 @@
     <Filter Include="Bluetooth">
       <UniqueIdentifier>{824f6d74-2b46-4cdf-9054-2d78bbfdcbaa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ComputerShader">
+      <UniqueIdentifier>{8b5248e5-85f9-4c2f-8c2b-c1e01bb7145a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -50,6 +53,9 @@
     <ClCompile Include="TestShader.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="ComputerShader.cpp">
+      <Filter>Game\ComputerShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -75,6 +81,12 @@
     </ClInclude>
     <ClInclude Include="Bluetooth.h">
       <Filter>Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerShader.h">
+      <Filter>Game\ComputerShader</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerShaderUniform.h">
+      <Filter>Game\ComputerShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

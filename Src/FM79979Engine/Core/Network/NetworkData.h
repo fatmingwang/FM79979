@@ -73,7 +73,7 @@ namespace FATMING_CORE
 		sNetworkReceivedPacket();
 		~sNetworkReceivedPacket();
 		//return rest data wait for receiving,-1 or less or equal than 0 connection has problem(lost connection).
-		int	ReceiveTCPData(SDLNetSocket e_pTCPsocket);
+		int	ReceiveTCPData(SDLNetSocket e_pTCPsocket,bool e_bUseExtractHeader);
 		//int	ReceiveData(_UDPsocket*e_pSocket, UDPpacket *e_pPackets);
 		int	UDPReceiveDataWithoutHeaderSize(SDLNetSocket e_pTCPsocket,int e_iDataLen,char*e_pData);
 		int	WebSocketReceiveDataWithoutHeaderSize(SDLNetSocket e_pTCPsocket,int e_iDataLen,const char* e_pData);

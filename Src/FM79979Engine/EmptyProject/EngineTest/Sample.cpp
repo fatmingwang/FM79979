@@ -10,68 +10,47 @@
 //https://stackoverflow.com/questions/59550963/multithreading-in-webassembly
 //#include "../../Core/Bluetooth/Bluetooth.h"
 
-cNetworkSample*g_pNetworkSample = nullptr;
+cNetworkSample*				g_pNetworkSample = nullptr;
+cFMMorphingAnimationVector*	g_pFMMorphingAnimationVector = nullptr;
+cCameraZoomFunction*		g_pCameraZoomFunction = nullptr;
+cFrameCamera*				g_pFrameCamera = 0;
+cOrthogonalCamera*			g_pOrthogonalCamera = 0;
+cCameraBehaveByMouseBehave*	g_pCameraBehaveByMouseBehave = 0;
+cParticleEmitterGroup*		g_pParticleEmitterGroup = 0;
+cPrtEmitter*				g_pPrtEmitter;
+cPrtEmitter*				g_pPrtEmiter = 0;
+cCurveManager*				g_p2DCurveLoader = 0;
+cCurveWithTime*				g_p2DCurvesWithTime = 0;
+cMPDIList*					g_pMPDIList = 0;
+cMultiPathDynamicImage*		g_pMultiPathDynamicImage = 0;
+cMultiPathDynamicImage*		g_pMultiPathDynamicImageClone = 0;
+cCurveWithTime*				g_pTestCurveWithTime = nullptr;;
+c2DImageCollisionData*		g_pCollisionData = nullptr;
+cColladaParser*				g_pColladaParser = 0;
+//cAnimationMesh*			g_pAnimationMesh = 0;
+cCurveWithTime*				g_pCurve = 0;
+cMPDINode*					g_pMPDINode = 0;
+cToneMappingShader*			g_pToneMappingShader = nullptr;
+cBaseImage*					g_pBGImage = nullptr;
+cTunnelEffect*				g_pTunnelEffect = nullptr;
+cTestShader*				g_pTestShader = nullptr;
+//cMSAAFrameBuffer*			g_pMSAAFrameBuffer = nullptr;
+cFrameBuffer*				g_pFrameBuffer = nullptr;
+cFreetypeGlyphRender*		g_pFreetypeGlyphRender = nullptr;
+cFreetypeGlyphRender*		g_pFreetypeGlyphRender2 = nullptr;
+cPathChaser*				g_pPathChaser = nullptr;
+cCurveWithTime*				g_pCurveWithTime = nullptr;
+cCurveWithTime*				g_pCurveWithTime2 = nullptr;
 
-cFMMorphingAnimationVector*g_pFMMorphingAnimationVector = nullptr;
-
-cCameraZoomFunction*g_pCameraZoomFunction = nullptr;
-
-cFrameCamera	*g_pFrameCamera = 0;
-cOrthogonalCamera*g_pOrthogonalCamera = 0;
-cCameraBehaveByMouseBehave*g_pCameraBehaveByMouseBehave = 0;
-
-
-cParticleEmitterGroup*g_pParticleEmitterGroup = 0;
-cPrtEmitter*g_pPrtEmitter;
-
-
-cPrtEmitter*g_pPrtEmiter = 0;
-cCurveManager*g_p2DCurveLoader = 0;
-cCurveWithTime*g_p2DCurvesWithTime = 0;
-
-cMPDIList*g_pMPDIList = 0;
-cMultiPathDynamicImage*g_pMultiPathDynamicImage = 0;
-cMultiPathDynamicImage*g_pMultiPathDynamicImageClone = 0;
-cCurveWithTime*			g_pTestCurveWithTime = nullptr;;
-c2DImageCollisionData*	g_pCollisionData = nullptr;
-
-
-cColladaParser*g_pColladaParser = 0;
-//cAnimationMesh*g_pAnimationMesh = 0;
-cCurveWithTime*	g_pCurve = 0;
-
-cMPDINode*g_pMPDINode = 0;
-
-
-cToneMappingShader*g_pToneMappingShader = nullptr;
-
-cBaseImage*g_pBGImage = nullptr;
-
-cTunnelEffect*g_pTunnelEffect = nullptr;
-cTestShader*g_pTestShader = nullptr;
-//cMSAAFrameBuffer*g_pMSAAFrameBuffer = nullptr;
-cFrameBuffer*g_pFrameBuffer = nullptr;
-
-cFreetypeGlyphRender*g_pFreetypeGlyphRender = nullptr;
-cFreetypeGlyphRender*g_pFreetypeGlyphRender2 = nullptr;
-
-cPathChaser*g_pPathChaser = nullptr;
-
-cCurveWithTime* g_pCurveWithTime = nullptr;
-cCurveWithTime* g_pCurveWithTime2 = nullptr;
-
-void	LoadSample();
-void	DestoryObject();
-void	SampleUpdate(float e_fElpaseTime);
-
-void	KeyboardDataRender();
-
-void	SampleRender();
-
-void	SampleMouseDown(int e_iPosX,int e_iPosY);
-void	SampleMouseMove(int e_iPosX,int e_iPosY);
-void	SampleMouseUp(int e_iPosX,int e_iPosY);
-void	SampleKeyup(char e_cKey);
+void						LoadSample();
+void						DestoryObject();
+void						SampleUpdate(float e_fElpaseTime);
+void						KeyboardDataRender();
+void						SampleRender();
+void						SampleMouseDown(int e_iPosX,int e_iPosY);
+void						SampleMouseMove(int e_iPosX,int e_iPosY);
+void						SampleMouseUp(int e_iPosX,int e_iPosY);
+void						SampleKeyup(char e_cKey);
 
 #ifdef WASM
 extern int g_iWASMMPDIIndex;
@@ -150,7 +129,7 @@ void	LoadSample()
 	{
 		g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx", eGBT_2D_MORPHING_ANIMATION);
 	}
-	int l_iYBase = 900;
+	int l_iYBase = 500;
 	g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
 	if (g_pCurveWithTime)
@@ -170,15 +149,18 @@ void	LoadSample()
 	}
 	if (g_pCurveWithTime2)
 	{
-		g_pCurveWithTime2->AddPoint(Vector3(100, (float)l_iYBase, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(200, (float)l_iYBase - 30, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(300, (float)l_iYBase - 80, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(400, (float)l_iYBase - 190, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(500, (float)l_iYBase - 260, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(600, (float)l_iYBase - 320, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(700, (float)l_iYBase - 340, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(800, (float)l_iYBase - 360, 0), 0);
-		g_pCurveWithTime2->AddPoint(Vector3(900, (float)l_iYBase - 380, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(100, (float)l_iYBase + 100, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(200, (float)l_iYBase + 200, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(300, (float)l_iYBase + 100, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(400, (float)l_iYBase + 200, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(500, (float)l_iYBase + 100, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(600, (float)l_iYBase + 200, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(700, (float)l_iYBase + 100, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(800, (float)l_iYBase + 200, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(900, (float)l_iYBase + 100, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(1000, (float)l_iYBase+ 200, 0), 0);
+		g_pCurveWithTime2->AddPoint(Vector3(1100, (float)l_iYBase+ 100, 0), 0);
+		g_pCurveWithTime2->SetLOD(5);
 	}
 
 	//g_pPathChaser = new cPathChaser(100.f, 100.f);
@@ -235,7 +217,7 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	if (1)
+	if (0)
 	{
 		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("bgrounda01.mpdi", eGBT_MPDILIST);
 	}
@@ -304,7 +286,7 @@ void	LoadSample()
 			g_pCurve->Init();
 		}
 	}
-	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
+	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	//
 	//g_pTestCurveWithTime = new cCurveWithTime();
 	if (g_pTestCurveWithTime)
@@ -360,7 +342,7 @@ void	DestorySampleObject()
 void	SampleUpdate(float e_fElpaseTime)
 {
 #if defined(WIN32)
-	WebSocketUpdate();
+	WebSocketUpdate(e_fElpaseTime);
 #endif
 
 
@@ -433,8 +415,8 @@ void	SampleUpdate(float e_fElpaseTime)
 	if( g_pParticleEmitterGroup )
 		g_pParticleEmitterGroup->Update(e_fElpaseTime);
 	Vector2	l_vViewPort(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
-	if(g_pOrthogonalCamera)
-		g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
+	//if(g_pOrthogonalCamera)
+		//g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
 	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
 	{
 		if( g_pCurve )
@@ -549,8 +531,8 @@ void	SampleRender()
 	}
 	if(g_pOrthogonalCamera)
 	{
-		//g_pOrthogonalCamera->Render();
-		//g_pOrthogonalCamera->DrawGrid();
+		g_pOrthogonalCamera->Render();
+		g_pOrthogonalCamera->DrawGrid();
 	}
 	//GLRender::RenderRectangle(1440, 900, cMatrix44::Identity, Vector4::One);
 	if (g_pMultiPathDynamicImage)
@@ -604,7 +586,7 @@ void	SampleRender()
 		if (l_pMAObject)
 		{
 			static float l_sfTime = 0.f;
-			l_sfTime += 0.016f;
+			l_sfTime += 0.005f;
 			float l_fEndTimeTime = l_pMAObject->GetEndTime();
 			if (l_sfTime >= 1.f)
 			{
@@ -642,6 +624,87 @@ void	SampleRender()
 	//{
 	//	g_pPathChaser->RenderCurve(Vector4(1,1,0,1));
 	//}
+	if (g_pCurveWithTime2)
+	{
+		g_pCurveWithTime2->RenderCurve(Vector4::One,cMatrix44::Identity,2.f,false);
+		static float l_fStart = 0.1f;
+		static float l_fIncrease = l_fStart;
+		bool l_bDoPositive = true;
+		static bool l_bDoUpdate = true;
+		static int l_iNextChangeCount = 5;
+		static float l_fRandSpeed = 1.f;
+		--l_iNextChangeCount;
+		if (l_iNextChangeCount == 0)
+		{
+			l_fRandSpeed = frand(0.01f, 3.f);
+			if (l_fRandSpeed > 2.f)
+			{
+				l_iNextChangeCount = rand() % 5 + 2;
+			}
+			else
+			{
+				l_iNextChangeCount = rand() % 120 + 20;
+			}
+		}
+		if (cGameApp::m_sucKeyData['P'])
+		{
+			l_bDoUpdate = false;
+		}
+		else
+		if (cGameApp::m_sucKeyData['S'])
+		{
+			l_bDoUpdate = true;
+		}
+		bool l_bFinish = false;
+
+		if (l_bDoUpdate)
+		{
+			if (l_bDoPositive)
+			{
+				l_fIncrease += (0.005f* l_fRandSpeed);
+				if (l_fIncrease >= 1.f)
+				{
+					l_fStart = frand(0, 0.5f);
+					//l_fStart = 0.1f;
+					l_fIncrease = l_fStart;
+					l_bFinish = true;
+				}
+			}
+			else
+			{
+				l_fIncrease -= (0.005f * l_fRandSpeed);
+				if (l_fIncrease <= 0.f)
+				{
+					l_fStart = frand(0.5f, 1.f);
+					//l_fStart = 0.9f;
+					l_fIncrease = l_fStart;
+					l_bFinish = true;
+				}
+			}
+		}
+		//auto l_mat = cMatrix44::TranslationMatrix(100, 100, 0);
+		auto l_mat = cMatrix44::Identity;
+		g_pCurveWithTime2->RenderByRange(l_fStart, l_fIncrease, Vector4::Red, l_mat, 2.f, false);
+		if (l_bFinish)
+		{
+			g_pCurveWithTime2->Destroy();
+			g_pCurveWithTime2->SetLOD(1);
+			int l_iCount = rand() % 20 + 2;
+			auto l_vLastPos = Vector3(frand(100, 1910), frand(100, 1070), 0);
+			int l_iRandX = 600;
+			int l_iRandY = 300;
+			for (int i = 0; i < l_iCount; ++i)
+			{
+				g_pCurveWithTime2->AddPoint(l_vLastPos, 0);
+				l_vLastPos = Vector3(l_vLastPos.x+frand(-l_iRandX, l_iRandX), l_vLastPos.y + frand(-l_iRandY, l_iRandY), l_vLastPos.z);
+				if(l_vLastPos.x <= 0.f) l_vLastPos.x = 0.f;
+				if(l_vLastPos.x >= 1920.f) l_vLastPos.x = 1920.f;
+				if(l_vLastPos.y <= 0.f) l_vLastPos.y = 0.f;
+				if(l_vLastPos.y >= 1080.f) l_vLastPos.y = 1080.f;
+			}
+			g_pCurveWithTime2->SetLOD(rand()%5+1);
+		}
+	}
 	if (g_bWSMCall)
 	{
 		if (g_pCurveWithTime2)

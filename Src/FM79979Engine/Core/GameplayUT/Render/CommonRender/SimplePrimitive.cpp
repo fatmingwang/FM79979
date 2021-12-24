@@ -873,9 +873,9 @@ namespace GLRender
 		}
 	}
 
-	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStrip)
+	void	Assign4VerticesDataTo2Triangles(float*e_pSrc,float*e_pDest,int e_iStride)
 	{
-		if( e_iStrip == 3 )
+		if(e_iStride == 3 )
 		{
 			Vector3*l_pvSrc = (Vector3*)e_pSrc;
 			Vector3*l_pvDest = (Vector3*)e_pDest;
@@ -893,7 +893,7 @@ namespace GLRender
 			l_pvDest[5] = l_pvSrc[1];
 		}
 		else
-		if( e_iStrip == 2 )
+		if(e_iStride == 2 )
 		{
 			Vector2*l_pvSrc = (Vector2*)e_pSrc;
 			Vector2*l_pvDest = (Vector2*)e_pDest;
@@ -912,9 +912,9 @@ namespace GLRender
 		}
 	}
 
-	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStrip)
+	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStride)
 	{
-		Assign4VerticesDataTo2Triangles(e_pVertexSrc,e_pVertexDest,e_iStrip);
+		Assign4VerticesDataTo2Triangles(e_pVertexSrc,e_pVertexDest, e_iStride);
 		AssignUVDataTo2Triangles(e_pUVSrc,e_pUVDest,false);
 	}
 

@@ -22,6 +22,8 @@ namespace FATMING_CORE
 		bool					ThreadProcessWaitSendDataVector();
 		std::map<SDLNetSocket, std::vector<sNetworkSendPacket*> > m_WaitToSendPacketVector;
 	protected:
+		//extra header for packet size:sizeof(int)(exclude this header )
+		bool					m_bUseExtraHeader = true;
 		struct sReconnectFunction
 		{
 			UT::sTimeCounter	m_ReConnectTime;

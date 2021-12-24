@@ -218,13 +218,29 @@ namespace FATMING_CORE
 	sNetworkSendPacket::~sNetworkSendPacket() { SAFE_DELETE_ARRAY(pData); }
 	sNetworkReceivedPacket::sNetworkReceivedPacket() { pData = nullptr; iSize = 0; }
 	sNetworkReceivedPacket::~sNetworkReceivedPacket() { SAFE_DELETE_ARRAY(pData); }
-	int	sNetworkReceivedPacket::ReceiveTCPData(SDLNetSocket e_pTCPsocket)
+	int	sNetworkReceivedPacket::ReceiveTCPData(SDLNetSocket e_pTCPsocket, bool e_bUseExtractHeader)
 	{
 		assert(iSize == 0);
 		pReceivedSocket = e_pTCPsocket;
 		//first received size
 		if (!SDLNet_SocketReady(e_pTCPsocket->Socket.pTCPIPSocket))
 			return false;
+		if (e_bUseExtractHeader == false)
+		{
+			//https://stackoverflow.com/questions/2613734/maximum-packet-size-for-a-tcp-connection#:~:text=10%20Answers&text=The%20absolute%20limitation%20on%20TCP,for%20instance%2C%20is%201500%20bytes.
+			//The absolute limitation on TCP packet size is 64K (65535 bytes),
+			//TCP IP
+			const int l_iRequireSize = 65535;
+			int l_TempBuffer[l_iRequireSize];
+			iSize = SDLNet_TCP_Recv(e_pTCPsocket->Socket.pTCPIPSocket, &l_TempBuffer, l_iRequireSize);
+			if (iSize <= 0)
+			{
+				return -1;
+			}
+			pData = new char[iSize];
+			memcpy(pData, l_TempBuffer, iSize);
+			return iSize;
+		}
 		//sNetworkSendPacket,first is size,second is data structure
 		int l_iHeaderSize = PACKET_HEADER_SIZE;
 		int	l_iLength = SDLNet_TCP_Recv(e_pTCPsocket->Socket.pTCPIPSocket, &iSize, l_iHeaderSize);
@@ -509,6 +525,7 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
+
 	bool cGameNetwork::SendDataToAllClient(sNetworkSendPacket * e_pPacket, bool e_bSnedByNetworkThread)
 	{
 		if (!e_pPacket)
@@ -685,31 +702,37 @@ namespace FATMING_CORE
 	bool cGameNetwork::InternalSendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket * e_pPacket)
 	{
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
+		bool	l_bSent = false;
 		if (e_pTCPsocket)
 		{
-			int l_iHeaderSize = PACKET_HEADER_SIZE;
-			int	l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
-			bool	l_bSent = false;
-			bool l_bUsealloca = true;//for better memory management
-			if (l_bUsealloca)
+			if (m_bUseExtraHeader)
 			{
-				char* l_pData = (char*)alloca(l_iSendSize);
-				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-				l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
+				bool	l_bUsealloca = true;//for better memory management
+				int		l_iHeaderSize = PACKET_HEADER_SIZE;
+				int		l_iSendSize = (int)(l_iHeaderSize + e_pPacket->iSize);
+				if (l_bUsealloca)
+				{
+					char* l_pData = (char*)alloca(l_iSendSize);
+					memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+					memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+					l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
+				}
+				else
+				{
+					char* l_pData = new char[l_iSendSize];
+					memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
+					memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
+					l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
+					delete[] l_pData;
+				}
 			}
 			else
 			{
-				char* l_pData = new char[l_iSendSize];
-				memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
-				memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-				l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
-				delete[] l_pData;
+				l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->pData, e_pPacket->iSize) == 0 ? false : true;
 			}
-			DumpPacketData(*e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->iSize, e_pPacket->pData, "send data");
-			return l_bSent;
 		}
-		return false;
+		DumpPacketData(*e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->iSize, e_pPacket->pData, "send data");
+		return l_bSent;
 	}
 	void cGameNetwork::AddClient(SDLNetSocket e_pTCPsocket)
 	{
@@ -882,7 +905,7 @@ namespace FATMING_CORE
 			{
 				bool	l_bFraomTemplateData = false;
 				sNetworkReceivedPacket*l_pPacket = new sNetworkReceivedPacket();
-				int l_iReceivedSize = l_pPacket->ReceiveTCPData(m_pSocket);
+				int l_iReceivedSize = l_pPacket->ReceiveTCPData(m_pSocket,this->m_bUseExtraHeader);
 				if (l_iReceivedSize <= 0)
 				{//wrong data ignore it
 					FMLog::LogWithFlag("l_pPacket->ReceiveTCPData failed", CORE_LOG_FLAG);
@@ -972,7 +995,7 @@ namespace FATMING_CORE
 						{
 							bool	l_bFraomTemplateData = false;
 							sNetworkReceivedPacket*l_pPacket = new sNetworkReceivedPacket();
-							int l_iResult = l_pPacket->ReceiveTCPData(m_ClientSocketVector[i]);
+							int l_iResult = l_pPacket->ReceiveTCPData(m_ClientSocketVector[i],this->m_bUseExtraHeader);
 							if(l_iResult > 0)
 							{
 								//FMLog::LogWithFlag("recevied message", CORE_LOG_FLAG);

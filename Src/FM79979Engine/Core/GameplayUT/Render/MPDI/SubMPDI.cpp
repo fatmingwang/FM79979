@@ -379,8 +379,9 @@ namespace FATMING_CORE
 			}
 		}
 		if (e_pOutTextureUV)
+		{
 			AssignUVDataToTriangleStrip(l_pPuzzleData->fUV, e_pOutTextureUV, e_pImageData->bMirror);
-
+		}
 		//not quaterion is because quaterion has more complex calculation.
 		Vector3	l_vPos = Vector3(l_vFinalOffsetPos.x, l_vFinalOffsetPos.y, 0.f);
 		cMatrix44  l_mat2DTransform = cMatrix44::TranslationMatrix(l_vPos + this->GetCurrentPosition());
@@ -405,16 +406,20 @@ namespace FATMING_CORE
 	{
 		if (e_pfColor)
 		{
-			for (int i = 0; i<6; ++i)
+			for (int i = 0; i < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++i)
+			{
 				memcpy(&e_pfColor[i * 4], &e_vInputColor, sizeof(Vector4));
+			}
 		}
 		cMatrix44 l_mat2DTransform = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
-		Vector3 l_Vertices[4];
-		memcpy(l_Vertices, &this->m_2DVertices.vPos, sizeof(Vector3) * 4);
+		Vector3 l_Vertices[A_QUAD_4_TRIANGLES];
+		memcpy(l_Vertices, &this->m_2DVertices.vPos, sizeof(Vector3) * A_QUAD_4_TRIANGLES);
 		if (e_pfVertices)
 		{
-			for (int i = 0; i<4; ++i)
+			for (int i = 0; i < A_QUAD_4_TRIANGLES; ++i)
+			{
 				l_Vertices[i] = l_mat2DTransform.TransformCoordinate(l_Vertices[i]);
+			}
 			e_pfVertices[0] = l_Vertices[2].x;			//left down
 			e_pfVertices[1] = l_Vertices[2].y;
 			e_pfVertices[2] = l_Vertices[2].z;
