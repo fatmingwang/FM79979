@@ -285,10 +285,14 @@ namespace FATMING_CORE
 		{
 			auto l_wchar_t = m_strText[i];
 			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+			{
 				++l_iSkipCount;
+			}
 			else
 			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+			{
 				++l_iSkipCount;
+			}
 			else
 			{
 				auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(l_wchar_t);
@@ -304,12 +308,20 @@ namespace FATMING_CORE
 		// n t space
 		for (int i = l_iIndex; i < l_iEndndex ; ++i)
 		{
+			if (l_iIndex >= m_iFontCount)
+			{
+				break;
+			}
 			auto l_wchar_t = m_strText[i];
 			if (l_wchar_t == 13 && ((i + 1 < l_iLen) && m_strText[i + 1] == 10))
+			{
 				continue;
+			}
 			else
 			if (l_wchar_t == L' ' || l_wchar_t == L'\n' || l_wchar_t == '\t')
+			{
 				continue;
+			}
 			else
 			{
 				auto l_pGlyph = m_pDynamicFontTexture->GetGlyphInfo(l_wchar_t);
@@ -323,10 +335,6 @@ namespace FATMING_CORE
 				m_pvColorBuffer[l_iIndex * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT + j] = e_vColor;
 			}
 			++l_iIndex;
-			if (l_iIndex >=m_iFontCount)
-			{
-				break;
-			}
 		}
 		this->m_bTextChanged = true;
 	}
