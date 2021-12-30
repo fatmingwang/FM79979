@@ -49,8 +49,11 @@ namespace FATMING_CORE
 
 	cBatchRender::cBatchRender()
 	{
-		m_uiCurrentVertexCount = 0;
-		m_uiMaxVertexCount = 0;
+		m_uiCurrentRenderDataIndex = 0;
+		m_uiCurrentVertexIndex = 0;
+		m_uiVertexArraySizeCount = 0;
+		GrowRenderData();
+		GrowVertexData();
 	}
 	cBatchRender::~cBatchRender()
 	{
@@ -60,71 +63,92 @@ namespace FATMING_CORE
 	{
 		size_t previousSize = m_SortedRenderData.size();
 
-		m_SortedRenderData.resize(m_uiRenderDataQueueCount);
+		m_SortedRenderData.resize(m_uiCurrentRenderDataIndex);
 
-		for (size_t i = previousSize; i < m_uiRenderDataQueueCount; i++)
+		for (size_t i = previousSize; i < m_uiCurrentRenderDataIndex; i++)
 		{
 			m_SortedRenderData[i] = &m_RenderDataPtr[i];
 		}
 	}
-
+	void cBatchRender::GrowVertexData()
+	{
+		const int l_ciMinCount = 1000;
+		// Grow by a factor of 2.
+		auto l_uiNewSize = max(l_ciMinCount, m_uiVertexArraySizeCount * 2);
+		m_PosVector.resize(l_uiNewSize);
+		m_ColorVector.resize(l_uiNewSize);
+		m_UVVector.resize(l_uiNewSize);
+		m_MatrixIndexVector.resize(l_uiNewSize);
+		m_uiVertexArraySizeCount = l_uiNewSize;
+	}
 	void cBatchRender::GrowRenderData()
 	{
 		const int l_ciMinCount = 1000;
 		// Grow by a factor of 2.
-		auto l_uiNewSize = max(l_ciMinCount, m_uiMaxVertexCount * 2);
-
-		m_PosVector.resize(l_uiNewSize);
-		m_CoorVector.resize(l_uiNewSize);
-		m_UVVector.resize(l_uiNewSize);
-		m_MatrixIndexVector.resize(l_uiNewSize);
-
+		auto l_uiNewSize = max(l_ciMinCount, m_uiRenderDataQueueArraySize * 2);
 		// Allocate the new array.
 		auto l_NewArray = std::make_unique<sRenderData[]>(l_uiNewSize);
-
 		// Copy over any existing sprites.
-		for (size_t i = 0; i < m_uiCurrentVertexCount; i++)
+		for (size_t i = 0; i < m_uiCurrentRenderDataIndex; i++)
 		{
 			l_NewArray[i] = m_RenderDataPtr[i];
 		}
 		// Replace the previous array with the new one.
 		m_RenderDataPtr = std::move(l_NewArray);
-		m_uiMaxVertexCount = l_uiNewSize;
-
+		m_uiRenderDataQueueArraySize = l_uiNewSize;
 		m_SortedRenderData.clear();
+	}
+
+	void	cBatchRender::Sort()
+	{
+
+	}
+
+	void	cBatchRender::FlushBatch()
+	{
+
 	}
 
 	bool cBatchRender::Begin()
 	{
+		m_uiCurrentRenderDataIndex = 0;
+		m_uiCurrentVertexIndex = 0;
 		return false;
 	}
 
 	bool cBatchRender::End()
 	{
+		Sort();
+		FlushBatch();
 		return false;
 	}
-	//enum eRenderCommandType
-	//{
-	//	eRCT_RENDER_QUAD = 0,
-	//	eRCT_RENDER_TRIANGLE,
-	//	eRCT_RENDER_PRIMITIVE,//line,points,sphere,panel,cube....
-	//	eRCT_VIEWPORT_SETTING,
-	//	eRCT_SCISSOR_SETTING,
-	//	eRCT_FBO_OBJECT,
-	//	eRCT_VBO_OBJECT,
-	//	eRCT_MAX
-	//};
-	//cBaseImage
-	//cUIIMage
-	//cPuzzleImage
-	//cMPDI
-	//cSubMPDI
-	//FrameBuffer
-	//Viewport
-	//Shader
-	//Mesh
-	//AnimationMesh
-	//cNumeralImage
-	//RenderLine
-	//DrawPrimitive
+	bool	cBatchRender::Draw_TrianglesAssignData(unsigned int e_uiTextureID, int e_iPosStride, float* e_pInPos, float* e_pInColor, float* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix)
+	{
+		if (m_uiCurrentRenderDataIndex +1 >= m_uiRenderDataQueueArraySize)
+		{
+			this->GrowRenderData();
+		}
+		if (m_uiCurrentVertexIndex + e_uiCount >= m_uiVertexArraySizeCount)
+		{
+			GrowVertexData();
+		}
+		auto l_pRenderData =	&m_RenderDataPtr[m_uiCurrentVertexIndex];
+		auto l_pvPos =			&m_PosVector[m_uiCurrentVertexIndex];
+		auto l_pvColor =		&m_ColorVector[m_uiCurrentVertexIndex];
+		auto l_pvUV =			&m_UVVector[m_uiCurrentVertexIndex];
+		auto l_iNumAdded = l_pRenderData->TrianglesAssignData(l_pvPos, l_pvColor, l_pvUV, e_uiTextureID,
+			(Vector3*)e_pInPos, (Vector4*)e_pInColor, (Vector2*)e_pInUV,e_uiCount);
+		m_uiCurrentVertexIndex += l_iNumAdded;
+		++m_uiCurrentRenderDataIndex;
+		m_MatVector.push_back(e_Matrix);
+		return true;
+	}
+	bool	cBatchRender::Draw_TriangleStripAssignData(unsigned int e_uiTextureID, Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix)
+	{
+		return true;
+	}
+	bool	cBatchRender::Draw_ViewportAssignData(Vector4 e_vViewPortData)
+	{
+		return true;
+	}
 }
