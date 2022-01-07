@@ -182,6 +182,7 @@ namespace FATMING_CORE
 
 	void	cCPP11Thread::WorkingThread()
 	{
+		m_bThreadWorking = true;
 		if (m_i64PID == 0 && m_spui64PIDAndNamedObject)
 		{
 			//https://stackoverflow.com/questions/7432100/how-to-get-integer-thread-id-in-c11
@@ -194,7 +195,6 @@ namespace FATMING_CORE
 		}
 		UT::sTimeAndFPS l_TimeAndFPS;
 		l_TimeAndFPS.Update();
-		m_bThreadWorking = true;
 		while (!m_bLeaveThread)
 		{
 			l_TimeAndFPS.Update();
@@ -216,6 +216,7 @@ namespace FATMING_CORE
 				}
 #endif
 			}
+			Sleep(1);
 		}
 		m_bThreadWorking = false;
 		if (m_spMapMutex)

@@ -376,6 +376,8 @@
     <ClInclude Include="GameplayUT\OpenGL\GLSL\GLSLUiniform.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\Shader.h" />
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h" />
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\ShaderStorageBuffer_Example.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\ToneMapping.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\TunnelEffect.h" />
     <ClInclude Include="GameplayUT\OpenGL\OpenGLCommon.h" />

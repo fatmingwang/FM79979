@@ -305,7 +305,7 @@ namespace FATMING_CORE
 		{
 			this->m_ObjectList[0]->GetPointData(0)->pPI->ApplyImage();
 
-			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * ONE_QUAD_IS_TWO_TRIANGLES);
+			RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iIndex * ¢Ï_QUAD_TWO_TRIANGLES);
 		}
 EXIT:
 		if (this->m_pViewPort)

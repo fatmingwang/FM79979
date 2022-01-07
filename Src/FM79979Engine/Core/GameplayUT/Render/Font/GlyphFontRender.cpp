@@ -244,7 +244,7 @@ namespace FATMING_CORE
 		{
 			cMatrix44	l_mat = cMatrix44::TranslationMatrix(Vector3(e_fX + m_vHalfSize.x, e_fY + m_vHalfSize.y, 0.f));
 			l_mat *= this->GetWorldTransform() * cMatrix44::ScaleMatrix(Vector3(m_fScale, m_fScale, m_fScale));
-			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount * ONE_QUAD_IS_TWO_TRIANGLES);
+			RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat, 2, m_iDrawCount * ¢Ï_QUAD_TWO_TRIANGLES);
 		}
 	}
 

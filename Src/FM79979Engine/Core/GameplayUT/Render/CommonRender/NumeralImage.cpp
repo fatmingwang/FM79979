@@ -228,8 +228,10 @@ namespace FATMING_CORE
 
 	void	cNumeralImage::Draw(const char*e_strData,int e_iCount,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
-		if( !m_bVisible )
+		if (!m_bVisible)
+		{
 			return;
+		}
 		std::string	l_str = e_strData;
 		int	l_iNum = e_iCount;
 		float	l_fHalfWidth = 0.f;
@@ -270,14 +272,11 @@ namespace FATMING_CORE
 					float	*l_pfVertices = (float*)&m_pvVertexBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 					float	*l_pfUV = (float*)&m_pvTextureUVBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 					float	*l_pfColor = (float*)&m_pvColorBuffer[i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
-
-					//float	*l_pfVertices = (float*)&m_pvVertexBuffer[i * l_i2TrianglesAre6Point];
-					//float	*l_pfUV = (float*)&m_pvTextureUVBuffer[i * l_i2TrianglesAre6Point];
-					//float	*l_pfColor = (float*)&m_pvColorBuffer[i * l_i2TrianglesAre6Point];
-
 					AssignUVDataTo2Triangles(&m_pfTexCoordinate[(l_str[i] - '0') * 4], l_pfUV, false);
 					for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
+					{
 						memcpy(&l_pfColor[j * 4], &m_vColor, sizeof(Vector4));
+					}
 					Vector2	l_vPos[4];
 					l_vPos[0] = Vector2(l_fPosX, l_fPosY);
 					l_vPos[1] = Vector2(l_fPosX + (float)m_iSingleImageWidth, l_fPosY);
@@ -309,7 +308,7 @@ namespace FATMING_CORE
 		{
 			l_mat = cMatrix44(e_pmat)*l_mat;
 		}
-		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum*ONE_QUAD_IS_TWO_TRIANGLES);
+		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum*¢Ï_QUAD_TWO_TRIANGLES);
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
@@ -542,7 +541,7 @@ namespace FATMING_CORE
 			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vHourPos,l_iHour,1);
 		this->ApplyImage();
 
-		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * ONE_QUAD_IS_TWO_TRIANGLES);
+		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * ¢Ï_QUAD_TWO_TRIANGLES);
 		if( m_pDisableObject && m_i64Value == 0 )
 		{
 			m_pDisableObject->Render();

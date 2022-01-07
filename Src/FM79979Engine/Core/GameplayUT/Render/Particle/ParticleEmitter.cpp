@@ -447,7 +447,7 @@ namespace FATMING_CORE
 					m_pvAllPosPointer[l_iIndex+1] = l_vPos;
 					m_pvAllPosPointer[l_iIndex+4] = l_vPos;
 				}
-				RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*ONE_QUAD_IS_TWO_TRIANGLES);
+				RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*¢Ï_QUAD_TWO_TRIANGLES);
 			}
 			else
 			if( m_iPrimitiveType == GL_POINTS )

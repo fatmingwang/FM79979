@@ -1051,10 +1051,8 @@ namespace FATMING_CORE
 		if (m_pGameNetwork)
 		{
 			this->m_ReConnectTime.Update(e_fElpaseTime);
-			if (m_pGameNetwork->m_eNetWorkStatus != eNWS_CONNECTED &&
-				m_pGameNetwork->m_eNetWorkStatus != eNWS_TRY_TO_CONNECT && 
-				//make sure thread left.
-				!m_pGameNetwork->IsThreadWorking())
+			//make sure thread left.
+			if (!m_pGameNetwork->IsThreadWorking())
 			{
 				if (m_ReConnectTime.bTragetTimrReached)
 				{//make sure its client

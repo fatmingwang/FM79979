@@ -129,7 +129,7 @@ auto g_strShaderTestt = R"(
 //paddings to 16¡Vbits multiples.
 //std430: similar to std140, but without the additional paddings (to
 //be used only with Shader Storage Blocks)
-// //
+//
 //https://learnopengl.com/Advanced-OpenGL/Advanced-GLSL
 const char* g_strMyCS =
 R"(							
@@ -144,6 +144,11 @@ R"(
 		layout( std140, binding=3 ) buffer ParticlesSSOOut
 		{
 			sParticlesSSO ParticlesSSODataOut[];
+		};
+
+		layout( std140, binding=4 ) buffer ParticlesMatrix
+		{
+			mat4 Matrices[];
 		};
 
 		layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;

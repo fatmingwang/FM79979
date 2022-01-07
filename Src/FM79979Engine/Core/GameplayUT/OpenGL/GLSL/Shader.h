@@ -3,7 +3,17 @@
 #include "../Glh.h"
 #include "../../../Common/NamedTypedObject.h"
 #include "../../../Common/Template/TemplateClass.h"
+
+#include "ShaderStorageBuffer.h"
+
 #include <functional>
+
+#define	¢Ï_QUAD_TWO_TRIANGLES					2
+#define	A_QUAD_4_TRIANGLES							4
+#define	TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT			6           //two triangle could be a quad,one triangle is 3 two triangle is 6
+#define	TWO_TRIANGLE_VERTICES_UV_TO_QUAD_UV_COUNT	12    //2 trianle is 6 vertices,each vertex has U and V 6*2=12
+#define	TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT		8     //2 triangles strip are 4 vertices equal one quad.
+
 //Flexible Vertex Format Constants, or FVF codes,
 //are used to describe the contents of vertices interleaved in a single data
 //stream that will be processed by the fixed-function pipeline.

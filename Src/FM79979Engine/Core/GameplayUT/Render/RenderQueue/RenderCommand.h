@@ -1,5 +1,6 @@
 #pragma once
 #include "../CommonRender/RenderObject.h"
+#include "../../OpenGL/GLSL/ShaderStorageBuffer.h"
 #include <functional>
 #include <memory>
 //github Xbox-GDK-Samples-main
@@ -42,6 +43,7 @@ namespace FATMING_CORE
 		unsigned int				uiCount;
 		//
 		eRenderCommandType			RenderCommandType;
+		std::wstring				strShaderName;
 		//return how many buffer require to cosumed.
 		int							TrianglesAssignData(Vector3*e_pOutPos,Vector4*e_pOutColor,Vector2*e_pOutUV,
 									unsigned int e_uiTextureID,Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV,unsigned int e_uiCount);
@@ -52,12 +54,32 @@ namespace FATMING_CORE
 
 	class cBatchRender
 	{
-		std::vector<Vector3>			m_PosVector;
-		std::vector<Vector4>			m_ColorVector;
-		std::vector<Vector2>			m_UVVector;
-		std::vector<int>				m_MatrixIndexVector;
+		cShaderStorageBuffer<Vector3>*	m_pVertexIn;
+		cShaderStorageBuffer<Vector3>*	m_pVertexOut;
 		//
-		std::vector<cMatrix44>			m_MatVector;//num render batch(include viewport setting)
+		struct sRenderVertex
+		{
+			std::vector<Vector3>	PosVector;
+			std::vector<Vector4>	ColorVector;
+			std::vector<Vector2>	UVVector;
+			void					Resize(unsigned int  e_uiSize);
+			void					Copy(sRenderData*e_pRenderData);
+		};
+		//from input
+		sRenderVertex					m_RenderVertex;
+		//for temp sotre
+		sRenderVertex					m_OrderedRenderVertex;
+		//
+		//for draw triangles index buffer
+		std::vector<unsigned int>		m_uiIndexBufferVector;
+		//
+		struct sIndexAndMatrix
+		{
+			unsigned int	uiIndex;
+			cMatrix44		Mat;
+		};
+
+		std::vector<sIndexAndMatrix>	m_MatAndIndexVector;//num render batch(include viewport setting)
 		//vertex
 		unsigned int					m_uiCurrentVertexIndex;
 		unsigned int					m_uiVertexArraySizeCount;
@@ -65,21 +87,36 @@ namespace FATMING_CORE
 		size_t							m_uiCurrentRenderDataIndex;
 		size_t							m_uiRenderDataQueueArraySize;
 		std::unique_ptr<sRenderData[]>	m_RenderDataPtr;
-		std::vector<sRenderData const*> m_SortedRenderData;
 		// Dynamically expands the array used to store pending sprite information.
+		void							IncreaseData(int e_iNumTriangles);
 		void							GrowRenderData();
 		void							GrowVertexData();
-		void							GrowSortedSprites();
 		void							Sort();
 		void							FlushBatch();
+		//do compute shader
+		void							ComputeVertexMatrix();
+		void							RenderTriangles(sRenderVertex* e_pRenderVertex, int e_iStartIndex, int e_iCount, const wchar_t* e_strShaderName);
+		void							RenderViewport(sRenderData*e_pRenderData);
+		void							ProcessRenderCommand(eRenderCommandType e_eRenderCommandType,sRenderData* e_pRenderData,sRenderVertex*e_pRenderVertex,int e_iStartIndex,int e_iCount, const wchar_t* e_strShaderName);
+	public:
+		enum eRenderSortMode
+		{
+			eRS_ADD_ORDER,//
+			eRS_Z_DEPTH_COMPARE_BACK_TO_FRONT,//by matrix z.
+			eRS_Z_DEPTH_COMPARE_FRONT_TO_BACK,
+			eRS_IMMEDIATELY_RENDER,
+			eRS_MAX
+		};
+	protected:
+		eRenderSortMode					m_eRenderSortMode;
 	public:
 		cBatchRender();
 		~cBatchRender();
-		bool	Begin();
+		bool	Begin(eRenderSortMode e_eRenderSortMode);
 		bool	End();
 		//return how many buffer require to cosumed.
-		bool							Draw_TrianglesAssignData(unsigned int e_uiTextureID,int e_iPosStride,float* e_pInPos,float* e_pInColor,float* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix);
-		bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID,Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix);
+		bool							Draw_TrianglesAssignData(unsigned int e_uiTextureID,int e_iPosStride,float* e_pInPos,float* e_pInColor,float* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix,const wchar_t*strShaderName);
+		bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID,Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);
 		bool							Draw_ViewportAssignData(Vector4 e_vViewPortData);
 	};
 }
