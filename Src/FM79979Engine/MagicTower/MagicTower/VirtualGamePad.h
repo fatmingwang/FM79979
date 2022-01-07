@@ -7,7 +7,7 @@
 		eVGPD_RIGHT,
 		eVGPD_DOWN,
 		eVGPD_COUNT,
-		eVGPD_MAX
+		eVGPD_MAX//IDLE
 	};
 	//<Gamepad>
 	//<cMPDI cMPDIListFileName="" cMPDI>

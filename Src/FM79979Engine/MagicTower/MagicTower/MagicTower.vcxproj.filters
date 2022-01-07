@@ -70,6 +70,9 @@
     <Filter Include="Game\GameSystem">
       <UniqueIdentifier>{ea75d120-26e1-4964-8305-2c3517bb425d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameSystem\Battle">
+      <UniqueIdentifier>{fd266728-4050-4eee-963a-8c30cd82302c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp">
@@ -150,9 +153,6 @@
     <ClCompile Include="MazeGenerator.cpp">
       <Filter>Game\MazeGenerator</Filter>
     </ClCompile>
-    <ClCompile Include="GameSystem\BattleAISystem.cpp">
-      <Filter>Game\GameSystem</Filter>
-    </ClCompile>
     <ClCompile Include="GameSystem\CharacterStatusSystem.cpp">
       <Filter>Game\GameSystem</Filter>
     </ClCompile>
@@ -167,6 +167,12 @@
     </ClCompile>
     <ClCompile Include="GameSystem\TalkSystem.cpp">
       <Filter>Game\GameSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\Battle\BattleAISystem.cpp">
+      <Filter>Game\GameSystem\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSystem\Battle\GamePlayAttackPath.cpp">
+      <Filter>Game\GameSystem\Battle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,9 +260,6 @@
     <ClInclude Include="MazeGenerator.h">
       <Filter>Game\MazeGenerator</Filter>
     </ClInclude>
-    <ClInclude Include="GameSystem\BattleAISystem.h">
-      <Filter>Game\GameSystem</Filter>
-    </ClInclude>
     <ClInclude Include="GameSystem\CharacterStatusSystem.h">
       <Filter>Game\GameSystem</Filter>
     </ClInclude>
@@ -271,6 +274,12 @@
     </ClInclude>
     <ClInclude Include="GameSystem\TalkSystem.h">
       <Filter>Game\GameSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\Battle\BattleAISystem.h">
+      <Filter>Game\GameSystem\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSystem\Battle\GamePlayAttackPath.h">
+      <Filter>Game\GameSystem\Battle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

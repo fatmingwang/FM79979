@@ -31,7 +31,7 @@ class	cMainRoleData:public cCharacterBase
 public:
 	cMainRoleData(TiXmlElement*e_pTiXmlElement);
 	~cMainRoleData();
-	cBaseImage* m_pImage[eVGPD_NONE];
+	cBaseImage* m_pImage[eVGPD_MAX];
 	bool			IsBattleMode(){return m_bBattleMode;}
 	void			SetBattleMode(bool e_bBattleMode);
 	int	m_iCurrentExp;

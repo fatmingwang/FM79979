@@ -104,6 +104,7 @@ namespace FATMING_CORE
 				float l_fOverDis = l_fDis-l_fEndTargetDis;
 				auto l_LastPos = (*l_pDataVector)[i+1] - (l_vDistance.Normalize() * l_fOverDis);
 				l_RenderDataVector.push_back(l_LastPos);
+				float l_fPercent = this->GetClosetPointPercent(l_LastPos.x, l_LastPos.y, l_LastPos.z);
 				break;
 			}
 		}
@@ -376,7 +377,7 @@ namespace FATMING_CORE
 	{
 		Vector3	l_Target = Vector3((float)e_x,(float)e_y,(float )e_z);
 		int	l_iNumPoint = (int)m_OriginalPointList.size();
-		int	l_ismallestPointIndex = -1;
+		int	l_iSmallestPointIndex = -1;
 		float	l_fSmallestRange = 10000000;//asume this is maxima value
 		for( int i=0;i<l_iNumPoint;++i )
 		{
@@ -385,10 +386,47 @@ namespace FATMING_CORE
 			if(l_fSmallestRange > l_fLength )
 			{
 				l_fSmallestRange = l_fLength;
-				l_ismallestPointIndex = i;
+				l_iSmallestPointIndex = i;
 			}
 		}
-		return l_ismallestPointIndex;
+		return l_iSmallestPointIndex;
+	}
+
+	float cCurve::GetClosetPointPercent(int e_x, int e_y, int e_z)
+	{
+		Vector3	l_Target = Vector3((float)e_x, (float)e_y, (float)e_z);
+		int	l_iNumPoint = (int)m_FinallyPointList.size();
+		int	l_iSmallestPointIndex = -1;
+		int	l_iSecondSmallestPointIndex = -1;
+		float	l_fMovedDis = 0.f;
+		float	l_fSmallestRange = 10000000;//asume this is maxima value
+		for (int i = 0; i < l_iNumPoint; ++i)
+		{
+			Vector3	l_Vector3 = m_FinallyPointList[i];
+			float	l_fLength = (l_Target - l_Vector3).Length();
+			if (l_fSmallestRange > l_fLength)
+			{
+				if (l_iSecondSmallestPointIndex == -1)
+				{
+					l_iSecondSmallestPointIndex = i;
+				}
+				else
+				{
+					l_iSecondSmallestPointIndex = l_iSmallestPointIndex;
+				}
+				l_iSmallestPointIndex = i;
+				l_fSmallestRange = l_fLength;
+				if (i < l_iNumPoint - 1)
+				{
+					l_fMovedDis += (m_FinallyPointList[i + 1] - m_FinallyPointList[i]).Length();
+				}
+			}
+		}
+		//l_fMovedDis += l_fSmallestRange;
+		//float l_fTotalDis = this->GetTotalDistance();
+		//float l_fPercent = l_fMovedDis / l_fTotalDis;
+		//return l_fPercent;
+		return (float)l_iSmallestPointIndex / l_iNumPoint;
 	}
 
 	void	cCurve::AddOffsetToAllPoint(Vector3 e_vOffset)

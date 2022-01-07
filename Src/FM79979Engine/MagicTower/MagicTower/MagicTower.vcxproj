@@ -120,7 +120,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
-    <ClCompile Include="GameSystem\BattleAISystem.cpp" />
+    <ClCompile Include="GameSystem\Battle\BattleAISystem.cpp" />
+    <ClCompile Include="GameSystem\Battle\GamePlayAttackPath.cpp" />
     <ClCompile Include="GameSystem\CharacterStatusSystem.cpp" />
     <ClCompile Include="GameSystem\ItemInfoSystem.cpp" />
     <ClCompile Include="GameSystem\ResourceSystem.cpp" />
@@ -159,7 +160,8 @@
     <ClInclude Include="Form1.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="GameSystem\BattleAISystem.h" />
+    <ClInclude Include="GameSystem\Battle\BattleAISystem.h" />
+    <ClInclude Include="GameSystem\Battle\GamePlayAttackPath.h" />
     <ClInclude Include="GameSystem\CharacterStatusSystem.h" />
     <ClInclude Include="GameSystem\ItemInfoSystem.h" />
     <ClInclude Include="GameSystem\ResourceSystem.h" />

@@ -42,6 +42,7 @@ cPathChaser*				g_pPathChaser = nullptr;
 cCurveWithTime*				g_pCurveWithTime = nullptr;
 cCurveWithTime*				g_pCurveWithTime2 = nullptr;
 
+
 void						LoadSample();
 void						DestoryObject();
 void						SampleUpdate(float e_fElpaseTime);
@@ -120,7 +121,7 @@ void	LoadSample()
 	{
 		printf("Error %d in WSAStartup, result will fail\n", error);
 	}
-	WebSocketInit();
+	//WebSocketInit();
 #endif
 	//TestGET();
 	//Test2();
@@ -130,7 +131,7 @@ void	LoadSample()
 		g_pFMMorphingAnimationVector = cGameApp::GetObjectByFileName<cFMMorphingAnimationVector>("Morphing/777.mx", eGBT_2D_MORPHING_ANIMATION);
 	}
 	int l_iYBase = 500;
-	g_pCurveWithTime = new cCurveWithTime();
+	//g_pCurveWithTime = new cCurveWithTime();
 	g_pCurveWithTime2 = new cCurveWithTime();
 	if (g_pCurveWithTime)
 	{
@@ -163,16 +164,17 @@ void	LoadSample()
 		g_pCurveWithTime2->SetLOD(5);
 	}
 
-	//g_pPathChaser = new cPathChaser(100.f, 100.f);
+	g_pPathChaser = new cPathChaser(100.f, 100.f);
 	if (g_pPathChaser)
 	{
 		cCurveWithTime l_cCurveWithTime;
-		l_cCurveWithTime.AddPoint(Vector3(100, 100, 0),0);
-		l_cCurveWithTime.AddPoint(Vector3(500, 100, 0),1);
-		l_cCurveWithTime.AddPoint(Vector3(300, 100, 0),2);
-		l_cCurveWithTime.AddPoint(Vector3(100, 500, 0),3);
-		l_cCurveWithTime.AddPoint(Vector3(300, 300, 0),4);
-		l_cCurveWithTime.AddPoint(Vector3(500, 500, 0),5);
+		l_cCurveWithTime.AddPoint(Vector3(400, 500, 0),0);
+		l_cCurveWithTime.AddPoint(Vector3(800, 500, 0),1);
+		l_cCurveWithTime.AddPoint(Vector3(600, 500, 0),2);
+		l_cCurveWithTime.AddPoint(Vector3(400, 900, 0),3);
+		l_cCurveWithTime.AddPoint(Vector3(600, 800, 0),4);
+		l_cCurveWithTime.AddPoint(Vector3(800, 1000, 0),5);
+		//l_cCurveWithTime.SetLOD(3);
 		g_pPathChaser->AssignPathData(&l_cCurveWithTime);
 	}
 	//g_pFreetypeGlyphRender = new cFreetypeGlyphRender("kaiu.ttf", 124);
@@ -353,7 +355,7 @@ void	SampleUpdate(float e_fElpaseTime)
 	}
 #endif
 	if (g_pPathChaser)
-		g_pPathChaser->Update(e_fElpaseTime);
+		g_pPathChaser->Update(e_fElpaseTime/4.f);
 	//cBluetoothSinglton::GetInstance()->Update(e_fElpaseTime);
 	//std::vector<sBluetoothPacket*> l_DataVector;
 	//cBluetoothSinglton::GetInstance()->GetReceivedData(&l_DataVector);
@@ -620,10 +622,10 @@ void	SampleRender()
 		//	g_pFreetypeGlyphRender2->RenderFont(200, 400, l_str.c_str());
 		//}
 	}
-	//if (g_pPathChaser)
-	//{
-	//	g_pPathChaser->RenderCurve(Vector4(1,1,0,1));
-	//}
+	if (g_pPathChaser)
+	{
+		g_pPathChaser->RenderCurve(Vector4(1,1,0,1));
+	}
 	if (g_pCurveWithTime2)
 	{
 		g_pCurveWithTime2->RenderCurve(Vector4::One,cMatrix44::Identity,2.f,false);
@@ -684,7 +686,17 @@ void	SampleRender()
 		}
 		//auto l_mat = cMatrix44::TranslationMatrix(100, 100, 0);
 		auto l_mat = cMatrix44::Identity;
-		g_pCurveWithTime2->RenderByRange(l_fStart, l_fIncrease, Vector4::Red, l_mat, 2.f, false);
+		if (0)
+		{
+			for (int i = 0; i < 10; ++i)
+			{
+				//g_pCurveWithTime2->RenderByRange(l_fStart/(i+1), l_fIncrease / (i + 1), Vector4::Red, l_mat,(i+1)/10.f, false);
+			}
+		}
+		else
+		{
+			g_pCurveWithTime2->RenderByRange(l_fStart , l_fIncrease , Vector4::Red, l_mat);
+		}
 		if (l_bFinish)
 		{
 			g_pCurveWithTime2->Destroy();

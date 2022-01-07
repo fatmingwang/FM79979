@@ -10,17 +10,17 @@
 #include "../Render/CommonRender/NumeralImage.h"
 namespace FATMING_CORE
 {
-	cRenderObject*GetRenderObjectBehavior(TiXmlElement*e_pElement)
+	cRenderObject*GetRenderObjectBehavior(TiXmlElement*e_pElement, bool e_bClone)
 	{
 		const wchar_t*l_strValue = e_pElement->Value();
 		COMPARE_VALUE_WITH_DEFINE( cMPDI::TypeID)
 		{
-			return cMPDI::GetMe(e_pElement);
+			return cMPDI::GetMe(e_pElement, e_bClone);
 		}
 		else
 		COMPARE_VALUE_WITH_DEFINE( cSubMPDI::TypeID)
 		{
-			return cSubMPDI::GetMe(e_pElement);
+			return cSubMPDI::GetMe(e_pElement, e_bClone);
 		}
 		else
 		COMPARE_VALUE_WITH_DEFINE( cImageButton::TypeID)
@@ -30,7 +30,7 @@ namespace FATMING_CORE
 		else
 		COMPARE_VALUE_WITH_DEFINE( cPuzzleImageUnit::TypeID )
 		{
-			return cPuzzleImageUnit::GetMe(e_pElement);
+			return cPuzzleImageUnit::GetMe(e_pElement, e_bClone);
 		}
 		else
 		COMPARE_VALUE_WITH_DEFINE( cNumeralImage::TypeID )

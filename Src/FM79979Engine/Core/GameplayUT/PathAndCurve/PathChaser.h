@@ -8,6 +8,15 @@ namespace FATMING_CORE
 	//change current goal index to next,if fTotalErrorDistance is over toleration error distance make condition is fail.
 	//set goal index as 0 last one.
 	//=================
+	enum eTracePathToleranceType
+	{
+		//basicly no error if you move or touch close to next point,change target next point(game play for time limition)
+		eTPTT_ONLY_CHECK_POINTS = 0,
+		//if moving out of line(2 points) get failed
+		eTPTT_CHECK_2_POINTS_MOVING,
+		eTPTT_,
+		eTPTT_MAX,
+	};
 	class	cPathChaser:public cCurveWithTime
 	{
 		//the point index for reached the target 

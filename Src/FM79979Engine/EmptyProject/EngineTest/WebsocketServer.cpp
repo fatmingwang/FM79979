@@ -2,7 +2,7 @@
 #ifdef WIN32
 
 
-#include "../../../../../../CarDrivingNodeSharedProtocol/CarGoAppSharedProtocol.h"
+//#include "../../../../../../CarDrivingNodeSharedProtocol/CarGoAppSharedProtocol.h"
 //#include "../CarDrivingServerApp.h"
 #define ASIO_STANDALONE
 #define _WEBSOCKETPP_CPP11_TYPE_TRAITS_
@@ -300,8 +300,8 @@ public:
         while (l_WaitProcessDataVector.size())
         {
             auto l_pData = l_WaitProcessDataVector.front();
-            sBaseNetworkMessage* l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
-            cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_pBaseNetworkMessage->iMessage, l_pData.get());
+            //sBaseNetworkMessage* l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
+            //cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_pBaseNetworkMessage->iMessage, l_pData.get());
             l_WaitProcessDataVector.pop_front();
         }
     }
@@ -356,7 +356,7 @@ bool    WebSocketInit()
                 try
                 {
                     g_bWebSocketThreadRunning = true;
-                    g_pSimpleWebSocketServer->run(CAR_GO_APP_WEBSOCKET_PORT);
+                    //g_pSimpleWebSocketServer->run(CAR_GO_APP_WEBSOCKET_PORT);
                     break;
                 }
                 catch (websocketpp::exception const& e)

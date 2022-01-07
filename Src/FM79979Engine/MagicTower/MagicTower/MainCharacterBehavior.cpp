@@ -9,7 +9,7 @@ cMainRoleData::cMainRoleData(TiXmlElement*e_pTiXmlElement):cCharacterBase(e_pTiX
 {	
 	assert(this->Count() == eMTMRS_MAX&&"animation count is not match");
 	m_bBattleMode = false;
-	m_eVirtualGamePadDirection = eVGPD_NONE;
+	m_eVirtualGamePadDirection = eVGPD_MAX;
 	m_vRenderPos = Vector2(0,0);
 	m_eBattleAttackType = eBT_ATTATK_MAX;
 	m_eBattleDefenceType = eBT_DEFENCE_MAX;
@@ -24,8 +24,8 @@ cMainRoleData::cMainRoleData(TiXmlElement*e_pTiXmlElement):cCharacterBase(e_pTiX
 	m_pImage[eVGPD_UP] = l_pPuzzleImage->GetObject(L"Character_Main_Bk");
 	m_pImage[eVGPD_RIGHT] = l_pPuzzleImage->GetObject(L"Character_Main_R");
 	m_pImage[eVGPD_DOWN] = l_pPuzzleImage->GetObject(L"Character_Main_F");
-	m_pImage[eVGPD_NONE] = l_pPuzzleImage->GetObject(L"Character_Main_Idle");
-	assert(m_pImage[eVGPD_NONE]);
+	m_pImage[eVGPD_MAX] = l_pPuzzleImage->GetObject(L"Character_Main_Idle");
+	assert(m_pImage[eVGPD_MAX]);
 	assert(m_pImage[eVGPD_UP]);
 	assert(m_pImage[eVGPD_LEFT]);
 	assert(m_pImage[eVGPD_RIGHT]);

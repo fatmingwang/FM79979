@@ -84,6 +84,7 @@ namespace FATMING_CORE
 		void				FixPoint(int e_iIndex,Vector3 e_vPos);
 		//return closest one point,if point with desire position is smaller than offset valuse 
 		int					GetClosetPointIndex(int e_x,int e_y,int e_z);
+		float				GetClosetPointPercent(int e_x, int e_y, int e_z);
 		//it could be add a offset to all points
 		void				AddOffsetToAllPoint(Vector3 e_vOffset);
 		//

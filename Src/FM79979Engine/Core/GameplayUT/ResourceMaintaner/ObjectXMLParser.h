@@ -6,7 +6,7 @@
 namespace FATMING_CORE
 {
 	//class	cImageButton;
-	cRenderObject*GetRenderObjectBehavior(TiXmlElement*e_pElement);
+	cRenderObject* GetRenderObjectBehavior(TiXmlElement* e_pElement, bool e_bClone = true);
 
 //<cClickMouseBehaviorVector Name="aabb">
 //	<cImageButton Name="TestButton" PI="Image/Dice/Dice.pi" Image="Call" Pos="" />

@@ -19,6 +19,7 @@ namespace FATMING_CORE
 		eGBT_PARTICLE,
 		eGBT_BEHAVIOR_PARTICLE,
 		eGBT_FONT,
+		eGBT_DEFAULT_RESOURCE_PARSER,//cRenderObject*GetRenderObjectBehavior(TiXmlElement*e_pElement);
 		eGBT_MAX
 	};
 	class cGameResourceManager
@@ -32,13 +33,15 @@ namespace FATMING_CORE
 		cAnimationParser										m_MPDIListParser;
 		cImageParser*											m_pImageParser;
 		cFontManager											m_FontManager;
+		//this one will 
+		cNamedTypedObjectVector<cRenderObject>					m_DefaultResourceParser;
 		//
 		std::vector<cNamedTypedObjectVector<NamedTypedObject>* >m_GameObjectManagerVector;
 		void													AddGameObjectVector(cNamedTypedObjectVector<NamedTypedObject>*e_pObject, eGameObjectType e_eGameObjectType);
 	public:
 		cGameResourceManager();
 		virtual ~cGameResourceManager();
-		template<class TYPE>TYPE*										GetParser(eGameObjectType e_eGameObjectType)
+		template<class TYPE>TYPE*							GetParser(eGameObjectType e_eGameObjectType)
 		{
 			return dynamic_cast< TYPE* >(m_GameObjectManagerVector[e_eGameObjectType]);
 		}
@@ -50,5 +53,24 @@ namespace FATMING_CORE
 		{
 			return dynamic_cast<T*>(m_GameObjectManagerVector[e_eGameObjectType]->GetObjectByFileName(e_strObjectName));
 		}
+		template<class T>T* GetObjectByDefaultResourceParser(const wchar_t* e_strObjectName)
+		{
+			return dynamic_cast<T*>(m_GameObjectManagerVector[eGBT_DEFAULT_RESOURCE_PARSER]->GetObject(e_strObjectName));
+		}
+		template<class T>T* GetObjectByDefaultResourceParserAndObjectType(const wchar_t* e_strObjectName)
+		{
+			int l_iCount = m_GameObjectManagerVector[eGBT_DEFAULT_RESOURCE_PARSER]->Count();
+			for (int i = 0; i < l_iCount; ++i)
+			{
+				auto l_pObject = (*m_GameObjectManagerVector[eGBT_DEFAULT_RESOURCE_PARSER])[i];
+				if (l_pObject->IsSameName(e_strObjectName) && l_pObject->Type() == T::TypeID)
+				{
+					return dynamic_cast<T*>(l_pObject);
+				}
+			}
+			return nullptr;
+		}
+		bool	ParseLazyResource(char*e_strFileName);
 	};
+//end namespace FATMING_CORE
 }

@@ -457,7 +457,7 @@ namespace FATMING_CORE
 			{
 				std::wstring*l_pData = new std::wstring;
 				*l_pData = l_strValue;
-				l_pMapLayer->SetData(l_pData);
+				l_pMapLayer->SetData((char*)l_pData);
 			}
 		PARSE_NAME_VALUE_END
 		TiXmlElement*l_pTiXmlElement = e_pTiXmlElement->FirstChildElement();
