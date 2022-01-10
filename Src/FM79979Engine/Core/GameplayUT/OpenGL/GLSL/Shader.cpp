@@ -27,7 +27,7 @@ namespace FATMING_CORE
 	float	g_fViewProjectionMatrix[16];
 	float	g_fWorldMatrix[16];
 	Vector4	g_vGlobalScaleColor(1,1,1,1);
-	cBaseShader*g_pCurrentShader = 0;
+	cBaseShader*g_pCurrentShader = nullptr;
 	extern cGLSLProgram*g_pCurrentUsingGLSLProgram;
 	bool	g_bShowErrorMessageBoxIfShaderIsWrong = true;
 	cBaseShader::cBaseShader(const wchar_t*e_strName,bool e_bTexture)
@@ -318,8 +318,10 @@ namespace FATMING_CORE
 		}
 #endif
 
-		if( g_iColorLoacation != (unsigned int)-1 )
+		if (g_iColorLoacation != (unsigned int)-1)
+		{
 			SetupShaderColor(Vector4::One);
+		}
 		memcpy(g_uiAttribArray,m_uiAttribArray,sizeof(GLuint)*TOTAL_FVF);;
 //#endif
 		if(e_bUseLastWVPMatrix)
@@ -331,6 +333,7 @@ namespace FATMING_CORE
 	void cBaseShader::Unuse()
 	{
 		glUseProgram(0);
+		g_pCurrentShader = nullptr;
 	}
 	void	cBaseShader::Disable()
 	{

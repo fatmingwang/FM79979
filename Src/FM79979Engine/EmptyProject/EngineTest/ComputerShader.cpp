@@ -11,30 +11,31 @@ GLuint g_uiSSBO = -1;
 GLuint g_uiCSObjectID = -1;
 int				g_iNewParticleShoot = 0;
 sEmitterData	g_EmitterData;
-#define	LAZY_GET_GLERROR(Fun)Fun;CHECK_GL_ERROR(#Fun);
 
 void MyCS_SSO_Update();
 
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
 //C:\NVPACK\Samples\GameWorks_Samples\GraphicsSamples\samples\es3aep-kepler\ComputeParticles
 
-ShaderBuffer<sParticlesSSO>*	g_ParticlesSSOIn = nullptr;
-ShaderBuffer<sParticlesSSO>*	g_ParticlesSSOOut = nullptr;
-ShaderBuffer<sEmitterData>*		g_EmitterDataSSO = nullptr;
+cShaderStorageBuffer<sParticlesSSO>*	g_ParticlesSSOIn = nullptr;
+cShaderStorageBuffer<sParticlesSSO>*	g_ParticlesSSOOut = nullptr;
+cShaderStorageBuffer<sEmitterData>*		g_EmitterDataSSO = nullptr;
 
 void	MyCS_SSO_Init()
 {
 	if (!g_ParticlesSSOIn)
 	{
-		g_ParticlesSSOIn = new ShaderBuffer<sParticlesSSO>(128);
-		g_ParticlesSSOOut = new ShaderBuffer<sParticlesSSO>(128);
-		g_EmitterDataSSO = new ShaderBuffer<sEmitterData>(1);
-		sParticlesSSO* l_pData = g_ParticlesSSOIn->map();
+		g_ParticlesSSOIn = new cShaderStorageBuffer<sParticlesSSO>(128);
+		g_ParticlesSSOOut = new cShaderStorageBuffer<sParticlesSSO>(128);
+		g_EmitterDataSSO = new cShaderStorageBuffer<sEmitterData>(1);
+		auto l_pData = g_ParticlesSSOIn->Map(GL_MAP_WRITE_BIT);
 		for (int i = 0; i < MY_CS_WORK_GROUP_SIZE;++i)
 		{
+			l_pData[i].iIndex = i;
+			l_pData[i].bInit = false;
 			//l_pData->iIndex = i + 128;
 		}
-		g_ParticlesSSOIn->unmap();
+		g_ParticlesSSOIn->Unmap();
 	}
 	memset(&g_EmitterData, 0, sizeof(g_EmitterData));
 	g_EmitterData.iTotalDispatchCount = 0;
@@ -95,7 +96,7 @@ void	MyCS_Program_Init()
 	glUseProgramStages(g_iProgramPipeline, GL_COMPUTE_SHADER_BIT, object);
 	g_uiCSObjectID = object;
 	glValidateProgramPipeline(g_iProgramPipeline);
-	LAZY_GET_GLERROR(glGetProgramPipelineiv(g_iProgramPipeline, GL_VALIDATE_STATUS, &status));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGetProgramPipelineiv(g_iProgramPipeline, GL_VALIDATE_STATUS, &status));
 
 	if (status != GL_TRUE)
 	{
@@ -111,7 +112,7 @@ void	MyCS_Program_Init()
 	block_index =glGetProgramResourceIndex(object,GL_SHADER_STORAGE_BLOCK,"MyEmitterData");
 	block_index = glGetProgramResourceIndex(object, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOIn");
 	block_index = glGetProgramResourceIndex(object, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOOut");
-	LAZY_GET_GLERROR(glBindProgramPipeline(0));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(0));
 }
 
 void	EmitInit()
@@ -139,13 +140,13 @@ void	MyCSInit()
 void MyCS_SSO_Update()
 {
 	// Invoke the compute shader to integrate the particles
-	LAZY_GET_GLERROR(glBindProgramPipeline(g_iProgramPipeline));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(g_iProgramPipeline));
 	//glUseProgramStages(g_iProgramPipeline, GL_COMPUTE_SHADER_BIT, g_uiCSObjectID);
-	auto* l_pEmitterData = LAZY_GET_GLERROR(g_EmitterDataSSO->map());
+	auto* l_pEmitterData = LAZY_DO_GL_COMMAND_AND_GET_ERROR(g_EmitterDataSSO->Map());
 	//g_EmitterData.iTotalParticleCount += g_iNewParticleShoot;
 	*l_pEmitterData = g_EmitterData;
-	g_EmitterDataSSO->unmap();
-	LAZY_GET_GLERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
+	g_EmitterDataSSO->Unmap();
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
 	//for test.
 	//g_EmitterData.fMinTime = 79979.f;
 	//l_pEmitterData = g_EmitterDataSSO->map(GL_MAP_READ_BIT);
@@ -153,36 +154,45 @@ void MyCS_SSO_Update()
 	//g_EmitterDataSSO->unmap();
 	//glActiveTexture(GL_TEXTURE0);
 	//glBindTexture(GL_TEXTURE_3D, m_noiseTex);
-	LAZY_GET_GLERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_EmitterDataSSO->getBuffer()));
-	LAZY_GET_GLERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_ParticlesSSOOut->getBuffer()));
-	LAZY_GET_GLERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, g_ParticlesSSOIn->getBuffer()));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_EmitterDataSSO->GetBufferID()));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_ParticlesSSOOut->GetBufferID()));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, g_ParticlesSSOIn->GetBufferID()));
 	int l_iNumWorkGroup = g_EmitterData.iTotalParticleCount / MY_CS_WORK_GROUP_SIZE;
 	if (l_iNumWorkGroup < 1)
 	{
 		l_iNumWorkGroup = 1;
 	}
-	LAZY_GET_GLERROR(glDispatchCompute(10, 1, 1));
+	if (1)
+	{//before write
+		auto l_pInData = g_ParticlesSSOIn->Map(GL_MAP_READ_BIT);
+		for (int i = 0; i < MY_CS_WORK_GROUP_SIZE; ++i)
+		{
+			auto l_Data = l_pInData[i];
+			int a = 0;
+		}
+		g_ParticlesSSOIn->Unmap();
+	}
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDispatchCompute(10, 1, 1));
 	// We need to block here on compute completion to ensure that the
 	// computation is done before we render
-	LAZY_GET_GLERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
-
-	l_pEmitterData = g_EmitterDataSSO->map(GL_MAP_READ_BIT);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
+	l_pEmitterData = g_EmitterDataSSO->Map(GL_MAP_READ_BIT);
 	g_EmitterData = *l_pEmitterData;
-	g_EmitterDataSSO->unmap();
-	auto l_pData = g_ParticlesSSOOut->map(GL_MAP_READ_BIT);
+	g_EmitterDataSSO->Unmap();
+	auto l_pInData = g_ParticlesSSOIn->Map(GL_MAP_READ_BIT);
 	for (int i = 0; i < MY_CS_WORK_GROUP_SIZE; ++i)
 	{
-		auto l_Data = l_pData[i];
+		auto l_Data = l_pInData[i];
 		int a = 0;
 	}
-	g_ParticlesSSOOut->unmap();
-	l_pData = g_ParticlesSSOIn->map(GL_MAP_READ_BIT);
+	g_ParticlesSSOIn->Unmap();
+	auto l_pOutData = g_ParticlesSSOOut->Map(GL_MAP_READ_BIT);
 	for (int i = 0; i < MY_CS_WORK_GROUP_SIZE; ++i)
 	{
-		auto l_Data = l_pData[i];
+		auto l_Data = l_pOutData[i];
 		int a = 0;
 	}
-	g_ParticlesSSOIn->unmap();
+	g_ParticlesSSOOut->Unmap();
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, 0);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, 0);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, 0);
@@ -347,16 +357,16 @@ GLuint createNoiseTexture4f3D(int w, int h, int d, GLint internalFormat)
 		}
 	}
 	GLuint tex;
-	LAZY_GET_GLERROR(glGenTextures(1, &tex));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenTextures(1, &tex));
 	
-	LAZY_GET_GLERROR(glBindTexture(GL_TEXTURE_3D, tex));
-	LAZY_GET_GLERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	LAZY_GET_GLERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-	LAZY_GET_GLERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_REPEAT));
-	LAZY_GET_GLERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_REPEAT));
-	LAZY_GET_GLERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_REPEAT));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindTexture(GL_TEXTURE_3D, tex));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_REPEAT));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_REPEAT));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_REPEAT));
 	//    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	LAZY_GET_GLERROR(glTexImage3D(GL_TEXTURE_3D, 0, internalFormat, w, h, d, 0, GL_RGBA, GL_BYTE, data));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glTexImage3D(GL_TEXTURE_3D, 0, internalFormat, w, h, d, 0, GL_RGBA, GL_BYTE, data));
 	
 
 	delete[] data;

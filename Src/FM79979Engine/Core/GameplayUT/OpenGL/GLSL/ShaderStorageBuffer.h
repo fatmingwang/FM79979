@@ -1,77 +1,73 @@
 #pragma once
 
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
+
+//https://www.yumpu.com/en/document/read/32089810/opengl-4x-and-beyondpdf-nvidia-developer-zone
 template <class T> class cShaderStorageBuffer 
 {
 public:
 	cShaderStorageBuffer(size_t size);  // size in number of elements
 	~cShaderStorageBuffer();
 
-	void	bind();
-	void	unbind();
+	void	Bind();
+	void	Unbind();
 
-	T*		map(GLbitfield access = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
-	void	unmap();
+	T*		Map(GLbitfield access = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
+	void	Unmap();
 
-	GLuint	getBuffer() { return m_buffer; }
-	size_t	getSize() const { return m_size; }
+	GLuint	GetBufferID() { return m_iBufferID; }
+	size_t	GetSize() const { return m_uiSize; }
 
-	void	dump();
+	//void	dump();
 private:
-	static const GLenum target = GL_SHADER_STORAGE_BUFFER;
-	size_t m_size;
-	GLuint m_buffer;
+	static const GLenum m_seBufferObjectTarget = GL_SHADER_STORAGE_BUFFER;
+	size_t m_uiSize;
+	GLuint m_iBufferID;
 };
 
 //https://stackoverflow.com/questions/38172696/should-i-ever-use-a-vec3-inside-of-a-uniform-buffer-or-shader-storage-buffer-o/38172697#38172697
 //CS data alignment
-template <class T>
-cShaderStorageBuffer<T>::cShaderStorageBuffer(size_t size):m_size(size)
+template <class T> cShaderStorageBuffer<T>::cShaderStorageBuffer(size_t size):m_uiSize(size)
 {
-	glGenBuffers(1, &m_buffer);
-	bind();
-	glBufferData(target, m_size * sizeof(T), 0, GL_STATIC_DRAW);
-	unbind();
+	glGenBuffers(1, &m_iBufferID);
+	Bind();
+	glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+	Unbind();
 }
 
-template <class T>
-cShaderStorageBuffer<T>::~cShaderStorageBuffer()
+template <class T> cShaderStorageBuffer<T>::~cShaderStorageBuffer()
 {
-	glDeleteBuffers(1, &m_buffer);
+	glDeleteBuffers(1, &m_iBufferID);
 }
 
-template <class T>
-void cShaderStorageBuffer<T>::bind()
+template <class T> void cShaderStorageBuffer<T>::Bind()
 {
-	glBindBuffer(target, m_buffer);
+	glBindBuffer(m_seBufferObjectTarget, m_iBufferID);
 }
 
-template <class T>
-void cShaderStorageBuffer<T>::unbind()
+template <class T> void cShaderStorageBuffer<T>::Unbind()
 {
-	glBindBuffer(target, 0);
+	glBindBuffer(m_seBufferObjectTarget, 0);
 }
 
-template <class T>
-T* cShaderStorageBuffer<T>::map(GLbitfield access)
+template <class T> T* cShaderStorageBuffer<T>::Map(GLbitfield access)
 {
-	bind();
-	return (T*)glMapBufferRange(target, 0, m_size * sizeof(T), access);
+	Bind();
+	return (T*)glMapBufferRange(m_seBufferObjectTarget, 0, m_uiSize * sizeof(T), access);
 }
 
-template <class T>
-void cShaderStorageBuffer<T>::unmap()
+template <class T> void cShaderStorageBuffer<T>::Unmap()
 {
-	bind();
-	glUnmapBuffer(target);
+	Bind();
+	glUnmapBuffer(m_seBufferObjectTarget);
 }
 
-template <class T>
-void cShaderStorageBuffer<T>::dump()
-{
-	T* data = map(GL_MAP_READ_BIT);
-	for (size_t i = 0; i < m_size; i++) {
-		std::cout << i << ": " << data[i] << std::endl;
-	}
-	unmap();
-}
+//template <class T> void cShaderStorageBuffer<T>::dump()
+//{
+//	T* data = Map(GL_MAP_READ_BIT);
+//	//for (size_t i = 0; i < m_uiSize; i++)
+//	//{
+//	//	std::cout << i << ": " << data[i] << std::endl;
+//	//}
+//	Unmap();
+//}

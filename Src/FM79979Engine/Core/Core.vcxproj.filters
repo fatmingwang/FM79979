@@ -240,6 +240,9 @@
     <Filter Include="GameplayUT\Render\2DMesh">
       <UniqueIdentifier>{e4c3c387-919f-47f5-9f1c-5da0661ce0e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\OpenGL\GLSL\CS">
+      <UniqueIdentifier>{289babe7-b450-404a-96fe-f1666c42a3ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -767,8 +770,8 @@
     <ClCompile Include="Network\UDPNetwork.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp">
-      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\BufferUpdateByComputeShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1366,14 +1369,11 @@
     <ClInclude Include="XML\XMLCommonDefine.h">
       <Filter>XML</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h">
-      <Filter>GameplayUT\OpenGL\GLSL</Filter>
-    </ClInclude>
     <ClInclude Include="GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h">
-      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUT\OpenGL\GLSL\ShaderStorageBuffer_Example.h">
-      <Filter>GameplayUT\OpenGL\GLSL</Filter>
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\BufferUpdateByComputeShader.h">
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

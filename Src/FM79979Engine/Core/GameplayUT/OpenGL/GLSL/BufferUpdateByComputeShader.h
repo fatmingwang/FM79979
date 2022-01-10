@@ -1,3 +1,37 @@
+#pragma once
+
+#include "Shader.h"
+#include "ShaderStorageBuffer.h"
+namespace FATMING_CORE
+{
+	#define	COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE	3
+
+	class cBufferUpdateByComputeShader :public cBaseShader
+	{
+		cShaderStorageBuffer<char>*		m_pIn;
+		cShaderStorageBuffer<char>*		m_pOut;
+		GLuint							m_uiProgramPipeline;
+		GLuint							m_uiShaderObjectID;
+		GLuint							m_iWorkGroupsDimenstionSize[COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE];
+		//com[uter shader
+		bool							CreateCSProgram(const char* e_strCS);
+		bool							CreateProgramPipeline();
+	public:
+		cBufferUpdateByComputeShader(const char* e_strCS);
+		~cBufferUpdateByComputeShader();
+		virtual	void				Use(bool e_bUseLastWVPMatrix = true)override;
+
+		void						SetSizeAndData(size_t e_uiSize,char* e_pData);
+		void						SetDataKeepSize(char* e_pData);
+		void						SetSizeKeepData(size_t e_uiSize);
+		//glDispatchCompute(10, 1, 1)
+		bool						SetWorkGroupDimension(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
+		bool						CopyDatTo(char* e_pOutData, int&e_iNumCopied);
+	};
+}
+
+
+
 //#include "stdafx.h"
 //#include <iostream> 
 //#include "ComputerShader.h"
@@ -374,45 +408,3 @@
 //	return tex;
 //}
 //
-//
-////unsigned short CRC_CREATE(unsigned char* data, unsigned char lenth);
-////struct sShinGanLineProtocol
-////{
-////	char cHeader = 0x02;
-////	char cControllerID = 0x11;//0x11 ¡V 0x20,from xml.
-////	char cCommandID = 0x11;//0x11 for query car status, `0x14
-////	char cWhichTrack = 0x11;//0x11~0x13,0x21~0x23
-////};
-////
-////struct sShinGanLineProtocolWithCRC:public sShinGanLineProtocol
-////{
-////	char cCRC16[2];
-////	char cEnd = 0x03;
-////	void	AssignCRC()
-////	{
-////		unsigned short l_CRC = CRC_CREATE((unsigned char*)this, sizeof(sShinGanLineProtocol));
-////		char* l_pCRC = (char*)&l_CRC;
-////		cCRC16[0] = l_pCRC[0];
-////		cCRC16[1] = l_pCRC[1];
-////	}
-////};
-////
-////
-////unsigned short CRC_CREATE(unsigned char* data, unsigned char lenth)
-////{
-////	unsigned char j;
-////	unsigned short reg_crc = 0, temp = 0xFFFF;
-////	while (lenth--)
-////	{
-////		temp ^= *data++;
-////		for (j = 0; j < 8; j++)
-////		{
-////			if (temp & 0x01) /* LSB(b0)=1 */
-////				temp = (temp >> 1) ^ 0xA001;
-////			else
-////				temp = temp >> 1;
-////		}
-////	}
-////	reg_crc = ((temp & 0x00ff) << 8) | ((temp & 0xff00) >> 8);
-////	return reg_crc;
-////}

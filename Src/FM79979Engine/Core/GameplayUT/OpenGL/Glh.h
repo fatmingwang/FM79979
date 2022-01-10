@@ -33,8 +33,10 @@
 //from Nvidia GameWorks_Samples NvPlatformGL.h
 #ifdef DEBUG
 	#define	CHECK_GL_ERROR(p) MyGlErrorTest(p,__FILE__, __LINE__)
+	#define	LAZY_DO_GL_COMMAND_AND_GET_ERROR(Fun)Fun;CHECK_GL_ERROR(#Fun);
 #else
 	#define	CHECK_GL_ERROR(p) MyGlErrorTest(p)
+	#define	LAZY_DO_GL_COMMAND_AND_GET_ERROR(Fun)Fun;
 #endif
 //lazy include
 #include "glesConvert.h"
