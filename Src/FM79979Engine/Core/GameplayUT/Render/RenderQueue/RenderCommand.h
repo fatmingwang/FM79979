@@ -54,8 +54,7 @@ namespace FATMING_CORE
 
 	class cBatchRender
 	{
-		cShaderStorageBuffer<Vector3>*	m_pVertexIn;
-		cShaderStorageBuffer<Vector3>*	m_pVertexOut;
+		class cBufferUpdateByComputeShader* m_pBufferUpdateByComputeShader;
 		//
 		struct sRenderVertex
 		{

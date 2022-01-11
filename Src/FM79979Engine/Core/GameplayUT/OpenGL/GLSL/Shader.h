@@ -13,10 +13,11 @@
 #define	TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT			6           //two triangle could be a quad,one triangle is 3 two triangle is 6
 #define	TWO_TRIANGLE_VERTICES_UV_TO_QUAD_UV_COUNT	12    //2 trianle is 6 vertices,each vertex has U and V 6*2=12
 #define	TWO_TRIANGLE_STRIP_UV_TO_QUAD_UV_COUNT		8     //2 triangles strip are 4 vertices equal one quad.
-
+//
 //Flexible Vertex Format Constants, or FVF codes,
 //are used to describe the contents of vertices interleaved in a single data
 //stream that will be processed by the fixed-function pipeline.
+//
 #define	FVF_POS					0//xyz  3float
 #define	FVF_NORMAL				1//xyz  3float
 #define	FVF_DIFFUSE				2//RGBA 4float
@@ -98,6 +99,7 @@ namespace FATMING_CORE
 		eGLSL_V300,
 		eGLSL_MAX,
 	};
+
 	class	cBaseShader:public NamedTypedObject
 	{
 		public:

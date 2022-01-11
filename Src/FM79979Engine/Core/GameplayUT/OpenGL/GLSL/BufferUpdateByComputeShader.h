@@ -2,16 +2,17 @@
 
 #include "Shader.h"
 #include "ShaderStorageBuffer.h"
+
 namespace FATMING_CORE
 {
 	#define	COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE	3
-
 	class cBufferUpdateByComputeShader :public cBaseShader
 	{
 		cShaderStorageBuffer<char>*		m_pIn;
 		cShaderStorageBuffer<char>*		m_pOut;
 		GLuint							m_uiProgramPipeline;
-		GLuint							m_uiShaderObjectID;
+		//shader program ID
+		GLuint							m_uiShaderProgramID;
 		GLuint							m_iWorkGroupsDimenstionSize[COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE];
 		//com[uter shader
 		bool							CreateCSProgram(const char* e_strCS);
@@ -24,9 +25,10 @@ namespace FATMING_CORE
 		void						SetSizeAndData(size_t e_uiSize,char* e_pData);
 		void						SetDataKeepSize(char* e_pData);
 		void						SetSizeKeepData(size_t e_uiSize);
-		//glDispatchCompute(10, 1, 1)
-		bool						SetWorkGroupDimension(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
-		bool						CopyDatTo(char* e_pOutData, int&e_iNumCopied);
+		bool						DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
+		bool						CopyDatTo(char* e_pOutData,unsigned int e_uiSize);
+		//
+		GLuint						GetShaderProgramID() { return m_uiShaderProgramID; }
 	};
 }
 

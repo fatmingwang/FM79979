@@ -66,7 +66,6 @@ void	MyCS_Program_Init()
 	l_strMyCS += g_strMyCS;
 	GLuint object;
 	GLint status;
-	glGenProgramPipelines(1, &g_iProgramPipeline);
 	CHECK_GL_ERROR("1");
 #ifdef WIN32
 	const char* shaderPrefix =
@@ -91,7 +90,7 @@ void	MyCS_Program_Init()
 			delete[] log;
 		}
 	}
-
+	glGenProgramPipelines(1, &g_iProgramPipeline);
 	glBindProgramPipeline(g_iProgramPipeline);
 	glUseProgramStages(g_iProgramPipeline, GL_COMPUTE_SHADER_BIT, object);
 	g_uiCSObjectID = object;
@@ -112,6 +111,7 @@ void	MyCS_Program_Init()
 	block_index =glGetProgramResourceIndex(object,GL_SHADER_STORAGE_BLOCK,"MyEmitterData");
 	block_index = glGetProgramResourceIndex(object, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOIn");
 	block_index = glGetProgramResourceIndex(object, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOOut");
+	block_index = glGetProgramResourceIndex(object, GL_SHADER_STORAGE_BLOCK, "ParticlesMatrix");
 	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(0));
 }
 
@@ -244,7 +244,7 @@ void	ComputerShaderDestroy()
 {
 }
 
-void allocateSSBO() 
+void allocateSSBO()
 {
 	// Build and populate
 	glGenBuffers(1, &g_uiSSBO);
@@ -372,46 +372,3 @@ GLuint createNoiseTexture4f3D(int w, int h, int d, GLint internalFormat)
 	delete[] data;
 	return tex;
 }
-
-
-//unsigned short CRC_CREATE(unsigned char* data, unsigned char lenth);
-//struct sShinGanLineProtocol
-//{
-//	char cHeader = 0x02;
-//	char cControllerID = 0x11;//0x11 ¡V 0x20,from xml.
-//	char cCommandID = 0x11;//0x11 for query car status, `0x14
-//	char cWhichTrack = 0x11;//0x11~0x13,0x21~0x23
-//};
-//
-//struct sShinGanLineProtocolWithCRC:public sShinGanLineProtocol
-//{
-//	char cCRC16[2];
-//	char cEnd = 0x03;
-//	void	AssignCRC()
-//	{
-//		unsigned short l_CRC = CRC_CREATE((unsigned char*)this, sizeof(sShinGanLineProtocol));
-//		char* l_pCRC = (char*)&l_CRC;
-//		cCRC16[0] = l_pCRC[0];
-//		cCRC16[1] = l_pCRC[1];
-//	}
-//};
-//
-//
-//unsigned short CRC_CREATE(unsigned char* data, unsigned char lenth)
-//{
-//	unsigned char j;
-//	unsigned short reg_crc = 0, temp = 0xFFFF;
-//	while (lenth--)
-//	{
-//		temp ^= *data++;
-//		for (j = 0; j < 8; j++)
-//		{
-//			if (temp & 0x01) /* LSB(b0)=1 */
-//				temp = (temp >> 1) ^ 0xA001;
-//			else
-//				temp = temp >> 1;
-//		}
-//	}
-//	reg_crc = ((temp & 0x00ff) << 8) | ((temp & 0xff00) >> 8);
-//	return reg_crc;
-//}

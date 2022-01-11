@@ -35,6 +35,8 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
+		m_uiVS = -1;
+		m_uiFS = -1;
 		m_uiPointSize = -1;
 		m_uiBonesLocation = -1;
 		m_uiColorLoacation = -1;
@@ -57,6 +59,8 @@ namespace FATMING_CORE
 	{
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
+		m_uiVS = -1;
+		m_uiFS = -1;
 		m_uiProgram = -1;
 		m_uiPointSize = -1;
 		m_uiBonesLocation = -1;
@@ -75,6 +79,8 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
+		m_uiVS = -1;
+		m_uiFS = -1;
 		memset(m_uiAttribArray,-1,sizeof(GLuint)*TOTAL_FVF);
 	}
 	cBaseShader::cBaseShader(const wchar_t*e_strName,bool *e_pbClientState)
@@ -82,6 +88,8 @@ namespace FATMING_CORE
 		g_pCurrentShader = nullptr;
 		m_bDataUpdated = false;
 		m_uiProgram = -1;
+		m_uiVS = -1;
+		m_uiFS = -1;
 		this->SetName(e_strName);
 		if( e_pbClientState != nullptr )
 		{
@@ -92,9 +100,18 @@ namespace FATMING_CORE
 
 	cBaseShader::~cBaseShader()
 	{
-		glDeleteShader(m_uiVS);
-		glDeleteShader(m_uiFS);
-		glDeleteProgram( m_uiProgram );
+		if (m_uiVS != -1)
+		{
+			glDeleteShader(m_uiVS);
+		}
+		if (m_uiFS != -1)
+		{
+			glDeleteShader(m_uiFS);
+		}
+		if (m_uiProgram != -1)
+		{
+			glDeleteProgram(m_uiProgram);
+		}
 	}
 
 	bool	cBaseShader::CreateVS(const char*e_strVS)
