@@ -5,34 +5,28 @@
 
 namespace FATMING_CORE
 {
+	//cShaderStorageBuffer<char>* m_pMatrixIndexIn2;
 	#define	COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE	3
-	class cBufferUpdateByComputeShader :public cBaseShader
+	class cSimpleComputeShader :public cBaseShader
 	{
-		cShaderStorageBuffer<char>*		m_pIn;
-		cShaderStorageBuffer<char>*		m_pOut;
 		GLuint							m_uiProgramPipeline;
 		//shader program ID
 		GLuint							m_uiShaderProgramID;
 		GLuint							m_iWorkGroupsDimenstionSize[COMPUTE_SHADER_WORK_GROUP_DIMENSION_SIZE];
-		//com[uter shader
+		//computer shader
 		bool							CreateCSProgram(const char* e_strCS);
 		bool							CreateProgramPipeline();
 	public:
-		cBufferUpdateByComputeShader(const char* e_strCS);
-		~cBufferUpdateByComputeShader();
-		virtual	void				Use(bool e_bUseLastWVPMatrix = true)override;
-
-		void						SetSizeAndData(size_t e_uiSize,char* e_pData);
-		void						SetDataKeepSize(char* e_pData);
-		void						SetSizeKeepData(size_t e_uiSize);
-		bool						DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
-		bool						CopyDatTo(char* e_pOutData,unsigned int e_uiSize);
+		cSimpleComputeShader(const char* e_strCS);
+		~cSimpleComputeShader();
+		virtual	void					Use(bool e_bUseLastWVPMatrix = true)override;
+		bool							DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
 		//
-		GLuint						GetShaderProgramID() { return m_uiShaderProgramID; }
+		GLuint							GetShaderProgramID() { return m_uiShaderProgramID; }
+
 	};
+//end namespace FATMING_CORE
 }
-
-
 
 //#include "stdafx.h"
 //#include <iostream> 

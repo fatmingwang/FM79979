@@ -1,17 +1,18 @@
 #include "stdafx.h"
-#include <iostream> 
+#include <iostream>
 #include "ComputerShader.h"
 #include "ComputerShaderUniform.h"
+#include "../../Core/GameplayUT/Render/RenderQueue/RenderCommand.h"
 
-GLuint g_iProgramPipeline = -1;
-//GLuint g_iComputerShaderProgram = -1;
-GLuint g_iComputerShaderShader = -1;
-GLuint g_vComputerShaderWorkGroup[3] = { MY_CS_WORK_GROUP_SIZE,0,0};
-GLuint g_uiSSBO = -1;
-GLuint g_uiCSObjectID = -1;
+GLuint			g_iProgramPipeline = -1;
+//GLuint		g_iComputerShaderProgram = -1;
+GLuint			g_iComputerShaderShader = -1;
+GLuint			g_vComputerShaderWorkGroup[3] = { MY_CS_WORK_GROUP_SIZE,0,0};
+GLuint			g_uiSSBO = -1;
+GLuint			g_uiCSObjectID = -1;
 int				g_iNewParticleShoot = 0;
 sEmitterData	g_EmitterData;
-
+cBatchRender*	g_pBatchRenderForTest = nullptr;
 void MyCS_SSO_Update();
 
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
@@ -23,6 +24,10 @@ cShaderStorageBuffer<sEmitterData>*		g_EmitterDataSSO = nullptr;
 
 void	MyCS_SSO_Init()
 {
+	if (!g_pBatchRenderForTest)
+	{
+		g_pBatchRenderForTest = new cBatchRender();
+	}
 	if (!g_ParticlesSSOIn)
 	{
 		g_ParticlesSSOIn = new cShaderStorageBuffer<sParticlesSSO>(128);

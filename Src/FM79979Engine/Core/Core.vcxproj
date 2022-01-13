@@ -188,7 +188,7 @@
     <ClCompile Include="GameplayUT\MultiTouch\MultiTouchPoints.cpp" />
     <ClCompile Include="GameplayUT\OpenGL\Glh.cpp" />
     <ClCompile Include="GameplayUT\OpenGL\GLSL\Blur.cpp" />
-    <ClCompile Include="GameplayUT\OpenGL\GLSL\BufferUpdateByComputeShader.cpp" />
+    <ClCompile Include="GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp" />
     <ClCompile Include="GameplayUT\OpenGL\GLSL\CommnoShader.cpp" />
     <ClCompile Include="GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
     <ClCompile Include="GameplayUT\OpenGL\GLSL\Shader.cpp" />
@@ -376,7 +376,7 @@
     <ClInclude Include="GameplayUT\OpenGL\GLSL\GLSLUiniform.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\Shader.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h" />
-    <ClInclude Include="GameplayUT\OpenGL\GLSL\BufferUpdateByComputeShader.h" />
+    <ClInclude Include="GameplayUT\OpenGL\GLSL\SimpleComputeShader.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\ToneMapping.h" />
     <ClInclude Include="GameplayUT\OpenGL\GLSL\TunnelEffect.h" />
     <ClInclude Include="GameplayUT\OpenGL\OpenGLCommon.h" />

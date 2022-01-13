@@ -1,8 +1,38 @@
 #include "RenderCommand.h"
 #include <iterator>
 #include <algorithm>
+#include "../../OpenGL/GLSL/SimpleComputeShader.h"
 namespace FATMING_CORE
 {
+	const char* g_strMyCSForVerticesTransform =
+		R"(
+			layout(std140, binding=1) buffer Layout1MatricesIn
+			{
+				mat4	MatricesIn[];
+			};
+			layout( std140, binding=2 ) buffer Layout2VerticesIn
+			{
+				vec3	vVertexIn[];
+			};
+			layout( std140, binding=3 ) buffer Layout3MatrinxIndicesIn
+			{
+				int		iMatrixIndexIn[];
+			};
+			
+			layout( std140, binding=4 ) buffer Layout4PosVerticesOut
+			{
+				vec3	vVertexOut[];
+			};
+
+			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
+			void main()
+			{
+				//uint iLocalID =  gl_LocalInvocationID.x;
+				uint iID =		 gl_GlobalInvocationID.x;
+				vVertexOut[iID] = (MatricesIn[iMatrixIndexIn[iID]]*vec4(vVertexIn[iID],1)).xyz;
+			}
+		)";
+
 	int sRenderData::TrianglesAssignData(Vector3* e_pOutPos, Vector4* e_pOutColor, Vector2* e_pOutUV,
 		unsigned int e_uiTextureID, Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount)
 	{
@@ -54,11 +84,26 @@ namespace FATMING_CORE
 		m_uiCurrentRenderDataIndex = 0;
 		m_uiCurrentVertexIndex = 0;
 		m_uiVertexArraySizeCount = 0;
+		m_pSimpleComputeShader = new cSimpleComputeShader(g_strMyCSForVerticesTransform);
+		m_pVerticesIn = new cShaderStorageBuffer<char>(1024);
+		m_pMatricesIndicesIn = new cShaderStorageBuffer<char>(1024);;
+		m_pMatricesIn = new cShaderStorageBuffer<char>(1024);;
+		m_pVertexOut = new cShaderStorageBuffer<char>(1024);;
+		//https://stackoverflow.com/questions/46436682/opengl-compute-shader-binding-point-redundancy
+		GLuint block_index = 9;
+		block_index = glGetProgramResourceIndex(m_pSimpleComputeShader->GetShaderProgramID(), GL_SHADER_STORAGE_BLOCK, "Layout1MatricesIn");
+		block_index = glGetProgramResourceIndex(m_pSimpleComputeShader->GetShaderProgramID(), GL_SHADER_STORAGE_BLOCK, "Layout2VerticesIn");
+		block_index = glGetProgramResourceIndex(m_pSimpleComputeShader->GetShaderProgramID(), GL_SHADER_STORAGE_BLOCK, "Layout3MatrinxIndicesIn");
+		block_index = glGetProgramResourceIndex(m_pSimpleComputeShader->GetShaderProgramID(), GL_SHADER_STORAGE_BLOCK, "Layout4PosVerticesOut");
 		GrowRenderData();
 		GrowVertexData();
 	}
 	cBatchRender::~cBatchRender()
 	{
+		SAFE_DELETE(m_pVerticesIn);
+		SAFE_DELETE(m_pMatricesIndicesIn);
+		SAFE_DELETE(m_pMatricesIn);
+		SAFE_DELETE(m_pVertexOut);
 	}
 
 	void cBatchRender::GrowVertexData()
@@ -141,6 +186,7 @@ namespace FATMING_CORE
 		unsigned int	l_uiNumVertex = 0;
 		eRenderCommandType	l_PreviousRenderCommandType = eRenderCommandType::eRCT_MAX;
 		std::wstring l_strPreviousShaderName;
+		m_OrderedRenderVertex.Clear();
 		for (size_t i = 0; i < l_uiSize; ++i)
 		{
 			int l_iIndex = m_MatAndIndexVector[i].uiIndex;
@@ -149,10 +195,11 @@ namespace FATMING_CORE
 			if (l_PreviousRenderCommandType != l_CommandType || l_pRenderData->strShaderName.compare(l_strPreviousShaderName))
 			{
 				ProcessRenderCommand(l_CommandType, l_pRenderData,&m_OrderedRenderVertex,0, l_uiNumVertex, l_strPreviousShaderName.c_str());
+				m_OrderedRenderVertex.Clear();
 			}
 			else
 			{
-				m_OrderedRenderVertex.Copy(l_pRenderData);
+				m_OrderedRenderVertex.Copy(l_pRenderData,(int)i);
 				l_uiNumVertex += l_pRenderData->uiCount;
 			}
 			l_strPreviousShaderName = l_pRenderData->strShaderName;
@@ -166,7 +213,11 @@ namespace FATMING_CORE
 
 	void cBatchRender::RenderTriangles(sRenderVertex* e_pRenderVertex, int e_iStartIndex, int e_iCount, const wchar_t* e_strShaderName)
 	{
-		RenderVertexByIndexBuffer(cMatrix44::Identity,3, e_pRenderVertex->ColorVector[e_iStartIndex],e_pRenderVertex->UVVector[e_iStartIndex], e_pRenderVertex->PosVector[e_iStartIndex],
+		m_pVerticesIn;
+		m_pMatricesIndicesIn;
+		m_pMatricesIn;
+		m_pVertexOut;
+		RenderVertexByIndexBuffer(cMatrix44::Identity, 3, e_pRenderVertex->ColorVector[e_iStartIndex], e_pRenderVertex->UVVector[e_iStartIndex], e_pRenderVertex->PosVector[e_iStartIndex],
 			&m_uiIndexBufferVector[0], e_iCount, e_strShaderName);
 	}
 
@@ -176,8 +227,14 @@ namespace FATMING_CORE
 			(GLsizei)e_pRenderData->pvViewPort->z, (GLsizei)e_pRenderData->pvViewPort->w);
 	}
 
-	void cBatchRender::ProcessRenderCommand(eRenderCommandType e_eRenderCommandType,sRenderData*e_pRenderData,sRenderVertex* e_pRenderVertex, int e_iStartIndex, int e_iCount, const wchar_t* e_strShaderName)
+	void cBatchRender::ProcessRenderCommand(eRenderCommandType e_eRenderCommandType,sRenderData*e_pRenderData,sRenderVertex*e_pRenderVertex, int e_iStartIndex, int e_iCount, const wchar_t* e_strShaderName)
 	{
+		if (e_eRenderCommandType != eRCT_VIEWPORT_SETTING && this->m_pSimpleComputeShader)
+		{
+			e_pRenderVertex->PosVector;
+			e_pRenderVertex->iTargetMatrixIndexVector;
+			//m_pSimpleComputeShader->SetSizeAndData(e_iCount, );
+		}
 		switch(e_eRenderCommandType)
 		{
 			case eRCT_VIEWPORT_SETTING:
@@ -272,11 +329,20 @@ namespace FATMING_CORE
 		PosVector.resize(e_uiSize);
 		ColorVector.resize(e_uiSize);
 		UVVector.resize(e_uiSize);
+		iTargetMatrixIndexVector.resize(e_uiSize);
 	}
-	void cBatchRender::sRenderVertex::Copy(sRenderData* e_pRenderData)
+	void cBatchRender::sRenderVertex::Copy(sRenderData* e_pRenderData, int e_iTargetMatrixIndex)
 	{
 		PosVector.insert(PosVector.end(), e_pRenderData->pvPos, e_pRenderData->pvPos + e_pRenderData->uiCount);
 		ColorVector.insert(ColorVector.end(), e_pRenderData->pvColor, e_pRenderData->pvColor + e_pRenderData->uiCount);
 		UVVector.insert(UVVector.end(), e_pRenderData->pvUV, e_pRenderData->pvUV + e_pRenderData->uiCount);
+		vector<int> l_TempVec(e_pRenderData->uiCount, e_iTargetMatrixIndex);
+		iTargetMatrixIndexVector.insert(iTargetMatrixIndexVector.end(), l_TempVec.begin(), l_TempVec.end());
+	}
+	void cBatchRender::sRenderVertex::Clear()
+	{
+		PosVector.clear();
+		ColorVector.clear();
+		UVVector.clear();
 	}
 }

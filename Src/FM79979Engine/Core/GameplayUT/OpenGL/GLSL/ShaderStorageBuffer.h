@@ -15,6 +15,8 @@ public:
 	T*		Map(GLbitfield access = GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT);
 	void	Unmap();
 
+	bool	CopyIntoSSB(char*e_pData,unsigned int e_uiDataLen,bool e_bAutoIncrease = true);
+
 	GLuint	GetBufferID() { return m_iBufferID; }
 	size_t	GetSize() const { return m_uiSize; }
 
@@ -60,6 +62,27 @@ template <class T> void cShaderStorageBuffer<T>::Unmap()
 {
 	Bind();
 	glUnmapBuffer(m_seBufferObjectTarget);
+}
+
+template<class T>
+inline bool cShaderStorageBuffer<T>::CopyIntoSSB(char* e_pData, unsigned int e_uiDataLen, bool e_bAutoIncrease)
+{
+	if (e_uiDataLen > m_uiSize && e_bAutoIncrease)
+	{ 
+		glDeleteBuffers(1, &m_iBufferID);
+		Bind();
+		glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+		m_uiSize = e_uiDataLen;
+	}
+	
+	if (e_uiDataLen <= m_uiSize  )
+	{
+		auto* l_pData = Map();
+		memcpy(l_pData, e_pData, e_uiSize);
+		Unmap();
+		return true;
+	}
+	return false;
 }
 
 //template <class T> void cShaderStorageBuffer<T>::dump()

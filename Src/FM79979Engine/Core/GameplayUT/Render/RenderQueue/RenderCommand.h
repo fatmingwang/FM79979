@@ -54,15 +54,22 @@ namespace FATMING_CORE
 
 	class cBatchRender
 	{
-		class cBufferUpdateByComputeShader* m_pBufferUpdateByComputeShader;
+		cShaderStorageBuffer<char>* m_pVerticesIn;
+		cShaderStorageBuffer<char>* m_pMatricesIndicesIn;
+		cShaderStorageBuffer<char>* m_pMatricesIn;
+		cShaderStorageBuffer<char>* m_pVertexOut;
+		//
+		class cSimpleComputeShader* m_pSimpleComputeShader;
 		//
 		struct sRenderVertex
 		{
 			std::vector<Vector3>	PosVector;
 			std::vector<Vector4>	ColorVector;
 			std::vector<Vector2>	UVVector;
+			std::vector<int>		iTargetMatrixIndexVector;
 			void					Resize(unsigned int  e_uiSize);
-			void					Copy(sRenderData*e_pRenderData);
+			void					Copy(sRenderData*e_pRenderData,int e_iTargetMatrixIndex);
+			void					Clear();
 		};
 		//from input
 		sRenderVertex					m_RenderVertex;
