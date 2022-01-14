@@ -16,6 +16,7 @@ public:
 	void	Unmap();
 
 	bool	CopyIntoSSB(char*e_pData,unsigned int e_uiDataLen,bool e_bAutoIncrease = true);
+	void	Resize(unsigned int e_uiSize,bool e_bIfSizeIsSnallerIgonreThis = true);
 
 	GLuint	GetBufferID() { return m_iBufferID; }
 	size_t	GetSize() const { return m_uiSize; }
@@ -78,11 +79,34 @@ inline bool cShaderStorageBuffer<T>::CopyIntoSSB(char* e_pData, unsigned int e_u
 	if (e_uiDataLen <= m_uiSize  )
 	{
 		auto* l_pData = Map();
-		memcpy(l_pData, e_pData, e_uiSize);
+		memcpy(l_pData, e_pData, e_uiDataLen);
 		Unmap();
 		return true;
 	}
 	return false;
+}
+
+template<class T>
+inline void cShaderStorageBuffer<T>::Resize(unsigned int e_uiSize, bool e_bIfSizeIsSnallerIgonreThis)
+{
+	bool l_bDoResize = false;
+	if ( this->m_uiSize != e_uiSize && !e_bIfSizeIsSnallerIgonreThis )
+	{
+		l_bDoResize = true;
+	}
+	else
+	if (this->m_uiSize < e_uiSize)
+	{
+		l_bDoResize = true;
+	}
+	if (l_bDoResize)
+	{
+		glDeleteBuffers(1, &m_iBufferID);
+		glGenBuffers(1, &m_iBufferID);
+		Bind();
+		glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+		Unbind();
+	}
 }
 
 //template <class T> void cShaderStorageBuffer<T>::dump()

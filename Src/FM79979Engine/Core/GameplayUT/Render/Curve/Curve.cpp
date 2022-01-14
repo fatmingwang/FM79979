@@ -102,9 +102,9 @@ namespace FATMING_CORE
 				//	l_RenderDataVector.push_back((*l_pDataVector)[j]);
 				//}
 				float l_fOverDis = l_fDis-l_fEndTargetDis;
-				auto l_LastPos = (*l_pDataVector)[i+1] - (l_vDistance.Normalize() * l_fOverDis);
-				l_RenderDataVector.push_back(l_LastPos);
-				float l_fPercent = this->GetClosetPointPercent(l_LastPos.x, l_LastPos.y, l_LastPos.z);
+				auto l_vLastPos = (*l_pDataVector)[i+1] - (l_vDistance.Normalize() * l_fOverDis);
+				l_RenderDataVector.push_back(l_vLastPos);
+				float l_fPercent = this->GetClosetPointPercent((int)l_vLastPos.x, (int)l_vLastPos.y, (int)l_vLastPos.z);
 				break;
 			}
 		}

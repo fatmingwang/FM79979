@@ -208,15 +208,35 @@ namespace FATMING_CORE
 
 	void cBatchRender::ComputeVertexMatrix()
 	{
-
+		if (m_pVerticesIn)
+		{
+			std::vector<cMatrix44>		l_MatVector;
+			std::vector<int>			l_VertexCooresponeMatIndexVector;
+			size_t l_uiSize = m_MatAndIndexVector.size();
+			unsigned int	l_uiNumVertex = 0;
+			eRenderCommandType	l_PreviousRenderCommandType = eRenderCommandType::eRCT_MAX;
+			std::wstring l_strPreviousShaderName;
+			m_OrderedRenderVertex.Clear();
+			for (size_t i = 0; i < l_uiSize; ++i)
+			{
+				int l_iIndex = m_MatAndIndexVector[i].uiIndex;
+				l_MatVector.push_back(m_MatAndIndexVector[i].Mat);
+				auto l_pRenderData = &m_RenderDataPtr[l_iIndex];
+				m_OrderedRenderVertex.Copy(l_pRenderData, (int)i);
+				l_VertexCooresponeMatIndexVector.insert(l_VertexCooresponeMatIndexVector.end(), (size_t)l_pRenderData->uiCount, (int)i);
+				l_uiNumVertex += l_pRenderData->uiCount;
+			}
+			m_pVerticesIn->CopyIntoSSB((char*)&m_OrderedRenderVertex.PosVector[0], l_uiNumVertex * sizeof(Vector3));
+			m_pMatricesIndicesIn->CopyIntoSSB((char*)&l_VertexCooresponeMatIndexVector[0], (unsigned int )(l_uiSize * sizeof(int)));
+			m_pMatricesIn->CopyIntoSSB((char*)&l_MatVector[0], (unsigned int)(l_uiSize * sizeof(cMatrix44)));
+			m_pVertexOut->Resize((unsigned int)(l_uiNumVertex * sizeof(Vector3)));
+			m_pSimpleComputeShader->Use();
+			m_pSimpleComputeShader->DispatchCompute(l_uiNumVertex,1,1);
+		}
 	}
 
 	void cBatchRender::RenderTriangles(sRenderVertex* e_pRenderVertex, int e_iStartIndex, int e_iCount, const wchar_t* e_strShaderName)
 	{
-		m_pVerticesIn;
-		m_pMatricesIndicesIn;
-		m_pMatricesIn;
-		m_pVertexOut;
 		RenderVertexByIndexBuffer(cMatrix44::Identity, 3, e_pRenderVertex->ColorVector[e_iStartIndex], e_pRenderVertex->UVVector[e_iStartIndex], e_pRenderVertex->PosVector[e_iStartIndex],
 			&m_uiIndexBufferVector[0], e_iCount, e_strShaderName);
 	}
