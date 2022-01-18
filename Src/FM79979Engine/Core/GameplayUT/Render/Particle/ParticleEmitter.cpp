@@ -1,10 +1,49 @@
+#include "../RenderQueue/RenderCommand.h"
 #include "ParticleEmitter.h"
 #include "PrtVelocity.h"
 #include "../CommonRender/BaseImage.h"
 #include "../CommonRender/SimplePrimitive.h"
 #include "../../OpenGL/GLSL/Shader.h"
+
 namespace FATMING_CORE
 {
+	const char*g_strMyCSForParticleBatchRendering =
+		R"(
+			layout(std140, binding=1) buffer Layout1MatricesIn
+			{
+				mat4	MatricesIn[];
+			};
+			layout( std140, binding=2 ) buffer Layout2VerticesIn
+			{
+				vec3	vVertexIn[];
+			};
+			layout( std140, binding=3 ) buffer Layout3MatrinxIndicesIn
+			{
+				int		iMatrixIndexIn[];
+			};
+			
+			layout( std140, binding=4 ) buffer Layout4PosVerticesOut
+			{
+				vec3	vVertexOut[];
+			};
+			layout( std140, binding=5 ) buffer Layout5ObjectPosAndRotation
+			{
+				vec3	vVertexOut[];
+			};
+			layout( std140, binding=6 ) buffer Layout4PosVerticesOut
+			{
+				vec3	vVertexOut[];
+			};
+
+			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
+			void main()
+			{
+				//uint iLocalID =  gl_LocalInvocationID.x;
+				uint iID =		 gl_GlobalInvocationID.x;
+				vVertexOut[iID] = (MatricesIn[iMatrixIndexIn[iID]]*vec4(vVertexIn[iID],1)).xyz;
+			}
+		)";
+
 	TYPDE_DEFINE_MARCO(cPrtEmitter);
 	char	g_strTempStringForOutput[MAX_PATH];
 
@@ -33,6 +72,7 @@ namespace FATMING_CORE
 
 	cPrtEmitter::cPrtEmitter(const wchar_t*e_pName)
 	{
+		m_pBatchRender = nullptr;
 		m_iPlayCount = -1;
 		m_fCurrentTime = 0.f;
 		m_pBaseImage = nullptr;
@@ -56,11 +96,13 @@ namespace FATMING_CORE
 		SetName(e_pName);
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
+		//m_pBatchRender = new FATMING_CORE::cBatchRender(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)
 		:cFMTimeLineAnimationRule(e_pPrtEmitter)
 	{
+		m_pBatchRender = nullptr;
 		m_iPlayCount = -1;
 	    m_bActived = false;
 		m_pVelocityInit = 0;
@@ -87,8 +129,10 @@ namespace FATMING_CORE
 		m_pBaseImage = e_pPrtEmitter->m_pBaseImage;
 		this->SetMaxParticleCount(e_pPrtEmitter->GetMaxParticleCount());
 		//cPrtTextureActDynamicTexture
-		if( e_pPrtEmitter->GetInitPolicyParticleList()->IsOwenrOfPolicyIsImportant() || e_pPrtEmitter->GetActPolicyParticleList()->IsOwenrOfPolicyIsImportant() )
+		if (e_pPrtEmitter->GetInitPolicyParticleList()->IsOwenrOfPolicyIsImportant() || e_pPrtEmitter->GetActPolicyParticleList()->IsOwenrOfPolicyIsImportant())
+		{
 			e_bPolicyFromClone = false;
+		}
 		if( e_bPolicyFromClone )
 		{
 			m_pInitPolicyParticleList = e_pPrtEmitter->GetInitPolicyParticleList();
@@ -101,6 +145,7 @@ namespace FATMING_CORE
 		}
 		m_bPolicyFromClone = e_bPolicyFromClone;
 		SetName(e_pPrtEmitter->GetName());
+		//m_pBatchRender = new FATMING_CORE::cBatchRender(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::~cPrtEmitter()
@@ -162,7 +207,7 @@ namespace FATMING_CORE
 		m_pActPolicyParticleList->GenerateListBuffer();
 	}
 	//
-	char*	cPrtEmitter::GetDataInfo()
+	std::string	cPrtEmitter::GetDataInfo()
 	{
 		sprintf(g_strTempStringForOutput,"%.3f,%d,%d,%d,%d,%d,%d,%s",
 			m_fGapTimeToShot,
@@ -172,11 +217,11 @@ namespace FATMING_CORE
 			this->m_SrcBlendingMode,
 			this->m_DestBlendingMode,
 			m_iPrimitiveType,
-			m_pVelocityInit->GetOutputDataString());
+			m_pVelocityInit->GetOutputDataString().c_str());
 		return g_strTempStringForOutput;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtEmitter::SetDataByDataString(char*e_pString)
+	bool	cPrtEmitter::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -329,6 +374,56 @@ namespace FATMING_CORE
 		}
 	}
 
+	bool	cPrtEmitter::ShotUpdate(float e_fElpaseTime)
+	{
+		if (e_fElpaseTime <= 0.f)
+			return false;
+		assert(m_iCurrentWorkingParticles <= m_iMaxParticleCount);
+		if (m_iParticleEmitCount == 0 || this->m_iCurrentEmitCount < this->m_iParticleEmitCount)
+		{
+			bool	l_bShoot = false;
+			this->m_fCurrentTime += e_fElpaseTime;
+			while (m_fCurrentTime >= this->m_fGapTimeToShot)//until all particles shoot.
+			{
+				m_fCurrentTime -= m_fGapTimeToShot;
+				m_iCurrentEmitCount++;
+				this->Shot(m_fCurrentTime);
+				if (m_iParticleEmitCount == -1)
+					m_iCurrentEmitCount = 0;
+				l_bShoot = true;
+				if (m_fGapTimeToShot <= 0.f)
+					break;
+			}
+			return l_bShoot;
+		}
+		return false;
+	}
+
+	void	cPrtEmitter::ParticleUpdate(float e_fElpaseTime)
+	{
+		for (int i = 0; i < this->m_iCurrentWorkingParticles;)
+		{
+			sParticleData* l_pParticleData = &this->m_pParticleData[i];
+			m_pActPolicyParticleList->Update(e_fElpaseTime, i, l_pParticleData);
+			//update current position
+			l_pParticleData->vPos += (l_pParticleData->vVelocity * e_fElpaseTime);
+			if (l_pParticleData->fLifespan <= 0.f)
+			{//set current particle data to last working data,and minus the working count
+				m_pParticleData[i] = m_pParticleData[m_iCurrentWorkingParticles - 1];
+				m_iCurrentWorkingParticles--;
+				if (m_iCurrentWorkingParticles == 0)
+				{
+					if (m_iParticleEmitCount != 0)
+						this->m_bActived = false;
+				}
+			}
+			else
+			{
+				i++;
+			}
+		}
+	}
+
 	void	cPrtEmitter::InternalInit()
 	{
 		m_bStart  =true;
@@ -369,31 +464,45 @@ namespace FATMING_CORE
 	cMatrix44	cPrtEmitter::GetParticleDataMatrix(sParticleData*e_pParticleData)
 	{
 		cMatrix44	l_mat = cMatrix44::Identity;
-		if( e_pParticleData->ePRM == ePRM_NONE )			
+		if (e_pParticleData->ePRM == ePRM_NONE)
+		{
 			l_mat = cMatrix44::TranslationMatrix(e_pParticleData->vPos);
+		}
 		else
 		{
 			if( e_pParticleData->ePRM == ePRM_SELF )
 			{
 				l_mat = cMatrix44::TranslationMatrix(e_pParticleData->vPos);
-				if( e_pParticleData->vAngle.x!=0.f )
+				if (e_pParticleData->vAngle.x != 0.f)
+				{
 					l_mat *= cMatrix44::XAxisRotationMatrix(e_pParticleData->vAngle.x);
-				if( e_pParticleData->vAngle.y!=0.f )
+				}
+				if (e_pParticleData->vAngle.y != 0.f)
+				{
 					l_mat *= cMatrix44::YAxisRotationMatrix(e_pParticleData->vAngle.y);
-				if( e_pParticleData->vAngle.z!=0.f )
+				}
+				if (e_pParticleData->vAngle.z != 0.f)
+				{
 					l_mat *= cMatrix44::ZAxisRotationMatrix(e_pParticleData->vAngle.z);
+				}
 				//U COULD INSTEAD JUST ONE LINE HERE
 				//l_mat = cMatrix44::TranslationMatrix(e_pParticleData->vPos)*Quaternion::EulerRotationQuaternion(e_pParticleData->vAngle.x,e_pParticleData->vAngle.y,e_pParticleData->vAngle.z).ToMatrix();
 			}
 			else
 			if( e_pParticleData->ePRM == ePRM_WORLD )
 			{
-				if( e_pParticleData->vAngle.x!=0.f )
+				if (e_pParticleData->vAngle.x != 0.f)
+				{
 					l_mat = cMatrix44::XAxisRotationMatrix(e_pParticleData->vAngle.x);
-				if( e_pParticleData->vAngle.y!=0.f )
+				}
+				if (e_pParticleData->vAngle.y != 0.f)
+				{
 					l_mat *= cMatrix44::YAxisRotationMatrix(e_pParticleData->vAngle.y);
-				if( e_pParticleData->vAngle.z!=0.f )
+				}
+				if (e_pParticleData->vAngle.z != 0.f)
+				{
 					l_mat *= cMatrix44::ZAxisRotationMatrix(e_pParticleData->vAngle.z);
+				}
 				l_mat *= cMatrix44::TranslationMatrix(e_pParticleData->vPos);
 				//U COULD INSTEAD JUST ONE LINE HERE
 				//l_mat = Quaternion::EulerRotationQuaternion(e_pParticleData->vAngle.x,e_pParticleData->vAngle.y,e_pParticleData->vAngle.z).ToMatrix()*l_mat;
@@ -406,6 +515,11 @@ namespace FATMING_CORE
 	{
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
+			
+			if (BatchRender()&& m_iPrimitiveType == GL_QUADS)
+			{
+				return;
+			}
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -466,10 +580,65 @@ namespace FATMING_CORE
 			}
 #ifdef DEBUG
 			else
-				assert(0&&"do not support such privmative");
+			{
+				assert(0 && "do not support such privmative");
+			}
 #endif
 			l_BlendfunctionRestore.Restore();
 		}
+	}
+
+	bool cPrtEmitter::BatchRender()
+	{
+		if (this->m_pBatchRender)
+		{
+			//cShaderStorageBuffer<char>* m_pVerticesIn;;
+			UseShaderProgram(DEFAULT_SHADER);
+			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
+			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
+			sBlendfunctionRestore l_BlendfunctionRestore;
+			l_BlendfunctionRestore.GetStatus();
+			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			if (m_pBaseImage)
+			{
+				m_pBaseImage->ApplyImage();
+			}
+			cMatrix44	l_mat;
+			cMatrix44	l_matWorldTransform = this->GetWorldTransform();
+			for(int i=0;i<this->m_iCurrentWorkingParticles;++i)
+			{
+				int	l_iIndex = i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
+				sParticleData*l_pParticleData = &m_pParticleData[i];
+				l_mat = GetParticleDataMatrix(l_pParticleData);
+				l_mat = l_matWorldTransform*l_mat;
+				for( int j=0;j<TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++j )
+				{
+					m_pvAllColorPointer[l_iIndex+j] = l_pParticleData->vColor;
+				}
+				Vector3	l_vPos = l_mat.GetTranslation();
+				Vector3	l_vRight = l_mat.GetAxis(MyMath::X);
+				Vector3	l_vUp = l_mat.GetAxis(MyMath::Y);
+				Vector2	l_vHalfSize(l_pParticleData->vSize.x/2,l_pParticleData->vSize.y/2);
+				//first triangle	second triangle
+				//2,3				5
+				//0					1,4
+				//set l_vPos as center
+				m_pvAllPosPointer[l_iIndex] = l_vPos-(l_vHalfSize.x*l_vRight)-(l_vHalfSize.y*l_vUp);
+				l_vPos = m_pvAllPosPointer[l_iIndex];
+				l_vPos += (l_pParticleData->vSize.y*l_vUp);
+				m_pvAllPosPointer[l_iIndex+2] = l_vPos;
+				m_pvAllPosPointer[l_iIndex+3] = l_vPos;
+				l_vPos += (l_pParticleData->vSize.x*l_vRight);
+				m_pvAllPosPointer[l_iIndex+5] = l_vPos;
+				l_vPos -= (l_pParticleData->vSize.y*l_vUp);
+				m_pvAllPosPointer[l_iIndex+1] = l_vPos;
+				m_pvAllPosPointer[l_iIndex+4] = l_vPos;
+			}
+			//bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID, Vector3 * e_pInPos, Vector4 * e_pInColor, Vector2 * e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);
+			//RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*¢Ï_QUAD_TWO_TRIANGLES);
+			return true;
+		}
+		return false;
 	}
 
 	void	cPrtEmitter::KillParticleByOutRange(RECT e_rc)

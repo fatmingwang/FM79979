@@ -38,11 +38,11 @@ namespace FATMING_CORE
 		static char*	UsageExplanation;
 		//
 		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool		SetDataByDataString(const char*e_pString)override;
 	};	
 	//===========================================
 	//Life Action
@@ -170,7 +170,7 @@ namespace FATMING_CORE
 	//		return m_sTemp;
 	//	}
 	//	//input the output data string,and analyze it
-	//	virtual bool	SetDataByDataString(char*e_pString)
+	//	virtual bool	SetDataByDataString(const char*e_pString)
 	//	{
 	//		char*Nexttoken = 0;
 	//		char* l_pString = strtok(e_pString,",");

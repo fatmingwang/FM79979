@@ -2,7 +2,9 @@
 
 #include "Shader.h"
 #include "ShaderStorageBuffer.h"
-
+//================================
+//
+//================================
 namespace FATMING_CORE
 {
 	//cShaderStorageBuffer<char>* m_pMatrixIndexIn2;
@@ -16,6 +18,7 @@ namespace FATMING_CORE
 		//computer shader
 		bool							CreateCSProgram(const char* e_strCS);
 		bool							CreateProgramPipeline();
+		std::map<std::string, int>		m_ResourceNameAndIndexMap;
 	public:
 		cSimpleComputeShader(const char* e_strCS);
 		~cSimpleComputeShader();
@@ -23,6 +26,10 @@ namespace FATMING_CORE
 		bool							DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
 		//
 		GLuint							GetShaderProgramID() { return m_uiShaderProgramID; }
+		unsigned int					BindResourceIDWithString(const char*e_strName);
+		//if any name get wrong return false
+		bool							BindResourceIDWithStringVector(std::vector<const char*>&e_strNameVector);
+		unsigned int					GetResourceIDByName(const char*e_strName);
 
 	};
 //end namespace FATMING_CORE

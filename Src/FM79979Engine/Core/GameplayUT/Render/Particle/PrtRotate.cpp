@@ -22,18 +22,18 @@ namespace FATMING_CORE
 		l_p->SetName(GetName());
 		return l_p; 
 	};
-	char*	cPrtRotateInitRotate::GetDataInfo()
+	std::string	cPrtRotateInitRotate::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Angle:x=%.4f,y=%.4f,z=%.4f\0",m_vAngle.x,m_vAngle.y,m_vAngle.z);
 		return m_sTemp;
 	}
-	char*	cPrtRotateInitRotate::GetOutputDataString()
+	std::string	cPrtRotateInitRotate::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.4f,%.4f,%.4f\0",m_vAngle.x,m_vAngle.y,m_vAngle.z);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtRotateInitRotate::SetDataByDataString(char*e_pString)
+	bool	cPrtRotateInitRotate::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -57,18 +57,18 @@ namespace FATMING_CORE
 		l_p->SetPRM( m_ePRM );
 		return l_p; 
 	};
-	char*	cPrtRotateActRotate::GetDataInfo()
+	std::string	cPrtRotateActRotate::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Angle:x=%.4f,y=%.4f,z=%.4f\nRandom:%d\nRandomOffset:%.4f,Mode:%d\0",m_vAngle.x,m_vAngle.y,m_vAngle.z,m_bRandom?1:0,m_fRandomOffset,(int)this->m_ePRM);
 		return m_sTemp;
 	}
-	char*	cPrtRotateActRotate::GetOutputDataString()
+	std::string	cPrtRotateActRotate::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.4f,%.4f,%.4f,%d,%.4f,%d\0",m_vAngle.x,m_vAngle.y,m_vAngle.z,m_bRandom?1:0,m_fRandomOffset,(int)this->m_ePRM);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtRotateActRotate::SetDataByDataString(char*e_pString)
+	bool	cPrtRotateActRotate::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

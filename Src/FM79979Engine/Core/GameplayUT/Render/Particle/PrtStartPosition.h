@@ -29,11 +29,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
-		virtual char*	GetOutputDataString()override;
+		virtual NamedTypedObject*	Clone()override;
+		virtual std::string			GetDataInfo()override;
+		virtual std::string			GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool				SetDataByDataString(const char*e_pString)override;
 	};
 
 	enum	eAttachFrameType
@@ -105,10 +105,10 @@ namespace FATMING_CORE
 		static char*	UsageExplanation;
 		//
 		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetDataInfo()override;
+		virtual std::string	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool		SetDataByDataString(const char*e_pString)override;
 	};
 //end namespace FATMING_CORE
 }

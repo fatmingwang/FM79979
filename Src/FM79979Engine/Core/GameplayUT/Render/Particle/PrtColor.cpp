@@ -58,19 +58,19 @@ namespace FATMING_CORE
 		l_p->SetColor(m_vColor);
 		return l_p; 
 	};
-	char*	cPrtColorInitrSetColor::GetDataInfo()
+	std::string	cPrtColorInitrSetColor::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Color:r=%.2f,g=%.2f,b=%.2f,a=%.2f\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a);
 		return m_sTemp;
 	}
 	//this one for output data value by "," to separate value
-	char*	cPrtColorInitrSetColor::GetOutputDataString()
+	std::string	cPrtColorInitrSetColor::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.5f,%.5f,%.5f,%.5f\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtColorInitrSetColor::SetDataByDataString(char*e_pString)
+	bool	cPrtColorInitrSetColor::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -95,19 +95,19 @@ namespace FATMING_CORE
 		l_p->SetName(GetName());
 		return l_p; 
 	};
-	char*	cPrtColorInitrSetRandomColor::GetDataInfo()
+	std::string	cPrtColorInitrSetRandomColor::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Color:r=%.5f,g=%.5f,b=%.5f,a=%.5f\n\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a);
 		return m_sTemp;
 	}
 	//this one for output data value by "," to separate value
-	char*	cPrtColorInitrSetRandomColor::GetOutputDataString()
+	std::string	cPrtColorInitrSetRandomColor::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.5f,%.5f,%.5f,%.5f\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtColorInitrSetRandomColor::SetDataByDataString(char*e_pString)
+	bool	cPrtColorInitrSetRandomColor::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -142,19 +142,19 @@ namespace FATMING_CORE
 		return l_p; 	
 	}
     
-	char*	cPrtColorActBlending::GetDataInfo()
+	std::string	cPrtColorActBlending::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Color:r=%.5f,g=%.5f,b=%.5f,a=%.5f\nFade:%d\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a,m_bFade?1:0);
 		return m_sTemp;
 	}
 	//this one for output data value by "," to separate value
-	char*	cPrtColorActBlending::GetOutputDataString()
+	std::string	cPrtColorActBlending::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.5f,%.5f,%.5f,%.5f,%d\0",m_vColor.r,m_vColor.g,m_vColor.b,m_vColor.a,m_bFade?1:0);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtColorActBlending::SetDataByDataString(char*e_pString)
+	bool	cPrtColorActBlending::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -176,11 +176,11 @@ namespace FATMING_CORE
 	NamedTypedObject*  cPrtColorActBlendingBy2Color::Clone()
 	{
 		cParticleBase*l_pParticleBase = new cPrtColorActBlendingBy2Color();
-		l_pParticleBase->SetDataByDataString(this->GetOutputDataString());
+		l_pParticleBase->SetDataByDataString(this->GetOutputDataString().c_str());
 		return l_pParticleBase;
 	}
 
-	char*	cPrtColorActBlendingBy2Color::GetDataInfo()
+	std::string	cPrtColorActBlendingBy2Color::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Color1:%.5f,%.5f,%.5f,%.5f\nColor2:%.5f,%.5f,%.5f,%.5f\0",m_vColor1.r,m_vColor1.g,m_vColor1.b,m_vColor1.a,
 			m_vColor2.r,m_vColor2.g,m_vColor2.b,m_vColor2.a);
@@ -188,7 +188,7 @@ namespace FATMING_CORE
 	}
 
 	//this one for output data value by "," to separate value
-	char*	cPrtColorActBlendingBy2Color::GetOutputDataString()
+	std::string	cPrtColorActBlendingBy2Color::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f,%.5f\0",m_vColor1.r,m_vColor1.g,m_vColor1.b,m_vColor1.a,
 			m_vColor2.r,m_vColor2.g,m_vColor2.b,m_vColor2.a);
@@ -196,7 +196,7 @@ namespace FATMING_CORE
 	}
 
 	//input the output data string,and analyze it
-	bool	cPrtColorActBlendingBy2Color::SetDataByDataString(char*e_pString)
+	bool	cPrtColorActBlendingBy2Color::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

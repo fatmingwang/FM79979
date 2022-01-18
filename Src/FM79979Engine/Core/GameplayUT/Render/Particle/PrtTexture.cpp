@@ -17,7 +17,7 @@ namespace FATMING_CORE
 	{
 	}
 
-	char*	cPrtTextureActDynamicTexture::GetOutputDataString()
+	std::string	cPrtTextureActDynamicTexture::GetOutputDataString()
 	{
 		memset(m_sTemp,0,sizeof(char)*MAX_PATH);
 		if( this->m_pEmitterOwner->GetBaseImage()->Type() == cPuzzleImage::TypeID )
@@ -47,7 +47,7 @@ namespace FATMING_CORE
 		m_pfAllUVToTwoTriangleData = e_pPuzzleImage->GetAllChildrenTwoTriangleUV();
 	}
 
-	char*	cPrtTextureActDynamicTexture::GetDataInfo()
+	std::string	cPrtTextureActDynamicTexture::GetDataInfo()
 	{
 		if( this->m_pImageIndexOfAnimation )
 			sprintf(m_sTemp,"PIName:%s\nAnimationName:%s\n",this->m_pEmitterOwner->GetBaseImage()->GetCharName().c_str(),m_pImageIndexOfAnimation->GetCharName().c_str());
@@ -56,7 +56,7 @@ namespace FATMING_CORE
 		return m_sTemp;
 	}
 
-	bool	cPrtTextureActDynamicTexture::SetDataByDataString(char*e_pString)
+	bool	cPrtTextureActDynamicTexture::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

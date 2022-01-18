@@ -272,9 +272,11 @@ namespace FATMING_CORE
 						l_pXMLWriter->StartElement( PRTDATA_INIT_POLICY );
 						l_pParticleBase = (*l_pInitPolicyParticleList)[j];
 						l_pXMLWriter->AddAttribute("Type",l_pParticleBase->Type());
-						char*l_strData = l_pParticleBase->GetDataInfo();
-						if( l_strData )
-							l_pXMLWriter->AddAttribute("Data",l_pParticleBase->GetOutputDataString());
+						auto l_strData = l_pParticleBase->GetDataInfo();
+						if (l_strData.length())
+						{
+							l_pXMLWriter->AddAttribute("Data", l_pParticleBase->GetOutputDataString()); 
+						}
 						l_pXMLWriter->EndElement();
 					}
 					cQuickUpdateParticleObjectListByName*l_pActPolicyParticleList = l_pPrtEmitter->GetActPolicyParticleList();
@@ -283,9 +285,11 @@ namespace FATMING_CORE
 						l_pXMLWriter->StartElement( PRTDATA_ACT_POLICY );
 						l_pParticleBase = (*l_pActPolicyParticleList)[j];
 						l_pXMLWriter->AddAttribute("Type",l_pParticleBase->Type());
-						char*l_strData = l_pParticleBase->GetDataInfo();
-						if( l_strData )
-							l_pXMLWriter->AddAttribute("Data",l_pParticleBase->GetOutputDataString());
+						auto l_strData = l_pParticleBase->GetDataInfo();
+						if (l_strData.length())
+						{
+							l_pXMLWriter->AddAttribute("Data", l_pParticleBase->GetOutputDataString());
+						}
 						l_pXMLWriter->EndElement();
 					}
 				l_pXMLWriter->EndElement();

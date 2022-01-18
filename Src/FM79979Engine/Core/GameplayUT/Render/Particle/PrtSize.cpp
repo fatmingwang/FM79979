@@ -32,18 +32,18 @@ namespace FATMING_CORE
 		l_p->m_fRandomValue = m_fRandomValue;
 		return l_p; 
 	};
-	char*	cPrtSizeInitSetSize::GetDataInfo()
+	std::string	cPrtSizeInitSetSize::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Size:x=%.2f,y=%.2f,rand:%.3f\0",x,y,m_fRandomValue);
 		return m_sTemp;
 	}
-	char*	cPrtSizeInitSetSize::GetOutputDataString()
+	std::string	cPrtSizeInitSetSize::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%.3f\0",x,y,m_fRandomValue);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtSizeInitSetSize::SetDataByDataString(char*e_pString)
+	bool	cPrtSizeInitSetSize::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -69,19 +69,19 @@ namespace FATMING_CORE
 		l_p->SetName(GetName());
 		return l_p; 
 	};
-	char*	cPrtSizeActBlending::GetDataInfo()
+	std::string	cPrtSizeActBlending::GetDataInfo()
 	{
 
 		sprintf(m_sTemp,"Add:%s\n:x=%.2f,y=%.2f\0",m_bAdd?"true":"false",x,y);
 		return m_sTemp;
 	}
-	char*	cPrtSizeActBlending::GetOutputDataString()
+	std::string	cPrtSizeActBlending::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%d\0",x,y,m_bAdd?1:0);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtSizeActBlending::SetDataByDataString(char*e_pString)
+	bool	cPrtSizeActBlending::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

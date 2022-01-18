@@ -23,21 +23,22 @@ namespace FATMING_CORE
 	NamedTypedObject*  cPrtStartPositionInitBySquareRange::Clone()
 	{
 		cPrtStartPositionInitBySquareRange* l_p = new cPrtStartPositionInitBySquareRange; 
-		l_p->SetDataByDataString(this->GetOutputDataString());
+		l_p->SetDataByDataString(this->GetOutputDataString().c_str());
 		return l_p; 
 	};
-	char*	cPrtStartPositionInitBySquareRange::GetDataInfo()
+	std::string	cPrtStartPositionInitBySquareRange::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Width:=%.2f\nHeight:%.2f\nDeepth:=%.2f\0",m_fWidth,m_fHeight,m_fDeepth);
 		return m_sTemp;
 	}
-	char*	cPrtStartPositionInitBySquareRange::GetOutputDataString()
+
+	std::string	cPrtStartPositionInitBySquareRange::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%.2f\0",m_fWidth,m_fHeight,m_fDeepth);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtStartPositionInitBySquareRange::SetDataByDataString(char*e_pString)
+	bool	cPrtStartPositionInitBySquareRange::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -67,7 +68,7 @@ namespace FATMING_CORE
 		l_p->SetName(GetName());
 		return l_p; 
 	};
-	char*	cPrtStartPositionInitByFrame::GetDataInfo()
+	std::string	cPrtStartPositionInitByFrame::GetDataInfo()
 	{
 		if(!m_pFrame)
 			return "none Data ot Data error";
@@ -75,7 +76,7 @@ namespace FATMING_CORE
 		sprintf(m_sTemp,"Type:%s\nModelName:%ls\nSubFrameName:%ls\nOffsetPos:%.2f,%.2f,%.2f\0",l_strAttachFrameType.c_str(),m_pFrame->GetName(),m_strSubFrameName.c_str(),m_vOffsetPos.x,m_vOffsetPos.y,m_vOffsetPos.z);
 		return m_sTemp;
 	}
-	char*	cPrtStartPositionInitByFrame::GetOutputDataString()
+	std::string	cPrtStartPositionInitByFrame::GetOutputDataString()
 	{
 		wchar_t*l_strName = 0;
 		switch(m_eAttachFrameType)
@@ -105,7 +106,7 @@ namespace FATMING_CORE
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtStartPositionInitByFrame::SetDataByDataString(char*e_pString)
+	bool	cPrtStartPositionInitByFrame::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

@@ -53,12 +53,12 @@ namespace FATMING_CORE
 		//
 		virtual NamedTypedObject*  Clone()override;
 
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool	SetDataByDataString(const char*e_pString)override;
 	}; 
 	//===================
 	//we should only have one initial velocity policy
@@ -113,7 +113,7 @@ namespace FATMING_CORE
 	//	virtual char*	GetDataInfo();
 	//	virtual char*	GetOutputDataString();
 	//	//input the output data string,and analyze it
-	//	virtual bool	SetDataByDataString(char*e_pString);
+	//	virtual bool	SetDataByDataString(const char*e_pString);
 	//};
 	//cPrtAcceleration
 	//it could be grative too,if acceleration is negative
@@ -135,11 +135,11 @@ namespace FATMING_CORE
 		//
 		virtual NamedTypedObject*  Clone()override;
 		//
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 		//
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool	SetDataByDataString(const char*e_pString)override;
 	};
 	//==================================
 	//
@@ -214,11 +214,11 @@ namespace FATMING_CORE
 		//
 		virtual NamedTypedObject*  Clone()override;
 		//
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 		//
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool	SetDataByDataString(const char*e_pString)override;
 	};
 
 	class cPrtVelocityActBySatelliteAction:public cParticleBase
@@ -253,10 +253,10 @@ namespace FATMING_CORE
 		static char*	UsageExplanation;
 		//
 		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetDataInfo()override;
+		virtual std::string	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool	SetDataByDataString(const char*e_pString)override;
 	};  //  end of class StartPositionByVelocityAction
 
 //end namespace FATMING_CORE

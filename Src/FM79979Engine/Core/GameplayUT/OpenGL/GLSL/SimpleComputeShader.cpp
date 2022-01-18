@@ -93,11 +93,6 @@ namespace FATMING_CORE
 			delete[] l_strLog;
 			return false;
 		}
-		//https://stackoverflow.com/questions/46436682/opengl-compute-shader-binding-point-redundancy
-		//GLuint block_index = 9;
-		//block_index = glGetProgramResourceIndex(m_uiShaderProgramID, GL_SHADER_STORAGE_BLOCK, "MyEmitterData");
-		//block_index = glGetProgramResourceIndex(m_uiShaderProgramID, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOIn");
-		//block_index = glGetProgramResourceIndex(m_uiShaderProgramID, GL_SHADER_STORAGE_BLOCK, "ParticlesSSOOut");
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(0));
 		return true;
 	}
@@ -112,4 +107,52 @@ namespace FATMING_CORE
 		return false;
 	}
 
+	unsigned int cSimpleComputeShader::BindResourceIDWithString(const char* e_strName)
+	{
+		if (g_pCurrentShader != this)
+		{
+			this->Use();
+		}
+		//https://stackoverflow.com/questions/46436682/opengl-compute-shader-binding-point-redundancy
+		//GLuint block_index = 9;
+		auto l_uiIndex = glGetProgramResourceIndex(m_uiShaderProgramID, GL_SHADER_STORAGE_BLOCK, e_strName);
+		if (l_uiIndex != -1)
+		{
+			m_ResourceNameAndIndexMap.insert({ e_strName ,l_uiIndex });
+		}
+		return l_uiIndex;
+	}
+
+	bool cSimpleComputeShader::BindResourceIDWithStringVector(std::vector<const char*>&e_strNameVector)
+	{
+		if (g_pCurrentShader != this)
+		{
+			this->Use();
+		}
+		bool l_bResult = true;
+		auto l_uiSize = e_strNameVector.size();
+		for (size_t i = 0; i < l_uiSize; ++i)
+		{
+			auto l_uiIndex = glGetProgramResourceIndex(m_uiShaderProgramID, GL_SHADER_STORAGE_BLOCK, e_strNameVector[i]);
+			if (l_uiIndex != -1)
+			{
+				m_ResourceNameAndIndexMap.insert({ e_strNameVector[i] ,l_uiIndex });
+			}
+			else
+			{
+				l_bResult = false;
+			}
+		}
+		return l_bResult;
+	}
+
+	unsigned int cSimpleComputeShader::GetResourceIDByName(const char* e_strName)
+	{
+		auto l_IT = m_ResourceNameAndIndexMap.find(e_strName);
+		if (l_IT != m_ResourceNameAndIndexMap.end())
+		{
+			return l_IT->second;
+		}
+		return -1;
+	}
 }

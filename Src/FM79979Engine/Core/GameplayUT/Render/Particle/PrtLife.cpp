@@ -35,20 +35,20 @@ namespace FATMING_CORE
 		return l_p; 
 	};
 
-	char*	cPrtLifeInitrSetLife::GetDataInfo()
+	std::string	cPrtLifeInitrSetLife::GetDataInfo()
 	{
 
 		sprintf(m_sTemp,"LifeMin:=%.2f\nLifeRange:%.2f\nRandom:%s",m_fLifeMin,m_fLifeRange,m_bRandom?"true":"false");
 		return m_sTemp;
 	}
 	//this one for output data value by "," to separate value
-	char*	cPrtLifeInitrSetLife::GetOutputDataString()
+	std::string	cPrtLifeInitrSetLife::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%d\0",m_fLifeMin,m_fLifeRange,m_bRandom?1:0);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtLifeInitrSetLife::SetDataByDataString(char*e_pString)
+	bool	cPrtLifeInitrSetLife::SetDataByDataString(const char*e_pString)
 	{
 		char*Nexttoken = 0;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));

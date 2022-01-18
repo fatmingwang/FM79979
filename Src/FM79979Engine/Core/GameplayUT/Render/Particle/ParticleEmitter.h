@@ -57,6 +57,7 @@ namespace FATMING_CORE
 	//#include "../AllCoreInclude.h"
 	class cPrtEmitter:public cFMTimeLineAnimationRule
 	{
+		class cBatchRender* m_pBatchRender;
 		friend class	cPrtTextureActDynamicTexture;
 		friend class	cParticleEmiterWithShowPosition;
 		//while primitive is points ActSizeBlending and initSize just fetch x data
@@ -96,61 +97,16 @@ namespace FATMING_CORE
 		Vector4*		m_pvAllColorPointer;
 		Vector3*		m_pvAllPosPointer;
 		Vector2*		m_pvAllTexCoordinatePointer;
-		cMatrix44	GetParticleDataMatrix(sParticleData*e_pParticleData);
-		void	Shot(float e_fElpaseTime = 0.016f);
+		cMatrix44		GetParticleDataMatrix(sParticleData*e_pParticleData);
+		void			Shot(float e_fElpaseTime = 0.016f);
 		//time eto shot a new one?if true shot or still wait for shot
-		inline	bool	ShotUpdate(float e_fElpaseTime)
-		{
-			if( e_fElpaseTime<=0.f )
-				return false;
-			assert(m_iCurrentWorkingParticles <= m_iMaxParticleCount);
-			if( m_iParticleEmitCount == 0 || this->m_iCurrentEmitCount < this->m_iParticleEmitCount )
-			{
-				bool	l_bShoot = false;
-				this->m_fCurrentTime+=e_fElpaseTime;
-				while( m_fCurrentTime>=this->m_fGapTimeToShot )//until all particles shoot.
-				{
-					m_fCurrentTime-=m_fGapTimeToShot;
-					m_iCurrentEmitCount++;
-					this->Shot(m_fCurrentTime);
-					if( m_iParticleEmitCount == -1 )
-						m_iCurrentEmitCount = 0;
-					l_bShoot = true;
-					if( m_fGapTimeToShot <= 0.f )
-						break;
-				}
-				return l_bShoot;
-			}
-			return false;
-		}
+		bool			ShotUpdate(float e_fElpaseTime);
 		//particle behavior update
-		inline	void	ParticleUpdate(float e_fElpaseTime)
-		{
-			for(int i=0;i<this->m_iCurrentWorkingParticles;)
-			{
-				sParticleData*l_pParticleData = &this->m_pParticleData[i];
-				m_pActPolicyParticleList->Update(e_fElpaseTime,i,l_pParticleData);
-				//update current position
-				l_pParticleData->vPos += (l_pParticleData->vVelocity*e_fElpaseTime);
-				if( l_pParticleData->fLifespan<=0.f )
-				{//set current particle data to last working data,and minus the working count
-					m_pParticleData[i] = m_pParticleData[m_iCurrentWorkingParticles - 1];
-					m_iCurrentWorkingParticles--;
-					if( m_iCurrentWorkingParticles == 0 )
-					{
-						if( m_iParticleEmitCount !=0 )
-							this->m_bActived = false;
-					}
-				}
-				else
-				{
-					i++;
-				}
-			}		
-		}
+		void			ParticleUpdate(float e_fElpaseTime);
 		virtual	void	InternalInit()override;
 		virtual	void	InternalUpdate(float e_fElpaseTime)override;
 		virtual	void	InternalRender()override;
+		bool			BatchRender();
 		//shot particles
 		void	Shot(int e_iNumParticle,float e_fElpaseTime = 0.016f);
 	public:
@@ -162,44 +118,45 @@ namespace FATMING_CORE
 		cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone = true);
 		CLONE_MYSELF(cPrtEmitter);
 		virtual ~cPrtEmitter();
-		cBaseImage*		GetBaseImage(){return m_pBaseImage;}
-		void			SetBaseImage(cBaseImage*e_pBaseImage);
+		cBaseImage*			GetBaseImage(){return m_pBaseImage;}
+		void				SetBaseImage(cBaseImage*e_pBaseImage);
 
 		//add into policy list,after add into list u should call SetupPolicy
-		void			AddInitPolicy(cParticleBase*e_pParticleBase);
-		void			AddActPolicy(cParticleBase*e_pParticleBase);
-		void			SetupPolicy();
+		void				AddInitPolicy(cParticleBase*e_pParticleBase);
+		void				AddActPolicy(cParticleBase*e_pParticleBase);
+		void				SetupPolicy();
 		//
-		virtual char*	GetDataInfo();
+		virtual std::string	GetDataInfo();
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString);
+		virtual bool		SetDataByDataString(const char*e_pString);
+		bool				SetDataByDataString(std::string e_String) { return SetDataByDataString(e_String.c_str()); }
 
-		void			SetEmitDirection(Vector3 e_vDirection);
-		Vector3			GetEmitDirection();
-		Vector3*		GetEmitDirectionPointer();
+		void				SetEmitDirection(Vector3 e_vDirection);
+		Vector3				GetEmitDirection();
+		Vector3*			GetEmitDirectionPointer();
 
-		int				GetMaxParticleCount(){return m_iMaxParticleCount;}
-		void			SetMaxParticleCount(int	 e_iMaxParticleCount);
-		bool			IsActived(){ return m_bActived; }
+		int					GetMaxParticleCount(){return m_iMaxParticleCount;}
+		void				SetMaxParticleCount(int	 e_iMaxParticleCount);
+		bool				IsActived(){ return m_bActived; }
 		//
-		virtual void	Update(float e_fElpaseTime)override;
+		virtual void		Update(float e_fElpaseTime)override;
 		//all alive particle to be killed and call shot
-		void			Emit(Vector3 e_vPos,float e_fStartTime = 0.0001f,bool e_bKillOldParticles = true);
-		void			Emit(bool e_bKillOldParticles = true);
-		void			Stop()override { m_iCurrentWorkingParticles = 0; this->m_iCurrentEmitCount = this->m_iParticleEmitCount;  }
+		void				Emit(Vector3 e_vPos,float e_fStartTime = 0.0001f,bool e_bKillOldParticles = true);
+		void				Emit(bool e_bKillOldParticles = true);
+		void				Stop()override { m_iCurrentWorkingParticles = 0; this->m_iCurrentEmitCount = this->m_iParticleEmitCount;  }
 		//for 2D using,if particle has been rotated,it does't work,because it have to transform or fetch matrix to get last position.
 		//it cose a lot work,so I rather forget this.
-		virtual	void	KillParticleByOutRange(RECT e_rc);
-		int				GetCurrentWorkingParticles();
+		virtual	void		KillParticleByOutRange(RECT e_rc);
+		int					GetCurrentWorkingParticles();
 		//ensure if u do not expect loop, the emit count is what u want
-		void			SetLoop(bool e_bLoop);
-		bool			IsLoop();
-		virtual	void	RearrangeTime(float e_fNewTime)override { assert(0&&"not support"); }
-		virtual	void	RearrangeTimeByPercent(float e_fPercenttage)override { assert(0&&"not support"); }
-		virtual	void	UpdateByGlobalTime(float e_fGlobalTime)override { assert(0&&"not support"); }
-		virtual	void	RenderByGlobalTime(float e_fTime)override {assert(0&&"not support");}
-		virtual	void	InvertOrder()override {}
-		virtual	float	GetEndTime()override { return -1.f; }
+		void				SetLoop(bool e_bLoop);
+		bool				IsLoop();
+		virtual	void		RearrangeTime(float e_fNewTime)override { assert(0&&"not support"); }
+		virtual	void		RearrangeTimeByPercent(float e_fPercenttage)override { assert(0&&"not support"); }
+		virtual	void		UpdateByGlobalTime(float e_fGlobalTime)override { assert(0&&"not support"); }
+		virtual	void		RenderByGlobalTime(float e_fTime)override {assert(0&&"not support");}
+		virtual	void		InvertOrder()override {}
+		virtual	float		GetEndTime()override { return -1.f; }
 	};
 //end namespace FATMING_CORE
 }

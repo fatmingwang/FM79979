@@ -25,13 +25,13 @@ namespace FATMING_CORE
 		//UsageExplanation
 		static char*	UsageExplanation;
 		//for data info
-		virtual char*	GetDataInfo(){ return 0; }
+		virtual std::string	GetDataInfo(){ return std::string(); }
 		//this one for output data value by "," to separate value
 		//exprte to xml
-		virtual char*	GetOutputDataString(){ return 0; }
+		virtual std::string	GetOutputDataString(){ return std::string(); }
 		//input the output data string,and analyze it
 		//from xml
-		virtual bool	SetDataByDataString(char*e_pString){ return false; }
+		virtual bool	SetDataByDataString(const char*e_pString){ return false; }
 		//fuck I am lazy to do this now...because it's quite hard to decied to use the features like this or insert a time span to determinate the policy running.
 		//too hard to edit for now
 		enum eDataChangeType

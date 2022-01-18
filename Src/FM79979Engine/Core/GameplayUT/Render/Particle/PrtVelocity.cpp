@@ -47,20 +47,20 @@ namespace FATMING_CORE
 		return l_p; 
 	};
 
-	char*	cPrtVelocityInitSetVelocity::GetOutputDataString()
+	std::string	cPrtVelocityInitSetVelocity::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%.2f,%d,%.2f\0",m_vVeolcity.x,m_vVeolcity.y,m_vVeolcity.z,m_bRandom?1:0,m_fRandomOffSet);
 		return m_sTemp;
 	}
 
-	char*	cPrtVelocityInitSetVelocity::GetDataInfo()
+	std::string	cPrtVelocityInitSetVelocity::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Velocity:x=%.2f,y=%.2f,z=%.2f\nRandom:%s\nRandomOffset:%.2f\0",m_vVeolcity.x,m_vVeolcity.y,m_vVeolcity.z,m_bRandom?"true":"false",m_fRandomOffSet);
 		return m_sTemp;
 	}
 
 	//input the output data string,and analyze it
-	bool	cPrtVelocityInitSetVelocity::SetDataByDataString(char*e_pString)
+	bool	cPrtVelocityInitSetVelocity::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -90,7 +90,7 @@ namespace FATMING_CORE
 	//	l_p->SetRandom(m_bRandom);
 	//	return l_p; 
 	//}
-	//char*	cPrtVelocityInitRandomFly::GetDataInfo()
+	//std::string	cPrtVelocityInitRandomFly::GetDataInfo()
 	//{
 	//	sprintf_s(m_sTemp,MAX_PATH,"Dir:x=%.2f,y=%.2f,z=%.2f\nRandom:%s\nDistance:%.2f\0",m_vDir.x,m_vDir.y,m_vDir.z,m_bRandom?"true":"false",m_fDistance);
 	//	return m_sTemp;
@@ -101,7 +101,7 @@ namespace FATMING_CORE
 	//	return m_sTemp;
 	//}
 	////input the output data string,and analyze it
-	//bool	cPrtVelocityInitRandomFly::SetDataByDataString(char*e_pString)
+	//bool	cPrtVelocityInitRandomFly::SetDataByDataString(const char*e_pString)
 	//{
 	//	char *Nexttoken = 0;
 	//	char* l_pString = strtok(e_pString,",");
@@ -127,20 +127,20 @@ namespace FATMING_CORE
 		return l_pPrtVelocityActAcceleration;
 	}
 
-	char*	cPrtVelocityActAcceleration::GetOutputDataString()
+	std::string	cPrtVelocityActAcceleration::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.5f\0",m_fAccelerationSpeed);
 		return m_sTemp;
 	}
 
-	char*	cPrtVelocityActAcceleration::GetDataInfo()
+	std::string	cPrtVelocityActAcceleration::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Acceleration:%.5f\0",m_fAccelerationSpeed);
 		return m_sTemp;		
 	}
 
 	//input the output data string,and analyze it
-	bool	cPrtVelocityActAcceleration::SetDataByDataString(char*e_pString)
+	bool	cPrtVelocityActAcceleration::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -175,19 +175,19 @@ namespace FATMING_CORE
 		return l_p;	
 	}
 	//
-	char*	cPrtVelocityActDircctionChange::GetOutputDataString()
+	std::string	cPrtVelocityActDircctionChange::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%d\0",m_vStopTime.x,m_vStopTime.y,m_vStopTime.z,m_vNewSpeed.x,m_vNewSpeed.y,m_vNewSpeed.z,m_bAccesleration?1:0);
 		return m_sTemp;
 	}
 	//
-	char*	cPrtVelocityActDircctionChange::GetDataInfo()
+	std::string	cPrtVelocityActDircctionChange::GetDataInfo()
 	{
 		sprintf(m_sTemp,"StopTime:%.3f,%.3f,%.3f\n,NewSpeed:%.3f,%.3f,%.3f\nAccesleration:%d\0",m_vStopTime.x,m_vStopTime.y,m_vStopTime.z,m_vNewSpeed.x,m_vNewSpeed.y,m_vNewSpeed.z,m_bAccesleration?1:0);
 		return m_sTemp;	
 	}
 	//input the output data string,and analyze it
-	bool	cPrtVelocityActDircctionChange::SetDataByDataString(char*e_pString)
+	bool	cPrtVelocityActDircctionChange::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
@@ -212,18 +212,19 @@ namespace FATMING_CORE
 
 
 
-	char*	cPrtVelocityActBySatelliteAction::GetDataInfo()
+	std::string	cPrtVelocityActBySatelliteAction::GetDataInfo()
 	{
 		sprintf(m_sTemp,"Radius:%.2f\nSpeed:%.2f\nTrackLength:%.2f\nPivot:x=%.2f,y=%.2f,z=%.2f\0",m_fRadius,m_fSpeed,m_fTrackLength,m_vPivot.x,m_vPivot.y,m_vPivot.z);
 		return m_sTemp;
 	}
-	char*	cPrtVelocityActBySatelliteAction::GetOutputDataString()
+
+	std::string	cPrtVelocityActBySatelliteAction::GetOutputDataString()
 	{
 		sprintf(m_sTemp,"%.2f,%.2f,%.2f,%.2f,%.2f,%.2f\0",m_fRadius,m_fSpeed,m_fTrackLength,m_vPivot.x,m_vPivot.y,m_vPivot.z);
 		return m_sTemp;
 	}
 	//input the output data string,and analyze it
-	bool	cPrtVelocityActBySatelliteAction::SetDataByDataString(char*e_pString)
+	bool	cPrtVelocityActBySatelliteAction::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);

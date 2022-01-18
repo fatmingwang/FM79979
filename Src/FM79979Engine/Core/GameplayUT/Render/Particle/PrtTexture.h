@@ -34,11 +34,11 @@ namespace FATMING_CORE
 		virtual NamedTypedObject*	Clone()override;
 		virtual	void				SetPuzzleImage(cPuzzleImage*e_pPuzzleImage)override;
 		//
-		virtual char*				GetDataInfo()override;
+		virtual std::string			GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*				GetOutputDataString()override;
+		virtual std::string			GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool				SetDataByDataString(char*e_pString)override;
+		virtual bool				SetDataByDataString(const char*e_pString)override;
 		//owner is important so this one can't be cloned!.
 		virtual	bool				IsOwnerIsImportant()override { return true; }
 	};

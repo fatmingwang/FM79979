@@ -404,7 +404,7 @@ void	cAnimationMesh::JointUpdate(float elapsedTime)
             //case LOOP:
             //    {
                 float overTime = (m_fCurrentTime + elapsedTime - m_fEndTime);
-                newTime = m_fStartTime + fmod(overTime, endMinusStart);
+                newTime = m_fStartTime + (float)fmod(overTime, endMinusStart);
             //    }
             //    break;
             //case BLOCK:
@@ -454,7 +454,7 @@ void	cAnimationMesh::Update(float elapsedTime)
             //case LOOP:
             //    {
                 float overTime = (m_fCurrentTime + elapsedTime - m_fEndTime);
-                newTime = m_fStartTime + fmod(overTime, endMinusStart);
+                newTime = m_fStartTime + (float)fmod(overTime, endMinusStart);
             //    }
             //    break;
             //case BLOCK:

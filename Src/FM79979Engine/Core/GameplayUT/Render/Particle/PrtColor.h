@@ -21,11 +21,11 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool		SetDataByDataString(const char*e_pString)override;
 	};
 	//===========
 	//
@@ -48,12 +48,12 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
+		virtual NamedTypedObject*	Clone()override;
+		virtual std::string			GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString()override;
+		virtual std::string			GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool				SetDataByDataString(const char*e_pString)override;
 	};
 	//===========
 	//
@@ -99,11 +99,11 @@ namespace FATMING_CORE
 		static char*	UsageExplanation;
 		//
 		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
+		virtual std::string	GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString()override;
+		virtual std::string	GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
+		virtual bool		SetDataByDataString(const char*e_pString)override;
 	};
 	//===========
 	//
@@ -140,13 +140,13 @@ namespace FATMING_CORE
 		//usage explanation
 		static char*	UsageExplanation;
 		//
-		virtual NamedTypedObject*  Clone()override;
-		virtual char*	GetDataInfo()override;
+		virtual NamedTypedObject*	Clone()override;
+		virtual std::string			GetDataInfo()override;
 		//this one for output data value by "," to separate value
-		virtual char*	GetOutputDataString()override;
+		virtual std::string			GetOutputDataString()override;
 		//input the output data string,and analyze it
-		virtual bool	SetDataByDataString(char*e_pString)override;
-		virtual inline void	Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
+		virtual bool				SetDataByDataString(const char*e_pString)override;
+		virtual inline void			Update(float e_fElpaseTime,int e_iIndex,sParticleData*e_pParticleData)override
 		{
 			float l_fCurrentProgress = 1-(e_pParticleData->fLifespan/e_pParticleData->fOriginaLifeSpan);
 			if( l_fCurrentProgress<0.5f )

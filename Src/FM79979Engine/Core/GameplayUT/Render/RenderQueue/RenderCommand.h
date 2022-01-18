@@ -52,13 +52,14 @@ namespace FATMING_CORE
 		int							ViewportAssignData(Vector3* e_pOutPos, Vector4* e_pOutColor, Vector2* e_pOutUV,Vector4 e_vViewPortData);
 	};
 
-	class cBatchRender
+	class cBatchRender:public NamedTypedObject
 	{
 		cShaderStorageBuffer<char>* m_pVerticesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIndicesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIn;
 		cShaderStorageBuffer<char>* m_pVertexOut;
 		//
+		std::map<NamedTypedObject*, unsigned int>	m_ShaderStorageBufferAndResourceIDMap;
 		class cSimpleComputeShader* m_pSimpleComputeShader;
 		//
 		struct sRenderVertex
@@ -97,7 +98,7 @@ namespace FATMING_CORE
 		void							IncreaseData(int e_iNumTriangles);
 		void							GrowRenderData();
 		void							GrowVertexData();
-		void							Sort();
+		void							SortByMatrix();
 		void							FlushBatch();
 		//do compute shader
 		void							ComputeVertexMatrix();
@@ -116,7 +117,9 @@ namespace FATMING_CORE
 	protected:
 		eRenderSortMode					m_eRenderSortMode;
 	public:
+		DEFINE_TYPE_INFO();
 		cBatchRender();
+		cBatchRender(const char*e_strShader, std::vector<const char*>&e_strVector);
 		~cBatchRender();
 		bool	Begin(eRenderSortMode e_eRenderSortMode);
 		bool	End();
@@ -124,5 +127,7 @@ namespace FATMING_CORE
 		bool							Draw_TrianglesAssignData(unsigned int e_uiTextureID,int e_iPosStride,float* e_pInPos,float* e_pInColor,float* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix,const wchar_t*strShaderName);
 		bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID,Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);
 		bool							Draw_ViewportAssignData(Vector4 e_vViewPortData);
+		void							InsertSSBWithResourceID(NamedTypedObject*e_pSSB, unsigned int e_uiResourceID);
 	};
+//end namespace FATMING_CORE
 }
