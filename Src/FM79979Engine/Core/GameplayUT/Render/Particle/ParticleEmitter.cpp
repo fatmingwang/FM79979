@@ -7,30 +7,102 @@
 
 namespace FATMING_CORE
 {
+	//Jan/20/2022
+	//use compute shader to get final vertex(my thought is put all ActPolicy and InitPolicy in compute shader,but I am lazy)
+	//Particle Size to be scale
+	//so particle vertex should be{vec2(-0.5,-0.5),vec2(0.5,-0.5),vec2(-0.5,0.5),vec2(0.5,0.5)}
+	//apply SRT to get new matrix then do 
+	//mat = xFormXYZ(s,r,t);
+	//vertex[0] = vertex[0]*mat;
+	//vertex[1] = vertex[1]*mat;
+	//vertex[2] = vertex[2]*mat;
+	//vertex[3] = vertex[3]*mat;
+	//https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
+	// 
+	//https://forum.derivative.ca/t/rotating-an-instanced-object-using-a-glsl-shader-possible/6162/5
+	//
+	//return transformation matrix
+	const char*g_strShaderMatrix = R"(
+		//Return rotation matrix
+		mat3 rotationMatrixXYZ(vec3 r)
+		{
+			float cx = cos(radians(r.x));
+			float sx = sin(radians(r.x));
+			float cy = cos(radians(r.y));
+			float sy = sin(radians(r.y));
+			float cz = cos(radians(r.z));
+			float sz = sin(radians(r.z));
+
+			return mat3( cy * cz, 	cx * sz + sx * sy * cz, 	sx * sz - cx * sy * cz,
+						-cy * sz,	cx * cz - sx * sy * sz,		sx * cz + cx * sy * sz,
+						 sy     ,                 -sx * cy,					   cx * cy);
+		}
+
+		mat4 xFormXYZ(vec3 t, vec3 sc, vec3 r)
+		{
+			mat3 scale = mat3(sc.x, 0.0, 0.0,
+				0.0, sc.y, 0.0,
+				0.0, 0.0, sc.z);
+
+			mat3 xfm = rotationMatrixXYZ(uRotate) * scale;
+
+			return mat4(xfm[0][0], xfm[0][1], xfm[0][2], 0.0,
+				xfm[1][0], xfm[1][1], xfm[1][2], 0.0,
+				xfm[2][0], xfm[2][1], xfm[2][2], 0.0,
+				t.x, t.y, t.z, 1.0);
+			/* this would be valid as well
+			return mat4(xfm[0], 0.0,xfm[1], 0.0,xfm[2], 0.0,t, 1.0 );
+			*/
+		}
+	)";
+
+	class cParticleBatchRender :public cBatchRender
+	{
+		cShaderStorageBuffer<char>* m_pMatricesIn;
+	public:
+		cParticleBatchRender(const char*e_strShader);
+		~cParticleBatchRender();
+		virtual bool	End()override
+		{
+
+		}
+	};
+
+	const char* g_strParticleEmitterShaderPrefix =
+#ifdef WIN32
+	R"(
+		#version 430
+		#define Vector3	vec3
+		#define Vector4	vec4
+	)";
+#else
+	R"(
+		#version 310 es
+		#define Vector3	vec3
+		#define Vector4	vec4
+	)";
+#endif
+
+	#define	PARTICLE_EMITTER_UNIFORM										\
+	struct sParticlesPosAndAngle											\
+	{																		\
+		Vector3	vAngle														\
+		Vector3	Pos;														\
+	};
+
 	const char*g_strMyCSForParticleBatchRendering =
 		R"(
 			layout(std140, binding=1) buffer Layout1MatricesIn
 			{
-				mat4	MatricesIn[];
+				sParticlesPosAndAngle ParticlesPosAndAngleIn[];
 			};
+
 			layout( std140, binding=2 ) buffer Layout2VerticesIn
 			{
 				vec3	vVertexIn[];
 			};
-			layout( std140, binding=3 ) buffer Layout3MatrinxIndicesIn
-			{
-				int		iMatrixIndexIn[];
-			};
-			
-			layout( std140, binding=4 ) buffer Layout4PosVerticesOut
-			{
-				vec3	vVertexOut[];
-			};
-			layout( std140, binding=5 ) buffer Layout5ObjectPosAndRotation
-			{
-				vec3	vVertexOut[];
-			};
-			layout( std140, binding=6 ) buffer Layout4PosVerticesOut
+
+			layout( std140, binding=3 ) buffer Layout3PosVerticesOut
 			{
 				vec3	vVertexOut[];
 			};
@@ -96,7 +168,7 @@ namespace FATMING_CORE
 		SetName(e_pName);
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
-		//m_pBatchRender = new FATMING_CORE::cBatchRender(g_strMyCSForParticleBatchRendering);
+		//m_pBatchRender = new FATMING_CORE::cParticleBatchRender(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)
@@ -145,7 +217,7 @@ namespace FATMING_CORE
 		}
 		m_bPolicyFromClone = e_bPolicyFromClone;
 		SetName(e_pPrtEmitter->GetName());
-		//m_pBatchRender = new FATMING_CORE::cBatchRender(g_strMyCSForParticleBatchRendering);
+		//m_pBatchRender = new FATMING_CORE::cParticleBatchRender(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::~cPrtEmitter()

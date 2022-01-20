@@ -67,6 +67,7 @@ namespace FATMING_CORE
 		virtual bool	Collide(int e_iPosX, int e_iPosY);
 		void			SetRenderFunction(f_RenderFunction e_f_RenderFunction) { m_RenderFunction = e_f_RenderFunction; }
 		void			SetUpdateFunction(f_UpdateFunction e_f_UpdateFunction) { m_UpdateFunction = e_f_UpdateFunction; }
+		virtual bool	GetRenderDataForBatchRendering(int& e_iOutNumVertex,cMatrix44&e_OutMat, Vector3*e_pvOutPos, Vector2*e_pvOutUV, Vector4*e_pvOutColor) { return false; }
 		//virtual	bool	IsDone(){ return false; }
 		//virtual	int		GetWidth() = 0;
 		//virtual	int		GetHeight() = 0;

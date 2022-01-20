@@ -47,12 +47,17 @@ public:
 	void	RenderLevelLayerGridObject(int e_iIndex);
 };
 
+namespace FATMING_CORE
+{
+	class	cBatchRender;
+}
 //=======================
 //cNamedTypedObjectVector<cGridBehavior> for each layer
 //=======================
 class	cStoreyData:public cLevelLayerList
 {
-	POINT	m_RowAncolumn;
+	POINT			m_RowAncolumn;
+	cBatchRender*	m_pBatchRender;
 public:
 	//set all as road to default,prevent data error
 	cStoreyData(cLevelLayerList*e_pLevelLayerData);

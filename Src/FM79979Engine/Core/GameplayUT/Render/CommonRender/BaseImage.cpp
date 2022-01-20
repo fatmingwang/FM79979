@@ -409,6 +409,42 @@ namespace FATMING_CORE
 		this->SetLocalBound(&l_Bound);
 		return this->GetLocalBound();
 	}
+	bool	cBaseImage::GetRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat, Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)
+	{
+		if (!m_bVisible)
+		{
+			return false;
+		}
+		if (m_pTexture)
+		{
+			m_pTexture->ApplyImage();
+		}
+		POINT l_vOffsetPos = m_OffsetPos;
+		if (m_OffsetPos.x != 0 || m_OffsetPos.y != 0)
+		{
+			float l_fScaleX = (float)m_iWidth / ((float)m_pTexture->GetWidth() * (m_fUV[2] - m_fUV[0]));
+			float l_fScaleY = (float)m_iHeight / ((float)m_pTexture->GetHeight() * (m_fUV[3] - m_fUV[1]));
+			l_vOffsetPos.x = (long)(l_fScaleX * m_OffsetPos.x);
+			l_vOffsetPos.y = (long)(l_fScaleY * m_OffsetPos.y);
+		}
+		float l_fWidth = (float)m_iWidth / 2.f;
+		float l_fHeight = (float)m_iHeight / 2.f;
+		float	l_Vertices[] = { -l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+								  l_fWidth + (float)l_vOffsetPos.x,-l_fHeight + (float)l_vOffsetPos.y,0.f,
+								 -l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f,
+								  l_fWidth + (float)l_vOffsetPos.x, l_fHeight + (float)l_vOffsetPos.y,0.f, };
+		float	l_fTexPointer[] = { m_fUV[0],m_fUV[1],
+								   m_fUV[2],m_fUV[1],
+								   m_fUV[0],m_fUV[3],
+								   m_fUV[2],m_fUV[3] };
+		Vector4	l_vColor[4] = {m_vColor,m_vColor ,m_vColor ,m_vColor };
+		e_OutMat = cMatrix44::TranslationMatrix(l_fWidth, l_fHeight, 0.f) * this->GetWorldTransform();
+		memcpy(e_pvOutPos, l_Vertices, sizeof(Vector3) * 4);
+		memcpy(e_pvOutUV, l_Vertices, sizeof(Vector2) * 4);
+		memcpy(e_pvOutColor, l_vColor, sizeof(Vector4) * 4);
+		e_iOutNumVertex = 4;
+		return true;
+	}
 	//void	cBaseImage::RenderWithoutOffset(Vector3 e_vPos)
 	//{
 	//	if( !m_bVisible )

@@ -22,7 +22,7 @@ namespace FATMING_CORE
 		virtual ~cLevelLayerGridData();
 		CLONE_MYSELF(cLevelLayerGridData);
 		cRenderObject*	GetImage(){ return m_pImage; }
-		void					SetImage(cRenderObject*e_pRenderObjectBehavior);
+		void			SetImage(cRenderObject*e_pRenderObjectBehavior);
 		cEventDataNode*	GetTemplateDataNode();
 		void			SetTemplateDataNode(cEventDataNode*e_pEventDataNode);
 

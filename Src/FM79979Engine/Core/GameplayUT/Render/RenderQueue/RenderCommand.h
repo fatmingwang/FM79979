@@ -54,6 +54,7 @@ namespace FATMING_CORE
 
 	class cBatchRender:public NamedTypedObject
 	{
+	protected:
 		cShaderStorageBuffer<char>* m_pVerticesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIndicesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIn;
@@ -122,7 +123,7 @@ namespace FATMING_CORE
 		cBatchRender(const char*e_strShader, std::vector<const char*>&e_strVector);
 		~cBatchRender();
 		bool	Begin(eRenderSortMode e_eRenderSortMode);
-		bool	End();
+		virtual bool	End();
 		//return how many buffer require to cosumed.
 		bool							Draw_TrianglesAssignData(unsigned int e_uiTextureID,int e_iPosStride,float* e_pInPos,float* e_pInColor,float* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix,const wchar_t*strShaderName);
 		bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID,Vector3* e_pInPos, Vector4* e_pInColor, Vector2* e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);

@@ -133,7 +133,8 @@ namespace FATMING_CORE
 		virtual	void	Destroy()override {}
 		void			SetupTexture(GLint e_iChannel,GLsizei e_iWidth,GLsizei e_iHeight,GLenum e_Format,GLenum e_Type,bool e_bGeneratePixels,const GLvoid *e_pPixels,bool e_bShowLog = true);
 		virtual POINT	GetSize()override;
-		virtual const cBound*	GenerateBound()override;
+		virtual const	cBound*	GenerateBound()override;
+		virtual bool	GetRenderDataForBatchRendering(int& e_iOutNumVertex, cMatrix44& e_OutMat,Vector3* e_pvOutPos, Vector2* e_pvOutUV, Vector4* e_pvOutColor)override;
 	};
 
 	//===============
