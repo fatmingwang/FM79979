@@ -211,8 +211,10 @@ namespace	FATMING_CORE
 	void	cTimeAndDataLinerUpdateInterface::DoTimeLiner()
 	{
 		size_t	l_uiSize = this->m_TimeVector.size();
-		if( l_uiSize < 2 )
+		if (l_uiSize < 2)
+		{
 			return;
+		}
 		float	l_fStart = m_TimeVector[0];
 		float	l_fEnd = m_TimeVector[l_uiSize-1];
 		float	l_fGap = (l_fEnd-l_fStart)/l_uiSize;

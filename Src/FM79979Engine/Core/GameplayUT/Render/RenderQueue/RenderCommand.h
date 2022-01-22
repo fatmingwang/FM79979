@@ -97,8 +97,8 @@ namespace FATMING_CORE
 		std::unique_ptr<sRenderData[]>	m_RenderDataPtr;
 		// Dynamically expands the array used to store pending sprite information.
 		void							IncreaseData(int e_iNumTriangles);
-		void							GrowRenderData();
-		void							GrowVertexData();
+		virtual void					GrowRenderData();
+		virtual void					GrowVertexData();
 		void							SortByMatrix();
 		void							FlushBatch();
 		//do compute shader

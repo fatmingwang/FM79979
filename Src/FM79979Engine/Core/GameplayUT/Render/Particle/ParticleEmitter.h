@@ -4,6 +4,7 @@
 #define GL_QUADS 0x0007
 #endif
 #include "ParticleBase.h"
+#include <memory>
 namespace FATMING_CORE
 {
 	class cPrtEmitter;
@@ -54,10 +55,12 @@ namespace FATMING_CORE
 	//so assign texture coordinate as above mention
 	class	cPrtTextureActDynamicTexture;
 	class	cParticleEmiterWithShowPosition;
+	class	cBatchRender;
 	//#include "../AllCoreInclude.h"
+
 	class cPrtEmitter:public cFMTimeLineAnimationRule
 	{
-		class cBatchRender* m_pBatchRender;
+		std::shared_ptr<cBatchRender>	m_pBatchRender;
 		friend class	cPrtTextureActDynamicTexture;
 		friend class	cParticleEmiterWithShowPosition;
 		//while primitive is points ActSizeBlending and initSize just fetch x data

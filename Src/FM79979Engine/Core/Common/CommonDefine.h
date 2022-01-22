@@ -5,6 +5,15 @@
 #ifndef TEMP_SIZE
 #define	TEMP_SIZE			1024
 #endif
+
+#define TO_CHAR(str) #str
+#define TO_STRING_MARCO(str) TO_CHAR(str)
+
+#define CAT(A, B)   A##B
+#define WSTRING(A)  CAT(L, #A)
+
+#define CHAR_TO_WCHAR_DEFINE(A)  CAT(L, A)
+
 //do the thing going to happen,if cvall back is assigned
 typedef void    (*DoButtonGoal_Callback)(void*e_pData);
 

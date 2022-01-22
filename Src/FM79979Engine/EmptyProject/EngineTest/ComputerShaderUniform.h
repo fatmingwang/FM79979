@@ -10,7 +10,9 @@
 //Vector4	v3StartPos;													\
 
 #ifdef __cplusplus
+#ifndef uint
 #define	uint	unsigned int
+#endif
 #endif
 //CS data alignment
 //https://stackoverflow.com/questions/38172696/should-i-ever-use-a-vec3-inside-of-a-uniform-buffer-or-shader-storage-buffer-o/38172697#38172697
@@ -38,10 +40,6 @@ struct sEmitterData														\
 	uint	UpdateFlag;													\
 };																		\
 const uint		MY_CS_WORK_GROUP_SIZE = 128;
-
-
-#define TO_CHAR(str) #str
-#define TO_STRING_MARCO(str) TO_CHAR(str)
 
 //MUCS_UNIFORM;
 auto g_strMyCSUnifom = TO_STRING_MARCO(MUCS_UNIFORM);

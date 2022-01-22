@@ -78,33 +78,26 @@ namespace FATMING_CORE
 		*pvViewPort = e_vViewPortData;
 		return 1;
 	}
+
 	TYPDE_DEFINE_MARCO(cBatchRender);
 	cBatchRender::cBatchRender()
 	{
+		m_uiRenderDataQueueArraySize = 0;
 		m_uiCurrentRenderDataIndex = 0;
 		m_uiCurrentVertexIndex = 0;
 		m_uiVertexArraySizeCount = 0;
-		m_pSimpleComputeShader = new cSimpleComputeShader(g_strMyCSForVerticesTransform);
-		std::vector<const char*>l_strVector = {"Layout1MatricesIn","Layout2VerticesIn","Layout3MatrinxIndicesIn","Layout4PosVerticesOut" };
-		m_pVerticesIn = new cShaderStorageBuffer<char>(1024);
-		m_pMatricesIndicesIn = new cShaderStorageBuffer<char>(1024);
-		m_pMatricesIn = new cShaderStorageBuffer<char>(1024);
-		m_pVertexOut = new cShaderStorageBuffer<char>(1024);
-		m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
-		cShaderStorageBuffer<char>* l_ShaderStorageBufferArray[] =
-		{
-			m_pMatricesIn,m_pVerticesIn,m_pMatricesIndicesIn,m_pVertexOut
-		};
-		for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
-		{
-			auto l_uiID = m_pSimpleComputeShader->GetResourceIDByName(l_strVector[l_uiSize]);
-			m_ShaderStorageBufferAndResourceIDMap.insert({ l_ShaderStorageBufferArray[l_uiSize],l_uiID});
-		}
-		GrowRenderData();
-		GrowVertexData();
+		m_pSimpleComputeShader = nullptr;
+		m_pVerticesIn = nullptr;
+		m_pMatricesIndicesIn = nullptr;
+		m_pMatricesIn = nullptr;
+		m_pVertexOut = nullptr;
+		//GrowRenderData();
+		//GrowVertexData();
 	}
+
 	cBatchRender::cBatchRender(const char* e_strShader, std::vector<const char*>& e_strVector)
 	{
+		m_uiRenderDataQueueArraySize = 0;
 		m_uiCurrentRenderDataIndex = 0;
 		m_uiCurrentVertexIndex = 0;
 		m_uiVertexArraySizeCount = 0;

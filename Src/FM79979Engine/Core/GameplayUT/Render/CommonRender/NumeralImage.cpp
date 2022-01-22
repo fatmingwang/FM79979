@@ -528,9 +528,9 @@ namespace FATMING_CORE
 	{
 		if( !m_bVisible )
 			return;
-		int	l_iSecond = this->m_i64Value%60;
-		int	l_iMin = this->m_i64Value/60%60;
-		int	l_iHour = this->m_i64Value/60/60%24;
+		int	l_iSecond = (int)(this->m_i64Value%60);
+		int	l_iMin = (int)(this->m_i64Value/60%60);
+		int	l_iHour = (int)(this->m_i64Value/60/60%24);
 		int	l_iIndex = 0;
 		int	l_iNum = 0;
 		if( m_bEnableSecond )

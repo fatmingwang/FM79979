@@ -17,8 +17,7 @@ cFrameCamera*				g_pFrameCamera = 0;
 cOrthogonalCamera*			g_pOrthogonalCamera = 0;
 cCameraBehaveByMouseBehave*	g_pCameraBehaveByMouseBehave = 0;
 cParticleEmitterGroup*		g_pParticleEmitterGroup = 0;
-cPrtEmitter*				g_pPrtEmitter;
-cPrtEmitter*				g_pPrtEmiter = 0;
+cPrtEmitter*				g_pPrtEmitter = nullptr;
 cCurveManager*				g_p2DCurveLoader = 0;
 cCurveWithTime*				g_p2DCurvesWithTime = 0;
 cMPDIList*					g_pMPDIList = 0;
@@ -265,7 +264,7 @@ void	LoadSample()
 		g_pParticleEmitterGroup->Init();
 		g_pParticleEmitterGroup->SetAnimationLoop(true);
 	}
-	//g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Smoke.prt",L"Fire");
+	g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Smoke.prt",L"Fire");
 	if( g_pPrtEmitter )
 	{
 		g_pPrtEmitter->Emit(Vector3(200,200,0));

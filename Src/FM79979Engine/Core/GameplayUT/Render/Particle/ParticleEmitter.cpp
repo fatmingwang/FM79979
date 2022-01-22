@@ -3,7 +3,7 @@
 #include "PrtVelocity.h"
 #include "../CommonRender/BaseImage.h"
 #include "../CommonRender/SimplePrimitive.h"
-#include "../../OpenGL/GLSL/Shader.h"
+#include "../../OpenGL/GLSL/SimpleComputeShader.h"
 
 namespace FATMING_CORE
 {
@@ -44,7 +44,7 @@ namespace FATMING_CORE
 				0.0, sc.y, 0.0,
 				0.0, 0.0, sc.z);
 
-			mat3 xfm = rotationMatrixXYZ(uRotate) * scale;
+			mat3 xfm = rotationMatrixXYZ(r) * scale;
 
 			return mat4(xfm[0][0], xfm[0][1], xfm[0][2], 0.0,
 				xfm[1][0], xfm[1][1], xfm[1][2], 0.0,
@@ -56,65 +56,124 @@ namespace FATMING_CORE
 		}
 	)";
 
-	class cParticleBatchRender :public cBatchRender
-	{
-		cShaderStorageBuffer<char>* m_pMatricesIn;
-	public:
-		cParticleBatchRender(const char*e_strShader);
-		~cParticleBatchRender();
-		virtual bool	End()override
-		{
-
-		}
-	};
-
 	const char* g_strParticleEmitterShaderPrefix =
 #ifdef WIN32
-	R"(
-		#version 430
-		#define Vector3	vec3
-		#define Vector4	vec4
-	)";
+		R"(
+			#version 430
+			#define Vector3	vec3
+			#define Vector4	vec4
+		)";
 #else
-	R"(
-		#version 310 es
-		#define Vector3	vec3
-		#define Vector4	vec4
-	)";
+		R"(
+			#version 310 es
+			#define Vector3	vec3
+			#define Vector4	vec4
+		)";
 #endif
 
-	#define	PARTICLE_EMITTER_UNIFORM										\
-	struct sParticlesPosAndAngle											\
-	{																		\
-		Vector3	vAngle														\
-		Vector3	Pos;														\
+#define	PARTICLE_EMITTER_UNIFORM										\
+	struct sParticlesPosAndAngle										\
+	{																	\
+		Vector3	vScale;													\
+		Vector3	vAngle;													\
+		Vector3	vPos;													\
 	};
 
-	const char*g_strMyCSForParticleBatchRendering =
+	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
+
+	PARTICLE_EMITTER_UNIFORM;
+	//
+	//0     1
+	//2     3
+	//
+	//strip to triangles 2,3,0,0,3,1
+	//vVertexOut count is 6 times bigger to Layout1MatricesIn.
+	const char* g_strMyCSForParticleBatchRendering =
 		R"(
+			vec4 l_vVertex[6] = 
+			{
+				vec4(-0.5,-0.5,0,1),vec4(0.5,-0.5,0,1),vec4(-0.5,0.5,0,1),
+				vec4(-0.5, 0.5,0,1),vec4(0.5,-0.5,0,1),vec4( 0.5,0.5,0,1)
+			};
 			layout(std140, binding=1) buffer Layout1MatricesIn
 			{
 				sParticlesPosAndAngle ParticlesPosAndAngleIn[];
 			};
 
-			layout( std140, binding=2 ) buffer Layout2VerticesIn
-			{
-				vec3	vVertexIn[];
-			};
-
-			layout( std140, binding=3 ) buffer Layout3PosVerticesOut
+			layout( std140, binding=2 ) buffer Layout2PosVerticesOut
 			{
 				vec3	vVertexOut[];
 			};
 
+			uint IntMod(uint a,uint b)
+			{
+				return a - uint(b * floor(a/b));
+			}
 			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
 			void main()
 			{
 				//uint iLocalID =  gl_LocalInvocationID.x;
-				uint iID =		 gl_GlobalInvocationID.x;
-				vVertexOut[iID] = (MatricesIn[iMatrixIndexIn[iID]]*vec4(vVertexIn[iID],1)).xyz;
+				uint iID =		 gl_GlobalInvocationID.x/6+IntMod(gl_GlobalInvocationID.x,6);
+				vVertexOut[iID] = (
+										xFormXYZ
+										(
+											ParticlesPosAndAngleIn[iID].vPos,
+											ParticlesPosAndAngleIn[iID].vScale,
+											ParticlesPosAndAngleIn[iID].vAngle
+										)*l_vVertex[gl_GlobalInvocationID.x%6]
+									).xyz;
 			}
 		)";
+
+	class cParticleBatchRender :public cBatchRender
+	{
+		cShaderStorageBuffer<char>*		m_pMatricesIn;
+		//
+		virtual void					GrowRenderData()override
+		{
+		}
+
+		virtual void					GrowVertexData()override
+		{
+		}
+
+	public:
+		cParticleBatchRender(const char* e_strShader)
+		{
+			//std::string l_strShader = g_strParticleEmitterShaderPrefix;
+			std::string l_strShader = g_strParticleCSUnifom;
+			l_strShader += g_strShaderMatrix;
+			l_strShader += g_strMyCSForParticleBatchRendering;
+
+			m_uiVertexArraySizeCount = 0;
+			m_uiCurrentRenderDataIndex = 0;
+
+			m_uiCurrentVertexIndex = 0;
+
+			m_pVerticesIn = new cShaderStorageBuffer<char>(1024);
+			m_pVertexOut = new cShaderStorageBuffer<char>(1024);
+
+			m_pSimpleComputeShader = new cSimpleComputeShader(l_strShader.c_str());
+			std::vector<const char*>l_strVector = {};
+			m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
+			cShaderStorageBuffer<char>* l_ShaderStorageBufferArray[] =
+			{
+				m_pMatricesIn,m_pVerticesIn,m_pMatricesIndicesIn,m_pVertexOut
+			};
+			for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
+			{
+				auto l_uiID = m_pSimpleComputeShader->GetResourceIDByName(l_strVector[l_uiSize]);
+				m_ShaderStorageBufferAndResourceIDMap.insert({ l_ShaderStorageBufferArray[l_uiSize],l_uiID });
+			}
+			GrowRenderData();
+			GrowVertexData();
+		}
+		~cParticleBatchRender(){}
+		virtual bool	End()override
+		{
+			return true;
+		}
+	};
 
 	TYPDE_DEFINE_MARCO(cPrtEmitter);
 	char	g_strTempStringForOutput[MAX_PATH];
@@ -168,13 +227,13 @@ namespace FATMING_CORE
 		SetName(e_pName);
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
-		//m_pBatchRender = new FATMING_CORE::cParticleBatchRender(g_strMyCSForParticleBatchRendering);
+		//m_pBatchRender = std::make_shared<FATMING_CORE::cParticleBatchRender>(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)
 		:cFMTimeLineAnimationRule(e_pPrtEmitter)
 	{
-		m_pBatchRender = nullptr;
+		m_pBatchRender = e_pPrtEmitter->m_pBatchRender;
 		m_iPlayCount = -1;
 	    m_bActived = false;
 		m_pVelocityInit = 0;
@@ -217,7 +276,6 @@ namespace FATMING_CORE
 		}
 		m_bPolicyFromClone = e_bPolicyFromClone;
 		SetName(e_pPrtEmitter->GetName());
-		//m_pBatchRender = new FATMING_CORE::cParticleBatchRender(g_strMyCSForParticleBatchRendering);
 	}
 
 	cPrtEmitter::~cPrtEmitter()

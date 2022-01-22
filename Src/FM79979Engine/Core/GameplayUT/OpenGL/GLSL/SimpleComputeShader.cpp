@@ -56,6 +56,11 @@ namespace FATMING_CORE
 		const char* shaderPrefix = "#version 310 es\n";
 #endif
 		const GLchar* fullSrc[2] = { l_strShaderPrefix,e_strCS };
+
+#ifdef DEBUG
+		FMLog::Log(l_strShaderPrefix, false);
+		FMLog::Log(e_strCS, false);
+#endif
 		m_uiShaderProgramID = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, fullSrc);
 		{
 			GLint l_iLogLength = 0;

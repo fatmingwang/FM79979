@@ -23,14 +23,6 @@
 #define UNICODE
 #endif
 
-#ifndef _UNICODE
-#define _UNICODE
-#endif
-#define CAT(A, B)   A##B
-#define WSTRING(A)  CAT(L, #A)
-
-#define CHAR_TO_WCHAR_DEFINE(A)  CAT(L, A)
-
 #define TYPDE_DEFINE_MARCO(TYPE) const wchar_t*         TYPE::TypeID( WSTRING(TYPE) );
 
 
