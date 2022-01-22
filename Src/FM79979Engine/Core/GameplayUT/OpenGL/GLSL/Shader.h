@@ -4,8 +4,6 @@
 #include "../../../Common/NamedTypedObject.h"
 #include "../../../Common/Template/TemplateClass.h"
 
-#include "ShaderStorageBuffer.h"
-
 #include <functional>
 
 #define	A_QUAD_TWO_TRIANGLES						2

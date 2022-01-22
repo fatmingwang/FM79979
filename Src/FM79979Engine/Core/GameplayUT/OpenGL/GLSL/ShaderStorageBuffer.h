@@ -1,5 +1,9 @@
 #pragma once
-
+#ifdef LINUX
+#include <GLES3/gl3.h>
+#include <GLES3/gl31.h>
+#include <GLES3/gl32.h>
+#endif
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
 
 //https://www.yumpu.com/en/document/read/32089810/opengl-4x-and-beyondpdf-nvidia-developer-zone
