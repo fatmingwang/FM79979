@@ -3,6 +3,7 @@
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
 
 //https://www.yumpu.com/en/document/read/32089810/opengl-4x-and-beyondpdf-nvidia-developer-zone
+
 template <class T> class cShaderStorageBuffer :public NamedTypedObject
 {
 public:

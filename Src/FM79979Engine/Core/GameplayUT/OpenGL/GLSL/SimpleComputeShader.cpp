@@ -1,3 +1,4 @@
+#include "../Glh.h"
 #include "SimpleComputeShader.h"
 
 namespace FATMING_CORE
@@ -53,13 +54,15 @@ namespace FATMING_CORE
 				#define Vector4	vec4
 			)";
 #else
-		const char* shaderPrefix = "#version 310 es\n";
+		const char* l_strShaderPrefix = "#version 310 es\n";
 #endif
 		const GLchar* fullSrc[2] = { l_strShaderPrefix,e_strCS };
 
 #ifdef DEBUG
+#ifdef WIN32
 		FMLog::Log(l_strShaderPrefix, false);
 		FMLog::Log(e_strCS, false);
+#endif
 #endif
 		m_uiShaderProgramID = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, fullSrc);
 		{

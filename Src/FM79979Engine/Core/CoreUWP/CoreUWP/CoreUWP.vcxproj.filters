@@ -100,9 +100,6 @@
     <Filter Include="GameplayUT\Render\RenderFrameEeffect">
       <UniqueIdentifier>{65c96d88-8868-40f5-93f0-1f61fac5a739}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameplayUT\Render\RenderQueue">
-      <UniqueIdentifier>{0c242746-5e02-4f02-9c32-5c60569d81aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameplayUT\Render\Terrian">
       <UniqueIdentifier>{5d7242a7-7c1b-4835-ac4a-c52cec9c5021}</UniqueIdentifier>
     </Filter>
@@ -144,6 +141,9 @@
     </Filter>
     <Filter Include="Synchronization">
       <UniqueIdentifier>{6b1d12c8-ff6e-46e4-b1b8-0d42fda1f869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameplayUT\OpenGL\GLSL\CS">
+      <UniqueIdentifier>{5d3eaea8-e778-462a-beb6-c7bf18fa6807}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -462,9 +462,6 @@
     <ClCompile Include="..\..\GameplayUT\Render\Terrain\TerrianVertex.cpp">
       <Filter>GameplayUT\Render\Terrian</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\GameplayUT\Render\RenderQueue\RenderCommand.cpp">
-      <Filter>GameplayUT\Render\RenderQueue</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp">
       <Filter>GameplayUT\Render\RenderFrameEeffect</Filter>
     </ClCompile>
@@ -617,6 +614,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Synchronization\CPP11Thread.cpp">
       <Filter>Synchronization</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp">
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -956,15 +956,6 @@
     <ClInclude Include="..\..\GameplayUT\Render\Terrain\TerrianVertex.h">
       <Filter>GameplayUT\Render\Terrian</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderCommand.h">
-      <Filter>GameplayUT\Render\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderQueue.h">
-      <Filter>GameplayUT\Render\RenderQueue</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\GameplayUT\Render\RenderQueue\RenderQueueManager.h">
-      <Filter>GameplayUT\Render\RenderQueue</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h">
       <Filter>GameplayUT\Render\RenderFrameEeffect</Filter>
     </ClInclude>
@@ -1130,8 +1121,11 @@
     <ClInclude Include="..\..\Synchronization\CPP11Thread.h">
       <Filter>Synchronization</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="..\..\GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h">
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.h">
+      <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

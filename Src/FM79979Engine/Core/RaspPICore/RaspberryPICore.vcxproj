@@ -165,6 +165,7 @@
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\MeshShader.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\Shader.cpp" />
+    <ClCompile Include="..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="..\GameplayUT\OpenGL\GluForOpengles.cpp" />
@@ -222,7 +223,6 @@
     <ClCompile Include="..\GameplayUT\Render\Particle\PrtVelocity.cpp" />
     <ClCompile Include="..\GameplayUT\Render\PuzzleImage\PuzzleImage.cpp" />
     <ClCompile Include="..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp" />
-    <ClCompile Include="..\GameplayUT\Render\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\ShockBoobsPainter.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\ShockBoobsShader.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\TerrianVertex.cpp" />
@@ -345,6 +345,8 @@
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\Blur.h" />
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\GLSLUiniform.h" />
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\Shader.h" />
+    <ClInclude Include="..\GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h" />
+    <ClInclude Include="..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.h" />
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\ToneMapping.h" />
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\TunnelEffect.h" />
     <ClInclude Include="..\GameplayUT\OpenGL\OpenGLCommon.h" />
@@ -405,9 +407,6 @@
     <ClInclude Include="..\GameplayUT\Render\PuzzleImage\BaseUVImageData.h" />
     <ClInclude Include="..\GameplayUT\Render\PuzzleImage\PuzzleImage.h" />
     <ClInclude Include="..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h" />
-    <ClInclude Include="..\GameplayUT\Render\RenderQueue\RenderCommand.h" />
-    <ClInclude Include="..\GameplayUT\Render\RenderQueue\RenderQueue.h" />
-    <ClInclude Include="..\GameplayUT\Render\RenderQueue\RenderQueueManager.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\ShockBoobsPainter.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\ShockBoobsShader.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\TerrianVertex.h" />

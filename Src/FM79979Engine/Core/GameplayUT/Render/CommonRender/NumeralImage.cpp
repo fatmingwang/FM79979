@@ -308,7 +308,7 @@ namespace FATMING_CORE
 		{
 			l_mat = cMatrix44(e_pmat)*l_mat;
 		}
-		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum*¢Ï_QUAD_TWO_TRIANGLES);
+		RenderTrianglesWithMatrix((float*)m_pvVertexBuffer, (float*)m_pvTextureUVBuffer, (float*)m_pvColorBuffer, l_mat,2, l_iNum* A_QUAD_TWO_TRIANGLES);
 	}
 	void	cNumeralImage::Draw(int64	e_iValue,int e_iPosX,int e_iPosY,float*e_pmat,bool e_bCenter)
 	{
@@ -541,7 +541,7 @@ namespace FATMING_CORE
 			l_iNum += AssignNumerialData(&l_iIndex ,this->m_pfTexCoordinate,m_vColor,this->m_iSingleImageWidth,this->m_iSingleImageHeight,this->m_vHourPos,l_iHour,1);
 		this->ApplyImage();
 
-		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * ¢Ï_QUAD_TWO_TRIANGLES);
+		RenderTrianglesWithMatrix(g_fGlobalTempBufferForRenderVertices, g_fGlobalTempBufferForRenderUV, g_fGlobalTempBufferForRenderColor, cMatrix44::Identity, 3, l_iNum * A_QUAD_TWO_TRIANGLES);
 		if( m_pDisableObject && m_i64Value == 0 )
 		{
 			m_pDisableObject->Render();

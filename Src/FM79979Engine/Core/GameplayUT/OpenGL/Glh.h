@@ -1,9 +1,12 @@
 #pragma once
 
 #if defined(UWP)
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+	#include <EGL/egl.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
+	#include <GLES3/gl3.h>
+	#include <GLES3/gl31.h>
+	#include <GLES3/gl32.h>
 #elif defined(WIN32)
 	#include "../../../Include/glew.h"
 	#include "../../../Include/glext.h"
@@ -25,6 +28,9 @@
 #elif defined(LINUX)
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
+	#include <GLES3/gl3.h>
+	#include <GLES3/gl31.h>
+	#include <GLES3/gl3ext.h>
 #elif defined(WASM)
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
