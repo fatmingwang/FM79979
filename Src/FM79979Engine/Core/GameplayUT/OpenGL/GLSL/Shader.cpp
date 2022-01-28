@@ -240,8 +240,10 @@ namespace FATMING_CORE
 					m_uiBonesLocation = GetUniFormLocationByName("matBones" );
 					m_uiPointSize = GetUniFormLocationByName("PointSize");
 
-					for(int i=0;i<TOTAL_FVF;++i)
+					for (int i = 0; i < TOTAL_FVF; ++i)
+					{
 						m_uiAttribArray[i] = glGetAttribLocation(m_uiProgram, g_strShaderAttribution[i]);
+					}
 					CHECK_GL_ERROR("cBaseShader::456");
 					glLinkProgram( m_uiProgram );
 					glUseProgram( m_uiProgram );
@@ -349,6 +351,20 @@ namespace FATMING_CORE
 	}
 	void cBaseShader::Unuse()
 	{
+		int	l_iIndex = 0;
+		for (int i = 0; i < TOTAL_FVF; ++i)
+		{
+			if (m_uiAttribArray[i] != (unsigned int)-1)
+			{
+				glDisableVertexAttribArray(l_iIndex);
+				CHECK_GL_ERROR("cBaseShader::unuse after glDisableVertexAttribArray");
+				++l_iIndex;
+			}
+		}
+		if (m_uiTexLoacation != (unsigned int)-1)
+		{
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 		glUseProgram(0);
 		g_pCurrentShader = nullptr;
 	}
@@ -398,8 +414,10 @@ namespace FATMING_CORE
 			g_pAll2DShaderList = new cNamedTypedObjectVector<cBaseShader>;
 		}
 		l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
-		if( l_p2DShader )
+		if (l_p2DShader)
+		{
 			return l_p2DShader;
+		}
 //#ifdef OPENGLES_2_X
 		glActiveTexture( GL_TEXTURE0  );
 		l_p2DShader = new cBaseShader(e_strVS,e_strPS,e_strName,e_pbClientState[FVF_TEX0]);
@@ -478,10 +496,18 @@ namespace FATMING_CORE
 		if( g_pAll2DShaderList )
 		{
 			cBaseShader*l_p2DShader = g_pAll2DShaderList->GetObject(e_strName);
-			if( l_p2DShader && g_pCurrentShader && g_pCurrentShader == l_p2DShader )
+			if (l_p2DShader && g_pCurrentShader && g_pCurrentShader == l_p2DShader)
+			{
 				return;
-			if( l_p2DShader )
+			}
+			if (l_p2DShader)
+			{
+				if (g_pCurrentShader)
+				{
+					g_pCurrentShader->Unuse();
+				}
 				l_p2DShader->Use(e_bUseLastWVPMatrix);
+			}
 //#ifdef DEBUG
 //			else
 //			{

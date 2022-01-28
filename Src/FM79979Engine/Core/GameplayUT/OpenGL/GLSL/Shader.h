@@ -133,7 +133,7 @@ namespace FATMING_CORE
 		virtual	NamedTypedObject*	Clone(){ return nullptr; }
 		virtual ~cBaseShader();
 		virtual	void				Use(bool e_bUseLastWVPMatrix = true);
-		void						Unuse();
+		virtual	void				Unuse();
 		//do something if shader need to do in each frame update.
 		virtual	void				Update(float e_fElpaseTime){ m_bDataUpdated = false; }
 		void						Disable();

@@ -26,7 +26,7 @@ void	MyCS_SSO_Init()
 {
 	if (!g_pBatchRenderForTest)
 	{
-		g_pBatchRenderForTest = new cBatchRender();
+		//g_pBatchRenderForTest = new cBatchRender();
 	}
 	if (!g_ParticlesSSOIn)
 	{

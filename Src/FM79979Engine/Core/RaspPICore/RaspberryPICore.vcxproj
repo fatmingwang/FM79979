@@ -106,6 +106,7 @@
       <PreprocessorDefinitions>GL_GLEXT_PROTOTYPES;LINUX;NDEBUG;NO_BULLET_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>
@@ -223,6 +224,7 @@
     <ClCompile Include="..\GameplayUT\Render\Particle\PrtVelocity.cpp" />
     <ClCompile Include="..\GameplayUT\Render\PuzzleImage\PuzzleImage.cpp" />
     <ClCompile Include="..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.cpp" />
+    <ClCompile Include="..\GameplayUT\Render\RenderQueue\RenderCommand.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\ShockBoobsPainter.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\ShockBoobsShader.cpp" />
     <ClCompile Include="..\GameplayUT\Render\Terrain\TerrianVertex.cpp" />
@@ -407,6 +409,7 @@
     <ClInclude Include="..\GameplayUT\Render\PuzzleImage\BaseUVImageData.h" />
     <ClInclude Include="..\GameplayUT\Render\PuzzleImage\PuzzleImage.h" />
     <ClInclude Include="..\GameplayUT\Render\RenderFrameEffect\RenderFrameEffect.h" />
+    <ClInclude Include="..\GameplayUT\Render\RenderQueue\RenderCommand.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\ShockBoobsPainter.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\ShockBoobsShader.h" />
     <ClInclude Include="..\GameplayUT\Render\Terrain\TerrianVertex.h" />
@@ -546,6 +549,7 @@
       <PreprocessorDefinitions>LINUX;DEBUG;GL_GLEXT_PROTOTYPES;NO_BULLET_</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\Sound;..\Bullet;..\..\Freetype\include;..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-I/home/pi/projects/RaspberryPIBullet/Bullet -I/home/pi/projects/RaspberryPIBullet -I/usr/local/include/freetype2 -I/usr/include/freetype2 -I/usr/include -I/home/pi/projects/RaspberryPIBullet/Bullet/Bullet %(AdditionalOptions)</AdditionalOptions>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
     </ClCompile>
     <PreBuildEvent>
       <AdditionalSourcesToCopyMapping>

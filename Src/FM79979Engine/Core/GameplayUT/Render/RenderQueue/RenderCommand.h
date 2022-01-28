@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "../CommonRender/RenderObject.h"
 #include "../../OpenGL/GLSL/ShaderStorageBuffer.h"
 #include <functional>
@@ -58,7 +59,9 @@ namespace FATMING_CORE
 		cShaderStorageBuffer<char>* m_pVerticesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIndicesIn;
 		cShaderStorageBuffer<char>* m_pMatricesIn;
-		cShaderStorageBuffer<char>* m_pVertexOut;
+		cShaderStorageBuffer<char>* m_pVerticesOut;
+		bool						BindBufferBase(NamedTypedObject*e_pNamedTypedObject);
+		bool						BindAllBufferBase();
 		//
 		std::map<NamedTypedObject*, unsigned int>	m_ShaderStorageBufferAndResourceIDMap;
 		class cSimpleComputeShader* m_pSimpleComputeShader;

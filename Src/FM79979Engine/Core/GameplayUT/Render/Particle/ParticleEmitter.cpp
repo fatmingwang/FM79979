@@ -41,18 +41,27 @@ namespace FATMING_CORE
 		mat4 xFormXYZ(vec3 t, vec3 sc, vec3 r)
 		{
 			mat3 scale = mat3(sc.x, 0.0, 0.0,
-				0.0, sc.y, 0.0,
-				0.0, 0.0, sc.z);
+								0.0, sc.y, 0.0,
+								0.0, 0.0, sc.z);
 
 			mat3 xfm = rotationMatrixXYZ(r) * scale;
 
-			return mat4(xfm[0][0], xfm[0][1], xfm[0][2], 0.0,
-				xfm[1][0], xfm[1][1], xfm[1][2], 0.0,
-				xfm[2][0], xfm[2][1], xfm[2][2], 0.0,
-				t.x, t.y, t.z, 1.0);
-			/* this would be valid as well
+			//mat3 xfm = mat3(1,1,1,
+			//				1,1,1,
+			//				1,1,1);
+
+			//return mat4(xfm[0][0], xfm[0][1], xfm[0][2], 0.0,
+			//	xfm[1][0], xfm[1][1], xfm[1][2], 0.0,
+			//	xfm[2][0], xfm[2][1], xfm[2][2], 0.0,
+			//	t.x, t.y, t.z, 1.0);
+
+			//this would be valid as well
 			return mat4(xfm[0], 0.0,xfm[1], 0.0,xfm[2], 0.0,t, 1.0 );
-			*/
+			//for test
+			//return mat4(sc,4,
+			//			r,8,
+			//			t,12,
+			//			13,14,15,16);
 		}
 	)";
 
@@ -75,8 +84,11 @@ namespace FATMING_CORE
 	struct sParticlesPosAndAngle										\
 	{																	\
 		Vector3	vScale;													\
+		int     iOffsetIndex1;											\
 		Vector3	vAngle;													\
+		int     iOffsetIndex2;											\
 		Vector3	vPos;													\
+		int     iOffsetIndex3;											\
 	};
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
@@ -90,44 +102,82 @@ namespace FATMING_CORE
 	//vVertexOut count is 6 times bigger to Layout1MatricesIn.
 	const char* g_strMyCSForParticleBatchRendering =
 		R"(
-			vec4 l_vVertex[6] = 
-			{
-				vec4(-0.5,-0.5,0,1),vec4(0.5,-0.5,0,1),vec4(-0.5,0.5,0,1),
-				vec4(-0.5, 0.5,0,1),vec4(0.5,-0.5,0,1),vec4( 0.5,0.5,0,1)
-			};
-			layout(std140, binding=1) buffer Layout1MatricesIn
+			layout(std140, binding=1) buffer Layout1ParticleSRTData
 			{
 				sParticlesPosAndAngle ParticlesPosAndAngleIn[];
 			};
 
 			layout( std140, binding=2 ) buffer Layout2PosVerticesOut
 			{
-				vec3	vVertexOut[];
+				vec4	vVertexOut[];
+			};
+
+			layout( std140, binding=3 ) buffer Layout3NumCalled
+			{
+				uint uiNumCalled;
+			};
+
+			layout( std140, binding=4 ) buffer Layout4MatrixOut
+			{
+				mat4	mat4ArrayOut[];
 			};
 
 			uint IntMod(uint a,uint b)
 			{
 				return a - uint(b * floor(a/b));
 			}
-			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
+			layout(local_size_x = 1,  local_size_y = 1, local_size_z = 1) in;
+			//uniform uint g_iNumCalled;
 			void main()
 			{
 				//uint iLocalID =  gl_LocalInvocationID.x;
-				uint iID =		 gl_GlobalInvocationID.x/6+IntMod(gl_GlobalInvocationID.x,6);
-				vVertexOut[iID] = (
-										xFormXYZ
-										(
-											ParticlesPosAndAngleIn[iID].vPos,
-											ParticlesPosAndAngleIn[iID].vScale,
-											ParticlesPosAndAngleIn[iID].vAngle
-										)*l_vVertex[gl_GlobalInvocationID.x%6]
-									).xyz;
+				uint iID =		 gl_GlobalInvocationID.x;
+				vec3 l_vScale = ParticlesPosAndAngleIn[iID].vScale;
+				vec4 l_vAQuadToTrianglesVertices[6] = 
+				{
+					vec4(-l_vScale.x,  l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4(-l_vScale.x,-l_vScale.y,l_vScale.z,1),
+					vec4(-l_vScale.x, -l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4( l_vScale.x,-l_vScale.y,l_vScale.z,1)
+				};
+				mat4 l_mat = xFormXYZ(ParticlesPosAndAngleIn[iID].vPos,vec3(1,1,1),ParticlesPosAndAngleIn[iID].vAngle);
+				mat4ArrayOut[iID] = l_mat;
+				vVertexOut[iID*6+0] = (l_mat* l_vAQuadToTrianglesVertices[0]);
+				vVertexOut[iID*6+1] = (l_mat* l_vAQuadToTrianglesVertices[1]);
+				vVertexOut[iID*6+2] = (l_mat* l_vAQuadToTrianglesVertices[2]);
+				vVertexOut[iID*6+3] = (l_mat* l_vAQuadToTrianglesVertices[3]);
+				vVertexOut[iID*6+4] = (l_mat* l_vAQuadToTrianglesVertices[4]);
+				vVertexOut[iID*6+5] = (l_mat* l_vAQuadToTrianglesVertices[5]);
+				//vVertexOut[iID*6+0] = l_vAQuadToTrianglesVertices[0];
+				//vVertexOut[iID*6+1] = l_vAQuadToTrianglesVertices[1];
+				//vVertexOut[iID*6+2] = l_vAQuadToTrianglesVertices[2];
+				//vVertexOut[iID*6+3] = l_vAQuadToTrianglesVertices[3];
+				//vVertexOut[iID*6+4] = l_vAQuadToTrianglesVertices[4];
+				//vVertexOut[iID*6+5] = l_vAQuadToTrianglesVertices[5];
+				uiNumCalled = atomicAdd(uiNumCalled,1);
 			}
 		)";
 
 	class cParticleBatchRender :public cBatchRender
 	{
-		cShaderStorageBuffer<char>*		m_pMatricesIn;
+		cShaderStorageBuffer<int>*						m_pNumCalledOut;
+		cShaderStorageBuffer<cMatrix44>*				m_pMatSSO;
+		cShaderStorageBuffer<sParticlesPosAndAngle>*	m_pParticleInSSO;
+		cShaderStorageBuffer<Vector4>*					m_pParticlePosOut;
+		//
+		void								BindID()
+		{
+			m_ShaderStorageBufferAndResourceIDMap.clear();
+			std::vector<const char*>l_strVector = { "Layout1ParticleSRTData","Layout2PosVerticesOut","Layout3NumCalled","Layout4MatrixOut"};
+			m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
+			NamedTypedObject* l_ShaderStorageBufferArray[] =
+			{
+				m_pParticleInSSO,m_pParticlePosOut,m_pNumCalledOut,m_pMatSSO
+			};
+			for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
+			{
+				auto l_uiID = m_pSimpleComputeShader->GetResourceIDByName(l_strVector[l_uiSize]);
+				m_ShaderStorageBufferAndResourceIDMap.insert({ l_ShaderStorageBufferArray[l_uiSize],l_uiID });
+			}
+		}
 		//
 		virtual void					GrowRenderData()override
 		{
@@ -135,43 +185,138 @@ namespace FATMING_CORE
 
 		virtual void					GrowVertexData()override
 		{
+			bool l_bGenerateData = false;
+			if (!m_pParticleInSSO)
+			{
+				l_bGenerateData = true;
+			}
+			else
+			if(m_pParticleInSSO->GetSize() < m_uiVertexArraySizeCount)
+			{
+				l_bGenerateData = true;
+				SAFE_DELETE(m_pParticleInSSO);
+				SAFE_DELETE(m_pParticlePosOut);
+				SAFE_DELETE(m_pMatSSO);
+			}
+			if (l_bGenerateData)
+			{
+				m_pParticleInSSO = new cShaderStorageBuffer<sParticlesPosAndAngle>(m_uiVertexArraySizeCount);
+				m_pParticlePosOut = new cShaderStorageBuffer<Vector4>( m_uiVertexArraySizeCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+				m_pMatSSO = new cShaderStorageBuffer<cMatrix44>(m_uiVertexArraySizeCount);
+				BindID();
+			}
 		}
 
 	public:
-		cParticleBatchRender(const char* e_strShader)
+		cParticleBatchRender()
 		{
-			//std::string l_strShader = g_strParticleEmitterShaderPrefix;
+			this->SetName(L"cParticleBatchRender");
+			m_pNumCalledOut = new cShaderStorageBuffer<int>(1);
+			m_pMatSSO = nullptr;
+			m_pParticleInSSO = nullptr;
+			m_pParticlePosOut = nullptr;
 			std::string l_strShader = g_strParticleCSUnifom;
 			l_strShader += g_strShaderMatrix;
 			l_strShader += g_strMyCSForParticleBatchRendering;
-
-			m_uiVertexArraySizeCount = 0;
-			m_uiCurrentRenderDataIndex = 0;
-
-			m_uiCurrentVertexIndex = 0;
-
-			m_pVerticesIn = new cShaderStorageBuffer<char>(1024);
-			m_pVertexOut = new cShaderStorageBuffer<char>(1024);
-
 			m_pSimpleComputeShader = new cSimpleComputeShader(l_strShader.c_str());
-			std::vector<const char*>l_strVector = {};
-			m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
-			cShaderStorageBuffer<char>* l_ShaderStorageBufferArray[] =
-			{
-				m_pMatricesIn,m_pVerticesIn,m_pMatricesIndicesIn,m_pVertexOut
-			};
-			for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
-			{
-				auto l_uiID = m_pSimpleComputeShader->GetResourceIDByName(l_strVector[l_uiSize]);
-				m_ShaderStorageBufferAndResourceIDMap.insert({ l_ShaderStorageBufferArray[l_uiSize],l_uiID });
-			}
+			m_uiVertexArraySizeCount = 4096;
+			m_uiCurrentRenderDataIndex = 0;
+			m_uiCurrentVertexIndex = 0;
 			GrowRenderData();
 			GrowVertexData();
+			bool l_bDoTest = false;
+			if (l_bDoTest)
+			{
+				m_pSimpleComputeShader->Use();
+				sParticleData l_sParticleData[2];
+				SetParticleData(2, l_sParticleData);
+				Vector3 l_Temp[4096];
+				int l_iOutputPosCount = 0;
+				CopyOutputVerticesBuffer(l_Temp, 2, l_iOutputPosCount);
+				auto l_pData = m_pNumCalledOut->Map(GL_MAP_READ_BIT);
+				int l_iData = l_pData[0];
+				m_pNumCalledOut->Unmap();
+				int a = l_iOutputPosCount;
+			}
+			m_pSimpleComputeShader->Unuse();
 		}
-		~cParticleBatchRender(){}
-		virtual bool	End()override
+		~cParticleBatchRender()
 		{
-			return true;
+		}
+		void	SetParticleData(int e_iCount, sParticleData* e_pParticleData)
+		{
+			m_pSimpleComputeShader->Use();
+			if (m_uiVertexArraySizeCount < (unsigned int)e_iCount )
+			{
+				m_uiVertexArraySizeCount *= 2;
+				GrowRenderData();
+				GrowVertexData();
+			}
+			{
+				sParticlesPosAndAngle* l_pData = m_pParticleInSSO->Map();
+				for (int i = 0; i < e_iCount; ++i)
+				{
+					 l_pData[i].vScale = e_pParticleData[i].vSize/2;
+					//l_pData[i].vScale = e_pParticleData[i].vSize / e_pParticleData[i].vOriginalSize;
+					//l_pData[i].vScale.z = 1.f;
+					//l_pData[i].vScale = Vector3(1, 1, 1);
+					l_pData[i].vAngle = e_pParticleData[i].vAngle;
+					l_pData[i].vPos = e_pParticleData[i].vPos;
+				}
+				m_pParticleInSSO->Unmap();
+			}
+			{
+				auto l_pData = m_pNumCalledOut->Map();
+				l_pData[0] = 0;
+				m_pNumCalledOut->Unmap();
+			}
+			m_uiCurrentRenderDataIndex = e_iCount;
+			BindAllBufferBase();
+			//BindBufferBase(m_pParticleInSSO);
+			//BindBufferBase(m_pParticlePosOut);
+			//BindBufferBase(m_pNumCalledOut);
+			//BindBufferBase(m_pMatSSO);
+			/*auto l_uiUnformID = glGetUniformLocation(m_pSimpleComputeShader->GetShaderProgramID(), "g_iNumCalled");
+			if (l_uiUnformID != 0)
+			{
+				glProgramUniform1i(l_uiUnformID, l_uiUnformID,0);
+			}*/
+			m_pSimpleComputeShader->DispatchCompute((int)m_uiCurrentRenderDataIndex, 1, 1);
+			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
+			if (1)
+			{
+				auto l_pData = m_pNumCalledOut->Map(GL_MAP_READ_BIT);
+				int l_iData = l_pData[0];
+				m_pNumCalledOut->Unmap();
+				//
+				auto l_pMat = m_pMatSSO->Map(GL_MAP_READ_BIT);
+				cMatrix44 l_mat;
+				for (int i = 0; i < e_iCount; ++i)
+				{
+					l_mat = l_pMat[i];
+				}
+				m_pMatSSO->Unmap();
+				//
+			}
+		}
+
+		bool	CopyOutputVerticesBuffer(Vector3*e_pPos,int e_uiExpectedSize,int&e_iOutputPosCount)
+		{
+			if (m_pParticlePosOut)
+			{
+				Vector4*l_pData = m_pParticlePosOut->Map(GL_MAP_READ_BIT);
+				auto l_uiSize = m_pParticlePosOut->GetSize();
+				//e_iOutputPosCount = (int)(l_uiSize / sizeof(Vector3));
+				//memcpy(e_pPos, l_pData, e_uiExpectedSize * sizeof(Vector3) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+				e_iOutputPosCount = e_uiExpectedSize* TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
+				for (int i = 0; i < e_iOutputPosCount; ++i)
+				{
+					e_pPos[i] = Vector3(l_pData[i].x, l_pData[i].y, l_pData[i].z);
+				}
+				m_pParticlePosOut->Unmap();
+				return true;
+			}
+			return false;
 		}
 	};
 
@@ -227,7 +372,7 @@ namespace FATMING_CORE
 		SetName(e_pName);
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
-		//m_pBatchRender = std::make_shared<FATMING_CORE::cParticleBatchRender>(g_strMyCSForParticleBatchRendering);
+		m_pBatchRender = std::make_shared<FATMING_CORE::cParticleBatchRender>();
 	}
 
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)
@@ -507,7 +652,9 @@ namespace FATMING_CORE
 	bool	cPrtEmitter::ShotUpdate(float e_fElpaseTime)
 	{
 		if (e_fElpaseTime <= 0.f)
+		{
 			return false;
+		}
 		assert(m_iCurrentWorkingParticles <= m_iMaxParticleCount);
 		if (m_iParticleEmitCount == 0 || this->m_iCurrentEmitCount < this->m_iParticleEmitCount)
 		{
@@ -646,10 +793,10 @@ namespace FATMING_CORE
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
 			
-			if (BatchRender()&& m_iPrimitiveType == GL_QUADS)
-			{
-				return;
-			}
+			//if (BatchRender()&& m_iPrimitiveType == GL_QUADS)
+			//{
+			//	return;
+			//}
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -722,50 +869,34 @@ namespace FATMING_CORE
 	{
 		if (this->m_pBatchRender)
 		{
-			//cShaderStorageBuffer<char>* m_pVerticesIn;;
+			int l_iNumVertexCopied = 0;
+			cParticleBatchRender*l_pParticleBatchRender = (cParticleBatchRender*)m_pBatchRender.get();
+			l_pParticleBatchRender->SetParticleData(m_iCurrentWorkingParticles, m_pParticleData);
+			m_pvAllPosPointer[0] = Vector3(1, 1, 1);
+			l_pParticleBatchRender->CopyOutputVerticesBuffer(m_pvAllPosPointer, m_iCurrentWorkingParticles, l_iNumVertexCopied);
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
 			sBlendfunctionRestore l_BlendfunctionRestore;
 			l_BlendfunctionRestore.GetStatus();
 			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			//
+			for (int i = 0; i < this->m_iCurrentWorkingParticles; ++i)
+			{
+				sParticleData* l_pParticleData = &m_pParticleData[i];
+				int	l_iIndex = i * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
+				for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
+				{
+					int l_iTargetIndex = l_iIndex + j;
+					m_pvAllColorPointer[l_iTargetIndex] = l_pParticleData->vColor;
+				}
+			}
 			if (m_pBaseImage)
 			{
 				m_pBaseImage->ApplyImage();
 			}
-			cMatrix44	l_mat;
-			cMatrix44	l_matWorldTransform = this->GetWorldTransform();
-			for(int i=0;i<this->m_iCurrentWorkingParticles;++i)
-			{
-				int	l_iIndex = i*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
-				sParticleData*l_pParticleData = &m_pParticleData[i];
-				l_mat = GetParticleDataMatrix(l_pParticleData);
-				l_mat = l_matWorldTransform*l_mat;
-				for( int j=0;j<TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;++j )
-				{
-					m_pvAllColorPointer[l_iIndex+j] = l_pParticleData->vColor;
-				}
-				Vector3	l_vPos = l_mat.GetTranslation();
-				Vector3	l_vRight = l_mat.GetAxis(MyMath::X);
-				Vector3	l_vUp = l_mat.GetAxis(MyMath::Y);
-				Vector2	l_vHalfSize(l_pParticleData->vSize.x/2,l_pParticleData->vSize.y/2);
-				//first triangle	second triangle
-				//2,3				5
-				//0					1,4
-				//set l_vPos as center
-				m_pvAllPosPointer[l_iIndex] = l_vPos-(l_vHalfSize.x*l_vRight)-(l_vHalfSize.y*l_vUp);
-				l_vPos = m_pvAllPosPointer[l_iIndex];
-				l_vPos += (l_pParticleData->vSize.y*l_vUp);
-				m_pvAllPosPointer[l_iIndex+2] = l_vPos;
-				m_pvAllPosPointer[l_iIndex+3] = l_vPos;
-				l_vPos += (l_pParticleData->vSize.x*l_vRight);
-				m_pvAllPosPointer[l_iIndex+5] = l_vPos;
-				l_vPos -= (l_pParticleData->vSize.y*l_vUp);
-				m_pvAllPosPointer[l_iIndex+1] = l_vPos;
-				m_pvAllPosPointer[l_iIndex+4] = l_vPos;
-			}
 			//bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID, Vector3 * e_pInPos, Vector4 * e_pInColor, Vector2 * e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);
-			//RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*¢Ï_QUAD_TWO_TRIANGLES);
+			RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
 			return true;
 		}
 		return false;

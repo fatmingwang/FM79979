@@ -12,6 +12,8 @@ namespace FATMING_CORE
 	{
 		m_uiShaderProgramID = -1;
 		m_uiProgramPipeline = -1;
+		glBindProgramPipeline(0);
+		glUseProgram(0);
 		if (CreateCSProgram(e_strCS))
 		{
 			if (!CreateProgramPipeline())
@@ -19,6 +21,8 @@ namespace FATMING_CORE
 
 			}
 		}
+		glBindProgramPipeline(0);
+		glUseProgram(0);
 	}
 	
 	cSimpleComputeShader::~cSimpleComputeShader()
@@ -35,12 +39,18 @@ namespace FATMING_CORE
 
 	void cSimpleComputeShader::Use(bool e_bUseLastWVPMatrix)
 	{
-		g_pCurrentShader = this;
-		if (m_uiProgram != -1)
+		if (g_pCurrentShader && g_pCurrentShader != this)
 		{
-			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUseProgram(m_uiProgram));
+			g_pCurrentShader->Unuse();
 		}
+		g_pCurrentShader = this;
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(m_uiProgramPipeline));
+	}
+
+	void cSimpleComputeShader::Unuse()
+	{
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(0));
+		g_pCurrentShader = nullptr;
 	}
 	
 	bool cSimpleComputeShader::CreateCSProgram(const char* e_strCS)
@@ -56,7 +66,7 @@ namespace FATMING_CORE
 #else
 		const char* l_strShaderPrefix = "#version 310 es\n";
 #endif
-		const GLchar* fullSrc[2] = { l_strShaderPrefix,e_strCS };
+		const GLchar* l_strFullSrc[2] = { l_strShaderPrefix,e_strCS };
 
 #ifdef DEBUG
 #ifdef WIN32
@@ -64,7 +74,7 @@ namespace FATMING_CORE
 		FMLog::Log(e_strCS, false);
 #endif
 #endif
-		m_uiShaderProgramID = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, fullSrc);
+		m_uiShaderProgramID = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, l_strFullSrc);
 		{
 			GLint l_iLogLength = 0;
 			glGetProgramiv(m_uiShaderProgramID, GL_INFO_LOG_LENGTH, &l_iLogLength);
@@ -77,20 +87,17 @@ namespace FATMING_CORE
 				return false;
 			}
 		}
-		glUseProgram(0);
 		return true;
 	}
 
 	bool cSimpleComputeShader::CreateProgramPipeline()
 	{
 		GLint l_iStatus = -1;
-		glBindProgramPipeline(0);
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenProgramPipelines(1, &this->m_uiProgramPipeline));
 		glBindProgramPipeline(m_uiProgramPipeline);
 		glUseProgramStages(m_uiProgramPipeline, GL_COMPUTE_SHADER_BIT, m_uiShaderProgramID);
 		glValidateProgramPipeline(m_uiProgramPipeline);
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGetProgramPipelineiv(m_uiProgramPipeline, GL_VALIDATE_STATUS, &l_iStatus));
-
 		if (l_iStatus != GL_TRUE)
 		{
 			GLint l_iLogLength;
@@ -107,12 +114,13 @@ namespace FATMING_CORE
 	
 	bool cSimpleComputeShader::DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ)
 	{
-		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
 		m_iWorkGroupsDimenstionSize[0] = e_iSizeX;
 		m_iWorkGroupsDimenstionSize[1] = e_iSizeY;
 		m_iWorkGroupsDimenstionSize[2] = e_iSizeZ;
-		glDispatchCompute(m_iWorkGroupsDimenstionSize[0], m_iWorkGroupsDimenstionSize[1], m_iWorkGroupsDimenstionSize[2]);
-		return false;
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDispatchCompute(m_iWorkGroupsDimenstionSize[0], m_iWorkGroupsDimenstionSize[1], m_iWorkGroupsDimenstionSize[2]));
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(0));
+		return true;
 	}
 
 	unsigned int cSimpleComputeShader::BindResourceIDWithString(const char* e_strName)
@@ -137,6 +145,7 @@ namespace FATMING_CORE
 		{
 			this->Use();
 		}
+		m_ResourceNameAndIndexMap.clear();
 		bool l_bResult = true;
 		auto l_uiSize = e_strNameVector.size();
 		for (size_t i = 0; i < l_uiSize; ++i)

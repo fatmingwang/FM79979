@@ -181,6 +181,9 @@
     <Filter Include="GameplayUT\OpenGL\GLSL\CS">
       <UniqueIdentifier>{f3c73eb5-bcff-4c27-8cc4-83645fc76d6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameplayUT\Render\RenderQueue">
+      <UniqueIdentifier>{9ba080b9-1022-4fb9-bce9-d712bd836f0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\TimeUT.cpp">
@@ -680,6 +683,9 @@
     </ClCompile>
     <ClCompile Include="..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp">
       <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\GameplayUT\Render\RenderQueue\RenderCommand.cpp">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1399,6 +1405,9 @@
     </ClInclude>
     <ClInclude Include="..\GameplayUT\OpenGL\GLSL\SimpleComputeShader.h">
       <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\GameplayUT\Render\RenderQueue\RenderCommand.h">
+      <Filter>GameplayUT\Render\RenderQueue</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

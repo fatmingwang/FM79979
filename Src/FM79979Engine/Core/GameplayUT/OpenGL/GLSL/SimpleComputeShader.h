@@ -23,9 +23,11 @@ namespace FATMING_CORE
 		cSimpleComputeShader(const char* e_strCS);
 		~cSimpleComputeShader();
 		virtual	void					Use(bool e_bUseLastWVPMatrix = true)override;
+		virtual	void					Unuse()override;
 		bool							DispatchCompute(int e_iSizeX, int e_iSizeY, int e_iSizeZ);
 		//
 		GLuint							GetShaderProgramID() { return m_uiShaderProgramID; }
+		GLuint							GetProgramPipeline() { return m_uiProgramPipeline; }
 		unsigned int					BindResourceIDWithString(const char*e_strName);
 		//if any name get wrong return false
 		bool							BindResourceIDWithStringVector(std::vector<const char*>&e_strNameVector);

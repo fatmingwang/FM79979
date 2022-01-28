@@ -2,6 +2,7 @@
 #include <iterator>
 #include <algorithm>
 #include "../../OpenGL/GLSL/SimpleComputeShader.h"
+
 namespace FATMING_CORE
 {
 	const char* g_strMyCSForVerticesTransform =
@@ -90,7 +91,7 @@ namespace FATMING_CORE
 		m_pVerticesIn = nullptr;
 		m_pMatricesIndicesIn = nullptr;
 		m_pMatricesIn = nullptr;
-		m_pVertexOut = nullptr;
+		m_pVerticesOut = nullptr;
 		//GrowRenderData();
 		//GrowVertexData();
 	}
@@ -104,17 +105,17 @@ namespace FATMING_CORE
 		m_pVerticesIn = nullptr;
 		m_pMatricesIndicesIn = nullptr;
 		m_pMatricesIn = nullptr;
-		m_pVertexOut = nullptr;
+		m_pVerticesOut = nullptr;
 		m_pSimpleComputeShader = new cSimpleComputeShader(e_strShader);
 		std::vector<const char*>l_strVector = e_strVector;
 		m_pVerticesIn = new cShaderStorageBuffer<char>(1024);
 		m_pMatricesIndicesIn = new cShaderStorageBuffer<char>(1024);
 		m_pMatricesIn = new cShaderStorageBuffer<char>(1024);
-		m_pVertexOut = new cShaderStorageBuffer<char>(1024);
+		m_pVerticesOut = new cShaderStorageBuffer<char>(1024);
 		m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
 		cShaderStorageBuffer<char>* l_ShaderStorageBufferArray[] =
 		{
-			m_pMatricesIn,m_pVerticesIn,m_pMatricesIndicesIn,m_pVertexOut
+			m_pMatricesIn,m_pVerticesIn,m_pMatricesIndicesIn,m_pVerticesOut
 		};
 		for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
 		{
@@ -129,14 +130,14 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pVerticesIn);
 		SAFE_DELETE(m_pMatricesIndicesIn);
 		SAFE_DELETE(m_pMatricesIn);
-		SAFE_DELETE(m_pVertexOut);
+		SAFE_DELETE(m_pVerticesOut);
 	}
 
 	void cBatchRender::GrowVertexData()
 	{
 		const int l_ciMinCount = 1000;
 		// Grow by a factor of 2.
-		auto l_uiNewSize = max(l_ciMinCount, m_uiVertexArraySizeCount * 2);
+		auto l_uiNewSize = (((l_ciMinCount) > ((int)m_uiVertexArraySizeCount * 2)) ? (l_ciMinCount) : ((int)m_uiVertexArraySizeCount * 2));
 		m_RenderVertex.Resize(l_uiNewSize);
 		m_OrderedRenderVertex.Resize(l_uiNewSize);
 		m_uiVertexArraySizeCount = l_uiNewSize;
@@ -146,8 +147,8 @@ namespace FATMING_CORE
 	{
 		const int l_ciMinCount = 1000;
 		// Grow by a factor of 2.
-		auto l_uiNewSize = max(l_ciMinCount, m_uiRenderDataQueueArraySize * 2);
-		// Allocate the new array.
+		auto l_uiNewSize = (((l_ciMinCount) > ((int)m_uiRenderDataQueueArraySize * 2)) ? (l_ciMinCount) : ((int)m_uiRenderDataQueueArraySize * 2));
+		// Allocate the new array.(std::make_unique c++14.)
 		auto l_NewArray = std::make_unique<sRenderData[]>(l_uiNewSize);
 		// Copy over any existing sprites.
 		for (size_t i = 0; i < m_uiCurrentRenderDataIndex; i++)
@@ -229,20 +230,20 @@ namespace FATMING_CORE
 			m_pVerticesIn->CopyIntoSSB((char*)&m_OrderedRenderVertex.PosVector[0], l_uiNumVertex * sizeof(Vector3));
 			m_pMatricesIndicesIn->CopyIntoSSB((char*)&l_VertexCooresponeMatIndexVector[0], (unsigned int)(l_uiSize * sizeof(int)));
 			m_pMatricesIn->CopyIntoSSB((char*)&l_MatVector[0], (unsigned int)(l_uiSize * sizeof(cMatrix44)));
-			m_pVertexOut->Resize((unsigned int)(l_uiNumVertex * sizeof(Vector3)));
+			m_pVerticesOut->Resize((unsigned int)(l_uiNumVertex * sizeof(Vector3)));
 			m_pSimpleComputeShader->Use();
 			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, m_ShaderStorageBufferAndResourceIDMap[m_pVerticesIn], m_pVerticesIn->GetBufferID()));
 			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, m_ShaderStorageBufferAndResourceIDMap[m_pMatricesIndicesIn], m_pMatricesIndicesIn->GetBufferID()));
 			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, m_ShaderStorageBufferAndResourceIDMap[m_pMatricesIn], m_pMatricesIn->GetBufferID()));
-			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, m_ShaderStorageBufferAndResourceIDMap[m_pVertexOut], m_pVertexOut->GetBufferID()));
+			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, m_ShaderStorageBufferAndResourceIDMap[m_pVerticesOut], m_pVerticesOut->GetBufferID()));
 			m_pSimpleComputeShader->DispatchCompute(l_uiNumVertex, 1, 1);
 			{
-				auto l_pCalculatedVertex = m_pVertexOut->Map();
+				auto l_pCalculatedVertex = m_pVerticesOut->Map();
 				if (l_pCalculatedVertex)
 				{
 
 				}
-				m_pVertexOut->Unmap();
+				m_pVerticesOut->Unmap();
 			}
 
 		}
@@ -323,6 +324,34 @@ namespace FATMING_CORE
 		SortByMatrix();
 		ComputeVertexMatrix();
 		FlushBatch();
+		return true;
+	}
+
+	bool cBatchRender::BindBufferBase(NamedTypedObject* e_pNamedTypedObject)
+	{
+		auto l_IT = m_ShaderStorageBufferAndResourceIDMap.find(e_pNamedTypedObject);
+		if (l_IT != m_ShaderStorageBufferAndResourceIDMap.end())
+		{
+			cShaderStorageBuffer<char*>*l_pShaderStorageBuffer = (cShaderStorageBuffer<char*>*)e_pNamedTypedObject;
+			//fuck.Have no idea why add 1 to make it works
+			auto l_uiID = l_pShaderStorageBuffer->GetBufferID();
+			auto l_uiIndex = l_IT->second + 1;
+			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, l_uiIndex, l_uiID));
+			return true;
+		}
+		return false;
+	}
+
+	bool cBatchRender::BindAllBufferBase()
+	{
+		for(auto l_IT = m_ShaderStorageBufferAndResourceIDMap.begin();l_IT != m_ShaderStorageBufferAndResourceIDMap.end();++l_IT)
+		{
+			cShaderStorageBuffer<char*>* l_pShaderStorageBuffer = (cShaderStorageBuffer<char*>*)l_IT->first;
+			//fuck.Have no idea why add 1 to make it works
+			auto l_uiID = l_pShaderStorageBuffer->GetBufferID();
+			auto l_uiIndex = l_IT->second + 1;
+			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBufferBase(GL_SHADER_STORAGE_BUFFER, l_uiIndex, l_uiID));
+		}
 		return true;
 	}
 

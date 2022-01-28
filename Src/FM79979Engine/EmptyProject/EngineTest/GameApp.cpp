@@ -66,9 +66,9 @@ void	cEngineTestApp::Render()
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
 	SampleRender();
-	this->m_pPhaseManager->Render();
-	cGameApp::ShowInfo();
-	this->m_pPhaseManager->DebugRender();
+	//this->m_pPhaseManager->Render();
+	//cGameApp::ShowInfo();
+	//this->m_pPhaseManager->DebugRender();
 
 #ifdef WIN32
 	SwapBuffers(cGameApp::m_spOpenGLRender->m_Hdc);
@@ -79,21 +79,21 @@ void	cEngineTestApp::MouseDown(int e_iPosX,int e_iPosY)
 {
     cGameApp::MouseDown(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseDown(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
-	SampleMouseDown(e_iPosX,e_iPosY);
+	SampleMouseDown(m_sMousePosition.x, m_sMousePosition.y);
 }
 
 void	cEngineTestApp::MouseMove(int e_iPosX,int e_iPosY)
 {
     cGameApp::MouseMove(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseMove(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
-	SampleMouseMove(e_iPosX,e_iPosY);
+	SampleMouseMove(m_sMousePosition.x, m_sMousePosition.y);
 }
 
 void	cEngineTestApp::MouseUp(int e_iPosX,int e_iPosY)
 {
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseUp(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
-	SampleMouseUp(e_iPosX,e_iPosY);
+	SampleMouseUp(m_sMousePosition.x, m_sMousePosition.y);
 }
 
 void	cEngineTestApp::KeyDown(char e_char)

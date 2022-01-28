@@ -113,7 +113,7 @@ void	LoadSample()
 {
 	FMLog::Log("LoadSample start", false);
 #ifdef WIN32
-	ComputerShaderInit();
+	//ComputerShaderInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)
@@ -196,7 +196,7 @@ void	LoadSample()
 	//g_pBGImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
 	//g_pBGImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
-	//g_pCameraZoomFunction = new cCameraZoomFunction();
+	g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
 	if( g_pMPDINode )
 	{
@@ -264,11 +264,13 @@ void	LoadSample()
 		g_pParticleEmitterGroup->Init();
 		g_pParticleEmitterGroup->SetAnimationLoop(true);
 	}
-	g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Smoke.prt",L"Fire");
+	g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Glyph.prt",L"Glyph");
 	if( g_pPrtEmitter )
 	{
 		g_pPrtEmitter->Emit(Vector3(200,200,0));
 		g_pPrtEmitter->SetLoop(true);
+		g_pPrtEmitter->Init();
+		g_pPrtEmitter->SetPos(Vector3(1000,540,0));
 	}
 
 	//g_pColladaParser = new cColladaParser();
@@ -287,7 +289,7 @@ void	LoadSample()
 			g_pCurve->Init();
 		}
 	}
-	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
+	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	//
 	//g_pTestCurveWithTime = new cCurveWithTime();
 	if (g_pTestCurveWithTime)
@@ -780,6 +782,10 @@ void	SampleMouseMove(int e_iPosX,int e_iPosY)
 	if (g_pPathChaser)
 	{
 		g_pPathChaser->MouseMove(e_iPosX, e_iPosY);
+	}
+	if (g_pPrtEmitter)
+	{
+		g_pPrtEmitter->SetPos(Vector3(e_iPosX,e_iPosY,0));
 	}
 }
 

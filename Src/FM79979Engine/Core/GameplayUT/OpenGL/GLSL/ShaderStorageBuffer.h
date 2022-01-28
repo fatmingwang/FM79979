@@ -37,25 +37,25 @@ private:
 //CS data alignment
 template <class T> cShaderStorageBuffer<T>::cShaderStorageBuffer(size_t size):m_uiSize(size)
 {
-	glGenBuffers(1, &m_iBufferID);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenBuffers(1, &m_iBufferID));
 	Bind();
-	glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_DYNAMIC_DRAW));
 	Unbind();
 }
 
 template <class T> cShaderStorageBuffer<T>::~cShaderStorageBuffer()
 {
-	glDeleteBuffers(1, &m_iBufferID);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDeleteBuffers(1, &m_iBufferID));
 }
 
 template <class T> void cShaderStorageBuffer<T>::Bind()
 {
-	glBindBuffer(m_seBufferObjectTarget, m_iBufferID);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBuffer(m_seBufferObjectTarget, m_iBufferID));
 }
 
 template <class T> void cShaderStorageBuffer<T>::Unbind()
 {
-	glBindBuffer(m_seBufferObjectTarget, 0);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBuffer(m_seBufferObjectTarget, 0));
 }
 
 template <class T> T* cShaderStorageBuffer<T>::Map(GLbitfield access)
@@ -67,7 +67,7 @@ template <class T> T* cShaderStorageBuffer<T>::Map(GLbitfield access)
 template <class T> void cShaderStorageBuffer<T>::Unmap()
 {
 	Bind();
-	glUnmapBuffer(m_seBufferObjectTarget);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUnmapBuffer(m_seBufferObjectTarget));
 }
 
 template<class T>
@@ -77,7 +77,7 @@ inline bool cShaderStorageBuffer<T>::CopyIntoSSB(char* e_pData, unsigned int e_u
 	{ 
 		glDeleteBuffers(1, &m_iBufferID);
 		Bind();
-		glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+		glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_DYNAMIC_DRAW);
 		m_uiSize = e_uiDataLen;
 	}
 	
@@ -106,10 +106,10 @@ inline void cShaderStorageBuffer<T>::Resize(unsigned int e_uiSize, bool e_bIfSiz
 	}
 	if (l_bDoResize)
 	{
-		glDeleteBuffers(1, &m_iBufferID);
-		glGenBuffers(1, &m_iBufferID);
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDeleteBuffers(1, &m_iBufferID));
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenBuffers(1, &m_iBufferID));
 		Bind();
-		glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_STATIC_DRAW);
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBufferData(m_seBufferObjectTarget, m_uiSize * sizeof(T), 0, GL_DYNAMIC_DRAW));
 		Unbind();
 	}
 }
