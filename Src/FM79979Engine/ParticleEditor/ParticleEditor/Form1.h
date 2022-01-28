@@ -45,6 +45,7 @@ namespace ParticalEditor
       // Display the child form.
       //child->Show();
 			InitializeComponent();
+			FMLog::Init();
 			g_pOrthogonalCamera = 0;
 		    m_pbParticleUpdate = 0;
 			g_pPaticleManager = 0;
@@ -147,6 +148,7 @@ namespace ParticalEditor
 	private: System::Windows::Forms::FlowLayoutPanel^  ActPolicy_flowLayoutPanel;
 	private: System::Windows::Forms::SplitContainer^  EmiterListAndDrawPanel_splitContainer;
 	private: System::Windows::Forms::CheckBox^  KillOutRangeParticle_checkBox;
+	private: System::Windows::Forms::CheckBox^	UseComputeShader_checkBox;
 	private: System::Windows::Forms::Label^  label5;
 	private: System::Windows::Forms::ListBox^  ParticleType_listBox;
 	private: System::Windows::Forms::Button^  DisableTexture_button;
@@ -267,6 +269,7 @@ namespace ParticalEditor
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->EmitterDirection_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->KillOutRangeParticle_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->UseComputeShader_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->label5 = (gcnew System::Windows::Forms::Label());
 			this->ParticleType_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->DisableTexture_button = (gcnew System::Windows::Forms::Button());
@@ -480,6 +483,7 @@ namespace ParticalEditor
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->label6);
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->EmitterDirection_checkBox);
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->KillOutRangeParticle_checkBox);
+			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->UseComputeShader_checkBox);
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->label5);
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->ParticleType_listBox);
 			this->EmiterListAndDrawPanel_splitContainer->Panel1->Controls->Add(this->DisableTexture_button);
@@ -584,6 +588,21 @@ namespace ParticalEditor
 			this->KillOutRangeParticle_checkBox->TabIndex = 70;
 			this->KillOutRangeParticle_checkBox->Text = L"KillOutRange";
 			this->KillOutRangeParticle_checkBox->UseVisualStyleBackColor = false;
+			// 
+			// UseComputeShader_checkBox
+			// 
+			this->UseComputeShader_checkBox->AutoSize = true;
+			this->UseComputeShader_checkBox->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(104)), 
+				static_cast<System::Int32>(static_cast<System::Byte>(104)), static_cast<System::Int32>(static_cast<System::Byte>(104)));
+			this->UseComputeShader_checkBox->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)),
+				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
+			this->UseComputeShader_checkBox->Location = System::Drawing::Point(839, 168);
+			this->UseComputeShader_checkBox->Margin = System::Windows::Forms::Padding(2);
+			this->UseComputeShader_checkBox->Name = L"UseComputeShader_checkBox";
+			this->UseComputeShader_checkBox->Size = System::Drawing::Size(88, 16);
+			this->UseComputeShader_checkBox->TabIndex = 70;
+			this->UseComputeShader_checkBox->Text = L"UseComputeShader";
+			this->UseComputeShader_checkBox->UseVisualStyleBackColor = false;
 			// 
 			// label5
 			// 
@@ -698,7 +717,7 @@ namespace ParticalEditor
 			this->MaxParticleCount_numericUpDown->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(244)), 
 				static_cast<System::Int32>(static_cast<System::Byte>(244)), static_cast<System::Int32>(static_cast<System::Byte>(244)));
 			this->MaxParticleCount_numericUpDown->Location = System::Drawing::Point(669, 23);
-			this->MaxParticleCount_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {100000, 0, 0, 0});
+			this->MaxParticleCount_numericUpDown->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) {10000000, 0, 0, 0});
 			this->MaxParticleCount_numericUpDown->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) {1, 0, 0, 0});
 			this->MaxParticleCount_numericUpDown->Name = L"MaxParticleCount_numericUpDown";
 			this->MaxParticleCount_numericUpDown->Size = System::Drawing::Size(81, 22);
@@ -1671,8 +1690,11 @@ private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e
 			}
 			UseShaderProgram(L"MyPrtShader");
 			RECT l_rc = {0,0,1920,1080};
-			if(KillOutRangeParticle_checkBox->Checked)
+			if (KillOutRangeParticle_checkBox->Checked)
+			{
 				g_pPrtEmitter->KillParticleByOutRange(l_rc);
+			}
+			g_pPrtEmitter->SetUseComputeShader(UseComputeShader_checkBox->Checked);
 			if(Perspective_ToolStripMenuItem->Checked == true)
 			{
 				m_pFrameCamera->Render();

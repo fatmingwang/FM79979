@@ -80,6 +80,7 @@ namespace FATMING_CORE
 		//velocity,cPrtVelocityInitrSetVelocity,so we could setup velocity,each emiter need different direction so we clone it as need
 		GET_SET_DEC(cParticleBase*,m_pVelocityInit,GetVelocity,SetVelocity);
 		GETP_SET_DEC(Vector3,m_vPos,GetPos,SetPos);
+		GETP_SET_DEC(bool,m_bUseComputeShader, ISUseComputeShader, SetUseComputeShader);
 		//compare to m_fGapTimeToShot if m_fGapTimeToShot is smaller than current,it's mean time to emit
 		float	m_fCurrentTime;
 		//how long should we emit,if it's 0 it's inlegal,so but we just make it fire and skip to next frame
@@ -99,6 +100,8 @@ namespace FATMING_CORE
 		//all paticle do not use teiangle strip,instead triangle,because strip will conect together.
 		Vector4*		m_pvAllColorPointer;
 		Vector3*		m_pvAllPosPointer;
+		//this is bad but I am lazy to fix this now.
+		Vector4*		m_pvAllPosPointerForComputeShaderTest;
 		Vector2*		m_pvAllTexCoordinatePointer;
 		cMatrix44		GetParticleDataMatrix(sParticleData*e_pParticleData);
 		void			Shot(float e_fElpaseTime = 0.016f);

@@ -17,6 +17,10 @@ namespace FATMING_CORE
 	//vertex[1] = vertex[1]*mat;
 	//vertex[2] = vertex[2]*mat;
 	//vertex[3] = vertex[3]*mat;
+	//Jan/28/2022
+	//now compute shader works around 150000 cpu(i7 7700) 15fps compute shader 30fps
+	//this can be faster with same particle data(sParticleData) for faster copy data
+	//I am lazt to do this now.
 	//https://learnopengl.com/Advanced-OpenGL/Geometry-Shader
 	// 
 	//https://forum.derivative.ca/t/rotating-an-instanced-object-using-a-glsl-shader-possible/6162/5
@@ -90,7 +94,8 @@ namespace FATMING_CORE
 		Vector3	vPos;													\
 		int     iOffsetIndex3;											\
 		Vector4	vColor;													\
-	};
+	};																	\
+	const int g_iNumGroupForParticl = 128;
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
 
@@ -127,7 +132,7 @@ namespace FATMING_CORE
 			{
 				return a - uint(b * floor(a/b));
 			}
-			layout(local_size_x = 1,  local_size_y = 1, local_size_z = 1) in;
+			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
 			//uniform uint g_iNumCalled;
 			void main()
 			{
@@ -254,7 +259,7 @@ namespace FATMING_CORE
 			m_pSimpleComputeShader->Use();
 			if (m_uiVertexArraySizeCount < (unsigned int)e_iCount )
 			{
-				m_uiVertexArraySizeCount *= 2;
+				m_uiVertexArraySizeCount = e_iCount*2;
 				GrowRenderData();
 				GrowVertexData();
 			}
@@ -288,7 +293,7 @@ namespace FATMING_CORE
 			{
 				glProgramUniform1i(l_uiUnformID, l_uiUnformID,0);
 			}*/
-			m_pSimpleComputeShader->DispatchCompute((int)m_uiCurrentRenderDataIndex, 1, 1);
+			m_pSimpleComputeShader->DispatchCompute((int)m_uiCurrentRenderDataIndex/ g_iNumGroupForParticl +1, 1, 1);
 			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
 			if (1)
 			{
@@ -298,19 +303,18 @@ namespace FATMING_CORE
 			}
 		}
 
-		bool	CopyOutputVerticesBuffer(Vector3*e_pPos, Vector4*e_pColor, int e_uiExpectedSize,int&e_iOutputPosCount)
+		bool	CopyOutputVerticesBuffer(Vector4*e_pPos, Vector4*e_pColor, int e_uiExpectedSize,int&e_iOutputPosCount)
 		{
 			if (m_pParticlePosOut)
 			{
 				Vector4*l_pData = m_pParticlePosOut->Map(GL_MAP_READ_BIT);
 				auto l_uiSize = m_pParticlePosOut->GetSize();
-				//e_iOutputPosCount = (int)(l_uiSize / sizeof(Vector3));
-				//memcpy(e_pPos, l_pData, e_uiExpectedSize * sizeof(Vector3) * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 				e_iOutputPosCount = e_uiExpectedSize* TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
-				for (int i = 0; i < e_iOutputPosCount; ++i)
-				{
-					e_pPos[i] = Vector3(l_pData[i].x, l_pData[i].y, l_pData[i].z);
-				}
+				//for (int i = 0; i < e_iOutputPosCount; ++i)
+				//{
+				//	e_pPos[i] = Vector3(l_pData[i].x, l_pData[i].y, l_pData[i].z);
+				//}
+				memcpy(e_pPos, l_pData, sizeof(Vector4)*e_iOutputPosCount);
 				m_pParticlePosOut->Unmap();
 				//
 				auto l_pColor = m_pColorSSO->Map(GL_MAP_READ_BIT);
@@ -350,6 +354,7 @@ namespace FATMING_CORE
 
 	cPrtEmitter::cPrtEmitter(const wchar_t*e_pName)
 	{
+		m_bUseComputeShader = true;
 		m_pBatchRender = nullptr;
 		m_iPlayCount = -1;
 		m_fCurrentTime = 0.f;
@@ -363,7 +368,8 @@ namespace FATMING_CORE
 		m_iEmitParticleAmount = 5;
 		m_iMaxParticleCount = -1;
 		m_pvAllColorPointer = 0;
-		m_pvAllPosPointer = 0;
+		m_pvAllPosPointer = nullptr;
+		m_pvAllPosPointerForComputeShaderTest = nullptr;
 		m_pvAllTexCoordinatePointer = 0;
 		m_pParticleData = 0;
 		this->SetMaxParticleCount(100);
@@ -380,13 +386,15 @@ namespace FATMING_CORE
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)
 		:cFMTimeLineAnimationRule(e_pPrtEmitter)
 	{
+		m_bUseComputeShader = e_pPrtEmitter->m_bUseComputeShader;
 		m_pBatchRender = e_pPrtEmitter->m_pBatchRender;
 		m_iPlayCount = -1;
 	    m_bActived = false;
 		m_pVelocityInit = 0;
 		m_pParticleData = 0;
 		m_pvAllColorPointer = 0;
-		m_pvAllPosPointer = 0;
+		m_pvAllPosPointer = nullptr;
+		m_pvAllPosPointerForComputeShaderTest = nullptr;
 		m_pvAllTexCoordinatePointer = 0;
 		m_pInitPolicyParticleList = 0;
 		m_pActPolicyParticleList = 0;
@@ -401,7 +409,8 @@ namespace FATMING_CORE
 		m_iCurrentWorkingParticles = 0;
 		m_iEmitParticleAmount = e_pPrtEmitter->GetEmitParticleAmount();
 		m_iMaxParticleCount = -1;
-		m_pvAllPosPointer = 0;
+		m_pvAllPosPointer = nullptr;
+		m_pvAllPosPointerForComputeShaderTest = nullptr;
 		m_pvAllTexCoordinatePointer = 0;
 		m_pParticleData = 0;
 		m_pBaseImage = e_pPrtEmitter->m_pBaseImage;
@@ -431,6 +440,7 @@ namespace FATMING_CORE
 		SAFE_DELETE(m_pParticleData);
 		SAFE_DELETE(m_pvAllColorPointer);
 		SAFE_DELETE(m_pvAllPosPointer);
+		SAFE_DELETE(m_pvAllPosPointerForComputeShaderTest);
 		SAFE_DELETE(m_pvAllTexCoordinatePointer);
 
 		if( !m_bPolicyFromClone )
@@ -570,6 +580,7 @@ namespace FATMING_CORE
 			sParticleData*l_pParticleData = new sParticleData[m_iMaxParticleCount];
 			Vector2	*l_pvAllTexCoordinatePointer = new Vector2[m_iMaxParticleCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 			Vector3	*l_pvAllPosPointer = new Vector3[m_iMaxParticleCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
+			Vector4* l_pvAllPosPointerForComputeShderTest = new Vector4[m_iMaxParticleCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 			Vector4	*l_pvAllColorPointer = new Vector4[m_iMaxParticleCount*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT];
 			memset(l_pParticleData,0,sizeof(sParticleData)*m_iMaxParticleCount);
 			if( l_iOriginalSize>m_iMaxParticleCount )
@@ -578,16 +589,19 @@ namespace FATMING_CORE
 			{
 				memcpy(l_pParticleData,m_pParticleData,sizeof(sParticleData)*l_iOriginalSize);
 				memcpy(l_pvAllPosPointer,m_pvAllPosPointer,sizeof(Vector3)*l_iOriginalSize*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
+				memcpy(l_pvAllPosPointerForComputeShderTest, m_pvAllPosPointerForComputeShaderTest, sizeof(Vector3) * l_iOriginalSize * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 				memcpy(l_pvAllColorPointer,m_pvAllColorPointer,sizeof(Vector4)*l_iOriginalSize*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 				memcpy(l_pvAllTexCoordinatePointer,m_pvAllTexCoordinatePointer,sizeof(Vector2)*l_iOriginalSize*TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 			}
 			SAFE_DELETE(m_pParticleData);
 			SAFE_DELETE(m_pvAllColorPointer);
 			SAFE_DELETE(m_pvAllPosPointer);
+			SAFE_DELETE(m_pvAllPosPointerForComputeShaderTest);
 			SAFE_DELETE(m_pvAllTexCoordinatePointer);
 			m_pParticleData = l_pParticleData;
 			m_pvAllColorPointer = l_pvAllColorPointer;
 			m_pvAllPosPointer = l_pvAllPosPointer;
+			m_pvAllPosPointerForComputeShaderTest = l_pvAllPosPointerForComputeShderTest;
 			m_pvAllTexCoordinatePointer = l_pvAllTexCoordinatePointer;
 			if(this->m_pBaseImage)
 			{
@@ -794,10 +808,12 @@ namespace FATMING_CORE
 	{
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
-			
-			//if (BatchRender())
+			if (m_bUseComputeShader)
 			{
-				//return;
+				if (BatchRender())
+				{
+					return;
+				}
 			}
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
@@ -872,10 +888,9 @@ namespace FATMING_CORE
 		if (this->m_pBatchRender)
 		{
 			int l_iNumVertexCopied = 0;
-			cParticleBatchRender*l_pParticleBatchRender = (cParticleBatchRender*)m_pBatchRender.get();
-			l_pParticleBatchRender->SetParticleData(m_iCurrentWorkingParticles, m_pParticleData);
-			m_pvAllPosPointer[0] = Vector3(1, 1, 1);
-			l_pParticleBatchRender->CopyOutputVerticesBuffer(m_pvAllPosPointer, m_pvAllColorPointer, m_iCurrentWorkingParticles, l_iNumVertexCopied);
+			cParticleBatchRender* l_pParticleBatchRender = (cParticleBatchRender*)m_pBatchRender.get();
+			l_pParticleBatchRender->SetParticleData(m_iCurrentWorkingParticles,this->m_pParticleData);
+			l_pParticleBatchRender->CopyOutputVerticesBuffer(m_pvAllPosPointerForComputeShaderTest, m_pvAllColorPointer, m_iCurrentWorkingParticles, l_iNumVertexCopied);
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -887,7 +902,7 @@ namespace FATMING_CORE
 			{
 				m_pBaseImage->ApplyImage();
 			}
-			RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
+			RenderTrianglesWithMatrix((float*)m_pvAllPosPointerForComputeShaderTest, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,4, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
 			return true;
 		}
 		return false;
