@@ -89,6 +89,7 @@ namespace FATMING_CORE
 		int     iOffsetIndex2;											\
 		Vector3	vPos;													\
 		int     iOffsetIndex3;											\
+		Vector4	vColor;													\
 	};
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
@@ -117,9 +118,9 @@ namespace FATMING_CORE
 				uint uiNumCalled;
 			};
 
-			layout( std140, binding=4 ) buffer Layout4MatrixOut
+			layout( std140, binding=4 ) buffer Layout4ColorOut
 			{
-				mat4	mat4ArrayOut[];
+				Vector4	vColorArray[];
 			};
 
 			uint IntMod(uint a,uint b)
@@ -139,7 +140,12 @@ namespace FATMING_CORE
 					vec4(-l_vScale.x, -l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4( l_vScale.x,-l_vScale.y,l_vScale.z,1)
 				};
 				mat4 l_mat = xFormXYZ(ParticlesPosAndAngleIn[iID].vPos,vec3(1,1,1),ParticlesPosAndAngleIn[iID].vAngle);
-				mat4ArrayOut[iID] = l_mat;
+				vColorArray[iID+0] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID+1] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID+2] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID+3] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID+4] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID+5] = ParticlesPosAndAngleIn[iID].vColor;
 				vVertexOut[iID*6+0] = (l_mat* l_vAQuadToTrianglesVertices[0]);
 				vVertexOut[iID*6+1] = (l_mat* l_vAQuadToTrianglesVertices[1]);
 				vVertexOut[iID*6+2] = (l_mat* l_vAQuadToTrianglesVertices[2]);
@@ -159,18 +165,18 @@ namespace FATMING_CORE
 	class cParticleBatchRender :public cBatchRender
 	{
 		cShaderStorageBuffer<int>*						m_pNumCalledOut;
-		cShaderStorageBuffer<cMatrix44>*				m_pMatSSO;
+		cShaderStorageBuffer<Vector4>*					m_pColorSSO;
 		cShaderStorageBuffer<sParticlesPosAndAngle>*	m_pParticleInSSO;
 		cShaderStorageBuffer<Vector4>*					m_pParticlePosOut;
 		//
 		void								BindID()
 		{
 			m_ShaderStorageBufferAndResourceIDMap.clear();
-			std::vector<const char*>l_strVector = { "Layout1ParticleSRTData","Layout2PosVerticesOut","Layout3NumCalled","Layout4MatrixOut"};
+			std::vector<const char*>l_strVector = { "Layout1ParticleSRTData","Layout2PosVerticesOut","Layout3NumCalled","Layout4ColorOut"};
 			m_pSimpleComputeShader->BindResourceIDWithStringVector(l_strVector);
 			NamedTypedObject* l_ShaderStorageBufferArray[] =
 			{
-				m_pParticleInSSO,m_pParticlePosOut,m_pNumCalledOut,m_pMatSSO
+				m_pParticleInSSO,m_pParticlePosOut,m_pNumCalledOut,m_pColorSSO
 			};
 			for (auto l_uiSize = 0; l_uiSize < l_strVector.size(); ++l_uiSize)
 			{
@@ -196,13 +202,13 @@ namespace FATMING_CORE
 				l_bGenerateData = true;
 				SAFE_DELETE(m_pParticleInSSO);
 				SAFE_DELETE(m_pParticlePosOut);
-				SAFE_DELETE(m_pMatSSO);
+				SAFE_DELETE(m_pColorSSO);
 			}
 			if (l_bGenerateData)
 			{
 				m_pParticleInSSO = new cShaderStorageBuffer<sParticlesPosAndAngle>(m_uiVertexArraySizeCount);
 				m_pParticlePosOut = new cShaderStorageBuffer<Vector4>( m_uiVertexArraySizeCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
-				m_pMatSSO = new cShaderStorageBuffer<cMatrix44>(m_uiVertexArraySizeCount);
+				m_pColorSSO = new cShaderStorageBuffer<Vector4>(m_uiVertexArraySizeCount * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT);
 				BindID();
 			}
 		}
@@ -212,7 +218,7 @@ namespace FATMING_CORE
 		{
 			this->SetName(L"cParticleBatchRender");
 			m_pNumCalledOut = new cShaderStorageBuffer<int>(1);
-			m_pMatSSO = nullptr;
+			m_pColorSSO = nullptr;
 			m_pParticleInSSO = nullptr;
 			m_pParticlePosOut = nullptr;
 			std::string l_strShader = g_strParticleCSUnifom;
@@ -227,16 +233,16 @@ namespace FATMING_CORE
 			bool l_bDoTest = false;
 			if (l_bDoTest)
 			{
-				m_pSimpleComputeShader->Use();
-				sParticleData l_sParticleData[2];
-				SetParticleData(2, l_sParticleData);
-				Vector3 l_Temp[4096];
-				int l_iOutputPosCount = 0;
-				CopyOutputVerticesBuffer(l_Temp, 2, l_iOutputPosCount);
-				auto l_pData = m_pNumCalledOut->Map(GL_MAP_READ_BIT);
-				int l_iData = l_pData[0];
-				m_pNumCalledOut->Unmap();
-				int a = l_iOutputPosCount;
+				//m_pSimpleComputeShader->Use();
+				//sParticleData l_sParticleData[2];
+				//SetParticleData(2, l_sParticleData);
+				//Vector3 l_Temp[4096];
+				//int l_iOutputPosCount = 0;
+				//CopyOutputVerticesBuffer(l_Temp, 2, l_iOutputPosCount);
+				//auto l_pData = m_pNumCalledOut->Map(GL_MAP_READ_BIT);
+				//int l_iData = l_pData[0];
+				//m_pNumCalledOut->Unmap();
+				//int a = l_iOutputPosCount;
 			}
 			m_pSimpleComputeShader->Unuse();
 		}
@@ -262,6 +268,7 @@ namespace FATMING_CORE
 					//l_pData[i].vScale = Vector3(1, 1, 1);
 					l_pData[i].vAngle = e_pParticleData[i].vAngle;
 					l_pData[i].vPos = e_pParticleData[i].vPos;
+					l_pData[i].vColor = e_pParticleData[i].vColor;
 				}
 				m_pParticleInSSO->Unmap();
 			}
@@ -275,7 +282,7 @@ namespace FATMING_CORE
 			//BindBufferBase(m_pParticleInSSO);
 			//BindBufferBase(m_pParticlePosOut);
 			//BindBufferBase(m_pNumCalledOut);
-			//BindBufferBase(m_pMatSSO);
+			//BindBufferBase(m_pColorSSO);
 			/*auto l_uiUnformID = glGetUniformLocation(m_pSimpleComputeShader->GetShaderProgramID(), "g_iNumCalled");
 			if (l_uiUnformID != 0)
 			{
@@ -288,19 +295,10 @@ namespace FATMING_CORE
 				auto l_pData = m_pNumCalledOut->Map(GL_MAP_READ_BIT);
 				int l_iData = l_pData[0];
 				m_pNumCalledOut->Unmap();
-				//
-				auto l_pMat = m_pMatSSO->Map(GL_MAP_READ_BIT);
-				cMatrix44 l_mat;
-				for (int i = 0; i < e_iCount; ++i)
-				{
-					l_mat = l_pMat[i];
-				}
-				m_pMatSSO->Unmap();
-				//
 			}
 		}
 
-		bool	CopyOutputVerticesBuffer(Vector3*e_pPos,int e_uiExpectedSize,int&e_iOutputPosCount)
+		bool	CopyOutputVerticesBuffer(Vector3*e_pPos, Vector4*e_pColor, int e_uiExpectedSize,int&e_iOutputPosCount)
 		{
 			if (m_pParticlePosOut)
 			{
@@ -314,6 +312,10 @@ namespace FATMING_CORE
 					e_pPos[i] = Vector3(l_pData[i].x, l_pData[i].y, l_pData[i].z);
 				}
 				m_pParticlePosOut->Unmap();
+				//
+				auto l_pColor = m_pColorSSO->Map(GL_MAP_READ_BIT);
+				memcpy(e_pColor, l_pColor,sizeof(Vector4)* e_iOutputPosCount);
+				m_pColorSSO->Unmap();
 				return true;
 			}
 			return false;
@@ -793,10 +795,10 @@ namespace FATMING_CORE
 		if(this->m_bActived&&m_iCurrentWorkingParticles>0)
 		{
 			
-			//if (BatchRender()&& m_iPrimitiveType == GL_QUADS)
-			//{
-			//	return;
-			//}
+			//if (BatchRender())
+			{
+				//return;
+			}
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -873,7 +875,7 @@ namespace FATMING_CORE
 			cParticleBatchRender*l_pParticleBatchRender = (cParticleBatchRender*)m_pBatchRender.get();
 			l_pParticleBatchRender->SetParticleData(m_iCurrentWorkingParticles, m_pParticleData);
 			m_pvAllPosPointer[0] = Vector3(1, 1, 1);
-			l_pParticleBatchRender->CopyOutputVerticesBuffer(m_pvAllPosPointer, m_iCurrentWorkingParticles, l_iNumVertexCopied);
+			l_pParticleBatchRender->CopyOutputVerticesBuffer(m_pvAllPosPointer, m_pvAllColorPointer, m_iCurrentWorkingParticles, l_iNumVertexCopied);
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
@@ -881,21 +883,10 @@ namespace FATMING_CORE
 			l_BlendfunctionRestore.GetStatus();
 			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 			//
-			for (int i = 0; i < this->m_iCurrentWorkingParticles; ++i)
-			{
-				sParticleData* l_pParticleData = &m_pParticleData[i];
-				int	l_iIndex = i * TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT;
-				for (int j = 0; j < TWO_TRIANGLE_VERTICES_TO_QUAD_COUNT; ++j)
-				{
-					int l_iTargetIndex = l_iIndex + j;
-					m_pvAllColorPointer[l_iTargetIndex] = l_pParticleData->vColor;
-				}
-			}
 			if (m_pBaseImage)
 			{
 				m_pBaseImage->ApplyImage();
 			}
-			//bool							Draw_TriangleStripAssignData(unsigned int e_uiTextureID, Vector3 * e_pInPos, Vector4 * e_pInColor, Vector2 * e_pInUV, unsigned int e_uiCount, cMatrix44 e_Matrix, const wchar_t* strShaderName);
 			RenderTrianglesWithMatrix((float*)m_pvAllPosPointer, (float*)m_pvAllTexCoordinatePointer,(float*)m_pvAllColorPointer, cMatrix44::Identity,3, m_iCurrentWorkingParticles*A_QUAD_TWO_TRIANGLES);
 			return true;
 		}
