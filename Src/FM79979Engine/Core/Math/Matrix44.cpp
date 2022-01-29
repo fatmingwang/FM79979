@@ -444,14 +444,29 @@ cMatrix44 cMatrix44::ZAxisRotationMatrix(float angle)
 
 cMatrix44 cMatrix44::RotationMatrix(Vector3 e_vAngle)
 {
-	cMatrix44	l_mat = cMatrix44::Identity;
-	if( e_vAngle.x != 0.f )
-		l_mat = XAxisRotationMatrix(D3DXToRadian(e_vAngle.x));
-	if( e_vAngle.y != 0.f )
-		l_mat *= YAxisRotationMatrix(D3DXToRadian(e_vAngle.y));
-	if( e_vAngle.z != 0.f )
-		l_mat *= ZAxisRotationMatrix(D3DXToRadian(e_vAngle.z));
-	return l_mat;
+	//cMatrix44	l_mat = cMatrix44::Identity;
+	//if( e_vAngle.x != 0.f )
+	//	l_mat = XAxisRotationMatrix(D3DXToRadian(e_vAngle.x));
+	//if( e_vAngle.y != 0.f )
+	//	l_mat *= YAxisRotationMatrix(D3DXToRadian(e_vAngle.y));
+	//if( e_vAngle.z != 0.f )
+	//	l_mat *= ZAxisRotationMatrix(D3DXToRadian(e_vAngle.z));
+	//return l_mat;
+
+	float cx = cos(D3DXToRadian(e_vAngle.x));
+	float sx = sin(D3DXToRadian(e_vAngle.x));
+	float cy = cos(D3DXToRadian(e_vAngle.y));
+	float sy = sin(D3DXToRadian(e_vAngle.y));
+	float cz = cos(D3DXToRadian(e_vAngle.z));
+	float sz = sin(D3DXToRadian(e_vAngle.z));
+	float l_fMatrixResult[] = 
+	{ 
+		cy * cz		,cx * sz + sx * sy * cz	,sx * sz - cx * sy * cz	, 0.f,
+		-cy * sz	,cx * cz - sx * sy * sz	,sx * cz + cx * sy * sz	, 0.f,
+		sy			,-sx * cy				,cx * cy				, 0.f,
+		1.f			,1.f					,1.f					, 1.f 
+	};
+	return cMatrix44(l_fMatrixResult);
 }
 
 cMatrix44 cMatrix44::EulerRotationMatrix(const Vector3& rotation)

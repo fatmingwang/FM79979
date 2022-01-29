@@ -95,7 +95,7 @@ namespace FATMING_CORE
 		int     iOffsetIndex3;											\
 		Vector4	vColor;													\
 	};																	\
-	const int g_iNumGroupForParticl = 128;
+	const int g_iNumGroupForParticl = 1024;
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
 
@@ -132,7 +132,7 @@ namespace FATMING_CORE
 			{
 				return a - uint(b * floor(a/b));
 			}
-			layout(local_size_x = 128,  local_size_y = 1, local_size_z = 1) in;
+			layout(local_size_x = 1024,  local_size_y = 1, local_size_z = 1) in;
 			//uniform uint g_iNumCalled;
 			void main()
 			{
@@ -145,24 +145,18 @@ namespace FATMING_CORE
 					vec4(-l_vScale.x, -l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4( l_vScale.x,-l_vScale.y,l_vScale.z,1)
 				};
 				mat4 l_mat = xFormXYZ(ParticlesPosAndAngleIn[iID].vPos,vec3(1,1,1),ParticlesPosAndAngleIn[iID].vAngle);
-				vColorArray[iID+0] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID+1] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID+2] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID+3] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID+4] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID+5] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+0] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+1] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+2] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+3] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+4] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*6+5] = ParticlesPosAndAngleIn[iID].vColor;
 				vVertexOut[iID*6+0] = (l_mat* l_vAQuadToTrianglesVertices[0]);
 				vVertexOut[iID*6+1] = (l_mat* l_vAQuadToTrianglesVertices[1]);
 				vVertexOut[iID*6+2] = (l_mat* l_vAQuadToTrianglesVertices[2]);
 				vVertexOut[iID*6+3] = (l_mat* l_vAQuadToTrianglesVertices[3]);
 				vVertexOut[iID*6+4] = (l_mat* l_vAQuadToTrianglesVertices[4]);
 				vVertexOut[iID*6+5] = (l_mat* l_vAQuadToTrianglesVertices[5]);
-				//vVertexOut[iID*6+0] = l_vAQuadToTrianglesVertices[0];
-				//vVertexOut[iID*6+1] = l_vAQuadToTrianglesVertices[1];
-				//vVertexOut[iID*6+2] = l_vAQuadToTrianglesVertices[2];
-				//vVertexOut[iID*6+3] = l_vAQuadToTrianglesVertices[3];
-				//vVertexOut[iID*6+4] = l_vAQuadToTrianglesVertices[4];
-				//vVertexOut[iID*6+5] = l_vAQuadToTrianglesVertices[5];
 				uiNumCalled = atomicAdd(uiNumCalled,1);
 			}
 		)";
@@ -293,7 +287,10 @@ namespace FATMING_CORE
 			{
 				glProgramUniform1i(l_uiUnformID, l_uiUnformID,0);
 			}*/
-			m_pSimpleComputeShader->DispatchCompute((int)m_uiCurrentRenderDataIndex/ g_iNumGroupForParticl +1, 1, 1);
+			//16,16,4
+			//4,4,1
+			int l_iNumToDispatch = (int)m_uiCurrentRenderDataIndex / g_iNumGroupForParticl + 1;
+			m_pSimpleComputeShader->DispatchCompute(l_iNumToDispatch, 1, 1);
 			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT));
 			if (1)
 			{
