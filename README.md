@@ -71,6 +71,9 @@ Doc\WASM VS tools
 if compile failed make sure /MP and setting(commandline) is suite for emscripten
 
 Emscripten game demo
+
+http://104.199.237.0/BluffingGirlWASM.html
+
 https://github.com/fatmingwang/FM79979/blob/master/Media/Emscripten/readme.txt
 code
 https://github.com/fatmingwang/FM79979/tree/master/Src/FM79979Engine/BluffingGirl
