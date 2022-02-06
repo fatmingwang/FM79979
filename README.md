@@ -72,7 +72,10 @@ if compile failed make sure /MP and setting(commandline) is suite for emscripten
 
 Emscripten game demo
 
+this fit the fullscreen but not optmized
 http://104.199.237.0/BluffingGirlWASM.html
+this optmized
+http://104.199.237.0/old/BluffingGirlWASM.html
 
 https://github.com/fatmingwang/FM79979/blob/master/Media/Emscripten/readme.txt
 code

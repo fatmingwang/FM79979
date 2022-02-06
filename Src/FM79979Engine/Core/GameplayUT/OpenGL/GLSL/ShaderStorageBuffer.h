@@ -1,8 +1,26 @@
 #pragma once
+
+#include "../Glh.h"
+
 #ifdef LINUX
 #include <GLES3/gl3.h>
 #include <GLES3/gl31.h>
 #include <GLES3/gl32.h>
+#endif
+
+#ifdef WASM
+
+inline void		glBindProgramPipeline(GLuint pipeline) {}
+inline GLuint	glCreateShaderProgramv(GLenum type, GLsizei count, const GLchar* const* strings) { return 0; }
+inline void		glDeleteProgramPipelines(GLsizei n, const GLuint* pipelines) {}
+inline void		glDispatchCompute(GLuint num_groups_x, GLuint num_groups_y, GLuint num_groups_z){}
+inline void		glGenProgramPipelines(GLsizei n,GLuint* pipelines){}
+inline void		glGetProgramPipelineInfoLog(GLuint pipeline,GLsizei bufSize,GLsizei* length,GLchar* infoLog){}
+inline void		glGetProgramPipelineiv(GLuint pipeline,GLenum pname,GLint* params){}inline
+GLuint glGetProgramResourceIndex(GLuint program,GLenum programInterface,const char* name){return 0;}
+inline void		glMemoryBarrier(GLbitfield barriers){}
+inline void		glUseProgramStages(GLuint pipeline,GLbitfield stages,GLuint program){}
+inline void		glValidateProgramPipeline(GLuint pipeline){}
 #endif
 //https://arm-software.github.io/opengl-es-sdk-for-android/compute_intro.html
 

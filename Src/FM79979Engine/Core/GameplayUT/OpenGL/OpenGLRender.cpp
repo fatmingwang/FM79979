@@ -293,5 +293,6 @@ namespace FATMING_CORE
 		m_vDeviceViewPortSize.z = (float)e_iDeviceViewportWidth;
 		m_vDeviceViewPortSize.w = (float)e_iDeviceViewportHeight;
 #endif
+		//FMLog::Log("cOpenGLRender::SetAcceptRationWithGameresolution called", false);
 	}
 }

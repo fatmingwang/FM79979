@@ -4,6 +4,12 @@ https://emscripten.org/docs/getting_started/downloads.html#mac-os-x
 
 git pull
 
+use latest-upstream with 
+emsdk install latest-upstream
+emsdk activate latest-upstream
+
+or latest
+
 # Download and install the latest SDK tools.
 emsdk install latest
 # Make the "latest" SDK "active" for the current user. (writes ~/.emscripten file)

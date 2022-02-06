@@ -33,6 +33,8 @@
 	#include <GLES2/gl2.h>
 	#include <GLES2/gl2ext.h>
 	#include <GLES3/gl3.h>
+	#include <GLES3/gl31.h>
+	#include <GLES3/gl32.h>
 #endif
 //from Nvidia GameWorks_Samples NvPlatformGL.h
 #ifdef DEBUG

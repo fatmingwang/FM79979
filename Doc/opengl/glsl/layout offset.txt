@@ -1,0 +1,35 @@
+https://www.khronos.org/opengl/wiki/Interface_Block_(GLSL)
+
+
+
+std430  not rounded up with 16bytes
+std140  require data aligment 16byte
+
+ex:
+
+float f1;//compute shader offset 0
+float f2;//compute shader offset 1
+vec3  v1;//compute shader offset 5
+vec3  v2;//compute shader offset 9
+
+
+std140: This layout alleviates the need to query the offsets for definitions. 
+The rules of std140 layout explicitly state the layout arrangement of any interface block declared with this layout.
+ This also means that such an interface block can be shared across programs, much like shared.
+ The only downside to this layout type is that the rules for packing elements into arrays/structs can introduce a lot of unnecessary padding.
+
+The rules for std140 layout are covered quite well in the OpenGL specification (OpenGL 4.5, Section 7.6.2.2, page 137).
+ Among the most important is the fact that arrays of types are not necessarily tightly packed.
+ An array of floats in such a block will not be the equivalent to an array of floats in C/C++.
+ The array stride (the bytes between array elements) is always rounded up to the size of a vec4 (ie: 16-bytes). So arrays will only match their C/C++ definitions if the type is a multiple of 16 bytes
+
+
+
+
+
+
+Warning: Implementations sometimes get the std140 layout wrong for vec3 components. You are advised to manually pad your structures/arrays out and avoid using vec3 at all.
+std430: This layout works like std140, except with a few optimizations in the alignment and strides for arrays and structs of scalars and vector elements 
+(except for vec3 elements, which remain unchanged from {code|std140}}). Specifically, they are no longer rounded up to a multiple of 16 bytes. So an array of `float`s will match with a C++ array of `float`s.
+
+Note that this layout can only be used with shader storage blocks, not uniform blocks.

@@ -95,7 +95,7 @@ namespace FATMING_CORE
 		int     iOffsetIndex3;											\
 		Vector4	vColor;													\
 	};																	\
-	const int g_iNumGroupForParticl = 1024;
+	const int g_iNumGroupForParticl = 1536;
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
 
@@ -132,7 +132,7 @@ namespace FATMING_CORE
 			{
 				return a - uint(b * floor(a/b));
 			}
-			layout(local_size_x = 1024,  local_size_y = 1, local_size_z = 1) in;
+			layout(local_size_x = 1536,  local_size_y = 1, local_size_z = 1) in;
 			//uniform uint g_iNumCalled;
 			void main()
 			{
@@ -377,7 +377,9 @@ namespace FATMING_CORE
 		SetName(e_pName);
 		m_SrcBlendingMode = GL_SRC_ALPHA;
 		m_DestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
+#ifndef WASM
 		m_pBatchRender = std::make_shared<FATMING_CORE::cParticleBatchRender>();
+#endif
 	}
 
 	cPrtEmitter::cPrtEmitter(cPrtEmitter*e_pPrtEmitter,bool e_bPolicyFromClone)

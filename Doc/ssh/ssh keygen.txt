@@ -1,0 +1,70 @@
+1.
+https://phoenixnap.com/kb/generate-ssh-key-windows-10
+
+open setting
+to
+Apps & Features
+
+on the top there is a 
+optional features
+click it enable
+
+OpenSSH Client
+
+Run as Administrator to open terminal
+
+
+ssh-keygen
+
+
+
+
+2.
+
+https://serverfault.com/questions/706336/how-to-get-a-pem-file-from-ssh-key-pair
+you have to generate id_rsa first
+ssh-keygen -f id_rsa -e -m pem
+
+
+
+3.for lazy you?(failed)
+use this to create both private and public key
+
+ssh-keygen -P "" -t rsa -b 4096 -m pem -f my-key-pair
+
+
+4.use puttygen(failed)
+https://medium.com/@rajeshkanna_a/ssh-public-key-and-private-key-generation-windows-fdd8f87d4a9
+
+5.https://stackoverflow.com/questions/19705785/python-3-simple-https-server
+this works
+terminal run as Adminsator 
+to use openssl you have to
+cd to C:\Program Files\Git\usr\bin
+then
+openssl req -new -x509 -keyout localhost.pem -out localhost.pem -days 365 -nodes
+
+
+6.https://gist.github.com/rxm/6d5b51c5b947144e9e1ea6fcb8abb9ec
+I have not been able to use ssh-keygen -e to reliably generate a private key for SSH in PEM format. This format is sometimes used by commercial products. Instead, I had to convert the key using openssl.
+
+# generate an RSA key of size 2048 bits
+ssh-keygen -t rsa -b 2048 -f jabba -C 'ronnie-jabba'
+
+# copy key to 10.1.56.50 and add to authorized_keys
+
+# convert private key to PEM format
+openssl rsa -in jabba -outform PEM -out jabba.pem
+chmod 700 jabba.pem
+
+# test key
+ssh -i ./jabba.pem rmaini@10.1.56.50 -p 2222
+
+# add a passphrase
+ssh-keygen -p -f jabba.pem
+
+# does it have a passphrase
+ssh-keygen -y -f jabba.pem
+
+# test key, now with passphrase
+ssh -i ./jabba.pem rmaini@10.1.56.50 -p 2222

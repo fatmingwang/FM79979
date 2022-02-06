@@ -9,6 +9,7 @@ cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //#define TEST_RUN
 cMPDI*g_pMPDITest = nullptr;
 cBasicSound*g_pSound = nullptr;
+
 void handle_key_up(SDL_keysym* keysym)
 {
 	switch (keysym->sym)
@@ -63,6 +64,19 @@ void process_events(void)
 			case SDL_MOUSEBUTTONUP:
 				g_pGameApp->MouseUp(event.motion.x, event.motion.y);
 				break;
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_RESIZED || 
+					event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED || event.window.event  == SDL_WINDOWEVENT_MAXIMIZED ||
+					event.window.event == SDL_WINDOWEVENT_RESTORED)
+				{
+					if (cGameApp::m_spOpenGLRender)
+					{
+						printf("size change:%d,%d\n", event.window.data1, event.window.data2);
+						cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(event.window.data2, event.window.data1,
+							(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+					}
+				}
+				break;
 			}
 		}
 	}
@@ -71,7 +85,9 @@ void process_events(void)
 void Loop()
 {
 	if (g_pGameApp)
+	{
 		g_pGameApp->Run();
+	}
 	if (g_pMPDITest)
 	{
 		g_pMPDITest->Update(0.016f);
@@ -100,6 +116,7 @@ void Loop()
 	}
 	SDL_GL_SwapBuffers();
 }
+
 
 int main()
 {
@@ -159,11 +176,13 @@ int main()
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
 #define	CANVANS_WIDTH	1280//*0.7
 #define	CANVANS_HEIGHT	720//*0.7
+	printf("start\n");
+	FMLog::Init();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_HEIGHT;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_WIDTH;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
@@ -172,11 +191,11 @@ int main()
 	//http://lazyfoo.net/SDL_tutorials/lesson04/index.php
 	SDL_Surface*l_pSurf_Display = nullptr;
 	FMLog::Log("SDL_SetVideoMode \n", false);
-	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL)) == NULL)
+	//if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL| SDL_RESIZABLE)) == NULL)
+	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_HEIGHT, CANVANS_WIDTH, 32, SDL_OPENGL )) == NULL)
 	{
 		return -1;
 	}
-	//cGameApp::SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	FMLog::Log("new cPreLoadFromInternet\n", false);
 	//please copy Media/BluffingGirl folder into your server repository
 	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
@@ -188,11 +207,12 @@ int main()
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280;
 		g_pGameApp = new cBluffingGirlApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-		if(g_pGameApp)
+		if (g_pGameApp)
+		{
 			g_pGameApp->Init();
-		
-		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_WIDTH, CANVANS_HEIGHT, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-		FMLog::Log("start to emscripten_set_main_loop\n", false);
+		}
+		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_HEIGHT, CANVANS_WIDTH, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+		FMLog::Log("start to emscripten_set_main_loop Feb 05 2022_1\n", false);
 #ifdef TEST_RUN
 		cMPDIList*l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
 		if(l_pMPDILIst)
@@ -206,6 +226,7 @@ int main()
 		}
 #endif
 		emscripten_set_main_loop(&Loop, 0, 1);
+
 	}
 	return 0;
 }

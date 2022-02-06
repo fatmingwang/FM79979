@@ -120,6 +120,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <EnableMicrosoftExtensions>
       </EnableMicrosoftExtensions>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib />
     <Lib />

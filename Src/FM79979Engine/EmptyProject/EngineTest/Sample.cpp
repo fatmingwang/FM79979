@@ -113,7 +113,7 @@ void	LoadSample()
 {
 	FMLog::Log("LoadSample start", false);
 #ifdef WIN32
-	//ComputerShaderInit();
+	ComputerShaderInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)
