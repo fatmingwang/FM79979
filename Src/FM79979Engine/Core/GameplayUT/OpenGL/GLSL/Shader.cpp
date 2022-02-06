@@ -363,7 +363,7 @@ namespace FATMING_CORE
 		}
 		if (m_uiTexLoacation != (unsigned int)-1)
 		{
-			glBindTexture(GL_TEXTURE_2D, 0);
+			//glBindTexture(GL_TEXTURE_2D, 0);
 		}
 		glUseProgram(0);
 		g_pCurrentShader = nullptr;
