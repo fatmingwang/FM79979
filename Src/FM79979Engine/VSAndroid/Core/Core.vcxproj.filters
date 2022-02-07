@@ -572,9 +572,6 @@
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.h">
       <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h">
-      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.h">
       <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
     </ClInclude>
@@ -592,6 +589,12 @@
     </ClInclude>
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h">
       <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SimpleComputeShader.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL\CS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -786,6 +789,9 @@
     </Filter>
     <Filter Include="Core\GamePlayUT\OpenGL\GLSL">
       <UniqueIdentifier>{b79c86eb-7aba-433d-a57c-15eab2ce7c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\GamePlayUT\OpenGL\GLSL\CS">
+      <UniqueIdentifier>{ca7ca89b-de1a-4769-b98a-021f424b748a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1374,9 +1380,6 @@
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\MeshShader.cpp">
       <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp">
-      <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.cpp">
       <Filter>Core\GamePlayUT\OpenGL\GLSL</Filter>
     </ClCompile>
@@ -1394,6 +1397,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.cpp">
       <Filter>Core\GamePlayUT\OpenGL\CrossPlatform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp">
+      <Filter>Core\GamePlayUT\OpenGL\GLSL\CS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

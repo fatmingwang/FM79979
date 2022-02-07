@@ -149,6 +149,7 @@
       <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG;ANDROID;</PreprocessorDefinitions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -165,10 +166,10 @@
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core;..\..\Core\GameplayUT\Physic\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG;ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;HAVE_ANDROID_LOW_LATENCY;DEBUG;ANDROID;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Enabled</ExceptionHandling>
       <AdditionalOptions>-fsigned-char %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -233,8 +234,9 @@
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\Glh.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Blur.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.h" />
-    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ShaderStorageBuffer.h" />
+    <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\SimpleComputeShader.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.h" />
     <ClInclude Include="..\..\Core\GameplayUT\OpenGL\OpenGLCommon.h" />
@@ -421,8 +423,8 @@
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\CommnoShader.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\GLSLUiniform.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\MeshShader.cpp" />
-    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SeparateShaderObjects.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\Shader.cpp" />
+    <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\ToneMapping.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GLSL\TunnelEffect.cpp" />
     <ClCompile Include="..\..\Core\GameplayUT\OpenGL\GluForOpengles.cpp" />

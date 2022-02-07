@@ -62,19 +62,20 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityInitSetVelocity::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		m_vVeolcity.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vVeolcity.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vVeolcity.z = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_bRandom = atoi(l_pString)?true:false;
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_fRandomOffSet = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -104,17 +105,17 @@ namespace FATMING_CORE
 	//bool	cPrtVelocityInitRandomFly::SetDataByDataString(const char*e_pString)
 	//{
 	//	char *Nexttoken = 0;
-	//	char* l_pString = strtok(e_pString,",");
+	//	char* l_pString = strtok_s(e_pString,",");
 	//	m_vDir.x = (float)atof(l_pString);
-	//	l_pString = strtok(0,",");
+	//	l_pString = strtok_s(nullptr,",");
 	//	m_vDir.y = (float)atof(l_pString);
-	//	l_pString = strtok(0,",");
+	//	l_pString = strtok_s(nullptr,",");
 	//	m_vDir.z = (float)atof(l_pString);
-	//	l_pString = strtok(0,",");
+	//	l_pString = strtok_s(nullptr,",");
 	//	m_bRandom = atoi(l_pString)?true:false;
-	//	l_pString = strtok(0,",");
+	//	l_pString = strtok_s(nullptr,",");
 	//	m_fDistance = (float)atof(l_pString);
-	//	if( strtok(0,",") )
+	//	if( strtok_s(nullptr,",") )
 	//		return false;
 	//	return true;
 	//}
@@ -142,11 +143,12 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActAcceleration::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",",&l_pForStrtok_s);
 		m_fAccelerationSpeed = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;		
 	}
@@ -189,23 +191,24 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActDircctionChange::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		m_vStopTime.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vStopTime.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vStopTime.z = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vNewSpeed.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vNewSpeed.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_vNewSpeed.z = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_bAccesleration = atoi(l_pString)?true:false;
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;	
 	}
@@ -226,21 +229,22 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtVelocityActBySatelliteAction::SetDataByDataString(const char*e_pString)
 	{
+		char* l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, "," ,&l_pForStrtok_s);
 		this->m_fRadius = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fSpeed = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fTrackLength = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vPivot.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vPivot.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vPivot.z = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}

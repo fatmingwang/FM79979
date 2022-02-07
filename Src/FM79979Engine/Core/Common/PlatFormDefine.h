@@ -24,6 +24,8 @@
     typedef unsigned long uint32;
     typedef unsigned __int64 uint64;
 #else // For LINUX and IOS
+	#define strtok_s strtok_r
+	#define wcstok_s wcstok
 	#pragma GCC diagnostic ignored "-Wformat"
 	//#pragma GCC diagnostic ignored "-Wformat-contain-nul"
 	//#pragma GCC diagnostic ignored "-Wformat-extra-args"

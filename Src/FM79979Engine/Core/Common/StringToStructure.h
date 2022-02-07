@@ -100,15 +100,16 @@ namespace FATMING_CORE
 	//although it could add a callback function make it better but slow.
 	template<class T>T*	ParseDataToGenerateIntPointer(const char*e_strData,int e_iSize)
 	{
-		T	*l_pData = new	T[e_iSize];
+		T	*	l_pData = new	T[e_iSize];
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_strData));
 		sprintf(l_strValue, "%s", e_strData);
-		char*	l_str = strtok(l_strValue, ", ");
+		char*	l_str = strtok_s(l_strValue, ", ",&l_pForStrtok_s);
 		int	l_iStep = 0;
 		while(l_str)
 		{
 			l_pData[l_iStep] = (T)atof(l_str);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr,", ", &l_pForStrtok_s);
 			++l_iStep;
 		}
 		assert(l_iStep == e_iSize&&"ParseDataToGenerateIntPointer not matched!");
@@ -149,10 +150,11 @@ namespace FATMING_CORE
 		if (e_str)
 		{
 			size_t l_uiSize = wcslen(e_str);
-			wchar_t*l_strTemp = new wchar_t[l_uiSize +1];
-			memcpy(l_strTemp, e_str, sizeof(wchar_t)*l_uiSize);
- 			l_strTemp[l_uiSize] = 0;
-			wchar_t*	l_str = wcstok(l_strTemp, L", ");
+			wchar_t* l_pForwcstok_s = nullptr;
+			wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_uiSize + 1));
+			memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_uiSize);
+			l_pTempWString[l_uiSize] = 0;
+			wchar_t*	l_str = wcstok_s(l_pTempWString, L", ",&l_pForwcstok_s);
 			while (l_str)
 			{
 #ifdef DEBUG
@@ -161,9 +163,8 @@ namespace FATMING_CORE
 #else
 				l_NumeralList.push_back((T)_wtof(l_str));
 #endif
-				l_str = wcstok(0, L", ");
+				l_str = wcstok_s(0, L", ", &l_pForwcstok_s);
 			}
-			delete[] l_strTemp;
 		}
 		return l_NumeralList;
 	}

@@ -173,23 +173,23 @@ namespace FATMING_CORE
 	//	virtual bool	SetDataByDataString(const char*e_pString)
 	//	{
 	//		char*Nexttoken = 0;
-	//		char* l_pString = strtok(e_pString,",");
+	//		char* l_pString = strtok_s(e_pString,",");
 	//		this->m_fDeadlineTime = (float)atof(l_pString);
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		this->m_iCount = atoi(l_pString);
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		this->m_vRelatedPos.x = (float)atof(l_pString);
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		this->m_vRelatedPos.y = (float)atof(l_pString);
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		this->m_vRelatedPos.z = (float)atof(l_pString);
-	//		CHAR_TO_WCHAR(strtok(0,","),m_sParticleName);
+	//		CHAR_TO_WCHAR(strtok_s(nullptr,","),m_sParticleName);
 	//		assert(wcslen(m_sParticleName));
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		m_bImmediateDied = atoi(l_pString)?true:false;
-	//		l_pString = strtok(0,",");
+	//		l_pString = strtok_s(nullptr,",");
 	//		m_fElpaseTimeToShot = (float)atof(l_pString);
-	//		if( strtok(0,",") )
+	//		if( strtok_s(nullptr,",") )
 	//			return false;
 	//		return true;
 	//	}

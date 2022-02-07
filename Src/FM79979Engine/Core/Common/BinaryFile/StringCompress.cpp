@@ -322,8 +322,10 @@ bool	IsCompressFile(NvFile*e_pFile,int e_iMagicID)
 	int l_iFileBuffer = -1;
 	NvFRead(&l_iFileBuffer,sizeof(char),sizeof(int),e_pFile);
 	//restore position
-	if( l_lCurrentPosition != 0 )
-		NvFSeek(e_pFile,l_lCurrentPosition,SEEK_SET);
+	if (l_lCurrentPosition != 0)
+	{
+		NvFSeek(e_pFile, l_lCurrentPosition, SEEK_SET);
+	}
 	if(l_iFileBuffer == e_iMagicID )
 	{
 		return true;
@@ -333,15 +335,19 @@ bool	IsCompressFile(NvFile*e_pFile,int e_iMagicID)
 
 std::wstring	DecodeStringFromeValue(const wchar_t*e_strEncrypt, const wchar_t*e_strCharacterToSplit)
 {
-	wchar_t*	l_strWchar = new wchar_t[wcslen(e_strEncrypt)];
 	unsigned char	l_strtemp[79979];
-	wchar_t*l_strStart = wcstok(l_strWchar,e_strCharacterToSplit);
+	wchar_t*		l_pForwcstok_s = nullptr;
+	size_t			l_uiSize = wcslen(e_strEncrypt);
+	wchar_t*		l_strWchar = (wchar_t*)alloca((l_uiSize+1)*sizeof(wchar_t));
+	memcpy(l_strWchar, e_strEncrypt, sizeof(wchar_t) * l_uiSize);
+	l_strWchar[l_uiSize] = 0;
+	wchar_t*l_strStart = wcstok_s(l_strWchar,e_strCharacterToSplit, &l_pForwcstok_s);
 	int	l_iCount = 0;
 	while( l_strStart )
 	{
 		l_strtemp[l_iCount] = (unsigned char)FATMING_CORE::GetInt(l_strStart);
 		++l_iCount;
-		l_strStart = wcstok(0,e_strCharacterToSplit);
+		l_strStart = wcstok_s(nullptr,e_strCharacterToSplit,&l_pForwcstok_s);
 	}
 	l_strtemp[l_iCount] = 0;
 	unsigned char *pDes;
@@ -354,14 +360,12 @@ std::wstring	DecodeStringFromeValue(const wchar_t*e_strEncrypt, const wchar_t*e_
 		l_strResult = UT::CharToWchar((char*)l_strtemp);
 		delete pDes;
 	}
-	delete[] l_strWchar;
 	return l_strResult;
 }
 
 std::wstring	EncodeStringToValue(const wchar_t*e_strString, const wchar_t*e_strCharacterToSplit)
 {
 	std::wstring	l_strResult;
-
 	std::string	l_strTemp = UT::WcharToChar(e_strString);
 	unsigned char*l_strToCompress = (unsigned char*)l_strTemp.c_str();
 	int	l_iCount = (int)strlen((char*)l_strToCompress);

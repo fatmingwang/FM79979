@@ -18,26 +18,27 @@ namespace FATMING_CORE
 	{
 		sPuzzleData*l_pPuzzleData = 0;
 		char	l_strData[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_strData,"%s",UT::WcharToChar(e_str).c_str());
 		sTexBehaviorDataWithImageIndexData*	l_pData = new sTexBehaviorDataWithImageIndexData;
-		char*	l_str = strtok(l_strData,",:");
+		char*	l_str = strtok_s(l_strData,",:",&l_pForStrtok_s);
 		//size
 		l_pData->Size.x = (float)atof(l_str);
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr,",:", &l_pForStrtok_s);
 		l_pData->Size.y = (float)atof(l_str);
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		//angle
 		l_pData->vAngle.z = (float)atof(l_str);
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		//color
 		l_pData->vColor.x = (float)atoi(l_str)/255.f;
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		l_pData->vColor.y = (float)atoi(l_str)/255.f;
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		l_pData->vColor.z = (float)atoi(l_str)/255.f;
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		l_pData->vColor.w = (float)atoi(l_str)/255.f;
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		//image index
 		l_pData->iImageIndex = -1;
 		std::wstring l_strForImageName = UT::CharToWchar(l_str);
@@ -66,7 +67,7 @@ namespace FATMING_CORE
 				e_pstrNotExistImageName[0] = L'\0';
 		}
 		//mirror
-		l_str = strtok(0,",:");
+		l_str = strtok_s(nullptr, ",:",&l_pForStrtok_s);
 		if( l_str )
 		{
 			l_pData->bMirror = atoi(l_str)?true:false;
@@ -346,53 +347,56 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 					else
 					COMPARE_NAME("ImageName")
 					{
-#if defined(ANDROID) || defined(WASM)
-						std::string	l_strTemp;
-					    char*l_strPIName = 0;
-						//I did't expect someone put over 15 pi at same file...
-					    char   l_strOriginalName[TEMP_SIZE];
-						sprintf(l_strOriginalName,"%s",UT::WcharToChar(l_strValue).c_str());
+//#if defined(ANDROID) || defined(WASM)
+//						std::string	l_strTemp;
+//					    char*	l_strPIName = nullptr;
+//						char*	l_pForStrtok_s = nullptr;
+//						//I did't expect someone put over 15 pi at same file...
+//					    char   l_strOriginalName[TEMP_SIZE];
+//						sprintf(l_strOriginalName,"%s",UT::WcharToChar(l_strValue).c_str());
+//					    int l_iTotalLength = 0;
+//					    if( l_iPICount > 1 )
+//					    {
+//					        l_strPIName = strtok_s(l_strOriginalName,",",&l_pForStrtok_s);
+//					        l_iTotalLength += strlen(l_strPIName)+1;
+//					    }
+//					    else
+//					    {
+//							l_strTemp = UT::WcharToChar(l_strValue);
+//							l_strPIName = (char*)l_strTemp.c_str();
+//					    }
+//					    for(int i=0;i<l_iPICount;++i)
+//					    {
+//							std::string	l_strFileName = StringAddDirectory(l_strPIName);
+//						    cPuzzleImage*l_pPuzzleImage = 0;
+//							l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList.GetObject(UT::GetFileNameWithoutFullPath(UT::CharToWchar(l_strFileName.c_str()))));
+//						    if(!l_pPuzzleImage)
+//						    {
+//								l_pPuzzleImage = m_AllBaseImageList.GetPuzzleImageByFileName(l_strFileName.c_str());
+//								if (!l_pPuzzleImage)
+//								{
+//									this->m_strErrorMsg += UT::CharToWchar(l_strFileName);
+//									this->m_strErrorMsg += L" parse failed,format is utf-8!?\n";
+//								}
+//						    }
+//						    l_pCurrentcMPDIList->SetPuzzleImage(l_pPuzzleImage);
+//							if( l_iPICount != 1 && l_iPICount!= i+1 )
+//							{
+//								sprintf(l_strOriginalName,"%s",UT::WcharToChar(&l_strValue[l_iTotalLength]).c_str());
+//							    l_strPIName = strtok_s(l_strOriginalName,",\0", &l_pForStrtok_s);
+//							    l_iTotalLength += strlen(l_strPIName)+1;
+//							}
+//						}
+//#else
+						//fuck test here.
+					    wchar_t*	l_strPIName = 0;
+					    wchar_t		l_strOriginalName[TEMP_SIZE];
+						wchar_t*	l_pForwcstok_s = nullptr;
+					    swprintf(l_strOriginalName,TEMP_SIZE,L"%ls",l_strValue);
 					    int l_iTotalLength = 0;
 					    if( l_iPICount > 1 )
 					    {
-					        l_strPIName = strtok(l_strOriginalName,",");
-					        l_iTotalLength += strlen(l_strPIName)+1;
-					    }
-					    else
-					    {
-							l_strTemp = UT::WcharToChar(l_strValue);
-							l_strPIName = (char*)l_strTemp.c_str();
-					    }
-					    for(int i=0;i<l_iPICount;++i)
-					    {
-							std::string	l_strFileName = StringAddDirectory(l_strPIName);
-						    cPuzzleImage*l_pPuzzleImage = 0;
-							l_pPuzzleImage = dynamic_cast<cPuzzleImage*>(m_AllBaseImageList.GetObject(UT::GetFileNameWithoutFullPath(UT::CharToWchar(l_strFileName.c_str()))));
-						    if(!l_pPuzzleImage)
-						    {
-								l_pPuzzleImage = m_AllBaseImageList.GetPuzzleImageByFileName(l_strFileName.c_str());
-								if (!l_pPuzzleImage)
-								{
-									this->m_strErrorMsg += UT::CharToWchar(l_strFileName);
-									this->m_strErrorMsg += L" parse failed,format is utf-8!?\n";
-								}
-						    }
-						    l_pCurrentcMPDIList->SetPuzzleImage(l_pPuzzleImage);
-							if( l_iPICount != 1 && l_iPICount!= i+1 )
-							{
-								sprintf(l_strOriginalName,"%s",UT::WcharToChar(&l_strValue[l_iTotalLength]).c_str());
-							    l_strPIName = strtok(l_strOriginalName,",\0");
-							    l_iTotalLength += strlen(l_strPIName)+1;
-							}
-						}
-#else
-					    wchar_t*l_strPIName = 0;
-					    wchar_t   l_strOriginalName[TEMP_SIZE];
-					    swprintf(l_strOriginalName,TEMP_SIZE,L"%ls\0",l_strValue);
-					    int l_iTotalLength = 0;
-					    if( l_iPICount > 1 )
-					    {
-					        l_strPIName = wcstok(l_strOriginalName,L",");
+					        l_strPIName = wcstok_s(l_strOriginalName,L",",&l_pForwcstok_s);
 					        l_iTotalLength += (int)wcslen(l_strPIName)+1;
 					    }
 					    else
@@ -426,11 +430,11 @@ inline	void	ExportPointDataList(ATG::XMLWriter*e_pXMLWriter,cCueToStartCurveWith
 							if( l_iPICount != 1 && l_iPICount!= i+1 )
 							{
 							    swprintf(l_strOriginalName,MAX_PATH,L"%ls\0",&l_strValue[l_iTotalLength]);
-							    l_strPIName = wcstok(l_strOriginalName,L",\0");
+							    l_strPIName = wcstok_s(l_strOriginalName,L",\0", &l_pForwcstok_s);
 							    l_iTotalLength += (int)wcslen(l_strPIName)+1;
 							}
 						}
-#endif
+//#endif
 					}
 				TO_NEXT_VALUE
 			}

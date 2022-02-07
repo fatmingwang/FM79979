@@ -50,16 +50,16 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtLifeInitrSetLife::SetDataByDataString(const char*e_pString)
 	{
-		char*Nexttoken = 0;
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",",&l_pForStrtok_s);
 		this->m_fLifeMin = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fLifeRange = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_bRandom = atoi(l_pString)?true:false;
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}

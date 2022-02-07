@@ -9,11 +9,7 @@ void ASSIGN_2D_QUAD_COLOR(Vector4 Color)
 	memcpy(&l_f2DColorOne[4], Color, sizeof(float) * 4);
 	memcpy(&l_f2DColorOne[8], Color, sizeof(float) * 4);
 	memcpy(&l_f2DColorOne[12], Color, sizeof(float) * 4);
-//#ifdef OPENGLES_2_X
 	myGlColorPointer(4, l_f2DColorOne);
-//#else
-//	glColorPointer(4, GL_FLOAT, 0, g_f2DColorOne);
-//#endif
 }
 
 void	ASSIGN_2D_QUAD_VerticesBySize(float Width, float Height, float Depth)
@@ -24,11 +20,7 @@ void	ASSIGN_2D_QUAD_VerticesBySize(float Width, float Height, float Depth)
 	l_v2DVertexBuffer[2].x = (float)-Width;	l_v2DVertexBuffer[2].y = (float)Height;
 	l_v2DVertexBuffer[3].x = (float)Width;	l_v2DVertexBuffer[3].y = (float)Height;
 	l_v2DVertexBuffer[0].z = l_v2DVertexBuffer[1].z = l_v2DVertexBuffer[2].z = l_v2DVertexBuffer[3].z = (float)Depth;
-//#ifdef OPENGLES_2_X
 	myGlVertexPointer(3, l_v2DVertexBuffer);
-//#else
-//	glVertexPointer(3, GL_FLOAT, 0, g_v2DVertexBuffer);
-//#endif
 }
 
 void	ASSIGN_2D_QUAD_UV(float*UV)
@@ -42,26 +34,17 @@ void	ASSIGN_2D_QUAD_UV(float*UV)
 	l_f2DTextureCoordinate[5] =UV[3];
 	l_f2DTextureCoordinate[6] =UV[2];
 	l_f2DTextureCoordinate[7] =UV[3];
-//#ifdef OPENGLES_2_X
 	myGlUVPointer(2, l_f2DTextureCoordinate);
-//#else
-//	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
-//#endif
 	CHECK_GL_ERROR("ASSIGN_2D_QUAD_UV");
 }
 
 void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV)
 {
 	static float l_f2DTextureCoordinate[8] = { UV[2], UV[1], UV[0],UV[1], UV[2],UV[3],	UV[0],UV[3] };
-//#ifdef OPENGLES_2_X
 	myGlUVPointer(2, l_f2DTextureCoordinate);
-//#else
-//	glTexCoordPointer(2, GL_FLOAT, 0, g_f2DTextureCoordinate);
-//#endif
 	CHECK_GL_ERROR("ASSIGN_2D_QUAD_MIRROR_UV");
 }
 #ifdef DEBUG
-//#ifdef OPENGLES_2_X
 void	myGlVertexPointer(int Stride, const GLvoid*pData)
 {
 	glVertexAttribPointer(g_uiAttribArray[FVF_POS], Stride, GL_FLOAT, 0, 0, pData);
@@ -88,29 +71,8 @@ void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean norm
 	glVertexAttribPointer(index, size, type, normalized,stride,pointer);
 	CHECK_GL_ERROR("myVertexAttribPointer");
 }
+//end DEBUG
 #endif
-//#else
-//void	myGlVertexPointer(int Stride, const GLvoid*pData)
-//{
-//	glVertexPointer(Stride, GL_FLOAT, 0, pData);
-//	CHECK_GL_ERROR("myGlVertexPointer");
-//}
-//void	myGlUVPointer(int Stride, const GLvoid*pData)
-//{
-//	glTexCoordPointer(Stride, GL_FLOAT, 0, pData);
-//	CHECK_GL_ERROR("myGlUVPointer");
-//}
-//void	myGlColorPointer(int Stride, const GLvoid*pData)
-//{
-//	glColorPointer(Stride, GL_FLOAT, 0, pData);
-//	CHECK_GL_ERROR("myGlColorPointer");
-//}
-//void	myGlNormalPointer(int Stride, const GLvoid*pData)
-//{
-//	glNormalPointer(GL_FLOAT, Stride, pData);
-//	CHECK_GL_ERROR("myGlNormalPointer");
-//}
-//#endif
 //glDrawArrays submits the vertices in linear order, as they are stored in the vertex arrays.
 //With glDrawElements you have to supply an index buffer.
 //Indices allow you to submit the vertices in any order, and to reuse vertices that are shared between triangles.

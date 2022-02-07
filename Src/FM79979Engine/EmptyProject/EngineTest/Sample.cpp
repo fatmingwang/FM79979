@@ -218,7 +218,7 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	if (0)
+	if (1)
 	{
 		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("bgrounda01.mpdi", eGBT_MPDILIST);
 	}

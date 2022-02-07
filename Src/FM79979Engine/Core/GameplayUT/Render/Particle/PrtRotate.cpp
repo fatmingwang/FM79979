@@ -35,15 +35,16 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtRotateInitRotate::SetDataByDataString(const char*e_pString)
 	{
+		char*	 l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		this->m_vAngle.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vAngle.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vAngle.z = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -70,21 +71,22 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtRotateActRotate::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",",&l_pForStrtok_s);
 		this->m_vAngle.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vAngle.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vAngle.z = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_bRandom = atoi(l_pString)?true:false;
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fRandomOffset = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_ePRM = (eParticleRotateMode)atoi(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}

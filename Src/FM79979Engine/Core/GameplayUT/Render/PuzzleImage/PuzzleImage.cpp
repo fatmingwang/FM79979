@@ -284,6 +284,7 @@ namespace FATMING_CORE
     //</AnimationData>
 	void cPuzzleImage::ProcessAnimationData(TiXmlElement* e_pElement)
 	{
+		wchar_t* l_pForwcstok_s = nullptr;
 		SAFE_DELETE(m_pImageIndexOfAnimation);
 		m_pImageIndexOfAnimation = new cNamedTypedObjectVector<cImageIndexOfAnimation>();
 		FOR_ALL_FIRST_CHILD_AND_ITS_CIBLING_START(e_pElement)
@@ -305,22 +306,30 @@ namespace FATMING_CORE
 				else
 				COMPARE_NAME("ImageList")
 				{
-				    wchar_t*l_strImageName = wcstok((wchar_t*)l_strValue,L",");
+					size_t	l_iLength = wcslen(l_strValue);
+					wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+					memcpy(l_pTempWString, l_strValue, sizeof(wchar_t) * l_iLength);
+					l_pTempWString[l_iLength] = 0;
+				    wchar_t*l_strImageName = wcstok_s(l_pTempWString,L",", &l_pForwcstok_s);
 				    for( int i=0;i< l_iCount;++i )
 				    {
 				        l_pImageIndexOfAnimation->AddNameObject(l_strImageName,-1,0.1f);
-				        l_strImageName = wcstok(0,L",");
+				        l_strImageName = wcstok_s(nullptr,L",", &l_pForwcstok_s);
 				    }
 				    assert(!l_strImageName);
 				}
 				else
 				COMPARE_NAME("TimeList")
 				{
-				    wchar_t*l_strImageName = wcstok((wchar_t*)l_strValue,L",");
+					size_t	l_iLength = wcslen(l_strValue);
+					wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+					memcpy(l_pTempWString, l_strValue, sizeof(wchar_t) * l_iLength);
+					l_pTempWString[l_iLength] = 0;
+				    wchar_t*l_strImageName = wcstok_s(l_pTempWString,L",",&l_pForwcstok_s);
 				    for( int i=0;i< l_iCount;++i )
 				    {
 						l_pImageIndexOfAnimation->m_ImageAnimationDataList[i].fTimeGap = VALUE_TO_FLOAT;
-						l_strImageName = wcstok(0,L",");
+						l_strImageName = wcstok_s(nullptr,L",", &l_pForwcstok_s);
 				    }
 				    assert(!l_strImageName);
 				}
@@ -443,7 +452,12 @@ namespace FATMING_CORE
 			{//ther only should work at editor!.
 				if(m_sbSortPIFileAsOriginal)
 				{
-					wchar_t*l_ImageName = wcstok((wchar_t*)l_strValue,L",");
+					wchar_t* l_pForwcstok_s = nullptr;
+					size_t	l_iLength = wcslen(l_strValue);
+					wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+					memcpy(l_pTempWString, l_strValue, sizeof(wchar_t) * l_iLength);
+					l_pTempWString[l_iLength] = 0;
+					wchar_t*l_ImageName = wcstok_s(l_pTempWString,L",",&l_pForwcstok_s);
 					std::vector<cPuzzleImageUnit*>		l_PuzzleImageUnitVector;
 					std::vector<std::vector<Vector3>>	l_TriangulatorPointsVectorVector;
 					std::vector<int>					l_iTriangulatorPointsLODVector;
@@ -466,7 +480,7 @@ namespace FATMING_CORE
 								break;
 							}
 						}
-						l_ImageName = wcstok(0,L",");
+						l_ImageName = wcstok_s(nullptr,L",",&l_pForwcstok_s);
 					}
 					size_t l_uiSize = l_PuzzleImageUnitVector.size();
 					for (size_t i = 0; i < l_uiSize; i++)

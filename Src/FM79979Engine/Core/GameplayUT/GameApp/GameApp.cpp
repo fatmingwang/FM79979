@@ -623,9 +623,6 @@ namespace	FATMING_CORE
 			return;
 		//glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 		glEnable2D(1280, 720);
-//#ifndef OPENGLES_2_X
-//		MyGLEnable(GL_TEXTURE_2D);
-//#endif
 		if (cGameApp::m_spGlyphFontRender)
 		{
 			cGameApp::m_spGlyphFontRender->SetFontColor(Vector4(1, 1, 0, 1));

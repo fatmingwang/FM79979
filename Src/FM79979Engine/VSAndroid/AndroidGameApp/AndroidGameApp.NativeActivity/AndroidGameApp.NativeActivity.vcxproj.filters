@@ -10,6 +10,21 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\stdafx.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\ComputerShader.h">
+      <Filter>Game\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\ComputerShaderUniform.h">
+      <Filter>Game\ComputeShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\NetworkSample.h">
+      <Filter>Game\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.h">
+      <Filter>Game\JPEG</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestShader.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine.cpp" />
@@ -24,10 +39,34 @@
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\Sample.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\ComputerShader.cpp">
+      <Filter>Game\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\NetworkSample.cpp">
+      <Filter>Game\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.cpp">
+      <Filter>Game\JPEG</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\HappyHttpTest.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestShader.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
       <UniqueIdentifier>{7c545ac8-51bd-4448-abd5-be42663806bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ComputeShader">
+      <UniqueIdentifier>{b15ede02-f869-4110-9459-da2db4198c5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Network">
+      <UniqueIdentifier>{aa5df55a-7b74-4a51-a0d7-37e945c9e0c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\JPEG">
+      <UniqueIdentifier>{47c5b178-05d9-489f-904a-2af0b01e03d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

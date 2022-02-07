@@ -58,9 +58,10 @@ namespace FATMING_CORE
 
 	bool	cPrtTextureActDynamicTexture::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",",&l_pForStrtok_s);
 		if( !l_pString )
 			return false;
 		assert(this->m_pEmitterOwner->GetBaseImage()->Type() == cPuzzleImage::TypeID&&"dynamic tecture must be PI texture!!");

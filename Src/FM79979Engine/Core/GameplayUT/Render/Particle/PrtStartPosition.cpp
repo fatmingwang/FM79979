@@ -40,15 +40,16 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtStartPositionInitBySquareRange::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		this->m_fWidth = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fHeight = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_fDeepth = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -108,12 +109,13 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtStartPositionInitByFrame::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",",&l_pForStrtok_s);
 		m_eAttachFrameType = (eAttachFrameType)atoi(l_pString);
 
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",",&l_pForStrtok_s);
 		if( m_eAttachFrameType != eAFT_CAMERA )
 		{
 			assert(0&&"current not support");
@@ -122,15 +124,15 @@ namespace FATMING_CORE
 			//m_pFrame = g_pPrt->GetMeshList()->GetObject(l_tempForGetObject);
 			//CT::ErrorMsg(m_pFrame?true:false,l_pString,"can't find mesh");
 		}
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_strSubFrameName = ValueToStringW(l_pString);
-		l_pString = strtok(0,",");//offset pos x
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);//offset pos x
 		this->m_vOffsetPos.x = (float)atof(l_pString);
-		l_pString = strtok(0,",");//offset pos y
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);//offset pos y
 		this->m_vOffsetPos.y = (float)atof(l_pString);
-		l_pString = strtok(0,",");//offset pos z
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);//offset pos z
 		this->m_vOffsetPos.z = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		switch(m_eAttachFrameType)
 		{

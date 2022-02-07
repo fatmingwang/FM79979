@@ -63,10 +63,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <ClCompile>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY;DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;HAVE_ANDROID_LOW_LATENCY;DEBUG;ANDROID</PreprocessorDefinitions>
       <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;C:\NVPACK\android-ndk-r10e\platforms\android-14\arch-arm\usr\include;..\..\Core\GameplayUT\Physic\Bullet;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\common;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\Alc;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <CppLanguageStandard>c++11</CppLanguageStandard>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
     </ClCompile>
     <Link>
       <AndroidSystemLibs>c;m;log;gcc;android;EGL;GLESv1_CM</AndroidSystemLibs>
@@ -78,7 +78,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
     <ClCompile>
-      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;OPENGLES_2_X;HAVE_ANDROID_LOW_LATENCY</PreprocessorDefinitions>
+      <PreprocessorDefinitions>DISABLE_IMPORTGL;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;AL_BUILD_LIBRARY;HAVE_ANDROID_LOW_LATENCY;ANDROID</PreprocessorDefinitions>
       <AdditionalOptions>-frtti -fexceptions -fsigned-char %(AdditionalOptions)</AdditionalOptions>
       <AdditionalIncludeDirectories>..\..\Freetype\include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32\Include;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;..\..\Core\GameplayUT\Physic\Bullet;..\..\Core\Sound\ogg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CppLanguageStandard>c++11</CppLanguageStandard>

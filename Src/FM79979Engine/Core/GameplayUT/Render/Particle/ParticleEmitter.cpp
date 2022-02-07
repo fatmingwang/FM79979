@@ -95,7 +95,7 @@ namespace FATMING_CORE
 		int     iOffsetIndex3;											\
 		Vector4	vColor;													\
 	};																	\
-	const int g_iNumGroupForParticl = 1536;
+	const int g_iNumGroupForParticl = 256;
 
 	auto g_strParticleCSUnifom = TO_STRING_MARCO(PARTICLE_EMITTER_UNIFORM);
 
@@ -132,7 +132,7 @@ namespace FATMING_CORE
 			{
 				return a - uint(b * floor(a/b));
 			}
-			layout(local_size_x = 1536,  local_size_y = 1, local_size_z = 1) in;
+			layout(local_size_x = 256,  local_size_y = 1, local_size_z = 1) in;
 			//uniform uint g_iNumCalled;
 			void main()
 			{
@@ -510,23 +510,24 @@ namespace FATMING_CORE
 	bool	cPrtEmitter::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue,",");
+		char* l_pString = strtok_s(l_strValue,",",&l_pForStrtok_s);
 		m_fGapTimeToShot = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		m_iParticleEmitCount = atoi(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr, ",", &l_pForStrtok_s);
 		m_iEmitParticleAmount = atoi(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr, ",", &l_pForStrtok_s);
 		int	l_iMaxParticleCount = atoi(l_pString);
 		this->SetMaxParticleCount(l_iMaxParticleCount);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr, ",", &l_pForStrtok_s);
 		this->m_SrcBlendingMode = (GLenum)atoi(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr, ",", &l_pForStrtok_s);
 		this->m_DestBlendingMode = (GLenum)atoi(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr, ",", &l_pForStrtok_s);
 		this->m_iPrimitiveType = (GLenum)atoi(l_pString);
-		l_pString = strtok(0,"\0");
+		l_pString = strtok_s(nullptr, "\0", &l_pForStrtok_s);
 		return m_pVelocityInit->SetDataByDataString(l_pString);
 	}
 

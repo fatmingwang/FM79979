@@ -72,17 +72,18 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorInitrSetColor::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue,",");
+		char* l_pString = strtok_s(l_strValue,",", &l_pForStrtok_s);
 		this->m_vColor.r = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.g = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.b = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.a = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -110,16 +111,17 @@ namespace FATMING_CORE
 	bool	cPrtColorInitrSetRandomColor::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		this->m_vColor.r = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.g = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.b = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.a = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -157,18 +159,19 @@ namespace FATMING_CORE
 	bool	cPrtColorActBlending::SetDataByDataString(const char*e_pString)
 	{
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		this->m_vColor.r = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.g = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.b = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor.a = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_bFade = atoi(l_pString)?true:false;
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}
@@ -198,25 +201,26 @@ namespace FATMING_CORE
 	//input the output data string,and analyze it
 	bool	cPrtColorActBlendingBy2Color::SetDataByDataString(const char*e_pString)
 	{
+		char*	l_pForStrtok_s = nullptr;
 		char*   l_strValue = (char*)alloca(strlen(e_pString));
 		sprintf(l_strValue, "%s", e_pString);
-		char* l_pString = strtok(l_strValue, ",");
+		char* l_pString = strtok_s(l_strValue, ",", &l_pForStrtok_s);
 		this->m_vColor1.r = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor1.g = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor1.b = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor1.a = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor2.r = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor2.g = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor2.b = (float)atof(l_pString);
-		l_pString = strtok(0,",");
+		l_pString = strtok_s(nullptr,",", &l_pForStrtok_s);
 		this->m_vColor2.a = (float)atof(l_pString);
-		if( strtok(0,",") )
+		if( strtok_s(nullptr,",", &l_pForStrtok_s) )
 			return false;
 		return true;
 	}

@@ -137,7 +137,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv2;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
       <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>
@@ -226,16 +226,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\ComputerShader.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\ComputerShaderUniform.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\GameApp.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\NetworkSample.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\stdafx.h" />
     <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestPhase.h" />
+    <ClInclude Include="..\..\..\EmptyProject\EngineTest\TestShader.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\ComputerShader.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\GameApp.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\HappyHttpTest.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\JPEGCodingTest.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\NetworkSample.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\Sample.cpp" />
     <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestPhase.cpp" />
+    <ClCompile Include="..\..\..\EmptyProject\EngineTest\TestShader.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyJni.c" />

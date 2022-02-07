@@ -385,13 +385,13 @@ namespace FATMING_CORE
 		m_IPData.m_strIP = inet_ntoa(*(struct in_addr *)*l_pPhe->h_addr_list);
 		sprintf(l_strName, "%s", m_IPData.m_strIP.c_str());
 
-
-		char*	l_str = strtok(l_strName, ".");
+		char*	l_pForStrtok_s = nullptr;
+		char*	l_str = strtok_s(l_strName, ".", &l_pForStrtok_s);
 		int	l_iIndex = 0;
 		while (l_str)
 		{
 			m_IPData.m_MyIP[l_iIndex] = atoi(l_str);
-			l_str = strtok(0, ".");
+			l_str = strtok_s(nullptr, ".", &l_pForStrtok_s);
 			++l_iIndex;
 		}
 		//printf("IP:%s",l_str);

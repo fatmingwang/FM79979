@@ -18,12 +18,13 @@ namespace FATMING_CORE
 	POINT	GetPoint(const char* e_str)
 	{
 		char	l_temp[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_temp, "%s", e_str);
 		POINT	l_Point;
-		char*	l_str = strtok(l_temp, ",: ");
+		char*	l_str = strtok_s(l_temp, ",: ",&l_pForStrtok_s);
 		assert(l_str&&"parse POINT data error 1");
 		l_Point.x = atol(l_str);
-		l_str = strtok(0, ",: ");
+		l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 		assert(l_str&&"parse POINT data error 2");
 		l_Point.y = atol(l_str);
 		return l_Point;
@@ -75,8 +76,13 @@ namespace FATMING_CORE
 	//L:0,0,R:1,0,D:0,1,T:1,1,L:0,0,R:1,0,D:0,1,T:1,1
 	RECT*	GetRectangle(int e_iNumRect,wchar_t*e_pString)
 	{
-		wchar_t*  l_strTemp = 0;
-		wchar_t*	l_pCurrent = wcstok(e_pString,L",:");
+		size_t		l_iLength = wcslen(e_pString);
+		wchar_t*	l_strTemp = nullptr;
+		wchar_t*	l_pForwcstok_s = nullptr;
+		wchar_t*	l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_pString, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
+		wchar_t*	l_pCurrent = wcstok_s(l_pTempWString,L",:",&l_pForwcstok_s);
 		RECT*	l_pRect = new RECT[e_iNumRect];
 		for(int i=0;i<e_iNumRect;++i)
 		{
@@ -104,7 +110,7 @@ namespace FATMING_CORE
 					l_rect.top = wcstol(l_pCurrent,&l_strTemp,10);
 				}
 				l_i++;
-				l_pCurrent = wcstok(0,L",;");
+				l_pCurrent = wcstok_s(nullptr,L",;", &l_pForwcstok_s);
 			}
 			l_pRect[i] = l_rect;
 		}
@@ -116,18 +122,19 @@ namespace FATMING_CORE
 	Vector4	GetVector4(const char*e_strValue)
 	{
 	    char    l_strValue[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 	    sprintf(l_strValue,"%s",e_strValue);
 		Vector4	l_Vector4;
-		char*	l_str = strtok(l_strValue,",: ");
+		char*	l_str = strtok_s(l_strValue,",: ",&l_pForStrtok_s);
 		assert(l_str&&"parse Vector4 data error");
 		l_Vector4.x = (float)atof(l_str);
-		l_str = strtok(0,",: ");
+		l_str = strtok_s(nullptr,",: ", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector4 data error");
 		l_Vector4.y = (float)atof(l_str);
-		l_str = strtok(0,",:" );
+		l_str = strtok_s(nullptr,",:", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector4 data error");
 		l_Vector4.z = (float)atof(l_str);
-		l_str = strtok(0,",:" );
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector4 data error");
 		l_Vector4.w = (float)atof(l_str);
 		return l_Vector4;
@@ -136,15 +143,16 @@ namespace FATMING_CORE
 	Vector3	GetVector3(const char*e_str)
 	{
 	    char    l_strValue[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 	    sprintf(l_strValue,"%s",e_str);
 		Vector3	l_Vector3(0.f,0.f,0.f);
-		char*	l_str = strtok(l_strValue,",: ");
+		char*	l_str = strtok_s(l_strValue,",: ",&l_pForStrtok_s);
 		assert(l_str&&"parse Vector3 data error");
 		l_Vector3.x = (float)atof(l_str);
-		l_str = strtok(0,",: ");
+		l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector3 data error");
 		l_Vector3.y = (float)atof(l_str);
-		l_str = strtok(0,",:" );
+		l_str = strtok_s(nullptr, ",:", &l_pForStrtok_s);
 		if( l_str )//because we may only need xy no z
 		{
 			assert(l_str&&"parse Vector3 data error");
@@ -156,12 +164,13 @@ namespace FATMING_CORE
 	Vector2	GetVector2(const char*e_strValue)
 	{
 	    char    l_strValue[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 	    sprintf(l_strValue,"%s",e_strValue);
 		Vector2	l_Vector2;
-		char*	l_str = strtok(l_strValue,",: ");
+		char*	l_str = strtok_s(l_strValue,",: ", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector2 data error");
 		l_Vector2.x = (float)atof(l_str);
-		l_str = strtok(0,",: ");
+		l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 		assert(l_str&&"parse Vector2 data error");
 		l_Vector2.y = (float)atof(l_str);
 		return l_Vector2;
@@ -201,15 +210,16 @@ namespace FATMING_CORE
 	cMatrix44	GetMatrix(const char*e_str,bool e_bTranspose)
 	{
 	    char    l_strValue[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 	    sprintf(l_strValue,"%s",e_str);	
 		cMatrix44	l_mat;
-		char*	l_str = strtok((char*)l_strValue,",: ");
+		char*	l_str = strtok_s((char*)l_strValue,",: ", &l_pForStrtok_s);
 		for( int i=0;i<4;++i )
 		{
 			for( int j=0;j<4;++j )
 			{
 				l_mat.m[j][i] = (float)atof(l_str);
-				l_str = strtok(0,",: ");
+				l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 			}
 		}
 		assert(!l_str);
@@ -233,9 +243,10 @@ namespace FATMING_CORE
 	cMatrix44	*GetMatrcies(const char*e_str,int e_iSize,bool e_bTranspose)
 	{
 		char    l_strValue[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_strValue, "%s", e_str);
 		cMatrix44*l_pMat = new cMatrix44[e_iSize];
-		char*	l_str = strtok(l_strValue,",: ");
+		char*	l_str = strtok_s(l_strValue,",: ", &l_pForStrtok_s);
 		for( int i=0;i<e_iSize;++i )
 		{
 			for( int j=0;j<4;++j )
@@ -243,7 +254,7 @@ namespace FATMING_CORE
 				for( int k=0;k<4;++k )
 				{
 					(l_pMat[i]).m[k][j] = (float)atof(l_str);
-					l_str = strtok(0,",: ");
+					l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 				}
 			}
 			if(e_bTranspose)
@@ -258,12 +269,13 @@ namespace FATMING_CORE
 	void	GetUV(char*e_pData,float*e_pUVBuffer)
 	{
 		char	l_temp[TEMP_SIZE];
+		char*	l_pForStrtok_s = nullptr;
 		sprintf(l_temp,"%s",e_pData);
-		char*	l_str = strtok(l_temp,",: ");
+		char*	l_str = strtok_s(l_temp,",: ", &l_pForStrtok_s);
 		for( int i=0;i<4;++i )
 		{
 			e_pUVBuffer[i] = (float)atof(l_str);
-			l_str = strtok(0,",: ");
+			l_str = strtok_s(nullptr, ",: ", &l_pForStrtok_s);
 		}
 	}
 
@@ -274,10 +286,17 @@ namespace FATMING_CORE
 
 	std::vector<int>	GetIntegerListByCommaDivide(const wchar_t*e_str,int e_iSize)
 	{
-		std::vector<int>	l_NumeralList;
-		if( e_iSize )
+		wchar_t*					l_pForwcstok_s = nullptr;
+		std::vector<int>			l_NumeralList;
+		size_t	l_iLength =			wcslen(e_str);
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -286,7 +305,7 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back(_wtoi(l_str));
 	#endif
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 		}
 		return l_NumeralList;	
 	}
@@ -294,10 +313,17 @@ namespace FATMING_CORE
 
 	std::vector<float>	GetFloatListByCommaDivide(const wchar_t*e_str,int e_iSize)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
 		std::vector<float>	l_NumeralList;
-		if( e_iSize )
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -306,17 +332,24 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back((float)_wtof(l_str));
 	#endif
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ",&l_pForwcstok_s);
 		}
 		return l_NumeralList;
 	}
 
 	std::vector<double>	GetDoubleListByCommaDivide(const wchar_t*e_str,int e_iSize)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
 		std::vector<double>	l_NumeralList;
-		if( e_iSize )
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok((wchar_t*)e_str,L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -325,34 +358,44 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back(_wtof(l_str));
 	#endif
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", " , &l_pForwcstok_s);
 		}
 		return l_NumeralList;
 	}
 
 	std::vector<int64>	GetInt64ListByCommaDivide(const wchar_t*e_str, int e_iSize)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
 		std::vector<int64>	l_NumeralList;
 		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*	l_str = wcstok((wchar_t*)e_str, L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString, L", ",&l_pForwcstok_s);
 		while (l_str)
 		{
 			int64 l_i64Value =  GetInt64(l_str);
 			l_NumeralList.push_back(l_i64Value);
-			l_str = wcstok(0, L", ");
+			l_str = wcstok_s(nullptr , L", ", &l_pForwcstok_s);
 		}
 		return l_NumeralList;
 	}
 
 	std::vector<int>	GetIntegerListByCommaDivide(const char*e_str,int e_iSize)
 	{
-		char*   l_strValue = (char*)alloca(strlen(e_str));
-		sprintf(l_strValue, "%s", e_str);
 		std::vector<int>	l_NumeralList;
-		if( e_iSize )
+		char*				l_pForStrtok_s = nullptr;
+		char*				l_strValue = (char*)alloca(strlen(e_str));
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*	l_str = strtok(l_strValue,", ");
+		}
+		sprintf(l_strValue, "%s", e_str);
+		char*	l_str = strtok_s(l_strValue,", ",&l_pForStrtok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -361,7 +404,7 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back(atoi(l_str));
 	#endif
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;
 	}
@@ -369,11 +412,14 @@ namespace FATMING_CORE
 	std::vector<double>	GetDoubleListByCommaDivide(const char*e_str,int e_iSize)
 	{
 		std::vector<double>	l_NumeralList;
-		if( e_iSize )
+		char* l_pForStrtok_s = nullptr;
+		char* l_strValue = (char*)alloca(strlen(e_str));
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*   l_strValue = (char*)alloca(strlen(e_str));
+		}
 		sprintf(l_strValue, "%s", e_str);
-		char*	l_str = strtok(l_strValue,", ");
+		char*	l_str = strtok_s(l_strValue,", ",&l_pForStrtok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -382,7 +428,7 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back(atof(l_str));
 	#endif
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;
 	}
@@ -390,16 +436,19 @@ namespace FATMING_CORE
 	std::vector<int64>	GetInt64ListByCommaDivide(const char*e_str, int e_iSize)
 	{
 		std::vector<int64>	l_NumeralList;
+		char*				l_strValue = (char*)alloca(strlen(e_str));
+		char*				l_pForStrtok_s = nullptr;
 		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*   l_strValue = (char*)alloca(strlen(e_str));
+		}
 		sprintf(l_strValue, "%s", e_str);
-		char*	l_str = strtok(l_strValue, ", ");
+		char*	l_str = strtok_s(l_strValue, ", ", &l_pForStrtok_s);
 		while (l_str)
 		{
 			int64 l_i64 = GetInt64(l_str);
 			l_NumeralList.push_back(l_i64);
-			l_str = strtok(0, ", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;
 	}
@@ -407,11 +456,14 @@ namespace FATMING_CORE
 	std::vector<float>	GetFloatListByCommaDivide(const char*e_str,int e_iSize)
 	{
 		std::vector<float>	l_NumeralList;
-		if( e_iSize )
+		char*				l_strValue = (char*)alloca(strlen(e_str));
+		char*				l_pForStrtok_s = nullptr;
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*   l_strValue = (char*)alloca(strlen(e_str));
+		}
 		sprintf(l_strValue, "%s", e_str);
-		char*	l_str = strtok(l_strValue, ", ");
+		char*	l_str = strtok_s(l_strValue, ", ", &l_pForStrtok_s);
 		while(l_str)
 		{
 	#ifdef DEBUG
@@ -420,7 +472,7 @@ namespace FATMING_CORE
 	#else
 			l_NumeralList.push_back((float)atof(l_str));
 	#endif
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;
 	}
@@ -429,35 +481,33 @@ namespace FATMING_CORE
 	{
 		std::vector<std::wstring>	l_List;
 		size_t	l_iLength = wcslen(e_str);
-		wchar_t*l_TempData = new wchar_t[l_iLength+1];
-		wchar_t*l_pStart = l_TempData;
-		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
-		l_TempData[l_iLength] = 0;
-		wchar_t*	l_str = wcstok(l_TempData,L", ");
+		wchar_t*	l_pForwcstok_s = nullptr;
+		wchar_t*	l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength +1));
+		memcpy(l_pTempWString,e_str,sizeof(wchar_t)*l_iLength);
+		l_pTempWString[l_iLength] = 0;
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 			l_List.push_back(l_str);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ",&l_pForwcstok_s);
 		}
-		delete[] l_pStart;
 		return l_List;	
 	}
 
 	std::vector<std::string>	GetStringListByCommaDivide(const wchar_t*e_str)
 	{
 		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
 		wchar_t*l_TempData = new wchar_t[l_iLength+1];
-		wchar_t*l_pStart = l_TempData;
 		memcpy(l_TempData,e_str,sizeof(wchar_t)*l_iLength);
 		l_TempData[l_iLength] = 0;
 		std::vector<std::string>	l_List;
-		wchar_t*	l_str = wcstok(l_TempData,L", ");
+		wchar_t*	l_str = wcstok_s(l_TempData,L", ", &l_pForwcstok_s);
 		while(l_str)
 		{
 			l_List.push_back(UT::WcharToChar(l_str));
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 		}
-		delete[] l_pStart;
 		return l_List;
 	}
 
@@ -860,40 +910,52 @@ namespace FATMING_CORE
 
 	std::vector<Vector2>	StringToVector2Vector(const wchar_t*e_str,int e_iSize)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
 		std::vector<Vector2>	l_NumeralList;
-		if( e_iSize )
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*l_strConvertString = (wchar_t*)e_str;
-		wchar_t*	l_str = wcstok(l_strConvertString,L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 			Vector2	l_v;
 			l_v.x = (float)_wtof(l_str);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 			l_v.y = (float)_wtof(l_str);
 			l_NumeralList.push_back(l_v);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 		}
 		return l_NumeralList;
 	}
 
 	std::vector<Vector3>	StringToVector3Vector(const wchar_t*e_str,int e_iSize)
 	{
+		size_t	l_iLength = wcslen(e_str);
+		wchar_t* l_pForwcstok_s = nullptr;
+		wchar_t* l_pTempWString = (wchar_t*)alloca(sizeof(wchar_t) * (l_iLength + 1));
+		memcpy(l_pTempWString, e_str, sizeof(wchar_t) * l_iLength);
+		l_pTempWString[l_iLength] = 0;
 		std::vector<Vector3>	l_NumeralList;
-		if( e_iSize )
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		wchar_t*l_strConvertString = (wchar_t*)e_str;
-		wchar_t*	l_str = wcstok(l_strConvertString,L", ");
+		}
+		wchar_t*	l_str = wcstok_s(l_pTempWString,L", ",&l_pForwcstok_s);
 		while(l_str)
 		{
 			Vector3	l_v;
 			l_v.x = (float)_wtof(l_str);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 			l_v.y = (float)_wtof(l_str);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr,L", ", &l_pForwcstok_s);
 			l_v.z = (float)_wtof(l_str);
 			l_NumeralList.push_back(l_v);
-			l_str = wcstok(0,L", ");
+			l_str = wcstok_s(nullptr , L", ", &l_pForwcstok_s);
 		}
 		return l_NumeralList;
 	}
@@ -901,19 +963,22 @@ namespace FATMING_CORE
 	std::vector<Vector2>	StringToVector2Vector(const char*e_str,int e_iSize)
 	{
 		std::vector<Vector2>	l_NumeralList;
-		if( e_iSize )
+		char* l_strValue = (char*)alloca(strlen(e_str));
+		char* l_pForStrtok_s = nullptr;
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*   l_strValue = (char*)alloca(strlen(e_str));
+		}
 		sprintf(l_strValue, "%s", e_str);
-		char*	l_str = strtok(l_strValue, ", ");
+		char*	l_str = strtok_s(l_strValue, ", ", &l_pForStrtok_s);
 		while(l_str)
 		{
 			Vector2	l_v;
 			l_v.x = (float)atof(l_str);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 			l_v.y = (float)atof(l_str);
 			l_NumeralList.push_back(l_v);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;	
 	}
@@ -921,21 +986,24 @@ namespace FATMING_CORE
 	std::vector<Vector3>	StringToVector3Vector(const char*e_str,int e_iSize)
 	{
 		std::vector<Vector3>	l_NumeralList;
-		if( e_iSize )
+		char*					l_strValue = (char*)alloca(strlen(e_str));
+		char*					l_pForStrtok_s = nullptr;
+		if (e_iSize)
+		{
 			l_NumeralList.reserve(e_iSize);
-		char*   l_strValue = (char*)alloca(strlen(e_str));
+		}
 		sprintf(l_strValue, "%s", e_str);
-		char*	l_str = strtok(l_strValue, ", ");
+		char*	l_str = strtok_s(l_strValue, ", ", &l_pForStrtok_s);
 		while(l_str)
 		{
 			Vector3	l_v;
 			l_v.x = (float)atof(l_str);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 			l_v.y = (float)atof(l_str);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 			l_v.z = (float)atof(l_str);
 			l_NumeralList.push_back(l_v);
-			l_str = strtok(0,", ");
+			l_str = strtok_s(nullptr, ", ", &l_pForStrtok_s);
 		}
 		return l_NumeralList;	
 	}
