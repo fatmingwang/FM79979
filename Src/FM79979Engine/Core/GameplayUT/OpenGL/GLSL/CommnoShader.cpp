@@ -1,6 +1,6 @@
 #include "Shader.h"
 //https://en.wikipedia.org/wiki/OpenGL_Shading_Language
-
+//https://stackoverflow.com/questions/62025942/why-gl-version-differs-from-gl-shading-language-version-and-what-to-do
 //GLSL Version	OpenGL Version	Date			Shader Preprocessor
 //1.10.59[1]	2.0				April 2004		#version 110
 //1.20.8[2]		2.1				September 2006	#version 120
@@ -16,6 +16,12 @@
 //4.50[12]		4.5				August 2014		#version 450
 //4.60[13]		4.6				July 2017		#version 460
 //shader opengl ES2 to openGL ES3
+//| GLSL ES | OpenGL ES |                 |
+//|---------|-----------|-----------------|
+//| 1.00    | ES 2.0    | #version 100 es |
+//| 3.00    | ES 3.0    | #version 300 es |
+//| 3.10    | ES 3.1    | #version 310 es |
+//| 3.20    | ES 3.2    | #version 320 es |
 //
 //http://www.shaderific.com/blog/2014/3/13/tutorial-how-to-update-a-shader-for-opengl-es-30
 //OpenGL ES 2.0 / GLSL 1.00:					OpenGL ES 3.0 / GLSL 3.00 :

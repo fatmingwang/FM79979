@@ -72,6 +72,13 @@ namespace FATMING_CORE
 		//				objectSize,
 		//			    m_pU32FacesList);
 		glBindBuffer(GL_ARRAY_BUFFER, l_uiBuffer);
+		////https://stackoverflow.com/questions/8281653/how-to-choose-between-gl-stream-draw-or-gl-dynamic-draw
+		//STREAM
+		//You should use STREAM_DRAW when the data store contents will be modified once and used at most a few times.
+		//STATIC
+		//Use STATIC_DRAW when the data store contents will be modified once and used many times.
+		//DYNAMIC
+		//Use DYNAMIC_DRAW when the data store contents will be modified repeatedly and used many times.
 		//glBufferSubData is better for directX?
 		glBufferData(GL_ARRAY_BUFFER, e_uiCount*e_iDataSize*e_iStride, e_pfData, GL_STATIC_DRAW);
 		//this one for openglES2.0
@@ -81,7 +88,7 @@ namespace FATMING_CORE
 	#endif
 	}
 
-	void	cVBOBuffer::SetupIndicesBuffer(float*e_pfData,UINT e_uiCount)
+	void	cVBOBuffer::SetupIndicesBuffer(float*e_pfData,UINT e_uiCount, int e_iIndexSize)
 	{
 		if( m_uiDrawIndicesBufferID != 0 )
 		{
@@ -104,7 +111,7 @@ namespace FATMING_CORE
 #ifdef WIN32
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, e_uiCount*sizeof(UINT), e_pfData, GL_STATIC_DRAW);
 #else
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, e_uiCount*sizeof(unsigned short), e_pfData, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, e_uiCount* e_iIndexSize, e_pfData, GL_STATIC_DRAW);
 #endif
 		m_uiIndicesCount = e_uiCount;
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -161,8 +168,8 @@ namespace FATMING_CORE
 		{
 			//https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glBindBuffer.xhtml
 			//GL_ELEMENT_ARRAY_BUFFER = Vertex array indices
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiDrawIndicesBufferID);
-			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, m_uiIndicesCount, g_iDrawindiceType, 0);
+			LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_uiDrawIndicesBufferID));
+			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, m_uiIndicesCount, FMGetDrawIndiexType(), 0);
 		}
 		//unbind data so rest object could render on the screen or it will render last bind data.
 		glBindBuffer(GL_ARRAY_BUFFER,0);

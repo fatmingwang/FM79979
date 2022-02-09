@@ -38,7 +38,7 @@
 	#pragma comment(lib, "../../../lib/Debug/Core.lib")
 #endif
 	#pragma comment(lib, "../../../lib/Debug/Freetype.lib")
-	//#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
+	#pragma comment(lib, "../../../lib/Debug/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Debug/ogg.lib")
 
 #else
@@ -49,7 +49,7 @@
 #ifndef UWP
 	#pragma comment(lib, "../../../lib/Release/Core.lib")
 #endif
-	//#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
+	#pragma comment(lib, "../../../lib/Release/FatmingCollada.lib")
 	#pragma comment(lib, "../../../lib/Release/ogg.lib")
 	#pragma comment(lib, "../../../lib/Release/Freetype.lib")
 #endif

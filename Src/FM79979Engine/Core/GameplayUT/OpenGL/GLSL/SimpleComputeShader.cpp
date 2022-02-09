@@ -14,6 +14,10 @@ namespace FATMING_CORE
 		m_uiProgramPipeline = -1;
 		glBindProgramPipeline(0);
 		glUseProgram(0);
+		if (g_pCurrentShader)
+		{
+			g_pCurrentShader->Unuse();
+		}
 		if (CreateCSProgram(e_strCS))
 		{
 			if (!CreateProgramPipeline())
@@ -94,9 +98,9 @@ namespace FATMING_CORE
 	{
 		GLint l_iStatus = -1;
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenProgramPipelines(1, &this->m_uiProgramPipeline));
-		glBindProgramPipeline(m_uiProgramPipeline);
-		glUseProgramStages(m_uiProgramPipeline, GL_COMPUTE_SHADER_BIT, m_uiShaderProgramID);
-		glValidateProgramPipeline(m_uiProgramPipeline);
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(m_uiProgramPipeline));
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUseProgramStages(m_uiProgramPipeline, GL_COMPUTE_SHADER_BIT, m_uiShaderProgramID));
+		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glValidateProgramPipeline(m_uiProgramPipeline));
 		LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGetProgramPipelineiv(m_uiProgramPipeline, GL_VALIDATE_STATUS, &l_iStatus));
 		if (l_iStatus != GL_TRUE)
 		{

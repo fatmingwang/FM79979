@@ -2,14 +2,36 @@
 #include "Shader.h"
 #include "GLSLUiniform.h"
 #include "../../GameApp/GameApp.h"
+#include "../OpenGLRender.h"
 //#include "../../GameplayUT/GameApp.h"
-GLenum	g_iDrawindiceType = 
 
+GLenum	g_iDrawindiceType =
 #if defined(WIN32) && !defined(UWP)
 GL_UNSIGNED_INT;
 #else
 GL_UNSIGNED_SHORT;
 #endif
+
+GLenum	FMGetDrawIndiexType()
+{
+	static bool l_sbOnlyDoOnce = false;
+	if (!l_sbOnlyDoOnce)
+	{
+		l_sbOnlyDoOnce = true;
+#if !defined(WIN32)
+		if (cOpenGLRender::m_siOpenGLESVersion < OPENGL_ES_30)
+		{
+			g_iDrawindiceType = GL_UNSIGNED_SHORT;
+		}
+		else
+		{
+			g_iDrawindiceType = GL_UNSIGNED_INT;
+		}
+#endif
+	}
+	return g_iDrawindiceType;
+}
+
 //#ifndef GL_PROGRAM_POINT_SIZE
 //#define GL_PROGRAM_POINT_SIZE 0x8642
 //#endif
@@ -247,6 +269,7 @@ namespace FATMING_CORE
 					CHECK_GL_ERROR("cBaseShader::456");
 					glLinkProgram( m_uiProgram );
 					glUseProgram( m_uiProgram );
+					this->Unuse();
 					return true;
 				}
 			}

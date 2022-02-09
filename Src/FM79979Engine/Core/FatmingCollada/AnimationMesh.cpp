@@ -612,7 +612,10 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 		if( (*this)[i]->GetTechniqueType() == eTL_DIFFUSE )
 			(*this)[i]->ApplyImage();
 	}
+	float l_f[16];
+	memcpy(l_f, cMatrix44::ZupToYUp.m, sizeof(float) * 16);
 	SetupShaderWorldMatrix(this->GetWorldTransform()*m_smatAxisTransform);
+	//SetupShaderWorldMatrix(this->GetWorldTransform());
 	int	l_iBoneSize = this->m_SkinningBoneVector.Count();
 	SetupShaderBonesData(m_pAllBonesMatrixForSkinned,l_iBoneSize);
 	if( !m_pVBOBuffer )
@@ -624,7 +627,7 @@ void	cAnimationMesh::Render(WCHAR*e_strShaderName)
 				myVertexAttribPointer(g_uiAttribArray[i], g_iFVF_DataStride[i], g_iFVF_DataType[i],0,0, m_ppfVerticesBuffer[i]);
 			}
 		}
-		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
+		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, FMGetDrawIndiexType(),m_puiIndexBuffer );
 	}
 	else//for shader
 	{

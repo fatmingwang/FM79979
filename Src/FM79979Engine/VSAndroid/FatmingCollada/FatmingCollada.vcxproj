@@ -51,6 +51,33 @@
     <ClCompile Include="..\..\Core\FatmingCollada\Mesh.cpp" />
     <ClCompile Include="..\..\Core\FatmingCollada\ProcessController.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Core\FatmingCollada\AllColladaInclude.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\AnimationMesh.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaAnimations.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaCameras.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaControllers.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaEffects.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaGeometries.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaImages.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaLights.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaMaterials.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaParser.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaResourceManager.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\ColladaVisualScene.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\CommonMesh.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingColladaAnimationData.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingColladaCamerasData.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingController.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingEffectData.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingGeometryData.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FatmingVisualSceneData.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FUDaeEnum.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FUDaeEnumSyntax.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\FUDaeSyntax.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\Mesh.h" />
+    <ClInclude Include="..\..\Core\FatmingCollada\StdAfx.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3f616352-0a73-4901-a08d-4766d75bf454}</ProjectGuid>
     <Keyword>Android</Keyword>
@@ -83,7 +110,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>Clang_3_8</PlatformToolset>
+    <PlatformToolset>Clang_5_0</PlatformToolset>
+    <AndroidAPILevel>android-28</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -148,8 +176,13 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>..\..\Core\Sound\OpenAL_Android\__src__ALSoft\OpenAL32;..\..\Core\Sound\OpenAL_Android\__src__ALSoft;..\..\Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CppLanguageStandard>c++14</CppLanguageStandard>
+      <PreprocessorDefinitions>ANDROID;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Enabled</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">

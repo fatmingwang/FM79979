@@ -92,25 +92,17 @@ void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *i
 {
 	//gles3 allow unsigned int
 	//http://docs.gl/gl3/glDrawElements
+#ifdef DEBUG
 	if (count > 65535 && type != GL_UNSIGNED_INT)
 	{
 		FMLog::Log(UT::ComposeMsgByFormat("MY_GLDRAW_ELEMENTS:draw indices count:%d,(try opengl es 3 with GL_UNSIGNED_INT!?)", count).c_str(), true);
 	}
-	glDrawElements(mode, count, type, indices);
+#endif
 	//GL_NO_ERROR 0
 	//GL_INVALID_ENUM 0x0500
 	//GL_INVALID_VALUE 0x0501
 	//GL_INVALID_OPERATION 0x0502
-	int	l_i = glGetError();
-	if (l_i != 0)
-	{
-		//opengl es1 code.
-		//bool	l_b0 = glIsEnabled(GL_VERTEX_ARRAY)==GL_TRUE;
-		//bool	l_b1 = glIsEnabled(GL_TEXTURE_COORD_ARRAY)==GL_TRUE;
-		//bool	l_b2 = glIsEnabled(GL_NORMAL_ARRAY)==GL_TRUE;
-		//bool	l_b3 = glIsEnabled(GL_COLOR_ARRAY)==GL_TRUE;
-		int a = 0;
-	}
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glDrawElements(mode, count, type, indices));
 }
 #endif
 namespace GLRender
@@ -321,7 +313,7 @@ namespace GLRender
 			myGlVertexPointer(e_iPosStride, e_pVertexBuffer);
 			myGlUVPointer(2, e_pUVBuffer);
 			myGlColorPointer(4, e_pColorBuffer);
-			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_iIndexBufferCount, g_iDrawindiceType, e_pIndexBuffer);
+			MY_GLDRAW_ELEMENTS(GL_TRIANGLES, (GLsizei)e_iIndexBufferCount, FMGetDrawIndiexType(), e_pIndexBuffer);
 		}
 	}
 

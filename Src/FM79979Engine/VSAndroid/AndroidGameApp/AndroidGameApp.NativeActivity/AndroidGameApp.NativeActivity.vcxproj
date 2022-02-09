@@ -137,7 +137,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
-      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>stdc++;c;android;m;log;dl;GLESv3;EGL;jnigraphics;FatmingCollada;Core;ogg;Bullet;FreeType;%(LibraryDependencies)</LibraryDependencies>
       <AdditionalLibraryDirectories>..\..\$(Platform)\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>

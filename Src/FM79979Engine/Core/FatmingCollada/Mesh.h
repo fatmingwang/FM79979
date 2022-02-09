@@ -1,5 +1,4 @@
-#ifndef MESH_H
-#define MESH_H
+#pragma once
 #include "FatmingEffectData.h"
 
 class	sTechniqueAndTexture:public cBaseImage
@@ -91,5 +90,3 @@ public:
 	};
 	static	cMatrix44	m_smatAxisTransform;//max is Z up
 };
-
-#endif

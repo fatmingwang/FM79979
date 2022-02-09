@@ -26,7 +26,7 @@ cMultiPathDynamicImage*		g_pMultiPathDynamicImageClone = 0;
 cCurveWithTime*				g_pTestCurveWithTime = nullptr;;
 c2DImageCollisionData*		g_pCollisionData = nullptr;
 cColladaParser*				g_pColladaParser = 0;
-//cAnimationMesh*			g_pAnimationMesh = 0;
+//cAnimationMesh*				g_pAnimationMesh = 0;
 cCurveWithTime*				g_pCurve = 0;
 cMPDINode*					g_pMPDINode = 0;
 cToneMappingShader*			g_pToneMappingShader = nullptr;
@@ -82,9 +82,9 @@ void	SoundBGThread()
 
 
 cBaseShader*g_pMSAAShader = nullptr;
-#ifdef WIN32
+//#ifdef WIN32
 extern void ComputerShaderInit();
-#endif
+//#endif
 
 void   ThreadLoadTest()
 {
@@ -113,7 +113,6 @@ void	LoadSample()
 {
 	FMLog::Log("LoadSample start", false);
 #ifdef WIN32
-	ComputerShaderInit();
 	WSADATA wsaData;
 	int error;
 	if ((error = WSAStartup(MAKEWORD(1, 1), &wsaData)) != 0)
@@ -121,6 +120,8 @@ void	LoadSample()
 		printf("Error %d in WSAStartup, result will fail\n", error);
 	}
 	//WebSocketInit();
+#else
+	ComputerShaderInit();
 #endif
 	//TestGET();
 	//Test2();
@@ -131,7 +132,7 @@ void	LoadSample()
 	}
 	int l_iYBase = 500;
 	//g_pCurveWithTime = new cCurveWithTime();
-	g_pCurveWithTime2 = new cCurveWithTime();
+	//g_pCurveWithTime2 = new cCurveWithTime();
 	if (g_pCurveWithTime)
 	{
 		g_pCurveWithTime->AddPoint(Vector3(100, 100, 0), 0);
@@ -163,7 +164,7 @@ void	LoadSample()
 		g_pCurveWithTime2->SetLOD(5);
 	}
 
-	g_pPathChaser = new cPathChaser(100.f, 100.f);
+	//g_pPathChaser = new cPathChaser(100.f, 100.f);
 	if (g_pPathChaser)
 	{
 		cCurveWithTime l_cCurveWithTime;
@@ -196,7 +197,7 @@ void	LoadSample()
 	//g_pBGImage->SetWidth((int)cGameApp::m_spOpenGLRender->m_vGameResolution.x);
 	//g_pBGImage->SetHeight((int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 	//g_pCameraZoomFunction = new cCameraZoomFunction("Lee-Younh-Aes-twins.png");
-	g_pCameraZoomFunction = new cCameraZoomFunction();
+	//g_pCameraZoomFunction = new cCameraZoomFunction();
 	//g_pMPDINode = new cMPDINode();
 	if( g_pMPDINode )
 	{
@@ -218,7 +219,7 @@ void	LoadSample()
 		cLinerDataProcessor<Vector2>*l_SozeData = g_pMPDINode->GetSizeData();
 		g_pMPDINode->Init();
 	}
-	if (1)
+	if (0)
 	{
 		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("bgrounda01.mpdi", eGBT_MPDILIST);
 	}
@@ -273,7 +274,7 @@ void	LoadSample()
 		g_pPrtEmitter->SetPos(Vector3(1000,540,0));
 	}
 
-	//g_pColladaParser = new cColladaParser();
+	g_pColladaParser = new cColladaParser();
 	if( g_pColladaParser )
 	{
 		if(g_pColladaParser->ParseDataIntoXMLNode("3DFish_test/test.DAE"))
@@ -281,15 +282,18 @@ void	LoadSample()
 			FATMING_CORE::CreateShader(g_bMyMeshVSClientState,g_strMyMeshVS,g_strMyMeshFS,STATIC_MESH_SHADER);
 			FATMING_CORE::CreateShader(g_bMySkinningMeshVSClientState,g_strMySkinningMeshVS,g_strMySkinningMeshFS,SKINNING_MESH_SHADER);
 			g_pCurve = new cCurveWithTime();
-			g_pCurve->AddPoint(Vector3(0,300,0),0);
-			g_pCurve->AddPoint(Vector3(300,300,0),2.f);
-			g_pCurve->AddPoint(Vector3(720,300,0),4.5);
-			g_pCurve->AddPoint(Vector3(0,300,0),9);
-			g_pCurve->SetCurveLoop(true);
-			g_pCurve->Init();
+			if (g_pCurve)
+			{
+				g_pCurve->AddPoint(Vector3(0, 300, 0), 0);
+				g_pCurve->AddPoint(Vector3(300, 300, 0), 2.f);
+				g_pCurve->AddPoint(Vector3(720, 300, 0), 4.5);
+				g_pCurve->AddPoint(Vector3(0, 300, 0), 9);
+				g_pCurve->SetCurveLoop(true);
+				g_pCurve->Init();
+			}
 		}
 	}
-	//g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
+	g_pOrthogonalCamera = new cOrthogonalCamera(cGameApp::m_spOpenGLRender->m_vGameResolution);
 	//
 	//g_pTestCurveWithTime = new cCurveWithTime();
 	if (g_pTestCurveWithTime)
@@ -422,15 +426,24 @@ void	SampleUpdate(float e_fElpaseTime)
 		//g_pOrthogonalCamera->CameraUpdateByMouse(cGameApp::m_sbMouseClickStatus[0],cGameApp::m_sbMouseClickStatus[1],cGameApp::m_sMouseWhellDelta,cGameApp::m_sScreenMousePosition.x,cGameApp::m_sScreenMousePosition.y,l_vViewPort);
 	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
 	{
-		if( g_pCurve )
+		if (g_pCurve)
+		{
 			g_pCurve->Update(e_fElpaseTime);
+		}
 		int	l_iCount = g_pColladaParser->m_pAllAnimationMesh->Count();
 		for( int i=0;i<l_iCount;++i )
 		{
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Update(e_fElpaseTime);
-			if( g_pMPDINode && i==0 )
+			if( i==0 )
 			{
-				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(g_pMPDINode->GetWorldTransform());
+				if (g_pMPDINode)
+				{
+					g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(g_pMPDINode->GetWorldTransform());
+				}
+				else
+				{
+					g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalTransform(cMatrix44::TranslationMatrix(Vector3(400,500,0)));
+				}
 			}
 		}
 	}
@@ -563,8 +576,10 @@ void	SampleRender()
 	if( g_pColladaParser && g_pColladaParser->m_pAllAnimationMesh )
 	{
 		FATMING_CORE::UseShaderProgram(SKINNING_MESH_SHADER);
-		if(g_pOrthogonalCamera)
+		if (g_pOrthogonalCamera)
+		{
 			g_pOrthogonalCamera->Render();
+		}
 		int	l_iCount = g_pColladaParser->m_pAllAnimationMesh->Count();
 		for( int i=0;i<l_iCount;++i )
 		{
@@ -578,7 +593,10 @@ void	SampleRender()
 			{
 				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalPosition(g_pMPDINode->GetWorldTransform().GetTranslation());
 			}
-			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalPosition(g_pCurve->GetCurrentPosition());
+			if (g_pCurve)
+			{
+				g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->SetLocalPosition(g_pCurve->GetCurrentPosition());
+			}
 			g_pColladaParser->m_pAllAnimationMesh->GetObject(i)->Render();
 		}
 	}

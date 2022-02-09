@@ -22,6 +22,7 @@
 #include "nv_egl_util.h"
 #include <android/log.h>
 #include <unistd.h>
+#include "../GameplayUT/OpenGL/OpenGLRender.h"
 
 #define LOGD(...) ((void)__android_log_print(ANDROID_LOG_DEBUG,  \
 											 "NvEGLUtil", \
@@ -180,17 +181,26 @@ NvEGLUtil* NvEGLUtil::create(ConfigChooser chooser)
 		return NULL;
 	}
 
-	EGLint contextAttrs[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
+	EGLint contextAttrs[] = { EGL_CONTEXT_CLIENT_VERSION, 3, EGL_NONE };
 	
     if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, contextAttrs))
 	{
-		EGL_STATUS_LOG("eglCreateContext");
+		cOpenGLRender::m_siOpenGLESVersion = OPENGL_ES_30;
+		EGL_STATUS_LOG("eglCreateContext gles3");
 	}
 	else
 	{
-		EGL_ERROR_LOG("eglCreateContext");
-		delete thiz;
-		return NULL;
+		EGLint contextAttrs2[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
+		if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, contextAttrs2))
+		{
+			cOpenGLRender::m_siOpenGLESVersion = OPENGL_ES_20;
+		}
+		else
+		{
+			EGL_ERROR_LOG("eglCreateContext  gles2");
+			delete thiz;
+			return NULL;
+		}
 	}
 
 	thiz->m_status = NV_INITIALIZED;

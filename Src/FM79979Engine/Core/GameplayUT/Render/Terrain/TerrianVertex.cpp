@@ -276,7 +276,7 @@ namespace FATMING_CORE
 					myVertexAttribPointer(g_uiAttribArray[i], g_iFVF_DataStride[i], g_iFVF_DataType[i],0,0, m_ppfVerticesBuffer[i]);
 				}
 			}
-			MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
+			MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, FMGetDrawIndiexType(),m_puiIndexBuffer );
 		}
 	}
 

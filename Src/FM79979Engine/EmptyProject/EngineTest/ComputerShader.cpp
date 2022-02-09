@@ -95,11 +95,11 @@ void	MyCS_Program_Init()
 			delete[] log;
 		}
 	}
-	glGenProgramPipelines(1, &g_iProgramPipeline);
-	glBindProgramPipeline(g_iProgramPipeline);
-	glUseProgramStages(g_iProgramPipeline, GL_COMPUTE_SHADER_BIT, object);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGenProgramPipelines(1, &g_iProgramPipeline));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glBindProgramPipeline(g_iProgramPipeline));
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glUseProgramStages(g_iProgramPipeline, GL_COMPUTE_SHADER_BIT, object));
 	g_uiCSObjectID = object;
-	glValidateProgramPipeline(g_iProgramPipeline);
+	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glValidateProgramPipeline(g_iProgramPipeline));
 	LAZY_DO_GL_COMMAND_AND_GET_ERROR(glGetProgramPipelineiv(g_iProgramPipeline, GL_VALIDATE_STATUS, &status));
 
 	if (status != GL_TRUE)

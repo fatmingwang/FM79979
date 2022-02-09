@@ -6,6 +6,10 @@
 #endif
 namespace FATMING_CORE
 {
+#define	OPENGL_ES_20	20
+#define	OPENGL_ES_30	30
+#define	OPENGL_ES_31	31
+#define	OPENGL_ES_32	32
 	class cOpenGLRender
 	{
 		void														CreateDefaultShader();
@@ -35,9 +39,14 @@ namespace FATMING_CORE
 		void														SetAcceptRationWithGameresolution(int e_iDeviceViewportWidth, int e_iDeviceViewportHeight, int e_iTargetResolutionWidth, int e_iTargetResolutionHeight);
 		//
 		static	std::vector<int>*									m_piSupportCompressedFormatVector;
-		static	float												m_sfOpenGLVersion;
 		static  bool												m_sbSupportNonPowerOfTwoTexture;//old name g_bSupportNonPowerOfTwoTexture
 		static	bool												m_sbVBOSupported;
+		//because float problem...so type is int
+		static	int													m_siOpenGLVersion;
+		static	int													m_siOpenGL_ShaderVersion;
+		//
+		static	int													m_siOpenGLESVersion;
+		static	int													m_siOpenGLES_ShaderVersion;
 		//init shader
 #if defined(WIN32) && !defined(UWP)
 		void														Init(HWND e_Hwnd, bool e_bMultiSample = false);

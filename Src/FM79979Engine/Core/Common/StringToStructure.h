@@ -118,8 +118,22 @@ namespace FATMING_CORE
 	//for
 	template<class T>T*	ParseDataToGenerateIntPointer(const wchar_t*e_strData,int e_iSize)
 	{
-		std::string	l_str = UT::WcharToChar(e_strData);
-		return ParseDataToGenerateIntPointer<T>(l_str.c_str(),e_iSize);
+		T* l_pData = new	T[e_iSize];
+		auto l_uiSize = wcslen(e_strData);
+		wchar_t* l_pForStrtok_s = nullptr;
+		wchar_t* l_strValue = (wchar_t*)alloca((l_uiSize+1)*sizeof(wchar_t));
+		memcpy(l_strValue, e_strData,sizeof(wchar_t)* l_uiSize);
+		l_strValue[l_uiSize] = 0;
+		auto l_str = wcstok_s(l_strValue, L", ", &l_pForStrtok_s);
+		int	l_iStep = 0;
+		while (l_str)
+		{
+			l_pData[l_iStep] = (T)_wtof(l_str);
+			l_str = wcstok_s(nullptr, L", ", &l_pForStrtok_s);
+			++l_iStep;
+		}
+		assert(l_iStep == e_iSize && "ParseDataToGenerateIntPointer not matched!");
+		return l_pData;
 //#ifdef ANDROID
 //		int	l_iLength = wcslen(e_strData);
 //		char*l_strData = new char[l_iLength+1];

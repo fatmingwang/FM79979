@@ -1,8 +1,13 @@
 #include "StdAfx.h"
 #include "Mesh.h"
 #include "FatmingController.h"
-
-cMatrix44	cMesh::m_smatAxisTransform = cMatrix44::ZupToYUp;
+//ehre could be get wrong bec
+//from cMAtrix44.cpp
+float MY_ZupToYUp[] = { 1, 0, 0, 0,
+							  0, 0, -1, 0,
+							  0, 1, 0, 0,
+							  0, 0, 0, 1 };
+cMatrix44	cMesh::m_smatAxisTransform = cMatrix44(MY_ZupToYUp);
 
 
 
@@ -23,6 +28,8 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 		UINT*	e_puiIndexBuffer,
 		UINT	e_uiIndexBufferCount)
 {
+	//m_smatAxisTransform = cMatrix44::ZupToYUp;
+	m_pVBOBuffer = nullptr;
 	m_bShadowEffect = false;
 	memset(m_v2DCollisionRect,0,sizeof(Vector4));
 	m_Sphere.vCenter = Vector3::Zero;
@@ -31,14 +38,14 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 	//fuck,because animation need position info
 	//cOpenGLRender::m_sbVBOSupported = true;
 	//cOpenGLRender::m_sbVBOSupported = false;	
-	cGameApp::OutputDebugInfoString(L"FUCK!!!\n");
-	cGameApp::OutputDebugInfoString(L"glGet GL_ARRAY_BUFFER_BINDING,GL_ELEMENT_ARRAY_BUFFER_BINDING,before get buffer data u have to \
-					   glBindBuffer(GL_ARRAY_BUFFER, l_uiBufferID);");
+	//cGameApp::OutputDebugInfoString(L"FUCK!!!\n");
+	//cGameApp::OutputDebugInfoString(L"glGet GL_ARRAY_BUFFER_BINDING,GL_ELEMENT_ARRAY_BUFFER_BINDING,before get buffer data u have to \
+	//				   glBindBuffer(GL_ARRAY_BUFFER, l_uiBufferID);");
 	//
-	if(cOpenGLRender::m_sbVBOSupported)
+	if (cOpenGLRender::m_sbVBOSupported)
+	{
 		m_pVBOBuffer = new FATMING_CORE::cVBOBuffer();
-	else
-		m_pVBOBuffer = nullptr;
+	}
 	for(int i=0;i<TOTAL_FVF;++i)
 	{
 		m_ppfVerticesBuffer[i] = 0;
@@ -95,13 +102,21 @@ cMesh::cMesh(float*	e_ppfVertexBuffer[TOTAL_FVF],
 #ifdef WIN32
 		m_pVBOBuffer->SetupIndicesBuffer((float*)e_puiIndexBuffer,m_uiIndexBufferCount);
 #else
-		unsigned short *l_pusData = new unsigned short[e_uiIndexBufferCount];
-		for( UINT i=0;i<e_uiIndexBufferCount;++i )
+		//opengl es 2only support unsigned short index
+		if (cOpenGLRender::m_siOpenGLESVersion < OPENGL_ES_30)
 		{
-			l_pusData[i] = (unsigned short)e_puiIndexBuffer[i];
+			unsigned short* l_pusData = new unsigned short[e_uiIndexBufferCount];
+			for (UINT i = 0; i < e_uiIndexBufferCount; ++i)
+			{
+				l_pusData[i] = (unsigned short)e_puiIndexBuffer[i];
+			}
+			m_pVBOBuffer->SetupIndicesBuffer((float*)l_pusData, m_uiIndexBufferCount,sizeof(unsigned short));
+			delete[] l_pusData;
 		}
-		m_pVBOBuffer->SetupIndicesBuffer((float*)l_pusData,m_uiIndexBufferCount);
-		delete[] l_pusData;
+		else
+		{
+			m_pVBOBuffer->SetupIndicesBuffer((float*)e_puiIndexBuffer,m_uiIndexBufferCount, sizeof(unsigned int));
+		}
 #endif
 		
 		m_puiIndexBuffer = 0;
@@ -177,7 +192,7 @@ void	cMesh::Render(WCHAR*e_strShaderName)
 		if((*this)[i]->GetTechniqueType() == eTL_DIFFUSE)
 			(*this)[i]->ApplyImage();
 	}
-	SetupShaderWorldMatrix(this->GetWorldTransform()*m_smatAxisTransform);
+	SetupShaderWorldMatrix(this->GetWorldTransform()* cMatrix44::ZupToYUp);
 	//SetupShaderWorldMatrix(cMatrix44::ZupToYUp);
 #ifdef DEBUG
 		GLuint ll[TOTAL_FVF];
@@ -197,7 +212,7 @@ void	cMesh::Render(WCHAR*e_strShaderName)
 				myVertexAttribPointer(g_uiAttribArray[i], g_iFVF_DataStride[i], g_iFVF_DataType[i],0,0, m_ppfVerticesBuffer[i]);
 			}
 		}
-		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, g_iDrawindiceType,m_puiIndexBuffer );
+		MY_GLDRAW_ELEMENTS(GL_TRIANGLES,m_uiIndexBufferCount, FMGetDrawIndiexType(),m_puiIndexBuffer );
 	}
 }
 

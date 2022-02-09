@@ -15,7 +15,10 @@ namespace FATMING_CORE
 	extern cBaseShader*	g_pCurrentShader;
 	bool				cOpenGLRender::m_sbSupportNonPowerOfTwoTexture = true;
 	std::vector<int>*	cOpenGLRender::m_piSupportCompressedFormatVector = nullptr;
-	float				cOpenGLRender::m_sfOpenGLVersion = 0.f;
+	int					cOpenGLRender::m_siOpenGLVersion			= 40;
+	int					cOpenGLRender::m_siOpenGL_ShaderVersion		= 40;
+	int					cOpenGLRender::m_siOpenGLESVersion			= 20;
+	int					cOpenGLRender::m_siOpenGLES_ShaderVersion	= 10;
 	////#if defined(ANDROID) || defined(IOS) 
 	//eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_PORTRAIT;
 	////eDeviceDirection									cGameApp::m_eDeviceDirection = eDD_LANDSCAPE_LEFT;
@@ -92,6 +95,7 @@ namespace FATMING_CORE
 		//CreateShader(g_bMySkinningMeshVSClientState, g_strMySkinningMeshVS, g_strMySkinningMeshFS, SKINNING_MESH_SHADER);
 		FMLog::LogWithFlag("init shader end", CORE_LOG_FLAG, true);
 	}
+
 	void	DumpGraphicsInfo()
 	{
 		std::wstring	l_str;
@@ -108,9 +112,44 @@ namespace FATMING_CORE
 			FMLog::LogWithFlag(L"openGL not actived", CORE_LOG_FLAG);
 			return;
 		}
-		float l_fVersion = GetFloat((char*)l_strGL_VERSION);
-		float l_f2 = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION);
-		cOpenGLRender::m_sfOpenGLVersion = l_fVersion;
+		int l_iMajor = 0;
+		int l_iMinor = 0;
+		float l_iShaderVer = 0;
+		glGetIntegerv(GL_MAJOR_VERSION, &l_iMajor);
+		glGetIntegerv(GL_MINOR_VERSION, &l_iMinor);
+		int		l_iGLVersion = l_iMajor*10 + l_iMinor;
+		int		l_iGLShaderVer = GetFloat((char*)l_strGL_SHADING_LANGUAGE_VERSION)*10;
+#ifdef WIN32
+		cOpenGLRender::m_siOpenGLVersion = l_iGLVersion;
+		cOpenGLRender::m_siOpenGL_ShaderVersion = l_iGLShaderVer;
+		if (l_iGLVersion >= 4.5)
+		{
+			cOpenGLRender::m_siOpenGLESVersion = 32;
+			cOpenGLRender::m_siOpenGLES_ShaderVersion = 32;
+		}
+		else
+		if (l_iGLVersion >= 4.0)
+		{
+			cOpenGLRender::m_siOpenGLESVersion = 30;
+			cOpenGLRender::m_siOpenGLES_ShaderVersion = 30;
+		}
+		else
+		if (l_iGLVersion >= 3.0)
+		{
+			cOpenGLRender::m_siOpenGLESVersion = 20;
+			cOpenGLRender::m_siOpenGLES_ShaderVersion = 10;
+		}
+		else
+		{
+			cOpenGLRender::m_siOpenGLESVersion = 1;
+		}
+#else
+		cOpenGLRender::m_siOpenGLESVersion = l_iGLVersion;
+		cOpenGLRender::m_siOpenGLVersion = cOpenGLRender::m_siOpenGLESVersion + 10;
+		//fuck this get wrong but I am lazy to fix this.
+		cOpenGLRender::m_siOpenGLES_ShaderVersion = l_iGLShaderVer;
+		cOpenGLRender::m_siOpenGL_ShaderVersion = l_iGLShaderVer+10;
+#endif
 		l_str = L"GL_VERSION:";					l_str += ValueToStringW((char*)l_strGL_VERSION);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 		l_str = L"GL_SHADING_LANGUAGE_VERSION:";					l_str += ValueToStringW((char*)l_strGL_SHADING_LANGUAGE_VERSION);	l_str += L"\n";	FMLog::LogWithFlag(l_str.c_str(), CORE_LOG_FLAG);
 

@@ -1,5 +1,4 @@
-#ifndef ANIMATION_MESH
-#define ANIMATION_MESH
+#pragma once
 
 #include "Mesh.h"
 
@@ -106,4 +105,3 @@ public:
 //    normal = gl_NormalMatrix * gl_Normal;
 //    viewvec = gl_NormalMatrix * vec3 (gl_Vertex);
 //}
-#endif

@@ -20,7 +20,7 @@ namespace FATMING_CORE
 		//enusre the count is calculate by float
 		void	SetupVerticesBuffer(float*e_pfData,int e_iDataLocation,int e_iStride,UINT e_uiCount,int e_iDataSize = 4);//sizeof(float) = 4
 		//hey ensure opengl ES index buffer size is unsigned short not not!!
-		void	SetupIndicesBuffer(float*e_pfData,UINT e_uiCount);
+		void	SetupIndicesBuffer(float*e_pfData,UINT e_uiCount,int e_iIndexSize = sizeof(unsigned int));
 		//because the glVertexAttribPointer's parameter GLsizei stride
 
 		//if e_pfData of SetupVerticesBuffer is independent e_benableDataStrideis false

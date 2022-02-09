@@ -16,6 +16,7 @@ enum eLCameraEnumList
 	eLCELcamera_extra_technique_target,
 	eLCELMAX,
 };
+
 static const WCHAR*g_sLibraryCamerasElement[eLCELMAX] =
 {
 	L"camera",
@@ -30,6 +31,7 @@ static const WCHAR*g_sLibraryCamerasElement[eLCELMAX] =
 	L"technique",
 	L"target",
 };
+
 class cLibraryCameras :public NamedTypedObject
 {
 //
