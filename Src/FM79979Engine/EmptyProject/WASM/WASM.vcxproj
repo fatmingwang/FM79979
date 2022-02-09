@@ -155,7 +155,7 @@
       <AdditionalOptions>-s --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s FETCH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s FETCH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
@@ -185,6 +185,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\FatmingCollada\FatmingCollada.vcxproj">
+      <Project>{27c4a269-2e08-4644-b3c9-f5090703fa1d}</Project>
     </ProjectReference>
     <ProjectReference Include="..\..\Core\Sound\ogg\ogg.vcxproj">
       <Project>{d07c6fc2-02d7-41ae-8498-35186cd57b5a}</Project>
