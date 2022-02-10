@@ -128,36 +128,38 @@ namespace FATMING_CORE
 				Vector4	vColorArray[];
 			};
 
-			uint IntMod(uint a,uint b)
-			{
-				return a - uint(b * floor(a/b));
-			}
+			//uint IntMod(uint a,uint b)
+			//{
+			//	return a - uint(b * floor(a/b));
+			//}
 			layout(local_size_x = 256,  local_size_y = 1, local_size_z = 1) in;
 			//uniform uint g_iNumCalled;
 			void main()
 			{
 				//uint iLocalID =  gl_LocalInvocationID.x;
-				uint iID =		 gl_GlobalInvocationID.x;
+				int iID =		 int(gl_GlobalInvocationID.x);
+				const int iNumTriangles = 6;
 				vec3 l_vScale = ParticlesPosAndAngleIn[iID].vScale;
-				vec4 l_vAQuadToTrianglesVertices[6] = 
-				{
+				//https://discourse.processing.org/t/initialize-array-in-glsl/6858
+				vec4 l_vAQuadToTrianglesVertices[6] = vec4[6]
+				(
 					vec4(-l_vScale.x,  l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4(-l_vScale.x,-l_vScale.y,l_vScale.z,1),
 					vec4(-l_vScale.x, -l_vScale.y,l_vScale.z,1),vec4(l_vScale.x,l_vScale.y,l_vScale.z,1),vec4( l_vScale.x,-l_vScale.y,l_vScale.z,1)
-				};
+				);
 				mat4 l_mat = xFormXYZ(ParticlesPosAndAngleIn[iID].vPos,vec3(1,1,1),ParticlesPosAndAngleIn[iID].vAngle);
-				vColorArray[iID*6+0] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID*6+1] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID*6+2] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID*6+3] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID*6+4] = ParticlesPosAndAngleIn[iID].vColor;
-				vColorArray[iID*6+5] = ParticlesPosAndAngleIn[iID].vColor;
-				vVertexOut[iID*6+0] = (l_mat* l_vAQuadToTrianglesVertices[0]);
-				vVertexOut[iID*6+1] = (l_mat* l_vAQuadToTrianglesVertices[1]);
-				vVertexOut[iID*6+2] = (l_mat* l_vAQuadToTrianglesVertices[2]);
-				vVertexOut[iID*6+3] = (l_mat* l_vAQuadToTrianglesVertices[3]);
-				vVertexOut[iID*6+4] = (l_mat* l_vAQuadToTrianglesVertices[4]);
-				vVertexOut[iID*6+5] = (l_mat* l_vAQuadToTrianglesVertices[5]);
-				uiNumCalled = atomicAdd(uiNumCalled,1);
+				vColorArray[iID*iNumTriangles+0] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*iNumTriangles+1] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*iNumTriangles+2] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*iNumTriangles+3] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*iNumTriangles+4] = ParticlesPosAndAngleIn[iID].vColor;
+				vColorArray[iID*iNumTriangles+5] = ParticlesPosAndAngleIn[iID].vColor;
+				vVertexOut[iID*iNumTriangles+0] = (l_mat* l_vAQuadToTrianglesVertices[0]);
+				vVertexOut[iID*iNumTriangles+1] = (l_mat* l_vAQuadToTrianglesVertices[1]);
+				vVertexOut[iID*iNumTriangles+2] = (l_mat* l_vAQuadToTrianglesVertices[2]);
+				vVertexOut[iID*iNumTriangles+3] = (l_mat* l_vAQuadToTrianglesVertices[3]);
+				vVertexOut[iID*iNumTriangles+4] = (l_mat* l_vAQuadToTrianglesVertices[4]);
+				vVertexOut[iID*iNumTriangles+5] = (l_mat* l_vAQuadToTrianglesVertices[5]);
+				//uiNumCalled = atomicAdd(uiNumCalled,1);
 			}
 		)";
 

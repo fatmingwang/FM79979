@@ -593,6 +593,32 @@ namespace FATMING_CORE
 		CHECK_GL_ERROR("SetupShaderBonesData");
 	}
 
+	bool CreateShader(const char* e_strShader, GLenum e_eShaderType, int& e_iOutProgramID)
+	{
+		e_iOutProgramID = glCreateShader(e_eShaderType);
+		const char* l_strVS[1] = { e_strShader };
+		// Pass our sources to OpenGL. Our sources are nullptr terminated, so pass nullptr for the lenghts.
+		glShaderSource(e_iOutProgramID, 1, l_strVS, nullptr);
+
+		// Compile that one object.
+		glCompileShader(e_iOutProgramID);
+
+		// Check for compilation success
+		GLint compilationResult = 0;
+		glGetShaderiv(e_iOutProgramID, GL_COMPILE_STATUS, &compilationResult);
+		FATMING_CORE::CheckShader(e_iOutProgramID, GL_COMPILE_STATUS,L"");
+		// current implementation always succeeds.
+		// The error will happen at link time.
+		if (compilationResult == 0)
+		{
+			FMLog::LogWithFlag(L"Failed to compile shader:", CORE_LOG_FLAG);
+			glDeleteShader(e_iOutProgramID);
+			e_iOutProgramID = -1;
+			return false;
+		}
+		return true;
+	}
+
 	bool CheckProgram(int Object, int Type,wchar_t*e_strMessage)
 	{
 		int Success;
@@ -634,7 +660,10 @@ namespace FATMING_CORE
 			{
 				FMLog::LogWithFlag(e_strMessage, CORE_LOG_FLAG);
 				FMLog::LogWithFlag(Buffer, CORE_LOG_FLAG);
-				UT::ErrorMsg(Buffer,WcharToChar(e_strMessage).c_str());
+				if (e_strMessage)
+				{
+					UT::ErrorMsg(Buffer, WcharToChar(e_strMessage).c_str());
+				}
 				assert(0);			
 			}
 			delete[] Buffer;

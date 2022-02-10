@@ -172,6 +172,9 @@ namespace FATMING_CORE
 	void	SetupShaderColor(Vector4 e_vcolor);
 	//ensure current program is not support texture
 	void	SetupShaderBonesData(cMatrix44*e_pBoneMatrices,int e_iCount);
+
+	bool	CreateShader(const char* e_strShader, GLenum e_eShaderType, int& e_iOutProgramID);
+
 	bool	CheckProgram(int Object, int Type,wchar_t*e_strMessage);
 	//CheckShader(e_uiShaderHandle, GL_COMPILE_STATUS,L"Compile\n");
 	bool	CheckShader(int Object, int Type, const wchar_t*e_strMessage,std::string*e_strOutputLog = nullptr);

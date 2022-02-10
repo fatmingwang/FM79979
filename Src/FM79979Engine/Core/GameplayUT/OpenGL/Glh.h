@@ -17,11 +17,13 @@
 	#include <OpenGLES/ES2/gl.h>
 	#include <OpenGLES/ES2/glext.h>
 #elif defined(ANDROID)
-//https://developer.android.com/ndk/guides/stable_apis.html
-	#include <GLES2/gl2.h>
-	#include <GLES2/gl2ext.h>
-	#include <GLES2/gl2platform.h>
-	#include <GLES3/gl31.h>
+	//https://developer.android.com/ndk/guides/stable_apis.html
+	//#include <GLES2/gl2.h>
+	//#include <GLES2/gl2ext.h>
+	//#include <GLES2/gl2platform.h>
+	#include <GLES3/gl3platform.h>
+	#include <GLES3/gl3ext.h>
+	#include <GLES3/gl32.h>
 	//Android 4.3 (android-18)
 	//glShaderSource es 2 and es 3 is different...fuck-_-
 	//#include <GLES3/gl3.h>

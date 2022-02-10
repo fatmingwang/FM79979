@@ -79,14 +79,28 @@ void	MyCS_Program_Init()
 		#define Vector4	vec4
 	)";
 #else
-	const char* shaderPrefix = "#version 310 es\n";
+	const char* shaderPrefix = "#version 310 es\n#define Vector3 vec3\n#define Vector4	vec4\n";
 #endif
 	//const GLchar* fullSrc[2] = { l_strCombineShader.c_str() };
 	const GLchar* fullSrc[2] = { shaderPrefix,l_strMyCS.c_str() };
+	bool l_bDoTest = false;
+	if (l_bDoTest)
+	{
+		auto l_uiProgram = glCreateProgram();
+		std::string l_strShaderContent = shaderPrefix+ l_strMyCS;
+		int l_iOutProgramID;
+		if (CreateShader(l_strShaderContent.c_str(), GL_COMPUTE_SHADER, l_iOutProgramID))
+		{
+
+		}
+		return;
+	}
 	object = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, fullSrc);
+	CHECK_GL_ERROR("1");
 	{
 		GLint logLength;
 		glGetProgramiv(object, GL_INFO_LOG_LENGTH, &logLength);
+		CHECK_GL_ERROR("1");
 		if (logLength)
 		{
 			char* log = new char[logLength];

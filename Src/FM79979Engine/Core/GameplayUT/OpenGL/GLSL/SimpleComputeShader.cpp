@@ -68,7 +68,7 @@ namespace FATMING_CORE
 				#define Vector4	vec4
 			)";
 #else
-		const char* l_strShaderPrefix = "#version 310 es\n";
+		const char* l_strShaderPrefix = "#version 310 es\n#define Vector3 vec3\n#define Vector4	vec4\n";
 #endif
 		const GLchar* l_strFullSrc[2] = { l_strShaderPrefix,e_strCS };
 
@@ -78,6 +78,19 @@ namespace FATMING_CORE
 		FMLog::Log(e_strCS, false);
 #endif
 #endif
+		//Android seems weird for glCreateShaderProgramv,no compile error log so add this for test.
+		bool l_bForDebug = false;
+		if (l_bForDebug)
+		{
+			std::string l_strShaderContent = l_strShaderPrefix;
+			l_strShaderContent += e_strCS;
+			int l_iOutProgramID;
+			if (CreateShader(l_strShaderContent.c_str(), GL_COMPUTE_SHADER, l_iOutProgramID))
+			{
+
+			}
+		}
+
 		m_uiShaderProgramID = glCreateShaderProgramv(GL_COMPUTE_SHADER, 2, l_strFullSrc);
 		{
 			GLint l_iLogLength = 0;

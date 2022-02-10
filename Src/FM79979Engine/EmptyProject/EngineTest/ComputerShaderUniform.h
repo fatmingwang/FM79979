@@ -9,10 +9,15 @@
 //Vector4	v3Velocity;													\
 //Vector4	v3StartPos;													\
 
-#ifdef __cplusplus
+//ERROR: 0 : 4 : 'unsigned' : Reserved word.
+//ERROR : 0 : 4 : 'unsigned' : Syntax error : syntax error
+//INTERNAL ERROR : no main() function!
+//ERROR : 2 compilation errors.No code generated.
+
+
+
 #ifndef uint
 #define	uint	unsigned int
-#endif
 #endif
 //CS data alignment
 //https://stackoverflow.com/questions/38172696/should-i-ever-use-a-vec3-inside-of-a-uniform-buffer-or-shader-storage-buffer-o/38172697#38172697
@@ -38,7 +43,7 @@ struct sEmitterData														\
 	float	fMinTime;													\
 	uint	InitFlag;													\
 	uint	UpdateFlag;													\
-};																		\
+};
 const uint		MY_CS_WORK_GROUP_SIZE = 128;
 
 //MUCS_UNIFORM;

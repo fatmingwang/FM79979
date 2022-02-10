@@ -181,26 +181,27 @@ NvEGLUtil* NvEGLUtil::create(ConfigChooser chooser)
 		return NULL;
 	}
 
-	EGLint contextAttrs[] = { EGL_CONTEXT_CLIENT_VERSION, 3, EGL_NONE };
-	
-    if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, contextAttrs))
+	EGLint contextAttrs_OpenGLES32[] = { EGL_CONTEXT_CLIENT_VERSION, 3,EGL_CONTEXT_MINOR_VERSION,2,EGL_NONE };
+	EGLint contextAttrs_OpenGLES31[] = { EGL_CONTEXT_CLIENT_VERSION, 3,EGL_CONTEXT_MINOR_VERSION,1,EGL_NONE };
+	EGLint contextAttrs_OpenGLES30[] = { EGL_CONTEXT_CLIENT_VERSION, 3,EGL_CONTEXT_MINOR_VERSION,0,EGL_NONE };
+	EGLint contextAttrs_OpenGLES20[] = { EGL_CONTEXT_CLIENT_VERSION, 2,EGL_CONTEXT_MINOR_VERSION,0,EGL_NONE };
+	int l_iOpenGLESVersion[4] = { OPENGL_ES_32,OPENGL_ES_31,OPENGL_ES_30,OPENGL_ES_20};
+	EGLint* l_ppcontextAttrs[4] = { contextAttrs_OpenGLES32 ,contextAttrs_OpenGLES31,contextAttrs_OpenGLES30,contextAttrs_OpenGLES20};
+	cOpenGLRender::m_siOpenGLESVersion = 0;
+	for (int i = 0; i < 4; ++i)
 	{
-		cOpenGLRender::m_siOpenGLESVersion = OPENGL_ES_30;
-		EGL_STATUS_LOG("eglCreateContext gles3");
+		if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, l_ppcontextAttrs[i]))
+		{
+			cOpenGLRender::m_siOpenGLESVersion = l_iOpenGLESVersion[i];
+			EGL_STATUS_LOG(UT::ComposeMsgByFormat("eglCreateContext %d", cOpenGLRender::m_siOpenGLESVersion).c_str());
+			break;
+		}
 	}
-	else
+	if(cOpenGLRender::m_siOpenGLESVersion == 0)
 	{
-		EGLint contextAttrs2[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
-		if (thiz->m_context = eglCreateContext(thiz->m_display, thiz->m_config, NULL, contextAttrs2))
-		{
-			cOpenGLRender::m_siOpenGLESVersion = OPENGL_ES_20;
-		}
-		else
-		{
-			EGL_ERROR_LOG("eglCreateContext  gles2");
-			delete thiz;
-			return NULL;
-		}
+		EGL_ERROR_LOG("eglCreateContext  failed!");
+		delete thiz;
+		return NULL;
 	}
 
 	thiz->m_status = NV_INITIALIZED;

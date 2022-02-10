@@ -196,7 +196,9 @@ void	MyGlErrorTest(const char*e_strMessage, const char* e_strFileName, int32_t e
 	if (l_iError != 0)
 	{
 		std::string l_str = GET_FILENAME_AND_LINE(e_strFileName,e_iCodeLine);
-		l_str += " glGetError:";
+		l_str += "   ";
+		l_str += e_strMessage;
+		l_str += "   glGetError:";
 		const char* errorString = 0;
 		switch (l_iError)
 		{
