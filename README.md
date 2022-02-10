@@ -72,7 +72,7 @@ Doc\WASM VS tools
 if compile failed make sure /MP and setting(commandline) is suite for emscripten
 
 Emscripten game demo
-
+![Editor](../master/Doc/BluffingGirl/gameplay.jpg?raw=true)
 this fit the fullscreen but not optmized
 http://104.199.237.0/BluffingGirlWASM.html
 this optmized
