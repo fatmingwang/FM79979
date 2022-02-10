@@ -319,8 +319,8 @@ int main()
 	}
 	printf("do SDL_SetVideoMode okay\n");
 	//cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(800,600, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-	g_pPreLoadFromInternet = new cPreLoadFromInternet();
-	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
+	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
+	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadResource.xml");
 	EMSCRIPTEN_WEBSOCKET_T ws;
 	if (l_pSurf_Display)
 	{
@@ -343,14 +343,15 @@ int main()
 		//{
 		//	printf("emscripten_websocket_is_supported failed\n");
 		//}
-		cGameApp::m_sbDebugFunctionWorking = true;
-		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 1920;
-		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1080;
+		FMLog::Init();
+		cGameApp::CreateDefaultOpenGLRender();
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_HEIGHT;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_WIDTH;
+		cGameApp::m_sbDebugFunctionWorking = true;
+		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
+		g_pGameApp->Init();
 		emscripten_set_main_loop(&Loop, 0 ,1);
 	}
 	return 0;

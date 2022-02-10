@@ -409,8 +409,10 @@ void	cBluffingGirlApp::Render()
 				m_spPlayerData->Render();
 		}
 	}
-	m_sbDebugFunctionWorking = true;
-	cGameApp::ShowInfo();
+	GLRender::RenderSphere(Vector2(this->m_sMousePosition.x, m_sMousePosition.y), 10);
+		//void	RenderSphere(Vector2 e_vPos, float e_fRadius, Vector4 e_vColor = Vector4(0.f, 1.f, 0.f, 1.f), bool e_bDrawPoint = false, float e_fDensityAngle = 5.f);
+	//m_sbDebugFunctionWorking = true;
+	//cGameApp::ShowInfo();
 #ifdef DEBUG
 	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y,l_fVP);
 
@@ -434,7 +436,6 @@ void	cBluffingGirlApp::Render()
 	}
 #endif
 	RenderPause();
-	cGameApp::ShowInfo();
 #ifdef WASM
 	//JSCallRender();
 #endif

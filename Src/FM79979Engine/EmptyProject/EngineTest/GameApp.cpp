@@ -67,7 +67,7 @@ void	cEngineTestApp::Render()
 	cGameApp::Render();
 	SampleRender();
 	//this->m_pPhaseManager->Render();
-	//cGameApp::ShowInfo();
+	cGameApp::ShowInfo();
 	//this->m_pPhaseManager->DebugRender();
 
 #ifdef WIN32

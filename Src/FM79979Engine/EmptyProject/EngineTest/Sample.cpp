@@ -100,7 +100,7 @@ void   ThreadLoadTest()
 		l_Thread.detach();
 		FMLog::Log("thread detached", false);
 	}
-	if (!g_pNetworkSample)
+	if (0 && !g_pNetworkSample)
 	{
 		g_pNetworkSample = new cNetworkSample();
 		g_pNetworkSample->Init();
@@ -221,7 +221,8 @@ void	LoadSample()
 	}
 	if (1)
 	{
-		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("bgrounda01.mpdi", eGBT_MPDILIST);
+		FMLog::Log("parse MPDI/bgrounda01.mpdi",false);
+		g_pMPDIList = cGameApp::GetObjectByFileName<cMPDIList>("MPDI/bgrounda01.mpdi", eGBT_MPDILIST);
 	}
 	//g_pMPDIList = cGameApp::GetMPDIListByFileName(L"MyFMBook/AnimationDemo/MPDI/startscreena01.mpdi");
 
@@ -232,9 +233,10 @@ void	LoadSample()
 	
 	std::wstring l_strMPDIResultFileName = L"BluffingGirl/Image/GamePlay.mpdi";
 #endif
-	//g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
+	g_pMPDIList = cGameApp::GetMPDIListByFileName(l_strMPDIResultFileName.c_str());
 	if( g_pMPDIList )
 	{
+		FMLog::Log("g_pMPDIList exists", false);
 		//g_pMultiPathDynamicImage = g_pMPDIList->GetObject(L"PlayerNormalBody");
 #ifdef WASM
 		g_pMultiPathDynamicImage = g_pMPDIList->GetObject(g_iWASMMPDIIndex);
@@ -265,7 +267,7 @@ void	LoadSample()
 		g_pParticleEmitterGroup->Init();
 		g_pParticleEmitterGroup->SetAnimationLoop(true);
 	}
-	g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Glyph.prt",L"Glyph");
+	//g_pPrtEmitter = cGameApp::GetPrtEmitter("ParticleData/Glyph.prt",L"Glyph");
 	if( g_pPrtEmitter )
 	{
 		g_pPrtEmitter->Emit(Vector3(200,200,0));
@@ -307,7 +309,7 @@ void	LoadSample()
 		g_pTestCurveWithTime->SetLOD(3);
 		g_pTestCurveWithTime->Init();
 	}
-	ThreadLoadTest();
+	//ThreadLoadTest();
 	//g_pMSAAFrameBuffer = new cMSAAFrameBuffer(1920/2,1080/2);
 	//g_pFrameBuffer = new cFrameBuffer(1920 / 2, 1080 / 2);
 	cGameApp::OutputDebugInfoString("LoadSample() finish2");
@@ -553,6 +555,12 @@ void	SampleRender()
 	//GLRender::RenderRectangle(1440, 900, cMatrix44::Identity, Vector4::One);
 	if (g_pMultiPathDynamicImage)
 	{
+		static bool l_btTest = false;
+		if (!l_btTest)
+		{
+			l_btTest = true;
+			FMLog::Log("g_pMultiPathDynamicImage rendered!",false);
+		}
 		g_pMultiPathDynamicImage->Render();
 		if (g_pMultiPathDynamicImageClone)
 			g_pMultiPathDynamicImageClone->Render();
