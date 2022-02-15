@@ -1,0 +1,60 @@
+﻿<Page
+    x:Class="UIEditor.NavPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UIEditor"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"    
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <muxc:NavigationView  x:Name="NavView" PaneDisplayMode="LeftCompact">
+        <muxc:NavigationView.MenuItems>
+            <muxc:NavigationViewItem x:Uid="HomeNavItem" Content="UIEditor"/>
+            <muxc:NavigationViewItemSeparator/>
+            <muxc:NavigationViewItemHeader Content="Function/功能表"/>
+            <!--<NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>-->
+            <!--<muxc:NavigationViewItem Content="Account" Icon="Contact" ToolTipService.ToolTip="Account" Tag="SamplePage2">
+                <muxc:NavigationViewItem.MenuItems>
+                    <muxc:NavigationViewItem Content="Mail" Icon="Mail" ToolTipService.ToolTip="Mail" Tag="SamplePage3"/>
+                    <muxc:NavigationViewItem Content="Calendar" Icon="Calendar" ToolTipService.ToolTip="Calendar" Tag="SamplePage4"/>
+                </muxc:NavigationViewItem.MenuItems>
+            </muxc:NavigationViewItem>-->
+            <Button Content="?" />
+            <Button Content="CarMoving&#10;車子移動">
+                <!--<Button.Flyout>
+                    <Flyout>
+                        <local:CarMoving x:Name="m_CarMovingUI"/>
+                    </Flyout>
+                </Button.Flyout>-->
+            </Button>
+            <StackPanel Orientation="Vertical">
+                <RichTextBlock MinWidth="100"/>
+                <TextBlock x:Name="m_WorkingDirectory" MinWidth="150" Text="WorkingDirectory" ToolTipService.ToolTip="WorkingDirectory/請指向工作目錄" />
+                <Button Content="..." Click="Button_Click" />
+            </StackPanel>
+            <!--muxc:TeachingTip ActionButtonClick="ToggleThemeTeachingTip2_ActionButtonClick"
+	            ActionButtonContent="Toggle theme now"-->
+            <muxc:TeachingTip x:Name="ParameterreloadOk_TeachingTip"
+	            Title="parameter file reloaded Ok"
+	            Subtitle="Ok"
+	            PreferredPlacement="Auto"
+	            PlacementMargin="0"
+	            IsLightDismissEnabled="True"
+	            CloseButtonContent="Ok">
+            </muxc:TeachingTip>
+            <muxc:TeachingTip x:Name="ParameterreloadFailed_TeachingTip"
+	            Title="parameter file reload failed"
+	            Subtitle="Error"
+	            PreferredPlacement="Auto"
+	            PlacementMargin="0"
+	            IsLightDismissEnabled="True"
+	            CloseButtonContent="Error">
+            </muxc:TeachingTip>
+        </muxc:NavigationView.MenuItems>
+
+        <Frame x:Name="ContentFrame" Margin="24">
+            <local:UpAndDownNavpage />
+        </Frame>
+    </muxc:NavigationView>
+</Page>
