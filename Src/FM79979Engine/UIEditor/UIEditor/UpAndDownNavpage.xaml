@@ -38,6 +38,6 @@
                 <local:UITreeView/>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
-        <local:OpenGLUserCOntrol Grid.Row="1"></local:OpenGLUserCOntrol>
+        <local:OpenGLUserControl Grid.Row="1"></local:OpenGLUserControl>
     </Grid>
 </Page>

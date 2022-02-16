@@ -71,6 +71,9 @@
     <Filter Include="OpenGL">
       <UniqueIdentifier>{4dc6973f-f693-4a09-8c1b-5fdddf5eef48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="App">
+      <UniqueIdentifier>{020cb68f-42fc-42a5-9c5e-13efd8e97c4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -78,10 +81,16 @@
   <ItemGroup>
     <ClCompile Include="UIEditorMain.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="UIEditorApp.cpp">
+      <Filter>App</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UIEditorMain.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="UIEditorApp.h">
+      <Filter>App</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">

@@ -22,7 +22,7 @@ namespace UIEditor
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
 	[Windows::Foundation::Metadata::WebHostHidden]
-	public ref class OpenGLUserCOntrol sealed
+	public ref class OpenGLUserControl sealed
 	{
 		bool								m_bMouseDown;
 		void								OnPageLoaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
@@ -37,8 +37,10 @@ namespace UIEditor
 		EGLSurface							m_RenderSurface;     // This surface is associated with a swapChainPanel on the page
 		Concurrency::critical_section		m_RenderSurfaceCriticalSection;
 		Windows::Foundation::IAsyncAction^	m_pRenderLoopWorker;
+		property EventHandler<Platform::Object^>^ f_MouseEvent;
 	public:
-		OpenGLUserCOntrol();
+		OpenGLUserControl();
+		virtual ~OpenGLUserControl();
 	private:
 		void MyKeyDown(CoreWindow^, KeyEventArgs^);
 		void MyKeyUp(CoreWindow^, KeyEventArgs^);
