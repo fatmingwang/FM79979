@@ -45,5 +45,8 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="internetClientServer"/>
+    <Capability Name="privateNetworkClientServer"/>
+    <DeviceCapability Name="proximity"/>
   </Capabilities>
 </Package>

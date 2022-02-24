@@ -18,25 +18,32 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{x:Bind nvSample.CompactModeThresholdWidth}" />
+                        <AdaptiveTrigger MinWindowWidth="{x:Bind m_NavigationView.CompactModeThresholdWidth}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="nvSample.PaneDisplayMode" Value="Top" />
+                        <Setter Target="m_NavigationView.PaneDisplayMode" Value="Top" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups >
 
-        <muxc:NavigationView x:Name="nvSample" PaneDisplayMode="Top"  Grid.Row="0">
+        <muxc:NavigationView x:Name="m_NavigationView" PaneDisplayMode="Top"  Grid.Row="0">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" />
                 <muxc:NavigationViewItem Content="Menu Item2" Tag="SamplePage2" />
                 <muxc:NavigationViewItem Content="Menu Item3" Tag="SamplePage3" />
                 <muxc:NavigationViewItem Content="Menu Item4" Tag="SamplePage4" />
             </muxc:NavigationView.MenuItems>
-            <muxc:NavigationView.Content>
+            <!--<muxc:NavigationView.Content>
                 <local:UITreeView/>
-            </muxc:NavigationView.Content>
+            </muxc:NavigationView.Content>-->
+            <Frame x:Name="ContentFrame" Margin="24">
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition/>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
         </muxc:NavigationView>
         <local:OpenGLUserControl Grid.Row="1"></local:OpenGLUserControl>
     </Grid>

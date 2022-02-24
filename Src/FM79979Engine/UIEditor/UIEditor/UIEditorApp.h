@@ -10,6 +10,8 @@ public:
 	cUIEditorApp(HWND e_Hwnd, Vector2 e_vGameResolution, Vector2 e_vViewportSize);
 	virtual ~cUIEditorApp();
 
+	cOrthogonalCamera*				m_pOrthogonalCamera;
+
 	void							Init();
 	void							Resize();
 

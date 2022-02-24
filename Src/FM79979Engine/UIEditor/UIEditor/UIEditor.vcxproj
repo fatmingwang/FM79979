@@ -187,6 +187,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Image Include="Assets\Font.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
@@ -199,7 +200,6 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Common\DeviceResources.h" />
     <ClInclude Include="NavPage.xaml.h">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClInclude>
@@ -207,12 +207,6 @@
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="UIEditorApp.h" />
-    <ClInclude Include="UIEditorMain.h" />
-    <ClInclude Include="Common\DirectXHelper.h" />
-    <ClInclude Include="Common\StepTimer.h" />
-    <ClInclude Include="Content\Sample3DSceneRenderer.h" />
-    <ClInclude Include="Content\SampleFpsTextRenderer.h" />
-    <ClInclude Include="Content\ShaderStructures.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="UITreeView.xaml.h">
       <DependentUpon>UITreeView.xaml</DependentUpon>
@@ -225,7 +219,6 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="Common\DeviceResources.cpp" />
     <ClCompile Include="NavPage.xaml.cpp">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClCompile>
@@ -233,9 +226,6 @@
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="UIEditorApp.cpp" />
-    <ClCompile Include="UIEditorMain.cpp" />
-    <ClCompile Include="Content\SampleFpsTextRenderer.cpp" />
-    <ClCompile Include="Content\Sample3DSceneRenderer.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
@@ -257,14 +247,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Content\SamplePixelShader.hlsl">
-      <ShaderType>Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Content\SampleVertexShader.hlsl">
-      <ShaderType>Vertex</ShaderType>
-    </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
@@ -282,6 +264,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Assets\Font.FontInfo">
+      <FileType>Document</FileType>
+    </Xml>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -24,4 +24,6 @@ using namespace Windows::UI::Xaml::Navigation;
 UpAndDownNavpage::UpAndDownNavpage()
 {
 	InitializeComponent();
+	m_OpenGLUserControl = ref new OpenGLUserControl();
+	this->m_NavigationView->Content = m_OpenGLUserControl;
 }

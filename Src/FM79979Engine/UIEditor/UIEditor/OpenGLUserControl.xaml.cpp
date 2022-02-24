@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "OpenGLUserControl.xaml.h"
-
+#include "UIEditorApp.h"
 #include "strsafe.h"
 
 
@@ -26,7 +26,8 @@ using namespace Concurrency;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 //cCarDeivingServerApp* g_pUWPCarDeivingServerApp = nullptr;
-extern std::vector<int>	g_AddFakeCarVector;
+
+cUIEditorApp* g_pUIEditorApp = nullptr;
 namespace UIEditor
 {
 	OpenGLUserControl::OpenGLUserControl()
@@ -52,7 +53,7 @@ namespace UIEditor
 		{
 			delete m_pOpenGLES;
 		}
-		//SAFE_DELETE(g_pUWPCarDeivingServerApp);
+		SAFE_DELETE(g_pUIEditorApp);
 
 	}
 
@@ -158,79 +159,67 @@ namespace UIEditor
 						m_pOpenGLES->GetSurfaceDimensions(m_RenderSurface, &panelWidth, &panelHeight);
 					}
 					l_Error = glGetError();
-					//if (!g_pUWPCarDeivingServerApp)
-					//{
-					//	if (m_pOpenGLES)
-					//		m_pOpenGLES->MakeCurrent(m_RenderSurface);
-					//	cCarDeivingServerApp::m_sstrCompileInfo = GetCompileInfo();
-					//	g_pUWPCarDeivingServerApp = new cCarDeivingServerApp(nullptr, Vector2(1920, 1080), Vector2(1920, 1080));
-					//	g_pUWPCarDeivingServerApp->Init();
-					//	g_pUWPServerCarDrivingRouteManager = new cCarDrivingRouteManager();
-					//	f_CarChangeNotifierFunction l_f_CarChangeNotifierFunction =
-					//		[this](std::vector<int> e_HWIDVector)
-					//	{
-					//		//auto l_pCoreWindow = Window::Current->CoreWindow;
-					//		m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
-					//			ref new Windows::UI::Core::DispatchedHandler([this, e_HWIDVector]()
-					//				{
-					//					if (m_pNavPage)
-					//					{
-					//						Platform::Array<int>^ l_Vector = ref new Platform::Array<int>((unsigned int)e_HWIDVector.size());
-					//						for (size_t i = 0; i < e_HWIDVector.size(); ++i)
-					//						{
-					//							l_Vector->set((unsigned int)i, e_HWIDVector[i]);
-					//						}
-					//						m_pNavPage->CarHWIDChangeNotifier(l_Vector);
-					//					}
-					//				})
-					//		);
-					//		//if(m_pNavPage)
-					//		//	m_pNavPage->CarHWIDChangeNotifier();
-					//	};
-					//	g_pUWPCarDeivingServerApp->SetCarChangeNotifier(l_f_CarChangeNotifierFunction);
-					//	if (g_pUWPCarDeivingServerApp && g_pUWPCarDeivingServerApp->m_pOwnCarDrivingNodeManager)
-					//	{
-					//		int l_iCount = g_pUWPCarDeivingServerApp->m_pOwnCarDrivingNodeManager->Count();
-					//		Platform::Array<String^>^ l_Vector = ref new Platform::Array<String^>(l_iCount);
-					//		for (int i = 0; i < l_iCount; i++)
-					//		{
-					//			auto l_pObject = g_pUWPCarDeivingServerApp->m_pOwnCarDrivingNodeManager->GetObject(i);
-					//			if (l_pObject)
-					//			{
-					//				String^ l_strNodeName = ref new String(l_pObject->GetName());
-					//				l_Vector->set(i, l_strNodeName);
-					//			}
-					//		}
-					//		m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
-					//			ref new Windows::UI::Core::DispatchedHandler([this, l_Vector]()
-					//				{
-					//					this->m_pNavPage->SetAllNodesName(l_Vector);
-					//				})
-					//		);
+					if (!g_pUIEditorApp)
+					{
+						if (m_pOpenGLES)
+						{
+							m_pOpenGLES->MakeCurrent(m_RenderSurface);
+						}
+						g_pUIEditorApp = new cUIEditorApp(nullptr, Vector2(1920, 1080), Vector2(1920, 1080));
+						g_pUIEditorApp->Init();
+						//f_CarChangeNotifierFunction l_f_CarChangeNotifierFunction =
+						//	[this](std::vector<int> e_HWIDVector)
+						//{
+						//	//auto l_pCoreWindow = Window::Current->CoreWindow;
+						//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
+						//		ref new Windows::UI::Core::DispatchedHandler([this, e_HWIDVector]()
+						//			{
+						//				if (m_pNavPage)
+						//				{
+						//					Platform::Array<int>^ l_Vector = ref new Platform::Array<int>((unsigned int)e_HWIDVector.size());
+						//					for (size_t i = 0; i < e_HWIDVector.size(); ++i)
+						//					{
+						//						l_Vector->set((unsigned int)i, e_HWIDVector[i]);
+						//					}
+						//					m_pNavPage->CarHWIDChangeNotifier(l_Vector);
+						//				}
+						//			})
+						//	);
+						//	//if(m_pNavPage)
+						//	//	m_pNavPage->CarHWIDChangeNotifier();
+						//};
+						//g_pUIEditorApp->SetCarChangeNotifier(l_f_CarChangeNotifierFunction);
+						//if (g_pUIEditorApp)
+						//{
+						//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
+						//		ref new Windows::UI::Core::DispatchedHandler([this()
+						//			{
+						//				//this->m_pNavPage->SetAllNodesName(l_Vector);
+						//			})
+						//	);
+						//}
+					}
+					else
+					if (g_pUIEditorApp)
+					{
+						//if (g_AddFakeCarVector.size())
+						//{
+						//	for (size_t i = 0; i < g_AddFakeCarVector.size(); ++i)
+						//	{
+						//		g_pUWPCarDeivingServerApp->m_pOwnCarManager->AddAFakeCar((int)i + 1);
+						//	}
+						//	g_AddFakeCarVector.clear();
+						//}
 
-					//	}
-					//}
-					//else
-					//if (g_pUWPCarDeivingServerApp)
-					//{
-					//	if (g_AddFakeCarVector.size())
-					//	{
-					//		for (size_t i = 0; i < g_AddFakeCarVector.size(); ++i)
-					//		{
-					//			g_pUWPCarDeivingServerApp->m_pOwnCarManager->AddAFakeCar((int)i + 1);
-					//		}
-					//		g_AddFakeCarVector.clear();
-					//	}
-
-					//	//glViewport(0, 0, panelWidth, panelHeight);
-					//	//glEnable(GL_BLEND);
-					//	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-					//	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-					//	//glClearColor(0.1f, 0.1f, 0.1f, 1.f);
-					//	g_pUWPCarDeivingServerApp->Run();
-					//	cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = Vector4(0.f, 0.f, (float)panelWidth, (float)panelHeight);
-					//	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(panelWidth, panelHeight, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-					//}
+						//glViewport(0, 0, panelWidth, panelHeight);
+						//glEnable(GL_BLEND);
+						//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+						//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+						glClearColor(0.1f, 0.1f, 0.1f, 1.f);
+						g_pUIEditorApp->Run();
+						cGameApp::m_spOpenGLRender->m_vViewPortSize = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize = Vector4(0.f, 0.f, (float)panelWidth, (float)panelHeight);
+						cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(panelWidth, panelHeight, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
+					}
 					// The call to eglSwapBuffers might not be successful (i.e. due to Device Lost)
 					// If the call fails, then we must reinitialize EGL and the GL resources.
 					//if (g_pUWPCarDeivingServerApp && g_pUWPCarDeivingServerApp->m_bDoRender)

@@ -28,6 +28,8 @@ checknetisolation LoopbackExempt -is -n=YourAppName
 checknetisolation LoopbackExempt -is -n=com.fm_r7ytfjdgrj97w
 https://docs.microsoft.com/en-us/windows/uwp/communication/interprocess-communication
 
+if some files can't be read
+please select it and make its type as xml
 
 packing
 

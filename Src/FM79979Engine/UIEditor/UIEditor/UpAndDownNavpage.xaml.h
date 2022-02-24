@@ -6,7 +6,7 @@
 #pragma once
 
 #include "UpAndDownNavpage.g.h"
-
+#include "OpenGLUserControl.xaml.h"
 namespace UIEditor
 {
 	/// <summary>
@@ -15,6 +15,7 @@ namespace UIEditor
 	[Windows::Foundation::Metadata::WebHostHidden]
 	public ref class UpAndDownNavpage sealed
 	{
+		OpenGLUserControl^ m_OpenGLUserControl;
 	public:
 		UpAndDownNavpage();
 	};
