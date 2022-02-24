@@ -91,6 +91,23 @@ int	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 }
 namespace FATMING_CORE
 {
+	void DumpIPInfo(_TCPsocket e_TCPsocket, const char* e_strInfo)
+	{
+		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(&e_TCPsocket);
+		if (l_pIPaddress)
+		{
+			auto l_ipaddr = SDL_SwapBE32(l_pIPaddress->host);
+			auto l_strInfo = UT::ComposeMsgByFormat("Time:%s---IP %d.%d.%d.%d--Port:%hu\n %s",
+				GetSystemTime().c_str(),
+				l_ipaddr >> 24,
+				(l_ipaddr >> 16) & 0xff,
+				(l_ipaddr >> 8) & 0xff,
+				l_ipaddr & 0xff,
+				l_pIPaddress->port,
+				e_strInfo);
+			FMLog::Log(l_strInfo.c_str(), false);
+		}
+	}
 	sSDLNetTCPSocket::sSDLNetTCPSocket(_TCPsocket* e_pSocket)
 	{
 		NetworkType = eNT_TCP;
@@ -113,6 +130,7 @@ namespace FATMING_CORE
 		{
 			if (Socket.pTCPIPSocket)
 			{
+				DumpIPInfo(*Socket.pTCPIPSocket, "closed");
 				SDLNet_TCP_Close(Socket.pTCPIPSocket);
 			}
 		}
@@ -133,23 +151,6 @@ namespace FATMING_CORE
 	SDLNetSocket	GetSDLNetSocket(size_t e_uiWebSocketAddress)
 	{
 		return make_shared<sSDLNetTCPSocket>(e_uiWebSocketAddress);
-	}
-	void DumpIPInfo(_TCPsocket e_TCPsocket, const char* e_strInfo)
-	{
-		auto l_pIPaddress = SDLNet_TCP_GetPeerAddress(&e_TCPsocket);
-		if (l_pIPaddress)
-		{
-			auto l_ipaddr = SDL_SwapBE32(l_pIPaddress->host);
-			auto l_strInfo = UT::ComposeMsgByFormat("Time:%s---IP %d.%d.%d.%d--Port:%hu\n %s",
-				GetSystemTime().c_str(),
-				l_ipaddr >> 24,
-				(l_ipaddr >> 16) & 0xff,
-				(l_ipaddr >> 8) & 0xff,
-				l_ipaddr & 0xff,
-				l_pIPaddress->port,
-				e_strInfo);
-			FMLog::Log(l_strInfo.c_str(), false);
-		}
 	}
 	bool	g_bDumpsNetworkReceivedPacketReceiveData = false;
 	void	DumpPacketData(_TCPsocket e_pTCPsocket, int e_iPacketSize, char* e_pData, const char* e_strInfo)
@@ -224,7 +225,9 @@ namespace FATMING_CORE
 		pReceivedSocket = e_pTCPsocket;
 		//first received size
 		if (!SDLNet_SocketReady(e_pTCPsocket->Socket.pTCPIPSocket))
+		{
 			return false;
+		}
 		if (e_bUseExtractHeader == false)
 		{
 			//https://stackoverflow.com/questions/2613734/maximum-packet-size-for-a-tcp-connection#:~:text=10%20Answers&text=The%20absolute%20limitation%20on%20TCP,for%20instance%2C%20is%201500%20bytes.
@@ -899,7 +902,11 @@ namespace FATMING_CORE
 			}
 			if (l_iNumready == 0)
 			{
-				return;
+				if (m_bDoDisconnect)
+				{				
+					goto FAILED;
+				}
+				return;				
 			}
 			if (m_pSocket)
 			{
