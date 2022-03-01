@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "NavPage.xaml.h"
-
+#include "UpAndDownNavpage.xaml.h"
 using namespace UIEditor;
 
 using namespace Platform;
@@ -24,6 +24,8 @@ using namespace Windows::UI::Xaml::Navigation;
 NavPage::NavPage()
 {
 	InitializeComponent();
+	//UpAndDownNavpage^ l_pUpAndDownNavpage = ref new UpAndDownNavpage();
+	//this->Content = l_pUpAndDownNavpage;
 }
 
 

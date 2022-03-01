@@ -8,11 +8,11 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"    
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <muxc:NavigationView  x:Name="NavView" PaneDisplayMode="LeftCompact">
+    <muxc:NavigationView  x:Name="NavView" PaneDisplayMode="LeftMinimal">
         <muxc:NavigationView.MenuItems>
             <muxc:NavigationViewItem x:Uid="HomeNavItem" Content="UIEditor"/>
             <muxc:NavigationViewItemSeparator/>
-            <muxc:NavigationViewItemHeader Content="Function/功能表"/>
+            <muxc:NavigationViewItemHeader Content="Function"/>
             <!--<NavigationViewItem x:Uid="MusicNavItem" Icon="Audio" Content="Music" Tag="music"/>-->
             <!--<muxc:NavigationViewItem Content="Account" Icon="Contact" ToolTipService.ToolTip="Account" Tag="SamplePage2">
                 <muxc:NavigationViewItem.MenuItems>
@@ -21,7 +21,7 @@
                 </muxc:NavigationViewItem.MenuItems>
             </muxc:NavigationViewItem>-->
             <Button Content="?" />
-            <Button Content="CarMoving&#10;車子移動">
+            <Button Content="CarMoving">
                 <!--<Button.Flyout>
                     <Flyout>
                         <local:CarMoving x:Name="m_CarMovingUI"/>
@@ -30,31 +30,17 @@
             </Button>
             <StackPanel Orientation="Vertical">
                 <RichTextBlock MinWidth="100"/>
-                <TextBlock x:Name="m_WorkingDirectory" MinWidth="150" Text="WorkingDirectory" ToolTipService.ToolTip="WorkingDirectory/請指向工作目錄" />
+                <TextBlock x:Name="m_WorkingDirectory" MinWidth="150" Text="WorkingDirectory" ToolTipService.ToolTip="WorkingDirectory" />
                 <Button Content="..." Click="Button_Click" />
             </StackPanel>
-            <!--muxc:TeachingTip ActionButtonClick="ToggleThemeTeachingTip2_ActionButtonClick"
-	            ActionButtonContent="Toggle theme now"-->
-            <muxc:TeachingTip x:Name="ParameterreloadOk_TeachingTip"
-	            Title="parameter file reloaded Ok"
-	            Subtitle="Ok"
-	            PreferredPlacement="Auto"
-	            PlacementMargin="0"
-	            IsLightDismissEnabled="True"
-	            CloseButtonContent="Ok">
-            </muxc:TeachingTip>
-            <muxc:TeachingTip x:Name="ParameterreloadFailed_TeachingTip"
-	            Title="parameter file reload failed"
-	            Subtitle="Error"
-	            PreferredPlacement="Auto"
-	            PlacementMargin="0"
-	            IsLightDismissEnabled="True"
-	            CloseButtonContent="Error">
-            </muxc:TeachingTip>
         </muxc:NavigationView.MenuItems>
-
         <Frame x:Name="ContentFrame" Margin="24">
-            <local:UpAndDownNavpage />
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition/>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+            <local:UpAndDownNavpage/>
         </Frame>
     </muxc:NavigationView>
 </Page>

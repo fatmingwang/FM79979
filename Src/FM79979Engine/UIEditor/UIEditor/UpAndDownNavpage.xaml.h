@@ -7,6 +7,7 @@
 
 #include "UpAndDownNavpage.g.h"
 #include "OpenGLUserControl.xaml.h"
+//https://docs.microsoft.com/en-us/windows/apps/design/controls/navigationview
 namespace UIEditor
 {
 	/// <summary>
@@ -18,5 +19,9 @@ namespace UIEditor
 		OpenGLUserControl^ m_OpenGLUserControl;
 	public:
 		UpAndDownNavpage();
+	private:
+		void m_NavigationView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView^ sender, Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs^ args);
+		void NavigationViewItem_Tapped(Platform::Object^ sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs^ e);
+		void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 	};
 }

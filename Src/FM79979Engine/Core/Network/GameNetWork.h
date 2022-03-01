@@ -37,12 +37,20 @@ namespace FATMING_CORE
 			}
 			void				DoReconnectWhileLostConnection(float e_fElpaseTime);
 		};
+		struct sKeepAlive
+		{
+			int iTimeToCheckConnectionIfNoAnyMessage;
+			int	iRetryCount;
+			int	iNextRetyTimeGap;
+		};
+		sKeepAlive*							m_pKeepAlive;
 		friend struct sReconnectFunction;
 		sReconnectFunction*					m_pReconnectFunction;
 		virtual void						AddClient(SDLNetSocket e__pTCPsocket);
 		virtual void						ServerListenDataThread(float e_ElpaseTime);
 		virtual void						ClientListenDataThread(float e_ElpaseTime);
 		virtual bool						InternalSendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket* e_pPacket);
+		bool								DoKeepAlive(TCPsocket e_TCPsocket);
 		//if e_strIP is nullptr it's server
 		bool								OpenSocket(int e_iPort, const char*e_strIP);
 		void								CloseSocket();
@@ -100,6 +108,7 @@ namespace FATMING_CORE
 		//
 		bool								IsDoDisconnect() { return m_bDoDisconnect; }
 		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
+		void								MakeKeepAlive(int e_iTimeToCheckConnectionIfNoAnyMessage,int	e_iRetryCount,int	e_iNextRetyTimeGap);
 	};
 	template<class TYPE>
 	inline bool cGameNetwork::SendDataToClient(SDLNetSocket e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)

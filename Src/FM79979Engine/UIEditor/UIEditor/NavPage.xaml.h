@@ -6,7 +6,7 @@
 #pragma once
 
 #include "NavPage.g.h"
-
+//https://docs.microsoft.com/en-us/windows/apps/design/controls/navigationview
 namespace UIEditor
 {
 	/// <summary>

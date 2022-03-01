@@ -150,7 +150,9 @@ namespace UIEditor
 				{
 					auto l_Error = glGetError();
 					if (m_pOpenGLES)
+					{
 						m_pOpenGLES->MakeCurrent(m_RenderSurface);
+					}
 					l_Error = glGetError();
 					EGLint panelWidth = 0;
 					EGLint panelHeight = 0;
@@ -161,43 +163,48 @@ namespace UIEditor
 					l_Error = glGetError();
 					if (!g_pUIEditorApp)
 					{
-						if (m_pOpenGLES)
+						static bool	l_sbOnlyOnce = true;
+						if (l_sbOnlyOnce)
 						{
-							m_pOpenGLES->MakeCurrent(m_RenderSurface);
+							l_sbOnlyOnce = false;
+							if (m_pOpenGLES)
+							{
+								m_pOpenGLES->MakeCurrent(m_RenderSurface);
+							}
+							g_pUIEditorApp = new cUIEditorApp(nullptr, Vector2(1920, 1080), Vector2(1920, 1080));
+							g_pUIEditorApp->Init();
+							//f_CarChangeNotifierFunction l_f_CarChangeNotifierFunction =
+							//	[this](std::vector<int> e_HWIDVector)
+							//{
+							//	//auto l_pCoreWindow = Window::Current->CoreWindow;
+							//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
+							//		ref new Windows::UI::Core::DispatchedHandler([this, e_HWIDVector]()
+							//			{
+							//				if (m_pNavPage)
+							//				{
+							//					Platform::Array<int>^ l_Vector = ref new Platform::Array<int>((unsigned int)e_HWIDVector.size());
+							//					for (size_t i = 0; i < e_HWIDVector.size(); ++i)
+							//					{
+							//						l_Vector->set((unsigned int)i, e_HWIDVector[i]);
+							//					}
+							//					m_pNavPage->CarHWIDChangeNotifier(l_Vector);
+							//				}
+							//			})
+							//	);
+							//	//if(m_pNavPage)
+							//	//	m_pNavPage->CarHWIDChangeNotifier();
+							//};
+							//g_pUIEditorApp->SetCarChangeNotifier(l_f_CarChangeNotifierFunction);
+							//if (g_pUIEditorApp)
+							//{
+							//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
+							//		ref new Windows::UI::Core::DispatchedHandler([this()
+							//			{
+							//				//this->m_pNavPage->SetAllNodesName(l_Vector);
+							//			})
+							//	);
+							//}
 						}
-						g_pUIEditorApp = new cUIEditorApp(nullptr, Vector2(1920, 1080), Vector2(1920, 1080));
-						g_pUIEditorApp->Init();
-						//f_CarChangeNotifierFunction l_f_CarChangeNotifierFunction =
-						//	[this](std::vector<int> e_HWIDVector)
-						//{
-						//	//auto l_pCoreWindow = Window::Current->CoreWindow;
-						//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
-						//		ref new Windows::UI::Core::DispatchedHandler([this, e_HWIDVector]()
-						//			{
-						//				if (m_pNavPage)
-						//				{
-						//					Platform::Array<int>^ l_Vector = ref new Platform::Array<int>((unsigned int)e_HWIDVector.size());
-						//					for (size_t i = 0; i < e_HWIDVector.size(); ++i)
-						//					{
-						//						l_Vector->set((unsigned int)i, e_HWIDVector[i]);
-						//					}
-						//					m_pNavPage->CarHWIDChangeNotifier(l_Vector);
-						//				}
-						//			})
-						//	);
-						//	//if(m_pNavPage)
-						//	//	m_pNavPage->CarHWIDChangeNotifier();
-						//};
-						//g_pUIEditorApp->SetCarChangeNotifier(l_f_CarChangeNotifierFunction);
-						//if (g_pUIEditorApp)
-						//{
-						//	m_pNavPage->Dispatcher->RunAsync(CoreDispatcherPriority::Normal,
-						//		ref new Windows::UI::Core::DispatchedHandler([this()
-						//			{
-						//				//this->m_pNavPage->SetAllNodesName(l_Vector);
-						//			})
-						//	);
-						//}
 					}
 					else
 					if (g_pUIEditorApp)

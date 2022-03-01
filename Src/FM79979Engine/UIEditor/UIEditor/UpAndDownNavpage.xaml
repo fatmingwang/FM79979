@@ -14,7 +14,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <VisualStateManager.VisualStateGroups>
+        <!--<VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
@@ -25,14 +25,22 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups >
+        </VisualStateManager.VisualStateGroups >-->
 
-        <muxc:NavigationView x:Name="m_NavigationView" PaneDisplayMode="Top"  Grid.Row="0">
+        <muxc:NavigationView x:Name="m_NavigationView" PaneDisplayMode="Top"  Grid.Row="0" SelectionChanged="m_NavigationView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Menu Item1" Tag="SamplePage1" />
-                <muxc:NavigationViewItem Content="Menu Item2" Tag="SamplePage2" />
-                <muxc:NavigationViewItem Content="Menu Item3" Tag="SamplePage3" />
-                <muxc:NavigationViewItem Content="Menu Item4" Tag="SamplePage4" />
+                <muxc:NavigationViewItem >
+                    <Button Content="Page1" Click="Button_Click"/>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem >
+                    <Button Content="Page2" Click="Button_Click"/>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem >
+                    <Button Content="Page3" Click="Button_Click"/>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem >
+                    <Button Content="Page4" Click="Button_Click"/>
+                </muxc:NavigationViewItem>                
             </muxc:NavigationView.MenuItems>
             <!--<muxc:NavigationView.Content>
                 <local:UITreeView/>
@@ -43,8 +51,10 @@
                         <NavigationThemeTransition/>
                     </TransitionCollection>
                 </Frame.ContentTransitions>
+                <StackPanel x:Name="m_Stackpanel" MinHeight="200" Background="Black"/>
             </Frame>
         </muxc:NavigationView>
-        <local:OpenGLUserControl Grid.Row="1"></local:OpenGLUserControl>
+        <Grid x:Name="m_OpenGLGrid" Grid.Row="1"/>
+        <!--<local:OpenGLUserControl Grid.Row="1"></local:OpenGLUserControl>-->
     </Grid>
 </Page>

@@ -25,5 +25,32 @@ UpAndDownNavpage::UpAndDownNavpage()
 {
 	InitializeComponent();
 	m_OpenGLUserControl = ref new OpenGLUserControl();
-	this->m_NavigationView->Content = m_OpenGLUserControl;
+	m_OpenGLGrid->Children->Append(m_OpenGLUserControl);
+	
+}
+
+
+void UIEditor::UpAndDownNavpage::m_NavigationView_SelectionChanged(Microsoft::UI::Xaml::Controls::NavigationView^ sender, Microsoft::UI::Xaml::Controls::NavigationViewSelectionChangedEventArgs^ args)
+{
+	auto l_strSelectedItemName = m_NavigationView->SelectedItem->ToString();
+	int a = 0;
+}
+
+
+void UIEditor::UpAndDownNavpage::NavigationViewItem_Tapped(Platform::Object^ sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs^ e)
+{
+	auto l_strSelectedItemName = m_NavigationView->SelectedItem;
+	auto l_strName = sender->ToString();
+	Windows::UI::Xaml::Controls::NavigationViewItem^ l_pNavigationViewItem = (Windows::UI::Xaml::Controls::NavigationViewItem^)sender;
+	auto l_strTag = l_pNavigationViewItem->Tag;
+}
+
+
+void UIEditor::UpAndDownNavpage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	Windows::UI::Xaml::Controls::Button^l_pButton = (Windows::UI::Xaml::Controls::Button^)sender;
+	Button^ l_pNewButton = ref new Button();
+	l_pNewButton->Content = l_pButton->Content;
+	l_pButton->Content = "Selected";
+	this->m_NavigationView->Content = l_pNewButton;
 }

@@ -351,6 +351,7 @@ namespace FATMING_CORE
 #ifdef WASM
 		m_iBridgeSocket = -1;
 #endif
+		m_pKeepAlive = nullptr;
 		m_pReconnectFunction = nullptr;
 		m_pAllSocketToListenClientMessage = nullptr;
 		m_pSocket = nullptr;
@@ -360,6 +361,7 @@ namespace FATMING_CORE
 	}
 	cGameNetwork::~cGameNetwork()
 	{
+		SAFE_DELETE(m_pKeepAlive);
 		this->Destroy();
 		SDLNet_Quit();
 	}
@@ -428,6 +430,17 @@ namespace FATMING_CORE
 		{
 			SAFE_DELETE(this->m_pReconnectFunction);
 		}
+	}
+	//https://www.cnblogs.com/cobbliu/p/4655542.html
+	void cGameNetwork::MakeKeepAlive(int e_iTimeToCheckConnectionIfNoAnyMessage, int e_iRetryCount, int e_iNextRetyTimeGap)
+	{
+		if (!m_pKeepAlive)
+		{
+			m_pKeepAlive = new sKeepAlive();
+		}
+		m_pKeepAlive->iNextRetyTimeGap = e_iNextRetyTimeGap;
+		m_pKeepAlive->iRetryCount = e_iRetryCount;
+		m_pKeepAlive->iTimeToCheckConnectionIfNoAnyMessage = e_iTimeToCheckConnectionIfNoAnyMessage;
 	}
 
 	bool	cGameNetwork::SendDataToClient(SDLNetSocket e_pTCPsocket, char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread)
@@ -588,6 +601,7 @@ namespace FATMING_CORE
 #endif
 		if(1)
 		{
+			this->MakeKeepAlive(7, 3, 3);
 			f_ThreadWorkingFunction l_f_ThreadWorkingFunction = std::bind(&cGameNetwork::ClientListenDataThread, this, std::placeholders::_1);
 			this->ThreadDetach(l_f_ThreadWorkingFunction,"cGameNetwork::CreateAsClient");
 			if (!this->m_pReconnectFunction && e_bCreateReconnectFunction)
@@ -705,7 +719,7 @@ namespace FATMING_CORE
 	bool cGameNetwork::InternalSendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket * e_pPacket)
 	{
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
-		bool	l_bSent = false;
+		int		l_iSent = 0;
 		if (e_pTCPsocket)
 		{
 			if (m_bUseExtraHeader)
@@ -718,24 +732,78 @@ namespace FATMING_CORE
 					char* l_pData = (char*)alloca(l_iSendSize);
 					memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
 					memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-					l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
+					l_iSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize);
 				}
 				else
 				{
 					char* l_pData = new char[l_iSendSize];
 					memcpy(l_pData, &e_pPacket->iSize, l_iHeaderSize);
 					memcpy(&l_pData[l_iHeaderSize], e_pPacket->pData, e_pPacket->iSize);
-					l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize) == 0 ? false : true;
+					l_iSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, l_pData, l_iSendSize);
 					delete[] l_pData;
+				}
+				if (l_iSent != e_pPacket->iSize+sizeof(int))
+				{
+					FMLog::Log("send data failed!", false);
+					return false;
 				}
 			}
 			else
 			{
-				l_bSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->pData, e_pPacket->iSize) == 0 ? false : true;
+				l_iSent = SDLNet_TCP_Send(e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->pData, e_pPacket->iSize);
+				if (l_iSent != e_pPacket->iSize)
+				{
+					FMLog::Log("send data failed!", false);
+					return false;
+				}
 			}
 		}
+		auto l_iErrorCode = SDLNet_GetLastError();
+		if (l_iErrorCode != 0)
+		{
+			FMLog::Log(UT::ComposeMsgByFormat("connection failed! ErrorCode:%d", l_iErrorCode).c_str(), false);
+		}
 		DumpPacketData(*e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->iSize, e_pPacket->pData, "send data");
-		return l_bSent;
+		return true;
+	}
+	bool	cGameNetwork::DoKeepAlive(TCPsocket e_TCPsocket)
+	{
+		if (!m_pKeepAlive)
+		{
+			return false;
+		}
+		int l_iKeepAlive = 1;
+		if (setsockopt(e_TCPsocket->channel, SOL_SOCKET, SO_KEEPALIVE,(char*)&l_iKeepAlive, sizeof(int)) == -1)
+		{
+			FMLog::Log(UT::ComposeMsgByFormat("setsockopt SO_KEEPALIVE: %s", strerror(errno)).c_str(), true);
+			return false;
+		}
+
+		/* Send first probe after `interval' seconds. */
+		if (setsockopt(e_TCPsocket->channel, IPPROTO_TCP, TCP_KEEPIDLE, (char*)&m_pKeepAlive->iTimeToCheckConnectionIfNoAnyMessage, sizeof(int)) < 0) 
+		{
+			FMLog::Log(UT::ComposeMsgByFormat("setsockopt TCP_KEEPIDLE: %s\n", strerror(errno)).c_str(), true);
+			return false;
+		}
+
+		/* Send next probes after the specified interval. Note that we set the
+			* delay as interval / 3, as we send three probes before detecting
+			* an error (see the next setsockopt call). */
+		if (setsockopt(e_TCPsocket->channel, IPPROTO_TCP, TCP_KEEPINTVL, (char*)&m_pKeepAlive->iNextRetyTimeGap, sizeof(int)) < 0)
+		{
+			FMLog::Log(UT::ComposeMsgByFormat("setsockopt TCP_KEEPINTVL: %s\n", strerror(errno)).c_str(), true);
+			return false;
+		}
+
+		/* Consider the socket in error state after three we send three ACK
+			* probes without getting a reply. */
+		if (setsockopt(e_TCPsocket->channel, IPPROTO_TCP, TCP_KEEPCNT, (char*)&m_pKeepAlive->iRetryCount, sizeof(int)) < 0)
+		{
+			FMLog::Log(UT::ComposeMsgByFormat("setsockopt TCP_KEEPCNT: %s\n", strerror(errno)).c_str(), true);
+			return false;
+		}
+
+		return true;
 	}
 	void cGameNetwork::AddClient(SDLNetSocket e_pTCPsocket)
 	{
@@ -748,7 +816,7 @@ namespace FATMING_CORE
 			if (m_ClientSocketVector[i]->Socket.pTCPIPSocket->channel == e_pTCPsocket->Socket.pTCPIPSocket->channel)
 			{
 				UT::ErrorMsg(L"Client was exist", L"add new client error");
-				return;
+				break;
 			}
 		}
 #endif
@@ -875,6 +943,7 @@ namespace FATMING_CORE
 			{
 				goto FAILED;
 			}
+			DoKeepAlive(m_pSocket->Socket.pTCPIPSocket);
 		}
 		m_eNetWorkStatus = eNWS_CONNECTED;
 		if (m_pSocket)
@@ -906,7 +975,7 @@ namespace FATMING_CORE
 				{				
 					goto FAILED;
 				}
-				return;				
+				return;			
 			}
 			if (m_pSocket)
 			{
@@ -983,6 +1052,7 @@ namespace FATMING_CORE
 					TCPsocket l_pNewClient = SDLNet_TCP_Accept(m_pSocket->Socket.pTCPIPSocket);
 					if (l_pNewClient)
 					{
+						DoKeepAlive(l_pNewClient);
 						AddClient(GetSDLNetSocket(l_pNewClient));
 						FMLog::LogWithFlag("new client", CORE_LOG_FLAG);
 						//continue;
