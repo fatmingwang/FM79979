@@ -200,11 +200,17 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="HorizontalNavPage.xaml.h">
+      <DependentUpon>HorizontalNavPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="NavPage.xaml.h">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="OpenGLUserControl.xaml.h">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="TopNavPage.xaml.h">
+      <DependentUpon>TopNavPage.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="UIEditorApp.h" />
     <ClInclude Include="pch.h" />
@@ -219,11 +225,17 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="HorizontalNavPage.xaml.cpp">
+      <DependentUpon>HorizontalNavPage.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="NavPage.xaml.cpp">
       <DependentUpon>NavPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="OpenGLUserControl.xaml.cpp">
       <DependentUpon>OpenGLUserControl.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TopNavPage.xaml.cpp">
+      <DependentUpon>TopNavPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="UIEditorApp.cpp" />
     <ClCompile Include="pch.cpp">
@@ -250,10 +262,16 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="HorizontalNavPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NavPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="OpenGLUserControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TopNavPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UITreeView.xaml">

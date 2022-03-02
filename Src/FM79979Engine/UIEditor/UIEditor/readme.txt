@@ -1,6 +1,9 @@
 https://docs.microsoft.com/en-us/windows/apps/winui/winui2/getting-started
 
 in App.xaml file 
+App.xaml.cpp
+		//comment this for disable show FPS
+		//DebugSettings->EnableFrameRateCounter = true;
 
 please add 
     <Application.Resources>

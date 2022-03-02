@@ -29,9 +29,12 @@ using namespace Windows::UI::Xaml::Navigation;
 App::App()
 {
 	InitializeComponent();
+	m_bUseHorizontal = false;
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 	Resuming += ref new EventHandler<Object^>(this, &App::OnResuming);
 	cGameApp::m_sbDebugFunctionWorking = true;
+	this->DebugSettings->EnableFrameRateCounter = false;
+	//This.DebugSettings.EnableFrameRateCounter = True;
 }
 
 /// <summary>
@@ -45,7 +48,8 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 #if _DEBUG
 	if (IsDebuggerPresent())
 	{
-		DebugSettings->EnableFrameRateCounter = true;
+		//comment this for disable show FPS
+		//DebugSettings->EnableFrameRateCounter = true;
 	}
 #endif
 	if (m_pNavPage == nullptr)
@@ -68,7 +72,14 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 			// When the navigation stack isn't restored navigate to the first page,
 			// configuring the new page by passing required information as a navigation
 			// parameter
-			rootFrame->Navigate(TypeName(NavPage::typeid), e->Arguments);
+			if (m_bUseHorizontal)
+			{
+				rootFrame->Navigate(TypeName(NavPage::typeid), e->Arguments);
+			}
+			else
+			{
+				rootFrame->Navigate(TypeName(TopNavPage::typeid), e->Arguments);
+			}
 		}
 		// Place the frame in the current Window
 		Window::Current->Content = rootFrame;
@@ -82,14 +93,29 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 			// When the navigation stack isn't restored navigate to the first page,
 			// configuring the new page by passing required information as a navigation
 			// parameter
-			rootFrame->Navigate(TypeName(NavPage::typeid), e->Arguments);
+			if (m_bUseHorizontal)
+			{
+				rootFrame->Navigate(TypeName(NavPage::typeid), e->Arguments);
+			}
+			else
+			{
+				rootFrame->Navigate(TypeName(TopNavPage::typeid), e->Arguments);
+			}
+			
 		}
 		// Ensure the current window is active
 		Window::Current->Activate();
 	}
 	if (m_pNavPage)
 	{
-		Windows::UI::Xaml::Window::Current->Content = m_pNavPage;
+		if (m_bUseHorizontal)
+		{
+			Windows::UI::Xaml::Window::Current->Content = m_pNavPage;
+		}
+		else
+		{
+			Windows::UI::Xaml::Window::Current->Content = m_pNavPage;
+		}
 		Windows::UI::Xaml::Window::Current->Activate();
 	}
 	//WCHAR l_dwCurrenctDirectory[MAX_PATH];

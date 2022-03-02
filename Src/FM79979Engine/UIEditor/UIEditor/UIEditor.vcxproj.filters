@@ -35,6 +35,12 @@
     <Filter Include="App">
       <UniqueIdentifier>{020cb68f-42fc-42a5-9c5e-13efd8e97c4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XAML\HorizontalThenVetical">
+      <UniqueIdentifier>{9bebd03f-5871-4774-b3ec-b6e271ac037a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XAML\VerticalThenHorizontal">
+      <UniqueIdentifier>{fd130e01-501f-4e83-9674-a0f34caeffae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -66,14 +72,20 @@
     <Page Include="UITreeView.xaml">
       <Filter>XAML\TreeView</Filter>
     </Page>
-    <Page Include="NavPage.xaml">
-      <Filter>XAML</Filter>
-    </Page>
-    <Page Include="UpAndDownNavpage.xaml">
-      <Filter>XAML</Filter>
-    </Page>
     <Page Include="OpenGLUserControl.xaml">
       <Filter>OpenGL</Filter>
+    </Page>
+    <Page Include="NavPage.xaml">
+      <Filter>XAML\HorizontalThenVetical</Filter>
+    </Page>
+    <Page Include="UpAndDownNavpage.xaml">
+      <Filter>XAML\HorizontalThenVetical</Filter>
+    </Page>
+    <Page Include="TopNavPage.xaml">
+      <Filter>XAML\VerticalThenHorizontal</Filter>
+    </Page>
+    <Page Include="HorizontalNavPage.xaml">
+      <Filter>XAML\VerticalThenHorizontal</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -24,9 +24,6 @@ using namespace Windows::UI::Xaml::Navigation;
 UpAndDownNavpage::UpAndDownNavpage()
 {
 	InitializeComponent();
-	m_OpenGLUserControl = ref new OpenGLUserControl();
-	m_OpenGLGrid->Children->Append(m_OpenGLUserControl);
-	
 }
 
 
@@ -53,4 +50,14 @@ void UIEditor::UpAndDownNavpage::Button_Click(Platform::Object^ sender, Windows:
 	l_pNewButton->Content = l_pButton->Content;
 	l_pButton->Content = "Selected";
 	this->m_NavigationView->Content = l_pNewButton;
+}
+
+
+void UIEditor::UpAndDownNavpage::Grid_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	if (!m_OpenGLUserControl)
+	{
+		m_OpenGLUserControl = ref new OpenGLUserControl();
+		m_OpenGLGrid->Children->Append(m_OpenGLUserControl);
+	}
 }
