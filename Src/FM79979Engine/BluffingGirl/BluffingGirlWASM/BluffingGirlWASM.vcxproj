@@ -103,11 +103,11 @@
       <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\include\ffmpeg;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalOptions>--bind  -s FULL_ES3=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>--bind  -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES3=1 </AdditionalOptions>
+      <AdditionalOptions>--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES2=1 </AdditionalOptions>
       <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>

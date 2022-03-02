@@ -53,13 +53,13 @@ void UIEditor::HorizontalNavPage::NavView_KeyUp(CoreWindow^ sender, KeyEventArgs
 	auto l_Key = e->VirtualKey;
 	if (l_Key == Windows::System::VirtualKey::Q)
 	{
-		this->NavView->IsPaneVisible = false;
+		this->NavView->OpenPaneLength = 0;
 		//NavView->PaneDisplayMode = Microsoft::UI::Xaml::Controls::NavigationViewDisplayMode::Expanded;
 	}
 	else
 	if (l_Key == Windows::System::VirtualKey::W)
 	{
-		this->NavView->IsPaneVisible = true;
+		this->NavView->OpenPaneLength = 300;
 		//NavView->PaneDisplayMode = Microsoft::UI::Xaml::Controls::NavigationViewDisplayMode::Expanded;
 	}
 	else

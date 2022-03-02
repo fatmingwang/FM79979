@@ -1834,146 +1834,152 @@ namespace PI
 	}
 	System::Void cPIEditor::InvertPuzzleImage_button_Click(System::Object^  sender, System::EventArgs^  e) 
 	{
-	cli::array< String^ >^l_pNameList = DNCT::OpenFileAndGetNames("pi files (*.pi)|*.pi|All files (*.*)|*.*");
-	if (!l_pNameList)
-		return;
-	String^l_strDirectory = DNCT::SelectDirectory();
-	if (!l_strDirectory)
-		return;
-	if (l_pNameList)
-		for each (String ^l_fileName in l_pNameList)
+		cli::array< String^ >^l_pNameList = DNCT::OpenFileAndGetNames("pi files (*.pi)|*.pi|All files (*.*)|*.*");
+		if (!l_pNameList)
 		{
-			cNodeISAX	l_cNodeISAX;
-			TiXmlElement*l_pRootTiXmlElement = 0;
-			bool	l_b = l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(l_fileName).c_str());
-			if (l_b)
+			return;
+		}
+		String^l_strDirectory = DNCT::SelectDirectory();
+		if (!l_strDirectory)
+		{
+			return;
+		}
+		if (l_pNameList)
+		{
+			for each (String ^ l_fileName in l_pNameList)
 			{
-				const WCHAR*	l_strFileName = 0;
-				//find the tag we needed
-				l_pRootTiXmlElement = l_cNodeISAX.GetXmlElementByNameFromRoot(L"PuzzleImage");
-				while (l_pRootTiXmlElement)
+				cNodeISAX	l_cNodeISAX;
+				TiXmlElement* l_pRootTiXmlElement = 0;
+				bool	l_b = l_cNodeISAX.ParseDataIntoXMLNode(DNCT::GcStringToChar(l_fileName).c_str());
+				if (l_b)
 				{
-					l_strFileName = l_pRootTiXmlElement->Attribute(L"ImageName");
-					System::Drawing::Bitmap^l_pBitmapSource;
-					String^l_strPGileName = DNCT::GetDirectoryWithoutFileName(l_fileName) + String(l_strFileName).ToString();
-					try
+					const WCHAR* l_strFileName = 0;
+					//find the tag we needed
+					l_pRootTiXmlElement = l_cNodeISAX.GetXmlElementByNameFromRoot(L"PuzzleImage");
+					while (l_pRootTiXmlElement)
 					{
-						l_pBitmapSource = gcnew System::Drawing::Bitmap(l_strPGileName);
-					}
-					catch (System::Exception^l_pExecption)
-					{
-						l_pExecption->ToString();
-						WARNING_MSG(l_strPGileName + " not existed");
-						continue;
-					}
-					int	l_iCount = _wtoi(l_pRootTiXmlElement->Attribute(L"Count"));
-					TiXmlElement*l_pPuzzleImageUintTiXmlElement = l_pRootTiXmlElement->FirstChildElement();
-					while (l_pPuzzleImageUintTiXmlElement)
-					{
-						TiXmlElement*l_pCurrentElement = l_pPuzzleImageUintTiXmlElement;
-						TiXmlAttribute*l_pTiXmlAttribute = l_pCurrentElement->FirstAttribute();
-						float	l_fUV[4];
-						POINT	l_Size;
-						POINT	l_OffsetPos;
-						POINT	l_ShowPosInPI;
-						POINT	l_OriginalSize;
-						//new attribute so make sure the data has this
-						bool	l_bContainShowPosInPI = false;
-						const WCHAR*	l_strPuzzleImageName = 0;
-						while (l_pTiXmlAttribute)
+						l_strFileName = l_pRootTiXmlElement->Attribute(L"ImageName");
+						System::Drawing::Bitmap^ l_pBitmapSource;
+						String^ l_strPGileName = DNCT::GetDirectoryWithoutFileName(l_fileName) + String(l_strFileName).ToString();
+						try
 						{
-							if (!wcscmp(l_pTiXmlAttribute->Name(), L"UV"))
+							l_pBitmapSource = gcnew System::Drawing::Bitmap(l_strPGileName);
+						}
+						catch (System::Exception^ l_pExecption)
+						{
+							l_pExecption->ToString();
+							WARNING_MSG(l_strPGileName + " not existed");
+							continue;
+						}
+						int	l_iCount = _wtoi(l_pRootTiXmlElement->Attribute(L"Count"));
+						TiXmlElement* l_pPuzzleImageUintTiXmlElement = l_pRootTiXmlElement->FirstChildElement();
+						while (l_pPuzzleImageUintTiXmlElement)
+						{
+							TiXmlElement* l_pCurrentElement = l_pPuzzleImageUintTiXmlElement;
+							TiXmlAttribute* l_pTiXmlAttribute = l_pCurrentElement->FirstAttribute();
+							float	l_fUV[4];
+							POINT	l_Size;
+							POINT	l_OffsetPos;
+							POINT	l_ShowPosInPI;
+							POINT	l_OriginalSize;
+							//new attribute so make sure the data has this
+							bool	l_bContainShowPosInPI = false;
+							const WCHAR* l_strPuzzleImageName = 0;
+							while (l_pTiXmlAttribute)
 							{
-								GetUV(l_pTiXmlAttribute->Value(), l_fUV);
-							}
-							else
-								if (!wcscmp(l_pTiXmlAttribute->Name(), L"Size"))
+								if (!wcscmp(l_pTiXmlAttribute->Name(), L"UV"))
 								{
-									l_Size = GetPoint(l_pTiXmlAttribute->Value());
+									GetUV(l_pTiXmlAttribute->Value(), l_fUV);
 								}
 								else
-									if (!wcscmp(l_pTiXmlAttribute->Name(), L"OffsetPos"))
+									if (!wcscmp(l_pTiXmlAttribute->Name(), L"Size"))
 									{
-										l_OffsetPos = GetPoint(l_pTiXmlAttribute->Value());
+										l_Size = GetPoint(l_pTiXmlAttribute->Value());
 									}
 									else
-										if (!wcscmp(l_pTiXmlAttribute->Name(), L"Name"))
+										if (!wcscmp(l_pTiXmlAttribute->Name(), L"OffsetPos"))
 										{
-											l_strPuzzleImageName = l_pTiXmlAttribute->Value();
+											l_OffsetPos = GetPoint(l_pTiXmlAttribute->Value());
 										}
 										else
-											if (!wcscmp(l_pTiXmlAttribute->Name(), L"ShowPosInPI"))
+											if (!wcscmp(l_pTiXmlAttribute->Name(), L"Name"))
 											{
-												l_bContainShowPosInPI = true;
-												l_ShowPosInPI = GetPoint(l_pTiXmlAttribute->Value());
+												l_strPuzzleImageName = l_pTiXmlAttribute->Value();
 											}
 											else
-												if (!wcscmp(l_pTiXmlAttribute->Name(), L"OriginalSize"))
+												if (!wcscmp(l_pTiXmlAttribute->Name(), L"ShowPosInPI"))
 												{
-													l_OriginalSize = GetPoint(l_pTiXmlAttribute->Value());
+													l_bContainShowPosInPI = true;
+													l_ShowPosInPI = GetPoint(l_pTiXmlAttribute->Value());
 												}
 												else
-												{
-													assert(0);
-												}
-							l_pTiXmlAttribute = l_pTiXmlAttribute->Next();
-						}
-						//fill all alpha
-						System::Drawing::Bitmap^l_pBitMap = gcnew System::Drawing::Bitmap(l_OriginalSize.x, l_OriginalSize.y);
-						System::Drawing::Color l_NewColor = System::Drawing::Color::Transparent;
-						System::Drawing::SolidBrush^ l_pDrawBrush = gcnew System::Drawing::SolidBrush(l_NewColor);
-						System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(l_pBitMap);
-						l_pGr->FillRectangle(l_pDrawBrush, 0, 0, l_pBitMap->Width, l_pBitMap->Height);
-						System::Drawing::Rectangle	l_rect = System::Drawing::Rectangle((int)(l_fUV[0] * l_pBitmapSource->Width), (int)(l_fUV[1] * l_pBitmapSource->Height), l_Size.x, l_Size.y);
-						if (l_bContainShowPosInPI)
-						{
-							l_rect = System::Drawing::Rectangle(l_ShowPosInPI.x, l_ShowPosInPI.y, l_Size.x, l_Size.y);
-						}
-						if (0)
-						{
-							////copy Src
-							//int	bufferSizeInPixels = l_pBitMap->Width*l_pBitMap->Height;
-							//char*l_pbuff = new char[bufferSizeInPixels*l_iSrcChannel];
-							//BitmapData^l_pData =
-							//l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),
-							//ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
-							//memcpy(l_pbuff,l_pData->Scan0.ToPointer(),bufferSizeInPixels*l_iSrcChannel);
-							//l_pBitmapForSave->UnlockBits(l_pData);
-							////past to dest
-							//l_pData = l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
-							//char*l_strScrData = (char*)l_pData->Scan0.ToPointer();
+													if (!wcscmp(l_pTiXmlAttribute->Name(), L"OriginalSize"))
+													{
+														l_OriginalSize = GetPoint(l_pTiXmlAttribute->Value());
+													}
+													else
+													{
+														assert(0);
+													}
+								l_pTiXmlAttribute = l_pTiXmlAttribute->Next();
+							}
+							//fill all alpha
+							System::Drawing::Bitmap^ l_pBitMap = gcnew System::Drawing::Bitmap(l_OriginalSize.x, l_OriginalSize.y);
+							System::Drawing::Color l_NewColor = System::Drawing::Color::Transparent;
+							System::Drawing::SolidBrush^ l_pDrawBrush = gcnew System::Drawing::SolidBrush(l_NewColor);
+							System::Drawing::Graphics^ l_pGr = System::Drawing::Graphics::FromImage(l_pBitMap);
+							l_pGr->FillRectangle(l_pDrawBrush, 0, 0, l_pBitMap->Width, l_pBitMap->Height);
+							System::Drawing::Rectangle	l_rect = System::Drawing::Rectangle((int)(l_fUV[0] * l_pBitmapSource->Width), (int)(l_fUV[1] * l_pBitmapSource->Height), l_Size.x, l_Size.y);
+							if (l_bContainShowPosInPI)
+							{
+								l_rect = System::Drawing::Rectangle(l_ShowPosInPI.x, l_ShowPosInPI.y, l_Size.x, l_Size.y);
+							}
+							if (0)
+							{
+								////copy Src
+								//int	bufferSizeInPixels = l_pBitMap->Width*l_pBitMap->Height;
+								//char*l_pbuff = new char[bufferSizeInPixels*l_iSrcChannel];
+								//BitmapData^l_pData =
+								//l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),
+								//ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
+								//memcpy(l_pbuff,l_pData->Scan0.ToPointer(),bufferSizeInPixels*l_iSrcChannel);
+								//l_pBitmapForSave->UnlockBits(l_pData);
+								////past to dest
+								//l_pData = l_pBitMap->LockBits(System::Drawing::Rectangle(0, 0, l_pBitMap->Width, l_pBitMap->Height),ImageLockMode::WriteOnly,l_pBitmapForSave->PixelFormat);
+								//char*l_strScrData = (char*)l_pData->Scan0.ToPointer();
 
-							//int	l_iSrcRenderStartPosX = l_pUIImage->GetOffsetPos()->x;
-							//int	l_iSrcRenderStartPosY = l_pUIImage->GetOffsetPos()->y;
-							//+1 for offset start at 0,0
-							//int	l_iSrcRenderEndPosX = l_pUIImage->GetRightDownStripOffPos().x+1;
-							//int	l_iSrcRenderEndPosY = l_pUIImage->GetRightDownStripOffPos().y+1;
-							//int	l_iDestRenderPosX = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->x+l_pUIImage->GetOffsetPos()->x);
-							//int	l_iDestRenderPosY = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->y+l_pUIImage->GetOffsetPos()->y);
-							//int	l_iWorkPixelX = l_iSrcRenderEndPosX-l_iSrcRenderStartPosX;
-							//int	l_iWorkPixelY = l_iSrcRenderEndPosY-l_iSrcRenderStartPosY;
-							//int	l_iIndex = 0;
-							//for( int l_iStartPixelY=l_iSrcRenderStartPosY;l_iStartPixelY<l_iSrcRenderEndPosY;++l_iStartPixelY )
-							//{
-							//	int	l_iYIndex = ((l_iDestRenderPosY+l_iIndex)*l_iSrcChannel*l_pBitMap->Width);
-							//	int	l_iXIndex = l_iSrcChannel*l_iDestRenderPosX;
-							//	int	l_iStartCopyIndex = l_iXIndex+l_iYIndex;
-							//	int	l_iCopyIntoIndex = (l_iStartPixelY*l_iSrcChannel*l_pBitmapForSave->Width)+(l_iSrcChannel*l_iSrcRenderStartPosX);
-							//	memcpy(&l_strScrData[l_iStartCopyIndex],&l_pbuff[l_iCopyIntoIndex],l_iWorkPixelX*l_iSrcChannel);
-							//	++l_iIndex;
-							//}
-							//l_pBitMap->UnlockBits(l_pData);
-							//delete l_pbuff;
+								//int	l_iSrcRenderStartPosX = l_pUIImage->GetOffsetPos()->x;
+								//int	l_iSrcRenderStartPosY = l_pUIImage->GetOffsetPos()->y;
+								//+1 for offset start at 0,0
+								//int	l_iSrcRenderEndPosX = l_pUIImage->GetRightDownStripOffPos().x+1;
+								//int	l_iSrcRenderEndPosY = l_pUIImage->GetRightDownStripOffPos().y+1;
+								//int	l_iDestRenderPosX = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->x+l_pUIImage->GetOffsetPos()->x);
+								//int	l_iDestRenderPosY = StripFloatIfBiggerThanPoint5(l_pUIImage->GetPos()->y+l_pUIImage->GetOffsetPos()->y);
+								//int	l_iWorkPixelX = l_iSrcRenderEndPosX-l_iSrcRenderStartPosX;
+								//int	l_iWorkPixelY = l_iSrcRenderEndPosY-l_iSrcRenderStartPosY;
+								//int	l_iIndex = 0;
+								//for( int l_iStartPixelY=l_iSrcRenderStartPosY;l_iStartPixelY<l_iSrcRenderEndPosY;++l_iStartPixelY )
+								//{
+								//	int	l_iYIndex = ((l_iDestRenderPosY+l_iIndex)*l_iSrcChannel*l_pBitMap->Width);
+								//	int	l_iXIndex = l_iSrcChannel*l_iDestRenderPosX;
+								//	int	l_iStartCopyIndex = l_iXIndex+l_iYIndex;
+								//	int	l_iCopyIntoIndex = (l_iStartPixelY*l_iSrcChannel*l_pBitmapForSave->Width)+(l_iSrcChannel*l_iSrcRenderStartPosX);
+								//	memcpy(&l_strScrData[l_iStartCopyIndex],&l_pbuff[l_iCopyIntoIndex],l_iWorkPixelX*l_iSrcChannel);
+								//	++l_iIndex;
+								//}
+								//l_pBitMap->UnlockBits(l_pData);
+								//delete l_pbuff;
+							}
+							else
+								l_pGr->DrawImage(l_pBitmapSource, l_OffsetPos.x, l_OffsetPos.y, l_rect, System::Drawing::GraphicsUnit::Pixel);
+							l_pBitMap->Save(l_strDirectory + String(l_strPuzzleImageName).ToString() + ".png");
+							l_pPuzzleImageUintTiXmlElement = l_pPuzzleImageUintTiXmlElement->NextSiblingElement();
 						}
+						if (l_pRootTiXmlElement->NextSibling())
+							l_pRootTiXmlElement = GetXmlElementByNameFromElement(L"PuzzleImage", l_pRootTiXmlElement->NextSiblingElement());
 						else
-							l_pGr->DrawImage(l_pBitmapSource, l_OffsetPos.x, l_OffsetPos.y, l_rect, System::Drawing::GraphicsUnit::Pixel);
-						l_pBitMap->Save(l_strDirectory + String(l_strPuzzleImageName).ToString() + ".png");
-						l_pPuzzleImageUintTiXmlElement = l_pPuzzleImageUintTiXmlElement->NextSiblingElement();
+							l_pRootTiXmlElement = 0;
 					}
-					if (l_pRootTiXmlElement->NextSibling())
-						l_pRootTiXmlElement = GetXmlElementByNameFromElement(L"PuzzleImage", l_pRootTiXmlElement->NextSiblingElement());
-					else
-						l_pRootTiXmlElement = 0;
 				}
 			}
 		}
@@ -2004,6 +2010,8 @@ namespace PI
 		//String^l_strFileName = DNCT::OpenFileAndGetName("txt files (*.txt)|*.txt|All files (*.*)|*.*");
 		if (l_strFileName)
 		{
+			PlayMorphingAnimation_checkBox->Checked = false;
+			this->EditAnimation_checkBox->Checked = false;
 			OpenPIFile(l_strFileName);
 			auto l_strCharFileName = DNCT::GcStringToChar(l_strFileName);
 			UT::SaveTxtToFile(LAST_USE_PI_FILE_NAME, l_strCharFileName.c_str(), (int)l_strCharFileName.length());
