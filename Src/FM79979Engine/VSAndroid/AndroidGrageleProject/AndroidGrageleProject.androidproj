@@ -47,7 +47,7 @@
   <Import Project="$(AndroidTargetsPath)\Android.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <AndroidAPILevel>android-28</AndroidAPILevel>
+    <AndroidAPILevel>android-29</AndroidAPILevel>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
