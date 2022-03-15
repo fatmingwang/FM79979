@@ -51,10 +51,9 @@
                         <NavigationThemeTransition/>
                     </TransitionCollection>
                 </Frame.ContentTransitions>
-                <StackPanel x:Name="m_Stackpanel" MinHeight="200" Background="Black"/>
             </Frame>
         </muxc:NavigationView>
-        <Grid x:Name="m_OpenGLGrid" Grid.Row="1"/>
+        <StackPanel x:Name="m_OpenGLGrid" Grid.Row="1"/>
         <!--<local:OpenGLUserControl Grid.Row="1"></local:OpenGLUserControl>-->
     </Grid>
 </Page>

@@ -44,6 +44,8 @@ void UIEditor::HorizontalNavPage::NavView_Loaded(Platform::Object^ sender, Windo
 	{
 		m_OpenGLUserControl = ref new OpenGLUserControl();
 		NavView->Content = m_OpenGLUserControl;
+		//UITreeView^ l_pUITreeView = ref new UITreeView();
+		//m_OpenGLGrid->Children->Append(l_pUITreeView);
 	}
 }
 

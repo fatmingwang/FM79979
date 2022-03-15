@@ -212,6 +212,9 @@
     <ClInclude Include="TopNavPage.xaml.h">
       <DependentUpon>TopNavPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="UIData.xaml.h">
+      <DependentUpon>UIData.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="UIEditorApp.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="UITreeView.xaml.h">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="TopNavPage.xaml.cpp">
       <DependentUpon>TopNavPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="UIData.xaml.cpp">
+      <DependentUpon>UIData.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="UIEditorApp.cpp" />
     <ClCompile Include="pch.cpp">
@@ -272,6 +278,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TopNavPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UIData.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UITreeView.xaml">

@@ -5,7 +5,7 @@
 
 #include "pch.h"
 #include "UpAndDownNavpage.xaml.h"
-
+#include "UITreeView.xaml.h"
 using namespace UIEditor;
 
 using namespace Platform;
@@ -45,11 +45,25 @@ void UIEditor::UpAndDownNavpage::NavigationViewItem_Tapped(Platform::Object^ sen
 
 void UIEditor::UpAndDownNavpage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+	if (!m_pUIData)
+	{
+		m_pUIData = ref new UIData();
+		//m_OpenGLGrid->Children->Append(l_pUIData);
+	}
 	Windows::UI::Xaml::Controls::Button^l_pButton = (Windows::UI::Xaml::Controls::Button^)sender;
-	Button^ l_pNewButton = ref new Button();
-	l_pNewButton->Content = l_pButton->Content;
-	l_pButton->Content = "Selected";
-	this->m_NavigationView->Content = l_pNewButton;
+	//Button^ l_pNewButton = ref new Button();
+	//l_pNewButton->Content = l_pButton->Content;
+	//l_pButton->Content = "Selected";
+	//this->m_NavigationView->Content = l_pNewButton;
+	if (l_pButton->Content->ToString()->Equals("Page1"))
+	{
+		this->m_NavigationView->Content = m_pUIData;
+	}
+	else
+	{
+		this->m_NavigationView->Content = nullptr;
+	}
+	
 }
 
 
@@ -57,7 +71,10 @@ void UIEditor::UpAndDownNavpage::Grid_Loaded(Platform::Object^ sender, Windows::
 {
 	if (!m_OpenGLUserControl)
 	{
+		//UITreeView^ l_pUITreeView = ref new UITreeView();
+		//m_OpenGLGrid->Children->Append(l_pUITreeView);
 		m_OpenGLUserControl = ref new OpenGLUserControl();
 		m_OpenGLGrid->Children->Append(m_OpenGLUserControl);
+
 	}
 }

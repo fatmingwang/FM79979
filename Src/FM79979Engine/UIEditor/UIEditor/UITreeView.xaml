@@ -10,8 +10,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid >
-        <muxc:TreeView x:Name="m_UITreeView" Margin="0,12,0,0"
-                            HorizontalAlignment="Center" VerticalAlignment="Top" SelectionMode="Multiple"  DragItemsCompleted="m_UITreeView_DragItemsCompleted" ItemInvoked="m_UITreeView_ItemInvoked" CanDragItems="True" AllowDrop="True" />
-        <Button Content="79979999999999999999999"/>
+        <muxc:TreeView x:Name="m_UITreeView" Margin="0,12,0,0" Loaded="m_UITreeView_Loaded"
+                            HorizontalAlignment="Center" VerticalAlignment="Top" SelectionMode="Multiple"  DragItemsCompleted="m_UITreeView_DragItemsCompleted" ItemInvoked="m_UITreeView_ItemInvoked" CanDragItems="True" AllowDrop="True">
+            <muxc:TreeView.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Add" />
+                    <MenuFlyoutItem Text="Copy" />
+                    <MenuFlyoutItem Text="Cut" />
+                    <MenuFlyoutItem Text="Paste" />
+                </MenuFlyout>
+            </muxc:TreeView.ContextFlyout>
+        </muxc:TreeView>
     </Grid>
 </Page>

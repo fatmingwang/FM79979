@@ -7,6 +7,7 @@
 
 #include "UpAndDownNavpage.g.h"
 #include "OpenGLUserControl.xaml.h"
+#include "UIData.xaml.h"
 //https://docs.microsoft.com/en-us/windows/apps/design/controls/navigationview
 namespace UIEditor
 {
@@ -17,6 +18,7 @@ namespace UIEditor
 	public ref class UpAndDownNavpage sealed
 	{
 		OpenGLUserControl^ m_OpenGLUserControl;
+		UIData^ m_pUIData;
 	public:
 		UpAndDownNavpage();
 	private:

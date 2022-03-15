@@ -41,6 +41,9 @@
     <Filter Include="XAML\VerticalThenHorizontal">
       <UniqueIdentifier>{fd130e01-501f-4e83-9674-a0f34caeffae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="XAML\UIData">
+      <UniqueIdentifier>{3f489225-b118-49b4-b7fa-2484dd54d064}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -86,6 +89,9 @@
     </Page>
     <Page Include="HorizontalNavPage.xaml">
       <Filter>XAML\VerticalThenHorizontal</Filter>
+    </Page>
+    <Page Include="UIData.xaml">
+      <Filter>XAML\UIData</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>

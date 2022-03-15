@@ -29,7 +29,7 @@ using namespace Windows::UI::Xaml::Navigation;
 App::App()
 {
 	InitializeComponent();
-	m_bUseHorizontal = false;
+	m_bUseHorizontal = true;
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 	Resuming += ref new EventHandler<Object^>(this, &App::OnResuming);
 	cGameApp::m_sbDebugFunctionWorking = true;

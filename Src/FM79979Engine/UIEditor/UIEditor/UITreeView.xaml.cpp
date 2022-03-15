@@ -37,3 +37,15 @@ void UIEditor::UITreeView::m_UITreeView_ItemInvoked(Microsoft::UI::Xaml::Control
 {
 
 }
+
+
+void UIEditor::UITreeView::m_UITreeView_Loaded(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	for (int i = 0; i < 15; ++i)
+	{
+		Microsoft::UI::Xaml::Controls::TreeViewNode^ l_pNode = ref new Microsoft::UI::Xaml::Controls::TreeViewNode();
+		l_pNode->Content = i.ToString();
+		m_UITreeView->RootNodes->Append(l_pNode);
+	}
+
+}
