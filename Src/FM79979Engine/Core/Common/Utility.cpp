@@ -864,33 +864,43 @@ namespace UT
 			std::string l_strWASMFile = e_strFileName;
 			l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 			std::string l_strFileName = e_strFileName;
-			l_strFileName += ":";
-			l_strFileName += l_strWASMFile;
 			if (!l_pFile)
 			{
-				l_strWASMFile = "assets/" + l_strWASMFile;
+				l_strWASMFile = "/GameApp/" + UT::ConvertFileNameWithoutFullPath(e_strFileName);
+				l_strFileName += " :0-";
+				l_strFileName += l_strWASMFile;
 				l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 				if (!l_pFile)
 				{
-					l_strFileName = e_strFileName;
-					l_strFileName += ":";
+					l_strWASMFile = "assets/";
+					l_strWASMFile += e_strFileName;
+					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
+					l_strFileName += " :1-";
+					l_strFileName += l_strWASMFile;
+				}
+				if (!l_pFile)
+				{
+					l_strWASMFile = "/GameApp/";
+					l_strWASMFile += e_strFileName;
+					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
+					l_strFileName += " :2-";
 					l_strFileName += l_strWASMFile;
 				}
 				if (!l_pFile)
 				{
 					l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
 					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
+					l_strFileName += " :3-";
+					l_strFileName += l_strWASMFile;
 				}
 			}
 			if (l_pFile)
 			{
-				l_strFileName += " open okay";
+				l_strFileName += " open file okay";
 			}
 			else
 			{
-				l_strFileName += ":";
-				l_strFileName += l_strWASMFile;
-				l_strFileName += "  :both file open failed";
+				l_strFileName += " open file failed";
 			}
 			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}

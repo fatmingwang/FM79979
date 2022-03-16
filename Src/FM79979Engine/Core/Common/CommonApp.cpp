@@ -116,6 +116,7 @@ namespace	FATMING_CORE
 
 	cCommonApp::~cCommonApp()
 	{
+		SAFE_DELETE(m_psstrGameAppName);
 		SAFE_DELETE(m_spMessageSenderManager);
 #ifdef UWP
 		SAFE_DELETE(m_spUWPAssetsDirectory);

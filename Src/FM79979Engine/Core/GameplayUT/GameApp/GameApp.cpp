@@ -89,8 +89,10 @@ namespace	FATMING_CORE
 #endif
 		if (this->m_sbDebugFunctionWorking)
 		{
-			if(cGameApp::m_psstrGameAppName)
+			if (cGameApp::m_psstrGameAppName)
+			{
 				FMLog::Init(cGameApp::m_psstrGameAppName->c_str());
+			}
 			else
 			{
 				FMLog::Init();
