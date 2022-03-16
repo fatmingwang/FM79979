@@ -5,6 +5,9 @@
 #include "../../Common/Log/FMLog.h"
 #include "../../Common/BinaryFile/BinaryFile.h"
 #include "../GameApp/GameApp.h"
+#include <fstream>
+#include <sys/stat.h>
+
 namespace FATMING_CORE
 {
 	void downloadProgress(emscripten_fetch_t* fetch) 
@@ -22,6 +25,7 @@ namespace FATMING_CORE
 	{
 		printf("Finished downloading %llu bytes from URL %s.\n", fetch->numBytes, fetch->url);
 		cPreLoadFromInternet*l_pPreLoadFromInternet = (cPreLoadFromInternet*)fetch->userData;
+		l_pPreLoadFromInternet->AddDownloadSize(fetch->numBytes);
 		int l_iSkipDomainNameIndex = l_pPreLoadFromInternet->GetSkipDomainNameIndex();
 		int	l_iLength = strlen(fetch->url);
 		int l_iCopyLength = l_iLength - l_iSkipDomainNameIndex;
@@ -34,7 +38,7 @@ namespace FATMING_CORE
 			//{
 			//	FMLog::LogWithFlag(fetch->data);
 			//}
-			l_cBinaryFile.WriteToFile(&fetch->data[0], fetch->numBytes);
+			l_cBinaryFile.WriteToFile(fetch->data, fetch->numBytes);
 			FMLog::LogWithFlag("save file finish", CORE_LOG_FLAG);
 		}
 		else
@@ -43,9 +47,9 @@ namespace FATMING_CORE
 			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
 		}
 		// The data is now available at fetch->data[0] through fetch->data[fetch->numBytes-1];
-		l_pPreLoadFromInternet->SetWaitForDownloadFromInternet(false);
 		emscripten_fetch_close(fetch); // Free data associated with the fetch.
 		FMLog::LogWithFlag("emscripten_fetch_close", CORE_LOG_FLAG);
+		l_pPreLoadFromInternet->SetWaitForDownloadFromInternet(false);
 	}
 
 	void downloadFailed(emscripten_fetch_t *fetch)
@@ -58,6 +62,7 @@ namespace FATMING_CORE
 
 	cPreLoadFromInternet::cPreLoadFromInternet()
 	{
+		m_iNumByteDownload = 0;
 		m_bWaitIndexDBResponse = true;
 		m_bDoAllFileDownloadedSyncIndexDB = false;
 		m_fElpaseTime = 0.f;
@@ -65,7 +70,7 @@ namespace FATMING_CORE
 		m_iCurrentResourceIndex = 0;
 		m_bWaitForDownloadFromInternet = false;
 		m_iSkipDomainNameIndex = 0;
-		m_WaitIndexDBsyncTC.SetTargetTime(5.f);
+		m_WaitIndexDBsyncTC.SetTargetTime(15.f);
 		////http://www.alternativegames.net/blog/porting-to-emscripten/
 		EM_ASM
 		(
@@ -116,6 +121,7 @@ namespace FATMING_CORE
 
 	bool	cPreLoadFromInternet::Init(const char*e_strPreloadFileName)
 	{
+		m_iNumByteDownload = 0;
 		m_iCurrentResourceIndex = 0;
 		m_bDoAllFileDownloadedSyncIndexDB = false;
 		m_strDownloadFailedFileName.clear();
@@ -169,7 +175,7 @@ namespace FATMING_CORE
 		{
 			return;
 		}
-		if (emscripten_run_script_int("Module.syncdone") != 1 && !m_WaitIndexDBsyncTC.bTragetTimrReached)
+		if (m_pCurrentTiXmlElement && emscripten_run_script_int("Module.syncdone") != 1 && !m_WaitIndexDBsyncTC.bTragetTimrReached)
 		{
 			m_WaitIndexDBsyncTC.Update(e_fElpaseTime);
 			FMLog::LogWithFlag("wait sync ", CORE_LOG_FLAG, false);
@@ -181,13 +187,30 @@ namespace FATMING_CORE
 		}
 		if (m_pCurrentTiXmlElement)
 		{
+			m_WaitIndexDBsyncTC.Start();
 			m_CurrentFileData.Assign(m_pCurrentTiXmlElement);
+			bool l_bDownloadFile = true;
 			auto l_pAttribute = m_pCurrentTiXmlElement->FirstAttribute();
 			if (l_pAttribute)
 			{
 				const wchar_t*l_pValue = l_pAttribute->Value();
 				std::string l_strFileName = m_strDomainName+"/" + ValueToString(l_pValue);
-				if (!IsFileExists(l_strFileName.c_str()))
+				NvFile* l_pFile = MyFileOpen(l_strFileName.c_str(), "rb");
+				if (l_pFile)
+				{
+					auto l_uiSize = UT::GetFileSize(l_pFile);
+					if (m_CurrentFileData.uiSize == l_uiSize)
+					{
+						l_bDownloadFile = false;
+					}
+					else
+					{
+						
+						FMLog::LogWithFlag(UT::ComposeMsgByFormat("size not same,%d:%d", l_uiSize, m_CurrentFileData.uiSize).c_str(), CORE_LOG_FLAG);
+					}
+					NvFClose(l_pFile);
+				}
+				if (l_bDownloadFile)
 				{
 					m_bWaitForDownloadFromInternet = true;
 					//add command  -s FETCH=1
@@ -262,24 +285,32 @@ namespace FATMING_CORE
 	}
 	void	cPreLoadFromInternet::Render()
 	{
+		cGameApp::m_spOpenGLRender->Render();
+		glEnable2D(720.f, 1280.f);
+		GLRender::RenderRectangle(600, 50, cMatrix44::TranslationMatrix(Vector3(50, 625, 0)), Vector4::Red);
+		GLRender::RenderFilledRectangle(Vector2(50, 625), 600 * this->GetProgress(), 50, Vector4::Green, 0);
 		//if (!m_strCurrentObjectInfo.length())
 		{
-			return;
+			//return;
 		}
-		cGameApp::m_spOpenGLRender->Render();
+		cGameApp::RenderFont(100,100, UT::ComposeMsgByFormat(L"Download size:%d", m_iNumByteDownload).c_str());		
 		Vector2 l_vPos(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 - 200, cGameApp::m_spOpenGLRender->m_vGameResolution.y / 2 - 50);
 		std::wstring l_strInfo = L"Progress:";
 		l_strInfo += ValueToStringW(GetProgress());
 		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
 		l_vPos.y += 100;
 		l_strInfo = L"CurrentParsingObject:";
-		l_strInfo += UT::GetFileNameWithoutFullPath(m_strCurrentObjectInfo.c_str(), false);
-		if(m_strCurrentObjectInfo.length())
+		if (m_strCurrentObjectInfo.length())
+		{
+			l_strInfo += UT::GetFileNameWithoutFullPath(m_strCurrentObjectInfo.c_str(), false);
 			cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
+		}
 		l_vPos.y += 100;
-		l_strInfo = UT::GetFileNameWithoutFullPath(m_strLastObject.c_str(), false);
-		if(m_strLastObject.length())
+		if (m_strLastObject.length())
+		{
+			l_strInfo = UT::GetFileNameWithoutFullPath(m_strLastObject.c_str(), false);
 			cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
+		}
 		l_vPos.y += 50;
 		l_strInfo = L"Time:";
 		l_strInfo += ValueToStringW(m_ParseTC.fElpaseTime);
@@ -326,8 +357,8 @@ namespace FATMING_CORE
 		auto l_strSize = e_pTiXmlElement->Attribute(L"Size");
 		if (l_strSize)
 		{
-			strSize = GetUint64(l_strSize);
-		}		
+			uiSize = GetUint64(l_strSize);
+		}
 		return true;
 	}
 	//end namespace FATMING_CORE

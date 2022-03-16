@@ -19,7 +19,7 @@ namespace FATMING_CORE
 		{
 			std::wstring	strMD5;
 			std::wstring	strFileName;
-			std::wstring	strSize;
+			size_t			uiSize;
 			bool			Assign(TiXmlElement* e_pTiXmlElement);
 		};
 		std::string		m_strDomainName;
@@ -28,19 +28,21 @@ namespace FATMING_CORE
 		bool			m_bDoAllFileDownloadedSyncIndexDB;
 		//
 		std::vector<std::string> m_strDownloadFailedFileName;
-		bool			m_bWaitForDownloadFromInternet;
-		float			m_fElpaseTime;
+		bool				m_bWaitForDownloadFromInternet;
+		float				m_fElpaseTime;
 		UT::sTimeCounter	m_WaitIndexDBsyncTC;
-		UT::sTimeAndFPS	m_ParseTC;
-		UT::sTimeAndFPS	m_TimeElpaseTC;
-		std::wstring	m_strCurrentObjectInfo;
-		std::wstring	m_strLastObject;
-		int				m_iResourceCount;
-		int				m_iCurrentResourceIndex;
-		int				m_iSkipDomainNameIndex;
+		UT::sTimeAndFPS		m_ParseTC;
+		UT::sTimeAndFPS		m_TimeElpaseTC;
+		std::wstring		m_strCurrentObjectInfo;
+		std::wstring		m_strLastObject;
+		int					m_iResourceCount;
+		int					m_iCurrentResourceIndex;
+		int					m_iSkipDomainNameIndex;
+		int					m_iNumByteDownload;
 	public:
 		cPreLoadFromInternet();
 		~cPreLoadFromInternet();
+		void	AddDownloadSize(int e_iSize) { m_iNumByteDownload += e_iSize; }
 		void	SetWaitForDownloadFromInternet(bool e_bWaitForDownloadFromInternet);
 		void	AddDownloadFailedFileName(const char*e_strFileName);
 		bool	Init(const char*e_strPreloadFileName);
