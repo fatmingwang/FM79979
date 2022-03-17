@@ -861,12 +861,12 @@ namespace UT
 		}
 #elif defined(WASM)
 		{
-			std::string l_strWASMFile = e_strFileName;
+			std::string l_strWASMFile = "/GameApp/" + UT::ConvertFileNameWithoutFullPath(e_strFileName);
 			l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 			std::string l_strFileName = e_strFileName;
 			if (!l_pFile)
 			{
-				l_strWASMFile = "/GameApp/" + UT::ConvertFileNameWithoutFullPath(e_strFileName);
+				l_strWASMFile = e_strFileName;
 				l_strFileName += " :0-";
 				l_strFileName += l_strWASMFile;
 				l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);

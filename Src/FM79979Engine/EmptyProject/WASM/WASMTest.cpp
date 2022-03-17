@@ -302,8 +302,8 @@ int main()
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
 	printf("do SDL_Init(SDL_INIT_EVERYTHING)\n");
-#define	CANVANS_WIDTH	1024
-#define	CANVANS_HEIGHT	768
+#define	CANVANS_WIDTH	768
+#define	CANVANS_HEIGHT	1024
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1) 
 	{
 		return -1;
@@ -343,13 +343,13 @@ int main()
 		//{
 		//	printf("emscripten_websocket_is_supported failed\n");
 		//}
-		FMLog::Init();
+		//FMLog::Init();
 		cGameApp::CreateDefaultOpenGLRender();
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_HEIGHT;
-		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_WIDTH;
-		cGameApp::m_sbDebugFunctionWorking = true;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
+		//cGameApp::m_sbDebugFunctionWorking = true;
 		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		g_pGameApp->Init();
 		emscripten_set_main_loop(&Loop, 0 ,1);

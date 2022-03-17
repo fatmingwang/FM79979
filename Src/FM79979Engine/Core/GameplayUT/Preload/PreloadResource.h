@@ -5,7 +5,7 @@
 //if download data is not latest please clear cached...
 //I spent a lot time to deubg why data is not same...-_-
 //
-//caching in IndexDB not in memory.
+//caching in IndexedDB not in memory.
 //https://emscripten.org/docs/api_reference/fetch.html
 //https://stackoverflow.com/questions/54617194/how-to-save-files-from-c-to-browser-storage-with-emscripten
 namespace FATMING_CORE
@@ -22,28 +22,33 @@ namespace FATMING_CORE
 			size_t			uiSize;
 			bool			Assign(TiXmlElement* e_pTiXmlElement);
 		};
-		std::string		m_strDomainName;
-		sFileData		m_CurrentFileData;
-		bool			m_bWaitIndexDBResponse;
-		bool			m_bDoAllFileDownloadedSyncIndexDB;
+		std::map<std::wstring, sFileData>	m_FromCache_FileNameAndFileDataMap;
+		std::map<std::wstring, sFileData>	m_FromWASMData_FileNameAndFileDataMap;
+		void								WriteCacheFileData();
+		std::map<std::wstring, sFileData>	ParseCacheFileData(TiXmlElement*e_pRoot);
+		std::string							m_strDomainName;
+		sFileData							m_CurrentFileData;
+		bool								m_bWaitIndexedDBInitOkay;
+		bool								m_bDoAllFileDownloadedSyncIndexedDB;
 		//
-		std::vector<std::string> m_strDownloadFailedFileName;
-		bool				m_bWaitForDownloadFromInternet;
-		float				m_fElpaseTime;
-		UT::sTimeCounter	m_WaitIndexDBsyncTC;
-		UT::sTimeAndFPS		m_ParseTC;
-		UT::sTimeAndFPS		m_TimeElpaseTC;
-		std::wstring		m_strCurrentObjectInfo;
-		std::wstring		m_strLastObject;
-		int					m_iResourceCount;
-		int					m_iCurrentResourceIndex;
-		int					m_iSkipDomainNameIndex;
-		int					m_iNumByteDownload;
+		std::vector<std::string>			m_strDownloadFailedFileName;
+		bool								m_bWaitForDownloadFromInternet;
+		float								m_fElpaseTime;
+		UT::sTimeCounter					m_WaitIndexedDBsyncTC;
+		UT::sTimeAndFPS						m_ParseTC;
+		UT::sTimeAndFPS						m_TimeElpaseTC;
+		std::wstring						m_strCurrentObjectInfo;
+		std::wstring						m_strLastObject;
+		int									m_iResourceCount;
+		int									m_iCurrentResourceIndex;
+		int									m_iSkipDomainNameIndex;
+		int									m_iNumByteDownload;
+		void								DoFetchFile();
 	public:
 		cPreLoadFromInternet();
 		~cPreLoadFromInternet();
 		void	AddDownloadSize(int e_iSize) { m_iNumByteDownload += e_iSize; }
-		void	SetWaitForDownloadFromInternet(bool e_bWaitForDownloadFromInternet);
+		void	SetWaitForDownloadFromInternet(bool e_bWaitForDownloadFromInternet,std::string e_strFileName);
 		void	AddDownloadFailedFileName(const char*e_strFileName);
 		bool	Init(const char*e_strPreloadFileName);
 		void	Run();

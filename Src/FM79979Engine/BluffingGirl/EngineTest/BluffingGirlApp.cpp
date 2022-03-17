@@ -210,7 +210,6 @@ cBluffingGirlApp::cBluffingGirlApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2
 cBluffingGirlApp::cBluffingGirlApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
-	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
 	m_sfVersion = 1.f;
 	*m_psstrGameAppName = "BluffingGirlEN";
 	g_pLoadingProgressCallBack = WTLoading;
@@ -242,6 +241,7 @@ cBluffingGirlApp::~cBluffingGirlApp()
 void	cBluffingGirlApp::Init()
 {
 	FMLog::LogWithFlag("cBluffingGirlApp::Init start \n", CORE_LOG_FLAG);
+	cGameApp::m_spSoundParser->Parse("BluffingGirl/Sound/Sound.xml");
 #ifndef WASM
 	cGameApp::Init();
 #endif

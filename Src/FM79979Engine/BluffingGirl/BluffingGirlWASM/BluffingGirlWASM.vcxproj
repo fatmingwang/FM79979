@@ -41,10 +41,12 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -94,8 +96,9 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>-s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=2 --profiling -s DEMANGLE_SUPPORT=1 -g4</AdditionalOptions>
+      <AdditionalOptions>-lidbfs.js -s ERROR_ON_UNDEFINED_SYMBOLS=0 -s ALLOW_MEMORY_GROWTH=1 -s FETCH=1  -s FULL_ES2=1 -s ASSERTIONS=2 --profiling -s DEMANGLE_SUPPORT=1 -g4</AdditionalOptions>
       <AdditionalDependencies>-lpthread;%(AdditionalDependencies)</AdditionalDependencies>
+      <JsLibrary>%(JsLibrary)</JsLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
@@ -107,7 +110,7 @@
     </ClCompile>
     <Link>
       <PreloadFile>./assets</PreloadFile>
-      <AdditionalOptions>--bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES2=1 </AdditionalOptions>
+      <AdditionalOptions>-lidbfs.js --bind -s ALLOW_MEMORY_GROWTH=1 -s ERROR_ON_UNDEFINED_SYMBOLS=0  -s FETCH=1 -s FULL_ES2=1 </AdditionalOptions>
       <AdditionalDependencies>-lpthread;-lopenal;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>

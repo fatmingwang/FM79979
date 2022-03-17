@@ -117,9 +117,68 @@ void Loop()
 	SDL_GL_SwapBuffers();
 }
 
+void FileTest()
+{
+	printf("try to write file\n");
+	const char* l_strFileName = "/offline/666.txt";
+	int l_iNumLength = 0;
+	auto l_strFileContent = UT::GetFileContent(l_strFileName, l_iNumLength);
+	if (l_strFileContent)
+	{
+		printf("has file\n");
+		printf(l_strFileContent);
+		printf("\n");
+	}
+	else
+	{
+		printf("no file\n");
+		if (UT::SaveTxtToFile(l_strFileName, "3939889", 7))
+		{
+			printf("file saved\n");
+		}
+		else
+		{
+			printf("file not saved\n");
+		}
+	}
+}
 
 int main()
 {
+	////http://www.alternativegames.net/blog/porting-to-emscripten/
+	//EM_ASM
+	//(
+	//	//FS.createFolder('/', 'user_data', true, true)
+	//	//FS.mount(IDBFS, {}, '/user_data');
+	//	// Make a directory other than '/'
+	//	FS.mkdir('/offline');
+	//	// Then mount with IDBFS type
+	//	FS.mount(IDBFS, {}, '/offline');
+	//	Module.print("start file sync");
+	//	//flag to check when data are synchronized
+	//	Module.syncdone = 0;
+	//	// Then sync
+	//	FS.syncfs(true, function(err)
+	//	{
+	//		// Error
+	//		if (err) console.log('ERROR!', err);
+	//		Module.syncdone = 1;
+	//		console.log('finished syncing..');
+	//	});
+	//);
+// Don't forget to sync to make sure you store it to IndexedDB
+ //   EM_ASM
+	//(
+	//	FS.syncfs(function(error) 
+	//{
+	//	if (error) 
+	//	{
+	//		console.log("Error while syncing", error);
+	//	}
+	//});
+ //   );
+	//Sleep(300);
+	//return 0;
 	//linker command line for openglES2
 	//building without any flags gives ability to target WebGL 1.0 support via GLES2 headers.No emulation.This is practically core GLES2.
 	//building with - s LEGACY_GL_EMULATION = 1 gives(a very limited set of) desktop GL emulation
@@ -177,6 +236,11 @@ int main()
 #define	CANVANS_WIDTH	1280//*0.7
 #define	CANVANS_HEIGHT	720//*0.7
 	printf("start\n");
+	//char cwd[PATH_MAX];
+	//if (getcwd(cwd, sizeof(cwd)) != NULL)
+	//{
+	//	printf("Directory:%s\n",cwd);
+	//}
 	FMLog::Init();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
@@ -197,22 +261,18 @@ int main()
 		return -1;
 	}
 	FMLog::Log("new cPreLoadFromInternet\n", false);
+	g_pGameApp = new cBluffingGirlApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 	//please copy Media/BluffingGirl folder into your server repository
-	//g_pPreLoadFromInternet = new cPreLoadFromInternet();
-	//bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("assets/PreloadFile.xml");
+	g_pPreLoadFromInternet = new cPreLoadFromInternet();
+	bool	l_bDurningPreload = g_pPreLoadFromInternet->Init("PreloadFile.xml");
 	if (l_pSurf_Display)
 	{
 		FMLog::Log("SDL surface exists start create our game\n", false);
 		//cGameApp::m_sbDebugFunctionWorking = true;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.x = 720;
 		cGameApp::m_spOpenGLRender->m_vGameResolution.y = 1280;
-		g_pGameApp = new cBluffingGirlApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
-		if (g_pGameApp)
-		{
-			g_pGameApp->Init();
-		}
 		cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(CANVANS_HEIGHT, CANVANS_WIDTH, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
-		FMLog::Log("start to emscripten_set_main_loop Feb 05 2022_1\n", false);
+		FMLog::Log("start to emscripten_set_main_loop Mar 16 2022\n", false);
 #ifdef TEST_RUN
 		cMPDIList*l_pMPDILIst = cGameApp::GetMPDIListByFileName(L"BluffingGirl/Image/Main_Massage.mpdi");
 		if(l_pMPDILIst)

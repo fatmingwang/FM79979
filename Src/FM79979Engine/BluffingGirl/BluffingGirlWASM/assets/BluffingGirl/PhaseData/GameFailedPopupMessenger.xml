@@ -1,9 +1,0 @@
-<Root>
-	<cPhasePopUpMessager Name="GoToStore" RenderLastPhase="1" UpdateLastPhase="1">
-		<cButtonDialog Description="Test">
-			<cMPDI cMPDIList="BluffingGirl/Image/Mm_Select.mpdi" cMPDI="Go_Shop_Heart"/>
-		</cButtonDialog>
-		<Messenger ButtonName="Yes" NewPhaseName="Store" InitNewPhase="1" DestroyOldPhase="0"/>
-		<Messenger ButtonName="No" NewPhaseName="BluffingDiceGame" InitNewPhase="0" DestroyOldPhase="0"/>
-	</cPhasePopUpMessager>
-</Root>

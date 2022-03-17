@@ -1,7 +1,0 @@
-<MainfunctionButton ClickSound="Sound/CallClick.wav">
-	<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Fb_Button" Name="FB" />
-	<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Shop_Button" Name="Store" />
-	<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="System_Button" Name="Setup" />
-	<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="Main" cSubMPDI="Mmshake_Button" Name="HeartRecoverSelectGirl" />
-	<cImageButton cMPDIList="BluffingGirl/Image/Main_Massage.mpdi" cMPDI="NewMessage" cSubMPDI="Main_Message_Board" Name="ChoiceGirl" />
-</MainfunctionButton>
