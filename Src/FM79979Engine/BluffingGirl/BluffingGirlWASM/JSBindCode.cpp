@@ -13,9 +13,8 @@ EM_JS
 	{
 		canvas.onfullscreenchange = (event) =>
 		{
-			var rect = canvas.getBoundingClientRect();
-			canvas.width = rect.width;
-			canvas.height = rect.height;
+			canvas.width = canvas.clientWidth;
+			canvas.height = canvas.clientHeight;
 		};
 	}
 );
@@ -34,33 +33,8 @@ EM_JS
 			if (document.exitFullscreen)
 			{
 				document.exitFullscreen();
-				//canvas.width = document.body.scrollWidth;// / window.devicePixelRatio;
-				//canvas.height = document.body.scrollHeight;// window.devicePixelRatio;
-				//var rect = canvas.getBoundingClientRect();
-				//canvas.width = rect.width;
-				//canvas.height = rect.height;
 			}
 		}
-		//canvas.width = document.body.scrollWidth;// / window.devicePixelRatio;
-		//canvas.height = document.body.scrollHeight;// window.devicePixelRatio;
-		//canvas.width = window.innerWidth;
-		//canvas.height = window.innerHeight;
-		//canvas.width = document.body.clientWidth; //document.width is obsolete
-		//canvas.height = document.body.clientHeight; //document.height is obsolete
-		//canvas.width = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-		//canvas.height = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth; 
-
-		//canvas.width = document.body.scrollWidth;// / window.devicePixelRatio;
-		//canvas.height = document.body.scrollHeight;// window.devicePixelRatio;
-		//var displayWidth = canvas.clientWidth * window.devicePixelRatio;
-		//var displayHeight = canvas.clientHeight * window.devicePixelRatio;
-		//if (canvas.width !== displayWidth || canvas.height !== displayHeight) 
-		//{
-		//	canvas.width = displayHeight;
-		//	canvas.height = displayWidth;
-		//}
-		//console.log("width:"+ canvas.width+",height"+ canvas.height);
-		//document.documentElement.requestFullscreen().catch ((e) => { console.log(e); });
 	}
 	
 );
@@ -84,11 +58,9 @@ EM_JS
 	}
 );
 
-
-//https://stackoverflow.com/questions/36859325/fullscreen-full-dpi-webgl-canvas-on-mobile-device
 EM_JS
 (
-	int, WASM_GetViewportWidth, (),
+	void, WASM_JSViewportUpdate, (),
 	{
 		if (canvas.width != window.innerWidth)
 		{
@@ -98,7 +70,14 @@ EM_JS
 		{
 			canvas.height = window.innerHeight;
 		}
-		//return window.innerHeight;
+	}
+);
+
+//https://stackoverflow.com/questions/36859325/fullscreen-full-dpi-webgl-canvas-on-mobile-device
+EM_JS
+(
+	int, WASM_GetViewportWidth, (),
+	{
 		return canvas.width;
 	}
 );
@@ -107,7 +86,6 @@ EM_JS
 (//for portrait not landscape
 	int, WASM_GetViewportHeight, (),
 	{
-		//return window.innerWidth;
 		return canvas.height;
 	}
 );
@@ -161,73 +139,6 @@ EM_JS
 	}
 );
 
-
-EM_JS
-(
-	int, WASM_get_canvas_width, (),
-	{
-		//if (window.matchMedia("(orientation: portrait)").matches) 
-		//{
-		//	// you're in PORTRAIT mode
-		//}
-
-		//if (window.matchMedia("(orientation: landscape)").matches) 
-		//{
-		//	// you're in LANDSCAPE mode
-		//}
-		//var l_iScreenWidth = screen.width>screen.height? screen.height: screen.width;
-		//var l_iCanvansWidth = canvas.width > canvas.height ? canvas.height : canvas.width;
-		//return Browser.isFullscreen? l_iScreenWidth : l_iCanvansWidth;
-		//return Browser.isFullscreen ? screen.width : canvas.width;
-		//return Browser.isFullscreen ? window.screen.width * window.devicePixelRatio : canvas.width;
-		//return window.screen.width;
-		//return canvas.height;
-		//return Math.max(
-		//	document.body.scrollWidth,
-		//	document.documentElement.scrollWidth,
-		//	document.body.offsetWidth,
-		//	document.documentElement.offsetWidth,
-		//	document.documentElement.clientWidth
-		//);
-		//return Math.max(
-		//	document.body.scrollHeight,
-		//	document.documentElement.scrollHeight,
-		//	document.body.offsetHeight,
-		//	document.documentElement.offsetHeight,
-		//	document.documentElement.clientHeight
-		//);
-	return 720;
-	}
-);
-EM_JS
-(
-	int, WASM_get_canvas_height, (),
-	{
-		//var l_iScreenHeight = screen.width > screen.height ? screen.width: screen.height;
-		//var l_iCanvansHeight = canvas.width > canvas.height ? canvas.width: canvas.height;
-		//return Browser.isFullscreen?l_iScreenHeight:l_iCanvansHeight;
-		//return Browser.isFullscreen ? screen.height: canvas.height;
-		//return Browser.isFullscreen ? window.screen.height * window.devicePixelRatio : canvas.height;
-		//return window.screen.height;
-		//return canvas.weight;
-		//return Math.max(
-		//	document.body.scrollHeight,
-		//	document.documentElement.scrollHeight,
-		//	document.body.offsetHeight,
-		//	document.documentElement.offsetHeight,
-		//	document.documentElement.clientHeight
-		//);
-			//return Math.max(
-			//	document.body.scrollWidth,
-			//	document.documentElement.scrollWidth,
-			//	document.body.offsetWidth,
-			//	document.documentElement.offsetWidth,
-			//	document.documentElement.clientWidth
-			//);
-		return 1280;
-	}
-);
-
 int		GetBrowserWidth() {	return WASM_GetBrowserWidth(); }
 int		GetBrowserHeight(){ return WASM_GetBrowserHeight(); }
 
@@ -237,11 +148,11 @@ int		GetViewportHeight() { return WASM_GetViewportHeight(); }
 bool	IsNotPC() { return WASM_IsNotPC(); }
 int		get_CanvasPosX() { return WASM_get_CanvasPosX(); }
 int		get_CanvasPosY() { return WASM_get_CanvasPosY(); }
-int		get_canvas_width() { return WASM_get_canvas_width(); }
-int		get_canvas_height() { return WASM_get_canvas_height(); }
+
 void	JSDoFullscreen() { WASM_Fullscreen(); }
 
 void	JSInit(){	WASM_JSInit();}
+void	JSViewportUpdate() { WASM_JSViewportUpdate(); }
 
 
 //end #ifdef WASM

@@ -251,6 +251,7 @@ cMPDI*	GetMPDI(const char*e_strFileName,int e_iIndex)
 void	cBluffingGirlApp::Render()
 {
 #ifdef WASM
+	JSViewportUpdate();
 	auto l_iViewportWidth = GetViewportWidth();
 	auto l_iViewportHeight = GetViewportHeight();
 	//auto l_iWidth = GetBrowserWidth();
