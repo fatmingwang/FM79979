@@ -32,18 +32,24 @@ namespace FATMING_CORE
 		printf("Finished downloading %llu bytes from URL %s.\n", fetch->numBytes, fetch->url);
 		cPreLoadFromInternet*l_pPreLoadFromInternet = (cPreLoadFromInternet*)fetch->userData;
 		l_pPreLoadFromInternet->AddDownloadSize(fetch->numBytes);
-		cBinaryFile l_cBinaryFile;
-		//  add /GameApp for IndexedDB.
-		auto l_strFileName = UT::ComposeMsgByFormat("%s",fetch->url);
-		if (l_cBinaryFile.Writefile(l_strFileName.c_str(), true, true))
+		auto l_strFileName = UT::ComposeMsgByFormat("%s", fetch->url);
+		if (l_pPreLoadFromInternet->IsFileSizeCorrect(fetch->url, fetch->numBytes))
 		{
-			l_cBinaryFile.WriteToFile(fetch->data, fetch->numBytes);
-			FMLog::LogWithFlag("save file finish", CORE_LOG_FLAG);
+			cBinaryFile l_cBinaryFile;
+			if (l_cBinaryFile.Writefile(l_strFileName.c_str(), true, true))
+			{
+				l_cBinaryFile.WriteToFile(fetch->data, fetch->numBytes);
+				FMLog::LogWithFlag("save file finish", CORE_LOG_FLAG);
+			}
+			else
+			{
+				l_strFileName += " save file failed";
+				FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
+			}
 		}
 		else
 		{
-			l_strFileName += " save file failed";
-			FMLog::LogWithFlag(l_strFileName.c_str(), CORE_LOG_FLAG);
+			l_pPreLoadFromInternet->AddDownloadFailedFileName(fetch->url);
 		}
 		// The data is now available at fetch->data[0] through fetch->data[fetch->numBytes-1];
 		emscripten_fetch_close(fetch); // Free data associated with the fetch.
@@ -92,7 +98,7 @@ namespace FATMING_CORE
 					console.log('ERROR!', err);
 				}
 				Module.syncdone = 1;
-				console.log('finished syncing..');
+				console.log('/GameApp mount sync finished ');
 			});
 		);
 
@@ -101,6 +107,53 @@ namespace FATMING_CORE
 	{
 
 	}
+
+
+	bool	cPreLoadFromInternet::Init(const char* e_strPreloadFileName)
+	{
+		m_TimeElpaseTC.Update();
+		m_FromWASMData_FileNameAndFileDataMap.clear();
+		m_bWaitIndexedDBInitOkay = true;
+		m_iNumByteDownload = 0;
+		m_iCurrentResourceIndex = 0;
+		m_bDoAllFileDownloadedSyncIndexedDB = false;
+		m_strDownloadFailedFileName.clear();
+		m_ParseTC.Update();
+		m_fElpaseTime = 0.f;
+		FMLOG("cPreLoadFromInternet::Init", CORE_LOG_FLAG);
+		if (this->ParseDataIntoXMLNode(e_strPreloadFileName))
+		{
+			FMLog::LogWithFlag("cPreLoadFromInternet start ok1", CORE_LOG_FLAG);
+			m_FromWASMData_FileNameAndFileDataMap = ParseCacheFileData(m_pRootElement);
+			this->m_pCurrentTiXmlElement = this->m_pRootElement;
+			if (m_pCurrentTiXmlElement)
+			{
+				auto l_strCount = m_pCurrentTiXmlElement->Attribute(L"Count");
+				auto l_strDomainName = m_pCurrentTiXmlElement->Attribute(L"DomainName");
+				if (l_strCount)
+				{
+					m_iResourceCount = GetInt(l_strCount);
+				}
+				if (l_strDomainName)
+				{
+					m_iSkipDomainNameIndex = wcslen(l_strDomainName);
+					m_strDomainName = ValueToString(l_strDomainName);
+				}
+				m_pCurrentTiXmlElement = m_pCurrentTiXmlElement->FirstChildElement();
+				if (m_pCurrentTiXmlElement)
+				{
+					auto l_pAttribute = m_pCurrentTiXmlElement->FirstAttribute();
+					m_strCurrentObjectInfo = l_pAttribute->Value();
+				}
+			}
+			m_ParseTC.Update();
+			FMLog::LogWithFlag("cPreLoadFromInternet::Init okay2", CORE_LOG_FLAG);
+			return true;
+		}
+		FMLog::LogWithFlag("cPreLoadFromInternet start failed", CORE_LOG_FLAG);
+		return false;
+	}
+
 
 	void cPreLoadFromInternet::WriteCacheFileData()
 	{
@@ -119,8 +172,7 @@ namespace FATMING_CORE
 				l_pRoot->LinkEndChild(l_pFileData);
 				++l_iNum;
 			}
-			std::string l_strFileName = "/GameApp/";
-			l_strFileName += PRELOAD_RESOURCE_FILE_DATA;
+			std::string l_strFileName = PRELOAD_RESOURCE_FILE_DATA;
 			if (l_Doc.SaveFile(l_strFileName.c_str()))
 			{
 				FMLog::Log(UT::ComposeMsgByFormat("write preload cache xml file,count:%d", l_iNum).c_str(), false);
@@ -234,13 +286,9 @@ namespace FATMING_CORE
 					FMLog::LogWithFlag(UT::ComposeMsgByFormat("start to download %s", l_strFileName.c_str()).c_str(), CORE_LOG_FLAG);
 					emscripten_fetch(&attr, l_strFileName.c_str());
 					l_iCurrentRetry = l_ciRetryIfFileExists;
-					//FMLog::LogWithFlag("start to download");
-					//FMLog::LogWithFlag(l_strFileName.c_str());
 				}
 				else
 				{
-					//FMLog::LogWithFlag(l_strFileName.c_str());
-					//FMLog::LogWithFlag("exists skip download!");
 					FMLog::LogWithFlag(UT::ComposeMsgByFormat("%s exists skip download!", l_strFileName.c_str()).c_str(), CORE_LOG_FLAG);
 					++l_iCurrentRetry;
 				}
@@ -286,51 +334,6 @@ namespace FATMING_CORE
 		//++m_iCurrentResourceIndex;
 	}
 
-	bool	cPreLoadFromInternet::Init(const char*e_strPreloadFileName)
-	{
-		m_FromWASMData_FileNameAndFileDataMap.clear();
-		m_bWaitIndexedDBInitOkay = true;
-		m_iNumByteDownload = 0;
-		m_iCurrentResourceIndex = 0;
-		m_bDoAllFileDownloadedSyncIndexedDB = false;
-		m_strDownloadFailedFileName.clear();
-		m_ParseTC.Update();
-		m_fElpaseTime = 0.f;
-		FMLog::LogWithFlag("cPreLoadFromInternet::Init", CORE_LOG_FLAG);
-		if (this->ParseDataIntoXMLNode(e_strPreloadFileName))
-		{
-			FMLog::LogWithFlag("cPreLoadFromInternet start ok1", CORE_LOG_FLAG);
-			m_FromWASMData_FileNameAndFileDataMap = ParseCacheFileData(m_pRootElement);
-			this->m_pCurrentTiXmlElement = this->m_pRootElement;
-			if (m_pCurrentTiXmlElement)
-			{
-				auto l_strCount = m_pCurrentTiXmlElement->Attribute(L"Count");
-				auto l_strDomainName = m_pCurrentTiXmlElement->Attribute(L"DomainName");
-				if (l_strCount)
-				{
-					m_iResourceCount = GetInt(l_strCount);
-				}
-				if (l_strDomainName)
-				{
-					m_iSkipDomainNameIndex = wcslen(l_strDomainName);
-					m_strDomainName = ValueToString(l_strDomainName);
-				}
-				m_pCurrentTiXmlElement = m_pCurrentTiXmlElement->FirstChildElement();
-				if (m_pCurrentTiXmlElement)
-				{
-					auto l_pAttribute = m_pCurrentTiXmlElement->FirstAttribute();
-					m_strCurrentObjectInfo = l_pAttribute->Value();
-				}
-			}
-			m_ParseTC.Update();
-			m_TimeElpaseTC.Update();
-			FMLog::LogWithFlag("cPreLoadFromInternet::Init okay2", CORE_LOG_FLAG);
-			return true;
-		}
-		FMLog::LogWithFlag("cPreLoadFromInternet start failed", CORE_LOG_FLAG);
-		return false;
-	}
-
 	void	cPreLoadFromInternet::Run()
 	{
 		m_TimeElpaseTC.Update();
@@ -340,8 +343,8 @@ namespace FATMING_CORE
 
 	void	cPreLoadFromInternet::Update(float e_fElpaseTime)
 	{
-		m_fElpaseTime += m_ParseTC.fElpaseTime;
 		m_ParseTC.Update();
+		m_fElpaseTime += e_fElpaseTime;
 		if (m_bWaitForDownloadFromInternet)
 		{
 			return;
@@ -422,6 +425,10 @@ namespace FATMING_CORE
 		{
 			//return;
 		}
+		if (m_strDownloadFailedFileName.size())
+		{
+			cGameApp::RenderFont(100, 200, UT::ComposeMsgByFormat(L"There are %d files download failed please retry later", m_strDownloadFailedFileName.size()).c_str());
+		}
 		cGameApp::RenderFont(100,100, UT::ComposeMsgByFormat(L"Download size:%d", m_iNumByteDownload).c_str());		
 		Vector2 l_vPos(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 - 200, cGameApp::m_spOpenGLRender->m_vGameResolution.y / 2 - 50);
 		std::wstring l_strInfo = L"Progress:";
@@ -440,10 +447,10 @@ namespace FATMING_CORE
 			l_strInfo = UT::GetFileNameWithoutFullPath(m_strLastObject.c_str(), false);
 			cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
 		}
-		l_vPos.y += 50;
-		l_strInfo = L"Time:";
-		l_strInfo += ValueToStringW(m_ParseTC.fElpaseTime);
-		cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
+		//l_vPos.y += 50;
+		//l_strInfo = L"Time:";
+		//l_strInfo += ValueToStringW(m_ParseTC.fElpaseTime);
+		//cGameApp::RenderFont(l_vPos, l_strInfo.c_str());
 		l_vPos.y += 100;
 		l_strInfo = L"TotalTime:";
 		l_strInfo += ValueToStringW(m_fElpaseTime);
@@ -468,6 +475,29 @@ namespace FATMING_CORE
 		if (emscripten_run_script_int("Module.WaitAllFileFinish") == 0)
 		{
 			return true;
+		}
+		return false;
+	}
+	bool cPreLoadFromInternet::IsFileSizeCorrect(const char* e_strFileName, int e_iFileSize)
+	{
+		if (e_strFileName)
+		{
+			auto l_IT = m_FromWASMData_FileNameAndFileDataMap.find(ValueToStringW(e_strFileName));
+			if (l_IT != m_FromWASMData_FileNameAndFileDataMap.end())
+			{
+				if (l_IT->second.uiSize == e_iFileSize)
+				{
+					return true;
+				}
+				else
+				{
+					FMLOG("%s size not match:%d", e_strFileName, e_iFileSize);
+				}
+			}
+			else
+			{
+				FMLOG("cannt find file:%s", e_strFileName);
+			}
 		}
 		return false;
 	}

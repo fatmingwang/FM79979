@@ -203,6 +203,9 @@
     <ClCompile Include="..\EngineTest\BluffingGirlPhaseManager.cpp">
       <Filter>Game\Phase</Filter>
     </ClCompile>
+    <ClCompile Include="JSBindCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -306,6 +309,9 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\BluffingGirlPhaseManager.h">
       <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="JSBindCode.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

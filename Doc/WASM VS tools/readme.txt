@@ -41,6 +41,11 @@ C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\
 but you have to install individual components 
 MSVC v140 - VS 2015 c++ build tools(v14.00)
 
+now 
+a Japanese make a install file for VS2019 and Vs2022
+
+https://github.com/nokotan/VSExtForEmscripten
+
 
 
 3.

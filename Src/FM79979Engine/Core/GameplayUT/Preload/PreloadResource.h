@@ -57,6 +57,7 @@ namespace FATMING_CORE
 		float	GetProgress();
 		int		GetSkipDomainNameIndex() {return m_iSkipDomainNameIndex;}
 		bool	IsFinish();
+		bool	IsFileSizeCorrect(const char*e_strFileName,int e_iFileSize);
 	};
 //end namespace FATMING_CORE
 }

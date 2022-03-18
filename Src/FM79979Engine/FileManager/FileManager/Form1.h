@@ -2,6 +2,14 @@
 
 #include "../../DotNetCommon/DotNetCommonTools.h"
 #include "MD5.h"
+#include <sys/stat.h>
+
+long GetFileSize(std::string filename)
+{
+	struct stat stat_buf;
+	int rc = stat(filename.c_str(), &stat_buf);
+	return rc == 0 ? stat_buf.st_size : -1;
+}
 namespace FileManager 
 {
 	using namespace System;
@@ -349,7 +357,7 @@ private: System::Void Delete_button_Click(System::Object^  sender, System::Event
 				auto l_pWriter = XmlWriter::Create("PreloadFile.xml", l_pSetting);
 				l_pWriter->WriteStartDocument();
 				l_pWriter->WriteStartElement("Root");
-				l_pWriter->WriteAttributeString("Domain","127.0.0.1");
+				l_pWriter->WriteAttributeString("DomainName","127.0.0.1");
 				l_pWriter->WriteAttributeString("Count", l_pFileArrayList->Count.ToString());
 				for each (String ^ l_FileName in l_pFileArrayList)
 				{
@@ -365,7 +373,9 @@ private: System::Void Delete_button_Click(System::Object^  sender, System::Event
 					l_pWriter->WriteStartElement("Data");
 					l_pWriter->WriteAttributeString("FileName", l_FileName->Substring(l_strDirectoryName->Length));
 					l_pWriter->WriteAttributeString("MD5", gcnew String(l_MD5.c_str()));
-					l_pWriter->WriteAttributeString("Size", l_Data->Length.ToString());
+
+					auto l_FileInfo = gcnew System::IO::FileInfo(l_FileName);
+					l_pWriter->WriteAttributeString("Size", l_FileInfo->Length.ToString());
 					l_pWriter->WriteEndElement();
 				}
 				l_pWriter->WriteEndElement();

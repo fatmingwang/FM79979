@@ -21,6 +21,7 @@ namespace FATMING_CORE
 
 //please d onot use 60 as flag setting or core log wiil be ignore?
 #define	CORE_LOG_FLAG		60
+#define	FMLOG(...)FMLog::LogWithFlag(UT::ComposeMsgByFormat( __VA_ARGS__).c_str(), CORE_LOG_FLAG);
 namespace FMLog
 {
 	//if windows messagebox will pop up or just a outputdebugstring,0 for do g_spstrLogErrorMsgString,1 for immediately show messagebox,2 for OutputDebugString,

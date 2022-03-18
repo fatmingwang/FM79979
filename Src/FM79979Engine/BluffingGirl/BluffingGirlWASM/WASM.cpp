@@ -3,12 +3,14 @@
 #include <SDL/SDL.h>
 #include "../../Core/AllCoreInclude.h"
 #include "BluffingGirlApp.h"
+#include "JSBindCode.h"
 //#include "../../Core/Network/SDL_net.h"
 cGameApp*g_pGameApp = 0;
 cPreLoadFromInternet*g_pPreLoadFromInternet = nullptr;
 //#define TEST_RUN
 cMPDI*g_pMPDITest = nullptr;
 cBasicSound*g_pSound = nullptr;
+
 
 void handle_key_up(SDL_keysym* keysym)
 {
@@ -233,15 +235,18 @@ int main()
 	//	< / system.webServer>
 	//	< / configuration>
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
-#define	CANVANS_WIDTH	1280//*0.7
-#define	CANVANS_HEIGHT	720//*0.7
+	FMLog::Init();
 	printf("start\n");
+//#define	CANVANS_WIDTH	1280//*0.7
+//#define	CANVANS_HEIGHT	720//*0.7
+	int CANVANS_WIDTH = GetBrowserWidth();
+	int CANVANS_HEIGHT = GetBrowserHeight();
+	FMLOG("BrowserW:%d,BrowserH:%d", CANVANS_WIDTH, CANVANS_HEIGHT);
 	//char cwd[PATH_MAX];
 	//if (getcwd(cwd, sizeof(cwd)) != NULL)
 	//{
 	//	printf("Directory:%s\n",cwd);
 	//}
-	FMLog::Init();
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;

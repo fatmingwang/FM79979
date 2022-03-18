@@ -864,10 +864,12 @@ namespace UT
 			std::string l_strWASMFile = "/GameApp/" + UT::ConvertFileNameWithoutFullPath(e_strFileName);
 			l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 			std::string l_strFileName = e_strFileName;
+			l_strFileName += " :0-";
+			l_strFileName += l_strWASMFile;
 			if (!l_pFile)
 			{
 				l_strWASMFile = e_strFileName;
-				l_strFileName += " :0-";
+				l_strFileName += " :1-";
 				l_strFileName += l_strWASMFile;
 				l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
 				if (!l_pFile)
@@ -875,7 +877,7 @@ namespace UT
 					l_strWASMFile = "assets/";
 					l_strWASMFile += e_strFileName;
 					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
-					l_strFileName += " :1-";
+					l_strFileName += " :2-";
 					l_strFileName += l_strWASMFile;
 				}
 				if (!l_pFile)
@@ -883,14 +885,14 @@ namespace UT
 					l_strWASMFile = "/GameApp/";
 					l_strWASMFile += e_strFileName;
 					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
-					l_strFileName += " :2-";
+					l_strFileName += " :3-";
 					l_strFileName += l_strWASMFile;
 				}
 				if (!l_pFile)
 				{
 					l_strWASMFile = UT::ConvertFileNameWithoutFullPath(e_strFileName);
 					l_pFile = fopen(l_strWASMFile.c_str(), e_strMode);
-					l_strFileName += " :3-";
+					l_strFileName += " :4-";
 					l_strFileName += l_strWASMFile;
 				}
 			}
