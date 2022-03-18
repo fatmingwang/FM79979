@@ -14,6 +14,8 @@ cBasicSound*g_pSound = nullptr;
 
 void handle_key_up(SDL_keysym* keysym)
 {
+	FMLOG("key up%d", (char)keysym->sym);
+	g_pGameApp->KeyUp((char)keysym->sym);
 	switch (keysym->sym)
 	{
 	case SDLK_ESCAPE:
@@ -28,6 +30,7 @@ void handle_key_up(SDL_keysym* keysym)
 
 void handle_key_down(SDL_keysym* keysym)
 {
+	FMLOG("key down%d", (char)keysym->sym);
 	switch (keysym->sym)
 	{
 	case SDLK_ESCAPE:
@@ -235,6 +238,7 @@ int main()
 	//	< / system.webServer>
 	//	< / configuration>
 	//http://kb.dynamsoft.com/questions/924/Error+"XMLHttpRequest+cannot+load+%2A%2A%2A.+No+%27Access-Control-Allow-Origin%27+header+is+present+on+the+requested+resource."
+	JSInit();
 	FMLog::Init();
 	printf("start\n");
 //#define	CANVANS_WIDTH	1280//*0.7
@@ -250,8 +254,8 @@ int main()
 	cGameApp::CreateDefaultOpenGLRender();
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.x = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.x = 0;
 	cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_HEIGHT;
-	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_WIDTH;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
+	cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
 	{
 		return -1;
@@ -261,7 +265,7 @@ int main()
 	SDL_Surface*l_pSurf_Display = nullptr;
 	FMLog::Log("SDL_SetVideoMode \n", false);
 	//if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL| SDL_RESIZABLE)) == NULL)
-	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_HEIGHT, CANVANS_WIDTH, 32, SDL_OPENGL )) == NULL)
+	if ((l_pSurf_Display = SDL_SetVideoMode(CANVANS_WIDTH, CANVANS_HEIGHT, 32, SDL_OPENGL )) == NULL)
 	{
 		return -1;
 	}

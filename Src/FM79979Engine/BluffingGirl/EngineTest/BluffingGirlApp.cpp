@@ -251,9 +251,11 @@ cMPDI*	GetMPDI(const char*e_strFileName,int e_iIndex)
 void	cBluffingGirlApp::Render()
 {
 #ifdef WASM
-	auto l_iWidth = GetBrowserWidth();
-	auto l_iHeight = GetBrowserHeight();
-	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(l_iHeight, l_iWidth,
+	auto l_iViewportWidth = GetViewportWidth();
+	auto l_iViewportHeight = GetViewportHeight();
+	//auto l_iWidth = GetBrowserWidth();
+	//auto l_iHeight = GetBrowserHeight();
+	cGameApp::m_spOpenGLRender->SetAcceptRationWithGameresolution(l_iViewportWidth, l_iViewportHeight,
 		(int)cGameApp::m_spOpenGLRender->m_vGameResolution.x, (int)cGameApp::m_spOpenGLRender->m_vGameResolution.y);
 #else
 	//glViewport((int)cGameApp::m_spOpenGLRender->m_vViewPortSize.x,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.y,(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(),(int)cGameApp::m_spOpenGLRender->m_vViewPortSize.Height());
@@ -292,6 +294,10 @@ void	cBluffingGirlApp::Render()
 				m_spPlayerData->Render();
 		}
 	}
+	//for WASM test
+	//cGameApp::RenderFont(360, 640, UT::ComposeMsgByFormat(L"Browser:%d,H:%d\nViewport:%d,%d", l_iWidth, l_iHeight, l_iViewportWidth, l_iViewportHeight).c_str());
+
+
 	GLRender::RenderSphere(Vector2(this->m_sMousePosition.x, m_sMousePosition.y), 10);
 		//void	RenderSphere(Vector2 e_vPos, float e_fRadius, Vector4 e_vColor = Vector4(0.f, 1.f, 0.f, 1.f), bool e_bDrawPoint = false, float e_fDensityAngle = 5.f);
 	//m_sbDebugFunctionWorking = true;
@@ -363,6 +369,10 @@ void	cBluffingGirlApp::MouseUp(int e_iPosX,int e_iPosY)
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 #ifdef WASM
 	m_sMousePosition.y += get_CanvasPosY();
+	if (e_iPosX < 100 && e_iPosY < 100)
+	{
+		JSDoFullscreen();
+	}
 #endif
 	if (m_pPhaseManager)
 	{
@@ -380,8 +390,15 @@ void	cBluffingGirlApp::KeyDown(char e_char)
 void	cBluffingGirlApp::KeyUp(char e_char)
 {
 	cGameApp::KeyUp(e_char);
-	if( m_pPhaseManager )
+	if (m_pPhaseManager)
 		this->m_pPhaseManager->KeyUp(e_char);
+#ifdef WASM
+//	FMLOG("key up%d",e_char);
+	if (e_char == 13)
+	{
+		JSDoFullscreen();
+	}
+#endif
 	//if( g_pFBFunction )
 	//	g_pFBFunction->DoFBSharePrize();
 }
