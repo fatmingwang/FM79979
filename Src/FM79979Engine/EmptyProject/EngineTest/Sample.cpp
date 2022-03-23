@@ -6,6 +6,8 @@
 #include "NetworkSample.h"
 #include "TestShader.h"
 #include "WebsocketServer.h"
+#include "Proto/addressbook.pb.h"
+#include "Proto/MessageTest.pb.h"
 //multithread
 //https://stackoverflow.com/questions/59550963/multithreading-in-webassembly
 //#include "../../Core/Bluetooth/Bluetooth.h"
@@ -52,6 +54,8 @@ void						SampleMouseMove(int e_iPosX,int e_iPosY);
 void						SampleMouseUp(int e_iPosX,int e_iPosY);
 void						SampleKeyup(char e_cKey);
 
+tutorial::AddressBook g_AddressBook;
+
 #ifdef WASM
 extern int g_iWASMMPDIIndex;
 extern void JSBindingRender();
@@ -59,8 +63,54 @@ extern void JSBindingRender();
 
 cBasicSound*g_pBG = nullptr;
 
+void	ProtoBufTest()
+{
+	//TopLevelMessage;
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
+	{
+		//https://developers.google.com/protocol-buffers/docs/proto#options
+		//import "google/protobuf/descriptor.proto";
+		//extend google.protobuf.MessageOptions {
+		//  optional string my_option = 51234;
+		//}
+		//message MyMessage {
+		//  option (my_option) = "Hello world!";
+		//}
+		string value = MessageTest::MyMessage::descriptor()->options().GetExtension(MessageTest::my_option);
+		int a = 0;
+	}
+	{
+		//https://stackoverflow.com/questions/40450556/how-to-know-which-protobuf-message-the-byte-array-is/50291651#50291651
+		//google::protobuf::Any l_Any = google::protobuf::Any::ParseFrom(person);
+		//tutorial::Person person = google::protobuf::Any::pack(person);
+
+		//out.write(any.toByteArray());
+	}
+	{
+		tutorial::Person l_Person;
+		l_Person.add_phones();
+		g_AddressBook.ByteSize();
+		//https://protobuf.narkive.com/Mv4sIIhp/sending-from-a-c-program-to-a-java-program-over-socket
+		int size = g_AddressBook.ByteSize();
+		//network buffer 
+		char* buffer = (char*)alloca(size);
+		g_AddressBook.SerializeToArray(buffer, size);
+		int aa = 0;
+	}
+	{
+		MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST l_Data;
+		l_Data.set_strauth("132");
+		l_Data.set_strgameid("79979");
+		//https://stackoverflow.com/questions/9496101/protocol-buffer-over-socket-in-c
+	}
+
+}
+
 void	SoundBGThread()
 {
+
+	google::protobuf::ShutdownProtobufLibrary();
+//	g_AddressBook.add
 	FMLog::Log("SoundBGThread start", false);
 	if (g_pBG)
 	{
@@ -111,6 +161,7 @@ void   ThreadLoadTest()
 
 void	LoadSample()
 {
+	ProtoBufTest();
 	FMLog::Log("LoadSample start", false);
 #ifdef WIN32
 	WSADATA wsaData;
