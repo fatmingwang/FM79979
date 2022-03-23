@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="DNCT">
+      <UniqueIdentifier>{dc57ef4d-d8d2-4538-bf2d-60a9f832ffd7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{9d1d0d73-fae5-419b-8242-af5c9fcadb29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{1e7b10fa-7f59-49d2-894e-444f14dae5c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bluetooth">
+      <UniqueIdentifier>{824f6d74-2b46-4cdf-9054-2d78bbfdcbaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ComputerShader">
+      <UniqueIdentifier>{8b5248e5-85f9-4c2f-8c2b-c1e01bb7145a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DotNetCommon\DotNetCommonTools.cpp">
+      <Filter>DNCT</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Sample.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TestPhase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="Trigonometric.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestShader.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="ComputerShader.cpp">
+      <Filter>Game\ComputerShader</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Form1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DotNetCommon\DotNetCommonTools.h">
+      <Filter>DNCT</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TestPhase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigonometric.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestShader.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Bluetooth.h">
+      <Filter>Bluetooth</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerShader.h">
+      <Filter>Game\ComputerShader</Filter>
+    </ClInclude>
+    <ClInclude Include="ComputerShaderUniform.h">
+      <Filter>Game\ComputerShader</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Form1.resX" />
+    <EmbeddedResource Include="Trigonometric.resx" />
+  </ItemGroup>
+</Project>
