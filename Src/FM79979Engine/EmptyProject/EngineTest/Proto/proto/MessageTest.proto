@@ -1,0 +1,39 @@
+// See README.txt for information and build instructions.
+//
+// Note: START and END tags are used in comments to define sections used in
+// tutorials.  They are not part of the syntax for Protocol Buffers.
+//
+// To get an in-depth walkthrough of this file and the related examples, see:
+// https://developers.google.com/protocol-buffers/docs/tutorials
+
+// [START declaration]
+syntax = "proto3";
+package MessageTest;
+
+// [END declaration]
+
+enum eMessageID
+{
+    eMI_C2S_LOGIN_REQUEST = 0;
+    eMI_S2C_LOGIN_RESULT = 1;
+    eMI_MAX = 3;
+}
+
+
+// [START messages]
+message sNetworkData_eMI_C2S_LOGIN_REQUEST
+{
+    string strGameID = 1;
+    string strAuth = 2;
+}
+
+message sNetworkData_eMI_S2C_LOGIN_RESULT
+{
+    string          strErrorCode = 1;
+    string          strVersion = 2;
+    string          strCurrency = 3;
+    int64           i64Money = 4;
+    string          strNote = 5;
+    repeated int64  i64BetList = 6;
+}
+// [END messages]
