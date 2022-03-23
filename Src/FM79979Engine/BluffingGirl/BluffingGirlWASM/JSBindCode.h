@@ -11,5 +11,6 @@
 	int		get_CanvasPosY();
 	void	JSDoFullscreen();
 	void	JSInit();
+	//please call this in main loop or viewport get wrong.
 	void	JSViewportUpdate();
 #endif

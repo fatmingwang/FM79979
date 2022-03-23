@@ -2,8 +2,6 @@
 #include <emscripten.h>
 //webgl fullscreen.
 //https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
-//main point is style="width: 720px; height: 1280px;" this should be out game resolution or viewport get wired.
-// <canvas class="emscripten" id="canvas" style="width: 720px; height: 1280px;" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
 //for mobile viewport
 //https://impactjs.com/documentation/impact-on-mobile-platforms#always-render-in-the-native-resolution
 
@@ -62,13 +60,14 @@ EM_JS
 (
 	void, WASM_JSViewportUpdate, (),
 	{
-		if (canvas.width != window.innerWidth)
+		if (canvas.width != window.innerWidth-20)
 		{
-			canvas.width = window.innerWidth;
+			canvas.width = window.innerWidth-20;
 		}
-		if (canvas.height != window.innerHeight)
+
+		if (canvas.height != window.innerHeight-30)
 		{
-			canvas.height = window.innerHeight;
+			canvas.height = window.innerHeight-30;
 		}
 	}
 );
