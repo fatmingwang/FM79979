@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{6D394C49-B2DD-4475-BFD3-12B01C1930D7}</ProjectGuid>
     <RootNamespace>test</RootNamespace>
     <Keyword>Win32Proj</Keyword>
@@ -38,12 +39,15 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
-    <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
-    <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <PlatformToolset>emcc</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -83,7 +87,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -122,8 +126,9 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM;DEBUG;EMCC_DEBUG;</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-s --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-pthread  -s --profiling  --bind  -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard />
     </ClCompile>
     <PreBuildEvent>
       <Command>
@@ -136,7 +141,7 @@
     <Link>
       <PreloadFile>../assets;%(PreloadFile)</PreloadFile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s FETCH=1 -s FULL_ES2=1 -s SOCKET_DEBUG=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -pthread  -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=1  --bind -s PTHREAD_POOL_SIZE=3 -s FETCH=1 -s FULL_ES2=1 -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 -s PROXY_POSIX_SOCKETS=1 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PreLinkEvent>
       <Command>
@@ -151,38 +156,45 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <CppLanguageStandard>gnu++11</CppLanguageStandard>
-      <AdditionalIncludeDirectories>../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-s --profiling  --bind %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;../EngineTest;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>--profiling -pthread %(AdditionalOptions)</AdditionalOptions>
+      <ExceptionHandling>true</ExceptionHandling>
+      <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
     </ClCompile>
     <Link>
-      <AdditionalOptions>-s WEBSOCKET_SUBPROTOCOL=null -s --profiling -s ALLOW_MEMORY_GROWTH=1   -s ERROR_ON_UNDEFINED_SYMBOLS=0  --bind -s FETCH=1 -s FULL_ES2=1 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-s ERROR_ON_UNDEFINED_SYMBOLS=0 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=1 --bind -pthread -s USE_PTHREADS=1 %(AdditionalOptions)</AdditionalOptions>
       <PreloadFile>../assets;</PreloadFile>
       <JsLibrary>%(JsLibrary)</JsLibrary>
       <AdditionalDependencies>-lwebsocket.js</AdditionalDependencies>
+      <ThreadProfiling>true</ThreadProfiling>
+      <EnableMemoryGrowth>true</EnableMemoryGrowth>
+      <TypedArrays>Default</TypedArrays>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
-    <ClCompile Include="..\EngineTest\TestShader.cpp" />
+    <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc" />
+    <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\EngineTest\TestPhase.cpp" />
     <ClCompile Include="WASMTest.cpp" />
     <ClCompile Include="..\EngineTest\GameApp.cpp" />
     <ClCompile Include="..\EngineTest\Sample.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\EngineTest\NetworkSample.h" />
-    <ClInclude Include="..\EngineTest\TestShader.h" />
+    <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h" />
+    <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProtoBuf\libprotobuf.vcxproj">
+      <Project>{4f256d5e-9cd3-3eab-849b-9982de894f79}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\Core.vcxproj">
       <Project>{d5962a80-cfcf-437a-b224-01c03cf9fd1a}</Project>
     </ProjectReference>

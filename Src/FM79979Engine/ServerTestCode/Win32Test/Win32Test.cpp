@@ -14,11 +14,13 @@
 #include "test.h"
 #include "GameApp.h"
 
-#include "../../AllLibInclude.h"
 #include "Windowsx.h"
 // test.cpp : Defines the entry point for the application.
 #include <corecrt_io.h>
 #include <fcntl.h>
+
+#include "../../AllLibInclude.h"
+
 
 
 //#define VLD_DEBUG
@@ -78,8 +80,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	// Initialize global strings
 	//LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	//LoadString(hInstance, IDC_TEST, szWindowClass, MAX_LOADSTRING);
-	swprintf(szTitle, L"FM79979");
-	swprintf(szWindowClass, L"FM79979");
+	swprintf(szTitle, L"TestServer");
+	swprintf(szWindowClass, L"TestServer");
 	MyRegisterClass(hInstance);
 
 	// Perform application initialization:

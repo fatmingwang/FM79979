@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "GameApp.h"
-#include "TestPhase.h"
+//#include "TestPhase.h"
+#include "NetworkSample.h"
+#include "Proto/addressbook.pb.h"
+#include "Proto/MessageTest.pb.h"
+cNetworkSample* g_pNetworkSample = nullptr;
 
 extern void	LoadSample();
 extern void	DestorySampleObject();
@@ -20,6 +24,10 @@ cEngineTestApp::cEngineTestApp(HWND e_Hwnd,Vector2 e_vGameResolution,Vector2 e_v
 cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize):cGameApp(e_vGameResolution,e_vViewportSize)
 #endif
 {
+#ifdef WASM
+	//FMLOG("new cNetworkSample");
+	//g_pNetworkSample = new cNetworkSample();
+#endif
 	this->m_sbDebugFunctionWorking = true;
 	this->m_sbSpeedControl = true;
 	m_bLeave = false;
@@ -32,6 +40,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 cEngineTestApp::~cEngineTestApp()
 {
 	SAFE_DELETE(m_pPhaseManager);
+	SAFE_DELETE(g_pNetworkSample);
 	DestorySampleObject();
 	Destroy();
 }
@@ -39,14 +48,18 @@ cEngineTestApp::~cEngineTestApp()
 void	cEngineTestApp::Init()
 {
 	cGameApp::Init();
-	LoadSample();
-
-	cGamePhase*l_pGamePhase = new cGamePhase();
-	l_pGamePhase->SetName(L"Test");
-	bool	l_b = this->m_pPhaseManager->AddObject(l_pGamePhase);
-	if( !l_b )
+	if (g_pNetworkSample)
 	{
-		assert(0&&"this phase has been added!");
+		g_pNetworkSample->Init();
+	}
+	//LoadSample();
+
+	//cGamePhase*l_pGamePhase = new cGamePhase();
+	//l_pGamePhase->SetName(L"Test");
+	//bool	l_b = this->m_pPhaseManager->AddObject(l_pGamePhase);
+	//if( !l_b )
+	{
+		//assert(0&&"this phase has been added!");
 	}
 	//let first update is not too big
 	this->m_sTimeAndFPS.Update();
@@ -55,8 +68,12 @@ void	cEngineTestApp::Init()
 void	cEngineTestApp::Update(float e_fElpaseTime)
 {
     cGameApp::Update(e_fElpaseTime);
-	SampleUpdate(e_fElpaseTime);
+	//SampleUpdate(e_fElpaseTime);
 	this->m_pPhaseManager->Update(e_fElpaseTime);
+	if (g_pNetworkSample)
+	{
+		g_pNetworkSample->Update(e_fElpaseTime);
+	}
 }
 
 void	cEngineTestApp::Render()
@@ -65,7 +82,7 @@ void	cEngineTestApp::Render()
 	MyGLEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	cGameApp::Render();
-	SampleRender();
+	//SampleRender();
 	//this->m_pPhaseManager->Render();
 	cGameApp::ShowInfo();
 	//this->m_pPhaseManager->DebugRender();
@@ -91,9 +108,32 @@ void	cEngineTestApp::MouseMove(int e_iPosX,int e_iPosY)
 
 void	cEngineTestApp::MouseUp(int e_iPosX,int e_iPosY)
 {
+	FMLOG("send data");
     cGameApp::MouseUp(e_iPosX,e_iPosY);
 	this->m_pPhaseManager->MouseUp(cGameApp::m_sMousePosition.x,cGameApp::m_sMousePosition.y);
 	SampleMouseUp(m_sMousePosition.x, m_sMousePosition.y);
+	//if (g_pNetworkSample && g_pNetworkSample->GetNetWorkStatus() == eNetWorkStatus::eNWS_CONNECTED)
+	//{
+	//	tutorial::Person l_Person;
+	//	auto l_pPhone = l_Person.add_phones();
+	//	l_pPhone->set_number("79979");
+	//	//https://protobuf.narkive.com/Mv4sIIhp/sending-from-a-c-program-to-a-java-program-over-socket
+	//	tutorial::AddressBook l_AddressBook;
+	//	int size = l_AddressBook.ByteSizeLong();
+	//	for (int i = 0; i < 3; ++i)
+	//	{
+	//		auto l_pPeople1 = l_AddressBook.add_people();
+	//		l_pPeople1->set_id(i);
+	//		l_pPeople1->set_name("2266");
+	//	}
+	//	auto l_peopleSize = l_AddressBook.people_size();
+	//	size = l_AddressBook.ByteSizeLong();
+	//	//network buffer 
+	//	char* buffer = (char*)alloca(size);
+	//	l_AddressBook.SerializeToArray(buffer, size);
+	//	g_pNetworkSample->SendDataToServer(buffer, size);
+	//	FMLOG("send data");
+	//}
 }
 
 void	cEngineTestApp::KeyDown(char e_char)

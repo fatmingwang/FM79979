@@ -11,8 +11,8 @@
 
 #ifdef WASM
 //emsdk\upstream\emscripten\tests\websocket\tcp_echo_client.cpp
-	bool	g_bWASMDoSSL = false;
-//#define DO_WEBSOCKET_INIT
+	bool	g_bWASM_IsSSLConnection = true;
+#define DO_WEBSOCKET_INIT
 	#ifdef DO_WEBSOCKET_INIT
 	//fuck!!!!!!!!
 	// 	if you have set flag for -s PROXY_POSIX_SOCKETS=1 
@@ -37,6 +37,7 @@ int	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 {
 	int l_iBridgeSocket = 1;
 #ifdef WASM
+	FMLOG("call WASMPOSIXWakeup");
 	if (g_bDoinit_websocket)
 	{
 		//-s WEBSOCKET_SUBPROTOCOL=null 
@@ -45,7 +46,7 @@ int	WASMPOSIXWakeup(int e_iPort, const char* e_strIP)
 		////  -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1 -s LLD_REPORT_UNDEFINED 
 		//https://githubmemory.com/repo/emscripten-core/emscripten/issues/14492
 		//"wss://localhost:8080"
-		bool l_bDoSSL = g_bWASMDoSSL;
+		bool l_bDoSSL = g_bWASM_IsSSLConnection;
 		std::string l_strWebSocketInfo;
 		if (l_bDoSSL)
 		{
@@ -448,26 +449,10 @@ namespace FATMING_CORE
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
 		if (e_pTCPsocket && this->m_pSocket)
 		{
-			if (e_bSnedByNetworkThread)
-			{
-				MUTEX_PLACE_HOLDER(m_SendDataMutex, "cGameNetwork::SendData");
-				std::vector<sNetworkSendPacket*>* l_pNetworkSendPacketVector = nullptr;
-				if (m_WaitToSendPacketVector.find(e_pTCPsocket) == m_WaitToSendPacketVector.end())
-				{
-					m_WaitToSendPacketVector.insert(std::make_pair(e_pTCPsocket, std::vector<sNetworkSendPacket*>()));
-				}
-				l_pNetworkSendPacketVector = &m_WaitToSendPacketVector[e_pTCPsocket];
-				l_pNetworkSendPacketVector->push_back(new sNetworkSendPacket(e_pData,e_iDataLength));
-			}
-			else
-			{
-				sNetworkSendPacket l_NetworkSendPacket;
-				l_NetworkSendPacket.iSize = e_iDataLength;
-				l_NetworkSendPacket.pData = e_pData;
-				InternalSendData(e_pTCPsocket, &l_NetworkSendPacket);
-				l_NetworkSendPacket.pData = nullptr;
-			}
-			return true;
+			sNetworkSendPacket l_NetworkSendPacket(e_pData, e_iDataLength);
+			bool l_bResult = SendData(e_pTCPsocket, &l_NetworkSendPacket, e_bSnedByNetworkThread);
+			l_NetworkSendPacket.pData = nullptr;
+			return l_bResult;
 		}
 		return false;
 	}
@@ -538,6 +523,18 @@ namespace FATMING_CORE
 		if (m_pSocket)
 		{
 			return SendData(this->m_pSocket, e_pPacket, e_bSnedByNetworkThread);
+		}
+		return false;
+	}
+
+	bool cGameNetwork::SendDataToServer(char* e_pData, int e_iDataSize, bool e_bSnedByNetworkThread)
+	{
+		if (this->m_pSocket)
+		{
+			sNetworkSendPacket l_sNetworkSendPacket(e_pData, e_iDataSize);
+			auto l_bResult = SendData(this->m_pSocket, &l_sNetworkSendPacket, e_bSnedByNetworkThread);
+			l_sNetworkSendPacket.pData = nullptr;
+			return l_bResult;
 		}
 		return false;
 	}
@@ -632,8 +629,19 @@ namespace FATMING_CORE
 		if (g_bDoinit_websocket && m_iBridgeSocket != -1)
 		{
 			unsigned short readyState = 0;
-			Sleep(2000);
-			EMSCRIPTEN_WEBSOCKET_READY(m_iBridgeSocket, &readyState);
+			for(int i=0;i<100;++i)
+			{
+				Sleep(100);
+				EMSCRIPTEN_WEBSOCKET_READY(m_iBridgeSocket, &readyState);
+				if (readyState == 0)
+				{
+					if (i % 10 == 0)
+					{
+						FMLog::Log("sleep for websocket ready ", false);
+					}
+					continue;
+				}
+			}
 			if (readyState == 0)
 			{
 				FMLog::Log("WASM websocket not ready yet.", false);

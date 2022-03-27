@@ -4,7 +4,7 @@
 #include "../../Core/GameplayUT/OpenGL/GLSL/TunnelEffect.h"
 #include "../../Core/Network/happyhttp.h"
 #include "NetworkSample.h"
-#include "TestShader.h"
+//#include "TestShader.h"
 #include "WebsocketServer.h"
 #include "Proto/addressbook.pb.h"
 #include "Proto/MessageTest.pb.h"
@@ -12,7 +12,7 @@
 //https://stackoverflow.com/questions/59550963/multithreading-in-webassembly
 //#include "../../Core/Bluetooth/Bluetooth.h"
 
-cNetworkSample*				g_pNetworkSample = nullptr;
+//cNetworkSample*				g_pNetworkSample = nullptr;
 cFMMorphingAnimationVector*	g_pFMMorphingAnimationVector = nullptr;
 cCameraZoomFunction*		g_pCameraZoomFunction = nullptr;
 cFrameCamera*				g_pFrameCamera = 0;
@@ -34,7 +34,7 @@ cMPDINode*					g_pMPDINode = 0;
 cToneMappingShader*			g_pToneMappingShader = nullptr;
 cBaseImage*					g_pBGImage = nullptr;
 cTunnelEffect*				g_pTunnelEffect = nullptr;
-cTestShader*				g_pTestShader = nullptr;
+//cTestShader*				g_pTestShader = nullptr;
 //cMSAAFrameBuffer*			g_pMSAAFrameBuffer = nullptr;
 cFrameBuffer*				g_pFrameBuffer = nullptr;
 cFreetypeGlyphRender*		g_pFreetypeGlyphRender = nullptr;
@@ -65,44 +65,44 @@ cBasicSound*g_pBG = nullptr;
 
 void	ProtoBufTest()
 {
-	//TopLevelMessage;
-	GOOGLE_PROTOBUF_VERIFY_VERSION;
-	{
-		//https://developers.google.com/protocol-buffers/docs/proto#options
-		//import "google/protobuf/descriptor.proto";
-		//extend google.protobuf.MessageOptions {
-		//  optional string my_option = 51234;
-		//}
-		//message MyMessage {
-		//  option (my_option) = "Hello world!";
-		//}
-		string value = MessageTest::MyMessage::descriptor()->options().GetExtension(MessageTest::my_option);
-		int a = 0;
-	}
-	{
-		//https://stackoverflow.com/questions/40450556/how-to-know-which-protobuf-message-the-byte-array-is/50291651#50291651
-		//google::protobuf::Any l_Any = google::protobuf::Any::ParseFrom(person);
-		//tutorial::Person person = google::protobuf::Any::pack(person);
+	////TopLevelMessage;
+	//GOOGLE_PROTOBUF_VERIFY_VERSION;
+	//{
+	//	//https://developers.google.com/protocol-buffers/docs/proto#options
+	//	//import "google/protobuf/descriptor.proto";
+	//	//extend google.protobuf.MessageOptions {
+	//	//  optional string my_option = 51234;
+	//	//}
+	//	//message MyMessage {
+	//	//  option (my_option) = "Hello world!";
+	//	//}
+	//	string value = MessageTest::MyMessage::descriptor()->options().GetExtension(MessageTest::my_option);
+	//	int a = 0;
+	//}
+	//{
+	//	//https://stackoverflow.com/questions/40450556/how-to-know-which-protobuf-message-the-byte-array-is/50291651#50291651
+	//	//google::protobuf::Any l_Any = google::protobuf::Any::ParseFrom(person);
+	//	//tutorial::Person person = google::protobuf::Any::pack(person);
 
-		//out.write(any.toByteArray());
-	}
-	{
-		tutorial::Person l_Person;
-		l_Person.add_phones();
-		g_AddressBook.ByteSize();
-		//https://protobuf.narkive.com/Mv4sIIhp/sending-from-a-c-program-to-a-java-program-over-socket
-		int size = g_AddressBook.ByteSize();
-		//network buffer 
-		char* buffer = (char*)alloca(size);
-		g_AddressBook.SerializeToArray(buffer, size);
-		int aa = 0;
-	}
-	{
-		MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST l_Data;
-		l_Data.set_strauth("132");
-		l_Data.set_strgameid("79979");
-		//https://stackoverflow.com/questions/9496101/protocol-buffer-over-socket-in-c
-	}
+	//	//out.write(any.toByteArray());
+	//}
+	//{
+	//	tutorial::Person l_Person;
+	//	l_Person.add_phones();
+	//	g_AddressBook.ByteSizeLong();
+	//	//https://protobuf.narkive.com/Mv4sIIhp/sending-from-a-c-program-to-a-java-program-over-socket
+	//	int size = g_AddressBook.ByteSizeLong();
+	//	//network buffer 
+	//	char* buffer = (char*)alloca(size);
+	//	g_AddressBook.SerializeToArray(buffer, size);
+	//	int aa = 0;
+	//}
+	//{
+	//	MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST l_Data;
+	//	l_Data.set_strauth("132");
+	//	l_Data.set_strgameid("79979");
+	//	//https://stackoverflow.com/questions/9496101/protocol-buffer-over-socket-in-c
+	//}
 
 }
 
@@ -150,12 +150,12 @@ void   ThreadLoadTest()
 		l_Thread.detach();
 		FMLog::Log("thread detached", false);
 	}
-	if (0 && !g_pNetworkSample)
-	{
-		g_pNetworkSample = new cNetworkSample();
-		g_pNetworkSample->Init();
+	//if (0 && !g_pNetworkSample)
+	//{
+	//	g_pNetworkSample = new cNetworkSample();
+	//	g_pNetworkSample->Init();
 
-	}
+	//}
 #endif
 }
 
@@ -394,7 +394,7 @@ void	DestorySampleObject()
 	SAFE_DELETE(g_pMPDINode);
 	SAFE_DELETE(g_pToneMappingShader);
 	SAFE_DELETE(g_pTunnelEffect);
-	SAFE_DELETE(g_pTestShader);
+	//SAFE_DELETE(g_pTestShader);
 	//cBluetoothSinglton::GetInstance()->DestroyInstance();
 	//cBluetoothSinglton::DestroyInstance();
 }
@@ -407,10 +407,10 @@ void	SampleUpdate(float e_fElpaseTime)
 
 
 #ifdef WASM
-	if (g_pNetworkSample)
-	{
-		g_pNetworkSample->Update(0.016f);
-	}
+	//if (g_pNetworkSample)
+	//{
+	//	g_pNetworkSample->Update(0.016f);
+	//}
 #endif
 	if (g_pPathChaser)
 		g_pPathChaser->Update(e_fElpaseTime/4.f);
@@ -555,11 +555,11 @@ void	SampleRender()
 		g_pTunnelEffect->Use();
 		//g_pTunnelEffect->Update(0.016f);
 	}
-	if (g_pTestShader)
-	{
-		g_pTestShader->Use();
-		g_pTestShader->Update(0.016f);
-	}	
+	//if (g_pTestShader)
+	//{
+	//	g_pTestShader->Use();
+	//	g_pTestShader->Update(0.016f);
+	//}	
 	if( g_pToneMappingShader )
 		g_pToneMappingShader->StartDraw();
 	glEnable2D(cGameApp::m_spOpenGLRender->m_vGameResolution.x,cGameApp::m_spOpenGLRender->m_vGameResolution.y);
@@ -575,15 +575,15 @@ void	SampleRender()
 		g_pBGImage->RenderWithShader(g_pTunnelEffect->GetName());
 		//g_pBGImage->Render(cMatrix44::Identity);
 	}
-	if (g_pBGImage && g_pTestShader)
+	if (g_pBGImage)
 	{
 		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.1f, 0.f, 0.f));
 		g_pBGImage->SetWidth((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.8));
 		g_pBGImage->SetHeight((int)(cGameApp::m_spOpenGLRender->m_vGameResolution.y / 2 * 0.8));
 		//	g_pBGImage->Render();
-		g_pBGImage->RenderWithShader(g_pTestShader->GetName());
+		//g_pBGImage->RenderWithShader(g_pTestShader->GetName());
 		g_pBGImage->SetPos(Vector3(cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 + cGameApp::m_spOpenGLRender->m_vGameResolution.x / 2 * 0.1f, 0, 0));
-		g_pBGImage->RenderWithShader(g_pTestShader->GetName());
+		//g_pBGImage->RenderWithShader(g_pTestShader->GetName());
 	}
 	if (g_pBGImage)
 	{
@@ -895,11 +895,11 @@ void	SampleKeyup(char e_cKey)
 			SAFE_DELETE(g_pTunnelEffect);
 			g_pTunnelEffect = cTunnelEffect::CreateShader("shader/TunnelEffect.vs", "shader/TunnelEffect.ps", L"MyTunnelEffecr");
 		}
-		if (g_pTestShader)
-		{
-			SAFE_DELETE(g_pTestShader);
-//			g_pTestShader = cTestShader::CreateShader("shader/TunnelEffect.vs", "shader/TunnelEffect.ps", L"MyTunnelEffecr");
-		}
+//		if (g_pTestShader)
+//		{
+//			SAFE_DELETE(g_pTestShader);
+////			g_pTestShader = cTestShader::CreateShader("shader/TunnelEffect.vs", "shader/TunnelEffect.ps", L"MyTunnelEffecr");
+//		}
 		
 
 		if (g_pTestCurveWithTime)

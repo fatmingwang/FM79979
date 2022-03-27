@@ -1,30 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\EngineTest\HappyHttpTest.cpp" />
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
-    <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="..\EngineTest\TestPhase.cpp" />
     <ClCompile Include="WASMTest.cpp" />
     <ClCompile Include="..\EngineTest\GameApp.cpp" />
     <ClCompile Include="..\EngineTest\Sample.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc">
+      <Filter>Proto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc">
+      <Filter>Proto</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="..\EngineTest\TestPhase.h" />
     <ClInclude Include="..\EngineTest\GameApp.h" />
     <ClInclude Include="..\EngineTest\NetworkSample.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h">
+      <Filter>Proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h">
+      <Filter>Proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Network">
       <UniqueIdentifier>{39b14bd9-c796-4b38-8dd5-81d4bc676ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Proto">
+      <UniqueIdentifier>{6d1144f5-3361-4a75-ac8a-0be098ffe79d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

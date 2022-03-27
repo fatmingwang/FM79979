@@ -28,6 +28,9 @@
     <Filter Include="Game\ComputerShader">
       <UniqueIdentifier>{9ac9a495-e817-4296-b42c-96cbcfc5e050}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ProtoBuf">
+      <UniqueIdentifier>{58cb5dc7-e437-4de6-b2e8-db6dc03a06b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -66,6 +69,12 @@
     <ClCompile Include="..\EngineTest\ComputerShader.cpp">
       <Filter>Game\ComputerShader</Filter>
     </ClCompile>
+    <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc">
+      <Filter>ProtoBuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc">
+      <Filter>ProtoBuf</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -103,6 +112,12 @@
     </ClInclude>
     <ClInclude Include="..\EngineTest\ComputerShaderUniform.h">
       <Filter>Game\ComputerShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h">
+      <Filter>ProtoBuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h">
+      <Filter>ProtoBuf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

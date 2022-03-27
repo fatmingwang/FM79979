@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NetworkSample.h"
 
-
+//https://blog.csdn.net/qq_42956179/article/details/118576680
 
 #define		MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
 #define		RESULT_MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkResultMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
@@ -105,17 +105,18 @@ bool cNetworkSample::LoginNetworkEventProcess(FATMING_CORE::sNetworkReceivedPack
 	sGNMI_C2S_LOGIN*l_pGNMI_C2S_LOGIN = (sGNMI_C2S_LOGIN*)e_pData->pData;
 	return true;
 }
-//test
-UT::sTimeCounter g_cTC;
 void cNetworkSample::Init()
 {
+	this->m_bUseExtraHeader = false;
 	cGameNetwork::Init();
-	FMLog::Log("CreateAsClient start",false);
+	FMLog::Log("CreateAsClient start123",false);
 	//ws://echo.websocket.org
-	this->CreateAsClient(9991, "127.0.0.1", false);
+#ifdef WASM
+	this->CreateAsClient(9992, "192.168.31.242", true,15);
+#else
+	this->CreateAsClient(9991, "192.168.31.242",true,15);
+#endif
 	FMLog::Log("CreateAsClient finish", false);
-	//test
-	g_cTC.SetTargetTime(5.f);
 }
 
 
@@ -140,29 +141,6 @@ void cNetworkSample::Update(float e_fElpaseTime)
 		cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_uiID, l_pData);
 	}
 	DELETE_VECTOR(l_DataVector);
-	//test code
-	g_cTC.Update(e_fElpaseTime);
-	if (g_cTC.bTragetTimrReached)
-	{
-		g_cTC.Start();
-		if (this->m_pSocket)
-		{
-			sNetwork_eCDNM_C2S_CAR_STATUS l_Data;
-			sprintf(l_Data.strText, "1234567890");
-			l_Data.a = 0;
-			l_Data.b = 0;
-			sNetworkSendPacket l_NetworkSendPacket;
-			l_NetworkSendPacket.iSize = sizeof(l_Data);
-			FMLog::Log(UT::ComposeMsgByFormat("packet size:%d", l_Data.iSize).c_str(), false);
-			l_NetworkSendPacket.pData = (char*)&l_Data;
-			this->SendDataToServer(&l_NetworkSendPacket);
-			l_NetworkSendPacket.pData = nullptr;
-		}
-		else
-		{
-			FMLog::Log("websocket not connected.", false);
-		}
-	}
 }
 
 void cNetworkSample::Destroy()

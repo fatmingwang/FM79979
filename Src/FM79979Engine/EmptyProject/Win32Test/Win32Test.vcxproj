@@ -33,13 +33,14 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>HTMLPage</ConfigurationType>
+    <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <PlatformToolset>emcc</PlatformToolset>
@@ -77,7 +78,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\..\..\ProtoBuffer\protobuf-cpp-3.19.4\src;..\EngineTest;..\..\..\include\bt;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;DEBUG;_HAS_AUTO_PTR_ETC=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -135,6 +136,12 @@
     <ClCompile Include="..\EngineTest\JPEGCodingTest.cpp" />
     <ClCompile Include="..\EngineTest\JSBinding.cpp" />
     <ClCompile Include="..\EngineTest\NetworkSample.cpp" />
+    <ClCompile Include="..\EngineTest\Proto\addressbook.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\EngineTest\Proto\MessageTest.pb.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\EngineTest\TestShader.cpp" />
     <ClCompile Include="..\EngineTest\WebsocketServer.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -151,6 +158,8 @@
     <ClInclude Include="..\EngineTest\ComputerShaderUniform.h" />
     <ClInclude Include="..\EngineTest\JPEGCodingTest.h" />
     <ClInclude Include="..\EngineTest\NetworkSample.h" />
+    <ClInclude Include="..\EngineTest\Proto\addressbook.pb.h" />
+    <ClInclude Include="..\EngineTest\Proto\MessageTest.pb.h" />
     <ClInclude Include="..\EngineTest\TestShader.h" />
     <ClInclude Include="..\EngineTest\WebsocketServer.h" />
     <ClInclude Include="Resource.h" />
@@ -169,6 +178,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\ProtoBuffer\VSProtoBuf\libprotobuf.vcxproj">
+      <Project>{4f256d5e-9cd3-3eab-849b-9982de894f79}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

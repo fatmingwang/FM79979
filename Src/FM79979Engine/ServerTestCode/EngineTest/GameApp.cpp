@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "GameApp.h"
+#include "NetworkSample.h"
 
-
+cNetworkSample* g_pNetworkSample = nullptr;
 #if defined(ANDROID)
 cEngineTestApp::cEngineTestApp(ANativeActivity* e_pActivity,JNIEnv*e_pThreadEnv,jobject*e_pAppThreadThis,Vector2 e_vGameResolution,Vector2 e_vViewportSize,NvEGLUtil*e_pNvEGLUtil ):cGameApp(e_pActivity,e_pThreadEnv,e_pAppThreadThis,e_vGameResolution,e_vViewportSize,e_pNvEGLUtil)
 #elif defined(WIN32)
@@ -14,6 +15,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 	this->m_sbSpeedControl = true;
 	m_bLeave = false;
 	m_pPhaseManager = new cPhaseManager();	
+	g_pNetworkSample = new cNetworkSample();
 #ifdef DEBUG
 	this->m_sbSpeedControl = true;
 #endif
@@ -27,6 +29,7 @@ cEngineTestApp::~cEngineTestApp()
 
 void	cEngineTestApp::Init()
 {
+	g_pNetworkSample->Init();
 	cGameApp::Init();
 
 	//let first update is not too big
@@ -35,6 +38,7 @@ void	cEngineTestApp::Init()
 
 void	cEngineTestApp::Update(float e_fElpaseTime)
 {
+	g_pNetworkSample->Update(e_fElpaseTime);
     cGameApp::Update(e_fElpaseTime);
 
 	this->m_pPhaseManager->Update(e_fElpaseTime);

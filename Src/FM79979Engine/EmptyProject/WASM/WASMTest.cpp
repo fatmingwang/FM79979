@@ -22,24 +22,44 @@
 #include "../../AllLibInclude.h"
 #include "GameApp.h"
 
-
-EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) {
+#include "Proto/addressbook.pb.h"
+#include "Proto/MessageTest.pb.h"
+EM_BOOL onopen(int eventType, const EmscriptenWebSocketOpenEvent *websocketEvent, void *userData) 
+{
 	puts("onopen");
-
-	EMSCRIPTEN_RESULT result;
-	result = emscripten_websocket_send_utf8_text(websocketEvent->socket, "hoge");
-	if (result) {
-		printf("Failed to emscripten_websocket_send_utf8_text(): %d\n", result);
+	//EMSCRIPTEN_RESULT result;
+	//result = emscripten_websocket_send_utf8_text(websocketEvent->socket, "hoge");
+	//if (result) 
+	//{
+	//	printf("Failed to emscripten_websocket_send_utf8_text(): %d\n", result);
+	//}
+	{
+		tutorial::AddressBook l_AddressBook;
+		int size = l_AddressBook.ByteSizeLong();
+		for (int i = 0; i < 3; ++i)
+		{
+			auto l_pPeople1 = l_AddressBook.add_people();
+			l_pPeople1->set_id(i);
+			l_pPeople1->set_name("2266");
+		}
+		auto l_peopleSize = l_AddressBook.people_size();
+		size = l_AddressBook.ByteSizeLong();
+		//network buffer 
+		char* buffer = (char*)alloca(size);
+		l_AddressBook.SerializeToArray(buffer, size);
+		EMSCRIPTEN_RESULT l_Result = emscripten_websocket_send_binary(websocketEvent->socket, buffer, size);
+		FMLOG("send size:%d", size);
 	}
 	return EM_TRUE;
 }
 EM_BOOL onerror(int eventType, const EmscriptenWebSocketErrorEvent *websocketEvent, void *userData) {
-	puts("onerror");
+
+	printf("onerror:%d", eventType);
 
 	return EM_TRUE;
 }
 EM_BOOL onclose(int eventType, const EmscriptenWebSocketCloseEvent *websocketEvent, void *userData) {
-	puts("onclose");
+	printf("onclose:%d", eventType);
 
 	return EM_TRUE;
 }
@@ -261,6 +281,26 @@ void finish(int result) {
 
 int main()
 {
+	//c+/c++
+	//--profiling -pthread -s PROXY_POSIX_SOCKETS=1 -s USE_PTHREADS=1 -s PROXY_TO_PTHREAD=1
+	//no websocket --profiling -pthread 
+	//linker
+	//-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=0 --bind -pthread  -s WEBSOCKET_SUBPROTOCOL=null -lwebsocket.js  -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1 -s WEBSOCKET_URL=192.168.31.242 
+	// no tcp websocket.
+	//-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=0 --bind -pthread -lwebsocket.js  -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 
+	if (1)
+	{
+		printf("try to create websocket\n");
+		//wss://localhost:9992
+		EmscriptenWebSocketCreateAttributes l_Att = {"ws://localhost:9992",0,EM_TRUE};
+		//EmscriptenWebSocketCreateAttributes l_Att = { "wss://echo.websocket.events/.ws",0,EM_TRUE };
+		auto l_WS = emscripten_websocket_new(&l_Att);
+		emscripten_websocket_set_onopen_callback(l_WS, 0, onopen);
+		emscripten_websocket_set_onerror_callback(l_WS, 0, onerror);
+		emscripten_websocket_set_onclose_callback(l_WS, 0, onclose);
+		emscripten_websocket_set_onmessage_callback(l_WS, 0, onmessage);
+	}
+
 	//struct sockaddr_in addr;
 	//int res;
 	//sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -301,6 +341,7 @@ int main()
 	//https://kripken.github.io/emscripten-site/docs/porting/files/packaging_files.html
 	//exten max memory
 	//http://www.cnblogs.com/ppgeneve/p/5085274.html
+	FMLog::Init();
 	printf("do SDL_Init(SDL_INIT_EVERYTHING)\n");
 #define	CANVANS_WIDTH	768
 #define	CANVANS_HEIGHT	1024
@@ -349,7 +390,7 @@ int main()
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.y = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.y = 0;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.z = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.z = CANVANS_WIDTH;
 		cGameApp::m_spOpenGLRender->m_vViewPortSize.w = cGameApp::m_spOpenGLRender->m_vDeviceViewPortSize.w = CANVANS_HEIGHT;
-		//cGameApp::m_sbDebugFunctionWorking = true;
+		cGameApp::m_sbDebugFunctionWorking = true;
 		g_pGameApp = new cEngineTestApp(cGameApp::m_spOpenGLRender->m_vGameResolution, Vector2(cGameApp::m_spOpenGLRender->m_vViewPortSize.Width(), cGameApp::m_spOpenGLRender->m_vViewPortSize.Height()));
 		g_pGameApp->Init();
 		emscripten_set_main_loop(&Loop, 0 ,1);

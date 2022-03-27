@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NetworkSample.h"
-
-
+#include "MyWebsocketServer.h"
+#include "Proto/addressbook.pb.h"
 
 #define		MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
 #define		RESULT_MESSAGE_ID_ASSIGN(TYPE,ID)TYPE():sBaseNetworkResultMessage(){memset(this,0,sizeof(TYPE));iMessage = ID;iSize = (int)sizeof(TYPE);}};
@@ -86,6 +86,7 @@ cNetworkSample::cNetworkSample()
 
 cNetworkSample::~cNetworkSample()
 {
+	//WebSocketDestroy();
 	SetConnectionLostCallbackFunction(nullptr);
 }
 
@@ -105,67 +106,105 @@ bool cNetworkSample::LoginNetworkEventProcess(FATMING_CORE::sNetworkReceivedPack
 	sGNMI_C2S_LOGIN*l_pGNMI_C2S_LOGIN = (sGNMI_C2S_LOGIN*)e_pData->pData;
 	return true;
 }
-//test
-UT::sTimeCounter g_cTC;
+extern void cEasyWebSocketServerInit(const char* _strCetPath, const char* e_pKeyPath);
 void cNetworkSample::Init()
 {
+	cEasyWebSocketServerInit("localhost.pem","openssh_key.pem");
+	this->m_bUseExtraHeader = false;
+	//WebSocketInit();
 	cGameNetwork::Init();
-	FMLog::Log("CreateAsClient start",false);
 	//ws://echo.websocket.org
-	this->CreateAsClient(9991, "127.0.0.1", false);
-	FMLog::Log("CreateAsClient finish", false);
-	//test
-	g_cTC.SetTargetTime(5.f);
+	this->CreateAsServer(9991,true);
+	FMLog::Log("CreateAsServer finish", false);
+
 }
 
 
 void cNetworkSample::Update(float e_fElpaseTime)
 {
-	int16 a = 0;
+	//WebSocketUpdate(e_fElpaseTime);
 	cGameNetwork::Update(e_fElpaseTime);
 	std::vector<sNetworkReceivedPacket*>l_DataVector = GetReceivedDataPleaseDeleteAfterUseIt();
 	size_t l_uiSize = l_DataVector.size();
 	for (sNetworkReceivedPacket*l_pData : l_DataVector)
 	{
-		sBaseNetworkMessage*l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
-		auto l_Info = UT::ComposeMsgByFormat("new message ID:%d,Size:%d\n", l_pBaseNetworkMessage->iMessage, l_pData->iSize);
-		FMLog::Log(l_Info.c_str(),false);
-		unsigned int l_uiID = *(unsigned int*)l_pData->pData;
-		if (l_pBaseNetworkMessage->iMessage == 2)
+		if (this->m_bUseExtraHeader)
 		{
-			sNetwork_eCDNM_C2S_CAR_STATUS*l_pNetwork_eCDNM_C2S_CAR_STATUS = (sNetwork_eCDNM_C2S_CAR_STATUS*)l_pData->pData;
-			printf(l_pNetwork_eCDNM_C2S_CAR_STATUS->strText);
-			printf("\nqoo\n");
-		}
-		cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_uiID, l_pData);
-	}
-	DELETE_VECTOR(l_DataVector);
-	//test code
-	g_cTC.Update(e_fElpaseTime);
-	if (g_cTC.bTragetTimrReached)
-	{
-		g_cTC.Start();
-		if (this->m_pSocket)
-		{
-			sNetwork_eCDNM_C2S_CAR_STATUS l_Data;
-			sprintf(l_Data.strText, "1234567890");
-			l_Data.a = 0;
-			l_Data.b = 0;
-			sNetworkSendPacket l_NetworkSendPacket;
-			l_NetworkSendPacket.iSize = sizeof(l_Data);
-			FMLog::Log(UT::ComposeMsgByFormat("packet size:%d", l_Data.iSize).c_str(), false);
-			l_NetworkSendPacket.pData = (char*)&l_Data;
-			this->SendDataToServer(&l_NetworkSendPacket);
-			l_NetworkSendPacket.pData = nullptr;
+			sBaseNetworkMessage* l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
+			auto l_Info = UT::ComposeMsgByFormat("new message ID:%d,Size:%d\n", l_pBaseNetworkMessage->iMessage, l_pData->iSize);
+			FMLog::Log(l_Info.c_str(), false);
+			unsigned int l_uiID = *(unsigned int*)l_pData->pData;
+			if (l_pBaseNetworkMessage->iMessage == 2)
+			{
+				sNetwork_eCDNM_C2S_CAR_STATUS* l_pNetwork_eCDNM_C2S_CAR_STATUS = (sNetwork_eCDNM_C2S_CAR_STATUS*)l_pData->pData;
+				printf(l_pNetwork_eCDNM_C2S_CAR_STATUS->strText);
+				printf("\nqoo\n");
+			}
+			cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_uiID, l_pData);
 		}
 		else
 		{
-			FMLog::Log("websocket not connected.", false);
+			if(1)
+			{
+				//https://krpc.github.io/krpc/communication-protocols/tcpip.html
+				tutorial::AddressBook l_AddressBook;// = (tutorial::AddressBook::ParseFrom(()*)l_pData->pData;
+				if (l_AddressBook.ParseFromArray(l_pData->pData, l_pData->iSize))
+				{
+					int l_iNumPeople = l_AddressBook.people_size();
+					auto l_PeopleSize = l_AddressBook.people_size();
+					for (int i = 0; i < l_PeopleSize; ++i)
+					{
+						auto l_People = l_AddressBook.people(i);
+						int ID = l_People.id();
+						auto l_strName = l_People.name();
+						auto l_stremail = l_People.email();
+						int a = 0;
+					}
+					int a = 0;
+				}
+				//l_AddressBook.ParseFromString(()
+				//fstream input(l_pData->pData, ios::in | ios::binary);
+				//if (!l_AddressBook.ParseFromIstream(&input))
+				//{
+				//}
+			}
+			//doesnt work.
+			//google::protobuf::Any any;
+			//if (any.ParseFromArray(l_pData->pData, l_pData->iSize))
+			//{
+			//	tutorial::AddressBook l_AddressBook;// = (tutorial::AddressBook::ParseFrom(()*)l_pData->pData;
+			//	if(any.UnpackTo(&l_AddressBook))
+			//	{
+			//		auto l_uiSize = l_pData->iSize;
+			//	}
+			//}
 		}
 	}
+	DELETE_VECTOR(l_DataVector);
 }
 
 void cNetworkSample::Destroy()
 {
 	cGameNetwork::Destroy();
+}
+
+bool cNetworkSample::SendDataToClient(SDLNetSocket e_SDLNetSocket, char* e_pData, int e_iDataLength)
+{
+	if (e_SDLNetSocket->NetworkType == sSDLNetTCPSocket::eNT_TCP)
+	{
+		return cGameNetwork::SendDataToClient(e_SDLNetSocket, e_pData, e_iDataLength);
+	}
+	else
+	if (e_SDLNetSocket->NetworkType == sSDLNetTCPSocket::eNT_WEBSOCKET)
+	{
+		//return WebSocketSendData(e_SDLNetSocket, e_iDataLength, e_pData);
+	}
+	return false;
+}
+
+bool cNetworkSample::SendDataToAllClient(char* e_pData, int e_iDataLength)
+{
+	cGameNetwork::SendDataToAllClient(e_pData, e_iDataLength);
+	//WebSocketSendDataToAll(e_iDataLength, e_pData);
+	return true;
 }

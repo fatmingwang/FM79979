@@ -1,17 +1,29 @@
 #include "stdafx.h"
+#include "Proto/addressbook.pb.h"
 #ifdef WIN32
 
-
-//#include "../../../../../../CarDrivingNodeSharedProtocol/CarGoAppSharedProtocol.h"
-//#include "../CarDrivingServerApp.h"
 #define ASIO_STANDALONE
 #define _WEBSOCKETPP_CPP11_TYPE_TRAITS_
+//#define USE_SSL
 #include <set>
+#ifdef USE_SSL
+#include <websocketpp/config/asio_client.hpp>
+#else
 #include <websocketpp/config/asio_no_tls.hpp>
+#endif
 #include <websocketpp/server.hpp>
+////https://blog.csdn.net/byxdaz/article/details/84645586
+//// for ws
+//#include <websocketpp/config/asio_no_tls_client.hpp>
+//#include <websocketpp/client.hpp>
+//// 
+////for wws
+//#include <websocketpp/config/asio_client.hpp>
+//#include <websocketpp/client.hpp>
 #include <iostream>
 
 
+//
 typedef websocketpp::server<websocketpp::config::asio> server;
 typedef websocketpp::config::asio::message_type::ptr message_ptr;
 using websocketpp::lib::placeholders::_1;
@@ -300,6 +312,31 @@ public:
         while (l_WaitProcessDataVector.size())
         {
             auto l_pData = l_WaitProcessDataVector.front();
+            if (1)
+            {
+                //https://krpc.github.io/krpc/communication-protocols/tcpip.html
+                tutorial::AddressBook l_AddressBook;// = (tutorial::AddressBook::ParseFrom(()*)l_pData->pData;
+                if (l_AddressBook.ParseFromArray(l_pData->pData, l_pData->iSize))
+                {
+                    int l_iNumPeople = l_AddressBook.people_size();
+                    auto l_PeopleSize = l_AddressBook.people_size();
+                    for (int i = 0; i < l_PeopleSize; ++i)
+                    {
+                        auto l_People = l_AddressBook.people(i);
+                        int ID = l_People.id();
+                        auto l_strName = l_People.name();
+                        auto l_stremail = l_People.email();
+                        int a = 0;
+                    }
+                    int a = 0;
+                }
+                //l_AddressBook.ParseFromString(()
+                //fstream input(l_pData->pData, ios::in | ios::binary);
+                //if (!l_AddressBook.ParseFromIstream(&input))
+                //{
+                //}
+            }
+
             //sBaseNetworkMessage* l_pBaseNetworkMessage = (sBaseNetworkMessage*)l_pData->pData;
             //cGameApp::m_spMessageSenderManager->NetworkMessageShot(l_pBaseNetworkMessage->iMessage, l_pData.get());
             l_WaitProcessDataVector.pop_front();
@@ -356,7 +393,7 @@ bool    WebSocketInit()
                 try
                 {
                     g_bWebSocketThreadRunning = true;
-                    //g_pSimpleWebSocketServer->run(CAR_GO_APP_WEBSOCKET_PORT);
+                    g_pSimpleWebSocketServer->run(9992);
                     break;
                 }
                 catch (websocketpp::exception const& e)

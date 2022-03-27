@@ -23,6 +23,7 @@
 #include <google/protobuf/io/coded_stream.h>
 #include <google/protobuf/arena.h>
 #include <google/protobuf/arenastring.h>
+#include <google/protobuf/generated_message_bases.h>
 #include <google/protobuf/generated_message_table_driven.h>
 #include <google/protobuf/generated_message_util.h>
 #include <google/protobuf/metadata_lite.h>
@@ -32,6 +33,7 @@
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
 #include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include <google/protobuf/descriptor.pb.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
 #define PROTOBUF_INTERNAL_EXPORT_MessageTest_2eproto
@@ -47,7 +49,7 @@ struct TableStruct_MessageTest_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[3]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -55,6 +57,9 @@ struct TableStruct_MessageTest_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MessageTest_2eproto;
 namespace MessageTest {
+class MyMessage;
+struct MyMessageDefaultTypeInternal;
+extern MyMessageDefaultTypeInternal _MyMessage_default_instance_;
 class sNetworkData_eMI_C2S_LOGIN_REQUEST;
 struct sNetworkData_eMI_C2S_LOGIN_REQUESTDefaultTypeInternal;
 extern sNetworkData_eMI_C2S_LOGIN_REQUESTDefaultTypeInternal _sNetworkData_eMI_C2S_LOGIN_REQUEST_default_instance_;
@@ -63,6 +68,7 @@ struct sNetworkData_eMI_S2C_LOGIN_RESULTDefaultTypeInternal;
 extern sNetworkData_eMI_S2C_LOGIN_RESULTDefaultTypeInternal _sNetworkData_eMI_S2C_LOGIN_RESULT_default_instance_;
 }  // namespace MessageTest
 PROTOBUF_NAMESPACE_OPEN
+template<> ::MessageTest::MyMessage* Arena::CreateMaybeMessage<::MessageTest::MyMessage>(Arena*);
 template<> ::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST* Arena::CreateMaybeMessage<::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST>(Arena*);
 template<> ::MessageTest::sNetworkData_eMI_S2C_LOGIN_RESULT* Arena::CreateMaybeMessage<::MessageTest::sNetworkData_eMI_S2C_LOGIN_RESULT>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -95,6 +101,124 @@ inline bool eMessageID_Parse(
     eMessageID_descriptor(), name, value);
 }
 // ===================================================================
+
+class MyMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase /* @@protoc_insertion_point(class_definition:MessageTest.MyMessage) */ {
+ public:
+  inline MyMessage() : MyMessage(nullptr) {}
+  explicit constexpr MyMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  MyMessage(const MyMessage& from);
+  MyMessage(MyMessage&& from) noexcept
+    : MyMessage() {
+    *this = ::std::move(from);
+  }
+
+  inline MyMessage& operator=(const MyMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MyMessage& operator=(MyMessage&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const MyMessage& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const MyMessage* internal_default_instance() {
+    return reinterpret_cast<const MyMessage*>(
+               &_MyMessage_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    0;
+
+  friend void swap(MyMessage& a, MyMessage& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MyMessage* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(MyMessage* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  MyMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<MyMessage>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyFrom;
+  inline void CopyFrom(const MyMessage& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl(this, from);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeFrom;
+  void MergeFrom(const MyMessage& from) {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl(this, from);
+  }
+  public:
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "MessageTest.MyMessage";
+  }
+  protected:
+  explicit MyMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // @@protoc_insertion_point(class_scope:MessageTest.MyMessage)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_MessageTest_2eproto;
+};
+// -------------------------------------------------------------------
 
 class sNetworkData_eMI_C2S_LOGIN_REQUEST final :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:MessageTest.sNetworkData_eMI_C2S_LOGIN_REQUEST) */ {
@@ -144,7 +268,7 @@ class sNetworkData_eMI_C2S_LOGIN_REQUEST final :
                &_sNetworkData_eMI_C2S_LOGIN_REQUEST_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    0;
+    1;
 
   friend void swap(sNetworkData_eMI_C2S_LOGIN_REQUEST& a, sNetworkData_eMI_C2S_LOGIN_REQUEST& b) {
     a.Swap(&b);
@@ -311,7 +435,7 @@ class sNetworkData_eMI_S2C_LOGIN_RESULT final :
                &_sNetworkData_eMI_S2C_LOGIN_RESULT_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(sNetworkData_eMI_S2C_LOGIN_RESULT& a, sNetworkData_eMI_S2C_LOGIN_RESULT& b) {
     a.Swap(&b);
@@ -498,6 +622,10 @@ class sNetworkData_eMI_S2C_LOGIN_RESULT final :
 };
 // ===================================================================
 
+static const int kMyOptionFieldNumber = 51234;
+extern ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
+  my_option;
 
 // ===================================================================
 
@@ -505,6 +633,10 @@ class sNetworkData_eMI_S2C_LOGIN_RESULT final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// MyMessage
+
+// -------------------------------------------------------------------
+
 // sNetworkData_eMI_C2S_LOGIN_REQUEST
 
 // string strGameID = 1;
@@ -887,6 +1019,8 @@ sNetworkData_eMI_S2C_LOGIN_RESULT::mutable_i64betlist() {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 

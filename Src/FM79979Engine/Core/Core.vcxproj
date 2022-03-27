@@ -149,11 +149,11 @@
       <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
-      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib />
     <Lib>
-      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

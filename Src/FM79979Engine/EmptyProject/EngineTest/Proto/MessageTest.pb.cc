@@ -17,6 +17,17 @@
 
 PROTOBUF_PRAGMA_INIT_SEG
 namespace MessageTest {
+constexpr MyMessage::MyMessage(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct MyMessageDefaultTypeInternal {
+  constexpr MyMessageDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~MyMessageDefaultTypeInternal() {}
+  union {
+    MyMessage _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT MyMessageDefaultTypeInternal _MyMessage_default_instance_;
 constexpr sNetworkData_eMI_C2S_LOGIN_REQUEST::sNetworkData_eMI_C2S_LOGIN_REQUEST(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : strgameid_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
@@ -49,11 +60,17 @@ struct sNetworkData_eMI_S2C_LOGIN_RESULTDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT sNetworkData_eMI_S2C_LOGIN_RESULTDefaultTypeInternal _sNetworkData_eMI_S2C_LOGIN_RESULT_default_instance_;
 }  // namespace MessageTest
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_MessageTest_2eproto[2];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_MessageTest_2eproto[3];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_MessageTest_2eproto[1];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_MessageTest_2eproto = nullptr;
 
 const uint32_t TableStruct_MessageTest_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::MessageTest::MyMessage, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  ~0u,  // no _inlined_string_donated_
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -76,30 +93,38 @@ const uint32_t TableStruct_MessageTest_2eproto::offsets[] PROTOBUF_SECTION_VARIA
   PROTOBUF_FIELD_OFFSET(::MessageTest::sNetworkData_eMI_S2C_LOGIN_RESULT, i64betlist_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST)},
-  { 8, -1, -1, sizeof(::MessageTest::sNetworkData_eMI_S2C_LOGIN_RESULT)},
+  { 0, -1, -1, sizeof(::MessageTest::MyMessage)},
+  { 6, -1, -1, sizeof(::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST)},
+  { 14, -1, -1, sizeof(::MessageTest::sNetworkData_eMI_S2C_LOGIN_RESULT)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MessageTest::_MyMessage_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MessageTest::_sNetworkData_eMI_C2S_LOGIN_REQUEST_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::MessageTest::_sNetworkData_eMI_S2C_LOGIN_RESULT_default_instance_),
 };
 
 const char descriptor_table_protodef_MessageTest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\021MessageTest.proto\022\013MessageTest\"H\n\"sNet"
-  "workData_eMI_C2S_LOGIN_REQUEST\022\021\n\tstrGam"
-  "eID\030\001 \001(\t\022\017\n\007strAuth\030\002 \001(\t\"\231\001\n!sNetworkD"
-  "ata_eMI_S2C_LOGIN_RESULT\022\024\n\014strErrorCode"
-  "\030\001 \001(\t\022\022\n\nstrVersion\030\002 \001(\t\022\023\n\013strCurrenc"
-  "y\030\003 \001(\t\022\020\n\010i64Money\030\004 \001(\003\022\017\n\007strNote\030\005 \001"
-  "(\t\022\022\n\ni64BetList\030\006 \003(\003*N\n\neMessageID\022\031\n\025"
-  "eMI_C2S_LOGIN_REQUEST\020\000\022\030\n\024eMI_S2C_LOGIN"
-  "_RESULT\020\001\022\013\n\007eMI_MAX\020\003b\006proto3"
+  "\n\021MessageTest.proto\022\013MessageTest\032 google"
+  "/protobuf/descriptor.proto\"\035\n\tMyMessage:"
+  "\020\222\202\031\014Hello world!\"H\n\"sNetworkData_eMI_C2"
+  "S_LOGIN_REQUEST\022\021\n\tstrGameID\030\001 \001(\t\022\017\n\007st"
+  "rAuth\030\002 \001(\t\"\231\001\n!sNetworkData_eMI_S2C_LOG"
+  "IN_RESULT\022\024\n\014strErrorCode\030\001 \001(\t\022\022\n\nstrVe"
+  "rsion\030\002 \001(\t\022\023\n\013strCurrency\030\003 \001(\t\022\020\n\010i64M"
+  "oney\030\004 \001(\003\022\017\n\007strNote\030\005 \001(\t\022\022\n\ni64BetLis"
+  "t\030\006 \003(\003*N\n\neMessageID\022\031\n\025eMI_C2S_LOGIN_R"
+  "EQUEST\020\000\022\030\n\024eMI_S2C_LOGIN_RESULT\020\001\022\013\n\007eM"
+  "I_MAX\020\003:7\n\tmy_option\022\037.google.protobuf.M"
+  "essageOptions\030\242\220\003 \001(\t\210\001\001b\006proto3"
   ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_MessageTest_2eproto_deps[1] = {
+  &::descriptor_table_google_2fprotobuf_2fdescriptor_2eproto,
+};
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_MessageTest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_MessageTest_2eproto = {
-  false, false, 350, descriptor_table_protodef_MessageTest_2eproto, "MessageTest.proto", 
-  &descriptor_table_MessageTest_2eproto_once, nullptr, 0, 2,
+  false, false, 472, descriptor_table_protodef_MessageTest_2eproto, "MessageTest.proto", 
+  &descriptor_table_MessageTest_2eproto_once, descriptor_table_MessageTest_2eproto_deps, 1, 3,
   schemas, file_default_instances, TableStruct_MessageTest_2eproto::offsets,
   file_level_metadata_MessageTest_2eproto, file_level_enum_descriptors_MessageTest_2eproto, file_level_service_descriptors_MessageTest_2eproto,
 };
@@ -125,6 +150,45 @@ bool eMessageID_IsValid(int value) {
   }
 }
 
+
+// ===================================================================
+
+class MyMessage::_Internal {
+ public:
+};
+
+MyMessage::MyMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase(arena, is_message_owned) {
+  // @@protoc_insertion_point(arena_constructor:MessageTest.MyMessage)
+}
+MyMessage::MyMessage(const MyMessage& from)
+  : ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:MessageTest.MyMessage)
+}
+
+
+
+
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData MyMessage::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::CopyImpl,
+    ::PROTOBUF_NAMESPACE_ID::internal::ZeroFieldsBase::MergeImpl,
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*MyMessage::GetClassData() const { return &_class_data_; }
+
+
+
+
+
+
+
+::PROTOBUF_NAMESPACE_ID::Metadata MyMessage::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_MessageTest_2eproto_getter, &descriptor_table_MessageTest_2eproto_once,
+      file_level_metadata_MessageTest_2eproto[0]);
+}
 
 // ===================================================================
 
@@ -375,7 +439,7 @@ void sNetworkData_eMI_C2S_LOGIN_REQUEST::InternalSwap(sNetworkData_eMI_C2S_LOGIN
 ::PROTOBUF_NAMESPACE_ID::Metadata sNetworkData_eMI_C2S_LOGIN_REQUEST::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_MessageTest_2eproto_getter, &descriptor_table_MessageTest_2eproto_once,
-      file_level_metadata_MessageTest_2eproto[0]);
+      file_level_metadata_MessageTest_2eproto[1]);
 }
 
 // ===================================================================
@@ -791,12 +855,19 @@ void sNetworkData_eMI_S2C_LOGIN_RESULT::InternalSwap(sNetworkData_eMI_S2C_LOGIN_
 ::PROTOBUF_NAMESPACE_ID::Metadata sNetworkData_eMI_S2C_LOGIN_RESULT::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_MessageTest_2eproto_getter, &descriptor_table_MessageTest_2eproto_once,
-      file_level_metadata_MessageTest_2eproto[1]);
+      file_level_metadata_MessageTest_2eproto[2]);
 }
+const std::string my_option_default("");
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY ::PROTOBUF_NAMESPACE_ID::internal::ExtensionIdentifier< ::PROTOBUF_NAMESPACE_ID::MessageOptions,
+    ::PROTOBUF_NAMESPACE_ID::internal::StringTypeTraits, 9, false >
+  my_option(kMyOptionFieldNumber, my_option_default);
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace MessageTest
 PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::MessageTest::MyMessage* Arena::CreateMaybeMessage< ::MessageTest::MyMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::MessageTest::MyMessage >(arena);
+}
 template<> PROTOBUF_NOINLINE ::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST* Arena::CreateMaybeMessage< ::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST >(Arena* arena) {
   return Arena::CreateMessageInternal< ::MessageTest::sNetworkData_eMI_C2S_LOGIN_REQUEST >(arena);
 }

@@ -31,4 +31,7 @@ public:
 	virtual	void						Init()override;
 	virtual	void						Update(float e_fElpaseTime)override;
 	virtual	void						Destroy()override;
+
+	bool								SendDataToClient(SDLNetSocket e_SDLNetSocket, char* e_pData, int e_iDataLength);
+	bool								SendDataToAllClient(char* e_pData, int e_iDataLength);
 };

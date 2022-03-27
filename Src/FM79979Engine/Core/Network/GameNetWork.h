@@ -94,6 +94,7 @@ namespace FATMING_CORE
 		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = true);
 		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = true);
 		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
+		bool								SendDataToServer(char*e_pData,int e_iDataSize, bool e_bSnedByNetworkThread = true);
 
 		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap = 1.f);
 		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction,float e_fReconnectionTimeGap = 1.f);

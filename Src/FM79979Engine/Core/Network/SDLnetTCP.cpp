@@ -52,10 +52,10 @@ TCPsocket SDLNet_TCP_Open(IPaddress *ip)
     /* Open the socket */
 #ifdef WASM
     //https://blog.squareys.de/emscripten-sockets/
-//	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-    //sock->channel = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);// 
     printf("call socket start");
-    sock->channel = socket(AF_INET, SOCK_STREAM, 0);
+    //	sock->channel = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sock->channel = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);// 
+    //sock->channel = socket(AF_INET, SOCK_STREAM, 0);
     printf("call socket finish");
     //fcntl(sock->channel, F_SETFL, O_NONBLOCK);
 #else
