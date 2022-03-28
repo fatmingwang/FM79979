@@ -243,6 +243,9 @@
     <Filter Include="GameplayUT\OpenGL\GLSL\CS">
       <UniqueIdentifier>{289babe7-b450-404a-96fe-f1666c42a3ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Emscripten">
+      <UniqueIdentifier>{9fb6e5ab-177d-46e0-b6fa-6a6a2f2685f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -772,6 +775,12 @@
     </ClCompile>
     <ClCompile Include="GameplayUT\OpenGL\GLSL\SimpleComputeShader.cpp">
       <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClCompile>
+    <ClCompile Include="Emscripten\JSBindCode.cpp">
+      <Filter>Emscripten</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Emscripten_Network.cpp">
+      <Filter>NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1374,6 +1383,9 @@
     </ClInclude>
     <ClInclude Include="GameplayUT\OpenGL\GLSL\SimpleComputeShader.h">
       <Filter>GameplayUT\OpenGL\GLSL\CS</Filter>
+    </ClInclude>
+    <ClInclude Include="Emscripten\JSBindCode.h">
+      <Filter>Emscripten</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

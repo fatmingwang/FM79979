@@ -13,6 +13,12 @@
 
 namespace FATMING_CORE
 {
+#ifdef USE_JS_WEBSOCKET
+	#define	DO_MULTI_THREAD	false
+#else
+	#define	DO_MULTI_THREAD	true
+#endif
+
 	class	cGameNetwork:public FATMING_CORE::cCPP11Thread,public NamedTypedObject
 	{
 #ifdef WASM
@@ -84,17 +90,18 @@ namespace FATMING_CORE
 		void								SetOpenSocketOkayCallback(std::function<void(SDLNetSocket)> e_Function);
 		void								SetClientLostConnectionCallback(std::function<void(SDLNetSocket)> e_Function);
 		eNetWorkStatus						GetNetWorkStatus() { return m_eNetWorkStatus; }
+		void								SetNetWorkStatus(eNetWorkStatus e_eNetWorkStatus) { m_eNetWorkStatus = e_eNetWorkStatus; }
 		std::vector<sNetworkReceivedPacket*>GetReceivedDataPleaseDeleteAfterUseIt();
 		//below 2(SendData,SendDataToAllClient) API will add 4 byte(int) before the data,if you don't want add a int before the packet please override this
-		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
-		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
-		bool								SendDataToClient(SDLNetSocket e_pTCPsocket, char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = true);
-		bool								SendDataToAllClient(char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = true);
-		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = true);
-		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = true);
-		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = true);
-		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = true);
-		bool								SendDataToServer(char*e_pData,int e_iDataSize, bool e_bSnedByNetworkThread = true);
+		virtual bool						SendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		virtual bool						SendDataToAllClient(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		bool								SendDataToClient(SDLNetSocket e_pTCPsocket, char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		bool								SendDataToAllClient(char* e_pData, int e_iDataLength, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		template<class TYPE>bool			SendDataToClient(SDLNetSocket e_pTCPsocket,TYPE*e_pData,bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		template<class TYPE>bool			SendDataToAllClient(TYPE*e_pData, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		template<class TYPE>bool			SendDataToServer(TYPE * e_pData, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		bool								SendDataToServer(sNetworkSendPacket*e_pPacket, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
+		bool								SendDataToServer(char*e_pData,int e_iDataSize, bool e_bSnedByNetworkThread = DO_MULTI_THREAD);
 
 		bool								CreateAsServer(int e_iPort,bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap = 1.f);
 		bool								CreateAsClient(int e_iPort, const char*e_strIP, bool e_bCreateReconnectFunction,float e_fReconnectionTimeGap = 1.f);
@@ -110,6 +117,24 @@ namespace FATMING_CORE
 		bool								IsDoDisconnect() { return m_bDoDisconnect; }
 		void								SetDoDisconnect(bool e_bDisConnect, bool e_bDeleteReConnect);
 		void								MakeKeepAlive(int e_iTimeToCheckConnectionIfNoAnyMessage,int	e_iRetryCount,int	e_iNextRetyTimeGap);
+#ifdef USE_JS_WEBSOCKET
+		void								AddNewWebSocket(sNetworkReceivedPacket* e_pData) 
+		{
+			MUTEX_PLACE_HOLDER(m_ReceivedDataMutex, "cGameNetwork::AddNewWebSocket");
+			m_ReceivedDataVector.push_back(e_pData); 
+		}
+		//only for CreateAsClient
+		void	SetWebSocketOpen(size_t e_uiFD)
+		{
+			m_pSocket = nullptr;
+			m_pSocket = GetSDLNetSocket(e_uiFD);
+			if (m_SocketOpenOkayCallback)
+			{
+				m_SocketOpenOkayCallback(m_pSocket);
+			}
+		}
+		
+#endif
 	};
 	template<class TYPE>
 	inline bool cGameNetwork::SendDataToClient(SDLNetSocket e_pTCPsocket, TYPE*e_pData, bool e_bSnedByNetworkThread)

@@ -101,12 +101,12 @@ EMSCRIPTEN_BINDINGS(my_module)
 //        Module.JSBinding();
 //    }
 //    console.log("========================");
-//Module.ready().then
+//	Module.ready().then
 //    (
-//var l_Instance = new Module.cWASMBindingTest("Hi");
-//l_Instance.y = "hello world";
+//		var l_Instance = new Module.cWASMBindingTest("Hi");
+//		l_Instance.y = "hello world";
 //   )
-//console.log("========================");
+//	console.log("========================");
 //</script>
 
 #endif

@@ -26,8 +26,11 @@ namespace FATMING_CORE
 	};
 
 	typedef  std::shared_ptr<sSDLNetTCPSocket>	SDLNetSocket;
+	//TCP
 	SDLNetSocket	GetSDLNetSocket(_TCPsocket*);
+	//UDP
 	SDLNetSocket	GetSDLNetSocket(IPaddress);
+	//for websocket
 	SDLNetSocket	GetSDLNetSocket(size_t);
 
 

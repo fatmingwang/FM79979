@@ -288,19 +288,33 @@ int main()
 	//-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=0 --bind -pthread  -s WEBSOCKET_SUBPROTOCOL=null -lwebsocket.js  -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 -s PROXY_POSIX_SOCKETS=1 -s PROXY_TO_PTHREAD=1 -s WEBSOCKET_URL=192.168.31.242 
 	// no tcp websocket.
 	//-s ERROR_ON_UNDEFINED_SYMBOLS=1 -s FETCH=1 -s FULL_ES3=1 -s ASSERTIONS=0 --bind -pthread -lwebsocket.js  -s USE_PTHREADS=1 -s SOCKET_DEBUG=1 
-	if (1)
-	{
-		printf("try to create websocket\n");
-		//wss://localhost:9992
-		EmscriptenWebSocketCreateAttributes l_Att = {"ws://localhost:9992",0,EM_TRUE};
-		//EmscriptenWebSocketCreateAttributes l_Att = { "wss://echo.websocket.events/.ws",0,EM_TRUE };
-		auto l_WS = emscripten_websocket_new(&l_Att);
-		emscripten_websocket_set_onopen_callback(l_WS, 0, onopen);
-		emscripten_websocket_set_onerror_callback(l_WS, 0, onerror);
-		emscripten_websocket_set_onclose_callback(l_WS, 0, onclose);
-		emscripten_websocket_set_onmessage_callback(l_WS, 0, onmessage);
-	}
-
+	//if (1)
+	//{
+	//	printf("try to create websocket\n");
+	//	//dire server
+	//	//ws://sitapi.diresoft.net/api/agent
+	//	//wss://funplayapi.pypc.net/api/agent
+	//	//my
+	//	//wss://localhost:9992
+	//	EMSCRIPTEN_WEBSOCKET_T l_WebSocketFD = -1;
+	//	bool l_bDo_WSS = true;
+	//	if (l_bDo_WSS)
+	//	{
+	//		EmscriptenWebSocketCreateAttributes l_Att = { "wss://funplayapi.pypc.net/api/agent",0,EM_TRUE };
+	//		printf("connect to wss://echo.websocket.events/.ws");
+	//		l_WebSocketFD = emscripten_websocket_new(&l_Att);
+	//	}
+	//	else
+	//	{
+	//		EmscriptenWebSocketCreateAttributes l_Att = {"ws://sitapi.diresoft.net/api/agent",0,EM_TRUE};
+	//		l_WebSocketFD = emscripten_websocket_new(&l_Att);
+	//	}
+	//	emscripten_websocket_set_onopen_callback(l_WebSocketFD, 0, onopen);
+	//	emscripten_websocket_set_onerror_callback(l_WebSocketFD, 0, onerror);
+	//	emscripten_websocket_set_onclose_callback(l_WebSocketFD, 0, onclose);
+	//	emscripten_websocket_set_onmessage_callback(l_WebSocketFD, 0, onmessage);
+	//}
+	
 	//struct sockaddr_in addr;
 	//int res;
 	//sockfd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);

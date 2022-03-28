@@ -26,7 +26,7 @@ cEngineTestApp::cEngineTestApp(Vector2 e_vGameResolution,Vector2 e_vViewportSize
 {
 #ifdef WASM
 	//FMLOG("new cNetworkSample");
-	//g_pNetworkSample = new cNetworkSample();
+	g_pNetworkSample = new cNetworkSample();
 #endif
 	this->m_sbDebugFunctionWorking = true;
 	this->m_sbSpeedControl = true;

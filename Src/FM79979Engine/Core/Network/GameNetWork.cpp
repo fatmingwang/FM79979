@@ -10,17 +10,21 @@
 #include "SDL_net.h"
 
 #ifdef WASM
+	#include <emscripten/emscripten.h>
+	#include <emscripten/websocket.h>
+	extern void	EMSDK_DoWebSocketConnect(FATMING_CORE::cGameNetwork* e_pForWebSocket, const char* e_strURL);
+	extern bool	EMSDK_SendData(char* e_pData, int e_iSize);
 //emsdk\upstream\emscripten\tests\websocket\tcp_echo_client.cpp
 	bool	g_bWASM_IsSSLConnection = true;
-#define DO_WEBSOCKET_INIT
+#ifndef USE_JS_WEBSOCKET
+	#define DO_WEBSOCKET_INIT
+#endif
 	#ifdef DO_WEBSOCKET_INIT
 	//fuck!!!!!!!!
 	// 	if you have set flag for -s PROXY_POSIX_SOCKETS=1 
 	//  you hvae to define DO_WEBSOCKET_INIT or thread stuck,because it expected call emscripten websocket function
 	//fuck!!!!!!!!
 // -lwebsocket.js -s PROXY_POSIX_SOCKETS=1 
-#include <emscripten.h>
-#include <emscripten/websocket.h>
 #include <emscripten/threading.h>
 #include <emscripten/posix_socket.h>
 		#define	EMSCRIPTEN_WEBSOCKET_INIT(ADDRESS)	emscripten_init_websocket_to_posix_socket_bridge(ADDRESS)
@@ -586,8 +590,15 @@ namespace FATMING_CORE
 		}
 		return false;
 	}
+
 	bool cGameNetwork::CreateAsClient(int e_iPort, const char * e_strIP, bool e_bCreateReconnectFunction, float e_fReconnectionTimeGap)
 	{
+#ifdef USE_JS_WEBSOCKET
+		m_IPData.m_strServerIP = e_strIP;
+		//void emscripten_websocket_deinitialize(void);
+		EMSDK_DoWebSocketConnect(this, e_strIP);
+
+#else
 		m_IPData.m_iPort = e_iPort;
 		m_IPData.m_strServerIP = e_strIP;
 #ifdef WASM
@@ -607,6 +618,7 @@ namespace FATMING_CORE
 			}
 			return true;
 		}
+#endif
 		return false;
 	}
 	bool cGameNetwork::OpenSocket(int e_iPort, const char * e_strIP)
@@ -726,6 +738,12 @@ namespace FATMING_CORE
 
 	bool cGameNetwork::InternalSendData(SDLNetSocket e_pTCPsocket, sNetworkSendPacket * e_pPacket)
 	{
+#ifdef USE_JS_WEBSOCKET
+		if (!EMSDK_SendData(e_pPacket->pData, e_pPacket->iSize))
+		{
+			return false;
+		}
+#else
 		//if e_pTCPsocket is invalid sent will be failed,so don't need to do mutex here(I can't control player lost connection.)
 		int		l_iSent = 0;
 		if (e_pTCPsocket)
@@ -771,6 +789,7 @@ namespace FATMING_CORE
 		{
 			FMLog::Log(UT::ComposeMsgByFormat("connection failed! ErrorCode:%d", l_iErrorCode).c_str(), false);
 		}
+#endif
 		DumpPacketData(*e_pTCPsocket->Socket.pTCPIPSocket, e_pPacket->iSize, e_pPacket->pData, "send data");
 		return true;
 	}
@@ -890,57 +909,6 @@ namespace FATMING_CORE
 			SDLNet_TCP_AddSocket(m_pAllSocketToListenClientMessage, m_ClientSocketVector[i]->Socket.pTCPIPSocket);
 		return true;
 	}
-
-	//typedef std::function<void()> f_PingFailedLostConnection;
-
-	//l_sfElpaseTime += e_ElpaseTime;
-	//if (l_sfElpaseTime >= l_sfTryToPingServerTC)
-	//{
-	//	UT::sTimeAndFPS l_TimeAndFPS;
-	//	l_TimeAndFPS.Update();
-	//	auto l_strTargetIP = UT::ComposeMsgByFormat("ping -c1 -s1 %s  > /dev/null 2>&1", m_IPData.m_strServerIP.c_str());
-	//	int x = system(l_strTargetIP.c_str());
-	//	l_TimeAndFPS.Update();
-	//	float l_fTime = l_TimeAndFPS.fElpaseTime;
-	//	if (x == 0)
-	//	{//cout << "success" << endl;
-	//	}
-	//	else
-	//	{
-	//		goto FAILED;
-	//	}
-	//	l_sfElpaseTime = 0.f;
-	//}
-
-	//void PingIP(const char*e_strIP, f_PingFailedLostConnection e_f_PingFailedLostConnection,bool e_bKeepThread)
-	//{
-	//	UT::sTimeCounter l_TC;
-	//	l_TC.SetTargetTime(5.f);
-	//	UT::sTimeAndFPS l_TimeAndFPS;
-	//	l_TimeAndFPS.Update();
-	//	while (e_bKeepThread)
-	//	{
-	//		Sleep(100);
-	//		l_TimeAndFPS.Update();
-	//		l_TC.Update(l_TimeAndFPS.fElpaseTime);
-	//		if (l_TC.bTragetTimrReached)
-	//		{
-	//			auto l_strTargetIP = UT::ComposeMsgByFormat("ping -c1 -s1 %s  > /dev/null 2>&1", e_strIP);
-	//			int x = system(l_strTargetIP.c_str());
-	//			l_TimeAndFPS.Update();
-	//			float l_fTime = l_TimeAndFPS.fElpaseTime;
-	//			if (x == 0)
-	//			{//cout << "success" << endl;
-
-	//			}
-	//			else
-	//			{
-	//				e_f_PingFailedLostConnection();
-	//			}
-	//			l_TC.Start();
-	//		}
-	//	}
-	//}
 
 	void	cGameNetwork::ClientListenDataThread(float e_ElpaseTime)
 	{
