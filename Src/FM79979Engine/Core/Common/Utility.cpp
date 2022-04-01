@@ -670,10 +670,10 @@ namespace UT
 	}
 #endif
 
-	char*					GetFileContent(const char* e_strFileName, int&e_iFileLength)
+	char*					GetFileContent(const char* e_strFileName, int&e_iFileLength, const char* e_strMode)
 	{
 		char*l_pTemp = nullptr;
-		NvFile*l_pFile = MyFileOpen(e_strFileName, "r");
+		NvFile*l_pFile = MyFileOpen(e_strFileName, e_strMode);
 		if (!l_pFile)
 		{
 			return nullptr;
@@ -682,9 +682,8 @@ namespace UT
 		if (l_iFileSize != 0)
 		{
 			e_iFileLength = l_iFileSize;
-			l_pTemp = new char[l_iFileSize + 1];//1 MB
+			l_pTemp = new char[l_iFileSize];
 			size_t	l_iNumRead = NvFRead(l_pTemp, 1, l_iFileSize, l_pFile);
-			l_pTemp[l_iNumRead] = 0;
 		}
 		NvFClose(l_pFile);
 		return l_pTemp;

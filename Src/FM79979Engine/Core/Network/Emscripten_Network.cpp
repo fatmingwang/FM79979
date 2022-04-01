@@ -1,3 +1,4 @@
+#ifdef WASM
 #include <emscripten/emscripten.h>
 #include <emscripten/websocket.h>
 #include "GameNetWork.h"
@@ -90,3 +91,4 @@ void	EMSDK_DoWebSocketConnect(FATMING_CORE::cGameNetwork* e_pForWebSocket, const
 	emscripten_websocket_set_onmessage_callback(l_WebSocketFD, 0, EMSDK_OnMessage);
 	g_pForWebSocket->SetNetWorkStatus(FATMING_CORE::eNetWorkStatus::eNWS_TRY_TO_CONNECT);
 }
+#endif
