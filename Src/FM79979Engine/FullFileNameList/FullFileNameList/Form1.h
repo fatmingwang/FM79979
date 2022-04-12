@@ -1,7 +1,10 @@
 #pragma once
-#include "..\..\DotNetCommon\DotNetCommonTools.h"
 
-namespace FullFileNameList {
+#include "..\..\DotNetCommon\DotNetCommonTools.h"
+#include "KeyAndFileName.h"
+
+namespace FullFileNameList
+{
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -9,6 +12,8 @@ namespace FullFileNameList {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace Newtonsoft::Json;
+	//using namespace System::Text::Json;
 
 	/// <summary>
 	/// Form1 ªººK­n
@@ -58,6 +63,8 @@ namespace FullFileNameList {
 	private: System::Windows::Forms::TextBox^  AfterText_textBox;
 	private: System::Windows::Forms::CheckBox^  DoPrefix_After_checkBox;
 	private: System::Windows::Forms::CheckBox^  TakeExtensionOrder_checkBox;
+	private: System::Windows::Forms::Button^ ToJson_button;
+
 
 
 	private:
@@ -88,6 +95,7 @@ namespace FullFileNameList {
 			this->AfterText_textBox = (gcnew System::Windows::Forms::TextBox());
 			this->DoPrefix_After_checkBox = (gcnew System::Windows::Forms::CheckBox());
 			this->TakeExtensionOrder_checkBox = (gcnew System::Windows::Forms::CheckBox());
+			this->ToJson_button = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -179,7 +187,7 @@ namespace FullFileNameList {
 			// fontToolStripMenuItem
 			// 
 			this->fontToolStripMenuItem->Name = L"fontToolStripMenuItem";
-			this->fontToolStripMenuItem->Size = System::Drawing::Size(38, 20);
+			this->fontToolStripMenuItem->Size = System::Drawing::Size(43, 20);
 			this->fontToolStripMenuItem->Text = L"Font";
 			this->fontToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::fontToolStripMenuItem_Click);
 			// 
@@ -240,11 +248,23 @@ namespace FullFileNameList {
 			this->TakeExtensionOrder_checkBox->Text = L"TakeExtensionOrder";
 			this->TakeExtensionOrder_checkBox->UseVisualStyleBackColor = true;
 			// 
+			// ToJson_button
+			// 
+			this->ToJson_button->Location = System::Drawing::Point(129, 62);
+			this->ToJson_button->Margin = System::Windows::Forms::Padding(2);
+			this->ToJson_button->Name = L"ToJson_button";
+			this->ToJson_button->Size = System::Drawing::Size(129, 20);
+			this->ToJson_button->TabIndex = 15;
+			this->ToJson_button->Text = L"WholeDirectoryToJson";
+			this->ToJson_button->UseVisualStyleBackColor = true;
+			this->ToJson_button->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 12);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(886, 504);
+			this->Controls->Add(this->ToJson_button);
 			this->Controls->Add(this->TakeExtensionOrder_checkBox);
 			this->Controls->Add(this->DoPrefix_After_checkBox);
 			this->Controls->Add(this->AfterText_label);
@@ -391,7 +411,9 @@ namespace FullFileNameList {
 						AllFileList_textBox->Text = l_strRoot;
 					}
 					else
+					{
 						AllFileList_textBox->Text += l_iMatchCount.ToString();
+					}
 				}
 			 }
 
@@ -407,14 +429,19 @@ namespace FullFileNameList {
 			 }
 	private: System::Void StripDirectory_checkBox_CheckedChanged(System::Object^  sender, System::EventArgs^  e)
 			 {
-				 if( m_AllfileNameList->Count )
+				if (m_AllfileNameList->Count)
+				{
 					StringChangeToTextBox(m_AllfileNameList);
+				}
 			 }
+
 	private: System::Void Current_button_Click(System::Object^  sender, System::EventArgs^  e)
 			 {
 				 static bool	l_b = false;
-				 if( l_b )
+				 if (l_b)
+				 {
 					 return;
+				 }
 				 l_b = true;
 				 System::String^l_Directory = DNCT::SelectDirectory();
 				 if( l_Directory )
@@ -440,15 +467,72 @@ namespace FullFileNameList {
 				 }
 				 l_b = false;
 			 }
-	private: System::Void fontToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
-			 {
-				 System::Drawing::Font^l_pFont = DNCT::GetFontFromFontDialog();
-				 if( l_pFont )
-					AllFileList_textBox->Font = l_pFont;
-			 }
-	private: System::Void AddExtraText_button_Click(System::Object^  sender, System::EventArgs^  e) 
-	{
-	}
+			private: System::Void fontToolStripMenuItem_Click(System::Object^  sender, System::EventArgs^  e)
+					 {
+						 System::Drawing::Font^l_pFont = DNCT::GetFontFromFontDialog();
+						 if (l_pFont)
+						 {
+							 AllFileList_textBox->Font = l_pFont;
+						 }
+					 }
+			private: System::Void AddExtraText_button_Click(System::Object^  sender, System::EventArgs^  e) 
+			{
+
+			}
+
+			String^GetFolderName(String^e_strDirectory)
+			{
+				for (int i = e_strDirectory->Length-2; i >0 ; --i)
+				{
+					if (e_strDirectory[i] == '/' || e_strDirectory[i] == '\\')
+					{
+						return e_strDirectory->Substring(i+1, e_strDirectory->Length-i-1);
+					}
+				}
+				return nullptr;
+			}
+			private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) 
+			{
+				array<Char>^ l_Chars = { ',' };
+				array<String^>^ l_strExtensionNameSplit = ExtensionName_textBox->Text->Split(l_Chars);
+				//System::String^l_Directory = DNCT::SelectDirectory();
+				System::String^ l_Directory = "D:/Work/baccarat/Src/FM79979/Src/FM79979Engine/Core";
+				if (l_Directory)
+				{
+					m_AllfileNameList->Clear();
+					GetFilesNameByRecursivelyDirectory(l_Directory, m_AllfileNameList);
+					cBundleAndFileMap^ l_pcBundleAndFileMap = gcnew cBundleAndFileMap();
+					l_pcBundleAndFileMap->Name = GetFolderName(l_Directory);
+					auto l_pArrayList = gcnew System::Collections::ArrayList();
+					//for each(auto l_File in m_AllfileNameList)
+					{
+						for each (String ^ l_FileName in m_AllfileNameList)
+						{
+							for each (String ^ l_strExtenName in l_strExtensionNameSplit)
+							{
+								String^ l_strDestxtensionName = System::IO::Path::GetExtension(l_FileName);
+								if (l_strDestxtensionName->Length)
+								{//same extension name
+									if (l_strDestxtensionName->Equals(l_strExtenName))
+									{
+										cKeyAndFileName^ l_pKeyAndFileName = gcnew cKeyAndFileName();
+										l_pKeyAndFileName->Key = System::IO::Path::GetFileNameWithoutExtension(l_FileName->ToString());
+										l_pKeyAndFileName->FileName = l_FileName->ToString()->Substring(l_Directory->Length+1);
+										l_pArrayList->Add(l_pKeyAndFileName);
+
+									}
+								}
+
+							}
+						}
+					}
+					l_pcBundleAndFileMap->Array = l_pArrayList;
+					
+					AllFileList_textBox->Text = JsonConvert::SerializeObject(l_pcBundleAndFileMap);
+					int a = 0;
+					//auto jsonString = System::Text::Json::JsonSerializer::Serialize(l_pcBundleAndFileMap);
+					//AllFileList_textBox->Text = jsonString;
+				}
+			}
 };
 }
-

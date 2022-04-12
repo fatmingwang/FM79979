@@ -26,6 +26,9 @@
     <ClCompile Include="..\..\DotNetCommon\DotNetCommonTools.cpp">
       <Filter>DotNEtCommon</Filter>
     </ClCompile>
+    <ClCompile Include="KeyAndFileName.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Form1.h">
@@ -40,9 +43,9 @@
     <ClInclude Include="..\..\DotNetCommon\DotNetCommonTools.h">
       <Filter>DotNEtCommon</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="ReadMe.txt" />
+    <ClInclude Include="KeyAndFileName.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resX" />
