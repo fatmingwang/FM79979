@@ -482,11 +482,19 @@ namespace FullFileNameList
 
 			String^GetFolderName(String^e_strDirectory)
 			{
+				int l_iLastIndex = e_strDirectory->Length - 1;
 				for (int i = e_strDirectory->Length-2; i >0 ; --i)
 				{
 					if (e_strDirectory[i] == '/' || e_strDirectory[i] == '\\')
 					{
-						return e_strDirectory->Substring(i+1, e_strDirectory->Length-i-1);
+						if (e_strDirectory[l_iLastIndex] == '/' || e_strDirectory[l_iLastIndex] == '\\')
+						{
+							return e_strDirectory->Substring(i + 1, e_strDirectory->Length - i-2);
+						}
+						else
+						{
+							return e_strDirectory->Substring(i + 1, e_strDirectory->Length - i);
+						}
 					}
 				}
 				return nullptr;
@@ -495,8 +503,9 @@ namespace FullFileNameList
 			{
 				array<Char>^ l_Chars = { ',' };
 				array<String^>^ l_strExtensionNameSplit = ExtensionName_textBox->Text->Split(l_Chars);
-				//System::String^l_Directory = DNCT::SelectDirectory();
-				System::String^ l_Directory = "D:/Work/baccarat/Src/FM79979/Src/FM79979Engine/Core";
+				System::String^l_Directory = DNCT::SelectDirectory();
+				//System::String^ l_Directory = "D:/Work/baccarat/Src/FM79979/Src/FM79979Engine/Core";
+				//System::String^ l_Directory = "E:/Work/FM79979/Src/FM79979Engine/Core/Network/";
 				if (l_Directory)
 				{
 					m_AllfileNameList->Clear();
@@ -517,7 +526,7 @@ namespace FullFileNameList
 									{
 										cKeyAndFileName^ l_pKeyAndFileName = gcnew cKeyAndFileName();
 										l_pKeyAndFileName->Key = System::IO::Path::GetFileNameWithoutExtension(l_FileName->ToString());
-										l_pKeyAndFileName->FileName = l_FileName->ToString()->Substring(l_Directory->Length+1);
+										l_pKeyAndFileName->FileName = l_FileName->ToString()->Substring(l_Directory->Length);
 										l_pArrayList->Add(l_pKeyAndFileName);
 
 									}
