@@ -81,6 +81,7 @@
     <PlatformToolset>emcc</PlatformToolset>
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <EmscriptenDir>E:\Work\emsdk\upstream\emscripten</EmscriptenDir>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_NoPthread|Emscripten'" Label="Configuration">
     <PlatformToolset>emcc</PlatformToolset>
@@ -206,7 +207,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Emscripten'">
     <ClCompile>
-      <PreprocessorDefinitions>WASM;DEBUG;NO_BULLET_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WASM;DEBUG;NO_BULLET_;USE_JS_WEBSOCKET</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <ExceptionHandling>true</ExceptionHandling>
       <CLanguageStandard>
@@ -233,7 +234,7 @@
       <Command>-r</Command>
     </CustomBuildStep>
     <Lib>
-      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_NoPthread|Emscripten'">
@@ -270,7 +271,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Emscripten'">
     <ClCompile>
-      <PreprocessorDefinitions>WASM;NO_BULLET_</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WASM;NO_BULLET_;USE_JS_WEBSOCKET</PreprocessorDefinitions>
       <CppLanguageStandard>c++11</CppLanguageStandard>
       <AdditionalIncludeDirectories>./GameplayUT/Physic/Bullet;../Freetype/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -293,7 +294,7 @@
     </ClCompile>
     <Lib />
     <Lib>
-      <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>

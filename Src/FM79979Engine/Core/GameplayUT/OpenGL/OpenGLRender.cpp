@@ -210,7 +210,7 @@ namespace FATMING_CORE
 #endif
 		g_pCurrentShader = nullptr;
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		myGLBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		CHECK_GL_ERROR("before viewport");
 		glViewport(0, 0, (GLsizei)this->m_vDeviceViewPortSize.Width(), (GLsizei)this->m_vDeviceViewPortSize.Height());
 		//need this one or screen flash...and I dont know why

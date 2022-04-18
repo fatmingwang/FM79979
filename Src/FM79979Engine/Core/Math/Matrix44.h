@@ -122,6 +122,7 @@ public:
 	/** Transforms the given point by this matrix.
 		@param coordinate The point to transform.
 		@return The vector representation of the transformed point. */
+	Vector2 TransformCoordinate(const Vector2& coordinate) const;
 	Vector3 TransformCoordinate(const Vector3& coordinate) const;
 	Vector4 TransformCoordinate(const Vector4& coordinate) const; /**< See above. */
 

@@ -820,11 +820,13 @@ namespace FATMING_CORE
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
-			sBlendfunctionRestore l_BlendfunctionRestore;
+			sBlendfunction l_BlendfunctionRestore;
 			l_BlendfunctionRestore.GetStatus();
-			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
-			if(m_pBaseImage)
+			myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			if (m_pBaseImage)
+			{
 				m_pBaseImage->ApplyImage();
+			}
 			cMatrix44	l_mat;
 			cMatrix44	l_matWorldTransform = this->GetWorldTransform();
 			if( m_iPrimitiveType == GL_QUADS )
@@ -896,9 +898,9 @@ namespace FATMING_CORE
 			UseShaderProgram(DEFAULT_SHADER);
 			//this one should be called by UseParticleShaderProgram,but u might want to setup it's new position if u need
 			//SetupParticleShaderWorldMatrix(cMatrix44::Identity);
-			sBlendfunctionRestore l_BlendfunctionRestore;
+			sBlendfunction l_BlendfunctionRestore;
 			l_BlendfunctionRestore.GetStatus();
-			glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+			myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 			//
 			if (m_pBaseImage)
 			{

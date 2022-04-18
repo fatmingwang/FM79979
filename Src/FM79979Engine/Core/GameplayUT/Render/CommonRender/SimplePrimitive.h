@@ -27,6 +27,7 @@ void	ASSIGN_2D_QUAD_COLOR(Vector4 Color);
 void	ASSIGN_2D_QUAD_VerticesBySize(float Width,float Height,float Depth);
 void	ASSIGN_2D_QUAD_UV(float*UV);
 void	ASSIGN_2D_QUAD_MIRROR_UV(float* UV);
+void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest);
 #ifdef DEBUG
 void	myGlVertexPointer(int Stride, const GLvoid*pData);
 void	myGlUVPointer(int Stride, const GLvoid*pData);
@@ -115,20 +116,23 @@ namespace GLRender
 	void	Assign4VerticesDataTo2Triangles(float*e_pVertexSrc,float*e_pVertexDest,float*e_pUVSrc,float*e_pUVDest,int e_iStride);
 
 
-	struct sBlendfunctionRestore
+	struct sBlendfunction
 	{
+		sBlendfunction(){}
+		sBlendfunction(GLenum e_eSrcBlendingMode, GLenum e_eDestBlendingMode)
+		{
+			eSrcBlendingMode = e_eSrcBlendingMode;
+			eDestBlendingMode = e_eDestBlendingMode;
+		}
 		GLint iColorParameter[4];
-		void	GetStatus()
-		{
-			glGetIntegerv(GL_BLEND_SRC_RGB, &iColorParameter[0]);
-			glGetIntegerv(GL_BLEND_DST_RGB, &iColorParameter[1]);
-			glGetIntegerv(GL_BLEND_SRC_ALPHA, &iColorParameter[2]);
-			glGetIntegerv(GL_BLEND_DST_ALPHA, &iColorParameter[3]);
-		}
-		void	Restore()
-		{
-			glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
-		}
+		GLenum	eSrcBlendingMode = GL_SRC_ALPHA;
+		GLenum	eDestBlendingMode = GL_ONE_MINUS_SRC_ALPHA;
+		static	GLenum	eLastSrcBlendingMode;
+		static	GLenum	eLastDestBlendingMode;
+		bool	bDoRestore;
+		void	GetStatus();
+		void	Render();
+		void	Restore();
 	};
 };
 using namespace GLRender;

@@ -283,11 +283,11 @@ namespace FATMING_CORE
 	{
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
 			return;
-		sBlendfunctionRestore l_BlendfunctionRestore;
+		sBlendfunction l_BlendfunctionRestore;
 		if (this->m_bColorBlending)
 		{
 			l_BlendfunctionRestore.GetStatus();
-			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
+			myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		GetRenderPuzzleDataAndMatrix(m_pCurrentPointData, 3, (float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, e_pPuzzleData);
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
@@ -594,11 +594,11 @@ namespace FATMING_CORE
 		}
 		if (m_pCurrentPointData->vColor.a == 0)//totaly transparent
 			return;
-		sBlendfunctionRestore l_BlendfunctionRestore;
+		sBlendfunction l_BlendfunctionRestore;
 		if (this->m_bColorBlending)
 		{
 			l_BlendfunctionRestore.GetStatus();
-			glBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
+			myGLBlendFunc(m_SrcBlendingMode, m_DestBlendingMode);
 		}
 		cMatrix44 l_mat = GetConvertedWorldTransformIfParentRequireDoPositionOffsetToCenter();
 		RenderQuadWithMatrix((float*)this->m_2DVertices.vPos, (float*)m_2DVertices.fUV, m_pCurrentPointData->vColor, l_mat, 3, 1);

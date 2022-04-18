@@ -345,11 +345,11 @@ namespace FATMING_CORE
 					l_RenderMatrix = this->GetParent()->GetWorldTransform();
 				}
 				//cMatrix44	l_RenderMatrix = this->GetWorldTransform();
-				sBlendfunctionRestore l_BlendfunctionRestore;
+				sBlendfunction l_BlendfunctionRestore;
 				if (this->m_bColorBlending)
 				{
 					l_BlendfunctionRestore.GetStatus();
-					glBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
+					myGLBlendFunc(m_SrcBlendingMode,m_DestBlendingMode);
 				}
 				RenderQuadWithMatrix((float*)m_2DVertices.vPos,(float*)m_2DVertices.fUV,m_vWorkingColor,l_RenderMatrix,3,1);
 				if(this->m_bColorBlending)

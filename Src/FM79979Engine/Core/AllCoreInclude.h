@@ -32,4 +32,7 @@
 #ifdef ANDROID
 #include "Android/JNIUtil.h"
 #endif
+#ifdef WASM
+#include "Emscripten/JSBindCode.h"
+#endif
 using namespace FATMING_CORE;

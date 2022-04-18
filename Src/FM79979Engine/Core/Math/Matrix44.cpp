@@ -528,3 +528,11 @@ bool IsEquivalent(const cMatrix44& m1, const cMatrix44& m2)
 		&& IsEquivalent(m1.m[0][3], m2.m[0][3]) && IsEquivalent(m1.m[1][3], m2.m[1][3])
 		&& IsEquivalent(m1.m[2][3], m2.m[2][3]) && IsEquivalent(m1.m[3][3], m2.m[3][3]);
 }
+
+Vector2 cMatrix44::TransformCoordinate(const Vector2& coordinate) const
+{
+	return Vector2(
+		m[0][0] * coordinate.x + m[1][0] * coordinate.y + m[2][0] + m[3][0],
+		m[0][1] * coordinate.x + m[1][1] * coordinate.y + m[2][1] + m[3][1]
+	);
+}

@@ -73,6 +73,15 @@ void	myVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean norm
 }
 //end DEBUG
 #endif
+void	myGLBlendFunc(GLenum e_Src, GLenum e_Dest)
+{
+	glBlendFunc(e_Src, e_Dest);
+#ifdef DEBUG
+	CHECK_GL_ERROR("myGLBlendFunc");
+#endif
+	sBlendfunction::eLastSrcBlendingMode = e_Src;
+	sBlendfunction::eLastDestBlendingMode = e_Dest;
+}
 //glDrawArrays submits the vertices in linear order, as they are stored in the vertex arrays.
 //With glDrawElements you have to supply an index buffer.
 //Indices allow you to submit the vertices in any order, and to reuse vertices that are shared between triangles.
@@ -107,6 +116,8 @@ void	MY_GLDRAW_ELEMENTS(GLenum mode, GLsizei count, GLenum type, const GLvoid *i
 #endif
 namespace GLRender
 {
+	GLenum	sBlendfunction::eLastSrcBlendingMode = -1;
+	GLenum	sBlendfunction::eLastDestBlendingMode = -1;
 	//========comment start======================
 	//set glOrtho as glOrtho(vPort[0], vPort[0]+vPort[2], vPort[1]+vPort[3],vPort[1], -1, 1);for normal windows coordinate
 	//(0,top) _____
@@ -944,6 +955,34 @@ namespace GLRender
 		};
 		myGlVertexPointer(3,l_vVetrices);
 		MY_GLDRAW_ARRAYS(GL_TRIANGLES, 0, 36);
+	}
+
+	void	sBlendfunction::GetStatus()
+	{
+		bDoRestore = true;
+		glGetIntegerv(GL_BLEND_SRC_RGB, &iColorParameter[0]);
+		glGetIntegerv(GL_BLEND_DST_RGB, &iColorParameter[1]);
+		glGetIntegerv(GL_BLEND_SRC_ALPHA, &iColorParameter[2]);
+		glGetIntegerv(GL_BLEND_DST_ALPHA, &iColorParameter[3]);
+	}
+	void	sBlendfunction::Render()
+	{
+		if (eSrcBlendingMode != eLastSrcBlendingMode || eLastSrcBlendingMode != eLastDestBlendingMode)
+		{
+			GetStatus();
+			myGLBlendFunc(eSrcBlendingMode, eDestBlendingMode);
+		}
+		else
+		{
+			bDoRestore = false;
+		}
+	}
+	void	sBlendfunction::Restore()
+	{
+		if (bDoRestore)
+		{
+			glBlendFuncSeparate(iColorParameter[0], iColorParameter[1], iColorParameter[2], iColorParameter[3]);
+		}
 	}
 //end namespace GLRender
 };
