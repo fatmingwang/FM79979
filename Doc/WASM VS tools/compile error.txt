@@ -1,0 +1,23 @@
+
+
+Error
+
+error with wasm-ld:  please ensure all project use same flag(no or has -pthread?)
+
+error : The ObjectFileName setting in the Visual Studio C/C++ - Output Files sheet is set to a directory:
+
+check Emscripten_ObjectFileName.png
+
+
+utf8 error
+project->proterty->c/c++->All Options->Additional options-> remove utf8 relative command
+
+
+rc.exe error
+
+open *.vcxproj with notepad
+remove ResourceCompile xml relateive(ensure its platform is emscripten not x64)
+and   <ResourceCompile Include="ooxx\version.rc" />
+
+
+cmake error in VS project please remove CMakeList.txt(ensure it's not cmake project)
