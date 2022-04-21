@@ -2569,6 +2569,32 @@ namespace PI
 		}
 	}
 	
+	System::Void cPIEditor::generateSelectedPIUnitXMLToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		
+		auto l_strFileName = DNCT::SaveFileAndGetName("xml files (*.xml)|*.xml|All files (*.*)|*.*");
+		if (l_strFileName)
+		{
+			int l_iCount = AllImage_listBox->SelectedItems->Count;
+			if (l_iCount)
+			{
+				TiXmlDocument l_Doc;
+				TiXmlElement* l_pRoot = new TiXmlElement(L"Resource");
+
+				for each (auto l_SelectedItem in AllImage_listBox->SelectedItems)
+				{
+					//<cPuzzleImageUnit PI="" PIUnit="" Name="" Pos="" Color=""/>
+					TiXmlElement* l_pPIElement = new TiXmlElement(cPuzzleImageUnit::TypeID);
+					l_pPIElement->SetAttribute(L"PI", DNCT::GcStringToWchar(this->Text).c_str());
+					l_pPIElement->SetAttribute(L"PIUnit", DNCT::GcStringToWchar(l_SelectedItem->ToString()).c_str());
+					l_pRoot->LinkEndChild(l_pPIElement);
+				}
+				l_Doc.LinkEndChild(l_pRoot);				
+				l_Doc.SaveFile(DNCT::GcStringToChar(l_strFileName).c_str());
+			}
+		}
+	}
+
 
 	System::Void cPIEditor::DeleteTime_button_Click(System::Object^  sender, System::EventArgs^  e)
 	{
