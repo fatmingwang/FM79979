@@ -138,6 +138,7 @@ namespace FATMING_CORE
 		cPuzzleImageUnit*l_pPuzzleImageUnit = 0;
 		cPuzzleImage*l_pPI = 0;
 		std::wstring	l_strNewName;
+		cPuzzleImageUnit* l_pClone = 0;
 		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,cPuzzleImageUnit::TypeID);
 		PARSE_ELEMENT_START(e_pElement)
 			COMPARE_NAME("Name")
@@ -152,28 +153,34 @@ namespace FATMING_CORE
 			else
 			COMPARE_NAME("PIUnit")
 			{
-				if( l_pPI )
+				if (l_pPI)
+				{
 					l_pPuzzleImageUnit = l_pPI->GetObject(l_strValue);
+				}
 				if( !l_pPuzzleImageUnit )
 				{
 					std::wstring	l_strErrorMsg = L"PIUnit not exist:";
 					l_strErrorMsg += l_strValue;
 					FMLog::LogWithFlag(l_strErrorMsg.c_str(), CORE_LOG_FLAG);
+					return nullptr;
+				}
+				else
+				{
+					if (e_bClone)
+					{
+						l_pClone = dynamic_cast<cPuzzleImageUnit*>(l_pPuzzleImageUnit->Clone());
+						if (wcslen(l_strNewName.c_str()))
+						{
+							l_pClone->SetName(l_strNewName.c_str());
+						}
+						l_pPuzzleImageUnit = l_pClone;
+					}
 				}
 			}
 			else
 			IMAGE_COMMON_PARAMETERS(l_pPuzzleImageUnit)
 		PARSE_NAME_VALUE_END
-		if( !e_bClone )
-			return l_pPuzzleImageUnit;
-		cPuzzleImageUnit*l_pClone = 0;
-		if( l_pPuzzleImageUnit )
-		{
-			l_pClone = dynamic_cast<cPuzzleImageUnit*>(l_pPuzzleImageUnit->Clone());
-			if( wcslen(l_strNewName.c_str()) )
-				l_pClone->SetName(l_strNewName.c_str());
-		}
-		return l_pClone;
+		return l_pPuzzleImageUnit;
 	}
 
 	cPuzzleImage::cPuzzleImage():cBaseImage(L"cPuzzleImage")
