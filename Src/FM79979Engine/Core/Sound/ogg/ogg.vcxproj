@@ -203,6 +203,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
+      <OptimizationLevel>O3</OptimizationLevel>
     </ClCompile>
     <Lib>
       <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
@@ -212,6 +213,7 @@
     <ClCompile>
       <PreprocessorDefinitions>WASM</PreprocessorDefinitions>
       <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+      <OptimizationLevel>Os</OptimizationLevel>
     </ClCompile>
     <Lib>
       <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>

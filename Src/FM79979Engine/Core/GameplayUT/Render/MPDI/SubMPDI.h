@@ -108,6 +108,8 @@ namespace FATMING_CORE
 		sHintPoint*				GetCurrentHintPointData(int *e_piNumRelated);
 		//if the image is different,and you wanna sacle image too set e_bScalingImage as true.
 		void					ChangeAllImageByImageIndex(int e_iIndex,bool e_bScalingImage = false);
+		void					ChangeAllImageByPuzzleImageUnit(cPuzzleImageUnit* e_pPIUnit, bool e_bScalingImage = false);
+		void					ChangeAllImageByPuzzleImageUnitName(const wchar_t*e_strName, bool e_bScalingImage = false);
 		void					Render(sPuzzleData*e_pPuzzleData);
 		//======================================================
 		//below function is change point data,do not call those function at game,peformance is bad!

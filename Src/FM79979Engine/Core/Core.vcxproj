@@ -277,6 +277,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
       <AdditionalOptions>-r -pthread %(AdditionalOptions)</AdditionalOptions>
+      <OptimizationLevel>O3</OptimizationLevel>
     </ClCompile>
     <Lib />
     <Lib>
@@ -291,6 +292,7 @@
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <LanguageExtensions>EnableLanguageExtensions</LanguageExtensions>
       <AdditionalOptions>-r %(AdditionalOptions)</AdditionalOptions>
+      <OptimizationLevel>Os</OptimizationLevel>
     </ClCompile>
     <Lib />
     <Lib>

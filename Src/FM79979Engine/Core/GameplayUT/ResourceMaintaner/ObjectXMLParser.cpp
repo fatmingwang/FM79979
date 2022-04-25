@@ -33,6 +33,11 @@ namespace FATMING_CORE
 			return cPuzzleImageUnit::GetMe(e_pElement, e_bClone);
 		}
 		else
+		COMPARE_VALUE_WITH_DEFINE(cPuzzleImage::TypeID)
+		{
+			return cPuzzleImage::GetMe(e_pElement, e_bClone);
+		}
+		else
 		COMPARE_VALUE_WITH_DEFINE( cNumeralImage::TypeID )
 		{
 			return cNumeralImage::GetMe(e_pElement);

@@ -645,6 +645,44 @@ namespace FATMING_CORE
 		std::string	l_strtemp = l_str;
 	    return l_strtemp;
 	}
+
+	cPuzzleImage* cPuzzleImage::GetMe(TiXmlElement* e_pElement, bool e_bClone)
+	{
+		bool l_bClone = false;
+		cPuzzleImage*l_pPI = nullptr;
+		std::wstring l_strPIName;
+		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,cPuzzleImageUnit::TypeID);
+		PARSE_ELEMENT_START(e_pElement)
+			COMPARE_NAME("Name")
+			{
+				l_strPIName = l_strValue;
+			}
+			else
+			COMPARE_NAME("PI")
+			{
+				l_pPI = cGameApp::GetPuzzleImageByFileName(l_strValue);
+				if (!l_pPI)
+				{
+					return nullptr;
+				}
+			}
+			else
+			COMPARE_NAME("Clone")
+			{
+				l_bClone = VALUE_TO_BOOLEAN;
+			}
+		PARSE_NAME_VALUE_END
+		if (l_bClone)
+		{
+			if (l_strPIName.length())
+			{
+				l_pPI->SetName(l_strPIName.c_str());
+			}
+			auto l_pClonePI = new cPuzzleImage(l_pPI);
+			return l_pClonePI;
+		}
+		return l_pPI;
+	}
 	////<PuzzleImage PI=""/>
 	//cPuzzleImage*	cPuzzleImage::GetMe(TiXmlElement*e_pElement)
 	//{

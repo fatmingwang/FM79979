@@ -544,6 +544,8 @@ EXIT:
 	cMultiPathDynamicImage*		cMultiPathDynamicImage::GetMe(TiXmlElement*e_pElement,bool e_bClone)
 	{
 		ELEMENT_VALUE_ASSERT_CHECK(e_pElement,cMultiPathDynamicImage::TypeID);
+		std::wstring	l_strMPDIName;
+		bool			l_bClone = false;
 		cMultiPathDynamicImage*l_pMPDI = 0;
 		cMultiPathDynamicImage*l_pCloneMPDI = 0;
 		cMPDIList*l_pMPDIList = 0;
@@ -564,13 +566,28 @@ EXIT:
 				if( l_pMPDI )
 					l_pMPDI->SetAnimationLoop(VALUE_TO_BOOLEAN);
 			}
+			else
+			COMPARE_NAME("Name")
+			{
+				l_strMPDIName = l_strValue;
+			}
+			else
+			COMPARE_NAME("Clone")
+			{
+				l_bClone = VALUE_TO_BOOLEAN;
+			}
 		PARSE_NAME_VALUE_END
 		if( l_pMPDI )
 		{
-			if( e_bClone )
+			if (l_bClone || e_bClone)
+			{
 				l_pCloneMPDI = dynamic_cast<cMPDI*>(l_pMPDI->Clone());
+				l_pCloneMPDI->SetName(l_strMPDIName);
+			}
 			else
+			{
 				l_pCloneMPDI = l_pMPDI;
+			}
 		}
 		return l_pCloneMPDI;
 	}

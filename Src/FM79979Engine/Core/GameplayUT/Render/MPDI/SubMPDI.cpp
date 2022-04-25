@@ -706,6 +706,27 @@ namespace FATMING_CORE
 		return 0;
 	}
 
+	void	cCueToStartCurveWithTime::ChangeAllImageByPuzzleImageUnitName(const wchar_t* e_strName, bool e_bScalingImage)
+	{
+		if (m_PointDataList.size())
+		{
+			sTexBehaviorDataWithImageIndexData* l_pTexBehaviorDataWithImageIndexData = m_PointDataList[0];
+			if (l_pTexBehaviorDataWithImageIndexData->pPI)
+			{
+				int l_iImageIndex = l_pTexBehaviorDataWithImageIndexData->pPI->GetObjectIndexByName(e_strName);
+				ChangeAllImageByImageIndex(l_iImageIndex, e_bScalingImage);
+			}
+		}
+	}
+
+	void	cCueToStartCurveWithTime::ChangeAllImageByPuzzleImageUnit(cPuzzleImageUnit*e_pPIUnit, bool e_bScalingImage)
+	{
+		if (e_pPIUnit)
+		{
+			ChangeAllImageByPuzzleImageUnitName(e_pPIUnit->GetName(), e_bScalingImage);
+		}
+	}
+
 	void	cCueToStartCurveWithTime::ChangeAllImageByImageIndex(int e_iIndex, bool e_bScalingImage)
 	{
 		for (size_t i = 0; i<m_PointDataList.size(); ++i)
@@ -726,7 +747,9 @@ namespace FATMING_CORE
 			m_PointDataList[i]->iImageIndex = e_iIndex;
 		}
 		if (m_pCurrentPointData)
+		{
 			this->m_pCurrentPointData->iImageIndex = e_iIndex;
+		}
 	}
 
 	void	cCueToStartCurveWithTime::ImageRotation(Vector3 e_vAngle)

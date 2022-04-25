@@ -189,6 +189,6 @@ namespace FATMING_CORE
 		//
 		static	std::string					GetFileName(const wchar_t*e_strObjectName);
 		static	std::string					GetFileName(const char*e_strObjectName);
-		//static	cPuzzleImage*		GetMe(TiXmlElement*e_pElement);
+		static	cPuzzleImage*				GetMe(TiXmlElement*e_pElement,bool e_bClone);
 	};
 }
